@@ -1,0 +1,11 @@
+{
+  "status": "complete_source_review_with_explicit_runtime_and_query_limits",
+  "repo": "volvo-cars/cce-cpam-ingress",
+  "commit": "6db6ba2b9c76751a690ea9b0184b42e58412a09e",
+  "bundle": "bundle.final-r5.json",
+  "manifest": "snapshot.final-r5.json",
+  "snapshot": "9273eddda4c5fff911958b4a6b82143b69d166f1a50b66279bb19755660f27aa",
+  "remainingLocalSourceInspection": [],
+  "remainingAuthorGates": [],
+  "nextRepository": "volvo-cars/cce-optimization-api"
+}

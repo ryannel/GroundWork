@@ -1,0 +1,21 @@
+{
+  "format": "groundwork-query/v3",
+  "snapshot": "12219e2034df0e17bbddb39b0cb84cb758d43e05f42dd145321613bd27300899",
+  "query": "value",
+  "entry": "assortment-6114c5d-complete-r3/retained/entry/controller/Classification-GetAllClassifications",
+  "value": "assortment-6114c5d-complete-r3/v/0ead59983353b3bc/0",
+  "context": [
+    "assortment-6114c5d-complete-r3/op/9a26688178c977cd/1",
+    "assortment-6114c5d-complete-r3/op/28e6e96035a93561/2",
+    "assortment-6114c5d-complete-r3/op/0bac8df5a452aff8/2",
+    "assortment-6114c5d-complete-r3/op/6b182ac0ff3e9df1/24"
+  ],
+  "outcome": null,
+  "changed": [],
+  "representation": "source",
+  "candidates": "exclude",
+  "maxNodes": 2000,
+  "environment": "production-profile",
+  "maxRecords": 5000,
+  "ids": []
+}

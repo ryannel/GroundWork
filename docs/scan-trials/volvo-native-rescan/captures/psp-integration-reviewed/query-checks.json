@@ -1,0 +1,133 @@
+{
+  "status": "passed",
+  "snapshot": "83cac873ebebb850ca00e17d23b201be63e7d025ebf1bc0d1efa85175a607e3a",
+  "records": 1251,
+  "queries": {
+    "captureTrace": {
+      "nodes": 27,
+      "edges": 26,
+      "records": 160,
+      "sourceLinks": 60,
+      "limits": [],
+      "frontiers": ["version_unresolved", "version_unresolved"]
+    },
+    "captureInteractions": {
+      "nodes": 3,
+      "edges": 2,
+      "records": 99,
+      "sourceLinks": 36,
+      "limits": [],
+      "frontiers": [
+        "version_unresolved",
+        "version_unresolved",
+        "binding_unresolved",
+        "binding_unresolved"
+      ]
+    },
+    "capture200": {
+      "nodes": 18,
+      "edges": 17,
+      "records": 135,
+      "sourceLinks": 53,
+      "limits": [],
+      "frontiers": ["version_unresolved", "version_unresolved"]
+    },
+    "capture404": {
+      "nodes": 16,
+      "edges": 15,
+      "records": 113,
+      "sourceLinks": 41,
+      "limits": [],
+      "frontiers": ["version_unresolved"]
+    },
+    "captureProviderId": {
+      "nodes": 6,
+      "edges": 5,
+      "records": 76,
+      "sourceLinks": 32,
+      "limits": [],
+      "frontiers": ["version_unresolved"]
+    },
+    "captureParams": {
+      "nodes": 6,
+      "edges": 5,
+      "records": 82,
+      "sourceLinks": 35,
+      "limits": [],
+      "frontiers": ["version_unresolved", "version_unresolved"]
+    },
+    "refundTrace": {
+      "nodes": 28,
+      "edges": 28,
+      "records": 166,
+      "sourceLinks": 65,
+      "limits": [],
+      "frontiers": ["version_unresolved", "version_unresolved"]
+    },
+    "refundParams": {
+      "nodes": 9,
+      "edges": 8,
+      "records": 121,
+      "sourceLinks": 56,
+      "limits": [],
+      "frontiers": [
+        "version_unresolved",
+        "version_unresolved",
+        "version_unresolved",
+        "version_unresolved",
+        "version_unresolved",
+        "version_unresolved"
+      ]
+    },
+    "refundServiceDto": {
+      "nodes": 5,
+      "edges": 4,
+      "records": 100,
+      "sourceLinks": 48,
+      "limits": [],
+      "frontiers": ["version_unresolved", "version_unresolved"]
+    },
+    "schemas": {
+      "nodes": 0,
+      "edges": 0,
+      "records": 31,
+      "sourceLinks": 24,
+      "limits": [],
+      "frontiers": []
+    },
+    "effects": {
+      "nodes": 27,
+      "edges": 26,
+      "records": 160,
+      "sourceLinks": 60,
+      "limits": [],
+      "frontiers": ["version_unresolved", "version_unresolved"]
+    },
+    "captureHttpResponse": {
+      "nodes": 6,
+      "edges": 5,
+      "records": 100,
+      "sourceLinks": 45,
+      "limits": [],
+      "frontiers": [
+        "version_unresolved",
+        "version_unresolved",
+        "version_unresolved",
+        "version_unresolved"
+      ]
+    },
+    "refundHttpResponse": {
+      "nodes": 7,
+      "edges": 6,
+      "records": 107,
+      "sourceLinks": 49,
+      "limits": [],
+      "frontiers": [
+        "version_unresolved",
+        "version_unresolved",
+        "version_unresolved",
+        "version_unresolved"
+      ]
+    }
+  }
+}

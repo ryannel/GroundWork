@@ -1,0 +1,80 @@
+{
+  "repo": "volvo-cars/cce-optimization-api",
+  "commit": "286985b6bebccb6123de78d03aa87b7513f69ed5",
+  "status": "12full pinned source files independently read;46strict query checks passed;1bounded source trace retained",
+  "files": [
+    {
+      "path": "main.py",
+      "lines": 33,
+      "sha256": "a4d853d434d29760169d613cf972a53c6bb47f0cbfb3fb5253340c48bdbfc15e",
+      "review": "Entire pinned source independently read by root; final candidate acceptance pending"
+    },
+    {
+      "path": "config/application.py",
+      "lines": 276,
+      "sha256": "d3e6334ea71f7ccf22e882f752c46b821bc7e5d50e9c2bff2f2cc118c0d39768",
+      "review": "Entire pinned source independently read by root; final candidate acceptance pending"
+    },
+    {
+      "path": "queries/query.py",
+      "lines": 211,
+      "sha256": "b97573b4a3f2b3dd9ee5687985f7d7297658a13f27fe971366f0612af9fdb9f5",
+      "review": "Entire pinned source independently read by root; final candidate acceptance pending"
+    },
+    {
+      "path": "storages/cloud_storage.py",
+      "lines": 78,
+      "sha256": "220777db0a1ec74db050ed02c2c28fdd1a91de184bf9f39358cc3c7a37eeae73",
+      "review": "Entire pinned source independently read by root; final candidate acceptance pending"
+    },
+    {
+      "path": "storages/cloud_posterior_storage.py",
+      "lines": 41,
+      "sha256": "6c8b6c9ab6db03d8f368fa62fba50dc48433e797a465b005187fb0b58d178928",
+      "review": "Entire pinned source independently read by root; final candidate acceptance pending"
+    },
+    {
+      "path": "problems/base/problem_orchestrator.py",
+      "lines": 59,
+      "sha256": "5e5f88e3e53bf5a3dee62f25e882193fee09a3a19b41e80a96317cd0aa47dd65",
+      "review": "Entire pinned source independently read by root; final candidate acceptance pending"
+    },
+    {
+      "path": "storages/azure_blob_storage.py",
+      "lines": 36,
+      "sha256": "259ca5295a9684b3b449e5ccad09ed79b49d7612796b8278812e6c340784e62e",
+      "review": "Entire pinned source independently read by root; final candidate acceptance pending"
+    },
+    {
+      "path": "api/healthcheck.py",
+      "lines": 16,
+      "sha256": "0b2ecfe9f29daa86ee423607a8e361fd69f0ea879f15ee04731353aaaba5f779",
+      "review": "Entire pinned source independently read by root; final candidate acceptance pending"
+    },
+    {
+      "path": "solver/ilp.py",
+      "lines": 86,
+      "sha256": "e9f7f54289aeb7882730cdff8bc40a3f90060b52255ca2ca6b70fe4e9115aa84",
+      "review": "Entire pinned source independently read by root; final candidate acceptance pending"
+    },
+    {
+      "path": "compositions/pieces/fetch_config_rules_piece.py",
+      "lines": 85,
+      "sha256": "68cbc0f9f8e358a75fc6deff9e611fb511ffdbc716beec021b0b638fee5c0264",
+      "review": "Entire pinned source independently read by root; final candidate acceptance pending"
+    },
+    {
+      "path": "utils/singleton.py",
+      "lines": 7,
+      "sha256": "70c6ad10be4bd3fc15c1012060cb583d58780ad66331418b460d3d20afb3dc9d",
+      "review": "Entire pinned source independently read; cache guard and source deepcopy/registry semantics retained; candidate acceptance pending"
+    },
+    {
+      "path": "competitions/competition_orchestrator.py",
+      "lines": 31,
+      "sha256": "7a83c09fa6a8069eaca0872198bc2bd29b5a26733e4730d95019afe7abe776d1",
+      "review": "Entire pinned source independently read; cache guard and source deepcopy/registry semantics retained; candidate acceptance pending"
+    }
+  ],
+  "snapshot": "bd0ce620207f239f5d3d2fe197a26fe533e31b25dc690680b145d771cf5d6664"
+}

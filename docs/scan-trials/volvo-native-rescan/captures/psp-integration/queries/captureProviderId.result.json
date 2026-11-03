@@ -1,0 +1,1243 @@
+{
+  "format": "groundwork-result/v3",
+  "snapshot": "83dca2d1f3de790273d6451f1ba875edfc6f9661680d0124077485d0aec4b24c",
+  "queryVersion": "knowledge-query/v3",
+  "request": {
+    "format": "groundwork-query/v3",
+    "snapshot": "83dca2d1f3de790273d6451f1ba875edfc6f9661680d0124077485d0aec4b24c",
+    "query": "value",
+    "entry": "psp-dabd6c8-r3/entry/TransactionController-capture",
+    "value": "psp-dabd6c8-r3/value/capture-stripe/externalTransactionId",
+    "context": ["psp-dabd6c8-r3/op/capture-http/invoke", "psp-dabd6c8-r3/op/capture-core/stripe"],
+    "outcome": null,
+    "changed": [],
+    "representation": "source",
+    "candidates": "exclude",
+    "maxNodes": 500,
+    "environment": "source-declared",
+    "maxRecords": 5000,
+    "ids": []
+  },
+  "nodes": [
+    {
+      "id": "psp-dabd6c8-r3/op/capture-http/invoke>psp-dabd6c8-r3/op/capture-core/stripe::psp-dabd6c8-r3/value/capture-stripe/externalTransactionId",
+      "record": "psp-dabd6c8-r3/value/capture-stripe/externalTransactionId",
+      "context": ["psp-dabd6c8-r3/op/capture-http/invoke", "psp-dabd6c8-r3/op/capture-core/stripe"],
+      "label": "externalTransactionId",
+      "component": "psp-dabd6c8-r3/component/api",
+      "execution": "psp-dabd6c8-r3/runs/capture-stripe"
+    },
+    {
+      "id": "psp-dabd6c8-r3/op/capture-http/invoke::psp-dabd6c8-r3/value/capture-core/pspTransactionId",
+      "record": "psp-dabd6c8-r3/value/capture-core/pspTransactionId",
+      "context": ["psp-dabd6c8-r3/op/capture-http/invoke"],
+      "label": "payload.pspTransactionId; path transactionId is logged, not sent as provider transaction ID",
+      "component": "psp-dabd6c8-r3/component/api",
+      "execution": "psp-dabd6c8-r3/runs/capture-core"
+    },
+    {
+      "id": "psp-dabd6c8-r3/op/capture-http/invoke::psp-dabd6c8-r3/value/capture-core/accounts/after",
+      "record": "psp-dabd6c8-r3/value/capture-core/accounts/after",
+      "context": ["psp-dabd6c8-r3/op/capture-http/invoke"],
+      "label": "Payload with externalAccountId = accountId==null ? null : AccountConfigService.getAccount(accountId).externalId",
+      "component": "psp-dabd6c8-r3/component/api",
+      "execution": "psp-dabd6c8-r3/runs/capture-core"
+    },
+    {
+      "id": "psp-dabd6c8-r3/op/capture-http/invoke::psp-dabd6c8-r3/value/capture-core/accounts/before",
+      "record": "psp-dabd6c8-r3/value/capture-core/accounts/before",
+      "context": ["psp-dabd6c8-r3/op/capture-http/invoke"],
+      "label": "Payload before local account mapping",
+      "component": "psp-dabd6c8-r3/component/api",
+      "execution": "psp-dabd6c8-r3/runs/capture-core"
+    },
+    {
+      "id": "psp-dabd6c8-r3/op/capture-http/invoke::psp-dabd6c8-r3/value/capture-core/payload",
+      "record": "psp-dabd6c8-r3/value/capture-core/payload",
+      "context": ["psp-dabd6c8-r3/op/capture-http/invoke"],
+      "label": "payload",
+      "component": "psp-dabd6c8-r3/component/api",
+      "execution": "psp-dabd6c8-r3/runs/capture-core"
+    },
+    {
+      "id": "root::psp-dabd6c8-r3/value/capture-http/payload",
+      "record": "psp-dabd6c8-r3/value/capture-http/payload",
+      "context": [],
+      "label": "payload",
+      "component": "psp-dabd6c8-r3/component/api",
+      "execution": "psp-dabd6c8-r3/runs/TransactionController-capture"
+    }
+  ],
+  "edges": [
+    {
+      "from": "psp-dabd6c8-r3/op/capture-http/invoke::psp-dabd6c8-r3/value/capture-core/pspTransactionId",
+      "to": "psp-dabd6c8-r3/op/capture-http/invoke>psp-dabd6c8-r3/op/capture-core/stripe::psp-dabd6c8-r3/value/capture-stripe/externalTransactionId",
+      "on": "value",
+      "condition": "actual-to-formal argument binding",
+      "assumption": null,
+      "evidence": [],
+      "record": "psp-dabd6c8-r3/op/capture-core/stripe"
+    },
+    {
+      "from": "psp-dabd6c8-r3/op/capture-http/invoke::psp-dabd6c8-r3/value/capture-core/accounts/after",
+      "to": "psp-dabd6c8-r3/op/capture-http/invoke::psp-dabd6c8-r3/value/capture-core/pspTransactionId",
+      "on": "value",
+      "condition": "Select payload.pspTransactionId for provider capture argument",
+      "assumption": null,
+      "evidence": [],
+      "record": "psp-dabd6c8-r3/flow/capture-core/pspTransactionId"
+    },
+    {
+      "from": "psp-dabd6c8-r3/op/capture-http/invoke::psp-dabd6c8-r3/value/capture-core/accounts/before",
+      "to": "psp-dabd6c8-r3/op/capture-http/invoke::psp-dabd6c8-r3/value/capture-core/accounts/after",
+      "on": "value",
+      "condition": "Mutate externalAccountId from configured account lookup; no store or network implementation established",
+      "assumption": null,
+      "evidence": [],
+      "record": "psp-dabd6c8-r3/flow/capture-core/accounts/mapping"
+    },
+    {
+      "from": "psp-dabd6c8-r3/op/capture-http/invoke::psp-dabd6c8-r3/value/capture-core/payload",
+      "to": "psp-dabd6c8-r3/op/capture-http/invoke::psp-dabd6c8-r3/value/capture-core/accounts/before",
+      "on": "value",
+      "condition": "Whole request payload passed through",
+      "assumption": null,
+      "evidence": [],
+      "record": "psp-dabd6c8-r3/flow/capture-core/accounts/input"
+    },
+    {
+      "from": "root::psp-dabd6c8-r3/value/capture-http/payload",
+      "to": "psp-dabd6c8-r3/op/capture-http/invoke::psp-dabd6c8-r3/value/capture-core/payload",
+      "on": "value",
+      "condition": "actual-to-formal argument binding",
+      "assumption": null,
+      "evidence": [],
+      "record": "psp-dabd6c8-r3/op/capture-http/invoke"
+    }
+  ],
+  "claims": [],
+  "evidence": [
+    "psp-dabd6c8-r3/e/051b36aac4b4",
+    "psp-dabd6c8-r3/e/0b8f8c113dde",
+    "psp-dabd6c8-r3/e/0c1fc064b0e1",
+    "psp-dabd6c8-r3/e/129a252d71ba",
+    "psp-dabd6c8-r3/e/12f5f52e1887",
+    "psp-dabd6c8-r3/e/195e707b0227",
+    "psp-dabd6c8-r3/e/2d989c09fbfe",
+    "psp-dabd6c8-r3/e/2efab2d0f5e7",
+    "psp-dabd6c8-r3/e/37ccd8d13f01",
+    "psp-dabd6c8-r3/e/3a5d1cc8bcb9",
+    "psp-dabd6c8-r3/e/413e14bcbb2b",
+    "psp-dabd6c8-r3/e/48c5e94ff514",
+    "psp-dabd6c8-r3/e/4b908501daab",
+    "psp-dabd6c8-r3/e/52b5591b4837",
+    "psp-dabd6c8-r3/e/57de2ddb1e40",
+    "psp-dabd6c8-r3/e/5a295c44f925",
+    "psp-dabd6c8-r3/e/6644853b4043",
+    "psp-dabd6c8-r3/e/737355cbd90f",
+    "psp-dabd6c8-r3/e/77be46a74598",
+    "psp-dabd6c8-r3/e/7a086361ea49",
+    "psp-dabd6c8-r3/e/7a75cca72f6a",
+    "psp-dabd6c8-r3/e/7fa036586c9c",
+    "psp-dabd6c8-r3/e/89dc7f9bf996",
+    "psp-dabd6c8-r3/e/9e5f232736ad",
+    "psp-dabd6c8-r3/e/adc108734544",
+    "psp-dabd6c8-r3/e/b862b50a50c4",
+    "psp-dabd6c8-r3/e/c19d2cda77c7",
+    "psp-dabd6c8-r3/e/d49466325721",
+    "psp-dabd6c8-r3/e/d5dbe57e69bb",
+    "psp-dabd6c8-r3/e/e16be9c1c769",
+    "psp-dabd6c8-r3/e/f0b67ab7dcdc",
+    "psp-dabd6c8-r3/e/f821b897b95b"
+  ],
+  "coverage": [
+    "psp-dabd6c8-r3/coverage/TransactionController-capture",
+    "psp-dabd6c8-r3/coverage/capture-local"
+  ],
+  "frontiers": [
+    {
+      "at": "psp-dabd6c8-r3/op/capture-http/invoke::psp-dabd6c8-r3/value/capture-core/accounts/after",
+      "reason": "version_unresolved",
+      "detail": "Mapping instruction is known; effective imported implementation remains unresolved.",
+      "references": ["psp-dabd6c8-r3/gap/shared-library"]
+    }
+  ],
+  "limitsHit": [],
+  "feasibility": "not_checked",
+  "exhaustive": false,
+  "records": [
+    {
+      "id": "psp-dabd6c8-r3/census",
+      "kind": "implementation",
+      "logicalId": "impl:psp-source-census",
+      "scope": "psp-dabd6c8-r3/source",
+      "entry": "psp-dabd6c8-r3/census/start",
+      "parameters": [],
+      "evidence": ["psp-dabd6c8-r3/e/52b5591b4837"]
+    },
+    {
+      "id": "psp-dabd6c8-r3/census/start",
+      "kind": "operation",
+      "owner": "psp-dabd6c8-r3/census",
+      "action": "opaque",
+      "label": "Repository discovery context, not an endpoint implementation",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": null,
+      "httpStatus": null,
+      "evidence": ["psp-dabd6c8-r3/e/52b5591b4837"]
+    },
+    {
+      "id": "psp-dabd6c8-r3/component/api",
+      "kind": "runtime_component",
+      "logicalId": "svc:payment-psp-integration-api",
+      "label": "Payment PSP integration API",
+      "category": "service",
+      "technology": "Java / Spring Boot",
+      "sources": ["psp-dabd6c8-r3/source"],
+      "basis": "source_declared",
+      "gaps": ["psp-dabd6c8-r3/gap/deployment", "psp-dabd6c8-r3/gap/shared-library"],
+      "evidence": ["psp-dabd6c8-r3/e/c19d2cda77c7", "psp-dabd6c8-r3/e/4b908501daab"]
+    },
+    {
+      "id": "psp-dabd6c8-r3/coverage/capture-local",
+      "kind": "coverage",
+      "owner": "psp-dabd6c8-r3/entry/TransactionController-capture",
+      "obligation": "bounded_source_analysis",
+      "status": "examined",
+      "scope": "Bounded local capture: account mapping, provider selection, metadata/options, retrieval/capture SDK boundaries, DTO mapping and named errors; exact imported implementations/wire remain gaps.",
+      "gaps": [
+        "psp-dabd6c8-r3/gap/stripe-sdk",
+        "psp-dabd6c8-r3/gap/shared-library",
+        "psp-dabd6c8-r3/gap/wire",
+        "psp-dabd6c8-r3/gap/transaction-client-correspondence"
+      ],
+      "evidence": [
+        "psp-dabd6c8-r3/e/12f5f52e1887",
+        "psp-dabd6c8-r3/e/413e14bcbb2b",
+        "psp-dabd6c8-r3/e/5a295c44f925",
+        "psp-dabd6c8-r3/e/737355cbd90f"
+      ]
+    },
+    {
+      "id": "psp-dabd6c8-r3/coverage/TransactionController-capture",
+      "kind": "coverage",
+      "owner": "psp-dabd6c8-r3/entry/TransactionController-capture",
+      "obligation": "bounded_source_analysis",
+      "status": "partial",
+      "scope": "Registration, declared JSON input/output, source role annotation and implementation binding; downstream closure remains partial.",
+      "gaps": [
+        "psp-dabd6c8-r3/gap/entry-TransactionController-capture",
+        "psp-dabd6c8-r3/gap/wire",
+        "psp-dabd6c8-r3/gap/shared-library"
+      ],
+      "evidence": ["psp-dabd6c8-r3/e/57de2ddb1e40", "psp-dabd6c8-r3/e/f0b67ab7dcdc"]
+    },
+    {
+      "id": "psp-dabd6c8-r3/e/051b36aac4b4",
+      "kind": "evidence",
+      "repo": "volvo-cars/cds-paymentservice-psp-integration",
+      "commit": "dabd6c825499b706ff4ddbf15eaf354adbfb6794",
+      "path": "pom.xml",
+      "lines": [17, 21],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "psp-dabd6c8-r3/e/0b8f8c113dde",
+      "kind": "evidence",
+      "repo": "volvo-cars/cds-paymentservice-psp-integration",
+      "commit": "dabd6c825499b706ff4ddbf15eaf354adbfb6794",
+      "path": "cds-paymentservice-psp-integration-shared/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/transaction/TransactionPayload.java",
+      "lines": [10, 20],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "psp-dabd6c8-r3/e/0c1fc064b0e1",
+      "kind": "evidence",
+      "repo": "volvo-cars/cds-paymentservice-psp-integration",
+      "commit": "dabd6c825499b706ff4ddbf15eaf354adbfb6794",
+      "path": "cds-paymentservice-psp-integration-shared/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/common/PspIntegrationPayload.java",
+      "lines": [25, 28],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "psp-dabd6c8-r3/e/129a252d71ba",
+      "kind": "evidence",
+      "repo": "volvo-cars/cds-paymentservice-psp-integration",
+      "commit": "dabd6c825499b706ff4ddbf15eaf354adbfb6794",
+      "path": "cds-paymentservice-psp-integration-stripe/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/stripe/common/StripeConfiguration.java",
+      "lines": [1, 53],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "psp-dabd6c8-r3/e/12f5f52e1887",
+      "kind": "evidence",
+      "repo": "volvo-cars/cds-paymentservice-psp-integration",
+      "commit": "dabd6c825499b706ff4ddbf15eaf354adbfb6794",
+      "path": "cds-paymentservice-psp-integration-core/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/transaction/PspTransactionService.java",
+      "lines": [88, 98],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "psp-dabd6c8-r3/e/195e707b0227",
+      "kind": "evidence",
+      "repo": "volvo-cars/cds-paymentservice-psp-integration",
+      "commit": "dabd6c825499b706ff4ddbf15eaf354adbfb6794",
+      "path": "cds-paymentservice-psp-integration-stripe/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/stripe/paymentintent/StripePaymentIntentOperationService.java",
+      "lines": [159, 184],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "psp-dabd6c8-r3/e/2d989c09fbfe",
+      "kind": "evidence",
+      "repo": "volvo-cars/cds-paymentservice-psp-integration",
+      "commit": "dabd6c825499b706ff4ddbf15eaf354adbfb6794",
+      "path": "cds-paymentservice-psp-integration-core/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/transaction/PspTransactionService.java",
+      "lines": [91, 97],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "psp-dabd6c8-r3/e/2efab2d0f5e7",
+      "kind": "evidence",
+      "repo": "volvo-cars/cds-paymentservice-psp-integration",
+      "commit": "dabd6c825499b706ff4ddbf15eaf354adbfb6794",
+      "path": "pom.xml",
+      "lines": [13, 14],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "psp-dabd6c8-r3/e/37ccd8d13f01",
+      "kind": "evidence",
+      "repo": "volvo-cars/cds-paymentservice-psp-integration",
+      "commit": "dabd6c825499b706ff4ddbf15eaf354adbfb6794",
+      "path": "cds-paymentservice-psp-integration-core/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/transaction/PspTransactionService.java",
+      "lines": [95, 97],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "psp-dabd6c8-r3/e/3a5d1cc8bcb9",
+      "kind": "evidence",
+      "repo": "volvo-cars/cds-paymentservice-psp-integration",
+      "commit": "dabd6c825499b706ff4ddbf15eaf354adbfb6794",
+      "path": "cds-paymentservice-psp-integration-api/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/api/common/ApiControllerAdvice.java",
+      "lines": [315, 346],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "psp-dabd6c8-r3/e/413e14bcbb2b",
+      "kind": "evidence",
+      "repo": "volvo-cars/cds-paymentservice-psp-integration",
+      "commit": "dabd6c825499b706ff4ddbf15eaf354adbfb6794",
+      "path": "cds-paymentservice-psp-integration-stripe/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/stripe/paymentintent/StripePaymentIntentOperationService.java",
+      "lines": [159, 234],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "psp-dabd6c8-r3/e/48c5e94ff514",
+      "kind": "evidence",
+      "repo": "volvo-cars/cds-paymentservice-psp-integration",
+      "commit": "dabd6c825499b706ff4ddbf15eaf354adbfb6794",
+      "path": "cds-paymentservice-psp-integration-shared/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/common/PspIntegrationPayload.java",
+      "lines": [1, 64],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "psp-dabd6c8-r3/e/4b908501daab",
+      "kind": "evidence",
+      "repo": "volvo-cars/cds-paymentservice-psp-integration",
+      "commit": "dabd6c825499b706ff4ddbf15eaf354adbfb6794",
+      "path": "Dockerfile",
+      "lines": [1, 23],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "psp-dabd6c8-r3/e/52b5591b4837",
+      "kind": "evidence",
+      "repo": "volvo-cars/cds-paymentservice-psp-integration",
+      "commit": "dabd6c825499b706ff4ddbf15eaf354adbfb6794",
+      "path": "cds-paymentservice-psp-integration-api/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/api/App.java",
+      "lines": [1, 25],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "psp-dabd6c8-r3/e/57de2ddb1e40",
+      "kind": "evidence",
+      "repo": "volvo-cars/cds-paymentservice-psp-integration",
+      "commit": "dabd6c825499b706ff4ddbf15eaf354adbfb6794",
+      "path": "cds-paymentservice-psp-integration-api/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/api/transaction/v1/TransactionController.java",
+      "lines": [48, 61],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "psp-dabd6c8-r3/e/5a295c44f925",
+      "kind": "evidence",
+      "repo": "volvo-cars/cds-paymentservice-psp-integration",
+      "commit": "dabd6c825499b706ff4ddbf15eaf354adbfb6794",
+      "path": "cds-paymentservice-psp-integration-stripe/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/stripe/paymentintent/mappers/StripeCaptureTransactionRequestMapper.java",
+      "lines": [1, 22],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "psp-dabd6c8-r3/e/6644853b4043",
+      "kind": "evidence",
+      "repo": "volvo-cars/cds-paymentservice-psp-integration",
+      "commit": "dabd6c825499b706ff4ddbf15eaf354adbfb6794",
+      "path": "cds-paymentservice-psp-integration-shared/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/transaction/TransactionCapturePayload.java",
+      "lines": [9, 17],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "psp-dabd6c8-r3/e/737355cbd90f",
+      "kind": "evidence",
+      "repo": "volvo-cars/cds-paymentservice-psp-integration",
+      "commit": "dabd6c825499b706ff4ddbf15eaf354adbfb6794",
+      "path": "cds-paymentservice-psp-integration-stripe/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/stripe/common/MetadataService.java",
+      "lines": [59, 90],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "psp-dabd6c8-r3/e/77be46a74598",
+      "kind": "evidence",
+      "repo": "volvo-cars/cds-paymentservice-psp-integration",
+      "commit": "dabd6c825499b706ff4ddbf15eaf354adbfb6794",
+      "path": "cds-paymentservice-psp-integration-shared/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/common/PspIntegrationPayload.java",
+      "lines": [28, 31],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "psp-dabd6c8-r3/e/7a086361ea49",
+      "kind": "evidence",
+      "repo": "volvo-cars/cds-paymentservice-psp-integration",
+      "commit": "dabd6c825499b706ff4ddbf15eaf354adbfb6794",
+      "path": "cds-paymentservice-psp-integration-core/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/transaction/PspTransactionService.java",
+      "lines": [48, 71],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "psp-dabd6c8-r3/e/7a75cca72f6a",
+      "kind": "evidence",
+      "repo": "volvo-cars/cds-paymentservice-psp-integration",
+      "commit": "dabd6c825499b706ff4ddbf15eaf354adbfb6794",
+      "path": "cds-paymentservice-psp-integration-api/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/api/transaction/v1/impl/TransactionControllerImpl.java",
+      "lines": [72, 88],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "psp-dabd6c8-r3/e/7fa036586c9c",
+      "kind": "evidence",
+      "repo": "volvo-cars/cds-paymentservice-psp-integration",
+      "commit": "dabd6c825499b706ff4ddbf15eaf354adbfb6794",
+      "path": "cds-paymentservice-psp-integration-shared/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/transaction/TransactionCapturePayload.java",
+      "lines": [1, 41],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "psp-dabd6c8-r3/e/89dc7f9bf996",
+      "kind": "evidence",
+      "repo": "volvo-cars/cds-paymentservice-psp-integration",
+      "commit": "dabd6c825499b706ff4ddbf15eaf354adbfb6794",
+      "path": "cds-paymentservice-psp-integration-core/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/transaction/PspTransactionService.java",
+      "lines": [97, 97],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "psp-dabd6c8-r3/e/9e5f232736ad",
+      "kind": "evidence",
+      "repo": "volvo-cars/cds-paymentservice-psp-integration",
+      "commit": "dabd6c825499b706ff4ddbf15eaf354adbfb6794",
+      "path": "pom.xml",
+      "lines": [25, 25],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "psp-dabd6c8-r3/e/adc108734544",
+      "kind": "evidence",
+      "repo": "volvo-cars/cds-paymentservice-psp-integration",
+      "commit": "dabd6c825499b706ff4ddbf15eaf354adbfb6794",
+      "path": "cds-paymentservice-psp-integration-stripe/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/stripe/paymentintent/StripePaymentIntentOperationService.java",
+      "lines": [52, 65],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "psp-dabd6c8-r3/e/b862b50a50c4",
+      "kind": "evidence",
+      "repo": "volvo-cars/cds-paymentservice-psp-integration",
+      "commit": "dabd6c825499b706ff4ddbf15eaf354adbfb6794",
+      "path": "cds-paymentservice-psp-integration-shared/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/transaction/TransactionCapturePayload.java",
+      "lines": [17, 29],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "psp-dabd6c8-r3/e/c19d2cda77c7",
+      "kind": "evidence",
+      "repo": "volvo-cars/cds-paymentservice-psp-integration",
+      "commit": "dabd6c825499b706ff4ddbf15eaf354adbfb6794",
+      "path": "cds-paymentservice-psp-integration-api/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/api/App.java",
+      "lines": [13, 24],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "psp-dabd6c8-r3/e/d49466325721",
+      "kind": "evidence",
+      "repo": "volvo-cars/cds-paymentservice-psp-integration",
+      "commit": "dabd6c825499b706ff4ddbf15eaf354adbfb6794",
+      "path": "cds-paymentservice-psp-integration-shared/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/common/PspIntegrationPayload.java",
+      "lines": [12, 25],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "psp-dabd6c8-r3/e/d5dbe57e69bb",
+      "kind": "evidence",
+      "repo": "volvo-cars/cds-paymentservice-psp-integration",
+      "commit": "dabd6c825499b706ff4ddbf15eaf354adbfb6794",
+      "path": "cds-paymentservice-psp-integration-core/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/transaction/TransactionOperationServiceFactory.java",
+      "lines": [36, 48],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "psp-dabd6c8-r3/e/e16be9c1c769",
+      "kind": "evidence",
+      "repo": "volvo-cars/cds-paymentservice-psp-integration",
+      "commit": "dabd6c825499b706ff4ddbf15eaf354adbfb6794",
+      "path": "cds-paymentservice-psp-integration-shared/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/common/PspIntegrationPayload.java",
+      "lines": [31, 33],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "psp-dabd6c8-r3/e/f0b67ab7dcdc",
+      "kind": "evidence",
+      "repo": "volvo-cars/cds-paymentservice-psp-integration",
+      "commit": "dabd6c825499b706ff4ddbf15eaf354adbfb6794",
+      "path": "cds-paymentservice-psp-integration-api/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/api/transaction/v1/impl/TransactionControllerImpl.java",
+      "lines": [1, 124],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "psp-dabd6c8-r3/e/f821b897b95b",
+      "kind": "evidence",
+      "repo": "volvo-cars/cds-paymentservice-psp-integration",
+      "commit": "dabd6c825499b706ff4ddbf15eaf354adbfb6794",
+      "path": "cds-paymentservice-psp-integration-core/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/transaction/PspTransactionService.java",
+      "lines": [90, 90],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "psp-dabd6c8-r3/entry/TransactionController-capture",
+      "kind": "entry",
+      "logicalId": "api:psp-TransactionController-capture",
+      "method": "POST",
+      "path": "/v1/transactions/{transactionId}/psp/{psp}/capture",
+      "implementation": "psp-dabd6c8-r3/impl/TransactionController-capture",
+      "evidence": ["psp-dabd6c8-r3/e/57de2ddb1e40", "psp-dabd6c8-r3/e/f0b67ab7dcdc"]
+    },
+    {
+      "id": "psp-dabd6c8-r3/flow/capture-core/accounts/input",
+      "kind": "flow",
+      "owner": "psp-dabd6c8-r3/impl/capture-core",
+      "from": "psp-dabd6c8-r3/value/capture-core/payload",
+      "to": "psp-dabd6c8-r3/value/capture-core/accounts/before",
+      "at": "psp-dabd6c8-r3/op/capture-core/map-accounts",
+      "transform": "Whole request payload passed through",
+      "evidence": ["psp-dabd6c8-r3/e/7a086361ea49"],
+      "gaps": [],
+      "assumptions": []
+    },
+    {
+      "id": "psp-dabd6c8-r3/flow/capture-core/accounts/mapping",
+      "kind": "flow",
+      "owner": "psp-dabd6c8-r3/impl/capture-core",
+      "from": "psp-dabd6c8-r3/value/capture-core/accounts/before",
+      "to": "psp-dabd6c8-r3/value/capture-core/accounts/after",
+      "at": "psp-dabd6c8-r3/op/capture-core/map-accounts",
+      "transform": "Mutate externalAccountId from configured account lookup; no store or network implementation established",
+      "evidence": ["psp-dabd6c8-r3/e/7a086361ea49"],
+      "gaps": ["psp-dabd6c8-r3/gap/shared-library"],
+      "assumptions": []
+    },
+    {
+      "id": "psp-dabd6c8-r3/flow/capture-core/pspTransactionId",
+      "kind": "flow",
+      "owner": "psp-dabd6c8-r3/impl/capture-core",
+      "from": "psp-dabd6c8-r3/value/capture-core/accounts/after",
+      "to": "psp-dabd6c8-r3/value/capture-core/pspTransactionId",
+      "at": "psp-dabd6c8-r3/op/capture-core/select",
+      "transform": "Select payload.pspTransactionId for provider capture argument",
+      "evidence": ["psp-dabd6c8-r3/e/37ccd8d13f01"],
+      "gaps": [],
+      "assumptions": []
+    },
+    {
+      "id": "psp-dabd6c8-r3/gap/entry-TransactionController-capture",
+      "kind": "gap",
+      "owner": "psp-dabd6c8-r3/entry/TransactionController-capture",
+      "obligation": "entry-TransactionController-capture",
+      "reason": "Delegated controls, error branches, values and effect closure are not fully traced for TransactionController-capture",
+      "action": "Trace the named local continuation or obtain exact resolved artefact source/digest and effective runtime configuration.",
+      "evidence": ["psp-dabd6c8-r3/e/57de2ddb1e40", "psp-dabd6c8-r3/e/f0b67ab7dcdc"]
+    },
+    {
+      "id": "psp-dabd6c8-r3/gap/shared-library",
+      "kind": "gap",
+      "owner": "psp-dabd6c8-r3/census",
+      "obligation": "shared-library",
+      "reason": "AccountConfigService, imported EcomWebAppConfiguration and other shared libraries have declared versions but no exact source/digest correspondence here. Storage, scheduled refresh and enforcement internals remain unknown.",
+      "action": "Trace the named local continuation or obtain exact resolved artefact source/digest and effective runtime configuration.",
+      "evidence": ["psp-dabd6c8-r3/e/52b5591b4837", "psp-dabd6c8-r3/e/051b36aac4b4"]
+    },
+    {
+      "id": "psp-dabd6c8-r3/gap/stripe-sdk",
+      "kind": "gap",
+      "owner": "psp-dabd6c8-r3/census",
+      "obligation": "stripe-sdk",
+      "reason": "stripe-java 31.4.1 is declared in pom.xml but its resolved artefact, digest, HTTP implementation/default endpoint and effective retries/timeout are not examined. SDK calls have unresolved runtime targets.",
+      "action": "Trace the named local continuation or obtain exact resolved artefact source/digest and effective runtime configuration.",
+      "evidence": ["psp-dabd6c8-r3/e/9e5f232736ad", "psp-dabd6c8-r3/e/129a252d71ba"]
+    },
+    {
+      "id": "psp-dabd6c8-r3/gap/transaction-client-correspondence",
+      "kind": "gap",
+      "owner": "psp-dabd6c8-r3/census",
+      "obligation": "transaction-client-correspondence",
+      "reason": "This source revision declares 1.3.274-SNAPSHOT. Transaction previously imported 1.3.257; no exact artefact digest/source correspondence joins its client to this service. This bundle deliberately establishes no such cross-repository call.",
+      "action": "Trace the named local continuation or obtain exact resolved artefact source/digest and effective runtime configuration.",
+      "evidence": ["psp-dabd6c8-r3/e/2efab2d0f5e7"]
+    },
+    {
+      "id": "psp-dabd6c8-r3/gap/wire",
+      "kind": "gap",
+      "owner": "psp-dabd6c8-r3/census",
+      "obligation": "wire",
+      "reason": "Imported AttributeBase, BaseResponse/SuccessResponse, generic model inheritance and effective Jackson/validation configuration are not fully established.",
+      "action": "Trace the named local continuation or obtain exact resolved artefact source/digest and effective runtime configuration.",
+      "evidence": ["psp-dabd6c8-r3/e/48c5e94ff514", "psp-dabd6c8-r3/e/3a5d1cc8bcb9"]
+    },
+    {
+      "id": "psp-dabd6c8-r3/impl/capture-core",
+      "kind": "implementation",
+      "logicalId": "impl:psp-PspTransactionService.capture",
+      "scope": "psp-dabd6c8-r3/source",
+      "entry": "psp-dabd6c8-r3/op/capture-core/start",
+      "parameters": [
+        "psp-dabd6c8-r3/value/capture-core/transactionId",
+        "psp-dabd6c8-r3/value/capture-core/psp",
+        "psp-dabd6c8-r3/value/capture-core/payload"
+      ],
+      "evidence": ["psp-dabd6c8-r3/e/12f5f52e1887"]
+    },
+    {
+      "id": "psp-dabd6c8-r3/impl/capture-stripe",
+      "kind": "implementation",
+      "logicalId": "impl:psp-StripePaymentIntentOperationService.capture",
+      "scope": "psp-dabd6c8-r3/source",
+      "entry": "psp-dabd6c8-r3/op/capture-stripe/start",
+      "parameters": [
+        "psp-dabd6c8-r3/value/capture-stripe/externalTransactionId",
+        "psp-dabd6c8-r3/value/capture-stripe/payload"
+      ],
+      "evidence": ["psp-dabd6c8-r3/e/195e707b0227"]
+    },
+    {
+      "id": "psp-dabd6c8-r3/impl/TransactionController-capture",
+      "kind": "implementation",
+      "logicalId": "impl:psp-TransactionController-capture",
+      "scope": "psp-dabd6c8-r3/source",
+      "entry": "psp-dabd6c8-r3/op/TransactionController-capture/start",
+      "parameters": [
+        "psp-dabd6c8-r3/value/capture-http/transactionId",
+        "psp-dabd6c8-r3/value/capture-http/psp",
+        "psp-dabd6c8-r3/value/capture-http/payload"
+      ],
+      "evidence": ["psp-dabd6c8-r3/e/57de2ddb1e40", "psp-dabd6c8-r3/e/f0b67ab7dcdc"]
+    },
+    {
+      "id": "psp-dabd6c8-r3/op/capture-core/map-accounts",
+      "kind": "operation",
+      "owner": "psp-dabd6c8-r3/impl/capture-core",
+      "action": "compute",
+      "label": "mapAccountIds(payload); nullable accountId skips lookup, other account lookups may throw",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": null,
+      "httpStatus": null,
+      "evidence": ["psp-dabd6c8-r3/e/7a086361ea49", "psp-dabd6c8-r3/e/f821b897b95b"]
+    },
+    {
+      "id": "psp-dabd6c8-r3/op/capture-core/select",
+      "kind": "operation",
+      "owner": "psp-dabd6c8-r3/impl/capture-core",
+      "action": "branch",
+      "label": "Factory key = path psp + payload.paymentSessionType; local Stripe PaymentIntent provider matches STRIPE / PAYMENT",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": null,
+      "httpStatus": null,
+      "evidence": [
+        "psp-dabd6c8-r3/e/2d989c09fbfe",
+        "psp-dabd6c8-r3/e/d5dbe57e69bb",
+        "psp-dabd6c8-r3/e/adc108734544"
+      ]
+    },
+    {
+      "id": "psp-dabd6c8-r3/op/capture-core/start",
+      "kind": "operation",
+      "owner": "psp-dabd6c8-r3/impl/capture-core",
+      "action": "entry",
+      "label": "PspTransactionService.capture",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": null,
+      "httpStatus": null,
+      "evidence": ["psp-dabd6c8-r3/e/12f5f52e1887"]
+    },
+    {
+      "id": "psp-dabd6c8-r3/op/capture-core/stripe",
+      "kind": "operation",
+      "owner": "psp-dabd6c8-r3/impl/capture-core",
+      "action": "call",
+      "label": "Invoke impl:psp-StripePaymentIntentOperationService.capture",
+      "resolution": "psp-dabd6c8-r3/resolve/capture-core/stripe",
+      "bindings": [
+        {
+          "parameter": "psp-dabd6c8-r3/value/capture-stripe/externalTransactionId",
+          "value": "psp-dabd6c8-r3/value/capture-core/pspTransactionId"
+        },
+        {
+          "parameter": "psp-dabd6c8-r3/value/capture-stripe/payload",
+          "value": "psp-dabd6c8-r3/value/capture-core/accounts/after"
+        }
+      ],
+      "result": "psp-dabd6c8-r3/value/capture-core/stripe/result",
+      "exit": null,
+      "httpStatus": null,
+      "evidence": ["psp-dabd6c8-r3/e/89dc7f9bf996"]
+    },
+    {
+      "id": "psp-dabd6c8-r3/op/capture-http/invoke",
+      "kind": "operation",
+      "owner": "psp-dabd6c8-r3/impl/TransactionController-capture",
+      "action": "call",
+      "label": "Invoke impl:psp-PspTransactionService.capture",
+      "resolution": "psp-dabd6c8-r3/resolve/capture-http/invoke",
+      "bindings": [
+        {
+          "parameter": "psp-dabd6c8-r3/value/capture-core/transactionId",
+          "value": "psp-dabd6c8-r3/value/capture-http/transactionId"
+        },
+        {
+          "parameter": "psp-dabd6c8-r3/value/capture-core/psp",
+          "value": "psp-dabd6c8-r3/value/capture-http/psp"
+        },
+        {
+          "parameter": "psp-dabd6c8-r3/value/capture-core/payload",
+          "value": "psp-dabd6c8-r3/value/capture-http/payload"
+        }
+      ],
+      "result": "psp-dabd6c8-r3/value/capture-http/invoke/result",
+      "exit": null,
+      "httpStatus": null,
+      "evidence": ["psp-dabd6c8-r3/e/7a75cca72f6a"]
+    },
+    {
+      "id": "psp-dabd6c8-r3/op/capture-stripe/start",
+      "kind": "operation",
+      "owner": "psp-dabd6c8-r3/impl/capture-stripe",
+      "action": "entry",
+      "label": "StripePaymentIntentOperationService.capture",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": null,
+      "httpStatus": null,
+      "evidence": ["psp-dabd6c8-r3/e/195e707b0227"]
+    },
+    {
+      "id": "psp-dabd6c8-r3/op/TransactionController-capture/start",
+      "kind": "operation",
+      "owner": "psp-dabd6c8-r3/impl/TransactionController-capture",
+      "action": "entry",
+      "label": "Capture controller after declared role/validation annotations; imported chain unresolved",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": null,
+      "httpStatus": null,
+      "evidence": ["psp-dabd6c8-r3/e/57de2ddb1e40", "psp-dabd6c8-r3/e/f0b67ab7dcdc"]
+    },
+    {
+      "id": "psp-dabd6c8-r3/resolve/capture-core/stripe",
+      "kind": "resolution",
+      "owner": "psp-dabd6c8-r3/impl/capture-core",
+      "requestedArtifact": null,
+      "basis": "source_local",
+      "target": "psp-dabd6c8-r3/impl/capture-stripe",
+      "candidates": [],
+      "binding": null,
+      "evidence": ["psp-dabd6c8-r3/e/89dc7f9bf996"]
+    },
+    {
+      "id": "psp-dabd6c8-r3/resolve/capture-http/invoke",
+      "kind": "resolution",
+      "owner": "psp-dabd6c8-r3/impl/TransactionController-capture",
+      "requestedArtifact": null,
+      "basis": "source_local",
+      "target": "psp-dabd6c8-r3/impl/capture-core",
+      "candidates": [],
+      "binding": null,
+      "evidence": ["psp-dabd6c8-r3/e/7a75cca72f6a"]
+    },
+    {
+      "id": "psp-dabd6c8-r3/runs/capture-core",
+      "kind": "execution_binding",
+      "implementation": "psp-dabd6c8-r3/impl/capture-core",
+      "component": "psp-dabd6c8-r3/component/api",
+      "basis": "source_declared",
+      "artifactBinding": null,
+      "gaps": [],
+      "evidence": ["psp-dabd6c8-r3/e/12f5f52e1887"]
+    },
+    {
+      "id": "psp-dabd6c8-r3/runs/capture-stripe",
+      "kind": "execution_binding",
+      "implementation": "psp-dabd6c8-r3/impl/capture-stripe",
+      "component": "psp-dabd6c8-r3/component/api",
+      "basis": "source_declared",
+      "artifactBinding": null,
+      "gaps": [],
+      "evidence": ["psp-dabd6c8-r3/e/195e707b0227"]
+    },
+    {
+      "id": "psp-dabd6c8-r3/runs/TransactionController-capture",
+      "kind": "execution_binding",
+      "implementation": "psp-dabd6c8-r3/impl/TransactionController-capture",
+      "component": "psp-dabd6c8-r3/component/api",
+      "basis": "source_declared",
+      "artifactBinding": null,
+      "gaps": [],
+      "evidence": ["psp-dabd6c8-r3/e/57de2ddb1e40", "psp-dabd6c8-r3/e/f0b67ab7dcdc"]
+    },
+    {
+      "id": "psp-dabd6c8-r3/shape/com~volvocars~ecom~paymentservice~psp~integration~transaction~TransactionCapturePayload.java",
+      "kind": "shape",
+      "label": "TransactionCapturePayload declared fields",
+      "representation": "source",
+      "fields": [
+        {
+          "name": "countryCode",
+          "type": "String",
+          "status": "declared",
+          "evidence": ["psp-dabd6c8-r3/e/6644853b4043"],
+          "pattern": "[A-Z]{2}"
+        },
+        {
+          "name": "pspTransactionId",
+          "type": "String",
+          "status": "declared",
+          "evidence": ["psp-dabd6c8-r3/e/b862b50a50c4"],
+          "optional": false
+        },
+        {
+          "name": "paymentSessionType",
+          "type": "PaymentSessionType",
+          "status": "declared",
+          "evidence": ["psp-dabd6c8-r3/e/0b8f8c113dde"],
+          "optional": false
+        },
+        {
+          "name": "psp",
+          "type": "Psp",
+          "status": "declared",
+          "evidence": ["psp-dabd6c8-r3/e/d49466325721"],
+          "optional": false
+        },
+        {
+          "name": "externalId",
+          "type": "String",
+          "status": "declared",
+          "evidence": ["psp-dabd6c8-r3/e/0c1fc064b0e1"]
+        },
+        {
+          "name": "accountId",
+          "type": "String",
+          "status": "declared",
+          "evidence": ["psp-dabd6c8-r3/e/77be46a74598"]
+        },
+        {
+          "name": "externalAccountId",
+          "type": "String",
+          "status": "declared",
+          "evidence": ["psp-dabd6c8-r3/e/e16be9c1c769"]
+        }
+      ],
+      "completeness": "partial",
+      "gaps": ["psp-dabd6c8-r3/gap/wire"],
+      "evidence": ["psp-dabd6c8-r3/e/7fa036586c9c"]
+    },
+    {
+      "id": "psp-dabd6c8-r3/source",
+      "kind": "source_revision",
+      "repo": "volvo-cars/cds-paymentservice-psp-integration",
+      "commit": "dabd6c825499b706ff4ddbf15eaf354adbfb6794"
+    },
+    {
+      "id": "psp-dabd6c8-r3/value/capture-core/accounts/after",
+      "kind": "value",
+      "owner": "psp-dabd6c8-r3/impl/capture-core",
+      "definition": "psp-dabd6c8-r3/op/capture-core/map-accounts",
+      "label": "Payload with externalAccountId = accountId==null ? null : AccountConfigService.getAccount(accountId).externalId",
+      "role": "definition",
+      "representation": "source",
+      "shape": "psp-dabd6c8-r3/shape/com~volvocars~ecom~paymentservice~psp~integration~transaction~TransactionCapturePayload.java",
+      "accessPath": [],
+      "evidence": ["psp-dabd6c8-r3/e/7a086361ea49", "psp-dabd6c8-r3/e/f821b897b95b"]
+    },
+    {
+      "id": "psp-dabd6c8-r3/value/capture-core/accounts/before",
+      "kind": "value",
+      "owner": "psp-dabd6c8-r3/impl/capture-core",
+      "definition": "psp-dabd6c8-r3/op/capture-core/map-accounts",
+      "label": "Payload before local account mapping",
+      "role": "definition",
+      "representation": "source",
+      "shape": "psp-dabd6c8-r3/shape/com~volvocars~ecom~paymentservice~psp~integration~transaction~TransactionCapturePayload.java",
+      "accessPath": [],
+      "evidence": ["psp-dabd6c8-r3/e/7a086361ea49", "psp-dabd6c8-r3/e/f821b897b95b"]
+    },
+    {
+      "id": "psp-dabd6c8-r3/value/capture-core/payload",
+      "kind": "value",
+      "owner": "psp-dabd6c8-r3/impl/capture-core",
+      "definition": "psp-dabd6c8-r3/op/capture-core/start",
+      "label": "payload",
+      "role": "parameter",
+      "representation": "source",
+      "shape": "psp-dabd6c8-r3/shape/com~volvocars~ecom~paymentservice~psp~integration~transaction~TransactionCapturePayload.java",
+      "accessPath": [],
+      "evidence": ["psp-dabd6c8-r3/e/12f5f52e1887"]
+    },
+    {
+      "id": "psp-dabd6c8-r3/value/capture-core/psp",
+      "kind": "value",
+      "owner": "psp-dabd6c8-r3/impl/capture-core",
+      "definition": "psp-dabd6c8-r3/op/capture-core/start",
+      "label": "psp",
+      "role": "parameter",
+      "representation": "source",
+      "shape": null,
+      "accessPath": [],
+      "evidence": ["psp-dabd6c8-r3/e/12f5f52e1887"]
+    },
+    {
+      "id": "psp-dabd6c8-r3/value/capture-core/pspTransactionId",
+      "kind": "value",
+      "owner": "psp-dabd6c8-r3/impl/capture-core",
+      "definition": "psp-dabd6c8-r3/op/capture-core/select",
+      "label": "payload.pspTransactionId; path transactionId is logged, not sent as provider transaction ID",
+      "role": "definition",
+      "representation": "source",
+      "shape": null,
+      "accessPath": ["pspTransactionId"],
+      "evidence": [
+        "psp-dabd6c8-r3/e/2d989c09fbfe",
+        "psp-dabd6c8-r3/e/d5dbe57e69bb",
+        "psp-dabd6c8-r3/e/adc108734544"
+      ]
+    },
+    {
+      "id": "psp-dabd6c8-r3/value/capture-core/stripe/result",
+      "kind": "value",
+      "owner": "psp-dabd6c8-r3/impl/capture-core",
+      "definition": "psp-dabd6c8-r3/op/capture-core/stripe",
+      "label": "Provider TransactionDto",
+      "role": "definition",
+      "representation": "source",
+      "shape": null,
+      "accessPath": [],
+      "evidence": ["psp-dabd6c8-r3/e/89dc7f9bf996"]
+    },
+    {
+      "id": "psp-dabd6c8-r3/value/capture-core/transactionId",
+      "kind": "value",
+      "owner": "psp-dabd6c8-r3/impl/capture-core",
+      "definition": "psp-dabd6c8-r3/op/capture-core/start",
+      "label": "transactionId",
+      "role": "parameter",
+      "representation": "source",
+      "shape": null,
+      "accessPath": [],
+      "evidence": ["psp-dabd6c8-r3/e/12f5f52e1887"]
+    },
+    {
+      "id": "psp-dabd6c8-r3/value/capture-http/invoke/result",
+      "kind": "value",
+      "owner": "psp-dabd6c8-r3/impl/TransactionController-capture",
+      "definition": "psp-dabd6c8-r3/op/capture-http/invoke",
+      "label": "TransactionDto returned from PspTransactionService.capture",
+      "role": "definition",
+      "representation": "source",
+      "shape": null,
+      "accessPath": [],
+      "evidence": ["psp-dabd6c8-r3/e/7a75cca72f6a"]
+    },
+    {
+      "id": "psp-dabd6c8-r3/value/capture-http/payload",
+      "kind": "value",
+      "owner": "psp-dabd6c8-r3/impl/TransactionController-capture",
+      "definition": "psp-dabd6c8-r3/op/TransactionController-capture/start",
+      "label": "payload",
+      "role": "parameter",
+      "representation": "source",
+      "shape": "psp-dabd6c8-r3/shape/com~volvocars~ecom~paymentservice~psp~integration~transaction~TransactionCapturePayload.java",
+      "accessPath": [],
+      "evidence": ["psp-dabd6c8-r3/e/57de2ddb1e40", "psp-dabd6c8-r3/e/f0b67ab7dcdc"]
+    },
+    {
+      "id": "psp-dabd6c8-r3/value/capture-http/psp",
+      "kind": "value",
+      "owner": "psp-dabd6c8-r3/impl/TransactionController-capture",
+      "definition": "psp-dabd6c8-r3/op/TransactionController-capture/start",
+      "label": "psp",
+      "role": "parameter",
+      "representation": "source",
+      "shape": null,
+      "accessPath": [],
+      "evidence": ["psp-dabd6c8-r3/e/57de2ddb1e40", "psp-dabd6c8-r3/e/f0b67ab7dcdc"]
+    },
+    {
+      "id": "psp-dabd6c8-r3/value/capture-http/transactionId",
+      "kind": "value",
+      "owner": "psp-dabd6c8-r3/impl/TransactionController-capture",
+      "definition": "psp-dabd6c8-r3/op/TransactionController-capture/start",
+      "label": "transactionId",
+      "role": "parameter",
+      "representation": "source",
+      "shape": null,
+      "accessPath": [],
+      "evidence": ["psp-dabd6c8-r3/e/57de2ddb1e40", "psp-dabd6c8-r3/e/f0b67ab7dcdc"]
+    },
+    {
+      "id": "psp-dabd6c8-r3/value/capture-stripe/externalTransactionId",
+      "kind": "value",
+      "owner": "psp-dabd6c8-r3/impl/capture-stripe",
+      "definition": "psp-dabd6c8-r3/op/capture-stripe/start",
+      "label": "externalTransactionId",
+      "role": "parameter",
+      "representation": "source",
+      "shape": null,
+      "accessPath": [],
+      "evidence": ["psp-dabd6c8-r3/e/195e707b0227"]
+    },
+    {
+      "id": "psp-dabd6c8-r3/value/capture-stripe/payload",
+      "kind": "value",
+      "owner": "psp-dabd6c8-r3/impl/capture-stripe",
+      "definition": "psp-dabd6c8-r3/op/capture-stripe/start",
+      "label": "payload",
+      "role": "parameter",
+      "representation": "source",
+      "shape": "psp-dabd6c8-r3/shape/com~volvocars~ecom~paymentservice~psp~integration~transaction~TransactionCapturePayload.java",
+      "accessPath": [],
+      "evidence": ["psp-dabd6c8-r3/e/195e707b0227"]
+    }
+  ],
+  "traversalComplete": true,
+  "findings": [],
+  "sourceLinks": [
+    {
+      "evidence": "psp-dabd6c8-r3/e/52b5591b4837",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-psp-integration/blob/dabd6c825499b706ff4ddbf15eaf354adbfb6794/cds-paymentservice-psp-integration-api/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/api/App.java#L1-L25",
+      "label": "volvo-cars/cds-paymentservice-psp-integration/cds-paymentservice-psp-integration-api/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/api/App.java:1–25"
+    },
+    {
+      "evidence": "psp-dabd6c8-r3/e/051b36aac4b4",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-psp-integration/blob/dabd6c825499b706ff4ddbf15eaf354adbfb6794/pom.xml#L17-L21",
+      "label": "volvo-cars/cds-paymentservice-psp-integration/pom.xml:17–21"
+    },
+    {
+      "evidence": "psp-dabd6c8-r3/e/2efab2d0f5e7",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-psp-integration/blob/dabd6c825499b706ff4ddbf15eaf354adbfb6794/pom.xml#L13-L14",
+      "label": "volvo-cars/cds-paymentservice-psp-integration/pom.xml:13–14"
+    },
+    {
+      "evidence": "psp-dabd6c8-r3/e/3a5d1cc8bcb9",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-psp-integration/blob/dabd6c825499b706ff4ddbf15eaf354adbfb6794/cds-paymentservice-psp-integration-api/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/api/common/ApiControllerAdvice.java#L315-L346",
+      "label": "volvo-cars/cds-paymentservice-psp-integration/cds-paymentservice-psp-integration-api/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/api/common/ApiControllerAdvice.java:315–346"
+    },
+    {
+      "evidence": "psp-dabd6c8-r3/e/48c5e94ff514",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-psp-integration/blob/dabd6c825499b706ff4ddbf15eaf354adbfb6794/cds-paymentservice-psp-integration-shared/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/common/PspIntegrationPayload.java#L1-L64",
+      "label": "volvo-cars/cds-paymentservice-psp-integration/cds-paymentservice-psp-integration-shared/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/common/PspIntegrationPayload.java:1–64"
+    },
+    {
+      "evidence": "psp-dabd6c8-r3/e/129a252d71ba",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-psp-integration/blob/dabd6c825499b706ff4ddbf15eaf354adbfb6794/cds-paymentservice-psp-integration-stripe/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/stripe/common/StripeConfiguration.java#L1-L53",
+      "label": "volvo-cars/cds-paymentservice-psp-integration/cds-paymentservice-psp-integration-stripe/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/stripe/common/StripeConfiguration.java:1–53"
+    },
+    {
+      "evidence": "psp-dabd6c8-r3/e/9e5f232736ad",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-psp-integration/blob/dabd6c825499b706ff4ddbf15eaf354adbfb6794/pom.xml#L25-L25",
+      "label": "volvo-cars/cds-paymentservice-psp-integration/pom.xml:25–25"
+    },
+    {
+      "evidence": "psp-dabd6c8-r3/e/e16be9c1c769",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-psp-integration/blob/dabd6c825499b706ff4ddbf15eaf354adbfb6794/cds-paymentservice-psp-integration-shared/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/common/PspIntegrationPayload.java#L31-L33",
+      "label": "volvo-cars/cds-paymentservice-psp-integration/cds-paymentservice-psp-integration-shared/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/common/PspIntegrationPayload.java:31–33"
+    },
+    {
+      "evidence": "psp-dabd6c8-r3/e/77be46a74598",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-psp-integration/blob/dabd6c825499b706ff4ddbf15eaf354adbfb6794/cds-paymentservice-psp-integration-shared/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/common/PspIntegrationPayload.java#L28-L31",
+      "label": "volvo-cars/cds-paymentservice-psp-integration/cds-paymentservice-psp-integration-shared/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/common/PspIntegrationPayload.java:28–31"
+    },
+    {
+      "evidence": "psp-dabd6c8-r3/e/0c1fc064b0e1",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-psp-integration/blob/dabd6c825499b706ff4ddbf15eaf354adbfb6794/cds-paymentservice-psp-integration-shared/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/common/PspIntegrationPayload.java#L25-L28",
+      "label": "volvo-cars/cds-paymentservice-psp-integration/cds-paymentservice-psp-integration-shared/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/common/PspIntegrationPayload.java:25–28"
+    },
+    {
+      "evidence": "psp-dabd6c8-r3/e/d49466325721",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-psp-integration/blob/dabd6c825499b706ff4ddbf15eaf354adbfb6794/cds-paymentservice-psp-integration-shared/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/common/PspIntegrationPayload.java#L12-L25",
+      "label": "volvo-cars/cds-paymentservice-psp-integration/cds-paymentservice-psp-integration-shared/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/common/PspIntegrationPayload.java:12–25"
+    },
+    {
+      "evidence": "psp-dabd6c8-r3/e/0b8f8c113dde",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-psp-integration/blob/dabd6c825499b706ff4ddbf15eaf354adbfb6794/cds-paymentservice-psp-integration-shared/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/transaction/TransactionPayload.java#L10-L20",
+      "label": "volvo-cars/cds-paymentservice-psp-integration/cds-paymentservice-psp-integration-shared/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/transaction/TransactionPayload.java:10–20"
+    },
+    {
+      "evidence": "psp-dabd6c8-r3/e/b862b50a50c4",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-psp-integration/blob/dabd6c825499b706ff4ddbf15eaf354adbfb6794/cds-paymentservice-psp-integration-shared/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/transaction/TransactionCapturePayload.java#L17-L29",
+      "label": "volvo-cars/cds-paymentservice-psp-integration/cds-paymentservice-psp-integration-shared/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/transaction/TransactionCapturePayload.java:17–29"
+    },
+    {
+      "evidence": "psp-dabd6c8-r3/e/6644853b4043",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-psp-integration/blob/dabd6c825499b706ff4ddbf15eaf354adbfb6794/cds-paymentservice-psp-integration-shared/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/transaction/TransactionCapturePayload.java#L9-L17",
+      "label": "volvo-cars/cds-paymentservice-psp-integration/cds-paymentservice-psp-integration-shared/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/transaction/TransactionCapturePayload.java:9–17"
+    },
+    {
+      "evidence": "psp-dabd6c8-r3/e/7fa036586c9c",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-psp-integration/blob/dabd6c825499b706ff4ddbf15eaf354adbfb6794/cds-paymentservice-psp-integration-shared/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/transaction/TransactionCapturePayload.java#L1-L41",
+      "label": "volvo-cars/cds-paymentservice-psp-integration/cds-paymentservice-psp-integration-shared/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/transaction/TransactionCapturePayload.java:1–41"
+    },
+    {
+      "evidence": "psp-dabd6c8-r3/e/f0b67ab7dcdc",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-psp-integration/blob/dabd6c825499b706ff4ddbf15eaf354adbfb6794/cds-paymentservice-psp-integration-api/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/api/transaction/v1/impl/TransactionControllerImpl.java#L1-L124",
+      "label": "volvo-cars/cds-paymentservice-psp-integration/cds-paymentservice-psp-integration-api/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/api/transaction/v1/impl/TransactionControllerImpl.java:1–124"
+    },
+    {
+      "evidence": "psp-dabd6c8-r3/e/57de2ddb1e40",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-psp-integration/blob/dabd6c825499b706ff4ddbf15eaf354adbfb6794/cds-paymentservice-psp-integration-api/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/api/transaction/v1/TransactionController.java#L48-L61",
+      "label": "volvo-cars/cds-paymentservice-psp-integration/cds-paymentservice-psp-integration-api/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/api/transaction/v1/TransactionController.java:48–61"
+    },
+    {
+      "evidence": "psp-dabd6c8-r3/e/737355cbd90f",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-psp-integration/blob/dabd6c825499b706ff4ddbf15eaf354adbfb6794/cds-paymentservice-psp-integration-stripe/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/stripe/common/MetadataService.java#L59-L90",
+      "label": "volvo-cars/cds-paymentservice-psp-integration/cds-paymentservice-psp-integration-stripe/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/stripe/common/MetadataService.java:59–90"
+    },
+    {
+      "evidence": "psp-dabd6c8-r3/e/5a295c44f925",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-psp-integration/blob/dabd6c825499b706ff4ddbf15eaf354adbfb6794/cds-paymentservice-psp-integration-stripe/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/stripe/paymentintent/mappers/StripeCaptureTransactionRequestMapper.java#L1-L22",
+      "label": "volvo-cars/cds-paymentservice-psp-integration/cds-paymentservice-psp-integration-stripe/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/stripe/paymentintent/mappers/StripeCaptureTransactionRequestMapper.java:1–22"
+    },
+    {
+      "evidence": "psp-dabd6c8-r3/e/413e14bcbb2b",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-psp-integration/blob/dabd6c825499b706ff4ddbf15eaf354adbfb6794/cds-paymentservice-psp-integration-stripe/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/stripe/paymentintent/StripePaymentIntentOperationService.java#L159-L234",
+      "label": "volvo-cars/cds-paymentservice-psp-integration/cds-paymentservice-psp-integration-stripe/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/stripe/paymentintent/StripePaymentIntentOperationService.java:159–234"
+    },
+    {
+      "evidence": "psp-dabd6c8-r3/e/12f5f52e1887",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-psp-integration/blob/dabd6c825499b706ff4ddbf15eaf354adbfb6794/cds-paymentservice-psp-integration-core/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/transaction/PspTransactionService.java#L88-L98",
+      "label": "volvo-cars/cds-paymentservice-psp-integration/cds-paymentservice-psp-integration-core/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/transaction/PspTransactionService.java:88–98"
+    },
+    {
+      "evidence": "psp-dabd6c8-r3/e/7a75cca72f6a",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-psp-integration/blob/dabd6c825499b706ff4ddbf15eaf354adbfb6794/cds-paymentservice-psp-integration-api/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/api/transaction/v1/impl/TransactionControllerImpl.java#L72-L88",
+      "label": "volvo-cars/cds-paymentservice-psp-integration/cds-paymentservice-psp-integration-api/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/api/transaction/v1/impl/TransactionControllerImpl.java:72–88"
+    },
+    {
+      "evidence": "psp-dabd6c8-r3/e/f821b897b95b",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-psp-integration/blob/dabd6c825499b706ff4ddbf15eaf354adbfb6794/cds-paymentservice-psp-integration-core/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/transaction/PspTransactionService.java#L90-L90",
+      "label": "volvo-cars/cds-paymentservice-psp-integration/cds-paymentservice-psp-integration-core/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/transaction/PspTransactionService.java:90–90"
+    },
+    {
+      "evidence": "psp-dabd6c8-r3/e/7a086361ea49",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-psp-integration/blob/dabd6c825499b706ff4ddbf15eaf354adbfb6794/cds-paymentservice-psp-integration-core/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/transaction/PspTransactionService.java#L48-L71",
+      "label": "volvo-cars/cds-paymentservice-psp-integration/cds-paymentservice-psp-integration-core/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/transaction/PspTransactionService.java:48–71"
+    },
+    {
+      "evidence": "psp-dabd6c8-r3/e/adc108734544",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-psp-integration/blob/dabd6c825499b706ff4ddbf15eaf354adbfb6794/cds-paymentservice-psp-integration-stripe/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/stripe/paymentintent/StripePaymentIntentOperationService.java#L52-L65",
+      "label": "volvo-cars/cds-paymentservice-psp-integration/cds-paymentservice-psp-integration-stripe/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/stripe/paymentintent/StripePaymentIntentOperationService.java:52–65"
+    },
+    {
+      "evidence": "psp-dabd6c8-r3/e/d5dbe57e69bb",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-psp-integration/blob/dabd6c825499b706ff4ddbf15eaf354adbfb6794/cds-paymentservice-psp-integration-core/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/transaction/TransactionOperationServiceFactory.java#L36-L48",
+      "label": "volvo-cars/cds-paymentservice-psp-integration/cds-paymentservice-psp-integration-core/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/transaction/TransactionOperationServiceFactory.java:36–48"
+    },
+    {
+      "evidence": "psp-dabd6c8-r3/e/2d989c09fbfe",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-psp-integration/blob/dabd6c825499b706ff4ddbf15eaf354adbfb6794/cds-paymentservice-psp-integration-core/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/transaction/PspTransactionService.java#L91-L97",
+      "label": "volvo-cars/cds-paymentservice-psp-integration/cds-paymentservice-psp-integration-core/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/transaction/PspTransactionService.java:91–97"
+    },
+    {
+      "evidence": "psp-dabd6c8-r3/e/37ccd8d13f01",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-psp-integration/blob/dabd6c825499b706ff4ddbf15eaf354adbfb6794/cds-paymentservice-psp-integration-core/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/transaction/PspTransactionService.java#L95-L97",
+      "label": "volvo-cars/cds-paymentservice-psp-integration/cds-paymentservice-psp-integration-core/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/transaction/PspTransactionService.java:95–97"
+    },
+    {
+      "evidence": "psp-dabd6c8-r3/e/89dc7f9bf996",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-psp-integration/blob/dabd6c825499b706ff4ddbf15eaf354adbfb6794/cds-paymentservice-psp-integration-core/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/transaction/PspTransactionService.java#L97-L97",
+      "label": "volvo-cars/cds-paymentservice-psp-integration/cds-paymentservice-psp-integration-core/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/transaction/PspTransactionService.java:97–97"
+    },
+    {
+      "evidence": "psp-dabd6c8-r3/e/195e707b0227",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-psp-integration/blob/dabd6c825499b706ff4ddbf15eaf354adbfb6794/cds-paymentservice-psp-integration-stripe/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/stripe/paymentintent/StripePaymentIntentOperationService.java#L159-L184",
+      "label": "volvo-cars/cds-paymentservice-psp-integration/cds-paymentservice-psp-integration-stripe/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/stripe/paymentintent/StripePaymentIntentOperationService.java:159–184"
+    },
+    {
+      "evidence": "psp-dabd6c8-r3/e/4b908501daab",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-psp-integration/blob/dabd6c825499b706ff4ddbf15eaf354adbfb6794/Dockerfile#L1-L23",
+      "label": "volvo-cars/cds-paymentservice-psp-integration/Dockerfile:1–23"
+    },
+    {
+      "evidence": "psp-dabd6c8-r3/e/c19d2cda77c7",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-psp-integration/blob/dabd6c825499b706ff4ddbf15eaf354adbfb6794/cds-paymentservice-psp-integration-api/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/api/App.java#L13-L24",
+      "label": "volvo-cars/cds-paymentservice-psp-integration/cds-paymentservice-psp-integration-api/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/api/App.java:13–24"
+    }
+  ],
+  "nextRequest": null
+}

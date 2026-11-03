@@ -1,0 +1,11 @@
+
+> groundwork@0.0.0 knowledge:validate
+> node --import ./tools/register.ts --conditions=react-server tools/validate-knowledge.ts reports/volvo-native-rescan/cce-adapter-flag-library-r2/bundle.json --write-snapshot reports/volvo-native-rescan/cce-adapter-flag-library-r2/snapshot.json
+
+{
+  "snapshot": "8c7ac6f69f63c70ff8f40c3d8ece4c2af1a9a7205f60cf06a70d0bd81591692b",
+  "bundles": 1,
+  "records": 118415,
+  "sourceRangesChecked": 0,
+  "sourceVerification": "not_requested"
+}

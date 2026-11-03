@@ -1,0 +1,78 @@
+[
+  {
+    "name": "positive Market configured Postgres at actual SaveChanges",
+    "request": {
+      "format": "groundwork-query/v3",
+      "snapshot": "f2469543e6a0839ae1bdb2dc3cdb832ab113ceea0cb97683d844132fad63e95e",
+      "query": "interactions",
+      "entry": "mascomplete-b360506-r3/entry/put-api-commercial-segments-markets-code",
+      "value": null,
+      "context": [],
+      "outcome": null,
+      "changed": [],
+      "representation": "constructed",
+      "candidates": "exclude",
+      "maxNodes": 2000,
+      "maxRecords": 5000,
+      "environment": "source-profile",
+      "ids": []
+    }
+  },
+  {
+    "name": "positive auth callback configured PopAuthz SendAsync",
+    "request": {
+      "format": "groundwork-query/v3",
+      "snapshot": "f2469543e6a0839ae1bdb2dc3cdb832ab113ceea0cb97683d844132fad63e95e",
+      "query": "interactions",
+      "entry": "mascomplete-b360506-r3/native/callback/dcdd982aca03545b46f2",
+      "value": null,
+      "context": [],
+      "outcome": null,
+      "changed": [],
+      "representation": "constructed",
+      "candidates": "exclude",
+      "maxNodes": 2000,
+      "maxRecords": 5000,
+      "environment": "source-profile",
+      "ids": []
+    }
+  },
+  {
+    "name": "positive actual startup configured Azure token and PopAuthz",
+    "request": {
+      "format": "groundwork-query/v3",
+      "snapshot": "f2469543e6a0839ae1bdb2dc3cdb832ab113ceea0cb97683d844132fad63e95e",
+      "query": "interactions",
+      "entry": "mascomplete-b360506-r3/native/reviewed/program/entry",
+      "value": null,
+      "context": [],
+      "outcome": null,
+      "changed": [],
+      "representation": "constructed",
+      "candidates": "exclude",
+      "maxNodes": 2000,
+      "maxRecords": 5000,
+      "environment": "source-profile",
+      "ids": []
+    }
+  },
+  {
+    "name": "positive SoftOffer configured topic at actual ProduceAsync",
+    "request": {
+      "format": "groundwork-query/v3",
+      "snapshot": "f2469543e6a0839ae1bdb2dc3cdb832ab113ceea0cb97683d844132fad63e95e",
+      "query": "interactions",
+      "entry": "s2/endpoint",
+      "value": null,
+      "context": [],
+      "outcome": null,
+      "changed": [],
+      "representation": "constructed",
+      "candidates": "exclude",
+      "maxNodes": 2000,
+      "maxRecords": 5000,
+      "environment": "source-profile",
+      "ids": []
+    }
+  }
+]

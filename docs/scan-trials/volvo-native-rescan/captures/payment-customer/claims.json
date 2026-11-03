@@ -1,0 +1,280 @@
+[
+  {
+    "id": "volvo/cds-paymentservice-customer/b0010537cdd5/claim/create-failure-window",
+    "kind": "claim",
+    "owner": "volvo/cds-paymentservice-customer/b0010537cdd5/entry/create",
+    "statement": "On the new-customer source path, local Mongo customer save occurs before the PSP client call. A later PSP/client/response failure can leave that local state; relation persistence happens in a later save. A distributed atomic transaction or exactly-once creation is not established.",
+    "basis": "source_traced",
+    "inputs": [
+      "volvo/cds-paymentservice-customer/b0010537cdd5/op/create.first-save",
+      "volvo/cds-paymentservice-customer/b0010537cdd5/op/create.psp",
+      "volvo/cds-paymentservice-customer/b0010537cdd5/op/create.final-save"
+    ],
+    "assumptions": [
+      "Source advice invokes body rather than serving cache",
+      "Earlier checks and local calls reach the stated source path"
+    ],
+    "evidence": [
+      "volvo/cds-paymentservice-customer/b0010537cdd5/e/295c1c26ec14dafa",
+      "volvo/cds-paymentservice-customer/b0010537cdd5/e/e9e7cd48791688ca"
+    ]
+  },
+  {
+    "id": "volvo/cds-paymentservice-customer/b0010537cdd5/claim/update-failure-window",
+    "kind": "claim",
+    "owner": "volvo/cds-paymentservice-customer/b0010537cdd5/entry/update-id",
+    "statement": "The update source saves the customer before checking for any PSP relation, then calls the client for each relation. It can raise the source 404 after save or fail part way through remote updates; earlier local/remote state is not shown to roll back.",
+    "basis": "source_traced",
+    "inputs": [
+      "volvo/cds-paymentservice-customer/b0010537cdd5/op/update.save",
+      "volvo/cds-paymentservice-customer/b0010537cdd5/op/update.no-relations",
+      "volvo/cds-paymentservice-customer/b0010537cdd5/op/update.psp"
+    ],
+    "assumptions": [
+      "Source reaches the update body",
+      "No unexamined middleware supplies a wider transaction"
+    ],
+    "evidence": ["volvo/cds-paymentservice-customer/b0010537cdd5/e/ca2cc2339e8be902"]
+  },
+  {
+    "id": "volvo/cds-paymentservice-customer/b0010537cdd5/claim/create-nonblank-names",
+    "kind": "claim",
+    "owner": "volvo/cds-paymentservice-customer/b0010537cdd5/entry/create",
+    "statement": "BaseCustomerCreatePayload redeclares firstName and lastName with @NotBlank: source validation rejects null/empty/whitespace names when that validator is applied. Native optional/nullable flags alone do not express nonblankness.",
+    "basis": "source_declared",
+    "inputs": [
+      "volvo/cds-paymentservice-customer/b0010537cdd5/shape/cds-paymentservice-customer-shared-src-main-java-com-volvocars-ecom-paymentservice-customer-CustomerCreatePayload",
+      "volvo/cds-paymentservice-customer/b0010537cdd5/shape/cds-paymentservice-customer-shared-src-main-java-com-volvocars-ecom-paymentservice-customer-GuestCustomerCreatePayload",
+      "volvo/cds-paymentservice-customer/b0010537cdd5/entry/guest-create",
+      "volvo/cds-paymentservice-customer/b0010537cdd5/entry/get-or-create",
+      "volvo/cds-paymentservice-customer/b0010537cdd5/gap/source-wire-closure",
+      "volvo/cds-paymentservice-customer/b0010537cdd5/gap/security-middleware"
+    ],
+    "assumptions": [
+      "Create/guest/get-or-create request source representations",
+      "This is a source declaration/association, not proof of effective wire acceptance or deployed policy"
+    ],
+    "evidence": ["volvo/cds-paymentservice-customer/b0010537cdd5/e/cc1703cf57ea2046"]
+  },
+  {
+    "id": "volvo/cds-paymentservice-customer/b0010537cdd5/claim/email-and-locale",
+    "kind": "claim",
+    "owner": "volvo/cds-paymentservice-customer/b0010537cdd5/entry/create",
+    "statement": "CustomerPayloadBase declares @Email on email and @Pattern(regexp = Customer.PREFERRED_LOCALE_REGEX) on preferredLocale. The imported regex value and exact validator/version behaviour are unresolved; no regex is invented.",
+    "basis": "source_declared",
+    "inputs": [
+      "volvo/cds-paymentservice-customer/b0010537cdd5/shape/cds-paymentservice-customer-shared-src-main-java-com-volvocars-ecom-paymentservice-customer-CustomerPayloadBase",
+      "volvo/cds-paymentservice-customer/b0010537cdd5/shape/cds-paymentservice-customer-shared-src-main-java-com-volvocars-ecom-paymentservice-customer-CustomerCreatePayload",
+      "volvo/cds-paymentservice-customer/b0010537cdd5/shape/cds-paymentservice-customer-shared-src-main-java-com-volvocars-ecom-paymentservice-customer-CustomerUpdatePayload",
+      "volvo/cds-paymentservice-customer/b0010537cdd5/gap/source-wire-closure",
+      "volvo/cds-paymentservice-customer/b0010537cdd5/gap/security-middleware"
+    ],
+    "assumptions": [
+      "Inherited request-source declarations, not a complete effective request validator",
+      "This is a source declaration/association, not proof of effective wire acceptance or deployed policy"
+    ],
+    "evidence": ["volvo/cds-paymentservice-customer/b0010537cdd5/e/7b26e2f215bf95f1"]
+  },
+  {
+    "id": "volvo/cds-paymentservice-customer/b0010537cdd5/claim/address-validation-boundary",
+    "kind": "claim",
+    "owner": "volvo/cds-paymentservice-customer/b0010537cdd5/entry/create",
+    "statement": "CustomerPayloadBase.address has its @Valid annotation commented out; companyInfo has active @Valid. This declaration does not establish recursive Address validation; imported/global policies remain unknown.",
+    "basis": "source_declared",
+    "inputs": [
+      "volvo/cds-paymentservice-customer/b0010537cdd5/shape/cds-paymentservice-customer-shared-src-main-java-com-volvocars-ecom-paymentservice-customer-CustomerPayloadBase",
+      "volvo/cds-paymentservice-customer/b0010537cdd5/gap/source-wire-closure",
+      "volvo/cds-paymentservice-customer/b0010537cdd5/gap/security-middleware"
+    ],
+    "assumptions": [
+      "Request field declarations only; absence of this annotation is not absence of all validation",
+      "This is a source declaration/association, not proof of effective wire acceptance or deployed policy"
+    ],
+    "evidence": ["volvo/cds-paymentservice-customer/b0010537cdd5/e/5c27158890e1dd13"]
+  },
+  {
+    "id": "volvo/cds-paymentservice-customer/b0010537cdd5/claim/update-name-nullity",
+    "kind": "claim",
+    "owner": "volvo/cds-paymentservice-customer/b0010537cdd5/entry/update-id",
+    "statement": "FirstAndLastNameValidator returns (payload.firstName == null) == (payload.lastName == null). The source accepts both null or both non-null, and this expression alone does not reject paired empty/blank strings.",
+    "basis": "source_declared",
+    "inputs": [
+      "volvo/cds-paymentservice-customer/b0010537cdd5/shape/cds-paymentservice-customer-shared-src-main-java-com-volvocars-ecom-paymentservice-customer-CustomerUpdatePayload",
+      "volvo/cds-paymentservice-customer/b0010537cdd5/entry/update-external",
+      "volvo/cds-paymentservice-customer/b0010537cdd5/gap/cross-field-update-validation",
+      "volvo/cds-paymentservice-customer/b0010537cdd5/gap/source-wire-closure",
+      "volvo/cds-paymentservice-customer/b0010537cdd5/gap/security-middleware"
+    ],
+    "assumptions": [
+      "Both PATCH customer request schemas; conditional field relation retained outside flat field optionality",
+      "This is a source declaration/association, not proof of effective wire acceptance or deployed policy"
+    ],
+    "evidence": [
+      "volvo/cds-paymentservice-customer/b0010537cdd5/e/3c5ebacbf3b0217a",
+      "volvo/cds-paymentservice-customer/b0010537cdd5/e/f78071f52c469e7b"
+    ]
+  },
+  {
+    "id": "volvo/cds-paymentservice-customer/b0010537cdd5/claim/response-declared-validation",
+    "kind": "claim",
+    "owner": "volvo/cds-paymentservice-customer/b0010537cdd5/entry/create",
+    "statement": "CustomerResponseDto declares @NotBlank on customerId/firstName/lastName, @NotEmpty on externalIdentifiers, @Email on email and @Valid nested declarations. These are response DTO source annotations; runtime output validation and the effective wrapper/serializer are not established.",
+    "basis": "source_declared",
+    "inputs": [
+      "volvo/cds-paymentservice-customer/b0010537cdd5/shape/cds-paymentservice-customer-shared-src-main-java-com-volvocars-ecom-paymentservice-customer-CustomerResponseDto",
+      "volvo/cds-paymentservice-customer/b0010537cdd5/gap/source-wire-closure",
+      "volvo/cds-paymentservice-customer/b0010537cdd5/gap/security-middleware"
+    ],
+    "assumptions": [
+      "Response-source DTO declarations; do not treat them as observed non-null/nonblank output guarantees",
+      "This is a source declaration/association, not proof of effective wire acceptance or deployed policy"
+    ],
+    "evidence": ["volvo/cds-paymentservice-customer/b0010537cdd5/e/bd0837978d903bc4"]
+  },
+  {
+    "id": "volvo/cds-paymentservice-customer/b0010537cdd5/claim/recurring-instrument-nonblank",
+    "kind": "claim",
+    "owner": "volvo/cds-paymentservice-customer/b0010537cdd5/entry/update-recurring",
+    "statement": "RecurringChargeUpdatePayload.paymentInstrumentId declares @NotBlank. Source nonblankness exceeds the native optional/nullable field flags.",
+    "basis": "source_declared",
+    "inputs": [
+      "volvo/cds-paymentservice-customer/b0010537cdd5/shape/cds-paymentservice-customer-shared-src-main-java-com-volvocars-ecom-paymentservice-recurringcharge-RecurringChargeUpdatePayload",
+      "volvo/cds-paymentservice-customer/b0010537cdd5/gap/source-wire-closure",
+      "volvo/cds-paymentservice-customer/b0010537cdd5/gap/security-middleware"
+    ],
+    "assumptions": [
+      "Recurring-charge PATCH request source representation",
+      "This is a source declaration/association, not proof of effective wire acceptance or deployed policy"
+    ],
+    "evidence": ["volvo/cds-paymentservice-customer/b0010537cdd5/e/19701997fa970a83"]
+  },
+  {
+    "id": "volvo/cds-paymentservice-customer/b0010537cdd5/claim/declared-indexes",
+    "kind": "claim",
+    "owner": "volvo/cds-paymentservice-customer/b0010537cdd5/entry/create",
+    "statement": "Source entities declare unique indexes for customerId, paymentInstrumentId, recurringChargeId and originalPaymentSessionId, while application.yml sets automatic Mongo index creation false. Installed database uniqueness/index state is not proven by these annotations.",
+    "basis": "source_declared",
+    "inputs": [
+      "volvo/cds-paymentservice-customer/b0010537cdd5/shape/cds-paymentservice-customer-core-src-main-java-com-volvocars-ecom-paymentservice-customer-CustomerEntity",
+      "volvo/cds-paymentservice-customer/b0010537cdd5/shape/cds-paymentservice-customer-core-src-main-java-com-volvocars-ecom-paymentservice-paymentinstrument-PaymentInstrumentEntity",
+      "volvo/cds-paymentservice-customer/b0010537cdd5/shape/cds-paymentservice-customer-core-src-main-java-com-volvocars-ecom-paymentservice-recurringcharge-RecurringChargeEntity",
+      "volvo/cds-paymentservice-customer/b0010537cdd5/gap/mongo-driver",
+      "volvo/cds-paymentservice-customer/b0010537cdd5/gap/runtime-configuration"
+    ],
+    "assumptions": [
+      "Source schema/index declarations only",
+      "This is a source declaration/association, not proof of effective wire acceptance or deployed policy"
+    ],
+    "evidence": [
+      "volvo/cds-paymentservice-customer/b0010537cdd5/e/7f92bfcbc492dc81",
+      "volvo/cds-paymentservice-customer/b0010537cdd5/e/2aece0b29cdef986",
+      "volvo/cds-paymentservice-customer/b0010537cdd5/e/42daf0d5b741ac4d",
+      "volvo/cds-paymentservice-customer/b0010537cdd5/e/662047e0d66d0aee"
+    ]
+  },
+  {
+    "id": "volvo/cds-paymentservice-customer/b0010537cdd5/claim/cache-association-create",
+    "kind": "claim",
+    "owner": "volvo/cds-paymentservice-customer/b0010537cdd5/entry/create",
+    "statement": "Controller has @Cacheable(idempotency-response-cache), resolver key from first payload argument, unless result == null, and @DistributedLock. Source CacheConfiguration applies configured/default TTL 86400s and GenericJackson2JsonRedisSerializer. Cache hit can bypass body; effective advisor order and physical Redis key/prefix/connection remain unresolved.",
+    "basis": "source_declared",
+    "inputs": [
+      "volvo/cds-paymentservice-customer/b0010537cdd5/op/controller-create.advice",
+      "volvo/cds-paymentservice-customer/b0010537cdd5/resource/idempotency-cache",
+      "volvo/cds-paymentservice-customer/b0010537cdd5/shape/cached-response",
+      "volvo/cds-paymentservice-customer/b0010537cdd5/gap/cache-lock-advice",
+      "volvo/cds-paymentservice-customer/b0010537cdd5/gap/runtime-configuration",
+      "volvo/cds-paymentservice-customer/b0010537cdd5/gap/source-wire-closure"
+    ],
+    "assumptions": [
+      "Source cache/lock association for create only; no exactly-once or atomic transaction guarantee",
+      "This is a source declaration/association, not proof of effective wire acceptance or deployed policy"
+    ],
+    "evidence": [
+      "volvo/cds-paymentservice-customer/b0010537cdd5/e/1173a40e0daad41a",
+      "volvo/cds-paymentservice-customer/b0010537cdd5/e/b0e67276f83a89b4",
+      "volvo/cds-paymentservice-customer/b0010537cdd5/e/7d163b1a0f2f0cde"
+    ]
+  },
+  {
+    "id": "volvo/cds-paymentservice-customer/b0010537cdd5/claim/cache-association-get-or-create",
+    "kind": "claim",
+    "owner": "volvo/cds-paymentservice-customer/b0010537cdd5/entry/get-or-create",
+    "statement": "Controller has @Cacheable(idempotency-response-cache), resolver key from first payload argument, unless result == null, and @DistributedLock. Source CacheConfiguration applies configured/default TTL 86400s and GenericJackson2JsonRedisSerializer. Cache hit can bypass body; effective advisor order and physical Redis key/prefix/connection remain unresolved.",
+    "basis": "source_declared",
+    "inputs": [
+      "volvo/cds-paymentservice-customer/b0010537cdd5/op/controller-get-or-create.advice",
+      "volvo/cds-paymentservice-customer/b0010537cdd5/resource/idempotency-cache",
+      "volvo/cds-paymentservice-customer/b0010537cdd5/shape/cached-response",
+      "volvo/cds-paymentservice-customer/b0010537cdd5/gap/cache-lock-advice",
+      "volvo/cds-paymentservice-customer/b0010537cdd5/gap/runtime-configuration",
+      "volvo/cds-paymentservice-customer/b0010537cdd5/gap/source-wire-closure"
+    ],
+    "assumptions": [
+      "Source cache/lock association for get-or-create only; no exactly-once or atomic transaction guarantee",
+      "This is a source declaration/association, not proof of effective wire acceptance or deployed policy"
+    ],
+    "evidence": [
+      "volvo/cds-paymentservice-customer/b0010537cdd5/e/1173a40e0daad41a",
+      "volvo/cds-paymentservice-customer/b0010537cdd5/e/b0e67276f83a89b4",
+      "volvo/cds-paymentservice-customer/b0010537cdd5/e/7d163b1a0f2f0cde"
+    ]
+  },
+  {
+    "id": "volvo/cds-paymentservice-customer/b0010537cdd5/claim/lock-options",
+    "kind": "claim",
+    "owner": "volvo/cds-paymentservice-customer/b0010537cdd5/entry/create",
+    "statement": "Source distributed-locking config declares engine redis, wait-time-ms 10000, lease-time-ms 40000 and fault-tolerant true. Create, guest-create and get-or-create methods carry @DistributedLock; the exact imported locker policy and cache advisor order are not established.",
+    "basis": "source_declared",
+    "inputs": [
+      "volvo/cds-paymentservice-customer/b0010537cdd5/entry/guest-create",
+      "volvo/cds-paymentservice-customer/b0010537cdd5/entry/get-or-create",
+      "volvo/cds-paymentservice-customer/b0010537cdd5/gap/cache-lock-advice",
+      "volvo/cds-paymentservice-customer/b0010537cdd5/gap/runtime-configuration"
+    ],
+    "assumptions": [
+      "Declared annotation/configuration association; engine name does not establish a separate deployed Redis instance",
+      "This is a source declaration/association, not proof of effective wire acceptance or deployed policy"
+    ],
+    "evidence": [
+      "volvo/cds-paymentservice-customer/b0010537cdd5/e/872ac223c1465c89",
+      "volvo/cds-paymentservice-customer/b0010537cdd5/e/6a747931c030b869"
+    ]
+  },
+  {
+    "id": "volvo/cds-paymentservice-customer/b0010537cdd5/claim/cache-loader-fallback",
+    "kind": "claim",
+    "owner": "volvo/cds-paymentservice-customer/b0010537cdd5/entry/create",
+    "statement": "FaultTolerantCache catches Redis runtime errors for get/put/evict/clear; get(key,Callable) catches RuntimeException and calls the supplied loader again, wrapping a later loader exception. Which overload the imported cache advisor invokes is unresolved, so this is a conditional re-invocation risk, not proof that a particular request executed twice.",
+    "basis": "source_declared",
+    "inputs": [
+      "volvo/cds-paymentservice-customer/b0010537cdd5/entry/get-or-create",
+      "volvo/cds-paymentservice-customer/b0010537cdd5/resource/idempotency-cache",
+      "volvo/cds-paymentservice-customer/b0010537cdd5/gap/cache-lock-advice"
+    ],
+    "assumptions": [
+      "Local cache wrapper behaviour; never a broker consumer or asynchronous handoff",
+      "This is a source declaration/association, not proof of effective wire acceptance or deployed policy"
+    ],
+    "evidence": ["volvo/cds-paymentservice-customer/b0010537cdd5/e/961acb09bab82395"]
+  },
+  {
+    "id": "volvo/cds-paymentservice-customer/b0010537cdd5/claim/cache-key-association",
+    "kind": "claim",
+    "owner": "volvo/cds-paymentservice-customer/b0010537cdd5/entry/create",
+    "statement": "RequestHashCacheKeyResolver sorts object properties/maps, serializes payload, joins method + newline + URI + newline + JSON, then Base64-encodes input.getBytes(). Missing request uses random UUID; serialization failure uses method/URI/payload.hashCode. Cache and lock expressions evaluate the resolver independently, so fallback keys need not match. This is the logical resolver value, not a verified full physical Redis key.",
+    "basis": "source_declared",
+    "inputs": [
+      "volvo/cds-paymentservice-customer/b0010537cdd5/shape/request-key",
+      "volvo/cds-paymentservice-customer/b0010537cdd5/resource/idempotency-cache",
+      "volvo/cds-paymentservice-customer/b0010537cdd5/gap/cache-lock-advice",
+      "volvo/cds-paymentservice-customer/b0010537cdd5/gap/source-wire-closure",
+      "volvo/cds-paymentservice-customer/b0010537cdd5/gap/runtime-configuration"
+    ],
+    "assumptions": [
+      "Source key-construction association; module/version/charset and physical cache-prefix enforcement remain bounded",
+      "This is a source declaration/association, not proof of effective wire acceptance or deployed policy"
+    ],
+    "evidence": ["volvo/cds-paymentservice-customer/b0010537cdd5/e/b07cd1659da7d4b2"]
+  }
+]

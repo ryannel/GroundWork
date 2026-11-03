@@ -1,0 +1,335 @@
+{
+  "repo": "volvo-cars/cce-policy-admin",
+  "commit": "88a3512f0307016b7b1dbcbc729c743fe83ed368",
+  "files": [
+    {
+      "path": ".gitignore",
+      "bytes": 559,
+      "sha256": "63a6bdc727e45c5811e6a6d664205d2a07948f03881839831c2fa92434509da2",
+      "lines": 32,
+      "unavailable": false
+    },
+    {
+      "path": "Makefile",
+      "bytes": 5163,
+      "sha256": "39696d34006125f0d4172bf5183b3f643ea3e8e2e290b77f357a0be6976c0de9",
+      "lines": 142,
+      "unavailable": false
+    },
+    {
+      "path": "README.md",
+      "bytes": 18,
+      "sha256": "79459e00e9d28439fbf543ea347140744f4ede3cbee505552ef234e11a4c6d09",
+      "lines": 1,
+      "unavailable": false
+    },
+    {
+      "path": "cmd/policy-admin/main.go",
+      "bytes": 122,
+      "sha256": "37ca1660db5c0e441e47d8a7d4f6fe1d0996762979d9cb7dbf2953b0b606bedb",
+      "lines": 9,
+      "unavailable": false
+    },
+    {
+      "path": "docker-compose.yaml",
+      "bytes": 1361,
+      "sha256": "553f088a163399090728772ad51ec399c9b038ce114fdffde295a59fca9f2a45",
+      "lines": 50,
+      "unavailable": false
+    },
+    {
+      "path": "go.mod",
+      "bytes": 2892,
+      "sha256": "f04e754627a25a644d5ab9122f218e8a54a206274827becc78eb6af23fc5b499",
+      "lines": 73,
+      "unavailable": false
+    },
+    {
+      "path": "go.sum",
+      "bytes": 23256,
+      "sha256": "0e7b72c49aa0f1b66a0c012f8e176c353471a6c6cc892d432fd7797e8f116295",
+      "lines": 254,
+      "unavailable": false
+    },
+    {
+      "path": "internal/api/httpserver/controller/controller.go",
+      "bytes": 913,
+      "sha256": "a6ff17646e567c9520482f6fd4400f11d2047ea69d0d1b3789ff51abdfe55558",
+      "lines": 44,
+      "unavailable": false
+    },
+    {
+      "path": "internal/api/httpserver/controller/convert.go",
+      "bytes": 6451,
+      "sha256": "035cea0e4941eb30be97152d8499197651c730e70c1f85c2d97580535c605860",
+      "lines": 243,
+      "unavailable": false
+    },
+    {
+      "path": "internal/api/httpserver/controller/model.go",
+      "bytes": 2294,
+      "sha256": "189da9feaf05d2443b2624e7245fea871dd11f598b8c18e4cb81adbd1c5bfcb4",
+      "lines": 82,
+      "unavailable": false
+    },
+    {
+      "path": "internal/api/httpserver/respond/error.go",
+      "bytes": 704,
+      "sha256": "9023980a89720aae32ffc9013a270fc5996c0164f0aedcf0e5160a2ce83a5c90",
+      "lines": 25,
+      "unavailable": false
+    },
+    {
+      "path": "internal/api/httpserver/respond/model.go",
+      "bytes": 1492,
+      "sha256": "fdc92176870213765cbc4e501eaa27a6e4485aae0113c62f3a34768126d3036f",
+      "lines": 60,
+      "unavailable": false
+    },
+    {
+      "path": "internal/api/httpserver/respond/respond.go",
+      "bytes": 1390,
+      "sha256": "62ca218f35bd539df21dc14aa8f8cfc57473d5285448396bdc11fd8b5fcf1a34",
+      "lines": 69,
+      "unavailable": false
+    },
+    {
+      "path": "internal/api/httpserver/routes.go",
+      "bytes": 2825,
+      "sha256": "62335ba6d2182eea64ab2084597f2e1df2c014a97dbc99bfe32fb5a7e0f69351",
+      "lines": 84,
+      "unavailable": false
+    },
+    {
+      "path": "internal/api/httpserver/server.go",
+      "bytes": 237,
+      "sha256": "d71c442dd034f9f8e4896fbb6863dee8710f28cd22ef5b8746ee6e5c4c44f521",
+      "lines": 14,
+      "unavailable": false
+    },
+    {
+      "path": "internal/app/app.go",
+      "bytes": 2655,
+      "sha256": "2c1df7c349b0e6e8b563fa2f896662bfce5b50fd104bf1b6f09175f5febfc5b7",
+      "lines": 124,
+      "unavailable": false
+    },
+    {
+      "path": "internal/app/commandhandlers.go",
+      "bytes": 379,
+      "sha256": "f4f39c6af7a4ed3bef488e4c9c546742d924051523386470181452ffa4b8f2df",
+      "lines": 15,
+      "unavailable": false
+    },
+    {
+      "path": "internal/app/config.go",
+      "bytes": 1173,
+      "sha256": "f2d0b630f9dad56a437f591ad9372b6323f75b75391f0e590052db240bb794e1",
+      "lines": 47,
+      "unavailable": false
+    },
+    {
+      "path": "internal/app/logging.go",
+      "bytes": 456,
+      "sha256": "e6a01c27ebf75f58448d00d8a3c0e484dfe16adb5ff9b161f7d2d8b02c5c3ee0",
+      "lines": 21,
+      "unavailable": false
+    },
+    {
+      "path": "internal/app/watermill.go",
+      "bytes": 6565,
+      "sha256": "985e20f8ae27e2d57bbbfab01fdfba0b159eb2e2502e229186939f5451c59b5a",
+      "lines": 244,
+      "unavailable": false
+    },
+    {
+      "path": "internal/command/carupdate.go",
+      "bytes": 16,
+      "sha256": "491ff53a147a4cb0f2e86c169f9ade7d784402858877253dd725181de326b43b",
+      "lines": 1,
+      "unavailable": false
+    },
+    {
+      "path": "internal/command/policyupdate.go",
+      "bytes": 3762,
+      "sha256": "70faa592544622f3aa8ba493aa46b09b6efc21d5a1a6998350f479608bdcf160",
+      "lines": 148,
+      "unavailable": false
+    },
+    {
+      "path": "internal/database/blobstorage/blobstorage.go",
+      "bytes": 7255,
+      "sha256": "d676e83bac04b21677fbe41f537dfaaa705866e6caead6bb3c6f4cdcac1c1aa5",
+      "lines": 293,
+      "unavailable": false
+    },
+    {
+      "path": "internal/database/inmemory/car_specs_110.json",
+      "bytes": 5917335,
+      "sha256": "92906798ff635b15cace8e81812cbfb15a8dbc7d0822538d1fe080d7d5b75aa3",
+      "lines": 1080,
+      "unavailable": false
+    },
+    {
+      "path": "internal/database/inmemory/inmemory.go",
+      "bytes": 562691,
+      "sha256": "d8a8aa79b0609c32fa5e4555dd2535c83528a20b8a41d6e19459ece603a4a539",
+      "lines": 17783,
+      "unavailable": false
+    },
+    {
+      "path": "internal/domain/carspecification.go",
+      "bytes": 4597,
+      "sha256": "62592f2f960bc3594db6cebdc9813ef415fa504d05f151d9b10150f355bf1042",
+      "lines": 130,
+      "unavailable": false
+    },
+    {
+      "path": "internal/domain/configrule.go",
+      "bytes": 11116,
+      "sha256": "3b3da97aa02b44686543ad9cf21ea2ea9fbcc1235ad4b926260b705aec990d4f",
+      "lines": 446,
+      "unavailable": false
+    },
+    {
+      "path": "internal/domain/configrule_test.go",
+      "bytes": 15,
+      "sha256": "20277d173f0daff513ee59eec0467237637433a46483fee4fbb8daf468e131e3",
+      "lines": 1,
+      "unavailable": false
+    },
+    {
+      "path": "internal/domain/event.go",
+      "bytes": 120,
+      "sha256": "af96b1c595e4c99c3f156511f9b56624703b9077942119b22d9e733ad268ee30",
+      "lines": 8,
+      "unavailable": false
+    },
+    {
+      "path": "internal/domain/old.go",
+      "bytes": 7654,
+      "sha256": "8ab4a4974dc66e34bd83a4961de8f9f9af80025c4f9c21f8fe933a0be9c86068",
+      "lines": 241,
+      "unavailable": false
+    },
+    {
+      "path": "internal/domain/policy.go",
+      "bytes": 2574,
+      "sha256": "faad167a9837537a50e61c3ebd493a109ade56d7c992aad7c4d0553beb823ced",
+      "lines": 103,
+      "unavailable": false
+    },
+    {
+      "path": "internal/domain/policy_test.go",
+      "bytes": 2043,
+      "sha256": "8213570c648b8fa5fd100b2570d8e0df7e54a6f01243fd9ea49d8a561dfe5b7d",
+      "lines": 64,
+      "unavailable": false
+    },
+    {
+      "path": "internal/messaging/contracts/bto_car.proto",
+      "bytes": 528,
+      "sha256": "60fbafb1384691f1b9da86ce7f1fe6b7a94354c1c07bc3a75a7e0473b6910bb7",
+      "lines": 30,
+      "unavailable": false
+    },
+    {
+      "path": "internal/messaging/contracts/car-configuration.proto",
+      "bytes": 751,
+      "sha256": "f9187a00334938fd142826090e08bdd2a412d7b3ef3a75145ca703516df2872b",
+      "lines": 34,
+      "unavailable": false
+    },
+    {
+      "path": "internal/messaging/contracts/carconfiguration/component.pb.go",
+      "bytes": 18484,
+      "sha256": "228d9fcd62f5b07057d7dde1edc2d07bc3dc506dc1011930e70bed73f5c42d07",
+      "lines": 481,
+      "unavailable": false
+    },
+    {
+      "path": "internal/messaging/contracts/carconfiguration/condition.pb.go",
+      "bytes": 11935,
+      "sha256": "af4d3c2906e4e47b803c9392cb8f6189f087c47a27e837dbd2f83b3bf93bf193",
+      "lines": 307,
+      "unavailable": false
+    },
+    {
+      "path": "internal/messaging/contracts/carconfiguration/config-policy.pb.go",
+      "bytes": 56616,
+      "sha256": "aabb520c76b6ef01c23075a9b69ef4b43f23e25f6cd78ac0d2d54303d2a388b6",
+      "lines": 1435,
+      "unavailable": false
+    },
+    {
+      "path": "internal/messaging/contracts/carconfiguration/config-rules.pb.go",
+      "bytes": 34087,
+      "sha256": "30819df3681b227e48e8b5a82f7402d0c197940a92f93f4b4a1d5820ef9495bb",
+      "lines": 864,
+      "unavailable": false
+    },
+    {
+      "path": "internal/messaging/contracts/carconfiguration/consequence.pb.go",
+      "bytes": 15299,
+      "sha256": "09ac38407a64aeb43264ee4c2ab73e21a630b2ad0e44e98f6e5bb0d470679e97",
+      "lines": 406,
+      "unavailable": false
+    },
+    {
+      "path": "internal/messaging/contracts/cce/bto_car.pb.go",
+      "bytes": 13208,
+      "sha256": "ec9a163aa5224300f9e8c35f1c8eed13a95a04e93a92a0480daf603da331650d",
+      "lines": 378,
+      "unavailable": false
+    },
+    {
+      "path": "internal/messaging/contracts/cce/car-configuration.pb.go",
+      "bytes": 16484,
+      "sha256": "a3989e5d72a13b7abe30aafa21d8e9985b4178385f4b4face54278f5e55fde02",
+      "lines": 459,
+      "unavailable": false
+    },
+    {
+      "path": "internal/messaging/contracts/cce/car-sync.pb.go",
+      "bytes": 7356,
+      "sha256": "fb5ce5094a1168f6ecf981b06d0ce1d27e000e149651f927cc56b01e1aa89ac3",
+      "lines": 231,
+      "unavailable": false
+    },
+    {
+      "path": "internal/messaging/event.go",
+      "bytes": 445,
+      "sha256": "494cbb8449123658fd1aa1d9e0330670ae8970cf3cc17e0cd46725a12be7bd75",
+      "lines": 15,
+      "unavailable": false
+    },
+    {
+      "path": "internal/messaging/handler.go",
+      "bytes": 18,
+      "sha256": "8a0ef094558650d12144bd4e410ba26375a591470a553469ae7a01891241bc89",
+      "lines": 1,
+      "unavailable": false
+    },
+    {
+      "path": "internal/messaging/policypublisher.go",
+      "bytes": 1789,
+      "sha256": "2b314e6775ab8d1a623bf4548a037a4d2c9e8231bcdb37062cf3e522aa460fc6",
+      "lines": 72,
+      "unavailable": false
+    },
+    {
+      "path": "internal/observability/logging/logger.go",
+      "bytes": 941,
+      "sha256": "6e89675a3cd86ea95825b72aee212ae4264a4dd8b1364372eb962a1811c4fec9",
+      "lines": 34,
+      "unavailable": false
+    },
+    {
+      "path": "migrate_mongodb_to_postgres.py",
+      "bytes": 7511,
+      "sha256": "1731bfa3c7553ea13871c9b71777f78be8a9e47aa3e3c8f487fcf6807dc7abeb",
+      "lines": 225,
+      "unavailable": false
+    }
+  ]
+}

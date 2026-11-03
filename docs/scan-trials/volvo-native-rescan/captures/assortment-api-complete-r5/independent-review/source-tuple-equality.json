@@ -1,0 +1,8 @@
+{
+  "old": "assortment-api-complete/bundle.complete-03.json",
+  "new": "assortment-api-complete/bundle.complete-05.json",
+  "sourceTuplesEqual": true,
+  "oldCount": 7127,
+  "newCount": 7127,
+  "interpretation": "Exact evidence source tuples compared; prior independent pinned verification applies only when equality holds"
+}

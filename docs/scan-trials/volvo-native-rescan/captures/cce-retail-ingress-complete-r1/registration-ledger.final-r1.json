@@ -1,0 +1,115 @@
+[
+  {
+    "path": "/notifyPartner",
+    "method": "ANY",
+    "sourceMethodArgument": "http.MethodPost (unused by Handle)",
+    "entry": "volvo/cce-retail-ingress/95d091aa445f/final-r1/entry/rest/298f83610511c3a2a1f7",
+    "profiles": [
+      "volvo/cce-retail-ingress/95d091aa445f/final-r1/implementation/3de3098085988a817aa4",
+      "volvo/cce-retail-ingress/95d091aa445f/final-r1/implementation/8ffdab663772f68af968"
+    ],
+    "registeredWrapper": "volvo/cce-retail-ingress/95d091aa445f/final-r1/implementation/d9f0bc205613a4cb9919"
+  },
+  {
+    "path": "/republish-all-partners",
+    "method": "ANY",
+    "sourceMethodArgument": "http.MethodPost (unused by Handle)",
+    "entry": "volvo/cce-retail-ingress/95d091aa445f/final-r1/entry/rest/987b43bdaff100aee2e0",
+    "profiles": [
+      "volvo/cce-retail-ingress/95d091aa445f/final-r1/implementation/0e2676720c8bc09bd4b3",
+      "volvo/cce-retail-ingress/95d091aa445f/final-r1/implementation/76c659ff6ef5c50fc883"
+    ],
+    "registeredWrapper": "volvo/cce-retail-ingress/95d091aa445f/final-r1/implementation/69c1e23c9a9085b51b0e"
+  },
+  {
+    "entry": "volvo/cce-retail-ingress/95d091aa445f/final-r1/entry/main",
+    "path": "source:cmd/cce-retail-ingress/main.go:main",
+    "source": "github.com/volvo-cars/cce-retail-ingress/cmd/cce-retail-ingress#main()->()",
+    "trigger": "process",
+    "classification": "actual source registration or Go startup declaration; process reachability remains separate"
+  },
+  {
+    "entry": "volvo/cce-retail-ingress/95d091aa445f/final-r1/entry/health",
+    "path": "/health",
+    "source": "github.com/volvo-cars/cce-retail-ingress/internal/restapi#API.healthCheck(http.ResponseWriter,*http.Request)->()",
+    "trigger": "rest",
+    "classification": "actual source registration or Go startup declaration; process reachability remains separate"
+  },
+  {
+    "entry": "volvo/cce-retail-ingress/95d091aa445f/final-r1/entry/republish-worker",
+    "path": "source:republish:detached-goroutine",
+    "source": "github.com/volvo-cars/cce-retail-ingress/internal/restapi#API.loadAllRetailData(context.Context,http.ResponseWriter,*http.Request)->(error)$closure@5515",
+    "trigger": "callback",
+    "classification": "actual source registration or Go startup declaration; process reachability remains separate"
+  },
+  {
+    "entry": "volvo/cce-retail-ingress/95d091aa445f/final-r1/entry/startup/51c2dbde224e2d9b821f",
+    "path": "source:github.com/volvo-cars/cce-retail-ingress/internal/protobuf/pb#init()->()@internal/protobuf/pb/partnerDetailsFeed.pb.go:14101",
+    "source": "github.com/volvo-cars/cce-retail-ingress/internal/protobuf/pb#init()->()@internal/protobuf/pb/partnerDetailsFeed.pb.go:14101",
+    "trigger": "startup",
+    "classification": "actual source registration or Go startup declaration; process reachability remains separate"
+  },
+  {
+    "entry": "volvo/cce-retail-ingress/95d091aa445f/final-r1/entry/startup/26f1bba22e822237b847",
+    "path": "source:github.com/volvo-cars/cce-retail-ingress/internal/protobuf/pb#init()->()@internal/protobuf/pb/partnerNotify.pb.go:11934",
+    "source": "github.com/volvo-cars/cce-retail-ingress/internal/protobuf/pb#init()->()@internal/protobuf/pb/partnerNotify.pb.go:11934",
+    "trigger": "startup",
+    "classification": "actual source registration or Go startup declaration; process reachability remains separate"
+  },
+  {
+    "entry": "volvo/cce-retail-ingress/95d091aa445f/final-r1/entry/startup/a03c543f39f9d6fcf5bf",
+    "path": "source:github.com/volvo-cars/cce-retail-ingress/internal/gateway/rdmclient#package-var@internal/gateway/rdmclient/partnerdatamodel.go:84",
+    "source": "github.com/volvo-cars/cce-retail-ingress/internal/gateway/rdmclient#package-var@internal/gateway/rdmclient/partnerdatamodel.go:84",
+    "trigger": "startup",
+    "classification": "actual source registration or Go startup declaration; process reachability remains separate"
+  },
+  {
+    "entry": "volvo/cce-retail-ingress/95d091aa445f/final-r1/entry/startup/519f25d0e53a379ec536",
+    "path": "source:github.com/volvo-cars/cce-retail-ingress/internal/gateway/rdmclient#package-var@internal/gateway/rdmclient/partnersdatamodel.go:23",
+    "source": "github.com/volvo-cars/cce-retail-ingress/internal/gateway/rdmclient#package-var@internal/gateway/rdmclient/partnersdatamodel.go:23",
+    "trigger": "startup",
+    "classification": "actual source registration or Go startup declaration; process reachability remains separate"
+  },
+  {
+    "entry": "volvo/cce-retail-ingress/95d091aa445f/final-r1/entry/startup/c759bee1cb347249398d",
+    "path": "source:github.com/volvo-cars/cce-retail-ingress/internal/messaging#package-var@internal/messaging/setup.go:240",
+    "source": "github.com/volvo-cars/cce-retail-ingress/internal/messaging#package-var@internal/messaging/setup.go:240",
+    "trigger": "startup",
+    "classification": "actual source registration or Go startup declaration; process reachability remains separate"
+  },
+  {
+    "source": "github.com/volvo-cars/cce-retail-ingress/events/carconfiguration#init()->()@events/carconfiguration/component.pb.go:13091",
+    "implementation": "volvo/cce-retail-ingress/95d091aa445f/final-r1/implementation/9e9517b0f4c755fe8df1",
+    "trigger": "startup",
+    "entry": null,
+    "classification": "excluded active startup: package events/carconfiguration is not imported by the executable source graph; generated init body remains reviewed/queryable"
+  },
+  {
+    "source": "github.com/volvo-cars/cce-retail-ingress/events/carconfiguration#init()->()@events/carconfiguration/condition.pb.go:10540",
+    "implementation": "volvo/cce-retail-ingress/95d091aa445f/final-r1/implementation/95e8abf51f855748fbca",
+    "trigger": "startup",
+    "entry": null,
+    "classification": "excluded active startup: package events/carconfiguration is not imported by the executable source graph; generated init body remains reviewed/queryable"
+  },
+  {
+    "source": "github.com/volvo-cars/cce-retail-ingress/events/carconfiguration#init()->()@events/carconfiguration/config-policy.pb.go:24589",
+    "implementation": "volvo/cce-retail-ingress/95d091aa445f/final-r1/implementation/5502ca4261d42a6a1b8e",
+    "trigger": "startup",
+    "entry": null,
+    "classification": "excluded active startup: package events/carconfiguration is not imported by the executable source graph; generated init body remains reviewed/queryable"
+  },
+  {
+    "source": "github.com/volvo-cars/cce-retail-ingress/events/carconfiguration#init()->()@events/carconfiguration/config-rules.pb.go:19529",
+    "implementation": "volvo/cce-retail-ingress/95d091aa445f/final-r1/implementation/44ac871a4057f89656bc",
+    "trigger": "startup",
+    "entry": null,
+    "classification": "excluded active startup: package events/carconfiguration is not imported by the executable source graph; generated init body remains reviewed/queryable"
+  },
+  {
+    "source": "github.com/volvo-cars/cce-retail-ingress/events/carconfiguration#init()->()@events/carconfiguration/consequence.pb.go:13009",
+    "implementation": "volvo/cce-retail-ingress/95d091aa445f/final-r1/implementation/2dab2380fb87dafd4e0c",
+    "trigger": "startup",
+    "entry": null,
+    "classification": "excluded active startup: package events/carconfiguration is not imported by the executable source graph; generated init body remains reviewed/queryable"
+  }
+]

@@ -1,0 +1,116 @@
+{
+  "repo": "volvo-cars/cce-car-spec-adapter",
+  "commit": "667a00a5f96fdb8b9aad35e0afe80dc792cbc1b5",
+  "status": "Independent pinned-source and strict bounded query review passed; limits retained",
+  "files": [
+    {
+      "path": "internal/app/app.go",
+      "lines": 204,
+      "sha256": "d94bfb83eeae6bc48a3873fde78c0ab6a09766ae22c8ec4ebcbf4639ed17871d",
+      "review": "Entire pinned source independently read by root; checked against accepted capture and bounded query evidence"
+    },
+    {
+      "path": "internal/app/appmigration.go",
+      "lines": 48,
+      "sha256": "36910f62e40fd30256299ebccb634efee907ad02e3ce3bae1c268bb181151b7c",
+      "review": "Entire pinned source independently read by root; checked against accepted capture and bounded query evidence"
+    },
+    {
+      "path": "internal/app/kafka.go",
+      "lines": 87,
+      "sha256": "fcdd0a57cd9dc3f2a64abd3b643d92f190ee2f90c978a7dd40efb8d27fb6f069",
+      "review": "Entire pinned source independently read by root; checked against accepted capture and bounded query evidence"
+    },
+    {
+      "path": "internal/api/httpserver/routes.go",
+      "lines": 82,
+      "sha256": "80e512277c46be38da8ce41a3f42c1c19bb4b1e91f720178aa215dcad9b1a2d1",
+      "review": "Entire pinned source independently read by root; checked against accepted capture and bounded query evidence"
+    },
+    {
+      "path": "internal/api/httpserver/carspecifications/controller.go",
+      "lines": 340,
+      "sha256": "f43b61d11c19ca09786a6fe8af04347362edc16a7bef601523c4a4cca1aa950e",
+      "review": "Entire pinned source independently read by root; checked against accepted capture and bounded query evidence"
+    },
+    {
+      "path": "internal/api/httpserver/localeditions/controller.go",
+      "lines": 284,
+      "sha256": "d29620855452acedf4d1a6252630ac0d22cb2a6b8856b2df8e77fcb54b8f0e62",
+      "review": "Entire pinned source independently read by root; checked against accepted capture and bounded query evidence"
+    },
+    {
+      "path": "internal/service/localeditionservice.go",
+      "lines": 103,
+      "sha256": "8c7bc057130cdc2759a7e8845da5c7ee774e4d424a474b9652850081e3f07621",
+      "review": "Entire pinned source independently read by root; checked against accepted capture and bounded query evidence"
+    },
+    {
+      "path": "internal/service/carspecsyncer.go",
+      "lines": 668,
+      "sha256": "830fac2b2c696c5477c11e9d7c6e06b2c5805e3d62e178c03f9fbbfeb5928595",
+      "review": "Entire pinned source independently read by root; checked against accepted capture and bounded query evidence"
+    },
+    {
+      "path": "internal/service/featurecodefetcher.go",
+      "lines": 118,
+      "sha256": "dd344a72dd63ed443e11199c159e69861a5f6f8c1bcb1392051f9c835529f09b",
+      "review": "Entire pinned source independently read by root; checked against accepted capture and bounded query evidence"
+    },
+    {
+      "path": "internal/messaging/setup.go",
+      "lines": 70,
+      "sha256": "40da32822b7af749d6eada90706da5106ab6ad860efe3443a46e858610482b7d",
+      "review": "Entire pinned source independently read by root; checked against accepted capture and bounded query evidence"
+    },
+    {
+      "path": "internal/messaging/publisher.go",
+      "lines": 148,
+      "sha256": "c7c06fea32e728b320b5313c4f5775046ca4aece0837bda147ecf2ab4944ab56",
+      "review": "Entire pinned source independently read by root; checked against accepted capture and bounded query evidence"
+    },
+    {
+      "path": "internal/messaging/consumer.go",
+      "lines": 210,
+      "sha256": "08840e9433cb5ed36234f8b3269a38638f4b37bb302ee641a4fdd9e89b638dfc",
+      "review": "Entire pinned source independently read by root; checked against accepted capture and bounded query evidence"
+    },
+    {
+      "path": "internal/messaging/marketauthmessagehandler.go",
+      "lines": 201,
+      "sha256": "cd3af3c0e2a100ec9fbc5f53e0f7c7f8652d611240b711dbefeb623d2b50617b",
+      "review": "Entire pinned source independently read by root; checked against accepted capture and bounded query evidence"
+    },
+    {
+      "path": "internal/database/postgres/localeditionrepository.go",
+      "lines": 320,
+      "sha256": "b011d4dcbb38eb8b99caddc1640297239821dca73b7860e17bd2ef60a9967edc",
+      "review": "Entire pinned source independently read by root; checked against accepted capture and bounded query evidence"
+    },
+    {
+      "path": "internal/database/postgres/carspecrepository.go",
+      "lines": 268,
+      "sha256": "26d463b2b789169406e08a174e9b193f3aa72539a43af9d6803f71b8b05a5f4d",
+      "review": "Entire pinned source independently read by root; checked against accepted capture and bounded query evidence"
+    },
+    {
+      "path": "internal/database/postgres/migrations/000001_add_car_specification_table.up.sql",
+      "lines": 11,
+      "sha256": "8eef65bc44641906dad1d146f874692acfc2ef9ba84ebc9c08c1bef4282a42c4",
+      "review": "Entire pinned source independently read by root; checked against accepted capture and bounded query evidence"
+    },
+    {
+      "path": "internal/database/postgres/migrations/000002_rename_local_trim_edition_code_column.up.sql",
+      "lines": 5,
+      "sha256": "9e1aaac94520712bd775a8b615eea69d8abf4fe4f8d59fe57566bc908689bff6",
+      "review": "Entire pinned source independently read by root; checked against accepted capture and bounded query evidence"
+    },
+    {
+      "path": "internal/database/postgres/migrations/000003_add_local_editions_table.up.sql",
+      "lines": 10,
+      "sha256": "aa01008fde89693c725241bda8c8c0c5297544151e066ea2201d4452d7278ca3",
+      "review": "Entire pinned source independently read by root; checked against accepted capture and bounded query evidence"
+    }
+  ],
+  "snapshot": "31585b5be35778f319c8edc78ed346af9eba722bbd9e09a0e819d25ba3eeb1d1"
+}

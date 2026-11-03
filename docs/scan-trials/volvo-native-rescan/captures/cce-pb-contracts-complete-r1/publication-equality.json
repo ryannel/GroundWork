@@ -1,0 +1,7 @@
+{
+  "status": "passed",
+  "snapshot": "9d5411b64c10e530e8307fb8c6dc9f0c1b3b76151a769f6f94a1c746385d08c5",
+  "sourceBundleByteSha256": "ce55ef0527ac31f57a90d3c6b551e9700a595404a305b7793f7b815a57199551",
+  "gzipDecompression": "Exactly equal sealed selected bytes",
+  "sourceSeal": "independent-review/seal-verification.json"
+}

@@ -1,0 +1,9 @@
+# PRINS validator independent source notes
+
+Batch Fx app, no HTTP server/store/broker. OnStart starts validation goroutine and returns nil; child calls ValidateMultipleCars(Background), prints error then Shutdown. Source active validation set is polestar_110/policy40f0.../type814/modelYear2025; commented sets do not run. PolicyID overrides policy used for later components/generation, but start states use SpecMarketPolicy. Source spec-market parsing and carType→dictcode mapping apply before remote requests.
+
+Wheel/start/PRINS/standard-wheel fetch errors propagate out of validateSetOfCars. Each of the two comparison-method errors is printed then swallowed; final nil does not establish matching configurations or absence of remote errors inside comparisons. Missing start/components mark failure and continue. PRINS matching and generator requests are separate conditional source paths.
+
+Filter GET /wheelComponents; facade POST /v3/generate-configurations uses limit10000 and policyId plus marshalled body, GET /v3/policies/<policy>/start-states, GET /v2/components uses policyUid/pno12Name, POST /v2/stateFromConfig uses selectionStrategy=allSelected. Generic local HTTP wrapper is not another service. Facade status must be200–299; GenerateCombinations Pagination.Next!=0 warns and returns empty value with nil error, no pagination. Decoder uses &response interface; imported mutation/codec details stay unresolved.
+
+PRINS GraphQL sets configDictionaryName/offset0/limit10000/specMarket/modelYearstring and Authorization AppKey+configured value. nil, zero rows and exactly10000 rows error, with no next-page request. NewHTTPClient copies default client fields then timeout is1200s. RequestBuilder.Build applies WithContext before checking NewRequest error; source can dereference nil first. Header map and query maps are reference-valued inside copied builder structs. No source-known SDK return proves delivery, physical network count or durable state.

@@ -1,0 +1,11 @@
+
+> groundwork@0.0.0 knowledge:validate
+> node --import ./tools/register.ts --conditions=react-server tools/validate-knowledge.ts reports/volvo-native-rescan/cce-cpam-ingress-complete/bundle.final-r5.json --snapshot reports/volvo-native-rescan/cce-cpam-ingress-complete/snapshot.final-r5.json
+
+{
+  "snapshot": "9273eddda4c5fff911958b4a6b82143b69d166f1a50b66279bb19755660f27aa",
+  "bundles": 1,
+  "records": 160947,
+  "sourceRangesChecked": 0,
+  "sourceVerification": "not_requested"
+}

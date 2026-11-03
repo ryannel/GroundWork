@@ -1,0 +1,32 @@
+[
+  {
+    "path": "go.mod",
+    "claim": "caas-car-configurator-5495209-complete-r2/claim/configuration/33ef32bf6c23acb9",
+    "evidence": ["caas-car-configurator-5495209-complete-r2/evidence/65d4cf25ddfb465b"]
+  },
+  {
+    "path": "Dockerfile",
+    "claim": "caas-car-configurator-5495209-complete-r2/claim/configuration/dd2c0eb6ea5cfc6c",
+    "evidence": ["caas-car-configurator-5495209-complete-r2/evidence/c063d9c9869d0f86"]
+  },
+  {
+    "path": ".secrets.example",
+    "claim": "caas-car-configurator-5495209-complete-r2/claim/configuration/6ec99e8369a0c8f5",
+    "evidence": ["caas-car-configurator-5495209-complete-r2/evidence/3ed4d3df87499d72"]
+  },
+  {
+    "path": "docker-compose.yml",
+    "claim": "caas-car-configurator-5495209-complete-r2/claim/configuration/e45e45baeda1c1e7",
+    "evidence": ["caas-car-configurator-5495209-complete-r2/evidence/1e9345de4beb54d4"]
+  },
+  {
+    "path": ".github/workflows/deploy.yaml",
+    "claim": "caas-car-configurator-5495209-complete-r2/claim/configuration/4f9e38227ed64fef",
+    "evidence": ["caas-car-configurator-5495209-complete-r2/evidence/a48c6e700473c20a"]
+  },
+  {
+    "path": "README.md",
+    "claim": "caas-car-configurator-5495209-complete-r2/claim/configuration/b335630551682c19",
+    "evidence": ["caas-car-configurator-5495209-complete-r2/evidence/440025aaa7d0bda8"]
+  }
+]

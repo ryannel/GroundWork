@@ -1,0 +1,214 @@
+[
+  {
+    "write": "cce-car-spec-adapter-667a00a-complete-r1/storage_write/195d43ee416eb77c",
+    "sql": "\n\t\tDELETE FROM car_specifications\n\t\tWHERE pno12 = $1\n\t\tAND spec_market = $2\n\t\tAND model_year = $3\n\t\tAND local_edition_code = $4\n\t\t",
+    "fields": [
+      ["pno12", "cce-car-spec-adapter-667a00a-complete-r1/value/6e57e80d25b7adbe/v/24975"],
+      ["spec_market", "cce-car-spec-adapter-667a00a-complete-r1/value/6e57e80d25b7adbe/v/24991"],
+      ["model_year", "cce-car-spec-adapter-667a00a-complete-r1/value/6e57e80d25b7adbe/v/25007"],
+      [
+        "local_edition_code",
+        "cce-car-spec-adapter-667a00a-complete-r1/value/6e57e80d25b7adbe/v/25023"
+      ]
+    ],
+    "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/6e57e80d25b7adbe",
+    "path": "internal/database/postgres/carspecrepository.go",
+    "lines": [153, 153],
+    "source": "r.pool.Exec(ctx, sqlQuery, args...)",
+    "operation": "cce-car-spec-adapter-667a00a-complete-r1/operation/6e57e80d25b7adbe/n/18",
+    "receiver": "cce-car-spec-adapter-667a00a-complete-r1/value/6e57e80d25b7adbe/v/25041",
+    "arguments": [
+      "cce-car-spec-adapter-667a00a-complete-r1/value/6e57e80d25b7adbe/p/0",
+      "cce-car-spec-adapter-667a00a-complete-r1/value/6e57e80d25b7adbe/v/24959",
+      "cce-car-spec-adapter-667a00a-complete-r1/value/6e57e80d25b7adbe/v/25036"
+    ],
+    "result": "cce-car-spec-adapter-667a00a-complete-r1/value/6e57e80d25b7adbe/v/25046",
+    "target": "cce-car-spec-adapter-667a00a-complete-r1/runtime_component/postgres",
+    "resultTypes": [],
+    "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/call-operands/195d43ee416eb77c",
+    "interaction": "cce-car-spec-adapter-667a00a-complete-r1/interaction/io/195d43ee416eb77c/api",
+    "effect": "cce-car-spec-adapter-667a00a-complete-r1/effect/io/195d43ee416eb77c",
+    "contract": "cce-car-spec-adapter-667a00a-complete-r1/interface_contract/caller/195d43ee416eb77c",
+    "resource": "cce-car-spec-adapter-667a00a-complete-r1/resource/postgres/carspec",
+    "host": "api",
+    "gap": "cce-car-spec-adapter-667a00a-complete-r1/gap/io/195d43ee416eb77c"
+  },
+  {
+    "write": "cce-car-spec-adapter-667a00a-complete-r1/storage_write/78968309efc96e50",
+    "sql": "\n\t\tINSERT INTO car_specifications (\n\t\t\tid,\n\t\t\tpno12,\n\t\t\tspec_market,\n\t\t\tmodel_year,\n\t\t\tlocal_edition_code,\n\t\t\tcar_specification\n\t\t) VALUES ($1, $2, $3, $4, $5, $6)\n\t",
+    "fields": [
+      ["id", "cce-car-spec-adapter-667a00a-complete-r1/value/210e5dcaf355ef72/v/25188"],
+      ["pno12", "cce-car-spec-adapter-667a00a-complete-r1/value/210e5dcaf355ef72/v/25214"],
+      ["spec_market", "cce-car-spec-adapter-667a00a-complete-r1/value/210e5dcaf355ef72/v/25230"],
+      ["model_year", "cce-car-spec-adapter-667a00a-complete-r1/value/210e5dcaf355ef72/v/25246"],
+      [
+        "local_edition_code",
+        "cce-car-spec-adapter-667a00a-complete-r1/value/210e5dcaf355ef72/v/25262"
+      ],
+      [
+        "car_specification",
+        "cce-car-spec-adapter-667a00a-complete-r1/value/210e5dcaf355ef72/v/25198"
+      ]
+    ],
+    "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/210e5dcaf355ef72",
+    "path": "internal/database/postgres/carspecrepository.go",
+    "lines": [203, 203],
+    "source": "tx.Exec(ctx, sqlQuery, args...)",
+    "operation": "cce-car-spec-adapter-667a00a-complete-r1/operation/210e5dcaf355ef72/n/22",
+    "receiver": "cce-car-spec-adapter-667a00a-complete-r1/value/210e5dcaf355ef72/p/1",
+    "arguments": [
+      "cce-car-spec-adapter-667a00a-complete-r1/value/210e5dcaf355ef72/p/0",
+      "cce-car-spec-adapter-667a00a-complete-r1/value/210e5dcaf355ef72/v/25173",
+      "cce-car-spec-adapter-667a00a-complete-r1/value/210e5dcaf355ef72/v/25277"
+    ],
+    "result": "cce-car-spec-adapter-667a00a-complete-r1/value/210e5dcaf355ef72/v/25283",
+    "target": "cce-car-spec-adapter-667a00a-complete-r1/runtime_component/postgres",
+    "resultTypes": [],
+    "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/call-operands/78968309efc96e50",
+    "interaction": "cce-car-spec-adapter-667a00a-complete-r1/interaction/io/78968309efc96e50/api",
+    "effect": "cce-car-spec-adapter-667a00a-complete-r1/effect/io/78968309efc96e50",
+    "contract": "cce-car-spec-adapter-667a00a-complete-r1/interface_contract/caller/78968309efc96e50",
+    "resource": "cce-car-spec-adapter-667a00a-complete-r1/resource/postgres/carspec",
+    "host": "api",
+    "gap": "cce-car-spec-adapter-667a00a-complete-r1/gap/io/78968309efc96e50"
+  },
+  {
+    "write": "cce-car-spec-adapter-667a00a-complete-r1/storage_write/60eec3e194435978",
+    "sql": "\n\t\tUPDATE car_specifications\n\t\tSET car_specification = $2\n\t\tWHERE id = $1\n\t\t",
+    "fields": [
+      [
+        "car_specification",
+        "cce-car-spec-adapter-667a00a-complete-r1/value/0d7cb1fb8955361d/v/25342"
+      ],
+      ["id", "cce-car-spec-adapter-667a00a-complete-r1/value/0d7cb1fb8955361d/p/2"]
+    ],
+    "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/0d7cb1fb8955361d",
+    "path": "internal/database/postgres/carspecrepository.go",
+    "lines": [225, 225],
+    "source": "tx.Exec(ctx, sqlQuery, id, dbCarSpec)",
+    "operation": "cce-car-spec-adapter-667a00a-complete-r1/operation/0d7cb1fb8955361d/n/5",
+    "receiver": "cce-car-spec-adapter-667a00a-complete-r1/value/0d7cb1fb8955361d/p/1",
+    "arguments": [
+      "cce-car-spec-adapter-667a00a-complete-r1/value/0d7cb1fb8955361d/p/0",
+      "cce-car-spec-adapter-667a00a-complete-r1/value/0d7cb1fb8955361d/v/25332",
+      "cce-car-spec-adapter-667a00a-complete-r1/value/0d7cb1fb8955361d/p/2",
+      "cce-car-spec-adapter-667a00a-complete-r1/value/0d7cb1fb8955361d/v/25342"
+    ],
+    "result": "cce-car-spec-adapter-667a00a-complete-r1/value/0d7cb1fb8955361d/v/25348",
+    "target": "cce-car-spec-adapter-667a00a-complete-r1/runtime_component/postgres",
+    "resultTypes": [],
+    "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/call-operands/60eec3e194435978",
+    "interaction": "cce-car-spec-adapter-667a00a-complete-r1/interaction/io/60eec3e194435978/api",
+    "effect": "cce-car-spec-adapter-667a00a-complete-r1/effect/io/60eec3e194435978",
+    "contract": "cce-car-spec-adapter-667a00a-complete-r1/interface_contract/caller/60eec3e194435978",
+    "resource": "cce-car-spec-adapter-667a00a-complete-r1/resource/postgres/carspec",
+    "host": "api",
+    "gap": "cce-car-spec-adapter-667a00a-complete-r1/gap/io/60eec3e194435978"
+  },
+  {
+    "write": "cce-car-spec-adapter-667a00a-complete-r1/storage_write/337d264d8f38ee29",
+    "sql": "\n\t\tDELETE FROM local_editions\n\t\tWHERE spec_market = $1\n\t\tAND model_year = $2\n\t\tAND pno12 = $3\n\t\t",
+    "fields": [
+      ["spec_market", "cce-car-spec-adapter-667a00a-complete-r1/value/5e710976bd503228/v/26420"],
+      ["model_year", "cce-car-spec-adapter-667a00a-complete-r1/value/5e710976bd503228/v/26431"],
+      ["pno12", "cce-car-spec-adapter-667a00a-complete-r1/value/5e710976bd503228/v/26442"]
+    ],
+    "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/5e710976bd503228",
+    "path": "internal/database/postgres/localeditionrepository.go",
+    "lines": [156, 160],
+    "source": "r.pool.Exec(ctx, sqlQuery,\n\t\tkey.SpecMarket().String(),\n\t\tkey.ModelYear().Int(),\n\t\tkey.Pno12().String(),\n\t)",
+    "operation": "cce-car-spec-adapter-667a00a-complete-r1/operation/5e710976bd503228/n/10",
+    "receiver": "cce-car-spec-adapter-667a00a-complete-r1/value/5e710976bd503228/v/26409",
+    "arguments": [
+      "cce-car-spec-adapter-667a00a-complete-r1/value/5e710976bd503228/p/0",
+      "cce-car-spec-adapter-667a00a-complete-r1/value/5e710976bd503228/v/26404",
+      "cce-car-spec-adapter-667a00a-complete-r1/value/5e710976bd503228/v/26420",
+      "cce-car-spec-adapter-667a00a-complete-r1/value/5e710976bd503228/v/26431",
+      "cce-car-spec-adapter-667a00a-complete-r1/value/5e710976bd503228/v/26442"
+    ],
+    "result": "cce-car-spec-adapter-667a00a-complete-r1/value/5e710976bd503228/v/26448",
+    "target": "cce-car-spec-adapter-667a00a-complete-r1/runtime_component/postgres",
+    "resultTypes": [],
+    "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/call-operands/337d264d8f38ee29",
+    "interaction": "cce-car-spec-adapter-667a00a-complete-r1/interaction/io/337d264d8f38ee29/api",
+    "effect": "cce-car-spec-adapter-667a00a-complete-r1/effect/io/337d264d8f38ee29",
+    "contract": "cce-car-spec-adapter-667a00a-complete-r1/interface_contract/caller/337d264d8f38ee29",
+    "resource": "cce-car-spec-adapter-667a00a-complete-r1/resource/postgres/localedition",
+    "host": "api",
+    "gap": "cce-car-spec-adapter-667a00a-complete-r1/gap/io/337d264d8f38ee29"
+  },
+  {
+    "write": "cce-car-spec-adapter-667a00a-complete-r1/storage_write/6492b8850e3b294c",
+    "sql": "\n\t\tINSERT INTO local_editions (\n\t\t\tmodel_year,\n\t\t\tpno12,\n\t\t\tspec_market,\n\t\t\tlocal_edition_code\n\t\t)\n\t\tVALUES ($1, $2, $3, $4)\n\t",
+    "fields": [
+      ["model_year", "cce-car-spec-adapter-667a00a-complete-r1/value/21f7ed311d490d74/v/26792"],
+      ["pno12", "cce-car-spec-adapter-667a00a-complete-r1/value/21f7ed311d490d74/v/26803"],
+      ["spec_market", "cce-car-spec-adapter-667a00a-complete-r1/value/21f7ed311d490d74/v/26814"],
+      [
+        "local_edition_code",
+        "cce-car-spec-adapter-667a00a-complete-r1/value/21f7ed311d490d74/v/26825"
+      ]
+    ],
+    "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/21f7ed311d490d74",
+    "path": "internal/database/postgres/localeditionrepository.go",
+    "lines": [234, 239],
+    "source": "tx.Exec(ctx, sqlQuery,\n\t\tlocalEdition.ModelYear().Int(),\n\t\tlocalEdition.Pno12().String(),\n\t\tlocalEdition.SpecMarket().String(),\n\t\tlocalEdition.LocalEditionCode().String(),\n\t)",
+    "operation": "cce-car-spec-adapter-667a00a-complete-r1/operation/21f7ed311d490d74/n/11",
+    "receiver": "cce-car-spec-adapter-667a00a-complete-r1/value/21f7ed311d490d74/p/1",
+    "arguments": [
+      "cce-car-spec-adapter-667a00a-complete-r1/value/21f7ed311d490d74/p/0",
+      "cce-car-spec-adapter-667a00a-complete-r1/value/21f7ed311d490d74/v/26781",
+      "cce-car-spec-adapter-667a00a-complete-r1/value/21f7ed311d490d74/v/26792",
+      "cce-car-spec-adapter-667a00a-complete-r1/value/21f7ed311d490d74/v/26803",
+      "cce-car-spec-adapter-667a00a-complete-r1/value/21f7ed311d490d74/v/26814",
+      "cce-car-spec-adapter-667a00a-complete-r1/value/21f7ed311d490d74/v/26825"
+    ],
+    "result": "cce-car-spec-adapter-667a00a-complete-r1/value/21f7ed311d490d74/v/26831",
+    "target": "cce-car-spec-adapter-667a00a-complete-r1/runtime_component/postgres",
+    "resultTypes": [],
+    "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/call-operands/6492b8850e3b294c",
+    "interaction": "cce-car-spec-adapter-667a00a-complete-r1/interaction/io/6492b8850e3b294c/api",
+    "effect": "cce-car-spec-adapter-667a00a-complete-r1/effect/io/6492b8850e3b294c",
+    "contract": "cce-car-spec-adapter-667a00a-complete-r1/interface_contract/caller/6492b8850e3b294c",
+    "resource": "cce-car-spec-adapter-667a00a-complete-r1/resource/postgres/localedition",
+    "host": "api",
+    "gap": "cce-car-spec-adapter-667a00a-complete-r1/gap/io/6492b8850e3b294c"
+  },
+  {
+    "write": "cce-car-spec-adapter-667a00a-complete-r1/storage_write/286a726cc45dfd1c",
+    "sql": "\n\t\tUPDATE local_editions\n\t\tSET local_edition_code = $4\n\t\tWHERE spec_market  = $1\n\t\t  AND model_year = $2\n\t\t  AND pno12 = $3\n\t",
+    "fields": [
+      [
+        "local_edition_code",
+        "cce-car-spec-adapter-667a00a-complete-r1/value/2b01eedefe814710/v/26924"
+      ],
+      ["spec_market", "cce-car-spec-adapter-667a00a-complete-r1/value/2b01eedefe814710/v/26891"],
+      ["model_year", "cce-car-spec-adapter-667a00a-complete-r1/value/2b01eedefe814710/v/26902"],
+      ["pno12", "cce-car-spec-adapter-667a00a-complete-r1/value/2b01eedefe814710/v/26913"]
+    ],
+    "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/2b01eedefe814710",
+    "path": "internal/database/postgres/localeditionrepository.go",
+    "lines": [256, 261],
+    "source": "tx.Exec(ctx, sqlQuery,\n\t\tlocalEdition.SpecMarket().String(),\n\t\tlocalEdition.ModelYear().Int(),\n\t\tlocalEdition.Pno12().String(),\n\t\tlocalEdition.LocalEditionCode().String(),\n\t)",
+    "operation": "cce-car-spec-adapter-667a00a-complete-r1/operation/2b01eedefe814710/n/11",
+    "receiver": "cce-car-spec-adapter-667a00a-complete-r1/value/2b01eedefe814710/p/1",
+    "arguments": [
+      "cce-car-spec-adapter-667a00a-complete-r1/value/2b01eedefe814710/p/0",
+      "cce-car-spec-adapter-667a00a-complete-r1/value/2b01eedefe814710/v/26880",
+      "cce-car-spec-adapter-667a00a-complete-r1/value/2b01eedefe814710/v/26891",
+      "cce-car-spec-adapter-667a00a-complete-r1/value/2b01eedefe814710/v/26902",
+      "cce-car-spec-adapter-667a00a-complete-r1/value/2b01eedefe814710/v/26913",
+      "cce-car-spec-adapter-667a00a-complete-r1/value/2b01eedefe814710/v/26924"
+    ],
+    "result": "cce-car-spec-adapter-667a00a-complete-r1/value/2b01eedefe814710/v/26930",
+    "target": "cce-car-spec-adapter-667a00a-complete-r1/runtime_component/postgres",
+    "resultTypes": [],
+    "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/call-operands/286a726cc45dfd1c",
+    "interaction": "cce-car-spec-adapter-667a00a-complete-r1/interaction/io/286a726cc45dfd1c/api",
+    "effect": "cce-car-spec-adapter-667a00a-complete-r1/effect/io/286a726cc45dfd1c",
+    "contract": "cce-car-spec-adapter-667a00a-complete-r1/interface_contract/caller/286a726cc45dfd1c",
+    "resource": "cce-car-spec-adapter-667a00a-complete-r1/resource/postgres/localedition",
+    "host": "api",
+    "gap": "cce-car-spec-adapter-667a00a-complete-r1/gap/io/286a726cc45dfd1c"
+  }
+]

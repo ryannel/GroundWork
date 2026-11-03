@@ -1,0 +1,104 @@
+{
+  "repo": "volvo-cars/caas-car-configurator",
+  "commit": "5495209c1485f7098f666ad066a44ccc140a4fb9",
+  "status": "Original16full-file pinned source review retained; independent26strict query replay passed on minimal r2 successor",
+  "files": [
+    {
+      "path": "internal/api/grpcserver/methods.go",
+      "lines": 267,
+      "sha256": "e23c564bdcad285ad6bf53121b1ae6714db9769a58f9291e289ea49df3d0b81c",
+      "review": "Entire pinned file independently read by root; source and bounded query review passed"
+    },
+    {
+      "path": "internal/api/grpcserver/server.go",
+      "lines": 142,
+      "sha256": "e7efcdd6126b65e7a3382025c47b245e94af7d49511e8edf07e8331050394718",
+      "review": "Entire pinned file independently read by root; source and bounded query review passed"
+    },
+    {
+      "path": "internal/api/grpcserver/interceptors/error.go",
+      "lines": 67,
+      "sha256": "166baaa3c0e94686c5ae81579f509392fa5f6158e4effb6b4b0664ceebc75a79",
+      "review": "Entire pinned file independently read by root; source and bounded query review passed"
+    },
+    {
+      "path": "internal/api/grpcserver/interceptors/auth.go",
+      "lines": 74,
+      "sha256": "9c1a78ab8f40f931dc32d0574b43a88c5e11f5308d201cba623129150f38177c",
+      "review": "Entire pinned file independently read by root; source and bounded query review passed"
+    },
+    {
+      "path": "internal/api/grpcserver/interceptors/operation_id.go",
+      "lines": 59,
+      "sha256": "0ebb8dca13a47199cb23d0fd025e0976a2d6b750f342b0b55fd36cec2d07f01c",
+      "review": "Entire pinned file independently read by root; source and bounded query review passed"
+    },
+    {
+      "path": "internal/api/grpcserver/protobufs/service.proto",
+      "lines": 129,
+      "sha256": "11ca614a67bec85a066c7f28ab65a79501c654a0bebdf8124744a671e6275aea",
+      "review": "Entire pinned file independently read by root; source and bounded query review passed"
+    },
+    {
+      "path": "internal/database/postgres/repository.go",
+      "lines": 181,
+      "sha256": "8a8585a7b8ca2fd0078b1ef3b56f8325ceee51d6d0abf658a1df439e6fbfa0a1",
+      "review": "Entire pinned file independently read by root; source and bounded query review passed"
+    },
+    {
+      "path": "internal/database/postgres/rollback.go",
+      "lines": 15,
+      "sha256": "64820e57463c6ae6ab6676765d00269703234c51c1430126ef95d81e18f4cea0",
+      "review": "Entire pinned file independently read by root; source and bounded query review passed"
+    },
+    {
+      "path": "internal/domain/usecase/ruleset_creator.go",
+      "lines": 55,
+      "sha256": "7893de3315c98a0f5cd53249fd306de95bac9c91479659250c0c22147025fbe6",
+      "review": "Entire pinned file independently read by root; source and bounded query review passed"
+    },
+    {
+      "path": "internal/database/postgres/convert_stored.go",
+      "lines": 856,
+      "sha256": "fbbaef105ff7f150608718eb51116974f10a1b24090a884dbecfbdd6a9d0c4b0",
+      "review": "Entire pinned file independently read by root; source and bounded query review passed"
+    },
+    {
+      "path": "internal/database/postgres/models.go",
+      "lines": 231,
+      "sha256": "8fe1a1557288df979a0d7cc220cfe4b7392fb6137e5725ebb207300a35f604c5",
+      "review": "Entire pinned file independently read by root; source and bounded query review passed"
+    },
+    {
+      "path": "internal/database/postgres/migrator.go",
+      "lines": 59,
+      "sha256": "7673ff45ddb2ba5323a926b150fbf2f5603d48c178f581a3a1ea6cfdf72c5fdc",
+      "review": "Entire pinned file independently read by root; source and bounded query review passed"
+    },
+    {
+      "path": "internal/database/postgres/migrations/000001_create_car_rulesets_table.up.sql",
+      "lines": 10,
+      "sha256": "bb7a31b77433fff7781f5d6d1adacc16418ab2b0f9e3573b6efb2ad1e2da6c67",
+      "review": "Entire pinned file independently read by root; source and bounded query review passed"
+    },
+    {
+      "path": "internal/database/postgres/migrations/000002_update_ruleset_compression.up.sql",
+      "lines": 2,
+      "sha256": "f0faa29a272d100a98b4b8ae67fbc6c901b6a193e48461b50cbe7353f6044d54",
+      "review": "Entire pinned file independently read by root; source and bounded query review passed"
+    },
+    {
+      "path": "internal/database/postgres/migrations/000003_ruleset_client_id.up.sql",
+      "lines": 2,
+      "sha256": "dbaa727abe55ff0a3c79bd671509806c12a3482305fba62d28e305edad68eac6",
+      "review": "Entire pinned file independently read by root; source and bounded query review passed"
+    },
+    {
+      "path": "internal/app/sentry.go",
+      "lines": 111,
+      "sha256": "0c97b3c1e70d9d2fa8638a733b05974dcb19ccd6a7a4d4acf97876b1a77d8c2d",
+      "review": "Entire pinned file independently read by root; source and bounded query review passed"
+    }
+  ],
+  "snapshot": "73731576937e6406a98aa6e365638fd7a95248c5f5e1491b32d06e880e66eaaf"
+}

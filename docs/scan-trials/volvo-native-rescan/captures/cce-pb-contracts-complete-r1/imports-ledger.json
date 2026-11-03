@@ -1,0 +1,114 @@
+[
+  {
+    "path": "volvocars/contracts/carconfiguration/condition.proto",
+    "importName": "component.proto",
+    "localPath": "volvocars/contracts/carconfiguration/component.proto",
+    "status": "local",
+    "gap": null
+  },
+  {
+    "path": "volvocars/contracts/carconfiguration/config-policy.proto",
+    "importName": "config-rules.proto",
+    "localPath": "volvocars/contracts/carconfiguration/config-rules.proto",
+    "status": "local",
+    "gap": null
+  },
+  {
+    "path": "volvocars/contracts/carconfiguration/config-policy.proto",
+    "importName": "component.proto",
+    "localPath": "volvocars/contracts/carconfiguration/component.proto",
+    "status": "local",
+    "gap": null
+  },
+  {
+    "path": "volvocars/contracts/carconfiguration/config-rules.proto",
+    "importName": "condition.proto",
+    "localPath": "volvocars/contracts/carconfiguration/condition.proto",
+    "status": "local",
+    "gap": null
+  },
+  {
+    "path": "volvocars/contracts/carconfiguration/config-rules.proto",
+    "importName": "consequence.proto",
+    "localPath": "volvocars/contracts/carconfiguration/consequence.proto",
+    "status": "local",
+    "gap": null
+  },
+  {
+    "path": "volvocars/contracts/carconfiguration/config-rules.proto",
+    "importName": "google/protobuf/timestamp.proto",
+    "localPath": null,
+    "status": "external source absent",
+    "gap": "volvo/cce-pb-contracts-car-configuration/72cbaedcad24/local-r1/gap/external-timestamp"
+  },
+  {
+    "path": "volvocars/contracts/carconfiguration/consequence.proto",
+    "importName": "component.proto",
+    "localPath": "volvocars/contracts/carconfiguration/component.proto",
+    "status": "local",
+    "gap": null
+  },
+  {
+    "path": "volvocars/contracts/carconfiguration/cpam-ingress.proto",
+    "importName": "google/protobuf/timestamp.proto",
+    "localPath": null,
+    "status": "external source absent",
+    "gap": "volvo/cce-pb-contracts-car-configuration/72cbaedcad24/local-r1/gap/external-timestamp"
+  },
+  {
+    "path": "volvocars/contracts/carconfiguration/cpam-ingress.proto",
+    "importName": "component.proto",
+    "localPath": "volvocars/contracts/carconfiguration/component.proto",
+    "status": "local",
+    "gap": null
+  },
+  {
+    "path": "volvocars/contracts/carconfiguration/cpam-ingress.proto",
+    "importName": "market-auth-identifier.proto",
+    "localPath": "volvocars/contracts/carconfiguration/market-auth-identifier.proto",
+    "status": "local",
+    "gap": null
+  },
+  {
+    "path": "volvocars/contracts/carconfiguration/v2/car-configuration-ruleset.proto",
+    "importName": "car-key.proto",
+    "localPath": "volvocars/contracts/carconfiguration/v2/car-key.proto",
+    "status": "local",
+    "gap": null
+  },
+  {
+    "path": "volvocars/contracts/carconfiguration/v2/car-configuration-ruleset.proto",
+    "importName": "google/protobuf/timestamp.proto",
+    "localPath": null,
+    "status": "external source absent",
+    "gap": "volvo/cce-pb-contracts-car-configuration/72cbaedcad24/local-r1/gap/external-timestamp"
+  },
+  {
+    "path": "volvocars/contracts/carconfiguration/v2/car-key.proto",
+    "importName": "structure-week.proto",
+    "localPath": "volvocars/contracts/carconfiguration/v2/structure-week.proto",
+    "status": "local",
+    "gap": null
+  },
+  {
+    "path": "volvocars/contracts/carconfiguration/v2/car-specification.proto",
+    "importName": "car-key.proto",
+    "localPath": "volvocars/contracts/carconfiguration/v2/car-key.proto",
+    "status": "local",
+    "gap": null
+  },
+  {
+    "path": "volvocars/contracts/carconfiguration/v2/car-specification.proto",
+    "importName": "structure-week.proto",
+    "localPath": "volvocars/contracts/carconfiguration/v2/structure-week.proto",
+    "status": "local",
+    "gap": null
+  },
+  {
+    "path": "volvocars/contracts/carconfiguration/v2/components.proto",
+    "importName": "car-key.proto",
+    "localPath": "volvocars/contracts/carconfiguration/v2/car-key.proto",
+    "status": "local",
+    "gap": null
+  }
+]

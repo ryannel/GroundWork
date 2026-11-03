@@ -1,0 +1,65 @@
+[
+  {
+    "entry": "cce-car-spec-adapter-667a00a-complete-r1/entry/rest/carspecifications/Sync",
+    "contract": "cce-car-spec-adapter-667a00a-complete-r1/interface_contract/rest/carspecifications/Sync",
+    "implementation": "cce-car-spec-adapter-667a00a-complete-r1/implementation/2fa46faad38b5a28",
+    "host": "api",
+    "path": "/private/car-specifications/sync",
+    "method": "POST",
+    "name": "Sync"
+  },
+  {
+    "entry": "cce-car-spec-adapter-667a00a-complete-r1/entry/rest/carspecifications/Baseline",
+    "contract": "cce-car-spec-adapter-667a00a-complete-r1/interface_contract/rest/carspecifications/Baseline",
+    "implementation": "cce-car-spec-adapter-667a00a-complete-r1/implementation/c7917c39e66c7fb8",
+    "host": "api",
+    "path": "/private/car-specifications/baseline",
+    "method": "POST",
+    "name": "Baseline"
+  },
+  {
+    "entry": "cce-car-spec-adapter-667a00a-complete-r1/entry/rest/carspecifications/GetCarSpecifications",
+    "contract": "cce-car-spec-adapter-667a00a-complete-r1/interface_contract/rest/carspecifications/GetCarSpecifications",
+    "implementation": "cce-car-spec-adapter-667a00a-complete-r1/implementation/1dd056919db5fe9b",
+    "host": "api",
+    "path": "/v1/car-specifications",
+    "method": "GET",
+    "name": "GetCarSpecifications"
+  },
+  {
+    "entry": "cce-car-spec-adapter-667a00a-complete-r1/entry/rest/localeditions/List",
+    "contract": "cce-car-spec-adapter-667a00a-complete-r1/interface_contract/rest/localeditions/List",
+    "implementation": "cce-car-spec-adapter-667a00a-complete-r1/implementation/5c8b2c35af5b3dfd",
+    "host": "api",
+    "path": "/v1/local-editions",
+    "method": "GET",
+    "name": "List"
+  },
+  {
+    "entry": "cce-car-spec-adapter-667a00a-complete-r1/entry/rest/localeditions/GetLocalEditionCode",
+    "contract": "cce-car-spec-adapter-667a00a-complete-r1/interface_contract/rest/localeditions/GetLocalEditionCode",
+    "implementation": "cce-car-spec-adapter-667a00a-complete-r1/implementation/be234bc08f979420",
+    "host": "api",
+    "path": "/v1/local-edition-code",
+    "method": "GET",
+    "name": "GetLocalEditionCode"
+  },
+  {
+    "entry": "cce-car-spec-adapter-667a00a-complete-r1/entry/rest/localeditions/Upsert",
+    "contract": "cce-car-spec-adapter-667a00a-complete-r1/interface_contract/rest/localeditions/Upsert",
+    "implementation": "cce-car-spec-adapter-667a00a-complete-r1/implementation/e8264b747c2fd051",
+    "host": "api",
+    "path": "/v1/local-editions",
+    "method": "PUT",
+    "name": "Upsert"
+  },
+  {
+    "entry": "cce-car-spec-adapter-667a00a-complete-r1/entry/rest/localeditions/Delete",
+    "contract": "cce-car-spec-adapter-667a00a-complete-r1/interface_contract/rest/localeditions/Delete",
+    "implementation": "cce-car-spec-adapter-667a00a-complete-r1/implementation/7e88eb15cecdb28f",
+    "host": "api",
+    "path": "/v1/local-editions",
+    "method": "DELETE",
+    "name": "Delete"
+  }
+]

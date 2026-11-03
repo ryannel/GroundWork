@@ -1,0 +1,1058 @@
+[
+  {
+    "operation": "cce-car-spec-adapter-667a00a-complete-r1/operation/1dd056919db5fe9b/n/15",
+    "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/1dd056919db5fe9b",
+    "callSource": "c.carSpecificationFetcher.GetCarSpecification(ctx, carQuery)",
+    "signature": {
+      "path": "internal/api/httpserver/carspecifications/controller.go",
+      "lines": [16, 19],
+      "source": "(\n\t\tctx context.Context,\n\t\tcarQuery domain.CarQuery,\n\t) (domain.CarSpecification, error)",
+      "parameterCount": 2,
+      "variadic": false,
+      "returnKind": "value"
+    },
+    "result": "cce-car-spec-adapter-667a00a-complete-r1/value/1dd056919db5fe9b/v/13797",
+    "boundImplementation": "cce-car-spec-adapter-667a00a-complete-r1/implementation/8a14e165dd684403",
+    "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/local-signature/6bca35b5626eb2fa"
+  },
+  {
+    "operation": "cce-car-spec-adapter-667a00a-complete-r1/operation/c8d7d5edb2e12ee7/n/7",
+    "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/c8d7d5edb2e12ee7",
+    "callSource": "c.carSpecificationSyncer.Sync(ctxSync, carModelQuery)",
+    "signature": {
+      "path": "internal/api/httpserver/carspecifications/controller.go",
+      "lines": [23, 23],
+      "source": "(ctx context.Context, carModelQuery domain.CarModelQuery) error",
+      "parameterCount": 2,
+      "variadic": false,
+      "returnKind": "value"
+    },
+    "result": "cce-car-spec-adapter-667a00a-complete-r1/value/c8d7d5edb2e12ee7/v/14019",
+    "boundImplementation": "cce-car-spec-adapter-667a00a-complete-r1/implementation/897c419036367651",
+    "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/local-signature/fc40c66e1940b890"
+  },
+  {
+    "operation": "cce-car-spec-adapter-667a00a-complete-r1/operation/70e2725b43369a6d/n/7",
+    "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/70e2725b43369a6d",
+    "callSource": "c.carSpecificationSyncer.Baseline(newCtx, cmd)",
+    "signature": {
+      "path": "internal/api/httpserver/carspecifications/controller.go",
+      "lines": [24, 24],
+      "source": "(ctx context.Context, cmd domain.BaselineCommand) error",
+      "parameterCount": 2,
+      "variadic": false,
+      "returnKind": "value"
+    },
+    "result": "cce-car-spec-adapter-667a00a-complete-r1/value/70e2725b43369a6d/v/14619",
+    "boundImplementation": "cce-car-spec-adapter-667a00a-complete-r1/implementation/f96af8b5abfccdcc",
+    "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/local-signature/c7ce62c7e4609d86"
+  },
+  {
+    "operation": "cce-car-spec-adapter-667a00a-complete-r1/operation/5c8b2c35af5b3dfd/n/15",
+    "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/5c8b2c35af5b3dfd",
+    "callSource": "c.localEditionFetcher.List(ctx, filter)",
+    "signature": {
+      "path": "internal/api/httpserver/localeditions/controller.go",
+      "lines": [28, 31],
+      "source": "(\n\t\tctx context.Context,\n\t\tfilter domain.LocalEditionFilter,\n\t) ([]domain.LocalEdition, error)",
+      "parameterCount": 2,
+      "variadic": false,
+      "returnKind": "value"
+    },
+    "result": "cce-car-spec-adapter-667a00a-complete-r1/value/5c8b2c35af5b3dfd/v/17943",
+    "boundImplementation": "cce-car-spec-adapter-667a00a-complete-r1/implementation/e69f427d49f9e1e3",
+    "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/local-signature/d24f874298c79b95"
+  },
+  {
+    "operation": "cce-car-spec-adapter-667a00a-complete-r1/operation/be234bc08f979420/n/15",
+    "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/be234bc08f979420",
+    "callSource": "c.localEditionFetcher.Get(ctx, localEditionKey)",
+    "signature": {
+      "path": "internal/api/httpserver/localeditions/controller.go",
+      "lines": [32, 35],
+      "source": "(\n\t\tctx context.Context,\n\t\tkey domain.LocalEditionKey,\n\t) (domain.LocalEdition, error)",
+      "parameterCount": 2,
+      "variadic": false,
+      "returnKind": "value"
+    },
+    "result": "cce-car-spec-adapter-667a00a-complete-r1/value/be234bc08f979420/v/18068",
+    "boundImplementation": "cce-car-spec-adapter-667a00a-complete-r1/implementation/a1c763c21b2234d2",
+    "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/local-signature/3a2af21d7477ca46"
+  },
+  {
+    "operation": "cce-car-spec-adapter-667a00a-complete-r1/operation/e8264b747c2fd051/n/37",
+    "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/e8264b747c2fd051",
+    "callSource": "c.localEditionUpdater.Upsert(ctx, localEdition, skipValidation)",
+    "signature": {
+      "path": "internal/api/httpserver/localeditions/controller.go",
+      "lines": [16, 20],
+      "source": "(\n\t\tctx context.Context,\n\t\tlocalEdition domain.LocalEdition,\n\t\tskipValidation bool,\n\t) error",
+      "parameterCount": 3,
+      "variadic": false,
+      "returnKind": "value"
+    },
+    "result": "cce-car-spec-adapter-667a00a-complete-r1/value/e8264b747c2fd051/v/18322",
+    "boundImplementation": "cce-car-spec-adapter-667a00a-complete-r1/implementation/51cb703c37954187",
+    "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/local-signature/0885db3f487d1596"
+  },
+  {
+    "operation": "cce-car-spec-adapter-667a00a-complete-r1/operation/7e88eb15cecdb28f/n/15",
+    "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/7e88eb15cecdb28f",
+    "callSource": "c.localEditionUpdater.Delete(ctx, key)",
+    "signature": {
+      "path": "internal/api/httpserver/localeditions/controller.go",
+      "lines": [21, 24],
+      "source": "(\n\t\tctx context.Context,\n\t\tkey domain.LocalEditionKey,\n\t) error",
+      "parameterCount": 2,
+      "variadic": false,
+      "returnKind": "value"
+    },
+    "result": "cce-car-spec-adapter-667a00a-complete-r1/value/7e88eb15cecdb28f/v/18440",
+    "boundImplementation": "cce-car-spec-adapter-667a00a-complete-r1/implementation/29f625e814271bf5",
+    "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/local-signature/ee5caf288c40f122"
+  },
+  {
+    "operation": "cce-car-spec-adapter-667a00a-complete-r1/operation/ecba0abc40dd852c/n/11",
+    "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/ecba0abc40dd852c",
+    "callSource": "logger.Errorw(r.Context(), \"Panic\", err)",
+    "signature": {
+      "path": "internal/api/httpserver/middleware/logger.go",
+      "lines": [6, 6],
+      "source": "(ctx context.Context, msg string, err error, keysAndValues ...any)",
+      "parameterCount": 4,
+      "variadic": true,
+      "returnKind": "void"
+    },
+    "result": null,
+    "boundImplementation": null,
+    "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/local-signature/e10136d73917e1d5"
+  },
+  {
+    "operation": "cce-car-spec-adapter-667a00a-complete-r1/operation/b6974f96ad4fdf8d/n/12",
+    "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/b6974f96ad4fdf8d",
+    "callSource": "sentry.CaptureMessage(entry.Message)",
+    "signature": {
+      "path": "internal/app/sentry.go",
+      "lines": [33, 33],
+      "source": "(message string)",
+      "parameterCount": 1,
+      "variadic": false,
+      "returnKind": "void"
+    },
+    "result": null,
+    "boundImplementation": null,
+    "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/local-signature/c4bd4b1fdfd88ddf"
+  },
+  {
+    "operation": "cce-car-spec-adapter-667a00a-complete-r1/operation/f116987745268ac2/n/5",
+    "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/f116987745268ac2",
+    "callSource": "c.flushFunc()",
+    "signature": {
+      "path": "internal/messaging/telemetry.go",
+      "lines": [50, 50],
+      "source": "func()",
+      "parameterCount": 0,
+      "variadic": false,
+      "returnKind": "void"
+    },
+    "result": null,
+    "boundImplementation": null,
+    "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/local-signature/e9c1c4799f457809"
+  },
+  {
+    "operation": "cce-car-spec-adapter-667a00a-complete-r1/operation/318f8700b88dc581/n/1",
+    "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/318f8700b88dc581",
+    "callSource": "client.Init()",
+    "signature": {
+      "path": "internal/app/sentry.go",
+      "lines": [31, 31],
+      "source": "() error",
+      "parameterCount": 0,
+      "variadic": false,
+      "returnKind": "value"
+    },
+    "result": "cce-car-spec-adapter-667a00a-complete-r1/value/318f8700b88dc581/v/23710",
+    "boundImplementation": null,
+    "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/local-signature/e5bd13526f84fc41"
+  },
+  {
+    "operation": "cce-car-spec-adapter-667a00a-complete-r1/operation/edbe5917971ba375/n/1",
+    "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/edbe5917971ba375",
+    "callSource": "client.Close()",
+    "signature": {
+      "path": "internal/app/sentry.go",
+      "lines": [32, 32],
+      "source": "()",
+      "parameterCount": 0,
+      "variadic": false,
+      "returnKind": "void"
+    },
+    "result": null,
+    "boundImplementation": null,
+    "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/local-signature/91e3c9c67185cf7e"
+  },
+  {
+    "operation": "cce-car-spec-adapter-667a00a-complete-r1/operation/4660b62b1b20f91f/n/27",
+    "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/4660b62b1b20f91f",
+    "callSource": "shutdownMetrics(ctx)",
+    "signature": {
+      "path": "internal/observability/telemetry/providers.go",
+      "lines": [36, 36],
+      "source": "func(context.Context) error",
+      "parameterCount": 1,
+      "variadic": false,
+      "returnKind": "value"
+    },
+    "result": "cce-car-spec-adapter-667a00a-complete-r1/value/4660b62b1b20f91f/v/24065",
+    "boundImplementation": null,
+    "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/local-signature/c15eb21be42eac8a"
+  },
+  {
+    "operation": "cce-car-spec-adapter-667a00a-complete-r1/operation/4298d495ac26947d/n/2",
+    "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/4298d495ac26947d",
+    "callSource": "shutdown(ctx)",
+    "signature": {
+      "path": "internal/observability/telemetry/providers.go",
+      "lines": [36, 36],
+      "source": "func(context.Context) error",
+      "parameterCount": 1,
+      "variadic": false,
+      "returnKind": "value"
+    },
+    "result": "cce-car-spec-adapter-667a00a-complete-r1/value/4298d495ac26947d/v/24280",
+    "boundImplementation": null,
+    "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/local-signature/864cf709389a24b9"
+  },
+  {
+    "operation": "cce-car-spec-adapter-667a00a-complete-r1/operation/9cd368cfdae23f7d/n/1",
+    "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/9cd368cfdae23f7d",
+    "callSource": "a.Code()",
+    "signature": {
+      "path": "internal/domain/carspecificationchange.go",
+      "lines": [280, 280],
+      "source": "() string",
+      "parameterCount": 0,
+      "variadic": false,
+      "returnKind": "value"
+    },
+    "result": "cce-car-spec-adapter-667a00a-complete-r1/value/9cd368cfdae23f7d/v/36366",
+    "boundImplementation": null,
+    "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/local-signature/66be3bec34879e28"
+  },
+  {
+    "operation": "cce-car-spec-adapter-667a00a-complete-r1/operation/9cd368cfdae23f7d/n/2",
+    "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/9cd368cfdae23f7d",
+    "callSource": "b.Code()",
+    "signature": {
+      "path": "internal/domain/carspecificationchange.go",
+      "lines": [280, 280],
+      "source": "() string",
+      "parameterCount": 0,
+      "variadic": false,
+      "returnKind": "value"
+    },
+    "result": "cce-car-spec-adapter-667a00a-complete-r1/value/9cd368cfdae23f7d/v/36373",
+    "boundImplementation": null,
+    "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/local-signature/a19ee5b2c6741868"
+  },
+  {
+    "operation": "cce-car-spec-adapter-667a00a-complete-r1/operation/f34d615b6d8d04f2/n/1",
+    "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/f34d615b6d8d04f2",
+    "callSource": "a.Codes()",
+    "signature": {
+      "path": "internal/domain/carspecificationchange.go",
+      "lines": [288, 288],
+      "source": "() []string",
+      "parameterCount": 0,
+      "variadic": false,
+      "returnKind": "value"
+    },
+    "result": "cce-car-spec-adapter-667a00a-complete-r1/value/f34d615b6d8d04f2/v/36387",
+    "boundImplementation": null,
+    "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/local-signature/c5f47626fdc5e940"
+  },
+  {
+    "operation": "cce-car-spec-adapter-667a00a-complete-r1/operation/f34d615b6d8d04f2/n/4",
+    "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/f34d615b6d8d04f2",
+    "callSource": "b.Codes()",
+    "signature": {
+      "path": "internal/domain/carspecificationchange.go",
+      "lines": [288, 288],
+      "source": "() []string",
+      "parameterCount": 0,
+      "variadic": false,
+      "returnKind": "value"
+    },
+    "result": "cce-car-spec-adapter-667a00a-complete-r1/value/f34d615b6d8d04f2/v/36402",
+    "boundImplementation": null,
+    "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/local-signature/f4d3c2681f82d76f"
+  },
+  {
+    "operation": "cce-car-spec-adapter-667a00a-complete-r1/operation/a27e8dd07090e553/n/11",
+    "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/a27e8dd07090e553",
+    "callSource": "keep(codeRef.Code)",
+    "signature": {
+      "path": "internal/domain/convertpcg/dependency.go",
+      "lines": [138, 138],
+      "source": "func(string) bool",
+      "parameterCount": 1,
+      "variadic": false,
+      "returnKind": "value"
+    },
+    "result": "cce-car-spec-adapter-667a00a-complete-r1/value/a27e8dd07090e553/v/55847",
+    "boundImplementation": null,
+    "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/local-signature/46e09993ed2f388c"
+  },
+  {
+    "operation": "cce-car-spec-adapter-667a00a-complete-r1/operation/13d7020bbe8bf586/n/21",
+    "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/13d7020bbe8bf586",
+    "callSource": "keep(codeRef.Code)",
+    "signature": {
+      "path": "internal/domain/convertpcg/dependency.go",
+      "lines": [138, 138],
+      "source": "func(string) bool",
+      "parameterCount": 1,
+      "variadic": false,
+      "returnKind": "value"
+    },
+    "result": "cce-car-spec-adapter-667a00a-complete-r1/value/13d7020bbe8bf586/v/55949",
+    "boundImplementation": null,
+    "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/local-signature/12b1e8728ae7aa66"
+  },
+  {
+    "operation": "cce-car-spec-adapter-667a00a-complete-r1/operation/ed69896281116deb/n/11",
+    "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/ed69896281116deb",
+    "callSource": "getCode(component)",
+    "signature": {
+      "path": "internal/domain/convertpcg/stylings.go",
+      "lines": [389, 389],
+      "source": "func(domain.PCGColUphCombination) string",
+      "parameterCount": 1,
+      "variadic": false,
+      "returnKind": "value"
+    },
+    "result": "cce-car-spec-adapter-667a00a-complete-r1/value/ed69896281116deb/v/62639",
+    "boundImplementation": null,
+    "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/local-signature/06097cc7a9cf0d4c"
+  },
+  {
+    "operation": "cce-car-spec-adapter-667a00a-complete-r1/operation/c6af5bba2220d415/n/10",
+    "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/c6af5bba2220d415",
+    "callSource": "matchesParent(component)",
+    "signature": {
+      "path": "internal/domain/convertpcg/stylings.go",
+      "lines": [390, 390],
+      "source": "func(domain.PCGColUphCombination) bool",
+      "parameterCount": 1,
+      "variadic": false,
+      "returnKind": "value"
+    },
+    "result": "cce-car-spec-adapter-667a00a-complete-r1/value/c6af5bba2220d415/v/62980",
+    "boundImplementation": null,
+    "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/local-signature/cfe11f491a0a2bc0"
+  },
+  {
+    "operation": "cce-car-spec-adapter-667a00a-complete-r1/operation/c6af5bba2220d415/n/26",
+    "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/c6af5bba2220d415",
+    "callSource": "getCode(component)",
+    "signature": {
+      "path": "internal/domain/convertpcg/stylings.go",
+      "lines": [389, 389],
+      "source": "func(domain.PCGColUphCombination) string",
+      "parameterCount": 1,
+      "variadic": false,
+      "returnKind": "value"
+    },
+    "result": "cce-car-spec-adapter-667a00a-complete-r1/value/c6af5bba2220d415/v/63047",
+    "boundImplementation": null,
+    "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/local-signature/e9991d97533e3fa4"
+  },
+  {
+    "operation": "cce-car-spec-adapter-667a00a-complete-r1/operation/26c519f583e67f41/n/1",
+    "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/26c519f583e67f41",
+    "callSource": "a.SpecMarket()",
+    "signature": {
+      "path": "internal/domain/marketauth.go",
+      "lines": [32, 32],
+      "source": "() SpecMarket",
+      "parameterCount": 0,
+      "variadic": false,
+      "returnKind": "value"
+    },
+    "result": "cce-car-spec-adapter-667a00a-complete-r1/value/26c519f583e67f41/v/66781",
+    "boundImplementation": null,
+    "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/local-signature/8ab0fc44b658a9c7"
+  },
+  {
+    "operation": "cce-car-spec-adapter-667a00a-complete-r1/operation/26c519f583e67f41/n/2",
+    "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/26c519f583e67f41",
+    "callSource": "b.SpecMarket()",
+    "signature": {
+      "path": "internal/domain/marketauth.go",
+      "lines": [32, 32],
+      "source": "() SpecMarket",
+      "parameterCount": 0,
+      "variadic": false,
+      "returnKind": "value"
+    },
+    "result": "cce-car-spec-adapter-667a00a-complete-r1/value/26c519f583e67f41/v/66788",
+    "boundImplementation": null,
+    "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/local-signature/ee83565738658ad5"
+  },
+  {
+    "operation": "cce-car-spec-adapter-667a00a-complete-r1/operation/26c519f583e67f41/n/5",
+    "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/26c519f583e67f41",
+    "callSource": "a.SpecMarket()",
+    "signature": {
+      "path": "internal/domain/marketauth.go",
+      "lines": [32, 32],
+      "source": "() SpecMarket",
+      "parameterCount": 0,
+      "variadic": false,
+      "returnKind": "value"
+    },
+    "result": "cce-car-spec-adapter-667a00a-complete-r1/value/26c519f583e67f41/v/66803",
+    "boundImplementation": null,
+    "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/local-signature/a7ae42ee2d0aa1f5"
+  },
+  {
+    "operation": "cce-car-spec-adapter-667a00a-complete-r1/operation/26c519f583e67f41/n/6",
+    "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/26c519f583e67f41",
+    "callSource": "b.SpecMarket()",
+    "signature": {
+      "path": "internal/domain/marketauth.go",
+      "lines": [32, 32],
+      "source": "() SpecMarket",
+      "parameterCount": 0,
+      "variadic": false,
+      "returnKind": "value"
+    },
+    "result": "cce-car-spec-adapter-667a00a-complete-r1/value/26c519f583e67f41/v/66809",
+    "boundImplementation": null,
+    "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/local-signature/ec08086cd3a2a6be"
+  },
+  {
+    "operation": "cce-car-spec-adapter-667a00a-complete-r1/operation/26c519f583e67f41/n/9",
+    "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/26c519f583e67f41",
+    "callSource": "a.ModelYear()",
+    "signature": {
+      "path": "internal/domain/marketauth.go",
+      "lines": [33, 33],
+      "source": "() ModelYear",
+      "parameterCount": 0,
+      "variadic": false,
+      "returnKind": "value"
+    },
+    "result": "cce-car-spec-adapter-667a00a-complete-r1/value/26c519f583e67f41/v/66823",
+    "boundImplementation": null,
+    "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/local-signature/43d204cff2923d7c"
+  },
+  {
+    "operation": "cce-car-spec-adapter-667a00a-complete-r1/operation/26c519f583e67f41/n/10",
+    "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/26c519f583e67f41",
+    "callSource": "b.ModelYear()",
+    "signature": {
+      "path": "internal/domain/marketauth.go",
+      "lines": [33, 33],
+      "source": "() ModelYear",
+      "parameterCount": 0,
+      "variadic": false,
+      "returnKind": "value"
+    },
+    "result": "cce-car-spec-adapter-667a00a-complete-r1/value/26c519f583e67f41/v/66830",
+    "boundImplementation": null,
+    "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/local-signature/e6874cd2549339be"
+  },
+  {
+    "operation": "cce-car-spec-adapter-667a00a-complete-r1/operation/26c519f583e67f41/n/13",
+    "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/26c519f583e67f41",
+    "callSource": "a.ModelYear()",
+    "signature": {
+      "path": "internal/domain/marketauth.go",
+      "lines": [33, 33],
+      "source": "() ModelYear",
+      "parameterCount": 0,
+      "variadic": false,
+      "returnKind": "value"
+    },
+    "result": "cce-car-spec-adapter-667a00a-complete-r1/value/26c519f583e67f41/v/66845",
+    "boundImplementation": null,
+    "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/local-signature/8b340601c5dce826"
+  },
+  {
+    "operation": "cce-car-spec-adapter-667a00a-complete-r1/operation/26c519f583e67f41/n/14",
+    "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/26c519f583e67f41",
+    "callSource": "b.ModelYear()",
+    "signature": {
+      "path": "internal/domain/marketauth.go",
+      "lines": [33, 33],
+      "source": "() ModelYear",
+      "parameterCount": 0,
+      "variadic": false,
+      "returnKind": "value"
+    },
+    "result": "cce-car-spec-adapter-667a00a-complete-r1/value/26c519f583e67f41/v/66851",
+    "boundImplementation": null,
+    "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/local-signature/c165c27376c2b9d0"
+  },
+  {
+    "operation": "cce-car-spec-adapter-667a00a-complete-r1/operation/157433af51e3b470/n/14",
+    "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/157433af51e3b470",
+    "callSource": "recordMapper(record)",
+    "signature": {
+      "path": "internal/gateway/assortment/map.go",
+      "lines": [191, 191],
+      "source": "func(T) (S, error)",
+      "parameterCount": 1,
+      "variadic": false,
+      "returnKind": "value"
+    },
+    "result": "cce-car-spec-adapter-667a00a-complete-r1/value/157433af51e3b470/v/78253",
+    "boundImplementation": null,
+    "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/local-signature/6c33bb01e64afa2a"
+  },
+  {
+    "operation": "cce-car-spec-adapter-667a00a-complete-r1/operation/94a7cb47ed4a8f5f/n/14",
+    "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/94a7cb47ed4a8f5f",
+    "callSource": "fetcher.parser.ParseMarketAuth(ctx, rawMarketAuth)",
+    "signature": {
+      "path": "internal/gateway/assortment/marketauthfetcher.go",
+      "lines": [12, 15],
+      "source": "(\n\t\tctx context.Context,\n\t\trawSpecifications []byte,\n\t) (parse.MarketAuthDocument, error)",
+      "parameterCount": 2,
+      "variadic": false,
+      "returnKind": "value"
+    },
+    "result": "cce-car-spec-adapter-667a00a-complete-r1/value/94a7cb47ed4a8f5f/v/78776",
+    "boundImplementation": "cce-car-spec-adapter-667a00a-complete-r1/implementation/71350290309079f3",
+    "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/local-signature/e4ffcbba9ae4e275"
+  },
+  {
+    "operation": "cce-car-spec-adapter-667a00a-complete-r1/operation/569d72d8b561e210/n/10",
+    "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/569d72d8b561e210",
+    "callSource": "id.ModelYear()",
+    "signature": {
+      "path": "internal/domain/marketauth.go",
+      "lines": [33, 33],
+      "source": "() ModelYear",
+      "parameterCount": 0,
+      "variadic": false,
+      "returnKind": "value"
+    },
+    "result": "cce-car-spec-adapter-667a00a-complete-r1/value/569d72d8b561e210/v/78972",
+    "boundImplementation": null,
+    "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/local-signature/a9c741abe1700fdc"
+  },
+  {
+    "operation": "cce-car-spec-adapter-667a00a-complete-r1/operation/e67a0b0580a00fe9/n/17",
+    "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/e67a0b0580a00fe9",
+    "callSource": "mapper(value)",
+    "signature": {
+      "path": "internal/gateway/assortment/pcgmap.go",
+      "lines": [177, 177],
+      "source": "func(T) S",
+      "parameterCount": 1,
+      "variadic": false,
+      "returnKind": "value"
+    },
+    "result": "cce-car-spec-adapter-667a00a-complete-r1/value/e67a0b0580a00fe9/v/83650",
+    "boundImplementation": null,
+    "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/local-signature/b47c3b857062cfd5"
+  },
+  {
+    "operation": "cce-car-spec-adapter-667a00a-complete-r1/operation/8bea86bf450858f1/n/1",
+    "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/8bea86bf450858f1",
+    "callSource": "f.fetchFullFeatures(\n\t\tctx,\n\t\tspecMarket,\n\t\tpno12,\n\t\tstructureWeek,\n\t\tmodelYear,\n\t)",
+    "signature": {
+      "path": "internal/gateway/carfeatures/featurecodefetcher.go",
+      "lines": [11, 17],
+      "source": "func(\n\t\tcontext.Context,\n\t\tdomain.SpecMarket,\n\t\tdomain.Pno12,\n\t\tdomain.StructureWeek,\n\t\tdomain.ModelYear,\n\t) ([]domain.FeatureCode, error)",
+      "parameterCount": 5,
+      "variadic": false,
+      "returnKind": "value"
+    },
+    "result": "cce-car-spec-adapter-667a00a-complete-r1/value/8bea86bf450858f1/v/85208",
+    "boundImplementation": null,
+    "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/local-signature/2bca3787913fe650"
+  },
+  {
+    "operation": "cce-car-spec-adapter-667a00a-complete-r1/operation/3d261955fb7af112/n/1",
+    "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/3d261955fb7af112",
+    "callSource": "f(req)",
+    "signature": {
+      "path": "internal/gateway/client/client.go",
+      "lines": [9, 9],
+      "source": "func(*http.Request) (*http.Response, error)",
+      "parameterCount": 1,
+      "variadic": false,
+      "returnKind": "value"
+    },
+    "result": "cce-car-spec-adapter-667a00a-complete-r1/value/3d261955fb7af112/v/85597",
+    "boundImplementation": null,
+    "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/local-signature/3831bfd43150c22d"
+  },
+  {
+    "operation": "cce-car-spec-adapter-667a00a-complete-r1/operation/df3e1490c9b7ddf4/n/16",
+    "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/df3e1490c9b7ddf4",
+    "callSource": "option(c)",
+    "signature": {
+      "path": "internal/gateway/client/client.go",
+      "lines": [20, 20],
+      "source": "func(*HTTPClient)",
+      "parameterCount": 1,
+      "variadic": false,
+      "returnKind": "void"
+    },
+    "result": null,
+    "boundImplementation": null,
+    "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/local-signature/cb75000c93a45d77"
+  },
+  {
+    "operation": "cce-car-spec-adapter-667a00a-complete-r1/operation/ad53a99a61d94a39/n/20",
+    "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/ad53a99a61d94a39",
+    "callSource": "roundTripper(transport)",
+    "signature": {
+      "path": "internal/gateway/client/client.go",
+      "lines": [17, 17],
+      "source": "func(http.RoundTripper) http.RoundTripper",
+      "parameterCount": 1,
+      "variadic": false,
+      "returnKind": "value"
+    },
+    "result": "cce-car-spec-adapter-667a00a-complete-r1/value/ad53a99a61d94a39/v/85859",
+    "boundImplementation": null,
+    "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/local-signature/b40bfdb420f0ba53"
+  },
+  {
+    "operation": "cce-car-spec-adapter-667a00a-complete-r1/operation/e5a4a03e027bbe79/n/8",
+    "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/e5a4a03e027bbe79",
+    "callSource": "handler.HandleMarketAuthMessage(msg)",
+    "signature": {
+      "path": "internal/messaging/consumer.go",
+      "lines": [166, 166],
+      "source": "(msg *message.Message) error",
+      "parameterCount": 1,
+      "variadic": false,
+      "returnKind": "value"
+    },
+    "result": "cce-car-spec-adapter-667a00a-complete-r1/value/e5a4a03e027bbe79/v/89011",
+    "boundImplementation": "cce-car-spec-adapter-667a00a-complete-r1/implementation/45eb4068db5384be",
+    "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/local-signature/8337b13ec79a1e2f"
+  },
+  {
+    "operation": "cce-car-spec-adapter-667a00a-complete-r1/operation/c45615bac70b1f2c/n/8",
+    "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/c45615bac70b1f2c",
+    "callSource": "handler.HandlePcgMarketAuthMessage(msg)",
+    "signature": {
+      "path": "internal/messaging/consumer.go",
+      "lines": [167, 167],
+      "source": "(msg *message.Message) error",
+      "parameterCount": 1,
+      "variadic": false,
+      "returnKind": "value"
+    },
+    "result": "cce-car-spec-adapter-667a00a-complete-r1/value/c45615bac70b1f2c/v/89071",
+    "boundImplementation": "cce-car-spec-adapter-667a00a-complete-r1/implementation/c44b748d0f6b15da",
+    "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/local-signature/f7da8967a6678b08"
+  },
+  {
+    "operation": "cce-car-spec-adapter-667a00a-complete-r1/operation/48d2b3bdd1bb0682/n/7",
+    "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/48d2b3bdd1bb0682",
+    "callSource": "h.flagger.IsEnabledForSpecMarket(carModelQuery.SpecMarket())",
+    "signature": {
+      "path": "internal/messaging/marketauthmessagehandler.go",
+      "lines": [23, 23],
+      "source": "(specMarket domain.SpecMarket) bool",
+      "parameterCount": 1,
+      "variadic": false,
+      "returnKind": "value"
+    },
+    "result": "cce-car-spec-adapter-667a00a-complete-r1/value/48d2b3bdd1bb0682/v/107654",
+    "boundImplementation": "cce-car-spec-adapter-667a00a-complete-r1/implementation/2c452658613a7957",
+    "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/local-signature/715349a0ead5320a"
+  },
+  {
+    "operation": "cce-car-spec-adapter-667a00a-complete-r1/operation/48d2b3bdd1bb0682/n/29",
+    "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/48d2b3bdd1bb0682",
+    "callSource": "h.syncer.SyncByIdentifier(ctx, identifier)",
+    "signature": {
+      "path": "internal/messaging/marketauthmessagehandler.go",
+      "lines": [19, 19],
+      "source": "(ctx context.Context, marketAuthID domain.MarketAuthIdentifierVariant) error",
+      "parameterCount": 2,
+      "variadic": false,
+      "returnKind": "value"
+    },
+    "result": "cce-car-spec-adapter-667a00a-complete-r1/value/48d2b3bdd1bb0682/v/107751",
+    "boundImplementation": "cce-car-spec-adapter-667a00a-complete-r1/implementation/8d16668cb2c2c128",
+    "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/local-signature/6cd11e9c81d091d3"
+  },
+  {
+    "operation": "cce-car-spec-adapter-667a00a-complete-r1/operation/bb4e988e7cbefbf4/n/1",
+    "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/bb4e988e7cbefbf4",
+    "callSource": "hostname()",
+    "signature": {
+      "path": "internal/observability/telemetry/resource.go",
+      "lines": [106, 106],
+      "source": "func() (string, error)",
+      "parameterCount": 0,
+      "variadic": false,
+      "returnKind": "value"
+    },
+    "result": "cce-car-spec-adapter-667a00a-complete-r1/value/bb4e988e7cbefbf4/v/111685",
+    "boundImplementation": null,
+    "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/local-signature/1955569f04fa519c"
+  },
+  {
+    "operation": "cce-car-spec-adapter-667a00a-complete-r1/operation/8d16668cb2c2c128/n/1",
+    "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/8d16668cb2c2c128",
+    "callSource": "marketAuthID.ModelYear()",
+    "signature": {
+      "path": "internal/domain/marketauth.go",
+      "lines": [33, 33],
+      "source": "() ModelYear",
+      "parameterCount": 0,
+      "variadic": false,
+      "returnKind": "value"
+    },
+    "result": "cce-car-spec-adapter-667a00a-complete-r1/value/8d16668cb2c2c128/v/111850",
+    "boundImplementation": null,
+    "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/local-signature/41ec18c2e354ac3a"
+  },
+  {
+    "operation": "cce-car-spec-adapter-667a00a-complete-r1/operation/7d1a11f4dc1686ab/n/7",
+    "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/7d1a11f4dc1686ab",
+    "callSource": "s.carSpecStorage.GetByCarModelQuery(ctx, carModelQuery)",
+    "signature": {
+      "path": "internal/service/carspecsyncer.go",
+      "lines": [61, 64],
+      "source": "(\n\t\tctx context.Context,\n\t\tcarModelQuery domain.CarModelQuery,\n\t) ([]domain.CarSpecification, error)",
+      "parameterCount": 2,
+      "variadic": false,
+      "returnKind": "value"
+    },
+    "result": "cce-car-spec-adapter-667a00a-complete-r1/value/7d1a11f4dc1686ab/v/112017",
+    "boundImplementation": "cce-car-spec-adapter-667a00a-complete-r1/implementation/a19af72385f3a93a",
+    "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/local-signature/e76c2a51cd7967e5"
+  },
+  {
+    "operation": "cce-car-spec-adapter-667a00a-complete-r1/operation/53af493051e09791/n/2",
+    "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/53af493051e09791",
+    "callSource": "s.marketAuthFetcher.GetMarketAuthIdentifiers(ctx, carModelQuery)",
+    "signature": {
+      "path": "internal/service/carspecsyncer.go",
+      "lines": [16, 19],
+      "source": "(\n\t\tctx context.Context,\n\t\tcarModelQuery domain.CarModelQuery,\n\t) ([]domain.MarketAuthIdentifierVariant, error)",
+      "parameterCount": 2,
+      "variadic": false,
+      "returnKind": "value"
+    },
+    "result": "cce-car-spec-adapter-667a00a-complete-r1/value/53af493051e09791/v/112310",
+    "boundImplementation": "cce-car-spec-adapter-667a00a-complete-r1/implementation/50b562e2f273c8f6",
+    "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/local-signature/07a92ca432999526"
+  },
+  {
+    "operation": "cce-car-spec-adapter-667a00a-complete-r1/operation/13adfadffd071d3d/n/15",
+    "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/13adfadffd071d3d",
+    "callSource": "s.wheelCodeFetcher.GetWheelCodes(ctx)",
+    "signature": {
+      "path": "internal/service/carspecsyncer.go",
+      "lines": [44, 44],
+      "source": "(ctx context.Context) (map[string]any, error)",
+      "parameterCount": 1,
+      "variadic": false,
+      "returnKind": "value"
+    },
+    "result": "cce-car-spec-adapter-667a00a-complete-r1/value/13adfadffd071d3d/v/112565",
+    "boundImplementation": "cce-car-spec-adapter-667a00a-complete-r1/implementation/beee994375677409",
+    "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/local-signature/ba6fc35cdae3be39"
+  },
+  {
+    "operation": "cce-car-spec-adapter-667a00a-complete-r1/operation/65e55ab0ca8ed90f/n/2",
+    "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/65e55ab0ca8ed90f",
+    "callSource": "s.marketAuthFetcher.FetchPCGMarketAuthDocument(ctx, pcgMarketAuthID)",
+    "signature": {
+      "path": "internal/service/carspecsyncer.go",
+      "lines": [28, 31],
+      "source": "(\n\t\tctx context.Context,\n\t\tpcgMarketAuthID domain.PcgMarketAuthIdentifier,\n\t) (domain.PCGMarketAuthDocument, error)",
+      "parameterCount": 2,
+      "variadic": false,
+      "returnKind": "value"
+    },
+    "result": "cce-car-spec-adapter-667a00a-complete-r1/value/65e55ab0ca8ed90f/v/112879",
+    "boundImplementation": "cce-car-spec-adapter-667a00a-complete-r1/implementation/dfc48bf032b6ee48",
+    "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/local-signature/988b2cf840e30510"
+  },
+  {
+    "operation": "cce-car-spec-adapter-667a00a-complete-r1/operation/65e55ab0ca8ed90f/n/32",
+    "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/65e55ab0ca8ed90f",
+    "callSource": "s.featureCodeFetcher.FetchStandardWheelFeatureCodes(\n\t\tctx,\n\t\tpcgMarketAuthID.SpecMarket(),\n\t\tpno12WithPeriod,\n\t\tpcgMarketAuthID.ModelYear(),\n\t)",
+    "signature": {
+      "path": "internal/service/carspecsyncer.go",
+      "lines": [35, 40],
+      "source": "(\n\t\tctx context.Context,\n\t\tspecMarket domain.SpecMarket,\n\t\tpno12WithPeriod map[domain.Pno12]domain.Period,\n\t\tmodelYear domain.ModelYear,\n\t) (domain.FeatureCodeMap, error)",
+      "parameterCount": 4,
+      "variadic": false,
+      "returnKind": "value"
+    },
+    "result": "cce-car-spec-adapter-667a00a-complete-r1/value/65e55ab0ca8ed90f/v/113013",
+    "boundImplementation": "cce-car-spec-adapter-667a00a-complete-r1/implementation/8d6d55e71b2b05ce",
+    "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/local-signature/89ae7799706bf79e"
+  },
+  {
+    "operation": "cce-car-spec-adapter-667a00a-complete-r1/operation/1ed43d5353161ac8/n/2",
+    "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/1ed43d5353161ac8",
+    "callSource": "s.marketAuthFetcher.FetchMarketAuthDocument(ctx, marketAuthID)",
+    "signature": {
+      "path": "internal/service/carspecsyncer.go",
+      "lines": [24, 27],
+      "source": "(\n\t\tctx context.Context,\n\t\tmarketAuthID domain.MarketAuthIdentifier,\n\t) (domain.MarketAuthDocument, error)",
+      "parameterCount": 2,
+      "variadic": false,
+      "returnKind": "value"
+    },
+    "result": "cce-car-spec-adapter-667a00a-complete-r1/value/1ed43d5353161ac8/v/113117",
+    "boundImplementation": "cce-car-spec-adapter-667a00a-complete-r1/implementation/94a7cb47ed4a8f5f",
+    "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/local-signature/a9bbe846e87f084e"
+  },
+  {
+    "operation": "cce-car-spec-adapter-667a00a-complete-r1/operation/1ed43d5353161ac8/n/29",
+    "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/1ed43d5353161ac8",
+    "callSource": "s.featureCodeFetcher.FetchStandardWheelFeatureCodes(\n\t\tctx,\n\t\tmarketAuthID.SpecMarket(),\n\t\tpno12WithPeriod,\n\t\tmarketAuthID.ModelYear(),\n\t)",
+    "signature": {
+      "path": "internal/service/carspecsyncer.go",
+      "lines": [35, 40],
+      "source": "(\n\t\tctx context.Context,\n\t\tspecMarket domain.SpecMarket,\n\t\tpno12WithPeriod map[domain.Pno12]domain.Period,\n\t\tmodelYear domain.ModelYear,\n\t) (domain.FeatureCodeMap, error)",
+      "parameterCount": 4,
+      "variadic": false,
+      "returnKind": "value"
+    },
+    "result": "cce-car-spec-adapter-667a00a-complete-r1/value/1ed43d5353161ac8/v/113237",
+    "boundImplementation": "cce-car-spec-adapter-667a00a-complete-r1/implementation/8d6d55e71b2b05ce",
+    "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/local-signature/6f22e6b91000cc57"
+  },
+  {
+    "operation": "cce-car-spec-adapter-667a00a-complete-r1/operation/b3f35223e925df56/n/2",
+    "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/b3f35223e925df56",
+    "callSource": "s.localEditionLookup.GetForCarModel(ctx, carModelQuery)",
+    "signature": {
+      "path": "internal/service/carspecsyncer.go",
+      "lines": [72, 72],
+      "source": "(ctx context.Context, q domain.CarModelQuery) ([]domain.LocalEdition, error)",
+      "parameterCount": 2,
+      "variadic": false,
+      "returnKind": "value"
+    },
+    "result": "cce-car-spec-adapter-667a00a-complete-r1/value/b3f35223e925df56/v/113340",
+    "boundImplementation": "cce-car-spec-adapter-667a00a-complete-r1/implementation/d836aaed71a5d331",
+    "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/local-signature/3a08d1a32ec6c117"
+  },
+  {
+    "operation": "cce-car-spec-adapter-667a00a-complete-r1/operation/7e09a1e350e86e44/n/17",
+    "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/7e09a1e350e86e44",
+    "callSource": "s.carSpecStorage.Upsert(ctx, change.Specification())",
+    "signature": {
+      "path": "internal/service/carspecsyncer.go",
+      "lines": [65, 65],
+      "source": "(ctx context.Context, carSpec domain.CarSpecification) error",
+      "parameterCount": 2,
+      "variadic": false,
+      "returnKind": "value"
+    },
+    "result": "cce-car-spec-adapter-667a00a-complete-r1/value/7e09a1e350e86e44/v/113506",
+    "boundImplementation": "cce-car-spec-adapter-667a00a-complete-r1/implementation/01a7b30e3caf8b8a",
+    "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/local-signature/af1eb07bba9d7383"
+  },
+  {
+    "operation": "cce-car-spec-adapter-667a00a-complete-r1/operation/7e09a1e350e86e44/n/28",
+    "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/7e09a1e350e86e44",
+    "callSource": "s.carSpecStorage.Delete(ctx, change.Specification())",
+    "signature": {
+      "path": "internal/service/carspecsyncer.go",
+      "lines": [66, 66],
+      "source": "(ctx context.Context, carSpec domain.CarSpecification) error",
+      "parameterCount": 2,
+      "variadic": false,
+      "returnKind": "value"
+    },
+    "result": "cce-car-spec-adapter-667a00a-complete-r1/value/7e09a1e350e86e44/v/113552",
+    "boundImplementation": "cce-car-spec-adapter-667a00a-complete-r1/implementation/6e57e80d25b7adbe",
+    "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/local-signature/6bad478e81d50122"
+  },
+  {
+    "operation": "cce-car-spec-adapter-667a00a-complete-r1/operation/951c00d9bda102fc/n/12",
+    "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/951c00d9bda102fc",
+    "callSource": "s.messagePublisher.PublishCarSpecificationUpserted(\n\t\t\tctx,\n\t\t\tchange.Specification(),\n\t\t\tchange.SourceIdentifier(),\n\t\t)",
+    "signature": {
+      "path": "internal/service/carspecsyncer.go",
+      "lines": [48, 52],
+      "source": "(\n\t\tctx context.Context,\n\t\tspec domain.CarSpecification,\n\t\tsourceIdentifier domain.SourceIdentifier,\n\t) error",
+      "parameterCount": 3,
+      "variadic": false,
+      "returnKind": "value"
+    },
+    "result": "cce-car-spec-adapter-667a00a-complete-r1/value/951c00d9bda102fc/v/113675",
+    "boundImplementation": "cce-car-spec-adapter-667a00a-complete-r1/implementation/991cdb61f56c75c4",
+    "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/local-signature/10186419054dad5a"
+  },
+  {
+    "operation": "cce-car-spec-adapter-667a00a-complete-r1/operation/532774dd86fa2d23/n/12",
+    "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/532774dd86fa2d23",
+    "callSource": "s.messagePublisher.PublishCarSpecificationRemoved(\n\t\t\tctx,\n\t\t\tchange.Specification().Car(),\n\t\t)",
+    "signature": {
+      "path": "internal/service/carspecsyncer.go",
+      "lines": [53, 53],
+      "source": "(ctx context.Context, car domain.Car) error",
+      "parameterCount": 2,
+      "variadic": false,
+      "returnKind": "value"
+    },
+    "result": "cce-car-spec-adapter-667a00a-complete-r1/value/532774dd86fa2d23/v/113753",
+    "boundImplementation": "cce-car-spec-adapter-667a00a-complete-r1/implementation/8ed235d008ef5ee3",
+    "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/local-signature/ec59983cb00b087b"
+  },
+  {
+    "operation": "cce-car-spec-adapter-667a00a-complete-r1/operation/2814b461f9bfdba3/n/7",
+    "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/2814b461f9bfdba3",
+    "callSource": "s.marketAuthFetcher.GetMarketAuthIdentifiersForSpecMarket(ctx, specMarket)",
+    "signature": {
+      "path": "internal/service/carspecsyncer.go",
+      "lines": [20, 23],
+      "source": "(\n\t\tctx context.Context,\n\t\tspecMarket domain.SpecMarket,\n\t) ([]domain.MarketAuthIdentifierVariant, error)",
+      "parameterCount": 2,
+      "variadic": false,
+      "returnKind": "value"
+    },
+    "result": "cce-car-spec-adapter-667a00a-complete-r1/value/2814b461f9bfdba3/v/113817",
+    "boundImplementation": "cce-car-spec-adapter-667a00a-complete-r1/implementation/36fb6f42f4547f4a",
+    "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/local-signature/11f856cf7a134daf"
+  },
+  {
+    "operation": "cce-car-spec-adapter-667a00a-complete-r1/operation/bec7cb1bfc61b261/n/7",
+    "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/bec7cb1bfc61b261",
+    "callSource": "s.marketAuthFetcher.GetMarketAuthIdentifiersForSpecMarket(ctx, specMarket)",
+    "signature": {
+      "path": "internal/service/carspecsyncer.go",
+      "lines": [20, 23],
+      "source": "(\n\t\tctx context.Context,\n\t\tspecMarket domain.SpecMarket,\n\t) ([]domain.MarketAuthIdentifierVariant, error)",
+      "parameterCount": 2,
+      "variadic": false,
+      "returnKind": "value"
+    },
+    "result": "cce-car-spec-adapter-667a00a-complete-r1/value/bec7cb1bfc61b261/v/113929",
+    "boundImplementation": "cce-car-spec-adapter-667a00a-complete-r1/implementation/36fb6f42f4547f4a",
+    "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/local-signature/01eef7126ade434c"
+  },
+  {
+    "operation": "cce-car-spec-adapter-667a00a-complete-r1/operation/bec7cb1bfc61b261/n/25",
+    "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/bec7cb1bfc61b261",
+    "callSource": "id.ModelYear()",
+    "signature": {
+      "path": "internal/domain/marketauth.go",
+      "lines": [33, 33],
+      "source": "() ModelYear",
+      "parameterCount": 0,
+      "variadic": false,
+      "returnKind": "value"
+    },
+    "result": "cce-car-spec-adapter-667a00a-complete-r1/value/bec7cb1bfc61b261/v/113995",
+    "boundImplementation": null,
+    "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/local-signature/54879d9d003a5014"
+  },
+  {
+    "operation": "cce-car-spec-adapter-667a00a-complete-r1/operation/a27647ee2c8684a2/n/20",
+    "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/a27647ee2c8684a2",
+    "callSource": "s.carSpecStorage.GetByCarModelQuery(ctx, query)",
+    "signature": {
+      "path": "internal/service/carspecsyncer.go",
+      "lines": [61, 64],
+      "source": "(\n\t\tctx context.Context,\n\t\tcarModelQuery domain.CarModelQuery,\n\t) ([]domain.CarSpecification, error)",
+      "parameterCount": 2,
+      "variadic": false,
+      "returnKind": "value"
+    },
+    "result": "cce-car-spec-adapter-667a00a-complete-r1/value/a27647ee2c8684a2/v/114383",
+    "boundImplementation": "cce-car-spec-adapter-667a00a-complete-r1/implementation/a19af72385f3a93a",
+    "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/local-signature/3aac7eb6a1bc0d23"
+  },
+  {
+    "operation": "cce-car-spec-adapter-667a00a-complete-r1/operation/d2782bf314dd57e5/n/9",
+    "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/d2782bf314dd57e5",
+    "callSource": "fetcher.FetchStandardWheelFeatureCodes(ctx, specMarket, pno12WithPeriod, modelYear)",
+    "signature": {
+      "path": "internal/service/carspecsyncer.go",
+      "lines": [35, 40],
+      "source": "(\n\t\tctx context.Context,\n\t\tspecMarket domain.SpecMarket,\n\t\tpno12WithPeriod map[domain.Pno12]domain.Period,\n\t\tmodelYear domain.ModelYear,\n\t) (domain.FeatureCodeMap, error)",
+      "parameterCount": 4,
+      "variadic": false,
+      "returnKind": "value"
+    },
+    "result": "cce-car-spec-adapter-667a00a-complete-r1/value/d2782bf314dd57e5/v/114713",
+    "boundImplementation": null,
+    "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/local-signature/727903f623f9bc85"
+  },
+  {
+    "operation": "cce-car-spec-adapter-667a00a-complete-r1/operation/51cb703c37954187/n/3",
+    "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/51cb703c37954187",
+    "callSource": "s.storage.Upsert(ctx, localEdition)",
+    "signature": {
+      "path": "internal/service/localeditionservice.go",
+      "lines": [21, 24],
+      "source": "(\n\t\tctx context.Context,\n\t\tle domain.LocalEdition,\n\t) error",
+      "parameterCount": 2,
+      "variadic": false,
+      "returnKind": "value"
+    },
+    "result": "cce-car-spec-adapter-667a00a-complete-r1/value/51cb703c37954187/v/115005",
+    "boundImplementation": "cce-car-spec-adapter-667a00a-complete-r1/implementation/77edc4870f674fef",
+    "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/local-signature/5155875c2fee77e6"
+  },
+  {
+    "operation": "cce-car-spec-adapter-667a00a-complete-r1/operation/97882a74fca1cadb/n/17",
+    "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/97882a74fca1cadb",
+    "callSource": "s.marketAuthFetcher.FetchMarketAuthDocument(ctx, marketAuthID)",
+    "signature": {
+      "path": "internal/service/carspecsyncer.go",
+      "lines": [24, 27],
+      "source": "(\n\t\tctx context.Context,\n\t\tmarketAuthID domain.MarketAuthIdentifier,\n\t) (domain.MarketAuthDocument, error)",
+      "parameterCount": 2,
+      "variadic": false,
+      "returnKind": "value"
+    },
+    "result": "cce-car-spec-adapter-667a00a-complete-r1/value/97882a74fca1cadb/v/115097",
+    "boundImplementation": "cce-car-spec-adapter-667a00a-complete-r1/implementation/94a7cb47ed4a8f5f",
+    "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/local-signature/745af02b18886798"
+  },
+  {
+    "operation": "cce-car-spec-adapter-667a00a-complete-r1/operation/97882a74fca1cadb/n/41",
+    "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/97882a74fca1cadb",
+    "callSource": "s.storage.Upsert(ctx, localEdition)",
+    "signature": {
+      "path": "internal/service/localeditionservice.go",
+      "lines": [21, 24],
+      "source": "(\n\t\tctx context.Context,\n\t\tle domain.LocalEdition,\n\t) error",
+      "parameterCount": 2,
+      "variadic": false,
+      "returnKind": "value"
+    },
+    "result": "cce-car-spec-adapter-667a00a-complete-r1/value/97882a74fca1cadb/v/115195",
+    "boundImplementation": "cce-car-spec-adapter-667a00a-complete-r1/implementation/77edc4870f674fef",
+    "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/local-signature/48181db0098edb58"
+  },
+  {
+    "operation": "cce-car-spec-adapter-667a00a-complete-r1/operation/29f625e814271bf5/n/2",
+    "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/29f625e814271bf5",
+    "callSource": "s.storage.Delete(ctx, key)",
+    "signature": {
+      "path": "internal/service/localeditionservice.go",
+      "lines": [25, 28],
+      "source": "(\n\t\tctx context.Context,\n\t\tkey domain.LocalEditionKey,\n\t) error",
+      "parameterCount": 2,
+      "variadic": false,
+      "returnKind": "value"
+    },
+    "result": "cce-car-spec-adapter-667a00a-complete-r1/value/29f625e814271bf5/v/115208",
+    "boundImplementation": "cce-car-spec-adapter-667a00a-complete-r1/implementation/5e710976bd503228",
+    "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/local-signature/3024a2e4b7729652"
+  }
+]

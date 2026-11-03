@@ -1,0 +1,315 @@
+{
+  "status": "passed",
+  "snapshot": "ceb4c52e4c43a47904357409f1ba2c04a2bdd8b4839ec68642e6c9989a1ea1e8",
+  "qualification": "Independent6full tracked source/config/ignore files. Bounded Functions-host unit only, CDLS monorepo remains incomplete. Actual subscription exposes consume plus two guarded GitHub contexts, with separate unresolved installation SDK effects. All actual request field values queried in both launch contexts; real Promise handles and false array elements retained before explicit join. Source handler return, helper adopted result, first-message env/any-live predicates, message schema and unknown delivery policy retained. No workflow completion, broker ACK, authentication service, deployment, cancellation or atomicity inferred.",
+  "queries": [
+    {
+      "name": "Actual batch subscription reaches guarded GitHub calls",
+      "nodes": 4,
+      "edges": 5,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Source Promise.all joins handles or false elements",
+      "nodes": 7,
+      "edges": 6,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Started child and explicit join context volvo/cdls-mono-volvocars/8e1fd20c525f/site-navigation-functions-r2/op/serviceBusTopicTrigger/14",
+      "nodes": 73,
+      "edges": 88,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual contextual GitHub request volvo/cdls-mono-volvocars/8e1fd20c525f/site-navigation-functions-r2/op/serviceBusTopicTrigger/14 argument0",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual contextual GitHub request volvo/cdls-mono-volvocars/8e1fd20c525f/site-navigation-functions-r2/op/serviceBusTopicTrigger/14 argument1",
+      "nodes": 21,
+      "edges": 26,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual contextual GitHub request volvo/cdls-mono-volvocars/8e1fd20c525f/site-navigation-functions-r2/op/serviceBusTopicTrigger/14 argument1.owner",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual contextual GitHub request volvo/cdls-mono-volvocars/8e1fd20c525f/site-navigation-functions-r2/op/serviceBusTopicTrigger/14 argument1.repo",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual contextual GitHub request volvo/cdls-mono-volvocars/8e1fd20c525f/site-navigation-functions-r2/op/serviceBusTopicTrigger/14 argument1.workflow_id",
+      "nodes": 9,
+      "edges": 8,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual contextual GitHub request volvo/cdls-mono-volvocars/8e1fd20c525f/site-navigation-functions-r2/op/serviceBusTopicTrigger/14 argument1.ref",
+      "nodes": 13,
+      "edges": 13,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual contextual GitHub request volvo/cdls-mono-volvocars/8e1fd20c525f/site-navigation-functions-r2/op/serviceBusTopicTrigger/14 argument1.inputs.deployEnv",
+      "nodes": 9,
+      "edges": 8,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual contextual GitHub request volvo/cdls-mono-volvocars/8e1fd20c525f/site-navigation-functions-r2/op/serviceBusTopicTrigger/14 argument1.inputs.commit",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual contextual GitHub request volvo/cdls-mono-volvocars/8e1fd20c525f/site-navigation-functions-r2/op/serviceBusTopicTrigger/14 argument1.inputs.rebuild",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Started child and explicit join context volvo/cdls-mono-volvocars/8e1fd20c525f/site-navigation-functions-r2/op/serviceBusTopicTrigger/21",
+      "nodes": 73,
+      "edges": 88,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual contextual GitHub request volvo/cdls-mono-volvocars/8e1fd20c525f/site-navigation-functions-r2/op/serviceBusTopicTrigger/21 argument0",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual contextual GitHub request volvo/cdls-mono-volvocars/8e1fd20c525f/site-navigation-functions-r2/op/serviceBusTopicTrigger/21 argument1",
+      "nodes": 21,
+      "edges": 26,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual contextual GitHub request volvo/cdls-mono-volvocars/8e1fd20c525f/site-navigation-functions-r2/op/serviceBusTopicTrigger/21 argument1.owner",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual contextual GitHub request volvo/cdls-mono-volvocars/8e1fd20c525f/site-navigation-functions-r2/op/serviceBusTopicTrigger/21 argument1.repo",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual contextual GitHub request volvo/cdls-mono-volvocars/8e1fd20c525f/site-navigation-functions-r2/op/serviceBusTopicTrigger/21 argument1.workflow_id",
+      "nodes": 9,
+      "edges": 8,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual contextual GitHub request volvo/cdls-mono-volvocars/8e1fd20c525f/site-navigation-functions-r2/op/serviceBusTopicTrigger/21 argument1.ref",
+      "nodes": 13,
+      "edges": 13,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual contextual GitHub request volvo/cdls-mono-volvocars/8e1fd20c525f/site-navigation-functions-r2/op/serviceBusTopicTrigger/21 argument1.inputs.deployEnv",
+      "nodes": 9,
+      "edges": 8,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual contextual GitHub request volvo/cdls-mono-volvocars/8e1fd20c525f/site-navigation-functions-r2/op/serviceBusTopicTrigger/21 argument1.inputs.commit",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual contextual GitHub request volvo/cdls-mono-volvocars/8e1fd20c525f/site-navigation-functions-r2/op/serviceBusTopicTrigger/21 argument1.inputs.rebuild",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Native interaction/contract/source shape",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Owned actual boundary value volvo/cdls-mono-volvocars/8e1fd20c525f/site-navigation-functions-r2/io/installation-sdk argument0",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Owned actual boundary value volvo/cdls-mono-volvocars/8e1fd20c525f/site-navigation-functions-r2/io/installation-sdk ",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Native interaction/contract/source shape",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Owned actual boundary value volvo/cdls-mono-volvocars/8e1fd20c525f/site-navigation-functions-r2/io/dispatch argument0",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Owned actual boundary value volvo/cdls-mono-volvocars/8e1fd20c525f/site-navigation-functions-r2/io/dispatch argument1",
+      "nodes": 15,
+      "edges": 20,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Owned actual boundary value volvo/cdls-mono-volvocars/8e1fd20c525f/site-navigation-functions-r2/io/dispatch argument1.owner",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Owned actual boundary value volvo/cdls-mono-volvocars/8e1fd20c525f/site-navigation-functions-r2/io/dispatch argument1.repo",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Owned actual boundary value volvo/cdls-mono-volvocars/8e1fd20c525f/site-navigation-functions-r2/io/dispatch argument1.workflow_id",
+      "nodes": 3,
+      "edges": 2,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Owned actual boundary value volvo/cdls-mono-volvocars/8e1fd20c525f/site-navigation-functions-r2/io/dispatch argument1.ref",
+      "nodes": 7,
+      "edges": 7,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Owned actual boundary value volvo/cdls-mono-volvocars/8e1fd20c525f/site-navigation-functions-r2/io/dispatch argument1.inputs.deployEnv",
+      "nodes": 3,
+      "edges": 2,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Owned actual boundary value volvo/cdls-mono-volvocars/8e1fd20c525f/site-navigation-functions-r2/io/dispatch argument1.inputs.commit",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Owned actual boundary value volvo/cdls-mono-volvocars/8e1fd20c525f/site-navigation-functions-r2/io/dispatch argument1.inputs.rebuild",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Owned actual boundary value volvo/cdls-mono-volvocars/8e1fd20c525f/site-navigation-functions-r2/io/dispatch ",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Native interaction/contract/source shape",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Owned actual boundary value volvo/cdls-mono-volvocars/8e1fd20c525f/site-navigation-functions-r2/io/consume ",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Configured registration and delivery limits",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual batch and message source declarations",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual batch predicate input messages.some(message => message.Targets?.includes('live'))",
+      "nodes": 2,
+      "edges": 1,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual batch predicate input messages[0]?.Datasource",
+      "nodes": 2,
+      "edges": 1,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Async helper explicitly adopts source request result",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual handler control and caught failure boundaries",
+      "nodes": 73,
+      "edges": 88,
+      "limits": [],
+      "pages": 1
+    }
+  ]
+}

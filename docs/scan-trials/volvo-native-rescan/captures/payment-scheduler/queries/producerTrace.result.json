@@ -1,0 +1,579 @@
+{
+  "format": "groundwork-result/v3",
+  "snapshot": "5f244b8b75661ddc2c58cee97ab0d61ca2c0f73b58fbf65e775236cdd0dda3ae",
+  "queryVersion": "knowledge-query/v3",
+  "request": {
+    "format": "groundwork-query/v3",
+    "snapshot": "5f244b8b75661ddc2c58cee97ab0d61ca2c0f73b58fbf65e775236cdd0dda3ae",
+    "query": "trace",
+    "entry": "scheduler-c00df60-r5/impl/kafka-send",
+    "value": null,
+    "context": [],
+    "outcome": null,
+    "changed": [],
+    "representation": "constructed",
+    "candidates": "exclude",
+    "maxNodes": 1500,
+    "environment": "production-profile",
+    "maxRecords": 5000,
+    "ids": []
+  },
+  "nodes": [
+    {
+      "id": "root::scheduler-c00df60-r5/op/kafka-send/start",
+      "record": "scheduler-c00df60-r5/op/kafka-send/start",
+      "context": [],
+      "label": "KafkaProducer.sendMessage",
+      "component": "scheduler-c00df60-r5/component/api",
+      "execution": "scheduler-c00df60-r5/runs/kafka-send"
+    },
+    {
+      "id": "root::scheduler-c00df60-r5/op/kafka-send/attempt",
+      "record": "scheduler-c00df60-r5/op/kafka-send/attempt",
+      "context": [],
+      "label": "KafkaTemplate.send(topic,key,event) returns a future; register whenComplete without waiting",
+      "component": "scheduler-c00df60-r5/component/api",
+      "execution": "scheduler-c00df60-r5/runs/kafka-send"
+    },
+    {
+      "id": "root::scheduler-c00df60-r5/op/kafka-send/return",
+      "record": "scheduler-c00df60-r5/op/kafka-send/return",
+      "context": [],
+      "label": "void return after future callback registration; no broker acknowledgement awaited",
+      "component": "scheduler-c00df60-r5/component/api",
+      "execution": "scheduler-c00df60-r5/runs/kafka-send"
+    }
+  ],
+  "edges": [
+    {
+      "from": "root::scheduler-c00df60-r5/op/kafka-send/start",
+      "to": "root::scheduler-c00df60-r5/op/kafka-send/attempt",
+      "on": "normal",
+      "condition": null,
+      "assumption": null,
+      "evidence": ["scheduler-c00df60-r5/e/d97b85e588e6"],
+      "record": "scheduler-c00df60-r5/edge/kafka-send/attempt"
+    },
+    {
+      "from": "root::scheduler-c00df60-r5/op/kafka-send/attempt",
+      "to": "root::scheduler-c00df60-r5/op/kafka-send/return",
+      "on": "normal",
+      "condition": null,
+      "assumption": null,
+      "evidence": ["scheduler-c00df60-r5/e/d97b85e588e6"],
+      "record": "scheduler-c00df60-r5/edge/kafka-send/return"
+    }
+  ],
+  "claims": [],
+  "evidence": [
+    "scheduler-c00df60-r5/e/10c987e7dffd",
+    "scheduler-c00df60-r5/e/23d9c1854072",
+    "scheduler-c00df60-r5/e/5e52dd8eb680",
+    "scheduler-c00df60-r5/e/7cec68e7226f",
+    "scheduler-c00df60-r5/e/8377781a2b50",
+    "scheduler-c00df60-r5/e/8916d8a85f98",
+    "scheduler-c00df60-r5/e/905eea2c01d1",
+    "scheduler-c00df60-r5/e/a24bf1ffc9bd",
+    "scheduler-c00df60-r5/e/d97b85e588e6",
+    "scheduler-c00df60-r5/e/de1b32c24ee4",
+    "scheduler-c00df60-r5/e/f3f5cea3bdcb"
+  ],
+  "coverage": ["scheduler-c00df60-r5/coverage/bounded-kafka-send"],
+  "frontiers": [
+    {
+      "at": "root::scheduler-c00df60-r5/op/kafka-send/attempt",
+      "reason": "opaque",
+      "detail": "KafkaTemplate.send(topic,key,event) returns a future; register whenComplete without waiting",
+      "references": ["scheduler-c00df60-r5/op/kafka-send/attempt"]
+    }
+  ],
+  "limitsHit": [],
+  "feasibility": "not_checked",
+  "exhaustive": false,
+  "records": [
+    {
+      "id": "scheduler-c00df60-r5/census",
+      "kind": "implementation",
+      "logicalId": "impl:scheduler-source-census",
+      "scope": "scheduler-c00df60-r5/source",
+      "entry": "scheduler-c00df60-r5/op/census/start",
+      "parameters": [],
+      "evidence": ["scheduler-c00df60-r5/e/de1b32c24ee4"]
+    },
+    {
+      "id": "scheduler-c00df60-r5/component/api",
+      "kind": "runtime_component",
+      "logicalId": "svc:payment-scheduler",
+      "label": "Payment scheduler",
+      "category": "service",
+      "technology": "Java / Spring Boot",
+      "sources": ["scheduler-c00df60-r5/source"],
+      "basis": "source_declared",
+      "gaps": ["scheduler-c00df60-r5/gap/deployment", "scheduler-c00df60-r5/gap/dependencies"],
+      "evidence": ["scheduler-c00df60-r5/e/8377781a2b50", "scheduler-c00df60-r5/e/5e52dd8eb680"]
+    },
+    {
+      "id": "scheduler-c00df60-r5/coverage/bounded-kafka-send",
+      "kind": "coverage",
+      "owner": "scheduler-c00df60-r5/impl/kafka-send",
+      "obligation": "bounded_source_analysis",
+      "status": "partial",
+      "scope": "Bounded source call/control/value trace. Smaller local selection/mapping/strategy/event-construction helper expressions are summarised at their invoking operation with helper evidence; not a full method-by-method expansion. Imported runtime policies and generic failures remain explicit partial closure.",
+      "gaps": [
+        "scheduler-c00df60-r5/gap/dependencies",
+        "scheduler-c00df60-r5/gap/schema-closure",
+        "scheduler-c00df60-r5/gap/deployment"
+      ],
+      "evidence": ["scheduler-c00df60-r5/e/d97b85e588e6"]
+    },
+    {
+      "id": "scheduler-c00df60-r5/e/10c987e7dffd",
+      "kind": "evidence",
+      "repo": "volvo-cars/cds-paymentservice-scheduler",
+      "commit": "c00df60c8233b1a8f47829ce382d5805bf164c6b",
+      "path": "cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/messaging/KafkaProducer.java",
+      "lines": [26, 42],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "scheduler-c00df60-r5/e/23d9c1854072",
+      "kind": "evidence",
+      "repo": "volvo-cars/cds-paymentservice-scheduler",
+      "commit": "c00df60c8233b1a8f47829ce382d5805bf164c6b",
+      "path": "cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/retry/RetryJobExecutor.java",
+      "lines": [107, 130],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "scheduler-c00df60-r5/e/5e52dd8eb680",
+      "kind": "evidence",
+      "repo": "volvo-cars/cds-paymentservice-scheduler",
+      "commit": "c00df60c8233b1a8f47829ce382d5805bf164c6b",
+      "path": "Dockerfile",
+      "lines": [1, 22],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "scheduler-c00df60-r5/e/7cec68e7226f",
+      "kind": "evidence",
+      "repo": "volvo-cars/cds-paymentservice-scheduler",
+      "commit": "c00df60c8233b1a8f47829ce382d5805bf164c6b",
+      "path": "cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/retry/RetryJobExecutor.java",
+      "lines": [107, 120],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "scheduler-c00df60-r5/e/8377781a2b50",
+      "kind": "evidence",
+      "repo": "volvo-cars/cds-paymentservice-scheduler",
+      "commit": "c00df60c8233b1a8f47829ce382d5805bf164c6b",
+      "path": "cds-paymentservice-scheduler-api/src/main/java/com/volvocars/ecom/paymentservice/scheduler/App.java",
+      "lines": [14, 25],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "scheduler-c00df60-r5/e/8916d8a85f98",
+      "kind": "evidence",
+      "repo": "volvo-cars/cds-paymentservice-scheduler",
+      "commit": "c00df60c8233b1a8f47829ce382d5805bf164c6b",
+      "path": "cds-paymentservice-scheduler-api/src/main/resources/application.yml",
+      "lines": [1, 143],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "scheduler-c00df60-r5/e/905eea2c01d1",
+      "kind": "evidence",
+      "repo": "volvo-cars/cds-paymentservice-scheduler",
+      "commit": "c00df60c8233b1a8f47829ce382d5805bf164c6b",
+      "path": "cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/retry/RetryJobExecutor.java",
+      "lines": [121, 129],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "scheduler-c00df60-r5/e/a24bf1ffc9bd",
+      "kind": "evidence",
+      "repo": "volvo-cars/cds-paymentservice-scheduler",
+      "commit": "c00df60c8233b1a8f47829ce382d5805bf164c6b",
+      "path": "pom.xml",
+      "lines": [1, 103],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "scheduler-c00df60-r5/e/d97b85e588e6",
+      "kind": "evidence",
+      "repo": "volvo-cars/cds-paymentservice-scheduler",
+      "commit": "c00df60c8233b1a8f47829ce382d5805bf164c6b",
+      "path": "cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/messaging/KafkaProducer.java",
+      "lines": [26, 41],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "scheduler-c00df60-r5/e/de1b32c24ee4",
+      "kind": "evidence",
+      "repo": "volvo-cars/cds-paymentservice-scheduler",
+      "commit": "c00df60c8233b1a8f47829ce382d5805bf164c6b",
+      "path": "cds-paymentservice-scheduler-api/src/main/java/com/volvocars/ecom/paymentservice/scheduler/App.java",
+      "lines": [1, 27],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "scheduler-c00df60-r5/e/f3f5cea3bdcb",
+      "kind": "evidence",
+      "repo": "volvo-cars/cds-paymentservice-scheduler",
+      "commit": "c00df60c8233b1a8f47829ce382d5805bf164c6b",
+      "path": "cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/retry/RetryJobExecutor.java",
+      "lines": [109, 120],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "scheduler-c00df60-r5/edge/kafka-send/attempt",
+      "kind": "transition",
+      "owner": "scheduler-c00df60-r5/impl/kafka-send",
+      "from": "scheduler-c00df60-r5/op/kafka-send/start",
+      "to": "scheduler-c00df60-r5/op/kafka-send/attempt",
+      "on": "normal",
+      "condition": null,
+      "values": [],
+      "evidence": ["scheduler-c00df60-r5/e/d97b85e588e6"]
+    },
+    {
+      "id": "scheduler-c00df60-r5/edge/kafka-send/return",
+      "kind": "transition",
+      "owner": "scheduler-c00df60-r5/impl/kafka-send",
+      "from": "scheduler-c00df60-r5/op/kafka-send/attempt",
+      "to": "scheduler-c00df60-r5/op/kafka-send/return",
+      "on": "normal",
+      "condition": null,
+      "values": [],
+      "evidence": ["scheduler-c00df60-r5/e/d97b85e588e6"]
+    },
+    {
+      "id": "scheduler-c00df60-r5/gap/dependencies",
+      "kind": "gap",
+      "owner": "scheduler-c00df60-r5/census",
+      "obligation": "dependencies",
+      "reason": "Imported payment DTO, ApiClientCreator/auth/interceptors, shared enums and Spring/Kafka/Mongo implementations lack exact resolved digest/source correspondence here.",
+      "action": "Trace the named continuation or resolve exact dependency/converter/configuration correspondence without assuming deployment.",
+      "evidence": ["scheduler-c00df60-r5/e/a24bf1ffc9bd"]
+    },
+    {
+      "id": "scheduler-c00df60-r5/gap/deployment",
+      "kind": "gap",
+      "owner": "scheduler-c00df60-r5/census",
+      "obligation": "deployment",
+      "reason": "Committed base/profile declarations do not establish deployed destinations, index definitions, environment overrides or current remote freshness.",
+      "action": "Trace the named continuation or resolve exact dependency/converter/configuration correspondence without assuming deployment.",
+      "evidence": ["scheduler-c00df60-r5/e/8916d8a85f98"]
+    },
+    {
+      "id": "scheduler-c00df60-r5/gap/schema-closure",
+      "kind": "gap",
+      "owner": "scheduler-c00df60-r5/census",
+      "obligation": "schema-closure",
+      "reason": "Effective Jackson/Mongo/Kafka converters, imported success/error envelopes and event DTOs are unresolved. Source declarations and constructions are partial wire/persisted contracts.",
+      "action": "Trace the named continuation or resolve exact dependency/converter/configuration correspondence without assuming deployment.",
+      "evidence": ["scheduler-c00df60-r5/e/de1b32c24ee4"]
+    },
+    {
+      "id": "scheduler-c00df60-r5/impl/kafka-send",
+      "kind": "implementation",
+      "logicalId": "impl:scheduler-KafkaProducer.sendMessage",
+      "scope": "scheduler-c00df60-r5/source",
+      "entry": "scheduler-c00df60-r5/op/kafka-send/start",
+      "parameters": [
+        "scheduler-c00df60-r5/value/kafka-send/topic",
+        "scheduler-c00df60-r5/value/kafka-send/key",
+        "scheduler-c00df60-r5/value/kafka-send/event"
+      ],
+      "evidence": ["scheduler-c00df60-r5/e/d97b85e588e6"]
+    },
+    {
+      "id": "scheduler-c00df60-r5/op/census/start",
+      "kind": "operation",
+      "owner": "scheduler-c00df60-r5/census",
+      "action": "opaque",
+      "label": "Repository discovery context",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": null,
+      "httpStatus": null,
+      "evidence": ["scheduler-c00df60-r5/e/de1b32c24ee4"]
+    },
+    {
+      "id": "scheduler-c00df60-r5/op/kafka-send/attempt",
+      "kind": "operation",
+      "owner": "scheduler-c00df60-r5/impl/kafka-send",
+      "action": "opaque",
+      "label": "KafkaTemplate.send(topic,key,event) returns a future; register whenComplete without waiting",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": null,
+      "httpStatus": null,
+      "evidence": ["scheduler-c00df60-r5/e/d97b85e588e6"]
+    },
+    {
+      "id": "scheduler-c00df60-r5/op/kafka-send/return",
+      "kind": "operation",
+      "owner": "scheduler-c00df60-r5/impl/kafka-send",
+      "action": "return",
+      "label": "void return after future callback registration; no broker acknowledgement awaited",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": "normal",
+      "httpStatus": null,
+      "evidence": ["scheduler-c00df60-r5/e/10c987e7dffd"]
+    },
+    {
+      "id": "scheduler-c00df60-r5/op/kafka-send/start",
+      "kind": "operation",
+      "owner": "scheduler-c00df60-r5/impl/kafka-send",
+      "action": "entry",
+      "label": "KafkaProducer.sendMessage",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": null,
+      "httpStatus": null,
+      "evidence": ["scheduler-c00df60-r5/e/d97b85e588e6"]
+    },
+    {
+      "id": "scheduler-c00df60-r5/runs/kafka-send",
+      "kind": "execution_binding",
+      "implementation": "scheduler-c00df60-r5/impl/kafka-send",
+      "component": "scheduler-c00df60-r5/component/api",
+      "basis": "source_declared",
+      "artifactBinding": null,
+      "gaps": [],
+      "evidence": ["scheduler-c00df60-r5/e/d97b85e588e6"]
+    },
+    {
+      "id": "scheduler-c00df60-r5/shape/event-construction",
+      "kind": "shape",
+      "label": "Constructed Event<RecurringChargeInternalEventPayload>",
+      "representation": "constructed",
+      "fields": [
+        {
+          "name": "payload",
+          "type": "RecurringChargeInternalEventPayload",
+          "status": "declared",
+          "evidence": ["scheduler-c00df60-r5/e/f3f5cea3bdcb"],
+          "shape": "scheduler-c00df60-r5/shape/event-payload"
+        },
+        {
+          "name": "metadata",
+          "type": "Metadata",
+          "status": "declared",
+          "evidence": ["scheduler-c00df60-r5/e/905eea2c01d1"],
+          "shape": "scheduler-c00df60-r5/shape/event-metadata"
+        }
+      ],
+      "completeness": "partial",
+      "gaps": ["scheduler-c00df60-r5/gap/schema-closure"],
+      "evidence": ["scheduler-c00df60-r5/e/23d9c1854072"]
+    },
+    {
+      "id": "scheduler-c00df60-r5/shape/event-metadata",
+      "kind": "shape",
+      "label": "Constructed notification Metadata",
+      "representation": "constructed",
+      "fields": [
+        {
+          "name": "id",
+          "type": "Source expression; imported constants/types partial",
+          "status": "declared",
+          "evidence": ["scheduler-c00df60-r5/e/905eea2c01d1"]
+        },
+        {
+          "name": "created",
+          "type": "Source expression; imported constants/types partial",
+          "status": "declared",
+          "evidence": ["scheduler-c00df60-r5/e/905eea2c01d1"]
+        },
+        {
+          "name": "correlationId",
+          "type": "Source expression; imported constants/types partial",
+          "status": "declared",
+          "evidence": ["scheduler-c00df60-r5/e/905eea2c01d1"]
+        },
+        {
+          "name": "source",
+          "type": "Source expression; imported constants/types partial",
+          "status": "declared",
+          "evidence": ["scheduler-c00df60-r5/e/905eea2c01d1"]
+        },
+        {
+          "name": "type",
+          "type": "Source expression; imported constants/types partial",
+          "status": "declared",
+          "evidence": ["scheduler-c00df60-r5/e/905eea2c01d1"]
+        },
+        {
+          "name": "version",
+          "type": "Source expression; imported constants/types partial",
+          "status": "declared",
+          "evidence": ["scheduler-c00df60-r5/e/905eea2c01d1"]
+        }
+      ],
+      "completeness": "partial",
+      "gaps": ["scheduler-c00df60-r5/gap/schema-closure"],
+      "evidence": ["scheduler-c00df60-r5/e/905eea2c01d1"]
+    },
+    {
+      "id": "scheduler-c00df60-r5/shape/event-payload",
+      "kind": "shape",
+      "label": "Constructed RecurringChargeInternalEventPayload",
+      "representation": "constructed",
+      "fields": [
+        {
+          "name": "paymentSessionId",
+          "type": "Imported getter/builder type",
+          "status": "declared",
+          "evidence": ["scheduler-c00df60-r5/e/7cec68e7226f"]
+        },
+        {
+          "name": "recurringChargeId",
+          "type": "Imported getter/builder type",
+          "status": "declared",
+          "evidence": ["scheduler-c00df60-r5/e/7cec68e7226f"]
+        },
+        {
+          "name": "transactionId",
+          "type": "Imported getter/builder type",
+          "status": "declared",
+          "evidence": ["scheduler-c00df60-r5/e/7cec68e7226f"]
+        },
+        {
+          "name": "recurringChargeState",
+          "type": "Imported getter/builder type",
+          "status": "declared",
+          "evidence": ["scheduler-c00df60-r5/e/7cec68e7226f"]
+        },
+        {
+          "name": "retryStrategy",
+          "type": "Imported getter/builder type",
+          "status": "declared",
+          "evidence": ["scheduler-c00df60-r5/e/7cec68e7226f"]
+        }
+      ],
+      "completeness": "partial",
+      "gaps": ["scheduler-c00df60-r5/gap/schema-closure"],
+      "evidence": ["scheduler-c00df60-r5/e/7cec68e7226f"]
+    },
+    {
+      "id": "scheduler-c00df60-r5/source",
+      "kind": "source_revision",
+      "repo": "volvo-cars/cds-paymentservice-scheduler",
+      "commit": "c00df60c8233b1a8f47829ce382d5805bf164c6b"
+    },
+    {
+      "id": "scheduler-c00df60-r5/value/kafka-send/event",
+      "kind": "value",
+      "owner": "scheduler-c00df60-r5/impl/kafka-send",
+      "definition": "scheduler-c00df60-r5/op/kafka-send/start",
+      "label": "event",
+      "role": "parameter",
+      "representation": "source",
+      "shape": "scheduler-c00df60-r5/shape/event-construction",
+      "accessPath": [],
+      "evidence": ["scheduler-c00df60-r5/e/d97b85e588e6"]
+    },
+    {
+      "id": "scheduler-c00df60-r5/value/kafka-send/key",
+      "kind": "value",
+      "owner": "scheduler-c00df60-r5/impl/kafka-send",
+      "definition": "scheduler-c00df60-r5/op/kafka-send/start",
+      "label": "key",
+      "role": "parameter",
+      "representation": "source",
+      "shape": null,
+      "accessPath": [],
+      "evidence": ["scheduler-c00df60-r5/e/d97b85e588e6"]
+    },
+    {
+      "id": "scheduler-c00df60-r5/value/kafka-send/topic",
+      "kind": "value",
+      "owner": "scheduler-c00df60-r5/impl/kafka-send",
+      "definition": "scheduler-c00df60-r5/op/kafka-send/start",
+      "label": "topic",
+      "role": "parameter",
+      "representation": "source",
+      "shape": null,
+      "accessPath": [],
+      "evidence": ["scheduler-c00df60-r5/e/d97b85e588e6"]
+    }
+  ],
+  "traversalComplete": true,
+  "findings": [],
+  "sourceLinks": [
+    {
+      "evidence": "scheduler-c00df60-r5/e/905eea2c01d1",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-scheduler/blob/c00df60c8233b1a8f47829ce382d5805bf164c6b/cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/retry/RetryJobExecutor.java#L121-L129",
+      "label": "volvo-cars/cds-paymentservice-scheduler/cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/retry/RetryJobExecutor.java:121–129"
+    },
+    {
+      "evidence": "scheduler-c00df60-r5/e/de1b32c24ee4",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-scheduler/blob/c00df60c8233b1a8f47829ce382d5805bf164c6b/cds-paymentservice-scheduler-api/src/main/java/com/volvocars/ecom/paymentservice/scheduler/App.java#L1-L27",
+      "label": "volvo-cars/cds-paymentservice-scheduler/cds-paymentservice-scheduler-api/src/main/java/com/volvocars/ecom/paymentservice/scheduler/App.java:1–27"
+    },
+    {
+      "evidence": "scheduler-c00df60-r5/e/f3f5cea3bdcb",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-scheduler/blob/c00df60c8233b1a8f47829ce382d5805bf164c6b/cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/retry/RetryJobExecutor.java#L109-L120",
+      "label": "volvo-cars/cds-paymentservice-scheduler/cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/retry/RetryJobExecutor.java:109–120"
+    },
+    {
+      "evidence": "scheduler-c00df60-r5/e/7cec68e7226f",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-scheduler/blob/c00df60c8233b1a8f47829ce382d5805bf164c6b/cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/retry/RetryJobExecutor.java#L107-L120",
+      "label": "volvo-cars/cds-paymentservice-scheduler/cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/retry/RetryJobExecutor.java:107–120"
+    },
+    {
+      "evidence": "scheduler-c00df60-r5/e/23d9c1854072",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-scheduler/blob/c00df60c8233b1a8f47829ce382d5805bf164c6b/cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/retry/RetryJobExecutor.java#L107-L130",
+      "label": "volvo-cars/cds-paymentservice-scheduler/cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/retry/RetryJobExecutor.java:107–130"
+    },
+    {
+      "evidence": "scheduler-c00df60-r5/e/d97b85e588e6",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-scheduler/blob/c00df60c8233b1a8f47829ce382d5805bf164c6b/cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/messaging/KafkaProducer.java#L26-L41",
+      "label": "volvo-cars/cds-paymentservice-scheduler/cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/messaging/KafkaProducer.java:26–41"
+    },
+    {
+      "evidence": "scheduler-c00df60-r5/e/8916d8a85f98",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-scheduler/blob/c00df60c8233b1a8f47829ce382d5805bf164c6b/cds-paymentservice-scheduler-api/src/main/resources/application.yml#L1-L143",
+      "label": "volvo-cars/cds-paymentservice-scheduler/cds-paymentservice-scheduler-api/src/main/resources/application.yml:1–143"
+    },
+    {
+      "evidence": "scheduler-c00df60-r5/e/a24bf1ffc9bd",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-scheduler/blob/c00df60c8233b1a8f47829ce382d5805bf164c6b/pom.xml#L1-L103",
+      "label": "volvo-cars/cds-paymentservice-scheduler/pom.xml:1–103"
+    },
+    {
+      "evidence": "scheduler-c00df60-r5/e/10c987e7dffd",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-scheduler/blob/c00df60c8233b1a8f47829ce382d5805bf164c6b/cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/messaging/KafkaProducer.java#L26-L42",
+      "label": "volvo-cars/cds-paymentservice-scheduler/cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/messaging/KafkaProducer.java:26–42"
+    },
+    {
+      "evidence": "scheduler-c00df60-r5/e/5e52dd8eb680",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-scheduler/blob/c00df60c8233b1a8f47829ce382d5805bf164c6b/Dockerfile#L1-L22",
+      "label": "volvo-cars/cds-paymentservice-scheduler/Dockerfile:1–22"
+    },
+    {
+      "evidence": "scheduler-c00df60-r5/e/8377781a2b50",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-scheduler/blob/c00df60c8233b1a8f47829ce382d5805bf164c6b/cds-paymentservice-scheduler-api/src/main/java/com/volvocars/ecom/paymentservice/scheduler/App.java#L14-L25",
+      "label": "volvo-cars/cds-paymentservice-scheduler/cds-paymentservice-scheduler-api/src/main/java/com/volvocars/ecom/paymentservice/scheduler/App.java:14–25"
+    }
+  ],
+  "nextRequest": null
+}

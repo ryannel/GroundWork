@@ -1,0 +1,42 @@
+[
+  {
+    "source": "github.com/volvo-cars/cce-retail-ingress/internal/gateway/rdmclient#Client.GetPartnerData(context.Context,string)->(domain.Partner,error)",
+    "implementation": "volvo/cce-retail-ingress/95d091aa445f/final-r1/implementation/7a00389b8d21eff9e187",
+    "contract": "volvo/cce-retail-ingress/95d091aa445f/final-r1/interface_contract/caller/GetPartnerData",
+    "method": "POST",
+    "path": "{RDM_BASE_URL}",
+    "actualValues": [
+      "volvo/cce-retail-ingress/95d091aa445f/final-r1/value/7a00389b8d21eff9e187/18",
+      "volvo/cce-retail-ingress/95d091aa445f/final-r1/value/7a00389b8d21eff9e187/19",
+      "volvo/cce-retail-ingress/95d091aa445f/final-r1/value/7a00389b8d21eff9e187/30",
+      "volvo/cce-retail-ingress/95d091aa445f/final-r1/value/7a00389b8d21eff9e187/45",
+      "volvo/cce-retail-ingress/95d091aa445f/final-r1/value/7a00389b8d21eff9e187/47",
+      "volvo/cce-retail-ingress/95d091aa445f/final-r1/implementation/7a00389b8d21eff9e187/parameter/0",
+      "volvo/cce-retail-ingress/95d091aa445f/final-r1/value/7a00389b8d21eff9e187/50",
+      "volvo/cce-retail-ingress/95d091aa445f/final-r1/value/7a00389b8d21eff9e187/51",
+      "volvo/cce-retail-ingress/95d091aa445f/final-r1/value/7a00389b8d21eff9e187/53",
+      "volvo/cce-retail-ingress/95d091aa445f/final-r1/value/7a00389b8d21eff9e187/54",
+      "volvo/cce-retail-ingress/95d091aa445f/final-r1/value/7a00389b8d21eff9e187/56"
+    ]
+  },
+  {
+    "source": "github.com/volvo-cars/cce-retail-ingress/internal/gateway/rdmclient#Client.getAllPartnersDataPage(context.Context,string,int)->(pageData,error)",
+    "implementation": "volvo/cce-retail-ingress/95d091aa445f/final-r1/implementation/48bc2a19de3bed857258",
+    "contract": "volvo/cce-retail-ingress/95d091aa445f/final-r1/interface_contract/caller/getAllPartnersDataPage",
+    "method": "POST",
+    "path": "{RDM_BASE_URL}",
+    "actualValues": [
+      "volvo/cce-retail-ingress/95d091aa445f/final-r1/value/48bc2a19de3bed857258/18",
+      "volvo/cce-retail-ingress/95d091aa445f/final-r1/value/48bc2a19de3bed857258/19",
+      "volvo/cce-retail-ingress/95d091aa445f/final-r1/value/48bc2a19de3bed857258/30",
+      "volvo/cce-retail-ingress/95d091aa445f/final-r1/value/48bc2a19de3bed857258/45",
+      "volvo/cce-retail-ingress/95d091aa445f/final-r1/value/48bc2a19de3bed857258/47",
+      "volvo/cce-retail-ingress/95d091aa445f/final-r1/implementation/48bc2a19de3bed857258/parameter/0",
+      "volvo/cce-retail-ingress/95d091aa445f/final-r1/value/48bc2a19de3bed857258/50",
+      "volvo/cce-retail-ingress/95d091aa445f/final-r1/value/48bc2a19de3bed857258/51",
+      "volvo/cce-retail-ingress/95d091aa445f/final-r1/value/48bc2a19de3bed857258/53",
+      "volvo/cce-retail-ingress/95d091aa445f/final-r1/value/48bc2a19de3bed857258/54",
+      "volvo/cce-retail-ingress/95d091aa445f/final-r1/value/48bc2a19de3bed857258/56"
+    ]
+  }
+]

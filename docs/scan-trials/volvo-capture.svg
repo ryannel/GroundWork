@@ -1,0 +1,120 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="1090" viewBox="0 0 1120 1090" role="img" aria-labelledby="title description">
+  <title id="title">Payment-session capture: control and data flow</title>
+  <desc id="description">Source inspection of the Volvo capture endpoint. Session and transaction reads lead through completion and capture checks to a synchronous downstream call and a 202 response. Alternative branches return 208, 422 or a possible 500. Shared library versions, exact wire representation, production location and completion remain unresolved.</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10Z" fill="#46646b"/></marker>
+    <marker id="warn-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10Z" fill="#ab6b20"/></marker>
+    <style>
+      text { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #233e46; font-size: 14px; }
+      .title { font-size: 26px; font-weight: 650; }
+      .subtitle { font-size: 15px; fill: #536a70; }
+      .label { font-size: 12px; font-weight: 650; letter-spacing: .7px; fill: #536a70; }
+      .strong { font-weight: 650; font-size: 15px; }
+      .small { font-size: 12px; fill: #536a70; }
+      .box { fill: #fff; stroke: #9fb5ba; stroke-width: 1.3; }
+      .decision { fill: #e8f3f1; stroke: #5e9289; stroke-width: 1.4; }
+      .warning { fill: #fff4e5; stroke: #bd853e; stroke-width: 1.3; stroke-dasharray: 5 4; }
+      .edge { fill: none; stroke: #46646b; stroke-width: 1.6; marker-end: url(#arrow); }
+      .data { fill: none; stroke: #668a91; stroke-width: 1.4; stroke-dasharray: 4 4; marker-end: url(#arrow); }
+      .warn-edge { fill: none; stroke: #ab6b20; stroke-width: 1.5; marker-end: url(#warn-arrow); }
+      .mono { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 12px; }
+    </style>
+  </defs>
+  <rect width="1120" height="1090" fill="#f5f8f8"/>
+  <text x="28" y="43" class="title">Capture a payment-session transaction</text>
+  <text x="28" y="72" class="mono">POST /v1/payment-sessions/{paymentSessionId}/transaction-capture</text>
+  <text x="28" y="98" class="subtitle">Pinned source · 020d2fa · 23 October 2026 · Partial end to end · No live request or Java test run</text>
+  <text x="28" y="136" class="label">DATA AT REST</text>
+  <text x="322" y="136" class="label">EXECUTION IN THE CALLER</text>
+  <text x="825" y="136" class="label">ALTERNATIVES AND LIMITS</text>
+
+  <rect x="322" y="155" width="450" height="64" rx="8" class="box"/>
+  <text x="340" y="180" class="strong">Route, role declaration and request validation</text>
+  <text x="340" y="202" class="small">Effective shared security filters remain unresolved</text>
+  <path d="M547 219V240" class="edge"/>
+  <rect x="322" y="240" width="450" height="72" rx="8" class="box"/>
+  <text x="340" y="266" class="strong">Load and map session</text>
+  <text x="340" y="288">Select by request paymentSessionId</text>
+  <text x="340" y="304" class="small">Mapper also computes expiry from stored created + configuration</text>
+  <path d="M547 312V334" class="edge"/>
+  <rect x="322" y="334" width="450" height="66" rx="8" class="box"/>
+  <text x="340" y="360" class="strong">Load and map transaction</text>
+  <text x="340" y="384">Select by session.transactionId</text>
+
+  <rect x="28" y="240" width="248" height="92" rx="8" class="warning"/>
+  <text x="45" y="266" class="strong">payment_sessions</text>
+  <text x="45" y="290">Session ID · transaction ID</text>
+  <text x="45" y="312" class="small">Candidate schema; version unresolved</text>
+  <path d="M276 277H319" class="data"/>
+  <rect x="28" y="355" width="248" height="110" rx="8" class="box"/>
+  <text x="45" y="381" class="strong">transactions</text>
+  <text x="45" y="405">Transaction ID · country · stage</text>
+  <text x="45" y="427">History · provider/account refs</text>
+  <text x="45" y="449" class="small">Inherited and nested fields are partial</text>
+  <path d="M276 375H319" class="data"/>
+  <text x="28" y="494" class="small">MongoDB setting: payment_services</text>
+  <text x="28" y="514" class="small">Physical host / active configuration unknown</text>
+
+  <path d="M547 400V423" class="edge"/>
+  <rect x="322" y="423" width="450" height="76" rx="8" class="decision"/>
+  <text x="340" y="450" class="strong">Already completed?</text>
+  <text x="340" y="474">Current stage OR historical stage = COMPLETE / SUCCEEDED</text>
+  <path d="M772 459H819" class="edge"/>
+  <text x="783" y="448" class="small">Yes</text>
+  <rect x="825" y="425" width="267" height="72" rx="8" class="box"/>
+  <text x="842" y="451" class="strong">208 Already Reported</text>
+  <text x="842" y="477">No capture client invocation</text>
+  <path d="M547 499V529" class="edge"/>
+  <text x="559" y="520" class="small">No</text>
+
+  <rect x="322" y="529" width="450" height="106" rx="8" class="decision"/>
+  <text x="340" y="556" class="strong">Check in order</text>
+  <text x="340" y="581">1. Capture method must not equal AUTOMATIC</text>
+  <text x="340" y="602">2. External provider reference must not be null</text>
+  <text x="340" y="623">3. Stage must be PROCESS / REQUIRES_CAPTURE</text>
+  <path d="M772 576H819" class="edge"/>
+  <rect x="825" y="531" width="267" height="108" rx="8" class="box"/>
+  <text x="842" y="556" class="strong">422 for explicit rejections</text>
+  <text x="842" y="581">Null stage can fail while building</text>
+  <text x="842" y="603">the rejection message → generic 500</text>
+  <text x="842" y="625" class="small">Current map says invalid stage → 400</text>
+
+  <path d="M547 635V661" class="edge"/>
+  <text x="559" y="653" class="small">Checks permit capture</text>
+  <rect x="322" y="661" width="450" height="139" rx="8" class="box"/>
+  <text x="340" y="688" class="strong">Build outgoing request</text>
+  <text x="340" y="714" class="mono">request.attributes → body.attributes</text>
+  <text x="340" y="735" class="mono">transaction.externalId → body.pspTransactionId</text>
+  <text x="340" y="756" class="mono">transaction.psp / countryCode / accountId → body</text>
+  <text x="340" y="781" class="small">transactionId and psp also supplied as client arguments</text>
+
+  <rect x="28" y="661" width="248" height="139" rx="8" class="warning"/>
+  <text x="45" y="689" class="strong">Type and version boundaries</text>
+  <text x="45" y="717">Shared dependency: 2.0.32</text>
+  <text x="45" y="739">Cached shared: 2.0.33-SNAPSHOT</text>
+  <text x="45" y="764">Client: 1.3.257</text>
+  <text x="45" y="786">Cached client: 1.3.274-SNAPSHOT</text>
+
+  <path d="M547 800V823" class="edge"/>
+  <rect x="322" y="823" width="450" height="79" rx="8" class="box"/>
+  <text x="340" y="850" class="strong">Call PSP integration synchronously</text>
+  <text x="340" y="873">Read response .data, then discard it</text>
+  <text x="340" y="892" class="small">Exact wire path, headers, timeout and retry policy remain partial</text>
+  <path d="M772 862H819" class="warn-edge"/>
+  <rect x="825" y="809" width="267" height="124" rx="8" class="warning"/>
+  <text x="842" y="836" class="strong">Downstream frontier</text>
+  <text x="842" y="862">Resolve exact artefact and server.</text>
+  <text x="842" y="884">Trace provider effect and correlated</text>
+  <text x="842" y="906">completion to its durable write.</text>
+  <text x="842" y="925" class="small">No continuation inferred from 202</text>
+
+  <path d="M547 902V925" class="edge"/>
+  <rect x="322" y="925" width="450" height="76" rx="8" class="decision"/>
+  <text x="340" y="952" class="strong">202 Accepted · success envelope with null data</text>
+  <text x="340" y="977">No explicit local save or publish in the inspected path</text>
+  <text x="340" y="995" class="small">Acceptance does not establish later completion or persistence</text>
+
+  <path d="M28 1030H1092" stroke="#c7d5d8"/>
+  <text x="28" y="1055" class="small">Summary of a 16-step source trace. Not all error edges shown: missing transaction → 404; mapped service errors → carried status; other exceptions → 500.</text>
+  <text x="28" y="1077" class="small">Solid boxes: inspected caller source. Dashed amber: unresolved/candidate evidence. Dotted lines: data access. See companion YAML for sources and nine gaps.</text>
+</svg>

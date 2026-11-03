@@ -1,0 +1,2075 @@
+{
+  "format": "groundwork-result/v3",
+  "snapshot": "9958d25719399c959ece547e827c4b7f92f853a983c8b2669f34e08ca6f7f0cc",
+  "queryVersion": "knowledge-query/v3",
+  "request": {
+    "format": "groundwork-query/v3",
+    "snapshot": "9958d25719399c959ece547e827c4b7f92f853a983c8b2669f34e08ca6f7f0cc",
+    "query": "value",
+    "entry": "masdeep-b360506/entry/post-api-commercial-items-fees",
+    "value": "masdeep-b360506/depth/bound/controller/post-api-commercial-items-fees/value/response",
+    "context": [],
+    "outcome": null,
+    "changed": [],
+    "representation": "constructed",
+    "candidates": "exclude",
+    "maxNodes": 1500,
+    "maxRecords": 5000,
+    "environment": "production-profile",
+    "ids": []
+  },
+  "nodes": [
+    {
+      "id": "root::masdeep-b360506/depth/bound/controller/post-api-commercial-items-fees/value/response",
+      "record": "masdeep-b360506/depth/bound/controller/post-api-commercial-items-fees/value/response",
+      "context": [],
+      "label": "Full HTTP source envelope",
+      "component": "u3/component/mas",
+      "execution": "masdeep-b360506/runs/post-api-commercial-items-fees"
+    },
+    {
+      "id": "root::masdeep-b360506/depth/bound/controller/post-api-commercial-items-fees/value/service-result",
+      "record": "masdeep-b360506/depth/bound/controller/post-api-commercial-items-fees/value/service-result",
+      "context": [],
+      "label": "Returned FeeService.add",
+      "component": "u3/component/mas",
+      "execution": "masdeep-b360506/runs/post-api-commercial-items-fees"
+    },
+    {
+      "id": "masdeep-b360506/depth/bound/controller/post-api-commercial-items-fees/op/service::masdeep-b360506/depth/bound/service/Fee/add/value/return",
+      "record": "masdeep-b360506/depth/bound/service/Fee/add/value/return",
+      "context": [
+        "masdeep-b360506/depth/bound/controller/post-api-commercial-items-fees/op/service"
+      ],
+      "label": "Original Result<T>",
+      "component": "u3/component/mas",
+      "execution": "masdeep-b360506/depth/runs/bound/service/Fee/add"
+    },
+    {
+      "id": "masdeep-b360506/depth/bound/controller/post-api-commercial-items-fees/op/service::masdeep-b360506/depth/bound/service/Fee/add/value/repository-result",
+      "record": "masdeep-b360506/depth/bound/service/Fee/add/value/repository-result",
+      "context": [
+        "masdeep-b360506/depth/bound/controller/post-api-commercial-items-fees/op/service"
+      ],
+      "label": "Returned Repository.Add",
+      "component": "u3/component/mas",
+      "execution": "masdeep-b360506/depth/runs/bound/service/Fee/add"
+    },
+    {
+      "id": "masdeep-b360506/depth/bound/controller/post-api-commercial-items-fees/op/service>masdeep-b360506/depth/bound/service/Fee/add/op/repository::masdeep-b360506/depth/bound/repo/Fee/add/value/result",
+      "record": "masdeep-b360506/depth/bound/repo/Fee/add/value/result",
+      "context": [
+        "masdeep-b360506/depth/bound/controller/post-api-commercial-items-fees/op/service",
+        "masdeep-b360506/depth/bound/service/Fee/add/op/repository"
+      ],
+      "label": "Result<Fee> created; Data=tracked result.Entity",
+      "component": "u3/component/mas",
+      "execution": "masdeep-b360506/depth/runs/bound/repo/Fee/add"
+    },
+    {
+      "id": "masdeep-b360506/depth/bound/controller/post-api-commercial-items-fees/op/service>masdeep-b360506/depth/bound/service/Fee/add/op/repository::masdeep-b360506/depth/bound/repo/Fee/add/value/entity",
+      "record": "masdeep-b360506/depth/bound/repo/Fee/add/value/entity",
+      "context": [
+        "masdeep-b360506/depth/bound/controller/post-api-commercial-items-fees/op/service",
+        "masdeep-b360506/depth/bound/service/Fee/add/op/repository"
+      ],
+      "label": "Entity to stage",
+      "component": "u3/component/mas",
+      "execution": "masdeep-b360506/depth/runs/bound/repo/Fee/add"
+    },
+    {
+      "id": "masdeep-b360506/depth/bound/controller/post-api-commercial-items-fees/op/service::masdeep-b360506/depth/bound/service/Fee/add/value/entity",
+      "record": "masdeep-b360506/depth/bound/service/Fee/add/value/entity",
+      "context": [
+        "masdeep-b360506/depth/bound/controller/post-api-commercial-items-fees/op/service"
+      ],
+      "label": "Entity argument",
+      "component": "u3/component/mas",
+      "execution": "masdeep-b360506/depth/runs/bound/service/Fee/add"
+    },
+    {
+      "id": "root::masdeep-b360506/depth/bound/controller/post-api-commercial-items-fees/value/entity",
+      "record": "masdeep-b360506/depth/bound/controller/post-api-commercial-items-fees/value/entity",
+      "context": [],
+      "label": "Constructed Fee object",
+      "component": "u3/component/mas",
+      "execution": "masdeep-b360506/runs/post-api-commercial-items-fees"
+    },
+    {
+      "id": "root::masdeep-b360506/depth/bound/controller/post-api-commercial-items-fees/value/input",
+      "record": "masdeep-b360506/depth/bound/controller/post-api-commercial-items-fees/value/input",
+      "context": [],
+      "label": "Request body source object",
+      "component": "u3/component/mas",
+      "execution": "masdeep-b360506/runs/post-api-commercial-items-fees"
+    }
+  ],
+  "edges": [
+    {
+      "from": "root::masdeep-b360506/depth/bound/controller/post-api-commercial-items-fees/value/service-result",
+      "to": "root::masdeep-b360506/depth/bound/controller/post-api-commercial-items-fees/value/response",
+      "on": "value",
+      "condition": "Read Result.Status/HasData/Data; construct Status and OperationId, map Data; Remove returns Null Data",
+      "assumption": null,
+      "evidence": [],
+      "record": "masdeep-b360506/depth/bound/controller/post-api-commercial-items-fees/flow/result-envelope"
+    },
+    {
+      "from": "masdeep-b360506/depth/bound/controller/post-api-commercial-items-fees/op/service::masdeep-b360506/depth/bound/service/Fee/add/value/return",
+      "to": "root::masdeep-b360506/depth/bound/controller/post-api-commercial-items-fees/value/service-result",
+      "on": "value",
+      "condition": "callee return-to-result binding",
+      "assumption": null,
+      "evidence": [],
+      "record": "masdeep-b360506/depth/bound/service/Fee/add/op/return"
+    },
+    {
+      "from": "masdeep-b360506/depth/bound/controller/post-api-commercial-items-fees/op/service::masdeep-b360506/depth/bound/service/Fee/add/value/repository-result",
+      "to": "masdeep-b360506/depth/bound/controller/post-api-commercial-items-fees/op/service::masdeep-b360506/depth/bound/service/Fee/add/value/return",
+      "on": "value",
+      "condition": "Preserve original Add/Update Result",
+      "assumption": null,
+      "evidence": [],
+      "record": "masdeep-b360506/depth/bound/service/Fee/add/flow/return-result"
+    },
+    {
+      "from": "masdeep-b360506/depth/bound/controller/post-api-commercial-items-fees/op/service>masdeep-b360506/depth/bound/service/Fee/add/op/repository::masdeep-b360506/depth/bound/repo/Fee/add/value/result",
+      "to": "masdeep-b360506/depth/bound/controller/post-api-commercial-items-fees/op/service::masdeep-b360506/depth/bound/service/Fee/add/value/repository-result",
+      "on": "value",
+      "condition": "callee return-to-result binding",
+      "assumption": null,
+      "evidence": [],
+      "record": "masdeep-b360506/depth/bound/repo/Fee/add/op/return"
+    },
+    {
+      "from": "masdeep-b360506/depth/bound/controller/post-api-commercial-items-fees/op/service>masdeep-b360506/depth/bound/service/Fee/add/op/repository::masdeep-b360506/depth/bound/repo/Fee/add/value/entity",
+      "to": "masdeep-b360506/depth/bound/controller/post-api-commercial-items-fees/op/service>masdeep-b360506/depth/bound/service/Fee/add/op/repository::masdeep-b360506/depth/bound/repo/Fee/add/value/result",
+      "on": "value",
+      "condition": "DbSet tracking result.Entity wrapped as Result.Data",
+      "assumption": null,
+      "evidence": [],
+      "record": "masdeep-b360506/depth/bound/repo/Fee/add/flow/entity-result"
+    },
+    {
+      "from": "masdeep-b360506/depth/bound/controller/post-api-commercial-items-fees/op/service::masdeep-b360506/depth/bound/service/Fee/add/value/entity",
+      "to": "masdeep-b360506/depth/bound/controller/post-api-commercial-items-fees/op/service>masdeep-b360506/depth/bound/service/Fee/add/op/repository::masdeep-b360506/depth/bound/repo/Fee/add/value/entity",
+      "on": "value",
+      "condition": "actual-to-formal argument binding",
+      "assumption": null,
+      "evidence": [],
+      "record": "masdeep-b360506/depth/bound/service/Fee/add/op/repository"
+    },
+    {
+      "from": "root::masdeep-b360506/depth/bound/controller/post-api-commercial-items-fees/value/entity",
+      "to": "masdeep-b360506/depth/bound/controller/post-api-commercial-items-fees/op/service::masdeep-b360506/depth/bound/service/Fee/add/value/entity",
+      "on": "value",
+      "condition": "actual-to-formal argument binding",
+      "assumption": null,
+      "evidence": [],
+      "record": "masdeep-b360506/depth/bound/controller/post-api-commercial-items-fees/op/service"
+    },
+    {
+      "from": "root::masdeep-b360506/depth/bound/controller/post-api-commercial-items-fees/value/input",
+      "to": "root::masdeep-b360506/depth/bound/controller/post-api-commercial-items-fees/value/entity",
+      "on": "value",
+      "condition": "Local declared map/constructor; effective AutoMapper conventions remain partial",
+      "assumption": null,
+      "evidence": [],
+      "record": "masdeep-b360506/depth/bound/controller/post-api-commercial-items-fees/flow/request-entity"
+    }
+  ],
+  "claims": [],
+  "evidence": [
+    "masdeep-b360506/e/0103ca62f8f18cc7",
+    "masdeep-b360506/e/095f6b7fcffabd78",
+    "masdeep-b360506/e/0e7f19fbb6da0c7e",
+    "masdeep-b360506/e/16cda1766cefba08",
+    "masdeep-b360506/e/1acab0cb99497df7",
+    "masdeep-b360506/e/1b1c399d1cbd235a",
+    "masdeep-b360506/e/25ba9d4e86d4eaf9",
+    "masdeep-b360506/e/2f41b29b68bdef33",
+    "masdeep-b360506/e/341be6485aa3c805",
+    "masdeep-b360506/e/34fab5c27425e69e",
+    "masdeep-b360506/e/3cf2609e40df515a",
+    "masdeep-b360506/e/47f7dc8e88e5ce28",
+    "masdeep-b360506/e/49913228f1f81474",
+    "masdeep-b360506/e/66abb728cd523936",
+    "masdeep-b360506/e/68683f18f227a835",
+    "masdeep-b360506/e/6b5c72d068637d1d",
+    "masdeep-b360506/e/786517a302ada0ff",
+    "masdeep-b360506/e/80eccbc6232b217f",
+    "masdeep-b360506/e/8201669e3fbebe8d",
+    "masdeep-b360506/e/82b71e570299cfb3",
+    "masdeep-b360506/e/8463dc246db32e85",
+    "masdeep-b360506/e/860bc1ca29201083",
+    "masdeep-b360506/e/872b159715a0788a",
+    "masdeep-b360506/e/8836fae57a1d7ca8",
+    "masdeep-b360506/e/885609eafdbfff2a",
+    "masdeep-b360506/e/94c71a8c5393f2b2",
+    "masdeep-b360506/e/98fa5b0461d6b12a",
+    "masdeep-b360506/e/9be7e386e428168c",
+    "masdeep-b360506/e/a8d1e578dcbe719a",
+    "masdeep-b360506/e/a99275f774569f6c",
+    "masdeep-b360506/e/ae1c622893c8d563",
+    "masdeep-b360506/e/b111ec1459333eaf",
+    "masdeep-b360506/e/b7b95d24b6f60c70",
+    "masdeep-b360506/e/bbc70cee03f0d35b",
+    "masdeep-b360506/e/bc7d18152235b22e",
+    "masdeep-b360506/e/c0bcbacb3fe8ae92",
+    "masdeep-b360506/e/c1f20c744969ba1e",
+    "masdeep-b360506/e/c2e95b5ee5815686",
+    "masdeep-b360506/e/c67b1b841a741da8",
+    "masdeep-b360506/e/d61351349d210e5f",
+    "masdeep-b360506/e/d79bff19f244cfe6",
+    "masdeep-b360506/e/d9de6d98016cc70e",
+    "masdeep-b360506/e/da8c4c588e5765d6",
+    "masdeep-b360506/e/db5cb940d157e70e",
+    "masdeep-b360506/e/e7c6a9357ad83a0a",
+    "masdeep-b360506/e/edf8504f9d4cbc21",
+    "masdeep-b360506/e/eeadf7b371004ead",
+    "masdeep-b360506/e/f4ce20e7d22c6fcd",
+    "masdeep-b360506/e/f6bb616a8fba2531",
+    "masdeep-b360506/e/fa2e5ec075b05ef5",
+    "s2/e/controller",
+    "s2/e/input",
+    "s2/e/middleware",
+    "u3/e/mas-program"
+  ],
+  "coverage": [
+    "masdeep-b360506/coverage/post-api-commercial-items-fees/registration",
+    "masdeep-b360506/depth/bound/controller/post-api-commercial-items-fees/coverage",
+    "masdeep-b360506/depth/bound/controller/post-api-commercial-items-fees/closure"
+  ],
+  "frontiers": [
+    {
+      "at": "root::masdeep-b360506/depth/bound/controller/post-api-commercial-items-fees/value/response",
+      "reason": "version_unresolved",
+      "detail": "Mapping instruction is known; effective imported implementation remains unresolved.",
+      "references": ["masdeep-b360506/gap/wire"]
+    },
+    {
+      "at": "root::masdeep-b360506/depth/bound/controller/post-api-commercial-items-fees/value/response",
+      "reason": "version_unresolved",
+      "detail": "Mapping instruction is known; effective imported implementation remains unresolved.",
+      "references": ["masdeep-b360506/depth/gap/provider"]
+    },
+    {
+      "at": "root::masdeep-b360506/depth/bound/controller/post-api-commercial-items-fees/value/entity",
+      "reason": "version_unresolved",
+      "detail": "Mapping instruction is known; effective imported implementation remains unresolved.",
+      "references": ["masdeep-b360506/depth/gap/provider"]
+    }
+  ],
+  "limitsHit": [],
+  "feasibility": "not_checked",
+  "exhaustive": false,
+  "records": [
+    {
+      "id": "masdeep-b360506/bound/shape/http-envelope/Fee",
+      "kind": "shape",
+      "label": "SuccessResponse<Fee> full source REST envelope",
+      "representation": "source",
+      "container": "object",
+      "fields": [
+        {
+          "name": "Status",
+          "type": "int",
+          "status": "declared",
+          "evidence": ["masdeep-b360506/e/8463dc246db32e85"]
+        },
+        {
+          "name": "OperationId",
+          "type": "string?",
+          "nullable": true,
+          "status": "declared",
+          "evidence": ["masdeep-b360506/e/1acab0cb99497df7"]
+        },
+        {
+          "name": "Data",
+          "type": "T?",
+          "nullable": true,
+          "status": "declared",
+          "evidence": ["masdeep-b360506/e/fa2e5ec075b05ef5"],
+          "shape": "masdeep-b360506/shape/821a227bc240fd75"
+        }
+      ],
+      "completeness": "closed",
+      "gaps": [],
+      "evidence": ["masdeep-b360506/e/b111ec1459333eaf"]
+    },
+    {
+      "id": "masdeep-b360506/bound/shape/result/Fee",
+      "kind": "shape",
+      "label": "Result<Fee> source object; not REST envelope",
+      "representation": "source",
+      "container": "object",
+      "fields": [
+        {
+          "name": "IsSuccess",
+          "type": "bool computed Status is Ok or Created",
+          "status": "declared",
+          "evidence": ["masdeep-b360506/e/16cda1766cefba08"]
+        },
+        {
+          "name": "IsFailure",
+          "type": "bool inverse IsSuccess",
+          "status": "declared",
+          "evidence": ["masdeep-b360506/e/16cda1766cefba08"]
+        },
+        {
+          "name": "Data",
+          "type": "T?",
+          "status": "declared",
+          "evidence": ["masdeep-b360506/e/16cda1766cefba08"],
+          "nullable": true,
+          "shape": "masdeep-b360506/shape/1f042c2f9435a9f7"
+        },
+        {
+          "name": "HasData",
+          "type": "bool computed Data != null",
+          "status": "declared",
+          "evidence": ["masdeep-b360506/e/16cda1766cefba08"]
+        },
+        {
+          "name": "Status",
+          "type": "ResultStatus",
+          "status": "declared",
+          "evidence": ["masdeep-b360506/e/16cda1766cefba08"]
+        },
+        {
+          "name": "SuccessMessage",
+          "type": "string",
+          "status": "declared",
+          "evidence": ["masdeep-b360506/e/16cda1766cefba08"]
+        },
+        {
+          "name": "Errors",
+          "type": "IEnumerable<string>",
+          "status": "declared",
+          "evidence": ["masdeep-b360506/e/16cda1766cefba08"]
+        },
+        {
+          "name": "DebugStr",
+          "type": "string",
+          "status": "declared",
+          "evidence": ["masdeep-b360506/e/16cda1766cefba08"]
+        }
+      ],
+      "completeness": "closed",
+      "gaps": [],
+      "evidence": ["masdeep-b360506/e/16cda1766cefba08"]
+    },
+    {
+      "id": "masdeep-b360506/coverage/post-api-commercial-items-fees/registration",
+      "kind": "coverage",
+      "owner": "masdeep-b360506/entry/post-api-commercial-items-fees",
+      "obligation": "Registered HTTP method/path and handler",
+      "status": "examined",
+      "scope": "src/PopCat.ManageAndSegment.Api/Controllers/V1/FeesController.cs:Post; direct source registration at pinned commit",
+      "evidence": ["masdeep-b360506/e/9be7e386e428168c"],
+      "gaps": []
+    },
+    {
+      "id": "masdeep-b360506/depth/bound/controller/post-api-commercial-items-fees/closure",
+      "kind": "coverage",
+      "owner": "masdeep-b360506/entry/post-api-commercial-items-fees",
+      "obligation": "All dependencies/middleware/helper method decomposition",
+      "status": "partial",
+      "scope": "Imported runtime implementations and smaller mapper/builder/identity helpers are not claimed as complete native method frames. Write auth client methods remain an explicit source summary.",
+      "gaps": [
+        "masdeep-b360506/depth/gap/provider",
+        "masdeep-b360506/gap/wire",
+        "masdeep-b360506/gap/physical",
+        "masdeep-b360506/gap/security",
+        "masdeep-b360506/depth/gap/method-frames"
+      ],
+      "evidence": [
+        "masdeep-b360506/e/341be6485aa3c805",
+        "masdeep-b360506/e/860bc1ca29201083",
+        "masdeep-b360506/e/c2e95b5ee5815686"
+      ]
+    },
+    {
+      "id": "masdeep-b360506/depth/bound/controller/post-api-commercial-items-fees/coverage",
+      "kind": "coverage",
+      "owner": "masdeep-b360506/entry/post-api-commercial-items-fees",
+      "obligation": "Native representative source-symbol control/data/effects",
+      "status": "examined",
+      "scope": "Real controller→service→repository/UoW/private Notify→NotificationService→KafkaProducer implementations have complete formal/result/exit bindings. Context-specialised generic methods retain source identity. Small mapper/identity helpers and exception middleware are summarised with anchors; imported/runtime closure remains partial.",
+      "gaps": [
+        "masdeep-b360506/depth/gap/provider",
+        "masdeep-b360506/gap/wire",
+        "masdeep-b360506/gap/physical",
+        "masdeep-b360506/gap/security",
+        "masdeep-b360506/depth/gap/identity-helper"
+      ],
+      "evidence": [
+        "masdeep-b360506/e/341be6485aa3c805",
+        "masdeep-b360506/e/66abb728cd523936",
+        "masdeep-b360506/e/1b1c399d1cbd235a",
+        "masdeep-b360506/e/d61351349d210e5f",
+        "masdeep-b360506/e/34fab5c27425e69e"
+      ]
+    },
+    {
+      "id": "masdeep-b360506/depth/bound/controller/post-api-commercial-items-fees/flow/request-entity",
+      "kind": "flow",
+      "owner": "masdeep-b360506/impl/post-api-commercial-items-fees",
+      "from": "masdeep-b360506/depth/bound/controller/post-api-commercial-items-fees/value/input",
+      "to": "masdeep-b360506/depth/bound/controller/post-api-commercial-items-fees/value/entity",
+      "at": "masdeep-b360506/depth/bound/controller/post-api-commercial-items-fees/op/construct",
+      "transform": "Local declared map/constructor; effective AutoMapper conventions remain partial",
+      "evidence": [
+        "masdeep-b360506/e/341be6485aa3c805",
+        "masdeep-b360506/e/860bc1ca29201083",
+        "masdeep-b360506/e/e7c6a9357ad83a0a"
+      ],
+      "gaps": ["masdeep-b360506/depth/gap/provider"],
+      "assumptions": []
+    },
+    {
+      "id": "masdeep-b360506/depth/bound/controller/post-api-commercial-items-fees/flow/result-envelope",
+      "kind": "flow",
+      "owner": "masdeep-b360506/impl/post-api-commercial-items-fees",
+      "from": "masdeep-b360506/depth/bound/controller/post-api-commercial-items-fees/value/service-result",
+      "to": "masdeep-b360506/depth/bound/controller/post-api-commercial-items-fees/value/response",
+      "at": "masdeep-b360506/depth/bound/controller/post-api-commercial-items-fees/op/response",
+      "transform": "Read Result.Status/HasData/Data; construct Status and OperationId, map Data; Remove returns Null Data",
+      "evidence": [
+        "masdeep-b360506/e/edf8504f9d4cbc21",
+        "masdeep-b360506/e/16cda1766cefba08",
+        "masdeep-b360506/e/b111ec1459333eaf"
+      ],
+      "gaps": ["masdeep-b360506/gap/wire", "masdeep-b360506/depth/gap/provider"],
+      "assumptions": []
+    },
+    {
+      "id": "masdeep-b360506/depth/bound/controller/post-api-commercial-items-fees/op/construct",
+      "kind": "operation",
+      "owner": "masdeep-b360506/impl/post-api-commercial-items-fees",
+      "action": "compute",
+      "label": "Mapper.Map<Fee>(input)",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": null,
+      "httpStatus": null,
+      "evidence": [
+        "masdeep-b360506/e/341be6485aa3c805",
+        "masdeep-b360506/e/860bc1ca29201083",
+        "masdeep-b360506/e/edf8504f9d4cbc21"
+      ]
+    },
+    {
+      "id": "masdeep-b360506/depth/bound/controller/post-api-commercial-items-fees/op/entry",
+      "kind": "operation",
+      "owner": "masdeep-b360506/impl/post-api-commercial-items-fees",
+      "action": "entry",
+      "label": "POST /api/commercial-items/fees",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": null,
+      "httpStatus": null,
+      "evidence": [
+        "masdeep-b360506/e/341be6485aa3c805",
+        "masdeep-b360506/e/860bc1ca29201083",
+        "masdeep-b360506/e/edf8504f9d4cbc21"
+      ]
+    },
+    {
+      "id": "masdeep-b360506/depth/bound/controller/post-api-commercial-items-fees/op/response",
+      "kind": "operation",
+      "owner": "masdeep-b360506/impl/post-api-commercial-items-fees",
+      "action": "compute",
+      "label": "ToHttpResponse maps source Result into full SuccessResponse/single envelope Status, OperationId, Data; delete Data null",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": null,
+      "httpStatus": null,
+      "evidence": ["masdeep-b360506/e/edf8504f9d4cbc21", "masdeep-b360506/e/b111ec1459333eaf"]
+    },
+    {
+      "id": "masdeep-b360506/depth/bound/controller/post-api-commercial-items-fees/op/service",
+      "kind": "operation",
+      "owner": "masdeep-b360506/impl/post-api-commercial-items-fees",
+      "action": "call",
+      "label": "FeeService.add",
+      "resolution": "masdeep-b360506/depth/bound/controller/post-api-commercial-items-fees/resolve/service",
+      "bindings": [
+        {
+          "parameter": "masdeep-b360506/depth/bound/service/Fee/add/value/entity",
+          "value": "masdeep-b360506/depth/bound/controller/post-api-commercial-items-fees/value/entity"
+        }
+      ],
+      "result": "masdeep-b360506/depth/bound/controller/post-api-commercial-items-fees/value/service-result",
+      "exit": null,
+      "httpStatus": null,
+      "evidence": [
+        "masdeep-b360506/e/341be6485aa3c805",
+        "masdeep-b360506/e/860bc1ca29201083",
+        "masdeep-b360506/e/edf8504f9d4cbc21"
+      ]
+    },
+    {
+      "id": "masdeep-b360506/depth/bound/controller/post-api-commercial-items-fees/resolve/service",
+      "kind": "resolution",
+      "owner": "masdeep-b360506/impl/post-api-commercial-items-fees",
+      "requestedArtifact": null,
+      "basis": "source_local",
+      "target": "masdeep-b360506/depth/impl/bound/service/Fee/add",
+      "candidates": [],
+      "binding": null,
+      "evidence": [
+        "masdeep-b360506/e/341be6485aa3c805",
+        "masdeep-b360506/e/860bc1ca29201083",
+        "masdeep-b360506/e/edf8504f9d4cbc21"
+      ]
+    },
+    {
+      "id": "masdeep-b360506/depth/bound/controller/post-api-commercial-items-fees/value/entity",
+      "kind": "value",
+      "owner": "masdeep-b360506/impl/post-api-commercial-items-fees",
+      "definition": "masdeep-b360506/depth/bound/controller/post-api-commercial-items-fees/op/construct",
+      "label": "Constructed Fee object",
+      "role": "definition",
+      "representation": "constructed",
+      "shape": "masdeep-b360506/shape/1f042c2f9435a9f7",
+      "accessPath": [],
+      "evidence": [
+        "masdeep-b360506/e/341be6485aa3c805",
+        "masdeep-b360506/e/860bc1ca29201083",
+        "masdeep-b360506/e/edf8504f9d4cbc21"
+      ]
+    },
+    {
+      "id": "masdeep-b360506/depth/bound/controller/post-api-commercial-items-fees/value/headers",
+      "kind": "value",
+      "owner": "masdeep-b360506/impl/post-api-commercial-items-fees",
+      "definition": "masdeep-b360506/depth/bound/controller/post-api-commercial-items-fees/op/entry",
+      "label": "Request headers",
+      "role": "parameter",
+      "representation": "source",
+      "shape": null,
+      "accessPath": [],
+      "evidence": [
+        "masdeep-b360506/e/341be6485aa3c805",
+        "masdeep-b360506/e/860bc1ca29201083",
+        "masdeep-b360506/e/edf8504f9d4cbc21"
+      ]
+    },
+    {
+      "id": "masdeep-b360506/depth/bound/controller/post-api-commercial-items-fees/value/input",
+      "kind": "value",
+      "owner": "masdeep-b360506/impl/post-api-commercial-items-fees",
+      "definition": "masdeep-b360506/depth/bound/controller/post-api-commercial-items-fees/op/entry",
+      "label": "Request body source object",
+      "role": "parameter",
+      "representation": "source",
+      "shape": "masdeep-b360506/shape/96c1d8c2944b7f3b",
+      "accessPath": [],
+      "evidence": [
+        "masdeep-b360506/e/341be6485aa3c805",
+        "masdeep-b360506/e/860bc1ca29201083",
+        "masdeep-b360506/e/edf8504f9d4cbc21"
+      ]
+    },
+    {
+      "id": "masdeep-b360506/depth/bound/controller/post-api-commercial-items-fees/value/response",
+      "kind": "value",
+      "owner": "masdeep-b360506/impl/post-api-commercial-items-fees",
+      "definition": "masdeep-b360506/depth/bound/controller/post-api-commercial-items-fees/op/response",
+      "label": "Full HTTP source envelope",
+      "role": "definition",
+      "representation": "constructed",
+      "shape": "masdeep-b360506/bound/shape/http-envelope/Fee",
+      "accessPath": [],
+      "evidence": [
+        "masdeep-b360506/e/341be6485aa3c805",
+        "masdeep-b360506/e/860bc1ca29201083",
+        "masdeep-b360506/e/edf8504f9d4cbc21"
+      ]
+    },
+    {
+      "id": "masdeep-b360506/depth/bound/controller/post-api-commercial-items-fees/value/service-result",
+      "kind": "value",
+      "owner": "masdeep-b360506/impl/post-api-commercial-items-fees",
+      "definition": "masdeep-b360506/depth/bound/controller/post-api-commercial-items-fees/op/service",
+      "label": "Returned FeeService.add",
+      "role": "definition",
+      "representation": "constructed",
+      "shape": "masdeep-b360506/bound/shape/result/Fee",
+      "accessPath": [],
+      "evidence": [
+        "masdeep-b360506/e/341be6485aa3c805",
+        "masdeep-b360506/e/860bc1ca29201083",
+        "masdeep-b360506/e/edf8504f9d4cbc21"
+      ]
+    },
+    {
+      "id": "masdeep-b360506/depth/bound/repo/Fee/add/flow/entity-result",
+      "kind": "flow",
+      "owner": "masdeep-b360506/depth/impl/bound/repo/Fee/add",
+      "from": "masdeep-b360506/depth/bound/repo/Fee/add/value/entity",
+      "to": "masdeep-b360506/depth/bound/repo/Fee/add/value/result",
+      "at": "masdeep-b360506/depth/bound/repo/Fee/add/op/stage",
+      "transform": "DbSet tracking result.Entity wrapped as Result.Data",
+      "evidence": [
+        "masdeep-b360506/e/d9de6d98016cc70e",
+        "masdeep-b360506/e/66abb728cd523936",
+        "masdeep-b360506/e/16cda1766cefba08"
+      ],
+      "gaps": [],
+      "assumptions": []
+    },
+    {
+      "id": "masdeep-b360506/depth/bound/repo/Fee/add/op/entry",
+      "kind": "operation",
+      "owner": "masdeep-b360506/depth/impl/bound/repo/Fee/add",
+      "action": "entry",
+      "label": "Repository<Fee,InternalId>.Add",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": null,
+      "httpStatus": null,
+      "evidence": [
+        "masdeep-b360506/e/d9de6d98016cc70e",
+        "masdeep-b360506/e/66abb728cd523936",
+        "masdeep-b360506/e/16cda1766cefba08"
+      ]
+    },
+    {
+      "id": "masdeep-b360506/depth/bound/repo/Fee/add/op/return",
+      "kind": "operation",
+      "owner": "masdeep-b360506/depth/impl/bound/repo/Fee/add",
+      "action": "return",
+      "label": "Return created",
+      "resolution": null,
+      "bindings": [],
+      "result": "masdeep-b360506/depth/bound/repo/Fee/add/value/result",
+      "exit": "created",
+      "httpStatus": null,
+      "evidence": [
+        "masdeep-b360506/e/d9de6d98016cc70e",
+        "masdeep-b360506/e/66abb728cd523936",
+        "masdeep-b360506/e/16cda1766cefba08"
+      ]
+    },
+    {
+      "id": "masdeep-b360506/depth/bound/repo/Fee/add/op/stage",
+      "kind": "operation",
+      "owner": "masdeep-b360506/depth/impl/bound/repo/Fee/add",
+      "action": "compute",
+      "label": "DbSet.Add(item); Result.Created(result.Entity)",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": null,
+      "httpStatus": null,
+      "evidence": ["masdeep-b360506/e/66abb728cd523936", "masdeep-b360506/e/16cda1766cefba08"]
+    },
+    {
+      "id": "masdeep-b360506/depth/bound/repo/Fee/add/value/entity",
+      "kind": "value",
+      "owner": "masdeep-b360506/depth/impl/bound/repo/Fee/add",
+      "definition": "masdeep-b360506/depth/bound/repo/Fee/add/op/entry",
+      "label": "Entity to stage",
+      "role": "parameter",
+      "representation": "constructed",
+      "shape": "masdeep-b360506/shape/1f042c2f9435a9f7",
+      "accessPath": [],
+      "evidence": [
+        "masdeep-b360506/e/d9de6d98016cc70e",
+        "masdeep-b360506/e/66abb728cd523936",
+        "masdeep-b360506/e/16cda1766cefba08"
+      ]
+    },
+    {
+      "id": "masdeep-b360506/depth/bound/repo/Fee/add/value/result",
+      "kind": "value",
+      "owner": "masdeep-b360506/depth/impl/bound/repo/Fee/add",
+      "definition": "masdeep-b360506/depth/bound/repo/Fee/add/op/stage",
+      "label": "Result<Fee> created; Data=tracked result.Entity",
+      "role": "definition",
+      "representation": "constructed",
+      "shape": "masdeep-b360506/bound/shape/result/Fee",
+      "accessPath": [],
+      "evidence": [
+        "masdeep-b360506/e/d9de6d98016cc70e",
+        "masdeep-b360506/e/66abb728cd523936",
+        "masdeep-b360506/e/16cda1766cefba08"
+      ]
+    },
+    {
+      "id": "masdeep-b360506/depth/bound/service/Fee/add/flow/return-result",
+      "kind": "flow",
+      "owner": "masdeep-b360506/depth/impl/bound/service/Fee/add",
+      "from": "masdeep-b360506/depth/bound/service/Fee/add/value/repository-result",
+      "to": "masdeep-b360506/depth/bound/service/Fee/add/value/return",
+      "at": "masdeep-b360506/depth/bound/service/Fee/add/op/done",
+      "transform": "Preserve original Add/Update Result",
+      "evidence": ["masdeep-b360506/e/16cda1766cefba08", "masdeep-b360506/e/1b1c399d1cbd235a"],
+      "gaps": [],
+      "assumptions": []
+    },
+    {
+      "id": "masdeep-b360506/depth/bound/service/Fee/add/op/done",
+      "kind": "operation",
+      "owner": "masdeep-b360506/depth/impl/bound/service/Fee/add",
+      "action": "compute",
+      "label": "Return original source result",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": null,
+      "httpStatus": null,
+      "evidence": [
+        "masdeep-b360506/e/1b1c399d1cbd235a",
+        "masdeep-b360506/e/a99275f774569f6c",
+        "masdeep-b360506/e/16cda1766cefba08"
+      ]
+    },
+    {
+      "id": "masdeep-b360506/depth/bound/service/Fee/add/op/entry",
+      "kind": "operation",
+      "owner": "masdeep-b360506/depth/impl/bound/service/Fee/add",
+      "action": "entry",
+      "label": "CommercialItemService<Fee>.Add",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": null,
+      "httpStatus": null,
+      "evidence": [
+        "masdeep-b360506/e/1b1c399d1cbd235a",
+        "masdeep-b360506/e/a99275f774569f6c",
+        "masdeep-b360506/e/16cda1766cefba08"
+      ]
+    },
+    {
+      "id": "masdeep-b360506/depth/bound/service/Fee/add/op/repository",
+      "kind": "operation",
+      "owner": "masdeep-b360506/depth/impl/bound/service/Fee/add",
+      "action": "call",
+      "label": "Repository.Add",
+      "resolution": "masdeep-b360506/depth/bound/service/Fee/add/resolve/repository",
+      "bindings": [
+        {
+          "parameter": "masdeep-b360506/depth/bound/repo/Fee/add/value/entity",
+          "value": "masdeep-b360506/depth/bound/service/Fee/add/value/entity"
+        }
+      ],
+      "result": "masdeep-b360506/depth/bound/service/Fee/add/value/repository-result",
+      "exit": null,
+      "httpStatus": null,
+      "evidence": [
+        "masdeep-b360506/e/1b1c399d1cbd235a",
+        "masdeep-b360506/e/a99275f774569f6c",
+        "masdeep-b360506/e/16cda1766cefba08"
+      ]
+    },
+    {
+      "id": "masdeep-b360506/depth/bound/service/Fee/add/op/return",
+      "kind": "operation",
+      "owner": "masdeep-b360506/depth/impl/bound/service/Fee/add",
+      "action": "return",
+      "label": "Return created",
+      "resolution": null,
+      "bindings": [],
+      "result": "masdeep-b360506/depth/bound/service/Fee/add/value/return",
+      "exit": "created",
+      "httpStatus": null,
+      "evidence": [
+        "masdeep-b360506/e/1b1c399d1cbd235a",
+        "masdeep-b360506/e/a99275f774569f6c",
+        "masdeep-b360506/e/16cda1766cefba08"
+      ]
+    },
+    {
+      "id": "masdeep-b360506/depth/bound/service/Fee/add/resolve/repository",
+      "kind": "resolution",
+      "owner": "masdeep-b360506/depth/impl/bound/service/Fee/add",
+      "requestedArtifact": null,
+      "basis": "source_local",
+      "target": "masdeep-b360506/depth/impl/bound/repo/Fee/add",
+      "candidates": [],
+      "binding": null,
+      "evidence": [
+        "masdeep-b360506/e/1b1c399d1cbd235a",
+        "masdeep-b360506/e/a99275f774569f6c",
+        "masdeep-b360506/e/16cda1766cefba08"
+      ]
+    },
+    {
+      "id": "masdeep-b360506/depth/bound/service/Fee/add/value/entity",
+      "kind": "value",
+      "owner": "masdeep-b360506/depth/impl/bound/service/Fee/add",
+      "definition": "masdeep-b360506/depth/bound/service/Fee/add/op/entry",
+      "label": "Entity argument",
+      "role": "parameter",
+      "representation": "constructed",
+      "shape": "masdeep-b360506/shape/1f042c2f9435a9f7",
+      "accessPath": [],
+      "evidence": [
+        "masdeep-b360506/e/1b1c399d1cbd235a",
+        "masdeep-b360506/e/a99275f774569f6c",
+        "masdeep-b360506/e/16cda1766cefba08"
+      ]
+    },
+    {
+      "id": "masdeep-b360506/depth/bound/service/Fee/add/value/repository-result",
+      "kind": "value",
+      "owner": "masdeep-b360506/depth/impl/bound/service/Fee/add",
+      "definition": "masdeep-b360506/depth/bound/service/Fee/add/op/repository",
+      "label": "Returned Repository.Add",
+      "role": "definition",
+      "representation": "constructed",
+      "shape": "masdeep-b360506/bound/shape/result/Fee",
+      "accessPath": [],
+      "evidence": [
+        "masdeep-b360506/e/1b1c399d1cbd235a",
+        "masdeep-b360506/e/a99275f774569f6c",
+        "masdeep-b360506/e/16cda1766cefba08"
+      ]
+    },
+    {
+      "id": "masdeep-b360506/depth/bound/service/Fee/add/value/return",
+      "kind": "value",
+      "owner": "masdeep-b360506/depth/impl/bound/service/Fee/add",
+      "definition": "masdeep-b360506/depth/bound/service/Fee/add/op/done",
+      "label": "Original Result<T>",
+      "role": "definition",
+      "representation": "constructed",
+      "shape": "masdeep-b360506/bound/shape/result/Fee",
+      "accessPath": [],
+      "evidence": [
+        "masdeep-b360506/e/1b1c399d1cbd235a",
+        "masdeep-b360506/e/a99275f774569f6c",
+        "masdeep-b360506/e/16cda1766cefba08"
+      ]
+    },
+    {
+      "id": "masdeep-b360506/depth/gap/identity-helper",
+      "kind": "gap",
+      "owner": "s2/http",
+      "obligation": "Source depth and dependency closure",
+      "reason": "Local deterministic identity call and defining-property expressions are captured; imported IdHelper implementation and effective AutoMapper conventions are not established.",
+      "action": "Bind pinned external helper implementation; preserve source construction and the declared maps.",
+      "evidence": ["masdeep-b360506/e/860bc1ca29201083", "masdeep-b360506/e/786517a302ada0ff"]
+    },
+    {
+      "id": "masdeep-b360506/depth/gap/method-frames",
+      "kind": "gap",
+      "owner": "s2/http",
+      "obligation": "Source depth and dependency closure",
+      "reason": "Available local bodies were inspected and summarised, but this route has not yet been decomposed into source-symbol call frames and formal/result bindings. The opaque local call is an authoring boundary, not missing source.",
+      "action": "Author real controller/service/repository/UoW/notification method implementations before claiming native per-method control/data closure.",
+      "evidence": [
+        "masdeep-b360506/e/ae1c622893c8d563",
+        "masdeep-b360506/e/1b1c399d1cbd235a",
+        "masdeep-b360506/e/66abb728cd523936",
+        "masdeep-b360506/e/edf8504f9d4cbc21"
+      ]
+    },
+    {
+      "id": "masdeep-b360506/depth/gap/provider",
+      "kind": "gap",
+      "owner": "s2/http",
+      "obligation": "Source depth and dependency closure",
+      "reason": "Exact EF provider, AutoMapper/JWT/Newtonsoft/Confluent runtime implementations and deployment are not bound. Their SDK operations remain opaque; available local service/repository/auth/notification bodies are traced.",
+      "action": "Bind exact imported artefacts and effective runtime profile, without inventing transport defaults.",
+      "evidence": [
+        "masdeep-b360506/e/66abb728cd523936",
+        "masdeep-b360506/e/98fa5b0461d6b12a",
+        "masdeep-b360506/e/ae1c622893c8d563",
+        "masdeep-b360506/e/1b1c399d1cbd235a",
+        "masdeep-b360506/e/d61351349d210e5f",
+        "masdeep-b360506/e/860bc1ca29201083",
+        "masdeep-b360506/e/e7c6a9357ad83a0a",
+        "masdeep-b360506/e/8201669e3fbebe8d",
+        "masdeep-b360506/e/34fab5c27425e69e",
+        "masdeep-b360506/e/25ba9d4e86d4eaf9",
+        "masdeep-b360506/e/47f7dc8e88e5ce28",
+        "masdeep-b360506/e/edf8504f9d4cbc21",
+        "masdeep-b360506/e/c67b1b841a741da8",
+        "masdeep-b360506/e/bc7d18152235b22e",
+        "masdeep-b360506/e/0103ca62f8f18cc7",
+        "masdeep-b360506/e/bbc70cee03f0d35b",
+        "masdeep-b360506/e/eeadf7b371004ead",
+        "masdeep-b360506/e/a8d1e578dcbe719a",
+        "masdeep-b360506/e/c2e95b5ee5815686"
+      ]
+    },
+    {
+      "id": "masdeep-b360506/depth/impl/bound/repo/Fee/add",
+      "kind": "implementation",
+      "logicalId": "Repository<Fee,InternalId>.Add",
+      "scope": "s2/p",
+      "entry": "masdeep-b360506/depth/bound/repo/Fee/add/op/entry",
+      "parameters": ["masdeep-b360506/depth/bound/repo/Fee/add/value/entity"],
+      "evidence": [
+        "masdeep-b360506/e/d9de6d98016cc70e",
+        "masdeep-b360506/e/66abb728cd523936",
+        "masdeep-b360506/e/16cda1766cefba08"
+      ]
+    },
+    {
+      "id": "masdeep-b360506/depth/impl/bound/service/Fee/add",
+      "kind": "implementation",
+      "logicalId": "CommercialItemService<Fee>.Add",
+      "scope": "s2/p",
+      "entry": "masdeep-b360506/depth/bound/service/Fee/add/op/entry",
+      "parameters": ["masdeep-b360506/depth/bound/service/Fee/add/value/entity"],
+      "evidence": [
+        "masdeep-b360506/e/1b1c399d1cbd235a",
+        "masdeep-b360506/e/a99275f774569f6c",
+        "masdeep-b360506/e/16cda1766cefba08"
+      ]
+    },
+    {
+      "id": "masdeep-b360506/depth/runs/bound/repo/Fee/add",
+      "kind": "execution_binding",
+      "implementation": "masdeep-b360506/depth/impl/bound/repo/Fee/add",
+      "component": "u3/component/mas",
+      "basis": "source_declared",
+      "artifactBinding": null,
+      "gaps": ["masdeep-b360506/gap/security", "masdeep-b360506/depth/gap/provider"],
+      "evidence": [
+        "masdeep-b360506/e/d9de6d98016cc70e",
+        "masdeep-b360506/e/66abb728cd523936",
+        "masdeep-b360506/e/16cda1766cefba08"
+      ]
+    },
+    {
+      "id": "masdeep-b360506/depth/runs/bound/service/Fee/add",
+      "kind": "execution_binding",
+      "implementation": "masdeep-b360506/depth/impl/bound/service/Fee/add",
+      "component": "u3/component/mas",
+      "basis": "source_declared",
+      "artifactBinding": null,
+      "gaps": ["masdeep-b360506/gap/security", "masdeep-b360506/depth/gap/provider"],
+      "evidence": [
+        "masdeep-b360506/e/1b1c399d1cbd235a",
+        "masdeep-b360506/e/a99275f774569f6c",
+        "masdeep-b360506/e/16cda1766cefba08"
+      ]
+    },
+    {
+      "id": "masdeep-b360506/e/0103ca62f8f18cc7",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Api/Authorization/PopAuthzAuthorizationHandler.cs",
+      "lines": [1, 147],
+      "basis": "source"
+    },
+    {
+      "id": "masdeep-b360506/e/095f6b7fcffabd78",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Api/Startup.cs",
+      "lines": [1, 60],
+      "basis": "source"
+    },
+    {
+      "id": "masdeep-b360506/e/0e7f19fbb6da0c7e",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Core/Common/ValidationConstants.cs",
+      "lines": [23, 23],
+      "basis": "source"
+    },
+    {
+      "id": "masdeep-b360506/e/16cda1766cefba08",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Core/Common/ResultType/Result.cs",
+      "lines": [1, 140],
+      "basis": "source"
+    },
+    {
+      "id": "masdeep-b360506/e/1acab0cb99497df7",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Api/Models/V1/Response/SuccessResponse.cs",
+      "lines": [29, 29],
+      "basis": "source"
+    },
+    {
+      "id": "masdeep-b360506/e/1b1c399d1cbd235a",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Core/Services/CommercialItemService.cs",
+      "lines": [1, 114],
+      "basis": "source"
+    },
+    {
+      "id": "masdeep-b360506/e/25ba9d4e86d4eaf9",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.MessageBroker/Services/NotificationService.cs",
+      "lines": [1, 70],
+      "basis": "source"
+    },
+    {
+      "id": "masdeep-b360506/e/2f41b29b68bdef33",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Api/Models/V1/Response/Fee.cs",
+      "lines": [26, 26],
+      "basis": "source"
+    },
+    {
+      "id": "masdeep-b360506/e/341be6485aa3c805",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Api/Controllers/V1/FeesController.cs",
+      "lines": [78, 84],
+      "basis": "source"
+    },
+    {
+      "id": "masdeep-b360506/e/34fab5c27425e69e",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.MessageBroker/Producers/KafkaProducer.cs",
+      "lines": [1, 69],
+      "basis": "source"
+    },
+    {
+      "id": "masdeep-b360506/e/3cf2609e40df515a",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Core/Models/CommercialItems/Fee.cs",
+      "lines": [1, 22],
+      "basis": "source"
+    },
+    {
+      "id": "masdeep-b360506/e/47f7dc8e88e5ce28",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.MessageBroker/Builders/ProtoBufMessageBuilder.cs",
+      "lines": [1, 408],
+      "basis": "source"
+    },
+    {
+      "id": "masdeep-b360506/e/49913228f1f81474",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Api/Models/V1/Response/Fee.cs",
+      "lines": [15, 18],
+      "basis": "source"
+    },
+    {
+      "id": "masdeep-b360506/e/66abb728cd523936",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Infrastructure/Repositories/Repository.cs",
+      "lines": [1, 191],
+      "basis": "source"
+    },
+    {
+      "id": "masdeep-b360506/e/68683f18f227a835",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Api/Models/V1/Request/FeeInput.cs",
+      "lines": [29, 33],
+      "basis": "source"
+    },
+    {
+      "id": "masdeep-b360506/e/6b5c72d068637d1d",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Api/Models/V1/Response/Fee.cs",
+      "lines": [5, 13],
+      "basis": "source"
+    },
+    {
+      "id": "masdeep-b360506/e/786517a302ada0ff",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Core/Models/CommercialItems/CommercialItemBase.cs",
+      "lines": [1, 43],
+      "basis": "source"
+    },
+    {
+      "id": "masdeep-b360506/e/80eccbc6232b217f",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Core/Models/CommercialItems/Fee.cs",
+      "lines": [7, 7],
+      "basis": "source"
+    },
+    {
+      "id": "masdeep-b360506/e/8201669e3fbebe8d",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Infrastructure/DatabaseContext.cs",
+      "lines": [1, 650],
+      "basis": "source"
+    },
+    {
+      "id": "masdeep-b360506/e/82b71e570299cfb3",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Api/Models/V1/Request/FeeInput.cs",
+      "lines": [1, 49],
+      "basis": "source"
+    },
+    {
+      "id": "masdeep-b360506/e/8463dc246db32e85",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Api/Models/V1/Response/SuccessResponse.cs",
+      "lines": [22, 23],
+      "basis": "source"
+    },
+    {
+      "id": "masdeep-b360506/e/860bc1ca29201083",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Api/Mapping/MappingProfile.cs",
+      "lines": [1, 375],
+      "basis": "source"
+    },
+    {
+      "id": "masdeep-b360506/e/872b159715a0788a",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Api/Models/V1/Response/Fee.cs",
+      "lines": [25, 25],
+      "basis": "source"
+    },
+    {
+      "id": "masdeep-b360506/e/8836fae57a1d7ca8",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Api/Models/V1/Request/FeeInput.cs",
+      "lines": [22, 25],
+      "basis": "source"
+    },
+    {
+      "id": "masdeep-b360506/e/885609eafdbfff2a",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Api/Models/V1/Request/FeeInput.cs",
+      "lines": [8, 17],
+      "basis": "source"
+    },
+    {
+      "id": "masdeep-b360506/e/94c71a8c5393f2b2",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Api/Models/V1/Request/FeeInput.cs",
+      "lines": [33, 39],
+      "basis": "source"
+    },
+    {
+      "id": "masdeep-b360506/e/98fa5b0461d6b12a",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Infrastructure/Repositories/CommercialItemRepository.cs",
+      "lines": [1, 102],
+      "basis": "source"
+    },
+    {
+      "id": "masdeep-b360506/e/9be7e386e428168c",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Api/Controllers/V1/FeesController.cs",
+      "lines": [73, 84],
+      "basis": "source"
+    },
+    {
+      "id": "masdeep-b360506/e/a8d1e578dcbe719a",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Infrastructure/Integrations/PopAuthz/Constants/AuthorizationConstants.cs",
+      "lines": [1, 84],
+      "basis": "source"
+    },
+    {
+      "id": "masdeep-b360506/e/a99275f774569f6c",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Core/Services/FeeService.cs",
+      "lines": [1, 28],
+      "basis": "source"
+    },
+    {
+      "id": "masdeep-b360506/e/ae1c622893c8d563",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Core/Services/CrudService.cs",
+      "lines": [1, 94],
+      "basis": "source"
+    },
+    {
+      "id": "masdeep-b360506/e/b111ec1459333eaf",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Api/Models/V1/Response/SuccessResponse.cs",
+      "lines": [1, 35],
+      "basis": "source"
+    },
+    {
+      "id": "masdeep-b360506/e/b7b95d24b6f60c70",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Api/Models/V1/Response/Fee.cs",
+      "lines": [1, 39],
+      "basis": "source"
+    },
+    {
+      "id": "masdeep-b360506/e/bbc70cee03f0d35b",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Api/Authorization/PopAuthzAuthorizationResultHandler.cs",
+      "lines": [1, 53],
+      "basis": "source"
+    },
+    {
+      "id": "masdeep-b360506/e/bc7d18152235b22e",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Api/Middleware/ExceptionMiddlewareDev.cs",
+      "lines": [1, 45],
+      "basis": "source"
+    },
+    {
+      "id": "masdeep-b360506/e/c0bcbacb3fe8ae92",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Api/Models/V1/Response/Fee.cs",
+      "lines": [15, 15],
+      "basis": "source"
+    },
+    {
+      "id": "masdeep-b360506/e/c1f20c744969ba1e",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Core/Common/ValidationConstants.cs",
+      "lines": [24, 24],
+      "basis": "source"
+    },
+    {
+      "id": "masdeep-b360506/e/c2e95b5ee5815686",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Api/Extensions/ApplicationBuilderExtensions.cs",
+      "lines": [1, 175],
+      "basis": "source"
+    },
+    {
+      "id": "masdeep-b360506/e/c67b1b841a741da8",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Api/Middleware/ExceptionMiddleware.cs",
+      "lines": [1, 85],
+      "basis": "source"
+    },
+    {
+      "id": "masdeep-b360506/e/d61351349d210e5f",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Infrastructure/UnitOfWork.cs",
+      "lines": [1, 153],
+      "basis": "source"
+    },
+    {
+      "id": "masdeep-b360506/e/d79bff19f244cfe6",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Core/Models/CommercialItems/Fee.cs",
+      "lines": [8, 8],
+      "basis": "source"
+    },
+    {
+      "id": "masdeep-b360506/e/d9de6d98016cc70e",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Infrastructure/Repositories/FeeRepository.cs",
+      "lines": [1, 13],
+      "basis": "source"
+    },
+    {
+      "id": "masdeep-b360506/e/da8c4c588e5765d6",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Core/Common/ValidationConstants.cs",
+      "lines": [89, 89],
+      "basis": "source"
+    },
+    {
+      "id": "masdeep-b360506/e/db5cb940d157e70e",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Api/Models/V1/Response/Fee.cs",
+      "lines": [18, 21],
+      "basis": "source"
+    },
+    {
+      "id": "masdeep-b360506/e/e7c6a9357ad83a0a",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Api/Mapping/AutoMapperExtensions.cs",
+      "lines": [1, 30],
+      "basis": "source"
+    },
+    {
+      "id": "masdeep-b360506/e/edf8504f9d4cbc21",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Api/Controllers/ManageAndSegmentControllerBase.cs",
+      "lines": [1, 86],
+      "basis": "source"
+    },
+    {
+      "id": "masdeep-b360506/e/eeadf7b371004ead",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Infrastructure/Integrations/PopAuthz/AuthorizationClient.cs",
+      "lines": [1, 211],
+      "basis": "source"
+    },
+    {
+      "id": "masdeep-b360506/e/f4ce20e7d22c6fcd",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Core/Common/ValidationConstants.cs",
+      "lines": [35, 35],
+      "basis": "source"
+    },
+    {
+      "id": "masdeep-b360506/e/f6bb616a8fba2531",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Core/Common/ValidationConstants.cs",
+      "lines": [36, 36],
+      "basis": "source"
+    },
+    {
+      "id": "masdeep-b360506/e/fa2e5ec075b05ef5",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Api/Models/V1/Response/SuccessResponse.cs",
+      "lines": [32, 33],
+      "basis": "source"
+    },
+    {
+      "id": "masdeep-b360506/entry/post-api-commercial-items-fees",
+      "kind": "entry",
+      "logicalId": "POST /api/commercial-items/fees",
+      "method": "POST",
+      "path": "/api/commercial-items/fees",
+      "implementation": "masdeep-b360506/impl/post-api-commercial-items-fees",
+      "evidence": ["masdeep-b360506/e/9be7e386e428168c", "masdeep-b360506/e/341be6485aa3c805"]
+    },
+    {
+      "id": "masdeep-b360506/gap/parent-1f042c2f94",
+      "kind": "gap",
+      "owner": "s2/http",
+      "obligation": "Source closure",
+      "reason": "Unresolved source parent CommercialItemBase for Fee.",
+      "action": "Bind exact source parent and expand fields.",
+      "evidence": ["masdeep-b360506/e/3cf2609e40df515a"]
+    },
+    {
+      "id": "masdeep-b360506/gap/physical",
+      "kind": "gap",
+      "owner": "s2/http",
+      "obligation": "Source closure",
+      "reason": "Committed settings and source declarations do not establish deployed database/broker or external service instances.",
+      "action": "Bind the selected source profile to an actual deployment without exposing credentials.",
+      "evidence": ["masdeep-b360506/e/095f6b7fcffabd78"]
+    },
+    {
+      "id": "masdeep-b360506/gap/security",
+      "kind": "gap",
+      "owner": "s2/http",
+      "obligation": "Source closure",
+      "reason": "Authorisation policy source is available, but full imported authentication, token validation and effective middleware enforcement are not established.",
+      "action": "Resolve authentication middleware/registration, policy execution and deployment configuration.",
+      "evidence": ["masdeep-b360506/e/0103ca62f8f18cc7", "masdeep-b360506/e/095f6b7fcffabd78"]
+    },
+    {
+      "id": "masdeep-b360506/gap/wire",
+      "kind": "gap",
+      "owner": "s2/http",
+      "obligation": "Source closure",
+      "reason": "Effective request/response formatter selection, imported middleware and negotiation are not fully resolved. Source DTO fields are not a complete effective wire contract.",
+      "action": "Resolve pinned shared assemblies, model version handling and effective MVC formatter configuration.",
+      "evidence": ["masdeep-b360506/e/095f6b7fcffabd78"]
+    },
+    {
+      "id": "masdeep-b360506/impl/post-api-commercial-items-fees",
+      "kind": "implementation",
+      "logicalId": "FeesController.cs.Post",
+      "scope": "s2/p",
+      "entry": "masdeep-b360506/depth/bound/controller/post-api-commercial-items-fees/op/entry",
+      "parameters": [
+        "masdeep-b360506/depth/bound/controller/post-api-commercial-items-fees/value/input",
+        "masdeep-b360506/depth/bound/controller/post-api-commercial-items-fees/value/headers"
+      ],
+      "evidence": [
+        "masdeep-b360506/e/341be6485aa3c805",
+        "masdeep-b360506/e/a99275f774569f6c",
+        "masdeep-b360506/e/d9de6d98016cc70e",
+        "masdeep-b360506/e/1b1c399d1cbd235a",
+        "masdeep-b360506/e/98fa5b0461d6b12a",
+        "masdeep-b360506/e/66abb728cd523936",
+        "masdeep-b360506/e/d61351349d210e5f",
+        "masdeep-b360506/e/edf8504f9d4cbc21"
+      ]
+    },
+    {
+      "id": "masdeep-b360506/runs/post-api-commercial-items-fees",
+      "kind": "execution_binding",
+      "implementation": "masdeep-b360506/impl/post-api-commercial-items-fees",
+      "component": "u3/component/mas",
+      "basis": "source_declared",
+      "artifactBinding": null,
+      "gaps": [],
+      "evidence": ["masdeep-b360506/e/9be7e386e428168c"]
+    },
+    {
+      "id": "masdeep-b360506/shape/1f042c2f9435a9f7",
+      "kind": "shape",
+      "label": "core Fee source DTO",
+      "representation": "source",
+      "fields": [
+        {
+          "name": "Code",
+          "type": "FeeCode",
+          "status": "declared",
+          "evidence": ["masdeep-b360506/e/80eccbc6232b217f"]
+        },
+        {
+          "name": "Name",
+          "type": "string",
+          "status": "declared",
+          "evidence": ["masdeep-b360506/e/d79bff19f244cfe6"]
+        }
+      ],
+      "container": "object",
+      "completeness": "partial",
+      "gaps": ["masdeep-b360506/gap/parent-1f042c2f94"],
+      "evidence": ["masdeep-b360506/e/3cf2609e40df515a"]
+    },
+    {
+      "id": "masdeep-b360506/shape/821a227bc240fd75",
+      "kind": "shape",
+      "label": "response Fee source DTO",
+      "representation": "source",
+      "fields": [
+        {
+          "name": "InternalId",
+          "type": "Guid",
+          "status": "declared",
+          "evidence": ["masdeep-b360506/e/6b5c72d068637d1d"],
+          "optional": false
+        },
+        {
+          "name": "Id",
+          "type": "string?",
+          "status": "declared",
+          "evidence": ["masdeep-b360506/e/c0bcbacb3fe8ae92"],
+          "nullable": true
+        },
+        {
+          "name": "Code",
+          "type": "string",
+          "status": "declared",
+          "evidence": ["masdeep-b360506/e/49913228f1f81474"],
+          "optional": false
+        },
+        {
+          "name": "Name",
+          "type": "string",
+          "status": "declared",
+          "evidence": ["masdeep-b360506/e/db5cb940d157e70e"],
+          "optional": false
+        },
+        {
+          "name": "SkuCategory",
+          "type": "string",
+          "status": "declared",
+          "evidence": ["masdeep-b360506/e/872b159715a0788a"]
+        },
+        {
+          "name": "SkuIdentifier",
+          "type": "string",
+          "status": "declared",
+          "evidence": ["masdeep-b360506/e/2f41b29b68bdef33"]
+        }
+      ],
+      "container": "object",
+      "completeness": "closed",
+      "gaps": [],
+      "evidence": ["masdeep-b360506/e/b7b95d24b6f60c70"]
+    },
+    {
+      "id": "masdeep-b360506/shape/96c1d8c2944b7f3b",
+      "kind": "shape",
+      "label": "request Request.FeeInput source DTO",
+      "representation": "source",
+      "fields": [
+        {
+          "name": "Name",
+          "type": "string",
+          "status": "declared",
+          "evidence": ["masdeep-b360506/e/885609eafdbfff2a", "masdeep-b360506/e/da8c4c588e5765d6"],
+          "optional": false,
+          "maxLength": 50
+        },
+        {
+          "name": "Code",
+          "type": "string",
+          "status": "declared",
+          "evidence": [
+            "masdeep-b360506/e/8836fae57a1d7ca8",
+            "masdeep-b360506/e/da8c4c588e5765d6",
+            "masdeep-b360506/e/0e7f19fbb6da0c7e"
+          ],
+          "optional": false,
+          "maxLength": 50,
+          "pattern": "^[A-Za-z0-9_-]+$"
+        },
+        {
+          "name": "SkuCategory",
+          "type": "string",
+          "status": "declared",
+          "evidence": [
+            "masdeep-b360506/e/68683f18f227a835",
+            "masdeep-b360506/e/f4ce20e7d22c6fcd",
+            "masdeep-b360506/e/c1f20c744969ba1e"
+          ],
+          "optional": false,
+          "maxLength": 50,
+          "pattern": "^[A-Za-z0-9_]+$"
+        },
+        {
+          "name": "SkuIdentifier",
+          "type": "string",
+          "status": "declared",
+          "evidence": [
+            "masdeep-b360506/e/94c71a8c5393f2b2",
+            "masdeep-b360506/e/f6bb616a8fba2531",
+            "masdeep-b360506/e/c1f20c744969ba1e"
+          ],
+          "optional": false,
+          "maxLength": 50,
+          "pattern": "^[A-Za-z0-9_]+$"
+        }
+      ],
+      "container": "object",
+      "completeness": "closed",
+      "gaps": [],
+      "evidence": ["masdeep-b360506/e/82b71e570299cfb3"]
+    },
+    {
+      "id": "s2/e/controller",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Api/Controllers/V1/SoftOffersController.cs",
+      "lines": [17, 90],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "s2/e/input",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Api/Models/V1/Request/SoftOfferInput.cs",
+      "lines": [1, 53],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "s2/e/middleware",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Api/Middleware/ExceptionMiddleware.cs",
+      "lines": [1, 85],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "s2/http",
+      "kind": "implementation",
+      "logicalId": "impl:soft-offer-http",
+      "scope": "s2/p",
+      "entry": "s2/http.start",
+      "parameters": ["s2/v/request"],
+      "evidence": ["s2/e/controller", "s2/e/middleware"]
+    },
+    {
+      "id": "s2/http.start",
+      "kind": "operation",
+      "owner": "s2/http",
+      "action": "entry",
+      "label": "Authenticated, bound soft-offer input",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": null,
+      "httpStatus": null,
+      "evidence": ["s2/e/controller", "s2/e/input"]
+    },
+    {
+      "id": "s2/p",
+      "kind": "source_revision",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110"
+    },
+    {
+      "id": "s2/shape/input",
+      "kind": "shape",
+      "representation": "constructed",
+      "label": "SoftOfferInput",
+      "fields": [
+        {
+          "name": "Code",
+          "type": "string",
+          "status": "declared"
+        },
+        {
+          "name": "Type",
+          "type": "string",
+          "status": "declared"
+        },
+        {
+          "name": "Name",
+          "type": "string",
+          "status": "declared"
+        },
+        {
+          "name": "SkuCategory",
+          "type": "string",
+          "status": "declared"
+        },
+        {
+          "name": "SkuIdentifier",
+          "type": "string",
+          "status": "declared"
+        }
+      ],
+      "completeness": "closed",
+      "gaps": [],
+      "evidence": ["s2/e/input"],
+      "encoding": "json"
+    },
+    {
+      "id": "s2/v/request",
+      "kind": "value",
+      "owner": "s2/http",
+      "definition": "s2/http.start",
+      "label": "SoftOfferInput request body",
+      "role": "parameter",
+      "representation": "constructed",
+      "shape": "s2/shape/input",
+      "evidence": ["s2/e/input", "s2/e/controller"],
+      "accessPath": []
+    },
+    {
+      "id": "u3/component/mas",
+      "kind": "runtime_component",
+      "logicalId": "svc:manage-and-segment-api",
+      "label": "Manage and Segment API",
+      "category": "service",
+      "technology": ".NET / ASP.NET Core",
+      "sources": ["s2/p"],
+      "basis": "source_declared",
+      "evidence": ["u3/e/mas-program", "s2/e/controller"],
+      "gaps": []
+    },
+    {
+      "id": "u3/e/mas-program",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Api/Program.cs",
+      "lines": [1, 24],
+      "basis": "source"
+    }
+  ],
+  "traversalComplete": true,
+  "findings": [],
+  "sourceLinks": [
+    {
+      "evidence": "s2/e/input",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Api/Models/V1/Request/SoftOfferInput.cs#L1-L53",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Api/Models/V1/Request/SoftOfferInput.cs:1–53"
+    },
+    {
+      "evidence": "s2/e/controller",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Api/Controllers/V1/SoftOffersController.cs#L17-L90",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Api/Controllers/V1/SoftOffersController.cs:17–90"
+    },
+    {
+      "evidence": "s2/e/middleware",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Api/Middleware/ExceptionMiddleware.cs#L1-L85",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Api/Middleware/ExceptionMiddleware.cs:1–85"
+    },
+    {
+      "evidence": "masdeep-b360506/e/c2e95b5ee5815686",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Api/Extensions/ApplicationBuilderExtensions.cs#L1-L175",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Api/Extensions/ApplicationBuilderExtensions.cs:1–175"
+    },
+    {
+      "evidence": "masdeep-b360506/e/a8d1e578dcbe719a",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Infrastructure/Integrations/PopAuthz/Constants/AuthorizationConstants.cs#L1-L84",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Infrastructure/Integrations/PopAuthz/Constants/AuthorizationConstants.cs:1–84"
+    },
+    {
+      "evidence": "masdeep-b360506/e/eeadf7b371004ead",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Infrastructure/Integrations/PopAuthz/AuthorizationClient.cs#L1-L211",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Infrastructure/Integrations/PopAuthz/AuthorizationClient.cs:1–211"
+    },
+    {
+      "evidence": "masdeep-b360506/e/bbc70cee03f0d35b",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Api/Authorization/PopAuthzAuthorizationResultHandler.cs#L1-L53",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Api/Authorization/PopAuthzAuthorizationResultHandler.cs:1–53"
+    },
+    {
+      "evidence": "masdeep-b360506/e/0103ca62f8f18cc7",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Api/Authorization/PopAuthzAuthorizationHandler.cs#L1-L147",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Api/Authorization/PopAuthzAuthorizationHandler.cs:1–147"
+    },
+    {
+      "evidence": "masdeep-b360506/e/bc7d18152235b22e",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Api/Middleware/ExceptionMiddlewareDev.cs#L1-L45",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Api/Middleware/ExceptionMiddlewareDev.cs:1–45"
+    },
+    {
+      "evidence": "masdeep-b360506/e/c67b1b841a741da8",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Api/Middleware/ExceptionMiddleware.cs#L1-L85",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Api/Middleware/ExceptionMiddleware.cs:1–85"
+    },
+    {
+      "evidence": "masdeep-b360506/e/edf8504f9d4cbc21",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Api/Controllers/ManageAndSegmentControllerBase.cs#L1-L86",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Api/Controllers/ManageAndSegmentControllerBase.cs:1–86"
+    },
+    {
+      "evidence": "masdeep-b360506/e/47f7dc8e88e5ce28",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.MessageBroker/Builders/ProtoBufMessageBuilder.cs#L1-L408",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.MessageBroker/Builders/ProtoBufMessageBuilder.cs:1–408"
+    },
+    {
+      "evidence": "masdeep-b360506/e/25ba9d4e86d4eaf9",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.MessageBroker/Services/NotificationService.cs#L1-L70",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.MessageBroker/Services/NotificationService.cs:1–70"
+    },
+    {
+      "evidence": "masdeep-b360506/e/34fab5c27425e69e",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.MessageBroker/Producers/KafkaProducer.cs#L1-L69",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.MessageBroker/Producers/KafkaProducer.cs:1–69"
+    },
+    {
+      "evidence": "masdeep-b360506/e/8201669e3fbebe8d",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Infrastructure/DatabaseContext.cs#L1-L650",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Infrastructure/DatabaseContext.cs:1–650"
+    },
+    {
+      "evidence": "masdeep-b360506/e/e7c6a9357ad83a0a",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Api/Mapping/AutoMapperExtensions.cs#L1-L30",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Api/Mapping/AutoMapperExtensions.cs:1–30"
+    },
+    {
+      "evidence": "masdeep-b360506/e/860bc1ca29201083",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Api/Mapping/MappingProfile.cs#L1-L375",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Api/Mapping/MappingProfile.cs:1–375"
+    },
+    {
+      "evidence": "masdeep-b360506/e/d61351349d210e5f",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Infrastructure/UnitOfWork.cs#L1-L153",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Infrastructure/UnitOfWork.cs:1–153"
+    },
+    {
+      "evidence": "masdeep-b360506/e/1b1c399d1cbd235a",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Core/Services/CommercialItemService.cs#L1-L114",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Core/Services/CommercialItemService.cs:1–114"
+    },
+    {
+      "evidence": "masdeep-b360506/e/ae1c622893c8d563",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Core/Services/CrudService.cs#L1-L94",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Core/Services/CrudService.cs:1–94"
+    },
+    {
+      "evidence": "masdeep-b360506/e/98fa5b0461d6b12a",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Infrastructure/Repositories/CommercialItemRepository.cs#L1-L102",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Infrastructure/Repositories/CommercialItemRepository.cs:1–102"
+    },
+    {
+      "evidence": "masdeep-b360506/e/66abb728cd523936",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Infrastructure/Repositories/Repository.cs#L1-L191",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Infrastructure/Repositories/Repository.cs:1–191"
+    },
+    {
+      "evidence": "masdeep-b360506/e/095f6b7fcffabd78",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Api/Startup.cs#L1-L60",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Api/Startup.cs:1–60"
+    },
+    {
+      "evidence": "masdeep-b360506/e/341be6485aa3c805",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Api/Controllers/V1/FeesController.cs#L78-L84",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Api/Controllers/V1/FeesController.cs:78–84"
+    },
+    {
+      "evidence": "masdeep-b360506/e/c1f20c744969ba1e",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Core/Common/ValidationConstants.cs#L24-L24",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Core/Common/ValidationConstants.cs:24–24"
+    },
+    {
+      "evidence": "masdeep-b360506/e/f6bb616a8fba2531",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Core/Common/ValidationConstants.cs#L36-L36",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Core/Common/ValidationConstants.cs:36–36"
+    },
+    {
+      "evidence": "masdeep-b360506/e/94c71a8c5393f2b2",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Api/Models/V1/Request/FeeInput.cs#L33-L39",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Api/Models/V1/Request/FeeInput.cs:33–39"
+    },
+    {
+      "evidence": "masdeep-b360506/e/f4ce20e7d22c6fcd",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Core/Common/ValidationConstants.cs#L35-L35",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Core/Common/ValidationConstants.cs:35–35"
+    },
+    {
+      "evidence": "masdeep-b360506/e/68683f18f227a835",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Api/Models/V1/Request/FeeInput.cs#L29-L33",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Api/Models/V1/Request/FeeInput.cs:29–33"
+    },
+    {
+      "evidence": "masdeep-b360506/e/0e7f19fbb6da0c7e",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Core/Common/ValidationConstants.cs#L23-L23",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Core/Common/ValidationConstants.cs:23–23"
+    },
+    {
+      "evidence": "masdeep-b360506/e/da8c4c588e5765d6",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Core/Common/ValidationConstants.cs#L89-L89",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Core/Common/ValidationConstants.cs:89–89"
+    },
+    {
+      "evidence": "masdeep-b360506/e/8836fae57a1d7ca8",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Api/Models/V1/Request/FeeInput.cs#L22-L25",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Api/Models/V1/Request/FeeInput.cs:22–25"
+    },
+    {
+      "evidence": "masdeep-b360506/e/885609eafdbfff2a",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Api/Models/V1/Request/FeeInput.cs#L8-L17",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Api/Models/V1/Request/FeeInput.cs:8–17"
+    },
+    {
+      "evidence": "masdeep-b360506/e/82b71e570299cfb3",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Api/Models/V1/Request/FeeInput.cs#L1-L49",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Api/Models/V1/Request/FeeInput.cs:1–49"
+    },
+    {
+      "evidence": "masdeep-b360506/e/d9de6d98016cc70e",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Infrastructure/Repositories/FeeRepository.cs#L1-L13",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Infrastructure/Repositories/FeeRepository.cs:1–13"
+    },
+    {
+      "evidence": "masdeep-b360506/e/a99275f774569f6c",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Core/Services/FeeService.cs#L1-L28",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Core/Services/FeeService.cs:1–28"
+    },
+    {
+      "evidence": "masdeep-b360506/e/9be7e386e428168c",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Api/Controllers/V1/FeesController.cs#L73-L84",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Api/Controllers/V1/FeesController.cs:73–84"
+    },
+    {
+      "evidence": "masdeep-b360506/e/786517a302ada0ff",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Core/Models/CommercialItems/CommercialItemBase.cs#L1-L43",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Core/Models/CommercialItems/CommercialItemBase.cs:1–43"
+    },
+    {
+      "evidence": "masdeep-b360506/e/d79bff19f244cfe6",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Core/Models/CommercialItems/Fee.cs#L8-L8",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Core/Models/CommercialItems/Fee.cs:8–8"
+    },
+    {
+      "evidence": "masdeep-b360506/e/80eccbc6232b217f",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Core/Models/CommercialItems/Fee.cs#L7-L7",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Core/Models/CommercialItems/Fee.cs:7–7"
+    },
+    {
+      "evidence": "masdeep-b360506/e/3cf2609e40df515a",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Core/Models/CommercialItems/Fee.cs#L1-L22",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Core/Models/CommercialItems/Fee.cs:1–22"
+    },
+    {
+      "evidence": "masdeep-b360506/e/16cda1766cefba08",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Core/Common/ResultType/Result.cs#L1-L140",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Core/Common/ResultType/Result.cs:1–140"
+    },
+    {
+      "evidence": "masdeep-b360506/e/b111ec1459333eaf",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Api/Models/V1/Response/SuccessResponse.cs#L1-L35",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Api/Models/V1/Response/SuccessResponse.cs:1–35"
+    },
+    {
+      "evidence": "masdeep-b360506/e/fa2e5ec075b05ef5",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Api/Models/V1/Response/SuccessResponse.cs#L32-L33",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Api/Models/V1/Response/SuccessResponse.cs:32–33"
+    },
+    {
+      "evidence": "masdeep-b360506/e/2f41b29b68bdef33",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Api/Models/V1/Response/Fee.cs#L26-L26",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Api/Models/V1/Response/Fee.cs:26–26"
+    },
+    {
+      "evidence": "masdeep-b360506/e/872b159715a0788a",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Api/Models/V1/Response/Fee.cs#L25-L25",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Api/Models/V1/Response/Fee.cs:25–25"
+    },
+    {
+      "evidence": "masdeep-b360506/e/db5cb940d157e70e",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Api/Models/V1/Response/Fee.cs#L18-L21",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Api/Models/V1/Response/Fee.cs:18–21"
+    },
+    {
+      "evidence": "masdeep-b360506/e/49913228f1f81474",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Api/Models/V1/Response/Fee.cs#L15-L18",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Api/Models/V1/Response/Fee.cs:15–18"
+    },
+    {
+      "evidence": "masdeep-b360506/e/c0bcbacb3fe8ae92",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Api/Models/V1/Response/Fee.cs#L15-L15",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Api/Models/V1/Response/Fee.cs:15–15"
+    },
+    {
+      "evidence": "masdeep-b360506/e/6b5c72d068637d1d",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Api/Models/V1/Response/Fee.cs#L5-L13",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Api/Models/V1/Response/Fee.cs:5–13"
+    },
+    {
+      "evidence": "masdeep-b360506/e/b7b95d24b6f60c70",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Api/Models/V1/Response/Fee.cs#L1-L39",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Api/Models/V1/Response/Fee.cs:1–39"
+    },
+    {
+      "evidence": "masdeep-b360506/e/1acab0cb99497df7",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Api/Models/V1/Response/SuccessResponse.cs#L29-L29",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Api/Models/V1/Response/SuccessResponse.cs:29–29"
+    },
+    {
+      "evidence": "masdeep-b360506/e/8463dc246db32e85",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Api/Models/V1/Response/SuccessResponse.cs#L22-L23",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Api/Models/V1/Response/SuccessResponse.cs:22–23"
+    },
+    {
+      "evidence": "u3/e/mas-program",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Api/Program.cs#L1-L24",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Api/Program.cs:1–24"
+    }
+  ],
+  "nextRequest": null
+}

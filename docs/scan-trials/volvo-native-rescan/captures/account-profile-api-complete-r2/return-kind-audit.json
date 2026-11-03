@@ -1,0 +1,22 @@
+{
+  "sourceKnownVoidCalls": [
+    "account-profile-bc3003a-complete-r1/op/ea1813bce0844db7/1",
+    "account-profile-bc3003a-complete-r1/op/ea1813bce0844db7/2",
+    "account-profile-bc3003a-complete-r1/op/9cbf4f321242c5e0/4",
+    "account-profile-bc3003a-complete-r1/op/c9664891602ce6e2/4",
+    "account-profile-bc3003a-complete-r1/op/e70f783d36db75f8/6",
+    "account-profile-bc3003a-complete-r1/op/95aaba57c62d6116/29",
+    "account-profile-bc3003a-complete-r1/op/1d9867181458fe9d/4",
+    "account-profile-bc3003a-complete-r1/op/a7571f9e5a475268/7",
+    "account-profile-bc3003a-complete-r1/op/a7571f9e5a475268/10",
+    "account-profile-bc3003a-complete-r1/op/a7571f9e5a475268/12",
+    "account-profile-bc3003a-complete-r1/op/2e9f3a5189a18fe0/23",
+    "account-profile-bc3003a-complete-r1/op/2e9f3a5189a18fe0/25",
+    "account-profile-bc3003a-complete-r1/op/2e9f3a5189a18fe0/27",
+    "account-profile-bc3003a-complete-r1/op/2e9f3a5189a18fe0/29",
+    "account-profile-bc3003a-complete-r1/op/2e9f3a5189a18fe0/31",
+    "account-profile-bc3003a-complete-r1/op/2e9f3a5189a18fe0/33"
+  ],
+  "falseResults": [],
+  "taskRule": "Source Task and Task<T> are value; source callback/Program synthetic signatures unresolved; no unknown imported return type guessed"
+}

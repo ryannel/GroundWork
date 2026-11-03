@@ -1,0 +1,136 @@
+{
+  "snapshot": "bd0ce620207f239f5d3d2fe197a26fe533e31b25dc690680b145d771cf5d6664",
+  "status": "sealed",
+  "files": [
+    {
+      "path": "HANDOFF.md",
+      "bytes": 2406,
+      "sha256": "e88aad437b8748ff9f079a5e4d7c93dc9f8e01e0c57cdfdc3a5e39c81e8720e1"
+    },
+    {
+      "path": "README.md",
+      "bytes": 7475,
+      "sha256": "76e8645b7d2046ceb1f581c1d1e96c2b176d99a5f8764fdd4c19b4fe858099e9"
+    },
+    {
+      "path": "body-signature-ledger.final-r3.json",
+      "bytes": 589864,
+      "sha256": "0be7848a8423d6095e0dfe72ecdceb10c29dfedb4ba28ecbb3e2fcec07fb61d8"
+    },
+    {
+      "path": "bundle.final-r3.json",
+      "bytes": 79242802,
+      "sha256": "3a4363fe8f594e017ad660a61c6dc2d7f6233cb254cec487f85ca83f8c5a4b6b"
+    },
+    {
+      "path": "callback-registration-ledger.final-r3.json",
+      "bytes": 72445,
+      "sha256": "d6e1721fbe8988a56b293bc29197b773a211bb10c2737cbddbdfc86a955a0890"
+    },
+    {
+      "path": "calls-ledger.final-r3.json",
+      "bytes": 1818679,
+      "sha256": "6f9c7ebd3097cba60ac203171d9482f3935da2f2dc5799c97553eaf5a4b9fd5d"
+    },
+    {
+      "path": "composition-dependency-ledger.final-r3.json",
+      "bytes": 47537,
+      "sha256": "cda95dcd7845c24b930166496ff2918bc1512598c8bc8431402058a0cbb2f0dd"
+    },
+    {
+      "path": "entries-ledger.final-r3.json",
+      "bytes": 99241,
+      "sha256": "0c649923228191268ddbb1bd3fe8300b6a95cfe61a30a0c5599383987bf86e44"
+    },
+    {
+      "path": "gitlink-census.final-r3.json",
+      "bytes": 4577,
+      "sha256": "f57aabdc6b6e87aa9ebfda0b8ba8c35642cc16b446319d70b15b24013634e22b"
+    },
+    {
+      "path": "graphql-registration-ledger.final-r3.json",
+      "bytes": 17681,
+      "sha256": "61e0e3bf2f4644d49e6d4c17259b29a60f0df07e792b5470441f80d920f3d672"
+    },
+    {
+      "path": "io-ledger.final-r3.json",
+      "bytes": 12242,
+      "sha256": "3b285311135565d4635bd34f57eb96ece1daa82de45d7c3c7f57ab5c5c6b721a"
+    },
+    {
+      "path": "queries.final-r3.mjs",
+      "bytes": 9540,
+      "sha256": "841349e4cb97e4dd8af13e9736d56aa5c6f36a3800b599259d850460d8f2ec84"
+    },
+    {
+      "path": "query-replay-final-r3/requests.json",
+      "bytes": 946374,
+      "sha256": "3e2d525acf396804a0a516cffba7760a45ea426a2c5c9577bdd6ab8a9c3b8246"
+    },
+    {
+      "path": "query-replay-final-r3/results.json.gz",
+      "bytes": 781391,
+      "sha256": "8c7d786374a6e6b3ecbdf9d93a05b8cd89c2115d3764d83d6391be721fccf6d3"
+    },
+    {
+      "path": "query-replay-final-r3/summary.json",
+      "bytes": 267127,
+      "sha256": "f9785f2e2499b580d746cf4301179db20fa9635fe48f345dfe93b9862875ecb6"
+    },
+    {
+      "path": "query.final-r3.log",
+      "bytes": 203,
+      "sha256": "c24ab708cd00a3edad42fdd12b96f949bc6a395f0823f8c271a0e6e1e82327f5"
+    },
+    {
+      "path": "report.json",
+      "bytes": 1780,
+      "sha256": "8fcacdd30d84b2a4bfa42b14438f98b06133a27de3e07fef5b1e59948bc39b1e"
+    },
+    {
+      "path": "repository-census.final-r3.json",
+      "bytes": 38875,
+      "sha256": "2dee42a98dbd4a3b00482fb3a5ee9481eba9bff99909b7ecf9b735c090f0fe4e"
+    },
+    {
+      "path": "schemas-ledger.final-r3.json",
+      "bytes": 46861,
+      "sha256": "2305fe40ddc98e047547976496b7b63b19824372f2a20f4ec9d319dbbd8ca10d"
+    },
+    {
+      "path": "snapshot.final-r3.json",
+      "bytes": 266,
+      "sha256": "faece5f0456fce7f8011d359d0d814c6edfc764f4d07102cafefbc6b59ce8521"
+    },
+    {
+      "path": "source-verification.final-r2.log",
+      "bytes": 548,
+      "sha256": "cb41ca67fe268948984af09638ccea658ebfce889c37581686164205ec1f32dc"
+    },
+    {
+      "path": "source-verification.final-r3.json",
+      "bytes": 925,
+      "sha256": "4fdf08ede0c0fa1290b75d6ee34be1bc69bdc22007617c2fcc06c8c92c6e6572"
+    },
+    {
+      "path": "sourcefile-completeness-ledger.final-r3.json",
+      "bytes": 68410,
+      "sha256": "d68a2ca8bc2261c21afe579f95617f09a3e926e3965002fe0086bd136027e71c"
+    },
+    {
+      "path": "test-assertion-ledger.final-r3.json",
+      "bytes": 38619,
+      "sha256": "9a6587713adf116618c153941da48a69a683201e0792112a4a6d58281322bdca"
+    },
+    {
+      "path": "unsupported-syntax.final-r3.json",
+      "bytes": 3,
+      "sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570"
+    },
+    {
+      "path": "validation.final-r3.log",
+      "bytes": 498,
+      "sha256": "531dfb034b26ae9880d2fc3ae7f6c09efcf0c3b224ca99bd1a85ff8c34b6f76c"
+    }
+  ]
+}

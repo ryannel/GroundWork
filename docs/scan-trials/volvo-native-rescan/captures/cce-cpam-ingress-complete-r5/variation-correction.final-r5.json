@@ -1,0 +1,25 @@
+{
+  "base": "bundle.final-r3.json",
+  "corrections": [
+    {
+      "host": "http",
+      "interaction": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/interaction/io/620ff68c3db742737a00",
+      "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/operation/df24dbf498880ae4f997/10",
+      "removedEffect": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/effect/io/620ff68c3db742737a00",
+      "gap": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/gap/variation-library/http"
+    },
+    {
+      "host": "pipeline",
+      "interaction": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/interaction/io/b782c9b262e1e5e9171c",
+      "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/operation/df24dbf498880ae4f997/10",
+      "removedEffect": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/effect/io/b782c9b262e1e5e9171c",
+      "gap": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/gap/variation-library/pipeline"
+    }
+  ],
+  "removedEffects": [
+    "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/effect/io/620ff68c3db742737a00",
+    "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/effect/io/b782c9b262e1e5e9171c"
+  ],
+  "changesOnly": "Two SDK variation destinations/effects/contracts/gaps and separate configured flag-purpose claim; whole selected fact namespace revised, logicalIds preserved",
+  "recordCount": 160947
+}

@@ -1,0 +1,96 @@
+{
+  "repo": "volvo-cars/cds-paymentservice-customer",
+  "pin": "b0010537cdd5a308a30a885541748727c97ecb2e",
+  "files": [
+    {
+      "path": "cds-paymentservice-customer-api/src/main/java/com/volvocars/ecom/paymentservice/customer/api/customer/v1/impl/CustomerControllerImpl.java",
+      "sha256": "9f57e4f4f1dfbc9f37c395eacb09fb8f1bb68fcee33857663a3697fd3e43c8d8",
+      "lines": 193,
+      "matchesPin": true
+    },
+    {
+      "path": "cds-paymentservice-customer-core/src/main/java/com/volvocars/ecom/paymentservice/customer/CustomerManager.java",
+      "sha256": "67d10c1d421a9f6c6d6fa773afd7ed5f082caec3014a4a9a6ca173b0f5ac7911",
+      "lines": 423,
+      "matchesPin": true
+    },
+    {
+      "path": "cds-paymentservice-customer-core/src/main/java/com/volvocars/ecom/paymentservice/customer/CustomerService.java",
+      "sha256": "12dfccb1f2f68c2fc533f3128517739c574bf56d299b7d9aea48d64d0d798dfc",
+      "lines": 139,
+      "matchesPin": true
+    },
+    {
+      "path": "cds-paymentservice-customer-core/src/main/java/com/volvocars/ecom/paymentservice/customer/CustomerOperationService.java",
+      "sha256": "381c9d7997b2aa358ca346d796fb5c7c4ed5671ca75bb158b62ead7c0f171fbe",
+      "lines": 116,
+      "matchesPin": true
+    },
+    {
+      "path": "cds-paymentservice-customer-core/src/main/java/com/volvocars/ecom/paymentservice/recurringcharge/RecurringChargeCustomerService.java",
+      "sha256": "2690af803e17b82621f99000a8e13b624f9dbc0a8c73d838cb8c443bed10140e",
+      "lines": 109,
+      "matchesPin": true
+    },
+    {
+      "path": "cds-paymentservice-customer-core/src/main/java/com/volvocars/ecom/paymentservice/recurringcharge/RecurringChargeOperationService.java",
+      "sha256": "a6b25376d66325f55ee08418e1bcf5ba6808ef03a65f40ff000838fe49637428",
+      "lines": 36,
+      "matchesPin": true
+    },
+    {
+      "path": "cds-paymentservice-customer-core/src/main/java/com/volvocars/ecom/paymentservice/customerpsprelation/CustomerPspRelationOperationService.java",
+      "sha256": "09c1caccfd22ec0cc9b32f2e44e7a23d88f5fc28d1974fe80d2ce6ff07b2afef",
+      "lines": 48,
+      "matchesPin": true
+    },
+    {
+      "path": "cds-paymentservice-customer-shared/src/main/java/com/volvocars/ecom/paymentservice/customer/BaseCustomerCreatePayload.java",
+      "sha256": "4ff0a2dc2f587154c525716dab117de70d7968cf22d3d578492d19f8cf5f09ae",
+      "lines": 49,
+      "matchesPin": true
+    },
+    {
+      "path": "cds-paymentservice-customer-api/src/main/java/com/volvocars/ecom/paymentservice/customer/api/customer/v1/mapper/CustomerApiMapper.java",
+      "sha256": "b3e594791694fb5dc33f8b01612901900ecc45019b7bae0f49edcf5211f0ca7e",
+      "lines": 59,
+      "matchesPin": true
+    },
+    {
+      "path": "cds-paymentservice-customer-core/src/main/java/com/volvocars/ecom/paymentservice/integration/common/CustomerControllerAdvice.java",
+      "sha256": "4eb58fc37ff866a3775307f9444fc43f3fad2e55f32357879e45806e8cafa6e6",
+      "lines": 387,
+      "matchesPin": true
+    },
+    {
+      "path": "cds-paymentservice-customer-client/src/main/java/com/volvocars/ecom/paymentservice/customer/client/customer/CustomerApi.java",
+      "sha256": "9a5a18d7b9f3f1f22ece1ef1e1b9392024675ab074fdba8501bad6c6dce6e913",
+      "lines": 68,
+      "matchesPin": true
+    },
+    {
+      "path": "cds-paymentservice-customer-core/src/main/java/com/volvocars/ecom/paymentservice/configuration/FaultTolerantCacheManager.java",
+      "sha256": "223041075d603fd894292786c1a315ff170d98b03d10fce3ae6d9d2a8a8754c1",
+      "lines": 119,
+      "matchesPin": true
+    },
+    {
+      "path": "cds-paymentservice-customer-core/src/main/java/com/volvocars/ecom/paymentservice/configuration/CacheConfiguration.java",
+      "sha256": "ef6e0ba0b5e3c089b849a52b00bd00282bb61b7d954732845f67473a8c0b3e3e",
+      "lines": 75,
+      "matchesPin": true
+    },
+    {
+      "path": "cds-paymentservice-customer-core/src/main/java/com/volvocars/ecom/paymentservice/customer/PspIntegrationClientConfig.java",
+      "sha256": "85a0317e82d12aa433f4f6bb09f3268ff0596993407e9fe415bf65f0553c3657",
+      "lines": 29,
+      "matchesPin": true
+    },
+    {
+      "path": "cds-paymentservice-customer-shared/src/main/java/com/volvocars/ecom/paymentservice/customer/CustomerCreatePayload.java",
+      "sha256": "d196c83aedcd5cb62ee100ed5c1da1a50c32f5df54ed6efddbc1e39627c4b70e",
+      "lines": 74,
+      "matchesPin": true
+    }
+  ]
+}

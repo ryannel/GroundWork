@@ -1,0 +1,147 @@
+{
+  "jsonShapes": [
+    {
+      "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/database/postgres::carSpecification",
+      "sourceShape": "cce-car-spec-adapter-667a00a-complete-r1/shape/cf462133ca512f86",
+      "persistedShape": "cce-car-spec-adapter-667a00a-complete-r1/shape/persisted-json/cf462133ca512f86"
+    },
+    {
+      "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/database/postgres::car",
+      "sourceShape": "cce-car-spec-adapter-667a00a-complete-r1/shape/a49134303a6054b2",
+      "persistedShape": "cce-car-spec-adapter-667a00a-complete-r1/shape/persisted-json/a49134303a6054b2"
+    },
+    {
+      "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/database/postgres::sMessageSpecification",
+      "sourceShape": "cce-car-spec-adapter-667a00a-complete-r1/shape/0985616e7722918f",
+      "persistedShape": "cce-car-spec-adapter-667a00a-complete-r1/shape/persisted-json/0985616e7722918f"
+    },
+    {
+      "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/database/postgres::sMessage",
+      "sourceShape": "cce-car-spec-adapter-667a00a-complete-r1/shape/2cff7be07c755928",
+      "persistedShape": "cce-car-spec-adapter-667a00a-complete-r1/shape/persisted-json/2cff7be07c755928"
+    },
+    {
+      "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/database/postgres::stylingSpecification",
+      "sourceShape": "cce-car-spec-adapter-667a00a-complete-r1/shape/a5a4fde5a7a79cb7",
+      "persistedShape": "cce-car-spec-adapter-667a00a-complete-r1/shape/persisted-json/a5a4fde5a7a79cb7"
+    },
+    {
+      "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/database/postgres::color",
+      "sourceShape": "cce-car-spec-adapter-667a00a-complete-r1/shape/b7c4165e960f210f",
+      "persistedShape": "cce-car-spec-adapter-667a00a-complete-r1/shape/persisted-json/b7c4165e960f210f"
+    },
+    {
+      "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/database/postgres::upholstery",
+      "sourceShape": "cce-car-spec-adapter-667a00a-complete-r1/shape/c61d5492a86b1478",
+      "persistedShape": "cce-car-spec-adapter-667a00a-complete-r1/shape/persisted-json/c61d5492a86b1478"
+    },
+    {
+      "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/database/postgres::timeBoundCode",
+      "sourceShape": "cce-car-spec-adapter-667a00a-complete-r1/shape/4fedb8c2c94d3e50",
+      "persistedShape": "cce-car-spec-adapter-667a00a-complete-r1/shape/persisted-json/4fedb8c2c94d3e50"
+    },
+    {
+      "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/database/postgres::manyTimeBoundCodes",
+      "sourceShape": "cce-car-spec-adapter-667a00a-complete-r1/shape/8ddc95d2e1282ff8",
+      "persistedShape": "cce-car-spec-adapter-667a00a-complete-r1/shape/persisted-json/8ddc95d2e1282ff8"
+    },
+    {
+      "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/database/postgres::optionSpecification",
+      "sourceShape": "cce-car-spec-adapter-667a00a-complete-r1/shape/bb5e32823f70b1d3",
+      "persistedShape": "cce-car-spec-adapter-667a00a-complete-r1/shape/persisted-json/bb5e32823f70b1d3"
+    },
+    {
+      "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/database/postgres::option",
+      "sourceShape": "cce-car-spec-adapter-667a00a-complete-r1/shape/49bc9ffce3454931",
+      "persistedShape": "cce-car-spec-adapter-667a00a-complete-r1/shape/persisted-json/49bc9ffce3454931"
+    },
+    {
+      "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/database/postgres::packageSpecification",
+      "sourceShape": "cce-car-spec-adapter-667a00a-complete-r1/shape/540c0371140c75c6",
+      "persistedShape": "cce-car-spec-adapter-667a00a-complete-r1/shape/persisted-json/540c0371140c75c6"
+    },
+    {
+      "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/database/postgres::pkg",
+      "sourceShape": "cce-car-spec-adapter-667a00a-complete-r1/shape/90faf645b3048aab",
+      "persistedShape": "cce-car-spec-adapter-667a00a-complete-r1/shape/persisted-json/90faf645b3048aab"
+    },
+    {
+      "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/database/postgres::wheelSpecification",
+      "sourceShape": "cce-car-spec-adapter-667a00a-complete-r1/shape/aea0b0fab0b27312",
+      "persistedShape": "cce-car-spec-adapter-667a00a-complete-r1/shape/persisted-json/aea0b0fab0b27312"
+    },
+    {
+      "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/database/postgres::wheel",
+      "sourceShape": "cce-car-spec-adapter-667a00a-complete-r1/shape/5c5820c86c0c9653",
+      "persistedShape": "cce-car-spec-adapter-667a00a-complete-r1/shape/persisted-json/5c5820c86c0c9653"
+    },
+    {
+      "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/database/postgres::exactlyOne",
+      "sourceShape": "cce-car-spec-adapter-667a00a-complete-r1/shape/621058916d64490e",
+      "persistedShape": "cce-car-spec-adapter-667a00a-complete-r1/shape/persisted-json/621058916d64490e"
+    },
+    {
+      "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/database/postgres::timeBoundExactlyOne",
+      "sourceShape": "cce-car-spec-adapter-667a00a-complete-r1/shape/e103292e267f19a9",
+      "persistedShape": "cce-car-spec-adapter-667a00a-complete-r1/shape/persisted-json/e103292e267f19a9"
+    },
+    {
+      "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/database/postgres::timeBoundAtLeastOne",
+      "sourceShape": "cce-car-spec-adapter-667a00a-complete-r1/shape/9e23de9eca05c45f",
+      "persistedShape": "cce-car-spec-adapter-667a00a-complete-r1/shape/persisted-json/9e23de9eca05c45f"
+    },
+    {
+      "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/database/postgres::forbids",
+      "sourceShape": "cce-car-spec-adapter-667a00a-complete-r1/shape/ca65df2783e9d11a",
+      "persistedShape": "cce-car-spec-adapter-667a00a-complete-r1/shape/persisted-json/ca65df2783e9d11a"
+    },
+    {
+      "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/database/postgres::period",
+      "sourceShape": "cce-car-spec-adapter-667a00a-complete-r1/shape/37ec043c7d0a4c10",
+      "persistedShape": "cce-car-spec-adapter-667a00a-complete-r1/shape/persisted-json/37ec043c7d0a4c10"
+    },
+    {
+      "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/database/postgres::structureWeek",
+      "sourceShape": "cce-car-spec-adapter-667a00a-complete-r1/shape/1c4016e39fce9745",
+      "persistedShape": "cce-car-spec-adapter-667a00a-complete-r1/shape/persisted-json/1c4016e39fce9745"
+    }
+  ],
+  "ddl": [
+    {
+      "path": "docker-entrypoint-initdb.d/create_db.sql",
+      "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/ddl/3f5c5eeeef765152",
+      "sql": "CREATE DATABASE car_spec_adapter_test;\nCREATE DATABASE car_spec_adapter_app_test;"
+    },
+    {
+      "path": "internal/database/postgres/migrations/000001_add_car_specification_table.down.sql",
+      "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/ddl/aad266059ea10ce6",
+      "sql": "DROP INDEX IF EXISTS idx_car_specifications_spec_market_model_year_pno12;\n\nDROP TABLE IF EXISTS car_specifications;\n"
+    },
+    {
+      "path": "internal/database/postgres/migrations/000001_add_car_specification_table.up.sql",
+      "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/ddl/ef115ff0d238d7ea",
+      "sql": "CREATE TABLE IF NOT EXISTS car_specifications(\n    id UUID PRIMARY KEY,\n    spec_market VARCHAR(3) NOT NULL,\n    model_year INT NOT NULL,\n    pno12 VARCHAR(12) NOT NULL,\n    local_trim_edition_code VARCHAR(10) NOT NULL,\n    car_specification JSONB NOT NULL\n);\n\nCREATE INDEX IF NOT EXISTS idx_car_specifications_spec_market_model_year_pno12\nON car_specifications (spec_market, model_year, pno12, local_trim_edition_code);\n"
+    },
+    {
+      "path": "internal/database/postgres/migrations/000002_rename_local_trim_edition_code_column.down.sql",
+      "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/ddl/9a2fcddd8a8aa923",
+      "sql": "ALTER TABLE car_specifications RENAME COLUMN local_edition_code TO local_trim_edition_code;\n\nDROP INDEX IF EXISTS idx_car_specifications_spec_market_model_year_pno12;\nCREATE INDEX IF NOT EXISTS idx_car_specifications_spec_market_model_year_pno12\nON car_specifications (spec_market, model_year, pno12, local_trim_edition_code);\n"
+    },
+    {
+      "path": "internal/database/postgres/migrations/000002_rename_local_trim_edition_code_column.up.sql",
+      "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/ddl/46474743fdb2544e",
+      "sql": "ALTER TABLE car_specifications RENAME COLUMN local_trim_edition_code TO local_edition_code;\n\nDROP INDEX IF EXISTS idx_car_specifications_spec_market_model_year_pno12;\nCREATE INDEX IF NOT EXISTS idx_car_specifications_spec_market_model_year_pno12\nON car_specifications (spec_market, model_year, pno12, local_edition_code);\n"
+    },
+    {
+      "path": "internal/database/postgres/migrations/000003_add_local_editions_table.down.sql",
+      "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/ddl/70b056f48856fc18",
+      "sql": "DROP INDEX IF EXISTS idx_local_editions_spec_market_model_year_pno12;\n\nDROP TABLE IF EXISTS local_editions;\n"
+    },
+    {
+      "path": "internal/database/postgres/migrations/000003_add_local_editions_table.up.sql",
+      "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/ddl/8a3d8c4d06a6db0c",
+      "sql": "CREATE TABLE IF NOT EXISTS local_editions (\n    spec_market        TEXT NOT NULL,\n    model_year         INT  NOT NULL,\n    pno12              TEXT NOT NULL,\n    local_edition_code TEXT NOT NULL,\n    PRIMARY KEY (spec_market, model_year, pno12)\n);\n\nCREATE INDEX IF NOT EXISTS idx_local_editions_spec_market_model_year_pno12\nON local_editions (spec_market, model_year, pno12);\n"
+    }
+  ],
+  "codecGap": "cce-car-spec-adapter-667a00a-complete-r1/gap/persisted-codec"
+}

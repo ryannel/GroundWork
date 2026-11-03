@@ -1,0 +1,133 @@
+{
+  "snapshot": "31585b5be35778f319c8edc78ed346af9eba722bbd9e09a0e819d25ba3eeb1d1",
+  "queries": 253,
+  "positiveIO": 33,
+  "limited": [
+    "rest-0-Sync",
+    "rest-0-source-associations",
+    "rest-1-Baseline",
+    "rest-1-source-associations",
+    "rest-2-GetCarSpecifications",
+    "rest-5-Upsert",
+    "boundary-7",
+    "boundary-8",
+    "subscription-0",
+    "subscription-0-facts",
+    "subscription-1",
+    "subscription-1-facts",
+    "process-0",
+    "goroutine-0",
+    "goroutine-1",
+    "records-pagination-first"
+  ],
+  "diagnostics": [
+    {
+      "entry": "cce-car-spec-adapter-667a00a-complete-r1/entry/rest/carspecifications/Sync",
+      "name": "Sync",
+      "targets": [
+        "cce-car-spec-adapter-667a00a-complete-r1/runtime_component/assortment",
+        "cce-car-spec-adapter-667a00a-complete-r1/runtime_component/postgres"
+      ],
+      "limited": [
+        "maxNodes",
+        "maxRecords"
+      ],
+      "zeroEdges": false
+    },
+    {
+      "entry": "cce-car-spec-adapter-667a00a-complete-r1/entry/rest/carspecifications/Baseline",
+      "name": "Baseline",
+      "targets": [
+        "cce-car-spec-adapter-667a00a-complete-r1/runtime_component/assortment"
+      ],
+      "limited": [
+        "maxNodes",
+        "maxRecords"
+      ],
+      "zeroEdges": false
+    },
+    {
+      "entry": "cce-car-spec-adapter-667a00a-complete-r1/entry/rest/carspecifications/GetCarSpecifications",
+      "name": "GetCarSpecifications",
+      "targets": [
+        "cce-car-spec-adapter-667a00a-complete-r1/runtime_component/postgres"
+      ],
+      "limited": [
+        "maxNodes"
+      ],
+      "zeroEdges": false
+    },
+    {
+      "entry": "cce-car-spec-adapter-667a00a-complete-r1/entry/rest/localeditions/List",
+      "name": "List",
+      "targets": [
+        "cce-car-spec-adapter-667a00a-complete-r1/runtime_component/postgres"
+      ],
+      "limited": [],
+      "zeroEdges": false
+    },
+    {
+      "entry": "cce-car-spec-adapter-667a00a-complete-r1/entry/rest/localeditions/GetLocalEditionCode",
+      "name": "GetLocalEditionCode",
+      "targets": [
+        "cce-car-spec-adapter-667a00a-complete-r1/runtime_component/postgres"
+      ],
+      "limited": [],
+      "zeroEdges": false
+    },
+    {
+      "entry": "cce-car-spec-adapter-667a00a-complete-r1/entry/rest/localeditions/Upsert",
+      "name": "Upsert",
+      "targets": [
+        "cce-car-spec-adapter-667a00a-complete-r1/runtime_component/postgres",
+        "cce-car-spec-adapter-667a00a-complete-r1/runtime_component/assortment"
+      ],
+      "limited": [
+        "maxNodes",
+        "maxRecords"
+      ],
+      "zeroEdges": false
+    },
+    {
+      "entry": "cce-car-spec-adapter-667a00a-complete-r1/entry/rest/localeditions/Delete",
+      "name": "Delete",
+      "targets": [
+        "cce-car-spec-adapter-667a00a-complete-r1/runtime_component/postgres"
+      ],
+      "limited": [],
+      "zeroEdges": false
+    },
+    {
+      "interaction": "cce-car-spec-adapter-667a00a-complete-r1/interaction/io/77109c37b1ce6581/api",
+      "query": "boundary-1",
+      "limited": [],
+      "frontiers": [
+        "binding_unresolved"
+      ]
+    },
+    {
+      "interaction": "cce-car-spec-adapter-667a00a-complete-r1/interaction/io/77109c37b1ce6581/migrator",
+      "query": "boundary-2",
+      "limited": [],
+      "frontiers": [
+        "binding_unresolved"
+      ]
+    },
+    {
+      "interaction": "cce-car-spec-adapter-667a00a-complete-r1/interaction/io/1bab275b9880466d/api",
+      "query": "boundary-3",
+      "limited": [],
+      "frontiers": [
+        "binding_unresolved"
+      ]
+    },
+    {
+      "interaction": "cce-car-spec-adapter-667a00a-complete-r1/interaction/io/1bab275b9880466d/migrator",
+      "query": "boundary-4",
+      "limited": [],
+      "frontiers": [
+        "binding_unresolved"
+      ]
+    }
+  ]
+}

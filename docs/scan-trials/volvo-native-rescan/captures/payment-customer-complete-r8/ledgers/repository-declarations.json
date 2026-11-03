@@ -1,0 +1,125 @@
+[
+  {
+    "type": "com.volvocars.ecom.paymentservice.customer.CustomerRepository",
+    "extends": null,
+    "methods": [
+      {
+        "name": "findByExternalIdentifier",
+        "parameters": [
+          {
+            "name": "type",
+            "type": "IdType"
+          },
+          {
+            "name": "value",
+            "type": "String"
+          }
+        ],
+        "returnType": "List<CustomerEntity>",
+        "declaration": "@Query(value = \"{externalIdentifiers: {$elemMatch:{type:?0 , value: ?1}} }\")\n  List<CustomerEntity> findByExternalIdentifier(IdType type, String value);",
+        "claim": "customer-b0010537-complete-r8/repository-declaration/cbcb42e8bd8122e1",
+        "evidence": "customer-b0010537-complete-r8/e/817c74aee32ebff0"
+      },
+      {
+        "name": "findByCustomerId",
+        "parameters": [
+          {
+            "name": "customerId",
+            "type": "String"
+          }
+        ],
+        "returnType": "Optional<CustomerEntity>",
+        "declaration": "Optional<CustomerEntity> findByCustomerId(String customerId);",
+        "claim": "customer-b0010537-complete-r8/repository-declaration/f9862c66ec86a367",
+        "evidence": "customer-b0010537-complete-r8/e/d2b681cccb84cf89"
+      },
+      {
+        "name": "findByVolvoId",
+        "parameters": [
+          {
+            "name": "volvoId",
+            "type": "String"
+          }
+        ],
+        "returnType": "List<CustomerEntity>",
+        "declaration": "List<CustomerEntity> findByVolvoId(String volvoId);",
+        "claim": "customer-b0010537-complete-r8/repository-declaration/5926c49753c914c0",
+        "evidence": "customer-b0010537-complete-r8/e/70beaf93cdafd620"
+      }
+    ]
+  },
+  {
+    "type": "com.volvocars.ecom.paymentservice.customerpsprelation.CustomerPspRelationRepository",
+    "extends": null,
+    "methods": [
+      {
+        "name": "findByPspRelation",
+        "parameters": [
+          {
+            "name": "accountId",
+            "type": "String"
+          },
+          {
+            "name": "externalId",
+            "type": "String"
+          }
+        ],
+        "returnType": "List<CustomerPspRelationEntity>",
+        "declaration": "@Query(value = \"{accountId:?0 , externalId: ?1}\")\n  List<CustomerPspRelationEntity> findByPspRelation(String accountId, String externalId);",
+        "claim": "customer-b0010537-complete-r8/repository-declaration/7c9a8b32e2c32d27",
+        "evidence": "customer-b0010537-complete-r8/e/a5c36e062b0d5f69"
+      },
+      {
+        "name": "findByCustomerId",
+        "parameters": [
+          {
+            "name": "customerId",
+            "type": "String"
+          }
+        ],
+        "returnType": "List<CustomerPspRelationEntity>",
+        "declaration": "@Query(value = \"{customerId:?0}\")\n  List<CustomerPspRelationEntity> findByCustomerId(String customerId);",
+        "claim": "customer-b0010537-complete-r8/repository-declaration/9604cb82961fc3d5",
+        "evidence": "customer-b0010537-complete-r8/e/86220928719ede8d"
+      }
+    ]
+  },
+  {
+    "type": "com.volvocars.ecom.paymentservice.paymentinstrument.PaymentInstrumentRepository",
+    "extends": null,
+    "methods": [
+      {
+        "name": "findByPaymentInstrumentId",
+        "parameters": [
+          {
+            "name": "paymentInstrumentId",
+            "type": "String"
+          }
+        ],
+        "returnType": "Optional<PaymentInstrumentEntity>",
+        "declaration": "Optional<PaymentInstrumentEntity> findByPaymentInstrumentId(String paymentInstrumentId);",
+        "claim": "customer-b0010537-complete-r8/repository-declaration/2472541fc0828f06",
+        "evidence": "customer-b0010537-complete-r8/e/f53b011c4836dc77"
+      }
+    ]
+  },
+  {
+    "type": "com.volvocars.ecom.paymentservice.recurringcharge.RecurringChargeRepository",
+    "extends": null,
+    "methods": [
+      {
+        "name": "findByRecurringChargeId",
+        "parameters": [
+          {
+            "name": "recurringChargeId",
+            "type": "String"
+          }
+        ],
+        "returnType": "Optional<RecurringChargeEntity>",
+        "declaration": "Optional<RecurringChargeEntity> findByRecurringChargeId(String recurringChargeId);",
+        "claim": "customer-b0010537-complete-r8/repository-declaration/4b20288cfc1df316",
+        "evidence": "customer-b0010537-complete-r8/e/178766a077cc1d21"
+      }
+    ]
+  }
+]

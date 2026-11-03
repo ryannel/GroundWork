@@ -1,0 +1,122 @@
+{
+  "repo": "volvo-cars/cce-retail-ingress",
+  "commit": "95d091aa445f26500a497554236ec07c8ca7b27c",
+  "status": "Independent19full pinned files reviewed;70strict queries zero bounds;3202ranges54nonemptyfiles checked; all25childgitlinkblobs unavailable",
+  "files": [
+    {
+      "path": "internal/app/app.go",
+      "lines": 72,
+      "sha256": "b48d5eb85492d8df88955c450b6e378004c716336d8095ad551700521e8f50e4",
+      "review": "Entire pinned source independently read; compared with accepted native capture and strict queries"
+    },
+    {
+      "path": "internal/app/auth.go",
+      "lines": 16,
+      "sha256": "4d0368e203ad81ac97f1ae2dc2ced66613d312248f98876835e934a1990b613a",
+      "review": "Entire pinned source independently read; compared with accepted native capture and strict queries"
+    },
+    {
+      "path": "internal/app/kafka.go",
+      "lines": 20,
+      "sha256": "0a980bf7665c7f06501c7abc7e963b363053e074542eb916ba3b01af45ccc07e",
+      "review": "Entire pinned source independently read; compared with accepted native capture and strict queries"
+    },
+    {
+      "path": "internal/restapi/api.go",
+      "lines": 221,
+      "sha256": "46676a7ff49cd60a7627401f89754976f462d2c72a411c0e6c072b9ec2324729",
+      "review": "Entire pinned source independently read; compared with accepted native capture and strict queries"
+    },
+    {
+      "path": "internal/restapi/mid/auth.go",
+      "lines": 77,
+      "sha256": "897d44da3bdf499c7484adb0fe9fee75dda579636a1c8cc3065f7fd9711d5206",
+      "review": "Entire pinned source independently read; compared with accepted native capture and strict queries"
+    },
+    {
+      "path": "internal/restapi/platform/auth.go",
+      "lines": 146,
+      "sha256": "cc203bf830dbbcbdd0d41afe8eb982d36d2abbc36783dec99567ea3438b0d051",
+      "review": "Entire pinned source independently read; compared with accepted native capture and strict queries"
+    },
+    {
+      "path": "internal/messaging/partnerpublisher.go",
+      "lines": 68,
+      "sha256": "180cc3c3459cb22f13dea3471b65d2109eb5c317907945f49152931fea668b9b",
+      "review": "Entire pinned source independently read; compared with accepted native capture and strict queries"
+    },
+    {
+      "path": "internal/gateway/rdmclient/rdmclient.go",
+      "lines": 286,
+      "sha256": "88eb0deac1146fc7e387c77ac956c9f40f0acde75027a4da413310b9b58bee16",
+      "review": "Entire pinned source independently read; compared with accepted native capture and strict queries"
+    },
+    {
+      "path": "internal/messaging/partner.go",
+      "lines": 73,
+      "sha256": "794e408de28143103ee1bc76cd291060dc261ba71a50301997bb8f87216ac052",
+      "review": "Entire pinned source independently read; compared with accepted native capture and strict queries"
+    },
+    {
+      "path": "internal/messaging/setup.go",
+      "lines": 80,
+      "sha256": "c25a5e8198cf225f7cdc5fd91573e309ed9b8abbf8eec72bd6166339cbb5fbaf",
+      "review": "Entire pinned source independently read; compared with accepted native capture and strict queries"
+    },
+    {
+      "path": "internal/gateway/rdmclient/tokensource.go",
+      "lines": 91,
+      "sha256": "602125fe2b4c66da6204f9f74de1f1a583ad82672dd6dc0ed1eeab3e2d96b60a",
+      "review": "Entire pinned source independently read; compared with accepted native capture and strict queries"
+    },
+    {
+      "path": "internal/gateway/roundtripper.go",
+      "lines": 23,
+      "sha256": "32d766d15fdd7dd0f9a1f64806a774cb62528e5dc438a62b840d1df6882f7948",
+      "review": "Entire pinned source independently read; compared with accepted native capture and strict queries"
+    },
+    {
+      "path": "internal/gateway/client.go",
+      "lines": 93,
+      "sha256": "4355c3f35496cda6991322e5d03ed389b848b530e45f0d4b06357fa35293ade3",
+      "review": "Entire pinned source independently read; compared with accepted native capture and strict queries"
+    },
+    {
+      "path": "internal/protobuf/partnerDetailsFeed.proto",
+      "lines": 31,
+      "sha256": "a1dd1964863ef1ad77230ab76fdfb9405570b06477911205d5a6cee2fa4425f0",
+      "review": "Entire pinned source independently read; compared with accepted native capture and strict queries"
+    },
+    {
+      "path": "internal/protobuf/partnerNotify.proto",
+      "lines": 25,
+      "sha256": "c3f30a4015c7fcf94d31bd6fa503044437b007154d8f887dccb6d8bf2918865c",
+      "review": "Entire pinned source independently read; compared with accepted native capture and strict queries"
+    },
+    {
+      "path": "internal/gateway/requestbuilder.go",
+      "lines": 79,
+      "sha256": "ee17420d44bb1892b6b079812dcfeb849cb63a462073d7e7c2159d73a082831f",
+      "review": "Entire pinned source independently read; compared with accepted native capture and strict queries"
+    },
+    {
+      "path": "internal/gateway/rdmclient/partnerdatamodel.go",
+      "lines": 54,
+      "sha256": "b3af5f07664f2fcdffa8cebee37f847ec398ca069246a882e687f633fb1e0a92",
+      "review": "Entire pinned source independently read; compared with accepted native capture and strict queries"
+    },
+    {
+      "path": "internal/gateway/rdmclient/partnersdatamodel.go",
+      "lines": 58,
+      "sha256": "835924a7929140b30d0ae71012d1872d7930cc8c8be188a79635354e8ef4f037",
+      "review": "Entire pinned source independently read; compared with accepted native capture and strict queries"
+    },
+    {
+      "path": "internal/domain/partner.go",
+      "lines": 15,
+      "sha256": "4819c8953068089d64837070154a4e6c252802a3af519ff9c6bae030583855b2",
+      "review": "Entire pinned source independently read; compared with accepted native capture and strict queries"
+    }
+  ],
+  "snapshot": "f06cf27a34008539e23495f4d8023b6cd4f407d1768ab0470d8506af7a1ee6e8"
+}

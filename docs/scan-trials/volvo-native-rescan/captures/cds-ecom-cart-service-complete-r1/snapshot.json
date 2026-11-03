@@ -1,0 +1,7 @@
+{
+  "format": "groundwork-snapshot/v3",
+  "bundles": ["817ec9fc2b78017d07cdcca52364e90c9ce0fe6f6de81064e1e6f1d98c066f7b"],
+  "interpretations": [],
+  "rules": "knowledge-query/v3",
+  "id": "b957447c66cc73327797c780159c9277dbeb17159f0758d5ab8a225f3a0092f1"
+}

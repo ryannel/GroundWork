@@ -1,0 +1,111 @@
+[
+  {
+    "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-7/revised/01287b29df4367d70118",
+    "method": "POST",
+    "path": "/v1/payment-sessions/{paymentSessionId}/transaction-capture",
+    "implementation": "volvo/cds-paymentservice-transaction/020d2fabb141/local-7/method/af48288be7d003f1cb3e",
+    "symbol": "com.volvocars.ecom.paymentservice.transaction.api.paymentsession.v1.impl.PaymentSessionControllerImpl#captureTransaction(String,TransactionCapturePayload)",
+    "status": "source_review_complete",
+    "runtimeStatus": "external_or_generated_boundaries_remain"
+  },
+  {
+    "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-7/revised/a5909ccb608b86850966",
+    "method": "POST",
+    "path": "/v1/payment-sessions/{paymentSessionId}/retry",
+    "implementation": "volvo/cds-paymentservice-transaction/020d2fabb141/local-7/method/af48288be7d003f1cb3e",
+    "symbol": "com.volvocars.ecom.paymentservice.transaction.api.paymentsession.v1.impl.PaymentSessionControllerImpl#captureTransaction(String,TransactionCapturePayload)",
+    "status": "source_review_complete",
+    "runtimeStatus": "external_or_generated_boundaries_remain"
+  },
+  {
+    "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-7/revised/e7ee10f2914d3cfaa8d5",
+    "method": "POST",
+    "path": "/v1/payment-sessions/{paymentSessionId}/resubmit",
+    "implementation": "volvo/cds-paymentservice-transaction/020d2fabb141/local-7/method/af48288be7d003f1cb3e",
+    "symbol": "com.volvocars.ecom.paymentservice.transaction.api.paymentsession.v1.impl.PaymentSessionControllerImpl#captureTransaction(String,TransactionCapturePayload)",
+    "status": "source_review_complete",
+    "runtimeStatus": "external_or_generated_boundaries_remain"
+  },
+  {
+    "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-7/revised/4450a3e42a604c8a31d2",
+    "method": "GET",
+    "path": "/v1/payment-sessions/{paymentSessionId}",
+    "implementation": "volvo/cds-paymentservice-transaction/020d2fabb141/local-7/method/af48288be7d003f1cb3e",
+    "symbol": "com.volvocars.ecom.paymentservice.transaction.api.paymentsession.v1.impl.PaymentSessionControllerImpl#captureTransaction(String,TransactionCapturePayload)",
+    "status": "source_review_complete",
+    "runtimeStatus": "external_or_generated_boundaries_remain"
+  },
+  {
+    "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-7/revised/d2ee92c1b54666ee220d",
+    "method": "POST",
+    "path": "/v1/payment-sessions",
+    "implementation": "volvo/cds-paymentservice-transaction/020d2fabb141/local-7/method/af48288be7d003f1cb3e",
+    "symbol": "com.volvocars.ecom.paymentservice.transaction.api.paymentsession.v1.impl.PaymentSessionControllerImpl#captureTransaction(String,TransactionCapturePayload)",
+    "status": "source_review_complete",
+    "runtimeStatus": "external_or_generated_boundaries_remain"
+  },
+  {
+    "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-7/revised/5d18126d3346ff204b49",
+    "method": "POST",
+    "path": "/v1/payment-sessions/charge",
+    "implementation": "volvo/cds-paymentservice-transaction/020d2fabb141/local-7/method/af48288be7d003f1cb3e",
+    "symbol": "com.volvocars.ecom.paymentservice.transaction.api.paymentsession.v1.impl.PaymentSessionControllerImpl#captureTransaction(String,TransactionCapturePayload)",
+    "status": "source_review_complete",
+    "runtimeStatus": "external_or_generated_boundaries_remain"
+  },
+  {
+    "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-7/revised/c3175c9f90a92bab08d8",
+    "method": "POST",
+    "path": "/v1/payment-sessions/{paymentSessionId}/transaction-refund",
+    "implementation": "volvo/cds-paymentservice-transaction/020d2fabb141/local-7/method/c1e4e63a13ed070fd39c",
+    "symbol": "com.volvocars.ecom.paymentservice.transaction.api.refund.v1.impl.RefundControllerImpl#refundPaymentSession(String,RefundPayload)",
+    "status": "source_review_complete",
+    "runtimeStatus": "external_or_generated_boundaries_remain"
+  },
+  {
+    "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-7/revised/9fcaf70a30c31627bf04",
+    "method": "POST",
+    "path": "/v1/payment-sessions/{paymentSessionId}/psp/{psp}/transaction-create",
+    "implementation": "volvo/cds-paymentservice-transaction/020d2fabb141/local-7/method/0d6eb601a908589c74b9",
+    "symbol": "com.volvocars.ecom.paymentservice.transaction.api.transaction.v1.impl.TransactionControllerImpl#create(String,Psp,CreateTransactionPayload)",
+    "status": "source_review_complete",
+    "runtimeStatus": "external_or_generated_boundaries_remain"
+  },
+  {
+    "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-7/revised/36d7d84e2c11015223c8",
+    "method": "GET",
+    "path": "/v1/configurations/swagger-config",
+    "implementation": "volvo/cds-paymentservice-transaction/020d2fabb141/local-7/method/94e2876dbc62eb296cc4",
+    "symbol": "com.volvocars.ecom.paymentservice.transaction.api.configuration.v1.impl.SwaggerUIControllerImpl#getSwaggerConfig()",
+    "status": "source_review_complete",
+    "runtimeStatus": "external_or_generated_boundaries_remain"
+  },
+  {
+    "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-7/revised/08083b6894438a0b29c8",
+    "method": "GET",
+    "path": "/v1/version",
+    "implementation": "volvo/cds-paymentservice-transaction/020d2fabb141/local-7/method/997a0b847efe9430da80",
+    "symbol": "com.volvocars.ecom.paymentservice.transaction.api.version.v1.impl.VersionControllerImpl#getVersion()",
+    "status": "source_review_complete",
+    "runtimeStatus": "external_or_generated_boundaries_remain"
+  },
+  {
+    "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-7/revised/0341347708db594dcf90",
+    "method": "GET",
+    "path": "/v2/version",
+    "implementation": "volvo/cds-paymentservice-transaction/020d2fabb141/local-7/method/6a8ca59d9bbe29f401d0",
+    "symbol": "com.volvocars.ecom.paymentservice.transaction.api.version.v2.impl.VersionControllerImpl#getVersion()",
+    "status": "source_review_complete",
+    "runtimeStatus": "external_or_generated_boundaries_remain"
+  },
+  {
+    "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-7/entry/process-main",
+    "trigger": "process",
+    "method": "PROCESS",
+    "path": "com.volvocars.ecom.paymentservice.transaction.api.App#main(String[])",
+    "implementation": "volvo/cds-paymentservice-transaction/020d2fabb141/local-7/method/94e4cabe18d25a24c986",
+    "symbol": "com.volvocars.ecom.paymentservice.transaction.api.App#main(String[])",
+    "status": "source_review_complete",
+    "runtimeStatus": "external_or_generated_boundaries_remain"
+  }
+]

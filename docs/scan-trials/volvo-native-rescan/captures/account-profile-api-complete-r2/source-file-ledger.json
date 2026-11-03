@@ -1,0 +1,886 @@
+{
+  "repo": "volvo-cars/account-profile-api",
+  "pin": "bc3003a9130cd9a8013d74ec4561575d1f1d935b",
+  "files": [
+    {
+      "path": ".github/workflows/build-deploy.yaml",
+      "bytes": 2549,
+      "sha256": "d1b77fc1056608f9313883d3a1fa650c8b02fb98f6cb4bfde8a660bcbbbcccff",
+      "production": false,
+      "lines": 90,
+      "inspection": "excluded test/test-utility, history/release notes, binary certificate or editor/deployment/support input; not production executable source"
+    },
+    {
+      "path": ".gitignore",
+      "bytes": 5839,
+      "sha256": "db5364de195291c104639dcc7806e03ea572bd0970096d8844131d0592382402",
+      "production": false,
+      "lines": 344,
+      "inspection": "excluded test/test-utility, history/release notes, binary certificate or editor/deployment/support input; not production executable source"
+    },
+    {
+      "path": "ChangeLog.md",
+      "bytes": 2795,
+      "sha256": "f16cc0160c9af579be0415c96b2f285b5f402f1e59d76249267abcff345cd8d7",
+      "production": false,
+      "lines": 82,
+      "inspection": "excluded test/test-utility, history/release notes, binary certificate or editor/deployment/support input; not production executable source"
+    },
+    {
+      "path": "Dockerfile",
+      "bytes": 978,
+      "sha256": "8e3e2fa858ff8ab14996f6e5b6cd086b7bde0205fb64d142fce762e6c2acf4c8",
+      "production": false,
+      "lines": 30,
+      "inspection": "examined supporting configuration/dependency/infrastructure declaration; no inferred runtime activation"
+    },
+    {
+      "path": "README.md",
+      "bytes": 2068,
+      "sha256": "6621645e14b2bf277835191c63806ba528232a814635e33a6b26799f7971de76",
+      "production": false,
+      "lines": 29,
+      "inspection": "examined supporting configuration/dependency/infrastructure declaration; no inferred runtime activation"
+    },
+    {
+      "path": "ReleaseNotes.md",
+      "bytes": 150,
+      "sha256": "5d7e1e8169b57db0dad6b05f83c8cf49fd0ca19bb21165c06cd7cc5c06fcc1c8",
+      "production": false,
+      "lines": 5,
+      "inspection": "excluded test/test-utility, history/release notes, binary certificate or editor/deployment/support input; not production executable source"
+    },
+    {
+      "path": "VolvoCars.AccountProfile.Api/Constants/DefaultValues.cs",
+      "bytes": 228,
+      "sha256": "27799a8e5ff726fb10ba1d9e63f028b8b1e2f81297f521cbd14fce46b32d846a",
+      "production": true,
+      "lines": 9,
+      "inspection": "examined: full source declaration/body and registrations/values reviewed"
+    },
+    {
+      "path": "VolvoCars.AccountProfile.Api/Constants/Headers.cs",
+      "bytes": 162,
+      "sha256": "5000fc1df525b753144d95e5af8f960f1fa8f935ca64d5f46fac93687539e82d",
+      "production": true,
+      "lines": 7,
+      "inspection": "examined: full source declaration/body and registrations/values reviewed"
+    },
+    {
+      "path": "VolvoCars.AccountProfile.Api/Constants/Messages.cs",
+      "bytes": 387,
+      "sha256": "a009d808773e03cd32ade2d7fd66761f4daee15fca59ff783ded424a0a0b188c",
+      "production": true,
+      "lines": 9,
+      "inspection": "examined: full source declaration/body and registrations/values reviewed"
+    },
+    {
+      "path": "VolvoCars.AccountProfile.Api/Constants/Policies.cs",
+      "bytes": 150,
+      "sha256": "faf7f63395911784d4e9b9a5a87b03de9dfed44bfb1e88ad85fde83c0cef2258",
+      "production": true,
+      "lines": 7,
+      "inspection": "examined: full source declaration/body and registrations/values reviewed"
+    },
+    {
+      "path": "VolvoCars.AccountProfile.Api/Constants/Scopes.cs",
+      "bytes": 195,
+      "sha256": "375c14f8fef2d0fc93704b305aa35e0b1d0ec85c004b6c903b88d87024d709c3",
+      "production": true,
+      "lines": 8,
+      "inspection": "examined: full source declaration/body and registrations/values reviewed"
+    },
+    {
+      "path": "VolvoCars.AccountProfile.Api/Controllers/V1/AccountController.cs",
+      "bytes": 6254,
+      "sha256": "387baa94d316ce68898337878032f3ef12ff7af6898575f2138e219118a2ac62",
+      "production": true,
+      "lines": 132,
+      "inspection": "examined: full source declaration/body and registrations/values reviewed"
+    },
+    {
+      "path": "VolvoCars.AccountProfile.Api/Controllers/V1/Models/Request/SettingsFilterQuery.cs",
+      "bytes": 1163,
+      "sha256": "a16ea045f1ece27b5a2aca35b28da6041fa14ada82f314a05454746c565fc751",
+      "production": true,
+      "lines": 24,
+      "inspection": "examined: full source declaration/body and registrations/values reviewed"
+    },
+    {
+      "path": "VolvoCars.AccountProfile.Api/Controllers/V1/Models/Request/UpdateAccount.cs",
+      "bytes": 277,
+      "sha256": "9b9981777f444830fed2b0a4df65c913e3b65ed86aa281a8145f208239702e2d",
+      "production": true,
+      "lines": 8,
+      "inspection": "examined: full source declaration/body and registrations/values reviewed"
+    },
+    {
+      "path": "VolvoCars.AccountProfile.Api/Controllers/V1/Models/Response/Account.cs",
+      "bytes": 350,
+      "sha256": "3883211f45558c66e8e1b5d2b632d1509e92ef4a58c77bfbfdd1294782421ba5",
+      "production": true,
+      "lines": 12,
+      "inspection": "examined: full source declaration/body and registrations/values reviewed"
+    },
+    {
+      "path": "VolvoCars.AccountProfile.Api/Controllers/V1/Models/Response/Settings.cs",
+      "bytes": 360,
+      "sha256": "68d8548a00701944030f65e136bb54977066509963d9a827ab5f648c3314968e",
+      "production": true,
+      "lines": 11,
+      "inspection": "examined: full source declaration/body and registrations/values reviewed"
+    },
+    {
+      "path": "VolvoCars.AccountProfile.Api/Controllers/V1/SettingsController.cs",
+      "bytes": 2717,
+      "sha256": "19d0f71b7ca27b9640e97d19810ad07b2471156ca60c7828956dd0ea852061df",
+      "production": true,
+      "lines": 62,
+      "inspection": "examined: full source declaration/body and registrations/values reviewed"
+    },
+    {
+      "path": "VolvoCars.AccountProfile.Api/Extensions/ApiStartupExtensions.cs",
+      "bytes": 1922,
+      "sha256": "dfcac7f5373560ab7bbac26c9909edb001f3f99cda8c0945151c771f52a63bac",
+      "production": true,
+      "lines": 44,
+      "inspection": "examined: full source declaration/body and registrations/values reviewed"
+    },
+    {
+      "path": "VolvoCars.AccountProfile.Api/Extensions/IServiceCollectionExtensions.cs",
+      "bytes": 4073,
+      "sha256": "2477bcc41ddb06f2c36abb442130e9987ac4766f8223e9235dd475269e70d095",
+      "production": true,
+      "lines": 92,
+      "inspection": "examined: full source declaration/body and registrations/values reviewed"
+    },
+    {
+      "path": "VolvoCars.AccountProfile.Api/Factories/PaginationFactory.cs",
+      "bytes": 2738,
+      "sha256": "efe8936591868454d2eca0ab0831597158a8ba50d7a5144d02f0ca3826020487",
+      "production": true,
+      "lines": 82,
+      "inspection": "examined: full source declaration/body and registrations/values reviewed"
+    },
+    {
+      "path": "VolvoCars.AccountProfile.Api/Layer/ExtendedControllerBase.cs",
+      "bytes": 1038,
+      "sha256": "48fc145ea5e4f7a4d7897201f45ac42db3beda1f39848468f4cfcddd9e0b7831",
+      "production": true,
+      "lines": 30,
+      "inspection": "examined: full source declaration/body and registrations/values reviewed"
+    },
+    {
+      "path": "VolvoCars.AccountProfile.Api/Program.cs",
+      "bytes": 2449,
+      "sha256": "509f33d0495a145a7e1a9e0a9c8bcfa53e7321842a87769d839709d1bc1571b9",
+      "production": true,
+      "lines": 62,
+      "inspection": "examined: full source declaration/body and registrations/values reviewed"
+    },
+    {
+      "path": "VolvoCars.AccountProfile.Api/Properties/launchSettings.json",
+      "bytes": 791,
+      "sha256": "838897b1a7448f9d84fd127c3480457b4bf2f8910b44d0c084140fcfd7875f9a",
+      "production": true,
+      "lines": 30,
+      "inspection": "excluded test/test-utility, history/release notes, binary certificate or editor/deployment/support input; not production executable source"
+    },
+    {
+      "path": "VolvoCars.AccountProfile.Api/Properties/serviceDependencies.json",
+      "bytes": 75,
+      "sha256": "45178132f53a9b243bcec37f535a019371e9586a6144030f3e99ad9904f8e334",
+      "production": true,
+      "lines": 7,
+      "inspection": "excluded test/test-utility, history/release notes, binary certificate or editor/deployment/support input; not production executable source"
+    },
+    {
+      "path": "VolvoCars.AccountProfile.Api/Properties/serviceDependencies.local.json",
+      "bytes": 80,
+      "sha256": "d211948843daa72777e1becd8778513472eb56ac43d465c5c56abd1c3ebfb192",
+      "production": true,
+      "lines": 7,
+      "inspection": "excluded test/test-utility, history/release notes, binary certificate or editor/deployment/support input; not production executable source"
+    },
+    {
+      "path": "VolvoCars.AccountProfile.Api/VolvoCars.AccountProfile.Api.csproj",
+      "bytes": 1062,
+      "sha256": "633cd378eca4953950d755df3737db95f1ee456b508d62f193f738b9ef884053",
+      "production": true,
+      "lines": 29,
+      "inspection": "examined supporting configuration/dependency/infrastructure declaration; no inferred runtime activation"
+    },
+    {
+      "path": "VolvoCars.AccountProfile.Api/VolvoCars.AccountProfile.Api.sln",
+      "bytes": 1133,
+      "sha256": "96088ef2de498fc9a9aca24d7fe4f5f3f00806aa69f845c5c444b0e48bf5e656",
+      "production": true,
+      "lines": 25,
+      "inspection": "excluded test/test-utility, history/release notes, binary certificate or editor/deployment/support input; not production executable source"
+    },
+    {
+      "path": "VolvoCars.AccountProfile.Api/appsettings.Development.json",
+      "bytes": 130,
+      "sha256": "3485e6e66a1de5557341d1622ebc0f6f766af5647619b6f1e6399ed8ea592c69",
+      "production": true,
+      "lines": 9,
+      "inspection": "examined supporting configuration/dependency/infrastructure declaration; no inferred runtime activation"
+    },
+    {
+      "path": "VolvoCars.AccountProfile.Api/appsettings.Prod.json",
+      "bytes": 1251,
+      "sha256": "f7ddd4b91815bd8cbc21da28e5918dee370ccc2809b1e6959946b885a347cd29",
+      "production": true,
+      "lines": 41,
+      "inspection": "examined supporting configuration/dependency/infrastructure declaration; no inferred runtime activation"
+    },
+    {
+      "path": "VolvoCars.AccountProfile.Api/appsettings.Qa.json",
+      "bytes": 141,
+      "sha256": "f49188ab609feba592e36076e6fdacdeebafd60e0563ddbc3573393c4c2fbf43",
+      "production": true,
+      "lines": 8,
+      "inspection": "examined supporting configuration/dependency/infrastructure declaration; no inferred runtime activation"
+    },
+    {
+      "path": "VolvoCars.AccountProfile.Api/appsettings.Test.json",
+      "bytes": 1109,
+      "sha256": "0e37a680baffde27cf7159c5d27d7316cf5d74286969fe930730a550720857f6",
+      "production": true,
+      "lines": 37,
+      "inspection": "examined supporting configuration/dependency/infrastructure declaration; no inferred runtime activation"
+    },
+    {
+      "path": "VolvoCars.AccountProfile.Api/appsettings.json",
+      "bytes": 2199,
+      "sha256": "2ac6c8b4b91cf6965e458d1ce5584cf230e84383fa1d905ae74f1c341806c9ac",
+      "production": true,
+      "lines": 72,
+      "inspection": "examined supporting configuration/dependency/infrastructure declaration; no inferred runtime activation"
+    },
+    {
+      "path": "VolvoCars.AccountProfile.Api/cacert.pem",
+      "bytes": 215558,
+      "sha256": "722f6e684fe3f2ce7a4b7e1c760096f0132dea6369867ea6748cd1f57d86b297",
+      "production": true,
+      "lines": 3338,
+      "inspection": "excluded test/test-utility, history/release notes, binary certificate or editor/deployment/support input; not production executable source"
+    },
+    {
+      "path": "VolvoCars.AccountProfile.Business/Constants/AccountStatuses.cs",
+      "bytes": 144,
+      "sha256": "0f4b0ca502cf521624a46f18a959c4e628d86a702873e45886a7c2d2e4da7d8a",
+      "production": true,
+      "lines": 8,
+      "inspection": "examined: full source declaration/body and registrations/values reviewed"
+    },
+    {
+      "path": "VolvoCars.AccountProfile.Business/Constants/AlternativeId.cs",
+      "bytes": 219,
+      "sha256": "72c6ba445cc0f0e3c09358b11cdaa4c86b2b39cdd2f8f8d194a189bebde53fdc",
+      "production": true,
+      "lines": 8,
+      "inspection": "examined: full source declaration/body and registrations/values reviewed"
+    },
+    {
+      "path": "VolvoCars.AccountProfile.Business/Constants/CacheKeys.cs",
+      "bytes": 166,
+      "sha256": "2d2194efe4b4dac10020e34c4b734646f2c1b8f5e917aec527a25942f366be85",
+      "production": true,
+      "lines": 7,
+      "inspection": "examined: full source declaration/body and registrations/values reviewed"
+    },
+    {
+      "path": "VolvoCars.AccountProfile.Business/Constants/CdbDefaultValues.cs",
+      "bytes": 165,
+      "sha256": "99cddfda41a9be69e728156034199ea19dce24cc852ed77f04b0a8ac0ea8bfa6",
+      "production": true,
+      "lines": 7,
+      "inspection": "examined: full source declaration/body and registrations/values reviewed"
+    },
+    {
+      "path": "VolvoCars.AccountProfile.Business/Constants/CdbLanguages.cs",
+      "bytes": 3589,
+      "sha256": "64c721ecb915e7628067e0d036295bf6285edf4fa005119121cc0deae97980b7",
+      "production": true,
+      "lines": 197,
+      "inspection": "examined: full source declaration/body and registrations/values reviewed"
+    },
+    {
+      "path": "VolvoCars.AccountProfile.Business/Constants/CdbMediums.cs",
+      "bytes": 331,
+      "sha256": "ca6ce8b9a68a1a3a9e8c956cab1138b6147a251014e1882a6ccd7928048fc699",
+      "production": true,
+      "lines": 9,
+      "inspection": "examined: full source declaration/body and registrations/values reviewed"
+    },
+    {
+      "path": "VolvoCars.AccountProfile.Business/Constants/CdbUsages.cs",
+      "bytes": 332,
+      "sha256": "872d41474b4496b1c1894f54814814d8b5a0da078c9e5ff369ee2b948e4b1c24",
+      "production": true,
+      "lines": 9,
+      "inspection": "examined: full source declaration/body and registrations/values reviewed"
+    },
+    {
+      "path": "VolvoCars.AccountProfile.Business/Constants/DateFormats.cs",
+      "bytes": 139,
+      "sha256": "7b527ee2e072fcfc213410ab1e2918e82587a022c04d1c7ca0492a62279c3d89",
+      "production": true,
+      "lines": 6,
+      "inspection": "examined: full source declaration/body and registrations/values reviewed"
+    },
+    {
+      "path": "VolvoCars.AccountProfile.Business/Constants/MediaTypes.cs",
+      "bytes": 335,
+      "sha256": "35d82a1cc40d612a49064f15a37b88ee28dac5fa6c99c2ac24afbb5263a2d6dd",
+      "production": true,
+      "lines": 8,
+      "inspection": "examined: full source declaration/body and registrations/values reviewed"
+    },
+    {
+      "path": "VolvoCars.AccountProfile.Business/Constants/RegexPatterns.cs",
+      "bytes": 383,
+      "sha256": "30b9b97e13e136dd185d3732d6294dd40bdd68a17094abe6a814c3e809c1b6c6",
+      "production": true,
+      "lines": 9,
+      "inspection": "examined: full source declaration/body and registrations/values reviewed"
+    },
+    {
+      "path": "VolvoCars.AccountProfile.Business/Constants/ServiceType.cs",
+      "bytes": 445,
+      "sha256": "b9194d5d827e1edb6e0acaa0a038cbd702e3bb764364f19e2525a53f050c3449",
+      "production": true,
+      "lines": 20,
+      "inspection": "examined: full source declaration/body and registrations/values reviewed"
+    },
+    {
+      "path": "VolvoCars.AccountProfile.Business/Constants/SettingsFieldNames.cs",
+      "bytes": 288,
+      "sha256": "dbe7f9dbbd0caaa0531db10dd27e35c51464d8a7bf7e92aeceb30d0de7fa2383",
+      "production": true,
+      "lines": 9,
+      "inspection": "examined: full source declaration/body and registrations/values reviewed"
+    },
+    {
+      "path": "VolvoCars.AccountProfile.Business/Constants/SystemNames.cs",
+      "bytes": 354,
+      "sha256": "eabe323d7a20b73e2fdf44da5060c5f0915dd8617edeea01746c64f4ef189cef",
+      "production": true,
+      "lines": 10,
+      "inspection": "examined: full source declaration/body and registrations/values reviewed"
+    },
+    {
+      "path": "VolvoCars.AccountProfile.Business/Constants/ValidationErrorCodes.cs",
+      "bytes": 244,
+      "sha256": "7187a4e797b29c1123dc3d934c0151b1ef04c842bd41cc839dda0b23a0116b53",
+      "production": true,
+      "lines": 8,
+      "inspection": "examined: full source declaration/body and registrations/values reviewed"
+    },
+    {
+      "path": "VolvoCars.AccountProfile.Business/Constants/ValidationRules.cs",
+      "bytes": 309,
+      "sha256": "c15b739bfb3796142312f51527d313e9962a45e4f0a7eb55418b107c261ec017",
+      "production": true,
+      "lines": 10,
+      "inspection": "examined: full source declaration/body and registrations/values reviewed"
+    },
+    {
+      "path": "VolvoCars.AccountProfile.Business/Constants/VdwAccountStatusType.cs",
+      "bytes": 478,
+      "sha256": "04dbd3a4f33b799c3a30b04747784318aa8ad1cabe27de3421380b55cc7261d5",
+      "production": true,
+      "lines": 23,
+      "inspection": "examined: full source declaration/body and registrations/values reviewed"
+    },
+    {
+      "path": "VolvoCars.AccountProfile.Business/Constants/VolvoIdActionType.cs",
+      "bytes": 774,
+      "sha256": "8ddc2bfa1b7ad4b0096072640e6ccb2efa2dca1c43a96238db2e02ee27fc6931",
+      "production": true,
+      "lines": 35,
+      "inspection": "examined: full source declaration/body and registrations/values reviewed"
+    },
+    {
+      "path": "VolvoCars.AccountProfile.Business/Enums/AppEnvironment.cs",
+      "bytes": 119,
+      "sha256": "a61638ccbe3e8442e767022a1d840f3f174df7631e3621b5c1aac2dc3d5441a0",
+      "production": true,
+      "lines": 4,
+      "inspection": "examined: full source declaration/body and registrations/values reviewed"
+    },
+    {
+      "path": "VolvoCars.AccountProfile.Business/Enums/Brands.cs",
+      "bytes": 117,
+      "sha256": "bc19d9dbd12bba5262a578e6a49e3a9b85c9b8ffaab70d7db1e8ab8be8f98fb1",
+      "production": true,
+      "lines": 8,
+      "inspection": "examined: full source declaration/body and registrations/values reviewed"
+    },
+    {
+      "path": "VolvoCars.AccountProfile.Business/Enums/Gender.cs",
+      "bytes": 136,
+      "sha256": "d9eacb8c2474fefbbc098758b2f821afa157e4b415389b3f71d55869b9baa579",
+      "production": true,
+      "lines": 9,
+      "inspection": "examined: full source declaration/body and registrations/values reviewed"
+    },
+    {
+      "path": "VolvoCars.AccountProfile.Business/Extensions/KeyVaultExtensions.cs",
+      "bytes": 1259,
+      "sha256": "e55f4a7aa587542724605d2e5401edb788d75c98189ec278b6c87b789595347c",
+      "production": true,
+      "lines": 30,
+      "inspection": "examined: full source declaration/body and registrations/values reviewed"
+    },
+    {
+      "path": "VolvoCars.AccountProfile.Business/FeatureToggling/Constants/FeatureToggles.cs",
+      "bytes": 680,
+      "sha256": "6675530a451362e62470d133368bb6071a4dab86f02f408aa745452939063b26",
+      "production": true,
+      "lines": 9,
+      "inspection": "examined: full source declaration/body and registrations/values reviewed"
+    },
+    {
+      "path": "VolvoCars.AccountProfile.Business/FeatureToggling/Extensions/IServiceCollectionExtensions.cs",
+      "bytes": 800,
+      "sha256": "9b5f7b835fa21356e14b0429186a2e5988bbf664f03ce039637f703fc7c45089",
+      "production": true,
+      "lines": 18,
+      "inspection": "examined: full source declaration/body and registrations/values reviewed"
+    },
+    {
+      "path": "VolvoCars.AccountProfile.Business/FeatureToggling/Services/FeatureToggleService.cs",
+      "bytes": 3578,
+      "sha256": "4ba98c42e68c529774d6607f878a7b16fc2805b91b687395c9a62a2bb8b77d72",
+      "production": true,
+      "lines": 87,
+      "inspection": "examined: full source declaration/body and registrations/values reviewed"
+    },
+    {
+      "path": "VolvoCars.AccountProfile.Business/FeatureToggling/Settings/LaunchDarklySettings.cs",
+      "bytes": 148,
+      "sha256": "f1a131f138d4a24755ee963caec958dee98523872843b5f44366c297d9e0961d",
+      "production": true,
+      "lines": 6,
+      "inspection": "examined: full source declaration/body and registrations/values reviewed"
+    },
+    {
+      "path": "VolvoCars.AccountProfile.Business/Layer/LayerBase.cs",
+      "bytes": 1455,
+      "sha256": "4719b1ba6b94a59f858131d00aeae912ac113b35056a5fceedc6ca0b61c4255d",
+      "production": true,
+      "lines": 54,
+      "inspection": "examined: full source declaration/body and registrations/values reviewed"
+    },
+    {
+      "path": "VolvoCars.AccountProfile.Business/Layer/LayerOutcome.cs",
+      "bytes": 340,
+      "sha256": "614fe3067b243dbb338ae9732c3ce4c0e08f09bc0b47807d193a0ab8c28bd979",
+      "production": true,
+      "lines": 14,
+      "inspection": "examined: full source declaration/body and registrations/values reviewed"
+    },
+    {
+      "path": "VolvoCars.AccountProfile.Business/Layer/LayerOutcomeCode.cs",
+      "bytes": 195,
+      "sha256": "4f196cc61ca89abdcd9006d94e3e809dbb14ce83f1eac81801f4c878079c370e",
+      "production": true,
+      "lines": 11,
+      "inspection": "examined: full source declaration/body and registrations/values reviewed"
+    },
+    {
+      "path": "VolvoCars.AccountProfile.Business/Logic/AccountLogic.cs",
+      "bytes": 3677,
+      "sha256": "4f0b690337e7cfdd4eb1996de36d221e0dc685e937388faba34f4264ce7285a7",
+      "production": true,
+      "lines": 71,
+      "inspection": "examined: full source declaration/body and registrations/values reviewed"
+    },
+    {
+      "path": "VolvoCars.AccountProfile.Business/Logic/SettingsLogic.cs",
+      "bytes": 895,
+      "sha256": "b25cc6b6992d52bed589f9ef986c35f8dda650c4a991138135929628b9394829",
+      "production": true,
+      "lines": 29,
+      "inspection": "examined: full source declaration/body and registrations/values reviewed"
+    },
+    {
+      "path": "VolvoCars.AccountProfile.Business/Logic/Validators/UpdateAccountValidator.cs",
+      "bytes": 3514,
+      "sha256": "1d708e69232a66613ced43d50e7329a2f2b38f4e29ce1cc4bf17a1d9549a2fc0",
+      "production": true,
+      "lines": 63,
+      "inspection": "examined: full source declaration/body and registrations/values reviewed"
+    },
+    {
+      "path": "VolvoCars.AccountProfile.Business/Managers/AccountManager.cs",
+      "bytes": 5523,
+      "sha256": "5edb3043bce1c45df5251b713bad7033d085713f50e02a76b90cabeac33a04d2",
+      "production": true,
+      "lines": 124,
+      "inspection": "examined: full source declaration/body and registrations/values reviewed"
+    },
+    {
+      "path": "VolvoCars.AccountProfile.Business/Managers/Factories/AccountFactory.cs",
+      "bytes": 3769,
+      "sha256": "3836f52f7cb83467be5aba4d7c7215014b75a67af36898f92b928d7288395730",
+      "production": true,
+      "lines": 97,
+      "inspection": "examined: full source declaration/body and registrations/values reviewed"
+    },
+    {
+      "path": "VolvoCars.AccountProfile.Business/Managers/Factories/AddressFactory.cs",
+      "bytes": 2256,
+      "sha256": "dfa846be178e871d2cbba3df5a41a8f00da151097b58b3af3bb49588797e79a8",
+      "production": true,
+      "lines": 61,
+      "inspection": "examined: full source declaration/body and registrations/values reviewed"
+    },
+    {
+      "path": "VolvoCars.AccountProfile.Business/Managers/SettingsManager.cs",
+      "bytes": 975,
+      "sha256": "b122372abc149a10943653f508c53834e4b319e3bdfb3258a7a1567a4cfd264f",
+      "production": true,
+      "lines": 27,
+      "inspection": "examined: full source declaration/body and registrations/values reviewed"
+    },
+    {
+      "path": "VolvoCars.AccountProfile.Business/Models/AppSettings/CdbSettings.cs",
+      "bytes": 521,
+      "sha256": "d207afc30698b8225fe3b50579389b913aa3cc68a15fc46e1b944a336ea074a1",
+      "production": true,
+      "lines": 12,
+      "inspection": "examined: full source declaration/body and registrations/values reviewed"
+    },
+    {
+      "path": "VolvoCars.AccountProfile.Business/Models/AppSettings/FeatureToggleSettings.cs",
+      "bytes": 398,
+      "sha256": "3437d0818cfa39e833fad75e61a9f9b4f165a49d9d0fa1e0e49d0b59944a1882",
+      "production": true,
+      "lines": 11,
+      "inspection": "examined: full source declaration/body and registrations/values reviewed"
+    },
+    {
+      "path": "VolvoCars.AccountProfile.Business/Models/AppSettings/KeyVaultSettings.cs",
+      "bytes": 302,
+      "sha256": "afe9dbd6918b8901f15a4347515b813c63131b062ed8c5e95f5073190345c469",
+      "production": true,
+      "lines": 10,
+      "inspection": "examined: full source declaration/body and registrations/values reviewed"
+    },
+    {
+      "path": "VolvoCars.AccountProfile.Business/Models/Base/AccountBase.cs",
+      "bytes": 1358,
+      "sha256": "41f3546c16c22b99f64d73eefcfce0e66f5ccc9f4a05435c9bf9749647e0af66",
+      "production": true,
+      "lines": 37,
+      "inspection": "examined: full source declaration/body and registrations/values reviewed"
+    },
+    {
+      "path": "VolvoCars.AccountProfile.Business/Models/Base/AddressBase.cs",
+      "bytes": 1303,
+      "sha256": "ab6b6421c58e4435cf27cdd3dee35d443f6edc1f3c92b1433536d8394a686f42",
+      "production": true,
+      "lines": 29,
+      "inspection": "examined: full source declaration/body and registrations/values reviewed"
+    },
+    {
+      "path": "VolvoCars.AccountProfile.Business/Models/Base/UpdateAccountBase.cs",
+      "bytes": 281,
+      "sha256": "b22839249dc1c2065bc2b649f56fba9c5b116cabd9a5b0c5a495cfe7ac9bac6c",
+      "production": true,
+      "lines": 10,
+      "inspection": "examined: full source declaration/body and registrations/values reviewed"
+    },
+    {
+      "path": "VolvoCars.AccountProfile.Business/Models/UserProperties.cs",
+      "bytes": 292,
+      "sha256": "185e4011d62ccdb675297263aff3fa08c5a42c1154aa7cfaa87c33a7b89c277e",
+      "production": true,
+      "lines": 11,
+      "inspection": "examined: full source declaration/body and registrations/values reviewed"
+    },
+    {
+      "path": "VolvoCars.AccountProfile.Business/Models/V1/Response/AccountData.cs",
+      "bytes": 1253,
+      "sha256": "ffef5b57683e77bdcd09fbc5f3b4a9c154f3e05f8959d6c53e5a5343530d156d",
+      "production": true,
+      "lines": 37,
+      "inspection": "examined: full source declaration/body and registrations/values reviewed"
+    },
+    {
+      "path": "VolvoCars.AccountProfile.Business/Models/V1/Response/Address.cs",
+      "bytes": 534,
+      "sha256": "e61719a09f571052aef87cbed003c2f3c762f769e1b88a5e4d611442c994f3b8",
+      "production": true,
+      "lines": 12,
+      "inspection": "examined: full source declaration/body and registrations/values reviewed"
+    },
+    {
+      "path": "VolvoCars.AccountProfile.Business/Providers/Models/SettingsDTO.cs",
+      "bytes": 1232,
+      "sha256": "bf50f7484b6dafcedc2c0d6087ea1172225294766059e7e684b689102ace732e",
+      "production": true,
+      "lines": 32,
+      "inspection": "examined: full source declaration/body and registrations/values reviewed"
+    },
+    {
+      "path": "VolvoCars.AccountProfile.Business/Providers/SettingsProvider.cs",
+      "bytes": 5253,
+      "sha256": "8c2e6660a63851b5b202a347d08cdf690c2a9ef479e499ffb56f5bf1a8fa2e4e",
+      "production": true,
+      "lines": 137,
+      "inspection": "examined: full source declaration/body and registrations/values reviewed"
+    },
+    {
+      "path": "VolvoCars.AccountProfile.Business/Resolvers/CdbSettingsResolver.cs",
+      "bytes": 3083,
+      "sha256": "282bb382d8e24669b570ee6680d9cdfe6a0d0f30bfe439524605ebf4e7716988",
+      "production": true,
+      "lines": 71,
+      "inspection": "examined: full source declaration/body and registrations/values reviewed"
+    },
+    {
+      "path": "VolvoCars.AccountProfile.Business/Resolvers/MarketResolvedResult.cs",
+      "bytes": 291,
+      "sha256": "fc8fd938b8bc6ee5f1657b81982536c7c646619ede7d9f2e0f785fcae9919578",
+      "production": true,
+      "lines": 10,
+      "inspection": "examined: full source declaration/body and registrations/values reviewed"
+    },
+    {
+      "path": "VolvoCars.AccountProfile.Business/Utilities/StringUtils.cs",
+      "bytes": 905,
+      "sha256": "19454759fc0b479754a06e4a80d2edc72d41042ce6e100187b89ba6ccbe4f42a",
+      "production": true,
+      "lines": 37,
+      "inspection": "examined: full source declaration/body and registrations/values reviewed"
+    },
+    {
+      "path": "VolvoCars.AccountProfile.Business/VolvoCars.AccountProfile.Business.csproj",
+      "bytes": 762,
+      "sha256": "6c521488af3405e7aa37dbe4f1426ee0b59f1b7016ad64acae4f4ad61153191a",
+      "production": true,
+      "lines": 18,
+      "inspection": "examined supporting configuration/dependency/infrastructure declaration; no inferred runtime activation"
+    },
+    {
+      "path": "VolvoCars.AccountProfile.TestUtilities/LayerResponseCreator.cs",
+      "bytes": 1203,
+      "sha256": "5cd4bbb91157968b1c9fd6341b91c66c0499922f9ac6bf18c12edca84e4da9fd",
+      "production": false,
+      "lines": 32,
+      "inspection": "excluded test/test-utility, history/release notes, binary certificate or editor/deployment/support input; not production executable source"
+    },
+    {
+      "path": "VolvoCars.AccountProfile.TestUtilities/MockHttpClientFactory.cs",
+      "bytes": 1837,
+      "sha256": "7c0ba75bc01ca877f37ec73d7974d790d12debf6632e456dbce424d421489f37",
+      "production": false,
+      "lines": 53,
+      "inspection": "excluded test/test-utility, history/release notes, binary certificate or editor/deployment/support input; not production executable source"
+    },
+    {
+      "path": "VolvoCars.AccountProfile.TestUtilities/SampleLoader.cs",
+      "bytes": 608,
+      "sha256": "feaddb940ee9898a860b33d2be780803d7e137ef8213de84c2930342d4386990",
+      "production": false,
+      "lines": 21,
+      "inspection": "excluded test/test-utility, history/release notes, binary certificate or editor/deployment/support input; not production executable source"
+    },
+    {
+      "path": "VolvoCars.AccountProfile.TestUtilities/VolvoCars.AccountProfile.Tests.Utilities.csproj",
+      "bytes": 700,
+      "sha256": "5615112a4e9e737367ff5d12355f651df5dbf94c085fbd4e14171e37a71bd83a",
+      "production": false,
+      "lines": 21,
+      "inspection": "excluded test/test-utility, history/release notes, binary certificate or editor/deployment/support input; not production executable source"
+    },
+    {
+      "path": "VolvoCars.AccountProfile.Tests/Controllers/AccountControllerTests.cs",
+      "bytes": 6379,
+      "sha256": "489f38fd1684a9d890828e6c86556fbd2946cd4a3a06804b5559a3471b12a62a",
+      "production": false,
+      "lines": 149,
+      "inspection": "excluded test/test-utility, history/release notes, binary certificate or editor/deployment/support input; not production executable source"
+    },
+    {
+      "path": "VolvoCars.AccountProfile.Tests/Controllers/BaseControllerTests.cs",
+      "bytes": 658,
+      "sha256": "e872b4e2d81ff3e881e3b28adba5c7219e8d13c133ce8ce67e361b2ae646831f",
+      "production": false,
+      "lines": 20,
+      "inspection": "excluded test/test-utility, history/release notes, binary certificate or editor/deployment/support input; not production executable source"
+    },
+    {
+      "path": "VolvoCars.AccountProfile.Tests/Controllers/SettingsControllerTests.cs",
+      "bytes": 2566,
+      "sha256": "acdf98a9bbf1ab396ebd373de29b379eb76b6e238f750d2e36a6d70830eab104",
+      "production": false,
+      "lines": 64,
+      "inspection": "excluded test/test-utility, history/release notes, binary certificate or editor/deployment/support input; not production executable source"
+    },
+    {
+      "path": "VolvoCars.AccountProfile.Tests/Factories/PaginationFactoryTests.cs",
+      "bytes": 2328,
+      "sha256": "d16a0fd94140b2fee18ab93fe86a5bbd8fc5c543ddbf8ebd0b4afaa51b823e9b",
+      "production": false,
+      "lines": 61,
+      "inspection": "excluded test/test-utility, history/release notes, binary certificate or editor/deployment/support input; not production executable source"
+    },
+    {
+      "path": "VolvoCars.AccountProfile.Tests/Logic/AccountLogicTests.cs",
+      "bytes": 5643,
+      "sha256": "900aef61d1e6cd85c4926d8f7a02080fa94788fadf849faa29842e1e21f5ef66",
+      "production": false,
+      "lines": 137,
+      "inspection": "excluded test/test-utility, history/release notes, binary certificate or editor/deployment/support input; not production executable source"
+    },
+    {
+      "path": "VolvoCars.AccountProfile.Tests/Logic/SettingsLogicTests.cs",
+      "bytes": 1667,
+      "sha256": "039a52e4a0ffc58fb94c08650ce4298fbb4cc973443d92f3ee192de50f1a0e86",
+      "production": false,
+      "lines": 48,
+      "inspection": "excluded test/test-utility, history/release notes, binary certificate or editor/deployment/support input; not production executable source"
+    },
+    {
+      "path": "VolvoCars.AccountProfile.Tests/Logic/Validators/UpdateAccountValidatorTests.cs",
+      "bytes": 7361,
+      "sha256": "f419d3f7ffa19ae392890f8e386cf5088d9ca7accd5be960da08b71a17a1188d",
+      "production": false,
+      "lines": 231,
+      "inspection": "excluded test/test-utility, history/release notes, binary certificate or editor/deployment/support input; not production executable source"
+    },
+    {
+      "path": "VolvoCars.AccountProfile.Tests/Managers/AccountManagerTests.cs",
+      "bytes": 2280,
+      "sha256": "e1f09197dfabc33fd1605fdca2a6370c8c93dc1b1ef14d9531059c2077ac1649",
+      "production": false,
+      "lines": 64,
+      "inspection": "excluded test/test-utility, history/release notes, binary certificate or editor/deployment/support input; not production executable source"
+    },
+    {
+      "path": "VolvoCars.AccountProfile.Tests/Managers/Factories/AccountFactoryTests.cs",
+      "bytes": 5466,
+      "sha256": "505da0a8bc325af7fc02a088f018cf101682153eb92a20b99d172b9f717b3028",
+      "production": false,
+      "lines": 148,
+      "inspection": "excluded test/test-utility, history/release notes, binary certificate or editor/deployment/support input; not production executable source"
+    },
+    {
+      "path": "VolvoCars.AccountProfile.Tests/Managers/Factories/AddressFactoryTests.cs",
+      "bytes": 2880,
+      "sha256": "3a15a729d2cb9d53af331918efe54cc373f3f8a396212c5d727e8f3ec977c0b6",
+      "production": false,
+      "lines": 82,
+      "inspection": "excluded test/test-utility, history/release notes, binary certificate or editor/deployment/support input; not production executable source"
+    },
+    {
+      "path": "VolvoCars.AccountProfile.Tests/Managers/SettingsManagerTests.cs",
+      "bytes": 1688,
+      "sha256": "c800b753bb39ad3682e2437228aa681c247f7063a7d6677850636df60d06e93e",
+      "production": false,
+      "lines": 49,
+      "inspection": "excluded test/test-utility, history/release notes, binary certificate or editor/deployment/support input; not production executable source"
+    },
+    {
+      "path": "VolvoCars.AccountProfile.Tests/Providers/SettingsProviderTests.cs",
+      "bytes": 3819,
+      "sha256": "a87c2a31e48b6686b91dd431ba6191526d256ea8f3aad760a11a1a5408cdf6f8",
+      "production": false,
+      "lines": 96,
+      "inspection": "excluded test/test-utility, history/release notes, binary certificate or editor/deployment/support input; not production executable source"
+    },
+    {
+      "path": "VolvoCars.AccountProfile.Tests/Resolvers/CdbSettingsResolverTests.cs",
+      "bytes": 4493,
+      "sha256": "dd45767186ba919bc05eb6a5987168a50800a16e85d70c7bf6c2fdced02f3347",
+      "production": false,
+      "lines": 129,
+      "inspection": "excluded test/test-utility, history/release notes, binary certificate or editor/deployment/support input; not production executable source"
+    },
+    {
+      "path": "VolvoCars.AccountProfile.Tests/Utilities/StringUtilsTests.cs",
+      "bytes": 1516,
+      "sha256": "9936ccd8737cc37306036be6d33a9628ea7a29872b61c28e0dc7648428f36df8",
+      "production": false,
+      "lines": 46,
+      "inspection": "excluded test/test-utility, history/release notes, binary certificate or editor/deployment/support input; not production executable source"
+    },
+    {
+      "path": "VolvoCars.AccountProfile.Tests/VolvoCars.AccountProfile.Tests.csproj",
+      "bytes": 1479,
+      "sha256": "0f15e44294554041d080ce751506ad1ffddf5e832c0f9a83c78bbd4532f2472d",
+      "production": false,
+      "lines": 32,
+      "inspection": "excluded test/test-utility, history/release notes, binary certificate or editor/deployment/support input; not production executable source"
+    },
+    {
+      "path": "VolvoCars.AccountProfile.sln",
+      "bytes": 3831,
+      "sha256": "0b2e0d05ce1c19ceb6f808d47461cfb55a3b42d1dd81c7c30667e55cf892c07b",
+      "production": false,
+      "lines": 66,
+      "inspection": "excluded test/test-utility, history/release notes, binary certificate or editor/deployment/support input; not production executable source"
+    },
+    {
+      "path": "catalog-info.yaml",
+      "bytes": 1099,
+      "sha256": "feb2c6a2e8f3726736ad5b0509f4727ff64bcea45db5dd16c5a5a8c7b3c7ff9f",
+      "production": false,
+      "lines": 31,
+      "inspection": "examined supporting configuration/dependency/infrastructure declaration; no inferred runtime activation"
+    },
+    {
+      "path": "docs/ConsumerGuide.md",
+      "bytes": 7914,
+      "sha256": "6fd1431ea44ef0cf92dde09e09db17e0e93d8ad1b02cf0fe4836d44e2387841b",
+      "production": false,
+      "lines": 128,
+      "inspection": "excluded test/test-utility, history/release notes, binary certificate or editor/deployment/support input; not production executable source"
+    },
+    {
+      "path": "docs/pull_request_template.md",
+      "bytes": 606,
+      "sha256": "18a1f1655074ad2a73d11233a133ff04605c0e1fb9bf60e446b0e901877e6be6",
+      "production": false,
+      "lines": 19,
+      "inspection": "excluded test/test-utility, history/release notes, binary certificate or editor/deployment/support input; not production executable source"
+    },
+    {
+      "path": "pipelines/azure-pipelines.yaml",
+      "bytes": 1049,
+      "sha256": "8f98954a3049cca46dcc16460af37cee01a37b6c089d8f434afa13c09e735bba",
+      "production": false,
+      "lines": 48,
+      "inspection": "examined supporting configuration/dependency/infrastructure declaration; no inferred runtime activation"
+    },
+    {
+      "path": "tf/backend.tf",
+      "bytes": 40,
+      "sha256": "acc57f1ea53410f6fdf026f815b2316c9984d5b2657e912eac9cb7e681c785b5",
+      "production": false,
+      "lines": 5,
+      "inspection": "examined supporting configuration/dependency/infrastructure declaration; no inferred runtime activation"
+    },
+    {
+      "path": "tf/main.tf",
+      "bytes": 6844,
+      "sha256": "a35d34fbb0c308f239c89af6d16398175447615fdfac90873b534b7ce5a1ec6a",
+      "production": false,
+      "lines": 180,
+      "inspection": "examined supporting configuration/dependency/infrastructure declaration; no inferred runtime activation"
+    },
+    {
+      "path": "tf/variables.tf",
+      "bytes": 1787,
+      "sha256": "b1e0e961151f0586f8ce6ff35f9ac1953f350a9d1550052e3c531914a98f488a",
+      "production": false,
+      "lines": 81,
+      "inspection": "excluded test/test-utility, history/release notes, binary certificate or editor/deployment/support input; not production executable source"
+    }
+  ]
+}

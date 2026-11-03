@@ -1,0 +1,222 @@
+[
+  {
+    "operation": "customer-b0010537-complete-r6/op/c9e4928b334cee09/2",
+    "interaction": "customer-b0010537-complete-r6/interaction/a8ba21b4f1c16373",
+    "owner": "customer-b0010537-complete-r6/method/c9e4928b334cee09",
+    "target": "customer-b0010537-complete-r6/retained/component/redis-cache",
+    "resource": "customer-b0010537-complete-r6/resource/cache-regions",
+    "expression": "delegate.get(key)",
+    "arguments": ["customer-b0010537-complete-r6/formal/c9e4928b334cee09/0"]
+  },
+  {
+    "operation": "customer-b0010537-complete-r6/op/08351935fe4d36f4/2",
+    "interaction": "customer-b0010537-complete-r6/interaction/098e324e69870af3",
+    "owner": "customer-b0010537-complete-r6/method/08351935fe4d36f4",
+    "target": "customer-b0010537-complete-r6/retained/component/redis-cache",
+    "resource": "customer-b0010537-complete-r6/resource/cache-regions",
+    "expression": "delegate.get(key, type)",
+    "arguments": [
+      "customer-b0010537-complete-r6/formal/08351935fe4d36f4/0",
+      "customer-b0010537-complete-r6/formal/08351935fe4d36f4/1"
+    ]
+  },
+  {
+    "operation": "customer-b0010537-complete-r6/op/ce332a21519d1783/2",
+    "interaction": "customer-b0010537-complete-r6/interaction/a2291bd95a50fe82",
+    "owner": "customer-b0010537-complete-r6/method/ce332a21519d1783",
+    "target": "customer-b0010537-complete-r6/retained/component/redis-cache",
+    "resource": "customer-b0010537-complete-r6/resource/cache-regions",
+    "expression": "delegate.get(key, valueLoader)",
+    "arguments": [
+      "customer-b0010537-complete-r6/formal/ce332a21519d1783/0",
+      "customer-b0010537-complete-r6/formal/ce332a21519d1783/1"
+    ]
+  },
+  {
+    "operation": "customer-b0010537-complete-r6/op/de45105ac757a9f5/2",
+    "interaction": "customer-b0010537-complete-r6/interaction/73bf93cb4359812f",
+    "owner": "customer-b0010537-complete-r6/method/de45105ac757a9f5",
+    "target": "customer-b0010537-complete-r6/retained/component/redis-cache",
+    "resource": "customer-b0010537-complete-r6/resource/cache-regions",
+    "expression": "delegate.put(key, value)",
+    "arguments": [
+      "customer-b0010537-complete-r6/formal/de45105ac757a9f5/0",
+      "customer-b0010537-complete-r6/formal/de45105ac757a9f5/1"
+    ]
+  },
+  {
+    "operation": "customer-b0010537-complete-r6/op/22d1ff7bcb19d5c0/2",
+    "interaction": "customer-b0010537-complete-r6/interaction/1dda35000e71ec5b",
+    "owner": "customer-b0010537-complete-r6/method/22d1ff7bcb19d5c0",
+    "target": "customer-b0010537-complete-r6/retained/component/redis-cache",
+    "resource": "customer-b0010537-complete-r6/resource/cache-regions",
+    "expression": "delegate.putIfAbsent(key, value)",
+    "arguments": [
+      "customer-b0010537-complete-r6/formal/22d1ff7bcb19d5c0/0",
+      "customer-b0010537-complete-r6/formal/22d1ff7bcb19d5c0/1"
+    ]
+  },
+  {
+    "operation": "customer-b0010537-complete-r6/op/bb458d8f60461bf8/2",
+    "interaction": "customer-b0010537-complete-r6/interaction/1335df500c4ab6fa",
+    "owner": "customer-b0010537-complete-r6/method/bb458d8f60461bf8",
+    "target": "customer-b0010537-complete-r6/retained/component/redis-cache",
+    "resource": "customer-b0010537-complete-r6/resource/cache-regions",
+    "expression": "delegate.evict(key)",
+    "arguments": ["customer-b0010537-complete-r6/formal/bb458d8f60461bf8/0"]
+  },
+  {
+    "operation": "customer-b0010537-complete-r6/op/0d7a5a8ef4adf99a/2",
+    "interaction": "customer-b0010537-complete-r6/interaction/02f80c54a941c9b0",
+    "owner": "customer-b0010537-complete-r6/method/0d7a5a8ef4adf99a",
+    "target": "customer-b0010537-complete-r6/retained/component/redis-cache",
+    "resource": "customer-b0010537-complete-r6/resource/cache-regions",
+    "expression": "delegate.clear()",
+    "arguments": []
+  },
+  {
+    "operation": "customer-b0010537-complete-r6/op/ad6249464f681d26/18",
+    "interaction": "customer-b0010537-complete-r6/interaction/ecb4ff18c2654249",
+    "owner": "customer-b0010537-complete-r6/method/ad6249464f681d26",
+    "target": "customer-b0010537-complete-r6/component/psp-configured",
+    "resource": "customer-b0010537-complete-r6/retained/resource/psp-customer-client",
+    "expression": "this.customerClient.create(customerCreatePayload)",
+    "arguments": ["customer-b0010537-complete-r6/v/ad6249464f681d26/24"]
+  },
+  {
+    "operation": "customer-b0010537-complete-r6/op/70e335793f6183ad/19",
+    "interaction": "customer-b0010537-complete-r6/interaction/9813e122ec38826f",
+    "owner": "customer-b0010537-complete-r6/method/70e335793f6183ad",
+    "target": "customer-b0010537-complete-r6/component/psp-configured",
+    "resource": "customer-b0010537-complete-r6/retained/resource/psp-customer-client",
+    "expression": "this.customerClient.update(\n        pspRelation.getExternalId(), pspRelation.getPsp(), customerUpdatePayload)",
+    "arguments": [
+      "customer-b0010537-complete-r6/v/70e335793f6183ad/27",
+      "customer-b0010537-complete-r6/v/70e335793f6183ad/28",
+      "customer-b0010537-complete-r6/v/70e335793f6183ad/25"
+    ]
+  },
+  {
+    "operation": "customer-b0010537-complete-r6/op/f6809dd93c4113e9/1",
+    "interaction": "customer-b0010537-complete-r6/interaction/36306149ba9e1314",
+    "owner": "customer-b0010537-complete-r6/method/f6809dd93c4113e9",
+    "target": "customer-b0010537-complete-r6/retained/component/mongo",
+    "resource": "customer-b0010537-complete-r6/retained/resource/customers",
+    "expression": "customerRepository\n        .findByCustomerId(customerId)",
+    "arguments": ["customer-b0010537-complete-r6/formal/f6809dd93c4113e9/0"]
+  },
+  {
+    "operation": "customer-b0010537-complete-r6/op/a5f7d0c8c7d72ea2/8",
+    "interaction": "customer-b0010537-complete-r6/interaction/f1c1f6a877c497c6",
+    "owner": "customer-b0010537-complete-r6/method/a5f7d0c8c7d72ea2",
+    "target": "customer-b0010537-complete-r6/retained/component/mongo",
+    "resource": "customer-b0010537-complete-r6/retained/resource/customers",
+    "expression": "customerRepository.findByVolvoId(volvoId)",
+    "arguments": ["customer-b0010537-complete-r6/formal/a5f7d0c8c7d72ea2/0"]
+  },
+  {
+    "operation": "customer-b0010537-complete-r6/op/94583de3e24e7d65/9",
+    "interaction": "customer-b0010537-complete-r6/interaction/fa3bdcbcd540ca18",
+    "owner": "customer-b0010537-complete-r6/method/94583de3e24e7d65",
+    "target": "customer-b0010537-complete-r6/retained/component/mongo",
+    "resource": "customer-b0010537-complete-r6/retained/resource/customers",
+    "expression": "customerRepository.save(customerEntity)",
+    "arguments": ["customer-b0010537-complete-r6/v/94583de3e24e7d65/12"]
+  },
+  {
+    "operation": "customer-b0010537-complete-r6/op/64c11c22439e313d/12",
+    "interaction": "customer-b0010537-complete-r6/interaction/b1d6ad05eb35cf7a",
+    "owner": "customer-b0010537-complete-r6/method/64c11c22439e313d",
+    "target": "customer-b0010537-complete-r6/retained/component/mongo",
+    "resource": "customer-b0010537-complete-r6/retained/resource/customers",
+    "expression": "customerRepository.save(customerEntity)",
+    "arguments": ["customer-b0010537-complete-r6/formal/64c11c22439e313d/0"]
+  },
+  {
+    "operation": "customer-b0010537-complete-r6/op/ce3136aef0d86bf5/8",
+    "interaction": "customer-b0010537-complete-r6/interaction/c634eee8d90ac1bb",
+    "owner": "customer-b0010537-complete-r6/method/ce3136aef0d86bf5",
+    "target": "customer-b0010537-complete-r6/retained/component/mongo",
+    "resource": "customer-b0010537-complete-r6/retained/resource/customer_psp_relations",
+    "expression": "customerPspRelationRepository.saveAll(customerPspRelationEntities)",
+    "arguments": ["customer-b0010537-complete-r6/formal/ce3136aef0d86bf5/1"]
+  },
+  {
+    "operation": "customer-b0010537-complete-r6/op/fee87437728457eb/1",
+    "interaction": "customer-b0010537-complete-r6/interaction/6483ce5f3b9c75ad",
+    "owner": "customer-b0010537-complete-r6/method/fee87437728457eb",
+    "target": "customer-b0010537-complete-r6/retained/component/mongo",
+    "resource": "customer-b0010537-complete-r6/retained/resource/customer_psp_relations",
+    "expression": "customerPspRelationRepository.findByCustomerId(customerId)",
+    "arguments": ["customer-b0010537-complete-r6/formal/fee87437728457eb/0"]
+  },
+  {
+    "operation": "customer-b0010537-complete-r6/op/620d053a4946c7af/3",
+    "interaction": "customer-b0010537-complete-r6/interaction/23dd9129f40c8805",
+    "owner": "customer-b0010537-complete-r6/method/620d053a4946c7af",
+    "target": "customer-b0010537-complete-r6/retained/component/mongo",
+    "resource": "customer-b0010537-complete-r6/retained/resource/customer_psp_relations",
+    "expression": "customerPspRelationRepository\n        .findByPspRelation(pspRelation.getAccountId(), pspRelation.getExternalId())",
+    "arguments": [
+      "customer-b0010537-complete-r6/v/620d053a4946c7af/2",
+      "customer-b0010537-complete-r6/v/620d053a4946c7af/3"
+    ]
+  },
+  {
+    "operation": "customer-b0010537-complete-r6/op/f47bd6c06a8376ff/1",
+    "interaction": "customer-b0010537-complete-r6/interaction/72767b7650fd9264",
+    "owner": "customer-b0010537-complete-r6/method/f47bd6c06a8376ff",
+    "target": "customer-b0010537-complete-r6/retained/component/mongo",
+    "resource": "customer-b0010537-complete-r6/retained/resource/payment_instruments",
+    "expression": "paymentInstrumentRepository.findByPaymentInstrumentId(paymentInstrumentId)",
+    "arguments": ["customer-b0010537-complete-r6/formal/f47bd6c06a8376ff/0"]
+  },
+  {
+    "operation": "customer-b0010537-complete-r6/op/5a45cfad0a620930/1",
+    "interaction": "customer-b0010537-complete-r6/interaction/76fc02dac6950127",
+    "owner": "customer-b0010537-complete-r6/method/5a45cfad0a620930",
+    "target": "customer-b0010537-complete-r6/retained/component/mongo",
+    "resource": "customer-b0010537-complete-r6/retained/resource/recurring_charges",
+    "expression": "recurringChargeRepository.findByRecurringChargeId(recurringChargeId)",
+    "arguments": ["customer-b0010537-complete-r6/formal/5a45cfad0a620930/0"]
+  },
+  {
+    "operation": "customer-b0010537-complete-r6/op/04c4e33a8dc202e4/13",
+    "interaction": "customer-b0010537-complete-r6/interaction/9fcd14dd009af8df",
+    "owner": "customer-b0010537-complete-r6/method/04c4e33a8dc202e4",
+    "target": "customer-b0010537-complete-r6/retained/component/mongo",
+    "resource": "customer-b0010537-complete-r6/retained/resource/recurring_charges",
+    "expression": "recurringChargeRepository\n            .findByRecurringChargeId(recurringChargeEntity.getRecurringChargeId())",
+    "arguments": ["customer-b0010537-complete-r6/v/04c4e33a8dc202e4/11"]
+  },
+  {
+    "operation": "customer-b0010537-complete-r6/op/04c4e33a8dc202e4/22",
+    "interaction": "customer-b0010537-complete-r6/interaction/89f350b5f6ecd400",
+    "owner": "customer-b0010537-complete-r6/method/04c4e33a8dc202e4",
+    "target": "customer-b0010537-complete-r6/retained/component/mongo",
+    "resource": "customer-b0010537-complete-r6/retained/resource/recurring_charges",
+    "expression": "recurringChargeRepository.save(existing)",
+    "arguments": ["customer-b0010537-complete-r6/v/04c4e33a8dc202e4/29"]
+  },
+  {
+    "operation": "customer-b0010537-complete-r6/op/afdbc051f9eeab08/3",
+    "interaction": "customer-b0010537-complete-r6/interaction/65e67414f4a2e78a",
+    "owner": "customer-b0010537-complete-r6/method/afdbc051f9eeab08",
+    "target": "customer-b0010537-complete-r6/retained/component/mongo",
+    "resource": "customer-b0010537-complete-r6/retained/resource/customers",
+    "expression": "customerRepository\n                    .findByExternalIdentifier(extId.getType(), extId.getValue())",
+    "arguments": [
+      "customer-b0010537-complete-r6/v/afdbc051f9eeab08/2",
+      "customer-b0010537-complete-r6/v/afdbc051f9eeab08/3"
+    ]
+  },
+  {
+    "operation": "customer-b0010537-complete-r6/op/a46f050148dfe4ff/2",
+    "interaction": "customer-b0010537-complete-r6/interaction/747d669b033e5bfb",
+    "owner": "customer-b0010537-complete-r6/method/a46f050148dfe4ff",
+    "target": "customer-b0010537-complete-r6/retained/component/mongo",
+    "resource": "customer-b0010537-complete-r6/retained/resource/customer_psp_relations",
+    "expression": "customerPspRelationRepository.deleteById(r.getId())",
+    "arguments": ["customer-b0010537-complete-r6/v/a46f050148dfe4ff/2"]
+  }
+]

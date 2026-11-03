@@ -1,0 +1,25 @@
+{
+  "format": "groundwork-query/v3",
+  "snapshot": "8f5b505536f6140e260bbc4a079a419a80eb79573d760b1e252b0c8ad3a5a19d",
+  "query": "records",
+  "entry": "pspin-ae1d9dd/entry/webhook",
+  "value": null,
+  "context": [],
+  "outcome": null,
+  "changed": [],
+  "representation": "constructed",
+  "candidates": "exclude",
+  "maxNodes": 500,
+  "maxRecords": 1500,
+  "environment": "ecp-weu-prod-source-profile",
+  "ids": [
+    "pspin-ae1d9dd/entry/webhook",
+    "pspin-ae1d9dd/impl/heartbeat",
+    "pspin-ae1d9dd/entry/swagger-config",
+    "pspin-ae1d9dd/entry/actuator-health",
+    "pspin-ae1d9dd/entry/actuator-prometheus",
+    "pspin-ae1d9dd/entry/swagger-ui",
+    "pspin-ae1d9dd/entry/api-docs",
+    "pspin-ae1d9dd/impl/config-refresh"
+  ]
+}

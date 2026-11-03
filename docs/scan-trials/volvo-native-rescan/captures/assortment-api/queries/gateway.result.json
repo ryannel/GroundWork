@@ -1,0 +1,513 @@
+{
+  "format": "groundwork-result/v3",
+  "snapshot": "dcc8fe6133bb403c805875b5698eb6fd390e35f858d0bf3e74c33c7ea0d7a34e",
+  "queryVersion": "knowledge-query/v3",
+  "request": {
+    "format": "groundwork-query/v3",
+    "snapshot": "dcc8fe6133bb403c805875b5698eb6fd390e35f858d0bf3e74c33c7ea0d7a34e",
+    "query": "interactions",
+    "entry": "assortment-6114c5d-r5/entry/gateway/2",
+    "value": null,
+    "context": [],
+    "outcome": null,
+    "changed": [],
+    "representation": "constructed",
+    "candidates": "exclude",
+    "maxNodes": 500,
+    "environment": "production-profile",
+    "maxRecords": 5000,
+    "ids": []
+  },
+  "nodes": [
+    {
+      "id": "assortment-6114c5d-r5/component/gateway",
+      "record": "assortment-6114c5d-r5/component/gateway",
+      "context": [],
+      "label": "Assortment gateway",
+      "component": "assortment-6114c5d-r5/component/gateway",
+      "execution": null
+    },
+    {
+      "id": "u3/component/mas",
+      "record": "u3/component/mas",
+      "context": [],
+      "label": "Manage and Segment API",
+      "component": "u3/component/mas",
+      "execution": null
+    }
+  ],
+  "edges": [
+    {
+      "from": "assortment-6114c5d-r5/component/gateway",
+      "to": "u3/component/mas",
+      "on": "request_response",
+      "condition": "Source path reaches operation",
+      "assumption": "Source declarations and conditional paths; unresolved facts remain explicit",
+      "evidence": ["assortment-6114c5d-r5/e/d33cd0c650c8"],
+      "record": "assortment-6114c5d-r5/interaction/gateway/2",
+      "context": [],
+      "operation": "assortment-6114c5d-r5/op/gateway/2/forward"
+    }
+  ],
+  "claims": [],
+  "evidence": [
+    "assortment-6114c5d-r5/e/0c2e5d6b3474",
+    "assortment-6114c5d-r5/e/2fc14e8e4c7c",
+    "assortment-6114c5d-r5/e/499ee903ecfd",
+    "assortment-6114c5d-r5/e/a5d135c2acd4",
+    "assortment-6114c5d-r5/e/d33cd0c650c8",
+    "s2/e/controller",
+    "u3/e/mas-program"
+  ],
+  "coverage": ["assortment-6114c5d-r5/coverage/gateway/2"],
+  "frontiers": [
+    {
+      "at": "root::assortment-6114c5d-r5/op/gateway/2/forward",
+      "reason": "opaque",
+      "detail": "Forward to /api/commercial-segments/{everything} via svc-manage-and-segment-api.manage-and-segment-api.svc.cluster.local",
+      "references": ["assortment-6114c5d-r5/op/gateway/2/forward"]
+    }
+  ],
+  "limitsHit": [],
+  "feasibility": "not_checked",
+  "exhaustive": false,
+  "records": [
+    {
+      "id": "assortment-6114c5d-r5/census",
+      "kind": "implementation",
+      "logicalId": "impl:assortment-source-census",
+      "scope": "s2/c",
+      "entry": "assortment-6114c5d-r5/census/start",
+      "parameters": [],
+      "evidence": [
+        "assortment-6114c5d-r5/e/a5d135c2acd4",
+        "assortment-6114c5d-r5/e/0c2e5d6b3474",
+        "assortment-6114c5d-r5/e/2fc14e8e4c7c"
+      ]
+    },
+    {
+      "id": "assortment-6114c5d-r5/census/start",
+      "kind": "operation",
+      "owner": "assortment-6114c5d-r5/census",
+      "action": "opaque",
+      "label": "Repository discovery anchor; not an executable HTTP or message handler",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": null,
+      "httpStatus": null,
+      "evidence": ["assortment-6114c5d-r5/e/a5d135c2acd4"]
+    },
+    {
+      "id": "assortment-6114c5d-r5/component/gateway",
+      "kind": "runtime_component",
+      "logicalId": "svc:assortment-gateway",
+      "label": "Assortment gateway",
+      "category": "service",
+      "technology": ".NET / ASP.NET Core / Ocelot",
+      "sources": ["s2/c"],
+      "basis": "source_declared",
+      "gaps": [
+        "assortment-6114c5d-r5/gap/deployment",
+        "assortment-6114c5d-r5/gap/imported-controllers"
+      ],
+      "evidence": ["assortment-6114c5d-r5/e/2fc14e8e4c7c"]
+    },
+    {
+      "id": "assortment-6114c5d-r5/contract/gateway-remote/2",
+      "kind": "interface_contract",
+      "component": "u3/component/mas",
+      "protocol": "http",
+      "name": "Configured proxy /api/commercial-segments/{everything}",
+      "method": "GET",
+      "path": "/api/commercial-segments/{everything}",
+      "authority": "source_declared",
+      "request": [
+        {
+          "part": "path",
+          "presence": "unresolved",
+          "shape": null,
+          "sourceShape": null,
+          "contentType": null,
+          "gaps": ["assortment-6114c5d-r5/gap/wire-closure"],
+          "evidence": ["assortment-6114c5d-r5/e/d33cd0c650c8"]
+        },
+        {
+          "part": "query",
+          "presence": "unresolved",
+          "shape": null,
+          "sourceShape": null,
+          "contentType": null,
+          "gaps": ["assortment-6114c5d-r5/gap/wire-closure"],
+          "evidence": ["assortment-6114c5d-r5/e/d33cd0c650c8"]
+        },
+        {
+          "part": "headers",
+          "presence": "unresolved",
+          "shape": null,
+          "sourceShape": null,
+          "contentType": null,
+          "gaps": ["assortment-6114c5d-r5/gap/wire-closure"],
+          "evidence": ["assortment-6114c5d-r5/e/d33cd0c650c8"]
+        },
+        {
+          "part": "body",
+          "presence": "unresolved",
+          "shape": null,
+          "sourceShape": null,
+          "contentType": null,
+          "gaps": ["assortment-6114c5d-r5/gap/wire-closure"],
+          "evidence": ["assortment-6114c5d-r5/e/d33cd0c650c8"]
+        }
+      ],
+      "responses": [
+        {
+          "status": "unresolved",
+          "body": {
+            "part": "body",
+            "presence": "unresolved",
+            "shape": null,
+            "sourceShape": null,
+            "contentType": null,
+            "gaps": ["assortment-6114c5d-r5/gap/wire-closure"],
+            "evidence": ["assortment-6114c5d-r5/e/d33cd0c650c8"]
+          },
+          "meaning": "Proxied response and Ocelot error mapping not traced.",
+          "evidence": ["assortment-6114c5d-r5/e/d33cd0c650c8"]
+        }
+      ],
+      "gaps": ["assortment-6114c5d-r5/gap/wire-closure", "assortment-6114c5d-r5/gap/deployment"],
+      "evidence": ["assortment-6114c5d-r5/e/d33cd0c650c8"]
+    },
+    {
+      "id": "assortment-6114c5d-r5/contract/gateway/2",
+      "kind": "interface_contract",
+      "component": "assortment-6114c5d-r5/component/gateway",
+      "protocol": "http",
+      "name": "GET /v1/commercial-segments/{everything}",
+      "method": "GET",
+      "path": "/v1/commercial-segments/{everything}",
+      "authority": "source_declared",
+      "request": [
+        {
+          "part": "body",
+          "presence": "unresolved",
+          "shape": null,
+          "sourceShape": null,
+          "contentType": null,
+          "gaps": ["assortment-6114c5d-r5/gap/wire-closure"],
+          "evidence": ["assortment-6114c5d-r5/e/d33cd0c650c8"]
+        }
+      ],
+      "responses": [
+        {
+          "status": "unresolved",
+          "body": {
+            "part": "body",
+            "presence": "unresolved",
+            "shape": null,
+            "sourceShape": null,
+            "contentType": null,
+            "gaps": ["assortment-6114c5d-r5/gap/wire-closure"],
+            "evidence": ["assortment-6114c5d-r5/e/d33cd0c650c8"]
+          },
+          "meaning": "Implementation or framework response closure remains partial.",
+          "evidence": ["assortment-6114c5d-r5/e/d33cd0c650c8"]
+        }
+      ],
+      "gaps": ["assortment-6114c5d-r5/gap/wire-closure", "assortment-6114c5d-r5/gap/deployment"],
+      "evidence": ["assortment-6114c5d-r5/e/d33cd0c650c8"]
+    },
+    {
+      "id": "assortment-6114c5d-r5/coverage/gateway/2",
+      "kind": "coverage",
+      "owner": "assortment-6114c5d-r5/entry/gateway/2",
+      "obligation": "bounded_source_analysis",
+      "status": "partial",
+      "scope": "Committed Ocelot proxy registration. Forwarding is network-bound by source config; imported routing, exclusions, retries and response semantics remain partial.",
+      "gaps": [
+        "assortment-6114c5d-r5/gap/entry-gateway-2",
+        "assortment-6114c5d-r5/gap/wire-closure",
+        "assortment-6114c5d-r5/gap/deployment"
+      ],
+      "evidence": ["assortment-6114c5d-r5/e/d33cd0c650c8"]
+    },
+    {
+      "id": "assortment-6114c5d-r5/e/0c2e5d6b3474",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-assortment-api",
+      "commit": "6114c5db0f2b4b490cf89b9c512088f01dbf0b98",
+      "path": "src/PopCat.Assortment.CacheWorker.Host/Program.cs",
+      "lines": [1, 37],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "assortment-6114c5d-r5/e/2fc14e8e4c7c",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-assortment-api",
+      "commit": "6114c5db0f2b4b490cf89b9c512088f01dbf0b98",
+      "path": "src/PopCat.Assortment.Ocelot.Host/Program.cs",
+      "lines": [1, 46],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "assortment-6114c5d-r5/e/499ee903ecfd",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-assortment-api",
+      "commit": "6114c5db0f2b4b490cf89b9c512088f01dbf0b98",
+      "path": "src/PopCat.Assortment.Host/Extensions/ApplicationBuilderExtensions.cs",
+      "lines": [54, 78],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "assortment-6114c5d-r5/e/a5d135c2acd4",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-assortment-api",
+      "commit": "6114c5db0f2b4b490cf89b9c512088f01dbf0b98",
+      "path": "src/PopCat.Assortment.Host/Program.cs",
+      "lines": [1, 46],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "assortment-6114c5d-r5/e/d33cd0c650c8",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-assortment-api",
+      "commit": "6114c5db0f2b4b490cf89b9c512088f01dbf0b98",
+      "path": "src/PopCat.Assortment.Ocelot.Host/ocelot.json",
+      "lines": [43, 70],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "assortment-6114c5d-r5/entry/gateway/2",
+      "kind": "entry",
+      "logicalId": "api:assortment-gateway-2",
+      "method": "GET",
+      "path": "/v1/commercial-segments/{everything}",
+      "implementation": "assortment-6114c5d-r5/impl/gateway/2",
+      "evidence": ["assortment-6114c5d-r5/e/d33cd0c650c8"]
+    },
+    {
+      "id": "assortment-6114c5d-r5/exposes/gateway/2",
+      "kind": "entry_binding",
+      "entry": "assortment-6114c5d-r5/entry/gateway/2",
+      "execution": "assortment-6114c5d-r5/runs/2-gateway",
+      "contract": "assortment-6114c5d-r5/contract/gateway/2",
+      "gaps": ["assortment-6114c5d-r5/gap/wire-closure", "assortment-6114c5d-r5/gap/deployment"],
+      "evidence": ["assortment-6114c5d-r5/e/d33cd0c650c8"]
+    },
+    {
+      "id": "assortment-6114c5d-r5/gap/deployment",
+      "kind": "gap",
+      "owner": "assortment-6114c5d-r5/census",
+      "obligation": "deployment",
+      "reason": "Pinned committed configuration does not establish deployed topology, effective environment overrides or current freshness.",
+      "action": "Trace the named local continuation or resolve the exact imported artefact and effective configuration.",
+      "evidence": ["assortment-6114c5d-r5/e/a5d135c2acd4"]
+    },
+    {
+      "id": "assortment-6114c5d-r5/gap/entry-gateway-2",
+      "kind": "gap",
+      "owner": "assortment-6114c5d-r5/entry/gateway/2",
+      "obligation": "entry-gateway-2",
+      "reason": "Committed Ocelot proxy registration. Forwarding is network-bound by source config; imported routing, exclusions, retries and response semantics remain partial.",
+      "action": "Trace the named local continuation or resolve the exact imported artefact and effective configuration.",
+      "evidence": ["assortment-6114c5d-r5/e/d33cd0c650c8"]
+    },
+    {
+      "id": "assortment-6114c5d-r5/gap/wire-closure",
+      "kind": "gap",
+      "owner": "assortment-6114c5d-r5/census",
+      "obligation": "wire-closure",
+      "reason": "Source declarations are captured; complete formatter, inherited/generated imported fields and validation/error policy are not established.",
+      "action": "Trace the named local continuation or resolve the exact imported artefact and effective configuration.",
+      "evidence": ["assortment-6114c5d-r5/e/499ee903ecfd"]
+    },
+    {
+      "id": "assortment-6114c5d-r5/impl/gateway/2",
+      "kind": "implementation",
+      "logicalId": "impl:assortment-gateway-2",
+      "scope": "s2/c",
+      "entry": "assortment-6114c5d-r5/op/gateway/2/start",
+      "parameters": [],
+      "evidence": ["assortment-6114c5d-r5/e/d33cd0c650c8"]
+    },
+    {
+      "id": "assortment-6114c5d-r5/interaction/gateway/2",
+      "kind": "interaction",
+      "owner": "assortment-6114c5d-r5/impl/gateway/2",
+      "execution": "assortment-6114c5d-r5/runs/2-gateway",
+      "operation": "assortment-6114c5d-r5/op/gateway/2/forward",
+      "target": "u3/component/mas",
+      "targetEntry": null,
+      "contract": "assortment-6114c5d-r5/contract/gateway-remote/2",
+      "effect": null,
+      "handoff": null,
+      "mode": "request_response",
+      "boundary": "network",
+      "waitsFor": "response",
+      "condition": "Source path reaches operation",
+      "requestBindings": [
+        {
+          "part": "selection",
+          "path": [],
+          "value": "assortment-6114c5d-r5/value/gateway/2",
+          "transform": "Configured UpstreamPathTemplate to DownstreamPathTemplate; effective profile overrides remain unknown"
+        }
+      ],
+      "responseBindings": [],
+      "gaps": [
+        "assortment-6114c5d-r5/gap/behaviour-closure",
+        "assortment-6114c5d-r5/gap/deployment"
+      ],
+      "evidence": ["assortment-6114c5d-r5/e/d33cd0c650c8"]
+    },
+    {
+      "id": "assortment-6114c5d-r5/op/gateway/2/forward",
+      "kind": "operation",
+      "owner": "assortment-6114c5d-r5/impl/gateway/2",
+      "action": "opaque",
+      "label": "Forward to /api/commercial-segments/{everything} via svc-manage-and-segment-api.manage-and-segment-api.svc.cluster.local",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": null,
+      "httpStatus": null,
+      "evidence": ["assortment-6114c5d-r5/e/d33cd0c650c8"]
+    },
+    {
+      "id": "assortment-6114c5d-r5/op/gateway/2/start",
+      "kind": "operation",
+      "owner": "assortment-6114c5d-r5/impl/gateway/2",
+      "action": "entry",
+      "label": "Enter gateway route if Ocelot path/method/priority and exclusion conditions select it",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": null,
+      "httpStatus": null,
+      "evidence": ["assortment-6114c5d-r5/e/d33cd0c650c8"]
+    },
+    {
+      "id": "assortment-6114c5d-r5/runs/2-gateway",
+      "kind": "execution_binding",
+      "implementation": "assortment-6114c5d-r5/impl/gateway/2",
+      "component": "assortment-6114c5d-r5/component/gateway",
+      "basis": "source_declared",
+      "artifactBinding": null,
+      "gaps": [],
+      "evidence": ["assortment-6114c5d-r5/e/d33cd0c650c8"]
+    },
+    {
+      "id": "assortment-6114c5d-r5/value/gateway/2",
+      "kind": "value",
+      "owner": "assortment-6114c5d-r5/impl/gateway/2",
+      "definition": "assortment-6114c5d-r5/op/gateway/2/start",
+      "label": "Incoming HTTP request; configured path rewriting and headers retained by route claim",
+      "role": "definition",
+      "representation": "source",
+      "shape": null,
+      "accessPath": [],
+      "evidence": ["assortment-6114c5d-r5/e/d33cd0c650c8"]
+    },
+    {
+      "id": "s2/c",
+      "kind": "source_revision",
+      "repo": "volvo-cars/popcat-assortment-api",
+      "commit": "6114c5db0f2b4b490cf89b9c512088f01dbf0b98"
+    },
+    {
+      "id": "s2/e/controller",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Api/Controllers/V1/SoftOffersController.cs",
+      "lines": [17, 90],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "s2/p",
+      "kind": "source_revision",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110"
+    },
+    {
+      "id": "u3/component/mas",
+      "kind": "runtime_component",
+      "logicalId": "svc:manage-and-segment-api",
+      "label": "Manage and Segment API",
+      "category": "service",
+      "technology": ".NET / ASP.NET Core",
+      "sources": ["s2/p"],
+      "basis": "source_declared",
+      "evidence": ["u3/e/mas-program", "s2/e/controller"],
+      "gaps": []
+    },
+    {
+      "id": "u3/e/mas-program",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Api/Program.cs",
+      "lines": [1, 24],
+      "basis": "source"
+    }
+  ],
+  "traversalComplete": true,
+  "findings": [
+    {
+      "statement": "The entry interface is separate from its internal implementation.",
+      "support": ["assortment-6114c5d-r5/exposes/gateway/2"],
+      "assumptions": []
+    },
+    {
+      "statement": "Components and conditional interactions in this entry trace. Library execution stays inside the host. Drill into an interaction contract or bound implementation for detail.",
+      "support": ["assortment-6114c5d-r5/runs/2-gateway"],
+      "assumptions": ["Source declarations do not establish deployed topology or path feasibility"]
+    }
+  ],
+  "sourceLinks": [
+    {
+      "evidence": "assortment-6114c5d-r5/e/2fc14e8e4c7c",
+      "url": "https://github.com/volvo-cars/popcat-assortment-api/blob/6114c5db0f2b4b490cf89b9c512088f01dbf0b98/src/PopCat.Assortment.Ocelot.Host/Program.cs#L1-L46",
+      "label": "volvo-cars/popcat-assortment-api/src/PopCat.Assortment.Ocelot.Host/Program.cs:1–46"
+    },
+    {
+      "evidence": "assortment-6114c5d-r5/e/d33cd0c650c8",
+      "url": "https://github.com/volvo-cars/popcat-assortment-api/blob/6114c5db0f2b4b490cf89b9c512088f01dbf0b98/src/PopCat.Assortment.Ocelot.Host/ocelot.json#L43-L70",
+      "label": "volvo-cars/popcat-assortment-api/src/PopCat.Assortment.Ocelot.Host/ocelot.json:43–70"
+    },
+    {
+      "evidence": "assortment-6114c5d-r5/e/a5d135c2acd4",
+      "url": "https://github.com/volvo-cars/popcat-assortment-api/blob/6114c5db0f2b4b490cf89b9c512088f01dbf0b98/src/PopCat.Assortment.Host/Program.cs#L1-L46",
+      "label": "volvo-cars/popcat-assortment-api/src/PopCat.Assortment.Host/Program.cs:1–46"
+    },
+    {
+      "evidence": "assortment-6114c5d-r5/e/0c2e5d6b3474",
+      "url": "https://github.com/volvo-cars/popcat-assortment-api/blob/6114c5db0f2b4b490cf89b9c512088f01dbf0b98/src/PopCat.Assortment.CacheWorker.Host/Program.cs#L1-L37",
+      "label": "volvo-cars/popcat-assortment-api/src/PopCat.Assortment.CacheWorker.Host/Program.cs:1–37"
+    },
+    {
+      "evidence": "assortment-6114c5d-r5/e/499ee903ecfd",
+      "url": "https://github.com/volvo-cars/popcat-assortment-api/blob/6114c5db0f2b4b490cf89b9c512088f01dbf0b98/src/PopCat.Assortment.Host/Extensions/ApplicationBuilderExtensions.cs#L54-L78",
+      "label": "volvo-cars/popcat-assortment-api/src/PopCat.Assortment.Host/Extensions/ApplicationBuilderExtensions.cs:54–78"
+    },
+    {
+      "evidence": "s2/e/controller",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Api/Controllers/V1/SoftOffersController.cs#L17-L90",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Api/Controllers/V1/SoftOffersController.cs:17–90"
+    },
+    {
+      "evidence": "u3/e/mas-program",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Api/Program.cs#L1-L24",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Api/Program.cs:1–24"
+    }
+  ],
+  "nextRequest": null
+}

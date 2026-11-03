@@ -1,0 +1,53 @@
+# CCE Retail Ingress source capture
+
+The complete available pinned repository is captured in the immutable `bundle.final-r1.json` and `snapshot.final-r1.json` pair. Parent review and publication remain separate.
+
+Snapshot: `f06cf27a34008539e23495f4d8023b6cd4f407d1768ab0470d8506af7a1ee6e8`.
+Repository: `volvo-cars/cce-retail-ingress`, commit `95d091aa445f26500a497554236ec07c8ca7b27c`. Workspace: `volvo-cars`. Namespace: `volvo/cce-retail-ingress/95d091aa445f/final-r1/`.
+
+The 25,378 native records pass schema/semantic selection validation and all 3,202 pinned source ranges. The final strict acceptance pack passes 961 queries / 961 requests / 1,128 assertions. Every request and response is validated; every continuation would be validated and followed. No request is bounded and no continuation was needed. Limits are maxNodes 2,000 and maxRecords 5,000, with constructed representation for nonvalue requests.
+
+The inventory reconciles all 56 tracked entries: 23 production Go files, seven generated Go protocol files, two parent protocol sources, 23 configuration/support files and one gitlink. All 55 parent blobs are available, including the empty marker file (no fabricated source range). No application test files are present. Source bodies comprise 320 explicit functions/methods and 39 closures; three production package-variable initialisers add source frames. Six finite registration-specific wrapper/middleware profiles retain original source bodies, giving 368 native frames in total. All 82 type declarations are retained, including seven generated init-local `x` declarations with distinct owner identities. The schema catalogue contains 466 shapes and 25 protobuf message descriptors. Forty-one declared module versions have native artefact records; none is promoted to verified dependency execution.
+
+## Actual entry and registration coverage
+
+| Source registration                                      | Native entry                | Behaviour                                                                                              |
+| -------------------------------------------------------- | --------------------------- | ------------------------------------------------------------------------------------------------------ |
+| `main`                                                   | PROCESS source main         | Constructs App; exits on construction error, otherwise Run starts HTTP server on :8080.                |
+| ServeMux `/health`                                       | ANY /health                 | Unauthenticated; explicit200 and raw JSON message, ignored Write result; no external I/O.              |
+| API.Handle `/notifyPartner`                              | ANY /notifyPartner          | Registered POST argument is ignored by Handle. Authentication precedes handler POST/default404 switch. |
+| API.Handle `/republish-all-partners`                     | ANY /republish-all-partners | Same registration/middleware policy; POST202 precedes detached worker scheduling.                      |
+| Republish goroutine                                      | CALLBACK source worker      | WithoutCancel, five-minute timeout and deferred cancel; fetch all, then publish; errors logged.        |
+| Two imported parent partner-protobuf `init` declarations | Two STARTUP entries         | Source-generated registration bodies; imported runtime descriptor construction remains explicit.       |
+| Two RDM template initialisers and marshaler initialiser  | Three STARTUP entries       | Actual source package-variable initialisation contexts, separate from later reads.                     |
+
+Five generated `events/carconfiguration` init declarations are excluded from active startup entries because that package is not imported by the executable source graph. Their full bodies/declarations/descriptors remain queryable. Health, process, callback, startup and both route registrations are reconciled in the matching registration ledger. There is no discovered subscription, timer, persistent store or durable queue.
+
+The two authenticated route instances have distinct source wrapper/authentication profiles because the shared higher-order middleware has two `after` origins. These profiles preserve the original bodies, real ctx/w/r formals and authenticator/after lexical cells. Bound `a.handler` values retain the ordinary API receiver. The configured constructor branch selects platform authentication when `!cfg.SkipVtsAuth` and block-all authentication when `cfg.SkipVtsAuth`; skip-auth is rejection, not bypass. Imported `logging.HeadersToCtx` activation remains a runtime gap. Generic multi-origin frames retain candidates rather than choosing an arbitrary handler. Native source control retains error guards; automatic guard feasibility and mutable closure/object heap state are not proved.
+
+## Boundary and value coverage
+
+There are seven native interaction projections over six exact source call sites: two RDM HTTP calls, the authorised-request TRL GET, the available but unused token helper, the unused reusable HTTP wrapper and one Publish invocation with two conditional transport projections.
+
+- RDM source requests are POST `{RDM_BASE_URL}` with constructed GraphQL query JSON, Content-Type application/json, subscription key, source context and whole response envelopes. Single-partner query uses PartnerId. All-page query uses first300 and cursor; loops follow HasNextPage. Neither Do call checks HTTP status; decode and GraphQL Errors are separate guards. `toPageData` allocates TotalCount partners and fills edge indices; it is not normalised to edge length.
+- Platform ParseClaims validates parsing/token.Valid/issuer/audience/claims.Valid before `http.Get(trlURL+domain)` per authorised request. It has no request context or HTTP status guard. It reads/decode TRL and rejects matching Vti. Imported JWT fields and validation are partial dependency boundaries.
+- The publisher constructs grouped PartnerDetails, calls proto.Marshal, constructs Message with UUID and bytes, sets x-type=partnerDetailsLoaded and invokes Publish(topic,msg). Kafka applies only to `!cfg.SkipKafkaWriter`; the fresh GoChannel alternative applies only to `cfg.SkipKafkaWriter`, targets the actual service host, and has an in_process transport resource binding. No subscriber/handoff is invented. Producer return is distinct from consumption. Marshal error returns; Publish error is logged and skipped, so eventual nil does not acknowledge all messages.
+- TokenSource and OperationIDRoundTripper bodies are retained but are not wired by App.New/setUpRdmClient. Token URL and generic HTTP wrapper destinations remain null; neither is reachable from actual REST roots. A local HTTP wrapper is not a remote component.
+
+All REST entries are queried. Both authenticated routes positively reach actual TRL/RDM/Kafka/in-process projections; health has zero I/O. Every exact I/O owner, contract, request/result actual and rooted invocation-context value is checked. Additional source constructor projections preserve actual template/DTO/method/context/endpoint/header/body/message/metadata operands without asserting imported Request/Message memory layouts or arbitrary SDK argument-to-result dependencies. Ordinary source parameters, captures, bound receivers, method results, loops, branches, mutations, error tuples and defer/goroutine policy remain native. Function-valued invocations are checked against false ordinary receivers; source-known void calls have no false result.
+
+## Source details that affect behaviour
+
+Notification body is a source JSON array wrapped under partnerNotifications and decoded with encoding/json into generated Go structs; it is not protojson. A notification with both nonempty validationUrl and validationCode writes200 and returns from the whole batch immediately. No call is made to validationUrl. Earlier items may already have fetched and published. Read/decode errors attempt400; nonPOST404; ordinary completion200. The wrapper only logs returned errors and never calls the available HandleError helper, so no automatic500 response is added.
+
+Republish POST writes202 before scheduling its goroutine; completion is not durable enqueue or worker acknowledgement. The child detaches cancellation and applies five minutes, while publication does not attach ctx to the Watermill message. Grouping hashes DistributorID, VccProgramMarket, Market and Brand; group metadata reads partners[0]. Sender is RDM, timestamp uses Time.Now().String, countryCode comes from Market, CbvPartner is false and the source ParterNames spelling is preserved. Generated protocol tags/reservations and available nested fields are retained separately from source JSON name projections. JSON projections exclude unexported generated struct internals. Local health/raw response strings and explicit status/write ordering remain source facts.
+
+RequestBuilder has value receivers and shared header/query maps. Build applies WithContext before checking NewRequest error when context is nonnil. RDM source HTTP timeout is ten seconds. Binder env/file declarations and example settings are not effective deployed values. CI, documentation and examples are inventoried but not executed.
+
+## Remaining gaps and reproducibility
+
+Gitlink `events/pb-contracts-car-configuration` is exactly `dfd4da51de4ce6389a9fddae66d7d3e45b5dbc1a`, tree `c268011437bdb9f914dbd186df0862c83f35b13b`. All 25 child blobs are absent offline; .gitmodules is absent. The availability ledger records individual object checks. Parent generated Go and the two local partner proto files are available independent authorities. No current standalone proto was substituted and no fetch was attempted.
+
+Imported modules, effective runtime configuration/instances, SDK/network conversion, middleware activation, Kafka producer/marshaler policy, mutable alias state and guard/scheduling feasibility remain explicit gaps. Parse-only source closure is complete for available local code; this is not a compiler, heap proof or runtime test. Source bindings do not establish deployed processes or successful I/O.
+
+Use `validation-source.final-r1.log`, `query-final-r1-complete/`, `acceptance.final-r1.mjs`, the matching `*.final-r1.json` ledgers and `seal.final-r1.json`. Source files are pinned with exact GitHub-compatible evidence tuples. No source build/test, application execution, source-clone mutation, download/fetch or live endpoint/store call occurred. Only the local standard-library parse aid was compiled in an owned temporary cache. App-wide Groundwork checks and publication belong to parent coordination; no app/schema/skill/global state or sibling report was edited.

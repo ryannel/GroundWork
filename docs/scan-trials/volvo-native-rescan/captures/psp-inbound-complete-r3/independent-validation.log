@@ -1,0 +1,11 @@
+
+> groundwork@0.0.0 knowledge:validate
+> node --import ./tools/register.ts --conditions=react-server tools/validate-knowledge.ts reports/volvo-native-rescan/psp-inbound-complete/bundle.final-r3.json
+
+{
+  "snapshot": "1b0d1a29545f67f31cc7f7eaf8f4a5c0d31f29568adde0f94697275af4b6a56c",
+  "bundles": 1,
+  "records": 10713,
+  "sourceRangesChecked": 0,
+  "sourceVerification": "not_requested"
+}

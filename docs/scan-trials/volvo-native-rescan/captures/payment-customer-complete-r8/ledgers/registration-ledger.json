@@ -1,0 +1,202 @@
+[
+  {
+    "entry": "customer-b0010537-complete-r8/registration/24d18585f04f650f",
+    "implementation": "customer-b0010537-complete-r8/method/24d18585f04f650f",
+    "trigger": "process",
+    "source": "cds-paymentservice-customer-api/src/main/java/com/volvocars/ecom/paymentservice/customer/api/App.java",
+    "lines": [21, 24],
+    "declaration": "public static void main(String[] args) "
+  },
+  {
+    "entry": "customer-b0010537-complete-r8/registration/ac2f650698c795dc",
+    "implementation": "customer-b0010537-complete-r8/method/ac2f650698c795dc",
+    "trigger": "callback",
+    "source": "cds-paymentservice-customer-core/src/main/java/com/volvocars/ecom/paymentservice/configuration/CacheConfiguration.java",
+    "lines": [23, 36],
+    "declaration": "@Bean\n  CacheManager redisCacheManager(\n      RedisConnectionFactory redisConnectionFactory,\n      @Value(\"${spring.cache.redis.time-to-live:86400s}\") Duration cacheTtl) "
+  },
+  {
+    "entry": "customer-b0010537-complete-r8/registration/1284514a4c2bdaa6",
+    "implementation": "customer-b0010537-complete-r8/method/1284514a4c2bdaa6",
+    "trigger": "callback",
+    "source": "cds-paymentservice-customer-core/src/main/java/com/volvocars/ecom/paymentservice/configuration/CacheConfiguration.java",
+    "lines": [38, 74],
+    "declaration": "@Bean\n  CacheErrorHandler cacheErrorHandler() "
+  },
+  {
+    "entry": "customer-b0010537-complete-r8/registration/dadd71a906e6c043",
+    "implementation": "customer-b0010537-complete-r8/method/dadd71a906e6c043",
+    "trigger": "callback",
+    "source": "cds-paymentservice-customer-core/src/main/java/com/volvocars/ecom/paymentservice/customer/PspIntegrationClientConfig.java",
+    "lines": [25, 28],
+    "declaration": "@Bean\n  public CustomerClient customerClient() "
+  },
+  {
+    "entry": "customer-b0010537-complete-r8/registration/8f2f9c58556c386e",
+    "implementation": "customer-b0010537-complete-r8/method/8f2f9c58556c386e",
+    "trigger": "callback",
+    "source": "cds-paymentservice-customer-core/src/main/java/com/volvocars/ecom/paymentservice/integration/common/CustomerControllerAdvice.java",
+    "lines": [65, 73],
+    "declaration": "@ResponseStatus(HttpStatus.NOT_ACCEPTABLE)\n  @ExceptionHandler(value = HttpMediaTypeNotAcceptableException.class)\n  @Order(Ordered.HIGHEST_PRECEDENCE)\n  @Hidden\n  public HttpEntity<BaseResponse<Error>> handleHttpMediaTypeNotAcceptableException(\n      HttpServletRequest request, HttpMediaTypeNotAcceptableException e) "
+  },
+  {
+    "entry": "customer-b0010537-complete-r8/registration/fbad0fc687c98e2c",
+    "implementation": "customer-b0010537-complete-r8/method/fbad0fc687c98e2c",
+    "trigger": "callback",
+    "source": "cds-paymentservice-customer-core/src/main/java/com/volvocars/ecom/paymentservice/integration/common/CustomerControllerAdvice.java",
+    "lines": [75, 96],
+    "declaration": "@ResponseStatus(BAD_REQUEST)\n  @ApiResponse(\n      responseCode = \"400\",\n      description = \"Request validation failed\",\n      content = {\n        @Content(\n            mediaType = MediaType.APPLICATION_JSON_VALUE,\n            schema = @Schema(implementation = com.volvocars.services.web.model.ErrorResponse.class))\n      })\n  @ExceptionHandler(MethodArgumentNotValidException.class)\n  public HttpEntity<BaseResponse<Error>> handleMethodArgumentNotValid(\n      HttpServletRequest request, MethodArgumentNotValidException exception) "
+  },
+  {
+    "entry": "customer-b0010537-complete-r8/registration/53cd90b5a566d53a",
+    "implementation": "customer-b0010537-complete-r8/method/53cd90b5a566d53a",
+    "trigger": "callback",
+    "source": "cds-paymentservice-customer-core/src/main/java/com/volvocars/ecom/paymentservice/integration/common/CustomerControllerAdvice.java",
+    "lines": [98, 111],
+    "declaration": "@ResponseStatus(BAD_REQUEST)\n  @ExceptionHandler({HttpMessageNotReadableException.class})\n  @ApiResponse(\n      responseCode = \"400\",\n      description = \"Failed to deserialize\",\n      content = {\n        @Content(\n            mediaType = MediaType.APPLICATION_JSON_VALUE,\n            schema = @Schema(implementation = ErrorResponse.class))\n      })\n  public HttpEntity<BaseResponse<Error>> messageNotReadableHandling(\n      HttpServletRequest request, HttpMessageNotReadableException e) "
+  },
+  {
+    "entry": "customer-b0010537-complete-r8/registration/28949b006632524f",
+    "implementation": "customer-b0010537-complete-r8/method/28949b006632524f",
+    "trigger": "callback",
+    "source": "cds-paymentservice-customer-core/src/main/java/com/volvocars/ecom/paymentservice/integration/common/CustomerControllerAdvice.java",
+    "lines": [113, 126],
+    "declaration": "@ResponseStatus(HttpStatus.BAD_REQUEST)\n  @ExceptionHandler({InputValidationException.class})\n  @ApiResponse(\n      responseCode = \"400\",\n      description = \"Request contains an unaccepted input\",\n      content = {\n        @Content(\n            mediaType = \"application/json\",\n            schema = @Schema(implementation = ErrorResponse.class))\n      })\n  public HttpEntity<BaseResponse<Error>> handleInputValidationException(\n      HttpServletRequest request, InputValidationException e) "
+  },
+  {
+    "entry": "customer-b0010537-complete-r8/registration/651e0a7d760989c5",
+    "implementation": "customer-b0010537-complete-r8/method/651e0a7d760989c5",
+    "trigger": "callback",
+    "source": "cds-paymentservice-customer-core/src/main/java/com/volvocars/ecom/paymentservice/integration/common/CustomerControllerAdvice.java",
+    "lines": [128, 141],
+    "declaration": "@ResponseStatus(HttpStatus.BAD_REQUEST)\n  @ExceptionHandler({ConstraintViolationException.class})\n  @ApiResponse(\n      responseCode = \"400\",\n      description = \"Request contains an unaccepted input\",\n      content = {\n        @Content(\n            mediaType = \"application/json\",\n            schema = @Schema(implementation = ErrorResponse.class))\n      })\n  public HttpEntity<BaseResponse<Error>> handleConstraintViolationException(\n      HttpServletRequest request, ConstraintViolationException e) "
+  },
+  {
+    "entry": "customer-b0010537-complete-r8/registration/be63c8de29d1c04a",
+    "implementation": "customer-b0010537-complete-r8/method/be63c8de29d1c04a",
+    "trigger": "callback",
+    "source": "cds-paymentservice-customer-core/src/main/java/com/volvocars/ecom/paymentservice/integration/common/CustomerControllerAdvice.java",
+    "lines": [143, 156],
+    "declaration": "@ResponseStatus(HttpStatus.BAD_REQUEST)\n  @ExceptionHandler({IllegalArgumentException.class})\n  @ApiResponse(\n      responseCode = \"400\",\n      description = \"Request contains an unaccepted input\",\n      content = {\n        @Content(\n            mediaType = \"application/json\",\n            schema = @Schema(implementation = ErrorResponse.class))\n      })\n  public HttpEntity<BaseResponse<Error>> handleNoIllegalArgumentException(\n      HttpServletRequest request, IllegalArgumentException e) "
+  },
+  {
+    "entry": "customer-b0010537-complete-r8/registration/fa500b7f0cd6dad7",
+    "implementation": "customer-b0010537-complete-r8/method/fa500b7f0cd6dad7",
+    "trigger": "callback",
+    "source": "cds-paymentservice-customer-core/src/main/java/com/volvocars/ecom/paymentservice/integration/common/CustomerControllerAdvice.java",
+    "lines": [158, 186],
+    "declaration": "@ResponseStatus(HttpStatus.BAD_REQUEST)\n  @ExceptionHandler({MethodArgumentTypeMismatchException.class})\n  @ApiResponse(\n      responseCode = \"400\",\n      description = \"Request contains an unaccepted input\",\n      content = {\n        @Content(\n            mediaType = MediaType.APPLICATION_JSON_VALUE,\n            schema = @Schema(implementation = ErrorResponse.class))\n      })\n  public HttpEntity<BaseResponse<Error>> handleMethodArgumentTypeMismatch(\n      HttpServletRequest request, MethodArgumentTypeMismatchException ex) "
+  },
+  {
+    "entry": "customer-b0010537-complete-r8/registration/fcbecfa52d3bb34f",
+    "implementation": "customer-b0010537-complete-r8/method/fcbecfa52d3bb34f",
+    "trigger": "callback",
+    "source": "cds-paymentservice-customer-core/src/main/java/com/volvocars/ecom/paymentservice/integration/common/CustomerControllerAdvice.java",
+    "lines": [188, 201],
+    "declaration": "@ResponseStatus(HttpStatus.UNSUPPORTED_MEDIA_TYPE)\n  @ExceptionHandler({UnsupportedMediaTypeStatusException.class})\n  @ApiResponse(\n      responseCode = \"415\",\n      description = \"Unsupported Media Type\",\n      content = {\n        @Content(\n            mediaType = \"application/json\",\n            schema = @Schema(implementation = ErrorResponse.class))\n      })\n  public HttpEntity<BaseResponse<Error>> handleUnsupportedMediaTypeStatusException(\n      HttpServletRequest request, UnsupportedMediaTypeStatusException e) "
+  },
+  {
+    "entry": "customer-b0010537-complete-r8/registration/2b00770157416af4",
+    "implementation": "customer-b0010537-complete-r8/method/2b00770157416af4",
+    "trigger": "callback",
+    "source": "cds-paymentservice-customer-core/src/main/java/com/volvocars/ecom/paymentservice/integration/common/CustomerControllerAdvice.java",
+    "lines": [203, 209],
+    "declaration": "@ResponseStatus(HttpStatus.UNSUPPORTED_MEDIA_TYPE)\n  @ExceptionHandler({HttpMediaTypeNotSupportedException.class})\n  @Hidden\n  public HttpEntity<BaseResponse<Error>> handleHttpMediaTypeNotSupportedException(\n      HttpServletRequest request, HttpMediaTypeNotSupportedException e) "
+  },
+  {
+    "entry": "customer-b0010537-complete-r8/registration/8ccf94e72fe0970e",
+    "implementation": "customer-b0010537-complete-r8/method/8ccf94e72fe0970e",
+    "trigger": "callback",
+    "source": "cds-paymentservice-customer-core/src/main/java/com/volvocars/ecom/paymentservice/integration/common/CustomerControllerAdvice.java",
+    "lines": [211, 224],
+    "declaration": "@ResponseStatus(HttpStatus.NOT_FOUND)\n  @ExceptionHandler({NoHandlerFoundException.class})\n  @ApiResponse(\n      responseCode = \"404\",\n      description = \"Not Found\",\n      content = {\n        @Content(\n            mediaType = \"application/json\",\n            schema = @Schema(implementation = ErrorResponse.class))\n      })\n  public HttpEntity<BaseResponse<Error>> handleNoHandlerFoundException(\n      HttpServletRequest request, NoHandlerFoundException e) "
+  },
+  {
+    "entry": "customer-b0010537-complete-r8/registration/199a47244ae6e1b7",
+    "implementation": "customer-b0010537-complete-r8/method/199a47244ae6e1b7",
+    "trigger": "callback",
+    "source": "cds-paymentservice-customer-core/src/main/java/com/volvocars/ecom/paymentservice/integration/common/CustomerControllerAdvice.java",
+    "lines": [226, 239],
+    "declaration": "@ResponseStatus(HttpStatus.NOT_FOUND)\n  @ExceptionHandler({NoResourceFoundException.class})\n  @ApiResponse(\n      responseCode = \"404\",\n      description = \"Not Found\",\n      content = {\n        @Content(\n            mediaType = \"application/json\",\n            schema = @Schema(implementation = ErrorResponse.class))\n      })\n  public HttpEntity<BaseResponse<Error>> handleNoResourceFoundException(\n      HttpServletRequest request, NoResourceFoundException e) "
+  },
+  {
+    "entry": "customer-b0010537-complete-r8/registration/fca2037b38bee7e3",
+    "implementation": "customer-b0010537-complete-r8/method/fca2037b38bee7e3",
+    "trigger": "callback",
+    "source": "cds-paymentservice-customer-core/src/main/java/com/volvocars/ecom/paymentservice/integration/common/CustomerControllerAdvice.java",
+    "lines": [241, 254],
+    "declaration": "@ResponseStatus(HttpStatus.NOT_FOUND)\n  @ExceptionHandler({NotFoundException.class})\n  @ApiResponse(\n      responseCode = \"404\",\n      description = \"Not Found\",\n      content = {\n        @Content(\n            mediaType = \"application/json\",\n            schema = @Schema(implementation = ErrorResponse.class))\n      })\n  public HttpEntity<BaseResponse<Error>> handleNotFoundException(\n      HttpServletRequest request, NotFoundException e) "
+  },
+  {
+    "entry": "customer-b0010537-complete-r8/registration/1a8787bbe7902e65",
+    "implementation": "customer-b0010537-complete-r8/method/1a8787bbe7902e65",
+    "trigger": "callback",
+    "source": "cds-paymentservice-customer-core/src/main/java/com/volvocars/ecom/paymentservice/integration/common/CustomerControllerAdvice.java",
+    "lines": [256, 269],
+    "declaration": "@ResponseStatus(HttpStatus.FORBIDDEN)\n  @ExceptionHandler({AccessDeniedException.class})\n  @ApiResponse(\n      responseCode = \"403\",\n      description = \"Resource forbidden\",\n      content = {\n        @Content(\n            mediaType = \"application/json\",\n            schema = @Schema(implementation = ErrorResponse.class))\n      })\n  public HttpEntity<BaseResponse<Error>> handleAccessDeniedException(\n      HttpServletRequest request, AccessDeniedException e) "
+  },
+  {
+    "entry": "customer-b0010537-complete-r8/registration/3c127c06c5f6b3e8",
+    "implementation": "customer-b0010537-complete-r8/method/3c127c06c5f6b3e8",
+    "trigger": "callback",
+    "source": "cds-paymentservice-customer-core/src/main/java/com/volvocars/ecom/paymentservice/integration/common/CustomerControllerAdvice.java",
+    "lines": [271, 284],
+    "declaration": "@ResponseStatus(HttpStatus.FORBIDDEN)\n  @ExceptionHandler({ForbiddenException.class})\n  @ApiResponse(\n      responseCode = \"403\",\n      description = \"Forbidden\",\n      content = {\n        @Content(\n            mediaType = \"application/json\",\n            schema = @Schema(implementation = ErrorResponse.class))\n      })\n  public HttpEntity<BaseResponse<Error>> handleForbiddenException(\n      HttpServletRequest request, ForbiddenException e) "
+  },
+  {
+    "entry": "customer-b0010537-complete-r8/registration/03bd756a490291e9",
+    "implementation": "customer-b0010537-complete-r8/method/03bd756a490291e9",
+    "trigger": "callback",
+    "source": "cds-paymentservice-customer-core/src/main/java/com/volvocars/ecom/paymentservice/integration/common/CustomerControllerAdvice.java",
+    "lines": [286, 299],
+    "declaration": "@ResponseStatus(HttpStatus.UNAUTHORIZED)\n  @ExceptionHandler({AuthenticationException.class, UnauthorizedException.class})\n  @ApiResponse(\n      responseCode = \"401\",\n      description = \"Unauthorized\",\n      content = {\n        @Content(\n            mediaType = \"application/json\",\n            schema = @Schema(implementation = ErrorResponse.class))\n      })\n  public HttpEntity<BaseResponse<Error>> handleAuthenticationException(\n      HttpServletRequest request, AuthenticationException e) "
+  },
+  {
+    "entry": "customer-b0010537-complete-r8/registration/a60b8b9a9285ae73",
+    "implementation": "customer-b0010537-complete-r8/method/a60b8b9a9285ae73",
+    "trigger": "callback",
+    "source": "cds-paymentservice-customer-core/src/main/java/com/volvocars/ecom/paymentservice/integration/common/CustomerControllerAdvice.java",
+    "lines": [301, 314],
+    "declaration": "@ResponseStatus(HttpStatus.UNPROCESSABLE_CONTENT)\n  @ExceptionHandler({UnprocessableEntityException.class})\n  @ApiResponse(\n      responseCode = \"422\",\n      description = \"Unprocessable Entity\",\n      content = {\n        @Content(\n            mediaType = \"application/json\",\n            schema = @Schema(implementation = ErrorResponse.class))\n      })\n  public HttpEntity<BaseResponse<Error>> handleMethodArgumentNotValid(\n      HttpServletRequest request, UnprocessableEntityException e) "
+  },
+  {
+    "entry": "customer-b0010537-complete-r8/registration/b37bc9d83238a001",
+    "implementation": "customer-b0010537-complete-r8/method/b37bc9d83238a001",
+    "trigger": "callback",
+    "source": "cds-paymentservice-customer-core/src/main/java/com/volvocars/ecom/paymentservice/integration/common/CustomerControllerAdvice.java",
+    "lines": [316, 328],
+    "declaration": "@ExceptionHandler({PaymentSessionAlreadyCompletedException.class})\n  @ApiResponse(\n      responseCode = \"422\",\n      description = \"Unprocessable Entity\",\n      content = {\n        @Content(\n            mediaType = \"application/json\",\n            schema = @Schema(implementation = ErrorResponse.class))\n      })\n  public HttpEntity<BaseResponse<Error>> handlePaymentSessionAlreadyCompletedException(\n      HttpServletRequest request, PaymentSessionAlreadyCompletedException e) "
+  },
+  {
+    "entry": "customer-b0010537-complete-r8/registration/32c7b291f6df9bdd",
+    "implementation": "customer-b0010537-complete-r8/method/32c7b291f6df9bdd",
+    "trigger": "callback",
+    "source": "cds-paymentservice-customer-core/src/main/java/com/volvocars/ecom/paymentservice/integration/common/CustomerControllerAdvice.java",
+    "lines": [330, 334],
+    "declaration": "@ExceptionHandler(ApiClientException.class)\n  public HttpEntity<BaseResponse<Error>> apiClientException(\n      HttpServletRequest request, ApiClientException ex) "
+  },
+  {
+    "entry": "customer-b0010537-complete-r8/registration/a084914f6b10d37f",
+    "implementation": "customer-b0010537-complete-r8/method/a084914f6b10d37f",
+    "trigger": "callback",
+    "source": "cds-paymentservice-customer-core/src/main/java/com/volvocars/ecom/paymentservice/integration/common/CustomerControllerAdvice.java",
+    "lines": [336, 340],
+    "declaration": "@ExceptionHandler(UnsupportedOperationException.class)\n  public HttpEntity<BaseResponse<Error>> handleUnsupportedOperationException(\n      HttpServletRequest request, UnsupportedOperationException e) "
+  },
+  {
+    "entry": "customer-b0010537-complete-r8/registration/a1f66909b0673f00",
+    "implementation": "customer-b0010537-complete-r8/method/a1f66909b0673f00",
+    "trigger": "callback",
+    "source": "cds-paymentservice-customer-core/src/main/java/com/volvocars/ecom/paymentservice/integration/common/CustomerControllerAdvice.java",
+    "lines": [342, 355],
+    "declaration": "@ExceptionHandler({Exception.class})\n  @ApiResponse(\n      responseCode = \"500\",\n      description = \"Internal Server Error\",\n      content = {\n        @Content(\n            mediaType = \"application/json\",\n            schema = @Schema(implementation = ErrorResponse.class))\n      })\n  public HttpEntity<BaseResponse<Error>> handleServerException(\n      HttpServletRequest request, Exception ex) "
+  },
+  {
+    "entry": "customer-b0010537-complete-r8/registration/ebed0dfb64f5c300",
+    "implementation": "customer-b0010537-complete-r8/method/ebed0dfb64f5c300",
+    "trigger": "callback",
+    "source": "cds-paymentservice-customer-shared/src/main/java/com/volvocars/ecom/paymentservice/customer/validation/FirstAndLastNameValidator.java",
+    "lines": [10, 13],
+    "declaration": "@Override\n  public boolean isValid(CustomerUpdatePayload payload, ConstraintValidatorContext context) "
+  }
+]

@@ -1,0 +1,623 @@
+{
+  "snapshot": "bc0610c246dadbb0e8084a03ddcc7b78052291b7c82f4d1e2a7f1ddd3ee60f17",
+  "status": "passed",
+  "records": 328250,
+  "databaseBytes": 1011265536,
+  "importMs": 23144,
+  "queries": 61,
+  "medianMs": 98.77,
+  "p95Ms": 794.82,
+  "maxMs": 1565.85,
+  "requestResponseValidation": "schema-validated including support continuations; non-value representation normalised to required constructed mode",
+  "existingIndexImportReused": true,
+  "qualification": "Local single-process indexed-reader evidence, not a production SLA or enterprise/concurrent UI benchmark; source query limits retained.",
+  "checks": [
+    {
+      "name": "account-get",
+      "entry": "account-profile-bc3003a-complete-r1/entry/account-get",
+      "query": "interactions",
+      "durationMs": 350.75,
+      "nodes": 2,
+      "edges": 1,
+      "limits": [],
+      "comparison": "nodes/edges equal ignoring result order"
+    },
+    {
+      "name": "account-get source argument 0",
+      "entry": "account-profile-bc3003a-complete-r1/entry/account-get",
+      "query": "value",
+      "durationMs": 98.41,
+      "nodes": 26,
+      "edges": 26,
+      "limits": [],
+      "comparison": "nodes/edges equal ignoring result order"
+    },
+    {
+      "name": "account-get source argument 1",
+      "entry": "account-profile-bc3003a-complete-r1/entry/account-get",
+      "query": "value",
+      "durationMs": 57.46,
+      "nodes": 26,
+      "edges": 26,
+      "limits": [],
+      "comparison": "nodes/edges equal ignoring result order"
+    },
+    {
+      "name": "account-get source argument 2",
+      "entry": "account-profile-bc3003a-complete-r1/entry/account-get",
+      "query": "value",
+      "durationMs": 58.28,
+      "nodes": 26,
+      "edges": 26,
+      "limits": [],
+      "comparison": "nodes/edges equal ignoring result order"
+    },
+    {
+      "name": "account-get source argument 3",
+      "entry": "account-profile-bc3003a-complete-r1/entry/account-get",
+      "query": "value",
+      "durationMs": 57.73,
+      "nodes": 26,
+      "edges": 26,
+      "limits": [],
+      "comparison": "nodes/edges equal ignoring result order"
+    },
+    {
+      "name": "account-get source argument 4",
+      "entry": "account-profile-bc3003a-complete-r1/entry/account-get",
+      "query": "value",
+      "durationMs": 42.19,
+      "nodes": 4,
+      "edges": 3,
+      "limits": [],
+      "comparison": "nodes/edges equal ignoring result order"
+    },
+    {
+      "name": "account-update",
+      "entry": "account-profile-bc3003a-complete-r1/entry/account-update",
+      "query": "interactions",
+      "durationMs": 304.02,
+      "nodes": 2,
+      "edges": 1,
+      "limits": [],
+      "comparison": "nodes/edges equal ignoring result order"
+    },
+    {
+      "name": "account-update source argument 0",
+      "entry": "account-profile-bc3003a-complete-r1/entry/account-update",
+      "query": "value",
+      "durationMs": 253.77,
+      "nodes": 48,
+      "edges": 56,
+      "limits": [],
+      "comparison": "nodes/edges equal ignoring result order"
+    },
+    {
+      "name": "account-update source argument 1",
+      "entry": "account-profile-bc3003a-complete-r1/entry/account-update",
+      "query": "value",
+      "durationMs": 94.53,
+      "nodes": 26,
+      "edges": 26,
+      "limits": [],
+      "comparison": "nodes/edges equal ignoring result order"
+    },
+    {
+      "name": "account-update source argument 2",
+      "entry": "account-profile-bc3003a-complete-r1/entry/account-update",
+      "query": "value",
+      "durationMs": 92.33,
+      "nodes": 26,
+      "edges": 26,
+      "limits": [],
+      "comparison": "nodes/edges equal ignoring result order"
+    },
+    {
+      "name": "account-update source argument 3",
+      "entry": "account-profile-bc3003a-complete-r1/entry/account-update",
+      "query": "value",
+      "durationMs": 91.2,
+      "nodes": 26,
+      "edges": 26,
+      "limits": [],
+      "comparison": "nodes/edges equal ignoring result order"
+    },
+    {
+      "name": "account-update source argument 4",
+      "entry": "account-profile-bc3003a-complete-r1/entry/account-update",
+      "query": "value",
+      "durationMs": 90.84,
+      "nodes": 26,
+      "edges": 26,
+      "limits": [],
+      "comparison": "nodes/edges equal ignoring result order"
+    },
+    {
+      "name": "account-update source argument 5",
+      "entry": "account-profile-bc3003a-complete-r1/entry/account-update",
+      "query": "value",
+      "durationMs": 79.59,
+      "nodes": 4,
+      "edges": 3,
+      "limits": [],
+      "comparison": "nodes/edges equal ignoring result order"
+    },
+    {
+      "name": "settings has no Account SDK boundary",
+      "entry": "account-profile-bc3003a-complete-r1/entry/settings-get",
+      "query": "interactions",
+      "durationMs": 98.77,
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "comparison": "nodes/edges equal ignoring result order"
+    },
+    {
+      "name": "update source field Firstname",
+      "entry": "account-profile-bc3003a-complete-r1/method/a16a8868724ee290",
+      "query": "value",
+      "durationMs": 8.64,
+      "nodes": 2,
+      "edges": 1,
+      "limits": [],
+      "comparison": "nodes/edges equal ignoring result order"
+    },
+    {
+      "name": "update source field Lastname",
+      "entry": "account-profile-bc3003a-complete-r1/method/a16a8868724ee290",
+      "query": "value",
+      "durationMs": 8.55,
+      "nodes": 2,
+      "edges": 1,
+      "limits": [],
+      "comparison": "nodes/edges equal ignoring result order"
+    },
+    {
+      "name": "update source field Gender",
+      "entry": "account-profile-bc3003a-complete-r1/method/a16a8868724ee290",
+      "query": "value",
+      "durationMs": 13.28,
+      "nodes": 9,
+      "edges": 8,
+      "limits": [],
+      "comparison": "nodes/edges equal ignoring result order"
+    },
+    {
+      "name": "update source field Address",
+      "entry": "account-profile-bc3003a-complete-r1/method/a16a8868724ee290",
+      "query": "value",
+      "durationMs": 17.63,
+      "nodes": 17,
+      "edges": 21,
+      "limits": [],
+      "comparison": "nodes/edges equal ignoring result order"
+    },
+    {
+      "name": "update source field Birthdate",
+      "entry": "account-profile-bc3003a-complete-r1/method/a16a8868724ee290",
+      "query": "value",
+      "durationMs": 13.05,
+      "nodes": 7,
+      "edges": 6,
+      "limits": [],
+      "comparison": "nodes/edges equal ignoring result order"
+    },
+    {
+      "name": "REST capture source SDK invocations",
+      "entry": "volvo/cds-paymentservice-psp-integration/dabd6c825499/local-r2/base/psp-dabd6c8-r4/entry/TransactionController-capture",
+      "query": "interactions",
+      "durationMs": 731.53,
+      "nodes": 5,
+      "edges": 6,
+      "limits": [],
+      "comparison": "nodes/edges equal ignoring result order"
+    },
+    {
+      "name": "capture actual argument 0",
+      "entry": "volvo/cds-paymentservice-psp-integration/dabd6c825499/local-r2/base/psp-dabd6c8-r4/entry/TransactionController-capture",
+      "query": "value",
+      "durationMs": 191.98,
+      "nodes": 19,
+      "edges": 18,
+      "limits": [],
+      "comparison": "nodes/edges equal ignoring result order"
+    },
+    {
+      "name": "capture actual argument 1",
+      "entry": "volvo/cds-paymentservice-psp-integration/dabd6c825499/local-r2/base/psp-dabd6c8-r4/entry/TransactionController-capture",
+      "query": "value",
+      "durationMs": 118.12,
+      "nodes": 12,
+      "edges": 11,
+      "limits": [],
+      "comparison": "nodes/edges equal ignoring result order"
+    },
+    {
+      "name": "all capture argument source shapes",
+      "entry": "volvo/cds-paymentservice-psp-integration/dabd6c825499/local-r2/base/psp-dabd6c8-r4/entry/TransactionController-capture",
+      "query": "records",
+      "durationMs": 82.95,
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "comparison": "nodes/edges equal ignoring result order"
+    },
+    {
+      "name": "register route Mongo writes",
+      "entry": "volvo/cds-paymentservice-scheduler/c00df60c8233/full-r1/revised/9d2e929265f410160c5b",
+      "query": "interactions",
+      "durationMs": 1344.58,
+      "nodes": 2,
+      "edges": 4,
+      "limits": [],
+      "comparison": "nodes/edges equal ignoring result order"
+    },
+    {
+      "name": "poller database and payment API",
+      "entry": "volvo/cds-paymentservice-scheduler/c00df60c8233/full-r1/revised/63e422077f8d2a854ec5",
+      "query": "interactions",
+      "durationMs": 1565.85,
+      "nodes": 3,
+      "edges": 17,
+      "limits": ["maxNodes"],
+      "comparison": "bounded view; do not claim exhaustive graph equality"
+    },
+    {
+      "name": "actual notification Kafka publish",
+      "entry": "volvo/cds-paymentservice-scheduler/c00df60c8233/full-r1/method/166d6ebfd579c8e045b0",
+      "query": "interactions",
+      "durationMs": 116.32,
+      "nodes": 2,
+      "edges": 1,
+      "limits": [],
+      "comparison": "nodes/edges equal ignoring result order"
+    },
+    {
+      "name": "notification source argument 0",
+      "entry": "volvo/cds-paymentservice-scheduler/c00df60c8233/full-r1/method/166d6ebfd579c8e045b0",
+      "query": "value",
+      "durationMs": 27.77,
+      "nodes": 6,
+      "edges": 5,
+      "limits": [],
+      "comparison": "nodes/edges equal ignoring result order"
+    },
+    {
+      "name": "notification source argument 1",
+      "entry": "volvo/cds-paymentservice-scheduler/c00df60c8233/full-r1/method/166d6ebfd579c8e045b0",
+      "query": "value",
+      "durationMs": 27.85,
+      "nodes": 7,
+      "edges": 6,
+      "limits": [],
+      "comparison": "nodes/edges equal ignoring result order"
+    },
+    {
+      "name": "notification source argument 2",
+      "entry": "volvo/cds-paymentservice-scheduler/c00df60c8233/full-r1/method/166d6ebfd579c8e045b0",
+      "query": "value",
+      "durationMs": 70.03,
+      "nodes": 43,
+      "edges": 47,
+      "limits": [],
+      "comparison": "nodes/edges equal ignoring result order"
+    },
+    {
+      "name": "lock release actual remove and returned count",
+      "entry": "volvo/cds-paymentservice-scheduler/c00df60c8233/full-r1/method/b9d5c6277883c161098a",
+      "query": "interactions",
+      "durationMs": 32.69,
+      "nodes": 2,
+      "edges": 2,
+      "limits": [],
+      "comparison": "nodes/edges equal ignoring result order"
+    },
+    {
+      "name": "structured writes with unknown save policy",
+      "entry": "volvo/cds-paymentservice-scheduler/c00df60c8233/full-r1/revised/9d2e929265f410160c5b",
+      "query": "records",
+      "durationMs": 120.07,
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "comparison": "nodes/edges equal ignoring result order"
+    },
+    {
+      "name": "PaymentSessionOperationService#getByPaymentSessionId(",
+      "entry": "volvo/cds-paymentservice-transaction/return-contracts-r6/revised/3c77bf378de41c179a79",
+      "query": "interactions",
+      "durationMs": 165.42,
+      "nodes": 2,
+      "edges": 1,
+      "limits": [],
+      "comparison": "nodes/edges equal ignoring result order"
+    },
+    {
+      "name": "RefundOperationService#getByTransactionId(",
+      "entry": "volvo/cds-paymentservice-transaction/return-contracts-r6/revised/6d7bd02b6881cb218325",
+      "query": "interactions",
+      "durationMs": 56.52,
+      "nodes": 2,
+      "edges": 1,
+      "limits": [],
+      "comparison": "nodes/edges equal ignoring result order"
+    },
+    {
+      "name": "capture actual service interactions",
+      "entry": "volvo/cds-paymentservice-transaction/return-contracts-r6/revised/0b2b626cf34392aa37a0",
+      "query": "interactions",
+      "durationMs": 794.82,
+      "nodes": 3,
+      "edges": 3,
+      "limits": [],
+      "comparison": "nodes/edges equal ignoring result order"
+    },
+    {
+      "name": "api:assortment-classifications-list",
+      "entry": "assortment-6114c5d-complete-r5/retained/entry/controller/Classification-GetAllClassifications",
+      "query": "interactions",
+      "durationMs": 394.87,
+      "nodes": 2,
+      "edges": 3,
+      "limits": [],
+      "comparison": "nodes/edges equal ignoring result order"
+    },
+    {
+      "name": "internal processor entry has no exposure binding",
+      "entry": "assortment-6114c5d-complete-r5/processor/ClassificationMessageProcessor",
+      "query": "interactions",
+      "durationMs": 31.45,
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "comparison": "nodes/edges equal ignoring result order"
+    },
+    {
+      "name": "entry:assortment:processor:ClassificationMessageProcessor implementation body",
+      "entry": "assortment-6114c5d-complete-r5/method/2243a593331345b6",
+      "query": "interactions",
+      "durationMs": 278.69,
+      "nodes": 2,
+      "edges": 6,
+      "limits": [],
+      "comparison": "nodes/edges equal ignoring result order"
+    },
+    {
+      "name": "create",
+      "entry": "customer-b0010537-complete-r8/retained/entry/create",
+      "query": "interactions",
+      "durationMs": 795.86,
+      "nodes": 3,
+      "edges": 13,
+      "limits": [],
+      "comparison": "nodes/edges equal ignoring result order"
+    },
+    {
+      "name": "create PSP actual 0",
+      "entry": "customer-b0010537-complete-r8/retained/entry/create",
+      "query": "value",
+      "durationMs": 149.91,
+      "nodes": 5,
+      "edges": 4,
+      "limits": [],
+      "comparison": "nodes/edges equal ignoring result order"
+    },
+    {
+      "name": "create PSP actual 1",
+      "entry": "customer-b0010537-complete-r8/retained/entry/create",
+      "query": "value",
+      "durationMs": 172.73,
+      "nodes": 41,
+      "edges": 45,
+      "limits": [],
+      "comparison": "nodes/edges equal ignoring result order"
+    },
+    {
+      "name": "update-id",
+      "entry": "customer-b0010537-complete-r8/retained/entry/update-id",
+      "query": "interactions",
+      "durationMs": 449.03,
+      "nodes": 3,
+      "edges": 9,
+      "limits": [],
+      "comparison": "nodes/edges equal ignoring result order"
+    },
+    {
+      "name": "update-recurring",
+      "entry": "customer-b0010537-complete-r8/retained/entry/update-recurring",
+      "query": "interactions",
+      "durationMs": 150.3,
+      "nodes": 2,
+      "edges": 4,
+      "limits": [],
+      "comparison": "nodes/edges equal ignoring result order"
+    },
+    {
+      "name": "configured cache wrapper",
+      "entry": "customer-b0010537-complete-r8/method/de45105ac757a9f5",
+      "query": "interactions",
+      "durationMs": 13.28,
+      "nodes": 2,
+      "edges": 1,
+      "limits": [],
+      "comparison": "nodes/edges equal ignoring result order"
+    },
+    {
+      "name": "PSP detail source firstName",
+      "entry": "customer-b0010537-complete-r8/method/f7cd9584c6ab204c",
+      "query": "value",
+      "durationMs": 25.19,
+      "nodes": 4,
+      "edges": 3,
+      "limits": [],
+      "comparison": "nodes/edges equal ignoring result order"
+    },
+    {
+      "name": "PSP detail source lastName",
+      "entry": "customer-b0010537-complete-r8/method/f7cd9584c6ab204c",
+      "query": "value",
+      "durationMs": 25.15,
+      "nodes": 4,
+      "edges": 3,
+      "limits": [],
+      "comparison": "nodes/edges equal ignoring result order"
+    },
+    {
+      "name": "PSP detail source mobilePhoneNumber",
+      "entry": "customer-b0010537-complete-r8/method/f7cd9584c6ab204c",
+      "query": "value",
+      "durationMs": 24.94,
+      "nodes": 4,
+      "edges": 3,
+      "limits": [],
+      "comparison": "nodes/edges equal ignoring result order"
+    },
+    {
+      "name": "PSP detail source address",
+      "entry": "customer-b0010537-complete-r8/method/f7cd9584c6ab204c",
+      "query": "value",
+      "durationMs": 24.98,
+      "nodes": 4,
+      "edges": 3,
+      "limits": [],
+      "comparison": "nodes/edges equal ignoring result order"
+    },
+    {
+      "name": "PSP detail source preferredLocale",
+      "entry": "customer-b0010537-complete-r8/method/f7cd9584c6ab204c",
+      "query": "value",
+      "durationMs": 24.38,
+      "nodes": 2,
+      "edges": 1,
+      "limits": [],
+      "comparison": "nodes/edges equal ignoring result order"
+    },
+    {
+      "entry": "volvo/cds-paymentservice-psp-inbound/return-contracts-r3/revised/e5df9a2ee5f523f77ad5",
+      "query": "value",
+      "durationMs": 568.32,
+      "nodes": 165,
+      "edges": 177,
+      "limits": [],
+      "comparison": "nodes/edges equal ignoring result order"
+    },
+    {
+      "entry": "volvo/cds-paymentservice-psp-inbound/return-contracts-r3/revised/e5df9a2ee5f523f77ad5",
+      "query": "value",
+      "durationMs": 453.02,
+      "nodes": 167,
+      "edges": 179,
+      "limits": [],
+      "comparison": "nodes/edges equal ignoring result order"
+    },
+    {
+      "entry": "volvo/cds-paymentservice-psp-inbound/return-contracts-r3/revised/e5df9a2ee5f523f77ad5",
+      "query": "value",
+      "durationMs": 168.96,
+      "nodes": 17,
+      "edges": 16,
+      "limits": [],
+      "comparison": "nodes/edges equal ignoring result order"
+    },
+    {
+      "name": "GET /api/commercial-items/fees/{internalId}",
+      "entry": "mascomplete-b360506-r3/entry/get-api-commercial-items-fees-internalid",
+      "query": "interactions",
+      "durationMs": 266.53,
+      "nodes": 2,
+      "edges": 1,
+      "limits": [],
+      "comparison": "nodes/edges equal ignoring result order"
+    },
+    {
+      "name": "trace GET /api/commercial-items/fees/{internalId}",
+      "entry": "mascomplete-b360506-r3/entry/get-api-commercial-items-fees-internalid",
+      "query": "trace",
+      "durationMs": 249.14,
+      "nodes": 147,
+      "edges": 160,
+      "limits": [],
+      "comparison": "nodes/edges equal ignoring result order"
+    },
+    {
+      "name": "DELETE /api/commercial-segments/brands/{code}",
+      "entry": "mascomplete-b360506-r3/entry/delete-api-commercial-segments-brands-code",
+      "query": "interactions",
+      "durationMs": 652.4,
+      "nodes": 3,
+      "edges": 3,
+      "limits": [],
+      "comparison": "nodes/edges equal ignoring result order"
+    },
+    {
+      "name": "trace DELETE /api/commercial-segments/brands/{code}",
+      "entry": "mascomplete-b360506-r3/entry/delete-api-commercial-segments-brands-code",
+      "query": "trace",
+      "durationMs": 510.84,
+      "nodes": 566,
+      "edges": 623,
+      "limits": [],
+      "comparison": "nodes/edges equal ignoring result order"
+    },
+    {
+      "name": "PUT /api/commercial-segments/markets/{code}",
+      "entry": "mascomplete-b360506-r3/entry/put-api-commercial-segments-markets-code",
+      "query": "interactions",
+      "durationMs": 360.4,
+      "nodes": 3,
+      "edges": 3,
+      "limits": [],
+      "comparison": "nodes/edges equal ignoring result order"
+    },
+    {
+      "name": "trace PUT /api/commercial-segments/markets/{code}",
+      "entry": "mascomplete-b360506-r3/entry/put-api-commercial-segments-markets-code",
+      "query": "trace",
+      "durationMs": 303.14,
+      "nodes": 525,
+      "edges": 582,
+      "limits": [],
+      "comparison": "nodes/edges equal ignoring result order"
+    },
+    {
+      "name": "POST /api/commercial-items/soft-offers",
+      "entry": "s2/endpoint",
+      "query": "interactions",
+      "durationMs": 488.15,
+      "nodes": 3,
+      "edges": 3,
+      "limits": [],
+      "comparison": "nodes/edges equal ignoring result order"
+    },
+    {
+      "name": "trace POST /api/commercial-items/soft-offers",
+      "entry": "s2/endpoint",
+      "query": "trace",
+      "durationMs": 425.38,
+      "nodes": 662,
+      "edges": 728,
+      "limits": [],
+      "comparison": "nodes/edges equal ignoring result order"
+    },
+    {
+      "name": "Market exact staged field origins",
+      "entry": "mascomplete-b360506-r3/native/method/ec7dfd243619566fbb51",
+      "query": "value",
+      "durationMs": 9.92,
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "comparison": "nodes/edges equal ignoring result order"
+    },
+    {
+      "name": "Market zero-formal UoW write records",
+      "entry": "mascomplete-b360506-r3/native/method/ec7dfd243619566fbb51",
+      "query": "records",
+      "durationMs": 58.37,
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "comparison": "nodes/edges equal ignoring result order"
+    }
+  ]
+}

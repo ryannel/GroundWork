@@ -1,0 +1,415 @@
+{
+  "status": "passed",
+  "snapshot": "b5306d23d996ef477ee3b61b90d68a7dbac9006fa258a2cd3a3e323a9d8f3dbb",
+  "qualification": "Independent21full pinned source/schema files, fresh native SQLite selection and finite question-led acceptance. Actual19REST/2subscriptions positive; separate Async body/audit/Kafka/client roots and original JSON deletion selector checked. Ten native store writes preserve per-call limits and raw archive fields/original customer. Unknown sendSafely/proxy/library/runtime behavior remains explicit; broad query cutoffs do not establish full closure.",
+  "queries": [
+    {
+      "name": "Actual REST reaches Mongo GET /v1/customers/{customerId}/audit-logs/{version}",
+      "proof": "proof-0.json.gz",
+      "pages": 1,
+      "nodes": 2,
+      "edges": 1,
+      "limits": []
+    },
+    {
+      "name": "Actual REST reaches Mongo GET /v1/customers/{customerId}/audit-log",
+      "proof": "proof-1.json.gz",
+      "pages": 1,
+      "nodes": 2,
+      "edges": 1,
+      "limits": []
+    },
+    {
+      "name": "Actual REST reaches Mongo GET /v1/customers/{customerId}",
+      "proof": "proof-2.json.gz",
+      "pages": 1,
+      "nodes": 2,
+      "edges": 1,
+      "limits": []
+    },
+    {
+      "name": "Actual REST reaches Mongo PATCH /v1/customers/{customerId}/archive",
+      "proof": "proof-3.json.gz",
+      "pages": 1,
+      "nodes": 2,
+      "edges": 6,
+      "limits": []
+    },
+    {
+      "name": "Actual REST reaches Mongo PATCH /v1/customers/{customerId}/unarchive",
+      "proof": "proof-4.json.gz",
+      "pages": 1,
+      "nodes": 2,
+      "edges": 3,
+      "limits": []
+    },
+    {
+      "name": "Actual REST reaches Mongo POST /v1/customers/customer-ids",
+      "proof": "proof-5.json.gz",
+      "pages": 1,
+      "nodes": 2,
+      "edges": 1,
+      "limits": []
+    },
+    {
+      "name": "Actual REST reaches Mongo POST /v1/customers",
+      "proof": "proof-6.json.gz",
+      "pages": 1,
+      "nodes": 4,
+      "edges": 4,
+      "limits": ["maxNodes"]
+    },
+    {
+      "name": "Actual REST reaches Mongo PUT /v1/customers/{customerId}",
+      "proof": "proof-7.json.gz",
+      "pages": 1,
+      "nodes": 3,
+      "edges": 2,
+      "limits": ["maxNodes"]
+    },
+    {
+      "name": "Actual REST reaches Mongo PATCH /v1/customers/{customerId}",
+      "proof": "proof-8.json.gz",
+      "pages": 2,
+      "nodes": 4,
+      "edges": 5,
+      "limits": ["maxNodes"]
+    },
+    {
+      "name": "Actual REST reaches Mongo POST /v1/customers/{customerId}/individual",
+      "proof": "proof-9.json.gz",
+      "pages": 1,
+      "nodes": 4,
+      "edges": 4,
+      "limits": ["maxNodes"]
+    },
+    {
+      "name": "Actual REST reaches Mongo PUT /v1/customers/{customerId}/individual/{id}",
+      "proof": "proof-10.json.gz",
+      "pages": 1,
+      "nodes": 3,
+      "edges": 2,
+      "limits": ["maxNodes"]
+    },
+    {
+      "name": "Actual REST reaches Mongo PATCH /v1/customers/{customerId}/individual/{id}",
+      "proof": "proof-11.json.gz",
+      "pages": 2,
+      "nodes": 4,
+      "edges": 5,
+      "limits": ["maxNodes"]
+    },
+    {
+      "name": "Actual REST reaches Mongo DELETE /v1/customers/{customerId}/individual/{id}",
+      "proof": "proof-12.json.gz",
+      "pages": 1,
+      "nodes": 2,
+      "edges": 2,
+      "limits": []
+    },
+    {
+      "name": "Actual REST reaches Mongo PUT /v1/customers/{customerId}/organization/{id}",
+      "proof": "proof-13.json.gz",
+      "pages": 1,
+      "nodes": 3,
+      "edges": 3,
+      "limits": ["maxNodes"]
+    },
+    {
+      "name": "Actual REST reaches Mongo POST /v1/customers/{customerId}/organization",
+      "proof": "proof-14.json.gz",
+      "pages": 1,
+      "nodes": 4,
+      "edges": 5,
+      "limits": ["maxNodes"]
+    },
+    {
+      "name": "Actual REST reaches Mongo PATCH /v1/customers/{customerId}/organization/{id}",
+      "proof": "proof-15.json.gz",
+      "pages": 2,
+      "nodes": 4,
+      "edges": 7,
+      "limits": ["maxNodes"]
+    },
+    {
+      "name": "Actual REST reaches Mongo POST /v1/customers/{customerId}/duplicate",
+      "proof": "proof-16.json.gz",
+      "pages": 1,
+      "nodes": 2,
+      "edges": 2,
+      "limits": []
+    },
+    {
+      "name": "Actual REST reaches Mongo POST /v1/migrate",
+      "proof": "proof-17.json.gz",
+      "pages": 1,
+      "nodes": 2,
+      "edges": 4,
+      "limits": ["maxNodes"]
+    },
+    {
+      "name": "Actual REST reaches Mongo DELETE /v1/migrate/{customerId}",
+      "proof": "proof-18.json.gz",
+      "pages": 1,
+      "nodes": 2,
+      "edges": 1,
+      "limits": []
+    },
+    {
+      "name": "Actual subscription reaches Mongo DeleteCustomerEventConsumer",
+      "proof": "proof-19.json.gz",
+      "pages": 1,
+      "nodes": 3,
+      "edges": 2,
+      "limits": []
+    },
+    {
+      "name": "Actual subscription reaches Mongo OrderUpdateEventConsumer",
+      "proof": "proof-20.json.gz",
+      "pages": 1,
+      "nodes": 3,
+      "edges": 8,
+      "limits": []
+    },
+    {
+      "name": "Separate Async postprocess reaches audit save only",
+      "proof": "proof-21.json.gz",
+      "pages": 1,
+      "nodes": 2,
+      "edges": 1,
+      "limits": []
+    },
+    {
+      "name": "Publication body source boundary kafka-analytics",
+      "proof": "proof-22.json.gz",
+      "pages": 1,
+      "nodes": 3,
+      "edges": 2,
+      "limits": []
+    },
+    {
+      "name": "Actual publication source value kafka-analytics argument0",
+      "proof": "proof-23.json.gz",
+      "pages": 1,
+      "nodes": 2,
+      "edges": 1,
+      "limits": []
+    },
+    {
+      "name": "Publication body source boundary library-sendSafely-consent",
+      "proof": "proof-24.json.gz",
+      "pages": 1,
+      "nodes": 2,
+      "edges": 1,
+      "limits": []
+    },
+    {
+      "name": "Actual publication source value library-sendSafely-consent argument0",
+      "proof": "proof-25.json.gz",
+      "pages": 1,
+      "nodes": 2,
+      "edges": 1,
+      "limits": []
+    },
+    {
+      "name": "Actual publication source value library-sendSafely-consent argument1",
+      "proof": "proof-26.json.gz",
+      "pages": 1,
+      "nodes": 2,
+      "edges": 1,
+      "limits": []
+    },
+    {
+      "name": "Publication body source boundary library-sendSafely-customer-event",
+      "proof": "proof-27.json.gz",
+      "pages": 1,
+      "nodes": 2,
+      "edges": 1,
+      "limits": []
+    },
+    {
+      "name": "Actual publication source value library-sendSafely-customer-event argument0",
+      "proof": "proof-28.json.gz",
+      "pages": 1,
+      "nodes": 2,
+      "edges": 1,
+      "limits": []
+    },
+    {
+      "name": "Actual publication source value library-sendSafely-customer-event argument1",
+      "proof": "proof-29.json.gz",
+      "pages": 1,
+      "nodes": 2,
+      "edges": 1,
+      "limits": []
+    },
+    {
+      "name": "Actual client boundary cdb",
+      "proof": "proof-30.json.gz",
+      "pages": 1,
+      "nodes": 2,
+      "edges": 1,
+      "limits": []
+    },
+    {
+      "name": "Exact client selector cdb",
+      "proof": "proof-31.json.gz",
+      "pages": 1,
+      "nodes": 1,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "Actual client boundary fleet",
+      "proof": "proof-32.json.gz",
+      "pages": 1,
+      "nodes": 2,
+      "edges": 1,
+      "limits": []
+    },
+    {
+      "name": "Exact client selector fleet",
+      "proof": "proof-33.json.gz",
+      "pages": 1,
+      "nodes": 2,
+      "edges": 1,
+      "limits": []
+    },
+    {
+      "name": "Actual client boundary volvo-keycloak",
+      "proof": "proof-34.json.gz",
+      "pages": 1,
+      "nodes": 3,
+      "edges": 2,
+      "limits": []
+    },
+    {
+      "name": "Exact client selector volvo-keycloak",
+      "proof": "proof-35.json.gz",
+      "pages": 1,
+      "nodes": 2,
+      "edges": 1,
+      "limits": []
+    },
+    {
+      "name": "Actual client boundary partner",
+      "proof": "proof-36.json.gz",
+      "pages": 1,
+      "nodes": 2,
+      "edges": 1,
+      "limits": []
+    },
+    {
+      "name": "Exact client selector partner",
+      "proof": "proof-37.json.gz",
+      "pages": 1,
+      "nodes": 1,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "Consumed original JSON reaches actual delete selector",
+      "proof": "proof-38.json.gz",
+      "pages": 1,
+      "nodes": 8,
+      "edges": 7,
+      "limits": []
+    },
+    {
+      "name": "Source store call and native write operands com.volvocars.ecom.customerservice.auditlog.AuditLogService#saveCustomerAuditLog(Customer)",
+      "proof": "proof-39.json.gz",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "Source store call and native write operands com.volvocars.ecom.customerservice.customer.CustomerService#deleteCustomer(String)",
+      "proof": "proof-40.json.gz",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "Source store call and native write operands com.volvocars.ecom.customerservice.customer.CustomerService#saveAndPostProcess(Customer,Customer)",
+      "proof": "proof-41.json.gz",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "Source store call and native write operands com.volvocars.ecom.customerservice.customer.CustomerService#saveCustomer(Customer)",
+      "proof": "proof-42.json.gz",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "Source store call and native write operands com.volvocars.ecom.customerservice.customer.CustomerService#saveAllAndPostProcess(List<Customer>)",
+      "proof": "proof-43.json.gz",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "Source store call and native write operands com.volvocars.ecom.customerservice.customerarchive.CustomerArchiveService#restoreCustomerFromArchive(String,boolean)",
+      "proof": "proof-44.json.gz",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "Source store call and native write operands com.volvocars.ecom.customerservice.customerarchive.CustomerArchiveUpsertRepositoryImpl#upsertCustomerArchive(Customer)",
+      "proof": "proof-45.json.gz",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "Source store call and native write operands com.volvocars.ecom.customerservice.migrate.MigrationService#migrateCustomer(MigrateCustomerRequest,boolean)",
+      "proof": "proof-46.json.gz",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "Source store call and native write operands com.volvocars.ecom.customerservice.migrate.MigrationService#migrateCustomer(MigrateCustomerRequest,boolean)",
+      "proof": "proof-47.json.gz",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "Source store call and native write operands com.volvocars.ecom.customerservice.migrate.MigrationService#deleteCustomer(String)",
+      "proof": "proof-48.json.gz",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "Raw archive upsert keeps original whole customer",
+      "proof": "proof-49.json.gz",
+      "pages": 1,
+      "nodes": 1,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "Equal-save skip and store-before-postprocess source control",
+      "proof": "proof-50.json.gz",
+      "pages": 1,
+      "nodes": 125,
+      "edges": 128,
+      "limits": []
+    }
+  ]
+}

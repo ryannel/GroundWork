@@ -1,0 +1,47 @@
+[
+  {
+    "entry": "account-profile-bc3003a-complete-r1/entry/account-get",
+    "implementation": "account-profile-bc3003a-complete-r1/method/79d37f515a3076ca",
+    "method": "GET",
+    "path": "/v1/accounts/self",
+    "source": "VolvoCars.AccountProfile.Api/Controllers/V1/AccountController.cs",
+    "lines": [47, 63],
+    "trigger": "rest"
+  },
+  {
+    "entry": "account-profile-bc3003a-complete-r1/entry/account-update",
+    "implementation": "account-profile-bc3003a-complete-r1/method/9ecf8433701cd74f",
+    "method": "PUT",
+    "path": "/v1/accounts/self",
+    "source": "VolvoCars.AccountProfile.Api/Controllers/V1/AccountController.cs",
+    "lines": [74, 99],
+    "trigger": "rest"
+  },
+  {
+    "entry": "account-profile-bc3003a-complete-r1/entry/settings-get",
+    "implementation": "account-profile-bc3003a-complete-r1/method/9437044e0c6d53e8",
+    "method": "GET",
+    "path": "/v1/accounts/settings/fields",
+    "source": "VolvoCars.AccountProfile.Api/Controllers/V1/SettingsController.cs",
+    "lines": [35, 41],
+    "trigger": "rest"
+  },
+  {
+    "entry": "account-profile-bc3003a-complete-r1/entry/process",
+    "implementation": "account-profile-bc3003a-complete-r1/method/2e9f3a5189a18fe0",
+    "method": "PROCESS",
+    "path": "process:VolvoCars.AccountProfile.Api.Program",
+    "source": "VolvoCars.AccountProfile.Api/Program.cs",
+    "lines": [17, 62],
+    "trigger": "process"
+  },
+  {
+    "entry": "account-profile-bc3003a-complete-r1/entry/health",
+    "implementation": "account-profile-bc3003a-complete-r1/registration/health",
+    "method": "GET",
+    "path": "/actuator/health",
+    "source": "VolvoCars.AccountProfile.Api/Program.cs",
+    "lines": [47, 56],
+    "inspection": "imported registration boundary"
+  }
+]

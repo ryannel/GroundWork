@@ -1,0 +1,3049 @@
+{
+  "format": "groundwork-result/v3",
+  "snapshot": "5f244b8b75661ddc2c58cee97ab0d61ca2c0f73b58fbf65e775236cdd0dda3ae",
+  "queryVersion": "knowledge-query/v3",
+  "request": {
+    "format": "groundwork-query/v3",
+    "snapshot": "5f244b8b75661ddc2c58cee97ab0d61ca2c0f73b58fbf65e775236cdd0dda3ae",
+    "query": "interactions",
+    "entry": "scheduler-c00df60-r5/entry/retry",
+    "value": null,
+    "context": [],
+    "outcome": null,
+    "changed": [],
+    "representation": "constructed",
+    "candidates": "exclude",
+    "maxNodes": 1500,
+    "environment": "production-profile",
+    "maxRecords": 5000,
+    "ids": []
+  },
+  "nodes": [
+    {
+      "id": "scheduler-c00df60-r5/component/api",
+      "record": "scheduler-c00df60-r5/component/api",
+      "context": [],
+      "label": "Payment scheduler",
+      "component": "scheduler-c00df60-r5/component/api",
+      "execution": null
+    },
+    {
+      "id": "scheduler-c00df60-r5/component/mongo",
+      "record": "scheduler-c00df60-r5/component/mongo",
+      "context": [],
+      "label": "Scheduler Mongo database",
+      "component": "scheduler-c00df60-r5/component/mongo",
+      "execution": null
+    }
+  ],
+  "edges": [
+    {
+      "from": "scheduler-c00df60-r5/component/api",
+      "to": "scheduler-c00df60-r5/component/mongo",
+      "on": "read",
+      "condition": "Every registration duplicate lookup",
+      "assumption": "Source declarations and conditional paths; unresolved facts remain explicit",
+      "evidence": ["scheduler-c00df60-r5/e/21e14b59b3e1", "scheduler-c00df60-r5/e/45a8bd734119"],
+      "record": "scheduler-c00df60-r5/interaction/lookup-retry/read",
+      "context": ["scheduler-c00df60-r5/op/retry-http/lookup"],
+      "operation": "scheduler-c00df60-r5/op/lookup-retry/read"
+    },
+    {
+      "from": "scheduler-c00df60-r5/component/api",
+      "to": "scheduler-c00df60-r5/component/mongo",
+      "on": "read",
+      "condition": "Every save(job) call",
+      "assumption": "Source declarations and conditional paths; unresolved facts remain explicit",
+      "evidence": ["scheduler-c00df60-r5/e/4cb5c9792e2d", "scheduler-c00df60-r5/e/0a9a545bbb0c"],
+      "record": "scheduler-c00df60-r5/interaction/save-job/read",
+      "context": [
+        "scheduler-c00df60-r5/op/retry-http/create",
+        "scheduler-c00df60-r5/op/create-retry/save"
+      ],
+      "operation": "scheduler-c00df60-r5/op/save-job/read"
+    },
+    {
+      "from": "scheduler-c00df60-r5/component/api",
+      "to": "scheduler-c00df60-r5/component/mongo",
+      "on": "write",
+      "condition": "Existing job count <=1; mapping and next-run calculation completed",
+      "assumption": "Source declarations and conditional paths; unresolved facts remain explicit",
+      "evidence": ["scheduler-c00df60-r5/e/3ce3ea1e693a", "scheduler-c00df60-r5/e/eb37283fbfcd"],
+      "record": "scheduler-c00df60-r5/interaction/save-job/write",
+      "context": [
+        "scheduler-c00df60-r5/op/retry-http/create",
+        "scheduler-c00df60-r5/op/create-retry/save"
+      ],
+      "operation": "scheduler-c00df60-r5/op/save-job/write"
+    }
+  ],
+  "claims": [],
+  "evidence": [
+    "scheduler-c00df60-r5/e/009b027c040b",
+    "scheduler-c00df60-r5/e/02cd8ed12762",
+    "scheduler-c00df60-r5/e/08261f9f4771",
+    "scheduler-c00df60-r5/e/0a9a545bbb0c",
+    "scheduler-c00df60-r5/e/0c9e7d1a5bca",
+    "scheduler-c00df60-r5/e/0de2d2f58c04",
+    "scheduler-c00df60-r5/e/1624c474e05e",
+    "scheduler-c00df60-r5/e/199bfc6d67cf",
+    "scheduler-c00df60-r5/e/1a1c6e89c6a1",
+    "scheduler-c00df60-r5/e/1dc0ba31658d",
+    "scheduler-c00df60-r5/e/1ddb7fd8afa3",
+    "scheduler-c00df60-r5/e/21e14b59b3e1",
+    "scheduler-c00df60-r5/e/221702050d83",
+    "scheduler-c00df60-r5/e/22a9892e6e47",
+    "scheduler-c00df60-r5/e/24fbcdc918cd",
+    "scheduler-c00df60-r5/e/257144507e1b",
+    "scheduler-c00df60-r5/e/25d541ea35ae",
+    "scheduler-c00df60-r5/e/25e6d5d1d596",
+    "scheduler-c00df60-r5/e/27980bb864d9",
+    "scheduler-c00df60-r5/e/2835c65af5c3",
+    "scheduler-c00df60-r5/e/2f032bb2fb0e",
+    "scheduler-c00df60-r5/e/3545b5a691bb",
+    "scheduler-c00df60-r5/e/3586b506e598",
+    "scheduler-c00df60-r5/e/36039ee5acab",
+    "scheduler-c00df60-r5/e/3ce3ea1e693a",
+    "scheduler-c00df60-r5/e/3e166e5ebb10",
+    "scheduler-c00df60-r5/e/3e2eb455716d",
+    "scheduler-c00df60-r5/e/406b313aeb92",
+    "scheduler-c00df60-r5/e/424d3dd4fc0e",
+    "scheduler-c00df60-r5/e/43b51ebf0067",
+    "scheduler-c00df60-r5/e/45a8bd734119",
+    "scheduler-c00df60-r5/e/46b9bee8802d",
+    "scheduler-c00df60-r5/e/48b816ac0e3d",
+    "scheduler-c00df60-r5/e/4b61edde0135",
+    "scheduler-c00df60-r5/e/4cb5c9792e2d",
+    "scheduler-c00df60-r5/e/53f3452ba8f9",
+    "scheduler-c00df60-r5/e/5618e8c189a0",
+    "scheduler-c00df60-r5/e/57e2e618652b",
+    "scheduler-c00df60-r5/e/59bf511ce3e9",
+    "scheduler-c00df60-r5/e/5a44b4bc640d",
+    "scheduler-c00df60-r5/e/5e0e4f446787",
+    "scheduler-c00df60-r5/e/5e52dd8eb680",
+    "scheduler-c00df60-r5/e/5f97e5b8c497",
+    "scheduler-c00df60-r5/e/61c6bb735e3b",
+    "scheduler-c00df60-r5/e/623258a579e6",
+    "scheduler-c00df60-r5/e/672e8dfeced6",
+    "scheduler-c00df60-r5/e/6ba797c4ddb1",
+    "scheduler-c00df60-r5/e/6c64368f1406",
+    "scheduler-c00df60-r5/e/6cec861a2148",
+    "scheduler-c00df60-r5/e/6d0615a668e3",
+    "scheduler-c00df60-r5/e/6fa238703948",
+    "scheduler-c00df60-r5/e/712a71fafee6",
+    "scheduler-c00df60-r5/e/72836aa5918c",
+    "scheduler-c00df60-r5/e/7368b4dd3aef",
+    "scheduler-c00df60-r5/e/740623524c68",
+    "scheduler-c00df60-r5/e/7c71285bf6ec",
+    "scheduler-c00df60-r5/e/81047b36878a",
+    "scheduler-c00df60-r5/e/82b7949f33fa",
+    "scheduler-c00df60-r5/e/8377781a2b50",
+    "scheduler-c00df60-r5/e/88888311b771",
+    "scheduler-c00df60-r5/e/8916d8a85f98",
+    "scheduler-c00df60-r5/e/8fdab3770c70",
+    "scheduler-c00df60-r5/e/93869a929869",
+    "scheduler-c00df60-r5/e/93cab036f477",
+    "scheduler-c00df60-r5/e/94c7481ce97c",
+    "scheduler-c00df60-r5/e/96b17d24f604",
+    "scheduler-c00df60-r5/e/96cab9d8d89c",
+    "scheduler-c00df60-r5/e/97fee171b8c7",
+    "scheduler-c00df60-r5/e/9d5a11de37fd",
+    "scheduler-c00df60-r5/e/9e1631b28d19",
+    "scheduler-c00df60-r5/e/a24bf1ffc9bd",
+    "scheduler-c00df60-r5/e/a33dd88afa33",
+    "scheduler-c00df60-r5/e/a88b3b3e04c9",
+    "scheduler-c00df60-r5/e/aaf67c063141",
+    "scheduler-c00df60-r5/e/ab11eadcc1f8",
+    "scheduler-c00df60-r5/e/ac72fa5fa916",
+    "scheduler-c00df60-r5/e/ad74e82ef9d2",
+    "scheduler-c00df60-r5/e/adb87a89ec78",
+    "scheduler-c00df60-r5/e/ae5c71477a7c",
+    "scheduler-c00df60-r5/e/b2957fd15062",
+    "scheduler-c00df60-r5/e/b5deba2f95d5",
+    "scheduler-c00df60-r5/e/b9954d262650",
+    "scheduler-c00df60-r5/e/c3e3cc6b50fb",
+    "scheduler-c00df60-r5/e/c6a38795b5c4",
+    "scheduler-c00df60-r5/e/c78dc07a94f0",
+    "scheduler-c00df60-r5/e/cd4483ea88f6",
+    "scheduler-c00df60-r5/e/d3ec8d53d227",
+    "scheduler-c00df60-r5/e/d70edecbdabc",
+    "scheduler-c00df60-r5/e/da659e07aae8",
+    "scheduler-c00df60-r5/e/dc849c6ffc0f",
+    "scheduler-c00df60-r5/e/de1b32c24ee4",
+    "scheduler-c00df60-r5/e/e0ec6187baf3",
+    "scheduler-c00df60-r5/e/e2c1b0d88cbd",
+    "scheduler-c00df60-r5/e/e2d6e6d3996a",
+    "scheduler-c00df60-r5/e/eb0c1d06e2ef",
+    "scheduler-c00df60-r5/e/eb37283fbfcd",
+    "scheduler-c00df60-r5/e/ec82f60ea480",
+    "scheduler-c00df60-r5/e/ee1c4791e314",
+    "scheduler-c00df60-r5/e/ef03fa398c61",
+    "scheduler-c00df60-r5/e/f32d04c8f66e",
+    "scheduler-c00df60-r5/e/f54148207581",
+    "scheduler-c00df60-r5/e/f99d054ba316"
+  ],
+  "coverage": ["scheduler-c00df60-r5/coverage/registration"],
+  "frontiers": [
+    {
+      "at": "scheduler-c00df60-r5/op/retry-http/lookup::scheduler-c00df60-r5/op/lookup-retry/duplicate",
+      "reason": "unhandled_exception",
+      "detail": "No declared exception continuation within this invocation; asynchronous frames stop unwinding.",
+      "references": ["scheduler-c00df60-r5/op/lookup-retry/duplicate"]
+    },
+    {
+      "at": "scheduler-c00df60-r5/op/retry-http/create::scheduler-c00df60-r5/op/create-retry/multiple-configs",
+      "reason": "unhandled_exception",
+      "detail": "No declared exception continuation within this invocation; asynchronous frames stop unwinding.",
+      "references": ["scheduler-c00df60-r5/op/create-retry/multiple-configs"]
+    },
+    {
+      "at": "scheduler-c00df60-r5/op/retry-http/create>scheduler-c00df60-r5/op/create-retry/save::scheduler-c00df60-r5/op/save-job/duplicate",
+      "reason": "unhandled_exception",
+      "detail": "No declared exception continuation within this invocation; asynchronous frames stop unwinding.",
+      "references": ["scheduler-c00df60-r5/op/save-job/duplicate"]
+    }
+  ],
+  "limitsHit": [],
+  "feasibility": "not_checked",
+  "exhaustive": false,
+  "records": [
+    {
+      "id": "scheduler-c00df60-r5/census",
+      "kind": "implementation",
+      "logicalId": "impl:scheduler-source-census",
+      "scope": "scheduler-c00df60-r5/source",
+      "entry": "scheduler-c00df60-r5/op/census/start",
+      "parameters": [],
+      "evidence": ["scheduler-c00df60-r5/e/de1b32c24ee4"]
+    },
+    {
+      "id": "scheduler-c00df60-r5/component/api",
+      "kind": "runtime_component",
+      "logicalId": "svc:payment-scheduler",
+      "label": "Payment scheduler",
+      "category": "service",
+      "technology": "Java / Spring Boot",
+      "sources": ["scheduler-c00df60-r5/source"],
+      "basis": "source_declared",
+      "gaps": ["scheduler-c00df60-r5/gap/deployment", "scheduler-c00df60-r5/gap/dependencies"],
+      "evidence": ["scheduler-c00df60-r5/e/8377781a2b50", "scheduler-c00df60-r5/e/5e52dd8eb680"]
+    },
+    {
+      "id": "scheduler-c00df60-r5/component/mongo",
+      "kind": "runtime_component",
+      "logicalId": "st:payment-scheduler-mongodb",
+      "label": "Scheduler Mongo database",
+      "category": "store",
+      "technology": "MongoDB",
+      "sources": ["scheduler-c00df60-r5/source"],
+      "basis": "source_declared",
+      "gaps": ["scheduler-c00df60-r5/gap/deployment", "scheduler-c00df60-r5/gap/schema-closure"],
+      "evidence": [
+        "scheduler-c00df60-r5/e/ef03fa398c61",
+        "scheduler-c00df60-r5/e/adb87a89ec78",
+        "scheduler-c00df60-r5/e/96b17d24f604"
+      ]
+    },
+    {
+      "id": "scheduler-c00df60-r5/contract/http-retry",
+      "kind": "interface_contract",
+      "component": "scheduler-c00df60-r5/component/api",
+      "protocol": "http",
+      "name": "POST /v1/retry-jobs",
+      "method": "POST",
+      "path": "/v1/retry-jobs",
+      "authority": "source_declared",
+      "request": [
+        {
+          "part": "body",
+          "presence": "present",
+          "shape": null,
+          "sourceShape": "scheduler-c00df60-r5/shape/RegisterRetryPayload",
+          "contentType": null,
+          "gaps": ["scheduler-c00df60-r5/gap/schema-closure"],
+          "evidence": ["scheduler-c00df60-r5/e/6c64368f1406", "scheduler-c00df60-r5/e/406b313aeb92"]
+        },
+        {
+          "part": "headers",
+          "presence": "unresolved",
+          "shape": null,
+          "sourceShape": null,
+          "contentType": null,
+          "gaps": ["scheduler-c00df60-r5/gap/schema-closure"],
+          "evidence": ["scheduler-c00df60-r5/e/6c64368f1406", "scheduler-c00df60-r5/e/406b313aeb92"]
+        },
+        {
+          "part": "path",
+          "presence": "none",
+          "shape": null,
+          "sourceShape": null,
+          "contentType": null,
+          "gaps": [],
+          "evidence": ["scheduler-c00df60-r5/e/6c64368f1406", "scheduler-c00df60-r5/e/406b313aeb92"]
+        },
+        {
+          "part": "query",
+          "presence": "none",
+          "shape": null,
+          "sourceShape": null,
+          "contentType": null,
+          "gaps": [],
+          "evidence": ["scheduler-c00df60-r5/e/6c64368f1406", "scheduler-c00df60-r5/e/406b313aeb92"]
+        }
+      ],
+      "responses": [
+        {
+          "status": "200",
+          "body": {
+            "part": "body",
+            "presence": "present",
+            "shape": null,
+            "sourceShape": "scheduler-c00df60-r5/shape/registration-success-envelope",
+            "contentType": null,
+            "gaps": ["scheduler-c00df60-r5/gap/schema-closure"],
+            "evidence": [
+              "scheduler-c00df60-r5/e/6c64368f1406",
+              "scheduler-c00df60-r5/e/406b313aeb92"
+            ]
+          },
+          "meaning": "200 newly registered; 208 existing retry job; imported envelope partial.",
+          "evidence": ["scheduler-c00df60-r5/e/6c64368f1406", "scheduler-c00df60-r5/e/406b313aeb92"]
+        },
+        {
+          "status": "208",
+          "body": {
+            "part": "body",
+            "presence": "present",
+            "shape": null,
+            "sourceShape": "scheduler-c00df60-r5/shape/registration-success-envelope",
+            "contentType": null,
+            "gaps": ["scheduler-c00df60-r5/gap/schema-closure"],
+            "evidence": [
+              "scheduler-c00df60-r5/e/6c64368f1406",
+              "scheduler-c00df60-r5/e/406b313aeb92"
+            ]
+          },
+          "meaning": "200 newly registered; 208 existing retry job; imported envelope partial.",
+          "evidence": ["scheduler-c00df60-r5/e/6c64368f1406", "scheduler-c00df60-r5/e/406b313aeb92"]
+        },
+        {
+          "status": "404",
+          "body": {
+            "part": "body",
+            "presence": "present",
+            "shape": null,
+            "sourceShape": null,
+            "contentType": null,
+            "gaps": ["scheduler-c00df60-r5/gap/schema-closure"],
+            "evidence": ["scheduler-c00df60-r5/e/61c6bb735e3b"]
+          },
+          "meaning": "ConfigNotFoundException handler constructs imported failure response; exact envelope unresolved",
+          "evidence": ["scheduler-c00df60-r5/e/61c6bb735e3b"]
+        }
+      ],
+      "gaps": [
+        "scheduler-c00df60-r5/gap/schema-closure",
+        "scheduler-c00df60-r5/gap/dependencies",
+        "scheduler-c00df60-r5/gap/deployment"
+      ],
+      "evidence": ["scheduler-c00df60-r5/e/6c64368f1406", "scheduler-c00df60-r5/e/406b313aeb92"]
+    },
+    {
+      "id": "scheduler-c00df60-r5/contract/lookup-retry/read",
+      "kind": "interface_contract",
+      "component": "scheduler-c00df60-r5/component/mongo",
+      "protocol": "mongodb",
+      "name": "lookup-retry/read",
+      "method": null,
+      "path": null,
+      "authority": "source_declared",
+      "request": [
+        {
+          "part": "record",
+          "presence": "unresolved",
+          "shape": null,
+          "sourceShape": null,
+          "contentType": null,
+          "gaps": ["scheduler-c00df60-r5/gap/schema-closure"],
+          "evidence": ["scheduler-c00df60-r5/e/21e14b59b3e1", "scheduler-c00df60-r5/e/45a8bd734119"]
+        }
+      ],
+      "responses": [
+        {
+          "status": "normal_return",
+          "body": {
+            "part": "record",
+            "presence": "unresolved",
+            "shape": null,
+            "sourceShape": null,
+            "contentType": null,
+            "gaps": ["scheduler-c00df60-r5/gap/schema-closure"],
+            "evidence": [
+              "scheduler-c00df60-r5/e/21e14b59b3e1",
+              "scheduler-c00df60-r5/e/45a8bd734119"
+            ]
+          },
+          "meaning": "Synchronous repository return; effective Mongo acknowledgement/write concern/converter unresolved.",
+          "evidence": ["scheduler-c00df60-r5/e/21e14b59b3e1", "scheduler-c00df60-r5/e/45a8bd734119"]
+        }
+      ],
+      "gaps": ["scheduler-c00df60-r5/gap/deployment", "scheduler-c00df60-r5/gap/schema-closure"],
+      "evidence": ["scheduler-c00df60-r5/e/21e14b59b3e1", "scheduler-c00df60-r5/e/45a8bd734119"]
+    },
+    {
+      "id": "scheduler-c00df60-r5/contract/save-job/read",
+      "kind": "interface_contract",
+      "component": "scheduler-c00df60-r5/component/mongo",
+      "protocol": "mongodb",
+      "name": "save-job/read",
+      "method": null,
+      "path": null,
+      "authority": "source_declared",
+      "request": [
+        {
+          "part": "record",
+          "presence": "unresolved",
+          "shape": null,
+          "sourceShape": null,
+          "contentType": null,
+          "gaps": ["scheduler-c00df60-r5/gap/schema-closure"],
+          "evidence": ["scheduler-c00df60-r5/e/4cb5c9792e2d", "scheduler-c00df60-r5/e/0a9a545bbb0c"]
+        }
+      ],
+      "responses": [
+        {
+          "status": "normal_return",
+          "body": {
+            "part": "record",
+            "presence": "unresolved",
+            "shape": null,
+            "sourceShape": null,
+            "contentType": null,
+            "gaps": ["scheduler-c00df60-r5/gap/schema-closure"],
+            "evidence": [
+              "scheduler-c00df60-r5/e/4cb5c9792e2d",
+              "scheduler-c00df60-r5/e/0a9a545bbb0c"
+            ]
+          },
+          "meaning": "Synchronous repository return; effective Mongo acknowledgement/write concern/converter unresolved.",
+          "evidence": ["scheduler-c00df60-r5/e/4cb5c9792e2d", "scheduler-c00df60-r5/e/0a9a545bbb0c"]
+        }
+      ],
+      "gaps": ["scheduler-c00df60-r5/gap/deployment", "scheduler-c00df60-r5/gap/schema-closure"],
+      "evidence": ["scheduler-c00df60-r5/e/4cb5c9792e2d", "scheduler-c00df60-r5/e/0a9a545bbb0c"]
+    },
+    {
+      "id": "scheduler-c00df60-r5/contract/save-job/write",
+      "kind": "interface_contract",
+      "component": "scheduler-c00df60-r5/component/mongo",
+      "protocol": "mongodb",
+      "name": "save-job/write",
+      "method": null,
+      "path": null,
+      "authority": "source_declared",
+      "request": [
+        {
+          "part": "record",
+          "presence": "present",
+          "shape": "scheduler-c00df60-r5/shape/persisted/RetryJobEntity",
+          "sourceShape": null,
+          "contentType": null,
+          "gaps": ["scheduler-c00df60-r5/gap/schema-closure"],
+          "evidence": ["scheduler-c00df60-r5/e/3ce3ea1e693a", "scheduler-c00df60-r5/e/eb37283fbfcd"]
+        }
+      ],
+      "responses": [
+        {
+          "status": "normal_return",
+          "body": {
+            "part": "record",
+            "presence": "unresolved",
+            "shape": null,
+            "sourceShape": null,
+            "contentType": null,
+            "gaps": ["scheduler-c00df60-r5/gap/schema-closure"],
+            "evidence": [
+              "scheduler-c00df60-r5/e/3ce3ea1e693a",
+              "scheduler-c00df60-r5/e/eb37283fbfcd"
+            ]
+          },
+          "meaning": "Synchronous repository return; effective Mongo acknowledgement/write concern/converter unresolved.",
+          "evidence": ["scheduler-c00df60-r5/e/3ce3ea1e693a", "scheduler-c00df60-r5/e/eb37283fbfcd"]
+        }
+      ],
+      "gaps": ["scheduler-c00df60-r5/gap/deployment", "scheduler-c00df60-r5/gap/schema-closure"],
+      "evidence": ["scheduler-c00df60-r5/e/3ce3ea1e693a", "scheduler-c00df60-r5/e/eb37283fbfcd"]
+    },
+    {
+      "id": "scheduler-c00df60-r5/coverage/registration",
+      "kind": "coverage",
+      "owner": "scheduler-c00df60-r5/entry/retry",
+      "obligation": "bounded_source_analysis",
+      "status": "examined",
+      "scope": "Bounded registration duplicate selection, config/mapping, synchronous Mongo save and 200/208/known 404; other exception mapping/converters remain partial.",
+      "gaps": [
+        "scheduler-c00df60-r5/gap/dependencies",
+        "scheduler-c00df60-r5/gap/schema-closure",
+        "scheduler-c00df60-r5/gap/deployment"
+      ],
+      "evidence": [
+        "scheduler-c00df60-r5/e/25e6d5d1d596",
+        "scheduler-c00df60-r5/e/5618e8c189a0",
+        "scheduler-c00df60-r5/e/672e8dfeced6",
+        "scheduler-c00df60-r5/e/623258a579e6"
+      ]
+    },
+    {
+      "id": "scheduler-c00df60-r5/e/009b027c040b",
+      "kind": "evidence",
+      "repo": "volvo-cars/cds-paymentservice-scheduler",
+      "commit": "c00df60c8233b1a8f47829ce382d5805bf164c6b",
+      "path": "cds-paymentservice-scheduler-shared/src/main/java/com/volvocars/ecom/paymentservice/shared/retry/RegisterRetryPayload.java",
+      "lines": [15, 17],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "scheduler-c00df60-r5/e/02cd8ed12762",
+      "kind": "evidence",
+      "repo": "volvo-cars/cds-paymentservice-scheduler",
+      "commit": "c00df60c8233b1a8f47829ce382d5805bf164c6b",
+      "path": "cds-paymentservice-scheduler-shared/src/main/java/com/volvocars/ecom/paymentservice/shared/config/Config.java",
+      "lines": [35, 35],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "scheduler-c00df60-r5/e/08261f9f4771",
+      "kind": "evidence",
+      "repo": "volvo-cars/cds-paymentservice-scheduler",
+      "commit": "c00df60c8233b1a8f47829ce382d5805bf164c6b",
+      "path": "cds-paymentservice-scheduler-api/src/main/java/com/volvocars/ecom/paymentservice/scheduler/retry/v1/RetryApiService.java",
+      "lines": [52, 65],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "scheduler-c00df60-r5/e/0a9a545bbb0c",
+      "kind": "evidence",
+      "repo": "volvo-cars/cds-paymentservice-scheduler",
+      "commit": "c00df60c8233b1a8f47829ce382d5805bf164c6b",
+      "path": "cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/scheduler/job/JobRepository.java",
+      "lines": [12, 14],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "scheduler-c00df60-r5/e/0c9e7d1a5bca",
+      "kind": "evidence",
+      "repo": "volvo-cars/cds-paymentservice-scheduler",
+      "commit": "c00df60c8233b1a8f47829ce382d5805bf164c6b",
+      "path": "cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/scheduler/job/JobEntity.java",
+      "lines": [34, 34],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "scheduler-c00df60-r5/e/0de2d2f58c04",
+      "kind": "evidence",
+      "repo": "volvo-cars/cds-paymentservice-scheduler",
+      "commit": "c00df60c8233b1a8f47829ce382d5805bf164c6b",
+      "path": "cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/retry/RetryJob.java",
+      "lines": [12, 13],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "scheduler-c00df60-r5/e/1624c474e05e",
+      "kind": "evidence",
+      "repo": "volvo-cars/cds-paymentservice-scheduler",
+      "commit": "c00df60c8233b1a8f47829ce382d5805bf164c6b",
+      "path": "cds-paymentservice-scheduler-shared/src/main/java/com/volvocars/ecom/paymentservice/shared/common/StrategyType.java",
+      "lines": [1, 7],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "scheduler-c00df60-r5/e/199bfc6d67cf",
+      "kind": "evidence",
+      "repo": "volvo-cars/cds-paymentservice-scheduler",
+      "commit": "c00df60c8233b1a8f47829ce382d5805bf164c6b",
+      "path": "cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/retry/RetryParams.java",
+      "lines": [13, 14],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "scheduler-c00df60-r5/e/1a1c6e89c6a1",
+      "kind": "evidence",
+      "repo": "volvo-cars/cds-paymentservice-scheduler",
+      "commit": "c00df60c8233b1a8f47829ce382d5805bf164c6b",
+      "path": "cds-paymentservice-scheduler-api/src/main/java/com/volvocars/ecom/paymentservice/scheduler/retry/v1/impl/RetryControllerImpl.java",
+      "lines": [38, 51],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "scheduler-c00df60-r5/e/1dc0ba31658d",
+      "kind": "evidence",
+      "repo": "volvo-cars/cds-paymentservice-scheduler",
+      "commit": "c00df60c8233b1a8f47829ce382d5805bf164c6b",
+      "path": "cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/scheduler/config/ConfigService.java",
+      "lines": [62, 66],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "scheduler-c00df60-r5/e/1ddb7fd8afa3",
+      "kind": "evidence",
+      "repo": "volvo-cars/cds-paymentservice-scheduler",
+      "commit": "c00df60c8233b1a8f47829ce382d5805bf164c6b",
+      "path": "cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/scheduler/job/JobService.java",
+      "lines": [47, 51],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "scheduler-c00df60-r5/e/21e14b59b3e1",
+      "kind": "evidence",
+      "repo": "volvo-cars/cds-paymentservice-scheduler",
+      "commit": "c00df60c8233b1a8f47829ce382d5805bf164c6b",
+      "path": "cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/scheduler/job/JobRepository.java",
+      "lines": [19, 20],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "scheduler-c00df60-r5/e/221702050d83",
+      "kind": "evidence",
+      "repo": "volvo-cars/cds-paymentservice-scheduler",
+      "commit": "c00df60c8233b1a8f47829ce382d5805bf164c6b",
+      "path": "cds-paymentservice-scheduler-shared/src/main/java/com/volvocars/ecom/paymentservice/shared/job/Job.java",
+      "lines": [36, 36],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "scheduler-c00df60-r5/e/22a9892e6e47",
+      "kind": "evidence",
+      "repo": "volvo-cars/cds-paymentservice-scheduler",
+      "commit": "c00df60c8233b1a8f47829ce382d5805bf164c6b",
+      "path": "cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/scheduler/job/JobEntity.java",
+      "lines": [35, 35],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "scheduler-c00df60-r5/e/24fbcdc918cd",
+      "kind": "evidence",
+      "repo": "volvo-cars/cds-paymentservice-scheduler",
+      "commit": "c00df60c8233b1a8f47829ce382d5805bf164c6b",
+      "path": "cds-paymentservice-scheduler-shared/src/main/java/com/volvocars/ecom/paymentservice/shared/retry/RetryStrategy.java",
+      "lines": [16, 16],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "scheduler-c00df60-r5/e/257144507e1b",
+      "kind": "evidence",
+      "repo": "volvo-cars/cds-paymentservice-scheduler",
+      "commit": "c00df60c8233b1a8f47829ce382d5805bf164c6b",
+      "path": "cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/retry/RetryParams.java",
+      "lines": [18, 18],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "scheduler-c00df60-r5/e/25d541ea35ae",
+      "kind": "evidence",
+      "repo": "volvo-cars/cds-paymentservice-scheduler",
+      "commit": "c00df60c8233b1a8f47829ce382d5805bf164c6b",
+      "path": "cds-paymentservice-scheduler-shared/src/main/java/com/volvocars/ecom/paymentservice/shared/retry/RetryStrategy.java",
+      "lines": [1, 17],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "scheduler-c00df60-r5/e/25e6d5d1d596",
+      "kind": "evidence",
+      "repo": "volvo-cars/cds-paymentservice-scheduler",
+      "commit": "c00df60c8233b1a8f47829ce382d5805bf164c6b",
+      "path": "cds-paymentservice-scheduler-api/src/main/java/com/volvocars/ecom/paymentservice/scheduler/retry/v1/impl/RetryControllerImpl.java",
+      "lines": [1, 54],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "scheduler-c00df60-r5/e/27980bb864d9",
+      "kind": "evidence",
+      "repo": "volvo-cars/cds-paymentservice-scheduler",
+      "commit": "c00df60c8233b1a8f47829ce382d5805bf164c6b",
+      "path": "cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/scheduler/job/JobEntity.java",
+      "lines": [36, 36],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "scheduler-c00df60-r5/e/2835c65af5c3",
+      "kind": "evidence",
+      "repo": "volvo-cars/cds-paymentservice-scheduler",
+      "commit": "c00df60c8233b1a8f47829ce382d5805bf164c6b",
+      "path": "cds-paymentservice-scheduler-shared/src/main/java/com/volvocars/ecom/paymentservice/shared/config/Config.java",
+      "lines": [20, 20],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "scheduler-c00df60-r5/e/2f032bb2fb0e",
+      "kind": "evidence",
+      "repo": "volvo-cars/cds-paymentservice-scheduler",
+      "commit": "c00df60c8233b1a8f47829ce382d5805bf164c6b",
+      "path": "cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/scheduler/common/BaseEntity.java",
+      "lines": [21, 22],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "scheduler-c00df60-r5/e/3545b5a691bb",
+      "kind": "evidence",
+      "repo": "volvo-cars/cds-paymentservice-scheduler",
+      "commit": "c00df60c8233b1a8f47829ce382d5805bf164c6b",
+      "path": "cds-paymentservice-scheduler-shared/src/main/java/com/volvocars/ecom/paymentservice/shared/job/Job.java",
+      "lines": [27, 27],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "scheduler-c00df60-r5/e/3586b506e598",
+      "kind": "evidence",
+      "repo": "volvo-cars/cds-paymentservice-scheduler",
+      "commit": "c00df60c8233b1a8f47829ce382d5805bf164c6b",
+      "path": "cds-paymentservice-scheduler-shared/src/main/java/com/volvocars/ecom/paymentservice/shared/config/ConfigConditions.java",
+      "lines": [23, 23],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "scheduler-c00df60-r5/e/36039ee5acab",
+      "kind": "evidence",
+      "repo": "volvo-cars/cds-paymentservice-scheduler",
+      "commit": "c00df60c8233b1a8f47829ce382d5805bf164c6b",
+      "path": "cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/retry/RetryJob.java",
+      "lines": [14, 14],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "scheduler-c00df60-r5/e/3ce3ea1e693a",
+      "kind": "evidence",
+      "repo": "volvo-cars/cds-paymentservice-scheduler",
+      "commit": "c00df60c8233b1a8f47829ce382d5805bf164c6b",
+      "path": "cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/scheduler/job/JobService.java",
+      "lines": [33, 51],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "scheduler-c00df60-r5/e/3e166e5ebb10",
+      "kind": "evidence",
+      "repo": "volvo-cars/cds-paymentservice-scheduler",
+      "commit": "c00df60c8233b1a8f47829ce382d5805bf164c6b",
+      "path": "cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/scheduler/job/JobEntity.java",
+      "lines": [33, 33],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "scheduler-c00df60-r5/e/3e2eb455716d",
+      "kind": "evidence",
+      "repo": "volvo-cars/cds-paymentservice-scheduler",
+      "commit": "c00df60c8233b1a8f47829ce382d5805bf164c6b",
+      "path": "cds-paymentservice-scheduler-api/src/main/java/com/volvocars/ecom/paymentservice/scheduler/retry/v1/RetryApiService.java",
+      "lines": [26, 49],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "scheduler-c00df60-r5/e/406b313aeb92",
+      "kind": "evidence",
+      "repo": "volvo-cars/cds-paymentservice-scheduler",
+      "commit": "c00df60c8233b1a8f47829ce382d5805bf164c6b",
+      "path": "cds-paymentservice-scheduler-api/src/main/java/com/volvocars/ecom/paymentservice/scheduler/retry/v1/impl/RetryControllerImpl.java",
+      "lines": [25, 53],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "scheduler-c00df60-r5/e/424d3dd4fc0e",
+      "kind": "evidence",
+      "repo": "volvo-cars/cds-paymentservice-scheduler",
+      "commit": "c00df60c8233b1a8f47829ce382d5805bf164c6b",
+      "path": "cds-paymentservice-scheduler-shared/src/main/java/com/volvocars/ecom/paymentservice/shared/retry/RegisterRetryPayload.java",
+      "lines": [18, 20],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "scheduler-c00df60-r5/e/43b51ebf0067",
+      "kind": "evidence",
+      "repo": "volvo-cars/cds-paymentservice-scheduler",
+      "commit": "c00df60c8233b1a8f47829ce382d5805bf164c6b",
+      "path": "cds-paymentservice-scheduler-shared/src/main/java/com/volvocars/ecom/paymentservice/shared/common/Strategy.java",
+      "lines": [1, 31],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "scheduler-c00df60-r5/e/45a8bd734119",
+      "kind": "evidence",
+      "repo": "volvo-cars/cds-paymentservice-scheduler",
+      "commit": "c00df60c8233b1a8f47829ce382d5805bf164c6b",
+      "path": "cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/scheduler/job/JobService.java",
+      "lines": [119, 129],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "scheduler-c00df60-r5/e/46b9bee8802d",
+      "kind": "evidence",
+      "repo": "volvo-cars/cds-paymentservice-scheduler",
+      "commit": "c00df60c8233b1a8f47829ce382d5805bf164c6b",
+      "path": "cds-paymentservice-scheduler-shared/src/main/java/com/volvocars/ecom/paymentservice/shared/config/ConfigConditions.java",
+      "lines": [29, 29],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "scheduler-c00df60-r5/e/48b816ac0e3d",
+      "kind": "evidence",
+      "repo": "volvo-cars/cds-paymentservice-scheduler",
+      "commit": "c00df60c8233b1a8f47829ce382d5805bf164c6b",
+      "path": "cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/retry/RetryParams.java",
+      "lines": [17, 17],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "scheduler-c00df60-r5/e/4b61edde0135",
+      "kind": "evidence",
+      "repo": "volvo-cars/cds-paymentservice-scheduler",
+      "commit": "c00df60c8233b1a8f47829ce382d5805bf164c6b",
+      "path": "cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/scheduler/job/JobEntity.java",
+      "lines": [32, 32],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "scheduler-c00df60-r5/e/4cb5c9792e2d",
+      "kind": "evidence",
+      "repo": "volvo-cars/cds-paymentservice-scheduler",
+      "commit": "c00df60c8233b1a8f47829ce382d5805bf164c6b",
+      "path": "cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/scheduler/job/JobService.java",
+      "lines": [31, 31],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "scheduler-c00df60-r5/e/53f3452ba8f9",
+      "kind": "evidence",
+      "repo": "volvo-cars/cds-paymentservice-scheduler",
+      "commit": "c00df60c8233b1a8f47829ce382d5805bf164c6b",
+      "path": "cds-paymentservice-scheduler-shared/src/main/java/com/volvocars/ecom/paymentservice/shared/config/ConfigConditions.java",
+      "lines": [47, 47],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "scheduler-c00df60-r5/e/5618e8c189a0",
+      "kind": "evidence",
+      "repo": "volvo-cars/cds-paymentservice-scheduler",
+      "commit": "c00df60c8233b1a8f47829ce382d5805bf164c6b",
+      "path": "cds-paymentservice-scheduler-api/src/main/java/com/volvocars/ecom/paymentservice/scheduler/retry/v1/RetryApiService.java",
+      "lines": [1, 67],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "scheduler-c00df60-r5/e/57e2e618652b",
+      "kind": "evidence",
+      "repo": "volvo-cars/cds-paymentservice-scheduler",
+      "commit": "c00df60c8233b1a8f47829ce382d5805bf164c6b",
+      "path": "cds-paymentservice-scheduler-shared/src/main/java/com/volvocars/ecom/paymentservice/shared/common/JobStatus.java",
+      "lines": [1, 8],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "scheduler-c00df60-r5/e/59bf511ce3e9",
+      "kind": "evidence",
+      "repo": "volvo-cars/cds-paymentservice-scheduler",
+      "commit": "c00df60c8233b1a8f47829ce382d5805bf164c6b",
+      "path": "cds-paymentservice-scheduler-shared/src/main/java/com/volvocars/ecom/paymentservice/shared/config/Config.java",
+      "lines": [26, 26],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "scheduler-c00df60-r5/e/5a44b4bc640d",
+      "kind": "evidence",
+      "repo": "volvo-cars/cds-paymentservice-scheduler",
+      "commit": "c00df60c8233b1a8f47829ce382d5805bf164c6b",
+      "path": "cds-paymentservice-scheduler-shared/src/main/java/com/volvocars/ecom/paymentservice/shared/retry/RetryCartLine.java",
+      "lines": [20, 20],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "scheduler-c00df60-r5/e/5e0e4f446787",
+      "kind": "evidence",
+      "repo": "volvo-cars/cds-paymentservice-scheduler",
+      "commit": "c00df60c8233b1a8f47829ce382d5805bf164c6b",
+      "path": "cds-paymentservice-scheduler-shared/src/main/java/com/volvocars/ecom/paymentservice/shared/retry/RetryStrategy.java",
+      "lines": [14, 15],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "scheduler-c00df60-r5/e/5e52dd8eb680",
+      "kind": "evidence",
+      "repo": "volvo-cars/cds-paymentservice-scheduler",
+      "commit": "c00df60c8233b1a8f47829ce382d5805bf164c6b",
+      "path": "Dockerfile",
+      "lines": [1, 22],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "scheduler-c00df60-r5/e/5f97e5b8c497",
+      "kind": "evidence",
+      "repo": "volvo-cars/cds-paymentservice-scheduler",
+      "commit": "c00df60c8233b1a8f47829ce382d5805bf164c6b",
+      "path": "cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/retry/RetryParams.java",
+      "lines": [16, 16],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "scheduler-c00df60-r5/e/61c6bb735e3b",
+      "kind": "evidence",
+      "repo": "volvo-cars/cds-paymentservice-scheduler",
+      "commit": "c00df60c8233b1a8f47829ce382d5805bf164c6b",
+      "path": "cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/common/SchedulerControllerAdvice.java",
+      "lines": [28, 42],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "scheduler-c00df60-r5/e/623258a579e6",
+      "kind": "evidence",
+      "repo": "volvo-cars/cds-paymentservice-scheduler",
+      "commit": "c00df60c8233b1a8f47829ce382d5805bf164c6b",
+      "path": "cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/scheduler/config/ConfigService.java",
+      "lines": [1, 124],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "scheduler-c00df60-r5/e/672e8dfeced6",
+      "kind": "evidence",
+      "repo": "volvo-cars/cds-paymentservice-scheduler",
+      "commit": "c00df60c8233b1a8f47829ce382d5805bf164c6b",
+      "path": "cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/scheduler/job/JobService.java",
+      "lines": [30, 51],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "scheduler-c00df60-r5/e/6ba797c4ddb1",
+      "kind": "evidence",
+      "repo": "volvo-cars/cds-paymentservice-scheduler",
+      "commit": "c00df60c8233b1a8f47829ce382d5805bf164c6b",
+      "path": "cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/retry/RetryParams.java",
+      "lines": [15, 15],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "scheduler-c00df60-r5/e/6c64368f1406",
+      "kind": "evidence",
+      "repo": "volvo-cars/cds-paymentservice-scheduler",
+      "commit": "c00df60c8233b1a8f47829ce382d5805bf164c6b",
+      "path": "cds-paymentservice-scheduler-api/src/main/java/com/volvocars/ecom/paymentservice/scheduler/retry/v1/RetryController.java",
+      "lines": [21, 47],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "scheduler-c00df60-r5/e/6cec861a2148",
+      "kind": "evidence",
+      "repo": "volvo-cars/cds-paymentservice-scheduler",
+      "commit": "c00df60c8233b1a8f47829ce382d5805bf164c6b",
+      "path": "cds-paymentservice-scheduler-shared/src/main/java/com/volvocars/ecom/paymentservice/shared/retry/RetryCartLine.java",
+      "lines": [21, 21],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "scheduler-c00df60-r5/e/6d0615a668e3",
+      "kind": "evidence",
+      "repo": "volvo-cars/cds-paymentservice-scheduler",
+      "commit": "c00df60c8233b1a8f47829ce382d5805bf164c6b",
+      "path": "cds-paymentservice-scheduler-shared/src/main/java/com/volvocars/ecom/paymentservice/shared/config/ConfigConditions.java",
+      "lines": [1, 48],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "scheduler-c00df60-r5/e/6fa238703948",
+      "kind": "evidence",
+      "repo": "volvo-cars/cds-paymentservice-scheduler",
+      "commit": "c00df60c8233b1a8f47829ce382d5805bf164c6b",
+      "path": "cds-paymentservice-scheduler-shared/src/main/java/com/volvocars/ecom/paymentservice/shared/retry/RegisterRetryPayload.java",
+      "lines": [26, 27],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "scheduler-c00df60-r5/e/712a71fafee6",
+      "kind": "evidence",
+      "repo": "volvo-cars/cds-paymentservice-scheduler",
+      "commit": "c00df60c8233b1a8f47829ce382d5805bf164c6b",
+      "path": "cds-paymentservice-scheduler-shared/src/main/java/com/volvocars/ecom/paymentservice/shared/config/Config.java",
+      "lines": [38, 38],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "scheduler-c00df60-r5/e/72836aa5918c",
+      "kind": "evidence",
+      "repo": "volvo-cars/cds-paymentservice-scheduler",
+      "commit": "c00df60c8233b1a8f47829ce382d5805bf164c6b",
+      "path": "cds-paymentservice-scheduler-shared/src/main/java/com/volvocars/ecom/paymentservice/shared/config/ConfigConditions.java",
+      "lines": [41, 41],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "scheduler-c00df60-r5/e/7368b4dd3aef",
+      "kind": "evidence",
+      "repo": "volvo-cars/cds-paymentservice-scheduler",
+      "commit": "c00df60c8233b1a8f47829ce382d5805bf164c6b",
+      "path": "cds-paymentservice-scheduler-shared/src/main/java/com/volvocars/ecom/paymentservice/shared/job/Job.java",
+      "lines": [30, 30],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "scheduler-c00df60-r5/e/740623524c68",
+      "kind": "evidence",
+      "repo": "volvo-cars/cds-paymentservice-scheduler",
+      "commit": "c00df60c8233b1a8f47829ce382d5805bf164c6b",
+      "path": "cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/scheduler/job/JobEntity.java",
+      "lines": [31, 31],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "scheduler-c00df60-r5/e/7c71285bf6ec",
+      "kind": "evidence",
+      "repo": "volvo-cars/cds-paymentservice-scheduler",
+      "commit": "c00df60c8233b1a8f47829ce382d5805bf164c6b",
+      "path": "cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/scheduler/job/JobEntity.java",
+      "lines": [1, 43],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "scheduler-c00df60-r5/e/81047b36878a",
+      "kind": "evidence",
+      "repo": "volvo-cars/cds-paymentservice-scheduler",
+      "commit": "c00df60c8233b1a8f47829ce382d5805bf164c6b",
+      "path": "cds-paymentservice-scheduler-shared/src/main/java/com/volvocars/ecom/paymentservice/shared/common/Strategy.java",
+      "lines": [27, 28],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "scheduler-c00df60-r5/e/82b7949f33fa",
+      "kind": "evidence",
+      "repo": "volvo-cars/cds-paymentservice-scheduler",
+      "commit": "c00df60c8233b1a8f47829ce382d5805bf164c6b",
+      "path": "cds-paymentservice-scheduler-shared/src/main/java/com/volvocars/ecom/paymentservice/shared/config/Config.java",
+      "lines": [23, 23],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "scheduler-c00df60-r5/e/8377781a2b50",
+      "kind": "evidence",
+      "repo": "volvo-cars/cds-paymentservice-scheduler",
+      "commit": "c00df60c8233b1a8f47829ce382d5805bf164c6b",
+      "path": "cds-paymentservice-scheduler-api/src/main/java/com/volvocars/ecom/paymentservice/scheduler/App.java",
+      "lines": [14, 25],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "scheduler-c00df60-r5/e/88888311b771",
+      "kind": "evidence",
+      "repo": "volvo-cars/cds-paymentservice-scheduler",
+      "commit": "c00df60c8233b1a8f47829ce382d5805bf164c6b",
+      "path": "cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/scheduler/job/JobService.java",
+      "lines": [30, 35],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "scheduler-c00df60-r5/e/8916d8a85f98",
+      "kind": "evidence",
+      "repo": "volvo-cars/cds-paymentservice-scheduler",
+      "commit": "c00df60c8233b1a8f47829ce382d5805bf164c6b",
+      "path": "cds-paymentservice-scheduler-api/src/main/resources/application.yml",
+      "lines": [1, 143],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "scheduler-c00df60-r5/e/8fdab3770c70",
+      "kind": "evidence",
+      "repo": "volvo-cars/cds-paymentservice-scheduler",
+      "commit": "c00df60c8233b1a8f47829ce382d5805bf164c6b",
+      "path": "cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/retry/RetryParams.java",
+      "lines": [1, 19],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "scheduler-c00df60-r5/e/93869a929869",
+      "kind": "evidence",
+      "repo": "volvo-cars/cds-paymentservice-scheduler",
+      "commit": "c00df60c8233b1a8f47829ce382d5805bf164c6b",
+      "path": "cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/scheduler/job/RetryJobEntity.java",
+      "lines": [1, 18],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "scheduler-c00df60-r5/e/93cab036f477",
+      "kind": "evidence",
+      "repo": "volvo-cars/cds-paymentservice-scheduler",
+      "commit": "c00df60c8233b1a8f47829ce382d5805bf164c6b",
+      "path": "cds-paymentservice-scheduler-shared/src/main/java/com/volvocars/ecom/paymentservice/shared/config/ConfigConditions.java",
+      "lines": [35, 35],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "scheduler-c00df60-r5/e/94c7481ce97c",
+      "kind": "evidence",
+      "repo": "volvo-cars/cds-paymentservice-scheduler",
+      "commit": "c00df60c8233b1a8f47829ce382d5805bf164c6b",
+      "path": "cds-paymentservice-scheduler-shared/src/main/java/com/volvocars/ecom/paymentservice/shared/job/Job.java",
+      "lines": [33, 33],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "scheduler-c00df60-r5/e/96b17d24f604",
+      "kind": "evidence",
+      "repo": "volvo-cars/cds-paymentservice-scheduler",
+      "commit": "c00df60c8233b1a8f47829ce382d5805bf164c6b",
+      "path": "cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/scheduler/locking/LockEntity.java",
+      "lines": [15, 20],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "scheduler-c00df60-r5/e/96cab9d8d89c",
+      "kind": "evidence",
+      "repo": "volvo-cars/cds-paymentservice-scheduler",
+      "commit": "c00df60c8233b1a8f47829ce382d5805bf164c6b",
+      "path": "cds-paymentservice-scheduler-shared/src/main/java/com/volvocars/ecom/paymentservice/shared/config/Config.java",
+      "lines": [29, 29],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "scheduler-c00df60-r5/e/97fee171b8c7",
+      "kind": "evidence",
+      "repo": "volvo-cars/cds-paymentservice-scheduler",
+      "commit": "c00df60c8233b1a8f47829ce382d5805bf164c6b",
+      "path": "cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/retry/RetryJob.java",
+      "lines": [1, 19],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "scheduler-c00df60-r5/e/9d5a11de37fd",
+      "kind": "evidence",
+      "repo": "volvo-cars/cds-paymentservice-scheduler",
+      "commit": "c00df60c8233b1a8f47829ce382d5805bf164c6b",
+      "path": "cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/scheduler/job/JobService.java",
+      "lines": [35, 35],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "scheduler-c00df60-r5/e/9e1631b28d19",
+      "kind": "evidence",
+      "repo": "volvo-cars/cds-paymentservice-scheduler",
+      "commit": "c00df60c8233b1a8f47829ce382d5805bf164c6b",
+      "path": "cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/scheduler/job/JobService.java",
+      "lines": [30, 52],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "scheduler-c00df60-r5/e/a24bf1ffc9bd",
+      "kind": "evidence",
+      "repo": "volvo-cars/cds-paymentservice-scheduler",
+      "commit": "c00df60c8233b1a8f47829ce382d5805bf164c6b",
+      "path": "pom.xml",
+      "lines": [1, 103],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "scheduler-c00df60-r5/e/a33dd88afa33",
+      "kind": "evidence",
+      "repo": "volvo-cars/cds-paymentservice-scheduler",
+      "commit": "c00df60c8233b1a8f47829ce382d5805bf164c6b",
+      "path": "cds-paymentservice-scheduler-shared/src/main/java/com/volvocars/ecom/paymentservice/shared/retry/RegisterRetryPayload.java",
+      "lines": [31, 33],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "scheduler-c00df60-r5/e/a88b3b3e04c9",
+      "kind": "evidence",
+      "repo": "volvo-cars/cds-paymentservice-scheduler",
+      "commit": "c00df60c8233b1a8f47829ce382d5805bf164c6b",
+      "path": "cds-paymentservice-scheduler-shared/src/main/java/com/volvocars/ecom/paymentservice/shared/retry/RetryCartLine.java",
+      "lines": [16, 18],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "scheduler-c00df60-r5/e/aaf67c063141",
+      "kind": "evidence",
+      "repo": "volvo-cars/cds-paymentservice-scheduler",
+      "commit": "c00df60c8233b1a8f47829ce382d5805bf164c6b",
+      "path": "cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/scheduler/common/BaseEntity.java",
+      "lines": [1, 25],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "scheduler-c00df60-r5/e/ab11eadcc1f8",
+      "kind": "evidence",
+      "repo": "volvo-cars/cds-paymentservice-scheduler",
+      "commit": "c00df60c8233b1a8f47829ce382d5805bf164c6b",
+      "path": "cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/scheduler/job/RetryJobEntity.java",
+      "lines": [13, 13],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "scheduler-c00df60-r5/e/ac72fa5fa916",
+      "kind": "evidence",
+      "repo": "volvo-cars/cds-paymentservice-scheduler",
+      "commit": "c00df60c8233b1a8f47829ce382d5805bf164c6b",
+      "path": "cds-paymentservice-scheduler-shared/src/main/java/com/volvocars/ecom/paymentservice/shared/config/Config.java",
+      "lines": [32, 32],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "scheduler-c00df60-r5/e/ad74e82ef9d2",
+      "kind": "evidence",
+      "repo": "volvo-cars/cds-paymentservice-scheduler",
+      "commit": "c00df60c8233b1a8f47829ce382d5805bf164c6b",
+      "path": "cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/retry/RetryJobService.java",
+      "lines": [21, 23],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "scheduler-c00df60-r5/e/adb87a89ec78",
+      "kind": "evidence",
+      "repo": "volvo-cars/cds-paymentservice-scheduler",
+      "commit": "c00df60c8233b1a8f47829ce382d5805bf164c6b",
+      "path": "cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/scheduler/job/JobEntity.java",
+      "lines": [20, 29],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "scheduler-c00df60-r5/e/ae5c71477a7c",
+      "kind": "evidence",
+      "repo": "volvo-cars/cds-paymentservice-scheduler",
+      "commit": "c00df60c8233b1a8f47829ce382d5805bf164c6b",
+      "path": "cds-paymentservice-scheduler-shared/src/main/java/com/volvocars/ecom/paymentservice/shared/executor/ExecutorType.java",
+      "lines": [1, 6],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "scheduler-c00df60-r5/e/b2957fd15062",
+      "kind": "evidence",
+      "repo": "volvo-cars/cds-paymentservice-scheduler",
+      "commit": "c00df60c8233b1a8f47829ce382d5805bf164c6b",
+      "path": "cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/scheduler/job/RetryJobEntity.java",
+      "lines": [11, 12],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "scheduler-c00df60-r5/e/b5deba2f95d5",
+      "kind": "evidence",
+      "repo": "volvo-cars/cds-paymentservice-scheduler",
+      "commit": "c00df60c8233b1a8f47829ce382d5805bf164c6b",
+      "path": "cds-paymentservice-scheduler-shared/src/main/java/com/volvocars/ecom/paymentservice/shared/job/Job.java",
+      "lines": [24, 24],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "scheduler-c00df60-r5/e/b9954d262650",
+      "kind": "evidence",
+      "repo": "volvo-cars/cds-paymentservice-scheduler",
+      "commit": "c00df60c8233b1a8f47829ce382d5805bf164c6b",
+      "path": "cds-paymentservice-scheduler-shared/src/main/java/com/volvocars/ecom/paymentservice/shared/job/Job.java",
+      "lines": [18, 18],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "scheduler-c00df60-r5/e/c3e3cc6b50fb",
+      "kind": "evidence",
+      "repo": "volvo-cars/cds-paymentservice-scheduler",
+      "commit": "c00df60c8233b1a8f47829ce382d5805bf164c6b",
+      "path": "cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/scheduler/job/JobEntity.java",
+      "lines": [29, 30],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "scheduler-c00df60-r5/e/c6a38795b5c4",
+      "kind": "evidence",
+      "repo": "volvo-cars/cds-paymentservice-scheduler",
+      "commit": "c00df60c8233b1a8f47829ce382d5805bf164c6b",
+      "path": "cds-paymentservice-scheduler-shared/src/main/java/com/volvocars/ecom/paymentservice/shared/retry/RetryCartLine.java",
+      "lines": [1, 22],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "scheduler-c00df60-r5/e/c78dc07a94f0",
+      "kind": "evidence",
+      "repo": "volvo-cars/cds-paymentservice-scheduler",
+      "commit": "c00df60c8233b1a8f47829ce382d5805bf164c6b",
+      "path": "cds-paymentservice-scheduler-shared/src/main/java/com/volvocars/ecom/paymentservice/shared/job/Job.java",
+      "lines": [39, 39],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "scheduler-c00df60-r5/e/cd4483ea88f6",
+      "kind": "evidence",
+      "repo": "volvo-cars/cds-paymentservice-scheduler",
+      "commit": "c00df60c8233b1a8f47829ce382d5805bf164c6b",
+      "path": "cds-paymentservice-scheduler-shared/src/main/java/com/volvocars/ecom/paymentservice/shared/job/Job.java",
+      "lines": [40, 41],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "scheduler-c00df60-r5/e/d3ec8d53d227",
+      "kind": "evidence",
+      "repo": "volvo-cars/cds-paymentservice-scheduler",
+      "commit": "c00df60c8233b1a8f47829ce382d5805bf164c6b",
+      "path": "cds-paymentservice-scheduler-shared/src/main/java/com/volvocars/ecom/paymentservice/shared/retry/RegisterRetryPayload.java",
+      "lines": [28, 30],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "scheduler-c00df60-r5/e/d70edecbdabc",
+      "kind": "evidence",
+      "repo": "volvo-cars/cds-paymentservice-scheduler",
+      "commit": "c00df60c8233b1a8f47829ce382d5805bf164c6b",
+      "path": "cds-paymentservice-scheduler-api/src/main/java/com/volvocars/ecom/paymentservice/scheduler/retry/v1/RetryApiService.java",
+      "lines": [57, 63],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "scheduler-c00df60-r5/e/da659e07aae8",
+      "kind": "evidence",
+      "repo": "volvo-cars/cds-paymentservice-scheduler",
+      "commit": "c00df60c8233b1a8f47829ce382d5805bf164c6b",
+      "path": "cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/scheduler/common/BaseEntity.java",
+      "lines": [18, 20],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "scheduler-c00df60-r5/e/dc849c6ffc0f",
+      "kind": "evidence",
+      "repo": "volvo-cars/cds-paymentservice-scheduler",
+      "commit": "c00df60c8233b1a8f47829ce382d5805bf164c6b",
+      "path": "cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/scheduler/job/JobEntity.java",
+      "lines": [38, 38],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "scheduler-c00df60-r5/e/de1b32c24ee4",
+      "kind": "evidence",
+      "repo": "volvo-cars/cds-paymentservice-scheduler",
+      "commit": "c00df60c8233b1a8f47829ce382d5805bf164c6b",
+      "path": "cds-paymentservice-scheduler-api/src/main/java/com/volvocars/ecom/paymentservice/scheduler/App.java",
+      "lines": [1, 27],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "scheduler-c00df60-r5/e/e0ec6187baf3",
+      "kind": "evidence",
+      "repo": "volvo-cars/cds-paymentservice-scheduler",
+      "commit": "c00df60c8233b1a8f47829ce382d5805bf164c6b",
+      "path": "cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/scheduler/job/JobService.java",
+      "lines": [37, 41],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "scheduler-c00df60-r5/e/e2c1b0d88cbd",
+      "kind": "evidence",
+      "repo": "volvo-cars/cds-paymentservice-scheduler",
+      "commit": "c00df60c8233b1a8f47829ce382d5805bf164c6b",
+      "path": "cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/scheduler/job/JobEntity.java",
+      "lines": [37, 37],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "scheduler-c00df60-r5/e/e2d6e6d3996a",
+      "kind": "evidence",
+      "repo": "volvo-cars/cds-paymentservice-scheduler",
+      "commit": "c00df60c8233b1a8f47829ce382d5805bf164c6b",
+      "path": "cds-paymentservice-scheduler-shared/src/main/java/com/volvocars/ecom/paymentservice/shared/retry/RegisterRetryPayload.java",
+      "lines": [1, 34],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "scheduler-c00df60-r5/e/eb0c1d06e2ef",
+      "kind": "evidence",
+      "repo": "volvo-cars/cds-paymentservice-scheduler",
+      "commit": "c00df60c8233b1a8f47829ce382d5805bf164c6b",
+      "path": "cds-paymentservice-scheduler-shared/src/main/java/com/volvocars/ecom/paymentservice/shared/retry/RegisterRetryPayload.java",
+      "lines": [21, 22],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "scheduler-c00df60-r5/e/eb37283fbfcd",
+      "kind": "evidence",
+      "repo": "volvo-cars/cds-paymentservice-scheduler",
+      "commit": "c00df60c8233b1a8f47829ce382d5805bf164c6b",
+      "path": "cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/retry/RetryJobMapper.java",
+      "lines": [31, 44],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "scheduler-c00df60-r5/e/ec82f60ea480",
+      "kind": "evidence",
+      "repo": "volvo-cars/cds-paymentservice-scheduler",
+      "commit": "c00df60c8233b1a8f47829ce382d5805bf164c6b",
+      "path": "cds-paymentservice-scheduler-shared/src/main/java/com/volvocars/ecom/paymentservice/shared/retry/RegisterRetryPayload.java",
+      "lines": [23, 25],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "scheduler-c00df60-r5/e/ee1c4791e314",
+      "kind": "evidence",
+      "repo": "volvo-cars/cds-paymentservice-scheduler",
+      "commit": "c00df60c8233b1a8f47829ce382d5805bf164c6b",
+      "path": "cds-paymentservice-scheduler-shared/src/main/java/com/volvocars/ecom/paymentservice/shared/config/Config.java",
+      "lines": [1, 43],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "scheduler-c00df60-r5/e/ef03fa398c61",
+      "kind": "evidence",
+      "repo": "volvo-cars/cds-paymentservice-scheduler",
+      "commit": "c00df60c8233b1a8f47829ce382d5805bf164c6b",
+      "path": "cds-paymentservice-scheduler-api/src/main/resources/application.yml",
+      "lines": [12, 15],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "scheduler-c00df60-r5/e/f32d04c8f66e",
+      "kind": "evidence",
+      "repo": "volvo-cars/cds-paymentservice-scheduler",
+      "commit": "c00df60c8233b1a8f47829ce382d5805bf164c6b",
+      "path": "cds-paymentservice-scheduler-shared/src/main/java/com/volvocars/ecom/paymentservice/shared/retry/RetryCartLine.java",
+      "lines": [19, 19],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "scheduler-c00df60-r5/e/f54148207581",
+      "kind": "evidence",
+      "repo": "volvo-cars/cds-paymentservice-scheduler",
+      "commit": "c00df60c8233b1a8f47829ce382d5805bf164c6b",
+      "path": "cds-paymentservice-scheduler-shared/src/main/java/com/volvocars/ecom/paymentservice/shared/job/Job.java",
+      "lines": [21, 21],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "scheduler-c00df60-r5/e/f99d054ba316",
+      "kind": "evidence",
+      "repo": "volvo-cars/cds-paymentservice-scheduler",
+      "commit": "c00df60c8233b1a8f47829ce382d5805bf164c6b",
+      "path": "cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/scheduler/common/BaseEntity.java",
+      "lines": [23, 24],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "scheduler-c00df60-r5/effect/lookup-retry/read",
+      "kind": "effect",
+      "owner": "scheduler-c00df60-r5/impl/lookup-retry",
+      "operation": "scheduler-c00df60-r5/op/lookup-retry/read",
+      "effect": "read",
+      "resource": "scheduler-c00df60-r5/resource/jobs",
+      "modality": "source_traced",
+      "representation": "logical",
+      "selection": ["scheduler-c00df60-r5/value/lookup-retry/selection"],
+      "payload": [],
+      "evidence": ["scheduler-c00df60-r5/e/21e14b59b3e1", "scheduler-c00df60-r5/e/45a8bd734119"]
+    },
+    {
+      "id": "scheduler-c00df60-r5/effect/save-job/read",
+      "kind": "effect",
+      "owner": "scheduler-c00df60-r5/impl/save-job",
+      "operation": "scheduler-c00df60-r5/op/save-job/read",
+      "effect": "read",
+      "resource": "scheduler-c00df60-r5/resource/jobs",
+      "modality": "source_traced",
+      "representation": "logical",
+      "selection": ["scheduler-c00df60-r5/value/save-job/selection"],
+      "payload": [],
+      "evidence": ["scheduler-c00df60-r5/e/4cb5c9792e2d", "scheduler-c00df60-r5/e/0a9a545bbb0c"]
+    },
+    {
+      "id": "scheduler-c00df60-r5/effect/save-job/write",
+      "kind": "effect",
+      "owner": "scheduler-c00df60-r5/impl/save-job",
+      "operation": "scheduler-c00df60-r5/op/save-job/write",
+      "effect": "write",
+      "resource": "scheduler-c00df60-r5/resource/jobs",
+      "modality": "source_traced",
+      "representation": "logical",
+      "selection": ["scheduler-c00df60-r5/value/save-job/selection"],
+      "payload": ["scheduler-c00df60-r5/value/save-job/entity"],
+      "evidence": ["scheduler-c00df60-r5/e/3ce3ea1e693a", "scheduler-c00df60-r5/e/eb37283fbfcd"]
+    },
+    {
+      "id": "scheduler-c00df60-r5/entry/retry",
+      "kind": "entry",
+      "logicalId": "api:payment-scheduler-register-retry",
+      "method": "POST",
+      "path": "/v1/retry-jobs",
+      "implementation": "scheduler-c00df60-r5/impl/retry-http",
+      "evidence": ["scheduler-c00df60-r5/e/6c64368f1406", "scheduler-c00df60-r5/e/406b313aeb92"]
+    },
+    {
+      "id": "scheduler-c00df60-r5/exposes/retry",
+      "kind": "entry_binding",
+      "entry": "scheduler-c00df60-r5/entry/retry",
+      "execution": "scheduler-c00df60-r5/runs/retry-http",
+      "contract": "scheduler-c00df60-r5/contract/http-retry",
+      "gaps": ["scheduler-c00df60-r5/gap/schema-closure", "scheduler-c00df60-r5/gap/dependencies"],
+      "evidence": ["scheduler-c00df60-r5/e/6c64368f1406", "scheduler-c00df60-r5/e/406b313aeb92"]
+    },
+    {
+      "id": "scheduler-c00df60-r5/gap/dependencies",
+      "kind": "gap",
+      "owner": "scheduler-c00df60-r5/census",
+      "obligation": "dependencies",
+      "reason": "Imported payment DTO, ApiClientCreator/auth/interceptors, shared enums and Spring/Kafka/Mongo implementations lack exact resolved digest/source correspondence here.",
+      "action": "Trace the named continuation or resolve exact dependency/converter/configuration correspondence without assuming deployment.",
+      "evidence": ["scheduler-c00df60-r5/e/a24bf1ffc9bd"]
+    },
+    {
+      "id": "scheduler-c00df60-r5/gap/deployment",
+      "kind": "gap",
+      "owner": "scheduler-c00df60-r5/census",
+      "obligation": "deployment",
+      "reason": "Committed base/profile declarations do not establish deployed destinations, index definitions, environment overrides or current remote freshness.",
+      "action": "Trace the named continuation or resolve exact dependency/converter/configuration correspondence without assuming deployment.",
+      "evidence": ["scheduler-c00df60-r5/e/8916d8a85f98"]
+    },
+    {
+      "id": "scheduler-c00df60-r5/gap/schema-closure",
+      "kind": "gap",
+      "owner": "scheduler-c00df60-r5/census",
+      "obligation": "schema-closure",
+      "reason": "Effective Jackson/Mongo/Kafka converters, imported success/error envelopes and event DTOs are unresolved. Source declarations and constructions are partial wire/persisted contracts.",
+      "action": "Trace the named continuation or resolve exact dependency/converter/configuration correspondence without assuming deployment.",
+      "evidence": ["scheduler-c00df60-r5/e/de1b32c24ee4"]
+    },
+    {
+      "id": "scheduler-c00df60-r5/impl/create-retry",
+      "kind": "implementation",
+      "logicalId": "impl:scheduler-RetryApiService.registerRetryJob",
+      "scope": "scheduler-c00df60-r5/source",
+      "entry": "scheduler-c00df60-r5/op/create-retry/start",
+      "parameters": ["scheduler-c00df60-r5/value/create-retry/payload"],
+      "evidence": ["scheduler-c00df60-r5/e/3e2eb455716d"]
+    },
+    {
+      "id": "scheduler-c00df60-r5/impl/lookup-retry",
+      "kind": "implementation",
+      "logicalId": "impl:scheduler-RetryApiService.getJobForPaymentSessionId",
+      "scope": "scheduler-c00df60-r5/source",
+      "entry": "scheduler-c00df60-r5/op/lookup-retry/start",
+      "parameters": ["scheduler-c00df60-r5/value/lookup-retry/paymentSessionId"],
+      "evidence": ["scheduler-c00df60-r5/e/08261f9f4771"]
+    },
+    {
+      "id": "scheduler-c00df60-r5/impl/retry-http",
+      "kind": "implementation",
+      "logicalId": "impl:scheduler-RetryControllerImpl.registerRetryJob",
+      "scope": "scheduler-c00df60-r5/source",
+      "entry": "scheduler-c00df60-r5/op/retry-http/start",
+      "parameters": ["scheduler-c00df60-r5/value/retry-http/payload"],
+      "evidence": ["scheduler-c00df60-r5/e/6c64368f1406", "scheduler-c00df60-r5/e/406b313aeb92"]
+    },
+    {
+      "id": "scheduler-c00df60-r5/impl/save-job",
+      "kind": "implementation",
+      "logicalId": "impl:scheduler-JobService.save",
+      "scope": "scheduler-c00df60-r5/source",
+      "entry": "scheduler-c00df60-r5/op/save-job/start",
+      "parameters": ["scheduler-c00df60-r5/value/save-job/job"],
+      "evidence": ["scheduler-c00df60-r5/e/9e1631b28d19"]
+    },
+    {
+      "id": "scheduler-c00df60-r5/interaction/lookup-retry/read",
+      "kind": "interaction",
+      "owner": "scheduler-c00df60-r5/impl/lookup-retry",
+      "execution": "scheduler-c00df60-r5/runs/lookup-retry",
+      "operation": "scheduler-c00df60-r5/op/lookup-retry/read",
+      "target": "scheduler-c00df60-r5/component/mongo",
+      "targetEntry": null,
+      "contract": "scheduler-c00df60-r5/contract/lookup-retry/read",
+      "effect": "scheduler-c00df60-r5/effect/lookup-retry/read",
+      "handoff": null,
+      "mode": "read",
+      "boundary": "network",
+      "waitsFor": "store_result",
+      "condition": "Every registration duplicate lookup",
+      "requestBindings": [
+        {
+          "part": "selection",
+          "path": [],
+          "value": "scheduler-c00df60-r5/value/lookup-retry/selection",
+          "transform": "Source predicate/key"
+        }
+      ],
+      "responseBindings": [],
+      "gaps": ["scheduler-c00df60-r5/gap/deployment", "scheduler-c00df60-r5/gap/schema-closure"],
+      "evidence": ["scheduler-c00df60-r5/e/21e14b59b3e1", "scheduler-c00df60-r5/e/45a8bd734119"]
+    },
+    {
+      "id": "scheduler-c00df60-r5/interaction/save-job/read",
+      "kind": "interaction",
+      "owner": "scheduler-c00df60-r5/impl/save-job",
+      "execution": "scheduler-c00df60-r5/runs/save-job",
+      "operation": "scheduler-c00df60-r5/op/save-job/read",
+      "target": "scheduler-c00df60-r5/component/mongo",
+      "targetEntry": null,
+      "contract": "scheduler-c00df60-r5/contract/save-job/read",
+      "effect": "scheduler-c00df60-r5/effect/save-job/read",
+      "handoff": null,
+      "mode": "read",
+      "boundary": "network",
+      "waitsFor": "store_result",
+      "condition": "Every save(job) call",
+      "requestBindings": [
+        {
+          "part": "selection",
+          "path": [],
+          "value": "scheduler-c00df60-r5/value/save-job/selection",
+          "transform": "Source predicate/key"
+        }
+      ],
+      "responseBindings": [],
+      "gaps": ["scheduler-c00df60-r5/gap/deployment", "scheduler-c00df60-r5/gap/schema-closure"],
+      "evidence": ["scheduler-c00df60-r5/e/4cb5c9792e2d", "scheduler-c00df60-r5/e/0a9a545bbb0c"]
+    },
+    {
+      "id": "scheduler-c00df60-r5/interaction/save-job/write",
+      "kind": "interaction",
+      "owner": "scheduler-c00df60-r5/impl/save-job",
+      "execution": "scheduler-c00df60-r5/runs/save-job",
+      "operation": "scheduler-c00df60-r5/op/save-job/write",
+      "target": "scheduler-c00df60-r5/component/mongo",
+      "targetEntry": null,
+      "contract": "scheduler-c00df60-r5/contract/save-job/write",
+      "effect": "scheduler-c00df60-r5/effect/save-job/write",
+      "handoff": null,
+      "mode": "write",
+      "boundary": "network",
+      "waitsFor": "store_result",
+      "condition": "Existing job count <=1; mapping and next-run calculation completed",
+      "requestBindings": [
+        {
+          "part": "selection",
+          "path": [],
+          "value": "scheduler-c00df60-r5/value/save-job/selection",
+          "transform": "Source predicate/key"
+        },
+        {
+          "part": "record",
+          "path": [],
+          "value": "scheduler-c00df60-r5/value/save-job/entity",
+          "transform": "Source entity mapping"
+        }
+      ],
+      "responseBindings": [],
+      "gaps": ["scheduler-c00df60-r5/gap/deployment", "scheduler-c00df60-r5/gap/schema-closure"],
+      "evidence": ["scheduler-c00df60-r5/e/3ce3ea1e693a", "scheduler-c00df60-r5/e/eb37283fbfcd"]
+    },
+    {
+      "id": "scheduler-c00df60-r5/op/census/start",
+      "kind": "operation",
+      "owner": "scheduler-c00df60-r5/census",
+      "action": "opaque",
+      "label": "Repository discovery context",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": null,
+      "httpStatus": null,
+      "evidence": ["scheduler-c00df60-r5/e/de1b32c24ee4"]
+    },
+    {
+      "id": "scheduler-c00df60-r5/op/create-retry/multiple-configs",
+      "kind": "operation",
+      "owner": "scheduler-c00df60-r5/impl/create-retry",
+      "action": "throw",
+      "label": "MultipleConfigsFoundException when more than one suitable config; carries statusCode 409 but source HTTP advice not mapped",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": "SchedulerException",
+      "httpStatus": null,
+      "evidence": ["scheduler-c00df60-r5/e/1dc0ba31658d"]
+    },
+    {
+      "id": "scheduler-c00df60-r5/op/create-retry/start",
+      "kind": "operation",
+      "owner": "scheduler-c00df60-r5/impl/create-retry",
+      "action": "entry",
+      "label": "RetryApiService.registerRetryJob",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": null,
+      "httpStatus": null,
+      "evidence": ["scheduler-c00df60-r5/e/3e2eb455716d"]
+    },
+    {
+      "id": "scheduler-c00df60-r5/op/lookup-retry/duplicate",
+      "kind": "operation",
+      "owner": "scheduler-c00df60-r5/impl/lookup-retry",
+      "action": "throw",
+      "label": "Multiple payment-session jobs: SchedulerException statusCode 409; effective HTTP mapping unresolved",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": "SchedulerException",
+      "httpStatus": null,
+      "evidence": ["scheduler-c00df60-r5/e/d70edecbdabc"]
+    },
+    {
+      "id": "scheduler-c00df60-r5/op/lookup-retry/read",
+      "kind": "operation",
+      "owner": "scheduler-c00df60-r5/impl/lookup-retry",
+      "action": "compute",
+      "label": "RetryJobService filters params.paymentSessionId, then JobService filters executor type RETRY and restores config/mapper",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": null,
+      "httpStatus": null,
+      "evidence": ["scheduler-c00df60-r5/e/ad74e82ef9d2", "scheduler-c00df60-r5/e/45a8bd734119"]
+    },
+    {
+      "id": "scheduler-c00df60-r5/op/lookup-retry/start",
+      "kind": "operation",
+      "owner": "scheduler-c00df60-r5/impl/lookup-retry",
+      "action": "entry",
+      "label": "RetryApiService.getJobForPaymentSessionId",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": null,
+      "httpStatus": null,
+      "evidence": ["scheduler-c00df60-r5/e/08261f9f4771"]
+    },
+    {
+      "id": "scheduler-c00df60-r5/op/retry-http/start",
+      "kind": "operation",
+      "owner": "scheduler-c00df60-r5/impl/retry-http",
+      "action": "entry",
+      "label": "RetryControllerImpl.registerRetryJob",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": null,
+      "httpStatus": null,
+      "evidence": ["scheduler-c00df60-r5/e/6c64368f1406", "scheduler-c00df60-r5/e/406b313aeb92"]
+    },
+    {
+      "id": "scheduler-c00df60-r5/op/save-job/duplicate",
+      "kind": "operation",
+      "owner": "scheduler-c00df60-r5/impl/save-job",
+      "action": "throw",
+      "label": "SchedulerException carries statusCode 409; HTTP mapping not established for this exception",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": "SchedulerException",
+      "httpStatus": null,
+      "evidence": ["scheduler-c00df60-r5/e/e0ec6187baf3"]
+    },
+    {
+      "id": "scheduler-c00df60-r5/op/save-job/read",
+      "kind": "operation",
+      "owner": "scheduler-c00df60-r5/impl/save-job",
+      "action": "compute",
+      "label": "Find existing scheduler_jobs by jobId; obtain mapper for job.type",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": null,
+      "httpStatus": null,
+      "evidence": ["scheduler-c00df60-r5/e/88888311b771"]
+    },
+    {
+      "id": "scheduler-c00df60-r5/op/save-job/stage",
+      "kind": "operation",
+      "owner": "scheduler-c00df60-r5/impl/save-job",
+      "action": "compute",
+      "label": "RetryJobMapper.toEntity: copy fields; null run/total counters default 0; retryStrategy is not assigned by mapper",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": null,
+      "httpStatus": null,
+      "evidence": ["scheduler-c00df60-r5/e/eb37283fbfcd"]
+    },
+    {
+      "id": "scheduler-c00df60-r5/op/save-job/start",
+      "kind": "operation",
+      "owner": "scheduler-c00df60-r5/impl/save-job",
+      "action": "entry",
+      "label": "JobService.save",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": null,
+      "httpStatus": null,
+      "evidence": ["scheduler-c00df60-r5/e/9e1631b28d19"]
+    },
+    {
+      "id": "scheduler-c00df60-r5/op/save-job/write",
+      "kind": "operation",
+      "owner": "scheduler-c00df60-r5/impl/save-job",
+      "action": "compute",
+      "label": "Synchronous MongoRepository.save(mapped entity)",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": null,
+      "httpStatus": null,
+      "evidence": ["scheduler-c00df60-r5/e/9d5a11de37fd", "scheduler-c00df60-r5/e/1ddb7fd8afa3"]
+    },
+    {
+      "id": "scheduler-c00df60-r5/resource/jobs",
+      "kind": "resource",
+      "label": "scheduler_jobs",
+      "technology": "MongoDB",
+      "declaredDatabase": "payments_scheduler",
+      "physicalLocation": null,
+      "shapes": ["scheduler-c00df60-r5/shape/persisted/RetryJobEntity"],
+      "gaps": ["scheduler-c00df60-r5/gap/deployment", "scheduler-c00df60-r5/gap/schema-closure"],
+      "evidence": ["scheduler-c00df60-r5/e/7c71285bf6ec", "scheduler-c00df60-r5/e/ef03fa398c61"],
+      "address": {
+        "basis": "source_declared",
+        "connectionSetting": "spring.mongodb.uri",
+        "database": "payments_scheduler",
+        "table": "scheduler_jobs",
+        "container": null,
+        "path": null,
+        "key": null
+      }
+    },
+    {
+      "id": "scheduler-c00df60-r5/runs/create-retry",
+      "kind": "execution_binding",
+      "implementation": "scheduler-c00df60-r5/impl/create-retry",
+      "component": "scheduler-c00df60-r5/component/api",
+      "basis": "source_declared",
+      "artifactBinding": null,
+      "gaps": [],
+      "evidence": ["scheduler-c00df60-r5/e/3e2eb455716d"]
+    },
+    {
+      "id": "scheduler-c00df60-r5/runs/lookup-retry",
+      "kind": "execution_binding",
+      "implementation": "scheduler-c00df60-r5/impl/lookup-retry",
+      "component": "scheduler-c00df60-r5/component/api",
+      "basis": "source_declared",
+      "artifactBinding": null,
+      "gaps": [],
+      "evidence": ["scheduler-c00df60-r5/e/08261f9f4771"]
+    },
+    {
+      "id": "scheduler-c00df60-r5/runs/retry-http",
+      "kind": "execution_binding",
+      "implementation": "scheduler-c00df60-r5/impl/retry-http",
+      "component": "scheduler-c00df60-r5/component/api",
+      "basis": "source_declared",
+      "artifactBinding": null,
+      "gaps": [],
+      "evidence": ["scheduler-c00df60-r5/e/6c64368f1406", "scheduler-c00df60-r5/e/406b313aeb92"]
+    },
+    {
+      "id": "scheduler-c00df60-r5/runs/save-job",
+      "kind": "execution_binding",
+      "implementation": "scheduler-c00df60-r5/impl/save-job",
+      "component": "scheduler-c00df60-r5/component/api",
+      "basis": "source_declared",
+      "artifactBinding": null,
+      "gaps": [],
+      "evidence": ["scheduler-c00df60-r5/e/9e1631b28d19"]
+    },
+    {
+      "id": "scheduler-c00df60-r5/shape/Config",
+      "kind": "shape",
+      "label": "Config declared source fields",
+      "representation": "source",
+      "fields": [
+        {
+          "name": "configId",
+          "type": "String",
+          "status": "declared",
+          "evidence": ["scheduler-c00df60-r5/e/2835c65af5c3"]
+        },
+        {
+          "name": "name",
+          "type": "String",
+          "status": "declared",
+          "evidence": ["scheduler-c00df60-r5/e/82b7949f33fa"]
+        },
+        {
+          "name": "strategy",
+          "type": "Strategy",
+          "status": "declared",
+          "evidence": ["scheduler-c00df60-r5/e/59bf511ce3e9"],
+          "shape": "scheduler-c00df60-r5/shape/Strategy"
+        },
+        {
+          "name": "lastRetryOnExpire",
+          "type": "Boolean",
+          "status": "declared",
+          "evidence": ["scheduler-c00df60-r5/e/96cab9d8d89c"]
+        },
+        {
+          "name": "maxRuns",
+          "type": "Integer",
+          "status": "declared",
+          "evidence": ["scheduler-c00df60-r5/e/ac72fa5fa916"]
+        },
+        {
+          "name": "executorType",
+          "type": "ExecutorType",
+          "status": "declared",
+          "evidence": [
+            "scheduler-c00df60-r5/e/02cd8ed12762",
+            "scheduler-c00df60-r5/e/ae5c71477a7c"
+          ],
+          "enum": ["DEFAULT", "RETRY"]
+        },
+        {
+          "name": "conditions",
+          "type": "ConfigConditions",
+          "status": "declared",
+          "evidence": ["scheduler-c00df60-r5/e/712a71fafee6"],
+          "shape": "scheduler-c00df60-r5/shape/ConfigConditions"
+        }
+      ],
+      "completeness": "partial",
+      "gaps": ["scheduler-c00df60-r5/gap/schema-closure"],
+      "evidence": ["scheduler-c00df60-r5/e/ee1c4791e314"]
+    },
+    {
+      "id": "scheduler-c00df60-r5/shape/ConfigConditions",
+      "kind": "shape",
+      "label": "ConfigConditions declared source fields",
+      "representation": "source",
+      "fields": [
+        {
+          "name": "lastRetryState",
+          "type": "RetryState",
+          "status": "declared",
+          "evidence": ["scheduler-c00df60-r5/e/3586b506e598"]
+        },
+        {
+          "name": "productTypes",
+          "type": "@Builder.Default private List<ProductType>",
+          "status": "declared",
+          "evidence": ["scheduler-c00df60-r5/e/46b9bee8802d"]
+        },
+        {
+          "name": "salesModels",
+          "type": "@Builder.Default private List<SalesModel>",
+          "status": "declared",
+          "evidence": ["scheduler-c00df60-r5/e/93cab036f477"]
+        },
+        {
+          "name": "countryCodes",
+          "type": "@Builder.Default private List<String>",
+          "status": "declared",
+          "evidence": ["scheduler-c00df60-r5/e/72836aa5918c"]
+        },
+        {
+          "name": "merchandiseIds",
+          "type": "@Builder.Default private List<String>",
+          "status": "declared",
+          "evidence": ["scheduler-c00df60-r5/e/53f3452ba8f9"]
+        }
+      ],
+      "completeness": "partial",
+      "gaps": ["scheduler-c00df60-r5/gap/schema-closure"],
+      "evidence": ["scheduler-c00df60-r5/e/6d0615a668e3"]
+    },
+    {
+      "id": "scheduler-c00df60-r5/shape/persisted/RetryJobEntity",
+      "kind": "shape",
+      "label": "RetryJobEntity declared Mongo representation; effective converter projection partial",
+      "representation": "persisted",
+      "fields": [
+        {
+          "name": "retryStrategy",
+          "type": "RetryStrategy",
+          "status": "declared",
+          "evidence": ["scheduler-c00df60-r5/e/b2957fd15062"],
+          "shape": "scheduler-c00df60-r5/shape/RetryStrategy"
+        },
+        {
+          "name": "params",
+          "type": "RetryParams",
+          "status": "declared",
+          "evidence": ["scheduler-c00df60-r5/e/ab11eadcc1f8"],
+          "shape": "scheduler-c00df60-r5/shape/RetryParams"
+        },
+        {
+          "name": "jobId",
+          "type": "String",
+          "status": "declared",
+          "evidence": ["scheduler-c00df60-r5/e/c3e3cc6b50fb"]
+        },
+        {
+          "name": "configId",
+          "type": "String",
+          "status": "declared",
+          "evidence": ["scheduler-c00df60-r5/e/740623524c68"]
+        },
+        {
+          "name": "type",
+          "type": "ExecutorType",
+          "status": "declared",
+          "evidence": [
+            "scheduler-c00df60-r5/e/4b61edde0135",
+            "scheduler-c00df60-r5/e/ae5c71477a7c"
+          ],
+          "enum": ["DEFAULT", "RETRY"]
+        },
+        {
+          "name": "status",
+          "type": "JobStatus",
+          "status": "declared",
+          "evidence": [
+            "scheduler-c00df60-r5/e/3e166e5ebb10",
+            "scheduler-c00df60-r5/e/57e2e618652b"
+          ],
+          "enum": ["PENDING", "IN_PROGRESS", "COMPLETED", "ERROR"]
+        },
+        {
+          "name": "lastRunAt",
+          "type": "Instant",
+          "status": "declared",
+          "evidence": ["scheduler-c00df60-r5/e/0c9e7d1a5bca"]
+        },
+        {
+          "name": "nextRunAt",
+          "type": "Instant",
+          "status": "declared",
+          "evidence": ["scheduler-c00df60-r5/e/22a9892e6e47"]
+        },
+        {
+          "name": "expiresAt",
+          "type": "Instant",
+          "status": "declared",
+          "evidence": ["scheduler-c00df60-r5/e/27980bb864d9"]
+        },
+        {
+          "name": "runCount",
+          "type": "Integer",
+          "status": "declared",
+          "evidence": ["scheduler-c00df60-r5/e/e2c1b0d88cbd"]
+        },
+        {
+          "name": "totalRunCount",
+          "type": "Integer",
+          "status": "declared",
+          "evidence": ["scheduler-c00df60-r5/e/dc849c6ffc0f"]
+        },
+        {
+          "name": "id",
+          "type": "ObjectId",
+          "status": "declared",
+          "evidence": ["scheduler-c00df60-r5/e/da659e07aae8"]
+        },
+        {
+          "name": "created",
+          "type": "Instant",
+          "status": "declared",
+          "evidence": ["scheduler-c00df60-r5/e/2f032bb2fb0e"]
+        },
+        {
+          "name": "modified",
+          "type": "Instant",
+          "status": "declared",
+          "evidence": ["scheduler-c00df60-r5/e/f99d054ba316"]
+        }
+      ],
+      "completeness": "partial",
+      "gaps": ["scheduler-c00df60-r5/gap/schema-closure"],
+      "evidence": ["scheduler-c00df60-r5/e/93869a929869", "scheduler-c00df60-r5/e/aaf67c063141"]
+    },
+    {
+      "id": "scheduler-c00df60-r5/shape/RegisterRetryPayload",
+      "kind": "shape",
+      "label": "RegisterRetryPayload declared source fields",
+      "representation": "source",
+      "fields": [
+        {
+          "name": "paymentSessionId",
+          "type": "String",
+          "status": "declared",
+          "evidence": ["scheduler-c00df60-r5/e/009b027c040b"],
+          "optional": false
+        },
+        {
+          "name": "recurringChargeId",
+          "type": "String",
+          "status": "declared",
+          "evidence": ["scheduler-c00df60-r5/e/424d3dd4fc0e"],
+          "optional": false
+        },
+        {
+          "name": "countryCode",
+          "type": "String",
+          "status": "declared",
+          "evidence": ["scheduler-c00df60-r5/e/eb0c1d06e2ef"]
+        },
+        {
+          "name": "retryState",
+          "type": "RetryState",
+          "status": "declared",
+          "evidence": ["scheduler-c00df60-r5/e/ec82f60ea480"],
+          "optional": false
+        },
+        {
+          "name": "failureReason",
+          "type": "ChargeFailureReason",
+          "status": "declared",
+          "evidence": ["scheduler-c00df60-r5/e/6fa238703948"]
+        },
+        {
+          "name": "retryStrategy",
+          "type": "RetryStrategy",
+          "status": "declared",
+          "evidence": ["scheduler-c00df60-r5/e/d3ec8d53d227"],
+          "optional": false,
+          "shape": "scheduler-c00df60-r5/shape/RetryStrategy"
+        },
+        {
+          "name": "cartLine",
+          "type": "RetryCartLine",
+          "status": "declared",
+          "evidence": ["scheduler-c00df60-r5/e/a33dd88afa33"],
+          "optional": false,
+          "shape": "scheduler-c00df60-r5/shape/RetryCartLine"
+        }
+      ],
+      "completeness": "partial",
+      "gaps": ["scheduler-c00df60-r5/gap/schema-closure"],
+      "evidence": ["scheduler-c00df60-r5/e/e2d6e6d3996a"]
+    },
+    {
+      "id": "scheduler-c00df60-r5/shape/registration-success-envelope",
+      "kind": "shape",
+      "label": "Imported BaseResponse<RegisterRetryResponse>; factory-result structure unresolved",
+      "representation": "source",
+      "fields": [],
+      "completeness": "partial",
+      "gaps": ["scheduler-c00df60-r5/gap/schema-closure"],
+      "evidence": ["scheduler-c00df60-r5/e/1a1c6e89c6a1"]
+    },
+    {
+      "id": "scheduler-c00df60-r5/shape/RetryCartLine",
+      "kind": "shape",
+      "label": "RetryCartLine declared source fields",
+      "representation": "source",
+      "fields": [
+        {
+          "name": "id",
+          "type": "String",
+          "status": "declared",
+          "evidence": ["scheduler-c00df60-r5/e/a88b3b3e04c9"],
+          "optional": false
+        },
+        {
+          "name": "productType",
+          "type": "ProductType",
+          "status": "declared",
+          "evidence": ["scheduler-c00df60-r5/e/f32d04c8f66e"],
+          "optional": false
+        },
+        {
+          "name": "salesModel",
+          "type": "SalesModel",
+          "status": "declared",
+          "evidence": ["scheduler-c00df60-r5/e/5a44b4bc640d"],
+          "optional": false
+        },
+        {
+          "name": "merchandiseId",
+          "type": "String",
+          "status": "declared",
+          "evidence": ["scheduler-c00df60-r5/e/6cec861a2148"],
+          "optional": false
+        }
+      ],
+      "completeness": "partial",
+      "gaps": ["scheduler-c00df60-r5/gap/schema-closure"],
+      "evidence": ["scheduler-c00df60-r5/e/c6a38795b5c4"]
+    },
+    {
+      "id": "scheduler-c00df60-r5/shape/RetryJob",
+      "kind": "shape",
+      "label": "RetryJob declared source fields",
+      "representation": "source",
+      "fields": [
+        {
+          "name": "retryStrategy",
+          "type": "RetryStrategy",
+          "status": "declared",
+          "evidence": ["scheduler-c00df60-r5/e/0de2d2f58c04"],
+          "shape": "scheduler-c00df60-r5/shape/RetryStrategy"
+        },
+        {
+          "name": "params",
+          "type": "RetryParams",
+          "status": "declared",
+          "evidence": ["scheduler-c00df60-r5/e/36039ee5acab"],
+          "shape": "scheduler-c00df60-r5/shape/RetryParams"
+        },
+        {
+          "name": "jobId",
+          "type": "String",
+          "status": "declared",
+          "evidence": ["scheduler-c00df60-r5/e/b9954d262650"]
+        },
+        {
+          "name": "config",
+          "type": "Config",
+          "status": "declared",
+          "evidence": ["scheduler-c00df60-r5/e/f54148207581"],
+          "shape": "scheduler-c00df60-r5/shape/Config"
+        },
+        {
+          "name": "status",
+          "type": "JobStatus",
+          "status": "declared",
+          "evidence": [
+            "scheduler-c00df60-r5/e/b5deba2f95d5",
+            "scheduler-c00df60-r5/e/57e2e618652b"
+          ],
+          "enum": ["PENDING", "IN_PROGRESS", "COMPLETED", "ERROR"]
+        },
+        {
+          "name": "lastRunAt",
+          "type": "Instant",
+          "status": "declared",
+          "evidence": ["scheduler-c00df60-r5/e/3545b5a691bb"]
+        },
+        {
+          "name": "nextRunAt",
+          "type": "Instant",
+          "status": "declared",
+          "evidence": ["scheduler-c00df60-r5/e/7368b4dd3aef"]
+        },
+        {
+          "name": "expiresAt",
+          "type": "Instant",
+          "status": "declared",
+          "evidence": ["scheduler-c00df60-r5/e/94c7481ce97c"]
+        },
+        {
+          "name": "runCount",
+          "type": "Integer",
+          "status": "declared",
+          "evidence": ["scheduler-c00df60-r5/e/221702050d83"]
+        },
+        {
+          "name": "totalRunCount",
+          "type": "Integer",
+          "status": "declared",
+          "evidence": ["scheduler-c00df60-r5/e/c78dc07a94f0"]
+        },
+        {
+          "name": "type",
+          "type": "ExecutorType",
+          "status": "declared",
+          "evidence": [
+            "scheduler-c00df60-r5/e/cd4483ea88f6",
+            "scheduler-c00df60-r5/e/ae5c71477a7c"
+          ],
+          "enum": ["DEFAULT", "RETRY"]
+        }
+      ],
+      "completeness": "partial",
+      "gaps": ["scheduler-c00df60-r5/gap/schema-closure"],
+      "evidence": ["scheduler-c00df60-r5/e/97fee171b8c7"]
+    },
+    {
+      "id": "scheduler-c00df60-r5/shape/RetryParams",
+      "kind": "shape",
+      "label": "RetryParams declared source fields",
+      "representation": "source",
+      "fields": [
+        {
+          "name": "paymentSessionId",
+          "type": "String",
+          "status": "declared",
+          "evidence": ["scheduler-c00df60-r5/e/199bfc6d67cf"]
+        },
+        {
+          "name": "recurringChargeId",
+          "type": "String",
+          "status": "declared",
+          "evidence": ["scheduler-c00df60-r5/e/6ba797c4ddb1"]
+        },
+        {
+          "name": "lastRetryState",
+          "type": "RetryState",
+          "status": "declared",
+          "evidence": ["scheduler-c00df60-r5/e/5f97e5b8c497"]
+        },
+        {
+          "name": "countryCode",
+          "type": "String",
+          "status": "declared",
+          "evidence": ["scheduler-c00df60-r5/e/48b816ac0e3d"]
+        },
+        {
+          "name": "cartLine",
+          "type": "RetryCartLine",
+          "status": "declared",
+          "evidence": ["scheduler-c00df60-r5/e/257144507e1b"],
+          "shape": "scheduler-c00df60-r5/shape/RetryCartLine"
+        }
+      ],
+      "completeness": "partial",
+      "gaps": ["scheduler-c00df60-r5/gap/schema-closure"],
+      "evidence": ["scheduler-c00df60-r5/e/8fdab3770c70"]
+    },
+    {
+      "id": "scheduler-c00df60-r5/shape/RetryStrategy",
+      "kind": "shape",
+      "label": "RetryStrategy declared source fields",
+      "representation": "source",
+      "fields": [
+        {
+          "name": "allowRetries",
+          "type": "boolean",
+          "status": "declared",
+          "evidence": ["scheduler-c00df60-r5/e/5e0e4f446787"]
+        },
+        {
+          "name": "expiresAt",
+          "type": "Instant",
+          "status": "declared",
+          "evidence": ["scheduler-c00df60-r5/e/24fbcdc918cd"]
+        }
+      ],
+      "completeness": "partial",
+      "gaps": ["scheduler-c00df60-r5/gap/schema-closure"],
+      "evidence": ["scheduler-c00df60-r5/e/25d541ea35ae"]
+    },
+    {
+      "id": "scheduler-c00df60-r5/shape/Strategy",
+      "kind": "shape",
+      "label": "Strategy declared source fields",
+      "representation": "source",
+      "fields": [
+        {
+          "name": "type",
+          "type": "StrategyType",
+          "status": "declared",
+          "evidence": [
+            "scheduler-c00df60-r5/e/81047b36878a",
+            "scheduler-c00df60-r5/e/1624c474e05e"
+          ],
+          "enum": ["CRON", "FIXED_RATE", "INTERVALS"]
+        }
+      ],
+      "completeness": "partial",
+      "gaps": ["scheduler-c00df60-r5/gap/schema-closure"],
+      "evidence": ["scheduler-c00df60-r5/e/43b51ebf0067"]
+    },
+    {
+      "id": "scheduler-c00df60-r5/source",
+      "kind": "source_revision",
+      "repo": "volvo-cars/cds-paymentservice-scheduler",
+      "commit": "c00df60c8233b1a8f47829ce382d5805bf164c6b"
+    },
+    {
+      "id": "scheduler-c00df60-r5/value/create-retry/payload",
+      "kind": "value",
+      "owner": "scheduler-c00df60-r5/impl/create-retry",
+      "definition": "scheduler-c00df60-r5/op/create-retry/start",
+      "label": "payload",
+      "role": "parameter",
+      "representation": "source",
+      "shape": "scheduler-c00df60-r5/shape/RegisterRetryPayload",
+      "accessPath": [],
+      "evidence": ["scheduler-c00df60-r5/e/3e2eb455716d"]
+    },
+    {
+      "id": "scheduler-c00df60-r5/value/lookup-retry/paymentSessionId",
+      "kind": "value",
+      "owner": "scheduler-c00df60-r5/impl/lookup-retry",
+      "definition": "scheduler-c00df60-r5/op/lookup-retry/start",
+      "label": "paymentSessionId",
+      "role": "parameter",
+      "representation": "source",
+      "shape": null,
+      "accessPath": [],
+      "evidence": ["scheduler-c00df60-r5/e/08261f9f4771"]
+    },
+    {
+      "id": "scheduler-c00df60-r5/value/lookup-retry/selection",
+      "kind": "value",
+      "owner": "scheduler-c00df60-r5/impl/lookup-retry",
+      "definition": "scheduler-c00df60-r5/op/lookup-retry/read",
+      "label": "params.paymentSessionId == request paymentSessionId; type == RETRY",
+      "role": "definition",
+      "representation": "source",
+      "shape": null,
+      "accessPath": [],
+      "evidence": ["scheduler-c00df60-r5/e/ad74e82ef9d2", "scheduler-c00df60-r5/e/45a8bd734119"]
+    },
+    {
+      "id": "scheduler-c00df60-r5/value/retry-http/payload",
+      "kind": "value",
+      "owner": "scheduler-c00df60-r5/impl/retry-http",
+      "definition": "scheduler-c00df60-r5/op/retry-http/start",
+      "label": "payload",
+      "role": "parameter",
+      "representation": "source",
+      "shape": "scheduler-c00df60-r5/shape/RegisterRetryPayload",
+      "accessPath": [],
+      "evidence": ["scheduler-c00df60-r5/e/6c64368f1406", "scheduler-c00df60-r5/e/406b313aeb92"]
+    },
+    {
+      "id": "scheduler-c00df60-r5/value/save-job/entity",
+      "kind": "value",
+      "owner": "scheduler-c00df60-r5/impl/save-job",
+      "definition": "scheduler-c00df60-r5/op/save-job/stage",
+      "label": "Mapped RetryJobEntity; whole entity save",
+      "role": "definition",
+      "representation": "persisted",
+      "shape": "scheduler-c00df60-r5/shape/persisted/RetryJobEntity",
+      "accessPath": [],
+      "evidence": ["scheduler-c00df60-r5/e/eb37283fbfcd"]
+    },
+    {
+      "id": "scheduler-c00df60-r5/value/save-job/job",
+      "kind": "value",
+      "owner": "scheduler-c00df60-r5/impl/save-job",
+      "definition": "scheduler-c00df60-r5/op/save-job/start",
+      "label": "job",
+      "role": "parameter",
+      "representation": "source",
+      "shape": "scheduler-c00df60-r5/shape/RetryJob",
+      "accessPath": [],
+      "evidence": ["scheduler-c00df60-r5/e/9e1631b28d19"]
+    },
+    {
+      "id": "scheduler-c00df60-r5/value/save-job/selection",
+      "kind": "value",
+      "owner": "scheduler-c00df60-r5/impl/save-job",
+      "definition": "scheduler-c00df60-r5/op/save-job/read",
+      "label": "jobId == job.jobId",
+      "role": "definition",
+      "representation": "source",
+      "shape": null,
+      "accessPath": [],
+      "evidence": ["scheduler-c00df60-r5/e/88888311b771"]
+    }
+  ],
+  "traversalComplete": true,
+  "findings": [
+    {
+      "statement": "The entry interface is separate from its internal implementation.",
+      "support": ["scheduler-c00df60-r5/exposes/retry"],
+      "assumptions": []
+    },
+    {
+      "statement": "Components and conditional interactions in this entry trace. Library execution stays inside the host. Drill into an interaction contract or bound implementation for detail.",
+      "support": [
+        "scheduler-c00df60-r5/runs/retry-http",
+        "scheduler-c00df60-r5/runs/lookup-retry",
+        "scheduler-c00df60-r5/runs/create-retry",
+        "scheduler-c00df60-r5/runs/save-job"
+      ],
+      "assumptions": ["Source declarations do not establish deployed topology or path feasibility"]
+    }
+  ],
+  "sourceLinks": [
+    {
+      "evidence": "scheduler-c00df60-r5/e/5e52dd8eb680",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-scheduler/blob/c00df60c8233b1a8f47829ce382d5805bf164c6b/Dockerfile#L1-L22",
+      "label": "volvo-cars/cds-paymentservice-scheduler/Dockerfile:1–22"
+    },
+    {
+      "evidence": "scheduler-c00df60-r5/e/8377781a2b50",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-scheduler/blob/c00df60c8233b1a8f47829ce382d5805bf164c6b/cds-paymentservice-scheduler-api/src/main/java/com/volvocars/ecom/paymentservice/scheduler/App.java#L14-L25",
+      "label": "volvo-cars/cds-paymentservice-scheduler/cds-paymentservice-scheduler-api/src/main/java/com/volvocars/ecom/paymentservice/scheduler/App.java:14–25"
+    },
+    {
+      "evidence": "scheduler-c00df60-r5/e/ae5c71477a7c",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-scheduler/blob/c00df60c8233b1a8f47829ce382d5805bf164c6b/cds-paymentservice-scheduler-shared/src/main/java/com/volvocars/ecom/paymentservice/shared/executor/ExecutorType.java#L1-L6",
+      "label": "volvo-cars/cds-paymentservice-scheduler/cds-paymentservice-scheduler-shared/src/main/java/com/volvocars/ecom/paymentservice/shared/executor/ExecutorType.java:1–6"
+    },
+    {
+      "evidence": "scheduler-c00df60-r5/e/cd4483ea88f6",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-scheduler/blob/c00df60c8233b1a8f47829ce382d5805bf164c6b/cds-paymentservice-scheduler-shared/src/main/java/com/volvocars/ecom/paymentservice/shared/job/Job.java#L40-L41",
+      "label": "volvo-cars/cds-paymentservice-scheduler/cds-paymentservice-scheduler-shared/src/main/java/com/volvocars/ecom/paymentservice/shared/job/Job.java:40–41"
+    },
+    {
+      "evidence": "scheduler-c00df60-r5/e/c78dc07a94f0",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-scheduler/blob/c00df60c8233b1a8f47829ce382d5805bf164c6b/cds-paymentservice-scheduler-shared/src/main/java/com/volvocars/ecom/paymentservice/shared/job/Job.java#L39-L39",
+      "label": "volvo-cars/cds-paymentservice-scheduler/cds-paymentservice-scheduler-shared/src/main/java/com/volvocars/ecom/paymentservice/shared/job/Job.java:39–39"
+    },
+    {
+      "evidence": "scheduler-c00df60-r5/e/221702050d83",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-scheduler/blob/c00df60c8233b1a8f47829ce382d5805bf164c6b/cds-paymentservice-scheduler-shared/src/main/java/com/volvocars/ecom/paymentservice/shared/job/Job.java#L36-L36",
+      "label": "volvo-cars/cds-paymentservice-scheduler/cds-paymentservice-scheduler-shared/src/main/java/com/volvocars/ecom/paymentservice/shared/job/Job.java:36–36"
+    },
+    {
+      "evidence": "scheduler-c00df60-r5/e/94c7481ce97c",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-scheduler/blob/c00df60c8233b1a8f47829ce382d5805bf164c6b/cds-paymentservice-scheduler-shared/src/main/java/com/volvocars/ecom/paymentservice/shared/job/Job.java#L33-L33",
+      "label": "volvo-cars/cds-paymentservice-scheduler/cds-paymentservice-scheduler-shared/src/main/java/com/volvocars/ecom/paymentservice/shared/job/Job.java:33–33"
+    },
+    {
+      "evidence": "scheduler-c00df60-r5/e/7368b4dd3aef",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-scheduler/blob/c00df60c8233b1a8f47829ce382d5805bf164c6b/cds-paymentservice-scheduler-shared/src/main/java/com/volvocars/ecom/paymentservice/shared/job/Job.java#L30-L30",
+      "label": "volvo-cars/cds-paymentservice-scheduler/cds-paymentservice-scheduler-shared/src/main/java/com/volvocars/ecom/paymentservice/shared/job/Job.java:30–30"
+    },
+    {
+      "evidence": "scheduler-c00df60-r5/e/3545b5a691bb",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-scheduler/blob/c00df60c8233b1a8f47829ce382d5805bf164c6b/cds-paymentservice-scheduler-shared/src/main/java/com/volvocars/ecom/paymentservice/shared/job/Job.java#L27-L27",
+      "label": "volvo-cars/cds-paymentservice-scheduler/cds-paymentservice-scheduler-shared/src/main/java/com/volvocars/ecom/paymentservice/shared/job/Job.java:27–27"
+    },
+    {
+      "evidence": "scheduler-c00df60-r5/e/57e2e618652b",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-scheduler/blob/c00df60c8233b1a8f47829ce382d5805bf164c6b/cds-paymentservice-scheduler-shared/src/main/java/com/volvocars/ecom/paymentservice/shared/common/JobStatus.java#L1-L8",
+      "label": "volvo-cars/cds-paymentservice-scheduler/cds-paymentservice-scheduler-shared/src/main/java/com/volvocars/ecom/paymentservice/shared/common/JobStatus.java:1–8"
+    },
+    {
+      "evidence": "scheduler-c00df60-r5/e/b5deba2f95d5",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-scheduler/blob/c00df60c8233b1a8f47829ce382d5805bf164c6b/cds-paymentservice-scheduler-shared/src/main/java/com/volvocars/ecom/paymentservice/shared/job/Job.java#L24-L24",
+      "label": "volvo-cars/cds-paymentservice-scheduler/cds-paymentservice-scheduler-shared/src/main/java/com/volvocars/ecom/paymentservice/shared/job/Job.java:24–24"
+    },
+    {
+      "evidence": "scheduler-c00df60-r5/e/f54148207581",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-scheduler/blob/c00df60c8233b1a8f47829ce382d5805bf164c6b/cds-paymentservice-scheduler-shared/src/main/java/com/volvocars/ecom/paymentservice/shared/job/Job.java#L21-L21",
+      "label": "volvo-cars/cds-paymentservice-scheduler/cds-paymentservice-scheduler-shared/src/main/java/com/volvocars/ecom/paymentservice/shared/job/Job.java:21–21"
+    },
+    {
+      "evidence": "scheduler-c00df60-r5/e/712a71fafee6",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-scheduler/blob/c00df60c8233b1a8f47829ce382d5805bf164c6b/cds-paymentservice-scheduler-shared/src/main/java/com/volvocars/ecom/paymentservice/shared/config/Config.java#L38-L38",
+      "label": "volvo-cars/cds-paymentservice-scheduler/cds-paymentservice-scheduler-shared/src/main/java/com/volvocars/ecom/paymentservice/shared/config/Config.java:38–38"
+    },
+    {
+      "evidence": "scheduler-c00df60-r5/e/53f3452ba8f9",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-scheduler/blob/c00df60c8233b1a8f47829ce382d5805bf164c6b/cds-paymentservice-scheduler-shared/src/main/java/com/volvocars/ecom/paymentservice/shared/config/ConfigConditions.java#L47-L47",
+      "label": "volvo-cars/cds-paymentservice-scheduler/cds-paymentservice-scheduler-shared/src/main/java/com/volvocars/ecom/paymentservice/shared/config/ConfigConditions.java:47–47"
+    },
+    {
+      "evidence": "scheduler-c00df60-r5/e/72836aa5918c",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-scheduler/blob/c00df60c8233b1a8f47829ce382d5805bf164c6b/cds-paymentservice-scheduler-shared/src/main/java/com/volvocars/ecom/paymentservice/shared/config/ConfigConditions.java#L41-L41",
+      "label": "volvo-cars/cds-paymentservice-scheduler/cds-paymentservice-scheduler-shared/src/main/java/com/volvocars/ecom/paymentservice/shared/config/ConfigConditions.java:41–41"
+    },
+    {
+      "evidence": "scheduler-c00df60-r5/e/93cab036f477",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-scheduler/blob/c00df60c8233b1a8f47829ce382d5805bf164c6b/cds-paymentservice-scheduler-shared/src/main/java/com/volvocars/ecom/paymentservice/shared/config/ConfigConditions.java#L35-L35",
+      "label": "volvo-cars/cds-paymentservice-scheduler/cds-paymentservice-scheduler-shared/src/main/java/com/volvocars/ecom/paymentservice/shared/config/ConfigConditions.java:35–35"
+    },
+    {
+      "evidence": "scheduler-c00df60-r5/e/46b9bee8802d",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-scheduler/blob/c00df60c8233b1a8f47829ce382d5805bf164c6b/cds-paymentservice-scheduler-shared/src/main/java/com/volvocars/ecom/paymentservice/shared/config/ConfigConditions.java#L29-L29",
+      "label": "volvo-cars/cds-paymentservice-scheduler/cds-paymentservice-scheduler-shared/src/main/java/com/volvocars/ecom/paymentservice/shared/config/ConfigConditions.java:29–29"
+    },
+    {
+      "evidence": "scheduler-c00df60-r5/e/3586b506e598",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-scheduler/blob/c00df60c8233b1a8f47829ce382d5805bf164c6b/cds-paymentservice-scheduler-shared/src/main/java/com/volvocars/ecom/paymentservice/shared/config/ConfigConditions.java#L23-L23",
+      "label": "volvo-cars/cds-paymentservice-scheduler/cds-paymentservice-scheduler-shared/src/main/java/com/volvocars/ecom/paymentservice/shared/config/ConfigConditions.java:23–23"
+    },
+    {
+      "evidence": "scheduler-c00df60-r5/e/de1b32c24ee4",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-scheduler/blob/c00df60c8233b1a8f47829ce382d5805bf164c6b/cds-paymentservice-scheduler-api/src/main/java/com/volvocars/ecom/paymentservice/scheduler/App.java#L1-L27",
+      "label": "volvo-cars/cds-paymentservice-scheduler/cds-paymentservice-scheduler-api/src/main/java/com/volvocars/ecom/paymentservice/scheduler/App.java:1–27"
+    },
+    {
+      "evidence": "scheduler-c00df60-r5/e/6d0615a668e3",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-scheduler/blob/c00df60c8233b1a8f47829ce382d5805bf164c6b/cds-paymentservice-scheduler-shared/src/main/java/com/volvocars/ecom/paymentservice/shared/config/ConfigConditions.java#L1-L48",
+      "label": "volvo-cars/cds-paymentservice-scheduler/cds-paymentservice-scheduler-shared/src/main/java/com/volvocars/ecom/paymentservice/shared/config/ConfigConditions.java:1–48"
+    },
+    {
+      "evidence": "scheduler-c00df60-r5/e/02cd8ed12762",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-scheduler/blob/c00df60c8233b1a8f47829ce382d5805bf164c6b/cds-paymentservice-scheduler-shared/src/main/java/com/volvocars/ecom/paymentservice/shared/config/Config.java#L35-L35",
+      "label": "volvo-cars/cds-paymentservice-scheduler/cds-paymentservice-scheduler-shared/src/main/java/com/volvocars/ecom/paymentservice/shared/config/Config.java:35–35"
+    },
+    {
+      "evidence": "scheduler-c00df60-r5/e/ac72fa5fa916",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-scheduler/blob/c00df60c8233b1a8f47829ce382d5805bf164c6b/cds-paymentservice-scheduler-shared/src/main/java/com/volvocars/ecom/paymentservice/shared/config/Config.java#L32-L32",
+      "label": "volvo-cars/cds-paymentservice-scheduler/cds-paymentservice-scheduler-shared/src/main/java/com/volvocars/ecom/paymentservice/shared/config/Config.java:32–32"
+    },
+    {
+      "evidence": "scheduler-c00df60-r5/e/96cab9d8d89c",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-scheduler/blob/c00df60c8233b1a8f47829ce382d5805bf164c6b/cds-paymentservice-scheduler-shared/src/main/java/com/volvocars/ecom/paymentservice/shared/config/Config.java#L29-L29",
+      "label": "volvo-cars/cds-paymentservice-scheduler/cds-paymentservice-scheduler-shared/src/main/java/com/volvocars/ecom/paymentservice/shared/config/Config.java:29–29"
+    },
+    {
+      "evidence": "scheduler-c00df60-r5/e/59bf511ce3e9",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-scheduler/blob/c00df60c8233b1a8f47829ce382d5805bf164c6b/cds-paymentservice-scheduler-shared/src/main/java/com/volvocars/ecom/paymentservice/shared/config/Config.java#L26-L26",
+      "label": "volvo-cars/cds-paymentservice-scheduler/cds-paymentservice-scheduler-shared/src/main/java/com/volvocars/ecom/paymentservice/shared/config/Config.java:26–26"
+    },
+    {
+      "evidence": "scheduler-c00df60-r5/e/1624c474e05e",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-scheduler/blob/c00df60c8233b1a8f47829ce382d5805bf164c6b/cds-paymentservice-scheduler-shared/src/main/java/com/volvocars/ecom/paymentservice/shared/common/StrategyType.java#L1-L7",
+      "label": "volvo-cars/cds-paymentservice-scheduler/cds-paymentservice-scheduler-shared/src/main/java/com/volvocars/ecom/paymentservice/shared/common/StrategyType.java:1–7"
+    },
+    {
+      "evidence": "scheduler-c00df60-r5/e/81047b36878a",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-scheduler/blob/c00df60c8233b1a8f47829ce382d5805bf164c6b/cds-paymentservice-scheduler-shared/src/main/java/com/volvocars/ecom/paymentservice/shared/common/Strategy.java#L27-L28",
+      "label": "volvo-cars/cds-paymentservice-scheduler/cds-paymentservice-scheduler-shared/src/main/java/com/volvocars/ecom/paymentservice/shared/common/Strategy.java:27–28"
+    },
+    {
+      "evidence": "scheduler-c00df60-r5/e/43b51ebf0067",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-scheduler/blob/c00df60c8233b1a8f47829ce382d5805bf164c6b/cds-paymentservice-scheduler-shared/src/main/java/com/volvocars/ecom/paymentservice/shared/common/Strategy.java#L1-L31",
+      "label": "volvo-cars/cds-paymentservice-scheduler/cds-paymentservice-scheduler-shared/src/main/java/com/volvocars/ecom/paymentservice/shared/common/Strategy.java:1–31"
+    },
+    {
+      "evidence": "scheduler-c00df60-r5/e/82b7949f33fa",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-scheduler/blob/c00df60c8233b1a8f47829ce382d5805bf164c6b/cds-paymentservice-scheduler-shared/src/main/java/com/volvocars/ecom/paymentservice/shared/config/Config.java#L23-L23",
+      "label": "volvo-cars/cds-paymentservice-scheduler/cds-paymentservice-scheduler-shared/src/main/java/com/volvocars/ecom/paymentservice/shared/config/Config.java:23–23"
+    },
+    {
+      "evidence": "scheduler-c00df60-r5/e/2835c65af5c3",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-scheduler/blob/c00df60c8233b1a8f47829ce382d5805bf164c6b/cds-paymentservice-scheduler-shared/src/main/java/com/volvocars/ecom/paymentservice/shared/config/Config.java#L20-L20",
+      "label": "volvo-cars/cds-paymentservice-scheduler/cds-paymentservice-scheduler-shared/src/main/java/com/volvocars/ecom/paymentservice/shared/config/Config.java:20–20"
+    },
+    {
+      "evidence": "scheduler-c00df60-r5/e/ee1c4791e314",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-scheduler/blob/c00df60c8233b1a8f47829ce382d5805bf164c6b/cds-paymentservice-scheduler-shared/src/main/java/com/volvocars/ecom/paymentservice/shared/config/Config.java#L1-L43",
+      "label": "volvo-cars/cds-paymentservice-scheduler/cds-paymentservice-scheduler-shared/src/main/java/com/volvocars/ecom/paymentservice/shared/config/Config.java:1–43"
+    },
+    {
+      "evidence": "scheduler-c00df60-r5/e/b9954d262650",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-scheduler/blob/c00df60c8233b1a8f47829ce382d5805bf164c6b/cds-paymentservice-scheduler-shared/src/main/java/com/volvocars/ecom/paymentservice/shared/job/Job.java#L18-L18",
+      "label": "volvo-cars/cds-paymentservice-scheduler/cds-paymentservice-scheduler-shared/src/main/java/com/volvocars/ecom/paymentservice/shared/job/Job.java:18–18"
+    },
+    {
+      "evidence": "scheduler-c00df60-r5/e/36039ee5acab",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-scheduler/blob/c00df60c8233b1a8f47829ce382d5805bf164c6b/cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/retry/RetryJob.java#L14-L14",
+      "label": "volvo-cars/cds-paymentservice-scheduler/cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/retry/RetryJob.java:14–14"
+    },
+    {
+      "evidence": "scheduler-c00df60-r5/e/257144507e1b",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-scheduler/blob/c00df60c8233b1a8f47829ce382d5805bf164c6b/cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/retry/RetryParams.java#L18-L18",
+      "label": "volvo-cars/cds-paymentservice-scheduler/cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/retry/RetryParams.java:18–18"
+    },
+    {
+      "evidence": "scheduler-c00df60-r5/e/6cec861a2148",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-scheduler/blob/c00df60c8233b1a8f47829ce382d5805bf164c6b/cds-paymentservice-scheduler-shared/src/main/java/com/volvocars/ecom/paymentservice/shared/retry/RetryCartLine.java#L21-L21",
+      "label": "volvo-cars/cds-paymentservice-scheduler/cds-paymentservice-scheduler-shared/src/main/java/com/volvocars/ecom/paymentservice/shared/retry/RetryCartLine.java:21–21"
+    },
+    {
+      "evidence": "scheduler-c00df60-r5/e/5a44b4bc640d",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-scheduler/blob/c00df60c8233b1a8f47829ce382d5805bf164c6b/cds-paymentservice-scheduler-shared/src/main/java/com/volvocars/ecom/paymentservice/shared/retry/RetryCartLine.java#L20-L20",
+      "label": "volvo-cars/cds-paymentservice-scheduler/cds-paymentservice-scheduler-shared/src/main/java/com/volvocars/ecom/paymentservice/shared/retry/RetryCartLine.java:20–20"
+    },
+    {
+      "evidence": "scheduler-c00df60-r5/e/f32d04c8f66e",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-scheduler/blob/c00df60c8233b1a8f47829ce382d5805bf164c6b/cds-paymentservice-scheduler-shared/src/main/java/com/volvocars/ecom/paymentservice/shared/retry/RetryCartLine.java#L19-L19",
+      "label": "volvo-cars/cds-paymentservice-scheduler/cds-paymentservice-scheduler-shared/src/main/java/com/volvocars/ecom/paymentservice/shared/retry/RetryCartLine.java:19–19"
+    },
+    {
+      "evidence": "scheduler-c00df60-r5/e/a88b3b3e04c9",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-scheduler/blob/c00df60c8233b1a8f47829ce382d5805bf164c6b/cds-paymentservice-scheduler-shared/src/main/java/com/volvocars/ecom/paymentservice/shared/retry/RetryCartLine.java#L16-L18",
+      "label": "volvo-cars/cds-paymentservice-scheduler/cds-paymentservice-scheduler-shared/src/main/java/com/volvocars/ecom/paymentservice/shared/retry/RetryCartLine.java:16–18"
+    },
+    {
+      "evidence": "scheduler-c00df60-r5/e/c6a38795b5c4",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-scheduler/blob/c00df60c8233b1a8f47829ce382d5805bf164c6b/cds-paymentservice-scheduler-shared/src/main/java/com/volvocars/ecom/paymentservice/shared/retry/RetryCartLine.java#L1-L22",
+      "label": "volvo-cars/cds-paymentservice-scheduler/cds-paymentservice-scheduler-shared/src/main/java/com/volvocars/ecom/paymentservice/shared/retry/RetryCartLine.java:1–22"
+    },
+    {
+      "evidence": "scheduler-c00df60-r5/e/48b816ac0e3d",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-scheduler/blob/c00df60c8233b1a8f47829ce382d5805bf164c6b/cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/retry/RetryParams.java#L17-L17",
+      "label": "volvo-cars/cds-paymentservice-scheduler/cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/retry/RetryParams.java:17–17"
+    },
+    {
+      "evidence": "scheduler-c00df60-r5/e/5f97e5b8c497",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-scheduler/blob/c00df60c8233b1a8f47829ce382d5805bf164c6b/cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/retry/RetryParams.java#L16-L16",
+      "label": "volvo-cars/cds-paymentservice-scheduler/cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/retry/RetryParams.java:16–16"
+    },
+    {
+      "evidence": "scheduler-c00df60-r5/e/6ba797c4ddb1",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-scheduler/blob/c00df60c8233b1a8f47829ce382d5805bf164c6b/cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/retry/RetryParams.java#L15-L15",
+      "label": "volvo-cars/cds-paymentservice-scheduler/cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/retry/RetryParams.java:15–15"
+    },
+    {
+      "evidence": "scheduler-c00df60-r5/e/199bfc6d67cf",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-scheduler/blob/c00df60c8233b1a8f47829ce382d5805bf164c6b/cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/retry/RetryParams.java#L13-L14",
+      "label": "volvo-cars/cds-paymentservice-scheduler/cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/retry/RetryParams.java:13–14"
+    },
+    {
+      "evidence": "scheduler-c00df60-r5/e/8fdab3770c70",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-scheduler/blob/c00df60c8233b1a8f47829ce382d5805bf164c6b/cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/retry/RetryParams.java#L1-L19",
+      "label": "volvo-cars/cds-paymentservice-scheduler/cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/retry/RetryParams.java:1–19"
+    },
+    {
+      "evidence": "scheduler-c00df60-r5/e/0de2d2f58c04",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-scheduler/blob/c00df60c8233b1a8f47829ce382d5805bf164c6b/cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/retry/RetryJob.java#L12-L13",
+      "label": "volvo-cars/cds-paymentservice-scheduler/cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/retry/RetryJob.java:12–13"
+    },
+    {
+      "evidence": "scheduler-c00df60-r5/e/24fbcdc918cd",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-scheduler/blob/c00df60c8233b1a8f47829ce382d5805bf164c6b/cds-paymentservice-scheduler-shared/src/main/java/com/volvocars/ecom/paymentservice/shared/retry/RetryStrategy.java#L16-L16",
+      "label": "volvo-cars/cds-paymentservice-scheduler/cds-paymentservice-scheduler-shared/src/main/java/com/volvocars/ecom/paymentservice/shared/retry/RetryStrategy.java:16–16"
+    },
+    {
+      "evidence": "scheduler-c00df60-r5/e/5e0e4f446787",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-scheduler/blob/c00df60c8233b1a8f47829ce382d5805bf164c6b/cds-paymentservice-scheduler-shared/src/main/java/com/volvocars/ecom/paymentservice/shared/retry/RetryStrategy.java#L14-L15",
+      "label": "volvo-cars/cds-paymentservice-scheduler/cds-paymentservice-scheduler-shared/src/main/java/com/volvocars/ecom/paymentservice/shared/retry/RetryStrategy.java:14–15"
+    },
+    {
+      "evidence": "scheduler-c00df60-r5/e/25d541ea35ae",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-scheduler/blob/c00df60c8233b1a8f47829ce382d5805bf164c6b/cds-paymentservice-scheduler-shared/src/main/java/com/volvocars/ecom/paymentservice/shared/retry/RetryStrategy.java#L1-L17",
+      "label": "volvo-cars/cds-paymentservice-scheduler/cds-paymentservice-scheduler-shared/src/main/java/com/volvocars/ecom/paymentservice/shared/retry/RetryStrategy.java:1–17"
+    },
+    {
+      "evidence": "scheduler-c00df60-r5/e/97fee171b8c7",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-scheduler/blob/c00df60c8233b1a8f47829ce382d5805bf164c6b/cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/retry/RetryJob.java#L1-L19",
+      "label": "volvo-cars/cds-paymentservice-scheduler/cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/retry/RetryJob.java:1–19"
+    },
+    {
+      "evidence": "scheduler-c00df60-r5/e/9e1631b28d19",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-scheduler/blob/c00df60c8233b1a8f47829ce382d5805bf164c6b/cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/scheduler/job/JobService.java#L30-L52",
+      "label": "volvo-cars/cds-paymentservice-scheduler/cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/scheduler/job/JobService.java:30–52"
+    },
+    {
+      "evidence": "scheduler-c00df60-r5/e/a33dd88afa33",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-scheduler/blob/c00df60c8233b1a8f47829ce382d5805bf164c6b/cds-paymentservice-scheduler-shared/src/main/java/com/volvocars/ecom/paymentservice/shared/retry/RegisterRetryPayload.java#L31-L33",
+      "label": "volvo-cars/cds-paymentservice-scheduler/cds-paymentservice-scheduler-shared/src/main/java/com/volvocars/ecom/paymentservice/shared/retry/RegisterRetryPayload.java:31–33"
+    },
+    {
+      "evidence": "scheduler-c00df60-r5/e/d3ec8d53d227",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-scheduler/blob/c00df60c8233b1a8f47829ce382d5805bf164c6b/cds-paymentservice-scheduler-shared/src/main/java/com/volvocars/ecom/paymentservice/shared/retry/RegisterRetryPayload.java#L28-L30",
+      "label": "volvo-cars/cds-paymentservice-scheduler/cds-paymentservice-scheduler-shared/src/main/java/com/volvocars/ecom/paymentservice/shared/retry/RegisterRetryPayload.java:28–30"
+    },
+    {
+      "evidence": "scheduler-c00df60-r5/e/6fa238703948",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-scheduler/blob/c00df60c8233b1a8f47829ce382d5805bf164c6b/cds-paymentservice-scheduler-shared/src/main/java/com/volvocars/ecom/paymentservice/shared/retry/RegisterRetryPayload.java#L26-L27",
+      "label": "volvo-cars/cds-paymentservice-scheduler/cds-paymentservice-scheduler-shared/src/main/java/com/volvocars/ecom/paymentservice/shared/retry/RegisterRetryPayload.java:26–27"
+    },
+    {
+      "evidence": "scheduler-c00df60-r5/e/ec82f60ea480",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-scheduler/blob/c00df60c8233b1a8f47829ce382d5805bf164c6b/cds-paymentservice-scheduler-shared/src/main/java/com/volvocars/ecom/paymentservice/shared/retry/RegisterRetryPayload.java#L23-L25",
+      "label": "volvo-cars/cds-paymentservice-scheduler/cds-paymentservice-scheduler-shared/src/main/java/com/volvocars/ecom/paymentservice/shared/retry/RegisterRetryPayload.java:23–25"
+    },
+    {
+      "evidence": "scheduler-c00df60-r5/e/eb0c1d06e2ef",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-scheduler/blob/c00df60c8233b1a8f47829ce382d5805bf164c6b/cds-paymentservice-scheduler-shared/src/main/java/com/volvocars/ecom/paymentservice/shared/retry/RegisterRetryPayload.java#L21-L22",
+      "label": "volvo-cars/cds-paymentservice-scheduler/cds-paymentservice-scheduler-shared/src/main/java/com/volvocars/ecom/paymentservice/shared/retry/RegisterRetryPayload.java:21–22"
+    },
+    {
+      "evidence": "scheduler-c00df60-r5/e/424d3dd4fc0e",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-scheduler/blob/c00df60c8233b1a8f47829ce382d5805bf164c6b/cds-paymentservice-scheduler-shared/src/main/java/com/volvocars/ecom/paymentservice/shared/retry/RegisterRetryPayload.java#L18-L20",
+      "label": "volvo-cars/cds-paymentservice-scheduler/cds-paymentservice-scheduler-shared/src/main/java/com/volvocars/ecom/paymentservice/shared/retry/RegisterRetryPayload.java:18–20"
+    },
+    {
+      "evidence": "scheduler-c00df60-r5/e/009b027c040b",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-scheduler/blob/c00df60c8233b1a8f47829ce382d5805bf164c6b/cds-paymentservice-scheduler-shared/src/main/java/com/volvocars/ecom/paymentservice/shared/retry/RegisterRetryPayload.java#L15-L17",
+      "label": "volvo-cars/cds-paymentservice-scheduler/cds-paymentservice-scheduler-shared/src/main/java/com/volvocars/ecom/paymentservice/shared/retry/RegisterRetryPayload.java:15–17"
+    },
+    {
+      "evidence": "scheduler-c00df60-r5/e/e2d6e6d3996a",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-scheduler/blob/c00df60c8233b1a8f47829ce382d5805bf164c6b/cds-paymentservice-scheduler-shared/src/main/java/com/volvocars/ecom/paymentservice/shared/retry/RegisterRetryPayload.java#L1-L34",
+      "label": "volvo-cars/cds-paymentservice-scheduler/cds-paymentservice-scheduler-shared/src/main/java/com/volvocars/ecom/paymentservice/shared/retry/RegisterRetryPayload.java:1–34"
+    },
+    {
+      "evidence": "scheduler-c00df60-r5/e/3e2eb455716d",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-scheduler/blob/c00df60c8233b1a8f47829ce382d5805bf164c6b/cds-paymentservice-scheduler-api/src/main/java/com/volvocars/ecom/paymentservice/scheduler/retry/v1/RetryApiService.java#L26-L49",
+      "label": "volvo-cars/cds-paymentservice-scheduler/cds-paymentservice-scheduler-api/src/main/java/com/volvocars/ecom/paymentservice/scheduler/retry/v1/RetryApiService.java:26–49"
+    },
+    {
+      "evidence": "scheduler-c00df60-r5/e/08261f9f4771",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-scheduler/blob/c00df60c8233b1a8f47829ce382d5805bf164c6b/cds-paymentservice-scheduler-api/src/main/java/com/volvocars/ecom/paymentservice/scheduler/retry/v1/RetryApiService.java#L52-L65",
+      "label": "volvo-cars/cds-paymentservice-scheduler/cds-paymentservice-scheduler-api/src/main/java/com/volvocars/ecom/paymentservice/scheduler/retry/v1/RetryApiService.java:52–65"
+    },
+    {
+      "evidence": "scheduler-c00df60-r5/e/406b313aeb92",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-scheduler/blob/c00df60c8233b1a8f47829ce382d5805bf164c6b/cds-paymentservice-scheduler-api/src/main/java/com/volvocars/ecom/paymentservice/scheduler/retry/v1/impl/RetryControllerImpl.java#L25-L53",
+      "label": "volvo-cars/cds-paymentservice-scheduler/cds-paymentservice-scheduler-api/src/main/java/com/volvocars/ecom/paymentservice/scheduler/retry/v1/impl/RetryControllerImpl.java:25–53"
+    },
+    {
+      "evidence": "scheduler-c00df60-r5/e/6c64368f1406",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-scheduler/blob/c00df60c8233b1a8f47829ce382d5805bf164c6b/cds-paymentservice-scheduler-api/src/main/java/com/volvocars/ecom/paymentservice/scheduler/retry/v1/RetryController.java#L21-L47",
+      "label": "volvo-cars/cds-paymentservice-scheduler/cds-paymentservice-scheduler-api/src/main/java/com/volvocars/ecom/paymentservice/scheduler/retry/v1/RetryController.java:21–47"
+    },
+    {
+      "evidence": "scheduler-c00df60-r5/e/61c6bb735e3b",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-scheduler/blob/c00df60c8233b1a8f47829ce382d5805bf164c6b/cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/common/SchedulerControllerAdvice.java#L28-L42",
+      "label": "volvo-cars/cds-paymentservice-scheduler/cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/common/SchedulerControllerAdvice.java:28–42"
+    },
+    {
+      "evidence": "scheduler-c00df60-r5/e/1a1c6e89c6a1",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-scheduler/blob/c00df60c8233b1a8f47829ce382d5805bf164c6b/cds-paymentservice-scheduler-api/src/main/java/com/volvocars/ecom/paymentservice/scheduler/retry/v1/impl/RetryControllerImpl.java#L38-L51",
+      "label": "volvo-cars/cds-paymentservice-scheduler/cds-paymentservice-scheduler-api/src/main/java/com/volvocars/ecom/paymentservice/scheduler/retry/v1/impl/RetryControllerImpl.java:38–51"
+    },
+    {
+      "evidence": "scheduler-c00df60-r5/e/e0ec6187baf3",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-scheduler/blob/c00df60c8233b1a8f47829ce382d5805bf164c6b/cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/scheduler/job/JobService.java#L37-L41",
+      "label": "volvo-cars/cds-paymentservice-scheduler/cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/scheduler/job/JobService.java:37–41"
+    },
+    {
+      "evidence": "scheduler-c00df60-r5/e/1dc0ba31658d",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-scheduler/blob/c00df60c8233b1a8f47829ce382d5805bf164c6b/cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/scheduler/config/ConfigService.java#L62-L66",
+      "label": "volvo-cars/cds-paymentservice-scheduler/cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/scheduler/config/ConfigService.java:62–66"
+    },
+    {
+      "evidence": "scheduler-c00df60-r5/e/d70edecbdabc",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-scheduler/blob/c00df60c8233b1a8f47829ce382d5805bf164c6b/cds-paymentservice-scheduler-api/src/main/java/com/volvocars/ecom/paymentservice/scheduler/retry/v1/RetryApiService.java#L57-L63",
+      "label": "volvo-cars/cds-paymentservice-scheduler/cds-paymentservice-scheduler-api/src/main/java/com/volvocars/ecom/paymentservice/scheduler/retry/v1/RetryApiService.java:57–63"
+    },
+    {
+      "evidence": "scheduler-c00df60-r5/e/8916d8a85f98",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-scheduler/blob/c00df60c8233b1a8f47829ce382d5805bf164c6b/cds-paymentservice-scheduler-api/src/main/resources/application.yml#L1-L143",
+      "label": "volvo-cars/cds-paymentservice-scheduler/cds-paymentservice-scheduler-api/src/main/resources/application.yml:1–143"
+    },
+    {
+      "evidence": "scheduler-c00df60-r5/e/a24bf1ffc9bd",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-scheduler/blob/c00df60c8233b1a8f47829ce382d5805bf164c6b/pom.xml#L1-L103",
+      "label": "volvo-cars/cds-paymentservice-scheduler/pom.xml:1–103"
+    },
+    {
+      "evidence": "scheduler-c00df60-r5/e/623258a579e6",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-scheduler/blob/c00df60c8233b1a8f47829ce382d5805bf164c6b/cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/scheduler/config/ConfigService.java#L1-L124",
+      "label": "volvo-cars/cds-paymentservice-scheduler/cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/scheduler/config/ConfigService.java:1–124"
+    },
+    {
+      "evidence": "scheduler-c00df60-r5/e/672e8dfeced6",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-scheduler/blob/c00df60c8233b1a8f47829ce382d5805bf164c6b/cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/scheduler/job/JobService.java#L30-L51",
+      "label": "volvo-cars/cds-paymentservice-scheduler/cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/scheduler/job/JobService.java:30–51"
+    },
+    {
+      "evidence": "scheduler-c00df60-r5/e/5618e8c189a0",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-scheduler/blob/c00df60c8233b1a8f47829ce382d5805bf164c6b/cds-paymentservice-scheduler-api/src/main/java/com/volvocars/ecom/paymentservice/scheduler/retry/v1/RetryApiService.java#L1-L67",
+      "label": "volvo-cars/cds-paymentservice-scheduler/cds-paymentservice-scheduler-api/src/main/java/com/volvocars/ecom/paymentservice/scheduler/retry/v1/RetryApiService.java:1–67"
+    },
+    {
+      "evidence": "scheduler-c00df60-r5/e/25e6d5d1d596",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-scheduler/blob/c00df60c8233b1a8f47829ce382d5805bf164c6b/cds-paymentservice-scheduler-api/src/main/java/com/volvocars/ecom/paymentservice/scheduler/retry/v1/impl/RetryControllerImpl.java#L1-L54",
+      "label": "volvo-cars/cds-paymentservice-scheduler/cds-paymentservice-scheduler-api/src/main/java/com/volvocars/ecom/paymentservice/scheduler/retry/v1/impl/RetryControllerImpl.java:1–54"
+    },
+    {
+      "evidence": "scheduler-c00df60-r5/e/f99d054ba316",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-scheduler/blob/c00df60c8233b1a8f47829ce382d5805bf164c6b/cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/scheduler/common/BaseEntity.java#L23-L24",
+      "label": "volvo-cars/cds-paymentservice-scheduler/cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/scheduler/common/BaseEntity.java:23–24"
+    },
+    {
+      "evidence": "scheduler-c00df60-r5/e/2f032bb2fb0e",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-scheduler/blob/c00df60c8233b1a8f47829ce382d5805bf164c6b/cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/scheduler/common/BaseEntity.java#L21-L22",
+      "label": "volvo-cars/cds-paymentservice-scheduler/cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/scheduler/common/BaseEntity.java:21–22"
+    },
+    {
+      "evidence": "scheduler-c00df60-r5/e/da659e07aae8",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-scheduler/blob/c00df60c8233b1a8f47829ce382d5805bf164c6b/cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/scheduler/common/BaseEntity.java#L18-L20",
+      "label": "volvo-cars/cds-paymentservice-scheduler/cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/scheduler/common/BaseEntity.java:18–20"
+    },
+    {
+      "evidence": "scheduler-c00df60-r5/e/dc849c6ffc0f",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-scheduler/blob/c00df60c8233b1a8f47829ce382d5805bf164c6b/cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/scheduler/job/JobEntity.java#L38-L38",
+      "label": "volvo-cars/cds-paymentservice-scheduler/cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/scheduler/job/JobEntity.java:38–38"
+    },
+    {
+      "evidence": "scheduler-c00df60-r5/e/e2c1b0d88cbd",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-scheduler/blob/c00df60c8233b1a8f47829ce382d5805bf164c6b/cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/scheduler/job/JobEntity.java#L37-L37",
+      "label": "volvo-cars/cds-paymentservice-scheduler/cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/scheduler/job/JobEntity.java:37–37"
+    },
+    {
+      "evidence": "scheduler-c00df60-r5/e/27980bb864d9",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-scheduler/blob/c00df60c8233b1a8f47829ce382d5805bf164c6b/cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/scheduler/job/JobEntity.java#L36-L36",
+      "label": "volvo-cars/cds-paymentservice-scheduler/cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/scheduler/job/JobEntity.java:36–36"
+    },
+    {
+      "evidence": "scheduler-c00df60-r5/e/22a9892e6e47",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-scheduler/blob/c00df60c8233b1a8f47829ce382d5805bf164c6b/cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/scheduler/job/JobEntity.java#L35-L35",
+      "label": "volvo-cars/cds-paymentservice-scheduler/cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/scheduler/job/JobEntity.java:35–35"
+    },
+    {
+      "evidence": "scheduler-c00df60-r5/e/0c9e7d1a5bca",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-scheduler/blob/c00df60c8233b1a8f47829ce382d5805bf164c6b/cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/scheduler/job/JobEntity.java#L34-L34",
+      "label": "volvo-cars/cds-paymentservice-scheduler/cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/scheduler/job/JobEntity.java:34–34"
+    },
+    {
+      "evidence": "scheduler-c00df60-r5/e/3e166e5ebb10",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-scheduler/blob/c00df60c8233b1a8f47829ce382d5805bf164c6b/cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/scheduler/job/JobEntity.java#L33-L33",
+      "label": "volvo-cars/cds-paymentservice-scheduler/cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/scheduler/job/JobEntity.java:33–33"
+    },
+    {
+      "evidence": "scheduler-c00df60-r5/e/4b61edde0135",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-scheduler/blob/c00df60c8233b1a8f47829ce382d5805bf164c6b/cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/scheduler/job/JobEntity.java#L32-L32",
+      "label": "volvo-cars/cds-paymentservice-scheduler/cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/scheduler/job/JobEntity.java:32–32"
+    },
+    {
+      "evidence": "scheduler-c00df60-r5/e/740623524c68",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-scheduler/blob/c00df60c8233b1a8f47829ce382d5805bf164c6b/cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/scheduler/job/JobEntity.java#L31-L31",
+      "label": "volvo-cars/cds-paymentservice-scheduler/cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/scheduler/job/JobEntity.java:31–31"
+    },
+    {
+      "evidence": "scheduler-c00df60-r5/e/c3e3cc6b50fb",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-scheduler/blob/c00df60c8233b1a8f47829ce382d5805bf164c6b/cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/scheduler/job/JobEntity.java#L29-L30",
+      "label": "volvo-cars/cds-paymentservice-scheduler/cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/scheduler/job/JobEntity.java:29–30"
+    },
+    {
+      "evidence": "scheduler-c00df60-r5/e/ab11eadcc1f8",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-scheduler/blob/c00df60c8233b1a8f47829ce382d5805bf164c6b/cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/scheduler/job/RetryJobEntity.java#L13-L13",
+      "label": "volvo-cars/cds-paymentservice-scheduler/cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/scheduler/job/RetryJobEntity.java:13–13"
+    },
+    {
+      "evidence": "scheduler-c00df60-r5/e/b2957fd15062",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-scheduler/blob/c00df60c8233b1a8f47829ce382d5805bf164c6b/cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/scheduler/job/RetryJobEntity.java#L11-L12",
+      "label": "volvo-cars/cds-paymentservice-scheduler/cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/scheduler/job/RetryJobEntity.java:11–12"
+    },
+    {
+      "evidence": "scheduler-c00df60-r5/e/aaf67c063141",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-scheduler/blob/c00df60c8233b1a8f47829ce382d5805bf164c6b/cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/scheduler/common/BaseEntity.java#L1-L25",
+      "label": "volvo-cars/cds-paymentservice-scheduler/cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/scheduler/common/BaseEntity.java:1–25"
+    },
+    {
+      "evidence": "scheduler-c00df60-r5/e/93869a929869",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-scheduler/blob/c00df60c8233b1a8f47829ce382d5805bf164c6b/cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/scheduler/job/RetryJobEntity.java#L1-L18",
+      "label": "volvo-cars/cds-paymentservice-scheduler/cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/scheduler/job/RetryJobEntity.java:1–18"
+    },
+    {
+      "evidence": "scheduler-c00df60-r5/e/eb37283fbfcd",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-scheduler/blob/c00df60c8233b1a8f47829ce382d5805bf164c6b/cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/retry/RetryJobMapper.java#L31-L44",
+      "label": "volvo-cars/cds-paymentservice-scheduler/cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/retry/RetryJobMapper.java:31–44"
+    },
+    {
+      "evidence": "scheduler-c00df60-r5/e/88888311b771",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-scheduler/blob/c00df60c8233b1a8f47829ce382d5805bf164c6b/cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/scheduler/job/JobService.java#L30-L35",
+      "label": "volvo-cars/cds-paymentservice-scheduler/cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/scheduler/job/JobService.java:30–35"
+    },
+    {
+      "evidence": "scheduler-c00df60-r5/e/ef03fa398c61",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-scheduler/blob/c00df60c8233b1a8f47829ce382d5805bf164c6b/cds-paymentservice-scheduler-api/src/main/resources/application.yml#L12-L15",
+      "label": "volvo-cars/cds-paymentservice-scheduler/cds-paymentservice-scheduler-api/src/main/resources/application.yml:12–15"
+    },
+    {
+      "evidence": "scheduler-c00df60-r5/e/7c71285bf6ec",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-scheduler/blob/c00df60c8233b1a8f47829ce382d5805bf164c6b/cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/scheduler/job/JobEntity.java#L1-L43",
+      "label": "volvo-cars/cds-paymentservice-scheduler/cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/scheduler/job/JobEntity.java:1–43"
+    },
+    {
+      "evidence": "scheduler-c00df60-r5/e/1ddb7fd8afa3",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-scheduler/blob/c00df60c8233b1a8f47829ce382d5805bf164c6b/cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/scheduler/job/JobService.java#L47-L51",
+      "label": "volvo-cars/cds-paymentservice-scheduler/cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/scheduler/job/JobService.java:47–51"
+    },
+    {
+      "evidence": "scheduler-c00df60-r5/e/9d5a11de37fd",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-scheduler/blob/c00df60c8233b1a8f47829ce382d5805bf164c6b/cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/scheduler/job/JobService.java#L35-L35",
+      "label": "volvo-cars/cds-paymentservice-scheduler/cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/scheduler/job/JobService.java:35–35"
+    },
+    {
+      "evidence": "scheduler-c00df60-r5/e/3ce3ea1e693a",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-scheduler/blob/c00df60c8233b1a8f47829ce382d5805bf164c6b/cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/scheduler/job/JobService.java#L33-L51",
+      "label": "volvo-cars/cds-paymentservice-scheduler/cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/scheduler/job/JobService.java:33–51"
+    },
+    {
+      "evidence": "scheduler-c00df60-r5/e/96b17d24f604",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-scheduler/blob/c00df60c8233b1a8f47829ce382d5805bf164c6b/cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/scheduler/locking/LockEntity.java#L15-L20",
+      "label": "volvo-cars/cds-paymentservice-scheduler/cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/scheduler/locking/LockEntity.java:15–20"
+    },
+    {
+      "evidence": "scheduler-c00df60-r5/e/adb87a89ec78",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-scheduler/blob/c00df60c8233b1a8f47829ce382d5805bf164c6b/cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/scheduler/job/JobEntity.java#L20-L29",
+      "label": "volvo-cars/cds-paymentservice-scheduler/cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/scheduler/job/JobEntity.java:20–29"
+    },
+    {
+      "evidence": "scheduler-c00df60-r5/e/0a9a545bbb0c",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-scheduler/blob/c00df60c8233b1a8f47829ce382d5805bf164c6b/cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/scheduler/job/JobRepository.java#L12-L14",
+      "label": "volvo-cars/cds-paymentservice-scheduler/cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/scheduler/job/JobRepository.java:12–14"
+    },
+    {
+      "evidence": "scheduler-c00df60-r5/e/4cb5c9792e2d",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-scheduler/blob/c00df60c8233b1a8f47829ce382d5805bf164c6b/cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/scheduler/job/JobService.java#L31-L31",
+      "label": "volvo-cars/cds-paymentservice-scheduler/cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/scheduler/job/JobService.java:31–31"
+    },
+    {
+      "evidence": "scheduler-c00df60-r5/e/45a8bd734119",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-scheduler/blob/c00df60c8233b1a8f47829ce382d5805bf164c6b/cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/scheduler/job/JobService.java#L119-L129",
+      "label": "volvo-cars/cds-paymentservice-scheduler/cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/scheduler/job/JobService.java:119–129"
+    },
+    {
+      "evidence": "scheduler-c00df60-r5/e/ad74e82ef9d2",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-scheduler/blob/c00df60c8233b1a8f47829ce382d5805bf164c6b/cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/retry/RetryJobService.java#L21-L23",
+      "label": "volvo-cars/cds-paymentservice-scheduler/cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/retry/RetryJobService.java:21–23"
+    },
+    {
+      "evidence": "scheduler-c00df60-r5/e/21e14b59b3e1",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-scheduler/blob/c00df60c8233b1a8f47829ce382d5805bf164c6b/cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/scheduler/job/JobRepository.java#L19-L20",
+      "label": "volvo-cars/cds-paymentservice-scheduler/cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/scheduler/job/JobRepository.java:19–20"
+    }
+  ],
+  "nextRequest": null
+}

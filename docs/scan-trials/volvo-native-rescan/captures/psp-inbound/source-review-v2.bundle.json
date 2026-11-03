@@ -1,0 +1,43 @@
+{
+  "format": "groundwork-knowledge/v3",
+  "workspace": "volvo",
+  "records": [
+    {
+      "id": "pspin-ae1d9dd/e/review-psp-settings",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/cds-paymentservice-psp-inbound",
+      "commit": "ae1d9ddfb34dae71c15913e9f28d41321d66266a",
+      "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/config/PspSettings.java",
+      "lines": [1, 23],
+      "basis": "source"
+    },
+    {
+      "id": "pspin-ae1d9dd/gap/ip-configuration-shape",
+      "kind": "gap",
+      "owner": "pspin-ae1d9dd/impl/webhook",
+      "obligation": "Effective IP allowlist configuration shape",
+      "reason": "Pinned base application.yml declares psp.settings.stripe.ip-addresses as a sequence, while IpAddressVerifier.init asks PspSettings.get for LinkedHashMap.class and iterates values. Actual binder conversion or remote/profile overrides reconciling those declarations are not established; this is a source discrepancy, not a demonstrated runtime defect.",
+      "action": "Resolve the effective bound property type and selected remote/profile configuration before claiming IP matcher initialization or enforcement succeeds.",
+      "evidence": [
+        "pspin-ae1d9dd/e/review-psp-settings",
+        "pspin-ae1d9dd/e/256e3143511556",
+        "pspin-ae1d9dd/e/51bf524169eae5"
+      ]
+    },
+    {
+      "id": "pspin-ae1d9dd/coverage/webhook-ip-configuration-shape-v2",
+      "kind": "coverage",
+      "owner": "pspin-ae1d9dd/entry/webhook",
+      "obligation": "Source configuration declaration versus typed IP-list access",
+      "status": "partial",
+      "scope": "Local YAML sequence and LinkedHashMap.class access are inspected. Effective Spring binding, remote configuration and runtime startup are not verified.",
+      "gaps": ["pspin-ae1d9dd/gap/ip-configuration-shape"],
+      "evidence": [
+        "pspin-ae1d9dd/e/review-psp-settings",
+        "pspin-ae1d9dd/e/256e3143511556",
+        "pspin-ae1d9dd/e/51bf524169eae5"
+      ]
+    }
+  ]
+}

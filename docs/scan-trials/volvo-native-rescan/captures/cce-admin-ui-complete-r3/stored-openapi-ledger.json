@@ -1,0 +1,3499 @@
+{
+  "mode": "stored caller declarations only; deployed correspondence unresolved",
+  "schemas": 1713,
+  "operations": [
+    {
+      "family": "filter-admin",
+      "document": ".openapi/filter-admin.json",
+      "pointer": "/paths/~1wheelComponents/get",
+      "method": "GET",
+      "path": "/wheelComponents",
+      "operationId": "get_wheel_components_wheelComponents_get",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/850ff17c5bfb0721f133",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/891c6b4617998cadb6e8"
+      ]
+    },
+    {
+      "family": "filter-admin",
+      "document": ".openapi/filter-admin.json",
+      "pointer": "/paths/~1populateWheel/post",
+      "method": "POST",
+      "path": "/populateWheel",
+      "operationId": "populate_populateWheel_post",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/af05b8202dad186aff33",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/3aaae8348a4d2a65c246"
+      ]
+    },
+    {
+      "family": "filter-admin",
+      "document": ".openapi/filter-admin.json",
+      "pointer": "/paths/~1filters/get",
+      "method": "GET",
+      "path": "/filters",
+      "operationId": "get_components_for_filters_filters_get",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/871419da4687aa339a7d",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/784768e685a1c44cf2ec"
+      ]
+    },
+    {
+      "family": "filter-admin",
+      "document": ".openapi/filter-admin.json",
+      "pointer": "/paths/~1health/get",
+      "method": "GET",
+      "path": "/health",
+      "operationId": "get_health_get",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/60f6aa3640066ef07c6f",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/f3d8d2f2dc10ad6e8948"
+      ]
+    },
+    {
+      "family": "filter-admin",
+      "document": ".openapi/filter-admin.json",
+      "pointer": "/paths/~1ready/get",
+      "method": "GET",
+      "path": "/ready",
+      "operationId": "ready_ready_get",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/cc2899e827f87dcdd6be",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/10d74682a97a14daa917"
+      ]
+    },
+    {
+      "family": "filter-admin",
+      "document": ".openapi/filter-admin.json",
+      "pointer": "/paths/~1v2~1policies~1{policy_uid}/get",
+      "method": "GET",
+      "path": "/v2/policies/{policy_uid}",
+      "operationId": "get_v2_policies__policy_uid__get",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/bebab5de8864739f84e6",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/b7611c339d16aa0770b1"
+      ]
+    },
+    {
+      "family": "filter-admin",
+      "document": ".openapi/filter-admin.json",
+      "pointer": "/paths/~1v2~1policies~1{policy_uid}/put",
+      "method": "PUT",
+      "path": "/v2/policies/{policy_uid}",
+      "operationId": "trigger_build_process_v2_policies__policy_uid__put",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/29842c4983ba756b8b66",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/86003c88c29da0b037a2"
+      ]
+    },
+    {
+      "family": "filter-admin",
+      "document": ".openapi/filter-admin.json",
+      "pointer": "/paths/~1v2~1policies~1{policy_uid}/delete",
+      "method": "DELETE",
+      "path": "/v2/policies/{policy_uid}",
+      "operationId": "delete_v2_policies__policy_uid__delete",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/20802a79b7c7652a54fd",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/b2223b447ab38fd4b063"
+      ]
+    },
+    {
+      "family": "filter-admin",
+      "document": ".openapi/filter-admin.json",
+      "pointer": "/paths/~1v2~1policies~1status~1{request_uid}/get",
+      "method": "GET",
+      "path": "/v2/policies/status/{request_uid}",
+      "operationId": "get_request_status_v2_policies_status__request_uid__get",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/bd4b47411a08205f6821",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/ce72095473d424f7ad38"
+      ]
+    },
+    {
+      "family": "filter-admin",
+      "document": ".openapi/filter-admin.json",
+      "pointer": "/paths/~1v2~1policies~1{policy_uid}~1status/get",
+      "method": "GET",
+      "path": "/v2/policies/{policy_uid}/status",
+      "operationId": "get_policy_status_v2_policies__policy_uid__status_get",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/36a604e8acea7ec594e0",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/4ff15a0dc606b05646c2"
+      ]
+    },
+    {
+      "family": "filter-admin",
+      "document": ".openapi/filter-admin.json",
+      "pointer": "/paths/~1v2~1policies~1status/post",
+      "method": "POST",
+      "path": "/v2/policies/status",
+      "operationId": "post_policy_status_v2_policies_status_post",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/7c215d71fa45809662cb",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/777e2967e57a2578d6f8"
+      ]
+    },
+    {
+      "family": "filter-admin",
+      "document": ".openapi/filter-admin.json",
+      "pointer": "/paths/~1v2~1tree~1policies/post",
+      "method": "POST",
+      "path": "/v2/tree/policies",
+      "operationId": "get_policy_tree_v2_tree_policies_post",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/696298f8774cec7140b1",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/5c67e2796f37a30273b1"
+      ]
+    },
+    {
+      "family": "filter-admin",
+      "document": ".openapi/filter-admin.json",
+      "pointer": "/paths/~1v2~1tree~1policies/get",
+      "method": "GET",
+      "path": "/v2/tree/policies",
+      "operationId": "get_policy_tree_parents_reversed_v2_tree_policies_get",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/5348c60ea89e4036943f",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/ef5b83a5d46b91acb43b"
+      ]
+    },
+    {
+      "family": "filter-admin",
+      "document": ".openapi/filter-admin.json",
+      "pointer": "/paths/~1v2~1policies/put",
+      "method": "PUT",
+      "path": "/v2/policies",
+      "operationId": "update_policy_v2_policies_put",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/f562769ecdf673038be3",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/48a4e98027c1272784f3"
+      ]
+    },
+    {
+      "family": "filter-admin",
+      "document": ".openapi/filter-admin.json",
+      "pointer": "/paths/~1v2~1policies/post",
+      "method": "POST",
+      "path": "/v2/policies",
+      "operationId": "save_policy_v2_policies_post",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/f102ac4e980c57993bd4",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/42a10df9eebfa15db60f"
+      ]
+    },
+    {
+      "family": "filter-admin",
+      "document": ".openapi/filter-admin.json",
+      "pointer": "/paths/~1v2~1allPolicyUids/get",
+      "method": "GET",
+      "path": "/v2/allPolicyUids",
+      "operationId": "get_all_policy_uids_for_all_spec_markets_v2_allPolicyUids_get",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/a91d8b6708c47ee07369",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/d4c02d140dc006ffa190"
+      ]
+    },
+    {
+      "family": "filter-admin",
+      "document": ".openapi/filter-admin.json",
+      "pointer": "/paths/~1v2~1allSpecMarkets/get",
+      "method": "GET",
+      "path": "/v2/allSpecMarkets",
+      "operationId": "get_all_spec_markets_v2_allSpecMarkets_get",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/86f7737dd542bea5459a",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/d3e78ce1e8e5d0a56634"
+      ]
+    },
+    {
+      "family": "filter-admin",
+      "document": ".openapi/filter-admin.json",
+      "pointer": "/paths/~1partner~1rulesForPolicy/get",
+      "method": "GET",
+      "path": "/partner/rulesForPolicy",
+      "operationId": "get_partner_rules_partner_rulesForPolicy_get",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/d0ee79c69e9ad7dac264",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/0dfda7006a46ad770f1f"
+      ]
+    },
+    {
+      "family": "filter-admin",
+      "document": ".openapi/filter-admin.json",
+      "pointer": "/paths/~1partner~1rulesForPolicy/put",
+      "method": "PUT",
+      "path": "/partner/rulesForPolicy",
+      "operationId": "put_partner_rules_partner_rulesForPolicy_put",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/b585ab3b3d18f3d10d55",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/4a324c650d7f471769fe"
+      ]
+    },
+    {
+      "family": "filter-admin",
+      "document": ".openapi/filter-admin.json",
+      "pointer": "/paths/~1partner~1rulesForPolicy/delete",
+      "method": "DELETE",
+      "path": "/partner/rulesForPolicy",
+      "operationId": "delete_partner_rules_partner_rulesForPolicy_delete",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/5070bf3f17dd9db6f6bf",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/a1ec984fac813a2e0529"
+      ]
+    },
+    {
+      "family": "filter-admin",
+      "document": ".openapi/filter-admin.json",
+      "pointer": "/paths/~1partner~1validPolicies/get",
+      "method": "GET",
+      "path": "/partner/validPolicies",
+      "operationId": "get_policies_for_partner_partner_validPolicies_get",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/0f5c0acc44ed422519e9",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/abf4267ae0c2e0fdd07c"
+      ]
+    },
+    {
+      "family": "filter-admin",
+      "document": ".openapi/filter-admin.json",
+      "pointer": "/paths/~1partner~1partners/get",
+      "method": "GET",
+      "path": "/partner/partners",
+      "operationId": "get_partners_partner_partners_get",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/a894f1d4dce04061254b",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/65a4e90c6c81f5cb1b2d"
+      ]
+    },
+    {
+      "family": "filter-admin",
+      "document": ".openapi/filter-admin.json",
+      "pointer": "/paths/~1partner~1allPartnerData/delete",
+      "method": "DELETE",
+      "path": "/partner/allPartnerData",
+      "operationId": "delete_partner_allPartnerData_delete",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/44c80925ac73d3b94cbe",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/43a43f9a400f5f4d6c0d"
+      ]
+    },
+    {
+      "family": "filter-admin",
+      "document": ".openapi/filter-admin.json",
+      "pointer": "/paths/~1build/post",
+      "method": "POST",
+      "path": "/build",
+      "operationId": "build_policy_components_and_rule_sets_for_tree_build_post",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/1db575f3648de3282eb8",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/96036c01facc01c51211"
+      ]
+    },
+    {
+      "family": "cch-configuration-api",
+      "document": ".openapi/cch-configuration-api.json",
+      "pointer": "/paths/~1configclients/get",
+      "method": "GET",
+      "path": "/configclients",
+      "operationId": null,
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/7d298db67ad5ddff59ba",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/99aeb89566725babcaec"
+      ]
+    },
+    {
+      "family": "cch-configuration-api",
+      "document": ".openapi/cch-configuration-api.json",
+      "pointer": "/paths/~1configclients/post",
+      "method": "POST",
+      "path": "/configclients",
+      "operationId": null,
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/17a057523f618339f10b",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/60d05587914aa2ad5c16"
+      ]
+    },
+    {
+      "family": "cch-configuration-api",
+      "document": ".openapi/cch-configuration-api.json",
+      "pointer": "/paths/~1configclients~1{id}/get",
+      "method": "GET",
+      "path": "/configclients/{id}",
+      "operationId": null,
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/19f3847505a8a0f47126",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/ff2d473837555f5305d2"
+      ]
+    },
+    {
+      "family": "cch-configuration-api",
+      "document": ".openapi/cch-configuration-api.json",
+      "pointer": "/paths/~1configclients~1{id}/put",
+      "method": "PUT",
+      "path": "/configclients/{id}",
+      "operationId": null,
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/5273943fee8adc7aeafa",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/77c79318b1395154f44b"
+      ]
+    },
+    {
+      "family": "cch-configuration-api",
+      "document": ".openapi/cch-configuration-api.json",
+      "pointer": "/paths/~1configclients~1{id}/delete",
+      "method": "DELETE",
+      "path": "/configclients/{id}",
+      "operationId": null,
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/363e991d49505b54e108",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/537873bae4bfb10accaf"
+      ]
+    },
+    {
+      "family": "cch-configuration-api",
+      "document": ".openapi/cch-configuration-api.json",
+      "pointer": "/paths/~1configpolicies/get",
+      "method": "GET",
+      "path": "/configpolicies",
+      "operationId": null,
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/a050bbd72b4277eeeb7a",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/34bb4e2fb1f6130f2e74"
+      ]
+    },
+    {
+      "family": "cch-configuration-api",
+      "document": ".openapi/cch-configuration-api.json",
+      "pointer": "/paths/~1configpolicies/post",
+      "method": "POST",
+      "path": "/configpolicies",
+      "operationId": null,
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/70dfc631076328a8ce61",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/56c7fb8c9a19248b42ac"
+      ]
+    },
+    {
+      "family": "cch-configuration-api",
+      "document": ".openapi/cch-configuration-api.json",
+      "pointer": "/paths/~1configpolicies~1{id}/get",
+      "method": "GET",
+      "path": "/configpolicies/{id}",
+      "operationId": null,
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/8c63185f637e9b4b9ab3",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/2746103d279032f1e312"
+      ]
+    },
+    {
+      "family": "cch-configuration-api",
+      "document": ".openapi/cch-configuration-api.json",
+      "pointer": "/paths/~1configs/get",
+      "method": "GET",
+      "path": "/configs",
+      "operationId": null,
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/a3920933c3c8b9be7139",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/a05fe55ab6782b3edce7"
+      ]
+    },
+    {
+      "family": "cch-configuration-api",
+      "document": ".openapi/cch-configuration-api.json",
+      "pointer": "/paths/~1drivelinehighlights/get",
+      "method": "GET",
+      "path": "/drivelinehighlights",
+      "operationId": null,
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/dbb194823edb087981d8",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/e97868c780fe8c5b9b01"
+      ]
+    },
+    {
+      "family": "cch-configuration-api",
+      "document": ".openapi/cch-configuration-api.json",
+      "pointer": "/paths/~1drivelinehighlights/post",
+      "method": "POST",
+      "path": "/drivelinehighlights",
+      "operationId": null,
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/bf557fdbcf7255f831fd",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/abafd301dbc89b2145a8"
+      ]
+    },
+    {
+      "family": "cch-configuration-api",
+      "document": ".openapi/cch-configuration-api.json",
+      "pointer": "/paths/~1energyefficiencies/get",
+      "method": "GET",
+      "path": "/energyefficiencies",
+      "operationId": null,
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/fd05f8d7a3e46c2aa10b",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/f89aa76b3a3358499bc7"
+      ]
+    },
+    {
+      "family": "cch-configuration-api",
+      "document": ".openapi/cch-configuration-api.json",
+      "pointer": "/paths/~1energyefficiencies/post",
+      "method": "POST",
+      "path": "/energyefficiencies",
+      "operationId": null,
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/0a604377abc6049c412f",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/498368c82d496fb26e43"
+      ]
+    },
+    {
+      "family": "cch-configuration-api",
+      "document": ".openapi/cch-configuration-api.json",
+      "pointer": "/paths/~1energyefficiencies~1{id}/get",
+      "method": "GET",
+      "path": "/energyefficiencies/{id}",
+      "operationId": null,
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/127727ab019dfd17c2e8",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/1a8eeb615458d4d16f18"
+      ]
+    },
+    {
+      "family": "cch-configuration-api",
+      "document": ".openapi/cch-configuration-api.json",
+      "pointer": "/paths/~1energyefficiencies~1{id}/put",
+      "method": "PUT",
+      "path": "/energyefficiencies/{id}",
+      "operationId": null,
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/d800866d426505a08008",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/84057044847807cd81f2"
+      ]
+    },
+    {
+      "family": "cch-configuration-api",
+      "document": ".openapi/cch-configuration-api.json",
+      "pointer": "/paths/~1energyefficiencyentries/get",
+      "method": "GET",
+      "path": "/energyefficiencyentries",
+      "operationId": null,
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/53032409c62ec2508526",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/ae9aec657d730748d703"
+      ]
+    },
+    {
+      "family": "cch-configuration-api",
+      "document": ".openapi/cch-configuration-api.json",
+      "pointer": "/paths/~1energyefficiencyentries/post",
+      "method": "POST",
+      "path": "/energyefficiencyentries",
+      "operationId": null,
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/07153f2426898a411003",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/3f2d12570d7a7662ac0f"
+      ]
+    },
+    {
+      "family": "cch-configuration-api",
+      "document": ".openapi/cch-configuration-api.json",
+      "pointer": "/paths/~1energyefficiencyentries~1values/get",
+      "method": "GET",
+      "path": "/energyefficiencyentries/values",
+      "operationId": null,
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/900f7f185f43e7322c02",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/3379c01c98000c64702e"
+      ]
+    },
+    {
+      "family": "cch-configuration-api",
+      "document": ".openapi/cch-configuration-api.json",
+      "pointer": "/paths/~1energyefficiencyentries~1{id}/get",
+      "method": "GET",
+      "path": "/energyefficiencyentries/{id}",
+      "operationId": null,
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/fc02a68ea96798f63631",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/bd48b65918ede3ac34cc"
+      ]
+    },
+    {
+      "family": "cch-configuration-api",
+      "document": ".openapi/cch-configuration-api.json",
+      "pointer": "/paths/~1energyefficiencyentries~1{id}/put",
+      "method": "PUT",
+      "path": "/energyefficiencyentries/{id}",
+      "operationId": null,
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/6e7da1bbc9afc0126789",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/0693454cfd97f8e2f69d"
+      ]
+    },
+    {
+      "family": "cch-configuration-api",
+      "document": ".openapi/cch-configuration-api.json",
+      "pointer": "/paths/~1markets/get",
+      "method": "GET",
+      "path": "/markets",
+      "operationId": null,
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/66bb434f77d38319dce0",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/40a00f4657bba5c04abd"
+      ]
+    },
+    {
+      "family": "cch-configuration-api",
+      "document": ".openapi/cch-configuration-api.json",
+      "pointer": "/paths/~1markets/post",
+      "method": "POST",
+      "path": "/markets",
+      "operationId": null,
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/b8a5759f3be1f319c680",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/ed93d473aea8e5c26578"
+      ]
+    },
+    {
+      "family": "cch-configuration-api",
+      "document": ".openapi/cch-configuration-api.json",
+      "pointer": "/paths/~1markets~1detailed/get",
+      "method": "GET",
+      "path": "/markets/detailed",
+      "operationId": null,
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/517de24f9b083c2038be",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/fd379da9e207bfa7e819"
+      ]
+    },
+    {
+      "family": "cch-configuration-api",
+      "document": ".openapi/cch-configuration-api.json",
+      "pointer": "/paths/~1markets~1locales~1{id}/get",
+      "method": "GET",
+      "path": "/markets/locales/{id}",
+      "operationId": null,
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/66ba7e33683461c37446",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/97d04f1f16f4f48f1b7f"
+      ]
+    },
+    {
+      "family": "cch-configuration-api",
+      "document": ".openapi/cch-configuration-api.json",
+      "pointer": "/paths/~1markets~1{id}/get",
+      "method": "GET",
+      "path": "/markets/{id}",
+      "operationId": null,
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/f47a089ccab03268f4d1",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/18cc84e36082eab6352c"
+      ]
+    },
+    {
+      "family": "cch-configuration-api",
+      "document": ".openapi/cch-configuration-api.json",
+      "pointer": "/paths/~1markets~1{id}/put",
+      "method": "PUT",
+      "path": "/markets/{id}",
+      "operationId": null,
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/9c3e1534459c53760cda",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/18060bb53753155b9ebe"
+      ]
+    },
+    {
+      "family": "cch-configuration-api",
+      "document": ".openapi/cch-configuration-api.json",
+      "pointer": "/paths/~1preconfigpolicies/get",
+      "method": "GET",
+      "path": "/preconfigpolicies",
+      "operationId": null,
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/106c715fee00d0565074",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/654264b3bb5b6f634043"
+      ]
+    },
+    {
+      "family": "cch-configuration-api",
+      "document": ".openapi/cch-configuration-api.json",
+      "pointer": "/paths/~1preconfigpolicies/post",
+      "method": "POST",
+      "path": "/preconfigpolicies",
+      "operationId": null,
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/332e6e3c21d58268b42e",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/321d0fdc413b4930aeaa"
+      ]
+    },
+    {
+      "family": "cch-configuration-api",
+      "document": ".openapi/cch-configuration-api.json",
+      "pointer": "/paths/~1preconfigpolicies~1{id}/put",
+      "method": "PUT",
+      "path": "/preconfigpolicies/{id}",
+      "operationId": null,
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/ab3473c35dc66633c784",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/56a0cd6a4b93457f582f"
+      ]
+    },
+    {
+      "family": "cch-configuration-api",
+      "document": ".openapi/cch-configuration-api.json",
+      "pointer": "/paths/~1preconfigpolicies~1{id}/delete",
+      "method": "DELETE",
+      "path": "/preconfigpolicies/{id}",
+      "operationId": null,
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/cbf087cbda76722c6acd",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/aed3a4fc6cd7aaea8df7"
+      ]
+    },
+    {
+      "family": "cch-configuration-api",
+      "document": ".openapi/cch-configuration-api.json",
+      "pointer": "/paths/~1priceinputs/get",
+      "method": "GET",
+      "path": "/priceinputs",
+      "operationId": null,
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/86032aa794cf0b2d09f2",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/368cf4fa198c70361b8b"
+      ]
+    },
+    {
+      "family": "cch-configuration-api",
+      "document": ".openapi/cch-configuration-api.json",
+      "pointer": "/paths/~1pricestrategies/get",
+      "method": "GET",
+      "path": "/pricestrategies",
+      "operationId": null,
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/59622434a330b70c8071",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/9dc6c75195f006e2e082"
+      ]
+    },
+    {
+      "family": "cch-configuration-api",
+      "document": ".openapi/cch-configuration-api.json",
+      "pointer": "/paths/~1pricestrategies/post",
+      "method": "POST",
+      "path": "/pricestrategies",
+      "operationId": null,
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/c044e5f2d316e180cb87",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/c33ff92e93e2f02d8889"
+      ]
+    },
+    {
+      "family": "cch-configuration-api",
+      "document": ".openapi/cch-configuration-api.json",
+      "pointer": "/paths/~1pricestrategies~1values/get",
+      "method": "GET",
+      "path": "/pricestrategies/values",
+      "operationId": null,
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/2e0a86138ba3dd6104e7",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/ce8765a951771f5ec5f4"
+      ]
+    },
+    {
+      "family": "cch-configuration-api",
+      "document": ".openapi/cch-configuration-api.json",
+      "pointer": "/paths/~1salesmodelmappings/get",
+      "method": "GET",
+      "path": "/salesmodelmappings",
+      "operationId": null,
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/c133410e8a09849e3be7",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/5691455e1fe752069a50"
+      ]
+    },
+    {
+      "family": "cch-configuration-api",
+      "document": ".openapi/cch-configuration-api.json",
+      "pointer": "/paths/~1salesmodelmappings/post",
+      "method": "POST",
+      "path": "/salesmodelmappings",
+      "operationId": null,
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/7a1ecd0697294a9a0a5d",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/ea326807120cdb83b2f9"
+      ]
+    },
+    {
+      "family": "cch-configuration-api",
+      "document": ".openapi/cch-configuration-api.json",
+      "pointer": "/paths/~1salesmodelmappings~1{id}/delete",
+      "method": "DELETE",
+      "path": "/salesmodelmappings/{id}",
+      "operationId": null,
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/95f922f7e70bd9fb44e9",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/63824fcb4b92ceab4cd3"
+      ]
+    },
+    {
+      "family": "cch-configuration-api",
+      "document": ".openapi/cch-configuration-api.json",
+      "pointer": "/paths/~1salesmodels/get",
+      "method": "GET",
+      "path": "/salesmodels",
+      "operationId": null,
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/d5aff690344457431c28",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/45202a2d4d6bb473300c"
+      ]
+    },
+    {
+      "family": "cch-configuration-api",
+      "document": ".openapi/cch-configuration-api.json",
+      "pointer": "/paths/~1salesmodels/post",
+      "method": "POST",
+      "path": "/salesmodels",
+      "operationId": null,
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/5f02768734002f6e0fc1",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/9e78f098f95e972801c3"
+      ]
+    },
+    {
+      "family": "cch-configuration-api",
+      "document": ".openapi/cch-configuration-api.json",
+      "pointer": "/paths/~1salesmodels~1{id}/get",
+      "method": "GET",
+      "path": "/salesmodels/{id}",
+      "operationId": null,
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/2b6c5cd429866bbf03c6",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/b5328c158e51288af87d"
+      ]
+    },
+    {
+      "family": "cch-configuration-api",
+      "document": ".openapi/cch-configuration-api.json",
+      "pointer": "/paths/~1salesmodels~1{id}/put",
+      "method": "PUT",
+      "path": "/salesmodels/{id}",
+      "operationId": null,
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/00d75dd0109de05b7f99",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/7b2736c99b86344129f6"
+      ]
+    },
+    {
+      "family": "cch-configuration-api",
+      "document": ".openapi/cch-configuration-api.json",
+      "pointer": "/paths/~1specmarkets/get",
+      "method": "GET",
+      "path": "/specmarkets",
+      "operationId": null,
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/56e25f085c76f52b31af",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/292cacfde948cc2473c7"
+      ]
+    },
+    {
+      "family": "cch-configuration-api",
+      "document": ".openapi/cch-configuration-api.json",
+      "pointer": "/paths/~1specmarkets/post",
+      "method": "POST",
+      "path": "/specmarkets",
+      "operationId": null,
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/4f7ae2f0a95ec65fbd6c",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/f974b428f70660bc2edf"
+      ]
+    },
+    {
+      "family": "cch-configuration-api",
+      "document": ".openapi/cch-configuration-api.json",
+      "pointer": "/paths/~1specmarkets~1{id}/get",
+      "method": "GET",
+      "path": "/specmarkets/{id}",
+      "operationId": null,
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/5b22bc797f0ecc8d2d7e",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/dab4f91ceb82d40d2b88"
+      ]
+    },
+    {
+      "family": "cch-configuration-api",
+      "document": ".openapi/cch-configuration-api.json",
+      "pointer": "/paths/~1specmarkets~1{id}/put",
+      "method": "PUT",
+      "path": "/specmarkets/{id}",
+      "operationId": null,
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/0eda0564a3d5a29363ea",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/2ed17235ac0eb168bade"
+      ]
+    },
+    {
+      "family": "cch-configuration-api",
+      "document": ".openapi/cch-configuration-api.json",
+      "pointer": "/paths/~1specmarkets~1{id}/delete",
+      "method": "DELETE",
+      "path": "/specmarkets/{id}",
+      "operationId": null,
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/7fe86ac6b54492fb2e3d",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/3f3f2902d1a7a7885f29"
+      ]
+    },
+    {
+      "family": "cch-configuration-api",
+      "document": ".openapi/cch-configuration-api.json",
+      "pointer": "/paths/~1structureweekconfig/get",
+      "method": "GET",
+      "path": "/structureweekconfig",
+      "operationId": null,
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/9f1edd8f9773cc65e316",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/2725257c47768cf6f25e"
+      ]
+    },
+    {
+      "family": "cch-configuration-api",
+      "document": ".openapi/cch-configuration-api.json",
+      "pointer": "/paths/~1structureweekconfig/post",
+      "method": "POST",
+      "path": "/structureweekconfig",
+      "operationId": null,
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/3f2db1c3b3f515a3e0f4",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/dcaea0cda0f5ee8f99e1"
+      ]
+    },
+    {
+      "family": "cch-configuration-api",
+      "document": ".openapi/cch-configuration-api.json",
+      "pointer": "/paths/~1structureweekconfig~1specmarket~1{specmarket}/get",
+      "method": "GET",
+      "path": "/structureweekconfig/specmarket/{specmarket}",
+      "operationId": null,
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/381151481543a9c84835",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/dc98370764db95baaaea"
+      ]
+    },
+    {
+      "family": "cch-configuration-api",
+      "document": ".openapi/cch-configuration-api.json",
+      "pointer": "/paths/~1structureweekconfig~1specmarket~1{specmarket}/put",
+      "method": "PUT",
+      "path": "/structureweekconfig/specmarket/{specmarket}",
+      "operationId": null,
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/9de9f80dd9e84fd4f263",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/d5f8aefdf22493ab3788"
+      ]
+    },
+    {
+      "family": "cch-configuration-api",
+      "document": ".openapi/cch-configuration-api.json",
+      "pointer": "/paths/~1structureweekconfig~1{id}/get",
+      "method": "GET",
+      "path": "/structureweekconfig/{id}",
+      "operationId": null,
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/b1aac681202fb4b01f45",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/04570b8d7618a231a136"
+      ]
+    },
+    {
+      "family": "cch-configuration-api",
+      "document": ".openapi/cch-configuration-api.json",
+      "pointer": "/paths/~1structureweekconfig~1{id}/put",
+      "method": "PUT",
+      "path": "/structureweekconfig/{id}",
+      "operationId": null,
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/8047185c59d6c76a5b52",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/5761910652bee2fee244"
+      ]
+    },
+    {
+      "family": "cch-configuration-api",
+      "document": ".openapi/cch-configuration-api.json",
+      "pointer": "/paths/~1structureweekconfig~1{id}/delete",
+      "method": "DELETE",
+      "path": "/structureweekconfig/{id}",
+      "operationId": null,
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/5e4b3891aee337caf964",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/ab270dc60b53eb3de05d"
+      ]
+    },
+    {
+      "family": "cch-configuration-api",
+      "document": ".openapi/cch-configuration-api.json",
+      "pointer": "/paths/~1structureweekconfigsettingmatches/get",
+      "method": "GET",
+      "path": "/structureweekconfigsettingmatches",
+      "operationId": null,
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/73881ff746382b03aadc",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/6b29865fcc6699a2a61d"
+      ]
+    },
+    {
+      "family": "cch-configuration-api",
+      "document": ".openapi/cch-configuration-api.json",
+      "pointer": "/paths/~1structureweekconfigsettingmatches/post",
+      "method": "POST",
+      "path": "/structureweekconfigsettingmatches",
+      "operationId": null,
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/078d2cfab23059940712",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/4a88e1421c54234dd5bc"
+      ]
+    },
+    {
+      "family": "cch-configuration-api",
+      "document": ".openapi/cch-configuration-api.json",
+      "pointer": "/paths/~1structureweekconfigsettingmatches~1{id}/get",
+      "method": "GET",
+      "path": "/structureweekconfigsettingmatches/{id}",
+      "operationId": null,
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/5ba4474160eaad39222a",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/f60d119554fce4190dbb"
+      ]
+    },
+    {
+      "family": "cch-configuration-api",
+      "document": ".openapi/cch-configuration-api.json",
+      "pointer": "/paths/~1structureweekconfigsettingmatches~1{id}/put",
+      "method": "PUT",
+      "path": "/structureweekconfigsettingmatches/{id}",
+      "operationId": null,
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/508357a08d57e7e9c7b5",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/00eca55de6c2fc18aea7"
+      ]
+    },
+    {
+      "family": "cch-configuration-api",
+      "document": ".openapi/cch-configuration-api.json",
+      "pointer": "/paths/~1structureweekconfigsettingmatches~1{id}/delete",
+      "method": "DELETE",
+      "path": "/structureweekconfigsettingmatches/{id}",
+      "operationId": null,
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/6f4ed3622a5f83651305",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/4f0ba7c2ff77be2c3542"
+      ]
+    },
+    {
+      "family": "cch-configuration-api",
+      "document": ".openapi/cch-configuration-api.json",
+      "pointer": "/paths/~1structureweekconfigsettings/get",
+      "method": "GET",
+      "path": "/structureweekconfigsettings",
+      "operationId": null,
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/ec247137b5fa51966d45",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/15182897a12bd8b22e40"
+      ]
+    },
+    {
+      "family": "cch-configuration-api",
+      "document": ".openapi/cch-configuration-api.json",
+      "pointer": "/paths/~1structureweekconfigsettings/post",
+      "method": "POST",
+      "path": "/structureweekconfigsettings",
+      "operationId": null,
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/a5ac1ce5f519eede509c",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/8de92d0a9e2818a24f6b"
+      ]
+    },
+    {
+      "family": "cch-configuration-api",
+      "document": ".openapi/cch-configuration-api.json",
+      "pointer": "/paths/~1structureweekconfigsettings~1{id}/get",
+      "method": "GET",
+      "path": "/structureweekconfigsettings/{id}",
+      "operationId": null,
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/cd2c2549dffce17a71fb",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/790ae9beddae63fa662e"
+      ]
+    },
+    {
+      "family": "cch-configuration-api",
+      "document": ".openapi/cch-configuration-api.json",
+      "pointer": "/paths/~1structureweekconfigsettings~1{id}/put",
+      "method": "PUT",
+      "path": "/structureweekconfigsettings/{id}",
+      "operationId": null,
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/4820fe8cc683a4989114",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/51b13178b97eaa4b494e"
+      ]
+    },
+    {
+      "family": "cch-configuration-api",
+      "document": ".openapi/cch-configuration-api.json",
+      "pointer": "/paths/~1structureweekconfigsettings~1{id}/delete",
+      "method": "DELETE",
+      "path": "/structureweekconfigsettings/{id}",
+      "operationId": null,
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/693c92cbedaba7eb100d",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/ba1d143b796397c00f4d"
+      ]
+    },
+    {
+      "family": "assortment-admin",
+      "document": ".openapi/assortment-admin-api.json",
+      "pointer": "/paths/~1configuration/get",
+      "method": "GET",
+      "path": "/configuration",
+      "operationId": "get-configuration",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/40bfa8b7892fb86d9769",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/ddaa49f2839a6bb2a024"
+      ]
+    },
+    {
+      "family": "assortment-admin",
+      "document": ".openapi/assortment-admin-api.json",
+      "pointer": "/paths/~1configuration/post",
+      "method": "POST",
+      "path": "/configuration",
+      "operationId": "post-configuration",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/e42e1399ccb922ef8c77",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/dc1efc98a3cb7fda4b5d"
+      ]
+    },
+    {
+      "family": "assortment-admin",
+      "document": ".openapi/assortment-admin-api.json",
+      "pointer": "/paths/~1outputcache~1{region}/delete",
+      "method": "DELETE",
+      "path": "/outputcache/{region}",
+      "operationId": "delete-outputcache-region",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/47dbf343065713bd08ae",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/51b3e38ec3ff043bb56b"
+      ]
+    },
+    {
+      "family": "assortment-admin",
+      "document": ".openapi/assortment-admin-api.json",
+      "pointer": "/paths/~1api~1v1~1details~1admin~1packages/get",
+      "method": "GET",
+      "path": "/api/v1/details/admin/packages",
+      "operationId": "get-api-v1-details-admin-packages",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/2dc3c53f3dc29b0b5829",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/8f415db298c973d1f811"
+      ]
+    },
+    {
+      "family": "assortment-admin",
+      "document": ".openapi/assortment-admin-api.json",
+      "pointer": "/paths/~1api~1v1~1details~1admin~1packages~1variants~1{variantId}/put",
+      "method": "PUT",
+      "path": "/api/v1/details/admin/packages/variants/{variantId}",
+      "operationId": "put-api-v1-details-admin-packages-variants-variantid",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/eae060d26eed4102151d",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/45ef3429f9ba5d21ab47"
+      ]
+    },
+    {
+      "family": "assortment-admin",
+      "document": ".openapi/assortment-admin-api.json",
+      "pointer": "/paths/~1api~1v1~1details~1admin~1packages~1variants~1{variantId}/get",
+      "method": "GET",
+      "path": "/api/v1/details/admin/packages/variants/{variantId}",
+      "operationId": "get-api-v1-details-admin-packages-variants-variantid",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/a104785f5bff6a179707",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/a87c79016aff233369df"
+      ]
+    },
+    {
+      "family": "assortment-admin",
+      "document": ".openapi/assortment-admin-api.json",
+      "pointer": "/paths/~1api~1v1~1details~1admin~1packages~1{packageId}/get",
+      "method": "GET",
+      "path": "/api/v1/details/admin/packages/{packageId}",
+      "operationId": "get-api-v1-details-admin-packages-packageid",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/3dfa3e580b681bf94a8b",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/13207933ec21c3c60f71"
+      ]
+    },
+    {
+      "family": "assortment-admin",
+      "document": ".openapi/assortment-admin-api.json",
+      "pointer": "/paths/~1api~1v1~1details~1admin~1packages~1{packageId}/put",
+      "method": "PUT",
+      "path": "/api/v1/details/admin/packages/{packageId}",
+      "operationId": "put-api-v1-details-admin-packages-packageid",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/d44f0c2a676f60e664ed",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/7202ca1c63ddbce16216"
+      ]
+    },
+    {
+      "family": "assortment-admin",
+      "document": ".openapi/assortment-admin-api.json",
+      "pointer": "/paths/~1api~1v1~1details~1admin~1products/get",
+      "method": "GET",
+      "path": "/api/v1/details/admin/products",
+      "operationId": "get-api-v1-details-admin-products",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/c5a8c19a464b4d02ee45",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/26b0f6259aca78abe187"
+      ]
+    },
+    {
+      "family": "assortment-admin",
+      "document": ".openapi/assortment-admin-api.json",
+      "pointer": "/paths/~1api~1v1~1details~1admin~1products~1variants/get",
+      "method": "GET",
+      "path": "/api/v1/details/admin/products/variants",
+      "operationId": "get-api-v1-details-admin-products-variants",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/66c2b96be04cd96eba2d",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/e4ff91fa0779abce7700"
+      ]
+    },
+    {
+      "family": "assortment-admin",
+      "document": ".openapi/assortment-admin-api.json",
+      "pointer": "/paths/~1api~1v1~1details~1admin~1products~1variants~1{variantId}/put",
+      "method": "PUT",
+      "path": "/api/v1/details/admin/products/variants/{variantId}",
+      "operationId": "put-api-v1-details-admin-products-variants-variantid",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/b69f9e3023bea29826e7",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/fc7aec0cc05f42474129"
+      ]
+    },
+    {
+      "family": "assortment-admin",
+      "document": ".openapi/assortment-admin-api.json",
+      "pointer": "/paths/~1api~1v1~1details~1admin~1products~1variants~1{variantId}/get",
+      "method": "GET",
+      "path": "/api/v1/details/admin/products/variants/{variantId}",
+      "operationId": "get-api-v1-details-admin-products-variants-variantid",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/f361248acef89b9c4af4",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/43977a9909d23423cff0"
+      ]
+    },
+    {
+      "family": "assortment-admin",
+      "document": ".openapi/assortment-admin-api.json",
+      "pointer": "/paths/~1api~1v1~1details~1admin~1products~1{productId}/get",
+      "method": "GET",
+      "path": "/api/v1/details/admin/products/{productId}",
+      "operationId": "get-api-v1-details-admin-products-productid",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/6542be1a5db176bc98e3",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/33d3c158946f5e97e6ed"
+      ]
+    },
+    {
+      "family": "assortment-admin",
+      "document": ".openapi/assortment-admin-api.json",
+      "pointer": "/paths/~1api~1v1~1details~1admin~1products~1{productId}/put",
+      "method": "PUT",
+      "path": "/api/v1/details/admin/products/{productId}",
+      "operationId": "put-api-v1-details-admin-products-productid",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/44e1b075841eda9b0a53",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/fa2767a60933d923a7cb"
+      ]
+    },
+    {
+      "family": "assortment-admin",
+      "document": ".openapi/assortment-admin-api.json",
+      "pointer": "/paths/~1api~1v1~1products~1admin~1app~1bootstrap/get",
+      "method": "GET",
+      "path": "/api/v1/products/admin/app/bootstrap",
+      "operationId": "get-api-v1-products-admin-app-bootstrap",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/c584c85d9625d7e0dcc5",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/fb3d3ef1051cde76dd2a"
+      ]
+    },
+    {
+      "family": "assortment-admin",
+      "document": ".openapi/assortment-admin-api.json",
+      "pointer": "/paths/~1api~1v1~1products~1admin~1app~1version/get",
+      "method": "GET",
+      "path": "/api/v1/products/admin/app/version",
+      "operationId": "get-api-v1-products-admin-app-version",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/d732ccc28f4a2f3855c1",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/a33eb4cc51b12ebe3171"
+      ]
+    },
+    {
+      "family": "assortment-admin",
+      "document": ".openapi/assortment-admin-api.json",
+      "pointer": "/paths/~1api~1v1~1products~1admin~1classification~1{brand}/get",
+      "method": "GET",
+      "path": "/api/v1/products/admin/classification/{brand}",
+      "operationId": "get-api-v1-products-admin-classification-brand",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/10baf6eacc1913b69121",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/e9ca9371c006b4695230"
+      ]
+    },
+    {
+      "family": "assortment-admin",
+      "document": ".openapi/assortment-admin-api.json",
+      "pointer": "/paths/~1api~1v1~1products~1admin~1classification~1{brand}/post",
+      "method": "POST",
+      "path": "/api/v1/products/admin/classification/{brand}",
+      "operationId": "post-api-v1-products-admin-classification-brand",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/b5fd8e47115bc1023e80",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/cd55c43a5cf1059f14b7"
+      ]
+    },
+    {
+      "family": "assortment-admin",
+      "document": ".openapi/assortment-admin-api.json",
+      "pointer": "/paths/~1api~1v1~1products~1admin~1classification~1{brand}~1{id}/get",
+      "method": "GET",
+      "path": "/api/v1/products/admin/classification/{brand}/{id}",
+      "operationId": "get-api-v1-products-admin-classification-brand-id",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/c9583de01d6dcdf9e670",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/3c4225af78572063be0f"
+      ]
+    },
+    {
+      "family": "assortment-admin",
+      "document": ".openapi/assortment-admin-api.json",
+      "pointer": "/paths/~1api~1v1~1products~1admin~1classification~1{brand}~1{id}/put",
+      "method": "PUT",
+      "path": "/api/v1/products/admin/classification/{brand}/{id}",
+      "operationId": "put-api-v1-products-admin-classification-brand-id",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/176d8109a4e69566e87e",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/3f42fcb793318b400a7f"
+      ]
+    },
+    {
+      "family": "assortment-admin",
+      "document": ".openapi/assortment-admin-api.json",
+      "pointer": "/paths/~1api~1v1~1products~1admin~1classification~1{brand}~1{id}/delete",
+      "method": "DELETE",
+      "path": "/api/v1/products/admin/classification/{brand}/{id}",
+      "operationId": "delete-api-v1-products-admin-classification-brand-id",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/054eacd3a1714931bf74",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/9a2af0fc6a76f07116f2"
+      ]
+    },
+    {
+      "family": "assortment-admin",
+      "document": ".openapi/assortment-admin-api.json",
+      "pointer": "/paths/~1api~1v1~1products~1admin~1code~1{brand}/get",
+      "method": "GET",
+      "path": "/api/v1/products/admin/code/{brand}",
+      "operationId": "get-api-v1-products-admin-code-brand",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/92571a60b2d23edfed69",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/857bf28cee65d9f6f006"
+      ]
+    },
+    {
+      "family": "assortment-admin",
+      "document": ".openapi/assortment-admin-api.json",
+      "pointer": "/paths/~1api~1v1~1products~1admin~1export~1{brand}/get",
+      "method": "GET",
+      "path": "/api/v1/products/admin/export/{brand}",
+      "operationId": "get-api-v1-products-admin-export-brand",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/14d71c867a81e795e5ff",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/fbffb0f936867ea37acc"
+      ]
+    },
+    {
+      "family": "assortment-admin",
+      "document": ".openapi/assortment-admin-api.json",
+      "pointer": "/paths/~1api~1v1~1products~1admin~1import/get",
+      "method": "GET",
+      "path": "/api/v1/products/admin/import",
+      "operationId": "get-api-v1-products-admin-import",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/e266fccc87efbd71edc5",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/072d137f6fe20b015834"
+      ]
+    },
+    {
+      "family": "assortment-admin",
+      "document": ".openapi/assortment-admin-api.json",
+      "pointer": "/paths/~1api~1v1~1products~1admin~1import~1import-all-manage-segment/get",
+      "method": "GET",
+      "path": "/api/v1/products/admin/import/import-all-manage-segment",
+      "operationId": "get-api-v1-products-admin-import-import-all-manage-segment",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/be8878df20131dac1f56",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/a9fd140b119098e09d68"
+      ]
+    },
+    {
+      "family": "assortment-admin",
+      "document": ".openapi/assortment-admin-api.json",
+      "pointer": "/paths/~1api~1v1~1products~1admin~1import~1import-customer-types/get",
+      "method": "GET",
+      "path": "/api/v1/products/admin/import/import-customer-types",
+      "operationId": "get-api-v1-products-admin-import-import-customer-types",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/d61aac36d289aaea4dc6",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/cd5c236bd51ad4c7b45f"
+      ]
+    },
+    {
+      "family": "assortment-admin",
+      "document": ".openapi/assortment-admin-api.json",
+      "pointer": "/paths/~1api~1v1~1products~1admin~1import~1import-packages/get",
+      "method": "GET",
+      "path": "/api/v1/products/admin/import/import-packages",
+      "operationId": "get-api-v1-products-admin-import-import-packages",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/c467ff5ba334241fe0c6",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/7abe8b086cf2b6d5cc83"
+      ]
+    },
+    {
+      "family": "assortment-admin",
+      "document": ".openapi/assortment-admin-api.json",
+      "pointer": "/paths/~1api~1v1~1products~1admin~1import~1import-pre-orders/get",
+      "method": "GET",
+      "path": "/api/v1/products/admin/import/import-pre-orders",
+      "operationId": "get-api-v1-products-admin-import-import-pre-orders",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/8790849b69e3b02d78cf",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/b1a28e008bee1ed52ac8"
+      ]
+    },
+    {
+      "family": "assortment-admin",
+      "document": ".openapi/assortment-admin-api.json",
+      "pointer": "/paths/~1api~1v1~1products~1admin~1import~1import-sales-models/get",
+      "method": "GET",
+      "path": "/api/v1/products/admin/import/import-sales-models",
+      "operationId": "get-api-v1-products-admin-import-import-sales-models",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/20fabbb1a2204c9f2f94",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/90337fd648720999e2f1"
+      ]
+    },
+    {
+      "family": "assortment-admin",
+      "document": ".openapi/assortment-admin-api.json",
+      "pointer": "/paths/~1api~1v1~1products~1admin~1import~1import-soft-offers/get",
+      "method": "GET",
+      "path": "/api/v1/products/admin/import/import-soft-offers",
+      "operationId": "get-api-v1-products-admin-import-import-soft-offers",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/7b4867a4e1acb96b47d7",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/2a71735a86428f0beff8"
+      ]
+    },
+    {
+      "family": "assortment-admin",
+      "document": ".openapi/assortment-admin-api.json",
+      "pointer": "/paths/~1api~1v1~1products~1admin~1import~1import-software-options/get",
+      "method": "GET",
+      "path": "/api/v1/products/admin/import/import-software-options",
+      "operationId": "get-api-v1-products-admin-import-import-software-options",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/79f32e7e59b1e6cf4d20",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/f1365e96b34332cc37e2"
+      ]
+    },
+    {
+      "family": "assortment-admin",
+      "document": ".openapi/assortment-admin-api.json",
+      "pointer": "/paths/~1api~1v1~1products~1admin~1import~1seed/get",
+      "method": "GET",
+      "path": "/api/v1/products/admin/import/seed",
+      "operationId": "get-api-v1-products-admin-import-seed",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/9bf27fc52576a9880e00",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/891bd99d6c13be4bac31"
+      ]
+    },
+    {
+      "family": "assortment-admin",
+      "document": ".openapi/assortment-admin-api.json",
+      "pointer": "/paths/~1api~1v1~1products~1admin~1import~1seed-drivelines/get",
+      "method": "GET",
+      "path": "/api/v1/products/admin/import/seed-drivelines",
+      "operationId": "get-api-v1-products-admin-import-seed-drivelines",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/87ae7d65798a52f8f5b9",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/352313350cb25c3d35e4"
+      ]
+    },
+    {
+      "family": "assortment-admin",
+      "document": ".openapi/assortment-admin-api.json",
+      "pointer": "/paths/~1api~1v1~1products~1admin~1item~1{brand}/get",
+      "method": "GET",
+      "path": "/api/v1/products/admin/item/{brand}",
+      "operationId": "get-api-v1-products-admin-item-brand",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/8e9152af3a822bf17048",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/ec9764ef072ca32836fb"
+      ]
+    },
+    {
+      "family": "assortment-admin",
+      "document": ".openapi/assortment-admin-api.json",
+      "pointer": "/paths/~1api~1v1~1products~1admin~1item~1{brand}/post",
+      "method": "POST",
+      "path": "/api/v1/products/admin/item/{brand}",
+      "operationId": "post-api-v1-products-admin-item-brand",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/4ce53215ae01396ebaf4",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/03636b87b4dd8568879f"
+      ]
+    },
+    {
+      "family": "assortment-admin",
+      "document": ".openapi/assortment-admin-api.json",
+      "pointer": "/paths/~1api~1v1~1products~1admin~1item~1{brand}~1connect/put",
+      "method": "PUT",
+      "path": "/api/v1/products/admin/item/{brand}/connect",
+      "operationId": "put-api-v1-products-admin-item-brand-connect",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/055c155711f994e0c15f",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/6b91323be73bdb80b72e"
+      ]
+    },
+    {
+      "family": "assortment-admin",
+      "document": ".openapi/assortment-admin-api.json",
+      "pointer": "/paths/~1api~1v1~1products~1admin~1item~1{brand}~1{id}/get",
+      "method": "GET",
+      "path": "/api/v1/products/admin/item/{brand}/{id}",
+      "operationId": "get-api-v1-products-admin-item-brand-id",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/c9d0a850565ceea9fc73",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/94f3e044bc0a1411a26d"
+      ]
+    },
+    {
+      "family": "assortment-admin",
+      "document": ".openapi/assortment-admin-api.json",
+      "pointer": "/paths/~1api~1v1~1products~1admin~1item~1{brand}~1{id}/put",
+      "method": "PUT",
+      "path": "/api/v1/products/admin/item/{brand}/{id}",
+      "operationId": "put-api-v1-products-admin-item-brand-id",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/3f283e01a8a920cd80b8",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/a62037885cf722f39fbf"
+      ]
+    },
+    {
+      "family": "assortment-admin",
+      "document": ".openapi/assortment-admin-api.json",
+      "pointer": "/paths/~1api~1v1~1products~1admin~1item~1{brand}~1{id}/delete",
+      "method": "DELETE",
+      "path": "/api/v1/products/admin/item/{brand}/{id}",
+      "operationId": "delete-api-v1-products-admin-item-brand-id",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/6a93a6456559154c0266",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/0f70531dd67c73895335"
+      ]
+    },
+    {
+      "family": "assortment-admin",
+      "document": ".openapi/assortment-admin-api.json",
+      "pointer": "/paths/~1api~1v1~1products~1admin~1product~1{brand}/get",
+      "method": "GET",
+      "path": "/api/v1/products/admin/product/{brand}",
+      "operationId": "get-api-v1-products-admin-product-brand",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/9f36fd2e7f66b73175a5",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/4ba480b63268df69182b"
+      ]
+    },
+    {
+      "family": "assortment-admin",
+      "document": ".openapi/assortment-admin-api.json",
+      "pointer": "/paths/~1api~1v1~1products~1admin~1product~1{brand}~1{id}/get",
+      "method": "GET",
+      "path": "/api/v1/products/admin/product/{brand}/{id}",
+      "operationId": "get-api-v1-products-admin-product-brand-id",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/798439f018eb20fe28da",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/a47fd05a2d85d9bda880"
+      ]
+    },
+    {
+      "family": "assortment-admin",
+      "document": ".openapi/assortment-admin-api.json",
+      "pointer": "/paths/~1api~1v1~1products~1admin~1product~1{brand}~1{id}/put",
+      "method": "PUT",
+      "path": "/api/v1/products/admin/product/{brand}/{id}",
+      "operationId": "put-api-v1-products-admin-product-brand-id",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/c8f5f1402f9bfef8e997",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/aa73ca99c4e1b7cba1a9"
+      ]
+    },
+    {
+      "family": "assortment-admin",
+      "document": ".openapi/assortment-admin-api.json",
+      "pointer": "/paths/~1api~1v1~1products~1admin~1variant~1{brand}/get",
+      "method": "GET",
+      "path": "/api/v1/products/admin/variant/{brand}",
+      "operationId": "get-api-v1-products-admin-variant-brand",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/6b03adda34898f66eead",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/944bd8f6d7cf85b4ec03"
+      ]
+    },
+    {
+      "family": "assortment-admin",
+      "document": ".openapi/assortment-admin-api.json",
+      "pointer": "/paths/~1api~1v1~1products~1admin~1variant~1{brand}/post",
+      "method": "POST",
+      "path": "/api/v1/products/admin/variant/{brand}",
+      "operationId": "post-api-v1-products-admin-variant-brand",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/a74728da5756155c2c58",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/50c52648499bc55c4da3"
+      ]
+    },
+    {
+      "family": "assortment-admin",
+      "document": ".openapi/assortment-admin-api.json",
+      "pointer": "/paths/~1api~1v1~1products~1admin~1variant~1{brand}~1migrate/put",
+      "method": "PUT",
+      "path": "/api/v1/products/admin/variant/{brand}/migrate",
+      "operationId": "put-api-v1-products-admin-variant-brand-migrate",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/bbc727abfda583d378f3",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/0f35a38691646614b716"
+      ]
+    },
+    {
+      "family": "assortment-admin",
+      "document": ".openapi/assortment-admin-api.json",
+      "pointer": "/paths/~1api~1v1~1products~1admin~1variant~1{brand}~1virtual/post",
+      "method": "POST",
+      "path": "/api/v1/products/admin/variant/{brand}/virtual",
+      "operationId": "post-api-v1-products-admin-variant-brand-virtual",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/df3f35e9bdd84732f18a",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/e815fb58581a652b097c"
+      ]
+    },
+    {
+      "family": "assortment-admin",
+      "document": ".openapi/assortment-admin-api.json",
+      "pointer": "/paths/~1api~1v1~1products~1admin~1variant~1{brand}~1{id}/get",
+      "method": "GET",
+      "path": "/api/v1/products/admin/variant/{brand}/{id}",
+      "operationId": "get-api-v1-products-admin-variant-brand-id",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/dfd29720b1530465f948",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/2876b3a59de1fd3cc2a7"
+      ]
+    },
+    {
+      "family": "assortment-admin",
+      "document": ".openapi/assortment-admin-api.json",
+      "pointer": "/paths/~1api~1v1~1products~1admin~1variant~1{brand}~1{id}/put",
+      "method": "PUT",
+      "path": "/api/v1/products/admin/variant/{brand}/{id}",
+      "operationId": "put-api-v1-products-admin-variant-brand-id",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/c254110f4af3587f0776",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/6649c4b701870b0bf4a2"
+      ]
+    },
+    {
+      "family": "assortment-admin",
+      "document": ".openapi/assortment-admin-api.json",
+      "pointer": "/paths/~1api~1v1~1products~1admin~1variant~1{brand}~1{id}/delete",
+      "method": "DELETE",
+      "path": "/api/v1/products/admin/variant/{brand}/{id}",
+      "operationId": "delete-api-v1-products-admin-variant-brand-id",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/ae87844a7b1292240360",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/5cb3ee3b3deb460cb15f"
+      ]
+    },
+    {
+      "family": "assortment-admin",
+      "document": ".openapi/assortment-admin-api.json",
+      "pointer": "/paths/~1api~1v1~1products~1admin~1variant~1{brand}~1{id}~1attach~1{itemId}/put",
+      "method": "PUT",
+      "path": "/api/v1/products/admin/variant/{brand}/{id}/attach/{itemId}",
+      "operationId": "put-api-v1-products-admin-variant-brand-id-attach-itemid",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/d39696f23d2f73ddb42a",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/96daa8de598ca10ae7c1"
+      ]
+    },
+    {
+      "family": "assortment-admin",
+      "document": ".openapi/assortment-admin-api.json",
+      "pointer": "/paths/~1api~1v1~1products~1api~1output/get",
+      "method": "GET",
+      "path": "/api/v1/products/api/output",
+      "operationId": "get-api-v1-products-api-output",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/4d95494240b1e9583535",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/aebf7a5b5dc501613c63"
+      ]
+    },
+    {
+      "family": "assortment-admin",
+      "document": ".openapi/assortment-admin-api.json",
+      "pointer": "/paths/~1api~1v1~1products~1login/get",
+      "method": "GET",
+      "path": "/api/v1/products/login",
+      "operationId": "get-api-v1-products-login",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/8f740b264cea69a2f080",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/d5e3d5a322749d073345"
+      ]
+    },
+    {
+      "family": "assortment-admin",
+      "document": ".openapi/assortment-admin-api.json",
+      "pointer": "/paths/~1api~1v1~1manage~1commercial-items~1attribute-groups/get",
+      "method": "GET",
+      "path": "/api/v1/manage/commercial-items/attribute-groups",
+      "operationId": "get-api-v1-manage-commercial-items-attribute-groups",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/79da03b62c1cd8d93645",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/bafecd28468f407cc79f"
+      ]
+    },
+    {
+      "family": "assortment-admin",
+      "document": ".openapi/assortment-admin-api.json",
+      "pointer": "/paths/~1api~1v1~1manage~1commercial-items~1attribute-groups/post",
+      "method": "POST",
+      "path": "/api/v1/manage/commercial-items/attribute-groups",
+      "operationId": "post-api-v1-manage-commercial-items-attribute-groups",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/c25214fe8631defc06f0",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/8c57443f3df74423ece1"
+      ]
+    },
+    {
+      "family": "assortment-admin",
+      "document": ".openapi/assortment-admin-api.json",
+      "pointer": "/paths/~1api~1v1~1manage~1commercial-items~1attribute-groups~1GetByCode~1{code}/get",
+      "method": "GET",
+      "path": "/api/v1/manage/commercial-items/attribute-groups/GetByCode/{code}",
+      "operationId": "get-api-v1-manage-commercial-items-attribute-groups-getbycode-code",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/ae000968bc71e226d1ae",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/791b8a378fdbcf47c58a"
+      ]
+    },
+    {
+      "family": "assortment-admin",
+      "document": ".openapi/assortment-admin-api.json",
+      "pointer": "/paths/~1api~1v1~1manage~1commercial-items~1attribute-groups~1{id}/get",
+      "method": "GET",
+      "path": "/api/v1/manage/commercial-items/attribute-groups/{id}",
+      "operationId": "get-api-v1-manage-commercial-items-attribute-groups-id",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/466ad589c0467983e27d",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/36c2fbeb37013e75fbc1"
+      ]
+    },
+    {
+      "family": "assortment-admin",
+      "document": ".openapi/assortment-admin-api.json",
+      "pointer": "/paths/~1api~1v1~1manage~1commercial-items~1attribute-groups~1{id}/delete",
+      "method": "DELETE",
+      "path": "/api/v1/manage/commercial-items/attribute-groups/{id}",
+      "operationId": "delete-api-v1-manage-commercial-items-attribute-groups-id",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/bcddffd909cbdc38b4ca",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/f67b407973fb96ea1241"
+      ]
+    },
+    {
+      "family": "assortment-admin",
+      "document": ".openapi/assortment-admin-api.json",
+      "pointer": "/paths/~1api~1v1~1manage~1commercial-items~1attribute-groups~1{id}/put",
+      "method": "PUT",
+      "path": "/api/v1/manage/commercial-items/attribute-groups/{id}",
+      "operationId": "put-api-v1-manage-commercial-items-attribute-groups-id",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/a7056328522da0c47b76",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/a973807ad15ffdfe6b61"
+      ]
+    },
+    {
+      "family": "assortment-admin",
+      "document": ".openapi/assortment-admin-api.json",
+      "pointer": "/paths/~1api~1v1~1manage~1commercial-items~1attribute-infos/get",
+      "method": "GET",
+      "path": "/api/v1/manage/commercial-items/attribute-infos",
+      "operationId": "get-api-v1-manage-commercial-items-attribute-infos",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/8f89f00b33d4ddc2b5fa",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/cdbc6add736a303bb56c"
+      ]
+    },
+    {
+      "family": "assortment-admin",
+      "document": ".openapi/assortment-admin-api.json",
+      "pointer": "/paths/~1api~1v1~1manage~1commercial-items~1attribute-infos/post",
+      "method": "POST",
+      "path": "/api/v1/manage/commercial-items/attribute-infos",
+      "operationId": "post-api-v1-manage-commercial-items-attribute-infos",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/1bb29692b9a5d31da071",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/d08cbc1de3be37c3e920"
+      ]
+    },
+    {
+      "family": "assortment-admin",
+      "document": ".openapi/assortment-admin-api.json",
+      "pointer": "/paths/~1api~1v1~1manage~1commercial-items~1attribute-infos~1GetByCode~1{code}/get",
+      "method": "GET",
+      "path": "/api/v1/manage/commercial-items/attribute-infos/GetByCode/{code}",
+      "operationId": "get-api-v1-manage-commercial-items-attribute-infos-getbycode-code",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/875802242e0cb8bb6730",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/16e029a9422bccee60c1"
+      ]
+    },
+    {
+      "family": "assortment-admin",
+      "document": ".openapi/assortment-admin-api.json",
+      "pointer": "/paths/~1api~1v1~1manage~1commercial-items~1attribute-infos~1{id}/get",
+      "method": "GET",
+      "path": "/api/v1/manage/commercial-items/attribute-infos/{id}",
+      "operationId": "get-api-v1-manage-commercial-items-attribute-infos-id",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/14d492d2804ce99d18bc",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/73f6770dc2936ffa1a83"
+      ]
+    },
+    {
+      "family": "assortment-admin",
+      "document": ".openapi/assortment-admin-api.json",
+      "pointer": "/paths/~1api~1v1~1manage~1commercial-items~1attribute-infos~1{id}/delete",
+      "method": "DELETE",
+      "path": "/api/v1/manage/commercial-items/attribute-infos/{id}",
+      "operationId": "delete-api-v1-manage-commercial-items-attribute-infos-id",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/8736671d4fe699423569",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/67441d1153860289a271"
+      ]
+    },
+    {
+      "family": "assortment-admin",
+      "document": ".openapi/assortment-admin-api.json",
+      "pointer": "/paths/~1api~1v1~1manage~1commercial-items~1attribute-infos~1{id}/put",
+      "method": "PUT",
+      "path": "/api/v1/manage/commercial-items/attribute-infos/{id}",
+      "operationId": "put-api-v1-manage-commercial-items-attribute-infos-id",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/382a22682e3b8c148cf4",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/197c36f4187e809b413b"
+      ]
+    },
+    {
+      "family": "assortment-admin",
+      "document": ".openapi/assortment-admin-api.json",
+      "pointer": "/paths/~1api~1v1~1manage~1commercial-items~1contract-lengths/get",
+      "method": "GET",
+      "path": "/api/v1/manage/commercial-items/contract-lengths",
+      "operationId": "get-api-v1-manage-commercial-items-contract-lengths",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/0b4a3ca16775259ca7f0",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/f11059f5be48f3a13fae"
+      ]
+    },
+    {
+      "family": "assortment-admin",
+      "document": ".openapi/assortment-admin-api.json",
+      "pointer": "/paths/~1api~1v1~1manage~1commercial-items~1contract-lengths/post",
+      "method": "POST",
+      "path": "/api/v1/manage/commercial-items/contract-lengths",
+      "operationId": "post-api-v1-manage-commercial-items-contract-lengths",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/ec5b1e7fba611960ba91",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/f0c0c5e8019d9e13cc06"
+      ]
+    },
+    {
+      "family": "assortment-admin",
+      "document": ".openapi/assortment-admin-api.json",
+      "pointer": "/paths/~1api~1v1~1manage~1commercial-items~1contract-lengths~1{id}/get",
+      "method": "GET",
+      "path": "/api/v1/manage/commercial-items/contract-lengths/{id}",
+      "operationId": "get-api-v1-manage-commercial-items-contract-lengths-id",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/bbb8a795c919bc0a6535",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/59ae48c7b58892761d7b"
+      ]
+    },
+    {
+      "family": "assortment-admin",
+      "document": ".openapi/assortment-admin-api.json",
+      "pointer": "/paths/~1api~1v1~1manage~1commercial-items~1contract-lengths~1{id}/put",
+      "method": "PUT",
+      "path": "/api/v1/manage/commercial-items/contract-lengths/{id}",
+      "operationId": "put-api-v1-manage-commercial-items-contract-lengths-id",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/918246059271b7725461",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/85f122611e0460e48008"
+      ]
+    },
+    {
+      "family": "assortment-admin",
+      "document": ".openapi/assortment-admin-api.json",
+      "pointer": "/paths/~1api~1v1~1manage~1commercial-items~1contract-lengths~1{id}/delete",
+      "method": "DELETE",
+      "path": "/api/v1/manage/commercial-items/contract-lengths/{id}",
+      "operationId": "delete-api-v1-manage-commercial-items-contract-lengths-id",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/cfe156e82654c30337dd",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/5648fb400fa8c9cc3c19"
+      ]
+    },
+    {
+      "family": "assortment-admin",
+      "document": ".openapi/assortment-admin-api.json",
+      "pointer": "/paths/~1api~1v1~1manage~1commercial-items~1fees/get",
+      "method": "GET",
+      "path": "/api/v1/manage/commercial-items/fees",
+      "operationId": "get-api-v1-manage-commercial-items-fees",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/ded3a2ab2eff5bc411a2",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/1287e3e1c722dca445ad"
+      ]
+    },
+    {
+      "family": "assortment-admin",
+      "document": ".openapi/assortment-admin-api.json",
+      "pointer": "/paths/~1api~1v1~1manage~1commercial-items~1fees/post",
+      "method": "POST",
+      "path": "/api/v1/manage/commercial-items/fees",
+      "operationId": "post-api-v1-manage-commercial-items-fees",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/a5eee890f08a2378214c",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/6b038dabcec0cce38a09"
+      ]
+    },
+    {
+      "family": "assortment-admin",
+      "document": ".openapi/assortment-admin-api.json",
+      "pointer": "/paths/~1api~1v1~1manage~1commercial-items~1fees~1{internalId}/get",
+      "method": "GET",
+      "path": "/api/v1/manage/commercial-items/fees/{internalId}",
+      "operationId": "get-api-v1-manage-commercial-items-fees-internalid",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/d0c8516374d640d34864",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/1e4f2e41cfb2178e4746"
+      ]
+    },
+    {
+      "family": "assortment-admin",
+      "document": ".openapi/assortment-admin-api.json",
+      "pointer": "/paths/~1api~1v1~1manage~1commercial-items~1fees~1{internalId}/put",
+      "method": "PUT",
+      "path": "/api/v1/manage/commercial-items/fees/{internalId}",
+      "operationId": "put-api-v1-manage-commercial-items-fees-internalid",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/ac3f307ae6cc76f757db",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/77573821db441fa045e9"
+      ]
+    },
+    {
+      "family": "assortment-admin",
+      "document": ".openapi/assortment-admin-api.json",
+      "pointer": "/paths/~1api~1v1~1manage~1commercial-items~1fees~1{internalId}/delete",
+      "method": "DELETE",
+      "path": "/api/v1/manage/commercial-items/fees/{internalId}",
+      "operationId": "delete-api-v1-manage-commercial-items-fees-internalid",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/b25d91a2c1da60042c7a",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/cc1b959dcb4b34df920e"
+      ]
+    },
+    {
+      "family": "assortment-admin",
+      "document": ".openapi/assortment-admin-api.json",
+      "pointer": "/paths/~1api~1v1~1manage~1commercial-items~1mileages/get",
+      "method": "GET",
+      "path": "/api/v1/manage/commercial-items/mileages",
+      "operationId": "get-api-v1-manage-commercial-items-mileages",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/de46258d1c9374888222",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/7f38931c92aeba92081d"
+      ]
+    },
+    {
+      "family": "assortment-admin",
+      "document": ".openapi/assortment-admin-api.json",
+      "pointer": "/paths/~1api~1v1~1manage~1commercial-items~1mileages/post",
+      "method": "POST",
+      "path": "/api/v1/manage/commercial-items/mileages",
+      "operationId": "post-api-v1-manage-commercial-items-mileages",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/543cc5282818a53a1baa",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/ab54bdab9e35071a7a71"
+      ]
+    },
+    {
+      "family": "assortment-admin",
+      "document": ".openapi/assortment-admin-api.json",
+      "pointer": "/paths/~1api~1v1~1manage~1commercial-items~1mileages~1{internalId}/get",
+      "method": "GET",
+      "path": "/api/v1/manage/commercial-items/mileages/{internalId}",
+      "operationId": "get-api-v1-manage-commercial-items-mileages-internalid",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/a9494edf27759a1d096b",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/fdf1a777a7becb8219dc"
+      ]
+    },
+    {
+      "family": "assortment-admin",
+      "document": ".openapi/assortment-admin-api.json",
+      "pointer": "/paths/~1api~1v1~1manage~1commercial-items~1mileages~1{internalId}/put",
+      "method": "PUT",
+      "path": "/api/v1/manage/commercial-items/mileages/{internalId}",
+      "operationId": "put-api-v1-manage-commercial-items-mileages-internalid",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/ef1f04aa9393b267d619",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/7ba12b8a783af35dac12"
+      ]
+    },
+    {
+      "family": "assortment-admin",
+      "document": ".openapi/assortment-admin-api.json",
+      "pointer": "/paths/~1api~1v1~1manage~1commercial-items~1mileages~1{internalId}/delete",
+      "method": "DELETE",
+      "path": "/api/v1/manage/commercial-items/mileages/{internalId}",
+      "operationId": "delete-api-v1-manage-commercial-items-mileages-internalid",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/6a22868024df63dca602",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/a37d9c3268b52f1fbd17"
+      ]
+    },
+    {
+      "family": "assortment-admin",
+      "document": ".openapi/assortment-admin-api.json",
+      "pointer": "/paths/~1api~1v1~1manage~1commercial-items~1pre-orders/get",
+      "method": "GET",
+      "path": "/api/v1/manage/commercial-items/pre-orders",
+      "operationId": "get-api-v1-manage-commercial-items-pre-orders",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/6ff89a171b933fb7905d",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/ff24e8a781a75e0c9b03"
+      ]
+    },
+    {
+      "family": "assortment-admin",
+      "document": ".openapi/assortment-admin-api.json",
+      "pointer": "/paths/~1api~1v1~1manage~1commercial-items~1pre-orders/post",
+      "method": "POST",
+      "path": "/api/v1/manage/commercial-items/pre-orders",
+      "operationId": "post-api-v1-manage-commercial-items-pre-orders",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/da4aa1edb6994f79e43d",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/a097fabca712ecc5e0db"
+      ]
+    },
+    {
+      "family": "assortment-admin",
+      "document": ".openapi/assortment-admin-api.json",
+      "pointer": "/paths/~1api~1v1~1manage~1commercial-items~1pre-orders~1{internalId}/get",
+      "method": "GET",
+      "path": "/api/v1/manage/commercial-items/pre-orders/{internalId}",
+      "operationId": "get-api-v1-manage-commercial-items-pre-orders-internalid",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/0682a37a5c3ace8ec55f",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/38916912804908d03b20"
+      ]
+    },
+    {
+      "family": "assortment-admin",
+      "document": ".openapi/assortment-admin-api.json",
+      "pointer": "/paths/~1api~1v1~1manage~1commercial-items~1pre-orders~1{internalId}/put",
+      "method": "PUT",
+      "path": "/api/v1/manage/commercial-items/pre-orders/{internalId}",
+      "operationId": "put-api-v1-manage-commercial-items-pre-orders-internalid",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/04ab1c4d7d1d7282b830",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/1f4ea47c2246e4c09387"
+      ]
+    },
+    {
+      "family": "assortment-admin",
+      "document": ".openapi/assortment-admin-api.json",
+      "pointer": "/paths/~1api~1v1~1manage~1commercial-items~1pre-orders~1{internalId}/delete",
+      "method": "DELETE",
+      "path": "/api/v1/manage/commercial-items/pre-orders/{internalId}",
+      "operationId": "delete-api-v1-manage-commercial-items-pre-orders-internalid",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/3a2ce9a165f5baacdf44",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/09a28be381c3ea2f5bf7"
+      ]
+    },
+    {
+      "family": "assortment-admin",
+      "document": ".openapi/assortment-admin-api.json",
+      "pointer": "/paths/~1api~1v1~1manage~1commercial-items~1selection-categories/get",
+      "method": "GET",
+      "path": "/api/v1/manage/commercial-items/selection-categories",
+      "operationId": "get-api-v1-manage-commercial-items-selection-categories",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/6503eae7320f7c65ecde",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/9e87b1a73c982c186efd"
+      ]
+    },
+    {
+      "family": "assortment-admin",
+      "document": ".openapi/assortment-admin-api.json",
+      "pointer": "/paths/~1api~1v1~1manage~1commercial-items~1selection-categories/post",
+      "method": "POST",
+      "path": "/api/v1/manage/commercial-items/selection-categories",
+      "operationId": "post-api-v1-manage-commercial-items-selection-categories",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/e5db31d1e94f0fba60c0",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/1d7452819e36015b1d48"
+      ]
+    },
+    {
+      "family": "assortment-admin",
+      "document": ".openapi/assortment-admin-api.json",
+      "pointer": "/paths/~1api~1v1~1manage~1commercial-items~1selection-categories~1{id}/get",
+      "method": "GET",
+      "path": "/api/v1/manage/commercial-items/selection-categories/{id}",
+      "operationId": "get-api-v1-manage-commercial-items-selection-categories-id",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/76c7e3f983be10a08d90",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/726fb3d575ff01bafb87"
+      ]
+    },
+    {
+      "family": "assortment-admin",
+      "document": ".openapi/assortment-admin-api.json",
+      "pointer": "/paths/~1api~1v1~1manage~1commercial-items~1selection-categories~1{id}/delete",
+      "method": "DELETE",
+      "path": "/api/v1/manage/commercial-items/selection-categories/{id}",
+      "operationId": "delete-api-v1-manage-commercial-items-selection-categories-id",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/a9d9e9d99d20e0f6638b",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/d7f4a4728061514edb89"
+      ]
+    },
+    {
+      "family": "assortment-admin",
+      "document": ".openapi/assortment-admin-api.json",
+      "pointer": "/paths/~1api~1v1~1manage~1commercial-items~1sku-categories/get",
+      "method": "GET",
+      "path": "/api/v1/manage/commercial-items/sku-categories",
+      "operationId": "get-api-v1-manage-commercial-items-sku-categories",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/ba6008cbb8a434f519eb",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/2f52ad31f0cec15e8f66"
+      ]
+    },
+    {
+      "family": "assortment-admin",
+      "document": ".openapi/assortment-admin-api.json",
+      "pointer": "/paths/~1api~1v1~1manage~1commercial-items~1sku-categories/post",
+      "method": "POST",
+      "path": "/api/v1/manage/commercial-items/sku-categories",
+      "operationId": "post-api-v1-manage-commercial-items-sku-categories",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/b8d4fbb162f062c19e93",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/d730e7489ea29740873b"
+      ]
+    },
+    {
+      "family": "assortment-admin",
+      "document": ".openapi/assortment-admin-api.json",
+      "pointer": "/paths/~1api~1v1~1manage~1commercial-items~1sku-categories~1{id}/get",
+      "method": "GET",
+      "path": "/api/v1/manage/commercial-items/sku-categories/{id}",
+      "operationId": "get-api-v1-manage-commercial-items-sku-categories-id",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/a72a821cdbbff6a3be94",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/c4d65c4aed6fe90473e2"
+      ]
+    },
+    {
+      "family": "assortment-admin",
+      "document": ".openapi/assortment-admin-api.json",
+      "pointer": "/paths/~1api~1v1~1manage~1commercial-items~1sku-categories~1{id}/delete",
+      "method": "DELETE",
+      "path": "/api/v1/manage/commercial-items/sku-categories/{id}",
+      "operationId": "delete-api-v1-manage-commercial-items-sku-categories-id",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/586fda46b0c1982e292b",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/bc61342ee6a7b5dff7ed"
+      ]
+    },
+    {
+      "family": "assortment-admin",
+      "document": ".openapi/assortment-admin-api.json",
+      "pointer": "/paths/~1api~1v1~1manage~1commercial-items~1soft-offer-packages/get",
+      "method": "GET",
+      "path": "/api/v1/manage/commercial-items/soft-offer-packages",
+      "operationId": "get-api-v1-manage-commercial-items-soft-offer-packages",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/4dbe8351f28c0617b1c7",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/965e3a8d189e0ee739d7"
+      ]
+    },
+    {
+      "family": "assortment-admin",
+      "document": ".openapi/assortment-admin-api.json",
+      "pointer": "/paths/~1api~1v1~1manage~1commercial-items~1soft-offer-packages/post",
+      "method": "POST",
+      "path": "/api/v1/manage/commercial-items/soft-offer-packages",
+      "operationId": "post-api-v1-manage-commercial-items-soft-offer-packages",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/657e196bf2a138a5a0aa",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/bfacdd04eab3431e59ad"
+      ]
+    },
+    {
+      "family": "assortment-admin",
+      "document": ".openapi/assortment-admin-api.json",
+      "pointer": "/paths/~1api~1v1~1manage~1commercial-items~1soft-offer-packages~1{id}/get",
+      "method": "GET",
+      "path": "/api/v1/manage/commercial-items/soft-offer-packages/{id}",
+      "operationId": "get-api-v1-manage-commercial-items-soft-offer-packages-id",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/8e86c7bf1955814cc936",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/7b9e0c9a0480e831e3bf"
+      ]
+    },
+    {
+      "family": "assortment-admin",
+      "document": ".openapi/assortment-admin-api.json",
+      "pointer": "/paths/~1api~1v1~1manage~1commercial-items~1soft-offer-packages~1{internalId}/put",
+      "method": "PUT",
+      "path": "/api/v1/manage/commercial-items/soft-offer-packages/{internalId}",
+      "operationId": "put-api-v1-manage-commercial-items-soft-offer-packages-internalid",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/bda7d9a7d13ee7a83246",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/8406320e6757e5724a93"
+      ]
+    },
+    {
+      "family": "assortment-admin",
+      "document": ".openapi/assortment-admin-api.json",
+      "pointer": "/paths/~1api~1v1~1manage~1commercial-items~1soft-offer-packages~1{internalId}/delete",
+      "method": "DELETE",
+      "path": "/api/v1/manage/commercial-items/soft-offer-packages/{internalId}",
+      "operationId": "delete-api-v1-manage-commercial-items-soft-offer-packages-internalid",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/0dfd58c07f5e349bc2c7",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/416044460fa16b5dc6d9"
+      ]
+    },
+    {
+      "family": "assortment-admin",
+      "document": ".openapi/assortment-admin-api.json",
+      "pointer": "/paths/~1api~1v1~1manage~1commercial-items~1soft-offers/get",
+      "method": "GET",
+      "path": "/api/v1/manage/commercial-items/soft-offers",
+      "operationId": "get-api-v1-manage-commercial-items-soft-offers",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/8fc8c9981e6053230802",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/ef5843c3d1323652151d"
+      ]
+    },
+    {
+      "family": "assortment-admin",
+      "document": ".openapi/assortment-admin-api.json",
+      "pointer": "/paths/~1api~1v1~1manage~1commercial-items~1soft-offers/post",
+      "method": "POST",
+      "path": "/api/v1/manage/commercial-items/soft-offers",
+      "operationId": "post-api-v1-manage-commercial-items-soft-offers",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/c763496956a2dc1ae3cf",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/8cd5aba235fdfbf5769e"
+      ]
+    },
+    {
+      "family": "assortment-admin",
+      "document": ".openapi/assortment-admin-api.json",
+      "pointer": "/paths/~1api~1v1~1manage~1commercial-items~1soft-offers~1{internalId}/get",
+      "method": "GET",
+      "path": "/api/v1/manage/commercial-items/soft-offers/{internalId}",
+      "operationId": "get-api-v1-manage-commercial-items-soft-offers-internalid",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/9d91f3213a5afd25c6b9",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/6cbbd298b1c38270edf0"
+      ]
+    },
+    {
+      "family": "assortment-admin",
+      "document": ".openapi/assortment-admin-api.json",
+      "pointer": "/paths/~1api~1v1~1manage~1commercial-items~1soft-offers~1{internalId}/put",
+      "method": "PUT",
+      "path": "/api/v1/manage/commercial-items/soft-offers/{internalId}",
+      "operationId": "put-api-v1-manage-commercial-items-soft-offers-internalid",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/cd7f26692bae784dda2f",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/00007af05b360b11c379"
+      ]
+    },
+    {
+      "family": "assortment-admin",
+      "document": ".openapi/assortment-admin-api.json",
+      "pointer": "/paths/~1api~1v1~1manage~1commercial-items~1soft-offers~1{internalId}/delete",
+      "method": "DELETE",
+      "path": "/api/v1/manage/commercial-items/soft-offers/{internalId}",
+      "operationId": "delete-api-v1-manage-commercial-items-soft-offers-internalid",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/fd5766bc0df1e0b319d8",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/3787aafe242df8e1018f"
+      ]
+    },
+    {
+      "family": "assortment-admin",
+      "document": ".openapi/assortment-admin-api.json",
+      "pointer": "/paths/~1api~1v1~1manage~1commercial-items~1software-option-packages/get",
+      "method": "GET",
+      "path": "/api/v1/manage/commercial-items/software-option-packages",
+      "operationId": "get-api-v1-manage-commercial-items-software-option-packages",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/ef8a9fdc7fa1103f4255",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/678ab8fb140685b2e210"
+      ]
+    },
+    {
+      "family": "assortment-admin",
+      "document": ".openapi/assortment-admin-api.json",
+      "pointer": "/paths/~1api~1v1~1manage~1commercial-items~1software-option-packages/post",
+      "method": "POST",
+      "path": "/api/v1/manage/commercial-items/software-option-packages",
+      "operationId": "post-api-v1-manage-commercial-items-software-option-packages",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/a2c34122e6a689b95344",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/4f4ebba6ae7013349c4a"
+      ]
+    },
+    {
+      "family": "assortment-admin",
+      "document": ".openapi/assortment-admin-api.json",
+      "pointer": "/paths/~1api~1v1~1manage~1commercial-items~1software-option-packages~1{internalId}/get",
+      "method": "GET",
+      "path": "/api/v1/manage/commercial-items/software-option-packages/{internalId}",
+      "operationId": "get-api-v1-manage-commercial-items-software-option-packages-internalid",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/5bd342f071242163928b",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/e8273a7c10ba7ade0711"
+      ]
+    },
+    {
+      "family": "assortment-admin",
+      "document": ".openapi/assortment-admin-api.json",
+      "pointer": "/paths/~1api~1v1~1manage~1commercial-items~1software-option-packages~1{internalId}/put",
+      "method": "PUT",
+      "path": "/api/v1/manage/commercial-items/software-option-packages/{internalId}",
+      "operationId": "put-api-v1-manage-commercial-items-software-option-packages-internalid",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/1bf8431e62bf5b0bf745",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/bfe0d57a1073548cc563"
+      ]
+    },
+    {
+      "family": "assortment-admin",
+      "document": ".openapi/assortment-admin-api.json",
+      "pointer": "/paths/~1api~1v1~1manage~1commercial-items~1software-option-packages~1{internalId}/delete",
+      "method": "DELETE",
+      "path": "/api/v1/manage/commercial-items/software-option-packages/{internalId}",
+      "operationId": "delete-api-v1-manage-commercial-items-software-option-packages-internalid",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/87a06ee506af81fdbc96",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/06b464725c1e3794caf7"
+      ]
+    },
+    {
+      "family": "assortment-admin",
+      "document": ".openapi/assortment-admin-api.json",
+      "pointer": "/paths/~1api~1v1~1manage~1commercial-items~1software-options/get",
+      "method": "GET",
+      "path": "/api/v1/manage/commercial-items/software-options",
+      "operationId": "get-api-v1-manage-commercial-items-software-options",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/57729735749c59124059",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/80e21f9d705dfd64dc45"
+      ]
+    },
+    {
+      "family": "assortment-admin",
+      "document": ".openapi/assortment-admin-api.json",
+      "pointer": "/paths/~1api~1v1~1manage~1commercial-items~1software-options/post",
+      "method": "POST",
+      "path": "/api/v1/manage/commercial-items/software-options",
+      "operationId": "post-api-v1-manage-commercial-items-software-options",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/6e8dd416967483d5d766",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/5d66be12b1516f59bbfb"
+      ]
+    },
+    {
+      "family": "assortment-admin",
+      "document": ".openapi/assortment-admin-api.json",
+      "pointer": "/paths/~1api~1v1~1manage~1commercial-items~1software-options~1{internalId}/get",
+      "method": "GET",
+      "path": "/api/v1/manage/commercial-items/software-options/{internalId}",
+      "operationId": "get-api-v1-manage-commercial-items-software-options-internalid",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/013a65a96153fe02222f",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/cf3445b85a1c29fcdf71"
+      ]
+    },
+    {
+      "family": "assortment-admin",
+      "document": ".openapi/assortment-admin-api.json",
+      "pointer": "/paths/~1api~1v1~1manage~1commercial-items~1software-options~1{internalId}/put",
+      "method": "PUT",
+      "path": "/api/v1/manage/commercial-items/software-options/{internalId}",
+      "operationId": "put-api-v1-manage-commercial-items-software-options-internalid",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/fc527f83f626cc2a64d4",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/f62cb51b466bc3e7f39b"
+      ]
+    },
+    {
+      "family": "assortment-admin",
+      "document": ".openapi/assortment-admin-api.json",
+      "pointer": "/paths/~1api~1v1~1manage~1commercial-items~1software-options~1{internalId}/delete",
+      "method": "DELETE",
+      "path": "/api/v1/manage/commercial-items/software-options/{internalId}",
+      "operationId": "delete-api-v1-manage-commercial-items-software-options-internalid",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/e21bbaeb15ed4be28174",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/fb06b3a1c518b6d19abe"
+      ]
+    },
+    {
+      "family": "assortment-admin",
+      "document": ".openapi/assortment-admin-api.json",
+      "pointer": "/paths/~1api~1v1~1manage~1commercial-segments~1brands/get",
+      "method": "GET",
+      "path": "/api/v1/manage/commercial-segments/brands",
+      "operationId": "get-api-v1-manage-commercial-segments-brands",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/5087f29bb8ae9978b2ce",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/d6cab094e179af6a4373"
+      ]
+    },
+    {
+      "family": "assortment-admin",
+      "document": ".openapi/assortment-admin-api.json",
+      "pointer": "/paths/~1api~1v1~1manage~1commercial-segments~1brands/post",
+      "method": "POST",
+      "path": "/api/v1/manage/commercial-segments/brands",
+      "operationId": "post-api-v1-manage-commercial-segments-brands",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/26678568340d8e882fe8",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/a2bbade1729742abd472"
+      ]
+    },
+    {
+      "family": "assortment-admin",
+      "document": ".openapi/assortment-admin-api.json",
+      "pointer": "/paths/~1api~1v1~1manage~1commercial-segments~1brands~1{code}/get",
+      "method": "GET",
+      "path": "/api/v1/manage/commercial-segments/brands/{code}",
+      "operationId": "get-api-v1-manage-commercial-segments-brands-code",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/8111675e7a242dc322b4",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/4d5961fff4a7614c6a23"
+      ]
+    },
+    {
+      "family": "assortment-admin",
+      "document": ".openapi/assortment-admin-api.json",
+      "pointer": "/paths/~1api~1v1~1manage~1commercial-segments~1brands~1{code}/put",
+      "method": "PUT",
+      "path": "/api/v1/manage/commercial-segments/brands/{code}",
+      "operationId": "put-api-v1-manage-commercial-segments-brands-code",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/2dee03a1cc1555bee44c",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/745fa6baa2579ec7315d"
+      ]
+    },
+    {
+      "family": "assortment-admin",
+      "document": ".openapi/assortment-admin-api.json",
+      "pointer": "/paths/~1api~1v1~1manage~1commercial-segments~1brands~1{code}/delete",
+      "method": "DELETE",
+      "path": "/api/v1/manage/commercial-segments/brands/{code}",
+      "operationId": "delete-api-v1-manage-commercial-segments-brands-code",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/0ff4375c3ac58ab811ae",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/76a9da273ee5616108e2"
+      ]
+    },
+    {
+      "family": "assortment-admin",
+      "document": ".openapi/assortment-admin-api.json",
+      "pointer": "/paths/~1api~1v1~1manage~1commercial-segments~1cap-code-mappings/get",
+      "method": "GET",
+      "path": "/api/v1/manage/commercial-segments/cap-code-mappings",
+      "operationId": "get-api-v1-manage-commercial-segments-cap-code-mappings",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/78880b008ff140af9a01",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/c25672a559635d0295c9"
+      ]
+    },
+    {
+      "family": "assortment-admin",
+      "document": ".openapi/assortment-admin-api.json",
+      "pointer": "/paths/~1api~1v1~1manage~1commercial-segments~1cap-code-mappings/post",
+      "method": "POST",
+      "path": "/api/v1/manage/commercial-segments/cap-code-mappings",
+      "operationId": "post-api-v1-manage-commercial-segments-cap-code-mappings",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/6c7977094897b633227b",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/8d92e20de81705240a2b"
+      ]
+    },
+    {
+      "family": "assortment-admin",
+      "document": ".openapi/assortment-admin-api.json",
+      "pointer": "/paths/~1api~1v1~1manage~1commercial-segments~1cap-code-mappings~1{id}/get",
+      "method": "GET",
+      "path": "/api/v1/manage/commercial-segments/cap-code-mappings/{id}",
+      "operationId": "get-api-v1-manage-commercial-segments-cap-code-mappings-id",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/0b3ab8c0d93ee607ce61",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/6f2c655382efd66e5dae"
+      ]
+    },
+    {
+      "family": "assortment-admin",
+      "document": ".openapi/assortment-admin-api.json",
+      "pointer": "/paths/~1api~1v1~1manage~1commercial-segments~1cap-code-mappings~1{id}/put",
+      "method": "PUT",
+      "path": "/api/v1/manage/commercial-segments/cap-code-mappings/{id}",
+      "operationId": "put-api-v1-manage-commercial-segments-cap-code-mappings-id",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/d67a8d7da92b155026d6",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/8b193f92ea2f876aefec"
+      ]
+    },
+    {
+      "family": "assortment-admin",
+      "document": ".openapi/assortment-admin-api.json",
+      "pointer": "/paths/~1api~1v1~1manage~1commercial-segments~1cap-code-mappings~1{id}/delete",
+      "method": "DELETE",
+      "path": "/api/v1/manage/commercial-segments/cap-code-mappings/{id}",
+      "operationId": "delete-api-v1-manage-commercial-segments-cap-code-mappings-id",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/99ca5591bcde7c6048eb",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/a56df16d2cf4c55a2387"
+      ]
+    },
+    {
+      "family": "assortment-admin",
+      "document": ".openapi/assortment-admin-api.json",
+      "pointer": "/paths/~1api~1v1~1manage~1commercial-segments~1clients/get",
+      "method": "GET",
+      "path": "/api/v1/manage/commercial-segments/clients",
+      "operationId": "get-api-v1-manage-commercial-segments-clients",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/1703c459494124268d87",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/5b421f9073c4ca8b9704"
+      ]
+    },
+    {
+      "family": "assortment-admin",
+      "document": ".openapi/assortment-admin-api.json",
+      "pointer": "/paths/~1api~1v1~1manage~1commercial-segments~1clients/post",
+      "method": "POST",
+      "path": "/api/v1/manage/commercial-segments/clients",
+      "operationId": "post-api-v1-manage-commercial-segments-clients",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/540dba9fa9352f903bdb",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/1f1cb97f479002cc4493"
+      ]
+    },
+    {
+      "family": "assortment-admin",
+      "document": ".openapi/assortment-admin-api.json",
+      "pointer": "/paths/~1api~1v1~1manage~1commercial-segments~1clients~1{id}/get",
+      "method": "GET",
+      "path": "/api/v1/manage/commercial-segments/clients/{id}",
+      "operationId": "get-api-v1-manage-commercial-segments-clients-id",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/54a84f7c85588ee45a73",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/2d492498e0daa2af8bc3"
+      ]
+    },
+    {
+      "family": "assortment-admin",
+      "document": ".openapi/assortment-admin-api.json",
+      "pointer": "/paths/~1api~1v1~1manage~1commercial-segments~1clients~1{id}/put",
+      "method": "PUT",
+      "path": "/api/v1/manage/commercial-segments/clients/{id}",
+      "operationId": "put-api-v1-manage-commercial-segments-clients-id",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/6172a571bf50c8afa8a6",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/c817e5a903989cbc389d"
+      ]
+    },
+    {
+      "family": "assortment-admin",
+      "document": ".openapi/assortment-admin-api.json",
+      "pointer": "/paths/~1api~1v1~1manage~1commercial-segments~1clients~1{id}/delete",
+      "method": "DELETE",
+      "path": "/api/v1/manage/commercial-segments/clients/{id}",
+      "operationId": "delete-api-v1-manage-commercial-segments-clients-id",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/7da23733fd9413dceae1",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/14955de535989361a809"
+      ]
+    },
+    {
+      "family": "assortment-admin",
+      "document": ".openapi/assortment-admin-api.json",
+      "pointer": "/paths/~1api~1v1~1manage~1commercial-segments~1contract-lengths/get",
+      "method": "GET",
+      "path": "/api/v1/manage/commercial-segments/contract-lengths",
+      "operationId": "get-api-v1-manage-commercial-segments-contract-lengths",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/9a76636cb2463382d368",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/dc23b08fe3e61c6eb13a"
+      ]
+    },
+    {
+      "family": "assortment-admin",
+      "document": ".openapi/assortment-admin-api.json",
+      "pointer": "/paths/~1api~1v1~1manage~1commercial-segments~1contract-lengths/post",
+      "method": "POST",
+      "path": "/api/v1/manage/commercial-segments/contract-lengths",
+      "operationId": "post-api-v1-manage-commercial-segments-contract-lengths",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/95ad9763861f0e6bfe61",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/f5cb7707306c91c8cfe3"
+      ]
+    },
+    {
+      "family": "assortment-admin",
+      "document": ".openapi/assortment-admin-api.json",
+      "pointer": "/paths/~1api~1v1~1manage~1commercial-segments~1contract-lengths~1{id}/get",
+      "method": "GET",
+      "path": "/api/v1/manage/commercial-segments/contract-lengths/{id}",
+      "operationId": "get-api-v1-manage-commercial-segments-contract-lengths-id",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/58e82e911c281abc7d7a",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/df181640424575dce815"
+      ]
+    },
+    {
+      "family": "assortment-admin",
+      "document": ".openapi/assortment-admin-api.json",
+      "pointer": "/paths/~1api~1v1~1manage~1commercial-segments~1contract-lengths~1{id}/put",
+      "method": "PUT",
+      "path": "/api/v1/manage/commercial-segments/contract-lengths/{id}",
+      "operationId": "put-api-v1-manage-commercial-segments-contract-lengths-id",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/2e24405c2780580e058a",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/13dcb511a2bacc759b1a"
+      ]
+    },
+    {
+      "family": "assortment-admin",
+      "document": ".openapi/assortment-admin-api.json",
+      "pointer": "/paths/~1api~1v1~1manage~1commercial-segments~1contract-lengths~1{id}/delete",
+      "method": "DELETE",
+      "path": "/api/v1/manage/commercial-segments/contract-lengths/{id}",
+      "operationId": "delete-api-v1-manage-commercial-segments-contract-lengths-id",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/9dc60b5a0466bf968e87",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/bf57fded326eb7a052b3"
+      ]
+    },
+    {
+      "family": "assortment-admin",
+      "document": ".openapi/assortment-admin-api.json",
+      "pointer": "/paths/~1api~1v1~1manage~1commercial-segments~1customer-types/get",
+      "method": "GET",
+      "path": "/api/v1/manage/commercial-segments/customer-types",
+      "operationId": "get-api-v1-manage-commercial-segments-customer-types",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/ed4bd19960839fa8ef77",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/0cd28f8ecef2ae2870c3"
+      ]
+    },
+    {
+      "family": "assortment-admin",
+      "document": ".openapi/assortment-admin-api.json",
+      "pointer": "/paths/~1api~1v1~1manage~1commercial-segments~1customer-types/post",
+      "method": "POST",
+      "path": "/api/v1/manage/commercial-segments/customer-types",
+      "operationId": "post-api-v1-manage-commercial-segments-customer-types",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/1c985f2e3f1727027171",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/ec4b50b064084ace0586"
+      ]
+    },
+    {
+      "family": "assortment-admin",
+      "document": ".openapi/assortment-admin-api.json",
+      "pointer": "/paths/~1api~1v1~1manage~1commercial-segments~1customer-types~1{type}/get",
+      "method": "GET",
+      "path": "/api/v1/manage/commercial-segments/customer-types/{type}",
+      "operationId": "get-api-v1-manage-commercial-segments-customer-types-type",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/192c7cfef308c91c0fa5",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/594bd20a75e65fff355a"
+      ]
+    },
+    {
+      "family": "assortment-admin",
+      "document": ".openapi/assortment-admin-api.json",
+      "pointer": "/paths/~1api~1v1~1manage~1commercial-segments~1customer-types~1{type}/delete",
+      "method": "DELETE",
+      "path": "/api/v1/manage/commercial-segments/customer-types/{type}",
+      "operationId": "delete-api-v1-manage-commercial-segments-customer-types-type",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/95bd8c29632098b9c069",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/4e1806aeef03af78650e"
+      ]
+    },
+    {
+      "family": "assortment-admin",
+      "document": ".openapi/assortment-admin-api.json",
+      "pointer": "/paths/~1api~1v1~1manage~1commercial-segments~1markets/get",
+      "method": "GET",
+      "path": "/api/v1/manage/commercial-segments/markets",
+      "operationId": "get-api-v1-manage-commercial-segments-markets",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/e28954910adac25c50c9",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/6eedbe3253e7029311ed"
+      ]
+    },
+    {
+      "family": "assortment-admin",
+      "document": ".openapi/assortment-admin-api.json",
+      "pointer": "/paths/~1api~1v1~1manage~1commercial-segments~1markets/post",
+      "method": "POST",
+      "path": "/api/v1/manage/commercial-segments/markets",
+      "operationId": "post-api-v1-manage-commercial-segments-markets",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/940393e71453e30d436f",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/58a0994f016e57f4ab78"
+      ]
+    },
+    {
+      "family": "assortment-admin",
+      "document": ".openapi/assortment-admin-api.json",
+      "pointer": "/paths/~1api~1v1~1manage~1commercial-segments~1markets~1{code}/get",
+      "method": "GET",
+      "path": "/api/v1/manage/commercial-segments/markets/{code}",
+      "operationId": "get-api-v1-manage-commercial-segments-markets-code",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/bd3d0df540352aac0c29",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/ea85c149d03636fb0ae0"
+      ]
+    },
+    {
+      "family": "assortment-admin",
+      "document": ".openapi/assortment-admin-api.json",
+      "pointer": "/paths/~1api~1v1~1manage~1commercial-segments~1markets~1{code}/put",
+      "method": "PUT",
+      "path": "/api/v1/manage/commercial-segments/markets/{code}",
+      "operationId": "put-api-v1-manage-commercial-segments-markets-code",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/bd8f7e3d94d0637ab86f",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/879fb5035847cf46412e"
+      ]
+    },
+    {
+      "family": "assortment-admin",
+      "document": ".openapi/assortment-admin-api.json",
+      "pointer": "/paths/~1api~1v1~1manage~1commercial-segments~1markets~1{code}/delete",
+      "method": "DELETE",
+      "path": "/api/v1/manage/commercial-segments/markets/{code}",
+      "operationId": "delete-api-v1-manage-commercial-segments-markets-code",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/544928368b497ed43079",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/14ff3cbff67c5b4f27bd"
+      ]
+    },
+    {
+      "family": "assortment-admin",
+      "document": ".openapi/assortment-admin-api.json",
+      "pointer": "/paths/~1api~1v1~1manage~1commercial-segments~1sales-models/get",
+      "method": "GET",
+      "path": "/api/v1/manage/commercial-segments/sales-models",
+      "operationId": "get-api-v1-manage-commercial-segments-sales-models",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/c1611f11acbb1c06fa9d",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/d68fd1b4451c2927ba68"
+      ]
+    },
+    {
+      "family": "assortment-admin",
+      "document": ".openapi/assortment-admin-api.json",
+      "pointer": "/paths/~1api~1v1~1manage~1commercial-segments~1sales-models/post",
+      "method": "POST",
+      "path": "/api/v1/manage/commercial-segments/sales-models",
+      "operationId": "post-api-v1-manage-commercial-segments-sales-models",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/4c1df0c16550e307143a",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/5fa74b7bb9070ac990d8"
+      ]
+    },
+    {
+      "family": "assortment-admin",
+      "document": ".openapi/assortment-admin-api.json",
+      "pointer": "/paths/~1api~1v1~1manage~1commercial-segments~1sales-models~1{type}/get",
+      "method": "GET",
+      "path": "/api/v1/manage/commercial-segments/sales-models/{type}",
+      "operationId": "get-api-v1-manage-commercial-segments-sales-models-type",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/d0d32862d9a64da33337",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/e8f217cf71bc766df174"
+      ]
+    },
+    {
+      "family": "assortment-admin",
+      "document": ".openapi/assortment-admin-api.json",
+      "pointer": "/paths/~1api~1v1~1manage~1commercial-segments~1sales-models~1{type}/put",
+      "method": "PUT",
+      "path": "/api/v1/manage/commercial-segments/sales-models/{type}",
+      "operationId": "put-api-v1-manage-commercial-segments-sales-models-type",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/ac8e88fae64c0b5c867d",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/f5f7f7fe19bb55d22f27"
+      ]
+    },
+    {
+      "family": "assortment-admin",
+      "document": ".openapi/assortment-admin-api.json",
+      "pointer": "/paths/~1api~1v1~1manage~1commercial-segments~1sales-models~1{type}/delete",
+      "method": "DELETE",
+      "path": "/api/v1/manage/commercial-segments/sales-models/{type}",
+      "operationId": "delete-api-v1-manage-commercial-segments-sales-models-type",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/d22eb4fa44e10d5a8ae6",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/322cb550b6a1b05f5d4b"
+      ]
+    },
+    {
+      "family": "assortment-admin",
+      "document": ".openapi/assortment-admin-api.json",
+      "pointer": "/paths/~1api~1v1~1manage~1util~1authz~1configurations/get",
+      "method": "GET",
+      "path": "/api/v1/manage/util/authz/configurations",
+      "operationId": "get-api-v1-manage-util-authz-configurations",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/4b14c1de0bf0e91d36a0",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/b1f75d7d46b62ac200db"
+      ]
+    },
+    {
+      "family": "assortment-admin",
+      "document": ".openapi/assortment-admin-api.json",
+      "pointer": "/paths/~1api~1v1~1manage~1commercial-items~1attribute-groups~1export-as-json-schema~1{attributeGroupCode}/get",
+      "method": "GET",
+      "path": "/api/v1/manage/commercial-items/attribute-groups/export-as-json-schema/{attributeGroupCode}",
+      "operationId": "get-api-v1-manage-commercial-items-attribute-groups-export-as-json-schema-at",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/e608339ed6b53422e456",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/055769578c7c6bbf5dd5"
+      ]
+    },
+    {
+      "family": "assortment-admin",
+      "document": ".openapi/assortment-admin-api.json",
+      "pointer": "/paths/~1api~1v1~1manage~1commercial-items~1attribute-groups~1export~1{attributeGroupCode}/get",
+      "method": "GET",
+      "path": "/api/v1/manage/commercial-items/attribute-groups/export/{attributeGroupCode}",
+      "operationId": "get-api-v1-manage-commercial-items-attribute-groups-export-attributegroupcod",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/dd97ada8376e6befd630",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/46a7aa8eeb03447f8ec2"
+      ]
+    },
+    {
+      "family": "assortment-admin",
+      "document": ".openapi/assortment-admin-api.json",
+      "pointer": "/paths/~1api~1v1~1details~1admin~1classifications/get",
+      "method": "GET",
+      "path": "/api/v1/details/admin/classifications",
+      "operationId": "get-api-v1-details-admin-classifications",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/6ccb00c4ff77a125c338",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/50282eb5565cfa245e61"
+      ]
+    },
+    {
+      "family": "assortment-admin",
+      "document": ".openapi/assortment-admin-api.json",
+      "pointer": "/paths/~1api~1v1~1details~1admin~1classifications/post",
+      "method": "POST",
+      "path": "/api/v1/details/admin/classifications",
+      "operationId": "post-api-v1-details-admin-classifications",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/fa50dfa47f6d0c2a5a99",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/f066cbe4239f4f07ea85"
+      ]
+    },
+    {
+      "family": "assortment-admin",
+      "document": ".openapi/assortment-admin-api.json",
+      "pointer": "/paths/~1api~1v1~1details~1admin~1classifications~1{id}/get",
+      "method": "GET",
+      "path": "/api/v1/details/admin/classifications/{id}",
+      "operationId": "get-api-v1-details-admin-classifications-id",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/e2c9327badb1216791b7",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/eae27d67d39a75198647"
+      ]
+    },
+    {
+      "family": "assortment-admin",
+      "document": ".openapi/assortment-admin-api.json",
+      "pointer": "/paths/~1api~1v1~1details~1admin~1classifications~1{id}/put",
+      "method": "PUT",
+      "path": "/api/v1/details/admin/classifications/{id}",
+      "operationId": "put-api-v1-details-admin-classifications-id",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/8cff9aaab12f98e44d40",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/5e5a86f03b2298eec178"
+      ]
+    },
+    {
+      "family": "assortment-admin",
+      "document": ".openapi/assortment-admin-api.json",
+      "pointer": "/paths/~1api~1v1~1details~1admin~1classifications~1{id}/delete",
+      "method": "DELETE",
+      "path": "/api/v1/details/admin/classifications/{id}",
+      "operationId": "delete-api-v1-details-admin-classifications-id",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/555b14f65999f9702f55",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/fec0b679d7a7382eb036"
+      ]
+    },
+    {
+      "family": "assortment-admin",
+      "document": ".openapi/assortment-admin-api.json",
+      "pointer": "/paths/~1api~1v1~1details~1admin~1specifications/get",
+      "method": "GET",
+      "path": "/api/v1/details/admin/specifications",
+      "operationId": "get-api-v1-details-admin-specifications",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/9e507eaf0028addde710",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/cab387c4eb1635ded22b"
+      ]
+    },
+    {
+      "family": "assortment-admin",
+      "document": ".openapi/assortment-admin-api.json",
+      "pointer": "/paths/~1api~1v1~1details~1admin~1specifications/post",
+      "method": "POST",
+      "path": "/api/v1/details/admin/specifications",
+      "operationId": "post-api-v1-details-admin-specifications",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/dbe9cad5d1dd17d73ee9",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/c60678989b6b3f14d134"
+      ]
+    },
+    {
+      "family": "assortment-admin",
+      "document": ".openapi/assortment-admin-api.json",
+      "pointer": "/paths/~1api~1v1~1details~1admin~1specifications~1{id}/get",
+      "method": "GET",
+      "path": "/api/v1/details/admin/specifications/{id}",
+      "operationId": "get-api-v1-details-admin-specifications-id",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/63fa9325a4988af495f9",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/ee3381cdcb3556d3ff84"
+      ]
+    },
+    {
+      "family": "assortment-admin",
+      "document": ".openapi/assortment-admin-api.json",
+      "pointer": "/paths/~1api~1v1~1details~1admin~1specifications~1{id}/put",
+      "method": "PUT",
+      "path": "/api/v1/details/admin/specifications/{id}",
+      "operationId": "put-api-v1-details-admin-specifications-id",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/8cefff6d713b173b77f4",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/35c4abe4e7cfcf790927"
+      ]
+    },
+    {
+      "family": "assortment-admin",
+      "document": ".openapi/assortment-admin-api.json",
+      "pointer": "/paths/~1api~1v1~1details~1admin~1specifications~1{id}/delete",
+      "method": "DELETE",
+      "path": "/api/v1/details/admin/specifications/{id}",
+      "operationId": "delete-api-v1-details-admin-specifications-id",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/5b3b2d543514052cefe3",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/9709706d00aa173e5b47"
+      ]
+    },
+    {
+      "family": "assortment-admin",
+      "document": ".openapi/assortment-admin-api.json",
+      "pointer": "/paths/~1api~1v1~1details~1public~1accessories/get",
+      "method": "GET",
+      "path": "/api/v1/details/public/accessories",
+      "operationId": "get-api-v1-details-public-accessories",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/337185063262bcc043be",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/3b5800b31add414005c3"
+      ]
+    },
+    {
+      "family": "assortment-admin",
+      "document": ".openapi/assortment-admin-api.json",
+      "pointer": "/paths/~1api~1v1~1details~1public~1accessory-packages/get",
+      "method": "GET",
+      "path": "/api/v1/details/public/accessory-packages",
+      "operationId": "get-api-v1-details-public-accessory-packages",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/21a40227365ab2c4f3c2",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/705da60ffe5a355f558f"
+      ]
+    },
+    {
+      "family": "assortment-admin",
+      "document": ".openapi/assortment-admin-api.json",
+      "pointer": "/paths/~1api~1v1~1details~1public~1service-plans/get",
+      "method": "GET",
+      "path": "/api/v1/details/public/service-plans",
+      "operationId": "get-api-v1-details-public-service-plans",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/07b6143252aaa82feb22",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/cac4271ff716eb88a57e"
+      ]
+    },
+    {
+      "family": "assortment-admin",
+      "document": ".openapi/assortment-admin-api.json",
+      "pointer": "/paths/~1api~1v1~1details~1public~1services/get",
+      "method": "GET",
+      "path": "/api/v1/details/public/services",
+      "operationId": "get-api-v1-details-public-services",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/cc2e261eee47a8454659",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/fd8f3149df345bb8fa9d"
+      ]
+    },
+    {
+      "family": "assortment-admin",
+      "document": ".openapi/assortment-admin-api.json",
+      "pointer": "/paths/~1api~1v1~1details~1public~1software-options/get",
+      "method": "GET",
+      "path": "/api/v1/details/public/software-options",
+      "operationId": "get-api-v1-details-public-software-options",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/057d4d91f1fe84c62b39",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/c9c4a0d574744f3ca819"
+      ]
+    },
+    {
+      "family": "assortment-admin",
+      "document": ".openapi/assortment-admin-api.json",
+      "pointer": "/paths/~1api~1v2~1admin~1Products/post",
+      "method": "POST",
+      "path": "/api/v2/admin/Products",
+      "operationId": "post-api-v2-admin-products",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/d337fb5680f1bf30738c",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/7a11787e1302293b817d"
+      ]
+    },
+    {
+      "family": "assortment-admin",
+      "document": ".openapi/assortment-admin-api.json",
+      "pointer": "/paths/~1api~1v1~1details~1admin~1product-groups/get",
+      "method": "GET",
+      "path": "/api/v1/details/admin/product-groups",
+      "operationId": "get-api-v1-details-admin-product-groups",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/f9bd3cd0ebc7a7c42a26",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/78538363ad5eab8c3d64"
+      ]
+    },
+    {
+      "family": "assortment-admin",
+      "document": ".openapi/assortment-admin-api.json",
+      "pointer": "/paths/~1api~1v1~1details~1admin~1product-groups/post",
+      "method": "POST",
+      "path": "/api/v1/details/admin/product-groups",
+      "operationId": "post-api-v1-details-admin-product-groups",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/31ff25e3b251f9f61d69",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/f5b0dd171be9f1af1e5c"
+      ]
+    },
+    {
+      "family": "assortment-admin",
+      "document": ".openapi/assortment-admin-api.json",
+      "pointer": "/paths/~1api~1v1~1details~1admin~1product-groups~1{id}/get",
+      "method": "GET",
+      "path": "/api/v1/details/admin/product-groups/{id}",
+      "operationId": "get-api-v1-details-admin-product-groups-id",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/0d93c8d1634f789774d4",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/de22db53287ba988f57b"
+      ]
+    },
+    {
+      "family": "assortment-admin",
+      "document": ".openapi/assortment-admin-api.json",
+      "pointer": "/paths/~1api~1v1~1details~1admin~1product-groups~1{id}/put",
+      "method": "PUT",
+      "path": "/api/v1/details/admin/product-groups/{id}",
+      "operationId": "put-api-v1-details-admin-product-groups-id",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/1bcd67e39cd311308e90",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/27b6af5fecf9338fb798"
+      ]
+    },
+    {
+      "family": "assortment-admin",
+      "document": ".openapi/assortment-admin-api.json",
+      "pointer": "/paths/~1api~1v1~1details~1admin~1product-groups~1{id}/delete",
+      "method": "DELETE",
+      "path": "/api/v1/details/admin/product-groups/{id}",
+      "operationId": "delete-api-v1-details-admin-product-groups-id",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/7b0528b9c984cd90a568",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/a4e53778f149ccb6a070"
+      ]
+    },
+    {
+      "family": "assortment-admin",
+      "document": ".openapi/assortment-admin-api.json",
+      "pointer": "/paths/~1api~1v1~1cars~1CarConfig/get",
+      "method": "GET",
+      "path": "/api/v1/cars/CarConfig",
+      "operationId": "get-api-v1-cars-carconfig-specmarket-specmarket-modelyear-modelyear-pno12-pn",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/a0d8686d563f46a35116",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/5543cde9ca49e36d376c"
+      ]
+    },
+    {
+      "family": "assortment-admin",
+      "document": ".openapi/assortment-admin-api.json",
+      "pointer": "/paths/~1api~1v1~1cars~1CarConfig~1query/get",
+      "method": "GET",
+      "path": "/api/v1/cars/CarConfig/query",
+      "operationId": "get-api-v1-cars-carconfig-query",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/ea4c473aa95e5ba9c12e",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/1a0585144d327a2f5dac"
+      ]
+    },
+    {
+      "family": "assortment-admin",
+      "document": ".openapi/assortment-admin-api.json",
+      "pointer": "/paths/~1api~1v1~1cars~1ComponentAttributes~1query/get",
+      "method": "GET",
+      "path": "/api/v1/cars/ComponentAttributes/query",
+      "operationId": "get-api-v1-cars-componentattributes-query",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/fe1baeae8f162a017a75",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/506bd5ec68f718eadb7c"
+      ]
+    },
+    {
+      "family": "assortment-admin",
+      "document": ".openapi/assortment-admin-api.json",
+      "pointer": "/paths/~1api~1v1~1cars~1Components~1query/get",
+      "method": "GET",
+      "path": "/api/v1/cars/Components/query",
+      "operationId": "get-api-v1-cars-components-query",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/5c2023878d6aa3272337",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/2d096750642423281b91"
+      ]
+    },
+    {
+      "family": "assortment-admin",
+      "document": ".openapi/assortment-admin-api.json",
+      "pointer": "/paths/~1api~1v1~1cars~1ConfigurableProducts~1query/get",
+      "method": "GET",
+      "path": "/api/v1/cars/ConfigurableProducts/query",
+      "operationId": "get-api-v1-cars-configurableproducts-query",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/ac1cd2a3dd9840832114",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/5c05e5e5900ce39d1e6c"
+      ]
+    },
+    {
+      "family": "assortment-admin",
+      "document": ".openapi/assortment-admin-api.json",
+      "pointer": "/paths/~1api~1v1~1cars~1Features/get",
+      "method": "GET",
+      "path": "/api/v1/cars/Features",
+      "operationId": "get-api-v1-cars-features",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/315212a5536eda33c016",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/93f20b9b212fd17127aa"
+      ]
+    },
+    {
+      "family": "assortment-admin",
+      "document": ".openapi/assortment-admin-api.json",
+      "pointer": "/paths/~1api~1v1~1cars~1Features/post",
+      "method": "POST",
+      "path": "/api/v1/cars/Features",
+      "operationId": "post-api-v1-cars-features",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/ae7eebbe2fb8a84ada6b",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/d010f838c3ca9131198c"
+      ]
+    },
+    {
+      "family": "assortment-admin",
+      "document": ".openapi/assortment-admin-api.json",
+      "pointer": "/paths/~1api~1v1~1cars~1Features~1retryFailed/post",
+      "method": "POST",
+      "path": "/api/v1/cars/Features/retryFailed",
+      "operationId": "post-api-v1-cars-features-retryfailed",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/9d5abdcc54139c980022",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/e36e4fea07f27b0c9210"
+      ]
+    },
+    {
+      "family": "assortment-admin",
+      "document": ".openapi/assortment-admin-api.json",
+      "pointer": "/paths/~1api~1v1~1cars~1FullFeatures/post",
+      "method": "POST",
+      "path": "/api/v1/cars/FullFeatures",
+      "operationId": "post-api-v1-cars-fullfeatures",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/af8c7ae70f7d5ee78e65",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/339c6a6b9648da2c3883"
+      ]
+    },
+    {
+      "family": "assortment-admin",
+      "document": ".openapi/assortment-admin-api.json",
+      "pointer": "/paths/~1api~1v1~1cars~1FullFeatures~1getFullFeatures/post",
+      "method": "POST",
+      "path": "/api/v1/cars/FullFeatures/getFullFeatures",
+      "operationId": "post-api-v1-cars-fullfeatures-getfullfeatures",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/6e1ddedcd6af197d3f44",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/e4f658873d4a9bc79ffc"
+      ]
+    },
+    {
+      "family": "assortment-admin",
+      "document": ".openapi/assortment-admin-api.json",
+      "pointer": "/paths/~1api~1v1~1cars~1FullFeatures~1rawData/get",
+      "method": "GET",
+      "path": "/api/v1/cars/FullFeatures/rawData",
+      "operationId": "get-api-v1-cars-fullfeatures-rawdata",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/e7e2c4682356961736fb",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/1a7c39ceb400513b483a"
+      ]
+    },
+    {
+      "family": "assortment-admin",
+      "document": ".openapi/assortment-admin-api.json",
+      "pointer": "/paths/~1api~1v1~1cars~1FullFeatures~1retryFailed/post",
+      "method": "POST",
+      "path": "/api/v1/cars/FullFeatures/retryFailed",
+      "operationId": "post-api-v1-cars-fullfeatures-retryfailed",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/d370c5019893d3572f9e",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/2db2311088f29acbb247"
+      ]
+    },
+    {
+      "family": "assortment-admin",
+      "document": ".openapi/assortment-admin-api.json",
+      "pointer": "/paths/~1api~1v1~1cars~1GlobalDictionary/get",
+      "method": "GET",
+      "path": "/api/v1/cars/GlobalDictionary",
+      "operationId": "get-api-v1-cars-globaldictionary",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/97da01b23696d6a355b7",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/d6215da9c7520ee9592a"
+      ]
+    },
+    {
+      "family": "assortment-admin",
+      "document": ".openapi/assortment-admin-api.json",
+      "pointer": "/paths/~1api~1v1~1cars~1GlobalDictionary/post",
+      "method": "POST",
+      "path": "/api/v1/cars/GlobalDictionary",
+      "operationId": "post-api-v1-cars-globaldictionary",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/f691058900e348b3edf4",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/b436660521674cb52a14"
+      ]
+    },
+    {
+      "family": "assortment-admin",
+      "document": ".openapi/assortment-admin-api.json",
+      "pointer": "/paths/~1api~1v1~1cars~1GlobalDictionary~1entries/get",
+      "method": "GET",
+      "path": "/api/v1/cars/GlobalDictionary/entries",
+      "operationId": "get-api-v1-cars-globaldictionary-entries",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/c24a3e6e6535f8aa6992",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/e22f134353ab83230d93"
+      ]
+    },
+    {
+      "family": "assortment-admin",
+      "document": ".openapi/assortment-admin-api.json",
+      "pointer": "/paths/~1api~1v1~1cars~1GlobalDictionary~1filteredEntries/post",
+      "method": "POST",
+      "path": "/api/v1/cars/GlobalDictionary/filteredEntries",
+      "operationId": "post-api-v1-cars-globaldictionary-filteredentries",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/d0f24da8af20d33184e3",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/bbc024410e4c6e94937b"
+      ]
+    },
+    {
+      "family": "assortment-admin",
+      "document": ".openapi/assortment-admin-api.json",
+      "pointer": "/paths/~1api~1v1~1cars~1GlobalDictionary~1uploadPrins/post",
+      "method": "POST",
+      "path": "/api/v1/cars/GlobalDictionary/uploadPrins",
+      "operationId": "post-api-v1-cars-globaldictionary-uploadprins",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/f219255f3d209069ca58",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/badccf9ff50b1fc13a78"
+      ]
+    },
+    {
+      "family": "assortment-admin",
+      "document": ".openapi/assortment-admin-api.json",
+      "pointer": "/paths/~1api~1v1~1cars~1MarketAuth/get",
+      "method": "GET",
+      "path": "/api/v1/cars/MarketAuth",
+      "operationId": "get-api-v1-cars-marketauth",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/7cf6e4bdf42f00510abb",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/21591860cb7c3daa9e58"
+      ]
+    },
+    {
+      "family": "assortment-admin",
+      "document": ".openapi/assortment-admin-api.json",
+      "pointer": "/paths/~1api~1v1~1cars~1MarketAuth/post",
+      "method": "POST",
+      "path": "/api/v1/cars/MarketAuth",
+      "operationId": "post-api-v1-cars-marketauth",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/df7b81957cc21882654b",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/0f97fcff109a5ec53f83"
+      ]
+    },
+    {
+      "family": "assortment-admin",
+      "document": ".openapi/assortment-admin-api.json",
+      "pointer": "/paths/~1api~1v1~1cars~1MarketAuth~1entries/get",
+      "method": "GET",
+      "path": "/api/v1/cars/MarketAuth/entries",
+      "operationId": "get-api-v1-cars-marketauth-entries",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/04bfb14f1409dc03d7c5",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/6cc44f2f32243ffcddc8"
+      ]
+    },
+    {
+      "family": "assortment-admin",
+      "document": ".openapi/assortment-admin-api.json",
+      "pointer": "/paths/~1api~1v1~1cars~1MarketAuth~1filteredEntries/post",
+      "method": "POST",
+      "path": "/api/v1/cars/MarketAuth/filteredEntries",
+      "operationId": "post-api-v1-cars-marketauth-filteredentries",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/53d7d1c5f72f5cf65ac5",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/d2b622cc0c45fcb3e66b"
+      ]
+    },
+    {
+      "family": "assortment-admin",
+      "document": ".openapi/assortment-admin-api.json",
+      "pointer": "/paths/~1api~1v1~1cars~1MarketAuth~1retryFailed/post",
+      "method": "POST",
+      "path": "/api/v1/cars/MarketAuth/retryFailed",
+      "operationId": "post-api-v1-cars-marketauth-retryfailed",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/26ef93eba9017a9edf48",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/23af67069e49b5263bf2"
+      ]
+    },
+    {
+      "family": "assortment-admin",
+      "document": ".openapi/assortment-admin-api.json",
+      "pointer": "/paths/~1api~1v1~1cars~1SpecMarket/get",
+      "method": "GET",
+      "path": "/api/v1/cars/SpecMarket",
+      "operationId": "get-api-v1-cars-specmarket",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/c3b2d8a242e0bb4b6294",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/41a9ad37b3b23d106fe9"
+      ]
+    },
+    {
+      "family": "assortment-admin",
+      "document": ".openapi/assortment-admin-api.json",
+      "pointer": "/paths/~1api~1v1~1cars~1Util~1GetFullFeatures/post",
+      "method": "POST",
+      "path": "/api/v1/cars/Util/GetFullFeatures",
+      "operationId": "post-api-v1-cars-util-getfullfeatures",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/27fe2ecb95c06764bb24",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/a5a21adffbb8e5b67e18"
+      ]
+    },
+    {
+      "family": "assortment-admin",
+      "document": ".openapi/assortment-admin-api.json",
+      "pointer": "/paths/~1api~1v1~1cars~1Util~1rebuild/post",
+      "method": "POST",
+      "path": "/api/v1/cars/Util/rebuild",
+      "operationId": "post-api-v1-cars-util-rebuild",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/fba72bf56c1037ccd85d",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/870558c20de124cb2f91"
+      ]
+    },
+    {
+      "family": "assortment-admin",
+      "document": ".openapi/assortment-admin-api.json",
+      "pointer": "/paths/~1api~1v1~1cars~1Util~1rebuildMarketAuthEntries/post",
+      "method": "POST",
+      "path": "/api/v1/cars/Util/rebuildMarketAuthEntries",
+      "operationId": "post-api-v1-cars-util-rebuildmarketauthentries",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/ad1cee67473d26e41394",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/e7177e82d63096ab4c66"
+      ]
+    },
+    {
+      "family": "assortment-admin",
+      "document": ".openapi/assortment-admin-api.json",
+      "pointer": "/paths/~1api~1v1~1cars~1Util~1rebuildSpecMarket/post",
+      "method": "POST",
+      "path": "/api/v1/cars/Util/rebuildSpecMarket",
+      "operationId": "post-api-v1-cars-util-rebuildspecmarket",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/e07dbd83e7099bdcc49c",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/79e4eff745af3370f1e2"
+      ]
+    },
+    {
+      "family": "assortment-admin",
+      "document": ".openapi/assortment-admin-api.json",
+      "pointer": "/paths/~1api~1v1~1cars~1Util~1rebuildSpecMarketCarType/post",
+      "method": "POST",
+      "path": "/api/v1/cars/Util/rebuildSpecMarketCarType",
+      "operationId": "post-api-v1-cars-util-rebuildspecmarketcartype",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/343f142fb5734e8f7931",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/addaa1345ee2b6e115c8"
+      ]
+    },
+    {
+      "family": "assortment-admin",
+      "document": ".openapi/assortment-admin-api.json",
+      "pointer": "/paths/~1api~1v1~1cars~1Util~1resendAllCarConfigMessages/post",
+      "method": "POST",
+      "path": "/api/v1/cars/Util/resendAllCarConfigMessages",
+      "operationId": "post-api-v1-cars-util-resendallcarconfigmessages",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/8fa75c131b441c6d1909",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/504841b423acac5e21a0"
+      ]
+    },
+    {
+      "family": "assortment-admin",
+      "document": ".openapi/assortment-admin-api.json",
+      "pointer": "/paths/~1api~1v1~1cars~1v1~1Accessories/get",
+      "method": "GET",
+      "path": "/api/v1/cars/v1/Accessories",
+      "operationId": "get-api-v1-cars-v1-accessories",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/fa1fb85b3d753c97d303",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/33ea99ba2cbd27da2a0c"
+      ]
+    },
+    {
+      "family": "assortment-admin",
+      "document": ".openapi/assortment-admin-api.json",
+      "pointer": "/paths/~1api~1v1~1cars~1v1~1AccessoryPackages/get",
+      "method": "GET",
+      "path": "/api/v1/cars/v1/AccessoryPackages",
+      "operationId": "get-api-v1-cars-v1-accessorypackages",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/fad8ac8faa3bf2dd04f4",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/280f5c8ded85472182dc"
+      ]
+    },
+    {
+      "family": "assortment-admin",
+      "document": ".openapi/assortment-admin-api.json",
+      "pointer": "/paths/~1api~1v1~1details~1public~1discovery~1states/get",
+      "method": "GET",
+      "path": "/api/v1/details/public/discovery/states",
+      "operationId": "get-api-v1-details-public-discovery-states",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/aeeecbbee962d4df56bc",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/c62c19e510d779a77f1b"
+      ]
+    },
+    {
+      "family": "assortment-admin",
+      "document": ".openapi/assortment-admin-api.json",
+      "pointer": "/paths/~1api~1v1~1details~1public~1packages~1classification/get",
+      "method": "GET",
+      "path": "/api/v1/details/public/packages/classification",
+      "operationId": "get-api-v1-details-public-packages-classification",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/857a9b5966c494fdc3aa",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/aee2c8de460a1c7bd6c1"
+      ]
+    },
+    {
+      "family": "assortment-admin",
+      "document": ".openapi/assortment-admin-api.json",
+      "pointer": "/paths/~1api~1v1~1details~1public~1products~1classification/get",
+      "method": "GET",
+      "path": "/api/v1/details/public/products/classification",
+      "operationId": "get-api-v1-details-public-products-classification",
+      "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/stored-openapi/cba42143a0ea628b3a76",
+      "callers": [
+        "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/generated-caller/803692c9732cacddf116"
+      ]
+    }
+  ],
+  "unmatchedCallers": []
+}

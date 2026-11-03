@@ -1,0 +1,62 @@
+[
+  {
+    "caller": "caas-car-configurator-5495209-complete-r2/implementation/9cd2ec5808cd5d01",
+    "call": "caas-car-configurator-5495209-complete-r2/operation/9cd2ec5808cd5d01/n/1",
+    "helper": "caas-car-configurator-5495209-complete-r2/implementation/ca2e2e25f144db13",
+    "formal": "caas-car-configurator-5495209-complete-r2/value/ca2e2e25f144db13/p/0",
+    "interfaceCall": "caas-car-configurator-5495209-complete-r2/operation/ca2e2e25f144db13/n/1",
+    "getter": "caas-car-configurator-5495209-complete-r2/implementation/7cbb4aad0c578e92",
+    "actual": "caas-car-configurator-5495209-complete-r2/value/9cd2ec5808cd5d01/p/1",
+    "claim": "caas-car-configurator-5495209-complete-r2/claim/ruleset-getter/9d8ad05e427aeacb"
+  },
+  {
+    "caller": "caas-car-configurator-5495209-complete-r2/implementation/847db77ace27067a",
+    "call": "caas-car-configurator-5495209-complete-r2/operation/847db77ace27067a/n/1",
+    "helper": "caas-car-configurator-5495209-complete-r2/implementation/ca2e2e25f144db13",
+    "formal": "caas-car-configurator-5495209-complete-r2/value/ca2e2e25f144db13/p/0",
+    "interfaceCall": "caas-car-configurator-5495209-complete-r2/operation/ca2e2e25f144db13/n/1",
+    "getter": "caas-car-configurator-5495209-complete-r2/implementation/ed1e5a7a314b9b42",
+    "actual": "caas-car-configurator-5495209-complete-r2/value/847db77ace27067a/p/1",
+    "claim": "caas-car-configurator-5495209-complete-r2/claim/ruleset-getter/2b55ca01dd16e85e"
+  },
+  {
+    "caller": "caas-car-configurator-5495209-complete-r2/implementation/89a7e9c5ff2a58a0",
+    "call": "caas-car-configurator-5495209-complete-r2/operation/89a7e9c5ff2a58a0/n/1",
+    "helper": "caas-car-configurator-5495209-complete-r2/implementation/ca2e2e25f144db13",
+    "formal": "caas-car-configurator-5495209-complete-r2/value/ca2e2e25f144db13/p/0",
+    "interfaceCall": "caas-car-configurator-5495209-complete-r2/operation/ca2e2e25f144db13/n/1",
+    "getter": "caas-car-configurator-5495209-complete-r2/implementation/cadadfde49eece73",
+    "actual": "caas-car-configurator-5495209-complete-r2/value/89a7e9c5ff2a58a0/p/1",
+    "claim": "caas-car-configurator-5495209-complete-r2/claim/ruleset-getter/6221f5805d723e76"
+  },
+  {
+    "caller": "caas-car-configurator-5495209-complete-r2/implementation/f55dd2ca39bf2ddc",
+    "call": "caas-car-configurator-5495209-complete-r2/operation/f55dd2ca39bf2ddc/n/1",
+    "helper": "caas-car-configurator-5495209-complete-r2/implementation/ca2e2e25f144db13",
+    "formal": "caas-car-configurator-5495209-complete-r2/value/ca2e2e25f144db13/p/0",
+    "interfaceCall": "caas-car-configurator-5495209-complete-r2/operation/ca2e2e25f144db13/n/1",
+    "getter": "caas-car-configurator-5495209-complete-r2/implementation/11ceb4a0713aefd8",
+    "actual": "caas-car-configurator-5495209-complete-r2/value/f55dd2ca39bf2ddc/p/1",
+    "claim": "caas-car-configurator-5495209-complete-r2/claim/ruleset-getter/3051f31abcd38a15"
+  },
+  {
+    "caller": "caas-car-configurator-5495209-complete-r2/implementation/81ff530482557c38",
+    "call": "caas-car-configurator-5495209-complete-r2/operation/81ff530482557c38/n/1",
+    "helper": "caas-car-configurator-5495209-complete-r2/implementation/ca2e2e25f144db13",
+    "formal": "caas-car-configurator-5495209-complete-r2/value/ca2e2e25f144db13/p/0",
+    "interfaceCall": "caas-car-configurator-5495209-complete-r2/operation/ca2e2e25f144db13/n/1",
+    "getter": "caas-car-configurator-5495209-complete-r2/implementation/45f41f54ea465bb1",
+    "actual": "caas-car-configurator-5495209-complete-r2/value/81ff530482557c38/p/1",
+    "claim": "caas-car-configurator-5495209-complete-r2/claim/ruleset-getter/d166b96bfc97c2c8"
+  },
+  {
+    "caller": "caas-car-configurator-5495209-complete-r2/implementation/04aa3082e5a17071",
+    "call": "caas-car-configurator-5495209-complete-r2/operation/04aa3082e5a17071/n/1",
+    "helper": "caas-car-configurator-5495209-complete-r2/implementation/ca2e2e25f144db13",
+    "formal": "caas-car-configurator-5495209-complete-r2/value/ca2e2e25f144db13/p/0",
+    "interfaceCall": "caas-car-configurator-5495209-complete-r2/operation/ca2e2e25f144db13/n/1",
+    "getter": "caas-car-configurator-5495209-complete-r2/implementation/9def4a03996156cf",
+    "actual": "caas-car-configurator-5495209-complete-r2/value/04aa3082e5a17071/p/1",
+    "claim": "caas-car-configurator-5495209-complete-r2/claim/ruleset-getter/d3eb88f9ac26640e"
+  }
+]

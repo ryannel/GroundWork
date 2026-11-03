@@ -1,0 +1,12 @@
+{
+  "snapshot": "31585b5be35778f319c8edc78ed346af9eba722bbd9e09a0e819d25ba3eeb1d1",
+  "bundleDigest": "2c67f4ae2136fbb14f16f4841d0b855e78adf9ed0b6c0639d6a30ab5cb8abcaa",
+  "bundleSha256": "8374d820919f8374306cb31d22759d5a67886ba721aee99ed6a23694546cda6e",
+  "records": 118416,
+  "pin": "667a00a5f96fdb8b9aad35e0afe80dc792cbc1b5",
+  "evidenceRanges": 14282,
+  "strictPrimaryQueries": 253,
+  "additionalStrictContinuationReplays": 1,
+  "positiveIOOwnerProjections": 33,
+  "sourceInspection": "all157production-namedGofiles/1416realframes examined; opaque Swagger target remains external partial"
+}

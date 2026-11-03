@@ -1,0 +1,603 @@
+[
+  {
+    "path": ".gitignore",
+    "mode": "100644",
+    "gitType": "blob",
+    "blob": "712662e910823e6439e968ef95eaaf3a211f839d",
+    "bytes": 517,
+    "lines": 27,
+    "role": "configuration_support",
+    "nativeBodies": 0,
+    "sourceTypes": 0,
+    "status": "configuration_support_reviewed",
+    "implementations": []
+  },
+  {
+    "path": ".secrets.example",
+    "mode": "100644",
+    "gitType": "blob",
+    "blob": "f460bfcc25d435743b22c3520ee46399aac4e951",
+    "bytes": 289,
+    "lines": 5,
+    "role": "configuration_support",
+    "nativeBodies": 0,
+    "sourceTypes": 0,
+    "status": "configuration_support_reviewed",
+    "implementations": []
+  },
+  {
+    "path": "Makefile",
+    "mode": "100644",
+    "gitType": "blob",
+    "blob": "d593f3afc65b4477ea171223d8eeda5fef74b935",
+    "bytes": 104,
+    "lines": 7,
+    "role": "configuration_support",
+    "nativeBodies": 0,
+    "sourceTypes": 0,
+    "status": "configuration_support_reviewed",
+    "implementations": []
+  },
+  {
+    "path": "README.md",
+    "mode": "100644",
+    "gitType": "blob",
+    "blob": "0ed073285dc21f1e6a09dcdcdab6bd7af9e64f28",
+    "bytes": 739,
+    "lines": 27,
+    "role": "configuration_support",
+    "nativeBodies": 0,
+    "sourceTypes": 0,
+    "status": "configuration_support_reviewed",
+    "implementations": []
+  },
+  {
+    "path": "cmd/cce-prins-validator/main.go",
+    "mode": "100644",
+    "gitType": "blob",
+    "blob": "46ba4c496a7f911f5b1c1dbf0b8f77754efdc225",
+    "bytes": 124,
+    "lines": 8,
+    "role": "production_go",
+    "nativeBodies": 1,
+    "sourceTypes": 0,
+    "status": "examined",
+    "implementations": [
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/fb5788ffdb94f81c34f6"
+    ]
+  },
+  {
+    "path": "go.mod",
+    "mode": "100644",
+    "gitType": "blob",
+    "blob": "ee7cdffd1c245ddb4eb192deaed6a7ad7e4e18d8",
+    "bytes": 795,
+    "lines": 26,
+    "role": "configuration_support",
+    "nativeBodies": 0,
+    "sourceTypes": 0,
+    "status": "configuration_support_reviewed",
+    "implementations": []
+  },
+  {
+    "path": "go.sum",
+    "mode": "100644",
+    "gitType": "blob",
+    "blob": "aa92cb8c80df8a42e679a78c8a174664ada1a24e",
+    "bytes": 4787,
+    "lines": 56,
+    "role": "configuration_support",
+    "nativeBodies": 0,
+    "sourceTypes": 0,
+    "status": "configuration_support_reviewed",
+    "implementations": []
+  },
+  {
+    "path": "internal/app/app.go",
+    "mode": "100644",
+    "gitType": "blob",
+    "blob": "0268d3d7e161d4882c90630af6cbc18f328847c5",
+    "bytes": 1827,
+    "lines": 74,
+    "role": "production_go",
+    "nativeBodies": 6,
+    "sourceTypes": 1,
+    "status": "examined",
+    "implementations": [
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/9c77748a2c45e6d13ae4",
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/b0ab305910c7be7b5ac9",
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/0190e0a8648d93e6b255",
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/639acac6a60a375d4920",
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/c23117079f89d49c6686",
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/0d2c0f11077039af615d"
+    ]
+  },
+  {
+    "path": "internal/app/client.go",
+    "mode": "100644",
+    "gitType": "blob",
+    "blob": "6cd925f8b33d1c54730c03d7035a6b1ef1008e23",
+    "bytes": 379,
+    "lines": 21,
+    "role": "production_go",
+    "nativeBodies": 1,
+    "sourceTypes": 0,
+    "status": "examined",
+    "implementations": [
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/e4d5069ac6659e77cf4e"
+    ]
+  },
+  {
+    "path": "internal/app/config.go",
+    "mode": "100644",
+    "gitType": "blob",
+    "blob": "5559072609b568710d933932900c9ad77718ab54",
+    "bytes": 1591,
+    "lines": 65,
+    "role": "production_go",
+    "nativeBodies": 6,
+    "sourceTypes": 1,
+    "status": "examined",
+    "implementations": [
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/066d5df93966e4b7c948",
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/bdb2ff36001ced275ca7",
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/2c9e822f01a1c4b41994",
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/8e9cfb6b357979ddf13d",
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/de138ae678e87fb4b269",
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/ba4a965735d81d781718"
+    ]
+  },
+  {
+    "path": "internal/domain/carconfiguration.go",
+    "mode": "100644",
+    "gitType": "blob",
+    "blob": "1d4ced736100b83d931f97167ea34bda7db364ba",
+    "bytes": 2208,
+    "lines": 99,
+    "role": "production_go",
+    "nativeBodies": 3,
+    "sourceTypes": 2,
+    "status": "examined",
+    "implementations": [
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/66e3d12869269dbc7efe",
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/734eb67768ac3e0b0c92",
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/6dc67582184c2f2fa5c0"
+    ]
+  },
+  {
+    "path": "internal/domain/carconfiguration_test.go",
+    "mode": "100644",
+    "gitType": "blob",
+    "blob": "f49a6e14495de499ebb30ce3d1aef1de5a3b6432",
+    "bytes": 4220,
+    "lines": 182,
+    "role": "test_go",
+    "nativeBodies": 0,
+    "sourceTypes": 0,
+    "status": "test_source_reviewed_not_executed",
+    "implementations": []
+  },
+  {
+    "path": "internal/domain/components.go",
+    "mode": "100644",
+    "gitType": "blob",
+    "blob": "6e5ad6e89ec162e9649066acd7901e362116b753",
+    "bytes": 267,
+    "lines": 16,
+    "role": "production_go",
+    "nativeBodies": 1,
+    "sourceTypes": 1,
+    "status": "examined",
+    "implementations": [
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/0df3c225b9928a08070d"
+    ]
+  },
+  {
+    "path": "internal/domain/components_test.go",
+    "mode": "100644",
+    "gitType": "blob",
+    "blob": "037cdf205b2056d44bc898aba93acd161ce587ad",
+    "bytes": 937,
+    "lines": 52,
+    "role": "test_go",
+    "nativeBodies": 0,
+    "sourceTypes": 0,
+    "status": "test_source_reviewed_not_executed",
+    "implementations": []
+  },
+  {
+    "path": "internal/domain/componentstovary.go",
+    "mode": "100644",
+    "gitType": "blob",
+    "blob": "e729cfbecef34e5d0816e23ee38a612ac8b5b7d7",
+    "bytes": 2633,
+    "lines": 110,
+    "role": "production_go",
+    "nativeBodies": 8,
+    "sourceTypes": 1,
+    "status": "examined",
+    "implementations": [
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/816385a6c7e7a3aa472f",
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/e4b40fcc730d6ac7d85d",
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/ebafa62f1fd0e5af4436",
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/9f560a42f231a4083f7e",
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/6d41c10cfc74ec61d616",
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/e4f5fdf66c4509eea9e0",
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/237ce67da039cf026051",
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/48393fb2543f68ac4a9b"
+    ]
+  },
+  {
+    "path": "internal/domain/componentstovary_test.go",
+    "mode": "100644",
+    "gitType": "blob",
+    "blob": "4cd55197bee7b353a38b1c33b40170788ea7691e",
+    "bytes": 6569,
+    "lines": 306,
+    "role": "test_go",
+    "nativeBodies": 0,
+    "sourceTypes": 0,
+    "status": "test_source_reviewed_not_executed",
+    "implementations": []
+  },
+  {
+    "path": "internal/domain/contains.go",
+    "mode": "100644",
+    "gitType": "blob",
+    "blob": "bbcca4ec2eaeaacafc82378f8e4aec3acd412cbb",
+    "bytes": 140,
+    "lines": 10,
+    "role": "production_go",
+    "nativeBodies": 1,
+    "sourceTypes": 0,
+    "status": "examined",
+    "implementations": [
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/22154ede35a394871c60"
+    ]
+  },
+  {
+    "path": "internal/domain/groups.go",
+    "mode": "100644",
+    "gitType": "blob",
+    "blob": "7146165a7a07b6d89cfd177f1287a37ad81289fb",
+    "bytes": 1614,
+    "lines": 42,
+    "role": "production_go",
+    "nativeBodies": 1,
+    "sourceTypes": 0,
+    "status": "examined",
+    "implementations": [
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/77a314f3e6a3f04117e1"
+    ]
+  },
+  {
+    "path": "internal/domain/pno12.go",
+    "mode": "100644",
+    "gitType": "blob",
+    "blob": "a17038b6f7ee87474af23f1a30040563d538b170",
+    "bytes": 1858,
+    "lines": 79,
+    "role": "production_go",
+    "nativeBodies": 5,
+    "sourceTypes": 1,
+    "status": "examined",
+    "implementations": [
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/6ee9638b1c6aafe38e40",
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/7e610ef3e3fc3a7c3e29",
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/83372068e1b8ba516af8",
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/e505a6fc19fd65d97d49",
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/e31aa80d84b35e70bb99"
+    ]
+  },
+  {
+    "path": "internal/domain/policy.go",
+    "mode": "100644",
+    "gitType": "blob",
+    "blob": "4d3838ed4a7fb3b4d2fa42607cae95126bed89cf",
+    "bytes": 1000,
+    "lines": 46,
+    "role": "production_go",
+    "nativeBodies": 4,
+    "sourceTypes": 0,
+    "status": "examined",
+    "implementations": [
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/0f21a8b89370de42b753",
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/cdb9ab371df06438b3d4",
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/10d3bcebb9a03420d39c",
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/d78ea394963354150edd"
+    ]
+  },
+  {
+    "path": "internal/domain/policy_test.go",
+    "mode": "100644",
+    "gitType": "blob",
+    "blob": "b0de4d16aef86c12cf49661d40318e7f07cb65c4",
+    "bytes": 896,
+    "lines": 50,
+    "role": "test_go",
+    "nativeBodies": 0,
+    "sourceTypes": 0,
+    "status": "test_source_reviewed_not_executed",
+    "implementations": []
+  },
+  {
+    "path": "internal/domain/prins.go",
+    "mode": "100644",
+    "gitType": "blob",
+    "blob": "c6561049a17adc87905812a65cd31ae7305b70e4",
+    "bytes": 2982,
+    "lines": 143,
+    "role": "production_go",
+    "nativeBodies": 7,
+    "sourceTypes": 2,
+    "status": "examined",
+    "implementations": [
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/07e94d997b91aafd1dd4",
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/de621ec552ce846e0731",
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/1b041b2642a6e7a9734f",
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/65423214d930a2aabb2e",
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/adf7c7c3f8660ea36a09",
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/6e5dc961f7be33a899e7",
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/eff8f2d29016ecaca78d"
+    ]
+  },
+  {
+    "path": "internal/domain/prins_test.go",
+    "mode": "100644",
+    "gitType": "blob",
+    "blob": "61c211c431b0cf902acdddb26fde3c38a69af8e8",
+    "bytes": 9704,
+    "lines": 470,
+    "role": "test_go",
+    "nativeBodies": 0,
+    "sourceTypes": 0,
+    "status": "test_source_reviewed_not_executed",
+    "implementations": []
+  },
+  {
+    "path": "internal/domain/setofcars.go",
+    "mode": "100644",
+    "gitType": "blob",
+    "blob": "ef8d496c6dfb2fedbe0e0d8b86697ba3abc56add",
+    "bytes": 139,
+    "lines": 8,
+    "role": "production_go",
+    "nativeBodies": 0,
+    "sourceTypes": 1,
+    "status": "examined",
+    "implementations": []
+  },
+  {
+    "path": "internal/gateway/client.go",
+    "mode": "100644",
+    "gitType": "blob",
+    "blob": "a674d5bec75a724e6ef100512a48528fffefe687",
+    "bytes": 2616,
+    "lines": 93,
+    "role": "production_go",
+    "nativeBodies": 10,
+    "sourceTypes": 4,
+    "status": "examined",
+    "implementations": [
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/e8154550334b80e127e3",
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/b6ae9f4731b0c0f4da79",
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/f7d06a5b6657a6350fd7",
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/da147532f43596e09198",
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/ac2a39b771c9f6d03990",
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/a5053c573d12cf93c453",
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/9d7f0078afaa7e04926a",
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/b20d820ec9cab501c00e",
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/bd13673936503b29e5d1",
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/26fb1ffd8e365b46b764"
+    ]
+  },
+  {
+    "path": "internal/gateway/client_test.go",
+    "mode": "100644",
+    "gitType": "blob",
+    "blob": "e47899fb52763f3a42c2417c2d469d4515e8fe2a",
+    "bytes": 2391,
+    "lines": 99,
+    "role": "test_go",
+    "nativeBodies": 0,
+    "sourceTypes": 0,
+    "status": "test_source_reviewed_not_executed",
+    "implementations": []
+  },
+  {
+    "path": "internal/gateway/filterservice/client.go",
+    "mode": "100644",
+    "gitType": "blob",
+    "blob": "358179cefef07be43ee644eba0e63673cc991c47",
+    "bytes": 1543,
+    "lines": 73,
+    "role": "production_go",
+    "nativeBodies": 4,
+    "sourceTypes": 2,
+    "status": "examined",
+    "implementations": [
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/4d6928f296480d819a06",
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/a712b6c4163ef902e7a8",
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/0ff52a730f799e287a3c",
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/5f22f1ca921b977abfe0"
+    ]
+  },
+  {
+    "path": "internal/gateway/optimizationfacade/client.go",
+    "mode": "100644",
+    "gitType": "blob",
+    "blob": "7676c1697c3a0c40c7416c616d8750cb8e30f08f",
+    "bytes": 4130,
+    "lines": 159,
+    "role": "production_go",
+    "nativeBodies": 7,
+    "sourceTypes": 2,
+    "status": "examined",
+    "implementations": [
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/ef5a2d9d957414a69cff",
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/05580af2163f55257dc9",
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/78cc5ff8d463649c0367",
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/6831e984490d0f03ed0d",
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/2161c01cb55d7d5fdef4",
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/0a0a1cc33b01d1b97875",
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/e6c27cb1a9d75717c327"
+    ]
+  },
+  {
+    "path": "internal/gateway/optimizationfacade/componentprovider.go",
+    "mode": "100644",
+    "gitType": "blob",
+    "blob": "8ac522dc77110ee1ed0f7ab1eef88937c197a717",
+    "bytes": 1100,
+    "lines": 52,
+    "role": "production_go",
+    "nativeBodies": 2,
+    "sourceTypes": 1,
+    "status": "examined",
+    "implementations": [
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/88fee5d8e2adc2b3fea0",
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/58000c6b15ea921e2ab8"
+    ]
+  },
+  {
+    "path": "internal/gateway/optimizationfacade/configurationgenerator.go",
+    "mode": "100644",
+    "gitType": "blob",
+    "blob": "8fe81af1a27eb05c44622d73b6c21edf61c3b19f",
+    "bytes": 3715,
+    "lines": 137,
+    "role": "production_go",
+    "nativeBodies": 5,
+    "sourceTypes": 1,
+    "status": "examined",
+    "implementations": [
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/5381554bfd3aeb6ee5f8",
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/25b46d9d51a57a9b02ec",
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/a0e478d4a5be8a871bc4",
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/36d7e033215e5cfec2d4",
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/205675efee406025e148"
+    ]
+  },
+  {
+    "path": "internal/gateway/optimizationfacade/model.go",
+    "mode": "100644",
+    "gitType": "blob",
+    "blob": "d7e207296e4b4bfafe31f79f1c938a00cf57e6cd",
+    "bytes": 2452,
+    "lines": 82,
+    "role": "production_go",
+    "nativeBodies": 0,
+    "sourceTypes": 12,
+    "status": "examined",
+    "implementations": []
+  },
+  {
+    "path": "internal/gateway/optimizationfacade/startconfigurationprovider.go",
+    "mode": "100644",
+    "gitType": "blob",
+    "blob": "04e9c68a06cf064158063d0263912bfef577adac",
+    "bytes": 902,
+    "lines": 36,
+    "role": "production_go",
+    "nativeBodies": 2,
+    "sourceTypes": 1,
+    "status": "examined",
+    "implementations": [
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/ff8db9652860e529f6dd",
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/f40c9528c895312cf77d"
+    ]
+  },
+  {
+    "path": "internal/gateway/prins/client.go",
+    "mode": "100644",
+    "gitType": "blob",
+    "blob": "a304b9584525937577415b04540ebe54aaaa2183",
+    "bytes": 1573,
+    "lines": 67,
+    "role": "production_go",
+    "nativeBodies": 3,
+    "sourceTypes": 3,
+    "status": "examined",
+    "implementations": [
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/95b7ee3acb2fc243f205",
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/cd2afd94ac802c27b434",
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/db72d5bdd659ded7fb82"
+    ]
+  },
+  {
+    "path": "internal/gateway/prins/configurationfetcher.go",
+    "mode": "100644",
+    "gitType": "blob",
+    "blob": "ea8e1aea99b838710eabf2e2cfee59044867a512",
+    "bytes": 1197,
+    "lines": 51,
+    "role": "production_go",
+    "nativeBodies": 3,
+    "sourceTypes": 1,
+    "status": "examined",
+    "implementations": [
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/748e229a553603f48e56",
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/ff81e4d7837356b6fff2",
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/af1a106ea1f1153ac4bd"
+    ]
+  },
+  {
+    "path": "internal/gateway/prins/model.go",
+    "mode": "100644",
+    "gitType": "blob",
+    "blob": "1accb23e3b1680f0d05a800628b9f5c536a5590b",
+    "bytes": 687,
+    "lines": 39,
+    "role": "production_go",
+    "nativeBodies": 0,
+    "sourceTypes": 1,
+    "status": "examined",
+    "implementations": []
+  },
+  {
+    "path": "internal/gateway/requestBuilder.go",
+    "mode": "100644",
+    "gitType": "blob",
+    "blob": "a90976588a278a552b26b92af0e309575ed20899",
+    "bytes": 1471,
+    "lines": 79,
+    "role": "production_go",
+    "nativeBodies": 8,
+    "sourceTypes": 1,
+    "status": "examined",
+    "implementations": [
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/1f506b078124b0e42552",
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/24adac4bd71312db632a",
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/a218432a0f1381276a83",
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/62d72eee0598c0d65748",
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/e6f4af649965107b606e",
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/11fe023b23a8c8af4b2e",
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/de05bef261f2ff230ffa",
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/e178a6721fdac492d8f4"
+    ]
+  },
+  {
+    "path": "internal/service/rulesetvalidator.go",
+    "mode": "100644",
+    "gitType": "blob",
+    "blob": "b2fbd85c22c5bfc9ce6efeb6ae6e6012efc26794",
+    "bytes": 8969,
+    "lines": 304,
+    "role": "production_go",
+    "nativeBodies": 10,
+    "sourceTypes": 1,
+    "status": "examined",
+    "implementations": [
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/86ff304d90322e9fda21",
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/ab6d9c72eab30841ac33",
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/3acee81984578a70655f",
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/29465f4137e182530bd7",
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/67c58cac6b3519397572",
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/2872efc236c01b28b911",
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/12380de42dac4c896d7e",
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/5fd2071c14ea1d62a102",
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/3ea1113d8f5fd00b29bf",
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/3ed7f021ecc1283e7b0a"
+    ]
+  }
+]

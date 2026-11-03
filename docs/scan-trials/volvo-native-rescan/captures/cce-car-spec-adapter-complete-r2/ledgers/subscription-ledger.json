@@ -1,0 +1,26 @@
+[
+  {
+    "key": "marketauth",
+    "subscription": "cce-car-spec-adapter-667a00a-complete-r2/subscription/marketauth",
+    "implementation": "cce-car-spec-adapter-667a00a-complete-r2/implementation/e5a4a03e027bbe79",
+    "interaction": "cce-car-spec-adapter-667a00a-complete-r2/interaction/consume/marketauth",
+    "binding": "cce-car-spec-adapter-667a00a-complete-r2/channel_binding/marketauth",
+    "payload": "cce-car-spec-adapter-667a00a-complete-r2/shape/protobuf/MarketAuthMessage"
+  },
+  {
+    "key": "pcgmarketauth",
+    "subscription": "cce-car-spec-adapter-667a00a-complete-r2/subscription/pcgmarketauth",
+    "implementation": "cce-car-spec-adapter-667a00a-complete-r2/implementation/c45615bac70b1f2c",
+    "interaction": "cce-car-spec-adapter-667a00a-complete-r2/interaction/consume/pcgmarketauth",
+    "binding": "cce-car-spec-adapter-667a00a-complete-r2/channel_binding/pcgmarketauth",
+    "payload": "cce-car-spec-adapter-667a00a-complete-r2/shape/protobuf/PcgMarketAuthMessage"
+  },
+  {
+    "key": "poisonqueue",
+    "subscription": "cce-car-spec-adapter-667a00a-complete-r2/subscription/poisonqueue",
+    "implementation": "cce-car-spec-adapter-667a00a-complete-r2/implementation/33601532d1b555a0",
+    "interaction": "cce-car-spec-adapter-667a00a-complete-r2/interaction/consume/poisonqueue",
+    "binding": "cce-car-spec-adapter-667a00a-complete-r2/channel_binding/poisonqueue",
+    "payload": "cce-car-spec-adapter-667a00a-complete-r2/shape/poison-payload"
+  }
+]

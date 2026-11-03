@@ -1,0 +1,189 @@
+{
+  "snapshot": "65ad154aae158cfd209f23f725485a963fc7ab37323076bac771f01646677709",
+  "qualification": "Direct navigation/footer fetch helper source unit on existing EV server; no layout/ESI registration closure or whole repository completion",
+  "queries": [
+    {
+      "name": "source body packages/site-nav-embed/src/fetchSiteNavigationProps.ts#navigation-isValidSiteSlug@101",
+      "pages": 1,
+      "nodes": 3,
+      "edges": 2,
+      "limits": []
+    },
+    {
+      "name": "source body packages/site-nav-embed/src/fetchSiteNavigationProps.ts#navigation-getSiteSlug@87",
+      "pages": 1,
+      "nodes": 17,
+      "edges": 20,
+      "limits": []
+    },
+    {
+      "name": "source body packages/site-nav-embed/src/getSiteNavigationUrl.ts#navigation-getUrl@3",
+      "pages": 1,
+      "nodes": 24,
+      "edges": 27,
+      "limits": []
+    },
+    {
+      "name": "source body packages/site-nav-embed/src/fetchSiteNavigationProps.ts#navigation-fetchProps@27",
+      "pages": 1,
+      "nodes": 66,
+      "edges": 75,
+      "limits": []
+    },
+    {
+      "name": "source body packages/site-footer-embed/src/fetchSiteFooterProps.ts#footer-isValidSiteSlug@95",
+      "pages": 1,
+      "nodes": 3,
+      "edges": 2,
+      "limits": []
+    },
+    {
+      "name": "source body packages/site-footer-embed/src/fetchSiteFooterProps.ts#footer-getSiteSlug@81",
+      "pages": 1,
+      "nodes": 17,
+      "edges": 20,
+      "limits": []
+    },
+    {
+      "name": "source body packages/site-footer-embed/src/getSiteFooterUrl.ts#footer-getUrl@3",
+      "pages": 1,
+      "nodes": 19,
+      "edges": 19,
+      "limits": []
+    },
+    {
+      "name": "source body packages/site-footer-embed/src/fetchSiteFooterProps.ts#footer-fetchProps@28",
+      "pages": 1,
+      "nodes": 62,
+      "edges": 68,
+      "limits": []
+    },
+    {
+      "name": "actual helper GET volvo/cdls-mono-volvocars/8e1fd20c525f/ev-subsidy-embed-fetch-r3/io/navigation-fetch",
+      "pages": 1,
+      "nodes": 2,
+      "edges": 1,
+      "limits": []
+    },
+    {
+      "name": "source actual value volvo/cdls-mono-volvocars/8e1fd20c525f/ev-subsidy-embed-fetch-r3/v/navigation-fetchProps/279",
+      "pages": 1,
+      "nodes": 28,
+      "edges": 33,
+      "limits": []
+    },
+    {
+      "name": "source actual value volvo/cdls-mono-volvocars/8e1fd20c525f/ev-subsidy-embed-fetch-r3/v/navigation-fetchProps/273",
+      "pages": 1,
+      "nodes": 15,
+      "edges": 16,
+      "limits": []
+    },
+    {
+      "name": "source actual value volvo/cdls-mono-volvocars/8e1fd20c525f/ev-subsidy-embed-fetch-r3/v/navigation-fetchProps/290",
+      "pages": 1,
+      "nodes": 2,
+      "edges": 1,
+      "limits": []
+    },
+    {
+      "name": "source actual value volvo/cdls-mono-volvocars/8e1fd20c525f/ev-subsidy-embed-fetch-r3/v/navigation-fetchProps/305",
+      "pages": 1,
+      "nodes": 2,
+      "edges": 1,
+      "limits": []
+    },
+    {
+      "name": "source actual value volvo/cdls-mono-volvocars/8e1fd20c525f/ev-subsidy-embed-fetch-r3/v/navigation-fetchProps/309",
+      "pages": 1,
+      "nodes": 14,
+      "edges": 15,
+      "limits": []
+    },
+    {
+      "name": "source actual value volvo/cdls-mono-volvocars/8e1fd20c525f/ev-subsidy-embed-fetch-r3/v/navigation-fetchProps/618",
+      "pages": 1,
+      "nodes": 1,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "source actual value volvo/cdls-mono-volvocars/8e1fd20c525f/ev-subsidy-embed-fetch-r3/v/navigation-fetchProps/620",
+      "pages": 1,
+      "nodes": 9,
+      "edges": 9,
+      "limits": []
+    },
+    {
+      "name": "source caller schema volvo/cdls-mono-volvocars/8e1fd20c525f/ev-subsidy-embed-fetch-r3/io/navigation-fetch",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "actual helper GET volvo/cdls-mono-volvocars/8e1fd20c525f/ev-subsidy-embed-fetch-r3/io/footer-fetch",
+      "pages": 1,
+      "nodes": 2,
+      "edges": 1,
+      "limits": []
+    },
+    {
+      "name": "source actual value volvo/cdls-mono-volvocars/8e1fd20c525f/ev-subsidy-embed-fetch-r3/v/footer-fetchProps/572",
+      "pages": 1,
+      "nodes": 25,
+      "edges": 31,
+      "limits": []
+    },
+    {
+      "name": "source actual value volvo/cdls-mono-volvocars/8e1fd20c525f/ev-subsidy-embed-fetch-r3/v/footer-fetchProps/566",
+      "pages": 1,
+      "nodes": 15,
+      "edges": 16,
+      "limits": []
+    },
+    {
+      "name": "source actual value volvo/cdls-mono-volvocars/8e1fd20c525f/ev-subsidy-embed-fetch-r3/v/footer-fetchProps/583",
+      "pages": 1,
+      "nodes": 2,
+      "edges": 1,
+      "limits": []
+    },
+    {
+      "name": "source actual value volvo/cdls-mono-volvocars/8e1fd20c525f/ev-subsidy-embed-fetch-r3/v/footer-fetchProps/598",
+      "pages": 1,
+      "nodes": 2,
+      "edges": 1,
+      "limits": []
+    },
+    {
+      "name": "source actual value volvo/cdls-mono-volvocars/8e1fd20c525f/ev-subsidy-embed-fetch-r3/v/footer-fetchProps/602",
+      "pages": 1,
+      "nodes": 14,
+      "edges": 15,
+      "limits": []
+    },
+    {
+      "name": "source actual value volvo/cdls-mono-volvocars/8e1fd20c525f/ev-subsidy-embed-fetch-r3/v/footer-fetchProps/632",
+      "pages": 1,
+      "nodes": 1,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "source actual value volvo/cdls-mono-volvocars/8e1fd20c525f/ev-subsidy-embed-fetch-r3/v/footer-fetchProps/634",
+      "pages": 1,
+      "nodes": 9,
+      "edges": 9,
+      "limits": []
+    },
+    {
+      "name": "source caller schema volvo/cdls-mono-volvocars/8e1fd20c525f/ev-subsidy-embed-fetch-r3/io/footer-fetch",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    }
+  ],
+  "pages": 26
+}

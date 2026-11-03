@@ -1,0 +1,175 @@
+[
+  {
+    "owner": "customer-b0010537-complete-r6/method/1342030e98015125",
+    "value": "customer-b0010537-complete-r6/v/1342030e98015125/10",
+    "registration": "customer-b0010537-complete-r6/op/1342030e98015125/6",
+    "source": "Optional::empty",
+    "receiverValue": "customer-b0010537-complete-r6/v/1342030e98015125/9",
+    "receiverType": null,
+    "targets": [],
+    "mode": "source qualifier; static/instance dispatch unresolved"
+  },
+  {
+    "owner": "customer-b0010537-complete-r6/method/0dc0f78816e66015",
+    "value": "customer-b0010537-complete-r6/v/0dc0f78816e66015/7",
+    "registration": "customer-b0010537-complete-r6/op/0dc0f78816e66015/2",
+    "source": "customer::setCompany",
+    "receiverValue": "customer-b0010537-complete-r6/formal/0dc0f78816e66015/1",
+    "receiverType": "Customer",
+    "targets": [],
+    "mode": "bound reference"
+  },
+  {
+    "owner": "customer-b0010537-complete-r6/method/0dc0f78816e66015",
+    "value": "customer-b0010537-complete-r6/v/0dc0f78816e66015/15",
+    "registration": "customer-b0010537-complete-r6/op/0dc0f78816e66015/8",
+    "source": "customer::setPreferredLocale",
+    "receiverValue": "customer-b0010537-complete-r6/formal/0dc0f78816e66015/1",
+    "receiverType": "Customer",
+    "targets": [],
+    "mode": "bound reference"
+  },
+  {
+    "owner": "customer-b0010537-complete-r6/method/0dc0f78816e66015",
+    "value": "customer-b0010537-complete-r6/v/0dc0f78816e66015/19",
+    "registration": "customer-b0010537-complete-r6/op/0dc0f78816e66015/11",
+    "source": "customer::setEmail",
+    "receiverValue": "customer-b0010537-complete-r6/formal/0dc0f78816e66015/1",
+    "receiverType": "Customer",
+    "targets": [],
+    "mode": "bound reference"
+  },
+  {
+    "owner": "customer-b0010537-complete-r6/method/781868edb871a58f",
+    "value": "customer-b0010537-complete-r6/v/781868edb871a58f/9",
+    "registration": "customer-b0010537-complete-r6/op/781868edb871a58f/5",
+    "source": "String.class::isInstance",
+    "receiverValue": "customer-b0010537-complete-r6/v/781868edb871a58f/8",
+    "receiverType": null,
+    "targets": [],
+    "mode": "source qualifier; static/instance dispatch unresolved"
+  },
+  {
+    "owner": "customer-b0010537-complete-r6/method/a5f7d0c8c7d72ea2",
+    "value": "customer-b0010537-complete-r6/v/a5f7d0c8c7d72ea2/11",
+    "registration": "customer-b0010537-complete-r6/op/a5f7d0c8c7d72ea2/12",
+    "source": "BaseEntity::getCreated",
+    "receiverValue": "customer-b0010537-complete-r6/v/a5f7d0c8c7d72ea2/10",
+    "receiverType": "com.volvocars.ecom.paymentservice.common.BaseEntity",
+    "targets": [],
+    "mode": "source qualifier; static/instance dispatch unresolved"
+  },
+  {
+    "owner": "customer-b0010537-complete-r6/method/1973e637a6662c3f",
+    "value": "customer-b0010537-complete-r6/v/1973e637a6662c3f/12",
+    "registration": "customer-b0010537-complete-r6/op/1973e637a6662c3f/8",
+    "source": "this::mapToCustomerWithPspRelations",
+    "receiverValue": "customer-b0010537-complete-r6/receiver/1973e637a6662c3f",
+    "receiverType": "com.volvocars.ecom.paymentservice.customer.CustomerService",
+    "targets": ["customer-b0010537-complete-r6/method/6f468161ed5a4895"],
+    "mode": "bound reference"
+  },
+  {
+    "owner": "customer-b0010537-complete-r6/method/9d8cfaf9b6b89fd9",
+    "value": "customer-b0010537-complete-r6/v/9d8cfaf9b6b89fd9/16",
+    "registration": "customer-b0010537-complete-r6/op/9d8cfaf9b6b89fd9/13",
+    "source": "this::mapToCustomerWithPspRelations",
+    "receiverValue": "customer-b0010537-complete-r6/receiver/9d8cfaf9b6b89fd9",
+    "receiverType": "com.volvocars.ecom.paymentservice.customer.CustomerService",
+    "targets": ["customer-b0010537-complete-r6/method/6f468161ed5a4895"],
+    "mode": "bound reference"
+  },
+  {
+    "owner": "customer-b0010537-complete-r6/method/9d8cfaf9b6b89fd9",
+    "value": "customer-b0010537-complete-r6/v/9d8cfaf9b6b89fd9/23",
+    "registration": "customer-b0010537-complete-r6/op/9d8cfaf9b6b89fd9/21",
+    "source": "this::mapToCustomerWithPspRelations",
+    "receiverValue": "customer-b0010537-complete-r6/receiver/9d8cfaf9b6b89fd9",
+    "receiverType": "com.volvocars.ecom.paymentservice.customer.CustomerService",
+    "targets": ["customer-b0010537-complete-r6/method/6f468161ed5a4895"],
+    "mode": "bound reference"
+  },
+  {
+    "owner": "customer-b0010537-complete-r6/method/e7a3c341f1c06d6c",
+    "value": "customer-b0010537-complete-r6/v/e7a3c341f1c06d6c/10",
+    "registration": "customer-b0010537-complete-r6/op/e7a3c341f1c06d6c/6",
+    "source": "this::mapToCustomerWithPspRelations",
+    "receiverValue": "customer-b0010537-complete-r6/receiver/e7a3c341f1c06d6c",
+    "receiverType": "com.volvocars.ecom.paymentservice.customer.CustomerService",
+    "targets": ["customer-b0010537-complete-r6/method/6f468161ed5a4895"],
+    "mode": "bound reference"
+  },
+  {
+    "owner": "customer-b0010537-complete-r6/method/d13fb8ee3c1f3fbe",
+    "value": "customer-b0010537-complete-r6/v/d13fb8ee3c1f3fbe/10",
+    "registration": "customer-b0010537-complete-r6/op/d13fb8ee3c1f3fbe/6",
+    "source": "this::mapToCustomerWithPspRelations",
+    "receiverValue": "customer-b0010537-complete-r6/receiver/d13fb8ee3c1f3fbe",
+    "receiverType": "com.volvocars.ecom.paymentservice.customer.CustomerService",
+    "targets": ["customer-b0010537-complete-r6/method/6f468161ed5a4895"],
+    "mode": "bound reference"
+  },
+  {
+    "owner": "customer-b0010537-complete-r6/method/dd03e79520e0083d",
+    "value": "customer-b0010537-complete-r6/v/dd03e79520e0083d/2",
+    "registration": "customer-b0010537-complete-r6/op/dd03e79520e0083d/2",
+    "source": "this::to",
+    "receiverValue": "customer-b0010537-complete-r6/receiver/dd03e79520e0083d",
+    "receiverType": "com.volvocars.ecom.paymentservice.customerpsprelation.CustomerPspRelationMapper",
+    "targets": [
+      "customer-b0010537-complete-r6/method/74f10707d65606d0",
+      "customer-b0010537-complete-r6/method/dd03e79520e0083d"
+    ],
+    "mode": "bound reference"
+  },
+  {
+    "owner": "customer-b0010537-complete-r6/method/620d053a4946c7af",
+    "value": "customer-b0010537-complete-r6/v/620d053a4946c7af/8",
+    "registration": "customer-b0010537-complete-r6/op/620d053a4946c7af/7",
+    "source": "BaseEntity::getCreated",
+    "receiverValue": "customer-b0010537-complete-r6/v/620d053a4946c7af/7",
+    "receiverType": "com.volvocars.ecom.paymentservice.common.BaseEntity",
+    "targets": [],
+    "mode": "source qualifier; static/instance dispatch unresolved"
+  },
+  {
+    "owner": "customer-b0010537-complete-r6/method/fa500b7f0cd6dad7",
+    "value": "customer-b0010537-complete-r6/v/fa500b7f0cd6dad7/12",
+    "registration": "customer-b0010537-complete-r6/op/fa500b7f0cd6dad7/12",
+    "source": "Object::toString",
+    "receiverValue": "customer-b0010537-complete-r6/v/fa500b7f0cd6dad7/11",
+    "receiverType": null,
+    "targets": [],
+    "mode": "source qualifier; static/instance dispatch unresolved"
+  },
+  {
+    "owner": "customer-b0010537-complete-r6/method/d1c4810f3cd60645",
+    "value": "customer-b0010537-complete-r6/v/d1c4810f3cd60645/8",
+    "registration": "customer-b0010537-complete-r6/op/d1c4810f3cd60645/6",
+    "source": "recurringChargeMapper::toDomain",
+    "receiverValue": "customer-b0010537-complete-r6/v/d1c4810f3cd60645/2",
+    "receiverType": "RecurringChargeMapper",
+    "targets": ["customer-b0010537-complete-r6/method/3b6b5773a50d0dad"],
+    "mode": "bound reference"
+  },
+  {
+    "owner": "customer-b0010537-complete-r6/method/0de2de4497c2101b",
+    "value": "customer-b0010537-complete-r6/v/0de2de4497c2101b/61",
+    "registration": "customer-b0010537-complete-r6/op/0de2de4497c2101b/42",
+    "source": "ExternalIdentifier::getValue",
+    "receiverValue": "customer-b0010537-complete-r6/v/0de2de4497c2101b/60",
+    "receiverType": null,
+    "targets": [],
+    "mode": "source qualifier; static/instance dispatch unresolved"
+  },
+  {
+    "owner": "customer-b0010537-complete-r6/method/afdbc051f9eeab08",
+    "value": "customer-b0010537-complete-r6/v/afdbc051f9eeab08/8",
+    "registration": "customer-b0010537-complete-r6/op/afdbc051f9eeab08/7",
+    "source": "BaseEntity::getCreated",
+    "receiverValue": "customer-b0010537-complete-r6/v/afdbc051f9eeab08/7",
+    "receiverType": "com.volvocars.ecom.paymentservice.common.BaseEntity",
+    "targets": [],
+    "mode": "source qualifier; static/instance dispatch unresolved"
+  }
+]

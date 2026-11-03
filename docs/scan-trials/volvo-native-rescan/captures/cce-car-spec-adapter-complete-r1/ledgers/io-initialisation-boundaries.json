@@ -1,0 +1,44 @@
+[
+  {
+    "operation": "cce-car-spec-adapter-667a00a-complete-r1/operation/beb33499dbe491b1/n/3",
+    "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/beb33499dbe491b1",
+    "source": "sentry.Init(c.options)",
+    "classification": "Examined imported configuration/connection/exporter/client initialisation. Returned handles/configuration are retained; actual transport side effects/policy are not expanded or counted as a proven network request."
+  },
+  {
+    "operation": "cce-car-spec-adapter-667a00a-complete-r1/operation/d7da61d7e40c2ac0/n/19",
+    "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/d7da61d7e40c2ac0",
+    "source": "migrate.NewWithSourceInstance(\"iofs\", driver, connectionString)",
+    "classification": "Examined imported configuration/connection/exporter/client initialisation. Returned handles/configuration are retained; actual transport side effects/policy are not expanded or counted as a proven network request."
+  },
+  {
+    "operation": "cce-car-spec-adapter-667a00a-complete-r1/operation/4ddd6db12597e849/n/22",
+    "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/4ddd6db12597e849",
+    "source": "pgxpool.NewWithConfig(context.Background(), cfg)",
+    "classification": "Examined imported configuration/connection/exporter/client initialisation. Returned handles/configuration are retained; actual transport side effects/policy are not expanded or counted as a proven network request."
+  },
+  {
+    "operation": "cce-car-spec-adapter-667a00a-complete-r1/operation/494f08cb41e8b4c9/n/15",
+    "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/494f08cb41e8b4c9",
+    "source": "ld.MakeClient(cfg.SDKKey, 5*time.Second)",
+    "classification": "Examined imported configuration/connection/exporter/client initialisation. Returned handles/configuration are retained; actual transport side effects/policy are not expanded or counted as a proven network request."
+  },
+  {
+    "operation": "cce-car-spec-adapter-667a00a-complete-r1/operation/dbde7ea354e8b71d/n/5",
+    "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/dbde7ea354e8b71d",
+    "source": "otlpmetricgrpc.New(ctx)",
+    "classification": "Examined imported configuration/connection/exporter/client initialisation. Returned handles/configuration are retained; actual transport side effects/policy are not expanded or counted as a proven network request."
+  },
+  {
+    "operation": "cce-car-spec-adapter-667a00a-complete-r1/operation/bbf6ede7cddaa4b5/n/5",
+    "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/bbf6ede7cddaa4b5",
+    "source": "otlptracegrpc.New(ctx)",
+    "classification": "Examined imported configuration/connection/exporter/client initialisation. Returned handles/configuration are retained; actual transport side effects/policy are not expanded or counted as a proven network request."
+  },
+  {
+    "operation": "cce-car-spec-adapter-667a00a-complete-r1/operation/4f60256e4455d2b0/n/5",
+    "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/4f60256e4455d2b0",
+    "source": "otlploghttp.New(ctx)",
+    "classification": "Examined imported configuration/connection/exporter/client initialisation. Returned handles/configuration are retained; actual transport side effects/policy are not expanded or counted as a proven network request."
+  }
+]

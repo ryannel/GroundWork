@@ -1,0 +1,145 @@
+{
+  "format": "polyglot-source-proof/v1",
+  "status": "bounded_source_probes_passed",
+  "python": {
+    "baseline": {
+      "repo": "volvo-cars/cce-optimization-api",
+      "commit": "286985b6bebccb6123de78d03aa87b7513f69ed5",
+      "tree": "7f7a582162fa964d02dcb7256c67a29628b81a0b",
+      "ref": "286985b6bebccb6123de78d03aa87b7513f69ed5",
+      "environmentDigest": "9e55299fba783a662aa338966dd200be1d11440513d8479597f811e618242ac7",
+      "configDigest": "1ae966e27befcb3d391fcab705590c987799030bf644fc4930b61c74989c0869",
+      "toolchainDigest": "4385306e8012d01663650ba5e821a6a99134629ec232fc03f24dff00ed263cc3",
+      "ruleDigest": "d63650bcce71d9b2e732e2ed44c0cb96e668beadcdb895bd1b11b2c097c8d2c3"
+    },
+    "document": "scan:9cf78d9b4eda0002a0a0ba9c76a78b222270c84eb7b80daa4f6f79eeca0e8dae",
+    "sha256": "6641cf1b0d7b20a2b3b1960c739fce982f8871fc6fb35694fba855e57e371b87",
+    "checks": [
+      {
+        "id": "fastapi-health-implementation",
+        "passed": true,
+        "rejectsMissingEvidence": true
+      },
+      {
+        "id": "fastapi-explicit-mount-frontier",
+        "passed": true,
+        "rejectsMissingEvidence": true
+      },
+      {
+        "id": "graphene-molytope-resolver",
+        "passed": true,
+        "rejectsMissingEvidence": true
+      },
+      {
+        "id": "graphene-configuration-source-dto",
+        "passed": true,
+        "rejectsMissingEvidence": true
+      }
+    ],
+    "sourcePins": {
+      "supported": true,
+      "anchors": 816,
+      "files": [
+        {
+          "repo": "volvo-cars/cce-optimization-api",
+          "commit": "286985b6bebccb6123de78d03aa87b7513f69ed5",
+          "path": "main.py",
+          "blob": "17b4a9de0f27f0c04cafa9b5be978f65269050f3",
+          "lines": 34
+        },
+        {
+          "repo": "volvo-cars/cce-optimization-api",
+          "commit": "286985b6bebccb6123de78d03aa87b7513f69ed5",
+          "path": "api/healthcheck.py",
+          "blob": "aa174de234ff8e48a3710aa17782175692c5100f",
+          "lines": 17
+        },
+        {
+          "repo": "volvo-cars/cce-optimization-api",
+          "commit": "286985b6bebccb6123de78d03aa87b7513f69ed5",
+          "path": "queries/query.py",
+          "blob": "211b0dda7ab67a1e65e084633fd0ebe71cd21244",
+          "lines": 212
+        },
+        {
+          "repo": "volvo-cars/cce-optimization-api",
+          "commit": "286985b6bebccb6123de78d03aa87b7513f69ed5",
+          "path": "models/configuration.py",
+          "blob": "130036a344067338cce4543f3137b19a75949ab2",
+          "lines": 21
+        }
+      ],
+      "authority": "pinned_local_git",
+      "remoteCurrent": "unobserved",
+      "deploymentCurrent": "unobserved"
+    },
+    "selectedRecords": 82,
+    "pages": 21,
+    "frameworkBindings": 18,
+    "contracts": 4,
+    "semanticRecords": 2395,
+    "qualification": "Selected pinned-source declarations and bounded API delivery only. Framework runtime/wire behaviour, unselected files and broad question completeness remain unresolved."
+  },
+  "rust": {
+    "baseline": {
+      "repo": "volvo-cars/graphql-federation-router",
+      "commit": "b8e0790b09e8f6772b8ada267a1e5114ab4fc707",
+      "tree": "4e740824cc5b4f7e4786f68872be935892e907e1",
+      "ref": "b8e0790b09e8f6772b8ada267a1e5114ab4fc707",
+      "environmentDigest": "56f3551408675f847a82a52a73d7021d6893f22514750eb84ea556ea01cd35db",
+      "configDigest": "fc0ff0bb089e828b3a18fb0b4abca69b3d8b61d84f3c7a48b12ea0edb934bb78",
+      "toolchainDigest": "b16ded74a22257e77b0812ca305eacec645a6c40e4eb4996451698b7a2417db0",
+      "ruleDigest": "d63650bcce71d9b2e732e2ed44c0cb96e668beadcdb895bd1b11b2c097c8d2c3"
+    },
+    "document": "scan:3b8868d99b7868593c358f623fe0a30996ece75520437bb2d501f13a2d599d63",
+    "sha256": "12d0b3238ad8958041df470436644eee44a8f56b81e1eff2f67f392b3b16dc5d",
+    "checks": [
+      {
+        "id": "apollo-plugin-source-entry",
+        "passed": true,
+        "rejectsMissingEvidence": true
+      },
+      {
+        "id": "serde-optional-source-field",
+        "passed": true,
+        "rejectsMissingEvidence": true
+      }
+    ],
+    "sourcePins": {
+      "supported": true,
+      "anchors": 3269,
+      "files": [
+        {
+          "repo": "volvo-cars/graphql-federation-router",
+          "commit": "b8e0790b09e8f6772b8ada267a1e5114ab4fc707",
+          "path": "src/main.rs",
+          "blob": "e066d80e45f02e42418778e0c1b0acb405bb23b9",
+          "lines": 43
+        },
+        {
+          "repo": "volvo-cars/graphql-federation-router",
+          "commit": "b8e0790b09e8f6772b8ada267a1e5114ab4fc707",
+          "path": "src/require_client_name.rs",
+          "blob": "3ba9bdcf19e86cadebe3b3ed81f50b58649ed251",
+          "lines": 396
+        },
+        {
+          "repo": "volvo-cars/graphql-federation-router",
+          "commit": "b8e0790b09e8f6772b8ada267a1e5114ab4fc707",
+          "path": "src/request_cache/structs.rs",
+          "blob": "e77be12981fa119f778b70d0037037a074fc9c79",
+          "lines": 301
+        }
+      ],
+      "authority": "pinned_local_git",
+      "remoteCurrent": "unobserved",
+      "deploymentCurrent": "unobserved"
+    },
+    "selectedRecords": 110,
+    "pages": 28,
+    "frameworkBindings": 19,
+    "contracts": 20,
+    "semanticRecords": 8073,
+    "qualification": "Selected pinned-source declarations and bounded API delivery only. Framework runtime/wire behaviour, unselected files and broad question completeness remain unresolved."
+  }
+}

@@ -1,0 +1,1383 @@
+[
+  {
+    "path": "src/PopCat.Assortment.CacheWorker.Host/Protos/manage/capmessage.proto",
+    "package": "volvocars.contracts.pop.manage",
+    "imports": [],
+    "messages": [
+      {
+        "shape": "assortment-6114c5d-complete-r5/retained/shape/proto/src~PopCat.Assortment.CacheWorker.Host~Protos~manage~capmessage.proto~CapCodeMapping",
+        "wireType": "volvocars.contracts.pop.manage.CapCodeMapping",
+        "fields": [
+          {
+            "name": "id",
+            "type": "string",
+            "tag": 1,
+            "shape": null
+          },
+          {
+            "name": "CapId",
+            "type": "string",
+            "tag": 2,
+            "shape": null
+          },
+          {
+            "name": "CapCode",
+            "type": "string",
+            "tag": 3,
+            "shape": null
+          },
+          {
+            "name": "CapVehicleName",
+            "type": "string",
+            "tag": 4,
+            "shape": null
+          },
+          {
+            "name": "LocalEditionCode",
+            "type": "string",
+            "tag": 5,
+            "shape": null
+          },
+          {
+            "name": "Pno12",
+            "type": "string",
+            "tag": 6,
+            "shape": null
+          },
+          {
+            "name": "ModelYear",
+            "type": "int32",
+            "tag": 7,
+            "shape": null
+          },
+          {
+            "name": "MarketCode",
+            "type": "string",
+            "tag": 8,
+            "shape": null
+          }
+        ],
+        "reservedTags": [],
+        "reservedNames": []
+      },
+      {
+        "shape": "assortment-6114c5d-complete-r5/retained/shape/proto/src~PopCat.Assortment.CacheWorker.Host~Protos~manage~capmessage.proto~CapCodeMappingCreated",
+        "wireType": "volvocars.contracts.pop.manage.CapCodeMappingCreated",
+        "fields": [
+          {
+            "name": "cap_code_mapping",
+            "type": "CapCodeMapping",
+            "tag": 1,
+            "shape": "assortment-6114c5d-complete-r5/retained/shape/proto/src~PopCat.Assortment.CacheWorker.Host~Protos~manage~capmessage.proto~CapCodeMapping"
+          }
+        ],
+        "reservedTags": [],
+        "reservedNames": []
+      },
+      {
+        "shape": "assortment-6114c5d-complete-r5/retained/shape/proto/src~PopCat.Assortment.CacheWorker.Host~Protos~manage~capmessage.proto~CapCodeMappingUpdated",
+        "wireType": "volvocars.contracts.pop.manage.CapCodeMappingUpdated",
+        "fields": [
+          {
+            "name": "cap_code_mapping",
+            "type": "CapCodeMapping",
+            "tag": 1,
+            "shape": "assortment-6114c5d-complete-r5/retained/shape/proto/src~PopCat.Assortment.CacheWorker.Host~Protos~manage~capmessage.proto~CapCodeMapping"
+          }
+        ],
+        "reservedTags": [],
+        "reservedNames": []
+      },
+      {
+        "shape": "assortment-6114c5d-complete-r5/retained/shape/proto/src~PopCat.Assortment.CacheWorker.Host~Protos~manage~capmessage.proto~CapCodeMappingDeleted",
+        "wireType": "volvocars.contracts.pop.manage.CapCodeMappingDeleted",
+        "fields": [
+          {
+            "name": "cap_code_mapping",
+            "type": "CapCodeMapping",
+            "tag": 1,
+            "shape": "assortment-6114c5d-complete-r5/retained/shape/proto/src~PopCat.Assortment.CacheWorker.Host~Protos~manage~capmessage.proto~CapCodeMapping"
+          }
+        ],
+        "reservedTags": [],
+        "reservedNames": []
+      }
+    ],
+    "enums": [],
+    "inspection": "full local source; imported Google declarations are explicit gaps"
+  },
+  {
+    "path": "src/PopCat.Assortment.CacheWorker.Host/Protos/manage/jatomessage.proto",
+    "package": "volvocars.contracts.pop.manage",
+    "imports": [],
+    "messages": [
+      {
+        "shape": "assortment-6114c5d-complete-r5/retained/shape/proto/src~PopCat.Assortment.CacheWorker.Host~Protos~manage~jatomessage.proto~JatoCodeMapping",
+        "wireType": "volvocars.contracts.pop.manage.JatoCodeMapping",
+        "fields": [
+          {
+            "name": "id",
+            "type": "string",
+            "tag": 1,
+            "shape": null
+          },
+          {
+            "name": "JatoId",
+            "type": "string",
+            "tag": 2,
+            "shape": null
+          },
+          {
+            "name": "Pno12",
+            "type": "string",
+            "tag": 3,
+            "shape": null
+          },
+          {
+            "name": "ModelYear",
+            "type": "int32",
+            "tag": 4,
+            "shape": null
+          },
+          {
+            "name": "LocalEditionCode",
+            "type": "string",
+            "tag": 5,
+            "shape": null
+          },
+          {
+            "name": "MarketCode",
+            "type": "string",
+            "tag": 6,
+            "shape": null
+          }
+        ],
+        "reservedTags": [],
+        "reservedNames": []
+      },
+      {
+        "shape": "assortment-6114c5d-complete-r5/retained/shape/proto/src~PopCat.Assortment.CacheWorker.Host~Protos~manage~jatomessage.proto~JatoCodeMappingCreated",
+        "wireType": "volvocars.contracts.pop.manage.JatoCodeMappingCreated",
+        "fields": [
+          {
+            "name": "jato_code_mapping",
+            "type": "JatoCodeMapping",
+            "tag": 1,
+            "shape": "assortment-6114c5d-complete-r5/retained/shape/proto/src~PopCat.Assortment.CacheWorker.Host~Protos~manage~jatomessage.proto~JatoCodeMapping"
+          }
+        ],
+        "reservedTags": [],
+        "reservedNames": []
+      },
+      {
+        "shape": "assortment-6114c5d-complete-r5/retained/shape/proto/src~PopCat.Assortment.CacheWorker.Host~Protos~manage~jatomessage.proto~JatoCodeMappingUpdated",
+        "wireType": "volvocars.contracts.pop.manage.JatoCodeMappingUpdated",
+        "fields": [
+          {
+            "name": "jato_code_mapping",
+            "type": "JatoCodeMapping",
+            "tag": 1,
+            "shape": "assortment-6114c5d-complete-r5/retained/shape/proto/src~PopCat.Assortment.CacheWorker.Host~Protos~manage~jatomessage.proto~JatoCodeMapping"
+          }
+        ],
+        "reservedTags": [],
+        "reservedNames": []
+      },
+      {
+        "shape": "assortment-6114c5d-complete-r5/retained/shape/proto/src~PopCat.Assortment.CacheWorker.Host~Protos~manage~jatomessage.proto~JatoCodeMappingDeleted",
+        "wireType": "volvocars.contracts.pop.manage.JatoCodeMappingDeleted",
+        "fields": [
+          {
+            "name": "jato_code_mapping",
+            "type": "JatoCodeMapping",
+            "tag": 1,
+            "shape": "assortment-6114c5d-complete-r5/retained/shape/proto/src~PopCat.Assortment.CacheWorker.Host~Protos~manage~jatomessage.proto~JatoCodeMapping"
+          }
+        ],
+        "reservedTags": [],
+        "reservedNames": []
+      }
+    ],
+    "enums": [],
+    "inspection": "full local source; imported Google declarations are explicit gaps"
+  },
+  {
+    "path": "src/PopCat.Assortment.CacheWorker.Host/Protos/manage/nat_code_mapping.proto",
+    "package": "volvocars.contracts.pop.manage",
+    "imports": [],
+    "messages": [
+      {
+        "shape": "assortment-6114c5d-complete-r5/retained/shape/proto/src~PopCat.Assortment.CacheWorker.Host~Protos~manage~nat_code_mapping.proto~NatcodeMapping",
+        "wireType": "volvocars.contracts.pop.manage.NatcodeMapping",
+        "fields": [
+          {
+            "name": "id",
+            "type": "string",
+            "tag": 1,
+            "shape": null
+          },
+          {
+            "name": "Natcode",
+            "type": "string",
+            "tag": 2,
+            "shape": null
+          },
+          {
+            "name": "Pno12",
+            "type": "string",
+            "tag": 3,
+            "shape": null
+          },
+          {
+            "name": "ModelYear",
+            "type": "int32",
+            "tag": 4,
+            "shape": null
+          },
+          {
+            "name": "LocalEditionCode",
+            "type": "string",
+            "tag": 5,
+            "shape": null
+          },
+          {
+            "name": "MarketCode",
+            "type": "string",
+            "tag": 6,
+            "shape": null
+          }
+        ],
+        "reservedTags": [],
+        "reservedNames": []
+      },
+      {
+        "shape": "assortment-6114c5d-complete-r5/retained/shape/proto/src~PopCat.Assortment.CacheWorker.Host~Protos~manage~nat_code_mapping.proto~NatcodeMappingCreated",
+        "wireType": "volvocars.contracts.pop.manage.NatcodeMappingCreated",
+        "fields": [
+          {
+            "name": "natcode_mapping",
+            "type": "NatcodeMapping",
+            "tag": 1,
+            "shape": "assortment-6114c5d-complete-r5/retained/shape/proto/src~PopCat.Assortment.CacheWorker.Host~Protos~manage~nat_code_mapping.proto~NatcodeMapping"
+          }
+        ],
+        "reservedTags": [],
+        "reservedNames": []
+      },
+      {
+        "shape": "assortment-6114c5d-complete-r5/retained/shape/proto/src~PopCat.Assortment.CacheWorker.Host~Protos~manage~nat_code_mapping.proto~NatcodeMappingUpdated",
+        "wireType": "volvocars.contracts.pop.manage.NatcodeMappingUpdated",
+        "fields": [
+          {
+            "name": "natcode_mapping",
+            "type": "NatcodeMapping",
+            "tag": 1,
+            "shape": "assortment-6114c5d-complete-r5/retained/shape/proto/src~PopCat.Assortment.CacheWorker.Host~Protos~manage~nat_code_mapping.proto~NatcodeMapping"
+          }
+        ],
+        "reservedTags": [],
+        "reservedNames": []
+      },
+      {
+        "shape": "assortment-6114c5d-complete-r5/retained/shape/proto/src~PopCat.Assortment.CacheWorker.Host~Protos~manage~nat_code_mapping.proto~NatcodeMappingDeleted",
+        "wireType": "volvocars.contracts.pop.manage.NatcodeMappingDeleted",
+        "fields": [
+          {
+            "name": "natcode_mapping",
+            "type": "NatcodeMapping",
+            "tag": 1,
+            "shape": "assortment-6114c5d-complete-r5/retained/shape/proto/src~PopCat.Assortment.CacheWorker.Host~Protos~manage~nat_code_mapping.proto~NatcodeMapping"
+          }
+        ],
+        "reservedTags": [],
+        "reservedNames": []
+      }
+    ],
+    "enums": [],
+    "inspection": "full local source; imported Google declarations are explicit gaps"
+  },
+  {
+    "path": "src/PopCat.Assortment.CacheWorker.Host/Protos/manage/schwacke.proto",
+    "package": "volvocars.contracts.pop.manage",
+    "imports": [],
+    "messages": [
+      {
+        "shape": "assortment-6114c5d-complete-r5/retained/shape/proto/src~PopCat.Assortment.CacheWorker.Host~Protos~manage~schwacke.proto~SchwackeCodeMapping",
+        "wireType": "volvocars.contracts.pop.manage.SchwackeCodeMapping",
+        "fields": [
+          {
+            "name": "id",
+            "type": "string",
+            "tag": 1,
+            "shape": null
+          },
+          {
+            "name": "SchwackeId",
+            "type": "string",
+            "tag": 2,
+            "shape": null
+          },
+          {
+            "name": "Pno12",
+            "type": "string",
+            "tag": 3,
+            "shape": null
+          },
+          {
+            "name": "ModelYear",
+            "type": "int32",
+            "tag": 4,
+            "shape": null
+          },
+          {
+            "name": "LocalEditionCode",
+            "type": "string",
+            "tag": 5,
+            "shape": null
+          },
+          {
+            "name": "MarketCode",
+            "type": "string",
+            "tag": 6,
+            "shape": null
+          }
+        ],
+        "reservedTags": [],
+        "reservedNames": []
+      },
+      {
+        "shape": "assortment-6114c5d-complete-r5/retained/shape/proto/src~PopCat.Assortment.CacheWorker.Host~Protos~manage~schwacke.proto~SchwackeCodeMappingCreated",
+        "wireType": "volvocars.contracts.pop.manage.SchwackeCodeMappingCreated",
+        "fields": [
+          {
+            "name": "schwacke_code_mapping",
+            "type": "SchwackeCodeMapping",
+            "tag": 1,
+            "shape": "assortment-6114c5d-complete-r5/retained/shape/proto/src~PopCat.Assortment.CacheWorker.Host~Protos~manage~schwacke.proto~SchwackeCodeMapping"
+          }
+        ],
+        "reservedTags": [],
+        "reservedNames": []
+      },
+      {
+        "shape": "assortment-6114c5d-complete-r5/retained/shape/proto/src~PopCat.Assortment.CacheWorker.Host~Protos~manage~schwacke.proto~SchwackeCodeMappingUpdated",
+        "wireType": "volvocars.contracts.pop.manage.SchwackeCodeMappingUpdated",
+        "fields": [
+          {
+            "name": "schwacke_code_mapping",
+            "type": "SchwackeCodeMapping",
+            "tag": 1,
+            "shape": "assortment-6114c5d-complete-r5/retained/shape/proto/src~PopCat.Assortment.CacheWorker.Host~Protos~manage~schwacke.proto~SchwackeCodeMapping"
+          }
+        ],
+        "reservedTags": [],
+        "reservedNames": []
+      },
+      {
+        "shape": "assortment-6114c5d-complete-r5/retained/shape/proto/src~PopCat.Assortment.CacheWorker.Host~Protos~manage~schwacke.proto~SchwackeCodeMappingDeleted",
+        "wireType": "volvocars.contracts.pop.manage.SchwackeCodeMappingDeleted",
+        "fields": [
+          {
+            "name": "schwacke_code_mapping",
+            "type": "SchwackeCodeMapping",
+            "tag": 1,
+            "shape": "assortment-6114c5d-complete-r5/retained/shape/proto/src~PopCat.Assortment.CacheWorker.Host~Protos~manage~schwacke.proto~SchwackeCodeMapping"
+          }
+        ],
+        "reservedTags": [],
+        "reservedNames": []
+      }
+    ],
+    "enums": [],
+    "inspection": "full local source; imported Google declarations are explicit gaps"
+  },
+  {
+    "path": "src/PopCat.Assortment.CacheWorker.Host/Protos/manage/soft_offer.proto",
+    "package": "volvocars.contracts.pop.manage",
+    "imports": [],
+    "messages": [
+      {
+        "shape": "assortment-6114c5d-complete-r5/retained/shape/proto/src~PopCat.Assortment.CacheWorker.Host~Protos~manage~soft_offer.proto~SoftOffer",
+        "wireType": "volvocars.contracts.pop.manage.SoftOffer",
+        "fields": [
+          {
+            "name": "id",
+            "type": "string",
+            "tag": 1,
+            "shape": null
+          },
+          {
+            "name": "type",
+            "type": "string",
+            "tag": 2,
+            "shape": null
+          },
+          {
+            "name": "name",
+            "type": "string",
+            "tag": 3,
+            "shape": null
+          },
+          {
+            "name": "code",
+            "type": "string",
+            "tag": 4,
+            "shape": null
+          },
+          {
+            "name": "SkuIdentifier",
+            "type": "string",
+            "tag": 6,
+            "shape": null
+          },
+          {
+            "name": "SkuCategory",
+            "type": "string",
+            "tag": 7,
+            "shape": null
+          }
+        ],
+        "reservedTags": [5],
+        "reservedNames": ["attributeData"]
+      },
+      {
+        "shape": "assortment-6114c5d-complete-r5/retained/shape/proto/src~PopCat.Assortment.CacheWorker.Host~Protos~manage~soft_offer.proto~SoftOfferCreated",
+        "wireType": "volvocars.contracts.pop.manage.SoftOfferCreated",
+        "fields": [
+          {
+            "name": "soft_offer",
+            "type": "SoftOffer",
+            "tag": 1,
+            "shape": "assortment-6114c5d-complete-r5/retained/shape/proto/src~PopCat.Assortment.CacheWorker.Host~Protos~manage~soft_offer.proto~SoftOffer"
+          }
+        ],
+        "reservedTags": [],
+        "reservedNames": []
+      },
+      {
+        "shape": "assortment-6114c5d-complete-r5/retained/shape/proto/src~PopCat.Assortment.CacheWorker.Host~Protos~manage~soft_offer.proto~SoftOfferUpdated",
+        "wireType": "volvocars.contracts.pop.manage.SoftOfferUpdated",
+        "fields": [
+          {
+            "name": "soft_offer",
+            "type": "SoftOffer",
+            "tag": 1,
+            "shape": "assortment-6114c5d-complete-r5/retained/shape/proto/src~PopCat.Assortment.CacheWorker.Host~Protos~manage~soft_offer.proto~SoftOffer"
+          }
+        ],
+        "reservedTags": [],
+        "reservedNames": []
+      },
+      {
+        "shape": "assortment-6114c5d-complete-r5/retained/shape/proto/src~PopCat.Assortment.CacheWorker.Host~Protos~manage~soft_offer.proto~SoftOfferDeleted",
+        "wireType": "volvocars.contracts.pop.manage.SoftOfferDeleted",
+        "fields": [
+          {
+            "name": "soft_offer",
+            "type": "SoftOffer",
+            "tag": 1,
+            "shape": "assortment-6114c5d-complete-r5/retained/shape/proto/src~PopCat.Assortment.CacheWorker.Host~Protos~manage~soft_offer.proto~SoftOffer"
+          }
+        ],
+        "reservedTags": [],
+        "reservedNames": []
+      }
+    ],
+    "enums": [],
+    "inspection": "full local source; imported Google declarations are explicit gaps"
+  },
+  {
+    "path": "src/PopCat.Assortment.CacheWorker.Host/Protos/manage/soft_offer_package.proto",
+    "package": "volvocars.contracts.pop.manage",
+    "imports": [],
+    "messages": [
+      {
+        "shape": "assortment-6114c5d-complete-r5/retained/shape/proto/src~PopCat.Assortment.CacheWorker.Host~Protos~manage~soft_offer_package.proto~SoftOfferPackage",
+        "wireType": "volvocars.contracts.pop.manage.SoftOfferPackage",
+        "fields": [
+          {
+            "name": "id",
+            "type": "string",
+            "tag": 1,
+            "shape": null
+          },
+          {
+            "name": "code",
+            "type": "string",
+            "tag": 2,
+            "shape": null
+          },
+          {
+            "name": "name",
+            "type": "string",
+            "tag": 3,
+            "shape": null
+          },
+          {
+            "name": "included_products",
+            "type": "SoftOfferPackageIncludedProducts",
+            "tag": 4,
+            "shape": "assortment-6114c5d-complete-r5/retained/shape/proto/src~PopCat.Assortment.CacheWorker.Host~Protos~manage~soft_offer_package.proto~SoftOfferPackageIncludedProducts"
+          },
+          {
+            "name": "tags",
+            "type": "repeated string",
+            "tag": 5,
+            "shape": "assortment-6114c5d-complete-r5/protobuf/repeated/380c74a518e28136"
+          },
+          {
+            "name": "SkuIdentifier",
+            "type": "string",
+            "tag": 7,
+            "shape": null
+          },
+          {
+            "name": "SkuCategory",
+            "type": "string",
+            "tag": 8,
+            "shape": null
+          }
+        ],
+        "reservedTags": [6],
+        "reservedNames": ["attributeData"]
+      },
+      {
+        "shape": "assortment-6114c5d-complete-r5/retained/shape/proto/src~PopCat.Assortment.CacheWorker.Host~Protos~manage~soft_offer_package.proto~SoftOfferPackageIncludedProducts",
+        "wireType": "volvocars.contracts.pop.manage.SoftOfferPackageIncludedProducts",
+        "fields": [
+          {
+            "name": "service_ids",
+            "type": "repeated string",
+            "tag": 1,
+            "shape": "assortment-6114c5d-complete-r5/protobuf/repeated/ab45f72c1181ee1c"
+          }
+        ],
+        "reservedTags": [],
+        "reservedNames": []
+      },
+      {
+        "shape": "assortment-6114c5d-complete-r5/retained/shape/proto/src~PopCat.Assortment.CacheWorker.Host~Protos~manage~soft_offer_package.proto~SoftOfferPackageCreated",
+        "wireType": "volvocars.contracts.pop.manage.SoftOfferPackageCreated",
+        "fields": [
+          {
+            "name": "soft_offer_package",
+            "type": "SoftOfferPackage",
+            "tag": 1,
+            "shape": "assortment-6114c5d-complete-r5/retained/shape/proto/src~PopCat.Assortment.CacheWorker.Host~Protos~manage~soft_offer_package.proto~SoftOfferPackage"
+          }
+        ],
+        "reservedTags": [],
+        "reservedNames": []
+      },
+      {
+        "shape": "assortment-6114c5d-complete-r5/retained/shape/proto/src~PopCat.Assortment.CacheWorker.Host~Protos~manage~soft_offer_package.proto~SoftOfferPackageUpdated",
+        "wireType": "volvocars.contracts.pop.manage.SoftOfferPackageUpdated",
+        "fields": [
+          {
+            "name": "soft_offer_package",
+            "type": "SoftOfferPackage",
+            "tag": 1,
+            "shape": "assortment-6114c5d-complete-r5/retained/shape/proto/src~PopCat.Assortment.CacheWorker.Host~Protos~manage~soft_offer_package.proto~SoftOfferPackage"
+          }
+        ],
+        "reservedTags": [],
+        "reservedNames": []
+      },
+      {
+        "shape": "assortment-6114c5d-complete-r5/retained/shape/proto/src~PopCat.Assortment.CacheWorker.Host~Protos~manage~soft_offer_package.proto~SoftOfferPackageDeleted",
+        "wireType": "volvocars.contracts.pop.manage.SoftOfferPackageDeleted",
+        "fields": [
+          {
+            "name": "soft_offer_package",
+            "type": "SoftOfferPackage",
+            "tag": 1,
+            "shape": "assortment-6114c5d-complete-r5/retained/shape/proto/src~PopCat.Assortment.CacheWorker.Host~Protos~manage~soft_offer_package.proto~SoftOfferPackage"
+          }
+        ],
+        "reservedTags": [],
+        "reservedNames": []
+      }
+    ],
+    "enums": [],
+    "inspection": "full local source; imported Google declarations are explicit gaps"
+  },
+  {
+    "path": "src/PopCat.Assortment.CacheWorker.Host/Protos/manage/software_option.proto",
+    "package": "volvocars.contracts.pop.manage",
+    "imports": [],
+    "messages": [
+      {
+        "shape": "assortment-6114c5d-complete-r5/retained/shape/proto/src~PopCat.Assortment.CacheWorker.Host~Protos~manage~software_option.proto~SoftwareOption",
+        "wireType": "volvocars.contracts.pop.manage.SoftwareOption",
+        "fields": [
+          {
+            "name": "id",
+            "type": "string",
+            "tag": 1,
+            "shape": null
+          },
+          {
+            "name": "type",
+            "type": "string",
+            "tag": 2,
+            "shape": null
+          },
+          {
+            "name": "name",
+            "type": "string",
+            "tag": 3,
+            "shape": null
+          },
+          {
+            "name": "code",
+            "type": "string",
+            "tag": 4,
+            "shape": null
+          },
+          {
+            "name": "SkuIdentifier",
+            "type": "string",
+            "tag": 6,
+            "shape": null
+          },
+          {
+            "name": "SkuCategory",
+            "type": "string",
+            "tag": 7,
+            "shape": null
+          }
+        ],
+        "reservedTags": [5],
+        "reservedNames": ["attributeData"]
+      },
+      {
+        "shape": "assortment-6114c5d-complete-r5/retained/shape/proto/src~PopCat.Assortment.CacheWorker.Host~Protos~manage~software_option.proto~SoftwareOptionCreated",
+        "wireType": "volvocars.contracts.pop.manage.SoftwareOptionCreated",
+        "fields": [
+          {
+            "name": "software_option",
+            "type": "SoftwareOption",
+            "tag": 1,
+            "shape": "assortment-6114c5d-complete-r5/retained/shape/proto/src~PopCat.Assortment.CacheWorker.Host~Protos~manage~software_option.proto~SoftwareOption"
+          }
+        ],
+        "reservedTags": [],
+        "reservedNames": []
+      },
+      {
+        "shape": "assortment-6114c5d-complete-r5/retained/shape/proto/src~PopCat.Assortment.CacheWorker.Host~Protos~manage~software_option.proto~SoftwareOptionUpdated",
+        "wireType": "volvocars.contracts.pop.manage.SoftwareOptionUpdated",
+        "fields": [
+          {
+            "name": "software_option",
+            "type": "SoftwareOption",
+            "tag": 1,
+            "shape": "assortment-6114c5d-complete-r5/retained/shape/proto/src~PopCat.Assortment.CacheWorker.Host~Protos~manage~software_option.proto~SoftwareOption"
+          }
+        ],
+        "reservedTags": [],
+        "reservedNames": []
+      },
+      {
+        "shape": "assortment-6114c5d-complete-r5/retained/shape/proto/src~PopCat.Assortment.CacheWorker.Host~Protos~manage~software_option.proto~SoftwareOptionDeleted",
+        "wireType": "volvocars.contracts.pop.manage.SoftwareOptionDeleted",
+        "fields": [
+          {
+            "name": "software_option",
+            "type": "SoftwareOption",
+            "tag": 1,
+            "shape": "assortment-6114c5d-complete-r5/retained/shape/proto/src~PopCat.Assortment.CacheWorker.Host~Protos~manage~software_option.proto~SoftwareOption"
+          }
+        ],
+        "reservedTags": [],
+        "reservedNames": []
+      }
+    ],
+    "enums": [],
+    "inspection": "full local source; imported Google declarations are explicit gaps"
+  },
+  {
+    "path": "src/PopCat.Assortment.CacheWorker.Host/Protos/pcf/carconfigmessage.proto",
+    "package": "volvocars.contracts.pop.pcf",
+    "imports": [],
+    "messages": [
+      {
+        "shape": "assortment-6114c5d-complete-r5/retained/shape/proto/src~PopCat.Assortment.CacheWorker.Host~Protos~pcf~carconfigmessage.proto~CarConfigMessage",
+        "wireType": "volvocars.contracts.pop.pcf.CarConfigMessage",
+        "fields": [
+          {
+            "name": "pno12",
+            "type": "string",
+            "tag": 1,
+            "shape": null
+          },
+          {
+            "name": "model_year",
+            "type": "int32",
+            "tag": 2,
+            "shape": null
+          },
+          {
+            "name": "spec_market",
+            "type": "string",
+            "tag": 3,
+            "shape": null
+          },
+          {
+            "name": "message_type",
+            "type": "MessageType",
+            "tag": 5,
+            "shape": null
+          }
+        ],
+        "reservedTags": [4],
+        "reservedNames": ["legacy_gcc_market"]
+      }
+    ],
+    "enums": [
+      {
+        "name": "MessageType",
+        "members": [
+          {
+            "name": "Created",
+            "value": 0
+          },
+          {
+            "name": "Modified",
+            "value": 1
+          },
+          {
+            "name": "Deleted",
+            "value": 2
+          }
+        ],
+        "lines": [14, 18]
+      }
+    ],
+    "inspection": "full local source; imported Google declarations are explicit gaps"
+  },
+  {
+    "path": "src/PopCat.Assortment.CacheWorker.Host/Protos/pcf/globaldictionaryentriesupdated.proto",
+    "package": "volvocars.contracts.pop.pcf",
+    "imports": ["Protos/pcf/carconfigmessage.proto"],
+    "messages": [
+      {
+        "shape": "assortment-6114c5d-complete-r5/retained/shape/proto/src~PopCat.Assortment.CacheWorker.Host~Protos~pcf~globaldictionaryentriesupdated.proto~GlobalDictionaryEntryData",
+        "wireType": "volvocars.contracts.pop.pcf.GlobalDictionaryEntryData",
+        "fields": [
+          {
+            "name": "model_year",
+            "type": "int32",
+            "tag": 1,
+            "shape": null
+          },
+          {
+            "name": "car_type",
+            "type": "string",
+            "tag": 2,
+            "shape": null
+          },
+          {
+            "name": "type",
+            "type": "string",
+            "tag": 3,
+            "shape": null
+          },
+          {
+            "name": "code",
+            "type": "string",
+            "tag": 4,
+            "shape": null
+          },
+          {
+            "name": "name",
+            "type": "string",
+            "tag": 5,
+            "shape": null
+          },
+          {
+            "name": "long_name",
+            "type": "string",
+            "tag": 6,
+            "shape": null
+          },
+          {
+            "name": "message_type",
+            "type": "MessageType",
+            "tag": 7,
+            "shape": null
+          }
+        ],
+        "reservedTags": [],
+        "reservedNames": []
+      },
+      {
+        "shape": "assortment-6114c5d-complete-r5/retained/shape/proto/src~PopCat.Assortment.CacheWorker.Host~Protos~pcf~globaldictionaryentriesupdated.proto~GlobalDictionaryEntriesUpdatedMessage",
+        "wireType": "volvocars.contracts.pop.pcf.GlobalDictionaryEntriesUpdatedMessage",
+        "fields": [
+          {
+            "name": "entries",
+            "type": "repeated GlobalDictionaryEntryData",
+            "tag": 1,
+            "shape": "assortment-6114c5d-complete-r5/protobuf/repeated/5f7bb106e465e3cb"
+          }
+        ],
+        "reservedTags": [],
+        "reservedNames": []
+      }
+    ],
+    "enums": [],
+    "inspection": "full local source; imported Google declarations are explicit gaps"
+  },
+  {
+    "path": "src/PopCat.Assortment.CacheWorker.Host/Protos/pcf/globaldictionarymessage.proto",
+    "package": "volvocars.contracts.pop.pcf",
+    "imports": ["google/protobuf/timestamp.proto"],
+    "messages": [
+      {
+        "shape": "assortment-6114c5d-complete-r5/retained/shape/proto/src~PopCat.Assortment.CacheWorker.Host~Protos~pcf~globaldictionarymessage.proto~GlobalDictionaryMessage",
+        "wireType": "volvocars.contracts.pop.pcf.GlobalDictionaryMessage",
+        "fields": [
+          {
+            "name": "TimeStamp",
+            "type": "google.protobuf.Timestamp",
+            "tag": 1,
+            "shape": "assortment-6114c5d-complete-r5/protobuf/import/89f48b88b753deba"
+          },
+          {
+            "name": "MinModelYear",
+            "type": "int32",
+            "tag": 2,
+            "shape": null
+          },
+          {
+            "name": "MaxModelYear",
+            "type": "int32",
+            "tag": 3,
+            "shape": null
+          }
+        ],
+        "reservedTags": [],
+        "reservedNames": []
+      }
+    ],
+    "enums": [],
+    "inspection": "full local source; imported Google declarations are explicit gaps"
+  },
+  {
+    "path": "src/PopCat.Assortment.CacheWorker.Host/Protos/pcf/marketauthentriesupdated.proto",
+    "package": "volvocars.contracts.pop.pcf",
+    "imports": [],
+    "messages": [
+      {
+        "shape": "assortment-6114c5d-complete-r5/retained/shape/proto/src~PopCat.Assortment.CacheWorker.Host~Protos~pcf~marketauthentriesupdated.proto~MarketAuthEntryData",
+        "wireType": "volvocars.contracts.pop.pcf.MarketAuthEntryData",
+        "fields": [
+          {
+            "name": "model_year",
+            "type": "int32",
+            "tag": 1,
+            "shape": null
+          },
+          {
+            "name": "spec_market",
+            "type": "string",
+            "tag": 2,
+            "shape": null
+          },
+          {
+            "name": "car_type",
+            "type": "string",
+            "tag": 3,
+            "shape": null
+          },
+          {
+            "name": "type",
+            "type": "string",
+            "tag": 4,
+            "shape": null
+          },
+          {
+            "name": "code",
+            "type": "string",
+            "tag": 5,
+            "shape": null
+          },
+          {
+            "name": "name",
+            "type": "string",
+            "tag": 6,
+            "shape": null
+          }
+        ],
+        "reservedTags": [],
+        "reservedNames": []
+      },
+      {
+        "shape": "assortment-6114c5d-complete-r5/retained/shape/proto/src~PopCat.Assortment.CacheWorker.Host~Protos~pcf~marketauthentriesupdated.proto~MarketAuthEntriesUpdatedMessage",
+        "wireType": "volvocars.contracts.pop.pcf.MarketAuthEntriesUpdatedMessage",
+        "fields": [
+          {
+            "name": "entries",
+            "type": "repeated MarketAuthEntryData",
+            "tag": 1,
+            "shape": "assortment-6114c5d-complete-r5/protobuf/repeated/d859892e333c1e5f"
+          }
+        ],
+        "reservedTags": [],
+        "reservedNames": []
+      }
+    ],
+    "enums": [],
+    "inspection": "full local source; imported Google declarations are explicit gaps"
+  },
+  {
+    "path": "src/PopCat.Assortment.CacheWorker.Host/Protos/pcf/marketauthmessage.proto",
+    "package": "volvocars.contracts.pop.pcf",
+    "imports": ["google/protobuf/wrappers.proto"],
+    "messages": [
+      {
+        "shape": "assortment-6114c5d-complete-r5/retained/shape/proto/src~PopCat.Assortment.CacheWorker.Host~Protos~pcf~marketauthmessage.proto~MarketAuthMessage",
+        "wireType": "volvocars.contracts.pop.pcf.MarketAuthMessage",
+        "fields": [
+          {
+            "name": "car_type",
+            "type": "string",
+            "tag": 1,
+            "shape": null
+          },
+          {
+            "name": "model_year",
+            "type": "int32",
+            "tag": 2,
+            "shape": null
+          },
+          {
+            "name": "spec_market",
+            "type": "string",
+            "tag": 3,
+            "shape": null
+          },
+          {
+            "name": "legacy_gcc_market",
+            "type": "google.protobuf.StringValue",
+            "tag": 4,
+            "shape": "assortment-6114c5d-complete-r5/protobuf/import/1813d15469284d79"
+          }
+        ],
+        "reservedTags": [],
+        "reservedNames": []
+      }
+    ],
+    "enums": [],
+    "inspection": "full local source; imported Google declarations are explicit gaps"
+  },
+  {
+    "path": "src/PopCat.Assortment.CacheWorker.Host/Protos/pds/productdetailservice_package.proto",
+    "package": "volvocars.contracts.pop.productdetails",
+    "imports": [
+      "Protos/pds/specification_value.proto",
+      "Protos/pds/productdetailservice_product.proto"
+    ],
+    "messages": [
+      {
+        "shape": "assortment-6114c5d-complete-r5/retained/shape/proto/src~PopCat.Assortment.CacheWorker.Host~Protos~pds~productdetailservice_package.proto~PackageCreated",
+        "wireType": "volvocars.contracts.pop.productdetails.PackageCreated",
+        "fields": [
+          {
+            "name": "Package",
+            "type": "Package",
+            "tag": 1,
+            "shape": "assortment-6114c5d-complete-r5/retained/shape/proto/src~PopCat.Assortment.CacheWorker.Host~Protos~pds~productdetailservice_package.proto~Package"
+          }
+        ],
+        "reservedTags": [],
+        "reservedNames": []
+      },
+      {
+        "shape": "assortment-6114c5d-complete-r5/retained/shape/proto/src~PopCat.Assortment.CacheWorker.Host~Protos~pds~productdetailservice_package.proto~PackageUpdated",
+        "wireType": "volvocars.contracts.pop.productdetails.PackageUpdated",
+        "fields": [
+          {
+            "name": "Package",
+            "type": "Package",
+            "tag": 1,
+            "shape": "assortment-6114c5d-complete-r5/retained/shape/proto/src~PopCat.Assortment.CacheWorker.Host~Protos~pds~productdetailservice_package.proto~Package"
+          }
+        ],
+        "reservedTags": [],
+        "reservedNames": []
+      },
+      {
+        "shape": "assortment-6114c5d-complete-r5/retained/shape/proto/src~PopCat.Assortment.CacheWorker.Host~Protos~pds~productdetailservice_package.proto~PackageDeleted",
+        "wireType": "volvocars.contracts.pop.productdetails.PackageDeleted",
+        "fields": [
+          {
+            "name": "Package",
+            "type": "Package",
+            "tag": 1,
+            "shape": "assortment-6114c5d-complete-r5/retained/shape/proto/src~PopCat.Assortment.CacheWorker.Host~Protos~pds~productdetailservice_package.proto~Package"
+          }
+        ],
+        "reservedTags": [],
+        "reservedNames": []
+      },
+      {
+        "shape": "assortment-6114c5d-complete-r5/retained/shape/proto/src~PopCat.Assortment.CacheWorker.Host~Protos~pds~productdetailservice_package.proto~Package",
+        "wireType": "volvocars.contracts.pop.productdetails.Package",
+        "fields": [
+          {
+            "name": "Id",
+            "type": "string",
+            "tag": 1,
+            "shape": null
+          },
+          {
+            "name": "Type",
+            "type": "PackageType",
+            "tag": 2,
+            "shape": null
+          },
+          {
+            "name": "Variants",
+            "type": "repeated PackageVariant",
+            "tag": 3,
+            "shape": "assortment-6114c5d-complete-r5/protobuf/repeated/c39451dfe36b8701"
+          },
+          {
+            "name": "ClassificationCodes",
+            "type": "repeated string",
+            "tag": 4,
+            "shape": "assortment-6114c5d-complete-r5/protobuf/repeated/9298e3d2fabb335b"
+          },
+          {
+            "name": "Codes",
+            "type": "repeated string",
+            "tag": 5,
+            "shape": "assortment-6114c5d-complete-r5/protobuf/repeated/fa0e08db7383e1ac"
+          },
+          {
+            "name": "Name",
+            "type": "string",
+            "tag": 6,
+            "shape": null
+          },
+          {
+            "name": "Handle",
+            "type": "string",
+            "tag": 7,
+            "shape": null
+          }
+        ],
+        "reservedTags": [],
+        "reservedNames": []
+      },
+      {
+        "shape": "assortment-6114c5d-complete-r5/retained/shape/proto/src~PopCat.Assortment.CacheWorker.Host~Protos~pds~productdetailservice_package.proto~PackageVariant",
+        "wireType": "volvocars.contracts.pop.productdetails.PackageVariant",
+        "fields": [
+          {
+            "name": "Id",
+            "type": "string",
+            "tag": 1,
+            "shape": null
+          },
+          {
+            "name": "Name",
+            "type": "string",
+            "tag": 2,
+            "shape": null
+          },
+          {
+            "name": "Metadata",
+            "type": "map<string, string>",
+            "tag": 3,
+            "shape": null
+          },
+          {
+            "name": "IncludedVariants",
+            "type": "repeated ProductVariant",
+            "tag": 4,
+            "shape": "assortment-6114c5d-complete-r5/protobuf/repeated/24fddc86e7e642b7"
+          },
+          {
+            "name": "Code",
+            "type": "string",
+            "tag": 5,
+            "shape": null
+          },
+          {
+            "name": "SpecificationValues",
+            "type": "repeated SpecificationValue",
+            "tag": 6,
+            "shape": "assortment-6114c5d-complete-r5/protobuf/repeated/a0970b742dae2622"
+          }
+        ],
+        "reservedTags": [],
+        "reservedNames": []
+      }
+    ],
+    "enums": [
+      {
+        "name": "PackageType",
+        "members": [
+          {
+            "name": "Unknown",
+            "value": 0
+          },
+          {
+            "name": "AccessoryPackage",
+            "value": 2
+          },
+          {
+            "name": "ServicePlanPackage",
+            "value": 4
+          }
+        ],
+        "lines": [21, 25]
+      }
+    ],
+    "inspection": "full local source; imported Google declarations are explicit gaps"
+  },
+  {
+    "path": "src/PopCat.Assortment.CacheWorker.Host/Protos/pds/productdetailservice_product.proto",
+    "package": "volvocars.contracts.pop.productdetails",
+    "imports": ["Protos/pds/specification_value.proto"],
+    "messages": [
+      {
+        "shape": "assortment-6114c5d-complete-r5/retained/shape/proto/src~PopCat.Assortment.CacheWorker.Host~Protos~pds~productdetailservice_product.proto~ProductCreated",
+        "wireType": "volvocars.contracts.pop.productdetails.ProductCreated",
+        "fields": [
+          {
+            "name": "Product",
+            "type": "Product",
+            "tag": 1,
+            "shape": "assortment-6114c5d-complete-r5/retained/shape/proto/src~PopCat.Assortment.CacheWorker.Host~Protos~pds~productdetailservice_product.proto~Product"
+          }
+        ],
+        "reservedTags": [],
+        "reservedNames": []
+      },
+      {
+        "shape": "assortment-6114c5d-complete-r5/retained/shape/proto/src~PopCat.Assortment.CacheWorker.Host~Protos~pds~productdetailservice_product.proto~ProductUpdated",
+        "wireType": "volvocars.contracts.pop.productdetails.ProductUpdated",
+        "fields": [
+          {
+            "name": "Product",
+            "type": "Product",
+            "tag": 1,
+            "shape": "assortment-6114c5d-complete-r5/retained/shape/proto/src~PopCat.Assortment.CacheWorker.Host~Protos~pds~productdetailservice_product.proto~Product"
+          }
+        ],
+        "reservedTags": [],
+        "reservedNames": []
+      },
+      {
+        "shape": "assortment-6114c5d-complete-r5/retained/shape/proto/src~PopCat.Assortment.CacheWorker.Host~Protos~pds~productdetailservice_product.proto~ProductDeleted",
+        "wireType": "volvocars.contracts.pop.productdetails.ProductDeleted",
+        "fields": [
+          {
+            "name": "Product",
+            "type": "Product",
+            "tag": 1,
+            "shape": "assortment-6114c5d-complete-r5/retained/shape/proto/src~PopCat.Assortment.CacheWorker.Host~Protos~pds~productdetailservice_product.proto~Product"
+          }
+        ],
+        "reservedTags": [],
+        "reservedNames": []
+      },
+      {
+        "shape": "assortment-6114c5d-complete-r5/retained/shape/proto/src~PopCat.Assortment.CacheWorker.Host~Protos~pds~productdetailservice_product.proto~Product",
+        "wireType": "volvocars.contracts.pop.productdetails.Product",
+        "fields": [
+          {
+            "name": "Id",
+            "type": "string",
+            "tag": 1,
+            "shape": null
+          },
+          {
+            "name": "Type",
+            "type": "ProductType",
+            "tag": 2,
+            "shape": null
+          },
+          {
+            "name": "Variants",
+            "type": "repeated ProductVariant",
+            "tag": 3,
+            "shape": "assortment-6114c5d-complete-r5/protobuf/repeated/2ddae194e951e60b"
+          },
+          {
+            "name": "ClassificationCodes",
+            "type": "repeated string",
+            "tag": 4,
+            "shape": "assortment-6114c5d-complete-r5/protobuf/repeated/c85a3aa2d9d825da"
+          },
+          {
+            "name": "Codes",
+            "type": "repeated string",
+            "tag": 5,
+            "shape": "assortment-6114c5d-complete-r5/protobuf/repeated/94ee2a3af606d0a8"
+          },
+          {
+            "name": "Name",
+            "type": "string",
+            "tag": 6,
+            "shape": null
+          },
+          {
+            "name": "Handle",
+            "type": "string",
+            "tag": 7,
+            "shape": null
+          }
+        ],
+        "reservedTags": [],
+        "reservedNames": []
+      },
+      {
+        "shape": "assortment-6114c5d-complete-r5/retained/shape/proto/src~PopCat.Assortment.CacheWorker.Host~Protos~pds~productdetailservice_product.proto~ProductVariant",
+        "wireType": "volvocars.contracts.pop.productdetails.ProductVariant",
+        "fields": [
+          {
+            "name": "Id",
+            "type": "string",
+            "tag": 1,
+            "shape": null
+          },
+          {
+            "name": "Name",
+            "type": "string",
+            "tag": 2,
+            "shape": null
+          },
+          {
+            "name": "Metadata",
+            "type": "map<string, string>",
+            "tag": 3,
+            "shape": null
+          },
+          {
+            "name": "Code",
+            "type": "string",
+            "tag": 4,
+            "shape": null
+          },
+          {
+            "name": "SpecificationValues",
+            "type": "repeated SpecificationValue",
+            "tag": 5,
+            "shape": "assortment-6114c5d-complete-r5/protobuf/repeated/f3bdcdc1f856a08c"
+          }
+        ],
+        "reservedTags": [],
+        "reservedNames": []
+      }
+    ],
+    "enums": [
+      {
+        "name": "ProductType",
+        "members": [
+          {
+            "name": "Unknown",
+            "value": 0
+          },
+          {
+            "name": "Accessory",
+            "value": 1
+          },
+          {
+            "name": "ServiceProduct",
+            "value": 3
+          },
+          {
+            "name": "SoftwareOption",
+            "value": 4
+          },
+          {
+            "name": "Wheel",
+            "value": 6
+          }
+        ],
+        "lines": [20, 26]
+      }
+    ],
+    "inspection": "full local source; imported Google declarations are explicit gaps"
+  },
+  {
+    "path": "src/PopCat.Assortment.CacheWorker.Host/Protos/pds/specification_value.proto",
+    "package": "volvocars.contracts.pop.productdetails",
+    "imports": [],
+    "messages": [
+      {
+        "shape": "assortment-6114c5d-complete-r5/retained/shape/proto/src~PopCat.Assortment.CacheWorker.Host~Protos~pds~specification_value.proto~SpecificationValue",
+        "wireType": "volvocars.contracts.pop.productdetails.SpecificationValue",
+        "fields": [
+          {
+            "name": "id",
+            "type": "string",
+            "tag": 1,
+            "shape": null
+          },
+          {
+            "name": "value",
+            "type": "string",
+            "tag": 2,
+            "shape": null
+          },
+          {
+            "name": "specification",
+            "type": "SpecificationInfo",
+            "tag": 3,
+            "shape": "assortment-6114c5d-complete-r5/retained/shape/proto/src~PopCat.Assortment.CacheWorker.Host~Protos~pds~specification_value.proto~SpecificationInfo"
+          }
+        ],
+        "reservedTags": [],
+        "reservedNames": []
+      },
+      {
+        "shape": "assortment-6114c5d-complete-r5/retained/shape/proto/src~PopCat.Assortment.CacheWorker.Host~Protos~pds~specification_value.proto~SpecificationInfo",
+        "wireType": "volvocars.contracts.pop.productdetails.SpecificationInfo",
+        "fields": [
+          {
+            "name": "id",
+            "type": "string",
+            "tag": 1,
+            "shape": null
+          },
+          {
+            "name": "code",
+            "type": "string",
+            "tag": 2,
+            "shape": null
+          },
+          {
+            "name": "unit",
+            "type": "string",
+            "tag": 3,
+            "shape": null
+          }
+        ],
+        "reservedTags": [],
+        "reservedNames": []
+      },
+      {
+        "shape": "assortment-6114c5d-complete-r5/retained/shape/proto/src~PopCat.Assortment.CacheWorker.Host~Protos~pds~specification_value.proto~SpecificationValueCreated",
+        "wireType": "volvocars.contracts.pop.productdetails.SpecificationValueCreated",
+        "fields": [
+          {
+            "name": "specification_value",
+            "type": "SpecificationValue",
+            "tag": 1,
+            "shape": "assortment-6114c5d-complete-r5/retained/shape/proto/src~PopCat.Assortment.CacheWorker.Host~Protos~pds~specification_value.proto~SpecificationValue"
+          }
+        ],
+        "reservedTags": [],
+        "reservedNames": []
+      }
+    ],
+    "enums": [],
+    "inspection": "full local source; imported Google declarations are explicit gaps"
+  }
+]

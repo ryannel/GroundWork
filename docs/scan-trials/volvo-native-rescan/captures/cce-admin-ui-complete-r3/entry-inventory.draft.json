@@ -1,0 +1,355 @@
+{
+  "rest": [
+    {
+      "path": "/healthcheck",
+      "method": "GET",
+      "file": "src/app/healthcheck/route.ts",
+      "line": 3
+    },
+    {
+      "path": "/api/audit-logs",
+      "method": "GET",
+      "file": "src/app/api/audit-logs/route.ts",
+      "line": 19
+    },
+    {
+      "path": "/api/user",
+      "method": "GET",
+      "file": "src/app/api/user/route.ts",
+      "line": 5
+    },
+    {
+      "path": "/api/policies",
+      "method": "GET",
+      "file": "src/app/api/policies/route.ts",
+      "line": 9
+    },
+    {
+      "path": "/api/policies",
+      "method": "POST",
+      "file": "src/app/api/policies/route.ts",
+      "line": 43
+    },
+    {
+      "path": "/api/policies",
+      "method": "PUT",
+      "file": "src/app/api/policies/route.ts",
+      "line": 60
+    },
+    {
+      "path": "/api/config-policies",
+      "method": "GET",
+      "file": "src/app/api/config-policies/route.ts",
+      "line": 5
+    },
+    {
+      "path": "/api/policy-pre-config-group/mappings",
+      "method": "GET",
+      "file": "src/app/api/policy-pre-config-group/mappings/route.ts",
+      "line": 8
+    },
+    {
+      "path": "/api/policy-pre-config-group/mappings",
+      "method": "POST",
+      "file": "src/app/api/policy-pre-config-group/mappings/route.ts",
+      "line": 12
+    },
+    {
+      "path": "/api/policy-pre-config-group/mappings/{id}",
+      "method": "PUT",
+      "file": "src/app/api/policy-pre-config-group/mappings/[id]/route.ts",
+      "line": 5
+    },
+    {
+      "path": "/api/policy-pre-config-group/mappings/{id}",
+      "method": "DELETE",
+      "file": "src/app/api/policy-pre-config-group/mappings/[id]/route.ts",
+      "line": 10
+    },
+    {
+      "path": "/api/pre-config/all",
+      "method": "GET",
+      "file": "src/app/api/pre-config/all/route.ts",
+      "line": 3
+    },
+    {
+      "path": "/api/pre-config/market/{market}",
+      "method": "GET",
+      "file": "src/app/api/pre-config/market/[market]/route.ts",
+      "line": 3
+    },
+    {
+      "path": "/api/pre-config/update/{market}",
+      "method": "POST",
+      "file": "src/app/api/pre-config/update/[market]/route.ts",
+      "line": 3
+    },
+    {
+      "path": "/api/filter/{policyId}",
+      "method": "GET",
+      "file": "src/app/api/filter/[policyId]/route.ts",
+      "line": 5
+    },
+    {
+      "path": "/api/users/super-admins",
+      "method": "GET",
+      "file": "src/app/api/users/super-admins/route.ts",
+      "line": 5
+    },
+    {
+      "path": "/api/users/{policyId}",
+      "method": "GET",
+      "file": "src/app/api/users/[policyId]/route.ts",
+      "line": 5
+    },
+    {
+      "path": "/api/users/roles/{cdsid}/{policyId}",
+      "method": "DELETE",
+      "file": "src/app/api/users/roles/[cdsid]/[policyId]/route.ts",
+      "line": 7
+    },
+    {
+      "path": "/api/partner/rulesForPolicy/{policyUid}",
+      "method": "GET",
+      "file": "src/app/api/partner/rulesForPolicy/[policyUid]/route.ts",
+      "line": 5
+    },
+    {
+      "path": "/api/partner/rulesForPolicy/{policyUid}",
+      "method": "PUT",
+      "file": "src/app/api/partner/rulesForPolicy/[policyUid]/route.ts",
+      "line": 15
+    },
+    {
+      "path": "/api/partner/partners/{policyUid}",
+      "method": "GET",
+      "file": "src/app/api/partner/partners/[policyUid]/route.ts",
+      "line": 5
+    },
+    {
+      "path": "/api/policies/status",
+      "method": "POST",
+      "file": "src/app/api/policies/status/route.ts",
+      "line": 13
+    },
+    {
+      "path": "/api/policies/{id}",
+      "method": "GET",
+      "file": "src/app/api/policies/[id]/route.ts",
+      "line": 8
+    },
+    {
+      "path": "/api/policies/{id}",
+      "method": "PUT",
+      "file": "src/app/api/policies/[id]/route.ts",
+      "line": 34
+    },
+    {
+      "path": "/api/policies/{id}",
+      "method": "DELETE",
+      "file": "src/app/api/policies/[id]/route.ts",
+      "line": 43
+    },
+    {
+      "path": "/api/policies/{id}/status",
+      "method": "GET",
+      "file": "src/app/api/policies/[id]/status/route.ts",
+      "line": 5
+    },
+    {
+      "path": "/api/policies/status/{id}/{requestUid}",
+      "method": "GET",
+      "file": "src/app/api/policies/status/[id]/[requestUid]/route.ts",
+      "line": 5
+    },
+    {
+      "path": "/api/user/super-admin/{cdsid}",
+      "method": "DELETE",
+      "file": "src/app/api/user/super-admin/[cdsid]/route.ts",
+      "line": 7
+    },
+    {
+      "path": "/api/user/roles/{cdsid}",
+      "method": "PUT",
+      "file": "src/app/api/user/roles/[cdsid]/route.ts",
+      "line": 13
+    },
+    {
+      "path": "/api/user/super-admins/rights/{cdsid}",
+      "method": "POST",
+      "file": "src/app/api/user/super-admins/rights/[cdsid]/route.ts",
+      "line": 8
+    },
+    {
+      "path": "/api/user/super-admins/rights/{cdsid}",
+      "method": "DELETE",
+      "file": "src/app/api/user/super-admins/rights/[cdsid]/route.ts",
+      "line": 46
+    },
+    {
+      "path": "/api/market-details/supporting-values",
+      "method": "GET",
+      "file": "src/app/api/market-details/supporting-values/route.ts",
+      "line": 8
+    },
+    {
+      "path": "/api/market-details/sales-models",
+      "method": "GET",
+      "file": "src/app/api/market-details/sales-models/route.ts",
+      "line": 5
+    },
+    {
+      "path": "/api/market-details/price-inputs",
+      "method": "GET",
+      "file": "src/app/api/market-details/price-inputs/route.ts",
+      "line": 5
+    },
+    {
+      "path": "/api/market-details/spec-markets",
+      "method": "GET",
+      "file": "src/app/api/market-details/spec-markets/route.ts",
+      "line": 5
+    },
+    {
+      "path": "/api/market-details/markets",
+      "method": "GET",
+      "file": "src/app/api/market-details/markets/route.ts",
+      "line": 5
+    },
+    {
+      "path": "/api/market-details/config-clients",
+      "method": "GET",
+      "file": "src/app/api/market-details/config-clients/route.ts",
+      "line": 5
+    },
+    {
+      "path": "/api/market-details/config-clients",
+      "method": "POST",
+      "file": "src/app/api/market-details/config-clients/route.ts",
+      "line": 9
+    },
+    {
+      "path": "/api/market-details/config-clients/{id}",
+      "method": "PUT",
+      "file": "src/app/api/market-details/config-clients/[id]/route.ts",
+      "line": 5
+    },
+    {
+      "path": "/api/market-details/energy-efficiencies/{id}",
+      "method": "PUT",
+      "file": "src/app/api/market-details/energy-efficiencies/[id]/route.ts",
+      "line": 5
+    },
+    {
+      "path": "/api/market-details/markets/{id}",
+      "method": "GET",
+      "file": "src/app/api/market-details/markets/[id]/route.ts",
+      "line": 5
+    },
+    {
+      "path": "/api/market-details/markets/{id}",
+      "method": "PUT",
+      "file": "src/app/api/market-details/markets/[id]/route.ts",
+      "line": 10
+    },
+    {
+      "path": "/api/market-details/sales-models/{id}",
+      "method": "PUT",
+      "file": "src/app/api/market-details/sales-models/[id]/route.ts",
+      "line": 5
+    },
+    {
+      "path": "/api/reda-facade/invalidate-cache",
+      "method": "POST",
+      "file": "src/app/api/reda-facade/invalidate-cache/route.ts",
+      "line": 3
+    },
+    {
+      "path": "/api/assortment-admin/global-dictionaries",
+      "method": "GET",
+      "file": "src/app/api/assortment-admin/global-dictionaries/route.ts",
+      "line": 5
+    },
+    {
+      "path": "/api/assortment-admin/global-dictionaries/entries",
+      "method": "GET",
+      "file": "src/app/api/assortment-admin/global-dictionaries/entries/route.ts",
+      "line": 5
+    },
+    {
+      "path": "/api/structure-weeks/all/{brand}/{specmarket}",
+      "method": "GET",
+      "file": "src/app/api/structure-weeks/all/[brand]/[specmarket]/route.ts",
+      "line": 3
+    },
+    {
+      "path": "/api/structure-weeks/update/{brand}/{specmarket}",
+      "method": "PUT",
+      "file": "src/app/api/structure-weeks/update/[brand]/[specmarket]/route.ts",
+      "line": 3
+    }
+  ],
+  "pages": [
+    {
+      "path": "/",
+      "file": "src/app/page.tsx",
+      "client": true
+    },
+    {
+      "path": "/super-admins",
+      "file": "src/app/super-admins/page.tsx",
+      "client": true
+    },
+    {
+      "path": "/market-details",
+      "file": "src/app/market-details/page.tsx",
+      "client": true
+    },
+    {
+      "path": "/policies",
+      "file": "src/app/policies/page.tsx",
+      "client": true
+    },
+    {
+      "path": "/policies/[id]",
+      "file": "src/app/policies/[id]/page.tsx",
+      "client": true
+    },
+    {
+      "path": "/policies/[id]/filters",
+      "file": "src/app/policies/[id]/filters/page.tsx",
+      "client": true
+    },
+    {
+      "path": "/policies/[id]/structure-weeks",
+      "file": "src/app/policies/[id]/structure-weeks/page.tsx",
+      "client": true
+    },
+    {
+      "path": "/policies/[id]/super-admins",
+      "file": "src/app/policies/[id]/super-admins/page.tsx",
+      "client": true
+    },
+    {
+      "path": "/policies/[id]/partners",
+      "file": "src/app/policies/[id]/partners/page.tsx",
+      "client": true
+    },
+    {
+      "path": "/policies/[id]/users",
+      "file": "src/app/policies/[id]/users/page.tsx",
+      "client": true
+    },
+    {
+      "path": "/market-details/[id]",
+      "file": "src/app/market-details/[id]/page.tsx",
+      "client": true
+    },
+    {
+      "path": "/super-admins/audit-logs",
+      "file": "src/app/super-admins/audit-logs/page.tsx",
+      "client": true
+    }
+  ],
+  "status": "discovered source inventory; wrapper callback/body semantics not yet completely reviewed"
+}

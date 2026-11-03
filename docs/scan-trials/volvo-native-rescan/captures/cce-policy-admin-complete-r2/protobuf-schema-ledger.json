@@ -1,0 +1,1506 @@
+[
+  {
+    "fullName": "volvocars.contracts.carconfiguration.Component",
+    "wireShape": "volvo/cce-policy-admin/88a3512f0307/local-r2/shape/protobuf/volvocars.contracts.carconfiguration.Component",
+    "path": "internal/messaging/contracts/carconfiguration/component.pb.go",
+    "fields": [
+      {
+        "name": "id",
+        "type": "TYPE_STRING",
+        "number": 1,
+        "cardinality": 1,
+        "proto3Optional": false,
+        "deprecated": false,
+        "jsonName": "id"
+      },
+      {
+        "name": "code",
+        "type": "TYPE_STRING",
+        "number": 2,
+        "cardinality": 1,
+        "proto3Optional": false,
+        "deprecated": false,
+        "jsonName": "code"
+      },
+      {
+        "name": "name",
+        "type": "TYPE_STRING",
+        "number": 3,
+        "cardinality": 1,
+        "proto3Optional": false,
+        "deprecated": false,
+        "jsonName": "name"
+      },
+      {
+        "name": "longName",
+        "type": "TYPE_STRING",
+        "number": 4,
+        "cardinality": 1,
+        "proto3Optional": false,
+        "deprecated": false,
+        "jsonName": "longName"
+      },
+      {
+        "name": "type",
+        "type": ".volvocars.contracts.carconfiguration.ComponentType",
+        "number": 5,
+        "cardinality": 1,
+        "proto3Optional": false,
+        "deprecated": false,
+        "jsonName": "type"
+      },
+      {
+        "name": "co2Effect",
+        "type": "TYPE_BOOL",
+        "number": 6,
+        "cardinality": 1,
+        "proto3Optional": false,
+        "deprecated": false,
+        "jsonName": "co2Effect"
+      },
+      {
+        "name": "optionType",
+        "type": "TYPE_STRING",
+        "number": 7,
+        "cardinality": 1,
+        "proto3Optional": false,
+        "deprecated": false,
+        "jsonName": "optionType"
+      },
+      {
+        "name": "meta",
+        "type": ".volvocars.contracts.carconfiguration.ComponentMeta",
+        "number": 8,
+        "cardinality": 1,
+        "proto3Optional": false,
+        "deprecated": false,
+        "jsonName": "meta"
+      }
+    ]
+  },
+  {
+    "fullName": "volvocars.contracts.carconfiguration.ComponentMeta",
+    "wireShape": "volvo/cce-policy-admin/88a3512f0307/local-r2/shape/protobuf/volvocars.contracts.carconfiguration.ComponentMeta",
+    "path": "internal/messaging/contracts/carconfiguration/component.pb.go",
+    "fields": [
+      {
+        "name": "hundredPercent",
+        "type": "TYPE_BOOL",
+        "number": 1,
+        "cardinality": 1,
+        "proto3Optional": false,
+        "deprecated": false,
+        "jsonName": "hundredPercent"
+      },
+      {
+        "name": "packageOnly",
+        "type": "TYPE_BOOL",
+        "number": 2,
+        "cardinality": 1,
+        "proto3Optional": false,
+        "deprecated": false,
+        "jsonName": "packageOnly"
+      }
+    ]
+  },
+  {
+    "fullName": "volvocars.contracts.carconfiguration.ComponentUpdated",
+    "wireShape": "volvo/cce-policy-admin/88a3512f0307/local-r2/shape/protobuf/volvocars.contracts.carconfiguration.ComponentUpdated",
+    "path": "internal/messaging/contracts/carconfiguration/component.pb.go",
+    "fields": [
+      {
+        "name": "component",
+        "type": ".volvocars.contracts.carconfiguration.Component",
+        "number": 1,
+        "cardinality": 1,
+        "proto3Optional": false,
+        "deprecated": false,
+        "jsonName": "component"
+      }
+    ]
+  },
+  {
+    "fullName": "volvocars.contracts.carconfiguration.Condition",
+    "wireShape": "volvo/cce-policy-admin/88a3512f0307/local-r2/shape/protobuf/volvocars.contracts.carconfiguration.Condition",
+    "path": "internal/messaging/contracts/carconfiguration/condition.pb.go",
+    "fields": [
+      {
+        "name": "relation",
+        "type": ".volvocars.contracts.carconfiguration.Relation",
+        "number": 1,
+        "cardinality": 1,
+        "proto3Optional": false,
+        "deprecated": false,
+        "jsonName": "relation"
+      },
+      {
+        "name": "subConditions",
+        "type": ".volvocars.contracts.carconfiguration.SubCondition",
+        "number": 2,
+        "cardinality": 3,
+        "proto3Optional": false,
+        "deprecated": false,
+        "jsonName": "subConditions"
+      }
+    ]
+  },
+  {
+    "fullName": "volvocars.contracts.carconfiguration.SubCondition",
+    "wireShape": "volvo/cce-policy-admin/88a3512f0307/local-r2/shape/protobuf/volvocars.contracts.carconfiguration.SubCondition",
+    "path": "internal/messaging/contracts/carconfiguration/condition.pb.go",
+    "fields": [
+      {
+        "name": "relation",
+        "type": ".volvocars.contracts.carconfiguration.Relation",
+        "number": 1,
+        "cardinality": 1,
+        "proto3Optional": false,
+        "deprecated": false,
+        "jsonName": "relation"
+      },
+      {
+        "name": "components",
+        "type": ".volvocars.contracts.carconfiguration.Component",
+        "number": 2,
+        "cardinality": 3,
+        "proto3Optional": false,
+        "deprecated": false,
+        "jsonName": "components"
+      }
+    ]
+  },
+  {
+    "fullName": "volvocars.contracts.carconfiguration.ConfigPolicy",
+    "wireShape": "volvo/cce-policy-admin/88a3512f0307/local-r2/shape/protobuf/volvocars.contracts.carconfiguration.ConfigPolicy",
+    "path": "internal/messaging/contracts/carconfiguration/config-policy.pb.go",
+    "fields": [
+      {
+        "name": "uid",
+        "type": "TYPE_STRING",
+        "number": 1,
+        "cardinality": 1,
+        "proto3Optional": false,
+        "deprecated": false,
+        "jsonName": "uid"
+      },
+      {
+        "name": "name",
+        "type": "TYPE_STRING",
+        "number": 2,
+        "cardinality": 1,
+        "proto3Optional": false,
+        "deprecated": false,
+        "jsonName": "name"
+      },
+      {
+        "name": "parentUid",
+        "type": "TYPE_STRING",
+        "number": 3,
+        "cardinality": 1,
+        "proto3Optional": false,
+        "deprecated": false,
+        "jsonName": "parentUid"
+      },
+      {
+        "name": "group",
+        "type": "TYPE_STRING",
+        "number": 4,
+        "cardinality": 1,
+        "proto3Optional": false,
+        "deprecated": false,
+        "jsonName": "group"
+      },
+      {
+        "name": "configRuleSets",
+        "type": ".volvocars.contracts.carconfiguration.ConfigRuleSet",
+        "number": 5,
+        "cardinality": 3,
+        "proto3Optional": false,
+        "deprecated": false,
+        "jsonName": "configRuleSets"
+      },
+      {
+        "name": "structureWeeksRuleSets",
+        "type": ".volvocars.contracts.carconfiguration.StructureWeeksRuleSet",
+        "number": 6,
+        "cardinality": 3,
+        "proto3Optional": false,
+        "deprecated": false,
+        "jsonName": "structureWeeksRuleSets"
+      }
+    ]
+  },
+  {
+    "fullName": "volvocars.contracts.carconfiguration.ConfigPolicyCreated",
+    "wireShape": "volvo/cce-policy-admin/88a3512f0307/local-r2/shape/protobuf/volvocars.contracts.carconfiguration.ConfigPolicyCreated",
+    "path": "internal/messaging/contracts/carconfiguration/config-policy.pb.go",
+    "fields": [
+      {
+        "name": "uid",
+        "type": "TYPE_STRING",
+        "number": 1,
+        "cardinality": 1,
+        "proto3Optional": false,
+        "deprecated": false,
+        "jsonName": "uid"
+      },
+      {
+        "name": "name",
+        "type": "TYPE_STRING",
+        "number": 2,
+        "cardinality": 1,
+        "proto3Optional": false,
+        "deprecated": false,
+        "jsonName": "name"
+      },
+      {
+        "name": "parentUid",
+        "type": "TYPE_STRING",
+        "number": 3,
+        "cardinality": 1,
+        "proto3Optional": false,
+        "deprecated": false,
+        "jsonName": "parentUid"
+      },
+      {
+        "name": "group",
+        "type": "TYPE_STRING",
+        "number": 4,
+        "cardinality": 1,
+        "proto3Optional": false,
+        "deprecated": false,
+        "jsonName": "group"
+      },
+      {
+        "name": "configRuleSets",
+        "type": ".volvocars.contracts.carconfiguration.ConfigRuleSet",
+        "number": 5,
+        "cardinality": 3,
+        "proto3Optional": false,
+        "deprecated": false,
+        "jsonName": "configRuleSets"
+      },
+      {
+        "name": "structureWeeksRuleSets",
+        "type": ".volvocars.contracts.carconfiguration.StructureWeeksRuleSet",
+        "number": 6,
+        "cardinality": 3,
+        "proto3Optional": false,
+        "deprecated": false,
+        "jsonName": "structureWeeksRuleSets"
+      }
+    ]
+  },
+  {
+    "fullName": "volvocars.contracts.carconfiguration.ConfigPolicyUpdated",
+    "wireShape": "volvo/cce-policy-admin/88a3512f0307/local-r2/shape/protobuf/volvocars.contracts.carconfiguration.ConfigPolicyUpdated",
+    "path": "internal/messaging/contracts/carconfiguration/config-policy.pb.go",
+    "fields": [
+      {
+        "name": "uid",
+        "type": "TYPE_STRING",
+        "number": 1,
+        "cardinality": 1,
+        "proto3Optional": false,
+        "deprecated": false,
+        "jsonName": "uid"
+      },
+      {
+        "name": "name",
+        "type": "TYPE_STRING",
+        "number": 2,
+        "cardinality": 1,
+        "proto3Optional": false,
+        "deprecated": false,
+        "jsonName": "name"
+      },
+      {
+        "name": "parentUid",
+        "type": "TYPE_STRING",
+        "number": 3,
+        "cardinality": 1,
+        "proto3Optional": false,
+        "deprecated": false,
+        "jsonName": "parentUid"
+      },
+      {
+        "name": "group",
+        "type": "TYPE_STRING",
+        "number": 4,
+        "cardinality": 1,
+        "proto3Optional": false,
+        "deprecated": false,
+        "jsonName": "group"
+      },
+      {
+        "name": "configRuleSets",
+        "type": ".volvocars.contracts.carconfiguration.ConfigRuleSet",
+        "number": 5,
+        "cardinality": 3,
+        "proto3Optional": false,
+        "deprecated": false,
+        "jsonName": "configRuleSets"
+      },
+      {
+        "name": "structureWeeksRuleSets",
+        "type": ".volvocars.contracts.carconfiguration.StructureWeeksRuleSet",
+        "number": 6,
+        "cardinality": 3,
+        "proto3Optional": false,
+        "deprecated": false,
+        "jsonName": "structureWeeksRuleSets"
+      },
+      {
+        "name": "storagePath",
+        "type": "TYPE_STRING",
+        "number": 7,
+        "cardinality": 1,
+        "proto3Optional": false,
+        "deprecated": false,
+        "jsonName": "storagePath"
+      }
+    ]
+  },
+  {
+    "fullName": "volvocars.contracts.carconfiguration.ConfigPolicyDeleted",
+    "wireShape": "volvo/cce-policy-admin/88a3512f0307/local-r2/shape/protobuf/volvocars.contracts.carconfiguration.ConfigPolicyDeleted",
+    "path": "internal/messaging/contracts/carconfiguration/config-policy.pb.go",
+    "fields": [
+      {
+        "name": "uid",
+        "type": "TYPE_STRING",
+        "number": 1,
+        "cardinality": 1,
+        "proto3Optional": false,
+        "deprecated": false,
+        "jsonName": "uid"
+      },
+      {
+        "name": "name",
+        "type": "TYPE_STRING",
+        "number": 2,
+        "cardinality": 1,
+        "proto3Optional": false,
+        "deprecated": false,
+        "jsonName": "name"
+      },
+      {
+        "name": "parentUid",
+        "type": "TYPE_STRING",
+        "number": 3,
+        "cardinality": 1,
+        "proto3Optional": false,
+        "deprecated": false,
+        "jsonName": "parentUid"
+      },
+      {
+        "name": "group",
+        "type": "TYPE_STRING",
+        "number": 4,
+        "cardinality": 1,
+        "proto3Optional": false,
+        "deprecated": false,
+        "jsonName": "group"
+      },
+      {
+        "name": "configRuleSets",
+        "type": ".volvocars.contracts.carconfiguration.ConfigRuleSet",
+        "number": 5,
+        "cardinality": 3,
+        "proto3Optional": false,
+        "deprecated": false,
+        "jsonName": "configRuleSets"
+      },
+      {
+        "name": "structureWeeksRuleSets",
+        "type": ".volvocars.contracts.carconfiguration.StructureWeeksRuleSet",
+        "number": 6,
+        "cardinality": 3,
+        "proto3Optional": false,
+        "deprecated": false,
+        "jsonName": "structureWeeksRuleSets"
+      }
+    ]
+  },
+  {
+    "fullName": "volvocars.contracts.carconfiguration.ConfigPolicyRulesUpdated",
+    "wireShape": "volvo/cce-policy-admin/88a3512f0307/local-r2/shape/protobuf/volvocars.contracts.carconfiguration.ConfigPolicyRulesUpdated",
+    "path": "internal/messaging/contracts/carconfiguration/config-policy.pb.go",
+    "fields": [
+      {
+        "name": "policyUid",
+        "type": "TYPE_STRING",
+        "number": 1,
+        "cardinality": 1,
+        "proto3Optional": false,
+        "deprecated": false,
+        "jsonName": "policyUid"
+      },
+      {
+        "name": "parentUid",
+        "type": "TYPE_STRING",
+        "number": 2,
+        "cardinality": 1,
+        "proto3Optional": false,
+        "deprecated": false,
+        "jsonName": "parentUid"
+      },
+      {
+        "name": "group",
+        "type": "TYPE_STRING",
+        "number": 3,
+        "cardinality": 1,
+        "proto3Optional": false,
+        "deprecated": false,
+        "jsonName": "group"
+      },
+      {
+        "name": "configRuleSets",
+        "type": ".volvocars.contracts.carconfiguration.ConfigRuleSet",
+        "number": 4,
+        "cardinality": 3,
+        "proto3Optional": false,
+        "deprecated": false,
+        "jsonName": "configRuleSets"
+      },
+      {
+        "name": "structureWeeksRuleSets",
+        "type": ".volvocars.contracts.carconfiguration.StructureWeeksRuleSet",
+        "number": 5,
+        "cardinality": 3,
+        "proto3Optional": false,
+        "deprecated": false,
+        "jsonName": "structureWeeksRuleSets"
+      }
+    ]
+  },
+  {
+    "fullName": "volvocars.contracts.carconfiguration.ActiveVersionChanged",
+    "wireShape": "volvo/cce-policy-admin/88a3512f0307/local-r2/shape/protobuf/volvocars.contracts.carconfiguration.ActiveVersionChanged",
+    "path": "internal/messaging/contracts/carconfiguration/config-policy.pb.go",
+    "fields": [
+      {
+        "name": "policyUid",
+        "type": "TYPE_STRING",
+        "number": 1,
+        "cardinality": 1,
+        "proto3Optional": false,
+        "deprecated": false,
+        "jsonName": "policyUid"
+      },
+      {
+        "name": "versionUid",
+        "type": "TYPE_STRING",
+        "number": 2,
+        "cardinality": 1,
+        "proto3Optional": false,
+        "deprecated": false,
+        "jsonName": "versionUid"
+      }
+    ]
+  },
+  {
+    "fullName": "volvocars.contracts.carconfiguration.Pno12RuleSetMeta",
+    "wireShape": "volvo/cce-policy-admin/88a3512f0307/local-r2/shape/protobuf/volvocars.contracts.carconfiguration.Pno12RuleSetMeta",
+    "path": "internal/messaging/contracts/carconfiguration/config-policy.pb.go",
+    "fields": [
+      {
+        "name": "pno12",
+        "type": "TYPE_STRING",
+        "number": 1,
+        "cardinality": 1,
+        "proto3Optional": false,
+        "deprecated": false,
+        "jsonName": "pno12"
+      },
+      {
+        "name": "path",
+        "type": "TYPE_STRING",
+        "number": 2,
+        "cardinality": 1,
+        "proto3Optional": false,
+        "deprecated": false,
+        "jsonName": "path"
+      },
+      {
+        "name": "active",
+        "type": "TYPE_STRING",
+        "number": 3,
+        "cardinality": 1,
+        "proto3Optional": false,
+        "deprecated": false,
+        "jsonName": "active"
+      },
+      {
+        "name": "components",
+        "type": ".volvocars.contracts.carconfiguration.Component",
+        "number": 4,
+        "cardinality": 3,
+        "proto3Optional": false,
+        "deprecated": false,
+        "jsonName": "components"
+      },
+      {
+        "name": "preSelected",
+        "type": ".volvocars.contracts.carconfiguration.Component",
+        "number": 5,
+        "cardinality": 3,
+        "proto3Optional": false,
+        "deprecated": false,
+        "jsonName": "preSelected"
+      }
+    ]
+  },
+  {
+    "fullName": "volvocars.contracts.carconfiguration.PolicyRulesUpdated",
+    "wireShape": "volvo/cce-policy-admin/88a3512f0307/local-r2/shape/protobuf/volvocars.contracts.carconfiguration.PolicyRulesUpdated",
+    "path": "internal/messaging/contracts/carconfiguration/config-policy.pb.go",
+    "fields": [
+      {
+        "name": "uid",
+        "type": "TYPE_STRING",
+        "number": 1,
+        "cardinality": 1,
+        "proto3Optional": false,
+        "deprecated": false,
+        "jsonName": "uid"
+      },
+      {
+        "name": "parentUid",
+        "type": "TYPE_STRING",
+        "number": 2,
+        "cardinality": 1,
+        "proto3Optional": false,
+        "deprecated": false,
+        "jsonName": "parentUid"
+      },
+      {
+        "name": "pno12RuleSetMetas",
+        "type": ".volvocars.contracts.carconfiguration.Pno12RuleSetMeta",
+        "number": 3,
+        "cardinality": 3,
+        "proto3Optional": false,
+        "deprecated": false,
+        "jsonName": "pno12RuleSetMetas"
+      },
+      {
+        "name": "request_uid",
+        "type": "TYPE_STRING",
+        "number": 4,
+        "cardinality": 1,
+        "proto3Optional": false,
+        "deprecated": false,
+        "jsonName": "requestUid"
+      },
+      {
+        "name": "specMarket",
+        "type": "TYPE_STRING",
+        "number": 5,
+        "cardinality": 1,
+        "proto3Optional": false,
+        "deprecated": false,
+        "jsonName": "specMarket"
+      }
+    ]
+  },
+  {
+    "fullName": "volvocars.contracts.carconfiguration.PolicyDeleted",
+    "wireShape": "volvo/cce-policy-admin/88a3512f0307/local-r2/shape/protobuf/volvocars.contracts.carconfiguration.PolicyDeleted",
+    "path": "internal/messaging/contracts/carconfiguration/config-policy.pb.go",
+    "fields": [
+      {
+        "name": "uid",
+        "type": "TYPE_STRING",
+        "number": 1,
+        "cardinality": 1,
+        "proto3Optional": false,
+        "deprecated": false,
+        "jsonName": "uid"
+      },
+      {
+        "name": "request_uid",
+        "type": "TYPE_STRING",
+        "number": 2,
+        "cardinality": 1,
+        "proto3Optional": false,
+        "deprecated": false,
+        "jsonName": "requestUid"
+      },
+      {
+        "name": "spec_market",
+        "type": "TYPE_STRING",
+        "number": 3,
+        "cardinality": 1,
+        "proto3Optional": false,
+        "deprecated": false,
+        "jsonName": "specMarket"
+      }
+    ]
+  },
+  {
+    "fullName": "volvocars.contracts.carconfiguration.PoliciesDeleted",
+    "wireShape": "volvo/cce-policy-admin/88a3512f0307/local-r2/shape/protobuf/volvocars.contracts.carconfiguration.PoliciesDeleted",
+    "path": "internal/messaging/contracts/carconfiguration/config-policy.pb.go",
+    "fields": [
+      {
+        "name": "policiesDeleted",
+        "type": ".volvocars.contracts.carconfiguration.PolicyDeleted",
+        "number": 1,
+        "cardinality": 3,
+        "proto3Optional": false,
+        "deprecated": false,
+        "jsonName": "policiesDeleted"
+      }
+    ]
+  },
+  {
+    "fullName": "volvocars.contracts.carconfiguration.PoliciesRulesUpdated",
+    "wireShape": "volvo/cce-policy-admin/88a3512f0307/local-r2/shape/protobuf/volvocars.contracts.carconfiguration.PoliciesRulesUpdated",
+    "path": "internal/messaging/contracts/carconfiguration/config-policy.pb.go",
+    "fields": [
+      {
+        "name": "policyRulesUpdates",
+        "type": ".volvocars.contracts.carconfiguration.PolicyRulesUpdated",
+        "number": 1,
+        "cardinality": 3,
+        "proto3Optional": false,
+        "deprecated": false,
+        "jsonName": "policyRulesUpdates"
+      }
+    ]
+  },
+  {
+    "fullName": "volvocars.contracts.carconfiguration.Pno12ActiveStatus",
+    "wireShape": "volvo/cce-policy-admin/88a3512f0307/local-r2/shape/protobuf/volvocars.contracts.carconfiguration.Pno12ActiveStatus",
+    "path": "internal/messaging/contracts/carconfiguration/config-policy.pb.go",
+    "fields": [
+      {
+        "name": "pno12",
+        "type": "TYPE_STRING",
+        "number": 1,
+        "cardinality": 1,
+        "proto3Optional": false,
+        "deprecated": false,
+        "jsonName": "pno12"
+      },
+      {
+        "name": "active",
+        "type": "TYPE_STRING",
+        "number": 2,
+        "cardinality": 1,
+        "proto3Optional": false,
+        "deprecated": false,
+        "jsonName": "active"
+      }
+    ]
+  },
+  {
+    "fullName": "volvocars.contracts.carconfiguration.PolicyStatusUpdated",
+    "wireShape": "volvo/cce-policy-admin/88a3512f0307/local-r2/shape/protobuf/volvocars.contracts.carconfiguration.PolicyStatusUpdated",
+    "path": "internal/messaging/contracts/carconfiguration/config-policy.pb.go",
+    "fields": [
+      {
+        "name": "uid",
+        "type": "TYPE_STRING",
+        "number": 1,
+        "cardinality": 1,
+        "proto3Optional": false,
+        "deprecated": false,
+        "jsonName": "uid"
+      },
+      {
+        "name": "pno12ActiveStatus",
+        "type": ".volvocars.contracts.carconfiguration.Pno12ActiveStatus",
+        "number": 2,
+        "cardinality": 3,
+        "proto3Optional": false,
+        "deprecated": false,
+        "jsonName": "pno12ActiveStatus"
+      }
+    ]
+  },
+  {
+    "fullName": "volvocars.contracts.carconfiguration.PolicyRulesSaved",
+    "wireShape": "volvo/cce-policy-admin/88a3512f0307/local-r2/shape/protobuf/volvocars.contracts.carconfiguration.PolicyRulesSaved",
+    "path": "internal/messaging/contracts/carconfiguration/config-policy.pb.go",
+    "fields": [
+      {
+        "name": "uid",
+        "type": "TYPE_STRING",
+        "number": 1,
+        "cardinality": 1,
+        "proto3Optional": false,
+        "deprecated": false,
+        "jsonName": "uid"
+      }
+    ]
+  },
+  {
+    "fullName": "volvocars.contracts.carconfiguration.RulesImported",
+    "wireShape": "volvo/cce-policy-admin/88a3512f0307/local-r2/shape/protobuf/volvocars.contracts.carconfiguration.RulesImported",
+    "path": "internal/messaging/contracts/carconfiguration/config-rules.pb.go",
+    "fields": [
+      {
+        "name": "id",
+        "type": "TYPE_STRING",
+        "number": 1,
+        "cardinality": 1,
+        "proto3Optional": false,
+        "deprecated": false,
+        "jsonName": "id"
+      },
+      {
+        "name": "ruleSetHash",
+        "type": "TYPE_STRING",
+        "number": 2,
+        "cardinality": 1,
+        "proto3Optional": false,
+        "deprecated": false,
+        "jsonName": "ruleSetHash"
+      },
+      {
+        "name": "versionId",
+        "type": "TYPE_STRING",
+        "number": 3,
+        "cardinality": 1,
+        "proto3Optional": false,
+        "deprecated": false,
+        "jsonName": "versionId"
+      },
+      {
+        "name": "storagePath",
+        "type": "TYPE_STRING",
+        "number": 4,
+        "cardinality": 1,
+        "proto3Optional": false,
+        "deprecated": false,
+        "jsonName": "storagePath"
+      },
+      {
+        "name": "timePublished",
+        "type": ".google.protobuf.Timestamp",
+        "number": 5,
+        "cardinality": 1,
+        "proto3Optional": false,
+        "deprecated": false,
+        "jsonName": "timePublished"
+      }
+    ]
+  },
+  {
+    "fullName": "volvocars.contracts.carconfiguration.RuleSet",
+    "wireShape": "volvo/cce-policy-admin/88a3512f0307/local-r2/shape/protobuf/volvocars.contracts.carconfiguration.RuleSet",
+    "path": "internal/messaging/contracts/carconfiguration/config-rules.pb.go",
+    "fields": [
+      {
+        "name": "id",
+        "type": "TYPE_STRING",
+        "number": 1,
+        "cardinality": 1,
+        "proto3Optional": false,
+        "deprecated": false,
+        "jsonName": "id"
+      },
+      {
+        "name": "ruleSetHash",
+        "type": "TYPE_STRING",
+        "number": 2,
+        "cardinality": 1,
+        "proto3Optional": false,
+        "deprecated": false,
+        "jsonName": "ruleSetHash"
+      },
+      {
+        "name": "configRuleSet",
+        "type": ".volvocars.contracts.carconfiguration.ConfigRuleSet",
+        "number": 3,
+        "cardinality": 1,
+        "proto3Optional": false,
+        "deprecated": false,
+        "jsonName": "configRuleSet"
+      },
+      {
+        "name": "structureWeeksRuleSet",
+        "type": ".volvocars.contracts.carconfiguration.StructureWeeksRuleSet",
+        "number": 4,
+        "cardinality": 1,
+        "proto3Optional": false,
+        "deprecated": false,
+        "jsonName": "structureWeeksRuleSet"
+      }
+    ]
+  },
+  {
+    "fullName": "volvocars.contracts.carconfiguration.RuleSetCreated",
+    "wireShape": "volvo/cce-policy-admin/88a3512f0307/local-r2/shape/protobuf/volvocars.contracts.carconfiguration.RuleSetCreated",
+    "path": "internal/messaging/contracts/carconfiguration/config-rules.pb.go",
+    "fields": [
+      {
+        "name": "ruleSet",
+        "type": ".volvocars.contracts.carconfiguration.RuleSet",
+        "number": 1,
+        "cardinality": 1,
+        "proto3Optional": false,
+        "deprecated": false,
+        "jsonName": "ruleSet"
+      },
+      {
+        "name": "timePublished",
+        "type": ".google.protobuf.Timestamp",
+        "number": 2,
+        "cardinality": 1,
+        "proto3Optional": false,
+        "deprecated": false,
+        "jsonName": "timePublished"
+      }
+    ]
+  },
+  {
+    "fullName": "volvocars.contracts.carconfiguration.ConfigRuleSet",
+    "wireShape": "volvo/cce-policy-admin/88a3512f0307/local-r2/shape/protobuf/volvocars.contracts.carconfiguration.ConfigRuleSet",
+    "path": "internal/messaging/contracts/carconfiguration/config-rules.pb.go",
+    "fields": [
+      {
+        "name": "id",
+        "type": "TYPE_STRING",
+        "number": 1,
+        "cardinality": 1,
+        "proto3Optional": false,
+        "deprecated": false,
+        "jsonName": "id"
+      },
+      {
+        "name": "configRules",
+        "type": ".volvocars.contracts.carconfiguration.ConfigRule",
+        "number": 2,
+        "cardinality": 3,
+        "proto3Optional": false,
+        "deprecated": false,
+        "jsonName": "configRules"
+      }
+    ]
+  },
+  {
+    "fullName": "volvocars.contracts.carconfiguration.ConfigRule",
+    "wireShape": "volvo/cce-policy-admin/88a3512f0307/local-r2/shape/protobuf/volvocars.contracts.carconfiguration.ConfigRule",
+    "path": "internal/messaging/contracts/carconfiguration/config-rules.pb.go",
+    "fields": [
+      {
+        "name": "condition",
+        "type": ".volvocars.contracts.carconfiguration.Condition",
+        "number": 1,
+        "cardinality": 1,
+        "proto3Optional": false,
+        "deprecated": false,
+        "jsonName": "condition"
+      },
+      {
+        "name": "consequence",
+        "type": ".volvocars.contracts.carconfiguration.Consequence",
+        "number": 2,
+        "cardinality": 1,
+        "proto3Optional": false,
+        "deprecated": false,
+        "jsonName": "consequence"
+      },
+      {
+        "name": "id",
+        "type": "TYPE_STRING",
+        "number": 3,
+        "cardinality": 1,
+        "proto3Optional": false,
+        "deprecated": false,
+        "jsonName": "id"
+      }
+    ]
+  },
+  {
+    "fullName": "volvocars.contracts.carconfiguration.ConfigRulesCreated",
+    "wireShape": "volvo/cce-policy-admin/88a3512f0307/local-r2/shape/protobuf/volvocars.contracts.carconfiguration.ConfigRulesCreated",
+    "path": "internal/messaging/contracts/carconfiguration/config-rules.pb.go",
+    "fields": [
+      {
+        "name": "configRuleSet",
+        "type": ".volvocars.contracts.carconfiguration.ConfigRuleSet",
+        "number": 1,
+        "cardinality": 1,
+        "proto3Optional": false,
+        "deprecated": false,
+        "jsonName": "configRuleSet"
+      }
+    ]
+  },
+  {
+    "fullName": "volvocars.contracts.carconfiguration.ConfigRulesUpdated",
+    "wireShape": "volvo/cce-policy-admin/88a3512f0307/local-r2/shape/protobuf/volvocars.contracts.carconfiguration.ConfigRulesUpdated",
+    "path": "internal/messaging/contracts/carconfiguration/config-rules.pb.go",
+    "fields": [
+      {
+        "name": "configRuleSet",
+        "type": ".volvocars.contracts.carconfiguration.ConfigRuleSet",
+        "number": 1,
+        "cardinality": 1,
+        "proto3Optional": false,
+        "deprecated": false,
+        "jsonName": "configRuleSet"
+      }
+    ]
+  },
+  {
+    "fullName": "volvocars.contracts.carconfiguration.StructureWeeksRuleSet",
+    "wireShape": "volvo/cce-policy-admin/88a3512f0307/local-r2/shape/protobuf/volvocars.contracts.carconfiguration.StructureWeeksRuleSet",
+    "path": "internal/messaging/contracts/carconfiguration/config-rules.pb.go",
+    "fields": [
+      {
+        "name": "id",
+        "type": "TYPE_STRING",
+        "number": 1,
+        "cardinality": 1,
+        "proto3Optional": false,
+        "deprecated": false,
+        "jsonName": "id"
+      },
+      {
+        "name": "structureWeeksRules",
+        "type": ".volvocars.contracts.carconfiguration.StructureWeeksRule",
+        "number": 2,
+        "cardinality": 3,
+        "proto3Optional": false,
+        "deprecated": false,
+        "jsonName": "structureWeeksRules"
+      }
+    ]
+  },
+  {
+    "fullName": "volvocars.contracts.carconfiguration.StructureWeeksRule",
+    "wireShape": "volvo/cce-policy-admin/88a3512f0307/local-r2/shape/protobuf/volvocars.contracts.carconfiguration.StructureWeeksRule",
+    "path": "internal/messaging/contracts/carconfiguration/config-rules.pb.go",
+    "fields": [
+      {
+        "name": "condition",
+        "type": ".volvocars.contracts.carconfiguration.Condition",
+        "number": 1,
+        "cardinality": 1,
+        "proto3Optional": false,
+        "deprecated": false,
+        "jsonName": "condition"
+      },
+      {
+        "name": "consequence",
+        "type": ".volvocars.contracts.carconfiguration.StructureWeeksConsequence",
+        "number": 2,
+        "cardinality": 1,
+        "proto3Optional": false,
+        "deprecated": false,
+        "jsonName": "consequence"
+      },
+      {
+        "name": "id",
+        "type": "TYPE_STRING",
+        "number": 3,
+        "cardinality": 1,
+        "proto3Optional": false,
+        "deprecated": false,
+        "jsonName": "id"
+      }
+    ]
+  },
+  {
+    "fullName": "volvocars.contracts.carconfiguration.Consequence",
+    "wireShape": "volvo/cce-policy-admin/88a3512f0307/local-r2/shape/protobuf/volvocars.contracts.carconfiguration.Consequence",
+    "path": "internal/messaging/contracts/carconfiguration/consequence.pb.go",
+    "fields": [
+      {
+        "name": "ruleType",
+        "type": ".volvocars.contracts.carconfiguration.RuleType",
+        "number": 1,
+        "cardinality": 1,
+        "proto3Optional": false,
+        "deprecated": false,
+        "jsonName": "ruleType"
+      },
+      {
+        "name": "components",
+        "type": ".volvocars.contracts.carconfiguration.Component",
+        "number": 2,
+        "cardinality": 3,
+        "proto3Optional": false,
+        "deprecated": false,
+        "jsonName": "components"
+      }
+    ]
+  },
+  {
+    "fullName": "volvocars.contracts.carconfiguration.StructureWeeksConsequence",
+    "wireShape": "volvo/cce-policy-admin/88a3512f0307/local-r2/shape/protobuf/volvocars.contracts.carconfiguration.StructureWeeksConsequence",
+    "path": "internal/messaging/contracts/carconfiguration/consequence.pb.go",
+    "fields": [
+      {
+        "name": "fromYear",
+        "type": "TYPE_INT32",
+        "number": 1,
+        "cardinality": 1,
+        "proto3Optional": false,
+        "deprecated": false,
+        "jsonName": "fromYear"
+      },
+      {
+        "name": "toYear",
+        "type": "TYPE_INT32",
+        "number": 2,
+        "cardinality": 1,
+        "proto3Optional": false,
+        "deprecated": false,
+        "jsonName": "toYear"
+      },
+      {
+        "name": "fromWeek",
+        "type": "TYPE_INT32",
+        "number": 3,
+        "cardinality": 1,
+        "proto3Optional": false,
+        "deprecated": false,
+        "jsonName": "fromWeek"
+      },
+      {
+        "name": "toWeek",
+        "type": "TYPE_INT32",
+        "number": 4,
+        "cardinality": 1,
+        "proto3Optional": false,
+        "deprecated": false,
+        "jsonName": "toWeek"
+      }
+    ]
+  },
+  {
+    "fullName": "volvocars.contracts.carconfiguration.PriceRuleConsequence",
+    "wireShape": "volvo/cce-policy-admin/88a3512f0307/local-r2/shape/protobuf/volvocars.contracts.carconfiguration.PriceRuleConsequence",
+    "path": "internal/messaging/contracts/carconfiguration/consequence.pb.go",
+    "fields": [
+      {
+        "name": "value",
+        "type": "TYPE_STRING",
+        "number": 1,
+        "cardinality": 1,
+        "proto3Optional": false,
+        "deprecated": false,
+        "jsonName": "value"
+      }
+    ]
+  },
+  {
+    "fullName": "volvocars.contracts.pop.cce.BtoCarAdded",
+    "wireShape": "volvo/cce-policy-admin/88a3512f0307/local-r2/shape/protobuf/volvocars.contracts.pop.cce.BtoCarAdded",
+    "path": "internal/messaging/contracts/cce/bto_car.pb.go",
+    "fields": [
+      {
+        "name": "market",
+        "type": "TYPE_STRING",
+        "number": 1,
+        "cardinality": 1,
+        "proto3Optional": false,
+        "deprecated": false,
+        "jsonName": "market"
+      },
+      {
+        "name": "business_model",
+        "type": "TYPE_STRING",
+        "number": 2,
+        "cardinality": 1,
+        "proto3Optional": false,
+        "deprecated": false,
+        "jsonName": "businessModel"
+      },
+      {
+        "name": "car",
+        "type": ".volvocars.contracts.pop.cce.Car",
+        "number": 3,
+        "cardinality": 1,
+        "proto3Optional": false,
+        "deprecated": false,
+        "jsonName": "car"
+      }
+    ]
+  },
+  {
+    "fullName": "volvocars.contracts.pop.cce.BtoCarUpdated",
+    "wireShape": "volvo/cce-policy-admin/88a3512f0307/local-r2/shape/protobuf/volvocars.contracts.pop.cce.BtoCarUpdated",
+    "path": "internal/messaging/contracts/cce/bto_car.pb.go",
+    "fields": [
+      {
+        "name": "market",
+        "type": "TYPE_STRING",
+        "number": 1,
+        "cardinality": 1,
+        "proto3Optional": false,
+        "deprecated": false,
+        "jsonName": "market"
+      },
+      {
+        "name": "business_model",
+        "type": "TYPE_STRING",
+        "number": 2,
+        "cardinality": 1,
+        "proto3Optional": false,
+        "deprecated": false,
+        "jsonName": "businessModel"
+      },
+      {
+        "name": "car",
+        "type": ".volvocars.contracts.pop.cce.Car",
+        "number": 3,
+        "cardinality": 1,
+        "proto3Optional": false,
+        "deprecated": false,
+        "jsonName": "car"
+      }
+    ]
+  },
+  {
+    "fullName": "volvocars.contracts.pop.cce.BtoCarRemoved",
+    "wireShape": "volvo/cce-policy-admin/88a3512f0307/local-r2/shape/protobuf/volvocars.contracts.pop.cce.BtoCarRemoved",
+    "path": "internal/messaging/contracts/cce/bto_car.pb.go",
+    "fields": [
+      {
+        "name": "market",
+        "type": "TYPE_STRING",
+        "number": 1,
+        "cardinality": 1,
+        "proto3Optional": false,
+        "deprecated": false,
+        "jsonName": "market"
+      },
+      {
+        "name": "business_model",
+        "type": "TYPE_STRING",
+        "number": 2,
+        "cardinality": 1,
+        "proto3Optional": false,
+        "deprecated": false,
+        "jsonName": "businessModel"
+      },
+      {
+        "name": "car",
+        "type": ".volvocars.contracts.pop.cce.Car",
+        "number": 3,
+        "cardinality": 1,
+        "proto3Optional": false,
+        "deprecated": false,
+        "jsonName": "car"
+      }
+    ]
+  },
+  {
+    "fullName": "volvocars.contracts.pop.cce.Car",
+    "wireShape": "volvo/cce-policy-admin/88a3512f0307/local-r2/shape/protobuf/volvocars.contracts.pop.cce.Car",
+    "path": "internal/messaging/contracts/cce/bto_car.pb.go",
+    "fields": [
+      {
+        "name": "id",
+        "type": "TYPE_STRING",
+        "number": 1,
+        "cardinality": 1,
+        "proto3Optional": false,
+        "deprecated": false,
+        "jsonName": "id"
+      },
+      {
+        "name": "pno12",
+        "type": "TYPE_STRING",
+        "number": 2,
+        "cardinality": 1,
+        "proto3Optional": false,
+        "deprecated": false,
+        "jsonName": "pno12"
+      },
+      {
+        "name": "model_year",
+        "type": "TYPE_INT32",
+        "number": 3,
+        "cardinality": 1,
+        "proto3Optional": false,
+        "deprecated": false,
+        "jsonName": "modelYear"
+      },
+      {
+        "name": "spec_market",
+        "type": "TYPE_STRING",
+        "number": 4,
+        "cardinality": 1,
+        "proto3Optional": false,
+        "deprecated": false,
+        "jsonName": "specMarket"
+      },
+      {
+        "name": "local_edition_code",
+        "type": "TYPE_STRING",
+        "number": 5,
+        "cardinality": 1,
+        "proto3Optional": false,
+        "deprecated": false,
+        "jsonName": "localEditionCode"
+      }
+    ]
+  },
+  {
+    "fullName": "volvocars.contracts.carconfiguration.CarKey",
+    "wireShape": "volvo/cce-policy-admin/88a3512f0307/local-r2/shape/protobuf/volvocars.contracts.carconfiguration.CarKey",
+    "path": "internal/messaging/contracts/cce/car-configuration.pb.go",
+    "fields": [
+      {
+        "name": "modelYear",
+        "type": "TYPE_INT32",
+        "number": 1,
+        "cardinality": 1,
+        "proto3Optional": false,
+        "deprecated": false,
+        "jsonName": "modelYear"
+      },
+      {
+        "name": "specMarket",
+        "type": "TYPE_STRING",
+        "number": 2,
+        "cardinality": 1,
+        "proto3Optional": false,
+        "deprecated": false,
+        "jsonName": "specMarket"
+      },
+      {
+        "name": "carType",
+        "type": "TYPE_STRING",
+        "number": 3,
+        "cardinality": 1,
+        "proto3Optional": false,
+        "deprecated": false,
+        "jsonName": "carType"
+      },
+      {
+        "name": "engine",
+        "type": "TYPE_STRING",
+        "number": 4,
+        "cardinality": 1,
+        "proto3Optional": false,
+        "deprecated": false,
+        "jsonName": "engine"
+      },
+      {
+        "name": "salesVersion",
+        "type": "TYPE_STRING",
+        "number": 5,
+        "cardinality": 1,
+        "proto3Optional": false,
+        "deprecated": false,
+        "jsonName": "salesVersion"
+      },
+      {
+        "name": "body",
+        "type": "TYPE_STRING",
+        "number": 6,
+        "cardinality": 1,
+        "proto3Optional": false,
+        "deprecated": false,
+        "jsonName": "body"
+      },
+      {
+        "name": "gearbox",
+        "type": "TYPE_STRING",
+        "number": 7,
+        "cardinality": 1,
+        "proto3Optional": false,
+        "deprecated": false,
+        "jsonName": "gearbox"
+      },
+      {
+        "name": "steering",
+        "type": "TYPE_STRING",
+        "number": 8,
+        "cardinality": 1,
+        "proto3Optional": false,
+        "deprecated": false,
+        "jsonName": "steering"
+      },
+      {
+        "name": "marketingCode",
+        "type": "TYPE_STRING",
+        "number": 9,
+        "cardinality": 1,
+        "proto3Optional": false,
+        "deprecated": false,
+        "jsonName": "marketingCode"
+      },
+      {
+        "name": "sMessage",
+        "type": "TYPE_STRING",
+        "number": 10,
+        "cardinality": 1,
+        "proto3Optional": false,
+        "deprecated": false,
+        "jsonName": "sMessage"
+      },
+      {
+        "name": "color",
+        "type": "TYPE_STRING",
+        "number": 11,
+        "cardinality": 1,
+        "proto3Optional": false,
+        "deprecated": false,
+        "jsonName": "color"
+      },
+      {
+        "name": "upholstery",
+        "type": "TYPE_STRING",
+        "number": 12,
+        "cardinality": 1,
+        "proto3Optional": false,
+        "deprecated": false,
+        "jsonName": "upholstery"
+      },
+      {
+        "name": "options",
+        "type": "TYPE_STRING",
+        "number": 13,
+        "cardinality": 3,
+        "proto3Optional": false,
+        "deprecated": false,
+        "jsonName": "options"
+      },
+      {
+        "name": "packages",
+        "type": "TYPE_STRING",
+        "number": 14,
+        "cardinality": 3,
+        "proto3Optional": false,
+        "deprecated": false,
+        "jsonName": "packages"
+      },
+      {
+        "name": "structureWeek",
+        "type": "TYPE_INT32",
+        "number": 15,
+        "cardinality": 1,
+        "proto3Optional": false,
+        "deprecated": false,
+        "jsonName": "structureWeek"
+      }
+    ]
+  },
+  {
+    "fullName": "volvocars.contracts.carconfiguration.CarConfigurationAdded",
+    "wireShape": "volvo/cce-policy-admin/88a3512f0307/local-r2/shape/protobuf/volvocars.contracts.carconfiguration.CarConfigurationAdded",
+    "path": "internal/messaging/contracts/cce/car-configuration.pb.go",
+    "fields": [
+      {
+        "name": "market",
+        "type": "TYPE_STRING",
+        "number": 1,
+        "cardinality": 1,
+        "proto3Optional": false,
+        "deprecated": false,
+        "jsonName": "market"
+      },
+      {
+        "name": "validFromStructureWeek",
+        "type": "TYPE_INT32",
+        "number": 2,
+        "cardinality": 1,
+        "proto3Optional": false,
+        "deprecated": false,
+        "jsonName": "validFromStructureWeek"
+      },
+      {
+        "name": "validToStructureWeek",
+        "type": "TYPE_INT32",
+        "number": 3,
+        "cardinality": 1,
+        "proto3Optional": false,
+        "deprecated": false,
+        "jsonName": "validToStructureWeek"
+      },
+      {
+        "name": "carKey",
+        "type": ".volvocars.contracts.carconfiguration.CarKey",
+        "number": 4,
+        "cardinality": 1,
+        "proto3Optional": false,
+        "deprecated": false,
+        "jsonName": "carKey"
+      }
+    ]
+  },
+  {
+    "fullName": "volvocars.contracts.carconfiguration.CarConfigurationRemoved",
+    "wireShape": "volvo/cce-policy-admin/88a3512f0307/local-r2/shape/protobuf/volvocars.contracts.carconfiguration.CarConfigurationRemoved",
+    "path": "internal/messaging/contracts/cce/car-configuration.pb.go",
+    "fields": [
+      {
+        "name": "market",
+        "type": "TYPE_STRING",
+        "number": 1,
+        "cardinality": 1,
+        "proto3Optional": false,
+        "deprecated": false,
+        "jsonName": "market"
+      },
+      {
+        "name": "carKey",
+        "type": ".volvocars.contracts.carconfiguration.CarKey",
+        "number": 2,
+        "cardinality": 1,
+        "proto3Optional": false,
+        "deprecated": false,
+        "jsonName": "carKey"
+      }
+    ]
+  },
+  {
+    "fullName": "volvocars.contracts.cce.CarSyncCompleted",
+    "wireShape": "volvo/cce-policy-admin/88a3512f0307/local-r2/shape/protobuf/volvocars.contracts.cce.CarSyncCompleted",
+    "path": "internal/messaging/contracts/cce/car-sync.pb.go",
+    "fields": [
+      {
+        "name": "policy_id",
+        "type": "TYPE_STRING",
+        "number": 1,
+        "cardinality": 1,
+        "proto3Optional": false,
+        "deprecated": false,
+        "jsonName": "policyId"
+      },
+      {
+        "name": "request_id",
+        "type": "TYPE_STRING",
+        "number": 2,
+        "cardinality": 1,
+        "proto3Optional": false,
+        "deprecated": false,
+        "jsonName": "requestId"
+      }
+    ]
+  },
+  {
+    "fullName": "volvocars.contracts.cce.CarSyncFailed",
+    "wireShape": "volvo/cce-policy-admin/88a3512f0307/local-r2/shape/protobuf/volvocars.contracts.cce.CarSyncFailed",
+    "path": "internal/messaging/contracts/cce/car-sync.pb.go",
+    "fields": [
+      {
+        "name": "policy_id",
+        "type": "TYPE_STRING",
+        "number": 1,
+        "cardinality": 1,
+        "proto3Optional": false,
+        "deprecated": false,
+        "jsonName": "policyId"
+      },
+      {
+        "name": "request_id",
+        "type": "TYPE_STRING",
+        "number": 2,
+        "cardinality": 1,
+        "proto3Optional": false,
+        "deprecated": false,
+        "jsonName": "requestId"
+      }
+    ]
+  }
+]

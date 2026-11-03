@@ -1,0 +1,1446 @@
+{
+  "repo": "volvo-cars/cds-paymentservice-scheduler",
+  "commit": "c00df60c8233b1a8f47829ce382d5805bf164c6b",
+  "scope": "All pinned production Java source, source field initializers, registrations, declarations, caller construction, conditions, effects and configuration. Runtime/imported/generated implementation and heap/guard feasibility remain explicit gaps.",
+  "files": [
+    {
+      "path": ".github/CODEOWNERS",
+      "sha256": "306048a0d103faceb4af79e79d8ad61121db1e580eaa34006b249381008b0b10",
+      "lines": 1,
+      "role": "configuration_or_documentation",
+      "review": "inventoried_support_file",
+      "exclusion": "Build/workflow/documentation/tooling declaration; no additional production Java runtime implementation"
+    },
+    {
+      "path": ".github/dependabot.yml",
+      "sha256": "93351c4e06f5bf7373a933d30d009294e1b8182babef5ceb5ea3854c1d8e395e",
+      "lines": 52,
+      "role": "configuration_or_documentation",
+      "review": "source_configuration_reviewed",
+      "exclusion": "Build/workflow/documentation/tooling declaration; no additional production Java runtime implementation"
+    },
+    {
+      "path": ".github/pull_request_template.md",
+      "sha256": "986b43c86a4000d56e4af9d38793f675b2c5f209db4a0ce6d08835fb03d5e801",
+      "lines": 11,
+      "role": "configuration_or_documentation",
+      "review": "inventoried_support_file",
+      "exclusion": "Build/workflow/documentation/tooling declaration; no additional production Java runtime implementation"
+    },
+    {
+      "path": ".github/workflows/build-deploy.yml",
+      "sha256": "c04bc08f9311267493a1d5493a72477166046f7c6f67b641ddc8fcf74706847a",
+      "lines": 132,
+      "role": "configuration_or_documentation",
+      "review": "source_configuration_reviewed",
+      "exclusion": "Build/workflow/documentation/tooling declaration; no additional production Java runtime implementation"
+    },
+    {
+      "path": ".github/workflows/codeql.yml",
+      "sha256": "578c0f03dc81d8e153029037093348561e797078f25dc18f0e7a2562dfd0ce05",
+      "lines": 55,
+      "role": "configuration_or_documentation",
+      "review": "source_configuration_reviewed",
+      "exclusion": "Build/workflow/documentation/tooling declaration; no additional production Java runtime implementation"
+    },
+    {
+      "path": ".github/workflows/scheduled-sonarqube.yml",
+      "sha256": "830db0014568a2ec0f489f2103a12065c4ecc95dc04d17ea60d93ff963dc94f7",
+      "lines": 14,
+      "role": "configuration_or_documentation",
+      "review": "source_configuration_reviewed",
+      "exclusion": "Build/workflow/documentation/tooling declaration; no additional production Java runtime implementation"
+    },
+    {
+      "path": ".gitignore",
+      "sha256": "da66c494849ec9a763eecbfe964f44da8603dd518f03717f56e7e8048508828d",
+      "lines": 239,
+      "role": "configuration_or_documentation",
+      "review": "inventoried_support_file",
+      "exclusion": "Build/workflow/documentation/tooling declaration; no additional production Java runtime implementation"
+    },
+    {
+      "path": ".m2/settings.xml",
+      "sha256": "842b53e184c913f9e37021b317417aa7c556d532fca75119f4d4321fba747081",
+      "lines": 12,
+      "role": "configuration_or_documentation",
+      "review": "inventoried_support_file",
+      "exclusion": "Build/workflow/documentation/tooling declaration; no additional production Java runtime implementation"
+    },
+    {
+      "path": "Dockerfile",
+      "sha256": "c5b37fecf127b2342b7eca681d3e874537d180ec494ee88004c746b6b132b1ba",
+      "lines": 22,
+      "role": "configuration_or_documentation",
+      "review": "source_configuration_reviewed",
+      "exclusion": "Build/workflow/documentation/tooling declaration; no additional production Java runtime implementation"
+    },
+    {
+      "path": "README.md",
+      "sha256": "30f6082c490b46c2222fdd637f75ae984a818edade1b1fb11161f2b3a34bc13e",
+      "lines": 348,
+      "role": "configuration_or_documentation",
+      "review": "source_configuration_reviewed",
+      "exclusion": "Build/workflow/documentation/tooling declaration; no additional production Java runtime implementation"
+    },
+    {
+      "path": "cds-paymentservice-scheduler-api/pom.xml",
+      "sha256": "bfad12b59b6104540a56032f1d17ee99935f32ee44a893c98e3589b6a02de0e7",
+      "lines": 118,
+      "role": "configuration_or_documentation",
+      "review": "source_configuration_reviewed",
+      "exclusion": "Build/workflow/documentation/tooling declaration; no additional production Java runtime implementation"
+    },
+    {
+      "path": "cds-paymentservice-scheduler-api/src/main/java/com/volvocars/ecom/paymentservice/scheduler/App.java",
+      "sha256": "fc47a9b6afdc94077e003fc7297d752335b96f3d6624ae800d36482ec29d711f",
+      "lines": 27,
+      "role": "production_java",
+      "review": "source_review_complete",
+      "methods": [
+        "volvo/cds-paymentservice-scheduler/c00df60c8233/full-r1/method/ef227e11f3f791b36096"
+      ],
+      "explicitBodyFrames": 1,
+      "declarationOnlyFrames": 0,
+      "exclusion": null
+    },
+    {
+      "path": "cds-paymentservice-scheduler-api/src/main/java/com/volvocars/ecom/paymentservice/scheduler/configuration/v1/SwaggerUIController.java",
+      "sha256": "6bef5f76ef509bc42db7b0952359d6fb06e870a028847d090bf6e6949f66226d",
+      "lines": 36,
+      "role": "production_java",
+      "review": "source_review_complete",
+      "methods": [
+        "volvo/cds-paymentservice-scheduler/c00df60c8233/full-r1/method/ce2b2e5c33f1147142d9"
+      ],
+      "explicitBodyFrames": 0,
+      "declarationOnlyFrames": 1,
+      "exclusion": null
+    },
+    {
+      "path": "cds-paymentservice-scheduler-api/src/main/java/com/volvocars/ecom/paymentservice/scheduler/configuration/v1/impl/SwaggerUIControllerImpl.java",
+      "sha256": "92b84148f094b82d752064c41be9250d44a3b8fe538e37df3db5afb81044f8a5",
+      "lines": 37,
+      "role": "production_java",
+      "review": "source_review_complete",
+      "methods": [
+        "volvo/cds-paymentservice-scheduler/c00df60c8233/full-r1/method/c7010ebfee27fbaca56b",
+        "volvo/cds-paymentservice-scheduler/c00df60c8233/full-r1/method/875ab86751b4acb41c28"
+      ],
+      "explicitBodyFrames": 2,
+      "declarationOnlyFrames": 0,
+      "exclusion": null
+    },
+    {
+      "path": "cds-paymentservice-scheduler-api/src/main/java/com/volvocars/ecom/paymentservice/scheduler/retry/v1/RetryApiService.java",
+      "sha256": "04a10f991da9c1bd00eb60aeba38237f781b87a2aaa6a23e1b5f8389db7d25f5",
+      "lines": 67,
+      "role": "production_java",
+      "review": "source_review_complete",
+      "methods": [
+        "volvo/cds-paymentservice-scheduler/c00df60c8233/full-r1/method/b7431cd8c00c554755a2",
+        "volvo/cds-paymentservice-scheduler/c00df60c8233/full-r1/method/35d9ad1ce71e63664823",
+        "volvo/cds-paymentservice-scheduler/c00df60c8233/full-r1/method/9173b1fdd9baa3217f36"
+      ],
+      "explicitBodyFrames": 3,
+      "declarationOnlyFrames": 0,
+      "exclusion": null
+    },
+    {
+      "path": "cds-paymentservice-scheduler-api/src/main/java/com/volvocars/ecom/paymentservice/scheduler/retry/v1/RetryController.java",
+      "sha256": "155fd4580b1b4aaa13421adaaabfe441f4a6efd05df09383d00722723fdab704",
+      "lines": 48,
+      "role": "production_java",
+      "review": "source_review_complete",
+      "methods": [
+        "volvo/cds-paymentservice-scheduler/c00df60c8233/full-r1/method/d483e23a0750a772ca3d"
+      ],
+      "explicitBodyFrames": 0,
+      "declarationOnlyFrames": 1,
+      "exclusion": null
+    },
+    {
+      "path": "cds-paymentservice-scheduler-api/src/main/java/com/volvocars/ecom/paymentservice/scheduler/retry/v1/impl/RetryControllerImpl.java",
+      "sha256": "189869a95933c7859a93765d8a8ba21d38ee2b7087e1e26bbf0b1b458960e5c3",
+      "lines": 54,
+      "role": "production_java",
+      "review": "source_review_complete",
+      "methods": [
+        "volvo/cds-paymentservice-scheduler/c00df60c8233/full-r1/method/2495a528a4e771dd90a8"
+      ],
+      "explicitBodyFrames": 1,
+      "declarationOnlyFrames": 0,
+      "exclusion": null
+    },
+    {
+      "path": "cds-paymentservice-scheduler-api/src/main/resources/application-development.yml",
+      "sha256": "45244cafd6344ee2397b6e1f22a10d06074e1b58b45ad639fb5ad3f567018b33",
+      "lines": 20,
+      "role": "configuration_or_documentation",
+      "review": "source_configuration_reviewed",
+      "exclusion": "Build/workflow/documentation/tooling declaration; no additional production Java runtime implementation"
+    },
+    {
+      "path": "cds-paymentservice-scheduler-api/src/main/resources/application-ecp-weu-dev.yml",
+      "sha256": "4a857caed16fdac9e45eae3b917426b4f03eaf3cf0dbe6cf8e947f38b591c0e7",
+      "lines": 15,
+      "role": "configuration_or_documentation",
+      "review": "source_configuration_reviewed",
+      "exclusion": "Build/workflow/documentation/tooling declaration; no additional production Java runtime implementation"
+    },
+    {
+      "path": "cds-paymentservice-scheduler-api/src/main/resources/application-ecp-weu-prod.yml",
+      "sha256": "27bb0729a72316c3dfc92872fd17562d09bc265ce7dfff654a048930708f3655",
+      "lines": 16,
+      "role": "configuration_or_documentation",
+      "review": "source_configuration_reviewed",
+      "exclusion": "Build/workflow/documentation/tooling declaration; no additional production Java runtime implementation"
+    },
+    {
+      "path": "cds-paymentservice-scheduler-api/src/main/resources/application-ecp-weu-qa.yml",
+      "sha256": "405ec0c235ee44dda7f805d8060aed908f3fc6b8cc330b5c365108a24cbe096b",
+      "lines": 15,
+      "role": "configuration_or_documentation",
+      "review": "source_configuration_reviewed",
+      "exclusion": "Build/workflow/documentation/tooling declaration; no additional production Java runtime implementation"
+    },
+    {
+      "path": "cds-paymentservice-scheduler-api/src/main/resources/application-local.yml",
+      "sha256": "fd6b1fd40a939a0abfcab954dfa0aae6cdf1d2f9eb0f201410801a34792f4f73",
+      "lines": 56,
+      "role": "configuration_or_documentation",
+      "review": "source_configuration_reviewed",
+      "exclusion": "Build/workflow/documentation/tooling declaration; no additional production Java runtime implementation"
+    },
+    {
+      "path": "cds-paymentservice-scheduler-api/src/main/resources/application-production.yml",
+      "sha256": "d99c854ac684492e52027fc67928b9285ae386495bdba87a5a9514844808e5fd",
+      "lines": 36,
+      "role": "configuration_or_documentation",
+      "review": "source_configuration_reviewed",
+      "exclusion": "Build/workflow/documentation/tooling declaration; no additional production Java runtime implementation"
+    },
+    {
+      "path": "cds-paymentservice-scheduler-api/src/main/resources/application-staging.yml",
+      "sha256": "d8959e8d9236a56c250473b53a8bfdb1bfb8592bad8a7c0ceebd8707a17b552e",
+      "lines": 20,
+      "role": "configuration_or_documentation",
+      "review": "source_configuration_reviewed",
+      "exclusion": "Build/workflow/documentation/tooling declaration; no additional production Java runtime implementation"
+    },
+    {
+      "path": "cds-paymentservice-scheduler-api/src/main/resources/application.yml",
+      "sha256": "c5cbbce40ef0bcc76ea15dc741387fa7b0e4d69eff3b168aec7582fba66a000d",
+      "lines": 143,
+      "role": "configuration_or_documentation",
+      "review": "source_configuration_reviewed",
+      "exclusion": "Build/workflow/documentation/tooling declaration; no additional production Java runtime implementation"
+    },
+    {
+      "path": "cds-paymentservice-scheduler-api/src/main/resources/log4j2-spring-local.xml",
+      "sha256": "d3ac978adf59cc2be7fa1ecdc79b4756a0d61960b23c0166a0831182e5c28ae6",
+      "lines": 18,
+      "role": "configuration_or_documentation",
+      "review": "inventoried_support_file",
+      "exclusion": "Build/workflow/documentation/tooling declaration; no additional production Java runtime implementation"
+    },
+    {
+      "path": "cds-paymentservice-scheduler-api/src/main/resources/log4j2-spring.xml",
+      "sha256": "8c20818c3dd52cfe393908359d6fc1d2fb87701965e08f409778bc95cce6d371",
+      "lines": 32,
+      "role": "configuration_or_documentation",
+      "review": "inventoried_support_file",
+      "exclusion": "Build/workflow/documentation/tooling declaration; no additional production Java runtime implementation"
+    },
+    {
+      "path": "cds-paymentservice-scheduler-client/pom.xml",
+      "sha256": "396643db28d95da3e0e0a0709ceb224980374dafc063af028658f01706dd0c2f",
+      "lines": 36,
+      "role": "configuration_or_documentation",
+      "review": "source_configuration_reviewed",
+      "exclusion": "Build/workflow/documentation/tooling declaration; no additional production Java runtime implementation"
+    },
+    {
+      "path": "cds-paymentservice-scheduler-client/src/main/java/com/volvocars/ecom/paymentservice/scheduler/client/BaseSchedulerClient.java",
+      "sha256": "91de88990f61cb3e827dca1dfd868864407fc5804c1149b7fe7fbbe52466362c",
+      "lines": 25,
+      "role": "production_java",
+      "review": "source_review_complete",
+      "methods": [
+        "volvo/cds-paymentservice-scheduler/c00df60c8233/full-r1/method/e4b72dbb1b67282875a5",
+        "volvo/cds-paymentservice-scheduler/c00df60c8233/full-r1/method/05dfabd6fb33f6d10f7b"
+      ],
+      "explicitBodyFrames": 2,
+      "declarationOnlyFrames": 0,
+      "exclusion": null
+    },
+    {
+      "path": "cds-paymentservice-scheduler-client/src/main/java/com/volvocars/ecom/paymentservice/scheduler/client/retry/RetryJobsApi.java",
+      "sha256": "0a96649c92e5861d28c737dde68ee7a1a8db61691434e1b16a8c8689b99ff184",
+      "lines": 16,
+      "role": "production_java",
+      "review": "source_review_complete",
+      "methods": [
+        "volvo/cds-paymentservice-scheduler/c00df60c8233/full-r1/method/999a126122e187e445a6"
+      ],
+      "explicitBodyFrames": 0,
+      "declarationOnlyFrames": 1,
+      "exclusion": null
+    },
+    {
+      "path": "cds-paymentservice-scheduler-client/src/main/java/com/volvocars/ecom/paymentservice/scheduler/client/retry/RetryJobsClient.java",
+      "sha256": "5311d50f2265b0c281d706afbb6844b4cdee6ca7c99413d79c493ec78c0d908a",
+      "lines": 17,
+      "role": "production_java",
+      "review": "source_review_complete",
+      "methods": [
+        "volvo/cds-paymentservice-scheduler/c00df60c8233/full-r1/method/c0303bf4b8cbc0868a30",
+        "volvo/cds-paymentservice-scheduler/c00df60c8233/full-r1/method/925dbc27da41edd1c642"
+      ],
+      "explicitBodyFrames": 2,
+      "declarationOnlyFrames": 0,
+      "exclusion": null
+    },
+    {
+      "path": "cds-paymentservice-scheduler-core/pom.xml",
+      "sha256": "77f293ccdd88cc5da710972829e314ec278ec8f46f67c6fcb98cd72805409f0f",
+      "lines": 72,
+      "role": "configuration_or_documentation",
+      "review": "source_configuration_reviewed",
+      "exclusion": "Build/workflow/documentation/tooling declaration; no additional production Java runtime implementation"
+    },
+    {
+      "path": "cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/client/IntegrationClientConfig.java",
+      "sha256": "ceaff038616e87396ef3ef25f34d80bc3f265ade7150370707790b3264829d5a",
+      "lines": 35,
+      "role": "production_java",
+      "review": "source_review_complete",
+      "methods": [
+        "volvo/cds-paymentservice-scheduler/c00df60c8233/full-r1/method/bb3056a6e08bb2fa847d",
+        "volvo/cds-paymentservice-scheduler/c00df60c8233/full-r1/method/9b90d597e15d297da83a",
+        "volvo/cds-paymentservice-scheduler/c00df60c8233/full-r1/method/071b19e403623465d3a5"
+      ],
+      "explicitBodyFrames": 3,
+      "declarationOnlyFrames": 0,
+      "exclusion": null
+    },
+    {
+      "path": "cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/client/paymentsapi/PaymentApiPaymentSessionApi.java",
+      "sha256": "d8f16aacd179eb279224a39e3cd88d9ce5ac0adf7042a31db96f37cdf5387675",
+      "lines": 15,
+      "role": "production_java",
+      "review": "source_review_complete",
+      "methods": [
+        "volvo/cds-paymentservice-scheduler/c00df60c8233/full-r1/method/ded21dca75f5ef147835"
+      ],
+      "explicitBodyFrames": 0,
+      "declarationOnlyFrames": 1,
+      "exclusion": null
+    },
+    {
+      "path": "cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/client/paymentsapi/PaymentApiPaymentSessionClient.java",
+      "sha256": "fd5983d4acee5c490efb8c5d5f8ea4687dbe8b32ae96b3dde1b9908dadd9cb35",
+      "lines": 24,
+      "role": "production_java",
+      "review": "source_review_complete",
+      "methods": [
+        "volvo/cds-paymentservice-scheduler/c00df60c8233/full-r1/method/1451c085b0576c59cec9",
+        "volvo/cds-paymentservice-scheduler/c00df60c8233/full-r1/method/6138ca741edb47e0d69e"
+      ],
+      "explicitBodyFrames": 2,
+      "declarationOnlyFrames": 0,
+      "exclusion": null
+    },
+    {
+      "path": "cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/cloudconfig/ConfigRefreshScheduler.java",
+      "sha256": "88060aaed183af1957f70c84a7bd306f21f26489702a57a84991665f528a735d",
+      "lines": 42,
+      "role": "production_java",
+      "review": "source_review_complete",
+      "methods": [
+        "volvo/cds-paymentservice-scheduler/c00df60c8233/full-r1/method/eb945ae7ebd954619b06",
+        "volvo/cds-paymentservice-scheduler/c00df60c8233/full-r1/method/61d88cdc2dc334f2630d",
+        "volvo/cds-paymentservice-scheduler/c00df60c8233/full-r1/method/390b9fbe7fba5ebdaaba"
+      ],
+      "explicitBodyFrames": 3,
+      "declarationOnlyFrames": 0,
+      "exclusion": null
+    },
+    {
+      "path": "cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/common/ErrorResponseHandler.java",
+      "sha256": "e270851bfb976c3a745e9c1aadf65777d4f317148fe9106642afa117d3c77740",
+      "lines": 23,
+      "role": "production_java",
+      "review": "source_review_complete",
+      "methods": [
+        "volvo/cds-paymentservice-scheduler/c00df60c8233/full-r1/method/b0c8dfde4359a98efc17"
+      ],
+      "explicitBodyFrames": 1,
+      "declarationOnlyFrames": 0,
+      "exclusion": null
+    },
+    {
+      "path": "cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/common/SchedulerControllerAdvice.java",
+      "sha256": "190d46fe948bf33650092e772777572ea1c88aeb5f411d058cf761d12013a1fc",
+      "lines": 60,
+      "role": "production_java",
+      "review": "source_review_complete",
+      "methods": [
+        "volvo/cds-paymentservice-scheduler/c00df60c8233/full-r1/method/a00b23bb4d0a52c5960d",
+        "volvo/cds-paymentservice-scheduler/c00df60c8233/full-r1/method/75f38222d7438607f367",
+        "volvo/cds-paymentservice-scheduler/c00df60c8233/full-r1/method/fccbdf8efda97bc0572f",
+        "volvo/cds-paymentservice-scheduler/c00df60c8233/full-r1/method/5adfabb7ce782019541f",
+        "volvo/cds-paymentservice-scheduler/c00df60c8233/full-r1/method/2be2a514aa59cf46cbfa"
+      ],
+      "explicitBodyFrames": 5,
+      "declarationOnlyFrames": 0,
+      "exclusion": null
+    },
+    {
+      "path": "cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/common/exception/ConfigNotFoundException.java",
+      "sha256": "d49096149679a2b44d387f12a71e9338cb30b6a8022764994712208be39cb20c",
+      "lines": 9,
+      "role": "production_java",
+      "review": "source_review_complete",
+      "methods": [
+        "volvo/cds-paymentservice-scheduler/c00df60c8233/full-r1/method/c028df4421f6efcdfe2b"
+      ],
+      "explicitBodyFrames": 1,
+      "declarationOnlyFrames": 0,
+      "exclusion": null
+    },
+    {
+      "path": "cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/common/exception/MultipleConfigsFoundException.java",
+      "sha256": "e50622200c093ad31fa86dcda6287e453c3ef57bb2be77eb0e5cfcafac9bc52b",
+      "lines": 10,
+      "role": "production_java",
+      "review": "source_review_complete",
+      "methods": [
+        "volvo/cds-paymentservice-scheduler/c00df60c8233/full-r1/method/e3c1bdd984197f215453"
+      ],
+      "explicitBodyFrames": 1,
+      "declarationOnlyFrames": 0,
+      "exclusion": null
+    },
+    {
+      "path": "cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/common/exception/SchedulerException.java",
+      "sha256": "ff2a0092e431a39b0263a7e6a8558c7a98f1c5ea28e7d31ecaed3d99d46d28e5",
+      "lines": 22,
+      "role": "production_java",
+      "review": "source_review_complete",
+      "methods": [
+        "volvo/cds-paymentservice-scheduler/c00df60c8233/full-r1/method/2979e5570397be9df409",
+        "volvo/cds-paymentservice-scheduler/c00df60c8233/full-r1/method/4b369cbe44e1f282dcc7"
+      ],
+      "explicitBodyFrames": 2,
+      "declarationOnlyFrames": 0,
+      "exclusion": null
+    },
+    {
+      "path": "cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/messaging/KafkaProducer.java",
+      "sha256": "bd01fa8642e423dd4ec9232a1e7cd2fdee5c8f2f3ab7fe9a782e3a9e35bcd2e6",
+      "lines": 43,
+      "role": "production_java",
+      "review": "source_review_complete",
+      "methods": [
+        "volvo/cds-paymentservice-scheduler/c00df60c8233/full-r1/method/b796bcddab6eb202758b",
+        "volvo/cds-paymentservice-scheduler/c00df60c8233/full-r1/method/c37a9641e6250033a402",
+        "volvo/cds-paymentservice-scheduler/c00df60c8233/full-r1/method/82029ee45d5558fba4f0"
+      ],
+      "explicitBodyFrames": 3,
+      "declarationOnlyFrames": 0,
+      "exclusion": null
+    },
+    {
+      "path": "cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/messaging/KafkaProducerConfig.java",
+      "sha256": "a7388dcac7b76d943faaf21aea02c59661406ce00192f55598d49e52f9d3d3f4",
+      "lines": 15,
+      "role": "production_java",
+      "review": "source_review_complete",
+      "methods": [
+        "volvo/cds-paymentservice-scheduler/c00df60c8233/full-r1/method/aceb7cf2bc3857aaacf5"
+      ],
+      "explicitBodyFrames": 1,
+      "declarationOnlyFrames": 0,
+      "exclusion": null
+    },
+    {
+      "path": "cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/poller/PollerService.java",
+      "sha256": "ce42c246d0f6803104d12343e58c3866336877f4f03d23275d3224bd1c90a721",
+      "lines": 142,
+      "role": "production_java",
+      "review": "source_review_complete",
+      "methods": [
+        "volvo/cds-paymentservice-scheduler/c00df60c8233/full-r1/method/1c90ae717812e065b271",
+        "volvo/cds-paymentservice-scheduler/c00df60c8233/full-r1/method/c6f62525abefe72b2b4f",
+        "volvo/cds-paymentservice-scheduler/c00df60c8233/full-r1/method/ea981e5daec46a970bc6",
+        "volvo/cds-paymentservice-scheduler/c00df60c8233/full-r1/method/88ed0da1b8305f9403f1",
+        "volvo/cds-paymentservice-scheduler/c00df60c8233/full-r1/method/5a41b83047aaa42752e3",
+        "volvo/cds-paymentservice-scheduler/c00df60c8233/full-r1/method/0c89a99d0d4074d5bb2b",
+        "volvo/cds-paymentservice-scheduler/c00df60c8233/full-r1/method/b160a732fd1a68e98d2b"
+      ],
+      "explicitBodyFrames": 7,
+      "declarationOnlyFrames": 0,
+      "exclusion": null
+    },
+    {
+      "path": "cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/retry/RetryJob.java",
+      "sha256": "09024b1faf1a7ff0f2b0c43f0e2fc315beb2a89eb73f0a3a1cc91a006c2c3246",
+      "lines": 19,
+      "role": "production_java",
+      "review": "source_review_complete",
+      "methods": [
+        "volvo/cds-paymentservice-scheduler/c00df60c8233/full-r1/method/d838fb373bee107208f6"
+      ],
+      "explicitBodyFrames": 1,
+      "declarationOnlyFrames": 0,
+      "exclusion": null
+    },
+    {
+      "path": "cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/retry/RetryJobExecutor.java",
+      "sha256": "87e554a1dcff3c122b1fa0587201bc094a0dbaed287f4ae45f50929196c7c9f0",
+      "lines": 141,
+      "role": "production_java",
+      "review": "source_review_complete",
+      "methods": [
+        "volvo/cds-paymentservice-scheduler/c00df60c8233/full-r1/method/c272910539cc9d4c3e35",
+        "volvo/cds-paymentservice-scheduler/c00df60c8233/full-r1/method/37fced53d49e887bdee4",
+        "volvo/cds-paymentservice-scheduler/c00df60c8233/full-r1/method/609d6e64613a417fecb4",
+        "volvo/cds-paymentservice-scheduler/c00df60c8233/full-r1/method/d106bcb8e715327d619e",
+        "volvo/cds-paymentservice-scheduler/c00df60c8233/full-r1/method/166d6ebfd579c8e045b0",
+        "volvo/cds-paymentservice-scheduler/c00df60c8233/full-r1/method/ac81139a82cf71df4f86",
+        "volvo/cds-paymentservice-scheduler/c00df60c8233/full-r1/method/4727affbb42ba79a0ec8",
+        "volvo/cds-paymentservice-scheduler/c00df60c8233/full-r1/method/afa4b0358749757eee57"
+      ],
+      "explicitBodyFrames": 8,
+      "declarationOnlyFrames": 0,
+      "exclusion": null
+    },
+    {
+      "path": "cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/retry/RetryJobMapper.java",
+      "sha256": "863ca848ca67f68164f5e16e8c5fc5c2feb673ddf0272075af0edfa3c7b0bf02",
+      "lines": 46,
+      "role": "production_java",
+      "review": "source_review_complete",
+      "methods": [
+        "volvo/cds-paymentservice-scheduler/c00df60c8233/full-r1/method/4b11452e978e559407a9",
+        "volvo/cds-paymentservice-scheduler/c00df60c8233/full-r1/method/ff5c0d41cf86c0c75d10"
+      ],
+      "explicitBodyFrames": 2,
+      "declarationOnlyFrames": 0,
+      "exclusion": null
+    },
+    {
+      "path": "cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/retry/RetryJobService.java",
+      "sha256": "e63c9fba391d38332507583be0aa929dc1c4ed70ef28d47ea098348df1c445a8",
+      "lines": 24,
+      "role": "production_java",
+      "review": "source_review_complete",
+      "methods": [
+        "volvo/cds-paymentservice-scheduler/c00df60c8233/full-r1/method/38273874de670e3f3754",
+        "volvo/cds-paymentservice-scheduler/c00df60c8233/full-r1/method/51c4c3469a721134c52b"
+      ],
+      "explicitBodyFrames": 2,
+      "declarationOnlyFrames": 0,
+      "exclusion": null
+    },
+    {
+      "path": "cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/retry/RetryParams.java",
+      "sha256": "1b72aec3ffc6f9d88ded602c6923ed00601515385b22c9615e776b1f396b3c7d",
+      "lines": 19,
+      "role": "production_java",
+      "review": "source_review_complete",
+      "methods": [],
+      "explicitBodyFrames": 0,
+      "declarationOnlyFrames": 0,
+      "exclusion": "Data/enum/annotation declaration: fields/constants/constraints source catalogue; no explicit executable body"
+    },
+    {
+      "path": "cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/scheduler/common/BaseEntity.java",
+      "sha256": "589ce53f89e1e788397b0ee3ab7aed83a9577fe69152a8f1cb0e833eef28f171",
+      "lines": 25,
+      "role": "production_java",
+      "review": "source_review_complete",
+      "methods": [],
+      "explicitBodyFrames": 0,
+      "declarationOnlyFrames": 0,
+      "exclusion": "Data/enum/annotation declaration: fields/constants/constraints source catalogue; no explicit executable body"
+    },
+    {
+      "path": "cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/scheduler/config/ConfigMapper.java",
+      "sha256": "37507c2d717056a614fe6c362228d75f53d3f39937c7ebfd171089b4b324ebb0",
+      "lines": 62,
+      "role": "production_java",
+      "review": "source_review_complete",
+      "methods": [
+        "volvo/cds-paymentservice-scheduler/c00df60c8233/full-r1/method/79d30ed1268c425b2672",
+        "volvo/cds-paymentservice-scheduler/c00df60c8233/full-r1/method/a6bebc9c605417ed2b15",
+        "volvo/cds-paymentservice-scheduler/c00df60c8233/full-r1/method/ad200071b90557744701",
+        "volvo/cds-paymentservice-scheduler/c00df60c8233/full-r1/method/58a6ae8c9e950b6b83df",
+        "volvo/cds-paymentservice-scheduler/c00df60c8233/full-r1/method/a6e9ba8a790b80d2a39d",
+        "volvo/cds-paymentservice-scheduler/c00df60c8233/full-r1/method/acc3cb3362ea8a1e8e3f",
+        "volvo/cds-paymentservice-scheduler/c00df60c8233/full-r1/method/f4248c7ec7a5f7472d45"
+      ],
+      "explicitBodyFrames": 7,
+      "declarationOnlyFrames": 0,
+      "exclusion": null
+    },
+    {
+      "path": "cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/scheduler/config/ConfigService.java",
+      "sha256": "499f7e0f47b6231320c3eb33e98384f13f8ff70ff5c6ba4a318310a0838bd424",
+      "lines": 124,
+      "role": "production_java",
+      "review": "source_review_complete",
+      "methods": [
+        "volvo/cds-paymentservice-scheduler/c00df60c8233/full-r1/method/c1c3c0a39b67328703e8",
+        "volvo/cds-paymentservice-scheduler/c00df60c8233/full-r1/method/3cb46255a408d9e28891",
+        "volvo/cds-paymentservice-scheduler/c00df60c8233/full-r1/method/691474048a90fc588b43",
+        "volvo/cds-paymentservice-scheduler/c00df60c8233/full-r1/method/8bc5dcd814d7ba0c44d4",
+        "volvo/cds-paymentservice-scheduler/c00df60c8233/full-r1/method/c97e49f4979a95439dc9",
+        "volvo/cds-paymentservice-scheduler/c00df60c8233/full-r1/method/d71e506fc032a17f8398",
+        "volvo/cds-paymentservice-scheduler/c00df60c8233/full-r1/method/5bf6de24cde189d51f33",
+        "volvo/cds-paymentservice-scheduler/c00df60c8233/full-r1/method/a1f4273802d02964fa2e",
+        "volvo/cds-paymentservice-scheduler/c00df60c8233/full-r1/method/ebe93ab0db470d29123f",
+        "volvo/cds-paymentservice-scheduler/c00df60c8233/full-r1/method/1861bfa42b6bee3c8369",
+        "volvo/cds-paymentservice-scheduler/c00df60c8233/full-r1/method/3a1b6a01131f123d3db9",
+        "volvo/cds-paymentservice-scheduler/c00df60c8233/full-r1/method/5a309ab26ae08529052c",
+        "volvo/cds-paymentservice-scheduler/c00df60c8233/full-r1/method/db4ab54b60f16ef4685c",
+        "volvo/cds-paymentservice-scheduler/c00df60c8233/full-r1/method/9d18c0f22501275a4d18",
+        "volvo/cds-paymentservice-scheduler/c00df60c8233/full-r1/method/994a5f01896ae82cdd3d",
+        "volvo/cds-paymentservice-scheduler/c00df60c8233/full-r1/method/be0a22d939061511972c"
+      ],
+      "explicitBodyFrames": 16,
+      "declarationOnlyFrames": 0,
+      "exclusion": null
+    },
+    {
+      "path": "cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/scheduler/job/JobEntity.java",
+      "sha256": "363a2f03d27da82d1cbf135d3763f526d1484eb422c8c86285f2cdc2ab6915eb",
+      "lines": 43,
+      "role": "production_java",
+      "review": "source_review_complete",
+      "methods": [
+        "volvo/cds-paymentservice-scheduler/c00df60c8233/full-r1/method/3806eaa0d23d55a1fc0c"
+      ],
+      "explicitBodyFrames": 1,
+      "declarationOnlyFrames": 0,
+      "exclusion": null
+    },
+    {
+      "path": "cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/scheduler/job/JobRepository.java",
+      "sha256": "07efdbd3c33db5078e7b4a047b4173ac19e6749af518036576847b708d148cf5",
+      "lines": 21,
+      "role": "production_java",
+      "review": "source_review_complete",
+      "methods": [
+        "volvo/cds-paymentservice-scheduler/c00df60c8233/full-r1/method/d4df535b16ed15e406a8",
+        "volvo/cds-paymentservice-scheduler/c00df60c8233/full-r1/method/e7ad1cf50dbd57976791",
+        "volvo/cds-paymentservice-scheduler/c00df60c8233/full-r1/method/fa4c10619b6ba6b146d8"
+      ],
+      "explicitBodyFrames": 0,
+      "declarationOnlyFrames": 3,
+      "exclusion": null
+    },
+    {
+      "path": "cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/scheduler/job/JobService.java",
+      "sha256": "64759bd5e30b093e71deb14dfdbbb523fe7cca3ff88023abb8618c06304be941",
+      "lines": 131,
+      "role": "production_java",
+      "review": "source_review_complete",
+      "methods": [
+        "volvo/cds-paymentservice-scheduler/c00df60c8233/full-r1/method/7902fb11e93904a89d48",
+        "volvo/cds-paymentservice-scheduler/c00df60c8233/full-r1/method/4391b1597d43fd60e622",
+        "volvo/cds-paymentservice-scheduler/c00df60c8233/full-r1/method/f63a23d386cc8b0a0db1",
+        "volvo/cds-paymentservice-scheduler/c00df60c8233/full-r1/method/5f57b7c0949aeedf4198",
+        "volvo/cds-paymentservice-scheduler/c00df60c8233/full-r1/method/6abf14953eebefc50729",
+        "volvo/cds-paymentservice-scheduler/c00df60c8233/full-r1/method/144165fd0d38b38c4703",
+        "volvo/cds-paymentservice-scheduler/c00df60c8233/full-r1/method/a311f6b07584b5f7a9a8",
+        "volvo/cds-paymentservice-scheduler/c00df60c8233/full-r1/method/53cc5a8bf2356a81c3d1",
+        "volvo/cds-paymentservice-scheduler/c00df60c8233/full-r1/method/bd8a47567717799c746c",
+        "volvo/cds-paymentservice-scheduler/c00df60c8233/full-r1/method/67b5fa02e1d56f42fa5d",
+        "volvo/cds-paymentservice-scheduler/c00df60c8233/full-r1/method/2950814033845e4c33c8",
+        "volvo/cds-paymentservice-scheduler/c00df60c8233/full-r1/method/f6ccb9588613ed0c83ac",
+        "volvo/cds-paymentservice-scheduler/c00df60c8233/full-r1/method/fe7c49cd565e66742f19",
+        "volvo/cds-paymentservice-scheduler/c00df60c8233/full-r1/method/74155964e80ab8b8f5f7",
+        "volvo/cds-paymentservice-scheduler/c00df60c8233/full-r1/method/63d00b902fe27335b284"
+      ],
+      "explicitBodyFrames": 15,
+      "declarationOnlyFrames": 0,
+      "exclusion": null
+    },
+    {
+      "path": "cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/scheduler/job/RetryJobEntity.java",
+      "sha256": "a4c4c54ec3fe5c0fc7efbccb06fe9e0ad71b956d1ad040540ba1e2c81541600f",
+      "lines": 18,
+      "role": "production_java",
+      "review": "source_review_complete",
+      "methods": [
+        "volvo/cds-paymentservice-scheduler/c00df60c8233/full-r1/method/bc117c9948136d678902"
+      ],
+      "explicitBodyFrames": 1,
+      "declarationOnlyFrames": 0,
+      "exclusion": null
+    },
+    {
+      "path": "cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/scheduler/job/executor/Context.java",
+      "sha256": "32887ee7611be92dd2b62a01cfc3ac35c4f92605d626ed3e5b22946be1380764",
+      "lines": 12,
+      "role": "production_java",
+      "review": "source_review_complete",
+      "methods": [],
+      "explicitBodyFrames": 0,
+      "declarationOnlyFrames": 0,
+      "exclusion": "Data/enum/annotation declaration: fields/constants/constraints source catalogue; no explicit executable body"
+    },
+    {
+      "path": "cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/scheduler/job/executor/DefaultJobExecutor.java",
+      "sha256": "6d7f173ad7ebf1ef336264810f34d16ef6105b0a64557323c4466b9bcfc7f7db",
+      "lines": 29,
+      "role": "production_java",
+      "review": "source_review_complete",
+      "methods": [
+        "volvo/cds-paymentservice-scheduler/c00df60c8233/full-r1/method/631d6560e315a5f66ad8",
+        "volvo/cds-paymentservice-scheduler/c00df60c8233/full-r1/method/45b3934946564d2a3734"
+      ],
+      "explicitBodyFrames": 2,
+      "declarationOnlyFrames": 0,
+      "exclusion": null
+    },
+    {
+      "path": "cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/scheduler/job/executor/JobExecutor.java",
+      "sha256": "ca89e62a1c4b48332200afadc4f054f22ad60fb816748e3b9937b9dbf28a4996",
+      "lines": 39,
+      "role": "production_java",
+      "review": "source_review_complete",
+      "methods": [
+        "volvo/cds-paymentservice-scheduler/c00df60c8233/full-r1/method/53cbbf1123eef0fd959a",
+        "volvo/cds-paymentservice-scheduler/c00df60c8233/full-r1/method/f9251e7d08ff9ad47ebd",
+        "volvo/cds-paymentservice-scheduler/c00df60c8233/full-r1/method/ef687bce72aba7caf9d0"
+      ],
+      "explicitBodyFrames": 2,
+      "declarationOnlyFrames": 1,
+      "exclusion": null
+    },
+    {
+      "path": "cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/scheduler/job/executor/JobExecutorConfig.java",
+      "sha256": "749ce8f8411b3bc91a8d2e310dd57ef7911e5c84299d9301745f0a9f829b4059",
+      "lines": 19,
+      "role": "production_java",
+      "review": "source_review_complete",
+      "methods": [
+        "volvo/cds-paymentservice-scheduler/c00df60c8233/full-r1/method/2eb4c3bc562c984284a7"
+      ],
+      "explicitBodyFrames": 1,
+      "declarationOnlyFrames": 0,
+      "exclusion": null
+    },
+    {
+      "path": "cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/scheduler/job/executor/JobExecutorFactory.java",
+      "sha256": "04a4ad1bdbbcabf8ffb562fbb289435000d577559554cefda9a89ca079319937",
+      "lines": 17,
+      "role": "production_java",
+      "review": "source_review_complete",
+      "methods": [
+        "volvo/cds-paymentservice-scheduler/c00df60c8233/full-r1/method/7baf7fa6a793aff5b910"
+      ],
+      "explicitBodyFrames": 1,
+      "declarationOnlyFrames": 0,
+      "exclusion": null
+    },
+    {
+      "path": "cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/scheduler/job/mapper/DefaultJob.java",
+      "sha256": "26563bb12befeb44c8a2a04010f513ed16680376a0b4fb5081e53142a7e5198c",
+      "lines": 5,
+      "role": "production_java",
+      "review": "source_review_complete",
+      "methods": [],
+      "explicitBodyFrames": 0,
+      "declarationOnlyFrames": 0,
+      "exclusion": "Data/enum/annotation declaration: fields/constants/constraints source catalogue; no explicit executable body"
+    },
+    {
+      "path": "cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/scheduler/job/mapper/DefaultJobEntity.java",
+      "sha256": "64b71cadebaa8ea490740cc778e308f969387c394f832b3a0434e5614edc4851",
+      "lines": 5,
+      "role": "production_java",
+      "review": "source_review_complete",
+      "methods": [],
+      "explicitBodyFrames": 0,
+      "declarationOnlyFrames": 0,
+      "exclusion": "Data/enum/annotation declaration: fields/constants/constraints source catalogue; no explicit executable body"
+    },
+    {
+      "path": "cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/scheduler/job/mapper/DefaultJobMapper.java",
+      "sha256": "94de8d0c35c0113c9dab6d5bdce0b8c064ceb9cde627982677a86323433e5257",
+      "lines": 36,
+      "role": "production_java",
+      "review": "source_review_complete",
+      "methods": [
+        "volvo/cds-paymentservice-scheduler/c00df60c8233/full-r1/method/cb0bfdc325ad2cb49527",
+        "volvo/cds-paymentservice-scheduler/c00df60c8233/full-r1/method/a73725e15f4b56911e33"
+      ],
+      "explicitBodyFrames": 2,
+      "declarationOnlyFrames": 0,
+      "exclusion": null
+    },
+    {
+      "path": "cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/scheduler/job/mapper/JobMapper.java",
+      "sha256": "f24d77242fc20059a8a9aff68fd9c755bbada59f0486294eeeb885941328d217",
+      "lines": 13,
+      "role": "production_java",
+      "review": "source_review_complete",
+      "methods": [
+        "volvo/cds-paymentservice-scheduler/c00df60c8233/full-r1/method/5fd01e53e49827dbcb6f",
+        "volvo/cds-paymentservice-scheduler/c00df60c8233/full-r1/method/b2e0a2232a572e6aabfa"
+      ],
+      "explicitBodyFrames": 0,
+      "declarationOnlyFrames": 2,
+      "exclusion": null
+    },
+    {
+      "path": "cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/scheduler/job/mapper/JobMapperFactory.java",
+      "sha256": "2ad93522d45d00043c409be95527da368740025690f846e2f83c8b56b8dfe59b",
+      "lines": 17,
+      "role": "production_java",
+      "review": "source_review_complete",
+      "methods": [
+        "volvo/cds-paymentservice-scheduler/c00df60c8233/full-r1/method/6f03b311e272f1198664"
+      ],
+      "explicitBodyFrames": 1,
+      "declarationOnlyFrames": 0,
+      "exclusion": null
+    },
+    {
+      "path": "cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/scheduler/job/mapper/MapperConfig.java",
+      "sha256": "fe0f33721dccb650aebbba5822da24fccb8eda732268fe3903961d7a8726572b",
+      "lines": 20,
+      "role": "production_java",
+      "review": "source_review_complete",
+      "methods": [
+        "volvo/cds-paymentservice-scheduler/c00df60c8233/full-r1/method/07cadacb2b61d4ed82f4"
+      ],
+      "explicitBodyFrames": 1,
+      "declarationOnlyFrames": 0,
+      "exclusion": null
+    },
+    {
+      "path": "cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/scheduler/locking/CustomLockRepository.java",
+      "sha256": "cb98a8909070d90e15e2596eec359701b20475cb337aff8fcb6c68cef907ffd2",
+      "lines": 5,
+      "role": "production_java",
+      "review": "source_review_complete",
+      "methods": [
+        "volvo/cds-paymentservice-scheduler/c00df60c8233/full-r1/method/f63388fa4d6f0a28bf17"
+      ],
+      "explicitBodyFrames": 0,
+      "declarationOnlyFrames": 1,
+      "exclusion": null
+    },
+    {
+      "path": "cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/scheduler/locking/CustomLockRepositoryImpl.java",
+      "sha256": "c7a4c289c8d718a8d7185b90fe9fda41b1d568d5bc2f2f001c59ce52bdb50371",
+      "lines": 22,
+      "role": "production_java",
+      "review": "source_review_complete",
+      "methods": [
+        "volvo/cds-paymentservice-scheduler/c00df60c8233/full-r1/method/36538d3035321ce34879"
+      ],
+      "explicitBodyFrames": 1,
+      "declarationOnlyFrames": 0,
+      "exclusion": null
+    },
+    {
+      "path": "cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/scheduler/locking/Lock.java",
+      "sha256": "c65e56167e7f273ce164f8bec8f20a839aba9d5becd1f42f6563208b6c3dde7b",
+      "lines": 19,
+      "role": "production_java",
+      "review": "source_review_complete",
+      "methods": [],
+      "explicitBodyFrames": 0,
+      "declarationOnlyFrames": 0,
+      "exclusion": "Data/enum/annotation declaration: fields/constants/constraints source catalogue; no explicit executable body"
+    },
+    {
+      "path": "cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/scheduler/locking/LockEntity.java",
+      "sha256": "6f911bfc543ff0fbbb4dd0a6c36025a4304b3a00451e7b73efe5377e6ab49533",
+      "lines": 21,
+      "role": "production_java",
+      "review": "source_review_complete",
+      "methods": [],
+      "explicitBodyFrames": 0,
+      "declarationOnlyFrames": 0,
+      "exclusion": "Data/enum/annotation declaration: fields/constants/constraints source catalogue; no explicit executable body"
+    },
+    {
+      "path": "cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/scheduler/locking/LockEntityMapper.java",
+      "sha256": "6ce10b69bcade4d97f910fa2b496bf3fbb0cbc88dc153971f6754404f7419d37",
+      "lines": 24,
+      "role": "production_java",
+      "review": "source_review_complete",
+      "methods": [
+        "volvo/cds-paymentservice-scheduler/c00df60c8233/full-r1/method/c4157596373931148429",
+        "volvo/cds-paymentservice-scheduler/c00df60c8233/full-r1/method/c882798cf56ec527397c"
+      ],
+      "explicitBodyFrames": 2,
+      "declarationOnlyFrames": 0,
+      "exclusion": null
+    },
+    {
+      "path": "cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/scheduler/locking/LockException.java",
+      "sha256": "2178df52dd14a04606818bbac6c72eed3fbae850c5f1799bac346dfda7d63714",
+      "lines": 10,
+      "role": "production_java",
+      "review": "source_review_complete",
+      "methods": [
+        "volvo/cds-paymentservice-scheduler/c00df60c8233/full-r1/method/4d67d65b30b39ae67a9a"
+      ],
+      "explicitBodyFrames": 1,
+      "declarationOnlyFrames": 0,
+      "exclusion": null
+    },
+    {
+      "path": "cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/scheduler/locking/LockRepository.java",
+      "sha256": "4088945e941849693fa76b007c633ac86bbd43d6df140613f9892dceef96be72",
+      "lines": 18,
+      "role": "production_java",
+      "review": "source_review_complete",
+      "methods": [
+        "volvo/cds-paymentservice-scheduler/c00df60c8233/full-r1/method/e29b31d4e5092ff0ce22",
+        "volvo/cds-paymentservice-scheduler/c00df60c8233/full-r1/method/5950d47113b70377b9e5",
+        "volvo/cds-paymentservice-scheduler/c00df60c8233/full-r1/method/ffaeb64ddc7076a3925b"
+      ],
+      "explicitBodyFrames": 0,
+      "declarationOnlyFrames": 3,
+      "exclusion": null
+    },
+    {
+      "path": "cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/scheduler/locking/LockService.java",
+      "sha256": "6d7ca0c442fc54b0519ceace183b3ca1c84b60c31b0449c7cbcbfce0599b0fbc",
+      "lines": 89,
+      "role": "production_java",
+      "review": "source_review_complete",
+      "methods": [
+        "volvo/cds-paymentservice-scheduler/c00df60c8233/full-r1/method/b88098c2b1fe2a655b4a",
+        "volvo/cds-paymentservice-scheduler/c00df60c8233/full-r1/method/a8de39505dc99f93b778",
+        "volvo/cds-paymentservice-scheduler/c00df60c8233/full-r1/method/1d77b9f4773d9c501cee",
+        "volvo/cds-paymentservice-scheduler/c00df60c8233/full-r1/method/b9d5c6277883c161098a"
+      ],
+      "explicitBodyFrames": 4,
+      "declarationOnlyFrames": 0,
+      "exclusion": null
+    },
+    {
+      "path": "cds-paymentservice-scheduler-core/src/test/java/com/volvocars/ecom/paymentservice/config/ConfigServiceTest.java",
+      "sha256": "6c873866d51de1d5576e382697de4faac712636ceb397637551a7609c4631562",
+      "lines": 111,
+      "role": "test",
+      "review": "inventoried_not_executed",
+      "exclusion": "Test source/fixtures are not deployed runtime entry points; excluded from production behavioural closure"
+    },
+    {
+      "path": "cds-paymentservice-scheduler-core/src/test/java/com/volvocars/ecom/paymentservice/messaging/KafkaProducerTest.java",
+      "sha256": "0c992b21b2e5b9dd93b900863c2e9c4f8ca7959c8c9031f2dcfa91939f15ea5f",
+      "lines": 63,
+      "role": "test",
+      "review": "inventoried_not_executed",
+      "exclusion": "Test source/fixtures are not deployed runtime entry points; excluded from production behavioural closure"
+    },
+    {
+      "path": "cds-paymentservice-scheduler-core/src/test/java/com/volvocars/ecom/paymentservice/scheduler/common/IntervalsConfigStrategyTest.java",
+      "sha256": "bfd100655ccb23fec84e5c25ecd12dbe2012ce76f2667ddf0ba3f96c9864398a",
+      "lines": 63,
+      "role": "test",
+      "review": "inventoried_not_executed",
+      "exclusion": "Test source/fixtures are not deployed runtime entry points; excluded from production behavioural closure"
+    },
+    {
+      "path": "cds-paymentservice-scheduler-core/src/test/java/com/volvocars/ecom/paymentservice/scheduler/config/ConfigMapperTest.java",
+      "sha256": "00cbff18641e3b5f30e172b5919bcc78386811044c3c2afe5b32fc899d037bd5",
+      "lines": 125,
+      "role": "test",
+      "review": "inventoried_not_executed",
+      "exclusion": "Test source/fixtures are not deployed runtime entry points; excluded from production behavioural closure"
+    },
+    {
+      "path": "cds-paymentservice-scheduler-core/src/test/java/com/volvocars/ecom/paymentservice/scheduler/locking/LockServiceTest.java",
+      "sha256": "64446c7823385488e203acb7b814b1d38a2573d119ea845762adbe89131d64ef",
+      "lines": 136,
+      "role": "test",
+      "review": "inventoried_not_executed",
+      "exclusion": "Test source/fixtures are not deployed runtime entry points; excluded from production behavioural closure"
+    },
+    {
+      "path": "cds-paymentservice-scheduler-properties/pom.xml",
+      "sha256": "285626ebe63e7df821e943d396ac4095bf072f685f286d01af2afe94c0693791",
+      "lines": 93,
+      "role": "configuration_or_documentation",
+      "review": "source_configuration_reviewed",
+      "exclusion": "Build/workflow/documentation/tooling declaration; no additional production Java runtime implementation"
+    },
+    {
+      "path": "cds-paymentservice-scheduler-properties/src/main/java/com/volvocars/ecom/paymentservice/scheduler/properties/SchedulerConfigProperties.java",
+      "sha256": "817fd8b748f5ef24a1adf608ce211c58c17fa2a5fbf15eb0bbe57a3e69ddcff7",
+      "lines": 29,
+      "role": "production_java",
+      "review": "source_review_complete",
+      "methods": [
+        "volvo/cds-paymentservice-scheduler/c00df60c8233/full-r1/method/969449906b6eb142f7c9",
+        "volvo/cds-paymentservice-scheduler/c00df60c8233/full-r1/method/6a61c1132c01f7d9e1d5"
+      ],
+      "explicitBodyFrames": 2,
+      "declarationOnlyFrames": 0,
+      "exclusion": null
+    },
+    {
+      "path": "cds-paymentservice-scheduler-properties/src/main/java/com/volvocars/ecom/paymentservice/scheduler/properties/model/ConfigStrategy.java",
+      "sha256": "3a9b52c120e15b4083f73636a78fc27243aad51fa163dba05166b3a8fb0528ea",
+      "lines": 24,
+      "role": "production_java",
+      "review": "source_review_complete",
+      "methods": [],
+      "explicitBodyFrames": 0,
+      "declarationOnlyFrames": 0,
+      "exclusion": "Data/enum/annotation declaration: fields/constants/constraints source catalogue; no explicit executable body"
+    },
+    {
+      "path": "cds-paymentservice-scheduler-properties/src/main/java/com/volvocars/ecom/paymentservice/scheduler/properties/model/SchedulerConfig.java",
+      "sha256": "dd88470c71861150ad10203974f50dabf8c850c7e8563fe9e8f0b7ece6834bd5",
+      "lines": 30,
+      "role": "production_java",
+      "review": "source_review_complete",
+      "methods": [],
+      "explicitBodyFrames": 0,
+      "declarationOnlyFrames": 0,
+      "exclusion": "Data/enum/annotation declaration: fields/constants/constraints source catalogue; no explicit executable body"
+    },
+    {
+      "path": "cds-paymentservice-scheduler-properties/src/main/java/com/volvocars/ecom/paymentservice/scheduler/properties/validation/StrategyValidator.java",
+      "sha256": "e9eb4a18f200b3e9fa5047b07a3b33491fa6621f0ce809e2b402a6ff6a102d3e",
+      "lines": 86,
+      "role": "production_java",
+      "review": "source_review_complete",
+      "methods": [
+        "volvo/cds-paymentservice-scheduler/c00df60c8233/full-r1/method/97c5600bc97cae06e892",
+        "volvo/cds-paymentservice-scheduler/c00df60c8233/full-r1/method/03a64728dbaa579ee185",
+        "volvo/cds-paymentservice-scheduler/c00df60c8233/full-r1/method/d91f02ab4e10e15c72d8",
+        "volvo/cds-paymentservice-scheduler/c00df60c8233/full-r1/method/73692f31fc219c816cd1",
+        "volvo/cds-paymentservice-scheduler/c00df60c8233/full-r1/method/16773b92c13a64b77049"
+      ],
+      "explicitBodyFrames": 5,
+      "declarationOnlyFrames": 0,
+      "exclusion": null
+    },
+    {
+      "path": "cds-paymentservice-scheduler-properties/src/main/java/com/volvocars/ecom/paymentservice/scheduler/properties/validation/ValidStrategy.java",
+      "sha256": "d49334a02bf0507f699cd9573f6cd735ae9f0e58cf22163036eb5d76dfe09246",
+      "lines": 22,
+      "role": "production_java",
+      "review": "source_review_complete",
+      "methods": [
+        "volvo/cds-paymentservice-scheduler/c00df60c8233/full-r1/method/ea747b21356c173240ae",
+        "volvo/cds-paymentservice-scheduler/c00df60c8233/full-r1/method/684b19ba6bc72c1bd8fa",
+        "volvo/cds-paymentservice-scheduler/c00df60c8233/full-r1/method/64e7ecfccf3673b1ec04"
+      ],
+      "explicitBodyFrames": 0,
+      "declarationOnlyFrames": 3,
+      "exclusion": null
+    },
+    {
+      "path": "cds-paymentservice-scheduler-properties/src/test/java/com/volvocars/ecom/paymentservice/scheduler/properties/App.java",
+      "sha256": "f0cfecd192cfbf632ad6acc1279293014d8d24160f3e95d392b6ae8b5fb790f9",
+      "lines": 8,
+      "role": "test",
+      "review": "inventoried_not_executed",
+      "exclusion": "Test source/fixtures are not deployed runtime entry points; excluded from production behavioural closure"
+    },
+    {
+      "path": "cds-paymentservice-scheduler-properties/src/test/java/com/volvocars/ecom/paymentservice/scheduler/properties/SchedulerConfigPropertiesCronIntegrationTest.java",
+      "sha256": "9f29d8fbcaadc330c26f19c275e94399d295bfe0ea94a1adf1ae41c8426b5093",
+      "lines": 55,
+      "role": "test",
+      "review": "inventoried_not_executed",
+      "exclusion": "Test source/fixtures are not deployed runtime entry points; excluded from production behavioural closure"
+    },
+    {
+      "path": "cds-paymentservice-scheduler-properties/src/test/java/com/volvocars/ecom/paymentservice/scheduler/properties/SchedulerConfigPropertiesFixedRateIntegrationTest.java",
+      "sha256": "2b95c00e8425f53382b4801fd234642d655b97d1197bf388dadd9df9468392f1",
+      "lines": 59,
+      "role": "test",
+      "review": "inventoried_not_executed",
+      "exclusion": "Test source/fixtures are not deployed runtime entry points; excluded from production behavioural closure"
+    },
+    {
+      "path": "cds-paymentservice-scheduler-properties/src/test/java/com/volvocars/ecom/paymentservice/scheduler/properties/SchedulerConfigPropertiesIntervalsIntegrationTest.java",
+      "sha256": "6039ca64b30a31ba3b0a0fe4f288098c6fa94301570f47147480b5dbfea7c406",
+      "lines": 63,
+      "role": "test",
+      "review": "inventoried_not_executed",
+      "exclusion": "Test source/fixtures are not deployed runtime entry points; excluded from production behavioural closure"
+    },
+    {
+      "path": "cds-paymentservice-scheduler-properties/src/test/java/com/volvocars/ecom/paymentservice/scheduler/properties/SchedulerConfigPropertiesMultipleIntegrationTest.java",
+      "sha256": "c09a01277503f2d5d22ca2f5e37519db6244fb4d0dd88a62f5eeaf4edbe83fe0",
+      "lines": 52,
+      "role": "test",
+      "review": "inventoried_not_executed",
+      "exclusion": "Test source/fixtures are not deployed runtime entry points; excluded from production behavioural closure"
+    },
+    {
+      "path": "cds-paymentservice-scheduler-properties/src/test/java/com/volvocars/ecom/paymentservice/scheduler/properties/validation/ConfigStrategyValidatorTest.java",
+      "sha256": "1e7ffa6cad4bf98a6f85c0122c73dd56ad72e2ee380a4d597a85a27b7bf52bcc",
+      "lines": 121,
+      "role": "test",
+      "review": "inventoried_not_executed",
+      "exclusion": "Test source/fixtures are not deployed runtime entry points; excluded from production behavioural closure"
+    },
+    {
+      "path": "cds-paymentservice-scheduler-properties/src/test/resources/bootstrap.yml",
+      "sha256": "36264074731ee134df6c22ede873ba001bad52c70e1b5895169ee4bd88cab558",
+      "lines": 13,
+      "role": "test",
+      "review": "inventoried_not_executed",
+      "exclusion": "Test source/fixtures are not deployed runtime entry points; excluded from production behavioural closure"
+    },
+    {
+      "path": "cds-paymentservice-scheduler-properties/src/test/resources/config-repo/ps-config.yml",
+      "sha256": "269d1302709e62622377a39b9f8e34045147ec069604f0bb5ad59b0bd8423663",
+      "lines": 4,
+      "role": "test",
+      "review": "inventoried_not_executed",
+      "exclusion": "Test source/fixtures are not deployed runtime entry points; excluded from production behavioural closure"
+    },
+    {
+      "path": "cds-paymentservice-scheduler-properties/src/test/resources/config-repo/scheduler-configs.yml",
+      "sha256": "709600ced92a3c664fa56961fbc42024852c979957d24ab2839bbaff8f59828b",
+      "lines": 74,
+      "role": "test",
+      "review": "inventoried_not_executed",
+      "exclusion": "Test source/fixtures are not deployed runtime entry points; excluded from production behavioural closure"
+    },
+    {
+      "path": "cds-paymentservice-scheduler-shared/pom.xml",
+      "sha256": "569a6de2e3a64268320b501a8f7dccbd267ad6ad15f54a127c11bb730119b756",
+      "lines": 52,
+      "role": "configuration_or_documentation",
+      "review": "source_configuration_reviewed",
+      "exclusion": "Build/workflow/documentation/tooling declaration; no additional production Java runtime implementation"
+    },
+    {
+      "path": "cds-paymentservice-scheduler-shared/src/main/java/com/volvocars/ecom/paymentservice/shared/common/CronStrategy.java",
+      "sha256": "19fe2b6ce5cda5360e0cc28a25d8b0742626e5097b253fc11b89502a7abed173",
+      "lines": 48,
+      "role": "production_java",
+      "review": "source_review_complete",
+      "methods": [
+        "volvo/cds-paymentservice-scheduler/c00df60c8233/full-r1/method/c4a1f8e6f5c57c0e2329",
+        "volvo/cds-paymentservice-scheduler/c00df60c8233/full-r1/method/91b1a5b982a5040615da",
+        "volvo/cds-paymentservice-scheduler/c00df60c8233/full-r1/method/fe7ab5a6dded1569cad4",
+        "volvo/cds-paymentservice-scheduler/c00df60c8233/full-r1/method/56ffff3982c98e426134"
+      ],
+      "explicitBodyFrames": 4,
+      "declarationOnlyFrames": 0,
+      "exclusion": null
+    },
+    {
+      "path": "cds-paymentservice-scheduler-shared/src/main/java/com/volvocars/ecom/paymentservice/shared/common/FixedRateStrategy.java",
+      "sha256": "3bcd11db58d10bcf196666583a32cd7a7039d6cd801bde28dc127ef6db24362b",
+      "lines": 37,
+      "role": "production_java",
+      "review": "source_review_complete",
+      "methods": [
+        "volvo/cds-paymentservice-scheduler/c00df60c8233/full-r1/method/b8e3f5db886ecab3d4e2",
+        "volvo/cds-paymentservice-scheduler/c00df60c8233/full-r1/method/24f7a5c0f7bcd016364b"
+      ],
+      "explicitBodyFrames": 2,
+      "declarationOnlyFrames": 0,
+      "exclusion": null
+    },
+    {
+      "path": "cds-paymentservice-scheduler-shared/src/main/java/com/volvocars/ecom/paymentservice/shared/common/IntervalsStrategy.java",
+      "sha256": "2e6ac4929708147b9246bca99dea43e5394fdf0e995a73cac1a75064cc534509",
+      "lines": 33,
+      "role": "production_java",
+      "review": "source_review_complete",
+      "methods": [
+        "volvo/cds-paymentservice-scheduler/c00df60c8233/full-r1/method/f74be066c453ecb8a2f3",
+        "volvo/cds-paymentservice-scheduler/c00df60c8233/full-r1/method/ad87d308636cf2d52ab3"
+      ],
+      "explicitBodyFrames": 2,
+      "declarationOnlyFrames": 0,
+      "exclusion": null
+    },
+    {
+      "path": "cds-paymentservice-scheduler-shared/src/main/java/com/volvocars/ecom/paymentservice/shared/common/JobStatus.java",
+      "sha256": "c6468bed4fa41dd6f6cccfe0cd6302571e6fb45ff3acfbd3b1a969131ce4ea0d",
+      "lines": 8,
+      "role": "production_java",
+      "review": "source_review_complete",
+      "methods": [],
+      "explicitBodyFrames": 0,
+      "declarationOnlyFrames": 0,
+      "exclusion": "Data/enum/annotation declaration: fields/constants/constraints source catalogue; no explicit executable body"
+    },
+    {
+      "path": "cds-paymentservice-scheduler-shared/src/main/java/com/volvocars/ecom/paymentservice/shared/common/Strategy.java",
+      "sha256": "40016a6d4d16655c4dd4c45a11100e9d129e7654b34d533237b3d4d255af10cd",
+      "lines": 31,
+      "role": "production_java",
+      "review": "source_review_complete",
+      "methods": [
+        "volvo/cds-paymentservice-scheduler/c00df60c8233/full-r1/method/372bbd18573c37a8014e"
+      ],
+      "explicitBodyFrames": 0,
+      "declarationOnlyFrames": 1,
+      "exclusion": null
+    },
+    {
+      "path": "cds-paymentservice-scheduler-shared/src/main/java/com/volvocars/ecom/paymentservice/shared/common/StrategyType.java",
+      "sha256": "732ab5ae5ac87f3d110b6868cbd802f05c1dce70882966c91d5993b5bb13fc3b",
+      "lines": 7,
+      "role": "production_java",
+      "review": "source_review_complete",
+      "methods": [],
+      "explicitBodyFrames": 0,
+      "declarationOnlyFrames": 0,
+      "exclusion": "Data/enum/annotation declaration: fields/constants/constraints source catalogue; no explicit executable body"
+    },
+    {
+      "path": "cds-paymentservice-scheduler-shared/src/main/java/com/volvocars/ecom/paymentservice/shared/config/Config.java",
+      "sha256": "80d54c2093e151c17ed86e6ccba4289ca0326f57984eb9d3120a22efa93347a3",
+      "lines": 43,
+      "role": "production_java",
+      "review": "source_review_complete",
+      "methods": [
+        "volvo/cds-paymentservice-scheduler/c00df60c8233/full-r1/method/86938a3b52587891effd"
+      ],
+      "explicitBodyFrames": 1,
+      "declarationOnlyFrames": 0,
+      "exclusion": null
+    },
+    {
+      "path": "cds-paymentservice-scheduler-shared/src/main/java/com/volvocars/ecom/paymentservice/shared/config/ConfigConditions.java",
+      "sha256": "4b16128a8a60a7bc8d0c24ea621fd4ab4073927372c82a7df9eb0f13c750390d",
+      "lines": 48,
+      "role": "production_java",
+      "review": "source_review_complete",
+      "methods": [
+        "volvo/cds-paymentservice-scheduler/c00df60c8233/full-r1/method/124cdd077819a9a43c77"
+      ],
+      "explicitBodyFrames": 1,
+      "declarationOnlyFrames": 0,
+      "exclusion": null
+    },
+    {
+      "path": "cds-paymentservice-scheduler-shared/src/main/java/com/volvocars/ecom/paymentservice/shared/executor/ExecutorType.java",
+      "sha256": "93f15ed48f4be7ce1a32e432466913b72036e4d404457726ddd2f7f2e25c7d17",
+      "lines": 6,
+      "role": "production_java",
+      "review": "source_review_complete",
+      "methods": [],
+      "explicitBodyFrames": 0,
+      "declarationOnlyFrames": 0,
+      "exclusion": "Data/enum/annotation declaration: fields/constants/constraints source catalogue; no explicit executable body"
+    },
+    {
+      "path": "cds-paymentservice-scheduler-shared/src/main/java/com/volvocars/ecom/paymentservice/shared/job/Job.java",
+      "sha256": "495d4802776b51461f62041481d4a0ff2aa02228bebfc6d314ff658ecf2938b2",
+      "lines": 42,
+      "role": "production_java",
+      "review": "source_review_complete",
+      "methods": [],
+      "explicitBodyFrames": 0,
+      "declarationOnlyFrames": 0,
+      "exclusion": "Data/enum/annotation declaration: fields/constants/constraints source catalogue; no explicit executable body"
+    },
+    {
+      "path": "cds-paymentservice-scheduler-shared/src/main/java/com/volvocars/ecom/paymentservice/shared/retry/RegisterRetryPayload.java",
+      "sha256": "98f994c600fbcee2c83525e3a367df43ae8bde852e1e41991a5277772012d281",
+      "lines": 34,
+      "role": "production_java",
+      "review": "source_review_complete",
+      "methods": [],
+      "explicitBodyFrames": 0,
+      "declarationOnlyFrames": 0,
+      "exclusion": "Data/enum/annotation declaration: fields/constants/constraints source catalogue; no explicit executable body"
+    },
+    {
+      "path": "cds-paymentservice-scheduler-shared/src/main/java/com/volvocars/ecom/paymentservice/shared/retry/RegisterRetryResponse.java",
+      "sha256": "0fff5cc2fbcea6b06a604dcae9ea9a9d34b302ae7f8757ffc8c8cca405190f82",
+      "lines": 33,
+      "role": "production_java",
+      "review": "source_review_complete",
+      "methods": [
+        "volvo/cds-paymentservice-scheduler/c00df60c8233/full-r1/method/af5a744489be3b9116b0"
+      ],
+      "explicitBodyFrames": 1,
+      "declarationOnlyFrames": 0,
+      "exclusion": null
+    },
+    {
+      "path": "cds-paymentservice-scheduler-shared/src/main/java/com/volvocars/ecom/paymentservice/shared/retry/RetryCartLine.java",
+      "sha256": "e560aa265469cc53c477f47efc1f7b01fad52dfdd870883fa3c012fde69d2400",
+      "lines": 22,
+      "role": "production_java",
+      "review": "source_review_complete",
+      "methods": [],
+      "explicitBodyFrames": 0,
+      "declarationOnlyFrames": 0,
+      "exclusion": "Data/enum/annotation declaration: fields/constants/constraints source catalogue; no explicit executable body"
+    },
+    {
+      "path": "cds-paymentservice-scheduler-shared/src/main/java/com/volvocars/ecom/paymentservice/shared/retry/RetryStrategy.java",
+      "sha256": "a0786b251efefa681064075a7e3ce943bf13e36497a3e769d55d905846dbc8cb",
+      "lines": 17,
+      "role": "production_java",
+      "review": "source_review_complete",
+      "methods": [],
+      "explicitBodyFrames": 0,
+      "declarationOnlyFrames": 0,
+      "exclusion": "Data/enum/annotation declaration: fields/constants/constraints source catalogue; no explicit executable body"
+    },
+    {
+      "path": "cds-paymentservice-scheduler-test/pom.xml",
+      "sha256": "679983566ec79929951467f8e58dfcc69ed45ebf2703998282c1c967328854f7",
+      "lines": 73,
+      "role": "configuration_or_documentation",
+      "review": "source_configuration_reviewed",
+      "exclusion": "Build/workflow/documentation/tooling declaration; no additional production Java runtime implementation"
+    },
+    {
+      "path": "cds-paymentservice-scheduler-test/src/test/java/com/volvocars/ecom/paymentservice/AbstractIntegrationTest.java",
+      "sha256": "77d5d513b98e36b73f8cb457a0a159802014d48dd631ba2c26019feab2b623fc",
+      "lines": 113,
+      "role": "test",
+      "review": "inventoried_not_executed",
+      "exclusion": "Test source/fixtures are not deployed runtime entry points; excluded from production behavioural closure"
+    },
+    {
+      "path": "cds-paymentservice-scheduler-test/src/test/java/com/volvocars/ecom/paymentservice/RetryControllerIT.java",
+      "sha256": "f567fa42d27bbf96025bc846f639dbd6c22656d73b7450b1da7991eed03eacfa",
+      "lines": 108,
+      "role": "test",
+      "review": "inventoried_not_executed",
+      "exclusion": "Test source/fixtures are not deployed runtime entry points; excluded from production behavioural closure"
+    },
+    {
+      "path": "cds-paymentservice-scheduler-test/src/test/java/com/volvocars/ecom/paymentservice/config/TestConfigManager.java",
+      "sha256": "52e341adc36d19ab6b0b4153baaf686e4b728b6e5d58a300195b5b18d7668365",
+      "lines": 41,
+      "role": "test",
+      "review": "inventoried_not_executed",
+      "exclusion": "Test source/fixtures are not deployed runtime entry points; excluded from production behavioural closure"
+    },
+    {
+      "path": "cds-paymentservice-scheduler-test/src/test/java/com/volvocars/ecom/paymentservice/config/TestContainersConfig.java",
+      "sha256": "7ae0f11911803ff148c2d5d45844da4d7778f135609efaaf3db3705056c74b4d",
+      "lines": 24,
+      "role": "test",
+      "review": "inventoried_not_executed",
+      "exclusion": "Test source/fixtures are not deployed runtime entry points; excluded from production behavioural closure"
+    },
+    {
+      "path": "cds-paymentservice-scheduler-test/src/test/java/com/volvocars/ecom/paymentservice/poller/PollerServiceErrorIT.java",
+      "sha256": "028fe38894f2b83ff3f1141f18c594ba69171f29cffaaa1c49a704629f3f83bd",
+      "lines": 54,
+      "role": "test",
+      "review": "inventoried_not_executed",
+      "exclusion": "Test source/fixtures are not deployed runtime entry points; excluded from production behavioural closure"
+    },
+    {
+      "path": "cds-paymentservice-scheduler-test/src/test/java/com/volvocars/ecom/paymentservice/poller/PollerServiceIT.java",
+      "sha256": "207ed22ce35324b84360c8ca7b81b981a10164069f506d0116829d436d23a907",
+      "lines": 320,
+      "role": "test",
+      "review": "inventoried_not_executed",
+      "exclusion": "Test source/fixtures are not deployed runtime entry points; excluded from production behavioural closure"
+    },
+    {
+      "path": "cds-paymentservice-scheduler-test/src/test/java/com/volvocars/ecom/paymentservice/poller/PollerServiceRetryExecutorIT.java",
+      "sha256": "b37bd96cc826e4a78949193425ae1f08eba276c762f6f75c4a3bc28e187e6597",
+      "lines": 316,
+      "role": "test",
+      "review": "inventoried_not_executed",
+      "exclusion": "Test source/fixtures are not deployed runtime entry points; excluded from production behavioural closure"
+    },
+    {
+      "path": "cds-paymentservice-scheduler-test/src/test/resources/application-test.yml",
+      "sha256": "4c5567100984a5fccb8d8016dc8ac6212df1e3cc8ff3a4de166307052d1e2ef8",
+      "lines": 27,
+      "role": "test",
+      "review": "inventoried_not_executed",
+      "exclusion": "Test source/fixtures are not deployed runtime entry points; excluded from production behavioural closure"
+    },
+    {
+      "path": "cds-paymentservice-scheduler-test/src/test/resources/bootstrap.yml",
+      "sha256": "48acf190c65e2b01dd69cc6ce25675cbffe3f95f6507b52b10d30254150de5e0",
+      "lines": 17,
+      "role": "test",
+      "review": "inventoried_not_executed",
+      "exclusion": "Test source/fixtures are not deployed runtime entry points; excluded from production behavioural closure"
+    },
+    {
+      "path": "cds-paymentservice-scheduler-test/src/test/resources/config-repo/ps-config.yaml",
+      "sha256": "da0632c5ea129b6deafa2dd2d296d8dfb10b3df1b47e128989ac78cc8f78e7cf",
+      "lines": 4,
+      "role": "test",
+      "review": "inventoried_not_executed",
+      "exclusion": "Test source/fixtures are not deployed runtime entry points; excluded from production behavioural closure"
+    },
+    {
+      "path": "cds-paymentservice-scheduler-test/src/test/resources/config-repo/scheduler-configs.yaml",
+      "sha256": "385d087347df0bf717ba9cda84d40da2b76186b1e6425beef2d8ef02e8dcd20d",
+      "lines": 40,
+      "role": "test",
+      "review": "inventoried_not_executed",
+      "exclusion": "Test source/fixtures are not deployed runtime entry points; excluded from production behavioural closure"
+    },
+    {
+      "path": "cds-paymentservice-scheduler-test/src/test/resources/register_retry_payloads/NEEDS_CARD_UPDATE_PAYLOAD.json",
+      "sha256": "3cc69b16dfc093f324b45319403dac5163d5e0c407be9cc02cbac7ba64ecb305",
+      "lines": 16,
+      "role": "test",
+      "review": "inventoried_not_executed",
+      "exclusion": "Test source/fixtures are not deployed runtime entry points; excluded from production behavioural closure"
+    },
+    {
+      "path": "cds-paymentservice-scheduler-test/src/test/resources/register_retry_payloads/ON_SCHEDULE_PAYLOAD.json",
+      "sha256": "14e860f3bbb59dd13b2f6e52a8ad30259d6d95b7b5d13811a515661a337df4af",
+      "lines": 16,
+      "role": "test",
+      "review": "inventoried_not_executed",
+      "exclusion": "Test source/fixtures are not deployed runtime entry points; excluded from production behavioural closure"
+    },
+    {
+      "path": "format.sh",
+      "sha256": "753b2e9c54b0d5fa0724d759e53ccffb01ee8de22d45b63679fafa9e28d8682e",
+      "lines": 2,
+      "role": "configuration_or_documentation",
+      "review": "inventoried_support_file",
+      "exclusion": "Build/workflow/documentation/tooling declaration; no additional production Java runtime implementation"
+    },
+    {
+      "path": "lombok.config",
+      "sha256": "b1a1aaaecaaedf7c516d7533f7adaed54ccf0d0689a8e9edd91951b26a9ae6d5",
+      "lines": 9,
+      "role": "configuration_or_documentation",
+      "review": "source_configuration_reviewed",
+      "exclusion": "Build/workflow/documentation/tooling declaration; no additional production Java runtime implementation"
+    },
+    {
+      "path": "pom.xml",
+      "sha256": "60d23853ab80d83710c0127b4a62f38d1d24f28bdd62205dc1bbfd7de08a740b",
+      "lines": 103,
+      "role": "configuration_or_documentation",
+      "review": "source_configuration_reviewed",
+      "exclusion": "Build/workflow/documentation/tooling declaration; no additional production Java runtime implementation"
+    }
+  ],
+  "productionJava": 71,
+  "explicitDeclaredBodies": 104,
+  "lambdaBodies": 21,
+  "initializerFrames": 4,
+  "declarationOnlyFrames": 18,
+  "nativeFrames": 147,
+  "sourceReviewComplete": true,
+  "runtimeClosureComplete": false
+}

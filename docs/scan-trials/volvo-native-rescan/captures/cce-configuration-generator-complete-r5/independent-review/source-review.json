@@ -1,0 +1,104 @@
+{
+  "repo": "volvo-cars/cce-car-configuration-generator",
+  "commit": "c91f73a5a3b6cdb56168f7138352a0f409fa8300",
+  "status": "Independent pinned-source and strict bounded query review passed; runtime/projection limits retained",
+  "files": [
+    {
+      "path": "internal/database/queuedb/client.go",
+      "lines": 303,
+      "sha256": "865d985b0ee6cc2a3844b3664f282578006429a7df70f0b8de8be179d7e854e3",
+      "review": "Entire pinned source independently read by root; checked against the accepted capture and bounded query evidence"
+    },
+    {
+      "path": "internal/service/joborchestrator.go",
+      "lines": 106,
+      "sha256": "97c16fc215829219f3f984ccc59ed157a18fc0b419984a1473e17a832a7b1199",
+      "review": "Entire pinned source independently read by root; checked against the accepted capture and bounded query evidence"
+    },
+    {
+      "path": "internal/service/jobcompletionnotifier.go",
+      "lines": 72,
+      "sha256": "ce59e95cf9beb3b533d8ffc933b285bdd607ca0d9587e4105af3822f8a90d33f",
+      "review": "Entire pinned source independently read by root; checked against the accepted capture and bounded query evidence"
+    },
+    {
+      "path": "internal/api/httpserver/carconfigurations/controller.go",
+      "lines": 439,
+      "sha256": "b76ad79c8fb1925f304f0b2b4c31ed28a6269161e9825c8c324291ca477a703a",
+      "review": "Entire pinned source independently read by root; checked against the accepted capture and bounded query evidence"
+    },
+    {
+      "path": "internal/messaging/generatecarspublisher.go",
+      "lines": 135,
+      "sha256": "29e742c8cc76b5ad8fcfafad7100f1c8983fd9c4af35b26d402aa83a2f91586b",
+      "review": "Entire pinned source independently read by root; checked against the accepted capture and bounded query evidence"
+    },
+    {
+      "path": "internal/gateway/client/requestbuilder.go",
+      "lines": 79,
+      "sha256": "a5c0752bcc52a59df4cd87d67c5b94101cff29c263c6173b8a3bb07e9991bbd7",
+      "review": "Entire pinned source independently read by root; checked against the accepted capture and bounded query evidence"
+    },
+    {
+      "path": "internal/gateway/client/client.go",
+      "lines": 97,
+      "sha256": "fad6a556a17e98622e780dcb82227c13b7852978a4c60c842c2687af2bec4c69",
+      "review": "Entire pinned source independently read by root; checked against the accepted capture and bounded query evidence"
+    },
+    {
+      "path": "internal/gateway/client/oauth.go",
+      "lines": 21,
+      "sha256": "20602b5ea879d4677dadaf023815f2c61a5d7fefad3baa331ae161e5e3712ad6",
+      "review": "Entire pinned source independently read by root; checked against the accepted capture and bounded query evidence"
+    },
+    {
+      "path": "internal/gateway/assortment/client.go",
+      "lines": 194,
+      "sha256": "099448efff515dbae2f8dd3080eb1ceb5b73389c76377cd273a863021b969d8e",
+      "review": "Entire pinned source independently read by root; checked against the accepted capture and bounded query evidence"
+    },
+    {
+      "path": "internal/gateway/filterservice/client.go",
+      "lines": 91,
+      "sha256": "0a0430bb479a343859e68043977c821f708fe2b67b0ed44217ab95386b0b6f71",
+      "review": "Entire pinned source independently read by root; checked against the accepted capture and bounded query evidence"
+    },
+    {
+      "path": "internal/gateway/puan/generatecarconfiguration.go",
+      "lines": 282,
+      "sha256": "bfb7b673164e6123f80bdec858ab9d7ce161c18bf0f1a01ea54a0ea4c1aceade",
+      "review": "Entire pinned source independently read by root; checked against the accepted capture and bounded query evidence"
+    },
+    {
+      "path": "internal/gateway/puan/client.go",
+      "lines": 145,
+      "sha256": "5a3f48dfbeb9f153ded18b51a25a904f29bbe787f87d8e52a679173060fbe5b9",
+      "review": "Entire pinned source independently read by root; checked against the accepted capture and bounded query evidence"
+    },
+    {
+      "path": "internal/gateway/client/tokensource.go",
+      "lines": 95,
+      "sha256": "872e2c28b7aeec6579243d204bff38b75e075600d2f51cf0cc7b8a0455f2e2a3",
+      "review": "Entire pinned source independently read by root; checked against the accepted capture and bounded query evidence"
+    },
+    {
+      "path": "internal/app/watermillproducer.go",
+      "lines": 121,
+      "sha256": "92be1e5e21ee6c5d9839a982aa5ca60db2f4677ecb5ae56b99b85890b759d9c7",
+      "review": "Entire pinned source independently read by root; checked against the accepted capture and bounded query evidence"
+    },
+    {
+      "path": "internal/database/queuedb/worker.go",
+      "lines": 62,
+      "sha256": "3eda66792a60d4d9f9cfe85b200797ce758c9a03faef0a395fb93db163232503",
+      "review": "Entire pinned source independently read by root; checked against the accepted capture and bounded query evidence"
+    },
+    {
+      "path": "internal/messaging/marketauthmessagehandler.go",
+      "lines": 86,
+      "sha256": "cd785c6da3e17bddeb214583d6d1e9034ffbd4e6c004de225639a68773878b88",
+      "review": "Entire pinned source independently read by root; checked against the accepted capture and bounded query evidence"
+    }
+  ],
+  "snapshot": "ad0e9efd9dbc91d24235956f8ccfc9759ae2c905a64f122c005de66398fd50da"
+}

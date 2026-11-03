@@ -1,0 +1,196 @@
+{
+  "status": "Combined review candidate; historical/current catalogue reconciliation still required before app migration",
+  "inputs": [
+    {
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "path": "docs/scan-trials/volvo-native-rescan/captures/manage-and-segment-complete-r3/bundle.json",
+      "snapshot": "f2469543e6a0839ae1bdb2dc3cdb832ab113ceea0cb97683d844132fad63e95e"
+    },
+    {
+      "repo": "volvo-cars/account-profile-api",
+      "path": "docs/scan-trials/volvo-native-rescan/captures/account-profile-api-complete-r2/bundle.json",
+      "snapshot": "3279017c3ab086d138a0b7115f74612844f6bdff280a613228c1ecf3887fd5e0"
+    },
+    {
+      "repo": "volvo-cars/cds-paymentservice-customer",
+      "path": "docs/scan-trials/volvo-native-rescan/captures/payment-customer-complete-r8/bundle.json",
+      "snapshot": "4ff3b8eb46af1252c54e83f0ecfd54473b14789701783ec1ff6fcb7d13591ab6"
+    },
+    {
+      "repo": "volvo-cars/cds-paymentservice-psp-inbound",
+      "path": "docs/scan-trials/volvo-native-rescan/captures/psp-inbound-complete-r3/bundle.json",
+      "snapshot": "1b0d1a29545f67f31cc7f7eaf8f4a5c0d31f29568adde0f94697275af4b6a56c"
+    },
+    {
+      "repo": "volvo-cars/cds-paymentservice-psp-integration",
+      "path": "docs/scan-trials/volvo-native-rescan/captures/psp-integration-complete-r2/bundle.json",
+      "snapshot": "b70c8fd860424a42de9de948c21109efc6cee4e340ced841c0ec50d45d7586ac"
+    },
+    {
+      "repo": "volvo-cars/cds-paymentservice-scheduler",
+      "path": "docs/scan-trials/volvo-native-rescan/captures/payment-scheduler-complete-r1/bundle.json",
+      "snapshot": "c928e6c2ac32cd9acf39877d95d4e6b0f4081d2066a120c42a7a9d281752a5df"
+    },
+    {
+      "repo": "volvo-cars/cds-paymentservice-transaction",
+      "path": "docs/scan-trials/volvo-native-rescan/captures/payment-transaction-complete-r6/bundle.json",
+      "snapshot": "5c7d986c75ed935403fcd8f299d6183fcc24ba2988e7a717d8e47a0234cbaa1d"
+    },
+    {
+      "repo": "volvo-cars/popcat-assortment-api",
+      "path": "docs/scan-trials/volvo-native-rescan/captures/assortment-api-complete-r5/bundle.json",
+      "snapshot": "bde9df8e50cc2c5f43e1cc44cdb2b6828222a7b94dfd7d7c4d597beb86a4213c"
+    }
+  ],
+  "workspace_aliases": [
+    {
+      "input": "docs/scan-trials/volvo-native-rescan/captures/psp-inbound-complete-r3/bundle.json",
+      "from": "volvo",
+      "to": "volvo-cars",
+      "scope": "Bundle workspace metadata only; records unchanged; original selection remains immutable."
+    }
+  ],
+  "identical_duplicates": 597,
+  "conflicts": [
+    {
+      "id": "s2/endpoint",
+      "authoritative": "volvo-cars/popcat-manage-and-segment",
+      "historical_copy": "volvo-cars/popcat-assortment-api",
+      "selected": {
+        "id": "s2/endpoint",
+        "kind": "entry",
+        "logicalId": "api:mas-soft-offers-create",
+        "method": "POST",
+        "path": "/api/commercial-items/soft-offers",
+        "implementation": "mascomplete-b360506-r3/native/method/4d6755309d5fe6278beb",
+        "evidence": ["s2/e/controller", "mascomplete-b360506-r3/native/e/9aa987be0616999b3cbb"]
+      },
+      "unselected": {
+        "id": "s2/endpoint",
+        "kind": "entry",
+        "logicalId": "api:mas-soft-offers-create",
+        "method": "POST",
+        "path": "/api/commercial-items/soft-offers",
+        "implementation": "s2/http",
+        "evidence": ["s2/e/controller"]
+      },
+      "reason": "Current MAS source-owned exposure and scoped coverage supersede retained historical proof copy; keep historical proof graph as supporting scope, not another registration."
+    },
+    {
+      "id": "s2/coverage/http-path",
+      "authoritative": "volvo-cars/popcat-manage-and-segment",
+      "historical_copy": "volvo-cars/popcat-assortment-api",
+      "selected": {
+        "id": "s2/coverage/http-path",
+        "kind": "coverage",
+        "owner": "s2/endpoint",
+        "obligation": "http-path",
+        "status": "partial",
+        "scope": "Prior bounded supporting capture retained. New entry bindings use source-owned native frames. POST mapping, Add, result-to-response and local exception paths; middleware policy coverage is partial",
+        "gaps": [
+          "s2/gap/http-scope",
+          "s2/gap/deployment",
+          "mascomplete-b360506-r3/native/gap/compiler-recovery"
+        ],
+        "evidence": ["s2/e/controller", "s2/e/response", "s2/e/middleware"]
+      },
+      "unselected": {
+        "id": "s2/coverage/http-path",
+        "kind": "coverage",
+        "owner": "s2/endpoint",
+        "obligation": "http-path",
+        "status": "partial",
+        "scope": "POST mapping, Add, result-to-response and local exception paths; middleware policy coverage is partial",
+        "gaps": ["s2/gap/http-scope", "s2/gap/deployment"],
+        "evidence": ["s2/e/controller", "s2/e/response", "s2/e/middleware"]
+      },
+      "reason": "Current MAS source-owned exposure and scoped coverage supersede retained historical proof copy; keep historical proof graph as supporting scope, not another registration."
+    },
+    {
+      "id": "s2/coverage/write-and-handoff",
+      "authoritative": "volvo-cars/popcat-manage-and-segment",
+      "historical_copy": "volvo-cars/popcat-assortment-api",
+      "selected": {
+        "id": "s2/coverage/write-and-handoff",
+        "kind": "coverage",
+        "owner": "s2/endpoint",
+        "obligation": "write-and-handoff",
+        "status": "partial",
+        "scope": "Prior bounded supporting capture retained. New entry bindings use source-owned native frames. Save before optional awaited publish; separate possible consumer invocation",
+        "gaps": [
+          "s2/gap/sdk-policy",
+          "s2/gap/mapping",
+          "mascomplete-b360506-r3/native/gap/compiler-recovery"
+        ],
+        "evidence": ["s2/e/add", "s2/e/producer", "s2/e/notify"]
+      },
+      "unselected": {
+        "id": "s2/coverage/write-and-handoff",
+        "kind": "coverage",
+        "owner": "s2/endpoint",
+        "obligation": "write-and-handoff",
+        "status": "examined",
+        "scope": "Save before optional awaited publish; separate possible consumer invocation",
+        "gaps": ["s2/gap/sdk-policy", "s2/gap/mapping"],
+        "evidence": ["s2/e/add", "s2/e/producer", "s2/e/notify"]
+      },
+      "reason": "Current MAS source-owned exposure and scoped coverage supersede retained historical proof copy; keep historical proof graph as supporting scope, not another registration."
+    },
+    {
+      "id": "u3/component/postgres",
+      "authoritative": "volvo-cars/popcat-manage-and-segment",
+      "historical_copy": "volvo-cars/popcat-assortment-api",
+      "selected": {
+        "id": "u3/component/postgres",
+        "kind": "runtime_component",
+        "logicalId": "st:mas-db",
+        "label": "Manage and Segment database",
+        "category": "store",
+        "technology": "PostgreSQL",
+        "sources": ["s2/p"],
+        "basis": "source_declared",
+        "evidence": ["s2/e/npgsql", "s2/e/db"],
+        "gaps": ["s2/gap/deployment"]
+      },
+      "unselected": {
+        "id": "u3/component/postgres",
+        "kind": "runtime_component",
+        "logicalId": "st:mas-db",
+        "label": "Soft-offer database",
+        "category": "store",
+        "technology": "PostgreSQL",
+        "sources": ["s2/p"],
+        "basis": "source_declared",
+        "evidence": ["s2/e/npgsql", "s2/e/db"],
+        "gaps": ["s2/gap/deployment"]
+      },
+      "reason": "Current MAS source-owned exposure and scoped coverage supersede retained historical proof copy; keep historical proof graph as supporting scope, not another registration."
+    },
+    {
+      "id": "u3/exposes/soft-offer",
+      "authoritative": "volvo-cars/popcat-manage-and-segment",
+      "historical_copy": "volvo-cars/popcat-assortment-api",
+      "selected": {
+        "id": "u3/exposes/soft-offer",
+        "kind": "entry_binding",
+        "entry": "s2/endpoint",
+        "execution": "mascomplete-b360506-r3/native/runs/4d6755309d5fe6278beb",
+        "contract": "u3/contract/soft-api",
+        "evidence": ["s2/e/controller", "u3/e/mas-program"],
+        "gaps": []
+      },
+      "unselected": {
+        "id": "u3/exposes/soft-offer",
+        "kind": "entry_binding",
+        "entry": "s2/endpoint",
+        "execution": "u3/runs/s2-http",
+        "contract": "u3/contract/soft-api",
+        "evidence": ["s2/e/controller", "u3/e/mas-program"],
+        "gaps": []
+      },
+      "reason": "Current MAS source-owned exposure and scoped coverage supersede retained historical proof copy; keep historical proof graph as supporting scope, not another registration."
+    }
+  ],
+  "records": 328250,
+  "no_inferred_cross_repository_binding": true
+}

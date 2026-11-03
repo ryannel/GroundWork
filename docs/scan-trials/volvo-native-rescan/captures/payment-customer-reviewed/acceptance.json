@@ -1,0 +1,130 @@
+{
+  "snapshot": "5f8e714355588ffe92a4d7d00956d46f2f68763596d7a5a365f1b974904be709",
+  "sourceCommit": "b0010537cdd5a308a30a885541748727c97ecb2e",
+  "activeEntries": {
+    "create": "volvo/cds-paymentservice-customer/b0010537cdd5-r2/entry/create",
+    "update": "volvo/cds-paymentservice-customer/b0010537cdd5-r2/entry/update-id",
+    "read": "volvo/cds-paymentservice-customer/b0010537cdd5-r2/entry/get-id"
+  },
+  "recordCounts": {
+    "artifact": 5,
+    "claim": 16,
+    "consistency_boundary": 1,
+    "coverage": 21,
+    "derivation": 640,
+    "effect": 19,
+    "entry": 12,
+    "entry_binding": 12,
+    "evidence": 180,
+    "execution_binding": 16,
+    "flow": 64,
+    "gap": 24,
+    "implementation": 16,
+    "interaction": 23,
+    "interface_contract": 30,
+    "milestone": 3,
+    "operation": 109,
+    "resolution": 23,
+    "resource": 6,
+    "resource_binding": 5,
+    "runtime_component": 3,
+    "shape": 33,
+    "source_revision": 1,
+    "storage_write": 1,
+    "transition": 96,
+    "value": 102
+  },
+  "sourceOnlyClaims": 12,
+  "entryChecks": [
+    {
+      "entry": "volvo/cds-paymentservice-customer/b0010537cdd5-r2/entry/get-external",
+      "path": "/v1/customers/{idType}/{idValue}/{countryCode}",
+      "nodes": 5,
+      "frontiers": 2,
+      "coverage": "partial"
+    },
+    {
+      "entry": "volvo/cds-paymentservice-customer/b0010537cdd5-r2/entry/get-id",
+      "path": "/v1/customers/{customerId}",
+      "nodes": 11,
+      "frontiers": 4,
+      "coverage": "partial"
+    },
+    {
+      "entry": "volvo/cds-paymentservice-customer/b0010537cdd5-r2/entry/get-recurring",
+      "path": "/v1/customers/{customerId}/recurring-charges/{recurringChargeId}",
+      "nodes": 5,
+      "frontiers": 2,
+      "coverage": "partial"
+    },
+    {
+      "entry": "volvo/cds-paymentservice-customer/b0010537cdd5-r2/entry/update-recurring",
+      "path": "/v1/customers/{customerId}/recurring-charges/{recurringChargeId}",
+      "nodes": 5,
+      "frontiers": 2,
+      "coverage": "partial"
+    },
+    {
+      "entry": "volvo/cds-paymentservice-customer/b0010537cdd5-r2/entry/create",
+      "path": "/v1/customers",
+      "nodes": 46,
+      "frontiers": 19,
+      "coverage": "partial"
+    },
+    {
+      "entry": "volvo/cds-paymentservice-customer/b0010537cdd5-r2/entry/guest-create",
+      "path": "/v1/guest-customers",
+      "nodes": 6,
+      "frontiers": 3,
+      "coverage": "partial"
+    },
+    {
+      "entry": "volvo/cds-paymentservice-customer/b0010537cdd5-r2/entry/get-or-create",
+      "path": "/v1/customers/get-or-create",
+      "nodes": 8,
+      "frontiers": 4,
+      "coverage": "partial"
+    },
+    {
+      "entry": "volvo/cds-paymentservice-customer/b0010537cdd5-r2/entry/update-external",
+      "path": "/v1/customers/{idType}/{idValue}",
+      "nodes": 5,
+      "frontiers": 2,
+      "coverage": "partial"
+    },
+    {
+      "entry": "volvo/cds-paymentservice-customer/b0010537cdd5-r2/entry/update-id",
+      "path": "/v1/customers/{customerId}",
+      "nodes": 35,
+      "frontiers": 13,
+      "coverage": "partial"
+    },
+    {
+      "entry": "volvo/cds-paymentservice-customer/b0010537cdd5-r2/entry/swagger-config",
+      "path": "/v1/configurations/swagger-config",
+      "nodes": 3,
+      "frontiers": 1,
+      "coverage": "partial"
+    },
+    {
+      "entry": "volvo/cds-paymentservice-customer/b0010537cdd5-r2/entry/version-v1",
+      "path": "/v1/version",
+      "nodes": 4,
+      "frontiers": 2,
+      "coverage": "partial"
+    },
+    {
+      "entry": "volvo/cds-paymentservice-customer/b0010537cdd5-r2/entry/version-v2",
+      "path": "/v2/version",
+      "nodes": 4,
+      "frontiers": 2,
+      "coverage": "partial"
+    }
+  ],
+  "acceptance": "passed",
+  "savedQueries": 16,
+  "outerFactoryRoutesChecked": 11,
+  "wholeResponseCacheRoutesChecked": 2,
+  "fullyTracedEndToEnd": 0,
+  "partialRestEntries": 12
+}

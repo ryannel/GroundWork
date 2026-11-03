@@ -1,0 +1,221 @@
+[
+  {
+    "name": "newQueryRequest",
+    "path": "internal/gateway/assortment/client.go",
+    "implementation": "cce-car-spec-adapter-667a00a-complete-r2/implementation/7f3f3f8c4e7e9c86",
+    "contract": "cce-car-spec-adapter-667a00a-complete-r2/interface_contract/request-context/7f3f3f8c4e7e9c86",
+    "claim": "cce-car-spec-adapter-667a00a-complete-r2/claim/request-context/7f3f3f8c4e7e9c86",
+    "actuals": [
+      "cce-car-spec-adapter-667a00a-complete-r2/value/7f3f3f8c4e7e9c86/v/75799",
+      "cce-car-spec-adapter-667a00a-complete-r2/value/7f3f3f8c4e7e9c86/v/75802",
+      "cce-car-spec-adapter-667a00a-complete-r2/value/7f3f3f8c4e7e9c86/v/75806",
+      "cce-car-spec-adapter-667a00a-complete-r2/value/7f3f3f8c4e7e9c86/v/75825",
+      "cce-car-spec-adapter-667a00a-complete-r2/value/7f3f3f8c4e7e9c86/p/0",
+      "cce-car-spec-adapter-667a00a-complete-r2/value/7f3f3f8c4e7e9c86/v/75814",
+      "cce-car-spec-adapter-667a00a-complete-r2/value/7f3f3f8c4e7e9c86/v/75847",
+      "cce-car-spec-adapter-667a00a-complete-r2/value/7f3f3f8c4e7e9c86/v/75850",
+      "cce-car-spec-adapter-667a00a-complete-r2/value/7f3f3f8c4e7e9c86/v/75860",
+      "cce-car-spec-adapter-667a00a-complete-r2/value/7f3f3f8c4e7e9c86/v/75863",
+      "cce-car-spec-adapter-667a00a-complete-r2/value/7f3f3f8c4e7e9c86/v/75873",
+      "cce-car-spec-adapter-667a00a-complete-r2/value/7f3f3f8c4e7e9c86/v/75876",
+      "cce-car-spec-adapter-667a00a-complete-r2/value/7f3f3f8c4e7e9c86/v/75887",
+      "cce-car-spec-adapter-667a00a-complete-r2/value/7f3f3f8c4e7e9c86/p/1",
+      "cce-car-spec-adapter-667a00a-complete-r2/value/7f3f3f8c4e7e9c86/v/75897",
+      "cce-car-spec-adapter-667a00a-complete-r2/value/7f3f3f8c4e7e9c86/v/75900"
+    ],
+    "interactions": [
+      "cce-car-spec-adapter-667a00a-complete-r2/interaction/io/af59f8492af70993/api",
+      "cce-car-spec-adapter-667a00a-complete-r2/interaction/io/6d85db0f8f33c52e/api",
+      "cce-car-spec-adapter-667a00a-complete-r2/interaction/io/ea003de304fc1bde/api"
+    ],
+    "gap": "cce-car-spec-adapter-667a00a-complete-r2/gap/request-context/7f3f3f8c4e7e9c86"
+  },
+  {
+    "name": "newMarketAuthRequest",
+    "path": "internal/gateway/assortment/client.go",
+    "implementation": "cce-car-spec-adapter-667a00a-complete-r2/implementation/9d1bdee59fa8d600",
+    "contract": "cce-car-spec-adapter-667a00a-complete-r2/interface_contract/request-context/9d1bdee59fa8d600",
+    "claim": "cce-car-spec-adapter-667a00a-complete-r2/claim/request-context/9d1bdee59fa8d600",
+    "actuals": [
+      "cce-car-spec-adapter-667a00a-complete-r2/value/9d1bdee59fa8d600/v/76241",
+      "cce-car-spec-adapter-667a00a-complete-r2/value/9d1bdee59fa8d600/v/76244",
+      "cce-car-spec-adapter-667a00a-complete-r2/value/9d1bdee59fa8d600/v/76248",
+      "cce-car-spec-adapter-667a00a-complete-r2/value/9d1bdee59fa8d600/v/76267",
+      "cce-car-spec-adapter-667a00a-complete-r2/value/9d1bdee59fa8d600/p/0",
+      "cce-car-spec-adapter-667a00a-complete-r2/value/9d1bdee59fa8d600/v/76256",
+      "cce-car-spec-adapter-667a00a-complete-r2/value/9d1bdee59fa8d600/v/76289",
+      "cce-car-spec-adapter-667a00a-complete-r2/value/9d1bdee59fa8d600/v/76292",
+      "cce-car-spec-adapter-667a00a-complete-r2/value/9d1bdee59fa8d600/v/76303",
+      "cce-car-spec-adapter-667a00a-complete-r2/value/9d1bdee59fa8d600/v/76312",
+      "cce-car-spec-adapter-667a00a-complete-r2/value/9d1bdee59fa8d600/v/76323",
+      "cce-car-spec-adapter-667a00a-complete-r2/value/9d1bdee59fa8d600/v/76332",
+      "cce-car-spec-adapter-667a00a-complete-r2/value/9d1bdee59fa8d600/v/76343",
+      "cce-car-spec-adapter-667a00a-complete-r2/value/9d1bdee59fa8d600/v/76352"
+    ],
+    "interactions": [
+      "cce-car-spec-adapter-667a00a-complete-r2/interaction/io/af59f8492af70993/api",
+      "cce-car-spec-adapter-667a00a-complete-r2/interaction/io/6d85db0f8f33c52e/api",
+      "cce-car-spec-adapter-667a00a-complete-r2/interaction/io/ea003de304fc1bde/api"
+    ],
+    "gap": "cce-car-spec-adapter-667a00a-complete-r2/gap/request-context/9d1bdee59fa8d600"
+  },
+  {
+    "name": "newPCGMarketAuthRequest",
+    "path": "internal/gateway/assortment/client.go",
+    "implementation": "cce-car-spec-adapter-667a00a-complete-r2/implementation/d140455859d5a65e",
+    "contract": "cce-car-spec-adapter-667a00a-complete-r2/interface_contract/request-context/d140455859d5a65e",
+    "claim": "cce-car-spec-adapter-667a00a-complete-r2/claim/request-context/d140455859d5a65e",
+    "actuals": [
+      "cce-car-spec-adapter-667a00a-complete-r2/value/d140455859d5a65e/v/76694",
+      "cce-car-spec-adapter-667a00a-complete-r2/value/d140455859d5a65e/v/76698",
+      "cce-car-spec-adapter-667a00a-complete-r2/value/d140455859d5a65e/v/76703",
+      "cce-car-spec-adapter-667a00a-complete-r2/value/d140455859d5a65e/v/76713",
+      "cce-car-spec-adapter-667a00a-complete-r2/value/d140455859d5a65e/v/76719",
+      "cce-car-spec-adapter-667a00a-complete-r2/value/d140455859d5a65e/v/76730",
+      "cce-car-spec-adapter-667a00a-complete-r2/value/d140455859d5a65e/v/76751",
+      "cce-car-spec-adapter-667a00a-complete-r2/value/d140455859d5a65e/p/0",
+      "cce-car-spec-adapter-667a00a-complete-r2/value/d140455859d5a65e/v/76740",
+      "cce-car-spec-adapter-667a00a-complete-r2/value/d140455859d5a65e/v/76773",
+      "cce-car-spec-adapter-667a00a-complete-r2/value/d140455859d5a65e/v/76776"
+    ],
+    "interactions": [
+      "cce-car-spec-adapter-667a00a-complete-r2/interaction/io/af59f8492af70993/api",
+      "cce-car-spec-adapter-667a00a-complete-r2/interaction/io/6d85db0f8f33c52e/api",
+      "cce-car-spec-adapter-667a00a-complete-r2/interaction/io/ea003de304fc1bde/api"
+    ],
+    "gap": "cce-car-spec-adapter-667a00a-complete-r2/gap/request-context/d140455859d5a65e"
+  },
+  {
+    "name": "newGetFullFeaturesRequestV1",
+    "path": "internal/gateway/carfeatures/client.go",
+    "implementation": "cce-car-spec-adapter-667a00a-complete-r2/implementation/eb9865ab7bc84e55",
+    "contract": "cce-car-spec-adapter-667a00a-complete-r2/interface_contract/request-context/eb9865ab7bc84e55",
+    "claim": "cce-car-spec-adapter-667a00a-complete-r2/claim/request-context/eb9865ab7bc84e55",
+    "actuals": [
+      "cce-car-spec-adapter-667a00a-complete-r2/value/eb9865ab7bc84e55/v/84587",
+      "cce-car-spec-adapter-667a00a-complete-r2/value/eb9865ab7bc84e55/v/84590",
+      "cce-car-spec-adapter-667a00a-complete-r2/value/eb9865ab7bc84e55/v/84594",
+      "cce-car-spec-adapter-667a00a-complete-r2/value/eb9865ab7bc84e55/v/84639",
+      "cce-car-spec-adapter-667a00a-complete-r2/value/eb9865ab7bc84e55/v/84661",
+      "cce-car-spec-adapter-667a00a-complete-r2/value/eb9865ab7bc84e55/v/84681",
+      "cce-car-spec-adapter-667a00a-complete-r2/value/eb9865ab7bc84e55/v/84657",
+      "cce-car-spec-adapter-667a00a-complete-r2/value/eb9865ab7bc84e55/v/84713",
+      "cce-car-spec-adapter-667a00a-complete-r2/value/eb9865ab7bc84e55/v/84602",
+      "cce-car-spec-adapter-667a00a-complete-r2/value/eb9865ab7bc84e55/v/84729",
+      "cce-car-spec-adapter-667a00a-complete-r2/value/eb9865ab7bc84e55/v/84732",
+      "cce-car-spec-adapter-667a00a-complete-r2/value/eb9865ab7bc84e55/v/84742",
+      "cce-car-spec-adapter-667a00a-complete-r2/value/eb9865ab7bc84e55/v/84745",
+      "cce-car-spec-adapter-667a00a-complete-r2/value/eb9865ab7bc84e55/v/84702",
+      "cce-car-spec-adapter-667a00a-complete-r2/value/eb9865ab7bc84e55/p/0"
+    ],
+    "interactions": [
+      "cce-car-spec-adapter-667a00a-complete-r2/interaction/io/ec2d0f0c08976666/api"
+    ],
+    "gap": "cce-car-spec-adapter-667a00a-complete-r2/gap/request-context/eb9865ab7bc84e55"
+  },
+  {
+    "name": "newGetFullFeaturesRequestV2",
+    "path": "internal/gateway/carfeatures/client.go",
+    "implementation": "cce-car-spec-adapter-667a00a-complete-r2/implementation/66511aa9bb6d06d3",
+    "contract": "cce-car-spec-adapter-667a00a-complete-r2/interface_contract/request-context/66511aa9bb6d06d3",
+    "claim": "cce-car-spec-adapter-667a00a-complete-r2/claim/request-context/66511aa9bb6d06d3",
+    "actuals": [
+      "cce-car-spec-adapter-667a00a-complete-r2/value/66511aa9bb6d06d3/v/84827",
+      "cce-car-spec-adapter-667a00a-complete-r2/value/66511aa9bb6d06d3/v/84830",
+      "cce-car-spec-adapter-667a00a-complete-r2/value/66511aa9bb6d06d3/v/84834",
+      "cce-car-spec-adapter-667a00a-complete-r2/value/66511aa9bb6d06d3/v/84878",
+      "cce-car-spec-adapter-667a00a-complete-r2/value/66511aa9bb6d06d3/v/84900",
+      "cce-car-spec-adapter-667a00a-complete-r2/value/66511aa9bb6d06d3/v/84920",
+      "cce-car-spec-adapter-667a00a-complete-r2/value/66511aa9bb6d06d3/v/84942",
+      "cce-car-spec-adapter-667a00a-complete-r2/value/66511aa9bb6d06d3/v/84842",
+      "cce-car-spec-adapter-667a00a-complete-r2/value/66511aa9bb6d06d3/v/84958",
+      "cce-car-spec-adapter-667a00a-complete-r2/value/66511aa9bb6d06d3/v/84961",
+      "cce-car-spec-adapter-667a00a-complete-r2/value/66511aa9bb6d06d3/v/84971",
+      "cce-car-spec-adapter-667a00a-complete-r2/value/66511aa9bb6d06d3/v/84974",
+      "cce-car-spec-adapter-667a00a-complete-r2/value/66511aa9bb6d06d3/v/84896",
+      "cce-car-spec-adapter-667a00a-complete-r2/value/66511aa9bb6d06d3/v/84985",
+      "cce-car-spec-adapter-667a00a-complete-r2/value/66511aa9bb6d06d3/p/0"
+    ],
+    "interactions": [
+      "cce-car-spec-adapter-667a00a-complete-r2/interaction/io/ec2d0f0c08976666/api"
+    ],
+    "gap": "cce-car-spec-adapter-667a00a-complete-r2/gap/request-context/66511aa9bb6d06d3"
+  },
+  {
+    "name": "createWheelCodesRequest",
+    "path": "internal/gateway/filterservice/client.go",
+    "implementation": "cce-car-spec-adapter-667a00a-complete-r2/implementation/95c28b6682e06675",
+    "contract": "cce-car-spec-adapter-667a00a-complete-r2/interface_contract/request-context/95c28b6682e06675",
+    "claim": "cce-car-spec-adapter-667a00a-complete-r2/claim/request-context/95c28b6682e06675",
+    "actuals": [
+      "cce-car-spec-adapter-667a00a-complete-r2/value/95c28b6682e06675/v/87867",
+      "cce-car-spec-adapter-667a00a-complete-r2/value/95c28b6682e06675/v/87870",
+      "cce-car-spec-adapter-667a00a-complete-r2/value/95c28b6682e06675/v/87874",
+      "cce-car-spec-adapter-667a00a-complete-r2/value/95c28b6682e06675/v/87893",
+      "cce-car-spec-adapter-667a00a-complete-r2/value/95c28b6682e06675/p/0",
+      "cce-car-spec-adapter-667a00a-complete-r2/value/95c28b6682e06675/v/87882",
+      "cce-car-spec-adapter-667a00a-complete-r2/value/95c28b6682e06675/v/87919",
+      "cce-car-spec-adapter-667a00a-complete-r2/value/95c28b6682e06675/v/87951",
+      "cce-car-spec-adapter-667a00a-complete-r2/value/95c28b6682e06675/v/87939"
+    ],
+    "interactions": [
+      "cce-car-spec-adapter-667a00a-complete-r2/interaction/io/1a488ce89c45264e/api"
+    ],
+    "gap": "cce-car-spec-adapter-667a00a-complete-r2/gap/request-context/95c28b6682e06675"
+  },
+  {
+    "name": "getFeatures",
+    "path": "internal/gateway/cpam/client.go",
+    "implementation": "cce-car-spec-adapter-667a00a-complete-r2/implementation/76ab54fe28cb1659",
+    "contract": "cce-car-spec-adapter-667a00a-complete-r2/interface_contract/request-context/76ab54fe28cb1659",
+    "claim": "cce-car-spec-adapter-667a00a-complete-r2/claim/request-context/76ab54fe28cb1659",
+    "actuals": [
+      "cce-car-spec-adapter-667a00a-complete-r2/value/76ab54fe28cb1659/p/1",
+      "cce-car-spec-adapter-667a00a-complete-r2/value/76ab54fe28cb1659/v/86957",
+      "cce-car-spec-adapter-667a00a-complete-r2/value/76ab54fe28cb1659/p/0",
+      "cce-car-spec-adapter-667a00a-complete-r2/value/76ab54fe28cb1659/v/86999",
+      "cce-car-spec-adapter-667a00a-complete-r2/value/76ab54fe28cb1659/v/86939",
+      "cce-car-spec-adapter-667a00a-complete-r2/value/76ab54fe28cb1659/v/86994",
+      "cce-car-spec-adapter-667a00a-complete-r2/value/76ab54fe28cb1659/v/87051",
+      "cce-car-spec-adapter-667a00a-complete-r2/value/76ab54fe28cb1659/v/87055",
+      "cce-car-spec-adapter-667a00a-complete-r2/value/76ab54fe28cb1659/v/87015",
+      "cce-car-spec-adapter-667a00a-complete-r2/value/76ab54fe28cb1659/v/87139",
+      "cce-car-spec-adapter-667a00a-complete-r2/value/76ab54fe28cb1659/v/87142",
+      "cce-car-spec-adapter-667a00a-complete-r2/value/76ab54fe28cb1659/v/87173",
+      "cce-car-spec-adapter-667a00a-complete-r2/value/76ab54fe28cb1659/v/87182",
+      "cce-car-spec-adapter-667a00a-complete-r2/value/76ab54fe28cb1659/v/87194",
+      "cce-car-spec-adapter-667a00a-complete-r2/value/76ab54fe28cb1659/v/87213"
+    ],
+    "interactions": [],
+    "gap": "cce-car-spec-adapter-667a00a-complete-r2/gap/request-context/76ab54fe28cb1659"
+  },
+  {
+    "name": "Token",
+    "path": "internal/gateway/client/tokensource.go",
+    "implementation": "cce-car-spec-adapter-667a00a-complete-r2/implementation/4edbed7ba8c926c8",
+    "contract": "cce-car-spec-adapter-667a00a-complete-r2/interface_contract/request-context/4edbed7ba8c926c8",
+    "claim": "cce-car-spec-adapter-667a00a-complete-r2/claim/request-context/4edbed7ba8c926c8",
+    "actuals": [
+      "cce-car-spec-adapter-667a00a-complete-r2/value/4edbed7ba8c926c8/v/86410",
+      "cce-car-spec-adapter-667a00a-complete-r2/value/4edbed7ba8c926c8/v/86420",
+      "cce-car-spec-adapter-667a00a-complete-r2/value/4edbed7ba8c926c8/v/86431",
+      "cce-car-spec-adapter-667a00a-complete-r2/value/4edbed7ba8c926c8/v/86434",
+      "cce-car-spec-adapter-667a00a-complete-r2/value/4edbed7ba8c926c8/v/86445",
+      "cce-car-spec-adapter-667a00a-complete-r2/value/4edbed7ba8c926c8/v/86450",
+      "cce-car-spec-adapter-667a00a-complete-r2/value/4edbed7ba8c926c8/v/86474",
+      "cce-car-spec-adapter-667a00a-complete-r2/value/4edbed7ba8c926c8/v/86527",
+      "cce-car-spec-adapter-667a00a-complete-r2/value/4edbed7ba8c926c8/v/86547",
+      "cce-car-spec-adapter-667a00a-complete-r2/value/4edbed7ba8c926c8/v/86589",
+      "cce-car-spec-adapter-667a00a-complete-r2/value/4edbed7ba8c926c8/v/86592",
+      "cce-car-spec-adapter-667a00a-complete-r2/value/4edbed7ba8c926c8/v/86623",
+      "cce-car-spec-adapter-667a00a-complete-r2/value/4edbed7ba8c926c8/v/86632",
+      "cce-car-spec-adapter-667a00a-complete-r2/value/4edbed7ba8c926c8/v/86644",
+      "cce-car-spec-adapter-667a00a-complete-r2/value/4edbed7ba8c926c8/v/86663",
+      "cce-car-spec-adapter-667a00a-complete-r2/value/4edbed7ba8c926c8/v/86683"
+    ],
+    "interactions": [
+      "cce-car-spec-adapter-667a00a-complete-r2/interaction/io/3a4e3ddb1bb37ca5/api"
+    ],
+    "gap": "cce-car-spec-adapter-667a00a-complete-r2/gap/request-context/4edbed7ba8c926c8"
+  }
+]

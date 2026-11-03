@@ -1,0 +1,15 @@
+{
+  "scope": "Author primary queries directory only; excludes registry-queries and independent proof",
+  "requestFiles": 3903,
+  "requestJsonBytes": 9176958874,
+  "gzipResponseFiles": 3903,
+  "gzipResponseBytes": 2312235543,
+  "largestRequest": {
+    "path": "queries/worker-0.support.13.request.json",
+    "bytes": 5786937,
+    "omitIds": 70000,
+    "ids": 313,
+    "maxRecords": 5000
+  },
+  "qualification": "Measured artifact volume, not scan wall-clock/token or latency benchmark. Node/record caps do not bound total request bytes or recursive support closure."
+}

@@ -1,0 +1,1046 @@
+{
+  "format": "groundwork-result/v3",
+  "snapshot": "dcc8fe6133bb403c805875b5698eb6fd390e35f858d0bf3e74c33c7ea0d7a34e",
+  "queryVersion": "knowledge-query/v3",
+  "request": {
+    "format": "groundwork-query/v3",
+    "snapshot": "dcc8fe6133bb403c805875b5698eb6fd390e35f858d0bf3e74c33c7ea0d7a34e",
+    "query": "records",
+    "entry": "assortment-6114c5d-r5/entry/controller/Classification-GetAllClassifications",
+    "value": null,
+    "context": [],
+    "outcome": null,
+    "changed": [],
+    "representation": "constructed",
+    "candidates": "exclude",
+    "maxNodes": 500,
+    "environment": "production-profile",
+    "maxRecords": 5000,
+    "ids": [
+      "assortment-6114c5d-r5/subscription/ClassificationMessageProcessor/topic",
+      "assortment-6114c5d-r5/shape/json-event-source/Classification",
+      "assortment-6114c5d-r5/shape/json-event-wire/Classification",
+      "assortment-6114c5d-r5/subscription/SpecificationMessageProcessor/topic",
+      "assortment-6114c5d-r5/shape/json-event-source/Specification",
+      "assortment-6114c5d-r5/shape/json-event-wire/Specification"
+    ]
+  },
+  "nodes": [],
+  "edges": [],
+  "claims": [],
+  "evidence": [
+    "assortment-6114c5d-r5/e/081225f0a9dc",
+    "assortment-6114c5d-r5/e/0974491d3428",
+    "assortment-6114c5d-r5/e/0c2e5d6b3474",
+    "assortment-6114c5d-r5/e/141c9a17fc93",
+    "assortment-6114c5d-r5/e/163f59f4377a",
+    "assortment-6114c5d-r5/e/22b62f73cbe3",
+    "assortment-6114c5d-r5/e/2b3d69a94627",
+    "assortment-6114c5d-r5/e/2fc14e8e4c7c",
+    "assortment-6114c5d-r5/e/35c9c35b4315",
+    "assortment-6114c5d-r5/e/499ee903ecfd",
+    "assortment-6114c5d-r5/e/4dd87ea6c77d",
+    "assortment-6114c5d-r5/e/57157f86be18",
+    "assortment-6114c5d-r5/e/5caa3e3ee6cc",
+    "assortment-6114c5d-r5/e/6b274f69b59a",
+    "assortment-6114c5d-r5/e/9e7c1fa5e9c7",
+    "assortment-6114c5d-r5/e/9eff870727ff",
+    "assortment-6114c5d-r5/e/a5d135c2acd4",
+    "assortment-6114c5d-r5/e/b3383f10213d",
+    "assortment-6114c5d-r5/e/b3390f96eb7b",
+    "assortment-6114c5d-r5/e/bf29795cbc05",
+    "assortment-6114c5d-r5/e/c07e0b40ecab",
+    "assortment-6114c5d-r5/e/c6c74b1a770a",
+    "assortment-6114c5d-r5/e/cf37881ae0a5",
+    "assortment-6114c5d-r5/e/f6f982644da4",
+    "assortment-6114c5d-r5/e/f9ab3cdd1148"
+  ],
+  "coverage": [],
+  "frontiers": [],
+  "limitsHit": [],
+  "feasibility": "not_checked",
+  "exhaustive": false,
+  "records": [
+    {
+      "id": "assortment-6114c5d-r5/census",
+      "kind": "implementation",
+      "logicalId": "impl:assortment-source-census",
+      "scope": "s2/c",
+      "entry": "assortment-6114c5d-r5/census/start",
+      "parameters": [],
+      "evidence": [
+        "assortment-6114c5d-r5/e/a5d135c2acd4",
+        "assortment-6114c5d-r5/e/0c2e5d6b3474",
+        "assortment-6114c5d-r5/e/2fc14e8e4c7c"
+      ]
+    },
+    {
+      "id": "assortment-6114c5d-r5/census/start",
+      "kind": "operation",
+      "owner": "assortment-6114c5d-r5/census",
+      "action": "opaque",
+      "label": "Repository discovery anchor; not an executable HTTP or message handler",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": null,
+      "httpStatus": null,
+      "evidence": ["assortment-6114c5d-r5/e/a5d135c2acd4"]
+    },
+    {
+      "id": "assortment-6114c5d-r5/channel/ClassificationMessageProcessor",
+      "kind": "channel_binding",
+      "resource": "assortment-6114c5d-r5/resource/topic-ClassificationMessageProcessor",
+      "source": "s2/c",
+      "namespace": "pkc-e8mp5.eu-west-1.aws.confluent.cloud:9092",
+      "channel": "prod.public.assortment.classifications.json",
+      "environment": "production-profile",
+      "profile": "appsettings.json + appsettings.Production.json",
+      "basis": "committed_configuration",
+      "conditions": [
+        "Source committed configuration applies and runtime overrides do not replace settings."
+      ],
+      "gaps": ["assortment-6114c5d-r5/gap/deployment"],
+      "evidence": ["assortment-6114c5d-r5/e/bf29795cbc05", "assortment-6114c5d-r5/e/f9ab3cdd1148"]
+    },
+    {
+      "id": "assortment-6114c5d-r5/channel/SpecificationMessageProcessor",
+      "kind": "channel_binding",
+      "resource": "assortment-6114c5d-r5/resource/topic-SpecificationMessageProcessor",
+      "source": "s2/c",
+      "namespace": "pkc-e8mp5.eu-west-1.aws.confluent.cloud:9092",
+      "channel": "prod.public.assortment.specifications.json",
+      "environment": "production-profile",
+      "profile": "appsettings.json + appsettings.Production.json",
+      "basis": "committed_configuration",
+      "conditions": [
+        "Source committed configuration applies and runtime overrides do not replace settings."
+      ],
+      "gaps": ["assortment-6114c5d-r5/gap/deployment"],
+      "evidence": ["assortment-6114c5d-r5/e/9e7c1fa5e9c7", "assortment-6114c5d-r5/e/f9ab3cdd1148"]
+    },
+    {
+      "id": "assortment-6114c5d-r5/e/081225f0a9dc",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-assortment-api",
+      "commit": "6114c5db0f2b4b490cf89b9c512088f01dbf0b98",
+      "path": "src/PopCat.Assortment.CacheWorker.Host/MessageProcessor/ClassificationMessageProcessor.cs",
+      "lines": [1, 88],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "assortment-6114c5d-r5/e/0974491d3428",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-assortment-api",
+      "commit": "6114c5db0f2b4b490cf89b9c512088f01dbf0b98",
+      "path": "src/PopCat.Assortment.CacheWorker.Host/Extensions/ApplicationBuilderExtensions.cs",
+      "lines": [25, 39],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "assortment-6114c5d-r5/e/0c2e5d6b3474",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-assortment-api",
+      "commit": "6114c5db0f2b4b490cf89b9c512088f01dbf0b98",
+      "path": "src/PopCat.Assortment.CacheWorker.Host/Program.cs",
+      "lines": [1, 37],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "assortment-6114c5d-r5/e/141c9a17fc93",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-assortment-api",
+      "commit": "6114c5db0f2b4b490cf89b9c512088f01dbf0b98",
+      "path": "src/PopCat.Assortment.CacheWorker.Host/MessageProcessor/SpecificationMessageProcessor.cs",
+      "lines": [28, 31],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "assortment-6114c5d-r5/e/163f59f4377a",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-assortment-api",
+      "commit": "6114c5db0f2b4b490cf89b9c512088f01dbf0b98",
+      "path": "src/PopCat.Assortment.CacheWorker.Host/Services/KafkaConsumerService.cs",
+      "lines": [35, 57],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "assortment-6114c5d-r5/e/22b62f73cbe3",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-assortment-api",
+      "commit": "6114c5db0f2b4b490cf89b9c512088f01dbf0b98",
+      "path": "src/PopCat.Assortment.CacheWorker.Host/MessageProcessor/ClassificationMessageProcessor.cs",
+      "lines": [13, 16],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "assortment-6114c5d-r5/e/2b3d69a94627",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-assortment-api",
+      "commit": "6114c5db0f2b4b490cf89b9c512088f01dbf0b98",
+      "path": "src/PopCat.Assortment.Contracts/Models/Classification.cs",
+      "lines": [1, 3],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "assortment-6114c5d-r5/e/2fc14e8e4c7c",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-assortment-api",
+      "commit": "6114c5db0f2b4b490cf89b9c512088f01dbf0b98",
+      "path": "src/PopCat.Assortment.Ocelot.Host/Program.cs",
+      "lines": [1, 46],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "assortment-6114c5d-r5/e/35c9c35b4315",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-assortment-api",
+      "commit": "6114c5db0f2b4b490cf89b9c512088f01dbf0b98",
+      "path": "src/PopCat.Assortment.CacheWorker.Host/MessageProcessor/SpecificationMessageProcessor.cs",
+      "lines": [20, 31],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "assortment-6114c5d-r5/e/499ee903ecfd",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-assortment-api",
+      "commit": "6114c5db0f2b4b490cf89b9c512088f01dbf0b98",
+      "path": "src/PopCat.Assortment.Host/Extensions/ApplicationBuilderExtensions.cs",
+      "lines": [54, 78],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "assortment-6114c5d-r5/e/4dd87ea6c77d",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-assortment-api",
+      "commit": "6114c5db0f2b4b490cf89b9c512088f01dbf0b98",
+      "path": "src/PopCat.Assortment.CacheWorker.Host/Services/KafkaConsumerService.cs",
+      "lines": [17, 60],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "assortment-6114c5d-r5/e/57157f86be18",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-assortment-api",
+      "commit": "6114c5db0f2b4b490cf89b9c512088f01dbf0b98",
+      "path": "src/PopCat.Assortment.CacheWorker.Host/MessageProcessor/ClassificationMessageProcessor.cs",
+      "lines": [28, 31],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "assortment-6114c5d-r5/e/5caa3e3ee6cc",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-assortment-api",
+      "commit": "6114c5db0f2b4b490cf89b9c512088f01dbf0b98",
+      "path": "src/PopCat.Assortment.CacheWorker.Host/MessageProcessor/SpecificationMessageProcessor.cs",
+      "lines": [13, 16],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "assortment-6114c5d-r5/e/6b274f69b59a",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-assortment-api",
+      "commit": "6114c5db0f2b4b490cf89b9c512088f01dbf0b98",
+      "path": "src/PopCat.Assortment.CacheWorker.Host/Services/KafkaConsumerService.cs",
+      "lines": [19, 46],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "assortment-6114c5d-r5/e/9e7c1fa5e9c7",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-assortment-api",
+      "commit": "6114c5db0f2b4b490cf89b9c512088f01dbf0b98",
+      "path": "src/PopCat.Assortment.CacheWorker.Host/appsettings.json",
+      "lines": [14, 14],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "assortment-6114c5d-r5/e/9eff870727ff",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-assortment-api",
+      "commit": "6114c5db0f2b4b490cf89b9c512088f01dbf0b98",
+      "path": "src/PopCat.Assortment.Contracts/Models/Specification.cs",
+      "lines": [3, 3],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "assortment-6114c5d-r5/e/a5d135c2acd4",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-assortment-api",
+      "commit": "6114c5db0f2b4b490cf89b9c512088f01dbf0b98",
+      "path": "src/PopCat.Assortment.Host/Program.cs",
+      "lines": [1, 46],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "assortment-6114c5d-r5/e/b3383f10213d",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-assortment-api",
+      "commit": "6114c5db0f2b4b490cf89b9c512088f01dbf0b98",
+      "path": "src/PopCat.Assortment.CacheWorker.Host/MessageProcessor/ClassificationMessageProcessor.cs",
+      "lines": [20, 31],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "assortment-6114c5d-r5/e/b3390f96eb7b",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-assortment-api",
+      "commit": "6114c5db0f2b4b490cf89b9c512088f01dbf0b98",
+      "path": "src/PopCat.Assortment.Contracts/Models/Classification.cs",
+      "lines": [3, 3],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "assortment-6114c5d-r5/e/bf29795cbc05",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-assortment-api",
+      "commit": "6114c5db0f2b4b490cf89b9c512088f01dbf0b98",
+      "path": "src/PopCat.Assortment.CacheWorker.Host/appsettings.json",
+      "lines": [15, 15],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "assortment-6114c5d-r5/e/c07e0b40ecab",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-assortment-api",
+      "commit": "6114c5db0f2b4b490cf89b9c512088f01dbf0b98",
+      "path": "src/PopCat.Assortment.Contracts/Models/Specification.cs",
+      "lines": [1, 3],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "assortment-6114c5d-r5/e/c6c74b1a770a",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-assortment-api",
+      "commit": "6114c5db0f2b4b490cf89b9c512088f01dbf0b98",
+      "path": "src/PopCat.Assortment.CacheWorker.Host/MessageProcessor/SpecificationMessageProcessor.cs",
+      "lines": [1, 89],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "assortment-6114c5d-r5/e/cf37881ae0a5",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-assortment-api",
+      "commit": "6114c5db0f2b4b490cf89b9c512088f01dbf0b98",
+      "path": "src/PopCat.Assortment.CacheWorker.Host/MessageProcessor/KafkaEvent.cs",
+      "lines": [13, 13],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "assortment-6114c5d-r5/e/f6f982644da4",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-assortment-api",
+      "commit": "6114c5db0f2b4b490cf89b9c512088f01dbf0b98",
+      "path": "src/PopCat.Assortment.CacheWorker.Host/MessageProcessor/KafkaEvent.cs",
+      "lines": [5, 13],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "assortment-6114c5d-r5/e/f9ab3cdd1148",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-assortment-api",
+      "commit": "6114c5db0f2b4b490cf89b9c512088f01dbf0b98",
+      "path": "src/PopCat.Assortment.CacheWorker.Host/appsettings.Production.json",
+      "lines": [2, 4],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "assortment-6114c5d-r5/gap/deployment",
+      "kind": "gap",
+      "owner": "assortment-6114c5d-r5/census",
+      "obligation": "deployment",
+      "reason": "Pinned committed configuration does not establish deployed topology, effective environment overrides or current freshness.",
+      "action": "Trace the named local continuation or resolve the exact imported artefact and effective configuration.",
+      "evidence": ["assortment-6114c5d-r5/e/a5d135c2acd4"]
+    },
+    {
+      "id": "assortment-6114c5d-r5/gap/wire-closure",
+      "kind": "gap",
+      "owner": "assortment-6114c5d-r5/census",
+      "obligation": "wire-closure",
+      "reason": "Source declarations are captured; complete formatter, inherited/generated imported fields and validation/error policy are not established.",
+      "action": "Trace the named local continuation or resolve the exact imported artefact and effective configuration.",
+      "evidence": ["assortment-6114c5d-r5/e/499ee903ecfd"]
+    },
+    {
+      "id": "assortment-6114c5d-r5/impl/consumer/ClassificationMessageProcessor",
+      "kind": "implementation",
+      "logicalId": "impl:assortment-ClassificationMessageProcessor",
+      "scope": "s2/c",
+      "entry": "assortment-6114c5d-r5/op/consumer/ClassificationMessageProcessor/start",
+      "parameters": [],
+      "evidence": [
+        "assortment-6114c5d-r5/e/081225f0a9dc",
+        "assortment-6114c5d-r5/e/0974491d3428",
+        "assortment-6114c5d-r5/e/4dd87ea6c77d"
+      ]
+    },
+    {
+      "id": "assortment-6114c5d-r5/impl/consumer/SpecificationMessageProcessor",
+      "kind": "implementation",
+      "logicalId": "impl:assortment-SpecificationMessageProcessor",
+      "scope": "s2/c",
+      "entry": "assortment-6114c5d-r5/op/consumer/SpecificationMessageProcessor/start",
+      "parameters": [],
+      "evidence": [
+        "assortment-6114c5d-r5/e/c6c74b1a770a",
+        "assortment-6114c5d-r5/e/0974491d3428",
+        "assortment-6114c5d-r5/e/4dd87ea6c77d"
+      ]
+    },
+    {
+      "id": "assortment-6114c5d-r5/op/consumer/ClassificationMessageProcessor/start",
+      "kind": "operation",
+      "owner": "assortment-6114c5d-r5/impl/consumer/ClassificationMessageProcessor",
+      "action": "entry",
+      "label": "Receive topic message through registered processor ClassificationMessageProcessor",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": null,
+      "httpStatus": null,
+      "evidence": [
+        "assortment-6114c5d-r5/e/081225f0a9dc",
+        "assortment-6114c5d-r5/e/0974491d3428",
+        "assortment-6114c5d-r5/e/4dd87ea6c77d"
+      ]
+    },
+    {
+      "id": "assortment-6114c5d-r5/op/consumer/SpecificationMessageProcessor/start",
+      "kind": "operation",
+      "owner": "assortment-6114c5d-r5/impl/consumer/SpecificationMessageProcessor",
+      "action": "entry",
+      "label": "Receive topic message through registered processor SpecificationMessageProcessor",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": null,
+      "httpStatus": null,
+      "evidence": [
+        "assortment-6114c5d-r5/e/c6c74b1a770a",
+        "assortment-6114c5d-r5/e/0974491d3428",
+        "assortment-6114c5d-r5/e/4dd87ea6c77d"
+      ]
+    },
+    {
+      "id": "assortment-6114c5d-r5/policy/ClassificationMessageProcessor",
+      "kind": "delivery_policy",
+      "owner": "assortment-6114c5d-r5/impl/consumer/ClassificationMessageProcessor",
+      "operation": "assortment-6114c5d-r5/op/consumer/ClassificationMessageProcessor/start",
+      "awaited": true,
+      "brokerPersistenceRequired": null,
+      "offsetCommit": "unresolved",
+      "retryLimit": null,
+      "deduplication": "unknown",
+      "deduplicationKeys": [],
+      "ordering": "not_established",
+      "deliveryGuarantee": "not_established",
+      "gaps": [
+        "assortment-6114c5d-r5/gap/dispatch-ClassificationMessageProcessor",
+        "assortment-6114c5d-r5/gap/deployment"
+      ],
+      "evidence": ["assortment-6114c5d-r5/e/163f59f4377a"]
+    },
+    {
+      "id": "assortment-6114c5d-r5/policy/SpecificationMessageProcessor",
+      "kind": "delivery_policy",
+      "owner": "assortment-6114c5d-r5/impl/consumer/SpecificationMessageProcessor",
+      "operation": "assortment-6114c5d-r5/op/consumer/SpecificationMessageProcessor/start",
+      "awaited": true,
+      "brokerPersistenceRequired": null,
+      "offsetCommit": "unresolved",
+      "retryLimit": null,
+      "deduplication": "unknown",
+      "deduplicationKeys": [],
+      "ordering": "not_established",
+      "deliveryGuarantee": "not_established",
+      "gaps": [
+        "assortment-6114c5d-r5/gap/dispatch-SpecificationMessageProcessor",
+        "assortment-6114c5d-r5/gap/deployment"
+      ],
+      "evidence": ["assortment-6114c5d-r5/e/163f59f4377a"]
+    },
+    {
+      "id": "assortment-6114c5d-r5/resource/topic-ClassificationMessageProcessor",
+      "kind": "resource",
+      "label": "prod.public.assortment.classifications.json",
+      "technology": "Kafka",
+      "declaredDatabase": null,
+      "physicalLocation": null,
+      "shapes": [],
+      "gaps": ["assortment-6114c5d-r5/gap/deployment"],
+      "evidence": ["assortment-6114c5d-r5/e/bf29795cbc05"]
+    },
+    {
+      "id": "assortment-6114c5d-r5/resource/topic-SpecificationMessageProcessor",
+      "kind": "resource",
+      "label": "prod.public.assortment.specifications.json",
+      "technology": "Kafka",
+      "declaredDatabase": null,
+      "physicalLocation": null,
+      "shapes": [],
+      "gaps": ["assortment-6114c5d-r5/gap/deployment"],
+      "evidence": ["assortment-6114c5d-r5/e/9e7c1fa5e9c7"]
+    },
+    {
+      "id": "assortment-6114c5d-r5/shape/json-event-data-wire/Classification",
+      "kind": "shape",
+      "representation": "wire",
+      "label": "Classification nested JSON data projection under local Web options",
+      "fields": [
+        {
+          "name": "id",
+          "type": "string",
+          "status": "declared",
+          "nullable": false,
+          "evidence": [
+            "assortment-6114c5d-r5/e/b3390f96eb7b",
+            "assortment-6114c5d-r5/e/22b62f73cbe3"
+          ]
+        },
+        {
+          "name": "code",
+          "type": "string",
+          "status": "declared",
+          "nullable": false,
+          "evidence": [
+            "assortment-6114c5d-r5/e/b3390f96eb7b",
+            "assortment-6114c5d-r5/e/22b62f73cbe3"
+          ]
+        },
+        {
+          "name": "isType",
+          "type": "bool",
+          "status": "declared",
+          "nullable": false,
+          "evidence": [
+            "assortment-6114c5d-r5/e/b3390f96eb7b",
+            "assortment-6114c5d-r5/e/22b62f73cbe3"
+          ]
+        }
+      ],
+      "completeness": "partial",
+      "gaps": ["assortment-6114c5d-r5/gap/wire-closure"],
+      "evidence": ["assortment-6114c5d-r5/e/2b3d69a94627", "assortment-6114c5d-r5/e/22b62f73cbe3"],
+      "container": "object",
+      "encoding": "json"
+    },
+    {
+      "id": "assortment-6114c5d-r5/shape/json-event-data-wire/Specification",
+      "kind": "shape",
+      "representation": "wire",
+      "label": "Specification nested JSON data projection under local Web options",
+      "fields": [
+        {
+          "name": "id",
+          "type": "string",
+          "status": "declared",
+          "nullable": false,
+          "evidence": [
+            "assortment-6114c5d-r5/e/9eff870727ff",
+            "assortment-6114c5d-r5/e/5caa3e3ee6cc"
+          ]
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "status": "declared",
+          "nullable": false,
+          "evidence": [
+            "assortment-6114c5d-r5/e/9eff870727ff",
+            "assortment-6114c5d-r5/e/5caa3e3ee6cc"
+          ]
+        },
+        {
+          "name": "unit",
+          "type": "string",
+          "status": "declared",
+          "nullable": false,
+          "evidence": [
+            "assortment-6114c5d-r5/e/9eff870727ff",
+            "assortment-6114c5d-r5/e/5caa3e3ee6cc"
+          ]
+        },
+        {
+          "name": "code",
+          "type": "string",
+          "status": "declared",
+          "nullable": false,
+          "evidence": [
+            "assortment-6114c5d-r5/e/9eff870727ff",
+            "assortment-6114c5d-r5/e/5caa3e3ee6cc"
+          ]
+        },
+        {
+          "name": "dataType",
+          "type": "string",
+          "status": "declared",
+          "nullable": false,
+          "evidence": [
+            "assortment-6114c5d-r5/e/9eff870727ff",
+            "assortment-6114c5d-r5/e/5caa3e3ee6cc"
+          ]
+        },
+        {
+          "name": "validEnumValues",
+          "type": "ImmutableHashSet<string>",
+          "status": "declared",
+          "nullable": false,
+          "evidence": [
+            "assortment-6114c5d-r5/e/9eff870727ff",
+            "assortment-6114c5d-r5/e/5caa3e3ee6cc"
+          ]
+        }
+      ],
+      "completeness": "partial",
+      "gaps": ["assortment-6114c5d-r5/gap/wire-closure"],
+      "evidence": ["assortment-6114c5d-r5/e/c07e0b40ecab", "assortment-6114c5d-r5/e/5caa3e3ee6cc"],
+      "container": "object",
+      "encoding": "json"
+    },
+    {
+      "id": "assortment-6114c5d-r5/shape/json-event-source/Classification",
+      "kind": "shape",
+      "representation": "source",
+      "label": "KafkaEvent<Classification> source envelope",
+      "fields": [
+        {
+          "name": "EventType",
+          "type": "KafkaEventType",
+          "status": "declared",
+          "enum": ["Created", "Updated", "Deleted"],
+          "evidence": ["assortment-6114c5d-r5/e/f6f982644da4"]
+        },
+        {
+          "name": "Data",
+          "type": "Classification",
+          "status": "declared",
+          "shape": "assortment-6114c5d-r5/shape/PopCat.Assortment.Contracts~Models~Classification.cs~Classification",
+          "evidence": [
+            "assortment-6114c5d-r5/e/cf37881ae0a5",
+            "assortment-6114c5d-r5/e/57157f86be18"
+          ]
+        }
+      ],
+      "completeness": "partial",
+      "gaps": ["assortment-6114c5d-r5/gap/wire-closure"],
+      "evidence": ["assortment-6114c5d-r5/e/f6f982644da4", "assortment-6114c5d-r5/e/57157f86be18"],
+      "container": "object"
+    },
+    {
+      "id": "assortment-6114c5d-r5/shape/json-event-source/Specification",
+      "kind": "shape",
+      "representation": "source",
+      "label": "KafkaEvent<Specification> source envelope",
+      "fields": [
+        {
+          "name": "EventType",
+          "type": "KafkaEventType",
+          "status": "declared",
+          "enum": ["Created", "Updated", "Deleted"],
+          "evidence": ["assortment-6114c5d-r5/e/f6f982644da4"]
+        },
+        {
+          "name": "Data",
+          "type": "Specification",
+          "status": "declared",
+          "shape": "assortment-6114c5d-r5/shape/PopCat.Assortment.Contracts~Models~Specification.cs~Specification",
+          "evidence": [
+            "assortment-6114c5d-r5/e/cf37881ae0a5",
+            "assortment-6114c5d-r5/e/141c9a17fc93"
+          ]
+        }
+      ],
+      "completeness": "partial",
+      "gaps": ["assortment-6114c5d-r5/gap/wire-closure"],
+      "evidence": ["assortment-6114c5d-r5/e/f6f982644da4", "assortment-6114c5d-r5/e/141c9a17fc93"],
+      "container": "object"
+    },
+    {
+      "id": "assortment-6114c5d-r5/shape/json-event-wire/Classification",
+      "kind": "shape",
+      "representation": "wire",
+      "label": "KafkaEvent<Classification> JSON envelope under local Web/camel-case options",
+      "fields": [
+        {
+          "name": "eventType",
+          "type": "KafkaEventType through configured string-enum converter; accepted token/default details partial",
+          "status": "declared",
+          "evidence": [
+            "assortment-6114c5d-r5/e/f6f982644da4",
+            "assortment-6114c5d-r5/e/22b62f73cbe3"
+          ]
+        },
+        {
+          "name": "data",
+          "type": "Classification",
+          "status": "declared",
+          "shape": "assortment-6114c5d-r5/shape/json-event-data-wire/Classification",
+          "evidence": [
+            "assortment-6114c5d-r5/e/cf37881ae0a5",
+            "assortment-6114c5d-r5/e/22b62f73cbe3",
+            "assortment-6114c5d-r5/e/57157f86be18"
+          ]
+        }
+      ],
+      "completeness": "partial",
+      "gaps": ["assortment-6114c5d-r5/gap/wire-closure"],
+      "evidence": [
+        "assortment-6114c5d-r5/e/f6f982644da4",
+        "assortment-6114c5d-r5/e/22b62f73cbe3",
+        "assortment-6114c5d-r5/e/b3383f10213d"
+      ],
+      "container": "object",
+      "encoding": "json"
+    },
+    {
+      "id": "assortment-6114c5d-r5/shape/json-event-wire/Specification",
+      "kind": "shape",
+      "representation": "wire",
+      "label": "KafkaEvent<Specification> JSON envelope under local Web/camel-case options",
+      "fields": [
+        {
+          "name": "eventType",
+          "type": "KafkaEventType through configured string-enum converter; accepted token/default details partial",
+          "status": "declared",
+          "evidence": [
+            "assortment-6114c5d-r5/e/f6f982644da4",
+            "assortment-6114c5d-r5/e/5caa3e3ee6cc"
+          ]
+        },
+        {
+          "name": "data",
+          "type": "Specification",
+          "status": "declared",
+          "shape": "assortment-6114c5d-r5/shape/json-event-data-wire/Specification",
+          "evidence": [
+            "assortment-6114c5d-r5/e/cf37881ae0a5",
+            "assortment-6114c5d-r5/e/5caa3e3ee6cc",
+            "assortment-6114c5d-r5/e/141c9a17fc93"
+          ]
+        }
+      ],
+      "completeness": "partial",
+      "gaps": ["assortment-6114c5d-r5/gap/wire-closure"],
+      "evidence": [
+        "assortment-6114c5d-r5/e/f6f982644da4",
+        "assortment-6114c5d-r5/e/5caa3e3ee6cc",
+        "assortment-6114c5d-r5/e/35c9c35b4315"
+      ],
+      "container": "object",
+      "encoding": "json"
+    },
+    {
+      "id": "assortment-6114c5d-r5/shape/PopCat.Assortment.Contracts~Models~Classification.cs~Classification",
+      "kind": "shape",
+      "representation": "source",
+      "label": "Classification declaration",
+      "fields": [
+        {
+          "name": "Id",
+          "type": "string",
+          "status": "declared",
+          "nullable": false,
+          "evidence": ["assortment-6114c5d-r5/e/b3390f96eb7b"]
+        },
+        {
+          "name": "Code",
+          "type": "string",
+          "status": "declared",
+          "nullable": false,
+          "evidence": ["assortment-6114c5d-r5/e/b3390f96eb7b"]
+        },
+        {
+          "name": "IsType",
+          "type": "bool",
+          "status": "declared",
+          "nullable": false,
+          "evidence": ["assortment-6114c5d-r5/e/b3390f96eb7b"]
+        }
+      ],
+      "completeness": "partial",
+      "gaps": ["assortment-6114c5d-r5/gap/wire-closure"],
+      "evidence": ["assortment-6114c5d-r5/e/2b3d69a94627"]
+    },
+    {
+      "id": "assortment-6114c5d-r5/shape/PopCat.Assortment.Contracts~Models~Specification.cs~Specification",
+      "kind": "shape",
+      "representation": "source",
+      "label": "Specification declaration",
+      "fields": [
+        {
+          "name": "Id",
+          "type": "string",
+          "status": "declared",
+          "nullable": false,
+          "evidence": ["assortment-6114c5d-r5/e/9eff870727ff"]
+        },
+        {
+          "name": "Name",
+          "type": "string",
+          "status": "declared",
+          "nullable": false,
+          "evidence": ["assortment-6114c5d-r5/e/9eff870727ff"]
+        },
+        {
+          "name": "Unit",
+          "type": "string",
+          "status": "declared",
+          "nullable": false,
+          "evidence": ["assortment-6114c5d-r5/e/9eff870727ff"]
+        },
+        {
+          "name": "Code",
+          "type": "string",
+          "status": "declared",
+          "nullable": false,
+          "evidence": ["assortment-6114c5d-r5/e/9eff870727ff"]
+        },
+        {
+          "name": "DataType",
+          "type": "string",
+          "status": "declared",
+          "nullable": false,
+          "evidence": ["assortment-6114c5d-r5/e/9eff870727ff"]
+        },
+        {
+          "name": "ValidEnumValues",
+          "type": "ImmutableHashSet<string>",
+          "status": "declared",
+          "nullable": false,
+          "evidence": ["assortment-6114c5d-r5/e/9eff870727ff"]
+        }
+      ],
+      "completeness": "partial",
+      "gaps": ["assortment-6114c5d-r5/gap/wire-closure"],
+      "evidence": ["assortment-6114c5d-r5/e/c07e0b40ecab"]
+    },
+    {
+      "id": "assortment-6114c5d-r5/subscription/ClassificationMessageProcessor/topic",
+      "kind": "subscription",
+      "owner": "assortment-6114c5d-r5/impl/consumer/ClassificationMessageProcessor",
+      "binding": "assortment-6114c5d-r5/channel/ClassificationMessageProcessor",
+      "headerFilter": "none",
+      "header": null,
+      "messageType": null,
+      "payload": "assortment-6114c5d-r5/value/consumer/ClassificationMessageProcessor",
+      "group": "popcat-assortment-cache-worker-prod",
+      "policy": "assortment-6114c5d-r5/policy/ClassificationMessageProcessor",
+      "gaps": [
+        "assortment-6114c5d-r5/gap/dispatch-ClassificationMessageProcessor",
+        "assortment-6114c5d-r5/gap/deployment"
+      ],
+      "evidence": ["assortment-6114c5d-r5/e/081225f0a9dc", "assortment-6114c5d-r5/e/6b274f69b59a"]
+    },
+    {
+      "id": "assortment-6114c5d-r5/subscription/SpecificationMessageProcessor/topic",
+      "kind": "subscription",
+      "owner": "assortment-6114c5d-r5/impl/consumer/SpecificationMessageProcessor",
+      "binding": "assortment-6114c5d-r5/channel/SpecificationMessageProcessor",
+      "headerFilter": "none",
+      "header": null,
+      "messageType": null,
+      "payload": "assortment-6114c5d-r5/value/consumer/SpecificationMessageProcessor",
+      "group": "popcat-assortment-cache-worker-prod",
+      "policy": "assortment-6114c5d-r5/policy/SpecificationMessageProcessor",
+      "gaps": [
+        "assortment-6114c5d-r5/gap/dispatch-SpecificationMessageProcessor",
+        "assortment-6114c5d-r5/gap/deployment"
+      ],
+      "evidence": ["assortment-6114c5d-r5/e/c6c74b1a770a", "assortment-6114c5d-r5/e/6b274f69b59a"]
+    },
+    {
+      "id": "assortment-6114c5d-r5/value/consumer/ClassificationMessageProcessor",
+      "kind": "value",
+      "owner": "assortment-6114c5d-r5/impl/consumer/ClassificationMessageProcessor",
+      "definition": "assortment-6114c5d-r5/op/consumer/ClassificationMessageProcessor/start",
+      "label": "Received UTF-8 JSON KafkaEvent<Classification> envelope, not its inner Data object",
+      "role": "definition",
+      "representation": "wire",
+      "shape": "assortment-6114c5d-r5/shape/json-event-wire/Classification",
+      "accessPath": [],
+      "evidence": [
+        "assortment-6114c5d-r5/e/081225f0a9dc",
+        "assortment-6114c5d-r5/e/0974491d3428",
+        "assortment-6114c5d-r5/e/4dd87ea6c77d"
+      ]
+    },
+    {
+      "id": "assortment-6114c5d-r5/value/consumer/SpecificationMessageProcessor",
+      "kind": "value",
+      "owner": "assortment-6114c5d-r5/impl/consumer/SpecificationMessageProcessor",
+      "definition": "assortment-6114c5d-r5/op/consumer/SpecificationMessageProcessor/start",
+      "label": "Received UTF-8 JSON KafkaEvent<Specification> envelope, not its inner Data object",
+      "role": "definition",
+      "representation": "wire",
+      "shape": "assortment-6114c5d-r5/shape/json-event-wire/Specification",
+      "accessPath": [],
+      "evidence": [
+        "assortment-6114c5d-r5/e/c6c74b1a770a",
+        "assortment-6114c5d-r5/e/0974491d3428",
+        "assortment-6114c5d-r5/e/4dd87ea6c77d"
+      ]
+    },
+    {
+      "id": "s2/c",
+      "kind": "source_revision",
+      "repo": "volvo-cars/popcat-assortment-api",
+      "commit": "6114c5db0f2b4b490cf89b9c512088f01dbf0b98"
+    }
+  ],
+  "traversalComplete": true,
+  "findings": [],
+  "sourceLinks": [
+    {
+      "evidence": "assortment-6114c5d-r5/e/141c9a17fc93",
+      "url": "https://github.com/volvo-cars/popcat-assortment-api/blob/6114c5db0f2b4b490cf89b9c512088f01dbf0b98/src/PopCat.Assortment.CacheWorker.Host/MessageProcessor/SpecificationMessageProcessor.cs#L28-L31",
+      "label": "volvo-cars/popcat-assortment-api/src/PopCat.Assortment.CacheWorker.Host/MessageProcessor/SpecificationMessageProcessor.cs:28–31"
+    },
+    {
+      "evidence": "assortment-6114c5d-r5/e/5caa3e3ee6cc",
+      "url": "https://github.com/volvo-cars/popcat-assortment-api/blob/6114c5db0f2b4b490cf89b9c512088f01dbf0b98/src/PopCat.Assortment.CacheWorker.Host/MessageProcessor/SpecificationMessageProcessor.cs#L13-L16",
+      "label": "volvo-cars/popcat-assortment-api/src/PopCat.Assortment.CacheWorker.Host/MessageProcessor/SpecificationMessageProcessor.cs:13–16"
+    },
+    {
+      "evidence": "assortment-6114c5d-r5/e/cf37881ae0a5",
+      "url": "https://github.com/volvo-cars/popcat-assortment-api/blob/6114c5db0f2b4b490cf89b9c512088f01dbf0b98/src/PopCat.Assortment.CacheWorker.Host/MessageProcessor/KafkaEvent.cs#L13-L13",
+      "label": "volvo-cars/popcat-assortment-api/src/PopCat.Assortment.CacheWorker.Host/MessageProcessor/KafkaEvent.cs:13–13"
+    },
+    {
+      "evidence": "assortment-6114c5d-r5/e/9eff870727ff",
+      "url": "https://github.com/volvo-cars/popcat-assortment-api/blob/6114c5db0f2b4b490cf89b9c512088f01dbf0b98/src/PopCat.Assortment.Contracts/Models/Specification.cs#L3-L3",
+      "label": "volvo-cars/popcat-assortment-api/src/PopCat.Assortment.Contracts/Models/Specification.cs:3–3"
+    },
+    {
+      "evidence": "assortment-6114c5d-r5/e/a5d135c2acd4",
+      "url": "https://github.com/volvo-cars/popcat-assortment-api/blob/6114c5db0f2b4b490cf89b9c512088f01dbf0b98/src/PopCat.Assortment.Host/Program.cs#L1-L46",
+      "label": "volvo-cars/popcat-assortment-api/src/PopCat.Assortment.Host/Program.cs:1–46"
+    },
+    {
+      "evidence": "assortment-6114c5d-r5/e/2fc14e8e4c7c",
+      "url": "https://github.com/volvo-cars/popcat-assortment-api/blob/6114c5db0f2b4b490cf89b9c512088f01dbf0b98/src/PopCat.Assortment.Ocelot.Host/Program.cs#L1-L46",
+      "label": "volvo-cars/popcat-assortment-api/src/PopCat.Assortment.Ocelot.Host/Program.cs:1–46"
+    },
+    {
+      "evidence": "assortment-6114c5d-r5/e/0c2e5d6b3474",
+      "url": "https://github.com/volvo-cars/popcat-assortment-api/blob/6114c5db0f2b4b490cf89b9c512088f01dbf0b98/src/PopCat.Assortment.CacheWorker.Host/Program.cs#L1-L37",
+      "label": "volvo-cars/popcat-assortment-api/src/PopCat.Assortment.CacheWorker.Host/Program.cs:1–37"
+    },
+    {
+      "evidence": "assortment-6114c5d-r5/e/499ee903ecfd",
+      "url": "https://github.com/volvo-cars/popcat-assortment-api/blob/6114c5db0f2b4b490cf89b9c512088f01dbf0b98/src/PopCat.Assortment.Host/Extensions/ApplicationBuilderExtensions.cs#L54-L78",
+      "label": "volvo-cars/popcat-assortment-api/src/PopCat.Assortment.Host/Extensions/ApplicationBuilderExtensions.cs:54–78"
+    },
+    {
+      "evidence": "assortment-6114c5d-r5/e/c07e0b40ecab",
+      "url": "https://github.com/volvo-cars/popcat-assortment-api/blob/6114c5db0f2b4b490cf89b9c512088f01dbf0b98/src/PopCat.Assortment.Contracts/Models/Specification.cs#L1-L3",
+      "label": "volvo-cars/popcat-assortment-api/src/PopCat.Assortment.Contracts/Models/Specification.cs:1–3"
+    },
+    {
+      "evidence": "assortment-6114c5d-r5/e/f6f982644da4",
+      "url": "https://github.com/volvo-cars/popcat-assortment-api/blob/6114c5db0f2b4b490cf89b9c512088f01dbf0b98/src/PopCat.Assortment.CacheWorker.Host/MessageProcessor/KafkaEvent.cs#L5-L13",
+      "label": "volvo-cars/popcat-assortment-api/src/PopCat.Assortment.CacheWorker.Host/MessageProcessor/KafkaEvent.cs:5–13"
+    },
+    {
+      "evidence": "assortment-6114c5d-r5/e/35c9c35b4315",
+      "url": "https://github.com/volvo-cars/popcat-assortment-api/blob/6114c5db0f2b4b490cf89b9c512088f01dbf0b98/src/PopCat.Assortment.CacheWorker.Host/MessageProcessor/SpecificationMessageProcessor.cs#L20-L31",
+      "label": "volvo-cars/popcat-assortment-api/src/PopCat.Assortment.CacheWorker.Host/MessageProcessor/SpecificationMessageProcessor.cs:20–31"
+    },
+    {
+      "evidence": "assortment-6114c5d-r5/e/4dd87ea6c77d",
+      "url": "https://github.com/volvo-cars/popcat-assortment-api/blob/6114c5db0f2b4b490cf89b9c512088f01dbf0b98/src/PopCat.Assortment.CacheWorker.Host/Services/KafkaConsumerService.cs#L17-L60",
+      "label": "volvo-cars/popcat-assortment-api/src/PopCat.Assortment.CacheWorker.Host/Services/KafkaConsumerService.cs:17–60"
+    },
+    {
+      "evidence": "assortment-6114c5d-r5/e/0974491d3428",
+      "url": "https://github.com/volvo-cars/popcat-assortment-api/blob/6114c5db0f2b4b490cf89b9c512088f01dbf0b98/src/PopCat.Assortment.CacheWorker.Host/Extensions/ApplicationBuilderExtensions.cs#L25-L39",
+      "label": "volvo-cars/popcat-assortment-api/src/PopCat.Assortment.CacheWorker.Host/Extensions/ApplicationBuilderExtensions.cs:25–39"
+    },
+    {
+      "evidence": "assortment-6114c5d-r5/e/c6c74b1a770a",
+      "url": "https://github.com/volvo-cars/popcat-assortment-api/blob/6114c5db0f2b4b490cf89b9c512088f01dbf0b98/src/PopCat.Assortment.CacheWorker.Host/MessageProcessor/SpecificationMessageProcessor.cs#L1-L89",
+      "label": "volvo-cars/popcat-assortment-api/src/PopCat.Assortment.CacheWorker.Host/MessageProcessor/SpecificationMessageProcessor.cs:1–89"
+    },
+    {
+      "evidence": "assortment-6114c5d-r5/e/163f59f4377a",
+      "url": "https://github.com/volvo-cars/popcat-assortment-api/blob/6114c5db0f2b4b490cf89b9c512088f01dbf0b98/src/PopCat.Assortment.CacheWorker.Host/Services/KafkaConsumerService.cs#L35-L57",
+      "label": "volvo-cars/popcat-assortment-api/src/PopCat.Assortment.CacheWorker.Host/Services/KafkaConsumerService.cs:35–57"
+    },
+    {
+      "evidence": "assortment-6114c5d-r5/e/9e7c1fa5e9c7",
+      "url": "https://github.com/volvo-cars/popcat-assortment-api/blob/6114c5db0f2b4b490cf89b9c512088f01dbf0b98/src/PopCat.Assortment.CacheWorker.Host/appsettings.json#L14-L14",
+      "label": "volvo-cars/popcat-assortment-api/src/PopCat.Assortment.CacheWorker.Host/appsettings.json:14–14"
+    },
+    {
+      "evidence": "assortment-6114c5d-r5/e/f9ab3cdd1148",
+      "url": "https://github.com/volvo-cars/popcat-assortment-api/blob/6114c5db0f2b4b490cf89b9c512088f01dbf0b98/src/PopCat.Assortment.CacheWorker.Host/appsettings.Production.json#L2-L4",
+      "label": "volvo-cars/popcat-assortment-api/src/PopCat.Assortment.CacheWorker.Host/appsettings.Production.json:2–4"
+    },
+    {
+      "evidence": "assortment-6114c5d-r5/e/6b274f69b59a",
+      "url": "https://github.com/volvo-cars/popcat-assortment-api/blob/6114c5db0f2b4b490cf89b9c512088f01dbf0b98/src/PopCat.Assortment.CacheWorker.Host/Services/KafkaConsumerService.cs#L19-L46",
+      "label": "volvo-cars/popcat-assortment-api/src/PopCat.Assortment.CacheWorker.Host/Services/KafkaConsumerService.cs:19–46"
+    },
+    {
+      "evidence": "assortment-6114c5d-r5/e/57157f86be18",
+      "url": "https://github.com/volvo-cars/popcat-assortment-api/blob/6114c5db0f2b4b490cf89b9c512088f01dbf0b98/src/PopCat.Assortment.CacheWorker.Host/MessageProcessor/ClassificationMessageProcessor.cs#L28-L31",
+      "label": "volvo-cars/popcat-assortment-api/src/PopCat.Assortment.CacheWorker.Host/MessageProcessor/ClassificationMessageProcessor.cs:28–31"
+    },
+    {
+      "evidence": "assortment-6114c5d-r5/e/22b62f73cbe3",
+      "url": "https://github.com/volvo-cars/popcat-assortment-api/blob/6114c5db0f2b4b490cf89b9c512088f01dbf0b98/src/PopCat.Assortment.CacheWorker.Host/MessageProcessor/ClassificationMessageProcessor.cs#L13-L16",
+      "label": "volvo-cars/popcat-assortment-api/src/PopCat.Assortment.CacheWorker.Host/MessageProcessor/ClassificationMessageProcessor.cs:13–16"
+    },
+    {
+      "evidence": "assortment-6114c5d-r5/e/b3390f96eb7b",
+      "url": "https://github.com/volvo-cars/popcat-assortment-api/blob/6114c5db0f2b4b490cf89b9c512088f01dbf0b98/src/PopCat.Assortment.Contracts/Models/Classification.cs#L3-L3",
+      "label": "volvo-cars/popcat-assortment-api/src/PopCat.Assortment.Contracts/Models/Classification.cs:3–3"
+    },
+    {
+      "evidence": "assortment-6114c5d-r5/e/2b3d69a94627",
+      "url": "https://github.com/volvo-cars/popcat-assortment-api/blob/6114c5db0f2b4b490cf89b9c512088f01dbf0b98/src/PopCat.Assortment.Contracts/Models/Classification.cs#L1-L3",
+      "label": "volvo-cars/popcat-assortment-api/src/PopCat.Assortment.Contracts/Models/Classification.cs:1–3"
+    },
+    {
+      "evidence": "assortment-6114c5d-r5/e/b3383f10213d",
+      "url": "https://github.com/volvo-cars/popcat-assortment-api/blob/6114c5db0f2b4b490cf89b9c512088f01dbf0b98/src/PopCat.Assortment.CacheWorker.Host/MessageProcessor/ClassificationMessageProcessor.cs#L20-L31",
+      "label": "volvo-cars/popcat-assortment-api/src/PopCat.Assortment.CacheWorker.Host/MessageProcessor/ClassificationMessageProcessor.cs:20–31"
+    },
+    {
+      "evidence": "assortment-6114c5d-r5/e/081225f0a9dc",
+      "url": "https://github.com/volvo-cars/popcat-assortment-api/blob/6114c5db0f2b4b490cf89b9c512088f01dbf0b98/src/PopCat.Assortment.CacheWorker.Host/MessageProcessor/ClassificationMessageProcessor.cs#L1-L88",
+      "label": "volvo-cars/popcat-assortment-api/src/PopCat.Assortment.CacheWorker.Host/MessageProcessor/ClassificationMessageProcessor.cs:1–88"
+    },
+    {
+      "evidence": "assortment-6114c5d-r5/e/bf29795cbc05",
+      "url": "https://github.com/volvo-cars/popcat-assortment-api/blob/6114c5db0f2b4b490cf89b9c512088f01dbf0b98/src/PopCat.Assortment.CacheWorker.Host/appsettings.json#L15-L15",
+      "label": "volvo-cars/popcat-assortment-api/src/PopCat.Assortment.CacheWorker.Host/appsettings.json:15–15"
+    }
+  ],
+  "nextRequest": null
+}

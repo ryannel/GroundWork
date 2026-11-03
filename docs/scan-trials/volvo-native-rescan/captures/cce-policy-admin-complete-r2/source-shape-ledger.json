@@ -1,0 +1,1182 @@
+[
+  {
+    "shape": "volvo/cce-policy-admin/88a3512f0307/local-r2/shape/1dafac1fb16f6576dd",
+    "path": "internal/api/httpserver/controller/controller.go",
+    "lines": [11, 13],
+    "sourceType": "github.com/volvo-cars/cce-policy-admin/internal/api/httpserver/controller::Controller",
+    "kind": "StructType",
+    "declaration": "struct {\n\tcommandBus *cqrs.CommandBus\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "volvo/cce-policy-admin/88a3512f0307/local-r2/shape/46b94a3d10bff8d0b3",
+    "path": "internal/api/httpserver/controller/model.go",
+    "lines": [3, 11],
+    "sourceType": "github.com/volvo-cars/cce-policy-admin/internal/api/httpserver/controller::Policy",
+    "kind": "StructType",
+    "declaration": "struct {\n\tID                 string   `json:\"uid\"`\n\tParentID           string   `json:\"parent_uid\"`\n\tName               string   `json:\"name\"`\n\tMarket             string   `json:\"market\"`\n\tStructureWeekRules []string `json:\"structure_week_rules\"`\n\tConfigRuleSets     string   `json:\"config_rule_sets\"`\n\tGroup              string   `json:\"group\"`\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "volvo/cce-policy-admin/88a3512f0307/local-r2/shape/a4223314ab8a49d8de",
+    "path": "internal/api/httpserver/controller/model.go",
+    "lines": [13, 17],
+    "sourceType": "github.com/volvo-cars/cce-policy-admin/internal/api/httpserver/controller::UpdatePolicyPayload",
+    "kind": "StructType",
+    "declaration": "struct {\n\tID             string          `json:\"uid\"`\n\tName           string          `json:\"name\"`\n\tConfigRuleSets []ConfigRuleSet `json:\"config_rule_sets\"`\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "volvo/cce-policy-admin/88a3512f0307/local-r2/shape/183fe7afe6eb1dd659",
+    "path": "internal/api/httpserver/controller/model.go",
+    "lines": [19, 22],
+    "sourceType": "github.com/volvo-cars/cce-policy-admin/internal/api/httpserver/controller::CreatePolicyPayload",
+    "kind": "StructType",
+    "declaration": "struct {\n\tParentID string `json:\"parent_uid\"`\n\tName     string `json:\"name\"`\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "volvo/cce-policy-admin/88a3512f0307/local-r2/shape/e2a75c73624633a03c",
+    "path": "internal/api/httpserver/controller/model.go",
+    "lines": [24, 27],
+    "sourceType": "github.com/volvo-cars/cce-policy-admin/internal/api/httpserver/controller::ConfigRuleSet",
+    "kind": "StructType",
+    "declaration": "struct {\n\tID    string       `json:\"id\"`\n\tRules []ConfigRule `json:\"config_rules\"`\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "volvo/cce-policy-admin/88a3512f0307/local-r2/shape/4b531889638bcd4a15",
+    "path": "internal/api/httpserver/controller/model.go",
+    "lines": [29, 33],
+    "sourceType": "github.com/volvo-cars/cce-policy-admin/internal/api/httpserver/controller::ConfigRule",
+    "kind": "StructType",
+    "declaration": "struct {\n\tID          string          `json:\"id\"`\n\tCondition   RuleCondition   `json:\"condition\"`\n\tConsequence RuleConsequence `json:\"consequence\"`\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "volvo/cce-policy-admin/88a3512f0307/local-r2/shape/a40be265570d734ad5",
+    "path": "internal/api/httpserver/controller/model.go",
+    "lines": [35, 35],
+    "sourceType": "github.com/volvo-cars/cce-policy-admin/internal/api/httpserver/controller::Relation",
+    "kind": "Ident",
+    "declaration": "string",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "volvo/cce-policy-admin/88a3512f0307/local-r2/shape/ff6a15e8561729ad4e",
+    "path": "internal/api/httpserver/controller/model.go",
+    "lines": [37, 40],
+    "sourceType": "github.com/volvo-cars/cce-policy-admin/internal/api/httpserver/controller::RuleCondition",
+    "kind": "StructType",
+    "declaration": "struct {\n\tRelation      Relation           `json:\"relation\"`\n\tSubConditions []RuleSubCondition `json:\"sub_conditions\"`\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "volvo/cce-policy-admin/88a3512f0307/local-r2/shape/62e0b7eff81cc6ae03",
+    "path": "internal/api/httpserver/controller/model.go",
+    "lines": [41, 44],
+    "sourceType": "github.com/volvo-cars/cce-policy-admin/internal/api/httpserver/controller::RuleSubCondition",
+    "kind": "StructType",
+    "declaration": "struct {\n\tRelation   Relation        `json:\"relation\"`\n\tComponents []RuleComponent `json:\"components\"`\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "volvo/cce-policy-admin/88a3512f0307/local-r2/shape/72f3ba5ab66fbab64f",
+    "path": "internal/api/httpserver/controller/model.go",
+    "lines": [46, 46],
+    "sourceType": "github.com/volvo-cars/cce-policy-admin/internal/api/httpserver/controller::ComponentType",
+    "kind": "Ident",
+    "declaration": "string",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "volvo/cce-policy-admin/88a3512f0307/local-r2/shape/533b9a6afcb4bcb7ad",
+    "path": "internal/api/httpserver/controller/model.go",
+    "lines": [63, 66],
+    "sourceType": "github.com/volvo-cars/cce-policy-admin/internal/api/httpserver/controller::RuleComponent",
+    "kind": "StructType",
+    "declaration": "struct {\n\tType ComponentType `json:\"type\"`\n\tCode string        `json:\"code\"`\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "volvo/cce-policy-admin/88a3512f0307/local-r2/shape/3f899da5fb4661e4d4",
+    "path": "internal/api/httpserver/controller/model.go",
+    "lines": [68, 68],
+    "sourceType": "github.com/volvo-cars/cce-policy-admin/internal/api/httpserver/controller::RuleType",
+    "kind": "Ident",
+    "declaration": "string",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "volvo/cce-policy-admin/88a3512f0307/local-r2/shape/7736c4ac5027debadb",
+    "path": "internal/api/httpserver/controller/model.go",
+    "lines": [79, 82],
+    "sourceType": "github.com/volvo-cars/cce-policy-admin/internal/api/httpserver/controller::RuleConsequence",
+    "kind": "StructType",
+    "declaration": "struct {\n\tRuleType   RuleType        `json:\"rule_type\"`\n\tComponents []RuleComponent `json:\"components\"`\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "volvo/cce-policy-admin/88a3512f0307/local-r2/shape/e2682939611653da68",
+    "path": "internal/api/httpserver/respond/error.go",
+    "lines": [5, 9],
+    "sourceType": "github.com/volvo-cars/cce-policy-admin/internal/api/httpserver/respond::ErrorResponse",
+    "kind": "StructType",
+    "declaration": "struct {\n\tStatus      int          `json:\"status\"`\n\tOperationID string       `json:\"operationId\"`\n\tError       ErrorMessage `json:\"error\"`\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "volvo/cce-policy-admin/88a3512f0307/local-r2/shape/9e18fb438be6fedbee",
+    "path": "internal/api/httpserver/respond/error.go",
+    "lines": [11, 15],
+    "sourceType": "github.com/volvo-cars/cce-policy-admin/internal/api/httpserver/respond::ErrorMessage",
+    "kind": "StructType",
+    "declaration": "struct {\n\tDetail      []ErrorList `json:\"detail,omitempty\"`\n\tMessage     string      `json:\"message,omitempty\"`\n\tDescription string      `json:\"description,omitempty\"`\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "volvo/cce-policy-admin/88a3512f0307/local-r2/shape/b9bddc06bed972688d",
+    "path": "internal/api/httpserver/respond/error.go",
+    "lines": [17, 20],
+    "sourceType": "github.com/volvo-cars/cce-policy-admin/internal/api/httpserver/respond::ErrorList",
+    "kind": "StructType",
+    "declaration": "struct {\n\tMessage string        `json:\"message,omitempty\"`\n\tErrors  []ErrorDetail `json:\"errors\"`\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "volvo/cce-policy-admin/88a3512f0307/local-r2/shape/a886669b1bc9c2e92b",
+    "path": "internal/api/httpserver/respond/error.go",
+    "lines": [22, 25],
+    "sourceType": "github.com/volvo-cars/cce-policy-admin/internal/api/httpserver/respond::ErrorDetail",
+    "kind": "StructType",
+    "declaration": "struct {\n\tField   string `json:\"field,omitempty\"`\n\tMessage string `json:\"message,omitempty\"`\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "volvo/cce-policy-admin/88a3512f0307/local-r2/shape/cd614ed0733a21ff11",
+    "path": "internal/api/httpserver/respond/model.go",
+    "lines": [3, 7],
+    "sourceType": "github.com/volvo-cars/cce-policy-admin/internal/api/httpserver/respond::Pagination",
+    "kind": "StructType",
+    "declaration": "struct {\n\tOffset int  `json:\"offset\"`\n\tLimit  int  `json:\"limit\"`\n\tTotal  *int `json:\"total,omitempty\"`\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "volvo/cce-policy-admin/88a3512f0307/local-r2/shape/bcd8b7a8e45116ad38",
+    "path": "internal/api/httpserver/respond/model.go",
+    "lines": [14, 18],
+    "sourceType": "github.com/volvo-cars/cce-policy-admin/internal/api/httpserver/respond::ListResponse",
+    "kind": "StructType",
+    "declaration": "struct {\n\tResponse[T]\n\n\tPagination Pagination `json:\"pagination\"`\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "volvo/cce-policy-admin/88a3512f0307/local-r2/shape/38c9f44a662cb1cf86",
+    "path": "internal/api/httpserver/respond/model.go",
+    "lines": [43, 47],
+    "sourceType": "github.com/volvo-cars/cce-policy-admin/internal/api/httpserver/respond::Response",
+    "kind": "StructType",
+    "declaration": "struct {\n\tStatus      int    `json:\"status\"`\n\tOperationID string `json:\"operationId\"`\n\tData        T      `json:\"data,omitempty\"`\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "volvo/cce-policy-admin/88a3512f0307/local-r2/shape/11db7f83a67486d2e1",
+    "path": "internal/api/httpserver/routes.go",
+    "lines": [13, 16],
+    "sourceType": "github.com/volvo-cars/cce-policy-admin/internal/api/httpserver::Router",
+    "kind": "StructType",
+    "declaration": "struct {\n\tcontroller *controller.Controller\n\trouter     chi.Router\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "volvo/cce-policy-admin/88a3512f0307/local-r2/shape/0be158e7479a35df7e",
+    "path": "internal/app/app.go",
+    "lines": [23, 25],
+    "sourceType": "github.com/volvo-cars/cce-policy-admin/internal/app::App",
+    "kind": "StructType",
+    "declaration": "struct {\n\t*fx.App\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "volvo/cce-policy-admin/88a3512f0307/local-r2/shape/3c075774a1c391d173",
+    "path": "internal/app/config.go",
+    "lines": [25, 34],
+    "sourceType": "github.com/volvo-cars/cce-policy-admin/internal/app::config",
+    "kind": "StructType",
+    "declaration": "struct {\n\tHost     string `config:\"HOST\"`\n\tPort     string `config:\"HTTP_PORT\"`\n\tLogLevel string `config:\"LOG_LEVEL\"`\n\n\tAzureStorageServiceURL  string `config:\"AZURE_STORAGE_SERVICE_URL\"`\n\tAzureStorageAccountName string `config:\"AZURE_STORAGE_ACCOUNT_NAME\"`\n\tAzureStorageAccountKey  string `config:\"AZURE_STORAGE_ACCOUNT_KEY\"`\n\tAzureStorageContainer   string `config:\"AZURE_STORAGE_CONTAINER\"`\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "volvo/cce-policy-admin/88a3512f0307/local-r2/shape/14c939b1e3f1d87196",
+    "path": "internal/app/watermill.go",
+    "lines": [206, 208],
+    "sourceType": "github.com/volvo-cars/cce-policy-admin/internal/app::Logger",
+    "kind": "StructType",
+    "declaration": "struct {\n\tzaplogger *zap.Logger\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "volvo/cce-policy-admin/88a3512f0307/local-r2/shape/65c7b5d10b95f8b48f",
+    "path": "internal/command/policyupdate.go",
+    "lines": [9, 11],
+    "sourceType": "github.com/volvo-cars/cce-policy-admin/internal/command::X",
+    "kind": "InterfaceType",
+    "declaration": "interface {\n\tStorePolicyPno12Rules(ctx context.Context, cpcr []domain.CarPolicyConfigRules) error\n}",
+    "completeness": "partial",
+    "gaps": ["volvo/cce-policy-admin/88a3512f0307/local-r2/gap/runtime"]
+  },
+  {
+    "shape": "volvo/cce-policy-admin/88a3512f0307/local-r2/shape/d892a4a8ce9456490d",
+    "path": "internal/command/policyupdate.go",
+    "lines": [13, 18],
+    "sourceType": "github.com/volvo-cars/cce-policy-admin/internal/command::PolicyUpdateCommandHandler",
+    "kind": "StructType",
+    "declaration": "struct {\n\tpolicyRepository   domain.PolicyRepository\n\tcarSpecsRepository domain.CarRepository\n\tx                  X\n\t// eventBus           *cqrs.EventBus\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "volvo/cce-policy-admin/88a3512f0307/local-r2/shape/ec34ed4595da947690",
+    "path": "internal/command/policyupdate.go",
+    "lines": [34, 39],
+    "sourceType": "github.com/volvo-cars/cce-policy-admin/internal/command::UpdatePolicyCommand",
+    "kind": "StructType",
+    "declaration": "struct {\n\tPolicyID           domain.PolicyID\n\tName               string\n\tConfigRules        []domain.NewConfigRule\n\tCarLimitationRules []domain.CarLimitationRule\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "volvo/cce-policy-admin/88a3512f0307/local-r2/shape/cc1763af30d813268a",
+    "path": "internal/database/blobstorage/blobstorage.go",
+    "lines": [17, 22],
+    "sourceType": "github.com/volvo-cars/cce-policy-admin/internal/database/blobstorage::Config",
+    "kind": "StructType",
+    "declaration": "struct {\n\taccountName   string\n\taccountKey    string\n\tcontainerName string\n\tserviceURL    string\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "volvo/cce-policy-admin/88a3512f0307/local-r2/shape/5904cd61911dd54b79",
+    "path": "internal/database/blobstorage/blobstorage.go",
+    "lines": [51, 55],
+    "sourceType": "github.com/volvo-cars/cce-policy-admin/internal/database/blobstorage::BlobStorage",
+    "kind": "StructType",
+    "declaration": "struct {\n\tclient        *azblob.Client\n\tcontainer     string\n\truleSetPrefix string\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "volvo/cce-policy-admin/88a3512f0307/local-r2/shape/1cb4fb7404aa2e97ad",
+    "path": "internal/database/inmemory/inmemory.go",
+    "lines": [16, 18],
+    "sourceType": "github.com/volvo-cars/cce-policy-admin/internal/database/inmemory::PolicyRepository",
+    "kind": "StructType",
+    "declaration": "struct {\n\tdbMock map[domain.PolicyID]*domain.Policy\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "volvo/cce-policy-admin/88a3512f0307/local-r2/shape/b765d59cbd90f4e4ad",
+    "path": "internal/database/inmemory/inmemory.go",
+    "lines": [71, 73],
+    "sourceType": "github.com/volvo-cars/cce-policy-admin/internal/database/inmemory::CarRepository",
+    "kind": "StructType",
+    "declaration": "struct {\n\tcarSpecs map[string][]domain.CarSpecification\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "volvo/cce-policy-admin/88a3512f0307/local-r2/shape/602bd8b3ab475c03a4",
+    "path": "internal/database/inmemory/inmemory.go",
+    "lines": [95, 100],
+    "sourceType": "github.com/volvo-cars/cce-policy-admin/internal/database/inmemory::CarSpecFile@internal/database/inmemory/inmemory.go:2646",
+    "kind": "StructType",
+    "declaration": "struct {\n\t\tPno12            string `json:\"pno12\"`\n\t\tModelYear        string `json:\"model_year\"`\n\t\tSpecMarket       string `json:\"spec_market\"`\n\t\tCarSpecification string `json:\"car_specification\"`\n\t}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "volvo/cce-policy-admin/88a3512f0307/local-r2/shape/b21d30eb17bda24aef",
+    "path": "internal/domain/carspecification.go",
+    "lines": [3, 15],
+    "sourceType": "github.com/volvo-cars/cce-policy-admin/internal/domain::CarSpecification",
+    "kind": "StructType",
+    "declaration": "struct {\n\tPno12           string             `json:\"pno12\"`\n\tVariant         Variant            `json:\"variant\"`\n\tSpecMarket      string             `json:\"specMarket\"`\n\tModelYear       int                `json:\"modelYear\"`\n\tProductionDates ProductionDates    `json:\"productionDates\"`\n\tSMessages       []SMessage         `json:\"sMessages\"`\n\tStyling         []Styling          `json:\"styling\"`\n\tColors          []Color            `json:\"colors\"`\n\tUpholsteries    []Upholsteries     `json:\"upholsteries\"`\n\tOptions         []Option           `json:\"options\"`\n\tPackages        []PackageComponent `json:\"packages\"`\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "volvo/cce-policy-admin/88a3512f0307/local-r2/shape/dbe8cd607326ed3f9a",
+    "path": "internal/domain/carspecification.go",
+    "lines": [17, 25],
+    "sourceType": "github.com/volvo-cars/cce-policy-admin/internal/domain::Variant",
+    "kind": "StructType",
+    "declaration": "struct {\n\tCarType       string `json:\"carType\"`\n\tEngine        string `json:\"engine\"`\n\tSalesVersion  string `json:\"salesVersion\"`\n\tBody          string `json:\"body\"`\n\tGearbox       string `json:\"gearbox\"`\n\tSteering      string `json:\"steering\"`\n\tMarketingCode string `json:\"marketingCode\"`\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "volvo/cce-policy-admin/88a3512f0307/local-r2/shape/813aebce1fd6637951",
+    "path": "internal/domain/carspecification.go",
+    "lines": [27, 30],
+    "sourceType": "github.com/volvo-cars/cce-policy-admin/internal/domain::SMessage",
+    "kind": "StructType",
+    "declaration": "struct {\n\tCode            string          `json:\"code\"`\n\tProductionDates ProductionDates `json:\"productionDates\"`\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "volvo/cce-policy-admin/88a3512f0307/local-r2/shape/c47d306de87195401c",
+    "path": "internal/domain/carspecification.go",
+    "lines": [32, 37],
+    "sourceType": "github.com/volvo-cars/cce-policy-admin/internal/domain::Styling",
+    "kind": "StructType",
+    "declaration": "struct {\n\tColor           ColorComponent      `json:\"color\"`\n\tUpholstery      UpholsteryComponent `json:\"upholstery\"`\n\tProductionDates ProductionDates     `json:\"productionDates\"`\n\tStandard        bool                `json:\"standard\"`\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "volvo/cce-policy-admin/88a3512f0307/local-r2/shape/db1981aae614b88133",
+    "path": "internal/domain/carspecification.go",
+    "lines": [39, 41],
+    "sourceType": "github.com/volvo-cars/cce-policy-admin/internal/domain::ColorComponent",
+    "kind": "StructType",
+    "declaration": "struct {\n\tCode string `json:\"code\"`\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "volvo/cce-policy-admin/88a3512f0307/local-r2/shape/f86be1966ff0ca9052",
+    "path": "internal/domain/carspecification.go",
+    "lines": [43, 47],
+    "sourceType": "github.com/volvo-cars/cce-policy-admin/internal/domain::Color",
+    "kind": "StructType",
+    "declaration": "struct {\n\tCode     string     `json:\"code\"`\n\tRequires []Requires `json:\"requires\"`\n\tForbids  []Forbids  `json:\"forbids\"`\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "volvo/cce-policy-admin/88a3512f0307/local-r2/shape/e69adc4b7fbff5c348",
+    "path": "internal/domain/carspecification.go",
+    "lines": [49, 53],
+    "sourceType": "github.com/volvo-cars/cce-policy-admin/internal/domain::Upholsteries",
+    "kind": "StructType",
+    "declaration": "struct {\n\tCode     string     `json:\"code\"`\n\tRequires []Requires `json:\"requires\"`\n\tForbids  []Forbids  `json:\"forbids\"`\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "volvo/cce-policy-admin/88a3512f0307/local-r2/shape/09c5f725e16eb5ed10",
+    "path": "internal/domain/carspecification.go",
+    "lines": [55, 57],
+    "sourceType": "github.com/volvo-cars/cce-policy-admin/internal/domain::UpholsteryComponent",
+    "kind": "StructType",
+    "declaration": "struct {\n\tCode string `json:\"code\"`\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "volvo/cce-policy-admin/88a3512f0307/local-r2/shape/e1e16632731d6684d9",
+    "path": "internal/domain/carspecification.go",
+    "lines": [59, 68],
+    "sourceType": "github.com/volvo-cars/cce-policy-admin/internal/domain::Option",
+    "kind": "StructType",
+    "declaration": "struct {\n\tCode                      string               `json:\"code\"`\n\tProductionDates           ProductionDates      `json:\"productionDates\"`\n\tPackageOnly               bool                 `json:\"packageOnly\"`\n\tIsRequired                bool                 `json:\"isRequired\"`\n\tRequiredInProductionDates ProductionDates      `json:\"requiredInProductionDates\"`\n\tExchangeables             []ExchangeableOption `json:\"exchangeables\"`\n\tRequires                  []Requires           `json:\"requires\"`\n\tForbids                   []Forbids            `json:\"forbids\"`\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "volvo/cce-policy-admin/88a3512f0307/local-r2/shape/d979668613d88eb43e",
+    "path": "internal/domain/carspecification.go",
+    "lines": [70, 73],
+    "sourceType": "github.com/volvo-cars/cce-policy-admin/internal/domain::ExchangeableOption",
+    "kind": "StructType",
+    "declaration": "struct {\n\tCode            string          `json:\"code\"`\n\tProductionDates ProductionDates `json:\"productionDates\"`\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "volvo/cce-policy-admin/88a3512f0307/local-r2/shape/27caa9e7be59cc4e88",
+    "path": "internal/domain/carspecification.go",
+    "lines": [75, 83],
+    "sourceType": "github.com/volvo-cars/cce-policy-admin/internal/domain::Requires",
+    "kind": "StructType",
+    "declaration": "struct {\n\tOption            []OptionComponent     `json:\"option\"`\n\tDefaultOption     OptionComponent       `json:\"defaultOption\"`\n\tColor             []ColorComponent      `json:\"color\"`\n\tDefaultColor      ColorComponent        `json:\"defaultColor\"`\n\tUpholstery        []UpholsteryComponent `json:\"upholstery\"`\n\tDefaultUpholstery UpholsteryComponent   `json:\"defaultUpholstery\"`\n\tProductionDates   ProductionDates       `json:\"productionDates\"`\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "volvo/cce-policy-admin/88a3512f0307/local-r2/shape/e649a81afac93b82bd",
+    "path": "internal/domain/carspecification.go",
+    "lines": [85, 90],
+    "sourceType": "github.com/volvo-cars/cce-policy-admin/internal/domain::Forbids",
+    "kind": "StructType",
+    "declaration": "struct {\n\tOption          OptionComponent     `json:\"option\"`\n\tColor           ColorComponent      `json:\"color\"`\n\tUpholstery      UpholsteryComponent `json:\"upholstery\"`\n\tProductionDates ProductionDates     `json:\"productionDates\"`\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "volvo/cce-policy-admin/88a3512f0307/local-r2/shape/0e1f54c427e6f464e3",
+    "path": "internal/domain/carspecification.go",
+    "lines": [92, 94],
+    "sourceType": "github.com/volvo-cars/cce-policy-admin/internal/domain::OptionComponent",
+    "kind": "StructType",
+    "declaration": "struct {\n\tCode string `json:\"code\"`\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "volvo/cce-policy-admin/88a3512f0307/local-r2/shape/e2b36204c2c7310854",
+    "path": "internal/domain/carspecification.go",
+    "lines": [96, 105],
+    "sourceType": "github.com/volvo-cars/cce-policy-admin/internal/domain::PackageComponent",
+    "kind": "StructType",
+    "declaration": "struct {\n\tCode                      string                       `json:\"code\"`\n\tProductionDates           ProductionDates              `json:\"productionDates\"`\n\tIsRequired                bool                         `json:\"isRequired\"`\n\tRequiredInProductionDates ProductionDates              `json:\"requiredInProductionDates\"`\n\tExhangeablePackageCodes   []string                     `json:\"exchangeablePackageCodes\"`\n\tOptionsInPackage          []OptionInPackageComponent   `json:\"optionsInPackage\"`\n\tColorsInPackage           ColorInPackageComponent      `json:\"colorsInPackage\"`\n\tUpholsteryInPackage       UpholsteryInPackageComponent `json:\"upholsteryInPackage\"`\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "volvo/cce-policy-admin/88a3512f0307/local-r2/shape/38663d3fd50cb63f41",
+    "path": "internal/domain/carspecification.go",
+    "lines": [107, 110],
+    "sourceType": "github.com/volvo-cars/cce-policy-admin/internal/domain::OptionInPackageComponent",
+    "kind": "StructType",
+    "declaration": "struct {\n\tCode          string            `json:\"code\"`\n\tExchangableTo []OptionComponent `json:\"exchangeableTo\"`\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "volvo/cce-policy-admin/88a3512f0307/local-r2/shape/6047e8c80a0d410b66",
+    "path": "internal/domain/carspecification.go",
+    "lines": [112, 115],
+    "sourceType": "github.com/volvo-cars/cce-policy-admin/internal/domain::ColorInPackageComponent",
+    "kind": "StructType",
+    "declaration": "struct {\n\tCode          string           `json:\"code\"`\n\tExchangableTo []ColorComponent `json:\"exchangeableTo\"`\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "volvo/cce-policy-admin/88a3512f0307/local-r2/shape/01c9a59a8454753c3b",
+    "path": "internal/domain/carspecification.go",
+    "lines": [117, 120],
+    "sourceType": "github.com/volvo-cars/cce-policy-admin/internal/domain::UpholsteryInPackageComponent",
+    "kind": "StructType",
+    "declaration": "struct {\n\tCode          string                `json:\"code\"`\n\tExchangableTo []UpholsteryComponent `json:\"exchangeableTo\"`\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "volvo/cce-policy-admin/88a3512f0307/local-r2/shape/7ef4cf83feb478302e",
+    "path": "internal/domain/carspecification.go",
+    "lines": [122, 125],
+    "sourceType": "github.com/volvo-cars/cce-policy-admin/internal/domain::ProductionDates",
+    "kind": "StructType",
+    "declaration": "struct {\n\tStructureWeekFrom StructureWeek `json:\"structureWeekFrom\"`\n\tStructureWeekTo   StructureWeek `json:\"structureWeekTo\"`\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "volvo/cce-policy-admin/88a3512f0307/local-r2/shape/169ba199ec9fd015f4",
+    "path": "internal/domain/carspecification.go",
+    "lines": [127, 130],
+    "sourceType": "github.com/volvo-cars/cce-policy-admin/internal/domain::StructureWeek",
+    "kind": "StructType",
+    "declaration": "struct {\n\tYear int `json:\"year\"`\n\tWeek int `json:\"week\"`\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "volvo/cce-policy-admin/88a3512f0307/local-r2/shape/09c93b3523e1e4592c",
+    "path": "internal/domain/configrule.go",
+    "lines": [13, 30],
+    "sourceType": "github.com/volvo-cars/cce-policy-admin/internal/domain::CarPolicyConfigRules",
+    "kind": "StructType",
+    "declaration": "struct {\n\tPolicyID             PolicyID\n\tCarSpecification     CarSpecification\n\tIncludedOptions      []string\n\tExcludedOptions      []string\n\tRequiredOptions      []string\n\tIncludedPackages     []string\n\tExcludedPackages     []string\n\tRequiredPackages     []string\n\tIncludedUpholsteries []string\n\tIncludedColors       []string\n\n\tDefaultColor      *string\n\tDefaultUpholstery *string\n\n\tIncludedWheels    []string\n\tIncludedSMessages []string\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "volvo/cce-policy-admin/88a3512f0307/local-r2/shape/73b396feecd81ab637",
+    "path": "internal/domain/configrule.go",
+    "lines": [308, 311],
+    "sourceType": "github.com/volvo-cars/cce-policy-admin/internal/domain::NewConfigRule",
+    "kind": "StructType",
+    "declaration": "struct {\n\tConsequence CarConsequence\n\tCondition   CarCondition\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "volvo/cce-policy-admin/88a3512f0307/local-r2/shape/b70838502bd69d19b9",
+    "path": "internal/domain/configrule.go",
+    "lines": [314, 322],
+    "sourceType": "github.com/volvo-cars/cce-policy-admin/internal/domain::CarConsequence",
+    "kind": "StructType",
+    "declaration": "struct {\n\tIncludeOptions  []string\n\tExcludeOptions  []string\n\tRequireOptions  []string\n\tIncludePackages []string\n\tRequirePackages []string\n\tExcludePackages []string\n\t// add more\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "volvo/cce-policy-admin/88a3512f0307/local-r2/shape/ded110479c51a7c2d2",
+    "path": "internal/domain/configrule.go",
+    "lines": [388, 392],
+    "sourceType": "github.com/volvo-cars/cce-policy-admin/internal/domain::CarLimitationRule",
+    "kind": "StructType",
+    "declaration": "struct {\n\tAllowedPno12s     []string\n\tAllowedModelYears []int\n\tAllowedCarTypes   []string\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "volvo/cce-policy-admin/88a3512f0307/local-r2/shape/2ac1b74f74a62e4072",
+    "path": "internal/domain/configrule.go",
+    "lines": [395, 399],
+    "sourceType": "github.com/volvo-cars/cce-policy-admin/internal/domain::CarCondition",
+    "kind": "StructType",
+    "declaration": "struct {\n\tRelation      Relation\n\tAnyConditions []CarAnyCondition\n\tAllConditions []CarAllCondition\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "volvo/cce-policy-admin/88a3512f0307/local-r2/shape/ea9c37d4e0272bc71c",
+    "path": "internal/domain/configrule.go",
+    "lines": [406, 409],
+    "sourceType": "github.com/volvo-cars/cce-policy-admin/internal/domain::CarAnyCondition",
+    "kind": "StructType",
+    "declaration": "struct {\n\tCarTypes []string\n\tEngines  []string\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "volvo/cce-policy-admin/88a3512f0307/local-r2/shape/5947352a10b407df04",
+    "path": "internal/domain/configrule.go",
+    "lines": [424, 427],
+    "sourceType": "github.com/volvo-cars/cce-policy-admin/internal/domain::CarAllCondition",
+    "kind": "StructType",
+    "declaration": "struct {\n\tCarType *string\n\tEngine  *string\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "volvo/cce-policy-admin/88a3512f0307/local-r2/shape/1ced28f58d2e20e283",
+    "path": "internal/domain/configrule.go",
+    "lines": [429, 429],
+    "sourceType": "github.com/volvo-cars/cce-policy-admin/internal/domain::Relation",
+    "kind": "Ident",
+    "declaration": "string",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "volvo/cce-policy-admin/88a3512f0307/local-r2/shape/7cde145ca10b6c8359",
+    "path": "internal/domain/configrule.go",
+    "lines": [444, 446],
+    "sourceType": "github.com/volvo-cars/cce-policy-admin/internal/domain::CarRepository",
+    "kind": "InterfaceType",
+    "declaration": "interface {\n\tGetCarsBySpecMarket(ctx context.Context, specMarket string) ([]CarSpecification, error)\n}",
+    "completeness": "partial",
+    "gaps": ["volvo/cce-policy-admin/88a3512f0307/local-r2/gap/runtime"]
+  },
+  {
+    "shape": "volvo/cce-policy-admin/88a3512f0307/local-r2/shape/658a18f360970019da",
+    "path": "internal/domain/event.go",
+    "lines": [5, 8],
+    "sourceType": "github.com/volvo-cars/cce-policy-admin/internal/domain::PolicyUpdated",
+    "kind": "StructType",
+    "declaration": "struct {\n\tRequestID uuid.UUID\n\tPolicyID  PolicyID\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "volvo/cce-policy-admin/88a3512f0307/local-r2/shape/c6f18cb8f4510a0a9d",
+    "path": "internal/domain/policy.go",
+    "lines": [5, 5],
+    "sourceType": "github.com/volvo-cars/cce-policy-admin/internal/domain::PolicyID",
+    "kind": "Ident",
+    "declaration": "string",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "volvo/cce-policy-admin/88a3512f0307/local-r2/shape/b064ea7351d1186d71",
+    "path": "internal/domain/policy.go",
+    "lines": [16, 21],
+    "sourceType": "github.com/volvo-cars/cce-policy-admin/internal/domain::PolicyRepository",
+    "kind": "InterfaceType",
+    "declaration": "interface {\n\tFindAll(ctx context.Context) ([]Policy, error)\n\tFindByID(ctx context.Context, id PolicyID) (*Policy, error)\n\tUpdate(ctx context.Context, policy *Policy) error\n\t// Delete(ctx context.Context, id string) error\n}",
+    "completeness": "partial",
+    "gaps": ["volvo/cce-policy-admin/88a3512f0307/local-r2/gap/runtime"]
+  },
+  {
+    "shape": "volvo/cce-policy-admin/88a3512f0307/local-r2/shape/f0db6391f1a55fbe7c",
+    "path": "internal/domain/policy.go",
+    "lines": [23, 30],
+    "sourceType": "github.com/volvo-cars/cce-policy-admin/internal/domain::Policy",
+    "kind": "StructType",
+    "declaration": "struct {\n\tID                 PolicyID\n\tParentID           PolicyID\n\tSpecMarket         string\n\tName               string\n\tConfigRules        []NewConfigRule\n\tCarLimitationRules []CarLimitationRule\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "volvo/cce-policy-admin/88a3512f0307/local-r2/shape/a015e308eb2fc5fdac",
+    "path": "internal/domain/policy.go",
+    "lines": [32, 33],
+    "sourceType": "github.com/volvo-cars/cce-policy-admin/internal/domain::PolicyStatus",
+    "kind": "StructType",
+    "declaration": "struct {\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "volvo/cce-policy-admin/88a3512f0307/local-r2/shape/7222e7bafb9332eed4",
+    "path": "internal/domain/policy.go",
+    "lines": [35, 35],
+    "sourceType": "github.com/volvo-cars/cce-policy-admin/internal/domain::Policies",
+    "kind": "ArrayType",
+    "declaration": "[]Policy",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "volvo/cce-policy-admin/88a3512f0307/local-r2/shape/d0aeeeafd62b12fd48",
+    "path": "internal/messaging/contracts/carconfiguration/component.pb.go",
+    "lines": [23, 23],
+    "sourceType": "github.com/volvo-cars/cce-policy-admin/internal/messaging/contracts/carconfiguration::ComponentType",
+    "kind": "Ident",
+    "declaration": "int32",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "volvo/cce-policy-admin/88a3512f0307/local-r2/shape/be773dadf235d80ad1",
+    "path": "internal/messaging/contracts/carconfiguration/component.pb.go",
+    "lines": [117, 130],
+    "sourceType": "github.com/volvo-cars/cce-policy-admin/internal/messaging/contracts/carconfiguration::Component",
+    "kind": "StructType",
+    "declaration": "struct {\n\tstate         protoimpl.MessageState\n\tsizeCache     protoimpl.SizeCache\n\tunknownFields protoimpl.UnknownFields\n\n\tId         string         `protobuf:\"bytes,1,opt,name=id,proto3\" json:\"id,omitempty\"`                                                              // Unique ID  for this component. guid\n\tCode       string         `protobuf:\"bytes,2,opt,name=code,proto3\" json:\"code,omitempty\"`                                                          // RA0000\n\tName       string         `protobuf:\"bytes,3,opt,name=name,proto3\" json:\"name,omitempty\"`                                                          // RA00\n\tLongName   string         `protobuf:\"bytes,4,opt,name=longName,proto3\" json:\"longName,omitempty\"`                                                  // CHARCOAL/LEAA/\n\tType       ComponentType  `protobuf:\"varint,5,opt,name=type,proto3,enum=volvocars.contracts.carconfiguration.ComponentType\" json:\"type,omitempty\"` // UPHOLSTERY\n\tCo2Effect  bool           `protobuf:\"varint,6,opt,name=co2Effect,proto3\" json:\"co2Effect,omitempty\"`                                               // true\n\tOptionType string         `protobuf:\"bytes,7,opt,name=optionType,proto3\" json:\"optionType,omitempty\"`                                              // \"\" or \"F\" or \"L\" or \"A\"\n\tMeta       *ComponentMeta `protobuf:\"bytes,8,opt,name=meta,proto3\" json:\"meta,omitempty\"`\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "volvo/cce-policy-admin/88a3512f0307/local-r2/shape/6002ed0b7c1e22c9dc",
+    "path": "internal/messaging/contracts/carconfiguration/component.pb.go",
+    "lines": [220, 227],
+    "sourceType": "github.com/volvo-cars/cce-policy-admin/internal/messaging/contracts/carconfiguration::ComponentMeta",
+    "kind": "StructType",
+    "declaration": "struct {\n\tstate         protoimpl.MessageState\n\tsizeCache     protoimpl.SizeCache\n\tunknownFields protoimpl.UnknownFields\n\n\tHundredPercent bool `protobuf:\"varint,1,opt,name=hundredPercent,proto3\" json:\"hundredPercent,omitempty\"`\n\tPackageOnly    bool `protobuf:\"varint,2,opt,name=packageOnly,proto3\" json:\"packageOnly,omitempty\"`\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "volvo/cce-policy-admin/88a3512f0307/local-r2/shape/58099f3ee72f50860b",
+    "path": "internal/messaging/contracts/carconfiguration/component.pb.go",
+    "lines": [275, 281],
+    "sourceType": "github.com/volvo-cars/cce-policy-admin/internal/messaging/contracts/carconfiguration::ComponentUpdated",
+    "kind": "StructType",
+    "declaration": "struct {\n\tstate         protoimpl.MessageState\n\tsizeCache     protoimpl.SizeCache\n\tunknownFields protoimpl.UnknownFields\n\n\tComponent *Component `protobuf:\"bytes,1,opt,name=component,proto3\" json:\"component,omitempty\"`\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "volvo/cce-policy-admin/88a3512f0307/local-r2/shape/2e27208d2d12639f14",
+    "path": "internal/messaging/contracts/carconfiguration/component.pb.go",
+    "lines": [462, 462],
+    "sourceType": "github.com/volvo-cars/cce-policy-admin/internal/messaging/contracts/carconfiguration::x@internal/messaging/contracts/carconfiguration/component.pb.go:17711",
+    "kind": "StructType",
+    "declaration": "struct{}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "volvo/cce-policy-admin/88a3512f0307/local-r2/shape/eaf0c27121652f8e1a",
+    "path": "internal/messaging/contracts/carconfiguration/condition.pb.go",
+    "lines": [23, 23],
+    "sourceType": "github.com/volvo-cars/cce-policy-admin/internal/messaging/contracts/carconfiguration::Relation",
+    "kind": "Ident",
+    "declaration": "int32",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "volvo/cce-policy-admin/88a3512f0307/local-r2/shape/a27c3480395af14b0a",
+    "path": "internal/messaging/contracts/carconfiguration/condition.pb.go",
+    "lines": [69, 76],
+    "sourceType": "github.com/volvo-cars/cce-policy-admin/internal/messaging/contracts/carconfiguration::Condition",
+    "kind": "StructType",
+    "declaration": "struct {\n\tstate         protoimpl.MessageState\n\tsizeCache     protoimpl.SizeCache\n\tunknownFields protoimpl.UnknownFields\n\n\tRelation      Relation        `protobuf:\"varint,1,opt,name=relation,proto3,enum=volvocars.contracts.carconfiguration.Relation\" json:\"relation,omitempty\"`\n\tSubConditions []*SubCondition `protobuf:\"bytes,2,rep,name=subConditions,proto3\" json:\"subConditions,omitempty\"`\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "volvo/cce-policy-admin/88a3512f0307/local-r2/shape/3f40469af0f9249ec5",
+    "path": "internal/messaging/contracts/carconfiguration/condition.pb.go",
+    "lines": [124, 131],
+    "sourceType": "github.com/volvo-cars/cce-policy-admin/internal/messaging/contracts/carconfiguration::SubCondition",
+    "kind": "StructType",
+    "declaration": "struct {\n\tstate         protoimpl.MessageState\n\tsizeCache     protoimpl.SizeCache\n\tunknownFields protoimpl.UnknownFields\n\n\tRelation   Relation     `protobuf:\"varint,1,opt,name=relation,proto3,enum=volvocars.contracts.carconfiguration.Relation\" json:\"relation,omitempty\"`\n\tComponents []*Component `protobuf:\"bytes,2,rep,name=components,proto3\" json:\"components,omitempty\"`\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "volvo/cce-policy-admin/88a3512f0307/local-r2/shape/9cdcabd18b1894779e",
+    "path": "internal/messaging/contracts/carconfiguration/condition.pb.go",
+    "lines": [288, 288],
+    "sourceType": "github.com/volvo-cars/cce-policy-admin/internal/messaging/contracts/carconfiguration::x@internal/messaging/contracts/carconfiguration/condition.pb.go:11162",
+    "kind": "StructType",
+    "declaration": "struct{}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "volvo/cce-policy-admin/88a3512f0307/local-r2/shape/a6ea3074ae466cae5e",
+    "path": "internal/messaging/contracts/carconfiguration/config-policy.pb.go",
+    "lines": [23, 34],
+    "sourceType": "github.com/volvo-cars/cce-policy-admin/internal/messaging/contracts/carconfiguration::ConfigPolicy",
+    "kind": "StructType",
+    "declaration": "struct {\n\tstate         protoimpl.MessageState\n\tsizeCache     protoimpl.SizeCache\n\tunknownFields protoimpl.UnknownFields\n\n\tUid                    string                   `protobuf:\"bytes,1,opt,name=uid,proto3\" json:\"uid,omitempty\"`\n\tName                   string                   `protobuf:\"bytes,2,opt,name=name,proto3\" json:\"name,omitempty\"`\n\tParentUid              string                   `protobuf:\"bytes,3,opt,name=parentUid,proto3\" json:\"parentUid,omitempty\"`\n\tGroup                  string                   `protobuf:\"bytes,4,opt,name=group,proto3\" json:\"group,omitempty\"`\n\tConfigRuleSets         []*ConfigRuleSet         `protobuf:\"bytes,5,rep,name=configRuleSets,proto3\" json:\"configRuleSets,omitempty\"`\n\tStructureWeeksRuleSets []*StructureWeeksRuleSet `protobuf:\"bytes,6,rep,name=structureWeeksRuleSets,proto3\" json:\"structureWeeksRuleSets,omitempty\"`\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "volvo/cce-policy-admin/88a3512f0307/local-r2/shape/494c37933bf97b364b",
+    "path": "internal/messaging/contracts/carconfiguration/config-policy.pb.go",
+    "lines": [110, 121],
+    "sourceType": "github.com/volvo-cars/cce-policy-admin/internal/messaging/contracts/carconfiguration::ConfigPolicyCreated",
+    "kind": "StructType",
+    "declaration": "struct {\n\tstate         protoimpl.MessageState\n\tsizeCache     protoimpl.SizeCache\n\tunknownFields protoimpl.UnknownFields\n\n\tUid                    string                   `protobuf:\"bytes,1,opt,name=uid,proto3\" json:\"uid,omitempty\"`\n\tName                   string                   `protobuf:\"bytes,2,opt,name=name,proto3\" json:\"name,omitempty\"`\n\tParentUid              string                   `protobuf:\"bytes,3,opt,name=parentUid,proto3\" json:\"parentUid,omitempty\"`\n\tGroup                  string                   `protobuf:\"bytes,4,opt,name=group,proto3\" json:\"group,omitempty\"`\n\tConfigRuleSets         []*ConfigRuleSet         `protobuf:\"bytes,5,rep,name=configRuleSets,proto3\" json:\"configRuleSets,omitempty\"`\n\tStructureWeeksRuleSets []*StructureWeeksRuleSet `protobuf:\"bytes,6,rep,name=structureWeeksRuleSets,proto3\" json:\"structureWeeksRuleSets,omitempty\"`\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "volvo/cce-policy-admin/88a3512f0307/local-r2/shape/8559c44d1e15a8afac",
+    "path": "internal/messaging/contracts/carconfiguration/config-policy.pb.go",
+    "lines": [197, 209],
+    "sourceType": "github.com/volvo-cars/cce-policy-admin/internal/messaging/contracts/carconfiguration::ConfigPolicyUpdated",
+    "kind": "StructType",
+    "declaration": "struct {\n\tstate         protoimpl.MessageState\n\tsizeCache     protoimpl.SizeCache\n\tunknownFields protoimpl.UnknownFields\n\n\tUid                    string                   `protobuf:\"bytes,1,opt,name=uid,proto3\" json:\"uid,omitempty\"`\n\tName                   string                   `protobuf:\"bytes,2,opt,name=name,proto3\" json:\"name,omitempty\"`\n\tParentUid              string                   `protobuf:\"bytes,3,opt,name=parentUid,proto3\" json:\"parentUid,omitempty\"`\n\tGroup                  string                   `protobuf:\"bytes,4,opt,name=group,proto3\" json:\"group,omitempty\"`\n\tConfigRuleSets         []*ConfigRuleSet         `protobuf:\"bytes,5,rep,name=configRuleSets,proto3\" json:\"configRuleSets,omitempty\"`\n\tStructureWeeksRuleSets []*StructureWeeksRuleSet `protobuf:\"bytes,6,rep,name=structureWeeksRuleSets,proto3\" json:\"structureWeeksRuleSets,omitempty\"`\n\tStoragePath            string                   `protobuf:\"bytes,7,opt,name=storagePath,proto3\" json:\"storagePath,omitempty\"`\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "volvo/cce-policy-admin/88a3512f0307/local-r2/shape/0612fe27a8da817e7f",
+    "path": "internal/messaging/contracts/carconfiguration/config-policy.pb.go",
+    "lines": [292, 303],
+    "sourceType": "github.com/volvo-cars/cce-policy-admin/internal/messaging/contracts/carconfiguration::ConfigPolicyDeleted",
+    "kind": "StructType",
+    "declaration": "struct {\n\tstate         protoimpl.MessageState\n\tsizeCache     protoimpl.SizeCache\n\tunknownFields protoimpl.UnknownFields\n\n\tUid                    string                   `protobuf:\"bytes,1,opt,name=uid,proto3\" json:\"uid,omitempty\"`\n\tName                   string                   `protobuf:\"bytes,2,opt,name=name,proto3\" json:\"name,omitempty\"`\n\tParentUid              string                   `protobuf:\"bytes,3,opt,name=parentUid,proto3\" json:\"parentUid,omitempty\"`\n\tGroup                  string                   `protobuf:\"bytes,4,opt,name=group,proto3\" json:\"group,omitempty\"`\n\tConfigRuleSets         []*ConfigRuleSet         `protobuf:\"bytes,5,rep,name=configRuleSets,proto3\" json:\"configRuleSets,omitempty\"`\n\tStructureWeeksRuleSets []*StructureWeeksRuleSet `protobuf:\"bytes,6,rep,name=structureWeeksRuleSets,proto3\" json:\"structureWeeksRuleSets,omitempty\"`\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "volvo/cce-policy-admin/88a3512f0307/local-r2/shape/86c8a3b92c59657243",
+    "path": "internal/messaging/contracts/carconfiguration/config-policy.pb.go",
+    "lines": [379, 389],
+    "sourceType": "github.com/volvo-cars/cce-policy-admin/internal/messaging/contracts/carconfiguration::ConfigPolicyRulesUpdated",
+    "kind": "StructType",
+    "declaration": "struct {\n\tstate         protoimpl.MessageState\n\tsizeCache     protoimpl.SizeCache\n\tunknownFields protoimpl.UnknownFields\n\n\tPolicyUid              string                   `protobuf:\"bytes,1,opt,name=policyUid,proto3\" json:\"policyUid,omitempty\"`\n\tParentUid              string                   `protobuf:\"bytes,2,opt,name=parentUid,proto3\" json:\"parentUid,omitempty\"`\n\tGroup                  string                   `protobuf:\"bytes,3,opt,name=group,proto3\" json:\"group,omitempty\"`\n\tConfigRuleSets         []*ConfigRuleSet         `protobuf:\"bytes,4,rep,name=configRuleSets,proto3\" json:\"configRuleSets,omitempty\"`\n\tStructureWeeksRuleSets []*StructureWeeksRuleSet `protobuf:\"bytes,5,rep,name=structureWeeksRuleSets,proto3\" json:\"structureWeeksRuleSets,omitempty\"`\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "volvo/cce-policy-admin/88a3512f0307/local-r2/shape/63b0005fc5326ea915",
+    "path": "internal/messaging/contracts/carconfiguration/config-policy.pb.go",
+    "lines": [458, 465],
+    "sourceType": "github.com/volvo-cars/cce-policy-admin/internal/messaging/contracts/carconfiguration::ActiveVersionChanged",
+    "kind": "StructType",
+    "declaration": "struct {\n\tstate         protoimpl.MessageState\n\tsizeCache     protoimpl.SizeCache\n\tunknownFields protoimpl.UnknownFields\n\n\tPolicyUid  string `protobuf:\"bytes,1,opt,name=policyUid,proto3\" json:\"policyUid,omitempty\"`\n\tVersionUid string `protobuf:\"bytes,2,opt,name=versionUid,proto3\" json:\"versionUid,omitempty\"`\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "volvo/cce-policy-admin/88a3512f0307/local-r2/shape/ecced82d6bab8480f5",
+    "path": "internal/messaging/contracts/carconfiguration/config-policy.pb.go",
+    "lines": [513, 523],
+    "sourceType": "github.com/volvo-cars/cce-policy-admin/internal/messaging/contracts/carconfiguration::Pno12RuleSetMeta",
+    "kind": "StructType",
+    "declaration": "struct {\n\tstate         protoimpl.MessageState\n\tsizeCache     protoimpl.SizeCache\n\tunknownFields protoimpl.UnknownFields\n\n\tPno12       string       `protobuf:\"bytes,1,opt,name=pno12,proto3\" json:\"pno12,omitempty\"`\n\tPath        string       `protobuf:\"bytes,2,opt,name=path,proto3\" json:\"path,omitempty\"`\n\tActive      string       `protobuf:\"bytes,3,opt,name=active,proto3\" json:\"active,omitempty\"`\n\tComponents  []*Component `protobuf:\"bytes,4,rep,name=components,proto3\" json:\"components,omitempty\"`\n\tPreSelected []*Component `protobuf:\"bytes,5,rep,name=preSelected,proto3\" json:\"preSelected,omitempty\"`\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "volvo/cce-policy-admin/88a3512f0307/local-r2/shape/e6e89d4b97404bda80",
+    "path": "internal/messaging/contracts/carconfiguration/config-policy.pb.go",
+    "lines": [592, 602],
+    "sourceType": "github.com/volvo-cars/cce-policy-admin/internal/messaging/contracts/carconfiguration::PolicyRulesUpdated",
+    "kind": "StructType",
+    "declaration": "struct {\n\tstate         protoimpl.MessageState\n\tsizeCache     protoimpl.SizeCache\n\tunknownFields protoimpl.UnknownFields\n\n\tUid               string              `protobuf:\"bytes,1,opt,name=uid,proto3\" json:\"uid,omitempty\"`\n\tParentUid         string              `protobuf:\"bytes,2,opt,name=parentUid,proto3\" json:\"parentUid,omitempty\"`\n\tPno12RuleSetMetas []*Pno12RuleSetMeta `protobuf:\"bytes,3,rep,name=pno12RuleSetMetas,proto3\" json:\"pno12RuleSetMetas,omitempty\"`\n\tRequestUid        string              `protobuf:\"bytes,4,opt,name=request_uid,json=requestUid,proto3\" json:\"request_uid,omitempty\"`\n\tSpecMarket        string              `protobuf:\"bytes,5,opt,name=specMarket,proto3\" json:\"specMarket,omitempty\"`\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "volvo/cce-policy-admin/88a3512f0307/local-r2/shape/8441d7c2c23b0f31a4",
+    "path": "internal/messaging/contracts/carconfiguration/config-policy.pb.go",
+    "lines": [671, 679],
+    "sourceType": "github.com/volvo-cars/cce-policy-admin/internal/messaging/contracts/carconfiguration::PolicyDeleted",
+    "kind": "StructType",
+    "declaration": "struct {\n\tstate         protoimpl.MessageState\n\tsizeCache     protoimpl.SizeCache\n\tunknownFields protoimpl.UnknownFields\n\n\tUid        string `protobuf:\"bytes,1,opt,name=uid,proto3\" json:\"uid,omitempty\"`\n\tRequestUid string `protobuf:\"bytes,2,opt,name=request_uid,json=requestUid,proto3\" json:\"request_uid,omitempty\"`\n\tSpecMarket string `protobuf:\"bytes,3,opt,name=spec_market,json=specMarket,proto3\" json:\"spec_market,omitempty\"`\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "volvo/cce-policy-admin/88a3512f0307/local-r2/shape/97c6e85d58d84015b7",
+    "path": "internal/messaging/contracts/carconfiguration/config-policy.pb.go",
+    "lines": [734, 740],
+    "sourceType": "github.com/volvo-cars/cce-policy-admin/internal/messaging/contracts/carconfiguration::PoliciesDeleted",
+    "kind": "StructType",
+    "declaration": "struct {\n\tstate         protoimpl.MessageState\n\tsizeCache     protoimpl.SizeCache\n\tunknownFields protoimpl.UnknownFields\n\n\tPoliciesDeleted []*PolicyDeleted `protobuf:\"bytes,1,rep,name=policiesDeleted,proto3\" json:\"policiesDeleted,omitempty\"`\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "volvo/cce-policy-admin/88a3512f0307/local-r2/shape/c4aa29d8a72851f560",
+    "path": "internal/messaging/contracts/carconfiguration/config-policy.pb.go",
+    "lines": [781, 787],
+    "sourceType": "github.com/volvo-cars/cce-policy-admin/internal/messaging/contracts/carconfiguration::PoliciesRulesUpdated",
+    "kind": "StructType",
+    "declaration": "struct {\n\tstate         protoimpl.MessageState\n\tsizeCache     protoimpl.SizeCache\n\tunknownFields protoimpl.UnknownFields\n\n\tPolicyRulesUpdates []*PolicyRulesUpdated `protobuf:\"bytes,1,rep,name=policyRulesUpdates,proto3\" json:\"policyRulesUpdates,omitempty\"`\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "volvo/cce-policy-admin/88a3512f0307/local-r2/shape/ca2f1f9ae2c0f226b3",
+    "path": "internal/messaging/contracts/carconfiguration/config-policy.pb.go",
+    "lines": [828, 835],
+    "sourceType": "github.com/volvo-cars/cce-policy-admin/internal/messaging/contracts/carconfiguration::Pno12ActiveStatus",
+    "kind": "StructType",
+    "declaration": "struct {\n\tstate         protoimpl.MessageState\n\tsizeCache     protoimpl.SizeCache\n\tunknownFields protoimpl.UnknownFields\n\n\tPno12  string `protobuf:\"bytes,1,opt,name=pno12,proto3\" json:\"pno12,omitempty\"`\n\tActive string `protobuf:\"bytes,2,opt,name=active,proto3\" json:\"active,omitempty\"`\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "volvo/cce-policy-admin/88a3512f0307/local-r2/shape/91fac3227362290d29",
+    "path": "internal/messaging/contracts/carconfiguration/config-policy.pb.go",
+    "lines": [883, 890],
+    "sourceType": "github.com/volvo-cars/cce-policy-admin/internal/messaging/contracts/carconfiguration::PolicyStatusUpdated",
+    "kind": "StructType",
+    "declaration": "struct {\n\tstate         protoimpl.MessageState\n\tsizeCache     protoimpl.SizeCache\n\tunknownFields protoimpl.UnknownFields\n\n\tUid               string               `protobuf:\"bytes,1,opt,name=uid,proto3\" json:\"uid,omitempty\"`\n\tPno12ActiveStatus []*Pno12ActiveStatus `protobuf:\"bytes,2,rep,name=pno12ActiveStatus,proto3\" json:\"pno12ActiveStatus,omitempty\"`\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "volvo/cce-policy-admin/88a3512f0307/local-r2/shape/68a4b34be4129338bd",
+    "path": "internal/messaging/contracts/carconfiguration/config-policy.pb.go",
+    "lines": [938, 944],
+    "sourceType": "github.com/volvo-cars/cce-policy-admin/internal/messaging/contracts/carconfiguration::PolicyRulesSaved",
+    "kind": "StructType",
+    "declaration": "struct {\n\tstate         protoimpl.MessageState\n\tsizeCache     protoimpl.SizeCache\n\tunknownFields protoimpl.UnknownFields\n\n\tUid string `protobuf:\"bytes,1,opt,name=uid,proto3\" json:\"uid,omitempty\"`\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "volvo/cce-policy-admin/88a3512f0307/local-r2/shape/e582de88cb772d710b",
+    "path": "internal/messaging/contracts/carconfiguration/config-policy.pb.go",
+    "lines": [1417, 1417],
+    "sourceType": "github.com/volvo-cars/cce-policy-admin/internal/messaging/contracts/carconfiguration::x@internal/messaging/contracts/carconfiguration/config-policy.pb.go:55880",
+    "kind": "StructType",
+    "declaration": "struct{}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "volvo/cce-policy-admin/88a3512f0307/local-r2/shape/77e02d86858eff551a",
+    "path": "internal/messaging/contracts/carconfiguration/config-rules.pb.go",
+    "lines": [24, 34],
+    "sourceType": "github.com/volvo-cars/cce-policy-admin/internal/messaging/contracts/carconfiguration::RulesImported",
+    "kind": "StructType",
+    "declaration": "struct {\n\tstate         protoimpl.MessageState\n\tsizeCache     protoimpl.SizeCache\n\tunknownFields protoimpl.UnknownFields\n\n\tId            string               `protobuf:\"bytes,1,opt,name=id,proto3\" json:\"id,omitempty\"`\n\tRuleSetHash   string               `protobuf:\"bytes,2,opt,name=ruleSetHash,proto3\" json:\"ruleSetHash,omitempty\"`\n\tVersionId     string               `protobuf:\"bytes,3,opt,name=versionId,proto3\" json:\"versionId,omitempty\"`\n\tStoragePath   string               `protobuf:\"bytes,4,opt,name=storagePath,proto3\" json:\"storagePath,omitempty\"`\n\tTimePublished *timestamp.Timestamp `protobuf:\"bytes,5,opt,name=timePublished,proto3\" json:\"timePublished,omitempty\"`\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "volvo/cce-policy-admin/88a3512f0307/local-r2/shape/509a999695909a6132",
+    "path": "internal/messaging/contracts/carconfiguration/config-rules.pb.go",
+    "lines": [103, 112],
+    "sourceType": "github.com/volvo-cars/cce-policy-admin/internal/messaging/contracts/carconfiguration::RuleSet",
+    "kind": "StructType",
+    "declaration": "struct {\n\tstate         protoimpl.MessageState\n\tsizeCache     protoimpl.SizeCache\n\tunknownFields protoimpl.UnknownFields\n\n\tId                    string                 `protobuf:\"bytes,1,opt,name=id,proto3\" json:\"id,omitempty\"`\n\tRuleSetHash           string                 `protobuf:\"bytes,2,opt,name=ruleSetHash,proto3\" json:\"ruleSetHash,omitempty\"`\n\tConfigRuleSet         *ConfigRuleSet         `protobuf:\"bytes,3,opt,name=configRuleSet,proto3\" json:\"configRuleSet,omitempty\"`\n\tStructureWeeksRuleSet *StructureWeeksRuleSet `protobuf:\"bytes,4,opt,name=structureWeeksRuleSet,proto3\" json:\"structureWeeksRuleSet,omitempty\"`\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "volvo/cce-policy-admin/88a3512f0307/local-r2/shape/4dea7d6284bc49acc1",
+    "path": "internal/messaging/contracts/carconfiguration/config-rules.pb.go",
+    "lines": [174, 181],
+    "sourceType": "github.com/volvo-cars/cce-policy-admin/internal/messaging/contracts/carconfiguration::RuleSetCreated",
+    "kind": "StructType",
+    "declaration": "struct {\n\tstate         protoimpl.MessageState\n\tsizeCache     protoimpl.SizeCache\n\tunknownFields protoimpl.UnknownFields\n\n\tRuleSet       *RuleSet             `protobuf:\"bytes,1,opt,name=ruleSet,proto3\" json:\"ruleSet,omitempty\"`\n\tTimePublished *timestamp.Timestamp `protobuf:\"bytes,2,opt,name=timePublished,proto3\" json:\"timePublished,omitempty\"`\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "volvo/cce-policy-admin/88a3512f0307/local-r2/shape/dab20e69419adb25be",
+    "path": "internal/messaging/contracts/carconfiguration/config-rules.pb.go",
+    "lines": [229, 236],
+    "sourceType": "github.com/volvo-cars/cce-policy-admin/internal/messaging/contracts/carconfiguration::ConfigRuleSet",
+    "kind": "StructType",
+    "declaration": "struct {\n\tstate         protoimpl.MessageState\n\tsizeCache     protoimpl.SizeCache\n\tunknownFields protoimpl.UnknownFields\n\n\tId          string        `protobuf:\"bytes,1,opt,name=id,proto3\" json:\"id,omitempty\"`\n\tConfigRules []*ConfigRule `protobuf:\"bytes,2,rep,name=configRules,proto3\" json:\"configRules,omitempty\"`\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "volvo/cce-policy-admin/88a3512f0307/local-r2/shape/725d62efa24d943058",
+    "path": "internal/messaging/contracts/carconfiguration/config-rules.pb.go",
+    "lines": [284, 292],
+    "sourceType": "github.com/volvo-cars/cce-policy-admin/internal/messaging/contracts/carconfiguration::ConfigRule",
+    "kind": "StructType",
+    "declaration": "struct {\n\tstate         protoimpl.MessageState\n\tsizeCache     protoimpl.SizeCache\n\tunknownFields protoimpl.UnknownFields\n\n\tCondition   *Condition   `protobuf:\"bytes,1,opt,name=condition,proto3\" json:\"condition,omitempty\"`\n\tConsequence *Consequence `protobuf:\"bytes,2,opt,name=consequence,proto3\" json:\"consequence,omitempty\"`\n\tId          string       `protobuf:\"bytes,3,opt,name=id,proto3\" json:\"id,omitempty\"`\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "volvo/cce-policy-admin/88a3512f0307/local-r2/shape/38203d96da4247164e",
+    "path": "internal/messaging/contracts/carconfiguration/config-rules.pb.go",
+    "lines": [347, 353],
+    "sourceType": "github.com/volvo-cars/cce-policy-admin/internal/messaging/contracts/carconfiguration::ConfigRulesCreated",
+    "kind": "StructType",
+    "declaration": "struct {\n\tstate         protoimpl.MessageState\n\tsizeCache     protoimpl.SizeCache\n\tunknownFields protoimpl.UnknownFields\n\n\tConfigRuleSet *ConfigRuleSet `protobuf:\"bytes,1,opt,name=configRuleSet,proto3\" json:\"configRuleSet,omitempty\"`\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "volvo/cce-policy-admin/88a3512f0307/local-r2/shape/7f38457e84008c5cec",
+    "path": "internal/messaging/contracts/carconfiguration/config-rules.pb.go",
+    "lines": [394, 400],
+    "sourceType": "github.com/volvo-cars/cce-policy-admin/internal/messaging/contracts/carconfiguration::ConfigRulesUpdated",
+    "kind": "StructType",
+    "declaration": "struct {\n\tstate         protoimpl.MessageState\n\tsizeCache     protoimpl.SizeCache\n\tunknownFields protoimpl.UnknownFields\n\n\tConfigRuleSet *ConfigRuleSet `protobuf:\"bytes,1,opt,name=configRuleSet,proto3\" json:\"configRuleSet,omitempty\"`\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "volvo/cce-policy-admin/88a3512f0307/local-r2/shape/415ec41e7273e50bd0",
+    "path": "internal/messaging/contracts/carconfiguration/config-rules.pb.go",
+    "lines": [441, 448],
+    "sourceType": "github.com/volvo-cars/cce-policy-admin/internal/messaging/contracts/carconfiguration::StructureWeeksRuleSet",
+    "kind": "StructType",
+    "declaration": "struct {\n\tstate         protoimpl.MessageState\n\tsizeCache     protoimpl.SizeCache\n\tunknownFields protoimpl.UnknownFields\n\n\tId                  string                `protobuf:\"bytes,1,opt,name=id,proto3\" json:\"id,omitempty\"`\n\tStructureWeeksRules []*StructureWeeksRule `protobuf:\"bytes,2,rep,name=structureWeeksRules,proto3\" json:\"structureWeeksRules,omitempty\"`\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "volvo/cce-policy-admin/88a3512f0307/local-r2/shape/33fe2d182ef29f5446",
+    "path": "internal/messaging/contracts/carconfiguration/config-rules.pb.go",
+    "lines": [496, 504],
+    "sourceType": "github.com/volvo-cars/cce-policy-admin/internal/messaging/contracts/carconfiguration::StructureWeeksRule",
+    "kind": "StructType",
+    "declaration": "struct {\n\tstate         protoimpl.MessageState\n\tsizeCache     protoimpl.SizeCache\n\tunknownFields protoimpl.UnknownFields\n\n\tCondition   *Condition                 `protobuf:\"bytes,1,opt,name=condition,proto3\" json:\"condition,omitempty\"`\n\tConsequence *StructureWeeksConsequence `protobuf:\"bytes,2,opt,name=consequence,proto3\" json:\"consequence,omitempty\"`\n\tId          string                     `protobuf:\"bytes,3,opt,name=id,proto3\" json:\"id,omitempty\"`\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "volvo/cce-policy-admin/88a3512f0307/local-r2/shape/cbfa59f6d372961117",
+    "path": "internal/messaging/contracts/carconfiguration/config-rules.pb.go",
+    "lines": [846, 846],
+    "sourceType": "github.com/volvo-cars/cce-policy-admin/internal/messaging/contracts/carconfiguration::x@internal/messaging/contracts/carconfiguration/config-rules.pb.go:33360",
+    "kind": "StructType",
+    "declaration": "struct{}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "volvo/cce-policy-admin/88a3512f0307/local-r2/shape/2bca831a5df7a0c828",
+    "path": "internal/messaging/contracts/carconfiguration/consequence.pb.go",
+    "lines": [23, 23],
+    "sourceType": "github.com/volvo-cars/cce-policy-admin/internal/messaging/contracts/carconfiguration::RuleType",
+    "kind": "Ident",
+    "declaration": "int32",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "volvo/cce-policy-admin/88a3512f0307/local-r2/shape/4e469adbcc1265d269",
+    "path": "internal/messaging/contracts/carconfiguration/consequence.pb.go",
+    "lines": [87, 94],
+    "sourceType": "github.com/volvo-cars/cce-policy-admin/internal/messaging/contracts/carconfiguration::Consequence",
+    "kind": "StructType",
+    "declaration": "struct {\n\tstate         protoimpl.MessageState\n\tsizeCache     protoimpl.SizeCache\n\tunknownFields protoimpl.UnknownFields\n\n\tRuleType   RuleType     `protobuf:\"varint,1,opt,name=ruleType,proto3,enum=volvocars.contracts.carconfiguration.RuleType\" json:\"ruleType,omitempty\"`\n\tComponents []*Component `protobuf:\"bytes,2,rep,name=components,proto3\" json:\"components,omitempty\"`\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "volvo/cce-policy-admin/88a3512f0307/local-r2/shape/d68e7a199e6bd0105a",
+    "path": "internal/messaging/contracts/carconfiguration/consequence.pb.go",
+    "lines": [142, 151],
+    "sourceType": "github.com/volvo-cars/cce-policy-admin/internal/messaging/contracts/carconfiguration::StructureWeeksConsequence",
+    "kind": "StructType",
+    "declaration": "struct {\n\tstate         protoimpl.MessageState\n\tsizeCache     protoimpl.SizeCache\n\tunknownFields protoimpl.UnknownFields\n\n\tFromYear int32 `protobuf:\"varint,1,opt,name=fromYear,proto3\" json:\"fromYear,omitempty\"`\n\tToYear   int32 `protobuf:\"varint,2,opt,name=toYear,proto3\" json:\"toYear,omitempty\"`\n\tFromWeek int32 `protobuf:\"varint,3,opt,name=fromWeek,proto3\" json:\"fromWeek,omitempty\"`\n\tToWeek   int32 `protobuf:\"varint,4,opt,name=toWeek,proto3\" json:\"toWeek,omitempty\"`\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "volvo/cce-policy-admin/88a3512f0307/local-r2/shape/3bfb7548f3e3ba3858",
+    "path": "internal/messaging/contracts/carconfiguration/consequence.pb.go",
+    "lines": [213, 219],
+    "sourceType": "github.com/volvo-cars/cce-policy-admin/internal/messaging/contracts/carconfiguration::PriceRuleConsequence",
+    "kind": "StructType",
+    "declaration": "struct {\n\tstate         protoimpl.MessageState\n\tsizeCache     protoimpl.SizeCache\n\tunknownFields protoimpl.UnknownFields\n\n\tValue string `protobuf:\"bytes,1,opt,name=value,proto3\" json:\"value,omitempty\"`\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "volvo/cce-policy-admin/88a3512f0307/local-r2/shape/f5aa7948fb03d6f11b",
+    "path": "internal/messaging/contracts/carconfiguration/consequence.pb.go",
+    "lines": [387, 387],
+    "sourceType": "github.com/volvo-cars/cce-policy-admin/internal/messaging/contracts/carconfiguration::x@internal/messaging/contracts/carconfiguration/consequence.pb.go:14508",
+    "kind": "StructType",
+    "declaration": "struct{}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "volvo/cce-policy-admin/88a3512f0307/local-r2/shape/2b0387400bda678f28",
+    "path": "internal/messaging/contracts/cce/bto_car.pb.go",
+    "lines": [23, 30],
+    "sourceType": "github.com/volvo-cars/cce-policy-admin/internal/messaging/contracts/cce::BtoCarAdded",
+    "kind": "StructType",
+    "declaration": "struct {\n\tstate         protoimpl.MessageState `protogen:\"open.v1\"`\n\tMarket        string                 `protobuf:\"bytes,1,opt,name=market,proto3\" json:\"market,omitempty\"`\n\tBusinessModel string                 `protobuf:\"bytes,2,opt,name=business_model,json=businessModel,proto3\" json:\"business_model,omitempty\"`\n\tCar           *Car                   `protobuf:\"bytes,3,opt,name=car,proto3\" json:\"car,omitempty\"`\n\tunknownFields protoimpl.UnknownFields\n\tsizeCache     protoimpl.SizeCache\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "volvo/cce-policy-admin/88a3512f0307/local-r2/shape/d0c7eceb02e82890dd",
+    "path": "internal/messaging/contracts/cce/bto_car.pb.go",
+    "lines": [83, 90],
+    "sourceType": "github.com/volvo-cars/cce-policy-admin/internal/messaging/contracts/cce::BtoCarUpdated",
+    "kind": "StructType",
+    "declaration": "struct {\n\tstate         protoimpl.MessageState `protogen:\"open.v1\"`\n\tMarket        string                 `protobuf:\"bytes,1,opt,name=market,proto3\" json:\"market,omitempty\"`\n\tBusinessModel string                 `protobuf:\"bytes,2,opt,name=business_model,json=businessModel,proto3\" json:\"business_model,omitempty\"`\n\tCar           *Car                   `protobuf:\"bytes,3,opt,name=car,proto3\" json:\"car,omitempty\"`\n\tunknownFields protoimpl.UnknownFields\n\tsizeCache     protoimpl.SizeCache\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "volvo/cce-policy-admin/88a3512f0307/local-r2/shape/bf51238bc189968c0a",
+    "path": "internal/messaging/contracts/cce/bto_car.pb.go",
+    "lines": [143, 150],
+    "sourceType": "github.com/volvo-cars/cce-policy-admin/internal/messaging/contracts/cce::BtoCarRemoved",
+    "kind": "StructType",
+    "declaration": "struct {\n\tstate         protoimpl.MessageState `protogen:\"open.v1\"`\n\tMarket        string                 `protobuf:\"bytes,1,opt,name=market,proto3\" json:\"market,omitempty\"`\n\tBusinessModel string                 `protobuf:\"bytes,2,opt,name=business_model,json=businessModel,proto3\" json:\"business_model,omitempty\"`\n\tCar           *Car                   `protobuf:\"bytes,3,opt,name=car,proto3\" json:\"car,omitempty\"`\n\tunknownFields protoimpl.UnknownFields\n\tsizeCache     protoimpl.SizeCache\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "volvo/cce-policy-admin/88a3512f0307/local-r2/shape/12bce75b22ed0ea5ee",
+    "path": "internal/messaging/contracts/cce/bto_car.pb.go",
+    "lines": [203, 212],
+    "sourceType": "github.com/volvo-cars/cce-policy-admin/internal/messaging/contracts/cce::Car",
+    "kind": "StructType",
+    "declaration": "struct {\n\tstate            protoimpl.MessageState `protogen:\"open.v1\"`\n\tId               string                 `protobuf:\"bytes,1,opt,name=id,proto3\" json:\"id,omitempty\"`\n\tPno12            string                 `protobuf:\"bytes,2,opt,name=pno12,proto3\" json:\"pno12,omitempty\"`\n\tModelYear        int32                  `protobuf:\"varint,3,opt,name=model_year,json=modelYear,proto3\" json:\"model_year,omitempty\"`\n\tSpecMarket       string                 `protobuf:\"bytes,4,opt,name=spec_market,json=specMarket,proto3\" json:\"spec_market,omitempty\"`\n\tLocalEditionCode string                 `protobuf:\"bytes,5,opt,name=local_edition_code,json=localEditionCode,proto3\" json:\"local_edition_code,omitempty\"`\n\tunknownFields    protoimpl.UnknownFields\n\tsizeCache        protoimpl.SizeCache\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "volvo/cce-policy-admin/88a3512f0307/local-r2/shape/849314a62b96886368",
+    "path": "internal/messaging/contracts/cce/bto_car.pb.go",
+    "lines": [360, 360],
+    "sourceType": "github.com/volvo-cars/cce-policy-admin/internal/messaging/contracts/cce::x@internal/messaging/contracts/cce/bto_car.pb.go:12657",
+    "kind": "StructType",
+    "declaration": "struct{}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "volvo/cce-policy-admin/88a3512f0307/local-r2/shape/0f092cb91325750978",
+    "path": "internal/messaging/contracts/cce/car-configuration.pb.go",
+    "lines": [23, 43],
+    "sourceType": "github.com/volvo-cars/cce-policy-admin/internal/messaging/contracts/cce::CarKey",
+    "kind": "StructType",
+    "declaration": "struct {\n\tstate         protoimpl.MessageState\n\tsizeCache     protoimpl.SizeCache\n\tunknownFields protoimpl.UnknownFields\n\n\tModelYear     int32    `protobuf:\"varint,1,opt,name=modelYear,proto3\" json:\"modelYear,omitempty\"`\n\tSpecMarket    string   `protobuf:\"bytes,2,opt,name=specMarket,proto3\" json:\"specMarket,omitempty\"`\n\tCarType       string   `protobuf:\"bytes,3,opt,name=carType,proto3\" json:\"carType,omitempty\"`\n\tEngine        string   `protobuf:\"bytes,4,opt,name=engine,proto3\" json:\"engine,omitempty\"`\n\tSalesVersion  string   `protobuf:\"bytes,5,opt,name=salesVersion,proto3\" json:\"salesVersion,omitempty\"`\n\tBody          string   `protobuf:\"bytes,6,opt,name=body,proto3\" json:\"body,omitempty\"`\n\tGearbox       string   `protobuf:\"bytes,7,opt,name=gearbox,proto3\" json:\"gearbox,omitempty\"`\n\tSteering      string   `protobuf:\"bytes,8,opt,name=steering,proto3\" json:\"steering,omitempty\"`\n\tMarketingCode string   `protobuf:\"bytes,9,opt,name=marketingCode,proto3\" json:\"marketingCode,omitempty\"`\n\tSMessage      string   `protobuf:\"bytes,10,opt,name=sMessage,proto3\" json:\"sMessage,omitempty\"`\n\tColor         string   `protobuf:\"bytes,11,opt,name=color,proto3\" json:\"color,omitempty\"`\n\tUpholstery    string   `protobuf:\"bytes,12,opt,name=upholstery,proto3\" json:\"upholstery,omitempty\"`\n\tOptions       []string `protobuf:\"bytes,13,rep,name=options,proto3\" json:\"options,omitempty\"`\n\tPackages      []string `protobuf:\"bytes,14,rep,name=packages,proto3\" json:\"packages,omitempty\"`\n\tStructureWeek int32    `protobuf:\"varint,15,opt,name=structureWeek,proto3\" json:\"structureWeek,omitempty\"`\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "volvo/cce-policy-admin/88a3512f0307/local-r2/shape/996e11186e646865f0",
+    "path": "internal/messaging/contracts/cce/car-configuration.pb.go",
+    "lines": [182, 191],
+    "sourceType": "github.com/volvo-cars/cce-policy-admin/internal/messaging/contracts/cce::CarConfigurationAdded",
+    "kind": "StructType",
+    "declaration": "struct {\n\tstate         protoimpl.MessageState\n\tsizeCache     protoimpl.SizeCache\n\tunknownFields protoimpl.UnknownFields\n\n\tMarket                 string  `protobuf:\"bytes,1,opt,name=market,proto3\" json:\"market,omitempty\"`\n\tValidFromStructureWeek int32   `protobuf:\"varint,2,opt,name=validFromStructureWeek,proto3\" json:\"validFromStructureWeek,omitempty\"`\n\tValidToStructureWeek   int32   `protobuf:\"varint,3,opt,name=validToStructureWeek,proto3\" json:\"validToStructureWeek,omitempty\"`\n\tCarKey                 *CarKey `protobuf:\"bytes,4,opt,name=carKey,proto3\" json:\"carKey,omitempty\"`\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "volvo/cce-policy-admin/88a3512f0307/local-r2/shape/317e59efb8cece05af",
+    "path": "internal/messaging/contracts/cce/car-configuration.pb.go",
+    "lines": [253, 260],
+    "sourceType": "github.com/volvo-cars/cce-policy-admin/internal/messaging/contracts/cce::CarConfigurationRemoved",
+    "kind": "StructType",
+    "declaration": "struct {\n\tstate         protoimpl.MessageState\n\tsizeCache     protoimpl.SizeCache\n\tunknownFields protoimpl.UnknownFields\n\n\tMarket string  `protobuf:\"bytes,1,opt,name=market,proto3\" json:\"market,omitempty\"`\n\tCarKey *CarKey `protobuf:\"bytes,2,opt,name=carKey,proto3\" json:\"carKey,omitempty\"`\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "volvo/cce-policy-admin/88a3512f0307/local-r2/shape/ac36de21393186d0d6",
+    "path": "internal/messaging/contracts/cce/car-configuration.pb.go",
+    "lines": [441, 441],
+    "sourceType": "github.com/volvo-cars/cce-policy-admin/internal/messaging/contracts/cce::x@internal/messaging/contracts/cce/car-configuration.pb.go:15853",
+    "kind": "StructType",
+    "declaration": "struct{}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "volvo/cce-policy-admin/88a3512f0307/local-r2/shape/602007a4cb25635a26",
+    "path": "internal/messaging/contracts/cce/car-sync.pb.go",
+    "lines": [23, 30],
+    "sourceType": "github.com/volvo-cars/cce-policy-admin/internal/messaging/contracts/cce::CarSyncCompleted",
+    "kind": "StructType",
+    "declaration": "struct {\n\tstate         protoimpl.MessageState\n\tsizeCache     protoimpl.SizeCache\n\tunknownFields protoimpl.UnknownFields\n\n\tPolicyId  string `protobuf:\"bytes,1,opt,name=policy_id,json=policyId,proto3\" json:\"policy_id,omitempty\"`\n\tRequestId string `protobuf:\"bytes,2,opt,name=request_id,json=requestId,proto3\" json:\"request_id,omitempty\"`\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "volvo/cce-policy-admin/88a3512f0307/local-r2/shape/b0299ed0314ba428c1",
+    "path": "internal/messaging/contracts/cce/car-sync.pb.go",
+    "lines": [78, 85],
+    "sourceType": "github.com/volvo-cars/cce-policy-admin/internal/messaging/contracts/cce::CarSyncFailed",
+    "kind": "StructType",
+    "declaration": "struct {\n\tstate         protoimpl.MessageState\n\tsizeCache     protoimpl.SizeCache\n\tunknownFields protoimpl.UnknownFields\n\n\tPolicyId  string `protobuf:\"bytes,1,opt,name=policy_id,json=policyId,proto3\" json:\"policy_id,omitempty\"`\n\tRequestId string `protobuf:\"bytes,2,opt,name=request_id,json=requestId,proto3\" json:\"request_id,omitempty\"`\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "volvo/cce-policy-admin/88a3512f0307/local-r2/shape/2e783a865653391a3a",
+    "path": "internal/messaging/contracts/cce/car-sync.pb.go",
+    "lines": [213, 213],
+    "sourceType": "github.com/volvo-cars/cce-policy-admin/internal/messaging/contracts/cce::x@internal/messaging/contracts/cce/car-sync.pb.go:6797",
+    "kind": "StructType",
+    "declaration": "struct{}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "volvo/cce-policy-admin/88a3512f0307/local-r2/shape/fb34302ba4aeb1db74",
+    "path": "internal/messaging/policypublisher.go",
+    "lines": [18, 21],
+    "sourceType": "github.com/volvo-cars/cce-policy-admin/internal/messaging::PolicyPublisher",
+    "kind": "StructType",
+    "declaration": "struct {\n\ttopic     string\n\tpublisher message.Publisher\n}",
+    "completeness": "closed",
+    "gaps": []
+  }
+]

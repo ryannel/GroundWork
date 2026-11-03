@@ -1,0 +1,16 @@
+[
+  {
+    "handoff": "volvo/cce-filter-service/2020ff59219b/local-r3/handoff/policy-rules-saved/be4f9e07413511f3f8",
+    "sourceOperation": "volvo/cce-filter-service/2020ff59219b/local-r3/operation/9436a6cdeaad81bc39/12",
+    "sourceCases": ["ConfigPolicyService.save", "ConfigPolicyService.update_policy", "api.build"],
+    "subscription": "volvo/cce-filter-service/2020ff59219b/local-r3/subscription/dispatch/dc6c37932905d75ce0/CONFIG_POLICY_TOPIC",
+    "status": "unresolved; available source correspondence retained"
+  },
+  {
+    "handoff": "volvo/cce-filter-service/2020ff59219b/local-r3/handoff/policy-rules-saved/f0adae15fa8a414472",
+    "sourceOperation": "volvo/cce-filter-service/2020ff59219b/local-r3/operation/593f1f71535c69ac0f/12",
+    "sourceCases": ["ConfigPolicyService.save", "ConfigPolicyService.update_policy", "api.build"],
+    "subscription": "volvo/cce-filter-service/2020ff59219b/local-r3/subscription/dispatch/dc6c37932905d75ce0/CONFIG_POLICY_TOPIC",
+    "status": "unresolved; available source correspondence retained"
+  }
+]

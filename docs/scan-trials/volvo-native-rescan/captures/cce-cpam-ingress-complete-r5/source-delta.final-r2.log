@@ -1,0 +1,11 @@
+
+> groundwork@0.0.0 knowledge:validate
+> node --import ./tools/register.ts --conditions=react-server tools/validate-knowledge.ts reports/volvo-native-rescan/cce-cpam-ingress-complete/evidence-delta.final-r2.bundle.json --sources /Users/RNEL/.cache/groundwork/clones
+
+{
+  "snapshot": "0fb73534282ffd2d367755f6339fdaad35e3c98bb6c74ea4321fcc668e1b2f89",
+  "bundles": 1,
+  "records": 6,
+  "sourceRangesChecked": 5,
+  "sourceVerification": "pinned_local_files"
+}

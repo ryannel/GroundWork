@@ -1,0 +1,2884 @@
+{
+  "format": "groundwork-result/v3",
+  "snapshot": "9958d25719399c959ece547e827c4b7f92f853a983c8b2669f34e08ca6f7f0cc",
+  "queryVersion": "knowledge-query/v3",
+  "request": {
+    "format": "groundwork-query/v3",
+    "snapshot": "9958d25719399c959ece547e827c4b7f92f853a983c8b2669f34e08ca6f7f0cc",
+    "query": "trace",
+    "entry": "masdeep-b360506/entry/get-api-commercial-items-fees-internalid",
+    "value": null,
+    "context": [],
+    "outcome": null,
+    "changed": [],
+    "representation": "constructed",
+    "candidates": "exclude",
+    "maxNodes": 1500,
+    "maxRecords": 5000,
+    "environment": "production-profile",
+    "ids": []
+  },
+  "nodes": [
+    {
+      "id": "root::masdeep-b360506/depth/bound/controller/get-api-commercial-items-fees-internalid/op/entry",
+      "record": "masdeep-b360506/depth/bound/controller/get-api-commercial-items-fees-internalid/op/entry",
+      "context": [],
+      "label": "GET /api/commercial-items/fees/{internalId}",
+      "component": "u3/component/mas",
+      "execution": "masdeep-b360506/runs/get-api-commercial-items-fees-internalid"
+    },
+    {
+      "id": "root::masdeep-b360506/depth/bound/controller/get-api-commercial-items-fees-internalid/op/auth",
+      "record": "masdeep-b360506/depth/bound/controller/get-api-commercial-items-fees-internalid/op/auth",
+      "context": [],
+      "label": "Declared PopAuthz policy handler",
+      "component": "u3/component/mas",
+      "execution": "masdeep-b360506/runs/get-api-commercial-items-fees-internalid"
+    },
+    {
+      "id": "masdeep-b360506/depth/bound/controller/get-api-commercial-items-fees-internalid/op/auth::masdeep-b360506/depth/bound/auth-get/op/entry",
+      "record": "masdeep-b360506/depth/bound/auth-get/op/entry",
+      "context": [
+        "masdeep-b360506/depth/bound/controller/get-api-commercial-items-fees-internalid/op/auth"
+      ],
+      "label": "Declared policy handler, request method fixed GET",
+      "component": "u3/component/mas",
+      "execution": "masdeep-b360506/depth/runs/bound/auth-get"
+    },
+    {
+      "id": "masdeep-b360506/depth/bound/controller/get-api-commercial-items-fees-internalid/op/auth::masdeep-b360506/depth/bound/auth-get/op/enabled",
+      "record": "masdeep-b360506/depth/bound/auth-get/op/enabled",
+      "context": [
+        "masdeep-b360506/depth/bound/controller/get-api-commercial-items-fees-internalid/op/auth"
+      ],
+      "label": "AuthorizationClientSettings.Enabled?",
+      "component": "u3/component/mas",
+      "execution": "masdeep-b360506/depth/runs/bound/auth-get"
+    },
+    {
+      "id": "masdeep-b360506/depth/bound/controller/get-api-commercial-items-fees-internalid/op/auth::masdeep-b360506/depth/bound/auth-get/op/allowed",
+      "record": "masdeep-b360506/depth/bound/auth-get/op/allowed",
+      "context": [
+        "masdeep-b360506/depth/bound/controller/get-api-commercial-items-fees-internalid/op/auth"
+      ],
+      "label": "GET or disabled handler context.Succeed",
+      "component": "u3/component/mas",
+      "execution": "masdeep-b360506/depth/runs/bound/auth-get"
+    },
+    {
+      "id": "masdeep-b360506/depth/bound/controller/get-api-commercial-items-fees-internalid/op/auth::masdeep-b360506/depth/bound/auth-get/op/request",
+      "record": "masdeep-b360506/depth/bound/auth-get/op/request",
+      "context": [
+        "masdeep-b360506/depth/bound/controller/get-api-commercial-items-fees-internalid/op/auth"
+      ],
+      "label": "DefaultHttpContext request available?",
+      "component": "u3/component/mas",
+      "execution": "masdeep-b360506/depth/runs/bound/auth-get"
+    },
+    {
+      "id": "root::masdeep-b360506/depth/bound/controller/get-api-commercial-items-fees-internalid/op/begin",
+      "record": "masdeep-b360506/depth/bound/controller/get-api-commercial-items-fees-internalid/op/begin",
+      "context": [],
+      "label": "Controller body after framework binding",
+      "component": "u3/component/mas",
+      "execution": "masdeep-b360506/runs/get-api-commercial-items-fees-internalid"
+    },
+    {
+      "id": "masdeep-b360506/depth/bound/controller/get-api-commercial-items-fees-internalid/op/auth::masdeep-b360506/depth/bound/auth-get/op/error",
+      "record": "masdeep-b360506/depth/bound/auth-get/op/error",
+      "context": [
+        "masdeep-b360506/depth/bound/controller/get-api-commercial-items-fees-internalid/op/auth"
+      ],
+      "label": "Enabled handler request is null",
+      "component": "u3/component/mas",
+      "execution": "masdeep-b360506/depth/runs/bound/auth-get"
+    },
+    {
+      "id": "root::masdeep-b360506/depth/bound/controller/get-api-commercial-items-fees-internalid/op/wrap-key",
+      "record": "masdeep-b360506/depth/bound/controller/get-api-commercial-items-fees-internalid/op/wrap-key",
+      "context": [],
+      "label": "InternalId.FromGuid(internalId)",
+      "component": "u3/component/mas",
+      "execution": "masdeep-b360506/runs/get-api-commercial-items-fees-internalid"
+    },
+    {
+      "id": "root::masdeep-b360506/depth/bound/controller/get-api-commercial-items-fees-internalid/op/failure",
+      "record": "masdeep-b360506/depth/bound/controller/get-api-commercial-items-fees-internalid/op/failure",
+      "context": [],
+      "label": "Local exception middleware500",
+      "component": "u3/component/mas",
+      "execution": "masdeep-b360506/runs/get-api-commercial-items-fees-internalid"
+    },
+    {
+      "id": "root::masdeep-b360506/depth/bound/controller/get-api-commercial-items-fees-internalid/op/service",
+      "record": "masdeep-b360506/depth/bound/controller/get-api-commercial-items-fees-internalid/op/service",
+      "context": [],
+      "label": "FeeService.get",
+      "component": "u3/component/mas",
+      "execution": "masdeep-b360506/runs/get-api-commercial-items-fees-internalid"
+    },
+    {
+      "id": "masdeep-b360506/depth/bound/controller/get-api-commercial-items-fees-internalid/op/service::masdeep-b360506/depth/bound/service/Fee/get/op/entry",
+      "record": "masdeep-b360506/depth/bound/service/Fee/get/op/entry",
+      "context": [
+        "masdeep-b360506/depth/bound/controller/get-api-commercial-items-fees-internalid/op/service"
+      ],
+      "label": "CommercialItemService<Fee>.GetNoTracking(InternalId)",
+      "component": "u3/component/mas",
+      "execution": "masdeep-b360506/depth/runs/bound/service/Fee/get"
+    },
+    {
+      "id": "masdeep-b360506/depth/bound/controller/get-api-commercial-items-fees-internalid/op/service::masdeep-b360506/depth/bound/service/Fee/get/op/repository",
+      "record": "masdeep-b360506/depth/bound/service/Fee/get/op/repository",
+      "context": [
+        "masdeep-b360506/depth/bound/controller/get-api-commercial-items-fees-internalid/op/service"
+      ],
+      "label": "Repository.GetSingleNoTracking",
+      "component": "u3/component/mas",
+      "execution": "masdeep-b360506/depth/runs/bound/service/Fee/get"
+    },
+    {
+      "id": "masdeep-b360506/depth/bound/controller/get-api-commercial-items-fees-internalid/op/service>masdeep-b360506/depth/bound/service/Fee/get/op/repository::masdeep-b360506/depth/bound/repo/Fee/get/op/entry",
+      "record": "masdeep-b360506/depth/bound/repo/Fee/get/op/entry",
+      "context": [
+        "masdeep-b360506/depth/bound/controller/get-api-commercial-items-fees-internalid/op/service",
+        "masdeep-b360506/depth/bound/service/Fee/get/op/repository"
+      ],
+      "label": "CommercialItemRepository<Fee>.GetSingleNoTracking(InternalId)",
+      "component": "u3/component/mas",
+      "execution": "masdeep-b360506/depth/runs/bound/repo/Fee/get"
+    },
+    {
+      "id": "masdeep-b360506/depth/bound/controller/get-api-commercial-items-fees-internalid/op/service>masdeep-b360506/depth/bound/service/Fee/get/op/repository::masdeep-b360506/depth/bound/repo/Fee/get/op/lookup",
+      "record": "masdeep-b360506/depth/bound/repo/Fee/get/op/lookup",
+      "context": [
+        "masdeep-b360506/depth/bound/controller/get-api-commercial-items-fees-internalid/op/service",
+        "masdeep-b360506/depth/bound/service/Fee/get/op/repository"
+      ],
+      "label": "AsNoTracking().SingleOrDefaultAsync(p => p.InternalId == key)",
+      "component": "u3/component/mas",
+      "execution": "masdeep-b360506/depth/runs/bound/repo/Fee/get"
+    },
+    {
+      "id": "masdeep-b360506/depth/bound/controller/get-api-commercial-items-fees-internalid/op/service>masdeep-b360506/depth/bound/service/Fee/get/op/repository::masdeep-b360506/depth/bound/repo/Fee/get/op/error",
+      "record": "masdeep-b360506/depth/bound/repo/Fee/get/op/error",
+      "context": [
+        "masdeep-b360506/depth/bound/controller/get-api-commercial-items-fees-internalid/op/service",
+        "masdeep-b360506/depth/bound/service/Fee/get/op/repository"
+      ],
+      "label": "Propagate source exception",
+      "component": "u3/component/mas",
+      "execution": "masdeep-b360506/depth/runs/bound/repo/Fee/get"
+    },
+    {
+      "id": "masdeep-b360506/depth/bound/controller/get-api-commercial-items-fees-internalid/op/service>masdeep-b360506/depth/bound/service/Fee/get/op/repository::masdeep-b360506/depth/bound/repo/Fee/get/op/found",
+      "record": "masdeep-b360506/depth/bound/repo/Fee/get/op/found",
+      "context": [
+        "masdeep-b360506/depth/bound/controller/get-api-commercial-items-fees-internalid/op/service",
+        "masdeep-b360506/depth/bound/service/Fee/get/op/repository"
+      ],
+      "label": "item != null?",
+      "component": "u3/component/mas",
+      "execution": "masdeep-b360506/depth/runs/bound/repo/Fee/get"
+    },
+    {
+      "id": "masdeep-b360506/depth/bound/controller/get-api-commercial-items-fees-internalid/op/service::masdeep-b360506/depth/bound/service/Fee/get/op/error",
+      "record": "masdeep-b360506/depth/bound/service/Fee/get/op/error",
+      "context": [
+        "masdeep-b360506/depth/bound/controller/get-api-commercial-items-fees-internalid/op/service"
+      ],
+      "label": "Propagate source exception",
+      "component": "u3/component/mas",
+      "execution": "masdeep-b360506/depth/runs/bound/service/Fee/get"
+    },
+    {
+      "id": "masdeep-b360506/depth/bound/controller/get-api-commercial-items-fees-internalid/op/service>masdeep-b360506/depth/bound/service/Fee/get/op/repository::masdeep-b360506/depth/bound/repo/Fee/get/op/missing-result",
+      "record": "masdeep-b360506/depth/bound/repo/Fee/get/op/missing-result",
+      "context": [
+        "masdeep-b360506/depth/bound/controller/get-api-commercial-items-fees-internalid/op/service",
+        "masdeep-b360506/depth/bound/service/Fee/get/op/repository"
+      ],
+      "label": "Result.NotFound<T>(source message)",
+      "component": "u3/component/mas",
+      "execution": "masdeep-b360506/depth/runs/bound/repo/Fee/get"
+    },
+    {
+      "id": "masdeep-b360506/depth/bound/controller/get-api-commercial-items-fees-internalid/op/service>masdeep-b360506/depth/bound/service/Fee/get/op/repository::masdeep-b360506/depth/bound/repo/Fee/get/op/found-item",
+      "record": "masdeep-b360506/depth/bound/repo/Fee/get/op/found-item",
+      "context": [
+        "masdeep-b360506/depth/bound/controller/get-api-commercial-items-fees-internalid/op/service",
+        "masdeep-b360506/depth/bound/service/Fee/get/op/repository"
+      ],
+      "label": "Found nonnull entity",
+      "component": "u3/component/mas",
+      "execution": "masdeep-b360506/depth/runs/bound/repo/Fee/get"
+    },
+    {
+      "id": "masdeep-b360506/depth/bound/controller/get-api-commercial-items-fees-internalid/op/service>masdeep-b360506/depth/bound/service/Fee/get/op/repository::masdeep-b360506/depth/bound/repo/Fee/get/op/missing",
+      "record": "masdeep-b360506/depth/bound/repo/Fee/get/op/missing",
+      "context": [
+        "masdeep-b360506/depth/bound/controller/get-api-commercial-items-fees-internalid/op/service",
+        "masdeep-b360506/depth/bound/service/Fee/get/op/repository"
+      ],
+      "label": "Return not_found",
+      "component": "u3/component/mas",
+      "execution": "masdeep-b360506/depth/runs/bound/repo/Fee/get"
+    },
+    {
+      "id": "masdeep-b360506/depth/bound/controller/get-api-commercial-items-fees-internalid/op/service>masdeep-b360506/depth/bound/service/Fee/get/op/repository::masdeep-b360506/depth/bound/repo/Fee/get/op/ok-result",
+      "record": "masdeep-b360506/depth/bound/repo/Fee/get/op/ok-result",
+      "context": [
+        "masdeep-b360506/depth/bound/controller/get-api-commercial-items-fees-internalid/op/service",
+        "masdeep-b360506/depth/bound/service/Fee/get/op/repository"
+      ],
+      "label": "Result.Ok(item)",
+      "component": "u3/component/mas",
+      "execution": "masdeep-b360506/depth/runs/bound/repo/Fee/get"
+    },
+    {
+      "id": "masdeep-b360506/depth/bound/controller/get-api-commercial-items-fees-internalid/op/service::masdeep-b360506/depth/bound/service/Fee/get/op/missing",
+      "record": "masdeep-b360506/depth/bound/service/Fee/get/op/missing",
+      "context": [
+        "masdeep-b360506/depth/bound/controller/get-api-commercial-items-fees-internalid/op/service"
+      ],
+      "label": "Return source repository NotFound",
+      "component": "u3/component/mas",
+      "execution": "masdeep-b360506/depth/runs/bound/service/Fee/get"
+    },
+    {
+      "id": "masdeep-b360506/depth/bound/controller/get-api-commercial-items-fees-internalid/op/service>masdeep-b360506/depth/bound/service/Fee/get/op/repository::masdeep-b360506/depth/bound/repo/Fee/get/op/return",
+      "record": "masdeep-b360506/depth/bound/repo/Fee/get/op/return",
+      "context": [
+        "masdeep-b360506/depth/bound/controller/get-api-commercial-items-fees-internalid/op/service",
+        "masdeep-b360506/depth/bound/service/Fee/get/op/repository"
+      ],
+      "label": "Return ok",
+      "component": "u3/component/mas",
+      "execution": "masdeep-b360506/depth/runs/bound/repo/Fee/get"
+    },
+    {
+      "id": "root::masdeep-b360506/depth/bound/controller/get-api-commercial-items-fees-internalid/op/missing",
+      "record": "masdeep-b360506/depth/bound/controller/get-api-commercial-items-fees-internalid/op/missing",
+      "context": [],
+      "label": "Result NotFound mapped HTTP404",
+      "component": "u3/component/mas",
+      "execution": "masdeep-b360506/runs/get-api-commercial-items-fees-internalid"
+    },
+    {
+      "id": "masdeep-b360506/depth/bound/controller/get-api-commercial-items-fees-internalid/op/service::masdeep-b360506/depth/bound/service/Fee/get/op/return",
+      "record": "masdeep-b360506/depth/bound/service/Fee/get/op/return",
+      "context": [
+        "masdeep-b360506/depth/bound/controller/get-api-commercial-items-fees-internalid/op/service"
+      ],
+      "label": "Return ok",
+      "component": "u3/component/mas",
+      "execution": "masdeep-b360506/depth/runs/bound/service/Fee/get"
+    },
+    {
+      "id": "root::masdeep-b360506/depth/bound/controller/get-api-commercial-items-fees-internalid/op/response",
+      "record": "masdeep-b360506/depth/bound/controller/get-api-commercial-items-fees-internalid/op/response",
+      "context": [],
+      "label": "ToHttpResponse maps source Result into full SuccessResponse/single envelope Status, OperationId, Data; delete Data null",
+      "component": "u3/component/mas",
+      "execution": "masdeep-b360506/runs/get-api-commercial-items-fees-internalid"
+    },
+    {
+      "id": "root::masdeep-b360506/depth/bound/controller/get-api-commercial-items-fees-internalid/op/return",
+      "record": "masdeep-b360506/depth/bound/controller/get-api-commercial-items-fees-internalid/op/return",
+      "context": [],
+      "label": "HTTP200 with constructed outer success envelope",
+      "component": "u3/component/mas",
+      "execution": "masdeep-b360506/runs/get-api-commercial-items-fees-internalid"
+    }
+  ],
+  "edges": [
+    {
+      "from": "root::masdeep-b360506/depth/bound/controller/get-api-commercial-items-fees-internalid/op/entry",
+      "to": "root::masdeep-b360506/depth/bound/controller/get-api-commercial-items-fees-internalid/op/auth",
+      "on": "normal",
+      "condition": null,
+      "assumption": null,
+      "evidence": [
+        "masdeep-b360506/e/64ccd42e1ab01afe",
+        "masdeep-b360506/e/860bc1ca29201083",
+        "masdeep-b360506/e/edf8504f9d4cbc21"
+      ],
+      "record": "masdeep-b360506/depth/bound/controller/get-api-commercial-items-fees-internalid/t/1"
+    },
+    {
+      "from": "root::masdeep-b360506/depth/bound/controller/get-api-commercial-items-fees-internalid/op/auth",
+      "to": "masdeep-b360506/depth/bound/controller/get-api-commercial-items-fees-internalid/op/auth::masdeep-b360506/depth/bound/auth-get/op/entry",
+      "on": "call",
+      "condition": null,
+      "assumption": null,
+      "evidence": [],
+      "record": null
+    },
+    {
+      "from": "masdeep-b360506/depth/bound/controller/get-api-commercial-items-fees-internalid/op/auth::masdeep-b360506/depth/bound/auth-get/op/entry",
+      "to": "masdeep-b360506/depth/bound/controller/get-api-commercial-items-fees-internalid/op/auth::masdeep-b360506/depth/bound/auth-get/op/enabled",
+      "on": "normal",
+      "condition": null,
+      "assumption": null,
+      "evidence": [
+        "masdeep-b360506/e/0103ca62f8f18cc7",
+        "masdeep-b360506/e/bbc70cee03f0d35b",
+        "masdeep-b360506/e/c2e95b5ee5815686"
+      ],
+      "record": "masdeep-b360506/depth/bound/auth-get/t/1"
+    },
+    {
+      "from": "masdeep-b360506/depth/bound/controller/get-api-commercial-items-fees-internalid/op/auth::masdeep-b360506/depth/bound/auth-get/op/enabled",
+      "to": "masdeep-b360506/depth/bound/controller/get-api-commercial-items-fees-internalid/op/auth::masdeep-b360506/depth/bound/auth-get/op/allowed",
+      "on": "false",
+      "condition": "Disabled",
+      "assumption": null,
+      "evidence": [
+        "masdeep-b360506/e/0103ca62f8f18cc7",
+        "masdeep-b360506/e/bbc70cee03f0d35b",
+        "masdeep-b360506/e/c2e95b5ee5815686"
+      ],
+      "record": "masdeep-b360506/depth/bound/auth-get/t/2"
+    },
+    {
+      "from": "masdeep-b360506/depth/bound/controller/get-api-commercial-items-fees-internalid/op/auth::masdeep-b360506/depth/bound/auth-get/op/enabled",
+      "to": "masdeep-b360506/depth/bound/controller/get-api-commercial-items-fees-internalid/op/auth::masdeep-b360506/depth/bound/auth-get/op/request",
+      "on": "true",
+      "condition": "Enabled",
+      "assumption": null,
+      "evidence": [
+        "masdeep-b360506/e/0103ca62f8f18cc7",
+        "masdeep-b360506/e/bbc70cee03f0d35b",
+        "masdeep-b360506/e/c2e95b5ee5815686"
+      ],
+      "record": "masdeep-b360506/depth/bound/auth-get/t/3"
+    },
+    {
+      "from": "masdeep-b360506/depth/bound/controller/get-api-commercial-items-fees-internalid/op/auth::masdeep-b360506/depth/bound/auth-get/op/allowed",
+      "to": "root::masdeep-b360506/depth/bound/controller/get-api-commercial-items-fees-internalid/op/begin",
+      "on": "allowed",
+      "condition": "Local policy succeeded",
+      "assumption": null,
+      "evidence": [
+        "masdeep-b360506/e/64ccd42e1ab01afe",
+        "masdeep-b360506/e/860bc1ca29201083",
+        "masdeep-b360506/e/edf8504f9d4cbc21"
+      ],
+      "record": "masdeep-b360506/depth/bound/controller/get-api-commercial-items-fees-internalid/t/4"
+    },
+    {
+      "from": "masdeep-b360506/depth/bound/controller/get-api-commercial-items-fees-internalid/op/auth::masdeep-b360506/depth/bound/auth-get/op/request",
+      "to": "masdeep-b360506/depth/bound/controller/get-api-commercial-items-fees-internalid/op/auth::masdeep-b360506/depth/bound/auth-get/op/allowed",
+      "on": "true",
+      "condition": "Request present; method == GET",
+      "assumption": null,
+      "evidence": [
+        "masdeep-b360506/e/0103ca62f8f18cc7",
+        "masdeep-b360506/e/bbc70cee03f0d35b",
+        "masdeep-b360506/e/c2e95b5ee5815686"
+      ],
+      "record": "masdeep-b360506/depth/bound/auth-get/t/4"
+    },
+    {
+      "from": "masdeep-b360506/depth/bound/controller/get-api-commercial-items-fees-internalid/op/auth::masdeep-b360506/depth/bound/auth-get/op/request",
+      "to": "masdeep-b360506/depth/bound/controller/get-api-commercial-items-fees-internalid/op/auth::masdeep-b360506/depth/bound/auth-get/op/error",
+      "on": "false",
+      "condition": "Request absent",
+      "assumption": null,
+      "evidence": [
+        "masdeep-b360506/e/0103ca62f8f18cc7",
+        "masdeep-b360506/e/bbc70cee03f0d35b",
+        "masdeep-b360506/e/c2e95b5ee5815686"
+      ],
+      "record": "masdeep-b360506/depth/bound/auth-get/t/5"
+    },
+    {
+      "from": "root::masdeep-b360506/depth/bound/controller/get-api-commercial-items-fees-internalid/op/begin",
+      "to": "root::masdeep-b360506/depth/bound/controller/get-api-commercial-items-fees-internalid/op/wrap-key",
+      "on": "normal",
+      "condition": null,
+      "assumption": null,
+      "evidence": [
+        "masdeep-b360506/e/64ccd42e1ab01afe",
+        "masdeep-b360506/e/860bc1ca29201083",
+        "masdeep-b360506/e/edf8504f9d4cbc21"
+      ],
+      "record": "masdeep-b360506/depth/bound/controller/get-api-commercial-items-fees-internalid/t/5"
+    },
+    {
+      "from": "masdeep-b360506/depth/bound/controller/get-api-commercial-items-fees-internalid/op/auth::masdeep-b360506/depth/bound/auth-get/op/error",
+      "to": "root::masdeep-b360506/depth/bound/controller/get-api-commercial-items-fees-internalid/op/failure",
+      "on": "error",
+      "condition": "Authorization operation throws; inspected outer local middleware500",
+      "assumption": null,
+      "evidence": [
+        "masdeep-b360506/e/64ccd42e1ab01afe",
+        "masdeep-b360506/e/860bc1ca29201083",
+        "masdeep-b360506/e/edf8504f9d4cbc21"
+      ],
+      "record": "masdeep-b360506/depth/bound/controller/get-api-commercial-items-fees-internalid/t/3"
+    },
+    {
+      "from": "root::masdeep-b360506/depth/bound/controller/get-api-commercial-items-fees-internalid/op/wrap-key",
+      "to": "root::masdeep-b360506/depth/bound/controller/get-api-commercial-items-fees-internalid/op/failure",
+      "on": "error",
+      "condition": "Local wrapper throws",
+      "assumption": null,
+      "evidence": [
+        "masdeep-b360506/e/64ccd42e1ab01afe",
+        "masdeep-b360506/e/860bc1ca29201083",
+        "masdeep-b360506/e/edf8504f9d4cbc21"
+      ],
+      "record": "masdeep-b360506/depth/bound/controller/get-api-commercial-items-fees-internalid/t/6"
+    },
+    {
+      "from": "root::masdeep-b360506/depth/bound/controller/get-api-commercial-items-fees-internalid/op/wrap-key",
+      "to": "root::masdeep-b360506/depth/bound/controller/get-api-commercial-items-fees-internalid/op/service",
+      "on": "normal",
+      "condition": null,
+      "assumption": null,
+      "evidence": [
+        "masdeep-b360506/e/64ccd42e1ab01afe",
+        "masdeep-b360506/e/860bc1ca29201083",
+        "masdeep-b360506/e/edf8504f9d4cbc21"
+      ],
+      "record": "masdeep-b360506/depth/bound/controller/get-api-commercial-items-fees-internalid/t/7"
+    },
+    {
+      "from": "root::masdeep-b360506/depth/bound/controller/get-api-commercial-items-fees-internalid/op/service",
+      "to": "masdeep-b360506/depth/bound/controller/get-api-commercial-items-fees-internalid/op/service::masdeep-b360506/depth/bound/service/Fee/get/op/entry",
+      "on": "call",
+      "condition": null,
+      "assumption": null,
+      "evidence": [],
+      "record": null
+    },
+    {
+      "from": "masdeep-b360506/depth/bound/controller/get-api-commercial-items-fees-internalid/op/service::masdeep-b360506/depth/bound/service/Fee/get/op/entry",
+      "to": "masdeep-b360506/depth/bound/controller/get-api-commercial-items-fees-internalid/op/service::masdeep-b360506/depth/bound/service/Fee/get/op/repository",
+      "on": "normal",
+      "condition": null,
+      "assumption": null,
+      "evidence": [
+        "masdeep-b360506/e/1b1c399d1cbd235a",
+        "masdeep-b360506/e/a99275f774569f6c",
+        "masdeep-b360506/e/16cda1766cefba08"
+      ],
+      "record": "masdeep-b360506/depth/bound/service/Fee/get/t/1"
+    },
+    {
+      "from": "masdeep-b360506/depth/bound/controller/get-api-commercial-items-fees-internalid/op/service::masdeep-b360506/depth/bound/service/Fee/get/op/repository",
+      "to": "masdeep-b360506/depth/bound/controller/get-api-commercial-items-fees-internalid/op/service>masdeep-b360506/depth/bound/service/Fee/get/op/repository::masdeep-b360506/depth/bound/repo/Fee/get/op/entry",
+      "on": "call",
+      "condition": null,
+      "assumption": null,
+      "evidence": [],
+      "record": null
+    },
+    {
+      "from": "masdeep-b360506/depth/bound/controller/get-api-commercial-items-fees-internalid/op/service>masdeep-b360506/depth/bound/service/Fee/get/op/repository::masdeep-b360506/depth/bound/repo/Fee/get/op/entry",
+      "to": "masdeep-b360506/depth/bound/controller/get-api-commercial-items-fees-internalid/op/service>masdeep-b360506/depth/bound/service/Fee/get/op/repository::masdeep-b360506/depth/bound/repo/Fee/get/op/lookup",
+      "on": "normal",
+      "condition": null,
+      "assumption": null,
+      "evidence": [
+        "masdeep-b360506/e/d9de6d98016cc70e",
+        "masdeep-b360506/e/98fa5b0461d6b12a",
+        "masdeep-b360506/e/16cda1766cefba08"
+      ],
+      "record": "masdeep-b360506/depth/bound/repo/Fee/get/t/1"
+    },
+    {
+      "from": "masdeep-b360506/depth/bound/controller/get-api-commercial-items-fees-internalid/op/service>masdeep-b360506/depth/bound/service/Fee/get/op/repository::masdeep-b360506/depth/bound/repo/Fee/get/op/lookup",
+      "to": "masdeep-b360506/depth/bound/controller/get-api-commercial-items-fees-internalid/op/service>masdeep-b360506/depth/bound/service/Fee/get/op/repository::masdeep-b360506/depth/bound/repo/Fee/get/op/error",
+      "on": "error",
+      "condition": "Source operation throws",
+      "assumption": null,
+      "evidence": [
+        "masdeep-b360506/e/d9de6d98016cc70e",
+        "masdeep-b360506/e/98fa5b0461d6b12a",
+        "masdeep-b360506/e/16cda1766cefba08"
+      ],
+      "record": "masdeep-b360506/depth/bound/repo/Fee/get/t/2"
+    },
+    {
+      "from": "masdeep-b360506/depth/bound/controller/get-api-commercial-items-fees-internalid/op/service>masdeep-b360506/depth/bound/service/Fee/get/op/repository::masdeep-b360506/depth/bound/repo/Fee/get/op/lookup",
+      "to": "masdeep-b360506/depth/bound/controller/get-api-commercial-items-fees-internalid/op/service>masdeep-b360506/depth/bound/service/Fee/get/op/repository::masdeep-b360506/depth/bound/repo/Fee/get/op/found",
+      "on": "normal",
+      "condition": null,
+      "assumption": null,
+      "evidence": [
+        "masdeep-b360506/e/d9de6d98016cc70e",
+        "masdeep-b360506/e/98fa5b0461d6b12a",
+        "masdeep-b360506/e/16cda1766cefba08"
+      ],
+      "record": "masdeep-b360506/depth/bound/repo/Fee/get/t/3"
+    },
+    {
+      "from": "masdeep-b360506/depth/bound/controller/get-api-commercial-items-fees-internalid/op/service>masdeep-b360506/depth/bound/service/Fee/get/op/repository::masdeep-b360506/depth/bound/repo/Fee/get/op/error",
+      "to": "masdeep-b360506/depth/bound/controller/get-api-commercial-items-fees-internalid/op/service::masdeep-b360506/depth/bound/service/Fee/get/op/error",
+      "on": "error",
+      "condition": "Source operation throws",
+      "assumption": null,
+      "evidence": [
+        "masdeep-b360506/e/1b1c399d1cbd235a",
+        "masdeep-b360506/e/a99275f774569f6c",
+        "masdeep-b360506/e/16cda1766cefba08"
+      ],
+      "record": "masdeep-b360506/depth/bound/service/Fee/get/t/2"
+    },
+    {
+      "from": "masdeep-b360506/depth/bound/controller/get-api-commercial-items-fees-internalid/op/service>masdeep-b360506/depth/bound/service/Fee/get/op/repository::masdeep-b360506/depth/bound/repo/Fee/get/op/found",
+      "to": "masdeep-b360506/depth/bound/controller/get-api-commercial-items-fees-internalid/op/service>masdeep-b360506/depth/bound/service/Fee/get/op/repository::masdeep-b360506/depth/bound/repo/Fee/get/op/missing-result",
+      "on": "false",
+      "condition": "item == null",
+      "assumption": null,
+      "evidence": [
+        "masdeep-b360506/e/d9de6d98016cc70e",
+        "masdeep-b360506/e/98fa5b0461d6b12a",
+        "masdeep-b360506/e/16cda1766cefba08"
+      ],
+      "record": "masdeep-b360506/depth/bound/repo/Fee/get/t/4"
+    },
+    {
+      "from": "masdeep-b360506/depth/bound/controller/get-api-commercial-items-fees-internalid/op/service>masdeep-b360506/depth/bound/service/Fee/get/op/repository::masdeep-b360506/depth/bound/repo/Fee/get/op/found",
+      "to": "masdeep-b360506/depth/bound/controller/get-api-commercial-items-fees-internalid/op/service>masdeep-b360506/depth/bound/service/Fee/get/op/repository::masdeep-b360506/depth/bound/repo/Fee/get/op/found-item",
+      "on": "true",
+      "condition": "item != null",
+      "assumption": null,
+      "evidence": [
+        "masdeep-b360506/e/d9de6d98016cc70e",
+        "masdeep-b360506/e/98fa5b0461d6b12a",
+        "masdeep-b360506/e/16cda1766cefba08"
+      ],
+      "record": "masdeep-b360506/depth/bound/repo/Fee/get/t/6"
+    },
+    {
+      "from": "masdeep-b360506/depth/bound/controller/get-api-commercial-items-fees-internalid/op/service::masdeep-b360506/depth/bound/service/Fee/get/op/error",
+      "to": "root::masdeep-b360506/depth/bound/controller/get-api-commercial-items-fees-internalid/op/failure",
+      "on": "error",
+      "condition": "Source call throws",
+      "assumption": null,
+      "evidence": [
+        "masdeep-b360506/e/64ccd42e1ab01afe",
+        "masdeep-b360506/e/860bc1ca29201083",
+        "masdeep-b360506/e/edf8504f9d4cbc21"
+      ],
+      "record": "masdeep-b360506/depth/bound/controller/get-api-commercial-items-fees-internalid/t/8"
+    },
+    {
+      "from": "masdeep-b360506/depth/bound/controller/get-api-commercial-items-fees-internalid/op/service>masdeep-b360506/depth/bound/service/Fee/get/op/repository::masdeep-b360506/depth/bound/repo/Fee/get/op/missing-result",
+      "to": "masdeep-b360506/depth/bound/controller/get-api-commercial-items-fees-internalid/op/service>masdeep-b360506/depth/bound/service/Fee/get/op/repository::masdeep-b360506/depth/bound/repo/Fee/get/op/missing",
+      "on": "normal",
+      "condition": null,
+      "assumption": null,
+      "evidence": [
+        "masdeep-b360506/e/d9de6d98016cc70e",
+        "masdeep-b360506/e/98fa5b0461d6b12a",
+        "masdeep-b360506/e/16cda1766cefba08"
+      ],
+      "record": "masdeep-b360506/depth/bound/repo/Fee/get/t/5"
+    },
+    {
+      "from": "masdeep-b360506/depth/bound/controller/get-api-commercial-items-fees-internalid/op/service>masdeep-b360506/depth/bound/service/Fee/get/op/repository::masdeep-b360506/depth/bound/repo/Fee/get/op/found-item",
+      "to": "masdeep-b360506/depth/bound/controller/get-api-commercial-items-fees-internalid/op/service>masdeep-b360506/depth/bound/service/Fee/get/op/repository::masdeep-b360506/depth/bound/repo/Fee/get/op/ok-result",
+      "on": "normal",
+      "condition": null,
+      "assumption": null,
+      "evidence": [
+        "masdeep-b360506/e/d9de6d98016cc70e",
+        "masdeep-b360506/e/98fa5b0461d6b12a",
+        "masdeep-b360506/e/16cda1766cefba08"
+      ],
+      "record": "masdeep-b360506/depth/bound/repo/Fee/get/t/7"
+    },
+    {
+      "from": "masdeep-b360506/depth/bound/controller/get-api-commercial-items-fees-internalid/op/service>masdeep-b360506/depth/bound/service/Fee/get/op/repository::masdeep-b360506/depth/bound/repo/Fee/get/op/missing",
+      "to": "masdeep-b360506/depth/bound/controller/get-api-commercial-items-fees-internalid/op/service::masdeep-b360506/depth/bound/service/Fee/get/op/missing",
+      "on": "not_found",
+      "condition": null,
+      "assumption": null,
+      "evidence": [
+        "masdeep-b360506/e/1b1c399d1cbd235a",
+        "masdeep-b360506/e/a99275f774569f6c",
+        "masdeep-b360506/e/16cda1766cefba08"
+      ],
+      "record": "masdeep-b360506/depth/bound/service/Fee/get/t/4"
+    },
+    {
+      "from": "masdeep-b360506/depth/bound/controller/get-api-commercial-items-fees-internalid/op/service>masdeep-b360506/depth/bound/service/Fee/get/op/repository::masdeep-b360506/depth/bound/repo/Fee/get/op/ok-result",
+      "to": "masdeep-b360506/depth/bound/controller/get-api-commercial-items-fees-internalid/op/service>masdeep-b360506/depth/bound/service/Fee/get/op/repository::masdeep-b360506/depth/bound/repo/Fee/get/op/return",
+      "on": "normal",
+      "condition": null,
+      "assumption": null,
+      "evidence": [
+        "masdeep-b360506/e/d9de6d98016cc70e",
+        "masdeep-b360506/e/98fa5b0461d6b12a",
+        "masdeep-b360506/e/16cda1766cefba08"
+      ],
+      "record": "masdeep-b360506/depth/bound/repo/Fee/get/t/8"
+    },
+    {
+      "from": "masdeep-b360506/depth/bound/controller/get-api-commercial-items-fees-internalid/op/service::masdeep-b360506/depth/bound/service/Fee/get/op/missing",
+      "to": "root::masdeep-b360506/depth/bound/controller/get-api-commercial-items-fees-internalid/op/missing",
+      "on": "not_found",
+      "condition": "Service NotFound",
+      "assumption": null,
+      "evidence": [
+        "masdeep-b360506/e/64ccd42e1ab01afe",
+        "masdeep-b360506/e/860bc1ca29201083",
+        "masdeep-b360506/e/edf8504f9d4cbc21"
+      ],
+      "record": "masdeep-b360506/depth/bound/controller/get-api-commercial-items-fees-internalid/t/13"
+    },
+    {
+      "from": "masdeep-b360506/depth/bound/controller/get-api-commercial-items-fees-internalid/op/service>masdeep-b360506/depth/bound/service/Fee/get/op/repository::masdeep-b360506/depth/bound/repo/Fee/get/op/return",
+      "to": "masdeep-b360506/depth/bound/controller/get-api-commercial-items-fees-internalid/op/service::masdeep-b360506/depth/bound/service/Fee/get/op/return",
+      "on": "ok",
+      "condition": null,
+      "assumption": null,
+      "evidence": [
+        "masdeep-b360506/e/1b1c399d1cbd235a",
+        "masdeep-b360506/e/a99275f774569f6c",
+        "masdeep-b360506/e/16cda1766cefba08"
+      ],
+      "record": "masdeep-b360506/depth/bound/service/Fee/get/t/3"
+    },
+    {
+      "from": "masdeep-b360506/depth/bound/controller/get-api-commercial-items-fees-internalid/op/service::masdeep-b360506/depth/bound/service/Fee/get/op/return",
+      "to": "root::masdeep-b360506/depth/bound/controller/get-api-commercial-items-fees-internalid/op/response",
+      "on": "ok",
+      "condition": null,
+      "assumption": null,
+      "evidence": [
+        "masdeep-b360506/e/64ccd42e1ab01afe",
+        "masdeep-b360506/e/860bc1ca29201083",
+        "masdeep-b360506/e/edf8504f9d4cbc21"
+      ],
+      "record": "masdeep-b360506/depth/bound/controller/get-api-commercial-items-fees-internalid/t/10"
+    },
+    {
+      "from": "root::masdeep-b360506/depth/bound/controller/get-api-commercial-items-fees-internalid/op/response",
+      "to": "root::masdeep-b360506/depth/bound/controller/get-api-commercial-items-fees-internalid/op/failure",
+      "on": "error",
+      "condition": "Response map throws",
+      "assumption": null,
+      "evidence": [
+        "masdeep-b360506/e/64ccd42e1ab01afe",
+        "masdeep-b360506/e/860bc1ca29201083",
+        "masdeep-b360506/e/edf8504f9d4cbc21"
+      ],
+      "record": "masdeep-b360506/depth/bound/controller/get-api-commercial-items-fees-internalid/t/11"
+    },
+    {
+      "from": "root::masdeep-b360506/depth/bound/controller/get-api-commercial-items-fees-internalid/op/response",
+      "to": "root::masdeep-b360506/depth/bound/controller/get-api-commercial-items-fees-internalid/op/return",
+      "on": "normal",
+      "condition": null,
+      "assumption": null,
+      "evidence": [
+        "masdeep-b360506/e/64ccd42e1ab01afe",
+        "masdeep-b360506/e/860bc1ca29201083",
+        "masdeep-b360506/e/edf8504f9d4cbc21"
+      ],
+      "record": "masdeep-b360506/depth/bound/controller/get-api-commercial-items-fees-internalid/t/12"
+    }
+  ],
+  "claims": [],
+  "evidence": [
+    "masdeep-b360506/e/0103ca62f8f18cc7",
+    "masdeep-b360506/e/095f6b7fcffabd78",
+    "masdeep-b360506/e/16cda1766cefba08",
+    "masdeep-b360506/e/1b1c399d1cbd235a",
+    "masdeep-b360506/e/25ba9d4e86d4eaf9",
+    "masdeep-b360506/e/34fab5c27425e69e",
+    "masdeep-b360506/e/3cf2609e40df515a",
+    "masdeep-b360506/e/47f7dc8e88e5ce28",
+    "masdeep-b360506/e/5fe3863d51d6f14a",
+    "masdeep-b360506/e/64ccd42e1ab01afe",
+    "masdeep-b360506/e/66abb728cd523936",
+    "masdeep-b360506/e/786517a302ada0ff",
+    "masdeep-b360506/e/80eccbc6232b217f",
+    "masdeep-b360506/e/8201669e3fbebe8d",
+    "masdeep-b360506/e/860bc1ca29201083",
+    "masdeep-b360506/e/98fa5b0461d6b12a",
+    "masdeep-b360506/e/a8d1e578dcbe719a",
+    "masdeep-b360506/e/a99275f774569f6c",
+    "masdeep-b360506/e/ae1c622893c8d563",
+    "masdeep-b360506/e/b111ec1459333eaf",
+    "masdeep-b360506/e/bbc70cee03f0d35b",
+    "masdeep-b360506/e/bc7d18152235b22e",
+    "masdeep-b360506/e/c2e95b5ee5815686",
+    "masdeep-b360506/e/c67b1b841a741da8",
+    "masdeep-b360506/e/d61351349d210e5f",
+    "masdeep-b360506/e/d79bff19f244cfe6",
+    "masdeep-b360506/e/d9de6d98016cc70e",
+    "masdeep-b360506/e/e7c6a9357ad83a0a",
+    "masdeep-b360506/e/edf8504f9d4cbc21",
+    "masdeep-b360506/e/eeadf7b371004ead",
+    "s2/e/controller",
+    "s2/e/input",
+    "s2/e/middleware",
+    "u3/e/mas-program"
+  ],
+  "coverage": [
+    "masdeep-b360506/coverage/get-api-commercial-items-fees-internalid/registration",
+    "masdeep-b360506/depth/bound/controller/get-api-commercial-items-fees-internalid/coverage",
+    "masdeep-b360506/depth/bound/controller/get-api-commercial-items-fees-internalid/closure"
+  ],
+  "frontiers": [
+    {
+      "at": "masdeep-b360506/depth/bound/controller/get-api-commercial-items-fees-internalid/op/service>masdeep-b360506/depth/bound/service/Fee/get/op/repository::masdeep-b360506/depth/bound/repo/Fee/get/op/lookup",
+      "reason": "opaque",
+      "detail": "AsNoTracking().SingleOrDefaultAsync(p => p.InternalId == key)",
+      "references": ["masdeep-b360506/depth/bound/repo/Fee/get/op/lookup"]
+    }
+  ],
+  "limitsHit": [],
+  "feasibility": "not_checked",
+  "exhaustive": false,
+  "records": [
+    {
+      "id": "masdeep-b360506/bound/shape/action-result/get-api-commercial-items-fees-internalid",
+      "kind": "shape",
+      "label": "ObjectResult HTTP200 with full response body",
+      "representation": "constructed",
+      "container": "object",
+      "fields": [
+        {
+          "name": "StatusCode",
+          "type": "int",
+          "const": 200,
+          "status": "declared",
+          "evidence": ["masdeep-b360506/e/edf8504f9d4cbc21"]
+        }
+      ],
+      "completeness": "partial",
+      "gaps": ["masdeep-b360506/gap/wire"],
+      "evidence": ["masdeep-b360506/e/edf8504f9d4cbc21"]
+    },
+    {
+      "id": "masdeep-b360506/bound/shape/result/Fee",
+      "kind": "shape",
+      "label": "Result<Fee> source object; not REST envelope",
+      "representation": "source",
+      "container": "object",
+      "fields": [
+        {
+          "name": "IsSuccess",
+          "type": "bool computed Status is Ok or Created",
+          "status": "declared",
+          "evidence": ["masdeep-b360506/e/16cda1766cefba08"]
+        },
+        {
+          "name": "IsFailure",
+          "type": "bool inverse IsSuccess",
+          "status": "declared",
+          "evidence": ["masdeep-b360506/e/16cda1766cefba08"]
+        },
+        {
+          "name": "Data",
+          "type": "T?",
+          "status": "declared",
+          "evidence": ["masdeep-b360506/e/16cda1766cefba08"],
+          "nullable": true,
+          "shape": "masdeep-b360506/shape/1f042c2f9435a9f7"
+        },
+        {
+          "name": "HasData",
+          "type": "bool computed Data != null",
+          "status": "declared",
+          "evidence": ["masdeep-b360506/e/16cda1766cefba08"]
+        },
+        {
+          "name": "Status",
+          "type": "ResultStatus",
+          "status": "declared",
+          "evidence": ["masdeep-b360506/e/16cda1766cefba08"]
+        },
+        {
+          "name": "SuccessMessage",
+          "type": "string",
+          "status": "declared",
+          "evidence": ["masdeep-b360506/e/16cda1766cefba08"]
+        },
+        {
+          "name": "Errors",
+          "type": "IEnumerable<string>",
+          "status": "declared",
+          "evidence": ["masdeep-b360506/e/16cda1766cefba08"]
+        },
+        {
+          "name": "DebugStr",
+          "type": "string",
+          "status": "declared",
+          "evidence": ["masdeep-b360506/e/16cda1766cefba08"]
+        }
+      ],
+      "completeness": "closed",
+      "gaps": [],
+      "evidence": ["masdeep-b360506/e/16cda1766cefba08"]
+    },
+    {
+      "id": "masdeep-b360506/coverage/get-api-commercial-items-fees-internalid/registration",
+      "kind": "coverage",
+      "owner": "masdeep-b360506/entry/get-api-commercial-items-fees-internalid",
+      "obligation": "Registered HTTP method/path and handler",
+      "status": "examined",
+      "scope": "src/PopCat.ManageAndSegment.Api/Controllers/V1/FeesController.cs:Get; direct source registration at pinned commit",
+      "evidence": ["masdeep-b360506/e/5fe3863d51d6f14a"],
+      "gaps": []
+    },
+    {
+      "id": "masdeep-b360506/depth/bound/auth-get/op/allowed",
+      "kind": "operation",
+      "owner": "masdeep-b360506/depth/impl/bound/auth-get",
+      "action": "return",
+      "label": "GET or disabled handler context.Succeed",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": "allowed",
+      "httpStatus": null,
+      "evidence": ["masdeep-b360506/e/0103ca62f8f18cc7"]
+    },
+    {
+      "id": "masdeep-b360506/depth/bound/auth-get/op/enabled",
+      "kind": "operation",
+      "owner": "masdeep-b360506/depth/impl/bound/auth-get",
+      "action": "branch",
+      "label": "AuthorizationClientSettings.Enabled?",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": null,
+      "httpStatus": null,
+      "evidence": [
+        "masdeep-b360506/e/0103ca62f8f18cc7",
+        "masdeep-b360506/e/bbc70cee03f0d35b",
+        "masdeep-b360506/e/c2e95b5ee5815686"
+      ]
+    },
+    {
+      "id": "masdeep-b360506/depth/bound/auth-get/op/entry",
+      "kind": "operation",
+      "owner": "masdeep-b360506/depth/impl/bound/auth-get",
+      "action": "entry",
+      "label": "Declared policy handler, request method fixed GET",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": null,
+      "httpStatus": null,
+      "evidence": [
+        "masdeep-b360506/e/0103ca62f8f18cc7",
+        "masdeep-b360506/e/bbc70cee03f0d35b",
+        "masdeep-b360506/e/c2e95b5ee5815686"
+      ]
+    },
+    {
+      "id": "masdeep-b360506/depth/bound/auth-get/op/error",
+      "kind": "operation",
+      "owner": "masdeep-b360506/depth/impl/bound/auth-get",
+      "action": "throw",
+      "label": "Enabled handler request is null",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": "error",
+      "httpStatus": null,
+      "evidence": ["masdeep-b360506/e/0103ca62f8f18cc7"]
+    },
+    {
+      "id": "masdeep-b360506/depth/bound/auth-get/op/request",
+      "kind": "operation",
+      "owner": "masdeep-b360506/depth/impl/bound/auth-get",
+      "action": "branch",
+      "label": "DefaultHttpContext request available?",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": null,
+      "httpStatus": null,
+      "evidence": [
+        "masdeep-b360506/e/0103ca62f8f18cc7",
+        "masdeep-b360506/e/bbc70cee03f0d35b",
+        "masdeep-b360506/e/c2e95b5ee5815686"
+      ]
+    },
+    {
+      "id": "masdeep-b360506/depth/bound/auth-get/t/1",
+      "kind": "transition",
+      "owner": "masdeep-b360506/depth/impl/bound/auth-get",
+      "from": "masdeep-b360506/depth/bound/auth-get/op/entry",
+      "to": "masdeep-b360506/depth/bound/auth-get/op/enabled",
+      "on": "normal",
+      "condition": null,
+      "values": [],
+      "evidence": [
+        "masdeep-b360506/e/0103ca62f8f18cc7",
+        "masdeep-b360506/e/bbc70cee03f0d35b",
+        "masdeep-b360506/e/c2e95b5ee5815686"
+      ]
+    },
+    {
+      "id": "masdeep-b360506/depth/bound/auth-get/t/2",
+      "kind": "transition",
+      "owner": "masdeep-b360506/depth/impl/bound/auth-get",
+      "from": "masdeep-b360506/depth/bound/auth-get/op/enabled",
+      "to": "masdeep-b360506/depth/bound/auth-get/op/allowed",
+      "on": "false",
+      "condition": "Disabled",
+      "values": [],
+      "evidence": [
+        "masdeep-b360506/e/0103ca62f8f18cc7",
+        "masdeep-b360506/e/bbc70cee03f0d35b",
+        "masdeep-b360506/e/c2e95b5ee5815686"
+      ]
+    },
+    {
+      "id": "masdeep-b360506/depth/bound/auth-get/t/3",
+      "kind": "transition",
+      "owner": "masdeep-b360506/depth/impl/bound/auth-get",
+      "from": "masdeep-b360506/depth/bound/auth-get/op/enabled",
+      "to": "masdeep-b360506/depth/bound/auth-get/op/request",
+      "on": "true",
+      "condition": "Enabled",
+      "values": [],
+      "evidence": [
+        "masdeep-b360506/e/0103ca62f8f18cc7",
+        "masdeep-b360506/e/bbc70cee03f0d35b",
+        "masdeep-b360506/e/c2e95b5ee5815686"
+      ]
+    },
+    {
+      "id": "masdeep-b360506/depth/bound/auth-get/t/4",
+      "kind": "transition",
+      "owner": "masdeep-b360506/depth/impl/bound/auth-get",
+      "from": "masdeep-b360506/depth/bound/auth-get/op/request",
+      "to": "masdeep-b360506/depth/bound/auth-get/op/allowed",
+      "on": "true",
+      "condition": "Request present; method == GET",
+      "values": [],
+      "evidence": [
+        "masdeep-b360506/e/0103ca62f8f18cc7",
+        "masdeep-b360506/e/bbc70cee03f0d35b",
+        "masdeep-b360506/e/c2e95b5ee5815686"
+      ]
+    },
+    {
+      "id": "masdeep-b360506/depth/bound/auth-get/t/5",
+      "kind": "transition",
+      "owner": "masdeep-b360506/depth/impl/bound/auth-get",
+      "from": "masdeep-b360506/depth/bound/auth-get/op/request",
+      "to": "masdeep-b360506/depth/bound/auth-get/op/error",
+      "on": "false",
+      "condition": "Request absent",
+      "values": [],
+      "evidence": [
+        "masdeep-b360506/e/0103ca62f8f18cc7",
+        "masdeep-b360506/e/bbc70cee03f0d35b",
+        "masdeep-b360506/e/c2e95b5ee5815686"
+      ]
+    },
+    {
+      "id": "masdeep-b360506/depth/bound/auth-get/value/headers",
+      "kind": "value",
+      "owner": "masdeep-b360506/depth/impl/bound/auth-get",
+      "definition": "masdeep-b360506/depth/bound/auth-get/op/entry",
+      "label": "Actual headers",
+      "role": "parameter",
+      "representation": "constructed",
+      "shape": null,
+      "accessPath": [],
+      "evidence": [
+        "masdeep-b360506/e/0103ca62f8f18cc7",
+        "masdeep-b360506/e/bbc70cee03f0d35b",
+        "masdeep-b360506/e/c2e95b5ee5815686"
+      ]
+    },
+    {
+      "id": "masdeep-b360506/depth/bound/auth-get/value/method",
+      "kind": "value",
+      "owner": "masdeep-b360506/depth/impl/bound/auth-get",
+      "definition": "masdeep-b360506/depth/bound/auth-get/op/entry",
+      "label": "GET request method",
+      "role": "parameter",
+      "representation": "constructed",
+      "shape": null,
+      "accessPath": [],
+      "evidence": [
+        "masdeep-b360506/e/0103ca62f8f18cc7",
+        "masdeep-b360506/e/bbc70cee03f0d35b",
+        "masdeep-b360506/e/c2e95b5ee5815686"
+      ]
+    },
+    {
+      "id": "masdeep-b360506/depth/bound/auth-get/value/path",
+      "kind": "value",
+      "owner": "masdeep-b360506/depth/impl/bound/auth-get",
+      "definition": "masdeep-b360506/depth/bound/auth-get/op/entry",
+      "label": "Actual GET path",
+      "role": "parameter",
+      "representation": "constructed",
+      "shape": null,
+      "accessPath": [],
+      "evidence": [
+        "masdeep-b360506/e/0103ca62f8f18cc7",
+        "masdeep-b360506/e/bbc70cee03f0d35b",
+        "masdeep-b360506/e/c2e95b5ee5815686"
+      ]
+    },
+    {
+      "id": "masdeep-b360506/depth/bound/controller/get-api-commercial-items-fees-internalid/closure",
+      "kind": "coverage",
+      "owner": "masdeep-b360506/entry/get-api-commercial-items-fees-internalid",
+      "obligation": "All dependencies/middleware/helper method decomposition",
+      "status": "partial",
+      "scope": "Imported runtime implementations and smaller mapper/builder/identity helpers are not claimed as complete native method frames. Write auth client methods remain an explicit source summary.",
+      "gaps": [
+        "masdeep-b360506/depth/gap/provider",
+        "masdeep-b360506/gap/wire",
+        "masdeep-b360506/gap/physical",
+        "masdeep-b360506/gap/security",
+        "masdeep-b360506/depth/gap/method-frames"
+      ],
+      "evidence": [
+        "masdeep-b360506/e/64ccd42e1ab01afe",
+        "masdeep-b360506/e/860bc1ca29201083",
+        "masdeep-b360506/e/c2e95b5ee5815686"
+      ]
+    },
+    {
+      "id": "masdeep-b360506/depth/bound/controller/get-api-commercial-items-fees-internalid/coverage",
+      "kind": "coverage",
+      "owner": "masdeep-b360506/entry/get-api-commercial-items-fees-internalid",
+      "obligation": "Native representative source-symbol control/data/effects",
+      "status": "examined",
+      "scope": "Real controller→service→repository/UoW/private Notify→NotificationService→KafkaProducer implementations have complete formal/result/exit bindings. Context-specialised generic methods retain source identity. Small mapper/identity helpers and exception middleware are summarised with anchors; imported/runtime closure remains partial.",
+      "gaps": [
+        "masdeep-b360506/depth/gap/provider",
+        "masdeep-b360506/gap/wire",
+        "masdeep-b360506/gap/physical",
+        "masdeep-b360506/gap/security",
+        "masdeep-b360506/depth/gap/identity-helper"
+      ],
+      "evidence": [
+        "masdeep-b360506/e/64ccd42e1ab01afe",
+        "masdeep-b360506/e/66abb728cd523936",
+        "masdeep-b360506/e/1b1c399d1cbd235a",
+        "masdeep-b360506/e/d61351349d210e5f",
+        "masdeep-b360506/e/34fab5c27425e69e"
+      ]
+    },
+    {
+      "id": "masdeep-b360506/depth/bound/controller/get-api-commercial-items-fees-internalid/op/auth",
+      "kind": "operation",
+      "owner": "masdeep-b360506/impl/get-api-commercial-items-fees-internalid",
+      "action": "call",
+      "label": "Declared PopAuthz policy handler",
+      "resolution": "masdeep-b360506/depth/bound/controller/get-api-commercial-items-fees-internalid/resolve/auth",
+      "bindings": [
+        {
+          "parameter": "masdeep-b360506/depth/bound/auth-get/value/method",
+          "value": "masdeep-b360506/depth/bound/controller/get-api-commercial-items-fees-internalid/value/method"
+        },
+        {
+          "parameter": "masdeep-b360506/depth/bound/auth-get/value/path",
+          "value": "masdeep-b360506/depth/bound/controller/get-api-commercial-items-fees-internalid/value/path"
+        },
+        {
+          "parameter": "masdeep-b360506/depth/bound/auth-get/value/headers",
+          "value": "masdeep-b360506/depth/bound/controller/get-api-commercial-items-fees-internalid/value/headers"
+        }
+      ],
+      "result": null,
+      "exit": null,
+      "httpStatus": null,
+      "evidence": [
+        "masdeep-b360506/e/64ccd42e1ab01afe",
+        "masdeep-b360506/e/860bc1ca29201083",
+        "masdeep-b360506/e/edf8504f9d4cbc21"
+      ]
+    },
+    {
+      "id": "masdeep-b360506/depth/bound/controller/get-api-commercial-items-fees-internalid/op/begin",
+      "kind": "operation",
+      "owner": "masdeep-b360506/impl/get-api-commercial-items-fees-internalid",
+      "action": "compute",
+      "label": "Controller body after framework binding",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": null,
+      "httpStatus": null,
+      "evidence": [
+        "masdeep-b360506/e/64ccd42e1ab01afe",
+        "masdeep-b360506/e/860bc1ca29201083",
+        "masdeep-b360506/e/edf8504f9d4cbc21"
+      ]
+    },
+    {
+      "id": "masdeep-b360506/depth/bound/controller/get-api-commercial-items-fees-internalid/op/entry",
+      "kind": "operation",
+      "owner": "masdeep-b360506/impl/get-api-commercial-items-fees-internalid",
+      "action": "entry",
+      "label": "GET /api/commercial-items/fees/{internalId}",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": null,
+      "httpStatus": null,
+      "evidence": [
+        "masdeep-b360506/e/64ccd42e1ab01afe",
+        "masdeep-b360506/e/860bc1ca29201083",
+        "masdeep-b360506/e/edf8504f9d4cbc21"
+      ]
+    },
+    {
+      "id": "masdeep-b360506/depth/bound/controller/get-api-commercial-items-fees-internalid/op/failure",
+      "kind": "operation",
+      "owner": "masdeep-b360506/impl/get-api-commercial-items-fees-internalid",
+      "action": "return",
+      "label": "Local exception middleware500",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": "normal",
+      "httpStatus": 500,
+      "evidence": ["masdeep-b360506/e/c67b1b841a741da8"]
+    },
+    {
+      "id": "masdeep-b360506/depth/bound/controller/get-api-commercial-items-fees-internalid/op/missing",
+      "kind": "operation",
+      "owner": "masdeep-b360506/impl/get-api-commercial-items-fees-internalid",
+      "action": "return",
+      "label": "Result NotFound mapped HTTP404",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": "normal",
+      "httpStatus": 404,
+      "evidence": ["masdeep-b360506/e/edf8504f9d4cbc21"]
+    },
+    {
+      "id": "masdeep-b360506/depth/bound/controller/get-api-commercial-items-fees-internalid/op/response",
+      "kind": "operation",
+      "owner": "masdeep-b360506/impl/get-api-commercial-items-fees-internalid",
+      "action": "compute",
+      "label": "ToHttpResponse maps source Result into full SuccessResponse/single envelope Status, OperationId, Data; delete Data null",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": null,
+      "httpStatus": null,
+      "evidence": ["masdeep-b360506/e/edf8504f9d4cbc21", "masdeep-b360506/e/b111ec1459333eaf"]
+    },
+    {
+      "id": "masdeep-b360506/depth/bound/controller/get-api-commercial-items-fees-internalid/op/return",
+      "kind": "operation",
+      "owner": "masdeep-b360506/impl/get-api-commercial-items-fees-internalid",
+      "action": "return",
+      "label": "HTTP200 with constructed outer success envelope",
+      "resolution": null,
+      "bindings": [],
+      "result": "masdeep-b360506/depth/bound/controller/get-api-commercial-items-fees-internalid/value/action-result",
+      "exit": "normal",
+      "httpStatus": 200,
+      "evidence": ["masdeep-b360506/e/64ccd42e1ab01afe", "masdeep-b360506/e/edf8504f9d4cbc21"]
+    },
+    {
+      "id": "masdeep-b360506/depth/bound/controller/get-api-commercial-items-fees-internalid/op/service",
+      "kind": "operation",
+      "owner": "masdeep-b360506/impl/get-api-commercial-items-fees-internalid",
+      "action": "call",
+      "label": "FeeService.get",
+      "resolution": "masdeep-b360506/depth/bound/controller/get-api-commercial-items-fees-internalid/resolve/service",
+      "bindings": [
+        {
+          "parameter": "masdeep-b360506/depth/bound/service/Fee/get/value/key",
+          "value": "masdeep-b360506/depth/bound/controller/get-api-commercial-items-fees-internalid/value/wrapped-key"
+        }
+      ],
+      "result": "masdeep-b360506/depth/bound/controller/get-api-commercial-items-fees-internalid/value/service-result",
+      "exit": null,
+      "httpStatus": null,
+      "evidence": [
+        "masdeep-b360506/e/64ccd42e1ab01afe",
+        "masdeep-b360506/e/860bc1ca29201083",
+        "masdeep-b360506/e/edf8504f9d4cbc21"
+      ]
+    },
+    {
+      "id": "masdeep-b360506/depth/bound/controller/get-api-commercial-items-fees-internalid/op/wrap-key",
+      "kind": "operation",
+      "owner": "masdeep-b360506/impl/get-api-commercial-items-fees-internalid",
+      "action": "compute",
+      "label": "InternalId.FromGuid(internalId)",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": null,
+      "httpStatus": null,
+      "evidence": [
+        "masdeep-b360506/e/64ccd42e1ab01afe",
+        "masdeep-b360506/e/860bc1ca29201083",
+        "masdeep-b360506/e/edf8504f9d4cbc21"
+      ]
+    },
+    {
+      "id": "masdeep-b360506/depth/bound/controller/get-api-commercial-items-fees-internalid/resolve/auth",
+      "kind": "resolution",
+      "owner": "masdeep-b360506/impl/get-api-commercial-items-fees-internalid",
+      "requestedArtifact": null,
+      "basis": "source_local",
+      "target": "masdeep-b360506/depth/impl/bound/auth-get",
+      "candidates": [],
+      "binding": null,
+      "evidence": [
+        "masdeep-b360506/e/64ccd42e1ab01afe",
+        "masdeep-b360506/e/860bc1ca29201083",
+        "masdeep-b360506/e/edf8504f9d4cbc21"
+      ]
+    },
+    {
+      "id": "masdeep-b360506/depth/bound/controller/get-api-commercial-items-fees-internalid/resolve/service",
+      "kind": "resolution",
+      "owner": "masdeep-b360506/impl/get-api-commercial-items-fees-internalid",
+      "requestedArtifact": null,
+      "basis": "source_local",
+      "target": "masdeep-b360506/depth/impl/bound/service/Fee/get",
+      "candidates": [],
+      "binding": null,
+      "evidence": [
+        "masdeep-b360506/e/64ccd42e1ab01afe",
+        "masdeep-b360506/e/860bc1ca29201083",
+        "masdeep-b360506/e/edf8504f9d4cbc21"
+      ]
+    },
+    {
+      "id": "masdeep-b360506/depth/bound/controller/get-api-commercial-items-fees-internalid/t/1",
+      "kind": "transition",
+      "owner": "masdeep-b360506/impl/get-api-commercial-items-fees-internalid",
+      "from": "masdeep-b360506/depth/bound/controller/get-api-commercial-items-fees-internalid/op/entry",
+      "to": "masdeep-b360506/depth/bound/controller/get-api-commercial-items-fees-internalid/op/auth",
+      "on": "normal",
+      "condition": null,
+      "values": [],
+      "evidence": [
+        "masdeep-b360506/e/64ccd42e1ab01afe",
+        "masdeep-b360506/e/860bc1ca29201083",
+        "masdeep-b360506/e/edf8504f9d4cbc21"
+      ]
+    },
+    {
+      "id": "masdeep-b360506/depth/bound/controller/get-api-commercial-items-fees-internalid/t/10",
+      "kind": "transition",
+      "owner": "masdeep-b360506/impl/get-api-commercial-items-fees-internalid",
+      "from": "masdeep-b360506/depth/bound/controller/get-api-commercial-items-fees-internalid/op/service",
+      "to": "masdeep-b360506/depth/bound/controller/get-api-commercial-items-fees-internalid/op/response",
+      "on": "ok",
+      "condition": null,
+      "values": [],
+      "evidence": [
+        "masdeep-b360506/e/64ccd42e1ab01afe",
+        "masdeep-b360506/e/860bc1ca29201083",
+        "masdeep-b360506/e/edf8504f9d4cbc21"
+      ]
+    },
+    {
+      "id": "masdeep-b360506/depth/bound/controller/get-api-commercial-items-fees-internalid/t/11",
+      "kind": "transition",
+      "owner": "masdeep-b360506/impl/get-api-commercial-items-fees-internalid",
+      "from": "masdeep-b360506/depth/bound/controller/get-api-commercial-items-fees-internalid/op/response",
+      "to": "masdeep-b360506/depth/bound/controller/get-api-commercial-items-fees-internalid/op/failure",
+      "on": "error",
+      "condition": "Response map throws",
+      "values": [],
+      "evidence": [
+        "masdeep-b360506/e/64ccd42e1ab01afe",
+        "masdeep-b360506/e/860bc1ca29201083",
+        "masdeep-b360506/e/edf8504f9d4cbc21"
+      ]
+    },
+    {
+      "id": "masdeep-b360506/depth/bound/controller/get-api-commercial-items-fees-internalid/t/12",
+      "kind": "transition",
+      "owner": "masdeep-b360506/impl/get-api-commercial-items-fees-internalid",
+      "from": "masdeep-b360506/depth/bound/controller/get-api-commercial-items-fees-internalid/op/response",
+      "to": "masdeep-b360506/depth/bound/controller/get-api-commercial-items-fees-internalid/op/return",
+      "on": "normal",
+      "condition": null,
+      "values": [],
+      "evidence": [
+        "masdeep-b360506/e/64ccd42e1ab01afe",
+        "masdeep-b360506/e/860bc1ca29201083",
+        "masdeep-b360506/e/edf8504f9d4cbc21"
+      ]
+    },
+    {
+      "id": "masdeep-b360506/depth/bound/controller/get-api-commercial-items-fees-internalid/t/13",
+      "kind": "transition",
+      "owner": "masdeep-b360506/impl/get-api-commercial-items-fees-internalid",
+      "from": "masdeep-b360506/depth/bound/controller/get-api-commercial-items-fees-internalid/op/service",
+      "to": "masdeep-b360506/depth/bound/controller/get-api-commercial-items-fees-internalid/op/missing",
+      "on": "not_found",
+      "condition": "Service NotFound",
+      "values": [],
+      "evidence": [
+        "masdeep-b360506/e/64ccd42e1ab01afe",
+        "masdeep-b360506/e/860bc1ca29201083",
+        "masdeep-b360506/e/edf8504f9d4cbc21"
+      ]
+    },
+    {
+      "id": "masdeep-b360506/depth/bound/controller/get-api-commercial-items-fees-internalid/t/3",
+      "kind": "transition",
+      "owner": "masdeep-b360506/impl/get-api-commercial-items-fees-internalid",
+      "from": "masdeep-b360506/depth/bound/controller/get-api-commercial-items-fees-internalid/op/auth",
+      "to": "masdeep-b360506/depth/bound/controller/get-api-commercial-items-fees-internalid/op/failure",
+      "on": "error",
+      "condition": "Authorization operation throws; inspected outer local middleware500",
+      "values": [],
+      "evidence": [
+        "masdeep-b360506/e/64ccd42e1ab01afe",
+        "masdeep-b360506/e/860bc1ca29201083",
+        "masdeep-b360506/e/edf8504f9d4cbc21"
+      ]
+    },
+    {
+      "id": "masdeep-b360506/depth/bound/controller/get-api-commercial-items-fees-internalid/t/4",
+      "kind": "transition",
+      "owner": "masdeep-b360506/impl/get-api-commercial-items-fees-internalid",
+      "from": "masdeep-b360506/depth/bound/controller/get-api-commercial-items-fees-internalid/op/auth",
+      "to": "masdeep-b360506/depth/bound/controller/get-api-commercial-items-fees-internalid/op/begin",
+      "on": "allowed",
+      "condition": "Local policy succeeded",
+      "values": [],
+      "evidence": [
+        "masdeep-b360506/e/64ccd42e1ab01afe",
+        "masdeep-b360506/e/860bc1ca29201083",
+        "masdeep-b360506/e/edf8504f9d4cbc21"
+      ]
+    },
+    {
+      "id": "masdeep-b360506/depth/bound/controller/get-api-commercial-items-fees-internalid/t/5",
+      "kind": "transition",
+      "owner": "masdeep-b360506/impl/get-api-commercial-items-fees-internalid",
+      "from": "masdeep-b360506/depth/bound/controller/get-api-commercial-items-fees-internalid/op/begin",
+      "to": "masdeep-b360506/depth/bound/controller/get-api-commercial-items-fees-internalid/op/wrap-key",
+      "on": "normal",
+      "condition": null,
+      "values": [],
+      "evidence": [
+        "masdeep-b360506/e/64ccd42e1ab01afe",
+        "masdeep-b360506/e/860bc1ca29201083",
+        "masdeep-b360506/e/edf8504f9d4cbc21"
+      ]
+    },
+    {
+      "id": "masdeep-b360506/depth/bound/controller/get-api-commercial-items-fees-internalid/t/6",
+      "kind": "transition",
+      "owner": "masdeep-b360506/impl/get-api-commercial-items-fees-internalid",
+      "from": "masdeep-b360506/depth/bound/controller/get-api-commercial-items-fees-internalid/op/wrap-key",
+      "to": "masdeep-b360506/depth/bound/controller/get-api-commercial-items-fees-internalid/op/failure",
+      "on": "error",
+      "condition": "Local wrapper throws",
+      "values": [],
+      "evidence": [
+        "masdeep-b360506/e/64ccd42e1ab01afe",
+        "masdeep-b360506/e/860bc1ca29201083",
+        "masdeep-b360506/e/edf8504f9d4cbc21"
+      ]
+    },
+    {
+      "id": "masdeep-b360506/depth/bound/controller/get-api-commercial-items-fees-internalid/t/7",
+      "kind": "transition",
+      "owner": "masdeep-b360506/impl/get-api-commercial-items-fees-internalid",
+      "from": "masdeep-b360506/depth/bound/controller/get-api-commercial-items-fees-internalid/op/wrap-key",
+      "to": "masdeep-b360506/depth/bound/controller/get-api-commercial-items-fees-internalid/op/service",
+      "on": "normal",
+      "condition": null,
+      "values": [],
+      "evidence": [
+        "masdeep-b360506/e/64ccd42e1ab01afe",
+        "masdeep-b360506/e/860bc1ca29201083",
+        "masdeep-b360506/e/edf8504f9d4cbc21"
+      ]
+    },
+    {
+      "id": "masdeep-b360506/depth/bound/controller/get-api-commercial-items-fees-internalid/t/8",
+      "kind": "transition",
+      "owner": "masdeep-b360506/impl/get-api-commercial-items-fees-internalid",
+      "from": "masdeep-b360506/depth/bound/controller/get-api-commercial-items-fees-internalid/op/service",
+      "to": "masdeep-b360506/depth/bound/controller/get-api-commercial-items-fees-internalid/op/failure",
+      "on": "error",
+      "condition": "Source call throws",
+      "values": [],
+      "evidence": [
+        "masdeep-b360506/e/64ccd42e1ab01afe",
+        "masdeep-b360506/e/860bc1ca29201083",
+        "masdeep-b360506/e/edf8504f9d4cbc21"
+      ]
+    },
+    {
+      "id": "masdeep-b360506/depth/bound/controller/get-api-commercial-items-fees-internalid/value/action-result",
+      "kind": "value",
+      "owner": "masdeep-b360506/impl/get-api-commercial-items-fees-internalid",
+      "definition": "masdeep-b360506/depth/bound/controller/get-api-commercial-items-fees-internalid/op/response",
+      "label": "IActionResult: ObjectResult(response constructor argument), explicit StatusCode",
+      "role": "definition",
+      "representation": "constructed",
+      "shape": "masdeep-b360506/bound/shape/action-result/get-api-commercial-items-fees-internalid",
+      "accessPath": [],
+      "evidence": [
+        "masdeep-b360506/e/64ccd42e1ab01afe",
+        "masdeep-b360506/e/860bc1ca29201083",
+        "masdeep-b360506/e/edf8504f9d4cbc21"
+      ]
+    },
+    {
+      "id": "masdeep-b360506/depth/bound/controller/get-api-commercial-items-fees-internalid/value/headers",
+      "kind": "value",
+      "owner": "masdeep-b360506/impl/get-api-commercial-items-fees-internalid",
+      "definition": "masdeep-b360506/depth/bound/controller/get-api-commercial-items-fees-internalid/op/entry",
+      "label": "Request headers",
+      "role": "parameter",
+      "representation": "source",
+      "shape": null,
+      "accessPath": [],
+      "evidence": [
+        "masdeep-b360506/e/64ccd42e1ab01afe",
+        "masdeep-b360506/e/860bc1ca29201083",
+        "masdeep-b360506/e/edf8504f9d4cbc21"
+      ]
+    },
+    {
+      "id": "masdeep-b360506/depth/bound/controller/get-api-commercial-items-fees-internalid/value/method",
+      "kind": "value",
+      "owner": "masdeep-b360506/impl/get-api-commercial-items-fees-internalid",
+      "definition": "masdeep-b360506/depth/bound/controller/get-api-commercial-items-fees-internalid/op/entry",
+      "label": "GET method literal",
+      "role": "definition",
+      "representation": "constructed",
+      "shape": null,
+      "accessPath": [],
+      "evidence": [
+        "masdeep-b360506/e/64ccd42e1ab01afe",
+        "masdeep-b360506/e/860bc1ca29201083",
+        "masdeep-b360506/e/edf8504f9d4cbc21"
+      ]
+    },
+    {
+      "id": "masdeep-b360506/depth/bound/controller/get-api-commercial-items-fees-internalid/value/path",
+      "kind": "value",
+      "owner": "masdeep-b360506/impl/get-api-commercial-items-fees-internalid",
+      "definition": "masdeep-b360506/depth/bound/controller/get-api-commercial-items-fees-internalid/op/entry",
+      "label": "Actual URL",
+      "role": "definition",
+      "representation": "constructed",
+      "shape": null,
+      "accessPath": [],
+      "evidence": [
+        "masdeep-b360506/e/64ccd42e1ab01afe",
+        "masdeep-b360506/e/860bc1ca29201083",
+        "masdeep-b360506/e/edf8504f9d4cbc21"
+      ]
+    },
+    {
+      "id": "masdeep-b360506/depth/bound/controller/get-api-commercial-items-fees-internalid/value/route-key",
+      "kind": "value",
+      "owner": "masdeep-b360506/impl/get-api-commercial-items-fees-internalid",
+      "definition": "masdeep-b360506/depth/bound/controller/get-api-commercial-items-fees-internalid/op/entry",
+      "label": "Actual route internalId",
+      "role": "parameter",
+      "representation": "source",
+      "shape": null,
+      "accessPath": ["internalId"],
+      "evidence": [
+        "masdeep-b360506/e/64ccd42e1ab01afe",
+        "masdeep-b360506/e/860bc1ca29201083",
+        "masdeep-b360506/e/edf8504f9d4cbc21"
+      ]
+    },
+    {
+      "id": "masdeep-b360506/depth/bound/controller/get-api-commercial-items-fees-internalid/value/service-result",
+      "kind": "value",
+      "owner": "masdeep-b360506/impl/get-api-commercial-items-fees-internalid",
+      "definition": "masdeep-b360506/depth/bound/controller/get-api-commercial-items-fees-internalid/op/service",
+      "label": "Returned FeeService.get",
+      "role": "definition",
+      "representation": "constructed",
+      "shape": "masdeep-b360506/bound/shape/result/Fee",
+      "accessPath": [],
+      "evidence": [
+        "masdeep-b360506/e/64ccd42e1ab01afe",
+        "masdeep-b360506/e/860bc1ca29201083",
+        "masdeep-b360506/e/edf8504f9d4cbc21"
+      ]
+    },
+    {
+      "id": "masdeep-b360506/depth/bound/controller/get-api-commercial-items-fees-internalid/value/wrapped-key",
+      "kind": "value",
+      "owner": "masdeep-b360506/impl/get-api-commercial-items-fees-internalid",
+      "definition": "masdeep-b360506/depth/bound/controller/get-api-commercial-items-fees-internalid/op/wrap-key",
+      "label": "Wrapped route key",
+      "role": "definition",
+      "representation": "constructed",
+      "shape": null,
+      "accessPath": [],
+      "evidence": [
+        "masdeep-b360506/e/64ccd42e1ab01afe",
+        "masdeep-b360506/e/860bc1ca29201083",
+        "masdeep-b360506/e/edf8504f9d4cbc21"
+      ]
+    },
+    {
+      "id": "masdeep-b360506/depth/bound/repo/Fee/get/op/entry",
+      "kind": "operation",
+      "owner": "masdeep-b360506/depth/impl/bound/repo/Fee/get",
+      "action": "entry",
+      "label": "CommercialItemRepository<Fee>.GetSingleNoTracking(InternalId)",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": null,
+      "httpStatus": null,
+      "evidence": [
+        "masdeep-b360506/e/d9de6d98016cc70e",
+        "masdeep-b360506/e/98fa5b0461d6b12a",
+        "masdeep-b360506/e/16cda1766cefba08"
+      ]
+    },
+    {
+      "id": "masdeep-b360506/depth/bound/repo/Fee/get/op/error",
+      "kind": "operation",
+      "owner": "masdeep-b360506/depth/impl/bound/repo/Fee/get",
+      "action": "throw",
+      "label": "Propagate source exception",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": "error",
+      "httpStatus": null,
+      "evidence": [
+        "masdeep-b360506/e/d9de6d98016cc70e",
+        "masdeep-b360506/e/98fa5b0461d6b12a",
+        "masdeep-b360506/e/16cda1766cefba08"
+      ]
+    },
+    {
+      "id": "masdeep-b360506/depth/bound/repo/Fee/get/op/found",
+      "kind": "operation",
+      "owner": "masdeep-b360506/depth/impl/bound/repo/Fee/get",
+      "action": "branch",
+      "label": "item != null?",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": null,
+      "httpStatus": null,
+      "evidence": [
+        "masdeep-b360506/e/d9de6d98016cc70e",
+        "masdeep-b360506/e/98fa5b0461d6b12a",
+        "masdeep-b360506/e/16cda1766cefba08"
+      ]
+    },
+    {
+      "id": "masdeep-b360506/depth/bound/repo/Fee/get/op/found-item",
+      "kind": "operation",
+      "owner": "masdeep-b360506/depth/impl/bound/repo/Fee/get",
+      "action": "compute",
+      "label": "Found nonnull entity",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": null,
+      "httpStatus": null,
+      "evidence": [
+        "masdeep-b360506/e/d9de6d98016cc70e",
+        "masdeep-b360506/e/98fa5b0461d6b12a",
+        "masdeep-b360506/e/16cda1766cefba08"
+      ]
+    },
+    {
+      "id": "masdeep-b360506/depth/bound/repo/Fee/get/op/lookup",
+      "kind": "operation",
+      "owner": "masdeep-b360506/depth/impl/bound/repo/Fee/get",
+      "action": "opaque",
+      "label": "AsNoTracking().SingleOrDefaultAsync(p => p.InternalId == key)",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": null,
+      "httpStatus": null,
+      "evidence": ["masdeep-b360506/e/98fa5b0461d6b12a", "masdeep-b360506/e/d9de6d98016cc70e"]
+    },
+    {
+      "id": "masdeep-b360506/depth/bound/repo/Fee/get/op/missing",
+      "kind": "operation",
+      "owner": "masdeep-b360506/depth/impl/bound/repo/Fee/get",
+      "action": "return",
+      "label": "Return not_found",
+      "resolution": null,
+      "bindings": [],
+      "result": "masdeep-b360506/depth/bound/repo/Fee/get/value/missing",
+      "exit": "not_found",
+      "httpStatus": null,
+      "evidence": [
+        "masdeep-b360506/e/d9de6d98016cc70e",
+        "masdeep-b360506/e/98fa5b0461d6b12a",
+        "masdeep-b360506/e/16cda1766cefba08"
+      ]
+    },
+    {
+      "id": "masdeep-b360506/depth/bound/repo/Fee/get/op/missing-result",
+      "kind": "operation",
+      "owner": "masdeep-b360506/depth/impl/bound/repo/Fee/get",
+      "action": "compute",
+      "label": "Result.NotFound<T>(source message)",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": null,
+      "httpStatus": null,
+      "evidence": ["masdeep-b360506/e/16cda1766cefba08", "masdeep-b360506/e/98fa5b0461d6b12a"]
+    },
+    {
+      "id": "masdeep-b360506/depth/bound/repo/Fee/get/op/ok-result",
+      "kind": "operation",
+      "owner": "masdeep-b360506/depth/impl/bound/repo/Fee/get",
+      "action": "compute",
+      "label": "Result.Ok(item)",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": null,
+      "httpStatus": null,
+      "evidence": ["masdeep-b360506/e/16cda1766cefba08", "masdeep-b360506/e/98fa5b0461d6b12a"]
+    },
+    {
+      "id": "masdeep-b360506/depth/bound/repo/Fee/get/op/return",
+      "kind": "operation",
+      "owner": "masdeep-b360506/depth/impl/bound/repo/Fee/get",
+      "action": "return",
+      "label": "Return ok",
+      "resolution": null,
+      "bindings": [],
+      "result": "masdeep-b360506/depth/bound/repo/Fee/get/value/ok",
+      "exit": "ok",
+      "httpStatus": null,
+      "evidence": [
+        "masdeep-b360506/e/d9de6d98016cc70e",
+        "masdeep-b360506/e/98fa5b0461d6b12a",
+        "masdeep-b360506/e/16cda1766cefba08"
+      ]
+    },
+    {
+      "id": "masdeep-b360506/depth/bound/repo/Fee/get/t/1",
+      "kind": "transition",
+      "owner": "masdeep-b360506/depth/impl/bound/repo/Fee/get",
+      "from": "masdeep-b360506/depth/bound/repo/Fee/get/op/entry",
+      "to": "masdeep-b360506/depth/bound/repo/Fee/get/op/lookup",
+      "on": "normal",
+      "condition": null,
+      "values": [],
+      "evidence": [
+        "masdeep-b360506/e/d9de6d98016cc70e",
+        "masdeep-b360506/e/98fa5b0461d6b12a",
+        "masdeep-b360506/e/16cda1766cefba08"
+      ]
+    },
+    {
+      "id": "masdeep-b360506/depth/bound/repo/Fee/get/t/2",
+      "kind": "transition",
+      "owner": "masdeep-b360506/depth/impl/bound/repo/Fee/get",
+      "from": "masdeep-b360506/depth/bound/repo/Fee/get/op/lookup",
+      "to": "masdeep-b360506/depth/bound/repo/Fee/get/op/error",
+      "on": "error",
+      "condition": "Source operation throws",
+      "values": [],
+      "evidence": [
+        "masdeep-b360506/e/d9de6d98016cc70e",
+        "masdeep-b360506/e/98fa5b0461d6b12a",
+        "masdeep-b360506/e/16cda1766cefba08"
+      ]
+    },
+    {
+      "id": "masdeep-b360506/depth/bound/repo/Fee/get/t/3",
+      "kind": "transition",
+      "owner": "masdeep-b360506/depth/impl/bound/repo/Fee/get",
+      "from": "masdeep-b360506/depth/bound/repo/Fee/get/op/lookup",
+      "to": "masdeep-b360506/depth/bound/repo/Fee/get/op/found",
+      "on": "normal",
+      "condition": null,
+      "values": [],
+      "evidence": [
+        "masdeep-b360506/e/d9de6d98016cc70e",
+        "masdeep-b360506/e/98fa5b0461d6b12a",
+        "masdeep-b360506/e/16cda1766cefba08"
+      ]
+    },
+    {
+      "id": "masdeep-b360506/depth/bound/repo/Fee/get/t/4",
+      "kind": "transition",
+      "owner": "masdeep-b360506/depth/impl/bound/repo/Fee/get",
+      "from": "masdeep-b360506/depth/bound/repo/Fee/get/op/found",
+      "to": "masdeep-b360506/depth/bound/repo/Fee/get/op/missing-result",
+      "on": "false",
+      "condition": "item == null",
+      "values": [],
+      "evidence": [
+        "masdeep-b360506/e/d9de6d98016cc70e",
+        "masdeep-b360506/e/98fa5b0461d6b12a",
+        "masdeep-b360506/e/16cda1766cefba08"
+      ]
+    },
+    {
+      "id": "masdeep-b360506/depth/bound/repo/Fee/get/t/5",
+      "kind": "transition",
+      "owner": "masdeep-b360506/depth/impl/bound/repo/Fee/get",
+      "from": "masdeep-b360506/depth/bound/repo/Fee/get/op/missing-result",
+      "to": "masdeep-b360506/depth/bound/repo/Fee/get/op/missing",
+      "on": "normal",
+      "condition": null,
+      "values": [],
+      "evidence": [
+        "masdeep-b360506/e/d9de6d98016cc70e",
+        "masdeep-b360506/e/98fa5b0461d6b12a",
+        "masdeep-b360506/e/16cda1766cefba08"
+      ]
+    },
+    {
+      "id": "masdeep-b360506/depth/bound/repo/Fee/get/t/6",
+      "kind": "transition",
+      "owner": "masdeep-b360506/depth/impl/bound/repo/Fee/get",
+      "from": "masdeep-b360506/depth/bound/repo/Fee/get/op/found",
+      "to": "masdeep-b360506/depth/bound/repo/Fee/get/op/found-item",
+      "on": "true",
+      "condition": "item != null",
+      "values": [],
+      "evidence": [
+        "masdeep-b360506/e/d9de6d98016cc70e",
+        "masdeep-b360506/e/98fa5b0461d6b12a",
+        "masdeep-b360506/e/16cda1766cefba08"
+      ]
+    },
+    {
+      "id": "masdeep-b360506/depth/bound/repo/Fee/get/t/7",
+      "kind": "transition",
+      "owner": "masdeep-b360506/depth/impl/bound/repo/Fee/get",
+      "from": "masdeep-b360506/depth/bound/repo/Fee/get/op/found-item",
+      "to": "masdeep-b360506/depth/bound/repo/Fee/get/op/ok-result",
+      "on": "normal",
+      "condition": null,
+      "values": [],
+      "evidence": [
+        "masdeep-b360506/e/d9de6d98016cc70e",
+        "masdeep-b360506/e/98fa5b0461d6b12a",
+        "masdeep-b360506/e/16cda1766cefba08"
+      ]
+    },
+    {
+      "id": "masdeep-b360506/depth/bound/repo/Fee/get/t/8",
+      "kind": "transition",
+      "owner": "masdeep-b360506/depth/impl/bound/repo/Fee/get",
+      "from": "masdeep-b360506/depth/bound/repo/Fee/get/op/ok-result",
+      "to": "masdeep-b360506/depth/bound/repo/Fee/get/op/return",
+      "on": "normal",
+      "condition": null,
+      "values": [],
+      "evidence": [
+        "masdeep-b360506/e/d9de6d98016cc70e",
+        "masdeep-b360506/e/98fa5b0461d6b12a",
+        "masdeep-b360506/e/16cda1766cefba08"
+      ]
+    },
+    {
+      "id": "masdeep-b360506/depth/bound/repo/Fee/get/value/key",
+      "kind": "value",
+      "owner": "masdeep-b360506/depth/impl/bound/repo/Fee/get",
+      "definition": "masdeep-b360506/depth/bound/repo/Fee/get/op/entry",
+      "label": "Wrapped repository key",
+      "role": "parameter",
+      "representation": "constructed",
+      "shape": null,
+      "accessPath": [],
+      "evidence": [
+        "masdeep-b360506/e/d9de6d98016cc70e",
+        "masdeep-b360506/e/98fa5b0461d6b12a",
+        "masdeep-b360506/e/16cda1766cefba08"
+      ]
+    },
+    {
+      "id": "masdeep-b360506/depth/bound/repo/Fee/get/value/missing",
+      "kind": "value",
+      "owner": "masdeep-b360506/depth/impl/bound/repo/Fee/get",
+      "definition": "masdeep-b360506/depth/bound/repo/Fee/get/op/missing-result",
+      "label": "Result<T>: Status NotFound, Data null, Errors",
+      "role": "definition",
+      "representation": "constructed",
+      "shape": "masdeep-b360506/bound/shape/result/Fee",
+      "accessPath": [],
+      "evidence": [
+        "masdeep-b360506/e/d9de6d98016cc70e",
+        "masdeep-b360506/e/98fa5b0461d6b12a",
+        "masdeep-b360506/e/16cda1766cefba08"
+      ]
+    },
+    {
+      "id": "masdeep-b360506/depth/bound/repo/Fee/get/value/ok",
+      "kind": "value",
+      "owner": "masdeep-b360506/depth/impl/bound/repo/Fee/get",
+      "definition": "masdeep-b360506/depth/bound/repo/Fee/get/op/ok-result",
+      "label": "Result<Fee> Status Ok with Data entity",
+      "role": "definition",
+      "representation": "constructed",
+      "shape": "masdeep-b360506/bound/shape/result/Fee",
+      "accessPath": [],
+      "evidence": [
+        "masdeep-b360506/e/d9de6d98016cc70e",
+        "masdeep-b360506/e/98fa5b0461d6b12a",
+        "masdeep-b360506/e/16cda1766cefba08"
+      ]
+    },
+    {
+      "id": "masdeep-b360506/depth/bound/service/Fee/get/op/entry",
+      "kind": "operation",
+      "owner": "masdeep-b360506/depth/impl/bound/service/Fee/get",
+      "action": "entry",
+      "label": "CommercialItemService<Fee>.GetNoTracking(InternalId)",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": null,
+      "httpStatus": null,
+      "evidence": [
+        "masdeep-b360506/e/1b1c399d1cbd235a",
+        "masdeep-b360506/e/a99275f774569f6c",
+        "masdeep-b360506/e/16cda1766cefba08"
+      ]
+    },
+    {
+      "id": "masdeep-b360506/depth/bound/service/Fee/get/op/error",
+      "kind": "operation",
+      "owner": "masdeep-b360506/depth/impl/bound/service/Fee/get",
+      "action": "throw",
+      "label": "Propagate source exception",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": "error",
+      "httpStatus": null,
+      "evidence": [
+        "masdeep-b360506/e/1b1c399d1cbd235a",
+        "masdeep-b360506/e/a99275f774569f6c",
+        "masdeep-b360506/e/16cda1766cefba08"
+      ]
+    },
+    {
+      "id": "masdeep-b360506/depth/bound/service/Fee/get/op/missing",
+      "kind": "operation",
+      "owner": "masdeep-b360506/depth/impl/bound/service/Fee/get",
+      "action": "return",
+      "label": "Return source repository NotFound",
+      "resolution": null,
+      "bindings": [],
+      "result": "masdeep-b360506/depth/bound/service/Fee/get/value/repository-result",
+      "exit": "not_found",
+      "httpStatus": null,
+      "evidence": [
+        "masdeep-b360506/e/1b1c399d1cbd235a",
+        "masdeep-b360506/e/a99275f774569f6c",
+        "masdeep-b360506/e/16cda1766cefba08"
+      ]
+    },
+    {
+      "id": "masdeep-b360506/depth/bound/service/Fee/get/op/repository",
+      "kind": "operation",
+      "owner": "masdeep-b360506/depth/impl/bound/service/Fee/get",
+      "action": "call",
+      "label": "Repository.GetSingleNoTracking",
+      "resolution": "masdeep-b360506/depth/bound/service/Fee/get/resolve/repository",
+      "bindings": [
+        {
+          "parameter": "masdeep-b360506/depth/bound/repo/Fee/get/value/key",
+          "value": "masdeep-b360506/depth/bound/service/Fee/get/value/key"
+        }
+      ],
+      "result": "masdeep-b360506/depth/bound/service/Fee/get/value/repository-result",
+      "exit": null,
+      "httpStatus": null,
+      "evidence": [
+        "masdeep-b360506/e/1b1c399d1cbd235a",
+        "masdeep-b360506/e/a99275f774569f6c",
+        "masdeep-b360506/e/16cda1766cefba08"
+      ]
+    },
+    {
+      "id": "masdeep-b360506/depth/bound/service/Fee/get/op/return",
+      "kind": "operation",
+      "owner": "masdeep-b360506/depth/impl/bound/service/Fee/get",
+      "action": "return",
+      "label": "Return ok",
+      "resolution": null,
+      "bindings": [],
+      "result": "masdeep-b360506/depth/bound/service/Fee/get/value/repository-result",
+      "exit": "ok",
+      "httpStatus": null,
+      "evidence": [
+        "masdeep-b360506/e/1b1c399d1cbd235a",
+        "masdeep-b360506/e/a99275f774569f6c",
+        "masdeep-b360506/e/16cda1766cefba08"
+      ]
+    },
+    {
+      "id": "masdeep-b360506/depth/bound/service/Fee/get/resolve/repository",
+      "kind": "resolution",
+      "owner": "masdeep-b360506/depth/impl/bound/service/Fee/get",
+      "requestedArtifact": null,
+      "basis": "source_local",
+      "target": "masdeep-b360506/depth/impl/bound/repo/Fee/get",
+      "candidates": [],
+      "binding": null,
+      "evidence": [
+        "masdeep-b360506/e/1b1c399d1cbd235a",
+        "masdeep-b360506/e/a99275f774569f6c",
+        "masdeep-b360506/e/16cda1766cefba08"
+      ]
+    },
+    {
+      "id": "masdeep-b360506/depth/bound/service/Fee/get/t/1",
+      "kind": "transition",
+      "owner": "masdeep-b360506/depth/impl/bound/service/Fee/get",
+      "from": "masdeep-b360506/depth/bound/service/Fee/get/op/entry",
+      "to": "masdeep-b360506/depth/bound/service/Fee/get/op/repository",
+      "on": "normal",
+      "condition": null,
+      "values": [],
+      "evidence": [
+        "masdeep-b360506/e/1b1c399d1cbd235a",
+        "masdeep-b360506/e/a99275f774569f6c",
+        "masdeep-b360506/e/16cda1766cefba08"
+      ]
+    },
+    {
+      "id": "masdeep-b360506/depth/bound/service/Fee/get/t/2",
+      "kind": "transition",
+      "owner": "masdeep-b360506/depth/impl/bound/service/Fee/get",
+      "from": "masdeep-b360506/depth/bound/service/Fee/get/op/repository",
+      "to": "masdeep-b360506/depth/bound/service/Fee/get/op/error",
+      "on": "error",
+      "condition": "Source operation throws",
+      "values": [],
+      "evidence": [
+        "masdeep-b360506/e/1b1c399d1cbd235a",
+        "masdeep-b360506/e/a99275f774569f6c",
+        "masdeep-b360506/e/16cda1766cefba08"
+      ]
+    },
+    {
+      "id": "masdeep-b360506/depth/bound/service/Fee/get/t/3",
+      "kind": "transition",
+      "owner": "masdeep-b360506/depth/impl/bound/service/Fee/get",
+      "from": "masdeep-b360506/depth/bound/service/Fee/get/op/repository",
+      "to": "masdeep-b360506/depth/bound/service/Fee/get/op/return",
+      "on": "ok",
+      "condition": null,
+      "values": [],
+      "evidence": [
+        "masdeep-b360506/e/1b1c399d1cbd235a",
+        "masdeep-b360506/e/a99275f774569f6c",
+        "masdeep-b360506/e/16cda1766cefba08"
+      ]
+    },
+    {
+      "id": "masdeep-b360506/depth/bound/service/Fee/get/t/4",
+      "kind": "transition",
+      "owner": "masdeep-b360506/depth/impl/bound/service/Fee/get",
+      "from": "masdeep-b360506/depth/bound/service/Fee/get/op/repository",
+      "to": "masdeep-b360506/depth/bound/service/Fee/get/op/missing",
+      "on": "not_found",
+      "condition": null,
+      "values": [],
+      "evidence": [
+        "masdeep-b360506/e/1b1c399d1cbd235a",
+        "masdeep-b360506/e/a99275f774569f6c",
+        "masdeep-b360506/e/16cda1766cefba08"
+      ]
+    },
+    {
+      "id": "masdeep-b360506/depth/bound/service/Fee/get/value/key",
+      "kind": "value",
+      "owner": "masdeep-b360506/depth/impl/bound/service/Fee/get",
+      "definition": "masdeep-b360506/depth/bound/service/Fee/get/op/entry",
+      "label": "Wrapped key",
+      "role": "parameter",
+      "representation": "constructed",
+      "shape": null,
+      "accessPath": [],
+      "evidence": [
+        "masdeep-b360506/e/1b1c399d1cbd235a",
+        "masdeep-b360506/e/a99275f774569f6c",
+        "masdeep-b360506/e/16cda1766cefba08"
+      ]
+    },
+    {
+      "id": "masdeep-b360506/depth/bound/service/Fee/get/value/repository-result",
+      "kind": "value",
+      "owner": "masdeep-b360506/depth/impl/bound/service/Fee/get",
+      "definition": "masdeep-b360506/depth/bound/service/Fee/get/op/repository",
+      "label": "Returned Repository.GetSingleNoTracking",
+      "role": "definition",
+      "representation": "constructed",
+      "shape": "masdeep-b360506/bound/shape/result/Fee",
+      "accessPath": [],
+      "evidence": [
+        "masdeep-b360506/e/1b1c399d1cbd235a",
+        "masdeep-b360506/e/a99275f774569f6c",
+        "masdeep-b360506/e/16cda1766cefba08"
+      ]
+    },
+    {
+      "id": "masdeep-b360506/depth/gap/identity-helper",
+      "kind": "gap",
+      "owner": "s2/http",
+      "obligation": "Source depth and dependency closure",
+      "reason": "Local deterministic identity call and defining-property expressions are captured; imported IdHelper implementation and effective AutoMapper conventions are not established.",
+      "action": "Bind pinned external helper implementation; preserve source construction and the declared maps.",
+      "evidence": ["masdeep-b360506/e/860bc1ca29201083", "masdeep-b360506/e/786517a302ada0ff"]
+    },
+    {
+      "id": "masdeep-b360506/depth/gap/method-frames",
+      "kind": "gap",
+      "owner": "s2/http",
+      "obligation": "Source depth and dependency closure",
+      "reason": "Available local bodies were inspected and summarised, but this route has not yet been decomposed into source-symbol call frames and formal/result bindings. The opaque local call is an authoring boundary, not missing source.",
+      "action": "Author real controller/service/repository/UoW/notification method implementations before claiming native per-method control/data closure.",
+      "evidence": [
+        "masdeep-b360506/e/ae1c622893c8d563",
+        "masdeep-b360506/e/1b1c399d1cbd235a",
+        "masdeep-b360506/e/66abb728cd523936",
+        "masdeep-b360506/e/edf8504f9d4cbc21"
+      ]
+    },
+    {
+      "id": "masdeep-b360506/depth/gap/provider",
+      "kind": "gap",
+      "owner": "s2/http",
+      "obligation": "Source depth and dependency closure",
+      "reason": "Exact EF provider, AutoMapper/JWT/Newtonsoft/Confluent runtime implementations and deployment are not bound. Their SDK operations remain opaque; available local service/repository/auth/notification bodies are traced.",
+      "action": "Bind exact imported artefacts and effective runtime profile, without inventing transport defaults.",
+      "evidence": [
+        "masdeep-b360506/e/66abb728cd523936",
+        "masdeep-b360506/e/98fa5b0461d6b12a",
+        "masdeep-b360506/e/ae1c622893c8d563",
+        "masdeep-b360506/e/1b1c399d1cbd235a",
+        "masdeep-b360506/e/d61351349d210e5f",
+        "masdeep-b360506/e/860bc1ca29201083",
+        "masdeep-b360506/e/e7c6a9357ad83a0a",
+        "masdeep-b360506/e/8201669e3fbebe8d",
+        "masdeep-b360506/e/34fab5c27425e69e",
+        "masdeep-b360506/e/25ba9d4e86d4eaf9",
+        "masdeep-b360506/e/47f7dc8e88e5ce28",
+        "masdeep-b360506/e/edf8504f9d4cbc21",
+        "masdeep-b360506/e/c67b1b841a741da8",
+        "masdeep-b360506/e/bc7d18152235b22e",
+        "masdeep-b360506/e/0103ca62f8f18cc7",
+        "masdeep-b360506/e/bbc70cee03f0d35b",
+        "masdeep-b360506/e/eeadf7b371004ead",
+        "masdeep-b360506/e/a8d1e578dcbe719a",
+        "masdeep-b360506/e/c2e95b5ee5815686"
+      ]
+    },
+    {
+      "id": "masdeep-b360506/depth/impl/bound/auth-get",
+      "kind": "implementation",
+      "logicalId": "PopAuthzAuthorizationHandler.HandleRequirementAsync [GET context]",
+      "scope": "s2/p",
+      "entry": "masdeep-b360506/depth/bound/auth-get/op/entry",
+      "parameters": [
+        "masdeep-b360506/depth/bound/auth-get/value/method",
+        "masdeep-b360506/depth/bound/auth-get/value/path",
+        "masdeep-b360506/depth/bound/auth-get/value/headers"
+      ],
+      "evidence": [
+        "masdeep-b360506/e/0103ca62f8f18cc7",
+        "masdeep-b360506/e/bbc70cee03f0d35b",
+        "masdeep-b360506/e/c2e95b5ee5815686"
+      ]
+    },
+    {
+      "id": "masdeep-b360506/depth/impl/bound/repo/Fee/get",
+      "kind": "implementation",
+      "logicalId": "CommercialItemRepository<Fee>.GetSingleNoTracking(InternalId)",
+      "scope": "s2/p",
+      "entry": "masdeep-b360506/depth/bound/repo/Fee/get/op/entry",
+      "parameters": ["masdeep-b360506/depth/bound/repo/Fee/get/value/key"],
+      "evidence": [
+        "masdeep-b360506/e/d9de6d98016cc70e",
+        "masdeep-b360506/e/98fa5b0461d6b12a",
+        "masdeep-b360506/e/16cda1766cefba08"
+      ]
+    },
+    {
+      "id": "masdeep-b360506/depth/impl/bound/service/Fee/get",
+      "kind": "implementation",
+      "logicalId": "CommercialItemService<Fee>.GetNoTracking(InternalId)",
+      "scope": "s2/p",
+      "entry": "masdeep-b360506/depth/bound/service/Fee/get/op/entry",
+      "parameters": ["masdeep-b360506/depth/bound/service/Fee/get/value/key"],
+      "evidence": [
+        "masdeep-b360506/e/1b1c399d1cbd235a",
+        "masdeep-b360506/e/a99275f774569f6c",
+        "masdeep-b360506/e/16cda1766cefba08"
+      ]
+    },
+    {
+      "id": "masdeep-b360506/depth/runs/bound/auth-get",
+      "kind": "execution_binding",
+      "implementation": "masdeep-b360506/depth/impl/bound/auth-get",
+      "component": "u3/component/mas",
+      "basis": "source_declared",
+      "artifactBinding": null,
+      "gaps": ["masdeep-b360506/gap/security", "masdeep-b360506/depth/gap/provider"],
+      "evidence": [
+        "masdeep-b360506/e/0103ca62f8f18cc7",
+        "masdeep-b360506/e/bbc70cee03f0d35b",
+        "masdeep-b360506/e/c2e95b5ee5815686"
+      ]
+    },
+    {
+      "id": "masdeep-b360506/depth/runs/bound/repo/Fee/get",
+      "kind": "execution_binding",
+      "implementation": "masdeep-b360506/depth/impl/bound/repo/Fee/get",
+      "component": "u3/component/mas",
+      "basis": "source_declared",
+      "artifactBinding": null,
+      "gaps": ["masdeep-b360506/gap/security", "masdeep-b360506/depth/gap/provider"],
+      "evidence": [
+        "masdeep-b360506/e/d9de6d98016cc70e",
+        "masdeep-b360506/e/98fa5b0461d6b12a",
+        "masdeep-b360506/e/16cda1766cefba08"
+      ]
+    },
+    {
+      "id": "masdeep-b360506/depth/runs/bound/service/Fee/get",
+      "kind": "execution_binding",
+      "implementation": "masdeep-b360506/depth/impl/bound/service/Fee/get",
+      "component": "u3/component/mas",
+      "basis": "source_declared",
+      "artifactBinding": null,
+      "gaps": ["masdeep-b360506/gap/security", "masdeep-b360506/depth/gap/provider"],
+      "evidence": [
+        "masdeep-b360506/e/1b1c399d1cbd235a",
+        "masdeep-b360506/e/a99275f774569f6c",
+        "masdeep-b360506/e/16cda1766cefba08"
+      ]
+    },
+    {
+      "id": "masdeep-b360506/e/0103ca62f8f18cc7",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Api/Authorization/PopAuthzAuthorizationHandler.cs",
+      "lines": [1, 147],
+      "basis": "source"
+    },
+    {
+      "id": "masdeep-b360506/e/095f6b7fcffabd78",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Api/Startup.cs",
+      "lines": [1, 60],
+      "basis": "source"
+    },
+    {
+      "id": "masdeep-b360506/e/16cda1766cefba08",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Core/Common/ResultType/Result.cs",
+      "lines": [1, 140],
+      "basis": "source"
+    },
+    {
+      "id": "masdeep-b360506/e/1b1c399d1cbd235a",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Core/Services/CommercialItemService.cs",
+      "lines": [1, 114],
+      "basis": "source"
+    },
+    {
+      "id": "masdeep-b360506/e/25ba9d4e86d4eaf9",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.MessageBroker/Services/NotificationService.cs",
+      "lines": [1, 70],
+      "basis": "source"
+    },
+    {
+      "id": "masdeep-b360506/e/34fab5c27425e69e",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.MessageBroker/Producers/KafkaProducer.cs",
+      "lines": [1, 69],
+      "basis": "source"
+    },
+    {
+      "id": "masdeep-b360506/e/3cf2609e40df515a",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Core/Models/CommercialItems/Fee.cs",
+      "lines": [1, 22],
+      "basis": "source"
+    },
+    {
+      "id": "masdeep-b360506/e/47f7dc8e88e5ce28",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.MessageBroker/Builders/ProtoBufMessageBuilder.cs",
+      "lines": [1, 408],
+      "basis": "source"
+    },
+    {
+      "id": "masdeep-b360506/e/5fe3863d51d6f14a",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Api/Controllers/V1/FeesController.cs",
+      "lines": [38, 47],
+      "basis": "source"
+    },
+    {
+      "id": "masdeep-b360506/e/64ccd42e1ab01afe",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Api/Controllers/V1/FeesController.cs",
+      "lines": [42, 47],
+      "basis": "source"
+    },
+    {
+      "id": "masdeep-b360506/e/66abb728cd523936",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Infrastructure/Repositories/Repository.cs",
+      "lines": [1, 191],
+      "basis": "source"
+    },
+    {
+      "id": "masdeep-b360506/e/786517a302ada0ff",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Core/Models/CommercialItems/CommercialItemBase.cs",
+      "lines": [1, 43],
+      "basis": "source"
+    },
+    {
+      "id": "masdeep-b360506/e/80eccbc6232b217f",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Core/Models/CommercialItems/Fee.cs",
+      "lines": [7, 7],
+      "basis": "source"
+    },
+    {
+      "id": "masdeep-b360506/e/8201669e3fbebe8d",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Infrastructure/DatabaseContext.cs",
+      "lines": [1, 650],
+      "basis": "source"
+    },
+    {
+      "id": "masdeep-b360506/e/860bc1ca29201083",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Api/Mapping/MappingProfile.cs",
+      "lines": [1, 375],
+      "basis": "source"
+    },
+    {
+      "id": "masdeep-b360506/e/98fa5b0461d6b12a",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Infrastructure/Repositories/CommercialItemRepository.cs",
+      "lines": [1, 102],
+      "basis": "source"
+    },
+    {
+      "id": "masdeep-b360506/e/a8d1e578dcbe719a",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Infrastructure/Integrations/PopAuthz/Constants/AuthorizationConstants.cs",
+      "lines": [1, 84],
+      "basis": "source"
+    },
+    {
+      "id": "masdeep-b360506/e/a99275f774569f6c",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Core/Services/FeeService.cs",
+      "lines": [1, 28],
+      "basis": "source"
+    },
+    {
+      "id": "masdeep-b360506/e/ae1c622893c8d563",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Core/Services/CrudService.cs",
+      "lines": [1, 94],
+      "basis": "source"
+    },
+    {
+      "id": "masdeep-b360506/e/b111ec1459333eaf",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Api/Models/V1/Response/SuccessResponse.cs",
+      "lines": [1, 35],
+      "basis": "source"
+    },
+    {
+      "id": "masdeep-b360506/e/bbc70cee03f0d35b",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Api/Authorization/PopAuthzAuthorizationResultHandler.cs",
+      "lines": [1, 53],
+      "basis": "source"
+    },
+    {
+      "id": "masdeep-b360506/e/bc7d18152235b22e",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Api/Middleware/ExceptionMiddlewareDev.cs",
+      "lines": [1, 45],
+      "basis": "source"
+    },
+    {
+      "id": "masdeep-b360506/e/c2e95b5ee5815686",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Api/Extensions/ApplicationBuilderExtensions.cs",
+      "lines": [1, 175],
+      "basis": "source"
+    },
+    {
+      "id": "masdeep-b360506/e/c67b1b841a741da8",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Api/Middleware/ExceptionMiddleware.cs",
+      "lines": [1, 85],
+      "basis": "source"
+    },
+    {
+      "id": "masdeep-b360506/e/d61351349d210e5f",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Infrastructure/UnitOfWork.cs",
+      "lines": [1, 153],
+      "basis": "source"
+    },
+    {
+      "id": "masdeep-b360506/e/d79bff19f244cfe6",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Core/Models/CommercialItems/Fee.cs",
+      "lines": [8, 8],
+      "basis": "source"
+    },
+    {
+      "id": "masdeep-b360506/e/d9de6d98016cc70e",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Infrastructure/Repositories/FeeRepository.cs",
+      "lines": [1, 13],
+      "basis": "source"
+    },
+    {
+      "id": "masdeep-b360506/e/e7c6a9357ad83a0a",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Api/Mapping/AutoMapperExtensions.cs",
+      "lines": [1, 30],
+      "basis": "source"
+    },
+    {
+      "id": "masdeep-b360506/e/edf8504f9d4cbc21",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Api/Controllers/ManageAndSegmentControllerBase.cs",
+      "lines": [1, 86],
+      "basis": "source"
+    },
+    {
+      "id": "masdeep-b360506/e/eeadf7b371004ead",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Infrastructure/Integrations/PopAuthz/AuthorizationClient.cs",
+      "lines": [1, 211],
+      "basis": "source"
+    },
+    {
+      "id": "masdeep-b360506/entry/get-api-commercial-items-fees-internalid",
+      "kind": "entry",
+      "logicalId": "GET /api/commercial-items/fees/{internalId}",
+      "method": "GET",
+      "path": "/api/commercial-items/fees/{internalId}",
+      "implementation": "masdeep-b360506/impl/get-api-commercial-items-fees-internalid",
+      "evidence": ["masdeep-b360506/e/5fe3863d51d6f14a", "masdeep-b360506/e/64ccd42e1ab01afe"]
+    },
+    {
+      "id": "masdeep-b360506/gap/parent-1f042c2f94",
+      "kind": "gap",
+      "owner": "s2/http",
+      "obligation": "Source closure",
+      "reason": "Unresolved source parent CommercialItemBase for Fee.",
+      "action": "Bind exact source parent and expand fields.",
+      "evidence": ["masdeep-b360506/e/3cf2609e40df515a"]
+    },
+    {
+      "id": "masdeep-b360506/gap/physical",
+      "kind": "gap",
+      "owner": "s2/http",
+      "obligation": "Source closure",
+      "reason": "Committed settings and source declarations do not establish deployed database/broker or external service instances.",
+      "action": "Bind the selected source profile to an actual deployment without exposing credentials.",
+      "evidence": ["masdeep-b360506/e/095f6b7fcffabd78"]
+    },
+    {
+      "id": "masdeep-b360506/gap/security",
+      "kind": "gap",
+      "owner": "s2/http",
+      "obligation": "Source closure",
+      "reason": "Authorisation policy source is available, but full imported authentication, token validation and effective middleware enforcement are not established.",
+      "action": "Resolve authentication middleware/registration, policy execution and deployment configuration.",
+      "evidence": ["masdeep-b360506/e/0103ca62f8f18cc7", "masdeep-b360506/e/095f6b7fcffabd78"]
+    },
+    {
+      "id": "masdeep-b360506/gap/wire",
+      "kind": "gap",
+      "owner": "s2/http",
+      "obligation": "Source closure",
+      "reason": "Effective request/response formatter selection, imported middleware and negotiation are not fully resolved. Source DTO fields are not a complete effective wire contract.",
+      "action": "Resolve pinned shared assemblies, model version handling and effective MVC formatter configuration.",
+      "evidence": ["masdeep-b360506/e/095f6b7fcffabd78"]
+    },
+    {
+      "id": "masdeep-b360506/impl/get-api-commercial-items-fees-internalid",
+      "kind": "implementation",
+      "logicalId": "FeesController.cs.Get",
+      "scope": "s2/p",
+      "entry": "masdeep-b360506/depth/bound/controller/get-api-commercial-items-fees-internalid/op/entry",
+      "parameters": [
+        "masdeep-b360506/depth/bound/controller/get-api-commercial-items-fees-internalid/value/route-key",
+        "masdeep-b360506/depth/bound/controller/get-api-commercial-items-fees-internalid/value/headers"
+      ],
+      "evidence": [
+        "masdeep-b360506/e/64ccd42e1ab01afe",
+        "masdeep-b360506/e/a99275f774569f6c",
+        "masdeep-b360506/e/d9de6d98016cc70e",
+        "masdeep-b360506/e/1b1c399d1cbd235a",
+        "masdeep-b360506/e/98fa5b0461d6b12a",
+        "masdeep-b360506/e/66abb728cd523936",
+        "masdeep-b360506/e/d61351349d210e5f",
+        "masdeep-b360506/e/edf8504f9d4cbc21"
+      ]
+    },
+    {
+      "id": "masdeep-b360506/runs/get-api-commercial-items-fees-internalid",
+      "kind": "execution_binding",
+      "implementation": "masdeep-b360506/impl/get-api-commercial-items-fees-internalid",
+      "component": "u3/component/mas",
+      "basis": "source_declared",
+      "artifactBinding": null,
+      "gaps": [],
+      "evidence": ["masdeep-b360506/e/5fe3863d51d6f14a"]
+    },
+    {
+      "id": "masdeep-b360506/shape/1f042c2f9435a9f7",
+      "kind": "shape",
+      "label": "core Fee source DTO",
+      "representation": "source",
+      "fields": [
+        {
+          "name": "Code",
+          "type": "FeeCode",
+          "status": "declared",
+          "evidence": ["masdeep-b360506/e/80eccbc6232b217f"]
+        },
+        {
+          "name": "Name",
+          "type": "string",
+          "status": "declared",
+          "evidence": ["masdeep-b360506/e/d79bff19f244cfe6"]
+        }
+      ],
+      "container": "object",
+      "completeness": "partial",
+      "gaps": ["masdeep-b360506/gap/parent-1f042c2f94"],
+      "evidence": ["masdeep-b360506/e/3cf2609e40df515a"]
+    },
+    {
+      "id": "s2/e/controller",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Api/Controllers/V1/SoftOffersController.cs",
+      "lines": [17, 90],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "s2/e/input",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Api/Models/V1/Request/SoftOfferInput.cs",
+      "lines": [1, 53],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "s2/e/middleware",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Api/Middleware/ExceptionMiddleware.cs",
+      "lines": [1, 85],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "s2/http",
+      "kind": "implementation",
+      "logicalId": "impl:soft-offer-http",
+      "scope": "s2/p",
+      "entry": "s2/http.start",
+      "parameters": ["s2/v/request"],
+      "evidence": ["s2/e/controller", "s2/e/middleware"]
+    },
+    {
+      "id": "s2/http.start",
+      "kind": "operation",
+      "owner": "s2/http",
+      "action": "entry",
+      "label": "Authenticated, bound soft-offer input",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": null,
+      "httpStatus": null,
+      "evidence": ["s2/e/controller", "s2/e/input"]
+    },
+    {
+      "id": "s2/p",
+      "kind": "source_revision",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110"
+    },
+    {
+      "id": "s2/shape/input",
+      "kind": "shape",
+      "representation": "constructed",
+      "label": "SoftOfferInput",
+      "fields": [
+        {
+          "name": "Code",
+          "type": "string",
+          "status": "declared"
+        },
+        {
+          "name": "Type",
+          "type": "string",
+          "status": "declared"
+        },
+        {
+          "name": "Name",
+          "type": "string",
+          "status": "declared"
+        },
+        {
+          "name": "SkuCategory",
+          "type": "string",
+          "status": "declared"
+        },
+        {
+          "name": "SkuIdentifier",
+          "type": "string",
+          "status": "declared"
+        }
+      ],
+      "completeness": "closed",
+      "gaps": [],
+      "evidence": ["s2/e/input"],
+      "encoding": "json"
+    },
+    {
+      "id": "s2/v/request",
+      "kind": "value",
+      "owner": "s2/http",
+      "definition": "s2/http.start",
+      "label": "SoftOfferInput request body",
+      "role": "parameter",
+      "representation": "constructed",
+      "shape": "s2/shape/input",
+      "evidence": ["s2/e/input", "s2/e/controller"],
+      "accessPath": []
+    },
+    {
+      "id": "u3/component/mas",
+      "kind": "runtime_component",
+      "logicalId": "svc:manage-and-segment-api",
+      "label": "Manage and Segment API",
+      "category": "service",
+      "technology": ".NET / ASP.NET Core",
+      "sources": ["s2/p"],
+      "basis": "source_declared",
+      "evidence": ["u3/e/mas-program", "s2/e/controller"],
+      "gaps": []
+    },
+    {
+      "id": "u3/e/mas-program",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Api/Program.cs",
+      "lines": [1, 24],
+      "basis": "source"
+    }
+  ],
+  "traversalComplete": true,
+  "findings": [],
+  "sourceLinks": [
+    {
+      "evidence": "masdeep-b360506/e/16cda1766cefba08",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Core/Common/ResultType/Result.cs#L1-L140",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Core/Common/ResultType/Result.cs:1–140"
+    },
+    {
+      "evidence": "masdeep-b360506/e/98fa5b0461d6b12a",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Infrastructure/Repositories/CommercialItemRepository.cs#L1-L102",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Infrastructure/Repositories/CommercialItemRepository.cs:1–102"
+    },
+    {
+      "evidence": "masdeep-b360506/e/d9de6d98016cc70e",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Infrastructure/Repositories/FeeRepository.cs#L1-L13",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Infrastructure/Repositories/FeeRepository.cs:1–13"
+    },
+    {
+      "evidence": "s2/e/input",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Api/Models/V1/Request/SoftOfferInput.cs#L1-L53",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Api/Models/V1/Request/SoftOfferInput.cs:1–53"
+    },
+    {
+      "evidence": "s2/e/controller",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Api/Controllers/V1/SoftOffersController.cs#L17-L90",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Api/Controllers/V1/SoftOffersController.cs:17–90"
+    },
+    {
+      "evidence": "s2/e/middleware",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Api/Middleware/ExceptionMiddleware.cs#L1-L85",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Api/Middleware/ExceptionMiddleware.cs:1–85"
+    },
+    {
+      "evidence": "masdeep-b360506/e/edf8504f9d4cbc21",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Api/Controllers/ManageAndSegmentControllerBase.cs#L1-L86",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Api/Controllers/ManageAndSegmentControllerBase.cs:1–86"
+    },
+    {
+      "evidence": "masdeep-b360506/e/66abb728cd523936",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Infrastructure/Repositories/Repository.cs#L1-L191",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Infrastructure/Repositories/Repository.cs:1–191"
+    },
+    {
+      "evidence": "masdeep-b360506/e/1b1c399d1cbd235a",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Core/Services/CommercialItemService.cs#L1-L114",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Core/Services/CommercialItemService.cs:1–114"
+    },
+    {
+      "evidence": "masdeep-b360506/e/ae1c622893c8d563",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Core/Services/CrudService.cs#L1-L94",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Core/Services/CrudService.cs:1–94"
+    },
+    {
+      "evidence": "masdeep-b360506/e/095f6b7fcffabd78",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Api/Startup.cs#L1-L60",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Api/Startup.cs:1–60"
+    },
+    {
+      "evidence": "masdeep-b360506/e/0103ca62f8f18cc7",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Api/Authorization/PopAuthzAuthorizationHandler.cs#L1-L147",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Api/Authorization/PopAuthzAuthorizationHandler.cs:1–147"
+    },
+    {
+      "evidence": "masdeep-b360506/e/c2e95b5ee5815686",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Api/Extensions/ApplicationBuilderExtensions.cs#L1-L175",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Api/Extensions/ApplicationBuilderExtensions.cs:1–175"
+    },
+    {
+      "evidence": "masdeep-b360506/e/a8d1e578dcbe719a",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Infrastructure/Integrations/PopAuthz/Constants/AuthorizationConstants.cs#L1-L84",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Infrastructure/Integrations/PopAuthz/Constants/AuthorizationConstants.cs:1–84"
+    },
+    {
+      "evidence": "masdeep-b360506/e/eeadf7b371004ead",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Infrastructure/Integrations/PopAuthz/AuthorizationClient.cs#L1-L211",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Infrastructure/Integrations/PopAuthz/AuthorizationClient.cs:1–211"
+    },
+    {
+      "evidence": "masdeep-b360506/e/bbc70cee03f0d35b",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Api/Authorization/PopAuthzAuthorizationResultHandler.cs#L1-L53",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Api/Authorization/PopAuthzAuthorizationResultHandler.cs:1–53"
+    },
+    {
+      "evidence": "masdeep-b360506/e/bc7d18152235b22e",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Api/Middleware/ExceptionMiddlewareDev.cs#L1-L45",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Api/Middleware/ExceptionMiddlewareDev.cs:1–45"
+    },
+    {
+      "evidence": "masdeep-b360506/e/c67b1b841a741da8",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Api/Middleware/ExceptionMiddleware.cs#L1-L85",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Api/Middleware/ExceptionMiddleware.cs:1–85"
+    },
+    {
+      "evidence": "masdeep-b360506/e/47f7dc8e88e5ce28",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.MessageBroker/Builders/ProtoBufMessageBuilder.cs#L1-L408",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.MessageBroker/Builders/ProtoBufMessageBuilder.cs:1–408"
+    },
+    {
+      "evidence": "masdeep-b360506/e/25ba9d4e86d4eaf9",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.MessageBroker/Services/NotificationService.cs#L1-L70",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.MessageBroker/Services/NotificationService.cs:1–70"
+    },
+    {
+      "evidence": "masdeep-b360506/e/34fab5c27425e69e",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.MessageBroker/Producers/KafkaProducer.cs#L1-L69",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.MessageBroker/Producers/KafkaProducer.cs:1–69"
+    },
+    {
+      "evidence": "masdeep-b360506/e/8201669e3fbebe8d",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Infrastructure/DatabaseContext.cs#L1-L650",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Infrastructure/DatabaseContext.cs:1–650"
+    },
+    {
+      "evidence": "masdeep-b360506/e/e7c6a9357ad83a0a",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Api/Mapping/AutoMapperExtensions.cs#L1-L30",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Api/Mapping/AutoMapperExtensions.cs:1–30"
+    },
+    {
+      "evidence": "masdeep-b360506/e/860bc1ca29201083",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Api/Mapping/MappingProfile.cs#L1-L375",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Api/Mapping/MappingProfile.cs:1–375"
+    },
+    {
+      "evidence": "masdeep-b360506/e/d61351349d210e5f",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Infrastructure/UnitOfWork.cs#L1-L153",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Infrastructure/UnitOfWork.cs:1–153"
+    },
+    {
+      "evidence": "masdeep-b360506/e/64ccd42e1ab01afe",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Api/Controllers/V1/FeesController.cs#L42-L47",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Api/Controllers/V1/FeesController.cs:42–47"
+    },
+    {
+      "evidence": "masdeep-b360506/e/a99275f774569f6c",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Core/Services/FeeService.cs#L1-L28",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Core/Services/FeeService.cs:1–28"
+    },
+    {
+      "evidence": "masdeep-b360506/e/5fe3863d51d6f14a",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Api/Controllers/V1/FeesController.cs#L38-L47",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Api/Controllers/V1/FeesController.cs:38–47"
+    },
+    {
+      "evidence": "masdeep-b360506/e/786517a302ada0ff",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Core/Models/CommercialItems/CommercialItemBase.cs#L1-L43",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Core/Models/CommercialItems/CommercialItemBase.cs:1–43"
+    },
+    {
+      "evidence": "masdeep-b360506/e/b111ec1459333eaf",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Api/Models/V1/Response/SuccessResponse.cs#L1-L35",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Api/Models/V1/Response/SuccessResponse.cs:1–35"
+    },
+    {
+      "evidence": "masdeep-b360506/e/d79bff19f244cfe6",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Core/Models/CommercialItems/Fee.cs#L8-L8",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Core/Models/CommercialItems/Fee.cs:8–8"
+    },
+    {
+      "evidence": "masdeep-b360506/e/80eccbc6232b217f",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Core/Models/CommercialItems/Fee.cs#L7-L7",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Core/Models/CommercialItems/Fee.cs:7–7"
+    },
+    {
+      "evidence": "masdeep-b360506/e/3cf2609e40df515a",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Core/Models/CommercialItems/Fee.cs#L1-L22",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Core/Models/CommercialItems/Fee.cs:1–22"
+    },
+    {
+      "evidence": "u3/e/mas-program",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Api/Program.cs#L1-L24",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Api/Program.cs:1–24"
+    }
+  ],
+  "nextRequest": null
+}

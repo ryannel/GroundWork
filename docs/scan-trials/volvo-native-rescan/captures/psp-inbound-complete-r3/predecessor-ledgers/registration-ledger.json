@@ -1,0 +1,237 @@
+{
+  "entries": [
+    {
+      "entry": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/revised/0c7606fb63d2887b3607",
+      "trigger": "rest",
+      "method": "POST",
+      "path": "/v2/{psp}/{platformAccountId}/inbound",
+      "implementation": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/e32c19d0dc43398e91a2",
+      "symbol": "com.volvocars.ecom.paymentservice.psp.inbound.api.webhook.v2.impl.InboundControllerImpl#receive(Psp,String,String,Map<String, String>,Map<String, String>)",
+      "status": "source_review_complete",
+      "runtimeStatus": "imported_framework_and_runtime_boundaries_remain"
+    },
+    {
+      "entry": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/revised/2bbb0393c68e6f79b730",
+      "trigger": "rest",
+      "method": "GET",
+      "path": "/v1/configurations/swagger-config",
+      "implementation": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/05854a5b7f788293eec9",
+      "symbol": "com.volvocars.ecom.paymentservice.psp.inbound.api.configuration.v1.impl.SwaggerUIControllerImpl#getSwaggerConfig()",
+      "status": "source_review_complete",
+      "runtimeStatus": "imported_framework_and_runtime_boundaries_remain"
+    },
+    {
+      "entry": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/entry/0c8d6cb9b9e7984b5a21",
+      "trigger": "process",
+      "method": "PROCESS",
+      "path": "com.volvocars.ecom.paymentservice.psp.inbound.api.App#main(String[])",
+      "implementation": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/0c8d6cb9b9e7984b5a21",
+      "symbol": "com.volvocars.ecom.paymentservice.psp.inbound.api.App#main(String[])",
+      "condition": "Source Spring Boot main; boot activation is not a call to every registration",
+      "status": "source_review_complete",
+      "runtimeStatus": "imported_framework_and_runtime_boundaries_remain"
+    },
+    {
+      "entry": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/entry/895db8fc09ddb9f8dc77",
+      "trigger": "schedule",
+      "method": "SCHEDULE",
+      "path": "com.volvocars.ecom.paymentservice.psp.inbound.messaging.ScheduledMessageProducer#sendHeartbeat()",
+      "implementation": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/895db8fc09ddb9f8dc77",
+      "symbol": "com.volvocars.ecom.paymentservice.psp.inbound.messaging.ScheduledMessageProducer#sendHeartbeat()",
+      "condition": "@Scheduled fixedDelayString=${payment-service.scheduled-message.delay-millis}; @ConditionalOnProperty enabled=true",
+      "status": "source_review_complete",
+      "runtimeStatus": "imported_framework_and_runtime_boundaries_remain"
+    },
+    {
+      "entry": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/entry/13d8bb8684dc85b189aa",
+      "trigger": "startup",
+      "method": "STARTUP",
+      "path": "com.volvocars.ecom.paymentservice.psp.inbound.security.IpAddressVerifier#init()",
+      "implementation": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/13d8bb8684dc85b189aa",
+      "symbol": "com.volvocars.ecom.paymentservice.psp.inbound.security.IpAddressVerifier#init()",
+      "condition": "@PostConstruct populates configured IP matchers, conditional on framework bean creation",
+      "status": "source_review_complete",
+      "runtimeStatus": "imported_framework_and_runtime_boundaries_remain"
+    },
+    {
+      "entry": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/entry/b4514f60ae0c301d4859",
+      "trigger": "callback",
+      "method": "CALLBACK",
+      "path": "com.volvocars.ecom.paymentservice.psp.inbound.api.security.IpAuthorizationFilter#doFilterInternal(HttpServletRequest,HttpServletResponse,FilterChain)",
+      "implementation": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/b4514f60ae0c301d4859",
+      "symbol": "com.volvocars.ecom.paymentservice.psp.inbound.api.security.IpAuthorizationFilter#doFilterInternal(HttpServletRequest,HttpServletResponse,FilterChain)",
+      "condition": "Source OncePerRequestFilter callback; ordering/activation remain imported framework boundaries",
+      "status": "source_review_complete",
+      "runtimeStatus": "imported_framework_and_runtime_boundaries_remain"
+    },
+    {
+      "entry": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/entry/e633b9a66045cebf91da",
+      "trigger": "callback",
+      "method": "CALLBACK",
+      "path": "com.volvocars.ecom.paymentservice.psp.inbound.config.PspConverter#addFormatters(FormatterRegistry)",
+      "implementation": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/e633b9a66045cebf91da",
+      "symbol": "com.volvocars.ecom.paymentservice.psp.inbound.config.PspConverter#addFormatters(FormatterRegistry)",
+      "condition": "WebMvcConfigurer source registration callback",
+      "status": "source_review_complete",
+      "runtimeStatus": "imported_framework_and_runtime_boundaries_remain"
+    },
+    {
+      "entry": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/entry/db74615e181b98f8b922",
+      "trigger": "callback",
+      "method": "CALLBACK",
+      "path": "com.volvocars.ecom.paymentservice.psp.inbound.config.PspConverter#convert(String)",
+      "implementation": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/db74615e181b98f8b922",
+      "symbol": "com.volvocars.ecom.paymentservice.psp.inbound.config.PspConverter#convert(String)",
+      "condition": "Converter source invocation when framework converts PSP path value",
+      "status": "source_review_complete",
+      "runtimeStatus": "imported_framework_and_runtime_boundaries_remain"
+    },
+    {
+      "entry": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/entry/1fcf10a046474ae20296",
+      "trigger": "callback",
+      "method": "CALLBACK",
+      "path": "com.volvocars.ecom.paymentservice.psp.inbound.common.InboundControllerAdvice#handleNotFoundException(HttpServletRequest,Exception)",
+      "implementation": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/1fcf10a046474ae20296",
+      "symbol": "com.volvocars.ecom.paymentservice.psp.inbound.common.InboundControllerAdvice#handleNotFoundException(HttpServletRequest,Exception)",
+      "condition": "@ExceptionHandler NoResourceFoundException + @ResponseStatus NOT_FOUND; framework selection conditional",
+      "status": "source_review_complete",
+      "runtimeStatus": "imported_framework_and_runtime_boundaries_remain"
+    },
+    {
+      "entry": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/entry/a6301a3869818de4adbb",
+      "trigger": "callback",
+      "method": "CALLBACK",
+      "path": "com.volvocars.ecom.paymentservice.psp.inbound.messaging.KafkaProducer#sendMessage(Event<PspInboundEventPayload>)$lambda@1241",
+      "implementation": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/a6301a3869818de4adbb",
+      "symbol": "com.volvocars.ecom.paymentservice.psp.inbound.messaging.KafkaProducer#sendMessage(Event<PspInboundEventPayload>)$lambda@1241",
+      "condition": "Source future completion callback registration; runs later with runtime supplied completion values; capture originals require the registration association",
+      "status": "source_review_complete",
+      "runtimeStatus": "imported_framework_and_runtime_boundaries_remain"
+    },
+    {
+      "entry": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/entry/6ed5aeea7f88b26a8f2a",
+      "trigger": "callback",
+      "method": "CALLBACK",
+      "path": "com.volvocars.ecom.paymentservice.psp.inbound.messaging.ScheduledMessageProducer#sendHeartbeat()$lambda@2053",
+      "implementation": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/6ed5aeea7f88b26a8f2a",
+      "symbol": "com.volvocars.ecom.paymentservice.psp.inbound.messaging.ScheduledMessageProducer#sendHeartbeat()$lambda@2053",
+      "condition": "Source future completion callback registration; runs later with runtime supplied completion values; capture originals require the registration association",
+      "status": "source_review_complete",
+      "runtimeStatus": "imported_framework_and_runtime_boundaries_remain"
+    }
+  ],
+  "sourceRegistrations": [
+    {
+      "path": "com-volvocars-ecom-paymentservice-psp-inbound-api/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/api/App.java",
+      "line": 18,
+      "declaration": "@EnableScheduling",
+      "association": "source_framework_registration_activation_order_and_host_instantiation_conditional"
+    },
+    {
+      "path": "com-volvocars-ecom-paymentservice-psp-inbound-api/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/api/configuration/v1/SwaggerUIController.java",
+      "line": 23,
+      "declaration": "@GetMapping(path = \"/swagger-config\", produces = MediaType.APPLICATION_JSON_VALUE)",
+      "association": "source_framework_registration_activation_order_and_host_instantiation_conditional"
+    },
+    {
+      "path": "com-volvocars-ecom-paymentservice-psp-inbound-api/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/api/configuration/v1/impl/SwaggerUIControllerImpl.java",
+      "line": 12,
+      "declaration": "@RestController(value = \"Swaqgger Configuration API v1\")",
+      "association": "source_framework_registration_activation_order_and_host_instantiation_conditional"
+    },
+    {
+      "path": "com-volvocars-ecom-paymentservice-psp-inbound-api/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/api/configuration/v1/impl/SwaggerUIControllerImpl.java",
+      "line": 13,
+      "declaration": "@RequestMapping(path = \"/v1/configurations\")",
+      "association": "source_framework_registration_activation_order_and_host_instantiation_conditional"
+    },
+    {
+      "path": "com-volvocars-ecom-paymentservice-psp-inbound-api/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/api/security/IpAuthorizationFilter.java",
+      "line": 21,
+      "declaration": "@Component",
+      "association": "source_framework_registration_activation_order_and_host_instantiation_conditional"
+    },
+    {
+      "path": "com-volvocars-ecom-paymentservice-psp-inbound-api/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/api/webhook/v2/InboundController.java",
+      "line": 21,
+      "declaration": "@RequestMapping(\"/v2\")",
+      "association": "source_framework_registration_activation_order_and_host_instantiation_conditional"
+    },
+    {
+      "path": "com-volvocars-ecom-paymentservice-psp-inbound-api/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/api/webhook/v2/InboundController.java",
+      "line": 24,
+      "declaration": "@PostMapping(",
+      "association": "source_framework_registration_activation_order_and_host_instantiation_conditional"
+    },
+    {
+      "path": "com-volvocars-ecom-paymentservice-psp-inbound-api/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/api/webhook/v2/impl/InboundControllerImpl.java",
+      "line": 16,
+      "declaration": "@RestController",
+      "association": "source_framework_registration_activation_order_and_host_instantiation_conditional"
+    },
+    {
+      "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/common/InboundControllerAdvice.java",
+      "line": 39,
+      "declaration": "@ExceptionHandler(value = {NoResourceFoundException.class})",
+      "association": "source_framework_registration_activation_order_and_host_instantiation_conditional"
+    },
+    {
+      "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/config/PspConverter.java",
+      "line": 9,
+      "declaration": "@Configuration",
+      "association": "source_framework_registration_activation_order_and_host_instantiation_conditional"
+    },
+    {
+      "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/messaging/KafkaProducer.java",
+      "line": 13,
+      "declaration": "@Component",
+      "association": "source_framework_registration_activation_order_and_host_instantiation_conditional"
+    },
+    {
+      "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/messaging/ScheduledMessageProducer.java",
+      "line": 24,
+      "declaration": "@Component",
+      "association": "source_framework_registration_activation_order_and_host_instantiation_conditional"
+    },
+    {
+      "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/messaging/ScheduledMessageProducer.java",
+      "line": 40,
+      "declaration": "@Scheduled(fixedDelayString = \"${payment-service.scheduled-message.delay-millis}\")",
+      "association": "source_framework_registration_activation_order_and_host_instantiation_conditional"
+    },
+    {
+      "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/security/IpAddressVerifier.java",
+      "line": 18,
+      "declaration": "@Component",
+      "association": "source_framework_registration_activation_order_and_host_instantiation_conditional"
+    },
+    {
+      "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/security/IpAddressVerifier.java",
+      "line": 32,
+      "declaration": "@PostConstruct",
+      "association": "source_framework_registration_activation_order_and_host_instantiation_conditional"
+    },
+    {
+      "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/webhook/InboundServiceFactory.java",
+      "line": 7,
+      "declaration": "@Component",
+      "association": "source_framework_registration_activation_order_and_host_instantiation_conditional"
+    },
+    {
+      "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/webhook/stripe/MessageKeyProvider.java",
+      "line": 13,
+      "declaration": "@Component",
+      "association": "source_framework_registration_activation_order_and_host_instantiation_conditional"
+    },
+    {
+      "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/webhook/stripe/StripeEventParser.java",
+      "line": 13,
+      "declaration": "@Component",
+      "association": "source_framework_registration_activation_order_and_host_instantiation_conditional"
+    }
+  ],
+  "excludedFrameworkFamilies": [
+    "Actuator health/prometheus and Springdoc built-in routes: imported implementations/effective paths remain declarations rather than fabricated local methods",
+    "app-cloud-config refresh cron: configured imported behavior; no local scheduled body available"
+  ]
+}

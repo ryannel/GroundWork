@@ -1,0 +1,156 @@
+[
+  {
+    "interaction": "mascomplete-b360506-r2/native/interaction/reviewed/generic-publish",
+    "call": "mascomplete-b360506-r2/native/op/de7153c9420bcba897ef/a35",
+    "immediateResult": "mascomplete-b360506-r2/native/value/de7153c9420bcba897ef/35",
+    "awaitOperation": "mascomplete-b360506-r2/native/op/de7153c9420bcba897ef/a36",
+    "awaitedResult": "mascomplete-b360506-r2/native/value/de7153c9420bcba897ef/36"
+  },
+  {
+    "interaction": "mascomplete-b360506-r2/native/interaction/reviewed/http/AuthorizationClient",
+    "call": "mascomplete-b360506-r2/native/op/a723c675235d2e6b12ac/a6",
+    "immediateResult": "mascomplete-b360506-r2/native/value/a723c675235d2e6b12ac/6",
+    "awaitOperation": "mascomplete-b360506-r2/native/op/a723c675235d2e6b12ac/a7",
+    "awaitedResult": "mascomplete-b360506-r2/native/value/a723c675235d2e6b12ac/7"
+  },
+  {
+    "interaction": "mascomplete-b360506-r2/native/reviewed/topic-interaction/BrandCarTypeMapping",
+    "call": "mascomplete-b360506-r2/native/op/410939187fcdb08fed4a/a35",
+    "immediateResult": "mascomplete-b360506-r2/native/value/410939187fcdb08fed4a/35",
+    "awaitOperation": "mascomplete-b360506-r2/native/op/410939187fcdb08fed4a/a36",
+    "awaitedResult": "mascomplete-b360506-r2/native/value/410939187fcdb08fed4a/36"
+  },
+  {
+    "interaction": "mascomplete-b360506-r2/native/reviewed/topic-interaction/Brand",
+    "call": "mascomplete-b360506-r2/native/op/27bffc2d3ae3d8bd92bc/a35",
+    "immediateResult": "mascomplete-b360506-r2/native/value/27bffc2d3ae3d8bd92bc/35",
+    "awaitOperation": "mascomplete-b360506-r2/native/op/27bffc2d3ae3d8bd92bc/a36",
+    "awaitedResult": "mascomplete-b360506-r2/native/value/27bffc2d3ae3d8bd92bc/36"
+  },
+  {
+    "interaction": "mascomplete-b360506-r2/native/reviewed/topic-interaction/CapCodeMapping",
+    "call": "mascomplete-b360506-r2/native/op/2c13df8848767a295970/a35",
+    "immediateResult": "mascomplete-b360506-r2/native/value/2c13df8848767a295970/35",
+    "awaitOperation": "mascomplete-b360506-r2/native/op/2c13df8848767a295970/a36",
+    "awaitedResult": "mascomplete-b360506-r2/native/value/2c13df8848767a295970/36"
+  },
+  {
+    "interaction": "mascomplete-b360506-r2/native/reviewed/topic-interaction/Client",
+    "call": "mascomplete-b360506-r2/native/op/507336f69b51dc71e755/a35",
+    "immediateResult": "mascomplete-b360506-r2/native/value/507336f69b51dc71e755/35",
+    "awaitOperation": "mascomplete-b360506-r2/native/op/507336f69b51dc71e755/a36",
+    "awaitedResult": "mascomplete-b360506-r2/native/value/507336f69b51dc71e755/36"
+  },
+  {
+    "interaction": "mascomplete-b360506-r2/native/reviewed/topic-interaction/ContractLength",
+    "call": "mascomplete-b360506-r2/native/op/081b74f08e54e5361fdf/a35",
+    "immediateResult": "mascomplete-b360506-r2/native/value/081b74f08e54e5361fdf/35",
+    "awaitOperation": "mascomplete-b360506-r2/native/op/081b74f08e54e5361fdf/a36",
+    "awaitedResult": "mascomplete-b360506-r2/native/value/081b74f08e54e5361fdf/36"
+  },
+  {
+    "interaction": "mascomplete-b360506-r2/native/reviewed/topic-interaction/CustomerType",
+    "call": "mascomplete-b360506-r2/native/op/7f05fe99504cfc64e307/a35",
+    "immediateResult": "mascomplete-b360506-r2/native/value/7f05fe99504cfc64e307/35",
+    "awaitOperation": "mascomplete-b360506-r2/native/op/7f05fe99504cfc64e307/a36",
+    "awaitedResult": "mascomplete-b360506-r2/native/value/7f05fe99504cfc64e307/36"
+  },
+  {
+    "interaction": "mascomplete-b360506-r2/native/reviewed/topic-interaction/Fee",
+    "call": "mascomplete-b360506-r2/native/op/abdb495d4cec118d2145/a35",
+    "immediateResult": "mascomplete-b360506-r2/native/value/abdb495d4cec118d2145/35",
+    "awaitOperation": "mascomplete-b360506-r2/native/op/abdb495d4cec118d2145/a36",
+    "awaitedResult": "mascomplete-b360506-r2/native/value/abdb495d4cec118d2145/36"
+  },
+  {
+    "interaction": "mascomplete-b360506-r2/native/reviewed/topic-interaction/JatoCodeMapping",
+    "call": "mascomplete-b360506-r2/native/op/0563ea9459a680f2e22f/a35",
+    "immediateResult": "mascomplete-b360506-r2/native/value/0563ea9459a680f2e22f/35",
+    "awaitOperation": "mascomplete-b360506-r2/native/op/0563ea9459a680f2e22f/a36",
+    "awaitedResult": "mascomplete-b360506-r2/native/value/0563ea9459a680f2e22f/36"
+  },
+  {
+    "interaction": "mascomplete-b360506-r2/native/reviewed/topic-interaction/Market",
+    "call": "mascomplete-b360506-r2/native/op/2d501adc5ce884fa9ba1/a35",
+    "immediateResult": "mascomplete-b360506-r2/native/value/2d501adc5ce884fa9ba1/35",
+    "awaitOperation": "mascomplete-b360506-r2/native/op/2d501adc5ce884fa9ba1/a36",
+    "awaitedResult": "mascomplete-b360506-r2/native/value/2d501adc5ce884fa9ba1/36"
+  },
+  {
+    "interaction": "mascomplete-b360506-r2/native/reviewed/topic-interaction/Mileage",
+    "call": "mascomplete-b360506-r2/native/op/b884b98d57b935a36794/a35",
+    "immediateResult": "mascomplete-b360506-r2/native/value/b884b98d57b935a36794/35",
+    "awaitOperation": "mascomplete-b360506-r2/native/op/b884b98d57b935a36794/a36",
+    "awaitedResult": "mascomplete-b360506-r2/native/value/b884b98d57b935a36794/36"
+  },
+  {
+    "interaction": "mascomplete-b360506-r2/native/reviewed/topic-interaction/NatcodeMapping",
+    "call": "mascomplete-b360506-r2/native/op/2511c27327f0f7b18901/a35",
+    "immediateResult": "mascomplete-b360506-r2/native/value/2511c27327f0f7b18901/35",
+    "awaitOperation": "mascomplete-b360506-r2/native/op/2511c27327f0f7b18901/a36",
+    "awaitedResult": "mascomplete-b360506-r2/native/value/2511c27327f0f7b18901/36"
+  },
+  {
+    "interaction": "mascomplete-b360506-r2/native/reviewed/topic-interaction/PreOrder",
+    "call": "mascomplete-b360506-r2/native/op/e82afb1ec67b4a1c5559/a35",
+    "immediateResult": "mascomplete-b360506-r2/native/value/e82afb1ec67b4a1c5559/35",
+    "awaitOperation": "mascomplete-b360506-r2/native/op/e82afb1ec67b4a1c5559/a36",
+    "awaitedResult": "mascomplete-b360506-r2/native/value/e82afb1ec67b4a1c5559/36"
+  },
+  {
+    "interaction": "mascomplete-b360506-r2/native/reviewed/topic-interaction/SalesModel",
+    "call": "mascomplete-b360506-r2/native/op/a62a16adf13aae11b168/a35",
+    "immediateResult": "mascomplete-b360506-r2/native/value/a62a16adf13aae11b168/35",
+    "awaitOperation": "mascomplete-b360506-r2/native/op/a62a16adf13aae11b168/a36",
+    "awaitedResult": "mascomplete-b360506-r2/native/value/a62a16adf13aae11b168/36"
+  },
+  {
+    "interaction": "mascomplete-b360506-r2/native/reviewed/topic-interaction/SchwackeCodeMapping",
+    "call": "mascomplete-b360506-r2/native/op/7a740a3141125cc2c008/a35",
+    "immediateResult": "mascomplete-b360506-r2/native/value/7a740a3141125cc2c008/35",
+    "awaitOperation": "mascomplete-b360506-r2/native/op/7a740a3141125cc2c008/a36",
+    "awaitedResult": "mascomplete-b360506-r2/native/value/7a740a3141125cc2c008/36"
+  },
+  {
+    "interaction": "mascomplete-b360506-r2/native/reviewed/topic-interaction/SelectionCategory",
+    "call": "mascomplete-b360506-r2/native/op/b8f2006a978d4b850085/a35",
+    "immediateResult": "mascomplete-b360506-r2/native/value/b8f2006a978d4b850085/35",
+    "awaitOperation": "mascomplete-b360506-r2/native/op/b8f2006a978d4b850085/a36",
+    "awaitedResult": "mascomplete-b360506-r2/native/value/b8f2006a978d4b850085/36"
+  },
+  {
+    "interaction": "mascomplete-b360506-r2/native/reviewed/topic-interaction/SkuCategory",
+    "call": "mascomplete-b360506-r2/native/op/e348c6d65a53bde5c434/a35",
+    "immediateResult": "mascomplete-b360506-r2/native/value/e348c6d65a53bde5c434/35",
+    "awaitOperation": "mascomplete-b360506-r2/native/op/e348c6d65a53bde5c434/a36",
+    "awaitedResult": "mascomplete-b360506-r2/native/value/e348c6d65a53bde5c434/36"
+  },
+  {
+    "interaction": "mascomplete-b360506-r2/native/reviewed/topic-interaction/SoftOfferPackage",
+    "call": "mascomplete-b360506-r2/native/op/c29de9949dddd5e17932/a35",
+    "immediateResult": "mascomplete-b360506-r2/native/value/c29de9949dddd5e17932/35",
+    "awaitOperation": "mascomplete-b360506-r2/native/op/c29de9949dddd5e17932/a36",
+    "awaitedResult": "mascomplete-b360506-r2/native/value/c29de9949dddd5e17932/36"
+  },
+  {
+    "interaction": "mascomplete-b360506-r2/native/reviewed/topic-interaction/SoftOffer",
+    "call": "mascomplete-b360506-r2/native/op/cde3b179f0f9612bd4e1/a35",
+    "immediateResult": "mascomplete-b360506-r2/native/value/cde3b179f0f9612bd4e1/35",
+    "awaitOperation": "mascomplete-b360506-r2/native/op/cde3b179f0f9612bd4e1/a36",
+    "awaitedResult": "mascomplete-b360506-r2/native/value/cde3b179f0f9612bd4e1/36"
+  },
+  {
+    "interaction": "mascomplete-b360506-r2/native/reviewed/topic-interaction/SoftwareOptionPackage",
+    "call": "mascomplete-b360506-r2/native/op/b8172ecafbd6a405db88/a35",
+    "immediateResult": "mascomplete-b360506-r2/native/value/b8172ecafbd6a405db88/35",
+    "awaitOperation": "mascomplete-b360506-r2/native/op/b8172ecafbd6a405db88/a36",
+    "awaitedResult": "mascomplete-b360506-r2/native/value/b8172ecafbd6a405db88/36"
+  },
+  {
+    "interaction": "mascomplete-b360506-r2/native/reviewed/topic-interaction/SoftwareOption",
+    "call": "mascomplete-b360506-r2/native/op/cae43eb1649bc47e1040/a35",
+    "immediateResult": "mascomplete-b360506-r2/native/value/cae43eb1649bc47e1040/35",
+    "awaitOperation": "mascomplete-b360506-r2/native/op/cae43eb1649bc47e1040/a36",
+    "awaitedResult": "mascomplete-b360506-r2/native/value/cae43eb1649bc47e1040/36"
+  }
+]

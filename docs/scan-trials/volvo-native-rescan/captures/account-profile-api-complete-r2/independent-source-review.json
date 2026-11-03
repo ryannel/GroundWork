@@ -1,0 +1,147 @@
+{
+  "repo": "volvo-cars/account-profile-api",
+  "pin": "bc3003a9130cd9a8013d74ec4561575d1f1d935b",
+  "stage": "source review before stable candidate acceptance",
+  "files": [
+    {
+      "path": "VolvoCars.AccountProfile.Api/Controllers/V1/AccountController.cs",
+      "commit": "bc3003a9130cd9a8013d74ec4561575d1f1d935b",
+      "sha256": "387baa94d316ce68898337878032f3ef12ff7af6898575f2138e219118a2ac62",
+      "lines": 132,
+      "inspection": "Root independently read complete pinned source text"
+    },
+    {
+      "path": "VolvoCars.AccountProfile.Api/Controllers/V1/Models/Request/SettingsFilterQuery.cs",
+      "commit": "bc3003a9130cd9a8013d74ec4561575d1f1d935b",
+      "sha256": "a16ea045f1ece27b5a2aca35b28da6041fa14ada82f314a05454746c565fc751",
+      "lines": 24,
+      "inspection": "Root independently read complete pinned source text"
+    },
+    {
+      "path": "VolvoCars.AccountProfile.Api/Controllers/V1/SettingsController.cs",
+      "commit": "bc3003a9130cd9a8013d74ec4561575d1f1d935b",
+      "sha256": "19d0f71b7ca27b9640e97d19810ad07b2471156ca60c7828956dd0ea852061df",
+      "lines": 62,
+      "inspection": "Root independently read complete pinned source text"
+    },
+    {
+      "path": "VolvoCars.AccountProfile.Api/Extensions/ApiStartupExtensions.cs",
+      "commit": "bc3003a9130cd9a8013d74ec4561575d1f1d935b",
+      "sha256": "dfcac7f5373560ab7bbac26c9909edb001f3f99cda8c0945151c771f52a63bac",
+      "lines": 44,
+      "inspection": "Root independently read complete pinned source text"
+    },
+    {
+      "path": "VolvoCars.AccountProfile.Api/Extensions/IServiceCollectionExtensions.cs",
+      "commit": "bc3003a9130cd9a8013d74ec4561575d1f1d935b",
+      "sha256": "2477bcc41ddb06f2c36abb442130e9987ac4766f8223e9235dd475269e70d095",
+      "lines": 92,
+      "inspection": "Root independently read complete pinned source text"
+    },
+    {
+      "path": "VolvoCars.AccountProfile.Api/Factories/PaginationFactory.cs",
+      "commit": "bc3003a9130cd9a8013d74ec4561575d1f1d935b",
+      "sha256": "efe8936591868454d2eca0ab0831597158a8ba50d7a5144d02f0ca3826020487",
+      "lines": 82,
+      "inspection": "Root independently read complete pinned source text"
+    },
+    {
+      "path": "VolvoCars.AccountProfile.Api/Program.cs",
+      "commit": "bc3003a9130cd9a8013d74ec4561575d1f1d935b",
+      "sha256": "509f33d0495a145a7e1a9e0a9c8bcfa53e7321842a87769d839709d1bc1571b9",
+      "lines": 62,
+      "inspection": "Root independently read complete pinned source text"
+    },
+    {
+      "path": "VolvoCars.AccountProfile.Business/Extensions/KeyVaultExtensions.cs",
+      "commit": "bc3003a9130cd9a8013d74ec4561575d1f1d935b",
+      "sha256": "e55f4a7aa587542724605d2e5401edb788d75c98189ec278b6c87b789595347c",
+      "lines": 30,
+      "inspection": "Root independently read complete pinned source text"
+    },
+    {
+      "path": "VolvoCars.AccountProfile.Business/FeatureToggling/Extensions/IServiceCollectionExtensions.cs",
+      "commit": "bc3003a9130cd9a8013d74ec4561575d1f1d935b",
+      "sha256": "9b5f7b835fa21356e14b0429186a2e5988bbf664f03ce039637f703fc7c45089",
+      "lines": 18,
+      "inspection": "Root independently read complete pinned source text"
+    },
+    {
+      "path": "VolvoCars.AccountProfile.Business/FeatureToggling/Services/FeatureToggleService.cs",
+      "commit": "bc3003a9130cd9a8013d74ec4561575d1f1d935b",
+      "sha256": "4ba98c42e68c529774d6607f878a7b16fc2805b91b687395c9a62a2bb8b77d72",
+      "lines": 87,
+      "inspection": "Root independently read complete pinned source text"
+    },
+    {
+      "path": "VolvoCars.AccountProfile.Business/Logic/AccountLogic.cs",
+      "commit": "bc3003a9130cd9a8013d74ec4561575d1f1d935b",
+      "sha256": "4f0b690337e7cfdd4eb1996de36d221e0dc685e937388faba34f4264ce7285a7",
+      "lines": 71,
+      "inspection": "Root independently read complete pinned source text"
+    },
+    {
+      "path": "VolvoCars.AccountProfile.Business/Logic/SettingsLogic.cs",
+      "commit": "bc3003a9130cd9a8013d74ec4561575d1f1d935b",
+      "sha256": "b25cc6b6992d52bed589f9ef986c35f8dda650c4a991138135929628b9394829",
+      "lines": 29,
+      "inspection": "Root independently read complete pinned source text"
+    },
+    {
+      "path": "VolvoCars.AccountProfile.Business/Logic/Validators/UpdateAccountValidator.cs",
+      "commit": "bc3003a9130cd9a8013d74ec4561575d1f1d935b",
+      "sha256": "1d708e69232a66613ced43d50e7329a2f2b38f4e29ce1cc4bf17a1d9549a2fc0",
+      "lines": 63,
+      "inspection": "Root independently read complete pinned source text"
+    },
+    {
+      "path": "VolvoCars.AccountProfile.Business/Managers/AccountManager.cs",
+      "commit": "bc3003a9130cd9a8013d74ec4561575d1f1d935b",
+      "sha256": "5edb3043bce1c45df5251b713bad7033d085713f50e02a76b90cabeac33a04d2",
+      "lines": 124,
+      "inspection": "Root independently read complete pinned source text"
+    },
+    {
+      "path": "VolvoCars.AccountProfile.Business/Managers/Factories/AccountFactory.cs",
+      "commit": "bc3003a9130cd9a8013d74ec4561575d1f1d935b",
+      "sha256": "3836f52f7cb83467be5aba4d7c7215014b75a67af36898f92b928d7288395730",
+      "lines": 97,
+      "inspection": "Root independently read complete pinned source text"
+    },
+    {
+      "path": "VolvoCars.AccountProfile.Business/Managers/Factories/AddressFactory.cs",
+      "commit": "bc3003a9130cd9a8013d74ec4561575d1f1d935b",
+      "sha256": "dfa846be178e871d2cbba3df5a41a8f00da151097b58b3af3bb49588797e79a8",
+      "lines": 61,
+      "inspection": "Root independently read complete pinned source text"
+    },
+    {
+      "path": "VolvoCars.AccountProfile.Business/Managers/SettingsManager.cs",
+      "commit": "bc3003a9130cd9a8013d74ec4561575d1f1d935b",
+      "sha256": "b122372abc149a10943653f508c53834e4b319e3bdfb3258a7a1567a4cfd264f",
+      "lines": 27,
+      "inspection": "Root independently read complete pinned source text"
+    },
+    {
+      "path": "VolvoCars.AccountProfile.Business/Models/Base/AccountBase.cs",
+      "commit": "bc3003a9130cd9a8013d74ec4561575d1f1d935b",
+      "sha256": "41f3546c16c22b99f64d73eefcfce0e66f5ccc9f4a05435c9bf9749647e0af66",
+      "lines": 37,
+      "inspection": "Root independently read complete pinned source text"
+    },
+    {
+      "path": "VolvoCars.AccountProfile.Business/Models/Base/UpdateAccountBase.cs",
+      "commit": "bc3003a9130cd9a8013d74ec4561575d1f1d935b",
+      "sha256": "b22839249dc1c2065bc2b649f56fba9c5b116cabd9a5b0c5a495cfe7ac9bac6c",
+      "lines": 10,
+      "inspection": "Root independently read complete pinned source text"
+    },
+    {
+      "path": "VolvoCars.AccountProfile.Business/Providers/SettingsProvider.cs",
+      "commit": "bc3003a9130cd9a8013d74ec4561575d1f1d935b",
+      "sha256": "8c2e6660a63851b5b202a347d08cdf690c2a9ef479e499ffb56f5bf1a8fa2e4e",
+      "lines": 137,
+      "inspection": "Root independently read complete pinned source text"
+    }
+  ]
+}

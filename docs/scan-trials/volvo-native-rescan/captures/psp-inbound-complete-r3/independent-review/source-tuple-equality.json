@@ -1,0 +1,8 @@
+{
+  "old": "psp-inbound-complete/bundle.final-r2.json",
+  "new": "psp-inbound-complete/bundle.final-r3.json",
+  "sourceTuplesEqual": true,
+  "oldCount": 636,
+  "newCount": 636,
+  "interpretation": "Exact evidence source tuples compared; prior independent pinned verification applies only when equality holds"
+}

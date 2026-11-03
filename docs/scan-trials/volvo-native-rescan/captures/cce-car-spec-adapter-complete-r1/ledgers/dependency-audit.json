@@ -1,0 +1,806 @@
+[
+  {
+    "module": "github.com/IBM/sarama",
+    "requestedVersion": "v1.61.1",
+    "artifact": "cce-car-spec-adapter-667a00a-complete-r1/artifact/go-module/f0567ef7da4da113",
+    "authority": "declared go.mod only; no fetched implementation or digest"
+  },
+  {
+    "module": "github.com/MicahParks/keyfunc",
+    "requestedVersion": "v1.9.0",
+    "artifact": "cce-car-spec-adapter-667a00a-complete-r1/artifact/go-module/404eb79c2c107609",
+    "authority": "declared go.mod only; no fetched implementation or digest"
+  },
+  {
+    "module": "github.com/ThreeDotsLabs/watermill",
+    "requestedVersion": "v1.5.3",
+    "artifact": "cce-car-spec-adapter-667a00a-complete-r1/artifact/go-module/82adbfef5c376b66",
+    "authority": "declared go.mod only; no fetched implementation or digest"
+  },
+  {
+    "module": "github.com/ThreeDotsLabs/watermill-kafka/v3",
+    "requestedVersion": "v3.1.4",
+    "artifact": "cce-car-spec-adapter-667a00a-complete-r1/artifact/go-module/291981b58a67f32f",
+    "authority": "declared go.mod only; no fetched implementation or digest"
+  },
+  {
+    "module": "github.com/cucumber/godog",
+    "requestedVersion": "v0.16.0",
+    "artifact": "cce-car-spec-adapter-667a00a-complete-r1/artifact/go-module/aa180e48d4119c42",
+    "authority": "declared go.mod only; no fetched implementation or digest"
+  },
+  {
+    "module": "github.com/cucumber/messages/go/v34",
+    "requestedVersion": "v34.2.1",
+    "artifact": "cce-car-spec-adapter-667a00a-complete-r1/artifact/go-module/e9dbf6a70f30bcd8",
+    "authority": "declared go.mod only; no fetched implementation or digest"
+  },
+  {
+    "module": "github.com/exaring/otelpgx",
+    "requestedVersion": "v0.13.0",
+    "artifact": "cce-car-spec-adapter-667a00a-complete-r1/artifact/go-module/96a8e935be8dc132",
+    "authority": "declared go.mod only; no fetched implementation or digest"
+  },
+  {
+    "module": "github.com/getsentry/sentry-go",
+    "requestedVersion": "v0.50.0",
+    "artifact": "cce-car-spec-adapter-667a00a-complete-r1/artifact/go-module/a8520d8d1b580f37",
+    "authority": "declared go.mod only; no fetched implementation or digest"
+  },
+  {
+    "module": "github.com/go-chi/chi/v5",
+    "requestedVersion": "v5.5.0",
+    "artifact": "cce-car-spec-adapter-667a00a-complete-r1/artifact/go-module/51dfb57cd7d81294",
+    "authority": "declared go.mod only; no fetched implementation or digest"
+  },
+  {
+    "module": "github.com/go-errors/errors",
+    "requestedVersion": "v1.5.1",
+    "artifact": "cce-car-spec-adapter-667a00a-complete-r1/artifact/go-module/932125152188c8ce",
+    "authority": "declared go.mod only; no fetched implementation or digest"
+  },
+  {
+    "module": "github.com/go-faker/faker/v4",
+    "requestedVersion": "v4.12.0",
+    "artifact": "cce-car-spec-adapter-667a00a-complete-r1/artifact/go-module/2a809d1dde748002",
+    "authority": "declared go.mod only; no fetched implementation or digest"
+  },
+  {
+    "module": "github.com/go-openapi/errors",
+    "requestedVersion": "v0.22.9",
+    "artifact": "cce-car-spec-adapter-667a00a-complete-r1/artifact/go-module/f7bbbdeef1a74925",
+    "authority": "declared go.mod only; no fetched implementation or digest"
+  },
+  {
+    "module": "github.com/go-openapi/runtime",
+    "requestedVersion": "v0.33.3",
+    "artifact": "cce-car-spec-adapter-667a00a-complete-r1/artifact/go-module/7a639f97f8c4e4d2",
+    "authority": "declared go.mod only; no fetched implementation or digest"
+  },
+  {
+    "module": "github.com/go-openapi/strfmt",
+    "requestedVersion": "v0.27.3",
+    "artifact": "cce-car-spec-adapter-667a00a-complete-r1/artifact/go-module/8bc4d27cf7301546",
+    "authority": "declared go.mod only; no fetched implementation or digest"
+  },
+  {
+    "module": "github.com/go-openapi/swag",
+    "requestedVersion": "v0.29.2",
+    "artifact": "cce-car-spec-adapter-667a00a-complete-r1/artifact/go-module/d5acf9d07ae16e6f",
+    "authority": "declared go.mod only; no fetched implementation or digest"
+  },
+  {
+    "module": "github.com/go-openapi/swag/conv",
+    "requestedVersion": "v0.29.2",
+    "artifact": "cce-car-spec-adapter-667a00a-complete-r1/artifact/go-module/9f30e951c47005d4",
+    "authority": "declared go.mod only; no fetched implementation or digest"
+  },
+  {
+    "module": "github.com/golang-jwt/jwt/v4",
+    "requestedVersion": "v4.5.2",
+    "artifact": "cce-car-spec-adapter-667a00a-complete-r1/artifact/go-module/7037a8d77f516ce6",
+    "authority": "declared go.mod only; no fetched implementation or digest"
+  },
+  {
+    "module": "github.com/golang-migrate/migrate/v4",
+    "requestedVersion": "v4.20.1",
+    "artifact": "cce-car-spec-adapter-667a00a-complete-r1/artifact/go-module/2db500ebeaba5a60",
+    "authority": "declared go.mod only; no fetched implementation or digest"
+  },
+  {
+    "module": "github.com/google/go-cmp",
+    "requestedVersion": "v0.7.0",
+    "artifact": "cce-car-spec-adapter-667a00a-complete-r1/artifact/go-module/bbb46bc9ff0c4f53",
+    "authority": "declared go.mod only; no fetched implementation or digest"
+  },
+  {
+    "module": "github.com/google/uuid",
+    "requestedVersion": "v1.6.0",
+    "artifact": "cce-car-spec-adapter-667a00a-complete-r1/artifact/go-module/561e97a8befe7661",
+    "authority": "declared go.mod only; no fetched implementation or digest"
+  },
+  {
+    "module": "github.com/hashicorp/go-retryablehttp",
+    "requestedVersion": "v0.7.8",
+    "artifact": "cce-car-spec-adapter-667a00a-complete-r1/artifact/go-module/e45fc09a3be574b4",
+    "authority": "declared go.mod only; no fetched implementation or digest"
+  },
+  {
+    "module": "github.com/icza/gox",
+    "requestedVersion": "v0.2.14",
+    "artifact": "cce-car-spec-adapter-667a00a-complete-r1/artifact/go-module/0464d8528b936aca",
+    "authority": "declared go.mod only; no fetched implementation or digest"
+  },
+  {
+    "module": "github.com/jackc/pgx/v5",
+    "requestedVersion": "v5.11.0",
+    "artifact": "cce-car-spec-adapter-667a00a-complete-r1/artifact/go-module/72eab452e9416161",
+    "authority": "declared go.mod only; no fetched implementation or digest"
+  },
+  {
+    "module": "github.com/launchdarkly/go-sdk-common/v3",
+    "requestedVersion": "v3.6.0",
+    "artifact": "cce-car-spec-adapter-667a00a-complete-r1/artifact/go-module/dc57ed5a17c7fc9c",
+    "authority": "declared go.mod only; no fetched implementation or digest"
+  },
+  {
+    "module": "github.com/launchdarkly/go-server-sdk/v7",
+    "requestedVersion": "v7.19.2",
+    "artifact": "cce-car-spec-adapter-667a00a-complete-r1/artifact/go-module/42360f2af5924a1d",
+    "authority": "declared go.mod only; no fetched implementation or digest"
+  },
+  {
+    "module": "github.com/lib/pq",
+    "requestedVersion": "v1.12.3",
+    "artifact": "cce-car-spec-adapter-667a00a-complete-r1/artifact/go-module/dd28306a1cc576f5",
+    "authority": "declared go.mod only; no fetched implementation or digest"
+  },
+  {
+    "module": "github.com/ourstudio-se/binder",
+    "requestedVersion": "v1.1.7",
+    "artifact": "cce-car-spec-adapter-667a00a-complete-r1/artifact/go-module/eb2b6be6c11fe15b",
+    "authority": "declared go.mod only; no fetched implementation or digest"
+  },
+  {
+    "module": "github.com/stretchr/testify",
+    "requestedVersion": "v1.12.1",
+    "artifact": "cce-car-spec-adapter-667a00a-complete-r1/artifact/go-module/c097760087610bff",
+    "authority": "declared go.mod only; no fetched implementation or digest"
+  },
+  {
+    "module": "github.com/swaggo/http-swagger",
+    "requestedVersion": "v1.3.4",
+    "artifact": "cce-car-spec-adapter-667a00a-complete-r1/artifact/go-module/a417c29f881576da",
+    "authority": "declared go.mod only; no fetched implementation or digest"
+  },
+  {
+    "module": "github.com/swaggo/swag",
+    "requestedVersion": "v1.16.6",
+    "artifact": "cce-car-spec-adapter-667a00a-complete-r1/artifact/go-module/3c355488de9c41b3",
+    "authority": "declared go.mod only; no fetched implementation or digest"
+  },
+  {
+    "module": "github.com/volvo-cars/go-httpserver",
+    "requestedVersion": "v1.1.0",
+    "artifact": "cce-car-spec-adapter-667a00a-complete-r1/artifact/go-module/6b801d4a13732812",
+    "authority": "declared go.mod only; no fetched implementation or digest"
+  },
+  {
+    "module": "github.com/volvo-cars/ooe-product-offer-logging",
+    "requestedVersion": "v1.3.1",
+    "artifact": "cce-car-spec-adapter-667a00a-complete-r1/artifact/go-module/33f2445604ee12ef",
+    "authority": "declared go.mod only; no fetched implementation or digest"
+  },
+  {
+    "module": "github.com/wiremock/go-wiremock",
+    "requestedVersion": "v1.16.0",
+    "artifact": "cce-car-spec-adapter-667a00a-complete-r1/artifact/go-module/475f8600c57fbdcc",
+    "authority": "declared go.mod only; no fetched implementation or digest"
+  },
+  {
+    "module": "go.opentelemetry.io/contrib/bridges/otelzap",
+    "requestedVersion": "v0.20.0",
+    "artifact": "cce-car-spec-adapter-667a00a-complete-r1/artifact/go-module/7f8f56428783715b",
+    "authority": "declared go.mod only; no fetched implementation or digest"
+  },
+  {
+    "module": "go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp",
+    "requestedVersion": "v0.70.0",
+    "artifact": "cce-car-spec-adapter-667a00a-complete-r1/artifact/go-module/3850bad95248a2b0",
+    "authority": "declared go.mod only; no fetched implementation or digest"
+  },
+  {
+    "module": "go.opentelemetry.io/contrib/instrumentation/runtime",
+    "requestedVersion": "v0.70.0",
+    "artifact": "cce-car-spec-adapter-667a00a-complete-r1/artifact/go-module/a3a85525005f171d",
+    "authority": "declared go.mod only; no fetched implementation or digest"
+  },
+  {
+    "module": "go.opentelemetry.io/otel",
+    "requestedVersion": "v1.46.0",
+    "artifact": "cce-car-spec-adapter-667a00a-complete-r1/artifact/go-module/2afc6f9210c5e0c8",
+    "authority": "declared go.mod only; no fetched implementation or digest"
+  },
+  {
+    "module": "go.opentelemetry.io/otel/exporters/otlp/otlplog/otlploghttp",
+    "requestedVersion": "v0.21.0",
+    "artifact": "cce-car-spec-adapter-667a00a-complete-r1/artifact/go-module/59cf43ff987c001f",
+    "authority": "declared go.mod only; no fetched implementation or digest"
+  },
+  {
+    "module": "go.opentelemetry.io/otel/exporters/otlp/otlpmetric/otlpmetricgrpc",
+    "requestedVersion": "v1.45.0",
+    "artifact": "cce-car-spec-adapter-667a00a-complete-r1/artifact/go-module/fcea62411ce2d028",
+    "authority": "declared go.mod only; no fetched implementation or digest"
+  },
+  {
+    "module": "go.opentelemetry.io/otel/exporters/otlp/otlptrace/otlptracegrpc",
+    "requestedVersion": "v1.45.0",
+    "artifact": "cce-car-spec-adapter-667a00a-complete-r1/artifact/go-module/c1fa6201de5e0a2a",
+    "authority": "declared go.mod only; no fetched implementation or digest"
+  },
+  {
+    "module": "go.opentelemetry.io/otel/exporters/stdout/stdoutlog",
+    "requestedVersion": "v0.21.0",
+    "artifact": "cce-car-spec-adapter-667a00a-complete-r1/artifact/go-module/fe12fe9649ed236b",
+    "authority": "declared go.mod only; no fetched implementation or digest"
+  },
+  {
+    "module": "go.opentelemetry.io/otel/exporters/stdout/stdoutmetric",
+    "requestedVersion": "v1.45.0",
+    "artifact": "cce-car-spec-adapter-667a00a-complete-r1/artifact/go-module/3bdcead79047e038",
+    "authority": "declared go.mod only; no fetched implementation or digest"
+  },
+  {
+    "module": "go.opentelemetry.io/otel/exporters/stdout/stdouttrace",
+    "requestedVersion": "v1.45.0",
+    "artifact": "cce-car-spec-adapter-667a00a-complete-r1/artifact/go-module/d4f84a51b58ce9b9",
+    "authority": "declared go.mod only; no fetched implementation or digest"
+  },
+  {
+    "module": "go.opentelemetry.io/otel/log",
+    "requestedVersion": "v0.21.0",
+    "artifact": "cce-car-spec-adapter-667a00a-complete-r1/artifact/go-module/d06a104aa55ca9f7",
+    "authority": "declared go.mod only; no fetched implementation or digest"
+  },
+  {
+    "module": "go.opentelemetry.io/otel/metric",
+    "requestedVersion": "v1.46.0",
+    "artifact": "cce-car-spec-adapter-667a00a-complete-r1/artifact/go-module/262b907aa1a908a9",
+    "authority": "declared go.mod only; no fetched implementation or digest"
+  },
+  {
+    "module": "go.opentelemetry.io/otel/sdk",
+    "requestedVersion": "v1.46.0",
+    "artifact": "cce-car-spec-adapter-667a00a-complete-r1/artifact/go-module/9ee39e4181ddef58",
+    "authority": "declared go.mod only; no fetched implementation or digest"
+  },
+  {
+    "module": "go.opentelemetry.io/otel/sdk/log",
+    "requestedVersion": "v0.21.0",
+    "artifact": "cce-car-spec-adapter-667a00a-complete-r1/artifact/go-module/f1bc4e691c03c630",
+    "authority": "declared go.mod only; no fetched implementation or digest"
+  },
+  {
+    "module": "go.opentelemetry.io/otel/sdk/metric",
+    "requestedVersion": "v1.46.0",
+    "artifact": "cce-car-spec-adapter-667a00a-complete-r1/artifact/go-module/bf0522970cb1a1f6",
+    "authority": "declared go.mod only; no fetched implementation or digest"
+  },
+  {
+    "module": "go.opentelemetry.io/otel/trace",
+    "requestedVersion": "v1.46.0",
+    "artifact": "cce-car-spec-adapter-667a00a-complete-r1/artifact/go-module/bfd4d8d27bf92504",
+    "authority": "declared go.mod only; no fetched implementation or digest"
+  },
+  {
+    "module": "go.uber.org/fx",
+    "requestedVersion": "v1.24.0",
+    "artifact": "cce-car-spec-adapter-667a00a-complete-r1/artifact/go-module/48bafa3d1a47c938",
+    "authority": "declared go.mod only; no fetched implementation or digest"
+  },
+  {
+    "module": "go.uber.org/zap",
+    "requestedVersion": "v1.28.0",
+    "artifact": "cce-car-spec-adapter-667a00a-complete-r1/artifact/go-module/11b63de84d911b02",
+    "authority": "declared go.mod only; no fetched implementation or digest"
+  },
+  {
+    "module": "golang.org/x/oauth2",
+    "requestedVersion": "v0.37.0",
+    "artifact": "cce-car-spec-adapter-667a00a-complete-r1/artifact/go-module/19383c77454ac8d1",
+    "authority": "declared go.mod only; no fetched implementation or digest"
+  },
+  {
+    "module": "google.golang.org/protobuf",
+    "requestedVersion": "v1.36.12",
+    "artifact": "cce-car-spec-adapter-667a00a-complete-r1/artifact/go-module/c04662cab481aaa9",
+    "authority": "declared go.mod only; no fetched implementation or digest"
+  },
+  {
+    "module": "github.com/KyleBanks/depth",
+    "requestedVersion": "v1.2.1",
+    "artifact": "cce-car-spec-adapter-667a00a-complete-r1/artifact/go-module/c1031c75af01254d",
+    "authority": "declared go.mod only; no fetched implementation or digest"
+  },
+  {
+    "module": "github.com/cenkalti/backoff/v5",
+    "requestedVersion": "v5.0.3",
+    "artifact": "cce-car-spec-adapter-667a00a-complete-r1/artifact/go-module/ee7ad951225fea0f",
+    "authority": "declared go.mod only; no fetched implementation or digest"
+  },
+  {
+    "module": "github.com/cespare/xxhash/v2",
+    "requestedVersion": "v2.3.0",
+    "artifact": "cce-car-spec-adapter-667a00a-complete-r1/artifact/go-module/d80cd4c05ea1239a",
+    "authority": "declared go.mod only; no fetched implementation or digest"
+  },
+  {
+    "module": "github.com/cucumber/gherkin/go/v42",
+    "requestedVersion": "v42.0.1",
+    "artifact": "cce-car-spec-adapter-667a00a-complete-r1/artifact/go-module/068f37bd87b882d0",
+    "authority": "declared go.mod only; no fetched implementation or digest"
+  },
+  {
+    "module": "github.com/davecgh/go-spew",
+    "requestedVersion": "v1.1.2-0.20180830191138-d8f796af33cc",
+    "artifact": "cce-car-spec-adapter-667a00a-complete-r1/artifact/go-module/8f2ffe7c16787806",
+    "authority": "declared go.mod only; no fetched implementation or digest"
+  },
+  {
+    "module": "github.com/dnwe/otelsarama",
+    "requestedVersion": "v0.0.0-20240308230250-9388d9d40bc0",
+    "artifact": "cce-car-spec-adapter-667a00a-complete-r1/artifact/go-module/4d1f9546b7f409a5",
+    "authority": "declared go.mod only; no fetched implementation or digest"
+  },
+  {
+    "module": "github.com/eapache/go-resiliency",
+    "requestedVersion": "v1.7.0",
+    "artifact": "cce-car-spec-adapter-667a00a-complete-r1/artifact/go-module/49b38494bbb5d801",
+    "authority": "declared go.mod only; no fetched implementation or digest"
+  },
+  {
+    "module": "github.com/felixge/httpsnoop",
+    "requestedVersion": "v1.1.0",
+    "artifact": "cce-car-spec-adapter-667a00a-complete-r1/artifact/go-module/ea5de171bf329da7",
+    "authority": "declared go.mod only; no fetched implementation or digest"
+  },
+  {
+    "module": "github.com/fsnotify/fsnotify",
+    "requestedVersion": "v1.10.1",
+    "artifact": "cce-car-spec-adapter-667a00a-complete-r1/artifact/go-module/0709d459a3843310",
+    "authority": "declared go.mod only; no fetched implementation or digest"
+  },
+  {
+    "module": "github.com/go-logr/logr",
+    "requestedVersion": "v1.4.4",
+    "artifact": "cce-car-spec-adapter-667a00a-complete-r1/artifact/go-module/e65426c94497ab8f",
+    "authority": "declared go.mod only; no fetched implementation or digest"
+  },
+  {
+    "module": "github.com/go-logr/stdr",
+    "requestedVersion": "v1.2.2",
+    "artifact": "cce-car-spec-adapter-667a00a-complete-r1/artifact/go-module/febdba1f76353d59",
+    "authority": "declared go.mod only; no fetched implementation or digest"
+  },
+  {
+    "module": "github.com/go-openapi/analysis",
+    "requestedVersion": "v1.0.0",
+    "artifact": "cce-car-spec-adapter-667a00a-complete-r1/artifact/go-module/072b310ec8ccf17c",
+    "authority": "declared go.mod only; no fetched implementation or digest"
+  },
+  {
+    "module": "github.com/go-openapi/jsonpointer",
+    "requestedVersion": "v1.0.1",
+    "artifact": "cce-car-spec-adapter-667a00a-complete-r1/artifact/go-module/1bbb4ddc758969fb",
+    "authority": "declared go.mod only; no fetched implementation or digest"
+  },
+  {
+    "module": "github.com/go-openapi/jsonreference",
+    "requestedVersion": "v1.0.2",
+    "artifact": "cce-car-spec-adapter-667a00a-complete-r1/artifact/go-module/2816d4e0bd83e717",
+    "authority": "declared go.mod only; no fetched implementation or digest"
+  },
+  {
+    "module": "github.com/go-openapi/loads",
+    "requestedVersion": "v0.25.3",
+    "artifact": "cce-car-spec-adapter-667a00a-complete-r1/artifact/go-module/95632fbea23d2b06",
+    "authority": "declared go.mod only; no fetched implementation or digest"
+  },
+  {
+    "module": "github.com/go-openapi/runtime/server-middleware",
+    "requestedVersion": "v0.33.3",
+    "artifact": "cce-car-spec-adapter-667a00a-complete-r1/artifact/go-module/6c3b73a5e266b54f",
+    "authority": "declared go.mod only; no fetched implementation or digest"
+  },
+  {
+    "module": "github.com/go-openapi/spec",
+    "requestedVersion": "v1.0.1",
+    "artifact": "cce-car-spec-adapter-667a00a-complete-r1/artifact/go-module/4006134b1697123a",
+    "authority": "declared go.mod only; no fetched implementation or digest"
+  },
+  {
+    "module": "github.com/go-openapi/swag/cmdutils",
+    "requestedVersion": "v0.29.2",
+    "artifact": "cce-car-spec-adapter-667a00a-complete-r1/artifact/go-module/1541eadaac37f35f",
+    "authority": "declared go.mod only; no fetched implementation or digest"
+  },
+  {
+    "module": "github.com/go-openapi/swag/fileutils",
+    "requestedVersion": "v0.29.2",
+    "artifact": "cce-car-spec-adapter-667a00a-complete-r1/artifact/go-module/305eb6cb32991a5c",
+    "authority": "declared go.mod only; no fetched implementation or digest"
+  },
+  {
+    "module": "github.com/go-openapi/swag/jsonutils",
+    "requestedVersion": "v0.29.2",
+    "artifact": "cce-car-spec-adapter-667a00a-complete-r1/artifact/go-module/97b5096a2cfe80a1",
+    "authority": "declared go.mod only; no fetched implementation or digest"
+  },
+  {
+    "module": "github.com/go-openapi/swag/loading",
+    "requestedVersion": "v0.29.2",
+    "artifact": "cce-car-spec-adapter-667a00a-complete-r1/artifact/go-module/6a7689dcc97f81ee",
+    "authority": "declared go.mod only; no fetched implementation or digest"
+  },
+  {
+    "module": "github.com/go-openapi/swag/mangling",
+    "requestedVersion": "v0.29.2",
+    "artifact": "cce-car-spec-adapter-667a00a-complete-r1/artifact/go-module/5f5b902eb5eadc89",
+    "authority": "declared go.mod only; no fetched implementation or digest"
+  },
+  {
+    "module": "github.com/go-openapi/swag/netutils",
+    "requestedVersion": "v0.29.2",
+    "artifact": "cce-car-spec-adapter-667a00a-complete-r1/artifact/go-module/fd73daa7f3a3d99b",
+    "authority": "declared go.mod only; no fetched implementation or digest"
+  },
+  {
+    "module": "github.com/go-openapi/swag/pools",
+    "requestedVersion": "v0.29.2",
+    "artifact": "cce-car-spec-adapter-667a00a-complete-r1/artifact/go-module/5200b3cce69a1165",
+    "authority": "declared go.mod only; no fetched implementation or digest"
+  },
+  {
+    "module": "github.com/go-openapi/swag/stringutils",
+    "requestedVersion": "v0.29.2",
+    "artifact": "cce-car-spec-adapter-667a00a-complete-r1/artifact/go-module/04696ff304839755",
+    "authority": "declared go.mod only; no fetched implementation or digest"
+  },
+  {
+    "module": "github.com/go-openapi/swag/typeutils",
+    "requestedVersion": "v0.29.2",
+    "artifact": "cce-car-spec-adapter-667a00a-complete-r1/artifact/go-module/ca2038d93097e00b",
+    "authority": "declared go.mod only; no fetched implementation or digest"
+  },
+  {
+    "module": "github.com/go-openapi/swag/yamlutils",
+    "requestedVersion": "v0.29.2",
+    "artifact": "cce-car-spec-adapter-667a00a-complete-r1/artifact/go-module/e739fff1ce4dc759",
+    "authority": "declared go.mod only; no fetched implementation or digest"
+  },
+  {
+    "module": "github.com/go-openapi/validate",
+    "requestedVersion": "v1.0.0",
+    "artifact": "cce-car-spec-adapter-667a00a-complete-r1/artifact/go-module/7b496c399b754037",
+    "authority": "declared go.mod only; no fetched implementation or digest"
+  },
+  {
+    "module": "github.com/go-viper/mapstructure/v2",
+    "requestedVersion": "v2.5.0",
+    "artifact": "cce-car-spec-adapter-667a00a-complete-r1/artifact/go-module/a19127234482459a",
+    "authority": "declared go.mod only; no fetched implementation or digest"
+  },
+  {
+    "module": "github.com/gregjones/httpcache",
+    "requestedVersion": "v0.0.0-20190611155906-901d90724c79",
+    "artifact": "cce-car-spec-adapter-667a00a-complete-r1/artifact/go-module/87f12ddc3f5dbfd9",
+    "authority": "declared go.mod only; no fetched implementation or digest"
+  },
+  {
+    "module": "github.com/grpc-ecosystem/grpc-gateway/v2",
+    "requestedVersion": "v2.30.0",
+    "artifact": "cce-car-spec-adapter-667a00a-complete-r1/artifact/go-module/4b6b17c02a148389",
+    "authority": "declared go.mod only; no fetched implementation or digest"
+  },
+  {
+    "module": "github.com/hashicorp/errwrap",
+    "requestedVersion": "v1.1.0",
+    "artifact": "cce-car-spec-adapter-667a00a-complete-r1/artifact/go-module/eb50a4ae5fa8cfff",
+    "authority": "declared go.mod only; no fetched implementation or digest"
+  },
+  {
+    "module": "github.com/hashicorp/go-cleanhttp",
+    "requestedVersion": "v0.5.2",
+    "artifact": "cce-car-spec-adapter-667a00a-complete-r1/artifact/go-module/aa3bf3e3c4887b59",
+    "authority": "declared go.mod only; no fetched implementation or digest"
+  },
+  {
+    "module": "github.com/hashicorp/go-immutable-radix",
+    "requestedVersion": "v1.3.1",
+    "artifact": "cce-car-spec-adapter-667a00a-complete-r1/artifact/go-module/61fa614eb9161ddf",
+    "authority": "declared go.mod only; no fetched implementation or digest"
+  },
+  {
+    "module": "github.com/hashicorp/go-memdb",
+    "requestedVersion": "v1.3.5",
+    "artifact": "cce-car-spec-adapter-667a00a-complete-r1/artifact/go-module/de6b856dc7f5b5a8",
+    "authority": "declared go.mod only; no fetched implementation or digest"
+  },
+  {
+    "module": "github.com/hashicorp/go-multierror",
+    "requestedVersion": "v1.1.1",
+    "artifact": "cce-car-spec-adapter-667a00a-complete-r1/artifact/go-module/fe663a0c58fd06d5",
+    "authority": "declared go.mod only; no fetched implementation or digest"
+  },
+  {
+    "module": "github.com/hashicorp/go-uuid",
+    "requestedVersion": "v1.0.3",
+    "artifact": "cce-car-spec-adapter-667a00a-complete-r1/artifact/go-module/fccb6e8debc7916b",
+    "authority": "declared go.mod only; no fetched implementation or digest"
+  },
+  {
+    "module": "github.com/hashicorp/golang-lru",
+    "requestedVersion": "v1.0.2",
+    "artifact": "cce-car-spec-adapter-667a00a-complete-r1/artifact/go-module/51ca6eb3b40e1de0",
+    "authority": "declared go.mod only; no fetched implementation or digest"
+  },
+  {
+    "module": "github.com/jackc/pgpassfile",
+    "requestedVersion": "v1.0.0",
+    "artifact": "cce-car-spec-adapter-667a00a-complete-r1/artifact/go-module/c2a2e1fd514a7d1b",
+    "authority": "declared go.mod only; no fetched implementation or digest"
+  },
+  {
+    "module": "github.com/jackc/pgservicefile",
+    "requestedVersion": "v0.0.0-20240606120523-5a60cdf6a761",
+    "artifact": "cce-car-spec-adapter-667a00a-complete-r1/artifact/go-module/0eac1f7b5f962e80",
+    "authority": "declared go.mod only; no fetched implementation or digest"
+  },
+  {
+    "module": "github.com/jackc/puddle/v2",
+    "requestedVersion": "v2.2.2",
+    "artifact": "cce-car-spec-adapter-667a00a-complete-r1/artifact/go-module/1ad81b4106b4ee5d",
+    "authority": "declared go.mod only; no fetched implementation or digest"
+  },
+  {
+    "module": "github.com/jcmturner/aescts/v2",
+    "requestedVersion": "v2.0.0",
+    "artifact": "cce-car-spec-adapter-667a00a-complete-r1/artifact/go-module/a352c6d504da3d19",
+    "authority": "declared go.mod only; no fetched implementation or digest"
+  },
+  {
+    "module": "github.com/jcmturner/dnsutils/v2",
+    "requestedVersion": "v2.0.0",
+    "artifact": "cce-car-spec-adapter-667a00a-complete-r1/artifact/go-module/27c1a23038116283",
+    "authority": "declared go.mod only; no fetched implementation or digest"
+  },
+  {
+    "module": "github.com/jcmturner/gofork",
+    "requestedVersion": "v1.7.6",
+    "artifact": "cce-car-spec-adapter-667a00a-complete-r1/artifact/go-module/325653986a96eb54",
+    "authority": "declared go.mod only; no fetched implementation or digest"
+  },
+  {
+    "module": "github.com/jcmturner/gokrb5/v8",
+    "requestedVersion": "v8.4.4",
+    "artifact": "cce-car-spec-adapter-667a00a-complete-r1/artifact/go-module/188e45aba30c0131",
+    "authority": "declared go.mod only; no fetched implementation or digest"
+  },
+  {
+    "module": "github.com/jcmturner/rpc/v2",
+    "requestedVersion": "v2.0.3",
+    "artifact": "cce-car-spec-adapter-667a00a-complete-r1/artifact/go-module/df1fb0c41d89a340",
+    "authority": "declared go.mod only; no fetched implementation or digest"
+  },
+  {
+    "module": "github.com/josharian/intern",
+    "requestedVersion": "v1.0.0",
+    "artifact": "cce-car-spec-adapter-667a00a-complete-r1/artifact/go-module/25d5791685a94e18",
+    "authority": "declared go.mod only; no fetched implementation or digest"
+  },
+  {
+    "module": "github.com/klauspost/compress",
+    "requestedVersion": "v1.20.1",
+    "artifact": "cce-car-spec-adapter-667a00a-complete-r1/artifact/go-module/7e7877fae212e622",
+    "authority": "declared go.mod only; no fetched implementation or digest"
+  },
+  {
+    "module": "github.com/launchdarkly/ccache",
+    "requestedVersion": "v1.1.0",
+    "artifact": "cce-car-spec-adapter-667a00a-complete-r1/artifact/go-module/f0873db87f26e6dc",
+    "authority": "declared go.mod only; no fetched implementation or digest"
+  },
+  {
+    "module": "github.com/launchdarkly/eventsource",
+    "requestedVersion": "v1.14.0",
+    "artifact": "cce-car-spec-adapter-667a00a-complete-r1/artifact/go-module/5bff649d6f8da141",
+    "authority": "declared go.mod only; no fetched implementation or digest"
+  },
+  {
+    "module": "github.com/launchdarkly/go-jsonstream/v3",
+    "requestedVersion": "v3.1.2",
+    "artifact": "cce-car-spec-adapter-667a00a-complete-r1/artifact/go-module/8e17e7b5c5f837c4",
+    "authority": "declared go.mod only; no fetched implementation or digest"
+  },
+  {
+    "module": "github.com/launchdarkly/go-sdk-events/v3",
+    "requestedVersion": "v3.7.0",
+    "artifact": "cce-car-spec-adapter-667a00a-complete-r1/artifact/go-module/a4260165aef70c99",
+    "authority": "declared go.mod only; no fetched implementation or digest"
+  },
+  {
+    "module": "github.com/launchdarkly/go-semver",
+    "requestedVersion": "v1.0.4",
+    "artifact": "cce-car-spec-adapter-667a00a-complete-r1/artifact/go-module/4624cd11a7d457ab",
+    "authority": "declared go.mod only; no fetched implementation or digest"
+  },
+  {
+    "module": "github.com/launchdarkly/go-server-sdk-evaluation/v3",
+    "requestedVersion": "v3.2.0",
+    "artifact": "cce-car-spec-adapter-667a00a-complete-r1/artifact/go-module/740b615303a94e34",
+    "authority": "declared go.mod only; no fetched implementation or digest"
+  },
+  {
+    "module": "github.com/lithammer/shortuuid/v3",
+    "requestedVersion": "v3.0.7",
+    "artifact": "cce-car-spec-adapter-667a00a-complete-r1/artifact/go-module/e9dd1f0c19ac9932",
+    "authority": "declared go.mod only; no fetched implementation or digest"
+  },
+  {
+    "module": "github.com/mailru/easyjson",
+    "requestedVersion": "v0.9.2",
+    "artifact": "cce-car-spec-adapter-667a00a-complete-r1/artifact/go-module/8382176061482e1f",
+    "authority": "declared go.mod only; no fetched implementation or digest"
+  },
+  {
+    "module": "github.com/oklog/ulid",
+    "requestedVersion": "v1.3.1",
+    "artifact": "cce-car-spec-adapter-667a00a-complete-r1/artifact/go-module/3584706ede442a22",
+    "authority": "declared go.mod only; no fetched implementation or digest"
+  },
+  {
+    "module": "github.com/oklog/ulid/v2",
+    "requestedVersion": "v2.1.2",
+    "artifact": "cce-car-spec-adapter-667a00a-complete-r1/artifact/go-module/cfbbe1cdb4566672",
+    "authority": "declared go.mod only; no fetched implementation or digest"
+  },
+  {
+    "module": "github.com/patrickmn/go-cache",
+    "requestedVersion": "v2.1.0+incompatible",
+    "artifact": "cce-car-spec-adapter-667a00a-complete-r1/artifact/go-module/44a17f0d3ccf2e96",
+    "authority": "declared go.mod only; no fetched implementation or digest"
+  },
+  {
+    "module": "github.com/pierrec/lz4/v4",
+    "requestedVersion": "v4.1.31",
+    "artifact": "cce-car-spec-adapter-667a00a-complete-r1/artifact/go-module/18a36c320fc597f9",
+    "authority": "declared go.mod only; no fetched implementation or digest"
+  },
+  {
+    "module": "github.com/pkg/errors",
+    "requestedVersion": "v0.9.1",
+    "artifact": "cce-car-spec-adapter-667a00a-complete-r1/artifact/go-module/fa7f1e954b96b074",
+    "authority": "declared go.mod only; no fetched implementation or digest"
+  },
+  {
+    "module": "github.com/rcrowley/go-metrics",
+    "requestedVersion": "v0.0.0-20250401214520-65e299d6c5c9",
+    "artifact": "cce-car-spec-adapter-667a00a-complete-r1/artifact/go-module/551475a9f8cf5f1b",
+    "authority": "declared go.mod only; no fetched implementation or digest"
+  },
+  {
+    "module": "github.com/sony/gobreaker",
+    "requestedVersion": "v1.0.0",
+    "artifact": "cce-car-spec-adapter-667a00a-complete-r1/artifact/go-module/443ca0372084cf3d",
+    "authority": "declared go.mod only; no fetched implementation or digest"
+  },
+  {
+    "module": "github.com/spf13/pflag",
+    "requestedVersion": "v1.0.10",
+    "artifact": "cce-car-spec-adapter-667a00a-complete-r1/artifact/go-module/9df872753e59b919",
+    "authority": "declared go.mod only; no fetched implementation or digest"
+  },
+  {
+    "module": "github.com/swaggo/files",
+    "requestedVersion": "v1.0.1",
+    "artifact": "cce-car-spec-adapter-667a00a-complete-r1/artifact/go-module/87e741170f1867be",
+    "authority": "declared go.mod only; no fetched implementation or digest"
+  },
+  {
+    "module": "go.opentelemetry.io/auto/sdk",
+    "requestedVersion": "v1.2.1",
+    "artifact": "cce-car-spec-adapter-667a00a-complete-r1/artifact/go-module/ad3c3047295d7c45",
+    "authority": "declared go.mod only; no fetched implementation or digest"
+  },
+  {
+    "module": "go.opentelemetry.io/otel/exporters/otlp/otlptrace",
+    "requestedVersion": "v1.45.0",
+    "artifact": "cce-car-spec-adapter-667a00a-complete-r1/artifact/go-module/3833044ee0eb09c4",
+    "authority": "declared go.mod only; no fetched implementation or digest"
+  },
+  {
+    "module": "go.opentelemetry.io/proto/otlp",
+    "requestedVersion": "v1.11.0",
+    "artifact": "cce-car-spec-adapter-667a00a-complete-r1/artifact/go-module/423d9c3eddd26190",
+    "authority": "declared go.mod only; no fetched implementation or digest"
+  },
+  {
+    "module": "go.uber.org/dig",
+    "requestedVersion": "v1.19.0",
+    "artifact": "cce-car-spec-adapter-667a00a-complete-r1/artifact/go-module/1148b920ea57f1a4",
+    "authority": "declared go.mod only; no fetched implementation or digest"
+  },
+  {
+    "module": "go.uber.org/multierr",
+    "requestedVersion": "v1.11.0",
+    "artifact": "cce-car-spec-adapter-667a00a-complete-r1/artifact/go-module/abe1b262ebce9e4b",
+    "authority": "declared go.mod only; no fetched implementation or digest"
+  },
+  {
+    "module": "go.yaml.in/yaml/v3",
+    "requestedVersion": "v3.0.5",
+    "artifact": "cce-car-spec-adapter-667a00a-complete-r1/artifact/go-module/eb1524b7f13f5f0b",
+    "authority": "declared go.mod only; no fetched implementation or digest"
+  },
+  {
+    "module": "golang.org/x/crypto",
+    "requestedVersion": "v0.58.0",
+    "artifact": "cce-car-spec-adapter-667a00a-complete-r1/artifact/go-module/a21cca9b57479454",
+    "authority": "declared go.mod only; no fetched implementation or digest"
+  },
+  {
+    "module": "golang.org/x/mod",
+    "requestedVersion": "v0.41.0",
+    "artifact": "cce-car-spec-adapter-667a00a-complete-r1/artifact/go-module/bb502977b9dd9979",
+    "authority": "declared go.mod only; no fetched implementation or digest"
+  },
+  {
+    "module": "golang.org/x/net",
+    "requestedVersion": "v0.61.0",
+    "artifact": "cce-car-spec-adapter-667a00a-complete-r1/artifact/go-module/46dc23c8857c341e",
+    "authority": "declared go.mod only; no fetched implementation or digest"
+  },
+  {
+    "module": "golang.org/x/sync",
+    "requestedVersion": "v0.24.0",
+    "artifact": "cce-car-spec-adapter-667a00a-complete-r1/artifact/go-module/a210ede2ffb12186",
+    "authority": "declared go.mod only; no fetched implementation or digest"
+  },
+  {
+    "module": "golang.org/x/sys",
+    "requestedVersion": "v0.49.0",
+    "artifact": "cce-car-spec-adapter-667a00a-complete-r1/artifact/go-module/d8cdfe35da6397c1",
+    "authority": "declared go.mod only; no fetched implementation or digest"
+  },
+  {
+    "module": "golang.org/x/text",
+    "requestedVersion": "v0.43.0",
+    "artifact": "cce-car-spec-adapter-667a00a-complete-r1/artifact/go-module/48412653c39783c5",
+    "authority": "declared go.mod only; no fetched implementation or digest"
+  },
+  {
+    "module": "golang.org/x/tools",
+    "requestedVersion": "v0.51.0",
+    "artifact": "cce-car-spec-adapter-667a00a-complete-r1/artifact/go-module/11931d277fe290d6",
+    "authority": "declared go.mod only; no fetched implementation or digest"
+  },
+  {
+    "module": "google.golang.org/genproto/googleapis/api",
+    "requestedVersion": "v0.0.0-20260810153831-ec0a7760b754",
+    "artifact": "cce-car-spec-adapter-667a00a-complete-r1/artifact/go-module/31598793b7906f10",
+    "authority": "declared go.mod only; no fetched implementation or digest"
+  },
+  {
+    "module": "google.golang.org/genproto/googleapis/rpc",
+    "requestedVersion": "v0.0.0-20260908043556-f8649ddbbfe6",
+    "artifact": "cce-car-spec-adapter-667a00a-complete-r1/artifact/go-module/7bc3d2bfbdebef62",
+    "authority": "declared go.mod only; no fetched implementation or digest"
+  },
+  {
+    "module": "google.golang.org/grpc",
+    "requestedVersion": "v1.83.2",
+    "artifact": "cce-car-spec-adapter-667a00a-complete-r1/artifact/go-module/7a0370ea9c48fd57",
+    "authority": "declared go.mod only; no fetched implementation or digest"
+  }
+]

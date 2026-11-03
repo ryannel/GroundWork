@@ -1,0 +1,9 @@
+{
+  "status": "passed",
+  "snapshot": "475db9bd25a492383b7555b51089fd85825371fe9c2cfd55fde43bc6c6f048e2",
+  "sourceBundleByteSha256": "ac7870484d4a659acd76cf41a1b1684b92c85de14245d89acf33f72cf43d4373",
+  "gzipDecompression": "Exactly equal immutable source bundle bytes",
+  "knownAuthorPairHashesVerified": true,
+  "authorProofScope": "Source ledgers/scripts and compact query summaries published; original author query dumps remain unchanged in local reports. Independent43query full proofs published separately.",
+  "formatting": "Standalone publication metadata may be formatted; original independent sealed files and author selection bytes are retained in independent-originals.tar.gz and author-selection-originals.tar.gz. Bundle decompression is byte-exact."
+}

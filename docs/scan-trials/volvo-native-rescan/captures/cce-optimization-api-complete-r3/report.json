@@ -1,0 +1,54 @@
+{
+  "status": "author_gates_passed_parent_review_pending",
+  "repo": "volvo-cars/cce-optimization-api",
+  "commit": "286985b6bebccb6123de78d03aa87b7513f69ed5",
+  "selectedBundle": "bundle.final-r3.json",
+  "selectedManifest": "snapshot.final-r3.json",
+  "snapshot": "bd0ce620207f239f5d3d2fe197a26fe533e31b25dc690680b145d771cf5d6664",
+  "records": 115349,
+  "fileCounts": {
+    "production": 98,
+    "generated": 4,
+    "test": 16,
+    "configurationSupport": 20,
+    "gitlink": 1
+  },
+  "sourceBodies": {
+    "functions": 510,
+    "lambdas": 33,
+    "nonemptyModules": 80
+  },
+  "sourceFrames": 891,
+  "importedFrames": 1,
+  "entries": 170,
+  "interactions": 10,
+  "writes": 2,
+  "sourceTuples": 11428,
+  "strictQueries": 1368,
+  "strictRequests": 1368,
+  "strictAssertions": 1493,
+  "bounded": [
+    {
+      "name": "body config.application.Application.__init__@source-body",
+      "nodes": 2000,
+      "edges": 2049,
+      "limits": ["maxNodes"],
+      "pages": 1
+    }
+  ],
+  "sourceTestsExecuted": false,
+  "sourceBuildsExecuted": false,
+  "liveCallsExecuted": false,
+  "failedLazyFetchAttempt": {
+    "path": "child gitlink Dockerfile",
+    "outcome": "DNS failed; no object/content fetched",
+    "subsequentGitReads": "GIT_NO_LAZY_FETCH=1 GIT_TERMINAL_PROMPT=0"
+  },
+  "limitations": [
+    "Imported GraphQL method set/naming/coercion/serialisation",
+    "Imported composition/transform execution policy and type.__call__ dispatch; exact available local bodies/associations retained",
+    "All27 child gitlink blob objects absent; generated application BetterProto declarations retained",
+    "Arbitrary heap/alias/guard feasibility/implicit exceptions/scheduler interleaving",
+    "Broad Application.__init__ trace bounded; smaller owner checks pass"
+  ]
+}

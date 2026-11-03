@@ -1,0 +1,71 @@
+[
+  {
+    "write": "caas-car-configurator-5495209-complete-r1/storage_write/a8211c583f20c196",
+    "owner": "caas-car-configurator-5495209-complete-r1/implementation/dfeaa43ca60b797c",
+    "path": "internal/database/postgres/repository.go",
+    "lines": [122, 129],
+    "source": "tx.Exec(\n\t\tctx,\n\t\t`INSERT INTO car_rulesets (id, ruleset, client_id) \n\t\t\t VALUES ($1, $2, $3)`,\n\t\truleset.ID(),\n\t\tstored,\n\t\tclientID,\n\t)",
+    "operation": "caas-car-configurator-5495209-complete-r1/operation/dfeaa43ca60b797c/n/7",
+    "receiver": "caas-car-configurator-5495209-complete-r1/value/dfeaa43ca60b797c/p/1",
+    "arguments": [
+      "caas-car-configurator-5495209-complete-r1/value/dfeaa43ca60b797c/p/0",
+      "caas-car-configurator-5495209-complete-r1/value/dfeaa43ca60b797c/v/56340",
+      "caas-car-configurator-5495209-complete-r1/value/dfeaa43ca60b797c/v/56345",
+      "caas-car-configurator-5495209-complete-r1/value/dfeaa43ca60b797c/v/56325",
+      "caas-car-configurator-5495209-complete-r1/value/dfeaa43ca60b797c/v/56335"
+    ],
+    "result": "caas-car-configurator-5495209-complete-r1/value/dfeaa43ca60b797c/v/56351",
+    "target": "caas-car-configurator-5495209-complete-r1/runtime_component/postgres",
+    "resultTypes": [],
+    "claim": "caas-car-configurator-5495209-complete-r1/claim/call-operands/a8211c583f20c196",
+    "interaction": "caas-car-configurator-5495209-complete-r1/interaction/io/a8211c583f20c196",
+    "effect": "caas-car-configurator-5495209-complete-r1/effect/io/a8211c583f20c196",
+    "resource": "caas-car-configurator-5495209-complete-r1/resource/postgres/rulesets",
+    "gap": "caas-car-configurator-5495209-complete-r1/gap/io/a8211c583f20c196"
+  },
+  {
+    "write": "caas-car-configurator-5495209-complete-r1/storage_write/45070eccb50e8522",
+    "owner": "caas-car-configurator-5495209-complete-r1/implementation/439e7bd166df8d37",
+    "path": "internal/database/postgres/repository.go",
+    "lines": [144, 150],
+    "source": "tx.Exec(\n\t\tctx,\n\t\t`INSERT INTO car_specifications (ruleset_id, specification) \n\t\t\t VALUES ($1, $2)`,\n\t\trulesetID,\n\t\tstored,\n\t)",
+    "operation": "caas-car-configurator-5495209-complete-r1/operation/439e7bd166df8d37/n/4",
+    "receiver": "caas-car-configurator-5495209-complete-r1/value/439e7bd166df8d37/p/1",
+    "arguments": [
+      "caas-car-configurator-5495209-complete-r1/value/439e7bd166df8d37/p/0",
+      "caas-car-configurator-5495209-complete-r1/value/439e7bd166df8d37/v/56407",
+      "caas-car-configurator-5495209-complete-r1/value/439e7bd166df8d37/p/2",
+      "caas-car-configurator-5495209-complete-r1/value/439e7bd166df8d37/v/56402"
+    ],
+    "result": "caas-car-configurator-5495209-complete-r1/value/439e7bd166df8d37/v/56412",
+    "target": "caas-car-configurator-5495209-complete-r1/runtime_component/postgres",
+    "resultTypes": [],
+    "claim": "caas-car-configurator-5495209-complete-r1/claim/call-operands/45070eccb50e8522",
+    "interaction": "caas-car-configurator-5495209-complete-r1/interaction/io/45070eccb50e8522",
+    "effect": "caas-car-configurator-5495209-complete-r1/effect/io/45070eccb50e8522",
+    "resource": "caas-car-configurator-5495209-complete-r1/resource/postgres/specifications",
+    "gap": "caas-car-configurator-5495209-complete-r1/gap/io/45070eccb50e8522"
+  },
+  {
+    "write": "caas-car-configurator-5495209-complete-r1/storage_write/83bc395c05f9f5ff",
+    "owner": "caas-car-configurator-5495209-complete-r1/implementation/1b50f6bacb534617",
+    "path": "internal/database/postgres/repository.go",
+    "lines": [162, 167],
+    "source": "r.pool.Exec(\n\t\tctx,\n\t\t`DELETE FROM car_rulesets \n\t\tWHERE id = $1`,\n\t\tid,\n\t)",
+    "operation": "caas-car-configurator-5495209-complete-r1/operation/1b50f6bacb534617/n/3",
+    "receiver": "caas-car-configurator-5495209-complete-r1/value/1b50f6bacb534617/v/56458",
+    "arguments": [
+      "caas-car-configurator-5495209-complete-r1/value/1b50f6bacb534617/p/0",
+      "caas-car-configurator-5495209-complete-r1/value/1b50f6bacb534617/v/56463",
+      "caas-car-configurator-5495209-complete-r1/value/1b50f6bacb534617/p/1"
+    ],
+    "result": "caas-car-configurator-5495209-complete-r1/value/1b50f6bacb534617/v/56468",
+    "target": "caas-car-configurator-5495209-complete-r1/runtime_component/postgres",
+    "resultTypes": [],
+    "claim": "caas-car-configurator-5495209-complete-r1/claim/call-operands/83bc395c05f9f5ff",
+    "interaction": "caas-car-configurator-5495209-complete-r1/interaction/io/83bc395c05f9f5ff",
+    "effect": "caas-car-configurator-5495209-complete-r1/effect/io/83bc395c05f9f5ff",
+    "resource": "caas-car-configurator-5495209-complete-r1/resource/postgres/rulesets",
+    "gap": "caas-car-configurator-5495209-complete-r1/gap/io/83bc395c05f9f5ff"
+  }
+]

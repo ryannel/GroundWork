@@ -1,0 +1,19 @@
+{
+  "format": "groundwork-query/v3",
+  "snapshot": "c67c245880857715c9ea81ad95b44df8735d26465293ad4d3c428777c78df900",
+  "query": "value",
+  "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/revised/entry/charge",
+  "value": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/value/scheduler.request",
+  "context": [
+    "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/revised/op/controller-charge.call",
+    "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/op/charge.schedule"
+  ],
+  "outcome": null,
+  "changed": [],
+  "representation": "constructed",
+  "candidates": "exclude",
+  "maxNodes": 700,
+  "maxRecords": 5000,
+  "environment": "source-profile",
+  "ids": []
+}

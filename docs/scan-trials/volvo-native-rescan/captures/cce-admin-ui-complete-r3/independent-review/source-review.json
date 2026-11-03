@@ -1,0 +1,128 @@
+{
+  "repo": "volvo-cars/cce-admin-ui",
+  "commit": "2bea451cf1ae51f05f8770f4a78750a5d7495ba6",
+  "status": "Independent pinned-source and strict bounded query review passed; framework/runtime limits retained",
+  "files": [
+    {
+      "path": "src/app/api/users/roles/[cdsid]/[policyId]/route.ts",
+      "lines": 43,
+      "sha256": "c15c64ae9d7d5e0492e0d1a5161baf5dfb858c89d46550d585cdcef1de5952fd",
+      "review": "Entire pinned file independently read by root; checked against source capture and bounded query evidence"
+    },
+    {
+      "path": "src/shared/users-db-handler.ts",
+      "lines": 92,
+      "sha256": "9847fb6cc1f265fac0924c500984d8ceb6f7d5ed92fa6d1d14bf5dd73581e725",
+      "review": "Entire pinned file independently read by root; checked against source capture and bounded query evidence"
+    },
+    {
+      "path": "src/shared/audit-log.ts",
+      "lines": 166,
+      "sha256": "46c2e5275b80df8aea5c856f8d70c899b437ffecd1a3bfd1cdcaf7c9b4222e1e",
+      "review": "Entire pinned file independently read by root; checked against source capture and bounded query evidence"
+    },
+    {
+      "path": "src/instrumentation.ts",
+      "lines": 42,
+      "sha256": "348d2c8cccf4065652d221f2ead28bd8a29cb869d212bbe3a93b6fd41ec05f18",
+      "review": "Entire pinned file independently read by root; checked against source capture and bounded query evidence"
+    },
+    {
+      "path": "src/shared/verify-user-access-for-policy.ts",
+      "lines": 120,
+      "sha256": "00368d4d7465eba5076e1a5c639c96918cdc4c1996198d2e6b1a1e4920b05a43",
+      "review": "Entire pinned file independently read by root; checked against source capture and bounded query evidence"
+    },
+    {
+      "path": "src/shared/http-error-handler.ts",
+      "lines": 14,
+      "sha256": "45bc7f53673a652a3e642f6e4db6c89a9874f17b6fc9031c2ae5bb97e0db86ae",
+      "review": "Entire pinned file independently read by root; checked against source capture and bounded query evidence"
+    },
+    {
+      "path": "src/utils/request-reference.ts",
+      "lines": 14,
+      "sha256": "c167522c37d3c90ac5bdb0ea6429e87471c55cb7e4288b6be4edd340e0798246",
+      "review": "Entire pinned file independently read by root; checked against source capture and bounded query evidence"
+    },
+    {
+      "path": "src/shared/map-args.ts",
+      "lines": 50,
+      "sha256": "5cee91fa9a8752c0d9d0b8ca88ce86f685697b745a0b1dfd881af5c889cb981d",
+      "review": "Entire pinned file independently read by root; checked against source capture and bounded query evidence"
+    },
+    {
+      "path": "src/lib/database/DbUser.ts",
+      "lines": 41,
+      "sha256": "3dcfe273dd5e0687b4e06d54a0106a0928ef7b60d0c969c32343c1c4aa95b58d",
+      "review": "Entire pinned file independently read by root; checked against source capture and bounded query evidence"
+    },
+    {
+      "path": "src/lib/database/AuditLogSchema.ts",
+      "lines": 27,
+      "sha256": "933b99294646ecd065ba6e0a29ca6b03e0c521773df5afa84927c60870ff49c1",
+      "review": "Entire pinned file independently read by root; checked against source capture and bounded query evidence"
+    },
+    {
+      "path": "src/lib/database/DbAuditLog.ts",
+      "lines": 24,
+      "sha256": "2b083879161e0fd4fb75f7dcb9d7624859a532afef2828f80a26cc9a1e929b9c",
+      "review": "Entire pinned file independently read by root; checked against source capture and bounded query evidence"
+    },
+    {
+      "path": "src/lib/database/database.ts",
+      "lines": 42,
+      "sha256": "02d652eb26e2ffcafc5246bd087f4e4476c3225fac6f541f86610cb075ae1a63",
+      "review": "Entire pinned file independently read by root; checked against source capture and bounded query evidence"
+    },
+    {
+      "path": "src/app/api/market-details/markets/[id]/route.ts",
+      "lines": 14,
+      "sha256": "65796c2bfb6c170e8067033af07bf1949420e230b405e9352dbf297ed35f9da7",
+      "review": "Entire pinned file independently read by root; checked against source capture and bounded query evidence"
+    },
+    {
+      "path": "src/app/api/assortment-admin/global-dictionaries/route.ts",
+      "lines": 13,
+      "sha256": "a3e4e892a6e72b5bf0e022829d1b73a87fa397637570d5af8593a7213dbd4b46",
+      "review": "Entire pinned file independently read by root; checked against source capture and bounded query evidence"
+    },
+    {
+      "path": "src/app/healthcheck/route.ts",
+      "lines": 5,
+      "sha256": "bbc674a4518e3c0e8ebfcdbcaa932e70defecdb2e9659e0567b6751c8c7d3bb3",
+      "review": "Entire pinned file independently read by root; checked against source capture and bounded query evidence"
+    },
+    {
+      "path": "src/shared/open-api-handler.ts",
+      "lines": 124,
+      "sha256": "e74a2bfd64730fe5016de1ad92b10046e6d97f913cf415eb65a421a98814679f",
+      "review": "Entire pinned file independently read by root; checked against source capture and bounded query evidence"
+    },
+    {
+      "path": "src/lib/MsalClient.ts",
+      "lines": 144,
+      "sha256": "b8f00db0b9da717f9715bd512b76e806627cadb3a6a7f2acb9a2ba5cc50d2bd2",
+      "review": "Entire pinned file independently read by root; checked against source capture and bounded query evidence"
+    },
+    {
+      "path": "src/app/super-admins/components/AddSuperAdminPanel/AddSuperAdminPanel.tsx",
+      "lines": 170,
+      "sha256": "3743028e92eec00392555214f57a11990277e621b225055047ae53f6b4642ef4",
+      "review": "Entire pinned file independently read by root; checked against source capture and bounded query evidence"
+    },
+    {
+      "path": "src/state/User/userReducer.ts",
+      "lines": 329,
+      "sha256": "e021cfd0e8aa93f9d6874b229c28024c55414eb9f3e700be9ed94fe38d117cf8",
+      "review": "Entire pinned file independently read by root; checked against source capture and bounded query evidence"
+    },
+    {
+      "path": "src/state/User/UserProvider.tsx",
+      "lines": 228,
+      "sha256": "68a58c2d79a08e9e650bdb5575a3e4725144dce828535e0508a62c5abd86c2f4",
+      "review": "Entire pinned file independently read by root; checked against source capture and bounded query evidence"
+    }
+  ],
+  "snapshot": "2a2790fddb9e55b08afa6b9487a33753a0876f5ece3932861b055ca2564d2067"
+}

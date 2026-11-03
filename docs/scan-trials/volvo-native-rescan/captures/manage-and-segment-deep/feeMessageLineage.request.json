@@ -1,0 +1,21 @@
+{
+  "format": "groundwork-query/v3",
+  "snapshot": "9958d25719399c959ece547e827c4b7f92f853a983c8b2669f34e08ca6f7f0cc",
+  "query": "value",
+  "entry": "masdeep-b360506/entry/post-api-commercial-items-fees",
+  "value": "masdeep-b360506/depth/bound/producer/Fee/Created/value/message",
+  "context": [
+    "masdeep-b360506/depth/bound/controller/post-api-commercial-items-fees/op/service",
+    "masdeep-b360506/depth/bound/service/Fee/add/op/notify",
+    "masdeep-b360506/depth/bound/notify-private/Fee/Created/op/notify",
+    "masdeep-b360506/depth/bound/notification/Fee/Created/op/producer"
+  ],
+  "outcome": null,
+  "changed": [],
+  "representation": "constructed",
+  "candidates": "exclude",
+  "maxNodes": 1500,
+  "maxRecords": 5000,
+  "environment": "production-profile",
+  "ids": []
+}

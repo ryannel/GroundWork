@@ -1,0 +1,148 @@
+{
+  "changed": [
+    {
+      "operation": "volvo/cce-car-configuration-generator/c91f73a5a3b6/final-r6/body/operation/f50de2c4ab2062f6ebf1/10",
+      "removedResult": "volvo/cce-car-configuration-generator/c91f73a5a3b6/final-r6/body/value/f50de2c4ab2062f6ebf1/10",
+      "sourceType": "github.com/volvo-cars/cce-car-configuration-generator/internal/api/httpserver/middleware.Logger",
+      "method": "Errorw",
+      "path": "internal/api/httpserver/middleware/alarm.go",
+      "lines": [17, 17],
+      "declarationPath": "internal/api/httpserver/middleware/logger.go",
+      "declarationLines": [9, 9]
+    },
+    {
+      "operation": "volvo/cce-car-configuration-generator/c91f73a5a3b6/final-r6/body/operation/856137779a2a920fbab3/11",
+      "removedResult": "volvo/cce-car-configuration-generator/c91f73a5a3b6/final-r6/body/value/856137779a2a920fbab3/11",
+      "sourceType": "github.com/volvo-cars/cce-car-configuration-generator/internal/api/httpserver/middleware.Logger",
+      "method": "Errorw",
+      "path": "internal/api/httpserver/middleware/panic.go",
+      "lines": [14, 14],
+      "declarationPath": "internal/api/httpserver/middleware/logger.go",
+      "declarationLines": [9, 9]
+    },
+    {
+      "operation": "volvo/cce-car-configuration-generator/c91f73a5a3b6/final-r6/body/operation/5fddd939376aec02078a/22",
+      "removedResult": "volvo/cce-car-configuration-generator/c91f73a5a3b6/final-r6/body/value/5fddd939376aec02078a/22",
+      "sourceType": "github.com/volvo-cars/cce-car-configuration-generator/internal/api/httpserver/middleware.Option",
+      "method": "option",
+      "path": "internal/api/httpserver/middleware/tracing.go",
+      "lines": [99, 99],
+      "declarationPath": "internal/api/httpserver/middleware/tracing.go",
+      "declarationLines": [22, 22]
+    },
+    {
+      "operation": "volvo/cce-car-configuration-generator/c91f73a5a3b6/final-r6/body/operation/f6a7ddad79f0cfe74d85/14",
+      "removedResult": "volvo/cce-car-configuration-generator/c91f73a5a3b6/final-r6/body/value/f6a7ddad79f0cfe74d85/14",
+      "sourceType": "github.com/volvo-cars/cce-car-configuration-generator/internal/app.SentryClient",
+      "method": "CaptureMessage",
+      "path": "internal/app/logging.go",
+      "lines": [17, 17],
+      "declarationPath": "internal/app/sentry.go",
+      "declarationLines": [43, 43]
+    },
+    {
+      "operation": "volvo/cce-car-configuration-generator/c91f73a5a3b6/final-r6/body/operation/b8c735f850f085703947/1",
+      "removedResult": "volvo/cce-car-configuration-generator/c91f73a5a3b6/final-r6/body/value/b8c735f850f085703947/1",
+      "sourceType": "github.com/volvo-cars/cce-car-configuration-generator/internal/app.SentryClient",
+      "method": "Close",
+      "path": "internal/app/sentry.go",
+      "lines": [129, 129],
+      "declarationPath": "internal/app/sentry.go",
+      "declarationLines": [42, 42]
+    },
+    {
+      "operation": "volvo/cce-car-configuration-generator/c91f73a5a3b6/final-r6/body/operation/40041d20ca7eb1094678/5",
+      "removedResult": "volvo/cce-car-configuration-generator/c91f73a5a3b6/final-r6/body/value/40041d20ca7eb1094678/5",
+      "sourceType": "github.com/volvo-cars/cce-car-configuration-generator/internal/database/postgres.InsertCarKeysRecorder",
+      "method": "RecordDuration",
+      "path": "internal/database/postgres/carkeyrepository.go",
+      "lines": [273, 273],
+      "declarationPath": "internal/database/postgres/carkeyrepository.go",
+      "declarationLines": [19, 19]
+    },
+    {
+      "operation": "volvo/cce-car-configuration-generator/c91f73a5a3b6/final-r6/body/operation/c1296b667daf8dadf68f/17",
+      "removedResult": "volvo/cce-car-configuration-generator/c91f73a5a3b6/final-r6/body/value/c1296b667daf8dadf68f/17",
+      "sourceType": "github.com/volvo-cars/cce-car-configuration-generator/internal/gateway/client.Option",
+      "method": "option",
+      "path": "internal/gateway/client/client.go",
+      "lines": [59, 59],
+      "declarationPath": "internal/gateway/client/client.go",
+      "declarationLines": [20, 20]
+    },
+    {
+      "operation": "volvo/cce-car-configuration-generator/c91f73a5a3b6/final-r6/body/operation/0caa2ea6b8d59421f749/4",
+      "removedResult": "volvo/cce-car-configuration-generator/c91f73a5a3b6/final-r6/body/value/0caa2ea6b8d59421f749/4",
+      "sourceType": "github.com/volvo-cars/cce-car-configuration-generator/internal/messaging.MarketAuthSyncCounter",
+      "method": "CountReceived",
+      "path": "internal/messaging/marketauthmessagehandler.go",
+      "lines": [44, 44],
+      "declarationPath": "internal/messaging/marketauthmessagehandler.go",
+      "declarationLines": [19, 19]
+    },
+    {
+      "operation": "volvo/cce-car-configuration-generator/c91f73a5a3b6/final-r6/body/operation/9a6873e0e735ed529616/28",
+      "removedResult": "volvo/cce-car-configuration-generator/c91f73a5a3b6/final-r6/body/value/9a6873e0e735ed529616/28",
+      "sourceType": "github.com/volvo-cars/cce-car-configuration-generator/internal/messaging.MarketAuthSyncCounter",
+      "method": "CountSuccess",
+      "path": "internal/messaging/marketauthmessagehandler.go",
+      "lines": [84, 84],
+      "declarationPath": "internal/messaging/marketauthmessagehandler.go",
+      "declarationLines": [20, 20]
+    }
+  ],
+  "callables": [
+    {
+      "operation": "volvo/cce-car-configuration-generator/c91f73a5a3b6/final-r6/body/operation/5fddd939376aec02078a/22",
+      "callable": "volvo/cce-car-configuration-generator/c91f73a5a3b6/final-r6/body/value/5fddd939376aec02078a/21",
+      "type": "github.com/volvo-cars/cce-car-configuration-generator/internal/api/httpserver/middleware.Option"
+    },
+    {
+      "operation": "volvo/cce-car-configuration-generator/c91f73a5a3b6/final-r6/body/operation/48045fcf0a17529dd80f/1",
+      "callable": "volvo/cce-car-configuration-generator/c91f73a5a3b6/final-r6/body/implementation/48045fcf0a17529dd80f/receiver",
+      "type": "github.com/volvo-cars/cce-car-configuration-generator/internal/gateway/client.RoundTripperFunc"
+    },
+    {
+      "operation": "volvo/cce-car-configuration-generator/c91f73a5a3b6/final-r6/body/operation/c1296b667daf8dadf68f/17",
+      "callable": "volvo/cce-car-configuration-generator/c91f73a5a3b6/final-r6/body/value/c1296b667daf8dadf68f/16",
+      "type": "github.com/volvo-cars/cce-car-configuration-generator/internal/gateway/client.Option"
+    },
+    {
+      "operation": "volvo/cce-car-configuration-generator/c91f73a5a3b6/final-r6/body/operation/da85ac525dd46a0af0d8/24",
+      "callable": "volvo/cce-car-configuration-generator/c91f73a5a3b6/final-r6/body/value/da85ac525dd46a0af0d8/23",
+      "type": "github.com/volvo-cars/cce-car-configuration-generator/internal/gateway/client.Tripperware"
+    },
+    {
+      "operation": "volvo/cce-car-configuration-generator/c91f73a5a3b6/final-r6/body/operation/c9a3a19a84612df3d5ca/15",
+      "callable": "volvo/cce-car-configuration-generator/c91f73a5a3b6/final-r6/body/implementation/c9a3a19a84612df3d5ca/parameter/1",
+      "type": "func(ctx context.Context, tx pgx.Tx) error"
+    }
+  ],
+  "removedRecords": [
+    "volvo/cce-car-configuration-generator/c91f73a5a3b6/final-r6/body/derivation/221f882de6e475e0f14a",
+    "volvo/cce-car-configuration-generator/c91f73a5a3b6/final-r6/body/derivation/24a6cf905e3765c14311",
+    "volvo/cce-car-configuration-generator/c91f73a5a3b6/final-r6/body/derivation/521fdea21c3e8d2bec62",
+    "volvo/cce-car-configuration-generator/c91f73a5a3b6/final-r6/body/derivation/5dbb205b2b8e5905eef9",
+    "volvo/cce-car-configuration-generator/c91f73a5a3b6/final-r6/body/derivation/6ce4561d7d26ae57a666",
+    "volvo/cce-car-configuration-generator/c91f73a5a3b6/final-r6/body/derivation/8c071d0094d49e711eff",
+    "volvo/cce-car-configuration-generator/c91f73a5a3b6/final-r6/body/derivation/8d6c4e89c9dccbaca128",
+    "volvo/cce-car-configuration-generator/c91f73a5a3b6/final-r6/body/derivation/cbc400d39dac9c2e00f0",
+    "volvo/cce-car-configuration-generator/c91f73a5a3b6/final-r6/body/derivation/e8c874606649b1369077",
+    "volvo/cce-car-configuration-generator/c91f73a5a3b6/final-r6/body/value/0caa2ea6b8d59421f749/4",
+    "volvo/cce-car-configuration-generator/c91f73a5a3b6/final-r6/body/value/40041d20ca7eb1094678/5",
+    "volvo/cce-car-configuration-generator/c91f73a5a3b6/final-r6/body/value/5fddd939376aec02078a/22",
+    "volvo/cce-car-configuration-generator/c91f73a5a3b6/final-r6/body/value/856137779a2a920fbab3/11",
+    "volvo/cce-car-configuration-generator/c91f73a5a3b6/final-r6/body/value/9a6873e0e735ed529616/28",
+    "volvo/cce-car-configuration-generator/c91f73a5a3b6/final-r6/body/value/b8c735f850f085703947/1",
+    "volvo/cce-car-configuration-generator/c91f73a5a3b6/final-r6/body/value/c1296b667daf8dadf68f/17",
+    "volvo/cce-car-configuration-generator/c91f73a5a3b6/final-r6/body/value/f50de2c4ab2062f6ebf1/10",
+    "volvo/cce-car-configuration-generator/c91f73a5a3b6/final-r6/body/value/f6a7ddad79f0cfe74d85/14"
+  ],
+  "prefixes": {
+    "volvo/cce-car-configuration-generator/c91f73a5a3b6/final-r1/": "volvo/cce-car-configuration-generator/c91f73a5a3b6/final-r6/body/",
+    "volvo/cce-car-configuration-generator/c91f73a5a3b6/declarations-r2/": "volvo/cce-car-configuration-generator/c91f73a5a3b6/final-r6/declarations/"
+  },
+  "finalPrefixMove": {
+    "volvo/cce-car-configuration-generator/c91f73a5a3b6/final-r4/": "volvo/cce-car-configuration-generator/c91f73a5a3b6/final-r6/"
+  }
+}

@@ -1,0 +1,74 @@
+[
+  {
+    "name": "HealthCheck",
+    "entry": "caas-car-configurator-5495209-complete-r2/entry/rpc/HealthCheck",
+    "implementation": "caas-car-configurator-5495209-complete-r2/implementation/71cf10ff7935eef3",
+    "contract": "caas-car-configurator-5495209-complete-r2/interface_contract/rpc/HealthCheck",
+    "request": "caas-car-configurator-5495209-complete-r2/shape/protobuf/HealthCheckRequest",
+    "response": "caas-car-configurator-5495209-complete-r2/shape/protobuf/HealthCheckResponse"
+  },
+  {
+    "name": "CreateRuleset",
+    "entry": "caas-car-configurator-5495209-complete-r2/entry/rpc/CreateRuleset",
+    "implementation": "caas-car-configurator-5495209-complete-r2/implementation/4724396503bbf856",
+    "contract": "caas-car-configurator-5495209-complete-r2/interface_contract/rpc/CreateRuleset",
+    "request": "caas-car-configurator-5495209-complete-r2/shape/protobuf/CarSpecification",
+    "response": "caas-car-configurator-5495209-complete-r2/shape/protobuf/CreateRulesetResponse"
+  },
+  {
+    "name": "DeleteRuleset",
+    "entry": "caas-car-configurator-5495209-complete-r2/entry/rpc/DeleteRuleset",
+    "implementation": "caas-car-configurator-5495209-complete-r2/implementation/f3028988d25d5925",
+    "contract": "caas-car-configurator-5495209-complete-r2/interface_contract/rpc/DeleteRuleset",
+    "request": "caas-car-configurator-5495209-complete-r2/shape/protobuf/DeleteRulesetRequest",
+    "response": "caas-car-configurator-5495209-complete-r2/shape/protobuf/google.protobuf.Empty"
+  },
+  {
+    "name": "CalculateCarKeyV2",
+    "entry": "caas-car-configurator-5495209-complete-r2/entry/rpc/CalculateCarKeyV2",
+    "implementation": "caas-car-configurator-5495209-complete-r2/implementation/847db77ace27067a",
+    "contract": "caas-car-configurator-5495209-complete-r2/interface_contract/rpc/CalculateCarKeyV2",
+    "request": "caas-car-configurator-5495209-complete-r2/shape/protobuf/CalculateCarKeyRequestV2",
+    "response": "caas-car-configurator-5495209-complete-r2/shape/protobuf/CarKey"
+  },
+  {
+    "name": "CalculateStartCarKeys",
+    "entry": "caas-car-configurator-5495209-complete-r2/entry/rpc/CalculateStartCarKeys",
+    "implementation": "caas-car-configurator-5495209-complete-r2/implementation/89a7e9c5ff2a58a0",
+    "contract": "caas-car-configurator-5495209-complete-r2/interface_contract/rpc/CalculateStartCarKeys",
+    "request": "caas-car-configurator-5495209-complete-r2/shape/protobuf/CalculateStartCarKeysRequest",
+    "response": "caas-car-configurator-5495209-complete-r2/shape/protobuf/StartCarKeysResponse"
+  },
+  {
+    "name": "CalculateBaseCarKeys",
+    "entry": "caas-car-configurator-5495209-complete-r2/entry/rpc/CalculateBaseCarKeys",
+    "implementation": "caas-car-configurator-5495209-complete-r2/implementation/f55dd2ca39bf2ddc",
+    "contract": "caas-car-configurator-5495209-complete-r2/interface_contract/rpc/CalculateBaseCarKeys",
+    "request": "caas-car-configurator-5495209-complete-r2/shape/protobuf/CalculateBaseCarKeysRequest",
+    "response": "caas-car-configurator-5495209-complete-r2/shape/protobuf/BaseCarKeysResponse"
+  },
+  {
+    "name": "CalculateNextCarKeys",
+    "entry": "caas-car-configurator-5495209-complete-r2/entry/rpc/CalculateNextCarKeys",
+    "implementation": "caas-car-configurator-5495209-complete-r2/implementation/81ff530482557c38",
+    "contract": "caas-car-configurator-5495209-complete-r2/interface_contract/rpc/CalculateNextCarKeys",
+    "request": "caas-car-configurator-5495209-complete-r2/shape/protobuf/CalculateNextCarKeysRequest",
+    "response": "caas-car-configurator-5495209-complete-r2/shape/protobuf/NextCarKeysResponse"
+  },
+  {
+    "name": "CalculateManyCarKeys",
+    "entry": "caas-car-configurator-5495209-complete-r2/entry/rpc/CalculateManyCarKeys",
+    "implementation": "caas-car-configurator-5495209-complete-r2/implementation/04aa3082e5a17071",
+    "contract": "caas-car-configurator-5495209-complete-r2/interface_contract/rpc/CalculateManyCarKeys",
+    "request": "caas-car-configurator-5495209-complete-r2/shape/protobuf/CalculateManyCarKeysRequest",
+    "response": "caas-car-configurator-5495209-complete-r2/shape/protobuf/CalculateManyCarKeysResponse"
+  },
+  {
+    "name": "GetCarSpecification",
+    "entry": "caas-car-configurator-5495209-complete-r2/entry/rpc/GetCarSpecification",
+    "implementation": "caas-car-configurator-5495209-complete-r2/implementation/9cd2ec5808cd5d01",
+    "contract": "caas-car-configurator-5495209-complete-r2/interface_contract/rpc/GetCarSpecification",
+    "request": "caas-car-configurator-5495209-complete-r2/shape/protobuf/GetCarSpecificationRequest",
+    "response": "caas-car-configurator-5495209-complete-r2/shape/protobuf/CarSpecification"
+  }
+]

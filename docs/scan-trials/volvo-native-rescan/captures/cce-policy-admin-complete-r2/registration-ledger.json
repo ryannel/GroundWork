@@ -1,0 +1,170 @@
+[
+  {
+    "kind": "fx.Provide",
+    "source": "newValidator",
+    "lines": [31, 31],
+    "implementation": "volvo/cce-policy-admin/88a3512f0307/local-r2/implementation/001088b2be48ddf3cd",
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/registration/a15faf6f6c7e4c11d7"
+  },
+  {
+    "kind": "fx.Provide",
+    "source": "newLogger",
+    "lines": [32, 32],
+    "implementation": "volvo/cce-policy-admin/88a3512f0307/local-r2/implementation/ac14063c4b78214eb9",
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/registration/9b6c13f0d182b253c6"
+  },
+  {
+    "kind": "fx.Provide",
+    "source": "newBinderConfig",
+    "lines": [33, 33],
+    "implementation": "volvo/cce-policy-admin/88a3512f0307/local-r2/implementation/3b5f0e3f8a1cf3336b",
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/registration/eaf89db7108470dc3f"
+  },
+  {
+    "kind": "fx.Provide",
+    "source": "newConfig",
+    "lines": [34, 34],
+    "implementation": "volvo/cce-policy-admin/88a3512f0307/local-r2/implementation/c7ad16c66aacfd1d5b",
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/registration/4d5e5deb0353d3a6c0"
+  },
+  {
+    "kind": "fx.Provide",
+    "source": "httpsrvr.NewRouter",
+    "lines": [36, 36],
+    "implementation": "volvo/cce-policy-admin/88a3512f0307/local-r2/implementation/6c219adbb5c8c702eb",
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/registration/a5af16fb4a4856cc3f"
+  },
+  {
+    "kind": "fx.Provide",
+    "source": "httpsrvr.New",
+    "lines": [37, 37],
+    "implementation": "volvo/cce-policy-admin/88a3512f0307/local-r2/implementation/4da33ab5e592c26695",
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/registration/12bdc9eedc0abc0dc0"
+  },
+  {
+    "kind": "fx.Provide",
+    "source": "controller.NewController",
+    "lines": [38, 38],
+    "implementation": "volvo/cce-policy-admin/88a3512f0307/local-r2/implementation/b29b068c1d07155eb2",
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/registration/30e26cef13a6dbbf0e"
+  },
+  {
+    "kind": "fx.Provide",
+    "source": "newAzureBlobStorageConfig",
+    "lines": [39, 39],
+    "implementation": "volvo/cce-policy-admin/88a3512f0307/local-r2/implementation/8011d2f00d63d6f709",
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/registration/c8c9cad7b920b50f71"
+  },
+  {
+    "kind": "fx.Provide",
+    "source": "blobstorage.NewBlobStorage",
+    "lines": [40, 40],
+    "implementation": "volvo/cce-policy-admin/88a3512f0307/local-r2/implementation/d6c9b52432423a1802",
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/registration/21eb478c997305f06e"
+  },
+  {
+    "kind": "fx.Provide",
+    "source": "newWatermillRouter",
+    "lines": [41, 41],
+    "implementation": "volvo/cce-policy-admin/88a3512f0307/local-r2/implementation/4ea2f5ee8efeb45eac",
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/registration/ce7d916f3b5c6edb42"
+  },
+  {
+    "kind": "fx.Provide",
+    "source": "newWatermillCommandBus",
+    "lines": [42, 42],
+    "implementation": "volvo/cce-policy-admin/88a3512f0307/local-r2/implementation/a4c822c651a5c98fbb",
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/registration/8c004c94eb689b3765"
+  },
+  {
+    "kind": "fx.Provide",
+    "source": "newWatermillCommandProcessor",
+    "lines": [43, 43],
+    "implementation": "volvo/cce-policy-admin/88a3512f0307/local-r2/implementation/8b7c41e0005827c3ed",
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/registration/f00f2e7bca65e9f840"
+  },
+  {
+    "kind": "fx.Provide",
+    "source": "newWatermillCQRSMarshaler",
+    "lines": [44, 44],
+    "implementation": "volvo/cce-policy-admin/88a3512f0307/local-r2/implementation/ee86e5892c43756b8b",
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/registration/e8c5e943ad4fd9d115"
+  },
+  {
+    "kind": "fx.Provide",
+    "source": "fx.Annotate(\n\t\t\t\t\tnewWatermillGoChannel,\n\t\t\t\t\tfx.As(new(message.Publisher)),\n\t\t\t\t\tfx.As(new(message.Subscriber)),\n\t\t\t\t)",
+    "lines": [45, 49],
+    "implementation": "volvo/cce-policy-admin/88a3512f0307/local-r2/implementation/c02d816ebc838c9c3f",
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/registration/47c5fbf51c636da0b4"
+  },
+  {
+    "kind": "fx.Provide",
+    "source": "command.NewPolicyUpdateCommandHandler",
+    "lines": [50, 50],
+    "implementation": "volvo/cce-policy-admin/88a3512f0307/local-r2/implementation/6aca8762311578a868",
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/registration/cbfad02f9ed2a8d1e0"
+  },
+  {
+    "kind": "fx.Provide",
+    "source": "fx.Annotate(\n\t\t\t\t\tinmemory.NewPolicyRepository,\n\t\t\t\t\tfx.As(new(domain.PolicyRepository)),\n\t\t\t\t)",
+    "lines": [51, 54],
+    "implementation": "volvo/cce-policy-admin/88a3512f0307/local-r2/implementation/67944fb9d3bc3f284b",
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/registration/7deef068fe937f6dcc"
+  },
+  {
+    "kind": "fx.Provide",
+    "source": "fx.Annotate(\n\t\t\t\t\tinmemory.NewCarRepository,\n\t\t\t\t\tfx.As(new(domain.CarRepository)),\n\t\t\t\t)",
+    "lines": [55, 58],
+    "implementation": "volvo/cce-policy-admin/88a3512f0307/local-r2/implementation/dd29a45580cf956e1a",
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/registration/117019447c8cafa16c"
+  },
+  {
+    "kind": "fx.Provide",
+    "source": "fx.Annotate(\n\t\t\t\t\tblobstorage.NewBlobStorage,\n\t\t\t\t\tfx.As(new(command.X)),\n\t\t\t\t)",
+    "lines": [59, 62],
+    "implementation": "volvo/cce-policy-admin/88a3512f0307/local-r2/implementation/d6c9b52432423a1802",
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/registration/a61c5cdf78281955d9"
+  },
+  {
+    "kind": "fx.Invoke",
+    "source": "func(router httpsrvr.Router) {\n\t\t\t\trouter.AddRoutes()\n\t\t\t}",
+    "lines": [65, 67],
+    "implementation": "volvo/cce-policy-admin/88a3512f0307/local-r2/implementation/5abaf0296c9bb2e6a6",
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/registration/679b0ecadd205e5143"
+  },
+  {
+    "kind": "fx.Invoke",
+    "source": "initializeDBCloseHook",
+    "lines": [69, 69],
+    "implementation": "volvo/cce-policy-admin/88a3512f0307/local-r2/implementation/8004c5ca6318dfd255",
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/registration/ddb3686e0d40ad1e87"
+  },
+  {
+    "kind": "fx.Invoke",
+    "source": "initializeWatermillRunHook",
+    "lines": [70, 70],
+    "implementation": "volvo/cce-policy-admin/88a3512f0307/local-r2/implementation/5bf47a195861610531",
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/registration/6debfc7d20fed1535e"
+  },
+  {
+    "kind": "fx.Invoke",
+    "source": "initializeWatermillCloseHook",
+    "lines": [71, 71],
+    "implementation": "volvo/cce-policy-admin/88a3512f0307/local-r2/implementation/0c2fb4520b2039a47b",
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/registration/319f6d0f44f72b8278"
+  },
+  {
+    "kind": "fx.Invoke",
+    "source": "addCommandHandlers",
+    "lines": [72, 72],
+    "implementation": "volvo/cce-policy-admin/88a3512f0307/local-r2/implementation/227da87a5d033dc3fd",
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/registration/262fbc155dc2e68571"
+  },
+  {
+    "kind": "fx.Invoke",
+    "source": "startHTTPServer",
+    "lines": [73, 73],
+    "implementation": "volvo/cce-policy-admin/88a3512f0307/local-r2/implementation/9e5143159aac7b8adc",
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/registration/678fdf60f09b909c91"
+  }
+]

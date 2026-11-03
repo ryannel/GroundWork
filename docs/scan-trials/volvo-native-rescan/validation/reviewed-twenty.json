@@ -1,0 +1,189 @@
+{
+  "status": "passed",
+  "qualification": "Independent replay of all currently selected source captures through current canonical schema/semantic/hash validation and offline pinned source ranges. Selections remain separate; this is not a combined reconciled snapshot, deployment proof or performance SLA.",
+  "captures": 20,
+  "records": 1386798,
+  "sourceRanges": 134886,
+  "results": [
+    {
+      "repo": "volvo-cars/account-profile-api",
+      "snapshot": "3279017c3ab086d138a0b7115f74612844f6bdff280a613228c1ecf3887fd5e0",
+      "records": 6996,
+      "sourceRanges": 854,
+      "status": "passed",
+      "problems": [],
+      "elapsedMs": 1285
+    },
+    {
+      "repo": "volvo-cars/caas-car-configurator",
+      "snapshot": "73731576937e6406a98aa6e365638fd7a95248c5f5e1491b32d06e880e66eaaf",
+      "records": 96266,
+      "sourceRanges": 12479,
+      "status": "passed",
+      "problems": [],
+      "elapsedMs": 4226
+    },
+    {
+      "repo": "volvo-cars/cce-admin-ui",
+      "snapshot": "2a2790fddb9e55b08afa6b9487a33753a0876f5ece3932861b055ca2564d2067",
+      "records": 285492,
+      "sourceRanges": 27855,
+      "status": "passed",
+      "problems": [],
+      "elapsedMs": 20334
+    },
+    {
+      "repo": "volvo-cars/cce-car-configuration-generator",
+      "snapshot": "0ac2e18ce4b075f34192ea8ac6d08ec111f69de317b351aaffa47d1889eb6106",
+      "records": 137812,
+      "sourceRanges": 8904,
+      "status": "passed",
+      "problems": [],
+      "elapsedMs": 5929
+    },
+    {
+      "repo": "volvo-cars/cce-car-spec-adapter",
+      "snapshot": "8c7ac6f69f63c70ff8f40c3d8ece4c2af1a9a7205f60cf06a70d0bd81591692b",
+      "records": 118415,
+      "sourceRanges": 14282,
+      "status": "passed",
+      "problems": [],
+      "elapsedMs": 5152
+    },
+    {
+      "repo": "volvo-cars/cce-cpam-ingress",
+      "snapshot": "9273eddda4c5fff911958b4a6b82143b69d166f1a50b66279bb19755660f27aa",
+      "records": 160947,
+      "sourceRanges": 18713,
+      "status": "passed",
+      "problems": [],
+      "elapsedMs": 6207
+    },
+    {
+      "repo": "volvo-cars/cce-filter-service",
+      "snapshot": "026b45380097c239e2511a7ce9186329c0af6e0a24ba7bf73beac41b6e39705f",
+      "records": 60208,
+      "sourceRanges": 3633,
+      "status": "passed",
+      "problems": [],
+      "elapsedMs": 3208
+    },
+    {
+      "repo": "volvo-cars/cce-optimization-api",
+      "snapshot": "bd0ce620207f239f5d3d2fe197a26fe533e31b25dc690680b145d771cf5d6664",
+      "records": 115349,
+      "sourceRanges": 11428,
+      "status": "passed",
+      "problems": [],
+      "elapsedMs": 4361
+    },
+    {
+      "repo": "volvo-cars/cce-pb-contracts-car-configuration",
+      "snapshot": "9d5411b64c10e530e8307fb8c6dc9f0c1b3b76151a769f6f94a1c746385d08c5",
+      "records": 961,
+      "sourceRanges": 515,
+      "status": "passed",
+      "problems": [],
+      "elapsedMs": 275
+    },
+    {
+      "repo": "volvo-cars/cce-policy-admin",
+      "snapshot": "9e022859e4914b70a3c8a8471e410025f4a69f006a47ba076256a14ed722c373",
+      "records": 34109,
+      "sourceRanges": 4532,
+      "status": "passed",
+      "problems": [],
+      "elapsedMs": 1573
+    },
+    {
+      "repo": "volvo-cars/cce-prins-validator",
+      "snapshot": "51b6a331102fba3d4883137b7e7845e9c6bd0a71c7e4d2d621bb926668267905",
+      "records": 10680,
+      "sourceRanges": 1302,
+      "status": "passed",
+      "problems": [],
+      "elapsedMs": 862
+    },
+    {
+      "repo": "volvo-cars/cce-retail-ingress",
+      "snapshot": "f06cf27a34008539e23495f4d8023b6cd4f407d1768ab0470d8506af7a1ee6e8",
+      "records": 25378,
+      "sourceRanges": 3202,
+      "status": "passed",
+      "problems": [],
+      "elapsedMs": 1460
+    },
+    {
+      "repo": "volvo-cars/cds-ecom-cart-service",
+      "snapshot": "b957447c66cc73327797c780159c9277dbeb17159f0758d5ab8a225f3a0092f1",
+      "records": 12329,
+      "sourceRanges": 1490,
+      "status": "passed",
+      "problems": [],
+      "elapsedMs": 2485
+    },
+    {
+      "repo": "volvo-cars/cds-paymentservice-customer",
+      "snapshot": "4ff3b8eb46af1252c54e83f0ecfd54473b14789701783ec1ff6fcb7d13591ab6",
+      "records": 15577,
+      "sourceRanges": 1564,
+      "status": "passed",
+      "problems": [],
+      "elapsedMs": 1279
+    },
+    {
+      "repo": "volvo-cars/cds-paymentservice-psp-inbound",
+      "snapshot": "1b0d1a29545f67f31cc7f7eaf8f4a5c0d31f29568adde0f94697275af4b6a56c",
+      "records": 10713,
+      "sourceRanges": 636,
+      "status": "passed",
+      "problems": [],
+      "elapsedMs": 929
+    },
+    {
+      "repo": "volvo-cars/cds-paymentservice-psp-integration",
+      "snapshot": "b70c8fd860424a42de9de948c21109efc6cee4e340ced841c0ec50d45d7586ac",
+      "records": 31278,
+      "sourceRanges": 3868,
+      "status": "passed",
+      "problems": [],
+      "elapsedMs": 3103
+    },
+    {
+      "repo": "volvo-cars/cds-paymentservice-scheduler",
+      "snapshot": "c928e6c2ac32cd9acf39877d95d4e6b0f4081d2066a120c42a7a9d281752a5df",
+      "records": 27184,
+      "sourceRanges": 1447,
+      "status": "passed",
+      "problems": [],
+      "elapsedMs": 1826
+    },
+    {
+      "repo": "volvo-cars/cds-paymentservice-transaction",
+      "snapshot": "5c7d986c75ed935403fcd8f299d6183fcc24ba2988e7a717d8e47a0234cbaa1d",
+      "records": 56113,
+      "sourceRanges": 4417,
+      "status": "passed",
+      "problems": [],
+      "elapsedMs": 3411
+    },
+    {
+      "repo": "volvo-cars/popcat-assortment-api",
+      "snapshot": "bde9df8e50cc2c5f43e1cc44cdb2b6828222a7b94dfd7d7c4d597beb86a4213c",
+      "records": 54223,
+      "sourceRanges": 7127,
+      "status": "passed",
+      "problems": [],
+      "elapsedMs": 4830
+    },
+    {
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "snapshot": "f2469543e6a0839ae1bdb2dc3cdb832ab113ceea0cb97683d844132fad63e95e",
+      "records": 126768,
+      "sourceRanges": 6638,
+      "status": "passed",
+      "problems": [],
+      "elapsedMs": 10461
+    }
+  ]
+}

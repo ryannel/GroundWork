@@ -1,0 +1,105 @@
+{
+  "repository": "volvo-cars/cds-paymentservice-psp-integration",
+  "commit": "dabd6c825499b706ff4ddbf15eaf354adbfb6794",
+  "files": [
+    {
+      "path": "cds-paymentservice-psp-integration-api/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/api/transaction/v1/TransactionController.java",
+      "commit": "dabd6c825499b706ff4ddbf15eaf354adbfb6794",
+      "sha256": "e6f732c901222815d6704813310a6e311c8ec80c3ded4ff17e03d653bc6bcf01",
+      "lines": 78,
+      "inspection": "complete pinned source text read by root"
+    },
+    {
+      "path": "cds-paymentservice-psp-integration-api/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/api/transaction/v1/impl/TransactionControllerImpl.java",
+      "commit": "dabd6c825499b706ff4ddbf15eaf354adbfb6794",
+      "sha256": "81cd0ba64be7741cdf44378831df8c29264d8ab2c8c1e235ea156c5f552ca950",
+      "lines": 124,
+      "inspection": "complete pinned source text read by root"
+    },
+    {
+      "path": "cds-paymentservice-psp-integration-core/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/transaction/PspTransactionService.java",
+      "commit": "dabd6c825499b706ff4ddbf15eaf354adbfb6794",
+      "sha256": "4e09497ad78e3cd9a89be4dd23b8a438001f4ef193fe44c9c6a35e0d79119e6d",
+      "lines": 127,
+      "inspection": "complete pinned source text read by root"
+    },
+    {
+      "path": "cds-paymentservice-psp-integration-core/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/transaction/TransactionOperationServiceFactory.java",
+      "commit": "dabd6c825499b706ff4ddbf15eaf354adbfb6794",
+      "sha256": "378486c57df8fad53898d3d36f03208fde6cacd7803ff99074716e03e36a3831",
+      "lines": 51,
+      "inspection": "complete pinned source text read by root"
+    },
+    {
+      "path": "cds-paymentservice-psp-integration-stripe/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/stripe/common/StripeAmountConverter.java",
+      "commit": "dabd6c825499b706ff4ddbf15eaf354adbfb6794",
+      "sha256": "f3b1233e392a8a252d7d5c252c6b15a21708792d8bcd6565126fbb162a078a28",
+      "lines": 36,
+      "inspection": "complete pinned source text read by root"
+    },
+    {
+      "path": "cds-paymentservice-psp-integration-stripe/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/stripe/common/StripeConfiguration.java",
+      "commit": "dabd6c825499b706ff4ddbf15eaf354adbfb6794",
+      "sha256": "3cfd3a9f3fe08fd3a44bbe7ac1922752f21838251c26367e7f15f17bbfa50d64",
+      "lines": 53,
+      "inspection": "complete pinned source text read by root"
+    },
+    {
+      "path": "cds-paymentservice-psp-integration-stripe/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/stripe/common/StripeRequestOptionsBuilder.java",
+      "commit": "dabd6c825499b706ff4ddbf15eaf354adbfb6794",
+      "sha256": "ab6e40878351924d25a25296ca348ed6e42d7c2655fb7d94610286945c046e8b",
+      "lines": 36,
+      "inspection": "complete pinned source text read by root"
+    },
+    {
+      "path": "cds-paymentservice-psp-integration-stripe/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/stripe/customer/StripeCustomerClient.java",
+      "commit": "dabd6c825499b706ff4ddbf15eaf354adbfb6794",
+      "sha256": "dd74436a9fa9d162217c1f795636181b2326b20a24b0eb5b1fe13f95bf4d1cac",
+      "lines": 205,
+      "inspection": "complete pinned source text read by root"
+    },
+    {
+      "path": "cds-paymentservice-psp-integration-stripe/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/stripe/paymentintent/StripePaymentIntentOperationService.java",
+      "commit": "dabd6c825499b706ff4ddbf15eaf354adbfb6794",
+      "sha256": "834c552abdea16cf1efbef813487cad94d771e35b8f5e9cf35c279a71b110585",
+      "lines": 236,
+      "inspection": "complete pinned source text read by root"
+    },
+    {
+      "path": "cds-paymentservice-psp-integration-stripe/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/stripe/paymentintent/mappers/StripeAuthoriseTransactionRequestMapper.java",
+      "commit": "dabd6c825499b706ff4ddbf15eaf354adbfb6794",
+      "sha256": "e9cab36354197c86990424006242e9ac34fca94a6b9491137d400ab70140eb23",
+      "lines": 45,
+      "inspection": "complete pinned source text read by root"
+    },
+    {
+      "path": "cds-paymentservice-psp-integration-stripe/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/stripe/paymentintent/mappers/StripeCaptureTransactionRequestMapper.java",
+      "commit": "dabd6c825499b706ff4ddbf15eaf354adbfb6794",
+      "sha256": "a299d1369047da3782ff5672f55319d6f09e24bae2e59e9d850d7bd75849dc86",
+      "lines": 22,
+      "inspection": "complete pinned source text read by root"
+    },
+    {
+      "path": "cds-paymentservice-psp-integration-stripe/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/stripe/paymentintent/mappers/StripeTransactionRequestMapper.java",
+      "commit": "dabd6c825499b706ff4ddbf15eaf354adbfb6794",
+      "sha256": "8cfdc6bed1ef98b3e01128351a21335a61bcc711c8f032612f86c881bfd83d32",
+      "lines": 191,
+      "inspection": "complete pinned source text read by root"
+    },
+    {
+      "path": "cds-paymentservice-psp-integration-stripe/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/stripe/paymentintent/mappers/StripeTransactionResponseMapper.java",
+      "commit": "dabd6c825499b706ff4ddbf15eaf354adbfb6794",
+      "sha256": "94aaad25d57d288ab6cdcd1346f881b4b4536c98039929641c84f2ee27de385c",
+      "lines": 42,
+      "inspection": "complete pinned source text read by root"
+    },
+    {
+      "path": "cds-paymentservice-psp-integration-stripe/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/stripe/paymentintent/mappers/StripeTransferDataMapper.java",
+      "commit": "dabd6c825499b706ff4ddbf15eaf354adbfb6794",
+      "sha256": "e9a433bcb76fe0626a06da14278c6f3c728cb6af9f6adebb920059ac5320c45e",
+      "lines": 42,
+      "inspection": "complete pinned source text read by root"
+    }
+  ],
+  "stage": "Source review before stable capture acceptance; no publication yet"
+}

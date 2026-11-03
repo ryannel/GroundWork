@@ -1,0 +1,528 @@
+{
+  "format": "customer-service-pipeline-trial/v1",
+  "repo": "volvo-cars/cds-ecom-customer-service",
+  "commit": "09623ab3a1f39845d8fc02abc3d591b53a3b5fea",
+  "tree": "90d342355c0ce3653b29fd2991650ea9ed2cc072",
+  "status": "partial",
+  "otherScans": "stopped_by_user",
+  "initialTrial": "reports/customer-service-pipeline-001/repository.json",
+  "finalSelection": "reports/customer-service-pipeline-003/repository.json",
+  "reviewedSelection": "reports/customer-service-pipeline-002/repository.json",
+  "finalDocumentsByteIdenticalToReviewed": true,
+  "trackedFiles": 386,
+  "productionJava": 256,
+  "testJava": 84,
+  "retainedAncillaryTextFiles": 45,
+  "excludedBinaryFiles": 1,
+  "diagnosticFreeJavaFiles": 334,
+  "quarantinedJavaFiles": 6,
+  "originalCold": {
+    "phase": "cold",
+    "shards": 9,
+    "elapsedMs": 155427.859709,
+    "blobReads": 340,
+    "parsedFiles": 340,
+    "indexHits": 0,
+    "parserDiagnostics": 21,
+    "summaries": 1885,
+    "semanticRecords": 271649,
+    "unresolvedAnswers": 2720
+  },
+  "originalWarm": {
+    "phase": "warm",
+    "shards": 9,
+    "elapsedMs": 9238.227498000022,
+    "blobReads": 0,
+    "parsedFiles": 0,
+    "indexHits": 340,
+    "parserDiagnostics": 21,
+    "summaries": 1885,
+    "semanticRecords": 271649,
+    "unresolvedAnswers": 2720
+  },
+  "finalFirst": {
+    "phase": "first",
+    "shards": 9,
+    "elapsedMs": 8834.130167,
+    "blobReads": 0,
+    "parsedFiles": 0,
+    "indexHits": 340,
+    "parserDiagnostics": 21,
+    "summaries": 1841,
+    "semanticRecords": 266321,
+    "unresolvedAnswers": 2720
+  },
+  "finalWarm": {
+    "phase": "warm",
+    "shards": 9,
+    "elapsedMs": 8433.322624999999,
+    "blobReads": 0,
+    "parsedFiles": 0,
+    "indexHits": 340,
+    "parserDiagnostics": 21,
+    "summaries": 1841,
+    "semanticRecords": 266321,
+    "unresolvedAnswers": 2720
+  },
+  "answerability": {
+    "fixedQuestions": 22,
+    "supported": 0,
+    "partial": 20,
+    "unsupported": 2,
+    "localNativeProofsPassed": 7,
+    "evidenceProbes": 21,
+    "retrievedRecords": 6503,
+    "retrievedPages": 1632,
+    "retrievedBytes": 2811518
+  },
+  "storage": {
+    "prettyDocumentBytes": 169782086,
+    "selectedSourceBytes": 898465,
+    "recordsOver65536Bytes": 4,
+    "maxCompactRecordBytes": 101094
+  },
+  "qualification": [
+    "Initial cold extraction overlapped unit/lint checks; timings are observational, not isolated throughput.",
+    "Node process CPU excludes parser child CPU.",
+    "Zero model calls/tokens for scripted extraction; implementation and review consumption unmeasured.",
+    "All340 broad investigation receipts and2720 obligation answers remain unresolved.",
+    "No remote or deployed revision observed.",
+    "Java17 parser does not support all Java25 source; diagnostic files fail closed."
+  ],
+  "selections": [
+    {
+      "scope": "repository-0001",
+      "generation": "609c16ea19f3c6c253fca8b94d6e387cfd7343593b8b8b16af3d33f52a9c8445",
+      "document": "reports/customer-service-pipeline-003/repository-0001/609c16ea19f3c6c253fca8b94d6e387cfd7343593b8b8b16af3d33f52a9c8445/document.json",
+      "sha256": "023ad1c86b9740e1d32ff36d748417deb9dbc0c0a1a9d9f37e53b46b91e73318",
+      "freshness": {
+        "elapsedMs": 156.66529100000025,
+        "freshness": {
+          "state": "unchanged",
+          "changedFiles": [],
+          "baseline": {
+            "repo": "volvo-cars/cds-ecom-customer-service",
+            "commit": "09623ab3a1f39845d8fc02abc3d591b53a3b5fea",
+            "tree": "90d342355c0ce3653b29fd2991650ea9ed2cc072",
+            "ref": "HEAD",
+            "environmentDigest": "a9ac8caa4986b724edcf3cc1d9cf56453b48ba6ac13220a2b40a4062b425d4df",
+            "configDigest": "4bfdb22f55e173c95f602638868e601034dc921e8af7071ad8d954bfc02e5c41",
+            "toolchainDigest": "2bd7d1f68bb9399811c13c1dc772a65cc0a3873ff7d3541b63663208b5c33535",
+            "ruleDigest": "9688428d3af8f1d19e379a67d11f02c5ded514375d18aafa8e70709cc53a9234"
+          },
+          "observation": {
+            "checkedAt": "2026-10-24T11:07:12.012Z",
+            "ref": "HEAD",
+            "source": "local",
+            "status": "observed",
+            "revision": "09623ab3a1f39845d8fc02abc3d591b53a3b5fea"
+          },
+          "sourceCurrent": true,
+          "deploymentCurrent": "unknown"
+        },
+        "currentBaseline": {
+          "repo": "volvo-cars/cds-ecom-customer-service",
+          "commit": "09623ab3a1f39845d8fc02abc3d591b53a3b5fea",
+          "tree": "90d342355c0ce3653b29fd2991650ea9ed2cc072",
+          "ref": "HEAD",
+          "environmentDigest": "a9ac8caa4986b724edcf3cc1d9cf56453b48ba6ac13220a2b40a4062b425d4df",
+          "configDigest": "4bfdb22f55e173c95f602638868e601034dc921e8af7071ad8d954bfc02e5c41",
+          "toolchainDigest": "2bd7d1f68bb9399811c13c1dc772a65cc0a3873ff7d3541b63663208b5c33535",
+          "ruleDigest": "9688428d3af8f1d19e379a67d11f02c5ded514375d18aafa8e70709cc53a9234"
+        },
+        "verification": "analysis",
+        "sourceUnchanged": true,
+        "rescanRequired": false,
+        "changedFileListKnown": true
+      },
+      "publicValidation": "passed"
+    },
+    {
+      "scope": "repository-0002",
+      "generation": "b3db539f50fcd9b3c564d81234508fa315661f641a933dfd70076171a099c713",
+      "document": "reports/customer-service-pipeline-003/repository-0002/b3db539f50fcd9b3c564d81234508fa315661f641a933dfd70076171a099c713/document.json",
+      "sha256": "0aed9db93b5ebbc17d33c0316bc5292c7ebdd52bfc95b6516b54f2252f645113",
+      "freshness": {
+        "elapsedMs": 143.2841659999999,
+        "freshness": {
+          "state": "unchanged",
+          "changedFiles": [],
+          "baseline": {
+            "repo": "volvo-cars/cds-ecom-customer-service",
+            "commit": "09623ab3a1f39845d8fc02abc3d591b53a3b5fea",
+            "tree": "90d342355c0ce3653b29fd2991650ea9ed2cc072",
+            "ref": "HEAD",
+            "environmentDigest": "a9ac8caa4986b724edcf3cc1d9cf56453b48ba6ac13220a2b40a4062b425d4df",
+            "configDigest": "8b74c1264703aafbaeff754d1b9ba7c8bdc979fc9dea2bf0ef05770ab5889ad0",
+            "toolchainDigest": "2bd7d1f68bb9399811c13c1dc772a65cc0a3873ff7d3541b63663208b5c33535",
+            "ruleDigest": "9688428d3af8f1d19e379a67d11f02c5ded514375d18aafa8e70709cc53a9234"
+          },
+          "observation": {
+            "checkedAt": "2026-10-24T11:07:12.842Z",
+            "ref": "HEAD",
+            "source": "local",
+            "status": "observed",
+            "revision": "09623ab3a1f39845d8fc02abc3d591b53a3b5fea"
+          },
+          "sourceCurrent": true,
+          "deploymentCurrent": "unknown"
+        },
+        "currentBaseline": {
+          "repo": "volvo-cars/cds-ecom-customer-service",
+          "commit": "09623ab3a1f39845d8fc02abc3d591b53a3b5fea",
+          "tree": "90d342355c0ce3653b29fd2991650ea9ed2cc072",
+          "ref": "HEAD",
+          "environmentDigest": "a9ac8caa4986b724edcf3cc1d9cf56453b48ba6ac13220a2b40a4062b425d4df",
+          "configDigest": "8b74c1264703aafbaeff754d1b9ba7c8bdc979fc9dea2bf0ef05770ab5889ad0",
+          "toolchainDigest": "2bd7d1f68bb9399811c13c1dc772a65cc0a3873ff7d3541b63663208b5c33535",
+          "ruleDigest": "9688428d3af8f1d19e379a67d11f02c5ded514375d18aafa8e70709cc53a9234"
+        },
+        "verification": "analysis",
+        "sourceUnchanged": true,
+        "rescanRequired": false,
+        "changedFileListKnown": true
+      },
+      "publicValidation": "passed"
+    },
+    {
+      "scope": "repository-0003",
+      "generation": "9ff6ff18580d308370a1fb201536eda0e7d02bb97d011292eaf5befcb94ef658",
+      "document": "reports/customer-service-pipeline-003/repository-0003/9ff6ff18580d308370a1fb201536eda0e7d02bb97d011292eaf5befcb94ef658/document.json",
+      "sha256": "005930ea3e9fb3cdee7e43a44e3f625489de698b88a31bb7c5f2306c1b08bc62",
+      "freshness": {
+        "elapsedMs": 133.10983299999998,
+        "freshness": {
+          "state": "unchanged",
+          "changedFiles": [],
+          "baseline": {
+            "repo": "volvo-cars/cds-ecom-customer-service",
+            "commit": "09623ab3a1f39845d8fc02abc3d591b53a3b5fea",
+            "tree": "90d342355c0ce3653b29fd2991650ea9ed2cc072",
+            "ref": "HEAD",
+            "environmentDigest": "a9ac8caa4986b724edcf3cc1d9cf56453b48ba6ac13220a2b40a4062b425d4df",
+            "configDigest": "c181e5f7f472fb951007740e6bd5102bcd81427430468622da72aa8a3763b1b8",
+            "toolchainDigest": "2bd7d1f68bb9399811c13c1dc772a65cc0a3873ff7d3541b63663208b5c33535",
+            "ruleDigest": "9688428d3af8f1d19e379a67d11f02c5ded514375d18aafa8e70709cc53a9234"
+          },
+          "observation": {
+            "checkedAt": "2026-10-24T11:07:13.392Z",
+            "ref": "HEAD",
+            "source": "local",
+            "status": "observed",
+            "revision": "09623ab3a1f39845d8fc02abc3d591b53a3b5fea"
+          },
+          "sourceCurrent": true,
+          "deploymentCurrent": "unknown"
+        },
+        "currentBaseline": {
+          "repo": "volvo-cars/cds-ecom-customer-service",
+          "commit": "09623ab3a1f39845d8fc02abc3d591b53a3b5fea",
+          "tree": "90d342355c0ce3653b29fd2991650ea9ed2cc072",
+          "ref": "HEAD",
+          "environmentDigest": "a9ac8caa4986b724edcf3cc1d9cf56453b48ba6ac13220a2b40a4062b425d4df",
+          "configDigest": "c181e5f7f472fb951007740e6bd5102bcd81427430468622da72aa8a3763b1b8",
+          "toolchainDigest": "2bd7d1f68bb9399811c13c1dc772a65cc0a3873ff7d3541b63663208b5c33535",
+          "ruleDigest": "9688428d3af8f1d19e379a67d11f02c5ded514375d18aafa8e70709cc53a9234"
+        },
+        "verification": "analysis",
+        "sourceUnchanged": true,
+        "rescanRequired": false,
+        "changedFileListKnown": true
+      },
+      "publicValidation": "passed"
+    },
+    {
+      "scope": "repository-0004",
+      "generation": "19de0f34e7f9a0cfa32628872b83bf49d3066cd5d9b7003c8e9e58e2c48a0d6b",
+      "document": "reports/customer-service-pipeline-003/repository-0004/19de0f34e7f9a0cfa32628872b83bf49d3066cd5d9b7003c8e9e58e2c48a0d6b/document.json",
+      "sha256": "f9e0c907402503f5d12ae15296805d9094dc17776c29b53ae615c66624a76707",
+      "freshness": {
+        "elapsedMs": 136.26804100000027,
+        "freshness": {
+          "state": "unchanged",
+          "changedFiles": [],
+          "baseline": {
+            "repo": "volvo-cars/cds-ecom-customer-service",
+            "commit": "09623ab3a1f39845d8fc02abc3d591b53a3b5fea",
+            "tree": "90d342355c0ce3653b29fd2991650ea9ed2cc072",
+            "ref": "HEAD",
+            "environmentDigest": "a9ac8caa4986b724edcf3cc1d9cf56453b48ba6ac13220a2b40a4062b425d4df",
+            "configDigest": "34fc7231ae9b1ae14e5a04d4d337c6308cd6689b2a912e9aac3992c0fefac6bb",
+            "toolchainDigest": "2bd7d1f68bb9399811c13c1dc772a65cc0a3873ff7d3541b63663208b5c33535",
+            "ruleDigest": "9688428d3af8f1d19e379a67d11f02c5ded514375d18aafa8e70709cc53a9234"
+          },
+          "observation": {
+            "checkedAt": "2026-10-24T11:07:13.933Z",
+            "ref": "HEAD",
+            "source": "local",
+            "status": "observed",
+            "revision": "09623ab3a1f39845d8fc02abc3d591b53a3b5fea"
+          },
+          "sourceCurrent": true,
+          "deploymentCurrent": "unknown"
+        },
+        "currentBaseline": {
+          "repo": "volvo-cars/cds-ecom-customer-service",
+          "commit": "09623ab3a1f39845d8fc02abc3d591b53a3b5fea",
+          "tree": "90d342355c0ce3653b29fd2991650ea9ed2cc072",
+          "ref": "HEAD",
+          "environmentDigest": "a9ac8caa4986b724edcf3cc1d9cf56453b48ba6ac13220a2b40a4062b425d4df",
+          "configDigest": "34fc7231ae9b1ae14e5a04d4d337c6308cd6689b2a912e9aac3992c0fefac6bb",
+          "toolchainDigest": "2bd7d1f68bb9399811c13c1dc772a65cc0a3873ff7d3541b63663208b5c33535",
+          "ruleDigest": "9688428d3af8f1d19e379a67d11f02c5ded514375d18aafa8e70709cc53a9234"
+        },
+        "verification": "analysis",
+        "sourceUnchanged": true,
+        "rescanRequired": false,
+        "changedFileListKnown": true
+      },
+      "publicValidation": "passed"
+    },
+    {
+      "scope": "repository-0005",
+      "generation": "0ce018d6d7dcfb94f769f6eec2989312fb8c91e606bddb8a067e1413bf96cff5",
+      "document": "reports/customer-service-pipeline-003/repository-0005/0ce018d6d7dcfb94f769f6eec2989312fb8c91e606bddb8a067e1413bf96cff5/document.json",
+      "sha256": "f3370ca515510038b823e4e8915f5b0aed9facce83f7c96e1dd01f00243de90b",
+      "freshness": {
+        "elapsedMs": 129.4271659999995,
+        "freshness": {
+          "state": "unchanged",
+          "changedFiles": [],
+          "baseline": {
+            "repo": "volvo-cars/cds-ecom-customer-service",
+            "commit": "09623ab3a1f39845d8fc02abc3d591b53a3b5fea",
+            "tree": "90d342355c0ce3653b29fd2991650ea9ed2cc072",
+            "ref": "HEAD",
+            "environmentDigest": "a9ac8caa4986b724edcf3cc1d9cf56453b48ba6ac13220a2b40a4062b425d4df",
+            "configDigest": "f51d6e2631fa5b17e38b56815baa02b871f56c40d7da0abe2e73be3b37a8593e",
+            "toolchainDigest": "2bd7d1f68bb9399811c13c1dc772a65cc0a3873ff7d3541b63663208b5c33535",
+            "ruleDigest": "9688428d3af8f1d19e379a67d11f02c5ded514375d18aafa8e70709cc53a9234"
+          },
+          "observation": {
+            "checkedAt": "2026-10-24T11:07:14.636Z",
+            "ref": "HEAD",
+            "source": "local",
+            "status": "observed",
+            "revision": "09623ab3a1f39845d8fc02abc3d591b53a3b5fea"
+          },
+          "sourceCurrent": true,
+          "deploymentCurrent": "unknown"
+        },
+        "currentBaseline": {
+          "repo": "volvo-cars/cds-ecom-customer-service",
+          "commit": "09623ab3a1f39845d8fc02abc3d591b53a3b5fea",
+          "tree": "90d342355c0ce3653b29fd2991650ea9ed2cc072",
+          "ref": "HEAD",
+          "environmentDigest": "a9ac8caa4986b724edcf3cc1d9cf56453b48ba6ac13220a2b40a4062b425d4df",
+          "configDigest": "f51d6e2631fa5b17e38b56815baa02b871f56c40d7da0abe2e73be3b37a8593e",
+          "toolchainDigest": "2bd7d1f68bb9399811c13c1dc772a65cc0a3873ff7d3541b63663208b5c33535",
+          "ruleDigest": "9688428d3af8f1d19e379a67d11f02c5ded514375d18aafa8e70709cc53a9234"
+        },
+        "verification": "analysis",
+        "sourceUnchanged": true,
+        "rescanRequired": false,
+        "changedFileListKnown": true
+      },
+      "publicValidation": "passed"
+    },
+    {
+      "scope": "repository-0006",
+      "generation": "522abd4b2a71f24c7966ff2adbfb4b67d07212389477d6795bcc8980e43b84a4",
+      "document": "reports/customer-service-pipeline-003/repository-0006/522abd4b2a71f24c7966ff2adbfb4b67d07212389477d6795bcc8980e43b84a4/document.json",
+      "sha256": "07f5a6bd5ef8e7925ac15d009d9b545b5dd8782b1c6899db02322c93e1e583d1",
+      "freshness": {
+        "elapsedMs": 138.35158299999966,
+        "freshness": {
+          "state": "unchanged",
+          "changedFiles": [],
+          "baseline": {
+            "repo": "volvo-cars/cds-ecom-customer-service",
+            "commit": "09623ab3a1f39845d8fc02abc3d591b53a3b5fea",
+            "tree": "90d342355c0ce3653b29fd2991650ea9ed2cc072",
+            "ref": "HEAD",
+            "environmentDigest": "a9ac8caa4986b724edcf3cc1d9cf56453b48ba6ac13220a2b40a4062b425d4df",
+            "configDigest": "44408b90356afbc8c6fa1e8eb525525e0f99299034eda88f0afede7beda2ba1f",
+            "toolchainDigest": "2bd7d1f68bb9399811c13c1dc772a65cc0a3873ff7d3541b63663208b5c33535",
+            "ruleDigest": "9688428d3af8f1d19e379a67d11f02c5ded514375d18aafa8e70709cc53a9234"
+          },
+          "observation": {
+            "checkedAt": "2026-10-24T11:07:16.935Z",
+            "ref": "HEAD",
+            "source": "local",
+            "status": "observed",
+            "revision": "09623ab3a1f39845d8fc02abc3d591b53a3b5fea"
+          },
+          "sourceCurrent": true,
+          "deploymentCurrent": "unknown"
+        },
+        "currentBaseline": {
+          "repo": "volvo-cars/cds-ecom-customer-service",
+          "commit": "09623ab3a1f39845d8fc02abc3d591b53a3b5fea",
+          "tree": "90d342355c0ce3653b29fd2991650ea9ed2cc072",
+          "ref": "HEAD",
+          "environmentDigest": "a9ac8caa4986b724edcf3cc1d9cf56453b48ba6ac13220a2b40a4062b425d4df",
+          "configDigest": "44408b90356afbc8c6fa1e8eb525525e0f99299034eda88f0afede7beda2ba1f",
+          "toolchainDigest": "2bd7d1f68bb9399811c13c1dc772a65cc0a3873ff7d3541b63663208b5c33535",
+          "ruleDigest": "9688428d3af8f1d19e379a67d11f02c5ded514375d18aafa8e70709cc53a9234"
+        },
+        "verification": "analysis",
+        "sourceUnchanged": true,
+        "rescanRequired": false,
+        "changedFileListKnown": true
+      },
+      "publicValidation": "passed"
+    },
+    {
+      "scope": "repository-0007",
+      "generation": "139c633102a8850d4f427ab6a4be9221be3a008f1bd1388c139bca3a74c5a4f5",
+      "document": "reports/customer-service-pipeline-003/repository-0007/139c633102a8850d4f427ab6a4be9221be3a008f1bd1388c139bca3a74c5a4f5/document.json",
+      "sha256": "9f38b35a52836c7573e6ea253bd16e5b1b5fc94e3d7bf0d788314d4e0ee5eeef",
+      "freshness": {
+        "elapsedMs": 153.90987499999937,
+        "freshness": {
+          "state": "unchanged",
+          "changedFiles": [],
+          "baseline": {
+            "repo": "volvo-cars/cds-ecom-customer-service",
+            "commit": "09623ab3a1f39845d8fc02abc3d591b53a3b5fea",
+            "tree": "90d342355c0ce3653b29fd2991650ea9ed2cc072",
+            "ref": "HEAD",
+            "environmentDigest": "a9ac8caa4986b724edcf3cc1d9cf56453b48ba6ac13220a2b40a4062b425d4df",
+            "configDigest": "260fbe83380c822573e0ca3035582eabd9945eab36dc393abf71ceb2bd99b5c0",
+            "toolchainDigest": "2bd7d1f68bb9399811c13c1dc772a65cc0a3873ff7d3541b63663208b5c33535",
+            "ruleDigest": "9688428d3af8f1d19e379a67d11f02c5ded514375d18aafa8e70709cc53a9234"
+          },
+          "observation": {
+            "checkedAt": "2026-10-24T11:07:19.316Z",
+            "ref": "HEAD",
+            "source": "local",
+            "status": "observed",
+            "revision": "09623ab3a1f39845d8fc02abc3d591b53a3b5fea"
+          },
+          "sourceCurrent": true,
+          "deploymentCurrent": "unknown"
+        },
+        "currentBaseline": {
+          "repo": "volvo-cars/cds-ecom-customer-service",
+          "commit": "09623ab3a1f39845d8fc02abc3d591b53a3b5fea",
+          "tree": "90d342355c0ce3653b29fd2991650ea9ed2cc072",
+          "ref": "HEAD",
+          "environmentDigest": "a9ac8caa4986b724edcf3cc1d9cf56453b48ba6ac13220a2b40a4062b425d4df",
+          "configDigest": "260fbe83380c822573e0ca3035582eabd9945eab36dc393abf71ceb2bd99b5c0",
+          "toolchainDigest": "2bd7d1f68bb9399811c13c1dc772a65cc0a3873ff7d3541b63663208b5c33535",
+          "ruleDigest": "9688428d3af8f1d19e379a67d11f02c5ded514375d18aafa8e70709cc53a9234"
+        },
+        "verification": "analysis",
+        "sourceUnchanged": true,
+        "rescanRequired": false,
+        "changedFileListKnown": true
+      },
+      "publicValidation": "passed"
+    },
+    {
+      "scope": "repository-0008",
+      "generation": "a6f2c433ab96dddbe964a58b63894cd4a0a00bef8e662274f06fdca2b349b4fa",
+      "document": "reports/customer-service-pipeline-003/repository-0008/a6f2c433ab96dddbe964a58b63894cd4a0a00bef8e662274f06fdca2b349b4fa/document.json",
+      "sha256": "5e17b8ad9a7e29364d3eac0c362450ec2628ee5afb799485ea56e8ea5b99409a",
+      "freshness": {
+        "elapsedMs": 126.93370800000048,
+        "freshness": {
+          "state": "unchanged",
+          "changedFiles": [],
+          "baseline": {
+            "repo": "volvo-cars/cds-ecom-customer-service",
+            "commit": "09623ab3a1f39845d8fc02abc3d591b53a3b5fea",
+            "tree": "90d342355c0ce3653b29fd2991650ea9ed2cc072",
+            "ref": "HEAD",
+            "environmentDigest": "a9ac8caa4986b724edcf3cc1d9cf56453b48ba6ac13220a2b40a4062b425d4df",
+            "configDigest": "52b2b659d4c6a604ff5969fddeee18f1e25340716777b57b56a366a3ec807856",
+            "toolchainDigest": "2bd7d1f68bb9399811c13c1dc772a65cc0a3873ff7d3541b63663208b5c33535",
+            "ruleDigest": "9688428d3af8f1d19e379a67d11f02c5ded514375d18aafa8e70709cc53a9234"
+          },
+          "observation": {
+            "checkedAt": "2026-10-24T11:07:19.776Z",
+            "ref": "HEAD",
+            "source": "local",
+            "status": "observed",
+            "revision": "09623ab3a1f39845d8fc02abc3d591b53a3b5fea"
+          },
+          "sourceCurrent": true,
+          "deploymentCurrent": "unknown"
+        },
+        "currentBaseline": {
+          "repo": "volvo-cars/cds-ecom-customer-service",
+          "commit": "09623ab3a1f39845d8fc02abc3d591b53a3b5fea",
+          "tree": "90d342355c0ce3653b29fd2991650ea9ed2cc072",
+          "ref": "HEAD",
+          "environmentDigest": "a9ac8caa4986b724edcf3cc1d9cf56453b48ba6ac13220a2b40a4062b425d4df",
+          "configDigest": "52b2b659d4c6a604ff5969fddeee18f1e25340716777b57b56a366a3ec807856",
+          "toolchainDigest": "2bd7d1f68bb9399811c13c1dc772a65cc0a3873ff7d3541b63663208b5c33535",
+          "ruleDigest": "9688428d3af8f1d19e379a67d11f02c5ded514375d18aafa8e70709cc53a9234"
+        },
+        "verification": "analysis",
+        "sourceUnchanged": true,
+        "rescanRequired": false,
+        "changedFileListKnown": true
+      },
+      "publicValidation": "passed"
+    },
+    {
+      "scope": "repository-0009",
+      "generation": "2b6a869957f78c97cb00aa80a13a43f88c4850c3f2e2de0ad5460c06559a9584",
+      "document": "reports/customer-service-pipeline-003/repository-0009/2b6a869957f78c97cb00aa80a13a43f88c4850c3f2e2de0ad5460c06559a9584/document.json",
+      "sha256": "8476e4d46731b9b9c1934225f1105fbaafbfd9f47404f1b0d7410aedc391cb74",
+      "freshness": {
+        "elapsedMs": 140.16195799999878,
+        "freshness": {
+          "state": "unchanged",
+          "changedFiles": [],
+          "baseline": {
+            "repo": "volvo-cars/cds-ecom-customer-service",
+            "commit": "09623ab3a1f39845d8fc02abc3d591b53a3b5fea",
+            "tree": "90d342355c0ce3653b29fd2991650ea9ed2cc072",
+            "ref": "HEAD",
+            "environmentDigest": "d1616110fe066fa5039fc5f1d25be7affde18029e5bd4f7e12dfe5121fef6230",
+            "configDigest": "bac1b181d706fb00d109b96198e1f0de6a78944b28a66de42b68cd2b04f125af",
+            "toolchainDigest": "a7f21c6aa2de2dec74c393126ed8cf6541d6e79223e673f5499a899a87d34efa",
+            "ruleDigest": "9688428d3af8f1d19e379a67d11f02c5ded514375d18aafa8e70709cc53a9234"
+          },
+          "observation": {
+            "checkedAt": "2026-10-24T11:07:21.214Z",
+            "ref": "HEAD",
+            "source": "local",
+            "status": "observed",
+            "revision": "09623ab3a1f39845d8fc02abc3d591b53a3b5fea"
+          },
+          "sourceCurrent": true,
+          "deploymentCurrent": "unknown"
+        },
+        "currentBaseline": {
+          "repo": "volvo-cars/cds-ecom-customer-service",
+          "commit": "09623ab3a1f39845d8fc02abc3d591b53a3b5fea",
+          "tree": "90d342355c0ce3653b29fd2991650ea9ed2cc072",
+          "ref": "HEAD",
+          "environmentDigest": "d1616110fe066fa5039fc5f1d25be7affde18029e5bd4f7e12dfe5121fef6230",
+          "configDigest": "bac1b181d706fb00d109b96198e1f0de6a78944b28a66de42b68cd2b04f125af",
+          "toolchainDigest": "a7f21c6aa2de2dec74c393126ed8cf6541d6e79223e673f5499a899a87d34efa",
+          "ruleDigest": "9688428d3af8f1d19e379a67d11f02c5ded514375d18aafa8e70709cc53a9234"
+        },
+        "verification": "analysis",
+        "sourceUnchanged": true,
+        "rescanRequired": false,
+        "changedFileListKnown": true
+      },
+      "publicValidation": "passed"
+    }
+  ],
+  "validation": {
+    "lintChanged": "passed",
+    "fullCheck": "passed",
+    "fullCheckTestsPassed": 2530,
+    "standardTestsSkipped": 17,
+    "explicitJavaNativeTestsPassed": 7,
+    "diagnosticAndProbeRegressionsPassed": 6,
+    "typeCoveragePercent": 100,
+    "build": "passed",
+    "exportedPages": 391
+  }
+}

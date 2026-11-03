@@ -1,0 +1,266 @@
+{
+  "status": "passed",
+  "snapshot": "51b6a331102fba3d4883137b7e7845e9c6bd0a71c7e4d2d621bb926668267905",
+  "qualification": "Independent10full-file pinned-source review. Actual lifecycle and worker roots positively reach all3 configured targets; every SDK owner, interface and actual request is tested. Rooted request value checks are unbounded. Broad component views retain explicit cutoffs; imported activation/encoding and deployed identities remain unresolved.",
+  "queries": [
+    {
+      "name": "Actual lifecycle root source:internal/app/app.go:fx.Hook.OnStart",
+      "nodes": 4,
+      "edges": 4,
+      "limits": ["maxNodes"],
+      "pages": 1
+    },
+    {
+      "name": "Actual lifecycle root source:internal/app/app.go:OnStart:validation-goroutine",
+      "nodes": 4,
+      "edges": 4,
+      "limits": ["maxNodes"],
+      "pages": 1
+    },
+    {
+      "name": "Process registers Fx activation separately",
+      "nodes": 42,
+      "edges": 41,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Native SDK owner c.internalClient.Do(req)",
+      "nodes": 2,
+      "edges": 1,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual SDK interface volvo/cce-prins-validator/dc68082c5777/final-r1/interaction/io/b755c557677ec83c3606",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual SDK argument volvo/cce-prins-validator/dc68082c5777/final-r1/interaction/io/b755c557677ec83c3606",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Native SDK owner c.client.Do(req)",
+      "nodes": 2,
+      "edges": 1,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual SDK interface volvo/cce-prins-validator/dc68082c5777/final-r1/interaction/io/6c2ac3ad66a939df47b7",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual SDK argument volvo/cce-prins-validator/dc68082c5777/final-r1/interaction/io/6c2ac3ad66a939df47b7",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "OnStart rooted request Configured CCE Filter API",
+      "nodes": 53,
+      "edges": 52,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Native SDK owner c.client.Do(req)",
+      "nodes": 2,
+      "edges": 1,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual SDK interface volvo/cce-prins-validator/dc68082c5777/final-r1/interaction/io/37f8e2f7069ea53ad6a1",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual SDK argument volvo/cce-prins-validator/dc68082c5777/final-r1/interaction/io/37f8e2f7069ea53ad6a1",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "OnStart rooted request Configured CCE Optimisation Facade",
+      "nodes": 54,
+      "edges": 53,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Native SDK owner c.client.Run(ctx, request, &response)",
+      "nodes": 2,
+      "edges": 1,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual SDK interface volvo/cce-prins-validator/dc68082c5777/final-r1/interaction/io/e4fa3583d81a5225ce64",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual SDK argument volvo/cce-prins-validator/dc68082c5777/final-r1/interaction/io/e4fa3583d81a5225ce64",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "OnStart rooted request Configured PRINS GraphQL API",
+      "nodes": 5,
+      "edges": 4,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Exact caller contract /wheelComponents",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Exact caller contract /v3/generate-configurations",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Exact caller contract /v3/policies/{policy}/start-states",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Exact caller contract /v2/components",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Exact caller contract /v2/stateFromConfig",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Exact caller contract null",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Caller construction lineage github.com/volvo-cars/cce-prins-validator/internal/gateway/filterservice#Client.GetWheelComponents(context.Context)->([]string,error)",
+      "nodes": 2,
+      "edges": 1,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Caller construction lineage github.com/volvo-cars/cce-prins-validator/internal/gateway/optimizationfacade#Client.GenerateCombinations(context.Context,CombinationsRequestPayload,string)->(GenerateConfigurationsResponse,error)",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Caller construction lineage github.com/volvo-cars/cce-prins-validator/internal/gateway/optimizationfacade#Client.GetStartStates(context.Context,string)->(StartStatesResponse,error)",
+      "nodes": 2,
+      "edges": 1,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Caller construction lineage github.com/volvo-cars/cce-prins-validator/internal/gateway/optimizationfacade#Client.GetComponents(context.Context,string,string)->(ComponentsResponse,error)",
+      "nodes": 2,
+      "edges": 1,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Caller construction lineage github.com/volvo-cars/cce-prins-validator/internal/gateway/optimizationfacade#Client.PostStateFromConfig(context.Context,StateFromConfigPayload)->(State,error)",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Caller construction lineage github.com/volvo-cars/cce-prins-validator/internal/gateway/prins#Client.GetStoredCpvSets(context.Context,string,string,int)->(PrinsQueryResponse,error)",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Source behaviour validation-result-policy",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Source behaviour pagination-policy",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Source behaviour requestbuilder-policy",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Source behaviour lifecycle",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Source behaviour graphql-caller",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Whole generic envelopes preserve Data shape",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Detached worker call does not return its eventual result",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    }
+  ]
+}

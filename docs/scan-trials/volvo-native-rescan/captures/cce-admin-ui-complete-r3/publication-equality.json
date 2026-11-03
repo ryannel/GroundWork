@@ -1,0 +1,8 @@
+{
+  "status": "passed",
+  "snapshot": "2a2790fddb9e55b08afa6b9487a33753a0876f5ece3932861b055ca2564d2067",
+  "bundle": "Compressed bytes decompress to original sealed JSON; parsed contents unchanged",
+  "sourceBundleByteSha256": "93702682de98f8bcdddb7385a958b87d32f81ac99df2eedde41d8af1668d69ae",
+  "sourceSealFilesVerified": 50,
+  "qualification": "Original-path author seal verified; selected publication copies may be formatted or compressed without changing parsed facts."
+}

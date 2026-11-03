@@ -1,0 +1,878 @@
+[
+  {
+    "owner": "account-profile-bc3003a-complete-r1/method/ae33b676b122f69a",
+    "path": "VolvoCars.AccountProfile.Business/Providers/SettingsProvider.cs",
+    "lines": [127, 134],
+    "claim": "account-profile-bc3003a-complete-r1/field-construction/2e88331fa666b9d5",
+    "fields": [
+      {
+        "field": "AllowedValues",
+        "source": "null",
+        "values": ["account-profile-bc3003a-complete-r1/v/ae33b676b122f69a/1"],
+        "operations": ["account-profile-bc3003a-complete-r1/op/ae33b676b122f69a/2"]
+      },
+      {
+        "field": "FieldName",
+        "source": "fieldName",
+        "values": ["account-profile-bc3003a-complete-r1/v/ae33b676b122f69a/2"],
+        "operations": ["account-profile-bc3003a-complete-r1/op/ae33b676b122f69a/3"]
+      },
+      {
+        "field": "MediaTypes",
+        "source": "new List<string> { mediaType }",
+        "values": ["account-profile-bc3003a-complete-r1/v/ae33b676b122f69a/5"],
+        "operations": ["account-profile-bc3003a-complete-r1/op/ae33b676b122f69a/6"]
+      },
+      {
+        "field": "Readonly",
+        "source": "readOnly",
+        "values": ["account-profile-bc3003a-complete-r1/v/ae33b676b122f69a/6"],
+        "operations": ["account-profile-bc3003a-complete-r1/op/ae33b676b122f69a/7"]
+      },
+      {
+        "field": "Required",
+        "source": "false",
+        "values": ["account-profile-bc3003a-complete-r1/v/ae33b676b122f69a/7"],
+        "operations": ["account-profile-bc3003a-complete-r1/op/ae33b676b122f69a/8"]
+      },
+      {
+        "field": "Visible",
+        "source": "true",
+        "values": ["account-profile-bc3003a-complete-r1/v/ae33b676b122f69a/8"],
+        "operations": ["account-profile-bc3003a-complete-r1/op/ae33b676b122f69a/9"]
+      }
+    ]
+  },
+  {
+    "owner": "account-profile-bc3003a-complete-r1/method/96aabb8d08ea5268",
+    "path": "VolvoCars.AccountProfile.Business/Managers/AccountManager.cs",
+    "lines": [75, 79],
+    "claim": "account-profile-bc3003a-complete-r1/field-construction/fe1cde407a1c40ed",
+    "fields": [
+      {
+        "field": "OutcomeCode",
+        "source": "MapAccountApiOutcomeToLayerOutcomeCode(volvoIdClientResponse.StatusCode)",
+        "values": ["account-profile-bc3003a-complete-r1/v/96aabb8d08ea5268/12"],
+        "operations": ["account-profile-bc3003a-complete-r1/op/96aabb8d08ea5268/13"]
+      },
+      {
+        "field": "IsError",
+        "source": "!volvoIdClientResponse.IsSuccessful",
+        "values": ["account-profile-bc3003a-complete-r1/v/96aabb8d08ea5268/13"],
+        "operations": ["account-profile-bc3003a-complete-r1/op/96aabb8d08ea5268/14"]
+      },
+      {
+        "field": "Message",
+        "source": "volvoIdClientResponse.Message",
+        "values": ["account-profile-bc3003a-complete-r1/v/96aabb8d08ea5268/14"],
+        "operations": ["account-profile-bc3003a-complete-r1/op/96aabb8d08ea5268/15"]
+      }
+    ]
+  },
+  {
+    "owner": "account-profile-bc3003a-complete-r1/method/6dfee1fdeb4bfbf1",
+    "path": "VolvoCars.AccountProfile.Business/Managers/AccountManager.cs",
+    "lines": [103, 107],
+    "claim": "account-profile-bc3003a-complete-r1/field-construction/44e1cea18647edbc",
+    "fields": [
+      {
+        "field": "OutcomeCode",
+        "source": "MapAccountApiOutcomeToLayerOutcomeCode(volvoIdClientResponse.StatusCode)",
+        "values": ["account-profile-bc3003a-complete-r1/v/6dfee1fdeb4bfbf1/13"],
+        "operations": ["account-profile-bc3003a-complete-r1/op/6dfee1fdeb4bfbf1/14"]
+      },
+      {
+        "field": "IsError",
+        "source": "!volvoIdClientResponse.IsSuccessful",
+        "values": ["account-profile-bc3003a-complete-r1/v/6dfee1fdeb4bfbf1/14"],
+        "operations": ["account-profile-bc3003a-complete-r1/op/6dfee1fdeb4bfbf1/15"]
+      },
+      {
+        "field": "Message",
+        "source": "volvoIdClientResponse.Message",
+        "values": ["account-profile-bc3003a-complete-r1/v/6dfee1fdeb4bfbf1/15"],
+        "operations": ["account-profile-bc3003a-complete-r1/op/6dfee1fdeb4bfbf1/16"]
+      }
+    ]
+  },
+  {
+    "owner": "account-profile-bc3003a-complete-r1/method/5c90e482379c22a8",
+    "path": "VolvoCars.AccountProfile.Business/Resolvers/CdbSettingsResolver.cs",
+    "lines": [35, 35],
+    "claim": "account-profile-bc3003a-complete-r1/field-construction/4a043dd992e346a4",
+    "fields": [
+      {
+        "field": "Brand",
+        "source": "stringifiedBrand",
+        "values": [
+          "account-profile-bc3003a-complete-r1/v/5c90e482379c22a8/5",
+          "account-profile-bc3003a-complete-r1/v/5c90e482379c22a8/15",
+          "account-profile-bc3003a-complete-r1/v/5c90e482379c22a8/24",
+          "account-profile-bc3003a-complete-r1/v/5c90e482379c22a8/34"
+        ],
+        "operations": [
+          "account-profile-bc3003a-complete-r1/op/5c90e482379c22a8/8",
+          "account-profile-bc3003a-complete-r1/op/5c90e482379c22a8/19",
+          "account-profile-bc3003a-complete-r1/op/5c90e482379c22a8/29",
+          "account-profile-bc3003a-complete-r1/op/5c90e482379c22a8/40"
+        ]
+      },
+      {
+        "field": "CdbMarket",
+        "source": "volvoIdMarket",
+        "values": ["account-profile-bc3003a-complete-r1/v/5c90e482379c22a8/6"],
+        "operations": ["account-profile-bc3003a-complete-r1/op/5c90e482379c22a8/9"]
+      },
+      {
+        "field": "Exists",
+        "source": "true",
+        "values": [
+          "account-profile-bc3003a-complete-r1/v/5c90e482379c22a8/7",
+          "account-profile-bc3003a-complete-r1/v/5c90e482379c22a8/26",
+          "account-profile-bc3003a-complete-r1/v/5c90e482379c22a8/36"
+        ],
+        "operations": [
+          "account-profile-bc3003a-complete-r1/op/5c90e482379c22a8/10",
+          "account-profile-bc3003a-complete-r1/op/5c90e482379c22a8/31",
+          "account-profile-bc3003a-complete-r1/op/5c90e482379c22a8/42"
+        ]
+      },
+      {
+        "field": "VolvoIdMarket",
+        "source": "volvoIdMarket",
+        "values": [
+          "account-profile-bc3003a-complete-r1/v/5c90e482379c22a8/8",
+          "account-profile-bc3003a-complete-r1/v/5c90e482379c22a8/18",
+          "account-profile-bc3003a-complete-r1/v/5c90e482379c22a8/27",
+          "account-profile-bc3003a-complete-r1/v/5c90e482379c22a8/37"
+        ],
+        "operations": [
+          "account-profile-bc3003a-complete-r1/op/5c90e482379c22a8/11",
+          "account-profile-bc3003a-complete-r1/op/5c90e482379c22a8/22",
+          "account-profile-bc3003a-complete-r1/op/5c90e482379c22a8/32",
+          "account-profile-bc3003a-complete-r1/op/5c90e482379c22a8/43"
+        ]
+      }
+    ]
+  },
+  {
+    "owner": "account-profile-bc3003a-complete-r1/method/5c90e482379c22a8",
+    "path": "VolvoCars.AccountProfile.Business/Resolvers/CdbSettingsResolver.cs",
+    "lines": [41, 41],
+    "claim": "account-profile-bc3003a-complete-r1/field-construction/21858648802984db",
+    "fields": [
+      {
+        "field": "Brand",
+        "source": "stringifiedBrand",
+        "values": [
+          "account-profile-bc3003a-complete-r1/v/5c90e482379c22a8/5",
+          "account-profile-bc3003a-complete-r1/v/5c90e482379c22a8/15",
+          "account-profile-bc3003a-complete-r1/v/5c90e482379c22a8/24",
+          "account-profile-bc3003a-complete-r1/v/5c90e482379c22a8/34"
+        ],
+        "operations": [
+          "account-profile-bc3003a-complete-r1/op/5c90e482379c22a8/8",
+          "account-profile-bc3003a-complete-r1/op/5c90e482379c22a8/19",
+          "account-profile-bc3003a-complete-r1/op/5c90e482379c22a8/29",
+          "account-profile-bc3003a-complete-r1/op/5c90e482379c22a8/40"
+        ]
+      },
+      {
+        "field": "CdbMarket",
+        "source": "string.Empty",
+        "values": ["account-profile-bc3003a-complete-r1/v/5c90e482379c22a8/16"],
+        "operations": ["account-profile-bc3003a-complete-r1/op/5c90e482379c22a8/20"]
+      },
+      {
+        "field": "Exists",
+        "source": "false",
+        "values": ["account-profile-bc3003a-complete-r1/v/5c90e482379c22a8/17"],
+        "operations": ["account-profile-bc3003a-complete-r1/op/5c90e482379c22a8/21"]
+      },
+      {
+        "field": "VolvoIdMarket",
+        "source": "volvoIdMarket",
+        "values": [
+          "account-profile-bc3003a-complete-r1/v/5c90e482379c22a8/8",
+          "account-profile-bc3003a-complete-r1/v/5c90e482379c22a8/18",
+          "account-profile-bc3003a-complete-r1/v/5c90e482379c22a8/27",
+          "account-profile-bc3003a-complete-r1/v/5c90e482379c22a8/37"
+        ],
+        "operations": [
+          "account-profile-bc3003a-complete-r1/op/5c90e482379c22a8/11",
+          "account-profile-bc3003a-complete-r1/op/5c90e482379c22a8/22",
+          "account-profile-bc3003a-complete-r1/op/5c90e482379c22a8/32",
+          "account-profile-bc3003a-complete-r1/op/5c90e482379c22a8/43"
+        ]
+      }
+    ]
+  },
+  {
+    "owner": "account-profile-bc3003a-complete-r1/method/5c90e482379c22a8",
+    "path": "VolvoCars.AccountProfile.Business/Resolvers/CdbSettingsResolver.cs",
+    "lines": [47, 47],
+    "claim": "account-profile-bc3003a-complete-r1/field-construction/fb4958d5b3342152",
+    "fields": [
+      {
+        "field": "Brand",
+        "source": "stringifiedBrand",
+        "values": [
+          "account-profile-bc3003a-complete-r1/v/5c90e482379c22a8/5",
+          "account-profile-bc3003a-complete-r1/v/5c90e482379c22a8/15",
+          "account-profile-bc3003a-complete-r1/v/5c90e482379c22a8/24",
+          "account-profile-bc3003a-complete-r1/v/5c90e482379c22a8/34"
+        ],
+        "operations": [
+          "account-profile-bc3003a-complete-r1/op/5c90e482379c22a8/8",
+          "account-profile-bc3003a-complete-r1/op/5c90e482379c22a8/19",
+          "account-profile-bc3003a-complete-r1/op/5c90e482379c22a8/29",
+          "account-profile-bc3003a-complete-r1/op/5c90e482379c22a8/40"
+        ]
+      },
+      {
+        "field": "CdbMarket",
+        "source": "cdbMarket",
+        "values": ["account-profile-bc3003a-complete-r1/v/5c90e482379c22a8/25"],
+        "operations": ["account-profile-bc3003a-complete-r1/op/5c90e482379c22a8/30"]
+      },
+      {
+        "field": "Exists",
+        "source": "true",
+        "values": [
+          "account-profile-bc3003a-complete-r1/v/5c90e482379c22a8/7",
+          "account-profile-bc3003a-complete-r1/v/5c90e482379c22a8/26",
+          "account-profile-bc3003a-complete-r1/v/5c90e482379c22a8/36"
+        ],
+        "operations": [
+          "account-profile-bc3003a-complete-r1/op/5c90e482379c22a8/10",
+          "account-profile-bc3003a-complete-r1/op/5c90e482379c22a8/31",
+          "account-profile-bc3003a-complete-r1/op/5c90e482379c22a8/42"
+        ]
+      },
+      {
+        "field": "VolvoIdMarket",
+        "source": "volvoIdMarket",
+        "values": [
+          "account-profile-bc3003a-complete-r1/v/5c90e482379c22a8/8",
+          "account-profile-bc3003a-complete-r1/v/5c90e482379c22a8/18",
+          "account-profile-bc3003a-complete-r1/v/5c90e482379c22a8/27",
+          "account-profile-bc3003a-complete-r1/v/5c90e482379c22a8/37"
+        ],
+        "operations": [
+          "account-profile-bc3003a-complete-r1/op/5c90e482379c22a8/11",
+          "account-profile-bc3003a-complete-r1/op/5c90e482379c22a8/22",
+          "account-profile-bc3003a-complete-r1/op/5c90e482379c22a8/32",
+          "account-profile-bc3003a-complete-r1/op/5c90e482379c22a8/43"
+        ]
+      }
+    ]
+  },
+  {
+    "owner": "account-profile-bc3003a-complete-r1/method/5c90e482379c22a8",
+    "path": "VolvoCars.AccountProfile.Business/Resolvers/CdbSettingsResolver.cs",
+    "lines": [53, 53],
+    "claim": "account-profile-bc3003a-complete-r1/field-construction/e32d11e69874c0ff",
+    "fields": [
+      {
+        "field": "Brand",
+        "source": "stringifiedBrand",
+        "values": [
+          "account-profile-bc3003a-complete-r1/v/5c90e482379c22a8/5",
+          "account-profile-bc3003a-complete-r1/v/5c90e482379c22a8/15",
+          "account-profile-bc3003a-complete-r1/v/5c90e482379c22a8/24",
+          "account-profile-bc3003a-complete-r1/v/5c90e482379c22a8/34"
+        ],
+        "operations": [
+          "account-profile-bc3003a-complete-r1/op/5c90e482379c22a8/8",
+          "account-profile-bc3003a-complete-r1/op/5c90e482379c22a8/19",
+          "account-profile-bc3003a-complete-r1/op/5c90e482379c22a8/29",
+          "account-profile-bc3003a-complete-r1/op/5c90e482379c22a8/40"
+        ]
+      },
+      {
+        "field": "CdbMarket",
+        "source": "sendMarket",
+        "values": ["account-profile-bc3003a-complete-r1/v/5c90e482379c22a8/35"],
+        "operations": ["account-profile-bc3003a-complete-r1/op/5c90e482379c22a8/41"]
+      },
+      {
+        "field": "Exists",
+        "source": "true",
+        "values": [
+          "account-profile-bc3003a-complete-r1/v/5c90e482379c22a8/7",
+          "account-profile-bc3003a-complete-r1/v/5c90e482379c22a8/26",
+          "account-profile-bc3003a-complete-r1/v/5c90e482379c22a8/36"
+        ],
+        "operations": [
+          "account-profile-bc3003a-complete-r1/op/5c90e482379c22a8/10",
+          "account-profile-bc3003a-complete-r1/op/5c90e482379c22a8/31",
+          "account-profile-bc3003a-complete-r1/op/5c90e482379c22a8/42"
+        ]
+      },
+      {
+        "field": "VolvoIdMarket",
+        "source": "volvoIdMarket",
+        "values": [
+          "account-profile-bc3003a-complete-r1/v/5c90e482379c22a8/8",
+          "account-profile-bc3003a-complete-r1/v/5c90e482379c22a8/18",
+          "account-profile-bc3003a-complete-r1/v/5c90e482379c22a8/27",
+          "account-profile-bc3003a-complete-r1/v/5c90e482379c22a8/37"
+        ],
+        "operations": [
+          "account-profile-bc3003a-complete-r1/op/5c90e482379c22a8/11",
+          "account-profile-bc3003a-complete-r1/op/5c90e482379c22a8/22",
+          "account-profile-bc3003a-complete-r1/op/5c90e482379c22a8/32",
+          "account-profile-bc3003a-complete-r1/op/5c90e482379c22a8/43"
+        ]
+      }
+    ]
+  },
+  {
+    "owner": "account-profile-bc3003a-complete-r1/method/ded1abdbeeda76ef",
+    "path": "VolvoCars.AccountProfile.Business/Layer/LayerBase.cs",
+    "lines": [17, 21],
+    "claim": "account-profile-bc3003a-complete-r1/field-construction/253aeebf9e081c67",
+    "fields": [
+      {
+        "field": "OutcomeCode",
+        "source": "code",
+        "values": ["account-profile-bc3003a-complete-r1/v/ded1abdbeeda76ef/1"],
+        "operations": ["account-profile-bc3003a-complete-r1/op/ded1abdbeeda76ef/2"]
+      },
+      {
+        "field": "IsError",
+        "source": "true",
+        "values": ["account-profile-bc3003a-complete-r1/v/ded1abdbeeda76ef/2"],
+        "operations": ["account-profile-bc3003a-complete-r1/op/ded1abdbeeda76ef/3"]
+      },
+      {
+        "field": "Message",
+        "source": "message",
+        "values": ["account-profile-bc3003a-complete-r1/v/ded1abdbeeda76ef/3"],
+        "operations": ["account-profile-bc3003a-complete-r1/op/ded1abdbeeda76ef/4"]
+      }
+    ]
+  },
+  {
+    "owner": "account-profile-bc3003a-complete-r1/method/2d9e19510fc22ceb",
+    "path": "VolvoCars.AccountProfile.Business/Layer/LayerBase.cs",
+    "lines": [27, 32],
+    "claim": "account-profile-bc3003a-complete-r1/field-construction/73b042a06de54984",
+    "fields": [
+      {
+        "field": "OutcomeCode",
+        "source": "code",
+        "values": ["account-profile-bc3003a-complete-r1/v/2d9e19510fc22ceb/1"],
+        "operations": ["account-profile-bc3003a-complete-r1/op/2d9e19510fc22ceb/2"]
+      },
+      {
+        "field": "IsError",
+        "source": "true",
+        "values": ["account-profile-bc3003a-complete-r1/v/2d9e19510fc22ceb/2"],
+        "operations": ["account-profile-bc3003a-complete-r1/op/2d9e19510fc22ceb/3"]
+      },
+      {
+        "field": "Data",
+        "source": "data",
+        "values": ["account-profile-bc3003a-complete-r1/v/2d9e19510fc22ceb/3"],
+        "operations": ["account-profile-bc3003a-complete-r1/op/2d9e19510fc22ceb/4"]
+      },
+      {
+        "field": "Message",
+        "source": "message",
+        "values": ["account-profile-bc3003a-complete-r1/v/2d9e19510fc22ceb/4"],
+        "operations": ["account-profile-bc3003a-complete-r1/op/2d9e19510fc22ceb/5"]
+      }
+    ]
+  },
+  {
+    "owner": "account-profile-bc3003a-complete-r1/method/d3a87dc60791e137",
+    "path": "VolvoCars.AccountProfile.Business/Layer/LayerBase.cs",
+    "lines": [38, 41],
+    "claim": "account-profile-bc3003a-complete-r1/field-construction/7c09851aac3aac97",
+    "fields": [
+      {
+        "field": "OutcomeCode",
+        "source": "LayerOutcomeCode.Ok",
+        "values": ["account-profile-bc3003a-complete-r1/v/d3a87dc60791e137/1"],
+        "operations": ["account-profile-bc3003a-complete-r1/op/d3a87dc60791e137/2"]
+      },
+      {
+        "field": "IsError",
+        "source": "false",
+        "values": ["account-profile-bc3003a-complete-r1/v/d3a87dc60791e137/2"],
+        "operations": ["account-profile-bc3003a-complete-r1/op/d3a87dc60791e137/3"]
+      }
+    ]
+  },
+  {
+    "owner": "account-profile-bc3003a-complete-r1/method/a23f8b082511e270",
+    "path": "VolvoCars.AccountProfile.Business/Layer/LayerBase.cs",
+    "lines": [47, 51],
+    "claim": "account-profile-bc3003a-complete-r1/field-construction/bf3394a3746ba8c8",
+    "fields": [
+      {
+        "field": "OutcomeCode",
+        "source": "LayerOutcomeCode.Ok",
+        "values": ["account-profile-bc3003a-complete-r1/v/a23f8b082511e270/1"],
+        "operations": ["account-profile-bc3003a-complete-r1/op/a23f8b082511e270/2"]
+      },
+      {
+        "field": "IsError",
+        "source": "false",
+        "values": ["account-profile-bc3003a-complete-r1/v/a23f8b082511e270/2"],
+        "operations": ["account-profile-bc3003a-complete-r1/op/a23f8b082511e270/3"]
+      },
+      {
+        "field": "Data",
+        "source": "data",
+        "values": ["account-profile-bc3003a-complete-r1/v/a23f8b082511e270/3"],
+        "operations": ["account-profile-bc3003a-complete-r1/op/a23f8b082511e270/4"]
+      }
+    ]
+  },
+  {
+    "owner": "account-profile-bc3003a-complete-r1/method/bea9f6b1a9a79942",
+    "path": "VolvoCars.AccountProfile.Api/Layer/ExtendedControllerBase.cs",
+    "lines": [19, 27],
+    "claim": "account-profile-bc3003a-complete-r1/field-construction/34359f9b1610ca5d",
+    "fields": [
+      {
+        "field": "Status",
+        "source": "statusCode",
+        "values": ["account-profile-bc3003a-complete-r1/v/bea9f6b1a9a79942/1"],
+        "operations": ["account-profile-bc3003a-complete-r1/op/bea9f6b1a9a79942/2"]
+      },
+      {
+        "field": "Error",
+        "source": "new ErrorData<T>\n                {\n                    Description = description,\n                    Message = message,\n                    Detail = detail\n                }",
+        "values": ["account-profile-bc3003a-complete-r1/v/bea9f6b1a9a79942/7"],
+        "operations": ["account-profile-bc3003a-complete-r1/op/bea9f6b1a9a79942/8"]
+      }
+    ]
+  },
+  {
+    "owner": "account-profile-bc3003a-complete-r1/method/bea9f6b1a9a79942",
+    "path": "VolvoCars.AccountProfile.Api/Layer/ExtendedControllerBase.cs",
+    "lines": [22, 26],
+    "claim": "account-profile-bc3003a-complete-r1/field-construction/0a82f13c30a9a74b",
+    "fields": [
+      {
+        "field": "Description",
+        "source": "description",
+        "values": ["account-profile-bc3003a-complete-r1/v/bea9f6b1a9a79942/3"],
+        "operations": ["account-profile-bc3003a-complete-r1/op/bea9f6b1a9a79942/4"]
+      },
+      {
+        "field": "Message",
+        "source": "message",
+        "values": ["account-profile-bc3003a-complete-r1/v/bea9f6b1a9a79942/4"],
+        "operations": ["account-profile-bc3003a-complete-r1/op/bea9f6b1a9a79942/5"]
+      },
+      {
+        "field": "Detail",
+        "source": "detail",
+        "values": ["account-profile-bc3003a-complete-r1/v/bea9f6b1a9a79942/5"],
+        "operations": ["account-profile-bc3003a-complete-r1/op/bea9f6b1a9a79942/6"]
+      }
+    ]
+  },
+  {
+    "owner": "account-profile-bc3003a-complete-r1/method/c8b355720c3959a4",
+    "path": "VolvoCars.AccountProfile.Business/Managers/Factories/AddressFactory.cs",
+    "lines": [27, 33],
+    "claim": "account-profile-bc3003a-complete-r1/field-construction/6c3d89bcfcddd20c",
+    "fields": [
+      {
+        "field": "Country",
+        "source": "address.Country",
+        "values": ["account-profile-bc3003a-complete-r1/v/c8b355720c3959a4/3"],
+        "operations": ["account-profile-bc3003a-complete-r1/op/c8b355720c3959a4/5"]
+      },
+      {
+        "field": "Locality",
+        "source": "address.Locality",
+        "values": ["account-profile-bc3003a-complete-r1/v/c8b355720c3959a4/4"],
+        "operations": ["account-profile-bc3003a-complete-r1/op/c8b355720c3959a4/6"]
+      },
+      {
+        "field": "PostalCode",
+        "source": "address.PostalCode",
+        "values": ["account-profile-bc3003a-complete-r1/v/c8b355720c3959a4/5"],
+        "operations": ["account-profile-bc3003a-complete-r1/op/c8b355720c3959a4/7"]
+      },
+      {
+        "field": "Region",
+        "source": "address.Region",
+        "values": ["account-profile-bc3003a-complete-r1/v/c8b355720c3959a4/6"],
+        "operations": ["account-profile-bc3003a-complete-r1/op/c8b355720c3959a4/8"]
+      },
+      {
+        "field": "Street",
+        "source": "address.StreetAddress",
+        "values": ["account-profile-bc3003a-complete-r1/v/c8b355720c3959a4/7"],
+        "operations": ["account-profile-bc3003a-complete-r1/op/c8b355720c3959a4/9"]
+      }
+    ]
+  },
+  {
+    "owner": "account-profile-bc3003a-complete-r1/method/a65df02f608dd11d",
+    "path": "VolvoCars.AccountProfile.Business/Managers/Factories/AddressFactory.cs",
+    "lines": [39, 46],
+    "claim": "account-profile-bc3003a-complete-r1/field-construction/8bf0deec5a2745f3",
+    "fields": [
+      {
+        "field": "Country",
+        "source": "country?.ToUpper()",
+        "values": ["account-profile-bc3003a-complete-r1/v/a65df02f608dd11d/3"],
+        "operations": ["account-profile-bc3003a-complete-r1/op/a65df02f608dd11d/4"]
+      },
+      {
+        "field": "Formatted",
+        "source": "CreateFormattedAddress(streetAddress, locality, postalCode, country)",
+        "values": ["account-profile-bc3003a-complete-r1/v/a65df02f608dd11d/5"],
+        "operations": ["account-profile-bc3003a-complete-r1/op/a65df02f608dd11d/6"]
+      },
+      {
+        "field": "Locality",
+        "source": "locality",
+        "values": ["account-profile-bc3003a-complete-r1/v/a65df02f608dd11d/6"],
+        "operations": ["account-profile-bc3003a-complete-r1/op/a65df02f608dd11d/7"]
+      },
+      {
+        "field": "PostalCode",
+        "source": "postalCode",
+        "values": ["account-profile-bc3003a-complete-r1/v/a65df02f608dd11d/7"],
+        "operations": ["account-profile-bc3003a-complete-r1/op/a65df02f608dd11d/8"]
+      },
+      {
+        "field": "Region",
+        "source": "region",
+        "values": ["account-profile-bc3003a-complete-r1/v/a65df02f608dd11d/8"],
+        "operations": ["account-profile-bc3003a-complete-r1/op/a65df02f608dd11d/9"]
+      },
+      {
+        "field": "StreetAddress",
+        "source": "streetAddress",
+        "values": ["account-profile-bc3003a-complete-r1/v/a65df02f608dd11d/9"],
+        "operations": ["account-profile-bc3003a-complete-r1/op/a65df02f608dd11d/10"]
+      }
+    ]
+  },
+  {
+    "owner": "account-profile-bc3003a-complete-r1/method/88ef2e41fa18bfff",
+    "path": "VolvoCars.AccountProfile.Business/Managers/Factories/AccountFactory.cs",
+    "lines": [34, 43],
+    "claim": "account-profile-bc3003a-complete-r1/field-construction/5f146d42af23145e",
+    "fields": [
+      {
+        "field": "Address",
+        "source": "addressFactory.CreateAddress(volvoIdUserData.Address)",
+        "values": ["account-profile-bc3003a-complete-r1/v/88ef2e41fa18bfff/6"],
+        "operations": ["account-profile-bc3003a-complete-r1/op/88ef2e41fa18bfff/8"]
+      },
+      {
+        "field": "Birthdate",
+        "source": "volvoIdUserData.Birthdate?.ToString(DateFormats.Default)",
+        "values": ["account-profile-bc3003a-complete-r1/v/88ef2e41fa18bfff/10"],
+        "operations": ["account-profile-bc3003a-complete-r1/op/88ef2e41fa18bfff/12"]
+      },
+      {
+        "field": "FirstName",
+        "source": "options.Value.DisplayFirstnameLastname ? volvoIdUserData.Firstname : null",
+        "values": ["account-profile-bc3003a-complete-r1/v/88ef2e41fa18bfff/15"],
+        "operations": ["account-profile-bc3003a-complete-r1/op/88ef2e41fa18bfff/18"]
+      },
+      {
+        "field": "LastName",
+        "source": "options.Value.DisplayFirstnameLastname ? volvoIdUserData.Lastname : null",
+        "values": ["account-profile-bc3003a-complete-r1/v/88ef2e41fa18bfff/20"],
+        "operations": ["account-profile-bc3003a-complete-r1/op/88ef2e41fa18bfff/24"]
+      },
+      {
+        "field": "Gender",
+        "source": "MapFromVolvoIdGender(volvoIdUserData.Gender)",
+        "values": ["account-profile-bc3003a-complete-r1/v/88ef2e41fa18bfff/23"],
+        "operations": ["account-profile-bc3003a-complete-r1/op/88ef2e41fa18bfff/27"]
+      },
+      {
+        "field": "UpdatedAt",
+        "source": "default",
+        "values": ["account-profile-bc3003a-complete-r1/v/88ef2e41fa18bfff/24"],
+        "operations": ["account-profile-bc3003a-complete-r1/op/88ef2e41fa18bfff/28"]
+      },
+      {
+        "field": "Uuid",
+        "source": "uuid",
+        "values": ["account-profile-bc3003a-complete-r1/v/88ef2e41fa18bfff/25"],
+        "operations": ["account-profile-bc3003a-complete-r1/op/88ef2e41fa18bfff/29"]
+      },
+      {
+        "field": "Zoneinfo",
+        "source": "string.Empty",
+        "values": ["account-profile-bc3003a-complete-r1/v/88ef2e41fa18bfff/26"],
+        "operations": ["account-profile-bc3003a-complete-r1/op/88ef2e41fa18bfff/30"]
+      }
+    ]
+  },
+  {
+    "owner": "account-profile-bc3003a-complete-r1/method/a16a8868724ee290",
+    "path": "VolvoCars.AccountProfile.Business/Managers/Factories/AccountFactory.cs",
+    "lines": [59, 65],
+    "claim": "account-profile-bc3003a-complete-r1/field-construction/a70953f9a0b4cf12",
+    "fields": [
+      {
+        "field": "Firstname",
+        "source": "updateAccountData.FirstName",
+        "values": ["account-profile-bc3003a-complete-r1/v/a16a8868724ee290/1"],
+        "operations": ["account-profile-bc3003a-complete-r1/op/a16a8868724ee290/2"]
+      },
+      {
+        "field": "Lastname",
+        "source": "updateAccountData.LastName",
+        "values": ["account-profile-bc3003a-complete-r1/v/a16a8868724ee290/2"],
+        "operations": ["account-profile-bc3003a-complete-r1/op/a16a8868724ee290/3"]
+      },
+      {
+        "field": "Gender",
+        "source": "MapToVolvoIdGender(updateAccountData.Gender)",
+        "values": ["account-profile-bc3003a-complete-r1/v/a16a8868724ee290/5"],
+        "operations": ["account-profile-bc3003a-complete-r1/op/a16a8868724ee290/6"]
+      },
+      {
+        "field": "Address",
+        "source": "addressFactory.CreateAddress(updateAccountData.Address)",
+        "values": ["account-profile-bc3003a-complete-r1/v/a16a8868724ee290/8"],
+        "operations": ["account-profile-bc3003a-complete-r1/op/a16a8868724ee290/9"]
+      },
+      {
+        "field": "Birthdate",
+        "source": "ParseStringToDate(updateAccountData.Birthdate)",
+        "values": ["account-profile-bc3003a-complete-r1/v/a16a8868724ee290/11"],
+        "operations": ["account-profile-bc3003a-complete-r1/op/a16a8868724ee290/12"]
+      }
+    ]
+  },
+  {
+    "owner": "account-profile-bc3003a-complete-r1/method/3d9a812b8e4961c5",
+    "path": "VolvoCars.AccountProfile.Api/Controllers/V1/AccountController.cs",
+    "lines": [104, 108],
+    "claim": "account-profile-bc3003a-complete-r1/field-construction/03b1eec5e263ee7c",
+    "fields": [
+      {
+        "field": "Status",
+        "source": "StatusCodes.Status200OK",
+        "values": ["account-profile-bc3003a-complete-r1/v/3d9a812b8e4961c5/1"],
+        "operations": ["account-profile-bc3003a-complete-r1/op/3d9a812b8e4961c5/2"]
+      },
+      {
+        "field": "Data",
+        "source": "data",
+        "values": ["account-profile-bc3003a-complete-r1/v/3d9a812b8e4961c5/2"],
+        "operations": ["account-profile-bc3003a-complete-r1/op/3d9a812b8e4961c5/3"]
+      },
+      {
+        "field": "OperationId",
+        "source": "RequestHelper.GetOperationIdFromRequest(Request)",
+        "values": ["account-profile-bc3003a-complete-r1/v/3d9a812b8e4961c5/5"],
+        "operations": ["account-profile-bc3003a-complete-r1/op/3d9a812b8e4961c5/6"]
+      }
+    ]
+  },
+  {
+    "owner": "account-profile-bc3003a-complete-r1/method/d6e48fd54a847c82",
+    "path": "VolvoCars.AccountProfile.Api/Controllers/V1/AccountController.cs",
+    "lines": [124, 129],
+    "claim": "account-profile-bc3003a-complete-r1/field-construction/12f26c23c0632c52",
+    "fields": [
+      {
+        "field": "Uuid",
+        "source": "claimsProvider.GetVolvoId(User).ToString()",
+        "values": ["account-profile-bc3003a-complete-r1/v/d6e48fd54a847c82/4"],
+        "operations": ["account-profile-bc3003a-complete-r1/op/d6e48fd54a847c82/5"]
+      },
+      {
+        "field": "Region",
+        "source": "User.IsChineseVolvoIdUser() ? Region.CN : Region.EU",
+        "values": ["account-profile-bc3003a-complete-r1/v/d6e48fd54a847c82/9"],
+        "operations": ["account-profile-bc3003a-complete-r1/op/d6e48fd54a847c82/11"]
+      },
+      {
+        "field": "Brand",
+        "source": "MapBrandFromPrincipal(claimsProvider.GetBrand(User))",
+        "values": ["account-profile-bc3003a-complete-r1/v/d6e48fd54a847c82/13"],
+        "operations": ["account-profile-bc3003a-complete-r1/op/d6e48fd54a847c82/15"]
+      },
+      {
+        "field": "UserAccessToken",
+        "source": "User.GetVolvoIdToken()",
+        "values": ["account-profile-bc3003a-complete-r1/v/d6e48fd54a847c82/15"],
+        "operations": ["account-profile-bc3003a-complete-r1/op/d6e48fd54a847c82/17"]
+      }
+    ]
+  },
+  {
+    "owner": "account-profile-bc3003a-complete-r1/method/1f4cc2303d79570d",
+    "path": "VolvoCars.AccountProfile.Api/Controllers/V1/SettingsController.cs",
+    "lines": [47, 59],
+    "claim": "account-profile-bc3003a-complete-r1/field-construction/5daaef21b18d2688",
+    "fields": [
+      {
+        "field": "Status",
+        "source": "StatusCodes.Status200OK",
+        "values": ["account-profile-bc3003a-complete-r1/v/1f4cc2303d79570d/2"],
+        "operations": ["account-profile-bc3003a-complete-r1/op/1f4cc2303d79570d/3"]
+      },
+      {
+        "field": "Data",
+        "source": "settings.Skip(query.offset.Value * query.limit.Value).Take(query.limit.Value).ToList()",
+        "values": ["account-profile-bc3003a-complete-r1/v/1f4cc2303d79570d/8"],
+        "operations": ["account-profile-bc3003a-complete-r1/op/1f4cc2303d79570d/9"]
+      },
+      {
+        "field": "OperationId",
+        "source": "RequestHelper.GetOperationIdFromRequest(Request)",
+        "values": ["account-profile-bc3003a-complete-r1/v/1f4cc2303d79570d/11"],
+        "operations": ["account-profile-bc3003a-complete-r1/op/1f4cc2303d79570d/12"]
+      },
+      {
+        "field": "Pagination",
+        "source": "new OffsetPagination\n                {\n                    Limit = query.limit.Value,\n                    Offset = query.offset.Value,\n                    Next = paginationFactory.CreateNextQueryString(query, total),\n                    Previous = paginationFactory.CreatePreviousQueryString(query),\n                    Total = total\n                }",
+        "values": ["account-profile-bc3003a-complete-r1/v/1f4cc2303d79570d/21"],
+        "operations": ["account-profile-bc3003a-complete-r1/op/1f4cc2303d79570d/22"]
+      }
+    ]
+  },
+  {
+    "owner": "account-profile-bc3003a-complete-r1/method/1f4cc2303d79570d",
+    "path": "VolvoCars.AccountProfile.Api/Controllers/V1/SettingsController.cs",
+    "lines": [52, 58],
+    "claim": "account-profile-bc3003a-complete-r1/field-construction/8e72acb3491d779d",
+    "fields": [
+      {
+        "field": "Limit",
+        "source": "query.limit.Value",
+        "values": ["account-profile-bc3003a-complete-r1/v/1f4cc2303d79570d/13"],
+        "operations": ["account-profile-bc3003a-complete-r1/op/1f4cc2303d79570d/14"]
+      },
+      {
+        "field": "Offset",
+        "source": "query.offset.Value",
+        "values": ["account-profile-bc3003a-complete-r1/v/1f4cc2303d79570d/14"],
+        "operations": ["account-profile-bc3003a-complete-r1/op/1f4cc2303d79570d/15"]
+      },
+      {
+        "field": "Next",
+        "source": "paginationFactory.CreateNextQueryString(query, total)",
+        "values": ["account-profile-bc3003a-complete-r1/v/1f4cc2303d79570d/16"],
+        "operations": ["account-profile-bc3003a-complete-r1/op/1f4cc2303d79570d/17"]
+      },
+      {
+        "field": "Previous",
+        "source": "paginationFactory.CreatePreviousQueryString(query)",
+        "values": ["account-profile-bc3003a-complete-r1/v/1f4cc2303d79570d/18"],
+        "operations": ["account-profile-bc3003a-complete-r1/op/1f4cc2303d79570d/19"]
+      },
+      {
+        "field": "Total",
+        "source": "total",
+        "values": ["account-profile-bc3003a-complete-r1/v/1f4cc2303d79570d/19"],
+        "operations": ["account-profile-bc3003a-complete-r1/op/1f4cc2303d79570d/20"]
+      }
+    ]
+  },
+  {
+    "owner": "account-profile-bc3003a-complete-r1/method/a33b07d8880c4068",
+    "path": "VolvoCars.AccountProfile.Business/Logic/AccountLogic.cs",
+    "lines": [55, 55],
+    "claim": "account-profile-bc3003a-complete-r1/field-construction/053ea29681ea2495",
+    "fields": [
+      {
+        "field": "Message",
+        "source": "v.ErrorMessage",
+        "values": ["account-profile-bc3003a-complete-r1/v/a33b07d8880c4068/1"],
+        "operations": ["account-profile-bc3003a-complete-r1/op/a33b07d8880c4068/2"]
+      },
+      {
+        "field": "PropertyName",
+        "source": "v.PropertyName",
+        "values": ["account-profile-bc3003a-complete-r1/v/a33b07d8880c4068/2"],
+        "operations": ["account-profile-bc3003a-complete-r1/op/a33b07d8880c4068/3"]
+      }
+    ]
+  },
+  {
+    "owner": "account-profile-bc3003a-complete-r1/method/4900813f98d15503",
+    "path": "VolvoCars.AccountProfile.Business/Logic/AccountLogic.cs",
+    "lines": [56, 56],
+    "claim": "account-profile-bc3003a-complete-r1/field-construction/5a800befc10008c8",
+    "fields": [
+      {
+        "field": "Message",
+        "source": "v.ErrorMessage",
+        "values": ["account-profile-bc3003a-complete-r1/v/4900813f98d15503/1"],
+        "operations": ["account-profile-bc3003a-complete-r1/op/4900813f98d15503/2"]
+      },
+      {
+        "field": "PropertyName",
+        "source": "v.PropertyName",
+        "values": ["account-profile-bc3003a-complete-r1/v/4900813f98d15503/2"],
+        "operations": ["account-profile-bc3003a-complete-r1/op/4900813f98d15503/3"]
+      }
+    ]
+  },
+  {
+    "owner": "account-profile-bc3003a-complete-r1/method/05e8e11477c2be75",
+    "path": "VolvoCars.AccountProfile.Api/Extensions/IServiceCollectionExtensions.cs",
+    "lines": [34, 38],
+    "claim": "account-profile-bc3003a-complete-r1/field-construction/bcb65b35e332622f",
+    "fields": [
+      {
+        "field": "Title",
+        "source": "\"Account Profile API\"",
+        "values": ["account-profile-bc3003a-complete-r1/v/05e8e11477c2be75/10"],
+        "operations": ["account-profile-bc3003a-complete-r1/op/05e8e11477c2be75/13"]
+      },
+      {
+        "field": "Description",
+        "source": "\"Globally scaled highly responsive API which enables retrieval and update of account profile information for the current signed in end - user.<br /> <a href='https://collaboration.volvocars.net/sites/vccapi/apiconsumers/SitePages/Account-Profile-API-Consumer-Guide.aspx' target='_blank'>Consumer Guide</a>\"",
+        "values": ["account-profile-bc3003a-complete-r1/v/05e8e11477c2be75/11"],
+        "operations": ["account-profile-bc3003a-complete-r1/op/05e8e11477c2be75/14"]
+      },
+      {
+        "field": "Version",
+        "source": "\"1\"",
+        "values": ["account-profile-bc3003a-complete-r1/v/05e8e11477c2be75/12"],
+        "operations": ["account-profile-bc3003a-complete-r1/op/05e8e11477c2be75/15"]
+      }
+    ]
+  },
+  {
+    "owner": "account-profile-bc3003a-complete-r1/method/0629f92fb7c93c0f",
+    "path": "VolvoCars.AccountProfile.Api/Extensions/IServiceCollectionExtensions.cs",
+    "lines": [59, 64],
+    "claim": "account-profile-bc3003a-complete-r1/field-construction/40975087de2a8b3d",
+    "fields": [
+      {
+        "field": "NamingStrategy",
+        "source": "new CamelCaseNamingStrategy\n                    {\n                        ProcessDictionaryKeys = false\n                    }",
+        "values": ["account-profile-bc3003a-complete-r1/v/0629f92fb7c93c0f/7"],
+        "operations": ["account-profile-bc3003a-complete-r1/op/0629f92fb7c93c0f/8"]
+      }
+    ]
+  },
+  {
+    "owner": "account-profile-bc3003a-complete-r1/method/0629f92fb7c93c0f",
+    "path": "VolvoCars.AccountProfile.Api/Extensions/IServiceCollectionExtensions.cs",
+    "lines": [61, 63],
+    "claim": "account-profile-bc3003a-complete-r1/field-construction/30f2bfe677efbab4",
+    "fields": [
+      {
+        "field": "ProcessDictionaryKeys",
+        "source": "false",
+        "values": ["account-profile-bc3003a-complete-r1/v/0629f92fb7c93c0f/5"],
+        "operations": ["account-profile-bc3003a-complete-r1/op/0629f92fb7c93c0f/6"]
+      }
+    ]
+  }
+]

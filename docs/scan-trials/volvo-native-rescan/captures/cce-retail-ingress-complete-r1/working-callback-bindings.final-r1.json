@@ -1,0 +1,16 @@
+[
+  {
+    "operation": "volvo/cce-retail-ingress/95d091aa445f/final-r1/operation/bdc5a9b299a639cc7f9b/17",
+    "target": "volvo/cce-retail-ingress/95d091aa445f/final-r1/implementation/7698661ffd35b71f7a23",
+    "callable": "volvo/cce-retail-ingress/95d091aa445f/final-r1/value/bdc5a9b299a639cc7f9b/16",
+    "captures": [
+      {
+        "capture": "volvo/cce-retail-ingress/95d091aa445f/final-r1/implementation/7698661ffd35b71f7a23/capture/client",
+        "value": "volvo/cce-retail-ingress/95d091aa445f/final-r1/value/callback-cell/fc3a8ef9e97f6a82634b",
+        "mode": "reference"
+      }
+    ],
+    "source": "internal/gateway/client.go",
+    "lines": [58, 58]
+  }
+]

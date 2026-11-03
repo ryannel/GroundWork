@@ -1,0 +1,16 @@
+{
+  "format": "groundwork-query/v3",
+  "snapshot": "12219e2034df0e17bbddb39b0cb84cb758d43e05f42dd145321613bd27300899",
+  "query": "value",
+  "entry": "assortment-6114c5d-complete-r3/method/97a1141cc002c409",
+  "value": "assortment-6114c5d-complete-r3/v/97a1141cc002c409/p/0",
+  "context": [],
+  "outcome": null,
+  "changed": [],
+  "representation": "source",
+  "candidates": "exclude",
+  "maxNodes": 2000,
+  "environment": "production-profile",
+  "maxRecords": 5000,
+  "ids": []
+}

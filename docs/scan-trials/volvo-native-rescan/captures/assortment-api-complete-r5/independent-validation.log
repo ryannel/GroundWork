@@ -1,0 +1,11 @@
+
+> groundwork@0.0.0 knowledge:validate
+> node --import ./tools/register.ts --conditions=react-server tools/validate-knowledge.ts reports/volvo-native-rescan/assortment-api-complete/bundle.complete-05.json
+
+{
+  "snapshot": "bde9df8e50cc2c5f43e1cc44cdb2b6828222a7b94dfd7d7c4d597beb86a4213c",
+  "bundles": 1,
+  "records": 54223,
+  "sourceRangesChecked": 0,
+  "sourceVerification": "not_requested"
+}

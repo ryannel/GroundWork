@@ -1,0 +1,1691 @@
+{
+  "repo": "volvo-cars/popcat-assortment-api",
+  "commit": "6114c5db0f2b4b490cf89b9c512088f01dbf0b98",
+  "counts": {
+    "rest": 29,
+    "health": 8,
+    "documentation_middleware": 4,
+    "gateway": 7,
+    "background_job": 1,
+    "topic_processors": 10,
+    "typed_dispatch_subscriptions_new": 26,
+    "native_subscriptions_new": 33,
+    "header_presence_subscriptions_new": 2,
+    "unfiltered_subscriptions_new": 5,
+    "json_event_envelopes": 2,
+    "schemas_new": 346,
+    "schema_fields_new": 1237,
+    "key_http_traces": 1,
+    "base_async_traces_retained": 1
+  },
+  "entries": [
+    {
+      "id": "assortment-6114c5d-r5/entry/controller/About-GetVersionV1",
+      "kind": "rest",
+      "method": "GET",
+      "path": "/api/v{version:apiVersion}/About/version",
+      "component": "assortment-6114c5d-r5/component/api",
+      "implementation": "assortment-6114c5d-r5/impl/controller/About-GetVersionV1",
+      "execution": "assortment-6114c5d-r5/runs/About-GetVersionV1-api",
+      "contract": "assortment-6114c5d-r5/contract/controller/About-GetVersionV1",
+      "status": "partial",
+      "evidence": ["assortment-6114c5d-r5/e/b91fd64edb22"],
+      "gaps": [
+        "assortment-6114c5d-r5/gap/entry-controller-About-GetVersionV1",
+        "assortment-6114c5d-r5/gap/wire-closure",
+        "assortment-6114c5d-r5/gap/deployment"
+      ],
+      "source_path": "src/PopCat.Assortment.Api/Controllers/AboutController.cs",
+      "source_line": 11,
+      "action": "GetVersionV1",
+      "controller": "About"
+    },
+    {
+      "id": "assortment-6114c5d-r5/entry/controller/Cache-RemoveCarConfigFromCache",
+      "kind": "rest",
+      "method": "DELETE",
+      "path": "/api/v{version:apiVersion}/admin/Cache/remove-carconfig-from-cache/{pno12}/{modelYear}/{specMarket}",
+      "component": "assortment-6114c5d-r5/component/api",
+      "implementation": "assortment-6114c5d-r5/impl/controller/Cache-RemoveCarConfigFromCache",
+      "execution": "assortment-6114c5d-r5/runs/Cache-RemoveCarConfigFromCache-api",
+      "contract": "assortment-6114c5d-r5/contract/controller/Cache-RemoveCarConfigFromCache",
+      "status": "partial",
+      "evidence": ["assortment-6114c5d-r5/e/e3e42d0eef01"],
+      "gaps": [
+        "assortment-6114c5d-r5/gap/entry-controller-Cache-RemoveCarConfigFromCache",
+        "assortment-6114c5d-r5/gap/wire-closure",
+        "assortment-6114c5d-r5/gap/deployment"
+      ],
+      "source_path": "src/PopCat.Assortment.Api/Controllers/Admin/CacheController.cs",
+      "source_line": 33,
+      "action": "RemoveCarConfigFromCache",
+      "controller": "Cache"
+    },
+    {
+      "id": "assortment-6114c5d-r5/entry/controller/Cache-RemoveExternalCarCodeFromCache",
+      "kind": "rest",
+      "method": "DELETE",
+      "path": "/api/v{version:apiVersion}/admin/Cache/remove-external-car-code-from-cache",
+      "component": "assortment-6114c5d-r5/component/api",
+      "implementation": "assortment-6114c5d-r5/impl/controller/Cache-RemoveExternalCarCodeFromCache",
+      "execution": "assortment-6114c5d-r5/runs/Cache-RemoveExternalCarCodeFromCache-api",
+      "contract": "assortment-6114c5d-r5/contract/controller/Cache-RemoveExternalCarCodeFromCache",
+      "status": "partial",
+      "evidence": ["assortment-6114c5d-r5/e/8271fcaad771"],
+      "gaps": [
+        "assortment-6114c5d-r5/gap/entry-controller-Cache-RemoveExternalCarCodeFromCache",
+        "assortment-6114c5d-r5/gap/wire-closure",
+        "assortment-6114c5d-r5/gap/deployment"
+      ],
+      "source_path": "src/PopCat.Assortment.Api/Controllers/Admin/CacheController.cs",
+      "source_line": 46,
+      "action": "RemoveExternalCarCodeFromCache",
+      "controller": "Cache"
+    },
+    {
+      "id": "assortment-6114c5d-r5/entry/controller/Cache-RemoveProductDetailsFromCache",
+      "kind": "rest",
+      "method": "DELETE",
+      "path": "/api/v{version:apiVersion}/admin/Cache/remove-product-details-from-cache",
+      "component": "assortment-6114c5d-r5/component/api",
+      "implementation": "assortment-6114c5d-r5/impl/controller/Cache-RemoveProductDetailsFromCache",
+      "execution": "assortment-6114c5d-r5/runs/Cache-RemoveProductDetailsFromCache-api",
+      "contract": "assortment-6114c5d-r5/contract/controller/Cache-RemoveProductDetailsFromCache",
+      "status": "partial",
+      "evidence": ["assortment-6114c5d-r5/e/5eb6ce815583"],
+      "gaps": [
+        "assortment-6114c5d-r5/gap/entry-controller-Cache-RemoveProductDetailsFromCache",
+        "assortment-6114c5d-r5/gap/wire-closure",
+        "assortment-6114c5d-r5/gap/deployment"
+      ],
+      "source_path": "src/PopCat.Assortment.Api/Controllers/Admin/CacheController.cs",
+      "source_line": 56,
+      "action": "RemoveProductDetailsFromCache",
+      "controller": "Cache"
+    },
+    {
+      "id": "assortment-6114c5d-r5/entry/controller/Cache-ImportProductDetails",
+      "kind": "rest",
+      "method": "POST",
+      "path": "/api/v{version:apiVersion}/admin/Cache/import-product-details/{productType}",
+      "component": "assortment-6114c5d-r5/component/api",
+      "implementation": "assortment-6114c5d-r5/impl/controller/Cache-ImportProductDetails",
+      "execution": "assortment-6114c5d-r5/runs/Cache-ImportProductDetails-api",
+      "contract": "assortment-6114c5d-r5/contract/controller/Cache-ImportProductDetails",
+      "status": "partial",
+      "evidence": ["assortment-6114c5d-r5/e/67e48fbdf13f"],
+      "gaps": [
+        "assortment-6114c5d-r5/gap/entry-controller-Cache-ImportProductDetails",
+        "assortment-6114c5d-r5/gap/wire-closure",
+        "assortment-6114c5d-r5/gap/deployment"
+      ],
+      "source_path": "src/PopCat.Assortment.Api/Controllers/Admin/CacheController.cs",
+      "source_line": 63,
+      "action": "ImportProductDetails",
+      "controller": "Cache"
+    },
+    {
+      "id": "assortment-6114c5d-r5/entry/controller/Cache-ImportUpstreamEntities",
+      "kind": "rest",
+      "method": "POST",
+      "path": "/api/v{version:apiVersion}/admin/Cache/import-upstream-entities",
+      "component": "assortment-6114c5d-r5/component/api",
+      "implementation": "assortment-6114c5d-r5/impl/controller/Cache-ImportUpstreamEntities",
+      "execution": "assortment-6114c5d-r5/runs/Cache-ImportUpstreamEntities-api",
+      "contract": "assortment-6114c5d-r5/contract/controller/Cache-ImportUpstreamEntities",
+      "status": "partial",
+      "evidence": ["assortment-6114c5d-r5/e/660d6c258a53"],
+      "gaps": [
+        "assortment-6114c5d-r5/gap/entry-controller-Cache-ImportUpstreamEntities",
+        "assortment-6114c5d-r5/gap/wire-closure",
+        "assortment-6114c5d-r5/gap/deployment"
+      ],
+      "source_path": "src/PopCat.Assortment.Api/Controllers/Admin/CacheController.cs",
+      "source_line": 70,
+      "action": "ImportUpstreamEntities",
+      "controller": "Cache"
+    },
+    {
+      "id": "assortment-6114c5d-r5/entry/controller/CarConfig-GetCarConfig",
+      "kind": "rest",
+      "method": "GET",
+      "path": "/api/v{version:apiVersion}/CarConfig",
+      "component": "assortment-6114c5d-r5/component/api",
+      "implementation": "assortment-6114c5d-r5/impl/controller/CarConfig-GetCarConfig",
+      "execution": "assortment-6114c5d-r5/runs/CarConfig-GetCarConfig-api",
+      "contract": "assortment-6114c5d-r5/contract/controller/CarConfig-GetCarConfig",
+      "status": "partial",
+      "evidence": ["assortment-6114c5d-r5/e/9f62e5fbc62e"],
+      "gaps": [
+        "assortment-6114c5d-r5/gap/entry-controller-CarConfig-GetCarConfig",
+        "assortment-6114c5d-r5/gap/wire-closure",
+        "assortment-6114c5d-r5/gap/deployment"
+      ],
+      "source_path": "src/PopCat.Assortment.Api/Controllers/CarConfigController.cs",
+      "source_line": 18,
+      "action": "GetCarConfig",
+      "controller": "CarConfig"
+    },
+    {
+      "id": "assortment-6114c5d-r5/entry/controller/CarConfig-ListPno12s",
+      "kind": "rest",
+      "method": "POST",
+      "path": "/api/v{version:apiVersion}/CarConfig/pno12s",
+      "component": "assortment-6114c5d-r5/component/api",
+      "implementation": "assortment-6114c5d-r5/impl/controller/CarConfig-ListPno12s",
+      "execution": "assortment-6114c5d-r5/runs/CarConfig-ListPno12s-api",
+      "contract": "assortment-6114c5d-r5/contract/controller/CarConfig-ListPno12s",
+      "status": "partial",
+      "evidence": ["assortment-6114c5d-r5/e/c11398ddabdb"],
+      "gaps": [
+        "assortment-6114c5d-r5/gap/entry-controller-CarConfig-ListPno12s",
+        "assortment-6114c5d-r5/gap/wire-closure",
+        "assortment-6114c5d-r5/gap/deployment"
+      ],
+      "source_path": "src/PopCat.Assortment.Api/Controllers/CarConfigController.cs",
+      "source_line": 35,
+      "action": "ListPno12s",
+      "controller": "CarConfig"
+    },
+    {
+      "id": "assortment-6114c5d-r5/entry/controller/Classification-GetAllClassifications",
+      "kind": "rest",
+      "method": "GET",
+      "path": "/api/v{version:apiVersion}/Classification",
+      "component": "assortment-6114c5d-r5/component/api",
+      "implementation": "assortment-6114c5d-r5/impl/controller/Classification-GetAllClassifications",
+      "execution": "assortment-6114c5d-r5/runs/Classification-GetAllClassifications-api",
+      "contract": "assortment-6114c5d-r5/contract/controller/Classification-GetAllClassifications",
+      "status": "partial",
+      "evidence": ["assortment-6114c5d-r5/e/3bdaa9e0a918"],
+      "gaps": [
+        "assortment-6114c5d-r5/gap/entry-controller-Classification-GetAllClassifications",
+        "assortment-6114c5d-r5/gap/wire-closure",
+        "assortment-6114c5d-r5/gap/deployment"
+      ],
+      "source_path": "src/PopCat.Assortment.Api/Controllers/ClassificationController.cs",
+      "source_line": 22,
+      "action": "GetAllClassifications",
+      "controller": "Classification",
+      "local_control": "examined",
+      "key_trace": true
+    },
+    {
+      "id": "assortment-6114c5d-r5/entry/controller/ExternalCarCode-GetExternalCarCode",
+      "kind": "rest",
+      "method": "GET",
+      "path": "/api/v{version:apiVersion}/ExternalCarCode",
+      "component": "assortment-6114c5d-r5/component/api",
+      "implementation": "assortment-6114c5d-r5/impl/controller/ExternalCarCode-GetExternalCarCode",
+      "execution": "assortment-6114c5d-r5/runs/ExternalCarCode-GetExternalCarCode-api",
+      "contract": "assortment-6114c5d-r5/contract/controller/ExternalCarCode-GetExternalCarCode",
+      "status": "partial",
+      "evidence": ["assortment-6114c5d-r5/e/1cb44aad573a"],
+      "gaps": [
+        "assortment-6114c5d-r5/gap/entry-controller-ExternalCarCode-GetExternalCarCode",
+        "assortment-6114c5d-r5/gap/wire-closure",
+        "assortment-6114c5d-r5/gap/deployment"
+      ],
+      "source_path": "src/PopCat.Assortment.Api/Controllers/ExternalCarCodeController.cs",
+      "source_line": 23,
+      "action": "GetExternalCarCode",
+      "controller": "ExternalCarCode"
+    },
+    {
+      "id": "assortment-6114c5d-r5/entry/controller/ExternalCarCode-GetExternalComponentCode",
+      "kind": "rest",
+      "method": "GET",
+      "path": "/api/v{version:apiVersion}/ExternalCarCode/component/{code}",
+      "component": "assortment-6114c5d-r5/component/api",
+      "implementation": "assortment-6114c5d-r5/impl/controller/ExternalCarCode-GetExternalComponentCode",
+      "execution": "assortment-6114c5d-r5/runs/ExternalCarCode-GetExternalComponentCode-api",
+      "contract": "assortment-6114c5d-r5/contract/controller/ExternalCarCode-GetExternalComponentCode",
+      "status": "partial",
+      "evidence": ["assortment-6114c5d-r5/e/72a726c8f5db"],
+      "gaps": [
+        "assortment-6114c5d-r5/gap/entry-controller-ExternalCarCode-GetExternalComponentCode",
+        "assortment-6114c5d-r5/gap/wire-closure",
+        "assortment-6114c5d-r5/gap/deployment"
+      ],
+      "source_path": "src/PopCat.Assortment.Api/Controllers/ExternalCarCodeController.cs",
+      "source_line": 36,
+      "action": "GetExternalComponentCode",
+      "controller": "ExternalCarCode"
+    },
+    {
+      "id": "assortment-6114c5d-r5/entry/controller/GlobalDictionary-GetGlobalDictionaryEntries",
+      "kind": "rest",
+      "method": "GET",
+      "path": "/api/v{version:apiVersion}/modelYear/{modelYear}/carType/{carType}/globalDictionaryEntries",
+      "component": "assortment-6114c5d-r5/component/api",
+      "implementation": "assortment-6114c5d-r5/impl/controller/GlobalDictionary-GetGlobalDictionaryEntries",
+      "execution": "assortment-6114c5d-r5/runs/GlobalDictionary-GetGlobalDictionaryEntries-api",
+      "contract": "assortment-6114c5d-r5/contract/controller/GlobalDictionary-GetGlobalDictionaryEntries",
+      "status": "partial",
+      "evidence": ["assortment-6114c5d-r5/e/61a4263a83bd"],
+      "gaps": [
+        "assortment-6114c5d-r5/gap/entry-controller-GlobalDictionary-GetGlobalDictionaryEntries",
+        "assortment-6114c5d-r5/gap/wire-closure",
+        "assortment-6114c5d-r5/gap/deployment"
+      ],
+      "source_path": "src/PopCat.Assortment.Api/Controllers/GlobalDictionaryController.cs",
+      "source_line": 23,
+      "action": "GetGlobalDictionaryEntries",
+      "controller": "GlobalDictionary"
+    },
+    {
+      "id": "assortment-6114c5d-r5/entry/controller/MarketAuth-GetMarketAuthEntries",
+      "kind": "rest",
+      "method": "GET",
+      "path": "/api/v{version:apiVersion}/specMarket/{specMarket}/modelYear/{modelYear}/carType/{carType}/marketAuthEntries",
+      "component": "assortment-6114c5d-r5/component/api",
+      "implementation": "assortment-6114c5d-r5/impl/controller/MarketAuth-GetMarketAuthEntries",
+      "execution": "assortment-6114c5d-r5/runs/MarketAuth-GetMarketAuthEntries-api",
+      "contract": "assortment-6114c5d-r5/contract/controller/MarketAuth-GetMarketAuthEntries",
+      "status": "partial",
+      "evidence": ["assortment-6114c5d-r5/e/5e0e63bc9973"],
+      "gaps": [
+        "assortment-6114c5d-r5/gap/entry-controller-MarketAuth-GetMarketAuthEntries",
+        "assortment-6114c5d-r5/gap/wire-closure",
+        "assortment-6114c5d-r5/gap/deployment"
+      ],
+      "source_path": "src/PopCat.Assortment.Api/Controllers/MarketAuthController.cs",
+      "source_line": 19,
+      "action": "GetMarketAuthEntries",
+      "controller": "MarketAuth"
+    },
+    {
+      "id": "assortment-6114c5d-r5/entry/controller/ProductDetails-GetProductById",
+      "kind": "rest",
+      "method": "GET",
+      "path": "/api/v{version:apiVersion}/products/{id}",
+      "component": "assortment-6114c5d-r5/component/api",
+      "implementation": "assortment-6114c5d-r5/impl/controller/ProductDetails-GetProductById",
+      "execution": "assortment-6114c5d-r5/runs/ProductDetails-GetProductById-api",
+      "contract": "assortment-6114c5d-r5/contract/controller/ProductDetails-GetProductById",
+      "status": "partial",
+      "evidence": ["assortment-6114c5d-r5/e/14e85f0d79c3"],
+      "gaps": [
+        "assortment-6114c5d-r5/gap/entry-controller-ProductDetails-GetProductById",
+        "assortment-6114c5d-r5/gap/wire-closure",
+        "assortment-6114c5d-r5/gap/deployment"
+      ],
+      "source_path": "src/PopCat.Assortment.Api/Controllers/ProductDetailsController.cs",
+      "source_line": 19,
+      "action": "GetProductById",
+      "controller": "ProductDetails"
+    },
+    {
+      "id": "assortment-6114c5d-r5/entry/controller/ProductDetails-BatchGetProductByIds",
+      "kind": "rest",
+      "method": "POST",
+      "path": "/api/v{version:apiVersion}/products/batch",
+      "component": "assortment-6114c5d-r5/component/api",
+      "implementation": "assortment-6114c5d-r5/impl/controller/ProductDetails-BatchGetProductByIds",
+      "execution": "assortment-6114c5d-r5/runs/ProductDetails-BatchGetProductByIds-api",
+      "contract": "assortment-6114c5d-r5/contract/controller/ProductDetails-BatchGetProductByIds",
+      "status": "partial",
+      "evidence": ["assortment-6114c5d-r5/e/1c01c9ac25ef"],
+      "gaps": [
+        "assortment-6114c5d-r5/gap/entry-controller-ProductDetails-BatchGetProductByIds",
+        "assortment-6114c5d-r5/gap/wire-closure",
+        "assortment-6114c5d-r5/gap/deployment"
+      ],
+      "source_path": "src/PopCat.Assortment.Api/Controllers/ProductDetailsController.cs",
+      "source_line": 32,
+      "action": "BatchGetProductByIds",
+      "controller": "ProductDetails"
+    },
+    {
+      "id": "assortment-6114c5d-r5/entry/controller/ProductDetails-GetProductTypeById",
+      "kind": "rest",
+      "method": "GET",
+      "path": "/api/v{version:apiVersion}/products/{id}/product-type",
+      "component": "assortment-6114c5d-r5/component/api",
+      "implementation": "assortment-6114c5d-r5/impl/controller/ProductDetails-GetProductTypeById",
+      "execution": "assortment-6114c5d-r5/runs/ProductDetails-GetProductTypeById-api",
+      "contract": "assortment-6114c5d-r5/contract/controller/ProductDetails-GetProductTypeById",
+      "status": "partial",
+      "evidence": ["assortment-6114c5d-r5/e/1d07dfe66676"],
+      "gaps": [
+        "assortment-6114c5d-r5/gap/entry-controller-ProductDetails-GetProductTypeById",
+        "assortment-6114c5d-r5/gap/wire-closure",
+        "assortment-6114c5d-r5/gap/deployment"
+      ],
+      "source_path": "src/PopCat.Assortment.Api/Controllers/ProductDetailsController.cs",
+      "source_line": 45,
+      "action": "GetProductTypeById",
+      "controller": "ProductDetails"
+    },
+    {
+      "id": "assortment-6114c5d-r5/entry/controller/ProductDetails-ListProductsByType",
+      "kind": "rest",
+      "method": "GET",
+      "path": "/api/v{version:apiVersion}/product-types/{productType}/products",
+      "component": "assortment-6114c5d-r5/component/api",
+      "implementation": "assortment-6114c5d-r5/impl/controller/ProductDetails-ListProductsByType",
+      "execution": "assortment-6114c5d-r5/runs/ProductDetails-ListProductsByType-api",
+      "contract": "assortment-6114c5d-r5/contract/controller/ProductDetails-ListProductsByType",
+      "status": "partial",
+      "evidence": ["assortment-6114c5d-r5/e/d59cb0950d25"],
+      "gaps": [
+        "assortment-6114c5d-r5/gap/entry-controller-ProductDetails-ListProductsByType",
+        "assortment-6114c5d-r5/gap/wire-closure",
+        "assortment-6114c5d-r5/gap/deployment"
+      ],
+      "source_path": "src/PopCat.Assortment.Api/Controllers/ProductDetailsController.cs",
+      "source_line": 59,
+      "action": "ListProductsByType",
+      "controller": "ProductDetails"
+    },
+    {
+      "id": "assortment-6114c5d-r5/entry/controller/ProductDetails-GetVariantById",
+      "kind": "rest",
+      "method": "GET",
+      "path": "/api/v{version:apiVersion}/variants/{id}",
+      "component": "assortment-6114c5d-r5/component/api",
+      "implementation": "assortment-6114c5d-r5/impl/controller/ProductDetails-GetVariantById",
+      "execution": "assortment-6114c5d-r5/runs/ProductDetails-GetVariantById-api",
+      "contract": "assortment-6114c5d-r5/contract/controller/ProductDetails-GetVariantById",
+      "status": "partial",
+      "evidence": ["assortment-6114c5d-r5/e/7171711af0d9"],
+      "gaps": [
+        "assortment-6114c5d-r5/gap/entry-controller-ProductDetails-GetVariantById",
+        "assortment-6114c5d-r5/gap/wire-closure",
+        "assortment-6114c5d-r5/gap/deployment"
+      ],
+      "source_path": "src/PopCat.Assortment.Api/Controllers/ProductDetailsController.cs",
+      "source_line": 76,
+      "action": "GetVariantById",
+      "controller": "ProductDetails"
+    },
+    {
+      "id": "assortment-6114c5d-r5/entry/controller/ProductDetails-BatchGetVariantByIds",
+      "kind": "rest",
+      "method": "POST",
+      "path": "/api/v{version:apiVersion}/variants/batch",
+      "component": "assortment-6114c5d-r5/component/api",
+      "implementation": "assortment-6114c5d-r5/impl/controller/ProductDetails-BatchGetVariantByIds",
+      "execution": "assortment-6114c5d-r5/runs/ProductDetails-BatchGetVariantByIds-api",
+      "contract": "assortment-6114c5d-r5/contract/controller/ProductDetails-BatchGetVariantByIds",
+      "status": "partial",
+      "evidence": ["assortment-6114c5d-r5/e/0115721f2d56"],
+      "gaps": [
+        "assortment-6114c5d-r5/gap/entry-controller-ProductDetails-BatchGetVariantByIds",
+        "assortment-6114c5d-r5/gap/wire-closure",
+        "assortment-6114c5d-r5/gap/deployment"
+      ],
+      "source_path": "src/PopCat.Assortment.Api/Controllers/ProductDetailsController.cs",
+      "source_line": 89,
+      "action": "BatchGetVariantByIds",
+      "controller": "ProductDetails"
+    },
+    {
+      "id": "assortment-6114c5d-r5/entry/controller/ProductDetails-GetProductTypeByVariantId",
+      "kind": "rest",
+      "method": "GET",
+      "path": "/api/v{version:apiVersion}/variants/{id}/product-type",
+      "component": "assortment-6114c5d-r5/component/api",
+      "implementation": "assortment-6114c5d-r5/impl/controller/ProductDetails-GetProductTypeByVariantId",
+      "execution": "assortment-6114c5d-r5/runs/ProductDetails-GetProductTypeByVariantId-api",
+      "contract": "assortment-6114c5d-r5/contract/controller/ProductDetails-GetProductTypeByVariantId",
+      "status": "partial",
+      "evidence": ["assortment-6114c5d-r5/e/5bcc9d7c7377"],
+      "gaps": [
+        "assortment-6114c5d-r5/gap/entry-controller-ProductDetails-GetProductTypeByVariantId",
+        "assortment-6114c5d-r5/gap/wire-closure",
+        "assortment-6114c5d-r5/gap/deployment"
+      ],
+      "source_path": "src/PopCat.Assortment.Api/Controllers/ProductDetailsController.cs",
+      "source_line": 102,
+      "action": "GetProductTypeByVariantId",
+      "controller": "ProductDetails"
+    },
+    {
+      "id": "assortment-6114c5d-r5/entry/controller/ProductDetails-GetVariantsByProductId",
+      "kind": "rest",
+      "method": "GET",
+      "path": "/api/v{version:apiVersion}/products/{id}/variants",
+      "component": "assortment-6114c5d-r5/component/api",
+      "implementation": "assortment-6114c5d-r5/impl/controller/ProductDetails-GetVariantsByProductId",
+      "execution": "assortment-6114c5d-r5/runs/ProductDetails-GetVariantsByProductId-api",
+      "contract": "assortment-6114c5d-r5/contract/controller/ProductDetails-GetVariantsByProductId",
+      "status": "partial",
+      "evidence": ["assortment-6114c5d-r5/e/9aff099ed8ed"],
+      "gaps": [
+        "assortment-6114c5d-r5/gap/entry-controller-ProductDetails-GetVariantsByProductId",
+        "assortment-6114c5d-r5/gap/wire-closure",
+        "assortment-6114c5d-r5/gap/deployment"
+      ],
+      "source_path": "src/PopCat.Assortment.Api/Controllers/ProductDetailsController.cs",
+      "source_line": 115,
+      "action": "GetVariantsByProductId",
+      "controller": "ProductDetails"
+    },
+    {
+      "id": "assortment-6114c5d-r5/entry/controller/ProductDetails-ListVariantsByType",
+      "kind": "rest",
+      "method": "GET",
+      "path": "/api/v{version:apiVersion}/product-types/{productType}/variants",
+      "component": "assortment-6114c5d-r5/component/api",
+      "implementation": "assortment-6114c5d-r5/impl/controller/ProductDetails-ListVariantsByType",
+      "execution": "assortment-6114c5d-r5/runs/ProductDetails-ListVariantsByType-api",
+      "contract": "assortment-6114c5d-r5/contract/controller/ProductDetails-ListVariantsByType",
+      "status": "partial",
+      "evidence": ["assortment-6114c5d-r5/e/c3b78e1e0585"],
+      "gaps": [
+        "assortment-6114c5d-r5/gap/entry-controller-ProductDetails-ListVariantsByType",
+        "assortment-6114c5d-r5/gap/wire-closure",
+        "assortment-6114c5d-r5/gap/deployment"
+      ],
+      "source_path": "src/PopCat.Assortment.Api/Controllers/ProductDetailsController.cs",
+      "source_line": 133,
+      "action": "ListVariantsByType",
+      "controller": "ProductDetails"
+    },
+    {
+      "id": "assortment-6114c5d-r5/entry/controller/ProductDetails-ListAvailableProductTypes",
+      "kind": "rest",
+      "method": "GET",
+      "path": "/api/v{version:apiVersion}/product-types",
+      "component": "assortment-6114c5d-r5/component/api",
+      "implementation": "assortment-6114c5d-r5/impl/controller/ProductDetails-ListAvailableProductTypes",
+      "execution": "assortment-6114c5d-r5/runs/ProductDetails-ListAvailableProductTypes-api",
+      "contract": "assortment-6114c5d-r5/contract/controller/ProductDetails-ListAvailableProductTypes",
+      "status": "partial",
+      "evidence": ["assortment-6114c5d-r5/e/a2504660b3a6"],
+      "gaps": [
+        "assortment-6114c5d-r5/gap/entry-controller-ProductDetails-ListAvailableProductTypes",
+        "assortment-6114c5d-r5/gap/wire-closure",
+        "assortment-6114c5d-r5/gap/deployment"
+      ],
+      "source_path": "src/PopCat.Assortment.Api/Controllers/ProductDetailsController.cs",
+      "source_line": 151,
+      "action": "ListAvailableProductTypes",
+      "controller": "ProductDetails"
+    },
+    {
+      "id": "assortment-6114c5d-r5/entry/controller/ProductDetails-TransformationCarTokenToVariant",
+      "kind": "rest",
+      "method": "POST",
+      "path": "/api/v{version:apiVersion}/transformation",
+      "component": "assortment-6114c5d-r5/component/api",
+      "implementation": "assortment-6114c5d-r5/impl/controller/ProductDetails-TransformationCarTokenToVariant",
+      "execution": "assortment-6114c5d-r5/runs/ProductDetails-TransformationCarTokenToVariant-api",
+      "contract": "assortment-6114c5d-r5/contract/controller/ProductDetails-TransformationCarTokenToVariant",
+      "status": "partial",
+      "evidence": ["assortment-6114c5d-r5/e/c51e65160251"],
+      "gaps": [
+        "assortment-6114c5d-r5/gap/entry-controller-ProductDetails-TransformationCarTokenToVariant",
+        "assortment-6114c5d-r5/gap/wire-closure",
+        "assortment-6114c5d-r5/gap/deployment"
+      ],
+      "source_path": "src/PopCat.Assortment.Api/Controllers/ProductDetailsController.cs",
+      "source_line": 165,
+      "action": "TransformationCarTokenToVariant",
+      "controller": "ProductDetails"
+    },
+    {
+      "id": "assortment-6114c5d-r5/entry/controller/Products-GetProductOutput",
+      "kind": "rest",
+      "method": "GET",
+      "path": "/api/v{version:apiVersion}/Products/output",
+      "component": "assortment-6114c5d-r5/component/api",
+      "implementation": "assortment-6114c5d-r5/impl/controller/Products-GetProductOutput",
+      "execution": "assortment-6114c5d-r5/runs/Products-GetProductOutput-api",
+      "contract": "assortment-6114c5d-r5/contract/controller/Products-GetProductOutput",
+      "status": "partial",
+      "evidence": ["assortment-6114c5d-r5/e/7c81f64c2c03"],
+      "gaps": [
+        "assortment-6114c5d-r5/gap/entry-controller-Products-GetProductOutput",
+        "assortment-6114c5d-r5/gap/wire-closure",
+        "assortment-6114c5d-r5/gap/deployment"
+      ],
+      "source_path": "src/PopCat.Assortment.Api/Controllers/ProductsController.cs",
+      "source_line": 18,
+      "action": "GetProductOutput",
+      "controller": "Products"
+    },
+    {
+      "id": "assortment-6114c5d-r5/entry/controller/Products-GetProductOutputWithoutCodes",
+      "kind": "rest",
+      "method": "GET",
+      "path": "/api/v{version:apiVersion}/Products/output/without-codes",
+      "component": "assortment-6114c5d-r5/component/api",
+      "implementation": "assortment-6114c5d-r5/impl/controller/Products-GetProductOutputWithoutCodes",
+      "execution": "assortment-6114c5d-r5/runs/Products-GetProductOutputWithoutCodes-api",
+      "contract": "assortment-6114c5d-r5/contract/controller/Products-GetProductOutputWithoutCodes",
+      "status": "partial",
+      "evidence": ["assortment-6114c5d-r5/e/5d7cd07e969e"],
+      "gaps": [
+        "assortment-6114c5d-r5/gap/entry-controller-Products-GetProductOutputWithoutCodes",
+        "assortment-6114c5d-r5/gap/wire-closure",
+        "assortment-6114c5d-r5/gap/deployment"
+      ],
+      "source_path": "src/PopCat.Assortment.Api/Controllers/ProductsController.cs",
+      "source_line": 31,
+      "action": "GetProductOutputWithoutCodes",
+      "controller": "Products"
+    },
+    {
+      "id": "assortment-6114c5d-r5/entry/controller/SpecMarket-GetSpecMarkets",
+      "kind": "rest",
+      "method": "GET",
+      "path": "/api/v{version:apiVersion}/SpecMarket",
+      "component": "assortment-6114c5d-r5/component/api",
+      "implementation": "assortment-6114c5d-r5/impl/controller/SpecMarket-GetSpecMarkets",
+      "execution": "assortment-6114c5d-r5/runs/SpecMarket-GetSpecMarkets-api",
+      "contract": "assortment-6114c5d-r5/contract/controller/SpecMarket-GetSpecMarkets",
+      "status": "partial",
+      "evidence": ["assortment-6114c5d-r5/e/c4b19caaf2a7"],
+      "gaps": [
+        "assortment-6114c5d-r5/gap/entry-controller-SpecMarket-GetSpecMarkets",
+        "assortment-6114c5d-r5/gap/wire-closure",
+        "assortment-6114c5d-r5/gap/deployment"
+      ],
+      "source_path": "src/PopCat.Assortment.Api/Controllers/SpecMarketController.cs",
+      "source_line": 16,
+      "action": "GetSpecMarkets",
+      "controller": "SpecMarket"
+    },
+    {
+      "id": "assortment-6114c5d-r5/entry/controller/Specification-GetSpecifications",
+      "kind": "rest",
+      "method": "GET",
+      "path": "/api/v{version:apiVersion}/Specification/specifications",
+      "component": "assortment-6114c5d-r5/component/api",
+      "implementation": "assortment-6114c5d-r5/impl/controller/Specification-GetSpecifications",
+      "execution": "assortment-6114c5d-r5/runs/Specification-GetSpecifications-api",
+      "contract": "assortment-6114c5d-r5/contract/controller/Specification-GetSpecifications",
+      "status": "partial",
+      "evidence": ["assortment-6114c5d-r5/e/5c48c500109a"],
+      "gaps": [
+        "assortment-6114c5d-r5/gap/entry-controller-Specification-GetSpecifications",
+        "assortment-6114c5d-r5/gap/wire-closure",
+        "assortment-6114c5d-r5/gap/deployment"
+      ],
+      "source_path": "src/PopCat.Assortment.Api/Controllers/SpecificationController.cs",
+      "source_line": 17,
+      "action": "GetSpecifications",
+      "controller": "Specification"
+    },
+    {
+      "id": "assortment-6114c5d-r5/entry/controller/Specification-GetSpecificationValues",
+      "kind": "rest",
+      "method": "GET",
+      "path": "/api/v{version:apiVersion}/Specification/specification-values",
+      "component": "assortment-6114c5d-r5/component/api",
+      "implementation": "assortment-6114c5d-r5/impl/controller/Specification-GetSpecificationValues",
+      "execution": "assortment-6114c5d-r5/runs/Specification-GetSpecificationValues-api",
+      "contract": "assortment-6114c5d-r5/contract/controller/Specification-GetSpecificationValues",
+      "status": "partial",
+      "evidence": ["assortment-6114c5d-r5/e/7af775851bd3"],
+      "gaps": [
+        "assortment-6114c5d-r5/gap/entry-controller-Specification-GetSpecificationValues",
+        "assortment-6114c5d-r5/gap/wire-closure",
+        "assortment-6114c5d-r5/gap/deployment"
+      ],
+      "source_path": "src/PopCat.Assortment.Api/Controllers/SpecificationController.cs",
+      "source_line": 30,
+      "action": "GetSpecificationValues",
+      "controller": "Specification"
+    },
+    {
+      "id": "assortment-6114c5d-r5/entry/health/Host--health-startup",
+      "kind": "health",
+      "method": "ANY",
+      "path": "/health/startup",
+      "component": "assortment-6114c5d-r5/component/api",
+      "implementation": "assortment-6114c5d-r5/impl/health/Host--health-startup",
+      "execution": "assortment-6114c5d-r5/runs/Host--health-startup-api",
+      "contract": "assortment-6114c5d-r5/contract/health/Host--health-startup",
+      "status": "partial",
+      "evidence": ["assortment-6114c5d-r5/e/6de013794720"],
+      "gaps": [
+        "assortment-6114c5d-r5/gap/entry-health-Host--health-startup",
+        "assortment-6114c5d-r5/gap/wire-closure",
+        "assortment-6114c5d-r5/gap/deployment"
+      ]
+    },
+    {
+      "id": "assortment-6114c5d-r5/entry/health/Host--health-ready",
+      "kind": "health",
+      "method": "ANY",
+      "path": "/health/ready",
+      "component": "assortment-6114c5d-r5/component/api",
+      "implementation": "assortment-6114c5d-r5/impl/health/Host--health-ready",
+      "execution": "assortment-6114c5d-r5/runs/Host--health-ready-api",
+      "contract": "assortment-6114c5d-r5/contract/health/Host--health-ready",
+      "status": "partial",
+      "evidence": ["assortment-6114c5d-r5/e/b20eb0d0d1dc"],
+      "gaps": [
+        "assortment-6114c5d-r5/gap/entry-health-Host--health-ready",
+        "assortment-6114c5d-r5/gap/wire-closure",
+        "assortment-6114c5d-r5/gap/deployment"
+      ]
+    },
+    {
+      "id": "assortment-6114c5d-r5/entry/health/Host--health-live",
+      "kind": "health",
+      "method": "ANY",
+      "path": "/health/live",
+      "component": "assortment-6114c5d-r5/component/api",
+      "implementation": "assortment-6114c5d-r5/impl/health/Host--health-live",
+      "execution": "assortment-6114c5d-r5/runs/Host--health-live-api",
+      "contract": "assortment-6114c5d-r5/contract/health/Host--health-live",
+      "status": "partial",
+      "evidence": ["assortment-6114c5d-r5/e/a8402b24a52a"],
+      "gaps": [
+        "assortment-6114c5d-r5/gap/entry-health-Host--health-live",
+        "assortment-6114c5d-r5/gap/wire-closure",
+        "assortment-6114c5d-r5/gap/deployment"
+      ]
+    },
+    {
+      "id": "assortment-6114c5d-r5/entry/health/Host--health",
+      "kind": "health",
+      "method": "ANY",
+      "path": "/health",
+      "component": "assortment-6114c5d-r5/component/api",
+      "implementation": "assortment-6114c5d-r5/impl/health/Host--health",
+      "execution": "assortment-6114c5d-r5/runs/Host--health-api",
+      "contract": "assortment-6114c5d-r5/contract/health/Host--health",
+      "status": "partial",
+      "evidence": ["assortment-6114c5d-r5/e/3bb67acffae5"],
+      "gaps": [
+        "assortment-6114c5d-r5/gap/entry-health-Host--health",
+        "assortment-6114c5d-r5/gap/wire-closure",
+        "assortment-6114c5d-r5/gap/deployment"
+      ]
+    },
+    {
+      "id": null,
+      "kind": "documentation_middleware",
+      "method": "GET",
+      "component": "assortment-6114c5d-r5/component/api",
+      "implementation": "assortment-6114c5d-r5/impl/swagger/Host-json",
+      "execution": "assortment-6114c5d-r5/runs/Host-json-api",
+      "status": "partial",
+      "evidence": ["assortment-6114c5d-r5/e/e7dbf23bc69f"],
+      "gaps": [
+        "assortment-6114c5d-r5/gap/entry-swagger-Host-json",
+        "assortment-6114c5d-r5/gap/wire-closure",
+        "assortment-6114c5d-r5/gap/deployment"
+      ],
+      "candidate_path": "/swagger/{documentName}/swagger.json (framework default candidate)",
+      "path": null,
+      "entry_record": null,
+      "scope": "Middleware registration established; effective path unresolved until exact library defaults are examined."
+    },
+    {
+      "id": null,
+      "kind": "documentation_middleware",
+      "method": "GET",
+      "component": "assortment-6114c5d-r5/component/api",
+      "implementation": "assortment-6114c5d-r5/impl/swagger/Host-ui",
+      "execution": "assortment-6114c5d-r5/runs/Host-ui-api",
+      "status": "partial",
+      "evidence": ["assortment-6114c5d-r5/e/e7dbf23bc69f"],
+      "gaps": [
+        "assortment-6114c5d-r5/gap/entry-swagger-Host-ui",
+        "assortment-6114c5d-r5/gap/wire-closure",
+        "assortment-6114c5d-r5/gap/deployment"
+      ],
+      "candidate_path": "/swagger (framework default candidate)",
+      "path": null,
+      "entry_record": null,
+      "scope": "Middleware registration established; effective path unresolved until exact library defaults are examined."
+    },
+    {
+      "id": "assortment-6114c5d-r5/entry/health/Ocelot.Host--health-startup",
+      "kind": "health",
+      "method": "ANY",
+      "path": "/health/startup",
+      "component": "assortment-6114c5d-r5/component/gateway",
+      "implementation": "assortment-6114c5d-r5/impl/health/Ocelot.Host--health-startup",
+      "execution": "assortment-6114c5d-r5/runs/Ocelot.Host--health-startup-gateway",
+      "contract": "assortment-6114c5d-r5/contract/health/Ocelot.Host--health-startup",
+      "status": "partial",
+      "evidence": ["assortment-6114c5d-r5/e/d9ba50688f1e"],
+      "gaps": [
+        "assortment-6114c5d-r5/gap/entry-health-Ocelot.Host--health-startup",
+        "assortment-6114c5d-r5/gap/wire-closure",
+        "assortment-6114c5d-r5/gap/deployment"
+      ]
+    },
+    {
+      "id": "assortment-6114c5d-r5/entry/health/Ocelot.Host--health-ready",
+      "kind": "health",
+      "method": "ANY",
+      "path": "/health/ready",
+      "component": "assortment-6114c5d-r5/component/gateway",
+      "implementation": "assortment-6114c5d-r5/impl/health/Ocelot.Host--health-ready",
+      "execution": "assortment-6114c5d-r5/runs/Ocelot.Host--health-ready-gateway",
+      "contract": "assortment-6114c5d-r5/contract/health/Ocelot.Host--health-ready",
+      "status": "partial",
+      "evidence": ["assortment-6114c5d-r5/e/ca0d801faee0"],
+      "gaps": [
+        "assortment-6114c5d-r5/gap/entry-health-Ocelot.Host--health-ready",
+        "assortment-6114c5d-r5/gap/wire-closure",
+        "assortment-6114c5d-r5/gap/deployment"
+      ]
+    },
+    {
+      "id": "assortment-6114c5d-r5/entry/health/Ocelot.Host--health-live",
+      "kind": "health",
+      "method": "ANY",
+      "path": "/health/live",
+      "component": "assortment-6114c5d-r5/component/gateway",
+      "implementation": "assortment-6114c5d-r5/impl/health/Ocelot.Host--health-live",
+      "execution": "assortment-6114c5d-r5/runs/Ocelot.Host--health-live-gateway",
+      "contract": "assortment-6114c5d-r5/contract/health/Ocelot.Host--health-live",
+      "status": "partial",
+      "evidence": ["assortment-6114c5d-r5/e/f081ff3bf5fd"],
+      "gaps": [
+        "assortment-6114c5d-r5/gap/entry-health-Ocelot.Host--health-live",
+        "assortment-6114c5d-r5/gap/wire-closure",
+        "assortment-6114c5d-r5/gap/deployment"
+      ]
+    },
+    {
+      "id": "assortment-6114c5d-r5/entry/health/Ocelot.Host--health",
+      "kind": "health",
+      "method": "ANY",
+      "path": "/health",
+      "component": "assortment-6114c5d-r5/component/gateway",
+      "implementation": "assortment-6114c5d-r5/impl/health/Ocelot.Host--health",
+      "execution": "assortment-6114c5d-r5/runs/Ocelot.Host--health-gateway",
+      "contract": "assortment-6114c5d-r5/contract/health/Ocelot.Host--health",
+      "status": "partial",
+      "evidence": ["assortment-6114c5d-r5/e/937c8e437331"],
+      "gaps": [
+        "assortment-6114c5d-r5/gap/entry-health-Ocelot.Host--health",
+        "assortment-6114c5d-r5/gap/wire-closure",
+        "assortment-6114c5d-r5/gap/deployment"
+      ]
+    },
+    {
+      "id": "assortment-6114c5d-r5/entry/swagger/Ocelot.Host-proxy",
+      "kind": "documentation_middleware",
+      "method": "ANY",
+      "path": "/swagger/docs/v1",
+      "component": "assortment-6114c5d-r5/component/gateway",
+      "implementation": "assortment-6114c5d-r5/impl/swagger/Ocelot.Host-proxy",
+      "execution": "assortment-6114c5d-r5/runs/Ocelot.Host-proxy-gateway",
+      "contract": "assortment-6114c5d-r5/contract/swagger/Ocelot.Host-proxy",
+      "status": "partial",
+      "evidence": ["assortment-6114c5d-r5/e/bb56f4fd0e74", "assortment-6114c5d-r5/e/e04028a8d964"],
+      "gaps": [
+        "assortment-6114c5d-r5/gap/entry-swagger-Ocelot.Host-proxy",
+        "assortment-6114c5d-r5/gap/wire-closure",
+        "assortment-6114c5d-r5/gap/deployment"
+      ]
+    },
+    {
+      "id": null,
+      "kind": "documentation_middleware",
+      "method": "GET",
+      "component": "assortment-6114c5d-r5/component/gateway",
+      "implementation": "assortment-6114c5d-r5/impl/swagger/Ocelot.Host-ui",
+      "execution": "assortment-6114c5d-r5/runs/Ocelot.Host-ui-gateway",
+      "status": "partial",
+      "evidence": ["assortment-6114c5d-r5/e/8757e490d249"],
+      "gaps": [
+        "assortment-6114c5d-r5/gap/entry-swagger-Ocelot.Host-ui",
+        "assortment-6114c5d-r5/gap/wire-closure",
+        "assortment-6114c5d-r5/gap/deployment"
+      ],
+      "candidate_path": "/swagger (framework default candidate)",
+      "path": null,
+      "entry_record": null,
+      "scope": "Middleware registration established; effective path unresolved until exact library defaults are examined."
+    },
+    {
+      "id": "assortment-6114c5d-r5/entry/gateway/0",
+      "kind": "gateway",
+      "method": "GET",
+      "path": "/v1/{everything}",
+      "component": "assortment-6114c5d-r5/component/gateway",
+      "implementation": "assortment-6114c5d-r5/impl/gateway/0",
+      "execution": "assortment-6114c5d-r5/runs/0-gateway",
+      "contract": "assortment-6114c5d-r5/contract/gateway/0",
+      "status": "partial",
+      "evidence": ["assortment-6114c5d-r5/e/336453a6edc8"],
+      "gaps": [
+        "assortment-6114c5d-r5/gap/entry-gateway-0",
+        "assortment-6114c5d-r5/gap/wire-closure",
+        "assortment-6114c5d-r5/gap/deployment"
+      ],
+      "configuration": {
+        "DownstreamPathTemplate": "/v1/public/{everything}",
+        "DownstreamScheme": "http",
+        "DownstreamHostAndPorts": [
+          {
+            "Host": "svc-popcat-product-details-service.popcat-product-details-service.svc.cluster.local",
+            "Port": 80,
+            "SwaggerUrlPart": "swagger/docs/v1"
+          }
+        ],
+        "UpstreamPathTemplate": "/v1/{everything}",
+        "UpstreamHttpMethod": ["Get"],
+        "Priority": 0,
+        "QoSOptions": {
+          "TimeoutValue": 30000,
+          "ReTryCount": 3
+        }
+      }
+    },
+    {
+      "id": "assortment-6114c5d-r5/entry/gateway/1",
+      "kind": "gateway",
+      "method": "GET",
+      "path": "/v1/product-details/{everything}",
+      "component": "assortment-6114c5d-r5/component/gateway",
+      "implementation": "assortment-6114c5d-r5/impl/gateway/1",
+      "execution": "assortment-6114c5d-r5/runs/1-gateway",
+      "contract": "assortment-6114c5d-r5/contract/gateway/1",
+      "status": "partial",
+      "evidence": ["assortment-6114c5d-r5/e/ffbc34c62c28"],
+      "gaps": [
+        "assortment-6114c5d-r5/gap/entry-gateway-1",
+        "assortment-6114c5d-r5/gap/wire-closure",
+        "assortment-6114c5d-r5/gap/deployment"
+      ],
+      "configuration": {
+        "DownstreamPathTemplate": "/v1/public/{everything}",
+        "DownstreamScheme": "http",
+        "DownstreamHostAndPorts": [
+          {
+            "Host": "svc-popcat-product-details-service.popcat-product-details-service.svc.cluster.local",
+            "Port": 80,
+            "SwaggerUrlPart": "swagger/docs/v1"
+          }
+        ],
+        "UpstreamPathTemplate": "/v1/product-details/{everything}",
+        "UpstreamHttpMethod": ["Get"],
+        "Priority": 1,
+        "QoSOptions": {
+          "TimeoutValue": 30000,
+          "ReTryCount": 3
+        }
+      }
+    },
+    {
+      "id": "assortment-6114c5d-r5/entry/gateway/2",
+      "kind": "gateway",
+      "method": "GET",
+      "path": "/v1/commercial-segments/{everything}",
+      "component": "assortment-6114c5d-r5/component/gateway",
+      "implementation": "assortment-6114c5d-r5/impl/gateway/2",
+      "execution": "assortment-6114c5d-r5/runs/2-gateway",
+      "contract": "assortment-6114c5d-r5/contract/gateway/2",
+      "status": "partial",
+      "evidence": ["assortment-6114c5d-r5/e/d33cd0c650c8"],
+      "gaps": [
+        "assortment-6114c5d-r5/gap/entry-gateway-2",
+        "assortment-6114c5d-r5/gap/wire-closure",
+        "assortment-6114c5d-r5/gap/deployment"
+      ],
+      "configuration": {
+        "DownstreamPathTemplate": "/api/commercial-segments/{everything}",
+        "DownstreamScheme": "http",
+        "DownstreamHostAndPorts": [
+          {
+            "Host": "svc-manage-and-segment-api.manage-and-segment-api.svc.cluster.local",
+            "Port": 80,
+            "SwaggerUrlPart": "swagger/docs/1"
+          }
+        ],
+        "UpstreamPathTemplate": "/v1/commercial-segments/{everything}",
+        "UpstreamHttpMethod": ["Get"],
+        "Priority": 1,
+        "QoSOptions": {
+          "TimeoutValue": 30000,
+          "ReTryCount": 3
+        }
+      }
+    },
+    {
+      "id": "assortment-6114c5d-r5/entry/gateway/3",
+      "kind": "gateway",
+      "method": "GET",
+      "path": "/v1/commercial-items/{everything}",
+      "component": "assortment-6114c5d-r5/component/gateway",
+      "implementation": "assortment-6114c5d-r5/impl/gateway/3",
+      "execution": "assortment-6114c5d-r5/runs/3-gateway",
+      "contract": "assortment-6114c5d-r5/contract/gateway/3",
+      "status": "partial",
+      "evidence": ["assortment-6114c5d-r5/e/6d4323ba58ba"],
+      "gaps": [
+        "assortment-6114c5d-r5/gap/entry-gateway-3",
+        "assortment-6114c5d-r5/gap/wire-closure",
+        "assortment-6114c5d-r5/gap/deployment"
+      ],
+      "configuration": {
+        "DownstreamPathTemplate": "/api/commercial-items/{everything}",
+        "DownstreamScheme": "http",
+        "DownstreamHostAndPorts": [
+          {
+            "Host": "svc-manage-and-segment-api.manage-and-segment-api.svc.cluster.local",
+            "Port": 80,
+            "SwaggerUrlPart": "swagger/docs/1"
+          }
+        ],
+        "UpstreamPathTemplate": "/v1/commercial-items/{everything}",
+        "UpstreamPathExclude": [
+          "/v1/commercial-items/attribute-groups",
+          "/v1/commercial-items/attribute-infos",
+          "/v1/commercial-items/selection-categories",
+          "/v1/commercial-items/sku-categories",
+          "/v1/commercial-items/fees",
+          "/v1/commercial-items/contract-lengths",
+          "/v1/commercial-items/software-option-packages"
+        ],
+        "UpstreamHttpMethod": ["Get"],
+        "Priority": 1,
+        "QoSOptions": {
+          "TimeoutValue": 30000,
+          "ReTryCount": 3
+        }
+      }
+    },
+    {
+      "id": "assortment-6114c5d-r5/entry/gateway/4",
+      "kind": "gateway",
+      "method": "GET",
+      "path": "/v1/cars/{everything}",
+      "component": "assortment-6114c5d-r5/component/gateway",
+      "implementation": "assortment-6114c5d-r5/impl/gateway/4",
+      "execution": "assortment-6114c5d-r5/runs/4-gateway",
+      "contract": "assortment-6114c5d-r5/contract/gateway/4",
+      "status": "partial",
+      "evidence": ["assortment-6114c5d-r5/e/da1617f86a37"],
+      "gaps": [
+        "assortment-6114c5d-r5/gap/entry-gateway-4",
+        "assortment-6114c5d-r5/gap/wire-closure",
+        "assortment-6114c5d-r5/gap/deployment"
+      ],
+      "configuration": {
+        "DownstreamPathTemplate": "/api/{everything}",
+        "DownstreamScheme": "http",
+        "DownstreamHostAndPorts": [
+          {
+            "Host": "svc-product-configuration-facade-api.product-configuration-facade-api.svc.cluster.local",
+            "Port": 80,
+            "SwaggerUrlPart": "swagger/docs/v1"
+          }
+        ],
+        "UpstreamPathTemplate": "/v1/cars/{everything}",
+        "UpstreamPathExclude": [
+          "/v1/cars/ComponentAttributes",
+          "/v1/cars/v1/Accessories",
+          "/v1/cars/v1/AccessoryPackages"
+        ],
+        "UpstreamHttpMethod": ["Get"],
+        "Priority": 1,
+        "QoSOptions": {
+          "TimeoutValue": 30000,
+          "ReTryCount": 3
+        }
+      }
+    },
+    {
+      "id": "assortment-6114c5d-r5/entry/gateway/5",
+      "kind": "gateway",
+      "method": "POST",
+      "path": "/v1/cars/FullFeatures/getFullFeatures/{everything}",
+      "component": "assortment-6114c5d-r5/component/gateway",
+      "implementation": "assortment-6114c5d-r5/impl/gateway/5",
+      "execution": "assortment-6114c5d-r5/runs/5-gateway",
+      "contract": "assortment-6114c5d-r5/contract/gateway/5",
+      "status": "partial",
+      "evidence": ["assortment-6114c5d-r5/e/3cec724b6581"],
+      "gaps": [
+        "assortment-6114c5d-r5/gap/entry-gateway-5",
+        "assortment-6114c5d-r5/gap/wire-closure",
+        "assortment-6114c5d-r5/gap/deployment"
+      ],
+      "configuration": {
+        "DownstreamPathTemplate": "/api/FullFeatures/getFullFeatures/{everything}",
+        "DownstreamScheme": "http",
+        "DownstreamHostAndPorts": [
+          {
+            "Host": "svc-product-configuration-facade-api.product-configuration-facade-api.svc.cluster.local",
+            "Port": 80,
+            "SwaggerUrlPart": "swagger/docs/v1"
+          }
+        ],
+        "UpstreamPathTemplate": "/v1/cars/FullFeatures/getFullFeatures/{everything}",
+        "UpstreamHttpMethod": ["Post"],
+        "Priority": 2,
+        "QoSOptions": {
+          "TimeoutValue": 30000,
+          "ReTryCount": 3
+        }
+      }
+    },
+    {
+      "id": "assortment-6114c5d-r5/entry/gateway/6",
+      "kind": "gateway",
+      "method": "GET",
+      "path": "/v1/products/output{everything}",
+      "component": "assortment-6114c5d-r5/component/gateway",
+      "implementation": "assortment-6114c5d-r5/impl/gateway/6",
+      "execution": "assortment-6114c5d-r5/runs/6-gateway",
+      "contract": "assortment-6114c5d-r5/contract/gateway/6",
+      "status": "partial",
+      "evidence": ["assortment-6114c5d-r5/e/94e9f55ad3a7"],
+      "gaps": [
+        "assortment-6114c5d-r5/gap/entry-gateway-6",
+        "assortment-6114c5d-r5/gap/wire-closure",
+        "assortment-6114c5d-r5/gap/deployment"
+      ],
+      "configuration": {
+        "DownstreamPathTemplate": "/api/output{everything}",
+        "DownstreamScheme": "https",
+        "DownstreamHostAndPorts": [
+          {
+            "Host": "product-service-qa.volvocars.biz",
+            "Port": 443,
+            "SwaggerUrlPart": "swagger/v1/swagger.json"
+          }
+        ],
+        "UpstreamPathTemplate": "/v1/products/output{everything}",
+        "UpstreamHttpMethod": ["Get"],
+        "Priority": 1,
+        "QoSOptions": {
+          "TimeoutValue": 60000,
+          "ReTryCount": 3
+        },
+        "UpstreamHeaderTransform": {
+          "ApiKey": ""
+        }
+      }
+    },
+    {
+      "id": "assortment-6114c5d-r5/entry/job/kafka-loop",
+      "kind": "background_job",
+      "method": "BACKGROUND",
+      "path": "KafkaConsumerService.ExecuteAsync",
+      "component": "u3/component/assortment-worker",
+      "implementation": "assortment-6114c5d-r5/impl/job/kafka-loop",
+      "execution": "assortment-6114c5d-r5/runs/kafka-loop-assortment-worker",
+      "status": "partial",
+      "evidence": ["assortment-6114c5d-r5/e/eeff40d9e1dc", "assortment-6114c5d-r5/e/4dd87ea6c77d"],
+      "gaps": [
+        "assortment-6114c5d-r5/gap/entry-job-kafka-loop",
+        "assortment-6114c5d-r5/gap/wire-closure",
+        "assortment-6114c5d-r5/gap/deployment"
+      ]
+    }
+  ],
+  "topic_processors": [
+    {
+      "kind": "topic_processor",
+      "name": "ClassificationMessageProcessor",
+      "topic": "prod.public.assortment.classifications.json",
+      "topic_setting": "AdminClassificationTopic",
+      "implementation": "assortment-6114c5d-r5/impl/consumer/ClassificationMessageProcessor",
+      "component": "u3/component/assortment-worker",
+      "execution": "assortment-6114c5d-r5/runs/ClassificationMessageProcessor-assortment-worker",
+      "subscriptions": ["assortment-6114c5d-r5/subscription/ClassificationMessageProcessor/topic"],
+      "header_used": false,
+      "header_filter": "none",
+      "json_envelope": {
+        "source": "assortment-6114c5d-r5/shape/json-event-source/Classification",
+        "wire": "assortment-6114c5d-r5/shape/json-event-wire/Classification",
+        "inner": "assortment-6114c5d-r5/shape/PopCat.Assortment.Contracts~Models~Classification.cs~Classification",
+        "wire_inner": "assortment-6114c5d-r5/shape/json-event-data-wire/Classification"
+      },
+      "message_types": [],
+      "protobuf_parsers": [],
+      "json_types": ["KafkaEvent<Classification>"],
+      "status": "partial",
+      "evidence": [
+        "assortment-6114c5d-r5/e/081225f0a9dc",
+        "assortment-6114c5d-r5/e/0974491d3428",
+        "assortment-6114c5d-r5/e/4dd87ea6c77d"
+      ],
+      "gaps": ["assortment-6114c5d-r5/gap/dispatch-ClassificationMessageProcessor"]
+    },
+    {
+      "kind": "topic_processor",
+      "name": "ManageCommercialMessageProcessor",
+      "topic": "prod.public.manageandsegment.commercialitem",
+      "topic_setting": "ManageCommercialItemTopic",
+      "implementation": "assortment-6114c5d-r5/impl/consumer/ManageCommercialMessageProcessor",
+      "component": "u3/component/assortment-worker",
+      "execution": "assortment-6114c5d-r5/runs/ManageCommercialMessageProcessor-assortment-worker",
+      "subscriptions": [
+        "s2/subscription",
+        "assortment-6114c5d-r5/subscription/ManageCommercialMessageProcessor/SoftOfferUpdated",
+        "assortment-6114c5d-r5/subscription/ManageCommercialMessageProcessor/SoftOfferDeleted",
+        "assortment-6114c5d-r5/subscription/ManageCommercialMessageProcessor/SoftOfferPackageCreated",
+        "assortment-6114c5d-r5/subscription/ManageCommercialMessageProcessor/SoftOfferPackageUpdated",
+        "assortment-6114c5d-r5/subscription/ManageCommercialMessageProcessor/SoftOfferPackageDeleted",
+        "assortment-6114c5d-r5/subscription/ManageCommercialMessageProcessor/SoftwareOptionCreated",
+        "assortment-6114c5d-r5/subscription/ManageCommercialMessageProcessor/SoftwareOptionUpdated",
+        "assortment-6114c5d-r5/subscription/ManageCommercialMessageProcessor/SoftwareOptionDeleted"
+      ],
+      "header_used": true,
+      "header_filter": "equals",
+      "json_envelope": null,
+      "message_types": [
+        "volvocars.contracts.pop.manage.SoftOfferCreated",
+        "volvocars.contracts.pop.manage.SoftOfferUpdated",
+        "volvocars.contracts.pop.manage.SoftOfferDeleted",
+        "volvocars.contracts.pop.manage.SoftOfferPackageCreated",
+        "volvocars.contracts.pop.manage.SoftOfferPackageUpdated",
+        "volvocars.contracts.pop.manage.SoftOfferPackageDeleted",
+        "volvocars.contracts.pop.manage.SoftwareOptionCreated",
+        "volvocars.contracts.pop.manage.SoftwareOptionUpdated",
+        "volvocars.contracts.pop.manage.SoftwareOptionDeleted"
+      ],
+      "protobuf_parsers": [
+        "SoftOfferCreated",
+        "SoftOfferUpdated",
+        "SoftOfferDeleted",
+        "SoftOfferPackageCreated",
+        "SoftOfferPackageUpdated",
+        "SoftOfferPackageDeleted",
+        "SoftwareOptionCreated",
+        "SoftwareOptionUpdated",
+        "SoftwareOptionDeleted"
+      ],
+      "json_types": [],
+      "status": "partial",
+      "evidence": [
+        "assortment-6114c5d-r5/e/5ab07e6694a2",
+        "assortment-6114c5d-r5/e/0974491d3428",
+        "assortment-6114c5d-r5/e/4dd87ea6c77d"
+      ],
+      "gaps": ["assortment-6114c5d-r5/gap/dispatch-ManageCommercialMessageProcessor"],
+      "existing_entry_mapping": {
+        "volvocars.contracts.pop.manage.SoftOfferCreated": {
+          "subscription": "s2/subscription",
+          "implementation": "s2/consumer",
+          "execution": "u3/runs/s2-consumer"
+        }
+      },
+      "appended_dispatch_scope": "Other eight typed message branches only; SoftOfferCreated uses original selected proof records."
+    },
+    {
+      "kind": "topic_processor",
+      "name": "ManageSegmentMessageProcessor",
+      "topic": "prod.public.manageandsegment.commercialsegment",
+      "topic_setting": "ManageSegmentTopic",
+      "implementation": "assortment-6114c5d-r5/impl/consumer/ManageSegmentMessageProcessor",
+      "component": "u3/component/assortment-worker",
+      "execution": "assortment-6114c5d-r5/runs/ManageSegmentMessageProcessor-assortment-worker",
+      "subscriptions": [
+        "assortment-6114c5d-r5/subscription/ManageSegmentMessageProcessor/JatoCodeMappingCreated",
+        "assortment-6114c5d-r5/subscription/ManageSegmentMessageProcessor/JatoCodeMappingUpdated",
+        "assortment-6114c5d-r5/subscription/ManageSegmentMessageProcessor/JatoCodeMappingDeleted",
+        "assortment-6114c5d-r5/subscription/ManageSegmentMessageProcessor/CapCodeMappingCreated",
+        "assortment-6114c5d-r5/subscription/ManageSegmentMessageProcessor/CapCodeMappingUpdated",
+        "assortment-6114c5d-r5/subscription/ManageSegmentMessageProcessor/CapCodeMappingDeleted",
+        "assortment-6114c5d-r5/subscription/ManageSegmentMessageProcessor/SchwackeCodeMappingCreated",
+        "assortment-6114c5d-r5/subscription/ManageSegmentMessageProcessor/SchwackeCodeMappingUpdated",
+        "assortment-6114c5d-r5/subscription/ManageSegmentMessageProcessor/SchwackeCodeMappingDeleted",
+        "assortment-6114c5d-r5/subscription/ManageSegmentMessageProcessor/NatcodeMappingCreated",
+        "assortment-6114c5d-r5/subscription/ManageSegmentMessageProcessor/NatcodeMappingUpdated",
+        "assortment-6114c5d-r5/subscription/ManageSegmentMessageProcessor/NatcodeMappingDeleted"
+      ],
+      "header_used": true,
+      "header_filter": "equals",
+      "json_envelope": null,
+      "message_types": [
+        "volvocars.contracts.pop.manage.JatoCodeMappingCreated",
+        "volvocars.contracts.pop.manage.JatoCodeMappingUpdated",
+        "volvocars.contracts.pop.manage.JatoCodeMappingDeleted",
+        "volvocars.contracts.pop.manage.CapCodeMappingCreated",
+        "volvocars.contracts.pop.manage.CapCodeMappingUpdated",
+        "volvocars.contracts.pop.manage.CapCodeMappingDeleted",
+        "volvocars.contracts.pop.manage.SchwackeCodeMappingCreated",
+        "volvocars.contracts.pop.manage.SchwackeCodeMappingUpdated",
+        "volvocars.contracts.pop.manage.SchwackeCodeMappingDeleted",
+        "volvocars.contracts.pop.manage.NatcodeMappingCreated",
+        "volvocars.contracts.pop.manage.NatcodeMappingUpdated",
+        "volvocars.contracts.pop.manage.NatcodeMappingDeleted"
+      ],
+      "protobuf_parsers": [
+        "JatoCodeMappingCreated",
+        "JatoCodeMappingUpdated",
+        "JatoCodeMappingDeleted",
+        "CapCodeMappingCreated",
+        "CapCodeMappingUpdated",
+        "CapCodeMappingDeleted",
+        "SchwackeCodeMappingCreated",
+        "SchwackeCodeMappingUpdated",
+        "SchwackeCodeMappingDeleted",
+        "NatcodeMappingCreated",
+        "NatcodeMappingUpdated",
+        "NatcodeMappingDeleted"
+      ],
+      "json_types": [],
+      "status": "partial",
+      "evidence": [
+        "assortment-6114c5d-r5/e/6f5af5b59bc5",
+        "assortment-6114c5d-r5/e/0974491d3428",
+        "assortment-6114c5d-r5/e/4dd87ea6c77d"
+      ],
+      "gaps": ["assortment-6114c5d-r5/gap/dispatch-ManageSegmentMessageProcessor"]
+    },
+    {
+      "kind": "topic_processor",
+      "name": "PCFCarConfigMessageProcessor",
+      "topic": "prod.public.pcf.carconfig",
+      "topic_setting": "PCFCarConfigTopic",
+      "implementation": "assortment-6114c5d-r5/impl/consumer/PCFCarConfigMessageProcessor",
+      "component": "u3/component/assortment-worker",
+      "execution": "assortment-6114c5d-r5/runs/PCFCarConfigMessageProcessor-assortment-worker",
+      "subscriptions": ["assortment-6114c5d-r5/subscription/PCFCarConfigMessageProcessor/topic"],
+      "header_used": false,
+      "header_filter": "none",
+      "json_envelope": null,
+      "message_types": [],
+      "protobuf_parsers": ["CarConfigMessage"],
+      "json_types": [],
+      "status": "partial",
+      "evidence": [
+        "assortment-6114c5d-r5/e/87cf3032f1fe",
+        "assortment-6114c5d-r5/e/0974491d3428",
+        "assortment-6114c5d-r5/e/4dd87ea6c77d"
+      ],
+      "gaps": ["assortment-6114c5d-r5/gap/dispatch-PCFCarConfigMessageProcessor"]
+    },
+    {
+      "kind": "topic_processor",
+      "name": "PCFGlobalDictionaryEntriesMessageProcessor",
+      "topic": "prod.public.pcf.globaldictionaryentries",
+      "topic_setting": "PCFGlobalDictionaryEntriesTopic",
+      "implementation": "assortment-6114c5d-r5/impl/consumer/PCFGlobalDictionaryEntriesMessageProcessor",
+      "component": "u3/component/assortment-worker",
+      "execution": "assortment-6114c5d-r5/runs/PCFGlobalDictionaryEntriesMessageProcessor-assortment-worker",
+      "subscriptions": [
+        "assortment-6114c5d-r5/subscription/PCFGlobalDictionaryEntriesMessageProcessor/topic"
+      ],
+      "header_used": true,
+      "header_filter": "present",
+      "json_envelope": null,
+      "message_types": [],
+      "protobuf_parsers": ["GlobalDictionaryEntriesUpdatedMessage"],
+      "json_types": [],
+      "status": "partial",
+      "evidence": [
+        "assortment-6114c5d-r5/e/a16a421f7426",
+        "assortment-6114c5d-r5/e/0974491d3428",
+        "assortment-6114c5d-r5/e/4dd87ea6c77d"
+      ],
+      "gaps": ["assortment-6114c5d-r5/gap/dispatch-PCFGlobalDictionaryEntriesMessageProcessor"]
+    },
+    {
+      "kind": "topic_processor",
+      "name": "PCFGlobalDictionaryMessageProcessor",
+      "topic": "prod.public.pcf.globaldictionary",
+      "topic_setting": "PCFGlobalDictionaryTopic",
+      "implementation": "assortment-6114c5d-r5/impl/consumer/PCFGlobalDictionaryMessageProcessor",
+      "component": "u3/component/assortment-worker",
+      "execution": "assortment-6114c5d-r5/runs/PCFGlobalDictionaryMessageProcessor-assortment-worker",
+      "subscriptions": [
+        "assortment-6114c5d-r5/subscription/PCFGlobalDictionaryMessageProcessor/topic"
+      ],
+      "header_used": false,
+      "header_filter": "none",
+      "json_envelope": null,
+      "message_types": [],
+      "protobuf_parsers": ["GlobalDictionaryMessage"],
+      "json_types": [],
+      "status": "partial",
+      "evidence": [
+        "assortment-6114c5d-r5/e/433b340e07ef",
+        "assortment-6114c5d-r5/e/0974491d3428",
+        "assortment-6114c5d-r5/e/4dd87ea6c77d"
+      ],
+      "gaps": ["assortment-6114c5d-r5/gap/dispatch-PCFGlobalDictionaryMessageProcessor"]
+    },
+    {
+      "kind": "topic_processor",
+      "name": "PCFMarketAuthEntriesMessageProcessor",
+      "topic": "prod.public.pcf.marketauthentries",
+      "topic_setting": "PCFMarketAuthEntriesTopic",
+      "implementation": "assortment-6114c5d-r5/impl/consumer/PCFMarketAuthEntriesMessageProcessor",
+      "component": "u3/component/assortment-worker",
+      "execution": "assortment-6114c5d-r5/runs/PCFMarketAuthEntriesMessageProcessor-assortment-worker",
+      "subscriptions": [
+        "assortment-6114c5d-r5/subscription/PCFMarketAuthEntriesMessageProcessor/topic"
+      ],
+      "header_used": true,
+      "header_filter": "present",
+      "json_envelope": null,
+      "message_types": [],
+      "protobuf_parsers": ["MarketAuthEntriesUpdatedMessage"],
+      "json_types": [],
+      "status": "partial",
+      "evidence": [
+        "assortment-6114c5d-r5/e/8389accf8bf6",
+        "assortment-6114c5d-r5/e/0974491d3428",
+        "assortment-6114c5d-r5/e/4dd87ea6c77d"
+      ],
+      "gaps": ["assortment-6114c5d-r5/gap/dispatch-PCFMarketAuthEntriesMessageProcessor"]
+    },
+    {
+      "kind": "topic_processor",
+      "name": "PCFMarketAuthMessageProcessor",
+      "topic": "prod.public.pcf.marketauth",
+      "topic_setting": "PCFMarketAuthTopic",
+      "implementation": "assortment-6114c5d-r5/impl/consumer/PCFMarketAuthMessageProcessor",
+      "component": "u3/component/assortment-worker",
+      "execution": "assortment-6114c5d-r5/runs/PCFMarketAuthMessageProcessor-assortment-worker",
+      "subscriptions": ["assortment-6114c5d-r5/subscription/PCFMarketAuthMessageProcessor/topic"],
+      "header_used": false,
+      "header_filter": "none",
+      "json_envelope": null,
+      "message_types": [],
+      "protobuf_parsers": ["MarketAuthMessage"],
+      "json_types": [],
+      "status": "partial",
+      "evidence": [
+        "assortment-6114c5d-r5/e/b701c9e6602e",
+        "assortment-6114c5d-r5/e/0974491d3428",
+        "assortment-6114c5d-r5/e/4dd87ea6c77d"
+      ],
+      "gaps": ["assortment-6114c5d-r5/gap/dispatch-PCFMarketAuthMessageProcessor"]
+    },
+    {
+      "kind": "topic_processor",
+      "name": "PDSMessageProcessor",
+      "topic": "prod.public.productdetailsservice.products",
+      "topic_setting": "PDSTopic",
+      "implementation": "assortment-6114c5d-r5/impl/consumer/PDSMessageProcessor",
+      "component": "u3/component/assortment-worker",
+      "execution": "assortment-6114c5d-r5/runs/PDSMessageProcessor-assortment-worker",
+      "subscriptions": [
+        "assortment-6114c5d-r5/subscription/PDSMessageProcessor/ProductCreated",
+        "assortment-6114c5d-r5/subscription/PDSMessageProcessor/ProductUpdated",
+        "assortment-6114c5d-r5/subscription/PDSMessageProcessor/ProductDeleted",
+        "assortment-6114c5d-r5/subscription/PDSMessageProcessor/PackageCreated",
+        "assortment-6114c5d-r5/subscription/PDSMessageProcessor/PackageUpdated",
+        "assortment-6114c5d-r5/subscription/PDSMessageProcessor/PackageDeleted"
+      ],
+      "header_used": true,
+      "header_filter": "equals",
+      "json_envelope": null,
+      "message_types": [
+        "volvocars.contracts.pop.productdetails.ProductCreated",
+        "volvocars.contracts.pop.productdetails.ProductUpdated",
+        "volvocars.contracts.pop.productdetails.ProductDeleted",
+        "volvocars.contracts.pop.productdetails.PackageCreated",
+        "volvocars.contracts.pop.productdetails.PackageUpdated",
+        "volvocars.contracts.pop.productdetails.PackageDeleted"
+      ],
+      "protobuf_parsers": [
+        "ProductCreated",
+        "ProductUpdated",
+        "ProductDeleted",
+        "PackageCreated",
+        "PackageUpdated",
+        "PackageDeleted"
+      ],
+      "json_types": [],
+      "status": "partial",
+      "evidence": [
+        "assortment-6114c5d-r5/e/9847e9b2822a",
+        "assortment-6114c5d-r5/e/0974491d3428",
+        "assortment-6114c5d-r5/e/4dd87ea6c77d"
+      ],
+      "gaps": ["assortment-6114c5d-r5/gap/dispatch-PDSMessageProcessor"]
+    },
+    {
+      "kind": "topic_processor",
+      "name": "SpecificationMessageProcessor",
+      "topic": "prod.public.assortment.specifications.json",
+      "topic_setting": "AdminSpecificationTopic",
+      "implementation": "assortment-6114c5d-r5/impl/consumer/SpecificationMessageProcessor",
+      "component": "u3/component/assortment-worker",
+      "execution": "assortment-6114c5d-r5/runs/SpecificationMessageProcessor-assortment-worker",
+      "subscriptions": ["assortment-6114c5d-r5/subscription/SpecificationMessageProcessor/topic"],
+      "header_used": false,
+      "header_filter": "none",
+      "json_envelope": {
+        "source": "assortment-6114c5d-r5/shape/json-event-source/Specification",
+        "wire": "assortment-6114c5d-r5/shape/json-event-wire/Specification",
+        "inner": "assortment-6114c5d-r5/shape/PopCat.Assortment.Contracts~Models~Specification.cs~Specification",
+        "wire_inner": "assortment-6114c5d-r5/shape/json-event-data-wire/Specification"
+      },
+      "message_types": [],
+      "protobuf_parsers": [],
+      "json_types": ["KafkaEvent<Specification>"],
+      "status": "partial",
+      "evidence": [
+        "assortment-6114c5d-r5/e/c6c74b1a770a",
+        "assortment-6114c5d-r5/e/0974491d3428",
+        "assortment-6114c5d-r5/e/4dd87ea6c77d"
+      ],
+      "gaps": ["assortment-6114c5d-r5/gap/dispatch-SpecificationMessageProcessor"]
+    }
+  ],
+  "searches": {
+    "Http(Get|Post|Put|Delete|Patch)": [
+      "6114c5db0f2b4b490cf89b9c512088f01dbf0b98:src/PopCat.Assortment.Api/Controllers/AboutController.cs:11:    [HttpGet(\"version\")]",
+      "6114c5db0f2b4b490cf89b9c512088f01dbf0b98:src/PopCat.Assortment.Api/Controllers/Admin/CacheController.cs:33:    [HttpDelete(\"remove-carconfig-from-cache/{pno12}/{modelYear}/{specMarket}\")]",
+      "6114c5db0f2b4b490cf89b9c512088f01dbf0b98:src/PopCat.Assortment.Api/Controllers/Admin/CacheController.cs:46:    [HttpDelete(\"remove-external-car-code-from-cache\")]",
+      "6114c5db0f2b4b490cf89b9c512088f01dbf0b98:src/PopCat.Assortment.Api/Controllers/Admin/CacheController.cs:56:    [HttpDelete(\"remove-product-details-from-cache\")]",
+      "6114c5db0f2b4b490cf89b9c512088f01dbf0b98:src/PopCat.Assortment.Api/Controllers/Admin/CacheController.cs:63:    [HttpPost(\"import-product-details/{productType}\")]",
+      "6114c5db0f2b4b490cf89b9c512088f01dbf0b98:src/PopCat.Assortment.Api/Controllers/Admin/CacheController.cs:70:    [HttpPost(\"import-upstream-entities\")]",
+      "6114c5db0f2b4b490cf89b9c512088f01dbf0b98:src/PopCat.Assortment.Api/Controllers/CarConfigController.cs:18:    [HttpGet]",
+      "6114c5db0f2b4b490cf89b9c512088f01dbf0b98:src/PopCat.Assortment.Api/Controllers/CarConfigController.cs:35:    [HttpPost(\"pno12s\")]",
+      "6114c5db0f2b4b490cf89b9c512088f01dbf0b98:src/PopCat.Assortment.Api/Controllers/ClassificationController.cs:22:    [HttpGet]",
+      "6114c5db0f2b4b490cf89b9c512088f01dbf0b98:src/PopCat.Assortment.Api/Controllers/ExternalCarCodeController.cs:23:    [HttpGet]",
+      "6114c5db0f2b4b490cf89b9c512088f01dbf0b98:src/PopCat.Assortment.Api/Controllers/ExternalCarCodeController.cs:36:    [HttpGet(\"component/{code}\")]",
+      "6114c5db0f2b4b490cf89b9c512088f01dbf0b98:src/PopCat.Assortment.Api/Controllers/GlobalDictionaryController.cs:23:    [HttpGet(\"/api/v{version:apiVersion}/modelYear/{modelYear}/carType/{carType}/globalDictionaryEntries\")]",
+      "6114c5db0f2b4b490cf89b9c512088f01dbf0b98:src/PopCat.Assortment.Api/Controllers/MarketAuthController.cs:19:    [HttpGet(\"/api/v{version:apiVersion}/specMarket/{specMarket}/modelYear/{modelYear}/carType/{carType}/marketAuthEntries\")]",
+      "6114c5db0f2b4b490cf89b9c512088f01dbf0b98:src/PopCat.Assortment.Api/Controllers/ProductDetailsController.cs:19:    [HttpGet(\"/api/v{version:apiVersion}/products/{id}\")]",
+      "6114c5db0f2b4b490cf89b9c512088f01dbf0b98:src/PopCat.Assortment.Api/Controllers/ProductDetailsController.cs:32:    [HttpPost(\"/api/v{version:apiVersion}/products/batch\")]",
+      "6114c5db0f2b4b490cf89b9c512088f01dbf0b98:src/PopCat.Assortment.Api/Controllers/ProductDetailsController.cs:45:    [HttpGet(\"/api/v{version:apiVersion}/products/{id}/product-type\")]",
+      "6114c5db0f2b4b490cf89b9c512088f01dbf0b98:src/PopCat.Assortment.Api/Controllers/ProductDetailsController.cs:59:    [HttpGet(\"/api/v{version:apiVersion}/product-types/{productType}/products\")]",
+      "6114c5db0f2b4b490cf89b9c512088f01dbf0b98:src/PopCat.Assortment.Api/Controllers/ProductDetailsController.cs:76:    [HttpGet(\"/api/v{version:apiVersion}/variants/{id}\")]",
+      "6114c5db0f2b4b490cf89b9c512088f01dbf0b98:src/PopCat.Assortment.Api/Controllers/ProductDetailsController.cs:89:    [HttpPost(\"/api/v{version:apiVersion}/variants/batch\")]",
+      "6114c5db0f2b4b490cf89b9c512088f01dbf0b98:src/PopCat.Assortment.Api/Controllers/ProductDetailsController.cs:102:    [HttpGet(\"/api/v{version:apiVersion}/variants/{id}/product-type\")]",
+      "6114c5db0f2b4b490cf89b9c512088f01dbf0b98:src/PopCat.Assortment.Api/Controllers/ProductDetailsController.cs:115:    [HttpGet(\"/api/v{version:apiVersion}/products/{id}/variants\")]",
+      "6114c5db0f2b4b490cf89b9c512088f01dbf0b98:src/PopCat.Assortment.Api/Controllers/ProductDetailsController.cs:133:    [HttpGet(\"/api/v{version:apiVersion}/product-types/{productType}/variants\")]",
+      "6114c5db0f2b4b490cf89b9c512088f01dbf0b98:src/PopCat.Assortment.Api/Controllers/ProductDetailsController.cs:151:    [HttpGet(\"/api/v{version:apiVersion}/product-types\")]",
+      "6114c5db0f2b4b490cf89b9c512088f01dbf0b98:src/PopCat.Assortment.Api/Controllers/ProductDetailsController.cs:165:    [HttpPost(\"/api/v{version:apiVersion}/transformation\")]",
+      "6114c5db0f2b4b490cf89b9c512088f01dbf0b98:src/PopCat.Assortment.Api/Controllers/ProductsController.cs:18:    [HttpGet(\"output\")]",
+      "6114c5db0f2b4b490cf89b9c512088f01dbf0b98:src/PopCat.Assortment.Api/Controllers/ProductsController.cs:31:    [HttpGet(\"output/without-codes\")]",
+      "6114c5db0f2b4b490cf89b9c512088f01dbf0b98:src/PopCat.Assortment.Api/Controllers/SpecMarketController.cs:16:    [HttpGet]",
+      "6114c5db0f2b4b490cf89b9c512088f01dbf0b98:src/PopCat.Assortment.Api/Controllers/SpecificationController.cs:17:    [HttpGet(\"specifications\")]",
+      "6114c5db0f2b4b490cf89b9c512088f01dbf0b98:src/PopCat.Assortment.Api/Controllers/SpecificationController.cs:30:    [HttpGet(\"specification-values\")]"
+    ],
+    "Map(Get|Post|Put|Delete|HealthChecks|Controllers)": [
+      "6114c5db0f2b4b490cf89b9c512088f01dbf0b98:src/PopCat.Assortment.Host/Extensions/ApplicationBuilderExtensions.cs:131:            app.MapControllers().RequireAuthorization();",
+      "6114c5db0f2b4b490cf89b9c512088f01dbf0b98:src/PopCat.Assortment.Host/Extensions/ApplicationBuilderExtensions.cs:135:            app.MapControllers();",
+      "6114c5db0f2b4b490cf89b9c512088f01dbf0b98:src/PopCat.Assortment.Host/Extensions/HealthCheckExtensions.cs:17:        app.MapHealthChecks(\"/health/startup\", new HealthCheckOptions",
+      "6114c5db0f2b4b490cf89b9c512088f01dbf0b98:src/PopCat.Assortment.Host/Extensions/HealthCheckExtensions.cs:21:        app.MapHealthChecks(\"/health/ready\", new HealthCheckOptions",
+      "6114c5db0f2b4b490cf89b9c512088f01dbf0b98:src/PopCat.Assortment.Host/Extensions/HealthCheckExtensions.cs:25:        app.MapHealthChecks(\"/health/live\", new HealthCheckOptions",
+      "6114c5db0f2b4b490cf89b9c512088f01dbf0b98:src/PopCat.Assortment.Host/Extensions/HealthCheckExtensions.cs:29:        app.MapHealthChecks(\"/health\", new HealthCheckOptions",
+      "6114c5db0f2b4b490cf89b9c512088f01dbf0b98:src/PopCat.Assortment.Ocelot.Host/Extensions/ApplicationBuilderExtensions.cs:87:        app.MapControllers().RequireAuthorization();",
+      "6114c5db0f2b4b490cf89b9c512088f01dbf0b98:src/PopCat.Assortment.Ocelot.Host/Extensions/HealthCheckExtensions.cs:16:        app.MapHealthChecks(\"/health/startup\", new HealthCheckOptions",
+      "6114c5db0f2b4b490cf89b9c512088f01dbf0b98:src/PopCat.Assortment.Ocelot.Host/Extensions/HealthCheckExtensions.cs:20:        app.MapHealthChecks(\"/health/ready\", new HealthCheckOptions",
+      "6114c5db0f2b4b490cf89b9c512088f01dbf0b98:src/PopCat.Assortment.Ocelot.Host/Extensions/HealthCheckExtensions.cs:24:        app.MapHealthChecks(\"/health/live\", new HealthCheckOptions",
+      "6114c5db0f2b4b490cf89b9c512088f01dbf0b98:src/PopCat.Assortment.Ocelot.Host/Extensions/HealthCheckExtensions.cs:28:        app.MapHealthChecks(\"/health\", new HealthCheckOptions"
+    ],
+    "Subscribe|AddHostedService|Cron|Schedule|BackgroundService": [
+      "6114c5db0f2b4b490cf89b9c512088f01dbf0b98:src/PopCat.Assortment.CacheWorker.Host/Extensions/ApplicationBuilderExtensions.cs:39:        services.AddHostedService<KafkaConsumerService>();",
+      "6114c5db0f2b4b490cf89b9c512088f01dbf0b98:src/PopCat.Assortment.CacheWorker.Host/Services/KafkaConsumerService.cs:11:) : BackgroundService",
+      "6114c5db0f2b4b490cf89b9c512088f01dbf0b98:src/PopCat.Assortment.CacheWorker.Host/Services/KafkaConsumerService.cs:32:        consumer.Subscribe(topics);",
+      "6114c5db0f2b4b490cf89b9c512088f01dbf0b98:src/PopCat.Assortment.Repository/BlobStorage/BlobStorageClient.cs:105:            .ContinueWith(static tierTask => _ = tierTask.Exception, CancellationToken.None, TaskContinuationOptions.OnlyOnFaulted, TaskScheduler.Default);"
+    ],
+    "UseSwagger|SwaggerUI|app.Map\\(": [
+      "6114c5db0f2b4b490cf89b9c512088f01dbf0b98:src/PopCat.Assortment.Api/packages.lock.json:82:      \"Swashbuckle.AspNetCore.SwaggerUI\": {",
+      "6114c5db0f2b4b490cf89b9c512088f01dbf0b98:src/PopCat.Assortment.Api/packages.lock.json:119:          \"Swashbuckle.AspNetCore.SwaggerUI\": \"10.2.3\"",
+      "6114c5db0f2b4b490cf89b9c512088f01dbf0b98:src/PopCat.Assortment.CacheWorker.Host/packages.lock.json:1014:      \"Swashbuckle.AspNetCore.SwaggerUI\": {",
+      "6114c5db0f2b4b490cf89b9c512088f01dbf0b98:src/PopCat.Assortment.CacheWorker.Host/packages.lock.json:1474:          \"Swashbuckle.AspNetCore.SwaggerUI\": \"10.2.3\"",
+      "6114c5db0f2b4b490cf89b9c512088f01dbf0b98:src/PopCat.Assortment.Contracts/packages.lock.json:450:      \"Swashbuckle.AspNetCore.SwaggerUI\": {",
+      "6114c5db0f2b4b490cf89b9c512088f01dbf0b98:src/PopCat.Assortment.Contracts/packages.lock.json:602:          \"Swashbuckle.AspNetCore.SwaggerUI\": \"10.2.3\"",
+      "6114c5db0f2b4b490cf89b9c512088f01dbf0b98:src/PopCat.Assortment.Core/packages.lock.json:696:      \"Swashbuckle.AspNetCore.SwaggerUI\": {",
+      "6114c5db0f2b4b490cf89b9c512088f01dbf0b98:src/PopCat.Assortment.Core/packages.lock.json:1012:          \"Swashbuckle.AspNetCore.SwaggerUI\": \"10.2.3\"",
+      "6114c5db0f2b4b490cf89b9c512088f01dbf0b98:src/PopCat.Assortment.Host/Extensions/SwaggerExtensions.cs:47:    public static WebApplication UseSwagger(this WebApplication app)",
+      "6114c5db0f2b4b490cf89b9c512088f01dbf0b98:src/PopCat.Assortment.Host/Extensions/SwaggerExtensions.cs:49:        app.UseSwagger(c => { });",
+      "6114c5db0f2b4b490cf89b9c512088f01dbf0b98:src/PopCat.Assortment.Host/Extensions/SwaggerExtensions.cs:50:        app.UseSwaggerUI(c => c.SwaggerEndpoint(\"/swagger/v1/swagger.json\", \"Assortment.Api v1\"));",
+      "6114c5db0f2b4b490cf89b9c512088f01dbf0b98:src/PopCat.Assortment.Host/Program.cs:31:    app.UseSwagger();",
+      "6114c5db0f2b4b490cf89b9c512088f01dbf0b98:src/PopCat.Assortment.Host/packages.lock.json:577:      \"Swashbuckle.AspNetCore.SwaggerUI\": {",
+      "6114c5db0f2b4b490cf89b9c512088f01dbf0b98:src/PopCat.Assortment.Host/packages.lock.json:906:          \"Swashbuckle.AspNetCore.SwaggerUI\": \"10.2.3\"",
+      "6114c5db0f2b4b490cf89b9c512088f01dbf0b98:src/PopCat.Assortment.Integration/packages.lock.json:707:      \"Swashbuckle.AspNetCore.SwaggerUI\": {",
+      "6114c5db0f2b4b490cf89b9c512088f01dbf0b98:src/PopCat.Assortment.Integration/packages.lock.json:870:          \"Swashbuckle.AspNetCore.SwaggerUI\": \"10.2.3\"",
+      "6114c5db0f2b4b490cf89b9c512088f01dbf0b98:src/PopCat.Assortment.Ocelot.Host/Extensions/SwaggerExtensions.cs:76:    public static WebApplication UseSwagger(this WebApplication app)",
+      "6114c5db0f2b4b490cf89b9c512088f01dbf0b98:src/PopCat.Assortment.Ocelot.Host/Extensions/SwaggerExtensions.cs:80:        app.Map(options.PathToSwaggerGenerator.TrimEnd('/'), builder => builder.UseMiddleware<SwaggerProxyMiddleware>());",
+      "6114c5db0f2b4b490cf89b9c512088f01dbf0b98:src/PopCat.Assortment.Ocelot.Host/Extensions/SwaggerExtensions.cs:84:            app.UseSwaggerUI(c =>",
+      "6114c5db0f2b4b490cf89b9c512088f01dbf0b98:src/PopCat.Assortment.Ocelot.Host/Program.cs:31:    app.UseSwagger();",
+      "6114c5db0f2b4b490cf89b9c512088f01dbf0b98:src/PopCat.Assortment.Ocelot.Host/packages.lock.json:67:          \"Swashbuckle.AspNetCore.SwaggerUI\": \"10.2.3\"",
+      "6114c5db0f2b4b490cf89b9c512088f01dbf0b98:src/PopCat.Assortment.Ocelot.Host/packages.lock.json:513:      \"Swashbuckle.AspNetCore.SwaggerUI\": {",
+      "6114c5db0f2b4b490cf89b9c512088f01dbf0b98:src/PopCat.Assortment.Repository/packages.lock.json:541:      \"Swashbuckle.AspNetCore.SwaggerUI\": {",
+      "6114c5db0f2b4b490cf89b9c512088f01dbf0b98:src/PopCat.Assortment.Repository/packages.lock.json:731:          \"Swashbuckle.AspNetCore.SwaggerUI\": \"10.2.3\""
+    ],
+    "outside-src-runtime-registration-audit": [
+      "6114c5db0f2b4b490cf89b9c512088f01dbf0b98:.github/dependabot.yml:64:          - \"Cronos\""
+    ]
+  },
+  "source_files_examined": [
+    "src/PopCat.Assortment.Api/Controllers/AboutController.cs",
+    "src/PopCat.Assortment.Api/Controllers/Admin/CacheController.cs",
+    "src/PopCat.Assortment.Api/Controllers/AssortmentApiControllerBase.cs",
+    "src/PopCat.Assortment.Api/Controllers/CarConfigController.cs",
+    "src/PopCat.Assortment.Api/Controllers/ClassificationController.cs",
+    "src/PopCat.Assortment.Api/Controllers/ExternalCarCodeController.cs",
+    "src/PopCat.Assortment.Api/Controllers/GlobalDictionaryController.cs",
+    "src/PopCat.Assortment.Api/Controllers/MarketAuthController.cs",
+    "src/PopCat.Assortment.Api/Controllers/ProductDetailsController.cs",
+    "src/PopCat.Assortment.Api/Controllers/ProductsController.cs",
+    "src/PopCat.Assortment.Api/Controllers/SpecMarketController.cs",
+    "src/PopCat.Assortment.Api/Controllers/SpecificationController.cs",
+    "src/PopCat.Assortment.Api/Request/GetCarConfigRequest.cs",
+    "src/PopCat.Assortment.Api/Request/GetExternalCarCodeRequest.cs",
+    "src/PopCat.Assortment.Api/Request/ListPno12sRequest.cs",
+    "src/PopCat.Assortment.Api/Request/TransformationRequest.cs",
+    "src/PopCat.Assortment.Api/Response/TransformationResponse.cs",
+    "src/PopCat.Assortment.CacheWorker.Host/MessageProcessor/ClassificationMessageProcessor.cs",
+    "src/PopCat.Assortment.CacheWorker.Host/MessageProcessor/ManageCommercialMessageProcessor.cs",
+    "src/PopCat.Assortment.CacheWorker.Host/MessageProcessor/ManageSegmentMessageProcessor.cs",
+    "src/PopCat.Assortment.CacheWorker.Host/MessageProcessor/PCFCarConfigMessageProcessor.cs",
+    "src/PopCat.Assortment.CacheWorker.Host/MessageProcessor/PCFGlobalDictionaryEntriesMessageProcessor.cs",
+    "src/PopCat.Assortment.CacheWorker.Host/MessageProcessor/PCFGlobalDictionaryMessageProcessor.cs",
+    "src/PopCat.Assortment.CacheWorker.Host/MessageProcessor/PCFMarketAuthEntriesMessageProcessor.cs",
+    "src/PopCat.Assortment.CacheWorker.Host/MessageProcessor/PCFMarketAuthMessageProcessor.cs",
+    "src/PopCat.Assortment.CacheWorker.Host/MessageProcessor/PDSMessageProcessor.cs",
+    "src/PopCat.Assortment.CacheWorker.Host/MessageProcessor/SpecificationMessageProcessor.cs",
+    "src/PopCat.Assortment.CacheWorker.Host/Program.cs",
+    "src/PopCat.Assortment.CacheWorker.Host/Protos/manage/capmessage.proto",
+    "src/PopCat.Assortment.CacheWorker.Host/Protos/manage/jatomessage.proto",
+    "src/PopCat.Assortment.CacheWorker.Host/Protos/manage/nat_code_mapping.proto",
+    "src/PopCat.Assortment.CacheWorker.Host/Protos/manage/schwacke.proto",
+    "src/PopCat.Assortment.CacheWorker.Host/Protos/manage/soft_offer.proto",
+    "src/PopCat.Assortment.CacheWorker.Host/Protos/manage/soft_offer_package.proto",
+    "src/PopCat.Assortment.CacheWorker.Host/Protos/manage/software_option.proto",
+    "src/PopCat.Assortment.CacheWorker.Host/Protos/pcf/carconfigmessage.proto",
+    "src/PopCat.Assortment.CacheWorker.Host/Protos/pcf/globaldictionaryentriesupdated.proto",
+    "src/PopCat.Assortment.CacheWorker.Host/Protos/pcf/globaldictionarymessage.proto",
+    "src/PopCat.Assortment.CacheWorker.Host/Protos/pcf/marketauthentriesupdated.proto",
+    "src/PopCat.Assortment.CacheWorker.Host/Protos/pcf/marketauthmessage.proto",
+    "src/PopCat.Assortment.CacheWorker.Host/Protos/pds/productdetailservice_package.proto",
+    "src/PopCat.Assortment.CacheWorker.Host/Protos/pds/productdetailservice_product.proto",
+    "src/PopCat.Assortment.CacheWorker.Host/Protos/pds/specification_value.proto",
+    "src/PopCat.Assortment.CacheWorker.Host/appsettings.json",
+    "src/PopCat.Assortment.Contracts/Models/CarConfig.cs",
+    "src/PopCat.Assortment.Contracts/Models/CarConfigKey.cs",
+    "src/PopCat.Assortment.Contracts/Models/CarInformation.cs",
+    "src/PopCat.Assortment.Contracts/Models/Classification.cs",
+    "src/PopCat.Assortment.Contracts/Models/Colour.cs",
+    "src/PopCat.Assortment.Contracts/Models/Constants/ExternalCarProviderConstants.cs",
+    "src/PopCat.Assortment.Contracts/Models/Country.cs",
+    "src/PopCat.Assortment.Contracts/Models/DetailInfo.cs",
+    "src/PopCat.Assortment.Contracts/Models/ElementType.cs",
+    "src/PopCat.Assortment.Contracts/Models/ExternalCarCodeInfo.cs",
+    "src/PopCat.Assortment.Contracts/Models/Feature.cs",
+    "src/PopCat.Assortment.Contracts/Models/FeatureType.cs",
+    "src/PopCat.Assortment.Contracts/Models/GlobalDictionary.cs",
+    "src/PopCat.Assortment.Contracts/Models/GlobalDictionaryEntriesInfo.cs",
+    "src/PopCat.Assortment.Contracts/Models/GlobalDictionaryEntry.cs",
+    "src/PopCat.Assortment.Contracts/Models/GlobalDictionaryEntryDto.cs",
+    "src/PopCat.Assortment.Contracts/Models/GlobalTags.cs",
+    "src/PopCat.Assortment.Contracts/Models/ICC.cs",
+    "src/PopCat.Assortment.Contracts/Models/ICarConfigSummary.cs",
+    "src/PopCat.Assortment.Contracts/Models/IConfigItem.cs",
+    "src/PopCat.Assortment.Contracts/Models/IDI.cs",
+    "src/PopCat.Assortment.Contracts/Models/IPno12Components.cs",
+    "src/PopCat.Assortment.Contracts/Models/InteriorRoom.cs",
+    "src/PopCat.Assortment.Contracts/Models/ListPno12Query.cs",
+    "src/PopCat.Assortment.Contracts/Models/ListPno12QueryResult.cs",
+    "src/PopCat.Assortment.Contracts/Models/MarketAuthEntriesInfo.cs",
+    "src/PopCat.Assortment.Contracts/Models/MarketAuthEntry.cs",
+    "src/PopCat.Assortment.Contracts/Models/MarketAuthorization.cs",
+    "src/PopCat.Assortment.Contracts/Models/Option.cs",
+    "src/PopCat.Assortment.Contracts/Models/Package.cs",
+    "src/PopCat.Assortment.Contracts/Models/PackageColour.cs",
+    "src/PopCat.Assortment.Contracts/Models/PackageInteriorRoom.cs",
+    "src/PopCat.Assortment.Contracts/Models/PackageOption.cs",
+    "src/PopCat.Assortment.Contracts/Models/Pno12.cs",
+    "src/PopCat.Assortment.Contracts/Models/Pno12Components.cs",
+    "src/PopCat.Assortment.Contracts/Models/Pno12ListItem.cs",
+    "src/PopCat.Assortment.Contracts/Models/Pno12QueryAggregation.cs",
+    "src/PopCat.Assortment.Contracts/Models/ProductDetail.cs",
+    "src/PopCat.Assortment.Contracts/Models/ProductDetailsLookUp.cs",
+    "src/PopCat.Assortment.Contracts/Models/ProductIdPaginationToken.cs",
+    "src/PopCat.Assortment.Contracts/Models/ProductOutput/Brand.cs",
+    "src/PopCat.Assortment.Contracts/Models/ProductOutput/Classification.cs",
+    "src/PopCat.Assortment.Contracts/Models/ProductOutput/ComponentTypes.cs",
+    "src/PopCat.Assortment.Contracts/Models/ProductOutput/Product.cs",
+    "src/PopCat.Assortment.Contracts/Models/ProductOutput/ProductQuery.cs",
+    "src/PopCat.Assortment.Contracts/Models/ProductOutput/ProductType.cs",
+    "src/PopCat.Assortment.Contracts/Models/ProductOutput/ProductVariant.cs",
+    "src/PopCat.Assortment.Contracts/Models/ProductOutput/UpstreamItem.cs",
+    "src/PopCat.Assortment.Contracts/Models/ProductOutput/VariantRule.cs",
+    "src/PopCat.Assortment.Contracts/Models/ProductTypePaginationToken.cs",
+    "src/PopCat.Assortment.Contracts/Models/ProductionDates.cs",
+    "src/PopCat.Assortment.Contracts/Models/ProductionWeek.cs",
+    "src/PopCat.Assortment.Contracts/Models/ReplacedOption.cs",
+    "src/PopCat.Assortment.Contracts/Models/Requests/CarConfigDetailsRequest.cs",
+    "src/PopCat.Assortment.Contracts/Models/Requests/CarConfigQueryRequest.cs",
+    "src/PopCat.Assortment.Contracts/Models/Requests/ExternalCarCodeRequest.cs",
+    "src/PopCat.Assortment.Contracts/Models/Response/Pno12ListResponse.cs",
+    "src/PopCat.Assortment.Contracts/Models/Response/ProductDetailListResponse.cs",
+    "src/PopCat.Assortment.Contracts/Models/Response/ProductTypesListResponse.cs",
+    "src/PopCat.Assortment.Contracts/Models/Response/VariantDetailListResponse.cs",
+    "src/PopCat.Assortment.Contracts/Models/SMessage.cs",
+    "src/PopCat.Assortment.Contracts/Models/SpecMarket.cs",
+    "src/PopCat.Assortment.Contracts/Models/SpecMarketsResponse.cs",
+    "src/PopCat.Assortment.Contracts/Models/Specification.cs",
+    "src/PopCat.Assortment.Contracts/Models/SpecificationValue.cs",
+    "src/PopCat.Assortment.Contracts/Models/Transformation/TransformationQuery.cs",
+    "src/PopCat.Assortment.Contracts/Models/Transformation/TransformationResult.cs",
+    "src/PopCat.Assortment.Contracts/Models/UpstreamEntity.cs",
+    "src/PopCat.Assortment.Contracts/Models/VariantDetail.cs",
+    "src/PopCat.Assortment.Contracts/Models/VariantVersion.cs",
+    "src/PopCat.Assortment.Host/Extensions/HealthCheckExtensions.cs",
+    "src/PopCat.Assortment.Host/Extensions/SwaggerExtensions.cs",
+    "src/PopCat.Assortment.Host/Program.cs",
+    "src/PopCat.Assortment.Integration/Assortment/Models/AssortmentSchema.json",
+    "src/PopCat.Assortment.Ocelot.Host/Extensions/HealthCheckExtensions.cs",
+    "src/PopCat.Assortment.Ocelot.Host/Extensions/SwaggerExtensions.cs",
+    "src/PopCat.Assortment.Ocelot.Host/Program.cs",
+    "src/PopCat.Assortment.Ocelot.Host/ocelot.json",
+    "src/PopCat.Assortment.Repository/BlobStorage/Models/BlobStorageSettings.cs"
+  ],
+  "source_scope": "All pinned src paths searched for explicit HTTP/controller/gateway/middleware, hosted services, subscriptions and scheduling patterns; imported registrations unresolved.",
+  "freshness": {
+    "pinned_commit": "6114c5db0f2b4b490cf89b9c512088f01dbf0b98",
+    "local_head": "6114c5db0f2b4b490cf89b9c512088f01dbf0b98",
+    "remote": "not_checked_no_network",
+    "deployment": "not_established"
+  },
+  "explicit_exclusions": [
+    {
+      "scope": "test/** and deployment_files/ephemeral/wiremock/**",
+      "reason": "Test factories and stub mappings are not production application registrations."
+    },
+    {
+      "scope": "Imported application-part/controller and framework middleware default routes",
+      "reason": "Exact artefact implementation unavailable; source discovery cannot establish every effective runtime route."
+    }
+  ]
+}

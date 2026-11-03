@@ -1,0 +1,8 @@
+{
+  "status": "passed",
+  "bundle": "Compressed bytes decompress to original sealed JSON; parsed contents unchanged",
+  "snapshot": "bba83f88302e60668a388fce10536a09af76be5e274a724c2e4a98298e87f018",
+  "sourceSealFilesVerified": 309,
+  "sourceBundleByteSha256": "bf5b36fc398e0f7ee593b18a5771e16daaeab7cb9298fc74917bb673e767fdd7",
+  "sourceSealQualification": "Original-path byte seal preserved for audit. Selected ledgers and compressed query evidence are copied here; the entire authored working directory is not duplicated."
+}

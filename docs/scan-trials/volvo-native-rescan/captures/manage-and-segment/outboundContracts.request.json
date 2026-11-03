@@ -1,0 +1,23 @@
+{
+  "format": "groundwork-query/v3",
+  "snapshot": "dc7180b74158fccc486c12834b8f9dfbfedcd501359e852e61caa387631c284d",
+  "query": "records",
+  "entry": "mas-b360506/entry/post-api-commercial-items-fees",
+  "value": null,
+  "context": [],
+  "outcome": null,
+  "changed": [],
+  "representation": "constructed",
+  "candidates": "exclude",
+  "maxNodes": 500,
+  "maxRecords": 5000,
+  "environment": "production-profile",
+  "ids": [
+    "mas-b360506/outbound/check-access/interaction",
+    "mas-b360506/outbound/delete-tuple/interaction",
+    "mas-b360506/outbound/list-tuples/interaction",
+    "mas-b360506/outbound/get-tuple/interaction",
+    "mas-b360506/outbound/save-tuple/interaction",
+    "mas-b360506/outbound/access-token/interaction"
+  ]
+}

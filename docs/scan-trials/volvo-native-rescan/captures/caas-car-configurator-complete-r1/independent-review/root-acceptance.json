@@ -1,0 +1,189 @@
+{
+  "snapshot": "bba83f88302e60668a388fce10536a09af76be5e274a724c2e4a98298e87f018",
+  "status": "passed",
+  "qualification": "Independent bounded source-query review; CreateRuleset whole-entry traversal remains incomplete. No deployment, imported SDK transport or transaction durability proof.",
+  "queries": [
+    {
+      "name": "HealthCheck actual gRPC entry",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "CreateRuleset actual gRPC entry",
+      "nodes": 1,
+      "edges": 0,
+      "limits": ["maxNodes", "maxRecords"],
+      "pages": 3
+    },
+    {
+      "name": "DeleteRuleset actual gRPC entry",
+      "nodes": 2,
+      "edges": 1,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "CalculateCarKeyV2 actual gRPC entry",
+      "nodes": 3,
+      "edges": 2,
+      "limits": ["maxNodes"],
+      "pages": 1
+    },
+    {
+      "name": "CalculateStartCarKeys actual gRPC entry",
+      "nodes": 3,
+      "edges": 2,
+      "limits": ["maxNodes"],
+      "pages": 1
+    },
+    {
+      "name": "CalculateBaseCarKeys actual gRPC entry",
+      "nodes": 2,
+      "edges": 1,
+      "limits": ["maxNodes"],
+      "pages": 1
+    },
+    {
+      "name": "CalculateNextCarKeys actual gRPC entry",
+      "nodes": 3,
+      "edges": 2,
+      "limits": ["maxNodes"],
+      "pages": 1
+    },
+    {
+      "name": "CalculateManyCarKeys actual gRPC entry",
+      "nodes": 3,
+      "edges": 2,
+      "limits": ["maxNodes"],
+      "pages": 1
+    },
+    {
+      "name": "GetCarSpecification actual gRPC entry",
+      "nodes": 2,
+      "edges": 1,
+      "limits": ["maxNodes", "maxRecords"],
+      "pages": 2
+    },
+    {
+      "name": "All exact boundary records and duplicate record request IDs",
+      "nodes": 0,
+      "edges": 0,
+      "limits": ["maxRecords"],
+      "pages": 3
+    },
+    {
+      "name": "Typed insert fields and acknowledgement",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "insert field id",
+      "nodes": 4,
+      "edges": 3,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "insert field ruleset",
+      "nodes": 78,
+      "edges": 88,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "insert field client_id",
+      "nodes": 3,
+      "edges": 2,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Typed insert fields and acknowledgement",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "insert field ruleset_id",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "insert field specification",
+      "nodes": 211,
+      "edges": 237,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Typed delete fields and acknowledgement",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "delete field id",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Persisted JSON names and nested declarations",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Solver actual source argument 62091b0f3dd3b7f8",
+      "nodes": 3,
+      "edges": 2,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Solver actual source argument aca2f95fcfa9a70d",
+      "nodes": 65,
+      "edges": 67,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Solver actual source argument 4dd44faa203cb13e",
+      "nodes": 57,
+      "edges": 58,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Solver actual source argument d05d4300d20ceff5",
+      "nodes": 65,
+      "edges": 67,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Solver actual source argument 0c7965b0b74d4523",
+      "nodes": 3,
+      "edges": 2,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Commit is separate from both helper write acknowledgements",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    }
+  ]
+}

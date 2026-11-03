@@ -1,0 +1,41 @@
+[
+  {
+    "path": "src/app/super-admins/components/AddSuperAdminPanel/AddSuperAdminPanel.tsx",
+    "lines": [40, 46],
+    "callee": "useForm",
+    "expression": "useForm<{\n    cdsid: string;\n    requestReference: string;\n  }>({\n    mode: 'onChange',\n    defaultValues: { cdsid: '', requestReference: '' },\n  })",
+    "claim": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/source-form/e5831483643151c6d918",
+    "owner": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/method/b38c544fe080c40c67c5",
+    "callbacks": []
+  },
+  {
+    "path": "src/app/super-admins/components/AddSuperAdminPanel/AddSuperAdminPanel.tsx",
+    "lines": [52, 56],
+    "callee": "handleSubmit",
+    "expression": "handleSubmit(({ cdsid, requestReference }) => {\n        reset();\n        setLastUser(cdsid);\n        onSave(cdsid, requestReference);\n      })",
+    "claim": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/source-form/86e7adeba1de1b9122f1",
+    "owner": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/method/b38c544fe080c40c67c5",
+    "callbacks": ["volvo/cce-admin-ui/2bea451cf1ae/local-r3/method/2bb07327fa148d017cc3"]
+  },
+  {
+    "path": "src/app/super-admins/components/AddSuperAdminPanel/AddSuperAdminPanel.tsx",
+    "lines": [74, 95],
+    "callee": "register",
+    "expression": "register('cdsid', {\n                required: true,\n                disabled: loading,\n                onChange: () => lastUser && setLastUser(''),\n                pattern: {\n                  value: /@volvocars.com$/,\n                  message: 'CDSID must end with @volvocars.com',\n                },\n                minLength: {\n                  value: 15,\n                  message: 'CDSID must be at least 15 characters long',\n                },\n                validate: (value) => {\n                  const user = superAdmins?.find(\n                    (u) => u.cdsid.toLowerCase() === value.toLowerCase(),\n                  );\n\n                  if (user) {\n                    return `User ${user.cdsid} has already super admin rights.`;\n                  }\n                },\n              })",
+    "claim": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/source-form/0efadb909e5eb9e082c8",
+    "owner": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/method/b38c544fe080c40c67c5",
+    "callbacks": [
+      "volvo/cce-admin-ui/2bea451cf1ae/local-r3/method/68dc5d9ac8d23cfb9746",
+      "volvo/cce-admin-ui/2bea451cf1ae/local-r3/method/7151a42f4eef7b1b77c7"
+    ]
+  },
+  {
+    "path": "src/app/super-admins/components/AddSuperAdminPanel/AddSuperAdminPanel.tsx",
+    "lines": [106, 112],
+    "callee": "register",
+    "expression": "register('requestReference', {\n                required: true,\n                disabled: loading,\n                validate: (value) =>\n                  isServiceNowRequestLink(value) ||\n                  'Enter a ServiceNow request link, not a request ID',\n              })",
+    "claim": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/source-form/59bde1a7f7617c14227a",
+    "owner": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/method/b38c544fe080c40c67c5",
+    "callbacks": ["volvo/cce-admin-ui/2bea451cf1ae/local-r3/method/cf90a4c7c6e32c11de14"]
+  }
+]

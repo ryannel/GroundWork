@@ -1,0 +1,6 @@
+{
+  "status": "passed",
+  "snapshot": "5f59c5db11e155019ace1500542dc4db1648a1616d330523ac05aa7481724664",
+  "files": 10,
+  "sourceSeal": "reports/volvo-native-rescan/cdls-mono-volvocars-complete/units/ev-subsidy-api/checkpoint-001/capture-seal.json"
+}

@@ -1,0 +1,177 @@
+[
+  {
+    "path": "events/carconfiguration/component.pb.go",
+    "name": "volvocars.contracts.carconfiguration.Component",
+    "shape": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/protobuf/f1cc456878ff0050ad94",
+    "descriptorBytes": 747,
+    "fields": 5
+  },
+  {
+    "path": "events/carconfiguration/component.pb.go",
+    "name": "volvocars.contracts.carconfiguration.ComponentUpdated",
+    "shape": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/protobuf/03e8ef57c615635af37d",
+    "descriptorBytes": 747,
+    "fields": 1
+  },
+  {
+    "path": "events/carconfiguration/condition.pb.go",
+    "name": "volvocars.contracts.carconfiguration.Condition",
+    "shape": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/protobuf/e67fb1727f842377665e",
+    "descriptorBytes": 627,
+    "fields": 2
+  },
+  {
+    "path": "events/carconfiguration/condition.pb.go",
+    "name": "volvocars.contracts.carconfiguration.SubCondition",
+    "shape": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/protobuf/bbaab4a4b29477b5b058",
+    "descriptorBytes": 627,
+    "fields": 2
+  },
+  {
+    "path": "events/carconfiguration/config-policy.pb.go",
+    "name": "volvocars.contracts.carconfiguration.ConfigPolicy",
+    "shape": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/protobuf/1ee41d3fd8344a46f341",
+    "descriptorBytes": 1589,
+    "fields": 6
+  },
+  {
+    "path": "events/carconfiguration/config-policy.pb.go",
+    "name": "volvocars.contracts.carconfiguration.ConfigPolicyCreated",
+    "shape": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/protobuf/069d97d709a27e959423",
+    "descriptorBytes": 1589,
+    "fields": 6
+  },
+  {
+    "path": "events/carconfiguration/config-policy.pb.go",
+    "name": "volvocars.contracts.carconfiguration.ConfigPolicyUpdated",
+    "shape": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/protobuf/06b982f1aae1416a1df1",
+    "descriptorBytes": 1589,
+    "fields": 6
+  },
+  {
+    "path": "events/carconfiguration/config-policy.pb.go",
+    "name": "volvocars.contracts.carconfiguration.ConfigPolicyDeleted",
+    "shape": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/protobuf/b25b5605f872616bd643",
+    "descriptorBytes": 1589,
+    "fields": 1
+  },
+  {
+    "path": "events/carconfiguration/config-policy.pb.go",
+    "name": "volvocars.contracts.carconfiguration.ConfigPolicyRulesUpdated",
+    "shape": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/protobuf/008931c6c665161e6caa",
+    "descriptorBytes": 1589,
+    "fields": 5
+  },
+  {
+    "path": "events/carconfiguration/config-rules.pb.go",
+    "name": "volvocars.contracts.carconfiguration.ConfigRuleSet",
+    "shape": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/protobuf/c551802697eb2054e781",
+    "descriptorBytes": 1155,
+    "fields": 2
+  },
+  {
+    "path": "events/carconfiguration/config-rules.pb.go",
+    "name": "volvocars.contracts.carconfiguration.ConfigRule",
+    "shape": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/protobuf/49980ad1579ee851e750",
+    "descriptorBytes": 1155,
+    "fields": 2
+  },
+  {
+    "path": "events/carconfiguration/config-rules.pb.go",
+    "name": "volvocars.contracts.carconfiguration.ConfigRulesCreated",
+    "shape": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/protobuf/4385396c54399191256f",
+    "descriptorBytes": 1155,
+    "fields": 1
+  },
+  {
+    "path": "events/carconfiguration/config-rules.pb.go",
+    "name": "volvocars.contracts.carconfiguration.ConfigRulesUpdated",
+    "shape": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/protobuf/54cfd1fd980aa6acc8ee",
+    "descriptorBytes": 1155,
+    "fields": 1
+  },
+  {
+    "path": "events/carconfiguration/config-rules.pb.go",
+    "name": "volvocars.contracts.carconfiguration.StructureWeeksRuleSet",
+    "shape": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/protobuf/16fc89778b5402538760",
+    "descriptorBytes": 1155,
+    "fields": 2
+  },
+  {
+    "path": "events/carconfiguration/config-rules.pb.go",
+    "name": "volvocars.contracts.carconfiguration.StructureWeeksRule",
+    "shape": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/protobuf/dcba75be4b43895c1c8a",
+    "descriptorBytes": 1155,
+    "fields": 2
+  },
+  {
+    "path": "events/carconfiguration/consequence.pb.go",
+    "name": "volvocars.contracts.carconfiguration.Consequence",
+    "shape": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/protobuf/bb4b94473cfa3e308897",
+    "descriptorBytes": 704,
+    "fields": 2
+  },
+  {
+    "path": "events/carconfiguration/consequence.pb.go",
+    "name": "volvocars.contracts.carconfiguration.StructureWeeksConsequence",
+    "shape": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/protobuf/fee70511dd55fa66bb88",
+    "descriptorBytes": 704,
+    "fields": 4
+  },
+  {
+    "path": "events/carconfiguration/consequence.pb.go",
+    "name": "volvocars.contracts.carconfiguration.PriceRuleConsequence",
+    "shape": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/protobuf/2909683f6121413a519f",
+    "descriptorBytes": 704,
+    "fields": 1
+  },
+  {
+    "path": "internal/protobuf/pb/partnerDetailsFeed.pb.go",
+    "name": "PartnerDetails",
+    "shape": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/protobuf/7d52121f1d71e6f3e9fc",
+    "descriptorBytes": 703,
+    "fields": 3
+  },
+  {
+    "path": "internal/protobuf/pb/partnerDetailsFeed.pb.go",
+    "name": "RetailData",
+    "shape": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/protobuf/9a043de365df4f743ebb",
+    "descriptorBytes": 703,
+    "fields": 5
+  },
+  {
+    "path": "internal/protobuf/pb/partnerDetailsFeed.pb.go",
+    "name": "PartnersDetailsData",
+    "shape": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/protobuf/d0ac3e7dd93dfbc92da4",
+    "descriptorBytes": 703,
+    "fields": 7
+  },
+  {
+    "path": "internal/protobuf/pb/partnerDetailsFeed.pb.go",
+    "name": "ParterNames",
+    "shape": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/protobuf/d3dc77a910e34a93fbb9",
+    "descriptorBytes": 703,
+    "fields": 2
+  },
+  {
+    "path": "internal/protobuf/pb/partnerNotify.pb.go",
+    "name": "PartnerNotificationData",
+    "shape": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/protobuf/d37352b2447b52f6c610",
+    "descriptorBytes": 598,
+    "fields": 5
+  },
+  {
+    "path": "internal/protobuf/pb/partnerNotify.pb.go",
+    "name": "PartnerNotification",
+    "shape": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/protobuf/5ad287ff94f7cbb2f34e",
+    "descriptorBytes": 598,
+    "fields": 8
+  },
+  {
+    "path": "internal/protobuf/pb/partnerNotify.pb.go",
+    "name": "PartnerNotifications",
+    "shape": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/protobuf/49f33641b48e2d778c3b",
+    "descriptorBytes": 598,
+    "fields": 1
+  }
+]

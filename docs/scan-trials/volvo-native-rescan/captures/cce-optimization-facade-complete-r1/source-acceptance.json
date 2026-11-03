@@ -1,0 +1,82 @@
+{
+  "status": "passed",
+  "scope": "Finite independently source-read SQL column/selection/upsert and local HTTP wrapper invariants; not a replacement for strict graph queries or whole source ledger.",
+  "bundleFileSHA256": "ac7870484d4a659acd76cf41a1b1684b92c85de14245d89acf33f72cf43d4373",
+  "assertions": [
+    {
+      "name": "Car update SET excludes WHERE id",
+      "writes": [
+        "cce-optimization-facade-8da8ebe-complete-r1/storage_write/3f42d5e45ec4be31/api/source",
+        "cce-optimization-facade-8da8ebe-complete-r1/storage_write/3f42d5e45ec4be31/event/source",
+        "cce-optimization-facade-8da8ebe-complete-r1/storage_write/3f42d5e45ec4be31/marketmapping/source"
+      ],
+      "sourceEvidence": ["cce-optimization-facade-8da8ebe-complete-r1/evidence/6c004b799d4f79eb"]
+    },
+    {
+      "name": "Ruleset ID write excludes four WHERE keys",
+      "writes": [
+        "cce-optimization-facade-8da8ebe-complete-r1/storage_write/79c724f24b5b182c/api/source",
+        "cce-optimization-facade-8da8ebe-complete-r1/storage_write/79c724f24b5b182c/event/source",
+        "cce-optimization-facade-8da8ebe-complete-r1/storage_write/79c724f24b5b182c/marketmapping/source"
+      ],
+      "sourceEvidence": ["cce-optimization-facade-8da8ebe-complete-r1/evidence/c65fc8b7579f218c"]
+    },
+    {
+      "name": "Delete car id is selector only",
+      "writes": [
+        "cce-optimization-facade-8da8ebe-complete-r1/storage_write/20c3f70b1761e204/api/source",
+        "cce-optimization-facade-8da8ebe-complete-r1/storage_write/20c3f70b1761e204/event/source",
+        "cce-optimization-facade-8da8ebe-complete-r1/storage_write/20c3f70b1761e204/marketmapping/source"
+      ],
+      "sourceEvidence": ["cce-optimization-facade-8da8ebe-complete-r1/evidence/55e4fe6576658d22"]
+    },
+    {
+      "name": "markets conflict update writes source SET fields only",
+      "writes": [
+        "cce-optimization-facade-8da8ebe-complete-r1/storage_write/23e23663b77f382c/api/conflict-update",
+        "cce-optimization-facade-8da8ebe-complete-r1/storage_write/23e23663b77f382c/event/conflict-update",
+        "cce-optimization-facade-8da8ebe-complete-r1/storage_write/23e23663b77f382c/marketmapping/conflict-update"
+      ],
+      "sourceEvidence": ["cce-optimization-facade-8da8ebe-complete-r1/evidence/2b230e2c546a78a2"]
+    },
+    {
+      "name": "clients conflict update writes source SET fields only",
+      "writes": [
+        "cce-optimization-facade-8da8ebe-complete-r1/storage_write/d008f0efc38bae0a/api/conflict-update",
+        "cce-optimization-facade-8da8ebe-complete-r1/storage_write/d008f0efc38bae0a/event/conflict-update",
+        "cce-optimization-facade-8da8ebe-complete-r1/storage_write/d008f0efc38bae0a/marketmapping/conflict-update"
+      ],
+      "sourceEvidence": ["cce-optimization-facade-8da8ebe-complete-r1/evidence/cee31a6775207e83"]
+    },
+    {
+      "name": "policies conflict update writes source SET fields only",
+      "writes": [
+        "cce-optimization-facade-8da8ebe-complete-r1/storage_write/82d3efe28f0e4c78/api/conflict-update",
+        "cce-optimization-facade-8da8ebe-complete-r1/storage_write/82d3efe28f0e4c78/event/conflict-update",
+        "cce-optimization-facade-8da8ebe-complete-r1/storage_write/82d3efe28f0e4c78/marketmapping/conflict-update"
+      ],
+      "sourceEvidence": ["cce-optimization-facade-8da8ebe-complete-r1/evidence/e5385e7dfd57fcd4"]
+    },
+    {
+      "name": "offer_mappings conflict update writes source SET fields only",
+      "writes": [
+        "cce-optimization-facade-8da8ebe-complete-r1/storage_write/c055274ba90cd9dd/api/conflict-update",
+        "cce-optimization-facade-8da8ebe-complete-r1/storage_write/c055274ba90cd9dd/event/conflict-update",
+        "cce-optimization-facade-8da8ebe-complete-r1/storage_write/c055274ba90cd9dd/marketmapping/conflict-update"
+      ],
+      "sourceEvidence": ["cce-optimization-facade-8da8ebe-complete-r1/evidence/4dec3884e3a9179d"]
+    },
+    {
+      "name": "Adapter default injected Do is local; underlying net/http Do is one unresolved-destination transport",
+      "localWrapper": "cce-optimization-facade-8da8ebe-complete-r1/implementation/5791b621a2c3920b",
+      "calls": [
+        "cce-optimization-facade-8da8ebe-complete-r1/operation/c90385c3cf12f5ab/n/24",
+        "cce-optimization-facade-8da8ebe-complete-r1/operation/b91abc4837626c8f/n/24",
+        "cce-optimization-facade-8da8ebe-complete-r1/operation/babb41eda70b4bf3/n/24",
+        "cce-optimization-facade-8da8ebe-complete-r1/operation/c92a83698ea99419/n/24",
+        "cce-optimization-facade-8da8ebe-complete-r1/operation/ef43dabc1cdc9aa6/n/24",
+        "cce-optimization-facade-8da8ebe-complete-r1/operation/95778ab85d842465/n/24"
+      ]
+    }
+  ]
+}

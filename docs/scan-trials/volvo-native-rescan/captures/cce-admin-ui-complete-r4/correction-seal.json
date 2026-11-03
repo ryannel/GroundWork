@@ -1,0 +1,71 @@
+{
+  "snapshot": "4af0cfe8253b645c975f5935e309540b2bb30108fea04e4bbd34f3408fb65ea3",
+  "qualification": "Point-in-time correction artifacts; predecessor author proof retained separately unchanged.",
+  "files": [
+    {
+      "path": "bundle.json",
+      "bytes": 150019993,
+      "sha256": "4b8fa546537f90c0f90e0a9c4b74e9fe131fe256ab53c68be18f33a17c88147a"
+    },
+    {
+      "path": "change-ledger.json",
+      "bytes": 289639,
+      "sha256": "383e2465672e43f6feb353003f95cc0f58380db638bf2270e9ffcc20888ae748"
+    },
+    {
+      "path": "independent-sol-review.json",
+      "bytes": 369855,
+      "sha256": "88380444ad8a81e79600fe94d1dfd9a42d3c6c4b577e582579bd46400e23ad3d"
+    },
+    {
+      "path": "independent-sol-review.mjs",
+      "bytes": 4207,
+      "sha256": "5a1ad8c29dcc447b0150be7c2c6161d6517485589b95300038dd48f80db365c1"
+    },
+    {
+      "path": "native-validation.log",
+      "bytes": 564,
+      "sha256": "5d2be5cf39f68faac5694eaaa15e5e72a2093d9d2e3e99bce5d0aee013f108e4"
+    },
+    {
+      "path": "queries.mjs",
+      "bytes": 3937,
+      "sha256": "2820534e8448638f3ed448a8cfe14be8cbd5904e856334d1aef09aa190809f47"
+    },
+    {
+      "path": "query-results.json.gz",
+      "bytes": 1503310,
+      "sha256": "2a5f27f3b62539e44a54b51b9c18c8c23388685828f07fc5474814b1ca9c4137"
+    },
+    {
+      "path": "query-summary.json",
+      "bytes": 3906,
+      "sha256": "17f5018ccbf7657ac382ddc3b7112a5cfde7eaa1712b94badb6f90935257cadd"
+    },
+    {
+      "path": "reproduce.py",
+      "bytes": 586,
+      "sha256": "fa8e58dd2d479ede7039cd6243bd4336aff750ec3a1eed86428c7ee93b9462ba"
+    },
+    {
+      "path": "snapshot.json",
+      "bytes": 266,
+      "sha256": "0f7fb087edcdc10a9336c01451d3f9f6d38a884f94eb047a6044ac97ae54e31f"
+    },
+    {
+      "path": "source-audit.mjs",
+      "bytes": 3202,
+      "sha256": "a5a6a23ae1859ae02d870111c4ce782d78d6f89c21191a2fe0eda63d5aa7271e"
+    },
+    {
+      "path": "source-notes.md",
+      "bytes": 977,
+      "sha256": "c21a18ba7a05d75db28aa760bf5aa03eeba08147bf70267331c52a21a6ac2507"
+    },
+    {
+      "path": "source-nullability-audit.json",
+      "bytes": 1218745,
+      "sha256": "8c0a192e4663ff52065f66aa22336c41d9c074072fb8afaf4f686fb3f1dd7049"
+    }
+  ]
+}

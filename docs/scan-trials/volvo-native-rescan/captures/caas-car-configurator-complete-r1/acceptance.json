@@ -1,0 +1,190 @@
+{
+  "snapshot": "bba83f88302e60668a388fce10536a09af76be5e274a724c2e4a98298e87f018",
+  "bundleDigest": "6980a4a28e2b52f1f0d21b5b3ef70f2ddda007db4e57d2e70deef8e0a902cb75",
+  "bundleByteSha256": "bf5b36fc398e0f7ee593b18a5771e16daaeab7cb9298fc74917bb673e767fdd7",
+  "recordCount": 96262,
+  "queries": 129,
+  "boundedQueries": 30,
+  "pinnedRangesChecked": 12479,
+  "sourceVerification": "Pinned local source verification ran against byte-identical working.bundle.json; frozen candidate byte equality and same canonical snapshot verified. Native validation ran again against frozen candidate.",
+  "positiveExactBoundaryOwnerTraversals": 15,
+  "nativeBoundaryFacts": [
+    {
+      "interaction": "caas-car-configurator-5495209-complete-r1/interaction/io/b9059771c365766e",
+      "source": "migration.Up()",
+      "owner": "caas-car-configurator-5495209-complete-r1/implementation/458d857dbf9dbbd3",
+      "ownerTraversalReachesExactInteraction": true,
+      "limits": [],
+      "positiveFacts": "queries/boundary-0-facts.result.json",
+      "actualArguments": []
+    },
+    {
+      "interaction": "caas-car-configurator-5495209-complete-r1/interaction/io/802e4cbc1182b8bf",
+      "source": "r.pool.QueryRow(\n\t\tctx,\n\t\t`SELECT ruleset \n\t\tFROM car_rulesets \n\t\tWHERE id = $1`,\n\t\tid,\n\t)",
+      "owner": "caas-car-configurator-5495209-complete-r1/implementation/4c8d7f70755c449c",
+      "ownerTraversalReachesExactInteraction": true,
+      "limits": [],
+      "positiveFacts": "queries/boundary-1-facts.result.json",
+      "actualArguments": [
+        "queries/boundary-1-argument-0.result.json",
+        "queries/boundary-1-argument-1.result.json",
+        "queries/boundary-1-argument-2.result.json"
+      ]
+    },
+    {
+      "interaction": "caas-car-configurator-5495209-complete-r1/interaction/io/117e1b57d437de80",
+      "source": "r.pool.QueryRow(\n\t\tctx,\n\t\t`SELECT specification\n\t\tFROM car_specifications\n\t\tWHERE ruleset_id = $1`,\n\t\trulesetID,\n\t)",
+      "owner": "caas-car-configurator-5495209-complete-r1/implementation/2031891f8292a08b",
+      "ownerTraversalReachesExactInteraction": true,
+      "limits": ["maxNodes", "maxRecords"],
+      "positiveFacts": "queries/boundary-2-facts.result.json",
+      "actualArguments": [
+        "queries/boundary-2-argument-0.result.json",
+        "queries/boundary-2-argument-1.result.json",
+        "queries/boundary-2-argument-2.result.json"
+      ]
+    },
+    {
+      "interaction": "caas-car-configurator-5495209-complete-r1/interaction/io/0880e045b197c904",
+      "source": "r.pool.Begin(ctx)",
+      "owner": "caas-car-configurator-5495209-complete-r1/implementation/d463707e969cdf53",
+      "ownerTraversalReachesExactInteraction": true,
+      "limits": ["maxNodes"],
+      "positiveFacts": "queries/boundary-3-facts.result.json",
+      "actualArguments": ["queries/boundary-3-argument-0.result.json"]
+    },
+    {
+      "interaction": "caas-car-configurator-5495209-complete-r1/interaction/io/ffc32937ae3d9b36",
+      "source": "tx.Commit(ctx)",
+      "owner": "caas-car-configurator-5495209-complete-r1/implementation/d463707e969cdf53",
+      "ownerTraversalReachesExactInteraction": false,
+      "limits": ["maxNodes"],
+      "positiveFacts": "queries/boundary-4-facts.result.json",
+      "actualArguments": ["queries/boundary-4-argument-0.result.json"]
+    },
+    {
+      "interaction": "caas-car-configurator-5495209-complete-r1/interaction/io/a8211c583f20c196",
+      "source": "tx.Exec(\n\t\tctx,\n\t\t`INSERT INTO car_rulesets (id, ruleset, client_id) \n\t\t\t VALUES ($1, $2, $3)`,\n\t\truleset.ID(),\n\t\tstored,\n\t\tclientID,\n\t)",
+      "owner": "caas-car-configurator-5495209-complete-r1/implementation/dfeaa43ca60b797c",
+      "ownerTraversalReachesExactInteraction": true,
+      "limits": [],
+      "positiveFacts": "queries/boundary-5-facts.result.json",
+      "actualArguments": [
+        "queries/boundary-5-argument-0.result.json",
+        "queries/boundary-5-argument-1.result.json",
+        "queries/boundary-5-argument-2.result.json",
+        "queries/boundary-5-argument-3.result.json",
+        "queries/boundary-5-argument-4.result.json"
+      ]
+    },
+    {
+      "interaction": "caas-car-configurator-5495209-complete-r1/interaction/io/45070eccb50e8522",
+      "source": "tx.Exec(\n\t\tctx,\n\t\t`INSERT INTO car_specifications (ruleset_id, specification) \n\t\t\t VALUES ($1, $2)`,\n\t\trulesetID,\n\t\tstored,\n\t)",
+      "owner": "caas-car-configurator-5495209-complete-r1/implementation/439e7bd166df8d37",
+      "ownerTraversalReachesExactInteraction": false,
+      "limits": ["maxNodes"],
+      "positiveFacts": "queries/boundary-6-facts.result.json",
+      "actualArguments": [
+        "queries/boundary-6-argument-0.result.json",
+        "queries/boundary-6-argument-1.result.json",
+        "queries/boundary-6-argument-2.result.json",
+        "queries/boundary-6-argument-3.result.json"
+      ]
+    },
+    {
+      "interaction": "caas-car-configurator-5495209-complete-r1/interaction/io/83bc395c05f9f5ff",
+      "source": "r.pool.Exec(\n\t\tctx,\n\t\t`DELETE FROM car_rulesets \n\t\tWHERE id = $1`,\n\t\tid,\n\t)",
+      "owner": "caas-car-configurator-5495209-complete-r1/implementation/1b50f6bacb534617",
+      "ownerTraversalReachesExactInteraction": true,
+      "limits": [],
+      "positiveFacts": "queries/boundary-7-facts.result.json",
+      "actualArguments": [
+        "queries/boundary-7-argument-0.result.json",
+        "queries/boundary-7-argument-1.result.json",
+        "queries/boundary-7-argument-2.result.json"
+      ]
+    },
+    {
+      "interaction": "caas-car-configurator-5495209-complete-r1/interaction/io/ab72592f9350340f",
+      "source": "tx.Rollback(ctx)",
+      "owner": "caas-car-configurator-5495209-complete-r1/implementation/21015c002152ec81",
+      "ownerTraversalReachesExactInteraction": true,
+      "limits": [],
+      "positiveFacts": "queries/boundary-8-facts.result.json",
+      "actualArguments": ["queries/boundary-8-argument-0.result.json"]
+    },
+    {
+      "interaction": "caas-car-configurator-5495209-complete-r1/interaction/io/62091b0f3dd3b7f8",
+      "source": "c.creator.CreateSolutionsBySelection(query)",
+      "owner": "caas-car-configurator-5495209-complete-r1/implementation/04f11b81f46135d8",
+      "ownerTraversalReachesExactInteraction": true,
+      "limits": [],
+      "positiveFacts": "queries/boundary-9-facts.result.json",
+      "actualArguments": ["queries/boundary-9-argument-0.result.json"]
+    },
+    {
+      "interaction": "caas-car-configurator-5495209-complete-r1/interaction/io/aca2f95fcfa9a70d",
+      "source": "c.creator.Create(query)",
+      "owner": "caas-car-configurator-5495209-complete-r1/implementation/8f03d5d60ba24d78",
+      "ownerTraversalReachesExactInteraction": true,
+      "limits": ["maxNodes"],
+      "positiveFacts": "queries/boundary-10-facts.result.json",
+      "actualArguments": ["queries/boundary-10-argument-0.result.json"]
+    },
+    {
+      "interaction": "caas-car-configurator-5495209-complete-r1/interaction/io/4dd44faa203cb13e",
+      "source": "c.creator.CreateManySolutions(query)",
+      "owner": "caas-car-configurator-5495209-complete-r1/implementation/36823e35f65b6589",
+      "ownerTraversalReachesExactInteraction": true,
+      "limits": ["maxNodes"],
+      "positiveFacts": "queries/boundary-11-facts.result.json",
+      "actualArguments": ["queries/boundary-11-argument-0.result.json"]
+    },
+    {
+      "interaction": "caas-car-configurator-5495209-complete-r1/interaction/io/d05d4300d20ceff5",
+      "source": "c.creator.CreateNextSolutions(query)",
+      "owner": "caas-car-configurator-5495209-complete-r1/implementation/a4063c988019fb86",
+      "ownerTraversalReachesExactInteraction": true,
+      "limits": ["maxNodes"],
+      "positiveFacts": "queries/boundary-12-facts.result.json",
+      "actualArguments": ["queries/boundary-12-argument-0.result.json"]
+    },
+    {
+      "interaction": "caas-car-configurator-5495209-complete-r1/interaction/io/0c7965b0b74d4523",
+      "source": "c.creator.Create(query)",
+      "owner": "caas-car-configurator-5495209-complete-r1/implementation/c18764d5cd1d67e0",
+      "ownerTraversalReachesExactInteraction": true,
+      "limits": [],
+      "positiveFacts": "queries/boundary-13-facts.result.json",
+      "actualArguments": ["queries/boundary-13-argument-0.result.json"]
+    },
+    {
+      "interaction": "caas-car-configurator-5495209-complete-r1/interaction/io/ccc57a4a4cc72ee9",
+      "source": "sentry.CaptureException(err)",
+      "owner": "caas-car-configurator-5495209-complete-r1/implementation/02c45cb52a255e8a",
+      "ownerTraversalReachesExactInteraction": true,
+      "limits": [],
+      "positiveFacts": "queries/boundary-14-facts.result.json",
+      "actualArguments": ["queries/boundary-14-argument-0.result.json"]
+    },
+    {
+      "interaction": "caas-car-configurator-5495209-complete-r1/interaction/io/0a0584c14896890b",
+      "source": "sentry.Flush(2 * time.Second)",
+      "owner": "caas-car-configurator-5495209-complete-r1/implementation/c6581a17d1798de5",
+      "ownerTraversalReachesExactInteraction": true,
+      "limits": [],
+      "positiveFacts": "queries/boundary-15-facts.result.json",
+      "actualArguments": ["queries/boundary-15-argument-0.result.json"]
+    },
+    {
+      "interaction": "caas-car-configurator-5495209-complete-r1/interaction/io/4130e85eaf1e5dbc",
+      "source": "rt.next.RoundTrip(req)",
+      "owner": "caas-car-configurator-5495209-complete-r1/implementation/e2891fdfcaafc004",
+      "ownerTraversalReachesExactInteraction": true,
+      "limits": [],
+      "positiveFacts": "queries/boundary-16-facts.result.json",
+      "actualArguments": ["queries/boundary-16-argument-0.result.json"]
+    }
+  ],
+  "limitations": "Bounded whole-entry/whole-body traversal is partial. Positive record/value/source associations do not assert automatic path reachability where limits cut traversal."
+}

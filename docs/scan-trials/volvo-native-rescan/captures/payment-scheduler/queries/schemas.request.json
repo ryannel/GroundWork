@@ -1,0 +1,28 @@
+{
+  "format": "groundwork-query/v3",
+  "snapshot": "5f244b8b75661ddc2c58cee97ab0d61ca2c0f73b58fbf65e775236cdd0dda3ae",
+  "query": "records",
+  "entry": "scheduler-c00df60-r5/entry/retry",
+  "value": null,
+  "context": [],
+  "outcome": null,
+  "changed": [],
+  "representation": "constructed",
+  "candidates": "exclude",
+  "maxNodes": 1500,
+  "environment": "production-profile",
+  "maxRecords": 5000,
+  "ids": [
+    "scheduler-c00df60-r5/shape/RegisterRetryPayload",
+    "scheduler-c00df60-r5/shape/RegisterRetryResponse",
+    "scheduler-c00df60-r5/shape/RetryJobEntity",
+    "scheduler-c00df60-r5/shape/LockEntity",
+    "scheduler-c00df60-r5/shape/event-construction",
+    "scheduler-c00df60-r5/shape/event-wire",
+    "scheduler-c00df60-r5/shape/payment-response-envelope",
+    "scheduler-c00df60-r5/claim/kafka-callback-association",
+    "scheduler-c00df60-r5/policy/producer",
+    "scheduler-c00df60-r5/claim/schedule-counter-distinction",
+    "scheduler-c00df60-r5/claim/mapper-strategy-omission"
+  ]
+}

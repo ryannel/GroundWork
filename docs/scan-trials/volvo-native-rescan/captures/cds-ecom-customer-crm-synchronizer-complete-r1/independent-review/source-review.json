@@ -1,0 +1,218 @@
+{
+  "repo": "volvo-cars/cds-ecom-customer-crm-synchronizer",
+  "commit": "4ea3677cd5df3a19e0d0903d6c803c1413e6a2cd",
+  "status": "Independent35full pinned files reviewed;85strict queries/85pages with6explicit broadbounds;1422pinned ranges checked",
+  "files": [
+    {
+      "path": "customer-crm-synchronizer-api/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/api/v1/CustomerCrmSyncControllerV1.java",
+      "lines": 75,
+      "sha256": "aaffef3c33da1d7ba3ee5e19d5795368e4bec4589ba518ce7a81d2842d7c849e",
+      "review": "Entire pinned source independently read; compared with selected native facts and strict query contracts"
+    },
+    {
+      "path": "customer-crm-synchronizer-api/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/api/customer/CustomerEventConsumer.java",
+      "lines": 82,
+      "sha256": "9a1d11583a61b9f8a14d0ea31643ea0f974a509e28a5e8a4ccf66604c588083c",
+      "review": "Entire pinned source independently read; compared with selected native facts and strict query contracts"
+    },
+    {
+      "path": "customer-crm-synchronizer-api/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/api/customer/CustomerEventOMConsumer.java",
+      "lines": 52,
+      "sha256": "299f82583dded315fb2fa6e4f18d3a08129a2ae644372952dfff0c70de8bc489",
+      "review": "Entire pinned source independently read; compared with selected native facts and strict query contracts"
+    },
+    {
+      "path": "customer-crm-synchronizer-api/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/api/customer/CdbSyncEventConsumer.java",
+      "lines": 55,
+      "sha256": "744d2ce7090428c6501d920f48546a11e84d83b1ce4f7f66a996b06c10e39370",
+      "review": "Entire pinned source independently read; compared with selected native facts and strict query contracts"
+    },
+    {
+      "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/customersync/CustomerSyncService.java",
+      "lines": 59,
+      "sha256": "43cd1bde2017f2baed541b27d9337a9475d47ddb80e9b6a2825bc3d052f1df08",
+      "review": "Entire pinned source independently read; compared with selected native facts and strict query contracts"
+    },
+    {
+      "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/customersync/IndividualSyncService.java",
+      "lines": 110,
+      "sha256": "6fecb3756fba0cefd6b30c04d01592eca35b5e5614158f9395545b74cc7c0ad7",
+      "review": "Entire pinned source independently read; compared with selected native facts and strict query contracts"
+    },
+    {
+      "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/customersync/CorporateEntitySyncService.java",
+      "lines": 102,
+      "sha256": "0a6b3aca27c0e5530aa8c8571fd0a03513f3e0606f52cef177d3fbc071140e33",
+      "review": "Entire pinned source independently read; compared with selected native facts and strict query contracts"
+    },
+    {
+      "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/customersync/CdbConsumerService.java",
+      "lines": 43,
+      "sha256": "57e8dad4b3ea51054689b64de513ac7491a2d86db282b46373f4acc3b0fbb4e4",
+      "review": "Entire pinned source independently read; compared with selected native facts and strict query contracts"
+    },
+    {
+      "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/cdb/CdbClient.java",
+      "lines": 126,
+      "sha256": "674c255fc0d46e41bbe15c2ce20171f79dcb0d810a56156cf4dc348feeb6ce66",
+      "review": "Entire pinned source independently read; compared with selected native facts and strict query contracts"
+    },
+    {
+      "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/customer/CustomerClient.java",
+      "lines": 84,
+      "sha256": "646cc7ec2d7e690255a080887f0d72bc3c940c6b9ff0719881937060f28ab5f4",
+      "review": "Entire pinned source independently read; compared with selected native facts and strict query contracts"
+    },
+    {
+      "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/customer/CustomerService.java",
+      "lines": 39,
+      "sha256": "3cd9d9087330354be60406909a07452663481901efbc441bb11061a999c4a55f",
+      "review": "Entire pinned source independently read; compared with selected native facts and strict query contracts"
+    },
+    {
+      "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/customer/CustomerRequestMapper.java",
+      "lines": 25,
+      "sha256": "c00268aa276cd6ba1143e231f766c0b09599634616542928bc93b9c57a84ea87",
+      "review": "Entire pinned source independently read; compared with selected native facts and strict query contracts"
+    },
+    {
+      "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/customer/CustomerEventRecoverer.java",
+      "lines": 80,
+      "sha256": "071f6c3e45cd3a5e7796d9b9d389d48432e578452823badaa07dd01ab22e6bec",
+      "review": "Entire pinned source independently read; compared with selected native facts and strict query contracts"
+    },
+    {
+      "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/ordermanager/OrderManagerClient.java",
+      "lines": 55,
+      "sha256": "01f15c5ce309f5d40c99729e6150b67da31ff093292b5344a779a3040046fd5f",
+      "review": "Entire pinned source independently read; compared with selected native facts and strict query contracts"
+    },
+    {
+      "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/ordermanager/OrderManagerService.java",
+      "lines": 33,
+      "sha256": "6b25bc74aedfc674096d0694255280790cb1173823ae9ddb29570af98ddab607",
+      "review": "Entire pinned source independently read; compared with selected native facts and strict query contracts"
+    },
+    {
+      "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/config/CustomerEventConfig.java",
+      "lines": 90,
+      "sha256": "fbaed156c58b3277ea5bf7398511eea15b7a02f194eca6d67064599311c1407e",
+      "review": "Entire pinned source independently read; compared with selected native facts and strict query contracts"
+    },
+    {
+      "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/config/RetryConfig.java",
+      "lines": 8,
+      "sha256": "bd2695b7822450667fb4ccff4d9456ade1d624c544d8e4be4d9f23b145ab08e5",
+      "review": "Entire pinned source independently read; compared with selected native facts and strict query contracts"
+    },
+    {
+      "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/config/EventConfig.java",
+      "lines": 20,
+      "sha256": "a4f784ce2f1772105cb3b31011b3301ea04ae1262163ddfb9204730f7aa723cd",
+      "review": "Entire pinned source independently read; compared with selected native facts and strict query contracts"
+    },
+    {
+      "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/cdb/mapper/CreateOrUpdateRequestMapper.java",
+      "lines": 42,
+      "sha256": "421fd25ca7c0cad01595168ae803d0c0332ae196e6d38ad87771ad4ab5f231e1",
+      "review": "Entire pinned source independently read; compared with selected native facts and strict query contracts"
+    },
+    {
+      "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/cdb/mapper/CreateOrUpdateConsumerMapper.java",
+      "lines": 44,
+      "sha256": "0eb6dc9be3aed065d8f433d5ed97b4c3fef4c99a48cbf949e73a30ad1c68046e",
+      "review": "Entire pinned source independently read; compared with selected native facts and strict query contracts"
+    },
+    {
+      "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/cdb/mapper/CreateOrUpdateConsumerResponseMapper.java",
+      "lines": 33,
+      "sha256": "43dece548a55048e12b0ea51e1406a545f73e1acff8543d3b5098264a55c8e50",
+      "review": "Entire pinned source independently read; compared with selected native facts and strict query contracts"
+    },
+    {
+      "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/cdb/mapper/CreateOrUpdateVehicleRelationMapper.java",
+      "lines": 62,
+      "sha256": "14ad619b70da45e3e676cbad26bd7028b2b0ba8b8160fb655ae1c1619a66b758",
+      "review": "Entire pinned source independently read; compared with selected native facts and strict query contracts"
+    },
+    {
+      "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/cdb/mapper/CreateOrUpdatePersonMapper.java",
+      "lines": 37,
+      "sha256": "6bde21c51043fd2194e66145f20bc5deb34ba89d4db7dfe19f31fea492cb31c3",
+      "review": "Entire pinned source independently read; compared with selected native facts and strict query contracts"
+    },
+    {
+      "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/cdb/mapper/CreateOrUpdateOrganizationMapper.java",
+      "lines": 32,
+      "sha256": "9026a13ebe4c038b035eb5cd1ca888e7a5689218ce50870f396f76f82c9b2b5f",
+      "review": "Entire pinned source independently read; compared with selected native facts and strict query contracts"
+    },
+    {
+      "path": "customer-crm-synchronizer-api/src/main/resources/application.yml",
+      "lines": 172,
+      "sha256": "b481501aee5a1f3a2e171e6454979a84a58fa717ac753614b06696f74c3db09d",
+      "review": "Entire pinned source independently read; compared with selected native facts and strict query contracts"
+    },
+    {
+      "path": "customer-crm-synchronizer-api/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/api/config/KafkaHealthIndicator.java",
+      "lines": 54,
+      "sha256": "af64f6c399ebe8f859e462a12de92702233348e2a71b77a1fcfa5bc383707f60",
+      "review": "Entire pinned source independently read; compared with selected native facts and strict query contracts"
+    },
+    {
+      "path": "customer-crm-synchronizer-api/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/api/config/KafkaHealthMetricsExportConfiguration.java",
+      "lines": 24,
+      "sha256": "6f6d9f941193c25d242b5d09a85ef2e1a4b6dc897e66a38d7c0124fc4db53149",
+      "review": "Entire pinned source independently read; compared with selected native facts and strict query contracts"
+    },
+    {
+      "path": "customer-crm-synchronizer-api/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/api/config/CdbExceptionHandler.java",
+      "lines": 40,
+      "sha256": "a656dc8e62c29b0adc53db8baea1614515c12b16c33e5f20786dc11149a3e8a3",
+      "review": "Entire pinned source independently read; compared with selected native facts and strict query contracts"
+    },
+    {
+      "path": "customer-crm-synchronizer-api/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/api/App.java",
+      "lines": 24,
+      "sha256": "913e4e9ea85f47be445f67a991eaed25d72c3c436294d3570d9faa09895b2f63",
+      "review": "Entire pinned source independently read; compared with selected native facts and strict query contracts"
+    },
+    {
+      "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/cdb/mapper/CreateOrUpdateAddressMapper.java",
+      "lines": 88,
+      "sha256": "5467661c0acd023fedcc58c0b8d48fbd7ea8f2dc372e9c8cefd2c63cac6ec407",
+      "review": "Entire pinned source independently read; compared with selected native facts and strict query contracts"
+    },
+    {
+      "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/cdb/mapper/CreateOrUpdateAlternativeConsumerIdMapper.java",
+      "lines": 55,
+      "sha256": "eeed5e9dbd952ccfebf7cab378a32721414d1e0f5e8002b01f584ef30ab98ec4",
+      "review": "Entire pinned source independently read; compared with selected native facts and strict query contracts"
+    },
+    {
+      "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/cdb/mapper/CreateOrUpdateConsumerInfoMapper.java",
+      "lines": 62,
+      "sha256": "eeee15215816d10cbf40a6e3890e0ae44ca4460cb63ec20233799d07ef02d30b",
+      "review": "Entire pinned source independently read; compared with selected native facts and strict query contracts"
+    },
+    {
+      "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/config/CustomerEventDeserializer.java",
+      "lines": 29,
+      "sha256": "99eaa5167ce44f34b24b651b9d58fc279a3cfabf42e64200ab73afb63e35b1bf",
+      "review": "Entire pinned source independently read; compared with selected native facts and strict query contracts"
+    },
+    {
+      "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/config/CdbSyncEventDeserializer.java",
+      "lines": 28,
+      "sha256": "8afec5d621a0782c781c46b8ebcc1f68e7df0cb518bf115b711020adbd6e0ae0",
+      "review": "Entire pinned source independently read; compared with selected native facts and strict query contracts"
+    },
+    {
+      "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/config/CdbSyncEventPayload.java",
+      "lines": 3,
+      "sha256": "bc79d1351cb3cdaa7859a3400bf9f864950837262c36b12c62546344392f3e9b",
+      "review": "Entire pinned source independently read; compared with selected native facts and strict query contracts"
+    }
+  ],
+  "snapshot": "ec13e0709f41ee068bfb69c4a86d0bdc68b389a1738c642d6f5ca7b841cf065d"
+}

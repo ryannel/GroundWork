@@ -1,0 +1,55 @@
+{
+  "format": "independent-service-explorer-audit/v1",
+  "decision": "passed_for_selected_two_service_projection",
+  "manifest": {
+    "path": "reports/service-explorer-readiness-001/ui/manifest.json",
+    "sha256": "dc1d498c0d156ac94019b2bb132f80134b0151820a0513ca83d96f9c30d66e7b",
+    "bytes": 239562,
+    "snapshot": "7850dc4be6c22265376baca5640b9d3306d7f43b622236e5229b017bb82e5192"
+  },
+  "producerReceipt": {
+    "path": "reports/service-explorer-readiness-001/ui-validation.json",
+    "sha256": "0dddfd07000ed139ff8ae7c81d3bc92b59f461e888432fd98fe0ba6629853af8",
+    "ruleDigest": "4588b092f7c1ebdf6cf0fbaa09eb21432b858331b4309986508f3055f36d9a6c"
+  },
+  "checks": {
+    "allArtifactBytesAndHashes": true,
+    "allSnapshots": true,
+    "allSourceReferences": true,
+    "allTargetsExist": true,
+    "allSourcesCommitPinned": true,
+    "allPerPageBounds": true,
+    "noCandidateControlEdges": true,
+    "standaloneDeclaredSchemaIndex": true
+  },
+  "counts": {
+    "pages": 1727,
+    "maxPageBytes": 63951,
+    "partialPages": 309,
+    "navigationTargets": 965,
+    "sourceReferences": 10448,
+    "kinds": {
+      "data": 1050,
+      "flow": 667,
+      "overview": 8,
+      "callers": 2
+    }
+  },
+  "sourceReview": {
+    "sharedUiAiPageContract": true,
+    "loaderChecksManifestBytesDigestAndSnapshot": true,
+    "typedNativeCallTargetsRequireUniqueFunctionTarget": true,
+    "callbackDeclarationNotAutomaticAsync": true,
+    "byteAndSourceBoundOmissionsVisible": true,
+    "callerBuiltAndProviderDeclaredSchemasSeparated": true,
+    "inferenceExplicitlyLabelled": true,
+    "earlierFindings": "Candidate branches and silent byte/source trimming were corrected before this final audit."
+  },
+  "qualifications": [
+    "Static artefact and source-code audit; browser rendering is covered by the producer/root visual inspection, not re-claimed here.",
+    "The two-service manifest is 239562 bytes under a 262144-byte bound; this is not proof of whole-108-repository UI capacity. Larger exports must remain bounded or partitioned.",
+    "Declared DTOs without a proven endpoint association stay independently discoverable with an explicit gap. No response contract is invented.",
+    "UI visibility, parser coverage and inferred actors do not promote the frozen 22 source-question statuses.",
+    "Source correspondences do not establish deployed versions, policy activation, delivery or durable effects."
+  ]
+}

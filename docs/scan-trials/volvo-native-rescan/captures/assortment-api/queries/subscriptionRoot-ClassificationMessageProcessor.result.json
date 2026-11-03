@@ -1,0 +1,773 @@
+{
+  "format": "groundwork-result/v3",
+  "snapshot": "dcc8fe6133bb403c805875b5698eb6fd390e35f858d0bf3e74c33c7ea0d7a34e",
+  "queryVersion": "knowledge-query/v3",
+  "request": {
+    "format": "groundwork-query/v3",
+    "snapshot": "dcc8fe6133bb403c805875b5698eb6fd390e35f858d0bf3e74c33c7ea0d7a34e",
+    "query": "interactions",
+    "entry": "assortment-6114c5d-r5/subscription/ClassificationMessageProcessor/topic",
+    "value": null,
+    "context": [],
+    "outcome": null,
+    "changed": [],
+    "representation": "constructed",
+    "candidates": "exclude",
+    "maxNodes": 500,
+    "environment": "production-profile",
+    "maxRecords": 5000,
+    "ids": []
+  },
+  "nodes": [
+    {
+      "id": "u3/component/assortment-worker",
+      "record": "u3/component/assortment-worker",
+      "context": [],
+      "label": "Assortment cache worker",
+      "component": "u3/component/assortment-worker",
+      "execution": null
+    },
+    {
+      "id": "assortment-6114c5d-r5/component/topic-ClassificationMessageProcessor",
+      "record": "assortment-6114c5d-r5/component/topic-ClassificationMessageProcessor",
+      "context": [],
+      "label": "prod.public.assortment.classifications.json",
+      "component": "assortment-6114c5d-r5/component/topic-ClassificationMessageProcessor",
+      "execution": null
+    }
+  ],
+  "edges": [
+    {
+      "from": "assortment-6114c5d-r5/component/topic-ClassificationMessageProcessor",
+      "to": "u3/component/assortment-worker",
+      "on": "consume",
+      "condition": "Topic selected by registered factory; processor-specific guards and feature flags remain in source.",
+      "assumption": "Source declarations and conditional paths; unresolved facts remain explicit",
+      "evidence": ["assortment-6114c5d-r5/e/081225f0a9dc", "assortment-6114c5d-r5/e/163f59f4377a"],
+      "record": "assortment-6114c5d-r5/interaction/consumer/ClassificationMessageProcessor",
+      "context": [],
+      "operation": "assortment-6114c5d-r5/op/consumer/ClassificationMessageProcessor/start"
+    }
+  ],
+  "claims": [],
+  "evidence": [
+    "assortment-6114c5d-r5/e/081225f0a9dc",
+    "assortment-6114c5d-r5/e/0974491d3428",
+    "assortment-6114c5d-r5/e/0c2e5d6b3474",
+    "assortment-6114c5d-r5/e/163f59f4377a",
+    "assortment-6114c5d-r5/e/22b62f73cbe3",
+    "assortment-6114c5d-r5/e/2b3d69a94627",
+    "assortment-6114c5d-r5/e/2fc14e8e4c7c",
+    "assortment-6114c5d-r5/e/499ee903ecfd",
+    "assortment-6114c5d-r5/e/4dd87ea6c77d",
+    "assortment-6114c5d-r5/e/57157f86be18",
+    "assortment-6114c5d-r5/e/a5d135c2acd4",
+    "assortment-6114c5d-r5/e/b3383f10213d",
+    "assortment-6114c5d-r5/e/b3390f96eb7b",
+    "assortment-6114c5d-r5/e/bf29795cbc05",
+    "assortment-6114c5d-r5/e/cf37881ae0a5",
+    "assortment-6114c5d-r5/e/f6f982644da4",
+    "s2/e/consumer",
+    "u3/e/worker-program",
+    "u3/e/worker-registration"
+  ],
+  "coverage": ["assortment-6114c5d-r5/coverage/consumer/ClassificationMessageProcessor"],
+  "frontiers": [
+    {
+      "at": "root::assortment-6114c5d-r5/op/consumer/ClassificationMessageProcessor/dispatch",
+      "reason": "opaque",
+      "detail": "Processor parsing, filtering and delegated effects remain partial; full source and typed dispatch retained.",
+      "references": ["assortment-6114c5d-r5/op/consumer/ClassificationMessageProcessor/dispatch"]
+    }
+  ],
+  "limitsHit": [],
+  "feasibility": "not_checked",
+  "exhaustive": false,
+  "records": [
+    {
+      "id": "assortment-6114c5d-r5/census",
+      "kind": "implementation",
+      "logicalId": "impl:assortment-source-census",
+      "scope": "s2/c",
+      "entry": "assortment-6114c5d-r5/census/start",
+      "parameters": [],
+      "evidence": [
+        "assortment-6114c5d-r5/e/a5d135c2acd4",
+        "assortment-6114c5d-r5/e/0c2e5d6b3474",
+        "assortment-6114c5d-r5/e/2fc14e8e4c7c"
+      ]
+    },
+    {
+      "id": "assortment-6114c5d-r5/census/start",
+      "kind": "operation",
+      "owner": "assortment-6114c5d-r5/census",
+      "action": "opaque",
+      "label": "Repository discovery anchor; not an executable HTTP or message handler",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": null,
+      "httpStatus": null,
+      "evidence": ["assortment-6114c5d-r5/e/a5d135c2acd4"]
+    },
+    {
+      "id": "assortment-6114c5d-r5/component/topic-ClassificationMessageProcessor",
+      "kind": "runtime_component",
+      "logicalId": "topic:prod.public.assortment.classifications.json",
+      "label": "prod.public.assortment.classifications.json",
+      "category": "topic",
+      "technology": "Kafka",
+      "sources": ["s2/c"],
+      "basis": "source_declared",
+      "gaps": ["assortment-6114c5d-r5/gap/deployment"],
+      "evidence": ["assortment-6114c5d-r5/e/bf29795cbc05"]
+    },
+    {
+      "id": "assortment-6114c5d-r5/contract/consumer/ClassificationMessageProcessor",
+      "kind": "interface_contract",
+      "component": "assortment-6114c5d-r5/component/topic-ClassificationMessageProcessor",
+      "protocol": "kafka",
+      "name": "ClassificationMessageProcessor topic consumption",
+      "method": null,
+      "path": "prod.public.assortment.classifications.json",
+      "authority": "source_declared",
+      "request": [
+        {
+          "part": "message",
+          "presence": "present",
+          "shape": "assortment-6114c5d-r5/shape/json-event-wire/Classification",
+          "sourceShape": "assortment-6114c5d-r5/shape/json-event-source/Classification",
+          "contentType": null,
+          "gaps": [
+            "assortment-6114c5d-r5/gap/dispatch-ClassificationMessageProcessor",
+            "assortment-6114c5d-r5/gap/wire-closure"
+          ],
+          "evidence": ["assortment-6114c5d-r5/e/081225f0a9dc"]
+        },
+        {
+          "part": "headers",
+          "presence": "unresolved",
+          "shape": null,
+          "sourceShape": null,
+          "contentType": null,
+          "gaps": ["assortment-6114c5d-r5/gap/dispatch-ClassificationMessageProcessor"],
+          "evidence": ["assortment-6114c5d-r5/e/081225f0a9dc"]
+        }
+      ],
+      "responses": [],
+      "gaps": [
+        "assortment-6114c5d-r5/gap/dispatch-ClassificationMessageProcessor",
+        "assortment-6114c5d-r5/gap/deployment",
+        "assortment-6114c5d-r5/gap/wire-closure"
+      ],
+      "evidence": ["assortment-6114c5d-r5/e/081225f0a9dc"]
+    },
+    {
+      "id": "assortment-6114c5d-r5/coverage/consumer/ClassificationMessageProcessor",
+      "kind": "coverage",
+      "owner": "assortment-6114c5d-r5/impl/consumer/ClassificationMessageProcessor",
+      "obligation": "bounded_source_analysis",
+      "status": "partial",
+      "scope": "Topic registration and parser/dispatch census; bounded SoftOfferCreated continuation retained in base proof.",
+      "gaps": [
+        "assortment-6114c5d-r5/gap/dispatch-ClassificationMessageProcessor",
+        "assortment-6114c5d-r5/gap/deployment"
+      ],
+      "evidence": [
+        "assortment-6114c5d-r5/e/081225f0a9dc",
+        "assortment-6114c5d-r5/e/0974491d3428",
+        "assortment-6114c5d-r5/e/4dd87ea6c77d"
+      ]
+    },
+    {
+      "id": "assortment-6114c5d-r5/e/081225f0a9dc",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-assortment-api",
+      "commit": "6114c5db0f2b4b490cf89b9c512088f01dbf0b98",
+      "path": "src/PopCat.Assortment.CacheWorker.Host/MessageProcessor/ClassificationMessageProcessor.cs",
+      "lines": [1, 88],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "assortment-6114c5d-r5/e/0974491d3428",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-assortment-api",
+      "commit": "6114c5db0f2b4b490cf89b9c512088f01dbf0b98",
+      "path": "src/PopCat.Assortment.CacheWorker.Host/Extensions/ApplicationBuilderExtensions.cs",
+      "lines": [25, 39],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "assortment-6114c5d-r5/e/0c2e5d6b3474",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-assortment-api",
+      "commit": "6114c5db0f2b4b490cf89b9c512088f01dbf0b98",
+      "path": "src/PopCat.Assortment.CacheWorker.Host/Program.cs",
+      "lines": [1, 37],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "assortment-6114c5d-r5/e/163f59f4377a",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-assortment-api",
+      "commit": "6114c5db0f2b4b490cf89b9c512088f01dbf0b98",
+      "path": "src/PopCat.Assortment.CacheWorker.Host/Services/KafkaConsumerService.cs",
+      "lines": [35, 57],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "assortment-6114c5d-r5/e/22b62f73cbe3",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-assortment-api",
+      "commit": "6114c5db0f2b4b490cf89b9c512088f01dbf0b98",
+      "path": "src/PopCat.Assortment.CacheWorker.Host/MessageProcessor/ClassificationMessageProcessor.cs",
+      "lines": [13, 16],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "assortment-6114c5d-r5/e/2b3d69a94627",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-assortment-api",
+      "commit": "6114c5db0f2b4b490cf89b9c512088f01dbf0b98",
+      "path": "src/PopCat.Assortment.Contracts/Models/Classification.cs",
+      "lines": [1, 3],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "assortment-6114c5d-r5/e/2fc14e8e4c7c",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-assortment-api",
+      "commit": "6114c5db0f2b4b490cf89b9c512088f01dbf0b98",
+      "path": "src/PopCat.Assortment.Ocelot.Host/Program.cs",
+      "lines": [1, 46],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "assortment-6114c5d-r5/e/499ee903ecfd",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-assortment-api",
+      "commit": "6114c5db0f2b4b490cf89b9c512088f01dbf0b98",
+      "path": "src/PopCat.Assortment.Host/Extensions/ApplicationBuilderExtensions.cs",
+      "lines": [54, 78],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "assortment-6114c5d-r5/e/4dd87ea6c77d",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-assortment-api",
+      "commit": "6114c5db0f2b4b490cf89b9c512088f01dbf0b98",
+      "path": "src/PopCat.Assortment.CacheWorker.Host/Services/KafkaConsumerService.cs",
+      "lines": [17, 60],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "assortment-6114c5d-r5/e/57157f86be18",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-assortment-api",
+      "commit": "6114c5db0f2b4b490cf89b9c512088f01dbf0b98",
+      "path": "src/PopCat.Assortment.CacheWorker.Host/MessageProcessor/ClassificationMessageProcessor.cs",
+      "lines": [28, 31],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "assortment-6114c5d-r5/e/a5d135c2acd4",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-assortment-api",
+      "commit": "6114c5db0f2b4b490cf89b9c512088f01dbf0b98",
+      "path": "src/PopCat.Assortment.Host/Program.cs",
+      "lines": [1, 46],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "assortment-6114c5d-r5/e/b3383f10213d",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-assortment-api",
+      "commit": "6114c5db0f2b4b490cf89b9c512088f01dbf0b98",
+      "path": "src/PopCat.Assortment.CacheWorker.Host/MessageProcessor/ClassificationMessageProcessor.cs",
+      "lines": [20, 31],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "assortment-6114c5d-r5/e/b3390f96eb7b",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-assortment-api",
+      "commit": "6114c5db0f2b4b490cf89b9c512088f01dbf0b98",
+      "path": "src/PopCat.Assortment.Contracts/Models/Classification.cs",
+      "lines": [3, 3],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "assortment-6114c5d-r5/e/bf29795cbc05",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-assortment-api",
+      "commit": "6114c5db0f2b4b490cf89b9c512088f01dbf0b98",
+      "path": "src/PopCat.Assortment.CacheWorker.Host/appsettings.json",
+      "lines": [15, 15],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "assortment-6114c5d-r5/e/cf37881ae0a5",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-assortment-api",
+      "commit": "6114c5db0f2b4b490cf89b9c512088f01dbf0b98",
+      "path": "src/PopCat.Assortment.CacheWorker.Host/MessageProcessor/KafkaEvent.cs",
+      "lines": [13, 13],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "assortment-6114c5d-r5/e/f6f982644da4",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-assortment-api",
+      "commit": "6114c5db0f2b4b490cf89b9c512088f01dbf0b98",
+      "path": "src/PopCat.Assortment.CacheWorker.Host/MessageProcessor/KafkaEvent.cs",
+      "lines": [5, 13],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "assortment-6114c5d-r5/gap/deployment",
+      "kind": "gap",
+      "owner": "assortment-6114c5d-r5/census",
+      "obligation": "deployment",
+      "reason": "Pinned committed configuration does not establish deployed topology, effective environment overrides or current freshness.",
+      "action": "Trace the named local continuation or resolve the exact imported artefact and effective configuration.",
+      "evidence": ["assortment-6114c5d-r5/e/a5d135c2acd4"]
+    },
+    {
+      "id": "assortment-6114c5d-r5/gap/dispatch-ClassificationMessageProcessor",
+      "kind": "gap",
+      "owner": "assortment-6114c5d-r5/impl/consumer/ClassificationMessageProcessor",
+      "obligation": "dispatch-ClassificationMessageProcessor",
+      "reason": "Only registration, parser/message declarations and dispatch destinations are captured for this processor; all branch/value/store continuations are not expanded. Existing SoftOfferCreated proof is retained separately.",
+      "action": "Trace the named local continuation or resolve the exact imported artefact and effective configuration.",
+      "evidence": ["assortment-6114c5d-r5/e/081225f0a9dc"]
+    },
+    {
+      "id": "assortment-6114c5d-r5/gap/wire-closure",
+      "kind": "gap",
+      "owner": "assortment-6114c5d-r5/census",
+      "obligation": "wire-closure",
+      "reason": "Source declarations are captured; complete formatter, inherited/generated imported fields and validation/error policy are not established.",
+      "action": "Trace the named local continuation or resolve the exact imported artefact and effective configuration.",
+      "evidence": ["assortment-6114c5d-r5/e/499ee903ecfd"]
+    },
+    {
+      "id": "assortment-6114c5d-r5/impl/consumer/ClassificationMessageProcessor",
+      "kind": "implementation",
+      "logicalId": "impl:assortment-ClassificationMessageProcessor",
+      "scope": "s2/c",
+      "entry": "assortment-6114c5d-r5/op/consumer/ClassificationMessageProcessor/start",
+      "parameters": [],
+      "evidence": [
+        "assortment-6114c5d-r5/e/081225f0a9dc",
+        "assortment-6114c5d-r5/e/0974491d3428",
+        "assortment-6114c5d-r5/e/4dd87ea6c77d"
+      ]
+    },
+    {
+      "id": "assortment-6114c5d-r5/interaction/consumer/ClassificationMessageProcessor",
+      "kind": "interaction",
+      "owner": "assortment-6114c5d-r5/impl/consumer/ClassificationMessageProcessor",
+      "execution": "assortment-6114c5d-r5/runs/ClassificationMessageProcessor-assortment-worker",
+      "operation": "assortment-6114c5d-r5/op/consumer/ClassificationMessageProcessor/start",
+      "target": "assortment-6114c5d-r5/component/topic-ClassificationMessageProcessor",
+      "targetEntry": null,
+      "contract": "assortment-6114c5d-r5/contract/consumer/ClassificationMessageProcessor",
+      "effect": null,
+      "handoff": null,
+      "mode": "consume",
+      "boundary": "network",
+      "waitsFor": "handler_result",
+      "condition": "Topic selected by registered factory; processor-specific guards and feature flags remain in source.",
+      "requestBindings": [
+        {
+          "part": "message",
+          "path": [],
+          "value": "assortment-6114c5d-r5/value/consumer/ClassificationMessageProcessor",
+          "transform": "Raw message passed to processor; parsing and feature-controlled branches remain partial"
+        }
+      ],
+      "responseBindings": [],
+      "gaps": [
+        "assortment-6114c5d-r5/gap/dispatch-ClassificationMessageProcessor",
+        "assortment-6114c5d-r5/gap/deployment"
+      ],
+      "evidence": ["assortment-6114c5d-r5/e/081225f0a9dc", "assortment-6114c5d-r5/e/163f59f4377a"]
+    },
+    {
+      "id": "assortment-6114c5d-r5/op/consumer/ClassificationMessageProcessor/dispatch",
+      "kind": "operation",
+      "owner": "assortment-6114c5d-r5/impl/consumer/ClassificationMessageProcessor",
+      "action": "opaque",
+      "label": "Processor parsing, filtering and delegated effects remain partial; full source and typed dispatch retained.",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": null,
+      "httpStatus": null,
+      "evidence": ["assortment-6114c5d-r5/e/081225f0a9dc"]
+    },
+    {
+      "id": "assortment-6114c5d-r5/op/consumer/ClassificationMessageProcessor/start",
+      "kind": "operation",
+      "owner": "assortment-6114c5d-r5/impl/consumer/ClassificationMessageProcessor",
+      "action": "entry",
+      "label": "Receive topic message through registered processor ClassificationMessageProcessor",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": null,
+      "httpStatus": null,
+      "evidence": [
+        "assortment-6114c5d-r5/e/081225f0a9dc",
+        "assortment-6114c5d-r5/e/0974491d3428",
+        "assortment-6114c5d-r5/e/4dd87ea6c77d"
+      ]
+    },
+    {
+      "id": "assortment-6114c5d-r5/runs/ClassificationMessageProcessor-assortment-worker",
+      "kind": "execution_binding",
+      "implementation": "assortment-6114c5d-r5/impl/consumer/ClassificationMessageProcessor",
+      "component": "u3/component/assortment-worker",
+      "basis": "source_declared",
+      "artifactBinding": null,
+      "gaps": [],
+      "evidence": [
+        "assortment-6114c5d-r5/e/081225f0a9dc",
+        "assortment-6114c5d-r5/e/0974491d3428",
+        "assortment-6114c5d-r5/e/4dd87ea6c77d"
+      ]
+    },
+    {
+      "id": "assortment-6114c5d-r5/shape/json-event-data-wire/Classification",
+      "kind": "shape",
+      "representation": "wire",
+      "label": "Classification nested JSON data projection under local Web options",
+      "fields": [
+        {
+          "name": "id",
+          "type": "string",
+          "status": "declared",
+          "nullable": false,
+          "evidence": [
+            "assortment-6114c5d-r5/e/b3390f96eb7b",
+            "assortment-6114c5d-r5/e/22b62f73cbe3"
+          ]
+        },
+        {
+          "name": "code",
+          "type": "string",
+          "status": "declared",
+          "nullable": false,
+          "evidence": [
+            "assortment-6114c5d-r5/e/b3390f96eb7b",
+            "assortment-6114c5d-r5/e/22b62f73cbe3"
+          ]
+        },
+        {
+          "name": "isType",
+          "type": "bool",
+          "status": "declared",
+          "nullable": false,
+          "evidence": [
+            "assortment-6114c5d-r5/e/b3390f96eb7b",
+            "assortment-6114c5d-r5/e/22b62f73cbe3"
+          ]
+        }
+      ],
+      "completeness": "partial",
+      "gaps": ["assortment-6114c5d-r5/gap/wire-closure"],
+      "evidence": ["assortment-6114c5d-r5/e/2b3d69a94627", "assortment-6114c5d-r5/e/22b62f73cbe3"],
+      "container": "object",
+      "encoding": "json"
+    },
+    {
+      "id": "assortment-6114c5d-r5/shape/json-event-source/Classification",
+      "kind": "shape",
+      "representation": "source",
+      "label": "KafkaEvent<Classification> source envelope",
+      "fields": [
+        {
+          "name": "EventType",
+          "type": "KafkaEventType",
+          "status": "declared",
+          "enum": ["Created", "Updated", "Deleted"],
+          "evidence": ["assortment-6114c5d-r5/e/f6f982644da4"]
+        },
+        {
+          "name": "Data",
+          "type": "Classification",
+          "status": "declared",
+          "shape": "assortment-6114c5d-r5/shape/PopCat.Assortment.Contracts~Models~Classification.cs~Classification",
+          "evidence": [
+            "assortment-6114c5d-r5/e/cf37881ae0a5",
+            "assortment-6114c5d-r5/e/57157f86be18"
+          ]
+        }
+      ],
+      "completeness": "partial",
+      "gaps": ["assortment-6114c5d-r5/gap/wire-closure"],
+      "evidence": ["assortment-6114c5d-r5/e/f6f982644da4", "assortment-6114c5d-r5/e/57157f86be18"],
+      "container": "object"
+    },
+    {
+      "id": "assortment-6114c5d-r5/shape/json-event-wire/Classification",
+      "kind": "shape",
+      "representation": "wire",
+      "label": "KafkaEvent<Classification> JSON envelope under local Web/camel-case options",
+      "fields": [
+        {
+          "name": "eventType",
+          "type": "KafkaEventType through configured string-enum converter; accepted token/default details partial",
+          "status": "declared",
+          "evidence": [
+            "assortment-6114c5d-r5/e/f6f982644da4",
+            "assortment-6114c5d-r5/e/22b62f73cbe3"
+          ]
+        },
+        {
+          "name": "data",
+          "type": "Classification",
+          "status": "declared",
+          "shape": "assortment-6114c5d-r5/shape/json-event-data-wire/Classification",
+          "evidence": [
+            "assortment-6114c5d-r5/e/cf37881ae0a5",
+            "assortment-6114c5d-r5/e/22b62f73cbe3",
+            "assortment-6114c5d-r5/e/57157f86be18"
+          ]
+        }
+      ],
+      "completeness": "partial",
+      "gaps": ["assortment-6114c5d-r5/gap/wire-closure"],
+      "evidence": [
+        "assortment-6114c5d-r5/e/f6f982644da4",
+        "assortment-6114c5d-r5/e/22b62f73cbe3",
+        "assortment-6114c5d-r5/e/b3383f10213d"
+      ],
+      "container": "object",
+      "encoding": "json"
+    },
+    {
+      "id": "assortment-6114c5d-r5/shape/PopCat.Assortment.Contracts~Models~Classification.cs~Classification",
+      "kind": "shape",
+      "representation": "source",
+      "label": "Classification declaration",
+      "fields": [
+        {
+          "name": "Id",
+          "type": "string",
+          "status": "declared",
+          "nullable": false,
+          "evidence": ["assortment-6114c5d-r5/e/b3390f96eb7b"]
+        },
+        {
+          "name": "Code",
+          "type": "string",
+          "status": "declared",
+          "nullable": false,
+          "evidence": ["assortment-6114c5d-r5/e/b3390f96eb7b"]
+        },
+        {
+          "name": "IsType",
+          "type": "bool",
+          "status": "declared",
+          "nullable": false,
+          "evidence": ["assortment-6114c5d-r5/e/b3390f96eb7b"]
+        }
+      ],
+      "completeness": "partial",
+      "gaps": ["assortment-6114c5d-r5/gap/wire-closure"],
+      "evidence": ["assortment-6114c5d-r5/e/2b3d69a94627"]
+    },
+    {
+      "id": "assortment-6114c5d-r5/value/consumer/ClassificationMessageProcessor",
+      "kind": "value",
+      "owner": "assortment-6114c5d-r5/impl/consumer/ClassificationMessageProcessor",
+      "definition": "assortment-6114c5d-r5/op/consumer/ClassificationMessageProcessor/start",
+      "label": "Received UTF-8 JSON KafkaEvent<Classification> envelope, not its inner Data object",
+      "role": "definition",
+      "representation": "wire",
+      "shape": "assortment-6114c5d-r5/shape/json-event-wire/Classification",
+      "accessPath": [],
+      "evidence": [
+        "assortment-6114c5d-r5/e/081225f0a9dc",
+        "assortment-6114c5d-r5/e/0974491d3428",
+        "assortment-6114c5d-r5/e/4dd87ea6c77d"
+      ]
+    },
+    {
+      "id": "s2/c",
+      "kind": "source_revision",
+      "repo": "volvo-cars/popcat-assortment-api",
+      "commit": "6114c5db0f2b4b490cf89b9c512088f01dbf0b98"
+    },
+    {
+      "id": "s2/e/consumer",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-assortment-api",
+      "commit": "6114c5db0f2b4b490cf89b9c512088f01dbf0b98",
+      "path": "src/PopCat.Assortment.CacheWorker.Host/Services/KafkaConsumerService.cs",
+      "lines": [17, 60],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "u3/component/assortment-worker",
+      "kind": "runtime_component",
+      "logicalId": "svc:assortment-cache-worker",
+      "label": "Assortment cache worker",
+      "category": "service",
+      "technology": ".NET worker",
+      "sources": ["s2/c"],
+      "basis": "source_declared",
+      "evidence": ["u3/e/worker-program", "u3/e/worker-registration", "s2/e/consumer"],
+      "gaps": []
+    },
+    {
+      "id": "u3/e/worker-program",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-assortment-api",
+      "commit": "6114c5db0f2b4b490cf89b9c512088f01dbf0b98",
+      "path": "src/PopCat.Assortment.CacheWorker.Host/Program.cs",
+      "lines": [1, 37],
+      "basis": "source"
+    },
+    {
+      "id": "u3/e/worker-registration",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-assortment-api",
+      "commit": "6114c5db0f2b4b490cf89b9c512088f01dbf0b98",
+      "path": "src/PopCat.Assortment.CacheWorker.Host/Extensions/ApplicationBuilderExtensions.cs",
+      "lines": [24, 45],
+      "basis": "source"
+    }
+  ],
+  "traversalComplete": true,
+  "findings": [
+    {
+      "statement": "The entry interface is separate from its internal implementation.",
+      "support": [],
+      "assumptions": []
+    },
+    {
+      "statement": "Components and conditional interactions in this entry trace. Library execution stays inside the host. Drill into an interaction contract or bound implementation for detail.",
+      "support": ["assortment-6114c5d-r5/runs/ClassificationMessageProcessor-assortment-worker"],
+      "assumptions": ["Source declarations do not establish deployed topology or path feasibility"]
+    }
+  ],
+  "sourceLinks": [
+    {
+      "evidence": "s2/e/consumer",
+      "url": "https://github.com/volvo-cars/popcat-assortment-api/blob/6114c5db0f2b4b490cf89b9c512088f01dbf0b98/src/PopCat.Assortment.CacheWorker.Host/Services/KafkaConsumerService.cs#L17-L60",
+      "label": "volvo-cars/popcat-assortment-api/src/PopCat.Assortment.CacheWorker.Host/Services/KafkaConsumerService.cs:17–60"
+    },
+    {
+      "evidence": "u3/e/worker-registration",
+      "url": "https://github.com/volvo-cars/popcat-assortment-api/blob/6114c5db0f2b4b490cf89b9c512088f01dbf0b98/src/PopCat.Assortment.CacheWorker.Host/Extensions/ApplicationBuilderExtensions.cs#L24-L45",
+      "label": "volvo-cars/popcat-assortment-api/src/PopCat.Assortment.CacheWorker.Host/Extensions/ApplicationBuilderExtensions.cs:24–45"
+    },
+    {
+      "evidence": "u3/e/worker-program",
+      "url": "https://github.com/volvo-cars/popcat-assortment-api/blob/6114c5db0f2b4b490cf89b9c512088f01dbf0b98/src/PopCat.Assortment.CacheWorker.Host/Program.cs#L1-L37",
+      "label": "volvo-cars/popcat-assortment-api/src/PopCat.Assortment.CacheWorker.Host/Program.cs:1–37"
+    },
+    {
+      "evidence": "assortment-6114c5d-r5/e/4dd87ea6c77d",
+      "url": "https://github.com/volvo-cars/popcat-assortment-api/blob/6114c5db0f2b4b490cf89b9c512088f01dbf0b98/src/PopCat.Assortment.CacheWorker.Host/Services/KafkaConsumerService.cs#L17-L60",
+      "label": "volvo-cars/popcat-assortment-api/src/PopCat.Assortment.CacheWorker.Host/Services/KafkaConsumerService.cs:17–60"
+    },
+    {
+      "evidence": "assortment-6114c5d-r5/e/0974491d3428",
+      "url": "https://github.com/volvo-cars/popcat-assortment-api/blob/6114c5db0f2b4b490cf89b9c512088f01dbf0b98/src/PopCat.Assortment.CacheWorker.Host/Extensions/ApplicationBuilderExtensions.cs#L25-L39",
+      "label": "volvo-cars/popcat-assortment-api/src/PopCat.Assortment.CacheWorker.Host/Extensions/ApplicationBuilderExtensions.cs:25–39"
+    },
+    {
+      "evidence": "assortment-6114c5d-r5/e/081225f0a9dc",
+      "url": "https://github.com/volvo-cars/popcat-assortment-api/blob/6114c5db0f2b4b490cf89b9c512088f01dbf0b98/src/PopCat.Assortment.CacheWorker.Host/MessageProcessor/ClassificationMessageProcessor.cs#L1-L88",
+      "label": "volvo-cars/popcat-assortment-api/src/PopCat.Assortment.CacheWorker.Host/MessageProcessor/ClassificationMessageProcessor.cs:1–88"
+    },
+    {
+      "evidence": "assortment-6114c5d-r5/e/a5d135c2acd4",
+      "url": "https://github.com/volvo-cars/popcat-assortment-api/blob/6114c5db0f2b4b490cf89b9c512088f01dbf0b98/src/PopCat.Assortment.Host/Program.cs#L1-L46",
+      "label": "volvo-cars/popcat-assortment-api/src/PopCat.Assortment.Host/Program.cs:1–46"
+    },
+    {
+      "evidence": "assortment-6114c5d-r5/e/2fc14e8e4c7c",
+      "url": "https://github.com/volvo-cars/popcat-assortment-api/blob/6114c5db0f2b4b490cf89b9c512088f01dbf0b98/src/PopCat.Assortment.Ocelot.Host/Program.cs#L1-L46",
+      "label": "volvo-cars/popcat-assortment-api/src/PopCat.Assortment.Ocelot.Host/Program.cs:1–46"
+    },
+    {
+      "evidence": "assortment-6114c5d-r5/e/0c2e5d6b3474",
+      "url": "https://github.com/volvo-cars/popcat-assortment-api/blob/6114c5db0f2b4b490cf89b9c512088f01dbf0b98/src/PopCat.Assortment.CacheWorker.Host/Program.cs#L1-L37",
+      "label": "volvo-cars/popcat-assortment-api/src/PopCat.Assortment.CacheWorker.Host/Program.cs:1–37"
+    },
+    {
+      "evidence": "assortment-6114c5d-r5/e/57157f86be18",
+      "url": "https://github.com/volvo-cars/popcat-assortment-api/blob/6114c5db0f2b4b490cf89b9c512088f01dbf0b98/src/PopCat.Assortment.CacheWorker.Host/MessageProcessor/ClassificationMessageProcessor.cs#L28-L31",
+      "label": "volvo-cars/popcat-assortment-api/src/PopCat.Assortment.CacheWorker.Host/MessageProcessor/ClassificationMessageProcessor.cs:28–31"
+    },
+    {
+      "evidence": "assortment-6114c5d-r5/e/22b62f73cbe3",
+      "url": "https://github.com/volvo-cars/popcat-assortment-api/blob/6114c5db0f2b4b490cf89b9c512088f01dbf0b98/src/PopCat.Assortment.CacheWorker.Host/MessageProcessor/ClassificationMessageProcessor.cs#L13-L16",
+      "label": "volvo-cars/popcat-assortment-api/src/PopCat.Assortment.CacheWorker.Host/MessageProcessor/ClassificationMessageProcessor.cs:13–16"
+    },
+    {
+      "evidence": "assortment-6114c5d-r5/e/cf37881ae0a5",
+      "url": "https://github.com/volvo-cars/popcat-assortment-api/blob/6114c5db0f2b4b490cf89b9c512088f01dbf0b98/src/PopCat.Assortment.CacheWorker.Host/MessageProcessor/KafkaEvent.cs#L13-L13",
+      "label": "volvo-cars/popcat-assortment-api/src/PopCat.Assortment.CacheWorker.Host/MessageProcessor/KafkaEvent.cs:13–13"
+    },
+    {
+      "evidence": "assortment-6114c5d-r5/e/b3390f96eb7b",
+      "url": "https://github.com/volvo-cars/popcat-assortment-api/blob/6114c5db0f2b4b490cf89b9c512088f01dbf0b98/src/PopCat.Assortment.Contracts/Models/Classification.cs#L3-L3",
+      "label": "volvo-cars/popcat-assortment-api/src/PopCat.Assortment.Contracts/Models/Classification.cs:3–3"
+    },
+    {
+      "evidence": "assortment-6114c5d-r5/e/499ee903ecfd",
+      "url": "https://github.com/volvo-cars/popcat-assortment-api/blob/6114c5db0f2b4b490cf89b9c512088f01dbf0b98/src/PopCat.Assortment.Host/Extensions/ApplicationBuilderExtensions.cs#L54-L78",
+      "label": "volvo-cars/popcat-assortment-api/src/PopCat.Assortment.Host/Extensions/ApplicationBuilderExtensions.cs:54–78"
+    },
+    {
+      "evidence": "assortment-6114c5d-r5/e/2b3d69a94627",
+      "url": "https://github.com/volvo-cars/popcat-assortment-api/blob/6114c5db0f2b4b490cf89b9c512088f01dbf0b98/src/PopCat.Assortment.Contracts/Models/Classification.cs#L1-L3",
+      "label": "volvo-cars/popcat-assortment-api/src/PopCat.Assortment.Contracts/Models/Classification.cs:1–3"
+    },
+    {
+      "evidence": "assortment-6114c5d-r5/e/f6f982644da4",
+      "url": "https://github.com/volvo-cars/popcat-assortment-api/blob/6114c5db0f2b4b490cf89b9c512088f01dbf0b98/src/PopCat.Assortment.CacheWorker.Host/MessageProcessor/KafkaEvent.cs#L5-L13",
+      "label": "volvo-cars/popcat-assortment-api/src/PopCat.Assortment.CacheWorker.Host/MessageProcessor/KafkaEvent.cs:5–13"
+    },
+    {
+      "evidence": "assortment-6114c5d-r5/e/b3383f10213d",
+      "url": "https://github.com/volvo-cars/popcat-assortment-api/blob/6114c5db0f2b4b490cf89b9c512088f01dbf0b98/src/PopCat.Assortment.CacheWorker.Host/MessageProcessor/ClassificationMessageProcessor.cs#L20-L31",
+      "label": "volvo-cars/popcat-assortment-api/src/PopCat.Assortment.CacheWorker.Host/MessageProcessor/ClassificationMessageProcessor.cs:20–31"
+    },
+    {
+      "evidence": "assortment-6114c5d-r5/e/bf29795cbc05",
+      "url": "https://github.com/volvo-cars/popcat-assortment-api/blob/6114c5db0f2b4b490cf89b9c512088f01dbf0b98/src/PopCat.Assortment.CacheWorker.Host/appsettings.json#L15-L15",
+      "label": "volvo-cars/popcat-assortment-api/src/PopCat.Assortment.CacheWorker.Host/appsettings.json:15–15"
+    },
+    {
+      "evidence": "assortment-6114c5d-r5/e/163f59f4377a",
+      "url": "https://github.com/volvo-cars/popcat-assortment-api/blob/6114c5db0f2b4b490cf89b9c512088f01dbf0b98/src/PopCat.Assortment.CacheWorker.Host/Services/KafkaConsumerService.cs#L35-L57",
+      "label": "volvo-cars/popcat-assortment-api/src/PopCat.Assortment.CacheWorker.Host/Services/KafkaConsumerService.cs:35–57"
+    }
+  ],
+  "nextRequest": null
+}

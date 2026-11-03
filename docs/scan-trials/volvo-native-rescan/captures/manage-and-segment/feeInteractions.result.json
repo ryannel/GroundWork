@@ -1,0 +1,2814 @@
+{
+  "format": "groundwork-result/v3",
+  "snapshot": "dc7180b74158fccc486c12834b8f9dfbfedcd501359e852e61caa387631c284d",
+  "queryVersion": "knowledge-query/v3",
+  "request": {
+    "format": "groundwork-query/v3",
+    "snapshot": "dc7180b74158fccc486c12834b8f9dfbfedcd501359e852e61caa387631c284d",
+    "query": "interactions",
+    "entry": "mas-b360506/entry/post-api-commercial-items-fees",
+    "value": null,
+    "context": [],
+    "outcome": null,
+    "changed": [],
+    "representation": "constructed",
+    "candidates": "exclude",
+    "maxNodes": 500,
+    "maxRecords": 5000,
+    "environment": "production-profile",
+    "ids": []
+  },
+  "nodes": [
+    {
+      "id": "u3/component/mas",
+      "record": "u3/component/mas",
+      "context": [],
+      "label": "Manage and Segment API",
+      "component": "u3/component/mas",
+      "execution": null
+    },
+    {
+      "id": "u3/component/postgres",
+      "record": "u3/component/postgres",
+      "context": [],
+      "label": "Soft-offer database",
+      "component": "u3/component/postgres",
+      "execution": null
+    },
+    {
+      "id": "u3/component/commercial-topic",
+      "record": "u3/component/commercial-topic",
+      "context": [],
+      "label": "Commercial item events",
+      "component": "u3/component/commercial-topic",
+      "execution": null
+    }
+  ],
+  "edges": [
+    {
+      "from": "u3/component/mas",
+      "to": "u3/component/postgres",
+      "on": "write",
+      "condition": "Source path guards at this call site; see Fee POST branch graph",
+      "assumption": "Source declarations and conditional paths; unresolved facts remain explicit",
+      "evidence": [
+        "mas-b360506/e/1b1c399d1cbd235a",
+        "mas-b360506/e/34fab5c27425e69e",
+        "mas-b360506/e/8201669e3fbebe8d"
+      ],
+      "record": "mas-b360506/fee/interaction/save",
+      "context": [],
+      "operation": "mas-b360506/fee/op/save"
+    },
+    {
+      "from": "u3/component/mas",
+      "to": "u3/component/postgres",
+      "on": "read",
+      "condition": "Source path guards at this call site; see Fee POST branch graph",
+      "assumption": "Source declarations and conditional paths; unresolved facts remain explicit",
+      "evidence": [
+        "mas-b360506/e/1b1c399d1cbd235a",
+        "mas-b360506/e/34fab5c27425e69e",
+        "mas-b360506/e/8201669e3fbebe8d"
+      ],
+      "record": "mas-b360506/fee/interaction/refetch",
+      "context": [],
+      "operation": "mas-b360506/fee/op/refetch"
+    },
+    {
+      "from": "u3/component/mas",
+      "to": "u3/component/commercial-topic",
+      "on": "publish",
+      "condition": "Source path guards at this call site; see Fee POST branch graph",
+      "assumption": "Source declarations and conditional paths; unresolved facts remain explicit",
+      "evidence": [
+        "mas-b360506/e/1b1c399d1cbd235a",
+        "mas-b360506/e/34fab5c27425e69e",
+        "mas-b360506/e/8201669e3fbebe8d"
+      ],
+      "record": "mas-b360506/fee/interaction/publish",
+      "context": [],
+      "operation": "mas-b360506/fee/op/produce"
+    }
+  ],
+  "claims": [],
+  "evidence": [
+    "mas-b360506/e/0103ca62f8f18cc7",
+    "mas-b360506/e/095f6b7fcffabd78",
+    "mas-b360506/e/0d58494b6d6c6d91",
+    "mas-b360506/e/0de7c0038d1689d7",
+    "mas-b360506/e/0e7f19fbb6da0c7e",
+    "mas-b360506/e/1acab0cb99497df7",
+    "mas-b360506/e/1b1c399d1cbd235a",
+    "mas-b360506/e/1fd515eaf998616e",
+    "mas-b360506/e/242701ba0f3ca25b",
+    "mas-b360506/e/2f41b29b68bdef33",
+    "mas-b360506/e/34fab5c27425e69e",
+    "mas-b360506/e/38b80c1aed170f4d",
+    "mas-b360506/e/3cf2609e40df515a",
+    "mas-b360506/e/432ae7012e3005ac",
+    "mas-b360506/e/43ea163ed1d25cda",
+    "mas-b360506/e/49913228f1f81474",
+    "mas-b360506/e/4dbeec794e910d89",
+    "mas-b360506/e/54d88726688c247f",
+    "mas-b360506/e/67d300b663cd75f0",
+    "mas-b360506/e/68683f18f227a835",
+    "mas-b360506/e/6b5c72d068637d1d",
+    "mas-b360506/e/786517a302ada0ff",
+    "mas-b360506/e/7fcc6e180fe81e7b",
+    "mas-b360506/e/80eccbc6232b217f",
+    "mas-b360506/e/8201669e3fbebe8d",
+    "mas-b360506/e/82b71e570299cfb3",
+    "mas-b360506/e/872b159715a0788a",
+    "mas-b360506/e/8836fae57a1d7ca8",
+    "mas-b360506/e/885609eafdbfff2a",
+    "mas-b360506/e/8c369b690ea4c049",
+    "mas-b360506/e/94c71a8c5393f2b2",
+    "mas-b360506/e/98fa5b0461d6b12a",
+    "mas-b360506/e/9be7e386e428168c",
+    "mas-b360506/e/aaad4f891deaa885",
+    "mas-b360506/e/b111ec1459333eaf",
+    "mas-b360506/e/b7b95d24b6f60c70",
+    "mas-b360506/e/c0bcbacb3fe8ae92",
+    "mas-b360506/e/c1f20c744969ba1e",
+    "mas-b360506/e/c4c9e2dde58f3269",
+    "mas-b360506/e/ca13f50274a9aa68",
+    "mas-b360506/e/cfd49b13a38d2e52",
+    "mas-b360506/e/d61351349d210e5f",
+    "mas-b360506/e/d79bff19f244cfe6",
+    "mas-b360506/e/da8c4c588e5765d6",
+    "mas-b360506/e/db5cb940d157e70e",
+    "mas-b360506/e/e0f659450d158568",
+    "mas-b360506/e/eba9e8a69e271883",
+    "mas-b360506/e/f4ce20e7d22c6fcd",
+    "mas-b360506/e/f6bb616a8fba2531",
+    "mas-b360506/e/f714e407a27b0627",
+    "mas-b360506/e/fa2e5ec075b05ef5",
+    "mas-b360506/e/fc33d01bdb608daf",
+    "s2/e/base-config",
+    "s2/e/consumer-base-config",
+    "s2/e/consumer-prod-config",
+    "s2/e/consumer-proto",
+    "s2/e/controller",
+    "s2/e/db",
+    "s2/e/headers",
+    "s2/e/input",
+    "s2/e/middleware",
+    "s2/e/npgsql",
+    "s2/e/packages",
+    "s2/e/prod-config",
+    "s2/e/producer",
+    "s2/e/producer-config",
+    "s2/e/producer-proto",
+    "s2/e/serializer",
+    "u3/e/mas-program"
+  ],
+  "coverage": [
+    "mas-b360506/coverage/post-api-commercial-items-fees/registration",
+    "mas-b360506/coverage/post-api-commercial-items-fees/contract",
+    "mas-b360506/coverage/post-api-commercial-items-fees/execution",
+    "mas-b360506/coverage/fee-local-flow"
+  ],
+  "frontiers": [
+    {
+      "at": "root::mas-b360506/fee/op/error",
+      "reason": "unhandled_exception",
+      "detail": "No declared exception continuation within this invocation; asynchronous frames stop unwinding.",
+      "references": ["mas-b360506/fee/op/error"]
+    },
+    {
+      "at": "root::mas-b360506/fee/op/save",
+      "reason": "opaque",
+      "detail": "Await UnitOfWork.CompleteAsync / SaveChangesAsync",
+      "references": ["mas-b360506/fee/op/save"]
+    },
+    {
+      "at": "root::mas-b360506/fee/op/refetch",
+      "reason": "opaque",
+      "detail": "Read no-tracking Fee by result.Data.InternalId after save",
+      "references": ["mas-b360506/fee/op/refetch"]
+    },
+    {
+      "at": "root::mas-b360506/fee/op/produce",
+      "reason": "opaque",
+      "detail": "Await ProduceAsync(topicName, null-key message) with UTF-8 descriptor/correlation headers",
+      "references": ["mas-b360506/fee/op/produce"]
+    }
+  ],
+  "limitsHit": [],
+  "feasibility": "not_checked",
+  "exhaustive": false,
+  "records": [
+    {
+      "id": "mas-b360506/contract/post-api-commercial-items-fees",
+      "kind": "interface_contract",
+      "component": "u3/component/mas",
+      "protocol": "http",
+      "name": "POST /api/commercial-items/fees",
+      "method": "POST",
+      "path": "/api/commercial-items/fees",
+      "authority": "source_declared",
+      "request": [
+        {
+          "part": "path",
+          "presence": "none",
+          "shape": null,
+          "sourceShape": null,
+          "contentType": null,
+          "gaps": [],
+          "evidence": ["mas-b360506/e/9be7e386e428168c"]
+        },
+        {
+          "part": "body",
+          "presence": "present",
+          "shape": null,
+          "sourceShape": "mas-b360506/shape/96c1d8c2944b7f3b",
+          "contentType": null,
+          "gaps": ["mas-b360506/gap/wire"],
+          "evidence": ["mas-b360506/e/9be7e386e428168c"]
+        },
+        {
+          "part": "query",
+          "presence": "unresolved",
+          "shape": null,
+          "sourceShape": null,
+          "contentType": null,
+          "gaps": ["mas-b360506/gap/wire"],
+          "evidence": ["mas-b360506/e/9be7e386e428168c"]
+        },
+        {
+          "part": "headers",
+          "presence": "unresolved",
+          "shape": null,
+          "sourceShape": null,
+          "contentType": null,
+          "gaps": ["mas-b360506/gap/wire"],
+          "evidence": ["mas-b360506/e/9be7e386e428168c"]
+        }
+      ],
+      "responses": [
+        {
+          "status": "201",
+          "body": {
+            "part": "body",
+            "presence": "unresolved",
+            "shape": null,
+            "sourceShape": "mas-b360506/shape/91ecc84efed05864",
+            "contentType": null,
+            "gaps": ["mas-b360506/gap/wire"],
+            "evidence": ["mas-b360506/e/9be7e386e428168c"]
+          },
+          "meaning": "Controller-declared response case; framework and delegated outcomes remain partial",
+          "evidence": ["mas-b360506/e/9be7e386e428168c"]
+        },
+        {
+          "status": "400",
+          "body": {
+            "part": "body",
+            "presence": "unresolved",
+            "shape": null,
+            "sourceShape": null,
+            "contentType": null,
+            "gaps": ["mas-b360506/gap/wire"],
+            "evidence": ["mas-b360506/e/9be7e386e428168c"]
+          },
+          "meaning": "Controller-declared response case; framework and delegated outcomes remain partial",
+          "evidence": ["mas-b360506/e/9be7e386e428168c"]
+        },
+        {
+          "status": "409",
+          "body": {
+            "part": "body",
+            "presence": "unresolved",
+            "shape": null,
+            "sourceShape": null,
+            "contentType": null,
+            "gaps": ["mas-b360506/gap/wire"],
+            "evidence": ["mas-b360506/e/9be7e386e428168c"]
+          },
+          "meaning": "Controller-declared response case; framework and delegated outcomes remain partial",
+          "evidence": ["mas-b360506/e/9be7e386e428168c"]
+        },
+        {
+          "status": "401",
+          "body": {
+            "part": "body",
+            "presence": "unresolved",
+            "shape": null,
+            "sourceShape": null,
+            "contentType": null,
+            "gaps": ["mas-b360506/gap/wire"],
+            "evidence": ["mas-b360506/e/9be7e386e428168c"]
+          },
+          "meaning": "Controller-declared response case; framework and delegated outcomes remain partial",
+          "evidence": ["mas-b360506/e/9be7e386e428168c"]
+        },
+        {
+          "status": "unresolved",
+          "body": {
+            "part": "body",
+            "presence": "unresolved",
+            "shape": null,
+            "sourceShape": null,
+            "contentType": null,
+            "gaps": ["mas-b360506/gap/wire"],
+            "evidence": ["mas-b360506/e/9be7e386e428168c"]
+          },
+          "meaning": "Other framework/delegated outcomes are not fully traced.",
+          "evidence": ["mas-b360506/e/9be7e386e428168c"]
+        }
+      ],
+      "gaps": ["mas-b360506/gap/wire", "mas-b360506/gap/delegates", "mas-b360506/gap/security"],
+      "evidence": ["mas-b360506/e/9be7e386e428168c"],
+      "version": "1"
+    },
+    {
+      "id": "mas-b360506/coverage/fee-local-flow",
+      "kind": "coverage",
+      "owner": "mas-b360506/entry/post-api-commercial-items-fees",
+      "obligation": "Additional write/publish family local control/data flow",
+      "status": "examined",
+      "scope": "Fee POST controller→CommercialItemService<Fee>.Add→UnitOfWork→Notify→KafkaProducer source graph; source-declared normal/error/skip branches, actual request values and write/publish timing. Imported/deployment end-to-end closure remains partial.",
+      "evidence": [
+        "mas-b360506/e/9be7e386e428168c",
+        "mas-b360506/e/1b1c399d1cbd235a",
+        "mas-b360506/e/34fab5c27425e69e"
+      ],
+      "gaps": ["mas-b360506/gap/fee-mapping", "mas-b360506/gap/wire"]
+    },
+    {
+      "id": "mas-b360506/coverage/post-api-commercial-items-fees/contract",
+      "kind": "coverage",
+      "owner": "mas-b360506/entry/post-api-commercial-items-fees",
+      "obligation": "Source request/response contracts",
+      "status": "partial",
+      "scope": "Controller annotations and local DTO declaration closure; effective formatter/authentication unresolved",
+      "evidence": ["mas-b360506/e/9be7e386e428168c"],
+      "gaps": ["mas-b360506/gap/wire", "mas-b360506/gap/security"]
+    },
+    {
+      "id": "mas-b360506/coverage/post-api-commercial-items-fees/execution",
+      "kind": "coverage",
+      "owner": "mas-b360506/entry/post-api-commercial-items-fees",
+      "obligation": "Endpoint control/data flow",
+      "status": "partial",
+      "scope": "Fee POST local source control/value trace through save, refetch, optional notification and producer report; imported mapping/provider/middleware and deployment remain unresolved",
+      "evidence": ["mas-b360506/e/9be7e386e428168c"],
+      "gaps": ["mas-b360506/gap/fee-mapping", "mas-b360506/gap/wire", "mas-b360506/gap/security"]
+    },
+    {
+      "id": "mas-b360506/coverage/post-api-commercial-items-fees/registration",
+      "kind": "coverage",
+      "owner": "mas-b360506/entry/post-api-commercial-items-fees",
+      "obligation": "Registered HTTP method/path and handler",
+      "status": "examined",
+      "scope": "src/PopCat.ManageAndSegment.Api/Controllers/V1/FeesController.cs:Post; direct source registration at pinned commit",
+      "evidence": ["mas-b360506/e/9be7e386e428168c"],
+      "gaps": []
+    },
+    {
+      "id": "mas-b360506/e/0103ca62f8f18cc7",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Api/Authorization/PopAuthzAuthorizationHandler.cs",
+      "lines": [1, 147],
+      "basis": "source"
+    },
+    {
+      "id": "mas-b360506/e/095f6b7fcffabd78",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Api/Startup.cs",
+      "lines": [1, 60],
+      "basis": "source"
+    },
+    {
+      "id": "mas-b360506/e/0d58494b6d6c6d91",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.MessageBroker/Protos/fee.proto",
+      "lines": [10, 10],
+      "basis": "source"
+    },
+    {
+      "id": "mas-b360506/e/0de7c0038d1689d7",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Infrastructure/Migrations/DatabaseContextModelSnapshot.cs",
+      "lines": [432, 435],
+      "basis": "source"
+    },
+    {
+      "id": "mas-b360506/e/0e7f19fbb6da0c7e",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Core/Common/ValidationConstants.cs",
+      "lines": [23, 23],
+      "basis": "source"
+    },
+    {
+      "id": "mas-b360506/e/1acab0cb99497df7",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Api/Models/V1/Response/SuccessResponse.cs",
+      "lines": [29, 29],
+      "basis": "source"
+    },
+    {
+      "id": "mas-b360506/e/1b1c399d1cbd235a",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Core/Services/CommercialItemService.cs",
+      "lines": [1, 114],
+      "basis": "source"
+    },
+    {
+      "id": "mas-b360506/e/1fd515eaf998616e",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Infrastructure/Migrations/DatabaseContextModelSnapshot.cs",
+      "lines": [427, 430],
+      "basis": "source"
+    },
+    {
+      "id": "mas-b360506/e/242701ba0f3ca25b",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.MessageBroker/Builders/ProtoBufMessageBuilder.cs",
+      "lines": [108, 129],
+      "basis": "source"
+    },
+    {
+      "id": "mas-b360506/e/2f41b29b68bdef33",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Api/Models/V1/Response/Fee.cs",
+      "lines": [26, 26],
+      "basis": "source"
+    },
+    {
+      "id": "mas-b360506/e/34fab5c27425e69e",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.MessageBroker/Producers/KafkaProducer.cs",
+      "lines": [1, 69],
+      "basis": "source"
+    },
+    {
+      "id": "mas-b360506/e/38b80c1aed170f4d",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.MessageBroker/Services/NotificationService.cs",
+      "lines": [48, 53],
+      "basis": "source"
+    },
+    {
+      "id": "mas-b360506/e/3cf2609e40df515a",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Core/Models/CommercialItems/Fee.cs",
+      "lines": [1, 22],
+      "basis": "source"
+    },
+    {
+      "id": "mas-b360506/e/432ae7012e3005ac",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.MessageBroker/Protos/fee.proto",
+      "lines": [14, 14],
+      "basis": "source"
+    },
+    {
+      "id": "mas-b360506/e/43ea163ed1d25cda",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.MessageBroker/Protos/fee.proto",
+      "lines": [12, 12],
+      "basis": "source"
+    },
+    {
+      "id": "mas-b360506/e/49913228f1f81474",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Api/Models/V1/Response/Fee.cs",
+      "lines": [15, 18],
+      "basis": "source"
+    },
+    {
+      "id": "mas-b360506/e/4dbeec794e910d89",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.MessageBroker/Protos/fee.proto",
+      "lines": [6, 15],
+      "basis": "source"
+    },
+    {
+      "id": "mas-b360506/e/54d88726688c247f",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Api/Mapping/MappingProfile.cs",
+      "lines": [170, 187],
+      "basis": "source"
+    },
+    {
+      "id": "mas-b360506/e/67d300b663cd75f0",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Infrastructure/Migrations/DatabaseContextModelSnapshot.cs",
+      "lines": [31, 33],
+      "basis": "source"
+    },
+    {
+      "id": "mas-b360506/e/68683f18f227a835",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Api/Models/V1/Request/FeeInput.cs",
+      "lines": [29, 33],
+      "basis": "source"
+    },
+    {
+      "id": "mas-b360506/e/6b5c72d068637d1d",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Api/Models/V1/Response/Fee.cs",
+      "lines": [5, 13],
+      "basis": "source"
+    },
+    {
+      "id": "mas-b360506/e/786517a302ada0ff",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Core/Models/CommercialItems/CommercialItemBase.cs",
+      "lines": [1, 43],
+      "basis": "source"
+    },
+    {
+      "id": "mas-b360506/e/7fcc6e180fe81e7b",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Infrastructure/Migrations/DatabaseContextModelSnapshot.cs",
+      "lines": [423, 443],
+      "basis": "source"
+    },
+    {
+      "id": "mas-b360506/e/80eccbc6232b217f",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Core/Models/CommercialItems/Fee.cs",
+      "lines": [7, 7],
+      "basis": "source"
+    },
+    {
+      "id": "mas-b360506/e/8201669e3fbebe8d",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Infrastructure/DatabaseContext.cs",
+      "lines": [1, 650],
+      "basis": "source"
+    },
+    {
+      "id": "mas-b360506/e/82b71e570299cfb3",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Api/Models/V1/Request/FeeInput.cs",
+      "lines": [1, 49],
+      "basis": "source"
+    },
+    {
+      "id": "mas-b360506/e/872b159715a0788a",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Api/Models/V1/Response/Fee.cs",
+      "lines": [25, 25],
+      "basis": "source"
+    },
+    {
+      "id": "mas-b360506/e/8836fae57a1d7ca8",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Api/Models/V1/Request/FeeInput.cs",
+      "lines": [22, 25],
+      "basis": "source"
+    },
+    {
+      "id": "mas-b360506/e/885609eafdbfff2a",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Api/Models/V1/Request/FeeInput.cs",
+      "lines": [8, 17],
+      "basis": "source"
+    },
+    {
+      "id": "mas-b360506/e/8c369b690ea4c049",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Infrastructure/Migrations/DatabaseContextModelSnapshot.cs",
+      "lines": [35, 38],
+      "basis": "source"
+    },
+    {
+      "id": "mas-b360506/e/94c71a8c5393f2b2",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Api/Models/V1/Request/FeeInput.cs",
+      "lines": [33, 39],
+      "basis": "source"
+    },
+    {
+      "id": "mas-b360506/e/98fa5b0461d6b12a",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Infrastructure/Repositories/CommercialItemRepository.cs",
+      "lines": [1, 102],
+      "basis": "source"
+    },
+    {
+      "id": "mas-b360506/e/9be7e386e428168c",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Api/Controllers/V1/FeesController.cs",
+      "lines": [73, 84],
+      "basis": "source"
+    },
+    {
+      "id": "mas-b360506/e/aaad4f891deaa885",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.MessageBroker/Protos/fee.proto",
+      "lines": [13, 13],
+      "basis": "source"
+    },
+    {
+      "id": "mas-b360506/e/b111ec1459333eaf",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Api/Models/V1/Response/SuccessResponse.cs",
+      "lines": [1, 35],
+      "basis": "source"
+    },
+    {
+      "id": "mas-b360506/e/b7b95d24b6f60c70",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Api/Models/V1/Response/Fee.cs",
+      "lines": [1, 39],
+      "basis": "source"
+    },
+    {
+      "id": "mas-b360506/e/c0bcbacb3fe8ae92",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Api/Models/V1/Response/Fee.cs",
+      "lines": [15, 15],
+      "basis": "source"
+    },
+    {
+      "id": "mas-b360506/e/c1f20c744969ba1e",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Core/Common/ValidationConstants.cs",
+      "lines": [24, 24],
+      "basis": "source"
+    },
+    {
+      "id": "mas-b360506/e/c4c9e2dde58f3269",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Infrastructure/Migrations/DatabaseContextModelSnapshot.cs",
+      "lines": [40, 43],
+      "basis": "source"
+    },
+    {
+      "id": "mas-b360506/e/ca13f50274a9aa68",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Api/Models/V1/Response/SuccessResponse.cs",
+      "lines": [12, 23],
+      "basis": "source"
+    },
+    {
+      "id": "mas-b360506/e/cfd49b13a38d2e52",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.MessageBroker/Protos/fee.proto",
+      "lines": [11, 11],
+      "basis": "source"
+    },
+    {
+      "id": "mas-b360506/e/d61351349d210e5f",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Infrastructure/UnitOfWork.cs",
+      "lines": [1, 153],
+      "basis": "source"
+    },
+    {
+      "id": "mas-b360506/e/d79bff19f244cfe6",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Core/Models/CommercialItems/Fee.cs",
+      "lines": [8, 8],
+      "basis": "source"
+    },
+    {
+      "id": "mas-b360506/e/da8c4c588e5765d6",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Core/Common/ValidationConstants.cs",
+      "lines": [89, 89],
+      "basis": "source"
+    },
+    {
+      "id": "mas-b360506/e/db5cb940d157e70e",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Api/Models/V1/Response/Fee.cs",
+      "lines": [18, 21],
+      "basis": "source"
+    },
+    {
+      "id": "mas-b360506/e/e0f659450d158568",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.MessageBroker/Protos/fee.proto",
+      "lines": [17, 17],
+      "basis": "source"
+    },
+    {
+      "id": "mas-b360506/e/eba9e8a69e271883",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Infrastructure/DatabaseContext.cs",
+      "lines": [208, 208],
+      "basis": "source"
+    },
+    {
+      "id": "mas-b360506/e/f4ce20e7d22c6fcd",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Core/Common/ValidationConstants.cs",
+      "lines": [35, 35],
+      "basis": "source"
+    },
+    {
+      "id": "mas-b360506/e/f6bb616a8fba2531",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Core/Common/ValidationConstants.cs",
+      "lines": [36, 36],
+      "basis": "source"
+    },
+    {
+      "id": "mas-b360506/e/f714e407a27b0627",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.MessageBroker/Services/NotificationService.cs",
+      "lines": [29, 46],
+      "basis": "source"
+    },
+    {
+      "id": "mas-b360506/e/fa2e5ec075b05ef5",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Api/Models/V1/Response/SuccessResponse.cs",
+      "lines": [32, 33],
+      "basis": "source"
+    },
+    {
+      "id": "mas-b360506/e/fc33d01bdb608daf",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Infrastructure/Migrations/DatabaseContextModelSnapshot.cs",
+      "lines": [28, 29],
+      "basis": "source"
+    },
+    {
+      "id": "mas-b360506/entry/post-api-commercial-items-fees",
+      "kind": "entry",
+      "logicalId": "POST /api/commercial-items/fees",
+      "method": "POST",
+      "path": "/api/commercial-items/fees",
+      "implementation": "mas-b360506/impl/post-api-commercial-items-fees",
+      "evidence": ["mas-b360506/e/9be7e386e428168c"]
+    },
+    {
+      "id": "mas-b360506/exposes/post-api-commercial-items-fees",
+      "kind": "entry_binding",
+      "entry": "mas-b360506/entry/post-api-commercial-items-fees",
+      "execution": "mas-b360506/runs/post-api-commercial-items-fees",
+      "contract": "mas-b360506/contract/post-api-commercial-items-fees",
+      "gaps": ["mas-b360506/gap/wire", "mas-b360506/gap/security"],
+      "evidence": ["mas-b360506/e/9be7e386e428168c"]
+    },
+    {
+      "id": "mas-b360506/fee/effect/publish",
+      "kind": "effect",
+      "owner": "mas-b360506/impl/post-api-commercial-items-fees",
+      "operation": "mas-b360506/fee/op/produce",
+      "effect": "publish",
+      "resource": "s2/topic",
+      "modality": "source_traced",
+      "representation": "logical",
+      "selection": [],
+      "payload": ["mas-b360506/fee/value/message", "mas-b360506/fee/value/correlation"],
+      "evidence": [
+        "mas-b360506/e/1b1c399d1cbd235a",
+        "mas-b360506/e/34fab5c27425e69e",
+        "mas-b360506/e/8201669e3fbebe8d"
+      ]
+    },
+    {
+      "id": "mas-b360506/fee/effect/refetch",
+      "kind": "effect",
+      "owner": "mas-b360506/impl/post-api-commercial-items-fees",
+      "operation": "mas-b360506/fee/op/refetch",
+      "effect": "read",
+      "resource": "mas-b360506/table/Fee",
+      "modality": "source_traced",
+      "representation": "logical",
+      "selection": [],
+      "payload": [],
+      "evidence": [
+        "mas-b360506/e/1b1c399d1cbd235a",
+        "mas-b360506/e/34fab5c27425e69e",
+        "mas-b360506/e/8201669e3fbebe8d"
+      ]
+    },
+    {
+      "id": "mas-b360506/fee/effect/save",
+      "kind": "effect",
+      "owner": "mas-b360506/impl/post-api-commercial-items-fees",
+      "operation": "mas-b360506/fee/op/save",
+      "effect": "write",
+      "resource": "mas-b360506/table/Fee",
+      "modality": "source_traced",
+      "representation": "logical",
+      "selection": [],
+      "payload": ["mas-b360506/fee/value/entity"],
+      "evidence": [
+        "mas-b360506/e/1b1c399d1cbd235a",
+        "mas-b360506/e/34fab5c27425e69e",
+        "mas-b360506/e/8201669e3fbebe8d"
+      ]
+    },
+    {
+      "id": "mas-b360506/fee/interaction/publish",
+      "kind": "interaction",
+      "owner": "mas-b360506/impl/post-api-commercial-items-fees",
+      "execution": "mas-b360506/runs/post-api-commercial-items-fees",
+      "operation": "mas-b360506/fee/op/produce",
+      "target": "u3/component/commercial-topic",
+      "targetEntry": null,
+      "contract": "mas-b360506/fee/message-contract",
+      "effect": "mas-b360506/fee/effect/publish",
+      "handoff": null,
+      "mode": "publish",
+      "boundary": "network",
+      "waitsFor": "producer_result",
+      "condition": "Source path guards at this call site; see Fee POST branch graph",
+      "requestBindings": [
+        {
+          "part": "message",
+          "path": [],
+          "value": "mas-b360506/fee/value/message",
+          "transform": "Raw IMessage protobuf bytes"
+        },
+        {
+          "part": "headers",
+          "path": ["id"],
+          "value": "mas-b360506/fee/value/correlation",
+          "transform": "Trace correlation, not message deduplication identity"
+        }
+      ],
+      "responseBindings": [],
+      "gaps": ["mas-b360506/gap/fee-mapping", "mas-b360506/gap/physical"],
+      "evidence": [
+        "mas-b360506/e/1b1c399d1cbd235a",
+        "mas-b360506/e/34fab5c27425e69e",
+        "mas-b360506/e/8201669e3fbebe8d"
+      ]
+    },
+    {
+      "id": "mas-b360506/fee/interaction/refetch",
+      "kind": "interaction",
+      "owner": "mas-b360506/impl/post-api-commercial-items-fees",
+      "execution": "mas-b360506/runs/post-api-commercial-items-fees",
+      "operation": "mas-b360506/fee/op/refetch",
+      "target": "u3/component/postgres",
+      "targetEntry": null,
+      "contract": "mas-b360506/fee/store-contract",
+      "effect": "mas-b360506/fee/effect/refetch",
+      "handoff": null,
+      "mode": "read",
+      "boundary": "network",
+      "waitsFor": "store_result",
+      "condition": "Source path guards at this call site; see Fee POST branch graph",
+      "requestBindings": [
+        {
+          "part": "selection",
+          "path": ["InternalId"],
+          "value": "mas-b360506/fee/value/internal-id",
+          "transform": "GetSingleNoTracking by stored InternalId"
+        }
+      ],
+      "responseBindings": [],
+      "gaps": ["mas-b360506/gap/fee-mapping", "mas-b360506/gap/physical"],
+      "evidence": [
+        "mas-b360506/e/1b1c399d1cbd235a",
+        "mas-b360506/e/34fab5c27425e69e",
+        "mas-b360506/e/8201669e3fbebe8d"
+      ]
+    },
+    {
+      "id": "mas-b360506/fee/interaction/save",
+      "kind": "interaction",
+      "owner": "mas-b360506/impl/post-api-commercial-items-fees",
+      "execution": "mas-b360506/runs/post-api-commercial-items-fees",
+      "operation": "mas-b360506/fee/op/save",
+      "target": "u3/component/postgres",
+      "targetEntry": null,
+      "contract": "mas-b360506/fee/store-contract",
+      "effect": "mas-b360506/fee/effect/save",
+      "handoff": null,
+      "mode": "write",
+      "boundary": "network",
+      "waitsFor": "store_result",
+      "condition": "Source path guards at this call site; see Fee POST branch graph",
+      "requestBindings": [
+        {
+          "part": "record",
+          "path": [],
+          "value": "mas-b360506/fee/value/entity",
+          "transform": "Entity staged before awaited save"
+        }
+      ],
+      "responseBindings": [],
+      "gaps": ["mas-b360506/gap/fee-mapping", "mas-b360506/gap/physical"],
+      "evidence": [
+        "mas-b360506/e/1b1c399d1cbd235a",
+        "mas-b360506/e/34fab5c27425e69e",
+        "mas-b360506/e/8201669e3fbebe8d"
+      ]
+    },
+    {
+      "id": "mas-b360506/fee/message-contract",
+      "kind": "interface_contract",
+      "component": "u3/component/commercial-topic",
+      "protocol": "kafka",
+      "name": "FeeCreated",
+      "method": null,
+      "path": null,
+      "authority": "source_declared",
+      "request": [
+        {
+          "part": "message",
+          "presence": "present",
+          "shape": "mas-b360506/shape/proto/FeeCreated",
+          "sourceShape": null,
+          "contentType": null,
+          "gaps": [],
+          "evidence": ["mas-b360506/e/242701ba0f3ca25b"]
+        },
+        {
+          "part": "headers",
+          "presence": "present",
+          "shape": "u3/shape/message-headers",
+          "sourceShape": null,
+          "contentType": null,
+          "gaps": ["s2/gap/sdk-policy"],
+          "evidence": ["s2/e/headers"]
+        },
+        {
+          "part": "key",
+          "presence": "none",
+          "shape": null,
+          "sourceShape": null,
+          "contentType": null,
+          "gaps": [],
+          "evidence": ["mas-b360506/e/34fab5c27425e69e"]
+        }
+      ],
+      "responses": [],
+      "gaps": ["mas-b360506/gap/fee-mapping", "mas-b360506/gap/physical"],
+      "evidence": ["mas-b360506/e/242701ba0f3ca25b", "mas-b360506/e/34fab5c27425e69e"]
+    },
+    {
+      "id": "mas-b360506/fee/op/build",
+      "kind": "operation",
+      "owner": "mas-b360506/impl/post-api-commercial-items-fees",
+      "action": "branch",
+      "label": "Map Fee into FeeCreated envelope; null message skips publication",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": null,
+      "httpStatus": null,
+      "evidence": ["mas-b360506/e/242701ba0f3ca25b", "mas-b360506/e/f714e407a27b0627"]
+    },
+    {
+      "id": "mas-b360506/fee/op/error",
+      "kind": "operation",
+      "owner": "mas-b360506/impl/post-api-commercial-items-fees",
+      "action": "throw",
+      "label": "Delegated exception escapes; effective shared HTTP mapping unresolved",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": "error",
+      "httpStatus": null,
+      "evidence": ["mas-b360506/e/38b80c1aed170f4d", "mas-b360506/e/d61351349d210e5f"]
+    },
+    {
+      "id": "mas-b360506/fee/op/map",
+      "kind": "operation",
+      "owner": "mas-b360506/impl/post-api-commercial-items-fees",
+      "action": "compute",
+      "label": "Construct Fee via declared input map; InternalId from FromContextOrGenerateNew and InternalId.FromGuid; pass Code, Name and SKU wrappers",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": null,
+      "httpStatus": null,
+      "evidence": ["mas-b360506/e/54d88726688c247f"]
+    },
+    {
+      "id": "mas-b360506/fee/op/produce",
+      "kind": "operation",
+      "owner": "mas-b360506/impl/post-api-commercial-items-fees",
+      "action": "opaque",
+      "label": "Await ProduceAsync(topicName, null-key message) with UTF-8 descriptor/correlation headers",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": null,
+      "httpStatus": null,
+      "evidence": ["mas-b360506/e/34fab5c27425e69e", "s2/e/headers"]
+    },
+    {
+      "id": "mas-b360506/fee/op/refetch",
+      "kind": "operation",
+      "owner": "mas-b360506/impl/post-api-commercial-items-fees",
+      "action": "opaque",
+      "label": "Read no-tracking Fee by result.Data.InternalId after save",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": null,
+      "httpStatus": null,
+      "evidence": ["mas-b360506/e/1b1c399d1cbd235a", "mas-b360506/e/98fa5b0461d6b12a"]
+    },
+    {
+      "id": "mas-b360506/fee/op/save",
+      "kind": "operation",
+      "owner": "mas-b360506/impl/post-api-commercial-items-fees",
+      "action": "opaque",
+      "label": "Await UnitOfWork.CompleteAsync / SaveChangesAsync",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": null,
+      "httpStatus": null,
+      "evidence": ["mas-b360506/e/d61351349d210e5f"]
+    },
+    {
+      "id": "mas-b360506/fee/persisted",
+      "kind": "shape",
+      "label": "Fee persisted EF representation (partial)",
+      "representation": "persisted",
+      "container": "object",
+      "fields": [
+        {
+          "name": "InternalId",
+          "type": "Guid via Value converter",
+          "status": "declared",
+          "evidence": [
+            "mas-b360506/e/8201669e3fbebe8d",
+            "mas-b360506/e/786517a302ada0ff",
+            "mas-b360506/e/3cf2609e40df515a"
+          ]
+        },
+        {
+          "name": "Id",
+          "type": "string via Value converter",
+          "status": "declared",
+          "evidence": [
+            "mas-b360506/e/8201669e3fbebe8d",
+            "mas-b360506/e/786517a302ada0ff",
+            "mas-b360506/e/3cf2609e40df515a"
+          ]
+        },
+        {
+          "name": "Code",
+          "type": "string via FeeCode.Value",
+          "status": "declared",
+          "evidence": [
+            "mas-b360506/e/8201669e3fbebe8d",
+            "mas-b360506/e/786517a302ada0ff",
+            "mas-b360506/e/3cf2609e40df515a"
+          ]
+        },
+        {
+          "name": "Name",
+          "type": "string",
+          "status": "declared",
+          "evidence": [
+            "mas-b360506/e/8201669e3fbebe8d",
+            "mas-b360506/e/786517a302ada0ff",
+            "mas-b360506/e/3cf2609e40df515a"
+          ]
+        },
+        {
+          "name": "SkuCategory",
+          "type": "string via Value converter",
+          "status": "declared",
+          "evidence": [
+            "mas-b360506/e/8201669e3fbebe8d",
+            "mas-b360506/e/786517a302ada0ff",
+            "mas-b360506/e/3cf2609e40df515a"
+          ]
+        },
+        {
+          "name": "SkuIdentifier",
+          "type": "string via Value converter",
+          "status": "declared",
+          "evidence": [
+            "mas-b360506/e/8201669e3fbebe8d",
+            "mas-b360506/e/786517a302ada0ff",
+            "mas-b360506/e/3cf2609e40df515a"
+          ]
+        }
+      ],
+      "completeness": "partial",
+      "gaps": ["mas-b360506/gap/physical", "mas-b360506/gap/fee-mapping"],
+      "evidence": ["mas-b360506/e/8201669e3fbebe8d", "mas-b360506/e/3cf2609e40df515a"]
+    },
+    {
+      "id": "mas-b360506/fee/store-contract",
+      "kind": "interface_contract",
+      "component": "u3/component/postgres",
+      "protocol": "postgresql",
+      "name": "Fee table EF read/write",
+      "method": null,
+      "path": null,
+      "authority": "source_declared",
+      "request": [
+        {
+          "part": "record",
+          "presence": "present",
+          "shape": "mas-b360506/fee/persisted",
+          "sourceShape": null,
+          "contentType": null,
+          "gaps": ["mas-b360506/gap/fee-mapping", "mas-b360506/gap/physical"],
+          "evidence": ["mas-b360506/e/8201669e3fbebe8d"]
+        }
+      ],
+      "responses": [
+        {
+          "status": "normal_return",
+          "body": {
+            "part": "record",
+            "presence": "unresolved",
+            "shape": null,
+            "sourceShape": "mas-b360506/shape/1f042c2f9435a9f7",
+            "contentType": null,
+            "gaps": ["mas-b360506/gap/fee-mapping"],
+            "evidence": ["mas-b360506/e/1b1c399d1cbd235a"]
+          },
+          "meaning": "SaveChanges normal return and optional no-tracking refetch; separate source operations",
+          "evidence": ["mas-b360506/e/1b1c399d1cbd235a"]
+        }
+      ],
+      "gaps": ["mas-b360506/gap/fee-mapping", "mas-b360506/gap/physical"],
+      "evidence": ["mas-b360506/e/8201669e3fbebe8d", "mas-b360506/e/1b1c399d1cbd235a"]
+    },
+    {
+      "id": "mas-b360506/fee/value/correlation",
+      "kind": "value",
+      "owner": "mas-b360506/impl/post-api-commercial-items-fees",
+      "definition": "mas-b360506/fee/op/produce",
+      "label": "CorrelationContext.CorrelationId or empty string",
+      "role": "definition",
+      "representation": "constructed",
+      "shape": null,
+      "accessPath": ["headers", "id"],
+      "evidence": [
+        "mas-b360506/e/54d88726688c247f",
+        "mas-b360506/e/9be7e386e428168c",
+        "mas-b360506/e/1b1c399d1cbd235a",
+        "mas-b360506/e/34fab5c27425e69e"
+      ]
+    },
+    {
+      "id": "mas-b360506/fee/value/entity",
+      "kind": "value",
+      "owner": "mas-b360506/impl/post-api-commercial-items-fees",
+      "definition": "mas-b360506/fee/op/map",
+      "label": "Fee entity constructed from request",
+      "role": "definition",
+      "representation": "constructed",
+      "shape": "mas-b360506/shape/1f042c2f9435a9f7",
+      "accessPath": [],
+      "evidence": [
+        "mas-b360506/e/54d88726688c247f",
+        "mas-b360506/e/9be7e386e428168c",
+        "mas-b360506/e/1b1c399d1cbd235a",
+        "mas-b360506/e/34fab5c27425e69e"
+      ]
+    },
+    {
+      "id": "mas-b360506/fee/value/input-code",
+      "kind": "value",
+      "owner": "mas-b360506/impl/post-api-commercial-items-fees",
+      "definition": "mas-b360506/op/post-api-commercial-items-fees/entry",
+      "label": "Request Code",
+      "role": "parameter",
+      "representation": "source",
+      "shape": null,
+      "accessPath": ["Code"],
+      "evidence": [
+        "mas-b360506/e/54d88726688c247f",
+        "mas-b360506/e/9be7e386e428168c",
+        "mas-b360506/e/1b1c399d1cbd235a",
+        "mas-b360506/e/34fab5c27425e69e"
+      ]
+    },
+    {
+      "id": "mas-b360506/fee/value/input-name",
+      "kind": "value",
+      "owner": "mas-b360506/impl/post-api-commercial-items-fees",
+      "definition": "mas-b360506/op/post-api-commercial-items-fees/entry",
+      "label": "Request Name",
+      "role": "parameter",
+      "representation": "source",
+      "shape": null,
+      "accessPath": ["Name"],
+      "evidence": [
+        "mas-b360506/e/54d88726688c247f",
+        "mas-b360506/e/9be7e386e428168c",
+        "mas-b360506/e/1b1c399d1cbd235a",
+        "mas-b360506/e/34fab5c27425e69e"
+      ]
+    },
+    {
+      "id": "mas-b360506/fee/value/input-skucategory",
+      "kind": "value",
+      "owner": "mas-b360506/impl/post-api-commercial-items-fees",
+      "definition": "mas-b360506/op/post-api-commercial-items-fees/entry",
+      "label": "Request SkuCategory",
+      "role": "parameter",
+      "representation": "source",
+      "shape": null,
+      "accessPath": ["SkuCategory"],
+      "evidence": [
+        "mas-b360506/e/54d88726688c247f",
+        "mas-b360506/e/9be7e386e428168c",
+        "mas-b360506/e/1b1c399d1cbd235a",
+        "mas-b360506/e/34fab5c27425e69e"
+      ]
+    },
+    {
+      "id": "mas-b360506/fee/value/input-skuidentifier",
+      "kind": "value",
+      "owner": "mas-b360506/impl/post-api-commercial-items-fees",
+      "definition": "mas-b360506/op/post-api-commercial-items-fees/entry",
+      "label": "Request SkuIdentifier",
+      "role": "parameter",
+      "representation": "source",
+      "shape": null,
+      "accessPath": ["SkuIdentifier"],
+      "evidence": [
+        "mas-b360506/e/54d88726688c247f",
+        "mas-b360506/e/9be7e386e428168c",
+        "mas-b360506/e/1b1c399d1cbd235a",
+        "mas-b360506/e/34fab5c27425e69e"
+      ]
+    },
+    {
+      "id": "mas-b360506/fee/value/internal-id",
+      "kind": "value",
+      "owner": "mas-b360506/impl/post-api-commercial-items-fees",
+      "definition": "mas-b360506/fee/op/map",
+      "label": "InternalId.FromGuid(FromContextOrGenerateNew(context,...)) per declared constructor mapping",
+      "role": "definition",
+      "representation": "constructed",
+      "shape": null,
+      "accessPath": ["InternalId"],
+      "evidence": [
+        "mas-b360506/e/54d88726688c247f",
+        "mas-b360506/e/9be7e386e428168c",
+        "mas-b360506/e/1b1c399d1cbd235a",
+        "mas-b360506/e/34fab5c27425e69e"
+      ]
+    },
+    {
+      "id": "mas-b360506/fee/value/message",
+      "kind": "value",
+      "owner": "mas-b360506/impl/post-api-commercial-items-fees",
+      "definition": "mas-b360506/fee/op/build",
+      "label": "FeeCreated protobuf message",
+      "role": "definition",
+      "representation": "wire",
+      "shape": "mas-b360506/shape/proto/FeeCreated",
+      "accessPath": [],
+      "evidence": [
+        "mas-b360506/e/54d88726688c247f",
+        "mas-b360506/e/9be7e386e428168c",
+        "mas-b360506/e/1b1c399d1cbd235a",
+        "mas-b360506/e/34fab5c27425e69e"
+      ]
+    },
+    {
+      "id": "mas-b360506/fee/value/request",
+      "kind": "value",
+      "owner": "mas-b360506/impl/post-api-commercial-items-fees",
+      "definition": "mas-b360506/op/post-api-commercial-items-fees/entry",
+      "label": "FeeInput request source DTO",
+      "role": "parameter",
+      "representation": "constructed",
+      "shape": "mas-b360506/shape/9099a67b507769a9",
+      "accessPath": [],
+      "evidence": [
+        "mas-b360506/e/54d88726688c247f",
+        "mas-b360506/e/9be7e386e428168c",
+        "mas-b360506/e/1b1c399d1cbd235a",
+        "mas-b360506/e/34fab5c27425e69e"
+      ]
+    },
+    {
+      "id": "mas-b360506/gap/delegates",
+      "kind": "gap",
+      "owner": "s2/http",
+      "obligation": "Source closure",
+      "reason": "Registration/contracts are examined; delegated service/repository and framework control/data flow is not fully traced for this entry. An opaque operation preserves the boundary; it does not assert no effects.",
+      "action": "Trace the named controller method, mapper, bound service, repository and middleware through branches, exceptions and values.",
+      "evidence": ["mas-b360506/e/095f6b7fcffabd78"]
+    },
+    {
+      "id": "mas-b360506/gap/fee-mapping",
+      "kind": "gap",
+      "owner": "mas-b360506/impl/post-api-commercial-items-fees",
+      "obligation": "Source closure",
+      "reason": "Local AutoMapper Fee constructors/converters are declared; imported effective mapper, EF provider and Kafka SDK policies are not bound. Full middleware errors, deployment, concurrency and consumer completion remain unknown.",
+      "action": "Resolve exact imported artefacts and effective settings; do not infer delivery, outbox or end-to-end completion.",
+      "evidence": [
+        "mas-b360506/e/54d88726688c247f",
+        "mas-b360506/e/34fab5c27425e69e",
+        "mas-b360506/e/d61351349d210e5f"
+      ]
+    },
+    {
+      "id": "mas-b360506/gap/parent-1f042c2f94",
+      "kind": "gap",
+      "owner": "s2/http",
+      "obligation": "Source closure",
+      "reason": "Unresolved source parent CommercialItemBase for Fee.",
+      "action": "Bind exact source parent and expand fields.",
+      "evidence": ["mas-b360506/e/3cf2609e40df515a"]
+    },
+    {
+      "id": "mas-b360506/gap/physical",
+      "kind": "gap",
+      "owner": "s2/http",
+      "obligation": "Source closure",
+      "reason": "Committed settings and source declarations do not establish deployed database/broker or external service instances.",
+      "action": "Bind the selected source profile to an actual deployment without exposing credentials.",
+      "evidence": ["mas-b360506/e/095f6b7fcffabd78"]
+    },
+    {
+      "id": "mas-b360506/gap/security",
+      "kind": "gap",
+      "owner": "s2/http",
+      "obligation": "Source closure",
+      "reason": "Authorisation policy source is available, but full imported authentication, token validation and effective middleware enforcement are not established.",
+      "action": "Resolve authentication middleware/registration, policy execution and deployment configuration.",
+      "evidence": ["mas-b360506/e/0103ca62f8f18cc7", "mas-b360506/e/095f6b7fcffabd78"]
+    },
+    {
+      "id": "mas-b360506/gap/wire",
+      "kind": "gap",
+      "owner": "s2/http",
+      "obligation": "Source closure",
+      "reason": "Effective request/response formatter selection, imported middleware and negotiation are not fully resolved. Source DTO fields are not a complete effective wire contract.",
+      "action": "Resolve pinned shared assemblies, model version handling and effective MVC formatter configuration.",
+      "evidence": ["mas-b360506/e/095f6b7fcffabd78"]
+    },
+    {
+      "id": "mas-b360506/impl/post-api-commercial-items-fees",
+      "kind": "implementation",
+      "logicalId": "FeesController.cs.Post",
+      "scope": "s2/p",
+      "entry": "mas-b360506/op/post-api-commercial-items-fees/entry",
+      "parameters": [
+        "mas-b360506/fee/value/request",
+        "mas-b360506/fee/value/input-code",
+        "mas-b360506/fee/value/input-name",
+        "mas-b360506/fee/value/input-skucategory",
+        "mas-b360506/fee/value/input-skuidentifier"
+      ],
+      "evidence": ["mas-b360506/e/9be7e386e428168c"]
+    },
+    {
+      "id": "mas-b360506/op/post-api-commercial-items-fees/entry",
+      "kind": "operation",
+      "owner": "mas-b360506/impl/post-api-commercial-items-fees",
+      "action": "entry",
+      "label": "FeesController.cs.Post",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": null,
+      "httpStatus": null,
+      "evidence": ["mas-b360506/e/9be7e386e428168c"]
+    },
+    {
+      "id": "mas-b360506/persisted/Fee",
+      "kind": "shape",
+      "label": "Fee declared PostgreSQL columns from EF model snapshot",
+      "representation": "persisted",
+      "container": "object",
+      "fields": [
+        {
+          "name": "InternalId",
+          "type": "uuid",
+          "status": "declared",
+          "evidence": ["mas-b360506/e/fc33d01bdb608daf"]
+        },
+        {
+          "name": "Id",
+          "type": "character varying(100)",
+          "status": "declared",
+          "evidence": ["mas-b360506/e/67d300b663cd75f0"],
+          "maxLength": 100
+        },
+        {
+          "name": "SkuCategory",
+          "type": "character varying(50)",
+          "status": "declared",
+          "evidence": ["mas-b360506/e/8c369b690ea4c049"],
+          "maxLength": 50,
+          "nullable": false
+        },
+        {
+          "name": "SkuIdentifier",
+          "type": "character varying(50)",
+          "status": "declared",
+          "evidence": ["mas-b360506/e/c4c9e2dde58f3269"],
+          "maxLength": 50,
+          "nullable": false
+        },
+        {
+          "name": "Code",
+          "type": "character varying(50)",
+          "status": "declared",
+          "evidence": ["mas-b360506/e/1fd515eaf998616e"],
+          "maxLength": 50,
+          "nullable": false
+        },
+        {
+          "name": "Name",
+          "type": "character varying(50)",
+          "status": "declared",
+          "evidence": ["mas-b360506/e/0de7c0038d1689d7"],
+          "maxLength": 50,
+          "nullable": false
+        }
+      ],
+      "completeness": "partial",
+      "gaps": ["mas-b360506/gap/physical"],
+      "evidence": ["mas-b360506/e/7fcc6e180fe81e7b"],
+      "encoding": "relational"
+    },
+    {
+      "id": "mas-b360506/runs/post-api-commercial-items-fees",
+      "kind": "execution_binding",
+      "implementation": "mas-b360506/impl/post-api-commercial-items-fees",
+      "component": "u3/component/mas",
+      "basis": "source_declared",
+      "artifactBinding": null,
+      "gaps": [],
+      "evidence": ["mas-b360506/e/9be7e386e428168c"]
+    },
+    {
+      "id": "mas-b360506/shape/1f042c2f9435a9f7",
+      "kind": "shape",
+      "label": "core Fee source DTO",
+      "representation": "source",
+      "fields": [
+        {
+          "name": "Code",
+          "type": "FeeCode",
+          "status": "declared",
+          "evidence": ["mas-b360506/e/80eccbc6232b217f"]
+        },
+        {
+          "name": "Name",
+          "type": "string",
+          "status": "declared",
+          "evidence": ["mas-b360506/e/d79bff19f244cfe6"]
+        }
+      ],
+      "container": "object",
+      "completeness": "partial",
+      "gaps": ["mas-b360506/gap/parent-1f042c2f94"],
+      "evidence": ["mas-b360506/e/3cf2609e40df515a"]
+    },
+    {
+      "id": "mas-b360506/shape/739fb86401290b23",
+      "kind": "shape",
+      "label": "response Response.Fee? source DTO",
+      "representation": "source",
+      "fields": [
+        {
+          "name": "InternalId",
+          "type": "Guid",
+          "status": "declared",
+          "evidence": ["mas-b360506/e/6b5c72d068637d1d"],
+          "optional": false
+        },
+        {
+          "name": "Id",
+          "type": "string?",
+          "status": "declared",
+          "evidence": ["mas-b360506/e/c0bcbacb3fe8ae92"],
+          "nullable": true
+        },
+        {
+          "name": "Code",
+          "type": "string",
+          "status": "declared",
+          "evidence": ["mas-b360506/e/49913228f1f81474"],
+          "optional": false
+        },
+        {
+          "name": "Name",
+          "type": "string",
+          "status": "declared",
+          "evidence": ["mas-b360506/e/db5cb940d157e70e"],
+          "optional": false
+        },
+        {
+          "name": "SkuCategory",
+          "type": "string",
+          "status": "declared",
+          "evidence": ["mas-b360506/e/872b159715a0788a"]
+        },
+        {
+          "name": "SkuIdentifier",
+          "type": "string",
+          "status": "declared",
+          "evidence": ["mas-b360506/e/2f41b29b68bdef33"]
+        }
+      ],
+      "container": "object",
+      "completeness": "closed",
+      "gaps": [],
+      "evidence": ["mas-b360506/e/b7b95d24b6f60c70"]
+    },
+    {
+      "id": "mas-b360506/shape/9099a67b507769a9",
+      "kind": "shape",
+      "label": "request FeeInput source DTO",
+      "representation": "source",
+      "fields": [
+        {
+          "name": "Name",
+          "type": "string",
+          "status": "declared",
+          "evidence": ["mas-b360506/e/885609eafdbfff2a", "mas-b360506/e/da8c4c588e5765d6"],
+          "optional": false,
+          "maxLength": 50
+        },
+        {
+          "name": "Code",
+          "type": "string",
+          "status": "declared",
+          "evidence": [
+            "mas-b360506/e/8836fae57a1d7ca8",
+            "mas-b360506/e/da8c4c588e5765d6",
+            "mas-b360506/e/0e7f19fbb6da0c7e"
+          ],
+          "optional": false,
+          "maxLength": 50,
+          "pattern": "^[A-Za-z0-9_-]+$"
+        },
+        {
+          "name": "SkuCategory",
+          "type": "string",
+          "status": "declared",
+          "evidence": [
+            "mas-b360506/e/68683f18f227a835",
+            "mas-b360506/e/f4ce20e7d22c6fcd",
+            "mas-b360506/e/c1f20c744969ba1e"
+          ],
+          "optional": false,
+          "maxLength": 50,
+          "pattern": "^[A-Za-z0-9_]+$"
+        },
+        {
+          "name": "SkuIdentifier",
+          "type": "string",
+          "status": "declared",
+          "evidence": [
+            "mas-b360506/e/94c71a8c5393f2b2",
+            "mas-b360506/e/f6bb616a8fba2531",
+            "mas-b360506/e/c1f20c744969ba1e"
+          ],
+          "optional": false,
+          "maxLength": 50,
+          "pattern": "^[A-Za-z0-9_]+$"
+        }
+      ],
+      "container": "object",
+      "completeness": "closed",
+      "gaps": [],
+      "evidence": ["mas-b360506/e/82b71e570299cfb3"]
+    },
+    {
+      "id": "mas-b360506/shape/91ecc84efed05864",
+      "kind": "shape",
+      "label": "response Response.SuccessResponse<Response.Fee> source DTO",
+      "representation": "source",
+      "fields": [
+        {
+          "name": "Status",
+          "type": "int",
+          "status": "declared",
+          "evidence": ["mas-b360506/e/ca13f50274a9aa68"]
+        },
+        {
+          "name": "OperationId",
+          "type": "string?",
+          "status": "declared",
+          "evidence": ["mas-b360506/e/1acab0cb99497df7"],
+          "nullable": true
+        },
+        {
+          "name": "Data",
+          "type": "T?",
+          "status": "declared",
+          "evidence": ["mas-b360506/e/fa2e5ec075b05ef5"],
+          "nullable": true,
+          "shape": "mas-b360506/shape/739fb86401290b23"
+        }
+      ],
+      "container": "object",
+      "completeness": "closed",
+      "gaps": [],
+      "evidence": ["mas-b360506/e/b111ec1459333eaf"]
+    },
+    {
+      "id": "mas-b360506/shape/96c1d8c2944b7f3b",
+      "kind": "shape",
+      "label": "request Request.FeeInput source DTO",
+      "representation": "source",
+      "fields": [
+        {
+          "name": "Name",
+          "type": "string",
+          "status": "declared",
+          "evidence": ["mas-b360506/e/885609eafdbfff2a", "mas-b360506/e/da8c4c588e5765d6"],
+          "optional": false,
+          "maxLength": 50
+        },
+        {
+          "name": "Code",
+          "type": "string",
+          "status": "declared",
+          "evidence": [
+            "mas-b360506/e/8836fae57a1d7ca8",
+            "mas-b360506/e/da8c4c588e5765d6",
+            "mas-b360506/e/0e7f19fbb6da0c7e"
+          ],
+          "optional": false,
+          "maxLength": 50,
+          "pattern": "^[A-Za-z0-9_-]+$"
+        },
+        {
+          "name": "SkuCategory",
+          "type": "string",
+          "status": "declared",
+          "evidence": [
+            "mas-b360506/e/68683f18f227a835",
+            "mas-b360506/e/f4ce20e7d22c6fcd",
+            "mas-b360506/e/c1f20c744969ba1e"
+          ],
+          "optional": false,
+          "maxLength": 50,
+          "pattern": "^[A-Za-z0-9_]+$"
+        },
+        {
+          "name": "SkuIdentifier",
+          "type": "string",
+          "status": "declared",
+          "evidence": [
+            "mas-b360506/e/94c71a8c5393f2b2",
+            "mas-b360506/e/f6bb616a8fba2531",
+            "mas-b360506/e/c1f20c744969ba1e"
+          ],
+          "optional": false,
+          "maxLength": 50,
+          "pattern": "^[A-Za-z0-9_]+$"
+        }
+      ],
+      "container": "object",
+      "completeness": "closed",
+      "gaps": [],
+      "evidence": ["mas-b360506/e/82b71e570299cfb3"]
+    },
+    {
+      "id": "mas-b360506/shape/proto/Fee",
+      "kind": "shape",
+      "label": "volvocars.contracts.pop.manage.Fee",
+      "representation": "wire",
+      "container": "object",
+      "fields": [
+        {
+          "name": "code",
+          "type": "string",
+          "status": "declared",
+          "wireTag": 1,
+          "evidence": ["mas-b360506/e/0d58494b6d6c6d91"]
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "status": "declared",
+          "wireTag": 2,
+          "evidence": ["mas-b360506/e/cfd49b13a38d2e52"]
+        },
+        {
+          "name": "id",
+          "type": "string",
+          "status": "declared",
+          "wireTag": 3,
+          "evidence": ["mas-b360506/e/43ea163ed1d25cda"]
+        },
+        {
+          "name": "SkuIdentifier",
+          "type": "string",
+          "status": "declared",
+          "wireTag": 5,
+          "evidence": ["mas-b360506/e/aaad4f891deaa885"]
+        },
+        {
+          "name": "SkuCategory",
+          "type": "string",
+          "status": "declared",
+          "wireTag": 6,
+          "evidence": ["mas-b360506/e/432ae7012e3005ac"]
+        }
+      ],
+      "completeness": "closed",
+      "gaps": [],
+      "evidence": ["mas-b360506/e/4dbeec794e910d89"],
+      "encoding": "protobuf",
+      "wireType": "volvocars.contracts.pop.manage.Fee",
+      "reservedTags": [4],
+      "reservedNames": ["attributeData"]
+    },
+    {
+      "id": "mas-b360506/shape/proto/FeeCreated",
+      "kind": "shape",
+      "label": "volvocars.contracts.pop.manage.FeeCreated",
+      "representation": "wire",
+      "container": "object",
+      "fields": [
+        {
+          "name": "fee",
+          "type": "Fee",
+          "status": "declared",
+          "wireTag": 1,
+          "evidence": ["mas-b360506/e/e0f659450d158568"],
+          "shape": "mas-b360506/shape/proto/Fee"
+        }
+      ],
+      "completeness": "closed",
+      "gaps": [],
+      "evidence": ["mas-b360506/e/e0f659450d158568"],
+      "encoding": "protobuf",
+      "wireType": "volvocars.contracts.pop.manage.FeeCreated",
+      "reservedTags": [],
+      "reservedNames": []
+    },
+    {
+      "id": "mas-b360506/table/Fee",
+      "kind": "resource",
+      "label": "Fee PostgreSQL table",
+      "technology": "PostgreSQL / EF Core",
+      "declaredDatabase": null,
+      "physicalLocation": null,
+      "shapes": ["mas-b360506/persisted/Fee", "mas-b360506/fee/persisted"],
+      "gaps": ["mas-b360506/gap/physical", "mas-b360506/gap/delegates"],
+      "evidence": ["mas-b360506/e/eba9e8a69e271883", "mas-b360506/e/7fcc6e180fe81e7b"],
+      "address": {
+        "basis": "source_declared",
+        "connectionSetting": "PostgreSQLConnection",
+        "database": null,
+        "table": "Fee",
+        "container": null,
+        "path": null,
+        "key": null
+      }
+    },
+    {
+      "id": "s2/c",
+      "kind": "source_revision",
+      "repo": "volvo-cars/popcat-assortment-api",
+      "commit": "6114c5db0f2b4b490cf89b9c512088f01dbf0b98"
+    },
+    {
+      "id": "s2/e/base-config",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Api/appsettings.json",
+      "lines": [1, 81],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "s2/e/consumer-base-config",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-assortment-api",
+      "commit": "6114c5db0f2b4b490cf89b9c512088f01dbf0b98",
+      "path": "src/PopCat.Assortment.CacheWorker.Host/appsettings.json",
+      "lines": [1, 66],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "s2/e/consumer-prod-config",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-assortment-api",
+      "commit": "6114c5db0f2b4b490cf89b9c512088f01dbf0b98",
+      "path": "src/PopCat.Assortment.CacheWorker.Host/appsettings.Production.json",
+      "lines": [1, 5],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "s2/e/consumer-proto",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-assortment-api",
+      "commit": "6114c5db0f2b4b490cf89b9c512088f01dbf0b98",
+      "path": "src/PopCat.Assortment.CacheWorker.Host/Protos/manage/soft_offer.proto",
+      "lines": [1, 22],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "s2/e/controller",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Api/Controllers/V1/SoftOffersController.cs",
+      "lines": [17, 90],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "s2/e/db",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Infrastructure/DatabaseContext.cs",
+      "lines": [72, 143],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "s2/e/headers",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.MessageBroker/Models/NotificationHeaders.cs",
+      "lines": [1, 16],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "s2/e/input",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Api/Models/V1/Request/SoftOfferInput.cs",
+      "lines": [1, 53],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "s2/e/middleware",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Api/Middleware/ExceptionMiddleware.cs",
+      "lines": [1, 85],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "s2/e/npgsql",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Infrastructure/Extensions/ApplicationBuilderExtensions.cs",
+      "lines": [15, 29],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "s2/e/packages",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "Directory.Packages.props",
+      "lines": [1, 84],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "s2/e/prod-config",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Api/appsettings.Prod.json",
+      "lines": [1, 19],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "s2/e/producer",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.MessageBroker/Producers/KafkaProducer.cs",
+      "lines": [40, 68],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "s2/e/producer-config",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.MessageBroker/Extensions/ApplicationBuilderExtensions.cs",
+      "lines": [15, 50],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "s2/e/producer-proto",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.MessageBroker/Protos/soft_offer.proto",
+      "lines": [1, 22],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "s2/e/serializer",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.MessageBroker/Common/ProtoBufSerializer.cs",
+      "lines": [1, 21],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "s2/gap/deployment",
+      "kind": "gap",
+      "owner": "s2/http",
+      "obligation": "deployment",
+      "reason": "Committed production profiles do not establish effective deployed configuration, credentials, topology or enabled flags.",
+      "action": "Resolve deployed profiles and non-secret resource identities.",
+      "evidence": [
+        "s2/e/base-config",
+        "s2/e/prod-config",
+        "s2/e/consumer-base-config",
+        "s2/e/consumer-prod-config"
+      ]
+    },
+    {
+      "id": "s2/gap/sdk-policy",
+      "kind": "gap",
+      "owner": "s2/publish",
+      "obligation": "sdk-policy",
+      "reason": "Kafka SDK implementation and effective retry, acknowledgement and idempotence settings have not been bound.",
+      "action": "Bind exact dependency artefacts and effective settings; do not infer defaults.",
+      "evidence": ["s2/e/packages", "s2/e/producer-config"]
+    },
+    {
+      "id": "s2/http",
+      "kind": "implementation",
+      "logicalId": "impl:soft-offer-http",
+      "scope": "s2/p",
+      "entry": "s2/http.start",
+      "parameters": ["s2/v/request"],
+      "evidence": ["s2/e/controller", "s2/e/middleware"]
+    },
+    {
+      "id": "s2/http.start",
+      "kind": "operation",
+      "owner": "s2/http",
+      "action": "entry",
+      "label": "Authenticated, bound soft-offer input",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": null,
+      "httpStatus": null,
+      "evidence": ["s2/e/controller", "s2/e/input"]
+    },
+    {
+      "id": "s2/p",
+      "kind": "source_revision",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110"
+    },
+    {
+      "id": "s2/publish",
+      "kind": "implementation",
+      "logicalId": "impl:soft-offer-publish",
+      "scope": "s2/p",
+      "entry": "s2/publish.serialise",
+      "parameters": ["s2/v/message", "s2/v/wire-name"],
+      "evidence": ["s2/e/producer", "s2/e/serializer"]
+    },
+    {
+      "id": "s2/publish.serialise",
+      "kind": "operation",
+      "owner": "s2/publish",
+      "action": "branch",
+      "label": "Serialize raw protobuf bytes via IMessage.WriteTo",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": null,
+      "httpStatus": null,
+      "evidence": ["s2/e/serializer", "s2/e/producer"]
+    },
+    {
+      "id": "s2/shape/c-body",
+      "kind": "shape",
+      "representation": "wire",
+      "label": "SoftOffer protobuf",
+      "fields": [
+        {
+          "name": "id",
+          "type": "string",
+          "wireTag": 1,
+          "status": "declared"
+        },
+        {
+          "name": "type",
+          "type": "string",
+          "wireTag": 2,
+          "status": "declared"
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "wireTag": 3,
+          "status": "declared"
+        },
+        {
+          "name": "code",
+          "type": "string",
+          "wireTag": 4,
+          "status": "declared"
+        },
+        {
+          "name": "SkuIdentifier",
+          "type": "string",
+          "wireTag": 6,
+          "status": "declared"
+        },
+        {
+          "name": "SkuCategory",
+          "type": "string",
+          "wireTag": 7,
+          "status": "declared"
+        }
+      ],
+      "completeness": "closed",
+      "gaps": [],
+      "evidence": ["s2/e/consumer-proto"],
+      "encoding": "protobuf",
+      "wireType": "volvocars.contracts.pop.manage.SoftOffer",
+      "reservedTags": [5],
+      "reservedNames": ["attributeData"]
+    },
+    {
+      "id": "s2/shape/c-wire",
+      "kind": "shape",
+      "representation": "wire",
+      "label": "SoftOfferCreated protobuf",
+      "fields": [
+        {
+          "name": "soft_offer",
+          "type": "message",
+          "wireTag": 1,
+          "status": "declared",
+          "shape": "s2/shape/c-body"
+        }
+      ],
+      "completeness": "closed",
+      "gaps": [],
+      "evidence": ["s2/e/consumer-proto"],
+      "encoding": "protobuf",
+      "wireType": "volvocars.contracts.pop.manage.SoftOfferCreated"
+    },
+    {
+      "id": "s2/shape/input",
+      "kind": "shape",
+      "representation": "constructed",
+      "label": "SoftOfferInput",
+      "fields": [
+        {
+          "name": "Code",
+          "type": "string",
+          "status": "declared"
+        },
+        {
+          "name": "Type",
+          "type": "string",
+          "status": "declared"
+        },
+        {
+          "name": "Name",
+          "type": "string",
+          "status": "declared"
+        },
+        {
+          "name": "SkuCategory",
+          "type": "string",
+          "status": "declared"
+        },
+        {
+          "name": "SkuIdentifier",
+          "type": "string",
+          "status": "declared"
+        }
+      ],
+      "completeness": "closed",
+      "gaps": [],
+      "evidence": ["s2/e/input"],
+      "encoding": "json"
+    },
+    {
+      "id": "s2/shape/p-body",
+      "kind": "shape",
+      "representation": "wire",
+      "label": "SoftOffer protobuf",
+      "fields": [
+        {
+          "name": "id",
+          "type": "string",
+          "wireTag": 1,
+          "status": "declared"
+        },
+        {
+          "name": "type",
+          "type": "string",
+          "wireTag": 2,
+          "status": "declared"
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "wireTag": 3,
+          "status": "declared"
+        },
+        {
+          "name": "code",
+          "type": "string",
+          "wireTag": 4,
+          "status": "declared"
+        },
+        {
+          "name": "SkuIdentifier",
+          "type": "string",
+          "wireTag": 6,
+          "status": "declared"
+        },
+        {
+          "name": "SkuCategory",
+          "type": "string",
+          "wireTag": 7,
+          "status": "declared"
+        }
+      ],
+      "completeness": "closed",
+      "gaps": [],
+      "evidence": ["s2/e/producer-proto"],
+      "encoding": "protobuf",
+      "wireType": "volvocars.contracts.pop.manage.SoftOffer",
+      "reservedTags": [5],
+      "reservedNames": ["attributeData"]
+    },
+    {
+      "id": "s2/shape/p-wire",
+      "kind": "shape",
+      "representation": "wire",
+      "label": "SoftOfferCreated protobuf",
+      "fields": [
+        {
+          "name": "soft_offer",
+          "type": "message",
+          "wireTag": 1,
+          "status": "declared",
+          "shape": "s2/shape/p-body"
+        }
+      ],
+      "completeness": "closed",
+      "gaps": [],
+      "evidence": ["s2/e/producer-proto"],
+      "encoding": "protobuf",
+      "wireType": "volvocars.contracts.pop.manage.SoftOfferCreated"
+    },
+    {
+      "id": "s2/topic",
+      "kind": "resource",
+      "label": "Commercial item notification topic",
+      "technology": "Kafka",
+      "declaredDatabase": null,
+      "physicalLocation": null,
+      "shapes": ["s2/shape/p-wire", "s2/shape/c-wire"],
+      "gaps": ["s2/gap/deployment"],
+      "evidence": ["s2/e/prod-config", "s2/e/consumer-base-config"]
+    },
+    {
+      "id": "s2/v/message",
+      "kind": "value",
+      "owner": "s2/publish",
+      "definition": "s2/publish.serialise",
+      "label": "Formal protobuf message",
+      "role": "parameter",
+      "representation": "wire",
+      "shape": "s2/shape/p-wire",
+      "evidence": ["s2/e/producer", "s2/e/serializer"],
+      "accessPath": []
+    },
+    {
+      "id": "s2/v/request",
+      "kind": "value",
+      "owner": "s2/http",
+      "definition": "s2/http.start",
+      "label": "SoftOfferInput request body",
+      "role": "parameter",
+      "representation": "constructed",
+      "shape": "s2/shape/input",
+      "evidence": ["s2/e/input", "s2/e/controller"],
+      "accessPath": []
+    },
+    {
+      "id": "s2/v/wire-name",
+      "kind": "value",
+      "owner": "s2/publish",
+      "definition": "s2/publish.serialise",
+      "label": "Name in outgoing protobuf",
+      "role": "parameter",
+      "representation": "wire",
+      "shape": null,
+      "evidence": ["s2/e/serializer", "s2/e/producer-proto"],
+      "accessPath": ["soft_offer", "name"]
+    },
+    {
+      "id": "u3/component/commercial-topic",
+      "kind": "runtime_component",
+      "logicalId": "st:mas-commercialitem-events",
+      "label": "Commercial item events",
+      "category": "topic",
+      "technology": "Kafka",
+      "sources": ["s2/p", "s2/c"],
+      "basis": "source_declared",
+      "evidence": ["s2/e/prod-config", "s2/e/consumer-base-config"],
+      "gaps": ["s2/gap/deployment"]
+    },
+    {
+      "id": "u3/component/mas",
+      "kind": "runtime_component",
+      "logicalId": "svc:manage-and-segment-api",
+      "label": "Manage and Segment API",
+      "category": "service",
+      "technology": ".NET / ASP.NET Core",
+      "sources": ["s2/p"],
+      "basis": "source_declared",
+      "evidence": ["u3/e/mas-program", "s2/e/controller"],
+      "gaps": []
+    },
+    {
+      "id": "u3/component/postgres",
+      "kind": "runtime_component",
+      "logicalId": "st:mas-db",
+      "label": "Soft-offer database",
+      "category": "store",
+      "technology": "PostgreSQL",
+      "sources": ["s2/p"],
+      "basis": "source_declared",
+      "evidence": ["s2/e/npgsql", "s2/e/db"],
+      "gaps": ["s2/gap/deployment"]
+    },
+    {
+      "id": "u3/e/mas-program",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Api/Program.cs",
+      "lines": [1, 24],
+      "basis": "source"
+    },
+    {
+      "id": "u3/shape/message-headers",
+      "kind": "shape",
+      "label": "Notification headers",
+      "representation": "wire",
+      "fields": [
+        {
+          "name": "x-type",
+          "type": "UTF-8 string",
+          "status": "declared",
+          "evidence": ["s2/e/headers"]
+        },
+        {
+          "name": "id",
+          "type": "UTF-8 correlation string; may be empty",
+          "status": "declared",
+          "evidence": ["s2/e/headers"]
+        }
+      ],
+      "completeness": "partial",
+      "container": "object",
+      "gaps": ["s2/gap/sdk-policy"],
+      "evidence": ["s2/e/headers", "s2/e/producer"]
+    }
+  ],
+  "traversalComplete": true,
+  "findings": [
+    {
+      "statement": "The entry interface is separate from its internal implementation.",
+      "support": ["mas-b360506/exposes/post-api-commercial-items-fees"],
+      "assumptions": []
+    },
+    {
+      "statement": "Components and conditional interactions in this entry trace. Library execution stays inside the host. Drill into an interaction contract or bound implementation for detail.",
+      "support": ["mas-b360506/runs/post-api-commercial-items-fees"],
+      "assumptions": ["Source declarations do not establish deployed topology or path feasibility"]
+    }
+  ],
+  "sourceLinks": [
+    {
+      "evidence": "s2/e/controller",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Api/Controllers/V1/SoftOffersController.cs#L17-L90",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Api/Controllers/V1/SoftOffersController.cs:17–90"
+    },
+    {
+      "evidence": "u3/e/mas-program",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Api/Program.cs#L1-L24",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Api/Program.cs:1–24"
+    },
+    {
+      "evidence": "mas-b360506/e/9be7e386e428168c",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Api/Controllers/V1/FeesController.cs#L73-L84",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Api/Controllers/V1/FeesController.cs:73–84"
+    },
+    {
+      "evidence": "mas-b360506/e/34fab5c27425e69e",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.MessageBroker/Producers/KafkaProducer.cs#L1-L69",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.MessageBroker/Producers/KafkaProducer.cs:1–69"
+    },
+    {
+      "evidence": "mas-b360506/e/1b1c399d1cbd235a",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Core/Services/CommercialItemService.cs#L1-L114",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Core/Services/CommercialItemService.cs:1–114"
+    },
+    {
+      "evidence": "mas-b360506/e/54d88726688c247f",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Api/Mapping/MappingProfile.cs#L170-L187",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Api/Mapping/MappingProfile.cs:170–187"
+    },
+    {
+      "evidence": "mas-b360506/e/c1f20c744969ba1e",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Core/Common/ValidationConstants.cs#L24-L24",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Core/Common/ValidationConstants.cs:24–24"
+    },
+    {
+      "evidence": "mas-b360506/e/f6bb616a8fba2531",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Core/Common/ValidationConstants.cs#L36-L36",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Core/Common/ValidationConstants.cs:36–36"
+    },
+    {
+      "evidence": "mas-b360506/e/94c71a8c5393f2b2",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Api/Models/V1/Request/FeeInput.cs#L33-L39",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Api/Models/V1/Request/FeeInput.cs:33–39"
+    },
+    {
+      "evidence": "mas-b360506/e/f4ce20e7d22c6fcd",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Core/Common/ValidationConstants.cs#L35-L35",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Core/Common/ValidationConstants.cs:35–35"
+    },
+    {
+      "evidence": "mas-b360506/e/68683f18f227a835",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Api/Models/V1/Request/FeeInput.cs#L29-L33",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Api/Models/V1/Request/FeeInput.cs:29–33"
+    },
+    {
+      "evidence": "mas-b360506/e/0e7f19fbb6da0c7e",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Core/Common/ValidationConstants.cs#L23-L23",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Core/Common/ValidationConstants.cs:23–23"
+    },
+    {
+      "evidence": "mas-b360506/e/da8c4c588e5765d6",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Core/Common/ValidationConstants.cs#L89-L89",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Core/Common/ValidationConstants.cs:89–89"
+    },
+    {
+      "evidence": "mas-b360506/e/8836fae57a1d7ca8",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Api/Models/V1/Request/FeeInput.cs#L22-L25",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Api/Models/V1/Request/FeeInput.cs:22–25"
+    },
+    {
+      "evidence": "mas-b360506/e/885609eafdbfff2a",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Api/Models/V1/Request/FeeInput.cs#L8-L17",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Api/Models/V1/Request/FeeInput.cs:8–17"
+    },
+    {
+      "evidence": "mas-b360506/e/82b71e570299cfb3",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Api/Models/V1/Request/FeeInput.cs#L1-L49",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Api/Models/V1/Request/FeeInput.cs:1–49"
+    },
+    {
+      "evidence": "s2/e/input",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Api/Models/V1/Request/SoftOfferInput.cs#L1-L53",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Api/Models/V1/Request/SoftOfferInput.cs:1–53"
+    },
+    {
+      "evidence": "s2/e/middleware",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Api/Middleware/ExceptionMiddleware.cs#L1-L85",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Api/Middleware/ExceptionMiddleware.cs:1–85"
+    },
+    {
+      "evidence": "mas-b360506/e/095f6b7fcffabd78",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Api/Startup.cs#L1-L60",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Api/Startup.cs:1–60"
+    },
+    {
+      "evidence": "mas-b360506/e/fa2e5ec075b05ef5",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Api/Models/V1/Response/SuccessResponse.cs#L32-L33",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Api/Models/V1/Response/SuccessResponse.cs:32–33"
+    },
+    {
+      "evidence": "mas-b360506/e/2f41b29b68bdef33",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Api/Models/V1/Response/Fee.cs#L26-L26",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Api/Models/V1/Response/Fee.cs:26–26"
+    },
+    {
+      "evidence": "mas-b360506/e/872b159715a0788a",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Api/Models/V1/Response/Fee.cs#L25-L25",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Api/Models/V1/Response/Fee.cs:25–25"
+    },
+    {
+      "evidence": "mas-b360506/e/db5cb940d157e70e",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Api/Models/V1/Response/Fee.cs#L18-L21",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Api/Models/V1/Response/Fee.cs:18–21"
+    },
+    {
+      "evidence": "mas-b360506/e/49913228f1f81474",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Api/Models/V1/Response/Fee.cs#L15-L18",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Api/Models/V1/Response/Fee.cs:15–18"
+    },
+    {
+      "evidence": "mas-b360506/e/c0bcbacb3fe8ae92",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Api/Models/V1/Response/Fee.cs#L15-L15",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Api/Models/V1/Response/Fee.cs:15–15"
+    },
+    {
+      "evidence": "mas-b360506/e/6b5c72d068637d1d",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Api/Models/V1/Response/Fee.cs#L5-L13",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Api/Models/V1/Response/Fee.cs:5–13"
+    },
+    {
+      "evidence": "mas-b360506/e/b7b95d24b6f60c70",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Api/Models/V1/Response/Fee.cs#L1-L39",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Api/Models/V1/Response/Fee.cs:1–39"
+    },
+    {
+      "evidence": "mas-b360506/e/1acab0cb99497df7",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Api/Models/V1/Response/SuccessResponse.cs#L29-L29",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Api/Models/V1/Response/SuccessResponse.cs:29–29"
+    },
+    {
+      "evidence": "mas-b360506/e/ca13f50274a9aa68",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Api/Models/V1/Response/SuccessResponse.cs#L12-L23",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Api/Models/V1/Response/SuccessResponse.cs:12–23"
+    },
+    {
+      "evidence": "mas-b360506/e/b111ec1459333eaf",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Api/Models/V1/Response/SuccessResponse.cs#L1-L35",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Api/Models/V1/Response/SuccessResponse.cs:1–35"
+    },
+    {
+      "evidence": "s2/e/headers",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.MessageBroker/Models/NotificationHeaders.cs#L1-L16",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.MessageBroker/Models/NotificationHeaders.cs:1–16"
+    },
+    {
+      "evidence": "mas-b360506/e/98fa5b0461d6b12a",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Infrastructure/Repositories/CommercialItemRepository.cs#L1-L102",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Infrastructure/Repositories/CommercialItemRepository.cs:1–102"
+    },
+    {
+      "evidence": "mas-b360506/e/d61351349d210e5f",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Infrastructure/UnitOfWork.cs#L1-L153",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Infrastructure/UnitOfWork.cs:1–153"
+    },
+    {
+      "evidence": "mas-b360506/e/38b80c1aed170f4d",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.MessageBroker/Services/NotificationService.cs#L48-L53",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.MessageBroker/Services/NotificationService.cs:48–53"
+    },
+    {
+      "evidence": "mas-b360506/e/0103ca62f8f18cc7",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Api/Authorization/PopAuthzAuthorizationHandler.cs#L1-L147",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Api/Authorization/PopAuthzAuthorizationHandler.cs:1–147"
+    },
+    {
+      "evidence": "mas-b360506/e/e0f659450d158568",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.MessageBroker/Protos/fee.proto#L17-L17",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.MessageBroker/Protos/fee.proto:17–17"
+    },
+    {
+      "evidence": "mas-b360506/e/432ae7012e3005ac",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.MessageBroker/Protos/fee.proto#L14-L14",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.MessageBroker/Protos/fee.proto:14–14"
+    },
+    {
+      "evidence": "mas-b360506/e/aaad4f891deaa885",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.MessageBroker/Protos/fee.proto#L13-L13",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.MessageBroker/Protos/fee.proto:13–13"
+    },
+    {
+      "evidence": "mas-b360506/e/43ea163ed1d25cda",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.MessageBroker/Protos/fee.proto#L12-L12",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.MessageBroker/Protos/fee.proto:12–12"
+    },
+    {
+      "evidence": "mas-b360506/e/cfd49b13a38d2e52",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.MessageBroker/Protos/fee.proto#L11-L11",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.MessageBroker/Protos/fee.proto:11–11"
+    },
+    {
+      "evidence": "mas-b360506/e/0d58494b6d6c6d91",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.MessageBroker/Protos/fee.proto#L10-L10",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.MessageBroker/Protos/fee.proto:10–10"
+    },
+    {
+      "evidence": "mas-b360506/e/4dbeec794e910d89",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.MessageBroker/Protos/fee.proto#L6-L15",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.MessageBroker/Protos/fee.proto:6–15"
+    },
+    {
+      "evidence": "mas-b360506/e/f714e407a27b0627",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.MessageBroker/Services/NotificationService.cs#L29-L46",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.MessageBroker/Services/NotificationService.cs:29–46"
+    },
+    {
+      "evidence": "mas-b360506/e/242701ba0f3ca25b",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.MessageBroker/Builders/ProtoBufMessageBuilder.cs#L108-L129",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.MessageBroker/Builders/ProtoBufMessageBuilder.cs:108–129"
+    },
+    {
+      "evidence": "s2/e/consumer-prod-config",
+      "url": "https://github.com/volvo-cars/popcat-assortment-api/blob/6114c5db0f2b4b490cf89b9c512088f01dbf0b98/src/PopCat.Assortment.CacheWorker.Host/appsettings.Production.json#L1-L5",
+      "label": "volvo-cars/popcat-assortment-api/src/PopCat.Assortment.CacheWorker.Host/appsettings.Production.json:1–5"
+    },
+    {
+      "evidence": "s2/e/consumer-base-config",
+      "url": "https://github.com/volvo-cars/popcat-assortment-api/blob/6114c5db0f2b4b490cf89b9c512088f01dbf0b98/src/PopCat.Assortment.CacheWorker.Host/appsettings.json#L1-L66",
+      "label": "volvo-cars/popcat-assortment-api/src/PopCat.Assortment.CacheWorker.Host/appsettings.json:1–66"
+    },
+    {
+      "evidence": "s2/e/prod-config",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Api/appsettings.Prod.json#L1-L19",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Api/appsettings.Prod.json:1–19"
+    },
+    {
+      "evidence": "s2/e/base-config",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Api/appsettings.json#L1-L81",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Api/appsettings.json:1–81"
+    },
+    {
+      "evidence": "s2/e/consumer-proto",
+      "url": "https://github.com/volvo-cars/popcat-assortment-api/blob/6114c5db0f2b4b490cf89b9c512088f01dbf0b98/src/PopCat.Assortment.CacheWorker.Host/Protos/manage/soft_offer.proto#L1-L22",
+      "label": "volvo-cars/popcat-assortment-api/src/PopCat.Assortment.CacheWorker.Host/Protos/manage/soft_offer.proto:1–22"
+    },
+    {
+      "evidence": "s2/e/producer-proto",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.MessageBroker/Protos/soft_offer.proto#L1-L22",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.MessageBroker/Protos/soft_offer.proto:1–22"
+    },
+    {
+      "evidence": "mas-b360506/e/8201669e3fbebe8d",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Infrastructure/DatabaseContext.cs#L1-L650",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Infrastructure/DatabaseContext.cs:1–650"
+    },
+    {
+      "evidence": "s2/e/producer",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.MessageBroker/Producers/KafkaProducer.cs#L40-L68",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.MessageBroker/Producers/KafkaProducer.cs:40–68"
+    },
+    {
+      "evidence": "s2/e/serializer",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.MessageBroker/Common/ProtoBufSerializer.cs#L1-L21",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.MessageBroker/Common/ProtoBufSerializer.cs:1–21"
+    },
+    {
+      "evidence": "s2/e/producer-config",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.MessageBroker/Extensions/ApplicationBuilderExtensions.cs#L15-L50",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.MessageBroker/Extensions/ApplicationBuilderExtensions.cs:15–50"
+    },
+    {
+      "evidence": "s2/e/packages",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/Directory.Packages.props#L1-L84",
+      "label": "volvo-cars/popcat-manage-and-segment/Directory.Packages.props:1–84"
+    },
+    {
+      "evidence": "mas-b360506/e/3cf2609e40df515a",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Core/Models/CommercialItems/Fee.cs#L1-L22",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Core/Models/CommercialItems/Fee.cs:1–22"
+    },
+    {
+      "evidence": "mas-b360506/e/786517a302ada0ff",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Core/Models/CommercialItems/CommercialItemBase.cs#L1-L43",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Core/Models/CommercialItems/CommercialItemBase.cs:1–43"
+    },
+    {
+      "evidence": "mas-b360506/e/0de7c0038d1689d7",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Infrastructure/Migrations/DatabaseContextModelSnapshot.cs#L432-L435",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Infrastructure/Migrations/DatabaseContextModelSnapshot.cs:432–435"
+    },
+    {
+      "evidence": "mas-b360506/e/1fd515eaf998616e",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Infrastructure/Migrations/DatabaseContextModelSnapshot.cs#L427-L430",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Infrastructure/Migrations/DatabaseContextModelSnapshot.cs:427–430"
+    },
+    {
+      "evidence": "mas-b360506/e/c4c9e2dde58f3269",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Infrastructure/Migrations/DatabaseContextModelSnapshot.cs#L40-L43",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Infrastructure/Migrations/DatabaseContextModelSnapshot.cs:40–43"
+    },
+    {
+      "evidence": "mas-b360506/e/8c369b690ea4c049",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Infrastructure/Migrations/DatabaseContextModelSnapshot.cs#L35-L38",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Infrastructure/Migrations/DatabaseContextModelSnapshot.cs:35–38"
+    },
+    {
+      "evidence": "mas-b360506/e/67d300b663cd75f0",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Infrastructure/Migrations/DatabaseContextModelSnapshot.cs#L31-L33",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Infrastructure/Migrations/DatabaseContextModelSnapshot.cs:31–33"
+    },
+    {
+      "evidence": "mas-b360506/e/fc33d01bdb608daf",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Infrastructure/Migrations/DatabaseContextModelSnapshot.cs#L28-L29",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Infrastructure/Migrations/DatabaseContextModelSnapshot.cs:28–29"
+    },
+    {
+      "evidence": "mas-b360506/e/7fcc6e180fe81e7b",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Infrastructure/Migrations/DatabaseContextModelSnapshot.cs#L423-L443",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Infrastructure/Migrations/DatabaseContextModelSnapshot.cs:423–443"
+    },
+    {
+      "evidence": "mas-b360506/e/eba9e8a69e271883",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Infrastructure/DatabaseContext.cs#L208-L208",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Infrastructure/DatabaseContext.cs:208–208"
+    },
+    {
+      "evidence": "s2/e/db",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Infrastructure/DatabaseContext.cs#L72-L143",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Infrastructure/DatabaseContext.cs:72–143"
+    },
+    {
+      "evidence": "s2/e/npgsql",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Infrastructure/Extensions/ApplicationBuilderExtensions.cs#L15-L29",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Infrastructure/Extensions/ApplicationBuilderExtensions.cs:15–29"
+    },
+    {
+      "evidence": "mas-b360506/e/d79bff19f244cfe6",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Core/Models/CommercialItems/Fee.cs#L8-L8",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Core/Models/CommercialItems/Fee.cs:8–8"
+    },
+    {
+      "evidence": "mas-b360506/e/80eccbc6232b217f",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Core/Models/CommercialItems/Fee.cs#L7-L7",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Core/Models/CommercialItems/Fee.cs:7–7"
+    }
+  ],
+  "nextRequest": null
+}

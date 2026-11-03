@@ -1,0 +1,7 @@
+{
+  "status": "passed",
+  "snapshot": "b5306d23d996ef477ee3b61b90d68a7dbac9006fa258a2cd3a3e323a9d8f3dbb",
+  "sourceBundleByteSha256": "8ffc07e506bc081e21dc91886e0bdfa1bb2108d80c1f0b67e015c50455a1e9e5",
+  "gzipDecompression": "Exactly equal immutable selected bytes",
+  "verifiedAuthorFiles": 45
+}

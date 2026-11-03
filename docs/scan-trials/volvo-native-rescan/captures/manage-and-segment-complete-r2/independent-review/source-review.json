@@ -1,0 +1,192 @@
+{
+  "repo": "volvo-cars/popcat-manage-and-segment",
+  "pin": "b3605063154f542ec1615d363ab858b86c743110",
+  "files": [
+    {
+      "path": "src/PopCat.ManageAndSegment.Api/Controllers/V1/MarketsController.cs",
+      "sha256": "aa09963df1d8830703689253c2a72598a57f18cc8f987f147039b95b2c75ea73",
+      "lines": 135,
+      "workingCopyMatchesPin": true
+    },
+    {
+      "path": "src/PopCat.ManageAndSegment.Api/Controllers/V1/BrandController.cs",
+      "sha256": "7155dfb99074df301d5635bfa185c0a6d7e485173c3dd4459a2cf572fc1c6e1b",
+      "lines": 130,
+      "workingCopyMatchesPin": true
+    },
+    {
+      "path": "src/PopCat.ManageAndSegment.Api/Controllers/V1/FeesController.cs",
+      "sha256": "6e1bd4a853de25cd62a15d5559987a6842019e4ddbbcc528f8729cfc23e16f65",
+      "lines": 138,
+      "workingCopyMatchesPin": true
+    },
+    {
+      "path": "src/PopCat.ManageAndSegment.Api/Controllers/V1/SoftOffersController.cs",
+      "sha256": "c75507f7f121de1d4889396489e67cbf0218ace6866cddf17918d6ce0d66d88b",
+      "lines": 147,
+      "workingCopyMatchesPin": true
+    },
+    {
+      "path": "src/PopCat.ManageAndSegment.Api/Controllers/ManageAndSegmentControllerBase.cs",
+      "sha256": "418ee7a0cf8bddc6b4ca7c7e93d96c1818c9e9979eba8afd74af3310521e79eb",
+      "lines": 86,
+      "workingCopyMatchesPin": true
+    },
+    {
+      "path": "src/PopCat.ManageAndSegment.Api/Models/V1/Request/MarketInput.cs",
+      "sha256": "070fd02c058a2ae4587c9146bef68f18c828746ea5471e27cd61bd6cd22b7ac3",
+      "lines": 33,
+      "workingCopyMatchesPin": true
+    },
+    {
+      "path": "src/PopCat.ManageAndSegment.Api/Models/V1/Request/MarketInputBase.cs",
+      "sha256": "0014c9b5e42d78980c3a565b70ab7d9c10018e7eee86daf5f5c81ab457dbea71",
+      "lines": 28,
+      "workingCopyMatchesPin": true
+    },
+    {
+      "path": "src/PopCat.ManageAndSegment.Api/Models/V1/Response/Fee.cs",
+      "sha256": "700208ebda3eaed2644872b58031f375cdaae9fdfcdefbba6e48b578477c62c1",
+      "lines": 39,
+      "workingCopyMatchesPin": true
+    },
+    {
+      "path": "src/PopCat.ManageAndSegment.Api/Mapping/MappingProfile.cs",
+      "sha256": "1c5d9c2b65399e6e16e31ca76f8545be1d2a15b999c956b0ad2f4d0d4fd8329b",
+      "lines": 375,
+      "workingCopyMatchesPin": true
+    },
+    {
+      "path": "src/PopCat.ManageAndSegment.Api/Authorization/PopAuthzAuthorizationHandler.cs",
+      "sha256": "f280c52cf8960fae013ecab02927ca9058c72aea5b875049ae752d83408f2bc8",
+      "lines": 147,
+      "workingCopyMatchesPin": true
+    },
+    {
+      "path": "src/PopCat.ManageAndSegment.Api/Extensions/ApplicationBuilderExtensions.cs",
+      "sha256": "64f2ea09836d5e04d7617cf4835f53b133826a99244fa95b4e0c37ad77da033c",
+      "lines": 175,
+      "workingCopyMatchesPin": true
+    },
+    {
+      "path": "src/PopCat.ManageAndSegment.Api/appsettings.json",
+      "sha256": "1bde2f265c3a54054a94afab270bbe2228091496c870a57d572e9161f5b94d71",
+      "lines": 81,
+      "workingCopyMatchesPin": true
+    },
+    {
+      "path": "src/PopCat.ManageAndSegment.Api/appsettings.Prod.json",
+      "sha256": "a0f1dfe3befbd8b5c6f7c893a7c60caa01ddb76e86727e368b4e6e8f9b61f490",
+      "lines": 19,
+      "workingCopyMatchesPin": true
+    },
+    {
+      "path": "src/PopCat.ManageAndSegment.Core/Models/CommercialSegments/Market.cs",
+      "sha256": "6dcee44ad31dddcab045cdceefaacd07970dfb863c9ef65386b55430b7395d1a",
+      "lines": 21,
+      "workingCopyMatchesPin": true
+    },
+    {
+      "path": "src/PopCat.ManageAndSegment.Core/Services/MarketService.cs",
+      "sha256": "2569db7fe6769a7805db6e3e50ec098e9a2226a0d9c46ae0a166f3ea5812c642",
+      "lines": 27,
+      "workingCopyMatchesPin": true
+    },
+    {
+      "path": "src/PopCat.ManageAndSegment.Core/Services/BrandService.cs",
+      "sha256": "04fdf7fd3ce1ec483df7b26ce75b68361d570ec33691afd38d42c5b64f6d2a4f",
+      "lines": 26,
+      "workingCopyMatchesPin": true
+    },
+    {
+      "path": "src/PopCat.ManageAndSegment.Core/Services/SoftOfferService.cs",
+      "sha256": "f59e4938f0c28facfced9417283bc90e1aea368d59970ee5723fa87d9db3aa91",
+      "lines": 26,
+      "workingCopyMatchesPin": true
+    },
+    {
+      "path": "src/PopCat.ManageAndSegment.Core/Services/CrudService.cs",
+      "sha256": "3dd861bdffe88dc8471c9b0cdb61c0bc746e8bf9b73558b2cb5c9c8cdaf3a3bc",
+      "lines": 94,
+      "workingCopyMatchesPin": true
+    },
+    {
+      "path": "src/PopCat.ManageAndSegment.Core/Services/CommercialItemService.cs",
+      "sha256": "0764091a7f5df1fc32a9fe1422bb14e935f713d5353792d9141890f55c95c399",
+      "lines": 114,
+      "workingCopyMatchesPin": true
+    },
+    {
+      "path": "src/PopCat.ManageAndSegment.Infrastructure/Repositories/Repository.cs",
+      "sha256": "96e982f6e35276b66bfc3e5579a8b91f6cb51f71d2d0c55bc4a068b666d90c81",
+      "lines": 191,
+      "workingCopyMatchesPin": true
+    },
+    {
+      "path": "src/PopCat.ManageAndSegment.Infrastructure/Repositories/MarketRepository.cs",
+      "sha256": "2a5fcb99f793d3388924f3b52772883a45614ea0277a4fcc6a895a47e0b618bd",
+      "lines": 33,
+      "workingCopyMatchesPin": true
+    },
+    {
+      "path": "src/PopCat.ManageAndSegment.Infrastructure/Repositories/BrandRepository.cs",
+      "sha256": "7075715e2b294c878deb0ffdf2c23cf8af1b37fcd2e728498c26fdb0f03b6131",
+      "lines": 19,
+      "workingCopyMatchesPin": true
+    },
+    {
+      "path": "src/PopCat.ManageAndSegment.Infrastructure/Repositories/CommercialItemRepository.cs",
+      "sha256": "0c0c78e77d25a771b816e6cd9c2b75635bb539a4b4b987ffb8bd7c6fa6451e58",
+      "lines": 102,
+      "workingCopyMatchesPin": true
+    },
+    {
+      "path": "src/PopCat.ManageAndSegment.Infrastructure/UnitOfWork.cs",
+      "sha256": "c3f55077072252e2d622ff7a69d5e1e666b2c22c84063f6aa149a707e39f5be9",
+      "lines": 153,
+      "workingCopyMatchesPin": true
+    },
+    {
+      "path": "src/PopCat.ManageAndSegment.Infrastructure/Extensions/ApplicationBuilderExtensions.cs",
+      "sha256": "2b2ad915e96e15d32bec8a48b33cfd45c35e8480108539f600e0a2967a943f7f",
+      "lines": 47,
+      "workingCopyMatchesPin": true
+    },
+    {
+      "path": "src/PopCat.ManageAndSegment.Infrastructure/Integrations/PopAuthz/AuthorizationClient.cs",
+      "sha256": "d3bc80e68e11ed5cbe963b041c4054227a6f9d0d80df4ee347969bcf7d058ece",
+      "lines": 211,
+      "workingCopyMatchesPin": true
+    },
+    {
+      "path": "src/PopCat.ManageAndSegment.Infrastructure/Integrations/PopAuthz/AuthorizationService.cs",
+      "sha256": "da85f3e68cdbbd180b96c192b8c2a9410f69cf1de364ad2c46cecf4cbde19af4",
+      "lines": 147,
+      "workingCopyMatchesPin": true
+    },
+    {
+      "path": "src/PopCat.ManageAndSegment.Infrastructure/Integrations/AzureAD/AzureAdAuthenticationService.cs",
+      "sha256": "19ca0ebab667b5984a9a55e57de3f9e8a67e33fa025b980a2b0c662bf8ef7f27",
+      "lines": 112,
+      "workingCopyMatchesPin": true
+    },
+    {
+      "path": "src/PopCat.ManageAndSegment.MessageBroker/Services/NotificationService.cs",
+      "sha256": "51f15da4097cd0dd47ee2a2f4a84519c55112c72f00db1566bf3379e560c86f8",
+      "lines": 70,
+      "workingCopyMatchesPin": true
+    },
+    {
+      "path": "src/PopCat.ManageAndSegment.MessageBroker/Builders/ProtoBufMessageBuilder.cs",
+      "sha256": "0c391498020b61232276f48ecce2d801eef757606e32c3de05a92458ed8fcac2",
+      "lines": 408,
+      "workingCopyMatchesPin": true
+    },
+    {
+      "path": "src/PopCat.ManageAndSegment.MessageBroker/Producers/KafkaProducer.cs",
+      "sha256": "c487c534411d1af93612b73fec635d0f5daf2b7a78835be6a4068ee09e67a6aa",
+      "lines": 69,
+      "workingCopyMatchesPin": true
+    }
+  ]
+}

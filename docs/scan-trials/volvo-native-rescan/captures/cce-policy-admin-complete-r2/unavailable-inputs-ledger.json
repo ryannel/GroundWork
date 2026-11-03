@@ -1,0 +1,19 @@
+{
+  "gap": "volvo/cce-policy-admin/88a3512f0307/local-r2/gap/referenced-tool-inputs",
+  "paths": [
+    "scripts/generate-postgres-certs.sh",
+    "scripts/check-hydrate.sh",
+    "scripts/check-instantiations-constructor.sh",
+    "scripts/wait-for-postgres.sh",
+    "scripts/fix-swag.sh",
+    "internal/database/postgres/migrations",
+    ".secrets.example",
+    "api/swagger.yaml",
+    "cmd/offer-service/main.go",
+    "internal/messaging/contracts/volvocars/contracts/carconfiguration/*.proto",
+    "docker-entrypoint-initdb.d",
+    "postgres_certs/server.crt",
+    "postgres_certs/server.key"
+  ],
+  "trackedBlobsUnavailable": []
+}

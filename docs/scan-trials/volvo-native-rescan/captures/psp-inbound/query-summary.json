@@ -1,0 +1,205 @@
+{
+  "acceptance": "passed",
+  "snapshot": "8f5b505536f6140e260bbc4a079a419a80eb79573d760b1e252b0c8ad3a5a19d",
+  "queries": {
+    "callbackAssociations": {
+      "nodes": 0,
+      "edges": 0,
+      "records": 94,
+      "frontiers": [],
+      "sourceLinks": 35,
+      "traversalComplete": true,
+      "exhaustive": false
+    },
+    "webTrace": {
+      "nodes": 32,
+      "edges": 54,
+      "records": 132,
+      "frontiers": [
+        "unhandled_exception",
+        "opaque",
+        "opaque",
+        "opaque",
+        "opaque",
+        "opaque",
+        "opaque"
+      ],
+      "sourceLinks": 24,
+      "traversalComplete": true,
+      "exhaustive": false
+    },
+    "webInteractions": {
+      "nodes": 3,
+      "edges": 2,
+      "records": 89,
+      "frontiers": [
+        "unhandled_exception",
+        "opaque",
+        "opaque",
+        "opaque",
+        "opaque",
+        "opaque",
+        "opaque",
+        "binding_unresolved"
+      ],
+      "sourceLinks": 32,
+      "traversalComplete": true,
+      "exhaustive": false
+    },
+    "forbidden403": {
+      "nodes": 4,
+      "edges": 3,
+      "records": 48,
+      "frontiers": [],
+      "sourceLinks": 19,
+      "traversalComplete": true,
+      "exhaustive": false
+    },
+    "normal200": {
+      "nodes": 29,
+      "edges": 36,
+      "records": 110,
+      "frontiers": ["opaque", "opaque", "opaque", "opaque", "opaque"],
+      "sourceLinks": 23,
+      "traversalComplete": true,
+      "exhaustive": false
+    },
+    "effectiveAccount": {
+      "nodes": 3,
+      "edges": 2,
+      "records": 46,
+      "frontiers": [],
+      "sourceLinks": 19,
+      "traversalComplete": true,
+      "exhaustive": false
+    },
+    "publicationValue": {
+      "nodes": 18,
+      "edges": 23,
+      "records": 106,
+      "frontiers": [
+        "version_unresolved",
+        "version_unresolved",
+        "version_unresolved",
+        "version_unresolved",
+        "version_unresolved",
+        "version_unresolved",
+        "version_unresolved",
+        "version_unresolved",
+        "version_unresolved",
+        "version_unresolved",
+        "version_unresolved",
+        "version_unresolved",
+        "version_unresolved",
+        "version_unresolved",
+        "version_unresolved",
+        "version_unresolved",
+        "version_unresolved",
+        "version_unresolved",
+        "version_unresolved",
+        "version_unresolved",
+        "version_unresolved"
+      ],
+      "sourceLinks": 29,
+      "traversalComplete": true,
+      "exhaustive": false
+    },
+    "webEffects": {
+      "nodes": 32,
+      "edges": 54,
+      "records": 159,
+      "frontiers": [
+        "unhandled_exception",
+        "opaque",
+        "opaque",
+        "opaque",
+        "opaque",
+        "opaque",
+        "opaque"
+      ],
+      "sourceLinks": 35,
+      "traversalComplete": true,
+      "exhaustive": false
+    },
+    "webConsistency": {
+      "nodes": 32,
+      "edges": 54,
+      "records": 159,
+      "frontiers": [
+        "unhandled_exception",
+        "opaque",
+        "opaque",
+        "opaque",
+        "opaque",
+        "opaque",
+        "opaque"
+      ],
+      "sourceLinks": 35,
+      "traversalComplete": true,
+      "exhaustive": false
+    },
+    "heartbeatTrace": {
+      "nodes": 5,
+      "edges": 4,
+      "records": 49,
+      "frontiers": ["opaque", "unhandled_exception"],
+      "sourceLinks": 19,
+      "traversalComplete": true,
+      "exhaustive": false
+    },
+    "heartbeatInteractions": {
+      "nodes": 2,
+      "edges": 1,
+      "records": 55,
+      "frontiers": ["opaque", "unhandled_exception"],
+      "sourceLinks": 21,
+      "traversalComplete": true,
+      "exhaustive": false
+    },
+    "callbackTrace": {
+      "nodes": 5,
+      "edges": 5,
+      "records": 44,
+      "frontiers": [],
+      "sourceLinks": 15,
+      "traversalComplete": true,
+      "exhaustive": false
+    },
+    "swaggerTrace": {
+      "nodes": 5,
+      "edges": 4,
+      "records": 43,
+      "frontiers": ["unhandled_exception"],
+      "sourceLinks": 14,
+      "traversalComplete": true,
+      "exhaustive": false
+    },
+    "refreshBoundary": {
+      "nodes": 2,
+      "edges": 1,
+      "records": 41,
+      "frontiers": ["opaque"],
+      "sourceLinks": 18,
+      "traversalComplete": true,
+      "exhaustive": false
+    },
+    "contractSources": {
+      "nodes": 0,
+      "edges": 0,
+      "records": 90,
+      "frontiers": [],
+      "sourceLinks": 34,
+      "traversalComplete": true,
+      "exhaustive": false
+    },
+    "inventory": {
+      "nodes": 0,
+      "edges": 0,
+      "records": 52,
+      "frontiers": [],
+      "sourceLinks": 18,
+      "traversalComplete": true,
+      "exhaustive": false
+    }
+  }
+}

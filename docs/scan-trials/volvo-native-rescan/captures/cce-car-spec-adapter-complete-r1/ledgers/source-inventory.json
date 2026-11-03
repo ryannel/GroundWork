@@ -1,0 +1,2934 @@
+{
+  "repo": "volvo-cars/cce-car-spec-adapter",
+  "pin": "667a00a5f96fdb8b9aad35e0afe80dc792cbc1b5",
+  "files": [
+    {
+      "path": ".github/CODEOWNERS",
+      "bytes": 18,
+      "sha256": "5784230ad5ca193a6278357a0539717c6456ff06b81a0f0b9fe21b4bfd498eda",
+      "lines": 1,
+      "productionGo": false,
+      "generated": false
+    },
+    {
+      "path": ".github/PULL_REQUEST_TEMPLATE.md",
+      "bytes": 1186,
+      "sha256": "57c7d71c2964f98b180db3d458f13be19c18c2a0f99a0ae7e90ab89addd07964",
+      "lines": 21,
+      "productionGo": false,
+      "generated": false
+    },
+    {
+      "path": ".github/codeql-config.yaml",
+      "bytes": 236,
+      "sha256": "9d695247affea394368b22257f9a9ba829b4e289a671f6737a45ab6fff5da840",
+      "lines": 12,
+      "productionGo": false,
+      "generated": false
+    },
+    {
+      "path": ".github/copilot-instructions.md",
+      "bytes": 2933,
+      "sha256": "8cc73246ee667125849eeec979622fe696c2a96b886aabb0ed7b0d73ef3b6130",
+      "lines": 45,
+      "productionGo": false,
+      "generated": false
+    },
+    {
+      "path": ".github/dependabot.yaml",
+      "bytes": 1244,
+      "sha256": "48928f246d7f9be017dadad43d2f2a348258f0e67e8963e9b7a97205259791c9",
+      "lines": 60,
+      "productionGo": false,
+      "generated": false
+    },
+    {
+      "path": ".github/instructions/api.instructions.md",
+      "bytes": 812,
+      "sha256": "b12ad6945ce2d54fc2c8d5ec8c0bfc0ad603b922888ac5fc3abb4fdd70c8ee93",
+      "lines": 11,
+      "productionGo": false,
+      "generated": false
+    },
+    {
+      "path": ".github/instructions/architecture.instructions.md",
+      "bytes": 1153,
+      "sha256": "9661381f22b5e7b9f6c6bb7bb85ae545b0c40ff29dfad8b802549688e042ab3e",
+      "lines": 15,
+      "productionGo": false,
+      "generated": false
+    },
+    {
+      "path": ".github/instructions/database.instructions.md",
+      "bytes": 673,
+      "sha256": "fb20be738fbcd1bd83838608a1371f116f481c8a8e2d9b50793d17188d0308b5",
+      "lines": 9,
+      "productionGo": false,
+      "generated": false
+    },
+    {
+      "path": ".github/instructions/domain.instructions.md",
+      "bytes": 586,
+      "sha256": "968434e0603996e8c83213910d5012656ae995c8d352af70b43f6b6c1ee263fa",
+      "lines": 9,
+      "productionGo": false,
+      "generated": false
+    },
+    {
+      "path": ".github/instructions/team-conventions.instructions.md",
+      "bytes": 2316,
+      "sha256": "f7e2e8ff6e1c5bdd30d9440bcc8ca71e72bdd40d6dbe0d1cf5778eaf4c49de45",
+      "lines": 33,
+      "productionGo": false,
+      "generated": false
+    },
+    {
+      "path": ".github/instructions/tests.instructions.md",
+      "bytes": 982,
+      "sha256": "c164c3c5738b6257fda53f539829cf3a4bcc07bacb2614d5be225a8269b03269",
+      "lines": 12,
+      "productionGo": false,
+      "generated": false
+    },
+    {
+      "path": ".github/workflows/codeql.yml",
+      "bytes": 3709,
+      "sha256": "99805a527c6c11de784ce915d2c707c3d04fc95d313242b5b73cf3150ec43d1a",
+      "lines": 88,
+      "productionGo": false,
+      "generated": false
+    },
+    {
+      "path": ".github/workflows/dependabot-auto-merge.yml",
+      "bytes": 4636,
+      "sha256": "cfa4098cdbd3294301ae375a4d3adcc1e37ab8af7aa5269d8ab7249d2d12d077",
+      "lines": 115,
+      "productionGo": false,
+      "generated": false
+    },
+    {
+      "path": ".github/workflows/deploy.yaml",
+      "bytes": 3489,
+      "sha256": "d02c15aca6e7743705e67f11fea8f00938df2865f0d848cd13d4fd62011ff459",
+      "lines": 120,
+      "productionGo": false,
+      "generated": false
+    },
+    {
+      "path": ".github/workflows/publish-techdocs-to-notion.yaml",
+      "bytes": 751,
+      "sha256": "dceac97f2bcb4edda81dd8b5ac48004afaecf285dc2957a834ed6b188e499521",
+      "lines": 29,
+      "productionGo": false,
+      "generated": false
+    },
+    {
+      "path": ".github/workflows/techdocs.yaml",
+      "bytes": 523,
+      "sha256": "c0874307f790e65529ba23ab4a060d2a97c87db43468338d12f7bcac1f68ceae",
+      "lines": 29,
+      "productionGo": false,
+      "generated": false
+    },
+    {
+      "path": ".github/workflows/test.yaml",
+      "bytes": 1701,
+      "sha256": "d421f017a646eb92464d052f30dbdc627a679fabfeba5b020f53dbc7fa3f3394",
+      "lines": 75,
+      "productionGo": false,
+      "generated": false
+    },
+    {
+      "path": ".gitignore",
+      "bytes": 803,
+      "sha256": "52d9e212636503130db09ca022fe75d8d905999fffd48b33bdfb3be7ccc248ca",
+      "lines": 53,
+      "productionGo": false,
+      "generated": false
+    },
+    {
+      "path": ".golangci.yaml",
+      "bytes": 2171,
+      "sha256": "d2404cbe951d3f7bfb0f092d48107a2bd876dad5401661d646d4dd0080225ac4",
+      "lines": 108,
+      "productionGo": false,
+      "generated": false
+    },
+    {
+      "path": ".grype.yaml",
+      "bytes": 1501,
+      "sha256": "394d7e573039636fb10ecb0e48c03383bf0152fca60d72353d216bc47a6e3d98",
+      "lines": 30,
+      "productionGo": false,
+      "generated": false
+    },
+    {
+      "path": ".secrets.example",
+      "bytes": 2153,
+      "sha256": "f1aecacc04f99e13cd7be48c4074a3988a7ec5c3156631235829eab901a6f296",
+      "lines": 55,
+      "productionGo": false,
+      "generated": false
+    },
+    {
+      "path": "Dockerfile.app",
+      "bytes": 791,
+      "sha256": "93882c27bd48fe9ca9f50750c7811f1167276877ef8f1307c0edda6b0965129e",
+      "lines": 35,
+      "productionGo": false,
+      "generated": false
+    },
+    {
+      "path": "Dockerfile.migrate",
+      "bytes": 794,
+      "sha256": "51e627a6b099b9e61e801599c1924a2ad0d9e391111e11167bc85f9f9c85c7c9",
+      "lines": 35,
+      "productionGo": false,
+      "generated": false
+    },
+    {
+      "path": "Makefile",
+      "bytes": 6346,
+      "sha256": "f364deff400feb2e20394b7a72d678e351f52f8e3091f1928f87eda5f14d25fe",
+      "lines": 199,
+      "productionGo": false,
+      "generated": false
+    },
+    {
+      "path": "README.md",
+      "bytes": 179,
+      "sha256": "7b32d621f2dcc79abd58e2c1cc7efc8c4a48e7a0178a5a76c5bd187af0828e08",
+      "lines": 5,
+      "productionGo": false,
+      "generated": false
+    },
+    {
+      "path": "api/docs.go",
+      "bytes": 35426,
+      "sha256": "2c79299c2e2747f63fbd4478d0b712855ef5c70d75ae2eba2e594bd8552f8e32",
+      "lines": 1034,
+      "productionGo": true,
+      "generated": true
+    },
+    {
+      "path": "api/swagger.json",
+      "bytes": 34745,
+      "sha256": "9f2976478ac2f196b8d64cb2319b68abbea739ad7805b2f16183647d2a4591ea",
+      "lines": 1009,
+      "productionGo": false,
+      "generated": false
+    },
+    {
+      "path": "api/swagger.yaml",
+      "bytes": 18196,
+      "sha256": "3c4b0c41c6b87802219334731f12f69bbe2f15466a78f26cdc07237215e67f56",
+      "lines": 666,
+      "productionGo": false,
+      "generated": false
+    },
+    {
+      "path": "catalog-info.yaml",
+      "bytes": 412,
+      "sha256": "a28d6cd593fbe1467d5c098f41f9bd5c9dae10e69b89fad55dcf6a1d59401656",
+      "lines": 14,
+      "productionGo": false,
+      "generated": false
+    },
+    {
+      "path": "cmd/car-spec-adapter/main.go",
+      "bytes": 632,
+      "sha256": "769e07d2c15ee4473d4006b3226a297799a7b60a84396365cf1bcafd50bc54fc",
+      "lines": 22,
+      "productionGo": true,
+      "generated": false
+    },
+    {
+      "path": "cmd/postgres-migrator/main.go",
+      "bytes": 136,
+      "sha256": "1a18aca4b3896e814722be1ef574e2055db84ee23dd64ca6b5cd7893615c2e66",
+      "lines": 8,
+      "productionGo": true,
+      "generated": false
+    },
+    {
+      "path": "docker-compose.yml",
+      "bytes": 913,
+      "sha256": "9c60f4dd80687c865f8c6bbe6bbec49d88cfc9c1fb51dfae27453ee3c368ec89",
+      "lines": 28,
+      "productionGo": false,
+      "generated": false
+    },
+    {
+      "path": "docker-entrypoint-initdb.d/create_db.sql",
+      "bytes": 81,
+      "sha256": "9d7cf06ea95d166d6a805a1072b5ad631cf97a262d565d2ea021ceceef671cc6",
+      "lines": 2,
+      "productionGo": false,
+      "generated": false
+    },
+    {
+      "path": "docs/index.md",
+      "bytes": 4985,
+      "sha256": "f777682c5ff7cef47e0fc493b710d9583b2cb39e61bd87b307d80ca5ae9e5a6b",
+      "lines": 191,
+      "productionGo": false,
+      "generated": false
+    },
+    {
+      "path": "docs/marketauth/icp-records.md",
+      "bytes": 3067,
+      "sha256": "ffb7dfcc94adb04474dac06be63bcf6a36e2efcd1869ce7dd19f9849230048d7",
+      "lines": 65,
+      "productionGo": false,
+      "generated": false
+    },
+    {
+      "path": "docs/marketauth/icr-records.md",
+      "bytes": 8492,
+      "sha256": "a395a2f532af698a9f1b09272926914214f1303fabcbbec94c4601d612b65cb8",
+      "lines": 163,
+      "productionGo": false,
+      "generated": false
+    },
+    {
+      "path": "docs/marketauth/ics-records.md",
+      "bytes": 4781,
+      "sha256": "fc27b7727de7a96de85783b04123fb322d5e484026ef9990ea86884be330393b",
+      "lines": 74,
+      "productionGo": false,
+      "generated": false
+    },
+    {
+      "path": "docs/marketauth/icv-records.md",
+      "bytes": 1450,
+      "sha256": "d32b62adc926e74f40a0ef36e44bc22aff31d028c9f64bc23172a4a5d1ebdee3",
+      "lines": 26,
+      "productionGo": false,
+      "generated": false
+    },
+    {
+      "path": "docs/marketauth/information-contract-CPAM-v14.docx",
+      "bytes": 67973,
+      "sha256": "273793542c5f94ec478d1008d3b545826e2ec97314cfc9017a584b9d28440c1d",
+      "lines": 534,
+      "productionGo": false,
+      "generated": false
+    },
+    {
+      "path": "docs/marketauth/summary.md",
+      "bytes": 1826,
+      "sha256": "6cbfc0cbdc911f1f2b2d2f2eb5b8affb2646a077c5337eddf90b2791a1371464",
+      "lines": 22,
+      "productionGo": false,
+      "generated": false
+    },
+    {
+      "path": "docs/observability.md",
+      "bytes": 11276,
+      "sha256": "b89a4cf106548f7e5594e2b91d4721e8ee66fc7a6ef6299dace3c4082e1789b6",
+      "lines": 219,
+      "productionGo": false,
+      "generated": false
+    },
+    {
+      "path": "go.mod",
+      "bytes": 6690,
+      "sha256": "d3e455c9faca0521e2046fa11131f5cd438a880d410d85f80546ed3c8f1617bb",
+      "lines": 143,
+      "productionGo": false,
+      "generated": false
+    },
+    {
+      "path": "go.sum",
+      "bytes": 40624,
+      "sha256": "27b5b4250206fc3fdfdfbd36a73bce3fd30034f0e47c2a4d8e3acb78aa5c9415",
+      "lines": 439,
+      "productionGo": false,
+      "generated": false
+    },
+    {
+      "path": "internal/api/httpserver/carspecifications/controller.go",
+      "bytes": 8843,
+      "sha256": "f43b61d11c19ca09786a6fe8af04347362edc16a7bef601523c4a4cca1aa950e",
+      "lines": 340,
+      "productionGo": true,
+      "generated": false
+    },
+    {
+      "path": "internal/api/httpserver/carspecifications/map.go",
+      "bytes": 10906,
+      "sha256": "ac82f2cf2749e3577d7909b8e6af2a3d8515568790d6d8ec8a1a356aec11194a",
+      "lines": 289,
+      "productionGo": true,
+      "generated": false
+    },
+    {
+      "path": "internal/api/httpserver/carspecifications/model.go",
+      "bytes": 6068,
+      "sha256": "a5ae26fe8a419a19cdef26b8d60bf696057ca50aa0c697d07fdb8a9bd81b2040",
+      "lines": 155,
+      "productionGo": true,
+      "generated": false
+    },
+    {
+      "path": "internal/api/httpserver/jwt/claims.go",
+      "bytes": 600,
+      "sha256": "a2890750b71c46f47bad091650f3c5b0762830a1e7d49cad94e3e2de6ad4a1c7",
+      "lines": 24,
+      "productionGo": true,
+      "generated": false
+    },
+    {
+      "path": "internal/api/httpserver/jwt/context.go",
+      "bytes": 340,
+      "sha256": "385fdc405c484cf2f94876904e8bdcc22770050a403fd18bcf23a1996546545e",
+      "lines": 18,
+      "productionGo": true,
+      "generated": false
+    },
+    {
+      "path": "internal/api/httpserver/jwt/context_test.go",
+      "bytes": 429,
+      "sha256": "84a4af88b40b6fb9264ed2c17ad840736eda7905e4f17950facb0e080f19a1a8",
+      "lines": 24,
+      "productionGo": false,
+      "generated": false
+    },
+    {
+      "path": "internal/api/httpserver/jwt/parser.go",
+      "bytes": 2082,
+      "sha256": "c8b38e92c727b2f4c72e90d10337991d965d5617a35617c2f57c1bc403b4675e",
+      "lines": 90,
+      "productionGo": true,
+      "generated": false
+    },
+    {
+      "path": "internal/api/httpserver/jwt/token.go",
+      "bytes": 314,
+      "sha256": "505b328c24d11df4deb96a1b8b6d2b5924dd294360868bdd51dbde4cb691e484",
+      "lines": 20,
+      "productionGo": true,
+      "generated": false
+    },
+    {
+      "path": "internal/api/httpserver/localeditions/controller.go",
+      "bytes": 8509,
+      "sha256": "d29620855452acedf4d1a6252630ac0d22cb2a6b8856b2df8e77fcb54b8f0e62",
+      "lines": 284,
+      "productionGo": true,
+      "generated": false
+    },
+    {
+      "path": "internal/api/httpserver/localeditions/map.go",
+      "bytes": 648,
+      "sha256": "7d2132448f3324e4a6a6e4e90c701fe03c05b1ab4961dc02d20dcbe153432832",
+      "lines": 20,
+      "productionGo": true,
+      "generated": false
+    },
+    {
+      "path": "internal/api/httpserver/localeditions/model.go",
+      "bytes": 663,
+      "sha256": "4e82679ac1a6458385f2b87d353a01c2ae3ee09c78f5449a126caf8c68255b7b",
+      "lines": 23,
+      "productionGo": true,
+      "generated": false
+    },
+    {
+      "path": "internal/api/httpserver/middleware/appid.go",
+      "bytes": 514,
+      "sha256": "4039d8ee2b64b9c40d53ddd3b926e65c1ff4bd0f9cb49146bf24a917113b796b",
+      "lines": 25,
+      "productionGo": true,
+      "generated": false
+    },
+    {
+      "path": "internal/api/httpserver/middleware/appid_test.go",
+      "bytes": 1479,
+      "sha256": "407a6cd1eb9ed0d1b60f40d8ecbfcb4b203472b4a3e2bf7849c27468cf0a653b",
+      "lines": 64,
+      "productionGo": false,
+      "generated": false
+    },
+    {
+      "path": "internal/api/httpserver/middleware/error.go",
+      "bytes": 793,
+      "sha256": "cff05d0310a37843f364b0da074a000029c87752937dbad6024097d77ff8184a",
+      "lines": 27,
+      "productionGo": true,
+      "generated": false
+    },
+    {
+      "path": "internal/api/httpserver/middleware/error_test.go",
+      "bytes": 1912,
+      "sha256": "4e6ff74a13a9ecf6491871084e686e96144e03ddf2216e263dfe5c684dd41af7",
+      "lines": 71,
+      "productionGo": false,
+      "generated": false
+    },
+    {
+      "path": "internal/api/httpserver/middleware/jwt.go",
+      "bytes": 2189,
+      "sha256": "425562ad99868bef93b4a637e8b3e71d7f6b3c4b0bded4a0be4868a833975bf9",
+      "lines": 80,
+      "productionGo": true,
+      "generated": false
+    },
+    {
+      "path": "internal/api/httpserver/middleware/jwt_test.go",
+      "bytes": 7003,
+      "sha256": "7f9f518a5266eb035dd98e2d6dff01f0a9d27220434cc7f8b3f4fb0a34938e52",
+      "lines": 161,
+      "productionGo": false,
+      "generated": false
+    },
+    {
+      "path": "internal/api/httpserver/middleware/logger.go",
+      "bytes": 871,
+      "sha256": "f03bc5bc20c5fb8d73ec4bec81d102d031f5618d971aae9642554b948d4525d0",
+      "lines": 47,
+      "productionGo": true,
+      "generated": false
+    },
+    {
+      "path": "internal/api/httpserver/middleware/middleware_test.go",
+      "bytes": 323,
+      "sha256": "13f310daa7e7c6a479786a4b15a1ded1157d04295ff84609ed81ceb0f988eaff",
+      "lines": 19,
+      "productionGo": false,
+      "generated": false
+    },
+    {
+      "path": "internal/api/httpserver/middleware/panic.go",
+      "bytes": 493,
+      "sha256": "05d7e3393f43a36670d807e11756d7ff8ca8f92fdf2badaed57b7063df925320",
+      "lines": 23,
+      "productionGo": true,
+      "generated": false
+    },
+    {
+      "path": "internal/api/httpserver/middleware/panic_test.go",
+      "bytes": 547,
+      "sha256": "25301202c359ecae2e6ad51992502c828c908444fb70c71702110e81046bedf0",
+      "lines": 27,
+      "productionGo": false,
+      "generated": false
+    },
+    {
+      "path": "internal/api/httpserver/middleware/request.go",
+      "bytes": 659,
+      "sha256": "339870241a956586a8b6b0ccad4216f64c164ed8968891325c61357d941eac60",
+      "lines": 25,
+      "productionGo": true,
+      "generated": false
+    },
+    {
+      "path": "internal/api/httpserver/middleware/request_test.go",
+      "bytes": 1153,
+      "sha256": "f258095cb1ed3b6793273858177ec69510fd09a5fe5de1f81e0e1ee6c88d89d9",
+      "lines": 44,
+      "productionGo": false,
+      "generated": false
+    },
+    {
+      "path": "internal/api/httpserver/middleware/telemetry.go",
+      "bytes": 1071,
+      "sha256": "047851dda4ec187e420775625b5c81462ecbf830f1bf425990169add5271ebad",
+      "lines": 46,
+      "productionGo": true,
+      "generated": false
+    },
+    {
+      "path": "internal/api/httpserver/respond/error.go",
+      "bytes": 2698,
+      "sha256": "313f9a8e276e69de37d5a9d29382b6a98d5c11f9ca537b3d84ecd8762f24e776",
+      "lines": 113,
+      "productionGo": true,
+      "generated": false
+    },
+    {
+      "path": "internal/api/httpserver/respond/model.go",
+      "bytes": 583,
+      "sha256": "987e888dbcb26b27ab57ed4d1866ee0d7f3233b52cf4c92b856c8f146e4fcff4",
+      "lines": 23,
+      "productionGo": true,
+      "generated": false
+    },
+    {
+      "path": "internal/api/httpserver/respond/respond.go",
+      "bytes": 1494,
+      "sha256": "640f26dfd07116d32a80cab1a39eeb12c88155fa88698616cc991eea0d7bf535",
+      "lines": 71,
+      "productionGo": true,
+      "generated": false
+    },
+    {
+      "path": "internal/api/httpserver/routes.go",
+      "bytes": 2853,
+      "sha256": "80e512277c46be38da8ce41a3f42c1c19bb4b1e91f720178aa215dcad9b1a2d1",
+      "lines": 82,
+      "productionGo": true,
+      "generated": false
+    },
+    {
+      "path": "internal/api/httpserver/server.go",
+      "bytes": 418,
+      "sha256": "5e76e12539eea576e663b94a932ad79c1f72378a0cb8a965770b474bf5374aba",
+      "lines": 18,
+      "productionGo": true,
+      "generated": false
+    },
+    {
+      "path": "internal/app/app.go",
+      "bytes": 5793,
+      "sha256": "d94bfb83eeae6bc48a3873fde78c0ab6a09766ae22c8ec4ebcbf4639ed17871d",
+      "lines": 204,
+      "productionGo": true,
+      "generated": false
+    },
+    {
+      "path": "internal/app/app_test.go",
+      "bytes": 213,
+      "sha256": "647920c3ec80f6f9fc5cb758b99ef8a511d4b34097d857d1ae02250ec0ce0cd3",
+      "lines": 14,
+      "productionGo": false,
+      "generated": false
+    },
+    {
+      "path": "internal/app/appmigration.go",
+      "bytes": 1025,
+      "sha256": "36910f62e40fd30256299ebccb634efee907ad02e3ce3bae1c268bb181151b7c",
+      "lines": 48,
+      "productionGo": true,
+      "generated": false
+    },
+    {
+      "path": "internal/app/auth.go",
+      "bytes": 537,
+      "sha256": "ba8eeecddf49b84b73b97f30bab5a055357b705c09f17462a047eed23dbb8a48",
+      "lines": 21,
+      "productionGo": true,
+      "generated": false
+    },
+    {
+      "path": "internal/app/client.go",
+      "bytes": 815,
+      "sha256": "719be88c4c89dab2f6d45fa6809f388ef5ae24bfd2d3a68d1355b30c0872512d",
+      "lines": 29,
+      "productionGo": true,
+      "generated": false
+    },
+    {
+      "path": "internal/app/config.go",
+      "bytes": 6364,
+      "sha256": "078f2f6ae3cd15042b515cc099abf51d6c387d9d8a34cd9b27285a581f0262fe",
+      "lines": 168,
+      "productionGo": true,
+      "generated": false
+    },
+    {
+      "path": "internal/app/config_test.go",
+      "bytes": 1502,
+      "sha256": "9b0d6392e2b12bf16aeaf8529f19dc20627e8ba5e62dd53ca98a2ede0c605b38",
+      "lines": 50,
+      "productionGo": false,
+      "generated": false
+    },
+    {
+      "path": "internal/app/console_test.go",
+      "bytes": 3828,
+      "sha256": "ebfbeef4e63ff48a517d0298611afcdd3c60a8ef4b86222ea35b2e7b5171e78a",
+      "lines": 126,
+      "productionGo": false,
+      "generated": false
+    },
+    {
+      "path": "internal/app/kafka.go",
+      "bytes": 2008,
+      "sha256": "fcdd0a57cd9dc3f2a64abd3b643d92f190ee2f90c978a7dd40efb8d27fb6f069",
+      "lines": 87,
+      "productionGo": true,
+      "generated": false
+    },
+    {
+      "path": "internal/app/logging.go",
+      "bytes": 2014,
+      "sha256": "80a1b754a67d6284d49d3012b04be76eb3261c7eb6454f0c850554ec2d1e5fcf",
+      "lines": 73,
+      "productionGo": true,
+      "generated": false
+    },
+    {
+      "path": "internal/app/logging_test.go",
+      "bytes": 2111,
+      "sha256": "abc4e8d6c592814184da8b6696fd102904d0cb40a4cb8ffec7f9c7a3a03b9e6c",
+      "lines": 74,
+      "productionGo": false,
+      "generated": false
+    },
+    {
+      "path": "internal/app/sentry.go",
+      "bytes": 2871,
+      "sha256": "080a7830352661ca878efc17de21a83ef7362c07d4b01ab12ab9b32d05835a1c",
+      "lines": 147,
+      "productionGo": true,
+      "generated": false
+    },
+    {
+      "path": "internal/app/telemetry.go",
+      "bytes": 3833,
+      "sha256": "f74283e00de16502755b92637d641ab39a2b1d754ba547ca0bd749b92b35eaea",
+      "lines": 151,
+      "productionGo": true,
+      "generated": false
+    },
+    {
+      "path": "internal/app/telemetry_test.go",
+      "bytes": 1455,
+      "sha256": "d1aaa277cb33dc9fe113dc6c284b7ef180f7794c22a254f12fa1647322e8baa3",
+      "lines": 57,
+      "productionGo": false,
+      "generated": false
+    },
+    {
+      "path": "internal/database/postgres/carspecrepository.go",
+      "bytes": 5614,
+      "sha256": "26d463b2b789169406e08a174e9b193f3aa72539a43af9d6803f71b8b05a5f4d",
+      "lines": 268,
+      "productionGo": true,
+      "generated": false
+    },
+    {
+      "path": "internal/database/postgres/config.go",
+      "bytes": 920,
+      "sha256": "c17e8a8e7facb71ae7ef6605d54b4a4d11145cc335fb7fd686ba16c7a6c96197",
+      "lines": 47,
+      "productionGo": true,
+      "generated": false
+    },
+    {
+      "path": "internal/database/postgres/config_test.go",
+      "bytes": 3371,
+      "sha256": "5fbdbc1292b7a356bd9e6f0da3ae8ab2139d49485c14e633427646174094bf08",
+      "lines": 97,
+      "productionGo": false,
+      "generated": false
+    },
+    {
+      "path": "internal/database/postgres/localeditionrepository.go",
+      "bytes": 7130,
+      "sha256": "b011d4dcbb38eb8b99caddc1640297239821dca73b7860e17bd2ef60a9967edc",
+      "lines": 320,
+      "productionGo": true,
+      "generated": false
+    },
+    {
+      "path": "internal/database/postgres/map_db.go",
+      "bytes": 9491,
+      "sha256": "3b24eabc5dd198934fb67169481d72b3e41db46751968665a98d5cd1322a7ccb",
+      "lines": 272,
+      "productionGo": true,
+      "generated": false
+    },
+    {
+      "path": "internal/database/postgres/map_domain.go",
+      "bytes": 8435,
+      "sha256": "54da1d81690c61af14e5355cf47a2f4df1b1fbbc5364d0e1f2c2c548eee61953",
+      "lines": 286,
+      "productionGo": true,
+      "generated": false
+    },
+    {
+      "path": "internal/database/postgres/map_test.go",
+      "bytes": 1095,
+      "sha256": "37e32cdaa560ca50df6d4fb10aa4bd426befcec974c314329161bb32d8ea6f13",
+      "lines": 39,
+      "productionGo": false,
+      "generated": false
+    },
+    {
+      "path": "internal/database/postgres/migrations/000001_add_car_specification_table.down.sql",
+      "bytes": 116,
+      "sha256": "b4a4ca9cfbde2104607a9d3f481da9b444f0fc49cbf0ec0291e5e45f426735ae",
+      "lines": 3,
+      "productionGo": false,
+      "generated": false
+    },
+    {
+      "path": "internal/database/postgres/migrations/000001_add_car_specification_table.up.sql",
+      "bytes": 421,
+      "sha256": "8eef65bc44641906dad1d146f874692acfc2ef9ba84ebc9c08c1bef4282a42c4",
+      "lines": 11,
+      "productionGo": false,
+      "generated": false
+    },
+    {
+      "path": "internal/database/postgres/migrations/000002_rename_local_trim_edition_code_column.down.sql",
+      "bytes": 327,
+      "sha256": "965889c7ac672e0e84780920b5d65c064ab3a86b9e1ae20fc6d0ba4e6597ff8a",
+      "lines": 5,
+      "productionGo": false,
+      "generated": false
+    },
+    {
+      "path": "internal/database/postgres/migrations/000002_rename_local_trim_edition_code_column.up.sql",
+      "bytes": 322,
+      "sha256": "9e1aaac94520712bd775a8b615eea69d8abf4fe4f8d59fe57566bc908689bff6",
+      "lines": 5,
+      "productionGo": false,
+      "generated": false
+    },
+    {
+      "path": "internal/database/postgres/migrations/000003_add_local_editions_table.down.sql",
+      "bytes": 108,
+      "sha256": "5cc762e65aa11901605b07aa5fa9b93086479d2478ae17bcb0af4dae7d0ec105",
+      "lines": 3,
+      "productionGo": false,
+      "generated": false
+    },
+    {
+      "path": "internal/database/postgres/migrations/000003_add_local_editions_table.up.sql",
+      "bytes": 376,
+      "sha256": "aa01008fde89693c725241bda8c8c0c5297544151e066ea2201d4452d7278ca3",
+      "lines": 10,
+      "productionGo": false,
+      "generated": false
+    },
+    {
+      "path": "internal/database/postgres/migrator.go",
+      "bytes": 1322,
+      "sha256": "e03b73e0f1c462aa6dafb5696fdf6b96c7cb50aa5f838b8bc8b6ca9b79ba9ad3",
+      "lines": 56,
+      "productionGo": true,
+      "generated": false
+    },
+    {
+      "path": "internal/database/postgres/model.go",
+      "bytes": 5164,
+      "sha256": "ae86c780cb7bbef3a0241d3a1fb5f4160c36f734bff5a8437bc8c797d59fdf1a",
+      "lines": 143,
+      "productionGo": true,
+      "generated": false
+    },
+    {
+      "path": "internal/database/postgres/pool.go",
+      "bytes": 629,
+      "sha256": "b6024f527cd75fad7b6a1235dc2b52fc393ff4bf2991e2870c0f92d24877bf97",
+      "lines": 26,
+      "productionGo": true,
+      "generated": false
+    },
+    {
+      "path": "internal/database/postgres/readycheck.go",
+      "bytes": 360,
+      "sha256": "163713f6b9ada7f3f8818c76f5e5dbaa68b53433aba018d7e7b6a7d897ba9f31",
+      "lines": 25,
+      "productionGo": true,
+      "generated": false
+    },
+    {
+      "path": "internal/database/postgres/redact.go",
+      "bytes": 883,
+      "sha256": "f115f6bece7c6df86b4dd8b1e74907a86941b9e81f34ff23d1b6274f68973da4",
+      "lines": 30,
+      "productionGo": true,
+      "generated": false
+    },
+    {
+      "path": "internal/database/postgres/redact_test.go",
+      "bytes": 2512,
+      "sha256": "42f6563fb7cd92863863673630268f9f9daa85799770d41e3f06c61da39efa1b",
+      "lines": 79,
+      "productionGo": false,
+      "generated": false
+    },
+    {
+      "path": "internal/database/postgres/rollback.go",
+      "bytes": 328,
+      "sha256": "958d4605946eb4e9ab03ca1719faf3380d150a9f6e623fbb7e483cc0574eab4b",
+      "lines": 15,
+      "productionGo": true,
+      "generated": false
+    },
+    {
+      "path": "internal/domain/baseline.go",
+      "bytes": 756,
+      "sha256": "44297694a0fa5467a5a2246bbd365fd78da65f1ea90ba6dc6e1152888303c376",
+      "lines": 39,
+      "productionGo": true,
+      "generated": false
+    },
+    {
+      "path": "internal/domain/baseline_test.go",
+      "bytes": 808,
+      "sha256": "a665d7e93e7e05c3394a186ccbcb996f449bded865f5e2e09e11844f55b0aa59",
+      "lines": 40,
+      "productionGo": false,
+      "generated": false
+    },
+    {
+      "path": "internal/domain/brand.go",
+      "bytes": 194,
+      "sha256": "bf8b935a6218f2b66e139c98c8c134281314d599bae606846db385a0a0c240cd",
+      "lines": 13,
+      "productionGo": true,
+      "generated": false
+    },
+    {
+      "path": "internal/domain/car.go",
+      "bytes": 2048,
+      "sha256": "c013d36818443bbf31e43652bfb747e4015d1be5040f260ccc1b86fc1546d8eb",
+      "lines": 112,
+      "productionGo": true,
+      "generated": false
+    },
+    {
+      "path": "internal/domain/car_test.go",
+      "bytes": 1181,
+      "sha256": "548639c6ebc02c54b23dd9bfd2262a8aeea11f4d84a80fbedef0f0498b67bd77",
+      "lines": 69,
+      "productionGo": false,
+      "generated": false
+    },
+    {
+      "path": "internal/domain/carmodelquery.go",
+      "bytes": 725,
+      "sha256": "a7c6b4f496354a23f5ca2bce2dd144223a7db9fb096b91916adf4630ff71b06f",
+      "lines": 42,
+      "productionGo": true,
+      "generated": false
+    },
+    {
+      "path": "internal/domain/carquery.go",
+      "bytes": 1114,
+      "sha256": "a894f1aeca7ecd36277889df10ee6cb07c9cf935cc04b386c0ba9797d105f47f",
+      "lines": 57,
+      "productionGo": true,
+      "generated": false
+    },
+    {
+      "path": "internal/domain/carspecification.go",
+      "bytes": 21956,
+      "sha256": "24365ba2026fc01a2d0534c7b00aa52b6c98bbeeda6887c813ab1a7fc2795344",
+      "lines": 1023,
+      "productionGo": true,
+      "generated": false
+    },
+    {
+      "path": "internal/domain/carspecificationchange.go",
+      "bytes": 6407,
+      "sha256": "028db97dc7d0696bb790a2aaf06a5e8a23aabb8f77b4f92063bdd096af97602c",
+      "lines": 293,
+      "productionGo": true,
+      "generated": false
+    },
+    {
+      "path": "internal/domain/carspecificationchange_test.go",
+      "bytes": 7188,
+      "sha256": "87ee10fbb410ec190e62db91bd2a042f053624a84cf96ae92010086658d53b92",
+      "lines": 275,
+      "productionGo": false,
+      "generated": false
+    },
+    {
+      "path": "internal/domain/cartype.go",
+      "bytes": 1202,
+      "sha256": "90866c51b00629ccfd91e00b32c0e97ae161ba9ae75905fb3e283ad2c9e2cc47",
+      "lines": 39,
+      "productionGo": true,
+      "generated": false
+    },
+    {
+      "path": "internal/domain/collectionutils.go",
+      "bytes": 509,
+      "sha256": "f40999c383b4245bae74e25343f46fb9910fdd399ccb5ef8aee53bc54d3a98ef",
+      "lines": 31,
+      "productionGo": true,
+      "generated": false
+    },
+    {
+      "path": "internal/domain/collectionutils_test.go",
+      "bytes": 937,
+      "sha256": "3a5c7aad4045e449980fd898d17d77dd1ba4c0737f83af50f394c17d1476a1f4",
+      "lines": 52,
+      "productionGo": false,
+      "generated": false
+    },
+    {
+      "path": "internal/domain/convert/atleastone.go",
+      "bytes": 1367,
+      "sha256": "8868f5f2fdd7cfc39ab309ba81ad59d5f006b8ad91fe22443115c3cb8cbc7271",
+      "lines": 59,
+      "productionGo": true,
+      "generated": false
+    },
+    {
+      "path": "internal/domain/convert/component.go",
+      "bytes": 13149,
+      "sha256": "8b03b3f2be8abb3bfb067273af28b28e63e545781fdbc0edc8fad2bee7bebf30",
+      "lines": 490,
+      "productionGo": true,
+      "generated": false
+    },
+    {
+      "path": "internal/domain/convert/component_test.go",
+      "bytes": 2725,
+      "sha256": "6d43486d6e75dcb8733da928e9a0336b99d6dbed135f686cf46407382aa20dac",
+      "lines": 106,
+      "productionGo": false,
+      "generated": false
+    },
+    {
+      "path": "internal/domain/convert/convertintocarspecification.go",
+      "bytes": 3901,
+      "sha256": "80f7050d5fb996ad2d57af0107b314f6aac29bf49f25cfc06edd5900d648429b",
+      "lines": 170,
+      "productionGo": true,
+      "generated": false
+    },
+    {
+      "path": "internal/domain/convert/exactlyone.go",
+      "bytes": 1499,
+      "sha256": "33a96f03bda0f5ef4e305f207f711d34647af9a0c9c8468cf9d271fb6efe4db1",
+      "lines": 65,
+      "productionGo": true,
+      "generated": false
+    },
+    {
+      "path": "internal/domain/convert/grouprecordsbypno12.go",
+      "bytes": 1177,
+      "sha256": "b7177d12dbaeccac9434b63bc414279720076b246f9507185746887783505e65",
+      "lines": 40,
+      "productionGo": true,
+      "generated": false
+    },
+    {
+      "path": "internal/domain/convert/includedoptions.go",
+      "bytes": 4574,
+      "sha256": "f36acbc05486ca0c7d702ff1a374cd66ecf1448b0bca3a06a7e680561846e05f",
+      "lines": 185,
+      "productionGo": true,
+      "generated": false
+    },
+    {
+      "path": "internal/domain/convert/includedoptions_test.go",
+      "bytes": 11562,
+      "sha256": "466b2dc384fd17f11f17b33f84cf8af14b1e23b47b017282df953b6b883aecb3",
+      "lines": 483,
+      "productionGo": false,
+      "generated": false
+    },
+    {
+      "path": "internal/domain/convert/includedpackages.go",
+      "bytes": 2341,
+      "sha256": "3a7729ae3f4a93d6fe0f9a6546861536dc99eba4cf2556942f5d4b38c4d63367",
+      "lines": 102,
+      "productionGo": true,
+      "generated": false
+    },
+    {
+      "path": "internal/domain/convert/includedpackages_test.go",
+      "bytes": 5069,
+      "sha256": "726d7b863b49aca13ce5366698333167e50b8d45dbf43c48fa3b64167d75cd27",
+      "lines": 220,
+      "productionGo": false,
+      "generated": false
+    },
+    {
+      "path": "internal/domain/convert/package_content.go",
+      "bytes": 3457,
+      "sha256": "09f81f879f4a317aca09b4cb7d7f79b3df7d56f363b6c2e6b87cc5d18b0beece",
+      "lines": 135,
+      "productionGo": true,
+      "generated": false
+    },
+    {
+      "path": "internal/domain/convert/package_content_test.go",
+      "bytes": 5139,
+      "sha256": "59763108964dbc17b198fcadae4a6f205c52c7ef724773399c225a4864e8b413",
+      "lines": 176,
+      "productionGo": false,
+      "generated": false
+    },
+    {
+      "path": "internal/domain/convert/packagecreator.go",
+      "bytes": 7763,
+      "sha256": "be586456676ac58f41cb844006aab7134285c7d618b70fc80964ee74de30dc6a",
+      "lines": 337,
+      "productionGo": true,
+      "generated": false
+    },
+    {
+      "path": "internal/domain/convert/packagecreator_test.go",
+      "bytes": 13044,
+      "sha256": "af4894011538d4be67cf95f8bc3b13800d21ce764b156350812c9d0dcd818efd",
+      "lines": 478,
+      "productionGo": false,
+      "generated": false
+    },
+    {
+      "path": "internal/domain/convert/period.go",
+      "bytes": 728,
+      "sha256": "2167244d2ec571bc66b48b55a7e751551dfd6db03c793a8f4d3ccf9824a9a328",
+      "lines": 25,
+      "productionGo": true,
+      "generated": false
+    },
+    {
+      "path": "internal/domain/convert/period_test.go",
+      "bytes": 540,
+      "sha256": "a2ba8abe8260d33827e6fe16f07b13f27f67774723e256cd33853fceb4e96ef5",
+      "lines": 26,
+      "productionGo": false,
+      "generated": false
+    },
+    {
+      "path": "internal/domain/convert/ptr.go",
+      "bytes": 56,
+      "sha256": "3f7138429ebcc3273de1d54670ad3b5b3184d2611167a8710b75672ae9572391",
+      "lines": 5,
+      "productionGo": true,
+      "generated": false
+    },
+    {
+      "path": "internal/domain/convert/rule.go",
+      "bytes": 5981,
+      "sha256": "1b21d50a470460bcd92c939b755107050f698b73193b55fe0d081d8d090acbfd",
+      "lines": 239,
+      "productionGo": true,
+      "generated": false
+    },
+    {
+      "path": "internal/domain/convert/rule_test.go",
+      "bytes": 6083,
+      "sha256": "a64cf22418dcce27b801bc0a8a81cb98468e58812a7484f8f74dcfa6cdce00b9",
+      "lines": 218,
+      "productionGo": false,
+      "generated": false
+    },
+    {
+      "path": "internal/domain/convert/slices.go",
+      "bytes": 284,
+      "sha256": "05edda702ddf9ea48137a430f064bae7d65cb25ef4128bff20e5af059bb8a609",
+      "lines": 13,
+      "productionGo": true,
+      "generated": false
+    },
+    {
+      "path": "internal/domain/convert/slices_test.go",
+      "bytes": 692,
+      "sha256": "b214a13179618241a49ab43141ec9952247d2f0848d7f7c0e684a9b742ee5b64",
+      "lines": 40,
+      "productionGo": false,
+      "generated": false
+    },
+    {
+      "path": "internal/domain/convert/specification_creator.go",
+      "bytes": 22859,
+      "sha256": "7044270e182c30c8edb76ccdb1503fe362f2d771b73395c94439e00b385930e8",
+      "lines": 894,
+      "productionGo": true,
+      "generated": false
+    },
+    {
+      "path": "internal/domain/convert/specification_creator_options_test.go",
+      "bytes": 35877,
+      "sha256": "1f1cada7a91b32f3ed0fe45e92a69add039a871ab46f450e9467d896919ef68e",
+      "lines": 1151,
+      "productionGo": false,
+      "generated": false
+    },
+    {
+      "path": "internal/domain/convert/specification_creator_package_test.go",
+      "bytes": 19869,
+      "sha256": "5658343a2ce08c78b27f9225711a4b11a772c04f7d4cc193145cd35f0a4c8261",
+      "lines": 721,
+      "productionGo": false,
+      "generated": false
+    },
+    {
+      "path": "internal/domain/convert/specification_creator_styling_test.go",
+      "bytes": 32812,
+      "sha256": "f74db80aab83d626bd650cd1092f0207ecf346034e515e682a19f471645c0439",
+      "lines": 1156,
+      "productionGo": false,
+      "generated": false
+    },
+    {
+      "path": "internal/domain/convert/specification_creator_test.go",
+      "bytes": 12710,
+      "sha256": "14336e47b2d95940b1e307ad70a9dcab34467daa33816689b803c494d09e752b",
+      "lines": 518,
+      "productionGo": false,
+      "generated": false
+    },
+    {
+      "path": "internal/domain/convert/specification_creator_wheels_test.go",
+      "bytes": 15883,
+      "sha256": "43e06fea9a5a98bf2840ddbc9133cb809d362b05b4a90e0992fc9409f50ae504",
+      "lines": 591,
+      "productionGo": false,
+      "generated": false
+    },
+    {
+      "path": "internal/domain/convert/stylings.go",
+      "bytes": 3551,
+      "sha256": "ca2795c9652bdcbf18833bbe9691d2b42cde8a5a0339fe1693171d5d1605e091",
+      "lines": 131,
+      "productionGo": true,
+      "generated": false
+    },
+    {
+      "path": "internal/domain/convert/stylings_test.go",
+      "bytes": 13157,
+      "sha256": "25c9de6039bb254ac6ffaee9355189ad2ca8c3f2bac88eec2041cc172a3a727d",
+      "lines": 537,
+      "productionGo": false,
+      "generated": false
+    },
+    {
+      "path": "internal/domain/convert/wheel.go",
+      "bytes": 4989,
+      "sha256": "f9c4a5105ce028d6e509834ad8a09a73bf5428ce18312c0211ae928b4674c461",
+      "lines": 210,
+      "productionGo": true,
+      "generated": false
+    },
+    {
+      "path": "internal/domain/convert/wheel_test.go",
+      "bytes": 8811,
+      "sha256": "83d2afb12116a7bcc4bd1b410ec286446c2cca5fdac55d40647cb7212ef1e4c3",
+      "lines": 338,
+      "productionGo": false,
+      "generated": false
+    },
+    {
+      "path": "internal/domain/convertpcg/convertintocarspecification.go",
+      "bytes": 4909,
+      "sha256": "5d64774b1603c007ccfc28676db4f61880df66be7ca610207a98f6208e0c2297",
+      "lines": 196,
+      "productionGo": true,
+      "generated": false
+    },
+    {
+      "path": "internal/domain/convertpcg/convertintocarspecification_test.go",
+      "bytes": 14497,
+      "sha256": "83c7a36fbfaea32f29401b82912d7bc4e985a4672b1990bb816b629ebf23bd7c",
+      "lines": 443,
+      "productionGo": false,
+      "generated": false
+    },
+    {
+      "path": "internal/domain/convertpcg/dependency.go",
+      "bytes": 9125,
+      "sha256": "128f00e4331c4bc44a1e24e20ec6cf47559450e989add79fc2669ed5e48670fc",
+      "lines": 297,
+      "productionGo": true,
+      "generated": false
+    },
+    {
+      "path": "internal/domain/convertpcg/options.go",
+      "bytes": 6864,
+      "sha256": "c2c38ac3291451a846439f90d24f79d5d10c427b6b4118b2b6cc82407585f613",
+      "lines": 240,
+      "productionGo": true,
+      "generated": false
+    },
+    {
+      "path": "internal/domain/convertpcg/options_test.go",
+      "bytes": 7024,
+      "sha256": "158437c06e4866a8c0d9048b76c294b91294fbe4c9546f458e656fe8e7c6723e",
+      "lines": 267,
+      "productionGo": false,
+      "generated": false
+    },
+    {
+      "path": "internal/domain/convertpcg/packages.go",
+      "bytes": 6753,
+      "sha256": "851ff0057f4451e62e2b1183c5bcb16c39724807598d7e561a94751655d0fd05",
+      "lines": 264,
+      "productionGo": true,
+      "generated": false
+    },
+    {
+      "path": "internal/domain/convertpcg/packages_test.go",
+      "bytes": 8382,
+      "sha256": "f1c38aea1f362e0b4a16c58ae068ab0d6025ffa585d397cc7060d86d440495b5",
+      "lines": 318,
+      "productionGo": false,
+      "generated": false
+    },
+    {
+      "path": "internal/domain/convertpcg/smessages.go",
+      "bytes": 800,
+      "sha256": "f27454482344d4c6e1eba6c4b0a5ab666df8ada5ff270740bb5996dab25baf06",
+      "lines": 31,
+      "productionGo": true,
+      "generated": false
+    },
+    {
+      "path": "internal/domain/convertpcg/smessages_test.go",
+      "bytes": 3265,
+      "sha256": "645bee63be2ae905f77f09169cdd2b24f4b5012acfbea366f6dd26d00c2f153a",
+      "lines": 132,
+      "productionGo": false,
+      "generated": false
+    },
+    {
+      "path": "internal/domain/convertpcg/specification_creator.go",
+      "bytes": 745,
+      "sha256": "da4b2a2eb3cb35dd5b03dbb1dd46721de4f52739d995a890678f54448310c1a3",
+      "lines": 27,
+      "productionGo": true,
+      "generated": false
+    },
+    {
+      "path": "internal/domain/convertpcg/stylings.go",
+      "bytes": 13383,
+      "sha256": "73631215622c4104f4a05a513eb568654dd169c9a4cd96a51cbc38fd64aa6540",
+      "lines": 475,
+      "productionGo": true,
+      "generated": false
+    },
+    {
+      "path": "internal/domain/convertpcg/stylings_test.go",
+      "bytes": 11921,
+      "sha256": "f29f3c00c8c13e4723653fac16947274174b2047001687aca040c76136f82dd0",
+      "lines": 384,
+      "productionGo": false,
+      "generated": false
+    },
+    {
+      "path": "internal/domain/convertpcg/wheels.go",
+      "bytes": 3544,
+      "sha256": "7c5def2ac345e8054dfc091ea5f2745ca19d28656faf502805e583d3b7f3841f",
+      "lines": 129,
+      "productionGo": true,
+      "generated": false
+    },
+    {
+      "path": "internal/domain/convertpcg/wheels_test.go",
+      "bytes": 5479,
+      "sha256": "fc797d325f26ac53c12e8aee2776f6e184c023a09741b5d30579ff164cf58791",
+      "lines": 211,
+      "productionGo": false,
+      "generated": false
+    },
+    {
+      "path": "internal/domain/errors.go",
+      "bytes": 1397,
+      "sha256": "91184ab08b42cbc323408b14d591c7700349b1125d6a774da9995f392b387381",
+      "lines": 23,
+      "productionGo": true,
+      "generated": false
+    },
+    {
+      "path": "internal/domain/fake.go",
+      "bytes": 1834,
+      "sha256": "4ca19df025784faa9c7b08022208653ad542ed495050ee4d1cca5379bf222b1c",
+      "lines": 92,
+      "productionGo": true,
+      "generated": false
+    },
+    {
+      "path": "internal/domain/featurecodemap.go",
+      "bytes": 83,
+      "sha256": "853c0ba5a4575683e18ed71b0d65c6c293f7c3439a58cddf1db750d4c122ddc4",
+      "lines": 5,
+      "productionGo": true,
+      "generated": false
+    },
+    {
+      "path": "internal/domain/localedition.go",
+      "bytes": 4170,
+      "sha256": "3d5bac85366a767df9ab5ae6b18e5534ce9230326d98b66c500ef8642a10ff7a",
+      "lines": 196,
+      "productionGo": true,
+      "generated": false
+    },
+    {
+      "path": "internal/domain/localedition_test.go",
+      "bytes": 4130,
+      "sha256": "87b905e69a681e674c255d0d459ca88df664f31e067b69e9fcdcf5ffc3f1b8f8",
+      "lines": 155,
+      "productionGo": false,
+      "generated": false
+    },
+    {
+      "path": "internal/domain/localeditioncarspec.go",
+      "bytes": 963,
+      "sha256": "727398697cf02e105619f40cc16a331e15223da6893490249eb5dd1fa3fa3858",
+      "lines": 38,
+      "productionGo": true,
+      "generated": false
+    },
+    {
+      "path": "internal/domain/localeditioncarspec_test.go",
+      "bytes": 3088,
+      "sha256": "1b6e7f18b175be35d9c472894d1637397ad83b72a7093cbcf07d1cfbb8b54154",
+      "lines": 94,
+      "productionGo": false,
+      "generated": false
+    },
+    {
+      "path": "internal/domain/localeditioncode.go",
+      "bytes": 588,
+      "sha256": "e195addf5876d8732448adc983b361779da6c3746092bcb088fd42986c27a01a",
+      "lines": 27,
+      "productionGo": true,
+      "generated": false
+    },
+    {
+      "path": "internal/domain/localeditioncode_test.go",
+      "bytes": 2514,
+      "sha256": "c5cc26d2b8d33b31091e079b0591e492c304730a6bdf7eed53e2a20da95c225e",
+      "lines": 118,
+      "productionGo": false,
+      "generated": false
+    },
+    {
+      "path": "internal/domain/localeditionvalidator.go",
+      "bytes": 1297,
+      "sha256": "c12891fe84cd243317306c7b7a9f1bca472c166b601cc72589b371692d1f5814",
+      "lines": 46,
+      "productionGo": true,
+      "generated": false
+    },
+    {
+      "path": "internal/domain/localeditionvalidator_test.go",
+      "bytes": 4726,
+      "sha256": "4df51f6937d5424be166274df505b595c6032f71b92820a0f29cb736215aae1b",
+      "lines": 215,
+      "productionGo": false,
+      "generated": false
+    },
+    {
+      "path": "internal/domain/marketauth.go",
+      "bytes": 6698,
+      "sha256": "0ee5f1e198df379754ae6b9bbdfc82b86b130a1b7097527ac9683ab5e5cf3275",
+      "lines": 298,
+      "productionGo": true,
+      "generated": false
+    },
+    {
+      "path": "internal/domain/marketauth_test.go",
+      "bytes": 6066,
+      "sha256": "306b0b7ff7960fbf5c7276a6ff88d51f4618f2fe41ca2fd9bebae756c304aade",
+      "lines": 261,
+      "productionGo": false,
+      "generated": false
+    },
+    {
+      "path": "internal/domain/modelyear.go",
+      "bytes": 990,
+      "sha256": "d0e8111aee2af2ab211af4774e7dbabe85a5f00792080beea84361ff34cc649f",
+      "lines": 51,
+      "productionGo": true,
+      "generated": false
+    },
+    {
+      "path": "internal/domain/nostandardwheelcartypes.go",
+      "bytes": 340,
+      "sha256": "184cc67bb1bf1899c8266f1225044ebfd3e1c71aaba2ad3322416c12bf5af178",
+      "lines": 11,
+      "productionGo": true,
+      "generated": false
+    },
+    {
+      "path": "internal/domain/nostandardwheelcartypes_test.go",
+      "bytes": 366,
+      "sha256": "aa05988f50bfd16b07210b1f540808600bf53fd3264430f86346ffd1e6832e2f",
+      "lines": 13,
+      "productionGo": false,
+      "generated": false
+    },
+    {
+      "path": "internal/domain/package_exclusivity.go",
+      "bytes": 572,
+      "sha256": "e7e9b1d70a97c2b4421c4850f24eff6d3064615d0ad73fb30ff4dcf045e4e7ef",
+      "lines": 21,
+      "productionGo": true,
+      "generated": false
+    },
+    {
+      "path": "internal/domain/pcgcars.go",
+      "bytes": 367,
+      "sha256": "091f63b50398889a1a77173239eaa25eb2fd8bfd599446f8ee104736d1253786",
+      "lines": 14,
+      "productionGo": true,
+      "generated": false
+    },
+    {
+      "path": "internal/domain/pcgcars_test.go",
+      "bytes": 333,
+      "sha256": "1f58d0c6ab577fdecb34590a081bd32b931994b19b6e0b5b23544452801dfd58",
+      "lines": 15,
+      "productionGo": false,
+      "generated": false
+    },
+    {
+      "path": "internal/domain/pcgmarketauth.go",
+      "bytes": 2324,
+      "sha256": "8413c5ca3940188708555e714ed0f5993c7f0f975bd9f137a8867fc33d5ad8d5",
+      "lines": 95,
+      "productionGo": true,
+      "generated": false
+    },
+    {
+      "path": "internal/domain/pcgmarketauth_test.go",
+      "bytes": 1030,
+      "sha256": "93847ba45e7feccb0d3de554575d031735f2955a58936b0a1e94de203b723258",
+      "lines": 40,
+      "productionGo": false,
+      "generated": false
+    },
+    {
+      "path": "internal/domain/pcgmodel.go",
+      "bytes": 1912,
+      "sha256": "006e105cc619e2c64a58f4d7b7a44542ed8cd5858fac19fa7bb63150deacf22d",
+      "lines": 99,
+      "productionGo": true,
+      "generated": false
+    },
+    {
+      "path": "internal/domain/period.go",
+      "bytes": 11405,
+      "sha256": "c83f263e66d6feb7adc665a14c20541f3b32176a04b3ffb52e017050c654b7b4",
+      "lines": 500,
+      "productionGo": true,
+      "generated": false
+    },
+    {
+      "path": "internal/domain/period_test.go",
+      "bytes": 12214,
+      "sha256": "16b6eed31c119b1db0f05458a11fe8d53afc8f4aca31a6d3cc6aec1981cc3178",
+      "lines": 534,
+      "productionGo": false,
+      "generated": false
+    },
+    {
+      "path": "internal/domain/periodadjuster.go",
+      "bytes": 4181,
+      "sha256": "ddce27f7dd58a26d08573435fc8ab7643e67fd884d576418d6e0a5c7a9c79042",
+      "lines": 175,
+      "productionGo": true,
+      "generated": false
+    },
+    {
+      "path": "internal/domain/periodadjuster_test.go",
+      "bytes": 4438,
+      "sha256": "5c0d4516dd9c2a23fb8b254b95d48cb6b00a882ad58615ae93755593f006fb40",
+      "lines": 199,
+      "productionGo": false,
+      "generated": false
+    },
+    {
+      "path": "internal/domain/pno12.go",
+      "bytes": 2332,
+      "sha256": "928feaf8adb868d7af36346684137c33d1d4db6e788dde745e454c492c880d23",
+      "lines": 123,
+      "productionGo": true,
+      "generated": false
+    },
+    {
+      "path": "internal/domain/prinscars.go",
+      "bytes": 393,
+      "sha256": "63ee4c9a33fbdb5cc722db6c592f56e46db8fef1c85f70de45560f4e5d0a65da",
+      "lines": 21,
+      "productionGo": true,
+      "generated": false
+    },
+    {
+      "path": "internal/domain/sourceidentifier.go",
+      "bytes": 1852,
+      "sha256": "e50fef932a7e020ff8850cc6d4c13c074cd38ae2e2c920036a521254f2768b30",
+      "lines": 54,
+      "productionGo": true,
+      "generated": false
+    },
+    {
+      "path": "internal/domain/sourceidentifier_test.go",
+      "bytes": 2667,
+      "sha256": "9014e59181dce702ce7ad1c65cc932798d78112c1e3a51babe3e62ca02210392",
+      "lines": 90,
+      "productionGo": false,
+      "generated": false
+    },
+    {
+      "path": "internal/domain/specmarket.go",
+      "bytes": 586,
+      "sha256": "f8efe7b613f4247e2d615a094cadea7ac215124d3e8fb013049d2fbda698ed75",
+      "lines": 28,
+      "productionGo": true,
+      "generated": false
+    },
+    {
+      "path": "internal/domain/specmarket_test.go",
+      "bytes": 823,
+      "sha256": "4f2239e48d8c19b2f44ae98bbcfc9e8fcc8f81e3e9abe3c45e09a070f6bed9b4",
+      "lines": 50,
+      "productionGo": false,
+      "generated": false
+    },
+    {
+      "path": "internal/domain/standardwheel.go",
+      "bytes": 666,
+      "sha256": "3dfce6a420af0d49e9acb0b160bb187c573e84c646fa30faec4fb6f61e343379",
+      "lines": 26,
+      "productionGo": true,
+      "generated": false
+    },
+    {
+      "path": "internal/domain/standardwheel_test.go",
+      "bytes": 863,
+      "sha256": "ca78904efc4a34f07260043275ccd0543bfd988cbb76af077d6381caa45f7af9",
+      "lines": 34,
+      "productionGo": false,
+      "generated": false
+    },
+    {
+      "path": "internal/domain/stub.go",
+      "bytes": 164,
+      "sha256": "0a3f06266aeccc1411eec7503f0c316f2aa9ea0b629f56abc26e240ebf73a907",
+      "lines": 6,
+      "productionGo": true,
+      "generated": false
+    },
+    {
+      "path": "internal/domain/validate/packageavailability.go",
+      "bytes": 866,
+      "sha256": "557e88d9427752408f80885a5c1b550637da992f3c7e86e8a8e5f86d0dc7c072",
+      "lines": 28,
+      "productionGo": true,
+      "generated": false
+    },
+    {
+      "path": "internal/domain/validate/packageavailability_test.go",
+      "bytes": 2700,
+      "sha256": "f0e08046c85b5f1cafbb6944e55cbe04eac296e3c58282b8b46d93a183dcf262",
+      "lines": 106,
+      "productionGo": false,
+      "generated": false
+    },
+    {
+      "path": "internal/domain/validate/validate.go",
+      "bytes": 4673,
+      "sha256": "1d348bab8770ad8e0668bd34eca2ce10b9927149866255f1564f57d88327b199",
+      "lines": 164,
+      "productionGo": true,
+      "generated": false
+    },
+    {
+      "path": "internal/domain/versionedcarspec.go",
+      "bytes": 3675,
+      "sha256": "4e16d2006f3601c8f334cb2740cd8c40f58b932db3f837849b4710d336c26f48",
+      "lines": 145,
+      "productionGo": true,
+      "generated": false
+    },
+    {
+      "path": "internal/domain/versionedcarspec_test.go",
+      "bytes": 8120,
+      "sha256": "6eded41189aac9ea0e30980e4d42adc2a99150b603d7c6f27cf2c95aaae24c79",
+      "lines": 286,
+      "productionGo": false,
+      "generated": false
+    },
+    {
+      "path": "internal/fake/fake.go",
+      "bytes": 599,
+      "sha256": "bfcdbc77af0f458d0e0cf0b036a6e6182f1c4b9ee79301eaac2820ec828f186b",
+      "lines": 27,
+      "productionGo": true,
+      "generated": false
+    },
+    {
+      "path": "internal/featureflag/launchdarkly.go",
+      "bytes": 2490,
+      "sha256": "3fb48be50aeefdd2d04fe4fca58e2217a6198532527d0a0d5768443614a01f01",
+      "lines": 108,
+      "productionGo": true,
+      "generated": false
+    },
+    {
+      "path": "internal/featureflag/launchdarkly_test.go",
+      "bytes": 1018,
+      "sha256": "dd1f3aadb02a413ef6271a081fcb787178c16d19fd19dc1cf1b513b278d98244",
+      "lines": 48,
+      "productionGo": false,
+      "generated": false
+    },
+    {
+      "path": "internal/gateway/assortment/client.go",
+      "bytes": 5750,
+      "sha256": "a7039602e83a030afa80974395303a372eba71de25d96b27e9f602a6a54d3068",
+      "lines": 253,
+      "productionGo": true,
+      "generated": false
+    },
+    {
+      "path": "internal/gateway/assortment/map.go",
+      "bytes": 6799,
+      "sha256": "8075094477204754bc8bb9f5845a178dcfa6c32d1d54b28587e5469a1c92cb50",
+      "lines": 237,
+      "productionGo": true,
+      "generated": false
+    },
+    {
+      "path": "internal/gateway/assortment/marketauthfetcher.go",
+      "bytes": 4062,
+      "sha256": "581d78fac295451b6e6bb8e93b0fdd2549f452df2fb0fa2544ba12194a049285",
+      "lines": 148,
+      "productionGo": true,
+      "generated": false
+    },
+    {
+      "path": "internal/gateway/assortment/marketauthfetcher_test.go",
+      "bytes": 1872,
+      "sha256": "b96a8a8603d0ad0392cafe2e3628423fa50fc591cc6d5e3cb6fcd28160866f62",
+      "lines": 68,
+      "productionGo": false,
+      "generated": false
+    },
+    {
+      "path": "internal/gateway/assortment/model.go",
+      "bytes": 427,
+      "sha256": "b21664bf1248be3f90240610e0d383f2dd490b5bad1c9705c727003d7fb2b3be",
+      "lines": 16,
+      "productionGo": true,
+      "generated": false
+    },
+    {
+      "path": "internal/gateway/assortment/parse/grouprows.go",
+      "bytes": 1967,
+      "sha256": "9c2566712153f252ced9473a9bc8f0a57a804a5afaee006f560f0b5b28cc99a6",
+      "lines": 101,
+      "productionGo": true,
+      "generated": false
+    },
+    {
+      "path": "internal/gateway/assortment/parse/models.go",
+      "bytes": 3405,
+      "sha256": "1743b534447902c0d1720100cbc23075888824fb9af776a05a5aad41e2c6459a",
+      "lines": 122,
+      "productionGo": true,
+      "generated": false
+    },
+    {
+      "path": "internal/gateway/assortment/parse/models_test.go",
+      "bytes": 629,
+      "sha256": "521d18f9e85821786f66f3b5704539d52a61235d4bad01752520fedc818cd72d",
+      "lines": 33,
+      "productionGo": false,
+      "generated": false
+    },
+    {
+      "path": "internal/gateway/assortment/parse/parseica.go",
+      "bytes": 956,
+      "sha256": "34b08454c70025abd680ea6e44c4346d8a727542e40244eb061974bb9b552545",
+      "lines": 44,
+      "productionGo": true,
+      "generated": false
+    },
+    {
+      "path": "internal/gateway/assortment/parse/parseicc.go",
+      "bytes": 1450,
+      "sha256": "094be670e6fcbf8431f426a04a24740d09dcdab1d316b257859aee071687e072",
+      "lines": 59,
+      "productionGo": true,
+      "generated": false
+    },
+    {
+      "path": "internal/gateway/assortment/parse/parseicm.go",
+      "bytes": 1005,
+      "sha256": "878599bd65c3c2586e27dafdf6c4040a3322dabe628bb6d3ddb39ef427c9c45a",
+      "lines": 44,
+      "productionGo": true,
+      "generated": false
+    },
+    {
+      "path": "internal/gateway/assortment/parse/parseicn.go",
+      "bytes": 949,
+      "sha256": "19091542ae59b2e28fa280c77105396ea0aa5df7c9ea66f938654c0145271567",
+      "lines": 44,
+      "productionGo": true,
+      "generated": false
+    },
+    {
+      "path": "internal/gateway/assortment/parse/parseicp.go",
+      "bytes": 1401,
+      "sha256": "830390819df412d49b4be424e63a2e62fa114abdcf5f9ae0b9c94056a7349ae8",
+      "lines": 59,
+      "productionGo": true,
+      "generated": false
+    },
+    {
+      "path": "internal/gateway/assortment/parse/parseicr.go",
+      "bytes": 1470,
+      "sha256": "5975d0a049b827d10597d3deff4a377ee3ab66f9d3e130ea351ef3535d6d5e8d",
+      "lines": 59,
+      "productionGo": true,
+      "generated": false
+    },
+    {
+      "path": "internal/gateway/assortment/parse/parseics.go",
+      "bytes": 1456,
+      "sha256": "a294c1e1b51dcc9f57b1c17b1964757efd12c50ba75ab4601c59fada1296b691",
+      "lines": 59,
+      "productionGo": true,
+      "generated": false
+    },
+    {
+      "path": "internal/gateway/assortment/parse/parseicv.go",
+      "bytes": 1404,
+      "sha256": "09de266a3793e4641e4aeec42354041a0289b4e823f8d8229968046cdbc95493",
+      "lines": 59,
+      "productionGo": true,
+      "generated": false
+    },
+    {
+      "path": "internal/gateway/assortment/parse/parser.go",
+      "bytes": 2453,
+      "sha256": "4c87b32222cd3560d1ada8f906e23b1d3b86e5c61a988703ee9efa94cab83e64",
+      "lines": 98,
+      "productionGo": true,
+      "generated": false
+    },
+    {
+      "path": "internal/gateway/assortment/pcgmap.go",
+      "bytes": 7143,
+      "sha256": "e6ae8a94c22694ffdee5ac1b99c7fa70364bddf9f5c75e84fe1ede52af08401c",
+      "lines": 188,
+      "productionGo": true,
+      "generated": false
+    },
+    {
+      "path": "internal/gateway/assortment/pcgmodel.go",
+      "bytes": 4128,
+      "sha256": "b6bdfd4ed92e01b06f834a04fa5b123cbf80d28525c126ac5c051185f22918e1",
+      "lines": 128,
+      "productionGo": true,
+      "generated": false
+    },
+    {
+      "path": "internal/gateway/assortment/pcgmodel_test.go",
+      "bytes": 930,
+      "sha256": "3bc6018fb6b48bb3fdbca16cdefcc133cd509a75090484161c679aa0da23f22a",
+      "lines": 41,
+      "productionGo": false,
+      "generated": false
+    },
+    {
+      "path": "internal/gateway/assortment/resolvemarketauthidentifiers.go",
+      "bytes": 1750,
+      "sha256": "7bfbd1f1e366c6e12e0eb23c830fd7a84853969b931ddc46007acb9814b07126",
+      "lines": 60,
+      "productionGo": true,
+      "generated": false
+    },
+    {
+      "path": "internal/gateway/assortment/resolvemarketauthidentifiers_test.go",
+      "bytes": 5610,
+      "sha256": "87926d0ea2534acded731173fd3a543aee4c0b1a14da4b8e38f7e573b475572d",
+      "lines": 219,
+      "productionGo": false,
+      "generated": false
+    },
+    {
+      "path": "internal/gateway/carfeatures/client.go",
+      "bytes": 4690,
+      "sha256": "8d012d32ae19f4fc7b72ee92e5638b71f7b52051300a06c51daed4f4bd202ecd",
+      "lines": 210,
+      "productionGo": true,
+      "generated": false
+    },
+    {
+      "path": "internal/gateway/carfeatures/featurecodefetcher.go",
+      "bytes": 2891,
+      "sha256": "d851b2da0282aa00bab00ce15f07ac3f9d816dbcaebdf395e6d6bc035f3861c4",
+      "lines": 152,
+      "productionGo": true,
+      "generated": false
+    },
+    {
+      "path": "internal/gateway/carfeatures/featurecodefetcher_test.go",
+      "bytes": 4108,
+      "sha256": "f3e1cde8f300577fc2b4dc5fdd3850257dbaa27f93723249ad382d0cf4078b36",
+      "lines": 153,
+      "productionGo": false,
+      "generated": false
+    },
+    {
+      "path": "internal/gateway/carfeatures/map.go",
+      "bytes": 656,
+      "sha256": "72755b25dc56ac51a5affe035537beb8f886edb2d020729122958f641da56c8e",
+      "lines": 19,
+      "productionGo": true,
+      "generated": false
+    },
+    {
+      "path": "internal/gateway/carfeatures/model.go",
+      "bytes": 655,
+      "sha256": "e3a797b242feeb4a1414621a0870d4229b264a0768e84897c88e834f8c57958c",
+      "lines": 27,
+      "productionGo": true,
+      "generated": false
+    },
+    {
+      "path": "internal/gateway/client/client.go",
+      "bytes": 2629,
+      "sha256": "fad6a556a17e98622e780dcb82227c13b7852978a4c60c842c2687af2bec4c69",
+      "lines": 97,
+      "productionGo": true,
+      "generated": false
+    },
+    {
+      "path": "internal/gateway/client/client_test.go",
+      "bytes": 2465,
+      "sha256": "a7297055a1fb4b250b88f324b38e509946b83be6e350dc8a7ac525ee8e758aeb",
+      "lines": 107,
+      "productionGo": false,
+      "generated": false
+    },
+    {
+      "path": "internal/gateway/client/oauth.go",
+      "bytes": 446,
+      "sha256": "20602b5ea879d4677dadaf023815f2c61a5d7fefad3baa331ae161e5e3712ad6",
+      "lines": 21,
+      "productionGo": true,
+      "generated": false
+    },
+    {
+      "path": "internal/gateway/client/requestbuilder.go",
+      "bytes": 1470,
+      "sha256": "a5c0752bcc52a59df4cd87d67c5b94101cff29c263c6173b8a3bb07e9991bbd7",
+      "lines": 79,
+      "productionGo": true,
+      "generated": false
+    },
+    {
+      "path": "internal/gateway/client/roundtripper.go",
+      "bytes": 568,
+      "sha256": "b0ea97e49163e53143ea10cf6734ee34da5b5dd2364a49b29c7e9bcf4ac0678a",
+      "lines": 26,
+      "productionGo": true,
+      "generated": false
+    },
+    {
+      "path": "internal/gateway/client/roundtripper_test.go",
+      "bytes": 1691,
+      "sha256": "aaecbfd37a909ad02ad241b93ee180c6e9a9e47ae1e03a149eeb3fcb437006b2",
+      "lines": 80,
+      "productionGo": false,
+      "generated": false
+    },
+    {
+      "path": "internal/gateway/client/tokensource.go",
+      "bytes": 2270,
+      "sha256": "356344391ffcac4f50e5c94a9fd59034c5199098285c16f1a2fab0609360f394",
+      "lines": 109,
+      "productionGo": true,
+      "generated": false
+    },
+    {
+      "path": "internal/gateway/cpam/client.go",
+      "bytes": 2035,
+      "sha256": "f453a9b59cdc8da755bc8c56f3f2904b4107a28a4e141390aee8fa5e3ced35b7",
+      "lines": 86,
+      "productionGo": true,
+      "generated": false
+    },
+    {
+      "path": "internal/gateway/cpam/featurecodefetcher.go",
+      "bytes": 2146,
+      "sha256": "b6572e7851aa3ca1d56dd766d3811dba1d4e6eb283406be9f22a833095216907",
+      "lines": 93,
+      "productionGo": true,
+      "generated": false
+    },
+    {
+      "path": "internal/gateway/cpam/featurecodefetcher_test.go",
+      "bytes": 771,
+      "sha256": "046dd4bab667af5db4c9044a69f56b2d0e03a272f6f408906a04d0505533cd04",
+      "lines": 45,
+      "productionGo": false,
+      "generated": false
+    },
+    {
+      "path": "internal/gateway/cpam/model.go",
+      "bytes": 1600,
+      "sha256": "0a8aa65ba5ade82901d1a6a3b64ddc2869f4f13d7d3f1ee3800402205b44d2ef",
+      "lines": 68,
+      "productionGo": true,
+      "generated": false
+    },
+    {
+      "path": "internal/gateway/filterservice/client.go",
+      "bytes": 2098,
+      "sha256": "dd918236722a654999dc6ab71ffd1b751a5db099e61553876fadf2c5afc26950",
+      "lines": 93,
+      "productionGo": true,
+      "generated": false
+    },
+    {
+      "path": "internal/messaging/consumer.go",
+      "bytes": 5667,
+      "sha256": "08840e9433cb5ed36234f8b3269a38638f4b37bb302ee641a4fdd9e89b638dfc",
+      "lines": 210,
+      "productionGo": true,
+      "generated": false
+    },
+    {
+      "path": "internal/messaging/contracts/car-key.pb.go",
+      "bytes": 12637,
+      "sha256": "24405e916a0b0fb414c202e921068b0a51c06aa083eb6e482961f6c9302ed51a",
+      "lines": 399,
+      "productionGo": true,
+      "generated": true
+    },
+    {
+      "path": "internal/messaging/contracts/car-specification.pb.go",
+      "bytes": 68425,
+      "sha256": "26b83b3f7cf60920a0aa7517e54acfdc8295e3d78a5f794a87bb7dfb33c21ab7",
+      "lines": 1787,
+      "productionGo": true,
+      "generated": true
+    },
+    {
+      "path": "internal/messaging/contracts/marketauthmessage.pb.go",
+      "bytes": 5196,
+      "sha256": "d38f675a3c5a5f335ca2db65ff3ffc38d77015f238bd0ab87d181f471c481a0c",
+      "lines": 154,
+      "productionGo": true,
+      "generated": true
+    },
+    {
+      "path": "internal/messaging/contracts/pcgmarketauthmessage.pb.go",
+      "bytes": 5304,
+      "sha256": "5c18c785cdaa58edfac0ccb860dd9626652a80456fe83dafdf46aa6d861adb17",
+      "lines": 154,
+      "productionGo": true,
+      "generated": true
+    },
+    {
+      "path": "internal/messaging/contracts/structure-week.pb.go",
+      "bytes": 6016,
+      "sha256": "b59821c20c9426941f6b4bff1b8fa15724195c75b71dd95e40c0416a0e6cdee4",
+      "lines": 189,
+      "productionGo": true,
+      "generated": true
+    },
+    {
+      "path": "internal/messaging/convert_contracts.go",
+      "bytes": 16065,
+      "sha256": "d3ad8cc287835a22e8959ed1485ae7b3b57ccfcbb28fb65dbb64a6c65821a1af",
+      "lines": 659,
+      "productionGo": true,
+      "generated": false
+    },
+    {
+      "path": "internal/messaging/convert_entities.go",
+      "bytes": 12502,
+      "sha256": "052da812827cddd0925795e1123502a5cce0eedd17817fac850b0ad934d3c0ec",
+      "lines": 393,
+      "productionGo": true,
+      "generated": false
+    },
+    {
+      "path": "internal/messaging/convert_test.go",
+      "bytes": 3518,
+      "sha256": "ceb1420c1d56e497245c625198d68c3924397cf7ed62491228889a0a199c8997",
+      "lines": 126,
+      "productionGo": false,
+      "generated": false
+    },
+    {
+      "path": "internal/messaging/logger.go",
+      "bytes": 1247,
+      "sha256": "1718111773c102dcc0bd84e013b1cabbd75aa40663ad25df8fd5f40ab98c29f2",
+      "lines": 52,
+      "productionGo": true,
+      "generated": false
+    },
+    {
+      "path": "internal/messaging/marketauthmessagehandler.go",
+      "bytes": 5762,
+      "sha256": "cd3af3c0e2a100ec9fbc5f53e0f7c7f8652d611240b711dbefeb623d2b50617b",
+      "lines": 201,
+      "productionGo": true,
+      "generated": false
+    },
+    {
+      "path": "internal/messaging/marketauthmessagehandler_test.go",
+      "bytes": 4732,
+      "sha256": "86a07f3bc9489114f3908e388f816f430b60ffb60b6aed62f2e12435f83d1e23",
+      "lines": 167,
+      "productionGo": false,
+      "generated": false
+    },
+    {
+      "path": "internal/messaging/publisher.go",
+      "bytes": 3297,
+      "sha256": "c7c06fea32e728b320b5313c4f5775046ca4aece0837bda147ecf2ab4944ab56",
+      "lines": 148,
+      "productionGo": true,
+      "generated": false
+    },
+    {
+      "path": "internal/messaging/setup.go",
+      "bytes": 1487,
+      "sha256": "40da32822b7af749d6eada90706da5106ab6ad860efe3443a46e858610482b7d",
+      "lines": 70,
+      "productionGo": true,
+      "generated": false
+    },
+    {
+      "path": "internal/messaging/telemetry.go",
+      "bytes": 2636,
+      "sha256": "3251220ed362805fc2799ae1af28ea109c2d9c3fdf1e918e03584d00f56297eb",
+      "lines": 100,
+      "productionGo": true,
+      "generated": false
+    },
+    {
+      "path": "internal/messaging/types.go",
+      "bytes": 470,
+      "sha256": "3bbee452af602db45685ada54e89631d143eae9459a7a9c4366cb4abee631d73",
+      "lines": 13,
+      "productionGo": true,
+      "generated": false
+    },
+    {
+      "path": "internal/observability/logging/bridge.go",
+      "bytes": 3049,
+      "sha256": "ae90dd33bcef98d8cd5d40fb666b8719082f8ea92f82c2dac951f03b4d012401",
+      "lines": 146,
+      "productionGo": true,
+      "generated": false
+    },
+    {
+      "path": "internal/observability/logging/bridge_bench_test.go",
+      "bytes": 1552,
+      "sha256": "15a899575fbf6932af4f0ac42182883bc68d4b5be384b9e9767c8f44e2001015",
+      "lines": 65,
+      "productionGo": false,
+      "generated": false
+    },
+    {
+      "path": "internal/observability/logging/bridge_test.go",
+      "bytes": 7187,
+      "sha256": "57821148ae06339675bab4aa7b1cfc3fdafb119359ef7c8ec493dad998be1016",
+      "lines": 231,
+      "productionGo": false,
+      "generated": false
+    },
+    {
+      "path": "internal/observability/logging/customlogfields.go",
+      "bytes": 639,
+      "sha256": "536c00f902243eaafc8db3bf924a0c17c3e7558d7959e8a675ed3718d5c45e52",
+      "lines": 25,
+      "productionGo": true,
+      "generated": false
+    },
+    {
+      "path": "internal/observability/telemetry/providers.go",
+      "bytes": 5871,
+      "sha256": "ceab451f8099737ef4daf8af521539ee2ea372cc313b399518b0ab2079ba5102",
+      "lines": 208,
+      "productionGo": true,
+      "generated": false
+    },
+    {
+      "path": "internal/observability/telemetry/providers_test.go",
+      "bytes": 4903,
+      "sha256": "c956fd0cd8169c4cf393c13971e07a0f817e2a4b1c3881c76c4625387edff8f1",
+      "lines": 186,
+      "productionGo": false,
+      "generated": false
+    },
+    {
+      "path": "internal/observability/telemetry/resource.go",
+      "bytes": 4012,
+      "sha256": "fe0df60600d5634ef4be25b57ec1651fc261aa40ceb1a56651ed99fa259079a2",
+      "lines": 115,
+      "productionGo": true,
+      "generated": false
+    },
+    {
+      "path": "internal/observability/telemetry/resource_test.go",
+      "bytes": 4385,
+      "sha256": "a6f0784f0866b01b9cd1854fb7efd41dc7403c6ad46b229a33d2fed9ddba2605",
+      "lines": 137,
+      "productionGo": false,
+      "generated": false
+    },
+    {
+      "path": "internal/service/carspecsyncer.go",
+      "bytes": 16838,
+      "sha256": "830fac2b2c696c5477c11e9d7c6e06b2c5805e3d62e178c03f9fbbfeb5928595",
+      "lines": 668,
+      "productionGo": true,
+      "generated": false
+    },
+    {
+      "path": "internal/service/carspecsyncer_test.go",
+      "bytes": 13768,
+      "sha256": "3162d24444fe59a548aec9ccc2bb59e65da315627d06c22cb8572d49e1560dee",
+      "lines": 464,
+      "productionGo": false,
+      "generated": false
+    },
+    {
+      "path": "internal/service/featurecodefetcher.go",
+      "bytes": 3296,
+      "sha256": "dd344a72dd63ed443e11199c159e69861a5f6f8c1bcb1392051f9c835529f09b",
+      "lines": 118,
+      "productionGo": true,
+      "generated": false
+    },
+    {
+      "path": "internal/service/featurecodefetcher_test.go",
+      "bytes": 2247,
+      "sha256": "eb697877be1ec60f53f01e6d834193805f10ff0471176957b00f38ac76679f58",
+      "lines": 66,
+      "productionGo": false,
+      "generated": false
+    },
+    {
+      "path": "internal/service/localeditionservice.go",
+      "bytes": 2744,
+      "sha256": "8c7bc057130cdc2759a7e8845da5c7ee774e4d424a474b9652850081e3f07621",
+      "lines": 103,
+      "productionGo": true,
+      "generated": false
+    },
+    {
+      "path": "mkdocs.yaml",
+      "bytes": 491,
+      "sha256": "5aaf2ff0bb50c085dc66a0cb99b39785ae2bfafad1f4f4169c6f13808f8b536b",
+      "lines": 18,
+      "productionGo": false,
+      "generated": false
+    },
+    {
+      "path": "scripts/fix-swag.sh",
+      "bytes": 1210,
+      "sha256": "086601baf03ac84387e50ea0c126e1ec28801ce2ece930d42f586739e5813a0e",
+      "lines": 27,
+      "productionGo": false,
+      "generated": false
+    },
+    {
+      "path": "scripts/generate-postgres-certs.sh",
+      "bytes": 824,
+      "sha256": "f0d46a7f9656d82ee2217dd40487dc2654b3cf1fd90ffcd3f032a507d58871f9",
+      "lines": 30,
+      "productionGo": false,
+      "generated": false
+    },
+    {
+      "path": "scripts/wait-for-postgres.sh",
+      "bytes": 133,
+      "sha256": "72b397211ef8b428d9f531870e1742baa517a66a72a1e4784536fb25bc28b863",
+      "lines": 4,
+      "productionGo": false,
+      "generated": false
+    },
+    {
+      "path": "test/e2e/apiclient/car_spec_adapter_client.go",
+      "bytes": 3557,
+      "sha256": "e1b97676ed79d98c9c25ce874f50883007843ade07362c8b7635e1a093509d0e",
+      "lines": 117,
+      "productionGo": false,
+      "generated": true
+    },
+    {
+      "path": "test/e2e/apiclient/car_specifications/car_specifications_client.go",
+      "bytes": 3980,
+      "sha256": "559319d531919dbd81cd02ab01aef9fd297ecba3213270085a38fa5f2826d459",
+      "lines": 108,
+      "productionGo": false,
+      "generated": true
+    },
+    {
+      "path": "test/e2e/apiclient/car_specifications/get_v1_car_specifications_parameters.go",
+      "bytes": 8029,
+      "sha256": "2e42c62e33ba948833af4e11f74ccc7c9ef03cc9a7ceaf3b0ae18292f107534f",
+      "lines": 279,
+      "productionGo": false,
+      "generated": true
+    },
+    {
+      "path": "test/e2e/apiclient/car_specifications/get_v1_car_specifications_responses.go",
+      "bytes": 13540,
+      "sha256": "ff0695e3ba187f26043c914a291a97774a888440e7961971c12e89d41b610e6d",
+      "lines": 396,
+      "productionGo": false,
+      "generated": true
+    },
+    {
+      "path": "test/e2e/apiclient/local_editions/delete_v1_local_editions_parameters.go",
+      "bytes": 6004,
+      "sha256": "320c27bc5d30ca95425cbb9dfe6baf7242952cdd9efe437c3d52bb960302a4d6",
+      "lines": 211,
+      "productionGo": false,
+      "generated": true
+    },
+    {
+      "path": "test/e2e/apiclient/local_editions/delete_v1_local_editions_responses.go",
+      "bytes": 10621,
+      "sha256": "888729ded4519d30e5aba3ddcd2a309593505919e68f9717566b8b0a6c9a5f47",
+      "lines": 306,
+      "productionGo": false,
+      "generated": true
+    },
+    {
+      "path": "test/e2e/apiclient/local_editions/get_v1_local_edition_code_parameters.go",
+      "bytes": 6019,
+      "sha256": "710db408b9238003cdc6e3fc635432059f7d9accbca688650c38a2953e197988",
+      "lines": 211,
+      "productionGo": false,
+      "generated": true
+    },
+    {
+      "path": "test/e2e/apiclient/local_editions/get_v1_local_edition_code_responses.go",
+      "bytes": 13432,
+      "sha256": "32c121ee0b98bbbe6fb1fc3128d6903bae47c537e95849a599743841a2c91ab5",
+      "lines": 396,
+      "productionGo": false,
+      "generated": true
+    },
+    {
+      "path": "test/e2e/apiclient/local_editions/get_v1_local_editions_parameters.go",
+      "bytes": 6805,
+      "sha256": "6e84ec3aa39fe7505947cd07d2c05f0a376aa08050a504cc75289437df8a3cc2",
+      "lines": 266,
+      "productionGo": false,
+      "generated": true
+    },
+    {
+      "path": "test/e2e/apiclient/local_editions/get_v1_local_editions_responses.go",
+      "bytes": 10513,
+      "sha256": "4776d46521f569ed4487f4a24a3452e8fc7dcd37573c6935cf241d2f5ac4d488",
+      "lines": 320,
+      "productionGo": false,
+      "generated": true
+    },
+    {
+      "path": "test/e2e/apiclient/local_editions/local_editions_client.go",
+      "bytes": 9192,
+      "sha256": "fa1f72320e4a3ca21e2fb67e49de72e54e59c43ba73c191c60143c1806315fbc",
+      "lines": 243,
+      "productionGo": false,
+      "generated": true
+    },
+    {
+      "path": "test/e2e/apiclient/local_editions/put_v1_local_editions_parameters.go",
+      "bytes": 5591,
+      "sha256": "2500440d48b6138e5272f9195c2fdcc7878948dd54db8b5ab2fe235fa632ed13",
+      "lines": 188,
+      "productionGo": false,
+      "generated": true
+    },
+    {
+      "path": "test/e2e/apiclient/local_editions/put_v1_local_editions_responses.go",
+      "bytes": 13361,
+      "sha256": "768a50724b4172e5d8e944c3ff283873d59a2a5800746b22fdd43c705b256c28",
+      "lines": 396,
+      "productionGo": false,
+      "generated": true
+    },
+    {
+      "path": "test/e2e/apiclient/models/carspecifications_car_details.go",
+      "bytes": 1997,
+      "sha256": "cf9569d5efcb4fb987933ff2d75387d484d4e0694c93d75016d54a1966a65ef8",
+      "lines": 80,
+      "productionGo": false,
+      "generated": true
+    },
+    {
+      "path": "test/e2e/apiclient/models/carspecifications_car_specification.go",
+      "bytes": 11981,
+      "sha256": "226f7d08c799f5eecdeec7f3c10c16922867a9ee7510ad849e8e4cb17001e106",
+      "lines": 478,
+      "productionGo": false,
+      "generated": true
+    },
+    {
+      "path": "test/e2e/apiclient/models/carspecifications_color.go",
+      "bytes": 10736,
+      "sha256": "4e9ac8d6002b35aaa8aa346bb894aa7d7f8d83c26032b6fd01743936d1c63322",
+      "lines": 423,
+      "productionGo": false,
+      "generated": true
+    },
+    {
+      "path": "test/e2e/apiclient/models/carspecifications_exactly_one.go",
+      "bytes": 1336,
+      "sha256": "a90096214352db8907dc7d08e12a726750cb5f0c310ca563028a3fc119d7622b",
+      "lines": 53,
+      "productionGo": false,
+      "generated": true
+    },
+    {
+      "path": "test/e2e/apiclient/models/carspecifications_forbids.go",
+      "bytes": 2617,
+      "sha256": "48f72edc4d769fa91f78b40adaadff75efad6a2816c4762eb9e9a2c17c148e06",
+      "lines": 112,
+      "productionGo": false,
+      "generated": true
+    },
+    {
+      "path": "test/e2e/apiclient/models/carspecifications_get_car_specification_response.go",
+      "bytes": 3020,
+      "sha256": "e95910c86f58275e4cdcb0626fccf6bae0c297ceb3a8febf0914a978ff48d6c9",
+      "lines": 109,
+      "productionGo": false,
+      "generated": true
+    },
+    {
+      "path": "test/e2e/apiclient/models/carspecifications_option.go",
+      "bytes": 15695,
+      "sha256": "06542b76740a7cc5bc8328bd0df4f3d8c93cfc3fd426f65f74ad70e39ac86e53",
+      "lines": 609,
+      "productionGo": false,
+      "generated": true
+    },
+    {
+      "path": "test/e2e/apiclient/models/carspecifications_option_specification.go",
+      "bytes": 4794,
+      "sha256": "3813eb27e40d5aa49f472701de87fcbd057c1d953a7267183b6707fb34ddea64",
+      "lines": 186,
+      "productionGo": false,
+      "generated": true
+    },
+    {
+      "path": "test/e2e/apiclient/models/carspecifications_package.go",
+      "bytes": 8286,
+      "sha256": "427668ec4f1ec273b8d6874438fdead48e9d4961ac76f6029527a5c442daa96a",
+      "lines": 328,
+      "productionGo": false,
+      "generated": true
+    },
+    {
+      "path": "test/e2e/apiclient/models/carspecifications_package_specification.go",
+      "bytes": 4754,
+      "sha256": "1b46a777600a19c7fa2760b9e9ca894a7c6807e88050ab1ad3402f7185969718",
+      "lines": 183,
+      "productionGo": false,
+      "generated": true
+    },
+    {
+      "path": "test/e2e/apiclient/models/carspecifications_period.go",
+      "bytes": 3635,
+      "sha256": "5b23882d88d29eb165ace68972673857b3094491f55a96316a47b94617bdebbe",
+      "lines": 160,
+      "productionGo": false,
+      "generated": true
+    },
+    {
+      "path": "test/e2e/apiclient/models/carspecifications_s_message.go",
+      "bytes": 2633,
+      "sha256": "d3a8a933c578e894e317d562bbe364ab48e074688cd05c8e3f4eaf0b112ec6e9",
+      "lines": 112,
+      "productionGo": false,
+      "generated": true
+    },
+    {
+      "path": "test/e2e/apiclient/models/carspecifications_s_message_specification.go",
+      "bytes": 3108,
+      "sha256": "a502bbabe02267012ae59815ee915e1efafc748378c2240a448e9d7004d02701",
+      "lines": 121,
+      "productionGo": false,
+      "generated": true
+    },
+    {
+      "path": "test/e2e/apiclient/models/carspecifications_structure_week.go",
+      "bytes": 1350,
+      "sha256": "a1450ddf80dd0fee7fd16998acd4fe5e0834671ef2b5d7f0badf9bdd6c8ea743",
+      "lines": 53,
+      "productionGo": false,
+      "generated": true
+    },
+    {
+      "path": "test/e2e/apiclient/models/carspecifications_styling_specification.go",
+      "bytes": 7978,
+      "sha256": "4b1612e660936059e0a3004f6b08853b576cd21676144b969f36119dfd09a2ac",
+      "lines": 307,
+      "productionGo": false,
+      "generated": true
+    },
+    {
+      "path": "test/e2e/apiclient/models/carspecifications_time_bound_at_least_one.go",
+      "bytes": 2849,
+      "sha256": "7720c747079fccfbc84bcd9152fcaceb870d2c49632ac8adecd33ea5c730e0b8",
+      "lines": 115,
+      "productionGo": false,
+      "generated": true
+    },
+    {
+      "path": "test/e2e/apiclient/models/carspecifications_time_bound_code.go",
+      "bytes": 2701,
+      "sha256": "dbcf11dcd1c0120579e757d807e0ef5548993dc2f02f65b7c54d1058cd668152",
+      "lines": 112,
+      "productionGo": false,
+      "generated": true
+    },
+    {
+      "path": "test/e2e/apiclient/models/carspecifications_time_bound_exactly_one.go",
+      "bytes": 2846,
+      "sha256": "ce8f949ad78f6a5063cedf694864d7dc1dca0a11fefa15f1c1291e34007b6a84",
+      "lines": 115,
+      "productionGo": false,
+      "generated": true
+    },
+    {
+      "path": "test/e2e/apiclient/models/carspecifications_upholstery.go",
+      "bytes": 9107,
+      "sha256": "56d7c39da6e2c0fab1b8c28a4aff120fd09d88a4bc70245c681d265d043b8309",
+      "lines": 361,
+      "productionGo": false,
+      "generated": true
+    },
+    {
+      "path": "test/e2e/apiclient/models/carspecifications_wheel.go",
+      "bytes": 10888,
+      "sha256": "bc1199acea7ad2fc4f301dea7c32f777eb72adab89370788ad114aa4637fcc2e",
+      "lines": 423,
+      "productionGo": false,
+      "generated": true
+    },
+    {
+      "path": "test/e2e/apiclient/models/carspecifications_wheel_specification.go",
+      "bytes": 3077,
+      "sha256": "b595ca3cf653d51f14173d37229967711748f1e32449f357c4438cc0068fd9e1",
+      "lines": 124,
+      "productionGo": false,
+      "generated": true
+    },
+    {
+      "path": "test/e2e/apiclient/models/get_car_specification_response.go",
+      "bytes": 2722,
+      "sha256": "e3038c45861f9b58589fe91671ea1b106295521aad326348dd5a029a13f81386",
+      "lines": 115,
+      "productionGo": false,
+      "generated": true
+    },
+    {
+      "path": "test/e2e/apiclient/models/get_local_edition_code_response.go",
+      "bytes": 2742,
+      "sha256": "9263458403dd2d308ee8c368020287698dce367bb576a51d5ea64affb84fe3b3",
+      "lines": 115,
+      "productionGo": false,
+      "generated": true
+    },
+    {
+      "path": "test/e2e/apiclient/models/internal_api_httpserver_localeditions_get_local_edition_code_response.go",
+      "bytes": 1705,
+      "sha256": "90f34f05e326706385189ff3040538406c50e78bb03edf5aaa24370d4bc4daa4",
+      "lines": 50,
+      "productionGo": false,
+      "generated": true
+    },
+    {
+      "path": "test/e2e/apiclient/models/internal_api_httpserver_localeditions_list_local_editions_response.go",
+      "bytes": 3505,
+      "sha256": "154333903848ae73fab65634d0f4d20e96bf48685465bca4d43612095be0124e",
+      "lines": 121,
+      "productionGo": false,
+      "generated": true
+    },
+    {
+      "path": "test/e2e/apiclient/models/internal_api_httpserver_localeditions_local_edition_response.go",
+      "bytes": 1800,
+      "sha256": "fd0b18051051694b259a652bcf34c779766a488d9fe75b3287fc488ae2a2c32a",
+      "lines": 59,
+      "productionGo": false,
+      "generated": true
+    },
+    {
+      "path": "test/e2e/apiclient/models/internal_api_httpserver_localeditions_upsert_local_edition_request.go",
+      "bytes": 1858,
+      "sha256": "556c240290a9fd3e333bea381306ea6cd6964cd0707196bd433f0ae10dd761fd",
+      "lines": 59,
+      "productionGo": false,
+      "generated": true
+    },
+    {
+      "path": "test/e2e/apiclient/models/list_local_editions_response.go",
+      "bytes": 2711,
+      "sha256": "d01c37db098a013c6beebaa5f1fc93d012e523ab229dec2574fd3ac057319546",
+      "lines": 115,
+      "productionGo": false,
+      "generated": true
+    },
+    {
+      "path": "test/e2e/apiclient/models/local_edition_response.go",
+      "bytes": 2638,
+      "sha256": "d01312c8492579a51f2b6f73c87474e2d01f15dbd687f6d1d2b5617659702251",
+      "lines": 115,
+      "productionGo": false,
+      "generated": true
+    },
+    {
+      "path": "test/e2e/apiclient/models/respond_error_detail.go",
+      "bytes": 1232,
+      "sha256": "9d0c698da24fe3f51308f9751aa54c46ed734e7328a2ad3706109663aa87b7e8",
+      "lines": 53,
+      "productionGo": false,
+      "generated": true
+    },
+    {
+      "path": "test/e2e/apiclient/models/respond_error_list.go",
+      "bytes": 2807,
+      "sha256": "cdb3d0c3b475a5850503593f157de6effa327a5def3373065d173b517e2218f5",
+      "lines": 124,
+      "productionGo": false,
+      "generated": true
+    },
+    {
+      "path": "test/e2e/apiclient/models/respond_error_message.go",
+      "bytes": 2912,
+      "sha256": "1735bb586b11aa74a0442d801af4172944890925a69a23e5972a51bf149db7f5",
+      "lines": 127,
+      "productionGo": false,
+      "generated": true
+    },
+    {
+      "path": "test/e2e/apiclient/models/respond_error_response.go",
+      "bytes": 2621,
+      "sha256": "cc168949b6e38fc314b6f198792e24c4734fc8b0e0262c13452b8ab104133795",
+      "lines": 115,
+      "productionGo": false,
+      "generated": true
+    },
+    {
+      "path": "test/e2e/app.go",
+      "bytes": 1206,
+      "sha256": "7d567ffc88da13d7e3f600bccc207fcb30ca3a8633d44a610b6d6d576479f90a",
+      "lines": 63,
+      "productionGo": false,
+      "generated": false
+    },
+    {
+      "path": "test/e2e/carspecificationsync/act.go",
+      "bytes": 2657,
+      "sha256": "c4e910efa09ece3a24313c348f6915eb54046831b2e21ec3bd4d65dec87ec1d0",
+      "lines": 123,
+      "productionGo": false,
+      "generated": false
+    },
+    {
+      "path": "test/e2e/carspecificationsync/baseline.feature",
+      "bytes": 13733,
+      "sha256": "58a43273ad3b9228e3978c0288a012a43a7a17be82aa797a9bd7e9dd598b6cfb",
+      "lines": 240,
+      "productionGo": false,
+      "generated": false
+    },
+    {
+      "path": "test/e2e/carspecificationsync/carspecificationsync.feature",
+      "bytes": 24887,
+      "sha256": "1c5e7287802fec336b3547d4da51277712a19f3bdb55d2de514f541f8634e9a1",
+      "lines": 455,
+      "productionGo": false,
+      "generated": false
+    },
+    {
+      "path": "test/e2e/carspecificationsync/localeditionsbaseline.feature",
+      "bytes": 8423,
+      "sha256": "9850b1231f74da4f777f5275aa911cf7aea6338e861f959d27c0179c21088d66",
+      "lines": 135,
+      "productionGo": false,
+      "generated": false
+    },
+    {
+      "path": "test/e2e/carspecificationsync/localeditionsync.feature",
+      "bytes": 8371,
+      "sha256": "6f3c5a5f0e6bfee2481009cb20831c9a52bc5cf40fbcdc5b3865c9bb491e5e61",
+      "lines": 135,
+      "productionGo": false,
+      "generated": false
+    },
+    {
+      "path": "test/e2e/carspecificationsync/nonpermittedmodelyears.feature",
+      "bytes": 506,
+      "sha256": "82ec260f9a3c0a30106f8f77eefb791bfa6834fde4dcb22c5f42399307a5cd6c",
+      "lines": 15,
+      "productionGo": false,
+      "generated": false
+    },
+    {
+      "path": "test/e2e/carspecificationsync/setup.go",
+      "bytes": 6067,
+      "sha256": "80c78b7fc1b657addf413a1aad6e525f44677daab07e28c5cffbdf25af1ec926",
+      "lines": 240,
+      "productionGo": false,
+      "generated": false
+    },
+    {
+      "path": "test/e2e/carspecificationsync/steps.go",
+      "bytes": 5827,
+      "sha256": "f297f3746d8b652bd8fc88bad3d32de35c58aef27c41fd734411b8d7a7d7f7a6",
+      "lines": 182,
+      "productionGo": false,
+      "generated": false
+    },
+    {
+      "path": "test/e2e/carspecificationsync/suite.go",
+      "bytes": 2316,
+      "sha256": "27ddf43c63bfc11ef7c53cce181852be3195bd576ec71c51052e0ac2666ba2c0",
+      "lines": 89,
+      "productionGo": false,
+      "generated": false
+    },
+    {
+      "path": "test/e2e/carspecificationsync/verify.go",
+      "bytes": 20620,
+      "sha256": "da3fe5b8f0ff6fd6edc2c19c5db883c98aad405ed3c7e1b81584ae080337efa7",
+      "lines": 806,
+      "productionGo": false,
+      "generated": false
+    },
+    {
+      "path": "test/e2e/getcarspecification/getcarspecification.feature",
+      "bytes": 1542,
+      "sha256": "aa06286f8967e26a26e4825f62c027e25317118810403ada0033571baae76c96",
+      "lines": 28,
+      "productionGo": false,
+      "generated": false
+    },
+    {
+      "path": "test/e2e/getcarspecification/steps.go",
+      "bytes": 4712,
+      "sha256": "0bfcaa4b9d020e8c85134c467ca0297f995ba5ae0c965b0bd07649c0b1a87441",
+      "lines": 149,
+      "productionGo": false,
+      "generated": false
+    },
+    {
+      "path": "test/e2e/getcarspecification/suite.go",
+      "bytes": 1416,
+      "sha256": "09a718808fa2d7bf243a91e80883a079f37d602251b7c523fa83411a70aa401f",
+      "lines": 59,
+      "productionGo": false,
+      "generated": false
+    },
+    {
+      "path": "test/e2e/localeditions/act.go",
+      "bytes": 4310,
+      "sha256": "f58f9de409251368bc8a68dddae74bd36c28ac26efc678bde985aff88ce94d35",
+      "lines": 160,
+      "productionGo": false,
+      "generated": false
+    },
+    {
+      "path": "test/e2e/localeditions/localeditions.feature",
+      "bytes": 7208,
+      "sha256": "214670b70cad306b6c1b89ddc208f3d3e94fc3964a60fef5b841d0b99a1dc29d",
+      "lines": 123,
+      "productionGo": false,
+      "generated": false
+    },
+    {
+      "path": "test/e2e/localeditions/setup.go",
+      "bytes": 1648,
+      "sha256": "b6f52180dcce571ccc59f338d906f549b3d221469dbbe61df4c3fbf60ce0235a",
+      "lines": 71,
+      "productionGo": false,
+      "generated": false
+    },
+    {
+      "path": "test/e2e/localeditions/steps.go",
+      "bytes": 1868,
+      "sha256": "f4b85be95575e548e6397691f82d6f3f03cb966a38a69b9650422a51d83512a8",
+      "lines": 63,
+      "productionGo": false,
+      "generated": false
+    },
+    {
+      "path": "test/e2e/localeditions/suite.go",
+      "bytes": 1670,
+      "sha256": "0a05e082d70950846240f8ca4bf437f804b886a9fa9123828d04330b38e5554b",
+      "lines": 66,
+      "productionGo": false,
+      "generated": false
+    },
+    {
+      "path": "test/e2e/localeditions/verify.go",
+      "bytes": 2421,
+      "sha256": "aa15206bcde13c7ee1d5f909e5be7c95821ba78eff596060e1e2d3a6bd68479f",
+      "lines": 81,
+      "productionGo": false,
+      "generated": false
+    },
+    {
+      "path": "test/e2e/marketauthevents/marketauthevents.feature",
+      "bytes": 5018,
+      "sha256": "6d1e2b4e6c0a316765df9ab966bb511b8eb5164a25ab14b631f2d0662fd4adce",
+      "lines": 96,
+      "productionGo": false,
+      "generated": false
+    },
+    {
+      "path": "test/e2e/marketauthevents/steps.go",
+      "bytes": 11726,
+      "sha256": "00e06c5ce547770eaa2bf827852de3293d502ce72dd2086ec47d5ee53a7e74ec",
+      "lines": 430,
+      "productionGo": false,
+      "generated": false
+    },
+    {
+      "path": "test/e2e/marketauthevents/suite.go",
+      "bytes": 1898,
+      "sha256": "850af027c36067c27e69e3b883e1180c5e3d6aa08489bcec41d96dcbd512c4d4",
+      "lines": 71,
+      "productionGo": false,
+      "generated": false
+    },
+    {
+      "path": "test/e2e/mock/featureflag.go",
+      "bytes": 832,
+      "sha256": "7bdea7d295780e49a4caba2906a667dea62a1ecc1b8e6b27312de2c8ab43665a",
+      "lines": 37,
+      "productionGo": false,
+      "generated": false
+    },
+    {
+      "path": "test/e2e/mock/kafka.go",
+      "bytes": 1728,
+      "sha256": "2a62e4c245a2923e1d7ba90ed69545ce94d482957152e644a2304aa25c90745d",
+      "lines": 92,
+      "productionGo": false,
+      "generated": false
+    },
+    {
+      "path": "test/e2e/oauth2/tokensource.go",
+      "bytes": 759,
+      "sha256": "07f232ed6b1a0ad4217186ff5c2af90a526941a2fa7a95546069b685965ef3bd",
+      "lines": 33,
+      "productionGo": false,
+      "generated": false
+    },
+    {
+      "path": "test/e2e/pcgcarspecificationsync/pcgcarspecificationsync.feature",
+      "bytes": 3554,
+      "sha256": "948d663f5c4214bbd2eda68843ff3b3f323984f38ef65c24b920a30bc55a4a42",
+      "lines": 47,
+      "productionGo": false,
+      "generated": false
+    },
+    {
+      "path": "test/e2e/pcgcarspecificationsync/snapshot/pcgMarketAuthResponse.json",
+      "bytes": 6889,
+      "sha256": "26ba56be57d2f97f6d59364c083e02132605e4e333b9360f418a5d7052535a01",
+      "lines": 386,
+      "productionGo": false,
+      "generated": false
+    },
+    {
+      "path": "test/e2e/pcgcarspecificationsync/steps.go",
+      "bytes": 11790,
+      "sha256": "40b6829207dc06f063d30043d513e647b4875250d9b91ba43af08db91e0badf9",
+      "lines": 402,
+      "productionGo": false,
+      "generated": false
+    },
+    {
+      "path": "test/e2e/pcgcarspecificationsync/suite.go",
+      "bytes": 1930,
+      "sha256": "3cb0835c4f1d8ea12687c1792b18ed25fa18c7d538857f098c93a90899e6fed6",
+      "lines": 65,
+      "productionGo": false,
+      "generated": false
+    },
+    {
+      "path": "test/e2e/pcgmarketauthevents/pcgmarketauthevents.feature",
+      "bytes": 2996,
+      "sha256": "e310ad4cbe603b2494d37832d906f84765014f2817a5e7509d429fdf119f93b5",
+      "lines": 49,
+      "productionGo": false,
+      "generated": false
+    },
+    {
+      "path": "test/e2e/pcgmarketauthevents/snapshot/pcgMarketAuthResponse.json",
+      "bytes": 6889,
+      "sha256": "c676e2ad368ea1bd15c8adeac274055be7fdea66639f2af03ca1643da2c6d6ed",
+      "lines": 386,
+      "productionGo": false,
+      "generated": false
+    },
+    {
+      "path": "test/e2e/pcgmarketauthevents/steps.go",
+      "bytes": 18242,
+      "sha256": "fd8c0c0486ed448e7609862c5b86d8e4457d01c9a1b787b89391d8bfbba2c7d1",
+      "lines": 630,
+      "productionGo": false,
+      "generated": false
+    },
+    {
+      "path": "test/e2e/pcgmarketauthevents/suite.go",
+      "bytes": 2113,
+      "sha256": "c4cb98a6e646325a3443bce62e4afc4f58a51c44b1b0e5b801bbd859f2e47af3",
+      "lines": 69,
+      "productionGo": false,
+      "generated": false
+    },
+    {
+      "path": "test/e2e/setup_test.go",
+      "bytes": 7390,
+      "sha256": "96309f32e5c0471a31aabbe808781cb68cfc4d7b1677880cfbd301e968141d5e",
+      "lines": 257,
+      "productionGo": false,
+      "generated": false
+    },
+    {
+      "path": "test/e2e/stub/carconfigquery.go",
+      "bytes": 2572,
+      "sha256": "40ae5d3cc49c916d69e48b809664b23999514b3d29b13c740ebeaf80104a29ad",
+      "lines": 100,
+      "productionGo": false,
+      "generated": false
+    },
+    {
+      "path": "test/e2e/stub/cpamfeaturecode.go",
+      "bytes": 1556,
+      "sha256": "1451c2126fa443d1796b49aeea828db62114a24520771b5c2037a32db70d9f86",
+      "lines": 57,
+      "productionGo": false,
+      "generated": false
+    },
+    {
+      "path": "test/e2e/stub/fullfeatures.go",
+      "bytes": 2047,
+      "sha256": "c11597984a538d0ddeafaf958fafde58ceb71a17c823db87c0400ae152c44d8b",
+      "lines": 65,
+      "productionGo": false,
+      "generated": false
+    },
+    {
+      "path": "test/e2e/stub/marketauth.go",
+      "bytes": 778,
+      "sha256": "f165ab590c23a97caf71095809671ef58833e210cfcdfb95c64790c8f8850f6e",
+      "lines": 24,
+      "productionGo": false,
+      "generated": false
+    },
+    {
+      "path": "test/e2e/stub/wheelcodes.go",
+      "bytes": 766,
+      "sha256": "a7f70f0d561ed1cd93b51e601ea2290a67678ca3460712793d7eea776dc5e142",
+      "lines": 32,
+      "productionGo": false,
+      "generated": false
+    },
+    {
+      "path": "test/e2e/suite.go",
+      "bytes": 3286,
+      "sha256": "4d26bbedee674b6a61bfe9d8e070b204cda531b91d535b53b1caf73daa1cf315",
+      "lines": 127,
+      "productionGo": false,
+      "generated": false
+    }
+  ]
+}

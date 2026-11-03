@@ -1,0 +1,11 @@
+{
+  "status": "passed",
+  "snapshot": "4af0cfe8253b645c975f5935e309540b2bb30108fea04e4bbd34f3408fb65ea3",
+  "sourceBundleByteSha256": "4b8fa546537f90c0f90e0a9c4b74e9fe131fe256ab53c68be18f33a17c88147a",
+  "gzipDecompression": "Exactly equal immutable correction bundle bytes",
+  "correctedFields": 1012,
+  "correctedShapes": 440,
+  "independentlyCheckedPinnedFiles": 248,
+  "allOtherFactsEqualAfterNamespaceTranslation": true,
+  "formatting": "Original correction metadata/scripts/seal retained in correction-originals.tar.gz; combine with byte-exact decompressed bundle to verify original seal. Standalone metadata may be formatted."
+}

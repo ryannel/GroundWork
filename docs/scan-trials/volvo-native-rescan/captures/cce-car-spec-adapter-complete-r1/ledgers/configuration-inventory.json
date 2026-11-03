@@ -1,0 +1,19 @@
+{
+  "paths": [
+    "go.mod",
+    "go.sum",
+    ".secrets.example",
+    "Dockerfile.app",
+    "Dockerfile.migrate",
+    "docker-compose.yml",
+    "Makefile",
+    ".github/workflows/deploy.yaml",
+    "scripts/fix-swag.sh",
+    "scripts/generate-postgres-certs.sh",
+    "scripts/wait-for-postgres.sh",
+    "docker-entrypoint-initdb.d/create_db.sql"
+  ],
+  "scope": "Source/default/example declarations; not observed deployment",
+  "schemaFiles": ["api/swagger.json", "api/swagger.yaml", "api/docs.go"],
+  "protos": "No .proto files in pinned tree; generated descriptors/tags retained."
+}

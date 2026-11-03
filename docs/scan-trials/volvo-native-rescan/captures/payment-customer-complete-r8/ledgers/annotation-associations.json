@@ -1,0 +1,132 @@
+[
+  {
+    "method": "customer-b0010537-complete-r8/method/8056dc952620ebc3",
+    "declaration": "@Override\n  @Cacheable(\n      cacheNames = \"idempotency-response-cache\",\n      key = \"@requestHashCacheKeyResolver.resolve(#root.args[0])\",\n      unless = \"#result == null\")\n  @DistributedLock(key = \"'locks:' + @requestHashCacheKeyResolver.resolve(#customerCreatePayload)\")\n  public BaseResponse<CustomerResponseDto> createCustomer(\n      CustomerCreatePayload customerCreatePayload) ",
+    "claim": "customer-b0010537-complete-r8/annotation/8056dc952620ebc3"
+  },
+  {
+    "method": "customer-b0010537-complete-r8/method/25217c6470966a28",
+    "declaration": "@Override\n  @DistributedLock(key = \"'locks:' + @requestHashCacheKeyResolver.resolve(#customerCreatePayload)\")\n  public BaseResponse<CustomerResponseDto> createGuestCustomer(\n      GuestCustomerCreatePayload customerCreatePayload) ",
+    "claim": "customer-b0010537-complete-r8/annotation/25217c6470966a28"
+  },
+  {
+    "method": "customer-b0010537-complete-r8/method/30635b36aefefbb5",
+    "declaration": "@Override\n  @Cacheable(\n      cacheNames = \"idempotency-response-cache\",\n      key = \"@requestHashCacheKeyResolver.resolve(#root.args[0])\",\n      unless = \"#result == null\")\n  @DistributedLock(key = \"'locks:' + @requestHashCacheKeyResolver.resolve(#customerCreatePayload)\")\n  public BaseResponse<CustomerResponseDto> getOrCreateCustomer(\n      CustomerCreatePayload customerCreatePayload) ",
+    "claim": "customer-b0010537-complete-r8/annotation/30635b36aefefbb5"
+  },
+  {
+    "method": "customer-b0010537-complete-r8/method/ac2f650698c795dc",
+    "declaration": "@Bean\n  CacheManager redisCacheManager(\n      RedisConnectionFactory redisConnectionFactory,\n      @Value(\"${spring.cache.redis.time-to-live:86400s}\") Duration cacheTtl) ",
+    "claim": "customer-b0010537-complete-r8/annotation/ac2f650698c795dc"
+  },
+  {
+    "method": "customer-b0010537-complete-r8/method/1284514a4c2bdaa6",
+    "declaration": "@Bean\n  CacheErrorHandler cacheErrorHandler() ",
+    "claim": "customer-b0010537-complete-r8/annotation/1284514a4c2bdaa6"
+  },
+  {
+    "method": "customer-b0010537-complete-r8/method/dadd71a906e6c043",
+    "declaration": "@Bean\n  public CustomerClient customerClient() ",
+    "claim": "customer-b0010537-complete-r8/annotation/dadd71a906e6c043"
+  },
+  {
+    "method": "customer-b0010537-complete-r8/method/8f2f9c58556c386e",
+    "declaration": "@ResponseStatus(HttpStatus.NOT_ACCEPTABLE)\n  @ExceptionHandler(value = HttpMediaTypeNotAcceptableException.class)\n  @Order(Ordered.HIGHEST_PRECEDENCE)\n  @Hidden\n  public HttpEntity<BaseResponse<Error>> handleHttpMediaTypeNotAcceptableException(\n      HttpServletRequest request, HttpMediaTypeNotAcceptableException e) ",
+    "claim": "customer-b0010537-complete-r8/annotation/8f2f9c58556c386e"
+  },
+  {
+    "method": "customer-b0010537-complete-r8/method/fbad0fc687c98e2c",
+    "declaration": "@ResponseStatus(BAD_REQUEST)\n  @ApiResponse(\n      responseCode = \"400\",\n      description = \"Request validation failed\",\n      content = {\n        @Content(\n            mediaType = MediaType.APPLICATION_JSON_VALUE,\n            schema = @Schema(implementation = com.volvocars.services.web.model.ErrorResponse.class))\n      })\n  @ExceptionHandler(MethodArgumentNotValidException.class)\n  public HttpEntity<BaseResponse<Error>> handleMethodArgumentNotValid(\n      HttpServletRequest request, MethodArgumentNotValidException exception) ",
+    "claim": "customer-b0010537-complete-r8/annotation/fbad0fc687c98e2c"
+  },
+  {
+    "method": "customer-b0010537-complete-r8/method/53cd90b5a566d53a",
+    "declaration": "@ResponseStatus(BAD_REQUEST)\n  @ExceptionHandler({HttpMessageNotReadableException.class})\n  @ApiResponse(\n      responseCode = \"400\",\n      description = \"Failed to deserialize\",\n      content = {\n        @Content(\n            mediaType = MediaType.APPLICATION_JSON_VALUE,\n            schema = @Schema(implementation = ErrorResponse.class))\n      })\n  public HttpEntity<BaseResponse<Error>> messageNotReadableHandling(\n      HttpServletRequest request, HttpMessageNotReadableException e) ",
+    "claim": "customer-b0010537-complete-r8/annotation/53cd90b5a566d53a"
+  },
+  {
+    "method": "customer-b0010537-complete-r8/method/28949b006632524f",
+    "declaration": "@ResponseStatus(HttpStatus.BAD_REQUEST)\n  @ExceptionHandler({InputValidationException.class})\n  @ApiResponse(\n      responseCode = \"400\",\n      description = \"Request contains an unaccepted input\",\n      content = {\n        @Content(\n            mediaType = \"application/json\",\n            schema = @Schema(implementation = ErrorResponse.class))\n      })\n  public HttpEntity<BaseResponse<Error>> handleInputValidationException(\n      HttpServletRequest request, InputValidationException e) ",
+    "claim": "customer-b0010537-complete-r8/annotation/28949b006632524f"
+  },
+  {
+    "method": "customer-b0010537-complete-r8/method/651e0a7d760989c5",
+    "declaration": "@ResponseStatus(HttpStatus.BAD_REQUEST)\n  @ExceptionHandler({ConstraintViolationException.class})\n  @ApiResponse(\n      responseCode = \"400\",\n      description = \"Request contains an unaccepted input\",\n      content = {\n        @Content(\n            mediaType = \"application/json\",\n            schema = @Schema(implementation = ErrorResponse.class))\n      })\n  public HttpEntity<BaseResponse<Error>> handleConstraintViolationException(\n      HttpServletRequest request, ConstraintViolationException e) ",
+    "claim": "customer-b0010537-complete-r8/annotation/651e0a7d760989c5"
+  },
+  {
+    "method": "customer-b0010537-complete-r8/method/be63c8de29d1c04a",
+    "declaration": "@ResponseStatus(HttpStatus.BAD_REQUEST)\n  @ExceptionHandler({IllegalArgumentException.class})\n  @ApiResponse(\n      responseCode = \"400\",\n      description = \"Request contains an unaccepted input\",\n      content = {\n        @Content(\n            mediaType = \"application/json\",\n            schema = @Schema(implementation = ErrorResponse.class))\n      })\n  public HttpEntity<BaseResponse<Error>> handleNoIllegalArgumentException(\n      HttpServletRequest request, IllegalArgumentException e) ",
+    "claim": "customer-b0010537-complete-r8/annotation/be63c8de29d1c04a"
+  },
+  {
+    "method": "customer-b0010537-complete-r8/method/fa500b7f0cd6dad7",
+    "declaration": "@ResponseStatus(HttpStatus.BAD_REQUEST)\n  @ExceptionHandler({MethodArgumentTypeMismatchException.class})\n  @ApiResponse(\n      responseCode = \"400\",\n      description = \"Request contains an unaccepted input\",\n      content = {\n        @Content(\n            mediaType = MediaType.APPLICATION_JSON_VALUE,\n            schema = @Schema(implementation = ErrorResponse.class))\n      })\n  public HttpEntity<BaseResponse<Error>> handleMethodArgumentTypeMismatch(\n      HttpServletRequest request, MethodArgumentTypeMismatchException ex) ",
+    "claim": "customer-b0010537-complete-r8/annotation/fa500b7f0cd6dad7"
+  },
+  {
+    "method": "customer-b0010537-complete-r8/method/fcbecfa52d3bb34f",
+    "declaration": "@ResponseStatus(HttpStatus.UNSUPPORTED_MEDIA_TYPE)\n  @ExceptionHandler({UnsupportedMediaTypeStatusException.class})\n  @ApiResponse(\n      responseCode = \"415\",\n      description = \"Unsupported Media Type\",\n      content = {\n        @Content(\n            mediaType = \"application/json\",\n            schema = @Schema(implementation = ErrorResponse.class))\n      })\n  public HttpEntity<BaseResponse<Error>> handleUnsupportedMediaTypeStatusException(\n      HttpServletRequest request, UnsupportedMediaTypeStatusException e) ",
+    "claim": "customer-b0010537-complete-r8/annotation/fcbecfa52d3bb34f"
+  },
+  {
+    "method": "customer-b0010537-complete-r8/method/2b00770157416af4",
+    "declaration": "@ResponseStatus(HttpStatus.UNSUPPORTED_MEDIA_TYPE)\n  @ExceptionHandler({HttpMediaTypeNotSupportedException.class})\n  @Hidden\n  public HttpEntity<BaseResponse<Error>> handleHttpMediaTypeNotSupportedException(\n      HttpServletRequest request, HttpMediaTypeNotSupportedException e) ",
+    "claim": "customer-b0010537-complete-r8/annotation/2b00770157416af4"
+  },
+  {
+    "method": "customer-b0010537-complete-r8/method/8ccf94e72fe0970e",
+    "declaration": "@ResponseStatus(HttpStatus.NOT_FOUND)\n  @ExceptionHandler({NoHandlerFoundException.class})\n  @ApiResponse(\n      responseCode = \"404\",\n      description = \"Not Found\",\n      content = {\n        @Content(\n            mediaType = \"application/json\",\n            schema = @Schema(implementation = ErrorResponse.class))\n      })\n  public HttpEntity<BaseResponse<Error>> handleNoHandlerFoundException(\n      HttpServletRequest request, NoHandlerFoundException e) ",
+    "claim": "customer-b0010537-complete-r8/annotation/8ccf94e72fe0970e"
+  },
+  {
+    "method": "customer-b0010537-complete-r8/method/199a47244ae6e1b7",
+    "declaration": "@ResponseStatus(HttpStatus.NOT_FOUND)\n  @ExceptionHandler({NoResourceFoundException.class})\n  @ApiResponse(\n      responseCode = \"404\",\n      description = \"Not Found\",\n      content = {\n        @Content(\n            mediaType = \"application/json\",\n            schema = @Schema(implementation = ErrorResponse.class))\n      })\n  public HttpEntity<BaseResponse<Error>> handleNoResourceFoundException(\n      HttpServletRequest request, NoResourceFoundException e) ",
+    "claim": "customer-b0010537-complete-r8/annotation/199a47244ae6e1b7"
+  },
+  {
+    "method": "customer-b0010537-complete-r8/method/fca2037b38bee7e3",
+    "declaration": "@ResponseStatus(HttpStatus.NOT_FOUND)\n  @ExceptionHandler({NotFoundException.class})\n  @ApiResponse(\n      responseCode = \"404\",\n      description = \"Not Found\",\n      content = {\n        @Content(\n            mediaType = \"application/json\",\n            schema = @Schema(implementation = ErrorResponse.class))\n      })\n  public HttpEntity<BaseResponse<Error>> handleNotFoundException(\n      HttpServletRequest request, NotFoundException e) ",
+    "claim": "customer-b0010537-complete-r8/annotation/fca2037b38bee7e3"
+  },
+  {
+    "method": "customer-b0010537-complete-r8/method/1a8787bbe7902e65",
+    "declaration": "@ResponseStatus(HttpStatus.FORBIDDEN)\n  @ExceptionHandler({AccessDeniedException.class})\n  @ApiResponse(\n      responseCode = \"403\",\n      description = \"Resource forbidden\",\n      content = {\n        @Content(\n            mediaType = \"application/json\",\n            schema = @Schema(implementation = ErrorResponse.class))\n      })\n  public HttpEntity<BaseResponse<Error>> handleAccessDeniedException(\n      HttpServletRequest request, AccessDeniedException e) ",
+    "claim": "customer-b0010537-complete-r8/annotation/1a8787bbe7902e65"
+  },
+  {
+    "method": "customer-b0010537-complete-r8/method/3c127c06c5f6b3e8",
+    "declaration": "@ResponseStatus(HttpStatus.FORBIDDEN)\n  @ExceptionHandler({ForbiddenException.class})\n  @ApiResponse(\n      responseCode = \"403\",\n      description = \"Forbidden\",\n      content = {\n        @Content(\n            mediaType = \"application/json\",\n            schema = @Schema(implementation = ErrorResponse.class))\n      })\n  public HttpEntity<BaseResponse<Error>> handleForbiddenException(\n      HttpServletRequest request, ForbiddenException e) ",
+    "claim": "customer-b0010537-complete-r8/annotation/3c127c06c5f6b3e8"
+  },
+  {
+    "method": "customer-b0010537-complete-r8/method/03bd756a490291e9",
+    "declaration": "@ResponseStatus(HttpStatus.UNAUTHORIZED)\n  @ExceptionHandler({AuthenticationException.class, UnauthorizedException.class})\n  @ApiResponse(\n      responseCode = \"401\",\n      description = \"Unauthorized\",\n      content = {\n        @Content(\n            mediaType = \"application/json\",\n            schema = @Schema(implementation = ErrorResponse.class))\n      })\n  public HttpEntity<BaseResponse<Error>> handleAuthenticationException(\n      HttpServletRequest request, AuthenticationException e) ",
+    "claim": "customer-b0010537-complete-r8/annotation/03bd756a490291e9"
+  },
+  {
+    "method": "customer-b0010537-complete-r8/method/a60b8b9a9285ae73",
+    "declaration": "@ResponseStatus(HttpStatus.UNPROCESSABLE_CONTENT)\n  @ExceptionHandler({UnprocessableEntityException.class})\n  @ApiResponse(\n      responseCode = \"422\",\n      description = \"Unprocessable Entity\",\n      content = {\n        @Content(\n            mediaType = \"application/json\",\n            schema = @Schema(implementation = ErrorResponse.class))\n      })\n  public HttpEntity<BaseResponse<Error>> handleMethodArgumentNotValid(\n      HttpServletRequest request, UnprocessableEntityException e) ",
+    "claim": "customer-b0010537-complete-r8/annotation/a60b8b9a9285ae73"
+  },
+  {
+    "method": "customer-b0010537-complete-r8/method/b37bc9d83238a001",
+    "declaration": "@ExceptionHandler({PaymentSessionAlreadyCompletedException.class})\n  @ApiResponse(\n      responseCode = \"422\",\n      description = \"Unprocessable Entity\",\n      content = {\n        @Content(\n            mediaType = \"application/json\",\n            schema = @Schema(implementation = ErrorResponse.class))\n      })\n  public HttpEntity<BaseResponse<Error>> handlePaymentSessionAlreadyCompletedException(\n      HttpServletRequest request, PaymentSessionAlreadyCompletedException e) ",
+    "claim": "customer-b0010537-complete-r8/annotation/b37bc9d83238a001"
+  },
+  {
+    "method": "customer-b0010537-complete-r8/method/32c7b291f6df9bdd",
+    "declaration": "@ExceptionHandler(ApiClientException.class)\n  public HttpEntity<BaseResponse<Error>> apiClientException(\n      HttpServletRequest request, ApiClientException ex) ",
+    "claim": "customer-b0010537-complete-r8/annotation/32c7b291f6df9bdd"
+  },
+  {
+    "method": "customer-b0010537-complete-r8/method/a084914f6b10d37f",
+    "declaration": "@ExceptionHandler(UnsupportedOperationException.class)\n  public HttpEntity<BaseResponse<Error>> handleUnsupportedOperationException(\n      HttpServletRequest request, UnsupportedOperationException e) ",
+    "claim": "customer-b0010537-complete-r8/annotation/a084914f6b10d37f"
+  },
+  {
+    "method": "customer-b0010537-complete-r8/method/a1f66909b0673f00",
+    "declaration": "@ExceptionHandler({Exception.class})\n  @ApiResponse(\n      responseCode = \"500\",\n      description = \"Internal Server Error\",\n      content = {\n        @Content(\n            mediaType = \"application/json\",\n            schema = @Schema(implementation = ErrorResponse.class))\n      })\n  public HttpEntity<BaseResponse<Error>> handleServerException(\n      HttpServletRequest request, Exception ex) ",
+    "claim": "customer-b0010537-complete-r8/annotation/a1f66909b0673f00"
+  }
+]

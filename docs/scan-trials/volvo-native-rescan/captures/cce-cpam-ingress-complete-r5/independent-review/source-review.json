@@ -1,0 +1,80 @@
+{
+  "repo": "volvo-cars/cce-cpam-ingress",
+  "commit": "6db6ba2b9c76751a690ea9b0184b42e58412a09e",
+  "status": "12full pinned files independently read;83strict queries passed with1bounded trace; all18713evidence ranges available and in bounds",
+  "files": [
+    {
+      "path": "internal/app/aggregatorapp.go",
+      "lines": 126,
+      "sha256": "e3b37b229b5e069f38b5b3a6e0ba3e37e2fe36e6cc648870d714ef64e6795c9d",
+      "review": "Entire pinned source independently read; compared against accepted native capture and bounded query evidence"
+    },
+    {
+      "path": "internal/filestorage/blobstorage.go",
+      "lines": 170,
+      "sha256": "467108e67f620bc6c9c1557171e9fe4ecf118ad99c4212f6b0d8fecaf9191265",
+      "review": "Entire pinned source independently read; compared against accepted native capture and bounded query evidence"
+    },
+    {
+      "path": "internal/messaging/kafka/eventwriter.go",
+      "lines": 87,
+      "sha256": "e7dad67116839a6c37b7ef7ceb97aba075cbb9d2ce4797f48674c6e66a330814",
+      "review": "Entire pinned source independently read; compared against accepted native capture and bounded query evidence"
+    },
+    {
+      "path": "internal/restapi/api.go",
+      "lines": 198,
+      "sha256": "d61689aa747ff5cd42e4edfafc2da92bb24c64cc2c6e9c6da0f52c6a15309099",
+      "review": "Entire pinned source independently read; compared against accepted native capture and bounded query evidence"
+    },
+    {
+      "path": "internal/cpamingress/process-orchestrator.go",
+      "lines": 297,
+      "sha256": "46344a6835d73ea2b20cee7b417992ff43f7c54b65f47eb5417dcf216289869e",
+      "review": "Entire pinned source independently read; compared against accepted native capture and bounded query evidence"
+    },
+    {
+      "path": "internal/app/app.go",
+      "lines": 240,
+      "sha256": "a0aaeaef7fe61fd741906c6c19986e2de343b25d86b22cafceb24191216602f4",
+      "review": "Entire pinned source independently read; compared against accepted native capture and bounded query evidence"
+    },
+    {
+      "path": "internal/app/pipelineapp.go",
+      "lines": 116,
+      "sha256": "b56382d00b2de516715e8f160f5bea3f34dd2e442d456ac2e666e91770caa5fe",
+      "review": "Entire pinned source independently read; compared against accepted native capture and bounded query evidence"
+    },
+    {
+      "path": "internal/cpamingress/cpamdatahandler.go",
+      "lines": 283,
+      "sha256": "de2fb866bcf1558856a87af2f4663d867f0dd1e450daf1f1c8c4a81cfb520329",
+      "review": "Entire pinned source independently read; compared against accepted native capture and bounded query evidence"
+    },
+    {
+      "path": "internal/filestorage/localstorage.go",
+      "lines": 143,
+      "sha256": "ded889168307edc0b941b961aa1af634331812782b4a1fd183ccb4c0349d1499",
+      "review": "Entire pinned source independently read; compared against accepted native capture and bounded query evidence"
+    },
+    {
+      "path": "internal/app/storage.go",
+      "lines": 48,
+      "sha256": "e5cdd7750801ca3032263848be2ad9c4fdc53f722b68bf6b36568aba81496ea6",
+      "review": "Entire pinned source independently read; compared against accepted native capture and bounded query evidence"
+    },
+    {
+      "path": "internal/app/kafka.go",
+      "lines": 106,
+      "sha256": "90955c179bf0b3124f39a7203b7613808c7a16859a955040851bedc1818a605c",
+      "review": "Entire pinned source independently read; compared against accepted native capture and bounded query evidence"
+    },
+    {
+      "path": "internal/featureflag/launchdarkly.go",
+      "lines": 130,
+      "sha256": "03c842f2bf90c51298ef76357a964a3a4930b6fda82af56effd27145f5d76d79",
+      "review": "Entire pinned source independently read; compared against accepted native capture and bounded query evidence"
+    }
+  ],
+  "snapshot": "9273eddda4c5fff911958b4a6b82143b69d166f1a50b66279bb19755660f27aa"
+}

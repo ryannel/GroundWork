@@ -1,0 +1,17 @@
+{
+  "predecessorSnapshot": "31585b5be35778f319c8edc78ed346af9eba722bbd9e09a0e819d25ba3eeb1d1",
+  "prefixMap": {
+    "cce-car-spec-adapter-667a00a-complete-r1/": "cce-car-spec-adapter-667a00a-complete-r2/"
+  },
+  "changedFacts": [
+    "cce-car-spec-adapter-667a00a-complete-r2/interaction/io/d399749e2959075b/api",
+    "cce-car-spec-adapter-667a00a-complete-r2/interface_contract/caller/d399749e2959075b",
+    "cce-car-spec-adapter-667a00a-complete-r2/gap/io/d399749e2959075b"
+  ],
+  "removedFacts": ["cce-car-spec-adapter-667a00a-complete-r2/effect/io/d399749e2959075b"],
+  "records": 118415,
+  "checkedSourceRangesReused": 14282,
+  "evidence": "All14282 tuples unchanged; reuse verified complete01 proof",
+  "scope": "Only per-call library/remote boundary corrected. Actual args and results, separate SDK configuration, control, writes and other I/O remain unchanged.",
+  "bundleByteSha256": "46375f19cfa839e70100b32014396b69afdd8a3939140a33eea32e382d644f80"
+}

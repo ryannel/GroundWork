@@ -1,0 +1,126 @@
+{
+  "snapshot": "e4df872bf2495bfe3b4e6bccea07a80012a44972aab2d4389586ac9d6df62d7b",
+  "qualification": "Two actual callback exposures plus internal helper profile only, not complete wizard/app/repo",
+  "queries": [
+    {
+      "name": "positive actual callback browser:ev-subsidy:StepAddress:onSelectAction",
+      "pages": 1,
+      "nodes": 2,
+      "edges": 1,
+      "limits": []
+    },
+    {
+      "name": "trace browser:ev-subsidy:StepAddress:onSelectAction",
+      "pages": 1,
+      "nodes": 21,
+      "edges": 33,
+      "limits": []
+    },
+    {
+      "name": "effects browser:ev-subsidy:StepAddress:onSelectAction",
+      "pages": 1,
+      "nodes": 21,
+      "edges": 33,
+      "limits": []
+    },
+    {
+      "name": "continuations browser:ev-subsidy:StepAddress:onSelectAction",
+      "pages": 1,
+      "nodes": 21,
+      "edges": 33,
+      "limits": []
+    },
+    {
+      "name": "positive actual callback browser:ev-subsidy:StepPersons:confirm-button:onClick",
+      "pages": 1,
+      "nodes": 2,
+      "edges": 1,
+      "limits": []
+    },
+    {
+      "name": "trace browser:ev-subsidy:StepPersons:confirm-button:onClick",
+      "pages": 1,
+      "nodes": 31,
+      "edges": 52,
+      "limits": []
+    },
+    {
+      "name": "effects browser:ev-subsidy:StepPersons:confirm-button:onClick",
+      "pages": 1,
+      "nodes": 31,
+      "edges": 52,
+      "limits": []
+    },
+    {
+      "name": "continuations browser:ev-subsidy:StepPersons:confirm-button:onClick",
+      "pages": 1,
+      "nodes": 31,
+      "edges": 52,
+      "limits": []
+    },
+    {
+      "name": "separate internal submitData body",
+      "pages": 1,
+      "nodes": 2,
+      "edges": 1,
+      "limits": []
+    },
+    {
+      "name": "exact caller schema volvo/cdls-mono-volvocars/8e1fd20c525f/ev-subsidy-wizard-r2/io/67",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "rooted actual record argument0 volvo/cdls-mono-volvocars/8e1fd20c525f/ev-subsidy-wizard-r2/io/67",
+      "pages": 1,
+      "nodes": 1,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "rooted actual record argument1 volvo/cdls-mono-volvocars/8e1fd20c525f/ev-subsidy-wizard-r2/io/67",
+      "pages": 1,
+      "nodes": 6,
+      "edges": 6,
+      "limits": []
+    },
+    {
+      "name": "rooted actual body  volvo/cdls-mono-volvocars/8e1fd20c525f/ev-subsidy-wizard-r2/io/67",
+      "pages": 1,
+      "nodes": 5,
+      "edges": 5,
+      "limits": []
+    },
+    {
+      "name": "exact caller schema volvo/cdls-mono-volvocars/8e1fd20c525f/ev-subsidy-wizard-r2/io/182",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "rooted actual record argument0 volvo/cdls-mono-volvocars/8e1fd20c525f/ev-subsidy-wizard-r2/io/182",
+      "pages": 1,
+      "nodes": 1,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "rooted actual record argument1 volvo/cdls-mono-volvocars/8e1fd20c525f/ev-subsidy-wizard-r2/io/182",
+      "pages": 1,
+      "nodes": 7,
+      "edges": 6,
+      "limits": []
+    },
+    {
+      "name": "rooted actual body  volvo/cdls-mono-volvocars/8e1fd20c525f/ev-subsidy-wizard-r2/io/182",
+      "pages": 1,
+      "nodes": 6,
+      "edges": 5,
+      "limits": []
+    }
+  ],
+  "pages": 17
+}

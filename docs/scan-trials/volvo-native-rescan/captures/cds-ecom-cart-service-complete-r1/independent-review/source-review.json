@@ -1,0 +1,170 @@
+{
+  "repo": "volvo-cars/cds-ecom-cart-service",
+  "commit": "ebad8522ba26bbd0f986a0cf88f484a32d864c17",
+  "status": "Independent27full pinned files reviewed;178strict queries zero bounds;1490pinned ranges checked",
+  "files": [
+    {
+      "path": "src/main/java/com/volvocars/ecom/cart/input/graphql/GraphQlController.java",
+      "lines": 116,
+      "sha256": "faedec496ad99ef6a9eee770a02f4bda8df3be377783f6ac699dd33c0f105283",
+      "review": "Entire pinned source independently read; compared with accepted native capture and strict queries"
+    },
+    {
+      "path": "src/main/java/com/volvocars/ecom/cart/core/service/CheckoutService.java",
+      "lines": 57,
+      "sha256": "8d65c938f069a75cbc79f5ea5dc96b914b04942f8f9729bfe15d2c045f6a1475",
+      "review": "Entire pinned source independently read; compared with accepted native capture and strict queries"
+    },
+    {
+      "path": "src/main/java/com/volvocars/ecom/cart/output/order/RestClientConditionalOrderClient.java",
+      "lines": 54,
+      "sha256": "5e7e29bfbd9307050460f6509585bea4e041afa985c2770f78ef426540312d74",
+      "review": "Entire pinned source independently read; compared with accepted native capture and strict queries"
+    },
+    {
+      "path": "src/main/java/com/volvocars/ecom/cart/core/cartexpiration/CartExpirationService.java",
+      "lines": 58,
+      "sha256": "50e4cde78d8bbd14f235148e68847ca989c6b0ec5a1f50648177796a1969899b",
+      "review": "Entire pinned source independently read; compared with accepted native capture and strict queries"
+    },
+    {
+      "path": "src/main/java/com/volvocars/ecom/cart/core/service/CartService.java",
+      "lines": 233,
+      "sha256": "205bfc6bf8e2e4c3fb06f737ba28a0308886d6d4f745213221aea1531fbbee36",
+      "review": "Entire pinned source independently read; compared with accepted native capture and strict queries"
+    },
+    {
+      "path": "src/main/java/com/volvocars/ecom/cart/core/service/SecurityService.java",
+      "lines": 104,
+      "sha256": "c356c2c88b8ad31b70097448151d506e36e6c61443c81c065e0e211082443e2d",
+      "review": "Entire pinned source independently read; compared with accepted native capture and strict queries"
+    },
+    {
+      "path": "src/main/java/com/volvocars/ecom/cart/config/security/SecurityConfig.java",
+      "lines": 99,
+      "sha256": "b7046c472dd9d2a2f834613ef4b3a2b58c15080aee4f1fa7543dcd483ef4f8b3",
+      "review": "Entire pinned source independently read; compared with accepted native capture and strict queries"
+    },
+    {
+      "path": "src/main/java/com/volvocars/ecom/cart/output/offer/OfferRestClient.java",
+      "lines": 9,
+      "sha256": "3a3a4e5fe96265067c18a2f7d78395834048e7fd2aadbbe144d5524956214bc0",
+      "review": "Entire pinned source independently read; compared with accepted native capture and strict queries"
+    },
+    {
+      "path": "src/main/java/com/volvocars/ecom/cart/core/cartexpiration/CartExpirationScheduler.java",
+      "lines": 19,
+      "sha256": "9b4aa01adf55513915878ebf5ec245451d412f8c8bd2aeeaef2ad6df5e5b1e0b",
+      "review": "Entire pinned source independently read; compared with accepted native capture and strict queries"
+    },
+    {
+      "path": "src/main/java/com/volvocars/ecom/cart/core/cartarchive/CartArchiveService.java",
+      "lines": 25,
+      "sha256": "4009f590e46644143eef35dca34d6eb319c5daeb9ae3c6d3241ad1b60600b552",
+      "review": "Entire pinned source independently read; compared with accepted native capture and strict queries"
+    },
+    {
+      "path": "src/main/java/com/volvocars/ecom/cart/input/graphql/GraphQlInterceptor.java",
+      "lines": 35,
+      "sha256": "9f0025e2881212b755c1305f5d99d061ce592a367ea3b36d3c7c2fd41849bbc2",
+      "review": "Entire pinned source independently read; compared with accepted native capture and strict queries"
+    },
+    {
+      "path": "src/main/java/com/volvocars/ecom/cart/input/graphql/CartFederationController.java",
+      "lines": 72,
+      "sha256": "44ff869e668872756da78f51fcee7b9533aa9f4b76e2236668c39e107713cc42",
+      "review": "Entire pinned source independently read; compared with accepted native capture and strict queries"
+    },
+    {
+      "path": "src/main/java/com/volvocars/ecom/cart/output/offer/FakeOfferRestClient.java",
+      "lines": 39,
+      "sha256": "99f9da2aa05da9bcd562cf00219273e57488910cf26ada75b2056e6c04a91cc5",
+      "review": "Entire pinned source independently read; compared with accepted native capture and strict queries"
+    },
+    {
+      "path": "src/main/java/com/volvocars/ecom/cart/output/opportunity/OpportunityClient.java",
+      "lines": 54,
+      "sha256": "f600538757a60b0473569d9b7ae216d6d737c7a469f35761b4b00d8771c50f51",
+      "review": "Entire pinned source independently read; compared with accepted native capture and strict queries"
+    },
+    {
+      "path": "src/main/java/com/volvocars/ecom/cart/core/service/OpportunityPrePopulationService.java",
+      "lines": 90,
+      "sha256": "5a37882b85bb0d7e0c402cfa00163f7b1c96fb221e0eedb3b586427c02c74621",
+      "review": "Entire pinned source independently read; compared with accepted native capture and strict queries"
+    },
+    {
+      "path": "src/main/java/com/volvocars/ecom/cart/core/model/Cart.java",
+      "lines": 97,
+      "sha256": "d2d54e621075672d1ea001181c5bc0d43a666bdab98f428ef104a26fc645ba24",
+      "review": "Entire pinned source independently read; compared with accepted native capture and strict queries"
+    },
+    {
+      "path": "src/main/java/com/volvocars/ecom/cart/core/cartexpiration/CartExpirationJob.java",
+      "lines": 37,
+      "sha256": "4ca43a85565e32ef6c2eee05cdc85e59bcdffb7f901eae8e34632d7eccc21d1c",
+      "review": "Entire pinned source independently read; compared with accepted native capture and strict queries"
+    },
+    {
+      "path": "src/main/java/com/volvocars/ecom/cart/output/repository/CartRepository.java",
+      "lines": 12,
+      "sha256": "1613c5db37099dc42d9b310fa30287e7bc51023a6f2d71d82c52a09b5fc4ce67",
+      "review": "Entire pinned source independently read; compared with accepted native capture and strict queries"
+    },
+    {
+      "path": "src/main/java/com/volvocars/ecom/cart/core/cartarchive/CartArchive.java",
+      "lines": 15,
+      "sha256": "b187d6d5b549f902cd68683407c818986e607d58ff5aeb8804e89353a5de1a2a",
+      "review": "Entire pinned source independently read; compared with accepted native capture and strict queries"
+    },
+    {
+      "path": "src/main/java/com/volvocars/ecom/cart/core/service/ConditionalOrderMapper.java",
+      "lines": 120,
+      "sha256": "1c665328bf066d97b4c31201b63f282b0c498926173bb35d228cf10455e3bbe5",
+      "review": "Entire pinned source independently read; compared with accepted native capture and strict queries"
+    },
+    {
+      "path": "src/main/java/com/volvocars/ecom/cart/config/GraphQLConfig.java",
+      "lines": 33,
+      "sha256": "28e7e05febb975e83cbadd1657e0c4672ff53800749392da8a834fc15ad64d77",
+      "review": "Entire pinned source independently read; compared with accepted native capture and strict queries"
+    },
+    {
+      "path": "src/main/java/com/volvocars/ecom/cart/input/graphql/GraphQlExceptionHandlerAdvice.java",
+      "lines": 110,
+      "sha256": "e669a2ae954b937e451688ff0846e2cf76066441d4294617f08d2fb3b167261e",
+      "review": "Entire pinned source independently read; compared with accepted native capture and strict queries"
+    },
+    {
+      "path": "src/main/resources/graphql/schema.graphqls",
+      "lines": 568,
+      "sha256": "a8e98a317db1834c789e650a47fcd7931a205238cee435226c4f92cc155f5e35",
+      "review": "Entire pinned source independently read; compared with accepted native capture and strict queries"
+    },
+    {
+      "path": "src/main/resources/application.yaml",
+      "lines": 128,
+      "sha256": "5b9f5a639d59505864018123a018287838718c21b19cbdbb629c2e0b37112b5a",
+      "review": "Entire pinned source independently read; compared with accepted native capture and strict queries"
+    },
+    {
+      "path": "src/main/java/com/volvocars/ecom/cart/config/MongoConfig.java",
+      "lines": 38,
+      "sha256": "6ecd820050f0e0bfdf2922ef9b88abcb4a8536f95850448c4645cf3894a3d738",
+      "review": "Entire pinned source independently read; compared with accepted native capture and strict queries"
+    },
+    {
+      "path": "src/main/java/com/volvocars/ecom/cart/migration/AddIdToCartLineItemMigration.java",
+      "lines": 58,
+      "sha256": "ede2c493e206d9c23f817440edf619d48ff974af08de2ad101a142998443c437",
+      "review": "Entire pinned source independently read; compared with accepted native capture and strict queries"
+    },
+    {
+      "path": "src/main/java/com/volvocars/ecom/cart/migration/_0002__MoveBuyerVolvoIdToOwner.java",
+      "lines": 88,
+      "sha256": "545b7dd160bfd82b914cfb340be153e6de300841d53ffe4f1a9254f7df4c3b10",
+      "review": "Entire pinned source independently read; compared with accepted native capture and strict queries"
+    }
+  ],
+  "snapshot": "b957447c66cc73327797c780159c9277dbeb17159f0758d5ab8a225f3a0092f1"
+}

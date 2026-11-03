@@ -1,0 +1,17 @@
+[
+  {
+    "path": "docs/scan-trials/volvo-native-rescan/captures/assortment-api-complete-r3/HANDOFF.md",
+    "previousPublicationByteSha256": "94c803998c5bdb71f2072eaa925372f7a6c3730a52b849d4363a3fe229253056",
+    "scope": "Only relative publication link destinations corrected; original sealed author handoff unchanged"
+  },
+  {
+    "path": "docs/scan-trials/volvo-native-rescan/captures/assortment-api-complete-r5/HANDOFF.md",
+    "previousPublicationByteSha256": "5b7aa60f529e930c46287d159d49727fa461ca85d0807de6e62bc54e033ca97d",
+    "scope": "Only relative publication link destinations corrected; original sealed author handoff unchanged"
+  },
+  {
+    "path": "docs/scan-trials/volvo-native-rescan/captures/cce-optimization-api-complete-r3/source-report.md",
+    "previousPublicationByteSha256": "76e8645b7d2046ceb1f581c1d1e96c2b176d99a5f8764fdd4c19b4fe858099e9",
+    "scope": "Only relative publication link destinations corrected to compressed bundle/snapshot; original sealed author report unchanged"
+  }
+]

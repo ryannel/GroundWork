@@ -1,0 +1,31 @@
+{
+  "snapshot": "b70c8fd860424a42de9de948c21109efc6cee4e340ced841c0ec50d45d7586ac",
+  "checks": [
+    {
+      "name": "REST capture source SDK invocations",
+      "nodes": 5,
+      "edges": 6,
+      "records": 1291
+    },
+    {
+      "name": "capture actual argument 0",
+      "nodes": 19,
+      "edges": 18,
+      "records": 1011
+    },
+    {
+      "name": "capture actual argument 1",
+      "nodes": 12,
+      "edges": 11,
+      "records": 992
+    },
+    {
+      "name": "all capture argument source shapes",
+      "nodes": 0,
+      "edges": 0,
+      "records": 752
+    }
+  ],
+  "independentlyReadSourceFiles": 14,
+  "status": "Root bounded source/SDK argument/return review passed; no actionable findings"
+}

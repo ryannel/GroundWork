@@ -1,0 +1,16 @@
+{
+  "format": "groundwork-query/v3",
+  "snapshot": "83cac873ebebb850ca00e17d23b201be63e7d025ebf1bc0d1efa85175a607e3a",
+  "query": "trace",
+  "entry": "psp-dabd6c8-r4/entry/RefundController-create",
+  "value": null,
+  "context": [],
+  "outcome": null,
+  "changed": [],
+  "representation": "constructed",
+  "candidates": "exclude",
+  "maxNodes": 500,
+  "environment": "source-declared",
+  "maxRecords": 5000,
+  "ids": []
+}

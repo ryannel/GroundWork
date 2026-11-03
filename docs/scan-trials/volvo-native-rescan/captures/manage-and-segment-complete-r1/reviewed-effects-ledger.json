@@ -1,0 +1,652 @@
+{
+  "writes": [
+    {
+      "entity": "BrandCarTypeMapping",
+      "method": "Add",
+      "implementation": "mascomplete-b360506/native/method/f49ef3e1949aeb8081e4",
+      "storageWrite": "mascomplete-b360506/native/reviewed/write/f49ef3e1949aeb8081e4",
+      "stagedCall": "mascomplete-b360506/native/op/f49ef3e1949aeb8081e4/a6",
+      "saveCall": "mascomplete-b360506/native/op/f49ef3e1949aeb8081e4/a10",
+      "parameters": ["mascomplete-b360506/native/param/f49ef3e1949aeb8081e4/0"]
+    },
+    {
+      "entity": "BrandCarTypeMapping",
+      "method": "Update",
+      "implementation": "mascomplete-b360506/native/method/f5e9dd3d145650dd58ed",
+      "storageWrite": "mascomplete-b360506/native/reviewed/write/f5e9dd3d145650dd58ed",
+      "stagedCall": "mascomplete-b360506/native/op/f5e9dd3d145650dd58ed/a8",
+      "saveCall": "mascomplete-b360506/native/op/f5e9dd3d145650dd58ed/a12",
+      "parameters": [
+        "mascomplete-b360506/native/param/f5e9dd3d145650dd58ed/0",
+        "mascomplete-b360506/native/param/f5e9dd3d145650dd58ed/1"
+      ]
+    },
+    {
+      "entity": "BrandCarTypeMapping",
+      "method": "Remove",
+      "implementation": "mascomplete-b360506/native/method/0bedff74e4dfe854a4f8",
+      "storageWrite": "mascomplete-b360506/native/reviewed/write/0bedff74e4dfe854a4f8",
+      "stagedCall": "mascomplete-b360506/native/op/0bedff74e4dfe854a4f8/a6",
+      "saveCall": "mascomplete-b360506/native/op/0bedff74e4dfe854a4f8/a11",
+      "parameters": ["mascomplete-b360506/native/param/0bedff74e4dfe854a4f8/0"]
+    },
+    {
+      "entity": "Brand",
+      "method": "Add",
+      "implementation": "mascomplete-b360506/native/method/f607b738f2db723a12f4",
+      "storageWrite": "mascomplete-b360506/native/reviewed/write/f607b738f2db723a12f4",
+      "stagedCall": "mascomplete-b360506/native/op/f607b738f2db723a12f4/a6",
+      "saveCall": "mascomplete-b360506/native/op/f607b738f2db723a12f4/a10",
+      "parameters": ["mascomplete-b360506/native/param/f607b738f2db723a12f4/0"]
+    },
+    {
+      "entity": "Brand",
+      "method": "Update",
+      "implementation": "mascomplete-b360506/native/method/0a84667235ec129dd5f7",
+      "storageWrite": "mascomplete-b360506/native/reviewed/write/0a84667235ec129dd5f7",
+      "stagedCall": "mascomplete-b360506/native/op/0a84667235ec129dd5f7/a8",
+      "saveCall": "mascomplete-b360506/native/op/0a84667235ec129dd5f7/a12",
+      "parameters": [
+        "mascomplete-b360506/native/param/0a84667235ec129dd5f7/0",
+        "mascomplete-b360506/native/param/0a84667235ec129dd5f7/1"
+      ]
+    },
+    {
+      "entity": "Brand",
+      "method": "Remove",
+      "implementation": "mascomplete-b360506/native/method/70a0b40723b10dd1ba03",
+      "storageWrite": "mascomplete-b360506/native/reviewed/write/70a0b40723b10dd1ba03",
+      "stagedCall": "mascomplete-b360506/native/op/70a0b40723b10dd1ba03/a6",
+      "saveCall": "mascomplete-b360506/native/op/70a0b40723b10dd1ba03/a11",
+      "parameters": ["mascomplete-b360506/native/param/70a0b40723b10dd1ba03/0"]
+    },
+    {
+      "entity": "CapCodeMapping",
+      "method": "Remove",
+      "implementation": "mascomplete-b360506/native/method/c29dfd7ab724c71d14bc",
+      "storageWrite": "mascomplete-b360506/native/reviewed/write/c29dfd7ab724c71d14bc",
+      "stagedCall": "mascomplete-b360506/native/op/c29dfd7ab724c71d14bc/a6",
+      "saveCall": "mascomplete-b360506/native/op/c29dfd7ab724c71d14bc/a11",
+      "parameters": ["mascomplete-b360506/native/param/c29dfd7ab724c71d14bc/0"]
+    },
+    {
+      "entity": "Client",
+      "method": "Add",
+      "implementation": "mascomplete-b360506/native/method/397ecfb54df3e32ea8d1",
+      "storageWrite": "mascomplete-b360506/native/reviewed/write/397ecfb54df3e32ea8d1",
+      "stagedCall": "mascomplete-b360506/native/op/397ecfb54df3e32ea8d1/a6",
+      "saveCall": "mascomplete-b360506/native/op/397ecfb54df3e32ea8d1/a10",
+      "parameters": ["mascomplete-b360506/native/param/397ecfb54df3e32ea8d1/0"]
+    },
+    {
+      "entity": "Client",
+      "method": "Update",
+      "implementation": "mascomplete-b360506/native/method/a82bd6a748850f1a32bc",
+      "storageWrite": "mascomplete-b360506/native/reviewed/write/a82bd6a748850f1a32bc",
+      "stagedCall": "mascomplete-b360506/native/op/a82bd6a748850f1a32bc/a8",
+      "saveCall": "mascomplete-b360506/native/op/a82bd6a748850f1a32bc/a12",
+      "parameters": [
+        "mascomplete-b360506/native/param/a82bd6a748850f1a32bc/0",
+        "mascomplete-b360506/native/param/a82bd6a748850f1a32bc/1"
+      ]
+    },
+    {
+      "entity": "Client",
+      "method": "Remove",
+      "implementation": "mascomplete-b360506/native/method/7135ce6ff09cbf37ecfe",
+      "storageWrite": "mascomplete-b360506/native/reviewed/write/7135ce6ff09cbf37ecfe",
+      "stagedCall": "mascomplete-b360506/native/op/7135ce6ff09cbf37ecfe/a6",
+      "saveCall": "mascomplete-b360506/native/op/7135ce6ff09cbf37ecfe/a11",
+      "parameters": ["mascomplete-b360506/native/param/7135ce6ff09cbf37ecfe/0"]
+    },
+    {
+      "entity": "ContractLength",
+      "method": "Add",
+      "implementation": "mascomplete-b360506/native/method/babb8e02626f6a26ef9b",
+      "storageWrite": "mascomplete-b360506/native/reviewed/write/babb8e02626f6a26ef9b",
+      "stagedCall": "mascomplete-b360506/native/op/babb8e02626f6a26ef9b/a6",
+      "saveCall": "mascomplete-b360506/native/op/babb8e02626f6a26ef9b/a10",
+      "parameters": ["mascomplete-b360506/native/param/babb8e02626f6a26ef9b/0"]
+    },
+    {
+      "entity": "ContractLength",
+      "method": "Update",
+      "implementation": "mascomplete-b360506/native/method/a93fdd23c667fa03d76b",
+      "storageWrite": "mascomplete-b360506/native/reviewed/write/a93fdd23c667fa03d76b",
+      "stagedCall": "mascomplete-b360506/native/op/a93fdd23c667fa03d76b/a8",
+      "saveCall": "mascomplete-b360506/native/op/a93fdd23c667fa03d76b/a12",
+      "parameters": [
+        "mascomplete-b360506/native/param/a93fdd23c667fa03d76b/0",
+        "mascomplete-b360506/native/param/a93fdd23c667fa03d76b/1"
+      ]
+    },
+    {
+      "entity": "ContractLength",
+      "method": "Remove",
+      "implementation": "mascomplete-b360506/native/method/e9275180a2bf8bb6a5f0",
+      "storageWrite": "mascomplete-b360506/native/reviewed/write/e9275180a2bf8bb6a5f0",
+      "stagedCall": "mascomplete-b360506/native/op/e9275180a2bf8bb6a5f0/a6",
+      "saveCall": "mascomplete-b360506/native/op/e9275180a2bf8bb6a5f0/a11",
+      "parameters": ["mascomplete-b360506/native/param/e9275180a2bf8bb6a5f0/0"]
+    },
+    {
+      "entity": "CustomerType",
+      "method": "Add",
+      "implementation": "mascomplete-b360506/native/method/53cd7a80e3ddba8f37c2",
+      "storageWrite": "mascomplete-b360506/native/reviewed/write/53cd7a80e3ddba8f37c2",
+      "stagedCall": "mascomplete-b360506/native/op/53cd7a80e3ddba8f37c2/a6",
+      "saveCall": "mascomplete-b360506/native/op/53cd7a80e3ddba8f37c2/a10",
+      "parameters": ["mascomplete-b360506/native/param/53cd7a80e3ddba8f37c2/0"]
+    },
+    {
+      "entity": "CustomerType",
+      "method": "Remove",
+      "implementation": "mascomplete-b360506/native/method/16bd1b7a22636dd46c75",
+      "storageWrite": "mascomplete-b360506/native/reviewed/write/16bd1b7a22636dd46c75",
+      "stagedCall": "mascomplete-b360506/native/op/16bd1b7a22636dd46c75/a6",
+      "saveCall": "mascomplete-b360506/native/op/16bd1b7a22636dd46c75/a11",
+      "parameters": ["mascomplete-b360506/native/param/16bd1b7a22636dd46c75/0"]
+    },
+    {
+      "entity": "Fee",
+      "method": "Add",
+      "implementation": "mascomplete-b360506/native/method/08c95bc63f31fc84950c",
+      "storageWrite": "mascomplete-b360506/native/reviewed/write/08c95bc63f31fc84950c",
+      "stagedCall": "mascomplete-b360506/native/op/08c95bc63f31fc84950c/a9",
+      "saveCall": "mascomplete-b360506/native/op/08c95bc63f31fc84950c/a13",
+      "parameters": ["mascomplete-b360506/native/param/08c95bc63f31fc84950c/0"]
+    },
+    {
+      "entity": "Fee",
+      "method": "Update",
+      "implementation": "mascomplete-b360506/native/method/785d6dc6539365cb6d26",
+      "storageWrite": "mascomplete-b360506/native/reviewed/write/785d6dc6539365cb6d26",
+      "stagedCall": "mascomplete-b360506/native/op/785d6dc6539365cb6d26/a8",
+      "saveCall": "mascomplete-b360506/native/op/785d6dc6539365cb6d26/a12",
+      "parameters": [
+        "mascomplete-b360506/native/param/785d6dc6539365cb6d26/0",
+        "mascomplete-b360506/native/param/785d6dc6539365cb6d26/1"
+      ]
+    },
+    {
+      "entity": "Fee",
+      "method": "Remove",
+      "implementation": "mascomplete-b360506/native/method/bff765544242d138eddd",
+      "storageWrite": "mascomplete-b360506/native/reviewed/write/bff765544242d138eddd",
+      "stagedCall": "mascomplete-b360506/native/op/bff765544242d138eddd/a6",
+      "saveCall": "mascomplete-b360506/native/op/bff765544242d138eddd/a11",
+      "parameters": ["mascomplete-b360506/native/param/bff765544242d138eddd/0"]
+    },
+    {
+      "entity": "JatoCodeMapping",
+      "method": "Remove",
+      "implementation": "mascomplete-b360506/native/method/95b22ef21fa7084f2327",
+      "storageWrite": "mascomplete-b360506/native/reviewed/write/95b22ef21fa7084f2327",
+      "stagedCall": "mascomplete-b360506/native/op/95b22ef21fa7084f2327/a6",
+      "saveCall": "mascomplete-b360506/native/op/95b22ef21fa7084f2327/a11",
+      "parameters": ["mascomplete-b360506/native/param/95b22ef21fa7084f2327/0"]
+    },
+    {
+      "entity": "Market",
+      "method": "Add",
+      "implementation": "mascomplete-b360506/native/method/500928d1ec97e23099fb",
+      "storageWrite": "mascomplete-b360506/native/reviewed/write/500928d1ec97e23099fb",
+      "stagedCall": "mascomplete-b360506/native/op/500928d1ec97e23099fb/a6",
+      "saveCall": "mascomplete-b360506/native/op/500928d1ec97e23099fb/a10",
+      "parameters": ["mascomplete-b360506/native/param/500928d1ec97e23099fb/0"]
+    },
+    {
+      "entity": "Market",
+      "method": "Update",
+      "implementation": "mascomplete-b360506/native/method/ec7dfd243619566fbb51",
+      "storageWrite": "mascomplete-b360506/native/reviewed/write/ec7dfd243619566fbb51",
+      "stagedCall": "mascomplete-b360506/native/op/ec7dfd243619566fbb51/a8",
+      "saveCall": "mascomplete-b360506/native/op/ec7dfd243619566fbb51/a12",
+      "parameters": [
+        "mascomplete-b360506/native/param/ec7dfd243619566fbb51/0",
+        "mascomplete-b360506/native/param/ec7dfd243619566fbb51/1"
+      ]
+    },
+    {
+      "entity": "Market",
+      "method": "Remove",
+      "implementation": "mascomplete-b360506/native/method/2c3622c724c16235d843",
+      "storageWrite": "mascomplete-b360506/native/reviewed/write/2c3622c724c16235d843",
+      "stagedCall": "mascomplete-b360506/native/op/2c3622c724c16235d843/a6",
+      "saveCall": "mascomplete-b360506/native/op/2c3622c724c16235d843/a11",
+      "parameters": ["mascomplete-b360506/native/param/2c3622c724c16235d843/0"]
+    },
+    {
+      "entity": "Mileage",
+      "method": "Add",
+      "implementation": "mascomplete-b360506/native/method/af338e5704ecace87e9e",
+      "storageWrite": "mascomplete-b360506/native/reviewed/write/af338e5704ecace87e9e",
+      "stagedCall": "mascomplete-b360506/native/op/af338e5704ecace87e9e/a6",
+      "saveCall": "mascomplete-b360506/native/op/af338e5704ecace87e9e/a10",
+      "parameters": ["mascomplete-b360506/native/param/af338e5704ecace87e9e/0"]
+    },
+    {
+      "entity": "Mileage",
+      "method": "Update",
+      "implementation": "mascomplete-b360506/native/method/ad173a8d93f42465498f",
+      "storageWrite": "mascomplete-b360506/native/reviewed/write/ad173a8d93f42465498f",
+      "stagedCall": "mascomplete-b360506/native/op/ad173a8d93f42465498f/a8",
+      "saveCall": "mascomplete-b360506/native/op/ad173a8d93f42465498f/a12",
+      "parameters": [
+        "mascomplete-b360506/native/param/ad173a8d93f42465498f/0",
+        "mascomplete-b360506/native/param/ad173a8d93f42465498f/1"
+      ]
+    },
+    {
+      "entity": "Mileage",
+      "method": "Remove",
+      "implementation": "mascomplete-b360506/native/method/af0cd9a45bb94f984d56",
+      "storageWrite": "mascomplete-b360506/native/reviewed/write/af0cd9a45bb94f984d56",
+      "stagedCall": "mascomplete-b360506/native/op/af0cd9a45bb94f984d56/a6",
+      "saveCall": "mascomplete-b360506/native/op/af0cd9a45bb94f984d56/a11",
+      "parameters": ["mascomplete-b360506/native/param/af0cd9a45bb94f984d56/0"]
+    },
+    {
+      "entity": "NatcodeMapping",
+      "method": "Remove",
+      "implementation": "mascomplete-b360506/native/method/4a42e1665ddb08bc1596",
+      "storageWrite": "mascomplete-b360506/native/reviewed/write/4a42e1665ddb08bc1596",
+      "stagedCall": "mascomplete-b360506/native/op/4a42e1665ddb08bc1596/a6",
+      "saveCall": "mascomplete-b360506/native/op/4a42e1665ddb08bc1596/a11",
+      "parameters": ["mascomplete-b360506/native/param/4a42e1665ddb08bc1596/0"]
+    },
+    {
+      "entity": "PreOrder",
+      "method": "Add",
+      "implementation": "mascomplete-b360506/native/method/59fb719bfd09d6a581c2",
+      "storageWrite": "mascomplete-b360506/native/reviewed/write/59fb719bfd09d6a581c2",
+      "stagedCall": "mascomplete-b360506/native/op/59fb719bfd09d6a581c2/a9",
+      "saveCall": "mascomplete-b360506/native/op/59fb719bfd09d6a581c2/a13",
+      "parameters": ["mascomplete-b360506/native/param/59fb719bfd09d6a581c2/0"]
+    },
+    {
+      "entity": "PreOrder",
+      "method": "Update",
+      "implementation": "mascomplete-b360506/native/method/b07c305d77be3ed7de4b",
+      "storageWrite": "mascomplete-b360506/native/reviewed/write/b07c305d77be3ed7de4b",
+      "stagedCall": "mascomplete-b360506/native/op/b07c305d77be3ed7de4b/a8",
+      "saveCall": "mascomplete-b360506/native/op/b07c305d77be3ed7de4b/a12",
+      "parameters": [
+        "mascomplete-b360506/native/param/b07c305d77be3ed7de4b/0",
+        "mascomplete-b360506/native/param/b07c305d77be3ed7de4b/1"
+      ]
+    },
+    {
+      "entity": "PreOrder",
+      "method": "Remove",
+      "implementation": "mascomplete-b360506/native/method/f3119f120ffa35f0e727",
+      "storageWrite": "mascomplete-b360506/native/reviewed/write/f3119f120ffa35f0e727",
+      "stagedCall": "mascomplete-b360506/native/op/f3119f120ffa35f0e727/a6",
+      "saveCall": "mascomplete-b360506/native/op/f3119f120ffa35f0e727/a11",
+      "parameters": ["mascomplete-b360506/native/param/f3119f120ffa35f0e727/0"]
+    },
+    {
+      "entity": "SalesModel",
+      "method": "Add",
+      "implementation": "mascomplete-b360506/native/method/d6954093b418ba655db4",
+      "storageWrite": "mascomplete-b360506/native/reviewed/write/d6954093b418ba655db4",
+      "stagedCall": "mascomplete-b360506/native/op/d6954093b418ba655db4/a6",
+      "saveCall": "mascomplete-b360506/native/op/d6954093b418ba655db4/a10",
+      "parameters": ["mascomplete-b360506/native/param/d6954093b418ba655db4/0"]
+    },
+    {
+      "entity": "SalesModel",
+      "method": "Update",
+      "implementation": "mascomplete-b360506/native/method/914a8a1b9c073f1dfe53",
+      "storageWrite": "mascomplete-b360506/native/reviewed/write/914a8a1b9c073f1dfe53",
+      "stagedCall": "mascomplete-b360506/native/op/914a8a1b9c073f1dfe53/a8",
+      "saveCall": "mascomplete-b360506/native/op/914a8a1b9c073f1dfe53/a12",
+      "parameters": [
+        "mascomplete-b360506/native/param/914a8a1b9c073f1dfe53/0",
+        "mascomplete-b360506/native/param/914a8a1b9c073f1dfe53/1"
+      ]
+    },
+    {
+      "entity": "SalesModel",
+      "method": "Remove",
+      "implementation": "mascomplete-b360506/native/method/776bc403aaa7b30d3583",
+      "storageWrite": "mascomplete-b360506/native/reviewed/write/776bc403aaa7b30d3583",
+      "stagedCall": "mascomplete-b360506/native/op/776bc403aaa7b30d3583/a6",
+      "saveCall": "mascomplete-b360506/native/op/776bc403aaa7b30d3583/a11",
+      "parameters": ["mascomplete-b360506/native/param/776bc403aaa7b30d3583/0"]
+    },
+    {
+      "entity": "SchwackeCodeMapping",
+      "method": "Remove",
+      "implementation": "mascomplete-b360506/native/method/6e084b843f0b1d452470",
+      "storageWrite": "mascomplete-b360506/native/reviewed/write/6e084b843f0b1d452470",
+      "stagedCall": "mascomplete-b360506/native/op/6e084b843f0b1d452470/a6",
+      "saveCall": "mascomplete-b360506/native/op/6e084b843f0b1d452470/a11",
+      "parameters": ["mascomplete-b360506/native/param/6e084b843f0b1d452470/0"]
+    },
+    {
+      "entity": "SelectionCategory",
+      "method": "Add",
+      "implementation": "mascomplete-b360506/native/method/d859bb6876d281080baa",
+      "storageWrite": "mascomplete-b360506/native/reviewed/write/d859bb6876d281080baa",
+      "stagedCall": "mascomplete-b360506/native/op/d859bb6876d281080baa/a6",
+      "saveCall": "mascomplete-b360506/native/op/d859bb6876d281080baa/a10",
+      "parameters": ["mascomplete-b360506/native/param/d859bb6876d281080baa/0"]
+    },
+    {
+      "entity": "SelectionCategory",
+      "method": "Remove",
+      "implementation": "mascomplete-b360506/native/method/622f643b86693dab58bf",
+      "storageWrite": "mascomplete-b360506/native/reviewed/write/622f643b86693dab58bf",
+      "stagedCall": "mascomplete-b360506/native/op/622f643b86693dab58bf/a6",
+      "saveCall": "mascomplete-b360506/native/op/622f643b86693dab58bf/a11",
+      "parameters": ["mascomplete-b360506/native/param/622f643b86693dab58bf/0"]
+    },
+    {
+      "entity": "SkuCategory",
+      "method": "Add",
+      "implementation": "mascomplete-b360506/native/method/4cb964451370c3a04498",
+      "storageWrite": "mascomplete-b360506/native/reviewed/write/4cb964451370c3a04498",
+      "stagedCall": "mascomplete-b360506/native/op/4cb964451370c3a04498/a6",
+      "saveCall": "mascomplete-b360506/native/op/4cb964451370c3a04498/a10",
+      "parameters": ["mascomplete-b360506/native/param/4cb964451370c3a04498/0"]
+    },
+    {
+      "entity": "SkuCategory",
+      "method": "Remove",
+      "implementation": "mascomplete-b360506/native/method/540984e39b7832fc3462",
+      "storageWrite": "mascomplete-b360506/native/reviewed/write/540984e39b7832fc3462",
+      "stagedCall": "mascomplete-b360506/native/op/540984e39b7832fc3462/a6",
+      "saveCall": "mascomplete-b360506/native/op/540984e39b7832fc3462/a11",
+      "parameters": ["mascomplete-b360506/native/param/540984e39b7832fc3462/0"]
+    },
+    {
+      "entity": "SoftOfferPackage",
+      "method": "Add",
+      "implementation": "mascomplete-b360506/native/method/06e7e7680a33536068f4",
+      "storageWrite": "mascomplete-b360506/native/reviewed/write/06e7e7680a33536068f4",
+      "stagedCall": "mascomplete-b360506/native/op/06e7e7680a33536068f4/a9",
+      "saveCall": "mascomplete-b360506/native/op/06e7e7680a33536068f4/a13",
+      "parameters": ["mascomplete-b360506/native/param/06e7e7680a33536068f4/0"]
+    },
+    {
+      "entity": "SoftOfferPackage",
+      "method": "Update",
+      "implementation": "mascomplete-b360506/native/method/79016dcffd7d5b06427a",
+      "storageWrite": "mascomplete-b360506/native/reviewed/write/79016dcffd7d5b06427a",
+      "stagedCall": "mascomplete-b360506/native/op/79016dcffd7d5b06427a/a8",
+      "saveCall": "mascomplete-b360506/native/op/79016dcffd7d5b06427a/a12",
+      "parameters": [
+        "mascomplete-b360506/native/param/79016dcffd7d5b06427a/0",
+        "mascomplete-b360506/native/param/79016dcffd7d5b06427a/1"
+      ]
+    },
+    {
+      "entity": "SoftOfferPackage",
+      "method": "Remove",
+      "implementation": "mascomplete-b360506/native/method/cc2779c7da94a4dd7efb",
+      "storageWrite": "mascomplete-b360506/native/reviewed/write/cc2779c7da94a4dd7efb",
+      "stagedCall": "mascomplete-b360506/native/op/cc2779c7da94a4dd7efb/a6",
+      "saveCall": "mascomplete-b360506/native/op/cc2779c7da94a4dd7efb/a11",
+      "parameters": ["mascomplete-b360506/native/param/cc2779c7da94a4dd7efb/0"]
+    },
+    {
+      "entity": "SoftOffer",
+      "method": "Add",
+      "implementation": "mascomplete-b360506/native/method/3775b5aba1617e157469",
+      "storageWrite": "mascomplete-b360506/native/reviewed/write/3775b5aba1617e157469",
+      "stagedCall": "mascomplete-b360506/native/op/3775b5aba1617e157469/a9",
+      "saveCall": "mascomplete-b360506/native/op/3775b5aba1617e157469/a13",
+      "parameters": ["mascomplete-b360506/native/param/3775b5aba1617e157469/0"]
+    },
+    {
+      "entity": "SoftOffer",
+      "method": "Update",
+      "implementation": "mascomplete-b360506/native/method/18e756b47eb49983a15e",
+      "storageWrite": "mascomplete-b360506/native/reviewed/write/18e756b47eb49983a15e",
+      "stagedCall": "mascomplete-b360506/native/op/18e756b47eb49983a15e/a8",
+      "saveCall": "mascomplete-b360506/native/op/18e756b47eb49983a15e/a12",
+      "parameters": [
+        "mascomplete-b360506/native/param/18e756b47eb49983a15e/0",
+        "mascomplete-b360506/native/param/18e756b47eb49983a15e/1"
+      ]
+    },
+    {
+      "entity": "SoftOffer",
+      "method": "Remove",
+      "implementation": "mascomplete-b360506/native/method/7a479149f36ded0978ee",
+      "storageWrite": "mascomplete-b360506/native/reviewed/write/7a479149f36ded0978ee",
+      "stagedCall": "mascomplete-b360506/native/op/7a479149f36ded0978ee/a6",
+      "saveCall": "mascomplete-b360506/native/op/7a479149f36ded0978ee/a11",
+      "parameters": ["mascomplete-b360506/native/param/7a479149f36ded0978ee/0"]
+    },
+    {
+      "entity": "SoftwareOptionPackage",
+      "method": "Add",
+      "implementation": "mascomplete-b360506/native/method/fdd5e4691660fed38120",
+      "storageWrite": "mascomplete-b360506/native/reviewed/write/fdd5e4691660fed38120",
+      "stagedCall": "mascomplete-b360506/native/op/fdd5e4691660fed38120/a9",
+      "saveCall": "mascomplete-b360506/native/op/fdd5e4691660fed38120/a13",
+      "parameters": ["mascomplete-b360506/native/param/fdd5e4691660fed38120/0"]
+    },
+    {
+      "entity": "SoftwareOptionPackage",
+      "method": "Update",
+      "implementation": "mascomplete-b360506/native/method/0d0875258bb08bbfc25e",
+      "storageWrite": "mascomplete-b360506/native/reviewed/write/0d0875258bb08bbfc25e",
+      "stagedCall": "mascomplete-b360506/native/op/0d0875258bb08bbfc25e/a8",
+      "saveCall": "mascomplete-b360506/native/op/0d0875258bb08bbfc25e/a12",
+      "parameters": [
+        "mascomplete-b360506/native/param/0d0875258bb08bbfc25e/0",
+        "mascomplete-b360506/native/param/0d0875258bb08bbfc25e/1"
+      ]
+    },
+    {
+      "entity": "SoftwareOptionPackage",
+      "method": "Remove",
+      "implementation": "mascomplete-b360506/native/method/59cdea252def7d416470",
+      "storageWrite": "mascomplete-b360506/native/reviewed/write/59cdea252def7d416470",
+      "stagedCall": "mascomplete-b360506/native/op/59cdea252def7d416470/a6",
+      "saveCall": "mascomplete-b360506/native/op/59cdea252def7d416470/a11",
+      "parameters": ["mascomplete-b360506/native/param/59cdea252def7d416470/0"]
+    },
+    {
+      "entity": "SoftwareOption",
+      "method": "Add",
+      "implementation": "mascomplete-b360506/native/method/898e814dc21431479a5c",
+      "storageWrite": "mascomplete-b360506/native/reviewed/write/898e814dc21431479a5c",
+      "stagedCall": "mascomplete-b360506/native/op/898e814dc21431479a5c/a9",
+      "saveCall": "mascomplete-b360506/native/op/898e814dc21431479a5c/a13",
+      "parameters": ["mascomplete-b360506/native/param/898e814dc21431479a5c/0"]
+    },
+    {
+      "entity": "SoftwareOption",
+      "method": "Update",
+      "implementation": "mascomplete-b360506/native/method/ebcc9468a9052ac66c69",
+      "storageWrite": "mascomplete-b360506/native/reviewed/write/ebcc9468a9052ac66c69",
+      "stagedCall": "mascomplete-b360506/native/op/ebcc9468a9052ac66c69/a8",
+      "saveCall": "mascomplete-b360506/native/op/ebcc9468a9052ac66c69/a12",
+      "parameters": [
+        "mascomplete-b360506/native/param/ebcc9468a9052ac66c69/0",
+        "mascomplete-b360506/native/param/ebcc9468a9052ac66c69/1"
+      ]
+    },
+    {
+      "entity": "SoftwareOption",
+      "method": "Remove",
+      "implementation": "mascomplete-b360506/native/method/b7cd905f06d0e0dd18d8",
+      "storageWrite": "mascomplete-b360506/native/reviewed/write/b7cd905f06d0e0dd18d8",
+      "stagedCall": "mascomplete-b360506/native/op/b7cd905f06d0e0dd18d8/a6",
+      "saveCall": "mascomplete-b360506/native/op/b7cd905f06d0e0dd18d8/a11",
+      "parameters": ["mascomplete-b360506/native/param/b7cd905f06d0e0dd18d8/0"]
+    },
+    {
+      "entity": "CapCodeMapping",
+      "method": "Add",
+      "implementation": "mascomplete-b360506/native/method/8a38ddeaea0d005bbf59",
+      "storageWrite": "mascomplete-b360506/native/reviewed/write/8a38ddeaea0d005bbf59",
+      "stagedCall": "mascomplete-b360506/native/op/8a38ddeaea0d005bbf59/a6",
+      "saveCall": "mascomplete-b360506/native/op/8a38ddeaea0d005bbf59/a10",
+      "parameters": ["mascomplete-b360506/native/param/8a38ddeaea0d005bbf59/0"]
+    },
+    {
+      "entity": "CapCodeMapping",
+      "method": "Update",
+      "implementation": "mascomplete-b360506/native/method/3ac7c76b220b730f0858",
+      "storageWrite": "mascomplete-b360506/native/reviewed/write/3ac7c76b220b730f0858",
+      "stagedCall": "mascomplete-b360506/native/op/3ac7c76b220b730f0858/a8",
+      "saveCall": "mascomplete-b360506/native/op/3ac7c76b220b730f0858/a12",
+      "parameters": [
+        "mascomplete-b360506/native/param/3ac7c76b220b730f0858/0",
+        "mascomplete-b360506/native/param/3ac7c76b220b730f0858/1"
+      ]
+    },
+    {
+      "entity": "JatoCodeMapping",
+      "method": "Add",
+      "implementation": "mascomplete-b360506/native/method/7886ac62739e583923d5",
+      "storageWrite": "mascomplete-b360506/native/reviewed/write/7886ac62739e583923d5",
+      "stagedCall": "mascomplete-b360506/native/op/7886ac62739e583923d5/a6",
+      "saveCall": "mascomplete-b360506/native/op/7886ac62739e583923d5/a10",
+      "parameters": ["mascomplete-b360506/native/param/7886ac62739e583923d5/0"]
+    },
+    {
+      "entity": "JatoCodeMapping",
+      "method": "Update",
+      "implementation": "mascomplete-b360506/native/method/309f620535204421d7de",
+      "storageWrite": "mascomplete-b360506/native/reviewed/write/309f620535204421d7de",
+      "stagedCall": "mascomplete-b360506/native/op/309f620535204421d7de/a8",
+      "saveCall": "mascomplete-b360506/native/op/309f620535204421d7de/a12",
+      "parameters": [
+        "mascomplete-b360506/native/param/309f620535204421d7de/0",
+        "mascomplete-b360506/native/param/309f620535204421d7de/1"
+      ]
+    },
+    {
+      "entity": "NatcodeMapping",
+      "method": "Add",
+      "implementation": "mascomplete-b360506/native/method/890c12b68868fc796dcd",
+      "storageWrite": "mascomplete-b360506/native/reviewed/write/890c12b68868fc796dcd",
+      "stagedCall": "mascomplete-b360506/native/op/890c12b68868fc796dcd/a6",
+      "saveCall": "mascomplete-b360506/native/op/890c12b68868fc796dcd/a10",
+      "parameters": ["mascomplete-b360506/native/param/890c12b68868fc796dcd/0"]
+    },
+    {
+      "entity": "NatcodeMapping",
+      "method": "Update",
+      "implementation": "mascomplete-b360506/native/method/c524d660068c6f55fbe6",
+      "storageWrite": "mascomplete-b360506/native/reviewed/write/c524d660068c6f55fbe6",
+      "stagedCall": "mascomplete-b360506/native/op/c524d660068c6f55fbe6/a8",
+      "saveCall": "mascomplete-b360506/native/op/c524d660068c6f55fbe6/a12",
+      "parameters": [
+        "mascomplete-b360506/native/param/c524d660068c6f55fbe6/0",
+        "mascomplete-b360506/native/param/c524d660068c6f55fbe6/1"
+      ]
+    },
+    {
+      "entity": "SchwackeCodeMapping",
+      "method": "Add",
+      "implementation": "mascomplete-b360506/native/method/c3392496163dadd28995",
+      "storageWrite": "mascomplete-b360506/native/reviewed/write/c3392496163dadd28995",
+      "stagedCall": "mascomplete-b360506/native/op/c3392496163dadd28995/a6",
+      "saveCall": "mascomplete-b360506/native/op/c3392496163dadd28995/a10",
+      "parameters": ["mascomplete-b360506/native/param/c3392496163dadd28995/0"]
+    },
+    {
+      "entity": "SchwackeCodeMapping",
+      "method": "Update",
+      "implementation": "mascomplete-b360506/native/method/7bfdddc57bac7a63b443",
+      "storageWrite": "mascomplete-b360506/native/reviewed/write/7bfdddc57bac7a63b443",
+      "stagedCall": "mascomplete-b360506/native/op/7bfdddc57bac7a63b443/a8",
+      "saveCall": "mascomplete-b360506/native/op/7bfdddc57bac7a63b443/a12",
+      "parameters": [
+        "mascomplete-b360506/native/param/7bfdddc57bac7a63b443/0",
+        "mascomplete-b360506/native/param/7bfdddc57bac7a63b443/1"
+      ]
+    }
+  ],
+  "logicalReadOperations": [
+    "mascomplete-b360506/native/op/385ec2682ce645c4256f/a6",
+    "mascomplete-b360506/native/op/0d413531019d4791333c/a7",
+    "mascomplete-b360506/native/op/44164fdd68557724adb8/a6",
+    "mascomplete-b360506/native/op/f99930462a93d35ef3fd/a6",
+    "mascomplete-b360506/native/op/c450c0a262120b04375e/a7",
+    "mascomplete-b360506/native/op/725bed86c61e176ae009/a6",
+    "mascomplete-b360506/native/op/628bdca95df85789d1fb/a6",
+    "mascomplete-b360506/native/op/f903b8de34bd294d72e7/a7",
+    "mascomplete-b360506/native/op/f2a0765d9a2141f595ce/a6",
+    "mascomplete-b360506/native/op/a90594990df0810b8632/a6",
+    "mascomplete-b360506/native/op/72d13a04ac6c75e32016/a7",
+    "mascomplete-b360506/native/op/28fab57cc99098ec6111/a6",
+    "mascomplete-b360506/native/op/410a3a5441f28eee5e64/a6",
+    "mascomplete-b360506/native/op/cff26d79485df9864403/a7",
+    "mascomplete-b360506/native/op/ab85c5468acb3e5327e5/a6",
+    "mascomplete-b360506/native/op/224186e3e4d63de542bb/a6",
+    "mascomplete-b360506/native/op/6706e7ead2c0fb616919/a7",
+    "mascomplete-b360506/native/op/4ecbecc6bc96b6dab12f/a6",
+    "mascomplete-b360506/native/op/55fa09f539d167874933/a8",
+    "mascomplete-b360506/native/op/c38853207ba7273fa766/a6",
+    "mascomplete-b360506/native/op/ee69c87751a202387051/a6",
+    "mascomplete-b360506/native/op/43ded8af7c583e0e324d/a7",
+    "mascomplete-b360506/native/op/f72f0ae433f9f2bf5b63/a6",
+    "mascomplete-b360506/native/op/825a38e8ecc49cad34d6/a6",
+    "mascomplete-b360506/native/op/e036d0d10dcea8cb68f1/a7",
+    "mascomplete-b360506/native/op/5a97629fcb6d90df8d6e/a5",
+    "mascomplete-b360506/native/op/3d5938e13a7f1db569f4/a6",
+    "mascomplete-b360506/native/op/c09201e580ba75c3eb21/a6",
+    "mascomplete-b360506/native/op/6bd645ae453b2c55cd82/a7",
+    "mascomplete-b360506/native/op/4bb61da6787b04b7c39f/a6",
+    "mascomplete-b360506/native/op/272069d449503dc87487/a6",
+    "mascomplete-b360506/native/op/93e48d2298b9895cf095/a7",
+    "mascomplete-b360506/native/op/2f5012238188d233bc18/a6",
+    "mascomplete-b360506/native/op/87dde1d21b1d4a4a3d08/a8",
+    "mascomplete-b360506/native/op/b2a838a99b4044e89941/a6",
+    "mascomplete-b360506/native/op/1d8f87d0fa3b4879b4bb/a6",
+    "mascomplete-b360506/native/op/80506c52266e016fa48f/a7",
+    "mascomplete-b360506/native/op/736ccc8d651790b89de5/a6",
+    "mascomplete-b360506/native/op/63bb008c53e4ddf5eb3e/a6",
+    "mascomplete-b360506/native/op/b39d1768989f27f09fe3/a7",
+    "mascomplete-b360506/native/op/4fc772e192ebe47ce7e8/a6",
+    "mascomplete-b360506/native/op/db3ee96167d569d81c77/a7",
+    "mascomplete-b360506/native/op/f6b352ee1c691d5e4d43/a6",
+    "mascomplete-b360506/native/op/b20620317720889faff9/a6",
+    "mascomplete-b360506/native/op/95417d49575dbf9298f8/a7",
+    "mascomplete-b360506/native/op/02f574b20ee8cb941c48/a6",
+    "mascomplete-b360506/native/op/ae65fd31f4ea7346ed78/a6",
+    "mascomplete-b360506/native/op/3d7f387dc9798447bee0/a8",
+    "mascomplete-b360506/native/op/034a291c2e2491d4a48a/a8",
+    "mascomplete-b360506/native/op/6fafa5feace8a2df9e0c/a6",
+    "mascomplete-b360506/native/op/13803d334d4a847d0795/a8",
+    "mascomplete-b360506/native/op/37f099ad9a8516545b24/a6",
+    "mascomplete-b360506/native/op/f802ad517ce173adc066/a8",
+    "mascomplete-b360506/native/op/12fb61cfdc3b4f893065/a6",
+    "mascomplete-b360506/native/op/1ecaf0003e042d1239da/a8",
+    "mascomplete-b360506/native/op/4f5439e64ff54cd3855f/a6",
+    "mascomplete-b360506/native/op/6273b21d40aebe6d7c43/a4",
+    "mascomplete-b360506/native/op/d18fbb73d50da3809a42/a4",
+    "mascomplete-b360506/native/op/6afbb31406e800f30d2e/a4",
+    "mascomplete-b360506/native/op/c4761eb771ba7e972b20/a4",
+    "mascomplete-b360506/native/op/7626105e298fbafe3006/a9",
+    "mascomplete-b360506/native/op/59c823f81525433b7dec/a4",
+    "mascomplete-b360506/native/op/9e36aa007437945642b1/a4",
+    "mascomplete-b360506/native/op/c97d1a24e91b1ab36a47/a9",
+    "mascomplete-b360506/native/op/8f2f352682d2834b7a68/a4",
+    "mascomplete-b360506/native/op/fc5899c3ad9738cdac60/a4",
+    "mascomplete-b360506/native/op/5e077e3c74658ea4933c/a9",
+    "mascomplete-b360506/native/op/540bc847e16c81f74c61/a4",
+    "mascomplete-b360506/native/op/dffe78217b7368a828c1/a9",
+    "mascomplete-b360506/native/op/ec93aa2be8fc43ac0794/a4",
+    "mascomplete-b360506/native/op/c7c5bdbbe8e593f3d5be/a9",
+    "mascomplete-b360506/native/op/6c486054b0cc57974cce/a4",
+    "mascomplete-b360506/native/op/f2a8714f0c055d2f8d39/a9",
+    "mascomplete-b360506/native/op/e3293daed1430d19de61/a4",
+    "mascomplete-b360506/native/op/4856d47e273086283fbc/a4",
+    "mascomplete-b360506/native/op/ca6e4b723f04a089f7e0/a4",
+    "mascomplete-b360506/native/op/1155c1a88ae4170d5dfb/a4",
+    "mascomplete-b360506/native/op/04ff9913b31f1ed71267/a4"
+  ],
+  "unitOfWorkEffect": "mascomplete-b360506/native/reviewed/uow-save",
+  "unitOfWorkParameters": [],
+  "unitOfWorkSave": "mascomplete-b360506/native/op/bb0e37bbed01d199c27d/a3",
+  "unitOfWorkAcknowledgement": "mascomplete-b360506/native/op/bb0e37bbed01d199c27d/b3"
+}

@@ -1,0 +1,23 @@
+{
+  "inherited_records": 602,
+  "new_records": 2420,
+  "total_records": 3022,
+  "new_source_ranges": 1353,
+  "counts": {
+    "rest": 29,
+    "health": 8,
+    "documentation_middleware": 4,
+    "gateway": 7,
+    "background_job": 1,
+    "topic_processors": 10,
+    "typed_dispatch_subscriptions_new": 26,
+    "native_subscriptions_new": 33,
+    "header_presence_subscriptions_new": 2,
+    "unfiltered_subscriptions_new": 5,
+    "json_event_envelopes": 2,
+    "schemas_new": 346,
+    "schema_fields_new": 1237,
+    "key_http_traces": 1,
+    "base_async_traces_retained": 1
+  }
+}

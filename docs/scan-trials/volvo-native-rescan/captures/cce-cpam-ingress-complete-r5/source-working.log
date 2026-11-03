@@ -1,0 +1,11 @@
+
+> groundwork@0.0.0 knowledge:validate
+> node --import ./tools/register.ts --conditions=react-server tools/validate-knowledge.ts reports/volvo-native-rescan/cce-cpam-ingress-complete/working.bundle.json --sources /Users/RNEL/.cache/groundwork/clones
+
+{
+  "snapshot": "ebf5468fc462afb1f9729d697a65a5e90787ad89f9b22ec1b252abbaaf52450e",
+  "bundles": 1,
+  "records": 160714,
+  "sourceRangesChecked": 18693,
+  "sourceVerification": "pinned_local_files"
+}

@@ -1,0 +1,26 @@
+{
+  "status": "passed",
+  "qualification": "Available local interface and function-field signatures checked independently; unresolved dispatch is not an implementation binding. Imported CaptureException return signature is not established by the local wrapper interface.",
+  "calls": [
+    {
+      "operation": "caas-car-configurator-5495209-complete-r1/operation/b1777478dc482b24/n/7",
+      "label": "Invoke t.testEmbeddedByValue()",
+      "result": null
+    },
+    {
+      "operation": "caas-car-configurator-5495209-complete-r1/operation/1e09df2a64c9bea1/n/1",
+      "label": "Invoke client.Close()",
+      "result": null
+    },
+    {
+      "operation": "caas-car-configurator-5495209-complete-r1/operation/dbe17da2631315a6/n/5",
+      "label": "Invoke c.flushFunc()",
+      "result": null
+    },
+    {
+      "operation": "caas-car-configurator-5495209-complete-r1/operation/dbb2029c114571a7/n/1",
+      "label": "Invoke sentryClient.CaptureException(err)",
+      "result": null
+    }
+  ]
+}

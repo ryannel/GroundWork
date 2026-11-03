@@ -1,0 +1,207 @@
+[
+  {
+    "coordinate": "github.com/IBM/sarama",
+    "version": "v1.50.3",
+    "artifact": "volvo/cce-retail-ingress/95d091aa445f/final-r1/artifact/f0567ef7da4da113a3f9"
+  },
+  {
+    "coordinate": "github.com/ThreeDotsLabs/watermill",
+    "version": "v1.5.1",
+    "artifact": "volvo/cce-retail-ingress/95d091aa445f/final-r1/artifact/82adbfef5c376b66dfa5"
+  },
+  {
+    "coordinate": "github.com/ThreeDotsLabs/watermill-kafka/v3",
+    "version": "v3.1.2",
+    "artifact": "volvo/cce-retail-ingress/95d091aa445f/final-r1/artifact/291981b58a67f32f9df6"
+  },
+  {
+    "coordinate": "github.com/go-errors/errors",
+    "version": "v1.4.2",
+    "artifact": "volvo/cce-retail-ingress/95d091aa445f/final-r1/artifact/932125152188c8ce4954"
+  },
+  {
+    "coordinate": "github.com/golang-jwt/jwt/v4",
+    "version": "v4.5.2",
+    "artifact": "volvo/cce-retail-ingress/95d091aa445f/final-r1/artifact/7037a8d77f516ce6e276"
+  },
+  {
+    "coordinate": "github.com/golang/protobuf",
+    "version": "v1.5.4",
+    "artifact": "volvo/cce-retail-ingress/95d091aa445f/final-r1/artifact/a7306a45ab98bf0f5067"
+  },
+  {
+    "coordinate": "github.com/google/uuid",
+    "version": "v1.6.0",
+    "artifact": "volvo/cce-retail-ingress/95d091aa445f/final-r1/artifact/561e97a8befe7661a44c"
+  },
+  {
+    "coordinate": "github.com/ourstudio-se/binder",
+    "version": "v1.1.6",
+    "artifact": "volvo/cce-retail-ingress/95d091aa445f/final-r1/artifact/eb2b6be6c11fe15b2b18"
+  },
+  {
+    "coordinate": "github.com/volvo-cars/go-logging",
+    "version": "v1.1.0",
+    "artifact": "volvo/cce-retail-ingress/95d091aa445f/final-r1/artifact/72449d52790a92dfacf5"
+  },
+  {
+    "coordinate": "go.uber.org/zap",
+    "version": "v1.20.0",
+    "artifact": "volvo/cce-retail-ingress/95d091aa445f/final-r1/artifact/11b63de84d911b02ac25"
+  },
+  {
+    "coordinate": "golang.org/x/oauth2",
+    "version": "v0.32.0",
+    "artifact": "volvo/cce-retail-ingress/95d091aa445f/final-r1/artifact/19383c77454ac8d17794"
+  },
+  {
+    "coordinate": "google.golang.org/protobuf",
+    "version": "v1.36.8",
+    "artifact": "volvo/cce-retail-ingress/95d091aa445f/final-r1/artifact/c04662cab481aaa929d0"
+  },
+  {
+    "coordinate": "github.com/lithammer/shortuuid/v3",
+    "version": "v3.0.7",
+    "artifact": "volvo/cce-retail-ingress/95d091aa445f/final-r1/artifact/e9dd1f0c19ac99324e3e"
+  },
+  {
+    "coordinate": "github.com/oklog/ulid",
+    "version": "v1.3.1",
+    "artifact": "volvo/cce-retail-ingress/95d091aa445f/final-r1/artifact/3584706ede442a227f1e"
+  },
+  {
+    "coordinate": "github.com/davecgh/go-spew",
+    "version": "v1.1.1",
+    "artifact": "volvo/cce-retail-ingress/95d091aa445f/final-r1/artifact/8f2ffe7c1678780663ad"
+  },
+  {
+    "coordinate": "github.com/dnwe/otelsarama",
+    "version": "v0.0.0-20240308230250-9388d9d40bc0",
+    "artifact": "volvo/cce-retail-ingress/95d091aa445f/final-r1/artifact/4d1f9546b7f409a5a441"
+  },
+  {
+    "coordinate": "github.com/eapache/go-resiliency",
+    "version": "v1.7.0",
+    "artifact": "volvo/cce-retail-ingress/95d091aa445f/final-r1/artifact/49b38494bbb5d8014e49"
+  },
+  {
+    "coordinate": "github.com/go-logr/logr",
+    "version": "v1.4.2",
+    "artifact": "volvo/cce-retail-ingress/95d091aa445f/final-r1/artifact/e65426c94497ab8f0b84"
+  },
+  {
+    "coordinate": "github.com/go-logr/stdr",
+    "version": "v1.2.2",
+    "artifact": "volvo/cce-retail-ingress/95d091aa445f/final-r1/artifact/febdba1f76353d59091a"
+  },
+  {
+    "coordinate": "github.com/hashicorp/errwrap",
+    "version": "v1.1.0",
+    "artifact": "volvo/cce-retail-ingress/95d091aa445f/final-r1/artifact/eb50a4ae5fa8cfffdbbc"
+  },
+  {
+    "coordinate": "github.com/hashicorp/go-multierror",
+    "version": "v1.1.1",
+    "artifact": "volvo/cce-retail-ingress/95d091aa445f/final-r1/artifact/fe663a0c58fd06d5722c"
+  },
+  {
+    "coordinate": "github.com/hashicorp/go-uuid",
+    "version": "v1.0.3",
+    "artifact": "volvo/cce-retail-ingress/95d091aa445f/final-r1/artifact/fccb6e8debc7916b3691"
+  },
+  {
+    "coordinate": "github.com/jcmturner/aescts/v2",
+    "version": "v2.0.0",
+    "artifact": "volvo/cce-retail-ingress/95d091aa445f/final-r1/artifact/a352c6d504da3d19a08e"
+  },
+  {
+    "coordinate": "github.com/jcmturner/dnsutils/v2",
+    "version": "v2.0.0",
+    "artifact": "volvo/cce-retail-ingress/95d091aa445f/final-r1/artifact/27c1a230381162836be4"
+  },
+  {
+    "coordinate": "github.com/jcmturner/gofork",
+    "version": "v1.7.6",
+    "artifact": "volvo/cce-retail-ingress/95d091aa445f/final-r1/artifact/325653986a96eb54ac94"
+  },
+  {
+    "coordinate": "github.com/jcmturner/gokrb5/v8",
+    "version": "v8.4.4",
+    "artifact": "volvo/cce-retail-ingress/95d091aa445f/final-r1/artifact/188e45aba30c01315fc1"
+  },
+  {
+    "coordinate": "github.com/jcmturner/rpc/v2",
+    "version": "v2.0.3",
+    "artifact": "volvo/cce-retail-ingress/95d091aa445f/final-r1/artifact/df1fb0c41d89a340c9bd"
+  },
+  {
+    "coordinate": "github.com/klauspost/compress",
+    "version": "v1.18.6",
+    "artifact": "volvo/cce-retail-ingress/95d091aa445f/final-r1/artifact/7e7877fae212e622c6d6"
+  },
+  {
+    "coordinate": "github.com/pierrec/lz4/v4",
+    "version": "v4.1.27",
+    "artifact": "volvo/cce-retail-ingress/95d091aa445f/final-r1/artifact/18a36c320fc597f9023d"
+  },
+  {
+    "coordinate": "github.com/pkg/errors",
+    "version": "v0.9.1",
+    "artifact": "volvo/cce-retail-ingress/95d091aa445f/final-r1/artifact/fa7f1e954b96b0748170"
+  },
+  {
+    "coordinate": "github.com/radovskyb/watcher",
+    "version": "v1.0.7",
+    "artifact": "volvo/cce-retail-ingress/95d091aa445f/final-r1/artifact/4848327ac19a54703d8b"
+  },
+  {
+    "coordinate": "github.com/rcrowley/go-metrics",
+    "version": "v0.0.0-20250401214520-65e299d6c5c9",
+    "artifact": "volvo/cce-retail-ingress/95d091aa445f/final-r1/artifact/551475a9f8cf5f1b126b"
+  },
+  {
+    "coordinate": "github.com/spf13/pflag",
+    "version": "v1.0.5",
+    "artifact": "volvo/cce-retail-ingress/95d091aa445f/final-r1/artifact/9df872753e59b919f457"
+  },
+  {
+    "coordinate": "go.opentelemetry.io/otel",
+    "version": "v1.29.0",
+    "artifact": "volvo/cce-retail-ingress/95d091aa445f/final-r1/artifact/2afc6f9210c5e0c85500"
+  },
+  {
+    "coordinate": "go.opentelemetry.io/otel/metric",
+    "version": "v1.29.0",
+    "artifact": "volvo/cce-retail-ingress/95d091aa445f/final-r1/artifact/262b907aa1a908a9c842"
+  },
+  {
+    "coordinate": "go.opentelemetry.io/otel/trace",
+    "version": "v1.29.0",
+    "artifact": "volvo/cce-retail-ingress/95d091aa445f/final-r1/artifact/bfd4d8d27bf92504c42c"
+  },
+  {
+    "coordinate": "go.uber.org/atomic",
+    "version": "v1.7.0",
+    "artifact": "volvo/cce-retail-ingress/95d091aa445f/final-r1/artifact/5727dd382392f8a5ff3d"
+  },
+  {
+    "coordinate": "go.uber.org/multierr",
+    "version": "v1.6.0",
+    "artifact": "volvo/cce-retail-ingress/95d091aa445f/final-r1/artifact/abe1b262ebce9e4bedd2"
+  },
+  {
+    "coordinate": "golang.org/x/crypto",
+    "version": "v0.57.0",
+    "artifact": "volvo/cce-retail-ingress/95d091aa445f/final-r1/artifact/a21cca9b574794548fa8"
+  },
+  {
+    "coordinate": "golang.org/x/net",
+    "version": "v0.60.0",
+    "artifact": "volvo/cce-retail-ingress/95d091aa445f/final-r1/artifact/46dc23c8857c341eec11"
+  },
+  {
+    "coordinate": "golang.org/x/sys",
+    "version": "v0.48.0",
+    "artifact": "volvo/cce-retail-ingress/95d091aa445f/final-r1/artifact/d8cdfe35da6397c15dee"
+  }
+]

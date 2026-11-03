@@ -1,0 +1,6128 @@
+{
+  "format": "groundwork-knowledge/v2",
+  "workspace": "volvo-cars",
+  "records": [
+    {
+      "id": "s2/p",
+      "kind": "source_revision",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110"
+    },
+    {
+      "id": "s2/c",
+      "kind": "source_revision",
+      "repo": "volvo-cars/popcat-assortment-api",
+      "commit": "6114c5db0f2b4b490cf89b9c512088f01dbf0b98"
+    },
+    {
+      "id": "s2/e/controller",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Api/Controllers/V1/SoftOffersController.cs",
+      "lines": [17, 90],
+      "basis": "source"
+    },
+    {
+      "id": "s2/e/input",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Api/Models/V1/Request/SoftOfferInput.cs",
+      "lines": [1, 53],
+      "basis": "source"
+    },
+    {
+      "id": "s2/e/mapping",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Api/Mapping/MappingProfile.cs",
+      "lines": [50, 85],
+      "basis": "source"
+    },
+    {
+      "id": "s2/e/sku-mapping",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Api/Mapping/MappingProfile.cs",
+      "lines": [340, 350],
+      "basis": "source"
+    },
+    {
+      "id": "s2/e/softoffer",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Core/Models/CommercialItems/SoftOffer.cs",
+      "lines": [1, 25],
+      "basis": "source"
+    },
+    {
+      "id": "s2/e/identity",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Core/Models/CommercialItems/CommercialItemBase.cs",
+      "lines": [1, 43],
+      "basis": "source"
+    },
+    {
+      "id": "s2/e/id-helper",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Core/Common/IdHelper.cs",
+      "lines": [19, 56],
+      "basis": "source"
+    },
+    {
+      "id": "s2/e/service",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Core/Services/SoftOfferService.cs",
+      "lines": [13, 24],
+      "basis": "source"
+    },
+    {
+      "id": "s2/e/add",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Core/Services/CommercialItemService.cs",
+      "lines": [55, 71],
+      "basis": "source"
+    },
+    {
+      "id": "s2/e/enabled",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Core/Services/CommercialItemService.cs",
+      "lines": [107, 113],
+      "basis": "source"
+    },
+    {
+      "id": "s2/e/repository",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Infrastructure/Repositories/Repository.cs",
+      "lines": [100, 115],
+      "basis": "source"
+    },
+    {
+      "id": "s2/e/refetch",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Infrastructure/Repositories/CommercialItemRepository.cs",
+      "lines": [1, 102],
+      "basis": "source"
+    },
+    {
+      "id": "s2/e/uow",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Infrastructure/UnitOfWork.cs",
+      "lines": [37, 108],
+      "basis": "source"
+    },
+    {
+      "id": "s2/e/db",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Infrastructure/DatabaseContext.cs",
+      "lines": [72, 143],
+      "basis": "source"
+    },
+    {
+      "id": "s2/e/npgsql",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Infrastructure/Extensions/ApplicationBuilderExtensions.cs",
+      "lines": [15, 29],
+      "basis": "source"
+    },
+    {
+      "id": "s2/e/notify",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.MessageBroker/Services/NotificationService.cs",
+      "lines": [15, 70],
+      "basis": "source"
+    },
+    {
+      "id": "s2/e/builder",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.MessageBroker/Builders/ProtoBufMessageBuilder.cs",
+      "lines": [147, 167],
+      "basis": "source"
+    },
+    {
+      "id": "s2/e/headers",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.MessageBroker/Models/NotificationHeaders.cs",
+      "lines": [1, 16],
+      "basis": "source"
+    },
+    {
+      "id": "s2/e/producer",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.MessageBroker/Producers/KafkaProducer.cs",
+      "lines": [40, 68],
+      "basis": "source"
+    },
+    {
+      "id": "s2/e/serializer",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.MessageBroker/Common/ProtoBufSerializer.cs",
+      "lines": [1, 21],
+      "basis": "source"
+    },
+    {
+      "id": "s2/e/producer-config",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.MessageBroker/Extensions/ApplicationBuilderExtensions.cs",
+      "lines": [15, 50],
+      "basis": "source"
+    },
+    {
+      "id": "s2/e/base-config",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Api/appsettings.json",
+      "lines": [1, 81],
+      "basis": "source"
+    },
+    {
+      "id": "s2/e/prod-config",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Api/appsettings.Prod.json",
+      "lines": [1, 19],
+      "basis": "source"
+    },
+    {
+      "id": "s2/e/response",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Api/Controllers/ManageAndSegmentControllerBase.cs",
+      "lines": [32, 86],
+      "basis": "source"
+    },
+    {
+      "id": "s2/e/middleware",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Api/Middleware/ExceptionMiddleware.cs",
+      "lines": [1, 85],
+      "basis": "source"
+    },
+    {
+      "id": "s2/e/packages",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "Directory.Packages.props",
+      "lines": [1, 84],
+      "basis": "source"
+    },
+    {
+      "id": "s2/e/producer-proto",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.MessageBroker/Protos/soft_offer.proto",
+      "lines": [1, 22],
+      "basis": "source"
+    },
+    {
+      "id": "s2/e/consumer",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-assortment-api",
+      "commit": "6114c5db0f2b4b490cf89b9c512088f01dbf0b98",
+      "path": "src/PopCat.Assortment.CacheWorker.Host/Services/KafkaConsumerService.cs",
+      "lines": [17, 60],
+      "basis": "source"
+    },
+    {
+      "id": "s2/e/consumer-config",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-assortment-api",
+      "commit": "6114c5db0f2b4b490cf89b9c512088f01dbf0b98",
+      "path": "src/PopCat.Assortment.CacheWorker.Host/Configuration/KafkaConsumerSettings.cs",
+      "lines": [1, 45],
+      "basis": "source"
+    },
+    {
+      "id": "s2/e/filter",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-assortment-api",
+      "commit": "6114c5db0f2b4b490cf89b9c512088f01dbf0b98",
+      "path": "src/PopCat.Assortment.CacheWorker.Host/MessageProcessor/IMessageProcessor.cs",
+      "lines": [1, 19],
+      "basis": "source"
+    },
+    {
+      "id": "s2/e/processor",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-assortment-api",
+      "commit": "6114c5db0f2b4b490cf89b9c512088f01dbf0b98",
+      "path": "src/PopCat.Assortment.CacheWorker.Host/MessageProcessor/ManageCommercialMessageProcessor.cs",
+      "lines": [16, 118],
+      "basis": "source"
+    },
+    {
+      "id": "s2/e/list",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-assortment-api",
+      "commit": "6114c5db0f2b4b490cf89b9c512088f01dbf0b98",
+      "path": "src/PopCat.Assortment.Core/Services/UpstreamEntityCacheService.cs",
+      "lines": [17, 58],
+      "basis": "source"
+    },
+    {
+      "id": "s2/e/upsert",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-assortment-api",
+      "commit": "6114c5db0f2b4b490cf89b9c512088f01dbf0b98",
+      "path": "src/PopCat.Assortment.Core/Services/UpstreamEntityCacheService.cs",
+      "lines": [60, 140],
+      "basis": "source"
+    },
+    {
+      "id": "s2/e/cache-serializer",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-assortment-api",
+      "commit": "6114c5db0f2b4b490cf89b9c512088f01dbf0b98",
+      "path": "src/PopCat.Assortment.Core/Services/CacheSerializerService.cs",
+      "lines": [1, 34],
+      "basis": "source"
+    },
+    {
+      "id": "s2/e/redis",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-assortment-api",
+      "commit": "6114c5db0f2b4b490cf89b9c512088f01dbf0b98",
+      "path": "src/PopCat.Assortment.Core/Services/RedisCacheService.cs",
+      "lines": [69, 81],
+      "basis": "source"
+    },
+    {
+      "id": "s2/e/blob-key",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-assortment-api",
+      "commit": "6114c5db0f2b4b490cf89b9c512088f01dbf0b98",
+      "path": "src/PopCat.Assortment.Repository/BlobStorage/UpstreamEntitiesRepository.cs",
+      "lines": [1, 12],
+      "basis": "source"
+    },
+    {
+      "id": "s2/e/blob-repository",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-assortment-api",
+      "commit": "6114c5db0f2b4b490cf89b9c512088f01dbf0b98",
+      "path": "src/PopCat.Assortment.Repository/BlobStorage/Repository.cs",
+      "lines": [1, 21],
+      "basis": "source"
+    },
+    {
+      "id": "s2/e/blob",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-assortment-api",
+      "commit": "6114c5db0f2b4b490cf89b9c512088f01dbf0b98",
+      "path": "src/PopCat.Assortment.Repository/BlobStorage/BlobStorageClient.cs",
+      "lines": [60, 73],
+      "basis": "source"
+    },
+    {
+      "id": "s2/e/consumer-base-config",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-assortment-api",
+      "commit": "6114c5db0f2b4b490cf89b9c512088f01dbf0b98",
+      "path": "src/PopCat.Assortment.CacheWorker.Host/appsettings.json",
+      "lines": [1, 66],
+      "basis": "source"
+    },
+    {
+      "id": "s2/e/consumer-prod-config",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-assortment-api",
+      "commit": "6114c5db0f2b4b490cf89b9c512088f01dbf0b98",
+      "path": "src/PopCat.Assortment.CacheWorker.Host/appsettings.Production.json",
+      "lines": [1, 5],
+      "basis": "source"
+    },
+    {
+      "id": "s2/e/consumer-proto",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-assortment-api",
+      "commit": "6114c5db0f2b4b490cf89b9c512088f01dbf0b98",
+      "path": "src/PopCat.Assortment.CacheWorker.Host/Protos/manage/soft_offer.proto",
+      "lines": [1, 22],
+      "basis": "source"
+    },
+    {
+      "id": "s2/e/consumer-packages",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-assortment-api",
+      "commit": "6114c5db0f2b4b490cf89b9c512088f01dbf0b98",
+      "path": "Directory.Packages.props",
+      "lines": [1, 85],
+      "basis": "source"
+    },
+    {
+      "id": "s2/e/upstream",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-assortment-api",
+      "commit": "6114c5db0f2b4b490cf89b9c512088f01dbf0b98",
+      "path": "src/PopCat.Assortment.Contracts/Models/UpstreamEntity.cs",
+      "lines": [1, 3],
+      "basis": "source"
+    },
+    {
+      "id": "s2/gap/deployment",
+      "kind": "gap",
+      "owner": "s2/http",
+      "obligation": "deployment",
+      "reason": "Committed production profiles do not establish effective deployed configuration, credentials, topology or enabled flags.",
+      "action": "Resolve deployed profiles and non-secret resource identities.",
+      "evidence": [
+        "s2/e/base-config",
+        "s2/e/prod-config",
+        "s2/e/consumer-base-config",
+        "s2/e/consumer-prod-config"
+      ]
+    },
+    {
+      "id": "s2/gap/sdk-policy",
+      "kind": "gap",
+      "owner": "s2/publish",
+      "obligation": "sdk-policy",
+      "reason": "Kafka SDK implementation and effective retry, acknowledgement and idempotence settings have not been bound.",
+      "action": "Bind exact dependency artefacts and effective settings; do not infer defaults.",
+      "evidence": ["s2/e/packages", "s2/e/producer-config"]
+    },
+    {
+      "id": "s2/gap/offsets",
+      "kind": "gap",
+      "owner": "s2/consumer",
+      "obligation": "offsets",
+      "reason": "Commit, acknowledgement and redelivery behaviour is delegated to ConsumeWithInstrumentation and Kafka configuration. Failed Result is only logged in this callback.",
+      "action": "Inspect exact consumer wrapper and offset settings.",
+      "evidence": ["s2/e/consumer", "s2/e/consumer-config", "s2/e/consumer-packages"]
+    },
+    {
+      "id": "s2/gap/mapping",
+      "kind": "gap",
+      "owner": "s2/publish",
+      "obligation": "mapping",
+      "reason": "AutoMapper registrations and local converters are declared; the effective imported convention mapper is not bound.",
+      "action": "Bind exact mapper artefact or verify serialised payload with a contract test.",
+      "evidence": ["s2/e/mapping", "s2/e/sku-mapping", "s2/e/builder"]
+    },
+    {
+      "id": "s2/gap/concurrency",
+      "kind": "gap",
+      "owner": "s2/consumer",
+      "obligation": "concurrency",
+      "reason": "Whole-list read-modify-write has no concurrency control established in this inspected path. Sequential ID replacement does not prove exactly-once processing or prevent concurrent lost updates.",
+      "action": "Establish partitioning, write preconditions and parallel consumer execution.",
+      "evidence": ["s2/e/upsert", "s2/e/list", "s2/e/blob", "s2/e/redis"]
+    },
+    {
+      "id": "s2/gap/http-scope",
+      "kind": "gap",
+      "owner": "s2/http",
+      "obligation": "http-scope",
+      "reason": "Authentication, validation, shared error middleware and every non-Created result are not exhaustively modelled.",
+      "action": "Extend coverage before claiming all endpoint outcomes.",
+      "evidence": ["s2/e/controller", "s2/e/middleware", "s2/e/response"]
+    },
+    {
+      "id": "s2/http",
+      "kind": "implementation",
+      "logicalId": "impl:soft-offer-http",
+      "scope": "s2/p",
+      "entry": "s2/http.start",
+      "parameters": ["s2/v/request"],
+      "evidence": ["s2/e/controller", "s2/e/middleware"]
+    },
+    {
+      "id": "s2/add",
+      "kind": "implementation",
+      "logicalId": "impl:soft-offer-add",
+      "scope": "s2/p",
+      "entry": "s2/add.identity",
+      "parameters": [
+        "s2/v/entity",
+        "s2/v/entity-name",
+        "s2/v/entity-code",
+        "s2/v/entity-type",
+        "s2/v/entity-skucategory",
+        "s2/v/entity-skuidentifier"
+      ],
+      "evidence": ["s2/e/add", "s2/e/service"]
+    },
+    {
+      "id": "s2/notify",
+      "kind": "implementation",
+      "logicalId": "impl:soft-offer-notify",
+      "scope": "s2/p",
+      "entry": "s2/notify.build",
+      "parameters": ["s2/v/notice", "s2/v/notice-name"],
+      "evidence": ["s2/e/notify"]
+    },
+    {
+      "id": "s2/publish",
+      "kind": "implementation",
+      "logicalId": "impl:soft-offer-publish",
+      "scope": "s2/p",
+      "entry": "s2/publish.serialise",
+      "parameters": ["s2/v/message", "s2/v/wire-name"],
+      "evidence": ["s2/e/producer", "s2/e/serializer"]
+    },
+    {
+      "id": "s2/consumer",
+      "kind": "implementation",
+      "logicalId": "impl:soft-offer-consumer",
+      "scope": "s2/c",
+      "entry": "s2/consumer.receive",
+      "parameters": [],
+      "evidence": ["s2/e/consumer", "s2/e/processor"]
+    },
+    {
+      "id": "s2/endpoint",
+      "kind": "entry",
+      "logicalId": "api:mas-soft-offers-create",
+      "method": "POST",
+      "path": "/api/commercial-items/soft-offers",
+      "implementation": "s2/http",
+      "evidence": ["s2/e/controller"]
+    },
+    {
+      "id": "s2/http.start",
+      "kind": "operation",
+      "owner": "s2/http",
+      "action": "entry",
+      "label": "Authenticated, bound soft-offer input",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": null,
+      "httpStatus": null,
+      "evidence": ["s2/e/controller", "s2/e/input"]
+    },
+    {
+      "id": "s2/http.map",
+      "kind": "operation",
+      "owner": "s2/http",
+      "action": "compute",
+      "label": "Map request; create InternalId; ignore supplied deterministic Id",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": null,
+      "httpStatus": null,
+      "evidence": ["s2/e/mapping"]
+    },
+    {
+      "id": "s2/resolve/http.add",
+      "kind": "resolution",
+      "owner": "s2/http",
+      "requestedArtifact": null,
+      "basis": "source_local",
+      "target": "s2/add",
+      "candidates": [],
+      "evidence": ["s2/e/controller", "s2/e/service", "s2/e/add"],
+      "binding": null
+    },
+    {
+      "id": "s2/http.add",
+      "kind": "operation",
+      "owner": "s2/http",
+      "action": "call",
+      "label": "Await SoftOfferService.Add",
+      "resolution": "s2/resolve/http.add",
+      "bindings": [
+        {
+          "parameter": "s2/v/entity",
+          "value": "s2/v/input"
+        },
+        {
+          "parameter": "s2/v/entity-name",
+          "value": "s2/v/input-name"
+        },
+        {
+          "parameter": "s2/v/entity-code",
+          "value": "s2/v/input-code"
+        },
+        {
+          "parameter": "s2/v/entity-type",
+          "value": "s2/v/input-type"
+        },
+        {
+          "parameter": "s2/v/entity-skucategory",
+          "value": "s2/v/input-skucategory"
+        },
+        {
+          "parameter": "s2/v/entity-skuidentifier",
+          "value": "s2/v/input-skuidentifier"
+        }
+      ],
+      "result": null,
+      "exit": null,
+      "httpStatus": null,
+      "evidence": ["s2/e/controller", "s2/e/service", "s2/e/add"]
+    },
+    {
+      "id": "s2/http.201",
+      "kind": "operation",
+      "owner": "s2/http",
+      "action": "return",
+      "label": "Created response with original Add result",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": "normal",
+      "httpStatus": 201,
+      "evidence": ["s2/e/controller", "s2/e/response"]
+    },
+    {
+      "id": "s2/http.409",
+      "kind": "operation",
+      "owner": "s2/http",
+      "action": "return",
+      "label": "Conflict response for mapped database conflict",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": "normal",
+      "httpStatus": 409,
+      "evidence": ["s2/e/uow", "s2/e/middleware"]
+    },
+    {
+      "id": "s2/http.500",
+      "kind": "operation",
+      "owner": "s2/http",
+      "action": "return",
+      "label": "Error response; database may already be changed",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": "normal",
+      "httpStatus": 500,
+      "evidence": ["s2/e/middleware", "s2/e/notify"]
+    },
+    {
+      "id": "s2/add.identity",
+      "kind": "operation",
+      "owner": "s2/add",
+      "action": "compute",
+      "label": "Generate deterministic Id if absent",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": null,
+      "httpStatus": null,
+      "evidence": ["s2/e/add", "s2/e/identity", "s2/e/softoffer", "s2/e/id-helper"]
+    },
+    {
+      "id": "s2/add.stage",
+      "kind": "operation",
+      "owner": "s2/add",
+      "action": "compute",
+      "label": "DbSet.Add stages tracked entity and returns Created",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": null,
+      "httpStatus": null,
+      "evidence": ["s2/e/repository", "s2/e/uow"]
+    },
+    {
+      "id": "s2/add.save",
+      "kind": "operation",
+      "owner": "s2/add",
+      "action": "opaque",
+      "label": "Await CompleteAsync / SaveChangesAsync",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": null,
+      "httpStatus": null,
+      "evidence": ["s2/e/uow", "s2/e/npgsql"]
+    },
+    {
+      "id": "s2/add.saved",
+      "kind": "operation",
+      "owner": "s2/add",
+      "action": "compute",
+      "label": "SaveChangesAsync returned normally",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": null,
+      "httpStatus": null,
+      "evidence": ["s2/e/uow", "s2/e/add"]
+    },
+    {
+      "id": "s2/add.conflict",
+      "kind": "operation",
+      "owner": "s2/add",
+      "action": "throw",
+      "label": "Map database concurrency or 23505 exception to conflict",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": "conflict",
+      "httpStatus": null,
+      "evidence": ["s2/e/uow"]
+    },
+    {
+      "id": "s2/add.error",
+      "kind": "operation",
+      "owner": "s2/add",
+      "action": "throw",
+      "label": "Database or later exception escapes",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": "error",
+      "httpStatus": null,
+      "evidence": ["s2/e/uow", "s2/e/notify"]
+    },
+    {
+      "id": "s2/add.refetch",
+      "kind": "operation",
+      "owner": "s2/add",
+      "action": "branch",
+      "label": "If Created with data, refetch no tracking by InternalId",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": null,
+      "httpStatus": null,
+      "evidence": ["s2/e/add", "s2/e/refetch"]
+    },
+    {
+      "id": "s2/add.enabled",
+      "kind": "operation",
+      "owner": "s2/add",
+      "action": "branch",
+      "label": "Refetch succeeded with data; notification enabled?",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": null,
+      "httpStatus": null,
+      "evidence": ["s2/e/add", "s2/e/enabled"]
+    },
+    {
+      "id": "s2/resolve/add.notify",
+      "kind": "resolution",
+      "owner": "s2/add",
+      "requestedArtifact": null,
+      "basis": "source_local",
+      "target": "s2/notify",
+      "candidates": [],
+      "evidence": ["s2/e/add", "s2/e/enabled"],
+      "binding": null
+    },
+    {
+      "id": "s2/add.notify",
+      "kind": "operation",
+      "owner": "s2/add",
+      "action": "call",
+      "label": "Await notification after save",
+      "resolution": "s2/resolve/add.notify",
+      "bindings": [
+        {
+          "parameter": "s2/v/notice",
+          "value": "s2/v/saved-entity"
+        },
+        {
+          "parameter": "s2/v/notice-name",
+          "value": "s2/v/saved-name"
+        }
+      ],
+      "result": null,
+      "exit": null,
+      "httpStatus": null,
+      "evidence": ["s2/e/add", "s2/e/enabled"]
+    },
+    {
+      "id": "s2/add.return",
+      "kind": "operation",
+      "owner": "s2/add",
+      "action": "return",
+      "label": "Return original repository result",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": "normal",
+      "httpStatus": null,
+      "evidence": ["s2/e/add"]
+    },
+    {
+      "id": "s2/notify.build",
+      "kind": "operation",
+      "owner": "s2/notify",
+      "action": "branch",
+      "label": "Map SoftOffer and wrap SoftOfferCreated",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": null,
+      "httpStatus": null,
+      "evidence": ["s2/e/notify", "s2/e/builder"]
+    },
+    {
+      "id": "s2/notify.headers",
+      "kind": "operation",
+      "owner": "s2/notify",
+      "action": "compute",
+      "label": "Descriptor full name and correlation ID headers",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": null,
+      "httpStatus": null,
+      "evidence": ["s2/e/notify", "s2/e/headers"]
+    },
+    {
+      "id": "s2/resolve/notify.send",
+      "kind": "resolution",
+      "owner": "s2/notify",
+      "requestedArtifact": null,
+      "basis": "source_local",
+      "target": "s2/publish",
+      "candidates": [],
+      "evidence": ["s2/e/notify", "s2/e/producer"],
+      "binding": null
+    },
+    {
+      "id": "s2/notify.send",
+      "kind": "operation",
+      "owner": "s2/notify",
+      "action": "call",
+      "label": "Await KafkaProducer.SendAsync<IMessage>",
+      "resolution": "s2/resolve/notify.send",
+      "bindings": [
+        {
+          "parameter": "s2/v/message",
+          "value": "s2/v/created-message"
+        },
+        {
+          "parameter": "s2/v/wire-name",
+          "value": "s2/v/created-name"
+        }
+      ],
+      "result": null,
+      "exit": null,
+      "httpStatus": null,
+      "evidence": ["s2/e/notify", "s2/e/producer"]
+    },
+    {
+      "id": "s2/notify.return",
+      "kind": "operation",
+      "owner": "s2/notify",
+      "action": "return",
+      "label": "Notification returns; no consumer completion is awaited",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": "normal",
+      "httpStatus": null,
+      "evidence": ["s2/e/notify"]
+    },
+    {
+      "id": "s2/notify.error",
+      "kind": "operation",
+      "owner": "s2/notify",
+      "action": "throw",
+      "label": "Log and rethrow notification exception",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": "error",
+      "httpStatus": null,
+      "evidence": ["s2/e/notify"]
+    },
+    {
+      "id": "s2/publish.serialise",
+      "kind": "operation",
+      "owner": "s2/publish",
+      "action": "branch",
+      "label": "Serialize raw protobuf bytes via IMessage.WriteTo",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": null,
+      "httpStatus": null,
+      "evidence": ["s2/e/serializer", "s2/e/producer"]
+    },
+    {
+      "id": "s2/resolve/publish.attempt",
+      "kind": "resolution",
+      "owner": "s2/publish",
+      "requestedArtifact": null,
+      "basis": "unresolved",
+      "target": null,
+      "candidates": [],
+      "evidence": ["s2/e/producer"],
+      "binding": null
+    },
+    {
+      "id": "s2/publish.attempt",
+      "kind": "operation",
+      "owner": "s2/publish",
+      "action": "call",
+      "label": "Await ProduceAsync with null key and UTF-8 headers",
+      "resolution": "s2/resolve/publish.attempt",
+      "bindings": [],
+      "result": null,
+      "exit": null,
+      "httpStatus": null,
+      "evidence": ["s2/e/producer"]
+    },
+    {
+      "id": "s2/publish.receipt",
+      "kind": "operation",
+      "owner": "s2/publish",
+      "action": "branch",
+      "label": "Inspect ProduceResult.Status",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": null,
+      "httpStatus": null,
+      "evidence": ["s2/e/producer"]
+    },
+    {
+      "id": "s2/publish.persisted",
+      "kind": "operation",
+      "owner": "s2/publish",
+      "action": "compute",
+      "label": "Persisted status: log success",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": null,
+      "httpStatus": null,
+      "evidence": ["s2/e/producer"]
+    },
+    {
+      "id": "s2/publish.not-persisted",
+      "kind": "operation",
+      "owner": "s2/publish",
+      "action": "compute",
+      "label": "Other persistence status: log error and continue",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": null,
+      "httpStatus": null,
+      "evidence": ["s2/e/producer"]
+    },
+    {
+      "id": "s2/publish.return",
+      "kind": "operation",
+      "owner": "s2/publish",
+      "action": "return",
+      "label": "Return normally, including unrecognised or non-persisted cases",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": "normal",
+      "httpStatus": null,
+      "evidence": ["s2/e/producer"]
+    },
+    {
+      "id": "s2/publish.error",
+      "kind": "operation",
+      "owner": "s2/publish",
+      "action": "throw",
+      "label": "Produce or serialisation exception escapes",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": "error",
+      "httpStatus": null,
+      "evidence": ["s2/e/producer", "s2/e/notify"]
+    },
+    {
+      "id": "s2/consumer.receive",
+      "kind": "operation",
+      "owner": "s2/consumer",
+      "action": "entry",
+      "label": "Non-null delivered bytes; decode first x-type header",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": null,
+      "httpStatus": null,
+      "evidence": ["s2/e/consumer", "s2/e/filter"]
+    },
+    {
+      "id": "s2/consumer.parse",
+      "kind": "operation",
+      "owner": "s2/consumer",
+      "action": "branch",
+      "label": "Match SoftOfferCreated and parse protobuf",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": null,
+      "httpStatus": null,
+      "evidence": ["s2/e/processor"]
+    },
+    {
+      "id": "s2/consumer.map",
+      "kind": "operation",
+      "owner": "s2/consumer",
+      "action": "branch",
+      "label": "Extract UpstreamEntity; reject empty Id",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": null,
+      "httpStatus": null,
+      "evidence": ["s2/e/processor"]
+    },
+    {
+      "id": "s2/consumer.list",
+      "kind": "operation",
+      "owner": "s2/consumer",
+      "action": "branch",
+      "label": "Check whether hot list exists",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": null,
+      "httpStatus": null,
+      "evidence": ["s2/e/list"]
+    },
+    {
+      "id": "s2/consumer.hot-read",
+      "kind": "operation",
+      "owner": "s2/consumer",
+      "action": "branch",
+      "label": "Read and deserialise hot list",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": null,
+      "httpStatus": null,
+      "evidence": ["s2/e/list", "s2/e/cache-serializer"]
+    },
+    {
+      "id": "s2/consumer.cold-exists",
+      "kind": "operation",
+      "owner": "s2/consumer",
+      "action": "branch",
+      "label": "Check cold list existence after hot miss or failed hot existence check",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": null,
+      "httpStatus": null,
+      "evidence": ["s2/e/list"]
+    },
+    {
+      "id": "s2/consumer.cold-read",
+      "kind": "operation",
+      "owner": "s2/consumer",
+      "action": "branch",
+      "label": "Read bytes from cold list",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": null,
+      "httpStatus": null,
+      "evidence": ["s2/e/list"]
+    },
+    {
+      "id": "s2/consumer.hydrate",
+      "kind": "operation",
+      "owner": "s2/consumer",
+      "action": "opaque",
+      "label": "Await Redis hydration; returned Result is ignored",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": null,
+      "httpStatus": null,
+      "evidence": ["s2/e/list", "s2/e/redis"]
+    },
+    {
+      "id": "s2/consumer.deserialise",
+      "kind": "operation",
+      "owner": "s2/consumer",
+      "action": "branch",
+      "label": "Deserialise cold bytes after awaiting hydration",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": null,
+      "httpStatus": null,
+      "evidence": ["s2/e/list", "s2/e/cache-serializer"]
+    },
+    {
+      "id": "s2/consumer.empty",
+      "kind": "operation",
+      "owner": "s2/consumer",
+      "action": "compute",
+      "label": "Cold list missing; mutate an empty list",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": null,
+      "httpStatus": null,
+      "evidence": ["s2/e/list", "s2/e/upsert"]
+    },
+    {
+      "id": "s2/consumer.upsert",
+      "kind": "operation",
+      "owner": "s2/consumer",
+      "action": "compute",
+      "label": "Replace entity by Id in immutable whole list",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": null,
+      "httpStatus": null,
+      "evidence": ["s2/e/upsert"]
+    },
+    {
+      "id": "s2/consumer.serialise",
+      "kind": "operation",
+      "owner": "s2/consumer",
+      "action": "branch",
+      "label": "Serialize whole list: MessagePack contractless, LZ4 block array",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": null,
+      "httpStatus": null,
+      "evidence": ["s2/e/cache-serializer", "s2/e/upsert"]
+    },
+    {
+      "id": "s2/consumer.cold",
+      "kind": "operation",
+      "owner": "s2/consumer",
+      "action": "opaque",
+      "label": "Upload whole list to blob with overwrite=true",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": null,
+      "httpStatus": null,
+      "evidence": ["s2/e/blob", "s2/e/blob-repository", "s2/e/blob-key"]
+    },
+    {
+      "id": "s2/consumer.cold-ok",
+      "kind": "operation",
+      "owner": "s2/consumer",
+      "action": "compute",
+      "label": "Cold storage wrapper Result is successful",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": null,
+      "httpStatus": null,
+      "evidence": ["s2/e/blob", "s2/e/list"]
+    },
+    {
+      "id": "s2/consumer.hot",
+      "kind": "operation",
+      "owner": "s2/consumer",
+      "action": "opaque",
+      "label": "StringSetAsync whole list at Redis key, no expiry supplied",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": null,
+      "httpStatus": null,
+      "evidence": ["s2/e/redis", "s2/e/list"]
+    },
+    {
+      "id": "s2/consumer.hot-ok",
+      "kind": "operation",
+      "owner": "s2/consumer",
+      "action": "compute",
+      "label": "Redis wrapper Result is successful; boolean write result not separately checked here",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": null,
+      "httpStatus": null,
+      "evidence": ["s2/e/redis"]
+    },
+    {
+      "id": "s2/consumer.failed",
+      "kind": "operation",
+      "owner": "s2/consumer",
+      "action": "return",
+      "label": "Failed Result is returned and logged by callback",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": "normal",
+      "httpStatus": null,
+      "evidence": ["s2/e/consumer", "s2/e/upsert", "s2/e/processor"]
+    },
+    {
+      "id": "s2/consumer.exception",
+      "kind": "operation",
+      "owner": "s2/consumer",
+      "action": "return",
+      "label": "Uncaught exception logged by worker loop; offset behaviour unresolved",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": "normal",
+      "httpStatus": null,
+      "evidence": ["s2/e/consumer"]
+    },
+    {
+      "id": "s2/consumer.done",
+      "kind": "operation",
+      "owner": "s2/consumer",
+      "action": "return",
+      "label": "Callback returns after cache wrappers succeed",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": "normal",
+      "httpStatus": null,
+      "evidence": ["s2/e/consumer", "s2/e/list"]
+    },
+    {
+      "id": "s2/t/1",
+      "kind": "transition",
+      "owner": "s2/http",
+      "from": "s2/http.start",
+      "to": "s2/http.map",
+      "on": "normal",
+      "condition": null,
+      "values": [],
+      "evidence": ["s2/e/controller", "s2/e/middleware", "s2/e/response"]
+    },
+    {
+      "id": "s2/t/2",
+      "kind": "transition",
+      "owner": "s2/http",
+      "from": "s2/http.map",
+      "to": "s2/http.add",
+      "on": "normal",
+      "condition": null,
+      "values": [],
+      "evidence": ["s2/e/controller", "s2/e/middleware", "s2/e/response"]
+    },
+    {
+      "id": "s2/t/3",
+      "kind": "transition",
+      "owner": "s2/http",
+      "from": "s2/http.map",
+      "to": "s2/http.500",
+      "on": "error",
+      "condition": "Mapper or constructor exception",
+      "values": [],
+      "evidence": ["s2/e/controller", "s2/e/middleware", "s2/e/response"]
+    },
+    {
+      "id": "s2/t/4",
+      "kind": "transition",
+      "owner": "s2/http",
+      "from": "s2/http.add",
+      "to": "s2/http.201",
+      "on": "normal",
+      "condition": "Created result; other result statuses remain outside this slice",
+      "values": [],
+      "evidence": ["s2/e/controller", "s2/e/middleware", "s2/e/response"]
+    },
+    {
+      "id": "s2/t/5",
+      "kind": "transition",
+      "owner": "s2/http",
+      "from": "s2/http.add",
+      "to": "s2/http.409",
+      "on": "conflict",
+      "condition": "MaSDbConflictException",
+      "values": [],
+      "evidence": ["s2/e/controller", "s2/e/middleware", "s2/e/response"]
+    },
+    {
+      "id": "s2/t/6",
+      "kind": "transition",
+      "owner": "s2/http",
+      "from": "s2/http.add",
+      "to": "s2/http.500",
+      "on": "error",
+      "condition": "Unhandled non-conflict exception",
+      "values": [],
+      "evidence": ["s2/e/controller", "s2/e/middleware", "s2/e/response"]
+    },
+    {
+      "id": "s2/t/7",
+      "kind": "transition",
+      "owner": "s2/add",
+      "from": "s2/add.identity",
+      "to": "s2/add.stage",
+      "on": "normal",
+      "condition": null,
+      "values": [],
+      "evidence": ["s2/e/add", "s2/e/enabled", "s2/e/uow"]
+    },
+    {
+      "id": "s2/t/8",
+      "kind": "transition",
+      "owner": "s2/add",
+      "from": "s2/add.identity",
+      "to": "s2/add.error",
+      "on": "error",
+      "condition": "Identity construction throws",
+      "values": [],
+      "evidence": ["s2/e/add", "s2/e/enabled", "s2/e/uow"]
+    },
+    {
+      "id": "s2/t/9",
+      "kind": "transition",
+      "owner": "s2/add",
+      "from": "s2/add.stage",
+      "to": "s2/add.save",
+      "on": "normal",
+      "condition": null,
+      "values": [],
+      "evidence": ["s2/e/add", "s2/e/enabled", "s2/e/uow"]
+    },
+    {
+      "id": "s2/t/10",
+      "kind": "transition",
+      "owner": "s2/add",
+      "from": "s2/add.stage",
+      "to": "s2/add.error",
+      "on": "error",
+      "condition": "Repository Add throws",
+      "values": [],
+      "evidence": ["s2/e/add", "s2/e/enabled", "s2/e/uow"]
+    },
+    {
+      "id": "s2/t/11",
+      "kind": "transition",
+      "owner": "s2/add",
+      "from": "s2/add.save",
+      "to": "s2/add.saved",
+      "on": "normal",
+      "condition": "SaveChangesAsync returns normally",
+      "values": [],
+      "evidence": ["s2/e/add", "s2/e/enabled", "s2/e/uow"]
+    },
+    {
+      "id": "s2/t/12",
+      "kind": "transition",
+      "owner": "s2/add",
+      "from": "s2/add.save",
+      "to": "s2/add.conflict",
+      "on": "conflict",
+      "condition": "Concurrency or 23505-mapped exception",
+      "values": [],
+      "evidence": ["s2/e/add", "s2/e/enabled", "s2/e/uow"]
+    },
+    {
+      "id": "s2/t/13",
+      "kind": "transition",
+      "owner": "s2/add",
+      "from": "s2/add.save",
+      "to": "s2/add.error",
+      "on": "error",
+      "condition": "Other mapped database exception",
+      "values": [],
+      "evidence": ["s2/e/add", "s2/e/enabled", "s2/e/uow"]
+    },
+    {
+      "id": "s2/t/14",
+      "kind": "transition",
+      "owner": "s2/add",
+      "from": "s2/add.saved",
+      "to": "s2/add.refetch",
+      "on": "normal",
+      "condition": "Original result is Created and has data",
+      "values": [],
+      "evidence": ["s2/e/add", "s2/e/enabled", "s2/e/uow"]
+    },
+    {
+      "id": "s2/t/15",
+      "kind": "transition",
+      "owner": "s2/add",
+      "from": "s2/add.saved",
+      "to": "s2/add.return",
+      "on": "skip",
+      "condition": "Original result is not Created with data",
+      "values": [],
+      "evidence": ["s2/e/add", "s2/e/enabled", "s2/e/uow"]
+    },
+    {
+      "id": "s2/t/16",
+      "kind": "transition",
+      "owner": "s2/add",
+      "from": "s2/add.refetch",
+      "to": "s2/add.enabled",
+      "on": "normal",
+      "condition": "Refetch IsSuccess and HasData",
+      "values": [],
+      "evidence": ["s2/e/add", "s2/e/enabled", "s2/e/uow"]
+    },
+    {
+      "id": "s2/t/17",
+      "kind": "transition",
+      "owner": "s2/add",
+      "from": "s2/add.refetch",
+      "to": "s2/add.return",
+      "on": "skip",
+      "condition": "Refetch is not success with data",
+      "values": [],
+      "evidence": ["s2/e/add", "s2/e/enabled", "s2/e/uow"]
+    },
+    {
+      "id": "s2/t/18",
+      "kind": "transition",
+      "owner": "s2/add",
+      "from": "s2/add.refetch",
+      "to": "s2/add.error",
+      "on": "error",
+      "condition": "Refetch throws after database save",
+      "values": [],
+      "evidence": ["s2/e/add", "s2/e/enabled", "s2/e/uow"]
+    },
+    {
+      "id": "s2/t/19",
+      "kind": "transition",
+      "owner": "s2/add",
+      "from": "s2/add.enabled",
+      "to": "s2/add.notify",
+      "on": "true",
+      "condition": "NotificationOptions.Enabled",
+      "values": [],
+      "evidence": ["s2/e/add", "s2/e/enabled", "s2/e/uow"]
+    },
+    {
+      "id": "s2/t/20",
+      "kind": "transition",
+      "owner": "s2/add",
+      "from": "s2/add.enabled",
+      "to": "s2/add.return",
+      "on": "false",
+      "condition": "Notifications disabled",
+      "values": [],
+      "evidence": ["s2/e/add", "s2/e/enabled", "s2/e/uow"]
+    },
+    {
+      "id": "s2/t/21",
+      "kind": "transition",
+      "owner": "s2/add",
+      "from": "s2/add.notify",
+      "to": "s2/add.return",
+      "on": "normal",
+      "condition": null,
+      "values": [],
+      "evidence": ["s2/e/add", "s2/e/enabled", "s2/e/uow"]
+    },
+    {
+      "id": "s2/t/22",
+      "kind": "transition",
+      "owner": "s2/add",
+      "from": "s2/add.notify",
+      "to": "s2/add.error",
+      "on": "error",
+      "condition": "Notification exception after save",
+      "values": [],
+      "evidence": ["s2/e/add", "s2/e/enabled", "s2/e/uow"]
+    },
+    {
+      "id": "s2/t/23",
+      "kind": "transition",
+      "owner": "s2/notify",
+      "from": "s2/notify.build",
+      "to": "s2/notify.headers",
+      "on": "normal",
+      "condition": "Builder returns message",
+      "values": [],
+      "evidence": ["s2/e/notify", "s2/e/builder"]
+    },
+    {
+      "id": "s2/t/24",
+      "kind": "transition",
+      "owner": "s2/notify",
+      "from": "s2/notify.build",
+      "to": "s2/notify.return",
+      "on": "skip",
+      "condition": "Builder returns null",
+      "values": [],
+      "evidence": ["s2/e/notify", "s2/e/builder"]
+    },
+    {
+      "id": "s2/t/25",
+      "kind": "transition",
+      "owner": "s2/notify",
+      "from": "s2/notify.build",
+      "to": "s2/notify.error",
+      "on": "error",
+      "condition": "Mapping or builder throws",
+      "values": [],
+      "evidence": ["s2/e/notify", "s2/e/builder"]
+    },
+    {
+      "id": "s2/t/26",
+      "kind": "transition",
+      "owner": "s2/notify",
+      "from": "s2/notify.headers",
+      "to": "s2/notify.send",
+      "on": "normal",
+      "condition": null,
+      "values": [],
+      "evidence": ["s2/e/notify", "s2/e/builder"]
+    },
+    {
+      "id": "s2/t/27",
+      "kind": "transition",
+      "owner": "s2/notify",
+      "from": "s2/notify.send",
+      "to": "s2/notify.return",
+      "on": "normal",
+      "condition": null,
+      "values": [],
+      "evidence": ["s2/e/notify", "s2/e/builder"]
+    },
+    {
+      "id": "s2/t/28",
+      "kind": "transition",
+      "owner": "s2/notify",
+      "from": "s2/notify.send",
+      "to": "s2/notify.error",
+      "on": "error",
+      "condition": null,
+      "values": [],
+      "evidence": ["s2/e/notify", "s2/e/builder"]
+    },
+    {
+      "id": "s2/t/29",
+      "kind": "transition",
+      "owner": "s2/publish",
+      "from": "s2/publish.serialise",
+      "to": "s2/publish.attempt",
+      "on": "normal",
+      "condition": "Serialised bytes are non-null",
+      "values": [],
+      "evidence": ["s2/e/producer", "s2/e/serializer"]
+    },
+    {
+      "id": "s2/t/30",
+      "kind": "transition",
+      "owner": "s2/publish",
+      "from": "s2/publish.serialise",
+      "to": "s2/publish.return",
+      "on": "skip",
+      "condition": "Serialiser returns null",
+      "values": [],
+      "evidence": ["s2/e/producer", "s2/e/serializer"]
+    },
+    {
+      "id": "s2/t/31",
+      "kind": "transition",
+      "owner": "s2/publish",
+      "from": "s2/publish.serialise",
+      "to": "s2/publish.error",
+      "on": "error",
+      "condition": "Serialisation throws",
+      "values": [],
+      "evidence": ["s2/e/producer", "s2/e/serializer"]
+    },
+    {
+      "id": "s2/t/32",
+      "kind": "transition",
+      "owner": "s2/publish",
+      "from": "s2/publish.attempt",
+      "to": "s2/publish.receipt",
+      "on": "normal",
+      "condition": "SDK returns ProduceResult",
+      "values": [],
+      "evidence": ["s2/e/producer", "s2/e/serializer"]
+    },
+    {
+      "id": "s2/t/33",
+      "kind": "transition",
+      "owner": "s2/publish",
+      "from": "s2/publish.attempt",
+      "to": "s2/publish.error",
+      "on": "error",
+      "condition": "SDK throws; broker state may be ambiguous",
+      "values": [],
+      "evidence": ["s2/e/producer", "s2/e/serializer"]
+    },
+    {
+      "id": "s2/t/34",
+      "kind": "transition",
+      "owner": "s2/publish",
+      "from": "s2/publish.receipt",
+      "to": "s2/publish.persisted",
+      "on": "true",
+      "condition": "Status == Persisted",
+      "values": [],
+      "evidence": ["s2/e/producer", "s2/e/serializer"]
+    },
+    {
+      "id": "s2/t/35",
+      "kind": "transition",
+      "owner": "s2/publish",
+      "from": "s2/publish.receipt",
+      "to": "s2/publish.not-persisted",
+      "on": "false",
+      "condition": "Status != Persisted",
+      "values": [],
+      "evidence": ["s2/e/producer", "s2/e/serializer"]
+    },
+    {
+      "id": "s2/t/36",
+      "kind": "transition",
+      "owner": "s2/publish",
+      "from": "s2/publish.persisted",
+      "to": "s2/publish.return",
+      "on": "normal",
+      "condition": null,
+      "values": [],
+      "evidence": ["s2/e/producer", "s2/e/serializer"]
+    },
+    {
+      "id": "s2/t/37",
+      "kind": "transition",
+      "owner": "s2/publish",
+      "from": "s2/publish.not-persisted",
+      "to": "s2/publish.return",
+      "on": "normal",
+      "condition": null,
+      "values": [],
+      "evidence": ["s2/e/producer", "s2/e/serializer"]
+    },
+    {
+      "id": "s2/t/38",
+      "kind": "transition",
+      "owner": "s2/consumer",
+      "from": "s2/consumer.receive",
+      "to": "s2/consumer.parse",
+      "on": "normal",
+      "condition": "x-type header decoded",
+      "values": [],
+      "evidence": [
+        "s2/e/consumer",
+        "s2/e/processor",
+        "s2/e/list",
+        "s2/e/upsert",
+        "s2/e/blob",
+        "s2/e/redis"
+      ]
+    },
+    {
+      "id": "s2/t/39",
+      "kind": "transition",
+      "owner": "s2/consumer",
+      "from": "s2/consumer.receive",
+      "to": "s2/consumer.failed",
+      "on": "failure",
+      "condition": "Missing x-type header",
+      "values": [],
+      "evidence": [
+        "s2/e/consumer",
+        "s2/e/processor",
+        "s2/e/list",
+        "s2/e/upsert",
+        "s2/e/blob",
+        "s2/e/redis"
+      ]
+    },
+    {
+      "id": "s2/t/40",
+      "kind": "transition",
+      "owner": "s2/consumer",
+      "from": "s2/consumer.parse",
+      "to": "s2/consumer.map",
+      "on": "normal",
+      "condition": "Matching type and non-null parsed SoftOffer",
+      "values": [],
+      "evidence": [
+        "s2/e/consumer",
+        "s2/e/processor",
+        "s2/e/list",
+        "s2/e/upsert",
+        "s2/e/blob",
+        "s2/e/redis"
+      ]
+    },
+    {
+      "id": "s2/t/41",
+      "kind": "transition",
+      "owner": "s2/consumer",
+      "from": "s2/consumer.parse",
+      "to": "s2/consumer.failed",
+      "on": "failure",
+      "condition": "Unsupported type or null extracted object",
+      "values": [],
+      "evidence": [
+        "s2/e/consumer",
+        "s2/e/processor",
+        "s2/e/list",
+        "s2/e/upsert",
+        "s2/e/blob",
+        "s2/e/redis"
+      ]
+    },
+    {
+      "id": "s2/t/42",
+      "kind": "transition",
+      "owner": "s2/consumer",
+      "from": "s2/consumer.parse",
+      "to": "s2/consumer.exception",
+      "on": "error",
+      "condition": "Parser throws",
+      "values": [],
+      "evidence": [
+        "s2/e/consumer",
+        "s2/e/processor",
+        "s2/e/list",
+        "s2/e/upsert",
+        "s2/e/blob",
+        "s2/e/redis"
+      ]
+    },
+    {
+      "id": "s2/t/43",
+      "kind": "transition",
+      "owner": "s2/consumer",
+      "from": "s2/consumer.map",
+      "to": "s2/consumer.list",
+      "on": "normal",
+      "condition": "Non-empty entity Id",
+      "values": [],
+      "evidence": [
+        "s2/e/consumer",
+        "s2/e/processor",
+        "s2/e/list",
+        "s2/e/upsert",
+        "s2/e/blob",
+        "s2/e/redis"
+      ]
+    },
+    {
+      "id": "s2/t/44",
+      "kind": "transition",
+      "owner": "s2/consumer",
+      "from": "s2/consumer.map",
+      "to": "s2/consumer.failed",
+      "on": "failure",
+      "condition": "Invalid entity Id",
+      "values": [],
+      "evidence": [
+        "s2/e/consumer",
+        "s2/e/processor",
+        "s2/e/list",
+        "s2/e/upsert",
+        "s2/e/blob",
+        "s2/e/redis"
+      ]
+    },
+    {
+      "id": "s2/t/45",
+      "kind": "transition",
+      "owner": "s2/consumer",
+      "from": "s2/consumer.list",
+      "to": "s2/consumer.hot-read",
+      "on": "true",
+      "condition": "Hot Exists Result is successful and true",
+      "values": [],
+      "evidence": [
+        "s2/e/consumer",
+        "s2/e/processor",
+        "s2/e/list",
+        "s2/e/upsert",
+        "s2/e/blob",
+        "s2/e/redis"
+      ]
+    },
+    {
+      "id": "s2/t/46",
+      "kind": "transition",
+      "owner": "s2/consumer",
+      "from": "s2/consumer.list",
+      "to": "s2/consumer.cold-exists",
+      "on": "false",
+      "condition": "Hot Exists false or failed",
+      "values": [],
+      "evidence": [
+        "s2/e/consumer",
+        "s2/e/processor",
+        "s2/e/list",
+        "s2/e/upsert",
+        "s2/e/blob",
+        "s2/e/redis"
+      ]
+    },
+    {
+      "id": "s2/t/47",
+      "kind": "transition",
+      "owner": "s2/consumer",
+      "from": "s2/consumer.hot-read",
+      "to": "s2/consumer.upsert",
+      "on": "normal",
+      "condition": "Hot Get and deserialise Result successful",
+      "values": [],
+      "evidence": [
+        "s2/e/consumer",
+        "s2/e/processor",
+        "s2/e/list",
+        "s2/e/upsert",
+        "s2/e/blob",
+        "s2/e/redis"
+      ]
+    },
+    {
+      "id": "s2/t/48",
+      "kind": "transition",
+      "owner": "s2/consumer",
+      "from": "s2/consumer.hot-read",
+      "to": "s2/consumer.failed",
+      "on": "failure",
+      "condition": "Hot Get or deserialise Result failed",
+      "values": [],
+      "evidence": [
+        "s2/e/consumer",
+        "s2/e/processor",
+        "s2/e/list",
+        "s2/e/upsert",
+        "s2/e/blob",
+        "s2/e/redis"
+      ]
+    },
+    {
+      "id": "s2/t/49",
+      "kind": "transition",
+      "owner": "s2/consumer",
+      "from": "s2/consumer.cold-exists",
+      "to": "s2/consumer.cold-read",
+      "on": "true",
+      "condition": "Cold Exists Result is successful and true",
+      "values": [],
+      "evidence": [
+        "s2/e/consumer",
+        "s2/e/processor",
+        "s2/e/list",
+        "s2/e/upsert",
+        "s2/e/blob",
+        "s2/e/redis"
+      ]
+    },
+    {
+      "id": "s2/t/50",
+      "kind": "transition",
+      "owner": "s2/consumer",
+      "from": "s2/consumer.cold-exists",
+      "to": "s2/consumer.empty",
+      "on": "false",
+      "condition": "Cold Exists Result is successful and false",
+      "values": [],
+      "evidence": [
+        "s2/e/consumer",
+        "s2/e/processor",
+        "s2/e/list",
+        "s2/e/upsert",
+        "s2/e/blob",
+        "s2/e/redis"
+      ]
+    },
+    {
+      "id": "s2/t/51",
+      "kind": "transition",
+      "owner": "s2/consumer",
+      "from": "s2/consumer.cold-exists",
+      "to": "s2/consumer.failed",
+      "on": "failure",
+      "condition": "Cold Exists Result failed",
+      "values": [],
+      "evidence": [
+        "s2/e/consumer",
+        "s2/e/processor",
+        "s2/e/list",
+        "s2/e/upsert",
+        "s2/e/blob",
+        "s2/e/redis"
+      ]
+    },
+    {
+      "id": "s2/t/52",
+      "kind": "transition",
+      "owner": "s2/consumer",
+      "from": "s2/consumer.empty",
+      "to": "s2/consumer.upsert",
+      "on": "normal",
+      "condition": "Treat NotFound list as empty",
+      "values": [],
+      "evidence": [
+        "s2/e/consumer",
+        "s2/e/processor",
+        "s2/e/list",
+        "s2/e/upsert",
+        "s2/e/blob",
+        "s2/e/redis"
+      ]
+    },
+    {
+      "id": "s2/t/53",
+      "kind": "transition",
+      "owner": "s2/consumer",
+      "from": "s2/consumer.cold-read",
+      "to": "s2/consumer.hydrate",
+      "on": "normal",
+      "condition": "Cold Get Result successful",
+      "values": [],
+      "evidence": [
+        "s2/e/consumer",
+        "s2/e/processor",
+        "s2/e/list",
+        "s2/e/upsert",
+        "s2/e/blob",
+        "s2/e/redis"
+      ]
+    },
+    {
+      "id": "s2/t/54",
+      "kind": "transition",
+      "owner": "s2/consumer",
+      "from": "s2/consumer.cold-read",
+      "to": "s2/consumer.failed",
+      "on": "failure",
+      "condition": "Cold Get Result failed",
+      "values": [],
+      "evidence": [
+        "s2/e/consumer",
+        "s2/e/processor",
+        "s2/e/list",
+        "s2/e/upsert",
+        "s2/e/blob",
+        "s2/e/redis"
+      ]
+    },
+    {
+      "id": "s2/t/55",
+      "kind": "transition",
+      "owner": "s2/consumer",
+      "from": "s2/consumer.hydrate",
+      "to": "s2/consumer.deserialise",
+      "on": "normal",
+      "condition": "Await returns regardless of hydration Result success",
+      "values": [],
+      "evidence": [
+        "s2/e/consumer",
+        "s2/e/processor",
+        "s2/e/list",
+        "s2/e/upsert",
+        "s2/e/blob",
+        "s2/e/redis"
+      ]
+    },
+    {
+      "id": "s2/t/56",
+      "kind": "transition",
+      "owner": "s2/consumer",
+      "from": "s2/consumer.hydrate",
+      "to": "s2/consumer.exception",
+      "on": "error",
+      "condition": "Unexpected hydration exception escapes",
+      "values": [],
+      "evidence": [
+        "s2/e/consumer",
+        "s2/e/processor",
+        "s2/e/list",
+        "s2/e/upsert",
+        "s2/e/blob",
+        "s2/e/redis"
+      ]
+    },
+    {
+      "id": "s2/t/57",
+      "kind": "transition",
+      "owner": "s2/consumer",
+      "from": "s2/consumer.deserialise",
+      "to": "s2/consumer.upsert",
+      "on": "normal",
+      "condition": "Cold bytes deserialise Result successful",
+      "values": [],
+      "evidence": [
+        "s2/e/consumer",
+        "s2/e/processor",
+        "s2/e/list",
+        "s2/e/upsert",
+        "s2/e/blob",
+        "s2/e/redis"
+      ]
+    },
+    {
+      "id": "s2/t/58",
+      "kind": "transition",
+      "owner": "s2/consumer",
+      "from": "s2/consumer.deserialise",
+      "to": "s2/consumer.failed",
+      "on": "failure",
+      "condition": "Cold bytes deserialise Result failed",
+      "values": [],
+      "evidence": [
+        "s2/e/consumer",
+        "s2/e/processor",
+        "s2/e/list",
+        "s2/e/upsert",
+        "s2/e/blob",
+        "s2/e/redis"
+      ]
+    },
+    {
+      "id": "s2/t/59",
+      "kind": "transition",
+      "owner": "s2/consumer",
+      "from": "s2/consumer.upsert",
+      "to": "s2/consumer.serialise",
+      "on": "normal",
+      "condition": null,
+      "values": [],
+      "evidence": [
+        "s2/e/consumer",
+        "s2/e/processor",
+        "s2/e/list",
+        "s2/e/upsert",
+        "s2/e/blob",
+        "s2/e/redis"
+      ]
+    },
+    {
+      "id": "s2/t/60",
+      "kind": "transition",
+      "owner": "s2/consumer",
+      "from": "s2/consumer.serialise",
+      "to": "s2/consumer.cold",
+      "on": "normal",
+      "condition": "Serialiser Result successful",
+      "values": [],
+      "evidence": [
+        "s2/e/consumer",
+        "s2/e/processor",
+        "s2/e/list",
+        "s2/e/upsert",
+        "s2/e/blob",
+        "s2/e/redis"
+      ]
+    },
+    {
+      "id": "s2/t/61",
+      "kind": "transition",
+      "owner": "s2/consumer",
+      "from": "s2/consumer.serialise",
+      "to": "s2/consumer.failed",
+      "on": "failure",
+      "condition": "Serialisation Result failed",
+      "values": [],
+      "evidence": [
+        "s2/e/consumer",
+        "s2/e/processor",
+        "s2/e/list",
+        "s2/e/upsert",
+        "s2/e/blob",
+        "s2/e/redis"
+      ]
+    },
+    {
+      "id": "s2/t/62",
+      "kind": "transition",
+      "owner": "s2/consumer",
+      "from": "s2/consumer.cold",
+      "to": "s2/consumer.cold-ok",
+      "on": "normal",
+      "condition": "Upload wrapper Result successful",
+      "values": [],
+      "evidence": [
+        "s2/e/consumer",
+        "s2/e/processor",
+        "s2/e/list",
+        "s2/e/upsert",
+        "s2/e/blob",
+        "s2/e/redis"
+      ]
+    },
+    {
+      "id": "s2/t/63",
+      "kind": "transition",
+      "owner": "s2/consumer",
+      "from": "s2/consumer.cold",
+      "to": "s2/consumer.failed",
+      "on": "failure",
+      "condition": "Upload wrapper Result failed; hot write not attempted",
+      "values": [],
+      "evidence": [
+        "s2/e/consumer",
+        "s2/e/processor",
+        "s2/e/list",
+        "s2/e/upsert",
+        "s2/e/blob",
+        "s2/e/redis"
+      ]
+    },
+    {
+      "id": "s2/t/64",
+      "kind": "transition",
+      "owner": "s2/consumer",
+      "from": "s2/consumer.cold-ok",
+      "to": "s2/consumer.hot",
+      "on": "normal",
+      "condition": "Bind invokes hot write only on cold success",
+      "values": [],
+      "evidence": [
+        "s2/e/consumer",
+        "s2/e/processor",
+        "s2/e/list",
+        "s2/e/upsert",
+        "s2/e/blob",
+        "s2/e/redis"
+      ]
+    },
+    {
+      "id": "s2/t/65",
+      "kind": "transition",
+      "owner": "s2/consumer",
+      "from": "s2/consumer.hot",
+      "to": "s2/consumer.hot-ok",
+      "on": "normal",
+      "condition": "Redis wrapper Result successful",
+      "values": [],
+      "evidence": [
+        "s2/e/consumer",
+        "s2/e/processor",
+        "s2/e/list",
+        "s2/e/upsert",
+        "s2/e/blob",
+        "s2/e/redis"
+      ]
+    },
+    {
+      "id": "s2/t/66",
+      "kind": "transition",
+      "owner": "s2/consumer",
+      "from": "s2/consumer.hot",
+      "to": "s2/consumer.failed",
+      "on": "failure",
+      "condition": "Redis wrapper Result failed after cold success",
+      "values": [],
+      "evidence": [
+        "s2/e/consumer",
+        "s2/e/processor",
+        "s2/e/list",
+        "s2/e/upsert",
+        "s2/e/blob",
+        "s2/e/redis"
+      ]
+    },
+    {
+      "id": "s2/t/67",
+      "kind": "transition",
+      "owner": "s2/consumer",
+      "from": "s2/consumer.hot-ok",
+      "to": "s2/consumer.done",
+      "on": "normal",
+      "condition": null,
+      "values": [],
+      "evidence": [
+        "s2/e/consumer",
+        "s2/e/processor",
+        "s2/e/list",
+        "s2/e/upsert",
+        "s2/e/blob",
+        "s2/e/redis"
+      ]
+    },
+    {
+      "id": "s2/shape/input",
+      "kind": "shape",
+      "representation": "constructed",
+      "label": "SoftOfferInput",
+      "fields": [
+        {
+          "name": "Code",
+          "type": "string",
+          "status": "declared"
+        },
+        {
+          "name": "Type",
+          "type": "string",
+          "status": "declared"
+        },
+        {
+          "name": "Name",
+          "type": "string",
+          "status": "declared"
+        },
+        {
+          "name": "SkuCategory",
+          "type": "string",
+          "status": "declared"
+        },
+        {
+          "name": "SkuIdentifier",
+          "type": "string",
+          "status": "declared"
+        }
+      ],
+      "completeness": "closed",
+      "gaps": [],
+      "evidence": ["s2/e/input"],
+      "encoding": "json"
+    },
+    {
+      "id": "s2/shape/core",
+      "kind": "shape",
+      "representation": "constructed",
+      "label": "Mapped SoftOffer object",
+      "fields": [
+        {
+          "name": "InternalId",
+          "type": "InternalId",
+          "status": "declared"
+        },
+        {
+          "name": "Id",
+          "type": "DeterministicId?",
+          "status": "declared"
+        },
+        {
+          "name": "Code",
+          "type": "SoftOfferCode",
+          "status": "declared"
+        },
+        {
+          "name": "Type",
+          "type": "string",
+          "status": "declared"
+        },
+        {
+          "name": "Name",
+          "type": "string",
+          "status": "declared"
+        },
+        {
+          "name": "SkuCategory",
+          "type": "SkuCategoryId",
+          "status": "declared"
+        },
+        {
+          "name": "SkuIdentifier",
+          "type": "SkuIdentifier",
+          "status": "declared"
+        }
+      ],
+      "completeness": "partial",
+      "gaps": [],
+      "evidence": ["s2/e/mapping", "s2/e/identity", "s2/e/softoffer"]
+    },
+    {
+      "id": "s2/shape/row",
+      "kind": "shape",
+      "representation": "persisted",
+      "label": "SoftOffer TPC table",
+      "fields": [
+        {
+          "name": "InternalId",
+          "type": "Guid",
+          "status": "declared"
+        },
+        {
+          "name": "Id",
+          "type": "string",
+          "status": "declared"
+        },
+        {
+          "name": "Code",
+          "type": "string",
+          "status": "declared"
+        },
+        {
+          "name": "Name",
+          "type": "string",
+          "status": "declared"
+        },
+        {
+          "name": "Type",
+          "type": "string",
+          "status": "declared"
+        },
+        {
+          "name": "SkuCategory",
+          "type": "string",
+          "status": "declared"
+        },
+        {
+          "name": "SkuIdentifier",
+          "type": "string",
+          "status": "declared"
+        }
+      ],
+      "completeness": "partial",
+      "gaps": [],
+      "evidence": ["s2/e/db"],
+      "encoding": "relational"
+    },
+    {
+      "id": "s2/shape/p-body",
+      "kind": "shape",
+      "representation": "wire",
+      "label": "SoftOffer protobuf",
+      "fields": [
+        {
+          "name": "id",
+          "type": "string",
+          "wireTag": 1,
+          "status": "declared"
+        },
+        {
+          "name": "type",
+          "type": "string",
+          "wireTag": 2,
+          "status": "declared"
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "wireTag": 3,
+          "status": "declared"
+        },
+        {
+          "name": "code",
+          "type": "string",
+          "wireTag": 4,
+          "status": "declared"
+        },
+        {
+          "name": "SkuIdentifier",
+          "type": "string",
+          "wireTag": 6,
+          "status": "declared"
+        },
+        {
+          "name": "SkuCategory",
+          "type": "string",
+          "wireTag": 7,
+          "status": "declared"
+        }
+      ],
+      "completeness": "closed",
+      "gaps": [],
+      "evidence": ["s2/e/producer-proto"],
+      "encoding": "protobuf",
+      "wireType": "volvocars.contracts.pop.manage.SoftOffer",
+      "reservedTags": [5],
+      "reservedNames": ["attributeData"]
+    },
+    {
+      "id": "s2/shape/p-wire",
+      "kind": "shape",
+      "representation": "wire",
+      "label": "SoftOfferCreated protobuf",
+      "fields": [
+        {
+          "name": "soft_offer",
+          "type": "message",
+          "wireTag": 1,
+          "status": "declared",
+          "shape": "s2/shape/p-body"
+        }
+      ],
+      "completeness": "closed",
+      "gaps": [],
+      "evidence": ["s2/e/producer-proto"],
+      "encoding": "protobuf",
+      "wireType": "volvocars.contracts.pop.manage.SoftOfferCreated"
+    },
+    {
+      "id": "s2/shape/c-body",
+      "kind": "shape",
+      "representation": "wire",
+      "label": "SoftOffer protobuf",
+      "fields": [
+        {
+          "name": "id",
+          "type": "string",
+          "wireTag": 1,
+          "status": "declared"
+        },
+        {
+          "name": "type",
+          "type": "string",
+          "wireTag": 2,
+          "status": "declared"
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "wireTag": 3,
+          "status": "declared"
+        },
+        {
+          "name": "code",
+          "type": "string",
+          "wireTag": 4,
+          "status": "declared"
+        },
+        {
+          "name": "SkuIdentifier",
+          "type": "string",
+          "wireTag": 6,
+          "status": "declared"
+        },
+        {
+          "name": "SkuCategory",
+          "type": "string",
+          "wireTag": 7,
+          "status": "declared"
+        }
+      ],
+      "completeness": "closed",
+      "gaps": [],
+      "evidence": ["s2/e/consumer-proto"],
+      "encoding": "protobuf",
+      "wireType": "volvocars.contracts.pop.manage.SoftOffer",
+      "reservedTags": [5],
+      "reservedNames": ["attributeData"]
+    },
+    {
+      "id": "s2/shape/c-wire",
+      "kind": "shape",
+      "representation": "wire",
+      "label": "SoftOfferCreated protobuf",
+      "fields": [
+        {
+          "name": "soft_offer",
+          "type": "message",
+          "wireTag": 1,
+          "status": "declared",
+          "shape": "s2/shape/c-body"
+        }
+      ],
+      "completeness": "closed",
+      "gaps": [],
+      "evidence": ["s2/e/consumer-proto"],
+      "encoding": "protobuf",
+      "wireType": "volvocars.contracts.pop.manage.SoftOfferCreated"
+    },
+    {
+      "id": "s2/shape/upstream-entity",
+      "kind": "shape",
+      "representation": "persisted",
+      "label": "UpstreamEntity",
+      "fields": [
+        {
+          "name": "Id",
+          "type": "string",
+          "status": "declared"
+        },
+        {
+          "name": "Code",
+          "type": "string",
+          "status": "declared"
+        },
+        {
+          "name": "Name",
+          "type": "string",
+          "status": "declared"
+        },
+        {
+          "name": "SkuCategory",
+          "type": "string",
+          "status": "declared"
+        },
+        {
+          "name": "SkuIdentifier",
+          "type": "string",
+          "status": "declared"
+        },
+        {
+          "name": "Tags",
+          "type": "ImmutableList<string>",
+          "status": "declared"
+        }
+      ],
+      "completeness": "partial",
+      "gaps": [],
+      "evidence": ["s2/e/upstream", "s2/e/cache-serializer"],
+      "encoding": "messagepack_lz4"
+    },
+    {
+      "id": "s2/shape/upstream",
+      "kind": "shape",
+      "representation": "persisted",
+      "label": "ImmutableList<UpstreamEntity>",
+      "fields": [],
+      "completeness": "partial",
+      "gaps": [],
+      "evidence": ["s2/e/upstream", "s2/e/cache-serializer"],
+      "encoding": "messagepack_lz4",
+      "container": "array",
+      "items": "s2/shape/upstream-entity"
+    },
+    {
+      "id": "s2/v/request",
+      "kind": "value",
+      "owner": "s2/http",
+      "definition": "s2/http.start",
+      "label": "SoftOfferInput request body",
+      "role": "parameter",
+      "representation": "constructed",
+      "shape": "s2/shape/input",
+      "evidence": ["s2/e/input", "s2/e/controller"],
+      "accessPath": []
+    },
+    {
+      "id": "s2/v/input",
+      "kind": "value",
+      "owner": "s2/http",
+      "definition": "s2/http.map",
+      "label": "Mapped request entity",
+      "role": "definition",
+      "representation": "constructed",
+      "shape": "s2/shape/core",
+      "evidence": ["s2/e/mapping"],
+      "accessPath": []
+    },
+    {
+      "id": "s2/v/entity",
+      "kind": "value",
+      "owner": "s2/add",
+      "definition": "s2/add.identity",
+      "label": "Formal soft-offer entity",
+      "role": "parameter",
+      "representation": "constructed",
+      "shape": null,
+      "evidence": ["s2/e/add"],
+      "accessPath": []
+    },
+    {
+      "id": "s2/v/saved-entity",
+      "kind": "value",
+      "owner": "s2/add",
+      "definition": "s2/add.refetch",
+      "label": "Re-read persisted entity",
+      "role": "definition",
+      "representation": "constructed",
+      "shape": null,
+      "evidence": ["s2/e/add", "s2/e/refetch"],
+      "accessPath": []
+    },
+    {
+      "id": "s2/v/notice",
+      "kind": "value",
+      "owner": "s2/notify",
+      "definition": "s2/notify.build",
+      "label": "Formal entity to notify",
+      "role": "parameter",
+      "representation": "constructed",
+      "shape": null,
+      "evidence": ["s2/e/notify"],
+      "accessPath": []
+    },
+    {
+      "id": "s2/v/created-message",
+      "kind": "value",
+      "owner": "s2/notify",
+      "definition": "s2/notify.build",
+      "label": "Created protobuf message",
+      "role": "definition",
+      "representation": "wire",
+      "shape": "s2/shape/p-wire",
+      "evidence": ["s2/e/builder", "s2/e/producer-proto"],
+      "accessPath": []
+    },
+    {
+      "id": "s2/v/message",
+      "kind": "value",
+      "owner": "s2/publish",
+      "definition": "s2/publish.serialise",
+      "label": "Formal protobuf message",
+      "role": "parameter",
+      "representation": "wire",
+      "shape": "s2/shape/p-wire",
+      "evidence": ["s2/e/producer", "s2/e/serializer"],
+      "accessPath": []
+    },
+    {
+      "id": "s2/v/payload",
+      "kind": "value",
+      "owner": "s2/consumer",
+      "definition": "s2/consumer.receive",
+      "label": "Delivered protobuf message",
+      "role": "definition",
+      "representation": "wire",
+      "shape": "s2/shape/c-wire",
+      "evidence": ["s2/e/consumer-proto", "s2/e/processor"],
+      "accessPath": []
+    },
+    {
+      "id": "s2/v/correlation",
+      "kind": "value",
+      "owner": "s2/publish",
+      "definition": "s2/publish.attempt",
+      "label": "Correlation ID; may be empty",
+      "role": "definition",
+      "representation": "constructed",
+      "shape": null,
+      "evidence": ["s2/e/headers", "s2/e/notify"],
+      "accessPath": ["headers", "id"]
+    },
+    {
+      "id": "s2/v/entity-id",
+      "kind": "value",
+      "owner": "s2/consumer",
+      "definition": "s2/consumer.map",
+      "label": "Entity identity; not a delivery ID",
+      "role": "definition",
+      "representation": "wire",
+      "shape": null,
+      "evidence": ["s2/e/processor"],
+      "accessPath": ["soft_offer", "id"]
+    },
+    {
+      "id": "s2/v/list",
+      "kind": "value",
+      "owner": "s2/consumer",
+      "definition": "s2/consumer.serialise",
+      "label": "Whole list serialised for both stores",
+      "role": "definition",
+      "representation": "persisted",
+      "shape": "s2/shape/upstream",
+      "evidence": ["s2/e/upsert", "s2/e/cache-serializer"],
+      "accessPath": []
+    },
+    {
+      "id": "s2/v/input-name",
+      "kind": "value",
+      "owner": "s2/http",
+      "definition": "s2/http.start",
+      "label": "Input Name",
+      "role": "definition",
+      "representation": "constructed",
+      "shape": null,
+      "evidence": ["s2/e/mapping", "s2/e/input"],
+      "accessPath": ["Name"]
+    },
+    {
+      "id": "s2/v/entity-name",
+      "kind": "value",
+      "owner": "s2/add",
+      "definition": "s2/add.identity",
+      "label": "Name on argument entity",
+      "role": "parameter",
+      "representation": "constructed",
+      "shape": null,
+      "evidence": ["s2/e/mapping", "s2/e/add"],
+      "accessPath": ["Name"]
+    },
+    {
+      "id": "s2/v/saved-name",
+      "kind": "value",
+      "owner": "s2/add",
+      "definition": "s2/add.refetch",
+      "label": "Name re-read by InternalId",
+      "role": "definition",
+      "representation": "constructed",
+      "shape": null,
+      "evidence": ["s2/e/refetch", "s2/e/add"],
+      "accessPath": ["Name"]
+    },
+    {
+      "id": "s2/v/notice-name",
+      "kind": "value",
+      "owner": "s2/notify",
+      "definition": "s2/notify.build",
+      "label": "Name on notification entity",
+      "role": "parameter",
+      "representation": "constructed",
+      "shape": null,
+      "evidence": ["s2/e/notify"],
+      "accessPath": ["Name"]
+    },
+    {
+      "id": "s2/v/created-name",
+      "kind": "value",
+      "owner": "s2/notify",
+      "definition": "s2/notify.build",
+      "label": "Name in Created message",
+      "role": "definition",
+      "representation": "wire",
+      "shape": null,
+      "evidence": ["s2/e/builder", "s2/e/mapping"],
+      "accessPath": ["soft_offer", "name"]
+    },
+    {
+      "id": "s2/v/wire-name",
+      "kind": "value",
+      "owner": "s2/publish",
+      "definition": "s2/publish.serialise",
+      "label": "Name in outgoing protobuf",
+      "role": "parameter",
+      "representation": "wire",
+      "shape": null,
+      "evidence": ["s2/e/serializer", "s2/e/producer-proto"],
+      "accessPath": ["soft_offer", "name"]
+    },
+    {
+      "id": "s2/v/received-name",
+      "kind": "value",
+      "owner": "s2/consumer",
+      "definition": "s2/consumer.parse",
+      "label": "Name decoded from protobuf",
+      "role": "definition",
+      "representation": "wire",
+      "shape": null,
+      "evidence": ["s2/e/processor", "s2/e/consumer-proto"],
+      "accessPath": ["soft_offer", "name"]
+    },
+    {
+      "id": "s2/v/cached-name",
+      "kind": "value",
+      "owner": "s2/consumer",
+      "definition": "s2/consumer.map",
+      "label": "Name stored on cached UpstreamEntity",
+      "role": "definition",
+      "representation": "persisted",
+      "shape": null,
+      "evidence": ["s2/e/processor", "s2/e/upstream"],
+      "accessPath": ["[]", "Name"]
+    },
+    {
+      "id": "s2/flow/1",
+      "kind": "flow",
+      "owner": "s2/http",
+      "from": "s2/v/request",
+      "to": "s2/v/input",
+      "at": "s2/http.map",
+      "transform": "Explicit constructor mapping from input DTO; effective mapper unbound",
+      "evidence": ["s2/e/mapping"],
+      "gaps": ["s2/gap/mapping"],
+      "assumptions": []
+    },
+    {
+      "id": "s2/flow/2",
+      "kind": "flow",
+      "owner": "s2/http",
+      "from": "s2/v/input-name",
+      "to": "s2/v/input",
+      "at": "s2/http.map",
+      "transform": "Map Name into core entity",
+      "evidence": ["s2/e/mapping"],
+      "gaps": [],
+      "assumptions": []
+    },
+    {
+      "id": "s2/flow/3",
+      "kind": "flow",
+      "owner": "s2/add",
+      "from": "s2/v/entity",
+      "to": "s2/v/saved-entity",
+      "at": "s2/add.refetch",
+      "transform": "Refetch row by InternalId",
+      "evidence": ["s2/e/add", "s2/e/refetch"],
+      "gaps": [],
+      "assumptions": ["Refetch observes the saved entity; no intervening writer established"]
+    },
+    {
+      "id": "s2/flow/4",
+      "kind": "flow",
+      "owner": "s2/add",
+      "from": "s2/v/entity-name",
+      "to": "s2/v/saved-name",
+      "at": "s2/add.refetch",
+      "transform": "Save then refetch Name by InternalId",
+      "evidence": ["s2/e/add", "s2/e/refetch"],
+      "gaps": [],
+      "assumptions": ["No intervening writer changes Name"]
+    },
+    {
+      "id": "s2/flow/5",
+      "kind": "flow",
+      "owner": "s2/notify",
+      "from": "s2/v/notice",
+      "to": "s2/v/created-message",
+      "at": "s2/notify.build",
+      "transform": "AutoMapper SoftOffer to protobuf, wrap Created",
+      "evidence": ["s2/e/mapping", "s2/e/builder"],
+      "gaps": ["s2/gap/mapping"],
+      "assumptions": []
+    },
+    {
+      "id": "s2/flow/6",
+      "kind": "flow",
+      "owner": "s2/notify",
+      "from": "s2/v/notice-name",
+      "to": "s2/v/created-name",
+      "at": "s2/notify.build",
+      "transform": "Declared same-name mapping into protobuf field",
+      "evidence": ["s2/e/mapping", "s2/e/builder"],
+      "gaps": ["s2/gap/mapping"],
+      "assumptions": []
+    },
+    {
+      "id": "s2/flow/7",
+      "kind": "flow",
+      "owner": "s2/consumer",
+      "from": "s2/v/payload",
+      "to": "s2/v/entity-id",
+      "at": "s2/consumer.map",
+      "transform": "Extract soft_offer.id",
+      "evidence": ["s2/e/processor"],
+      "gaps": [],
+      "assumptions": []
+    },
+    {
+      "id": "s2/flow/8",
+      "kind": "flow",
+      "owner": "s2/consumer",
+      "from": "s2/v/received-name",
+      "to": "s2/v/cached-name",
+      "at": "s2/consumer.map",
+      "transform": "Constructor copies SoftOffer.Name to UpstreamEntity.Name",
+      "evidence": ["s2/e/processor"],
+      "gaps": [],
+      "assumptions": []
+    },
+    {
+      "id": "s2/flow/9",
+      "kind": "flow",
+      "owner": "s2/consumer",
+      "from": "s2/v/cached-name",
+      "to": "s2/v/list",
+      "at": "s2/consumer.serialise",
+      "transform": "Replace entity by Id, serialise entire list",
+      "evidence": ["s2/e/upsert", "s2/e/cache-serializer"],
+      "gaps": [],
+      "assumptions": []
+    },
+    {
+      "id": "s2/v/input-code",
+      "kind": "value",
+      "owner": "s2/http",
+      "definition": "s2/http.map",
+      "label": "Mapped Code",
+      "role": "definition",
+      "representation": "constructed",
+      "shape": null,
+      "evidence": ["s2/e/mapping"],
+      "accessPath": ["Code"]
+    },
+    {
+      "id": "s2/v/entity-code",
+      "kind": "value",
+      "owner": "s2/add",
+      "definition": "s2/add.identity",
+      "label": "Formal Code",
+      "role": "parameter",
+      "representation": "constructed",
+      "shape": null,
+      "evidence": ["s2/e/mapping", "s2/e/add"],
+      "accessPath": ["Code"]
+    },
+    {
+      "id": "s2/v/input-type",
+      "kind": "value",
+      "owner": "s2/http",
+      "definition": "s2/http.map",
+      "label": "Mapped Type",
+      "role": "definition",
+      "representation": "constructed",
+      "shape": null,
+      "evidence": ["s2/e/mapping"],
+      "accessPath": ["Type"]
+    },
+    {
+      "id": "s2/v/entity-type",
+      "kind": "value",
+      "owner": "s2/add",
+      "definition": "s2/add.identity",
+      "label": "Formal Type",
+      "role": "parameter",
+      "representation": "constructed",
+      "shape": null,
+      "evidence": ["s2/e/mapping", "s2/e/add"],
+      "accessPath": ["Type"]
+    },
+    {
+      "id": "s2/v/input-skucategory",
+      "kind": "value",
+      "owner": "s2/http",
+      "definition": "s2/http.map",
+      "label": "Mapped SkuCategory",
+      "role": "definition",
+      "representation": "constructed",
+      "shape": null,
+      "evidence": ["s2/e/mapping"],
+      "accessPath": ["SkuCategory"]
+    },
+    {
+      "id": "s2/v/entity-skucategory",
+      "kind": "value",
+      "owner": "s2/add",
+      "definition": "s2/add.identity",
+      "label": "Formal SkuCategory",
+      "role": "parameter",
+      "representation": "constructed",
+      "shape": null,
+      "evidence": ["s2/e/mapping", "s2/e/add"],
+      "accessPath": ["SkuCategory"]
+    },
+    {
+      "id": "s2/v/input-skuidentifier",
+      "kind": "value",
+      "owner": "s2/http",
+      "definition": "s2/http.map",
+      "label": "Mapped SkuIdentifier",
+      "role": "definition",
+      "representation": "constructed",
+      "shape": null,
+      "evidence": ["s2/e/mapping"],
+      "accessPath": ["SkuIdentifier"]
+    },
+    {
+      "id": "s2/v/entity-skuidentifier",
+      "kind": "value",
+      "owner": "s2/add",
+      "definition": "s2/add.identity",
+      "label": "Formal SkuIdentifier",
+      "role": "parameter",
+      "representation": "constructed",
+      "shape": null,
+      "evidence": ["s2/e/mapping", "s2/e/add"],
+      "accessPath": ["SkuIdentifier"]
+    },
+    {
+      "id": "s2/v/internal-id",
+      "kind": "value",
+      "owner": "s2/add",
+      "definition": "s2/add.identity",
+      "label": "InternalId created by request mapper",
+      "role": "definition",
+      "representation": "constructed",
+      "shape": null,
+      "evidence": ["s2/e/mapping", "s2/e/uow"],
+      "accessPath": ["InternalId"]
+    },
+    {
+      "id": "s2/v/id",
+      "kind": "value",
+      "owner": "s2/add",
+      "definition": "s2/add.identity",
+      "label": "Deterministic Id when absent",
+      "role": "definition",
+      "representation": "constructed",
+      "shape": null,
+      "evidence": ["s2/e/identity", "s2/e/id-helper", "s2/e/softoffer"],
+      "accessPath": ["Id"]
+    },
+    {
+      "id": "s2/flow/10",
+      "kind": "flow",
+      "owner": "s2/add",
+      "from": "s2/v/entity-code",
+      "to": "s2/v/id",
+      "at": "s2/add.identity",
+      "transform": "CommercialItem + CLR type + Code \u2192 declared version-5 deterministic GUID helper",
+      "evidence": ["s2/e/identity", "s2/e/softoffer", "s2/e/id-helper"],
+      "gaps": [],
+      "assumptions": ["Imported GUID generator implementation is not independently bound"]
+    },
+    {
+      "id": "s2/postgres",
+      "kind": "resource",
+      "label": "SoftOffer table",
+      "technology": "PostgreSQL / EF Core",
+      "declaredDatabase": null,
+      "physicalLocation": null,
+      "shapes": ["s2/shape/row"],
+      "gaps": ["s2/gap/deployment"],
+      "evidence": ["s2/e/db", "s2/e/npgsql"],
+      "address": {
+        "basis": "source_declared",
+        "connectionSetting": "PostgreSQLConnection",
+        "database": null,
+        "table": "SoftOffer",
+        "container": null,
+        "path": null,
+        "key": null
+      }
+    },
+    {
+      "id": "s2/topic",
+      "kind": "resource",
+      "label": "Commercial item notification topic",
+      "technology": "Kafka",
+      "declaredDatabase": null,
+      "physicalLocation": null,
+      "shapes": ["s2/shape/p-wire", "s2/shape/c-wire"],
+      "gaps": ["s2/gap/deployment"],
+      "evidence": ["s2/e/prod-config", "s2/e/consumer-base-config"]
+    },
+    {
+      "id": "s2/blob",
+      "kind": "resource",
+      "label": "Whole upstream list in cold storage",
+      "technology": "Azure Blob Storage",
+      "declaredDatabase": null,
+      "physicalLocation": null,
+      "shapes": ["s2/shape/upstream"],
+      "gaps": ["s2/gap/deployment"],
+      "evidence": ["s2/e/blob-key", "s2/e/blob", "s2/e/blob-repository"],
+      "address": {
+        "basis": "source_declared",
+        "connectionSetting": null,
+        "database": null,
+        "table": null,
+        "container": "upstream-entities",
+        "path": "/upstream-entities",
+        "key": null
+      }
+    },
+    {
+      "id": "s2/redis",
+      "kind": "resource",
+      "label": "Whole upstream list in hot cache",
+      "technology": "Redis",
+      "declaredDatabase": null,
+      "physicalLocation": null,
+      "shapes": ["s2/shape/upstream"],
+      "gaps": ["s2/gap/deployment"],
+      "evidence": ["s2/e/list", "s2/e/redis"],
+      "address": {
+        "basis": "source_declared",
+        "connectionSetting": null,
+        "database": null,
+        "table": null,
+        "container": null,
+        "path": null,
+        "key": "upstream-entities"
+      }
+    },
+    {
+      "id": "s2/effect/save",
+      "kind": "effect",
+      "owner": "s2/add",
+      "operation": "s2/add.save",
+      "effect": "write",
+      "resource": "s2/postgres",
+      "modality": "source_traced",
+      "representation": "logical",
+      "selection": [],
+      "payload": ["s2/v/entity"],
+      "evidence": ["s2/e/repository", "s2/e/uow", "s2/e/db"]
+    },
+    {
+      "id": "s2/effect/refetch",
+      "kind": "effect",
+      "owner": "s2/add",
+      "operation": "s2/add.refetch",
+      "effect": "read",
+      "resource": "s2/postgres",
+      "modality": "source_traced",
+      "representation": "logical",
+      "selection": [],
+      "payload": ["s2/v/saved-entity"],
+      "evidence": ["s2/e/refetch", "s2/e/add"]
+    },
+    {
+      "id": "s2/effect/publish",
+      "kind": "effect",
+      "owner": "s2/publish",
+      "operation": "s2/publish.attempt",
+      "effect": "publish",
+      "resource": "s2/topic",
+      "modality": "source_traced",
+      "representation": "logical",
+      "selection": [],
+      "payload": ["s2/v/message", "s2/v/wire-name", "s2/v/correlation"],
+      "evidence": ["s2/e/producer"]
+    },
+    {
+      "id": "s2/effect/list-hot",
+      "kind": "effect",
+      "owner": "s2/consumer",
+      "operation": "s2/consumer.hot-read",
+      "effect": "read",
+      "resource": "s2/redis",
+      "modality": "source_traced",
+      "representation": "logical",
+      "selection": [],
+      "payload": [],
+      "evidence": ["s2/e/list"]
+    },
+    {
+      "id": "s2/effect/list-cold",
+      "kind": "effect",
+      "owner": "s2/consumer",
+      "operation": "s2/consumer.cold-read",
+      "effect": "read",
+      "resource": "s2/blob",
+      "modality": "source_traced",
+      "representation": "logical",
+      "selection": [],
+      "payload": [],
+      "evidence": ["s2/e/list"]
+    },
+    {
+      "id": "s2/effect/hydrate",
+      "kind": "effect",
+      "owner": "s2/consumer",
+      "operation": "s2/consumer.hydrate",
+      "effect": "write",
+      "resource": "s2/redis",
+      "modality": "source_traced",
+      "representation": "logical",
+      "selection": [],
+      "payload": [],
+      "evidence": ["s2/e/list"]
+    },
+    {
+      "id": "s2/effect/cold",
+      "kind": "effect",
+      "owner": "s2/consumer",
+      "operation": "s2/consumer.cold",
+      "effect": "write",
+      "resource": "s2/blob",
+      "modality": "source_traced",
+      "representation": "logical",
+      "selection": [],
+      "payload": ["s2/v/list", "s2/v/cached-name"],
+      "evidence": ["s2/e/blob", "s2/e/list"]
+    },
+    {
+      "id": "s2/effect/hot",
+      "kind": "effect",
+      "owner": "s2/consumer",
+      "operation": "s2/consumer.hot",
+      "effect": "write",
+      "resource": "s2/redis",
+      "modality": "source_traced",
+      "representation": "logical",
+      "selection": [],
+      "payload": ["s2/v/list", "s2/v/cached-name"],
+      "evidence": ["s2/e/redis", "s2/e/list"]
+    },
+    {
+      "id": "s2/write/save",
+      "kind": "storage_write",
+      "owner": "s2/add",
+      "effect": "s2/effect/save",
+      "stagedAt": "s2/add.stage",
+      "acknowledgedAt": "s2/add.saved",
+      "mode": "insert",
+      "acknowledgement": "normal_return",
+      "atomicity": "store_call_only",
+      "condition": "SaveChangesAsync returned normally; no runtime transaction observation",
+      "fields": [
+        {
+          "path": ["InternalId"],
+          "value": "s2/v/internal-id",
+          "transform": "Wrapper Value converter or direct scalar mapping declared by EF model"
+        },
+        {
+          "path": ["Id"],
+          "value": "s2/v/id",
+          "transform": "Wrapper Value converter or direct scalar mapping declared by EF model"
+        },
+        {
+          "path": ["Code"],
+          "value": "s2/v/entity-code",
+          "transform": "Wrapper Value converter or direct scalar mapping declared by EF model"
+        },
+        {
+          "path": ["Name"],
+          "value": "s2/v/entity-name",
+          "transform": "Wrapper Value converter or direct scalar mapping declared by EF model"
+        },
+        {
+          "path": ["Type"],
+          "value": "s2/v/entity-type",
+          "transform": "Wrapper Value converter or direct scalar mapping declared by EF model"
+        },
+        {
+          "path": ["SkuCategory"],
+          "value": "s2/v/entity-skucategory",
+          "transform": "Wrapper Value converter or direct scalar mapping declared by EF model"
+        },
+        {
+          "path": ["SkuIdentifier"],
+          "value": "s2/v/entity-skuidentifier",
+          "transform": "Wrapper Value converter or direct scalar mapping declared by EF model"
+        }
+      ],
+      "gaps": ["s2/gap/deployment"],
+      "evidence": ["s2/e/repository", "s2/e/uow", "s2/e/db"]
+    },
+    {
+      "id": "s2/write/cold",
+      "kind": "storage_write",
+      "owner": "s2/consumer",
+      "effect": "s2/effect/cold",
+      "stagedAt": "s2/consumer.serialise",
+      "acknowledgedAt": "s2/consumer.cold-ok",
+      "mode": "replace",
+      "acknowledgement": "success_result",
+      "atomicity": "store_call_only",
+      "condition": "Upload wrapper Result.IsSuccess; not atomic with Redis",
+      "fields": [
+        {
+          "path": ["/upstream-entities"],
+          "value": "s2/v/list",
+          "transform": "Whole-list MessagePack LZ4 bytes"
+        }
+      ],
+      "gaps": ["s2/gap/deployment"],
+      "evidence": ["s2/e/blob", "s2/e/list"]
+    },
+    {
+      "id": "s2/write/hot",
+      "kind": "storage_write",
+      "owner": "s2/consumer",
+      "effect": "s2/effect/hot",
+      "stagedAt": "s2/consumer.serialise",
+      "acknowledgedAt": "s2/consumer.hot-ok",
+      "mode": "replace",
+      "acknowledgement": "success_result",
+      "atomicity": "store_call_only",
+      "condition": "Redis wrapper Result.IsSuccess; StringSetAsync boolean is collapsed by ToResult",
+      "fields": [
+        {
+          "path": ["upstream-entities"],
+          "value": "s2/v/list",
+          "transform": "Whole-list MessagePack LZ4 bytes"
+        }
+      ],
+      "gaps": ["s2/gap/deployment"],
+      "evidence": ["s2/e/redis", "s2/e/list"]
+    },
+    {
+      "id": "s2/v/cold-list",
+      "kind": "value",
+      "owner": "s2/consumer",
+      "definition": "s2/consumer.cold-read",
+      "label": "Cold list bytes copied to hot cache",
+      "role": "definition",
+      "representation": "persisted",
+      "shape": "s2/shape/upstream",
+      "evidence": ["s2/e/list"],
+      "accessPath": []
+    },
+    {
+      "id": "s2/write/hydrate",
+      "kind": "storage_write",
+      "owner": "s2/consumer",
+      "effect": "s2/effect/hydrate",
+      "stagedAt": "s2/consumer.cold-read",
+      "acknowledgedAt": "s2/consumer.deserialise",
+      "mode": "replace",
+      "acknowledgement": "ignored_result",
+      "atomicity": "store_call_only",
+      "condition": "Redis hydration is awaited but its Result is ignored; success is not established",
+      "fields": [
+        {
+          "path": ["upstream-entities"],
+          "value": "s2/v/cold-list",
+          "transform": "Copy cold bytes before deserialisation"
+        }
+      ],
+      "gaps": ["s2/gap/deployment"],
+      "evidence": ["s2/e/list", "s2/e/redis"]
+    },
+    {
+      "id": "s2/channel/producer",
+      "kind": "channel_binding",
+      "resource": "s2/topic",
+      "source": "s2/p",
+      "namespace": "pkc-e8mp5.eu-west-1.aws.confluent.cloud:9092",
+      "channel": "prod.public.manageandsegment.commercialitem",
+      "environment": "production-profile",
+      "profile": "appsettings.json + appsettings.Prod.json",
+      "basis": "committed_configuration",
+      "conditions": [
+        "Base configuration plus the named production profile are loaded",
+        "No runtime overrides alter bootstrap servers, topic or filters"
+      ],
+      "gaps": ["s2/gap/deployment"],
+      "evidence": ["s2/e/base-config", "s2/e/prod-config", "s2/e/producer-config"]
+    },
+    {
+      "id": "s2/channel/consumer",
+      "kind": "channel_binding",
+      "resource": "s2/topic",
+      "source": "s2/c",
+      "namespace": "pkc-e8mp5.eu-west-1.aws.confluent.cloud:9092",
+      "channel": "prod.public.manageandsegment.commercialitem",
+      "environment": "production-profile",
+      "profile": "appsettings.json + appsettings.Production.json",
+      "basis": "committed_configuration",
+      "conditions": [
+        "Base configuration plus the named production profile are loaded",
+        "No runtime overrides alter bootstrap servers, topic or filters"
+      ],
+      "gaps": ["s2/gap/deployment"],
+      "evidence": ["s2/e/consumer-base-config", "s2/e/consumer-prod-config", "s2/e/consumer-config"]
+    },
+    {
+      "id": "s2/policy/producer",
+      "kind": "delivery_policy",
+      "owner": "s2/publish",
+      "operation": "s2/publish.attempt",
+      "awaited": true,
+      "brokerPersistenceRequired": false,
+      "offsetCommit": "unresolved",
+      "retryLimit": null,
+      "deduplication": "none_in_inspected_scope",
+      "deduplicationKeys": [],
+      "ordering": "not_established",
+      "deliveryGuarantee": "not_established",
+      "gaps": ["s2/gap/sdk-policy", "s2/gap/deployment"],
+      "evidence": ["s2/e/producer", "s2/e/producer-config"]
+    },
+    {
+      "id": "s2/policy/consumer",
+      "kind": "delivery_policy",
+      "owner": "s2/consumer",
+      "operation": "s2/consumer.receive",
+      "awaited": true,
+      "brokerPersistenceRequired": null,
+      "offsetCommit": "unresolved",
+      "retryLimit": null,
+      "deduplication": "entity_upsert",
+      "deduplicationKeys": ["s2/v/entity-id"],
+      "ordering": "not_established",
+      "deliveryGuarantee": "not_established",
+      "gaps": ["s2/gap/offsets", "s2/gap/concurrency", "s2/gap/deployment"],
+      "evidence": ["s2/e/consumer", "s2/e/consumer-config", "s2/e/upsert"]
+    },
+    {
+      "id": "s2/subscription",
+      "kind": "subscription",
+      "owner": "s2/consumer",
+      "binding": "s2/channel/consumer",
+      "header": "x-type",
+      "messageType": "volvocars.contracts.pop.manage.SoftOfferCreated",
+      "payload": "s2/v/payload",
+      "group": "popcat-assortment-cache-worker-prod",
+      "policy": "s2/policy/consumer",
+      "gaps": ["s2/gap/deployment", "s2/gap/offsets"],
+      "evidence": [
+        "s2/e/consumer",
+        "s2/e/processor",
+        "s2/e/filter",
+        "s2/e/consumer-prod-config",
+        "s2/e/consumer-base-config"
+      ]
+    },
+    {
+      "id": "s2/handoff",
+      "kind": "handoff",
+      "owner": "s2/publish",
+      "effect": "s2/effect/publish",
+      "binding": "s2/channel/producer",
+      "subscription": "s2/subscription",
+      "messageType": "volvocars.contracts.pop.manage.SoftOfferCreated",
+      "typeHeader": "x-type",
+      "wireShape": "s2/shape/p-wire",
+      "policy": "s2/policy/producer",
+      "status": "source_matched",
+      "compatibility": "source_schema_match",
+      "awaitsConsumer": false,
+      "partitionKey": "null",
+      "keyValue": null,
+      "bindings": [
+        {
+          "from": "s2/v/message",
+          "to": "s2/v/payload",
+          "transform": "Raw protobuf bytes parsed against matching committed schema"
+        },
+        {
+          "from": "s2/v/wire-name",
+          "to": "s2/v/received-name",
+          "transform": "Protobuf envelope tag 1; nested Name tag 3"
+        }
+      ],
+      "correlation": [
+        {
+          "value": "s2/v/correlation",
+          "header": "id",
+          "purpose": "trace_correlation",
+          "consumerUse": "not_read_in_inspected_processor"
+        }
+      ],
+      "gaps": ["s2/gap/deployment", "s2/gap/sdk-policy", "s2/gap/offsets"],
+      "evidence": [
+        "s2/e/producer",
+        "s2/e/producer-proto",
+        "s2/e/consumer-proto",
+        "s2/e/processor",
+        "s2/e/filter",
+        "s2/e/headers",
+        "s2/e/prod-config",
+        "s2/e/consumer-base-config"
+      ]
+    },
+    {
+      "id": "s2/boundary/database-message",
+      "kind": "consistency_boundary",
+      "owner": "s2/add",
+      "effects": ["s2/effect/save", "s2/effect/publish"],
+      "order": ["s2/add.saved", "s2/add.notify"],
+      "coordination": "separate_calls",
+      "sharedTransaction": "not_established",
+      "failureWindow": "Database save can succeed before notification is skipped, fails, or receives a non-persisted report; no compensating rollback or outbox is established in this inspected path.",
+      "gaps": ["s2/gap/sdk-policy", "s2/gap/deployment"],
+      "evidence": ["s2/e/add", "s2/e/enabled", "s2/e/producer", "s2/e/notify"]
+    },
+    {
+      "id": "s2/boundary/cold-hot",
+      "kind": "consistency_boundary",
+      "owner": "s2/consumer",
+      "effects": ["s2/effect/cold", "s2/effect/hot"],
+      "order": ["s2/consumer.cold-ok", "s2/consumer.hot"],
+      "coordination": "separate_calls",
+      "sharedTransaction": "not_established",
+      "failureWindow": "Cold overwrite can succeed before hot write fails; whole-list concurrent updates and stale cache reads remain possible.",
+      "gaps": ["s2/gap/concurrency", "s2/gap/offsets"],
+      "evidence": ["s2/e/list", "s2/e/blob", "s2/e/redis", "s2/e/upsert"]
+    },
+    {
+      "id": "s2/milestone/saved",
+      "kind": "milestone",
+      "owner": "s2/add",
+      "operation": "s2/add.saved",
+      "stage": "local_persistence",
+      "condition": "SaveChangesAsync returned normally",
+      "resource": "s2/postgres",
+      "meaning": "Local save acknowledgement, not downstream cache completion",
+      "basis": "conditional_source_path",
+      "gaps": [],
+      "evidence": ["s2/e/uow", "s2/e/add"]
+    },
+    {
+      "id": "s2/milestone/attempt",
+      "kind": "milestone",
+      "owner": "s2/publish",
+      "operation": "s2/publish.attempt",
+      "stage": "publication_attempt",
+      "condition": "Non-null protobuf bytes",
+      "resource": "s2/topic",
+      "meaning": "Awaited SDK call, not delivery or successful persistence",
+      "basis": "conditional_source_path",
+      "gaps": [],
+      "evidence": ["s2/e/producer"]
+    },
+    {
+      "id": "s2/milestone/receipt",
+      "kind": "milestone",
+      "owner": "s2/publish",
+      "operation": "s2/publish.receipt",
+      "stage": "broker_receipt",
+      "condition": "SDK returned ProduceResult",
+      "resource": "s2/topic",
+      "meaning": "Receipt may report a non-persisted state",
+      "basis": "conditional_source_path",
+      "gaps": [],
+      "evidence": ["s2/e/producer"]
+    },
+    {
+      "id": "s2/milestone/persisted",
+      "kind": "milestone",
+      "owner": "s2/publish",
+      "operation": "s2/publish.persisted",
+      "stage": "broker_persisted_report",
+      "condition": "ProduceResult.Status == Persisted",
+      "resource": "s2/topic",
+      "meaning": "Conditional SDK report, not observed consumer completion",
+      "basis": "conditional_source_path",
+      "gaps": [],
+      "evidence": ["s2/e/producer"]
+    },
+    {
+      "id": "s2/milestone/cold",
+      "kind": "milestone",
+      "owner": "s2/consumer",
+      "operation": "s2/consumer.cold-ok",
+      "stage": "consumer_effect",
+      "condition": "Upload wrapper Result.IsSuccess",
+      "resource": "s2/blob",
+      "meaning": "Cold list write reported successful",
+      "basis": "conditional_source_path",
+      "gaps": [],
+      "evidence": ["s2/e/blob", "s2/e/list"]
+    },
+    {
+      "id": "s2/milestone/hot",
+      "kind": "milestone",
+      "owner": "s2/consumer",
+      "operation": "s2/consumer.hot-ok",
+      "stage": "consumer_effect",
+      "condition": "Redis wrapper Result.IsSuccess",
+      "resource": "s2/redis",
+      "meaning": "Hot wrapper successful; boolean StringSet result not inspected",
+      "basis": "conditional_source_path",
+      "gaps": [],
+      "evidence": ["s2/e/redis"]
+    },
+    {
+      "id": "s2/milestone/response",
+      "kind": "milestone",
+      "owner": "s2/http",
+      "operation": "s2/http.201",
+      "stage": "http_response",
+      "condition": "Created result returns normally",
+      "resource": null,
+      "meaning": "201 does not require persisted broker report or consumer completion",
+      "basis": "conditional_source_path",
+      "gaps": [],
+      "evidence": ["s2/e/response", "s2/e/add", "s2/e/producer"]
+    },
+    {
+      "id": "s2/coverage/http-path",
+      "kind": "coverage",
+      "owner": "s2/endpoint",
+      "obligation": "http-path",
+      "status": "partial",
+      "scope": "POST mapping, Add, result-to-response and local exception paths; middleware policy coverage is partial",
+      "gaps": ["s2/gap/http-scope", "s2/gap/deployment"],
+      "evidence": ["s2/e/controller", "s2/e/response", "s2/e/middleware"]
+    },
+    {
+      "id": "s2/coverage/write-and-handoff",
+      "kind": "coverage",
+      "owner": "s2/endpoint",
+      "obligation": "write-and-handoff",
+      "status": "examined",
+      "scope": "Save before optional awaited publish; separate possible consumer invocation",
+      "gaps": ["s2/gap/sdk-policy", "s2/gap/mapping"],
+      "evidence": ["s2/e/add", "s2/e/producer", "s2/e/notify"]
+    },
+    {
+      "id": "s2/coverage/consumer-storage",
+      "kind": "coverage",
+      "owner": "s2/consumer",
+      "obligation": "consumer-storage",
+      "status": "partial",
+      "scope": "Created message handler, field projection, whole-list mutation, cold then hot writes; cache-read hydration is explicitly represented",
+      "gaps": ["s2/gap/offsets", "s2/gap/concurrency"],
+      "evidence": ["s2/e/consumer", "s2/e/processor", "s2/e/list", "s2/e/upsert"]
+    },
+    {
+      "id": "s2/derived/e/controller",
+      "kind": "derivation",
+      "output": "s2/e/controller",
+      "rule": "source-inspection/v2",
+      "inputs": ["s2/p"]
+    },
+    {
+      "id": "s2/derived/e/input",
+      "kind": "derivation",
+      "output": "s2/e/input",
+      "rule": "source-inspection/v2",
+      "inputs": ["s2/p"]
+    },
+    {
+      "id": "s2/derived/e/mapping",
+      "kind": "derivation",
+      "output": "s2/e/mapping",
+      "rule": "source-inspection/v2",
+      "inputs": ["s2/p"]
+    },
+    {
+      "id": "s2/derived/e/sku-mapping",
+      "kind": "derivation",
+      "output": "s2/e/sku-mapping",
+      "rule": "source-inspection/v2",
+      "inputs": ["s2/p"]
+    },
+    {
+      "id": "s2/derived/e/softoffer",
+      "kind": "derivation",
+      "output": "s2/e/softoffer",
+      "rule": "source-inspection/v2",
+      "inputs": ["s2/p"]
+    },
+    {
+      "id": "s2/derived/e/identity",
+      "kind": "derivation",
+      "output": "s2/e/identity",
+      "rule": "source-inspection/v2",
+      "inputs": ["s2/p"]
+    },
+    {
+      "id": "s2/derived/e/id-helper",
+      "kind": "derivation",
+      "output": "s2/e/id-helper",
+      "rule": "source-inspection/v2",
+      "inputs": ["s2/p"]
+    },
+    {
+      "id": "s2/derived/e/service",
+      "kind": "derivation",
+      "output": "s2/e/service",
+      "rule": "source-inspection/v2",
+      "inputs": ["s2/p"]
+    },
+    {
+      "id": "s2/derived/e/add",
+      "kind": "derivation",
+      "output": "s2/e/add",
+      "rule": "source-inspection/v2",
+      "inputs": ["s2/p"]
+    },
+    {
+      "id": "s2/derived/e/enabled",
+      "kind": "derivation",
+      "output": "s2/e/enabled",
+      "rule": "source-inspection/v2",
+      "inputs": ["s2/p"]
+    },
+    {
+      "id": "s2/derived/e/repository",
+      "kind": "derivation",
+      "output": "s2/e/repository",
+      "rule": "source-inspection/v2",
+      "inputs": ["s2/p"]
+    },
+    {
+      "id": "s2/derived/e/refetch",
+      "kind": "derivation",
+      "output": "s2/e/refetch",
+      "rule": "source-inspection/v2",
+      "inputs": ["s2/p"]
+    },
+    {
+      "id": "s2/derived/e/uow",
+      "kind": "derivation",
+      "output": "s2/e/uow",
+      "rule": "source-inspection/v2",
+      "inputs": ["s2/p"]
+    },
+    {
+      "id": "s2/derived/e/db",
+      "kind": "derivation",
+      "output": "s2/e/db",
+      "rule": "source-inspection/v2",
+      "inputs": ["s2/p"]
+    },
+    {
+      "id": "s2/derived/e/npgsql",
+      "kind": "derivation",
+      "output": "s2/e/npgsql",
+      "rule": "source-inspection/v2",
+      "inputs": ["s2/p"]
+    },
+    {
+      "id": "s2/derived/e/notify",
+      "kind": "derivation",
+      "output": "s2/e/notify",
+      "rule": "source-inspection/v2",
+      "inputs": ["s2/p"]
+    },
+    {
+      "id": "s2/derived/e/builder",
+      "kind": "derivation",
+      "output": "s2/e/builder",
+      "rule": "source-inspection/v2",
+      "inputs": ["s2/p"]
+    },
+    {
+      "id": "s2/derived/e/headers",
+      "kind": "derivation",
+      "output": "s2/e/headers",
+      "rule": "source-inspection/v2",
+      "inputs": ["s2/p"]
+    },
+    {
+      "id": "s2/derived/e/producer",
+      "kind": "derivation",
+      "output": "s2/e/producer",
+      "rule": "source-inspection/v2",
+      "inputs": ["s2/p"]
+    },
+    {
+      "id": "s2/derived/e/serializer",
+      "kind": "derivation",
+      "output": "s2/e/serializer",
+      "rule": "source-inspection/v2",
+      "inputs": ["s2/p"]
+    },
+    {
+      "id": "s2/derived/e/producer-config",
+      "kind": "derivation",
+      "output": "s2/e/producer-config",
+      "rule": "source-inspection/v2",
+      "inputs": ["s2/p"]
+    },
+    {
+      "id": "s2/derived/e/base-config",
+      "kind": "derivation",
+      "output": "s2/e/base-config",
+      "rule": "source-inspection/v2",
+      "inputs": ["s2/p"]
+    },
+    {
+      "id": "s2/derived/e/prod-config",
+      "kind": "derivation",
+      "output": "s2/e/prod-config",
+      "rule": "source-inspection/v2",
+      "inputs": ["s2/p"]
+    },
+    {
+      "id": "s2/derived/e/response",
+      "kind": "derivation",
+      "output": "s2/e/response",
+      "rule": "source-inspection/v2",
+      "inputs": ["s2/p"]
+    },
+    {
+      "id": "s2/derived/e/middleware",
+      "kind": "derivation",
+      "output": "s2/e/middleware",
+      "rule": "source-inspection/v2",
+      "inputs": ["s2/p"]
+    },
+    {
+      "id": "s2/derived/e/packages",
+      "kind": "derivation",
+      "output": "s2/e/packages",
+      "rule": "source-inspection/v2",
+      "inputs": ["s2/p"]
+    },
+    {
+      "id": "s2/derived/e/producer-proto",
+      "kind": "derivation",
+      "output": "s2/e/producer-proto",
+      "rule": "source-inspection/v2",
+      "inputs": ["s2/p"]
+    },
+    {
+      "id": "s2/derived/e/consumer",
+      "kind": "derivation",
+      "output": "s2/e/consumer",
+      "rule": "source-inspection/v2",
+      "inputs": ["s2/c"]
+    },
+    {
+      "id": "s2/derived/e/consumer-config",
+      "kind": "derivation",
+      "output": "s2/e/consumer-config",
+      "rule": "source-inspection/v2",
+      "inputs": ["s2/c"]
+    },
+    {
+      "id": "s2/derived/e/filter",
+      "kind": "derivation",
+      "output": "s2/e/filter",
+      "rule": "source-inspection/v2",
+      "inputs": ["s2/c"]
+    },
+    {
+      "id": "s2/derived/e/processor",
+      "kind": "derivation",
+      "output": "s2/e/processor",
+      "rule": "source-inspection/v2",
+      "inputs": ["s2/c"]
+    },
+    {
+      "id": "s2/derived/e/list",
+      "kind": "derivation",
+      "output": "s2/e/list",
+      "rule": "source-inspection/v2",
+      "inputs": ["s2/c"]
+    },
+    {
+      "id": "s2/derived/e/upsert",
+      "kind": "derivation",
+      "output": "s2/e/upsert",
+      "rule": "source-inspection/v2",
+      "inputs": ["s2/c"]
+    },
+    {
+      "id": "s2/derived/e/cache-serializer",
+      "kind": "derivation",
+      "output": "s2/e/cache-serializer",
+      "rule": "source-inspection/v2",
+      "inputs": ["s2/c"]
+    },
+    {
+      "id": "s2/derived/e/redis",
+      "kind": "derivation",
+      "output": "s2/e/redis",
+      "rule": "source-inspection/v2",
+      "inputs": ["s2/c"]
+    },
+    {
+      "id": "s2/derived/e/blob-key",
+      "kind": "derivation",
+      "output": "s2/e/blob-key",
+      "rule": "source-inspection/v2",
+      "inputs": ["s2/c"]
+    },
+    {
+      "id": "s2/derived/e/blob-repository",
+      "kind": "derivation",
+      "output": "s2/e/blob-repository",
+      "rule": "source-inspection/v2",
+      "inputs": ["s2/c"]
+    },
+    {
+      "id": "s2/derived/e/blob",
+      "kind": "derivation",
+      "output": "s2/e/blob",
+      "rule": "source-inspection/v2",
+      "inputs": ["s2/c"]
+    },
+    {
+      "id": "s2/derived/e/consumer-base-config",
+      "kind": "derivation",
+      "output": "s2/e/consumer-base-config",
+      "rule": "source-inspection/v2",
+      "inputs": ["s2/c"]
+    },
+    {
+      "id": "s2/derived/e/consumer-prod-config",
+      "kind": "derivation",
+      "output": "s2/e/consumer-prod-config",
+      "rule": "source-inspection/v2",
+      "inputs": ["s2/c"]
+    },
+    {
+      "id": "s2/derived/e/consumer-proto",
+      "kind": "derivation",
+      "output": "s2/e/consumer-proto",
+      "rule": "source-inspection/v2",
+      "inputs": ["s2/c"]
+    },
+    {
+      "id": "s2/derived/e/consumer-packages",
+      "kind": "derivation",
+      "output": "s2/e/consumer-packages",
+      "rule": "source-inspection/v2",
+      "inputs": ["s2/c"]
+    },
+    {
+      "id": "s2/derived/e/upstream",
+      "kind": "derivation",
+      "output": "s2/e/upstream",
+      "rule": "source-inspection/v2",
+      "inputs": ["s2/c"]
+    },
+    {
+      "id": "s2/derived/gap/deployment",
+      "kind": "derivation",
+      "output": "s2/gap/deployment",
+      "rule": "source-inspection/v2",
+      "inputs": [
+        "s2/e/base-config",
+        "s2/e/consumer-base-config",
+        "s2/e/consumer-prod-config",
+        "s2/e/prod-config",
+        "s2/http"
+      ]
+    },
+    {
+      "id": "s2/derived/gap/sdk-policy",
+      "kind": "derivation",
+      "output": "s2/gap/sdk-policy",
+      "rule": "source-inspection/v2",
+      "inputs": ["s2/e/packages", "s2/e/producer-config", "s2/publish"]
+    },
+    {
+      "id": "s2/derived/gap/offsets",
+      "kind": "derivation",
+      "output": "s2/gap/offsets",
+      "rule": "source-inspection/v2",
+      "inputs": ["s2/consumer", "s2/e/consumer", "s2/e/consumer-config", "s2/e/consumer-packages"]
+    },
+    {
+      "id": "s2/derived/gap/mapping",
+      "kind": "derivation",
+      "output": "s2/gap/mapping",
+      "rule": "source-inspection/v2",
+      "inputs": ["s2/e/builder", "s2/e/mapping", "s2/e/sku-mapping", "s2/publish"]
+    },
+    {
+      "id": "s2/derived/gap/concurrency",
+      "kind": "derivation",
+      "output": "s2/gap/concurrency",
+      "rule": "source-inspection/v2",
+      "inputs": ["s2/consumer", "s2/e/blob", "s2/e/list", "s2/e/redis", "s2/e/upsert"]
+    },
+    {
+      "id": "s2/derived/gap/http-scope",
+      "kind": "derivation",
+      "output": "s2/gap/http-scope",
+      "rule": "source-inspection/v2",
+      "inputs": ["s2/e/controller", "s2/e/middleware", "s2/e/response", "s2/http"]
+    },
+    {
+      "id": "s2/derived/http",
+      "kind": "derivation",
+      "output": "s2/http",
+      "rule": "source-inspection/v2",
+      "inputs": ["s2/e/controller", "s2/e/middleware", "s2/http.start", "s2/p", "s2/v/request"]
+    },
+    {
+      "id": "s2/derived/add",
+      "kind": "derivation",
+      "output": "s2/add",
+      "rule": "source-inspection/v2",
+      "inputs": [
+        "s2/add.identity",
+        "s2/e/add",
+        "s2/e/service",
+        "s2/p",
+        "s2/v/entity",
+        "s2/v/entity-code",
+        "s2/v/entity-name",
+        "s2/v/entity-skucategory",
+        "s2/v/entity-skuidentifier",
+        "s2/v/entity-type"
+      ]
+    },
+    {
+      "id": "s2/derived/notify",
+      "kind": "derivation",
+      "output": "s2/notify",
+      "rule": "source-inspection/v2",
+      "inputs": ["s2/e/notify", "s2/notify.build", "s2/p", "s2/v/notice", "s2/v/notice-name"]
+    },
+    {
+      "id": "s2/derived/publish",
+      "kind": "derivation",
+      "output": "s2/publish",
+      "rule": "source-inspection/v2",
+      "inputs": [
+        "s2/e/producer",
+        "s2/e/serializer",
+        "s2/p",
+        "s2/publish.serialise",
+        "s2/v/message",
+        "s2/v/wire-name"
+      ]
+    },
+    {
+      "id": "s2/derived/consumer",
+      "kind": "derivation",
+      "output": "s2/consumer",
+      "rule": "source-inspection/v2",
+      "inputs": ["s2/c", "s2/consumer.receive", "s2/e/consumer", "s2/e/processor"]
+    },
+    {
+      "id": "s2/derived/endpoint",
+      "kind": "derivation",
+      "output": "s2/endpoint",
+      "rule": "source-inspection/v2",
+      "inputs": ["s2/e/controller", "s2/http"]
+    },
+    {
+      "id": "s2/derived/http.start",
+      "kind": "derivation",
+      "output": "s2/http.start",
+      "rule": "source-inspection/v2",
+      "inputs": ["s2/e/controller", "s2/e/input", "s2/http"]
+    },
+    {
+      "id": "s2/derived/http.map",
+      "kind": "derivation",
+      "output": "s2/http.map",
+      "rule": "source-inspection/v2",
+      "inputs": ["s2/e/mapping", "s2/http"]
+    },
+    {
+      "id": "s2/derived/resolve/http.add",
+      "kind": "derivation",
+      "output": "s2/resolve/http.add",
+      "rule": "source-inspection/v2",
+      "inputs": ["s2/add", "s2/e/add", "s2/e/controller", "s2/e/service", "s2/http"]
+    },
+    {
+      "id": "s2/derived/http.add",
+      "kind": "derivation",
+      "output": "s2/http.add",
+      "rule": "source-inspection/v2",
+      "inputs": [
+        "s2/e/add",
+        "s2/e/controller",
+        "s2/e/service",
+        "s2/http",
+        "s2/resolve/http.add",
+        "s2/v/entity",
+        "s2/v/entity-code",
+        "s2/v/entity-name",
+        "s2/v/entity-skucategory",
+        "s2/v/entity-skuidentifier",
+        "s2/v/entity-type",
+        "s2/v/input",
+        "s2/v/input-code",
+        "s2/v/input-name",
+        "s2/v/input-skucategory",
+        "s2/v/input-skuidentifier",
+        "s2/v/input-type"
+      ]
+    },
+    {
+      "id": "s2/derived/http.201",
+      "kind": "derivation",
+      "output": "s2/http.201",
+      "rule": "source-inspection/v2",
+      "inputs": ["s2/e/controller", "s2/e/response", "s2/http"]
+    },
+    {
+      "id": "s2/derived/http.409",
+      "kind": "derivation",
+      "output": "s2/http.409",
+      "rule": "source-inspection/v2",
+      "inputs": ["s2/e/middleware", "s2/e/uow", "s2/http"]
+    },
+    {
+      "id": "s2/derived/http.500",
+      "kind": "derivation",
+      "output": "s2/http.500",
+      "rule": "source-inspection/v2",
+      "inputs": ["s2/e/middleware", "s2/e/notify", "s2/http"]
+    },
+    {
+      "id": "s2/derived/add.identity",
+      "kind": "derivation",
+      "output": "s2/add.identity",
+      "rule": "source-inspection/v2",
+      "inputs": ["s2/add", "s2/e/add", "s2/e/id-helper", "s2/e/identity", "s2/e/softoffer"]
+    },
+    {
+      "id": "s2/derived/add.stage",
+      "kind": "derivation",
+      "output": "s2/add.stage",
+      "rule": "source-inspection/v2",
+      "inputs": ["s2/add", "s2/e/repository", "s2/e/uow"]
+    },
+    {
+      "id": "s2/derived/add.save",
+      "kind": "derivation",
+      "output": "s2/add.save",
+      "rule": "source-inspection/v2",
+      "inputs": ["s2/add", "s2/e/npgsql", "s2/e/uow"]
+    },
+    {
+      "id": "s2/derived/add.saved",
+      "kind": "derivation",
+      "output": "s2/add.saved",
+      "rule": "source-inspection/v2",
+      "inputs": ["s2/add", "s2/e/add", "s2/e/uow"]
+    },
+    {
+      "id": "s2/derived/add.conflict",
+      "kind": "derivation",
+      "output": "s2/add.conflict",
+      "rule": "source-inspection/v2",
+      "inputs": ["s2/add", "s2/e/uow"]
+    },
+    {
+      "id": "s2/derived/add.error",
+      "kind": "derivation",
+      "output": "s2/add.error",
+      "rule": "source-inspection/v2",
+      "inputs": ["s2/add", "s2/e/notify", "s2/e/uow"]
+    },
+    {
+      "id": "s2/derived/add.refetch",
+      "kind": "derivation",
+      "output": "s2/add.refetch",
+      "rule": "source-inspection/v2",
+      "inputs": ["s2/add", "s2/e/add", "s2/e/refetch"]
+    },
+    {
+      "id": "s2/derived/add.enabled",
+      "kind": "derivation",
+      "output": "s2/add.enabled",
+      "rule": "source-inspection/v2",
+      "inputs": ["s2/add", "s2/e/add", "s2/e/enabled"]
+    },
+    {
+      "id": "s2/derived/resolve/add.notify",
+      "kind": "derivation",
+      "output": "s2/resolve/add.notify",
+      "rule": "source-inspection/v2",
+      "inputs": ["s2/add", "s2/e/add", "s2/e/enabled", "s2/notify"]
+    },
+    {
+      "id": "s2/derived/add.notify",
+      "kind": "derivation",
+      "output": "s2/add.notify",
+      "rule": "source-inspection/v2",
+      "inputs": [
+        "s2/add",
+        "s2/e/add",
+        "s2/e/enabled",
+        "s2/resolve/add.notify",
+        "s2/v/notice",
+        "s2/v/notice-name",
+        "s2/v/saved-entity",
+        "s2/v/saved-name"
+      ]
+    },
+    {
+      "id": "s2/derived/add.return",
+      "kind": "derivation",
+      "output": "s2/add.return",
+      "rule": "source-inspection/v2",
+      "inputs": ["s2/add", "s2/e/add"]
+    },
+    {
+      "id": "s2/derived/notify.build",
+      "kind": "derivation",
+      "output": "s2/notify.build",
+      "rule": "source-inspection/v2",
+      "inputs": ["s2/e/builder", "s2/e/notify", "s2/notify"]
+    },
+    {
+      "id": "s2/derived/notify.headers",
+      "kind": "derivation",
+      "output": "s2/notify.headers",
+      "rule": "source-inspection/v2",
+      "inputs": ["s2/e/headers", "s2/e/notify", "s2/notify"]
+    },
+    {
+      "id": "s2/derived/resolve/notify.send",
+      "kind": "derivation",
+      "output": "s2/resolve/notify.send",
+      "rule": "source-inspection/v2",
+      "inputs": ["s2/e/notify", "s2/e/producer", "s2/notify", "s2/publish"]
+    },
+    {
+      "id": "s2/derived/notify.send",
+      "kind": "derivation",
+      "output": "s2/notify.send",
+      "rule": "source-inspection/v2",
+      "inputs": [
+        "s2/e/notify",
+        "s2/e/producer",
+        "s2/notify",
+        "s2/resolve/notify.send",
+        "s2/v/created-message",
+        "s2/v/created-name",
+        "s2/v/message",
+        "s2/v/wire-name"
+      ]
+    },
+    {
+      "id": "s2/derived/notify.return",
+      "kind": "derivation",
+      "output": "s2/notify.return",
+      "rule": "source-inspection/v2",
+      "inputs": ["s2/e/notify", "s2/notify"]
+    },
+    {
+      "id": "s2/derived/notify.error",
+      "kind": "derivation",
+      "output": "s2/notify.error",
+      "rule": "source-inspection/v2",
+      "inputs": ["s2/e/notify", "s2/notify"]
+    },
+    {
+      "id": "s2/derived/publish.serialise",
+      "kind": "derivation",
+      "output": "s2/publish.serialise",
+      "rule": "source-inspection/v2",
+      "inputs": ["s2/e/producer", "s2/e/serializer", "s2/publish"]
+    },
+    {
+      "id": "s2/derived/resolve/publish.attempt",
+      "kind": "derivation",
+      "output": "s2/resolve/publish.attempt",
+      "rule": "source-inspection/v2",
+      "inputs": ["s2/e/producer", "s2/publish"]
+    },
+    {
+      "id": "s2/derived/publish.attempt",
+      "kind": "derivation",
+      "output": "s2/publish.attempt",
+      "rule": "source-inspection/v2",
+      "inputs": ["s2/e/producer", "s2/publish", "s2/resolve/publish.attempt"]
+    },
+    {
+      "id": "s2/derived/publish.receipt",
+      "kind": "derivation",
+      "output": "s2/publish.receipt",
+      "rule": "source-inspection/v2",
+      "inputs": ["s2/e/producer", "s2/publish"]
+    },
+    {
+      "id": "s2/derived/publish.persisted",
+      "kind": "derivation",
+      "output": "s2/publish.persisted",
+      "rule": "source-inspection/v2",
+      "inputs": ["s2/e/producer", "s2/publish"]
+    },
+    {
+      "id": "s2/derived/publish.not-persisted",
+      "kind": "derivation",
+      "output": "s2/publish.not-persisted",
+      "rule": "source-inspection/v2",
+      "inputs": ["s2/e/producer", "s2/publish"]
+    },
+    {
+      "id": "s2/derived/publish.return",
+      "kind": "derivation",
+      "output": "s2/publish.return",
+      "rule": "source-inspection/v2",
+      "inputs": ["s2/e/producer", "s2/publish"]
+    },
+    {
+      "id": "s2/derived/publish.error",
+      "kind": "derivation",
+      "output": "s2/publish.error",
+      "rule": "source-inspection/v2",
+      "inputs": ["s2/e/notify", "s2/e/producer", "s2/publish"]
+    },
+    {
+      "id": "s2/derived/consumer.receive",
+      "kind": "derivation",
+      "output": "s2/consumer.receive",
+      "rule": "source-inspection/v2",
+      "inputs": ["s2/consumer", "s2/e/consumer", "s2/e/filter"]
+    },
+    {
+      "id": "s2/derived/consumer.parse",
+      "kind": "derivation",
+      "output": "s2/consumer.parse",
+      "rule": "source-inspection/v2",
+      "inputs": ["s2/consumer", "s2/e/processor"]
+    },
+    {
+      "id": "s2/derived/consumer.map",
+      "kind": "derivation",
+      "output": "s2/consumer.map",
+      "rule": "source-inspection/v2",
+      "inputs": ["s2/consumer", "s2/e/processor"]
+    },
+    {
+      "id": "s2/derived/consumer.list",
+      "kind": "derivation",
+      "output": "s2/consumer.list",
+      "rule": "source-inspection/v2",
+      "inputs": ["s2/consumer", "s2/e/list"]
+    },
+    {
+      "id": "s2/derived/consumer.hot-read",
+      "kind": "derivation",
+      "output": "s2/consumer.hot-read",
+      "rule": "source-inspection/v2",
+      "inputs": ["s2/consumer", "s2/e/cache-serializer", "s2/e/list"]
+    },
+    {
+      "id": "s2/derived/consumer.cold-exists",
+      "kind": "derivation",
+      "output": "s2/consumer.cold-exists",
+      "rule": "source-inspection/v2",
+      "inputs": ["s2/consumer", "s2/e/list"]
+    },
+    {
+      "id": "s2/derived/consumer.cold-read",
+      "kind": "derivation",
+      "output": "s2/consumer.cold-read",
+      "rule": "source-inspection/v2",
+      "inputs": ["s2/consumer", "s2/e/list"]
+    },
+    {
+      "id": "s2/derived/consumer.hydrate",
+      "kind": "derivation",
+      "output": "s2/consumer.hydrate",
+      "rule": "source-inspection/v2",
+      "inputs": ["s2/consumer", "s2/e/list", "s2/e/redis"]
+    },
+    {
+      "id": "s2/derived/consumer.deserialise",
+      "kind": "derivation",
+      "output": "s2/consumer.deserialise",
+      "rule": "source-inspection/v2",
+      "inputs": ["s2/consumer", "s2/e/cache-serializer", "s2/e/list"]
+    },
+    {
+      "id": "s2/derived/consumer.empty",
+      "kind": "derivation",
+      "output": "s2/consumer.empty",
+      "rule": "source-inspection/v2",
+      "inputs": ["s2/consumer", "s2/e/list", "s2/e/upsert"]
+    },
+    {
+      "id": "s2/derived/consumer.upsert",
+      "kind": "derivation",
+      "output": "s2/consumer.upsert",
+      "rule": "source-inspection/v2",
+      "inputs": ["s2/consumer", "s2/e/upsert"]
+    },
+    {
+      "id": "s2/derived/consumer.serialise",
+      "kind": "derivation",
+      "output": "s2/consumer.serialise",
+      "rule": "source-inspection/v2",
+      "inputs": ["s2/consumer", "s2/e/cache-serializer", "s2/e/upsert"]
+    },
+    {
+      "id": "s2/derived/consumer.cold",
+      "kind": "derivation",
+      "output": "s2/consumer.cold",
+      "rule": "source-inspection/v2",
+      "inputs": ["s2/consumer", "s2/e/blob", "s2/e/blob-key", "s2/e/blob-repository"]
+    },
+    {
+      "id": "s2/derived/consumer.cold-ok",
+      "kind": "derivation",
+      "output": "s2/consumer.cold-ok",
+      "rule": "source-inspection/v2",
+      "inputs": ["s2/consumer", "s2/e/blob", "s2/e/list"]
+    },
+    {
+      "id": "s2/derived/consumer.hot",
+      "kind": "derivation",
+      "output": "s2/consumer.hot",
+      "rule": "source-inspection/v2",
+      "inputs": ["s2/consumer", "s2/e/list", "s2/e/redis"]
+    },
+    {
+      "id": "s2/derived/consumer.hot-ok",
+      "kind": "derivation",
+      "output": "s2/consumer.hot-ok",
+      "rule": "source-inspection/v2",
+      "inputs": ["s2/consumer", "s2/e/redis"]
+    },
+    {
+      "id": "s2/derived/consumer.failed",
+      "kind": "derivation",
+      "output": "s2/consumer.failed",
+      "rule": "source-inspection/v2",
+      "inputs": ["s2/consumer", "s2/e/consumer", "s2/e/processor", "s2/e/upsert"]
+    },
+    {
+      "id": "s2/derived/consumer.exception",
+      "kind": "derivation",
+      "output": "s2/consumer.exception",
+      "rule": "source-inspection/v2",
+      "inputs": ["s2/consumer", "s2/e/consumer"]
+    },
+    {
+      "id": "s2/derived/consumer.done",
+      "kind": "derivation",
+      "output": "s2/consumer.done",
+      "rule": "source-inspection/v2",
+      "inputs": ["s2/consumer", "s2/e/consumer", "s2/e/list"]
+    },
+    {
+      "id": "s2/derived/t/1",
+      "kind": "derivation",
+      "output": "s2/t/1",
+      "rule": "source-inspection/v2",
+      "inputs": [
+        "s2/e/controller",
+        "s2/e/middleware",
+        "s2/e/response",
+        "s2/http",
+        "s2/http.map",
+        "s2/http.start"
+      ]
+    },
+    {
+      "id": "s2/derived/t/2",
+      "kind": "derivation",
+      "output": "s2/t/2",
+      "rule": "source-inspection/v2",
+      "inputs": [
+        "s2/e/controller",
+        "s2/e/middleware",
+        "s2/e/response",
+        "s2/http",
+        "s2/http.add",
+        "s2/http.map"
+      ]
+    },
+    {
+      "id": "s2/derived/t/3",
+      "kind": "derivation",
+      "output": "s2/t/3",
+      "rule": "source-inspection/v2",
+      "inputs": [
+        "s2/e/controller",
+        "s2/e/middleware",
+        "s2/e/response",
+        "s2/http",
+        "s2/http.500",
+        "s2/http.map"
+      ]
+    },
+    {
+      "id": "s2/derived/t/4",
+      "kind": "derivation",
+      "output": "s2/t/4",
+      "rule": "source-inspection/v2",
+      "inputs": [
+        "s2/e/controller",
+        "s2/e/middleware",
+        "s2/e/response",
+        "s2/http",
+        "s2/http.201",
+        "s2/http.add"
+      ]
+    },
+    {
+      "id": "s2/derived/t/5",
+      "kind": "derivation",
+      "output": "s2/t/5",
+      "rule": "source-inspection/v2",
+      "inputs": [
+        "s2/e/controller",
+        "s2/e/middleware",
+        "s2/e/response",
+        "s2/http",
+        "s2/http.409",
+        "s2/http.add"
+      ]
+    },
+    {
+      "id": "s2/derived/t/6",
+      "kind": "derivation",
+      "output": "s2/t/6",
+      "rule": "source-inspection/v2",
+      "inputs": [
+        "s2/e/controller",
+        "s2/e/middleware",
+        "s2/e/response",
+        "s2/http",
+        "s2/http.500",
+        "s2/http.add"
+      ]
+    },
+    {
+      "id": "s2/derived/t/7",
+      "kind": "derivation",
+      "output": "s2/t/7",
+      "rule": "source-inspection/v2",
+      "inputs": [
+        "s2/add",
+        "s2/add.identity",
+        "s2/add.stage",
+        "s2/e/add",
+        "s2/e/enabled",
+        "s2/e/uow"
+      ]
+    },
+    {
+      "id": "s2/derived/t/8",
+      "kind": "derivation",
+      "output": "s2/t/8",
+      "rule": "source-inspection/v2",
+      "inputs": [
+        "s2/add",
+        "s2/add.error",
+        "s2/add.identity",
+        "s2/e/add",
+        "s2/e/enabled",
+        "s2/e/uow"
+      ]
+    },
+    {
+      "id": "s2/derived/t/9",
+      "kind": "derivation",
+      "output": "s2/t/9",
+      "rule": "source-inspection/v2",
+      "inputs": ["s2/add", "s2/add.save", "s2/add.stage", "s2/e/add", "s2/e/enabled", "s2/e/uow"]
+    },
+    {
+      "id": "s2/derived/t/10",
+      "kind": "derivation",
+      "output": "s2/t/10",
+      "rule": "source-inspection/v2",
+      "inputs": ["s2/add", "s2/add.error", "s2/add.stage", "s2/e/add", "s2/e/enabled", "s2/e/uow"]
+    },
+    {
+      "id": "s2/derived/t/11",
+      "kind": "derivation",
+      "output": "s2/t/11",
+      "rule": "source-inspection/v2",
+      "inputs": ["s2/add", "s2/add.save", "s2/add.saved", "s2/e/add", "s2/e/enabled", "s2/e/uow"]
+    },
+    {
+      "id": "s2/derived/t/12",
+      "kind": "derivation",
+      "output": "s2/t/12",
+      "rule": "source-inspection/v2",
+      "inputs": ["s2/add", "s2/add.conflict", "s2/add.save", "s2/e/add", "s2/e/enabled", "s2/e/uow"]
+    },
+    {
+      "id": "s2/derived/t/13",
+      "kind": "derivation",
+      "output": "s2/t/13",
+      "rule": "source-inspection/v2",
+      "inputs": ["s2/add", "s2/add.error", "s2/add.save", "s2/e/add", "s2/e/enabled", "s2/e/uow"]
+    },
+    {
+      "id": "s2/derived/t/14",
+      "kind": "derivation",
+      "output": "s2/t/14",
+      "rule": "source-inspection/v2",
+      "inputs": ["s2/add", "s2/add.refetch", "s2/add.saved", "s2/e/add", "s2/e/enabled", "s2/e/uow"]
+    },
+    {
+      "id": "s2/derived/t/15",
+      "kind": "derivation",
+      "output": "s2/t/15",
+      "rule": "source-inspection/v2",
+      "inputs": ["s2/add", "s2/add.return", "s2/add.saved", "s2/e/add", "s2/e/enabled", "s2/e/uow"]
+    },
+    {
+      "id": "s2/derived/t/16",
+      "kind": "derivation",
+      "output": "s2/t/16",
+      "rule": "source-inspection/v2",
+      "inputs": [
+        "s2/add",
+        "s2/add.enabled",
+        "s2/add.refetch",
+        "s2/e/add",
+        "s2/e/enabled",
+        "s2/e/uow"
+      ]
+    },
+    {
+      "id": "s2/derived/t/17",
+      "kind": "derivation",
+      "output": "s2/t/17",
+      "rule": "source-inspection/v2",
+      "inputs": [
+        "s2/add",
+        "s2/add.refetch",
+        "s2/add.return",
+        "s2/e/add",
+        "s2/e/enabled",
+        "s2/e/uow"
+      ]
+    },
+    {
+      "id": "s2/derived/t/18",
+      "kind": "derivation",
+      "output": "s2/t/18",
+      "rule": "source-inspection/v2",
+      "inputs": ["s2/add", "s2/add.error", "s2/add.refetch", "s2/e/add", "s2/e/enabled", "s2/e/uow"]
+    },
+    {
+      "id": "s2/derived/t/19",
+      "kind": "derivation",
+      "output": "s2/t/19",
+      "rule": "source-inspection/v2",
+      "inputs": [
+        "s2/add",
+        "s2/add.enabled",
+        "s2/add.notify",
+        "s2/e/add",
+        "s2/e/enabled",
+        "s2/e/uow"
+      ]
+    },
+    {
+      "id": "s2/derived/t/20",
+      "kind": "derivation",
+      "output": "s2/t/20",
+      "rule": "source-inspection/v2",
+      "inputs": [
+        "s2/add",
+        "s2/add.enabled",
+        "s2/add.return",
+        "s2/e/add",
+        "s2/e/enabled",
+        "s2/e/uow"
+      ]
+    },
+    {
+      "id": "s2/derived/t/21",
+      "kind": "derivation",
+      "output": "s2/t/21",
+      "rule": "source-inspection/v2",
+      "inputs": ["s2/add", "s2/add.notify", "s2/add.return", "s2/e/add", "s2/e/enabled", "s2/e/uow"]
+    },
+    {
+      "id": "s2/derived/t/22",
+      "kind": "derivation",
+      "output": "s2/t/22",
+      "rule": "source-inspection/v2",
+      "inputs": ["s2/add", "s2/add.error", "s2/add.notify", "s2/e/add", "s2/e/enabled", "s2/e/uow"]
+    },
+    {
+      "id": "s2/derived/t/23",
+      "kind": "derivation",
+      "output": "s2/t/23",
+      "rule": "source-inspection/v2",
+      "inputs": ["s2/e/builder", "s2/e/notify", "s2/notify", "s2/notify.build", "s2/notify.headers"]
+    },
+    {
+      "id": "s2/derived/t/24",
+      "kind": "derivation",
+      "output": "s2/t/24",
+      "rule": "source-inspection/v2",
+      "inputs": ["s2/e/builder", "s2/e/notify", "s2/notify", "s2/notify.build", "s2/notify.return"]
+    },
+    {
+      "id": "s2/derived/t/25",
+      "kind": "derivation",
+      "output": "s2/t/25",
+      "rule": "source-inspection/v2",
+      "inputs": ["s2/e/builder", "s2/e/notify", "s2/notify", "s2/notify.build", "s2/notify.error"]
+    },
+    {
+      "id": "s2/derived/t/26",
+      "kind": "derivation",
+      "output": "s2/t/26",
+      "rule": "source-inspection/v2",
+      "inputs": ["s2/e/builder", "s2/e/notify", "s2/notify", "s2/notify.headers", "s2/notify.send"]
+    },
+    {
+      "id": "s2/derived/t/27",
+      "kind": "derivation",
+      "output": "s2/t/27",
+      "rule": "source-inspection/v2",
+      "inputs": ["s2/e/builder", "s2/e/notify", "s2/notify", "s2/notify.return", "s2/notify.send"]
+    },
+    {
+      "id": "s2/derived/t/28",
+      "kind": "derivation",
+      "output": "s2/t/28",
+      "rule": "source-inspection/v2",
+      "inputs": ["s2/e/builder", "s2/e/notify", "s2/notify", "s2/notify.error", "s2/notify.send"]
+    },
+    {
+      "id": "s2/derived/t/29",
+      "kind": "derivation",
+      "output": "s2/t/29",
+      "rule": "source-inspection/v2",
+      "inputs": [
+        "s2/e/producer",
+        "s2/e/serializer",
+        "s2/publish",
+        "s2/publish.attempt",
+        "s2/publish.serialise"
+      ]
+    },
+    {
+      "id": "s2/derived/t/30",
+      "kind": "derivation",
+      "output": "s2/t/30",
+      "rule": "source-inspection/v2",
+      "inputs": [
+        "s2/e/producer",
+        "s2/e/serializer",
+        "s2/publish",
+        "s2/publish.return",
+        "s2/publish.serialise"
+      ]
+    },
+    {
+      "id": "s2/derived/t/31",
+      "kind": "derivation",
+      "output": "s2/t/31",
+      "rule": "source-inspection/v2",
+      "inputs": [
+        "s2/e/producer",
+        "s2/e/serializer",
+        "s2/publish",
+        "s2/publish.error",
+        "s2/publish.serialise"
+      ]
+    },
+    {
+      "id": "s2/derived/t/32",
+      "kind": "derivation",
+      "output": "s2/t/32",
+      "rule": "source-inspection/v2",
+      "inputs": [
+        "s2/e/producer",
+        "s2/e/serializer",
+        "s2/publish",
+        "s2/publish.attempt",
+        "s2/publish.receipt"
+      ]
+    },
+    {
+      "id": "s2/derived/t/33",
+      "kind": "derivation",
+      "output": "s2/t/33",
+      "rule": "source-inspection/v2",
+      "inputs": [
+        "s2/e/producer",
+        "s2/e/serializer",
+        "s2/publish",
+        "s2/publish.attempt",
+        "s2/publish.error"
+      ]
+    },
+    {
+      "id": "s2/derived/t/34",
+      "kind": "derivation",
+      "output": "s2/t/34",
+      "rule": "source-inspection/v2",
+      "inputs": [
+        "s2/e/producer",
+        "s2/e/serializer",
+        "s2/publish",
+        "s2/publish.persisted",
+        "s2/publish.receipt"
+      ]
+    },
+    {
+      "id": "s2/derived/t/35",
+      "kind": "derivation",
+      "output": "s2/t/35",
+      "rule": "source-inspection/v2",
+      "inputs": [
+        "s2/e/producer",
+        "s2/e/serializer",
+        "s2/publish",
+        "s2/publish.not-persisted",
+        "s2/publish.receipt"
+      ]
+    },
+    {
+      "id": "s2/derived/t/36",
+      "kind": "derivation",
+      "output": "s2/t/36",
+      "rule": "source-inspection/v2",
+      "inputs": [
+        "s2/e/producer",
+        "s2/e/serializer",
+        "s2/publish",
+        "s2/publish.persisted",
+        "s2/publish.return"
+      ]
+    },
+    {
+      "id": "s2/derived/t/37",
+      "kind": "derivation",
+      "output": "s2/t/37",
+      "rule": "source-inspection/v2",
+      "inputs": [
+        "s2/e/producer",
+        "s2/e/serializer",
+        "s2/publish",
+        "s2/publish.not-persisted",
+        "s2/publish.return"
+      ]
+    },
+    {
+      "id": "s2/derived/t/38",
+      "kind": "derivation",
+      "output": "s2/t/38",
+      "rule": "source-inspection/v2",
+      "inputs": [
+        "s2/consumer",
+        "s2/consumer.parse",
+        "s2/consumer.receive",
+        "s2/e/blob",
+        "s2/e/consumer",
+        "s2/e/list",
+        "s2/e/processor",
+        "s2/e/redis",
+        "s2/e/upsert"
+      ]
+    },
+    {
+      "id": "s2/derived/t/39",
+      "kind": "derivation",
+      "output": "s2/t/39",
+      "rule": "source-inspection/v2",
+      "inputs": [
+        "s2/consumer",
+        "s2/consumer.failed",
+        "s2/consumer.receive",
+        "s2/e/blob",
+        "s2/e/consumer",
+        "s2/e/list",
+        "s2/e/processor",
+        "s2/e/redis",
+        "s2/e/upsert"
+      ]
+    },
+    {
+      "id": "s2/derived/t/40",
+      "kind": "derivation",
+      "output": "s2/t/40",
+      "rule": "source-inspection/v2",
+      "inputs": [
+        "s2/consumer",
+        "s2/consumer.map",
+        "s2/consumer.parse",
+        "s2/e/blob",
+        "s2/e/consumer",
+        "s2/e/list",
+        "s2/e/processor",
+        "s2/e/redis",
+        "s2/e/upsert"
+      ]
+    },
+    {
+      "id": "s2/derived/t/41",
+      "kind": "derivation",
+      "output": "s2/t/41",
+      "rule": "source-inspection/v2",
+      "inputs": [
+        "s2/consumer",
+        "s2/consumer.failed",
+        "s2/consumer.parse",
+        "s2/e/blob",
+        "s2/e/consumer",
+        "s2/e/list",
+        "s2/e/processor",
+        "s2/e/redis",
+        "s2/e/upsert"
+      ]
+    },
+    {
+      "id": "s2/derived/t/42",
+      "kind": "derivation",
+      "output": "s2/t/42",
+      "rule": "source-inspection/v2",
+      "inputs": [
+        "s2/consumer",
+        "s2/consumer.exception",
+        "s2/consumer.parse",
+        "s2/e/blob",
+        "s2/e/consumer",
+        "s2/e/list",
+        "s2/e/processor",
+        "s2/e/redis",
+        "s2/e/upsert"
+      ]
+    },
+    {
+      "id": "s2/derived/t/43",
+      "kind": "derivation",
+      "output": "s2/t/43",
+      "rule": "source-inspection/v2",
+      "inputs": [
+        "s2/consumer",
+        "s2/consumer.list",
+        "s2/consumer.map",
+        "s2/e/blob",
+        "s2/e/consumer",
+        "s2/e/list",
+        "s2/e/processor",
+        "s2/e/redis",
+        "s2/e/upsert"
+      ]
+    },
+    {
+      "id": "s2/derived/t/44",
+      "kind": "derivation",
+      "output": "s2/t/44",
+      "rule": "source-inspection/v2",
+      "inputs": [
+        "s2/consumer",
+        "s2/consumer.failed",
+        "s2/consumer.map",
+        "s2/e/blob",
+        "s2/e/consumer",
+        "s2/e/list",
+        "s2/e/processor",
+        "s2/e/redis",
+        "s2/e/upsert"
+      ]
+    },
+    {
+      "id": "s2/derived/t/45",
+      "kind": "derivation",
+      "output": "s2/t/45",
+      "rule": "source-inspection/v2",
+      "inputs": [
+        "s2/consumer",
+        "s2/consumer.hot-read",
+        "s2/consumer.list",
+        "s2/e/blob",
+        "s2/e/consumer",
+        "s2/e/list",
+        "s2/e/processor",
+        "s2/e/redis",
+        "s2/e/upsert"
+      ]
+    },
+    {
+      "id": "s2/derived/t/46",
+      "kind": "derivation",
+      "output": "s2/t/46",
+      "rule": "source-inspection/v2",
+      "inputs": [
+        "s2/consumer",
+        "s2/consumer.cold-exists",
+        "s2/consumer.list",
+        "s2/e/blob",
+        "s2/e/consumer",
+        "s2/e/list",
+        "s2/e/processor",
+        "s2/e/redis",
+        "s2/e/upsert"
+      ]
+    },
+    {
+      "id": "s2/derived/t/47",
+      "kind": "derivation",
+      "output": "s2/t/47",
+      "rule": "source-inspection/v2",
+      "inputs": [
+        "s2/consumer",
+        "s2/consumer.hot-read",
+        "s2/consumer.upsert",
+        "s2/e/blob",
+        "s2/e/consumer",
+        "s2/e/list",
+        "s2/e/processor",
+        "s2/e/redis",
+        "s2/e/upsert"
+      ]
+    },
+    {
+      "id": "s2/derived/t/48",
+      "kind": "derivation",
+      "output": "s2/t/48",
+      "rule": "source-inspection/v2",
+      "inputs": [
+        "s2/consumer",
+        "s2/consumer.failed",
+        "s2/consumer.hot-read",
+        "s2/e/blob",
+        "s2/e/consumer",
+        "s2/e/list",
+        "s2/e/processor",
+        "s2/e/redis",
+        "s2/e/upsert"
+      ]
+    },
+    {
+      "id": "s2/derived/t/49",
+      "kind": "derivation",
+      "output": "s2/t/49",
+      "rule": "source-inspection/v2",
+      "inputs": [
+        "s2/consumer",
+        "s2/consumer.cold-exists",
+        "s2/consumer.cold-read",
+        "s2/e/blob",
+        "s2/e/consumer",
+        "s2/e/list",
+        "s2/e/processor",
+        "s2/e/redis",
+        "s2/e/upsert"
+      ]
+    },
+    {
+      "id": "s2/derived/t/50",
+      "kind": "derivation",
+      "output": "s2/t/50",
+      "rule": "source-inspection/v2",
+      "inputs": [
+        "s2/consumer",
+        "s2/consumer.cold-exists",
+        "s2/consumer.empty",
+        "s2/e/blob",
+        "s2/e/consumer",
+        "s2/e/list",
+        "s2/e/processor",
+        "s2/e/redis",
+        "s2/e/upsert"
+      ]
+    },
+    {
+      "id": "s2/derived/t/51",
+      "kind": "derivation",
+      "output": "s2/t/51",
+      "rule": "source-inspection/v2",
+      "inputs": [
+        "s2/consumer",
+        "s2/consumer.cold-exists",
+        "s2/consumer.failed",
+        "s2/e/blob",
+        "s2/e/consumer",
+        "s2/e/list",
+        "s2/e/processor",
+        "s2/e/redis",
+        "s2/e/upsert"
+      ]
+    },
+    {
+      "id": "s2/derived/t/52",
+      "kind": "derivation",
+      "output": "s2/t/52",
+      "rule": "source-inspection/v2",
+      "inputs": [
+        "s2/consumer",
+        "s2/consumer.empty",
+        "s2/consumer.upsert",
+        "s2/e/blob",
+        "s2/e/consumer",
+        "s2/e/list",
+        "s2/e/processor",
+        "s2/e/redis",
+        "s2/e/upsert"
+      ]
+    },
+    {
+      "id": "s2/derived/t/53",
+      "kind": "derivation",
+      "output": "s2/t/53",
+      "rule": "source-inspection/v2",
+      "inputs": [
+        "s2/consumer",
+        "s2/consumer.cold-read",
+        "s2/consumer.hydrate",
+        "s2/e/blob",
+        "s2/e/consumer",
+        "s2/e/list",
+        "s2/e/processor",
+        "s2/e/redis",
+        "s2/e/upsert"
+      ]
+    },
+    {
+      "id": "s2/derived/t/54",
+      "kind": "derivation",
+      "output": "s2/t/54",
+      "rule": "source-inspection/v2",
+      "inputs": [
+        "s2/consumer",
+        "s2/consumer.cold-read",
+        "s2/consumer.failed",
+        "s2/e/blob",
+        "s2/e/consumer",
+        "s2/e/list",
+        "s2/e/processor",
+        "s2/e/redis",
+        "s2/e/upsert"
+      ]
+    },
+    {
+      "id": "s2/derived/t/55",
+      "kind": "derivation",
+      "output": "s2/t/55",
+      "rule": "source-inspection/v2",
+      "inputs": [
+        "s2/consumer",
+        "s2/consumer.deserialise",
+        "s2/consumer.hydrate",
+        "s2/e/blob",
+        "s2/e/consumer",
+        "s2/e/list",
+        "s2/e/processor",
+        "s2/e/redis",
+        "s2/e/upsert"
+      ]
+    },
+    {
+      "id": "s2/derived/t/56",
+      "kind": "derivation",
+      "output": "s2/t/56",
+      "rule": "source-inspection/v2",
+      "inputs": [
+        "s2/consumer",
+        "s2/consumer.exception",
+        "s2/consumer.hydrate",
+        "s2/e/blob",
+        "s2/e/consumer",
+        "s2/e/list",
+        "s2/e/processor",
+        "s2/e/redis",
+        "s2/e/upsert"
+      ]
+    },
+    {
+      "id": "s2/derived/t/57",
+      "kind": "derivation",
+      "output": "s2/t/57",
+      "rule": "source-inspection/v2",
+      "inputs": [
+        "s2/consumer",
+        "s2/consumer.deserialise",
+        "s2/consumer.upsert",
+        "s2/e/blob",
+        "s2/e/consumer",
+        "s2/e/list",
+        "s2/e/processor",
+        "s2/e/redis",
+        "s2/e/upsert"
+      ]
+    },
+    {
+      "id": "s2/derived/t/58",
+      "kind": "derivation",
+      "output": "s2/t/58",
+      "rule": "source-inspection/v2",
+      "inputs": [
+        "s2/consumer",
+        "s2/consumer.deserialise",
+        "s2/consumer.failed",
+        "s2/e/blob",
+        "s2/e/consumer",
+        "s2/e/list",
+        "s2/e/processor",
+        "s2/e/redis",
+        "s2/e/upsert"
+      ]
+    },
+    {
+      "id": "s2/derived/t/59",
+      "kind": "derivation",
+      "output": "s2/t/59",
+      "rule": "source-inspection/v2",
+      "inputs": [
+        "s2/consumer",
+        "s2/consumer.serialise",
+        "s2/consumer.upsert",
+        "s2/e/blob",
+        "s2/e/consumer",
+        "s2/e/list",
+        "s2/e/processor",
+        "s2/e/redis",
+        "s2/e/upsert"
+      ]
+    },
+    {
+      "id": "s2/derived/t/60",
+      "kind": "derivation",
+      "output": "s2/t/60",
+      "rule": "source-inspection/v2",
+      "inputs": [
+        "s2/consumer",
+        "s2/consumer.cold",
+        "s2/consumer.serialise",
+        "s2/e/blob",
+        "s2/e/consumer",
+        "s2/e/list",
+        "s2/e/processor",
+        "s2/e/redis",
+        "s2/e/upsert"
+      ]
+    },
+    {
+      "id": "s2/derived/t/61",
+      "kind": "derivation",
+      "output": "s2/t/61",
+      "rule": "source-inspection/v2",
+      "inputs": [
+        "s2/consumer",
+        "s2/consumer.failed",
+        "s2/consumer.serialise",
+        "s2/e/blob",
+        "s2/e/consumer",
+        "s2/e/list",
+        "s2/e/processor",
+        "s2/e/redis",
+        "s2/e/upsert"
+      ]
+    },
+    {
+      "id": "s2/derived/t/62",
+      "kind": "derivation",
+      "output": "s2/t/62",
+      "rule": "source-inspection/v2",
+      "inputs": [
+        "s2/consumer",
+        "s2/consumer.cold",
+        "s2/consumer.cold-ok",
+        "s2/e/blob",
+        "s2/e/consumer",
+        "s2/e/list",
+        "s2/e/processor",
+        "s2/e/redis",
+        "s2/e/upsert"
+      ]
+    },
+    {
+      "id": "s2/derived/t/63",
+      "kind": "derivation",
+      "output": "s2/t/63",
+      "rule": "source-inspection/v2",
+      "inputs": [
+        "s2/consumer",
+        "s2/consumer.cold",
+        "s2/consumer.failed",
+        "s2/e/blob",
+        "s2/e/consumer",
+        "s2/e/list",
+        "s2/e/processor",
+        "s2/e/redis",
+        "s2/e/upsert"
+      ]
+    },
+    {
+      "id": "s2/derived/t/64",
+      "kind": "derivation",
+      "output": "s2/t/64",
+      "rule": "source-inspection/v2",
+      "inputs": [
+        "s2/consumer",
+        "s2/consumer.cold-ok",
+        "s2/consumer.hot",
+        "s2/e/blob",
+        "s2/e/consumer",
+        "s2/e/list",
+        "s2/e/processor",
+        "s2/e/redis",
+        "s2/e/upsert"
+      ]
+    },
+    {
+      "id": "s2/derived/t/65",
+      "kind": "derivation",
+      "output": "s2/t/65",
+      "rule": "source-inspection/v2",
+      "inputs": [
+        "s2/consumer",
+        "s2/consumer.hot",
+        "s2/consumer.hot-ok",
+        "s2/e/blob",
+        "s2/e/consumer",
+        "s2/e/list",
+        "s2/e/processor",
+        "s2/e/redis",
+        "s2/e/upsert"
+      ]
+    },
+    {
+      "id": "s2/derived/t/66",
+      "kind": "derivation",
+      "output": "s2/t/66",
+      "rule": "source-inspection/v2",
+      "inputs": [
+        "s2/consumer",
+        "s2/consumer.failed",
+        "s2/consumer.hot",
+        "s2/e/blob",
+        "s2/e/consumer",
+        "s2/e/list",
+        "s2/e/processor",
+        "s2/e/redis",
+        "s2/e/upsert"
+      ]
+    },
+    {
+      "id": "s2/derived/t/67",
+      "kind": "derivation",
+      "output": "s2/t/67",
+      "rule": "source-inspection/v2",
+      "inputs": [
+        "s2/consumer",
+        "s2/consumer.done",
+        "s2/consumer.hot-ok",
+        "s2/e/blob",
+        "s2/e/consumer",
+        "s2/e/list",
+        "s2/e/processor",
+        "s2/e/redis",
+        "s2/e/upsert"
+      ]
+    },
+    {
+      "id": "s2/derived/shape/input",
+      "kind": "derivation",
+      "output": "s2/shape/input",
+      "rule": "source-inspection/v2",
+      "inputs": ["s2/e/input"]
+    },
+    {
+      "id": "s2/derived/shape/core",
+      "kind": "derivation",
+      "output": "s2/shape/core",
+      "rule": "source-inspection/v2",
+      "inputs": ["s2/e/identity", "s2/e/mapping", "s2/e/softoffer"]
+    },
+    {
+      "id": "s2/derived/shape/row",
+      "kind": "derivation",
+      "output": "s2/shape/row",
+      "rule": "source-inspection/v2",
+      "inputs": ["s2/e/db"]
+    },
+    {
+      "id": "s2/derived/shape/p-body",
+      "kind": "derivation",
+      "output": "s2/shape/p-body",
+      "rule": "source-inspection/v2",
+      "inputs": ["s2/e/producer-proto"]
+    },
+    {
+      "id": "s2/derived/shape/p-wire",
+      "kind": "derivation",
+      "output": "s2/shape/p-wire",
+      "rule": "source-inspection/v2",
+      "inputs": ["s2/e/producer-proto", "s2/shape/p-body"]
+    },
+    {
+      "id": "s2/derived/shape/c-body",
+      "kind": "derivation",
+      "output": "s2/shape/c-body",
+      "rule": "source-inspection/v2",
+      "inputs": ["s2/e/consumer-proto"]
+    },
+    {
+      "id": "s2/derived/shape/c-wire",
+      "kind": "derivation",
+      "output": "s2/shape/c-wire",
+      "rule": "source-inspection/v2",
+      "inputs": ["s2/e/consumer-proto", "s2/shape/c-body"]
+    },
+    {
+      "id": "s2/derived/shape/upstream-entity",
+      "kind": "derivation",
+      "output": "s2/shape/upstream-entity",
+      "rule": "source-inspection/v2",
+      "inputs": ["s2/e/cache-serializer", "s2/e/upstream"]
+    },
+    {
+      "id": "s2/derived/shape/upstream",
+      "kind": "derivation",
+      "output": "s2/shape/upstream",
+      "rule": "source-inspection/v2",
+      "inputs": ["s2/e/cache-serializer", "s2/e/upstream", "s2/shape/upstream-entity"]
+    },
+    {
+      "id": "s2/derived/v/request",
+      "kind": "derivation",
+      "output": "s2/v/request",
+      "rule": "source-inspection/v2",
+      "inputs": ["s2/e/controller", "s2/e/input", "s2/http", "s2/http.start", "s2/shape/input"]
+    },
+    {
+      "id": "s2/derived/v/input",
+      "kind": "derivation",
+      "output": "s2/v/input",
+      "rule": "source-inspection/v2",
+      "inputs": ["s2/e/mapping", "s2/http", "s2/http.map", "s2/shape/core"]
+    },
+    {
+      "id": "s2/derived/v/entity",
+      "kind": "derivation",
+      "output": "s2/v/entity",
+      "rule": "source-inspection/v2",
+      "inputs": ["s2/add", "s2/add.identity", "s2/e/add"]
+    },
+    {
+      "id": "s2/derived/v/saved-entity",
+      "kind": "derivation",
+      "output": "s2/v/saved-entity",
+      "rule": "source-inspection/v2",
+      "inputs": ["s2/add", "s2/add.refetch", "s2/e/add", "s2/e/refetch"]
+    },
+    {
+      "id": "s2/derived/v/notice",
+      "kind": "derivation",
+      "output": "s2/v/notice",
+      "rule": "source-inspection/v2",
+      "inputs": ["s2/e/notify", "s2/notify", "s2/notify.build"]
+    },
+    {
+      "id": "s2/derived/v/created-message",
+      "kind": "derivation",
+      "output": "s2/v/created-message",
+      "rule": "source-inspection/v2",
+      "inputs": [
+        "s2/e/builder",
+        "s2/e/producer-proto",
+        "s2/notify",
+        "s2/notify.build",
+        "s2/shape/p-wire"
+      ]
+    },
+    {
+      "id": "s2/derived/v/message",
+      "kind": "derivation",
+      "output": "s2/v/message",
+      "rule": "source-inspection/v2",
+      "inputs": [
+        "s2/e/producer",
+        "s2/e/serializer",
+        "s2/publish",
+        "s2/publish.serialise",
+        "s2/shape/p-wire"
+      ]
+    },
+    {
+      "id": "s2/derived/v/payload",
+      "kind": "derivation",
+      "output": "s2/v/payload",
+      "rule": "source-inspection/v2",
+      "inputs": [
+        "s2/consumer",
+        "s2/consumer.receive",
+        "s2/e/consumer-proto",
+        "s2/e/processor",
+        "s2/shape/c-wire"
+      ]
+    },
+    {
+      "id": "s2/derived/v/correlation",
+      "kind": "derivation",
+      "output": "s2/v/correlation",
+      "rule": "source-inspection/v2",
+      "inputs": ["s2/e/headers", "s2/e/notify", "s2/publish", "s2/publish.attempt"]
+    },
+    {
+      "id": "s2/derived/v/entity-id",
+      "kind": "derivation",
+      "output": "s2/v/entity-id",
+      "rule": "source-inspection/v2",
+      "inputs": ["s2/consumer", "s2/consumer.map", "s2/e/processor"]
+    },
+    {
+      "id": "s2/derived/v/list",
+      "kind": "derivation",
+      "output": "s2/v/list",
+      "rule": "source-inspection/v2",
+      "inputs": [
+        "s2/consumer",
+        "s2/consumer.serialise",
+        "s2/e/cache-serializer",
+        "s2/e/upsert",
+        "s2/shape/upstream"
+      ]
+    },
+    {
+      "id": "s2/derived/v/input-name",
+      "kind": "derivation",
+      "output": "s2/v/input-name",
+      "rule": "source-inspection/v2",
+      "inputs": ["s2/e/input", "s2/e/mapping", "s2/http", "s2/http.start"]
+    },
+    {
+      "id": "s2/derived/v/entity-name",
+      "kind": "derivation",
+      "output": "s2/v/entity-name",
+      "rule": "source-inspection/v2",
+      "inputs": ["s2/add", "s2/add.identity", "s2/e/add", "s2/e/mapping"]
+    },
+    {
+      "id": "s2/derived/v/saved-name",
+      "kind": "derivation",
+      "output": "s2/v/saved-name",
+      "rule": "source-inspection/v2",
+      "inputs": ["s2/add", "s2/add.refetch", "s2/e/add", "s2/e/refetch"]
+    },
+    {
+      "id": "s2/derived/v/notice-name",
+      "kind": "derivation",
+      "output": "s2/v/notice-name",
+      "rule": "source-inspection/v2",
+      "inputs": ["s2/e/notify", "s2/notify", "s2/notify.build"]
+    },
+    {
+      "id": "s2/derived/v/created-name",
+      "kind": "derivation",
+      "output": "s2/v/created-name",
+      "rule": "source-inspection/v2",
+      "inputs": ["s2/e/builder", "s2/e/mapping", "s2/notify", "s2/notify.build"]
+    },
+    {
+      "id": "s2/derived/v/wire-name",
+      "kind": "derivation",
+      "output": "s2/v/wire-name",
+      "rule": "source-inspection/v2",
+      "inputs": ["s2/e/producer-proto", "s2/e/serializer", "s2/publish", "s2/publish.serialise"]
+    },
+    {
+      "id": "s2/derived/v/received-name",
+      "kind": "derivation",
+      "output": "s2/v/received-name",
+      "rule": "source-inspection/v2",
+      "inputs": ["s2/consumer", "s2/consumer.parse", "s2/e/consumer-proto", "s2/e/processor"]
+    },
+    {
+      "id": "s2/derived/v/cached-name",
+      "kind": "derivation",
+      "output": "s2/v/cached-name",
+      "rule": "source-inspection/v2",
+      "inputs": ["s2/consumer", "s2/consumer.map", "s2/e/processor", "s2/e/upstream"]
+    },
+    {
+      "id": "s2/derived/flow/1",
+      "kind": "derivation",
+      "output": "s2/flow/1",
+      "rule": "source-inspection/v2",
+      "inputs": [
+        "s2/e/mapping",
+        "s2/gap/mapping",
+        "s2/http",
+        "s2/http.map",
+        "s2/v/input",
+        "s2/v/request"
+      ]
+    },
+    {
+      "id": "s2/derived/flow/2",
+      "kind": "derivation",
+      "output": "s2/flow/2",
+      "rule": "source-inspection/v2",
+      "inputs": ["s2/e/mapping", "s2/http", "s2/http.map", "s2/v/input", "s2/v/input-name"]
+    },
+    {
+      "id": "s2/derived/flow/3",
+      "kind": "derivation",
+      "output": "s2/flow/3",
+      "rule": "source-inspection/v2",
+      "inputs": [
+        "s2/add",
+        "s2/add.refetch",
+        "s2/e/add",
+        "s2/e/refetch",
+        "s2/v/entity",
+        "s2/v/saved-entity"
+      ]
+    },
+    {
+      "id": "s2/derived/flow/4",
+      "kind": "derivation",
+      "output": "s2/flow/4",
+      "rule": "source-inspection/v2",
+      "inputs": [
+        "s2/add",
+        "s2/add.refetch",
+        "s2/e/add",
+        "s2/e/refetch",
+        "s2/v/entity-name",
+        "s2/v/saved-name"
+      ]
+    },
+    {
+      "id": "s2/derived/flow/5",
+      "kind": "derivation",
+      "output": "s2/flow/5",
+      "rule": "source-inspection/v2",
+      "inputs": [
+        "s2/e/builder",
+        "s2/e/mapping",
+        "s2/gap/mapping",
+        "s2/notify",
+        "s2/notify.build",
+        "s2/v/created-message",
+        "s2/v/notice"
+      ]
+    },
+    {
+      "id": "s2/derived/flow/6",
+      "kind": "derivation",
+      "output": "s2/flow/6",
+      "rule": "source-inspection/v2",
+      "inputs": [
+        "s2/e/builder",
+        "s2/e/mapping",
+        "s2/gap/mapping",
+        "s2/notify",
+        "s2/notify.build",
+        "s2/v/created-name",
+        "s2/v/notice-name"
+      ]
+    },
+    {
+      "id": "s2/derived/flow/7",
+      "kind": "derivation",
+      "output": "s2/flow/7",
+      "rule": "source-inspection/v2",
+      "inputs": [
+        "s2/consumer",
+        "s2/consumer.map",
+        "s2/e/processor",
+        "s2/v/entity-id",
+        "s2/v/payload"
+      ]
+    },
+    {
+      "id": "s2/derived/flow/8",
+      "kind": "derivation",
+      "output": "s2/flow/8",
+      "rule": "source-inspection/v2",
+      "inputs": [
+        "s2/consumer",
+        "s2/consumer.map",
+        "s2/e/processor",
+        "s2/v/cached-name",
+        "s2/v/received-name"
+      ]
+    },
+    {
+      "id": "s2/derived/flow/9",
+      "kind": "derivation",
+      "output": "s2/flow/9",
+      "rule": "source-inspection/v2",
+      "inputs": [
+        "s2/consumer",
+        "s2/consumer.serialise",
+        "s2/e/cache-serializer",
+        "s2/e/upsert",
+        "s2/v/cached-name",
+        "s2/v/list"
+      ]
+    },
+    {
+      "id": "s2/derived/v/input-code",
+      "kind": "derivation",
+      "output": "s2/v/input-code",
+      "rule": "source-inspection/v2",
+      "inputs": ["s2/e/mapping", "s2/http", "s2/http.map"]
+    },
+    {
+      "id": "s2/derived/v/entity-code",
+      "kind": "derivation",
+      "output": "s2/v/entity-code",
+      "rule": "source-inspection/v2",
+      "inputs": ["s2/add", "s2/add.identity", "s2/e/add", "s2/e/mapping"]
+    },
+    {
+      "id": "s2/derived/v/input-type",
+      "kind": "derivation",
+      "output": "s2/v/input-type",
+      "rule": "source-inspection/v2",
+      "inputs": ["s2/e/mapping", "s2/http", "s2/http.map"]
+    },
+    {
+      "id": "s2/derived/v/entity-type",
+      "kind": "derivation",
+      "output": "s2/v/entity-type",
+      "rule": "source-inspection/v2",
+      "inputs": ["s2/add", "s2/add.identity", "s2/e/add", "s2/e/mapping"]
+    },
+    {
+      "id": "s2/derived/v/input-skucategory",
+      "kind": "derivation",
+      "output": "s2/v/input-skucategory",
+      "rule": "source-inspection/v2",
+      "inputs": ["s2/e/mapping", "s2/http", "s2/http.map"]
+    },
+    {
+      "id": "s2/derived/v/entity-skucategory",
+      "kind": "derivation",
+      "output": "s2/v/entity-skucategory",
+      "rule": "source-inspection/v2",
+      "inputs": ["s2/add", "s2/add.identity", "s2/e/add", "s2/e/mapping"]
+    },
+    {
+      "id": "s2/derived/v/input-skuidentifier",
+      "kind": "derivation",
+      "output": "s2/v/input-skuidentifier",
+      "rule": "source-inspection/v2",
+      "inputs": ["s2/e/mapping", "s2/http", "s2/http.map"]
+    },
+    {
+      "id": "s2/derived/v/entity-skuidentifier",
+      "kind": "derivation",
+      "output": "s2/v/entity-skuidentifier",
+      "rule": "source-inspection/v2",
+      "inputs": ["s2/add", "s2/add.identity", "s2/e/add", "s2/e/mapping"]
+    },
+    {
+      "id": "s2/derived/v/internal-id",
+      "kind": "derivation",
+      "output": "s2/v/internal-id",
+      "rule": "source-inspection/v2",
+      "inputs": ["s2/add", "s2/add.identity", "s2/e/mapping", "s2/e/uow"]
+    },
+    {
+      "id": "s2/derived/v/id",
+      "kind": "derivation",
+      "output": "s2/v/id",
+      "rule": "source-inspection/v2",
+      "inputs": ["s2/add", "s2/add.identity", "s2/e/id-helper", "s2/e/identity", "s2/e/softoffer"]
+    },
+    {
+      "id": "s2/derived/flow/10",
+      "kind": "derivation",
+      "output": "s2/flow/10",
+      "rule": "source-inspection/v2",
+      "inputs": [
+        "s2/add",
+        "s2/add.identity",
+        "s2/e/id-helper",
+        "s2/e/identity",
+        "s2/e/softoffer",
+        "s2/v/entity-code",
+        "s2/v/id"
+      ]
+    },
+    {
+      "id": "s2/derived/postgres",
+      "kind": "derivation",
+      "output": "s2/postgres",
+      "rule": "source-inspection/v2",
+      "inputs": ["s2/e/db", "s2/e/npgsql", "s2/gap/deployment", "s2/shape/row"]
+    },
+    {
+      "id": "s2/derived/topic",
+      "kind": "derivation",
+      "output": "s2/topic",
+      "rule": "source-inspection/v2",
+      "inputs": [
+        "s2/e/consumer-base-config",
+        "s2/e/prod-config",
+        "s2/gap/deployment",
+        "s2/shape/c-wire",
+        "s2/shape/p-wire"
+      ]
+    },
+    {
+      "id": "s2/derived/blob",
+      "kind": "derivation",
+      "output": "s2/blob",
+      "rule": "source-inspection/v2",
+      "inputs": [
+        "s2/e/blob",
+        "s2/e/blob-key",
+        "s2/e/blob-repository",
+        "s2/gap/deployment",
+        "s2/shape/upstream"
+      ]
+    },
+    {
+      "id": "s2/derived/redis",
+      "kind": "derivation",
+      "output": "s2/redis",
+      "rule": "source-inspection/v2",
+      "inputs": ["s2/e/list", "s2/e/redis", "s2/gap/deployment", "s2/shape/upstream"]
+    },
+    {
+      "id": "s2/derived/effect/save",
+      "kind": "derivation",
+      "output": "s2/effect/save",
+      "rule": "source-inspection/v2",
+      "inputs": [
+        "s2/add",
+        "s2/add.save",
+        "s2/e/db",
+        "s2/e/repository",
+        "s2/e/uow",
+        "s2/postgres",
+        "s2/v/entity"
+      ]
+    },
+    {
+      "id": "s2/derived/effect/refetch",
+      "kind": "derivation",
+      "output": "s2/effect/refetch",
+      "rule": "source-inspection/v2",
+      "inputs": [
+        "s2/add",
+        "s2/add.refetch",
+        "s2/e/add",
+        "s2/e/refetch",
+        "s2/postgres",
+        "s2/v/saved-entity"
+      ]
+    },
+    {
+      "id": "s2/derived/effect/publish",
+      "kind": "derivation",
+      "output": "s2/effect/publish",
+      "rule": "source-inspection/v2",
+      "inputs": [
+        "s2/e/producer",
+        "s2/publish",
+        "s2/publish.attempt",
+        "s2/topic",
+        "s2/v/correlation",
+        "s2/v/message",
+        "s2/v/wire-name"
+      ]
+    },
+    {
+      "id": "s2/derived/effect/list-hot",
+      "kind": "derivation",
+      "output": "s2/effect/list-hot",
+      "rule": "source-inspection/v2",
+      "inputs": ["s2/consumer", "s2/consumer.hot-read", "s2/e/list", "s2/redis"]
+    },
+    {
+      "id": "s2/derived/effect/list-cold",
+      "kind": "derivation",
+      "output": "s2/effect/list-cold",
+      "rule": "source-inspection/v2",
+      "inputs": ["s2/blob", "s2/consumer", "s2/consumer.cold-read", "s2/e/list"]
+    },
+    {
+      "id": "s2/derived/effect/hydrate",
+      "kind": "derivation",
+      "output": "s2/effect/hydrate",
+      "rule": "source-inspection/v2",
+      "inputs": ["s2/consumer", "s2/consumer.hydrate", "s2/e/list", "s2/redis"]
+    },
+    {
+      "id": "s2/derived/effect/cold",
+      "kind": "derivation",
+      "output": "s2/effect/cold",
+      "rule": "source-inspection/v2",
+      "inputs": [
+        "s2/blob",
+        "s2/consumer",
+        "s2/consumer.cold",
+        "s2/e/blob",
+        "s2/e/list",
+        "s2/v/cached-name",
+        "s2/v/list"
+      ]
+    },
+    {
+      "id": "s2/derived/effect/hot",
+      "kind": "derivation",
+      "output": "s2/effect/hot",
+      "rule": "source-inspection/v2",
+      "inputs": [
+        "s2/consumer",
+        "s2/consumer.hot",
+        "s2/e/list",
+        "s2/e/redis",
+        "s2/redis",
+        "s2/v/cached-name",
+        "s2/v/list"
+      ]
+    },
+    {
+      "id": "s2/derived/write/save",
+      "kind": "derivation",
+      "output": "s2/write/save",
+      "rule": "source-inspection/v2",
+      "inputs": [
+        "s2/add",
+        "s2/add.saved",
+        "s2/add.stage",
+        "s2/e/db",
+        "s2/e/repository",
+        "s2/e/uow",
+        "s2/effect/save",
+        "s2/gap/deployment",
+        "s2/v/entity-code",
+        "s2/v/entity-name",
+        "s2/v/entity-skucategory",
+        "s2/v/entity-skuidentifier",
+        "s2/v/entity-type",
+        "s2/v/id",
+        "s2/v/internal-id"
+      ]
+    },
+    {
+      "id": "s2/derived/write/cold",
+      "kind": "derivation",
+      "output": "s2/write/cold",
+      "rule": "source-inspection/v2",
+      "inputs": [
+        "s2/consumer",
+        "s2/consumer.cold-ok",
+        "s2/consumer.serialise",
+        "s2/e/blob",
+        "s2/e/list",
+        "s2/effect/cold",
+        "s2/gap/deployment",
+        "s2/v/list"
+      ]
+    },
+    {
+      "id": "s2/derived/write/hot",
+      "kind": "derivation",
+      "output": "s2/write/hot",
+      "rule": "source-inspection/v2",
+      "inputs": [
+        "s2/consumer",
+        "s2/consumer.hot-ok",
+        "s2/consumer.serialise",
+        "s2/e/list",
+        "s2/e/redis",
+        "s2/effect/hot",
+        "s2/gap/deployment",
+        "s2/v/list"
+      ]
+    },
+    {
+      "id": "s2/derived/v/cold-list",
+      "kind": "derivation",
+      "output": "s2/v/cold-list",
+      "rule": "source-inspection/v2",
+      "inputs": ["s2/consumer", "s2/consumer.cold-read", "s2/e/list", "s2/shape/upstream"]
+    },
+    {
+      "id": "s2/derived/write/hydrate",
+      "kind": "derivation",
+      "output": "s2/write/hydrate",
+      "rule": "source-inspection/v2",
+      "inputs": [
+        "s2/consumer",
+        "s2/consumer.cold-read",
+        "s2/consumer.deserialise",
+        "s2/e/list",
+        "s2/e/redis",
+        "s2/effect/hydrate",
+        "s2/gap/deployment",
+        "s2/v/cold-list"
+      ]
+    },
+    {
+      "id": "s2/derived/channel/producer",
+      "kind": "derivation",
+      "output": "s2/channel/producer",
+      "rule": "source-inspection/v2",
+      "inputs": [
+        "s2/e/base-config",
+        "s2/e/prod-config",
+        "s2/e/producer-config",
+        "s2/gap/deployment",
+        "s2/p",
+        "s2/topic"
+      ]
+    },
+    {
+      "id": "s2/derived/channel/consumer",
+      "kind": "derivation",
+      "output": "s2/channel/consumer",
+      "rule": "source-inspection/v2",
+      "inputs": [
+        "s2/c",
+        "s2/e/consumer-base-config",
+        "s2/e/consumer-config",
+        "s2/e/consumer-prod-config",
+        "s2/gap/deployment",
+        "s2/topic"
+      ]
+    },
+    {
+      "id": "s2/derived/policy/producer",
+      "kind": "derivation",
+      "output": "s2/policy/producer",
+      "rule": "source-inspection/v2",
+      "inputs": [
+        "s2/e/producer",
+        "s2/e/producer-config",
+        "s2/gap/deployment",
+        "s2/gap/sdk-policy",
+        "s2/publish",
+        "s2/publish.attempt"
+      ]
+    },
+    {
+      "id": "s2/derived/policy/consumer",
+      "kind": "derivation",
+      "output": "s2/policy/consumer",
+      "rule": "source-inspection/v2",
+      "inputs": [
+        "s2/consumer",
+        "s2/consumer.receive",
+        "s2/e/consumer",
+        "s2/e/consumer-config",
+        "s2/e/upsert",
+        "s2/gap/concurrency",
+        "s2/gap/deployment",
+        "s2/gap/offsets",
+        "s2/v/entity-id"
+      ]
+    },
+    {
+      "id": "s2/derived/subscription",
+      "kind": "derivation",
+      "output": "s2/subscription",
+      "rule": "source-inspection/v2",
+      "inputs": [
+        "s2/channel/consumer",
+        "s2/consumer",
+        "s2/e/consumer",
+        "s2/e/consumer-base-config",
+        "s2/e/consumer-prod-config",
+        "s2/e/filter",
+        "s2/e/processor",
+        "s2/gap/deployment",
+        "s2/gap/offsets",
+        "s2/policy/consumer",
+        "s2/v/payload"
+      ]
+    },
+    {
+      "id": "s2/derived/handoff",
+      "kind": "derivation",
+      "output": "s2/handoff",
+      "rule": "committed-channel-and-protobuf-match/v2",
+      "inputs": [
+        "s2/channel/producer",
+        "s2/e/consumer-base-config",
+        "s2/e/consumer-proto",
+        "s2/e/filter",
+        "s2/e/headers",
+        "s2/e/processor",
+        "s2/e/prod-config",
+        "s2/e/producer",
+        "s2/e/producer-proto",
+        "s2/effect/publish",
+        "s2/gap/deployment",
+        "s2/gap/offsets",
+        "s2/gap/sdk-policy",
+        "s2/policy/producer",
+        "s2/publish",
+        "s2/shape/p-wire",
+        "s2/subscription",
+        "s2/v/correlation",
+        "s2/v/message",
+        "s2/v/payload",
+        "s2/v/received-name",
+        "s2/v/wire-name"
+      ]
+    },
+    {
+      "id": "s2/derived/boundary/database-message",
+      "kind": "derivation",
+      "output": "s2/boundary/database-message",
+      "rule": "source-inspection/v2",
+      "inputs": [
+        "s2/add",
+        "s2/add.notify",
+        "s2/add.saved",
+        "s2/e/add",
+        "s2/e/enabled",
+        "s2/e/notify",
+        "s2/e/producer",
+        "s2/effect/publish",
+        "s2/effect/save",
+        "s2/gap/deployment",
+        "s2/gap/sdk-policy"
+      ]
+    },
+    {
+      "id": "s2/derived/boundary/cold-hot",
+      "kind": "derivation",
+      "output": "s2/boundary/cold-hot",
+      "rule": "source-inspection/v2",
+      "inputs": [
+        "s2/consumer",
+        "s2/consumer.cold-ok",
+        "s2/consumer.hot",
+        "s2/e/blob",
+        "s2/e/list",
+        "s2/e/redis",
+        "s2/e/upsert",
+        "s2/effect/cold",
+        "s2/effect/hot",
+        "s2/gap/concurrency",
+        "s2/gap/offsets"
+      ]
+    },
+    {
+      "id": "s2/derived/milestone/saved",
+      "kind": "derivation",
+      "output": "s2/milestone/saved",
+      "rule": "source-inspection/v2",
+      "inputs": ["s2/add", "s2/add.saved", "s2/e/add", "s2/e/uow", "s2/postgres"]
+    },
+    {
+      "id": "s2/derived/milestone/attempt",
+      "kind": "derivation",
+      "output": "s2/milestone/attempt",
+      "rule": "source-inspection/v2",
+      "inputs": ["s2/e/producer", "s2/publish", "s2/publish.attempt", "s2/topic"]
+    },
+    {
+      "id": "s2/derived/milestone/receipt",
+      "kind": "derivation",
+      "output": "s2/milestone/receipt",
+      "rule": "source-inspection/v2",
+      "inputs": ["s2/e/producer", "s2/publish", "s2/publish.receipt", "s2/topic"]
+    },
+    {
+      "id": "s2/derived/milestone/persisted",
+      "kind": "derivation",
+      "output": "s2/milestone/persisted",
+      "rule": "source-inspection/v2",
+      "inputs": ["s2/e/producer", "s2/publish", "s2/publish.persisted", "s2/topic"]
+    },
+    {
+      "id": "s2/derived/milestone/cold",
+      "kind": "derivation",
+      "output": "s2/milestone/cold",
+      "rule": "source-inspection/v2",
+      "inputs": ["s2/blob", "s2/consumer", "s2/consumer.cold-ok", "s2/e/blob", "s2/e/list"]
+    },
+    {
+      "id": "s2/derived/milestone/hot",
+      "kind": "derivation",
+      "output": "s2/milestone/hot",
+      "rule": "source-inspection/v2",
+      "inputs": ["s2/consumer", "s2/consumer.hot-ok", "s2/e/redis", "s2/redis"]
+    },
+    {
+      "id": "s2/derived/milestone/response",
+      "kind": "derivation",
+      "output": "s2/milestone/response",
+      "rule": "source-inspection/v2",
+      "inputs": ["s2/e/add", "s2/e/producer", "s2/e/response", "s2/http", "s2/http.201"]
+    },
+    {
+      "id": "s2/derived/coverage/http-path",
+      "kind": "derivation",
+      "output": "s2/coverage/http-path",
+      "rule": "source-inspection/v2",
+      "inputs": [
+        "s2/e/controller",
+        "s2/e/middleware",
+        "s2/e/response",
+        "s2/endpoint",
+        "s2/gap/deployment",
+        "s2/gap/http-scope"
+      ]
+    },
+    {
+      "id": "s2/derived/coverage/write-and-handoff",
+      "kind": "derivation",
+      "output": "s2/coverage/write-and-handoff",
+      "rule": "source-inspection/v2",
+      "inputs": [
+        "s2/e/add",
+        "s2/e/notify",
+        "s2/e/producer",
+        "s2/endpoint",
+        "s2/gap/mapping",
+        "s2/gap/sdk-policy"
+      ]
+    },
+    {
+      "id": "s2/derived/coverage/consumer-storage",
+      "kind": "derivation",
+      "output": "s2/coverage/consumer-storage",
+      "rule": "source-inspection/v2",
+      "inputs": [
+        "s2/consumer",
+        "s2/e/consumer",
+        "s2/e/list",
+        "s2/e/processor",
+        "s2/e/upsert",
+        "s2/gap/concurrency",
+        "s2/gap/offsets"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,1248 @@
+[
+  {
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/messaging/contracts::CarKey",
+    "sourceShape": "cce-car-spec-adapter-667a00a-complete-r1/shape/ac2121f7343772e6",
+    "protobufShape": "cce-car-spec-adapter-667a00a-complete-r1/shape/protobuf/CarKey",
+    "fields": [
+      {
+        "name": "details",
+        "type": "*github.com/volvo-cars/cce-car-spec-adapter/internal/messaging/contracts::CarDetails",
+        "wireTag": 1,
+        "status": "declared",
+        "nullable": true,
+        "evidence": ["cce-car-spec-adapter-667a00a-complete-r1/evidence/b8fef08b9339cadb"],
+        "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/protobuf/CarDetails"
+      },
+      {
+        "name": "s_message",
+        "type": "*string",
+        "wireTag": 2,
+        "status": "declared",
+        "nullable": true,
+        "evidence": ["cce-car-spec-adapter-667a00a-complete-r1/evidence/e1001de8a5737a8e"],
+        "optional": true
+      },
+      {
+        "name": "color",
+        "type": "string",
+        "wireTag": 3,
+        "status": "declared",
+        "nullable": false,
+        "evidence": ["cce-car-spec-adapter-667a00a-complete-r1/evidence/aca2bb8480030ed2"]
+      },
+      {
+        "name": "upholstery",
+        "type": "string",
+        "wireTag": 4,
+        "status": "declared",
+        "nullable": false,
+        "evidence": ["cce-car-spec-adapter-667a00a-complete-r1/evidence/80e54331b744e2c4"]
+      },
+      {
+        "name": "wheel",
+        "type": "string",
+        "wireTag": 5,
+        "status": "declared",
+        "nullable": false,
+        "evidence": ["cce-car-spec-adapter-667a00a-complete-r1/evidence/e69bd98714c0030f"]
+      },
+      {
+        "name": "options",
+        "type": "[]string",
+        "wireTag": 6,
+        "status": "declared",
+        "nullable": true,
+        "evidence": ["cce-car-spec-adapter-667a00a-complete-r1/evidence/573258e490bf01a0"],
+        "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/protobuf-array/79b37024131b2f8a"
+      },
+      {
+        "name": "packages",
+        "type": "[]string",
+        "wireTag": 7,
+        "status": "declared",
+        "nullable": true,
+        "evidence": ["cce-car-spec-adapter-667a00a-complete-r1/evidence/ec211cd344a052a2"],
+        "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/protobuf-array/1935b9052dcfb87e"
+      },
+      {
+        "name": "structure_week",
+        "type": "*github.com/volvo-cars/cce-car-spec-adapter/internal/messaging/contracts::StructureWeek",
+        "wireTag": 8,
+        "status": "declared",
+        "nullable": true,
+        "evidence": ["cce-car-spec-adapter-667a00a-complete-r1/evidence/d13920a2a38f1c4c"],
+        "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/protobuf/StructureWeek"
+      }
+    ]
+  },
+  {
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/messaging/contracts::CarDetails",
+    "sourceShape": "cce-car-spec-adapter-667a00a-complete-r1/shape/eda1db292efd7ced",
+    "protobufShape": "cce-car-spec-adapter-667a00a-complete-r1/shape/protobuf/CarDetails",
+    "fields": [
+      {
+        "name": "model_year",
+        "type": "int32",
+        "wireTag": 1,
+        "status": "declared",
+        "nullable": false,
+        "evidence": ["cce-car-spec-adapter-667a00a-complete-r1/evidence/c92c2fbdcb896e51"]
+      },
+      {
+        "name": "spec_market",
+        "type": "string",
+        "wireTag": 2,
+        "status": "declared",
+        "nullable": false,
+        "evidence": ["cce-car-spec-adapter-667a00a-complete-r1/evidence/350353508e123670"]
+      },
+      {
+        "name": "car_type",
+        "type": "string",
+        "wireTag": 3,
+        "status": "declared",
+        "nullable": false,
+        "evidence": ["cce-car-spec-adapter-667a00a-complete-r1/evidence/d5f1b4422966344f"]
+      },
+      {
+        "name": "engine",
+        "type": "string",
+        "wireTag": 4,
+        "status": "declared",
+        "nullable": false,
+        "evidence": ["cce-car-spec-adapter-667a00a-complete-r1/evidence/54079b61fbba4b30"]
+      },
+      {
+        "name": "sales_version",
+        "type": "string",
+        "wireTag": 5,
+        "status": "declared",
+        "nullable": false,
+        "evidence": ["cce-car-spec-adapter-667a00a-complete-r1/evidence/948d6a885a5ff25a"]
+      },
+      {
+        "name": "body",
+        "type": "string",
+        "wireTag": 6,
+        "status": "declared",
+        "nullable": false,
+        "evidence": ["cce-car-spec-adapter-667a00a-complete-r1/evidence/be4e21b300edfc3d"]
+      },
+      {
+        "name": "gearbox",
+        "type": "string",
+        "wireTag": 7,
+        "status": "declared",
+        "nullable": false,
+        "evidence": ["cce-car-spec-adapter-667a00a-complete-r1/evidence/b7764202856ab4cf"]
+      },
+      {
+        "name": "steering",
+        "type": "string",
+        "wireTag": 8,
+        "status": "declared",
+        "nullable": false,
+        "evidence": ["cce-car-spec-adapter-667a00a-complete-r1/evidence/a18ab975c9e5c9f0"]
+      },
+      {
+        "name": "marketing_code",
+        "type": "string",
+        "wireTag": 9,
+        "status": "declared",
+        "nullable": false,
+        "evidence": ["cce-car-spec-adapter-667a00a-complete-r1/evidence/57d1d74b5de01f62"]
+      },
+      {
+        "name": "local_trim_edition_code",
+        "type": "*string",
+        "wireTag": 10,
+        "status": "declared",
+        "nullable": true,
+        "evidence": ["cce-car-spec-adapter-667a00a-complete-r1/evidence/254098974f7e1ffd"],
+        "optional": true
+      },
+      {
+        "name": "local_edition_code",
+        "type": "*string",
+        "wireTag": 11,
+        "status": "declared",
+        "nullable": true,
+        "evidence": ["cce-car-spec-adapter-667a00a-complete-r1/evidence/f03855643a925851"],
+        "optional": true
+      }
+    ]
+  },
+  {
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/messaging/contracts::CarKeyInPeriod",
+    "sourceShape": "cce-car-spec-adapter-667a00a-complete-r1/shape/202b62d56de32ad1",
+    "protobufShape": "cce-car-spec-adapter-667a00a-complete-r1/shape/protobuf/CarKeyInPeriod",
+    "fields": [
+      {
+        "name": "car_key",
+        "type": "*github.com/volvo-cars/cce-car-spec-adapter/internal/messaging/contracts::CarKey",
+        "wireTag": 1,
+        "status": "declared",
+        "nullable": true,
+        "evidence": ["cce-car-spec-adapter-667a00a-complete-r1/evidence/36803154e6825d32"],
+        "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/protobuf/CarKey"
+      },
+      {
+        "name": "period",
+        "type": "*github.com/volvo-cars/cce-car-spec-adapter/internal/messaging/contracts::StructureWeekPeriod",
+        "wireTag": 2,
+        "status": "declared",
+        "nullable": true,
+        "evidence": ["cce-car-spec-adapter-667a00a-complete-r1/evidence/ddff1b7bf458aba5"],
+        "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/protobuf/StructureWeekPeriod"
+      }
+    ]
+  },
+  {
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/messaging/contracts::CarSpecification",
+    "sourceShape": "cce-car-spec-adapter-667a00a-complete-r1/shape/10e0161cf692f82d",
+    "protobufShape": "cce-car-spec-adapter-667a00a-complete-r1/shape/protobuf/CarSpecification",
+    "fields": [
+      {
+        "name": "car_details",
+        "type": "*github.com/volvo-cars/cce-car-spec-adapter/internal/messaging/contracts::CarDetails",
+        "wireTag": 1,
+        "status": "declared",
+        "nullable": true,
+        "evidence": ["cce-car-spec-adapter-667a00a-complete-r1/evidence/d5f9779e808396b0"],
+        "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/protobuf/CarDetails"
+      },
+      {
+        "name": "structure_week_period",
+        "type": "*github.com/volvo-cars/cce-car-spec-adapter/internal/messaging/contracts::StructureWeekPeriod",
+        "wireTag": 2,
+        "status": "declared",
+        "nullable": true,
+        "evidence": ["cce-car-spec-adapter-667a00a-complete-r1/evidence/0834e46658d1c8c7"],
+        "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/protobuf/StructureWeekPeriod"
+      },
+      {
+        "name": "forbidden_structure_week_periods",
+        "type": "[]*github.com/volvo-cars/cce-car-spec-adapter/internal/messaging/contracts::StructureWeekPeriod",
+        "wireTag": 8,
+        "status": "declared",
+        "nullable": true,
+        "evidence": ["cce-car-spec-adapter-667a00a-complete-r1/evidence/94c35efb6af9cdf5"],
+        "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/protobuf-array/816ae74f02d21793"
+      },
+      {
+        "name": "s_messages",
+        "type": "*github.com/volvo-cars/cce-car-spec-adapter/internal/messaging/contracts::SMessageSpecification",
+        "wireTag": 3,
+        "status": "declared",
+        "nullable": true,
+        "evidence": ["cce-car-spec-adapter-667a00a-complete-r1/evidence/ae494adeced83665"],
+        "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/protobuf/SMessageSpecification"
+      },
+      {
+        "name": "stylings",
+        "type": "*github.com/volvo-cars/cce-car-spec-adapter/internal/messaging/contracts::StylingSpecification",
+        "wireTag": 4,
+        "status": "declared",
+        "nullable": true,
+        "evidence": ["cce-car-spec-adapter-667a00a-complete-r1/evidence/f8a53d1c0b4c5b7c"],
+        "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/protobuf/StylingSpecification"
+      },
+      {
+        "name": "options",
+        "type": "*github.com/volvo-cars/cce-car-spec-adapter/internal/messaging/contracts::OptionSpecification",
+        "wireTag": 5,
+        "status": "declared",
+        "nullable": true,
+        "evidence": ["cce-car-spec-adapter-667a00a-complete-r1/evidence/5b9542d93e19a1a2"],
+        "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/protobuf/OptionSpecification"
+      },
+      {
+        "name": "packages",
+        "type": "*github.com/volvo-cars/cce-car-spec-adapter/internal/messaging/contracts::PackageSpecification",
+        "wireTag": 6,
+        "status": "declared",
+        "nullable": true,
+        "evidence": ["cce-car-spec-adapter-667a00a-complete-r1/evidence/52b12e2016d0aa6e"],
+        "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/protobuf/PackageSpecification"
+      },
+      {
+        "name": "wheels",
+        "type": "*github.com/volvo-cars/cce-car-spec-adapter/internal/messaging/contracts::WheelSpecification",
+        "wireTag": 7,
+        "status": "declared",
+        "nullable": true,
+        "evidence": ["cce-car-spec-adapter-667a00a-complete-r1/evidence/74a2af3df9a19b01"],
+        "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/protobuf/WheelSpecification"
+      }
+    ]
+  },
+  {
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/messaging/contracts::SMessageSpecification",
+    "sourceShape": "cce-car-spec-adapter-667a00a-complete-r1/shape/4c5e485c3cb5d840",
+    "protobufShape": "cce-car-spec-adapter-667a00a-complete-r1/shape/protobuf/SMessageSpecification",
+    "fields": [
+      {
+        "name": "s_messages",
+        "type": "[]*github.com/volvo-cars/cce-car-spec-adapter/internal/messaging/contracts::SMessage",
+        "wireTag": 1,
+        "status": "declared",
+        "nullable": true,
+        "evidence": ["cce-car-spec-adapter-667a00a-complete-r1/evidence/06d05575d3a6f0d1"],
+        "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/protobuf-array/f448f6e8f03ff39d"
+      }
+    ]
+  },
+  {
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/messaging/contracts::SMessage",
+    "sourceShape": "cce-car-spec-adapter-667a00a-complete-r1/shape/adc817abbc0ca31c",
+    "protobufShape": "cce-car-spec-adapter-667a00a-complete-r1/shape/protobuf/SMessage",
+    "fields": [
+      {
+        "name": "code",
+        "type": "string",
+        "wireTag": 1,
+        "status": "declared",
+        "nullable": false,
+        "evidence": ["cce-car-spec-adapter-667a00a-complete-r1/evidence/5726dd1b00e76646"]
+      },
+      {
+        "name": "period",
+        "type": "*github.com/volvo-cars/cce-car-spec-adapter/internal/messaging/contracts::StructureWeekPeriod",
+        "wireTag": 2,
+        "status": "declared",
+        "nullable": true,
+        "evidence": ["cce-car-spec-adapter-667a00a-complete-r1/evidence/ece38f223550c86c"],
+        "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/protobuf/StructureWeekPeriod"
+      }
+    ]
+  },
+  {
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/messaging/contracts::StylingSpecification",
+    "sourceShape": "cce-car-spec-adapter-667a00a-complete-r1/shape/6bd65a33882f579d",
+    "protobufShape": "cce-car-spec-adapter-667a00a-complete-r1/shape/protobuf/StylingSpecification",
+    "fields": [
+      {
+        "name": "colors",
+        "type": "[]*github.com/volvo-cars/cce-car-spec-adapter/internal/messaging/contracts::Color",
+        "wireTag": 1,
+        "status": "declared",
+        "nullable": true,
+        "evidence": ["cce-car-spec-adapter-667a00a-complete-r1/evidence/05564fda16cd8018"],
+        "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/protobuf-array/4dc8d971ff0dafe7"
+      },
+      {
+        "name": "upholsteries",
+        "type": "[]*github.com/volvo-cars/cce-car-spec-adapter/internal/messaging/contracts::Upholstery",
+        "wireTag": 2,
+        "status": "declared",
+        "nullable": true,
+        "evidence": ["cce-car-spec-adapter-667a00a-complete-r1/evidence/f6aec855d597fb9b"],
+        "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/protobuf-array/45abfbfab14bee0c"
+      },
+      {
+        "name": "default_combination",
+        "type": "*github.com/volvo-cars/cce-car-spec-adapter/internal/messaging/contracts::StylingCombination",
+        "wireTag": 3,
+        "status": "declared",
+        "nullable": true,
+        "evidence": ["cce-car-spec-adapter-667a00a-complete-r1/evidence/229f5f1628fe0783"],
+        "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/protobuf/StylingCombination"
+      },
+      {
+        "name": "default_colors",
+        "type": "[]*github.com/volvo-cars/cce-car-spec-adapter/internal/messaging/contracts::TimeBoundCode",
+        "wireTag": 4,
+        "status": "declared",
+        "nullable": true,
+        "evidence": ["cce-car-spec-adapter-667a00a-complete-r1/evidence/bf3d371acaba47b5"],
+        "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/protobuf-array/0760371afa9dc7de"
+      },
+      {
+        "name": "default_upholsteries",
+        "type": "[]*github.com/volvo-cars/cce-car-spec-adapter/internal/messaging/contracts::TimeBoundCode",
+        "wireTag": 5,
+        "status": "declared",
+        "nullable": true,
+        "evidence": ["cce-car-spec-adapter-667a00a-complete-r1/evidence/acd28dcaa656907b"],
+        "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/protobuf-array/ebbfe23964793155"
+      }
+    ]
+  },
+  {
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/messaging/contracts::StylingCombination",
+    "sourceShape": "cce-car-spec-adapter-667a00a-complete-r1/shape/d3df9e5006dde0f2",
+    "protobufShape": "cce-car-spec-adapter-667a00a-complete-r1/shape/protobuf/StylingCombination",
+    "fields": [
+      {
+        "name": "color_code",
+        "type": "string",
+        "wireTag": 1,
+        "status": "declared",
+        "nullable": false,
+        "evidence": ["cce-car-spec-adapter-667a00a-complete-r1/evidence/6fb191db7bca2563"]
+      },
+      {
+        "name": "upholstery_code",
+        "type": "string",
+        "wireTag": 2,
+        "status": "declared",
+        "nullable": false,
+        "evidence": ["cce-car-spec-adapter-667a00a-complete-r1/evidence/2ffaf0cf9daf7e1d"]
+      }
+    ]
+  },
+  {
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/messaging/contracts::TimeBoundCode",
+    "sourceShape": "cce-car-spec-adapter-667a00a-complete-r1/shape/6b742803c7ab6e1f",
+    "protobufShape": "cce-car-spec-adapter-667a00a-complete-r1/shape/protobuf/TimeBoundCode",
+    "fields": [
+      {
+        "name": "code",
+        "type": "string",
+        "wireTag": 1,
+        "status": "declared",
+        "nullable": false,
+        "evidence": ["cce-car-spec-adapter-667a00a-complete-r1/evidence/4202c4f0fd3cb1ba"]
+      },
+      {
+        "name": "period",
+        "type": "*github.com/volvo-cars/cce-car-spec-adapter/internal/messaging/contracts::StructureWeekPeriod",
+        "wireTag": 2,
+        "status": "declared",
+        "nullable": true,
+        "evidence": ["cce-car-spec-adapter-667a00a-complete-r1/evidence/3328cfae579f3188"],
+        "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/protobuf/StructureWeekPeriod"
+      }
+    ]
+  },
+  {
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/messaging/contracts::Color",
+    "sourceShape": "cce-car-spec-adapter-667a00a-complete-r1/shape/54eb9440d795d48d",
+    "protobufShape": "cce-car-spec-adapter-667a00a-complete-r1/shape/protobuf/Color",
+    "fields": [
+      {
+        "name": "code",
+        "type": "string",
+        "wireTag": 1,
+        "status": "declared",
+        "nullable": false,
+        "evidence": ["cce-car-spec-adapter-667a00a-complete-r1/evidence/0231470a430be3ef"]
+      },
+      {
+        "name": "required_options",
+        "type": "[]*github.com/volvo-cars/cce-car-spec-adapter/internal/messaging/contracts::TimeBoundAtLeastOne",
+        "wireTag": 2,
+        "status": "declared",
+        "nullable": true,
+        "evidence": ["cce-car-spec-adapter-667a00a-complete-r1/evidence/2a3560f2e5e6fbc0"],
+        "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/protobuf-array/222db45434248966"
+      },
+      {
+        "name": "forbids_options",
+        "type": "[]*github.com/volvo-cars/cce-car-spec-adapter/internal/messaging/contracts::Forbids",
+        "wireTag": 3,
+        "status": "declared",
+        "nullable": true,
+        "evidence": ["cce-car-spec-adapter-667a00a-complete-r1/evidence/301afabb8b920c49"],
+        "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/protobuf-array/3126f2806d674b3b"
+      },
+      {
+        "name": "forbids_upholsteries",
+        "type": "[]*github.com/volvo-cars/cce-car-spec-adapter/internal/messaging/contracts::Forbids",
+        "wireTag": 4,
+        "status": "declared",
+        "nullable": true,
+        "evidence": ["cce-car-spec-adapter-667a00a-complete-r1/evidence/e278a1b2287067d8"],
+        "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/protobuf-array/e4d69b4d2d9987fa"
+      },
+      {
+        "name": "required_wheels",
+        "type": "[]*github.com/volvo-cars/cce-car-spec-adapter/internal/messaging/contracts::TimeBoundExactlyOne",
+        "wireTag": 6,
+        "status": "declared",
+        "nullable": true,
+        "evidence": ["cce-car-spec-adapter-667a00a-complete-r1/evidence/83bab0760894cd16"],
+        "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/protobuf-array/dbd0cc267543193b"
+      },
+      {
+        "name": "forbids_wheels",
+        "type": "[]*github.com/volvo-cars/cce-car-spec-adapter/internal/messaging/contracts::Forbids",
+        "wireTag": 7,
+        "status": "declared",
+        "nullable": true,
+        "evidence": ["cce-car-spec-adapter-667a00a-complete-r1/evidence/3d2a64822f853a6c"],
+        "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/protobuf-array/3a4bdc38513640ae"
+      },
+      {
+        "name": "period",
+        "type": "*github.com/volvo-cars/cce-car-spec-adapter/internal/messaging/contracts::StructureWeekPeriod",
+        "wireTag": 5,
+        "status": "declared",
+        "nullable": true,
+        "evidence": ["cce-car-spec-adapter-667a00a-complete-r1/evidence/67eaac5409b58939"],
+        "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/protobuf/StructureWeekPeriod"
+      }
+    ]
+  },
+  {
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/messaging/contracts::Upholstery",
+    "sourceShape": "cce-car-spec-adapter-667a00a-complete-r1/shape/814abfff2ca39944",
+    "protobufShape": "cce-car-spec-adapter-667a00a-complete-r1/shape/protobuf/Upholstery",
+    "fields": [
+      {
+        "name": "code",
+        "type": "string",
+        "wireTag": 1,
+        "status": "declared",
+        "nullable": false,
+        "evidence": ["cce-car-spec-adapter-667a00a-complete-r1/evidence/e7e34758eb40233f"]
+      },
+      {
+        "name": "required_options",
+        "type": "[]*github.com/volvo-cars/cce-car-spec-adapter/internal/messaging/contracts::TimeBoundAtLeastOne",
+        "wireTag": 2,
+        "status": "declared",
+        "nullable": true,
+        "evidence": ["cce-car-spec-adapter-667a00a-complete-r1/evidence/ad358c015497d27b"],
+        "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/protobuf-array/2ff006a68706056f"
+      },
+      {
+        "name": "forbids_options",
+        "type": "[]*github.com/volvo-cars/cce-car-spec-adapter/internal/messaging/contracts::Forbids",
+        "wireTag": 3,
+        "status": "declared",
+        "nullable": true,
+        "evidence": ["cce-car-spec-adapter-667a00a-complete-r1/evidence/7b4e0ef5dcee0d33"],
+        "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/protobuf-array/4448494888f77e38"
+      },
+      {
+        "name": "forbids_colors",
+        "type": "[]*github.com/volvo-cars/cce-car-spec-adapter/internal/messaging/contracts::Forbids",
+        "wireTag": 4,
+        "status": "declared",
+        "nullable": true,
+        "evidence": ["cce-car-spec-adapter-667a00a-complete-r1/evidence/58c287ef3cde3ce0"],
+        "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/protobuf-array/ea8c86de1d84a5f3"
+      },
+      {
+        "name": "forbids_wheels",
+        "type": "[]*github.com/volvo-cars/cce-car-spec-adapter/internal/messaging/contracts::Forbids",
+        "wireTag": 6,
+        "status": "declared",
+        "nullable": true,
+        "evidence": ["cce-car-spec-adapter-667a00a-complete-r1/evidence/77dd41411485ba27"],
+        "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/protobuf-array/dff716c95ff9ca56"
+      },
+      {
+        "name": "period",
+        "type": "*github.com/volvo-cars/cce-car-spec-adapter/internal/messaging/contracts::StructureWeekPeriod",
+        "wireTag": 5,
+        "status": "declared",
+        "nullable": true,
+        "evidence": ["cce-car-spec-adapter-667a00a-complete-r1/evidence/99a128b1fe64b3a1"],
+        "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/protobuf/StructureWeekPeriod"
+      }
+    ]
+  },
+  {
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/messaging/contracts::OptionSpecification",
+    "sourceShape": "cce-car-spec-adapter-667a00a-complete-r1/shape/a3c5a9cfaed378f7",
+    "protobufShape": "cce-car-spec-adapter-667a00a-complete-r1/shape/protobuf/OptionSpecification",
+    "fields": [
+      {
+        "name": "options",
+        "type": "[]*github.com/volvo-cars/cce-car-spec-adapter/internal/messaging/contracts::Option",
+        "wireTag": 1,
+        "status": "declared",
+        "nullable": true,
+        "evidence": ["cce-car-spec-adapter-667a00a-complete-r1/evidence/3fc42bf0c6dcc95c"],
+        "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/protobuf-array/98cbc21d08bda038"
+      },
+      {
+        "name": "package_only_option_codes",
+        "type": "[]string",
+        "wireTag": 2,
+        "status": "declared",
+        "nullable": true,
+        "evidence": ["cce-car-spec-adapter-667a00a-complete-r1/evidence/63172483a22be6b7"],
+        "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/protobuf-array/5e9558bcfb728b26"
+      },
+      {
+        "name": "included_options",
+        "type": "[]*github.com/volvo-cars/cce-car-spec-adapter/internal/messaging/contracts::TimeBoundExactlyOne",
+        "wireTag": 3,
+        "status": "declared",
+        "nullable": true,
+        "evidence": ["cce-car-spec-adapter-667a00a-complete-r1/evidence/b6efdaef335944b9"],
+        "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/protobuf-array/72445c6692d61031"
+      },
+      {
+        "name": "combined_requirements",
+        "type": "[]*github.com/volvo-cars/cce-car-spec-adapter/internal/messaging/contracts::CombinedOptionRequirement",
+        "wireTag": 4,
+        "status": "declared",
+        "nullable": true,
+        "evidence": ["cce-car-spec-adapter-667a00a-complete-r1/evidence/4a16207c9808f637"],
+        "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/protobuf-array/da8b93c59769160d"
+      }
+    ]
+  },
+  {
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/messaging/contracts::Option",
+    "sourceShape": "cce-car-spec-adapter-667a00a-complete-r1/shape/e73e87bc82265c37",
+    "protobufShape": "cce-car-spec-adapter-667a00a-complete-r1/shape/protobuf/Option",
+    "fields": [
+      {
+        "name": "code",
+        "type": "string",
+        "wireTag": 1,
+        "status": "declared",
+        "nullable": false,
+        "evidence": ["cce-car-spec-adapter-667a00a-complete-r1/evidence/e252f78e375910c3"]
+      },
+      {
+        "name": "required_colors",
+        "type": "[]*github.com/volvo-cars/cce-car-spec-adapter/internal/messaging/contracts::TimeBoundExactlyOne",
+        "wireTag": 2,
+        "status": "declared",
+        "nullable": true,
+        "evidence": ["cce-car-spec-adapter-667a00a-complete-r1/evidence/874f8992d86265c5"],
+        "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/protobuf-array/d4d72feb800f0c2d"
+      },
+      {
+        "name": "required_upholsteries",
+        "type": "[]*github.com/volvo-cars/cce-car-spec-adapter/internal/messaging/contracts::TimeBoundExactlyOne",
+        "wireTag": 3,
+        "status": "declared",
+        "nullable": true,
+        "evidence": ["cce-car-spec-adapter-667a00a-complete-r1/evidence/577c83ed30f26df0"],
+        "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/protobuf-array/d0a2ecd24cb96b94"
+      },
+      {
+        "name": "required_options",
+        "type": "[]*github.com/volvo-cars/cce-car-spec-adapter/internal/messaging/contracts::TimeBoundAtLeastOne",
+        "wireTag": 4,
+        "status": "declared",
+        "nullable": true,
+        "evidence": ["cce-car-spec-adapter-667a00a-complete-r1/evidence/a291bb833c8f0aab"],
+        "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/protobuf-array/b8945aea6429289c"
+      },
+      {
+        "name": "required_wheels",
+        "type": "[]*github.com/volvo-cars/cce-car-spec-adapter/internal/messaging/contracts::TimeBoundExactlyOne",
+        "wireTag": 8,
+        "status": "declared",
+        "nullable": true,
+        "evidence": ["cce-car-spec-adapter-667a00a-complete-r1/evidence/5b66c08ad91623de"],
+        "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/protobuf-array/9b70ddbe3a21e58d"
+      },
+      {
+        "name": "forbids_options",
+        "type": "[]*github.com/volvo-cars/cce-car-spec-adapter/internal/messaging/contracts::Forbids",
+        "wireTag": 5,
+        "status": "declared",
+        "nullable": true,
+        "evidence": ["cce-car-spec-adapter-667a00a-complete-r1/evidence/5233bed87b61ad25"],
+        "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/protobuf-array/012e3f2bb854981d"
+      },
+      {
+        "name": "forbids_colors",
+        "type": "[]*github.com/volvo-cars/cce-car-spec-adapter/internal/messaging/contracts::Forbids",
+        "wireTag": 6,
+        "status": "declared",
+        "nullable": true,
+        "evidence": ["cce-car-spec-adapter-667a00a-complete-r1/evidence/f059479ca440e940"],
+        "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/protobuf-array/56ceedb3fccc67ee"
+      },
+      {
+        "name": "forbids_wheels",
+        "type": "[]*github.com/volvo-cars/cce-car-spec-adapter/internal/messaging/contracts::Forbids",
+        "wireTag": 9,
+        "status": "declared",
+        "nullable": true,
+        "evidence": ["cce-car-spec-adapter-667a00a-complete-r1/evidence/ba644670ec86a9a3"],
+        "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/protobuf-array/4197103097d0b29b"
+      },
+      {
+        "name": "forbids_upholsteries",
+        "type": "[]*github.com/volvo-cars/cce-car-spec-adapter/internal/messaging/contracts::Forbids",
+        "wireTag": 10,
+        "status": "declared",
+        "nullable": true,
+        "evidence": ["cce-car-spec-adapter-667a00a-complete-r1/evidence/c4cc0d7a081fc508"],
+        "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/protobuf-array/04b9e1520b03eb2b"
+      },
+      {
+        "name": "period",
+        "type": "*github.com/volvo-cars/cce-car-spec-adapter/internal/messaging/contracts::StructureWeekPeriod",
+        "wireTag": 7,
+        "status": "declared",
+        "nullable": true,
+        "evidence": ["cce-car-spec-adapter-667a00a-complete-r1/evidence/9df588a461c3d6ae"],
+        "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/protobuf/StructureWeekPeriod"
+      }
+    ]
+  },
+  {
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/messaging/contracts::CombinedOptionRequirement",
+    "sourceShape": "cce-car-spec-adapter-667a00a-complete-r1/shape/0530274f6403a2a5",
+    "protobufShape": "cce-car-spec-adapter-667a00a-complete-r1/shape/protobuf/CombinedOptionRequirement",
+    "fields": [
+      {
+        "name": "requiring_option_codes",
+        "type": "[]string",
+        "wireTag": 1,
+        "status": "declared",
+        "nullable": true,
+        "evidence": ["cce-car-spec-adapter-667a00a-complete-r1/evidence/a4aca27d9f2b34c0"],
+        "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/protobuf-array/f83ebddbf742bb3e"
+      },
+      {
+        "name": "required_option_code",
+        "type": "string",
+        "wireTag": 2,
+        "status": "declared",
+        "nullable": false,
+        "evidence": ["cce-car-spec-adapter-667a00a-complete-r1/evidence/6357cb296e24fef2"]
+      }
+    ]
+  },
+  {
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/messaging/contracts::PackageSpecification",
+    "sourceShape": "cce-car-spec-adapter-667a00a-complete-r1/shape/27a3e1a069f80163",
+    "protobufShape": "cce-car-spec-adapter-667a00a-complete-r1/shape/protobuf/PackageSpecification",
+    "fields": [
+      {
+        "name": "packages",
+        "type": "[]*github.com/volvo-cars/cce-car-spec-adapter/internal/messaging/contracts::Package",
+        "wireTag": 1,
+        "status": "declared",
+        "nullable": true,
+        "evidence": ["cce-car-spec-adapter-667a00a-complete-r1/evidence/b3a7a6eae4edd8c0"],
+        "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/protobuf-array/19bca35cd9d5eb77"
+      },
+      {
+        "name": "included_packages",
+        "type": "[]*github.com/volvo-cars/cce-car-spec-adapter/internal/messaging/contracts::TimeBoundExactlyOne",
+        "wireTag": 2,
+        "status": "declared",
+        "nullable": true,
+        "evidence": ["cce-car-spec-adapter-667a00a-complete-r1/evidence/99859757837f8d51"],
+        "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/protobuf-array/f6ba740d39ef0a42"
+      },
+      {
+        "name": "make_overlapping_packages_exclusive",
+        "type": "bool",
+        "wireTag": 3,
+        "status": "declared",
+        "nullable": false,
+        "evidence": ["cce-car-spec-adapter-667a00a-complete-r1/evidence/a54660a1c924f85e"]
+      }
+    ]
+  },
+  {
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/messaging/contracts::Package",
+    "sourceShape": "cce-car-spec-adapter-667a00a-complete-r1/shape/d02d7b5c657663af",
+    "protobufShape": "cce-car-spec-adapter-667a00a-complete-r1/shape/protobuf/Package",
+    "fields": [
+      {
+        "name": "code",
+        "type": "string",
+        "wireTag": 1,
+        "status": "declared",
+        "nullable": false,
+        "evidence": ["cce-car-spec-adapter-667a00a-complete-r1/evidence/e879420e6ccbf1fa"]
+      },
+      {
+        "name": "required_colors",
+        "type": "*github.com/volvo-cars/cce-car-spec-adapter/internal/messaging/contracts::ExactlyOne",
+        "wireTag": 2,
+        "status": "declared",
+        "nullable": true,
+        "evidence": ["cce-car-spec-adapter-667a00a-complete-r1/evidence/2dcb27b59e38870b"],
+        "optional": true,
+        "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/protobuf/ExactlyOne"
+      },
+      {
+        "name": "required_upholsteries",
+        "type": "*github.com/volvo-cars/cce-car-spec-adapter/internal/messaging/contracts::ExactlyOne",
+        "wireTag": 3,
+        "status": "declared",
+        "nullable": true,
+        "evidence": ["cce-car-spec-adapter-667a00a-complete-r1/evidence/5e77a8cdf2810a36"],
+        "optional": true,
+        "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/protobuf/ExactlyOne"
+      },
+      {
+        "name": "required_options",
+        "type": "[]*github.com/volvo-cars/cce-car-spec-adapter/internal/messaging/contracts::ExactlyOne",
+        "wireTag": 4,
+        "status": "declared",
+        "nullable": true,
+        "evidence": ["cce-car-spec-adapter-667a00a-complete-r1/evidence/ac289c7301b38679"],
+        "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/protobuf-array/df3a5c3eb0392cc1"
+      },
+      {
+        "name": "required_wheels",
+        "type": "*github.com/volvo-cars/cce-car-spec-adapter/internal/messaging/contracts::ExactlyOne",
+        "wireTag": 6,
+        "status": "declared",
+        "nullable": true,
+        "evidence": ["cce-car-spec-adapter-667a00a-complete-r1/evidence/26e29fdf4cf5636f"],
+        "optional": true,
+        "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/protobuf/ExactlyOne"
+      },
+      {
+        "name": "period",
+        "type": "*github.com/volvo-cars/cce-car-spec-adapter/internal/messaging/contracts::StructureWeekPeriod",
+        "wireTag": 5,
+        "status": "declared",
+        "nullable": true,
+        "evidence": ["cce-car-spec-adapter-667a00a-complete-r1/evidence/d9c99457798ace0e"],
+        "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/protobuf/StructureWeekPeriod"
+      }
+    ]
+  },
+  {
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/messaging/contracts::WheelSpecification",
+    "sourceShape": "cce-car-spec-adapter-667a00a-complete-r1/shape/65faa1b729897ecc",
+    "protobufShape": "cce-car-spec-adapter-667a00a-complete-r1/shape/protobuf/WheelSpecification",
+    "fields": [
+      {
+        "name": "wheels",
+        "type": "[]*github.com/volvo-cars/cce-car-spec-adapter/internal/messaging/contracts::Wheel",
+        "wireTag": 1,
+        "status": "declared",
+        "nullable": true,
+        "evidence": ["cce-car-spec-adapter-667a00a-complete-r1/evidence/c5b7ef4278c89aaa"],
+        "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/protobuf-array/3e56573a8533ce5d"
+      },
+      {
+        "name": "standard_wheel",
+        "type": "*string",
+        "wireTag": 2,
+        "status": "declared",
+        "nullable": true,
+        "evidence": ["cce-car-spec-adapter-667a00a-complete-r1/evidence/d1fcc0cba09058ef"],
+        "optional": true
+      }
+    ]
+  },
+  {
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/messaging/contracts::Wheel",
+    "sourceShape": "cce-car-spec-adapter-667a00a-complete-r1/shape/287c724d31629815",
+    "protobufShape": "cce-car-spec-adapter-667a00a-complete-r1/shape/protobuf/Wheel",
+    "fields": [
+      {
+        "name": "code",
+        "type": "string",
+        "wireTag": 1,
+        "status": "declared",
+        "nullable": false,
+        "evidence": ["cce-car-spec-adapter-667a00a-complete-r1/evidence/277b44ca4ace7032"]
+      },
+      {
+        "name": "required_colors",
+        "type": "[]*github.com/volvo-cars/cce-car-spec-adapter/internal/messaging/contracts::TimeBoundExactlyOne",
+        "wireTag": 2,
+        "status": "declared",
+        "nullable": true,
+        "evidence": ["cce-car-spec-adapter-667a00a-complete-r1/evidence/6476b671f2323194"],
+        "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/protobuf-array/1cccf2d4e685648c"
+      },
+      {
+        "name": "required_options",
+        "type": "[]*github.com/volvo-cars/cce-car-spec-adapter/internal/messaging/contracts::TimeBoundAtLeastOne",
+        "wireTag": 3,
+        "status": "declared",
+        "nullable": true,
+        "evidence": ["cce-car-spec-adapter-667a00a-complete-r1/evidence/51e96d0574c85b1f"],
+        "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/protobuf-array/ec22818ea41d0754"
+      },
+      {
+        "name": "required_upholsteries",
+        "type": "[]*github.com/volvo-cars/cce-car-spec-adapter/internal/messaging/contracts::TimeBoundExactlyOne",
+        "wireTag": 6,
+        "status": "declared",
+        "nullable": true,
+        "evidence": ["cce-car-spec-adapter-667a00a-complete-r1/evidence/92e22447f8a100c6"],
+        "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/protobuf-array/96f2959ad654ffd8"
+      },
+      {
+        "name": "forbids_options",
+        "type": "[]*github.com/volvo-cars/cce-car-spec-adapter/internal/messaging/contracts::Forbids",
+        "wireTag": 4,
+        "status": "declared",
+        "nullable": true,
+        "evidence": ["cce-car-spec-adapter-667a00a-complete-r1/evidence/3b1e6ff5a5ae039c"],
+        "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/protobuf-array/a6b109d8e769b8e1"
+      },
+      {
+        "name": "forbids_upholsteries",
+        "type": "[]*github.com/volvo-cars/cce-car-spec-adapter/internal/messaging/contracts::Forbids",
+        "wireTag": 7,
+        "status": "declared",
+        "nullable": true,
+        "evidence": ["cce-car-spec-adapter-667a00a-complete-r1/evidence/ed6a05c9bf7316d7"],
+        "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/protobuf-array/c3af5410412b402b"
+      },
+      {
+        "name": "period",
+        "type": "*github.com/volvo-cars/cce-car-spec-adapter/internal/messaging/contracts::StructureWeekPeriod",
+        "wireTag": 5,
+        "status": "declared",
+        "nullable": true,
+        "evidence": ["cce-car-spec-adapter-667a00a-complete-r1/evidence/d16065b37bbc8fc5"],
+        "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/protobuf/StructureWeekPeriod"
+      }
+    ]
+  },
+  {
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/messaging/contracts::TimeBoundExactlyOne",
+    "sourceShape": "cce-car-spec-adapter-667a00a-complete-r1/shape/ca79fda752e88084",
+    "protobufShape": "cce-car-spec-adapter-667a00a-complete-r1/shape/protobuf/TimeBoundExactlyOne",
+    "fields": [
+      {
+        "name": "codes",
+        "type": "[]string",
+        "wireTag": 1,
+        "status": "declared",
+        "nullable": true,
+        "evidence": ["cce-car-spec-adapter-667a00a-complete-r1/evidence/c7eb996344fb2f6d"],
+        "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/protobuf-array/dbfac57b8eb8b994"
+      },
+      {
+        "name": "default_code",
+        "type": "*string",
+        "wireTag": 2,
+        "status": "declared",
+        "nullable": true,
+        "evidence": ["cce-car-spec-adapter-667a00a-complete-r1/evidence/2122ef94fa881507"],
+        "optional": true
+      },
+      {
+        "name": "period",
+        "type": "*github.com/volvo-cars/cce-car-spec-adapter/internal/messaging/contracts::StructureWeekPeriod",
+        "wireTag": 3,
+        "status": "declared",
+        "nullable": true,
+        "evidence": ["cce-car-spec-adapter-667a00a-complete-r1/evidence/c2b7d629f2cc7b0b"],
+        "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/protobuf/StructureWeekPeriod"
+      }
+    ]
+  },
+  {
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/messaging/contracts::ExactlyOne",
+    "sourceShape": "cce-car-spec-adapter-667a00a-complete-r1/shape/2a93ad154065eb53",
+    "protobufShape": "cce-car-spec-adapter-667a00a-complete-r1/shape/protobuf/ExactlyOne",
+    "fields": [
+      {
+        "name": "codes",
+        "type": "[]string",
+        "wireTag": 1,
+        "status": "declared",
+        "nullable": true,
+        "evidence": ["cce-car-spec-adapter-667a00a-complete-r1/evidence/debb17686e761252"],
+        "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/protobuf-array/f04f26ca2d1f4d3c"
+      },
+      {
+        "name": "default_code",
+        "type": "*string",
+        "wireTag": 2,
+        "status": "declared",
+        "nullable": true,
+        "evidence": ["cce-car-spec-adapter-667a00a-complete-r1/evidence/bdf0fc296643aba7"],
+        "optional": true
+      }
+    ]
+  },
+  {
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/messaging/contracts::TimeBoundAtLeastOne",
+    "sourceShape": "cce-car-spec-adapter-667a00a-complete-r1/shape/274027d40b6936e2",
+    "protobufShape": "cce-car-spec-adapter-667a00a-complete-r1/shape/protobuf/TimeBoundAtLeastOne",
+    "fields": [
+      {
+        "name": "codes",
+        "type": "[]string",
+        "wireTag": 1,
+        "status": "declared",
+        "nullable": true,
+        "evidence": ["cce-car-spec-adapter-667a00a-complete-r1/evidence/7dfe5932a08b7a48"],
+        "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/protobuf-array/47dc6b2066cdd374"
+      },
+      {
+        "name": "default_code",
+        "type": "*string",
+        "wireTag": 2,
+        "status": "declared",
+        "nullable": true,
+        "evidence": ["cce-car-spec-adapter-667a00a-complete-r1/evidence/da0d73576851b54c"],
+        "optional": true
+      },
+      {
+        "name": "period",
+        "type": "*github.com/volvo-cars/cce-car-spec-adapter/internal/messaging/contracts::StructureWeekPeriod",
+        "wireTag": 3,
+        "status": "declared",
+        "nullable": true,
+        "evidence": ["cce-car-spec-adapter-667a00a-complete-r1/evidence/8c89ffd3f0d5d080"],
+        "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/protobuf/StructureWeekPeriod"
+      }
+    ]
+  },
+  {
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/messaging/contracts::Forbids",
+    "sourceShape": "cce-car-spec-adapter-667a00a-complete-r1/shape/256d856c36dabb39",
+    "protobufShape": "cce-car-spec-adapter-667a00a-complete-r1/shape/protobuf/Forbids",
+    "fields": [
+      {
+        "name": "code",
+        "type": "string",
+        "wireTag": 1,
+        "status": "declared",
+        "nullable": false,
+        "evidence": ["cce-car-spec-adapter-667a00a-complete-r1/evidence/ad08daeec0ac3402"]
+      },
+      {
+        "name": "period",
+        "type": "*github.com/volvo-cars/cce-car-spec-adapter/internal/messaging/contracts::StructureWeekPeriod",
+        "wireTag": 2,
+        "status": "declared",
+        "nullable": true,
+        "evidence": ["cce-car-spec-adapter-667a00a-complete-r1/evidence/6795873e9290f0a3"],
+        "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/protobuf/StructureWeekPeriod"
+      }
+    ]
+  },
+  {
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/messaging/contracts::CarSpecificationUpserted",
+    "sourceShape": "cce-car-spec-adapter-667a00a-complete-r1/shape/7fbf1053418c48e9",
+    "protobufShape": "cce-car-spec-adapter-667a00a-complete-r1/shape/protobuf/CarSpecificationUpserted",
+    "fields": [
+      {
+        "name": "specification",
+        "type": "*github.com/volvo-cars/cce-car-spec-adapter/internal/messaging/contracts::CarSpecification",
+        "wireTag": 1,
+        "status": "declared",
+        "nullable": true,
+        "evidence": ["cce-car-spec-adapter-667a00a-complete-r1/evidence/4ddbca5d18fd188a"],
+        "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/protobuf/CarSpecification"
+      },
+      {
+        "name": "market_auth_identifier",
+        "type": "*github.com/volvo-cars/cce-car-spec-adapter/internal/messaging/contracts::MarketAuthIdentifier",
+        "wireTag": 2,
+        "status": "declared",
+        "nullable": true,
+        "evidence": ["cce-car-spec-adapter-667a00a-complete-r1/evidence/d20db7de7dc1f189"],
+        "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/protobuf/MarketAuthIdentifier"
+      },
+      {
+        "name": "brand",
+        "type": "string",
+        "wireTag": 3,
+        "status": "declared",
+        "nullable": false,
+        "evidence": ["cce-car-spec-adapter-667a00a-complete-r1/evidence/f103e407b8dc0fb1"]
+      }
+    ]
+  },
+  {
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/messaging/contracts::CarSpecificationRemoved",
+    "sourceShape": "cce-car-spec-adapter-667a00a-complete-r1/shape/8ece94e723419fd9",
+    "protobufShape": "cce-car-spec-adapter-667a00a-complete-r1/shape/protobuf/CarSpecificationRemoved",
+    "fields": [
+      {
+        "name": "pno12",
+        "type": "string",
+        "wireTag": 1,
+        "status": "declared",
+        "nullable": false,
+        "evidence": ["cce-car-spec-adapter-667a00a-complete-r1/evidence/e71ef45c56504e91"]
+      },
+      {
+        "name": "spec_market",
+        "type": "string",
+        "wireTag": 2,
+        "status": "declared",
+        "nullable": false,
+        "evidence": ["cce-car-spec-adapter-667a00a-complete-r1/evidence/6d697b9407e7a5d4"]
+      },
+      {
+        "name": "model_year",
+        "type": "int32",
+        "wireTag": 3,
+        "status": "declared",
+        "nullable": false,
+        "evidence": ["cce-car-spec-adapter-667a00a-complete-r1/evidence/3d4cb4dbf310fb57"]
+      },
+      {
+        "name": "local_trim_edition_code",
+        "type": "*string",
+        "wireTag": 4,
+        "status": "declared",
+        "nullable": true,
+        "evidence": ["cce-car-spec-adapter-667a00a-complete-r1/evidence/cd69eeac50018212"],
+        "optional": true
+      },
+      {
+        "name": "local_edition_code",
+        "type": "*string",
+        "wireTag": 5,
+        "status": "declared",
+        "nullable": true,
+        "evidence": ["cce-car-spec-adapter-667a00a-complete-r1/evidence/34535078075f4336"],
+        "optional": true
+      }
+    ]
+  },
+  {
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/messaging/contracts::MarketAuthIdentifier",
+    "sourceShape": "cce-car-spec-adapter-667a00a-complete-r1/shape/1a95e43a24f7663b",
+    "protobufShape": "cce-car-spec-adapter-667a00a-complete-r1/shape/protobuf/MarketAuthIdentifier",
+    "fields": [
+      {
+        "name": "timestamp",
+        "type": "string",
+        "wireTag": 1,
+        "status": "declared",
+        "nullable": false,
+        "evidence": ["cce-car-spec-adapter-667a00a-complete-r1/evidence/25857d3ef9d1d973"]
+      },
+      {
+        "name": "standard_wheel_feature_code",
+        "type": "string",
+        "wireTag": 2,
+        "status": "declared",
+        "nullable": false,
+        "evidence": ["cce-car-spec-adapter-667a00a-complete-r1/evidence/84d83b42621f9089"]
+      }
+    ]
+  },
+  {
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/messaging/contracts::MarketAuthMessage",
+    "sourceShape": "cce-car-spec-adapter-667a00a-complete-r1/shape/a52592b2eee5f7ef",
+    "protobufShape": "cce-car-spec-adapter-667a00a-complete-r1/shape/protobuf/MarketAuthMessage",
+    "fields": [
+      {
+        "name": "car_type",
+        "type": "string",
+        "wireTag": 1,
+        "status": "declared",
+        "nullable": false,
+        "evidence": ["cce-car-spec-adapter-667a00a-complete-r1/evidence/9b0ca34654fb2422"]
+      },
+      {
+        "name": "model_year",
+        "type": "int32",
+        "wireTag": 2,
+        "status": "declared",
+        "nullable": false,
+        "evidence": ["cce-car-spec-adapter-667a00a-complete-r1/evidence/508aced8e98a111b"]
+      },
+      {
+        "name": "spec_market",
+        "type": "string",
+        "wireTag": 3,
+        "status": "declared",
+        "nullable": false,
+        "evidence": ["cce-car-spec-adapter-667a00a-complete-r1/evidence/c8972d9724573f7c"]
+      },
+      {
+        "name": "legacy_gcc_market",
+        "type": "*google.golang.org/protobuf/types/known/wrapperspb::StringValue",
+        "wireTag": 4,
+        "status": "declared",
+        "nullable": true,
+        "evidence": ["cce-car-spec-adapter-667a00a-complete-r1/evidence/ab4976ba414dea4b"]
+      }
+    ]
+  },
+  {
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/messaging/contracts::PcgMarketAuthMessage",
+    "sourceShape": "cce-car-spec-adapter-667a00a-complete-r1/shape/aee1164d5c360e62",
+    "protobufShape": "cce-car-spec-adapter-667a00a-complete-r1/shape/protobuf/PcgMarketAuthMessage",
+    "fields": [
+      {
+        "name": "pno12",
+        "type": "string",
+        "wireTag": 1,
+        "status": "declared",
+        "nullable": false,
+        "evidence": ["cce-car-spec-adapter-667a00a-complete-r1/evidence/2596c2f6b2cfe6d9"]
+      },
+      {
+        "name": "model_year",
+        "type": "int32",
+        "wireTag": 2,
+        "status": "declared",
+        "nullable": false,
+        "evidence": ["cce-car-spec-adapter-667a00a-complete-r1/evidence/6d59a25e14ba21c4"]
+      },
+      {
+        "name": "spec_market",
+        "type": "string",
+        "wireTag": 3,
+        "status": "declared",
+        "nullable": false,
+        "evidence": ["cce-car-spec-adapter-667a00a-complete-r1/evidence/2d43fcf32dbb9fc7"]
+      },
+      {
+        "name": "legacy_gcc_market",
+        "type": "*google.golang.org/protobuf/types/known/wrapperspb::StringValue",
+        "wireTag": 4,
+        "status": "declared",
+        "nullable": true,
+        "evidence": ["cce-car-spec-adapter-667a00a-complete-r1/evidence/83b1c3f5a216875c"]
+      }
+    ]
+  },
+  {
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/messaging/contracts::StructureWeek",
+    "sourceShape": "cce-car-spec-adapter-667a00a-complete-r1/shape/83d0c6cd05cb1e57",
+    "protobufShape": "cce-car-spec-adapter-667a00a-complete-r1/shape/protobuf/StructureWeek",
+    "fields": [
+      {
+        "name": "year",
+        "type": "int32",
+        "wireTag": 1,
+        "status": "declared",
+        "nullable": false,
+        "evidence": ["cce-car-spec-adapter-667a00a-complete-r1/evidence/d952210a370b6c8e"]
+      },
+      {
+        "name": "week",
+        "type": "int32",
+        "wireTag": 2,
+        "status": "declared",
+        "nullable": false,
+        "evidence": ["cce-car-spec-adapter-667a00a-complete-r1/evidence/f846b60c4f2760ab"]
+      }
+    ]
+  },
+  {
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/messaging/contracts::StructureWeekPeriod",
+    "sourceShape": "cce-car-spec-adapter-667a00a-complete-r1/shape/74d4bae55c21bc09",
+    "protobufShape": "cce-car-spec-adapter-667a00a-complete-r1/shape/protobuf/StructureWeekPeriod",
+    "fields": [
+      {
+        "name": "from",
+        "type": "*github.com/volvo-cars/cce-car-spec-adapter/internal/messaging/contracts::StructureWeek",
+        "wireTag": 1,
+        "status": "declared",
+        "nullable": true,
+        "evidence": ["cce-car-spec-adapter-667a00a-complete-r1/evidence/df1d4170d12d412c"],
+        "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/protobuf/StructureWeek"
+      },
+      {
+        "name": "to",
+        "type": "*github.com/volvo-cars/cce-car-spec-adapter/internal/messaging/contracts::StructureWeek",
+        "wireTag": 2,
+        "status": "declared",
+        "nullable": true,
+        "evidence": ["cce-car-spec-adapter-667a00a-complete-r1/evidence/3fae319651beeb75"],
+        "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/protobuf/StructureWeek"
+      }
+    ]
+  }
+]

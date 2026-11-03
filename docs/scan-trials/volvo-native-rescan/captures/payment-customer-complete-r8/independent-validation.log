@@ -1,0 +1,11 @@
+
+> groundwork@0.0.0 knowledge:validate
+> node --import ./tools/register.ts --conditions=react-server tools/validate-knowledge.ts reports/volvo-native-rescan/payment-customer-complete/bundle.complete-08.json
+
+{
+  "snapshot": "4ff3b8eb46af1252c54e83f0ecfd54473b14789701783ec1ff6fcb7d13591ab6",
+  "bundles": 1,
+  "records": 15577,
+  "sourceRangesChecked": 0,
+  "sourceVerification": "not_requested"
+}

@@ -1,0 +1,11 @@
+
+> groundwork@0.0.0 knowledge:validate
+> node --import ./tools/register.ts --conditions=react-server tools/validate-knowledge.ts reports/volvo-native-rescan/caas-car-configurator-complete/bundle.complete-02.json --snapshot reports/volvo-native-rescan/caas-car-configurator-complete/snapshot.complete-02.json
+
+{
+  "snapshot": "73731576937e6406a98aa6e365638fd7a95248c5f5e1491b32d06e880e66eaaf",
+  "bundles": 1,
+  "records": 96266,
+  "sourceRangesChecked": 0,
+  "sourceVerification": "not_requested"
+}

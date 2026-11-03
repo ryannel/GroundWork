@@ -1,0 +1,26 @@
+{
+  "status": "complete_for_local_source_scope",
+  "selectedBundle": "bundle.final-r1.json",
+  "selectedManifest": "snapshot.final-r1.json",
+  "snapshot": "c928e6c2ac32cd9acf39877d95d4e6b0f4081d2066a120c42a7a9d281752a5df",
+  "productionJava": 71,
+  "declaredMembers": 122,
+  "declaredBodies": 104,
+  "lambdaBodies": 21,
+  "sourceInitializerFrames": 4,
+  "declarationOnlyFrames": 18,
+  "nativeFrames": 147,
+  "entries": 13,
+  "interactions": 15,
+  "sourceRangesVerified": 1447,
+  "sourceReviewComplete": true,
+  "runtimeClosureComplete": false,
+  "acceptance": {
+    "checks": 81,
+    "queries": 49,
+    "allEntryQueries": 190,
+    "methodAndBindingQueries": 278
+  },
+  "queryLimit": "Poll broad traversal maxNodes=2000; positive actual boundary segments and complete owned records retained",
+  "sourceBuildsOrTestsRun": false
+}

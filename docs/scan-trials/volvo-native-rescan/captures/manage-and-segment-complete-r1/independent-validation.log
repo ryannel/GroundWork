@@ -1,0 +1,11 @@
+
+> groundwork@0.0.0 knowledge:validate
+> node --import ./tools/register.ts --conditions=react-server tools/validate-knowledge.ts reports/volvo-native-rescan/manage-and-segment-complete/bundle.json --snapshot reports/volvo-native-rescan/manage-and-segment-complete/snapshot.json --sources /Users/RNEL/.cache/groundwork/clones
+
+{
+  "snapshot": "42b83383c124f0eed1b45a578d77700adb7a7a33115fe46e20b41f0d52af25b2",
+  "bundles": 1,
+  "records": 123231,
+  "sourceRangesChecked": 6638,
+  "sourceVerification": "pinned_local_files"
+}

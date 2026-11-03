@@ -1,0 +1,913 @@
+[
+  {
+    "owner": "volvo/cce-policy-admin/88a3512f0307/local-r2/implementation/py/module",
+    "operation": "volvo/cce-policy-admin/88a3512f0307/local-r2/operation/py/module/4",
+    "expression": "config.get('USE_ONLY_MONGO_CXNSTRING', 'False')",
+    "callee": "config.get",
+    "arguments": [
+      "volvo/cce-policy-admin/88a3512f0307/local-r2/value/py/module/2",
+      "volvo/cce-policy-admin/88a3512f0307/local-r2/value/py/module/3"
+    ],
+    "keywords": {},
+    "result": "volvo/cce-policy-admin/88a3512f0307/local-r2/value/py/module/4",
+    "receiver": "volvo/cce-policy-admin/88a3512f0307/local-r2/value/py/module/1",
+    "lines": [10, 10],
+    "target": null
+  },
+  {
+    "owner": "volvo/cce-policy-admin/88a3512f0307/local-r2/implementation/py/module",
+    "operation": "volvo/cce-policy-admin/88a3512f0307/local-r2/operation/py/module/10",
+    "expression": "config.get('MONGO_DB_CNXSTRING', None)",
+    "callee": "config.get",
+    "arguments": [
+      "volvo/cce-policy-admin/88a3512f0307/local-r2/value/py/module/8",
+      "volvo/cce-policy-admin/88a3512f0307/local-r2/value/py/module/9"
+    ],
+    "keywords": {},
+    "result": "volvo/cce-policy-admin/88a3512f0307/local-r2/value/py/module/10",
+    "receiver": "volvo/cce-policy-admin/88a3512f0307/local-r2/value/py/module/1",
+    "lines": [11, 11],
+    "target": null
+  },
+  {
+    "owner": "volvo/cce-policy-admin/88a3512f0307/local-r2/implementation/py/module",
+    "operation": "volvo/cce-policy-admin/88a3512f0307/local-r2/operation/py/module/11",
+    "expression": "MongoClient(config.get('MONGO_DB_CNXSTRING', None))",
+    "callee": "MongoClient",
+    "arguments": ["volvo/cce-policy-admin/88a3512f0307/local-r2/value/py/module/10"],
+    "keywords": {},
+    "result": "volvo/cce-policy-admin/88a3512f0307/local-r2/value/py/module/11",
+    "receiver": null,
+    "lines": [11, 11],
+    "target": null
+  },
+  {
+    "owner": "volvo/cce-policy-admin/88a3512f0307/local-r2/implementation/py/module",
+    "operation": "volvo/cce-policy-admin/88a3512f0307/local-r2/operation/py/module/14",
+    "expression": "config.get('MONGO_DB_CNXSTRING', None)",
+    "callee": "config.get",
+    "arguments": [
+      "volvo/cce-policy-admin/88a3512f0307/local-r2/value/py/module/12",
+      "volvo/cce-policy-admin/88a3512f0307/local-r2/value/py/module/13"
+    ],
+    "keywords": {},
+    "result": "volvo/cce-policy-admin/88a3512f0307/local-r2/value/py/module/14",
+    "receiver": "volvo/cce-policy-admin/88a3512f0307/local-r2/value/py/module/1",
+    "lines": [13, 13],
+    "target": null
+  },
+  {
+    "owner": "volvo/cce-policy-admin/88a3512f0307/local-r2/implementation/py/module",
+    "operation": "volvo/cce-policy-admin/88a3512f0307/local-r2/operation/py/module/17",
+    "expression": "config.get('MONGO_TLS_CERTIFICATE', None)",
+    "callee": "config.get",
+    "arguments": [
+      "volvo/cce-policy-admin/88a3512f0307/local-r2/value/py/module/15",
+      "volvo/cce-policy-admin/88a3512f0307/local-r2/value/py/module/16"
+    ],
+    "keywords": {},
+    "result": "volvo/cce-policy-admin/88a3512f0307/local-r2/value/py/module/17",
+    "receiver": "volvo/cce-policy-admin/88a3512f0307/local-r2/value/py/module/1",
+    "lines": [13, 13],
+    "target": null
+  },
+  {
+    "owner": "volvo/cce-policy-admin/88a3512f0307/local-r2/implementation/py/module",
+    "operation": "volvo/cce-policy-admin/88a3512f0307/local-r2/operation/py/module/18",
+    "expression": "MongoClient(config.get('MONGO_DB_CNXSTRING', None), tlsCAFile=config.get('MONGO_TLS_CERTIFICATE', None))",
+    "callee": "MongoClient",
+    "arguments": ["volvo/cce-policy-admin/88a3512f0307/local-r2/value/py/module/14"],
+    "keywords": {
+      "tlsCAFile": "volvo/cce-policy-admin/88a3512f0307/local-r2/value/py/module/17"
+    },
+    "result": "volvo/cce-policy-admin/88a3512f0307/local-r2/value/py/module/18",
+    "receiver": null,
+    "lines": [13, 13],
+    "target": null
+  },
+  {
+    "owner": "volvo/cce-policy-admin/88a3512f0307/local-r2/implementation/py/module",
+    "operation": "volvo/cce-policy-admin/88a3512f0307/local-r2/operation/py/module/24",
+    "expression": "config.get('POSTGRES_DBNAME', None)",
+    "callee": "config.get",
+    "arguments": [
+      "volvo/cce-policy-admin/88a3512f0307/local-r2/value/py/module/22",
+      "volvo/cce-policy-admin/88a3512f0307/local-r2/value/py/module/23"
+    ],
+    "keywords": {},
+    "result": "volvo/cce-policy-admin/88a3512f0307/local-r2/value/py/module/24",
+    "receiver": "volvo/cce-policy-admin/88a3512f0307/local-r2/value/py/module/1",
+    "lines": [19, 19],
+    "target": null
+  },
+  {
+    "owner": "volvo/cce-policy-admin/88a3512f0307/local-r2/implementation/py/module",
+    "operation": "volvo/cce-policy-admin/88a3512f0307/local-r2/operation/py/module/27",
+    "expression": "config.get('POSTGRES_USER', None)",
+    "callee": "config.get",
+    "arguments": [
+      "volvo/cce-policy-admin/88a3512f0307/local-r2/value/py/module/25",
+      "volvo/cce-policy-admin/88a3512f0307/local-r2/value/py/module/26"
+    ],
+    "keywords": {},
+    "result": "volvo/cce-policy-admin/88a3512f0307/local-r2/value/py/module/27",
+    "receiver": "volvo/cce-policy-admin/88a3512f0307/local-r2/value/py/module/1",
+    "lines": [20, 20],
+    "target": null
+  },
+  {
+    "owner": "volvo/cce-policy-admin/88a3512f0307/local-r2/implementation/py/module",
+    "operation": "volvo/cce-policy-admin/88a3512f0307/local-r2/operation/py/module/30",
+    "expression": "config.get('POSTGRES_PASSWORD', None)",
+    "callee": "config.get",
+    "arguments": [
+      "volvo/cce-policy-admin/88a3512f0307/local-r2/value/py/module/28",
+      "volvo/cce-policy-admin/88a3512f0307/local-r2/value/py/module/29"
+    ],
+    "keywords": {},
+    "result": "volvo/cce-policy-admin/88a3512f0307/local-r2/value/py/module/30",
+    "receiver": "volvo/cce-policy-admin/88a3512f0307/local-r2/value/py/module/1",
+    "lines": [21, 21],
+    "target": null
+  },
+  {
+    "owner": "volvo/cce-policy-admin/88a3512f0307/local-r2/implementation/py/module",
+    "operation": "volvo/cce-policy-admin/88a3512f0307/local-r2/operation/py/module/33",
+    "expression": "config.get('POSTGRES_HOST', None)",
+    "callee": "config.get",
+    "arguments": [
+      "volvo/cce-policy-admin/88a3512f0307/local-r2/value/py/module/31",
+      "volvo/cce-policy-admin/88a3512f0307/local-r2/value/py/module/32"
+    ],
+    "keywords": {},
+    "result": "volvo/cce-policy-admin/88a3512f0307/local-r2/value/py/module/33",
+    "receiver": "volvo/cce-policy-admin/88a3512f0307/local-r2/value/py/module/1",
+    "lines": [22, 22],
+    "target": null
+  },
+  {
+    "owner": "volvo/cce-policy-admin/88a3512f0307/local-r2/implementation/py/module",
+    "operation": "volvo/cce-policy-admin/88a3512f0307/local-r2/operation/py/module/36",
+    "expression": "config.get('POSTGRES_PORT', '5432')",
+    "callee": "config.get",
+    "arguments": [
+      "volvo/cce-policy-admin/88a3512f0307/local-r2/value/py/module/34",
+      "volvo/cce-policy-admin/88a3512f0307/local-r2/value/py/module/35"
+    ],
+    "keywords": {},
+    "result": "volvo/cce-policy-admin/88a3512f0307/local-r2/value/py/module/36",
+    "receiver": "volvo/cce-policy-admin/88a3512f0307/local-r2/value/py/module/1",
+    "lines": [23, 23],
+    "target": null
+  },
+  {
+    "owner": "volvo/cce-policy-admin/88a3512f0307/local-r2/implementation/py/module",
+    "operation": "volvo/cce-policy-admin/88a3512f0307/local-r2/operation/py/module/37",
+    "expression": "int(config.get('POSTGRES_PORT', '5432'))",
+    "callee": "int",
+    "arguments": ["volvo/cce-policy-admin/88a3512f0307/local-r2/value/py/module/36"],
+    "keywords": {},
+    "result": "volvo/cce-policy-admin/88a3512f0307/local-r2/value/py/module/37",
+    "receiver": null,
+    "lines": [23, 23],
+    "target": null
+  },
+  {
+    "owner": "volvo/cce-policy-admin/88a3512f0307/local-r2/implementation/py/module",
+    "operation": "volvo/cce-policy-admin/88a3512f0307/local-r2/operation/py/module/40",
+    "expression": "pg8000.connect(**connection_parameters)",
+    "callee": "pg8000.connect",
+    "arguments": [],
+    "keywords": {
+      "**": "volvo/cce-policy-admin/88a3512f0307/local-r2/value/py/module/38"
+    },
+    "result": "volvo/cce-policy-admin/88a3512f0307/local-r2/value/py/module/40",
+    "receiver": "volvo/cce-policy-admin/88a3512f0307/local-r2/value/py/module/39",
+    "lines": [25, 25],
+    "target": null
+  },
+  {
+    "owner": "volvo/cce-policy-admin/88a3512f0307/local-r2/implementation/py/module",
+    "operation": "volvo/cce-policy-admin/88a3512f0307/local-r2/operation/py/module/41",
+    "expression": "pg_conn.cursor()",
+    "callee": "pg_conn.cursor",
+    "arguments": [],
+    "keywords": {},
+    "result": "volvo/cce-policy-admin/88a3512f0307/local-r2/value/py/module/41",
+    "receiver": "volvo/cce-policy-admin/88a3512f0307/local-r2/value/py/module/40",
+    "lines": [26, 26],
+    "target": null
+  },
+  {
+    "owner": "volvo/cce-policy-admin/88a3512f0307/local-r2/implementation/py/module",
+    "operation": "volvo/cce-policy-admin/88a3512f0307/local-r2/operation/py/module/46",
+    "expression": "main()",
+    "callee": "main",
+    "arguments": [],
+    "keywords": {},
+    "result": null,
+    "receiver": null,
+    "lines": [225, 225],
+    "target": "volvo/cce-policy-admin/88a3512f0307/local-r2/implementation/py/main"
+  },
+  {
+    "owner": "volvo/cce-policy-admin/88a3512f0307/local-r2/implementation/py/prepare_decompress",
+    "operation": "volvo/cce-policy-admin/88a3512f0307/local-r2/operation/py/prepare_decompress/3",
+    "expression": "gzip.decompress(compressed)",
+    "callee": "gzip.decompress",
+    "arguments": [
+      "volvo/cce-policy-admin/88a3512f0307/local-r2/value/py/prepare_decompress/p/compressed"
+    ],
+    "keywords": {},
+    "result": "volvo/cce-policy-admin/88a3512f0307/local-r2/value/py/prepare_decompress/3",
+    "receiver": "volvo/cce-policy-admin/88a3512f0307/local-r2/value/py/prepare_decompress/2",
+    "lines": [37, 37],
+    "target": null
+  },
+  {
+    "owner": "volvo/cce-policy-admin/88a3512f0307/local-r2/implementation/py/prepare_decompress",
+    "operation": "volvo/cce-policy-admin/88a3512f0307/local-r2/operation/py/prepare_decompress/4",
+    "expression": "gzip.decompress(compressed).decode()",
+    "callee": "gzip.decompress(compressed).decode",
+    "arguments": [],
+    "keywords": {},
+    "result": "volvo/cce-policy-admin/88a3512f0307/local-r2/value/py/prepare_decompress/4",
+    "receiver": "volvo/cce-policy-admin/88a3512f0307/local-r2/value/py/prepare_decompress/3",
+    "lines": [37, 37],
+    "target": null
+  },
+  {
+    "owner": "volvo/cce-policy-admin/88a3512f0307/local-r2/implementation/py/prepare_decompress",
+    "operation": "volvo/cce-policy-admin/88a3512f0307/local-r2/operation/py/prepare_decompress/5",
+    "expression": "ast.literal_eval(gzip.decompress(compressed).decode())",
+    "callee": "ast.literal_eval",
+    "arguments": ["volvo/cce-policy-admin/88a3512f0307/local-r2/value/py/prepare_decompress/4"],
+    "keywords": {},
+    "result": "volvo/cce-policy-admin/88a3512f0307/local-r2/value/py/prepare_decompress/5",
+    "receiver": "volvo/cce-policy-admin/88a3512f0307/local-r2/value/py/prepare_decompress/1",
+    "lines": [37, 37],
+    "target": null
+  },
+  {
+    "owner": "volvo/cce-policy-admin/88a3512f0307/local-r2/implementation/py/migrate_config_policy",
+    "operation": "volvo/cce-policy-admin/88a3512f0307/local-r2/operation/py/migrate_config_policy/6",
+    "expression": "pg_cursor.execute('\\n        CREATE TABLE IF NOT EXISTS config_policy (\\n            uid TEXT PRIMARY KEY,\\n            name TEXT,\\n            parent_uid TEXT,\\n            payload BYTEA\\n        )\\n    ')",
+    "callee": "pg_cursor.execute",
+    "arguments": ["volvo/cce-policy-admin/88a3512f0307/local-r2/value/py/migrate_config_policy/5"],
+    "keywords": {},
+    "result": null,
+    "receiver": "volvo/cce-policy-admin/88a3512f0307/local-r2/value/py/migrate_config_policy/4",
+    "lines": [41, 48],
+    "target": null
+  },
+  {
+    "owner": "volvo/cce-policy-admin/88a3512f0307/local-r2/implementation/py/migrate_config_policy",
+    "operation": "volvo/cce-policy-admin/88a3512f0307/local-r2/operation/py/migrate_config_policy/8",
+    "expression": "pg_conn.commit()",
+    "callee": "pg_conn.commit",
+    "arguments": [],
+    "keywords": {},
+    "result": null,
+    "receiver": "volvo/cce-policy-admin/88a3512f0307/local-r2/value/py/migrate_config_policy/7",
+    "lines": [49, 49],
+    "target": null
+  },
+  {
+    "owner": "volvo/cce-policy-admin/88a3512f0307/local-r2/implementation/py/migrate_config_policy",
+    "operation": "volvo/cce-policy-admin/88a3512f0307/local-r2/operation/py/migrate_config_policy/9",
+    "expression": "mongo_collection.find()",
+    "callee": "mongo_collection.find",
+    "arguments": [],
+    "keywords": {},
+    "result": "volvo/cce-policy-admin/88a3512f0307/local-r2/value/py/migrate_config_policy/9",
+    "receiver": "volvo/cce-policy-admin/88a3512f0307/local-r2/value/py/migrate_config_policy/3",
+    "lines": [51, 51],
+    "target": null
+  },
+  {
+    "owner": "volvo/cce-policy-admin/88a3512f0307/local-r2/implementation/py/migrate_config_policy",
+    "operation": "volvo/cce-policy-admin/88a3512f0307/local-r2/operation/py/migrate_config_policy/12",
+    "expression": "prepare_compress(document)",
+    "callee": "prepare_compress",
+    "arguments": ["volvo/cce-policy-admin/88a3512f0307/local-r2/value/py/migrate_config_policy/11"],
+    "keywords": {},
+    "result": "volvo/cce-policy-admin/88a3512f0307/local-r2/value/py/migrate_config_policy/12",
+    "receiver": null,
+    "lines": [52, 52],
+    "target": "volvo/cce-policy-admin/88a3512f0307/local-r2/implementation/py/prepare_compress"
+  },
+  {
+    "owner": "volvo/cce-policy-admin/88a3512f0307/local-r2/implementation/py/migrate_config_policy",
+    "operation": "volvo/cce-policy-admin/88a3512f0307/local-r2/operation/py/migrate_config_policy/23",
+    "expression": "pg_cursor.execute('\\n            INSERT INTO config_policy (uid, name, parent_uid, payload)\\n            VALUES (%s, %s, %s, %s)\\n            ON CONFLICT (uid) DO NOTHING\\n        ', (document['uid'], document['name'], document['parent_uid'], document['payload']))",
+    "callee": "pg_cursor.execute",
+    "arguments": [
+      "volvo/cce-policy-admin/88a3512f0307/local-r2/value/py/migrate_config_policy/13",
+      "volvo/cce-policy-admin/88a3512f0307/local-r2/value/py/migrate_config_policy/22"
+    ],
+    "keywords": {},
+    "result": null,
+    "receiver": "volvo/cce-policy-admin/88a3512f0307/local-r2/value/py/migrate_config_policy/4",
+    "lines": [53, 57],
+    "target": null
+  },
+  {
+    "owner": "volvo/cce-policy-admin/88a3512f0307/local-r2/implementation/py/migrate_config_policy",
+    "operation": "volvo/cce-policy-admin/88a3512f0307/local-r2/operation/py/migrate_config_policy/24",
+    "expression": "pg_conn.commit()",
+    "callee": "pg_conn.commit",
+    "arguments": [],
+    "keywords": {},
+    "result": null,
+    "receiver": "volvo/cce-policy-admin/88a3512f0307/local-r2/value/py/migrate_config_policy/7",
+    "lines": [59, 59],
+    "target": null
+  },
+  {
+    "owner": "volvo/cce-policy-admin/88a3512f0307/local-r2/implementation/py/migrate_partners",
+    "operation": "volvo/cce-policy-admin/88a3512f0307/local-r2/operation/py/migrate_partners/6",
+    "expression": "pg_cursor.execute('\\n        CREATE TABLE IF NOT EXISTS partners (\\n            partner_id TEXT PRIMARY KEY,\\n            brand TEXT,\\n            country_code TEXT,\\n            role TEXT,\\n            role_code TEXT,\\n            program_market TEXT,\\n            is_active BOOLEAN\\n        )\\n    ')",
+    "callee": "pg_cursor.execute",
+    "arguments": ["volvo/cce-policy-admin/88a3512f0307/local-r2/value/py/migrate_partners/5"],
+    "keywords": {},
+    "result": null,
+    "receiver": "volvo/cce-policy-admin/88a3512f0307/local-r2/value/py/migrate_partners/4",
+    "lines": [63, 73],
+    "target": null
+  },
+  {
+    "owner": "volvo/cce-policy-admin/88a3512f0307/local-r2/implementation/py/migrate_partners",
+    "operation": "volvo/cce-policy-admin/88a3512f0307/local-r2/operation/py/migrate_partners/8",
+    "expression": "pg_conn.commit()",
+    "callee": "pg_conn.commit",
+    "arguments": [],
+    "keywords": {},
+    "result": null,
+    "receiver": "volvo/cce-policy-admin/88a3512f0307/local-r2/value/py/migrate_partners/7",
+    "lines": [74, 74],
+    "target": null
+  },
+  {
+    "owner": "volvo/cce-policy-admin/88a3512f0307/local-r2/implementation/py/migrate_partners",
+    "operation": "volvo/cce-policy-admin/88a3512f0307/local-r2/operation/py/migrate_partners/9",
+    "expression": "mongo_collection.find()",
+    "callee": "mongo_collection.find",
+    "arguments": [],
+    "keywords": {},
+    "result": "volvo/cce-policy-admin/88a3512f0307/local-r2/value/py/migrate_partners/9",
+    "receiver": "volvo/cce-policy-admin/88a3512f0307/local-r2/value/py/migrate_partners/3",
+    "lines": [76, 76],
+    "target": null
+  },
+  {
+    "owner": "volvo/cce-policy-admin/88a3512f0307/local-r2/implementation/py/migrate_partners",
+    "operation": "volvo/cce-policy-admin/88a3512f0307/local-r2/operation/py/migrate_partners/28",
+    "expression": "pg_cursor.execute('\\n            INSERT INTO partners (partner_id, brand, country_code, role, role_code, program_market, is_active)\\n            VALUES (%s, %s, %s, %s, %s, %s, %s)\\n            ON CONFLICT (partner_id) DO NOTHING\\n        ', (document['partner_id'], document['brand'], document['country_code'], document['role'], document['role_code'], document['program_market'], document['is_active']))",
+    "callee": "pg_cursor.execute",
+    "arguments": [
+      "volvo/cce-policy-admin/88a3512f0307/local-r2/value/py/migrate_partners/12",
+      "volvo/cce-policy-admin/88a3512f0307/local-r2/value/py/migrate_partners/27"
+    ],
+    "keywords": {},
+    "result": null,
+    "receiver": "volvo/cce-policy-admin/88a3512f0307/local-r2/value/py/migrate_partners/4",
+    "lines": [77, 81],
+    "target": null
+  },
+  {
+    "owner": "volvo/cce-policy-admin/88a3512f0307/local-r2/implementation/py/migrate_partners",
+    "operation": "volvo/cce-policy-admin/88a3512f0307/local-r2/operation/py/migrate_partners/29",
+    "expression": "pg_conn.commit()",
+    "callee": "pg_conn.commit",
+    "arguments": [],
+    "keywords": {},
+    "result": null,
+    "receiver": "volvo/cce-policy-admin/88a3512f0307/local-r2/value/py/migrate_partners/7",
+    "lines": [83, 83],
+    "target": null
+  },
+  {
+    "owner": "volvo/cce-policy-admin/88a3512f0307/local-r2/implementation/py/migrate_partner_policy",
+    "operation": "volvo/cce-policy-admin/88a3512f0307/local-r2/operation/py/migrate_partner_policy/6",
+    "expression": "pg_cursor.execute('\\n        CREATE TABLE IF NOT EXISTS partner_policy (\\n            policy_uid TEXT PRIMARY KEY,\\n            program_market TEXT,\\n            brand TEXT,\\n            rule TEXT,\\n            applies_for_partners JSONB\\n        )\\n    ')",
+    "callee": "pg_cursor.execute",
+    "arguments": ["volvo/cce-policy-admin/88a3512f0307/local-r2/value/py/migrate_partner_policy/5"],
+    "keywords": {},
+    "result": null,
+    "receiver": "volvo/cce-policy-admin/88a3512f0307/local-r2/value/py/migrate_partner_policy/4",
+    "lines": [87, 95],
+    "target": null
+  },
+  {
+    "owner": "volvo/cce-policy-admin/88a3512f0307/local-r2/implementation/py/migrate_partner_policy",
+    "operation": "volvo/cce-policy-admin/88a3512f0307/local-r2/operation/py/migrate_partner_policy/8",
+    "expression": "pg_conn.commit()",
+    "callee": "pg_conn.commit",
+    "arguments": [],
+    "keywords": {},
+    "result": null,
+    "receiver": "volvo/cce-policy-admin/88a3512f0307/local-r2/value/py/migrate_partner_policy/7",
+    "lines": [96, 96],
+    "target": null
+  },
+  {
+    "owner": "volvo/cce-policy-admin/88a3512f0307/local-r2/implementation/py/migrate_partner_policy",
+    "operation": "volvo/cce-policy-admin/88a3512f0307/local-r2/operation/py/migrate_partner_policy/9",
+    "expression": "mongo_collection.find()",
+    "callee": "mongo_collection.find",
+    "arguments": [],
+    "keywords": {},
+    "result": "volvo/cce-policy-admin/88a3512f0307/local-r2/value/py/migrate_partner_policy/9",
+    "receiver": "volvo/cce-policy-admin/88a3512f0307/local-r2/value/py/migrate_partner_policy/3",
+    "lines": [98, 98],
+    "target": null
+  },
+  {
+    "owner": "volvo/cce-policy-admin/88a3512f0307/local-r2/implementation/py/migrate_partner_policy",
+    "operation": "volvo/cce-policy-admin/88a3512f0307/local-r2/operation/py/migrate_partner_policy/24",
+    "expression": "json.dumps(document['applies_for_partners'])",
+    "callee": "json.dumps",
+    "arguments": [
+      "volvo/cce-policy-admin/88a3512f0307/local-r2/value/py/migrate_partner_policy/23"
+    ],
+    "keywords": {},
+    "result": "volvo/cce-policy-admin/88a3512f0307/local-r2/value/py/migrate_partner_policy/24",
+    "receiver": "volvo/cce-policy-admin/88a3512f0307/local-r2/value/py/migrate_partner_policy/21",
+    "lines": [103, 103],
+    "target": null
+  },
+  {
+    "owner": "volvo/cce-policy-admin/88a3512f0307/local-r2/implementation/py/migrate_partner_policy",
+    "operation": "volvo/cce-policy-admin/88a3512f0307/local-r2/operation/py/migrate_partner_policy/26",
+    "expression": "pg_cursor.execute('\\n            INSERT INTO partner_policy (policy_uid, program_market, brand, rule, applies_for_partners)\\n            VALUES (%s, %s, %s, %s, %s)\\n            ON CONFLICT (policy_uid) DO NOTHING\\n        ', (document['policy_uid'], document['program_market'], document['brand'], document['rule'], json.dumps(document['applies_for_partners'])))",
+    "callee": "pg_cursor.execute",
+    "arguments": [
+      "volvo/cce-policy-admin/88a3512f0307/local-r2/value/py/migrate_partner_policy/12",
+      "volvo/cce-policy-admin/88a3512f0307/local-r2/value/py/migrate_partner_policy/25"
+    ],
+    "keywords": {},
+    "result": null,
+    "receiver": "volvo/cce-policy-admin/88a3512f0307/local-r2/value/py/migrate_partner_policy/4",
+    "lines": [99, 103],
+    "target": null
+  },
+  {
+    "owner": "volvo/cce-policy-admin/88a3512f0307/local-r2/implementation/py/migrate_partner_policy",
+    "operation": "volvo/cce-policy-admin/88a3512f0307/local-r2/operation/py/migrate_partner_policy/27",
+    "expression": "pg_conn.commit()",
+    "callee": "pg_conn.commit",
+    "arguments": [],
+    "keywords": {},
+    "result": null,
+    "receiver": "volvo/cce-policy-admin/88a3512f0307/local-r2/value/py/migrate_partner_policy/7",
+    "lines": [105, 105],
+    "target": null
+  },
+  {
+    "owner": "volvo/cce-policy-admin/88a3512f0307/local-r2/implementation/py/migrate_components_policy_pno12",
+    "operation": "volvo/cce-policy-admin/88a3512f0307/local-r2/operation/py/migrate_components_policy_pno12/6",
+    "expression": "pg_cursor.execute('\\n        CREATE TABLE IF NOT EXISTS components_policy_pno12 (\\n            policy_uid TEXT,\\n            pno12 TEXT,\\n            included BOOLEAN,\\n            components JSONB,\\n            PRIMARY KEY (policy_uid, pno12)\\n        )\\n    ')",
+    "callee": "pg_cursor.execute",
+    "arguments": [
+      "volvo/cce-policy-admin/88a3512f0307/local-r2/value/py/migrate_components_policy_pno12/5"
+    ],
+    "keywords": {},
+    "result": null,
+    "receiver": "volvo/cce-policy-admin/88a3512f0307/local-r2/value/py/migrate_components_policy_pno12/4",
+    "lines": [109, 117],
+    "target": null
+  },
+  {
+    "owner": "volvo/cce-policy-admin/88a3512f0307/local-r2/implementation/py/migrate_components_policy_pno12",
+    "operation": "volvo/cce-policy-admin/88a3512f0307/local-r2/operation/py/migrate_components_policy_pno12/8",
+    "expression": "pg_conn.commit()",
+    "callee": "pg_conn.commit",
+    "arguments": [],
+    "keywords": {},
+    "result": null,
+    "receiver": "volvo/cce-policy-admin/88a3512f0307/local-r2/value/py/migrate_components_policy_pno12/7",
+    "lines": [118, 118],
+    "target": null
+  },
+  {
+    "owner": "volvo/cce-policy-admin/88a3512f0307/local-r2/implementation/py/migrate_components_policy_pno12",
+    "operation": "volvo/cce-policy-admin/88a3512f0307/local-r2/operation/py/migrate_components_policy_pno12/9",
+    "expression": "mongo_collection.find()",
+    "callee": "mongo_collection.find",
+    "arguments": [],
+    "keywords": {},
+    "result": "volvo/cce-policy-admin/88a3512f0307/local-r2/value/py/migrate_components_policy_pno12/9",
+    "receiver": "volvo/cce-policy-admin/88a3512f0307/local-r2/value/py/migrate_components_policy_pno12/3",
+    "lines": [120, 120],
+    "target": null
+  },
+  {
+    "owner": "volvo/cce-policy-admin/88a3512f0307/local-r2/implementation/py/migrate_components_policy_pno12",
+    "operation": "volvo/cce-policy-admin/88a3512f0307/local-r2/operation/py/migrate_components_policy_pno12/22",
+    "expression": "json.dumps(document['components'])",
+    "callee": "json.dumps",
+    "arguments": [
+      "volvo/cce-policy-admin/88a3512f0307/local-r2/value/py/migrate_components_policy_pno12/21"
+    ],
+    "keywords": {},
+    "result": "volvo/cce-policy-admin/88a3512f0307/local-r2/value/py/migrate_components_policy_pno12/22",
+    "receiver": "volvo/cce-policy-admin/88a3512f0307/local-r2/value/py/migrate_components_policy_pno12/19",
+    "lines": [125, 125],
+    "target": null
+  },
+  {
+    "owner": "volvo/cce-policy-admin/88a3512f0307/local-r2/implementation/py/migrate_components_policy_pno12",
+    "operation": "volvo/cce-policy-admin/88a3512f0307/local-r2/operation/py/migrate_components_policy_pno12/24",
+    "expression": "pg_cursor.execute('\\n            INSERT INTO components_policy_pno12 (policy_uid, pno12, included, components)\\n            VALUES (%s, %s, %s, %s)\\n            ON CONFLICT (policy_uid, pno12) DO NOTHING\\n        ', (document['policy_uid'], document['pno12'], document['included'], json.dumps(document['components'])))",
+    "callee": "pg_cursor.execute",
+    "arguments": [
+      "volvo/cce-policy-admin/88a3512f0307/local-r2/value/py/migrate_components_policy_pno12/12",
+      "volvo/cce-policy-admin/88a3512f0307/local-r2/value/py/migrate_components_policy_pno12/23"
+    ],
+    "keywords": {},
+    "result": null,
+    "receiver": "volvo/cce-policy-admin/88a3512f0307/local-r2/value/py/migrate_components_policy_pno12/4",
+    "lines": [121, 125],
+    "target": null
+  },
+  {
+    "owner": "volvo/cce-policy-admin/88a3512f0307/local-r2/implementation/py/migrate_components_policy_pno12",
+    "operation": "volvo/cce-policy-admin/88a3512f0307/local-r2/operation/py/migrate_components_policy_pno12/25",
+    "expression": "pg_conn.commit()",
+    "callee": "pg_conn.commit",
+    "arguments": [],
+    "keywords": {},
+    "result": null,
+    "receiver": "volvo/cce-policy-admin/88a3512f0307/local-r2/value/py/migrate_components_policy_pno12/7",
+    "lines": [127, 127],
+    "target": null
+  },
+  {
+    "owner": "volvo/cce-policy-admin/88a3512f0307/local-r2/implementation/py/migrate_components_policy_modelyear_pno3",
+    "operation": "volvo/cce-policy-admin/88a3512f0307/local-r2/operation/py/migrate_components_policy_modelyear_pno3/6",
+    "expression": "pg_cursor.execute('\\n        CREATE TABLE IF NOT EXISTS components_policy_modelyear_pno3 (\\n            policy_uid TEXT,\\n            model_year TEXT,\\n            car_type TEXT,\\n            components JSONB,\\n            PRIMARY KEY (policy_uid, model_year, car_type)\\n        )\\n    ')",
+    "callee": "pg_cursor.execute",
+    "arguments": [
+      "volvo/cce-policy-admin/88a3512f0307/local-r2/value/py/migrate_components_policy_modelyear_pno3/5"
+    ],
+    "keywords": {},
+    "result": null,
+    "receiver": "volvo/cce-policy-admin/88a3512f0307/local-r2/value/py/migrate_components_policy_modelyear_pno3/4",
+    "lines": [131, 139],
+    "target": null
+  },
+  {
+    "owner": "volvo/cce-policy-admin/88a3512f0307/local-r2/implementation/py/migrate_components_policy_modelyear_pno3",
+    "operation": "volvo/cce-policy-admin/88a3512f0307/local-r2/operation/py/migrate_components_policy_modelyear_pno3/8",
+    "expression": "pg_conn.commit()",
+    "callee": "pg_conn.commit",
+    "arguments": [],
+    "keywords": {},
+    "result": null,
+    "receiver": "volvo/cce-policy-admin/88a3512f0307/local-r2/value/py/migrate_components_policy_modelyear_pno3/7",
+    "lines": [140, 140],
+    "target": null
+  },
+  {
+    "owner": "volvo/cce-policy-admin/88a3512f0307/local-r2/implementation/py/migrate_components_policy_modelyear_pno3",
+    "operation": "volvo/cce-policy-admin/88a3512f0307/local-r2/operation/py/migrate_components_policy_modelyear_pno3/9",
+    "expression": "mongo_collection.find()",
+    "callee": "mongo_collection.find",
+    "arguments": [],
+    "keywords": {},
+    "result": "volvo/cce-policy-admin/88a3512f0307/local-r2/value/py/migrate_components_policy_modelyear_pno3/9",
+    "receiver": "volvo/cce-policy-admin/88a3512f0307/local-r2/value/py/migrate_components_policy_modelyear_pno3/3",
+    "lines": [142, 142],
+    "target": null
+  },
+  {
+    "owner": "volvo/cce-policy-admin/88a3512f0307/local-r2/implementation/py/migrate_components_policy_modelyear_pno3",
+    "operation": "volvo/cce-policy-admin/88a3512f0307/local-r2/operation/py/migrate_components_policy_modelyear_pno3/22",
+    "expression": "json.dumps(document['components'])",
+    "callee": "json.dumps",
+    "arguments": [
+      "volvo/cce-policy-admin/88a3512f0307/local-r2/value/py/migrate_components_policy_modelyear_pno3/21"
+    ],
+    "keywords": {},
+    "result": "volvo/cce-policy-admin/88a3512f0307/local-r2/value/py/migrate_components_policy_modelyear_pno3/22",
+    "receiver": "volvo/cce-policy-admin/88a3512f0307/local-r2/value/py/migrate_components_policy_modelyear_pno3/19",
+    "lines": [147, 147],
+    "target": null
+  },
+  {
+    "owner": "volvo/cce-policy-admin/88a3512f0307/local-r2/implementation/py/migrate_components_policy_modelyear_pno3",
+    "operation": "volvo/cce-policy-admin/88a3512f0307/local-r2/operation/py/migrate_components_policy_modelyear_pno3/24",
+    "expression": "pg_cursor.execute('\\n            INSERT INTO components_policy_modelyear_pno3 (policy_uid, model_year, car_type, components)\\n            VALUES (%s, %s, %s, %s)\\n            ON CONFLICT (policy_uid, model_year, car_type) DO NOTHING\\n        ', (document['policy_uid'], document['model_year'], document['car_type'], json.dumps(document['components'])))",
+    "callee": "pg_cursor.execute",
+    "arguments": [
+      "volvo/cce-policy-admin/88a3512f0307/local-r2/value/py/migrate_components_policy_modelyear_pno3/12",
+      "volvo/cce-policy-admin/88a3512f0307/local-r2/value/py/migrate_components_policy_modelyear_pno3/23"
+    ],
+    "keywords": {},
+    "result": null,
+    "receiver": "volvo/cce-policy-admin/88a3512f0307/local-r2/value/py/migrate_components_policy_modelyear_pno3/4",
+    "lines": [143, 147],
+    "target": null
+  },
+  {
+    "owner": "volvo/cce-policy-admin/88a3512f0307/local-r2/implementation/py/migrate_components_policy_modelyear_pno3",
+    "operation": "volvo/cce-policy-admin/88a3512f0307/local-r2/operation/py/migrate_components_policy_modelyear_pno3/25",
+    "expression": "pg_conn.commit()",
+    "callee": "pg_conn.commit",
+    "arguments": [],
+    "keywords": {},
+    "result": null,
+    "receiver": "volvo/cce-policy-admin/88a3512f0307/local-r2/value/py/migrate_components_policy_modelyear_pno3/7",
+    "lines": [149, 149],
+    "target": null
+  },
+  {
+    "owner": "volvo/cce-policy-admin/88a3512f0307/local-r2/implementation/py/migrate_components_policy",
+    "operation": "volvo/cce-policy-admin/88a3512f0307/local-r2/operation/py/migrate_components_policy/6",
+    "expression": "pg_cursor.execute('\\n        CREATE TABLE IF NOT EXISTS components_policy (\\n            policy_uid TEXT PRIMARY KEY,\\n            components JSONB\\n        )\\n    ')",
+    "callee": "pg_cursor.execute",
+    "arguments": [
+      "volvo/cce-policy-admin/88a3512f0307/local-r2/value/py/migrate_components_policy/5"
+    ],
+    "keywords": {},
+    "result": null,
+    "receiver": "volvo/cce-policy-admin/88a3512f0307/local-r2/value/py/migrate_components_policy/4",
+    "lines": [153, 158],
+    "target": null
+  },
+  {
+    "owner": "volvo/cce-policy-admin/88a3512f0307/local-r2/implementation/py/migrate_components_policy",
+    "operation": "volvo/cce-policy-admin/88a3512f0307/local-r2/operation/py/migrate_components_policy/8",
+    "expression": "pg_conn.commit()",
+    "callee": "pg_conn.commit",
+    "arguments": [],
+    "keywords": {},
+    "result": null,
+    "receiver": "volvo/cce-policy-admin/88a3512f0307/local-r2/value/py/migrate_components_policy/7",
+    "lines": [159, 159],
+    "target": null
+  },
+  {
+    "owner": "volvo/cce-policy-admin/88a3512f0307/local-r2/implementation/py/migrate_components_policy",
+    "operation": "volvo/cce-policy-admin/88a3512f0307/local-r2/operation/py/migrate_components_policy/9",
+    "expression": "mongo_collection.find()",
+    "callee": "mongo_collection.find",
+    "arguments": [],
+    "keywords": {},
+    "result": "volvo/cce-policy-admin/88a3512f0307/local-r2/value/py/migrate_components_policy/9",
+    "receiver": "volvo/cce-policy-admin/88a3512f0307/local-r2/value/py/migrate_components_policy/3",
+    "lines": [161, 161],
+    "target": null
+  },
+  {
+    "owner": "volvo/cce-policy-admin/88a3512f0307/local-r2/implementation/py/migrate_components_policy",
+    "operation": "volvo/cce-policy-admin/88a3512f0307/local-r2/operation/py/migrate_components_policy/18",
+    "expression": "json.dumps(document['components'])",
+    "callee": "json.dumps",
+    "arguments": [
+      "volvo/cce-policy-admin/88a3512f0307/local-r2/value/py/migrate_components_policy/17"
+    ],
+    "keywords": {},
+    "result": "volvo/cce-policy-admin/88a3512f0307/local-r2/value/py/migrate_components_policy/18",
+    "receiver": "volvo/cce-policy-admin/88a3512f0307/local-r2/value/py/migrate_components_policy/15",
+    "lines": [166, 166],
+    "target": null
+  },
+  {
+    "owner": "volvo/cce-policy-admin/88a3512f0307/local-r2/implementation/py/migrate_components_policy",
+    "operation": "volvo/cce-policy-admin/88a3512f0307/local-r2/operation/py/migrate_components_policy/20",
+    "expression": "pg_cursor.execute('\\n            INSERT INTO components_policy (policy_uid, components)\\n            VALUES (%s, %s)\\n            ON CONFLICT (policy_uid) DO NOTHING\\n        ', (document['policy_uid'], json.dumps(document['components'])))",
+    "callee": "pg_cursor.execute",
+    "arguments": [
+      "volvo/cce-policy-admin/88a3512f0307/local-r2/value/py/migrate_components_policy/12",
+      "volvo/cce-policy-admin/88a3512f0307/local-r2/value/py/migrate_components_policy/19"
+    ],
+    "keywords": {},
+    "result": null,
+    "receiver": "volvo/cce-policy-admin/88a3512f0307/local-r2/value/py/migrate_components_policy/4",
+    "lines": [162, 166],
+    "target": null
+  },
+  {
+    "owner": "volvo/cce-policy-admin/88a3512f0307/local-r2/implementation/py/migrate_components_policy",
+    "operation": "volvo/cce-policy-admin/88a3512f0307/local-r2/operation/py/migrate_components_policy/21",
+    "expression": "pg_conn.commit()",
+    "callee": "pg_conn.commit",
+    "arguments": [],
+    "keywords": {},
+    "result": null,
+    "receiver": "volvo/cce-policy-admin/88a3512f0307/local-r2/value/py/migrate_components_policy/7",
+    "lines": [168, 168],
+    "target": null
+  },
+  {
+    "owner": "volvo/cce-policy-admin/88a3512f0307/local-r2/implementation/py/migrate_policy_status",
+    "operation": "volvo/cce-policy-admin/88a3512f0307/local-r2/operation/py/migrate_policy_status/6",
+    "expression": "pg_cursor.execute('\\n        CREATE TABLE IF NOT EXISTS policy_status (\\n            policy_uid TEXT PRIMARY KEY,\\n            request_uid TEXT,\\n            status TEXT,\\n            timestamp TIMESTAMP,\\n            info JSONB,\\n            request_action TEXT\\n        )\\n    ')",
+    "callee": "pg_cursor.execute",
+    "arguments": ["volvo/cce-policy-admin/88a3512f0307/local-r2/value/py/migrate_policy_status/5"],
+    "keywords": {},
+    "result": null,
+    "receiver": "volvo/cce-policy-admin/88a3512f0307/local-r2/value/py/migrate_policy_status/4",
+    "lines": [172, 181],
+    "target": null
+  },
+  {
+    "owner": "volvo/cce-policy-admin/88a3512f0307/local-r2/implementation/py/migrate_policy_status",
+    "operation": "volvo/cce-policy-admin/88a3512f0307/local-r2/operation/py/migrate_policy_status/8",
+    "expression": "pg_conn.commit()",
+    "callee": "pg_conn.commit",
+    "arguments": [],
+    "keywords": {},
+    "result": null,
+    "receiver": "volvo/cce-policy-admin/88a3512f0307/local-r2/value/py/migrate_policy_status/7",
+    "lines": [182, 182],
+    "target": null
+  },
+  {
+    "owner": "volvo/cce-policy-admin/88a3512f0307/local-r2/implementation/py/migrate_policy_status",
+    "operation": "volvo/cce-policy-admin/88a3512f0307/local-r2/operation/py/migrate_policy_status/9",
+    "expression": "mongo_collection.find()",
+    "callee": "mongo_collection.find",
+    "arguments": [],
+    "keywords": {},
+    "result": "volvo/cce-policy-admin/88a3512f0307/local-r2/value/py/migrate_policy_status/9",
+    "receiver": "volvo/cce-policy-admin/88a3512f0307/local-r2/value/py/migrate_policy_status/3",
+    "lines": [184, 184],
+    "target": null
+  },
+  {
+    "owner": "volvo/cce-policy-admin/88a3512f0307/local-r2/implementation/py/migrate_policy_status",
+    "operation": "volvo/cce-policy-admin/88a3512f0307/local-r2/operation/py/migrate_policy_status/22",
+    "expression": "datetime.fromtimestamp(document['timestamp'])",
+    "callee": "datetime.fromtimestamp",
+    "arguments": ["volvo/cce-policy-admin/88a3512f0307/local-r2/value/py/migrate_policy_status/21"],
+    "keywords": {},
+    "result": "volvo/cce-policy-admin/88a3512f0307/local-r2/value/py/migrate_policy_status/22",
+    "receiver": "volvo/cce-policy-admin/88a3512f0307/local-r2/value/py/migrate_policy_status/19",
+    "lines": [189, 189],
+    "target": null
+  },
+  {
+    "owner": "volvo/cce-policy-admin/88a3512f0307/local-r2/implementation/py/migrate_policy_status",
+    "operation": "volvo/cce-policy-admin/88a3512f0307/local-r2/operation/py/migrate_policy_status/26",
+    "expression": "json.dumps(document['info'])",
+    "callee": "json.dumps",
+    "arguments": ["volvo/cce-policy-admin/88a3512f0307/local-r2/value/py/migrate_policy_status/25"],
+    "keywords": {},
+    "result": "volvo/cce-policy-admin/88a3512f0307/local-r2/value/py/migrate_policy_status/26",
+    "receiver": "volvo/cce-policy-admin/88a3512f0307/local-r2/value/py/migrate_policy_status/23",
+    "lines": [189, 189],
+    "target": null
+  },
+  {
+    "owner": "volvo/cce-policy-admin/88a3512f0307/local-r2/implementation/py/migrate_policy_status",
+    "operation": "volvo/cce-policy-admin/88a3512f0307/local-r2/operation/py/migrate_policy_status/30",
+    "expression": "pg_cursor.execute('\\n            INSERT INTO policy_status (policy_uid, request_uid, status, timestamp, info, request_action)\\n            VALUES (%s, %s, %s, %s, %s, %s)\\n            ON CONFLICT (policy_uid) DO NOTHING\\n        ', (document['policy_uid'], document['request_uid'], document['status'], datetime.fromtimestamp(document['timestamp']), json.dumps(document['info']), document['request_action']))",
+    "callee": "pg_cursor.execute",
+    "arguments": [
+      "volvo/cce-policy-admin/88a3512f0307/local-r2/value/py/migrate_policy_status/12",
+      "volvo/cce-policy-admin/88a3512f0307/local-r2/value/py/migrate_policy_status/29"
+    ],
+    "keywords": {},
+    "result": null,
+    "receiver": "volvo/cce-policy-admin/88a3512f0307/local-r2/value/py/migrate_policy_status/4",
+    "lines": [185, 189],
+    "target": null
+  },
+  {
+    "owner": "volvo/cce-policy-admin/88a3512f0307/local-r2/implementation/py/migrate_policy_status",
+    "operation": "volvo/cce-policy-admin/88a3512f0307/local-r2/operation/py/migrate_policy_status/31",
+    "expression": "pg_conn.commit()",
+    "callee": "pg_conn.commit",
+    "arguments": [],
+    "keywords": {},
+    "result": null,
+    "receiver": "volvo/cce-policy-admin/88a3512f0307/local-r2/value/py/migrate_policy_status/7",
+    "lines": [191, 191],
+    "target": null
+  },
+  {
+    "owner": "volvo/cce-policy-admin/88a3512f0307/local-r2/implementation/py/migrate_wheels",
+    "operation": "volvo/cce-policy-admin/88a3512f0307/local-r2/operation/py/migrate_wheels/6",
+    "expression": "pg_cursor.execute('\\n        CREATE TABLE IF NOT EXISTS wheels (\\n            code TEXT PRIMARY KEY\\n        )\\n    ')",
+    "callee": "pg_cursor.execute",
+    "arguments": ["volvo/cce-policy-admin/88a3512f0307/local-r2/value/py/migrate_wheels/5"],
+    "keywords": {},
+    "result": null,
+    "receiver": "volvo/cce-policy-admin/88a3512f0307/local-r2/value/py/migrate_wheels/4",
+    "lines": [195, 199],
+    "target": null
+  },
+  {
+    "owner": "volvo/cce-policy-admin/88a3512f0307/local-r2/implementation/py/migrate_wheels",
+    "operation": "volvo/cce-policy-admin/88a3512f0307/local-r2/operation/py/migrate_wheels/8",
+    "expression": "pg_conn.commit()",
+    "callee": "pg_conn.commit",
+    "arguments": [],
+    "keywords": {},
+    "result": null,
+    "receiver": "volvo/cce-policy-admin/88a3512f0307/local-r2/value/py/migrate_wheels/7",
+    "lines": [200, 200],
+    "target": null
+  },
+  {
+    "owner": "volvo/cce-policy-admin/88a3512f0307/local-r2/implementation/py/migrate_wheels",
+    "operation": "volvo/cce-policy-admin/88a3512f0307/local-r2/operation/py/migrate_wheels/9",
+    "expression": "mongo_collection.find()",
+    "callee": "mongo_collection.find",
+    "arguments": [],
+    "keywords": {},
+    "result": "volvo/cce-policy-admin/88a3512f0307/local-r2/value/py/migrate_wheels/9",
+    "receiver": "volvo/cce-policy-admin/88a3512f0307/local-r2/value/py/migrate_wheels/3",
+    "lines": [202, 202],
+    "target": null
+  },
+  {
+    "owner": "volvo/cce-policy-admin/88a3512f0307/local-r2/implementation/py/migrate_wheels",
+    "operation": "volvo/cce-policy-admin/88a3512f0307/local-r2/operation/py/migrate_wheels/16",
+    "expression": "pg_cursor.execute('\\n            INSERT INTO wheels (code)\\n            VALUES (%s)\\n            ON CONFLICT (code) DO NOTHING\\n        ', (document['code'],))",
+    "callee": "pg_cursor.execute",
+    "arguments": [
+      "volvo/cce-policy-admin/88a3512f0307/local-r2/value/py/migrate_wheels/12",
+      "volvo/cce-policy-admin/88a3512f0307/local-r2/value/py/migrate_wheels/15"
+    ],
+    "keywords": {},
+    "result": null,
+    "receiver": "volvo/cce-policy-admin/88a3512f0307/local-r2/value/py/migrate_wheels/4",
+    "lines": [203, 207],
+    "target": null
+  },
+  {
+    "owner": "volvo/cce-policy-admin/88a3512f0307/local-r2/implementation/py/migrate_wheels",
+    "operation": "volvo/cce-policy-admin/88a3512f0307/local-r2/operation/py/migrate_wheels/17",
+    "expression": "pg_conn.commit()",
+    "callee": "pg_conn.commit",
+    "arguments": [],
+    "keywords": {},
+    "result": null,
+    "receiver": "volvo/cce-policy-admin/88a3512f0307/local-r2/value/py/migrate_wheels/7",
+    "lines": [209, 209],
+    "target": null
+  },
+  {
+    "owner": "volvo/cce-policy-admin/88a3512f0307/local-r2/implementation/py/main",
+    "operation": "volvo/cce-policy-admin/88a3512f0307/local-r2/operation/py/main/1",
+    "expression": "migrate_config_policy()",
+    "callee": "migrate_config_policy",
+    "arguments": [],
+    "keywords": {},
+    "result": null,
+    "receiver": null,
+    "lines": [212, 212],
+    "target": "volvo/cce-policy-admin/88a3512f0307/local-r2/implementation/py/migrate_config_policy"
+  },
+  {
+    "owner": "volvo/cce-policy-admin/88a3512f0307/local-r2/implementation/py/main",
+    "operation": "volvo/cce-policy-admin/88a3512f0307/local-r2/operation/py/main/2",
+    "expression": "migrate_components_policy()",
+    "callee": "migrate_components_policy",
+    "arguments": [],
+    "keywords": {},
+    "result": null,
+    "receiver": null,
+    "lines": [217, 217],
+    "target": "volvo/cce-policy-admin/88a3512f0307/local-r2/implementation/py/migrate_components_policy"
+  },
+  {
+    "owner": "volvo/cce-policy-admin/88a3512f0307/local-r2/implementation/py/main",
+    "operation": "volvo/cce-policy-admin/88a3512f0307/local-r2/operation/py/main/4",
+    "expression": "pg_cursor.close()",
+    "callee": "pg_cursor.close",
+    "arguments": [],
+    "keywords": {},
+    "result": null,
+    "receiver": "volvo/cce-policy-admin/88a3512f0307/local-r2/value/py/main/3",
+    "lines": [220, 220],
+    "target": null
+  },
+  {
+    "owner": "volvo/cce-policy-admin/88a3512f0307/local-r2/implementation/py/main",
+    "operation": "volvo/cce-policy-admin/88a3512f0307/local-r2/operation/py/main/6",
+    "expression": "pg_conn.close()",
+    "callee": "pg_conn.close",
+    "arguments": [],
+    "keywords": {},
+    "result": null,
+    "receiver": "volvo/cce-policy-admin/88a3512f0307/local-r2/value/py/main/5",
+    "lines": [221, 221],
+    "target": null
+  },
+  {
+    "owner": "volvo/cce-policy-admin/88a3512f0307/local-r2/implementation/py/main",
+    "operation": "volvo/cce-policy-admin/88a3512f0307/local-r2/operation/py/main/8",
+    "expression": "mongo_client.close()",
+    "callee": "mongo_client.close",
+    "arguments": [],
+    "keywords": {},
+    "result": null,
+    "receiver": "volvo/cce-policy-admin/88a3512f0307/local-r2/value/py/main/7",
+    "lines": [222, 222],
+    "target": null
+  }
+]

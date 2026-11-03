@@ -1,0 +1,224 @@
+{
+  "status": "passed",
+  "snapshot": "5f59c5db11e155019ace1500542dc4db1648a1616d330523ac05aa7481724664",
+  "qualification": "Independent8full pinned source files, four API declarations only; UI/SSR/shared/other monorepo units remain incomplete. All actual roots reach expected I/O, every source HTTP argument/contract inspected and Promise/JSON source boundaries qualified. No application/source execution, deployed auth or remote implementation proof.",
+  "queries": [
+    {
+      "name": "Actual source registration POST /api/ev-subsidy/eligibility",
+      "nodes": 2,
+      "edges": 2,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "trace /api/ev-subsidy/eligibility",
+      "nodes": 58,
+      "edges": 94,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "effects /api/ev-subsidy/eligibility",
+      "nodes": 58,
+      "edges": 94,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "continuations /api/ev-subsidy/eligibility",
+      "nodes": 58,
+      "edges": 94,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual source registration POST /api/ev-subsidy/income",
+      "nodes": 2,
+      "edges": 1,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "trace /api/ev-subsidy/income",
+      "nodes": 61,
+      "edges": 99,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "effects /api/ev-subsidy/income",
+      "nodes": 61,
+      "edges": 99,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "continuations /api/ev-subsidy/income",
+      "nodes": 61,
+      "edges": 99,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual source registration GET /api/ev-subsidy/status",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "trace /api/ev-subsidy/status",
+      "nodes": 4,
+      "edges": 3,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "effects /api/ev-subsidy/status",
+      "nodes": 4,
+      "edges": 3,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "continuations /api/ev-subsidy/status",
+      "nodes": 4,
+      "edges": 3,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual source registration GET /docs/ev-subsidy",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "trace /docs/ev-subsidy",
+      "nodes": 4,
+      "edges": 3,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "effects /docs/ev-subsidy",
+      "nodes": 4,
+      "edges": 3,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "continuations /docs/ev-subsidy",
+      "nodes": 4,
+      "edges": 3,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual HTTP caller contract volvo/cdls-mono-volvocars/8e1fd20c525f/ev-subsidy-api-r1/io/95",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Rooted source URL/options volvo/cdls-mono-volvocars/8e1fd20c525f/ev-subsidy-api-r1/io/95 argument0",
+      "nodes": 6,
+      "edges": 6,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Rooted source URL/options volvo/cdls-mono-volvocars/8e1fd20c525f/ev-subsidy-api-r1/io/95 argument1",
+      "nodes": 2,
+      "edges": 1,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual HTTP caller contract volvo/cdls-mono-volvocars/8e1fd20c525f/ev-subsidy-api-r1/io/192",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Rooted source URL/options volvo/cdls-mono-volvocars/8e1fd20c525f/ev-subsidy-api-r1/io/192 argument0",
+      "nodes": 2,
+      "edges": 1,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Rooted source URL/options volvo/cdls-mono-volvocars/8e1fd20c525f/ev-subsidy-api-r1/io/192 argument1",
+      "nodes": 8,
+      "edges": 8,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual HTTP caller contract volvo/cdls-mono-volvocars/8e1fd20c525f/ev-subsidy-api-r1/io/491",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Rooted source URL/options volvo/cdls-mono-volvocars/8e1fd20c525f/ev-subsidy-api-r1/io/491 argument0",
+      "nodes": 2,
+      "edges": 1,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Rooted source URL/options volvo/cdls-mono-volvocars/8e1fd20c525f/ev-subsidy-api-r1/io/491 argument1",
+      "nodes": 18,
+      "edges": 20,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Second eligibility request depends on DESO lookup source data",
+      "nodes": 8,
+      "edges": 8,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Income body retains source normalisation and child count inputs",
+      "nodes": 18,
+      "edges": 20,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Source validation, loop and proxy qualifications",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Immediate fetch handles differ from eventual responses",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual JSON response construction before imported serialization",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "API unit completion does not imply whole monorepo coverage",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    }
+  ]
+}

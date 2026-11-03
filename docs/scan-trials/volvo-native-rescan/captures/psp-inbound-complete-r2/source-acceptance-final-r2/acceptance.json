@@ -1,0 +1,203 @@
+{
+  "snapshot": "eaaef2ed0e7238cf7ed324b9812017073b02716f3020b53e04be8aa5b9bca64a",
+  "status": "passed",
+  "checks": [
+    "actual entry triggers: 2 REST, process, schedule, startup, 6 callbacks",
+    "two real producer invocations and no invented consumers or writes",
+    "all replacement source method ownership is new",
+    "internal source root positively reaches actual topic interaction",
+    "internal interaction waits for none and owns actual source operation",
+    "internal effect payload values are exact invocation arguments",
+    "internal Kafka key is the explicit metadata.id projection",
+    "internal future callback associated separately with exact send",
+    "heartbeat source root positively reaches actual topic interaction",
+    "heartbeat interaction waits for none and owns actual source operation",
+    "heartbeat effect payload values are exact invocation arguments",
+    "heartbeat literal null has its own source shape, distinct from wire",
+    "heartbeat future callback associated separately with exact send",
+    "native library interactions do not become network targets",
+    "local Optional/configuration/mapper calls have no extra I/O edges",
+    "payload.id retains its actual construction expression",
+    "payload.additionalParameters retains its actual construction expression",
+    "payload.type retains its actual construction expression",
+    "payload.platformAccountId retains its actual construction expression",
+    "metadata.id retains its actual construction expression",
+    "metadata.correlationId retains its actual construction expression",
+    "metadata.type retains its actual construction expression",
+    "metadata.source retains its actual construction expression",
+    "metadata.created retains its actual construction expression",
+    "swagger.url retains its actual construction expression",
+    "swagger.configUrl retains its actual construction expression",
+    "swagger.oauth2RedirectUrl retains its actual construction expression",
+    "outer-response.status retains its actual construction expression",
+    "outer-response.body retains its actual construction expression",
+    "canonical record construction keeps actual payload, params and headers separately",
+    "Java invocation-bound captures copy the binding value",
+    "deferred callback root does not invent captured runtime origins",
+    "deferred callbacks have no invented eager bound invocation",
+    "source filter 403 status operation survives native outcome query",
+    "source filter association does not pretend controller invocation",
+    "all three source switch arms are exclusive guarded transitions",
+    "missing header/param Optional cases have explicit source throws",
+    "base IP sequence versus LinkedHashMap cast gap is explicit",
+    "configuration fields remain source catalogue, with exact VOC restriction"
+  ],
+  "queries": [
+    {
+      "name": "internal.native-destination",
+      "nodes": 6,
+      "limits": [],
+      "frontiers": 212
+    },
+    {
+      "name": "internal.source-message-value",
+      "nodes": 1,
+      "limits": [],
+      "frontiers": 0
+    },
+    {
+      "name": "heartbeat.native-destination",
+      "nodes": 2,
+      "limits": [],
+      "frontiers": 6
+    },
+    {
+      "name": "heartbeat.source-message-value",
+      "nodes": 1,
+      "limits": [],
+      "frontiers": 0
+    },
+    {
+      "name": "payload.id",
+      "nodes": 2,
+      "limits": [],
+      "frontiers": 1
+    },
+    {
+      "name": "payload.additionalParameters",
+      "nodes": 2,
+      "limits": [],
+      "frontiers": 1
+    },
+    {
+      "name": "payload.type",
+      "nodes": 2,
+      "limits": [],
+      "frontiers": 1
+    },
+    {
+      "name": "payload.platformAccountId",
+      "nodes": 2,
+      "limits": [],
+      "frontiers": 1
+    },
+    {
+      "name": "metadata.id",
+      "nodes": 2,
+      "limits": [],
+      "frontiers": 1
+    },
+    {
+      "name": "metadata.correlationId",
+      "nodes": 2,
+      "limits": [],
+      "frontiers": 2
+    },
+    {
+      "name": "metadata.type",
+      "nodes": 2,
+      "limits": [],
+      "frontiers": 2
+    },
+    {
+      "name": "metadata.source",
+      "nodes": 2,
+      "limits": [],
+      "frontiers": 2
+    },
+    {
+      "name": "metadata.created",
+      "nodes": 4,
+      "limits": [],
+      "frontiers": 2
+    },
+    {
+      "name": "swagger.url",
+      "nodes": 6,
+      "limits": [],
+      "frontiers": 6
+    },
+    {
+      "name": "swagger.configUrl",
+      "nodes": 6,
+      "limits": [],
+      "frontiers": 6
+    },
+    {
+      "name": "swagger.oauth2RedirectUrl",
+      "nodes": 8,
+      "limits": [],
+      "frontiers": 5
+    },
+    {
+      "name": "outer-response.status",
+      "nodes": 20,
+      "limits": [],
+      "frontiers": 3
+    },
+    {
+      "name": "outer-response.body",
+      "nodes": 20,
+      "limits": [],
+      "frontiers": 3
+    },
+    {
+      "name": "record.payload",
+      "nodes": 2,
+      "limits": [],
+      "frontiers": 0
+    },
+    {
+      "name": "record.params",
+      "nodes": 2,
+      "limits": [],
+      "frontiers": 0
+    },
+    {
+      "name": "record.headers",
+      "nodes": 2,
+      "limits": [],
+      "frontiers": 0
+    },
+    {
+      "name": "true-formal-binding",
+      "nodes": 2,
+      "limits": [],
+      "frontiers": 0
+    },
+    {
+      "name": "method-reference-receiver",
+      "nodes": 5,
+      "limits": [],
+      "frontiers": 3
+    },
+    {
+      "name": "lexical-capture",
+      "nodes": 2,
+      "limits": [],
+      "frontiers": 0
+    },
+    {
+      "name": "future-capture-root-frontier",
+      "nodes": 1,
+      "limits": [],
+      "frontiers": 1
+    },
+    {
+      "name": "filter-forbidden-outcome",
+      "nodes": 168,
+      "limits": [],
+      "frontiers": 55
+    }
+  ]
+}

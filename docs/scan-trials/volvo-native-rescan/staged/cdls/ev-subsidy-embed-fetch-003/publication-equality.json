@@ -1,0 +1,8 @@
+{
+  "status": "passed",
+  "snapshot": "65ad154aae158cfd209f23f725485a963fc7ab37323076bac771f01646677709",
+  "sourceBundleByteSha256": "60271427a0cece74a0fc045763490329490c68f1a0315b0d05ddf1746904e1dd",
+  "gzipDecompression": "Exactly equal immutable003unit bytes",
+  "verifiedAuthorFiles": 20,
+  "normalizedSupersession": "002\u2192003fourflowsonly"
+}

@@ -1,0 +1,2932 @@
+{
+  "rows": 154,
+  "records": [
+    {
+      "outerKeys": ["car_specification", "id", "model_year", "pno12", "spec_market"],
+      "innerKeys": [
+        "colors",
+        "modelYear",
+        "options",
+        "packages",
+        "pno12",
+        "productionDates",
+        "sMessages",
+        "specMarket",
+        "styling",
+        "upholsteries",
+        "variant"
+      ],
+      "specMarket": "110",
+      "options": 22,
+      "packages": 2
+    },
+    {
+      "outerKeys": ["car_specification", "id", "model_year", "pno12", "spec_market"],
+      "innerKeys": [
+        "colors",
+        "modelYear",
+        "options",
+        "packages",
+        "pno12",
+        "productionDates",
+        "sMessages",
+        "specMarket",
+        "styling",
+        "upholsteries",
+        "variant"
+      ],
+      "specMarket": "110",
+      "options": 19,
+      "packages": 2
+    },
+    {
+      "outerKeys": ["car_specification", "id", "model_year", "pno12", "spec_market"],
+      "innerKeys": [
+        "colors",
+        "modelYear",
+        "options",
+        "packages",
+        "pno12",
+        "productionDates",
+        "sMessages",
+        "specMarket",
+        "styling",
+        "upholsteries",
+        "variant"
+      ],
+      "specMarket": "110",
+      "options": 22,
+      "packages": 2
+    },
+    {
+      "outerKeys": ["car_specification", "id", "model_year", "pno12", "spec_market"],
+      "innerKeys": [
+        "colors",
+        "modelYear",
+        "options",
+        "packages",
+        "pno12",
+        "productionDates",
+        "sMessages",
+        "specMarket",
+        "styling",
+        "upholsteries",
+        "variant"
+      ],
+      "specMarket": "110",
+      "options": 18,
+      "packages": 3
+    },
+    {
+      "outerKeys": ["car_specification", "id", "model_year", "pno12", "spec_market"],
+      "innerKeys": [
+        "colors",
+        "modelYear",
+        "options",
+        "packages",
+        "pno12",
+        "productionDates",
+        "sMessages",
+        "specMarket",
+        "styling",
+        "upholsteries",
+        "variant"
+      ],
+      "specMarket": "110",
+      "options": 19,
+      "packages": 2
+    },
+    {
+      "outerKeys": ["car_specification", "id", "model_year", "pno12", "spec_market"],
+      "innerKeys": [
+        "colors",
+        "modelYear",
+        "options",
+        "packages",
+        "pno12",
+        "productionDates",
+        "sMessages",
+        "specMarket",
+        "styling",
+        "upholsteries",
+        "variant"
+      ],
+      "specMarket": "110",
+      "options": 22,
+      "packages": 4
+    },
+    {
+      "outerKeys": ["car_specification", "id", "model_year", "pno12", "spec_market"],
+      "innerKeys": [
+        "colors",
+        "modelYear",
+        "options",
+        "packages",
+        "pno12",
+        "productionDates",
+        "sMessages",
+        "specMarket",
+        "styling",
+        "upholsteries",
+        "variant"
+      ],
+      "specMarket": "110",
+      "options": 15,
+      "packages": 2
+    },
+    {
+      "outerKeys": ["car_specification", "id", "model_year", "pno12", "spec_market"],
+      "innerKeys": [
+        "colors",
+        "modelYear",
+        "options",
+        "packages",
+        "pno12",
+        "productionDates",
+        "sMessages",
+        "specMarket",
+        "styling",
+        "upholsteries",
+        "variant"
+      ],
+      "specMarket": "110",
+      "options": 22,
+      "packages": 2
+    },
+    {
+      "outerKeys": ["car_specification", "id", "model_year", "pno12", "spec_market"],
+      "innerKeys": [
+        "colors",
+        "modelYear",
+        "options",
+        "packages",
+        "pno12",
+        "productionDates",
+        "sMessages",
+        "specMarket",
+        "styling",
+        "upholsteries",
+        "variant"
+      ],
+      "specMarket": "110",
+      "options": 18,
+      "packages": 3
+    },
+    {
+      "outerKeys": ["car_specification", "id", "model_year", "pno12", "spec_market"],
+      "innerKeys": [
+        "colors",
+        "modelYear",
+        "options",
+        "packages",
+        "pno12",
+        "productionDates",
+        "sMessages",
+        "specMarket",
+        "styling",
+        "upholsteries",
+        "variant"
+      ],
+      "specMarket": "110",
+      "options": 22,
+      "packages": 2
+    },
+    {
+      "outerKeys": ["car_specification", "id", "model_year", "pno12", "spec_market"],
+      "innerKeys": [
+        "colors",
+        "modelYear",
+        "options",
+        "packages",
+        "pno12",
+        "productionDates",
+        "sMessages",
+        "specMarket",
+        "styling",
+        "upholsteries",
+        "variant"
+      ],
+      "specMarket": "110",
+      "options": 15,
+      "packages": 2
+    },
+    {
+      "outerKeys": ["car_specification", "id", "model_year", "pno12", "spec_market"],
+      "innerKeys": [
+        "colors",
+        "modelYear",
+        "options",
+        "packages",
+        "pno12",
+        "productionDates",
+        "sMessages",
+        "specMarket",
+        "styling",
+        "upholsteries",
+        "variant"
+      ],
+      "specMarket": "110",
+      "options": 6,
+      "packages": 0
+    },
+    {
+      "outerKeys": ["car_specification", "id", "model_year", "pno12", "spec_market"],
+      "innerKeys": [
+        "colors",
+        "modelYear",
+        "options",
+        "packages",
+        "pno12",
+        "productionDates",
+        "sMessages",
+        "specMarket",
+        "styling",
+        "upholsteries",
+        "variant"
+      ],
+      "specMarket": "110",
+      "options": 18,
+      "packages": 3
+    },
+    {
+      "outerKeys": ["car_specification", "id", "model_year", "pno12", "spec_market"],
+      "innerKeys": [
+        "colors",
+        "modelYear",
+        "options",
+        "packages",
+        "pno12",
+        "productionDates",
+        "sMessages",
+        "specMarket",
+        "styling",
+        "upholsteries",
+        "variant"
+      ],
+      "specMarket": "110",
+      "options": 13,
+      "packages": 2
+    },
+    {
+      "outerKeys": ["car_specification", "id", "model_year", "pno12", "spec_market"],
+      "innerKeys": [
+        "colors",
+        "modelYear",
+        "options",
+        "packages",
+        "pno12",
+        "productionDates",
+        "sMessages",
+        "specMarket",
+        "styling",
+        "upholsteries",
+        "variant"
+      ],
+      "specMarket": "110",
+      "options": 18,
+      "packages": 3
+    },
+    {
+      "outerKeys": ["car_specification", "id", "model_year", "pno12", "spec_market"],
+      "innerKeys": [
+        "colors",
+        "modelYear",
+        "options",
+        "packages",
+        "pno12",
+        "productionDates",
+        "sMessages",
+        "specMarket",
+        "styling",
+        "upholsteries",
+        "variant"
+      ],
+      "specMarket": "110",
+      "options": 95,
+      "packages": 2
+    },
+    {
+      "outerKeys": ["car_specification", "id", "model_year", "pno12", "spec_market"],
+      "innerKeys": [
+        "colors",
+        "modelYear",
+        "options",
+        "packages",
+        "pno12",
+        "productionDates",
+        "sMessages",
+        "specMarket",
+        "styling",
+        "upholsteries",
+        "variant"
+      ],
+      "specMarket": "110",
+      "options": 96,
+      "packages": 2
+    },
+    {
+      "outerKeys": ["car_specification", "id", "model_year", "pno12", "spec_market"],
+      "innerKeys": [
+        "colors",
+        "modelYear",
+        "options",
+        "packages",
+        "pno12",
+        "productionDates",
+        "sMessages",
+        "specMarket",
+        "styling",
+        "upholsteries",
+        "variant"
+      ],
+      "specMarket": "110",
+      "options": 100,
+      "packages": 2
+    },
+    {
+      "outerKeys": ["car_specification", "id", "model_year", "pno12", "spec_market"],
+      "innerKeys": [
+        "colors",
+        "modelYear",
+        "options",
+        "packages",
+        "pno12",
+        "productionDates",
+        "sMessages",
+        "specMarket",
+        "styling",
+        "upholsteries",
+        "variant"
+      ],
+      "specMarket": "110",
+      "options": 99,
+      "packages": 2
+    },
+    {
+      "outerKeys": ["car_specification", "id", "model_year", "pno12", "spec_market"],
+      "innerKeys": [
+        "colors",
+        "modelYear",
+        "options",
+        "packages",
+        "pno12",
+        "productionDates",
+        "sMessages",
+        "specMarket",
+        "styling",
+        "upholsteries",
+        "variant"
+      ],
+      "specMarket": "110",
+      "options": 97,
+      "packages": 2
+    },
+    {
+      "outerKeys": ["car_specification", "id", "model_year", "pno12", "spec_market"],
+      "innerKeys": [
+        "colors",
+        "modelYear",
+        "options",
+        "packages",
+        "pno12",
+        "productionDates",
+        "sMessages",
+        "specMarket",
+        "styling",
+        "upholsteries",
+        "variant"
+      ],
+      "specMarket": "110",
+      "options": 96,
+      "packages": 2
+    },
+    {
+      "outerKeys": ["car_specification", "id", "model_year", "pno12", "spec_market"],
+      "innerKeys": [
+        "colors",
+        "modelYear",
+        "options",
+        "packages",
+        "pno12",
+        "productionDates",
+        "sMessages",
+        "specMarket",
+        "styling",
+        "upholsteries",
+        "variant"
+      ],
+      "specMarket": "110",
+      "options": 96,
+      "packages": 2
+    },
+    {
+      "outerKeys": ["car_specification", "id", "model_year", "pno12", "spec_market"],
+      "innerKeys": [
+        "colors",
+        "modelYear",
+        "options",
+        "packages",
+        "pno12",
+        "productionDates",
+        "sMessages",
+        "specMarket",
+        "styling",
+        "upholsteries",
+        "variant"
+      ],
+      "specMarket": "110",
+      "options": 100,
+      "packages": 2
+    },
+    {
+      "outerKeys": ["car_specification", "id", "model_year", "pno12", "spec_market"],
+      "innerKeys": [
+        "colors",
+        "modelYear",
+        "options",
+        "packages",
+        "pno12",
+        "productionDates",
+        "sMessages",
+        "specMarket",
+        "styling",
+        "upholsteries",
+        "variant"
+      ],
+      "specMarket": "110",
+      "options": 99,
+      "packages": 2
+    },
+    {
+      "outerKeys": ["car_specification", "id", "model_year", "pno12", "spec_market"],
+      "innerKeys": [
+        "colors",
+        "modelYear",
+        "options",
+        "packages",
+        "pno12",
+        "productionDates",
+        "sMessages",
+        "specMarket",
+        "styling",
+        "upholsteries",
+        "variant"
+      ],
+      "specMarket": "110",
+      "options": 98,
+      "packages": 2
+    },
+    {
+      "outerKeys": ["car_specification", "id", "model_year", "pno12", "spec_market"],
+      "innerKeys": [
+        "colors",
+        "modelYear",
+        "options",
+        "packages",
+        "pno12",
+        "productionDates",
+        "sMessages",
+        "specMarket",
+        "styling",
+        "upholsteries",
+        "variant"
+      ],
+      "specMarket": "110",
+      "options": 97,
+      "packages": 2
+    },
+    {
+      "outerKeys": ["car_specification", "id", "model_year", "pno12", "spec_market"],
+      "innerKeys": [
+        "colors",
+        "modelYear",
+        "options",
+        "packages",
+        "pno12",
+        "productionDates",
+        "sMessages",
+        "specMarket",
+        "styling",
+        "upholsteries",
+        "variant"
+      ],
+      "specMarket": "110",
+      "options": 99,
+      "packages": 2
+    },
+    {
+      "outerKeys": ["car_specification", "id", "model_year", "pno12", "spec_market"],
+      "innerKeys": [
+        "colors",
+        "modelYear",
+        "options",
+        "packages",
+        "pno12",
+        "productionDates",
+        "sMessages",
+        "specMarket",
+        "styling",
+        "upholsteries",
+        "variant"
+      ],
+      "specMarket": "110",
+      "options": 99,
+      "packages": 2
+    },
+    {
+      "outerKeys": ["car_specification", "id", "model_year", "pno12", "spec_market"],
+      "innerKeys": [
+        "colors",
+        "modelYear",
+        "options",
+        "packages",
+        "pno12",
+        "productionDates",
+        "sMessages",
+        "specMarket",
+        "styling",
+        "upholsteries",
+        "variant"
+      ],
+      "specMarket": "110",
+      "options": 96,
+      "packages": 2
+    },
+    {
+      "outerKeys": ["car_specification", "id", "model_year", "pno12", "spec_market"],
+      "innerKeys": [
+        "colors",
+        "modelYear",
+        "options",
+        "packages",
+        "pno12",
+        "productionDates",
+        "sMessages",
+        "specMarket",
+        "styling",
+        "upholsteries",
+        "variant"
+      ],
+      "specMarket": "110",
+      "options": 99,
+      "packages": 2
+    },
+    {
+      "outerKeys": ["car_specification", "id", "model_year", "pno12", "spec_market"],
+      "innerKeys": [
+        "colors",
+        "modelYear",
+        "options",
+        "packages",
+        "pno12",
+        "productionDates",
+        "sMessages",
+        "specMarket",
+        "styling",
+        "upholsteries",
+        "variant"
+      ],
+      "specMarket": "110",
+      "options": 64,
+      "packages": 7
+    },
+    {
+      "outerKeys": ["car_specification", "id", "model_year", "pno12", "spec_market"],
+      "innerKeys": [
+        "colors",
+        "modelYear",
+        "options",
+        "packages",
+        "pno12",
+        "productionDates",
+        "sMessages",
+        "specMarket",
+        "styling",
+        "upholsteries",
+        "variant"
+      ],
+      "specMarket": "110",
+      "options": 20,
+      "packages": 1
+    },
+    {
+      "outerKeys": ["car_specification", "id", "model_year", "pno12", "spec_market"],
+      "innerKeys": [
+        "colors",
+        "modelYear",
+        "options",
+        "packages",
+        "pno12",
+        "productionDates",
+        "sMessages",
+        "specMarket",
+        "styling",
+        "upholsteries",
+        "variant"
+      ],
+      "specMarket": "110",
+      "options": 105,
+      "packages": 6
+    },
+    {
+      "outerKeys": ["car_specification", "id", "model_year", "pno12", "spec_market"],
+      "innerKeys": [
+        "colors",
+        "modelYear",
+        "options",
+        "packages",
+        "pno12",
+        "productionDates",
+        "sMessages",
+        "specMarket",
+        "styling",
+        "upholsteries",
+        "variant"
+      ],
+      "specMarket": "110",
+      "options": 104,
+      "packages": 6
+    },
+    {
+      "outerKeys": ["car_specification", "id", "model_year", "pno12", "spec_market"],
+      "innerKeys": [
+        "colors",
+        "modelYear",
+        "options",
+        "packages",
+        "pno12",
+        "productionDates",
+        "sMessages",
+        "specMarket",
+        "styling",
+        "upholsteries",
+        "variant"
+      ],
+      "specMarket": "110",
+      "options": 106,
+      "packages": 6
+    },
+    {
+      "outerKeys": ["car_specification", "id", "model_year", "pno12", "spec_market"],
+      "innerKeys": [
+        "colors",
+        "modelYear",
+        "options",
+        "packages",
+        "pno12",
+        "productionDates",
+        "sMessages",
+        "specMarket",
+        "styling",
+        "upholsteries",
+        "variant"
+      ],
+      "specMarket": "110",
+      "options": 105,
+      "packages": 6
+    },
+    {
+      "outerKeys": ["car_specification", "id", "model_year", "pno12", "spec_market"],
+      "innerKeys": [
+        "colors",
+        "modelYear",
+        "options",
+        "packages",
+        "pno12",
+        "productionDates",
+        "sMessages",
+        "specMarket",
+        "styling",
+        "upholsteries",
+        "variant"
+      ],
+      "specMarket": "110",
+      "options": 63,
+      "packages": 7
+    },
+    {
+      "outerKeys": ["car_specification", "id", "model_year", "pno12", "spec_market"],
+      "innerKeys": [
+        "colors",
+        "modelYear",
+        "options",
+        "packages",
+        "pno12",
+        "productionDates",
+        "sMessages",
+        "specMarket",
+        "styling",
+        "upholsteries",
+        "variant"
+      ],
+      "specMarket": "110",
+      "options": 65,
+      "packages": 7
+    },
+    {
+      "outerKeys": ["car_specification", "id", "model_year", "pno12", "spec_market"],
+      "innerKeys": [
+        "colors",
+        "modelYear",
+        "options",
+        "packages",
+        "pno12",
+        "productionDates",
+        "sMessages",
+        "specMarket",
+        "styling",
+        "upholsteries",
+        "variant"
+      ],
+      "specMarket": "110",
+      "options": 67,
+      "packages": 7
+    },
+    {
+      "outerKeys": ["car_specification", "id", "model_year", "pno12", "spec_market"],
+      "innerKeys": [
+        "colors",
+        "modelYear",
+        "options",
+        "packages",
+        "pno12",
+        "productionDates",
+        "sMessages",
+        "specMarket",
+        "styling",
+        "upholsteries",
+        "variant"
+      ],
+      "specMarket": "110",
+      "options": 52,
+      "packages": 7
+    },
+    {
+      "outerKeys": ["car_specification", "id", "model_year", "pno12", "spec_market"],
+      "innerKeys": [
+        "colors",
+        "modelYear",
+        "options",
+        "packages",
+        "pno12",
+        "productionDates",
+        "sMessages",
+        "specMarket",
+        "styling",
+        "upholsteries",
+        "variant"
+      ],
+      "specMarket": "110",
+      "options": 64,
+      "packages": 7
+    },
+    {
+      "outerKeys": ["car_specification", "id", "model_year", "pno12", "spec_market"],
+      "innerKeys": [
+        "colors",
+        "modelYear",
+        "options",
+        "packages",
+        "pno12",
+        "productionDates",
+        "sMessages",
+        "specMarket",
+        "styling",
+        "upholsteries",
+        "variant"
+      ],
+      "specMarket": "110",
+      "options": 10,
+      "packages": 1
+    },
+    {
+      "outerKeys": ["car_specification", "id", "model_year", "pno12", "spec_market"],
+      "innerKeys": [
+        "colors",
+        "modelYear",
+        "options",
+        "packages",
+        "pno12",
+        "productionDates",
+        "sMessages",
+        "specMarket",
+        "styling",
+        "upholsteries",
+        "variant"
+      ],
+      "specMarket": "110",
+      "options": 64,
+      "packages": 7
+    },
+    {
+      "outerKeys": ["car_specification", "id", "model_year", "pno12", "spec_market"],
+      "innerKeys": [
+        "colors",
+        "modelYear",
+        "options",
+        "packages",
+        "pno12",
+        "productionDates",
+        "sMessages",
+        "specMarket",
+        "styling",
+        "upholsteries",
+        "variant"
+      ],
+      "specMarket": "110",
+      "options": 61,
+      "packages": 7
+    },
+    {
+      "outerKeys": ["car_specification", "id", "model_year", "pno12", "spec_market"],
+      "innerKeys": [
+        "colors",
+        "modelYear",
+        "options",
+        "packages",
+        "pno12",
+        "productionDates",
+        "sMessages",
+        "specMarket",
+        "styling",
+        "upholsteries",
+        "variant"
+      ],
+      "specMarket": "110",
+      "options": 64,
+      "packages": 7
+    },
+    {
+      "outerKeys": ["car_specification", "id", "model_year", "pno12", "spec_market"],
+      "innerKeys": [
+        "colors",
+        "modelYear",
+        "options",
+        "packages",
+        "pno12",
+        "productionDates",
+        "sMessages",
+        "specMarket",
+        "styling",
+        "upholsteries",
+        "variant"
+      ],
+      "specMarket": "110",
+      "options": 64,
+      "packages": 7
+    },
+    {
+      "outerKeys": ["car_specification", "id", "model_year", "pno12", "spec_market"],
+      "innerKeys": [
+        "colors",
+        "modelYear",
+        "options",
+        "packages",
+        "pno12",
+        "productionDates",
+        "sMessages",
+        "specMarket",
+        "styling",
+        "upholsteries",
+        "variant"
+      ],
+      "specMarket": "110",
+      "options": 61,
+      "packages": 7
+    },
+    {
+      "outerKeys": ["car_specification", "id", "model_year", "pno12", "spec_market"],
+      "innerKeys": [
+        "colors",
+        "modelYear",
+        "options",
+        "packages",
+        "pno12",
+        "productionDates",
+        "sMessages",
+        "specMarket",
+        "styling",
+        "upholsteries",
+        "variant"
+      ],
+      "specMarket": "110",
+      "options": 67,
+      "packages": 7
+    },
+    {
+      "outerKeys": ["car_specification", "id", "model_year", "pno12", "spec_market"],
+      "innerKeys": [
+        "colors",
+        "modelYear",
+        "options",
+        "packages",
+        "pno12",
+        "productionDates",
+        "sMessages",
+        "specMarket",
+        "styling",
+        "upholsteries",
+        "variant"
+      ],
+      "specMarket": "110",
+      "options": 71,
+      "packages": 9
+    },
+    {
+      "outerKeys": ["car_specification", "id", "model_year", "pno12", "spec_market"],
+      "innerKeys": [
+        "colors",
+        "modelYear",
+        "options",
+        "packages",
+        "pno12",
+        "productionDates",
+        "sMessages",
+        "specMarket",
+        "styling",
+        "upholsteries",
+        "variant"
+      ],
+      "specMarket": "110",
+      "options": 10,
+      "packages": 1
+    },
+    {
+      "outerKeys": ["car_specification", "id", "model_year", "pno12", "spec_market"],
+      "innerKeys": [
+        "colors",
+        "modelYear",
+        "options",
+        "packages",
+        "pno12",
+        "productionDates",
+        "sMessages",
+        "specMarket",
+        "styling",
+        "upholsteries",
+        "variant"
+      ],
+      "specMarket": "110",
+      "options": 65,
+      "packages": 7
+    },
+    {
+      "outerKeys": ["car_specification", "id", "model_year", "pno12", "spec_market"],
+      "innerKeys": [
+        "colors",
+        "modelYear",
+        "options",
+        "packages",
+        "pno12",
+        "productionDates",
+        "sMessages",
+        "specMarket",
+        "styling",
+        "upholsteries",
+        "variant"
+      ],
+      "specMarket": "110",
+      "options": 106,
+      "packages": 6
+    },
+    {
+      "outerKeys": ["car_specification", "id", "model_year", "pno12", "spec_market"],
+      "innerKeys": [
+        "colors",
+        "modelYear",
+        "options",
+        "packages",
+        "pno12",
+        "productionDates",
+        "sMessages",
+        "specMarket",
+        "styling",
+        "upholsteries",
+        "variant"
+      ],
+      "specMarket": "110",
+      "options": 104,
+      "packages": 6
+    },
+    {
+      "outerKeys": ["car_specification", "id", "model_year", "pno12", "spec_market"],
+      "innerKeys": [
+        "colors",
+        "modelYear",
+        "options",
+        "packages",
+        "pno12",
+        "productionDates",
+        "sMessages",
+        "specMarket",
+        "styling",
+        "upholsteries",
+        "variant"
+      ],
+      "specMarket": "110",
+      "options": 105,
+      "packages": 6
+    },
+    {
+      "outerKeys": ["car_specification", "id", "model_year", "pno12", "spec_market"],
+      "innerKeys": [
+        "colors",
+        "modelYear",
+        "options",
+        "packages",
+        "pno12",
+        "productionDates",
+        "sMessages",
+        "specMarket",
+        "styling",
+        "upholsteries",
+        "variant"
+      ],
+      "specMarket": "110",
+      "options": 57,
+      "packages": 7
+    },
+    {
+      "outerKeys": ["car_specification", "id", "model_year", "pno12", "spec_market"],
+      "innerKeys": [
+        "colors",
+        "modelYear",
+        "options",
+        "packages",
+        "pno12",
+        "productionDates",
+        "sMessages",
+        "specMarket",
+        "styling",
+        "upholsteries",
+        "variant"
+      ],
+      "specMarket": "110",
+      "options": 56,
+      "packages": 6
+    },
+    {
+      "outerKeys": ["car_specification", "id", "model_year", "pno12", "spec_market"],
+      "innerKeys": [
+        "colors",
+        "modelYear",
+        "options",
+        "packages",
+        "pno12",
+        "productionDates",
+        "sMessages",
+        "specMarket",
+        "styling",
+        "upholsteries",
+        "variant"
+      ],
+      "specMarket": "110",
+      "options": 54,
+      "packages": 6
+    },
+    {
+      "outerKeys": ["car_specification", "id", "model_year", "pno12", "spec_market"],
+      "innerKeys": [
+        "colors",
+        "modelYear",
+        "options",
+        "packages",
+        "pno12",
+        "productionDates",
+        "sMessages",
+        "specMarket",
+        "styling",
+        "upholsteries",
+        "variant"
+      ],
+      "specMarket": "110",
+      "options": 57,
+      "packages": 7
+    },
+    {
+      "outerKeys": ["car_specification", "id", "model_year", "pno12", "spec_market"],
+      "innerKeys": [
+        "colors",
+        "modelYear",
+        "options",
+        "packages",
+        "pno12",
+        "productionDates",
+        "sMessages",
+        "specMarket",
+        "styling",
+        "upholsteries",
+        "variant"
+      ],
+      "specMarket": "110",
+      "options": 60,
+      "packages": 8
+    },
+    {
+      "outerKeys": ["car_specification", "id", "model_year", "pno12", "spec_market"],
+      "innerKeys": [
+        "colors",
+        "modelYear",
+        "options",
+        "packages",
+        "pno12",
+        "productionDates",
+        "sMessages",
+        "specMarket",
+        "styling",
+        "upholsteries",
+        "variant"
+      ],
+      "specMarket": "110",
+      "options": 53,
+      "packages": 6
+    },
+    {
+      "outerKeys": ["car_specification", "id", "model_year", "pno12", "spec_market"],
+      "innerKeys": [
+        "colors",
+        "modelYear",
+        "options",
+        "packages",
+        "pno12",
+        "productionDates",
+        "sMessages",
+        "specMarket",
+        "styling",
+        "upholsteries",
+        "variant"
+      ],
+      "specMarket": "110",
+      "options": 60,
+      "packages": 8
+    },
+    {
+      "outerKeys": ["car_specification", "id", "model_year", "pno12", "spec_market"],
+      "innerKeys": [
+        "colors",
+        "modelYear",
+        "options",
+        "packages",
+        "pno12",
+        "productionDates",
+        "sMessages",
+        "specMarket",
+        "styling",
+        "upholsteries",
+        "variant"
+      ],
+      "specMarket": "110",
+      "options": 62,
+      "packages": 7
+    },
+    {
+      "outerKeys": ["car_specification", "id", "model_year", "pno12", "spec_market"],
+      "innerKeys": [
+        "colors",
+        "modelYear",
+        "options",
+        "packages",
+        "pno12",
+        "productionDates",
+        "sMessages",
+        "specMarket",
+        "styling",
+        "upholsteries",
+        "variant"
+      ],
+      "specMarket": "110",
+      "options": 56,
+      "packages": 6
+    },
+    {
+      "outerKeys": ["car_specification", "id", "model_year", "pno12", "spec_market"],
+      "innerKeys": [
+        "colors",
+        "modelYear",
+        "options",
+        "packages",
+        "pno12",
+        "productionDates",
+        "sMessages",
+        "specMarket",
+        "styling",
+        "upholsteries",
+        "variant"
+      ],
+      "specMarket": "110",
+      "options": 61,
+      "packages": 7
+    },
+    {
+      "outerKeys": ["car_specification", "id", "model_year", "pno12", "spec_market"],
+      "innerKeys": [
+        "colors",
+        "modelYear",
+        "options",
+        "packages",
+        "pno12",
+        "productionDates",
+        "sMessages",
+        "specMarket",
+        "styling",
+        "upholsteries",
+        "variant"
+      ],
+      "specMarket": "110",
+      "options": 15,
+      "packages": 0
+    },
+    {
+      "outerKeys": ["car_specification", "id", "model_year", "pno12", "spec_market"],
+      "innerKeys": [
+        "colors",
+        "modelYear",
+        "options",
+        "packages",
+        "pno12",
+        "productionDates",
+        "sMessages",
+        "specMarket",
+        "styling",
+        "upholsteries",
+        "variant"
+      ],
+      "specMarket": "110",
+      "options": 63,
+      "packages": 7
+    },
+    {
+      "outerKeys": ["car_specification", "id", "model_year", "pno12", "spec_market"],
+      "innerKeys": [
+        "colors",
+        "modelYear",
+        "options",
+        "packages",
+        "pno12",
+        "productionDates",
+        "sMessages",
+        "specMarket",
+        "styling",
+        "upholsteries",
+        "variant"
+      ],
+      "specMarket": "110",
+      "options": 58,
+      "packages": 7
+    },
+    {
+      "outerKeys": ["car_specification", "id", "model_year", "pno12", "spec_market"],
+      "innerKeys": [
+        "colors",
+        "modelYear",
+        "options",
+        "packages",
+        "pno12",
+        "productionDates",
+        "sMessages",
+        "specMarket",
+        "styling",
+        "upholsteries",
+        "variant"
+      ],
+      "specMarket": "110",
+      "options": 63,
+      "packages": 7
+    },
+    {
+      "outerKeys": ["car_specification", "id", "model_year", "pno12", "spec_market"],
+      "innerKeys": [
+        "colors",
+        "modelYear",
+        "options",
+        "packages",
+        "pno12",
+        "productionDates",
+        "sMessages",
+        "specMarket",
+        "styling",
+        "upholsteries",
+        "variant"
+      ],
+      "specMarket": "110",
+      "options": 62,
+      "packages": 7
+    },
+    {
+      "outerKeys": ["car_specification", "id", "model_year", "pno12", "spec_market"],
+      "innerKeys": [
+        "colors",
+        "modelYear",
+        "options",
+        "packages",
+        "pno12",
+        "productionDates",
+        "sMessages",
+        "specMarket",
+        "styling",
+        "upholsteries",
+        "variant"
+      ],
+      "specMarket": "110",
+      "options": 57,
+      "packages": 7
+    },
+    {
+      "outerKeys": ["car_specification", "id", "model_year", "pno12", "spec_market"],
+      "innerKeys": [
+        "colors",
+        "modelYear",
+        "options",
+        "packages",
+        "pno12",
+        "productionDates",
+        "sMessages",
+        "specMarket",
+        "styling",
+        "upholsteries",
+        "variant"
+      ],
+      "specMarket": "110",
+      "options": 61,
+      "packages": 7
+    },
+    {
+      "outerKeys": ["car_specification", "id", "model_year", "pno12", "spec_market"],
+      "innerKeys": [
+        "colors",
+        "modelYear",
+        "options",
+        "packages",
+        "pno12",
+        "productionDates",
+        "sMessages",
+        "specMarket",
+        "styling",
+        "upholsteries",
+        "variant"
+      ],
+      "specMarket": "110",
+      "options": 17,
+      "packages": 0
+    },
+    {
+      "outerKeys": ["car_specification", "id", "model_year", "pno12", "spec_market"],
+      "innerKeys": [
+        "colors",
+        "modelYear",
+        "options",
+        "packages",
+        "pno12",
+        "productionDates",
+        "sMessages",
+        "specMarket",
+        "styling",
+        "upholsteries",
+        "variant"
+      ],
+      "specMarket": "110",
+      "options": 16,
+      "packages": 0
+    },
+    {
+      "outerKeys": ["car_specification", "id", "model_year", "pno12", "spec_market"],
+      "innerKeys": [
+        "colors",
+        "modelYear",
+        "options",
+        "packages",
+        "pno12",
+        "productionDates",
+        "sMessages",
+        "specMarket",
+        "styling",
+        "upholsteries",
+        "variant"
+      ],
+      "specMarket": "110",
+      "options": 18,
+      "packages": 0
+    },
+    {
+      "outerKeys": ["car_specification", "id", "model_year", "pno12", "spec_market"],
+      "innerKeys": [
+        "colors",
+        "modelYear",
+        "options",
+        "packages",
+        "pno12",
+        "productionDates",
+        "sMessages",
+        "specMarket",
+        "styling",
+        "upholsteries",
+        "variant"
+      ],
+      "specMarket": "110",
+      "options": 16,
+      "packages": 0
+    },
+    {
+      "outerKeys": ["car_specification", "id", "model_year", "pno12", "spec_market"],
+      "innerKeys": [
+        "colors",
+        "modelYear",
+        "options",
+        "packages",
+        "pno12",
+        "productionDates",
+        "sMessages",
+        "specMarket",
+        "styling",
+        "upholsteries",
+        "variant"
+      ],
+      "specMarket": "110",
+      "options": 18,
+      "packages": 0
+    },
+    {
+      "outerKeys": ["car_specification", "id", "model_year", "pno12", "spec_market"],
+      "innerKeys": [
+        "colors",
+        "modelYear",
+        "options",
+        "packages",
+        "pno12",
+        "productionDates",
+        "sMessages",
+        "specMarket",
+        "styling",
+        "upholsteries",
+        "variant"
+      ],
+      "specMarket": "110",
+      "options": 16,
+      "packages": 0
+    },
+    {
+      "outerKeys": ["car_specification", "id", "model_year", "pno12", "spec_market"],
+      "innerKeys": [
+        "colors",
+        "modelYear",
+        "options",
+        "packages",
+        "pno12",
+        "productionDates",
+        "sMessages",
+        "specMarket",
+        "styling",
+        "upholsteries",
+        "variant"
+      ],
+      "specMarket": "110",
+      "options": 18,
+      "packages": 0
+    },
+    {
+      "outerKeys": ["car_specification", "id", "model_year", "pno12", "spec_market"],
+      "innerKeys": [
+        "colors",
+        "modelYear",
+        "options",
+        "packages",
+        "pno12",
+        "productionDates",
+        "sMessages",
+        "specMarket",
+        "styling",
+        "upholsteries",
+        "variant"
+      ],
+      "specMarket": "110",
+      "options": 10,
+      "packages": 0
+    },
+    {
+      "outerKeys": ["car_specification", "id", "model_year", "pno12", "spec_market"],
+      "innerKeys": [
+        "colors",
+        "modelYear",
+        "options",
+        "packages",
+        "pno12",
+        "productionDates",
+        "sMessages",
+        "specMarket",
+        "styling",
+        "upholsteries",
+        "variant"
+      ],
+      "specMarket": "110",
+      "options": 68,
+      "packages": 9
+    },
+    {
+      "outerKeys": ["car_specification", "id", "model_year", "pno12", "spec_market"],
+      "innerKeys": [
+        "colors",
+        "modelYear",
+        "options",
+        "packages",
+        "pno12",
+        "productionDates",
+        "sMessages",
+        "specMarket",
+        "styling",
+        "upholsteries",
+        "variant"
+      ],
+      "specMarket": "110",
+      "options": 58,
+      "packages": 7
+    },
+    {
+      "outerKeys": ["car_specification", "id", "model_year", "pno12", "spec_market"],
+      "innerKeys": [
+        "colors",
+        "modelYear",
+        "options",
+        "packages",
+        "pno12",
+        "productionDates",
+        "sMessages",
+        "specMarket",
+        "styling",
+        "upholsteries",
+        "variant"
+      ],
+      "specMarket": "110",
+      "options": 62,
+      "packages": 7
+    },
+    {
+      "outerKeys": ["car_specification", "id", "model_year", "pno12", "spec_market"],
+      "innerKeys": [
+        "colors",
+        "modelYear",
+        "options",
+        "packages",
+        "pno12",
+        "productionDates",
+        "sMessages",
+        "specMarket",
+        "styling",
+        "upholsteries",
+        "variant"
+      ],
+      "specMarket": "110",
+      "options": 60,
+      "packages": 7
+    },
+    {
+      "outerKeys": ["car_specification", "id", "model_year", "pno12", "spec_market"],
+      "innerKeys": [
+        "colors",
+        "modelYear",
+        "options",
+        "packages",
+        "pno12",
+        "productionDates",
+        "sMessages",
+        "specMarket",
+        "styling",
+        "upholsteries",
+        "variant"
+      ],
+      "specMarket": "110",
+      "options": 59,
+      "packages": 7
+    },
+    {
+      "outerKeys": ["car_specification", "id", "model_year", "pno12", "spec_market"],
+      "innerKeys": [
+        "colors",
+        "modelYear",
+        "options",
+        "packages",
+        "pno12",
+        "productionDates",
+        "sMessages",
+        "specMarket",
+        "styling",
+        "upholsteries",
+        "variant"
+      ],
+      "specMarket": "110",
+      "options": 5,
+      "packages": 0
+    },
+    {
+      "outerKeys": ["car_specification", "id", "model_year", "pno12", "spec_market"],
+      "innerKeys": [
+        "colors",
+        "modelYear",
+        "options",
+        "packages",
+        "pno12",
+        "productionDates",
+        "sMessages",
+        "specMarket",
+        "styling",
+        "upholsteries",
+        "variant"
+      ],
+      "specMarket": "110",
+      "options": 44,
+      "packages": 0
+    },
+    {
+      "outerKeys": ["car_specification", "id", "model_year", "pno12", "spec_market"],
+      "innerKeys": [
+        "colors",
+        "modelYear",
+        "options",
+        "packages",
+        "pno12",
+        "productionDates",
+        "sMessages",
+        "specMarket",
+        "styling",
+        "upholsteries",
+        "variant"
+      ],
+      "specMarket": "110",
+      "options": 42,
+      "packages": 0
+    },
+    {
+      "outerKeys": ["car_specification", "id", "model_year", "pno12", "spec_market"],
+      "innerKeys": [
+        "colors",
+        "modelYear",
+        "options",
+        "packages",
+        "pno12",
+        "productionDates",
+        "sMessages",
+        "specMarket",
+        "styling",
+        "upholsteries",
+        "variant"
+      ],
+      "specMarket": "110",
+      "options": 56,
+      "packages": 5
+    },
+    {
+      "outerKeys": ["car_specification", "id", "model_year", "pno12", "spec_market"],
+      "innerKeys": [
+        "colors",
+        "modelYear",
+        "options",
+        "packages",
+        "pno12",
+        "productionDates",
+        "sMessages",
+        "specMarket",
+        "styling",
+        "upholsteries",
+        "variant"
+      ],
+      "specMarket": "110",
+      "options": 55,
+      "packages": 4
+    },
+    {
+      "outerKeys": ["car_specification", "id", "model_year", "pno12", "spec_market"],
+      "innerKeys": [
+        "colors",
+        "modelYear",
+        "options",
+        "packages",
+        "pno12",
+        "productionDates",
+        "sMessages",
+        "specMarket",
+        "styling",
+        "upholsteries",
+        "variant"
+      ],
+      "specMarket": "110",
+      "options": 56,
+      "packages": 5
+    },
+    {
+      "outerKeys": ["car_specification", "id", "model_year", "pno12", "spec_market"],
+      "innerKeys": [
+        "colors",
+        "modelYear",
+        "options",
+        "packages",
+        "pno12",
+        "productionDates",
+        "sMessages",
+        "specMarket",
+        "styling",
+        "upholsteries",
+        "variant"
+      ],
+      "specMarket": "110",
+      "options": 56,
+      "packages": 5
+    },
+    {
+      "outerKeys": ["car_specification", "id", "model_year", "pno12", "spec_market"],
+      "innerKeys": [
+        "colors",
+        "modelYear",
+        "options",
+        "packages",
+        "pno12",
+        "productionDates",
+        "sMessages",
+        "specMarket",
+        "styling",
+        "upholsteries",
+        "variant"
+      ],
+      "specMarket": "110",
+      "options": 56,
+      "packages": 5
+    },
+    {
+      "outerKeys": ["car_specification", "id", "model_year", "pno12", "spec_market"],
+      "innerKeys": [
+        "colors",
+        "modelYear",
+        "options",
+        "packages",
+        "pno12",
+        "productionDates",
+        "sMessages",
+        "specMarket",
+        "styling",
+        "upholsteries",
+        "variant"
+      ],
+      "specMarket": "110",
+      "options": 56,
+      "packages": 5
+    },
+    {
+      "outerKeys": ["car_specification", "id", "model_year", "pno12", "spec_market"],
+      "innerKeys": [
+        "colors",
+        "modelYear",
+        "options",
+        "packages",
+        "pno12",
+        "productionDates",
+        "sMessages",
+        "specMarket",
+        "styling",
+        "upholsteries",
+        "variant"
+      ],
+      "specMarket": "110",
+      "options": 55,
+      "packages": 4
+    },
+    {
+      "outerKeys": ["car_specification", "id", "model_year", "pno12", "spec_market"],
+      "innerKeys": [
+        "colors",
+        "modelYear",
+        "options",
+        "packages",
+        "pno12",
+        "productionDates",
+        "sMessages",
+        "specMarket",
+        "styling",
+        "upholsteries",
+        "variant"
+      ],
+      "specMarket": "110",
+      "options": 1,
+      "packages": 0
+    },
+    {
+      "outerKeys": ["car_specification", "id", "model_year", "pno12", "spec_market"],
+      "innerKeys": [
+        "colors",
+        "modelYear",
+        "options",
+        "packages",
+        "pno12",
+        "productionDates",
+        "sMessages",
+        "specMarket",
+        "styling",
+        "upholsteries",
+        "variant"
+      ],
+      "specMarket": "110",
+      "options": 6,
+      "packages": 0
+    },
+    {
+      "outerKeys": ["car_specification", "id", "model_year", "pno12", "spec_market"],
+      "innerKeys": [
+        "colors",
+        "modelYear",
+        "options",
+        "packages",
+        "pno12",
+        "productionDates",
+        "sMessages",
+        "specMarket",
+        "styling",
+        "upholsteries",
+        "variant"
+      ],
+      "specMarket": "110",
+      "options": 3,
+      "packages": 0
+    },
+    {
+      "outerKeys": ["car_specification", "id", "model_year", "pno12", "spec_market"],
+      "innerKeys": [
+        "colors",
+        "modelYear",
+        "options",
+        "packages",
+        "pno12",
+        "productionDates",
+        "sMessages",
+        "specMarket",
+        "styling",
+        "upholsteries",
+        "variant"
+      ],
+      "specMarket": "110",
+      "options": 7,
+      "packages": 0
+    },
+    {
+      "outerKeys": ["car_specification", "id", "model_year", "pno12", "spec_market"],
+      "innerKeys": [
+        "colors",
+        "modelYear",
+        "options",
+        "packages",
+        "pno12",
+        "productionDates",
+        "sMessages",
+        "specMarket",
+        "styling",
+        "upholsteries",
+        "variant"
+      ],
+      "specMarket": "110",
+      "options": 20,
+      "packages": 0
+    },
+    {
+      "outerKeys": ["car_specification", "id", "model_year", "pno12", "spec_market"],
+      "innerKeys": [
+        "colors",
+        "modelYear",
+        "options",
+        "packages",
+        "pno12",
+        "productionDates",
+        "sMessages",
+        "specMarket",
+        "styling",
+        "upholsteries",
+        "variant"
+      ],
+      "specMarket": "110",
+      "options": 59,
+      "packages": 6
+    },
+    {
+      "outerKeys": ["car_specification", "id", "model_year", "pno12", "spec_market"],
+      "innerKeys": [
+        "colors",
+        "modelYear",
+        "options",
+        "packages",
+        "pno12",
+        "productionDates",
+        "sMessages",
+        "specMarket",
+        "styling",
+        "upholsteries",
+        "variant"
+      ],
+      "specMarket": "110",
+      "options": 56,
+      "packages": 5
+    },
+    {
+      "outerKeys": ["car_specification", "id", "model_year", "pno12", "spec_market"],
+      "innerKeys": [
+        "colors",
+        "modelYear",
+        "options",
+        "packages",
+        "pno12",
+        "productionDates",
+        "sMessages",
+        "specMarket",
+        "styling",
+        "upholsteries",
+        "variant"
+      ],
+      "specMarket": "110",
+      "options": 4,
+      "packages": 0
+    },
+    {
+      "outerKeys": ["car_specification", "id", "model_year", "pno12", "spec_market"],
+      "innerKeys": [
+        "colors",
+        "modelYear",
+        "options",
+        "packages",
+        "pno12",
+        "productionDates",
+        "sMessages",
+        "specMarket",
+        "styling",
+        "upholsteries",
+        "variant"
+      ],
+      "specMarket": "110",
+      "options": 6,
+      "packages": 0
+    },
+    {
+      "outerKeys": ["car_specification", "id", "model_year", "pno12", "spec_market"],
+      "innerKeys": [
+        "colors",
+        "modelYear",
+        "options",
+        "packages",
+        "pno12",
+        "productionDates",
+        "sMessages",
+        "specMarket",
+        "styling",
+        "upholsteries",
+        "variant"
+      ],
+      "specMarket": "110",
+      "options": 8,
+      "packages": 0
+    },
+    {
+      "outerKeys": ["car_specification", "id", "model_year", "pno12", "spec_market"],
+      "innerKeys": [
+        "colors",
+        "modelYear",
+        "options",
+        "packages",
+        "pno12",
+        "productionDates",
+        "sMessages",
+        "specMarket",
+        "styling",
+        "upholsteries",
+        "variant"
+      ],
+      "specMarket": "110",
+      "options": 55,
+      "packages": 7
+    },
+    {
+      "outerKeys": ["car_specification", "id", "model_year", "pno12", "spec_market"],
+      "innerKeys": [
+        "colors",
+        "modelYear",
+        "options",
+        "packages",
+        "pno12",
+        "productionDates",
+        "sMessages",
+        "specMarket",
+        "styling",
+        "upholsteries",
+        "variant"
+      ],
+      "specMarket": "110",
+      "options": 53,
+      "packages": 7
+    },
+    {
+      "outerKeys": ["car_specification", "id", "model_year", "pno12", "spec_market"],
+      "innerKeys": [
+        "colors",
+        "modelYear",
+        "options",
+        "packages",
+        "pno12",
+        "productionDates",
+        "sMessages",
+        "specMarket",
+        "styling",
+        "upholsteries",
+        "variant"
+      ],
+      "specMarket": "110",
+      "options": 55,
+      "packages": 7
+    },
+    {
+      "outerKeys": ["car_specification", "id", "model_year", "pno12", "spec_market"],
+      "innerKeys": [
+        "colors",
+        "modelYear",
+        "options",
+        "packages",
+        "pno12",
+        "productionDates",
+        "sMessages",
+        "specMarket",
+        "styling",
+        "upholsteries",
+        "variant"
+      ],
+      "specMarket": "110",
+      "options": 53,
+      "packages": 7
+    },
+    {
+      "outerKeys": ["car_specification", "id", "model_year", "pno12", "spec_market"],
+      "innerKeys": [
+        "colors",
+        "modelYear",
+        "options",
+        "packages",
+        "pno12",
+        "productionDates",
+        "sMessages",
+        "specMarket",
+        "styling",
+        "upholsteries",
+        "variant"
+      ],
+      "specMarket": "110",
+      "options": 48,
+      "packages": 6
+    },
+    {
+      "outerKeys": ["car_specification", "id", "model_year", "pno12", "spec_market"],
+      "innerKeys": [
+        "colors",
+        "modelYear",
+        "options",
+        "packages",
+        "pno12",
+        "productionDates",
+        "sMessages",
+        "specMarket",
+        "styling",
+        "upholsteries",
+        "variant"
+      ],
+      "specMarket": "110",
+      "options": 48,
+      "packages": 6
+    },
+    {
+      "outerKeys": ["car_specification", "id", "model_year", "pno12", "spec_market"],
+      "innerKeys": [
+        "colors",
+        "modelYear",
+        "options",
+        "packages",
+        "pno12",
+        "productionDates",
+        "sMessages",
+        "specMarket",
+        "styling",
+        "upholsteries",
+        "variant"
+      ],
+      "specMarket": "110",
+      "options": 54,
+      "packages": 6
+    },
+    {
+      "outerKeys": ["car_specification", "id", "model_year", "pno12", "spec_market"],
+      "innerKeys": [
+        "colors",
+        "modelYear",
+        "options",
+        "packages",
+        "pno12",
+        "productionDates",
+        "sMessages",
+        "specMarket",
+        "styling",
+        "upholsteries",
+        "variant"
+      ],
+      "specMarket": "110",
+      "options": 51,
+      "packages": 6
+    },
+    {
+      "outerKeys": ["car_specification", "id", "model_year", "pno12", "spec_market"],
+      "innerKeys": [
+        "colors",
+        "modelYear",
+        "options",
+        "packages",
+        "pno12",
+        "productionDates",
+        "sMessages",
+        "specMarket",
+        "styling",
+        "upholsteries",
+        "variant"
+      ],
+      "specMarket": "110",
+      "options": 53,
+      "packages": 6
+    },
+    {
+      "outerKeys": ["car_specification", "id", "model_year", "pno12", "spec_market"],
+      "innerKeys": [
+        "colors",
+        "modelYear",
+        "options",
+        "packages",
+        "pno12",
+        "productionDates",
+        "sMessages",
+        "specMarket",
+        "styling",
+        "upholsteries",
+        "variant"
+      ],
+      "specMarket": "110",
+      "options": 50,
+      "packages": 6
+    },
+    {
+      "outerKeys": ["car_specification", "id", "model_year", "pno12", "spec_market"],
+      "innerKeys": [
+        "colors",
+        "modelYear",
+        "options",
+        "packages",
+        "pno12",
+        "productionDates",
+        "sMessages",
+        "specMarket",
+        "styling",
+        "upholsteries",
+        "variant"
+      ],
+      "specMarket": "110",
+      "options": 52,
+      "packages": 7
+    },
+    {
+      "outerKeys": ["car_specification", "id", "model_year", "pno12", "spec_market"],
+      "innerKeys": [
+        "colors",
+        "modelYear",
+        "options",
+        "packages",
+        "pno12",
+        "productionDates",
+        "sMessages",
+        "specMarket",
+        "styling",
+        "upholsteries",
+        "variant"
+      ],
+      "specMarket": "110",
+      "options": 50,
+      "packages": 6
+    },
+    {
+      "outerKeys": ["car_specification", "id", "model_year", "pno12", "spec_market"],
+      "innerKeys": [
+        "colors",
+        "modelYear",
+        "options",
+        "packages",
+        "pno12",
+        "productionDates",
+        "sMessages",
+        "specMarket",
+        "styling",
+        "upholsteries",
+        "variant"
+      ],
+      "specMarket": "110",
+      "options": 48,
+      "packages": 6
+    },
+    {
+      "outerKeys": ["car_specification", "id", "model_year", "pno12", "spec_market"],
+      "innerKeys": [
+        "colors",
+        "modelYear",
+        "options",
+        "packages",
+        "pno12",
+        "productionDates",
+        "sMessages",
+        "specMarket",
+        "styling",
+        "upholsteries",
+        "variant"
+      ],
+      "specMarket": "110",
+      "options": 47,
+      "packages": 6
+    },
+    {
+      "outerKeys": ["car_specification", "id", "model_year", "pno12", "spec_market"],
+      "innerKeys": [
+        "colors",
+        "modelYear",
+        "options",
+        "packages",
+        "pno12",
+        "productionDates",
+        "sMessages",
+        "specMarket",
+        "styling",
+        "upholsteries",
+        "variant"
+      ],
+      "specMarket": "110",
+      "options": 65,
+      "packages": 7
+    },
+    {
+      "outerKeys": ["car_specification", "id", "model_year", "pno12", "spec_market"],
+      "innerKeys": [
+        "colors",
+        "modelYear",
+        "options",
+        "packages",
+        "pno12",
+        "productionDates",
+        "sMessages",
+        "specMarket",
+        "styling",
+        "upholsteries",
+        "variant"
+      ],
+      "specMarket": "110",
+      "options": 56,
+      "packages": 7
+    },
+    {
+      "outerKeys": ["car_specification", "id", "model_year", "pno12", "spec_market"],
+      "innerKeys": [
+        "colors",
+        "modelYear",
+        "options",
+        "packages",
+        "pno12",
+        "productionDates",
+        "sMessages",
+        "specMarket",
+        "styling",
+        "upholsteries",
+        "variant"
+      ],
+      "specMarket": "110",
+      "options": 50,
+      "packages": 7
+    },
+    {
+      "outerKeys": ["car_specification", "id", "model_year", "pno12", "spec_market"],
+      "innerKeys": [
+        "colors",
+        "modelYear",
+        "options",
+        "packages",
+        "pno12",
+        "productionDates",
+        "sMessages",
+        "specMarket",
+        "styling",
+        "upholsteries",
+        "variant"
+      ],
+      "specMarket": "110",
+      "options": 44,
+      "packages": 5
+    },
+    {
+      "outerKeys": ["car_specification", "id", "model_year", "pno12", "spec_market"],
+      "innerKeys": [
+        "colors",
+        "modelYear",
+        "options",
+        "packages",
+        "pno12",
+        "productionDates",
+        "sMessages",
+        "specMarket",
+        "styling",
+        "upholsteries",
+        "variant"
+      ],
+      "specMarket": "110",
+      "options": 46,
+      "packages": 5
+    },
+    {
+      "outerKeys": ["car_specification", "id", "model_year", "pno12", "spec_market"],
+      "innerKeys": [
+        "colors",
+        "modelYear",
+        "options",
+        "packages",
+        "pno12",
+        "productionDates",
+        "sMessages",
+        "specMarket",
+        "styling",
+        "upholsteries",
+        "variant"
+      ],
+      "specMarket": "110",
+      "options": 50,
+      "packages": 7
+    },
+    {
+      "outerKeys": ["car_specification", "id", "model_year", "pno12", "spec_market"],
+      "innerKeys": [
+        "colors",
+        "modelYear",
+        "options",
+        "packages",
+        "pno12",
+        "productionDates",
+        "sMessages",
+        "specMarket",
+        "styling",
+        "upholsteries",
+        "variant"
+      ],
+      "specMarket": "110",
+      "options": 52,
+      "packages": 7
+    },
+    {
+      "outerKeys": ["car_specification", "id", "model_year", "pno12", "spec_market"],
+      "innerKeys": [
+        "colors",
+        "modelYear",
+        "options",
+        "packages",
+        "pno12",
+        "productionDates",
+        "sMessages",
+        "specMarket",
+        "styling",
+        "upholsteries",
+        "variant"
+      ],
+      "specMarket": "110",
+      "options": 47,
+      "packages": 6
+    },
+    {
+      "outerKeys": ["car_specification", "id", "model_year", "pno12", "spec_market"],
+      "innerKeys": [
+        "colors",
+        "modelYear",
+        "options",
+        "packages",
+        "pno12",
+        "productionDates",
+        "sMessages",
+        "specMarket",
+        "styling",
+        "upholsteries",
+        "variant"
+      ],
+      "specMarket": "110",
+      "options": 52,
+      "packages": 6
+    },
+    {
+      "outerKeys": ["car_specification", "id", "model_year", "pno12", "spec_market"],
+      "innerKeys": [
+        "colors",
+        "modelYear",
+        "options",
+        "packages",
+        "pno12",
+        "productionDates",
+        "sMessages",
+        "specMarket",
+        "styling",
+        "upholsteries",
+        "variant"
+      ],
+      "specMarket": "110",
+      "options": 55,
+      "packages": 8
+    },
+    {
+      "outerKeys": ["car_specification", "id", "model_year", "pno12", "spec_market"],
+      "innerKeys": [
+        "colors",
+        "modelYear",
+        "options",
+        "packages",
+        "pno12",
+        "productionDates",
+        "sMessages",
+        "specMarket",
+        "styling",
+        "upholsteries",
+        "variant"
+      ],
+      "specMarket": "110",
+      "options": 54,
+      "packages": 6
+    },
+    {
+      "outerKeys": ["car_specification", "id", "model_year", "pno12", "spec_market"],
+      "innerKeys": [
+        "colors",
+        "modelYear",
+        "options",
+        "packages",
+        "pno12",
+        "productionDates",
+        "sMessages",
+        "specMarket",
+        "styling",
+        "upholsteries",
+        "variant"
+      ],
+      "specMarket": "110",
+      "options": 52,
+      "packages": 6
+    },
+    {
+      "outerKeys": ["car_specification", "id", "model_year", "pno12", "spec_market"],
+      "innerKeys": [
+        "colors",
+        "modelYear",
+        "options",
+        "packages",
+        "pno12",
+        "productionDates",
+        "sMessages",
+        "specMarket",
+        "styling",
+        "upholsteries",
+        "variant"
+      ],
+      "specMarket": "110",
+      "options": 36,
+      "packages": 5
+    },
+    {
+      "outerKeys": ["car_specification", "id", "model_year", "pno12", "spec_market"],
+      "innerKeys": [
+        "colors",
+        "modelYear",
+        "options",
+        "packages",
+        "pno12",
+        "productionDates",
+        "sMessages",
+        "specMarket",
+        "styling",
+        "upholsteries",
+        "variant"
+      ],
+      "specMarket": "110",
+      "options": 48,
+      "packages": 6
+    },
+    {
+      "outerKeys": ["car_specification", "id", "model_year", "pno12", "spec_market"],
+      "innerKeys": [
+        "colors",
+        "modelYear",
+        "options",
+        "packages",
+        "pno12",
+        "productionDates",
+        "sMessages",
+        "specMarket",
+        "styling",
+        "upholsteries",
+        "variant"
+      ],
+      "specMarket": "110",
+      "options": 104,
+      "packages": 6
+    },
+    {
+      "outerKeys": ["car_specification", "id", "model_year", "pno12", "spec_market"],
+      "innerKeys": [
+        "colors",
+        "modelYear",
+        "options",
+        "packages",
+        "pno12",
+        "productionDates",
+        "sMessages",
+        "specMarket",
+        "styling",
+        "upholsteries",
+        "variant"
+      ],
+      "specMarket": "110",
+      "options": 18,
+      "packages": 0
+    },
+    {
+      "outerKeys": ["car_specification", "id", "model_year", "pno12", "spec_market"],
+      "innerKeys": [
+        "colors",
+        "modelYear",
+        "options",
+        "packages",
+        "pno12",
+        "productionDates",
+        "sMessages",
+        "specMarket",
+        "styling",
+        "upholsteries",
+        "variant"
+      ],
+      "specMarket": "110",
+      "options": 20,
+      "packages": 0
+    },
+    {
+      "outerKeys": ["car_specification", "id", "model_year", "pno12", "spec_market"],
+      "innerKeys": [
+        "colors",
+        "modelYear",
+        "options",
+        "packages",
+        "pno12",
+        "productionDates",
+        "sMessages",
+        "specMarket",
+        "styling",
+        "upholsteries",
+        "variant"
+      ],
+      "specMarket": "110",
+      "options": 16,
+      "packages": 0
+    },
+    {
+      "outerKeys": ["car_specification", "id", "model_year", "pno12", "spec_market"],
+      "innerKeys": [
+        "colors",
+        "modelYear",
+        "options",
+        "packages",
+        "pno12",
+        "productionDates",
+        "sMessages",
+        "specMarket",
+        "styling",
+        "upholsteries",
+        "variant"
+      ],
+      "specMarket": "110",
+      "options": 18,
+      "packages": 0
+    },
+    {
+      "outerKeys": ["car_specification", "id", "model_year", "pno12", "spec_market"],
+      "innerKeys": [
+        "colors",
+        "modelYear",
+        "options",
+        "packages",
+        "pno12",
+        "productionDates",
+        "sMessages",
+        "specMarket",
+        "styling",
+        "upholsteries",
+        "variant"
+      ],
+      "specMarket": "110",
+      "options": 18,
+      "packages": 0
+    },
+    {
+      "outerKeys": ["car_specification", "id", "model_year", "pno12", "spec_market"],
+      "innerKeys": [
+        "colors",
+        "modelYear",
+        "options",
+        "packages",
+        "pno12",
+        "productionDates",
+        "sMessages",
+        "specMarket",
+        "styling",
+        "upholsteries",
+        "variant"
+      ],
+      "specMarket": "110",
+      "options": 61,
+      "packages": 7
+    },
+    {
+      "outerKeys": ["car_specification", "id", "model_year", "pno12", "spec_market"],
+      "innerKeys": [
+        "colors",
+        "modelYear",
+        "options",
+        "packages",
+        "pno12",
+        "productionDates",
+        "sMessages",
+        "specMarket",
+        "styling",
+        "upholsteries",
+        "variant"
+      ],
+      "specMarket": "110",
+      "options": 65,
+      "packages": 7
+    },
+    {
+      "outerKeys": ["car_specification", "id", "model_year", "pno12", "spec_market"],
+      "innerKeys": [
+        "colors",
+        "modelYear",
+        "options",
+        "packages",
+        "pno12",
+        "productionDates",
+        "sMessages",
+        "specMarket",
+        "styling",
+        "upholsteries",
+        "variant"
+      ],
+      "specMarket": "110",
+      "options": 61,
+      "packages": 7
+    },
+    {
+      "outerKeys": ["car_specification", "id", "model_year", "pno12", "spec_market"],
+      "innerKeys": [
+        "colors",
+        "modelYear",
+        "options",
+        "packages",
+        "pno12",
+        "productionDates",
+        "sMessages",
+        "specMarket",
+        "styling",
+        "upholsteries",
+        "variant"
+      ],
+      "specMarket": "110",
+      "options": 56,
+      "packages": 7
+    },
+    {
+      "outerKeys": ["car_specification", "id", "model_year", "pno12", "spec_market"],
+      "innerKeys": [
+        "colors",
+        "modelYear",
+        "options",
+        "packages",
+        "pno12",
+        "productionDates",
+        "sMessages",
+        "specMarket",
+        "styling",
+        "upholsteries",
+        "variant"
+      ],
+      "specMarket": "110",
+      "options": 52,
+      "packages": 7
+    },
+    {
+      "outerKeys": ["car_specification", "id", "model_year", "pno12", "spec_market"],
+      "innerKeys": [
+        "colors",
+        "modelYear",
+        "options",
+        "packages",
+        "pno12",
+        "productionDates",
+        "sMessages",
+        "specMarket",
+        "styling",
+        "upholsteries",
+        "variant"
+      ],
+      "specMarket": "110",
+      "options": 64,
+      "packages": 8
+    },
+    {
+      "outerKeys": ["car_specification", "id", "model_year", "pno12", "spec_market"],
+      "innerKeys": [
+        "colors",
+        "modelYear",
+        "options",
+        "packages",
+        "pno12",
+        "productionDates",
+        "sMessages",
+        "specMarket",
+        "styling",
+        "upholsteries",
+        "variant"
+      ],
+      "specMarket": "110",
+      "options": 58,
+      "packages": 6
+    },
+    {
+      "outerKeys": ["car_specification", "id", "model_year", "pno12", "spec_market"],
+      "innerKeys": [
+        "colors",
+        "modelYear",
+        "options",
+        "packages",
+        "pno12",
+        "productionDates",
+        "sMessages",
+        "specMarket",
+        "styling",
+        "upholsteries",
+        "variant"
+      ],
+      "specMarket": "110",
+      "options": 57,
+      "packages": 9
+    },
+    {
+      "outerKeys": ["car_specification", "id", "model_year", "pno12", "spec_market"],
+      "innerKeys": [
+        "colors",
+        "modelYear",
+        "options",
+        "packages",
+        "pno12",
+        "productionDates",
+        "sMessages",
+        "specMarket",
+        "styling",
+        "upholsteries",
+        "variant"
+      ],
+      "specMarket": "110",
+      "options": 57,
+      "packages": 9
+    },
+    {
+      "outerKeys": ["car_specification", "id", "model_year", "pno12", "spec_market"],
+      "innerKeys": [
+        "colors",
+        "modelYear",
+        "options",
+        "packages",
+        "pno12",
+        "productionDates",
+        "sMessages",
+        "specMarket",
+        "styling",
+        "upholsteries",
+        "variant"
+      ],
+      "specMarket": "110",
+      "options": 64,
+      "packages": 8
+    },
+    {
+      "outerKeys": ["car_specification", "id", "model_year", "pno12", "spec_market"],
+      "innerKeys": [
+        "colors",
+        "modelYear",
+        "options",
+        "packages",
+        "pno12",
+        "productionDates",
+        "sMessages",
+        "specMarket",
+        "styling",
+        "upholsteries",
+        "variant"
+      ],
+      "specMarket": "110",
+      "options": 64,
+      "packages": 7
+    },
+    {
+      "outerKeys": ["car_specification", "id", "model_year", "pno12", "spec_market"],
+      "innerKeys": [
+        "colors",
+        "modelYear",
+        "options",
+        "packages",
+        "pno12",
+        "productionDates",
+        "sMessages",
+        "specMarket",
+        "styling",
+        "upholsteries",
+        "variant"
+      ],
+      "specMarket": "110",
+      "options": 57,
+      "packages": 6
+    },
+    {
+      "outerKeys": ["car_specification", "id", "model_year", "pno12", "spec_market"],
+      "innerKeys": [
+        "colors",
+        "modelYear",
+        "options",
+        "packages",
+        "pno12",
+        "productionDates",
+        "sMessages",
+        "specMarket",
+        "styling",
+        "upholsteries",
+        "variant"
+      ],
+      "specMarket": "110",
+      "options": 61,
+      "packages": 7
+    },
+    {
+      "outerKeys": ["car_specification", "id", "model_year", "pno12", "spec_market"],
+      "innerKeys": [
+        "colors",
+        "modelYear",
+        "options",
+        "packages",
+        "pno12",
+        "productionDates",
+        "sMessages",
+        "specMarket",
+        "styling",
+        "upholsteries",
+        "variant"
+      ],
+      "specMarket": "110",
+      "options": 59,
+      "packages": 6
+    },
+    {
+      "outerKeys": ["car_specification", "id", "model_year", "pno12", "spec_market"],
+      "innerKeys": [
+        "colors",
+        "modelYear",
+        "options",
+        "packages",
+        "pno12",
+        "productionDates",
+        "sMessages",
+        "specMarket",
+        "styling",
+        "upholsteries",
+        "variant"
+      ],
+      "specMarket": "110",
+      "options": 52,
+      "packages": 7
+    },
+    {
+      "outerKeys": ["car_specification", "id", "model_year", "pno12", "spec_market"],
+      "innerKeys": [
+        "colors",
+        "modelYear",
+        "options",
+        "packages",
+        "pno12",
+        "productionDates",
+        "sMessages",
+        "specMarket",
+        "styling",
+        "upholsteries",
+        "variant"
+      ],
+      "specMarket": "110",
+      "options": 54,
+      "packages": 8
+    }
+  ],
+  "scope": "Stored source fixture structural/schema read only; no loader/runtime execution"
+}

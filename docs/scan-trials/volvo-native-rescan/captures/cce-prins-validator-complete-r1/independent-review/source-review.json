@@ -1,0 +1,68 @@
+{
+  "repo": "volvo-cars/cce-prins-validator",
+  "commit": "dc68082c577756ce31ea30d9b5bbc5e60a2f9a7d",
+  "status": "10full pinned files independently read;37strict queries passed with2bounded component roots; all1302source ranges checked",
+  "files": [
+    {
+      "path": "internal/app/app.go",
+      "lines": 74,
+      "sha256": "17dca6fcd11f4c23fd28cde9d32cd8f26b2df80037acaef7928077d7db3b605f",
+      "review": "Entire pinned source independently read; compared against accepted native capture and strict query evidence"
+    },
+    {
+      "path": "internal/gateway/requestBuilder.go",
+      "lines": 79,
+      "sha256": "ee17420d44bb1892b6b079812dcfeb849cb63a462073d7e7c2159d73a082831f",
+      "review": "Entire pinned source independently read; compared against accepted native capture and strict query evidence"
+    },
+    {
+      "path": "internal/gateway/client.go",
+      "lines": 93,
+      "sha256": "b9b6a0ee6a64211ad388b1522ecf515ee537c6bcdd6aa637702300e43db19880",
+      "review": "Entire pinned source independently read; compared against accepted native capture and strict query evidence"
+    },
+    {
+      "path": "internal/service/rulesetvalidator.go",
+      "lines": 304,
+      "sha256": "d8f84be020a9a3ca4adb97406fa8e3448d69edb6e6f4f8c3d8f4e9289c27a9a5",
+      "review": "Entire pinned source independently read; compared against accepted native capture and strict query evidence"
+    },
+    {
+      "path": "internal/gateway/filterservice/client.go",
+      "lines": 73,
+      "sha256": "e0eab26435e0aa2df867a9afca11f7ee00dfaaf8481b6fbcd06faf720554fade",
+      "review": "Entire pinned source independently read; compared against accepted native capture and strict query evidence"
+    },
+    {
+      "path": "internal/gateway/optimizationfacade/startconfigurationprovider.go",
+      "lines": 36,
+      "sha256": "7b84769c621afaa0c69bbf7821fafd652595079ade144e55e2ac6b36e23d0920",
+      "review": "Entire pinned source independently read; compared against accepted native capture and strict query evidence"
+    },
+    {
+      "path": "internal/gateway/prins/configurationfetcher.go",
+      "lines": 51,
+      "sha256": "8ed71f110009d463375753812dd346b36ce5ca75c4624fd264fe725a09f43fd7",
+      "review": "Entire pinned source independently read; compared against accepted native capture and strict query evidence"
+    },
+    {
+      "path": "internal/gateway/optimizationfacade/client.go",
+      "lines": 159,
+      "sha256": "45ea2c536eb233d997bab34bafba2c074a2784267dedda61cdd6fbcd15343e26",
+      "review": "Entire pinned source independently read; compared against accepted native capture and strict query evidence"
+    },
+    {
+      "path": "internal/gateway/prins/client.go",
+      "lines": 67,
+      "sha256": "c6fa8e386e6baa188986ef477e5089697948b2b7a6af3302a060eb8096c2f780",
+      "review": "Entire pinned source independently read; compared against accepted native capture and strict query evidence"
+    },
+    {
+      "path": "internal/app/client.go",
+      "lines": 21,
+      "sha256": "eaa8217c270c593949fa6d589413277de16085bfa805b414f90977ac64ab4fe7",
+      "review": "Entire pinned source independently read; compared against accepted native capture and strict query evidence"
+    }
+  ],
+  "snapshot": "51b6a331102fba3d4883137b7e7845e9c6bd0a71c7e4d2d621bb926668267905"
+}

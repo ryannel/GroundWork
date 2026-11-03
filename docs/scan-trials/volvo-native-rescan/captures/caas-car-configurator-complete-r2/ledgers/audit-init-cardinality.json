@@ -1,0 +1,266 @@
+{
+  "sourceInitDeclarations": [
+    {
+      "key": "internal/api/grpcserver/contracts/car-configuration-ruleset.pb.go:18209",
+      "name": "init",
+      "path": "internal/api/grpcserver/contracts/car-configuration-ruleset.pb.go",
+      "package": "github.com/volvo-cars/caas-car-configurator/internal/api/grpcserver/contracts",
+      "lines": [538, 538],
+      "receiver": null,
+      "parameters": [],
+      "results": [],
+      "returnKind": "void",
+      "generated": true,
+      "calls": [
+        {
+          "path": "internal/api/grpcserver/contracts/car-configuration-ruleset.pb.go",
+          "caller": "internal/api/grpcserver/contracts/car-configuration-ruleset.pb.go:18209",
+          "start": 18223,
+          "lines": [538, 538],
+          "source": "file_car_configuration_ruleset_proto_init()",
+          "calleeExpression": "file_car_configuration_ruleset_proto_init",
+          "receiverType": null,
+          "arguments": [],
+          "signatureCandidate": "internal/api/grpcserver/contracts/car-configuration-ruleset.pb.go:18269",
+          "candidateReturnTypes": [],
+          "status": "source-signature candidate; receiver/DI/argument review required"
+        }
+      ]
+    },
+    {
+      "key": "internal/api/grpcserver/contracts/car-key.pb.go:11783",
+      "name": "init",
+      "path": "internal/api/grpcserver/contracts/car-key.pb.go",
+      "package": "github.com/volvo-cars/caas-car-configurator/internal/api/grpcserver/contracts",
+      "lines": [374, 374],
+      "receiver": null,
+      "parameters": [],
+      "results": [],
+      "returnKind": "void",
+      "generated": true,
+      "calls": [
+        {
+          "path": "internal/api/grpcserver/contracts/car-key.pb.go",
+          "caller": "internal/api/grpcserver/contracts/car-key.pb.go:11783",
+          "start": 11797,
+          "lines": [374, 374],
+          "source": "file_car_key_proto_init()",
+          "calleeExpression": "file_car_key_proto_init",
+          "receiverType": null,
+          "arguments": [],
+          "signatureCandidate": "internal/api/grpcserver/contracts/car-key.pb.go:11825",
+          "candidateReturnTypes": [],
+          "status": "source-signature candidate; receiver/DI/argument review required"
+        }
+      ]
+    },
+    {
+      "key": "internal/api/grpcserver/contracts/car-specification.pb.go:67143",
+      "name": "init",
+      "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+      "package": "github.com/volvo-cars/caas-car-configurator/internal/api/grpcserver/contracts",
+      "lines": [1757, 1757],
+      "receiver": null,
+      "parameters": [],
+      "results": [],
+      "returnKind": "void",
+      "generated": true,
+      "calls": [
+        {
+          "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+          "caller": "internal/api/grpcserver/contracts/car-specification.pb.go:67143",
+          "start": 67157,
+          "lines": [1757, 1757],
+          "source": "file_car_specification_proto_init()",
+          "calleeExpression": "file_car_specification_proto_init",
+          "receiverType": null,
+          "arguments": [],
+          "signatureCandidate": "internal/api/grpcserver/contracts/car-specification.pb.go:67195",
+          "candidateReturnTypes": [],
+          "status": "source-signature candidate; receiver/DI/argument review required"
+        }
+      ]
+    },
+    {
+      "key": "internal/api/grpcserver/contracts/components.pb.go:9321",
+      "name": "init",
+      "path": "internal/api/grpcserver/contracts/components.pb.go",
+      "package": "github.com/volvo-cars/caas-car-configurator/internal/api/grpcserver/contracts",
+      "lines": [283, 283],
+      "receiver": null,
+      "parameters": [],
+      "results": [],
+      "returnKind": "void",
+      "generated": true,
+      "calls": [
+        {
+          "path": "internal/api/grpcserver/contracts/components.pb.go",
+          "caller": "internal/api/grpcserver/contracts/components.pb.go:9321",
+          "start": 9335,
+          "lines": [283, 283],
+          "source": "file_components_proto_init()",
+          "calleeExpression": "file_components_proto_init",
+          "receiverType": null,
+          "arguments": [],
+          "signatureCandidate": "internal/api/grpcserver/contracts/components.pb.go:9366",
+          "candidateReturnTypes": [],
+          "status": "source-signature candidate; receiver/DI/argument review required"
+        }
+      ]
+    },
+    {
+      "key": "internal/api/grpcserver/contracts/selection.pb.go:4801",
+      "name": "init",
+      "path": "internal/api/grpcserver/contracts/selection.pb.go",
+      "package": "github.com/volvo-cars/caas-car-configurator/internal/api/grpcserver/contracts",
+      "lines": [171, 171],
+      "receiver": null,
+      "parameters": [],
+      "results": [],
+      "returnKind": "void",
+      "generated": true,
+      "calls": [
+        {
+          "path": "internal/api/grpcserver/contracts/selection.pb.go",
+          "caller": "internal/api/grpcserver/contracts/selection.pb.go:4801",
+          "start": 4815,
+          "lines": [171, 171],
+          "source": "file_selection_proto_init()",
+          "calleeExpression": "file_selection_proto_init",
+          "receiverType": null,
+          "arguments": [],
+          "signatureCandidate": "internal/api/grpcserver/contracts/selection.pb.go:4845",
+          "candidateReturnTypes": [],
+          "status": "source-signature candidate; receiver/DI/argument review required"
+        }
+      ]
+    },
+    {
+      "key": "internal/api/grpcserver/contracts/service.pb.go:41013",
+      "name": "init",
+      "path": "internal/api/grpcserver/contracts/service.pb.go",
+      "package": "github.com/volvo-cars/caas-car-configurator/internal/api/grpcserver/contracts",
+      "lines": [1078, 1078],
+      "receiver": null,
+      "parameters": [],
+      "results": [],
+      "returnKind": "void",
+      "generated": true,
+      "calls": [
+        {
+          "path": "internal/api/grpcserver/contracts/service.pb.go",
+          "caller": "internal/api/grpcserver/contracts/service.pb.go:41013",
+          "start": 41027,
+          "lines": [1078, 1078],
+          "source": "file_service_proto_init()",
+          "calleeExpression": "file_service_proto_init",
+          "receiverType": null,
+          "arguments": [],
+          "signatureCandidate": "internal/api/grpcserver/contracts/service.pb.go:41055",
+          "candidateReturnTypes": [],
+          "status": "source-signature candidate; receiver/DI/argument review required"
+        }
+      ]
+    },
+    {
+      "key": "internal/api/grpcserver/contracts/structure-week.pb.go:5231",
+      "name": "init",
+      "path": "internal/api/grpcserver/contracts/structure-week.pb.go",
+      "package": "github.com/volvo-cars/caas-car-configurator/internal/api/grpcserver/contracts",
+      "lines": [167, 167],
+      "receiver": null,
+      "parameters": [],
+      "results": [],
+      "returnKind": "void",
+      "generated": true,
+      "calls": [
+        {
+          "path": "internal/api/grpcserver/contracts/structure-week.pb.go",
+          "caller": "internal/api/grpcserver/contracts/structure-week.pb.go:5231",
+          "start": 5245,
+          "lines": [167, 167],
+          "source": "file_structure_week_proto_init()",
+          "calleeExpression": "file_structure_week_proto_init",
+          "receiverType": null,
+          "arguments": [],
+          "signatureCandidate": "internal/api/grpcserver/contracts/structure-week.pb.go:5280",
+          "candidateReturnTypes": [],
+          "status": "source-signature candidate; receiver/DI/argument review required"
+        }
+      ]
+    }
+  ],
+  "nativeImplementations": [
+    {
+      "id": "caas-car-configurator-5495209-complete-r1/implementation/fffb75c831a47e00",
+      "kind": "implementation",
+      "logicalId": "impl:caas-car-configurator:internal/api/grpcserver/contracts/car-configuration-ruleset.pb.go:.init()",
+      "scope": "caas-car-configurator-5495209-complete-r1/source_revision/source",
+      "entry": "caas-car-configurator-5495209-complete-r1/operation/fffb75c831a47e00/entry",
+      "parameters": [],
+      "returnKind": "void",
+      "evidence": ["caas-car-configurator-5495209-complete-r1/evidence/4c24ef4da98d62ab"]
+    },
+    {
+      "id": "caas-car-configurator-5495209-complete-r1/implementation/c35bf39b47ee16d3",
+      "kind": "implementation",
+      "logicalId": "impl:caas-car-configurator:internal/api/grpcserver/contracts/car-key.pb.go:.init()",
+      "scope": "caas-car-configurator-5495209-complete-r1/source_revision/source",
+      "entry": "caas-car-configurator-5495209-complete-r1/operation/c35bf39b47ee16d3/entry",
+      "parameters": [],
+      "returnKind": "void",
+      "evidence": ["caas-car-configurator-5495209-complete-r1/evidence/868c2c69dfe5919c"]
+    },
+    {
+      "id": "caas-car-configurator-5495209-complete-r1/implementation/310cd9af9638f29a",
+      "kind": "implementation",
+      "logicalId": "impl:caas-car-configurator:internal/api/grpcserver/contracts/car-specification.pb.go:.init()",
+      "scope": "caas-car-configurator-5495209-complete-r1/source_revision/source",
+      "entry": "caas-car-configurator-5495209-complete-r1/operation/310cd9af9638f29a/entry",
+      "parameters": [],
+      "returnKind": "void",
+      "evidence": ["caas-car-configurator-5495209-complete-r1/evidence/20e913ba6ae34211"]
+    },
+    {
+      "id": "caas-car-configurator-5495209-complete-r1/implementation/c0931455401f909d",
+      "kind": "implementation",
+      "logicalId": "impl:caas-car-configurator:internal/api/grpcserver/contracts/components.pb.go:.init()",
+      "scope": "caas-car-configurator-5495209-complete-r1/source_revision/source",
+      "entry": "caas-car-configurator-5495209-complete-r1/operation/c0931455401f909d/entry",
+      "parameters": [],
+      "returnKind": "void",
+      "evidence": ["caas-car-configurator-5495209-complete-r1/evidence/14e1510152d4d8f1"]
+    },
+    {
+      "id": "caas-car-configurator-5495209-complete-r1/implementation/286d112eb833c006",
+      "kind": "implementation",
+      "logicalId": "impl:caas-car-configurator:internal/api/grpcserver/contracts/selection.pb.go:.init()",
+      "scope": "caas-car-configurator-5495209-complete-r1/source_revision/source",
+      "entry": "caas-car-configurator-5495209-complete-r1/operation/286d112eb833c006/entry",
+      "parameters": [],
+      "returnKind": "void",
+      "evidence": ["caas-car-configurator-5495209-complete-r1/evidence/d003f14438c2da55"]
+    },
+    {
+      "id": "caas-car-configurator-5495209-complete-r1/implementation/b57c8a891e7c0c71",
+      "kind": "implementation",
+      "logicalId": "impl:caas-car-configurator:internal/api/grpcserver/contracts/service.pb.go:.init()",
+      "scope": "caas-car-configurator-5495209-complete-r1/source_revision/source",
+      "entry": "caas-car-configurator-5495209-complete-r1/operation/b57c8a891e7c0c71/entry",
+      "parameters": [],
+      "returnKind": "void",
+      "evidence": ["caas-car-configurator-5495209-complete-r1/evidence/f9ce3a87bfbca2a3"]
+    },
+    {
+      "id": "caas-car-configurator-5495209-complete-r1/implementation/0dce499ccf97df0a",
+      "kind": "implementation",
+      "logicalId": "impl:caas-car-configurator:internal/api/grpcserver/contracts/structure-week.pb.go:.init()",
+      "scope": "caas-car-configurator-5495209-complete-r1/source_revision/source",
+      "entry": "caas-car-configurator-5495209-complete-r1/operation/0dce499ccf97df0a/entry",
+      "parameters": [],
+      "returnKind": "void",
+      "evidence": ["caas-car-configurator-5495209-complete-r1/evidence/3a1a7522cf80859d"]
+    }
+  ],
+  "status": "seven distinct source/native/logical IDs; no collapse"
+}

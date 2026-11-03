@@ -1,0 +1,464 @@
+{
+  "format": "answerability-review/v1",
+  "repo": "volvo-cars/cds-ecom-customer-service",
+  "commit": "09623ab3a1f39845d8fc02abc3d591b53a3b5fea",
+  "capture": "customer-service-events-001/accepted",
+  "questionCount": 22,
+  "supported": 9,
+  "partial": 12,
+  "unsupported": 1,
+  "questions": [
+    {
+      "id": "Q01",
+      "status": "supported",
+      "answer": "All 19 source route declarations join interface mappings to exact controller implementations, complete paths, request parameter locations and source request/response type schemas. The final bounded review passes the independently frozen route inventory. External wrappers and effective wire serialisation remain explicit gaps; the frozen question asks for paths and types.",
+      "question": "Which HTTP operations does customer service expose, with their complete paths and request/response types?",
+      "requiredEvidence": "Interface annotations joined to implementation prefixes and schema references; API `api/customer/v1/*Controller.java` and `impl/*ControllerImpl.java`."
+    },
+    {
+      "id": "Q02",
+      "status": "partial",
+      "answer": "All 19 method policy declarations are bound to their source and routes. Method-security activation remains unresolved: App excludes SecurityAutoConfiguration and imports external EcomWebAppConfiguration. The configured HTTP filter chain, authority conversion and effective policy activation are not captured. Role expressions alone cannot establish enforcement.",
+      "question": "Which roles may read, change, duplicate, archive and migrate customers, and where are they enforced?",
+      "requiredEvidence": "Policy declarations plus effective enforcement bindings; the three controller interfaces and security configuration."
+    },
+    {
+      "id": "Q03",
+      "status": "partial",
+      "answer": "Customer and individual schemas retain declared field constraints, request-body bindings, JsonView selections and transitive Create/Update/Patch/Default groups. UpdateCustomer requires dataVersion, Create/Update require customerType and market, and individual Create/Update require roles; patch retains Default constraints. Effective inclusion of unannotated fields under JsonView, external Market/Language types, generated accessors and custom annotation semantics remain explicit gaps.",
+      "question": "Which customer and individual request fields are mandatory, and how do create, update and patch validation differ?",
+      "requiredEvidence": "Field shapes, validation groups and wire binding; shared `customer/CustomerRequest.java`, `individual/IndividualRequest.java`, API controller annotations."
+    },
+    {
+      "id": "Q04",
+      "status": "partial",
+      "answer": "`updateCustomer` calls `customerFactory.update`; `patchCustomer` calls `customerFactory.patch`; both pass their result to `saveAndPostProcess`. Cross-call factory/omitted-field semantics and serialised request binding remain unclosed.",
+      "question": "How do PUT and PATCH change an existing customer, including omitted fields?",
+      "requiredEvidence": "Request-to-factory value lineage, update/patch branches and persistence; core `customer/CustomerService.java` and `CustomerFactory.java`."
+    },
+    {
+      "id": "Q05",
+      "status": "supported",
+      "answer": "The typed membership guard calls noneMatch on the original customer individuals and compares each individual ID with individualId. Its consequent constructs and throws IndividualNotFoundException(individualId). Exact controller-to-API-to-core call bindings and reference/argument_parameter lineage retain the route ID. Unique global source advice explicitly handles this exception and declares HTTP NOT_FOUND; the returned helper invocation passes the same typed status. All six bounded clauses and thirteen relation-removal/corruption mutations pass. Runtime registration and external error-body serialisation remain unobserved.",
+      "question": "What happens when an individual update names an individual that the customer does not contain?",
+      "requiredEvidence": "Membership guard, thrown exception, handler binding and HTTP outcome; core `CustomerService.java`, API exception handlers."
+    },
+    {
+      "id": "Q06",
+      "status": "partial",
+      "answer": "The native local graph generates numberOfDuplicates minus one copies, calls saveAllAndPostProcess and includes the original customer ID in the result. Cross-call factory lineage proving every preserved and replaced identifier is not bound into a complete answer. No additional durable-write requirement is imposed by this review.",
+      "question": "What does duplication preserve, which identifiers are replaced, and does the result include the original customer?",
+      "requiredEvidence": "Duplication loop, factory field lineage, saves and result construction; core `CustomerService.java`, `CustomerFactory.java`."
+    },
+    {
+      "id": "Q07",
+      "status": "supported",
+      "answer": "The saveAndPostProcess equality guard returns before customer validation, repository save and post-processing; otherwise those calls occur in that order. A fresh native proof reconstructed solely from 221 returned records in 56 bounded pages passes all five frozen local clauses. The frozen required evidence names this helper and does not require all callers.",
+      "question": "Does an unchanged customer write reach validation, MongoDB or publication?",
+      "requiredEvidence": "Equality guard and return, ordered subsequent statements; core `CustomerService.saveAndPostProcess`."
+    },
+    {
+      "id": "Q08",
+      "status": "supported",
+      "answer": "forceArchive=false marks for later and returns; true reaches the immediate moveCustomerToArchive call. A missing reason becomes ArchiveReason.NONE_SPECIFIED. Fresh bounded branch and default-value proofs pass from 231 returned records in 58 pages; eight typed-relation removals reject the default claim while display text is unchanged. Successful deployed archival is outside this frozen question.",
+      "question": "Does `forceArchive=true` archive immediately or mark the customer for later, and what is the default reason?",
+      "requiredEvidence": "Parsed boolean branch, calls and resolved argument; API `impl/CustomerApiService.java` 117\u2013127."
+    },
+    {
+      "id": "Q09",
+      "status": "partial",
+      "answer": "Restore builds a version-reset customer, computes conditional archival data, invokes `saveCustomer`, then deletes the archived record. Local order is supported. Effective stored shape, atomicity and what remains after failure are not established by effect/acknowledgement records.",
+      "question": "When restoring an archived customer, what happens to its version, archival timestamp and the archived record?",
+      "requiredEvidence": "Field lineage, save-before-delete order and failure boundaries; core `customerarchive/CustomerArchiveService.java` 55\u201382."
+    },
+    {
+      "id": "Q10",
+      "status": "partial",
+      "answer": "The two audit routes, version/customer parameters and page/limit defaults are bound. Native service code constructs PageRequest.of(page, limit) and calls findAllByCustomerIdOrderByVersionDesc. The complete service-to-store query binding and effective response wire shape are not closed; a repository method name alone is not a typed Mongo ordering contract.",
+      "question": "How can a caller fetch a customer's audit history or a particular version, and how are results ordered and paginated?",
+      "requiredEvidence": "Route/request binding through service to repository query and response; API AuditLogController and core `auditlog`."
+    },
+    {
+      "id": "Q11",
+      "status": "partial",
+      "answer": "The source declares a token header interceptor for /v1/customers/**, including audit routes and excluding migration by non-match, and the native resolver dispatches to Volvo ID, Connect and Entra ID handling. Trial 005 and the new capture restore validator/decoder graphs. The independent review has not closed the full typed header/guard/validator/issuer/decoder/dispatch chain or external authentication filter configuration, so complete token acceptance is not established.",
+      "question": "How is `X-User-Access-Token` checked and resolved across Volvo ID, Connect and Entra ID tokens?",
+      "requiredEvidence": "Header/interceptor binding, issuer guards and token-specific dispatch; API `security`, core `security/UserIdentityResolver.java`."
+    },
+    {
+      "id": "Q12",
+      "status": "supported",
+      "answer": "Volvo ID chooses the Keycloak or legacy logical client and matching user-info path, sends GET with the supplied Bearer token and reads VolvoIdUser; null bodies and translated failures remain explicit. Connect and Entra supply verified token claims through the configured OIDC decoder boundary, rather than an invented profile REST call. Connect derives names and contact/invoice email; Entra requires oid and delegated scp, excludes app tokens and chooses upn/preferred_username. CDB binds logical client cdb, document getConsumer, variable cdbId and consumerCdb selections to CdbConsumer, including invalid/null/partial-error outcomes. FactoryContext identity branches, source future/cache relations and IndividualFactory ordered field construction establish the request/existing/Volvo/CDB merge, with field-specific exceptions. Declared nested response shapes remain navigable. External decoder execution, scheduling, effective codecs and successful remote completion are outside this source answer.",
+      "question": "Which external systems supply an individual's profile, and what is sent and returned at each boundary?",
+      "requiredEvidence": "Boundary bindings, request/response contracts and failure handling; core `volvoid`, `connecttoken`, `entraid`, `consumer`."
+    },
+    {
+      "id": "Q13",
+      "status": "supported",
+      "answer": "Source request dispatch selects ordinary, Fleet or Partner creation. Both Fleet GETs bind the account ID to the complete URI, declared envelopes, data projection and separate exception paths. Fleet status guards and unit membership/MAIN selection feed generated ID and requested roles into the ordinary Java mapper, including invoice-address sharing and entity-type cases. Partner validates Connect partner membership unless an Entra user is present, binds commercial-partner/getPartnerById/id/partnerOrganizationalUnit to its declared result and failure paths, then chooses active facilities and preferred-language/first names and addresses locally. The GraphQL query contains no server-side active filter. Ordered mapper construction and the null-filtered corporate list reach the returned Customer. Generated request accessors and external scheduling/codecs remain source boundaries; the unique declared mapper/arity join does not claim an exact executable binding for the unresolved generated roles accessor.",
+      "question": "How are Fleet and Partner corporate entities looked up and combined with a customer?",
+      "requiredEvidence": "Factory dispatch, outbound boundary and result lineage; core `company`, `fleet`, `partner`."
+    },
+    {
+      "id": "Q14",
+      "status": "supported",
+      "answer": "Source entity/repository bindings identify customers (Customer/CustomerRepository), archived_customers (CustomerArchive/CustomerArchiveRepository) and auditLogs (CustomerAuditLog/AuditLogRepository). The bounded checker matches the independent complete inventory of twenty data-operation callsites, including custom archive fragment/upsert and two migration streams. Receiver/collection references, the archive fragment implementation, customerId filter and four upsert fields pass. All twenty-six binding deletions and three relation corruptions reject. This identifies source read/write attempts; it does not assert deployed databases or durable success.",
+      "question": "Which MongoDB collections hold active customers, archives and audit history, and which code reads or writes them?",
+      "requiredEvidence": "Store and collection identities, repository binding and read/write effects; core `customer`, `customerarchive`, `auditlog`, Mongo configuration."
+    },
+    {
+      "id": "Q15",
+      "status": "supported",
+      "answer": "The repository save return is rebound and passed with the previous customer to postProcess before the saved customer is returned. The postprocessor invokes customer publication, analytics publication, audit save and consent publication in that local order. Its void @Async method and the three @Async publishers join declared EnableAsync/executor configuration, with runtime interception and executor selection unverified. The analytics send returns a thenRun callback future, which the postprocessor ignores; audit save maps and returns a repository save result, also ignored. Customer and consent use external sendSafely without inspecting its result. Synchronous exceptions stop subsequent local statements; independently dispatched failures have no source completion order. The selected methods/classes declare no shared transaction or local recovery. Broker acknowledgement, durability and SDK retry/swallowing behaviour are unobserved, so local logs and invocation order give no delivery guarantee.",
+      "question": "After saving a changed customer, what publications and audit writes are attempted, in which order and with which failure/completion guarantees?",
+      "requiredEvidence": "Saved-value rebinding, ordered post-processing, effect acknowledgement and async boundaries; core `CustomerService`, `CustomerSavePostProcessor`, event/audit services."
+    },
+    {
+      "id": "Q16",
+      "status": "supported",
+      "answer": "Four ordered guards return before send: missing/disabled Kafka; missing current SIGNATORY individual or CDB ID; missing consent; and unchanged consent. No previous customer or previous SIGNATORY counts as changed. Otherwise either consentInfo inequality or CDB-ID inequality passes the guard. The current payload carries volvoId, cdbId, updated market countryCode, consentType, consentGranted as consented, dateOfConsent as timestamp, and contactPreferences; it sends complete current values rather than a field diff. Constructor positions join declared record fields and the payload reaches the event, configured-topic/customer-ID-key message and send attempt. A unique private source helper candidate preserves actual/formal argument lineage while the generated country-code accessor remains unobserved. Effective codec and successful publication are external boundaries.",
+      "question": "When is a marketing consent event skipped, and which changed consent fields reach the event?",
+      "requiredEvidence": "All skip guards, previous/current comparison and event-field lineage; core `consent/MarketingConsentEventService.java`."
+    },
+    {
+      "id": "Q17",
+      "status": "partial",
+      "answer": "Customer event selection branches to `CUSTOMER_CREATED` for no previous value, `CUSTOMER_ARCHIVED` for archival data and `CUSTOMER_UPDATED` otherwise. This is local event-type selection; analytics payload contracts and configured topic/publication bindings remain missing.",
+      "question": "How are customer and analytics event types chosen for new, updated and archived customers, and where are they published?",
+      "requiredEvidence": "Event-type branch values, payload contract and configured topic bindings; core `messaging/CustomerEventService.java`, `analytics/AnalyticsEventService.java`, event configuration."
+    },
+    {
+      "id": "Q18",
+      "status": "partial",
+      "answer": "The delete consumer passes `event.getPayload().customerId()` to `customerService.deleteCustomer`. Kafka listener/topic annotations are candidates. Subscription, payload contract, deserialiser guarantees and broker failure/delivery semantics remain unbound.",
+      "question": "Which incoming event deletes a customer, and what are the subscription, payload and resulting effects?",
+      "requiredEvidence": "Kafka subscription, deserialisation, customer-id lineage, deletion and failure policy; core `messaging/consumer/DeleteCustomerEventConsumer.java` and configuration."
+    },
+    {
+      "id": "Q19",
+      "status": "partial",
+      "answer": "The Java 25 parser now retains the complete OrderUpdateEventConsumer graph, including CustomerUpdate handling, BASIC order admission, accepted statuses, reason mapping, archival-data clearing/save, restore fallback and catches. The former parser quarantine is gone. A bounded complete proof connecting all filter constants, local branches and resulting save/restore effects has not been discharged; restored parsing alone is not a supported pipeline answer.",
+      "question": "Which order changes mark or restore a customer, and which order categories and statuses are ignored?",
+      "requiredEvidence": "Complete event filters, branches, reason mapping and restore/save effects; core `messaging/consumer/OrderUpdateEventConsumer.java`."
+    },
+    {
+      "id": "Q20",
+      "status": "partial",
+      "answer": "The scheduler's local `run` calls `customerArchiveJob.start`; scheduled/conditional/locking annotations survive as declarations. Resource configuration is retained as unparsed text. Effective cron, lock, enablement, asynchronous activation and per-customer continuation are not joined into an execution answer.",
+      "question": "What schedules archival, when is it enabled, how is concurrent execution limited, and what happens after one customer fails?",
+      "requiredEvidence": "Scheduled/conditional/lock declarations joined to configuration, async activation and per-customer catch; core `customerarchive` and API resource configuration."
+    },
+    {
+      "id": "Q21",
+      "status": "unsupported",
+      "answer": "No actor, surface, control, action, outcome, execution or journey records close this question. Role strings cannot establish people, intent, visible results or actor-to-action journeys.",
+      "question": "Which people or callers can perform which customer actions, and what visible outcome follows each action?",
+      "requiredEvidence": "Actor, surface, control, action, execution and outcome records; technical role annotations alone are insufficient."
+    },
+    {
+      "id": "Q22",
+      "status": "partial",
+      "answer": "The new capture and bounded review retain commit 09623ab3a1f39845d8fc02abc3d591b53a3b5fea, source/tree pins and analysis/checker fingerprints. Q01/Q05/Q12/Q13/Q14 and the new Q15/Q16 replay from 37,432 returned records in 9,362 bounded pages. Fresh native Q07/Q08 proofs were reconstructed solely from bounded returned records in the final source capture, with identical record IDs and values; all eight Q08 default-value mutations reject. All 152 mutations in the new review reject, including 22 applied whole-question Q15/Q16 mutations. Local source/reference observations do not establish remote or deployed currency.",
+      "question": "Which source revision and analysis versions does the answer reflect, and is it current remotely and in production?",
+      "requiredEvidence": "Source baseline, analysis fingerprints and reference observations; explicit limits for unobserved remote/deployment state."
+    }
+  ],
+  "evidence": {
+    "document": "reports/customer-service-outbound-001/accepted/document.json",
+    "sourceCapture": "reports/customer-service-outbound-003/repository.json",
+    "boundedReview": "reports/customer-service-outbound-001/accepted-review-v2/receipt.json",
+    "sourcePins": "reports/customer-service-outbound-001/accepted-review-v2/source-pins.json",
+    "nativeReview": "reports/customer-service-outbound-001/independent-native",
+    "nativeReplay": "reports/customer-service-outbound-001/independent-native/accepted-native-replay.json",
+    "freshness": "reports/customer-service-events-001/freshness.json"
+  },
+  "review": "customer-service-events-001/accepted-review",
+  "proofs": {
+    "q15": {
+      "supported": true,
+      "clauses": {
+        "savedValueRebinding": true,
+        "localAttemptOrder": true,
+        "auditAttempt": true,
+        "analyticsCallback": true,
+        "asyncDeclarations": true,
+        "activationAndExecutor": true,
+        "ignoredAsyncResults": true,
+        "sourceFailureBoundary": true,
+        "ignoredAuditResult": true,
+        "publicationAttempts": true
+      },
+      "details": [
+        "Invocation order is customer, analytics, audit, consent after saved-value rebinding. A synchronous exception prevents later local statements; independently dispatched failures do not have this ordering guarantee. Local return and callback paths do not establish durable writes or broker delivery.",
+        "Async annotations and activation/executor declarations require effective Spring interception. Ignored futures do not make callers wait; external sendSafely behaviour and acknowledgement remain unobserved.",
+        "The selected methods/classes declare no shared transaction or local catch to compensate the saved customer after a later failure. Independently dispatched work has no source completion ordering guarantee."
+      ]
+    },
+    "q16": {
+      "supported": true,
+      "clauses": {
+        "orderedGuards": true,
+        "guardExitsAndCurrentIndividual": true,
+        "previousCurrentComparison": true,
+        "payloadConstruction": true,
+        "nativeGuards": true,
+        "nativeComparison": true,
+        "nativePayload": true,
+        "payloadApplied": true,
+        "payloadHelperLineage": true,
+        "nativeSend": true
+      },
+      "details": [
+        "Disabled/missing Kafka, missing SIGNATORY/CDB ID, missing consent or unchanged consentInfo and CDB ID skip the attempt. A CDB-ID-only change passes the comparison.",
+        "Payload carries complete current values. consentGranted maps to consented; dateOfConsent maps to timestamp; countryCode comes from the updated market expression. A unique private source helper candidate joins its arguments and declared parameters; the generated country-code accessor implementation remains unobserved. External codec and broker success remain unobserved."
+      ]
+    }
+  },
+  "reviewEvidence": {
+    "returnedRecords": 37432,
+    "pages": 9362,
+    "bytes": 17437936,
+    "eventMutations": [
+      {
+        "name": "postprocessor parameter references",
+        "question": "q15",
+        "applied": true,
+        "baselinePassed": true,
+        "rejected": true
+      },
+      {
+        "name": "postprocessor collaborator argument lineage",
+        "question": "q15",
+        "applied": true,
+        "baselinePassed": true,
+        "rejected": true
+      },
+      {
+        "name": "saved result reaching value",
+        "question": "q15",
+        "applied": true,
+        "baselinePassed": true,
+        "rejected": true
+      },
+      {
+        "name": "saved result assigned value",
+        "question": "q15",
+        "applied": true,
+        "baselinePassed": true,
+        "rejected": true
+      },
+      {
+        "name": "consent construction precedes guards",
+        "question": "q16",
+        "applied": true,
+        "baselinePassed": true,
+        "rejected": true
+      },
+      {
+        "name": "consent send precedes guards",
+        "question": "q16",
+        "applied": true,
+        "baselinePassed": true,
+        "rejected": true
+      },
+      {
+        "name": "consent candidate helper lineage",
+        "question": "q16",
+        "applied": true,
+        "baselinePassed": true,
+        "rejected": true
+      },
+      {
+        "name": "consent payload builder application",
+        "question": "q16",
+        "applied": true,
+        "baselinePassed": true,
+        "rejected": true
+      },
+      {
+        "name": "consent comparison operands",
+        "question": "q16",
+        "applied": true,
+        "baselinePassed": true,
+        "rejected": true
+      },
+      {
+        "name": "consent declared field lineage",
+        "question": "q16",
+        "applied": true,
+        "baselinePassed": true,
+        "rejected": true
+      },
+      {
+        "name": "consent guard operand",
+        "question": "q16",
+        "applied": true,
+        "baselinePassed": true,
+        "rejected": true
+      },
+      {
+        "name": "consent control exits",
+        "question": "q16",
+        "applied": true,
+        "baselinePassed": true,
+        "rejected": true
+      },
+      {
+        "name": "consent lexical lineage",
+        "question": "q16",
+        "applied": true,
+        "baselinePassed": true,
+        "rejected": true
+      },
+      {
+        "name": "consent native payload mapping",
+        "question": "q16",
+        "applied": true,
+        "baselinePassed": true,
+        "rejected": true
+      },
+      {
+        "name": "consent native send arguments",
+        "question": "q16",
+        "applied": true,
+        "baselinePassed": true,
+        "rejected": true
+      },
+      {
+        "name": "postprocessor statement order",
+        "question": "q15",
+        "applied": true,
+        "baselinePassed": true,
+        "rejected": true
+      },
+      {
+        "name": "saved return assignment",
+        "question": "q15",
+        "applied": true,
+        "baselinePassed": true,
+        "rejected": true
+      },
+      {
+        "name": "analytics callback attachment",
+        "question": "q15",
+        "applied": true,
+        "baselinePassed": true,
+        "rejected": true
+      },
+      {
+        "name": "transaction boundary changed",
+        "question": "q15",
+        "applied": true,
+        "baselinePassed": true,
+        "rejected": true
+      },
+      {
+        "name": "caller waits for async result",
+        "question": "q15",
+        "applied": true,
+        "baselinePassed": true,
+        "rejected": true
+      },
+      {
+        "name": "audit returned-value observation",
+        "question": "q15",
+        "applied": true,
+        "baselinePassed": true,
+        "rejected": true
+      },
+      {
+        "name": "publication arguments removed",
+        "question": "q15",
+        "applied": true,
+        "baselinePassed": true,
+        "rejected": true
+      }
+    ],
+    "allMutationCounts": {
+      "existing": 56,
+      "clients": 34,
+      "questions": 40,
+      "events": 22
+    }
+  },
+  "sourceCapture": "customer-service-events-002/repository.json",
+  "nativeReplay": {
+    "format": "independent-native-replay/v1",
+    "sourceCapture": "reports/customer-service-events-002/repository.json",
+    "probes": [
+      {
+        "probe": "Q08-force-archive",
+        "scope": "repository-0001",
+        "records": 231,
+        "pages": 58,
+        "allChecksSupported": true,
+        "boundedOnly": true,
+        "allRecordIdsAndValuesIdenticalToAcceptedCapture": true,
+        "sourceCapture": "reports/customer-service-events-002/repository.json"
+      },
+      {
+        "probe": "Q16-consent-guards",
+        "scope": "repository-0003",
+        "records": 770,
+        "pages": 193,
+        "allChecksSupported": true,
+        "boundedOnly": true,
+        "allRecordIdsAndValuesIdenticalToAcceptedCapture": true,
+        "sourceCapture": "reports/customer-service-events-002/repository.json"
+      },
+      {
+        "probe": "Q07-equal-write",
+        "scope": "repository-0004",
+        "records": 221,
+        "pages": 56,
+        "allChecksSupported": true,
+        "boundedOnly": true,
+        "allRecordIdsAndValuesIdenticalToAcceptedCapture": true,
+        "sourceCapture": "reports/customer-service-events-002/repository.json"
+      },
+      {
+        "probe": "Q09-restore-order",
+        "scope": "repository-0004",
+        "records": 376,
+        "pages": 94,
+        "allChecksSupported": true,
+        "boundedOnly": true,
+        "allRecordIdsAndValuesIdenticalToAcceptedCapture": true,
+        "sourceCapture": "reports/customer-service-events-002/repository.json"
+      },
+      {
+        "probe": "Q15-postprocess-order",
+        "scope": "repository-0004",
+        "records": 133,
+        "pages": 34,
+        "allChecksSupported": true,
+        "boundedOnly": true,
+        "allRecordIdsAndValuesIdenticalToAcceptedCapture": true,
+        "sourceCapture": "reports/customer-service-events-002/repository.json"
+      },
+      {
+        "probe": "Q20-scheduler-call",
+        "scope": "repository-0004",
+        "records": 99,
+        "pages": 25,
+        "allChecksSupported": true,
+        "boundedOnly": true,
+        "allRecordIdsAndValuesIdenticalToAcceptedCapture": true,
+        "sourceCapture": "reports/customer-service-events-002/repository.json"
+      },
+      {
+        "probe": "Q18-delete-id",
+        "scope": "repository-0005",
+        "records": 275,
+        "pages": 69,
+        "allChecksSupported": true,
+        "boundedOnly": true,
+        "allRecordIdsAndValuesIdenticalToAcceptedCapture": true,
+        "sourceCapture": "reports/customer-service-events-002/repository.json"
+      }
+    ],
+    "allSupported": true,
+    "q08DefaultSupported": true,
+    "q08DefaultMutations": 8
+  }
+}

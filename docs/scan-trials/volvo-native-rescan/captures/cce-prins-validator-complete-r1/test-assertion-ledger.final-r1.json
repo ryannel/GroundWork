@@ -1,0 +1,92 @@
+[
+  {
+    "path": "internal/domain/carconfiguration_test.go",
+    "lines": 182,
+    "testDeclarations": ["TestParsePno34"],
+    "namedCases": [
+      "configuration string with option",
+      "configuration string with multiple options",
+      "configuration string with no standard wheel code",
+      "configuration string has packages but are disregarded",
+      "configuration string with no standard wheel or option code should throw error",
+      "configuration string with no wheel should throw error",
+      "configuration string with model year not integer should throw error"
+    ],
+    "executed": false,
+    "scope": "Read full source fixtures/assertions/helper methods; no test execution or observed runtime result"
+  },
+  {
+    "path": "internal/domain/components_test.go",
+    "lines": 52,
+    "testDeclarations": ["TestFindStandardWheel"],
+    "namedCases": [
+      "should find standard wheel",
+      "should not find standard wheel when there is none"
+    ],
+    "executed": false,
+    "scope": "Read full source fixtures/assertions/helper methods; no test execution or observed runtime result"
+  },
+  {
+    "path": "internal/domain/componentstovary_test.go",
+    "lines": 306,
+    "testDeclarations": ["TestExtractComponentsToVary"],
+    "namedCases": [
+      "should extract components to vary when there are multiple configurations",
+      "should extract components to vary for one configuration",
+      "should extract components to vary when there are multiple pno12s",
+      "there exists no configuration without wheel code -> standard wheel code should not be added to components to vary",
+      "there exists one configuration without wheel code -> standard wheel code should be added to components to vary",
+      "no input configurations -> no components to vary",
+      "missing standard wheel code for pno12 when prins configuration without wheel code exist -> standard wheel not in components to vary"
+    ],
+    "executed": false,
+    "scope": "Read full source fixtures/assertions/helper methods; no test execution or observed runtime result"
+  },
+  {
+    "path": "internal/domain/policy_test.go",
+    "lines": 50,
+    "testDeclarations": ["Test_isCorrectSpecMarketCodeFormat"],
+    "namedCases": [
+      "correct spec market code format",
+      "incorrect spec market code format - too short",
+      "incorrect spec market code format - too long",
+      "incorrect spec market code format - not a number"
+    ],
+    "executed": false,
+    "scope": "Read full source fixtures/assertions/helper methods; no test execution or observed runtime result"
+  },
+  {
+    "path": "internal/domain/prins_test.go",
+    "lines": 470,
+    "testDeclarations": [
+      "TestParsePrinsPno",
+      "TestPrinsConfigurations_AllowsCarConfiguration",
+      "TestPrinsConfiguration_Matches"
+    ],
+    "namedCases": [
+      "configuration string has multiple options",
+      "configuration string has one options",
+      "configuration string has no options",
+      "configuration string does not match regex",
+      "configuration is allowed",
+      "configuration is not allowed when prins configurations is empty",
+      "configuration matches",
+      "configuration matches with wheel",
+      "configuration does not match when color differs",
+      "configuration does not match when interior differs",
+      "configuration matches when options intersecting with components to vary are same as prins configuration",
+      "configuration does not match when options differs",
+      "configuration matches when wheel on car configuration is missing from components to vary"
+    ],
+    "executed": false,
+    "scope": "Read full source fixtures/assertions/helper methods; no test execution or observed runtime result"
+  },
+  {
+    "path": "internal/gateway/client_test.go",
+    "lines": 99,
+    "testDeclarations": ["TestClientWithRoundTripperChainsInFifoOrder", "TestClientWithClient"],
+    "namedCases": [],
+    "executed": false,
+    "scope": "Read full source fixtures/assertions/helper methods; no test execution or observed runtime result"
+  }
+]

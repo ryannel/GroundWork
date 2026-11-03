@@ -1,0 +1,970 @@
+{
+  "pin": "667a00a5f96fdb8b9aad35e0afe80dc792cbc1b5",
+  "path": "api/swagger.json",
+  "paths": {
+    "/v1/car-specifications": {
+      "get": {
+        "security": [
+          {
+            "BearerToken": []
+          }
+        ],
+        "description": "Get the available car specifications.",
+        "produces": ["application/json"],
+        "tags": ["Car Specifications"],
+        "summary": "Get car specifications",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "Spec Market",
+            "name": "specMarket",
+            "in": "query",
+            "required": true
+          },
+          {
+            "type": "integer",
+            "description": "Model Year",
+            "name": "modelYear",
+            "in": "query",
+            "required": true
+          },
+          {
+            "type": "string",
+            "description": "Pno12",
+            "name": "pno12",
+            "in": "query",
+            "required": true
+          },
+          {
+            "type": "string",
+            "description": "Local Trim Edition Code (deprecated)",
+            "name": "localTrimEditionCode",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "description": "Local Edition Code",
+            "name": "localEditionCode",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/GetCarSpecificationResponse"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/respond.ErrorResponse"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/respond.ErrorResponse"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/respond.ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/v1/local-edition-code": {
+      "get": {
+        "security": [
+          {
+            "BearerToken": []
+          }
+        ],
+        "description": "Returns the local edition code for the given spec market, model year and pno12.",
+        "produces": ["application/json"],
+        "tags": ["Local Editions"],
+        "summary": "Get local edition code",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "Spec Market",
+            "name": "specMarket",
+            "in": "query",
+            "required": true
+          },
+          {
+            "type": "integer",
+            "description": "Model Year",
+            "name": "modelYear",
+            "in": "query",
+            "required": true
+          },
+          {
+            "type": "string",
+            "description": "Pno12",
+            "name": "pno12",
+            "in": "query",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/GetLocalEditionCodeResponse"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/respond.ErrorResponse"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/respond.ErrorResponse"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/respond.ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/v1/local-editions": {
+      "get": {
+        "security": [
+          {
+            "BearerToken": []
+          }
+        ],
+        "description": "Returns all local editions, with optional filtering by specMarket, modelYear, pno12 and carType.",
+        "produces": ["application/json"],
+        "tags": ["Local Editions"],
+        "summary": "List local editions",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "Spec Market",
+            "name": "specMarket",
+            "in": "query"
+          },
+          {
+            "type": "integer",
+            "description": "Model Year",
+            "name": "modelYear",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "description": "Pno12",
+            "name": "pno12",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "description": "Car Type (first 3 characters of pno12)",
+            "name": "carType",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ListLocalEditionsResponse"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/respond.ErrorResponse"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/respond.ErrorResponse"
+            }
+          }
+        }
+      },
+      "put": {
+        "security": [
+          {
+            "BearerToken": []
+          }
+        ],
+        "description": "Inserts or updates the local edition entry for the given car.\nValidates against the market auth document. Returns 201 on creation and\n422 if validation against market auth fails. To bypass the validation that\nchecks if the pno12 exists in the market auth document and if the local\nedition code exists for that pno12 in the market auth document, add the query\nparam \"skipValidation=true\".",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["Local Editions"],
+        "summary": "Create or update a local edition",
+        "parameters": [
+          {
+            "type": "boolean",
+            "description": "Skip validation",
+            "name": "skipValidation",
+            "in": "query"
+          },
+          {
+            "description": "Local edition to upsert",
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/internal_api_httpserver_localeditions.UpsertLocalEditionRequest"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created",
+            "schema": {
+              "$ref": "#/definitions/LocalEditionResponse"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/respond.ErrorResponse"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "schema": {
+              "$ref": "#/definitions/respond.ErrorResponse"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/respond.ErrorResponse"
+            }
+          }
+        }
+      },
+      "delete": {
+        "security": [
+          {
+            "BearerToken": []
+          }
+        ],
+        "description": "Deletes the local edition entry for the given spec market, model year and pno12.",
+        "produces": ["application/json"],
+        "tags": ["Local Editions"],
+        "summary": "Delete a local edition",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "Spec Market",
+            "name": "specMarket",
+            "in": "query",
+            "required": true
+          },
+          {
+            "type": "integer",
+            "description": "Model Year",
+            "name": "modelYear",
+            "in": "query",
+            "required": true
+          },
+          {
+            "type": "string",
+            "description": "Pno12",
+            "name": "pno12",
+            "in": "query",
+            "required": true
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/respond.ErrorResponse"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/respond.ErrorResponse"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "respond.ErrorDetail": {
+      "type": "object",
+      "properties": {
+        "field": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "respond.ErrorList": {
+      "type": "object",
+      "properties": {
+        "errors": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/respond.ErrorDetail"
+          }
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "respond.ErrorMessage": {
+      "type": "object",
+      "properties": {
+        "description": {
+          "type": "string"
+        },
+        "detail": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/respond.ErrorList"
+          }
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "respond.ErrorResponse": {
+      "type": "object",
+      "properties": {
+        "error": {
+          "$ref": "#/definitions/respond.ErrorMessage"
+        },
+        "operationId": {
+          "type": "string"
+        },
+        "status": {
+          "type": "integer"
+        }
+      }
+    },
+    "GetCarSpecificationResponse": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "$ref": "#/definitions/carspecifications-GetCarSpecificationResponse"
+        },
+        "operationId": {
+          "type": "string"
+        },
+        "status": {
+          "type": "integer"
+        }
+      }
+    },
+    "GetLocalEditionCodeResponse": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "$ref": "#/definitions/internal_api_httpserver_localeditions.GetLocalEditionCodeResponse"
+        },
+        "operationId": {
+          "type": "string"
+        },
+        "status": {
+          "type": "integer"
+        }
+      }
+    },
+    "ListLocalEditionsResponse": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "$ref": "#/definitions/internal_api_httpserver_localeditions.ListLocalEditionsResponse"
+        },
+        "operationId": {
+          "type": "string"
+        },
+        "status": {
+          "type": "integer"
+        }
+      }
+    },
+    "LocalEditionResponse": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "$ref": "#/definitions/internal_api_httpserver_localeditions.LocalEditionResponse"
+        },
+        "operationId": {
+          "type": "string"
+        },
+        "status": {
+          "type": "integer"
+        }
+      }
+    },
+    "carspecifications-CarDetails": {
+      "type": "object",
+      "properties": {
+        "body": {
+          "type": "string"
+        },
+        "carType": {
+          "type": "string"
+        },
+        "engine": {
+          "type": "string"
+        },
+        "gearbox": {
+          "type": "string"
+        },
+        "localEditionCode": {
+          "type": "string"
+        },
+        "localTrimEditionCode": {
+          "description": "deprecated, remove when clients have migrated to localEditionCode",
+          "type": "string"
+        },
+        "marketingCode": {
+          "type": "string"
+        },
+        "modelYear": {
+          "type": "integer"
+        },
+        "salesVersion": {
+          "type": "string"
+        },
+        "specMarket": {
+          "type": "string"
+        },
+        "steering": {
+          "type": "string"
+        }
+      }
+    },
+    "carspecifications-CarSpecification": {
+      "type": "object",
+      "properties": {
+        "carDetails": {
+          "$ref": "#/definitions/carspecifications-CarDetails"
+        },
+        "forbiddenPeriods": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/carspecifications-Period"
+          }
+        },
+        "options": {
+          "$ref": "#/definitions/carspecifications-OptionSpecification"
+        },
+        "packages": {
+          "$ref": "#/definitions/carspecifications-PackageSpecification"
+        },
+        "sMessages": {
+          "$ref": "#/definitions/carspecifications-SMessageSpecification"
+        },
+        "structureWeekPeriod": {
+          "$ref": "#/definitions/carspecifications-Period"
+        },
+        "stylings": {
+          "$ref": "#/definitions/carspecifications-StylingSpecification"
+        },
+        "wheels": {
+          "$ref": "#/definitions/carspecifications-WheelSpecification"
+        }
+      }
+    },
+    "carspecifications-Color": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "forbidsOptions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/carspecifications-Forbids"
+          }
+        },
+        "forbidsUpholsteries": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/carspecifications-Forbids"
+          }
+        },
+        "forbidsWheels": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/carspecifications-Forbids"
+          }
+        },
+        "period": {
+          "$ref": "#/definitions/carspecifications-Period"
+        },
+        "requiredOptions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/carspecifications-TimeBoundAtLeastOne"
+          }
+        },
+        "requiredWheels": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/carspecifications-TimeBoundExactlyOne"
+          }
+        }
+      }
+    },
+    "carspecifications-ExactlyOne": {
+      "type": "object",
+      "properties": {
+        "codes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "defaultCode": {
+          "type": "string"
+        }
+      }
+    },
+    "carspecifications-Forbids": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "period": {
+          "$ref": "#/definitions/carspecifications-Period"
+        }
+      }
+    },
+    "carspecifications-GetCarSpecificationResponse": {
+      "type": "object",
+      "properties": {
+        "carSpecification": {
+          "$ref": "#/definitions/carspecifications-CarSpecification"
+        }
+      }
+    },
+    "carspecifications-Option": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "forbidsColors": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/carspecifications-Forbids"
+          }
+        },
+        "forbidsOptions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/carspecifications-Forbids"
+          }
+        },
+        "forbidsUpholsteries": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/carspecifications-Forbids"
+          }
+        },
+        "forbidsWheels": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/carspecifications-Forbids"
+          }
+        },
+        "period": {
+          "$ref": "#/definitions/carspecifications-Period"
+        },
+        "requiredColors": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/carspecifications-TimeBoundExactlyOne"
+          }
+        },
+        "requiredOptions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/carspecifications-TimeBoundAtLeastOne"
+          }
+        },
+        "requiredUpholsteries": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/carspecifications-TimeBoundExactlyOne"
+          }
+        },
+        "requiredWheels": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/carspecifications-TimeBoundExactlyOne"
+          }
+        }
+      }
+    },
+    "carspecifications-OptionSpecification": {
+      "type": "object",
+      "properties": {
+        "includedOptions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/carspecifications-TimeBoundExactlyOne"
+          }
+        },
+        "options": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/carspecifications-Option"
+          }
+        },
+        "packageOnlyOptionCodes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "carspecifications-Package": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "period": {
+          "$ref": "#/definitions/carspecifications-Period"
+        },
+        "requiredColors": {
+          "$ref": "#/definitions/carspecifications-ExactlyOne"
+        },
+        "requiredOptions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/carspecifications-ExactlyOne"
+          }
+        },
+        "requiredUpholsteries": {
+          "$ref": "#/definitions/carspecifications-ExactlyOne"
+        },
+        "requiredWheels": {
+          "$ref": "#/definitions/carspecifications-ExactlyOne"
+        }
+      }
+    },
+    "carspecifications-PackageSpecification": {
+      "type": "object",
+      "properties": {
+        "includedPackages": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/carspecifications-TimeBoundExactlyOne"
+          }
+        },
+        "makeOverlappingPackagesExclusive": {
+          "type": "boolean"
+        },
+        "packages": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/carspecifications-Package"
+          }
+        }
+      }
+    },
+    "carspecifications-Period": {
+      "type": "object",
+      "properties": {
+        "from": {
+          "$ref": "#/definitions/carspecifications-StructureWeek"
+        },
+        "to": {
+          "$ref": "#/definitions/carspecifications-StructureWeek"
+        }
+      }
+    },
+    "carspecifications-SMessage": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "period": {
+          "$ref": "#/definitions/carspecifications-Period"
+        }
+      }
+    },
+    "carspecifications-SMessageSpecification": {
+      "type": "object",
+      "properties": {
+        "sMessages": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/carspecifications-SMessage"
+          }
+        }
+      }
+    },
+    "carspecifications-StructureWeek": {
+      "type": "object",
+      "properties": {
+        "week": {
+          "type": "integer"
+        },
+        "year": {
+          "type": "integer"
+        }
+      }
+    },
+    "carspecifications-StylingSpecification": {
+      "type": "object",
+      "properties": {
+        "colors": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/carspecifications-Color"
+          }
+        },
+        "defaultColors": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/carspecifications-TimeBoundCode"
+          }
+        },
+        "defaultUpholsteries": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/carspecifications-TimeBoundCode"
+          }
+        },
+        "upholsteries": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/carspecifications-Upholstery"
+          }
+        }
+      }
+    },
+    "carspecifications-TimeBoundAtLeastOne": {
+      "type": "object",
+      "properties": {
+        "codes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "defaultCode": {
+          "type": "string"
+        },
+        "period": {
+          "$ref": "#/definitions/carspecifications-Period"
+        }
+      }
+    },
+    "carspecifications-TimeBoundCode": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "period": {
+          "$ref": "#/definitions/carspecifications-Period"
+        }
+      }
+    },
+    "carspecifications-TimeBoundExactlyOne": {
+      "type": "object",
+      "properties": {
+        "codes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "defaultCode": {
+          "type": "string"
+        },
+        "period": {
+          "$ref": "#/definitions/carspecifications-Period"
+        }
+      }
+    },
+    "carspecifications-Upholstery": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "forbidsColors": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/carspecifications-Forbids"
+          }
+        },
+        "forbidsOptions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/carspecifications-Forbids"
+          }
+        },
+        "forbidsWheels": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/carspecifications-Forbids"
+          }
+        },
+        "period": {
+          "$ref": "#/definitions/carspecifications-Period"
+        },
+        "requiredOptions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/carspecifications-TimeBoundAtLeastOne"
+          }
+        }
+      }
+    },
+    "carspecifications-Wheel": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "forbidsOptions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/carspecifications-Forbids"
+          }
+        },
+        "forbidsUpholsteries": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/carspecifications-Forbids"
+          }
+        },
+        "period": {
+          "$ref": "#/definitions/carspecifications-Period"
+        },
+        "requiredColors": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/carspecifications-TimeBoundExactlyOne"
+          }
+        },
+        "requiredOptions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/carspecifications-TimeBoundAtLeastOne"
+          }
+        },
+        "requiredUpholsteries": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/carspecifications-TimeBoundExactlyOne"
+          }
+        }
+      }
+    },
+    "carspecifications-WheelSpecification": {
+      "type": "object",
+      "properties": {
+        "standardWheel": {
+          "type": "string"
+        },
+        "wheels": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/carspecifications-Wheel"
+          }
+        }
+      }
+    },
+    "internal_api_httpserver_localeditions.GetLocalEditionCodeResponse": {
+      "type": "object",
+      "properties": {
+        "localEditionCode": {
+          "type": "string"
+        }
+      }
+    },
+    "internal_api_httpserver_localeditions.ListLocalEditionsResponse": {
+      "type": "object",
+      "properties": {
+        "localEditions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/internal_api_httpserver_localeditions.LocalEditionResponse"
+          }
+        }
+      }
+    },
+    "internal_api_httpserver_localeditions.LocalEditionResponse": {
+      "type": "object",
+      "properties": {
+        "localEditionCode": {
+          "type": "string"
+        },
+        "modelYear": {
+          "type": "integer"
+        },
+        "pno12": {
+          "type": "string"
+        },
+        "specMarket": {
+          "type": "string"
+        }
+      }
+    },
+    "internal_api_httpserver_localeditions.UpsertLocalEditionRequest": {
+      "type": "object",
+      "properties": {
+        "localEditionCode": {
+          "type": "string"
+        },
+        "modelYear": {
+          "type": "integer"
+        },
+        "pno12": {
+          "type": "string"
+        },
+        "specMarket": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

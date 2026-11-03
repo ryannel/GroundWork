@@ -1,0 +1,112 @@
+[
+  {
+    "name": "ClassificationMessageProcessor",
+    "entry": "assortment-6114c5d-complete-r5/processor/ClassificationMessageProcessor",
+    "implementation": "assortment-6114c5d-complete-r5/method/2243a593331345b6",
+    "registrationFrame": "assortment-6114c5d-r5/impl/consumer/ClassificationMessageProcessor",
+    "registrationEntry": "assortment-6114c5d-r5/op/consumer/ClassificationMessageProcessor/start",
+    "dispatchCall": "assortment-6114c5d-complete-r5/dispatch/ClassificationMessageProcessor",
+    "binding": null,
+    "source": "src/PopCat.Assortment.CacheWorker.Host/MessageProcessor/ClassificationMessageProcessor.cs",
+    "lines": [20, 24]
+  },
+  {
+    "name": "ManageCommercialMessageProcessor",
+    "entry": "assortment-6114c5d-complete-r5/processor/ManageCommercialMessageProcessor",
+    "implementation": "assortment-6114c5d-complete-r5/method/8391a5c6e6acdb01",
+    "registrationFrame": "assortment-6114c5d-r5/impl/consumer/ManageCommercialMessageProcessor",
+    "registrationEntry": "assortment-6114c5d-r5/op/consumer/ManageCommercialMessageProcessor/start",
+    "dispatchCall": "assortment-6114c5d-complete-r5/dispatch/ManageCommercialMessageProcessor",
+    "binding": null,
+    "source": "src/PopCat.Assortment.CacheWorker.Host/MessageProcessor/ManageCommercialMessageProcessor.cs",
+    "lines": [30, 34]
+  },
+  {
+    "name": "ManageSegmentMessageProcessor",
+    "entry": "assortment-6114c5d-complete-r5/processor/ManageSegmentMessageProcessor",
+    "implementation": "assortment-6114c5d-complete-r5/method/0750ad38e178ce3e",
+    "registrationFrame": "assortment-6114c5d-r5/impl/consumer/ManageSegmentMessageProcessor",
+    "registrationEntry": "assortment-6114c5d-r5/op/consumer/ManageSegmentMessageProcessor/start",
+    "dispatchCall": "assortment-6114c5d-complete-r5/dispatch/ManageSegmentMessageProcessor",
+    "binding": null,
+    "source": "src/PopCat.Assortment.CacheWorker.Host/MessageProcessor/ManageSegmentMessageProcessor.cs",
+    "lines": [31, 35]
+  },
+  {
+    "name": "PCFCarConfigMessageProcessor",
+    "entry": "assortment-6114c5d-complete-r5/processor/PCFCarConfigMessageProcessor",
+    "implementation": "assortment-6114c5d-complete-r5/method/ff982fac4f07c495",
+    "registrationFrame": "assortment-6114c5d-r5/impl/consumer/PCFCarConfigMessageProcessor",
+    "registrationEntry": "assortment-6114c5d-r5/op/consumer/PCFCarConfigMessageProcessor/start",
+    "dispatchCall": "assortment-6114c5d-complete-r5/dispatch/PCFCarConfigMessageProcessor",
+    "binding": null,
+    "source": "src/PopCat.Assortment.CacheWorker.Host/MessageProcessor/PCFCarConfigMessageProcessor.cs",
+    "lines": [13, 22]
+  },
+  {
+    "name": "PCFGlobalDictionaryEntriesMessageProcessor",
+    "entry": "assortment-6114c5d-complete-r5/processor/PCFGlobalDictionaryEntriesMessageProcessor",
+    "implementation": "assortment-6114c5d-complete-r5/method/6950c90c3e9b9dde",
+    "registrationFrame": "assortment-6114c5d-r5/impl/consumer/PCFGlobalDictionaryEntriesMessageProcessor",
+    "registrationEntry": "assortment-6114c5d-r5/op/consumer/PCFGlobalDictionaryEntriesMessageProcessor/start",
+    "dispatchCall": "assortment-6114c5d-complete-r5/dispatch/PCFGlobalDictionaryEntriesMessageProcessor",
+    "binding": null,
+    "source": "src/PopCat.Assortment.CacheWorker.Host/MessageProcessor/PCFGlobalDictionaryEntriesMessageProcessor.cs",
+    "lines": [18, 22]
+  },
+  {
+    "name": "PCFGlobalDictionaryMessageProcessor",
+    "entry": "assortment-6114c5d-complete-r5/processor/PCFGlobalDictionaryMessageProcessor",
+    "implementation": "assortment-6114c5d-complete-r5/method/994032e4240662cf",
+    "registrationFrame": "assortment-6114c5d-r5/impl/consumer/PCFGlobalDictionaryMessageProcessor",
+    "registrationEntry": "assortment-6114c5d-r5/op/consumer/PCFGlobalDictionaryMessageProcessor/start",
+    "dispatchCall": "assortment-6114c5d-complete-r5/dispatch/PCFGlobalDictionaryMessageProcessor",
+    "binding": null,
+    "source": "src/PopCat.Assortment.CacheWorker.Host/MessageProcessor/PCFGlobalDictionaryMessageProcessor.cs",
+    "lines": [16, 28]
+  },
+  {
+    "name": "PCFMarketAuthEntriesMessageProcessor",
+    "entry": "assortment-6114c5d-complete-r5/processor/PCFMarketAuthEntriesMessageProcessor",
+    "implementation": "assortment-6114c5d-complete-r5/method/023017b36257865a",
+    "registrationFrame": "assortment-6114c5d-r5/impl/consumer/PCFMarketAuthEntriesMessageProcessor",
+    "registrationEntry": "assortment-6114c5d-r5/op/consumer/PCFMarketAuthEntriesMessageProcessor/start",
+    "dispatchCall": "assortment-6114c5d-complete-r5/dispatch/PCFMarketAuthEntriesMessageProcessor",
+    "binding": null,
+    "source": "src/PopCat.Assortment.CacheWorker.Host/MessageProcessor/PCFMarketAuthEntriesMessageProcessor.cs",
+    "lines": [18, 22]
+  },
+  {
+    "name": "PCFMarketAuthMessageProcessor",
+    "entry": "assortment-6114c5d-complete-r5/processor/PCFMarketAuthMessageProcessor",
+    "implementation": "assortment-6114c5d-complete-r5/method/b0955333753acea2",
+    "registrationFrame": "assortment-6114c5d-r5/impl/consumer/PCFMarketAuthMessageProcessor",
+    "registrationEntry": "assortment-6114c5d-r5/op/consumer/PCFMarketAuthMessageProcessor/start",
+    "dispatchCall": "assortment-6114c5d-complete-r5/dispatch/PCFMarketAuthMessageProcessor",
+    "binding": null,
+    "source": "src/PopCat.Assortment.CacheWorker.Host/MessageProcessor/PCFMarketAuthMessageProcessor.cs",
+    "lines": [16, 25]
+  },
+  {
+    "name": "PDSMessageProcessor",
+    "entry": "assortment-6114c5d-complete-r5/processor/PDSMessageProcessor",
+    "implementation": "assortment-6114c5d-complete-r5/method/80fdbb3682ae5ff2",
+    "registrationFrame": "assortment-6114c5d-r5/impl/consumer/PDSMessageProcessor",
+    "registrationEntry": "assortment-6114c5d-r5/op/consumer/PDSMessageProcessor/start",
+    "dispatchCall": "assortment-6114c5d-complete-r5/dispatch/PDSMessageProcessor",
+    "binding": null,
+    "source": "src/PopCat.Assortment.CacheWorker.Host/MessageProcessor/PDSMessageProcessor.cs",
+    "lines": [25, 29]
+  },
+  {
+    "name": "SpecificationMessageProcessor",
+    "entry": "assortment-6114c5d-complete-r5/processor/SpecificationMessageProcessor",
+    "implementation": "assortment-6114c5d-complete-r5/method/da272a8efd21f55e",
+    "registrationFrame": "assortment-6114c5d-r5/impl/consumer/SpecificationMessageProcessor",
+    "registrationEntry": "assortment-6114c5d-r5/op/consumer/SpecificationMessageProcessor/start",
+    "dispatchCall": "assortment-6114c5d-complete-r5/dispatch/SpecificationMessageProcessor",
+    "binding": null,
+    "source": "src/PopCat.Assortment.CacheWorker.Host/MessageProcessor/SpecificationMessageProcessor.cs",
+    "lines": [20, 24]
+  }
+]

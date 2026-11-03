@@ -1,0 +1,602 @@
+{
+  "status": "passed",
+  "snapshot": "ec13e0709f41ee068bfb69c4a86d0bdc68b389a1738c642d6f5ca7b841cf065d",
+  "qualification": "Independent35full pinned files. Actual REST/listener registrations positively expose source boundaries; same-topic different-group consumers remain distinct. All9 I/O owners/contracts/actuals, original REST/consumed-String selector lineage, rooted body construction, separate imported wire authority and source setter operands are checked. No local database/DLQ/producer invented. Broad sync/value queries retain explicit limits; smaller owner/guard/value queries are independent positive checks, not claims of complete broad endpoint traversal. Imported security/retry/codec/delivery/deployment and remote failure windows remain explicit.",
+  "queries": [
+    {
+      "name": "Actual REST registration /v1/{customerId}/cdb-sync",
+      "nodes": 4,
+      "edges": 5,
+      "limits": ["maxNodes"],
+      "pages": 1
+    },
+    {
+      "name": "Actual REST registration /v1/{customerId}/cdb-vehicle-sync",
+      "nodes": 4,
+      "edges": 5,
+      "limits": ["maxNodes"],
+      "pages": 1
+    },
+    {
+      "name": "Actual REST registration /v1/consumer/volvoid/{volvoId}",
+      "nodes": 2,
+      "edges": 1,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual independent subscription volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/subscription/CustomerEventConsumer",
+      "nodes": 5,
+      "edges": 6,
+      "limits": ["maxNodes"],
+      "pages": 1
+    },
+    {
+      "name": "Native subscription policy and declared schema",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual independent subscription volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/subscription/CustomerEventOMConsumer",
+      "nodes": 3,
+      "edges": 2,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Native subscription policy and declared schema",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual independent subscription volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/subscription/CdbSyncEventConsumer",
+      "nodes": 5,
+      "edges": 6,
+      "limits": ["maxNodes"],
+      "pages": 1
+    },
+    {
+      "name": "Native subscription policy and declared schema",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Registered metric callback explicitly reaches Kafka Admin",
+      "nodes": 2,
+      "edges": 1,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Recoverer logs without invented DLQ publication",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Imported configured mount has no fabricated eager dispatch /actuator/health",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Imported configured mount has no fabricated eager dispatch /actuator/prometheus",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Imported configured mount has no fabricated eager dispatch /swagger-ui.html",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Imported configured mount has no fabricated eager dispatch /v3/api-docs",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Imported configured mount has no fabricated eager dispatch /v3/api-docs/swagger-config",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Exact I/O owner client\n              .post()\n              .uri(\"/consumer\")\n              .body(createOrUpdateRequest)\n              .retrieve()\n              .toEntity(CdbResponse.class)",
+      "nodes": 2,
+      "edges": 1,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Exact interface contract and transferred shapes",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Exact actual value volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/http-io/ecf33f5bd2206aafb969 body ",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Exact actual value volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/http-io/ecf33f5bd2206aafb969 result ",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Exact I/O owner client\n              .get()\n              .uri(\"/consumer/alternativeIds/{alternativeId}?type={idType}\", volvoId, VOLVO_ID_TYPE)\n              .accept(MediaType.APPLICATION_JSON)\n              .retrieve()\n              .toEntity(CdbConsumerByVolvoIdResponse.class)",
+      "nodes": 2,
+      "edges": 1,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Exact interface contract and transferred shapes",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Exact actual value volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/http-io/d0efce9a9dfe0bf854e0 path alternativeId",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Exact actual value volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/http-io/d0efce9a9dfe0bf854e0 query type",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Exact actual value volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/http-io/d0efce9a9dfe0bf854e0 result ",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Exact I/O owner client\n              .get()\n              .uri(\"/v1/customers/{customerId}\", customerId)\n              .retrieve()\n              .toEntity(new ParameterizedTypeReference<SuccessResponse<Customer>>() {})",
+      "nodes": 2,
+      "edges": 1,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Exact interface contract and transferred shapes",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Exact actual value volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/http-io/04f5264e87f637a18159 path customerId",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Exact actual value volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/http-io/04f5264e87f637a18159 result ",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Exact I/O owner client\n          .patch()\n          .uri(\"/v1/customers/{customerId}\", customerId)\n          .body(request)\n          .retrieve()\n          .toBodilessEntity()",
+      "nodes": 2,
+      "edges": 1,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Exact interface contract and transferred shapes",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Exact actual value volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/http-io/c1d3ef11399032f03444 path customerId",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Exact actual value volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/http-io/c1d3ef11399032f03444 body ",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Exact actual value volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/http-io/c1d3ef11399032f03444 result ",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Exact I/O owner client\n          .post()\n          .uri(\"/internal/ordermanager/v1/orders/customer-update-event/{customerId}\", customerId)\n          .body(request)\n          .retrieve()\n          .toBodilessEntity()",
+      "nodes": 2,
+      "edges": 1,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Exact interface contract and transferred shapes",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Exact actual value volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/http-io/d279427e2ea845bc1b2b path customerId",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Exact actual value volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/http-io/d279427e2ea845bc1b2b body ",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Exact actual value volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/http-io/d279427e2ea845bc1b2b result ",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Exact I/O owner Enter com.volvocars.ecom.customer.crm.synchronizer.api.customer.CustomerEventConsumer#consume(String)",
+      "nodes": 5,
+      "edges": 6,
+      "limits": ["maxNodes"],
+      "pages": 1
+    },
+    {
+      "name": "Exact interface contract and transferred shapes",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Exact actual value volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/consume-io/CustomerEventConsumer message ",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Exact I/O owner Enter com.volvocars.ecom.customer.crm.synchronizer.api.customer.CustomerEventOMConsumer#consumeToUpdateOM(String)",
+      "nodes": 3,
+      "edges": 2,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Exact interface contract and transferred shapes",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Exact actual value volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/consume-io/CustomerEventOMConsumer message ",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Exact I/O owner Enter com.volvocars.ecom.customer.crm.synchronizer.api.customer.CdbSyncEventConsumer#consume(String)",
+      "nodes": 5,
+      "edges": 6,
+      "limits": ["maxNodes"],
+      "pages": 1
+    },
+    {
+      "name": "Exact interface contract and transferred shapes",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Exact actual value volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/consume-io/CdbSyncEventConsumer message ",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Exact I/O owner adminClient.describeCluster(options)",
+      "nodes": 2,
+      "edges": 1,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Exact interface contract and transferred shapes",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Exact actual value volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/kafka-health-io record options",
+      "nodes": 2,
+      "edges": 1,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Exact actual value volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/kafka-health-io result ",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual root selector lineage /v1/{customerId}/cdb-sync",
+      "nodes": 5,
+      "edges": 4,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual root selector lineage /v1/{customerId}/cdb-vehicle-sync",
+      "nodes": 4,
+      "edges": 3,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual root selector lineage /v1/consumer/volvoid/{volvoId}",
+      "nodes": 3,
+      "edges": 2,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual root selector lineage source:@KafkaListener:CustomerEventConsumer",
+      "nodes": 11,
+      "edges": 10,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual root selector lineage source:@KafkaListener:CustomerEventOMConsumer",
+      "nodes": 10,
+      "edges": 9,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual root selector lineage source:@KafkaListener:CdbSyncEventConsumer",
+      "nodes": 11,
+      "edges": 10,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Rooted source body /v1/{customerId}/cdb-sync /consumer",
+      "nodes": 160,
+      "edges": 171,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Rooted source body /v1/{customerId}/cdb-vehicle-sync /consumer",
+      "nodes": 160,
+      "edges": 171,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Rooted source body /v1/{customerId}/cdb-sync /v1/customers/{customerId}",
+      "nodes": 9,
+      "edges": 8,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Rooted source body /v1/{customerId}/cdb-vehicle-sync /v1/customers/{customerId}",
+      "nodes": 9,
+      "edges": 8,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Rooted source body /v1/{customerId}/cdb-sync /internal/ordermanager/v1/orders/customer-update-event/{customerId}",
+      "nodes": 8,
+      "edges": 7,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Rooted source body /v1/{customerId}/cdb-vehicle-sync /internal/ordermanager/v1/orders/customer-update-event/{customerId}",
+      "nodes": 8,
+      "edges": 7,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "CDB actual construction distinct from imported wire schema",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual reviewed source policy sync",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual reviewed source policy individual",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual reviewed source policy corporate",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual reviewed source policy customer",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual reviewed source policy om",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual reviewed source policy om-enabled",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual reviewed source policy recoverer",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual reviewed source policy cdb-post",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual reviewed source policy cdb-error",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual reviewed source policy customer-consumer",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual reviewed source policy om-consumer",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual reviewed source policy order-consumer",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual reviewed source policy kafka-config",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual reviewed source policy consumer-get",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual reviewed source policy addresses",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual reviewed source policy alternative-id",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Exact guard/transformation body com.volvocars.ecom.customer.crm.synchronizer.core.customersync.IndividualSyncService#shouldSkip(Customer,Individual,boolean)",
+      "nodes": 104,
+      "edges": 114,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Exact guard/transformation body com.volvocars.ecom.customer.crm.synchronizer.core.customersync.CorporateEntitySyncService#shouldSkip(CorporateEntity,boolean)",
+      "nodes": 34,
+      "edges": 36,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Exact guard/transformation body com.volvocars.ecom.customer.crm.synchronizer.core.cdb.CdbClient#toBadRequestException(HttpClientErrorException.BadRequest)",
+      "nodes": 123,
+      "edges": 141,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Exact guard/transformation body com.volvocars.ecom.customer.crm.synchronizer.core.cdb.mapper.CreateOrUpdateAddressMapper.ComparableAddress#safeStringTrimAndToLowerCase(String)",
+      "nodes": 27,
+      "edges": 27,
+      "limits": [],
+      "pages": 1
+    }
+  ]
+}

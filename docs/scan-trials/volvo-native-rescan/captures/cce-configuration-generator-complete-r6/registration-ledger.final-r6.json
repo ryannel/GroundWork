@@ -1,0 +1,317 @@
+[
+  {
+    "policy": "fx.Provide",
+    "implementation": "volvo/cce-car-configuration-generator/c91f73a5a3b6/final-r6/body/implementation/c20fa8ca9a9d8195df55",
+    "symbol": "github.com/volvo-cars/cce-car-configuration-generator/internal/app#newBinderConfig()->(*binder.Config)"
+  },
+  {
+    "policy": "fx.Provide",
+    "implementation": "volvo/cce-car-configuration-generator/c91f73a5a3b6/final-r6/body/implementation/82db2c74f2c2c214f2a9",
+    "symbol": "github.com/volvo-cars/cce-car-configuration-generator/internal/app#newConfig(*binder.Config)->(config)"
+  },
+  {
+    "policy": "fx.Provide",
+    "implementation": "volvo/cce-car-configuration-generator/c91f73a5a3b6/final-r6/body/implementation/555cb081d4a30ae71fc4",
+    "symbol": "github.com/volvo-cars/cce-car-configuration-generator/internal/app#newLogger(config,SentryClient)->(*loggingsdk.Logger,error)"
+  },
+  {
+    "policy": "fx.Provide",
+    "implementation": "volvo/cce-car-configuration-generator/c91f73a5a3b6/final-r6/body/implementation/bd1640350e17c4e75344",
+    "symbol": "github.com/volvo-cars/cce-car-configuration-generator/internal/app#newSentryClient(config)->(SentryClient,error)"
+  },
+  {
+    "policy": "fx.Provide",
+    "implementation": "volvo/cce-car-configuration-generator/c91f73a5a3b6/final-r6/body/implementation/8788467286a9b458dc44",
+    "symbol": "github.com/volvo-cars/cce-car-configuration-generator/internal/app#newTracer(config,*loggingsdk.Logger)->(*tracing.OtelTracer,error)"
+  },
+  {
+    "policy": "fx.Provide",
+    "implementation": "volvo/cce-car-configuration-generator/c91f73a5a3b6/final-r6/body/implementation/484576627c6766bf0964",
+    "symbol": "github.com/volvo-cars/cce-car-configuration-generator/internal/app#newMetricsSubmitter(config,*loggingsdk.Logger)->(metrics.Submitter,error)"
+  },
+  {
+    "policy": "fx.Provide",
+    "implementation": "volvo/cce-car-configuration-generator/c91f73a5a3b6/final-r6/body/implementation/25c720cf1dd85f2059f2",
+    "symbol": "github.com/volvo-cars/cce-car-configuration-generator/internal/app#newHTTPMetricsMiddleware(metrics.Submitter)->(*httpmetrics.Middleware,error)"
+  },
+  {
+    "policy": "fx.Provide",
+    "implementation": "volvo/cce-car-configuration-generator/c91f73a5a3b6/final-r6/body/implementation/d9fe41a9533a99b23ca8",
+    "symbol": "github.com/volvo-cars/cce-car-configuration-generator/internal/app#newMarketAuthSyncRecorder(metrics.Submitter)->(messaging.MarketAuthSyncCounter,error)"
+  },
+  {
+    "policy": "fx.Provide",
+    "implementation": "volvo/cce-car-configuration-generator/c91f73a5a3b6/final-r6/body/implementation/2334310e616d6a1d94de",
+    "symbol": "github.com/volvo-cars/cce-car-configuration-generator/internal/app#newCarKeySyncRecorder(metrics.Submitter)->(postgres.InsertCarKeysRecorder,error)"
+  },
+  {
+    "policy": "fx.Provide",
+    "implementation": "volvo/cce-car-configuration-generator/c91f73a5a3b6/final-r6/body/implementation/5c904f926f7d4048da87",
+    "symbol": "github.com/volvo-cars/cce-car-configuration-generator/internal/app#newTracingHTTPMiddleware(config,*tracing.OtelTracer)->(*middleware.TracingMiddleware)"
+  },
+  {
+    "policy": "fx.Provide",
+    "implementation": "volvo/cce-car-configuration-generator/c91f73a5a3b6/final-r6/body/implementation/4fe020c1ed58ee321c86",
+    "symbol": "github.com/volvo-cars/cce-car-configuration-generator/internal/app#newGatewayHTTPClient(metrics.Submitter)->(*client.HTTPClient,error)"
+  },
+  {
+    "policy": "fx.Provide",
+    "implementation": "volvo/cce-car-configuration-generator/c91f73a5a3b6/final-r6/body/implementation/040720a903053bb4816f",
+    "symbol": "github.com/volvo-cars/cce-car-configuration-generator/internal/app#newJWTConfig(config)->(jwt.Config)"
+  },
+  {
+    "policy": "fx.Provide",
+    "implementation": "volvo/cce-car-configuration-generator/c91f73a5a3b6/final-r6/body/implementation/b2efb640c6e145fb0a1a",
+    "symbol": "github.com/volvo-cars/cce-car-configuration-generator/internal/app#newJWTParser(config,jwt.Config)->(*jwt.Parser,error)"
+  },
+  {
+    "policy": "fx.Provide",
+    "implementation": "volvo/cce-car-configuration-generator/c91f73a5a3b6/final-r6/body/implementation/7a9f94bd3dc0417eba03",
+    "symbol": "github.com/volvo-cars/cce-car-configuration-generator/internal/api/httpserver/middleware#NewJWTMiddleware(*jwt.Parser)->(*JWTMiddleware)"
+  },
+  {
+    "policy": "fx.Provide",
+    "implementation": "volvo/cce-car-configuration-generator/c91f73a5a3b6/final-r6/body/implementation/14108e70a67a9810eeda",
+    "symbol": "github.com/volvo-cars/cce-car-configuration-generator/internal/app#newPostgresConfig(config)->(postgres.Config)"
+  },
+  {
+    "policy": "fx.Provide",
+    "implementation": "volvo/cce-car-configuration-generator/c91f73a5a3b6/final-r6/body/implementation/0125cb213876bbd1e697",
+    "symbol": "github.com/volvo-cars/cce-car-configuration-generator/internal/app#newAssortmentConfig(config)->(assortment.Config)"
+  },
+  {
+    "policy": "fx.Provide",
+    "implementation": "volvo/cce-car-configuration-generator/c91f73a5a3b6/final-r6/body/implementation/254076e1a4dcd9498e9e",
+    "symbol": "github.com/volvo-cars/cce-car-configuration-generator/internal/app#newPuanConfig(config)->(puan.Config)"
+  },
+  {
+    "policy": "fx.Provide",
+    "implementation": "volvo/cce-car-configuration-generator/c91f73a5a3b6/final-r6/body/implementation/a0fcd8fb8c0ad33bb7ef",
+    "symbol": "github.com/volvo-cars/cce-car-configuration-generator/internal/api/httpserver/respond#NewErrorResponder(*loggingsdk.Logger)->(*ErrorResponder)"
+  },
+  {
+    "policy": "fx.Provide",
+    "implementation": "volvo/cce-car-configuration-generator/c91f73a5a3b6/final-r6/body/implementation/fdc02844333c66a5077a",
+    "symbol": "github.com/volvo-cars/cce-car-configuration-generator/internal/database/postgres#NewReadyCheck(*pgxpool.Pool)->(*ReadyCheck)"
+  },
+  {
+    "policy": "fx.Provide",
+    "implementation": "volvo/cce-car-configuration-generator/c91f73a5a3b6/final-r6/body/implementation/26496fdd9ca0ff334284",
+    "symbol": "github.com/volvo-cars/cce-car-configuration-generator/internal/database/postgres#NewMigrator(Config,*loggingsdk.Logger)->(Migrator)"
+  },
+  {
+    "policy": "fx.Provide",
+    "implementation": "volvo/cce-car-configuration-generator/c91f73a5a3b6/final-r6/body/implementation/92831a3cac3b33db195e",
+    "symbol": "github.com/volvo-cars/cce-car-configuration-generator/internal/database/postgres#NewPool(Config,*tracing.OtelTracer)->(*pgxpool.Pool,error)"
+  },
+  {
+    "policy": "fx.Provide",
+    "implementation": "volvo/cce-car-configuration-generator/c91f73a5a3b6/final-r6/body/implementation/b1c612a56bad7815e989",
+    "symbol": "github.com/volvo-cars/cce-car-configuration-generator/internal/app#newWatermillRouter(*loggingsdk.Logger)->(*message.Router,error)"
+  },
+  {
+    "policy": "fx.Provide",
+    "implementation": "volvo/cce-car-configuration-generator/c91f73a5a3b6/final-r6/body/implementation/0e98bfb419fddecd27d2",
+    "symbol": "github.com/volvo-cars/cce-car-configuration-generator/internal/app#newWatermillKafkaSubscriber(config,*loggingsdk.Logger)->(message.Subscriber,error)"
+  },
+  {
+    "policy": "fx.Provide",
+    "implementation": "volvo/cce-car-configuration-generator/c91f73a5a3b6/final-r6/body/implementation/e6e77ac6870c8b6825fa",
+    "symbol": "github.com/volvo-cars/cce-car-configuration-generator/internal/app#newWatermillKafkaPublisher(config,*loggingsdk.Logger)->(message.Publisher,error)"
+  },
+  {
+    "policy": "fx.Provide",
+    "implementation": "volvo/cce-car-configuration-generator/c91f73a5a3b6/final-r6/body/implementation/797a87403dbd8919dabb",
+    "symbol": "github.com/volvo-cars/cce-car-configuration-generator/internal/app#newGenerateCarsPublisher(config,message.Publisher,*loggingsdk.Logger)->(*messaging.GenerateCarsPublisher)"
+  },
+  {
+    "policy": "fx.Provide",
+    "implementation": "volvo/cce-car-configuration-generator/c91f73a5a3b6/final-r6/body/implementation/f2cdef6b2e59c6b2bc26",
+    "symbol": "github.com/volvo-cars/cce-car-configuration-generator/internal/service#NewJobCompletionNotifier(CarKeyStorage,GenerateCarsEventPublisher)->(*JobCompletionNotifier)"
+  },
+  {
+    "policy": "fx.Provide",
+    "implementation": "volvo/cce-car-configuration-generator/c91f73a5a3b6/final-r6/body/implementation/71f8f7ecad0399e50e98",
+    "symbol": "github.com/volvo-cars/cce-car-configuration-generator/internal/app#newFeatureFlaggerConfig(config)->(featureflag.FeatureFlaggerConfig)"
+  },
+  {
+    "policy": "fx.Provide",
+    "implementation": "volvo/cce-car-configuration-generator/c91f73a5a3b6/final-r6/body/implementation/9063699f4e1fea8969f5",
+    "symbol": "github.com/volvo-cars/cce-car-configuration-generator/internal/featureflag#NewFeatureFlagger(FeatureFlaggerConfig)->(*FeatureFlagger,error)"
+  },
+  {
+    "policy": "fx.Provide",
+    "implementation": "volvo/cce-car-configuration-generator/c91f73a5a3b6/final-r6/body/implementation/5106da0c8a495ece57f2",
+    "symbol": "github.com/volvo-cars/cce-car-configuration-generator/internal/messaging#NewMarketAuthMessageHandler(MarketAuthSynchronizer,MarketAuthSyncCounter,*loggingsdk.Logger)->(*MarketAuthMessageHandler)"
+  },
+  {
+    "policy": "fx.Provide",
+    "implementation": "volvo/cce-car-configuration-generator/c91f73a5a3b6/final-r6/body/implementation/29e2e79f25c140a4df5f",
+    "symbol": "github.com/volvo-cars/cce-car-configuration-generator/internal/database/postgres#NewCarSpecRepository(*pgxpool.Pool,*loggingsdk.Logger)->(*CarSpecRepository)"
+  },
+  {
+    "policy": "fx.Provide",
+    "implementation": "volvo/cce-car-configuration-generator/c91f73a5a3b6/final-r6/body/implementation/7ee308477d63813f37b3",
+    "symbol": "github.com/volvo-cars/cce-car-configuration-generator/internal/database/postgres#NewCarKeyRepository(*pgxpool.Pool,*loggingsdk.Logger,InsertCarKeysRecorder)->(*CarKeyRepository)"
+  },
+  {
+    "policy": "fx.Provide",
+    "implementation": "volvo/cce-car-configuration-generator/c91f73a5a3b6/final-r6/body/implementation/50ffbe2e3cf23d5129b7",
+    "symbol": "github.com/volvo-cars/cce-car-configuration-generator/internal/app#newFilterServiceClient(config,*client.HTTPClient)->(*filterservice.FilterServiceClient)"
+  },
+  {
+    "policy": "fx.Provide",
+    "implementation": "volvo/cce-car-configuration-generator/c91f73a5a3b6/final-r6/body/implementation/3ad747a450f81f3ca7cf",
+    "symbol": "github.com/volvo-cars/cce-car-configuration-generator/internal/gateway/assortment#NewClient(Config,*client.HTTPClient)->(*Client)"
+  },
+  {
+    "policy": "fx.Provide",
+    "implementation": "volvo/cce-car-configuration-generator/c91f73a5a3b6/final-r6/body/implementation/a0dc8b42f5068c20ef36",
+    "symbol": "github.com/volvo-cars/cce-car-configuration-generator/internal/gateway/puan#NewClient(Config,*client.HTTPClient,*loggingsdk.Logger)->(*Client)"
+  },
+  {
+    "policy": "fx.Provide",
+    "implementation": "volvo/cce-car-configuration-generator/c91f73a5a3b6/final-r6/body/implementation/2276f068e378c367b18c",
+    "symbol": "github.com/volvo-cars/cce-car-configuration-generator/internal/api/httpserver#New(*postgres.ReadyCheck)->(*httpserver.Server)"
+  },
+  {
+    "policy": "fx.Provide",
+    "implementation": "volvo/cce-car-configuration-generator/c91f73a5a3b6/final-r6/body/implementation/5e51ebae82bd5d1d0e60",
+    "symbol": "github.com/volvo-cars/cce-car-configuration-generator/internal/api/httpserver#NewRouter(*httpserver.Server,*loggingsdk.Logger,*carconfigurations.Controller,*carspecifications.Controller,*projectcars.Controller,*httpmetrics.Middleware,*middleware.JWTMiddleware,*middleware.TracingMiddleware)->(Router)"
+  },
+  {
+    "policy": "fx.Provide",
+    "implementation": "volvo/cce-car-configuration-generator/c91f73a5a3b6/final-r6/body/implementation/a2c7669d898f7541613f",
+    "symbol": "github.com/volvo-cars/cce-car-configuration-generator/internal/app#newRiverDBConfig(config)->(queuedb.Config)"
+  },
+  {
+    "policy": "fx.Provide",
+    "implementation": "volvo/cce-car-configuration-generator/c91f73a5a3b6/final-r6/body/implementation/1d478a9294bafe89f371",
+    "symbol": "github.com/volvo-cars/cce-car-configuration-generator/internal/database/queuedb#NewRiverDBPool(Config,*loggingsdk.Logger)->(*RiverDBPool,error)"
+  },
+  {
+    "policy": "fx.Provide",
+    "implementation": "volvo/cce-car-configuration-generator/c91f73a5a3b6/final-r6/body/implementation/1ee6a5d6dcf0021a6656",
+    "symbol": "github.com/volvo-cars/cce-car-configuration-generator/internal/database/queuedb#NewRiverClient(*RiverDBPool,Config,CarConfigurationBatchGenerator,*loggingsdk.Logger,JobCompletionNotifier)->(*RiverClient,error)"
+  },
+  {
+    "policy": "fx.Provide",
+    "implementation": "volvo/cce-car-configuration-generator/c91f73a5a3b6/final-r6/body/implementation/e703e2954d4394c245ea",
+    "symbol": "github.com/volvo-cars/cce-car-configuration-generator/internal/gateway/assortment/parse#NewParser(*loggingsdk.Logger)->(*parser)"
+  },
+  {
+    "policy": "fx.Provide",
+    "implementation": "volvo/cce-car-configuration-generator/c91f73a5a3b6/final-r6/body/implementation/ee0d6b657e0c7cad588c",
+    "symbol": "github.com/volvo-cars/cce-car-configuration-generator/internal/gateway/assortment#NewFetcher(*Client,Parser,*loggingsdk.Logger)->(*RuleFetcher)"
+  },
+  {
+    "policy": "fx.Provide",
+    "implementation": "volvo/cce-car-configuration-generator/c91f73a5a3b6/final-r6/body/implementation/e0e7769d5a1008e78acd",
+    "symbol": "github.com/volvo-cars/cce-car-configuration-generator/internal/service#NewSynchronizer(SpecificationFetcher,CarSpecStorage,*loggingsdk.Logger)->(*Synchronizer)"
+  },
+  {
+    "policy": "fx.Provide",
+    "implementation": "volvo/cce-car-configuration-generator/c91f73a5a3b6/final-r6/body/implementation/608c0566cd37075f3829",
+    "symbol": "github.com/volvo-cars/cce-car-configuration-generator/internal/gateway/puan#NewCarConfigurationGenerator(*Client,FeatureFlagger,*loggingsdk.Logger)->(*CarConfigurationGenerator)"
+  },
+  {
+    "policy": "fx.Provide",
+    "implementation": "volvo/cce-car-configuration-generator/c91f73a5a3b6/final-r6/body/implementation/7172a1ee53d8f7ce311e",
+    "symbol": "github.com/volvo-cars/cce-car-configuration-generator/internal/service#NewBatchGenerator(CarSpecStorage,CarKeyStorage,CarConfigurationGenerator)->(*BatchGenerator)"
+  },
+  {
+    "policy": "fx.Provide",
+    "implementation": "volvo/cce-car-configuration-generator/c91f73a5a3b6/final-r6/body/implementation/52ca50ba5217e689ea28",
+    "symbol": "github.com/volvo-cars/cce-car-configuration-generator/internal/app#newJobOrchestratorConfig(config)->(service.JobOrchestratorConfig)"
+  },
+  {
+    "policy": "fx.Provide",
+    "implementation": "volvo/cce-car-configuration-generator/c91f73a5a3b6/final-r6/body/implementation/38dd29403bf2c0d440ee",
+    "symbol": "github.com/volvo-cars/cce-car-configuration-generator/internal/service#NewJobOrchestrator(*queuedb.RiverClient,CarKeyStorage,JobOrchestratorConfig)->(*JobOrchestrator)"
+  },
+  {
+    "policy": "fx.Provide",
+    "implementation": "volvo/cce-car-configuration-generator/c91f73a5a3b6/final-r6/body/implementation/124f8e23af3e9bbf1a19",
+    "symbol": "github.com/volvo-cars/cce-car-configuration-generator/internal/service#NewProjectCarsFetcher(CarSpecStorage,*loggingsdk.Logger)->(*ProjectCarsFetcher)"
+  },
+  {
+    "policy": "fx.Provide",
+    "implementation": "volvo/cce-car-configuration-generator/c91f73a5a3b6/final-r6/body/implementation/5ddad68617bb5eb29bd8",
+    "symbol": "github.com/volvo-cars/cce-car-configuration-generator/internal/api/httpserver/carconfigurations#NewController(JobOrchestrator,CarKeyStorage,WheelCodeFetcher,CarSpecificationFetcher,*respond.ErrorResponder,*loggingsdk.Logger)->(*Controller)"
+  },
+  {
+    "policy": "fx.Provide",
+    "implementation": "volvo/cce-car-configuration-generator/c91f73a5a3b6/final-r6/body/implementation/f99f05d83b4e47299c92",
+    "symbol": "github.com/volvo-cars/cce-car-configuration-generator/internal/api/httpserver/carspecifications#NewController(CarSpecificationSyncer,CarSpecificationFetcher,CarAttributeFetcher,*respond.ErrorResponder,*loggingsdk.Logger)->(*Controller)"
+  },
+  {
+    "policy": "fx.Provide",
+    "implementation": "volvo/cce-car-configuration-generator/c91f73a5a3b6/final-r6/body/implementation/1032ccc773e93ff5127d",
+    "symbol": "github.com/volvo-cars/cce-car-configuration-generator/internal/api/httpserver/projectcars#NewController(*respond.ErrorResponder,ProjectCarsFetcher)->(*Controller)"
+  },
+  {
+    "policy": "fx.Invoke",
+    "implementation": "volvo/cce-car-configuration-generator/c91f73a5a3b6/final-r6/body/implementation/9c75137a52de2a09b7b4",
+    "symbol": "github.com/volvo-cars/cce-car-configuration-generator/internal/database/queuedb#MigrateUpRiverDB(Config,*loggingsdk.Logger)->(error)"
+  },
+  {
+    "policy": "fx.Invoke",
+    "implementation": "volvo/cce-car-configuration-generator/c91f73a5a3b6/final-r6/body/implementation/44cf6f61a8061a6ffb78",
+    "symbol": "github.com/volvo-cars/cce-car-configuration-generator/internal/app#syncLogger(fx.Lifecycle,*loggingsdk.Logger)->()"
+  },
+  {
+    "policy": "fx.Invoke",
+    "implementation": "volvo/cce-car-configuration-generator/c91f73a5a3b6/final-r6/body/implementation/aa617be9f2b5ae7f2b1e",
+    "symbol": "github.com/volvo-cars/cce-car-configuration-generator/internal/app#initializeSentry(fx.Lifecycle,SentryClient)->()"
+  },
+  {
+    "policy": "fx.Invoke",
+    "implementation": "volvo/cce-car-configuration-generator/c91f73a5a3b6/final-r6/body/implementation/d2dbbf8feaee999e5377",
+    "symbol": "github.com/volvo-cars/cce-car-configuration-generator/internal/app#initializeMetricsSubmitter(fx.Lifecycle,metrics.Submitter)->()"
+  },
+  {
+    "policy": "fx.Invoke",
+    "implementation": "volvo/cce-car-configuration-generator/c91f73a5a3b6/final-r6/body/implementation/27f3279425f1d1538efb",
+    "symbol": "github.com/volvo-cars/cce-car-configuration-generator/internal/app#initializeTracer(fx.Lifecycle,*tracing.OtelTracer)->()"
+  },
+  {
+    "policy": "fx.Invoke",
+    "implementation": "volvo/cce-car-configuration-generator/c91f73a5a3b6/final-r6/body/implementation/30ca164d1ad864d01ca7",
+    "symbol": "github.com/volvo-cars/cce-car-configuration-generator/internal/app#configureOtelErrorHandler(*loggingsdk.Logger)->()"
+  },
+  {
+    "policy": "fx.Invoke",
+    "implementation": "volvo/cce-car-configuration-generator/c91f73a5a3b6/final-r6/body/implementation/54e327b2c8860dffc571",
+    "symbol": "github.com/volvo-cars/cce-car-configuration-generator/internal/app#initializeDBCloseHook(fx.Lifecycle,*pgxpool.Pool)->()"
+  },
+  {
+    "policy": "fx.Invoke",
+    "implementation": "volvo/cce-car-configuration-generator/c91f73a5a3b6/final-r6/body/implementation/8a3f85d524a7244570e5",
+    "symbol": "github.com/volvo-cars/cce-car-configuration-generator/internal/app#addEventHandlers(config,*message.Router,*loggingsdk.Logger,message.Subscriber,MarketAuthMessageHandler)->(error)"
+  },
+  {
+    "policy": "fx.Invoke",
+    "implementation": "volvo/cce-car-configuration-generator/c91f73a5a3b6/final-r6/body/implementation/e205b584f59b3d22978f",
+    "symbol": "github.com/volvo-cars/cce-car-configuration-generator/internal/app#initializeWatermillRunHook(fx.Lifecycle,*loggingsdk.Logger,*message.Router)->()"
+  },
+  {
+    "policy": "fx.Invoke",
+    "implementation": "volvo/cce-car-configuration-generator/c91f73a5a3b6/final-r6/body/implementation/68a4a6e4bb441270eda3",
+    "symbol": "github.com/volvo-cars/cce-car-configuration-generator/internal/app#initializeWatermillCloseHook(fx.Lifecycle,*message.Router)->()"
+  },
+  {
+    "policy": "fx.Invoke",
+    "implementation": "volvo/cce-car-configuration-generator/c91f73a5a3b6/final-r6/body/implementation/71967ef0ccdb88a7f378",
+    "symbol": "github.com/volvo-cars/cce-car-configuration-generator/internal/app#startHTTPServer(fx.Lifecycle,*httpserver.Server,config,*loggingsdk.Logger,fx.Shutdowner)->()"
+  },
+  {
+    "policy": "fx.Invoke",
+    "implementation": "volvo/cce-car-configuration-generator/c91f73a5a3b6/final-r6/body/implementation/53c01d38ee36ba52eff2",
+    "symbol": "github.com/volvo-cars/cce-car-configuration-generator/internal/app#startRiverClient(fx.Lifecycle,*queuedb.RiverClient,*loggingsdk.Logger,fx.Shutdowner)->()"
+  },
+  {
+    "policy": "fx.Invoke",
+    "implementation": "volvo/cce-car-configuration-generator/c91f73a5a3b6/final-r6/body/implementation/43a0f8d122c0d3550081",
+    "symbol": "github.com/volvo-cars/cce-car-configuration-generator/internal/app#startRiverSubscriber(fx.Lifecycle,*queuedb.RiverClient,*loggingsdk.Logger)->()"
+  }
+]

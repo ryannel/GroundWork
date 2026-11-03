@@ -1,0 +1,2388 @@
+[
+  {
+    "source": "github.com/volvo-cars/cce-prins-validator/cmd/cce-prins-validator#main()->()",
+    "implementation": "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/fb5788ffdb94f81c34f6",
+    "path": "cmd/cce-prins-validator/main.go",
+    "lines": [5, 8],
+    "parameters": [],
+    "returns": [],
+    "receiver": [],
+    "captures": [],
+    "kind": "function"
+  },
+  {
+    "source": "github.com/volvo-cars/cce-prins-validator/internal/app#New(...fx.Option)->(App)",
+    "implementation": "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/9c77748a2c45e6d13ae4",
+    "path": "internal/app/app.go",
+    "lines": [20, 52],
+    "parameters": [
+      {
+        "name": "opts",
+        "type": "...fx.Option",
+        "lines": [20, 20]
+      }
+    ],
+    "returns": ["github.com/volvo-cars/cce-prins-validator/internal/app.App"],
+    "receiver": [],
+    "captures": [],
+    "kind": "function"
+  },
+  {
+    "source": "github.com/volvo-cars/cce-prins-validator/internal/app#New(...fx.Option)->(App)$closure@975",
+    "implementation": "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/b0ab305910c7be7b5ac9",
+    "path": "internal/app/app.go",
+    "lines": [40, 45],
+    "parameters": [
+      {
+        "name": "cfg",
+        "type": "config",
+        "lines": [40, 40]
+      },
+      {
+        "name": "client",
+        "type": "*http.Client",
+        "lines": [40, 40]
+      }
+    ],
+    "returns": ["*github.com/machinebox/graphql.Client"],
+    "receiver": [],
+    "captures": [],
+    "kind": "closure"
+  },
+  {
+    "source": "github.com/volvo-cars/cce-prins-validator/internal/app#runValidation(fx.Lifecycle,*service.RulesetValidator,fx.Shutdowner)->()",
+    "implementation": "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/0190e0a8648d93e6b255",
+    "path": "internal/app/app.go",
+    "lines": [54, 67],
+    "parameters": [
+      {
+        "name": "lc",
+        "type": "fx.Lifecycle",
+        "lines": [54, 54]
+      },
+      {
+        "name": "rulesetValidator",
+        "type": "*service.RulesetValidator",
+        "lines": [54, 54]
+      },
+      {
+        "name": "shutdowner",
+        "type": "fx.Shutdowner",
+        "lines": [54, 54]
+      }
+    ],
+    "returns": [],
+    "receiver": [],
+    "captures": [],
+    "kind": "function"
+  },
+  {
+    "source": "github.com/volvo-cars/cce-prins-validator/internal/app#runValidation(fx.Lifecycle,*service.RulesetValidator,fx.Shutdowner)->()$closure@1376",
+    "implementation": "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/639acac6a60a375d4920",
+    "path": "internal/app/app.go",
+    "lines": [56, 65],
+    "parameters": [
+      {
+        "name": "ctx",
+        "type": "context.Context",
+        "lines": [56, 56]
+      }
+    ],
+    "returns": ["error"],
+    "receiver": [],
+    "captures": [
+      {
+        "name": "rulesetValidator",
+        "type": "*github.com/volvo-cars/cce-prins-validator/internal/service.RulesetValidator",
+        "actual": "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/0190e0a8648d93e6b255/parameter/1",
+        "capture": "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/639acac6a60a375d4920/capture/rulesetValidator",
+        "mode": "reference"
+      },
+      {
+        "name": "shutdowner",
+        "type": "go.uber.org/fx.Shutdowner",
+        "actual": "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/0190e0a8648d93e6b255/parameter/2",
+        "capture": "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/639acac6a60a375d4920/capture/shutdowner",
+        "mode": "reference"
+      }
+    ],
+    "kind": "closure"
+  },
+  {
+    "source": "github.com/volvo-cars/cce-prins-validator/internal/app#runValidation(fx.Lifecycle,*service.RulesetValidator,fx.Shutdowner)->()$closure@1416",
+    "implementation": "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/c23117079f89d49c6686",
+    "path": "internal/app/app.go",
+    "lines": [57, 62],
+    "parameters": [],
+    "returns": [],
+    "receiver": [],
+    "captures": [
+      {
+        "name": "ctx",
+        "type": "context.Context",
+        "actual": "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/639acac6a60a375d4920/parameter/0",
+        "capture": "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/c23117079f89d49c6686/capture/ctx",
+        "mode": "reference"
+      },
+      {
+        "name": "rulesetValidator",
+        "type": "*github.com/volvo-cars/cce-prins-validator/internal/service.RulesetValidator",
+        "actual": "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/639acac6a60a375d4920/capture/rulesetValidator",
+        "capture": "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/c23117079f89d49c6686/capture/rulesetValidator",
+        "mode": "reference"
+      },
+      {
+        "name": "shutdowner",
+        "type": "go.uber.org/fx.Shutdowner",
+        "actual": "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/639acac6a60a375d4920/capture/shutdowner",
+        "capture": "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/c23117079f89d49c6686/capture/shutdowner",
+        "mode": "reference"
+      }
+    ],
+    "kind": "closure"
+  },
+  {
+    "source": "github.com/volvo-cars/cce-prins-validator/internal/app#shutdown(context.Context,fx.Shutdowner)->()",
+    "implementation": "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/0d2c0f11077039af615d",
+    "path": "internal/app/app.go",
+    "lines": [69, 74],
+    "parameters": [
+      {
+        "name": "ctx",
+        "type": "context.Context",
+        "lines": [69, 69]
+      },
+      {
+        "name": "shutdowner",
+        "type": "fx.Shutdowner",
+        "lines": [69, 69]
+      }
+    ],
+    "returns": [],
+    "receiver": [],
+    "captures": [],
+    "kind": "function"
+  },
+  {
+    "source": "github.com/volvo-cars/cce-prins-validator/internal/app#newHttpClient(config)->(*http.Client,error)",
+    "implementation": "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/e4d5069ac6659e77cf4e",
+    "path": "internal/app/client.go",
+    "lines": [10, 21],
+    "parameters": [
+      {
+        "name": "cfg",
+        "type": "config",
+        "lines": [10, 10]
+      }
+    ],
+    "returns": ["*net/http.Client", "error"],
+    "receiver": [],
+    "captures": [],
+    "kind": "function"
+  },
+  {
+    "source": "github.com/volvo-cars/cce-prins-validator/internal/app#newBinderConfig()->(*binder.Config)",
+    "implementation": "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/066d5df93966e4b7c948",
+    "path": "internal/app/config.go",
+    "lines": [25, 32],
+    "parameters": [],
+    "returns": ["*github.com/ourstudio-se/binder.Config"],
+    "receiver": [],
+    "captures": [],
+    "kind": "function"
+  },
+  {
+    "source": "github.com/volvo-cars/cce-prins-validator/internal/app#newConfig(*binder.Config)->(config)",
+    "implementation": "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/bdb2ff36001ced275ca7",
+    "path": "internal/app/config.go",
+    "lines": [34, 40],
+    "parameters": [
+      {
+        "name": "binder",
+        "type": "*binder.Config",
+        "lines": [34, 34]
+      }
+    ],
+    "returns": ["github.com/volvo-cars/cce-prins-validator/internal/app.config"],
+    "receiver": [],
+    "captures": [],
+    "kind": "function"
+  },
+  {
+    "source": "github.com/volvo-cars/cce-prins-validator/internal/app#newFilterApiConfig(config)->(filterservice.Config)",
+    "implementation": "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/2c9e822f01a1c4b41994",
+    "path": "internal/app/config.go",
+    "lines": [42, 44],
+    "parameters": [
+      {
+        "name": "cfg",
+        "type": "config",
+        "lines": [42, 42]
+      }
+    ],
+    "returns": ["github.com/volvo-cars/cce-prins-validator/internal/gateway/filterservice.Config"],
+    "receiver": [],
+    "captures": [],
+    "kind": "function"
+  },
+  {
+    "source": "github.com/volvo-cars/cce-prins-validator/internal/app#newOptimizationFacadeConfig(config)->(optimizationfacade.Config)",
+    "implementation": "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/8e9cfb6b357979ddf13d",
+    "path": "internal/app/config.go",
+    "lines": [46, 48],
+    "parameters": [
+      {
+        "name": "cfg",
+        "type": "config",
+        "lines": [46, 46]
+      }
+    ],
+    "returns": [
+      "github.com/volvo-cars/cce-prins-validator/internal/gateway/optimizationfacade.Config"
+    ],
+    "receiver": [],
+    "captures": [],
+    "kind": "function"
+  },
+  {
+    "source": "github.com/volvo-cars/cce-prins-validator/internal/app#newPrinsConfig(config)->(prins.Config)",
+    "implementation": "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/de138ae678e87fb4b269",
+    "path": "internal/app/config.go",
+    "lines": [50, 52],
+    "parameters": [
+      {
+        "name": "cfg",
+        "type": "config",
+        "lines": [50, 50]
+      }
+    ],
+    "returns": ["github.com/volvo-cars/cce-prins-validator/internal/gateway/prins.Config"],
+    "receiver": [],
+    "captures": [],
+    "kind": "function"
+  },
+  {
+    "source": "github.com/volvo-cars/cce-prins-validator/internal/app#setEnvVariables(*binder.Config)->()",
+    "implementation": "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/ba4a965735d81d781718",
+    "path": "internal/app/config.go",
+    "lines": [54, 65],
+    "parameters": [
+      {
+        "name": "binder",
+        "type": "*binder.Config",
+        "lines": [54, 54]
+      }
+    ],
+    "returns": [],
+    "receiver": [],
+    "captures": [],
+    "kind": "function"
+  },
+  {
+    "source": "github.com/volvo-cars/cce-prins-validator/internal/domain#ParsePno34(string,[]string,int)->(CarConfiguration,error)",
+    "implementation": "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/66e3d12869269dbc7efe",
+    "path": "internal/domain/carconfiguration.go",
+    "lines": [25, 84],
+    "parameters": [
+      {
+        "name": "s",
+        "type": "string",
+        "lines": [25, 25]
+      },
+      {
+        "name": "wheelCodes",
+        "type": "[]string",
+        "lines": [25, 25]
+      },
+      {
+        "name": "week",
+        "type": "int",
+        "lines": [25, 25]
+      }
+    ],
+    "returns": [
+      "github.com/volvo-cars/cce-prins-validator/internal/domain.CarConfiguration",
+      "error"
+    ],
+    "receiver": [],
+    "captures": [],
+    "kind": "function"
+  },
+  {
+    "source": "github.com/volvo-cars/cce-prins-validator/internal/domain#splitItemsFromGroupEntry(string)->([]string)",
+    "implementation": "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/734eb67768ac3e0b0c92",
+    "path": "internal/domain/carconfiguration.go",
+    "lines": [86, 95],
+    "parameters": [
+      {
+        "name": "entry",
+        "type": "string",
+        "lines": [86, 86]
+      }
+    ],
+    "returns": ["[]string"],
+    "receiver": [],
+    "captures": [],
+    "kind": "function"
+  },
+  {
+    "source": "github.com/volvo-cars/cce-prins-validator/internal/domain#splitIntoItemsSixCharsLong(string)->([]string)",
+    "implementation": "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/6dc67582184c2f2fa5c0",
+    "path": "internal/domain/carconfiguration.go",
+    "lines": [97, 99],
+    "parameters": [
+      {
+        "name": "s",
+        "type": "string",
+        "lines": [97, 97]
+      }
+    ],
+    "returns": ["[]string"],
+    "receiver": [],
+    "captures": [],
+    "kind": "function"
+  },
+  {
+    "source": "github.com/volvo-cars/cce-prins-validator/internal/domain#FindStandardWheel([]Component)->(string,bool)",
+    "implementation": "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/0df3c225b9928a08070d",
+    "path": "internal/domain/components.go",
+    "lines": [8, 16],
+    "parameters": [
+      {
+        "name": "components",
+        "type": "[]Component",
+        "lines": [8, 8]
+      }
+    ],
+    "returns": ["string", "bool"],
+    "receiver": [],
+    "captures": [],
+    "kind": "function"
+  },
+  {
+    "source": "github.com/volvo-cars/cce-prins-validator/internal/domain#ExtractComponentsToVary([]PrinsConfiguration,[]string,map[Pno12]string)->([]ComponentsToVary)",
+    "implementation": "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/816385a6c7e7a3aa472f",
+    "path": "internal/domain/componentstovary.go",
+    "lines": [11, 55],
+    "parameters": [
+      {
+        "name": "prinsConfigurations",
+        "type": "[]PrinsConfiguration",
+        "lines": [12, 12]
+      },
+      {
+        "name": "wheelCodes",
+        "type": "[]string",
+        "lines": [13, 13]
+      },
+      {
+        "name": "standardWheelByPno12",
+        "type": "map[Pno12]string",
+        "lines": [14, 14]
+      }
+    ],
+    "returns": ["[]github.com/volvo-cars/cce-prins-validator/internal/domain.ComponentsToVary"],
+    "receiver": [],
+    "captures": [],
+    "kind": "function"
+  },
+  {
+    "source": "github.com/volvo-cars/cce-prins-validator/internal/domain#groupPrinsConfigurationsByPno12([]PrinsConfiguration)->(map[Pno12][]PrinsConfiguration)",
+    "implementation": "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/e4b40fcc730d6ac7d85d",
+    "path": "internal/domain/componentstovary.go",
+    "lines": [57, 65],
+    "parameters": [
+      {
+        "name": "prinsConfigurations",
+        "type": "[]PrinsConfiguration",
+        "lines": [57, 57]
+      }
+    ],
+    "returns": [
+      "map[github.com/volvo-cars/cce-prins-validator/internal/domain.Pno12][]github.com/volvo-cars/cce-prins-validator/internal/domain.PrinsConfiguration"
+    ],
+    "receiver": [],
+    "captures": [],
+    "kind": "function"
+  },
+  {
+    "source": "github.com/volvo-cars/cce-prins-validator/internal/domain#prinsConfigurationsWithoutWheelCodeExist([]PrinsConfiguration,[]string)->(bool)",
+    "implementation": "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/ebafa62f1fd0e5af4436",
+    "path": "internal/domain/componentstovary.go",
+    "lines": [67, 84],
+    "parameters": [
+      {
+        "name": "prinsConfigurations",
+        "type": "[]PrinsConfiguration",
+        "lines": [67, 67]
+      },
+      {
+        "name": "wheelCodes",
+        "type": "[]string",
+        "lines": [67, 67]
+      }
+    ],
+    "returns": ["bool"],
+    "receiver": [],
+    "captures": [],
+    "kind": "function"
+  },
+  {
+    "source": "github.com/volvo-cars/cce-prins-validator/internal/domain#ComponentsToVary.addWheel(string)->()",
+    "implementation": "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/9f560a42f231a4083f7e",
+    "path": "internal/domain/componentstovary.go",
+    "lines": [86, 88],
+    "parameters": [
+      {
+        "name": "wheel",
+        "type": "string",
+        "lines": [86, 86]
+      }
+    ],
+    "returns": [],
+    "receiver": [
+      {
+        "name": "c",
+        "type": "*ComponentsToVary",
+        "lines": [86, 86]
+      }
+    ],
+    "captures": [],
+    "kind": "method"
+  },
+  {
+    "source": "github.com/volvo-cars/cce-prins-validator/internal/domain#ComponentsToVary.addColor(string)->()",
+    "implementation": "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/6d41c10cfc74ec61d616",
+    "path": "internal/domain/componentstovary.go",
+    "lines": [90, 92],
+    "parameters": [
+      {
+        "name": "color",
+        "type": "string",
+        "lines": [90, 90]
+      }
+    ],
+    "returns": [],
+    "receiver": [
+      {
+        "name": "c",
+        "type": "*ComponentsToVary",
+        "lines": [90, 90]
+      }
+    ],
+    "captures": [],
+    "kind": "method"
+  },
+  {
+    "source": "github.com/volvo-cars/cce-prins-validator/internal/domain#ComponentsToVary.addInterior(string)->()",
+    "implementation": "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/e4f5fdf66c4509eea9e0",
+    "path": "internal/domain/componentstovary.go",
+    "lines": [94, 96],
+    "parameters": [
+      {
+        "name": "interior",
+        "type": "string",
+        "lines": [94, 94]
+      }
+    ],
+    "returns": [],
+    "receiver": [
+      {
+        "name": "c",
+        "type": "*ComponentsToVary",
+        "lines": [94, 94]
+      }
+    ],
+    "captures": [],
+    "kind": "method"
+  },
+  {
+    "source": "github.com/volvo-cars/cce-prins-validator/internal/domain#ComponentsToVary.addOption(string)->()",
+    "implementation": "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/237ce67da039cf026051",
+    "path": "internal/domain/componentstovary.go",
+    "lines": [98, 100],
+    "parameters": [
+      {
+        "name": "option",
+        "type": "string",
+        "lines": [98, 98]
+      }
+    ],
+    "returns": [],
+    "receiver": [
+      {
+        "name": "c",
+        "type": "*ComponentsToVary",
+        "lines": [98, 98]
+      }
+    ],
+    "captures": [],
+    "kind": "method"
+  },
+  {
+    "source": "github.com/volvo-cars/cce-prins-validator/internal/domain#addIfNotExists([]string,string)->([]string)",
+    "implementation": "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/48393fb2543f68ac4a9b",
+    "path": "internal/domain/componentstovary.go",
+    "lines": [102, 110],
+    "parameters": [
+      {
+        "name": "slice",
+        "type": "[]string",
+        "lines": [102, 102]
+      },
+      {
+        "name": "element",
+        "type": "string",
+        "lines": [102, 102]
+      }
+    ],
+    "returns": ["[]string"],
+    "receiver": [],
+    "captures": [],
+    "kind": "function"
+  },
+  {
+    "source": "github.com/volvo-cars/cce-prins-validator/internal/domain#contains([]string,string)->(bool)",
+    "implementation": "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/22154ede35a394871c60",
+    "path": "internal/domain/contains.go",
+    "lines": [3, 10],
+    "parameters": [
+      {
+        "name": "s",
+        "type": "[]string",
+        "lines": [3, 3]
+      },
+      {
+        "name": "x",
+        "type": "string",
+        "lines": [3, 3]
+      }
+    ],
+    "returns": ["bool"],
+    "receiver": [],
+    "captures": [],
+    "kind": "function"
+  },
+  {
+    "source": "github.com/volvo-cars/cce-prins-validator/internal/domain#getGroups(*regexp.Regexp,string)->(map[string]string)",
+    "implementation": "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/77a314f3e6a3f04117e1",
+    "path": "internal/domain/groups.go",
+    "lines": [31, 42],
+    "parameters": [
+      {
+        "name": "r",
+        "type": "*regexp.Regexp",
+        "lines": [31, 31]
+      },
+      {
+        "name": "s",
+        "type": "string",
+        "lines": [31, 31]
+      }
+    ],
+    "returns": ["map[string]string"],
+    "receiver": [],
+    "captures": [],
+    "kind": "function"
+  },
+  {
+    "source": "github.com/volvo-cars/cce-prins-validator/internal/domain#Pno12.String()->(string)",
+    "implementation": "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/6ee9638b1c6aafe38e40",
+    "path": "internal/domain/pno12.go",
+    "lines": [22, 24],
+    "parameters": [],
+    "returns": ["string"],
+    "receiver": [
+      {
+        "name": "p",
+        "type": "Pno12",
+        "lines": [22, 22]
+      }
+    ],
+    "captures": [],
+    "kind": "method"
+  },
+  {
+    "source": "github.com/volvo-cars/cce-prins-validator/internal/domain#ParsePno12(string)->(Pno12,error)",
+    "implementation": "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/7e610ef3e3fc3a7c3e29",
+    "path": "internal/domain/pno12.go",
+    "lines": [26, 35],
+    "parameters": [
+      {
+        "name": "s",
+        "type": "string",
+        "lines": [26, 26]
+      }
+    ],
+    "returns": ["github.com/volvo-cars/cce-prins-validator/internal/domain.Pno12", "error"],
+    "receiver": [],
+    "captures": [],
+    "kind": "function"
+  },
+  {
+    "source": "github.com/volvo-cars/cce-prins-validator/internal/domain#pno12FromGroups(map[string]string)->(Pno12,error)",
+    "implementation": "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/83372068e1b8ba516af8",
+    "path": "internal/domain/pno12.go",
+    "lines": [37, 53],
+    "parameters": [
+      {
+        "name": "groups",
+        "type": "map[string]string",
+        "lines": [37, 37]
+      }
+    ],
+    "returns": ["github.com/volvo-cars/cce-prins-validator/internal/domain.Pno12", "error"],
+    "receiver": [],
+    "captures": [],
+    "kind": "function"
+  },
+  {
+    "source": "github.com/volvo-cars/cce-prins-validator/internal/domain#Pno12.validate()->(error)",
+    "implementation": "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/e505a6fc19fd65d97d49",
+    "path": "internal/domain/pno12.go",
+    "lines": [55, 79],
+    "parameters": [],
+    "returns": ["error"],
+    "receiver": [
+      {
+        "name": "p",
+        "type": "Pno12",
+        "lines": [55, 55]
+      }
+    ],
+    "captures": [],
+    "kind": "method"
+  },
+  {
+    "source": "github.com/volvo-cars/cce-prins-validator/internal/domain#GetSpecMarketFrom(string)->(string,error)",
+    "implementation": "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/0f21a8b89370de42b753",
+    "path": "internal/domain/policy.go",
+    "lines": [12, 23],
+    "parameters": [
+      {
+        "name": "specMarketPolicy",
+        "type": "string",
+        "lines": [12, 12]
+      }
+    ],
+    "returns": ["string", "error"],
+    "receiver": [],
+    "captures": [],
+    "kind": "function"
+  },
+  {
+    "source": "github.com/volvo-cars/cce-prins-validator/internal/domain#isVCCSpecMarketPolicy(string)->(bool)",
+    "implementation": "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/cdb9ab371df06438b3d4",
+    "path": "internal/domain/policy.go",
+    "lines": [25, 27],
+    "parameters": [
+      {
+        "name": "policyUid",
+        "type": "string",
+        "lines": [25, 25]
+      }
+    ],
+    "returns": ["bool"],
+    "receiver": [],
+    "captures": [],
+    "kind": "function"
+  },
+  {
+    "source": "github.com/volvo-cars/cce-prins-validator/internal/domain#isPolestarSpecMarketPolicy(string)->(bool)",
+    "implementation": "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/10d3bcebb9a03420d39c",
+    "path": "internal/domain/policy.go",
+    "lines": [29, 36],
+    "parameters": [
+      {
+        "name": "policyUid",
+        "type": "string",
+        "lines": [29, 29]
+      }
+    ],
+    "returns": ["bool"],
+    "receiver": [],
+    "captures": [],
+    "kind": "function"
+  },
+  {
+    "source": "github.com/volvo-cars/cce-prins-validator/internal/domain#isCorrectSpecMarketCodeFormat(string)->(bool)",
+    "implementation": "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/d78ea394963354150edd",
+    "path": "internal/domain/policy.go",
+    "lines": [38, 46],
+    "parameters": [
+      {
+        "name": "code",
+        "type": "string",
+        "lines": [38, 38]
+      }
+    ],
+    "returns": ["bool"],
+    "receiver": [],
+    "captures": [],
+    "kind": "function"
+  },
+  {
+    "source": "github.com/volvo-cars/cce-prins-validator/internal/domain#ParsePrinsPno(string)->(PrinsConfiguration,error)",
+    "implementation": "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/07e94d997b91aafd1dd4",
+    "path": "internal/domain/prins.go",
+    "lines": [16, 42],
+    "parameters": [
+      {
+        "name": "s",
+        "type": "string",
+        "lines": [16, 16]
+      }
+    ],
+    "returns": [
+      "github.com/volvo-cars/cce-prins-validator/internal/domain.PrinsConfiguration",
+      "error"
+    ],
+    "receiver": [],
+    "captures": [],
+    "kind": "function"
+  },
+  {
+    "source": "github.com/volvo-cars/cce-prins-validator/internal/domain#PrinsConfigurations.PrintCarConfigurationsNotAllowed([]CarConfiguration,ComponentsToVary)->(bool)",
+    "implementation": "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/de621ec552ce846e0731",
+    "path": "internal/domain/prins.go",
+    "lines": [46, 60],
+    "parameters": [
+      {
+        "name": "carConfigurations",
+        "type": "[]CarConfiguration",
+        "lines": [47, 47]
+      },
+      {
+        "name": "components",
+        "type": "ComponentsToVary",
+        "lines": [48, 48]
+      }
+    ],
+    "returns": ["bool"],
+    "receiver": [
+      {
+        "name": "pcs",
+        "type": "PrinsConfigurations",
+        "lines": [46, 46]
+      }
+    ],
+    "captures": [],
+    "kind": "method"
+  },
+  {
+    "source": "github.com/volvo-cars/cce-prins-validator/internal/domain#PrinsConfiguration.existsIn([]CarConfiguration,ComponentsToVary)->(bool)",
+    "implementation": "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/1b041b2642a6e7a9734f",
+    "path": "internal/domain/prins.go",
+    "lines": [62, 73],
+    "parameters": [
+      {
+        "name": "carConfigurations",
+        "type": "[]CarConfiguration",
+        "lines": [63, 63]
+      },
+      {
+        "name": "components",
+        "type": "ComponentsToVary",
+        "lines": [64, 64]
+      }
+    ],
+    "returns": ["bool"],
+    "receiver": [
+      {
+        "name": "pc",
+        "type": "PrinsConfiguration",
+        "lines": [62, 62]
+      }
+    ],
+    "captures": [],
+    "kind": "method"
+  },
+  {
+    "source": "github.com/volvo-cars/cce-prins-validator/internal/domain#PrinsConfigurations.AllowsCarConfiguration(CarConfiguration,ComponentsToVary)->(bool)",
+    "implementation": "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/65423214d930a2aabb2e",
+    "path": "internal/domain/prins.go",
+    "lines": [75, 86],
+    "parameters": [
+      {
+        "name": "carConfiguration",
+        "type": "CarConfiguration",
+        "lines": [76, 76]
+      },
+      {
+        "name": "components",
+        "type": "ComponentsToVary",
+        "lines": [77, 77]
+      }
+    ],
+    "returns": ["bool"],
+    "receiver": [
+      {
+        "name": "pcs",
+        "type": "PrinsConfigurations",
+        "lines": [75, 75]
+      }
+    ],
+    "captures": [],
+    "kind": "method"
+  },
+  {
+    "source": "github.com/volvo-cars/cce-prins-validator/internal/domain#PrinsConfiguration.Matches(CarConfiguration,ComponentsToVary)->(bool)",
+    "implementation": "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/adf7c7c3f8660ea36a09",
+    "path": "internal/domain/prins.go",
+    "lines": [88, 106],
+    "parameters": [
+      {
+        "name": "carConfiguration",
+        "type": "CarConfiguration",
+        "lines": [88, 88]
+      },
+      {
+        "name": "components",
+        "type": "ComponentsToVary",
+        "lines": [88, 88]
+      }
+    ],
+    "returns": ["bool"],
+    "receiver": [
+      {
+        "name": "pc",
+        "type": "PrinsConfiguration",
+        "lines": [88, 88]
+      }
+    ],
+    "captures": [],
+    "kind": "method"
+  },
+  {
+    "source": "github.com/volvo-cars/cce-prins-validator/internal/domain#PrinsConfiguration.validateWheelAndOptions(CarConfiguration,ComponentsToVary)->(bool)",
+    "implementation": "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/6e5dc961f7be33a899e7",
+    "path": "internal/domain/prins.go",
+    "lines": [108, 131],
+    "parameters": [
+      {
+        "name": "carConfiguration",
+        "type": "CarConfiguration",
+        "lines": [108, 108]
+      },
+      {
+        "name": "components",
+        "type": "ComponentsToVary",
+        "lines": [108, 108]
+      }
+    ],
+    "returns": ["bool"],
+    "receiver": [
+      {
+        "name": "pc",
+        "type": "PrinsConfiguration",
+        "lines": [108, 108]
+      }
+    ],
+    "captures": [],
+    "kind": "method"
+  },
+  {
+    "source": "github.com/volvo-cars/cce-prins-validator/internal/domain#intersection([]string,[]string)->([]string)",
+    "implementation": "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/eff8f2d29016ecaca78d",
+    "path": "internal/domain/prins.go",
+    "lines": [133, 143],
+    "parameters": [
+      {
+        "name": "a",
+        "type": "[]string",
+        "lines": [133, 133]
+      },
+      {
+        "name": "b",
+        "type": "[]string",
+        "lines": [133, 133]
+      }
+    ],
+    "returns": ["[]string"],
+    "receiver": [],
+    "captures": [],
+    "kind": "function"
+  },
+  {
+    "source": "github.com/volvo-cars/cce-prins-validator/internal/gateway#RoundTripperFunc.RoundTrip(*http.Request)->(*http.Response,error)",
+    "implementation": "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/e8154550334b80e127e3",
+    "path": "internal/gateway/client.go",
+    "lines": [12, 14],
+    "parameters": [
+      {
+        "name": "req",
+        "type": "*http.Request",
+        "lines": [12, 12]
+      }
+    ],
+    "returns": ["*net/http.Response", "error"],
+    "receiver": [
+      {
+        "name": "f",
+        "type": "RoundTripperFunc",
+        "lines": [12, 12]
+      }
+    ],
+    "captures": [],
+    "kind": "method"
+  },
+  {
+    "source": "github.com/volvo-cars/cce-prins-validator/internal/gateway#WithRoundTripper(Tripperware)->(func(*HTTPClient))",
+    "implementation": "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/b6ae9f4731b0c0f4da79",
+    "path": "internal/gateway/client.go",
+    "lines": [30, 34],
+    "parameters": [
+      {
+        "name": "t",
+        "type": "Tripperware",
+        "lines": [30, 30]
+      }
+    ],
+    "returns": ["func(*HTTPClient)"],
+    "receiver": [],
+    "captures": [],
+    "kind": "function"
+  },
+  {
+    "source": "github.com/volvo-cars/cce-prins-validator/internal/gateway#WithRoundTripper(Tripperware)->(func(*HTTPClient))$closure@962",
+    "implementation": "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/f7d06a5b6657a6350fd7",
+    "path": "internal/gateway/client.go",
+    "lines": [31, 33],
+    "parameters": [
+      {
+        "name": "c",
+        "type": "*HTTPClient",
+        "lines": [31, 31]
+      }
+    ],
+    "returns": [],
+    "receiver": [],
+    "captures": [
+      {
+        "name": "t",
+        "type": "github.com/volvo-cars/cce-prins-validator/internal/gateway.Tripperware",
+        "actual": "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/b6ae9f4731b0c0f4da79/parameter/0",
+        "capture": "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/f7d06a5b6657a6350fd7/capture/t",
+        "mode": "reference"
+      }
+    ],
+    "kind": "closure"
+  },
+  {
+    "source": "github.com/volvo-cars/cce-prins-validator/internal/gateway#WithClient(*http.Client)->(func(*HTTPClient))",
+    "implementation": "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/da147532f43596e09198",
+    "path": "internal/gateway/client.go",
+    "lines": [37, 46],
+    "parameters": [
+      {
+        "name": "client",
+        "type": "*http.Client",
+        "lines": [37, 37]
+      }
+    ],
+    "returns": ["func(*HTTPClient)"],
+    "receiver": [],
+    "captures": [],
+    "kind": "function"
+  },
+  {
+    "source": "github.com/volvo-cars/cce-prins-validator/internal/gateway#WithClient(*http.Client)->(func(*HTTPClient))$closure@1144",
+    "implementation": "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/ac2a39b771c9f6d03990",
+    "path": "internal/gateway/client.go",
+    "lines": [38, 45],
+    "parameters": [
+      {
+        "name": "c",
+        "type": "*HTTPClient",
+        "lines": [38, 38]
+      }
+    ],
+    "returns": [],
+    "receiver": [],
+    "captures": [
+      {
+        "name": "client",
+        "type": "*net/http.Client",
+        "actual": "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/da147532f43596e09198/parameter/0",
+        "capture": "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/ac2a39b771c9f6d03990/capture/client",
+        "mode": "reference"
+      }
+    ],
+    "kind": "closure"
+  },
+  {
+    "source": "github.com/volvo-cars/cce-prins-validator/internal/gateway#NewHTTPClient(...Option)->(*HTTPClient)",
+    "implementation": "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/a5053c573d12cf93c453",
+    "path": "internal/gateway/client.go",
+    "lines": [50, 64],
+    "parameters": [
+      {
+        "name": "options",
+        "type": "...Option",
+        "lines": [50, 50]
+      }
+    ],
+    "returns": ["*github.com/volvo-cars/cce-prins-validator/internal/gateway.HTTPClient"],
+    "receiver": [],
+    "captures": [],
+    "kind": "function"
+  },
+  {
+    "source": "github.com/volvo-cars/cce-prins-validator/internal/gateway#HTTPClient.StandardClient()->(*http.Client)",
+    "implementation": "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/9d7f0078afaa7e04926a",
+    "path": "internal/gateway/client.go",
+    "lines": [67, 69],
+    "parameters": [],
+    "returns": ["*net/http.Client"],
+    "receiver": [
+      {
+        "name": "c",
+        "type": "*HTTPClient",
+        "lines": [67, 67]
+      }
+    ],
+    "captures": [],
+    "kind": "method"
+  },
+  {
+    "source": "github.com/volvo-cars/cce-prins-validator/internal/gateway#HTTPClient.addRoundTrippers()->()",
+    "implementation": "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/b20d820ec9cab501c00e",
+    "path": "internal/gateway/client.go",
+    "lines": [72, 74],
+    "parameters": [],
+    "returns": [],
+    "receiver": [
+      {
+        "name": "c",
+        "type": "*HTTPClient",
+        "lines": [72, 72]
+      }
+    ],
+    "captures": [],
+    "kind": "method"
+  },
+  {
+    "source": "github.com/volvo-cars/cce-prins-validator/internal/gateway#addInReverseOrder(http.RoundTripper,[]Tripperware)->(http.RoundTripper)",
+    "implementation": "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/bd13673936503b29e5d1",
+    "path": "internal/gateway/client.go",
+    "lines": [76, 88],
+    "parameters": [
+      {
+        "name": "innerRoundTripper",
+        "type": "http.RoundTripper",
+        "lines": [76, 76]
+      },
+      {
+        "name": "customRoundTrippers",
+        "type": "[]Tripperware",
+        "lines": [76, 76]
+      }
+    ],
+    "returns": ["net/http.RoundTripper"],
+    "receiver": [],
+    "captures": [],
+    "kind": "function"
+  },
+  {
+    "source": "github.com/volvo-cars/cce-prins-validator/internal/gateway#HTTPClient.Do(*http.Request)->(*http.Response,error)",
+    "implementation": "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/26fb1ffd8e365b46b764",
+    "path": "internal/gateway/client.go",
+    "lines": [91, 93],
+    "parameters": [
+      {
+        "name": "req",
+        "type": "*http.Request",
+        "lines": [91, 91]
+      }
+    ],
+    "returns": ["*net/http.Response", "error"],
+    "receiver": [
+      {
+        "name": "c",
+        "type": "*HTTPClient",
+        "lines": [91, 91]
+      }
+    ],
+    "captures": [],
+    "kind": "method"
+  },
+  {
+    "source": "github.com/volvo-cars/cce-prins-validator/internal/gateway/filterservice#NewConfig(string)->(Config)",
+    "implementation": "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/4d6928f296480d819a06",
+    "path": "internal/gateway/filterservice/client.go",
+    "lines": [17, 21],
+    "parameters": [
+      {
+        "name": "baseURL",
+        "type": "string",
+        "lines": [17, 17]
+      }
+    ],
+    "returns": ["github.com/volvo-cars/cce-prins-validator/internal/gateway/filterservice.Config"],
+    "receiver": [],
+    "captures": [],
+    "kind": "function"
+  },
+  {
+    "source": "github.com/volvo-cars/cce-prins-validator/internal/gateway/filterservice#NewClient(Config,*http.Client)->(*Client,error)",
+    "implementation": "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/a712b6c4163ef902e7a8",
+    "path": "internal/gateway/filterservice/client.go",
+    "lines": [28, 33],
+    "parameters": [
+      {
+        "name": "cfg",
+        "type": "Config",
+        "lines": [28, 28]
+      },
+      {
+        "name": "client",
+        "type": "*http.Client",
+        "lines": [28, 28]
+      }
+    ],
+    "returns": [
+      "*github.com/volvo-cars/cce-prins-validator/internal/gateway/filterservice.Client",
+      "error"
+    ],
+    "receiver": [],
+    "captures": [],
+    "kind": "function"
+  },
+  {
+    "source": "github.com/volvo-cars/cce-prins-validator/internal/gateway/filterservice#Client.GetWheelComponents(context.Context)->([]string,error)",
+    "implementation": "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/0ff52a730f799e287a3c",
+    "path": "internal/gateway/filterservice/client.go",
+    "lines": [35, 54],
+    "parameters": [
+      {
+        "name": "ctx",
+        "type": "context.Context",
+        "lines": [35, 35]
+      }
+    ],
+    "returns": ["[]string", "error"],
+    "receiver": [
+      {
+        "name": "c",
+        "type": "*Client",
+        "lines": [35, 35]
+      }
+    ],
+    "captures": [],
+    "kind": "method"
+  },
+  {
+    "source": "github.com/volvo-cars/cce-prins-validator/internal/gateway/filterservice#Client.doRequest(*http.Request,interface{})->(error)",
+    "implementation": "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/5f22f1ca921b977abfe0",
+    "path": "internal/gateway/filterservice/client.go",
+    "lines": [56, 73],
+    "parameters": [
+      {
+        "name": "req",
+        "type": "*http.Request",
+        "lines": [56, 56]
+      },
+      {
+        "name": "response",
+        "type": "interface{}",
+        "lines": [56, 56]
+      }
+    ],
+    "returns": ["error"],
+    "receiver": [
+      {
+        "name": "c",
+        "type": "*Client",
+        "lines": [56, 56]
+      }
+    ],
+    "captures": [],
+    "kind": "method"
+  },
+  {
+    "source": "github.com/volvo-cars/cce-prins-validator/internal/gateway/optimizationfacade#NewConfig(string)->(Config)",
+    "implementation": "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/ef5a2d9d957414a69cff",
+    "path": "internal/gateway/optimizationfacade/client.go",
+    "lines": [18, 22],
+    "parameters": [
+      {
+        "name": "baseURL",
+        "type": "string",
+        "lines": [18, 18]
+      }
+    ],
+    "returns": [
+      "github.com/volvo-cars/cce-prins-validator/internal/gateway/optimizationfacade.Config"
+    ],
+    "receiver": [],
+    "captures": [],
+    "kind": "function"
+  },
+  {
+    "source": "github.com/volvo-cars/cce-prins-validator/internal/gateway/optimizationfacade#NewClient(Config,*http.Client)->(*Client)",
+    "implementation": "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/05580af2163f55257dc9",
+    "path": "internal/gateway/optimizationfacade/client.go",
+    "lines": [29, 34],
+    "parameters": [
+      {
+        "name": "cfg",
+        "type": "Config",
+        "lines": [29, 29]
+      },
+      {
+        "name": "client",
+        "type": "*http.Client",
+        "lines": [29, 29]
+      }
+    ],
+    "returns": [
+      "*github.com/volvo-cars/cce-prins-validator/internal/gateway/optimizationfacade.Client"
+    ],
+    "receiver": [],
+    "captures": [],
+    "kind": "function"
+  },
+  {
+    "source": "github.com/volvo-cars/cce-prins-validator/internal/gateway/optimizationfacade#Client.GenerateCombinations(context.Context,CombinationsRequestPayload,string)->(GenerateConfigurationsResponse,error)",
+    "implementation": "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/78cc5ff8d463649c0367",
+    "path": "internal/gateway/optimizationfacade/client.go",
+    "lines": [36, 68],
+    "parameters": [
+      {
+        "name": "ctx",
+        "type": "context.Context",
+        "lines": [36, 36]
+      },
+      {
+        "name": "payload",
+        "type": "CombinationsRequestPayload",
+        "lines": [36, 36]
+      },
+      {
+        "name": "policyID",
+        "type": "string",
+        "lines": [36, 36]
+      }
+    ],
+    "returns": [
+      "github.com/volvo-cars/cce-prins-validator/internal/gateway/optimizationfacade.GenerateConfigurationsResponse",
+      "error"
+    ],
+    "receiver": [
+      {
+        "name": "c",
+        "type": "*Client",
+        "lines": [36, 36]
+      }
+    ],
+    "captures": [],
+    "kind": "method"
+  },
+  {
+    "source": "github.com/volvo-cars/cce-prins-validator/internal/gateway/optimizationfacade#Client.GetStartStates(context.Context,string)->(StartStatesResponse,error)",
+    "implementation": "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/6831e984490d0f03ed0d",
+    "path": "internal/gateway/optimizationfacade/client.go",
+    "lines": [70, 89],
+    "parameters": [
+      {
+        "name": "ctx",
+        "type": "context.Context",
+        "lines": [70, 70]
+      },
+      {
+        "name": "policy",
+        "type": "string",
+        "lines": [70, 70]
+      }
+    ],
+    "returns": [
+      "github.com/volvo-cars/cce-prins-validator/internal/gateway/optimizationfacade.StartStatesResponse",
+      "error"
+    ],
+    "receiver": [
+      {
+        "name": "c",
+        "type": "*Client",
+        "lines": [70, 70]
+      }
+    ],
+    "captures": [],
+    "kind": "method"
+  },
+  {
+    "source": "github.com/volvo-cars/cce-prins-validator/internal/gateway/optimizationfacade#Client.GetComponents(context.Context,string,string)->(ComponentsResponse,error)",
+    "implementation": "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/2161c01cb55d7d5fdef4",
+    "path": "internal/gateway/optimizationfacade/client.go",
+    "lines": [91, 112],
+    "parameters": [
+      {
+        "name": "ctx",
+        "type": "context.Context",
+        "lines": [91, 91]
+      },
+      {
+        "name": "policy",
+        "type": "string",
+        "lines": [91, 91]
+      },
+      {
+        "name": "pno12Long",
+        "type": "string",
+        "lines": [91, 91]
+      }
+    ],
+    "returns": [
+      "github.com/volvo-cars/cce-prins-validator/internal/gateway/optimizationfacade.ComponentsResponse",
+      "error"
+    ],
+    "receiver": [
+      {
+        "name": "c",
+        "type": "*Client",
+        "lines": [91, 91]
+      }
+    ],
+    "captures": [],
+    "kind": "method"
+  },
+  {
+    "source": "github.com/volvo-cars/cce-prins-validator/internal/gateway/optimizationfacade#Client.PostStateFromConfig(context.Context,StateFromConfigPayload)->(State,error)",
+    "implementation": "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/0a0a1cc33b01d1b97875",
+    "path": "internal/gateway/optimizationfacade/client.go",
+    "lines": [114, 140],
+    "parameters": [
+      {
+        "name": "ctx",
+        "type": "context.Context",
+        "lines": [114, 114]
+      },
+      {
+        "name": "payload",
+        "type": "StateFromConfigPayload",
+        "lines": [114, 114]
+      }
+    ],
+    "returns": [
+      "github.com/volvo-cars/cce-prins-validator/internal/gateway/optimizationfacade.State",
+      "error"
+    ],
+    "receiver": [
+      {
+        "name": "c",
+        "type": "*Client",
+        "lines": [114, 114]
+      }
+    ],
+    "captures": [],
+    "kind": "method"
+  },
+  {
+    "source": "github.com/volvo-cars/cce-prins-validator/internal/gateway/optimizationfacade#Client.doRequest(*http.Request,interface{})->(error)",
+    "implementation": "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/e6c27cb1a9d75717c327",
+    "path": "internal/gateway/optimizationfacade/client.go",
+    "lines": [142, 159],
+    "parameters": [
+      {
+        "name": "req",
+        "type": "*http.Request",
+        "lines": [142, 142]
+      },
+      {
+        "name": "response",
+        "type": "interface{}",
+        "lines": [142, 142]
+      }
+    ],
+    "returns": ["error"],
+    "receiver": [
+      {
+        "name": "c",
+        "type": "*Client",
+        "lines": [142, 142]
+      }
+    ],
+    "captures": [],
+    "kind": "method"
+  },
+  {
+    "source": "github.com/volvo-cars/cce-prins-validator/internal/gateway/optimizationfacade#NewComponentProvider(*Client)->(*ComponentProvider)",
+    "implementation": "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/88fee5d8e2adc2b3fea0",
+    "path": "internal/gateway/optimizationfacade/componentprovider.go",
+    "lines": [15, 19],
+    "parameters": [
+      {
+        "name": "client",
+        "type": "*Client",
+        "lines": [15, 15]
+      }
+    ],
+    "returns": [
+      "*github.com/volvo-cars/cce-prins-validator/internal/gateway/optimizationfacade.ComponentProvider"
+    ],
+    "receiver": [],
+    "captures": [],
+    "kind": "function"
+  },
+  {
+    "source": "github.com/volvo-cars/cce-prins-validator/internal/gateway/optimizationfacade#ComponentProvider.GetStandardWheelCode(context.Context,string,string,int,domain.Pno12)->(string,error)",
+    "implementation": "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/58000c6b15ea921e2ab8",
+    "path": "internal/gateway/optimizationfacade/componentprovider.go",
+    "lines": [21, 52],
+    "parameters": [
+      {
+        "name": "ctx",
+        "type": "context.Context",
+        "lines": [22, 22]
+      },
+      {
+        "name": "policy",
+        "type": "string",
+        "lines": [23, 23]
+      },
+      {
+        "name": "specMarket",
+        "type": "string",
+        "lines": [24, 24]
+      },
+      {
+        "name": "modelYear",
+        "type": "int",
+        "lines": [25, 25]
+      },
+      {
+        "name": "pno12",
+        "type": "domain.Pno12",
+        "lines": [26, 26]
+      }
+    ],
+    "returns": ["string", "error"],
+    "receiver": [
+      {
+        "name": "cp",
+        "type": "*ComponentProvider",
+        "lines": [21, 21]
+      }
+    ],
+    "captures": [],
+    "kind": "method"
+  },
+  {
+    "source": "github.com/volvo-cars/cce-prins-validator/internal/gateway/optimizationfacade#NewConfigurationGenerator(*Client)->(*ConfigurationGenerator)",
+    "implementation": "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/5381554bfd3aeb6ee5f8",
+    "path": "internal/gateway/optimizationfacade/configurationgenerator.go",
+    "lines": [14, 18],
+    "parameters": [
+      {
+        "name": "client",
+        "type": "*Client",
+        "lines": [14, 14]
+      }
+    ],
+    "returns": [
+      "*github.com/volvo-cars/cce-prins-validator/internal/gateway/optimizationfacade.ConfigurationGenerator"
+    ],
+    "receiver": [],
+    "captures": [],
+    "kind": "function"
+  },
+  {
+    "source": "github.com/volvo-cars/cce-prins-validator/internal/gateway/optimizationfacade#ConfigurationGenerator.GenerateConfigurations(context.Context,string,string,int,int,domain.ComponentsToVary,[]string)->([]domain.CarConfiguration,error)",
+    "implementation": "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/25b46d9d51a57a9b02ec",
+    "path": "internal/gateway/optimizationfacade/configurationgenerator.go",
+    "lines": [20, 74],
+    "parameters": [
+      {
+        "name": "ctx",
+        "type": "context.Context",
+        "lines": [21, 21]
+      },
+      {
+        "name": "specMarket",
+        "type": "string",
+        "lines": [22, 22]
+      },
+      {
+        "name": "policyID",
+        "type": "string",
+        "lines": [23, 23]
+      },
+      {
+        "name": "modelYear",
+        "type": "int",
+        "lines": [24, 24]
+      },
+      {
+        "name": "productionWeek",
+        "type": "int",
+        "lines": [25, 25]
+      },
+      {
+        "name": "componentsToVary",
+        "type": "domain.ComponentsToVary",
+        "lines": [26, 26]
+      },
+      {
+        "name": "wheelCodes",
+        "type": "[]string",
+        "lines": [27, 27]
+      }
+    ],
+    "returns": [
+      "[]github.com/volvo-cars/cce-prins-validator/internal/domain.CarConfiguration",
+      "error"
+    ],
+    "receiver": [
+      {
+        "name": "cg",
+        "type": "*ConfigurationGenerator",
+        "lines": [20, 20]
+      }
+    ],
+    "captures": [],
+    "kind": "method"
+  },
+  {
+    "source": "github.com/volvo-cars/cce-prins-validator/internal/gateway/optimizationfacade#ConfigurationGenerator.GenerateFromPrinsConfiguration(context.Context,string,string,int,int,[]string,domain.PrinsConfiguration)->(domain.CarConfiguration,error)",
+    "implementation": "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/a0e478d4a5be8a871bc4",
+    "path": "internal/gateway/optimizationfacade/configurationgenerator.go",
+    "lines": [76, 104],
+    "parameters": [
+      {
+        "name": "ctx",
+        "type": "context.Context",
+        "lines": [77, 77]
+      },
+      {
+        "name": "specMarket",
+        "type": "string",
+        "lines": [78, 78]
+      },
+      {
+        "name": "policyID",
+        "type": "string",
+        "lines": [79, 79]
+      },
+      {
+        "name": "modelYear",
+        "type": "int",
+        "lines": [80, 80]
+      },
+      {
+        "name": "productionWeek",
+        "type": "int",
+        "lines": [81, 81]
+      },
+      {
+        "name": "wheelCodes",
+        "type": "[]string",
+        "lines": [82, 82]
+      },
+      {
+        "name": "prinsConfiguration",
+        "type": "domain.PrinsConfiguration",
+        "lines": [83, 83]
+      }
+    ],
+    "returns": [
+      "github.com/volvo-cars/cce-prins-validator/internal/domain.CarConfiguration",
+      "error"
+    ],
+    "receiver": [
+      {
+        "name": "cg",
+        "type": "*ConfigurationGenerator",
+        "lines": [76, 76]
+      }
+    ],
+    "captures": [],
+    "kind": "method"
+  },
+  {
+    "source": "github.com/volvo-cars/cce-prins-validator/internal/gateway/optimizationfacade#toPno34(domain.Pno12,CarConfiguration)->(domain.Pno34)",
+    "implementation": "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/36d7e033215e5cfec2d4",
+    "path": "internal/gateway/optimizationfacade/configurationgenerator.go",
+    "lines": [106, 114],
+    "parameters": [
+      {
+        "name": "pno12",
+        "type": "domain.Pno12",
+        "lines": [106, 106]
+      },
+      {
+        "name": "configuration",
+        "type": "CarConfiguration",
+        "lines": [106, 106]
+      }
+    ],
+    "returns": ["github.com/volvo-cars/cce-prins-validator/internal/domain.Pno34"],
+    "receiver": [],
+    "captures": [],
+    "kind": "function"
+  },
+  {
+    "source": "github.com/volvo-cars/cce-prins-validator/internal/gateway/optimizationfacade#toComponents(domain.PrinsConfiguration)->([]Component)",
+    "implementation": "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/205675efee406025e148",
+    "path": "internal/gateway/optimizationfacade/configurationgenerator.go",
+    "lines": [116, 137],
+    "parameters": [
+      {
+        "name": "prinsConfiguration",
+        "type": "domain.PrinsConfiguration",
+        "lines": [116, 116]
+      }
+    ],
+    "returns": [
+      "[]github.com/volvo-cars/cce-prins-validator/internal/gateway/optimizationfacade.Component"
+    ],
+    "receiver": [],
+    "captures": [],
+    "kind": "function"
+  },
+  {
+    "source": "github.com/volvo-cars/cce-prins-validator/internal/gateway/optimizationfacade#NewStartConfigurationProvider(*Client)->(*StartConfigurationProvider)",
+    "implementation": "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/ff8db9652860e529f6dd",
+    "path": "internal/gateway/optimizationfacade/startconfigurationprovider.go",
+    "lines": [13, 17],
+    "parameters": [
+      {
+        "name": "client",
+        "type": "*Client",
+        "lines": [13, 13]
+      }
+    ],
+    "returns": [
+      "*github.com/volvo-cars/cce-prins-validator/internal/gateway/optimizationfacade.StartConfigurationProvider"
+    ],
+    "receiver": [],
+    "captures": [],
+    "kind": "function"
+  },
+  {
+    "source": "github.com/volvo-cars/cce-prins-validator/internal/gateway/optimizationfacade#StartConfigurationProvider.GetStartConfigurations(context.Context,string,[]string)->([]domain.CarConfiguration,error)",
+    "implementation": "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/f40c9528c895312cf77d",
+    "path": "internal/gateway/optimizationfacade/startconfigurationprovider.go",
+    "lines": [19, 36],
+    "parameters": [
+      {
+        "name": "ctx",
+        "type": "context.Context",
+        "lines": [19, 19]
+      },
+      {
+        "name": "policy",
+        "type": "string",
+        "lines": [19, 19]
+      },
+      {
+        "name": "wheelCodes",
+        "type": "[]string",
+        "lines": [19, 19]
+      }
+    ],
+    "returns": [
+      "[]github.com/volvo-cars/cce-prins-validator/internal/domain.CarConfiguration",
+      "error"
+    ],
+    "receiver": [
+      {
+        "name": "scp",
+        "type": "*StartConfigurationProvider",
+        "lines": [19, 19]
+      }
+    ],
+    "captures": [],
+    "kind": "method"
+  },
+  {
+    "source": "github.com/volvo-cars/cce-prins-validator/internal/gateway/prins#NewConfig(string)->(Config)",
+    "implementation": "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/95b7ee3acb2fc243f205",
+    "path": "internal/gateway/prins/client.go",
+    "lines": [14, 18],
+    "parameters": [
+      {
+        "name": "authHeaderValue",
+        "type": "string",
+        "lines": [14, 14]
+      }
+    ],
+    "returns": ["github.com/volvo-cars/cce-prins-validator/internal/gateway/prins.Config"],
+    "receiver": [],
+    "captures": [],
+    "kind": "function"
+  },
+  {
+    "source": "github.com/volvo-cars/cce-prins-validator/internal/gateway/prins#NewClient(MachineboxClient,Config)->(*Client)",
+    "implementation": "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/cd2afd94ac802c27b434",
+    "path": "internal/gateway/prins/client.go",
+    "lines": [29, 34],
+    "parameters": [
+      {
+        "name": "client",
+        "type": "MachineboxClient",
+        "lines": [29, 29]
+      },
+      {
+        "name": "config",
+        "type": "Config",
+        "lines": [29, 29]
+      }
+    ],
+    "returns": ["*github.com/volvo-cars/cce-prins-validator/internal/gateway/prins.Client"],
+    "receiver": [],
+    "captures": [],
+    "kind": "function"
+  },
+  {
+    "source": "github.com/volvo-cars/cce-prins-validator/internal/gateway/prins#Client.GetStoredCpvSets(context.Context,string,string,int)->(PrinsQueryResponse,error)",
+    "implementation": "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/db72d5bdd659ded7fb82",
+    "path": "internal/gateway/prins/client.go",
+    "lines": [36, 67],
+    "parameters": [
+      {
+        "name": "ctx",
+        "type": "context.Context",
+        "lines": [36, 36]
+      },
+      {
+        "name": "dictCode",
+        "type": "string",
+        "lines": [36, 36]
+      },
+      {
+        "name": "specMarket",
+        "type": "string",
+        "lines": [36, 36]
+      },
+      {
+        "name": "modelYear",
+        "type": "int",
+        "lines": [36, 36]
+      }
+    ],
+    "returns": [
+      "github.com/volvo-cars/cce-prins-validator/internal/gateway/prins.PrinsQueryResponse",
+      "error"
+    ],
+    "receiver": [
+      {
+        "name": "c",
+        "type": "*Client",
+        "lines": [36, 36]
+      }
+    ],
+    "captures": [],
+    "kind": "method"
+  },
+  {
+    "source": "github.com/volvo-cars/cce-prins-validator/internal/gateway/prins#NewConfigurationFetcher(*Client)->(*ConfigurationFetcher)",
+    "implementation": "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/748e229a553603f48e56",
+    "path": "internal/gateway/prins/configurationfetcher.go",
+    "lines": [14, 18],
+    "parameters": [
+      {
+        "name": "client",
+        "type": "*Client",
+        "lines": [14, 14]
+      }
+    ],
+    "returns": [
+      "*github.com/volvo-cars/cce-prins-validator/internal/gateway/prins.ConfigurationFetcher"
+    ],
+    "receiver": [],
+    "captures": [],
+    "kind": "function"
+  },
+  {
+    "source": "github.com/volvo-cars/cce-prins-validator/internal/gateway/prins#ConfigurationFetcher.GetConfigurations(context.Context,string,string,int)->(domain.PrinsConfigurations,error)",
+    "implementation": "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/ff81e4d7837356b6fff2",
+    "path": "internal/gateway/prins/configurationfetcher.go",
+    "lines": [26, 51],
+    "parameters": [
+      {
+        "name": "ctx",
+        "type": "context.Context",
+        "lines": [26, 26]
+      },
+      {
+        "name": "carType",
+        "type": "string",
+        "lines": [26, 26]
+      },
+      {
+        "name": "specMarket",
+        "type": "string",
+        "lines": [26, 26]
+      },
+      {
+        "name": "modelYear",
+        "type": "int",
+        "lines": [26, 26]
+      }
+    ],
+    "returns": [
+      "github.com/volvo-cars/cce-prins-validator/internal/domain.PrinsConfigurations",
+      "error"
+    ],
+    "receiver": [
+      {
+        "name": "cf",
+        "type": "*ConfigurationFetcher",
+        "lines": [26, 26]
+      }
+    ],
+    "captures": [],
+    "kind": "method"
+  },
+  {
+    "source": "github.com/volvo-cars/cce-prins-validator/internal/gateway#NewRequestBuilder()->(RequestBuilder)",
+    "implementation": "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/1f506b078124b0e42552",
+    "path": "internal/gateway/requestBuilder.go",
+    "lines": [19, 25],
+    "parameters": [],
+    "returns": ["github.com/volvo-cars/cce-prins-validator/internal/gateway.RequestBuilder"],
+    "receiver": [],
+    "captures": [],
+    "kind": "function"
+  },
+  {
+    "source": "github.com/volvo-cars/cce-prins-validator/internal/gateway#RequestBuilder.WithMethod(string)->(RequestBuilder)",
+    "implementation": "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/24adac4bd71312db632a",
+    "path": "internal/gateway/requestBuilder.go",
+    "lines": [27, 30],
+    "parameters": [
+      {
+        "name": "method",
+        "type": "string",
+        "lines": [27, 27]
+      }
+    ],
+    "returns": ["github.com/volvo-cars/cce-prins-validator/internal/gateway.RequestBuilder"],
+    "receiver": [
+      {
+        "name": "hrb",
+        "type": "RequestBuilder",
+        "lines": [27, 27]
+      }
+    ],
+    "captures": [],
+    "kind": "method"
+  },
+  {
+    "source": "github.com/volvo-cars/cce-prins-validator/internal/gateway#RequestBuilder.WithContext(context.Context)->(RequestBuilder)",
+    "implementation": "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/a218432a0f1381276a83",
+    "path": "internal/gateway/requestBuilder.go",
+    "lines": [32, 35],
+    "parameters": [
+      {
+        "name": "ctx",
+        "type": "context.Context",
+        "lines": [32, 32]
+      }
+    ],
+    "returns": ["github.com/volvo-cars/cce-prins-validator/internal/gateway.RequestBuilder"],
+    "receiver": [
+      {
+        "name": "hrb",
+        "type": "RequestBuilder",
+        "lines": [32, 32]
+      }
+    ],
+    "captures": [],
+    "kind": "method"
+  },
+  {
+    "source": "github.com/volvo-cars/cce-prins-validator/internal/gateway#RequestBuilder.WithEndpoint(string)->(RequestBuilder)",
+    "implementation": "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/62d72eee0598c0d65748",
+    "path": "internal/gateway/requestBuilder.go",
+    "lines": [37, 40],
+    "parameters": [
+      {
+        "name": "endpoint",
+        "type": "string",
+        "lines": [37, 37]
+      }
+    ],
+    "returns": ["github.com/volvo-cars/cce-prins-validator/internal/gateway.RequestBuilder"],
+    "receiver": [
+      {
+        "name": "hrb",
+        "type": "RequestBuilder",
+        "lines": [37, 37]
+      }
+    ],
+    "captures": [],
+    "kind": "method"
+  },
+  {
+    "source": "github.com/volvo-cars/cce-prins-validator/internal/gateway#RequestBuilder.WithHeader(string,string)->(RequestBuilder)",
+    "implementation": "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/e6f4af649965107b606e",
+    "path": "internal/gateway/requestBuilder.go",
+    "lines": [42, 45],
+    "parameters": [
+      {
+        "name": "key",
+        "type": "string",
+        "lines": [42, 42]
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "lines": [42, 42]
+      }
+    ],
+    "returns": ["github.com/volvo-cars/cce-prins-validator/internal/gateway.RequestBuilder"],
+    "receiver": [
+      {
+        "name": "hrb",
+        "type": "RequestBuilder",
+        "lines": [42, 42]
+      }
+    ],
+    "captures": [],
+    "kind": "method"
+  },
+  {
+    "source": "github.com/volvo-cars/cce-prins-validator/internal/gateway#RequestBuilder.WithBody(io.Reader)->(RequestBuilder)",
+    "implementation": "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/11fe023b23a8c8af4b2e",
+    "path": "internal/gateway/requestBuilder.go",
+    "lines": [47, 50],
+    "parameters": [
+      {
+        "name": "body",
+        "type": "io.Reader",
+        "lines": [47, 47]
+      }
+    ],
+    "returns": ["github.com/volvo-cars/cce-prins-validator/internal/gateway.RequestBuilder"],
+    "receiver": [
+      {
+        "name": "hrb",
+        "type": "RequestBuilder",
+        "lines": [47, 47]
+      }
+    ],
+    "captures": [],
+    "kind": "method"
+  },
+  {
+    "source": "github.com/volvo-cars/cce-prins-validator/internal/gateway#RequestBuilder.WithQueryParam(string,string)->(RequestBuilder)",
+    "implementation": "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/de05bef261f2ff230ffa",
+    "path": "internal/gateway/requestBuilder.go",
+    "lines": [52, 55],
+    "parameters": [
+      {
+        "name": "key",
+        "type": "string",
+        "lines": [52, 52]
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "lines": [52, 52]
+      }
+    ],
+    "returns": ["github.com/volvo-cars/cce-prins-validator/internal/gateway.RequestBuilder"],
+    "receiver": [
+      {
+        "name": "hrb",
+        "type": "RequestBuilder",
+        "lines": [52, 52]
+      }
+    ],
+    "captures": [],
+    "kind": "method"
+  },
+  {
+    "source": "github.com/volvo-cars/cce-prins-validator/internal/gateway#RequestBuilder.Build()->(*http.Request,error)",
+    "implementation": "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/e178a6721fdac492d8f4",
+    "path": "internal/gateway/requestBuilder.go",
+    "lines": [57, 79],
+    "parameters": [],
+    "returns": ["*net/http.Request", "error"],
+    "receiver": [
+      {
+        "name": "hrb",
+        "type": "RequestBuilder",
+        "lines": [57, 57]
+      }
+    ],
+    "captures": [],
+    "kind": "method"
+  },
+  {
+    "source": "github.com/volvo-cars/cce-prins-validator/internal/service#NewRulesetValidator(*filterservice.Client,*prins.ConfigurationFetcher,*optimizationfacade.ComponentProvider,*optimizationfacade.ConfigurationGenerator,*optimizationfacade.StartConfigurationProvider)->(*RulesetValidator)",
+    "implementation": "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/86ff304d90322e9fda21",
+    "path": "internal/service/rulesetvalidator.go",
+    "lines": [23, 37],
+    "parameters": [
+      {
+        "name": "filterService",
+        "type": "*filterservice.Client",
+        "lines": [24, 24]
+      },
+      {
+        "name": "prinsConfigurationFetcher",
+        "type": "*prins.ConfigurationFetcher",
+        "lines": [25, 25]
+      },
+      {
+        "name": "componentProvider",
+        "type": "*optimizationfacade.ComponentProvider",
+        "lines": [26, 26]
+      },
+      {
+        "name": "configurationGenerator",
+        "type": "*optimizationfacade.ConfigurationGenerator",
+        "lines": [27, 27]
+      },
+      {
+        "name": "startConfigurationProvider",
+        "type": "*optimizationfacade.StartConfigurationProvider",
+        "lines": [28, 28]
+      }
+    ],
+    "returns": ["*github.com/volvo-cars/cce-prins-validator/internal/service.RulesetValidator"],
+    "receiver": [],
+    "captures": [],
+    "kind": "function"
+  },
+  {
+    "source": "github.com/volvo-cars/cce-prins-validator/internal/service#RulesetValidator.ValidateMultipleCars(context.Context)->(error)",
+    "implementation": "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/ab6d9c72eab30841ac33",
+    "path": "internal/service/rulesetvalidator.go",
+    "lines": [39, 68],
+    "parameters": [
+      {
+        "name": "ctx",
+        "type": "context.Context",
+        "lines": [39, 39]
+      }
+    ],
+    "returns": ["error"],
+    "receiver": [
+      {
+        "name": "rv",
+        "type": "*RulesetValidator",
+        "lines": [39, 39]
+      }
+    ],
+    "captures": [],
+    "kind": "method"
+  },
+  {
+    "source": "github.com/volvo-cars/cce-prins-validator/internal/service#RulesetValidator.validateSetOfCars(context.Context,domain.SetOfCars)->(error)",
+    "implementation": "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/3acee81984578a70655f",
+    "path": "internal/service/rulesetvalidator.go",
+    "lines": [70, 146],
+    "parameters": [
+      {
+        "name": "ctx",
+        "type": "context.Context",
+        "lines": [70, 70]
+      },
+      {
+        "name": "setOfCars",
+        "type": "domain.SetOfCars",
+        "lines": [70, 70]
+      }
+    ],
+    "returns": ["error"],
+    "receiver": [
+      {
+        "name": "rv",
+        "type": "*RulesetValidator",
+        "lines": [70, 70]
+      }
+    ],
+    "captures": [],
+    "kind": "method"
+  },
+  {
+    "source": "github.com/volvo-cars/cce-prins-validator/internal/service#RulesetValidator.validateCCEProducesPrinsPermittedConfigurations(context.Context,string,string,int,[]domain.ComponentsToVary,[]domain.CarConfiguration,domain.PrinsConfigurations,[]string)->(error)",
+    "implementation": "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/29465f4137e182530bd7",
+    "path": "internal/service/rulesetvalidator.go",
+    "lines": [148, 193],
+    "parameters": [
+      {
+        "name": "ctx",
+        "type": "context.Context",
+        "lines": [149, 149]
+      },
+      {
+        "name": "specMarket",
+        "type": "string",
+        "lines": [150, 150]
+      },
+      {
+        "name": "policyID",
+        "type": "string",
+        "lines": [151, 151]
+      },
+      {
+        "name": "modelYear",
+        "type": "int",
+        "lines": [152, 152]
+      },
+      {
+        "name": "manyComponentsToVary",
+        "type": "[]domain.ComponentsToVary",
+        "lines": [153, 153]
+      },
+      {
+        "name": "startConfigurations",
+        "type": "[]domain.CarConfiguration",
+        "lines": [154, 154]
+      },
+      {
+        "name": "prinsConfigurations",
+        "type": "domain.PrinsConfigurations",
+        "lines": [155, 155]
+      },
+      {
+        "name": "wheelCodes",
+        "type": "[]string",
+        "lines": [156, 156]
+      }
+    ],
+    "returns": ["error"],
+    "receiver": [
+      {
+        "name": "rv",
+        "type": "*RulesetValidator",
+        "lines": [148, 148]
+      }
+    ],
+    "captures": [],
+    "kind": "method"
+  },
+  {
+    "source": "github.com/volvo-cars/cce-prins-validator/internal/service#RulesetValidator.validatePrinsConfigurationsPermittedByCCE(context.Context,string,string,int,[]domain.ComponentsToVary,[]domain.CarConfiguration,domain.PrinsConfigurations,[]string)->(error)",
+    "implementation": "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/67c58cac6b3519397572",
+    "path": "internal/service/rulesetvalidator.go",
+    "lines": [195, 247],
+    "parameters": [
+      {
+        "name": "ctx",
+        "type": "context.Context",
+        "lines": [196, 196]
+      },
+      {
+        "name": "specMarket",
+        "type": "string",
+        "lines": [197, 197]
+      },
+      {
+        "name": "policyID",
+        "type": "string",
+        "lines": [198, 198]
+      },
+      {
+        "name": "modelYear",
+        "type": "int",
+        "lines": [199, 199]
+      },
+      {
+        "name": "manyComponentsToVary",
+        "type": "[]domain.ComponentsToVary",
+        "lines": [200, 200]
+      },
+      {
+        "name": "startConfigurations",
+        "type": "[]domain.CarConfiguration",
+        "lines": [201, 201]
+      },
+      {
+        "name": "prinsConfigurations",
+        "type": "domain.PrinsConfigurations",
+        "lines": [202, 202]
+      },
+      {
+        "name": "wheelCodes",
+        "type": "[]string",
+        "lines": [203, 203]
+      }
+    ],
+    "returns": ["error"],
+    "receiver": [
+      {
+        "name": "rv",
+        "type": "*RulesetValidator",
+        "lines": [195, 195]
+      }
+    ],
+    "captures": [],
+    "kind": "method"
+  },
+  {
+    "source": "github.com/volvo-cars/cce-prins-validator/internal/service#filterCarConfigurations([]domain.CarConfiguration,int,string)->([]domain.CarConfiguration)",
+    "implementation": "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/2872efc236c01b28b911",
+    "path": "internal/service/rulesetvalidator.go",
+    "lines": [249, 258],
+    "parameters": [
+      {
+        "name": "carConfigurations",
+        "type": "[]domain.CarConfiguration",
+        "lines": [249, 249]
+      },
+      {
+        "name": "modelYear",
+        "type": "int",
+        "lines": [249, 249]
+      },
+      {
+        "name": "carType",
+        "type": "string",
+        "lines": [249, 249]
+      }
+    ],
+    "returns": ["[]github.com/volvo-cars/cce-prins-validator/internal/domain.CarConfiguration"],
+    "receiver": [],
+    "captures": [],
+    "kind": "function"
+  },
+  {
+    "source": "github.com/volvo-cars/cce-prins-validator/internal/service#getPno12FromCarConfigurations([]domain.CarConfiguration)->([]domain.Pno12)",
+    "implementation": "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/12380de42dac4c896d7e",
+    "path": "internal/service/rulesetvalidator.go",
+    "lines": [260, 267],
+    "parameters": [
+      {
+        "name": "carConfigurations",
+        "type": "[]domain.CarConfiguration",
+        "lines": [260, 260]
+      }
+    ],
+    "returns": ["[]github.com/volvo-cars/cce-prins-validator/internal/domain.Pno12"],
+    "receiver": [],
+    "captures": [],
+    "kind": "function"
+  },
+  {
+    "source": "github.com/volvo-cars/cce-prins-validator/internal/service#getStartConfiguration([]domain.CarConfiguration,int,string,domain.Pno12)->(domain.CarConfiguration,bool)",
+    "implementation": "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/5fd2071c14ea1d62a102",
+    "path": "internal/service/rulesetvalidator.go",
+    "lines": [269, 277],
+    "parameters": [
+      {
+        "name": "startConfigurations",
+        "type": "[]domain.CarConfiguration",
+        "lines": [269, 269]
+      },
+      {
+        "name": "modelYear",
+        "type": "int",
+        "lines": [269, 269]
+      },
+      {
+        "name": "specMarket",
+        "type": "string",
+        "lines": [269, 269]
+      },
+      {
+        "name": "pno12",
+        "type": "domain.Pno12",
+        "lines": [269, 269]
+      }
+    ],
+    "returns": [
+      "github.com/volvo-cars/cce-prins-validator/internal/domain.CarConfiguration",
+      "bool"
+    ],
+    "receiver": [],
+    "captures": [],
+    "kind": "function"
+  },
+  {
+    "source": "github.com/volvo-cars/cce-prins-validator/internal/service#RulesetValidator.getStandardFeatureCodesByPno12(context.Context,string,string,int,[]domain.Pno12)->(map[domain.Pno12]string,error)",
+    "implementation": "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/3ea1113d8f5fd00b29bf",
+    "path": "internal/service/rulesetvalidator.go",
+    "lines": [279, 294],
+    "parameters": [
+      {
+        "name": "ctx",
+        "type": "context.Context",
+        "lines": [279, 279]
+      },
+      {
+        "name": "policy",
+        "type": "string",
+        "lines": [279, 279]
+      },
+      {
+        "name": "specMarket",
+        "type": "string",
+        "lines": [279, 279]
+      },
+      {
+        "name": "modelYear",
+        "type": "int",
+        "lines": [279, 279]
+      },
+      {
+        "name": "pno12",
+        "type": "[]domain.Pno12",
+        "lines": [279, 279]
+      }
+    ],
+    "returns": [
+      "map[github.com/volvo-cars/cce-prins-validator/internal/domain.Pno12]string",
+      "error"
+    ],
+    "receiver": [
+      {
+        "name": "rv",
+        "type": "*RulesetValidator",
+        "lines": [279, 279]
+      }
+    ],
+    "captures": [],
+    "kind": "method"
+  },
+  {
+    "source": "github.com/volvo-cars/cce-prins-validator/internal/service#getComponentsToVary(domain.Pno12,[]domain.ComponentsToVary)->(domain.ComponentsToVary,bool)",
+    "implementation": "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/3ed7f021ecc1283e7b0a",
+    "path": "internal/service/rulesetvalidator.go",
+    "lines": [296, 304],
+    "parameters": [
+      {
+        "name": "pno12",
+        "type": "domain.Pno12",
+        "lines": [296, 296]
+      },
+      {
+        "name": "manyComponentsToVary",
+        "type": "[]domain.ComponentsToVary",
+        "lines": [296, 296]
+      }
+    ],
+    "returns": [
+      "github.com/volvo-cars/cce-prins-validator/internal/domain.ComponentsToVary",
+      "bool"
+    ],
+    "receiver": [],
+    "captures": [],
+    "kind": "function"
+  },
+  {
+    "source": "github.com/volvo-cars/cce-prins-validator/internal/domain#package-var@internal/domain/pno12.go:81",
+    "implementation": "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/e31aa80d84b35e70bb99",
+    "path": "internal/domain/pno12.go",
+    "lines": [10, 10],
+    "parameters": [],
+    "returns": [],
+    "receiver": [],
+    "captures": [],
+    "kind": "package_initializer"
+  },
+  {
+    "source": "github.com/volvo-cars/cce-prins-validator/internal/gateway/prins#package-var@internal/gateway/prins/configurationfetcher.go:289",
+    "implementation": "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/af1a106ea1f1153ac4bd",
+    "path": "internal/gateway/prins/configurationfetcher.go",
+    "lines": [20, 24],
+    "parameters": [],
+    "returns": [],
+    "receiver": [],
+    "captures": [],
+    "kind": "package_initializer"
+  }
+]

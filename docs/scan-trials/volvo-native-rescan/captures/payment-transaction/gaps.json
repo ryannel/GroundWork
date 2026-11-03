@@ -1,0 +1,241 @@
+[
+  {
+    "id": "volvo/cds-paymentservice-transaction/020d2fabb141/capture/r1/gap/shared-version",
+    "kind": "gap",
+    "owner": "volvo/cds-paymentservice-transaction/020d2fabb141/capture/r1/endpoint",
+    "obligation": "dependency_resolution",
+    "reason": "Shared 2.0.32 is unmatched to candidate 2.0.33-SNAPSHOT",
+    "action": "Resolve exact artifacts and extend pinned analysis at this boundary",
+    "evidence": [
+      "volvo/cds-paymentservice-transaction/020d2fabb141/capture/r1/evidence/dependencies"
+    ]
+  },
+  {
+    "id": "volvo/cds-paymentservice-transaction/020d2fabb141/capture/r1/gap/client-version",
+    "kind": "gap",
+    "owner": "volvo/cds-paymentservice-transaction/020d2fabb141/capture/r1/endpoint",
+    "obligation": "wire_serialisation",
+    "reason": "Client 1.3.257 is unmatched to candidate 1.3.274-SNAPSHOT",
+    "action": "Resolve exact artifacts and extend pinned analysis at this boundary",
+    "evidence": [
+      "volvo/cds-paymentservice-transaction/020d2fabb141/capture/r1/evidence/dependencies"
+    ]
+  },
+  {
+    "id": "volvo/cds-paymentservice-transaction/020d2fabb141/capture/r1/gap/security-policy",
+    "kind": "gap",
+    "owner": "volvo/cds-paymentservice-transaction/020d2fabb141/capture/r1/endpoint",
+    "obligation": "security_chain",
+    "reason": "Effective shared middleware not traced",
+    "action": "Resolve exact artifacts and extend pinned analysis at this boundary",
+    "evidence": ["volvo/cds-paymentservice-transaction/020d2fabb141/capture/r1/evidence/route"]
+  },
+  {
+    "id": "volvo/cds-paymentservice-transaction/020d2fabb141/capture/r1/gap/expiry-policy",
+    "kind": "gap",
+    "owner": "volvo/cds-paymentservice-transaction/020d2fabb141/capture/r1/endpoint",
+    "obligation": "local_failures",
+    "reason": "Expiry mapping/configuration may fail even when computed expiry is unused",
+    "action": "Resolve exact artifacts and extend pinned analysis at this boundary",
+    "evidence": [
+      "volvo/cds-paymentservice-transaction/020d2fabb141/capture/r1/evidence/session-mapper"
+    ]
+  },
+  {
+    "id": "volvo/cds-paymentservice-transaction/020d2fabb141/capture/r1/gap/client-policy",
+    "kind": "gap",
+    "owner": "volvo/cds-paymentservice-transaction/020d2fabb141/capture/r1/endpoint",
+    "obligation": "downstream_effects",
+    "reason": "Retries, timeouts, interceptors and error decoding unresolved",
+    "action": "Resolve exact artifacts and extend pinned analysis at this boundary",
+    "evidence": ["volvo/cds-paymentservice-transaction/020d2fabb141/capture/r1/evidence/capture"]
+  },
+  {
+    "id": "volvo/cds-paymentservice-transaction/020d2fabb141/capture/r1/gap/deployment-and-config",
+    "kind": "gap",
+    "owner": "volvo/cds-paymentservice-transaction/020d2fabb141/capture/r1/endpoint",
+    "obligation": "physical_binding",
+    "reason": "Committed defaults do not establish deployed Mongo/PSP destinations",
+    "action": "Resolve exact artifacts and extend pinned analysis at this boundary",
+    "evidence": [
+      "volvo/cds-paymentservice-transaction/020d2fabb141/capture/r1/evidence/configuration"
+    ]
+  },
+  {
+    "id": "volvo/cds-paymentservice-transaction/020d2fabb141/capture/r1/gap/response-envelope",
+    "kind": "gap",
+    "owner": "volvo/cds-paymentservice-transaction/020d2fabb141/capture/r1/endpoint",
+    "obligation": "response_shape",
+    "reason": "Exact inherited envelope serialisation unresolved",
+    "action": "Resolve exact artifacts and extend pinned analysis at this boundary",
+    "evidence": ["volvo/cds-paymentservice-transaction/020d2fabb141/capture/r1/evidence/controller"]
+  },
+  {
+    "id": "volvo/cds-paymentservice-transaction/020d2fabb141/capture/r1/gap/completion",
+    "kind": "gap",
+    "owner": "volvo/cds-paymentservice-transaction/020d2fabb141/capture/r1/endpoint",
+    "obligation": "completion",
+    "reason": "202 does not establish provider completion or durable write",
+    "action": "Resolve exact artifacts and extend pinned analysis at this boundary",
+    "evidence": ["volvo/cds-paymentservice-transaction/020d2fabb141/capture/r1/evidence/controller"]
+  },
+  {
+    "id": "volvo/cds-paymentservice-transaction/020d2fabb141/capture/r1/gap/nested-storage-shape",
+    "kind": "gap",
+    "owner": "volvo/cds-paymentservice-transaction/020d2fabb141/capture/r1/endpoint",
+    "obligation": "storage_shape",
+    "reason": "Inherited fields and nested converters not closed",
+    "action": "Resolve exact artifacts and extend pinned analysis at this boundary",
+    "evidence": [
+      "volvo/cds-paymentservice-transaction/020d2fabb141/capture/r1/evidence/transaction-entity"
+    ]
+  },
+  {
+    "id": "volvo/cds-paymentservice-transaction/020d2fabb141/capture/r1/gap/other-failures",
+    "kind": "gap",
+    "owner": "volvo/cds-paymentservice-transaction/020d2fabb141/capture/r1/endpoint",
+    "obligation": "local_control",
+    "reason": "This proof encodes selected 208/422/500/202 paths; decoding, lookup 404, middleware and other failures are not exhaustively encoded.",
+    "action": "Extend operation-level extraction before asking for all outcomes.",
+    "evidence": [
+      "volvo/cds-paymentservice-transaction/020d2fabb141/capture/r1/evidence/advice",
+      "volvo/cds-paymentservice-transaction/020d2fabb141/capture/r1/evidence/missing-exception"
+    ]
+  },
+  {
+    "id": "volvo/cds-paymentservice-transaction/020d2fabb141/capture/u3/gap/capture-wire",
+    "kind": "gap",
+    "owner": "volvo/cds-paymentservice-transaction/020d2fabb141/capture/r1/controller",
+    "obligation": "capture-wire",
+    "reason": "Effective inherited request and success/error wrapper wire schemas are unresolved at the imported shared-library version.",
+    "action": "Resolve the pinned dependency, configuration or contract source before asserting an effective wire contract.",
+    "evidence": [
+      "volvo/cds-paymentservice-transaction/020d2fabb141/capture/r1/evidence/route",
+      "volvo/cds-paymentservice-transaction/020d2fabb141/capture/u3/e/capture-input",
+      "volvo/cds-paymentservice-transaction/020d2fabb141/capture/r1/evidence/controller"
+    ]
+  },
+  {
+    "id": "volvo/cds-paymentservice-transaction/020d2fabb141/gap/source-wire-closure",
+    "kind": "gap",
+    "owner": "volvo/cds-paymentservice-transaction/020d2fabb141/capture/r1/endpoint",
+    "obligation": "source-wire-closure",
+    "reason": "Source members and source-declared validation are retained. Imported nested types, inherited AttributeBase members, framework naming/accessors and effective JSON/BSON serialisation are not fully resolved.",
+    "action": "Inspect the remaining local code or resolve exact dependency artefacts and effective configuration before expanding this boundary.",
+    "evidence": [
+      "volvo/cds-paymentservice-transaction/020d2fabb141/e/f5a8b59406f18c3e",
+      "volvo/cds-paymentservice-transaction/020d2fabb141/e/f4c3a0bbb98ef16e"
+    ]
+  },
+  {
+    "id": "volvo/cds-paymentservice-transaction/020d2fabb141/gap/mongo-driver",
+    "kind": "gap",
+    "owner": "volvo/cds-paymentservice-transaction/020d2fabb141/impl/session-query",
+    "obligation": "mongo-driver",
+    "reason": "Spring Data derived query and mapper declarations are known; driver command generation, connection, physical topology and Mongo runtime behaviour are not executed or inspected.",
+    "action": "Inspect the remaining local code or resolve exact dependency artefacts and effective configuration before expanding this boundary.",
+    "evidence": [
+      "volvo/cds-paymentservice-transaction/020d2fabb141/e/ff90f372347bd0a1",
+      "volvo/cds-paymentservice-transaction/020d2fabb141/e/482466e705cfe7ca"
+    ]
+  },
+  {
+    "id": "volvo/cds-paymentservice-transaction/020d2fabb141/gap/local-retry",
+    "kind": "gap",
+    "owner": "volvo/cds-paymentservice-transaction/020d2fabb141/impl/service-retry",
+    "obligation": "local-retry",
+    "reason": "The local method exists at this source revision but its full branches, helper calls, effects, retry outcomes and exception paths are not yet extracted into native records.",
+    "action": "Inspect the remaining local code or resolve exact dependency artefacts and effective configuration before expanding this boundary.",
+    "evidence": ["volvo/cds-paymentservice-transaction/020d2fabb141/e/27f830e680c9e178"]
+  },
+  {
+    "id": "volvo/cds-paymentservice-transaction/020d2fabb141/gap/local-resubmit",
+    "kind": "gap",
+    "owner": "volvo/cds-paymentservice-transaction/020d2fabb141/impl/service-resubmit",
+    "obligation": "local-resubmit",
+    "reason": "The local method exists at this source revision but its full branches, helper calls, effects, retry outcomes and exception paths are not yet extracted into native records.",
+    "action": "Inspect the remaining local code or resolve exact dependency artefacts and effective configuration before expanding this boundary.",
+    "evidence": ["volvo/cds-paymentservice-transaction/020d2fabb141/e/b7086c37551dd1ce"]
+  },
+  {
+    "id": "volvo/cds-paymentservice-transaction/020d2fabb141/gap/local-manager-get",
+    "kind": "gap",
+    "owner": "volvo/cds-paymentservice-transaction/020d2fabb141/impl/service-manager-get",
+    "obligation": "local-manager-get",
+    "reason": "The local method exists at this source revision but its full branches, helper calls, effects, retry outcomes and exception paths are not yet extracted into native records.",
+    "action": "Inspect the remaining local code or resolve exact dependency artefacts and effective configuration before expanding this boundary.",
+    "evidence": ["volvo/cds-paymentservice-transaction/020d2fabb141/e/6ec0c040002196c6"]
+  },
+  {
+    "id": "volvo/cds-paymentservice-transaction/020d2fabb141/gap/local-manager-create",
+    "kind": "gap",
+    "owner": "volvo/cds-paymentservice-transaction/020d2fabb141/impl/service-manager-create",
+    "obligation": "local-manager-create",
+    "reason": "The local method exists at this source revision but its full branches, helper calls, effects, retry outcomes and exception paths are not yet extracted into native records.",
+    "action": "Inspect the remaining local code or resolve exact dependency artefacts and effective configuration before expanding this boundary.",
+    "evidence": ["volvo/cds-paymentservice-transaction/020d2fabb141/e/550e669839a4c123"]
+  },
+  {
+    "id": "volvo/cds-paymentservice-transaction/020d2fabb141/gap/local-charge",
+    "kind": "gap",
+    "owner": "volvo/cds-paymentservice-transaction/020d2fabb141/impl/service-charge",
+    "obligation": "local-charge",
+    "reason": "The local method exists at this source revision but its full branches, helper calls, effects, retry outcomes and exception paths are not yet extracted into native records.",
+    "action": "Inspect the remaining local code or resolve exact dependency artefacts and effective configuration before expanding this boundary.",
+    "evidence": ["volvo/cds-paymentservice-transaction/020d2fabb141/e/5a1d878cd3bade85"]
+  },
+  {
+    "id": "volvo/cds-paymentservice-transaction/020d2fabb141/gap/local-create-transaction",
+    "kind": "gap",
+    "owner": "volvo/cds-paymentservice-transaction/020d2fabb141/impl/service-create-transaction",
+    "obligation": "local-create-transaction",
+    "reason": "The local method exists at this source revision but its full branches, helper calls, effects, retry outcomes and exception paths are not yet extracted into native records.",
+    "action": "Inspect the remaining local code or resolve exact dependency artefacts and effective configuration before expanding this boundary.",
+    "evidence": ["volvo/cds-paymentservice-transaction/020d2fabb141/e/8f4d3d691a8ea1c5"]
+  },
+  {
+    "id": "volvo/cds-paymentservice-transaction/020d2fabb141/gap/refund-validator",
+    "kind": "gap",
+    "owner": "volvo/cds-paymentservice-transaction/020d2fabb141/impl/refund-service",
+    "obligation": "refund-validator",
+    "reason": "RefundValidatorService contains cart-line loops, currency/amount/quantity and partial-refund rules, permitted stage checks and prior-refund queries. Its internal control/data branches are read but not fully encoded in this bounded batch.",
+    "action": "Inspect the remaining local code or resolve exact dependency artefacts and effective configuration before expanding this boundary.",
+    "evidence": ["volvo/cds-paymentservice-transaction/020d2fabb141/e/9121b30f89a2fdd2"]
+  },
+  {
+    "id": "volvo/cds-paymentservice-transaction/020d2fabb141/gap/refund-delivery",
+    "kind": "gap",
+    "owner": "volvo/cds-paymentservice-transaction/020d2fabb141/impl/refund-publish",
+    "obligation": "refund-delivery",
+    "reason": "Producer schedules Kafka send and a logging callback without waiting. Effective serializer/envelope/headers and broker delivery/retry/consumer acknowledgements are not established; no consumer registration exists in this repo.",
+    "action": "Inspect the remaining local code or resolve exact dependency artefacts and effective configuration before expanding this boundary.",
+    "evidence": [
+      "volvo/cds-paymentservice-transaction/020d2fabb141/e/8e6f6878b65a7383",
+      "volvo/cds-paymentservice-transaction/020d2fabb141/e/416bfed95de4e338"
+    ]
+  },
+  {
+    "id": "volvo/cds-paymentservice-transaction/020d2fabb141/gap/framework-discovery-0",
+    "kind": "gap",
+    "owner": "volvo/cds-paymentservice-transaction/020d2fabb141/capture/r1/endpoint",
+    "obligation": "framework-discovery-0",
+    "reason": "Imported actuator registrations and exact effective default paths/conditions are not expanded; no source-local controller exists for them.",
+    "action": "Inspect the remaining local code or resolve exact dependency artefacts and effective configuration before expanding this boundary.",
+    "evidence": [
+      "volvo/cds-paymentservice-transaction/020d2fabb141/e/240b4aade118bf32",
+      "volvo/cds-paymentservice-transaction/020d2fabb141/e/db8eedd4fc76cd66"
+    ]
+  },
+  {
+    "id": "volvo/cds-paymentservice-transaction/020d2fabb141/gap/framework-discovery-1",
+    "kind": "gap",
+    "owner": "volvo/cds-paymentservice-transaction/020d2fabb141/capture/r1/endpoint",
+    "obligation": "framework-discovery-1",
+    "reason": "Imported framework registrations and effective profile/route expansion are not analysed; source config registration family retained.",
+    "action": "Inspect the remaining local code or resolve exact dependency artefacts and effective configuration before expanding this boundary.",
+    "evidence": [
+      "volvo/cds-paymentservice-transaction/020d2fabb141/e/8ae6025fd8893f55",
+      "volvo/cds-paymentservice-transaction/020d2fabb141/e/38384501ac4061db"
+    ]
+  }
+]

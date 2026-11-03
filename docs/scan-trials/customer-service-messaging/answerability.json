@@ -1,0 +1,2077 @@
+{
+  "format": "answerability-review/v1",
+  "repo": "volvo-cars/cds-ecom-customer-service",
+  "commit": "09623ab3a1f39845d8fc02abc3d591b53a3b5fea",
+  "capture": "customer-service-messaging-001/accepted-current",
+  "questionCount": 22,
+  "supported": 11,
+  "partial": 10,
+  "unsupported": 1,
+  "questions": [
+    {
+      "id": "Q01",
+      "status": "supported",
+      "answer": "All 19 source route declarations join interface mappings to exact controller implementations, complete paths, request parameter locations and source request/response type schemas. The final bounded review passes the independently frozen route inventory. External wrappers and effective wire serialisation remain explicit gaps; the frozen question asks for paths and types.",
+      "question": "Which HTTP operations does customer service expose, with their complete paths and request/response types?",
+      "requiredEvidence": "Interface annotations joined to implementation prefixes and schema references; API `api/customer/v1/*Controller.java` and `impl/*ControllerImpl.java`."
+    },
+    {
+      "id": "Q02",
+      "status": "partial",
+      "answer": "All 19 method policy declarations are bound to their source and routes. Method-security activation remains unresolved: App excludes SecurityAutoConfiguration and imports external EcomWebAppConfiguration. The configured HTTP filter chain, authority conversion and effective policy activation are not captured. Role expressions alone cannot establish enforcement.",
+      "question": "Which roles may read, change, duplicate, archive and migrate customers, and where are they enforced?",
+      "requiredEvidence": "Policy declarations plus effective enforcement bindings; the three controller interfaces and security configuration."
+    },
+    {
+      "id": "Q03",
+      "status": "partial",
+      "answer": "Customer and individual schemas retain declared field constraints, request-body bindings, JsonView selections and transitive Create/Update/Patch/Default groups. UpdateCustomer requires dataVersion, Create/Update require customerType and market, and individual Create/Update require roles; patch retains Default constraints. Effective inclusion of unannotated fields under JsonView, external Market/Language types, generated accessors and custom annotation semantics remain explicit gaps.",
+      "question": "Which customer and individual request fields are mandatory, and how do create, update and patch validation differ?",
+      "requiredEvidence": "Field shapes, validation groups and wire binding; shared `customer/CustomerRequest.java`, `individual/IndividualRequest.java`, API controller annotations."
+    },
+    {
+      "id": "Q04",
+      "status": "partial",
+      "answer": "`updateCustomer` calls `customerFactory.update`; `patchCustomer` calls `customerFactory.patch`; both pass their result to `saveAndPostProcess`. Cross-call factory/omitted-field semantics and serialised request binding remain unclosed.",
+      "question": "How do PUT and PATCH change an existing customer, including omitted fields?",
+      "requiredEvidence": "Request-to-factory value lineage, update/patch branches and persistence; core `customer/CustomerService.java` and `CustomerFactory.java`."
+    },
+    {
+      "id": "Q05",
+      "status": "supported",
+      "answer": "The typed membership guard calls noneMatch on the original customer individuals and compares each individual ID with individualId. Its consequent constructs and throws IndividualNotFoundException(individualId). Exact controller-to-API-to-core call bindings and reference/argument_parameter lineage retain the route ID. Unique global source advice explicitly handles this exception and declares HTTP NOT_FOUND; the returned helper invocation passes the same typed status. All six bounded clauses and thirteen relation-removal/corruption mutations pass. Runtime registration and external error-body serialisation remain unobserved.",
+      "question": "What happens when an individual update names an individual that the customer does not contain?",
+      "requiredEvidence": "Membership guard, thrown exception, handler binding and HTTP outcome; core `CustomerService.java`, API exception handlers."
+    },
+    {
+      "id": "Q06",
+      "status": "partial",
+      "answer": "The native local graph generates numberOfDuplicates minus one copies, calls saveAllAndPostProcess and includes the original customer ID in the result. Cross-call factory lineage proving every preserved and replaced identifier is not bound into a complete answer. No additional durable-write requirement is imposed by this review.",
+      "question": "What does duplication preserve, which identifiers are replaced, and does the result include the original customer?",
+      "requiredEvidence": "Duplication loop, factory field lineage, saves and result construction; core `CustomerService.java`, `CustomerFactory.java`."
+    },
+    {
+      "id": "Q07",
+      "status": "supported",
+      "answer": "The saveAndPostProcess equality guard returns before customer validation, repository save and post-processing; otherwise those calls occur in that order. A fresh native proof reconstructed solely from 221 returned records in 56 bounded pages passes all five frozen local clauses. The frozen required evidence names this helper and does not require all callers.",
+      "question": "Does an unchanged customer write reach validation, MongoDB or publication?",
+      "requiredEvidence": "Equality guard and return, ordered subsequent statements; core `CustomerService.saveAndPostProcess`."
+    },
+    {
+      "id": "Q08",
+      "status": "supported",
+      "answer": "forceArchive=false marks for later and returns; true reaches the immediate moveCustomerToArchive call. A missing reason becomes ArchiveReason.NONE_SPECIFIED. Fresh bounded branch and default-value proofs pass from 231 returned records in 58 pages; eight typed-relation removals reject the default claim while display text is unchanged. Successful deployed archival is outside this frozen question.",
+      "question": "Does `forceArchive=true` archive immediately or mark the customer for later, and what is the default reason?",
+      "requiredEvidence": "Parsed boolean branch, calls and resolved argument; API `impl/CustomerApiService.java` 117\u2013127."
+    },
+    {
+      "id": "Q09",
+      "status": "partial",
+      "answer": "Restore builds a version-reset customer, computes conditional archival data, invokes `saveCustomer`, then deletes the archived record. Local order is supported. Effective stored shape, atomicity and what remains after failure are not established by effect/acknowledgement records.",
+      "question": "When restoring an archived customer, what happens to its version, archival timestamp and the archived record?",
+      "requiredEvidence": "Field lineage, save-before-delete order and failure boundaries; core `customerarchive/CustomerArchiveService.java` 55\u201382."
+    },
+    {
+      "id": "Q10",
+      "status": "partial",
+      "answer": "The two audit routes, version/customer parameters and page/limit defaults are bound. Native service code constructs PageRequest.of(page, limit) and calls findAllByCustomerIdOrderByVersionDesc. The complete service-to-store query binding and effective response wire shape are not closed; a repository method name alone is not a typed Mongo ordering contract.",
+      "question": "How can a caller fetch a customer's audit history or a particular version, and how are results ordered and paginated?",
+      "requiredEvidence": "Route/request binding through service to repository query and response; API AuditLogController and core `auditlog`."
+    },
+    {
+      "id": "Q11",
+      "status": "partial",
+      "answer": "The source declares a token header interceptor for /v1/customers/**, including audit routes and excluding migration by non-match, and the native resolver dispatches to Volvo ID, Connect and Entra ID handling. Trial 005 and the new capture restore validator/decoder graphs. The independent review has not closed the full typed header/guard/validator/issuer/decoder/dispatch chain or external authentication filter configuration, so complete token acceptance is not established.",
+      "question": "How is `X-User-Access-Token` checked and resolved across Volvo ID, Connect and Entra ID tokens?",
+      "requiredEvidence": "Header/interceptor binding, issuer guards and token-specific dispatch; API `security`, core `security/UserIdentityResolver.java`."
+    },
+    {
+      "id": "Q12",
+      "status": "supported",
+      "answer": "Volvo ID chooses the Keycloak or legacy logical client and matching user-info path, sends GET with the supplied Bearer token and reads VolvoIdUser; null bodies and translated failures remain explicit. Connect and Entra supply verified token claims through the configured OIDC decoder boundary, rather than an invented profile REST call. Connect derives names and contact/invoice email; Entra requires oid and delegated scp, excludes app tokens and chooses upn/preferred_username. CDB binds logical client cdb, document getConsumer, variable cdbId and consumerCdb selections to CdbConsumer, including invalid/null/partial-error outcomes. FactoryContext identity branches, source future/cache relations and IndividualFactory ordered field construction establish the request/existing/Volvo/CDB merge, with field-specific exceptions. Declared nested response shapes remain navigable. External decoder execution, scheduling, effective codecs and successful remote completion are outside this source answer.",
+      "question": "Which external systems supply an individual's profile, and what is sent and returned at each boundary?",
+      "requiredEvidence": "Boundary bindings, request/response contracts and failure handling; core `volvoid`, `connecttoken`, `entraid`, `consumer`."
+    },
+    {
+      "id": "Q13",
+      "status": "supported",
+      "answer": "Source request dispatch selects ordinary, Fleet or Partner creation. Both Fleet GETs bind the account ID to the complete URI, declared envelopes, data projection and separate exception paths. Fleet status guards and unit membership/MAIN selection feed generated ID and requested roles into the ordinary Java mapper, including invoice-address sharing and entity-type cases. Partner validates Connect partner membership unless an Entra user is present, binds commercial-partner/getPartnerById/id/partnerOrganizationalUnit to its declared result and failure paths, then chooses active facilities and preferred-language/first names and addresses locally. The GraphQL query contains no server-side active filter. Ordered mapper construction and the null-filtered corporate list reach the returned Customer. Generated request accessors and external scheduling/codecs remain source boundaries; the unique declared mapper/arity join does not claim an exact executable binding for the unresolved generated roles accessor.",
+      "question": "How are Fleet and Partner corporate entities looked up and combined with a customer?",
+      "requiredEvidence": "Factory dispatch, outbound boundary and result lineage; core `company`, `fleet`, `partner`."
+    },
+    {
+      "id": "Q14",
+      "status": "supported",
+      "answer": "Source entity/repository bindings identify customers (Customer/CustomerRepository), archived_customers (CustomerArchive/CustomerArchiveRepository) and auditLogs (CustomerAuditLog/AuditLogRepository). The bounded checker matches the independent complete inventory of twenty data-operation callsites, including custom archive fragment/upsert and two migration streams. Receiver/collection references, the archive fragment implementation, customerId filter and four upsert fields pass. All twenty-six binding deletions and three relation corruptions reject. This identifies source read/write attempts; it does not assert deployed databases or durable success.",
+      "question": "Which MongoDB collections hold active customers, archives and audit history, and which code reads or writes them?",
+      "requiredEvidence": "Store and collection identities, repository binding and read/write effects; core `customer`, `customerarchive`, `auditlog`, Mongo configuration."
+    },
+    {
+      "id": "Q15",
+      "status": "supported",
+      "answer": "The repository save return is rebound and passed with the previous customer to postProcess before the saved customer is returned. The postprocessor invokes customer publication, analytics publication, audit save and consent publication in that local order. Its void @Async method and the three @Async publishers join declared EnableAsync/executor configuration, with runtime interception and executor selection unverified. The analytics send returns a thenRun callback future, which the postprocessor ignores; audit save maps and returns a repository save result, also ignored. Customer and consent use external sendSafely without inspecting its result. Synchronous exceptions stop subsequent local statements; independently dispatched failures have no source completion order. The selected methods/classes declare no shared transaction or local recovery. Broker acknowledgement, durability and SDK retry/swallowing behaviour are unobserved, so local logs and invocation order give no delivery guarantee.",
+      "question": "After saving a changed customer, what publications and audit writes are attempted, in which order and with which failure/completion guarantees?",
+      "requiredEvidence": "Saved-value rebinding, ordered post-processing, effect acknowledgement and async boundaries; core `CustomerService`, `CustomerSavePostProcessor`, event/audit services."
+    },
+    {
+      "id": "Q16",
+      "status": "supported",
+      "answer": "Four ordered guards return before send: missing/disabled Kafka; missing current SIGNATORY individual or CDB ID; missing consent; and unchanged consent. No previous customer or previous SIGNATORY counts as changed. Otherwise either consentInfo inequality or CDB-ID inequality passes the guard. The current payload carries volvoId, cdbId, updated market countryCode, consentType, consentGranted as consented, dateOfConsent as timestamp, and contactPreferences; it sends complete current values rather than a field diff. Constructor positions join declared record fields and the payload reaches the event, configured-topic/customer-ID-key message and send attempt. A unique private source helper candidate preserves actual/formal argument lineage while the generated country-code accessor remains unobserved. Effective codec and successful publication are external boundaries.",
+      "question": "When is a marketing consent event skipped, and which changed consent fields reach the event?",
+      "requiredEvidence": "All skip guards, previous/current comparison and event-field lineage; core `consent/MarketingConsentEventService.java`."
+    },
+    {
+      "id": "Q17",
+      "status": "supported",
+      "answer": "No previous customer selects CUSTOMER_CREATED / CREATED; otherwise archival data selects CUSTOMER_ARCHIVED / DELETED; otherwise CUSTOMER_UPDATED / UPDATED. The analytics enum declares JSON values created, deleted and updated respectively; effective codec behaviour remains unobserved. Customer payload maps current customerId, version and modified to customerId, dataVersion and timestamp. Analytics payload follows the customer and nested individual/corporate mapper declarations. Message keys use the updated customer ID. The source topic defaults are app5541-customer-events and app5541-customer-analytics; the local profile disables both. Spring configuration precedence and effective runtime values remain unobserved. The source declares guarded publication attempts. External publisher helpers, codec configuration and broker acknowledgement do not establish successful delivery.",
+      "question": "How are customer and analytics event types chosen for new, updated and archived customers, and where are they published?",
+      "requiredEvidence": "Event-type branch values, payload contract and configured topic bindings; core `messaging/CustomerEventService.java`, `analytics/AnalyticsEventService.java`, event configuration."
+    },
+    {
+      "id": "Q18",
+      "status": "supported",
+      "answer": "The listener declares the delete-customer-event topic/group placeholders and deleteCustomerConsumerFactory; the base source defaults are app5541-delete-customer-events and app5541-customer-integration-api. The local profile disables the consumer. Bean/property conditions and factory configuration are declarations; effective activation and environment are unobserved. The String payload enters the exact source deserialiser targeting Event<DeleteCustomerEventPayload>; its customerId reaches the CustomerService delete formal through a qualified nominal source candidate where generated payload accessors prevent exact type resolution, then reaches the active-customer repository deleteByCustomerId attempt. This local path declares no type discriminator, archive deletion, audit write or publication. A JacksonException is wrapped in CustomerServiceException with its cause; its message mistakenly names PaymentEventPayload. A synchronous failure prevents later local statements and escapes the consumer. Container acknowledgement, retry, dead-letter, framework codec and broker delivery policy remain unknown at unavailable dependency boundaries; reconnect backoff is not a business retry guarantee. The declared payload has one field, customerId:String. The consumer passes the metadata correlation ID to LogUtils before the delete attempt.",
+      "question": "Which incoming event deletes a customer, and what are the subscription, payload and resulting effects?",
+      "requiredEvidence": "Kafka subscription, deserialisation, customer-id lineage, deletion and failure policy; core `messaging/consumer/DeleteCustomerEventConsumer.java` and configuration."
+    },
+    {
+      "id": "Q19",
+      "status": "partial",
+      "answer": "The Java 25 parser now retains the complete OrderUpdateEventConsumer graph, including CustomerUpdate handling, BASIC order admission, accepted statuses, reason mapping, archival-data clearing/save, restore fallback and catches. The former parser quarantine is gone. A bounded complete proof connecting all filter constants, local branches and resulting save/restore effects has not been discharged; restored parsing alone is not a supported pipeline answer.",
+      "question": "Which order changes mark or restore a customer, and which order categories and statuses are ignored?",
+      "requiredEvidence": "Complete event filters, branches, reason mapping and restore/save effects; core `messaging/consumer/OrderUpdateEventConsumer.java`."
+    },
+    {
+      "id": "Q20",
+      "status": "partial",
+      "answer": "The scheduler's local run calls customerArchiveJob.start; scheduled, conditional and locking annotations remain source declarations. Resource scalars and profile candidates are now typed. A complete bounded proof joining scheduling, enablement, locks, async activation and continuation after one failure has not been discharged.",
+      "question": "What schedules archival, when is it enabled, how is concurrent execution limited, and what happens after one customer fails?",
+      "requiredEvidence": "Scheduled/conditional/lock declarations joined to configuration, async activation and per-customer catch; core `customerarchive` and API resource configuration."
+    },
+    {
+      "id": "Q21",
+      "status": "unsupported",
+      "answer": "No actor, surface, control, action, outcome, execution or journey records close this question. Role strings cannot establish people, intent, visible results or actor-to-action journeys.",
+      "question": "Which people or callers can perform which customer actions, and what visible outcome follows each action?",
+      "requiredEvidence": "Actor, surface, control, action, execution and outcome records; technical role annotations alone are insufficient."
+    },
+    {
+      "id": "Q22",
+      "status": "partial",
+      "answer": "The accepted capture retains pinned source/tree and analysis fingerprints; the bounded review records checker fingerprints and retrieves all 41,904 selected records in 10,481 pages. All 182 review mutations reject. Prior supported questions retain fresh review/native replays. Local source/reference observations establish neither remote nor deployed currency; effective environment and dependency versions outside the source capture remain unknown.",
+      "question": "Which source revision and analysis versions does the answer reflect, and is it current remotely and in production?",
+      "requiredEvidence": "Source baseline, analysis fingerprints and reference observations; explicit limits for unobserved remote/deployment state."
+    }
+  ],
+  "evidence": {
+    "document": "reports/customer-service-messaging-001/accepted-current/document.json",
+    "sourceCapture": "reports/customer-service-messaging-005/repository.json",
+    "boundedReview": "reports/customer-service-messaging-001/accepted-review-current/receipt.json",
+    "sourcePins": "reports/customer-service-messaging-001/accepted-review-current/source-pins.json",
+    "nativeReplay": "reports/customer-service-messaging-001/independent-native-current/accepted-native-replay.json",
+    "sourceOracle": "docs/scan-trials/customer-service-messaging/source-review.md"
+  },
+  "review": "customer-service-messaging-001/accepted-review-current",
+  "proofs": {
+    "q12": {
+      "supported": true,
+      "clauses": {
+        "responseContracts": true,
+        "sourcePolicies": true,
+        "volvoBoundary": true,
+        "volvoCaller": true,
+        "tokenSources": true,
+        "cdbBoundary": true,
+        "cdbFailures": true,
+        "contextAndMerge": true
+      }
+    },
+    "q13": {
+      "supported": true,
+      "clauses": {
+        "responseContracts": true,
+        "fleetAccountBoundary": true,
+        "fleetUnitsBoundary": true,
+        "partnerBoundary": true,
+        "partnerFailures": true,
+        "factoriesAndMappers": true,
+        "customerComposition": true
+      }
+    },
+    "boundaries": {
+      "fleet": {
+        "getFleetAccount": {
+          "uniqueBoundary": true,
+          "method": true,
+          "template": true,
+          "chain": true,
+          "logicalClient": true,
+          "input": true,
+          "response": true,
+          "failures": true,
+          "supported": true
+        },
+        "getOrganizationalUnits": {
+          "uniqueBoundary": true,
+          "method": true,
+          "template": true,
+          "chain": true,
+          "logicalClient": true,
+          "input": true,
+          "response": true,
+          "failures": true,
+          "supported": true
+        }
+      },
+      "graphql": {
+        "cdb": {
+          "uniqueBoundary": true,
+          "logicalClient": true,
+          "requestChain": true,
+          "requestAtoms": true,
+          "variableInput": true,
+          "documentContract": true,
+          "resultType": true,
+          "resultField": true,
+          "supported": true
+        },
+        "commercial-partner": {
+          "uniqueBoundary": true,
+          "logicalClient": true,
+          "requestChain": true,
+          "requestAtoms": true,
+          "variableInput": true,
+          "documentContract": true,
+          "resultType": true,
+          "resultField": true,
+          "supported": true
+        }
+      },
+      "volvo": {
+        "uniqueBoundary": true,
+        "dispatchArguments": true,
+        "bearerHeader": true,
+        "method": true,
+        "responseType": true,
+        "resultReturned": true,
+        "emptyBodyGuard": true,
+        "failures": true,
+        "supported": true
+      }
+    },
+    "local": {
+      "source": {
+        "issuerSelectsClient": true,
+        "volvoJsonRequest": true,
+        "sanitizationGuards": true,
+        "oidcIssuerDecoderCache": true,
+        "entraIndividualFields": true,
+        "consumerBlankAndNullable": true,
+        "consumerContextValidation": true
+      },
+      "tokens": {
+        "connect.decodeAndConvert": true,
+        "connect.emptyClaimFields": true,
+        "connect.individualConstruction": true,
+        "connect.contactInvoiceEmail": true,
+        "entra.twoIssuers": true,
+        "entra.claimNames": true,
+        "entra.delegatedPredicateAtoms": true,
+        "entra.userConstruction": true,
+        "entra.emailFallbackAtoms": true,
+        "oidc.libraryFactory": true,
+        "oidc.issuerCache": true,
+        "oidc.tokenArgument": true,
+        "connectDecodeChain": true,
+        "connectEmptyPredicate": true,
+        "connectContactInvoiceRoles": true,
+        "entraDecodeChain": true,
+        "entraDelegatedPredicate": true,
+        "entraOrderedEmailClaims": true,
+        "entraEmailFilter": true,
+        "entraEmailFirstNonblank": true,
+        "supported": true
+      },
+      "individual": {
+        "connectIdentity": true,
+        "entraIdentity": true,
+        "volvoIdentityFuture": true,
+        "volvoFutureJoin": true,
+        "blankCdbSkipped": true,
+        "cdbFutureJoin": true,
+        "cdbCacheById": true,
+        "fallbackHelperDeclarations": true,
+        "createFieldOrder": true,
+        "createSourceLineage": true,
+        "updateFieldOrder": true,
+        "updateSourceLineage": true,
+        "patchFieldOrder": true,
+        "patchSourceLineage": true,
+        "supported": true
+      },
+      "corporate": {
+        "fleetFactory.inputAndMapperAtoms": true,
+        "fleetFactory.futureOrigins": true,
+        "fleetFactory.unitSelectionAtoms": true,
+        "fleetFactory.explicitUnitValidationAtoms": true,
+        "fleetFactory.statusPredicateAtoms": true,
+        "fleetMapper.corporateFields": true,
+        "fleetMapper.fieldOrigins": true,
+        "fleetMapper.addressConstruction": true,
+        "fleetMapper.invoiceAddressBranchAtoms": true,
+        "fleetMapper.contactFields": true,
+        "partnerFactory.lookupAndMapperAtoms": true,
+        "partnerFactory.nullPartnerSkipped": true,
+        "partnerFactory.authorizationAtoms": true,
+        "partnerFactory.localLookupOrigins": true,
+        "partnerMapper.corporateFields": true,
+        "partnerMapper.fieldOrigins": true,
+        "partnerMapper.facilityPreferenceAtoms": true,
+        "partnerMapper.languageFallbackAtoms": true,
+        "partnerMapper.countryFallback": true,
+        "partnerMapper.contactAndAddressAtoms": true,
+        "fleetConcurrentArguments": true,
+        "fleetUnitBranch": true,
+        "fleetUnitValidation": true,
+        "fleetStateGuards": true,
+        "fleetMappedOrigins": true,
+        "fleetInvoiceAddressChoice": true,
+        "fleetContactConstruction": true,
+        "partnerLookupArguments": true,
+        "partnerTokenAuthorization": true,
+        "partnerMappedOrigins": true,
+        "partnerFacilityPreference": true,
+        "partnerNamePreference": true,
+        "partnerAddressPreference": true,
+        "partnerCountryFallback": true,
+        "partnerContactConstruction": true,
+        "fleetInactiveStatuses": true,
+        "fleetEntityTypeCases": true,
+        "fleetAccountCallback": true,
+        "fleetUnitsCallback": true,
+        "fleetMainUnitCallback": true,
+        "fleetUnitMembershipCallback": true,
+        "partnerNameCallbacks": true,
+        "partnerAddressCallback": true,
+        "partnerFacilityCallbacks": true,
+        "supported": true
+      },
+      "composition": {
+        "requestVariantDispatch": true,
+        "nullFilteredListMapping": true,
+        "corporateEntitiesInCustomer": true,
+        "fleetMappedReturn": true,
+        "partnerMappedReturn": true,
+        "supported": true
+      },
+      "failures": {
+        "cdb": {
+          "invalidResponseNull": true,
+          "nullField": true,
+          "restExceptionNull": true,
+          "partialErrorsContinue": true
+        },
+        "partner": {
+          "restExceptionTranslated": true,
+          "fieldAccessNull": true,
+          "nullPartner": true
+        },
+        "volvo": {
+          "blankTokenEmpty": true,
+          "caughtExceptionEmpty": true,
+          "lookupIntoSanitizer": true,
+          "sanitizerFieldClears": true
+        }
+      }
+    },
+    "q15": {
+      "supported": true,
+      "clauses": {
+        "savedValueRebinding": true,
+        "localAttemptOrder": true,
+        "auditAttempt": true,
+        "analyticsCallback": true,
+        "asyncDeclarations": true,
+        "activationAndExecutor": true,
+        "ignoredAsyncResults": true,
+        "sourceFailureBoundary": true,
+        "ignoredAuditResult": true,
+        "publicationAttempts": true
+      },
+      "details": [
+        "Invocation order is customer, analytics, audit, consent after saved-value rebinding. A synchronous exception prevents later local statements; independently dispatched failures do not have this ordering guarantee. Local return and callback paths do not establish durable writes or broker delivery.",
+        "Async annotations and activation/executor declarations require effective Spring interception. Ignored futures do not make callers wait; external sendSafely behaviour and acknowledgement remain unobserved.",
+        "The selected methods/classes declare no shared transaction or local catch to compensate the saved customer after a later failure. Independently dispatched work has no source completion ordering guarantee."
+      ]
+    },
+    "q16": {
+      "supported": true,
+      "clauses": {
+        "orderedGuards": true,
+        "guardExitsAndCurrentIndividual": true,
+        "previousCurrentComparison": true,
+        "payloadConstruction": true,
+        "nativeGuards": true,
+        "nativeComparison": true,
+        "nativePayload": true,
+        "payloadApplied": true,
+        "payloadHelperLineage": true,
+        "nativeSend": true
+      },
+      "details": [
+        "Disabled/missing Kafka, missing SIGNATORY/CDB ID, missing consent or unchanged consentInfo and CDB ID skip the attempt. A CDB-ID-only change passes the comparison.",
+        "Payload carries complete current values. consentGranted maps to consented; dateOfConsent maps to timestamp; countryCode comes from the updated market expression. A unique private source helper candidate joins its arguments and declared parameters; the generated country-code accessor implementation remains unobserved. External codec and broker success remain unobserved."
+      ]
+    },
+    "q17": {
+      "supported": true,
+      "clauses": {
+        "eventBranchValues": true,
+        "eventSelectionLineage": true,
+        "payloadEnvelopeSendLineage": true,
+        "customerMetadataType": true,
+        "analyticsMapperBoundary": true,
+        "analyticsMapperApplications": true,
+        "analyticsEnvelopeConstructor": true,
+        "analyticsFleetSelection": true,
+        "analyticsCustomerTypeSelection": true,
+        "payloadSchemas": true,
+        "customerPayloadMapping": true,
+        "analyticsCustomerMapping": true,
+        "analyticsIndividualMapping": true,
+        "analyticsCorporateMapping": true,
+        "analyticsCollectionMapping": true,
+        "analyticsConstructorApplied": true,
+        "producerTemplateDeclarations": true,
+        "producerSerializerDeclarations": true,
+        "producerActivationDeclarations": true,
+        "topicSettingsSelectors": true,
+        "declaredTopicDefaults": true,
+        "localProfileDisablesPublishers": true,
+        "declaredEnvironmentBoundary": true,
+        "eventEnumDeclarations": true
+      },
+      "details": [
+        "No previous customer selects CUSTOMER_CREATED / CREATED; otherwise archival data selects CUSTOMER_ARCHIVED / DELETED; otherwise CUSTOMER_UPDATED / UPDATED. The analytics enum declares JSON values created, deleted and updated respectively; effective codec behaviour remains unobserved.",
+        "Customer payload maps current customerId, version and modified to customerId, dataVersion and timestamp. Analytics payload follows the customer and nested individual/corporate mapper declarations. Message keys use the updated customer ID. The source topic defaults are app5541-customer-events and app5541-customer-analytics; the local profile disables both. Spring configuration precedence and effective runtime values remain unobserved.",
+        "The source declares guarded publication attempts. External publisher helpers, codec configuration and broker acknowledgement do not establish successful delivery."
+      ]
+    },
+    "q18": {
+      "supported": true,
+      "clauses": {
+        "activationConditions": true,
+        "settingsDeclaration": true,
+        "reconnectSettingsDeclarations": true,
+        "localGroupOverride": true,
+        "subscription": true,
+        "containerFactory": true,
+        "declaredConsumerDefaults": true,
+        "payloadSchema": true,
+        "deserialisationTargetAndInput": true,
+        "customerIdAndDeleteAttempt": true,
+        "deserialisationFailureAndPolicyBoundary": true
+      },
+      "details": [
+        "The listener declares the delete-customer-event topic/group placeholders and deleteCustomerConsumerFactory; the base source defaults are app5541-delete-customer-events and app5541-customer-integration-api. The local profile disables the consumer. Bean/property conditions and factory configuration are declarations; effective activation and environment are unobserved.",
+        "The String payload enters the exact source deserialiser targeting Event<DeleteCustomerEventPayload>; its customerId reaches the CustomerService delete formal through a qualified nominal source candidate where generated payload accessors prevent exact type resolution, then reaches the active-customer repository deleteByCustomerId attempt. This local path declares no type discriminator, archive deletion, audit write or publication.",
+        "A JacksonException is wrapped in CustomerServiceException with its cause; its message mistakenly names PaymentEventPayload. A synchronous failure prevents later local statements and escapes the consumer. Container acknowledgement, retry, dead-letter, framework codec and broker delivery policy remain unknown at unavailable dependency boundaries; reconnect backoff is not a business retry guarantee."
+      ]
+    },
+    "existing": {
+      "q01": {
+        "supported": true,
+        "routes": 19,
+        "failures": []
+      },
+      "q05": {
+        "membershipGuard": true,
+        "thrownIndividualId": true,
+        "applicableHandler": true,
+        "httpNotFound": true,
+        "endpointPropagation": true,
+        "responseConstruction": true,
+        "supported": true
+      },
+      "q14": {
+        "collectionIdentities": true,
+        "completeSourceOperationCatalogue": true,
+        "receiverBindings": true,
+        "archiveFragment": true,
+        "archiveUpsertFields": true,
+        "supported": true
+      },
+      "outbound": {
+        "uniquePath": true,
+        "request": true,
+        "logicalClient": true,
+        "responseType": true,
+        "inputToUri": true,
+        "responseToReturn": true,
+        "nullResponseGuard": true,
+        "errorTranslations": true,
+        "supported": true
+      }
+    }
+  },
+  "reviewEvidence": {
+    "returnedRecords": 41904,
+    "selectedRecords": 41904,
+    "pages": 10481,
+    "bytes": 19588598,
+    "limits": {
+      "maxTotalRecords": 49152,
+      "maxTotalBytes": 33554432
+    },
+    "snapshot": "aec7d07822c8be4214d6e5603c60af13f052fba074a882e62cb0eb94beac3f42",
+    "checkerInputs": [
+      {
+        "path": "tools/scan-bindings-mutations.ts",
+        "digest": "0de0dd47fdd6c5f148fc878d1cc904efae4b23d2aeaea0e498074248c5f19833"
+      },
+      {
+        "path": "tools/scan-bindings-pages.ts",
+        "digest": "809cc0eacdefec9a4c05d945473db1c490b94de95fd3921b28eb39cc78e79625"
+      },
+      {
+        "path": "tools/scan-bindings-proofs.ts",
+        "digest": "73a184cab62073a4c82ea211df470804424183ed4cfb88b4a38e382dfa0d6f3e"
+      },
+      {
+        "path": "tools/scan-bindings-review.ts",
+        "digest": "8f28b070a18bee98ce9b22cca85115d9c363e9d0ccd6b673eee04b59f1e2f56a"
+      },
+      {
+        "path": "tools/scan-bindings-selection.ts",
+        "digest": "a6fd32458aabb13d72bc807097b036c6b8126b3831266e10334c359dea76ace1"
+      },
+      {
+        "path": "tools/scan-client-review.ts",
+        "digest": "8e3797175b09016c98fcad55fd002ad089d2c7363d88b97b3512a406b9b511a8"
+      },
+      {
+        "path": "tools/scan-event-review-consent.ts",
+        "digest": "d0a98191a49cba348f04635884ae91b5acefc7b775fc5ebec4237436e103a83f"
+      },
+      {
+        "path": "tools/scan-event-review-expectations.ts",
+        "digest": "11133cc541bb2bc37bf308e4fda19e499c20b9692a78b7044913c4340ef3cbd7"
+      },
+      {
+        "path": "tools/scan-event-review-mutations.ts",
+        "digest": "2425b5a03a04c0523c919618699954b723fa0a35ffc5d1715e2b5975e20d5b94"
+      },
+      {
+        "path": "tools/scan-event-review-native.ts",
+        "digest": "47b9e8452d395537586298c68f43f2a317c5365c585dcfebfefcdc1b37f8234d"
+      },
+      {
+        "path": "tools/scan-event-review-save.ts",
+        "digest": "1d6e854aaec060c591a6de37f77b19f9e20fc070b5b660803d38c29e0c71bed6"
+      },
+      {
+        "path": "tools/scan-event-review.ts",
+        "digest": "6abec09edb554c3de7ff92490ab9278ec783d07891bfaa7d8d490f7864e0afb4"
+      },
+      {
+        "path": "tools/scan-events-review.ts",
+        "digest": "9620bb65a99d37274e9487780031b9b78ce21b9811605a98200b8ae9189a12a6"
+      },
+      {
+        "path": "tools/scan-exception-review-native.ts",
+        "digest": "76322a0bd27fd2fce04d99a3cdb96998244090df056a71c6711e7f2822481d69"
+      },
+      {
+        "path": "tools/scan-message-review-analytics.ts",
+        "digest": "3823033f0baa984a760af63714336ded35dc56b7b664b60d36017846465fcc63"
+      },
+      {
+        "path": "tools/scan-message-review-configuration.ts",
+        "digest": "988f92aaf6347d70d550460584e39b5f8be756c7d951b103a5be2a7f48fba8ae"
+      },
+      {
+        "path": "tools/scan-message-review-constructor.ts",
+        "digest": "4a6f2f16d71218ab98b6483cca9f1cdadeb5fbc75e983da1d9f47f130fa0e95f"
+      },
+      {
+        "path": "tools/scan-message-review-consumer-config.ts",
+        "digest": "d85b541e449d1275e0ad7caed56097bab6fb3a1ebbad03cd318cb423c6d4cb1f"
+      },
+      {
+        "path": "tools/scan-message-review-consumer-mutations.ts",
+        "digest": "2fc2dee265f9209b487bfedfb3c6f316e3539a0d98a876a4e1c57e4158a89290"
+      },
+      {
+        "path": "tools/scan-message-review-consumer.ts",
+        "digest": "998d8ef76493e2b06acd1c55cf3391c9ee13863f2015ae5200ac9de721f7bd7c"
+      },
+      {
+        "path": "tools/scan-message-review-contracts.ts",
+        "digest": "aaf7e60f975c93da405072a211933f37a85bd47864ae71580922716dc63a5391"
+      },
+      {
+        "path": "tools/scan-message-review-graph.ts",
+        "digest": "ad4d81268330afb264f060c52c4163df03386ecbb8408fe895595b75952e037f"
+      },
+      {
+        "path": "tools/scan-message-review-mutations.ts",
+        "digest": "aa844e1ccfa22536e567073b485abfc61d291315e2352d2652fb12b1cb64405c"
+      },
+      {
+        "path": "tools/scan-message-review-publish.ts",
+        "digest": "2846b1642aa13e0b0b3c99d1a6d074757a76c71a3be7fe75a0e0734f6876a6e6"
+      },
+      {
+        "path": "tools/scan-message-review-scenarios.ts",
+        "digest": "b4676667a0f98d8e69408cf9adce351228ac3bb1097f9add2e729b04bf0935af"
+      },
+      {
+        "path": "tools/scan-message-review-suite.ts",
+        "digest": "fb6ff952d7bd244244476adf984eedc855f3a33fd231722af39598f56e449029"
+      },
+      {
+        "path": "tools/scan-message-review.ts",
+        "digest": "000c3391b23ef703a88476186e57ecb92e6313d53d92f622427a0bce6b15c895"
+      },
+      {
+        "path": "tools/scan-messages-review.ts",
+        "digest": "5178f192031890c1c333c98cb83c3bc7141824aeed75899b334f306288b172d8"
+      },
+      {
+        "path": "tools/scan-mongo-review-native.ts",
+        "digest": "256b78bc17b8997c1a4b8de4fc77d802ccc9dd94fa5ca56cf953f44eea36ab47"
+      },
+      {
+        "path": "tools/scan-native-answerability-replay.ts",
+        "digest": "756fe88921e68c5cc656442777d233e7e3e12fb53f29c01d859d02c6cd0f3546"
+      },
+      {
+        "path": "tools/scan-native-replay-input.ts",
+        "digest": "528f63cf42abcab0f5fa80f4327c1b9968d4b518637115ce27a5b87a1ea7fb45"
+      },
+      {
+        "path": "tools/scan-outbound-review-flow.ts",
+        "digest": "96437e80a839983ccd759160a40d145d6d6ce5ea8c264abd98bcfb23734f98b8"
+      },
+      {
+        "path": "tools/scan-outbound-review-guard.ts",
+        "digest": "407e1922794134606573e7a16820df76af3b54c3bc351391c87cdcb80df18c0d"
+      },
+      {
+        "path": "tools/scan-outbound-review.ts",
+        "digest": "e0677736524d4baa70a12eb0876c9d0139106ebce98163d2e15f72c233733776"
+      },
+      {
+        "path": "tools/scan-profile-question-mutations.ts",
+        "digest": "3a905ef31d77f3f5ccb19f9bbb5f05bd9b0944f364cfcd212142674da263bec5"
+      },
+      {
+        "path": "tools/scan-profile-question-scenarios.ts",
+        "digest": "a88d2b688dacfb029248cc3e009f51b772696563081016acdd0f042447cb8a63"
+      },
+      {
+        "path": "tools/scan-profile-review-callbacks.ts",
+        "digest": "6f19a0cdc1b03139450714f9e4edb52a6c9ee5ffe1deeae1e0fdb8410dfbc6ff"
+      },
+      {
+        "path": "tools/scan-profile-review-composition.ts",
+        "digest": "c4a1252bdb7aa3e2818bde1af99ace9ac08c2a46cb7e83e336d79a2c710b0b77"
+      },
+      {
+        "path": "tools/scan-profile-review-contract-types.ts",
+        "digest": "e2ffcfa1e6444c417394fc297415949b07faf461713b202836fd0220431d05fa"
+      },
+      {
+        "path": "tools/scan-profile-review-contracts.ts",
+        "digest": "7340628d883ef8c9e90dd6f429e4010695dc8118a6ec65dfbf4e487779182206"
+      },
+      {
+        "path": "tools/scan-profile-review-corporate-lineage.ts",
+        "digest": "772ff1e69f5a7b1b59d4d99b947eaecdb878e854f16048f975128f1db1a35efe"
+      },
+      {
+        "path": "tools/scan-profile-review-corporate.ts",
+        "digest": "23b7649e9d712191a3d8618a9831121c286476240d1acaebe7b3e56cf6b01b7b"
+      },
+      {
+        "path": "tools/scan-profile-review-enums.ts",
+        "digest": "05cf975bab1e7bc0c3f8b34a6389ac87396929a7757bbee3c78ecec6e0b914ef"
+      },
+      {
+        "path": "tools/scan-profile-review-failures.ts",
+        "digest": "8658dd149081e4db53b5f85231405f095a8fd2b85932e0b36a8f8559e13162a9"
+      },
+      {
+        "path": "tools/scan-profile-review-graph.ts",
+        "digest": "200cc3149ffda22ef8b150d4f445ad7a02abdef386aa5f3d34c682c61d5d6efe"
+      },
+      {
+        "path": "tools/scan-profile-review-graphql.ts",
+        "digest": "115f07bb9a2c7dc0861c9f595c81dd18c9b107317d15529a451eefefc5f5e64a"
+      },
+      {
+        "path": "tools/scan-profile-review-individual-atoms.ts",
+        "digest": "4c5c3171c3b56254dd66c391907ad013489cffab7752a091f544fade62032a93"
+      },
+      {
+        "path": "tools/scan-profile-review-individual-fields.ts",
+        "digest": "356720841edd2330031167db169c38fc7b1bb5d1ac362be952a726dbeea6619b"
+      },
+      {
+        "path": "tools/scan-profile-review-individual.ts",
+        "digest": "5c836d04f901c4cd3616d24adb9463a1c4a9bfe40bc55ba66df256b5ef52a915"
+      },
+      {
+        "path": "tools/scan-profile-review-local.ts",
+        "digest": "9e92eb1af0a973afd07c4ee96226f7f86bd91949563b014706a8a71564c90014"
+      },
+      {
+        "path": "tools/scan-profile-review-method.ts",
+        "digest": "a10b4826324444c77a865c5397fe22374b65513532f21aba06ad7eb5a5ccb606"
+      },
+      {
+        "path": "tools/scan-profile-review-mutations.ts",
+        "digest": "f5d7e58a54f9a66c33d61b8d274f808a95f21d42801a8b7f5c2716a626331a48"
+      },
+      {
+        "path": "tools/scan-profile-review-pattern.ts",
+        "digest": "86a47c9370f0e6c672b30b1dd91699ea7f08dd1c88bb4a8e0163b77afeab081d"
+      },
+      {
+        "path": "tools/scan-profile-review-rest.ts",
+        "digest": "fa2302e18fc6647f39c3701afde333fe349a8f9a5c24fab4fa89926c97aaf054"
+      },
+      {
+        "path": "tools/scan-profile-review-source.ts",
+        "digest": "6bac06d5713a583bfe723f51ba27467d5773b62375ca5be12b8756b1851d642b"
+      },
+      {
+        "path": "tools/scan-profile-review-token-lineage.ts",
+        "digest": "56940e30c9913dd912c9a58c8faef58388b871c0b065c928643c1992b0ccfafe"
+      },
+      {
+        "path": "tools/scan-profile-review-tokens.ts",
+        "digest": "33a5ea98f2c78d11bf798d99e8262ccfbba9f1db9480fd0b12e5311c030e6d5e"
+      },
+      {
+        "path": "tools/scan-profile-review-volvo.ts",
+        "digest": "09a3592e27998800578f390a59ddfd93d325f2af210944ccdded76422ffb8d85"
+      },
+      {
+        "path": "tools/scan-profile-review.ts",
+        "digest": "8103978f82f1eaf811e54c9f2ac8d134244ede9bdc7bf37ac95930063bd06b2d"
+      },
+      {
+        "path": "tools/scan-semantic-query.ts",
+        "digest": "0e1f5f36967f7c6a004f80f453d23db017e0407e0c51f3bfe8b64889d5832366"
+      },
+      {
+        "path": "tools/scan-source-audit.ts",
+        "digest": "908a17ca4a7a3d76bb3540e9e6b7029490b62cf88d34dac709539518ec1c1210"
+      },
+      {
+        "path": "tools/scan-spring-review-native.ts",
+        "digest": "ce838937db863361a66aa506981c704d488de3dd1f10001335e5b0f961da44cf"
+      },
+      {
+        "path": "tools/scan-spring-review-routes.ts",
+        "digest": "9014d3212893d1eda0ad33f6e56b71a65082273cb29924b1069c7346c4467486"
+      },
+      {
+        "path": "tools/scan-spring-review.ts",
+        "digest": "21ca4865918da126a8402b3bb87af70f652c5a136e7f5f4043643d949f93eeaf"
+      }
+    ],
+    "mutations": {
+      "existing": [
+        {
+          "name": "q05-remove-condition",
+          "question": "q05",
+          "rejected": true,
+          "baselineSupported": true
+        },
+        {
+          "name": "q05-remove-consequent",
+          "question": "q05",
+          "rejected": true,
+          "baselineSupported": true
+        },
+        {
+          "name": "q05-remove-callback",
+          "question": "q05",
+          "rejected": true,
+          "baselineSupported": true
+        },
+        {
+          "name": "q05-remove-value",
+          "question": "q05",
+          "rejected": true,
+          "baselineSupported": true
+        },
+        {
+          "name": "q05-remove-argument",
+          "question": "q05",
+          "rejected": true,
+          "baselineSupported": true
+        },
+        {
+          "name": "q05-remove-receiver",
+          "question": "q05",
+          "rejected": true,
+          "baselineSupported": true
+        },
+        {
+          "name": "q05-remove-returns",
+          "question": "q05",
+          "rejected": true,
+          "baselineSupported": true
+        },
+        {
+          "name": "q05-remove-call-java-call:source:d19a1f96302a06edb4ea62b1",
+          "question": "q05",
+          "rejected": true,
+          "baselineSupported": true
+        },
+        {
+          "name": "q05-remove-call-java-call:source:fd14a47e7e8ccdc80a7ceeb7",
+          "question": "q05",
+          "rejected": true,
+          "baselineSupported": true
+        },
+        {
+          "name": "q05-remove-reference",
+          "question": "q05",
+          "rejected": true,
+          "baselineSupported": true
+        },
+        {
+          "name": "q05-remove-argument_parameter",
+          "question": "q05",
+          "rejected": true,
+          "baselineSupported": true
+        },
+        {
+          "name": "q05-remove-handler",
+          "question": "q05",
+          "rejected": true,
+          "baselineSupported": true
+        },
+        {
+          "name": "q05-corrupt-status",
+          "question": "q05",
+          "rejected": true,
+          "baselineSupported": true
+        },
+        {
+          "name": "q14-remove-mongo-collection:com.volvocars.ecom.customerservice.auditlog.CustomerAuditLog",
+          "question": "q14",
+          "rejected": true,
+          "baselineSupported": true
+        },
+        {
+          "name": "q14-remove-mongo-collection:com.volvocars.ecom.customerservice.customer.Customer",
+          "question": "q14",
+          "rejected": true,
+          "baselineSupported": true
+        },
+        {
+          "name": "q14-remove-mongo-collection:com.volvocars.ecom.customerservice.customerarchive.CustomerArchive",
+          "question": "q14",
+          "rejected": true,
+          "baselineSupported": true
+        },
+        {
+          "name": "q14-remove-mongo-operation:source:014529bcfabf7b00de32ac4c",
+          "question": "q14",
+          "rejected": true,
+          "baselineSupported": true
+        },
+        {
+          "name": "q14-remove-mongo-operation:source:04a9588b41f74157700c6623",
+          "question": "q14",
+          "rejected": true,
+          "baselineSupported": true
+        },
+        {
+          "name": "q14-remove-mongo-operation:source:15c451d54963182a4bba74d2",
+          "question": "q14",
+          "rejected": true,
+          "baselineSupported": true
+        },
+        {
+          "name": "q14-remove-mongo-operation:source:2ecf30cccfe33242ffcce5b7",
+          "question": "q14",
+          "rejected": true,
+          "baselineSupported": true
+        },
+        {
+          "name": "q14-remove-mongo-operation:source:376b6458a723ceae8a1264ac",
+          "question": "q14",
+          "rejected": true,
+          "baselineSupported": true
+        },
+        {
+          "name": "q14-remove-mongo-operation:source:3d5f5da9d9b6c7097271771f",
+          "question": "q14",
+          "rejected": true,
+          "baselineSupported": true
+        },
+        {
+          "name": "q14-remove-mongo-operation:source:4c4d5287b12140fc1b65ac1b",
+          "question": "q14",
+          "rejected": true,
+          "baselineSupported": true
+        },
+        {
+          "name": "q14-remove-mongo-operation:source:500d85542be5cc73a4b6ca25",
+          "question": "q14",
+          "rejected": true,
+          "baselineSupported": true
+        },
+        {
+          "name": "q14-remove-mongo-operation:source:58ca076cdc2a45841b4846ac",
+          "question": "q14",
+          "rejected": true,
+          "baselineSupported": true
+        },
+        {
+          "name": "q14-remove-mongo-operation:source:696c81909715c225bd4cfc54",
+          "question": "q14",
+          "rejected": true,
+          "baselineSupported": true
+        },
+        {
+          "name": "q14-remove-mongo-operation:source:771c3978fc46fcb540d9ad1c",
+          "question": "q14",
+          "rejected": true,
+          "baselineSupported": true
+        },
+        {
+          "name": "q14-remove-mongo-operation:source:77a9c185565f0d5e89c16b7a",
+          "question": "q14",
+          "rejected": true,
+          "baselineSupported": true
+        },
+        {
+          "name": "q14-remove-mongo-operation:source:8af86740bad2578e70b937a1",
+          "question": "q14",
+          "rejected": true,
+          "baselineSupported": true
+        },
+        {
+          "name": "q14-remove-mongo-operation:source:937aadb63ee61d9d846a53e7",
+          "question": "q14",
+          "rejected": true,
+          "baselineSupported": true
+        },
+        {
+          "name": "q14-remove-mongo-operation:source:9ad9fed052ca3a91240f0867",
+          "question": "q14",
+          "rejected": true,
+          "baselineSupported": true
+        },
+        {
+          "name": "q14-remove-mongo-operation:source:b96c18954f484c7e05ff8282",
+          "question": "q14",
+          "rejected": true,
+          "baselineSupported": true
+        },
+        {
+          "name": "q14-remove-mongo-operation:source:c9e93b770523e8010979d03b",
+          "question": "q14",
+          "rejected": true,
+          "baselineSupported": true
+        },
+        {
+          "name": "q14-remove-mongo-operation:source:cc5c790aeb7a7821ca17116d",
+          "question": "q14",
+          "rejected": true,
+          "baselineSupported": true
+        },
+        {
+          "name": "q14-remove-mongo-operation:source:d2cdc65a70d59f1097048dc4",
+          "question": "q14",
+          "rejected": true,
+          "baselineSupported": true
+        },
+        {
+          "name": "q14-remove-mongo-operation:source:d6532685e26821231eef9b9f",
+          "question": "q14",
+          "rejected": true,
+          "baselineSupported": true
+        },
+        {
+          "name": "q14-remove-mongo-repository:com.volvocars.ecom.customerservice.auditlog.AuditLogRepository",
+          "question": "q14",
+          "rejected": true,
+          "baselineSupported": true
+        },
+        {
+          "name": "q14-remove-mongo-repository:com.volvocars.ecom.customerservice.customer.CustomerRepository",
+          "question": "q14",
+          "rejected": true,
+          "baselineSupported": true
+        },
+        {
+          "name": "q14-remove-mongo-repository:com.volvocars.ecom.customerservice.customerarchive.CustomerArchiveRepository",
+          "question": "q14",
+          "rejected": true,
+          "baselineSupported": true
+        },
+        {
+          "name": "q14-corrupt-receiver",
+          "question": "q14",
+          "rejected": true,
+          "baselineSupported": true
+        },
+        {
+          "name": "q14-remove-fragment",
+          "question": "q14",
+          "rejected": true,
+          "baselineSupported": true
+        },
+        {
+          "name": "q14-remove-update-fields",
+          "question": "q14",
+          "rejected": true,
+          "baselineSupported": true
+        },
+        {
+          "name": "outbound-remove-condition",
+          "question": "outbound",
+          "rejected": true,
+          "baselineSupported": true
+        },
+        {
+          "name": "outbound-remove-left",
+          "question": "outbound",
+          "rejected": true,
+          "baselineSupported": true
+        },
+        {
+          "name": "outbound-remove-right",
+          "question": "outbound",
+          "rejected": true,
+          "baselineSupported": true
+        },
+        {
+          "name": "outbound-remove-consequent",
+          "question": "outbound",
+          "rejected": true,
+          "baselineSupported": true
+        },
+        {
+          "name": "outbound-remove-catch",
+          "question": "outbound",
+          "rejected": true,
+          "baselineSupported": true
+        },
+        {
+          "name": "outbound-remove-value",
+          "question": "outbound",
+          "rejected": true,
+          "baselineSupported": true
+        },
+        {
+          "name": "outbound-remove-reference",
+          "question": "outbound",
+          "rejected": true,
+          "baselineSupported": true
+        },
+        {
+          "name": "outbound-remove-argument_parameter",
+          "question": "outbound",
+          "rejected": true,
+          "baselineSupported": true
+        },
+        {
+          "name": "outbound-remove-return_call",
+          "question": "outbound",
+          "rejected": true,
+          "baselineSupported": true
+        },
+        {
+          "name": "outbound-remove-initializer",
+          "question": "outbound",
+          "rejected": true,
+          "baselineSupported": true
+        },
+        {
+          "name": "outbound-remove-field_projection",
+          "question": "outbound",
+          "rejected": true,
+          "baselineSupported": true
+        },
+        {
+          "name": "outbound-remove-assignment",
+          "question": "outbound",
+          "rejected": true,
+          "baselineSupported": true
+        },
+        {
+          "name": "outbound-remove-calls",
+          "question": "outbound",
+          "rejected": true,
+          "baselineSupported": true
+        },
+        {
+          "name": "outbound-remove-schema",
+          "question": "outbound",
+          "rejected": true,
+          "baselineSupported": true
+        }
+      ],
+      "clients": [
+        {
+          "name": "getFleetAccount: HTTP method",
+          "baselinePassed": true,
+          "rejected": true
+        },
+        {
+          "name": "getOrganizationalUnits: HTTP method",
+          "baselinePassed": true,
+          "rejected": true
+        },
+        {
+          "name": "getFleetAccount: URI template",
+          "baselinePassed": true,
+          "rejected": true
+        },
+        {
+          "name": "getOrganizationalUnits: URI template",
+          "baselinePassed": true,
+          "rejected": true
+        },
+        {
+          "name": "getFleetAccount: REST receiver chain",
+          "baselinePassed": true,
+          "rejected": true
+        },
+        {
+          "name": "getOrganizationalUnits: REST receiver chain",
+          "baselinePassed": true,
+          "rejected": true
+        },
+        {
+          "name": "getFleetAccount: Registry assignment",
+          "baselinePassed": true,
+          "rejected": true
+        },
+        {
+          "name": "getOrganizationalUnits: Registry assignment",
+          "baselinePassed": true,
+          "rejected": true
+        },
+        {
+          "name": "getFleetAccount: URI input reference",
+          "baselinePassed": true,
+          "rejected": true
+        },
+        {
+          "name": "getOrganizationalUnits: URI input reference",
+          "baselinePassed": true,
+          "rejected": true
+        },
+        {
+          "name": "getFleetAccount: Response field projection",
+          "baselinePassed": true,
+          "rejected": true
+        },
+        {
+          "name": "getOrganizationalUnits: Response field projection",
+          "baselinePassed": true,
+          "rejected": true
+        },
+        {
+          "name": "getFleetAccount: Response helper argument",
+          "baselinePassed": true,
+          "rejected": true
+        },
+        {
+          "name": "getOrganizationalUnits: Response helper argument",
+          "baselinePassed": true,
+          "rejected": true
+        },
+        {
+          "name": "getFleetAccount: Response helper return",
+          "baselinePassed": true,
+          "rejected": true
+        },
+        {
+          "name": "getOrganizationalUnits: Response helper return",
+          "baselinePassed": true,
+          "rejected": true
+        },
+        {
+          "name": "getFleetAccount: Exception thrown value",
+          "baselinePassed": true,
+          "rejected": true
+        },
+        {
+          "name": "getOrganizationalUnits: Exception thrown value",
+          "baselinePassed": true,
+          "rejected": true
+        },
+        {
+          "name": "cdb: GraphQL client identity",
+          "baselinePassed": true,
+          "rejected": true
+        },
+        {
+          "name": "commercial-partner: GraphQL client identity",
+          "baselinePassed": true,
+          "rejected": true
+        },
+        {
+          "name": "cdb: GraphQL receiver chain",
+          "baselinePassed": true,
+          "rejected": true
+        },
+        {
+          "name": "commercial-partner: GraphQL receiver chain",
+          "baselinePassed": true,
+          "rejected": true
+        },
+        {
+          "name": "cdb: GraphQL parsed constant",
+          "baselinePassed": true,
+          "rejected": true
+        },
+        {
+          "name": "commercial-partner: GraphQL parsed constant",
+          "baselinePassed": true,
+          "rejected": true
+        },
+        {
+          "name": "cdb: GraphQL variable lineage",
+          "baselinePassed": true,
+          "rejected": true
+        },
+        {
+          "name": "commercial-partner: GraphQL variable lineage",
+          "baselinePassed": true,
+          "rejected": true
+        },
+        {
+          "name": "cdb: GraphQL document selection",
+          "baselinePassed": true,
+          "rejected": true
+        },
+        {
+          "name": "commercial-partner: GraphQL document selection",
+          "baselinePassed": true,
+          "rejected": true
+        },
+        {
+          "name": "cdb: GraphQL document variable",
+          "baselinePassed": true,
+          "rejected": true
+        },
+        {
+          "name": "commercial-partner: GraphQL document variable",
+          "baselinePassed": true,
+          "rejected": true
+        },
+        {
+          "name": "cdb: GraphQL result type",
+          "baselinePassed": true,
+          "rejected": true
+        },
+        {
+          "name": "commercial-partner: GraphQL result type",
+          "baselinePassed": true,
+          "rejected": true
+        },
+        {
+          "name": "cdb: GraphQL response field",
+          "baselinePassed": true,
+          "rejected": true
+        },
+        {
+          "name": "commercial-partner: GraphQL response field",
+          "baselinePassed": true,
+          "rejected": true
+        }
+      ],
+      "questions": [
+        {
+          "question": "q12",
+          "name": "CDB invalid/null/partial response conditions",
+          "baselinePassed": true,
+          "mutationApplied": true,
+          "rejected": true
+        },
+        {
+          "question": "q12",
+          "name": "CDB null return relationship",
+          "baselinePassed": true,
+          "mutationApplied": true,
+          "rejected": true
+        },
+        {
+          "question": "q12",
+          "name": "CDB request receiver chain",
+          "baselinePassed": true,
+          "mutationApplied": true,
+          "rejected": true
+        },
+        {
+          "question": "q12",
+          "name": "Connect claims decode arguments",
+          "baselinePassed": true,
+          "mutationApplied": true,
+          "rejected": true
+        },
+        {
+          "question": "q12",
+          "name": "Volvo future token capture",
+          "baselinePassed": true,
+          "mutationApplied": true,
+          "rejected": true
+        },
+        {
+          "question": "q12",
+          "name": "Volvo future conditional selection",
+          "baselinePassed": true,
+          "mutationApplied": true,
+          "rejected": true
+        },
+        {
+          "question": "q12",
+          "name": "Source fallback helper completion",
+          "baselinePassed": true,
+          "mutationApplied": true,
+          "rejected": true
+        },
+        {
+          "question": "q13",
+          "name": "Fleet source response return",
+          "baselinePassed": true,
+          "mutationApplied": true,
+          "rejected": true
+        },
+        {
+          "question": "q13",
+          "name": "Partner translated exception value",
+          "baselinePassed": true,
+          "mutationApplied": true,
+          "rejected": true
+        },
+        {
+          "question": "q13",
+          "name": "Corporate request variant dispatch",
+          "baselinePassed": true,
+          "mutationApplied": true,
+          "rejected": true
+        },
+        {
+          "question": "q13",
+          "name": "Null-filtered corporate list return",
+          "baselinePassed": true,
+          "mutationApplied": true,
+          "rejected": true
+        },
+        {
+          "question": "q13",
+          "name": "Partner active facility callback join",
+          "baselinePassed": true,
+          "mutationApplied": true,
+          "rejected": true
+        },
+        {
+          "question": "q13",
+          "name": "Partner preferred name callback join",
+          "baselinePassed": true,
+          "mutationApplied": true,
+          "rejected": true
+        },
+        {
+          "question": "q13",
+          "name": "Partner preferred address callback join",
+          "baselinePassed": true,
+          "mutationApplied": true,
+          "rejected": true
+        },
+        {
+          "question": "q13",
+          "name": "Fleet account loader callback join",
+          "baselinePassed": true,
+          "mutationApplied": true,
+          "rejected": true
+        },
+        {
+          "question": "q13",
+          "name": "Fleet unit loader callback join",
+          "baselinePassed": true,
+          "mutationApplied": true,
+          "rejected": true
+        },
+        {
+          "question": "q12",
+          "name": "Connect empty claims conjunction",
+          "baselinePassed": true,
+          "mutationApplied": true,
+          "rejected": true
+        },
+        {
+          "question": "q12",
+          "name": "Entra app-token exclusion",
+          "baselinePassed": true,
+          "mutationApplied": true,
+          "rejected": true
+        },
+        {
+          "question": "q13",
+          "name": "Fleet account approval inequality",
+          "baselinePassed": true,
+          "mutationApplied": true,
+          "rejected": true
+        },
+        {
+          "question": "q13",
+          "name": "Partner permission negation",
+          "baselinePassed": true,
+          "mutationApplied": true,
+          "rejected": true
+        },
+        {
+          "question": "q12",
+          "name": "Individual profile constructor field order",
+          "baselinePassed": true,
+          "mutationApplied": true,
+          "rejected": true
+        },
+        {
+          "question": "q12",
+          "name": "Connect profile constructor field order",
+          "baselinePassed": true,
+          "mutationApplied": true,
+          "rejected": true
+        },
+        {
+          "question": "q13",
+          "name": "Customer individual/corporate argument order",
+          "baselinePassed": true,
+          "mutationApplied": true,
+          "rejected": true
+        },
+        {
+          "question": "q13",
+          "name": "Fleet corporate constructor field order",
+          "baselinePassed": true,
+          "mutationApplied": true,
+          "rejected": true
+        },
+        {
+          "question": "q13",
+          "name": "Partner corporate constructor field order",
+          "baselinePassed": true,
+          "mutationApplied": true,
+          "rejected": true
+        },
+        {
+          "question": "q13",
+          "name": "Fleet source mapper argument order",
+          "baselinePassed": true,
+          "mutationApplied": true,
+          "rejected": true
+        },
+        {
+          "question": "q12",
+          "name": "Entra oid claim constant",
+          "baselinePassed": true,
+          "mutationApplied": true,
+          "rejected": true
+        },
+        {
+          "question": "q12",
+          "name": "Volvo user response contract",
+          "baselinePassed": true,
+          "mutationApplied": true,
+          "rejected": true
+        },
+        {
+          "question": "q13",
+          "name": "Partner response contract",
+          "baselinePassed": true,
+          "mutationApplied": true,
+          "rejected": true
+        },
+        {
+          "question": "q12",
+          "name": "CDB document variable binding",
+          "baselinePassed": true,
+          "mutationApplied": true,
+          "rejected": true
+        },
+        {
+          "question": "q13",
+          "name": "Partner document variable binding",
+          "baselinePassed": true,
+          "mutationApplied": true,
+          "rejected": true
+        },
+        {
+          "question": "q12",
+          "name": "CDB logical client boundary",
+          "baselinePassed": true,
+          "mutationApplied": true,
+          "rejected": true
+        },
+        {
+          "question": "q12",
+          "name": "Volvo error translation boundary",
+          "baselinePassed": true,
+          "mutationApplied": true,
+          "rejected": true
+        },
+        {
+          "question": "q13",
+          "name": "Fleet error translation boundary",
+          "baselinePassed": true,
+          "mutationApplied": true,
+          "rejected": true
+        },
+        {
+          "question": "q13",
+          "name": "Fleet HTTP method boundary",
+          "baselinePassed": true,
+          "mutationApplied": true,
+          "rejected": true
+        },
+        {
+          "question": "q13",
+          "name": "Partner logical client boundary",
+          "baselinePassed": true,
+          "mutationApplied": true,
+          "rejected": true
+        },
+        {
+          "question": "q12",
+          "name": "Individual request and fallback source references",
+          "baselinePassed": true,
+          "mutationApplied": true,
+          "rejected": true
+        },
+        {
+          "question": "q13",
+          "name": "Fleet URI input source references",
+          "baselinePassed": true,
+          "mutationApplied": true,
+          "rejected": true
+        },
+        {
+          "question": "q12",
+          "name": "CDB nested person type with target schema retained",
+          "baselinePassed": true,
+          "mutationApplied": true,
+          "rejected": true
+        },
+        {
+          "question": "q13",
+          "name": "Partner nested address container with target schema retained",
+          "baselinePassed": true,
+          "mutationApplied": true,
+          "rejected": true
+        }
+      ],
+      "events": [
+        {
+          "name": "postprocessor parameter references",
+          "question": "q15",
+          "applied": true,
+          "baselinePassed": true,
+          "rejected": true
+        },
+        {
+          "name": "postprocessor collaborator argument lineage",
+          "question": "q15",
+          "applied": true,
+          "baselinePassed": true,
+          "rejected": true
+        },
+        {
+          "name": "saved result reaching value",
+          "question": "q15",
+          "applied": true,
+          "baselinePassed": true,
+          "rejected": true
+        },
+        {
+          "name": "saved result assigned value",
+          "question": "q15",
+          "applied": true,
+          "baselinePassed": true,
+          "rejected": true
+        },
+        {
+          "name": "consent construction precedes guards",
+          "question": "q16",
+          "applied": true,
+          "baselinePassed": true,
+          "rejected": true
+        },
+        {
+          "name": "consent send precedes guards",
+          "question": "q16",
+          "applied": true,
+          "baselinePassed": true,
+          "rejected": true
+        },
+        {
+          "name": "consent candidate helper lineage",
+          "question": "q16",
+          "applied": true,
+          "baselinePassed": true,
+          "rejected": true
+        },
+        {
+          "name": "consent payload builder application",
+          "question": "q16",
+          "applied": true,
+          "baselinePassed": true,
+          "rejected": true
+        },
+        {
+          "name": "consent comparison operands",
+          "question": "q16",
+          "applied": true,
+          "baselinePassed": true,
+          "rejected": true
+        },
+        {
+          "name": "consent declared field lineage",
+          "question": "q16",
+          "applied": true,
+          "baselinePassed": true,
+          "rejected": true
+        },
+        {
+          "name": "consent guard operand",
+          "question": "q16",
+          "applied": true,
+          "baselinePassed": true,
+          "rejected": true
+        },
+        {
+          "name": "consent control exits",
+          "question": "q16",
+          "applied": true,
+          "baselinePassed": true,
+          "rejected": true
+        },
+        {
+          "name": "consent lexical lineage",
+          "question": "q16",
+          "applied": true,
+          "baselinePassed": true,
+          "rejected": true
+        },
+        {
+          "name": "consent native payload mapping",
+          "question": "q16",
+          "applied": true,
+          "baselinePassed": true,
+          "rejected": true
+        },
+        {
+          "name": "consent native send arguments",
+          "question": "q16",
+          "applied": true,
+          "baselinePassed": true,
+          "rejected": true
+        },
+        {
+          "name": "postprocessor statement order",
+          "question": "q15",
+          "applied": true,
+          "baselinePassed": true,
+          "rejected": true
+        },
+        {
+          "name": "saved return assignment",
+          "question": "q15",
+          "applied": true,
+          "baselinePassed": true,
+          "rejected": true
+        },
+        {
+          "name": "analytics callback attachment",
+          "question": "q15",
+          "applied": true,
+          "baselinePassed": true,
+          "rejected": true
+        },
+        {
+          "name": "transaction boundary changed",
+          "question": "q15",
+          "applied": true,
+          "baselinePassed": true,
+          "rejected": true
+        },
+        {
+          "name": "caller waits for async result",
+          "question": "q15",
+          "applied": true,
+          "baselinePassed": true,
+          "rejected": true
+        },
+        {
+          "name": "audit returned-value observation",
+          "question": "q15",
+          "applied": true,
+          "baselinePassed": true,
+          "rejected": true
+        },
+        {
+          "name": "publication arguments removed",
+          "question": "q15",
+          "applied": true,
+          "baselinePassed": true,
+          "rejected": true
+        }
+      ],
+      "messages": [
+        {
+          "name": "producer activation condition detached",
+          "question": "q17",
+          "applied": true,
+          "baselinePassed": true,
+          "rejected": true
+        },
+        {
+          "name": "consumer activation condition detached",
+          "question": "q18",
+          "applied": true,
+          "baselinePassed": true,
+          "rejected": true
+        },
+        {
+          "name": "event branch condition detached",
+          "question": "q17",
+          "applied": true,
+          "baselinePassed": true,
+          "rejected": true
+        },
+        {
+          "name": "event branch alternative detached",
+          "question": "q17",
+          "applied": true,
+          "baselinePassed": true,
+          "rejected": true
+        },
+        {
+          "name": "event branch enum value changed",
+          "question": "q17",
+          "applied": true,
+          "baselinePassed": true,
+          "rejected": true
+        },
+        {
+          "name": "enum JSON value changed",
+          "question": "q17",
+          "applied": true,
+          "baselinePassed": true,
+          "rejected": true
+        },
+        {
+          "name": "mapper nested type replaced",
+          "question": "q17",
+          "applied": true,
+          "baselinePassed": true,
+          "rejected": true
+        },
+        {
+          "name": "mapper callback detached",
+          "question": "q17",
+          "applied": true,
+          "baselinePassed": true,
+          "rejected": true
+        },
+        {
+          "name": "event/formal lexical references detached",
+          "question": "q17",
+          "applied": true,
+          "baselinePassed": true,
+          "rejected": true
+        },
+        {
+          "name": "event helper ordinal parameter detached",
+          "question": "q17",
+          "applied": true,
+          "baselinePassed": true,
+          "rejected": true
+        },
+        {
+          "name": "customer payload ordinal detached",
+          "question": "q17",
+          "applied": true,
+          "baselinePassed": true,
+          "rejected": true
+        },
+        {
+          "name": "publication attempted before guard",
+          "question": "q17",
+          "applied": true,
+          "baselinePassed": true,
+          "rejected": true
+        },
+        {
+          "name": "publication message binding arguments detached",
+          "question": "q17",
+          "applied": true,
+          "baselinePassed": true,
+          "rejected": true
+        },
+        {
+          "name": "topic settings selector detached",
+          "question": "q17",
+          "applied": true,
+          "baselinePassed": true,
+          "rejected": true
+        },
+        {
+          "name": "declared topic scalar changed",
+          "question": "q17",
+          "applied": true,
+          "baselinePassed": true,
+          "rejected": true
+        },
+        {
+          "name": "subscription topic changed",
+          "question": "q18",
+          "applied": true,
+          "baselinePassed": true,
+          "rejected": true
+        },
+        {
+          "name": "subscription container detached",
+          "question": "q18",
+          "applied": true,
+          "baselinePassed": true,
+          "rejected": true
+        },
+        {
+          "name": "deserialiser target type changed",
+          "question": "q18",
+          "applied": true,
+          "baselinePassed": true,
+          "rejected": true
+        },
+        {
+          "name": "deserialiser type reference detached",
+          "question": "q18",
+          "applied": true,
+          "baselinePassed": true,
+          "rejected": true
+        },
+        {
+          "name": "consumer payload field type replaced",
+          "question": "q18",
+          "applied": true,
+          "baselinePassed": true,
+          "rejected": true
+        },
+        {
+          "name": "customer ID propagation changed",
+          "question": "q18",
+          "applied": true,
+          "baselinePassed": true,
+          "rejected": true
+        },
+        {
+          "name": "consumer formal references detached",
+          "question": "q18",
+          "applied": true,
+          "baselinePassed": true,
+          "rejected": true
+        },
+        {
+          "name": "consumer ordinal arguments detached",
+          "question": "q18",
+          "applied": true,
+          "baselinePassed": true,
+          "rejected": true
+        },
+        {
+          "name": "candidate deletion formal detached",
+          "question": "q18",
+          "applied": true,
+          "baselinePassed": true,
+          "rejected": true
+        },
+        {
+          "name": "delete operation detached",
+          "question": "q18",
+          "applied": true,
+          "baselinePassed": true,
+          "rejected": true
+        },
+        {
+          "name": "exception handler body detached",
+          "question": "q18",
+          "applied": true,
+          "baselinePassed": true,
+          "rejected": true
+        },
+        {
+          "name": "deserialisation failure throw detached",
+          "question": "q18",
+          "applied": true,
+          "baselinePassed": true,
+          "rejected": true
+        },
+        {
+          "name": "analytics constructor target detached",
+          "question": "q17",
+          "applied": true,
+          "baselinePassed": true,
+          "rejected": true
+        },
+        {
+          "name": "analytics constructor formal detached",
+          "question": "q17",
+          "applied": true,
+          "baselinePassed": true,
+          "rejected": true
+        },
+        {
+          "name": "consumer outer call membership detached",
+          "question": "q18",
+          "applied": true,
+          "baselinePassed": true,
+          "rejected": true
+        }
+      ]
+    },
+    "pageLimits": {
+      "selectedIdsPerChunk": 32,
+      "maxRecords": 4,
+      "maxBytes": 65536
+    }
+  },
+  "sourceCapture": "reports/customer-service-messaging-005/repository.json",
+  "nativeReplay": {
+    "format": "independent-native-replay/v1",
+    "sourceCapture": "reports/customer-service-messaging-005/repository.json",
+    "baseline": "reports/customer-service-events-001/independent-native",
+    "specifications": "reports/customer-service-pipeline-001/answerability",
+    "probes": [
+      {
+        "probe": "Q08-force-archive",
+        "scope": "repository-0001",
+        "records": 231,
+        "pages": 58,
+        "allChecksSupported": true,
+        "boundedOnly": true,
+        "allRecordIdsAndValuesIdenticalToAcceptedCapture": true,
+        "sourceCapture": "reports/customer-service-messaging-005/repository.json",
+        "complete": true,
+        "bytes": 94236,
+        "limits": {
+          "maxTotalRecords": 2048,
+          "maxTotalBytes": 16777216
+        }
+      },
+      {
+        "probe": "Q16-consent-guards",
+        "scope": "repository-0003",
+        "records": 770,
+        "pages": 193,
+        "allChecksSupported": true,
+        "boundedOnly": true,
+        "allRecordIdsAndValuesIdenticalToAcceptedCapture": true,
+        "sourceCapture": "reports/customer-service-messaging-005/repository.json",
+        "complete": true,
+        "bytes": 317242,
+        "limits": {
+          "maxTotalRecords": 2048,
+          "maxTotalBytes": 16777216
+        }
+      },
+      {
+        "probe": "Q07-equal-write",
+        "scope": "repository-0004",
+        "records": 221,
+        "pages": 56,
+        "allChecksSupported": true,
+        "boundedOnly": true,
+        "allRecordIdsAndValuesIdenticalToAcceptedCapture": true,
+        "sourceCapture": "reports/customer-service-messaging-005/repository.json",
+        "complete": true,
+        "bytes": 91241,
+        "limits": {
+          "maxTotalRecords": 2048,
+          "maxTotalBytes": 16777216
+        }
+      },
+      {
+        "probe": "Q09-restore-order",
+        "scope": "repository-0004",
+        "records": 376,
+        "pages": 94,
+        "allChecksSupported": true,
+        "boundedOnly": true,
+        "allRecordIdsAndValuesIdenticalToAcceptedCapture": true,
+        "sourceCapture": "reports/customer-service-messaging-005/repository.json",
+        "complete": true,
+        "bytes": 157235,
+        "limits": {
+          "maxTotalRecords": 2048,
+          "maxTotalBytes": 16777216
+        }
+      },
+      {
+        "probe": "Q15-postprocess-order",
+        "scope": "repository-0004",
+        "records": 133,
+        "pages": 34,
+        "allChecksSupported": true,
+        "boundedOnly": true,
+        "allRecordIdsAndValuesIdenticalToAcceptedCapture": true,
+        "sourceCapture": "reports/customer-service-messaging-005/repository.json",
+        "complete": true,
+        "bytes": 54107,
+        "limits": {
+          "maxTotalRecords": 2048,
+          "maxTotalBytes": 16777216
+        }
+      },
+      {
+        "probe": "Q20-scheduler-call",
+        "scope": "repository-0004",
+        "records": 99,
+        "pages": 25,
+        "allChecksSupported": true,
+        "boundedOnly": true,
+        "allRecordIdsAndValuesIdenticalToAcceptedCapture": true,
+        "sourceCapture": "reports/customer-service-messaging-005/repository.json",
+        "complete": true,
+        "bytes": 40464,
+        "limits": {
+          "maxTotalRecords": 2048,
+          "maxTotalBytes": 16777216
+        }
+      },
+      {
+        "probe": "Q18-delete-id",
+        "scope": "repository-0005",
+        "records": 275,
+        "pages": 69,
+        "allChecksSupported": true,
+        "boundedOnly": true,
+        "allRecordIdsAndValuesIdenticalToAcceptedCapture": true,
+        "sourceCapture": "reports/customer-service-messaging-005/repository.json",
+        "complete": true,
+        "bytes": 111918,
+        "limits": {
+          "maxTotalRecords": 2048,
+          "maxTotalBytes": 16777216
+        }
+      }
+    ],
+    "allSupported": true,
+    "q08DefaultSupported": true,
+    "q08DefaultMutations": 8
+  }
+}

@@ -1,0 +1,739 @@
+[
+  {
+    "path": "Dockerfile",
+    "sha256": "806de88a968e945f5815ab7a021f4e35ca413d411569b526b19832db1b32bef1",
+    "lines": 20,
+    "sourceBodies": [],
+    "review": "examined pinned source/declaration/configuration; no application build, test or runtime call"
+  },
+  {
+    "path": "README.md",
+    "sha256": "defcc2ed168a7f4516ed33b11b1fdaebd77881f425b81c6d9fbf99de09be8d03",
+    "lines": 391,
+    "sourceBodies": [],
+    "review": "examined pinned source/declaration/configuration; no application build, test or runtime call"
+  },
+  {
+    "path": "cds-paymentservice-customer-api/pom.xml",
+    "sha256": "251e3b1f644c3a9457839a352acf424877e059cc96964826e5e565dc51c77d4d",
+    "lines": 94,
+    "sourceBodies": [],
+    "review": "examined pinned source/declaration/configuration; no application build, test or runtime call"
+  },
+  {
+    "path": "cds-paymentservice-customer-api/src/main/java/com/volvocars/ecom/paymentservice/customer/api/App.java",
+    "sha256": "9ce241c7ef99c884a4403346d0c5fafa245f370eabaaa4a60a7dc08a0f70d7c5",
+    "lines": 25,
+    "sourceBodies": ["customer-b0010537-complete-r8/method/24d18585f04f650f"],
+    "review": "examined pinned source/declaration/configuration; no application build, test or runtime call"
+  },
+  {
+    "path": "cds-paymentservice-customer-api/src/main/java/com/volvocars/ecom/paymentservice/customer/api/configuration/v1/SwaggerUIController.java",
+    "sha256": "41f8658b54853c039953022a59e396605254375409578c6c7ddfc03050322361",
+    "lines": 36,
+    "sourceBodies": [],
+    "review": "examined pinned source/declaration/configuration; no application build, test or runtime call"
+  },
+  {
+    "path": "cds-paymentservice-customer-api/src/main/java/com/volvocars/ecom/paymentservice/customer/api/configuration/v1/impl/SwaggerUIControllerImpl.java",
+    "sha256": "2f522fb030b59c6b13c569354266bcb9652e1f3c10f0af6597f05b2952545e96",
+    "lines": 37,
+    "sourceBodies": [
+      "customer-b0010537-complete-r8/method/ac940076b172e388",
+      "customer-b0010537-complete-r8/method/5454a409b1e3a6fa"
+    ],
+    "review": "examined pinned source/declaration/configuration; no application build, test or runtime call"
+  },
+  {
+    "path": "cds-paymentservice-customer-api/src/main/java/com/volvocars/ecom/paymentservice/customer/api/customer/v1/CustomerController.java",
+    "sha256": "fbc263a225343a96e88e369929f8b3bc48da253e03f108834db3bb87ac31228d",
+    "lines": 195,
+    "sourceBodies": [],
+    "review": "examined pinned source/declaration/configuration; no application build, test or runtime call"
+  },
+  {
+    "path": "cds-paymentservice-customer-api/src/main/java/com/volvocars/ecom/paymentservice/customer/api/customer/v1/impl/CustomerControllerImpl.java",
+    "sha256": "9f57e4f4f1dfbc9f37c395eacb09fb8f1bb68fcee33857663a3697fd3e43c8d8",
+    "lines": 193,
+    "sourceBodies": [
+      "customer-b0010537-complete-r8/method/1d68f7eaa3dc242f",
+      "customer-b0010537-complete-r8/method/0d05956408857e3d",
+      "customer-b0010537-complete-r8/method/0380a2b028aa5e32",
+      "customer-b0010537-complete-r8/method/31f1530c4e2b83c8",
+      "customer-b0010537-complete-r8/method/8056dc952620ebc3",
+      "customer-b0010537-complete-r8/method/25217c6470966a28",
+      "customer-b0010537-complete-r8/method/30635b36aefefbb5",
+      "customer-b0010537-complete-r8/method/6b0dc50518a1e69f",
+      "customer-b0010537-complete-r8/method/8b160d9a1ac22d59",
+      "customer-b0010537-complete-r8/method/21f23606f9e50703",
+      "customer-b0010537-complete-r8/method/35e39e14df914c97",
+      "customer-b0010537-complete-r8/method/d067631967c2ef62",
+      "customer-b0010537-complete-r8/method/86568c3b38162e05"
+    ],
+    "review": "examined pinned source/declaration/configuration; no application build, test or runtime call"
+  },
+  {
+    "path": "cds-paymentservice-customer-api/src/main/java/com/volvocars/ecom/paymentservice/customer/api/customer/v1/mapper/CustomerApiMapper.java",
+    "sha256": "b3e594791694fb5dc33f8b01612901900ecc45019b7bae0f49edcf5211f0ca7e",
+    "lines": 59,
+    "sourceBodies": [
+      "customer-b0010537-complete-r8/method/0661574e431f693e",
+      "customer-b0010537-complete-r8/method/e86901895a1e08a9",
+      "customer-b0010537-complete-r8/method/3949ba051d345969",
+      "customer-b0010537-complete-r8/method/a2eebed3c70bd743",
+      "customer-b0010537-complete-r8/method/21950fdc17dc3fbf",
+      "customer-b0010537-complete-r8/method/bd381a8a6023742a"
+    ],
+    "review": "examined pinned source/declaration/configuration; no application build, test or runtime call"
+  },
+  {
+    "path": "cds-paymentservice-customer-api/src/main/java/com/volvocars/ecom/paymentservice/customer/api/version/v1/VersionController.java",
+    "sha256": "af19c3c6994fa95dd2e7b6e1aa6650454cbe3118fb83546d676e1ff44d3f0c49",
+    "lines": 30,
+    "sourceBodies": [],
+    "review": "examined pinned source/declaration/configuration; no application build, test or runtime call"
+  },
+  {
+    "path": "cds-paymentservice-customer-api/src/main/java/com/volvocars/ecom/paymentservice/customer/api/version/v1/impl/VersionControllerImpl.java",
+    "sha256": "28ecce902f84141985d216a268a3a8d4e0b6581dfbe20cc924833c782f24b65d",
+    "lines": 27,
+    "sourceBodies": ["customer-b0010537-complete-r8/method/332f28bbcb6dd132"],
+    "review": "examined pinned source/declaration/configuration; no application build, test or runtime call"
+  },
+  {
+    "path": "cds-paymentservice-customer-api/src/main/java/com/volvocars/ecom/paymentservice/customer/api/version/v2/VersionController.java",
+    "sha256": "b001a752260716910a75db8ec02d1237b760b1db4553df5ebf6d54c8578e1fa8",
+    "lines": 30,
+    "sourceBodies": [],
+    "review": "examined pinned source/declaration/configuration; no application build, test or runtime call"
+  },
+  {
+    "path": "cds-paymentservice-customer-api/src/main/java/com/volvocars/ecom/paymentservice/customer/api/version/v2/impl/VersionControllerImpl.java",
+    "sha256": "8d47ca5d042a7363f22f9ea644bf5eb5b97ae52b89ad2f3c768b52791cd26fe4",
+    "lines": 23,
+    "sourceBodies": ["customer-b0010537-complete-r8/method/d240de36d0d80435"],
+    "review": "examined pinned source/declaration/configuration; no application build, test or runtime call"
+  },
+  {
+    "path": "cds-paymentservice-customer-api/src/main/resources/application-development.yml",
+    "sha256": "ddf4b21e382f2626bc3ad130baa04dd2ec306aa1266b2135f67971e1fd2a1a09",
+    "lines": 25,
+    "sourceBodies": [],
+    "review": "examined pinned source/declaration/configuration; no application build, test or runtime call"
+  },
+  {
+    "path": "cds-paymentservice-customer-api/src/main/resources/application-ecp-weu-dev.yml",
+    "sha256": "e17262d645f0edd17ef84fa8d2d4241ee2415caac4e7e02f3b4165e2fd3616e1",
+    "lines": 11,
+    "sourceBodies": [],
+    "review": "examined pinned source/declaration/configuration; no application build, test or runtime call"
+  },
+  {
+    "path": "cds-paymentservice-customer-api/src/main/resources/application-ecp-weu-prod.yml",
+    "sha256": "ef1a9825467f1fce8b27a2c54d2aac9000b6c025a7ee3e676b5d1c3439ba095c",
+    "lines": 11,
+    "sourceBodies": [],
+    "review": "examined pinned source/declaration/configuration; no application build, test or runtime call"
+  },
+  {
+    "path": "cds-paymentservice-customer-api/src/main/resources/application-ecp-weu-qa.yml",
+    "sha256": "656d1099c1896040906dad100e3c9fba9f0a2a8f12904ee33d037af3d48de2c9",
+    "lines": 12,
+    "sourceBodies": [],
+    "review": "examined pinned source/declaration/configuration; no application build, test or runtime call"
+  },
+  {
+    "path": "cds-paymentservice-customer-api/src/main/resources/application-local.yml",
+    "sha256": "31052c7f0713fe03bd4887dcb595cabf5241c1f53f56f707df7d471243d5e7bb",
+    "lines": 59,
+    "sourceBodies": [],
+    "review": "examined pinned source/declaration/configuration; no application build, test or runtime call"
+  },
+  {
+    "path": "cds-paymentservice-customer-api/src/main/resources/application-production.yml",
+    "sha256": "b28c6b4ac84c031d614ee98736f938ef84f9d257a900557d85a9fcb247bb8d5b",
+    "lines": 45,
+    "sourceBodies": [],
+    "review": "examined pinned source/declaration/configuration; no application build, test or runtime call"
+  },
+  {
+    "path": "cds-paymentservice-customer-api/src/main/resources/application-staging.yml",
+    "sha256": "56b44db0bcaf6a467479bd9a95e576bf9c1737f9379334693484b856b9f012b3",
+    "lines": 27,
+    "sourceBodies": [],
+    "review": "examined pinned source/declaration/configuration; no application build, test or runtime call"
+  },
+  {
+    "path": "cds-paymentservice-customer-api/src/main/resources/application.yml",
+    "sha256": "5315ec2fc66e342025fd19d9c01988fa82623c6bab8ca6185333002f3b5eceb0",
+    "lines": 131,
+    "sourceBodies": [],
+    "review": "examined pinned source/declaration/configuration; no application build, test or runtime call"
+  },
+  {
+    "path": "cds-paymentservice-customer-api/src/main/resources/log4j2-spring-local.xml",
+    "sha256": "430855ccf40cdd4a67298b35f970e97dd89db1fbdb9482f482f2e242dcfebe0a",
+    "lines": 15,
+    "sourceBodies": [],
+    "review": "examined pinned source/declaration/configuration; no application build, test or runtime call"
+  },
+  {
+    "path": "cds-paymentservice-customer-api/src/main/resources/log4j2-spring.xml",
+    "sha256": "e3a46b32c6f099a8ec6ea317fc40b3397b670b203565cb14971dd22e1ab7eb14",
+    "lines": 32,
+    "sourceBodies": [],
+    "review": "examined pinned source/declaration/configuration; no application build, test or runtime call"
+  },
+  {
+    "path": "cds-paymentservice-customer-client/pom.xml",
+    "sha256": "4c77c9240b2115da303155d3cbc706ce8792eb9d83d81e86f49d914ac314684d",
+    "lines": 60,
+    "sourceBodies": [],
+    "review": "examined pinned source/declaration/configuration; no application build, test or runtime call"
+  },
+  {
+    "path": "cds-paymentservice-customer-client/src/main/java/com/volvocars/ecom/paymentservice/customer/client/BaseCustomerClient.java",
+    "sha256": "d57ac2975a3b4723053f9e5fe8f6220cadd8e45a92eb06a5c6810f3be4a44e68",
+    "lines": 25,
+    "sourceBodies": [
+      "customer-b0010537-complete-r8/method/a8e6160db0dd213d",
+      "customer-b0010537-complete-r8/method/a2a778c87f1115df"
+    ],
+    "review": "examined pinned source/declaration/configuration; no application build, test or runtime call"
+  },
+  {
+    "path": "cds-paymentservice-customer-client/src/main/java/com/volvocars/ecom/paymentservice/customer/client/customer/CustomerApi.java",
+    "sha256": "9a5a18d7b9f3f1f22ece1ef1e1b9392024675ab074fdba8501bad6c6dce6e913",
+    "lines": 68,
+    "sourceBodies": [],
+    "review": "examined pinned source/declaration/configuration; no application build, test or runtime call"
+  },
+  {
+    "path": "cds-paymentservice-customer-client/src/main/java/com/volvocars/ecom/paymentservice/customer/client/customer/CustomerClient.java",
+    "sha256": "f76e3ff25310212b07893cd03d810fbf561ee9f85238f0d20f3e420fb0ee7d68",
+    "lines": 61,
+    "sourceBodies": [
+      "customer-b0010537-complete-r8/method/6839b9d4f1efac41",
+      "customer-b0010537-complete-r8/method/cafdaa5729e46c82",
+      "customer-b0010537-complete-r8/method/6d17974e4c8069eb",
+      "customer-b0010537-complete-r8/method/a5aae01990ce664e",
+      "customer-b0010537-complete-r8/method/c28c916b8eff6067",
+      "customer-b0010537-complete-r8/method/378cc40122949fdc",
+      "customer-b0010537-complete-r8/method/0a4ab29989bae983",
+      "customer-b0010537-complete-r8/method/47ba1c2d5076477e",
+      "customer-b0010537-complete-r8/method/ac9360c905bc89aa",
+      "customer-b0010537-complete-r8/method/eea5c4bf1f45dbe5"
+    ],
+    "review": "examined pinned source/declaration/configuration; no application build, test or runtime call"
+  },
+  {
+    "path": "cds-paymentservice-customer-core/pom.xml",
+    "sha256": "e0cc617f872ca5305bbefe02bd20ad2bf6ee9284cad2f7ff6b58f2007ba629c5",
+    "lines": 80,
+    "sourceBodies": [],
+    "review": "examined pinned source/declaration/configuration; no application build, test or runtime call"
+  },
+  {
+    "path": "cds-paymentservice-customer-core/src/main/java/com/volvocars/ecom/paymentservice/common/BaseEntity.java",
+    "sha256": "fa8e5285c5b54ec7b3ad8e1b658b8d00caa8207df86bfbf3d18ef17d7d5d31e2",
+    "lines": 44,
+    "sourceBodies": [],
+    "review": "examined pinned source/declaration/configuration; no application build, test or runtime call"
+  },
+  {
+    "path": "cds-paymentservice-customer-core/src/main/java/com/volvocars/ecom/paymentservice/common/ErrorResponseHandler.java",
+    "sha256": "328db08f443341aa0d99a826e0f15b5050a2024aaf553adadf220838137dcb38",
+    "lines": 66,
+    "sourceBodies": [
+      "customer-b0010537-complete-r8/method/171b4034a2aeae3d",
+      "customer-b0010537-complete-r8/method/2503db3f7ee2b006",
+      "customer-b0010537-complete-r8/method/0a8a5a309c65e083",
+      "customer-b0010537-complete-r8/method/1daf458b6c906804"
+    ],
+    "review": "examined pinned source/declaration/configuration; no application build, test or runtime call"
+  },
+  {
+    "path": "cds-paymentservice-customer-core/src/main/java/com/volvocars/ecom/paymentservice/common/RequestHashCacheKeyResolver.java",
+    "sha256": "7aa5bb9be9436f3b2b3fc081ada9c87dde063e4d266800f199c1755e2674a6b4",
+    "lines": 58,
+    "sourceBodies": [
+      "customer-b0010537-complete-r8/method/dbabcb9dea10cd85",
+      "customer-b0010537-complete-r8/method/66f0656bc890c604"
+    ],
+    "review": "examined pinned source/declaration/configuration; no application build, test or runtime call"
+  },
+  {
+    "path": "cds-paymentservice-customer-core/src/main/java/com/volvocars/ecom/paymentservice/configuration/CacheConfiguration.java",
+    "sha256": "ef6e0ba0b5e3c089b849a52b00bd00282bb61b7d954732845f67473a8c0b3e3e",
+    "lines": 75,
+    "sourceBodies": [
+      "customer-b0010537-complete-r8/method/ac2f650698c795dc",
+      "customer-b0010537-complete-r8/method/1284514a4c2bdaa6",
+      "customer-b0010537-complete-r8/method/0fc9116e8d75984d",
+      "customer-b0010537-complete-r8/method/fd13e71adf42e4e1",
+      "customer-b0010537-complete-r8/method/1d03c9eb505a5c47",
+      "customer-b0010537-complete-r8/method/e1826ce1b9867181"
+    ],
+    "review": "examined pinned source/declaration/configuration; no application build, test or runtime call"
+  },
+  {
+    "path": "cds-paymentservice-customer-core/src/main/java/com/volvocars/ecom/paymentservice/configuration/FaultTolerantCacheManager.java",
+    "sha256": "223041075d603fd894292786c1a315ff170d98b03d10fce3ae6d9d2a8a8754c1",
+    "lines": 119,
+    "sourceBodies": [
+      "customer-b0010537-complete-r8/method/0e65d5755977ea00",
+      "customer-b0010537-complete-r8/method/eb30ac7c3953216c",
+      "customer-b0010537-complete-r8/method/36a61c0a31d8297c",
+      "customer-b0010537-complete-r8/method/d92d523678e83130",
+      "customer-b0010537-complete-r8/method/c9e4928b334cee09",
+      "customer-b0010537-complete-r8/method/08351935fe4d36f4",
+      "customer-b0010537-complete-r8/method/ce332a21519d1783",
+      "customer-b0010537-complete-r8/method/de45105ac757a9f5",
+      "customer-b0010537-complete-r8/method/22d1ff7bcb19d5c0",
+      "customer-b0010537-complete-r8/method/bb458d8f60461bf8",
+      "customer-b0010537-complete-r8/method/0d7a5a8ef4adf99a"
+    ],
+    "review": "examined pinned source/declaration/configuration; no application build, test or runtime call"
+  },
+  {
+    "path": "cds-paymentservice-customer-core/src/main/java/com/volvocars/ecom/paymentservice/configuration/MongoConfiguration.java",
+    "sha256": "1d17208e033a2343c0da9a7d38719ad23b6c046fbb96a9833454b745c7fd558c",
+    "lines": 10,
+    "sourceBodies": [],
+    "review": "examined pinned source/declaration/configuration; no application build, test or runtime call"
+  },
+  {
+    "path": "cds-paymentservice-customer-core/src/main/java/com/volvocars/ecom/paymentservice/customer/CustomerEntity.java",
+    "sha256": "6a95d7fac061d4cb6bf4eca8d7076e8ea33ee091617672915fba200a9a6f6df7",
+    "lines": 70,
+    "sourceBodies": [],
+    "review": "examined pinned source/declaration/configuration; no application build, test or runtime call"
+  },
+  {
+    "path": "cds-paymentservice-customer-core/src/main/java/com/volvocars/ecom/paymentservice/customer/CustomerManager.java",
+    "sha256": "67d10c1d421a9f6c6d6fa773afd7ed5f082caec3014a4a9a6ca173b0f5ac7911",
+    "lines": 423,
+    "sourceBodies": [
+      "customer-b0010537-complete-r8/method/c71a4b1a50e113a5",
+      "customer-b0010537-complete-r8/method/a4bfd9eb20133c09",
+      "customer-b0010537-complete-r8/method/ad0ee76ab0ff2f18",
+      "customer-b0010537-complete-r8/method/54c9dc7d7293afe0",
+      "customer-b0010537-complete-r8/method/3e0e31fc340bd49e",
+      "customer-b0010537-complete-r8/method/42b10981c158a9cf",
+      "customer-b0010537-complete-r8/method/423e72aa00c7daa4",
+      "customer-b0010537-complete-r8/method/62d0605017eb407e",
+      "customer-b0010537-complete-r8/method/4714a806361bced6",
+      "customer-b0010537-complete-r8/method/3eda887d3ed0c06b",
+      "customer-b0010537-complete-r8/method/fd837de65f211b08",
+      "customer-b0010537-complete-r8/method/f3e5576db77a7480",
+      "customer-b0010537-complete-r8/method/f41ec6efcc873f67",
+      "customer-b0010537-complete-r8/method/ad6249464f681d26",
+      "customer-b0010537-complete-r8/method/e1dfad3ee7330f38",
+      "customer-b0010537-complete-r8/method/1342030e98015125",
+      "customer-b0010537-complete-r8/method/f7cd9584c6ab204c",
+      "customer-b0010537-complete-r8/method/70e335793f6183ad",
+      "customer-b0010537-complete-r8/method/0dc0f78816e66015",
+      "customer-b0010537-complete-r8/method/b253deecca3da275",
+      "customer-b0010537-complete-r8/method/781868edb871a58f",
+      "customer-b0010537-complete-r8/method/265468ac1bbf0dee",
+      "customer-b0010537-complete-r8/method/f74d6b47daa00ba6",
+      "customer-b0010537-complete-r8/method/3c737a24750a98e8",
+      "customer-b0010537-complete-r8/method/5bd3ab6290ea14b7",
+      "customer-b0010537-complete-r8/method/97b3e5f410fab53c",
+      "customer-b0010537-complete-r8/method/8d308c69f83ab910",
+      "customer-b0010537-complete-r8/method/1ab5575645a326f4",
+      "customer-b0010537-complete-r8/method/f51ec36bb90245fc",
+      "customer-b0010537-complete-r8/method/e808eb39798162b9",
+      "customer-b0010537-complete-r8/method/9ce621d8a6f40769"
+    ],
+    "review": "examined pinned source/declaration/configuration; no application build, test or runtime call"
+  },
+  {
+    "path": "cds-paymentservice-customer-core/src/main/java/com/volvocars/ecom/paymentservice/customer/CustomerMapper.java",
+    "sha256": "8a4957e8938bf8db7cb29e09fae34e1cd2e37f5cd4e97a3fe973f87919518331",
+    "lines": 53,
+    "sourceBodies": [
+      "customer-b0010537-complete-r8/method/331cc6f1be78db9e",
+      "customer-b0010537-complete-r8/method/8d9c59cb37946e9f"
+    ],
+    "review": "examined pinned source/declaration/configuration; no application build, test or runtime call"
+  },
+  {
+    "path": "cds-paymentservice-customer-core/src/main/java/com/volvocars/ecom/paymentservice/customer/CustomerOperationService.java",
+    "sha256": "381c9d7997b2aa358ca346d796fb5c7c4ed5671ca75bb158b62ead7c0f171fbe",
+    "lines": 116,
+    "sourceBodies": [
+      "customer-b0010537-complete-r8/method/339187bf7c3b620d",
+      "customer-b0010537-complete-r8/method/f6809dd93c4113e9",
+      "customer-b0010537-complete-r8/method/f34a1ff1efa8526f",
+      "customer-b0010537-complete-r8/method/a5f7d0c8c7d72ea2",
+      "customer-b0010537-complete-r8/method/94583de3e24e7d65",
+      "customer-b0010537-complete-r8/method/64c11c22439e313d",
+      "customer-b0010537-complete-r8/method/481d46f67c2bb429",
+      "customer-b0010537-complete-r8/method/9fb19c3d4f3ff3fe",
+      "customer-b0010537-complete-r8/method/757bd35b00b2def6",
+      "customer-b0010537-complete-r8/method/afdbc051f9eeab08",
+      "customer-b0010537-complete-r8/method/67ed857e707e80c7",
+      "customer-b0010537-complete-r8/method/82df12100aa78169"
+    ],
+    "review": "examined pinned source/declaration/configuration; no application build, test or runtime call"
+  },
+  {
+    "path": "cds-paymentservice-customer-core/src/main/java/com/volvocars/ecom/paymentservice/customer/CustomerRepository.java",
+    "sha256": "750e4906acbe7bfc6ef370da7e6380de97517dfe49ce2fae2a6266d079a416f7",
+    "lines": 28,
+    "sourceBodies": [],
+    "review": "examined pinned source/declaration/configuration; no application build, test or runtime call"
+  },
+  {
+    "path": "cds-paymentservice-customer-core/src/main/java/com/volvocars/ecom/paymentservice/customer/CustomerService.java",
+    "sha256": "12dfccb1f2f68c2fc533f3128517739c574bf56d299b7d9aea48d64d0d798dfc",
+    "lines": 139,
+    "sourceBodies": [
+      "customer-b0010537-complete-r8/method/bc2de6448420b236",
+      "customer-b0010537-complete-r8/method/b4988d24a180961d",
+      "customer-b0010537-complete-r8/method/1973e637a6662c3f",
+      "customer-b0010537-complete-r8/method/3cb895eae35dff2f",
+      "customer-b0010537-complete-r8/method/9d8cfaf9b6b89fd9",
+      "customer-b0010537-complete-r8/method/e7a3c341f1c06d6c",
+      "customer-b0010537-complete-r8/method/d13fb8ee3c1f3fbe",
+      "customer-b0010537-complete-r8/method/6f468161ed5a4895",
+      "customer-b0010537-complete-r8/method/32a189a09f5e8f92",
+      "customer-b0010537-complete-r8/method/8d06963471fa544d",
+      "customer-b0010537-complete-r8/method/4ddd17341b630f27",
+      "customer-b0010537-complete-r8/method/a4175458d321b0a8",
+      "customer-b0010537-complete-r8/method/c9b138b91b68e535"
+    ],
+    "review": "examined pinned source/declaration/configuration; no application build, test or runtime call"
+  },
+  {
+    "path": "cds-paymentservice-customer-core/src/main/java/com/volvocars/ecom/paymentservice/customer/PspIntegrationClientConfig.java",
+    "sha256": "85a0317e82d12aa433f4f6bb09f3268ff0596993407e9fe415bf65f0553c3657",
+    "lines": 29,
+    "sourceBodies": [
+      "customer-b0010537-complete-r8/method/1c61e5915e45b87f",
+      "customer-b0010537-complete-r8/method/dadd71a906e6c043"
+    ],
+    "review": "examined pinned source/declaration/configuration; no application build, test or runtime call"
+  },
+  {
+    "path": "cds-paymentservice-customer-core/src/main/java/com/volvocars/ecom/paymentservice/customer/cart/CartService.java",
+    "sha256": "824734540386ce9d19b22f1076b4917d504637c0b108476976be0197b985ffb3",
+    "lines": 12,
+    "sourceBodies": ["customer-b0010537-complete-r8/method/ca101649247c228f"],
+    "review": "examined pinned source/declaration/configuration; no application build, test or runtime call"
+  },
+  {
+    "path": "cds-paymentservice-customer-core/src/main/java/com/volvocars/ecom/paymentservice/customerpsprelation/CustomerPspRelationEntity.java",
+    "sha256": "874fc35cf5e6ed6825c09a997bf4d18acd73a20f3a97abca054e2c8d50ba6164",
+    "lines": 24,
+    "sourceBodies": [],
+    "review": "examined pinned source/declaration/configuration; no application build, test or runtime call"
+  },
+  {
+    "path": "cds-paymentservice-customer-core/src/main/java/com/volvocars/ecom/paymentservice/customerpsprelation/CustomerPspRelationMapper.java",
+    "sha256": "9788147a010d3cfd58d15c4d2f14a024aa10e79171132525fa9e3cef4cb1be3f",
+    "lines": 36,
+    "sourceBodies": [
+      "customer-b0010537-complete-r8/method/74f10707d65606d0",
+      "customer-b0010537-complete-r8/method/b7df2ae6c3230180",
+      "customer-b0010537-complete-r8/method/dd03e79520e0083d",
+      "customer-b0010537-complete-r8/method/d00883fb4c6c6512",
+      "customer-b0010537-complete-r8/method/890523f205ff5882"
+    ],
+    "review": "examined pinned source/declaration/configuration; no application build, test or runtime call"
+  },
+  {
+    "path": "cds-paymentservice-customer-core/src/main/java/com/volvocars/ecom/paymentservice/customerpsprelation/CustomerPspRelationOperationService.java",
+    "sha256": "09c1caccfd22ec0cc9b32f2e44e7a23d88f5fc28d1974fe80d2ce6ff07b2afef",
+    "lines": 48,
+    "sourceBodies": [
+      "customer-b0010537-complete-r8/method/ce3136aef0d86bf5",
+      "customer-b0010537-complete-r8/method/fee87437728457eb",
+      "customer-b0010537-complete-r8/method/620d053a4946c7af",
+      "customer-b0010537-complete-r8/method/a46f050148dfe4ff",
+      "customer-b0010537-complete-r8/method/6296b38b30d0be23"
+    ],
+    "review": "examined pinned source/declaration/configuration; no application build, test or runtime call"
+  },
+  {
+    "path": "cds-paymentservice-customer-core/src/main/java/com/volvocars/ecom/paymentservice/customerpsprelation/CustomerPspRelationRepository.java",
+    "sha256": "2345dcb3eb5c582ed150478304eb316bf7a0eab9e06bfb3163ae6617f4f72df4",
+    "lines": 18,
+    "sourceBodies": [],
+    "review": "examined pinned source/declaration/configuration; no application build, test or runtime call"
+  },
+  {
+    "path": "cds-paymentservice-customer-core/src/main/java/com/volvocars/ecom/paymentservice/integration/common/CustomerControllerAdvice.java",
+    "sha256": "4eb58fc37ff866a3775307f9444fc43f3fad2e55f32357879e45806e8cafa6e6",
+    "lines": 387,
+    "sourceBodies": [
+      "customer-b0010537-complete-r8/method/8f2f9c58556c386e",
+      "customer-b0010537-complete-r8/method/fbad0fc687c98e2c",
+      "customer-b0010537-complete-r8/method/53cd90b5a566d53a",
+      "customer-b0010537-complete-r8/method/28949b006632524f",
+      "customer-b0010537-complete-r8/method/651e0a7d760989c5",
+      "customer-b0010537-complete-r8/method/be63c8de29d1c04a",
+      "customer-b0010537-complete-r8/method/fa500b7f0cd6dad7",
+      "customer-b0010537-complete-r8/method/fcbecfa52d3bb34f",
+      "customer-b0010537-complete-r8/method/2b00770157416af4",
+      "customer-b0010537-complete-r8/method/8ccf94e72fe0970e",
+      "customer-b0010537-complete-r8/method/199a47244ae6e1b7",
+      "customer-b0010537-complete-r8/method/fca2037b38bee7e3",
+      "customer-b0010537-complete-r8/method/1a8787bbe7902e65",
+      "customer-b0010537-complete-r8/method/3c127c06c5f6b3e8",
+      "customer-b0010537-complete-r8/method/03bd756a490291e9",
+      "customer-b0010537-complete-r8/method/a60b8b9a9285ae73",
+      "customer-b0010537-complete-r8/method/b37bc9d83238a001",
+      "customer-b0010537-complete-r8/method/32c7b291f6df9bdd",
+      "customer-b0010537-complete-r8/method/a084914f6b10d37f",
+      "customer-b0010537-complete-r8/method/a1f66909b0673f00",
+      "customer-b0010537-complete-r8/method/4c8cfa239d55af19",
+      "customer-b0010537-complete-r8/method/5e6eb5f562e2f23c",
+      "customer-b0010537-complete-r8/method/b41c3f90602cc4aa",
+      "customer-b0010537-complete-r8/method/32f25f702f8469d3",
+      "customer-b0010537-complete-r8/method/5628fc08565501a7",
+      "customer-b0010537-complete-r8/method/bad7200d059ecab7",
+      "customer-b0010537-complete-r8/method/c283c72e5bb2a721"
+    ],
+    "review": "examined pinned source/declaration/configuration; no application build, test or runtime call"
+  },
+  {
+    "path": "cds-paymentservice-customer-core/src/main/java/com/volvocars/ecom/paymentservice/logging/ThreadContextWrapper.java",
+    "sha256": "54f6aac63f0aab6b11b45c8f833d882afb1d1bc3eb3b57695edf828734761ddf",
+    "lines": 114,
+    "sourceBodies": [
+      "customer-b0010537-complete-r8/method/d737de7c6c1a30ad",
+      "customer-b0010537-complete-r8/method/8a952a84aa925be5",
+      "customer-b0010537-complete-r8/method/132b290e3c695ea5",
+      "customer-b0010537-complete-r8/method/b1b628644eab0b2e",
+      "customer-b0010537-complete-r8/method/acbdb0ff0fbf937d",
+      "customer-b0010537-complete-r8/method/0618154880b0600a",
+      "customer-b0010537-complete-r8/method/b022f91a67e2d69e",
+      "customer-b0010537-complete-r8/method/7c6df32717e87fcd",
+      "customer-b0010537-complete-r8/method/0d8e7a3b29e83969",
+      "customer-b0010537-complete-r8/method/b9436bedba5ab57b"
+    ],
+    "review": "examined pinned source/declaration/configuration; no application build, test or runtime call"
+  },
+  {
+    "path": "cds-paymentservice-customer-core/src/main/java/com/volvocars/ecom/paymentservice/paymentinstrument/PaymentInstrumentEntity.java",
+    "sha256": "7ca1f87cf648480307f960f0f37da001235cf941ede49686aed57a2bc7194256",
+    "lines": 26,
+    "sourceBodies": [],
+    "review": "examined pinned source/declaration/configuration; no application build, test or runtime call"
+  },
+  {
+    "path": "cds-paymentservice-customer-core/src/main/java/com/volvocars/ecom/paymentservice/paymentinstrument/PaymentInstrumentOperationService.java",
+    "sha256": "af5160c03eec303b4faaf3a2d23545152b025827611ff52e95a565bf63d9f365",
+    "lines": 16,
+    "sourceBodies": ["customer-b0010537-complete-r8/method/f47bd6c06a8376ff"],
+    "review": "examined pinned source/declaration/configuration; no application build, test or runtime call"
+  },
+  {
+    "path": "cds-paymentservice-customer-core/src/main/java/com/volvocars/ecom/paymentservice/paymentinstrument/PaymentInstrumentRepository.java",
+    "sha256": "1823df369a45d86aa9ee4b0a0747379eed197e7ac72e4b44b44367c0c55a64a2",
+    "lines": 12,
+    "sourceBodies": [],
+    "review": "examined pinned source/declaration/configuration; no application build, test or runtime call"
+  },
+  {
+    "path": "cds-paymentservice-customer-core/src/main/java/com/volvocars/ecom/paymentservice/paymentinstrument/PaymentInstrumentService.java",
+    "sha256": "d7ac4b46e55dcd98fb792d3cf8b5e93a31c9efba7219489ec15e271a5c7c91ed",
+    "lines": 41,
+    "sourceBodies": [
+      "customer-b0010537-complete-r8/method/3311c9e99588c0b0",
+      "customer-b0010537-complete-r8/method/65a1565d037b330b"
+    ],
+    "review": "examined pinned source/declaration/configuration; no application build, test or runtime call"
+  },
+  {
+    "path": "cds-paymentservice-customer-core/src/main/java/com/volvocars/ecom/paymentservice/recurringcharge/RecurringChargeCustomerService.java",
+    "sha256": "2690af803e17b82621f99000a8e13b624f9dbc0a8c73d838cb8c443bed10140e",
+    "lines": 109,
+    "sourceBodies": [
+      "customer-b0010537-complete-r8/method/3fa18778e6efe9ff",
+      "customer-b0010537-complete-r8/method/f405da770d5bc0cd",
+      "customer-b0010537-complete-r8/method/e71be5e95f216fb8",
+      "customer-b0010537-complete-r8/method/e7aab3c27da28a9c",
+      "customer-b0010537-complete-r8/method/8b6f62928920b6bc",
+      "customer-b0010537-complete-r8/method/b9342d44d6159a24",
+      "customer-b0010537-complete-r8/method/d4c38202aa55d448",
+      "customer-b0010537-complete-r8/method/398bb02c2a8eb474"
+    ],
+    "review": "examined pinned source/declaration/configuration; no application build, test or runtime call"
+  },
+  {
+    "path": "cds-paymentservice-customer-core/src/main/java/com/volvocars/ecom/paymentservice/recurringcharge/RecurringChargeEntity.java",
+    "sha256": "1f6569e8006405ab5a6eba9cd8c4b2c689f8defa9d39e111c760e27bf71a8c3b",
+    "lines": 32,
+    "sourceBodies": [],
+    "review": "examined pinned source/declaration/configuration; no application build, test or runtime call"
+  },
+  {
+    "path": "cds-paymentservice-customer-core/src/main/java/com/volvocars/ecom/paymentservice/recurringcharge/RecurringChargeMapper.java",
+    "sha256": "18d7bc0bfc0f13fbcdeb50d827874bab4a1e7cfc348402e96590bde5133ffcf3",
+    "lines": 29,
+    "sourceBodies": [
+      "customer-b0010537-complete-r8/method/25eb80a3b43fc19d",
+      "customer-b0010537-complete-r8/method/3b6b5773a50d0dad"
+    ],
+    "review": "examined pinned source/declaration/configuration; no application build, test or runtime call"
+  },
+  {
+    "path": "cds-paymentservice-customer-core/src/main/java/com/volvocars/ecom/paymentservice/recurringcharge/RecurringChargeOperationService.java",
+    "sha256": "a6b25376d66325f55ee08418e1bcf5ba6808ef03a65f40ff000838fe49637428",
+    "lines": 36,
+    "sourceBodies": [
+      "customer-b0010537-complete-r8/method/5a45cfad0a620930",
+      "customer-b0010537-complete-r8/method/04c4e33a8dc202e4"
+    ],
+    "review": "examined pinned source/declaration/configuration; no application build, test or runtime call"
+  },
+  {
+    "path": "cds-paymentservice-customer-core/src/main/java/com/volvocars/ecom/paymentservice/recurringcharge/RecurringChargeRepository.java",
+    "sha256": "050b97f6183c78a6067df1e01876908fbe63b49ba3da7e3426602b6b74707f91",
+    "lines": 13,
+    "sourceBodies": [],
+    "review": "examined pinned source/declaration/configuration; no application build, test or runtime call"
+  },
+  {
+    "path": "cds-paymentservice-customer-core/src/main/java/com/volvocars/ecom/paymentservice/recurringcharge/RecurringChargeService.java",
+    "sha256": "f2d14587905f15352c89b5f55256ba32d4cc06bd1bc2576f938b1ae03ed9ec10",
+    "lines": 31,
+    "sourceBodies": [
+      "customer-b0010537-complete-r8/method/d1c4810f3cd60645",
+      "customer-b0010537-complete-r8/method/be26bb0841e89c1a"
+    ],
+    "review": "examined pinned source/declaration/configuration; no application build, test or runtime call"
+  },
+  {
+    "path": "cds-paymentservice-customer-shared/pom.xml",
+    "sha256": "80b3d3f5b24694fef7302ca95287bf4370d7301c97e93b401b58e6d51eb15bbf",
+    "lines": 30,
+    "sourceBodies": [],
+    "review": "examined pinned source/declaration/configuration; no application build, test or runtime call"
+  },
+  {
+    "path": "cds-paymentservice-customer-shared/src/main/java/com/volvocars/ecom/paymentservice/customer/BaseCustomerCreatePayload.java",
+    "sha256": "4ff0a2dc2f587154c525716dab117de70d7968cf22d3d578492d19f8cf5f09ae",
+    "lines": 49,
+    "sourceBodies": ["customer-b0010537-complete-r8/method/5a88da835009e5f0"],
+    "review": "examined pinned source/declaration/configuration; no application build, test or runtime call"
+  },
+  {
+    "path": "cds-paymentservice-customer-shared/src/main/java/com/volvocars/ecom/paymentservice/customer/CustomerCreatePayload.java",
+    "sha256": "d196c83aedcd5cb62ee100ed5c1da1a50c32f5df54ed6efddbc1e39627c4b70e",
+    "lines": 74,
+    "sourceBodies": [
+      "customer-b0010537-complete-r8/method/46b8e2d9250b57fa",
+      "customer-b0010537-complete-r8/method/0de2de4497c2101b",
+      "customer-b0010537-complete-r8/method/803f652b81aa2b7a",
+      "customer-b0010537-complete-r8/method/77d719e18102f8c7"
+    ],
+    "review": "examined pinned source/declaration/configuration; no application build, test or runtime call"
+  },
+  {
+    "path": "cds-paymentservice-customer-shared/src/main/java/com/volvocars/ecom/paymentservice/customer/CustomerPayloadBase.java",
+    "sha256": "76ce879d848db4978ed976ce997ef90e40f98a8961289ae6ad4172d172f84b6d",
+    "lines": 60,
+    "sourceBodies": [],
+    "review": "examined pinned source/declaration/configuration; no application build, test or runtime call"
+  },
+  {
+    "path": "cds-paymentservice-customer-shared/src/main/java/com/volvocars/ecom/paymentservice/customer/CustomerResponseDto.java",
+    "sha256": "80ab39c9a9187ddc338e785d02c783e5e48bbe29e15f1996c44912762632bb6f",
+    "lines": 70,
+    "sourceBodies": [],
+    "review": "examined pinned source/declaration/configuration; no application build, test or runtime call"
+  },
+  {
+    "path": "cds-paymentservice-customer-shared/src/main/java/com/volvocars/ecom/paymentservice/customer/CustomerUpdatePayload.java",
+    "sha256": "3c261e64f2a60dd13178fd6cfb13b2996dac724bfb806f6e89d2f3f7a546aa50",
+    "lines": 27,
+    "sourceBodies": [],
+    "review": "examined pinned source/declaration/configuration; no application build, test or runtime call"
+  },
+  {
+    "path": "cds-paymentservice-customer-shared/src/main/java/com/volvocars/ecom/paymentservice/customer/GuestCustomerCreatePayload.java",
+    "sha256": "77ab1f445d823695dd9ab0933946c8b45606d66d03ab5abeb29871eea3eae9de",
+    "lines": 23,
+    "sourceBodies": [],
+    "review": "examined pinned source/declaration/configuration; no application build, test or runtime call"
+  },
+  {
+    "path": "cds-paymentservice-customer-shared/src/main/java/com/volvocars/ecom/paymentservice/customer/PspRelationDto.java",
+    "sha256": "58e217530ac4cef9f5924b63f026409555dfa69428249a52bebe120a63cd22a2",
+    "lines": 32,
+    "sourceBodies": ["customer-b0010537-complete-r8/method/adb482138fa665c8"],
+    "review": "examined pinned source/declaration/configuration; no application build, test or runtime call"
+  },
+  {
+    "path": "cds-paymentservice-customer-shared/src/main/java/com/volvocars/ecom/paymentservice/customer/cart/Cart.java",
+    "sha256": "e2a97ce7e24eb6ea9682ec321566937c42a26b70f4de4fe06a9df42e6a84089b",
+    "lines": 26,
+    "sourceBodies": [
+      "customer-b0010537-complete-r8/method/a7724b6842de1d26",
+      "customer-b0010537-complete-r8/method/22da1bfb333d9dc2",
+      "customer-b0010537-complete-r8/method/327237be4f9960bf",
+      "customer-b0010537-complete-r8/method/bbad261531f1f6e9"
+    ],
+    "review": "examined pinned source/declaration/configuration; no application build, test or runtime call"
+  },
+  {
+    "path": "cds-paymentservice-customer-shared/src/main/java/com/volvocars/ecom/paymentservice/customer/validation/FirstAndLastNameConstraint.java",
+    "sha256": "426b6bc21fbef3f5171e7d9bf93f18d57dd840964db62ee93041011d819d9fa3",
+    "lines": 19,
+    "sourceBodies": [],
+    "review": "examined pinned source/declaration/configuration; no application build, test or runtime call"
+  },
+  {
+    "path": "cds-paymentservice-customer-shared/src/main/java/com/volvocars/ecom/paymentservice/customer/validation/FirstAndLastNameValidator.java",
+    "sha256": "8bb9ae504dff9b4e613d0fa06974590cc228f9f45d5ca810ee0bf640b160b972",
+    "lines": 14,
+    "sourceBodies": ["customer-b0010537-complete-r8/method/ebed0dfb64f5c300"],
+    "review": "examined pinned source/declaration/configuration; no application build, test or runtime call"
+  },
+  {
+    "path": "cds-paymentservice-customer-shared/src/main/java/com/volvocars/ecom/paymentservice/recurringcharge/RecurringChargeDto.java",
+    "sha256": "3b0cccf2fda88b020847a92c31770281da2db5ad8c8832171e90146c09fd903b",
+    "lines": 22,
+    "sourceBodies": [],
+    "review": "examined pinned source/declaration/configuration; no application build, test or runtime call"
+  },
+  {
+    "path": "cds-paymentservice-customer-shared/src/main/java/com/volvocars/ecom/paymentservice/recurringcharge/RecurringChargeUpdatePayload.java",
+    "sha256": "8e062d397eebef83c23989d902a7c64276a224351b258eb25b41b75b89b9184d",
+    "lines": 24,
+    "sourceBodies": [],
+    "review": "examined pinned source/declaration/configuration; no application build, test or runtime call"
+  },
+  {
+    "path": "cds-paymentservice-customer-test/pom.xml",
+    "sha256": "d1fcb0c180e149777599b4dc58ff29998e5786552fca4b67c7454f91e8e13656",
+    "lines": 62,
+    "sourceBodies": [],
+    "review": "examined pinned source/declaration/configuration; no application build, test or runtime call"
+  },
+  {
+    "path": "dev/docker-compose.yml",
+    "sha256": "ae3690a6fa3bea27f8aff58c3b1e8badf5bf1fe3fed533f148ef68455722eefe",
+    "lines": 33,
+    "sourceBodies": [],
+    "review": "examined pinned source/declaration/configuration; no application build, test or runtime call"
+  },
+  {
+    "path": "lombok.config",
+    "sha256": "b1a1aaaecaaedf7c516d7533f7adaed54ccf0d0689a8e9edd91951b26a9ae6d5",
+    "lines": 9,
+    "sourceBodies": [],
+    "review": "examined pinned source/declaration/configuration; no application build, test or runtime call"
+  },
+  {
+    "path": "pom.xml",
+    "sha256": "22ecde7b67799ccd5d2686ffbc6f394cf21f26cd2b6669564a16a2d5d2c4966c",
+    "lines": 161,
+    "sourceBodies": [],
+    "review": "examined pinned source/declaration/configuration; no application build, test or runtime call"
+  }
+]

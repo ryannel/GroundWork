@@ -1,0 +1,1719 @@
+{
+  "repo": "volvo-cars/cds-ecom-customer-crm-synchronizer",
+  "commit": "4ea3677cd5df3a19e0d0903d6c803c1413e6a2cd",
+  "classes": [
+    {
+      "fqn": "com.volvocars.ecom.customer.crm.synchronizer.api.App",
+      "name": "App",
+      "kind": "class",
+      "path": "customer-crm-synchronizer-api/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/api/App.java",
+      "fields": [],
+      "annotations": []
+    },
+    {
+      "fqn": "com.volvocars.ecom.customer.crm.synchronizer.api.config.CdbExceptionHandler",
+      "name": "CdbExceptionHandler",
+      "kind": "class",
+      "path": "customer-crm-synchronizer-api/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/api/config/CdbExceptionHandler.java",
+      "fields": [],
+      "annotations": []
+    },
+    {
+      "fqn": "com.volvocars.ecom.customer.crm.synchronizer.api.config.HealthMetricsExportConfiguration",
+      "name": "HealthMetricsExportConfiguration",
+      "kind": "class",
+      "path": "customer-crm-synchronizer-api/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/api/config/HealthMetricsExportConfiguration.java",
+      "fields": [],
+      "annotations": []
+    },
+    {
+      "fqn": "com.volvocars.ecom.customer.crm.synchronizer.api.config.KafkaHealthIndicator",
+      "name": "KafkaHealthIndicator",
+      "kind": "class",
+      "path": "customer-crm-synchronizer-api/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/api/config/KafkaHealthIndicator.java",
+      "fields": [
+        {
+          "name": "DESCRIBE_OPTIONS_TIMEOUT_MS",
+          "modifiers": ["static"],
+          "annotations": []
+        },
+        {
+          "name": "CLOSE_TIMEOUT",
+          "modifiers": ["static"],
+          "annotations": []
+        },
+        {
+          "name": "adminClient",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "options",
+          "modifiers": [],
+          "annotations": []
+        }
+      ],
+      "annotations": []
+    },
+    {
+      "fqn": "com.volvocars.ecom.customer.crm.synchronizer.api.config.KafkaHealthMetricsExportConfiguration",
+      "name": "KafkaHealthMetricsExportConfiguration",
+      "kind": "class",
+      "path": "customer-crm-synchronizer-api/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/api/config/KafkaHealthMetricsExportConfiguration.java",
+      "fields": [],
+      "annotations": []
+    },
+    {
+      "fqn": "com.volvocars.ecom.customer.crm.synchronizer.api.customer.CdbSyncEventConsumer",
+      "name": "CdbSyncEventConsumer",
+      "kind": "class",
+      "path": "customer-crm-synchronizer-api/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/api/customer/CdbSyncEventConsumer.java",
+      "fields": [
+        {
+          "name": "customerSyncService",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "deserializer",
+          "modifiers": [],
+          "annotations": []
+        }
+      ],
+      "annotations": []
+    },
+    {
+      "fqn": "com.volvocars.ecom.customer.crm.synchronizer.api.customer.CustomerEventConsumer",
+      "name": "CustomerEventConsumer",
+      "kind": "class",
+      "path": "customer-crm-synchronizer-api/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/api/customer/CustomerEventConsumer.java",
+      "fields": [
+        {
+          "name": "ARCHIVAL_EVENT_TYPE",
+          "modifiers": ["static"],
+          "annotations": []
+        },
+        {
+          "name": "customerSyncService",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "deserializer",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "azureAppId",
+          "modifiers": [],
+          "annotations": []
+        }
+      ],
+      "annotations": []
+    },
+    {
+      "fqn": "com.volvocars.ecom.customer.crm.synchronizer.api.customer.CustomerEventOMConsumer",
+      "name": "CustomerEventOMConsumer",
+      "kind": "class",
+      "path": "customer-crm-synchronizer-api/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/api/customer/CustomerEventOMConsumer.java",
+      "fields": [
+        {
+          "name": "ARCHIVAL_EVENT_TYPE",
+          "modifiers": ["static"],
+          "annotations": []
+        },
+        {
+          "name": "orderManagerService",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "deserializer",
+          "modifiers": [],
+          "annotations": []
+        }
+      ],
+      "annotations": []
+    },
+    {
+      "fqn": "com.volvocars.ecom.customer.crm.synchronizer.api.v1.CustomerCrmSyncControllerV1",
+      "name": "CustomerCrmSyncControllerV1",
+      "kind": "class",
+      "path": "customer-crm-synchronizer-api/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/api/v1/CustomerCrmSyncControllerV1.java",
+      "fields": [
+        {
+          "name": "customerSyncService",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "cdbConsumerService",
+          "modifiers": [],
+          "annotations": []
+        }
+      ],
+      "annotations": []
+    },
+    {
+      "fqn": "com.volvocars.ecom.customer.crm.synchronizer.core.cdb.CdbClient",
+      "name": "CdbClient",
+      "kind": "class",
+      "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/cdb/CdbClient.java",
+      "fields": [
+        {
+          "name": "CLIENT_QUALIFIER",
+          "modifiers": ["static"],
+          "annotations": []
+        },
+        {
+          "name": "VOLVO_ID_TYPE",
+          "modifiers": ["static"],
+          "annotations": []
+        },
+        {
+          "name": "jsonMapper",
+          "modifiers": ["static"],
+          "annotations": []
+        },
+        {
+          "name": "client",
+          "modifiers": [],
+          "annotations": []
+        }
+      ],
+      "annotations": []
+    },
+    {
+      "fqn": "com.volvocars.ecom.customer.crm.synchronizer.core.cdb.exception.CdbClientException",
+      "name": "CdbClientException",
+      "kind": "class",
+      "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/cdb/exception/CdbClientException.java",
+      "fields": [],
+      "annotations": []
+    },
+    {
+      "fqn": "com.volvocars.ecom.customer.crm.synchronizer.core.cdb.exception.CdbConsumerLockedException",
+      "name": "CdbConsumerLockedException",
+      "kind": "class",
+      "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/cdb/exception/CdbConsumerLockedException.java",
+      "fields": [],
+      "annotations": []
+    },
+    {
+      "fqn": "com.volvocars.ecom.customer.crm.synchronizer.core.cdb.exception.CdbDataRejectedException",
+      "name": "CdbDataRejectedException",
+      "kind": "class",
+      "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/cdb/exception/CdbDataRejectedException.java",
+      "fields": [],
+      "annotations": []
+    },
+    {
+      "fqn": "com.volvocars.ecom.customer.crm.synchronizer.core.cdb.mapper.CreateOrUpdateAddressMapper",
+      "name": "CreateOrUpdateAddressMapper",
+      "kind": "class",
+      "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/cdb/mapper/CreateOrUpdateAddressMapper.java",
+      "fields": [
+        {
+          "name": "ADDR_HOME",
+          "modifiers": ["static"],
+          "annotations": []
+        },
+        {
+          "name": "ADDR_BUSINESS",
+          "modifiers": ["static"],
+          "annotations": []
+        }
+      ],
+      "annotations": []
+    },
+    {
+      "fqn": "com.volvocars.ecom.customer.crm.synchronizer.core.cdb.mapper.CreateOrUpdateAddressMapper.ComparableAddress",
+      "name": "CreateOrUpdateAddressMapper.ComparableAddress",
+      "kind": "record",
+      "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/cdb/mapper/CreateOrUpdateAddressMapper.java",
+      "fields": [
+        {
+          "name": "line1",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "line2",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "line3",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "line4",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "city",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "district",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "countryCode",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "postalCode",
+          "modifiers": [],
+          "annotations": []
+        }
+      ],
+      "annotations": []
+    },
+    {
+      "fqn": "com.volvocars.ecom.customer.crm.synchronizer.core.cdb.mapper.CreateOrUpdateAlternativeConsumerIdMapper",
+      "name": "CreateOrUpdateAlternativeConsumerIdMapper",
+      "kind": "class",
+      "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/cdb/mapper/CreateOrUpdateAlternativeConsumerIdMapper.java",
+      "fields": [
+        {
+          "name": "VOLVO_ID_TYPE",
+          "modifiers": ["static"],
+          "annotations": []
+        },
+        {
+          "name": "TC_ID_TYPE",
+          "modifiers": ["static"],
+          "annotations": []
+        },
+        {
+          "name": "ECOM_CUSTOMER_ID_TYPE",
+          "modifiers": ["static"],
+          "annotations": []
+        }
+      ],
+      "annotations": []
+    },
+    {
+      "fqn": "com.volvocars.ecom.customer.crm.synchronizer.core.cdb.mapper.CreateOrUpdateConsumerInfoMapper",
+      "name": "CreateOrUpdateConsumerInfoMapper",
+      "kind": "class",
+      "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/cdb/mapper/CreateOrUpdateConsumerInfoMapper.java",
+      "fields": [
+        {
+          "name": "PERSON_CONSUMER_CATEGORY",
+          "modifiers": ["static"],
+          "annotations": []
+        },
+        {
+          "name": "ORGANIZATION_CONSUMER_CATEGORY",
+          "modifiers": ["static"],
+          "annotations": []
+        }
+      ],
+      "annotations": []
+    },
+    {
+      "fqn": "com.volvocars.ecom.customer.crm.synchronizer.core.cdb.mapper.CreateOrUpdateConsumerMapper",
+      "name": "CreateOrUpdateConsumerMapper",
+      "kind": "class",
+      "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/cdb/mapper/CreateOrUpdateConsumerMapper.java",
+      "fields": [
+        {
+          "name": "consumerInfoMapper",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "alternativeConsumerIdMapper",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "vehicleRelationsMapper",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "personMapper",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "addressMapper",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "contactDetailsMapper",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "emailAddressMapper",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "organizationMapper",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "consumerRelationMapper",
+          "modifiers": [],
+          "annotations": []
+        }
+      ],
+      "annotations": []
+    },
+    {
+      "fqn": "com.volvocars.ecom.customer.crm.synchronizer.core.cdb.mapper.CreateOrUpdateConsumerRelationMapper",
+      "name": "CreateOrUpdateConsumerRelationMapper",
+      "kind": "class",
+      "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/cdb/mapper/CreateOrUpdateConsumerRelationMapper.java",
+      "fields": [
+        {
+          "name": "CUST_REL_USER_CHOOSR",
+          "modifiers": ["static"],
+          "annotations": []
+        }
+      ],
+      "annotations": []
+    },
+    {
+      "fqn": "com.volvocars.ecom.customer.crm.synchronizer.core.cdb.mapper.CreateOrUpdateConsumerResponseMapper",
+      "name": "CreateOrUpdateConsumerResponseMapper",
+      "kind": "class",
+      "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/cdb/mapper/CreateOrUpdateConsumerResponseMapper.java",
+      "fields": [
+        {
+          "name": "CDB_CONSUMER_ID",
+          "modifiers": ["static"],
+          "annotations": []
+        },
+        {
+          "name": "TC_ID",
+          "modifiers": ["static"],
+          "annotations": []
+        }
+      ],
+      "annotations": []
+    },
+    {
+      "fqn": "com.volvocars.ecom.customer.crm.synchronizer.core.cdb.mapper.CreateOrUpdateContactDetailsMapper",
+      "name": "CreateOrUpdateContactDetailsMapper",
+      "kind": "class",
+      "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/cdb/mapper/CreateOrUpdateContactDetailsMapper.java",
+      "fields": [
+        {
+          "name": "CONT_MED_PHONE",
+          "modifiers": ["static"],
+          "annotations": []
+        },
+        {
+          "name": "CONT_NO_USG_HOME",
+          "modifiers": ["static"],
+          "annotations": []
+        },
+        {
+          "name": "CONT_NO_USG_MOBILE",
+          "modifiers": ["static"],
+          "annotations": []
+        }
+      ],
+      "annotations": []
+    },
+    {
+      "fqn": "com.volvocars.ecom.customer.crm.synchronizer.core.cdb.mapper.CreateOrUpdateEmailAddressMapper",
+      "name": "CreateOrUpdateEmailAddressMapper",
+      "kind": "class",
+      "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/cdb/mapper/CreateOrUpdateEmailAddressMapper.java",
+      "fields": [
+        {
+          "name": "CONT_NO_USG_INVOICE",
+          "modifiers": ["static"],
+          "annotations": []
+        },
+        {
+          "name": "CONT_NO_USG_HOME",
+          "modifiers": ["static"],
+          "annotations": []
+        }
+      ],
+      "annotations": []
+    },
+    {
+      "fqn": "com.volvocars.ecom.customer.crm.synchronizer.core.cdb.mapper.CreateOrUpdateOrganizationMapper",
+      "name": "CreateOrUpdateOrganizationMapper",
+      "kind": "class",
+      "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/cdb/mapper/CreateOrUpdateOrganizationMapper.java",
+      "fields": [],
+      "annotations": []
+    },
+    {
+      "fqn": "com.volvocars.ecom.customer.crm.synchronizer.core.cdb.mapper.CreateOrUpdatePersonMapper",
+      "name": "CreateOrUpdatePersonMapper",
+      "kind": "class",
+      "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/cdb/mapper/CreateOrUpdatePersonMapper.java",
+      "fields": [],
+      "annotations": []
+    },
+    {
+      "fqn": "com.volvocars.ecom.customer.crm.synchronizer.core.cdb.mapper.CreateOrUpdateRequestMapper",
+      "name": "CreateOrUpdateRequestMapper",
+      "kind": "class",
+      "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/cdb/mapper/CreateOrUpdateRequestMapper.java",
+      "fields": [
+        {
+          "name": "BRAND",
+          "modifiers": ["static"],
+          "annotations": []
+        },
+        {
+          "name": "COMPONENT",
+          "modifiers": ["static"],
+          "annotations": []
+        },
+        {
+          "name": "AUTHORIZATION_ID",
+          "modifiers": ["static"],
+          "annotations": []
+        },
+        {
+          "name": "consumerMapper",
+          "modifiers": [],
+          "annotations": []
+        }
+      ],
+      "annotations": []
+    },
+    {
+      "fqn": "com.volvocars.ecom.customer.crm.synchronizer.core.cdb.mapper.CreateOrUpdateVehicleRelationMapper",
+      "name": "CreateOrUpdateVehicleRelationMapper",
+      "kind": "class",
+      "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/cdb/mapper/CreateOrUpdateVehicleRelationMapper.java",
+      "fields": [
+        {
+          "name": "DRIVES",
+          "modifiers": ["static"],
+          "annotations": []
+        },
+        {
+          "name": "END_USER_COMPANY",
+          "modifiers": ["static"],
+          "annotations": []
+        }
+      ],
+      "annotations": []
+    },
+    {
+      "fqn": "com.volvocars.ecom.customer.crm.synchronizer.core.cdb.model.CdbConsumerByVolvoId",
+      "name": "CdbConsumerByVolvoId",
+      "kind": "record",
+      "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/cdb/model/CdbConsumerByVolvoId.java",
+      "fields": [
+        {
+          "name": "consumerInfo",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "alternativeConsumerIds",
+          "modifiers": [],
+          "annotations": []
+        }
+      ],
+      "annotations": []
+    },
+    {
+      "fqn": "com.volvocars.ecom.customer.crm.synchronizer.core.cdb.model.CdbConsumerByVolvoId.ConsumerInfo",
+      "name": "CdbConsumerByVolvoId.ConsumerInfo",
+      "kind": "record",
+      "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/cdb/model/CdbConsumerByVolvoId.java",
+      "fields": [
+        {
+          "name": "consumerId",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "globalConsumerId",
+          "modifiers": [],
+          "annotations": []
+        }
+      ],
+      "annotations": []
+    },
+    {
+      "fqn": "com.volvocars.ecom.customer.crm.synchronizer.core.cdb.model.CdbConsumerByVolvoId.AlternativeConsumerId",
+      "name": "CdbConsumerByVolvoId.AlternativeConsumerId",
+      "kind": "record",
+      "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/cdb/model/CdbConsumerByVolvoId.java",
+      "fields": [
+        {
+          "name": "type",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "value",
+          "modifiers": [],
+          "annotations": []
+        }
+      ],
+      "annotations": []
+    },
+    {
+      "fqn": "com.volvocars.ecom.customer.crm.synchronizer.core.cdb.model.CdbConsumerByVolvoIdResponse",
+      "name": "CdbConsumerByVolvoIdResponse",
+      "kind": "record",
+      "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/cdb/model/CdbConsumerByVolvoIdResponse.java",
+      "fields": [
+        {
+          "name": "responseDetails",
+          "modifiers": [],
+          "annotations": []
+        }
+      ],
+      "annotations": []
+    },
+    {
+      "fqn": "com.volvocars.ecom.customer.crm.synchronizer.core.cdb.model.CdbResponse",
+      "name": "CdbResponse",
+      "kind": "record",
+      "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/cdb/model/CdbResponse.java",
+      "fields": [
+        {
+          "name": "responseDetails",
+          "modifiers": [],
+          "annotations": []
+        }
+      ],
+      "annotations": []
+    },
+    {
+      "fqn": "com.volvocars.ecom.customer.crm.synchronizer.core.cdb.model.ConsumerId",
+      "name": "ConsumerId",
+      "kind": "record",
+      "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/cdb/model/ConsumerId.java",
+      "fields": [
+        {
+          "name": "type",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "value",
+          "modifiers": [],
+          "annotations": []
+        }
+      ],
+      "annotations": []
+    },
+    {
+      "fqn": "com.volvocars.ecom.customer.crm.synchronizer.core.cdb.model.ConsumerResponse",
+      "name": "ConsumerResponse",
+      "kind": "record",
+      "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/cdb/model/ConsumerResponse.java",
+      "fields": [
+        {
+          "name": "consumerId",
+          "modifiers": [],
+          "annotations": []
+        }
+      ],
+      "annotations": []
+    },
+    {
+      "fqn": "com.volvocars.ecom.customer.crm.synchronizer.core.cdb.model.ConsumerResponse.ConsumerId",
+      "name": "ConsumerResponse.ConsumerId",
+      "kind": "record",
+      "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/cdb/model/ConsumerResponse.java",
+      "fields": [
+        {
+          "name": "id",
+          "modifiers": [],
+          "annotations": []
+        }
+      ],
+      "annotations": []
+    },
+    {
+      "fqn": "com.volvocars.ecom.customer.crm.synchronizer.core.cdb.model.ConsumerResponse.Id",
+      "name": "ConsumerResponse.Id",
+      "kind": "record",
+      "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/cdb/model/ConsumerResponse.java",
+      "fields": [
+        {
+          "name": "type",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "value",
+          "modifiers": [],
+          "annotations": []
+        }
+      ],
+      "annotations": []
+    },
+    {
+      "fqn": "com.volvocars.ecom.customer.crm.synchronizer.core.common.CustomerSyncException",
+      "name": "CustomerSyncException",
+      "kind": "class",
+      "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/common/CustomerSyncException.java",
+      "fields": [],
+      "annotations": []
+    },
+    {
+      "fqn": "com.volvocars.ecom.customer.crm.synchronizer.core.config.CdbSyncEventDeserializer",
+      "name": "CdbSyncEventDeserializer",
+      "kind": "class",
+      "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/config/CdbSyncEventDeserializer.java",
+      "fields": [
+        {
+          "name": "jsonMapper",
+          "modifiers": ["static"],
+          "annotations": []
+        },
+        {
+          "name": "typeRef",
+          "modifiers": ["static"],
+          "annotations": []
+        }
+      ],
+      "annotations": []
+    },
+    {
+      "fqn": "com.volvocars.ecom.customer.crm.synchronizer.core.config.CdbSyncEventDeserializer.$anonymous@784",
+      "name": "CdbSyncEventDeserializer.$anonymous@784",
+      "kind": "class",
+      "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/config/CdbSyncEventDeserializer.java",
+      "fields": [],
+      "annotations": []
+    },
+    {
+      "fqn": "com.volvocars.ecom.customer.crm.synchronizer.core.config.CdbSyncEventPayload",
+      "name": "CdbSyncEventPayload",
+      "kind": "record",
+      "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/config/CdbSyncEventPayload.java",
+      "fields": [
+        {
+          "name": "orderId",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "customerId",
+          "modifiers": [],
+          "annotations": []
+        }
+      ],
+      "annotations": []
+    },
+    {
+      "fqn": "com.volvocars.ecom.customer.crm.synchronizer.core.config.Constants",
+      "name": "Constants",
+      "kind": "class",
+      "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/config/Constants.java",
+      "fields": [
+        {
+          "name": "REMOTE_HEADER",
+          "modifiers": ["static"],
+          "annotations": []
+        },
+        {
+          "name": "REMOTE_SYSTEM_ID",
+          "modifiers": ["static"],
+          "annotations": []
+        }
+      ],
+      "annotations": []
+    },
+    {
+      "fqn": "com.volvocars.ecom.customer.crm.synchronizer.core.config.CustomerEventConfig",
+      "name": "CustomerEventConfig",
+      "kind": "class",
+      "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/config/CustomerEventConfig.java",
+      "fields": [
+        {
+          "name": "kafkaSettings",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "recoverer",
+          "modifiers": [],
+          "annotations": []
+        }
+      ],
+      "annotations": []
+    },
+    {
+      "fqn": "com.volvocars.ecom.customer.crm.synchronizer.core.config.CustomerEventDeserializer",
+      "name": "CustomerEventDeserializer",
+      "kind": "class",
+      "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/config/CustomerEventDeserializer.java",
+      "fields": [
+        {
+          "name": "jsonMapper",
+          "modifiers": ["static"],
+          "annotations": []
+        },
+        {
+          "name": "typeRef",
+          "modifiers": ["static"],
+          "annotations": []
+        }
+      ],
+      "annotations": []
+    },
+    {
+      "fqn": "com.volvocars.ecom.customer.crm.synchronizer.core.config.CustomerEventDeserializer.$anonymous@792",
+      "name": "CustomerEventDeserializer.$anonymous@792",
+      "kind": "class",
+      "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/config/CustomerEventDeserializer.java",
+      "fields": [],
+      "annotations": []
+    },
+    {
+      "fqn": "com.volvocars.ecom.customer.crm.synchronizer.core.config.CustomerEventPayload",
+      "name": "CustomerEventPayload",
+      "kind": "record",
+      "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/config/CustomerEventPayload.java",
+      "fields": [
+        {
+          "name": "customerId",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "dataVersion",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "timestamp",
+          "modifiers": [],
+          "annotations": []
+        }
+      ],
+      "annotations": []
+    },
+    {
+      "fqn": "com.volvocars.ecom.customer.crm.synchronizer.core.config.EventConfig",
+      "name": "EventConfig",
+      "kind": "class",
+      "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/config/EventConfig.java",
+      "fields": [],
+      "annotations": []
+    },
+    {
+      "fqn": "com.volvocars.ecom.customer.crm.synchronizer.core.config.KafkaSettings",
+      "name": "KafkaSettings",
+      "kind": "record",
+      "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/config/KafkaSettings.java",
+      "fields": [
+        {
+          "name": "bootstrapServers",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "security",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "ssl",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "consumer",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "backoff",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "reconnectBackoff",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "reconnectBackoffMax",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "maxPollRecords",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "maxPollIntervalMs",
+          "modifiers": [],
+          "annotations": []
+        }
+      ],
+      "annotations": []
+    },
+    {
+      "fqn": "com.volvocars.ecom.customer.crm.synchronizer.core.config.KafkaSettings.KafkaSecuritySettings",
+      "name": "KafkaSettings.KafkaSecuritySettings",
+      "kind": "record",
+      "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/config/KafkaSettings.java",
+      "fields": [
+        {
+          "name": "protocol",
+          "modifiers": [],
+          "annotations": []
+        }
+      ],
+      "annotations": []
+    },
+    {
+      "fqn": "com.volvocars.ecom.customer.crm.synchronizer.core.config.KafkaSettings.KafkaSslSettings",
+      "name": "KafkaSettings.KafkaSslSettings",
+      "kind": "record",
+      "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/config/KafkaSettings.java",
+      "fields": [
+        {
+          "name": "keystoreType",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "keystoreKey",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "keyStoreCertificateChain",
+          "modifiers": [],
+          "annotations": []
+        }
+      ],
+      "annotations": []
+    },
+    {
+      "fqn": "com.volvocars.ecom.customer.crm.synchronizer.core.config.KafkaSettings.KafkaConsumerSettings",
+      "name": "KafkaSettings.KafkaConsumerSettings",
+      "kind": "record",
+      "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/config/KafkaSettings.java",
+      "fields": [
+        {
+          "name": "groupId",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "omUpdateGroupId",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "autoOffsetReset",
+          "modifiers": [],
+          "annotations": []
+        }
+      ],
+      "annotations": []
+    },
+    {
+      "fqn": "com.volvocars.ecom.customer.crm.synchronizer.core.config.RetryConfig",
+      "name": "RetryConfig",
+      "kind": "class",
+      "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/config/RetryConfig.java",
+      "fields": [],
+      "annotations": []
+    },
+    {
+      "fqn": "com.volvocars.ecom.customer.crm.synchronizer.core.customer.CustomerClient",
+      "name": "CustomerClient",
+      "kind": "class",
+      "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/customer/CustomerClient.java",
+      "fields": [
+        {
+          "name": "CLIENT_QUALIFIER",
+          "modifiers": ["static"],
+          "annotations": []
+        },
+        {
+          "name": "client",
+          "modifiers": [],
+          "annotations": []
+        }
+      ],
+      "annotations": []
+    },
+    {
+      "fqn": "com.volvocars.ecom.customer.crm.synchronizer.core.customer.CustomerClient.$anonymous@1812",
+      "name": "CustomerClient.$anonymous@1812",
+      "kind": "class",
+      "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/customer/CustomerClient.java",
+      "fields": [],
+      "annotations": []
+    },
+    {
+      "fqn": "com.volvocars.ecom.customer.crm.synchronizer.core.customer.CustomerEventRecoverer",
+      "name": "CustomerEventRecoverer",
+      "kind": "class",
+      "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/customer/CustomerEventRecoverer.java",
+      "fields": [
+        {
+          "name": "logger",
+          "modifiers": ["static"],
+          "annotations": []
+        }
+      ],
+      "annotations": []
+    },
+    {
+      "fqn": "com.volvocars.ecom.customer.crm.synchronizer.core.customer.CustomerRequestMapper",
+      "name": "CustomerRequestMapper",
+      "kind": "class",
+      "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/customer/CustomerRequestMapper.java",
+      "fields": [],
+      "annotations": []
+    },
+    {
+      "fqn": "com.volvocars.ecom.customer.crm.synchronizer.core.customer.CustomerService",
+      "name": "CustomerService",
+      "kind": "class",
+      "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/customer/CustomerService.java",
+      "fields": [
+        {
+          "name": "customerClient",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "customerRequestMapper",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "orderManagerService",
+          "modifiers": [],
+          "annotations": []
+        }
+      ],
+      "annotations": []
+    },
+    {
+      "fqn": "com.volvocars.ecom.customer.crm.synchronizer.core.customer.exception.CustomerNotFoundException",
+      "name": "CustomerNotFoundException",
+      "kind": "class",
+      "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/customer/exception/CustomerNotFoundException.java",
+      "fields": [],
+      "annotations": []
+    },
+    {
+      "fqn": "com.volvocars.ecom.customer.crm.synchronizer.core.customer.exception.CustomerServiceApiException",
+      "name": "CustomerServiceApiException",
+      "kind": "class",
+      "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/customer/exception/CustomerServiceApiException.java",
+      "fields": [],
+      "annotations": []
+    },
+    {
+      "fqn": "com.volvocars.ecom.customer.crm.synchronizer.core.customer.model.CorporateEntity",
+      "name": "CorporateEntity",
+      "kind": "record",
+      "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/customer/model/CorporateEntity.java",
+      "fields": [
+        {
+          "name": "id",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "fleetAccountId",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "cdbId",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "cdbTcId",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "regName",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "displayName",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "regNumber",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "vatNumber",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "emails",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "phoneNumbers",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "addresses",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "roles",
+          "modifiers": [],
+          "annotations": []
+        }
+      ],
+      "annotations": []
+    },
+    {
+      "fqn": "com.volvocars.ecom.customer.crm.synchronizer.core.customer.model.Customer",
+      "name": "Customer",
+      "kind": "record",
+      "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/customer/model/Customer.java",
+      "fields": [
+        {
+          "name": "customerId",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "corporateEntities",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "individuals",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "market",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "created",
+          "modifiers": [],
+          "annotations": []
+        }
+      ],
+      "annotations": []
+    },
+    {
+      "fqn": "com.volvocars.ecom.customer.crm.synchronizer.core.customer.model.Individual",
+      "name": "Individual",
+      "kind": "record",
+      "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/customer/model/Individual.java",
+      "fields": [
+        {
+          "name": "id",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "language",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "cdbId",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "cdbTcId",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "firstName",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "lastName",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "volvoId",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "spinPersonNumber",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "title",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "gender",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "dateOfBirth",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "emails",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "phoneNumbers",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "addresses",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "roles",
+          "modifiers": [],
+          "annotations": []
+        }
+      ],
+      "annotations": []
+    },
+    {
+      "fqn": "com.volvocars.ecom.customer.crm.synchronizer.core.customer.model.PatchCustomerRequest",
+      "name": "PatchCustomerRequest",
+      "kind": "record",
+      "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/customer/model/PatchCustomerRequest.java",
+      "fields": [
+        {
+          "name": "individuals",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "corporateEntities",
+          "modifiers": [],
+          "annotations": []
+        }
+      ],
+      "annotations": []
+    },
+    {
+      "fqn": "com.volvocars.ecom.customer.crm.synchronizer.core.customer.model.PatchCustomerRequest.PatchActorRequest",
+      "name": "PatchCustomerRequest.PatchActorRequest",
+      "kind": "record",
+      "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/customer/model/PatchCustomerRequest.java",
+      "fields": [
+        {
+          "name": "id",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "cdbId",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "cdbTcId",
+          "modifiers": [],
+          "annotations": []
+        }
+      ],
+      "annotations": []
+    },
+    {
+      "fqn": "com.volvocars.ecom.customer.crm.synchronizer.core.customer.model.actor.Actor",
+      "name": "Actor",
+      "kind": "interface",
+      "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/customer/model/actor/Actor.java",
+      "fields": [],
+      "annotations": []
+    },
+    {
+      "fqn": "com.volvocars.ecom.customer.crm.synchronizer.core.customer.model.actor.Address",
+      "name": "Address",
+      "kind": "record",
+      "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/customer/model/actor/Address.java",
+      "fields": [
+        {
+          "name": "countryCode",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "line1",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "line2",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "line3",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "line4",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "line5",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "city",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "postalCode",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "districtCode",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "county",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "previous",
+          "modifiers": [],
+          "annotations": []
+        }
+      ],
+      "annotations": []
+    },
+    {
+      "fqn": "com.volvocars.ecom.customer.crm.synchronizer.core.customer.model.actor.Email",
+      "name": "Email",
+      "kind": "record",
+      "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/customer/model/actor/Email.java",
+      "fields": [
+        {
+          "name": "email",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "emailRoles",
+          "modifiers": [],
+          "annotations": []
+        }
+      ],
+      "annotations": []
+    },
+    {
+      "fqn": "com.volvocars.ecom.customer.crm.synchronizer.core.customer.model.actor.EmailRole",
+      "name": "EmailRole",
+      "kind": "enum",
+      "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/customer/model/actor/EmailRole.java",
+      "fields": [
+        {
+          "name": "INVOICE",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "UNKNOWN",
+          "modifiers": [],
+          "annotations": []
+        }
+      ],
+      "annotations": []
+    },
+    {
+      "fqn": "com.volvocars.ecom.customer.crm.synchronizer.core.customer.model.actor.Phone",
+      "name": "Phone",
+      "kind": "record",
+      "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/customer/model/actor/Phone.java",
+      "fields": [
+        {
+          "name": "phoneNumber",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "phoneRoles",
+          "modifiers": [],
+          "annotations": []
+        }
+      ],
+      "annotations": []
+    },
+    {
+      "fqn": "com.volvocars.ecom.customer.crm.synchronizer.core.customer.model.actor.PhoneRole",
+      "name": "PhoneRole",
+      "kind": "enum",
+      "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/customer/model/actor/PhoneRole.java",
+      "fields": [
+        {
+          "name": "CONTACT",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "UNKNOWN",
+          "modifiers": [],
+          "annotations": []
+        }
+      ],
+      "annotations": []
+    },
+    {
+      "fqn": "com.volvocars.ecom.customer.crm.synchronizer.core.customer.model.actor.Role",
+      "name": "Role",
+      "kind": "enum",
+      "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/customer/model/actor/Role.java",
+      "fields": [
+        {
+          "name": "APPROVER",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "SOLD_TO",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "SIGNATORY",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "PAYER",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "UNKNOWN",
+          "modifiers": [],
+          "annotations": []
+        }
+      ],
+      "annotations": []
+    },
+    {
+      "fqn": "com.volvocars.ecom.customer.crm.synchronizer.core.customersync.CdbConsumerData",
+      "name": "CdbConsumerData",
+      "kind": "record",
+      "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/customersync/CdbConsumerData.java",
+      "fields": [
+        {
+          "name": "consumerId",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "globalConsumerId",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "alternateConsumerList",
+          "modifiers": [],
+          "annotations": []
+        }
+      ],
+      "annotations": []
+    },
+    {
+      "fqn": "com.volvocars.ecom.customer.crm.synchronizer.core.customersync.CdbConsumerData.AlternativeConsumer",
+      "name": "CdbConsumerData.AlternativeConsumer",
+      "kind": "record",
+      "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/customersync/CdbConsumerData.java",
+      "fields": [
+        {
+          "name": "type",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "value",
+          "modifiers": [],
+          "annotations": []
+        }
+      ],
+      "annotations": []
+    },
+    {
+      "fqn": "com.volvocars.ecom.customer.crm.synchronizer.core.customersync.CdbConsumerService",
+      "name": "CdbConsumerService",
+      "kind": "class",
+      "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/customersync/CdbConsumerService.java",
+      "fields": [
+        {
+          "name": "cdbClient",
+          "modifiers": [],
+          "annotations": []
+        }
+      ],
+      "annotations": []
+    },
+    {
+      "fqn": "com.volvocars.ecom.customer.crm.synchronizer.core.customersync.CorporateEntitySyncService",
+      "name": "CorporateEntitySyncService",
+      "kind": "class",
+      "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/customersync/CorporateEntitySyncService.java",
+      "fields": [
+        {
+          "name": "createOrUpdateRequestMapper",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "cdbClient",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "createOrUpdateConsumerResponseMapper",
+          "modifiers": [],
+          "annotations": []
+        }
+      ],
+      "annotations": []
+    },
+    {
+      "fqn": "com.volvocars.ecom.customer.crm.synchronizer.core.customersync.CustomerSyncService",
+      "name": "CustomerSyncService",
+      "kind": "class",
+      "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/customersync/CustomerSyncService.java",
+      "fields": [
+        {
+          "name": "customerService",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "individualSyncService",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "corporateEntitySyncService",
+          "modifiers": [],
+          "annotations": []
+        }
+      ],
+      "annotations": []
+    },
+    {
+      "fqn": "com.volvocars.ecom.customer.crm.synchronizer.core.customersync.IndividualSyncService",
+      "name": "IndividualSyncService",
+      "kind": "class",
+      "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/customersync/IndividualSyncService.java",
+      "fields": [
+        {
+          "name": "cdbClient",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "createOrUpdateRequestMapper",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "createOrUpdateConsumerResponseMapper",
+          "modifiers": [],
+          "annotations": []
+        }
+      ],
+      "annotations": []
+    },
+    {
+      "fqn": "com.volvocars.ecom.customer.crm.synchronizer.core.ordermanager.OrderManagerClient",
+      "name": "OrderManagerClient",
+      "kind": "class",
+      "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/ordermanager/OrderManagerClient.java",
+      "fields": [
+        {
+          "name": "CLIENT_QUALIFIER",
+          "modifiers": ["static"],
+          "annotations": []
+        },
+        {
+          "name": "client",
+          "modifiers": [],
+          "annotations": []
+        }
+      ],
+      "annotations": []
+    },
+    {
+      "fqn": "com.volvocars.ecom.customer.crm.synchronizer.core.ordermanager.OrderManagerService",
+      "name": "OrderManagerService",
+      "kind": "class",
+      "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/ordermanager/OrderManagerService.java",
+      "fields": [
+        {
+          "name": "orderManagerClient",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "omEventEndpointEnabled",
+          "modifiers": [],
+          "annotations": []
+        }
+      ],
+      "annotations": []
+    },
+    {
+      "fqn": "com.volvocars.ecom.customer.crm.synchronizer.core.ordermanager.exception.OrderManagerApiException",
+      "name": "OrderManagerApiException",
+      "kind": "class",
+      "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/ordermanager/exception/OrderManagerApiException.java",
+      "fields": [],
+      "annotations": []
+    },
+    {
+      "fqn": "com.volvocars.ecom.customer.crm.synchronizer.core.ordermanager.request.OMCustomerUpdateEventRequest",
+      "name": "OMCustomerUpdateEventRequest",
+      "kind": "record",
+      "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/ordermanager/request/OMCustomerUpdateEventRequest.java",
+      "fields": [
+        {
+          "name": "category",
+          "modifiers": [],
+          "annotations": []
+        }
+      ],
+      "annotations": []
+    },
+    {
+      "fqn": "com.volvocars.ecom.customer.crm.synchronizer.core.ordermanager.request.OMUpdateEventCategory",
+      "name": "OMUpdateEventCategory",
+      "kind": "enum",
+      "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/ordermanager/request/OMUpdateEventCategory.java",
+      "fields": [
+        {
+          "name": "CUSTOMER_UPDATE",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "CRM_UPDATE",
+          "modifiers": [],
+          "annotations": []
+        }
+      ],
+      "annotations": []
+    },
+    {
+      "fqn": "com.volvocars.ecom.customer.crm.synchronizer.shared.CdbSyncResult",
+      "name": "CdbSyncResult",
+      "kind": "record",
+      "path": "customer-crm-synchronizer-shared/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/shared/CdbSyncResult.java",
+      "fields": [
+        {
+          "name": "individuals",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "corporateEntities",
+          "modifiers": [],
+          "annotations": []
+        }
+      ],
+      "annotations": []
+    },
+    {
+      "fqn": "com.volvocars.ecom.customer.crm.synchronizer.shared.CdbSyncResult.Actor",
+      "name": "CdbSyncResult.Actor",
+      "kind": "record",
+      "path": "customer-crm-synchronizer-shared/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/shared/CdbSyncResult.java",
+      "fields": [
+        {
+          "name": "id",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "cdbId",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "cdbTcId",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "isUpdated",
+          "modifiers": [],
+          "annotations": []
+        }
+      ],
+      "annotations": []
+    },
+    {
+      "fqn": "com.volvocars.ecom.customer.crm.synchronizer.shared.VehicleRelationRequest",
+      "name": "VehicleRelationRequest",
+      "kind": "record",
+      "path": "customer-crm-synchronizer-shared/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/shared/VehicleRelationRequest.java",
+      "fields": [
+        {
+          "name": "vin",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "handoverDate",
+          "modifiers": [],
+          "annotations": []
+        }
+      ],
+      "annotations": []
+    }
+  ],
+  "qualification": "Original Java syntax exporter; source class kind and independent exact method bodies. Legacy lexical compact-record limitation is not used."
+}

@@ -1,0 +1,11 @@
+{
+  "snapshot": "9273eddda4c5fff911958b4a6b82143b69d166f1a50b66279bb19755660f27aa",
+  "bundleDigest": "b577dfd27493952af8ed9535d21a2c2e52f2c5c6727735284c45ea44bcb6c348",
+  "bundleFileSha256": "8d9162c2ca327b098851357dafde06c8df3309d1833cc7478b4ceb4d8020098d",
+  "manifestFileSha256": "2d3d345585a46b0323bbfae2ecd813bb72f2630e95af63122615f802d1c955ec",
+  "nativeValidation": "passed",
+  "sourceVerification": "source-verification.final-r5.json",
+  "standard": "query-final-r5/acceptance.json",
+  "source": "source-final-r5/acceptance.json",
+  "strictSupportComplete": true
+}

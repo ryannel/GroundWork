@@ -1,0 +1,170 @@
+[
+  {
+    "authority": "SDL",
+    "name": "Query",
+    "shape": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/shape/sdl/Query",
+    "lines": [30, 44]
+  },
+  {
+    "authority": "SDL",
+    "name": "Mutation",
+    "shape": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/shape/sdl/Mutation",
+    "lines": [49, 157]
+  },
+  {
+    "authority": "SDL",
+    "name": "CartV2",
+    "shape": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/shape/sdl/CartV2",
+    "lines": [162, 207]
+  },
+  {
+    "authority": "SDL",
+    "name": "CartBuyerV2",
+    "shape": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/shape/sdl/CartBuyerV2",
+    "lines": [209, 222]
+  },
+  {
+    "authority": "SDL",
+    "name": "CartLineV2",
+    "shape": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/shape/sdl/CartLineV2",
+    "lines": [229, 255]
+  },
+  {
+    "authority": "SDL",
+    "name": "CartLineItemV2",
+    "shape": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/shape/sdl/CartLineItemV2",
+    "lines": [260, 287]
+  },
+  {
+    "authority": "SDL",
+    "name": "InstallationTarget",
+    "shape": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/shape/sdl/InstallationTarget",
+    "lines": [292, 297]
+  },
+  {
+    "authority": "SDL",
+    "name": "CartPartnerV2",
+    "shape": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/shape/sdl/CartPartnerV2",
+    "lines": [302, 315]
+  },
+  {
+    "authority": "SDL",
+    "name": "CartInputV2",
+    "shape": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/shape/sdl/CartInputV2",
+    "lines": [321, 339]
+  },
+  {
+    "authority": "SDL",
+    "name": "BuyerInputV2",
+    "shape": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/shape/sdl/BuyerInputV2",
+    "lines": [341, 351]
+  },
+  {
+    "authority": "SDL",
+    "name": "CartLineInputV2",
+    "shape": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/shape/sdl/CartLineInputV2",
+    "lines": [356, 362]
+  },
+  {
+    "authority": "SDL",
+    "name": "CartLineItemInputV2",
+    "shape": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/shape/sdl/CartLineItemInputV2",
+    "lines": [364, 377]
+  },
+  {
+    "authority": "SDL",
+    "name": "InstallationTargetInput",
+    "shape": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/shape/sdl/InstallationTargetInput",
+    "lines": [382, 387]
+  },
+  {
+    "authority": "SDL",
+    "name": "PartnersInputV2",
+    "shape": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/shape/sdl/PartnersInputV2",
+    "lines": [392, 401]
+  },
+  {
+    "authority": "SDL",
+    "name": "DeliveryPartnerInputV2",
+    "shape": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/shape/sdl/DeliveryPartnerInputV2",
+    "lines": [406, 411]
+  },
+  {
+    "authority": "SDL",
+    "name": "SalesPartnerInputV2",
+    "shape": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/shape/sdl/SalesPartnerInputV2",
+    "lines": [416, 425]
+  },
+  {
+    "authority": "SDL",
+    "name": "CreateCartFromCceTokenInput",
+    "shape": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/shape/sdl/CreateCartFromCceTokenInput",
+    "lines": [430, 439]
+  },
+  {
+    "authority": "SDL",
+    "name": "CheckoutInputV2",
+    "shape": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/shape/sdl/CheckoutInputV2",
+    "lines": [444, 454]
+  },
+  {
+    "authority": "SDL",
+    "name": "CustomerInput",
+    "shape": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/shape/sdl/CustomerInput",
+    "lines": [459, 472]
+  },
+  {
+    "authority": "SDL",
+    "name": "CartCustomerTypeV2",
+    "shape": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/shape/sdl/CartCustomerTypeV2",
+    "lines": [477, 480]
+  },
+  {
+    "authority": "SDL",
+    "name": "IndividualInput",
+    "shape": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/shape/sdl/IndividualInput",
+    "lines": [485, 494]
+  },
+  {
+    "authority": "SDL",
+    "name": "OrganizationInput",
+    "shape": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/shape/sdl/OrganizationInput",
+    "lines": [499, 508]
+  },
+  {
+    "authority": "SDL",
+    "name": "AddressInput",
+    "shape": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/shape/sdl/AddressInput",
+    "lines": [513, 520]
+  },
+  {
+    "authority": "SDL",
+    "name": "CheckoutResult",
+    "shape": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/shape/sdl/CheckoutResult",
+    "lines": [525, 542]
+  },
+  {
+    "authority": "SDL",
+    "name": "CartStatusV2",
+    "shape": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/shape/sdl/CartStatusV2",
+    "lines": [547, 553]
+  },
+  {
+    "authority": "SDL",
+    "name": "OfferV2",
+    "shape": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/shape/sdl/OfferV2",
+    "lines": [557, 559]
+  },
+  {
+    "authority": "SDL",
+    "name": "FinancingOfferVariantV2",
+    "shape": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/shape/sdl/FinancingOfferVariantV2",
+    "lines": [561, 563]
+  },
+  {
+    "authority": "SDL",
+    "name": "ProductVariantV2",
+    "shape": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/shape/sdl/ProductVariantV2",
+    "lines": [565, 567]
+  }
+]

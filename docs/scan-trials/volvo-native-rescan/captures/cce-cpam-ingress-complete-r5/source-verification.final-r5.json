@@ -1,0 +1,33 @@
+{
+  "selectedSnapshot": "9273eddda4c5fff911958b4a6b82143b69d166f1a50b66279bb19755660f27aa",
+  "selectedEvidenceRecords": 18713,
+  "selectedUniqueTuples": 9115,
+  "baselineSnapshot": "ebf5468fc462afb1f9729d697a65a5e90787ad89f9b22ec1b252abbaaf52450e",
+  "baselineManifest": {
+    "format": "groundwork-snapshot/v3",
+    "bundles": ["a7139b710b0d2035afc9658304870b4bbb2718937f789088230f5e343ac59833"],
+    "interpretations": [],
+    "rules": "knowledge-query/v3",
+    "id": "ebf5468fc462afb1f9729d697a65a5e90787ad89f9b22ec1b252abbaaf52450e"
+  },
+  "baselineSQLite": "query-working-r2/knowledge.sqlite",
+  "baselineVerification": "source-working.log",
+  "baselineVerifiedRanges": 18693,
+  "reusedEvidenceRecords": 18693,
+  "newUniqueTuples": 5,
+  "newEvidenceRecords": 20,
+  "deltaBundle": "evidence-delta.final-r2.bundle.json",
+  "tupleFields": ["host", "repo", "commit", "path", "lines", "symbol"],
+  "tupleEqualityComplete": true,
+  "status": "passed",
+  "deltaVerification": "source-delta.final-r2.log",
+  "sourceVerification": "pinned_local_files_by_equal_tuple_reuse_and_verified_delta",
+  "additiveBase": "bundle.final-r2.json",
+  "baseFactsUnchanged": false,
+  "selectedEvidenceUnchangedFromR2": true,
+  "baselineEvidence": "baseline-evidence.verified.json.gz",
+  "baselineEvidenceSha256": "19a0540fbefb872faafe76bae3cb984d467070a316194d2b16282798123c8dfb",
+  "baselineSQLiteDisposable": true,
+  "selectedEvidenceUnchangedFromR3": true,
+  "revisionChanges": "Two flag evaluation library boundaries plus configured flag-purpose declaration; namespace move, no new evidence tuples"
+}

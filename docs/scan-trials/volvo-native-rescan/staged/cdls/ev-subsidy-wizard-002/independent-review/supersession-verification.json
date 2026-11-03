@@ -1,0 +1,11 @@
+{
+  "status": "passed",
+  "namespaceTranslation": "ev-subsidy-wizard-r1/ to ev-subsidy-wizard-r2/",
+  "changedClaims": ["volvo/cdls-mono-volvocars/8e1fd20c525f/ev-subsidy-wizard-r2/claim/135"],
+  "addedEvidence": [
+    "volvo/cdls-mono-volvocars/8e1fd20c525f/ev-subsidy-wizard-r2/e/fc36685528be62b657f5"
+  ],
+  "removed": [],
+  "allNativeExecutionAndDataFacts": "Equal after namespace translation",
+  "api001": "Byte-identical to published original"
+}

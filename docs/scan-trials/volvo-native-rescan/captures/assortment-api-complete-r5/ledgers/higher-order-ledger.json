@@ -1,0 +1,799 @@
+[
+  {
+    "caller": "assortment-6114c5d-complete-r5/method/7fb343c89e259b4e",
+    "call": "assortment-6114c5d-complete-r5/op/7fb343c89e259b4e/61",
+    "callee": "assortment-6114c5d-complete-r5/method/a818de9631febc04",
+    "formal": "assortment-6114c5d-complete-r5/v/a818de9631febc04/p/1",
+    "formalType": "System.Func<ImmutableHashSet<string>, System.Collections.Generic.IEnumerable<string>>?",
+    "formalName": "selector",
+    "actualDelegate": "assortment-6114c5d-complete-r5/v/7fb343c89e259b4e/36",
+    "registration": "assortment-6114c5d-complete-r5/op/7fb343c89e259b4e/60",
+    "callback": "assortment-6114c5d-complete-r5/method/831dceff66316148",
+    "captures": [
+      {
+        "capture": "assortment-6114c5d-complete-r5/capture/831dceff66316148/5794071bf87fe572",
+        "value": "assortment-6114c5d-complete-r5/v/7fb343c89e259b4e/2",
+        "mode": "reference"
+      }
+    ],
+    "receiver": null,
+    "invocations": [],
+    "claim": "assortment-6114c5d-complete-r5/higher-order/ba2e3dc34ba43f12"
+  },
+  {
+    "caller": "assortment-6114c5d-complete-r5/method/6e2ab1729fa131cc",
+    "call": "assortment-6114c5d-complete-r5/op/6e2ab1729fa131cc/8",
+    "callee": "assortment-6114c5d-complete-r5/method/f50b15bac9dfc2d2",
+    "formal": "assortment-6114c5d-complete-r5/v/f50b15bac9dfc2d2/p/0",
+    "formalType": "System.Func<ImmutableList<PopCat.Assortment.Contracts.Models.UpstreamEntity>, ImmutableList<PopCat.Assortment.Contracts.Models.UpstreamEntity>>",
+    "formalName": "mutate",
+    "actualDelegate": "assortment-6114c5d-complete-r5/v/6e2ab1729fa131cc/5",
+    "registration": "assortment-6114c5d-complete-r5/op/6e2ab1729fa131cc/7",
+    "callback": "assortment-6114c5d-complete-r5/method/61f869712566cf80",
+    "captures": [
+      {
+        "capture": "assortment-6114c5d-complete-r5/capture/61f869712566cf80/bca3685fea8acd4e",
+        "value": "assortment-6114c5d-complete-r5/v/6e2ab1729fa131cc/p/0",
+        "mode": "reference"
+      },
+      {
+        "capture": "assortment-6114c5d-complete-r5/capture/61f869712566cf80/1eb79602411ef02c",
+        "value": "assortment-6114c5d-complete-r5/receiver/6e2ab1729fa131cc",
+        "mode": "value"
+      }
+    ],
+    "receiver": null,
+    "invocations": ["assortment-6114c5d-complete-r5/op/f50b15bac9dfc2d2/16"],
+    "claim": "assortment-6114c5d-complete-r5/higher-order/c3a59da2de4e2e00"
+  },
+  {
+    "caller": "assortment-6114c5d-complete-r5/method/eeb5464c99e5f679",
+    "call": "assortment-6114c5d-complete-r5/op/eeb5464c99e5f679/8",
+    "callee": "assortment-6114c5d-complete-r5/method/f50b15bac9dfc2d2",
+    "formal": "assortment-6114c5d-complete-r5/v/f50b15bac9dfc2d2/p/0",
+    "formalType": "System.Func<ImmutableList<PopCat.Assortment.Contracts.Models.UpstreamEntity>, ImmutableList<PopCat.Assortment.Contracts.Models.UpstreamEntity>>",
+    "formalName": "mutate",
+    "actualDelegate": "assortment-6114c5d-complete-r5/v/eeb5464c99e5f679/5",
+    "registration": "assortment-6114c5d-complete-r5/op/eeb5464c99e5f679/7",
+    "callback": "assortment-6114c5d-complete-r5/method/aa71c905ef7ef583",
+    "captures": [
+      {
+        "capture": "assortment-6114c5d-complete-r5/capture/aa71c905ef7ef583/bca3685fea8acd4e",
+        "value": "assortment-6114c5d-complete-r5/v/eeb5464c99e5f679/p/0",
+        "mode": "reference"
+      },
+      {
+        "capture": "assortment-6114c5d-complete-r5/capture/aa71c905ef7ef583/1eb79602411ef02c",
+        "value": "assortment-6114c5d-complete-r5/receiver/eeb5464c99e5f679",
+        "mode": "value"
+      }
+    ],
+    "receiver": null,
+    "invocations": ["assortment-6114c5d-complete-r5/op/f50b15bac9dfc2d2/16"],
+    "claim": "assortment-6114c5d-complete-r5/higher-order/15b9b1cfa1ad9fb8"
+  },
+  {
+    "caller": "assortment-6114c5d-complete-r5/method/6b228803eb739521",
+    "call": "assortment-6114c5d-complete-r5/op/6b228803eb739521/7",
+    "callee": "assortment-6114c5d-complete-r5/method/f50b15bac9dfc2d2",
+    "formal": "assortment-6114c5d-complete-r5/v/f50b15bac9dfc2d2/p/0",
+    "formalType": "System.Func<ImmutableList<PopCat.Assortment.Contracts.Models.UpstreamEntity>, ImmutableList<PopCat.Assortment.Contracts.Models.UpstreamEntity>>",
+    "formalName": "mutate",
+    "actualDelegate": "assortment-6114c5d-complete-r5/v/6b228803eb739521/4",
+    "registration": "assortment-6114c5d-complete-r5/op/6b228803eb739521/6",
+    "callback": "assortment-6114c5d-complete-r5/method/f4a5ba44f2244777",
+    "captures": [
+      {
+        "capture": "assortment-6114c5d-complete-r5/capture/f4a5ba44f2244777/a56145270ce6b3be",
+        "value": "assortment-6114c5d-complete-r5/v/6b228803eb739521/p/0",
+        "mode": "reference"
+      },
+      {
+        "capture": "assortment-6114c5d-complete-r5/capture/f4a5ba44f2244777/1eb79602411ef02c",
+        "value": "assortment-6114c5d-complete-r5/receiver/6b228803eb739521",
+        "mode": "value"
+      }
+    ],
+    "receiver": null,
+    "invocations": ["assortment-6114c5d-complete-r5/op/f50b15bac9dfc2d2/16"],
+    "claim": "assortment-6114c5d-complete-r5/higher-order/daba1bf424854442"
+  },
+  {
+    "caller": "assortment-6114c5d-complete-r5/method/bb7f2b2cf3e990fe",
+    "call": "assortment-6114c5d-complete-r5/op/bb7f2b2cf3e990fe/3",
+    "callee": "assortment-6114c5d-complete-r5/method/73ff027e479ce4a5",
+    "formal": "assortment-6114c5d-complete-r5/v/73ff027e479ce4a5/p/3",
+    "formalType": "System.Func<string, string>",
+    "formalName": "getAfterId",
+    "actualDelegate": "assortment-6114c5d-complete-r5/v/bb7f2b2cf3e990fe/0",
+    "registration": "assortment-6114c5d-complete-r5/op/bb7f2b2cf3e990fe/1",
+    "callback": "assortment-6114c5d-complete-r5/method/db6033c0095ffa95",
+    "captures": [],
+    "receiver": null,
+    "invocations": ["assortment-6114c5d-complete-r5/op/73ff027e479ce4a5/16"],
+    "claim": "assortment-6114c5d-complete-r5/higher-order/63dcbcff835c9fc9"
+  },
+  {
+    "caller": "assortment-6114c5d-complete-r5/method/bb7f2b2cf3e990fe",
+    "call": "assortment-6114c5d-complete-r5/op/bb7f2b2cf3e990fe/3",
+    "callee": "assortment-6114c5d-complete-r5/method/73ff027e479ce4a5",
+    "formal": "assortment-6114c5d-complete-r5/v/73ff027e479ce4a5/p/4",
+    "formalType": "System.Func<string, string?>",
+    "formalName": "validateToken",
+    "actualDelegate": "assortment-6114c5d-complete-r5/v/bb7f2b2cf3e990fe/1",
+    "registration": "assortment-6114c5d-complete-r5/op/bb7f2b2cf3e990fe/2",
+    "callback": "assortment-6114c5d-complete-r5/method/e243350fe51ee323",
+    "captures": [
+      {
+        "capture": "assortment-6114c5d-complete-r5/capture/e243350fe51ee323/3002307770872f16",
+        "value": "assortment-6114c5d-complete-r5/v/bb7f2b2cf3e990fe/p/3",
+        "mode": "reference"
+      }
+    ],
+    "receiver": null,
+    "invocations": ["assortment-6114c5d-complete-r5/op/73ff027e479ce4a5/11"],
+    "claim": "assortment-6114c5d-complete-r5/higher-order/35112b3aca8fc586"
+  },
+  {
+    "caller": "assortment-6114c5d-complete-r5/method/6b106756f03ab1ff",
+    "call": "assortment-6114c5d-complete-r5/op/6b106756f03ab1ff/3",
+    "callee": "assortment-6114c5d-complete-r5/method/73ff027e479ce4a5",
+    "formal": "assortment-6114c5d-complete-r5/v/73ff027e479ce4a5/p/3",
+    "formalType": "System.Func<string, string>",
+    "formalName": "getAfterId",
+    "actualDelegate": "assortment-6114c5d-complete-r5/v/6b106756f03ab1ff/0",
+    "registration": "assortment-6114c5d-complete-r5/op/6b106756f03ab1ff/1",
+    "callback": "assortment-6114c5d-complete-r5/method/ab26fd71dc5d22c2",
+    "captures": [],
+    "receiver": null,
+    "invocations": ["assortment-6114c5d-complete-r5/op/73ff027e479ce4a5/16"],
+    "claim": "assortment-6114c5d-complete-r5/higher-order/e5486af3471fea34"
+  },
+  {
+    "caller": "assortment-6114c5d-complete-r5/method/6b106756f03ab1ff",
+    "call": "assortment-6114c5d-complete-r5/op/6b106756f03ab1ff/3",
+    "callee": "assortment-6114c5d-complete-r5/method/73ff027e479ce4a5",
+    "formal": "assortment-6114c5d-complete-r5/v/73ff027e479ce4a5/p/4",
+    "formalType": "System.Func<string, string?>",
+    "formalName": "validateToken",
+    "actualDelegate": "assortment-6114c5d-complete-r5/v/6b106756f03ab1ff/1",
+    "registration": "assortment-6114c5d-complete-r5/op/6b106756f03ab1ff/2",
+    "callback": "assortment-6114c5d-complete-r5/method/7e32286a5df4de8a",
+    "captures": [
+      {
+        "capture": "assortment-6114c5d-complete-r5/capture/7e32286a5df4de8a/3002307770872f16",
+        "value": "assortment-6114c5d-complete-r5/v/6b106756f03ab1ff/p/3",
+        "mode": "reference"
+      }
+    ],
+    "receiver": null,
+    "invocations": ["assortment-6114c5d-complete-r5/op/73ff027e479ce4a5/11"],
+    "claim": "assortment-6114c5d-complete-r5/higher-order/a857f2a7ab03f024"
+  },
+  {
+    "caller": "assortment-6114c5d-complete-r5/method/d6a49de0ff05ab34",
+    "call": "assortment-6114c5d-complete-r5/op/d6a49de0ff05ab34/3",
+    "callee": "assortment-6114c5d-complete-r5/method/73ff027e479ce4a5",
+    "formal": "assortment-6114c5d-complete-r5/v/73ff027e479ce4a5/p/3",
+    "formalType": "System.Func<string, string>",
+    "formalName": "getAfterId",
+    "actualDelegate": "assortment-6114c5d-complete-r5/v/d6a49de0ff05ab34/0",
+    "registration": "assortment-6114c5d-complete-r5/op/d6a49de0ff05ab34/1",
+    "callback": "assortment-6114c5d-complete-r5/method/2fa3543dd347fd08",
+    "captures": [],
+    "receiver": null,
+    "invocations": ["assortment-6114c5d-complete-r5/op/73ff027e479ce4a5/16"],
+    "claim": "assortment-6114c5d-complete-r5/higher-order/dba62606fac191a4"
+  },
+  {
+    "caller": "assortment-6114c5d-complete-r5/method/d6a49de0ff05ab34",
+    "call": "assortment-6114c5d-complete-r5/op/d6a49de0ff05ab34/3",
+    "callee": "assortment-6114c5d-complete-r5/method/73ff027e479ce4a5",
+    "formal": "assortment-6114c5d-complete-r5/v/73ff027e479ce4a5/p/4",
+    "formalType": "System.Func<string, string?>",
+    "formalName": "validateToken",
+    "actualDelegate": "assortment-6114c5d-complete-r5/v/d6a49de0ff05ab34/1",
+    "registration": "assortment-6114c5d-complete-r5/op/d6a49de0ff05ab34/2",
+    "callback": "assortment-6114c5d-complete-r5/method/00fef844a11e1724",
+    "captures": [
+      {
+        "capture": "assortment-6114c5d-complete-r5/capture/00fef844a11e1724/83c996618b8eac2e",
+        "value": "assortment-6114c5d-complete-r5/v/d6a49de0ff05ab34/p/3",
+        "mode": "reference"
+      }
+    ],
+    "receiver": null,
+    "invocations": ["assortment-6114c5d-complete-r5/op/73ff027e479ce4a5/11"],
+    "claim": "assortment-6114c5d-complete-r5/higher-order/62d5900dfcf8be35"
+  },
+  {
+    "caller": "assortment-6114c5d-complete-r5/method/47762378f0ebcd1e",
+    "call": "assortment-6114c5d-complete-r5/op/47762378f0ebcd1e/3",
+    "callee": "assortment-6114c5d-complete-r5/method/d2672d54bec7c87a",
+    "formal": "assortment-6114c5d-complete-r5/v/d2672d54bec7c87a/p/0",
+    "formalType": "System.Func<T?>",
+    "formalName": "action",
+    "actualDelegate": "assortment-6114c5d-complete-r5/v/47762378f0ebcd1e/0",
+    "registration": "assortment-6114c5d-complete-r5/op/47762378f0ebcd1e/2",
+    "callback": "assortment-6114c5d-complete-r5/method/30c278c55abf4c5d",
+    "captures": [
+      {
+        "capture": "assortment-6114c5d-complete-r5/capture/30c278c55abf4c5d/137fbf68ff0032ae",
+        "value": "assortment-6114c5d-complete-r5/v/47762378f0ebcd1e/p/0",
+        "mode": "reference"
+      }
+    ],
+    "receiver": null,
+    "invocations": ["assortment-6114c5d-complete-r5/op/d2672d54bec7c87a/1"],
+    "claim": "assortment-6114c5d-complete-r5/higher-order/934c474a1a96eda9"
+  },
+  {
+    "caller": "assortment-6114c5d-complete-r5/method/47762378f0ebcd1e",
+    "call": "assortment-6114c5d-complete-r5/op/47762378f0ebcd1e/7",
+    "callee": "assortment-6114c5d-complete-r5/method/d2672d54bec7c87a",
+    "formal": "assortment-6114c5d-complete-r5/v/d2672d54bec7c87a/p/0",
+    "formalType": "System.Func<T?>",
+    "formalName": "action",
+    "actualDelegate": "assortment-6114c5d-complete-r5/v/47762378f0ebcd1e/4",
+    "registration": "assortment-6114c5d-complete-r5/op/47762378f0ebcd1e/6",
+    "callback": "assortment-6114c5d-complete-r5/method/ea2c7f26958add66",
+    "captures": [
+      {
+        "capture": "assortment-6114c5d-complete-r5/capture/ea2c7f26958add66/137fbf68ff0032ae",
+        "value": "assortment-6114c5d-complete-r5/v/47762378f0ebcd1e/p/0",
+        "mode": "reference"
+      }
+    ],
+    "receiver": null,
+    "invocations": ["assortment-6114c5d-complete-r5/op/d2672d54bec7c87a/1"],
+    "claim": "assortment-6114c5d-complete-r5/higher-order/2d655edd10b419ae"
+  },
+  {
+    "caller": "assortment-6114c5d-complete-r5/method/47762378f0ebcd1e",
+    "call": "assortment-6114c5d-complete-r5/op/47762378f0ebcd1e/11",
+    "callee": "assortment-6114c5d-complete-r5/method/d2672d54bec7c87a",
+    "formal": "assortment-6114c5d-complete-r5/v/d2672d54bec7c87a/p/0",
+    "formalType": "System.Func<T?>",
+    "formalName": "action",
+    "actualDelegate": "assortment-6114c5d-complete-r5/v/47762378f0ebcd1e/8",
+    "registration": "assortment-6114c5d-complete-r5/op/47762378f0ebcd1e/10",
+    "callback": "assortment-6114c5d-complete-r5/method/6ac034490e280c47",
+    "captures": [
+      {
+        "capture": "assortment-6114c5d-complete-r5/capture/6ac034490e280c47/137fbf68ff0032ae",
+        "value": "assortment-6114c5d-complete-r5/v/47762378f0ebcd1e/p/0",
+        "mode": "reference"
+      }
+    ],
+    "receiver": null,
+    "invocations": ["assortment-6114c5d-complete-r5/op/d2672d54bec7c87a/1"],
+    "claim": "assortment-6114c5d-complete-r5/higher-order/a211c7b1ad157f39"
+  },
+  {
+    "caller": "assortment-6114c5d-complete-r5/method/47762378f0ebcd1e",
+    "call": "assortment-6114c5d-complete-r5/op/47762378f0ebcd1e/15",
+    "callee": "assortment-6114c5d-complete-r5/method/d2672d54bec7c87a",
+    "formal": "assortment-6114c5d-complete-r5/v/d2672d54bec7c87a/p/0",
+    "formalType": "System.Func<T?>",
+    "formalName": "action",
+    "actualDelegate": "assortment-6114c5d-complete-r5/v/47762378f0ebcd1e/12",
+    "registration": "assortment-6114c5d-complete-r5/op/47762378f0ebcd1e/14",
+    "callback": "assortment-6114c5d-complete-r5/method/67cf325b2bda50fa",
+    "captures": [
+      {
+        "capture": "assortment-6114c5d-complete-r5/capture/67cf325b2bda50fa/137fbf68ff0032ae",
+        "value": "assortment-6114c5d-complete-r5/v/47762378f0ebcd1e/p/0",
+        "mode": "reference"
+      }
+    ],
+    "receiver": null,
+    "invocations": ["assortment-6114c5d-complete-r5/op/d2672d54bec7c87a/1"],
+    "claim": "assortment-6114c5d-complete-r5/higher-order/581a9985e3d11877"
+  },
+  {
+    "caller": "assortment-6114c5d-complete-r5/method/47762378f0ebcd1e",
+    "call": "assortment-6114c5d-complete-r5/op/47762378f0ebcd1e/19",
+    "callee": "assortment-6114c5d-complete-r5/method/d2672d54bec7c87a",
+    "formal": "assortment-6114c5d-complete-r5/v/d2672d54bec7c87a/p/0",
+    "formalType": "System.Func<T?>",
+    "formalName": "action",
+    "actualDelegate": "assortment-6114c5d-complete-r5/v/47762378f0ebcd1e/16",
+    "registration": "assortment-6114c5d-complete-r5/op/47762378f0ebcd1e/18",
+    "callback": "assortment-6114c5d-complete-r5/method/eba1b54589034f8b",
+    "captures": [
+      {
+        "capture": "assortment-6114c5d-complete-r5/capture/eba1b54589034f8b/137fbf68ff0032ae",
+        "value": "assortment-6114c5d-complete-r5/v/47762378f0ebcd1e/p/0",
+        "mode": "reference"
+      }
+    ],
+    "receiver": null,
+    "invocations": ["assortment-6114c5d-complete-r5/op/d2672d54bec7c87a/1"],
+    "claim": "assortment-6114c5d-complete-r5/higher-order/449a1bf06396f416"
+  },
+  {
+    "caller": "assortment-6114c5d-complete-r5/method/47762378f0ebcd1e",
+    "call": "assortment-6114c5d-complete-r5/op/47762378f0ebcd1e/23",
+    "callee": "assortment-6114c5d-complete-r5/method/d2672d54bec7c87a",
+    "formal": "assortment-6114c5d-complete-r5/v/d2672d54bec7c87a/p/0",
+    "formalType": "System.Func<T?>",
+    "formalName": "action",
+    "actualDelegate": "assortment-6114c5d-complete-r5/v/47762378f0ebcd1e/20",
+    "registration": "assortment-6114c5d-complete-r5/op/47762378f0ebcd1e/22",
+    "callback": "assortment-6114c5d-complete-r5/method/0b052bc00213339d",
+    "captures": [
+      {
+        "capture": "assortment-6114c5d-complete-r5/capture/0b052bc00213339d/137fbf68ff0032ae",
+        "value": "assortment-6114c5d-complete-r5/v/47762378f0ebcd1e/p/0",
+        "mode": "reference"
+      }
+    ],
+    "receiver": null,
+    "invocations": ["assortment-6114c5d-complete-r5/op/d2672d54bec7c87a/1"],
+    "claim": "assortment-6114c5d-complete-r5/higher-order/d1086115b1958213"
+  },
+  {
+    "caller": "assortment-6114c5d-complete-r5/method/47762378f0ebcd1e",
+    "call": "assortment-6114c5d-complete-r5/op/47762378f0ebcd1e/27",
+    "callee": "assortment-6114c5d-complete-r5/method/d2672d54bec7c87a",
+    "formal": "assortment-6114c5d-complete-r5/v/d2672d54bec7c87a/p/0",
+    "formalType": "System.Func<T?>",
+    "formalName": "action",
+    "actualDelegate": "assortment-6114c5d-complete-r5/v/47762378f0ebcd1e/24",
+    "registration": "assortment-6114c5d-complete-r5/op/47762378f0ebcd1e/26",
+    "callback": "assortment-6114c5d-complete-r5/method/7021dec7c05f3585",
+    "captures": [
+      {
+        "capture": "assortment-6114c5d-complete-r5/capture/7021dec7c05f3585/137fbf68ff0032ae",
+        "value": "assortment-6114c5d-complete-r5/v/47762378f0ebcd1e/p/0",
+        "mode": "reference"
+      }
+    ],
+    "receiver": null,
+    "invocations": ["assortment-6114c5d-complete-r5/op/d2672d54bec7c87a/1"],
+    "claim": "assortment-6114c5d-complete-r5/higher-order/7017570a722091d7"
+  },
+  {
+    "caller": "assortment-6114c5d-complete-r5/method/47762378f0ebcd1e",
+    "call": "assortment-6114c5d-complete-r5/op/47762378f0ebcd1e/31",
+    "callee": "assortment-6114c5d-complete-r5/method/d2672d54bec7c87a",
+    "formal": "assortment-6114c5d-complete-r5/v/d2672d54bec7c87a/p/0",
+    "formalType": "System.Func<T?>",
+    "formalName": "action",
+    "actualDelegate": "assortment-6114c5d-complete-r5/v/47762378f0ebcd1e/28",
+    "registration": "assortment-6114c5d-complete-r5/op/47762378f0ebcd1e/30",
+    "callback": "assortment-6114c5d-complete-r5/method/50766fadf9973364",
+    "captures": [
+      {
+        "capture": "assortment-6114c5d-complete-r5/capture/50766fadf9973364/137fbf68ff0032ae",
+        "value": "assortment-6114c5d-complete-r5/v/47762378f0ebcd1e/p/0",
+        "mode": "reference"
+      }
+    ],
+    "receiver": null,
+    "invocations": ["assortment-6114c5d-complete-r5/op/d2672d54bec7c87a/1"],
+    "claim": "assortment-6114c5d-complete-r5/higher-order/91179f19546c8f9e"
+  },
+  {
+    "caller": "assortment-6114c5d-complete-r5/method/47762378f0ebcd1e",
+    "call": "assortment-6114c5d-complete-r5/op/47762378f0ebcd1e/35",
+    "callee": "assortment-6114c5d-complete-r5/method/d2672d54bec7c87a",
+    "formal": "assortment-6114c5d-complete-r5/v/d2672d54bec7c87a/p/0",
+    "formalType": "System.Func<T?>",
+    "formalName": "action",
+    "actualDelegate": "assortment-6114c5d-complete-r5/v/47762378f0ebcd1e/32",
+    "registration": "assortment-6114c5d-complete-r5/op/47762378f0ebcd1e/34",
+    "callback": "assortment-6114c5d-complete-r5/method/7af6053f90acbc17",
+    "captures": [
+      {
+        "capture": "assortment-6114c5d-complete-r5/capture/7af6053f90acbc17/137fbf68ff0032ae",
+        "value": "assortment-6114c5d-complete-r5/v/47762378f0ebcd1e/p/0",
+        "mode": "reference"
+      }
+    ],
+    "receiver": null,
+    "invocations": ["assortment-6114c5d-complete-r5/op/d2672d54bec7c87a/1"],
+    "claim": "assortment-6114c5d-complete-r5/higher-order/66959daf5d5c0c55"
+  },
+  {
+    "caller": "assortment-6114c5d-complete-r5/method/cd7ad6591afe7dd6",
+    "call": "assortment-6114c5d-complete-r5/op/cd7ad6591afe7dd6/3",
+    "callee": "assortment-6114c5d-complete-r5/method/322115fd599fde49",
+    "formal": "assortment-6114c5d-complete-r5/v/322115fd599fde49/p/0",
+    "formalType": "System.Func<Product?>",
+    "formalName": "action",
+    "actualDelegate": "assortment-6114c5d-complete-r5/v/cd7ad6591afe7dd6/0",
+    "registration": "assortment-6114c5d-complete-r5/op/cd7ad6591afe7dd6/2",
+    "callback": "assortment-6114c5d-complete-r5/method/57371810abdb6291",
+    "captures": [
+      {
+        "capture": "assortment-6114c5d-complete-r5/capture/57371810abdb6291/137fbf68ff0032ae",
+        "value": "assortment-6114c5d-complete-r5/v/cd7ad6591afe7dd6/p/0",
+        "mode": "reference"
+      }
+    ],
+    "receiver": null,
+    "invocations": ["assortment-6114c5d-complete-r5/op/322115fd599fde49/1"],
+    "claim": "assortment-6114c5d-complete-r5/higher-order/2e49f3acde3e976a"
+  },
+  {
+    "caller": "assortment-6114c5d-complete-r5/method/cd7ad6591afe7dd6",
+    "call": "assortment-6114c5d-complete-r5/op/cd7ad6591afe7dd6/7",
+    "callee": "assortment-6114c5d-complete-r5/method/322115fd599fde49",
+    "formal": "assortment-6114c5d-complete-r5/v/322115fd599fde49/p/0",
+    "formalType": "System.Func<Product?>",
+    "formalName": "action",
+    "actualDelegate": "assortment-6114c5d-complete-r5/v/cd7ad6591afe7dd6/4",
+    "registration": "assortment-6114c5d-complete-r5/op/cd7ad6591afe7dd6/6",
+    "callback": "assortment-6114c5d-complete-r5/method/80013b7f7162116f",
+    "captures": [
+      {
+        "capture": "assortment-6114c5d-complete-r5/capture/80013b7f7162116f/137fbf68ff0032ae",
+        "value": "assortment-6114c5d-complete-r5/v/cd7ad6591afe7dd6/p/0",
+        "mode": "reference"
+      }
+    ],
+    "receiver": null,
+    "invocations": ["assortment-6114c5d-complete-r5/op/322115fd599fde49/1"],
+    "claim": "assortment-6114c5d-complete-r5/higher-order/7cbf6d725ea4600d"
+  },
+  {
+    "caller": "assortment-6114c5d-complete-r5/method/cd7ad6591afe7dd6",
+    "call": "assortment-6114c5d-complete-r5/op/cd7ad6591afe7dd6/11",
+    "callee": "assortment-6114c5d-complete-r5/method/322115fd599fde49",
+    "formal": "assortment-6114c5d-complete-r5/v/322115fd599fde49/p/0",
+    "formalType": "System.Func<Product?>",
+    "formalName": "action",
+    "actualDelegate": "assortment-6114c5d-complete-r5/v/cd7ad6591afe7dd6/8",
+    "registration": "assortment-6114c5d-complete-r5/op/cd7ad6591afe7dd6/10",
+    "callback": "assortment-6114c5d-complete-r5/method/594248b0185e43aa",
+    "captures": [
+      {
+        "capture": "assortment-6114c5d-complete-r5/capture/594248b0185e43aa/137fbf68ff0032ae",
+        "value": "assortment-6114c5d-complete-r5/v/cd7ad6591afe7dd6/p/0",
+        "mode": "reference"
+      }
+    ],
+    "receiver": null,
+    "invocations": ["assortment-6114c5d-complete-r5/op/322115fd599fde49/1"],
+    "claim": "assortment-6114c5d-complete-r5/higher-order/1746316c03619bc0"
+  },
+  {
+    "caller": "assortment-6114c5d-complete-r5/method/cd7ad6591afe7dd6",
+    "call": "assortment-6114c5d-complete-r5/op/cd7ad6591afe7dd6/15",
+    "callee": "assortment-6114c5d-complete-r5/method/980c68c2059881de",
+    "formal": "assortment-6114c5d-complete-r5/v/980c68c2059881de/p/0",
+    "formalType": "System.Func<Volvocars.Contracts.Pop.Productdetails.Package?>",
+    "formalName": "action",
+    "actualDelegate": "assortment-6114c5d-complete-r5/v/cd7ad6591afe7dd6/12",
+    "registration": "assortment-6114c5d-complete-r5/op/cd7ad6591afe7dd6/14",
+    "callback": "assortment-6114c5d-complete-r5/method/67e0a77ae7721bfd",
+    "captures": [
+      {
+        "capture": "assortment-6114c5d-complete-r5/capture/67e0a77ae7721bfd/137fbf68ff0032ae",
+        "value": "assortment-6114c5d-complete-r5/v/cd7ad6591afe7dd6/p/0",
+        "mode": "reference"
+      }
+    ],
+    "receiver": null,
+    "invocations": ["assortment-6114c5d-complete-r5/op/980c68c2059881de/1"],
+    "claim": "assortment-6114c5d-complete-r5/higher-order/a73bb841a5e52486"
+  },
+  {
+    "caller": "assortment-6114c5d-complete-r5/method/cd7ad6591afe7dd6",
+    "call": "assortment-6114c5d-complete-r5/op/cd7ad6591afe7dd6/19",
+    "callee": "assortment-6114c5d-complete-r5/method/980c68c2059881de",
+    "formal": "assortment-6114c5d-complete-r5/v/980c68c2059881de/p/0",
+    "formalType": "System.Func<Volvocars.Contracts.Pop.Productdetails.Package?>",
+    "formalName": "action",
+    "actualDelegate": "assortment-6114c5d-complete-r5/v/cd7ad6591afe7dd6/16",
+    "registration": "assortment-6114c5d-complete-r5/op/cd7ad6591afe7dd6/18",
+    "callback": "assortment-6114c5d-complete-r5/method/ae44641573f08add",
+    "captures": [
+      {
+        "capture": "assortment-6114c5d-complete-r5/capture/ae44641573f08add/137fbf68ff0032ae",
+        "value": "assortment-6114c5d-complete-r5/v/cd7ad6591afe7dd6/p/0",
+        "mode": "reference"
+      }
+    ],
+    "receiver": null,
+    "invocations": ["assortment-6114c5d-complete-r5/op/980c68c2059881de/1"],
+    "claim": "assortment-6114c5d-complete-r5/higher-order/7ca9f1fee20eb3b6"
+  },
+  {
+    "caller": "assortment-6114c5d-complete-r5/method/cd7ad6591afe7dd6",
+    "call": "assortment-6114c5d-complete-r5/op/cd7ad6591afe7dd6/23",
+    "callee": "assortment-6114c5d-complete-r5/method/980c68c2059881de",
+    "formal": "assortment-6114c5d-complete-r5/v/980c68c2059881de/p/0",
+    "formalType": "System.Func<Volvocars.Contracts.Pop.Productdetails.Package?>",
+    "formalName": "action",
+    "actualDelegate": "assortment-6114c5d-complete-r5/v/cd7ad6591afe7dd6/20",
+    "registration": "assortment-6114c5d-complete-r5/op/cd7ad6591afe7dd6/22",
+    "callback": "assortment-6114c5d-complete-r5/method/cbb0f7a3edc4f5d7",
+    "captures": [
+      {
+        "capture": "assortment-6114c5d-complete-r5/capture/cbb0f7a3edc4f5d7/137fbf68ff0032ae",
+        "value": "assortment-6114c5d-complete-r5/v/cd7ad6591afe7dd6/p/0",
+        "mode": "reference"
+      }
+    ],
+    "receiver": null,
+    "invocations": ["assortment-6114c5d-complete-r5/op/980c68c2059881de/1"],
+    "claim": "assortment-6114c5d-complete-r5/higher-order/7d73bc953bedf7ef"
+  },
+  {
+    "caller": "assortment-6114c5d-complete-r5/method/e89bddc23778ac36",
+    "call": "assortment-6114c5d-complete-r5/op/e89bddc23778ac36/10",
+    "callee": "assortment-6114c5d-complete-r5/method/6ba41a1e5573c0fb",
+    "formal": "assortment-6114c5d-complete-r5/v/6ba41a1e5573c0fb/p/0",
+    "formalType": "System.Func<GlobalDictionaryEntriesUpdatedMessage>",
+    "formalName": "action",
+    "actualDelegate": "assortment-6114c5d-complete-r5/v/e89bddc23778ac36/7",
+    "registration": "assortment-6114c5d-complete-r5/op/e89bddc23778ac36/9",
+    "callback": "assortment-6114c5d-complete-r5/method/0b21159fede08350",
+    "captures": [
+      {
+        "capture": "assortment-6114c5d-complete-r5/capture/0b21159fede08350/137fbf68ff0032ae",
+        "value": "assortment-6114c5d-complete-r5/v/e89bddc23778ac36/p/0",
+        "mode": "reference"
+      }
+    ],
+    "receiver": null,
+    "invocations": [],
+    "claim": "assortment-6114c5d-complete-r5/higher-order/b387caee87b4635f"
+  },
+  {
+    "caller": "assortment-6114c5d-complete-r5/method/405d1c77badc4682",
+    "call": "assortment-6114c5d-complete-r5/op/405d1c77badc4682/10",
+    "callee": "assortment-6114c5d-complete-r5/method/70c0e47d5c89d61e",
+    "formal": "assortment-6114c5d-complete-r5/v/70c0e47d5c89d61e/p/0",
+    "formalType": "System.Func<MarketAuthEntriesUpdatedMessage>",
+    "formalName": "action",
+    "actualDelegate": "assortment-6114c5d-complete-r5/v/405d1c77badc4682/7",
+    "registration": "assortment-6114c5d-complete-r5/op/405d1c77badc4682/9",
+    "callback": "assortment-6114c5d-complete-r5/method/30c2818dbbec3613",
+    "captures": [
+      {
+        "capture": "assortment-6114c5d-complete-r5/capture/30c2818dbbec3613/137fbf68ff0032ae",
+        "value": "assortment-6114c5d-complete-r5/v/405d1c77badc4682/p/0",
+        "mode": "reference"
+      }
+    ],
+    "receiver": null,
+    "invocations": [],
+    "claim": "assortment-6114c5d-complete-r5/higher-order/d7c1ea4685daa26b"
+  },
+  {
+    "caller": "assortment-6114c5d-complete-r5/method/2db839d589902ad9",
+    "call": "assortment-6114c5d-complete-r5/op/2db839d589902ad9/2",
+    "callee": "assortment-6114c5d-complete-r5/method/5a410b0946200f95",
+    "formal": "assortment-6114c5d-complete-r5/v/5a410b0946200f95/p/0",
+    "formalType": "System.Func<System.Threading.Tasks.Task<PopCat.Assortment.Integration.ProductMapper.Models.TokenToVariantsResponse>>",
+    "formalName": "apiCall",
+    "actualDelegate": "assortment-6114c5d-complete-r5/v/2db839d589902ad9/0",
+    "registration": "assortment-6114c5d-complete-r5/op/2db839d589902ad9/1",
+    "callback": "assortment-6114c5d-complete-r5/method/9fc14d804e7f8e0f",
+    "captures": [
+      {
+        "capture": "assortment-6114c5d-complete-r5/capture/9fc14d804e7f8e0f/1f58b9145b24d108",
+        "value": "assortment-6114c5d-complete-r5/v/2db839d589902ad9/p/0",
+        "mode": "reference"
+      },
+      {
+        "capture": "assortment-6114c5d-complete-r5/capture/9fc14d804e7f8e0f/1eb79602411ef02c",
+        "value": "assortment-6114c5d-complete-r5/receiver/2db839d589902ad9",
+        "mode": "value"
+      }
+    ],
+    "receiver": null,
+    "invocations": ["assortment-6114c5d-complete-r5/op/5a410b0946200f95/1"],
+    "claim": "assortment-6114c5d-complete-r5/higher-order/bdb33b74f4bede29"
+  },
+  {
+    "caller": "assortment-6114c5d-complete-r5/method/06917e823e5bb57e",
+    "call": "assortment-6114c5d-complete-r5/op/06917e823e5bb57e/2",
+    "callee": "assortment-6114c5d-complete-r5/method/cd07774b4e7ff5f9",
+    "formal": "assortment-6114c5d-complete-r5/v/cd07774b4e7ff5f9/p/0",
+    "formalType": "System.Func<string, System.Threading.Tasks.Task<string>>",
+    "formalName": "documentFetcher",
+    "actualDelegate": "assortment-6114c5d-complete-r5/v/06917e823e5bb57e/0",
+    "registration": "assortment-6114c5d-complete-r5/op/06917e823e5bb57e/1",
+    "callback": "assortment-6114c5d-complete-r5/method/b08c48e6dca56b20",
+    "captures": [],
+    "receiver": "assortment-6114c5d-complete-r5/receiver/06917e823e5bb57e",
+    "invocations": ["assortment-6114c5d-complete-r5/op/cd07774b4e7ff5f9/20"],
+    "claim": "assortment-6114c5d-complete-r5/higher-order/e4bcbd159fb3648c"
+  },
+  {
+    "caller": "assortment-6114c5d-complete-r5/method/2189b5c7d67bddf1",
+    "call": "assortment-6114c5d-complete-r5/op/2189b5c7d67bddf1/5",
+    "callee": "assortment-6114c5d-complete-r5/method/97a1141cc002c409",
+    "formal": "assortment-6114c5d-complete-r5/v/97a1141cc002c409/p/0",
+    "formalType": "System.Func<System.Threading.Tasks.Task<Result<T>>>",
+    "formalName": "apiCall",
+    "actualDelegate": "assortment-6114c5d-complete-r5/v/2189b5c7d67bddf1/3",
+    "registration": "assortment-6114c5d-complete-r5/op/2189b5c7d67bddf1/4",
+    "callback": "assortment-6114c5d-complete-r5/method/f069baf682d8a1a2",
+    "captures": [
+      {
+        "capture": "assortment-6114c5d-complete-r5/capture/f069baf682d8a1a2/1eb79602411ef02c",
+        "value": "assortment-6114c5d-complete-r5/receiver/2189b5c7d67bddf1",
+        "mode": "value"
+      },
+      {
+        "capture": "assortment-6114c5d-complete-r5/capture/f069baf682d8a1a2/e620110543bb30af",
+        "value": "assortment-6114c5d-complete-r5/v/2189b5c7d67bddf1/0",
+        "mode": "reference"
+      },
+      {
+        "capture": "assortment-6114c5d-complete-r5/capture/f069baf682d8a1a2/6cba0ea389dceef1",
+        "value": "assortment-6114c5d-complete-r5/v/2189b5c7d67bddf1/p/0",
+        "mode": "reference"
+      },
+      {
+        "capture": "assortment-6114c5d-complete-r5/capture/f069baf682d8a1a2/4d63d15531b28765",
+        "value": "assortment-6114c5d-complete-r5/v/2189b5c7d67bddf1/1",
+        "mode": "reference"
+      },
+      {
+        "capture": "assortment-6114c5d-complete-r5/capture/f069baf682d8a1a2/b2fa142012e73073",
+        "value": "assortment-6114c5d-complete-r5/v/2189b5c7d67bddf1/2",
+        "mode": "reference"
+      }
+    ],
+    "receiver": null,
+    "invocations": ["assortment-6114c5d-complete-r5/op/97a1141cc002c409/1"],
+    "claim": "assortment-6114c5d-complete-r5/higher-order/71f4434f515bdbce"
+  },
+  {
+    "caller": "assortment-6114c5d-complete-r5/method/c6bdef9fd74c8ce9",
+    "call": "assortment-6114c5d-complete-r5/op/c6bdef9fd74c8ce9/2",
+    "callee": "assortment-6114c5d-complete-r5/method/97a1141cc002c409",
+    "formal": "assortment-6114c5d-complete-r5/v/97a1141cc002c409/p/0",
+    "formalType": "System.Func<System.Threading.Tasks.Task<Result<T>>>",
+    "formalName": "apiCall",
+    "actualDelegate": "assortment-6114c5d-complete-r5/v/c6bdef9fd74c8ce9/0",
+    "registration": "assortment-6114c5d-complete-r5/op/c6bdef9fd74c8ce9/1",
+    "callback": "assortment-6114c5d-complete-r5/method/e154d4d2a314dc62",
+    "captures": [
+      {
+        "capture": "assortment-6114c5d-complete-r5/capture/e154d4d2a314dc62/1eb79602411ef02c",
+        "value": "assortment-6114c5d-complete-r5/receiver/c6bdef9fd74c8ce9",
+        "mode": "value"
+      }
+    ],
+    "receiver": null,
+    "invocations": ["assortment-6114c5d-complete-r5/op/97a1141cc002c409/1"],
+    "claim": "assortment-6114c5d-complete-r5/higher-order/e747b6779690c6e7"
+  },
+  {
+    "caller": "assortment-6114c5d-complete-r5/method/0a6a59abb7707873",
+    "call": "assortment-6114c5d-complete-r5/op/0a6a59abb7707873/2",
+    "callee": "assortment-6114c5d-complete-r5/method/97a1141cc002c409",
+    "formal": "assortment-6114c5d-complete-r5/v/97a1141cc002c409/p/0",
+    "formalType": "System.Func<System.Threading.Tasks.Task<Result<T>>>",
+    "formalName": "apiCall",
+    "actualDelegate": "assortment-6114c5d-complete-r5/v/0a6a59abb7707873/0",
+    "registration": "assortment-6114c5d-complete-r5/op/0a6a59abb7707873/1",
+    "callback": "assortment-6114c5d-complete-r5/method/6315e52f79e121b8",
+    "captures": [
+      {
+        "capture": "assortment-6114c5d-complete-r5/capture/6315e52f79e121b8/1eb79602411ef02c",
+        "value": "assortment-6114c5d-complete-r5/receiver/0a6a59abb7707873",
+        "mode": "value"
+      },
+      {
+        "capture": "assortment-6114c5d-complete-r5/capture/6315e52f79e121b8/7f856b2888f32002",
+        "value": "assortment-6114c5d-complete-r5/v/0a6a59abb7707873/p/0",
+        "mode": "reference"
+      },
+      {
+        "capture": "assortment-6114c5d-complete-r5/capture/6315e52f79e121b8/3002307770872f16",
+        "value": "assortment-6114c5d-complete-r5/v/0a6a59abb7707873/p/1",
+        "mode": "reference"
+      }
+    ],
+    "receiver": null,
+    "invocations": ["assortment-6114c5d-complete-r5/op/97a1141cc002c409/1"],
+    "claim": "assortment-6114c5d-complete-r5/higher-order/5a08949ef30916a7"
+  },
+  {
+    "caller": "assortment-6114c5d-complete-r5/method/f333786f85773504",
+    "call": "assortment-6114c5d-complete-r5/op/f333786f85773504/2",
+    "callee": "assortment-6114c5d-complete-r5/method/97a1141cc002c409",
+    "formal": "assortment-6114c5d-complete-r5/v/97a1141cc002c409/p/0",
+    "formalType": "System.Func<System.Threading.Tasks.Task<Result<T>>>",
+    "formalName": "apiCall",
+    "actualDelegate": "assortment-6114c5d-complete-r5/v/f333786f85773504/0",
+    "registration": "assortment-6114c5d-complete-r5/op/f333786f85773504/1",
+    "callback": "assortment-6114c5d-complete-r5/method/d33b5e47541a470c",
+    "captures": [
+      {
+        "capture": "assortment-6114c5d-complete-r5/capture/d33b5e47541a470c/1eb79602411ef02c",
+        "value": "assortment-6114c5d-complete-r5/receiver/f333786f85773504",
+        "mode": "value"
+      },
+      {
+        "capture": "assortment-6114c5d-complete-r5/capture/d33b5e47541a470c/7f856b2888f32002",
+        "value": "assortment-6114c5d-complete-r5/v/f333786f85773504/p/0",
+        "mode": "reference"
+      },
+      {
+        "capture": "assortment-6114c5d-complete-r5/capture/d33b5e47541a470c/3002307770872f16",
+        "value": "assortment-6114c5d-complete-r5/v/f333786f85773504/p/1",
+        "mode": "reference"
+      }
+    ],
+    "receiver": null,
+    "invocations": ["assortment-6114c5d-complete-r5/op/97a1141cc002c409/1"],
+    "claim": "assortment-6114c5d-complete-r5/higher-order/ed1af5342898ff79"
+  },
+  {
+    "caller": "assortment-6114c5d-complete-r5/method/a9aa071d05e46995",
+    "call": "assortment-6114c5d-complete-r5/op/a9aa071d05e46995/2",
+    "callee": "assortment-6114c5d-complete-r5/method/97a1141cc002c409",
+    "formal": "assortment-6114c5d-complete-r5/v/97a1141cc002c409/p/0",
+    "formalType": "System.Func<System.Threading.Tasks.Task<Result<T>>>",
+    "formalName": "apiCall",
+    "actualDelegate": "assortment-6114c5d-complete-r5/v/a9aa071d05e46995/0",
+    "registration": "assortment-6114c5d-complete-r5/op/a9aa071d05e46995/1",
+    "callback": "assortment-6114c5d-complete-r5/method/5d7a42b6267bb2b5",
+    "captures": [
+      {
+        "capture": "assortment-6114c5d-complete-r5/capture/5d7a42b6267bb2b5/1eb79602411ef02c",
+        "value": "assortment-6114c5d-complete-r5/receiver/a9aa071d05e46995",
+        "mode": "value"
+      }
+    ],
+    "receiver": null,
+    "invocations": ["assortment-6114c5d-complete-r5/op/97a1141cc002c409/1"],
+    "claim": "assortment-6114c5d-complete-r5/higher-order/3594983272a5e10c"
+  },
+  {
+    "caller": "assortment-6114c5d-complete-r5/method/e74280cc1af08854",
+    "call": "assortment-6114c5d-complete-r5/op/e74280cc1af08854/2",
+    "callee": "assortment-6114c5d-complete-r5/method/97a1141cc002c409",
+    "formal": "assortment-6114c5d-complete-r5/v/97a1141cc002c409/p/0",
+    "formalType": "System.Func<System.Threading.Tasks.Task<Result<T>>>",
+    "formalName": "apiCall",
+    "actualDelegate": "assortment-6114c5d-complete-r5/v/e74280cc1af08854/0",
+    "registration": "assortment-6114c5d-complete-r5/op/e74280cc1af08854/1",
+    "callback": "assortment-6114c5d-complete-r5/method/1978b6d0b488c833",
+    "captures": [
+      {
+        "capture": "assortment-6114c5d-complete-r5/capture/1978b6d0b488c833/1eb79602411ef02c",
+        "value": "assortment-6114c5d-complete-r5/receiver/e74280cc1af08854",
+        "mode": "value"
+      }
+    ],
+    "receiver": null,
+    "invocations": ["assortment-6114c5d-complete-r5/op/97a1141cc002c409/1"],
+    "claim": "assortment-6114c5d-complete-r5/higher-order/b6e93becd5db0c2f"
+  },
+  {
+    "caller": "assortment-6114c5d-complete-r5/method/f4a2b92193e440b3",
+    "call": "assortment-6114c5d-complete-r5/op/f4a2b92193e440b3/3",
+    "callee": "assortment-6114c5d-complete-r5/method/97a1141cc002c409",
+    "formal": "assortment-6114c5d-complete-r5/v/97a1141cc002c409/p/0",
+    "formalType": "System.Func<System.Threading.Tasks.Task<Result<T>>>",
+    "formalName": "apiCall",
+    "actualDelegate": "assortment-6114c5d-complete-r5/v/f4a2b92193e440b3/1",
+    "registration": "assortment-6114c5d-complete-r5/op/f4a2b92193e440b3/2",
+    "callback": "assortment-6114c5d-complete-r5/method/95e5de3c73c28bb0",
+    "captures": [
+      {
+        "capture": "assortment-6114c5d-complete-r5/capture/95e5de3c73c28bb0/1eb79602411ef02c",
+        "value": "assortment-6114c5d-complete-r5/receiver/f4a2b92193e440b3",
+        "mode": "value"
+      },
+      {
+        "capture": "assortment-6114c5d-complete-r5/capture/95e5de3c73c28bb0/64f210cf3b03a69f",
+        "value": "assortment-6114c5d-complete-r5/v/f4a2b92193e440b3/0",
+        "mode": "reference"
+      }
+    ],
+    "receiver": null,
+    "invocations": ["assortment-6114c5d-complete-r5/op/97a1141cc002c409/1"],
+    "claim": "assortment-6114c5d-complete-r5/higher-order/94de57d9d814ef10"
+  }
+]

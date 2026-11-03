@@ -1,0 +1,1686 @@
+{
+  "format": "groundwork-result/v3",
+  "snapshot": "dcc8fe6133bb403c805875b5698eb6fd390e35f858d0bf3e74c33c7ea0d7a34e",
+  "queryVersion": "knowledge-query/v3",
+  "request": {
+    "format": "groundwork-query/v3",
+    "snapshot": "dcc8fe6133bb403c805875b5698eb6fd390e35f858d0bf3e74c33c7ea0d7a34e",
+    "query": "outcome",
+    "entry": "assortment-6114c5d-r5/entry/controller/Classification-GetAllClassifications",
+    "value": null,
+    "context": [],
+    "outcome": 200,
+    "changed": [],
+    "representation": "constructed",
+    "candidates": "exclude",
+    "maxNodes": 500,
+    "environment": "production-profile",
+    "maxRecords": 5000,
+    "ids": []
+  },
+  "nodes": [
+    {
+      "id": "root::assortment-6114c5d-r5/op/controller/Classification-GetAllClassifications/start",
+      "record": "assortment-6114c5d-r5/op/controller/Classification-GetAllClassifications/start",
+      "context": [],
+      "label": "GET Classification after configured authentication and framework validation",
+      "component": "assortment-6114c5d-r5/component/api",
+      "execution": "assortment-6114c5d-r5/runs/Classification-GetAllClassifications-api"
+    },
+    {
+      "id": "root::assortment-6114c5d-r5/op/classifications-http/call",
+      "record": "assortment-6114c5d-r5/op/classifications-http/call",
+      "context": [],
+      "label": "await _service.ListAllClassifications(cancellationToken)",
+      "component": "assortment-6114c5d-r5/component/api",
+      "execution": "assortment-6114c5d-r5/runs/Classification-GetAllClassifications-api"
+    },
+    {
+      "id": "assortment-6114c5d-r5/op/classifications-http/call::assortment-6114c5d-r5/op/classifications-list/start",
+      "record": "assortment-6114c5d-r5/op/classifications-list/start",
+      "context": ["assortment-6114c5d-r5/op/classifications-http/call"],
+      "label": "ListAllClassifications: construct GlobalDataKey(Classification)",
+      "component": "assortment-6114c5d-r5/component/api",
+      "execution": "assortment-6114c5d-r5/runs/classifications-list-api"
+    },
+    {
+      "id": "assortment-6114c5d-r5/op/classifications-http/call::assortment-6114c5d-r5/op/classifications-list/read",
+      "record": "assortment-6114c5d-r5/op/classifications-list/read",
+      "context": ["assortment-6114c5d-r5/op/classifications-http/call"],
+      "label": "await repository.GetAsync(key): Blob download returns a Result",
+      "component": "assortment-6114c5d-r5/component/api",
+      "execution": "assortment-6114c5d-r5/runs/classifications-list-api"
+    },
+    {
+      "id": "assortment-6114c5d-r5/op/classifications-http/call::assortment-6114c5d-r5/op/classifications-list/branch",
+      "record": "assortment-6114c5d-r5/op/classifications-list/branch",
+      "context": ["assortment-6114c5d-r5/op/classifications-http/call"],
+      "label": "cacheResult.IsSuccess",
+      "component": "assortment-6114c5d-r5/component/api",
+      "execution": "assortment-6114c5d-r5/runs/classifications-list-api"
+    },
+    {
+      "id": "assortment-6114c5d-r5/op/classifications-http/call::assortment-6114c5d-r5/op/classifications-list/fetch",
+      "record": "assortment-6114c5d-r5/op/classifications-list/fetch",
+      "context": ["assortment-6114c5d-r5/op/classifications-http/call"],
+      "label": "Cache read failed: await provider.ListClassifications; failure converted to failed Result",
+      "component": "assortment-6114c5d-r5/component/api",
+      "execution": "assortment-6114c5d-r5/runs/classifications-list-api"
+    },
+    {
+      "id": "assortment-6114c5d-r5/op/classifications-http/call::assortment-6114c5d-r5/op/classifications-list/warm",
+      "record": "assortment-6114c5d-r5/op/classifications-list/warm",
+      "context": ["assortment-6114c5d-r5/op/classifications-http/call"],
+      "label": "Return serializer.Deserialize<ImmutableList<Classification>>(cacheResult.Value); deserialisation failure does not trigger provider fallback",
+      "component": "assortment-6114c5d-r5/component/api",
+      "execution": "assortment-6114c5d-r5/runs/classifications-list-api"
+    },
+    {
+      "id": "assortment-6114c5d-r5/op/classifications-http/call>assortment-6114c5d-r5/op/classifications-list/fetch::assortment-6114c5d-r5/op/classifications-provider/start",
+      "record": "assortment-6114c5d-r5/op/classifications-provider/start",
+      "context": [
+        "assortment-6114c5d-r5/op/classifications-http/call",
+        "assortment-6114c5d-r5/op/classifications-list/fetch"
+      ],
+      "label": "Create empty list of PublicClassificationResponse",
+      "component": "assortment-6114c5d-r5/component/api",
+      "execution": "assortment-6114c5d-r5/runs/classifications-provider-api"
+    },
+    {
+      "id": "root::assortment-6114c5d-r5/op/classifications-http/result",
+      "record": "assortment-6114c5d-r5/op/classifications-http/result",
+      "context": [],
+      "label": "IsSuccess && Value present; otherwise ErrorResult checks HasError<NotFoundError>()",
+      "component": "assortment-6114c5d-r5/component/api",
+      "execution": "assortment-6114c5d-r5/runs/Classification-GetAllClassifications-api"
+    },
+    {
+      "id": "assortment-6114c5d-r5/op/classifications-http/call>assortment-6114c5d-r5/op/classifications-list/fetch::assortment-6114c5d-r5/op/classifications-provider/call",
+      "record": "assortment-6114c5d-r5/op/classifications-provider/call",
+      "context": [
+        "assortment-6114c5d-r5/op/classifications-http/call",
+        "assortment-6114c5d-r5/op/classifications-list/fetch"
+      ],
+      "label": "await _proxy.V1ProductDetailsClassificationsAsync(limit:100, offset:data.Count)",
+      "component": "assortment-6114c5d-r5/component/api",
+      "execution": "assortment-6114c5d-r5/runs/classifications-provider-api"
+    },
+    {
+      "id": "root::assortment-6114c5d-r5/op/classifications-http/200",
+      "record": "assortment-6114c5d-r5/op/classifications-http/200",
+      "context": [],
+      "label": "Ok(data)",
+      "component": "assortment-6114c5d-r5/component/api",
+      "execution": "assortment-6114c5d-r5/runs/Classification-GetAllClassifications-api"
+    },
+    {
+      "id": "assortment-6114c5d-r5/op/classifications-http/call>assortment-6114c5d-r5/op/classifications-list/fetch::assortment-6114c5d-r5/op/classifications-provider/merge",
+      "record": "assortment-6114c5d-r5/op/classifications-provider/merge",
+      "context": [
+        "assortment-6114c5d-r5/op/classifications-http/call",
+        "assortment-6114c5d-r5/op/classifications-list/fetch"
+      ],
+      "label": "data.AddRange(response.Data)",
+      "component": "assortment-6114c5d-r5/component/api",
+      "execution": "assortment-6114c5d-r5/runs/classifications-provider-api"
+    },
+    {
+      "id": "assortment-6114c5d-r5/op/classifications-http/call>assortment-6114c5d-r5/op/classifications-list/fetch::assortment-6114c5d-r5/op/classifications-provider/more",
+      "record": "assortment-6114c5d-r5/op/classifications-provider/more",
+      "context": [
+        "assortment-6114c5d-r5/op/classifications-http/call",
+        "assortment-6114c5d-r5/op/classifications-list/fetch"
+      ],
+      "label": "response?.Pagination.Total > data.Count",
+      "component": "assortment-6114c5d-r5/component/api",
+      "execution": "assortment-6114c5d-r5/runs/classifications-provider-api"
+    },
+    {
+      "id": "assortment-6114c5d-r5/op/classifications-http/call>assortment-6114c5d-r5/op/classifications-list/fetch::assortment-6114c5d-r5/op/classifications-provider/return",
+      "record": "assortment-6114c5d-r5/op/classifications-provider/return",
+      "context": [
+        "assortment-6114c5d-r5/op/classifications-http/call",
+        "assortment-6114c5d-r5/op/classifications-list/fetch"
+      ],
+      "label": "If data.Count > 0 map response Id/Code into Classification; otherwise failed Result",
+      "component": "assortment-6114c5d-r5/component/api",
+      "execution": "assortment-6114c5d-r5/runs/classifications-provider-api"
+    },
+    {
+      "id": "assortment-6114c5d-r5/op/classifications-http/call::assortment-6114c5d-r5/op/classifications-list/provider-result",
+      "record": "assortment-6114c5d-r5/op/classifications-list/provider-result",
+      "context": ["assortment-6114c5d-r5/op/classifications-http/call"],
+      "label": "Provider Result success permits serialisation and replacement; failure skips write",
+      "component": "assortment-6114c5d-r5/component/api",
+      "execution": "assortment-6114c5d-r5/runs/classifications-list-api"
+    },
+    {
+      "id": "assortment-6114c5d-r5/op/classifications-http/call::assortment-6114c5d-r5/op/classifications-list/failure",
+      "record": "assortment-6114c5d-r5/op/classifications-list/failure",
+      "context": ["assortment-6114c5d-r5/op/classifications-http/call"],
+      "label": "Return failed provider Result; no blob write attempted",
+      "component": "assortment-6114c5d-r5/component/api",
+      "execution": "assortment-6114c5d-r5/runs/classifications-list-api"
+    },
+    {
+      "id": "assortment-6114c5d-r5/op/classifications-http/call::assortment-6114c5d-r5/op/classifications-list/write",
+      "record": "assortment-6114c5d-r5/op/classifications-list/write",
+      "context": ["assortment-6114c5d-r5/op/classifications-http/call"],
+      "label": "Serialize entire provider list; on serialisation success await repository.SetAsync and overwrite blob",
+      "component": "assortment-6114c5d-r5/component/api",
+      "execution": "assortment-6114c5d-r5/runs/classifications-list-api"
+    },
+    {
+      "id": "assortment-6114c5d-r5/op/classifications-http/call::assortment-6114c5d-r5/op/classifications-list/return",
+      "record": "assortment-6114c5d-r5/op/classifications-list/return",
+      "context": ["assortment-6114c5d-r5/op/classifications-http/call"],
+      "label": "Return success data only after successful blob Result; failed serialisation/upload propagates Result",
+      "component": "assortment-6114c5d-r5/component/api",
+      "execution": "assortment-6114c5d-r5/runs/classifications-list-api"
+    }
+  ],
+  "edges": [
+    {
+      "from": "root::assortment-6114c5d-r5/op/controller/Classification-GetAllClassifications/start",
+      "to": "root::assortment-6114c5d-r5/op/classifications-http/call",
+      "on": "normal",
+      "condition": null,
+      "assumption": null,
+      "evidence": ["assortment-6114c5d-r5/e/3bdaa9e0a918"],
+      "record": "assortment-6114c5d-r5/edge/classifications-http/call"
+    },
+    {
+      "from": "root::assortment-6114c5d-r5/op/classifications-http/call",
+      "to": "assortment-6114c5d-r5/op/classifications-http/call::assortment-6114c5d-r5/op/classifications-list/start",
+      "on": "call",
+      "condition": null,
+      "assumption": null,
+      "evidence": [],
+      "record": null
+    },
+    {
+      "from": "assortment-6114c5d-r5/op/classifications-http/call::assortment-6114c5d-r5/op/classifications-list/start",
+      "to": "assortment-6114c5d-r5/op/classifications-http/call::assortment-6114c5d-r5/op/classifications-list/read",
+      "on": "normal",
+      "condition": null,
+      "assumption": null,
+      "evidence": ["assortment-6114c5d-r5/e/2403f8701391"],
+      "record": "assortment-6114c5d-r5/edge/classifications-list/read"
+    },
+    {
+      "from": "assortment-6114c5d-r5/op/classifications-http/call::assortment-6114c5d-r5/op/classifications-list/read",
+      "to": "assortment-6114c5d-r5/op/classifications-http/call::assortment-6114c5d-r5/op/classifications-list/branch",
+      "on": "normal",
+      "condition": null,
+      "assumption": null,
+      "evidence": ["assortment-6114c5d-r5/e/a7c71eaddcda"],
+      "record": "assortment-6114c5d-r5/edge/classifications-list/branch"
+    },
+    {
+      "from": "assortment-6114c5d-r5/op/classifications-http/call::assortment-6114c5d-r5/op/classifications-list/branch",
+      "to": "assortment-6114c5d-r5/op/classifications-http/call::assortment-6114c5d-r5/op/classifications-list/fetch",
+      "on": "normal",
+      "condition": "!cacheResult.IsSuccess (any cache read failure, not only missing blob)",
+      "assumption": null,
+      "evidence": ["assortment-6114c5d-r5/e/a7c71eaddcda"],
+      "record": "assortment-6114c5d-r5/edge/classifications-list/fetch"
+    },
+    {
+      "from": "assortment-6114c5d-r5/op/classifications-http/call::assortment-6114c5d-r5/op/classifications-list/branch",
+      "to": "assortment-6114c5d-r5/op/classifications-http/call::assortment-6114c5d-r5/op/classifications-list/warm",
+      "on": "normal",
+      "condition": "cacheResult.IsSuccess",
+      "assumption": null,
+      "evidence": ["assortment-6114c5d-r5/e/d9c263c276f1"],
+      "record": "assortment-6114c5d-r5/edge/classifications-list/warm"
+    },
+    {
+      "from": "assortment-6114c5d-r5/op/classifications-http/call::assortment-6114c5d-r5/op/classifications-list/fetch",
+      "to": "assortment-6114c5d-r5/op/classifications-http/call>assortment-6114c5d-r5/op/classifications-list/fetch::assortment-6114c5d-r5/op/classifications-provider/start",
+      "on": "call",
+      "condition": null,
+      "assumption": null,
+      "evidence": [],
+      "record": null
+    },
+    {
+      "from": "assortment-6114c5d-r5/op/classifications-http/call::assortment-6114c5d-r5/op/classifications-list/warm",
+      "to": "root::assortment-6114c5d-r5/op/classifications-http/result",
+      "on": "normal",
+      "condition": null,
+      "assumption": null,
+      "evidence": ["assortment-6114c5d-r5/e/3bdaa9e0a918"],
+      "record": "assortment-6114c5d-r5/edge/classifications-http/result"
+    },
+    {
+      "from": "assortment-6114c5d-r5/op/classifications-http/call>assortment-6114c5d-r5/op/classifications-list/fetch::assortment-6114c5d-r5/op/classifications-provider/start",
+      "to": "assortment-6114c5d-r5/op/classifications-http/call>assortment-6114c5d-r5/op/classifications-list/fetch::assortment-6114c5d-r5/op/classifications-provider/call",
+      "on": "normal",
+      "condition": null,
+      "assumption": null,
+      "evidence": ["assortment-6114c5d-r5/e/801f01d3794d"],
+      "record": "assortment-6114c5d-r5/edge/classifications-provider/call"
+    },
+    {
+      "from": "root::assortment-6114c5d-r5/op/classifications-http/result",
+      "to": "root::assortment-6114c5d-r5/op/classifications-http/200",
+      "on": "normal",
+      "condition": "result.IsSuccess && result.Value is not null",
+      "assumption": null,
+      "evidence": ["assortment-6114c5d-r5/e/d9e04bf11729"],
+      "record": "assortment-6114c5d-r5/edge/classifications-http/200"
+    },
+    {
+      "from": "assortment-6114c5d-r5/op/classifications-http/call>assortment-6114c5d-r5/op/classifications-list/fetch::assortment-6114c5d-r5/op/classifications-provider/call",
+      "to": "assortment-6114c5d-r5/op/classifications-http/call>assortment-6114c5d-r5/op/classifications-list/fetch::assortment-6114c5d-r5/op/classifications-provider/merge",
+      "on": "normal",
+      "condition": "Generated proxy returns normally",
+      "assumption": "assortment-6114c5d-r5/op/classifications-provider/call: unresolved dependency follows declared normal continuation",
+      "evidence": ["assortment-6114c5d-r5/e/59da8f2c7029"],
+      "record": "assortment-6114c5d-r5/edge/classifications-provider/merge"
+    },
+    {
+      "from": "assortment-6114c5d-r5/op/classifications-http/call>assortment-6114c5d-r5/op/classifications-list/fetch::assortment-6114c5d-r5/op/classifications-provider/merge",
+      "to": "assortment-6114c5d-r5/op/classifications-http/call>assortment-6114c5d-r5/op/classifications-list/fetch::assortment-6114c5d-r5/op/classifications-provider/more",
+      "on": "normal",
+      "condition": null,
+      "assumption": null,
+      "evidence": ["assortment-6114c5d-r5/e/19f96e59c815"],
+      "record": "assortment-6114c5d-r5/edge/classifications-provider/more"
+    },
+    {
+      "from": "assortment-6114c5d-r5/op/classifications-http/call>assortment-6114c5d-r5/op/classifications-list/fetch::assortment-6114c5d-r5/op/classifications-provider/more",
+      "to": "assortment-6114c5d-r5/op/classifications-http/call>assortment-6114c5d-r5/op/classifications-list/fetch::assortment-6114c5d-r5/op/classifications-provider/return",
+      "on": "normal",
+      "condition": "!(response?.Pagination.Total > data.Count)",
+      "assumption": null,
+      "evidence": ["assortment-6114c5d-r5/e/19f96e59c815"],
+      "record": "assortment-6114c5d-r5/edge/classifications-provider/finish"
+    },
+    {
+      "from": "assortment-6114c5d-r5/op/classifications-http/call>assortment-6114c5d-r5/op/classifications-list/fetch::assortment-6114c5d-r5/op/classifications-provider/more",
+      "to": "assortment-6114c5d-r5/op/classifications-http/call>assortment-6114c5d-r5/op/classifications-list/fetch::assortment-6114c5d-r5/op/classifications-provider/call",
+      "on": "normal",
+      "condition": "response?.Pagination.Total > data.Count",
+      "assumption": null,
+      "evidence": ["assortment-6114c5d-r5/e/801f01d3794d"],
+      "record": "assortment-6114c5d-r5/edge/classifications-provider/repeat"
+    },
+    {
+      "from": "assortment-6114c5d-r5/op/classifications-http/call>assortment-6114c5d-r5/op/classifications-list/fetch::assortment-6114c5d-r5/op/classifications-provider/return",
+      "to": "assortment-6114c5d-r5/op/classifications-http/call::assortment-6114c5d-r5/op/classifications-list/provider-result",
+      "on": "normal",
+      "condition": null,
+      "assumption": null,
+      "evidence": ["assortment-6114c5d-r5/e/25236b0bf668"],
+      "record": "assortment-6114c5d-r5/edge/classifications-list/provider-result"
+    },
+    {
+      "from": "assortment-6114c5d-r5/op/classifications-http/call::assortment-6114c5d-r5/op/classifications-list/provider-result",
+      "to": "assortment-6114c5d-r5/op/classifications-http/call::assortment-6114c5d-r5/op/classifications-list/failure",
+      "on": "normal",
+      "condition": "provider result.IsFailed",
+      "assumption": null,
+      "evidence": ["assortment-6114c5d-r5/e/e9c86f4ca52e"],
+      "record": "assortment-6114c5d-r5/edge/classifications-list/failure"
+    },
+    {
+      "from": "assortment-6114c5d-r5/op/classifications-http/call::assortment-6114c5d-r5/op/classifications-list/provider-result",
+      "to": "assortment-6114c5d-r5/op/classifications-http/call::assortment-6114c5d-r5/op/classifications-list/write",
+      "on": "normal",
+      "condition": "Provider Result IsSuccess; serializer.Serialize(data) succeeds",
+      "assumption": null,
+      "evidence": ["assortment-6114c5d-r5/e/4b94b9484d18", "assortment-6114c5d-r5/e/25236b0bf668"],
+      "record": "assortment-6114c5d-r5/edge/classifications-list/write"
+    },
+    {
+      "from": "assortment-6114c5d-r5/op/classifications-http/call::assortment-6114c5d-r5/op/classifications-list/failure",
+      "to": "root::assortment-6114c5d-r5/op/classifications-http/result",
+      "on": "normal",
+      "condition": null,
+      "assumption": null,
+      "evidence": ["assortment-6114c5d-r5/e/3bdaa9e0a918"],
+      "record": "assortment-6114c5d-r5/edge/classifications-http/result"
+    },
+    {
+      "from": "assortment-6114c5d-r5/op/classifications-http/call::assortment-6114c5d-r5/op/classifications-list/write",
+      "to": "assortment-6114c5d-r5/op/classifications-http/call::assortment-6114c5d-r5/op/classifications-list/return",
+      "on": "normal",
+      "condition": null,
+      "assumption": null,
+      "evidence": ["assortment-6114c5d-r5/e/4b94b9484d18"],
+      "record": "assortment-6114c5d-r5/edge/classifications-list/return"
+    },
+    {
+      "from": "assortment-6114c5d-r5/op/classifications-http/call::assortment-6114c5d-r5/op/classifications-list/return",
+      "to": "root::assortment-6114c5d-r5/op/classifications-http/result",
+      "on": "normal",
+      "condition": null,
+      "assumption": null,
+      "evidence": ["assortment-6114c5d-r5/e/3bdaa9e0a918"],
+      "record": "assortment-6114c5d-r5/edge/classifications-http/result"
+    }
+  ],
+  "claims": [],
+  "evidence": [
+    "assortment-6114c5d-r5/e/0c2e5d6b3474",
+    "assortment-6114c5d-r5/e/0dbfbcdd2061",
+    "assortment-6114c5d-r5/e/19f96e59c815",
+    "assortment-6114c5d-r5/e/1e82e4081294",
+    "assortment-6114c5d-r5/e/23326163c9c5",
+    "assortment-6114c5d-r5/e/23639ff30a2b",
+    "assortment-6114c5d-r5/e/2403f8701391",
+    "assortment-6114c5d-r5/e/25236b0bf668",
+    "assortment-6114c5d-r5/e/2b3d69a94627",
+    "assortment-6114c5d-r5/e/2f6a563f3588",
+    "assortment-6114c5d-r5/e/2fc14e8e4c7c",
+    "assortment-6114c5d-r5/e/3bdaa9e0a918",
+    "assortment-6114c5d-r5/e/3d989e873f2b",
+    "assortment-6114c5d-r5/e/499ee903ecfd",
+    "assortment-6114c5d-r5/e/4b94b9484d18",
+    "assortment-6114c5d-r5/e/4f47aed9645a",
+    "assortment-6114c5d-r5/e/59da8f2c7029",
+    "assortment-6114c5d-r5/e/7a5cbb6ed9f2",
+    "assortment-6114c5d-r5/e/801f01d3794d",
+    "assortment-6114c5d-r5/e/8ab1381b0fac",
+    "assortment-6114c5d-r5/e/8f88f7f8e26c",
+    "assortment-6114c5d-r5/e/9774c7800c1d",
+    "assortment-6114c5d-r5/e/a165ef949623",
+    "assortment-6114c5d-r5/e/a5d135c2acd4",
+    "assortment-6114c5d-r5/e/a7c71eaddcda",
+    "assortment-6114c5d-r5/e/aafd7395a240",
+    "assortment-6114c5d-r5/e/b3390f96eb7b",
+    "assortment-6114c5d-r5/e/b69e8e2f9c72",
+    "assortment-6114c5d-r5/e/cc30c71dbc65",
+    "assortment-6114c5d-r5/e/d6d6e0b54578",
+    "assortment-6114c5d-r5/e/d9c263c276f1",
+    "assortment-6114c5d-r5/e/d9e04bf11729",
+    "assortment-6114c5d-r5/e/e9c86f4ca52e",
+    "assortment-6114c5d-r5/e/f298ecbf0015"
+  ],
+  "coverage": [
+    "assortment-6114c5d-r5/coverage/classification-local",
+    "assortment-6114c5d-r5/coverage/controller/Classification-GetAllClassifications"
+  ],
+  "frontiers": [
+    {
+      "at": "assortment-6114c5d-r5/op/classifications-http/call>assortment-6114c5d-r5/op/classifications-list/fetch::assortment-6114c5d-r5/op/classifications-provider/call",
+      "reason": "version_unresolved",
+      "detail": "Dependency implementation is unresolved; declared normal and exception continuations are conditional and candidates are excluded.",
+      "references": ["assortment-6114c5d-r5/resolve/classifications-proxy"]
+    }
+  ],
+  "limitsHit": [],
+  "feasibility": "not_checked",
+  "exhaustive": false,
+  "records": [
+    {
+      "id": "assortment-6114c5d-r5/census",
+      "kind": "implementation",
+      "logicalId": "impl:assortment-source-census",
+      "scope": "s2/c",
+      "entry": "assortment-6114c5d-r5/census/start",
+      "parameters": [],
+      "evidence": [
+        "assortment-6114c5d-r5/e/a5d135c2acd4",
+        "assortment-6114c5d-r5/e/0c2e5d6b3474",
+        "assortment-6114c5d-r5/e/2fc14e8e4c7c"
+      ]
+    },
+    {
+      "id": "assortment-6114c5d-r5/census/start",
+      "kind": "operation",
+      "owner": "assortment-6114c5d-r5/census",
+      "action": "opaque",
+      "label": "Repository discovery anchor; not an executable HTTP or message handler",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": null,
+      "httpStatus": null,
+      "evidence": ["assortment-6114c5d-r5/e/a5d135c2acd4"]
+    },
+    {
+      "id": "assortment-6114c5d-r5/component/api",
+      "kind": "runtime_component",
+      "logicalId": "svc:assortment-api",
+      "label": "Assortment API",
+      "category": "service",
+      "technology": ".NET / ASP.NET Core",
+      "sources": ["s2/c"],
+      "basis": "source_declared",
+      "gaps": [
+        "assortment-6114c5d-r5/gap/deployment",
+        "assortment-6114c5d-r5/gap/imported-controllers"
+      ],
+      "evidence": ["assortment-6114c5d-r5/e/a5d135c2acd4"]
+    },
+    {
+      "id": "assortment-6114c5d-r5/coverage/classification-local",
+      "kind": "coverage",
+      "owner": "assortment-6114c5d-r5/entry/controller/Classification-GetAllClassifications",
+      "obligation": "bounded_source_analysis",
+      "status": "examined",
+      "scope": "Controller Result selection, local blob cache success/fallback, provider page accumulation and Id/Code mapping; imported formatter/proxy implementation remains boundary.",
+      "gaps": [],
+      "evidence": [
+        "assortment-6114c5d-r5/e/23639ff30a2b",
+        "assortment-6114c5d-r5/e/aafd7395a240",
+        "assortment-6114c5d-r5/e/cc30c71dbc65",
+        "assortment-6114c5d-r5/e/7a5cbb6ed9f2"
+      ]
+    },
+    {
+      "id": "assortment-6114c5d-r5/coverage/controller/Classification-GetAllClassifications",
+      "kind": "coverage",
+      "owner": "assortment-6114c5d-r5/entry/controller/Classification-GetAllClassifications",
+      "obligation": "bounded_source_analysis",
+      "status": "partial",
+      "scope": "Classification.GetAllClassifications: registration and declared contracts captured; delegated service and complete control/error closure remain partial.",
+      "gaps": [
+        "assortment-6114c5d-r5/gap/entry-controller-Classification-GetAllClassifications",
+        "assortment-6114c5d-r5/gap/wire-closure",
+        "assortment-6114c5d-r5/gap/deployment"
+      ],
+      "evidence": ["assortment-6114c5d-r5/e/3bdaa9e0a918"]
+    },
+    {
+      "id": "assortment-6114c5d-r5/e/0c2e5d6b3474",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-assortment-api",
+      "commit": "6114c5db0f2b4b490cf89b9c512088f01dbf0b98",
+      "path": "src/PopCat.Assortment.CacheWorker.Host/Program.cs",
+      "lines": [1, 37],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "assortment-6114c5d-r5/e/0dbfbcdd2061",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-assortment-api",
+      "commit": "6114c5db0f2b4b490cf89b9c512088f01dbf0b98",
+      "path": "src/PopCat.Assortment.Core/Services/ClassificationCacheService.cs",
+      "lines": [59, 71],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "assortment-6114c5d-r5/e/19f96e59c815",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-assortment-api",
+      "commit": "6114c5db0f2b4b490cf89b9c512088f01dbf0b98",
+      "path": "src/PopCat.Assortment.Integration/Assortment/Provider/AssortmentProvider.cs",
+      "lines": [134, 138],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "assortment-6114c5d-r5/e/1e82e4081294",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-assortment-api",
+      "commit": "6114c5db0f2b4b490cf89b9c512088f01dbf0b98",
+      "path": "src/PopCat.Assortment.Integration/Assortment/Provider/AssortmentProvider.cs",
+      "lines": [122, 127],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "assortment-6114c5d-r5/e/23326163c9c5",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-assortment-api",
+      "commit": "6114c5db0f2b4b490cf89b9c512088f01dbf0b98",
+      "path": "src/PopCat.Assortment.Core/Services/ClassificationCacheService.cs",
+      "lines": [69, 71],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "assortment-6114c5d-r5/e/23639ff30a2b",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-assortment-api",
+      "commit": "6114c5db0f2b4b490cf89b9c512088f01dbf0b98",
+      "path": "src/PopCat.Assortment.Api/Controllers/ClassificationController.cs",
+      "lines": [1, 42],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "assortment-6114c5d-r5/e/2403f8701391",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-assortment-api",
+      "commit": "6114c5db0f2b4b490cf89b9c512088f01dbf0b98",
+      "path": "src/PopCat.Assortment.Core/Services/ClassificationCacheService.cs",
+      "lines": [61, 62],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "assortment-6114c5d-r5/e/25236b0bf668",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-assortment-api",
+      "commit": "6114c5db0f2b4b490cf89b9c512088f01dbf0b98",
+      "path": "src/PopCat.Assortment.Core/Services/ClassificationCacheService.cs",
+      "lines": [69, 83],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "assortment-6114c5d-r5/e/2b3d69a94627",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-assortment-api",
+      "commit": "6114c5db0f2b4b490cf89b9c512088f01dbf0b98",
+      "path": "src/PopCat.Assortment.Contracts/Models/Classification.cs",
+      "lines": [1, 3],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "assortment-6114c5d-r5/e/2f6a563f3588",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-assortment-api",
+      "commit": "6114c5db0f2b4b490cf89b9c512088f01dbf0b98",
+      "path": "src/PopCat.Assortment.Core/Services/ClassificationCacheService.cs",
+      "lines": [9, 12],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "assortment-6114c5d-r5/e/2fc14e8e4c7c",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-assortment-api",
+      "commit": "6114c5db0f2b4b490cf89b9c512088f01dbf0b98",
+      "path": "src/PopCat.Assortment.Ocelot.Host/Program.cs",
+      "lines": [1, 46],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "assortment-6114c5d-r5/e/3bdaa9e0a918",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-assortment-api",
+      "commit": "6114c5db0f2b4b490cf89b9c512088f01dbf0b98",
+      "path": "src/PopCat.Assortment.Api/Controllers/ClassificationController.cs",
+      "lines": [22, 29],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "assortment-6114c5d-r5/e/3d989e873f2b",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-assortment-api",
+      "commit": "6114c5db0f2b4b490cf89b9c512088f01dbf0b98",
+      "path": "src/PopCat.Assortment.Repository/BlobStorage/BlobStorageClient.cs",
+      "lines": [65, 72],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "assortment-6114c5d-r5/e/499ee903ecfd",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-assortment-api",
+      "commit": "6114c5db0f2b4b490cf89b9c512088f01dbf0b98",
+      "path": "src/PopCat.Assortment.Host/Extensions/ApplicationBuilderExtensions.cs",
+      "lines": [54, 78],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "assortment-6114c5d-r5/e/4b94b9484d18",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-assortment-api",
+      "commit": "6114c5db0f2b4b490cf89b9c512088f01dbf0b98",
+      "path": "src/PopCat.Assortment.Core/Services/ClassificationCacheService.cs",
+      "lines": [52, 56],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "assortment-6114c5d-r5/e/4f47aed9645a",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-assortment-api",
+      "commit": "6114c5db0f2b4b490cf89b9c512088f01dbf0b98",
+      "path": "src/PopCat.Assortment.Core/Services/ClassificationCacheService.cs",
+      "lines": [59, 84],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "assortment-6114c5d-r5/e/59da8f2c7029",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-assortment-api",
+      "commit": "6114c5db0f2b4b490cf89b9c512088f01dbf0b98",
+      "path": "src/PopCat.Assortment.Integration/Assortment/Provider/AssortmentProvider.cs",
+      "lines": [131, 134],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "assortment-6114c5d-r5/e/7a5cbb6ed9f2",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-assortment-api",
+      "commit": "6114c5db0f2b4b490cf89b9c512088f01dbf0b98",
+      "path": "src/PopCat.Assortment.Integration/Assortment/Provider/AssortmentProvider.cs",
+      "lines": [245, 246],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "assortment-6114c5d-r5/e/801f01d3794d",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-assortment-api",
+      "commit": "6114c5db0f2b4b490cf89b9c512088f01dbf0b98",
+      "path": "src/PopCat.Assortment.Integration/Assortment/Provider/AssortmentProvider.cs",
+      "lines": [129, 134],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "assortment-6114c5d-r5/e/8ab1381b0fac",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-assortment-api",
+      "commit": "6114c5db0f2b4b490cf89b9c512088f01dbf0b98",
+      "path": "src/PopCat.Assortment.Core/Services/CacheSerializerService.cs",
+      "lines": [20, 22],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "assortment-6114c5d-r5/e/8f88f7f8e26c",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-assortment-api",
+      "commit": "6114c5db0f2b4b490cf89b9c512088f01dbf0b98",
+      "path": "src/PopCat.Assortment.Host/Extensions/ApplicationBuilderExtensions.cs",
+      "lines": [83, 88],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "assortment-6114c5d-r5/e/9774c7800c1d",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-assortment-api",
+      "commit": "6114c5db0f2b4b490cf89b9c512088f01dbf0b98",
+      "path": "src/PopCat.Assortment.Integration/Assortment/Provider/AssortmentProvider.cs",
+      "lines": [131, 132],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "assortment-6114c5d-r5/e/a165ef949623",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-assortment-api",
+      "commit": "6114c5db0f2b4b490cf89b9c512088f01dbf0b98",
+      "path": "src/PopCat.Assortment.Repository/BlobStorage/BlobStorageClient.cs",
+      "lines": [34, 62],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "assortment-6114c5d-r5/e/a5d135c2acd4",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-assortment-api",
+      "commit": "6114c5db0f2b4b490cf89b9c512088f01dbf0b98",
+      "path": "src/PopCat.Assortment.Host/Program.cs",
+      "lines": [1, 46],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "assortment-6114c5d-r5/e/a7c71eaddcda",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-assortment-api",
+      "commit": "6114c5db0f2b4b490cf89b9c512088f01dbf0b98",
+      "path": "src/PopCat.Assortment.Core/Services/ClassificationCacheService.cs",
+      "lines": [64, 71],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "assortment-6114c5d-r5/e/aafd7395a240",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-assortment-api",
+      "commit": "6114c5db0f2b4b490cf89b9c512088f01dbf0b98",
+      "path": "src/PopCat.Assortment.Core/Services/ClassificationCacheService.cs",
+      "lines": [52, 84],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "assortment-6114c5d-r5/e/b3390f96eb7b",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-assortment-api",
+      "commit": "6114c5db0f2b4b490cf89b9c512088f01dbf0b98",
+      "path": "src/PopCat.Assortment.Contracts/Models/Classification.cs",
+      "lines": [3, 3],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "assortment-6114c5d-r5/e/b69e8e2f9c72",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-assortment-api",
+      "commit": "6114c5db0f2b4b490cf89b9c512088f01dbf0b98",
+      "path": "src/PopCat.Assortment.Integration/Assortment/Provider/AssortmentProvider.cs",
+      "lines": [15, 17],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "assortment-6114c5d-r5/e/cc30c71dbc65",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-assortment-api",
+      "commit": "6114c5db0f2b4b490cf89b9c512088f01dbf0b98",
+      "path": "src/PopCat.Assortment.Integration/Assortment/Provider/AssortmentProvider.cs",
+      "lines": [122, 139],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "assortment-6114c5d-r5/e/d6d6e0b54578",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-assortment-api",
+      "commit": "6114c5db0f2b4b490cf89b9c512088f01dbf0b98",
+      "path": "src/PopCat.Assortment.Integration/Assortment/Provider/AssortmentProvider.cs",
+      "lines": [136, 138],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "assortment-6114c5d-r5/e/d9c263c276f1",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-assortment-api",
+      "commit": "6114c5db0f2b4b490cf89b9c512088f01dbf0b98",
+      "path": "src/PopCat.Assortment.Core/Services/ClassificationCacheService.cs",
+      "lines": [64, 66],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "assortment-6114c5d-r5/e/d9e04bf11729",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-assortment-api",
+      "commit": "6114c5db0f2b4b490cf89b9c512088f01dbf0b98",
+      "path": "src/PopCat.Assortment.Api/Controllers/ClassificationController.cs",
+      "lines": [28, 40],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "assortment-6114c5d-r5/e/e9c86f4ca52e",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-assortment-api",
+      "commit": "6114c5db0f2b4b490cf89b9c512088f01dbf0b98",
+      "path": "src/PopCat.Assortment.Core/Services/ClassificationCacheService.cs",
+      "lines": [76, 83],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "assortment-6114c5d-r5/e/f298ecbf0015",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-assortment-api",
+      "commit": "6114c5db0f2b4b490cf89b9c512088f01dbf0b98",
+      "path": "src/PopCat.Assortment.Core/Services/ClassificationCacheService.cs",
+      "lines": [59, 62],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "assortment-6114c5d-r5/edge/classifications-http/200",
+      "kind": "transition",
+      "owner": "assortment-6114c5d-r5/impl/controller/Classification-GetAllClassifications",
+      "from": "assortment-6114c5d-r5/op/classifications-http/result",
+      "to": "assortment-6114c5d-r5/op/classifications-http/200",
+      "on": "normal",
+      "condition": "result.IsSuccess && result.Value is not null",
+      "values": ["assortment-6114c5d-r5/value/classifications-http/result"],
+      "evidence": ["assortment-6114c5d-r5/e/d9e04bf11729"]
+    },
+    {
+      "id": "assortment-6114c5d-r5/edge/classifications-http/call",
+      "kind": "transition",
+      "owner": "assortment-6114c5d-r5/impl/controller/Classification-GetAllClassifications",
+      "from": "assortment-6114c5d-r5/op/controller/Classification-GetAllClassifications/start",
+      "to": "assortment-6114c5d-r5/op/classifications-http/call",
+      "on": "normal",
+      "condition": null,
+      "values": [],
+      "evidence": ["assortment-6114c5d-r5/e/3bdaa9e0a918"]
+    },
+    {
+      "id": "assortment-6114c5d-r5/edge/classifications-http/result",
+      "kind": "transition",
+      "owner": "assortment-6114c5d-r5/impl/controller/Classification-GetAllClassifications",
+      "from": "assortment-6114c5d-r5/op/classifications-http/call",
+      "to": "assortment-6114c5d-r5/op/classifications-http/result",
+      "on": "normal",
+      "condition": null,
+      "values": [],
+      "evidence": ["assortment-6114c5d-r5/e/3bdaa9e0a918"]
+    },
+    {
+      "id": "assortment-6114c5d-r5/edge/classifications-list/branch",
+      "kind": "transition",
+      "owner": "assortment-6114c5d-r5/impl/classifications-list",
+      "from": "assortment-6114c5d-r5/op/classifications-list/read",
+      "to": "assortment-6114c5d-r5/op/classifications-list/branch",
+      "on": "normal",
+      "condition": null,
+      "values": [],
+      "evidence": ["assortment-6114c5d-r5/e/a7c71eaddcda"]
+    },
+    {
+      "id": "assortment-6114c5d-r5/edge/classifications-list/failure",
+      "kind": "transition",
+      "owner": "assortment-6114c5d-r5/impl/classifications-list",
+      "from": "assortment-6114c5d-r5/op/classifications-list/provider-result",
+      "to": "assortment-6114c5d-r5/op/classifications-list/failure",
+      "on": "normal",
+      "condition": "provider result.IsFailed",
+      "values": [],
+      "evidence": ["assortment-6114c5d-r5/e/e9c86f4ca52e"]
+    },
+    {
+      "id": "assortment-6114c5d-r5/edge/classifications-list/fetch",
+      "kind": "transition",
+      "owner": "assortment-6114c5d-r5/impl/classifications-list",
+      "from": "assortment-6114c5d-r5/op/classifications-list/branch",
+      "to": "assortment-6114c5d-r5/op/classifications-list/fetch",
+      "on": "normal",
+      "condition": "!cacheResult.IsSuccess (any cache read failure, not only missing blob)",
+      "values": [],
+      "evidence": ["assortment-6114c5d-r5/e/a7c71eaddcda"]
+    },
+    {
+      "id": "assortment-6114c5d-r5/edge/classifications-list/provider-result",
+      "kind": "transition",
+      "owner": "assortment-6114c5d-r5/impl/classifications-list",
+      "from": "assortment-6114c5d-r5/op/classifications-list/fetch",
+      "to": "assortment-6114c5d-r5/op/classifications-list/provider-result",
+      "on": "normal",
+      "condition": null,
+      "values": [],
+      "evidence": ["assortment-6114c5d-r5/e/25236b0bf668"]
+    },
+    {
+      "id": "assortment-6114c5d-r5/edge/classifications-list/read",
+      "kind": "transition",
+      "owner": "assortment-6114c5d-r5/impl/classifications-list",
+      "from": "assortment-6114c5d-r5/op/classifications-list/start",
+      "to": "assortment-6114c5d-r5/op/classifications-list/read",
+      "on": "normal",
+      "condition": null,
+      "values": [],
+      "evidence": ["assortment-6114c5d-r5/e/2403f8701391"]
+    },
+    {
+      "id": "assortment-6114c5d-r5/edge/classifications-list/return",
+      "kind": "transition",
+      "owner": "assortment-6114c5d-r5/impl/classifications-list",
+      "from": "assortment-6114c5d-r5/op/classifications-list/write",
+      "to": "assortment-6114c5d-r5/op/classifications-list/return",
+      "on": "normal",
+      "condition": null,
+      "values": [],
+      "evidence": ["assortment-6114c5d-r5/e/4b94b9484d18"]
+    },
+    {
+      "id": "assortment-6114c5d-r5/edge/classifications-list/warm",
+      "kind": "transition",
+      "owner": "assortment-6114c5d-r5/impl/classifications-list",
+      "from": "assortment-6114c5d-r5/op/classifications-list/branch",
+      "to": "assortment-6114c5d-r5/op/classifications-list/warm",
+      "on": "normal",
+      "condition": "cacheResult.IsSuccess",
+      "values": ["assortment-6114c5d-r5/value/classification-cache"],
+      "evidence": ["assortment-6114c5d-r5/e/d9c263c276f1"]
+    },
+    {
+      "id": "assortment-6114c5d-r5/edge/classifications-list/write",
+      "kind": "transition",
+      "owner": "assortment-6114c5d-r5/impl/classifications-list",
+      "from": "assortment-6114c5d-r5/op/classifications-list/provider-result",
+      "to": "assortment-6114c5d-r5/op/classifications-list/write",
+      "on": "normal",
+      "condition": "Provider Result IsSuccess; serializer.Serialize(data) succeeds",
+      "values": ["assortment-6114c5d-r5/value/classifications-provider-result"],
+      "evidence": ["assortment-6114c5d-r5/e/4b94b9484d18", "assortment-6114c5d-r5/e/25236b0bf668"]
+    },
+    {
+      "id": "assortment-6114c5d-r5/edge/classifications-provider/call",
+      "kind": "transition",
+      "owner": "assortment-6114c5d-r5/impl/classifications-provider",
+      "from": "assortment-6114c5d-r5/op/classifications-provider/start",
+      "to": "assortment-6114c5d-r5/op/classifications-provider/call",
+      "on": "normal",
+      "condition": null,
+      "values": [],
+      "evidence": ["assortment-6114c5d-r5/e/801f01d3794d"]
+    },
+    {
+      "id": "assortment-6114c5d-r5/edge/classifications-provider/finish",
+      "kind": "transition",
+      "owner": "assortment-6114c5d-r5/impl/classifications-provider",
+      "from": "assortment-6114c5d-r5/op/classifications-provider/more",
+      "to": "assortment-6114c5d-r5/op/classifications-provider/return",
+      "on": "normal",
+      "condition": "!(response?.Pagination.Total > data.Count)",
+      "values": [],
+      "evidence": ["assortment-6114c5d-r5/e/19f96e59c815"]
+    },
+    {
+      "id": "assortment-6114c5d-r5/edge/classifications-provider/merge",
+      "kind": "transition",
+      "owner": "assortment-6114c5d-r5/impl/classifications-provider",
+      "from": "assortment-6114c5d-r5/op/classifications-provider/call",
+      "to": "assortment-6114c5d-r5/op/classifications-provider/merge",
+      "on": "normal",
+      "condition": "Generated proxy returns normally",
+      "values": [],
+      "evidence": ["assortment-6114c5d-r5/e/59da8f2c7029"]
+    },
+    {
+      "id": "assortment-6114c5d-r5/edge/classifications-provider/more",
+      "kind": "transition",
+      "owner": "assortment-6114c5d-r5/impl/classifications-provider",
+      "from": "assortment-6114c5d-r5/op/classifications-provider/merge",
+      "to": "assortment-6114c5d-r5/op/classifications-provider/more",
+      "on": "normal",
+      "condition": null,
+      "values": [],
+      "evidence": ["assortment-6114c5d-r5/e/19f96e59c815"]
+    },
+    {
+      "id": "assortment-6114c5d-r5/edge/classifications-provider/repeat",
+      "kind": "transition",
+      "owner": "assortment-6114c5d-r5/impl/classifications-provider",
+      "from": "assortment-6114c5d-r5/op/classifications-provider/more",
+      "to": "assortment-6114c5d-r5/op/classifications-provider/call",
+      "on": "normal",
+      "condition": "response?.Pagination.Total > data.Count",
+      "values": [],
+      "evidence": ["assortment-6114c5d-r5/e/801f01d3794d"]
+    },
+    {
+      "id": "assortment-6114c5d-r5/entry/controller/Classification-GetAllClassifications",
+      "kind": "entry",
+      "logicalId": "api:assortment-classifications-list",
+      "method": "GET",
+      "path": "/api/v{version:apiVersion}/Classification",
+      "implementation": "assortment-6114c5d-r5/impl/controller/Classification-GetAllClassifications",
+      "evidence": ["assortment-6114c5d-r5/e/3bdaa9e0a918"]
+    },
+    {
+      "id": "assortment-6114c5d-r5/gap/deployment",
+      "kind": "gap",
+      "owner": "assortment-6114c5d-r5/census",
+      "obligation": "deployment",
+      "reason": "Pinned committed configuration does not establish deployed topology, effective environment overrides or current freshness.",
+      "action": "Trace the named local continuation or resolve the exact imported artefact and effective configuration.",
+      "evidence": ["assortment-6114c5d-r5/e/a5d135c2acd4"]
+    },
+    {
+      "id": "assortment-6114c5d-r5/gap/entry-controller-Classification-GetAllClassifications",
+      "kind": "gap",
+      "owner": "assortment-6114c5d-r5/entry/controller/Classification-GetAllClassifications",
+      "obligation": "entry-controller-Classification-GetAllClassifications",
+      "reason": "Classification.GetAllClassifications: registration and declared contracts captured; delegated service and complete control/error closure remain partial.",
+      "action": "Trace the named local continuation or resolve the exact imported artefact and effective configuration.",
+      "evidence": ["assortment-6114c5d-r5/e/3bdaa9e0a918"]
+    },
+    {
+      "id": "assortment-6114c5d-r5/gap/wire-closure",
+      "kind": "gap",
+      "owner": "assortment-6114c5d-r5/census",
+      "obligation": "wire-closure",
+      "reason": "Source declarations are captured; complete formatter, inherited/generated imported fields and validation/error policy are not established.",
+      "action": "Trace the named local continuation or resolve the exact imported artefact and effective configuration.",
+      "evidence": ["assortment-6114c5d-r5/e/499ee903ecfd"]
+    },
+    {
+      "id": "assortment-6114c5d-r5/impl/classifications-list",
+      "kind": "implementation",
+      "logicalId": "impl:assortment-ClassificationCacheService-ListAllClassifications",
+      "scope": "s2/c",
+      "entry": "assortment-6114c5d-r5/op/classifications-list/start",
+      "parameters": [],
+      "evidence": ["assortment-6114c5d-r5/e/4f47aed9645a"]
+    },
+    {
+      "id": "assortment-6114c5d-r5/impl/classifications-provider",
+      "kind": "implementation",
+      "logicalId": "impl:assortment-AssortmentProvider-ListClassifications",
+      "scope": "s2/c",
+      "entry": "assortment-6114c5d-r5/op/classifications-provider/start",
+      "parameters": [],
+      "evidence": ["assortment-6114c5d-r5/e/cc30c71dbc65"]
+    },
+    {
+      "id": "assortment-6114c5d-r5/impl/controller/Classification-GetAllClassifications",
+      "kind": "implementation",
+      "logicalId": "impl:assortment-controller-Classification-GetAllClassifications",
+      "scope": "s2/c",
+      "entry": "assortment-6114c5d-r5/op/controller/Classification-GetAllClassifications/start",
+      "parameters": [],
+      "evidence": ["assortment-6114c5d-r5/e/3bdaa9e0a918"]
+    },
+    {
+      "id": "assortment-6114c5d-r5/op/classifications-http/200",
+      "kind": "operation",
+      "owner": "assortment-6114c5d-r5/impl/controller/Classification-GetAllClassifications",
+      "action": "return",
+      "label": "Ok(data)",
+      "resolution": null,
+      "bindings": [],
+      "result": "assortment-6114c5d-r5/value/classifications-http/result",
+      "exit": "normal",
+      "httpStatus": 200,
+      "evidence": ["assortment-6114c5d-r5/e/d9e04bf11729"]
+    },
+    {
+      "id": "assortment-6114c5d-r5/op/classifications-http/call",
+      "kind": "operation",
+      "owner": "assortment-6114c5d-r5/impl/controller/Classification-GetAllClassifications",
+      "action": "call",
+      "label": "await _service.ListAllClassifications(cancellationToken)",
+      "resolution": "assortment-6114c5d-r5/resolve/classifications-service",
+      "bindings": [],
+      "result": "assortment-6114c5d-r5/value/classifications-http/result",
+      "exit": null,
+      "httpStatus": null,
+      "evidence": ["assortment-6114c5d-r5/e/3bdaa9e0a918"]
+    },
+    {
+      "id": "assortment-6114c5d-r5/op/classifications-http/result",
+      "kind": "operation",
+      "owner": "assortment-6114c5d-r5/impl/controller/Classification-GetAllClassifications",
+      "action": "branch",
+      "label": "IsSuccess && Value present; otherwise ErrorResult checks HasError<NotFoundError>()",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": null,
+      "httpStatus": null,
+      "evidence": ["assortment-6114c5d-r5/e/3bdaa9e0a918"]
+    },
+    {
+      "id": "assortment-6114c5d-r5/op/classifications-list/branch",
+      "kind": "operation",
+      "owner": "assortment-6114c5d-r5/impl/classifications-list",
+      "action": "branch",
+      "label": "cacheResult.IsSuccess",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": null,
+      "httpStatus": null,
+      "evidence": ["assortment-6114c5d-r5/e/a7c71eaddcda"]
+    },
+    {
+      "id": "assortment-6114c5d-r5/op/classifications-list/failure",
+      "kind": "operation",
+      "owner": "assortment-6114c5d-r5/impl/classifications-list",
+      "action": "return",
+      "label": "Return failed provider Result; no blob write attempted",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": "normal",
+      "httpStatus": null,
+      "evidence": ["assortment-6114c5d-r5/e/e9c86f4ca52e"]
+    },
+    {
+      "id": "assortment-6114c5d-r5/op/classifications-list/fetch",
+      "kind": "operation",
+      "owner": "assortment-6114c5d-r5/impl/classifications-list",
+      "action": "call",
+      "label": "Cache read failed: await provider.ListClassifications; failure converted to failed Result",
+      "resolution": "assortment-6114c5d-r5/resolve/classifications-provider",
+      "bindings": [],
+      "result": "assortment-6114c5d-r5/value/classifications-provider-result",
+      "exit": null,
+      "httpStatus": null,
+      "evidence": ["assortment-6114c5d-r5/e/25236b0bf668"]
+    },
+    {
+      "id": "assortment-6114c5d-r5/op/classifications-list/provider-result",
+      "kind": "operation",
+      "owner": "assortment-6114c5d-r5/impl/classifications-list",
+      "action": "branch",
+      "label": "Provider Result success permits serialisation and replacement; failure skips write",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": null,
+      "httpStatus": null,
+      "evidence": ["assortment-6114c5d-r5/e/25236b0bf668"]
+    },
+    {
+      "id": "assortment-6114c5d-r5/op/classifications-list/read",
+      "kind": "operation",
+      "owner": "assortment-6114c5d-r5/impl/classifications-list",
+      "action": "compute",
+      "label": "await repository.GetAsync(key): Blob download returns a Result",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": null,
+      "httpStatus": null,
+      "evidence": ["assortment-6114c5d-r5/e/2403f8701391", "assortment-6114c5d-r5/e/a165ef949623"]
+    },
+    {
+      "id": "assortment-6114c5d-r5/op/classifications-list/return",
+      "kind": "operation",
+      "owner": "assortment-6114c5d-r5/impl/classifications-list",
+      "action": "return",
+      "label": "Return success data only after successful blob Result; failed serialisation/upload propagates Result",
+      "resolution": null,
+      "bindings": [],
+      "result": "assortment-6114c5d-r5/value/classifications-provider-result",
+      "exit": "normal",
+      "httpStatus": null,
+      "evidence": ["assortment-6114c5d-r5/e/4b94b9484d18", "assortment-6114c5d-r5/e/23326163c9c5"]
+    },
+    {
+      "id": "assortment-6114c5d-r5/op/classifications-list/start",
+      "kind": "operation",
+      "owner": "assortment-6114c5d-r5/impl/classifications-list",
+      "action": "entry",
+      "label": "ListAllClassifications: construct GlobalDataKey(Classification)",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": null,
+      "httpStatus": null,
+      "evidence": ["assortment-6114c5d-r5/e/f298ecbf0015"]
+    },
+    {
+      "id": "assortment-6114c5d-r5/op/classifications-list/warm",
+      "kind": "operation",
+      "owner": "assortment-6114c5d-r5/impl/classifications-list",
+      "action": "return",
+      "label": "Return serializer.Deserialize<ImmutableList<Classification>>(cacheResult.Value); deserialisation failure does not trigger provider fallback",
+      "resolution": null,
+      "bindings": [],
+      "result": "assortment-6114c5d-r5/value/classifications-warm",
+      "exit": "normal",
+      "httpStatus": null,
+      "evidence": ["assortment-6114c5d-r5/e/d9c263c276f1", "assortment-6114c5d-r5/e/8ab1381b0fac"]
+    },
+    {
+      "id": "assortment-6114c5d-r5/op/classifications-list/write",
+      "kind": "operation",
+      "owner": "assortment-6114c5d-r5/impl/classifications-list",
+      "action": "compute",
+      "label": "Serialize entire provider list; on serialisation success await repository.SetAsync and overwrite blob",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": null,
+      "httpStatus": null,
+      "evidence": ["assortment-6114c5d-r5/e/4b94b9484d18", "assortment-6114c5d-r5/e/3d989e873f2b"]
+    },
+    {
+      "id": "assortment-6114c5d-r5/op/classifications-provider/call",
+      "kind": "operation",
+      "owner": "assortment-6114c5d-r5/impl/classifications-provider",
+      "action": "call",
+      "label": "await _proxy.V1ProductDetailsClassificationsAsync(limit:100, offset:data.Count)",
+      "resolution": "assortment-6114c5d-r5/resolve/classifications-proxy",
+      "bindings": [],
+      "result": "assortment-6114c5d-r5/value/classifications-remote-result",
+      "exit": null,
+      "httpStatus": null,
+      "evidence": ["assortment-6114c5d-r5/e/801f01d3794d"]
+    },
+    {
+      "id": "assortment-6114c5d-r5/op/classifications-provider/merge",
+      "kind": "operation",
+      "owner": "assortment-6114c5d-r5/impl/classifications-provider",
+      "action": "compute",
+      "label": "data.AddRange(response.Data)",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": null,
+      "httpStatus": null,
+      "evidence": ["assortment-6114c5d-r5/e/9774c7800c1d"]
+    },
+    {
+      "id": "assortment-6114c5d-r5/op/classifications-provider/more",
+      "kind": "operation",
+      "owner": "assortment-6114c5d-r5/impl/classifications-provider",
+      "action": "branch",
+      "label": "response?.Pagination.Total > data.Count",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": null,
+      "httpStatus": null,
+      "evidence": ["assortment-6114c5d-r5/e/19f96e59c815"]
+    },
+    {
+      "id": "assortment-6114c5d-r5/op/classifications-provider/return",
+      "kind": "operation",
+      "owner": "assortment-6114c5d-r5/impl/classifications-provider",
+      "action": "return",
+      "label": "If data.Count > 0 map response Id/Code into Classification; otherwise failed Result",
+      "resolution": null,
+      "bindings": [],
+      "result": "assortment-6114c5d-r5/value/classifications-mapped",
+      "exit": "normal",
+      "httpStatus": null,
+      "evidence": ["assortment-6114c5d-r5/e/d6d6e0b54578", "assortment-6114c5d-r5/e/7a5cbb6ed9f2"]
+    },
+    {
+      "id": "assortment-6114c5d-r5/op/classifications-provider/start",
+      "kind": "operation",
+      "owner": "assortment-6114c5d-r5/impl/classifications-provider",
+      "action": "entry",
+      "label": "Create empty list of PublicClassificationResponse",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": null,
+      "httpStatus": null,
+      "evidence": ["assortment-6114c5d-r5/e/1e82e4081294"]
+    },
+    {
+      "id": "assortment-6114c5d-r5/op/controller/Classification-GetAllClassifications/start",
+      "kind": "operation",
+      "owner": "assortment-6114c5d-r5/impl/controller/Classification-GetAllClassifications",
+      "action": "entry",
+      "label": "GET Classification after configured authentication and framework validation",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": null,
+      "httpStatus": null,
+      "evidence": ["assortment-6114c5d-r5/e/3bdaa9e0a918"]
+    },
+    {
+      "id": "assortment-6114c5d-r5/resolve/classifications-provider",
+      "kind": "resolution",
+      "owner": "assortment-6114c5d-r5/impl/classifications-list",
+      "requestedArtifact": null,
+      "basis": "source_local",
+      "target": "assortment-6114c5d-r5/impl/classifications-provider",
+      "candidates": [],
+      "binding": null,
+      "evidence": ["assortment-6114c5d-r5/e/25236b0bf668", "assortment-6114c5d-r5/e/cc30c71dbc65"]
+    },
+    {
+      "id": "assortment-6114c5d-r5/resolve/classifications-proxy",
+      "kind": "resolution",
+      "owner": "assortment-6114c5d-r5/impl/classifications-provider",
+      "requestedArtifact": null,
+      "basis": "unresolved",
+      "target": null,
+      "candidates": [],
+      "binding": null,
+      "evidence": ["assortment-6114c5d-r5/e/801f01d3794d"]
+    },
+    {
+      "id": "assortment-6114c5d-r5/resolve/classifications-service",
+      "kind": "resolution",
+      "owner": "assortment-6114c5d-r5/impl/controller/Classification-GetAllClassifications",
+      "requestedArtifact": null,
+      "basis": "source_local",
+      "target": "assortment-6114c5d-r5/impl/classifications-list",
+      "candidates": [],
+      "binding": null,
+      "evidence": ["assortment-6114c5d-r5/e/0dbfbcdd2061"]
+    },
+    {
+      "id": "assortment-6114c5d-r5/runs/Classification-GetAllClassifications-api",
+      "kind": "execution_binding",
+      "implementation": "assortment-6114c5d-r5/impl/controller/Classification-GetAllClassifications",
+      "component": "assortment-6114c5d-r5/component/api",
+      "basis": "source_declared",
+      "artifactBinding": null,
+      "gaps": [],
+      "evidence": ["assortment-6114c5d-r5/e/3bdaa9e0a918"]
+    },
+    {
+      "id": "assortment-6114c5d-r5/runs/classifications-list-api",
+      "kind": "execution_binding",
+      "implementation": "assortment-6114c5d-r5/impl/classifications-list",
+      "component": "assortment-6114c5d-r5/component/api",
+      "basis": "source_declared",
+      "artifactBinding": null,
+      "gaps": [],
+      "evidence": ["assortment-6114c5d-r5/e/2f6a563f3588", "assortment-6114c5d-r5/e/8f88f7f8e26c"]
+    },
+    {
+      "id": "assortment-6114c5d-r5/runs/classifications-provider-api",
+      "kind": "execution_binding",
+      "implementation": "assortment-6114c5d-r5/impl/classifications-provider",
+      "component": "assortment-6114c5d-r5/component/api",
+      "basis": "source_declared",
+      "artifactBinding": null,
+      "gaps": [],
+      "evidence": ["assortment-6114c5d-r5/e/b69e8e2f9c72", "assortment-6114c5d-r5/e/8f88f7f8e26c"]
+    },
+    {
+      "id": "assortment-6114c5d-r5/shape/classification-list-source",
+      "kind": "shape",
+      "representation": "source",
+      "label": "ImmutableList<Classification>",
+      "fields": [],
+      "completeness": "partial",
+      "gaps": ["assortment-6114c5d-r5/gap/wire-closure"],
+      "evidence": ["assortment-6114c5d-r5/e/0dbfbcdd2061"],
+      "container": "array",
+      "items": "assortment-6114c5d-r5/shape/PopCat.Assortment.Contracts~Models~Classification.cs~Classification"
+    },
+    {
+      "id": "assortment-6114c5d-r5/shape/PopCat.Assortment.Contracts~Models~Classification.cs~Classification",
+      "kind": "shape",
+      "representation": "source",
+      "label": "Classification declaration",
+      "fields": [
+        {
+          "name": "Id",
+          "type": "string",
+          "status": "declared",
+          "nullable": false,
+          "evidence": ["assortment-6114c5d-r5/e/b3390f96eb7b"]
+        },
+        {
+          "name": "Code",
+          "type": "string",
+          "status": "declared",
+          "nullable": false,
+          "evidence": ["assortment-6114c5d-r5/e/b3390f96eb7b"]
+        },
+        {
+          "name": "IsType",
+          "type": "bool",
+          "status": "declared",
+          "nullable": false,
+          "evidence": ["assortment-6114c5d-r5/e/b3390f96eb7b"]
+        }
+      ],
+      "completeness": "partial",
+      "gaps": ["assortment-6114c5d-r5/gap/wire-closure"],
+      "evidence": ["assortment-6114c5d-r5/e/2b3d69a94627"]
+    },
+    {
+      "id": "assortment-6114c5d-r5/value/classification-cache",
+      "kind": "value",
+      "owner": "assortment-6114c5d-r5/impl/classifications-list",
+      "definition": "assortment-6114c5d-r5/op/classifications-list/read",
+      "label": "Result<byte[]> of blob download",
+      "role": "definition",
+      "representation": "source",
+      "shape": null,
+      "accessPath": [],
+      "evidence": ["assortment-6114c5d-r5/e/2403f8701391", "assortment-6114c5d-r5/e/a165ef949623"]
+    },
+    {
+      "id": "assortment-6114c5d-r5/value/classifications-http/result",
+      "kind": "value",
+      "owner": "assortment-6114c5d-r5/impl/controller/Classification-GetAllClassifications",
+      "definition": "assortment-6114c5d-r5/op/classifications-http/call",
+      "label": "FluentResult<ImmutableList<Classification>> from local service",
+      "role": "definition",
+      "representation": "source",
+      "shape": "assortment-6114c5d-r5/shape/classification-list-source",
+      "accessPath": [],
+      "evidence": ["assortment-6114c5d-r5/e/3bdaa9e0a918"]
+    },
+    {
+      "id": "assortment-6114c5d-r5/value/classifications-mapped",
+      "kind": "value",
+      "owner": "assortment-6114c5d-r5/impl/classifications-provider",
+      "definition": "assortment-6114c5d-r5/op/classifications-provider/return",
+      "label": "Classification(response.Id, response.Code, IsType default false)",
+      "role": "definition",
+      "representation": "constructed",
+      "shape": "assortment-6114c5d-r5/shape/classification-list-source",
+      "accessPath": [],
+      "evidence": ["assortment-6114c5d-r5/e/d6d6e0b54578", "assortment-6114c5d-r5/e/7a5cbb6ed9f2"]
+    },
+    {
+      "id": "assortment-6114c5d-r5/value/classifications-provider-result",
+      "kind": "value",
+      "owner": "assortment-6114c5d-r5/impl/classifications-list",
+      "definition": "assortment-6114c5d-r5/op/classifications-list/fetch",
+      "label": "Provider Result<ImmutableList<Classification>>",
+      "role": "definition",
+      "representation": "source",
+      "shape": "assortment-6114c5d-r5/shape/classification-list-source",
+      "accessPath": [],
+      "evidence": ["assortment-6114c5d-r5/e/25236b0bf668"]
+    },
+    {
+      "id": "assortment-6114c5d-r5/value/classifications-remote-result",
+      "kind": "value",
+      "owner": "assortment-6114c5d-r5/impl/classifications-provider",
+      "definition": "assortment-6114c5d-r5/op/classifications-provider/call",
+      "label": "ClassificationListResponse from generated proxy; source OpenAPI declaration available but generation correspondence unresolved",
+      "role": "definition",
+      "representation": "source",
+      "shape": null,
+      "accessPath": [],
+      "evidence": ["assortment-6114c5d-r5/e/801f01d3794d"]
+    },
+    {
+      "id": "assortment-6114c5d-r5/value/classifications-warm",
+      "kind": "value",
+      "owner": "assortment-6114c5d-r5/impl/classifications-list",
+      "definition": "assortment-6114c5d-r5/op/classifications-list/warm",
+      "label": "Deserialised cached list",
+      "role": "definition",
+      "representation": "source",
+      "shape": "assortment-6114c5d-r5/shape/classification-list-source",
+      "accessPath": [],
+      "evidence": ["assortment-6114c5d-r5/e/d9c263c276f1", "assortment-6114c5d-r5/e/8ab1381b0fac"]
+    },
+    {
+      "id": "s2/c",
+      "kind": "source_revision",
+      "repo": "volvo-cars/popcat-assortment-api",
+      "commit": "6114c5db0f2b4b490cf89b9c512088f01dbf0b98"
+    }
+  ],
+  "traversalComplete": true,
+  "findings": [
+    {
+      "statement": "Structural paths to the requested outcome; guards are preserved and feasibility is not checked.",
+      "support": [
+        "assortment-6114c5d-r5/op/controller/Classification-GetAllClassifications/start",
+        "assortment-6114c5d-r5/op/classifications-http/call",
+        "assortment-6114c5d-r5/op/classifications-list/start",
+        "assortment-6114c5d-r5/op/classifications-list/read",
+        "assortment-6114c5d-r5/op/classifications-list/branch",
+        "assortment-6114c5d-r5/op/classifications-list/fetch",
+        "assortment-6114c5d-r5/op/classifications-list/warm",
+        "assortment-6114c5d-r5/op/classifications-provider/start",
+        "assortment-6114c5d-r5/op/classifications-http/result",
+        "assortment-6114c5d-r5/op/classifications-provider/call",
+        "assortment-6114c5d-r5/op/classifications-http/200",
+        "assortment-6114c5d-r5/op/classifications-provider/merge",
+        "assortment-6114c5d-r5/op/classifications-provider/more",
+        "assortment-6114c5d-r5/op/classifications-provider/return",
+        "assortment-6114c5d-r5/op/classifications-list/provider-result",
+        "assortment-6114c5d-r5/op/classifications-list/failure",
+        "assortment-6114c5d-r5/op/classifications-list/write",
+        "assortment-6114c5d-r5/op/classifications-list/return"
+      ],
+      "assumptions": ["Earlier unresolved calls return normally where labelled"]
+    }
+  ],
+  "sourceLinks": [
+    {
+      "evidence": "assortment-6114c5d-r5/e/b3390f96eb7b",
+      "url": "https://github.com/volvo-cars/popcat-assortment-api/blob/6114c5db0f2b4b490cf89b9c512088f01dbf0b98/src/PopCat.Assortment.Contracts/Models/Classification.cs#L3-L3",
+      "label": "volvo-cars/popcat-assortment-api/src/PopCat.Assortment.Contracts/Models/Classification.cs:3–3"
+    },
+    {
+      "evidence": "assortment-6114c5d-r5/e/a5d135c2acd4",
+      "url": "https://github.com/volvo-cars/popcat-assortment-api/blob/6114c5db0f2b4b490cf89b9c512088f01dbf0b98/src/PopCat.Assortment.Host/Program.cs#L1-L46",
+      "label": "volvo-cars/popcat-assortment-api/src/PopCat.Assortment.Host/Program.cs:1–46"
+    },
+    {
+      "evidence": "assortment-6114c5d-r5/e/2fc14e8e4c7c",
+      "url": "https://github.com/volvo-cars/popcat-assortment-api/blob/6114c5db0f2b4b490cf89b9c512088f01dbf0b98/src/PopCat.Assortment.Ocelot.Host/Program.cs#L1-L46",
+      "label": "volvo-cars/popcat-assortment-api/src/PopCat.Assortment.Ocelot.Host/Program.cs:1–46"
+    },
+    {
+      "evidence": "assortment-6114c5d-r5/e/0c2e5d6b3474",
+      "url": "https://github.com/volvo-cars/popcat-assortment-api/blob/6114c5db0f2b4b490cf89b9c512088f01dbf0b98/src/PopCat.Assortment.CacheWorker.Host/Program.cs#L1-L37",
+      "label": "volvo-cars/popcat-assortment-api/src/PopCat.Assortment.CacheWorker.Host/Program.cs:1–37"
+    },
+    {
+      "evidence": "assortment-6114c5d-r5/e/499ee903ecfd",
+      "url": "https://github.com/volvo-cars/popcat-assortment-api/blob/6114c5db0f2b4b490cf89b9c512088f01dbf0b98/src/PopCat.Assortment.Host/Extensions/ApplicationBuilderExtensions.cs#L54-L78",
+      "label": "volvo-cars/popcat-assortment-api/src/PopCat.Assortment.Host/Extensions/ApplicationBuilderExtensions.cs:54–78"
+    },
+    {
+      "evidence": "assortment-6114c5d-r5/e/2b3d69a94627",
+      "url": "https://github.com/volvo-cars/popcat-assortment-api/blob/6114c5db0f2b4b490cf89b9c512088f01dbf0b98/src/PopCat.Assortment.Contracts/Models/Classification.cs#L1-L3",
+      "label": "volvo-cars/popcat-assortment-api/src/PopCat.Assortment.Contracts/Models/Classification.cs:1–3"
+    },
+    {
+      "evidence": "assortment-6114c5d-r5/e/0dbfbcdd2061",
+      "url": "https://github.com/volvo-cars/popcat-assortment-api/blob/6114c5db0f2b4b490cf89b9c512088f01dbf0b98/src/PopCat.Assortment.Core/Services/ClassificationCacheService.cs#L59-L71",
+      "label": "volvo-cars/popcat-assortment-api/src/PopCat.Assortment.Core/Services/ClassificationCacheService.cs:59–71"
+    },
+    {
+      "evidence": "assortment-6114c5d-r5/e/1e82e4081294",
+      "url": "https://github.com/volvo-cars/popcat-assortment-api/blob/6114c5db0f2b4b490cf89b9c512088f01dbf0b98/src/PopCat.Assortment.Integration/Assortment/Provider/AssortmentProvider.cs#L122-L127",
+      "label": "volvo-cars/popcat-assortment-api/src/PopCat.Assortment.Integration/Assortment/Provider/AssortmentProvider.cs:122–127"
+    },
+    {
+      "evidence": "assortment-6114c5d-r5/e/cc30c71dbc65",
+      "url": "https://github.com/volvo-cars/popcat-assortment-api/blob/6114c5db0f2b4b490cf89b9c512088f01dbf0b98/src/PopCat.Assortment.Integration/Assortment/Provider/AssortmentProvider.cs#L122-L139",
+      "label": "volvo-cars/popcat-assortment-api/src/PopCat.Assortment.Integration/Assortment/Provider/AssortmentProvider.cs:122–139"
+    },
+    {
+      "evidence": "assortment-6114c5d-r5/e/f298ecbf0015",
+      "url": "https://github.com/volvo-cars/popcat-assortment-api/blob/6114c5db0f2b4b490cf89b9c512088f01dbf0b98/src/PopCat.Assortment.Core/Services/ClassificationCacheService.cs#L59-L62",
+      "label": "volvo-cars/popcat-assortment-api/src/PopCat.Assortment.Core/Services/ClassificationCacheService.cs:59–62"
+    },
+    {
+      "evidence": "assortment-6114c5d-r5/e/4f47aed9645a",
+      "url": "https://github.com/volvo-cars/popcat-assortment-api/blob/6114c5db0f2b4b490cf89b9c512088f01dbf0b98/src/PopCat.Assortment.Core/Services/ClassificationCacheService.cs#L59-L84",
+      "label": "volvo-cars/popcat-assortment-api/src/PopCat.Assortment.Core/Services/ClassificationCacheService.cs:59–84"
+    },
+    {
+      "evidence": "assortment-6114c5d-r5/e/25236b0bf668",
+      "url": "https://github.com/volvo-cars/popcat-assortment-api/blob/6114c5db0f2b4b490cf89b9c512088f01dbf0b98/src/PopCat.Assortment.Core/Services/ClassificationCacheService.cs#L69-L83",
+      "label": "volvo-cars/popcat-assortment-api/src/PopCat.Assortment.Core/Services/ClassificationCacheService.cs:69–83"
+    },
+    {
+      "evidence": "assortment-6114c5d-r5/e/23326163c9c5",
+      "url": "https://github.com/volvo-cars/popcat-assortment-api/blob/6114c5db0f2b4b490cf89b9c512088f01dbf0b98/src/PopCat.Assortment.Core/Services/ClassificationCacheService.cs#L69-L71",
+      "label": "volvo-cars/popcat-assortment-api/src/PopCat.Assortment.Core/Services/ClassificationCacheService.cs:69–71"
+    },
+    {
+      "evidence": "assortment-6114c5d-r5/e/4b94b9484d18",
+      "url": "https://github.com/volvo-cars/popcat-assortment-api/blob/6114c5db0f2b4b490cf89b9c512088f01dbf0b98/src/PopCat.Assortment.Core/Services/ClassificationCacheService.cs#L52-L56",
+      "label": "volvo-cars/popcat-assortment-api/src/PopCat.Assortment.Core/Services/ClassificationCacheService.cs:52–56"
+    },
+    {
+      "evidence": "assortment-6114c5d-r5/e/3d989e873f2b",
+      "url": "https://github.com/volvo-cars/popcat-assortment-api/blob/6114c5db0f2b4b490cf89b9c512088f01dbf0b98/src/PopCat.Assortment.Repository/BlobStorage/BlobStorageClient.cs#L65-L72",
+      "label": "volvo-cars/popcat-assortment-api/src/PopCat.Assortment.Repository/BlobStorage/BlobStorageClient.cs:65–72"
+    },
+    {
+      "evidence": "assortment-6114c5d-r5/e/e9c86f4ca52e",
+      "url": "https://github.com/volvo-cars/popcat-assortment-api/blob/6114c5db0f2b4b490cf89b9c512088f01dbf0b98/src/PopCat.Assortment.Core/Services/ClassificationCacheService.cs#L76-L83",
+      "label": "volvo-cars/popcat-assortment-api/src/PopCat.Assortment.Core/Services/ClassificationCacheService.cs:76–83"
+    },
+    {
+      "evidence": "assortment-6114c5d-r5/e/7a5cbb6ed9f2",
+      "url": "https://github.com/volvo-cars/popcat-assortment-api/blob/6114c5db0f2b4b490cf89b9c512088f01dbf0b98/src/PopCat.Assortment.Integration/Assortment/Provider/AssortmentProvider.cs#L245-L246",
+      "label": "volvo-cars/popcat-assortment-api/src/PopCat.Assortment.Integration/Assortment/Provider/AssortmentProvider.cs:245–246"
+    },
+    {
+      "evidence": "assortment-6114c5d-r5/e/d6d6e0b54578",
+      "url": "https://github.com/volvo-cars/popcat-assortment-api/blob/6114c5db0f2b4b490cf89b9c512088f01dbf0b98/src/PopCat.Assortment.Integration/Assortment/Provider/AssortmentProvider.cs#L136-L138",
+      "label": "volvo-cars/popcat-assortment-api/src/PopCat.Assortment.Integration/Assortment/Provider/AssortmentProvider.cs:136–138"
+    },
+    {
+      "evidence": "assortment-6114c5d-r5/e/19f96e59c815",
+      "url": "https://github.com/volvo-cars/popcat-assortment-api/blob/6114c5db0f2b4b490cf89b9c512088f01dbf0b98/src/PopCat.Assortment.Integration/Assortment/Provider/AssortmentProvider.cs#L134-L138",
+      "label": "volvo-cars/popcat-assortment-api/src/PopCat.Assortment.Integration/Assortment/Provider/AssortmentProvider.cs:134–138"
+    },
+    {
+      "evidence": "assortment-6114c5d-r5/e/9774c7800c1d",
+      "url": "https://github.com/volvo-cars/popcat-assortment-api/blob/6114c5db0f2b4b490cf89b9c512088f01dbf0b98/src/PopCat.Assortment.Integration/Assortment/Provider/AssortmentProvider.cs#L131-L132",
+      "label": "volvo-cars/popcat-assortment-api/src/PopCat.Assortment.Integration/Assortment/Provider/AssortmentProvider.cs:131–132"
+    },
+    {
+      "evidence": "assortment-6114c5d-r5/e/3bdaa9e0a918",
+      "url": "https://github.com/volvo-cars/popcat-assortment-api/blob/6114c5db0f2b4b490cf89b9c512088f01dbf0b98/src/PopCat.Assortment.Api/Controllers/ClassificationController.cs#L22-L29",
+      "label": "volvo-cars/popcat-assortment-api/src/PopCat.Assortment.Api/Controllers/ClassificationController.cs:22–29"
+    },
+    {
+      "evidence": "assortment-6114c5d-r5/e/d9e04bf11729",
+      "url": "https://github.com/volvo-cars/popcat-assortment-api/blob/6114c5db0f2b4b490cf89b9c512088f01dbf0b98/src/PopCat.Assortment.Api/Controllers/ClassificationController.cs#L28-L40",
+      "label": "volvo-cars/popcat-assortment-api/src/PopCat.Assortment.Api/Controllers/ClassificationController.cs:28–40"
+    },
+    {
+      "evidence": "assortment-6114c5d-r5/e/801f01d3794d",
+      "url": "https://github.com/volvo-cars/popcat-assortment-api/blob/6114c5db0f2b4b490cf89b9c512088f01dbf0b98/src/PopCat.Assortment.Integration/Assortment/Provider/AssortmentProvider.cs#L129-L134",
+      "label": "volvo-cars/popcat-assortment-api/src/PopCat.Assortment.Integration/Assortment/Provider/AssortmentProvider.cs:129–134"
+    },
+    {
+      "evidence": "assortment-6114c5d-r5/e/8ab1381b0fac",
+      "url": "https://github.com/volvo-cars/popcat-assortment-api/blob/6114c5db0f2b4b490cf89b9c512088f01dbf0b98/src/PopCat.Assortment.Core/Services/CacheSerializerService.cs#L20-L22",
+      "label": "volvo-cars/popcat-assortment-api/src/PopCat.Assortment.Core/Services/CacheSerializerService.cs:20–22"
+    },
+    {
+      "evidence": "assortment-6114c5d-r5/e/d9c263c276f1",
+      "url": "https://github.com/volvo-cars/popcat-assortment-api/blob/6114c5db0f2b4b490cf89b9c512088f01dbf0b98/src/PopCat.Assortment.Core/Services/ClassificationCacheService.cs#L64-L66",
+      "label": "volvo-cars/popcat-assortment-api/src/PopCat.Assortment.Core/Services/ClassificationCacheService.cs:64–66"
+    },
+    {
+      "evidence": "assortment-6114c5d-r5/e/a7c71eaddcda",
+      "url": "https://github.com/volvo-cars/popcat-assortment-api/blob/6114c5db0f2b4b490cf89b9c512088f01dbf0b98/src/PopCat.Assortment.Core/Services/ClassificationCacheService.cs#L64-L71",
+      "label": "volvo-cars/popcat-assortment-api/src/PopCat.Assortment.Core/Services/ClassificationCacheService.cs:64–71"
+    },
+    {
+      "evidence": "assortment-6114c5d-r5/e/a165ef949623",
+      "url": "https://github.com/volvo-cars/popcat-assortment-api/blob/6114c5db0f2b4b490cf89b9c512088f01dbf0b98/src/PopCat.Assortment.Repository/BlobStorage/BlobStorageClient.cs#L34-L62",
+      "label": "volvo-cars/popcat-assortment-api/src/PopCat.Assortment.Repository/BlobStorage/BlobStorageClient.cs:34–62"
+    },
+    {
+      "evidence": "assortment-6114c5d-r5/e/2403f8701391",
+      "url": "https://github.com/volvo-cars/popcat-assortment-api/blob/6114c5db0f2b4b490cf89b9c512088f01dbf0b98/src/PopCat.Assortment.Core/Services/ClassificationCacheService.cs#L61-L62",
+      "label": "volvo-cars/popcat-assortment-api/src/PopCat.Assortment.Core/Services/ClassificationCacheService.cs:61–62"
+    },
+    {
+      "evidence": "assortment-6114c5d-r5/e/aafd7395a240",
+      "url": "https://github.com/volvo-cars/popcat-assortment-api/blob/6114c5db0f2b4b490cf89b9c512088f01dbf0b98/src/PopCat.Assortment.Core/Services/ClassificationCacheService.cs#L52-L84",
+      "label": "volvo-cars/popcat-assortment-api/src/PopCat.Assortment.Core/Services/ClassificationCacheService.cs:52–84"
+    },
+    {
+      "evidence": "assortment-6114c5d-r5/e/23639ff30a2b",
+      "url": "https://github.com/volvo-cars/popcat-assortment-api/blob/6114c5db0f2b4b490cf89b9c512088f01dbf0b98/src/PopCat.Assortment.Api/Controllers/ClassificationController.cs#L1-L42",
+      "label": "volvo-cars/popcat-assortment-api/src/PopCat.Assortment.Api/Controllers/ClassificationController.cs:1–42"
+    },
+    {
+      "evidence": "assortment-6114c5d-r5/e/59da8f2c7029",
+      "url": "https://github.com/volvo-cars/popcat-assortment-api/blob/6114c5db0f2b4b490cf89b9c512088f01dbf0b98/src/PopCat.Assortment.Integration/Assortment/Provider/AssortmentProvider.cs#L131-L134",
+      "label": "volvo-cars/popcat-assortment-api/src/PopCat.Assortment.Integration/Assortment/Provider/AssortmentProvider.cs:131–134"
+    },
+    {
+      "evidence": "assortment-6114c5d-r5/e/8f88f7f8e26c",
+      "url": "https://github.com/volvo-cars/popcat-assortment-api/blob/6114c5db0f2b4b490cf89b9c512088f01dbf0b98/src/PopCat.Assortment.Host/Extensions/ApplicationBuilderExtensions.cs#L83-L88",
+      "label": "volvo-cars/popcat-assortment-api/src/PopCat.Assortment.Host/Extensions/ApplicationBuilderExtensions.cs:83–88"
+    },
+    {
+      "evidence": "assortment-6114c5d-r5/e/2f6a563f3588",
+      "url": "https://github.com/volvo-cars/popcat-assortment-api/blob/6114c5db0f2b4b490cf89b9c512088f01dbf0b98/src/PopCat.Assortment.Core/Services/ClassificationCacheService.cs#L9-L12",
+      "label": "volvo-cars/popcat-assortment-api/src/PopCat.Assortment.Core/Services/ClassificationCacheService.cs:9–12"
+    },
+    {
+      "evidence": "assortment-6114c5d-r5/e/b69e8e2f9c72",
+      "url": "https://github.com/volvo-cars/popcat-assortment-api/blob/6114c5db0f2b4b490cf89b9c512088f01dbf0b98/src/PopCat.Assortment.Integration/Assortment/Provider/AssortmentProvider.cs#L15-L17",
+      "label": "volvo-cars/popcat-assortment-api/src/PopCat.Assortment.Integration/Assortment/Provider/AssortmentProvider.cs:15–17"
+    }
+  ],
+  "nextRequest": null
+}

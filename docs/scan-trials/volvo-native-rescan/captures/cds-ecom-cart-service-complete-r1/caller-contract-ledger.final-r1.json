@@ -1,0 +1,27 @@
+[
+  {
+    "owner": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/method/977175d86d35d857f004",
+    "source": "com.volvocars.ecom.cart.output.opportunity.OpportunityClient#getOpportunity(String)",
+    "contract": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/io-contract/f8250412af7743f95c25",
+    "interaction": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/io/f8250412af7743f95c25",
+    "method": "GET",
+    "path": "/opportunities/{externalOpportunityId}",
+    "actualValues": [
+      "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/value/9eaa176618ef7f45573c",
+      "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/method/977175d86d35d857f004/parameter/opportunityId"
+    ]
+  },
+  {
+    "owner": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/method/98580c02e0adac254bbe",
+    "source": "com.volvocars.ecom.cart.output.order.RestClientConditionalOrderClient#checkout(ConditionalOrderRequest,String)",
+    "contract": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/io-contract/02b0cad3270bb34fd50a",
+    "interaction": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/io/02b0cad3270bb34fd50a",
+    "method": "POST",
+    "path": "/v2/checkout",
+    "actualValues": [
+      "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/value/25f4f3d3d7bc1049d550",
+      "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/method/98580c02e0adac254bbe/parameter/request",
+      "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/method/98580c02e0adac254bbe/parameter/idempotencyKey"
+    ]
+  }
+]

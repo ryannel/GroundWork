@@ -1,0 +1,1 @@
+{"queries":106,"interactions":31,"sdk":23,"limits":[{"name":"rest POST /v1/transactions/","limits":["maxRecords"]},{"name":"effects TransactionController-create","limits":["maxRecords"]},{"name":"source reviewed mutation and branch facts","limits":["maxRecords"]},{"name":"source failure paths TransactionController-create","limits":["maxRecords"]}]}

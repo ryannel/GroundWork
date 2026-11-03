@@ -1,0 +1,433 @@
+{
+  "format": "groundwork-result/v3",
+  "snapshot": "5f244b8b75661ddc2c58cee97ab0d61ca2c0f73b58fbf65e775236cdd0dda3ae",
+  "queryVersion": "knowledge-query/v3",
+  "request": {
+    "format": "groundwork-query/v3",
+    "snapshot": "5f244b8b75661ddc2c58cee97ab0d61ca2c0f73b58fbf65e775236cdd0dda3ae",
+    "query": "trace",
+    "entry": "scheduler-c00df60-r5/impl/config-refresh",
+    "value": null,
+    "context": [],
+    "outcome": null,
+    "changed": [],
+    "representation": "constructed",
+    "candidates": "exclude",
+    "maxNodes": 1500,
+    "environment": "production-profile",
+    "maxRecords": 5000,
+    "ids": []
+  },
+  "nodes": [
+    {
+      "id": "root::scheduler-c00df60-r5/op/config-refresh/start",
+      "record": "scheduler-c00df60-r5/op/config-refresh/start",
+      "context": [],
+      "label": "ConfigRefreshScheduler.refreshConfig",
+      "component": "scheduler-c00df60-r5/component/api",
+      "execution": "scheduler-c00df60-r5/runs/config-refresh"
+    },
+    {
+      "id": "root::scheduler-c00df60-r5/op/config-refresh/invoke",
+      "record": "scheduler-c00df60-r5/op/config-refresh/invoke",
+      "context": [],
+      "label": "contextRefresher.refresh(); imported refresh implementation/effects unresolved",
+      "component": "scheduler-c00df60-r5/component/api",
+      "execution": "scheduler-c00df60-r5/runs/config-refresh"
+    },
+    {
+      "id": "root::scheduler-c00df60-r5/op/config-refresh/failure",
+      "record": "scheduler-c00df60-r5/op/config-refresh/failure",
+      "context": [],
+      "label": "Catch Exception and log refresh failure; no exception propagation declared",
+      "component": "scheduler-c00df60-r5/component/api",
+      "execution": "scheduler-c00df60-r5/runs/config-refresh"
+    },
+    {
+      "id": "root::scheduler-c00df60-r5/op/config-refresh/normal",
+      "record": "scheduler-c00df60-r5/op/config-refresh/normal",
+      "context": [],
+      "label": "Print loaded config names/ids after normal refresh",
+      "component": "scheduler-c00df60-r5/component/api",
+      "execution": "scheduler-c00df60-r5/runs/config-refresh"
+    }
+  ],
+  "edges": [
+    {
+      "from": "root::scheduler-c00df60-r5/op/config-refresh/start",
+      "to": "root::scheduler-c00df60-r5/op/config-refresh/invoke",
+      "on": "normal",
+      "condition": null,
+      "assumption": null,
+      "evidence": ["scheduler-c00df60-r5/e/bc699e10c7cc"],
+      "record": "scheduler-c00df60-r5/edge/config-refresh/invoke"
+    },
+    {
+      "from": "root::scheduler-c00df60-r5/op/config-refresh/invoke",
+      "to": "root::scheduler-c00df60-r5/op/config-refresh/failure",
+      "on": "exception",
+      "condition": null,
+      "assumption": "scheduler-c00df60-r5/op/config-refresh/invoke: unresolved dependency follows declared exception continuation",
+      "evidence": ["scheduler-c00df60-r5/e/f091bbc627d5"],
+      "record": "scheduler-c00df60-r5/edge/config-refresh/failure"
+    },
+    {
+      "from": "root::scheduler-c00df60-r5/op/config-refresh/invoke",
+      "to": "root::scheduler-c00df60-r5/op/config-refresh/normal",
+      "on": "normal",
+      "condition": null,
+      "assumption": "scheduler-c00df60-r5/op/config-refresh/invoke: unresolved dependency follows declared normal continuation",
+      "evidence": ["scheduler-c00df60-r5/e/f091bbc627d5"],
+      "record": "scheduler-c00df60-r5/edge/config-refresh/normal"
+    }
+  ],
+  "claims": [],
+  "evidence": [
+    "scheduler-c00df60-r5/e/5e52dd8eb680",
+    "scheduler-c00df60-r5/e/613302864831",
+    "scheduler-c00df60-r5/e/8377781a2b50",
+    "scheduler-c00df60-r5/e/8916d8a85f98",
+    "scheduler-c00df60-r5/e/a24bf1ffc9bd",
+    "scheduler-c00df60-r5/e/bc699e10c7cc",
+    "scheduler-c00df60-r5/e/de1b32c24ee4",
+    "scheduler-c00df60-r5/e/e9f895fc28c3",
+    "scheduler-c00df60-r5/e/f091bbc627d5"
+  ],
+  "coverage": ["scheduler-c00df60-r5/coverage/refresh"],
+  "frontiers": [
+    {
+      "at": "root::scheduler-c00df60-r5/op/config-refresh/invoke",
+      "reason": "version_unresolved",
+      "detail": "Dependency implementation is unresolved; declared normal and exception continuations are conditional and candidates are excluded.",
+      "references": ["scheduler-c00df60-r5/resolve/config-refresh"]
+    }
+  ],
+  "limitsHit": [],
+  "feasibility": "not_checked",
+  "exhaustive": false,
+  "records": [
+    {
+      "id": "scheduler-c00df60-r5/census",
+      "kind": "implementation",
+      "logicalId": "impl:scheduler-source-census",
+      "scope": "scheduler-c00df60-r5/source",
+      "entry": "scheduler-c00df60-r5/op/census/start",
+      "parameters": [],
+      "evidence": ["scheduler-c00df60-r5/e/de1b32c24ee4"]
+    },
+    {
+      "id": "scheduler-c00df60-r5/component/api",
+      "kind": "runtime_component",
+      "logicalId": "svc:payment-scheduler",
+      "label": "Payment scheduler",
+      "category": "service",
+      "technology": "Java / Spring Boot",
+      "sources": ["scheduler-c00df60-r5/source"],
+      "basis": "source_declared",
+      "gaps": ["scheduler-c00df60-r5/gap/deployment", "scheduler-c00df60-r5/gap/dependencies"],
+      "evidence": ["scheduler-c00df60-r5/e/8377781a2b50", "scheduler-c00df60-r5/e/5e52dd8eb680"]
+    },
+    {
+      "id": "scheduler-c00df60-r5/coverage/refresh",
+      "kind": "coverage",
+      "owner": "scheduler-c00df60-r5/impl/config-refresh",
+      "obligation": "bounded_source_analysis",
+      "status": "partial",
+      "scope": "Conditional scheduled refresh, imported refresh boundary and local catch/log behaviour.",
+      "gaps": ["scheduler-c00df60-r5/gap/dependencies", "scheduler-c00df60-r5/gap/deployment"],
+      "evidence": ["scheduler-c00df60-r5/e/613302864831"]
+    },
+    {
+      "id": "scheduler-c00df60-r5/e/5e52dd8eb680",
+      "kind": "evidence",
+      "repo": "volvo-cars/cds-paymentservice-scheduler",
+      "commit": "c00df60c8233b1a8f47829ce382d5805bf164c6b",
+      "path": "Dockerfile",
+      "lines": [1, 22],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "scheduler-c00df60-r5/e/613302864831",
+      "kind": "evidence",
+      "repo": "volvo-cars/cds-paymentservice-scheduler",
+      "commit": "c00df60c8233b1a8f47829ce382d5805bf164c6b",
+      "path": "cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/cloudconfig/ConfigRefreshScheduler.java",
+      "lines": [1, 42],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "scheduler-c00df60-r5/e/8377781a2b50",
+      "kind": "evidence",
+      "repo": "volvo-cars/cds-paymentservice-scheduler",
+      "commit": "c00df60c8233b1a8f47829ce382d5805bf164c6b",
+      "path": "cds-paymentservice-scheduler-api/src/main/java/com/volvocars/ecom/paymentservice/scheduler/App.java",
+      "lines": [14, 25],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "scheduler-c00df60-r5/e/8916d8a85f98",
+      "kind": "evidence",
+      "repo": "volvo-cars/cds-paymentservice-scheduler",
+      "commit": "c00df60c8233b1a8f47829ce382d5805bf164c6b",
+      "path": "cds-paymentservice-scheduler-api/src/main/resources/application.yml",
+      "lines": [1, 143],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "scheduler-c00df60-r5/e/a24bf1ffc9bd",
+      "kind": "evidence",
+      "repo": "volvo-cars/cds-paymentservice-scheduler",
+      "commit": "c00df60c8233b1a8f47829ce382d5805bf164c6b",
+      "path": "pom.xml",
+      "lines": [1, 103],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "scheduler-c00df60-r5/e/bc699e10c7cc",
+      "kind": "evidence",
+      "repo": "volvo-cars/cds-paymentservice-scheduler",
+      "commit": "c00df60c8233b1a8f47829ce382d5805bf164c6b",
+      "path": "cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/cloudconfig/ConfigRefreshScheduler.java",
+      "lines": [14, 40],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "scheduler-c00df60-r5/e/de1b32c24ee4",
+      "kind": "evidence",
+      "repo": "volvo-cars/cds-paymentservice-scheduler",
+      "commit": "c00df60c8233b1a8f47829ce382d5805bf164c6b",
+      "path": "cds-paymentservice-scheduler-api/src/main/java/com/volvocars/ecom/paymentservice/scheduler/App.java",
+      "lines": [1, 27],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "scheduler-c00df60-r5/e/e9f895fc28c3",
+      "kind": "evidence",
+      "repo": "volvo-cars/cds-paymentservice-scheduler",
+      "commit": "c00df60c8233b1a8f47829ce382d5805bf164c6b",
+      "path": "cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/cloudconfig/ConfigRefreshScheduler.java",
+      "lines": [31, 39],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "scheduler-c00df60-r5/e/f091bbc627d5",
+      "kind": "evidence",
+      "repo": "volvo-cars/cds-paymentservice-scheduler",
+      "commit": "c00df60c8233b1a8f47829ce382d5805bf164c6b",
+      "path": "cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/cloudconfig/ConfigRefreshScheduler.java",
+      "lines": [32, 39],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "scheduler-c00df60-r5/edge/config-refresh/failure",
+      "kind": "transition",
+      "owner": "scheduler-c00df60-r5/impl/config-refresh",
+      "from": "scheduler-c00df60-r5/op/config-refresh/invoke",
+      "to": "scheduler-c00df60-r5/op/config-refresh/failure",
+      "on": "exception",
+      "condition": null,
+      "values": [],
+      "evidence": ["scheduler-c00df60-r5/e/f091bbc627d5"]
+    },
+    {
+      "id": "scheduler-c00df60-r5/edge/config-refresh/invoke",
+      "kind": "transition",
+      "owner": "scheduler-c00df60-r5/impl/config-refresh",
+      "from": "scheduler-c00df60-r5/op/config-refresh/start",
+      "to": "scheduler-c00df60-r5/op/config-refresh/invoke",
+      "on": "normal",
+      "condition": null,
+      "values": [],
+      "evidence": ["scheduler-c00df60-r5/e/bc699e10c7cc"]
+    },
+    {
+      "id": "scheduler-c00df60-r5/edge/config-refresh/normal",
+      "kind": "transition",
+      "owner": "scheduler-c00df60-r5/impl/config-refresh",
+      "from": "scheduler-c00df60-r5/op/config-refresh/invoke",
+      "to": "scheduler-c00df60-r5/op/config-refresh/normal",
+      "on": "normal",
+      "condition": null,
+      "values": [],
+      "evidence": ["scheduler-c00df60-r5/e/f091bbc627d5"]
+    },
+    {
+      "id": "scheduler-c00df60-r5/gap/dependencies",
+      "kind": "gap",
+      "owner": "scheduler-c00df60-r5/census",
+      "obligation": "dependencies",
+      "reason": "Imported payment DTO, ApiClientCreator/auth/interceptors, shared enums and Spring/Kafka/Mongo implementations lack exact resolved digest/source correspondence here.",
+      "action": "Trace the named continuation or resolve exact dependency/converter/configuration correspondence without assuming deployment.",
+      "evidence": ["scheduler-c00df60-r5/e/a24bf1ffc9bd"]
+    },
+    {
+      "id": "scheduler-c00df60-r5/gap/deployment",
+      "kind": "gap",
+      "owner": "scheduler-c00df60-r5/census",
+      "obligation": "deployment",
+      "reason": "Committed base/profile declarations do not establish deployed destinations, index definitions, environment overrides or current remote freshness.",
+      "action": "Trace the named continuation or resolve exact dependency/converter/configuration correspondence without assuming deployment.",
+      "evidence": ["scheduler-c00df60-r5/e/8916d8a85f98"]
+    },
+    {
+      "id": "scheduler-c00df60-r5/impl/config-refresh",
+      "kind": "implementation",
+      "logicalId": "impl:scheduler-ConfigRefreshScheduler.refreshConfig",
+      "scope": "scheduler-c00df60-r5/source",
+      "entry": "scheduler-c00df60-r5/op/config-refresh/start",
+      "parameters": [],
+      "evidence": ["scheduler-c00df60-r5/e/bc699e10c7cc"]
+    },
+    {
+      "id": "scheduler-c00df60-r5/op/census/start",
+      "kind": "operation",
+      "owner": "scheduler-c00df60-r5/census",
+      "action": "opaque",
+      "label": "Repository discovery context",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": null,
+      "httpStatus": null,
+      "evidence": ["scheduler-c00df60-r5/e/de1b32c24ee4"]
+    },
+    {
+      "id": "scheduler-c00df60-r5/op/config-refresh/failure",
+      "kind": "operation",
+      "owner": "scheduler-c00df60-r5/impl/config-refresh",
+      "action": "return",
+      "label": "Catch Exception and log refresh failure; no exception propagation declared",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": "normal",
+      "httpStatus": null,
+      "evidence": ["scheduler-c00df60-r5/e/f091bbc627d5"]
+    },
+    {
+      "id": "scheduler-c00df60-r5/op/config-refresh/invoke",
+      "kind": "operation",
+      "owner": "scheduler-c00df60-r5/impl/config-refresh",
+      "action": "call",
+      "label": "contextRefresher.refresh(); imported refresh implementation/effects unresolved",
+      "resolution": "scheduler-c00df60-r5/resolve/config-refresh",
+      "bindings": [],
+      "result": null,
+      "exit": null,
+      "httpStatus": null,
+      "evidence": ["scheduler-c00df60-r5/e/f091bbc627d5"]
+    },
+    {
+      "id": "scheduler-c00df60-r5/op/config-refresh/normal",
+      "kind": "operation",
+      "owner": "scheduler-c00df60-r5/impl/config-refresh",
+      "action": "return",
+      "label": "Print loaded config names/ids after normal refresh",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": "normal",
+      "httpStatus": null,
+      "evidence": ["scheduler-c00df60-r5/e/f091bbc627d5"]
+    },
+    {
+      "id": "scheduler-c00df60-r5/op/config-refresh/start",
+      "kind": "operation",
+      "owner": "scheduler-c00df60-r5/impl/config-refresh",
+      "action": "entry",
+      "label": "ConfigRefreshScheduler.refreshConfig",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": null,
+      "httpStatus": null,
+      "evidence": ["scheduler-c00df60-r5/e/bc699e10c7cc"]
+    },
+    {
+      "id": "scheduler-c00df60-r5/resolve/config-refresh",
+      "kind": "resolution",
+      "owner": "scheduler-c00df60-r5/impl/config-refresh",
+      "requestedArtifact": null,
+      "basis": "unresolved",
+      "target": null,
+      "candidates": [],
+      "binding": null,
+      "evidence": ["scheduler-c00df60-r5/e/e9f895fc28c3"]
+    },
+    {
+      "id": "scheduler-c00df60-r5/runs/config-refresh",
+      "kind": "execution_binding",
+      "implementation": "scheduler-c00df60-r5/impl/config-refresh",
+      "component": "scheduler-c00df60-r5/component/api",
+      "basis": "source_declared",
+      "artifactBinding": null,
+      "gaps": [],
+      "evidence": ["scheduler-c00df60-r5/e/bc699e10c7cc"]
+    },
+    {
+      "id": "scheduler-c00df60-r5/source",
+      "kind": "source_revision",
+      "repo": "volvo-cars/cds-paymentservice-scheduler",
+      "commit": "c00df60c8233b1a8f47829ce382d5805bf164c6b"
+    }
+  ],
+  "traversalComplete": true,
+  "findings": [],
+  "sourceLinks": [
+    {
+      "evidence": "scheduler-c00df60-r5/e/bc699e10c7cc",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-scheduler/blob/c00df60c8233b1a8f47829ce382d5805bf164c6b/cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/cloudconfig/ConfigRefreshScheduler.java#L14-L40",
+      "label": "volvo-cars/cds-paymentservice-scheduler/cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/cloudconfig/ConfigRefreshScheduler.java:14–40"
+    },
+    {
+      "evidence": "scheduler-c00df60-r5/e/e9f895fc28c3",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-scheduler/blob/c00df60c8233b1a8f47829ce382d5805bf164c6b/cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/cloudconfig/ConfigRefreshScheduler.java#L31-L39",
+      "label": "volvo-cars/cds-paymentservice-scheduler/cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/cloudconfig/ConfigRefreshScheduler.java:31–39"
+    },
+    {
+      "evidence": "scheduler-c00df60-r5/e/de1b32c24ee4",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-scheduler/blob/c00df60c8233b1a8f47829ce382d5805bf164c6b/cds-paymentservice-scheduler-api/src/main/java/com/volvocars/ecom/paymentservice/scheduler/App.java#L1-L27",
+      "label": "volvo-cars/cds-paymentservice-scheduler/cds-paymentservice-scheduler-api/src/main/java/com/volvocars/ecom/paymentservice/scheduler/App.java:1–27"
+    },
+    {
+      "evidence": "scheduler-c00df60-r5/e/8916d8a85f98",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-scheduler/blob/c00df60c8233b1a8f47829ce382d5805bf164c6b/cds-paymentservice-scheduler-api/src/main/resources/application.yml#L1-L143",
+      "label": "volvo-cars/cds-paymentservice-scheduler/cds-paymentservice-scheduler-api/src/main/resources/application.yml:1–143"
+    },
+    {
+      "evidence": "scheduler-c00df60-r5/e/a24bf1ffc9bd",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-scheduler/blob/c00df60c8233b1a8f47829ce382d5805bf164c6b/pom.xml#L1-L103",
+      "label": "volvo-cars/cds-paymentservice-scheduler/pom.xml:1–103"
+    },
+    {
+      "evidence": "scheduler-c00df60-r5/e/613302864831",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-scheduler/blob/c00df60c8233b1a8f47829ce382d5805bf164c6b/cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/cloudconfig/ConfigRefreshScheduler.java#L1-L42",
+      "label": "volvo-cars/cds-paymentservice-scheduler/cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/cloudconfig/ConfigRefreshScheduler.java:1–42"
+    },
+    {
+      "evidence": "scheduler-c00df60-r5/e/f091bbc627d5",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-scheduler/blob/c00df60c8233b1a8f47829ce382d5805bf164c6b/cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/cloudconfig/ConfigRefreshScheduler.java#L32-L39",
+      "label": "volvo-cars/cds-paymentservice-scheduler/cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/cloudconfig/ConfigRefreshScheduler.java:32–39"
+    },
+    {
+      "evidence": "scheduler-c00df60-r5/e/5e52dd8eb680",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-scheduler/blob/c00df60c8233b1a8f47829ce382d5805bf164c6b/Dockerfile#L1-L22",
+      "label": "volvo-cars/cds-paymentservice-scheduler/Dockerfile:1–22"
+    },
+    {
+      "evidence": "scheduler-c00df60-r5/e/8377781a2b50",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-scheduler/blob/c00df60c8233b1a8f47829ce382d5805bf164c6b/cds-paymentservice-scheduler-api/src/main/java/com/volvocars/ecom/paymentservice/scheduler/App.java#L14-L25",
+      "label": "volvo-cars/cds-paymentservice-scheduler/cds-paymentservice-scheduler-api/src/main/java/com/volvocars/ecom/paymentservice/scheduler/App.java:14–25"
+    }
+  ],
+  "nextRequest": null
+}

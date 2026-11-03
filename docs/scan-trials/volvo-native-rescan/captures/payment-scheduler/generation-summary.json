@@ -1,0 +1,42 @@
+{
+  "records": 816,
+  "source_ranges": 294,
+  "counts": {
+    "http_entries": 2,
+    "scheduled_methods": 2,
+    "startup_hooks": 1,
+    "local_future_callbacks": 1,
+    "local_message_listeners": 0,
+    "publication_call_sites": 1,
+    "configuration_discoveries": 4,
+    "runtime_components": 4,
+    "schemas": 35,
+    "schema_fields": 186,
+    "interactions": 10,
+    "subscriptions": 0
+  },
+  "model_fields": {
+    "RegisterRetryPayload": 7,
+    "RegisterRetryResponse": 5,
+    "RetryStrategy": 2,
+    "RetryCartLine": 4,
+    "Job": 9,
+    "RetryJob": 11,
+    "RetryParams": 5,
+    "Config": 7,
+    "ConfigConditions": 5,
+    "Strategy": 1,
+    "FixedRateStrategy": 3,
+    "IntervalsStrategy": 2,
+    "CronStrategy": 2,
+    "JobEntity": 12,
+    "RetryJobEntity": 14,
+    "DefaultJobEntity": 12,
+    "LockEntity": 7,
+    "BaseEntity": 3,
+    "SchedulerConfig": 7,
+    "ConfigStrategy": 5,
+    "Context": 1,
+    "Lock": 4
+  }
+}

@@ -1,0 +1,1034 @@
+[
+  {
+    "source": "api.healthcheck.HealthCheckFilter",
+    "shape": "volvo/cce-optimization-api/286985b6bebc/final-r3/shape/python-class/07920a731dad5cc427",
+    "path": "api/healthcheck.py",
+    "lines": [6, 8]
+  },
+  {
+    "source": "combinationsgen.configurationgenerator.ConfigurationGenerator",
+    "shape": "volvo/cce-optimization-api/286985b6bebc/final-r3/shape/python-class/b446d4341959fe0ab1",
+    "path": "combinationsgen/configurationgenerator.py",
+    "lines": [8, 59]
+  },
+  {
+    "source": "combinationsgen.models.CombinationWithConfiguration",
+    "shape": "volvo/cce-optimization-api/286985b6bebc/final-r3/shape/python-class/397f3a828c40ec7a37",
+    "path": "combinationsgen/models.py",
+    "lines": [4, 6]
+  },
+  {
+    "source": "combinationsgen.models.GeneratedConfigurations",
+    "shape": "volvo/cce-optimization-api/286985b6bebc/final-r3/shape/python-class/e9e103edfcd9249518",
+    "path": "combinationsgen/models.py",
+    "lines": [9, 12]
+  },
+  {
+    "source": "competitions.competition_orchestrator.CompetitionType",
+    "shape": "volvo/cce-optimization-api/286985b6bebc/final-r3/shape/python-class/87200246f1ece123db",
+    "path": "competitions/competition_orchestrator.py",
+    "lines": [7, 8]
+  },
+  {
+    "source": "competitions.competition_orchestrator.CompetitionOrchestrator",
+    "shape": "volvo/cce-optimization-api/286985b6bebc/final-r3/shape/python-class/9a7638b3865e0a6016",
+    "path": "competitions/competition_orchestrator.py",
+    "lines": [10, 31]
+  },
+  {
+    "source": "competitions.hash_competition.HashCompetitionResult",
+    "shape": "volvo/cce-optimization-api/286985b6bebc/final-r3/shape/python-class/1edec655033fecd5ca",
+    "path": "competitions/hash_competition.py",
+    "lines": [8, 14]
+  },
+  {
+    "source": "competitions.hash_competition.HashCompetition",
+    "shape": "volvo/cce-optimization-api/286985b6bebc/final-r3/shape/python-class/ce1c540bf5e50ceeba",
+    "path": "competitions/hash_competition.py",
+    "lines": [16, 86]
+  },
+  {
+    "source": "competitions.testable_hash_competition.CompetitionTestCase",
+    "shape": "volvo/cce-optimization-api/286985b6bebc/final-r3/shape/python-class/06bae097858426cb35",
+    "path": "competitions/testable_hash_competition.py",
+    "lines": [11, 24]
+  },
+  {
+    "source": "competitions.testable_hash_competition.CompetitionTestSuite",
+    "shape": "volvo/cce-optimization-api/286985b6bebc/final-r3/shape/python-class/cba661aeaa76d22ac5",
+    "path": "competitions/testable_hash_competition.py",
+    "lines": [26, 51]
+  },
+  {
+    "source": "competitions.testable_hash_competition.TestableHashCompetition",
+    "shape": "volvo/cce-optimization-api/286985b6bebc/final-r3/shape/python-class/2af20071c33f150eb3",
+    "path": "competitions/testable_hash_competition.py",
+    "lines": [53, 80]
+  },
+  {
+    "source": "compositions.pieces.fetch_config_rules_piece.FetchConfigRulesPiece",
+    "shape": "volvo/cce-optimization-api/286985b6bebc/final-r3/shape/python-class/3f8958c2896d5da1de",
+    "path": "compositions/pieces/fetch_config_rules_piece.py",
+    "lines": [9, 85]
+  },
+  {
+    "source": "compositions.pieces.find_requirements_piece.FindRequirementsPiece",
+    "shape": "volvo/cce-optimization-api/286985b6bebc/final-r3/shape/python-class/4cc328bb777b688715",
+    "path": "compositions/pieces/find_requirements_piece.py",
+    "lines": [4, 23]
+  },
+  {
+    "source": "compositions.pieces.linearize_polytope_piece.LinearizedPolytopeModel",
+    "shape": "volvo/cce-optimization-api/286985b6bebc/final-r3/shape/python-class/efeda0243b242dedc8",
+    "path": "compositions/pieces/linearize_polytope_piece.py",
+    "lines": [8, 13]
+  },
+  {
+    "source": "compositions.pieces.linearize_polytope_piece.LinearizePolytopePiece",
+    "shape": "volvo/cce-optimization-api/286985b6bebc/final-r3/shape/python-class/b20e05abdd8ac3fd34",
+    "path": "compositions/pieces/linearize_polytope_piece.py",
+    "lines": [15, 159]
+  },
+  {
+    "source": "compositions.pieces.requires_exclusively_piece.RequiresExclusivelyPiece",
+    "shape": "volvo/cce-optimization-api/286985b6bebc/final-r3/shape/python-class/393c0d914810dafcfa",
+    "path": "compositions/pieces/requires_exclusively_piece.py",
+    "lines": [6, 30]
+  },
+  {
+    "source": "compositions.pieces.solve_ilp_collection_piece.SolveILPCollectionPiece",
+    "shape": "volvo/cce-optimization-api/286985b6bebc/final-r3/shape/python-class/59afd52031c8e3ec6f",
+    "path": "compositions/pieces/solve_ilp_collection_piece.py",
+    "lines": [4, 33]
+  },
+  {
+    "source": "compositions.pieces.variable_variants_piece.VariableVariantsPiece",
+    "shape": "volvo/cce-optimization-api/286985b6bebc/final-r3/shape/python-class/2a1a2af52d62908307",
+    "path": "compositions/pieces/variable_variants_piece.py",
+    "lines": [7, 78]
+  },
+  {
+    "source": "config.application.Application",
+    "shape": "volvo/cce-optimization-api/286985b6bebc/final-r3/shape/python-class/c12d3a269f2a9c7270",
+    "path": "config/application.py",
+    "lines": [69, 276]
+  },
+  {
+    "source": "converters.config_rule_model_converter.ConfigRuleConverterElement",
+    "shape": "volvo/cce-optimization-api/286985b6bebc/final-r3/shape/python-class/313a9118aff9024298",
+    "path": "converters/config_rule_model_converter.py",
+    "lines": [5, 11]
+  },
+  {
+    "source": "converters.config_rule_model_converter.ConfigRuleModelConverterMeta",
+    "shape": "volvo/cce-optimization-api/286985b6bebc/final-r3/shape/python-class/e363e78cbe258905b5",
+    "path": "converters/config_rule_model_converter.py",
+    "lines": [14, 18]
+  },
+  {
+    "source": "converters.config_rule_model_converter.ConfigRuleModelConverter",
+    "shape": "volvo/cce-optimization-api/286985b6bebc/final-r3/shape/python-class/395522ca8a909e9747",
+    "path": "converters/config_rule_model_converter.py",
+    "lines": [21, 125]
+  },
+  {
+    "source": "distribution.distribution_composition.DistributeExecutor",
+    "shape": "volvo/cce-optimization-api/286985b6bebc/final-r3/shape/python-class/8163c4d8d2a3bd0573",
+    "path": "distribution/distribution_composition.py",
+    "lines": [17, 27]
+  },
+  {
+    "source": "distribution.distribution_composition.SolutionDistributeComposition",
+    "shape": "volvo/cce-optimization-api/286985b6bebc/final-r3/shape/python-class/6d368a5ec031ade258",
+    "path": "distribution/distribution_composition.py",
+    "lines": [29, 32]
+  },
+  {
+    "source": "distribution.problem_distributor.DistributedProblem",
+    "shape": "volvo/cce-optimization-api/286985b6bebc/final-r3/shape/python-class/05203e544db39f8e8d",
+    "path": "distribution/problem_distributor.py",
+    "lines": [12, 20]
+  },
+  {
+    "source": "distribution.problem_distributor.ProblemDistributor",
+    "shape": "volvo/cce-optimization-api/286985b6bebc/final-r3/shape/python-class/7d5111cb1bae8686e9",
+    "path": "distribution/problem_distributor.py",
+    "lines": [22, 186]
+  },
+  {
+    "source": "models.action.ComponentObject",
+    "shape": "volvo/cce-optimization-api/286985b6bebc/final-r3/shape/python-class/0e081ca98806465560",
+    "path": "models/action.py",
+    "lines": [4, 7]
+  },
+  {
+    "source": "models.action.VariantObject",
+    "shape": "volvo/cce-optimization-api/286985b6bebc/final-r3/shape/python-class/d222a85c169eeeb2a3",
+    "path": "models/action.py",
+    "lines": [9, 43]
+  },
+  {
+    "source": "models.action.Action",
+    "shape": "volvo/cce-optimization-api/286985b6bebc/final-r3/shape/python-class/dd713a2102d318e288",
+    "path": "models/action.py",
+    "lines": [45, 74]
+  },
+  {
+    "source": "models.config_rule.RuleType",
+    "shape": "volvo/cce-optimization-api/286985b6bebc/final-r3/shape/python-class/6e54706882aeeeb18e",
+    "path": "models/config_rule.py",
+    "lines": [6, 12]
+  },
+  {
+    "source": "models.config_rule.ComponentInput",
+    "shape": "volvo/cce-optimization-api/286985b6bebc/final-r3/shape/python-class/04109299c6da0fa24a",
+    "path": "models/config_rule.py",
+    "lines": [14, 38]
+  },
+  {
+    "source": "models.config_rule.ComponentOutput",
+    "shape": "volvo/cce-optimization-api/286985b6bebc/final-r3/shape/python-class/1cd90e8ea1a76d44e0",
+    "path": "models/config_rule.py",
+    "lines": [40, 57]
+  },
+  {
+    "source": "models.config_rule.VariantComponentInput",
+    "shape": "volvo/cce-optimization-api/286985b6bebc/final-r3/shape/python-class/f1447b474765e49e4b",
+    "path": "models/config_rule.py",
+    "lines": [59, 78]
+  },
+  {
+    "source": "models.config_rule.VariantComponentOutput",
+    "shape": "volvo/cce-optimization-api/286985b6bebc/final-r3/shape/python-class/1a77c8733dcc21e8c7",
+    "path": "models/config_rule.py",
+    "lines": [80, 99]
+  },
+  {
+    "source": "models.config_rule.Consequence",
+    "shape": "volvo/cce-optimization-api/286985b6bebc/final-r3/shape/python-class/7e16ff44300f31bfa1",
+    "path": "models/config_rule.py",
+    "lines": [101, 104]
+  },
+  {
+    "source": "models.config_rule.Relation",
+    "shape": "volvo/cce-optimization-api/286985b6bebc/final-r3/shape/python-class/a36a0bb81e78648033",
+    "path": "models/config_rule.py",
+    "lines": [106, 108]
+  },
+  {
+    "source": "models.config_rule.SubCondition",
+    "shape": "volvo/cce-optimization-api/286985b6bebc/final-r3/shape/python-class/40a1442f41e07cff61",
+    "path": "models/config_rule.py",
+    "lines": [110, 112]
+  },
+  {
+    "source": "models.config_rule.Condition",
+    "shape": "volvo/cce-optimization-api/286985b6bebc/final-r3/shape/python-class/02a73b756430350c16",
+    "path": "models/config_rule.py",
+    "lines": [114, 117]
+  },
+  {
+    "source": "models.config_rule.ConfigRule",
+    "shape": "volvo/cce-optimization-api/286985b6bebc/final-r3/shape/python-class/35073cde79df416805",
+    "path": "models/config_rule.py",
+    "lines": [119, 122]
+  },
+  {
+    "source": "models.configuration.MolytopeConfiguration",
+    "shape": "volvo/cce-optimization-api/286985b6bebc/final-r3/shape/python-class/c1cf827588e3302d26",
+    "path": "models/configuration.py",
+    "lines": [7, 20]
+  },
+  {
+    "source": "models.molytope.Molytope",
+    "shape": "volvo/cce-optimization-api/286985b6bebc/final-r3/shape/python-class/b327df0b76669292f0",
+    "path": "models/molytope.py",
+    "lines": [6, 216]
+  },
+  {
+    "source": "problems.assume_reduce_polytope_pair_problem.AssumeReducePolytopePairProblem",
+    "shape": "volvo/cce-optimization-api/286985b6bebc/final-r3/shape/python-class/b1135222f6065aab3f",
+    "path": "problems/assume_reduce_polytope_pair_problem.py",
+    "lines": [5, 19]
+  },
+  {
+    "source": "problems.assume_reduce_polytope_pair_problem.TestAssumeReducePolytopePairProblem",
+    "shape": "volvo/cce-optimization-api/286985b6bebc/final-r3/shape/python-class/1763b5bd340e7377dc",
+    "path": "problems/assume_reduce_polytope_pair_problem.py",
+    "lines": [21, 24]
+  },
+  {
+    "source": "problems.base.problem_orchestrator.ProblemType",
+    "shape": "volvo/cce-optimization-api/286985b6bebc/final-r3/shape/python-class/06b0d1ecc1ae28a8b9",
+    "path": "problems/base/problem_orchestrator.py",
+    "lines": [9, 21]
+  },
+  {
+    "source": "problems.base.problem_orchestrator.Problem",
+    "shape": "volvo/cce-optimization-api/286985b6bebc/final-r3/shape/python-class/7b9b754cac1fa0f9a5",
+    "path": "problems/base/problem_orchestrator.py",
+    "lines": [23, 28]
+  },
+  {
+    "source": "problems.base.problem_orchestrator.ProblemOrchestrator",
+    "shape": "volvo/cce-optimization-api/286985b6bebc/final-r3/shape/python-class/ab3baee03b24ec99ea",
+    "path": "problems/base/problem_orchestrator.py",
+    "lines": [30, 59]
+  },
+  {
+    "source": "problems.base.testable_problem_competition.TestableProblemCompetition",
+    "shape": "volvo/cce-optimization-api/286985b6bebc/final-r3/shape/python-class/baec996fbe1c93b741",
+    "path": "problems/base/testable_problem_competition.py",
+    "lines": [6, 9]
+  },
+  {
+    "source": "problems.build_molytope_problem.BuildMolytopeProblem",
+    "shape": "volvo/cce-optimization-api/286985b6bebc/final-r3/shape/python-class/f7007bda71495353d2",
+    "path": "problems/build_molytope_problem.py",
+    "lines": [11, 35]
+  },
+  {
+    "source": "problems.build_polytope_pair_problem.BuildPolytopePairProblem",
+    "shape": "volvo/cce-optimization-api/286985b6bebc/final-r3/shape/python-class/bb7be91a285225fa1d",
+    "path": "problems/build_polytope_pair_problem.py",
+    "lines": [12, 43]
+  },
+  {
+    "source": "problems.build_polytope_pair_problem.TestBuildPolytopePairProblem",
+    "shape": "volvo/cce-optimization-api/286985b6bebc/final-r3/shape/python-class/7c6fb058947bc09394",
+    "path": "problems/build_polytope_pair_problem.py",
+    "lines": [46, 235]
+  },
+  {
+    "source": "problems.fix_variables_problem.FixVarialbesProblem",
+    "shape": "volvo/cce-optimization-api/286985b6bebc/final-r3/shape/python-class/6ca47aefa10556082a",
+    "path": "problems/fix_variables_problem.py",
+    "lines": [5, 19]
+  },
+  {
+    "source": "problems.fix_variables_problem.TestFixVariablesProblem",
+    "shape": "volvo/cce-optimization-api/286985b6bebc/final-r3/shape/python-class/2f4b775a1e20d1b7ef",
+    "path": "problems/fix_variables_problem.py",
+    "lines": [22, 25]
+  },
+  {
+    "source": "problems.satisfy_polytope_pair_problem.SatisfyPolytopePairProblem",
+    "shape": "volvo/cce-optimization-api/286985b6bebc/final-r3/shape/python-class/a58c85fc486ff94233",
+    "path": "problems/satisfy_polytope_pair_problem.py",
+    "lines": [11, 38]
+  },
+  {
+    "source": "problems.satisfy_polytope_pair_problem.TestSatisfyPolytopePairProblem",
+    "shape": "volvo/cce-optimization-api/286985b6bebc/final-r3/shape/python-class/eb93f4349c92320782",
+    "path": "problems/satisfy_polytope_pair_problem.py",
+    "lines": [40, 308]
+  },
+  {
+    "source": "problems.satisfy_states_molytope_problem.SatisfyStatesMolytopeProblem",
+    "shape": "volvo/cce-optimization-api/286985b6bebc/final-r3/shape/python-class/f85ceb47d7e2b216d8",
+    "path": "problems/satisfy_states_molytope_problem.py",
+    "lines": [11, 42]
+  },
+  {
+    "source": "problems.satisfy_states_molytope_problem.TestSatisfyStatesMolytopeProblem",
+    "shape": "volvo/cce-optimization-api/286985b6bebc/final-r3/shape/python-class/dfcf48b52d880b5abe",
+    "path": "problems/satisfy_states_molytope_problem.py",
+    "lines": [44, 2560]
+  },
+  {
+    "source": "problems.satisfy_states_problem.SatisfyStatesProblem",
+    "shape": "volvo/cce-optimization-api/286985b6bebc/final-r3/shape/python-class/bb0af9e951ee88a0e1",
+    "path": "problems/satisfy_states_problem.py",
+    "lines": [9, 39]
+  },
+  {
+    "source": "problems.satisfy_states_problem.TestSatisfyStatesProblem",
+    "shape": "volvo/cce-optimization-api/286985b6bebc/final-r3/shape/python-class/1fd8de0519b14315d0",
+    "path": "problems/satisfy_states_problem.py",
+    "lines": [41, 4654]
+  },
+  {
+    "source": "problems.satisfy_variable_variants_problem.SatisfyVariableVariantsProblem",
+    "shape": "volvo/cce-optimization-api/286985b6bebc/final-r3/shape/python-class/8012ef5b0ade47ddee",
+    "path": "problems/satisfy_variable_variants_problem.py",
+    "lines": [11, 32]
+  },
+  {
+    "source": "problems.satisfy_variable_variants_problem.TestSatisfyVariableVariantsProblem",
+    "shape": "volvo/cce-optimization-api/286985b6bebc/final-r3/shape/python-class/807954d7f9309d5e30",
+    "path": "problems/satisfy_variable_variants_problem.py",
+    "lines": [34, 37]
+  },
+  {
+    "source": "problems.transfer_state_molytope_problem.TransferStateMolytopeProblem",
+    "shape": "volvo/cce-optimization-api/286985b6bebc/final-r3/shape/python-class/863a9aa4148fa432d6",
+    "path": "problems/transfer_state_molytope_problem.py",
+    "lines": [9, 48]
+  },
+  {
+    "source": "problems.transfer_state_molytope_problem.TestTransferStateMolytopeProblem",
+    "shape": "volvo/cce-optimization-api/286985b6bebc/final-r3/shape/python-class/ddf0f18628bb8c1197",
+    "path": "problems/transfer_state_molytope_problem.py",
+    "lines": [51, 403]
+  },
+  {
+    "source": "problems.transfer_state_problem.TransferStateProblem",
+    "shape": "volvo/cce-optimization-api/286985b6bebc/final-r3/shape/python-class/154745cca2902e8d6f",
+    "path": "problems/transfer_state_problem.py",
+    "lines": [7, 29]
+  },
+  {
+    "source": "problems.transform_molytope_polytope_problem.TransformMolytopePolytopeProblem",
+    "shape": "volvo/cce-optimization-api/286985b6bebc/final-r3/shape/python-class/b3948e4a40823afe7a",
+    "path": "problems/transform_molytope_polytope_problem.py",
+    "lines": [11, 33]
+  },
+  {
+    "source": "problems.transform_polytope_molytope_problem.TransformPolytopeMolytopeProblem",
+    "shape": "volvo/cce-optimization-api/286985b6bebc/final-r3/shape/python-class/3089095c0ff6747e07",
+    "path": "problems/transform_polytope_molytope_problem.py",
+    "lines": [13, 39]
+  },
+  {
+    "source": "problems.transform_polytope_molytope_problem.TestTransformPolytopeMolytopeProblem",
+    "shape": "volvo/cce-optimization-api/286985b6bebc/final-r3/shape/python-class/1f955c90ec045c4c77",
+    "path": "problems/transform_polytope_molytope_problem.py",
+    "lines": [41, 112]
+  },
+  {
+    "source": "protobuf.volvocars.contracts.carconfiguration.ComponentType",
+    "shape": "volvo/cce-optimization-api/286985b6bebc/final-r3/shape/python-class/dccd534f9c11413590",
+    "path": "protobuf/volvocars/contracts/carconfiguration.py",
+    "lines": [11, 29]
+  },
+  {
+    "source": "protobuf.volvocars.contracts.carconfiguration.Relation",
+    "shape": "volvo/cce-optimization-api/286985b6bebc/final-r3/shape/python-class/eb8a928aff1def6b5f",
+    "path": "protobuf/volvocars/contracts/carconfiguration.py",
+    "lines": [32, 34]
+  },
+  {
+    "source": "protobuf.volvocars.contracts.carconfiguration.RuleType",
+    "shape": "volvo/cce-optimization-api/286985b6bebc/final-r3/shape/python-class/a3ff62c346b388fc9c",
+    "path": "protobuf/volvocars/contracts/carconfiguration.py",
+    "lines": [37, 45]
+  },
+  {
+    "source": "protobuf.volvocars.contracts.carconfiguration.Component",
+    "shape": "volvo/cce-optimization-api/286985b6bebc/final-r3/shape/python-class/c10b38fbded7251a71",
+    "path": "protobuf/volvocars/contracts/carconfiguration.py",
+    "lines": [49, 57]
+  },
+  {
+    "source": "protobuf.volvocars.contracts.carconfiguration.ComponentMeta",
+    "shape": "volvo/cce-optimization-api/286985b6bebc/final-r3/shape/python-class/0d0d1491d6ae7b7477",
+    "path": "protobuf/volvocars/contracts/carconfiguration.py",
+    "lines": [61, 63]
+  },
+  {
+    "source": "protobuf.volvocars.contracts.carconfiguration.ComponentUpdated",
+    "shape": "volvo/cce-optimization-api/286985b6bebc/final-r3/shape/python-class/c8673dc4f81c89dbd8",
+    "path": "protobuf/volvocars/contracts/carconfiguration.py",
+    "lines": [67, 68]
+  },
+  {
+    "source": "protobuf.volvocars.contracts.carconfiguration.Condition",
+    "shape": "volvo/cce-optimization-api/286985b6bebc/final-r3/shape/python-class/72caef5e7e4745c14e",
+    "path": "protobuf/volvocars/contracts/carconfiguration.py",
+    "lines": [72, 74]
+  },
+  {
+    "source": "protobuf.volvocars.contracts.carconfiguration.SubCondition",
+    "shape": "volvo/cce-optimization-api/286985b6bebc/final-r3/shape/python-class/5ca8199d19b4e56c3b",
+    "path": "protobuf/volvocars/contracts/carconfiguration.py",
+    "lines": [78, 80]
+  },
+  {
+    "source": "protobuf.volvocars.contracts.carconfiguration.Consequence",
+    "shape": "volvo/cce-optimization-api/286985b6bebc/final-r3/shape/python-class/b551a8e1cc4c2a07d5",
+    "path": "protobuf/volvocars/contracts/carconfiguration.py",
+    "lines": [84, 86]
+  },
+  {
+    "source": "protobuf.volvocars.contracts.carconfiguration.StructureWeeksConsequence",
+    "shape": "volvo/cce-optimization-api/286985b6bebc/final-r3/shape/python-class/d5aa43ff3fda1b80ac",
+    "path": "protobuf/volvocars/contracts/carconfiguration.py",
+    "lines": [90, 94]
+  },
+  {
+    "source": "protobuf.volvocars.contracts.carconfiguration.PriceRuleConsequence",
+    "shape": "volvo/cce-optimization-api/286985b6bebc/final-r3/shape/python-class/b00c373d1f111cd0b8",
+    "path": "protobuf/volvocars/contracts/carconfiguration.py",
+    "lines": [98, 99]
+  },
+  {
+    "source": "protobuf.volvocars.contracts.carconfiguration.RulesImported",
+    "shape": "volvo/cce-optimization-api/286985b6bebc/final-r3/shape/python-class/2289138564f0d5424e",
+    "path": "protobuf/volvocars/contracts/carconfiguration.py",
+    "lines": [103, 108]
+  },
+  {
+    "source": "protobuf.volvocars.contracts.carconfiguration.RuleSet",
+    "shape": "volvo/cce-optimization-api/286985b6bebc/final-r3/shape/python-class/ce3b40fef4d3e8ab56",
+    "path": "protobuf/volvocars/contracts/carconfiguration.py",
+    "lines": [112, 116]
+  },
+  {
+    "source": "protobuf.volvocars.contracts.carconfiguration.RuleSetCreated",
+    "shape": "volvo/cce-optimization-api/286985b6bebc/final-r3/shape/python-class/130d77a6febe802de7",
+    "path": "protobuf/volvocars/contracts/carconfiguration.py",
+    "lines": [120, 122]
+  },
+  {
+    "source": "protobuf.volvocars.contracts.carconfiguration.ConfigRuleSet",
+    "shape": "volvo/cce-optimization-api/286985b6bebc/final-r3/shape/python-class/45845ef54a1879d498",
+    "path": "protobuf/volvocars/contracts/carconfiguration.py",
+    "lines": [126, 128]
+  },
+  {
+    "source": "protobuf.volvocars.contracts.carconfiguration.ConfigRule",
+    "shape": "volvo/cce-optimization-api/286985b6bebc/final-r3/shape/python-class/e13eff4c4fc27f8920",
+    "path": "protobuf/volvocars/contracts/carconfiguration.py",
+    "lines": [132, 135]
+  },
+  {
+    "source": "protobuf.volvocars.contracts.carconfiguration.ConfigRulesCreated",
+    "shape": "volvo/cce-optimization-api/286985b6bebc/final-r3/shape/python-class/c0ed7cecd8e0d215d4",
+    "path": "protobuf/volvocars/contracts/carconfiguration.py",
+    "lines": [139, 140]
+  },
+  {
+    "source": "protobuf.volvocars.contracts.carconfiguration.ConfigRulesUpdated",
+    "shape": "volvo/cce-optimization-api/286985b6bebc/final-r3/shape/python-class/b9cc0a19c189498007",
+    "path": "protobuf/volvocars/contracts/carconfiguration.py",
+    "lines": [144, 145]
+  },
+  {
+    "source": "protobuf.volvocars.contracts.carconfiguration.StructureWeeksRuleSet",
+    "shape": "volvo/cce-optimization-api/286985b6bebc/final-r3/shape/python-class/804b30a0b4e1e4271c",
+    "path": "protobuf/volvocars/contracts/carconfiguration.py",
+    "lines": [149, 151]
+  },
+  {
+    "source": "protobuf.volvocars.contracts.carconfiguration.StructureWeeksRule",
+    "shape": "volvo/cce-optimization-api/286985b6bebc/final-r3/shape/python-class/a86eea7a9a406a50d0",
+    "path": "protobuf/volvocars/contracts/carconfiguration.py",
+    "lines": [155, 158]
+  },
+  {
+    "source": "queries.composition_object.ExecutionPerformer",
+    "shape": "volvo/cce-optimization-api/286985b6bebc/final-r3/shape/python-class/d609b5fd82d13aaddd",
+    "path": "queries/composition_object.py",
+    "lines": [4, 6]
+  },
+  {
+    "source": "queries.composition_object.MemoryUsage",
+    "shape": "volvo/cce-optimization-api/286985b6bebc/final-r3/shape/python-class/55a34a5d6c9f51e2a7",
+    "path": "queries/composition_object.py",
+    "lines": [8, 11]
+  },
+  {
+    "source": "queries.composition_object.ExecutionPiece",
+    "shape": "volvo/cce-optimization-api/286985b6bebc/final-r3/shape/python-class/a9c78237abb95c67e2",
+    "path": "queries/composition_object.py",
+    "lines": [13, 36]
+  },
+  {
+    "source": "queries.composition_object.CompositionObject",
+    "shape": "volvo/cce-optimization-api/286985b6bebc/final-r3/shape/python-class/0c7ab8cde823b59047",
+    "path": "queries/composition_object.py",
+    "lines": [38, 42]
+  },
+  {
+    "source": "queries.molytope_object.MolytopeActionInput",
+    "shape": "volvo/cce-optimization-api/286985b6bebc/final-r3/shape/python-class/58531a5e8ae126bc7e",
+    "path": "queries/molytope_object.py",
+    "lines": [21, 22]
+  },
+  {
+    "source": "queries.molytope_object.MolytopeActionOutput",
+    "shape": "volvo/cce-optimization-api/286985b6bebc/final-r3/shape/python-class/301e4425df066aa7a5",
+    "path": "queries/molytope_object.py",
+    "lines": [25, 27]
+  },
+  {
+    "source": "queries.molytope_object.MolytopeActionSpace",
+    "shape": "volvo/cce-optimization-api/286985b6bebc/final-r3/shape/python-class/b658f5b767e217f845",
+    "path": "queries/molytope_object.py",
+    "lines": [163, 165]
+  },
+  {
+    "source": "queries.molytope_object.MolytopePagination",
+    "shape": "volvo/cce-optimization-api/286985b6bebc/final-r3/shape/python-class/20b57c4363bc18ed15",
+    "path": "queries/molytope_object.py",
+    "lines": [34, 38]
+  },
+  {
+    "source": "queries.molytope_object.MolytopeConfigurationGeneration",
+    "shape": "volvo/cce-optimization-api/286985b6bebc/final-r3/shape/python-class/743b8da4bc9c8cb22b",
+    "path": "queries/molytope_object.py",
+    "lines": [41, 44]
+  },
+  {
+    "source": "queries.molytope_object.MolytopeStateInputNew",
+    "shape": "volvo/cce-optimization-api/286985b6bebc/final-r3/shape/python-class/a3b939bb85fc8192d8",
+    "path": "queries/molytope_object.py",
+    "lines": [47, 49]
+  },
+  {
+    "source": "queries.molytope_object.MolytopeStateOutputNew",
+    "shape": "volvo/cce-optimization-api/286985b6bebc/final-r3/shape/python-class/5903cdb1236d8207d8",
+    "path": "queries/molytope_object.py",
+    "lines": [52, 54]
+  },
+  {
+    "source": "queries.molytope_object.MolytopeConfigurationDiff",
+    "shape": "volvo/cce-optimization-api/286985b6bebc/final-r3/shape/python-class/608dabb8d849ef6023",
+    "path": "queries/molytope_object.py",
+    "lines": [57, 74]
+  },
+  {
+    "source": "queries.molytope_object.MolytopeSelectedActionsDiff",
+    "shape": "volvo/cce-optimization-api/286985b6bebc/final-r3/shape/python-class/296451a03973bc612a",
+    "path": "queries/molytope_object.py",
+    "lines": [77, 96]
+  },
+  {
+    "source": "queries.molytope_object.MolytopeStateDiff",
+    "shape": "volvo/cce-optimization-api/286985b6bebc/final-r3/shape/python-class/56490922ddadab3282",
+    "path": "queries/molytope_object.py",
+    "lines": [99, 117]
+  },
+  {
+    "source": "queries.molytope_object.MolytopeTransition",
+    "shape": "volvo/cce-optimization-api/286985b6bebc/final-r3/shape/python-class/efe2589c57efa12445",
+    "path": "queries/molytope_object.py",
+    "lines": [120, 160]
+  },
+  {
+    "source": "queries.molytope_object.MolytopeInitialState",
+    "shape": "volvo/cce-optimization-api/286985b6bebc/final-r3/shape/python-class/e9e95ce363af791766",
+    "path": "queries/molytope_object.py",
+    "lines": [168, 208]
+  },
+  {
+    "source": "queries.molytope_object.MolytopeTransitionQuery",
+    "shape": "volvo/cce-optimization-api/286985b6bebc/final-r3/shape/python-class/96f257c3dcb2c4face",
+    "path": "queries/molytope_object.py",
+    "lines": [211, 265]
+  },
+  {
+    "source": "queries.molytope_object.MolytopeTransferStateQuery",
+    "shape": "volvo/cce-optimization-api/286985b6bebc/final-r3/shape/python-class/19a9f7d962ecc9e5c5",
+    "path": "queries/molytope_object.py",
+    "lines": [268, 310]
+  },
+  {
+    "source": "queries.molytope_object.MolytopeStateAction",
+    "shape": "volvo/cce-optimization-api/286985b6bebc/final-r3/shape/python-class/c92a513845e37d69fa",
+    "path": "queries/molytope_object.py",
+    "lines": [312, 415]
+  },
+  {
+    "source": "queries.molytope_object.Molytope",
+    "shape": "volvo/cce-optimization-api/286985b6bebc/final-r3/shape/python-class/13a65e18f1fd36a61a",
+    "path": "queries/molytope_object.py",
+    "lines": [417, 556]
+  },
+  {
+    "source": "queries.polytope_object.Configuration",
+    "shape": "volvo/cce-optimization-api/286985b6bebc/final-r3/shape/python-class/82d0e6e0795b04c921",
+    "path": "queries/polytope_object.py",
+    "lines": [15, 24]
+  },
+  {
+    "source": "queries.polytope_object.Polytope",
+    "shape": "volvo/cce-optimization-api/286985b6bebc/final-r3/shape/python-class/725d2ed52aa9fe3b6c",
+    "path": "queries/polytope_object.py",
+    "lines": [26, 60]
+  },
+  {
+    "source": "queries.polytope_object.SatisfiedOutput",
+    "shape": "volvo/cce-optimization-api/286985b6bebc/final-r3/shape/python-class/38d88e7d43218fd18b",
+    "path": "queries/polytope_object.py",
+    "lines": [63, 64]
+  },
+  {
+    "source": "queries.polytope_object.Variable",
+    "shape": "volvo/cce-optimization-api/286985b6bebc/final-r3/shape/python-class/406b68988f1f72c85e",
+    "path": "queries/polytope_object.py",
+    "lines": [67, 71]
+  },
+  {
+    "source": "queries.polytope_object.Variables",
+    "shape": "volvo/cce-optimization-api/286985b6bebc/final-r3/shape/python-class/a1580f4712754f770c",
+    "path": "queries/polytope_object.py",
+    "lines": [74, 106]
+  },
+  {
+    "source": "queries.polytope_object.StateOutput",
+    "shape": "volvo/cce-optimization-api/286985b6bebc/final-r3/shape/python-class/42a14a73f804f36a2c",
+    "path": "queries/polytope_object.py",
+    "lines": [109, 115]
+  },
+  {
+    "source": "queries.polytope_object.StateInput",
+    "shape": "volvo/cce-optimization-api/286985b6bebc/final-r3/shape/python-class/d7e862cef028cff667",
+    "path": "queries/polytope_object.py",
+    "lines": [118, 121]
+  },
+  {
+    "source": "queries.polytope_object.ActionInput",
+    "shape": "volvo/cce-optimization-api/286985b6bebc/final-r3/shape/python-class/0552148d3f0ac47434",
+    "path": "queries/polytope_object.py",
+    "lines": [124, 125]
+  },
+  {
+    "source": "queries.polytope_object.ActionOutput",
+    "shape": "volvo/cce-optimization-api/286985b6bebc/final-r3/shape/python-class/25d6f878f6823c1ca6",
+    "path": "queries/polytope_object.py",
+    "lines": [128, 129]
+  },
+  {
+    "source": "queries.polytope_object.StateInputNew",
+    "shape": "volvo/cce-optimization-api/286985b6bebc/final-r3/shape/python-class/ed526d47e42f1668f6",
+    "path": "queries/polytope_object.py",
+    "lines": [132, 134]
+  },
+  {
+    "source": "queries.polytope_object.StateOutputNew",
+    "shape": "volvo/cce-optimization-api/286985b6bebc/final-r3/shape/python-class/9f9afe4e8f6f2e57ca",
+    "path": "queries/polytope_object.py",
+    "lines": [137, 139]
+  },
+  {
+    "source": "queries.polytope_object.ConfigurationDiff",
+    "shape": "volvo/cce-optimization-api/286985b6bebc/final-r3/shape/python-class/35414b7fa512a52684",
+    "path": "queries/polytope_object.py",
+    "lines": [142, 159]
+  },
+  {
+    "source": "queries.polytope_object.SelectedActionsDiff",
+    "shape": "volvo/cce-optimization-api/286985b6bebc/final-r3/shape/python-class/0be785a90e4aca6705",
+    "path": "queries/polytope_object.py",
+    "lines": [162, 181]
+  },
+  {
+    "source": "queries.polytope_object.StateDiff",
+    "shape": "volvo/cce-optimization-api/286985b6bebc/final-r3/shape/python-class/07e73060a5cdad8db4",
+    "path": "queries/polytope_object.py",
+    "lines": [184, 201]
+  },
+  {
+    "source": "queries.polytope_object.Transition",
+    "shape": "volvo/cce-optimization-api/286985b6bebc/final-r3/shape/python-class/56d7d1701eb1465d34",
+    "path": "queries/polytope_object.py",
+    "lines": [204, 242]
+  },
+  {
+    "source": "queries.polytope_object.ActionSpace",
+    "shape": "volvo/cce-optimization-api/286985b6bebc/final-r3/shape/python-class/085a4f70550e0c8bfe",
+    "path": "queries/polytope_object.py",
+    "lines": [245, 247]
+  },
+  {
+    "source": "queries.polytope_object.InitialState",
+    "shape": "volvo/cce-optimization-api/286985b6bebc/final-r3/shape/python-class/061a601e83e8376484",
+    "path": "queries/polytope_object.py",
+    "lines": [250, 282]
+  },
+  {
+    "source": "queries.polytope_object.TransitionQuery",
+    "shape": "volvo/cce-optimization-api/286985b6bebc/final-r3/shape/python-class/e271c051f80297f7f5",
+    "path": "queries/polytope_object.py",
+    "lines": [285, 332]
+  },
+  {
+    "source": "queries.polytope_object.TransferStateQuery",
+    "shape": "volvo/cce-optimization-api/286985b6bebc/final-r3/shape/python-class/c7b3ecd40d231b6d14",
+    "path": "queries/polytope_object.py",
+    "lines": [335, 379]
+  },
+  {
+    "source": "queries.polytope_object.StateAction",
+    "shape": "volvo/cce-optimization-api/286985b6bebc/final-r3/shape/python-class/493c66da95ac1c9a7a",
+    "path": "queries/polytope_object.py",
+    "lines": [382, 451]
+  },
+  {
+    "source": "queries.polytope_object.PolytopePair",
+    "shape": "volvo/cce-optimization-api/286985b6bebc/final-r3/shape/python-class/ea0e33ad2274830a90",
+    "path": "queries/polytope_object.py",
+    "lines": [454, 629]
+  },
+  {
+    "source": "queries.query.SolutionQuery",
+    "shape": "volvo/cce-optimization-api/286985b6bebc/final-r3/shape/python-class/56b80b7738be479f29",
+    "path": "queries/query.py",
+    "lines": [16, 18]
+  },
+  {
+    "source": "queries.query.SystemQuery",
+    "shape": "volvo/cce-optimization-api/286985b6bebc/final-r3/shape/python-class/115596711fca5f05dc",
+    "path": "queries/query.py",
+    "lines": [21, 22]
+  },
+  {
+    "source": "queries.query.Query",
+    "shape": "volvo/cce-optimization-api/286985b6bebc/final-r3/shape/python-class/c16476ca1f86fae787",
+    "path": "queries/query.py",
+    "lines": [25, 211]
+  },
+  {
+    "source": "scalars.molytope_scalar.MolytopeScalar",
+    "shape": "volvo/cce-optimization-api/286985b6bebc/final-r3/shape/python-class/2acb942ebabcbd8eee",
+    "path": "scalars/molytope_scalar.py",
+    "lines": [3, 18]
+  },
+  {
+    "source": "scalars.polytope_scalar.PolytopeScalar",
+    "shape": "volvo/cce-optimization-api/286985b6bebc/final-r3/shape/python-class/4d7046eee7cc3c3d91",
+    "path": "scalars/polytope_scalar.py",
+    "lines": [4, 21]
+  },
+  {
+    "source": "solutions.assume_reduce_polytope_pair_solution.AssumeReducePolytopePiece",
+    "shape": "volvo/cce-optimization-api/286985b6bebc/final-r3/shape/python-class/99e1e71e0ae0663a1d",
+    "path": "solutions/assume_reduce_polytope_pair_solution.py",
+    "lines": [9, 35]
+  },
+  {
+    "source": "solutions.assume_reduce_polytope_pair_solution.AssumeReducePolytopePairSolution",
+    "shape": "volvo/cce-optimization-api/286985b6bebc/final-r3/shape/python-class/171f1765431bdb88e3",
+    "path": "solutions/assume_reduce_polytope_pair_solution.py",
+    "lines": [37, 71]
+  },
+  {
+    "source": "solutions.base.competitor_solution.CompetitorSolution",
+    "shape": "volvo/cce-optimization-api/286985b6bebc/final-r3/shape/python-class/17ec32997a7d816882",
+    "path": "solutions/base/competitor_solution.py",
+    "lines": [3, 7]
+  },
+  {
+    "source": "solutions.base.solution.Conclusion",
+    "shape": "volvo/cce-optimization-api/286985b6bebc/final-r3/shape/python-class/f87c2aed09a5e70e80",
+    "path": "solutions/base/solution.py",
+    "lines": [6, 11]
+  },
+  {
+    "source": "solutions.base.solution.SolutionComposition",
+    "shape": "volvo/cce-optimization-api/286985b6bebc/final-r3/shape/python-class/ea2553d58ed901f50c",
+    "path": "solutions/base/solution.py",
+    "lines": [13, 36]
+  },
+  {
+    "source": "solutions.build_molytope_solution.BuildMolytopeSolution",
+    "shape": "volvo/cce-optimization-api/286985b6bebc/final-r3/shape/python-class/1aaf029e3f9f2a1d4d",
+    "path": "solutions/build_molytope_solution.py",
+    "lines": [11, 53]
+  },
+  {
+    "source": "solutions.build_polytope_pair_solution.BuildPolytopePairSolution",
+    "shape": "volvo/cce-optimization-api/286985b6bebc/final-r3/shape/python-class/e1fc65d662eb6b5732",
+    "path": "solutions/build_polytope_pair_solution.py",
+    "lines": [8, 97]
+  },
+  {
+    "source": "solutions.build_polytope_solution.BuildPolytopePiece",
+    "shape": "volvo/cce-optimization-api/286985b6bebc/final-r3/shape/python-class/d1cd27736d51627cdb",
+    "path": "solutions/build_polytope_solution.py",
+    "lines": [14, 123]
+  },
+  {
+    "source": "solutions.build_polytope_solution.BuildPolytopeSolution",
+    "shape": "volvo/cce-optimization-api/286985b6bebc/final-r3/shape/python-class/a9c18ff7b2bd0f71dd",
+    "path": "solutions/build_polytope_solution.py",
+    "lines": [126, 152]
+  },
+  {
+    "source": "solutions.fetch_from_storage_solution.FetchFromStorageSolution",
+    "shape": "volvo/cce-optimization-api/286985b6bebc/final-r3/shape/python-class/52f6eb4bbf7e6da270",
+    "path": "solutions/fetch_from_storage_solution.py",
+    "lines": [4, 25]
+  },
+  {
+    "source": "solutions.fix_variables_solution.FixVariablesSolution",
+    "shape": "volvo/cce-optimization-api/286985b6bebc/final-r3/shape/python-class/10e501599ed0ab01fb",
+    "path": "solutions/fix_variables_solution.py",
+    "lines": [7, 92]
+  },
+  {
+    "source": "solutions.satisfy_polytope_pair_solution.SatisfyPolytopePairSolution",
+    "shape": "volvo/cce-optimization-api/286985b6bebc/final-r3/shape/python-class/5506e7e6c4eb29a583",
+    "path": "solutions/satisfy_polytope_pair_solution.py",
+    "lines": [7, 77]
+  },
+  {
+    "source": "solutions.satisfy_states_molytope_solution.SatisfyStatesMolytopeSolution",
+    "shape": "volvo/cce-optimization-api/286985b6bebc/final-r3/shape/python-class/2856eaef062662ae96",
+    "path": "solutions/satisfy_states_molytope_solution.py",
+    "lines": [7, 546]
+  },
+  {
+    "source": "solutions.satisfy_states_solution.SatisfyStatesSolution",
+    "shape": "volvo/cce-optimization-api/286985b6bebc/final-r3/shape/python-class/23ccc1ef24f655547c",
+    "path": "solutions/satisfy_states_solution.py",
+    "lines": [8, 70]
+  },
+  {
+    "source": "solutions.satisfy_variable_variants_solution.SatisfyVariableVariantsSolution",
+    "shape": "volvo/cce-optimization-api/286985b6bebc/final-r3/shape/python-class/05f2ed20d16db0caff",
+    "path": "solutions/satisfy_variable_variants_solution.py",
+    "lines": [9, 215]
+  },
+  {
+    "source": "solutions.transfer_state_molytope_solution.TransferStateMolytopeSolution",
+    "shape": "volvo/cce-optimization-api/286985b6bebc/final-r3/shape/python-class/340be7ff534a59d650",
+    "path": "solutions/transfer_state_molytope_solution.py",
+    "lines": [7, 101]
+  },
+  {
+    "source": "solutions.transfer_state_solution.TransferStateSolution",
+    "shape": "volvo/cce-optimization-api/286985b6bebc/final-r3/shape/python-class/a5fcdeac6e29c3651b",
+    "path": "solutions/transfer_state_solution.py",
+    "lines": [9, 64]
+  },
+  {
+    "source": "solutions.transform_molytope_polytope_solution.TransformMolytopePolytopeSolution",
+    "shape": "volvo/cce-optimization-api/286985b6bebc/final-r3/shape/python-class/92a34d6921131049a4",
+    "path": "solutions/transform_molytope_polytope_solution.py",
+    "lines": [7, 199]
+  },
+  {
+    "source": "solutions.transform_polytope_molytope_solution.TransformPolytopeMolytopeSolution",
+    "shape": "volvo/cce-optimization-api/286985b6bebc/final-r3/shape/python-class/9e2ae361a75108ece3",
+    "path": "solutions/transform_polytope_molytope_solution.py",
+    "lines": [9, 198]
+  },
+  {
+    "source": "storages.NotConfiguredException",
+    "shape": "volvo/cce-optimization-api/286985b6bebc/final-r3/shape/python-class/3bc839b49a5eea2284",
+    "path": "storages/__init__.py",
+    "lines": [4, 5]
+  },
+  {
+    "source": "storages.Factory",
+    "shape": "volvo/cce-optimization-api/286985b6bebc/final-r3/shape/python-class/4435e9d673ee9de556",
+    "path": "storages/__init__.py",
+    "lines": [8, 10]
+  },
+  {
+    "source": "storages.azure_blob_storage.AzureBlobStorage",
+    "shape": "volvo/cce-optimization-api/286985b6bebc/final-r3/shape/python-class/8f27a6638e1ab8032c",
+    "path": "storages/azure_blob_storage.py",
+    "lines": [14, 36]
+  },
+  {
+    "source": "storages.cloud_posterior_storage.CloudPosteriorStorage",
+    "shape": "volvo/cce-optimization-api/286985b6bebc/final-r3/shape/python-class/fc945918bdfd79a818",
+    "path": "storages/cloud_posterior_storage.py",
+    "lines": [6, 41]
+  },
+  {
+    "source": "storages.cloud_storage.CompressionNotDefined",
+    "shape": "volvo/cce-optimization-api/286985b6bebc/final-r3/shape/python-class/e4e9a802f8fd06794a",
+    "path": "storages/cloud_storage.py",
+    "lines": [7, 8]
+  },
+  {
+    "source": "storages.cloud_storage.CloudStorage",
+    "shape": "volvo/cce-optimization-api/286985b6bebc/final-r3/shape/python-class/dc1e8c48a99bcc5037",
+    "path": "storages/cloud_storage.py",
+    "lines": [11, 78]
+  },
+  {
+    "source": "transformations.config_rule_map_transformation.ConfigRuleMapMeta",
+    "shape": "volvo/cce-optimization-api/286985b6bebc/final-r3/shape/python-class/cc2ede5c2950867a42",
+    "path": "transformations/config_rule_map_transformation.py",
+    "lines": [12, 25]
+  },
+  {
+    "source": "transformations.config_rule_map_transformation.ConfigMapElement",
+    "shape": "volvo/cce-optimization-api/286985b6bebc/final-r3/shape/python-class/ee11bfb9acb96024c1",
+    "path": "transformations/config_rule_map_transformation.py",
+    "lines": [27, 34]
+  },
+  {
+    "source": "transformations.config_rule_map_transformation.ConfigRuleMapTransformation",
+    "shape": "volvo/cce-optimization-api/286985b6bebc/final-r3/shape/python-class/7dcb40f0f62115604f",
+    "path": "transformations/config_rule_map_transformation.py",
+    "lines": [36, 144]
+  },
+  {
+    "source": "transformations.configuration_transformation.ConfigurationElement",
+    "shape": "volvo/cce-optimization-api/286985b6bebc/final-r3/shape/python-class/a0d92f2cdd4c0f5ab8",
+    "path": "transformations/configuration_transformation.py",
+    "lines": [17, 24]
+  },
+  {
+    "source": "transformations.configuration_transformation.ConfigurationMeta",
+    "shape": "volvo/cce-optimization-api/286985b6bebc/final-r3/shape/python-class/763bdc87d4a93c1cc9",
+    "path": "transformations/configuration_transformation.py",
+    "lines": [26, 27]
+  },
+  {
+    "source": "transformations.configuration_transformation.ConfigurationTransformationProcess",
+    "shape": "volvo/cce-optimization-api/286985b6bebc/final-r3/shape/python-class/cdafada8033e132d90",
+    "path": "transformations/configuration_transformation.py",
+    "lines": [29, 154]
+  },
+  {
+    "source": "transformations.transformers.models.config_rule.RuleType",
+    "shape": "volvo/cce-optimization-api/286985b6bebc/final-r3/shape/python-class/a0510530b5714d1ca9",
+    "path": "transformations/transformers/models/config_rule.py",
+    "lines": [5, 13]
+  },
+  {
+    "source": "transformations.transformers.models.config_rule.Relation",
+    "shape": "volvo/cce-optimization-api/286985b6bebc/final-r3/shape/python-class/753746a2d66b991e64",
+    "path": "transformations/transformers/models/config_rule.py",
+    "lines": [15, 17]
+  },
+  {
+    "source": "transformations.transformers.models.config_rule.SubCondition",
+    "shape": "volvo/cce-optimization-api/286985b6bebc/final-r3/shape/python-class/c8c252d7f15b6945bc",
+    "path": "transformations/transformers/models/config_rule.py",
+    "lines": [19, 21]
+  },
+  {
+    "source": "transformations.transformers.models.config_rule.Condition",
+    "shape": "volvo/cce-optimization-api/286985b6bebc/final-r3/shape/python-class/8e8dea86ac43982118",
+    "path": "transformations/transformers/models/config_rule.py",
+    "lines": [23, 25]
+  },
+  {
+    "source": "transformations.transformers.models.config_rule.Consequence",
+    "shape": "volvo/cce-optimization-api/286985b6bebc/final-r3/shape/python-class/d8d52616739f61533b",
+    "path": "transformations/transformers/models/config_rule.py",
+    "lines": [27, 30]
+  },
+  {
+    "source": "transformations.transformers.models.config_rule.ConfigRule",
+    "shape": "volvo/cce-optimization-api/286985b6bebc/final-r3/shape/python-class/17d8a0521d834aa722",
+    "path": "transformations/transformers/models/config_rule.py",
+    "lines": [32, 35]
+  },
+  {
+    "source": "utils.exceptions.UnsatisfiableError",
+    "shape": "volvo/cce-optimization-api/286985b6bebc/final-r3/shape/python-class/a0a701054a4016b09c",
+    "path": "utils/exceptions.py",
+    "lines": [1, 8]
+  },
+  {
+    "source": "utils.fake_storage.FakeStorage",
+    "shape": "volvo/cce-optimization-api/286985b6bebc/final-r3/shape/python-class/4e5959798669799ab1",
+    "path": "utils/fake_storage.py",
+    "lines": [3, 31]
+  },
+  {
+    "source": "utils.singleton.Singleton",
+    "shape": "volvo/cce-optimization-api/286985b6bebc/final-r3/shape/python-class/f30e39e8eef8b3584f",
+    "path": "utils/singleton.py",
+    "lines": [1, 7]
+  }
+]

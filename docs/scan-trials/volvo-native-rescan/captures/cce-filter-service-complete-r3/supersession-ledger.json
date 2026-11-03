@@ -1,0 +1,23 @@
+{
+  "previous": "revision-001",
+  "namespace": "all IDs/references renamed local-r1 to local-r3; logical IDs retained",
+  "changed": {
+    "effect": 62,
+    "flow": 80,
+    "storage_write": 30,
+    "operation": 36,
+    "value": 36,
+    "transition": 1
+  },
+  "added": {
+    "claim": 62,
+    "transition": 135,
+    "flow": 8,
+    "value": 8
+  },
+  "removed": {
+    "transition": 135,
+    "evidence": 9
+  },
+  "reason": "Synthetic transition provenance uses actual dispatch/scheduling sites; SQL column and selection operands replace opaque SQL aggregate payloads."
+}

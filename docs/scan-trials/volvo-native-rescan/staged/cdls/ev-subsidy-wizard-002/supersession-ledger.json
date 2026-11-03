@@ -1,0 +1,76 @@
+{
+  "priorSnapshot": "bec3e7f4faf9dc1ed25ed1756457ce1a49a2641d7ccc80636a0fb5c771a65489",
+  "namespaceTranslation": {
+    "from": "ev-subsidy-wizard-r1/",
+    "to": "ev-subsidy-wizard-r2/"
+  },
+  "qualification": "Only evidence support correction after exact namespace translation; all native execution/control/data/value/interaction/entry/contract facts unchanged. API001 bytes unchanged.",
+  "changed": [
+    {
+      "id": "volvo/cdls-mono-volvocars/8e1fd20c525f/ev-subsidy-wizard-r2/claim/135",
+      "before": {
+        "id": "volvo/cdls-mono-volvocars/8e1fd20c525f/ev-subsidy-wizard-r2/claim/135",
+        "kind": "claim",
+        "owner": "volvo/cdls-mono-volvocars/8e1fd20c525f/ev-subsidy-wizard-r2/method/handleSelect",
+        "statement": "Actual local JSX registration passes handleSelect as AddressInput.onSelectAction. Imported Autocomplete dispatch\u2192local handlePlaceChanged guards\u2192onSelectAction association is source declared, not eager invocation while JSX is created.",
+        "basis": "source_declared",
+        "inputs": [
+          "volvo/cdls-mono-volvocars/8e1fd20c525f/ev-subsidy-wizard-r2/entry/handleSelect",
+          "volvo/cdls-mono-volvocars/8e1fd20c525f/ev-subsidy-wizard-r2/method/handleSelect"
+        ],
+        "assumptions": [],
+        "evidence": [
+          "volvo/cdls-mono-volvocars/8e1fd20c525f/ev-subsidy-wizard-r2/e/f3b76dec5650efa02d97"
+        ]
+      },
+      "after": {
+        "id": "volvo/cdls-mono-volvocars/8e1fd20c525f/ev-subsidy-wizard-r2/claim/135",
+        "kind": "claim",
+        "owner": "volvo/cdls-mono-volvocars/8e1fd20c525f/ev-subsidy-wizard-r2/method/handleSelect",
+        "statement": "Actual local JSX registration passes handleSelect as AddressInput.onSelectAction. Imported Autocomplete dispatch\u2192local handlePlaceChanged guards\u2192onSelectAction association is source declared, not eager invocation while JSX is created.",
+        "basis": "source_declared",
+        "inputs": [
+          "volvo/cdls-mono-volvocars/8e1fd20c525f/ev-subsidy-wizard-r2/entry/handleSelect",
+          "volvo/cdls-mono-volvocars/8e1fd20c525f/ev-subsidy-wizard-r2/method/handleSelect"
+        ],
+        "assumptions": [],
+        "evidence": [
+          "volvo/cdls-mono-volvocars/8e1fd20c525f/ev-subsidy-wizard-r2/e/f3b76dec5650efa02d97",
+          "volvo/cdls-mono-volvocars/8e1fd20c525f/ev-subsidy-wizard-r2/e/fc36685528be62b657f5"
+        ]
+      }
+    }
+  ],
+  "added": [
+    {
+      "id": "volvo/cdls-mono-volvocars/8e1fd20c525f/ev-subsidy-wizard-r2/e/fc36685528be62b657f5",
+      "kind": "evidence",
+      "repo": "volvo-cars/cdls-mono-volvocars",
+      "commit": "8e1fd20c525fd3ef46f89fa7734dba06b06c79fc",
+      "path": "apps/ev-subsidy/src/components/wizard/AddressInput/index.tsx",
+      "lines": [29, 46],
+      "basis": "source",
+      "host": "github.com"
+    }
+  ],
+  "removed": [],
+  "unchangedRecordKinds": [
+    "coverage",
+    "entry",
+    "entry_binding",
+    "evidence",
+    "execution_binding",
+    "flow",
+    "gap",
+    "implementation",
+    "interaction",
+    "interface_contract",
+    "operation",
+    "resolution",
+    "runtime_component",
+    "shape",
+    "source_revision",
+    "transition",
+    "value"
+  ]
+}

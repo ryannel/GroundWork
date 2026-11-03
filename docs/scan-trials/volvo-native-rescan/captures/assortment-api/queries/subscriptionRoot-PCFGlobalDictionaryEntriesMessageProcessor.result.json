@@ -1,0 +1,773 @@
+{
+  "format": "groundwork-result/v3",
+  "snapshot": "dcc8fe6133bb403c805875b5698eb6fd390e35f858d0bf3e74c33c7ea0d7a34e",
+  "queryVersion": "knowledge-query/v3",
+  "request": {
+    "format": "groundwork-query/v3",
+    "snapshot": "dcc8fe6133bb403c805875b5698eb6fd390e35f858d0bf3e74c33c7ea0d7a34e",
+    "query": "interactions",
+    "entry": "assortment-6114c5d-r5/subscription/PCFGlobalDictionaryEntriesMessageProcessor/topic",
+    "value": null,
+    "context": [],
+    "outcome": null,
+    "changed": [],
+    "representation": "constructed",
+    "candidates": "exclude",
+    "maxNodes": 500,
+    "environment": "production-profile",
+    "maxRecords": 5000,
+    "ids": []
+  },
+  "nodes": [
+    {
+      "id": "u3/component/assortment-worker",
+      "record": "u3/component/assortment-worker",
+      "context": [],
+      "label": "Assortment cache worker",
+      "component": "u3/component/assortment-worker",
+      "execution": null
+    },
+    {
+      "id": "assortment-6114c5d-r5/component/topic-PCFGlobalDictionaryEntriesMessageProcessor",
+      "record": "assortment-6114c5d-r5/component/topic-PCFGlobalDictionaryEntriesMessageProcessor",
+      "context": [],
+      "label": "prod.public.pcf.globaldictionaryentries",
+      "component": "assortment-6114c5d-r5/component/topic-PCFGlobalDictionaryEntriesMessageProcessor",
+      "execution": null
+    }
+  ],
+  "edges": [
+    {
+      "from": "assortment-6114c5d-r5/component/topic-PCFGlobalDictionaryEntriesMessageProcessor",
+      "to": "u3/component/assortment-worker",
+      "on": "consume",
+      "condition": "Topic selected by registered factory; processor-specific guards and feature flags remain in source.",
+      "assumption": "Source declarations and conditional paths; unresolved facts remain explicit",
+      "evidence": ["assortment-6114c5d-r5/e/a16a421f7426", "assortment-6114c5d-r5/e/163f59f4377a"],
+      "record": "assortment-6114c5d-r5/interaction/consumer/PCFGlobalDictionaryEntriesMessageProcessor",
+      "context": [],
+      "operation": "assortment-6114c5d-r5/op/consumer/PCFGlobalDictionaryEntriesMessageProcessor/start"
+    }
+  ],
+  "claims": [],
+  "evidence": [
+    "assortment-6114c5d-r5/e/0974491d3428",
+    "assortment-6114c5d-r5/e/0c2e5d6b3474",
+    "assortment-6114c5d-r5/e/163f59f4377a",
+    "assortment-6114c5d-r5/e/2fc14e8e4c7c",
+    "assortment-6114c5d-r5/e/319e098e3fda",
+    "assortment-6114c5d-r5/e/499ee903ecfd",
+    "assortment-6114c5d-r5/e/4dd87ea6c77d",
+    "assortment-6114c5d-r5/e/6c50ce4f520f",
+    "assortment-6114c5d-r5/e/744516acaddc",
+    "assortment-6114c5d-r5/e/a16a421f7426",
+    "assortment-6114c5d-r5/e/a5d135c2acd4",
+    "assortment-6114c5d-r5/e/b1f0f672a9d4",
+    "assortment-6114c5d-r5/e/c25c46b54e85",
+    "assortment-6114c5d-r5/e/cd4127f28534",
+    "assortment-6114c5d-r5/e/d1d788304d89",
+    "assortment-6114c5d-r5/e/d47d4386d8c2",
+    "assortment-6114c5d-r5/e/e3033d724b1f",
+    "assortment-6114c5d-r5/e/ed88f4ed4431",
+    "assortment-6114c5d-r5/e/fb15f578bc5b",
+    "s2/e/consumer",
+    "u3/e/worker-program",
+    "u3/e/worker-registration"
+  ],
+  "coverage": [
+    "assortment-6114c5d-r5/coverage/consumer/PCFGlobalDictionaryEntriesMessageProcessor"
+  ],
+  "frontiers": [
+    {
+      "at": "root::assortment-6114c5d-r5/op/consumer/PCFGlobalDictionaryEntriesMessageProcessor/dispatch",
+      "reason": "opaque",
+      "detail": "Processor parsing, filtering and delegated effects remain partial; full source and typed dispatch retained.",
+      "references": [
+        "assortment-6114c5d-r5/op/consumer/PCFGlobalDictionaryEntriesMessageProcessor/dispatch"
+      ]
+    }
+  ],
+  "limitsHit": [],
+  "feasibility": "not_checked",
+  "exhaustive": false,
+  "records": [
+    {
+      "id": "assortment-6114c5d-r5/census",
+      "kind": "implementation",
+      "logicalId": "impl:assortment-source-census",
+      "scope": "s2/c",
+      "entry": "assortment-6114c5d-r5/census/start",
+      "parameters": [],
+      "evidence": [
+        "assortment-6114c5d-r5/e/a5d135c2acd4",
+        "assortment-6114c5d-r5/e/0c2e5d6b3474",
+        "assortment-6114c5d-r5/e/2fc14e8e4c7c"
+      ]
+    },
+    {
+      "id": "assortment-6114c5d-r5/census/start",
+      "kind": "operation",
+      "owner": "assortment-6114c5d-r5/census",
+      "action": "opaque",
+      "label": "Repository discovery anchor; not an executable HTTP or message handler",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": null,
+      "httpStatus": null,
+      "evidence": ["assortment-6114c5d-r5/e/a5d135c2acd4"]
+    },
+    {
+      "id": "assortment-6114c5d-r5/component/topic-PCFGlobalDictionaryEntriesMessageProcessor",
+      "kind": "runtime_component",
+      "logicalId": "topic:prod.public.pcf.globaldictionaryentries",
+      "label": "prod.public.pcf.globaldictionaryentries",
+      "category": "topic",
+      "technology": "Kafka",
+      "sources": ["s2/c"],
+      "basis": "source_declared",
+      "gaps": ["assortment-6114c5d-r5/gap/deployment"],
+      "evidence": ["assortment-6114c5d-r5/e/6c50ce4f520f"]
+    },
+    {
+      "id": "assortment-6114c5d-r5/contract/consumer/PCFGlobalDictionaryEntriesMessageProcessor",
+      "kind": "interface_contract",
+      "component": "assortment-6114c5d-r5/component/topic-PCFGlobalDictionaryEntriesMessageProcessor",
+      "protocol": "kafka",
+      "name": "PCFGlobalDictionaryEntriesMessageProcessor topic consumption",
+      "method": null,
+      "path": "prod.public.pcf.globaldictionaryentries",
+      "authority": "source_declared",
+      "request": [
+        {
+          "part": "message",
+          "presence": "present",
+          "shape": "assortment-6114c5d-r5/shape/proto/src~PopCat.Assortment.CacheWorker.Host~Protos~pcf~globaldictionaryentriesupdated.proto~GlobalDictionaryEntriesUpdatedMessage",
+          "sourceShape": null,
+          "contentType": null,
+          "gaps": [
+            "assortment-6114c5d-r5/gap/dispatch-PCFGlobalDictionaryEntriesMessageProcessor",
+            "assortment-6114c5d-r5/gap/wire-closure"
+          ],
+          "evidence": ["assortment-6114c5d-r5/e/a16a421f7426"]
+        },
+        {
+          "part": "headers",
+          "presence": "present",
+          "shape": null,
+          "sourceShape": null,
+          "contentType": null,
+          "gaps": ["assortment-6114c5d-r5/gap/dispatch-PCFGlobalDictionaryEntriesMessageProcessor"],
+          "evidence": ["assortment-6114c5d-r5/e/a16a421f7426"]
+        }
+      ],
+      "responses": [],
+      "gaps": [
+        "assortment-6114c5d-r5/gap/dispatch-PCFGlobalDictionaryEntriesMessageProcessor",
+        "assortment-6114c5d-r5/gap/deployment",
+        "assortment-6114c5d-r5/gap/wire-closure"
+      ],
+      "evidence": ["assortment-6114c5d-r5/e/a16a421f7426"]
+    },
+    {
+      "id": "assortment-6114c5d-r5/coverage/consumer/PCFGlobalDictionaryEntriesMessageProcessor",
+      "kind": "coverage",
+      "owner": "assortment-6114c5d-r5/impl/consumer/PCFGlobalDictionaryEntriesMessageProcessor",
+      "obligation": "bounded_source_analysis",
+      "status": "partial",
+      "scope": "Topic registration and parser/dispatch census; bounded SoftOfferCreated continuation retained in base proof.",
+      "gaps": [
+        "assortment-6114c5d-r5/gap/dispatch-PCFGlobalDictionaryEntriesMessageProcessor",
+        "assortment-6114c5d-r5/gap/deployment"
+      ],
+      "evidence": [
+        "assortment-6114c5d-r5/e/a16a421f7426",
+        "assortment-6114c5d-r5/e/0974491d3428",
+        "assortment-6114c5d-r5/e/4dd87ea6c77d"
+      ]
+    },
+    {
+      "id": "assortment-6114c5d-r5/e/0974491d3428",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-assortment-api",
+      "commit": "6114c5db0f2b4b490cf89b9c512088f01dbf0b98",
+      "path": "src/PopCat.Assortment.CacheWorker.Host/Extensions/ApplicationBuilderExtensions.cs",
+      "lines": [25, 39],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "assortment-6114c5d-r5/e/0c2e5d6b3474",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-assortment-api",
+      "commit": "6114c5db0f2b4b490cf89b9c512088f01dbf0b98",
+      "path": "src/PopCat.Assortment.CacheWorker.Host/Program.cs",
+      "lines": [1, 37],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "assortment-6114c5d-r5/e/163f59f4377a",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-assortment-api",
+      "commit": "6114c5db0f2b4b490cf89b9c512088f01dbf0b98",
+      "path": "src/PopCat.Assortment.CacheWorker.Host/Services/KafkaConsumerService.cs",
+      "lines": [35, 57],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "assortment-6114c5d-r5/e/2fc14e8e4c7c",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-assortment-api",
+      "commit": "6114c5db0f2b4b490cf89b9c512088f01dbf0b98",
+      "path": "src/PopCat.Assortment.Ocelot.Host/Program.cs",
+      "lines": [1, 46],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "assortment-6114c5d-r5/e/319e098e3fda",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-assortment-api",
+      "commit": "6114c5db0f2b4b490cf89b9c512088f01dbf0b98",
+      "path": "src/PopCat.Assortment.CacheWorker.Host/Protos/pcf/globaldictionaryentriesupdated.proto",
+      "lines": [7, 15],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "assortment-6114c5d-r5/e/499ee903ecfd",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-assortment-api",
+      "commit": "6114c5db0f2b4b490cf89b9c512088f01dbf0b98",
+      "path": "src/PopCat.Assortment.Host/Extensions/ApplicationBuilderExtensions.cs",
+      "lines": [54, 78],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "assortment-6114c5d-r5/e/4dd87ea6c77d",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-assortment-api",
+      "commit": "6114c5db0f2b4b490cf89b9c512088f01dbf0b98",
+      "path": "src/PopCat.Assortment.CacheWorker.Host/Services/KafkaConsumerService.cs",
+      "lines": [17, 60],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "assortment-6114c5d-r5/e/6c50ce4f520f",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-assortment-api",
+      "commit": "6114c5db0f2b4b490cf89b9c512088f01dbf0b98",
+      "path": "src/PopCat.Assortment.CacheWorker.Host/appsettings.json",
+      "lines": [17, 17],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "assortment-6114c5d-r5/e/744516acaddc",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-assortment-api",
+      "commit": "6114c5db0f2b4b490cf89b9c512088f01dbf0b98",
+      "path": "src/PopCat.Assortment.CacheWorker.Host/Protos/pcf/globaldictionaryentriesupdated.proto",
+      "lines": [10, 10],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "assortment-6114c5d-r5/e/a16a421f7426",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-assortment-api",
+      "commit": "6114c5db0f2b4b490cf89b9c512088f01dbf0b98",
+      "path": "src/PopCat.Assortment.CacheWorker.Host/MessageProcessor/PCFGlobalDictionaryEntriesMessageProcessor.cs",
+      "lines": [1, 107],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "assortment-6114c5d-r5/e/a5d135c2acd4",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-assortment-api",
+      "commit": "6114c5db0f2b4b490cf89b9c512088f01dbf0b98",
+      "path": "src/PopCat.Assortment.Host/Program.cs",
+      "lines": [1, 46],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "assortment-6114c5d-r5/e/b1f0f672a9d4",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-assortment-api",
+      "commit": "6114c5db0f2b4b490cf89b9c512088f01dbf0b98",
+      "path": "src/PopCat.Assortment.CacheWorker.Host/Protos/pcf/globaldictionaryentriesupdated.proto",
+      "lines": [7, 8],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "assortment-6114c5d-r5/e/c25c46b54e85",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-assortment-api",
+      "commit": "6114c5db0f2b4b490cf89b9c512088f01dbf0b98",
+      "path": "src/PopCat.Assortment.CacheWorker.Host/Protos/pcf/globaldictionaryentriesupdated.proto",
+      "lines": [12, 12],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "assortment-6114c5d-r5/e/cd4127f28534",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-assortment-api",
+      "commit": "6114c5db0f2b4b490cf89b9c512088f01dbf0b98",
+      "path": "src/PopCat.Assortment.CacheWorker.Host/Protos/pcf/globaldictionaryentriesupdated.proto",
+      "lines": [17, 18],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "assortment-6114c5d-r5/e/d1d788304d89",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-assortment-api",
+      "commit": "6114c5db0f2b4b490cf89b9c512088f01dbf0b98",
+      "path": "src/PopCat.Assortment.CacheWorker.Host/Protos/pcf/globaldictionaryentriesupdated.proto",
+      "lines": [9, 9],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "assortment-6114c5d-r5/e/d47d4386d8c2",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-assortment-api",
+      "commit": "6114c5db0f2b4b490cf89b9c512088f01dbf0b98",
+      "path": "src/PopCat.Assortment.CacheWorker.Host/Protos/pcf/globaldictionaryentriesupdated.proto",
+      "lines": [13, 13],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "assortment-6114c5d-r5/e/e3033d724b1f",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-assortment-api",
+      "commit": "6114c5db0f2b4b490cf89b9c512088f01dbf0b98",
+      "path": "src/PopCat.Assortment.CacheWorker.Host/Protos/pcf/globaldictionaryentriesupdated.proto",
+      "lines": [17, 19],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "assortment-6114c5d-r5/e/ed88f4ed4431",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-assortment-api",
+      "commit": "6114c5db0f2b4b490cf89b9c512088f01dbf0b98",
+      "path": "src/PopCat.Assortment.CacheWorker.Host/Protos/pcf/globaldictionaryentriesupdated.proto",
+      "lines": [11, 11],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "assortment-6114c5d-r5/e/fb15f578bc5b",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-assortment-api",
+      "commit": "6114c5db0f2b4b490cf89b9c512088f01dbf0b98",
+      "path": "src/PopCat.Assortment.CacheWorker.Host/Protos/pcf/globaldictionaryentriesupdated.proto",
+      "lines": [14, 14],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "assortment-6114c5d-r5/gap/deployment",
+      "kind": "gap",
+      "owner": "assortment-6114c5d-r5/census",
+      "obligation": "deployment",
+      "reason": "Pinned committed configuration does not establish deployed topology, effective environment overrides or current freshness.",
+      "action": "Trace the named local continuation or resolve the exact imported artefact and effective configuration.",
+      "evidence": ["assortment-6114c5d-r5/e/a5d135c2acd4"]
+    },
+    {
+      "id": "assortment-6114c5d-r5/gap/dispatch-PCFGlobalDictionaryEntriesMessageProcessor",
+      "kind": "gap",
+      "owner": "assortment-6114c5d-r5/impl/consumer/PCFGlobalDictionaryEntriesMessageProcessor",
+      "obligation": "dispatch-PCFGlobalDictionaryEntriesMessageProcessor",
+      "reason": "Only registration, parser/message declarations and dispatch destinations are captured for this processor; all branch/value/store continuations are not expanded. Existing SoftOfferCreated proof is retained separately.",
+      "action": "Trace the named local continuation or resolve the exact imported artefact and effective configuration.",
+      "evidence": ["assortment-6114c5d-r5/e/a16a421f7426"]
+    },
+    {
+      "id": "assortment-6114c5d-r5/gap/wire-closure",
+      "kind": "gap",
+      "owner": "assortment-6114c5d-r5/census",
+      "obligation": "wire-closure",
+      "reason": "Source declarations are captured; complete formatter, inherited/generated imported fields and validation/error policy are not established.",
+      "action": "Trace the named local continuation or resolve the exact imported artefact and effective configuration.",
+      "evidence": ["assortment-6114c5d-r5/e/499ee903ecfd"]
+    },
+    {
+      "id": "assortment-6114c5d-r5/impl/consumer/PCFGlobalDictionaryEntriesMessageProcessor",
+      "kind": "implementation",
+      "logicalId": "impl:assortment-PCFGlobalDictionaryEntriesMessageProcessor",
+      "scope": "s2/c",
+      "entry": "assortment-6114c5d-r5/op/consumer/PCFGlobalDictionaryEntriesMessageProcessor/start",
+      "parameters": [],
+      "evidence": [
+        "assortment-6114c5d-r5/e/a16a421f7426",
+        "assortment-6114c5d-r5/e/0974491d3428",
+        "assortment-6114c5d-r5/e/4dd87ea6c77d"
+      ]
+    },
+    {
+      "id": "assortment-6114c5d-r5/interaction/consumer/PCFGlobalDictionaryEntriesMessageProcessor",
+      "kind": "interaction",
+      "owner": "assortment-6114c5d-r5/impl/consumer/PCFGlobalDictionaryEntriesMessageProcessor",
+      "execution": "assortment-6114c5d-r5/runs/PCFGlobalDictionaryEntriesMessageProcessor-assortment-worker",
+      "operation": "assortment-6114c5d-r5/op/consumer/PCFGlobalDictionaryEntriesMessageProcessor/start",
+      "target": "assortment-6114c5d-r5/component/topic-PCFGlobalDictionaryEntriesMessageProcessor",
+      "targetEntry": null,
+      "contract": "assortment-6114c5d-r5/contract/consumer/PCFGlobalDictionaryEntriesMessageProcessor",
+      "effect": null,
+      "handoff": null,
+      "mode": "consume",
+      "boundary": "network",
+      "waitsFor": "handler_result",
+      "condition": "Topic selected by registered factory; processor-specific guards and feature flags remain in source.",
+      "requestBindings": [
+        {
+          "part": "message",
+          "path": [],
+          "value": "assortment-6114c5d-r5/value/consumer/PCFGlobalDictionaryEntriesMessageProcessor",
+          "transform": "Raw message passed to processor; parsing and feature-controlled branches remain partial"
+        }
+      ],
+      "responseBindings": [],
+      "gaps": [
+        "assortment-6114c5d-r5/gap/dispatch-PCFGlobalDictionaryEntriesMessageProcessor",
+        "assortment-6114c5d-r5/gap/deployment"
+      ],
+      "evidence": ["assortment-6114c5d-r5/e/a16a421f7426", "assortment-6114c5d-r5/e/163f59f4377a"]
+    },
+    {
+      "id": "assortment-6114c5d-r5/op/consumer/PCFGlobalDictionaryEntriesMessageProcessor/dispatch",
+      "kind": "operation",
+      "owner": "assortment-6114c5d-r5/impl/consumer/PCFGlobalDictionaryEntriesMessageProcessor",
+      "action": "opaque",
+      "label": "Processor parsing, filtering and delegated effects remain partial; full source and typed dispatch retained.",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": null,
+      "httpStatus": null,
+      "evidence": ["assortment-6114c5d-r5/e/a16a421f7426"]
+    },
+    {
+      "id": "assortment-6114c5d-r5/op/consumer/PCFGlobalDictionaryEntriesMessageProcessor/start",
+      "kind": "operation",
+      "owner": "assortment-6114c5d-r5/impl/consumer/PCFGlobalDictionaryEntriesMessageProcessor",
+      "action": "entry",
+      "label": "Receive topic message through registered processor PCFGlobalDictionaryEntriesMessageProcessor",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": null,
+      "httpStatus": null,
+      "evidence": [
+        "assortment-6114c5d-r5/e/a16a421f7426",
+        "assortment-6114c5d-r5/e/0974491d3428",
+        "assortment-6114c5d-r5/e/4dd87ea6c77d"
+      ]
+    },
+    {
+      "id": "assortment-6114c5d-r5/runs/PCFGlobalDictionaryEntriesMessageProcessor-assortment-worker",
+      "kind": "execution_binding",
+      "implementation": "assortment-6114c5d-r5/impl/consumer/PCFGlobalDictionaryEntriesMessageProcessor",
+      "component": "u3/component/assortment-worker",
+      "basis": "source_declared",
+      "artifactBinding": null,
+      "gaps": [],
+      "evidence": [
+        "assortment-6114c5d-r5/e/a16a421f7426",
+        "assortment-6114c5d-r5/e/0974491d3428",
+        "assortment-6114c5d-r5/e/4dd87ea6c77d"
+      ]
+    },
+    {
+      "id": "assortment-6114c5d-r5/shape/proto/src~PopCat.Assortment.CacheWorker.Host~Protos~pcf~globaldictionaryentriesupdated.proto~GlobalDictionaryEntriesUpdatedMessage",
+      "kind": "shape",
+      "representation": "wire",
+      "label": "volvocars.contracts.pop.pcf.GlobalDictionaryEntriesUpdatedMessage",
+      "fields": [
+        {
+          "name": "entries",
+          "type": "repeated GlobalDictionaryEntryData",
+          "status": "declared",
+          "wireTag": 1,
+          "evidence": ["assortment-6114c5d-r5/e/cd4127f28534"],
+          "shape": "assortment-6114c5d-r5/shape/proto/src~PopCat.Assortment.CacheWorker.Host~Protos~pcf~globaldictionaryentriesupdated.proto~GlobalDictionaryEntryData"
+        }
+      ],
+      "completeness": "partial",
+      "gaps": ["assortment-6114c5d-r5/gap/wire-closure"],
+      "evidence": ["assortment-6114c5d-r5/e/e3033d724b1f"],
+      "encoding": "protobuf",
+      "wireType": "volvocars.contracts.pop.pcf.GlobalDictionaryEntriesUpdatedMessage",
+      "reservedTags": [],
+      "reservedNames": []
+    },
+    {
+      "id": "assortment-6114c5d-r5/shape/proto/src~PopCat.Assortment.CacheWorker.Host~Protos~pcf~globaldictionaryentriesupdated.proto~GlobalDictionaryEntryData",
+      "kind": "shape",
+      "representation": "wire",
+      "label": "volvocars.contracts.pop.pcf.GlobalDictionaryEntryData",
+      "fields": [
+        {
+          "name": "model_year",
+          "type": "int32",
+          "status": "declared",
+          "wireTag": 1,
+          "evidence": ["assortment-6114c5d-r5/e/b1f0f672a9d4"]
+        },
+        {
+          "name": "car_type",
+          "type": "string",
+          "status": "declared",
+          "wireTag": 2,
+          "evidence": ["assortment-6114c5d-r5/e/d1d788304d89"]
+        },
+        {
+          "name": "type",
+          "type": "string",
+          "status": "declared",
+          "wireTag": 3,
+          "evidence": ["assortment-6114c5d-r5/e/744516acaddc"]
+        },
+        {
+          "name": "code",
+          "type": "string",
+          "status": "declared",
+          "wireTag": 4,
+          "evidence": ["assortment-6114c5d-r5/e/ed88f4ed4431"]
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "status": "declared",
+          "wireTag": 5,
+          "evidence": ["assortment-6114c5d-r5/e/c25c46b54e85"]
+        },
+        {
+          "name": "long_name",
+          "type": "string",
+          "status": "declared",
+          "wireTag": 6,
+          "evidence": ["assortment-6114c5d-r5/e/d47d4386d8c2"]
+        },
+        {
+          "name": "message_type",
+          "type": "MessageType",
+          "status": "declared",
+          "wireTag": 7,
+          "evidence": ["assortment-6114c5d-r5/e/fb15f578bc5b"]
+        }
+      ],
+      "completeness": "partial",
+      "gaps": ["assortment-6114c5d-r5/gap/wire-closure"],
+      "evidence": ["assortment-6114c5d-r5/e/319e098e3fda"],
+      "encoding": "protobuf",
+      "wireType": "volvocars.contracts.pop.pcf.GlobalDictionaryEntryData",
+      "reservedTags": [],
+      "reservedNames": []
+    },
+    {
+      "id": "assortment-6114c5d-r5/value/consumer/PCFGlobalDictionaryEntriesMessageProcessor",
+      "kind": "value",
+      "owner": "assortment-6114c5d-r5/impl/consumer/PCFGlobalDictionaryEntriesMessageProcessor",
+      "definition": "assortment-6114c5d-r5/op/consumer/PCFGlobalDictionaryEntriesMessageProcessor/start",
+      "label": "Received raw message; GlobalDictionaryEntriesUpdatedMessage",
+      "role": "definition",
+      "representation": "wire",
+      "shape": "assortment-6114c5d-r5/shape/proto/src~PopCat.Assortment.CacheWorker.Host~Protos~pcf~globaldictionaryentriesupdated.proto~GlobalDictionaryEntriesUpdatedMessage",
+      "accessPath": [],
+      "evidence": [
+        "assortment-6114c5d-r5/e/a16a421f7426",
+        "assortment-6114c5d-r5/e/0974491d3428",
+        "assortment-6114c5d-r5/e/4dd87ea6c77d"
+      ]
+    },
+    {
+      "id": "s2/c",
+      "kind": "source_revision",
+      "repo": "volvo-cars/popcat-assortment-api",
+      "commit": "6114c5db0f2b4b490cf89b9c512088f01dbf0b98"
+    },
+    {
+      "id": "s2/e/consumer",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-assortment-api",
+      "commit": "6114c5db0f2b4b490cf89b9c512088f01dbf0b98",
+      "path": "src/PopCat.Assortment.CacheWorker.Host/Services/KafkaConsumerService.cs",
+      "lines": [17, 60],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "u3/component/assortment-worker",
+      "kind": "runtime_component",
+      "logicalId": "svc:assortment-cache-worker",
+      "label": "Assortment cache worker",
+      "category": "service",
+      "technology": ".NET worker",
+      "sources": ["s2/c"],
+      "basis": "source_declared",
+      "evidence": ["u3/e/worker-program", "u3/e/worker-registration", "s2/e/consumer"],
+      "gaps": []
+    },
+    {
+      "id": "u3/e/worker-program",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-assortment-api",
+      "commit": "6114c5db0f2b4b490cf89b9c512088f01dbf0b98",
+      "path": "src/PopCat.Assortment.CacheWorker.Host/Program.cs",
+      "lines": [1, 37],
+      "basis": "source"
+    },
+    {
+      "id": "u3/e/worker-registration",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-assortment-api",
+      "commit": "6114c5db0f2b4b490cf89b9c512088f01dbf0b98",
+      "path": "src/PopCat.Assortment.CacheWorker.Host/Extensions/ApplicationBuilderExtensions.cs",
+      "lines": [24, 45],
+      "basis": "source"
+    }
+  ],
+  "traversalComplete": true,
+  "findings": [
+    {
+      "statement": "The entry interface is separate from its internal implementation.",
+      "support": [],
+      "assumptions": []
+    },
+    {
+      "statement": "Components and conditional interactions in this entry trace. Library execution stays inside the host. Drill into an interaction contract or bound implementation for detail.",
+      "support": [
+        "assortment-6114c5d-r5/runs/PCFGlobalDictionaryEntriesMessageProcessor-assortment-worker"
+      ],
+      "assumptions": ["Source declarations do not establish deployed topology or path feasibility"]
+    }
+  ],
+  "sourceLinks": [
+    {
+      "evidence": "s2/e/consumer",
+      "url": "https://github.com/volvo-cars/popcat-assortment-api/blob/6114c5db0f2b4b490cf89b9c512088f01dbf0b98/src/PopCat.Assortment.CacheWorker.Host/Services/KafkaConsumerService.cs#L17-L60",
+      "label": "volvo-cars/popcat-assortment-api/src/PopCat.Assortment.CacheWorker.Host/Services/KafkaConsumerService.cs:17–60"
+    },
+    {
+      "evidence": "u3/e/worker-registration",
+      "url": "https://github.com/volvo-cars/popcat-assortment-api/blob/6114c5db0f2b4b490cf89b9c512088f01dbf0b98/src/PopCat.Assortment.CacheWorker.Host/Extensions/ApplicationBuilderExtensions.cs#L24-L45",
+      "label": "volvo-cars/popcat-assortment-api/src/PopCat.Assortment.CacheWorker.Host/Extensions/ApplicationBuilderExtensions.cs:24–45"
+    },
+    {
+      "evidence": "u3/e/worker-program",
+      "url": "https://github.com/volvo-cars/popcat-assortment-api/blob/6114c5db0f2b4b490cf89b9c512088f01dbf0b98/src/PopCat.Assortment.CacheWorker.Host/Program.cs#L1-L37",
+      "label": "volvo-cars/popcat-assortment-api/src/PopCat.Assortment.CacheWorker.Host/Program.cs:1–37"
+    },
+    {
+      "evidence": "assortment-6114c5d-r5/e/4dd87ea6c77d",
+      "url": "https://github.com/volvo-cars/popcat-assortment-api/blob/6114c5db0f2b4b490cf89b9c512088f01dbf0b98/src/PopCat.Assortment.CacheWorker.Host/Services/KafkaConsumerService.cs#L17-L60",
+      "label": "volvo-cars/popcat-assortment-api/src/PopCat.Assortment.CacheWorker.Host/Services/KafkaConsumerService.cs:17–60"
+    },
+    {
+      "evidence": "assortment-6114c5d-r5/e/0974491d3428",
+      "url": "https://github.com/volvo-cars/popcat-assortment-api/blob/6114c5db0f2b4b490cf89b9c512088f01dbf0b98/src/PopCat.Assortment.CacheWorker.Host/Extensions/ApplicationBuilderExtensions.cs#L25-L39",
+      "label": "volvo-cars/popcat-assortment-api/src/PopCat.Assortment.CacheWorker.Host/Extensions/ApplicationBuilderExtensions.cs:25–39"
+    },
+    {
+      "evidence": "assortment-6114c5d-r5/e/a16a421f7426",
+      "url": "https://github.com/volvo-cars/popcat-assortment-api/blob/6114c5db0f2b4b490cf89b9c512088f01dbf0b98/src/PopCat.Assortment.CacheWorker.Host/MessageProcessor/PCFGlobalDictionaryEntriesMessageProcessor.cs#L1-L107",
+      "label": "volvo-cars/popcat-assortment-api/src/PopCat.Assortment.CacheWorker.Host/MessageProcessor/PCFGlobalDictionaryEntriesMessageProcessor.cs:1–107"
+    },
+    {
+      "evidence": "assortment-6114c5d-r5/e/a5d135c2acd4",
+      "url": "https://github.com/volvo-cars/popcat-assortment-api/blob/6114c5db0f2b4b490cf89b9c512088f01dbf0b98/src/PopCat.Assortment.Host/Program.cs#L1-L46",
+      "label": "volvo-cars/popcat-assortment-api/src/PopCat.Assortment.Host/Program.cs:1–46"
+    },
+    {
+      "evidence": "assortment-6114c5d-r5/e/2fc14e8e4c7c",
+      "url": "https://github.com/volvo-cars/popcat-assortment-api/blob/6114c5db0f2b4b490cf89b9c512088f01dbf0b98/src/PopCat.Assortment.Ocelot.Host/Program.cs#L1-L46",
+      "label": "volvo-cars/popcat-assortment-api/src/PopCat.Assortment.Ocelot.Host/Program.cs:1–46"
+    },
+    {
+      "evidence": "assortment-6114c5d-r5/e/0c2e5d6b3474",
+      "url": "https://github.com/volvo-cars/popcat-assortment-api/blob/6114c5db0f2b4b490cf89b9c512088f01dbf0b98/src/PopCat.Assortment.CacheWorker.Host/Program.cs#L1-L37",
+      "label": "volvo-cars/popcat-assortment-api/src/PopCat.Assortment.CacheWorker.Host/Program.cs:1–37"
+    },
+    {
+      "evidence": "assortment-6114c5d-r5/e/cd4127f28534",
+      "url": "https://github.com/volvo-cars/popcat-assortment-api/blob/6114c5db0f2b4b490cf89b9c512088f01dbf0b98/src/PopCat.Assortment.CacheWorker.Host/Protos/pcf/globaldictionaryentriesupdated.proto#L17-L18",
+      "label": "volvo-cars/popcat-assortment-api/src/PopCat.Assortment.CacheWorker.Host/Protos/pcf/globaldictionaryentriesupdated.proto:17–18"
+    },
+    {
+      "evidence": "assortment-6114c5d-r5/e/fb15f578bc5b",
+      "url": "https://github.com/volvo-cars/popcat-assortment-api/blob/6114c5db0f2b4b490cf89b9c512088f01dbf0b98/src/PopCat.Assortment.CacheWorker.Host/Protos/pcf/globaldictionaryentriesupdated.proto#L14-L14",
+      "label": "volvo-cars/popcat-assortment-api/src/PopCat.Assortment.CacheWorker.Host/Protos/pcf/globaldictionaryentriesupdated.proto:14–14"
+    },
+    {
+      "evidence": "assortment-6114c5d-r5/e/d47d4386d8c2",
+      "url": "https://github.com/volvo-cars/popcat-assortment-api/blob/6114c5db0f2b4b490cf89b9c512088f01dbf0b98/src/PopCat.Assortment.CacheWorker.Host/Protos/pcf/globaldictionaryentriesupdated.proto#L13-L13",
+      "label": "volvo-cars/popcat-assortment-api/src/PopCat.Assortment.CacheWorker.Host/Protos/pcf/globaldictionaryentriesupdated.proto:13–13"
+    },
+    {
+      "evidence": "assortment-6114c5d-r5/e/c25c46b54e85",
+      "url": "https://github.com/volvo-cars/popcat-assortment-api/blob/6114c5db0f2b4b490cf89b9c512088f01dbf0b98/src/PopCat.Assortment.CacheWorker.Host/Protos/pcf/globaldictionaryentriesupdated.proto#L12-L12",
+      "label": "volvo-cars/popcat-assortment-api/src/PopCat.Assortment.CacheWorker.Host/Protos/pcf/globaldictionaryentriesupdated.proto:12–12"
+    },
+    {
+      "evidence": "assortment-6114c5d-r5/e/ed88f4ed4431",
+      "url": "https://github.com/volvo-cars/popcat-assortment-api/blob/6114c5db0f2b4b490cf89b9c512088f01dbf0b98/src/PopCat.Assortment.CacheWorker.Host/Protos/pcf/globaldictionaryentriesupdated.proto#L11-L11",
+      "label": "volvo-cars/popcat-assortment-api/src/PopCat.Assortment.CacheWorker.Host/Protos/pcf/globaldictionaryentriesupdated.proto:11–11"
+    },
+    {
+      "evidence": "assortment-6114c5d-r5/e/744516acaddc",
+      "url": "https://github.com/volvo-cars/popcat-assortment-api/blob/6114c5db0f2b4b490cf89b9c512088f01dbf0b98/src/PopCat.Assortment.CacheWorker.Host/Protos/pcf/globaldictionaryentriesupdated.proto#L10-L10",
+      "label": "volvo-cars/popcat-assortment-api/src/PopCat.Assortment.CacheWorker.Host/Protos/pcf/globaldictionaryentriesupdated.proto:10–10"
+    },
+    {
+      "evidence": "assortment-6114c5d-r5/e/d1d788304d89",
+      "url": "https://github.com/volvo-cars/popcat-assortment-api/blob/6114c5db0f2b4b490cf89b9c512088f01dbf0b98/src/PopCat.Assortment.CacheWorker.Host/Protos/pcf/globaldictionaryentriesupdated.proto#L9-L9",
+      "label": "volvo-cars/popcat-assortment-api/src/PopCat.Assortment.CacheWorker.Host/Protos/pcf/globaldictionaryentriesupdated.proto:9–9"
+    },
+    {
+      "evidence": "assortment-6114c5d-r5/e/b1f0f672a9d4",
+      "url": "https://github.com/volvo-cars/popcat-assortment-api/blob/6114c5db0f2b4b490cf89b9c512088f01dbf0b98/src/PopCat.Assortment.CacheWorker.Host/Protos/pcf/globaldictionaryentriesupdated.proto#L7-L8",
+      "label": "volvo-cars/popcat-assortment-api/src/PopCat.Assortment.CacheWorker.Host/Protos/pcf/globaldictionaryentriesupdated.proto:7–8"
+    },
+    {
+      "evidence": "assortment-6114c5d-r5/e/499ee903ecfd",
+      "url": "https://github.com/volvo-cars/popcat-assortment-api/blob/6114c5db0f2b4b490cf89b9c512088f01dbf0b98/src/PopCat.Assortment.Host/Extensions/ApplicationBuilderExtensions.cs#L54-L78",
+      "label": "volvo-cars/popcat-assortment-api/src/PopCat.Assortment.Host/Extensions/ApplicationBuilderExtensions.cs:54–78"
+    },
+    {
+      "evidence": "assortment-6114c5d-r5/e/319e098e3fda",
+      "url": "https://github.com/volvo-cars/popcat-assortment-api/blob/6114c5db0f2b4b490cf89b9c512088f01dbf0b98/src/PopCat.Assortment.CacheWorker.Host/Protos/pcf/globaldictionaryentriesupdated.proto#L7-L15",
+      "label": "volvo-cars/popcat-assortment-api/src/PopCat.Assortment.CacheWorker.Host/Protos/pcf/globaldictionaryentriesupdated.proto:7–15"
+    },
+    {
+      "evidence": "assortment-6114c5d-r5/e/e3033d724b1f",
+      "url": "https://github.com/volvo-cars/popcat-assortment-api/blob/6114c5db0f2b4b490cf89b9c512088f01dbf0b98/src/PopCat.Assortment.CacheWorker.Host/Protos/pcf/globaldictionaryentriesupdated.proto#L17-L19",
+      "label": "volvo-cars/popcat-assortment-api/src/PopCat.Assortment.CacheWorker.Host/Protos/pcf/globaldictionaryentriesupdated.proto:17–19"
+    },
+    {
+      "evidence": "assortment-6114c5d-r5/e/6c50ce4f520f",
+      "url": "https://github.com/volvo-cars/popcat-assortment-api/blob/6114c5db0f2b4b490cf89b9c512088f01dbf0b98/src/PopCat.Assortment.CacheWorker.Host/appsettings.json#L17-L17",
+      "label": "volvo-cars/popcat-assortment-api/src/PopCat.Assortment.CacheWorker.Host/appsettings.json:17–17"
+    },
+    {
+      "evidence": "assortment-6114c5d-r5/e/163f59f4377a",
+      "url": "https://github.com/volvo-cars/popcat-assortment-api/blob/6114c5db0f2b4b490cf89b9c512088f01dbf0b98/src/PopCat.Assortment.CacheWorker.Host/Services/KafkaConsumerService.cs#L35-L57",
+      "label": "volvo-cars/popcat-assortment-api/src/PopCat.Assortment.CacheWorker.Host/Services/KafkaConsumerService.cs:35–57"
+    }
+  ],
+  "nextRequest": null
+}

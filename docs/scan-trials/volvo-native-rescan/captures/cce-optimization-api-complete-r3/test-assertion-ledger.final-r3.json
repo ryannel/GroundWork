@@ -1,0 +1,928 @@
+{
+  "executed": false,
+  "scope": "Source test declarations and expectations only, no source tests/builds executed",
+  "bodies": [
+    {
+      "path": "competitions/testable_hash_competition.py",
+      "symbol": "TestableHashCompetition.__init__",
+      "lines": [56, 59],
+      "assertions": [],
+      "raises": []
+    },
+    {
+      "path": "competitions/testable_hash_competition.py",
+      "symbol": "TestableHashCompetition.test",
+      "lines": [61, 80],
+      "assertions": [],
+      "raises": []
+    },
+    {
+      "path": "problems/satisfy_polytope_pair_problem.py",
+      "symbol": "TestSatisfyPolytopePairProblem.test_satisfy_simple_polytope_pair",
+      "lines": [42, 85],
+      "assertions": [
+        "assert (actual == expected).all(), f'Expected solution {expected}, but got {actual}'"
+      ],
+      "raises": ["raise actual"]
+    },
+    {
+      "path": "problems/satisfy_polytope_pair_problem.py",
+      "symbol": "TestSatisfyPolytopePairProblem.test_will_not_add_package_when_xor_pairs_are_boosted",
+      "lines": [87, 187],
+      "assertions": [
+        "assert (actual == expected).all(), f'Expected solution {expected}, but got {actual}'"
+      ],
+      "raises": ["raise actual"]
+    },
+    {
+      "path": "problems/satisfy_polytope_pair_problem.py",
+      "symbol": "TestSatisfyPolytopePairProblem.test_will_add_package_when_xor_pairs_are_boosted",
+      "lines": [189, 308],
+      "assertions": [
+        "assert (actual == expected).all(), f'Expected solution {expected}, but got {actual}'"
+      ],
+      "raises": ["raise actual"]
+    },
+    {
+      "path": "problems/build_polytope_pair_problem.py",
+      "symbol": "TestBuildPolytopePairProblem.test_build_pair_with_simple_rules",
+      "lines": [48, 163],
+      "assertions": [
+        "assert main_polytope.shape == (5, 7), f'Actual shape of main polytope is {main_polytope.shape}'",
+        "assert weight_polytope.shape == (1, 3), f'Actual shape of main polytope is {weight_polytope.shape}'"
+      ],
+      "raises": []
+    },
+    {
+      "path": "problems/build_polytope_pair_problem.py",
+      "symbol": "TestBuildPolytopePairProblem.test_order_of_weight_polytope_variables",
+      "lines": [165, 235],
+      "assertions": [
+        "assert weight_polytope.columns.tolist().index('__a') < weight_polytope.columns.tolist().index('__n')",
+        "assert weight_polytope.columns.tolist().index('__b') < weight_polytope.columns.tolist().index('__m')"
+      ],
+      "raises": []
+    },
+    {
+      "path": "problems/transfer_state_molytope_problem.py",
+      "symbol": "TestTransferStateMolytopeProblem.helper_extract_molytope_result",
+      "lines": [53, 60],
+      "assertions": [],
+      "raises": []
+    },
+    {
+      "path": "problems/transfer_state_molytope_problem.py",
+      "symbol": "TestTransferStateMolytopeProblem.test_package_without_secondaries_in_selected_actions_will_get_secondaries",
+      "lines": [62, 198],
+      "assertions": [
+        "assert set(current_configuration) == {'a', 'n', 'x'}",
+        "assert current_selections == [['a', 'n']]"
+      ],
+      "raises": []
+    },
+    {
+      "path": "problems/transfer_state_molytope_problem.py",
+      "symbol": "TestTransferStateMolytopeProblem.test_will_remove_variant_that_do_not_exist_in_action_space",
+      "lines": [200, 328],
+      "assertions": [
+        "assert set(current_configuration) == {'x'}",
+        "assert current_selections == [['x']]"
+      ],
+      "raises": []
+    },
+    {
+      "path": "problems/transfer_state_molytope_problem.py",
+      "symbol": "TestTransferStateMolytopeProblem.test_empty_selected_actions_list",
+      "lines": [330, 403],
+      "assertions": [
+        "assert set(current_configuration) == {'a', 'x'}",
+        "assert current_selections == []"
+      ],
+      "raises": []
+    },
+    {
+      "path": "problems/assume_reduce_polytope_pair_problem.py",
+      "symbol": "TestAssumeReducePolytopePairProblem.test_assume_with_different_set_of_columns_in_pair",
+      "lines": [23, 24],
+      "assertions": [],
+      "raises": []
+    },
+    {
+      "path": "problems/fix_variables_problem.py",
+      "symbol": "TestFixVariablesProblem.test_fix",
+      "lines": [24, 25],
+      "assertions": [],
+      "raises": []
+    },
+    {
+      "path": "problems/satisfy_states_molytope_problem.py",
+      "symbol": "TestSatisfyStatesMolytopeProblem.test_package_variant_will_change_when_selecting_another_xor_component",
+      "lines": [46, 195],
+      "assertions": [
+        "assert set(current_configuration) == set({'a', 'n', 'x', 'y', 'z'})",
+        "assert current_selections == [['a', 'n']]"
+      ],
+      "raises": []
+    },
+    {
+      "path": "problems/satisfy_states_molytope_problem.py",
+      "symbol": "TestSatisfyStatesMolytopeProblem.test_select_component_in_larger_package_when_having_all_content_should_select_package",
+      "lines": [197, 365],
+      "assertions": [
+        "assert set(current_configuration) == set(['b', 'x', 'y', '\u00f6'])",
+        "assert len(current_selections) == 1",
+        "assert current_selections[0] == ['\u00f6']"
+      ],
+      "raises": []
+    },
+    {
+      "path": "problems/satisfy_states_molytope_problem.py",
+      "symbol": "TestSatisfyStatesMolytopeProblem.test_select_exactly_one_constrainted_component_with_additional_requirements",
+      "lines": [367, 438],
+      "assertions": ["assert set(current_configuration) == set(['b', 'x'])"],
+      "raises": []
+    },
+    {
+      "path": "problems/satisfy_states_molytope_problem.py",
+      "symbol": "TestSatisfyStatesMolytopeProblem.test_select_same_not_constrainted_selected_component",
+      "lines": [440, 492],
+      "assertions": ["assert set(current_configuration) == set()"],
+      "raises": []
+    },
+    {
+      "path": "problems/satisfy_states_molytope_problem.py",
+      "symbol": "TestSatisfyStatesMolytopeProblem.test_select_same_selected_exactly_one_constrainted_component",
+      "lines": [494, 546],
+      "assertions": ["assert set(current_configuration) == set(['a'])"],
+      "raises": []
+    },
+    {
+      "path": "problems/satisfy_states_molytope_problem.py",
+      "symbol": "TestSatisfyStatesMolytopeProblem.test_select_package_when_xor_between_packages_and_larger_package_is_selected",
+      "lines": [548, 683],
+      "assertions": ["assert set(current_configuration) == set(['a', 'x', 'y'])"],
+      "raises": []
+    },
+    {
+      "path": "problems/satisfy_states_molytope_problem.py",
+      "symbol": "TestSatisfyStatesMolytopeProblem.test_select_package_when_xor_between_packages",
+      "lines": [685, 819],
+      "assertions": ["assert set(current_configuration) == set(['b', 'x', 'y', 'z'])"],
+      "raises": []
+    },
+    {
+      "path": "problems/satisfy_states_molytope_problem.py",
+      "symbol": "TestSatisfyStatesMolytopeProblem.test_upgrade_package_when_xor_between_multiple_packages",
+      "lines": [821, 1044],
+      "assertions": [
+        "assert set(current_configuration) == set(['a', 'x', 'y'])",
+        "assert set(current_configuration) == set(['b', 'x', 'y', 'z'])",
+        "assert set(current_configuration) == set(['c', 'x', 'y', 'z', '\u00e5'])",
+        "assert set(current_configuration) == set(['c', 'x', 'y', 'z', '\u00e5'])"
+      ],
+      "raises": []
+    },
+    {
+      "path": "problems/satisfy_states_molytope_problem.py",
+      "symbol": "TestSatisfyStatesMolytopeProblem.test_downgrade_package_when_xor_between_multiple_packages",
+      "lines": [1046, 1255],
+      "assertions": [
+        "assert set(current_configuration) == set(['a', 'x', 'y'])",
+        "assert set(current_configuration) == set(['a', 'x', 'y'])",
+        "assert set(current_configuration) == set(['b', 'x', 'y', 'z'])"
+      ],
+      "raises": []
+    },
+    {
+      "path": "problems/satisfy_states_molytope_problem.py",
+      "symbol": "TestSatisfyStatesMolytopeProblem.test_default_component_in_package_when_part_in_multiple_xors",
+      "lines": [1257, 1364],
+      "assertions": ["assert set(current_configuration) == set(['a', 'x', 'y', 'n'])"],
+      "raises": []
+    },
+    {
+      "path": "problems/satisfy_states_molytope_problem.py",
+      "symbol": "TestSatisfyStatesMolytopeProblem.test_select_component_with_indirect_package_requirement",
+      "lines": [1366, 1456],
+      "assertions": ["assert set(current_configuration) == set(['a', 'x', 'y', 'z', 'e', 'f'])"],
+      "raises": []
+    },
+    {
+      "path": "problems/satisfy_states_molytope_problem.py",
+      "symbol": "TestSatisfyStatesMolytopeProblem.test_select_single_xor_component_when_another_xor_pair_is_preferred",
+      "lines": [1458, 1549],
+      "assertions": ["assert set(current_configuration) == set(['a', 'x'])"],
+      "raises": []
+    },
+    {
+      "path": "problems/satisfy_states_molytope_problem.py",
+      "symbol": "TestSatisfyStatesMolytopeProblem.test_select_xor_pair_when_xor_pair_is_preferred",
+      "lines": [1551, 1643],
+      "assertions": ["assert set(current_configuration) == set(['a', 'y', 'z'])"],
+      "raises": []
+    },
+    {
+      "path": "problems/satisfy_states_molytope_problem.py",
+      "symbol": "TestSatisfyStatesMolytopeProblem.test_deselect_package_when_xor_pair_is_preferred_over_single_xor_component",
+      "lines": [1645, 1738],
+      "assertions": ["assert set(current_configuration) == set()"],
+      "raises": []
+    },
+    {
+      "path": "problems/satisfy_states_molytope_problem.py",
+      "symbol": "TestSatisfyStatesMolytopeProblem.test_select_single_xor_component_when_xor_pair_is_already_selected",
+      "lines": [1740, 1841],
+      "assertions": ["assert set(current_configuration) == set(['a', 'x'])"],
+      "raises": []
+    },
+    {
+      "path": "problems/satisfy_states_molytope_problem.py",
+      "symbol": "TestSatisfyStatesMolytopeProblem.test_select_one_component_in_xor_pair_when_single_xor_component_is_already_selected",
+      "lines": [1843, 1936],
+      "assertions": ["assert set(current_configuration) == set(['a', 'y', 'z'])"],
+      "raises": []
+    },
+    {
+      "path": "problems/satisfy_states_molytope_problem.py",
+      "symbol": "TestSatisfyStatesMolytopeProblem.test_will_change_package_variant_when_package_is_preselected_with_component_requiring_package",
+      "lines": [1938, 2174],
+      "assertions": ["assert set(current_configuration) == set(['x', 'c', 'd'])"],
+      "raises": []
+    },
+    {
+      "path": "problems/satisfy_states_molytope_problem.py",
+      "symbol": "TestSatisfyStatesMolytopeProblem.test_will_change_package_variant_when_single_component_is_preselected",
+      "lines": [2176, 2412],
+      "assertions": ["assert set(current_configuration) == set(['x', 'a', 'b'])"],
+      "raises": []
+    },
+    {
+      "path": "problems/satisfy_states_molytope_problem.py",
+      "symbol": "TestSatisfyStatesMolytopeProblem.test_deselect_exactly_one_constrainted_variables_from_sequence",
+      "lines": [2414, 2462],
+      "assertions": [
+        "assert set(current_configuration) == set(['b'])",
+        "assert selected_actions == [['b']]"
+      ],
+      "raises": []
+    },
+    {
+      "path": "problems/satisfy_states_molytope_problem.py",
+      "symbol": "TestSatisfyStatesMolytopeProblem.test_will_delete_package_variant_from_pre_selected_actions_when_conflicting",
+      "lines": [2464, 2560],
+      "assertions": [
+        "assert set(current_configuration) == set(['a', 'y', 'z'])",
+        "assert selected_actions == [['a', 'y', 'z']]"
+      ],
+      "raises": []
+    },
+    {
+      "path": "problems/satisfy_states_problem.py",
+      "symbol": "TestSatisfyStatesProblem.test_package_variant_will_change_when_selecting_another_xor_component",
+      "lines": [43, 199],
+      "assertions": [
+        "assert set(current_configuration) == set({'a', 'n', 'x', 'y', 'z'})",
+        "assert current_selections == [['a', 'n']]"
+      ],
+      "raises": []
+    },
+    {
+      "path": "problems/satisfy_states_problem.py",
+      "symbol": "TestSatisfyStatesProblem.test_select_exactly_one_constrainted_component_with_additional_requirements",
+      "lines": [201, 269],
+      "assertions": ["assert set(current_configuration) == set(['b', 'x'])"],
+      "raises": []
+    },
+    {
+      "path": "problems/satisfy_states_problem.py",
+      "symbol": "TestSatisfyStatesProblem.test_select_same_not_constrainted_selected_component",
+      "lines": [271, 320],
+      "assertions": ["assert set(current_configuration) == set()"],
+      "raises": []
+    },
+    {
+      "path": "problems/satisfy_states_problem.py",
+      "symbol": "TestSatisfyStatesProblem.test_select_same_selected_exactly_one_constrainted_component",
+      "lines": [322, 373],
+      "assertions": ["assert set(current_configuration) == set(['a'])"],
+      "raises": []
+    },
+    {
+      "path": "problems/satisfy_states_problem.py",
+      "symbol": "TestSatisfyStatesProblem.test_select_package_when_xor_between_packages_and_larger_package_is_selected",
+      "lines": [375, 509],
+      "assertions": ["assert set(current_configuration) == set(['a', 'x', 'y'])"],
+      "raises": []
+    },
+    {
+      "path": "problems/satisfy_states_problem.py",
+      "symbol": "TestSatisfyStatesProblem.test_select_package_when_xor_between_packages",
+      "lines": [511, 642],
+      "assertions": ["assert set(current_configuration) == set(['b', 'x', 'y', 'z'])"],
+      "raises": []
+    },
+    {
+      "path": "problems/satisfy_states_problem.py",
+      "symbol": "TestSatisfyStatesProblem.test_upgrade_package_when_xor_between_multiple_packages",
+      "lines": [644, 858],
+      "assertions": [
+        "assert set(current_configuration) == set(['a', 'x', 'y'])",
+        "assert set(current_configuration) == set(['b', 'x', 'y', 'z'])",
+        "assert set(current_configuration) == set(['c', 'x', 'y', 'z', '\u00e5'])",
+        "assert set(current_configuration) == set(['c', 'x', 'y', 'z', '\u00e5'])"
+      ],
+      "raises": []
+    },
+    {
+      "path": "problems/satisfy_states_problem.py",
+      "symbol": "TestSatisfyStatesProblem.test_downgrade_package_when_xor_between_multiple_packages",
+      "lines": [860, 1062],
+      "assertions": [
+        "assert set(current_configuration) == set(['a', 'x', 'y'])",
+        "assert set(current_configuration) == set(['a', 'x', 'y'])",
+        "assert set(current_configuration) == set(['b', 'x', 'y', 'z'])"
+      ],
+      "raises": []
+    },
+    {
+      "path": "problems/satisfy_states_problem.py",
+      "symbol": "TestSatisfyStatesProblem.test_default_component_in_package_when_part_in_multiple_xors",
+      "lines": [1064, 1177],
+      "assertions": ["assert set(current_configuration) == set(['a', 'x', 'y', 'n'])"],
+      "raises": []
+    },
+    {
+      "path": "problems/satisfy_states_problem.py",
+      "symbol": "TestSatisfyStatesProblem.test_select_component_with_indirect_package_requirement",
+      "lines": [1179, 1266],
+      "assertions": ["assert set(current_configuration) == set(['a', 'x', 'y', 'z', 'e', 'f'])"],
+      "raises": []
+    },
+    {
+      "path": "problems/satisfy_states_problem.py",
+      "symbol": "TestSatisfyStatesProblem.test_select_single_xor_component_when_another_xor_pair_is_preferred",
+      "lines": [1268, 1363],
+      "assertions": ["assert set(current_configuration) == set(['a', 'x'])"],
+      "raises": []
+    },
+    {
+      "path": "problems/satisfy_states_problem.py",
+      "symbol": "TestSatisfyStatesProblem.test_select_xor_pair_when_xor_pair_is_preferred",
+      "lines": [1365, 1461],
+      "assertions": ["assert set(current_configuration) == set(['a', 'y', 'z'])"],
+      "raises": []
+    },
+    {
+      "path": "problems/satisfy_states_problem.py",
+      "symbol": "TestSatisfyStatesProblem.test_deselect_package_when_xor_pair_is_preferred_over_single_xor_component",
+      "lines": [1463, 1560],
+      "assertions": ["assert set(current_configuration) == set()"],
+      "raises": []
+    },
+    {
+      "path": "problems/satisfy_states_problem.py",
+      "symbol": "TestSatisfyStatesProblem.test_select_single_xor_component_when_xor_pair_is_already_selected",
+      "lines": [1562, 1667],
+      "assertions": ["assert set(current_configuration) == set(['a', 'x'])"],
+      "raises": []
+    },
+    {
+      "path": "problems/satisfy_states_problem.py",
+      "symbol": "TestSatisfyStatesProblem.test_select_one_component_in_xor_pair_when_single_xor_component_is_already_selected",
+      "lines": [1669, 1766],
+      "assertions": ["assert set(current_configuration) == set(['a', 'y', 'z'])"],
+      "raises": []
+    },
+    {
+      "path": "problems/satisfy_states_problem.py",
+      "symbol": "TestSatisfyStatesProblem.test_will_change_package_variant_when_package_is_preselected_with_component_requiring_package",
+      "lines": [1768, 2012],
+      "assertions": ["assert set(current_configuration) == set(['x', 'd', 'c'])"],
+      "raises": []
+    },
+    {
+      "path": "problems/satisfy_states_problem.py",
+      "symbol": "TestSatisfyStatesProblem.test_will_change_package_variant_when_single_component_is_preselected",
+      "lines": [2014, 2259],
+      "assertions": ["assert set(current_configuration) == set(['x', 'b', 'a'])"],
+      "raises": []
+    },
+    {
+      "path": "problems/satisfy_states_problem.py",
+      "symbol": "TestSatisfyStatesProblem.test_deselect_exactly_one_constrainted_variables_from_sequence",
+      "lines": [2261, 2312],
+      "assertions": [
+        "assert set(current_configuration) == set(['b'])",
+        "assert selected_actions == [['b']]"
+      ],
+      "raises": []
+    },
+    {
+      "path": "problems/satisfy_states_problem.py",
+      "symbol": "TestSatisfyStatesProblem.test_will_delete_package_variant_from_pre_selected_actions_when_conflicting",
+      "lines": [2314, 2410],
+      "assertions": [
+        "assert set(current_configuration) == set(['a', 'y', 'z'])",
+        "assert selected_actions == [['a', 'y', 'z']]"
+      ],
+      "raises": []
+    },
+    {
+      "path": "problems/satisfy_states_problem.py",
+      "symbol": "TestSatisfyStatesProblem.test_will_delete_package_from_selected_actions_when_adding_upgrading_package",
+      "lines": [2412, 2577],
+      "assertions": [
+        "assert set(current_configuration) == set(['b', 'x', 'y', 'z'])",
+        "assert selected_actions == [['b']]"
+      ],
+      "raises": []
+    },
+    {
+      "path": "problems/satisfy_states_problem.py",
+      "symbol": "TestSatisfyStatesProblem.test_will_ignore_pre_selected_actions_not_existing_in_action_space",
+      "lines": [2579, 2636],
+      "assertions": [
+        "assert set(current_configuration) == set(['a', 'x', 'y'])",
+        "assert selected_actions == [['a']]"
+      ],
+      "raises": []
+    },
+    {
+      "path": "problems/satisfy_states_problem.py",
+      "symbol": "TestSatisfyStatesProblem.test_will_change_heavy_package_variant_when_single_option_is_preselected",
+      "lines": [2638, 2729],
+      "assertions": [
+        "assert set(current_configuration) == set(['a', 'y'] + list('mnopqrs'))",
+        "assert selected_actions == [['a', 'y']]"
+      ],
+      "raises": []
+    },
+    {
+      "path": "problems/satisfy_states_problem.py",
+      "symbol": "TestSatisfyStatesProblem.test_will_change_heavy_package_variant_is_pre_selected_and_other_package_variant_option_is_selected",
+      "lines": [2731, 2822],
+      "assertions": [
+        "assert set(current_configuration) == set(['a', 'y'] + list('mnopqrs'))",
+        "assert selected_actions == [['a', 'y']]"
+      ],
+      "raises": []
+    },
+    {
+      "path": "problems/satisfy_states_problem.py",
+      "symbol": "TestSatisfyStatesProblem.test_variable_will_be_removed_after_chosen_with_many_variables_in_selected",
+      "lines": [2824, 2858],
+      "assertions": [
+        "assert set(current_configuration) == set(['y', 'z'])",
+        "assert selected_actions == [['y'], ['z']]"
+      ],
+      "raises": []
+    },
+    {
+      "path": "problems/satisfy_states_problem.py",
+      "symbol": "TestSatisfyStatesProblem.test_will_not_prefer_preferred_combinations_for_requires_exclusivelies",
+      "lines": [2860, 2972],
+      "assertions": [
+        "assert set(current_configuration) == set(['a', 'b', 'x'])",
+        "assert selected_actions == [['a'], ['x']]"
+      ],
+      "raises": []
+    },
+    {
+      "path": "problems/satisfy_states_problem.py",
+      "symbol": "TestSatisfyStatesProblem.test_will_not_prefer_preferred_combinations_for_exactly_one_variables",
+      "lines": [2974, 3194],
+      "assertions": [
+        "assert set(current_configuration) == set(['b', 'z'])",
+        "assert selected_actions == [['z'], ['b']]"
+      ],
+      "raises": []
+    },
+    {
+      "path": "problems/satisfy_states_problem.py",
+      "symbol": "TestSatisfyStatesProblem.test_will_select_package_when_variant_component_in_selections",
+      "lines": [3196, 3280],
+      "assertions": [
+        "assert set(current_configuration) == set(['p', 'y', 'b'])",
+        "assert selected_actions == [['b'], ['p', 'y']]"
+      ],
+      "raises": []
+    },
+    {
+      "path": "problems/satisfy_states_problem.py",
+      "symbol": "TestSatisfyStatesProblem.test_select_package_variant_x_when_package_variant_y_is_selected",
+      "lines": [3282, 3371],
+      "assertions": [
+        "assert set(current_configuration) == set(['p', 'x', 'a', 'b', 'c'])",
+        "assert selected_actions == [['p', 'x']]"
+      ],
+      "raises": []
+    },
+    {
+      "path": "problems/satisfy_states_problem.py",
+      "symbol": "TestSatisfyStatesProblem.test_will_not_prefer_package_when_xor_components_in_variants",
+      "lines": [3373, 3506],
+      "assertions": [
+        "assert set(current_configuration) == set(['z'])",
+        "assert selected_actions == []"
+      ],
+      "raises": []
+    },
+    {
+      "path": "problems/satisfy_states_problem.py",
+      "symbol": "TestSatisfyStatesProblem.test_will_delete_package_from_selected_actions_when_new_conflicting_package",
+      "lines": [3508, 3696],
+      "assertions": [
+        "assert set(configuration) == set(['c', 'x'])",
+        "assert selections == [['c']]"
+      ],
+      "raises": []
+    },
+    {
+      "path": "problems/satisfy_states_problem.py",
+      "symbol": "TestSatisfyStatesProblem.test_will_delete_package_from_selected_actions_when_new_conflicting_package_reversed_order",
+      "lines": [3698, 3887],
+      "assertions": [
+        "assert set(configuration) == set(['a', 'n', 'x', 'y', 'z'])",
+        "assert selections == [['a', 'n']]"
+      ],
+      "raises": []
+    },
+    {
+      "path": "problems/satisfy_states_problem.py",
+      "symbol": "TestSatisfyStatesProblem.test_preferred_components_order_when_having_duplicated_rules",
+      "lines": [3889, 4041],
+      "assertions": [
+        "assert set(configuration) == set(['a'])",
+        "assert selections == [['a']]",
+        "assert set(configuration) == set(['b'])",
+        "assert selections == [['b']]"
+      ],
+      "raises": []
+    },
+    {
+      "path": "problems/satisfy_states_problem.py",
+      "symbol": "TestSatisfyStatesProblem.test_will_only_remove_one_selection_if_three_or_more_are_conflicting",
+      "lines": [4043, 4194],
+      "assertions": [
+        "assert set(configuration) == set(['a', 'y'])",
+        "assert selections == [['a'], ['y']]"
+      ],
+      "raises": []
+    },
+    {
+      "path": "problems/satisfy_states_problem.py",
+      "symbol": "TestSatisfyStatesProblem.test_will_only_remove_one_selection_if_three_or_more_are_conflicting_reverse_selections",
+      "lines": [4196, 4357],
+      "assertions": [
+        "assert set(configuration) == set(['a', 'y'])",
+        "assert selections == [['y']]"
+      ],
+      "raises": []
+    },
+    {
+      "path": "problems/satisfy_states_problem.py",
+      "symbol": "TestSatisfyStatesProblem.test_will_perform_action_where_component_is_removed_and_is_outside_action_space",
+      "lines": [4359, 4466],
+      "assertions": [
+        "assert set(configuration) == set(['x', 'y'])",
+        "assert selections == [['x'], ['y']]",
+        "assert len(configuration) == 0",
+        "assert len(selections) == 0",
+        "assert False",
+        "assert False",
+        "assert True",
+        "assert True"
+      ],
+      "raises": []
+    },
+    {
+      "path": "problems/satisfy_states_problem.py",
+      "symbol": "TestSatisfyStatesProblem.test_will_not_change_variant_when_variant_should_not_be_choosable",
+      "lines": [4468, 4654],
+      "assertions": [
+        "assert set(configuration) == set(['b', 'n', 'x'])",
+        "assert selections == [['b'], ['n']]"
+      ],
+      "raises": []
+    },
+    {
+      "path": "problems/transform_polytope_molytope_problem.py",
+      "symbol": "TestTransformPolytopeMolytopeProblem.test_objective_will_have_equal_size_as_aub_columns",
+      "lines": [43, 112],
+      "assertions": [
+        "assert len(result['aub']) == len(result['bub'])",
+        "assert len(result['obj']) == len(result['aub'][0])",
+        "assert ~np.isnan(result['obj']).any()"
+      ],
+      "raises": []
+    },
+    {
+      "path": "problems/satisfy_variable_variants_problem.py",
+      "symbol": "TestSatisfyVariableVariantsProblem.test_satisfy_simple_polytope_pair",
+      "lines": [36, 37],
+      "assertions": [],
+      "raises": []
+    },
+    {
+      "path": "problems/base/testable_problem_competition.py",
+      "symbol": "TestableProblemCompetition.__init__",
+      "lines": [8, 9],
+      "assertions": [],
+      "raises": []
+    },
+    {
+      "path": "tests/compositions/test_hash_competition.py",
+      "symbol": "TestHashCompetition.test_can_init_hash_competition",
+      "lines": [8, 24],
+      "assertions": [],
+      "raises": []
+    },
+    {
+      "path": "tests/compositions/test_hash_competition.py",
+      "symbol": "TestHashCompetition.test_can_not_run_simple_hash_competition_without_hash_functions",
+      "lines": [26, 44],
+      "assertions": [],
+      "raises": []
+    },
+    {
+      "path": "tests/compositions/test_hash_competition.py",
+      "symbol": "TestHashCompetition.test_can_run_simple_hash_competition",
+      "lines": [46, 66],
+      "assertions": [],
+      "raises": []
+    },
+    {
+      "path": "tests/compositions/test_testable_hash_competition.py",
+      "symbol": "TestTestableHashCompetition.test_test_case_not_being_async_fn",
+      "lines": [9, 19],
+      "assertions": ["assert result == [2, 3, 4]"],
+      "raises": []
+    },
+    {
+      "path": "tests/compositions/test_testable_hash_competition.py",
+      "symbol": "TestTestableHashCompetition.test_test_case_will_raise_assert_and_pass",
+      "lines": [21, 44],
+      "assertions": ["assert result == [2, 3, 4]", "assert result == [1, 3, 4]"],
+      "raises": ["raise Exception('Did raise')"]
+    },
+    {
+      "path": "tests/compositions/test_testable_hash_competition.py",
+      "symbol": "TestTestableHashCompetition.test_test_case_with_forward_inputs",
+      "lines": [46, 62],
+      "assertions": ["assert result == [3, 5, 7]"],
+      "raises": []
+    },
+    {
+      "path": "tests/solutions/test_remove_pre_selected_actions.py",
+      "symbol": "TestRemovePreSelectedActionsNotOnConfiguration.test_remove_primary_actions",
+      "lines": [8, 12],
+      "assertions": [],
+      "raises": []
+    },
+    {
+      "path": "tests/solutions/test_remove_pre_selected_actions.py",
+      "symbol": "TestRemovePreSelectedActionsNotOnConfiguration.test_keep_actions_with_secondaries",
+      "lines": [14, 21],
+      "assertions": [],
+      "raises": []
+    },
+    {
+      "path": "tests/solutions/test_remove_pre_selected_actions.py",
+      "symbol": "TestRemovePreSelectedActionsNotOnConfiguration.test_keep_actions_with_secondaries_not_on_configuration",
+      "lines": [23, 30],
+      "assertions": [],
+      "raises": []
+    },
+    {
+      "path": "tests/solutions/test_satisfy_states_molytope_solution.py",
+      "symbol": "TestStatesMolytopeSolution.test_proportional_vector",
+      "lines": [8, 14],
+      "assertions": [],
+      "raises": []
+    },
+    {
+      "path": "tests/problems/test_problem_orchestrator.py",
+      "symbol": "TestCompetitionOrchestrator.test_orchestrator",
+      "lines": [8, 17],
+      "assertions": [],
+      "raises": []
+    },
+    {
+      "path": "tests/problems/test_problem_orchestrator.py",
+      "symbol": "create_test_storage",
+      "lines": [20, 21],
+      "assertions": [],
+      "raises": []
+    },
+    {
+      "path": "tests/problems/test_problem_orchestrator.py",
+      "symbol": "TestCloudStorage.__init__",
+      "lines": [27, 28],
+      "assertions": [],
+      "raises": []
+    },
+    {
+      "path": "tests/problems/test_problem_orchestrator.py",
+      "symbol": "TestCloudStorage._get_blob_data",
+      "lines": [30, 31],
+      "assertions": [],
+      "raises": []
+    },
+    {
+      "path": "tests/problems/test_problem_orchestrator.py",
+      "symbol": "TestCloudStorage._upload_blob_data",
+      "lines": [33, 34],
+      "assertions": [],
+      "raises": []
+    },
+    {
+      "path": "tests/problems/test_problem_orchestrator.py",
+      "symbol": "TestCloudStorage._delete_blob_data",
+      "lines": [36, 37],
+      "assertions": [],
+      "raises": []
+    },
+    {
+      "path": "tests/utils/test_dropduplicates.py",
+      "symbol": "helper_create_constraint",
+      "lines": [7, 18],
+      "assertions": [],
+      "raises": []
+    },
+    {
+      "path": "tests/utils/test_dropduplicates.py",
+      "symbol": "TestDropDuplicates.test_polytope_has_duplicate_rows__will_deduplicate",
+      "lines": [23, 33],
+      "assertions": [],
+      "raises": []
+    },
+    {
+      "path": "tests/utils/test_dropduplicates.py",
+      "symbol": "TestDropDuplicates.test_polytope_different_variables__will_not_deduplicate",
+      "lines": [35, 45],
+      "assertions": [],
+      "raises": []
+    },
+    {
+      "path": "tests/utils/test_dropduplicates.py",
+      "symbol": "TestDropDuplicates.test_polytope_coefficient_value_is_different__will_not_deduplicate",
+      "lines": [47, 57],
+      "assertions": [],
+      "raises": []
+    },
+    {
+      "path": "tests/utils/test_dropduplicates.py",
+      "symbol": "TestDropDuplicates.test_polytope_support_value_is_different__will_not_deduplicate",
+      "lines": [59, 69],
+      "assertions": [],
+      "raises": []
+    },
+    {
+      "path": "tests/utils/test_dropduplicates.py",
+      "symbol": "TestDropDuplicates.test_polytope_rule_type_annotation_is_different__will_deduplicate",
+      "lines": [71, 84],
+      "assertions": [],
+      "raises": []
+    },
+    {
+      "path": "tests/utils/test_dropduplicates.py",
+      "symbol": "TestDropDuplicates.test_polytope_weight_annotation_is_different__will_deduplicate",
+      "lines": [86, 99],
+      "assertions": [],
+      "raises": []
+    },
+    {
+      "path": "tests/utils/test_dropduplicates.py",
+      "symbol": "TestDropDuplicates.test_polytope_id_annotation_is_different__will_deduplicate",
+      "lines": [101, 114],
+      "assertions": [],
+      "raises": []
+    },
+    {
+      "path": "tests/utils/test_dropduplicates.py",
+      "symbol": "TestDropDuplicates.test_polytope_has_duplicate_rows__will_preserve_index_consistently_with_constraints",
+      "lines": [116, 145],
+      "assertions": [],
+      "raises": []
+    },
+    {
+      "path": "tests/utils/test_dropduplicates.py",
+      "symbol": "TestDropDuplicates.test_polytope_two_constraints_with_same_index__will_preserve_index_consistently_with_constraints",
+      "lines": [147, 186],
+      "assertions": [],
+      "raises": []
+    },
+    {
+      "path": "tests/combinationsgen/test_generate_combinations.py",
+      "symbol": "TestGenerateConfigurations.test_generate",
+      "lines": [8, 35],
+      "assertions": [],
+      "raises": []
+    },
+    {
+      "path": "tests/combinationsgen/test_generate_combinations.py",
+      "symbol": "TestGenerateConfigurations.test_generate_when_combination_cannot_be_satisfied",
+      "lines": [37, 63],
+      "assertions": [],
+      "raises": []
+    },
+    {
+      "path": "tests/combinationsgen/test_generate_combinations.py",
+      "symbol": "TestGenerateConfigurations.test_create_required_constraint",
+      "lines": [65, 74],
+      "assertions": [],
+      "raises": []
+    },
+    {
+      "path": "tests/combinationsgen/test_generate_combinations.py",
+      "symbol": "TestGenerateConfigurations.test_create_required_constraint_combination_all_zero",
+      "lines": [76, 85],
+      "assertions": [],
+      "raises": []
+    },
+    {
+      "path": "tests/combinationsgen/test_generate_combinations.py",
+      "symbol": "TestGenerateConfigurations.test_create_required_constraint_combination_with_duplicate_elements",
+      "lines": [87, 96],
+      "assertions": [],
+      "raises": []
+    },
+    {
+      "path": "tests/combinationsgen/test_generate_combinations.py",
+      "symbol": "TestGenerateConfigurations.test_create_required_constraint_variant_in_combination",
+      "lines": [98, 111],
+      "assertions": [],
+      "raises": []
+    },
+    {
+      "path": "tests/combinationsgen/test_generate_combinations.py",
+      "symbol": "TestGenerateConfigurations.test_create_required_constraint_variable_missing_should_throw_exception",
+      "lines": [113, 122],
+      "assertions": [],
+      "raises": []
+    },
+    {
+      "path": "tests/combinationsgen/test_generate_combinations.py",
+      "symbol": "TestGenerateConfigurations.test_create_required_constraint_variant_variable_missing_should_throw_exception",
+      "lines": [124, 133],
+      "assertions": [],
+      "raises": []
+    },
+    {
+      "path": "tests/compositions/pieces/test_linearize_polytope_piece.py",
+      "symbol": "TestLinearizePolytopPiece.test_linearize_empty_polytopes_should_fail",
+      "lines": [13, 22],
+      "assertions": [],
+      "raises": []
+    },
+    {
+      "path": "tests/compositions/pieces/test_linearize_polytope_piece.py",
+      "symbol": "TestLinearizePolytopPiece.test_linearize_empty_weight_polytope_should_pass",
+      "lines": [24, 32],
+      "assertions": [],
+      "raises": []
+    },
+    {
+      "path": "tests/compositions/pieces/test_linearize_polytope_piece.py",
+      "symbol": "TestLinearizePolytopPiece.test_linearize_main_polytope_with_missing_support_vector_should_fail",
+      "lines": [34, 43],
+      "assertions": [],
+      "raises": []
+    },
+    {
+      "path": "tests/compositions/pieces/test_linearize_polytope_piece.py",
+      "symbol": "TestLinearizePolytopPiece.test_linearize_weight_polytope_with_missing_support_vector_should_fail",
+      "lines": [45, 54],
+      "assertions": [],
+      "raises": []
+    },
+    {
+      "path": "tests/compositions/pieces/test_solve_ilp_collection_piece.py",
+      "symbol": "TestSolveIlpCollectionPiece.test_define_solve_problem_should_fail",
+      "lines": [7, 17],
+      "assertions": [],
+      "raises": []
+    },
+    {
+      "path": "tests/compositions/pieces/test_solve_ilp_collection_piece.py",
+      "symbol": "TestSolveIlpCollectionPiece.test_define_solve_problem_should_pass",
+      "lines": [19, 27],
+      "assertions": [],
+      "raises": []
+    },
+    {
+      "path": "tests/compositions/pieces/test_solve_ilp_collection_piece.py",
+      "symbol": "TestSolveIlpCollectionPiece.test_run_solve_problems_should_pass",
+      "lines": [29, 39],
+      "assertions": [],
+      "raises": []
+    },
+    {
+      "path": "tests/compositions/pieces/test_solve_ilp_collection_piece.py",
+      "symbol": "TestSolveIlpCollectionPiece.test_run_solve_problems_with_async_solver_should_pass",
+      "lines": [41, 51],
+      "assertions": [],
+      "raises": []
+    }
+  ]
+}

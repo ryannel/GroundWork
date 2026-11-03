@@ -1,0 +1,16 @@
+{
+  "format": "groundwork-query/v3",
+  "snapshot": "9d0a63b6ca64b19212019fab88daf56965ac16d3c46dfc8b1cd6765c0b7b2475",
+  "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-7/method/c154734c900ab51fc52f",
+  "query": "value",
+  "value": "volvo/cds-paymentservice-transaction/020d2fabb141/local-7/construction-field/3b1eef6c25dca6d33d49",
+  "context": [],
+  "outcome": null,
+  "changed": [],
+  "representation": "constructed",
+  "candidates": "exclude",
+  "maxNodes": 2000,
+  "maxRecords": 5000,
+  "environment": "source-profile",
+  "ids": []
+}

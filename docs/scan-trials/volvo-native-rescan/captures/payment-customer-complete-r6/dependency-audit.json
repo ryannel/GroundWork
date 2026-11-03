@@ -1,0 +1,538 @@
+[
+  {
+    "coordinate": "com.volvocars.ecom:cds-paymentservice-customer-core",
+    "version": "1.0.34-SNAPSHOT",
+    "scope": "compile/inherited",
+    "path": "cds-paymentservice-customer-api/pom.xml",
+    "artifact": "customer-b0010537-complete-r6/dependency/7cbd1bc1667eb4af",
+    "binding": "declared only; exact binary/source digest unresolved"
+  },
+  {
+    "coordinate": "org.springframework.boot:spring-boot-starter-actuator",
+    "version": "${spring-boot.bom.version}",
+    "scope": "compile/inherited",
+    "path": "cds-paymentservice-customer-api/pom.xml",
+    "artifact": "customer-b0010537-complete-r6/dependency/55dfb17a4e15d0b4",
+    "binding": "declared only; exact binary/source digest unresolved"
+  },
+  {
+    "coordinate": "com.volvocars.services:cds-volvocars-shared-utility",
+    "version": "unresolved inherited version",
+    "scope": "compile/inherited",
+    "path": "cds-paymentservice-customer-api/pom.xml",
+    "artifact": "customer-b0010537-complete-r6/dependency/9c045cbfa61efb4c",
+    "binding": "declared only; exact binary/source digest unresolved"
+  },
+  {
+    "coordinate": "com.volvocars.services:cds-volvocars-shared-web",
+    "version": "unresolved inherited version",
+    "scope": "compile/inherited",
+    "path": "cds-paymentservice-customer-api/pom.xml",
+    "artifact": "customer-b0010537-complete-r6/dependency/a5c19e9aab062f8c",
+    "binding": "declared only; exact binary/source digest unresolved"
+  },
+  {
+    "coordinate": "com.volvocars.services:cds-volvocars-shared-common",
+    "version": "unresolved inherited version",
+    "scope": "compile/inherited",
+    "path": "cds-paymentservice-customer-api/pom.xml",
+    "artifact": "customer-b0010537-complete-r6/dependency/f81446c3c97c3ca9",
+    "binding": "declared only; exact binary/source digest unresolved"
+  },
+  {
+    "coordinate": "jakarta.validation:jakarta.validation-api",
+    "version": "unresolved inherited version",
+    "scope": "compile/inherited",
+    "path": "cds-paymentservice-customer-api/pom.xml",
+    "artifact": "customer-b0010537-complete-r6/dependency/7bf0ef72b17e2d84",
+    "binding": "declared only; exact binary/source digest unresolved"
+  },
+  {
+    "coordinate": "io.micrometer:micrometer-registry-prometheus",
+    "version": "unresolved inherited version",
+    "scope": "compile/inherited",
+    "path": "cds-paymentservice-customer-api/pom.xml",
+    "artifact": "customer-b0010537-complete-r6/dependency/001e274c918e8df6",
+    "binding": "declared only; exact binary/source digest unresolved"
+  },
+  {
+    "coordinate": "io.opentelemetry.instrumentation:opentelemetry-spring-boot-starter",
+    "version": "unresolved inherited version",
+    "scope": "compile/inherited",
+    "path": "cds-paymentservice-customer-api/pom.xml",
+    "artifact": "customer-b0010537-complete-r6/dependency/73b617390fcc618f",
+    "binding": "declared only; exact binary/source digest unresolved"
+  },
+  {
+    "coordinate": "org.springframework.boot:spring-boot-starter-log4j2",
+    "version": "unresolved inherited version",
+    "scope": "compile/inherited",
+    "path": "cds-paymentservice-customer-api/pom.xml",
+    "artifact": "customer-b0010537-complete-r6/dependency/5a93517776169fb7",
+    "binding": "declared only; exact binary/source digest unresolved"
+  },
+  {
+    "coordinate": "co.elastic.logging:log4j2-ecs-layout",
+    "version": "1.8.0",
+    "scope": "compile/inherited",
+    "path": "cds-paymentservice-customer-api/pom.xml",
+    "artifact": "customer-b0010537-complete-r6/dependency/83d39aa551f74c58",
+    "binding": "declared only; exact binary/source digest unresolved"
+  },
+  {
+    "coordinate": "com.volvocars.services:cds-volvocars-shared-utility",
+    "version": "unresolved inherited version",
+    "scope": "compile/inherited",
+    "path": "cds-paymentservice-customer-client/pom.xml",
+    "artifact": "customer-b0010537-complete-r6/dependency/9c045cbfa61efb4c",
+    "binding": "declared only; exact binary/source digest unresolved"
+  },
+  {
+    "coordinate": "com.volvocars.ecom:cds-paymentservice-customer-shared",
+    "version": "1.0.34-SNAPSHOT",
+    "scope": "compile/inherited",
+    "path": "cds-paymentservice-customer-client/pom.xml",
+    "artifact": "customer-b0010537-complete-r6/dependency/c5a84d58519d2425",
+    "binding": "declared only; exact binary/source digest unresolved"
+  },
+  {
+    "coordinate": "com.volvocars.ecom:cds-paymentservice-feign",
+    "version": "2.0.32",
+    "scope": "compile",
+    "path": "cds-paymentservice-customer-client/pom.xml",
+    "artifact": "customer-b0010537-complete-r6/dependency/8cce9490ed69ca92",
+    "binding": "declared only; exact binary/source digest unresolved"
+  },
+  {
+    "coordinate": "org.junit.jupiter:junit-jupiter-api",
+    "version": "6.0.3",
+    "scope": "test",
+    "path": "cds-paymentservice-customer-client/pom.xml",
+    "artifact": "customer-b0010537-complete-r6/dependency/205eda571cfe9f82",
+    "binding": "declared only; exact binary/source digest unresolved"
+  },
+  {
+    "coordinate": "org.junit.jupiter:junit-jupiter-engine",
+    "version": "6.0.3",
+    "scope": "test",
+    "path": "cds-paymentservice-customer-client/pom.xml",
+    "artifact": "customer-b0010537-complete-r6/dependency/a4b0854b8a0bb37b",
+    "binding": "declared only; exact binary/source digest unresolved"
+  },
+  {
+    "coordinate": "org.mockito:mockito-core",
+    "version": "5.6.0",
+    "scope": "test",
+    "path": "cds-paymentservice-customer-client/pom.xml",
+    "artifact": "customer-b0010537-complete-r6/dependency/c3d790d1b5de4d1b",
+    "binding": "declared only; exact binary/source digest unresolved"
+  },
+  {
+    "coordinate": "org.assertj:assertj-core",
+    "version": "3.27.7",
+    "scope": "test",
+    "path": "cds-paymentservice-customer-client/pom.xml",
+    "artifact": "customer-b0010537-complete-r6/dependency/d4b0573e1ae799d0",
+    "binding": "declared only; exact binary/source digest unresolved"
+  },
+  {
+    "coordinate": "com.volvocars.ecom:com-volvocars-ecom-shared",
+    "version": "4.0.29",
+    "scope": "compile/inherited",
+    "path": "cds-paymentservice-customer-core/pom.xml",
+    "artifact": "customer-b0010537-complete-r6/dependency/a5cd9bbb78029829",
+    "binding": "declared only; exact binary/source digest unresolved"
+  },
+  {
+    "coordinate": "com.volvocars.ecom:com-volvocars-ecom-web",
+    "version": "4.0.29",
+    "scope": "compile/inherited",
+    "path": "cds-paymentservice-customer-core/pom.xml",
+    "artifact": "customer-b0010537-complete-r6/dependency/914c4e102c62ff81",
+    "binding": "declared only; exact binary/source digest unresolved"
+  },
+  {
+    "coordinate": "com.volvocars.ecom:cds-paymentservice-customer-shared",
+    "version": "1.0.34-SNAPSHOT",
+    "scope": "compile/inherited",
+    "path": "cds-paymentservice-customer-core/pom.xml",
+    "artifact": "customer-b0010537-complete-r6/dependency/c5a84d58519d2425",
+    "binding": "declared only; exact binary/source digest unresolved"
+  },
+  {
+    "coordinate": "com.volvocars.ecom:cds-paymentservice-shared",
+    "version": "2.0.32",
+    "scope": "compile/inherited",
+    "path": "cds-paymentservice-customer-core/pom.xml",
+    "artifact": "customer-b0010537-complete-r6/dependency/e24c3c405598f0b5",
+    "binding": "declared only; exact binary/source digest unresolved"
+  },
+  {
+    "coordinate": "com.volvocars.ecom:cds-paymentservice-properties",
+    "version": "2.0.32",
+    "scope": "compile/inherited",
+    "path": "cds-paymentservice-customer-core/pom.xml",
+    "artifact": "customer-b0010537-complete-r6/dependency/ca07fff337475a34",
+    "binding": "declared only; exact binary/source digest unresolved"
+  },
+  {
+    "coordinate": "com.volvocars.ecom:cds-paymentservice-psp-integration-client",
+    "version": "1.3.243",
+    "scope": "compile/inherited",
+    "path": "cds-paymentservice-customer-core/pom.xml",
+    "artifact": "customer-b0010537-complete-r6/dependency/e8a6dd6c62f128f3",
+    "binding": "declared only; exact binary/source digest unresolved"
+  },
+  {
+    "coordinate": "org.springframework.boot:spring-boot-starter-data-mongodb",
+    "version": "${spring-boot.bom.version}",
+    "scope": "compile/inherited",
+    "path": "cds-paymentservice-customer-core/pom.xml",
+    "artifact": "customer-b0010537-complete-r6/dependency/c447b6bdd29f42c3",
+    "binding": "declared only; exact binary/source digest unresolved"
+  },
+  {
+    "coordinate": "org.springframework.boot:spring-boot-starter-validation",
+    "version": "${spring-boot.bom.version}",
+    "scope": "compile/inherited",
+    "path": "cds-paymentservice-customer-core/pom.xml",
+    "artifact": "customer-b0010537-complete-r6/dependency/ee5afc8d84fbf4d5",
+    "binding": "declared only; exact binary/source digest unresolved"
+  },
+  {
+    "coordinate": "org.springframework.boot:spring-boot-starter-cache",
+    "version": "unresolved inherited version",
+    "scope": "compile/inherited",
+    "path": "cds-paymentservice-customer-core/pom.xml",
+    "artifact": "customer-b0010537-complete-r6/dependency/db1152936d445402",
+    "binding": "declared only; exact binary/source digest unresolved"
+  },
+  {
+    "coordinate": "org.springframework:spring-aop",
+    "version": "unresolved inherited version",
+    "scope": "compile/inherited",
+    "path": "cds-paymentservice-customer-core/pom.xml",
+    "artifact": "customer-b0010537-complete-r6/dependency/dcb44f2548658e30",
+    "binding": "declared only; exact binary/source digest unresolved"
+  },
+  {
+    "coordinate": "org.aspectj:aspectjweaver",
+    "version": "unresolved inherited version",
+    "scope": "compile/inherited",
+    "path": "cds-paymentservice-customer-core/pom.xml",
+    "artifact": "customer-b0010537-complete-r6/dependency/ce27fa7563d027d0",
+    "binding": "declared only; exact binary/source digest unresolved"
+  },
+  {
+    "coordinate": "org.springframework.boot:spring-boot-starter-data-redis",
+    "version": "unresolved inherited version",
+    "scope": "compile/inherited",
+    "path": "cds-paymentservice-customer-core/pom.xml",
+    "artifact": "customer-b0010537-complete-r6/dependency/b81931e339e1f32e",
+    "binding": "declared only; exact binary/source digest unresolved"
+  },
+  {
+    "coordinate": "commons-codec:commons-codec",
+    "version": "unresolved inherited version",
+    "scope": "compile/inherited",
+    "path": "cds-paymentservice-customer-core/pom.xml",
+    "artifact": "customer-b0010537-complete-r6/dependency/d9a20a3d4677716e",
+    "binding": "declared only; exact binary/source digest unresolved"
+  },
+  {
+    "coordinate": "com.volvocars.ecom:cds-distributed-locker-spring",
+    "version": "1.0.5",
+    "scope": "compile/inherited",
+    "path": "cds-paymentservice-customer-core/pom.xml",
+    "artifact": "customer-b0010537-complete-r6/dependency/11002963808997cd",
+    "binding": "declared only; exact binary/source digest unresolved"
+  },
+  {
+    "coordinate": "org.instancio:instancio-junit",
+    "version": "5.5.1",
+    "scope": "test",
+    "path": "cds-paymentservice-customer-core/pom.xml",
+    "artifact": "customer-b0010537-complete-r6/dependency/00ab0646ed3ddc0a",
+    "binding": "declared only; exact binary/source digest unresolved"
+  },
+  {
+    "coordinate": "org.springframework.boot:spring-boot-starter-test",
+    "version": "unresolved inherited version",
+    "scope": "test",
+    "path": "cds-paymentservice-customer-core/pom.xml",
+    "artifact": "customer-b0010537-complete-r6/dependency/49249eae14036b9b",
+    "binding": "declared only; exact binary/source digest unresolved"
+  },
+  {
+    "coordinate": "com.fasterxml.jackson.core:jackson-databind",
+    "version": "unresolved inherited version",
+    "scope": "compile/inherited",
+    "path": "cds-paymentservice-customer-shared/pom.xml",
+    "artifact": "customer-b0010537-complete-r6/dependency/48a25599d08c9911",
+    "binding": "declared only; exact binary/source digest unresolved"
+  },
+  {
+    "coordinate": "io.swagger.core.v3:swagger-annotations-jakarta",
+    "version": "unresolved inherited version",
+    "scope": "compile/inherited",
+    "path": "cds-paymentservice-customer-shared/pom.xml",
+    "artifact": "customer-b0010537-complete-r6/dependency/cc8e3bdfb3213184",
+    "binding": "declared only; exact binary/source digest unresolved"
+  },
+  {
+    "coordinate": "jakarta.validation:jakarta.validation-api",
+    "version": "unresolved inherited version",
+    "scope": "compile/inherited",
+    "path": "cds-paymentservice-customer-shared/pom.xml",
+    "artifact": "customer-b0010537-complete-r6/dependency/7bf0ef72b17e2d84",
+    "binding": "declared only; exact binary/source digest unresolved"
+  },
+  {
+    "coordinate": "com.volvocars.ecom:cds-paymentservice-shared",
+    "version": "2.0.32",
+    "scope": "compile/inherited",
+    "path": "cds-paymentservice-customer-shared/pom.xml",
+    "artifact": "customer-b0010537-complete-r6/dependency/e24c3c405598f0b5",
+    "binding": "declared only; exact binary/source digest unresolved"
+  },
+  {
+    "coordinate": "com.volvocars.ecom:cds-paymentservice-customer-api",
+    "version": "1.0.34-SNAPSHOT",
+    "scope": "compile/inherited",
+    "path": "cds-paymentservice-customer-test/pom.xml",
+    "artifact": "customer-b0010537-complete-r6/dependency/7bc2c3e7e21647bc",
+    "binding": "declared only; exact binary/source digest unresolved"
+  },
+  {
+    "coordinate": "org.springframework.boot:spring-boot-starter-test",
+    "version": "unresolved inherited version",
+    "scope": "test",
+    "path": "cds-paymentservice-customer-test/pom.xml",
+    "artifact": "customer-b0010537-complete-r6/dependency/49249eae14036b9b",
+    "binding": "declared only; exact binary/source digest unresolved"
+  },
+  {
+    "coordinate": "org.springframework.boot:spring-boot-starter-webmvc-test",
+    "version": "unresolved inherited version",
+    "scope": "test",
+    "path": "cds-paymentservice-customer-test/pom.xml",
+    "artifact": "customer-b0010537-complete-r6/dependency/3e9ccdf38f51af81",
+    "binding": "declared only; exact binary/source digest unresolved"
+  },
+  {
+    "coordinate": "io.rest-assured:spring-mock-mvc",
+    "version": "6.0.0",
+    "scope": "test",
+    "path": "cds-paymentservice-customer-test/pom.xml",
+    "artifact": "customer-b0010537-complete-r6/dependency/bb0baf03070d0a26",
+    "binding": "declared only; exact binary/source digest unresolved"
+  },
+  {
+    "coordinate": "org.springframework.boot:spring-boot-testcontainers",
+    "version": "unresolved inherited version",
+    "scope": "test",
+    "path": "cds-paymentservice-customer-test/pom.xml",
+    "artifact": "customer-b0010537-complete-r6/dependency/e14999f396c91281",
+    "binding": "declared only; exact binary/source digest unresolved"
+  },
+  {
+    "coordinate": "org.testcontainers:junit-jupiter",
+    "version": "1.21.4",
+    "scope": "test",
+    "path": "cds-paymentservice-customer-test/pom.xml",
+    "artifact": "customer-b0010537-complete-r6/dependency/b9197bb986c02ae9",
+    "binding": "declared only; exact binary/source digest unresolved"
+  },
+  {
+    "coordinate": "org.testcontainers:mongodb",
+    "version": "1.21.4",
+    "scope": "test",
+    "path": "cds-paymentservice-customer-test/pom.xml",
+    "artifact": "customer-b0010537-complete-r6/dependency/ab288d2afb4543b6",
+    "binding": "declared only; exact binary/source digest unresolved"
+  },
+  {
+    "coordinate": "org.springframework.cloud:spring-cloud-config-server",
+    "version": "unresolved inherited version",
+    "scope": "test",
+    "path": "cds-paymentservice-customer-test/pom.xml",
+    "artifact": "customer-b0010537-complete-r6/dependency/7671b4f255212eb8",
+    "binding": "declared only; exact binary/source digest unresolved"
+  },
+  {
+    "coordinate": "org.springframework.cloud:spring-cloud-starter-bootstrap",
+    "version": "unresolved inherited version",
+    "scope": "test",
+    "path": "cds-paymentservice-customer-test/pom.xml",
+    "artifact": "customer-b0010537-complete-r6/dependency/8aaa9695ac1f2522",
+    "binding": "declared only; exact binary/source digest unresolved"
+  },
+  {
+    "coordinate": "org.springframework.boot:spring-boot-starter",
+    "version": "${spring-boot.bom.version}",
+    "scope": "compile/inherited",
+    "path": "pom.xml",
+    "artifact": "customer-b0010537-complete-r6/dependency/535f34742b3d2445",
+    "binding": "declared only; exact binary/source digest unresolved"
+  },
+  {
+    "coordinate": "org.springframework.boot:spring-boot-starter-actuator",
+    "version": "${spring-boot.bom.version}",
+    "scope": "compile/inherited",
+    "path": "pom.xml",
+    "artifact": "customer-b0010537-complete-r6/dependency/55dfb17a4e15d0b4",
+    "binding": "declared only; exact binary/source digest unresolved"
+  },
+  {
+    "coordinate": "org.springframework.boot:spring-boot-starter-data-mongodb",
+    "version": "${spring-boot.bom.version}",
+    "scope": "compile/inherited",
+    "path": "pom.xml",
+    "artifact": "customer-b0010537-complete-r6/dependency/c447b6bdd29f42c3",
+    "binding": "declared only; exact binary/source digest unresolved"
+  },
+  {
+    "coordinate": "org.springframework.boot:spring-boot-starter-validation",
+    "version": "${spring-boot.bom.version}",
+    "scope": "compile/inherited",
+    "path": "pom.xml",
+    "artifact": "customer-b0010537-complete-r6/dependency/ee5afc8d84fbf4d5",
+    "binding": "declared only; exact binary/source digest unresolved"
+  },
+  {
+    "coordinate": "com.volvocars.ecom:com-volvocars-ecom-shared",
+    "version": "4.0.29",
+    "scope": "compile/inherited",
+    "path": "pom.xml",
+    "artifact": "customer-b0010537-complete-r6/dependency/a5cd9bbb78029829",
+    "binding": "declared only; exact binary/source digest unresolved"
+  },
+  {
+    "coordinate": "com.volvocars.ecom:com-volvocars-ecom-web",
+    "version": "4.0.29",
+    "scope": "compile/inherited",
+    "path": "pom.xml",
+    "artifact": "customer-b0010537-complete-r6/dependency/914c4e102c62ff81",
+    "binding": "declared only; exact binary/source digest unresolved"
+  },
+  {
+    "coordinate": "com.volvocars.ecom:cds-paymentservice-shared",
+    "version": "2.0.32",
+    "scope": "compile/inherited",
+    "path": "pom.xml",
+    "artifact": "customer-b0010537-complete-r6/dependency/e24c3c405598f0b5",
+    "binding": "declared only; exact binary/source digest unresolved"
+  },
+  {
+    "coordinate": "com.volvocars.ecom:cds-paymentservice-properties",
+    "version": "2.0.32",
+    "scope": "compile/inherited",
+    "path": "pom.xml",
+    "artifact": "customer-b0010537-complete-r6/dependency/ca07fff337475a34",
+    "binding": "declared only; exact binary/source digest unresolved"
+  },
+  {
+    "coordinate": "com.volvocars.ecom:cds-paymentservice-feign",
+    "version": "2.0.32",
+    "scope": "compile/inherited",
+    "path": "pom.xml",
+    "artifact": "customer-b0010537-complete-r6/dependency/8cce9490ed69ca92",
+    "binding": "declared only; exact binary/source digest unresolved"
+  },
+  {
+    "coordinate": "com.volvocars.ecom:cds-paymentservice-psp-integration-client",
+    "version": "1.3.243",
+    "scope": "compile/inherited",
+    "path": "pom.xml",
+    "artifact": "customer-b0010537-complete-r6/dependency/e8a6dd6c62f128f3",
+    "binding": "declared only; exact binary/source digest unresolved"
+  },
+  {
+    "coordinate": "com.volvocars.ecom:cds-distributed-locker-spring",
+    "version": "1.0.5",
+    "scope": "compile/inherited",
+    "path": "pom.xml",
+    "artifact": "customer-b0010537-complete-r6/dependency/11002963808997cd",
+    "binding": "declared only; exact binary/source digest unresolved"
+  },
+  {
+    "coordinate": "org.projectlombok:lombok",
+    "version": "1.18.46",
+    "scope": "provided",
+    "path": "pom.xml",
+    "artifact": "customer-b0010537-complete-r6/dependency/2e6976b2000935d9",
+    "binding": "declared only; exact binary/source digest unresolved"
+  },
+  {
+    "coordinate": "org.instancio:instancio-junit",
+    "version": "5.5.1",
+    "scope": "compile/inherited",
+    "path": "pom.xml",
+    "artifact": "customer-b0010537-complete-r6/dependency/00ab0646ed3ddc0a",
+    "binding": "declared only; exact binary/source digest unresolved"
+  },
+  {
+    "coordinate": "org.junit.jupiter:junit-jupiter-api",
+    "version": "6.0.3",
+    "scope": "compile/inherited",
+    "path": "pom.xml",
+    "artifact": "customer-b0010537-complete-r6/dependency/205eda571cfe9f82",
+    "binding": "declared only; exact binary/source digest unresolved"
+  },
+  {
+    "coordinate": "org.junit.jupiter:junit-jupiter-engine",
+    "version": "6.0.3",
+    "scope": "compile/inherited",
+    "path": "pom.xml",
+    "artifact": "customer-b0010537-complete-r6/dependency/a4b0854b8a0bb37b",
+    "binding": "declared only; exact binary/source digest unresolved"
+  },
+  {
+    "coordinate": "org.mockito:mockito-core",
+    "version": "5.6.0",
+    "scope": "compile/inherited",
+    "path": "pom.xml",
+    "artifact": "customer-b0010537-complete-r6/dependency/c3d790d1b5de4d1b",
+    "binding": "declared only; exact binary/source digest unresolved"
+  },
+  {
+    "coordinate": "org.assertj:assertj-core",
+    "version": "3.27.7",
+    "scope": "compile/inherited",
+    "path": "pom.xml",
+    "artifact": "customer-b0010537-complete-r6/dependency/d4b0573e1ae799d0",
+    "binding": "declared only; exact binary/source digest unresolved"
+  },
+  {
+    "coordinate": "org.testcontainers:junit-jupiter",
+    "version": "1.21.4",
+    "scope": "compile/inherited",
+    "path": "pom.xml",
+    "artifact": "customer-b0010537-complete-r6/dependency/b9197bb986c02ae9",
+    "binding": "declared only; exact binary/source digest unresolved"
+  },
+  {
+    "coordinate": "org.testcontainers:mongodb",
+    "version": "1.21.4",
+    "scope": "compile/inherited",
+    "path": "pom.xml",
+    "artifact": "customer-b0010537-complete-r6/dependency/ab288d2afb4543b6",
+    "binding": "declared only; exact binary/source digest unresolved"
+  },
+  {
+    "coordinate": "io.rest-assured:spring-mock-mvc",
+    "version": "6.0.0",
+    "scope": "compile/inherited",
+    "path": "pom.xml",
+    "artifact": "customer-b0010537-complete-r6/dependency/bb0baf03070d0a26",
+    "binding": "declared only; exact binary/source digest unresolved"
+  },
+  {
+    "coordinate": "org.projectlombok:lombok",
+    "version": "1.18.46",
+    "scope": "provided",
+    "path": "pom.xml",
+    "artifact": "customer-b0010537-complete-r6/dependency/2e6976b2000935d9",
+    "binding": "declared only; exact binary/source digest unresolved"
+  }
+]

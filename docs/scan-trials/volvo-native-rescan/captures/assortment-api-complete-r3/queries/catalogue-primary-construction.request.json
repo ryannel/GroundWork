@@ -1,0 +1,29 @@
+{
+  "format": "groundwork-query/v3",
+  "snapshot": "12219e2034df0e17bbddb39b0cb84cb758d43e05f42dd145321613bd27300899",
+  "query": "records",
+  "entry": "assortment-6114c5d-complete-r3/retained/entry/controller/Classification-GetAllClassifications",
+  "value": null,
+  "context": [],
+  "outcome": null,
+  "changed": [],
+  "representation": "constructed",
+  "candidates": "exclude",
+  "maxNodes": 2000,
+  "environment": "production-profile",
+  "maxRecords": 5000,
+  "ids": [
+    "assortment-6114c5d-complete-r3/primary-constructor/63ae0a685b1b9322",
+    "assortment-6114c5d-complete-r3/primary-constructor/d96fd4292b91574a",
+    "assortment-6114c5d-complete-r3/primary-constructor/e4ad8f0c6f59b4ca",
+    "assortment-6114c5d-complete-r3/primary-constructor/87d20142311f03e1",
+    "assortment-6114c5d-complete-r3/primary-constructor/dd2059d64594ecfa",
+    "assortment-6114c5d-complete-r3/primary-constructor/d174eb5e7d34ccd0",
+    "assortment-6114c5d-complete-r3/primary-constructor/c2b427acdcbfd9fb",
+    "assortment-6114c5d-complete-r3/primary-constructor/925422548932099f",
+    "assortment-6114c5d-complete-r3/primary-constructor/21f5ab990b1f1a8a",
+    "assortment-6114c5d-complete-r3/primary-constructor/d939a3798bc21712",
+    "assortment-6114c5d-complete-r3/primary-constructor/a5657a29e71fb234",
+    "assortment-6114c5d-complete-r3/primary-constructor/41df256edf34f7c2"
+  ]
+}

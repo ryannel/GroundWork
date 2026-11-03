@@ -1,0 +1,1663 @@
+{
+  "format": "question-led-benchmark-receipt/v1",
+  "sourceReport": "reports/scan-benchmark-004/benchmark.json",
+  "widerScans": "stopped_by_user",
+  "restartGate": "closed",
+  "depthPassed": false,
+  "reusePassed": true,
+  "integrityPassed": true,
+  "depthChecks": 19,
+  "supportedDepthChecks": 2,
+  "scopeFiles": 27,
+  "questions": 9,
+  "environment": {
+    "node": "26.8.2",
+    "typescript": "6.0.3",
+    "go": "1.24.5",
+    "java": "17.0.19",
+    "platform": "darwin/arm64"
+  },
+  "qualification": "Cold means an empty source/index cache; OS/compiler adapter caches may already be warm. Comparison is scripted cold/warm/invalidation, not a measured speedup over prior agent scans. Unresolved depth checks fail the restart gate.",
+  "runtimeModelCalls": 0,
+  "runtimeModelTokens": 0,
+  "implementationModelTokens": "not_measured",
+  "oldAgentWorkflowTiming": "not_measured",
+  "validation": {
+    "unitTestsPassed": 2437,
+    "fullCheckTestsPassed": 2486,
+    "nativeParserTestsPassed": 2,
+    "check": "passed",
+    "build": "passed",
+    "typeCoveragePercent": 100
+  },
+  "scopes": [
+    {
+      "id": "spring-write-async",
+      "repo": "volvo-cars/cds-ecom-customer-service",
+      "commit": "09623ab3a1f39845d8fc02abc3d591b53a3b5fea",
+      "files": 10,
+      "freshnessMs": 135.04462500000045,
+      "freshness": {
+        "freshness": {
+          "state": "unchanged",
+          "changedFiles": [],
+          "baseline": {
+            "repo": "volvo-cars/cds-ecom-customer-service",
+            "commit": "09623ab3a1f39845d8fc02abc3d591b53a3b5fea",
+            "tree": "90d342355c0ce3653b29fd2991650ea9ed2cc072",
+            "ref": "HEAD",
+            "environmentDigest": "421299c90639de6bc6dd9ff51ee50f2def0527906a9862ff55b851a380060df5",
+            "configDigest": "46f81b473e47087b380376bd3cd98aefcbfb066b87f31ba1525d72e18c66c1bb",
+            "toolchainDigest": "60ec7c373af633c3a87cec0fdfa3b861c4c55114c64f1ba1d07644059b6f21d9",
+            "ruleDigest": "224346c0f148f6187dc1a50d3717f73c21598e7ffe8bb7e300e5db80ae788144"
+          },
+          "observation": {
+            "checkedAt": "2026-10-24T07:25:00.306Z",
+            "ref": "HEAD",
+            "source": "local",
+            "status": "observed",
+            "revision": "09623ab3a1f39845d8fc02abc3d591b53a3b5fea"
+          },
+          "sourceCurrent": true,
+          "deploymentCurrent": "unknown"
+        },
+        "currentBaseline": {
+          "repo": "volvo-cars/cds-ecom-customer-service",
+          "commit": "09623ab3a1f39845d8fc02abc3d591b53a3b5fea",
+          "tree": "90d342355c0ce3653b29fd2991650ea9ed2cc072",
+          "ref": "HEAD",
+          "environmentDigest": "421299c90639de6bc6dd9ff51ee50f2def0527906a9862ff55b851a380060df5",
+          "configDigest": "46f81b473e47087b380376bd3cd98aefcbfb066b87f31ba1525d72e18c66c1bb",
+          "toolchainDigest": "60ec7c373af633c3a87cec0fdfa3b861c4c55114c64f1ba1d07644059b6f21d9",
+          "ruleDigest": "224346c0f148f6187dc1a50d3717f73c21598e7ffe8bb7e300e5db80ae788144"
+        },
+        "verification": "analysis",
+        "sourceUnchanged": true,
+        "rescanRequired": false,
+        "changedFileListKnown": true
+      },
+      "cold": {
+        "extractionMs": 3830.212125,
+        "stats": {
+          "blobReads": 10,
+          "parsedFiles": 10,
+          "indexHits": 0,
+          "reusedFiles": 0,
+          "sourceBytes": 60545
+        },
+        "baseline": {
+          "repo": "volvo-cars/cds-ecom-customer-service",
+          "commit": "09623ab3a1f39845d8fc02abc3d591b53a3b5fea",
+          "tree": "90d342355c0ce3653b29fd2991650ea9ed2cc072",
+          "ref": "HEAD",
+          "environmentDigest": "421299c90639de6bc6dd9ff51ee50f2def0527906a9862ff55b851a380060df5",
+          "configDigest": "46f81b473e47087b380376bd3cd98aefcbfb066b87f31ba1525d72e18c66c1bb",
+          "toolchainDigest": "60ec7c373af633c3a87cec0fdfa3b861c4c55114c64f1ba1d07644059b6f21d9",
+          "ruleDigest": "224346c0f148f6187dc1a50d3717f73c21598e7ffe8bb7e300e5db80ae788144"
+        },
+        "depth": [
+          {
+            "id": "spring-equal-branch",
+            "status": "supported",
+            "evidence": [
+              "operation:1f43495bf30d3ea7fda95b0f",
+              "operation:e6763c9c875ade3f9f74070b",
+              "operation:fb41f694183afe9b9b7a9a06",
+              "operation:8af86740bad2578e70b937a1",
+              "operation:bc288a82e8c937b76aca550a"
+            ],
+            "reason": "Structured equality branch returns before the three later callsites."
+          },
+          {
+            "id": "spring-rebound-save-result",
+            "status": "unresolved",
+            "evidence": [
+              "operation:fb41f694183afe9b9b7a9a06",
+              "operation:8af86740bad2578e70b937a1",
+              "operation:bc288a82e8c937b76aca550a"
+            ],
+            "reason": "Actuals and order retained, but no structured assignment/reaching-value relation binds the save result to later updatedCustomer."
+          },
+          {
+            "id": "spring-async-activation",
+            "status": "unresolved",
+            "evidence": [
+              "operation:1f43495bf30d3ea7fda95b0f",
+              "operation:71945851570bafec4f3f450c",
+              "operation:614bf1aaf6409e31da8c21f5",
+              "operation:af1cccc50b8c732f4b44263e",
+              "operation:e6763c9c875ade3f9f74070b",
+              "operation:fb41f694183afe9b9b7a9a06",
+              "operation:80ed593e034eedd8224ea640",
+              "operation:0d55626ebbc68becec348a0b",
+              "operation:8af86740bad2578e70b937a1",
+              "operation:bc288a82e8c937b76aca550a",
+              "operation:df816b02a2d126537b59457d"
+            ],
+            "reason": "Required action/value/effect/transaction/catch/completion relations are not established by this IR."
+          },
+          {
+            "id": "spring-disabled-publication",
+            "status": "unresolved",
+            "evidence": [
+              "operation:29ad55503091ce633b8076c3",
+              "operation:ecd5f53c5ec5084bcc88bc2b",
+              "operation:9324e026cb9a1b6993543948",
+              "operation:71ba73df410b5544b01a9f8d",
+              "operation:966970036c260daf0bc64bc8",
+              "operation:099fb238135e198366a45b0a",
+              "operation:23180026307ecfdb69688ce0",
+              "operation:63a5aac5f2a9a09da1c44ab2",
+              "operation:ec5c54539c8e5d3180bd3603",
+              "operation:3cd8544f6a956e324255bb94",
+              "operation:8da7c410a0509d8fa358c3db",
+              "operation:d8a001a0874ce2b2babda8a9",
+              "operation:3f823b63c8749903b67f672d",
+              "operation:dfb54b1c26236a95775087bc",
+              "operation:02dd0e7e5935d12114e18b7b",
+              "operation:d93c5703b2092f6825c9d6dc",
+              "operation:200523cf05e6b34c2311f5cb",
+              "operation:ccd6fcd6c2e46406b8319e8f",
+              "operation:80048ec445c1ef6bad651f39",
+              "operation:a22e8841d8284c3d26d0570d"
+            ],
+            "reason": "Required action/value/effect/transaction/catch/completion relations are not established by this IR."
+          },
+          {
+            "id": "spring-returned-completion",
+            "status": "unresolved",
+            "evidence": [
+              "operation:29ad55503091ce633b8076c3",
+              "operation:ecd5f53c5ec5084bcc88bc2b",
+              "operation:9324e026cb9a1b6993543948",
+              "operation:71ba73df410b5544b01a9f8d",
+              "operation:966970036c260daf0bc64bc8",
+              "operation:099fb238135e198366a45b0a",
+              "operation:23180026307ecfdb69688ce0",
+              "operation:63a5aac5f2a9a09da1c44ab2",
+              "operation:ec5c54539c8e5d3180bd3603",
+              "operation:3cd8544f6a956e324255bb94",
+              "operation:8da7c410a0509d8fa358c3db",
+              "operation:d8a001a0874ce2b2babda8a9",
+              "operation:3f823b63c8749903b67f672d",
+              "operation:dfb54b1c26236a95775087bc",
+              "operation:02dd0e7e5935d12114e18b7b",
+              "operation:d93c5703b2092f6825c9d6dc",
+              "operation:200523cf05e6b34c2311f5cb",
+              "operation:ccd6fcd6c2e46406b8319e8f",
+              "operation:80048ec445c1ef6bad651f39",
+              "operation:a22e8841d8284c3d26d0570d"
+            ],
+            "reason": "Required action/value/effect/transaction/catch/completion relations are not established by this IR."
+          },
+          {
+            "id": "spring-archive-order",
+            "status": "unresolved",
+            "evidence": [
+              "operation:e49ce5e721ea2d9b422f97c2",
+              "operation:4c4d5287b12140fc1b65ac1b",
+              "operation:453ea50c955b75571f80927f",
+              "operation:04ceb1e2261f33ef8a59ec79",
+              "operation:3e5159c5d894c728edf5401f",
+              "operation:365f5da17826e7d7b4b9e28f",
+              "operation:da1d5e54a7f65e52245f7b99",
+              "operation:a82e79c8ce234e35bbdac054",
+              "operation:38201b5378b5baa3b2322b0f",
+              "operation:30760b371d4810dcaa53a013",
+              "operation:c554f595673f91f4c069a7e3"
+            ],
+            "reason": "Required action/value/effect/transaction/catch/completion relations are not established by this IR."
+          },
+          {
+            "id": "spring-archive-failure-window",
+            "status": "unresolved",
+            "evidence": [
+              "operation:e49ce5e721ea2d9b422f97c2",
+              "operation:4c4d5287b12140fc1b65ac1b",
+              "operation:453ea50c955b75571f80927f",
+              "operation:04ceb1e2261f33ef8a59ec79",
+              "operation:3e5159c5d894c728edf5401f",
+              "operation:365f5da17826e7d7b4b9e28f",
+              "operation:da1d5e54a7f65e52245f7b99",
+              "operation:a82e79c8ce234e35bbdac054",
+              "operation:38201b5378b5baa3b2322b0f",
+              "operation:30760b371d4810dcaa53a013",
+              "operation:c554f595673f91f4c069a7e3"
+            ],
+            "reason": "Required action/value/effect/transaction/catch/completion relations are not established by this IR."
+          }
+        ],
+        "retrieval": {
+          "pages": 4,
+          "bytes": 6035,
+          "selectedRecords": 16,
+          "deliveredRecords": 16,
+          "limit": null,
+          "complete": true,
+          "continued": false,
+          "scope": "selected-records-only"
+        },
+        "parserDiagnostics": []
+      },
+      "warm": {
+        "extractionMs": 117.02387499999986,
+        "stats": {
+          "blobReads": 0,
+          "parsedFiles": 0,
+          "indexHits": 10,
+          "reusedFiles": 10,
+          "sourceBytes": 0
+        }
+      },
+      "rulesChanged": {
+        "blobReads": 0,
+        "parsedFiles": 0,
+        "indexHits": 10,
+        "reusedFiles": 10,
+        "sourceBytes": 0
+      },
+      "parserChanged": {
+        "blobReads": 0,
+        "parsedFiles": 10,
+        "indexHits": 0,
+        "reusedFiles": 10,
+        "sourceBytes": 0
+      },
+      "incremental": {
+        "authority": "synthetic_fixture",
+        "qualification": "Newline-only source change and same-blob rename test incremental mechanics; they establish no semantic depth or runtime behaviour.",
+        "baseline": {
+          "elapsedMs": 3719.279208,
+          "cpuMicros": {
+            "user": 92218,
+            "system": 21433
+          },
+          "stats": {
+            "blobReads": 10,
+            "parsedFiles": 10,
+            "indexHits": 0,
+            "reusedFiles": 0,
+            "sourceBytes": 60545
+          }
+        },
+        "singleFileChange": {
+          "elapsedMs": 458.95529200000055,
+          "cpuMicros": {
+            "user": 41355,
+            "system": 4657
+          },
+          "stats": {
+            "blobReads": 1,
+            "parsedFiles": 1,
+            "indexHits": 9,
+            "reusedFiles": 9,
+            "sourceBytes": 19488
+          },
+          "freshness": {
+            "state": "changed",
+            "changedFiles": [
+              {
+                "status": "modified",
+                "oldBlob": "9de627179b66ae2d338d2f289a9396498b13fa6a",
+                "newBlob": "36f3599f1dddfda8df7214b539b8123be71c56ba",
+                "gitlink": false,
+                "path": "customer-service-api/src/main/java/com/volvocars/ecom/customerservice/api/customer/v1/CustomerController.java"
+              }
+            ],
+            "baseline": {
+              "repo": "volvo-cars/cds-ecom-customer-service",
+              "commit": "bf4ec395fc8f6674332d722771505f2da6ab8a1b",
+              "tree": "c0f46370442b9519c0b4530ac0c89b1568452805",
+              "ref": "refs/heads/fixture",
+              "environmentDigest": "421299c90639de6bc6dd9ff51ee50f2def0527906a9862ff55b851a380060df5",
+              "configDigest": "f834258f7cf2a9f07f707c7ab36b05c526c17e6ea8bab551d0ea1b1cb08a597f",
+              "toolchainDigest": "60ec7c373af633c3a87cec0fdfa3b861c4c55114c64f1ba1d07644059b6f21d9",
+              "ruleDigest": "224346c0f148f6187dc1a50d3717f73c21598e7ffe8bb7e300e5db80ae788144"
+            },
+            "observation": {
+              "checkedAt": "2026-10-24T07:25:04.939Z",
+              "ref": "refs/heads/fixture",
+              "source": "local",
+              "status": "observed",
+              "revision": "b703b9283441d457bd677696b403d1fa0e417efa"
+            },
+            "sourceCurrent": false,
+            "deploymentCurrent": "unknown"
+          },
+          "invalidation": {
+            "changedFilesToParse": [
+              "customer-service-api/src/main/java/com/volvocars/ecom/customerservice/api/customer/v1/CustomerController.java"
+            ],
+            "reusedFiles": [
+              "customer-service-api/src/main/java/com/volvocars/ecom/customerservice/api/customer/v1/impl/CustomerControllerImpl.java",
+              "customer-service-api/src/main/java/com/volvocars/ecom/customerservice/api/customer/v1/impl/CustomerApiService.java",
+              "customer-service-core/src/main/java/com/volvocars/ecom/customerservice/customer/CustomerService.java",
+              "customer-service-core/src/main/java/com/volvocars/ecom/customerservice/customer/CustomerRepository.java",
+              "customer-service-core/src/main/java/com/volvocars/ecom/customerservice/customer/Customer.java",
+              "customer-service-core/src/main/java/com/volvocars/ecom/customerservice/customer/CustomerSavePostProcessor.java",
+              "customer-service-core/src/main/java/com/volvocars/ecom/customerservice/analytics/AnalyticsEventService.java",
+              "customer-service-core/src/main/java/com/volvocars/ecom/customerservice/messaging/CustomerEventService.java",
+              "customer-service-core/src/main/java/com/volvocars/ecom/customerservice/customerarchive/CustomerArchiveService.java"
+            ],
+            "refreshedAnchors": [],
+            "retiredFacts": [],
+            "invalidatedFacts": [
+              "fixture-file:customer-service-api/src/main/java/com/volvocars/ecom/customerservice/api/customer/v1/CustomerController.java",
+              "fixture-file:customer-service-api/src/main/java/com/volvocars/ecom/customerservice/api/customer/v1/impl/CustomerApiService.java",
+              "fixture-file:customer-service-api/src/main/java/com/volvocars/ecom/customerservice/api/customer/v1/impl/CustomerControllerImpl.java",
+              "fixture-file:customer-service-core/src/main/java/com/volvocars/ecom/customerservice/analytics/AnalyticsEventService.java",
+              "fixture-file:customer-service-core/src/main/java/com/volvocars/ecom/customerservice/customer/Customer.java",
+              "fixture-file:customer-service-core/src/main/java/com/volvocars/ecom/customerservice/customer/CustomerRepository.java",
+              "fixture-file:customer-service-core/src/main/java/com/volvocars/ecom/customerservice/customer/CustomerSavePostProcessor.java",
+              "fixture-file:customer-service-core/src/main/java/com/volvocars/ecom/customerservice/customer/CustomerService.java",
+              "fixture-file:customer-service-core/src/main/java/com/volvocars/ecom/customerservice/customerarchive/CustomerArchiveService.java",
+              "fixture-file:customer-service-core/src/main/java/com/volvocars/ecom/customerservice/messaging/CustomerEventService.java",
+              "summary:008adddc4cca2de9a4479b77",
+              "summary:01b631980c2bb32c0f8c1010",
+              "summary:03914f1a741f99581a641964",
+              "summary:03b072c2f0a70d4ef781e505",
+              "summary:041ee7a2809fcd2d83413d0c",
+              "summary:042f17c1927f30aee4a9a936",
+              "summary:049eebd144b70d820c595ed8",
+              "summary:088e44fac40bcadd264681ea",
+              "summary:09a662977f2dfde986142683",
+              "summary:0b27f9eed39c2105f2b4ba24",
+              "summary:0fea633d2b693cc764c427c1",
+              "summary:10956e0fc71e11e317d81541",
+              "summary:1260932e2dc2e3b699b083af",
+              "summary:131c6ca5ad5e160a59c68266",
+              "summary:1d0886b7a31b79f5ebbd71eb",
+              "summary:1d7aabd92998708c27db03db",
+              "summary:1ea2a223fe5ba72e30208ec4",
+              "summary:1f2c7e22579a2d6eab22bd62",
+              "summary:1fb096247c6f762ef8f5a48d",
+              "summary:20558a67368b8ce8fbc1de99",
+              "summary:24587f97e8327efe33563b28",
+              "summary:25991480914fe7474be76d2f",
+              "summary:26c2b15068d8f2fe01c99801",
+              "summary:2ae44c48ae52db784babcbbc",
+              "summary:2ae56631d61af7a26aaab477",
+              "summary:2feee804314e36ed222123bd",
+              "summary:3036dc75211b012574b645b3",
+              "summary:304172c0fc95abf07b2d396d",
+              "summary:3119098f49e7822b1b46e28b",
+              "summary:327348da1a559fe8e3397722",
+              "summary:331d332cd6072704c7a570b7",
+              "summary:352d3c987a832b0ccd7d1321",
+              "summary:3e93166620299ddd61b0e479",
+              "summary:414163fbebf0cacf60e3edb3",
+              "summary:419d122d2cbd497cc14048d4",
+              "summary:41c1ed429425c5b8e2f4f247",
+              "summary:457547f7ab1dcfb599982206",
+              "summary:466ae50e21f72e07156763be",
+              "summary:47cfbb8f103ff1b43a3f03a8",
+              "summary:5438223a54cd2faf0537ada1",
+              "summary:55054b840207b8a067982a96",
+              "summary:58f38dc9ea6c3fd1be111c6e",
+              "summary:5b49efcff9b0add8fbcd3470",
+              "summary:5b5d266ae7563433266db565",
+              "summary:5e18d77d5ddfba1941506366",
+              "summary:5e526ad38fbe900f3a7ac4d0",
+              "summary:5f723b73984388f0022000e1",
+              "summary:604050c5f3b359abe771b5d7",
+              "summary:694d31fa51c35151849d6536",
+              "summary:6a63feda71756f53589a2d7a",
+              "summary:6e0ef4e08d52b73262268240",
+              "summary:6fc00fca408e2c7f92ff9734",
+              "summary:71b2093bdf246d320a7f995e",
+              "summary:72e345ae583d845e6a2cd8cb",
+              "summary:7a88c453749222c5769c83f4",
+              "summary:804e4269b433abb653e44ca3",
+              "summary:84a2786184d6a39e07e8f9ac",
+              "summary:87a932b342ea920f3fec1cfd",
+              "summary:87ca8b70627ca924a505cb93",
+              "summary:91d644731f7b5b5bf4d29042",
+              "summary:96b57a377706618b1daa0020",
+              "summary:9882a04d2faa5f75bff97945",
+              "summary:98a3030251cdc83d169d6555",
+              "summary:98a460345dd61480dcd5a3e0",
+              "summary:9dbc61ae81782d84d632dfc7",
+              "summary:9eb2ff8e74e6d75df5ac6698",
+              "summary:a28f03ab18ab2d91fa3fb3fa",
+              "summary:a4d4f0bde49fa3cc0a368524",
+              "summary:a6c45eaa7dd068d16839e6d2",
+              "summary:a90fde775cca3c955e378a51",
+              "summary:ac3cf6f44aee9a6ca0be6cd2",
+              "summary:ae808bba937e276799c8d624",
+              "summary:b2455883fead4c3f44171e0b",
+              "summary:bbbc7327576566af1812f9f6",
+              "summary:bdded27d84cbab383e8be2ee",
+              "summary:c104fe0503fc3f2aa740d83e",
+              "summary:c3b201577459348142617222",
+              "summary:c3b270d7259eaf2d9ab82fc6",
+              "summary:c3e87e6ee0285ab4a9e317d1",
+              "summary:c4e6395b4956206bc8107c93",
+              "summary:c9b861f636e8aa36e095c8df",
+              "summary:cb910e4dc432b51ebef43607",
+              "summary:cd67a2a51987165d0b289188",
+              "summary:ceea7568158d66f66a00ca54",
+              "summary:d0c4e641193594556cf2cffc",
+              "summary:d4f2424911ef00727f4aa331",
+              "summary:d53fe39f3a7726b187dd07b5",
+              "summary:d721eb0c9912e251d331f32d",
+              "summary:dc70f849fba70e8ca742b6bb",
+              "summary:de4cdde9f4217c60c589d568",
+              "summary:e35e06d9358d311a2618954b",
+              "summary:e3adc2e044cfe81b8b99c24c",
+              "summary:e400d867960001e5b7d258c4",
+              "summary:e74a44e5b2db864de82b68bd",
+              "summary:e779908cfb84f83185fa922a",
+              "summary:e981fa07602fa7d1a4276742",
+              "summary:eada3d472dc27aa3e4a7f277",
+              "summary:edb3020814329f370e160d6b",
+              "summary:f20f505924c7296deafee169",
+              "summary:f475577564098a7d7a0f32d6",
+              "summary:f7ee71033449eab5227d854b",
+              "summary:f83aa33d7bdab3dbacf9bfc6",
+              "summary:fa56798b8bc8ece511e79146",
+              "summary:fd7b6719810f6cf326663721",
+              "summary:fda000a30ed0a87f77fa2673"
+            ],
+            "fallbackScopes": ["spring-write-async"]
+          },
+          "anchorsRefreshed": true,
+          "passed": true
+        },
+        "sameBlobRename": {
+          "elapsedMs": 79.12187500000073,
+          "cpuMicros": {
+            "user": 26192,
+            "system": 2157
+          },
+          "stats": {
+            "blobReads": 0,
+            "parsedFiles": 0,
+            "indexHits": 10,
+            "reusedFiles": 10,
+            "sourceBytes": 0
+          },
+          "freshness": {
+            "state": "configuration-changed",
+            "changedFiles": [
+              {
+                "status": "renamed",
+                "oldBlob": "36f3599f1dddfda8df7214b539b8123be71c56ba",
+                "newBlob": "36f3599f1dddfda8df7214b539b8123be71c56ba",
+                "gitlink": false,
+                "path": "customer-service-api/src/main/java/com/volvocars/ecom/customerservice/api/customer/v1/CustomerController.fixture-renamed.java",
+                "previousPath": "customer-service-api/src/main/java/com/volvocars/ecom/customerservice/api/customer/v1/CustomerController.java"
+              }
+            ],
+            "baseline": {
+              "repo": "volvo-cars/cds-ecom-customer-service",
+              "commit": "b703b9283441d457bd677696b403d1fa0e417efa",
+              "tree": "7f69068af714204bc9b4a6ae657a7ea135c12362",
+              "ref": "refs/heads/fixture",
+              "environmentDigest": "421299c90639de6bc6dd9ff51ee50f2def0527906a9862ff55b851a380060df5",
+              "configDigest": "f834258f7cf2a9f07f707c7ab36b05c526c17e6ea8bab551d0ea1b1cb08a597f",
+              "toolchainDigest": "60ec7c373af633c3a87cec0fdfa3b861c4c55114c64f1ba1d07644059b6f21d9",
+              "ruleDigest": "224346c0f148f6187dc1a50d3717f73c21598e7ffe8bb7e300e5db80ae788144"
+            },
+            "observation": {
+              "checkedAt": "2026-10-24T07:25:05.155Z",
+              "ref": "refs/heads/fixture",
+              "source": "local",
+              "status": "observed",
+              "revision": "51d72db1d2a790d390efff79f94af5bdbd4a9758"
+            },
+            "sourceCurrent": false,
+            "deploymentCurrent": "unknown"
+          },
+          "invalidation": {
+            "changedFilesToParse": [],
+            "reusedFiles": [
+              "customer-service-api/src/main/java/com/volvocars/ecom/customerservice/api/customer/v1/impl/CustomerControllerImpl.java",
+              "customer-service-api/src/main/java/com/volvocars/ecom/customerservice/api/customer/v1/impl/CustomerApiService.java",
+              "customer-service-core/src/main/java/com/volvocars/ecom/customerservice/customer/CustomerService.java",
+              "customer-service-core/src/main/java/com/volvocars/ecom/customerservice/customer/CustomerRepository.java",
+              "customer-service-core/src/main/java/com/volvocars/ecom/customerservice/customer/Customer.java",
+              "customer-service-core/src/main/java/com/volvocars/ecom/customerservice/customer/CustomerSavePostProcessor.java",
+              "customer-service-core/src/main/java/com/volvocars/ecom/customerservice/analytics/AnalyticsEventService.java",
+              "customer-service-core/src/main/java/com/volvocars/ecom/customerservice/messaging/CustomerEventService.java",
+              "customer-service-core/src/main/java/com/volvocars/ecom/customerservice/customerarchive/CustomerArchiveService.java"
+            ],
+            "refreshedAnchors": [
+              "customer-service-api/src/main/java/com/volvocars/ecom/customerservice/api/customer/v1/CustomerController.fixture-renamed.java"
+            ],
+            "retiredFacts": [],
+            "invalidatedFacts": [
+              "fixture-file:customer-service-api/src/main/java/com/volvocars/ecom/customerservice/api/customer/v1/CustomerController.java",
+              "fixture-file:customer-service-api/src/main/java/com/volvocars/ecom/customerservice/api/customer/v1/impl/CustomerApiService.java",
+              "fixture-file:customer-service-api/src/main/java/com/volvocars/ecom/customerservice/api/customer/v1/impl/CustomerControllerImpl.java",
+              "fixture-file:customer-service-core/src/main/java/com/volvocars/ecom/customerservice/analytics/AnalyticsEventService.java",
+              "fixture-file:customer-service-core/src/main/java/com/volvocars/ecom/customerservice/customer/Customer.java",
+              "fixture-file:customer-service-core/src/main/java/com/volvocars/ecom/customerservice/customer/CustomerRepository.java",
+              "fixture-file:customer-service-core/src/main/java/com/volvocars/ecom/customerservice/customer/CustomerSavePostProcessor.java",
+              "fixture-file:customer-service-core/src/main/java/com/volvocars/ecom/customerservice/customer/CustomerService.java",
+              "fixture-file:customer-service-core/src/main/java/com/volvocars/ecom/customerservice/customerarchive/CustomerArchiveService.java",
+              "fixture-file:customer-service-core/src/main/java/com/volvocars/ecom/customerservice/messaging/CustomerEventService.java",
+              "summary:008adddc4cca2de9a4479b77",
+              "summary:01b631980c2bb32c0f8c1010",
+              "summary:03914f1a741f99581a641964",
+              "summary:041ee7a2809fcd2d83413d0c",
+              "summary:042f17c1927f30aee4a9a936",
+              "summary:049eebd144b70d820c595ed8",
+              "summary:088e44fac40bcadd264681ea",
+              "summary:09a662977f2dfde986142683",
+              "summary:0b27f9eed39c2105f2b4ba24",
+              "summary:0fea633d2b693cc764c427c1",
+              "summary:10956e0fc71e11e317d81541",
+              "summary:1260932e2dc2e3b699b083af",
+              "summary:131c6ca5ad5e160a59c68266",
+              "summary:1b026cfee6feebc0448bb86f",
+              "summary:1cffea957b57c241f1647ca9",
+              "summary:1d7aabd92998708c27db03db",
+              "summary:1dc38344744eee5b3f819093",
+              "summary:1f2c7e22579a2d6eab22bd62",
+              "summary:20558a67368b8ce8fbc1de99",
+              "summary:24587f97e8327efe33563b28",
+              "summary:25991480914fe7474be76d2f",
+              "summary:26c2b15068d8f2fe01c99801",
+              "summary:2ae44c48ae52db784babcbbc",
+              "summary:2ae56631d61af7a26aaab477",
+              "summary:2feee804314e36ed222123bd",
+              "summary:3036dc75211b012574b645b3",
+              "summary:304172c0fc95abf07b2d396d",
+              "summary:3119098f49e7822b1b46e28b",
+              "summary:31f58a634ab32fbb728c7c5a",
+              "summary:327348da1a559fe8e3397722",
+              "summary:331d332cd6072704c7a570b7",
+              "summary:352d3c987a832b0ccd7d1321",
+              "summary:38f490fbaae9a6c119e5d91b",
+              "summary:3e93166620299ddd61b0e479",
+              "summary:3f7b00bce4dd9707809c0c80",
+              "summary:414163fbebf0cacf60e3edb3",
+              "summary:419d122d2cbd497cc14048d4",
+              "summary:41c1ed429425c5b8e2f4f247",
+              "summary:457547f7ab1dcfb599982206",
+              "summary:466ae50e21f72e07156763be",
+              "summary:47cfbb8f103ff1b43a3f03a8",
+              "summary:5438223a54cd2faf0537ada1",
+              "summary:58f38dc9ea6c3fd1be111c6e",
+              "summary:5b49efcff9b0add8fbcd3470",
+              "summary:5b5d266ae7563433266db565",
+              "summary:5e18d77d5ddfba1941506366",
+              "summary:5e526ad38fbe900f3a7ac4d0",
+              "summary:5ed905d2bda41210debd4f57",
+              "summary:5f723b73984388f0022000e1",
+              "summary:694d31fa51c35151849d6536",
+              "summary:6a63feda71756f53589a2d7a",
+              "summary:6e0ef4e08d52b73262268240",
+              "summary:6ef5bfbb9ff4956e8d9f5905",
+              "summary:71b2093bdf246d320a7f995e",
+              "summary:722bdddf0eaa4b9d9566670e",
+              "summary:72e345ae583d845e6a2cd8cb",
+              "summary:804e4269b433abb653e44ca3",
+              "summary:84a2786184d6a39e07e8f9ac",
+              "summary:8540f4ea4fae7eb0399d440d",
+              "summary:87a932b342ea920f3fec1cfd",
+              "summary:87ca8b70627ca924a505cb93",
+              "summary:91d644731f7b5b5bf4d29042",
+              "summary:96b57a377706618b1daa0020",
+              "summary:9882a04d2faa5f75bff97945",
+              "summary:98a3030251cdc83d169d6555",
+              "summary:98a460345dd61480dcd5a3e0",
+              "summary:9d639da893afe3d654ffd505",
+              "summary:9eb2ff8e74e6d75df5ac6698",
+              "summary:a4d4f0bde49fa3cc0a368524",
+              "summary:a6c45eaa7dd068d16839e6d2",
+              "summary:a90fde775cca3c955e378a51",
+              "summary:ae808bba937e276799c8d624",
+              "summary:b2455883fead4c3f44171e0b",
+              "summary:b468ddc2105321398780bb09",
+              "summary:bbbc7327576566af1812f9f6",
+              "summary:bdded27d84cbab383e8be2ee",
+              "summary:c104fe0503fc3f2aa740d83e",
+              "summary:c33d3b8833a4c97ac1f86742",
+              "summary:c3b201577459348142617222",
+              "summary:c4e6395b4956206bc8107c93",
+              "summary:c900125a7387e6f3ba91c9c5",
+              "summary:c9b861f636e8aa36e095c8df",
+              "summary:cb910e4dc432b51ebef43607",
+              "summary:cd67a2a51987165d0b289188",
+              "summary:ceea7568158d66f66a00ca54",
+              "summary:d0c4e641193594556cf2cffc",
+              "summary:d4f2424911ef00727f4aa331",
+              "summary:d53fe39f3a7726b187dd07b5",
+              "summary:d721eb0c9912e251d331f32d",
+              "summary:dc70f849fba70e8ca742b6bb",
+              "summary:de4cdde9f4217c60c589d568",
+              "summary:e35e06d9358d311a2618954b",
+              "summary:e400d867960001e5b7d258c4",
+              "summary:e74a44e5b2db864de82b68bd",
+              "summary:e779908cfb84f83185fa922a",
+              "summary:eada3d472dc27aa3e4a7f277",
+              "summary:ecd15e47ddccf00359b5d4bf",
+              "summary:edb3020814329f370e160d6b",
+              "summary:f20f505924c7296deafee169",
+              "summary:f475577564098a7d7a0f32d6",
+              "summary:f7ee71033449eab5227d854b",
+              "summary:f83aa33d7bdab3dbacf9bfc6",
+              "summary:fa56798b8bc8ece511e79146",
+              "summary:fd7b6719810f6cf326663721",
+              "summary:fda000a30ed0a87f77fa2673"
+            ],
+            "fallbackScopes": ["spring-write-async"]
+          },
+          "anchorsRefreshed": true,
+          "passed": true
+        },
+        "runtimeModelCalls": 0,
+        "runtimeModelTokens": 0,
+        "sourceCacheStats": {
+          "blobReads": 0,
+          "parsedFiles": 0,
+          "indexHits": 10,
+          "reusedFiles": 10,
+          "sourceBytes": 0
+        },
+        "passed": true
+      }
+    },
+    {
+      "id": "go-dispatch-river",
+      "repo": "volvo-cars/cce-optimization-facade",
+      "commit": "8da8ebe3227a43817bbbca25fdec182edfaa6584",
+      "files": 9,
+      "freshnessMs": 105.16533300000083,
+      "freshness": {
+        "freshness": {
+          "state": "unchanged",
+          "changedFiles": [],
+          "baseline": {
+            "repo": "volvo-cars/cce-optimization-facade",
+            "commit": "8da8ebe3227a43817bbbca25fdec182edfaa6584",
+            "tree": "2da662ae8913c70da308f262d12e15b14b71f483",
+            "ref": "HEAD",
+            "environmentDigest": "f6f7f88ece3458382d9e97df60d4eb8aacdff4b7afe73f8b9f7f35527d079d3c",
+            "configDigest": "568399c1db647d9bc8d7e305e8dfe0c8efe13f2a0cd446df6b605955da3e3894",
+            "toolchainDigest": "b2e6e4b5d56a319064ae681642b4d683b12eef5543ca8b82399eef94c1fff268",
+            "ruleDigest": "224346c0f148f6187dc1a50d3717f73c21598e7ffe8bb7e300e5db80ae788144"
+          },
+          "observation": {
+            "checkedAt": "2026-10-24T07:25:15.405Z",
+            "ref": "HEAD",
+            "source": "local",
+            "status": "observed",
+            "revision": "8da8ebe3227a43817bbbca25fdec182edfaa6584"
+          },
+          "sourceCurrent": true,
+          "deploymentCurrent": "unknown"
+        },
+        "currentBaseline": {
+          "repo": "volvo-cars/cce-optimization-facade",
+          "commit": "8da8ebe3227a43817bbbca25fdec182edfaa6584",
+          "tree": "2da662ae8913c70da308f262d12e15b14b71f483",
+          "ref": "HEAD",
+          "environmentDigest": "f6f7f88ece3458382d9e97df60d4eb8aacdff4b7afe73f8b9f7f35527d079d3c",
+          "configDigest": "568399c1db647d9bc8d7e305e8dfe0c8efe13f2a0cd446df6b605955da3e3894",
+          "toolchainDigest": "b2e6e4b5d56a319064ae681642b4d683b12eef5543ca8b82399eef94c1fff268",
+          "ruleDigest": "224346c0f148f6187dc1a50d3717f73c21598e7ffe8bb7e300e5db80ae788144"
+        },
+        "verification": "analysis",
+        "sourceUnchanged": true,
+        "rescanRequired": false,
+        "changedFileListKnown": true
+      },
+      "cold": {
+        "extractionMs": 6344.681999999999,
+        "stats": {
+          "blobReads": 9,
+          "parsedFiles": 9,
+          "indexHits": 0,
+          "reusedFiles": 0,
+          "sourceBytes": 38649
+        },
+        "baseline": {
+          "repo": "volvo-cars/cce-optimization-facade",
+          "commit": "8da8ebe3227a43817bbbca25fdec182edfaa6584",
+          "tree": "2da662ae8913c70da308f262d12e15b14b71f483",
+          "ref": "HEAD",
+          "environmentDigest": "f6f7f88ece3458382d9e97df60d4eb8aacdff4b7afe73f8b9f7f35527d079d3c",
+          "configDigest": "568399c1db647d9bc8d7e305e8dfe0c8efe13f2a0cd446df6b605955da3e3894",
+          "toolchainDigest": "b2e6e4b5d56a319064ae681642b4d683b12eef5543ca8b82399eef94c1fff268",
+          "ruleDigest": "224346c0f148f6187dc1a50d3717f73c21598e7ffe8bb7e300e5db80ae788144"
+        },
+        "depth": [
+          {
+            "id": "go-contextual-registry",
+            "status": "unresolved",
+            "evidence": ["operation:7f3fdadd50caad49f8088b57"],
+            "reason": "Registry mutation, generic key and invocation context bindings are absent."
+          },
+          {
+            "id": "go-error-not-throw",
+            "status": "supported",
+            "evidence": [
+              "operation:be13730965f247597ce1c613",
+              "operation:2e7e587d53f70fd56bfa21f0",
+              "operation:ba51ab0410f61a8087f5a1d2",
+              "operation:7f3fdadd50caad49f8088b57"
+            ],
+            "reason": "Both errors are normal returned values; no business success is inferred."
+          },
+          {
+            "id": "go-insert-before-commit",
+            "status": "unresolved",
+            "evidence": [
+              "operation:c6b6d13c5a201e183ad32ef2",
+              "operation:22323190487edd91591db561",
+              "operation:9c041e83d94513f60b325cce",
+              "operation:6d36b0e4a57a7c2c0c5e22c7",
+              "operation:92d14f7e0b375b9cd788887e",
+              "operation:72c4b07c8cfcbf5c08ec5d59",
+              "operation:ac0e8969488ed771e7137b1f",
+              "operation:db18b0483158a152bfec41e6",
+              "operation:cf554e8a6cbd8763b69fe320",
+              "operation:adf0ca0a9840294f245780bd",
+              "operation:2ff3d0639588a3a5c62097d4"
+            ],
+            "reason": "Required action/value/effect/transaction/catch/completion relations are not established by this IR."
+          },
+          {
+            "id": "go-enqueue-not-delivery",
+            "status": "unresolved",
+            "evidence": [
+              "operation:c6b6d13c5a201e183ad32ef2",
+              "operation:22323190487edd91591db561",
+              "operation:9c041e83d94513f60b325cce",
+              "operation:6d36b0e4a57a7c2c0c5e22c7",
+              "operation:92d14f7e0b375b9cd788887e",
+              "operation:72c4b07c8cfcbf5c08ec5d59",
+              "operation:ac0e8969488ed771e7137b1f",
+              "operation:db18b0483158a152bfec41e6",
+              "operation:cf554e8a6cbd8763b69fe320",
+              "operation:adf0ca0a9840294f245780bd",
+              "operation:2ff3d0639588a3a5c62097d4"
+            ],
+            "reason": "Required action/value/effect/transaction/catch/completion relations are not established by this IR."
+          },
+          {
+            "id": "go-sql-positional-bindings",
+            "status": "unresolved",
+            "evidence": ["operation:9885901d14cee850a518d3f0"],
+            "reason": "Positional actuals retained; typed SQL column-to-parameter mapping is absent."
+          },
+          {
+            "id": "go-staged-versus-committed",
+            "status": "unresolved",
+            "evidence": [
+              "operation:9885901d14cee850a518d3f0",
+              "operation:2905b9d56e4986c2a5b65dd6",
+              "operation:d3a16de9bb4d6680ab0f055c",
+              "operation:e631d8f7c5a906e0628d76af",
+              "operation:1113b7578473be3bc1c67080",
+              "operation:b09b5784ab730da137dd4816"
+            ],
+            "reason": "Required action/value/effect/transaction/catch/completion relations are not established by this IR."
+          }
+        ],
+        "retrieval": {
+          "pages": 4,
+          "bytes": 8027,
+          "selectedRecords": 16,
+          "deliveredRecords": 16,
+          "limit": null,
+          "complete": true,
+          "continued": false,
+          "scope": "selected-records-only"
+        },
+        "parserDiagnostics": []
+      },
+      "warm": {
+        "extractionMs": 74.31162499999846,
+        "stats": {
+          "blobReads": 0,
+          "parsedFiles": 0,
+          "indexHits": 9,
+          "reusedFiles": 9,
+          "sourceBytes": 0
+        }
+      },
+      "rulesChanged": {
+        "blobReads": 0,
+        "parsedFiles": 0,
+        "indexHits": 9,
+        "reusedFiles": 9,
+        "sourceBytes": 0
+      },
+      "parserChanged": {
+        "blobReads": 0,
+        "parsedFiles": 9,
+        "indexHits": 0,
+        "reusedFiles": 9,
+        "sourceBytes": 0
+      },
+      "incremental": {
+        "authority": "synthetic_fixture",
+        "qualification": "Newline-only source change and same-blob rename test incremental mechanics; they establish no semantic depth or runtime behaviour.",
+        "baseline": {
+          "elapsedMs": 3039.016334,
+          "cpuMicros": {
+            "user": 48178,
+            "system": 19630
+          },
+          "stats": {
+            "blobReads": 9,
+            "parsedFiles": 9,
+            "indexHits": 0,
+            "reusedFiles": 0,
+            "sourceBytes": 38649
+          }
+        },
+        "singleFileChange": {
+          "elapsedMs": 373.56624999999985,
+          "cpuMicros": {
+            "user": 47039,
+            "system": 4532
+          },
+          "stats": {
+            "blobReads": 1,
+            "parsedFiles": 1,
+            "indexHits": 8,
+            "reusedFiles": 8,
+            "sourceBytes": 2008
+          },
+          "freshness": {
+            "state": "changed",
+            "changedFiles": [
+              {
+                "status": "modified",
+                "oldBlob": "ada2269d3274822b4856a6b6d56a88506d89228d",
+                "newBlob": "68b4fc05c4cee8e9c424f8ec481bb36969bff365",
+                "gitlink": false,
+                "path": "internal/api/httpserver/eventroutes.go"
+              }
+            ],
+            "baseline": {
+              "repo": "volvo-cars/cce-optimization-facade",
+              "commit": "df534f8517281eb93e48b87e218e045bc3390dfc",
+              "tree": "8c142c88fdda748d57094f4007620bcbe257ac7a",
+              "ref": "refs/heads/fixture",
+              "environmentDigest": "f6f7f88ece3458382d9e97df60d4eb8aacdff4b7afe73f8b9f7f35527d079d3c",
+              "configDigest": "d5d536ac171a017757f370dbc1fefe3114de24b1371421714629e6548e1eadf1",
+              "toolchainDigest": "b2e6e4b5d56a319064ae681642b4d683b12eef5543ca8b82399eef94c1fff268",
+              "ruleDigest": "224346c0f148f6187dc1a50d3717f73c21598e7ffe8bb7e300e5db80ae788144"
+            },
+            "observation": {
+              "checkedAt": "2026-10-24T07:25:19.183Z",
+              "ref": "refs/heads/fixture",
+              "source": "local",
+              "status": "observed",
+              "revision": "2e4e55fc14f9c0c671369dc73a563202e7577e77"
+            },
+            "sourceCurrent": false,
+            "deploymentCurrent": "unknown"
+          },
+          "invalidation": {
+            "changedFilesToParse": ["internal/api/httpserver/eventroutes.go"],
+            "reusedFiles": [
+              "internal/api/httpserver/marketmapping/controller.go",
+              "internal/api/httpserver/policy/synccontroller.go",
+              "internal/service/command/dispatcher.go",
+              "internal/service/query/dispatcher.go",
+              "internal/service/command/addpolicymapping.go",
+              "internal/database/queuedb/client.go",
+              "internal/database/queuedb/worker.go",
+              "internal/database/postgres/policyrulesetrepository.go"
+            ],
+            "refreshedAnchors": [],
+            "retiredFacts": [],
+            "invalidatedFacts": [
+              "fixture-file:internal/api/httpserver/eventroutes.go",
+              "fixture-file:internal/api/httpserver/marketmapping/controller.go",
+              "fixture-file:internal/api/httpserver/policy/synccontroller.go",
+              "fixture-file:internal/database/postgres/policyrulesetrepository.go",
+              "fixture-file:internal/database/queuedb/client.go",
+              "fixture-file:internal/database/queuedb/worker.go",
+              "fixture-file:internal/service/command/addpolicymapping.go",
+              "fixture-file:internal/service/command/dispatcher.go",
+              "fixture-file:internal/service/query/dispatcher.go",
+              "summary:021576655153559e02a81304",
+              "summary:0405165c4d114ccc5a4e8345",
+              "summary:05dcde39d14ba89fbc5657c9",
+              "summary:06bcdbe91d1fd6c15d3c4638",
+              "summary:0ba20d79b0538d8e9ad4dd46",
+              "summary:0d1d135c2fe4f95709b87499",
+              "summary:0d3121f6a6f0efa9c2e7e0ff",
+              "summary:118a2d508975416275a9fb51",
+              "summary:12df7cfc8ce5cf69dd43e66d",
+              "summary:151f42931347cb3ef8db2a9f",
+              "summary:19d94c3babbcd1a859d18467",
+              "summary:2086a525c1c7a892ae50407a",
+              "summary:255659e06185983083c68adc",
+              "summary:26dc918eec9555086eeefd08",
+              "summary:31e2deafc50f2333b838e769",
+              "summary:3563a059e7bbcbb7b722f4ab",
+              "summary:39138d42a867983fe6cb62c3",
+              "summary:3c22061655750bab9389893d",
+              "summary:3d129925c220f1f07f6d5992",
+              "summary:492f596011d0dcf84ab14f31",
+              "summary:4ec5eaafc3265bdf50cf02c4",
+              "summary:4f54301978d4115d3d01ba3b",
+              "summary:5676186ddab26f5526b9babf",
+              "summary:586c0b6adb2bbdc9dffa9f12",
+              "summary:591d1a3d1bd447be929e6e83",
+              "summary:5fa9acc327eeb4d9108118ec",
+              "summary:5feb47cc872a07c7930d6c3a",
+              "summary:606ce03d8d0222692306c264",
+              "summary:6cdb17255a6070f05db27434",
+              "summary:6d5bf39d8a1f0e4d12a82681",
+              "summary:6f715a348dfa6e191b11a97f",
+              "summary:7f796187921ccdd701f4683e",
+              "summary:86fa80c1a5d5aa7bab1740f8",
+              "summary:93631b3e6d0afe596a502a40",
+              "summary:9cf63042d690cce69bf50a25",
+              "summary:a63c861c7803d8450b92347f",
+              "summary:a6600e160d4919060ddb5a8b",
+              "summary:a7d00c5bc29c2d21911a82ef",
+              "summary:b274186a11d6a0a717c0545a",
+              "summary:bc59f1bfd5072d1f3bee97bf",
+              "summary:bcb8a015650b15edb780b2f3",
+              "summary:c2c48404313a6b3be2f4e12d",
+              "summary:c35c63588a2aa08b4c50f849",
+              "summary:c6fc75d24c568ebb1a60c44a",
+              "summary:ca1381b3c085f2c5af8bdbdb",
+              "summary:ca3b6939b8cda05e875a327a",
+              "summary:cae0e5510d965a1c44466814",
+              "summary:d1d68643a4c3df1f8114e666",
+              "summary:d513ab394730b0989d5b4d4e",
+              "summary:d93ef12941683c7d991b3f23",
+              "summary:d98aae5dce5328a5c3deef3d",
+              "summary:dc9ab5d674a0706db2b83fb4",
+              "summary:de37e55523ba408f6ca5e677",
+              "summary:e422cbc9862e3faaafeb32be",
+              "summary:e578ecae75117258c102f6aa",
+              "summary:ed009b801999d8a9f19d71b5",
+              "summary:ef79f753d7cc326556775127",
+              "summary:f92d827c0a1e5ac7c06ceb4a",
+              "summary:fcf50a2e92d523e44439534a",
+              "summary:fe3fb4e0326fe3e36ac64df7",
+              "summary:ffe3f48bd18d8f99e41d5978"
+            ],
+            "fallbackScopes": ["go-dispatch-river"]
+          },
+          "anchorsRefreshed": true,
+          "passed": true
+        },
+        "sameBlobRename": {
+          "elapsedMs": 64.32116699999824,
+          "cpuMicros": {
+            "user": 36749,
+            "system": 2909
+          },
+          "stats": {
+            "blobReads": 0,
+            "parsedFiles": 0,
+            "indexHits": 9,
+            "reusedFiles": 9,
+            "sourceBytes": 0
+          },
+          "freshness": {
+            "state": "configuration-changed",
+            "changedFiles": [
+              {
+                "status": "renamed",
+                "oldBlob": "68b4fc05c4cee8e9c424f8ec481bb36969bff365",
+                "newBlob": "68b4fc05c4cee8e9c424f8ec481bb36969bff365",
+                "gitlink": false,
+                "path": "internal/api/httpserver/eventroutes.fixture-renamed.go",
+                "previousPath": "internal/api/httpserver/eventroutes.go"
+              }
+            ],
+            "baseline": {
+              "repo": "volvo-cars/cce-optimization-facade",
+              "commit": "2e4e55fc14f9c0c671369dc73a563202e7577e77",
+              "tree": "28d8887c1c3fd8c0ab4051ff9de85e91988e62ef",
+              "ref": "refs/heads/fixture",
+              "environmentDigest": "f6f7f88ece3458382d9e97df60d4eb8aacdff4b7afe73f8b9f7f35527d079d3c",
+              "configDigest": "d5d536ac171a017757f370dbc1fefe3114de24b1371421714629e6548e1eadf1",
+              "toolchainDigest": "b2e6e4b5d56a319064ae681642b4d683b12eef5543ca8b82399eef94c1fff268",
+              "ruleDigest": "224346c0f148f6187dc1a50d3717f73c21598e7ffe8bb7e300e5db80ae788144"
+            },
+            "observation": {
+              "checkedAt": "2026-10-24T07:25:19.367Z",
+              "ref": "refs/heads/fixture",
+              "source": "local",
+              "status": "observed",
+              "revision": "58551f73145e431cf09e6ffd229943e742fc43d1"
+            },
+            "sourceCurrent": false,
+            "deploymentCurrent": "unknown"
+          },
+          "invalidation": {
+            "changedFilesToParse": [],
+            "reusedFiles": [
+              "internal/api/httpserver/marketmapping/controller.go",
+              "internal/api/httpserver/policy/synccontroller.go",
+              "internal/service/command/dispatcher.go",
+              "internal/service/query/dispatcher.go",
+              "internal/service/command/addpolicymapping.go",
+              "internal/database/queuedb/client.go",
+              "internal/database/queuedb/worker.go",
+              "internal/database/postgres/policyrulesetrepository.go"
+            ],
+            "refreshedAnchors": ["internal/api/httpserver/eventroutes.fixture-renamed.go"],
+            "retiredFacts": [],
+            "invalidatedFacts": [
+              "fixture-file:internal/api/httpserver/eventroutes.go",
+              "fixture-file:internal/api/httpserver/marketmapping/controller.go",
+              "fixture-file:internal/api/httpserver/policy/synccontroller.go",
+              "fixture-file:internal/database/postgres/policyrulesetrepository.go",
+              "fixture-file:internal/database/queuedb/client.go",
+              "fixture-file:internal/database/queuedb/worker.go",
+              "fixture-file:internal/service/command/addpolicymapping.go",
+              "fixture-file:internal/service/command/dispatcher.go",
+              "fixture-file:internal/service/query/dispatcher.go",
+              "summary:021576655153559e02a81304",
+              "summary:0405165c4d114ccc5a4e8345",
+              "summary:06bcdbe91d1fd6c15d3c4638",
+              "summary:0ba20d79b0538d8e9ad4dd46",
+              "summary:0d1d135c2fe4f95709b87499",
+              "summary:0d3121f6a6f0efa9c2e7e0ff",
+              "summary:118a2d508975416275a9fb51",
+              "summary:151f42931347cb3ef8db2a9f",
+              "summary:19d94c3babbcd1a859d18467",
+              "summary:2086a525c1c7a892ae50407a",
+              "summary:255659e06185983083c68adc",
+              "summary:26dc918eec9555086eeefd08",
+              "summary:2c11a45a38d2a859496e2d66",
+              "summary:31e2deafc50f2333b838e769",
+              "summary:3563a059e7bbcbb7b722f4ab",
+              "summary:39138d42a867983fe6cb62c3",
+              "summary:3c22061655750bab9389893d",
+              "summary:3f21c3047cf0ee63abb7d51b",
+              "summary:4ec5eaafc3265bdf50cf02c4",
+              "summary:4f54301978d4115d3d01ba3b",
+              "summary:5676186ddab26f5526b9babf",
+              "summary:586c0b6adb2bbdc9dffa9f12",
+              "summary:591d1a3d1bd447be929e6e83",
+              "summary:5fa9acc327eeb4d9108118ec",
+              "summary:5feb47cc872a07c7930d6c3a",
+              "summary:606ce03d8d0222692306c264",
+              "summary:6cdb17255a6070f05db27434",
+              "summary:6d5bf39d8a1f0e4d12a82681",
+              "summary:7f796187921ccdd701f4683e",
+              "summary:82d5ec178cfb9c41c1be01bc",
+              "summary:86fa80c1a5d5aa7bab1740f8",
+              "summary:93631b3e6d0afe596a502a40",
+              "summary:9b4c3f07980b085c08ac1f94",
+              "summary:9cf63042d690cce69bf50a25",
+              "summary:a63c861c7803d8450b92347f",
+              "summary:a6600e160d4919060ddb5a8b",
+              "summary:a7d00c5bc29c2d21911a82ef",
+              "summary:b274186a11d6a0a717c0545a",
+              "summary:b85dc6920360f52023c803be",
+              "summary:bc59f1bfd5072d1f3bee97bf",
+              "summary:bcb8a015650b15edb780b2f3",
+              "summary:c2c48404313a6b3be2f4e12d",
+              "summary:c5504115672e918857b176c9",
+              "summary:c6fc75d24c568ebb1a60c44a",
+              "summary:ca3b6939b8cda05e875a327a",
+              "summary:d1d68643a4c3df1f8114e666",
+              "summary:d513ab394730b0989d5b4d4e",
+              "summary:d93ef12941683c7d991b3f23",
+              "summary:d98aae5dce5328a5c3deef3d",
+              "summary:db26bc9afe47826c4bee6b83",
+              "summary:dc9ab5d674a0706db2b83fb4",
+              "summary:de37e55523ba408f6ca5e677",
+              "summary:e422cbc9862e3faaafeb32be",
+              "summary:e578ecae75117258c102f6aa",
+              "summary:e7fde1f29519b2812f23ffca",
+              "summary:ed009b801999d8a9f19d71b5",
+              "summary:ef79f753d7cc326556775127",
+              "summary:f17c39e4e2ed600e11b4836b",
+              "summary:fcf50a2e92d523e44439534a",
+              "summary:fe3fb4e0326fe3e36ac64df7",
+              "summary:ffe3f48bd18d8f99e41d5978"
+            ],
+            "fallbackScopes": ["go-dispatch-river"]
+          },
+          "anchorsRefreshed": true,
+          "passed": true
+        },
+        "runtimeModelCalls": 0,
+        "runtimeModelTokens": 0,
+        "sourceCacheStats": {
+          "blobReads": 0,
+          "parsedFiles": 0,
+          "indexHits": 9,
+          "reusedFiles": 9,
+          "sourceBytes": 0
+        },
+        "passed": true
+      }
+    },
+    {
+      "id": "next-actor-endpoint",
+      "repo": "volvo-cars/cdls-mono-volvocars",
+      "commit": "8e1fd20c525fd3ef46f89fa7734dba06b06c79fc",
+      "files": 8,
+      "freshnessMs": 118.84183300000223,
+      "freshness": {
+        "freshness": {
+          "state": "unchanged",
+          "changedFiles": [],
+          "baseline": {
+            "repo": "volvo-cars/cdls-mono-volvocars",
+            "commit": "8e1fd20c525fd3ef46f89fa7734dba06b06c79fc",
+            "tree": "a9dd05bd0028684f49d647a685ec0df14a1f1ee9",
+            "ref": "HEAD",
+            "environmentDigest": "f237df07ba5f9dcf19d47e67bfa4de68af102feb3d47a764b0b66002622faf16",
+            "configDigest": "e41e030661d308b523b52b13bc30982b91b7ab575eb37c50ce77f4e9720ddb84",
+            "toolchainDigest": "d625491375c2e638570272b2cf4044f7c582cfd154984bef5eaf72af5ad3f13e",
+            "ruleDigest": "224346c0f148f6187dc1a50d3717f73c21598e7ffe8bb7e300e5db80ae788144"
+          },
+          "observation": {
+            "checkedAt": "2026-10-24T07:25:22.566Z",
+            "ref": "HEAD",
+            "source": "local",
+            "status": "observed",
+            "revision": "8e1fd20c525fd3ef46f89fa7734dba06b06c79fc"
+          },
+          "sourceCurrent": true,
+          "deploymentCurrent": "unknown"
+        },
+        "currentBaseline": {
+          "repo": "volvo-cars/cdls-mono-volvocars",
+          "commit": "8e1fd20c525fd3ef46f89fa7734dba06b06c79fc",
+          "tree": "a9dd05bd0028684f49d647a685ec0df14a1f1ee9",
+          "ref": "HEAD",
+          "environmentDigest": "f237df07ba5f9dcf19d47e67bfa4de68af102feb3d47a764b0b66002622faf16",
+          "configDigest": "e41e030661d308b523b52b13bc30982b91b7ab575eb37c50ce77f4e9720ddb84",
+          "toolchainDigest": "d625491375c2e638570272b2cf4044f7c582cfd154984bef5eaf72af5ad3f13e",
+          "ruleDigest": "224346c0f148f6187dc1a50d3717f73c21598e7ffe8bb7e300e5db80ae788144"
+        },
+        "verification": "analysis",
+        "sourceUnchanged": true,
+        "rescanRequired": false,
+        "changedFileListKnown": true
+      },
+      "cold": {
+        "extractionMs": 255.99087500000314,
+        "stats": {
+          "blobReads": 8,
+          "parsedFiles": 8,
+          "indexHits": 0,
+          "reusedFiles": 0,
+          "sourceBytes": 27135
+        },
+        "baseline": {
+          "repo": "volvo-cars/cdls-mono-volvocars",
+          "commit": "8e1fd20c525fd3ef46f89fa7734dba06b06c79fc",
+          "tree": "a9dd05bd0028684f49d647a685ec0df14a1f1ee9",
+          "ref": "HEAD",
+          "environmentDigest": "f237df07ba5f9dcf19d47e67bfa4de68af102feb3d47a764b0b66002622faf16",
+          "configDigest": "e41e030661d308b523b52b13bc30982b91b7ab575eb37c50ce77f4e9720ddb84",
+          "toolchainDigest": "d625491375c2e638570272b2cf4044f7c582cfd154984bef5eaf72af5ad3f13e",
+          "ruleDigest": "224346c0f148f6187dc1a50d3717f73c21598e7ffe8bb7e300e5db80ae788144"
+        },
+        "depth": [
+          {
+            "id": "ts-address-callback-and-wire",
+            "status": "unresolved",
+            "evidence": [
+              "operation:675f5fdc12c2a9baa97b6c87",
+              "operation:f1f76809fd252c2717b7a33f",
+              "operation:5f05871666a8c4920cae872b",
+              "operation:77862b31d26c5b7c36ba8407",
+              "operation:be909c1f43070a3041eae1e8"
+            ],
+            "reason": "Required action/value/effect/transaction/catch/completion relations are not established by this IR."
+          },
+          {
+            "id": "ts-address-response-and-availability",
+            "status": "unresolved",
+            "evidence": [
+              "operation:675f5fdc12c2a9baa97b6c87",
+              "operation:f1f76809fd252c2717b7a33f",
+              "operation:5f05871666a8c4920cae872b",
+              "operation:77862b31d26c5b7c36ba8407",
+              "operation:be909c1f43070a3041eae1e8"
+            ],
+            "reason": "Required action/value/effect/transaction/catch/completion relations are not established by this IR."
+          },
+          {
+            "id": "ts-income-callback-not-awaiting",
+            "status": "unresolved",
+            "evidence": [
+              "operation:c5c5c419e24d630237ecedbb",
+              "operation:df561256a4c9f347adb17d26",
+              "operation:b7a673ff91b3dbf39472efd6",
+              "operation:a69b4848f6b9e1a5fb41c205",
+              "operation:576cb796b3cd7a9e816f844e",
+              "operation:2c279bc51479a14dc22dd1bb",
+              "operation:d6069f402d0718ce25256d34",
+              "operation:0d8f340896c63ca92c6f6cec"
+            ],
+            "reason": "Required action/value/effect/transaction/catch/completion relations are not established by this IR."
+          },
+          {
+            "id": "ts-income-response-to-onNext",
+            "status": "unresolved",
+            "evidence": [
+              "operation:c5c5c419e24d630237ecedbb",
+              "operation:df561256a4c9f347adb17d26",
+              "operation:b7a673ff91b3dbf39472efd6",
+              "operation:a69b4848f6b9e1a5fb41c205",
+              "operation:576cb796b3cd7a9e816f844e",
+              "operation:2c279bc51479a14dc22dd1bb",
+              "operation:d6069f402d0718ce25256d34",
+              "operation:0d8f340896c63ca92c6f6cec"
+            ],
+            "reason": "Required action/value/effect/transaction/catch/completion relations are not established by this IR."
+          },
+          {
+            "id": "ts-server-lineage-and-hops",
+            "status": "unresolved",
+            "evidence": [
+              "operation:9c24604596a1da95848475cb",
+              "operation:64ea1cacb5a8adf13f223e82",
+              "operation:b0edb7dfaed16bc7754ee281",
+              "operation:11e21d3f9cc6a59cf2439dac",
+              "operation:9d2f4fd49fd8a4688f42af0a",
+              "operation:5dcf53d16e157b5aa60ae382",
+              "operation:727d2e885de27a8aad2f5801",
+              "operation:07245fbd9529a9f4973dd0f4",
+              "operation:32d0625fd11aac39d270eee5",
+              "operation:6e4083a6ac9e643db51e9682",
+              "operation:ea18de627b59d7374d29f852",
+              "operation:31acf1feca5cdf2b79978bbb",
+              "operation:edf98d2936bed8ceb6a49a91",
+              "operation:4178cf41a33f37d23e6d02bd",
+              "operation:c9056362d398140475fb6c78",
+              "operation:30e014bbde4b000147f16c67",
+              "operation:f1b8108cc2deac8d6b66d29e",
+              "operation:a915317fce8cb81d56b4a260",
+              "operation:868f355074e408a2a395beaf",
+              "operation:6903b7417eee4a2e0bd6995b",
+              "operation:9196c2ceddc0e5e61d3535fc",
+              "operation:9fca08a4b0d59df06adde82d",
+              "operation:6ba3a21ca42050d6fbdb09b4",
+              "operation:e661cd84ec1e260539487d08",
+              "operation:e36852a2ed005dc5da40eb1f",
+              "operation:a67d8bfa5e1674c6d6d21254",
+              "operation:4d91df316d3ea341cd9bc736",
+              "operation:2c0b412460dee8cde69e58e0",
+              "operation:d85581d39cc2dd2e468ffbfc",
+              "operation:1e7e4a498ad20f8709a0af5f",
+              "operation:5e1096dcae9e5cf0c4a33b36",
+              "operation:b7e4e605ebf56e6269ac4d8c",
+              "operation:2099b007119c82d2c373fe35",
+              "operation:12f326a1fab257765630101e",
+              "operation:e1d475b3761009b91ae15daa",
+              "operation:26cefac2fd82b50d852473cf",
+              "operation:6706cbfc6c109beb419d43da",
+              "operation:abe4276eb7df7bf4e7bd7d62",
+              "operation:50c67de84536ae13f3f26432",
+              "operation:c01a2ad8e117ecd4fa4af795",
+              "operation:8c66537acd4f643607a16a72",
+              "operation:945470937bb5606663b92d7c"
+            ],
+            "reason": "Required action/value/effect/transaction/catch/completion relations are not established by this IR."
+          },
+          {
+            "id": "ts-server-failure-and-output",
+            "status": "unresolved",
+            "evidence": [
+              "operation:9c24604596a1da95848475cb",
+              "operation:64ea1cacb5a8adf13f223e82",
+              "operation:b0edb7dfaed16bc7754ee281",
+              "operation:11e21d3f9cc6a59cf2439dac",
+              "operation:9d2f4fd49fd8a4688f42af0a",
+              "operation:5dcf53d16e157b5aa60ae382",
+              "operation:727d2e885de27a8aad2f5801",
+              "operation:07245fbd9529a9f4973dd0f4",
+              "operation:32d0625fd11aac39d270eee5",
+              "operation:6e4083a6ac9e643db51e9682",
+              "operation:ea18de627b59d7374d29f852",
+              "operation:31acf1feca5cdf2b79978bbb",
+              "operation:edf98d2936bed8ceb6a49a91",
+              "operation:4178cf41a33f37d23e6d02bd",
+              "operation:c9056362d398140475fb6c78",
+              "operation:30e014bbde4b000147f16c67",
+              "operation:f1b8108cc2deac8d6b66d29e",
+              "operation:a915317fce8cb81d56b4a260",
+              "operation:868f355074e408a2a395beaf",
+              "operation:6903b7417eee4a2e0bd6995b",
+              "operation:9196c2ceddc0e5e61d3535fc",
+              "operation:9fca08a4b0d59df06adde82d",
+              "operation:6ba3a21ca42050d6fbdb09b4",
+              "operation:e661cd84ec1e260539487d08",
+              "operation:e36852a2ed005dc5da40eb1f",
+              "operation:a67d8bfa5e1674c6d6d21254",
+              "operation:4d91df316d3ea341cd9bc736",
+              "operation:2c0b412460dee8cde69e58e0",
+              "operation:d85581d39cc2dd2e468ffbfc",
+              "operation:1e7e4a498ad20f8709a0af5f",
+              "operation:5e1096dcae9e5cf0c4a33b36",
+              "operation:b7e4e605ebf56e6269ac4d8c",
+              "operation:2099b007119c82d2c373fe35",
+              "operation:12f326a1fab257765630101e",
+              "operation:e1d475b3761009b91ae15daa",
+              "operation:26cefac2fd82b50d852473cf",
+              "operation:6706cbfc6c109beb419d43da",
+              "operation:abe4276eb7df7bf4e7bd7d62",
+              "operation:50c67de84536ae13f3f26432",
+              "operation:c01a2ad8e117ecd4fa4af795",
+              "operation:8c66537acd4f643607a16a72",
+              "operation:945470937bb5606663b92d7c"
+            ],
+            "reason": "Required action/value/effect/transaction/catch/completion relations are not established by this IR."
+          }
+        ],
+        "retrieval": {
+          "pages": 4,
+          "bytes": 6026,
+          "selectedRecords": 16,
+          "deliveredRecords": 16,
+          "limit": null,
+          "complete": true,
+          "continued": false,
+          "scope": "selected-records-only"
+        },
+        "parserDiagnostics": []
+      },
+      "warm": {
+        "extractionMs": 61.76733299999978,
+        "stats": {
+          "blobReads": 0,
+          "parsedFiles": 0,
+          "indexHits": 8,
+          "reusedFiles": 8,
+          "sourceBytes": 0
+        }
+      },
+      "rulesChanged": {
+        "blobReads": 0,
+        "parsedFiles": 0,
+        "indexHits": 8,
+        "reusedFiles": 8,
+        "sourceBytes": 0
+      },
+      "parserChanged": {
+        "blobReads": 0,
+        "parsedFiles": 8,
+        "indexHits": 0,
+        "reusedFiles": 8,
+        "sourceBytes": 0
+      },
+      "incremental": {
+        "authority": "synthetic_fixture",
+        "qualification": "Newline-only source change and same-blob rename test incremental mechanics; they establish no semantic depth or runtime behaviour.",
+        "baseline": {
+          "elapsedMs": 209.55041699999856,
+          "cpuMicros": {
+            "user": 65356,
+            "system": 14837
+          },
+          "stats": {
+            "blobReads": 8,
+            "parsedFiles": 8,
+            "indexHits": 0,
+            "reusedFiles": 0,
+            "sourceBytes": 27135
+          }
+        },
+        "singleFileChange": {
+          "elapsedMs": 83.03037499999846,
+          "cpuMicros": {
+            "user": 37368,
+            "system": 3525
+          },
+          "stats": {
+            "blobReads": 1,
+            "parsedFiles": 1,
+            "indexHits": 7,
+            "reusedFiles": 7,
+            "sourceBytes": 1678
+          },
+          "freshness": {
+            "state": "changed",
+            "changedFiles": [
+              {
+                "status": "modified",
+                "oldBlob": "63ee7a2acf148dda255aa172c253d57c178d5ec2",
+                "newBlob": "589da6402ff2cc33cd63b099641f5595552b9157",
+                "gitlink": false,
+                "path": "apps/ev-subsidy/src/components/wizard/AddressInput/index.tsx"
+              }
+            ],
+            "baseline": {
+              "repo": "volvo-cars/cdls-mono-volvocars",
+              "commit": "3189f2c7387f2fcec9f29eb0fed082235ba7a8e0",
+              "tree": "1896bf7d30cd23213ef2b5d737c5ba3fdca0c7ab",
+              "ref": "refs/heads/fixture",
+              "environmentDigest": "f237df07ba5f9dcf19d47e67bfa4de68af102feb3d47a764b0b66002622faf16",
+              "configDigest": "aeec3dddddd969f1f2c8cedfffaae21cafe066b4cb9cc359cdc2a76ccb9888c8",
+              "toolchainDigest": "d625491375c2e638570272b2cf4044f7c582cfd154984bef5eaf72af5ad3f13e",
+              "ruleDigest": "224346c0f148f6187dc1a50d3717f73c21598e7ffe8bb7e300e5db80ae788144"
+            },
+            "observation": {
+              "checkedAt": "2026-10-24T07:25:23.222Z",
+              "ref": "refs/heads/fixture",
+              "source": "local",
+              "status": "observed",
+              "revision": "f1ecfcb748326becab36a25d15c219c5ae9c845d"
+            },
+            "sourceCurrent": false,
+            "deploymentCurrent": "unknown"
+          },
+          "invalidation": {
+            "changedFilesToParse": ["apps/ev-subsidy/src/components/wizard/AddressInput/index.tsx"],
+            "reusedFiles": [
+              "apps/ev-subsidy/src/components/wizard/StepAddress/index.tsx",
+              "apps/ev-subsidy/src/components/wizard/StepPersons/index.tsx",
+              "apps/ev-subsidy/src/components/wizard/Wizard.tsx",
+              "apps/ev-subsidy/src/RootLayoutProvider.tsx",
+              "apps/ev-subsidy/app/api/ev-subsidy/eligibility/route.ts",
+              "apps/ev-subsidy/app/api/ev-subsidy/income/route.ts",
+              "apps/ev-subsidy/proxy.ts"
+            ],
+            "refreshedAnchors": [],
+            "retiredFacts": [],
+            "invalidatedFacts": [
+              "fixture-file:apps/ev-subsidy/app/api/ev-subsidy/eligibility/route.ts",
+              "fixture-file:apps/ev-subsidy/app/api/ev-subsidy/income/route.ts",
+              "fixture-file:apps/ev-subsidy/proxy.ts",
+              "fixture-file:apps/ev-subsidy/src/components/wizard/AddressInput/index.tsx",
+              "fixture-file:apps/ev-subsidy/src/components/wizard/StepAddress/index.tsx",
+              "fixture-file:apps/ev-subsidy/src/components/wizard/StepPersons/index.tsx",
+              "fixture-file:apps/ev-subsidy/src/components/wizard/Wizard.tsx",
+              "fixture-file:apps/ev-subsidy/src/RootLayoutProvider.tsx",
+              "summary:01e14e30660b44901614dcc1",
+              "summary:0a2718ea934b1a90b38fcac0",
+              "summary:16f3da681ff2a6d185924933",
+              "summary:1cffbf7f13ab9afcef2e1e98",
+              "summary:27110a19cb9beb90660eaa4d",
+              "summary:2b9ecd12cde58e8939248e24",
+              "summary:2f44fc6edd10dac6728582bc",
+              "summary:310c5c250b3f9e7e9256a603",
+              "summary:37fcbaef7649a101d2c15047",
+              "summary:39689c3639734533aad5878f",
+              "summary:3b587b1b238988b7803ce9c9",
+              "summary:3e6bf580888d327c5242827b",
+              "summary:42d1f37311d53ba3d127ed97",
+              "summary:480577942e1cfa82f078467f",
+              "summary:4bf0776322ec781b0fda9bc9",
+              "summary:4e65fe5257b6bb63c0ba4298",
+              "summary:4e6b9a72e16ef6e55411ec11",
+              "summary:51ec62a023d61dff5e99a871",
+              "summary:5427533d9e8ddf6a90db6c18",
+              "summary:64465d34964f86f2b725ab2c",
+              "summary:713c34464d2f17552f088bcd",
+              "summary:7fc90322e4b0ea07a2708436",
+              "summary:8c4ec6bc6e1418a9bac2c7e2",
+              "summary:8cd0d5f0e231f8b97c3c88ae",
+              "summary:93f05b82b70c4926959ea021",
+              "summary:a22eb7d13cb65fab58e5cab7",
+              "summary:a3343053973cda8f48b0272d",
+              "summary:a3ca21b3e076c7c7e72a2686",
+              "summary:ad91f1bef609cf4450f1c27d",
+              "summary:b03d24f01246cd6032b86c29",
+              "summary:b5689e8539777fae5e043f68",
+              "summary:b86dbae31898fbbc0bd83ac5",
+              "summary:bbc1da082cf41e29f15a0d8e",
+              "summary:bf75a29e62b35eda10c4eb16",
+              "summary:c0e781e508471c02ff42a890",
+              "summary:ca3a7128869d89adb08a2728",
+              "summary:d17434afe45cb088b4649ce7",
+              "summary:d4d6d4c80b284070a1d36348",
+              "summary:d65ccf04f16e2806bf3fec93",
+              "summary:e3c79ff47f1c042b26199d1f",
+              "summary:e4277f770422d9366a94270a",
+              "summary:e4655662ff2d5937eebbb08f",
+              "summary:e66bb6d5ac152e209f1fc5d1",
+              "summary:f1cb84423afa33901902cc3c",
+              "summary:f49c27ab15f210fd742d9d26",
+              "summary:f5a7f4f1200d02884b85b953",
+              "summary:f7670af8d1eac06d07f69f32",
+              "summary:fdfe6c0fb4566e75eff878f5"
+            ],
+            "fallbackScopes": ["next-actor-endpoint"]
+          },
+          "anchorsRefreshed": true,
+          "passed": true
+        },
+        "sameBlobRename": {
+          "elapsedMs": 51.29100000000108,
+          "cpuMicros": {
+            "user": 27362,
+            "system": 2228
+          },
+          "stats": {
+            "blobReads": 0,
+            "parsedFiles": 0,
+            "indexHits": 8,
+            "reusedFiles": 8,
+            "sourceBytes": 0
+          },
+          "freshness": {
+            "state": "configuration-changed",
+            "changedFiles": [
+              {
+                "status": "renamed",
+                "oldBlob": "589da6402ff2cc33cd63b099641f5595552b9157",
+                "newBlob": "589da6402ff2cc33cd63b099641f5595552b9157",
+                "gitlink": false,
+                "path": "apps/ev-subsidy/src/components/wizard/AddressInput/index.fixture-renamed.tsx",
+                "previousPath": "apps/ev-subsidy/src/components/wizard/AddressInput/index.tsx"
+              }
+            ],
+            "baseline": {
+              "repo": "volvo-cars/cdls-mono-volvocars",
+              "commit": "f1ecfcb748326becab36a25d15c219c5ae9c845d",
+              "tree": "e4b8f627ac55399dcc31e0508d7c1a5347b7448d",
+              "ref": "refs/heads/fixture",
+              "environmentDigest": "f237df07ba5f9dcf19d47e67bfa4de68af102feb3d47a764b0b66002622faf16",
+              "configDigest": "aeec3dddddd969f1f2c8cedfffaae21cafe066b4cb9cc359cdc2a76ccb9888c8",
+              "toolchainDigest": "d625491375c2e638570272b2cf4044f7c582cfd154984bef5eaf72af5ad3f13e",
+              "ruleDigest": "224346c0f148f6187dc1a50d3717f73c21598e7ffe8bb7e300e5db80ae788144"
+            },
+            "observation": {
+              "checkedAt": "2026-10-24T07:25:23.414Z",
+              "ref": "refs/heads/fixture",
+              "source": "local",
+              "status": "observed",
+              "revision": "a1ee7db6e4dea8235e95bd9f862298099dd1be41"
+            },
+            "sourceCurrent": false,
+            "deploymentCurrent": "unknown"
+          },
+          "invalidation": {
+            "changedFilesToParse": [],
+            "reusedFiles": [
+              "apps/ev-subsidy/src/components/wizard/StepAddress/index.tsx",
+              "apps/ev-subsidy/src/components/wizard/StepPersons/index.tsx",
+              "apps/ev-subsidy/src/components/wizard/Wizard.tsx",
+              "apps/ev-subsidy/src/RootLayoutProvider.tsx",
+              "apps/ev-subsidy/app/api/ev-subsidy/eligibility/route.ts",
+              "apps/ev-subsidy/app/api/ev-subsidy/income/route.ts",
+              "apps/ev-subsidy/proxy.ts"
+            ],
+            "refreshedAnchors": [
+              "apps/ev-subsidy/src/components/wizard/AddressInput/index.fixture-renamed.tsx"
+            ],
+            "retiredFacts": [],
+            "invalidatedFacts": [
+              "fixture-file:apps/ev-subsidy/app/api/ev-subsidy/eligibility/route.ts",
+              "fixture-file:apps/ev-subsidy/app/api/ev-subsidy/income/route.ts",
+              "fixture-file:apps/ev-subsidy/proxy.ts",
+              "fixture-file:apps/ev-subsidy/src/components/wizard/AddressInput/index.tsx",
+              "fixture-file:apps/ev-subsidy/src/components/wizard/StepAddress/index.tsx",
+              "fixture-file:apps/ev-subsidy/src/components/wizard/StepPersons/index.tsx",
+              "fixture-file:apps/ev-subsidy/src/components/wizard/Wizard.tsx",
+              "fixture-file:apps/ev-subsidy/src/RootLayoutProvider.tsx",
+              "summary:01e14e30660b44901614dcc1",
+              "summary:0a2718ea934b1a90b38fcac0",
+              "summary:16f3da681ff2a6d185924933",
+              "summary:27110a19cb9beb90660eaa4d",
+              "summary:2f44fc6edd10dac6728582bc",
+              "summary:310c5c250b3f9e7e9256a603",
+              "summary:37fcbaef7649a101d2c15047",
+              "summary:39689c3639734533aad5878f",
+              "summary:3b587b1b238988b7803ce9c9",
+              "summary:3e6bf580888d327c5242827b",
+              "summary:42d1f37311d53ba3d127ed97",
+              "summary:480577942e1cfa82f078467f",
+              "summary:4bf0776322ec781b0fda9bc9",
+              "summary:4e295f092c4d2af41a4da37f",
+              "summary:4e65fe5257b6bb63c0ba4298",
+              "summary:4e6b9a72e16ef6e55411ec11",
+              "summary:51ec62a023d61dff5e99a871",
+              "summary:64465d34964f86f2b725ab2c",
+              "summary:713c34464d2f17552f088bcd",
+              "summary:7fc90322e4b0ea07a2708436",
+              "summary:8c4ec6bc6e1418a9bac2c7e2",
+              "summary:8cd0d5f0e231f8b97c3c88ae",
+              "summary:8f352ef8a38952b4cce65f4c",
+              "summary:93f05b82b70c4926959ea021",
+              "summary:a22eb7d13cb65fab58e5cab7",
+              "summary:a3343053973cda8f48b0272d",
+              "summary:a3ca21b3e076c7c7e72a2686",
+              "summary:ad91f1bef609cf4450f1c27d",
+              "summary:b03d24f01246cd6032b86c29",
+              "summary:b5689e8539777fae5e043f68",
+              "summary:b86dbae31898fbbc0bd83ac5",
+              "summary:bbc1da082cf41e29f15a0d8e",
+              "summary:bf75a29e62b35eda10c4eb16",
+              "summary:c0e781e508471c02ff42a890",
+              "summary:ca3a7128869d89adb08a2728",
+              "summary:d17434afe45cb088b4649ce7",
+              "summary:d4d6d4c80b284070a1d36348",
+              "summary:d65ccf04f16e2806bf3fec93",
+              "summary:e3c79ff47f1c042b26199d1f",
+              "summary:e4277f770422d9366a94270a",
+              "summary:e4655662ff2d5937eebbb08f",
+              "summary:e66bb6d5ac152e209f1fc5d1",
+              "summary:e69699a43c1b146efac131d9",
+              "summary:ebbcf57b742f411c082d89f7",
+              "summary:f1cb84423afa33901902cc3c",
+              "summary:f49c27ab15f210fd742d9d26",
+              "summary:f7670af8d1eac06d07f69f32",
+              "summary:fdfe6c0fb4566e75eff878f5"
+            ],
+            "fallbackScopes": ["next-actor-endpoint"]
+          },
+          "anchorsRefreshed": true,
+          "passed": true
+        },
+        "runtimeModelCalls": 0,
+        "runtimeModelTokens": 0,
+        "sourceCacheStats": {
+          "blobReads": 0,
+          "parsedFiles": 0,
+          "indexHits": 8,
+          "reusedFiles": 8,
+          "sourceBytes": 0
+        },
+        "passed": true
+      }
+    }
+  ]
+}

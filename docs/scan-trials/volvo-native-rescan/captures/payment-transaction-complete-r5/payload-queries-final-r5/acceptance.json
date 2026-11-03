@@ -1,0 +1,117 @@
+{
+  "snapshot": "9d0a63b6ca64b19212019fab88daf56965ac16d3c46dfc8b1cd6765c0b7b2475",
+  "status": "passed",
+  "checks": [
+    {
+      "name": "sdk-0",
+      "nodes": 1,
+      "limits": [],
+      "frontiers": 0
+    },
+    {
+      "name": "sdk-1",
+      "nodes": 90,
+      "limits": [],
+      "frontiers": 101
+    },
+    {
+      "name": "sdk-2",
+      "nodes": 42,
+      "limits": [],
+      "frontiers": 53
+    },
+    {
+      "name": "sdk-3",
+      "nodes": 75,
+      "limits": [],
+      "frontiers": 92
+    },
+    {
+      "name": "capture.attributes",
+      "nodes": 5,
+      "limits": [],
+      "frontiers": 1
+    },
+    {
+      "name": "capture.psp",
+      "nodes": 5,
+      "limits": [],
+      "frontiers": 1
+    },
+    {
+      "name": "capture.countryCode",
+      "nodes": 3,
+      "limits": [],
+      "frontiers": 3
+    },
+    {
+      "name": "capture.pspTransactionId",
+      "nodes": 5,
+      "limits": [],
+      "frontiers": 1
+    },
+    {
+      "name": "capture.accountId",
+      "nodes": 5,
+      "limits": [],
+      "frontiers": 1
+    },
+    {
+      "name": "create.cart",
+      "nodes": 5,
+      "limits": [],
+      "frontiers": 5
+    },
+    {
+      "name": "create.customer",
+      "nodes": 20,
+      "limits": [],
+      "frontiers": 27
+    },
+    {
+      "name": "create.attributes",
+      "nodes": 7,
+      "limits": [],
+      "frontiers": 3
+    },
+    {
+      "name": "retry-request.retryStrategy",
+      "nodes": 10,
+      "limits": [],
+      "frontiers": 11
+    },
+    {
+      "name": "retry-request.cartLine",
+      "nodes": 13,
+      "limits": [],
+      "frontiers": 19
+    },
+    {
+      "name": "refund.cartLines",
+      "nodes": 3,
+      "limits": [],
+      "frontiers": 2
+    },
+    {
+      "name": "refund.attributes",
+      "nodes": 5,
+      "limits": [],
+      "frontiers": 1
+    },
+    {
+      "name": "refund.reason",
+      "nodes": 3,
+      "limits": [],
+      "frontiers": 3
+    }
+  ],
+  "constructorAndDestinationChecks": [
+    "capture exact five source fields; no amount",
+    "create PSP payloads preserve source construction including source setters",
+    "retry registration nested source construction",
+    "refund payload and metadata envelope construction",
+    "SDK whole argument remains source selection; wire body unresolved",
+    "configured PSP and scheduler boundary identities from source constructors/settings",
+    "configuration-library calls remain internal unknown boundaries"
+  ]
+}

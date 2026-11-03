@@ -1,0 +1,44 @@
+{
+  "repo": "volvo-cars/cdls-mono-volvocars",
+  "commit": "8e1fd20c525fd3ef46f89fa7734dba06b06c79fc",
+  "status": "Independent6full tracked files reviewed;44strict queries zero bounds;85pinned ranges checked",
+  "files": [
+    {
+      "path": "apps/site-navigation/function-app/.funcignore",
+      "lines": 11,
+      "sha256": "fa4e043d13b8c270908e5f10ace90908f4ef4e8077ecdcfaa1747174ef4cc63d",
+      "review": "Entire pinned source independently read and compared with selected native facts and strict queries"
+    },
+    {
+      "path": "apps/site-navigation/function-app/.gitignore",
+      "lines": 48,
+      "sha256": "39d086dab89ffed00c38a5267e2fbbd0cb5f2ac282bdc14ceac0ab544b238abd",
+      "review": "Entire pinned source independently read and compared with selected native facts and strict queries"
+    },
+    {
+      "path": "apps/site-navigation/function-app/host.json",
+      "lines": 21,
+      "sha256": "c982b753a6a60e4b713ea3725b72ded078120272c7998da690e8638d31007ced",
+      "review": "Entire pinned source independently read and compared with selected native facts and strict queries"
+    },
+    {
+      "path": "apps/site-navigation/function-app/package.json",
+      "lines": 29,
+      "sha256": "858d5e2469f7e83f275c637a0659a27dc9aa359f40e1d96e7e70ec8a222b6a71",
+      "review": "Entire pinned source independently read and compared with selected native facts and strict queries"
+    },
+    {
+      "path": "apps/site-navigation/function-app/src/functions/serviceBusTopicTrigger.ts",
+      "lines": 111,
+      "sha256": "5559503a66f5b16190c292f9e9644b54f2a5dfa46a02d708293d40282492b14c",
+      "review": "Entire pinned source independently read and compared with selected native facts and strict queries"
+    },
+    {
+      "path": "apps/site-navigation/function-app/tsconfig.json",
+      "lines": 19,
+      "sha256": "b1245515990d321f59f5f1a25ffe604c43e31931c2a212402ec66bfb52bf1812",
+      "review": "Entire pinned source independently read and compared with selected native facts and strict queries"
+    }
+  ],
+  "snapshot": "ceb4c52e4c43a47904357409f1ba2c04a2bdd8b4839ec68642e6c9989a1ea1e8"
+}

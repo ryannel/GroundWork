@@ -1,0 +1,62 @@
+[
+  {
+    "path": "VolvoCars.AccountProfile.Api/VolvoCars.AccountProfile.Api.csproj",
+    "packages": [
+      {
+        "Include": "Microsoft.Extensions.PlatformAbstractions",
+        "Version": "1.1.0"
+      },
+      {
+        "Include": "Volvocars.Consumer.API.AspNetCore.VersionHandling",
+        "Version": "7.0.0"
+      },
+      {
+        "Include": "Volvocars.Consumer.API.AspNetCore.TokenValidation",
+        "Version": "7.1.0"
+      },
+      {
+        "Include": "VolvoCars.Logging.Serilog.AspNetCore",
+        "Version": "3.1.0"
+      }
+    ],
+    "projects": [
+      {
+        "Include": "..\\VolvoCars.AccountProfile.Business\\VolvoCars.AccountProfile.Business.csproj"
+      }
+    ],
+    "frameworks": ["net8.0"],
+    "exactBinaryResolved": false
+  },
+  {
+    "path": "VolvoCars.AccountProfile.Business/VolvoCars.AccountProfile.Business.csproj",
+    "packages": [
+      {
+        "Include": "FluentValidation",
+        "Version": "10.4.0"
+      },
+      {
+        "Include": "NodaTime",
+        "Version": "3.0.5"
+      },
+      {
+        "Include": "Volvocars.Consumer.API.AspNetCore.Common",
+        "Version": "5.0.1"
+      },
+      {
+        "Include": "Microsoft.Extensions.Configuration.AzureKeyVault",
+        "Version": "3.1.22"
+      },
+      {
+        "Include": "LaunchDarkly.ServerSdk",
+        "Version": "7.0.3"
+      },
+      {
+        "Include": "VolvoCars.Volvo.Id.Account.Api",
+        "Version": "3.0.1"
+      }
+    ],
+    "projects": [],
+    "frameworks": ["netstandard2.1"],
+    "exactBinaryResolved": false
+  }
+]

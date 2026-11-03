@@ -1,0 +1,47 @@
+[
+  {
+    "key": "marketauth",
+    "setting": "MarketAuthMessageTopic",
+    "resource": "cce-car-spec-adapter-667a00a-complete-r1/resource/channel/marketauth",
+    "binding": "cce-car-spec-adapter-667a00a-complete-r1/channel_binding/marketauth",
+    "component": "cce-car-spec-adapter-667a00a-complete-r1/runtime_component/kafka",
+    "profile": "kafka-reader-enabled",
+    "condition": "cfg.skipKafkaReader == false; channel supplied by cfg.marketAuthTopic"
+  },
+  {
+    "key": "pcgmarketauth",
+    "setting": "PcgMarketAuthMessageTopic",
+    "resource": "cce-car-spec-adapter-667a00a-complete-r1/resource/channel/pcgmarketauth",
+    "binding": "cce-car-spec-adapter-667a00a-complete-r1/channel_binding/pcgmarketauth",
+    "component": "cce-car-spec-adapter-667a00a-complete-r1/runtime_component/kafka",
+    "profile": "kafka-reader-enabled",
+    "condition": "cfg.skipKafkaReader == false; channel supplied by cfg.pcgMarketAuthTopic"
+  },
+  {
+    "key": "carspec",
+    "setting": "CarSpecificationTopic",
+    "resource": "cce-car-spec-adapter-667a00a-complete-r1/resource/channel/carspec",
+    "binding": "cce-car-spec-adapter-667a00a-complete-r1/channel_binding/carspec",
+    "component": "cce-car-spec-adapter-667a00a-complete-r1/runtime_component/kafka",
+    "profile": "kafka-writer-enabled",
+    "condition": "cfg.SkipKafkaWriter == false; channel supplied by cfg.CarSpecificationTopic"
+  },
+  {
+    "key": "poison",
+    "setting": "poison",
+    "resource": "cce-car-spec-adapter-667a00a-complete-r1/resource/channel/poison",
+    "binding": "cce-car-spec-adapter-667a00a-complete-r1/channel_binding/poison",
+    "component": "cce-car-spec-adapter-667a00a-complete-r1/runtime_component/memory",
+    "profile": "source-poison-policy",
+    "condition": "Imported PoisonQueue is configured with literal poison; no automatic correspondence to poisonqueue handler"
+  },
+  {
+    "key": "poisonqueue",
+    "setting": "poisonqueue",
+    "resource": "cce-car-spec-adapter-667a00a-complete-r1/resource/channel/poisonqueue",
+    "binding": "cce-car-spec-adapter-667a00a-complete-r1/channel_binding/poisonqueue",
+    "component": "cce-car-spec-adapter-667a00a-complete-r1/runtime_component/memory",
+    "profile": "source-poison-handler",
+    "condition": "Source AddConsumerHandler topic literal poisonqueue"
+  }
+]

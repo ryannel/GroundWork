@@ -1,0 +1,2918 @@
+[
+  {
+    "name": "GET /api/util/authz/configurations",
+    "request": {
+      "format": "groundwork-query/v3",
+      "snapshot": "41fc2e67ba0f71e8d93ec9e55ec52ba3339603546e54372c7859c34a14409877",
+      "query": "trace",
+      "entry": "mascomplete-b360506-r2/entry/get-api-util-authz-configurations",
+      "value": null,
+      "context": [],
+      "outcome": null,
+      "changed": [],
+      "representation": "constructed",
+      "candidates": "exclude",
+      "maxNodes": 2000,
+      "maxRecords": 5000,
+      "environment": "source-profile",
+      "ids": []
+    }
+  },
+  {
+    "name": "GET /api/commercial-segments/brand-car-type-mappings/{brand}",
+    "request": {
+      "format": "groundwork-query/v3",
+      "snapshot": "41fc2e67ba0f71e8d93ec9e55ec52ba3339603546e54372c7859c34a14409877",
+      "query": "trace",
+      "entry": "mascomplete-b360506-r2/entry/get-api-commercial-segments-brand-car-type-mappings-brand",
+      "value": null,
+      "context": [],
+      "outcome": null,
+      "changed": [],
+      "representation": "constructed",
+      "candidates": "exclude",
+      "maxNodes": 2000,
+      "maxRecords": 5000,
+      "environment": "source-profile",
+      "ids": []
+    }
+  },
+  {
+    "name": "GET /api/commercial-segments/brand-car-type-mappings",
+    "request": {
+      "format": "groundwork-query/v3",
+      "snapshot": "41fc2e67ba0f71e8d93ec9e55ec52ba3339603546e54372c7859c34a14409877",
+      "query": "trace",
+      "entry": "mascomplete-b360506-r2/entry/get-api-commercial-segments-brand-car-type-mappings",
+      "value": null,
+      "context": [],
+      "outcome": null,
+      "changed": [],
+      "representation": "constructed",
+      "candidates": "exclude",
+      "maxNodes": 2000,
+      "maxRecords": 5000,
+      "environment": "source-profile",
+      "ids": []
+    }
+  },
+  {
+    "name": "POST /api/commercial-segments/brand-car-type-mappings",
+    "request": {
+      "format": "groundwork-query/v3",
+      "snapshot": "41fc2e67ba0f71e8d93ec9e55ec52ba3339603546e54372c7859c34a14409877",
+      "query": "trace",
+      "entry": "mascomplete-b360506-r2/entry/post-api-commercial-segments-brand-car-type-mappings",
+      "value": null,
+      "context": [],
+      "outcome": null,
+      "changed": [],
+      "representation": "constructed",
+      "candidates": "exclude",
+      "maxNodes": 2000,
+      "maxRecords": 5000,
+      "environment": "source-profile",
+      "ids": []
+    }
+  },
+  {
+    "name": "PUT /api/commercial-segments/brand-car-type-mappings/{brand}",
+    "request": {
+      "format": "groundwork-query/v3",
+      "snapshot": "41fc2e67ba0f71e8d93ec9e55ec52ba3339603546e54372c7859c34a14409877",
+      "query": "trace",
+      "entry": "mascomplete-b360506-r2/entry/put-api-commercial-segments-brand-car-type-mappings-brand",
+      "value": null,
+      "context": [],
+      "outcome": null,
+      "changed": [],
+      "representation": "constructed",
+      "candidates": "exclude",
+      "maxNodes": 2000,
+      "maxRecords": 5000,
+      "environment": "source-profile",
+      "ids": []
+    }
+  },
+  {
+    "name": "DELETE /api/commercial-segments/brand-car-type-mappings/{brand}",
+    "request": {
+      "format": "groundwork-query/v3",
+      "snapshot": "41fc2e67ba0f71e8d93ec9e55ec52ba3339603546e54372c7859c34a14409877",
+      "query": "trace",
+      "entry": "mascomplete-b360506-r2/entry/delete-api-commercial-segments-brand-car-type-mappings-brand",
+      "value": null,
+      "context": [],
+      "outcome": null,
+      "changed": [],
+      "representation": "constructed",
+      "candidates": "exclude",
+      "maxNodes": 2000,
+      "maxRecords": 5000,
+      "environment": "source-profile",
+      "ids": []
+    }
+  },
+  {
+    "name": "GET /api/commercial-segments/brands/{code}",
+    "request": {
+      "format": "groundwork-query/v3",
+      "snapshot": "41fc2e67ba0f71e8d93ec9e55ec52ba3339603546e54372c7859c34a14409877",
+      "query": "trace",
+      "entry": "mascomplete-b360506-r2/entry/get-api-commercial-segments-brands-code",
+      "value": null,
+      "context": [],
+      "outcome": null,
+      "changed": [],
+      "representation": "constructed",
+      "candidates": "exclude",
+      "maxNodes": 2000,
+      "maxRecords": 5000,
+      "environment": "source-profile",
+      "ids": []
+    }
+  },
+  {
+    "name": "GET /api/commercial-segments/brands",
+    "request": {
+      "format": "groundwork-query/v3",
+      "snapshot": "41fc2e67ba0f71e8d93ec9e55ec52ba3339603546e54372c7859c34a14409877",
+      "query": "trace",
+      "entry": "mascomplete-b360506-r2/entry/get-api-commercial-segments-brands",
+      "value": null,
+      "context": [],
+      "outcome": null,
+      "changed": [],
+      "representation": "constructed",
+      "candidates": "exclude",
+      "maxNodes": 2000,
+      "maxRecords": 5000,
+      "environment": "source-profile",
+      "ids": []
+    }
+  },
+  {
+    "name": "POST /api/commercial-segments/brands",
+    "request": {
+      "format": "groundwork-query/v3",
+      "snapshot": "41fc2e67ba0f71e8d93ec9e55ec52ba3339603546e54372c7859c34a14409877",
+      "query": "trace",
+      "entry": "mascomplete-b360506-r2/entry/post-api-commercial-segments-brands",
+      "value": null,
+      "context": [],
+      "outcome": null,
+      "changed": [],
+      "representation": "constructed",
+      "candidates": "exclude",
+      "maxNodes": 2000,
+      "maxRecords": 5000,
+      "environment": "source-profile",
+      "ids": []
+    }
+  },
+  {
+    "name": "PUT /api/commercial-segments/brands/{code}",
+    "request": {
+      "format": "groundwork-query/v3",
+      "snapshot": "41fc2e67ba0f71e8d93ec9e55ec52ba3339603546e54372c7859c34a14409877",
+      "query": "trace",
+      "entry": "mascomplete-b360506-r2/entry/put-api-commercial-segments-brands-code",
+      "value": null,
+      "context": [],
+      "outcome": null,
+      "changed": [],
+      "representation": "constructed",
+      "candidates": "exclude",
+      "maxNodes": 2000,
+      "maxRecords": 5000,
+      "environment": "source-profile",
+      "ids": []
+    }
+  },
+  {
+    "name": "DELETE /api/commercial-segments/brands/{code}",
+    "request": {
+      "format": "groundwork-query/v3",
+      "snapshot": "41fc2e67ba0f71e8d93ec9e55ec52ba3339603546e54372c7859c34a14409877",
+      "query": "trace",
+      "entry": "mascomplete-b360506-r2/entry/delete-api-commercial-segments-brands-code",
+      "value": null,
+      "context": [],
+      "outcome": null,
+      "changed": [],
+      "representation": "constructed",
+      "candidates": "exclude",
+      "maxNodes": 2000,
+      "maxRecords": 5000,
+      "environment": "source-profile",
+      "ids": []
+    }
+  },
+  {
+    "name": "GET /api/commercial-segments/cap-code-mappings/{id}",
+    "request": {
+      "format": "groundwork-query/v3",
+      "snapshot": "41fc2e67ba0f71e8d93ec9e55ec52ba3339603546e54372c7859c34a14409877",
+      "query": "trace",
+      "entry": "mascomplete-b360506-r2/entry/get-api-commercial-segments-cap-code-mappings-id",
+      "value": null,
+      "context": [],
+      "outcome": null,
+      "changed": [],
+      "representation": "constructed",
+      "candidates": "exclude",
+      "maxNodes": 2000,
+      "maxRecords": 5000,
+      "environment": "source-profile",
+      "ids": []
+    }
+  },
+  {
+    "name": "GET /api/commercial-segments/cap-code-mappings",
+    "request": {
+      "format": "groundwork-query/v3",
+      "snapshot": "41fc2e67ba0f71e8d93ec9e55ec52ba3339603546e54372c7859c34a14409877",
+      "query": "trace",
+      "entry": "mascomplete-b360506-r2/entry/get-api-commercial-segments-cap-code-mappings",
+      "value": null,
+      "context": [],
+      "outcome": null,
+      "changed": [],
+      "representation": "constructed",
+      "candidates": "exclude",
+      "maxNodes": 2000,
+      "maxRecords": 5000,
+      "environment": "source-profile",
+      "ids": []
+    }
+  },
+  {
+    "name": "POST /api/commercial-segments/cap-code-mappings",
+    "request": {
+      "format": "groundwork-query/v3",
+      "snapshot": "41fc2e67ba0f71e8d93ec9e55ec52ba3339603546e54372c7859c34a14409877",
+      "query": "trace",
+      "entry": "mascomplete-b360506-r2/entry/post-api-commercial-segments-cap-code-mappings",
+      "value": null,
+      "context": [],
+      "outcome": null,
+      "changed": [],
+      "representation": "constructed",
+      "candidates": "exclude",
+      "maxNodes": 2000,
+      "maxRecords": 5000,
+      "environment": "source-profile",
+      "ids": []
+    }
+  },
+  {
+    "name": "PUT /api/commercial-segments/cap-code-mappings/{id}",
+    "request": {
+      "format": "groundwork-query/v3",
+      "snapshot": "41fc2e67ba0f71e8d93ec9e55ec52ba3339603546e54372c7859c34a14409877",
+      "query": "trace",
+      "entry": "mascomplete-b360506-r2/entry/put-api-commercial-segments-cap-code-mappings-id",
+      "value": null,
+      "context": [],
+      "outcome": null,
+      "changed": [],
+      "representation": "constructed",
+      "candidates": "exclude",
+      "maxNodes": 2000,
+      "maxRecords": 5000,
+      "environment": "source-profile",
+      "ids": []
+    }
+  },
+  {
+    "name": "DELETE /api/commercial-segments/cap-code-mappings/{id}",
+    "request": {
+      "format": "groundwork-query/v3",
+      "snapshot": "41fc2e67ba0f71e8d93ec9e55ec52ba3339603546e54372c7859c34a14409877",
+      "query": "trace",
+      "entry": "mascomplete-b360506-r2/entry/delete-api-commercial-segments-cap-code-mappings-id",
+      "value": null,
+      "context": [],
+      "outcome": null,
+      "changed": [],
+      "representation": "constructed",
+      "candidates": "exclude",
+      "maxNodes": 2000,
+      "maxRecords": 5000,
+      "environment": "source-profile",
+      "ids": []
+    }
+  },
+  {
+    "name": "GET /api/commercial-segments/clients/{id}",
+    "request": {
+      "format": "groundwork-query/v3",
+      "snapshot": "41fc2e67ba0f71e8d93ec9e55ec52ba3339603546e54372c7859c34a14409877",
+      "query": "trace",
+      "entry": "mascomplete-b360506-r2/entry/get-api-commercial-segments-clients-id",
+      "value": null,
+      "context": [],
+      "outcome": null,
+      "changed": [],
+      "representation": "constructed",
+      "candidates": "exclude",
+      "maxNodes": 2000,
+      "maxRecords": 5000,
+      "environment": "source-profile",
+      "ids": []
+    }
+  },
+  {
+    "name": "GET /api/commercial-segments/clients",
+    "request": {
+      "format": "groundwork-query/v3",
+      "snapshot": "41fc2e67ba0f71e8d93ec9e55ec52ba3339603546e54372c7859c34a14409877",
+      "query": "trace",
+      "entry": "mascomplete-b360506-r2/entry/get-api-commercial-segments-clients",
+      "value": null,
+      "context": [],
+      "outcome": null,
+      "changed": [],
+      "representation": "constructed",
+      "candidates": "exclude",
+      "maxNodes": 2000,
+      "maxRecords": 5000,
+      "environment": "source-profile",
+      "ids": []
+    }
+  },
+  {
+    "name": "POST /api/commercial-segments/clients",
+    "request": {
+      "format": "groundwork-query/v3",
+      "snapshot": "41fc2e67ba0f71e8d93ec9e55ec52ba3339603546e54372c7859c34a14409877",
+      "query": "trace",
+      "entry": "mascomplete-b360506-r2/entry/post-api-commercial-segments-clients",
+      "value": null,
+      "context": [],
+      "outcome": null,
+      "changed": [],
+      "representation": "constructed",
+      "candidates": "exclude",
+      "maxNodes": 2000,
+      "maxRecords": 5000,
+      "environment": "source-profile",
+      "ids": []
+    }
+  },
+  {
+    "name": "PUT /api/commercial-segments/clients/{id}",
+    "request": {
+      "format": "groundwork-query/v3",
+      "snapshot": "41fc2e67ba0f71e8d93ec9e55ec52ba3339603546e54372c7859c34a14409877",
+      "query": "trace",
+      "entry": "mascomplete-b360506-r2/entry/put-api-commercial-segments-clients-id",
+      "value": null,
+      "context": [],
+      "outcome": null,
+      "changed": [],
+      "representation": "constructed",
+      "candidates": "exclude",
+      "maxNodes": 2000,
+      "maxRecords": 5000,
+      "environment": "source-profile",
+      "ids": []
+    }
+  },
+  {
+    "name": "DELETE /api/commercial-segments/clients/{id}",
+    "request": {
+      "format": "groundwork-query/v3",
+      "snapshot": "41fc2e67ba0f71e8d93ec9e55ec52ba3339603546e54372c7859c34a14409877",
+      "query": "trace",
+      "entry": "mascomplete-b360506-r2/entry/delete-api-commercial-segments-clients-id",
+      "value": null,
+      "context": [],
+      "outcome": null,
+      "changed": [],
+      "representation": "constructed",
+      "candidates": "exclude",
+      "maxNodes": 2000,
+      "maxRecords": 5000,
+      "environment": "source-profile",
+      "ids": []
+    }
+  },
+  {
+    "name": "GET /api/commercial-segments/contract-lengths/{id}",
+    "request": {
+      "format": "groundwork-query/v3",
+      "snapshot": "41fc2e67ba0f71e8d93ec9e55ec52ba3339603546e54372c7859c34a14409877",
+      "query": "trace",
+      "entry": "mascomplete-b360506-r2/entry/get-api-commercial-segments-contract-lengths-id",
+      "value": null,
+      "context": [],
+      "outcome": null,
+      "changed": [],
+      "representation": "constructed",
+      "candidates": "exclude",
+      "maxNodes": 2000,
+      "maxRecords": 5000,
+      "environment": "source-profile",
+      "ids": []
+    }
+  },
+  {
+    "name": "GET /api/commercial-segments/contract-lengths",
+    "request": {
+      "format": "groundwork-query/v3",
+      "snapshot": "41fc2e67ba0f71e8d93ec9e55ec52ba3339603546e54372c7859c34a14409877",
+      "query": "trace",
+      "entry": "mascomplete-b360506-r2/entry/get-api-commercial-segments-contract-lengths",
+      "value": null,
+      "context": [],
+      "outcome": null,
+      "changed": [],
+      "representation": "constructed",
+      "candidates": "exclude",
+      "maxNodes": 2000,
+      "maxRecords": 5000,
+      "environment": "source-profile",
+      "ids": []
+    }
+  },
+  {
+    "name": "POST /api/commercial-segments/contract-lengths",
+    "request": {
+      "format": "groundwork-query/v3",
+      "snapshot": "41fc2e67ba0f71e8d93ec9e55ec52ba3339603546e54372c7859c34a14409877",
+      "query": "trace",
+      "entry": "mascomplete-b360506-r2/entry/post-api-commercial-segments-contract-lengths",
+      "value": null,
+      "context": [],
+      "outcome": null,
+      "changed": [],
+      "representation": "constructed",
+      "candidates": "exclude",
+      "maxNodes": 2000,
+      "maxRecords": 5000,
+      "environment": "source-profile",
+      "ids": []
+    }
+  },
+  {
+    "name": "PUT /api/commercial-segments/contract-lengths/{id}",
+    "request": {
+      "format": "groundwork-query/v3",
+      "snapshot": "41fc2e67ba0f71e8d93ec9e55ec52ba3339603546e54372c7859c34a14409877",
+      "query": "trace",
+      "entry": "mascomplete-b360506-r2/entry/put-api-commercial-segments-contract-lengths-id",
+      "value": null,
+      "context": [],
+      "outcome": null,
+      "changed": [],
+      "representation": "constructed",
+      "candidates": "exclude",
+      "maxNodes": 2000,
+      "maxRecords": 5000,
+      "environment": "source-profile",
+      "ids": []
+    }
+  },
+  {
+    "name": "DELETE /api/commercial-segments/contract-lengths/{id}",
+    "request": {
+      "format": "groundwork-query/v3",
+      "snapshot": "41fc2e67ba0f71e8d93ec9e55ec52ba3339603546e54372c7859c34a14409877",
+      "query": "trace",
+      "entry": "mascomplete-b360506-r2/entry/delete-api-commercial-segments-contract-lengths-id",
+      "value": null,
+      "context": [],
+      "outcome": null,
+      "changed": [],
+      "representation": "constructed",
+      "candidates": "exclude",
+      "maxNodes": 2000,
+      "maxRecords": 5000,
+      "environment": "source-profile",
+      "ids": []
+    }
+  },
+  {
+    "name": "GET /api/commercial-segments/customer-types/{type}",
+    "request": {
+      "format": "groundwork-query/v3",
+      "snapshot": "41fc2e67ba0f71e8d93ec9e55ec52ba3339603546e54372c7859c34a14409877",
+      "query": "trace",
+      "entry": "mascomplete-b360506-r2/entry/get-api-commercial-segments-customer-types-type",
+      "value": null,
+      "context": [],
+      "outcome": null,
+      "changed": [],
+      "representation": "constructed",
+      "candidates": "exclude",
+      "maxNodes": 2000,
+      "maxRecords": 5000,
+      "environment": "source-profile",
+      "ids": []
+    }
+  },
+  {
+    "name": "GET /api/commercial-segments/customer-types",
+    "request": {
+      "format": "groundwork-query/v3",
+      "snapshot": "41fc2e67ba0f71e8d93ec9e55ec52ba3339603546e54372c7859c34a14409877",
+      "query": "trace",
+      "entry": "mascomplete-b360506-r2/entry/get-api-commercial-segments-customer-types",
+      "value": null,
+      "context": [],
+      "outcome": null,
+      "changed": [],
+      "representation": "constructed",
+      "candidates": "exclude",
+      "maxNodes": 2000,
+      "maxRecords": 5000,
+      "environment": "source-profile",
+      "ids": []
+    }
+  },
+  {
+    "name": "POST /api/commercial-segments/customer-types",
+    "request": {
+      "format": "groundwork-query/v3",
+      "snapshot": "41fc2e67ba0f71e8d93ec9e55ec52ba3339603546e54372c7859c34a14409877",
+      "query": "trace",
+      "entry": "mascomplete-b360506-r2/entry/post-api-commercial-segments-customer-types",
+      "value": null,
+      "context": [],
+      "outcome": null,
+      "changed": [],
+      "representation": "constructed",
+      "candidates": "exclude",
+      "maxNodes": 2000,
+      "maxRecords": 5000,
+      "environment": "source-profile",
+      "ids": []
+    }
+  },
+  {
+    "name": "DELETE /api/commercial-segments/customer-types/{type}",
+    "request": {
+      "format": "groundwork-query/v3",
+      "snapshot": "41fc2e67ba0f71e8d93ec9e55ec52ba3339603546e54372c7859c34a14409877",
+      "query": "trace",
+      "entry": "mascomplete-b360506-r2/entry/delete-api-commercial-segments-customer-types-type",
+      "value": null,
+      "context": [],
+      "outcome": null,
+      "changed": [],
+      "representation": "constructed",
+      "candidates": "exclude",
+      "maxNodes": 2000,
+      "maxRecords": 5000,
+      "environment": "source-profile",
+      "ids": []
+    }
+  },
+  {
+    "name": "GET /api/commercial-segments/external-code-mappings",
+    "request": {
+      "format": "groundwork-query/v3",
+      "snapshot": "41fc2e67ba0f71e8d93ec9e55ec52ba3339603546e54372c7859c34a14409877",
+      "query": "trace",
+      "entry": "mascomplete-b360506-r2/entry/get-api-commercial-segments-external-code-mappings",
+      "value": null,
+      "context": [],
+      "outcome": null,
+      "changed": [],
+      "representation": "constructed",
+      "candidates": "exclude",
+      "maxNodes": 2000,
+      "maxRecords": 5000,
+      "environment": "source-profile",
+      "ids": []
+    }
+  },
+  {
+    "name": "GET /api/commercial-items/fees/{internalId}",
+    "request": {
+      "format": "groundwork-query/v3",
+      "snapshot": "41fc2e67ba0f71e8d93ec9e55ec52ba3339603546e54372c7859c34a14409877",
+      "query": "trace",
+      "entry": "mascomplete-b360506-r2/entry/get-api-commercial-items-fees-internalid",
+      "value": null,
+      "context": [],
+      "outcome": null,
+      "changed": [],
+      "representation": "constructed",
+      "candidates": "exclude",
+      "maxNodes": 2000,
+      "maxRecords": 5000,
+      "environment": "source-profile",
+      "ids": []
+    }
+  },
+  {
+    "name": "GET /api/commercial-items/fees",
+    "request": {
+      "format": "groundwork-query/v3",
+      "snapshot": "41fc2e67ba0f71e8d93ec9e55ec52ba3339603546e54372c7859c34a14409877",
+      "query": "trace",
+      "entry": "mascomplete-b360506-r2/entry/get-api-commercial-items-fees",
+      "value": null,
+      "context": [],
+      "outcome": null,
+      "changed": [],
+      "representation": "constructed",
+      "candidates": "exclude",
+      "maxNodes": 2000,
+      "maxRecords": 5000,
+      "environment": "source-profile",
+      "ids": []
+    }
+  },
+  {
+    "name": "POST /api/commercial-items/fees",
+    "request": {
+      "format": "groundwork-query/v3",
+      "snapshot": "41fc2e67ba0f71e8d93ec9e55ec52ba3339603546e54372c7859c34a14409877",
+      "query": "trace",
+      "entry": "mascomplete-b360506-r2/entry/post-api-commercial-items-fees",
+      "value": null,
+      "context": [],
+      "outcome": null,
+      "changed": [],
+      "representation": "constructed",
+      "candidates": "exclude",
+      "maxNodes": 2000,
+      "maxRecords": 5000,
+      "environment": "source-profile",
+      "ids": []
+    }
+  },
+  {
+    "name": "PUT /api/commercial-items/fees/{internalId}",
+    "request": {
+      "format": "groundwork-query/v3",
+      "snapshot": "41fc2e67ba0f71e8d93ec9e55ec52ba3339603546e54372c7859c34a14409877",
+      "query": "trace",
+      "entry": "mascomplete-b360506-r2/entry/put-api-commercial-items-fees-internalid",
+      "value": null,
+      "context": [],
+      "outcome": null,
+      "changed": [],
+      "representation": "constructed",
+      "candidates": "exclude",
+      "maxNodes": 2000,
+      "maxRecords": 5000,
+      "environment": "source-profile",
+      "ids": []
+    }
+  },
+  {
+    "name": "DELETE /api/commercial-items/fees/{internalId}",
+    "request": {
+      "format": "groundwork-query/v3",
+      "snapshot": "41fc2e67ba0f71e8d93ec9e55ec52ba3339603546e54372c7859c34a14409877",
+      "query": "trace",
+      "entry": "mascomplete-b360506-r2/entry/delete-api-commercial-items-fees-internalid",
+      "value": null,
+      "context": [],
+      "outcome": null,
+      "changed": [],
+      "representation": "constructed",
+      "candidates": "exclude",
+      "maxNodes": 2000,
+      "maxRecords": 5000,
+      "environment": "source-profile",
+      "ids": []
+    }
+  },
+  {
+    "name": "GET /api/commercial-segments/jato-code-mappings/{id}",
+    "request": {
+      "format": "groundwork-query/v3",
+      "snapshot": "41fc2e67ba0f71e8d93ec9e55ec52ba3339603546e54372c7859c34a14409877",
+      "query": "trace",
+      "entry": "mascomplete-b360506-r2/entry/get-api-commercial-segments-jato-code-mappings-id",
+      "value": null,
+      "context": [],
+      "outcome": null,
+      "changed": [],
+      "representation": "constructed",
+      "candidates": "exclude",
+      "maxNodes": 2000,
+      "maxRecords": 5000,
+      "environment": "source-profile",
+      "ids": []
+    }
+  },
+  {
+    "name": "GET /api/commercial-segments/jato-code-mappings",
+    "request": {
+      "format": "groundwork-query/v3",
+      "snapshot": "41fc2e67ba0f71e8d93ec9e55ec52ba3339603546e54372c7859c34a14409877",
+      "query": "trace",
+      "entry": "mascomplete-b360506-r2/entry/get-api-commercial-segments-jato-code-mappings",
+      "value": null,
+      "context": [],
+      "outcome": null,
+      "changed": [],
+      "representation": "constructed",
+      "candidates": "exclude",
+      "maxNodes": 2000,
+      "maxRecords": 5000,
+      "environment": "source-profile",
+      "ids": []
+    }
+  },
+  {
+    "name": "POST /api/commercial-segments/jato-code-mappings",
+    "request": {
+      "format": "groundwork-query/v3",
+      "snapshot": "41fc2e67ba0f71e8d93ec9e55ec52ba3339603546e54372c7859c34a14409877",
+      "query": "trace",
+      "entry": "mascomplete-b360506-r2/entry/post-api-commercial-segments-jato-code-mappings",
+      "value": null,
+      "context": [],
+      "outcome": null,
+      "changed": [],
+      "representation": "constructed",
+      "candidates": "exclude",
+      "maxNodes": 2000,
+      "maxRecords": 5000,
+      "environment": "source-profile",
+      "ids": []
+    }
+  },
+  {
+    "name": "PUT /api/commercial-segments/jato-code-mappings/{id}",
+    "request": {
+      "format": "groundwork-query/v3",
+      "snapshot": "41fc2e67ba0f71e8d93ec9e55ec52ba3339603546e54372c7859c34a14409877",
+      "query": "trace",
+      "entry": "mascomplete-b360506-r2/entry/put-api-commercial-segments-jato-code-mappings-id",
+      "value": null,
+      "context": [],
+      "outcome": null,
+      "changed": [],
+      "representation": "constructed",
+      "candidates": "exclude",
+      "maxNodes": 2000,
+      "maxRecords": 5000,
+      "environment": "source-profile",
+      "ids": []
+    }
+  },
+  {
+    "name": "DELETE /api/commercial-segments/jato-code-mappings/{id}",
+    "request": {
+      "format": "groundwork-query/v3",
+      "snapshot": "41fc2e67ba0f71e8d93ec9e55ec52ba3339603546e54372c7859c34a14409877",
+      "query": "trace",
+      "entry": "mascomplete-b360506-r2/entry/delete-api-commercial-segments-jato-code-mappings-id",
+      "value": null,
+      "context": [],
+      "outcome": null,
+      "changed": [],
+      "representation": "constructed",
+      "candidates": "exclude",
+      "maxNodes": 2000,
+      "maxRecords": 5000,
+      "environment": "source-profile",
+      "ids": []
+    }
+  },
+  {
+    "name": "GET /api/commercial-segments/markets/{code}",
+    "request": {
+      "format": "groundwork-query/v3",
+      "snapshot": "41fc2e67ba0f71e8d93ec9e55ec52ba3339603546e54372c7859c34a14409877",
+      "query": "trace",
+      "entry": "mascomplete-b360506-r2/entry/get-api-commercial-segments-markets-code",
+      "value": null,
+      "context": [],
+      "outcome": null,
+      "changed": [],
+      "representation": "constructed",
+      "candidates": "exclude",
+      "maxNodes": 2000,
+      "maxRecords": 5000,
+      "environment": "source-profile",
+      "ids": []
+    }
+  },
+  {
+    "name": "GET /api/commercial-segments/markets",
+    "request": {
+      "format": "groundwork-query/v3",
+      "snapshot": "41fc2e67ba0f71e8d93ec9e55ec52ba3339603546e54372c7859c34a14409877",
+      "query": "trace",
+      "entry": "mascomplete-b360506-r2/entry/get-api-commercial-segments-markets",
+      "value": null,
+      "context": [],
+      "outcome": null,
+      "changed": [],
+      "representation": "constructed",
+      "candidates": "exclude",
+      "maxNodes": 2000,
+      "maxRecords": 5000,
+      "environment": "source-profile",
+      "ids": []
+    }
+  },
+  {
+    "name": "POST /api/commercial-segments/markets",
+    "request": {
+      "format": "groundwork-query/v3",
+      "snapshot": "41fc2e67ba0f71e8d93ec9e55ec52ba3339603546e54372c7859c34a14409877",
+      "query": "trace",
+      "entry": "mascomplete-b360506-r2/entry/post-api-commercial-segments-markets",
+      "value": null,
+      "context": [],
+      "outcome": null,
+      "changed": [],
+      "representation": "constructed",
+      "candidates": "exclude",
+      "maxNodes": 2000,
+      "maxRecords": 5000,
+      "environment": "source-profile",
+      "ids": []
+    }
+  },
+  {
+    "name": "PUT /api/commercial-segments/markets/{code}",
+    "request": {
+      "format": "groundwork-query/v3",
+      "snapshot": "41fc2e67ba0f71e8d93ec9e55ec52ba3339603546e54372c7859c34a14409877",
+      "query": "trace",
+      "entry": "mascomplete-b360506-r2/entry/put-api-commercial-segments-markets-code",
+      "value": null,
+      "context": [],
+      "outcome": null,
+      "changed": [],
+      "representation": "constructed",
+      "candidates": "exclude",
+      "maxNodes": 2000,
+      "maxRecords": 5000,
+      "environment": "source-profile",
+      "ids": []
+    }
+  },
+  {
+    "name": "DELETE /api/commercial-segments/markets/{code}",
+    "request": {
+      "format": "groundwork-query/v3",
+      "snapshot": "41fc2e67ba0f71e8d93ec9e55ec52ba3339603546e54372c7859c34a14409877",
+      "query": "trace",
+      "entry": "mascomplete-b360506-r2/entry/delete-api-commercial-segments-markets-code",
+      "value": null,
+      "context": [],
+      "outcome": null,
+      "changed": [],
+      "representation": "constructed",
+      "candidates": "exclude",
+      "maxNodes": 2000,
+      "maxRecords": 5000,
+      "environment": "source-profile",
+      "ids": []
+    }
+  },
+  {
+    "name": "GET /api/commercial-items/mileages/{internalId}",
+    "request": {
+      "format": "groundwork-query/v3",
+      "snapshot": "41fc2e67ba0f71e8d93ec9e55ec52ba3339603546e54372c7859c34a14409877",
+      "query": "trace",
+      "entry": "mascomplete-b360506-r2/entry/get-api-commercial-items-mileages-internalid",
+      "value": null,
+      "context": [],
+      "outcome": null,
+      "changed": [],
+      "representation": "constructed",
+      "candidates": "exclude",
+      "maxNodes": 2000,
+      "maxRecords": 5000,
+      "environment": "source-profile",
+      "ids": []
+    }
+  },
+  {
+    "name": "GET /api/commercial-items/mileages",
+    "request": {
+      "format": "groundwork-query/v3",
+      "snapshot": "41fc2e67ba0f71e8d93ec9e55ec52ba3339603546e54372c7859c34a14409877",
+      "query": "trace",
+      "entry": "mascomplete-b360506-r2/entry/get-api-commercial-items-mileages",
+      "value": null,
+      "context": [],
+      "outcome": null,
+      "changed": [],
+      "representation": "constructed",
+      "candidates": "exclude",
+      "maxNodes": 2000,
+      "maxRecords": 5000,
+      "environment": "source-profile",
+      "ids": []
+    }
+  },
+  {
+    "name": "POST /api/commercial-items/mileages",
+    "request": {
+      "format": "groundwork-query/v3",
+      "snapshot": "41fc2e67ba0f71e8d93ec9e55ec52ba3339603546e54372c7859c34a14409877",
+      "query": "trace",
+      "entry": "mascomplete-b360506-r2/entry/post-api-commercial-items-mileages",
+      "value": null,
+      "context": [],
+      "outcome": null,
+      "changed": [],
+      "representation": "constructed",
+      "candidates": "exclude",
+      "maxNodes": 2000,
+      "maxRecords": 5000,
+      "environment": "source-profile",
+      "ids": []
+    }
+  },
+  {
+    "name": "PUT /api/commercial-items/mileages/{internalId}",
+    "request": {
+      "format": "groundwork-query/v3",
+      "snapshot": "41fc2e67ba0f71e8d93ec9e55ec52ba3339603546e54372c7859c34a14409877",
+      "query": "trace",
+      "entry": "mascomplete-b360506-r2/entry/put-api-commercial-items-mileages-internalid",
+      "value": null,
+      "context": [],
+      "outcome": null,
+      "changed": [],
+      "representation": "constructed",
+      "candidates": "exclude",
+      "maxNodes": 2000,
+      "maxRecords": 5000,
+      "environment": "source-profile",
+      "ids": []
+    }
+  },
+  {
+    "name": "DELETE /api/commercial-items/mileages/{internalId}",
+    "request": {
+      "format": "groundwork-query/v3",
+      "snapshot": "41fc2e67ba0f71e8d93ec9e55ec52ba3339603546e54372c7859c34a14409877",
+      "query": "trace",
+      "entry": "mascomplete-b360506-r2/entry/delete-api-commercial-items-mileages-internalid",
+      "value": null,
+      "context": [],
+      "outcome": null,
+      "changed": [],
+      "representation": "constructed",
+      "candidates": "exclude",
+      "maxNodes": 2000,
+      "maxRecords": 5000,
+      "environment": "source-profile",
+      "ids": []
+    }
+  },
+  {
+    "name": "GET /api/commercial-segments/natcode-mappings/{id}",
+    "request": {
+      "format": "groundwork-query/v3",
+      "snapshot": "41fc2e67ba0f71e8d93ec9e55ec52ba3339603546e54372c7859c34a14409877",
+      "query": "trace",
+      "entry": "mascomplete-b360506-r2/entry/get-api-commercial-segments-natcode-mappings-id",
+      "value": null,
+      "context": [],
+      "outcome": null,
+      "changed": [],
+      "representation": "constructed",
+      "candidates": "exclude",
+      "maxNodes": 2000,
+      "maxRecords": 5000,
+      "environment": "source-profile",
+      "ids": []
+    }
+  },
+  {
+    "name": "GET /api/commercial-segments/natcode-mappings",
+    "request": {
+      "format": "groundwork-query/v3",
+      "snapshot": "41fc2e67ba0f71e8d93ec9e55ec52ba3339603546e54372c7859c34a14409877",
+      "query": "trace",
+      "entry": "mascomplete-b360506-r2/entry/get-api-commercial-segments-natcode-mappings",
+      "value": null,
+      "context": [],
+      "outcome": null,
+      "changed": [],
+      "representation": "constructed",
+      "candidates": "exclude",
+      "maxNodes": 2000,
+      "maxRecords": 5000,
+      "environment": "source-profile",
+      "ids": []
+    }
+  },
+  {
+    "name": "POST /api/commercial-segments/natcode-mappings",
+    "request": {
+      "format": "groundwork-query/v3",
+      "snapshot": "41fc2e67ba0f71e8d93ec9e55ec52ba3339603546e54372c7859c34a14409877",
+      "query": "trace",
+      "entry": "mascomplete-b360506-r2/entry/post-api-commercial-segments-natcode-mappings",
+      "value": null,
+      "context": [],
+      "outcome": null,
+      "changed": [],
+      "representation": "constructed",
+      "candidates": "exclude",
+      "maxNodes": 2000,
+      "maxRecords": 5000,
+      "environment": "source-profile",
+      "ids": []
+    }
+  },
+  {
+    "name": "PUT /api/commercial-segments/natcode-mappings/{id}",
+    "request": {
+      "format": "groundwork-query/v3",
+      "snapshot": "41fc2e67ba0f71e8d93ec9e55ec52ba3339603546e54372c7859c34a14409877",
+      "query": "trace",
+      "entry": "mascomplete-b360506-r2/entry/put-api-commercial-segments-natcode-mappings-id",
+      "value": null,
+      "context": [],
+      "outcome": null,
+      "changed": [],
+      "representation": "constructed",
+      "candidates": "exclude",
+      "maxNodes": 2000,
+      "maxRecords": 5000,
+      "environment": "source-profile",
+      "ids": []
+    }
+  },
+  {
+    "name": "DELETE /api/commercial-segments/natcode-mappings/{id}",
+    "request": {
+      "format": "groundwork-query/v3",
+      "snapshot": "41fc2e67ba0f71e8d93ec9e55ec52ba3339603546e54372c7859c34a14409877",
+      "query": "trace",
+      "entry": "mascomplete-b360506-r2/entry/delete-api-commercial-segments-natcode-mappings-id",
+      "value": null,
+      "context": [],
+      "outcome": null,
+      "changed": [],
+      "representation": "constructed",
+      "candidates": "exclude",
+      "maxNodes": 2000,
+      "maxRecords": 5000,
+      "environment": "source-profile",
+      "ids": []
+    }
+  },
+  {
+    "name": "GET /api/commercial-items/pre-orders/{internalId}",
+    "request": {
+      "format": "groundwork-query/v3",
+      "snapshot": "41fc2e67ba0f71e8d93ec9e55ec52ba3339603546e54372c7859c34a14409877",
+      "query": "trace",
+      "entry": "mascomplete-b360506-r2/entry/get-api-commercial-items-pre-orders-internalid",
+      "value": null,
+      "context": [],
+      "outcome": null,
+      "changed": [],
+      "representation": "constructed",
+      "candidates": "exclude",
+      "maxNodes": 2000,
+      "maxRecords": 5000,
+      "environment": "source-profile",
+      "ids": []
+    }
+  },
+  {
+    "name": "GET /api/commercial-items/pre-orders",
+    "request": {
+      "format": "groundwork-query/v3",
+      "snapshot": "41fc2e67ba0f71e8d93ec9e55ec52ba3339603546e54372c7859c34a14409877",
+      "query": "trace",
+      "entry": "mascomplete-b360506-r2/entry/get-api-commercial-items-pre-orders",
+      "value": null,
+      "context": [],
+      "outcome": null,
+      "changed": [],
+      "representation": "constructed",
+      "candidates": "exclude",
+      "maxNodes": 2000,
+      "maxRecords": 5000,
+      "environment": "source-profile",
+      "ids": []
+    }
+  },
+  {
+    "name": "POST /api/commercial-items/pre-orders",
+    "request": {
+      "format": "groundwork-query/v3",
+      "snapshot": "41fc2e67ba0f71e8d93ec9e55ec52ba3339603546e54372c7859c34a14409877",
+      "query": "trace",
+      "entry": "mascomplete-b360506-r2/entry/post-api-commercial-items-pre-orders",
+      "value": null,
+      "context": [],
+      "outcome": null,
+      "changed": [],
+      "representation": "constructed",
+      "candidates": "exclude",
+      "maxNodes": 2000,
+      "maxRecords": 5000,
+      "environment": "source-profile",
+      "ids": []
+    }
+  },
+  {
+    "name": "PUT /api/commercial-items/pre-orders/{internalId}",
+    "request": {
+      "format": "groundwork-query/v3",
+      "snapshot": "41fc2e67ba0f71e8d93ec9e55ec52ba3339603546e54372c7859c34a14409877",
+      "query": "trace",
+      "entry": "mascomplete-b360506-r2/entry/put-api-commercial-items-pre-orders-internalid",
+      "value": null,
+      "context": [],
+      "outcome": null,
+      "changed": [],
+      "representation": "constructed",
+      "candidates": "exclude",
+      "maxNodes": 2000,
+      "maxRecords": 5000,
+      "environment": "source-profile",
+      "ids": []
+    }
+  },
+  {
+    "name": "DELETE /api/commercial-items/pre-orders/{internalId}",
+    "request": {
+      "format": "groundwork-query/v3",
+      "snapshot": "41fc2e67ba0f71e8d93ec9e55ec52ba3339603546e54372c7859c34a14409877",
+      "query": "trace",
+      "entry": "mascomplete-b360506-r2/entry/delete-api-commercial-items-pre-orders-internalid",
+      "value": null,
+      "context": [],
+      "outcome": null,
+      "changed": [],
+      "representation": "constructed",
+      "candidates": "exclude",
+      "maxNodes": 2000,
+      "maxRecords": 5000,
+      "environment": "source-profile",
+      "ids": []
+    }
+  },
+  {
+    "name": "GET /api/commercial-segments/sales-models/{type}",
+    "request": {
+      "format": "groundwork-query/v3",
+      "snapshot": "41fc2e67ba0f71e8d93ec9e55ec52ba3339603546e54372c7859c34a14409877",
+      "query": "trace",
+      "entry": "mascomplete-b360506-r2/entry/get-api-commercial-segments-sales-models-type",
+      "value": null,
+      "context": [],
+      "outcome": null,
+      "changed": [],
+      "representation": "constructed",
+      "candidates": "exclude",
+      "maxNodes": 2000,
+      "maxRecords": 5000,
+      "environment": "source-profile",
+      "ids": []
+    }
+  },
+  {
+    "name": "GET /api/commercial-segments/sales-models",
+    "request": {
+      "format": "groundwork-query/v3",
+      "snapshot": "41fc2e67ba0f71e8d93ec9e55ec52ba3339603546e54372c7859c34a14409877",
+      "query": "trace",
+      "entry": "mascomplete-b360506-r2/entry/get-api-commercial-segments-sales-models",
+      "value": null,
+      "context": [],
+      "outcome": null,
+      "changed": [],
+      "representation": "constructed",
+      "candidates": "exclude",
+      "maxNodes": 2000,
+      "maxRecords": 5000,
+      "environment": "source-profile",
+      "ids": []
+    }
+  },
+  {
+    "name": "POST /api/commercial-segments/sales-models",
+    "request": {
+      "format": "groundwork-query/v3",
+      "snapshot": "41fc2e67ba0f71e8d93ec9e55ec52ba3339603546e54372c7859c34a14409877",
+      "query": "trace",
+      "entry": "mascomplete-b360506-r2/entry/post-api-commercial-segments-sales-models",
+      "value": null,
+      "context": [],
+      "outcome": null,
+      "changed": [],
+      "representation": "constructed",
+      "candidates": "exclude",
+      "maxNodes": 2000,
+      "maxRecords": 5000,
+      "environment": "source-profile",
+      "ids": []
+    }
+  },
+  {
+    "name": "PUT /api/commercial-segments/sales-models/{type}",
+    "request": {
+      "format": "groundwork-query/v3",
+      "snapshot": "41fc2e67ba0f71e8d93ec9e55ec52ba3339603546e54372c7859c34a14409877",
+      "query": "trace",
+      "entry": "mascomplete-b360506-r2/entry/put-api-commercial-segments-sales-models-type",
+      "value": null,
+      "context": [],
+      "outcome": null,
+      "changed": [],
+      "representation": "constructed",
+      "candidates": "exclude",
+      "maxNodes": 2000,
+      "maxRecords": 5000,
+      "environment": "source-profile",
+      "ids": []
+    }
+  },
+  {
+    "name": "DELETE /api/commercial-segments/sales-models/{type}",
+    "request": {
+      "format": "groundwork-query/v3",
+      "snapshot": "41fc2e67ba0f71e8d93ec9e55ec52ba3339603546e54372c7859c34a14409877",
+      "query": "trace",
+      "entry": "mascomplete-b360506-r2/entry/delete-api-commercial-segments-sales-models-type",
+      "value": null,
+      "context": [],
+      "outcome": null,
+      "changed": [],
+      "representation": "constructed",
+      "candidates": "exclude",
+      "maxNodes": 2000,
+      "maxRecords": 5000,
+      "environment": "source-profile",
+      "ids": []
+    }
+  },
+  {
+    "name": "GET /api/commercial-segments/schwacke-code-mappings/{id}",
+    "request": {
+      "format": "groundwork-query/v3",
+      "snapshot": "41fc2e67ba0f71e8d93ec9e55ec52ba3339603546e54372c7859c34a14409877",
+      "query": "trace",
+      "entry": "mascomplete-b360506-r2/entry/get-api-commercial-segments-schwacke-code-mappings-id",
+      "value": null,
+      "context": [],
+      "outcome": null,
+      "changed": [],
+      "representation": "constructed",
+      "candidates": "exclude",
+      "maxNodes": 2000,
+      "maxRecords": 5000,
+      "environment": "source-profile",
+      "ids": []
+    }
+  },
+  {
+    "name": "GET /api/commercial-segments/schwacke-code-mappings",
+    "request": {
+      "format": "groundwork-query/v3",
+      "snapshot": "41fc2e67ba0f71e8d93ec9e55ec52ba3339603546e54372c7859c34a14409877",
+      "query": "trace",
+      "entry": "mascomplete-b360506-r2/entry/get-api-commercial-segments-schwacke-code-mappings",
+      "value": null,
+      "context": [],
+      "outcome": null,
+      "changed": [],
+      "representation": "constructed",
+      "candidates": "exclude",
+      "maxNodes": 2000,
+      "maxRecords": 5000,
+      "environment": "source-profile",
+      "ids": []
+    }
+  },
+  {
+    "name": "POST /api/commercial-segments/schwacke-code-mappings",
+    "request": {
+      "format": "groundwork-query/v3",
+      "snapshot": "41fc2e67ba0f71e8d93ec9e55ec52ba3339603546e54372c7859c34a14409877",
+      "query": "trace",
+      "entry": "mascomplete-b360506-r2/entry/post-api-commercial-segments-schwacke-code-mappings",
+      "value": null,
+      "context": [],
+      "outcome": null,
+      "changed": [],
+      "representation": "constructed",
+      "candidates": "exclude",
+      "maxNodes": 2000,
+      "maxRecords": 5000,
+      "environment": "source-profile",
+      "ids": []
+    }
+  },
+  {
+    "name": "PUT /api/commercial-segments/schwacke-code-mappings/{id}",
+    "request": {
+      "format": "groundwork-query/v3",
+      "snapshot": "41fc2e67ba0f71e8d93ec9e55ec52ba3339603546e54372c7859c34a14409877",
+      "query": "trace",
+      "entry": "mascomplete-b360506-r2/entry/put-api-commercial-segments-schwacke-code-mappings-id",
+      "value": null,
+      "context": [],
+      "outcome": null,
+      "changed": [],
+      "representation": "constructed",
+      "candidates": "exclude",
+      "maxNodes": 2000,
+      "maxRecords": 5000,
+      "environment": "source-profile",
+      "ids": []
+    }
+  },
+  {
+    "name": "DELETE /api/commercial-segments/schwacke-code-mappings/{id}",
+    "request": {
+      "format": "groundwork-query/v3",
+      "snapshot": "41fc2e67ba0f71e8d93ec9e55ec52ba3339603546e54372c7859c34a14409877",
+      "query": "trace",
+      "entry": "mascomplete-b360506-r2/entry/delete-api-commercial-segments-schwacke-code-mappings-id",
+      "value": null,
+      "context": [],
+      "outcome": null,
+      "changed": [],
+      "representation": "constructed",
+      "candidates": "exclude",
+      "maxNodes": 2000,
+      "maxRecords": 5000,
+      "environment": "source-profile",
+      "ids": []
+    }
+  },
+  {
+    "name": "GET /api/commercial-items/selection-categories",
+    "request": {
+      "format": "groundwork-query/v3",
+      "snapshot": "41fc2e67ba0f71e8d93ec9e55ec52ba3339603546e54372c7859c34a14409877",
+      "query": "trace",
+      "entry": "mascomplete-b360506-r2/entry/get-api-commercial-items-selection-categories",
+      "value": null,
+      "context": [],
+      "outcome": null,
+      "changed": [],
+      "representation": "constructed",
+      "candidates": "exclude",
+      "maxNodes": 2000,
+      "maxRecords": 5000,
+      "environment": "source-profile",
+      "ids": []
+    }
+  },
+  {
+    "name": "GET /api/commercial-items/selection-categories/{id}",
+    "request": {
+      "format": "groundwork-query/v3",
+      "snapshot": "41fc2e67ba0f71e8d93ec9e55ec52ba3339603546e54372c7859c34a14409877",
+      "query": "trace",
+      "entry": "mascomplete-b360506-r2/entry/get-api-commercial-items-selection-categories-id",
+      "value": null,
+      "context": [],
+      "outcome": null,
+      "changed": [],
+      "representation": "constructed",
+      "candidates": "exclude",
+      "maxNodes": 2000,
+      "maxRecords": 5000,
+      "environment": "source-profile",
+      "ids": []
+    }
+  },
+  {
+    "name": "POST /api/commercial-items/selection-categories",
+    "request": {
+      "format": "groundwork-query/v3",
+      "snapshot": "41fc2e67ba0f71e8d93ec9e55ec52ba3339603546e54372c7859c34a14409877",
+      "query": "trace",
+      "entry": "mascomplete-b360506-r2/entry/post-api-commercial-items-selection-categories",
+      "value": null,
+      "context": [],
+      "outcome": null,
+      "changed": [],
+      "representation": "constructed",
+      "candidates": "exclude",
+      "maxNodes": 2000,
+      "maxRecords": 5000,
+      "environment": "source-profile",
+      "ids": []
+    }
+  },
+  {
+    "name": "DELETE /api/commercial-items/selection-categories/{id}",
+    "request": {
+      "format": "groundwork-query/v3",
+      "snapshot": "41fc2e67ba0f71e8d93ec9e55ec52ba3339603546e54372c7859c34a14409877",
+      "query": "trace",
+      "entry": "mascomplete-b360506-r2/entry/delete-api-commercial-items-selection-categories-id",
+      "value": null,
+      "context": [],
+      "outcome": null,
+      "changed": [],
+      "representation": "constructed",
+      "candidates": "exclude",
+      "maxNodes": 2000,
+      "maxRecords": 5000,
+      "environment": "source-profile",
+      "ids": []
+    }
+  },
+  {
+    "name": "GET /api/commercial-items/sku-categories",
+    "request": {
+      "format": "groundwork-query/v3",
+      "snapshot": "41fc2e67ba0f71e8d93ec9e55ec52ba3339603546e54372c7859c34a14409877",
+      "query": "trace",
+      "entry": "mascomplete-b360506-r2/entry/get-api-commercial-items-sku-categories",
+      "value": null,
+      "context": [],
+      "outcome": null,
+      "changed": [],
+      "representation": "constructed",
+      "candidates": "exclude",
+      "maxNodes": 2000,
+      "maxRecords": 5000,
+      "environment": "source-profile",
+      "ids": []
+    }
+  },
+  {
+    "name": "GET /api/commercial-items/sku-categories/{id}",
+    "request": {
+      "format": "groundwork-query/v3",
+      "snapshot": "41fc2e67ba0f71e8d93ec9e55ec52ba3339603546e54372c7859c34a14409877",
+      "query": "trace",
+      "entry": "mascomplete-b360506-r2/entry/get-api-commercial-items-sku-categories-id",
+      "value": null,
+      "context": [],
+      "outcome": null,
+      "changed": [],
+      "representation": "constructed",
+      "candidates": "exclude",
+      "maxNodes": 2000,
+      "maxRecords": 5000,
+      "environment": "source-profile",
+      "ids": []
+    }
+  },
+  {
+    "name": "POST /api/commercial-items/sku-categories",
+    "request": {
+      "format": "groundwork-query/v3",
+      "snapshot": "41fc2e67ba0f71e8d93ec9e55ec52ba3339603546e54372c7859c34a14409877",
+      "query": "trace",
+      "entry": "mascomplete-b360506-r2/entry/post-api-commercial-items-sku-categories",
+      "value": null,
+      "context": [],
+      "outcome": null,
+      "changed": [],
+      "representation": "constructed",
+      "candidates": "exclude",
+      "maxNodes": 2000,
+      "maxRecords": 5000,
+      "environment": "source-profile",
+      "ids": []
+    }
+  },
+  {
+    "name": "DELETE /api/commercial-items/sku-categories/{id}",
+    "request": {
+      "format": "groundwork-query/v3",
+      "snapshot": "41fc2e67ba0f71e8d93ec9e55ec52ba3339603546e54372c7859c34a14409877",
+      "query": "trace",
+      "entry": "mascomplete-b360506-r2/entry/delete-api-commercial-items-sku-categories-id",
+      "value": null,
+      "context": [],
+      "outcome": null,
+      "changed": [],
+      "representation": "constructed",
+      "candidates": "exclude",
+      "maxNodes": 2000,
+      "maxRecords": 5000,
+      "environment": "source-profile",
+      "ids": []
+    }
+  },
+  {
+    "name": "GET /api/commercial-items/soft-offer-packages/{internalId}",
+    "request": {
+      "format": "groundwork-query/v3",
+      "snapshot": "41fc2e67ba0f71e8d93ec9e55ec52ba3339603546e54372c7859c34a14409877",
+      "query": "trace",
+      "entry": "mascomplete-b360506-r2/entry/get-api-commercial-items-soft-offer-packages-internalid",
+      "value": null,
+      "context": [],
+      "outcome": null,
+      "changed": [],
+      "representation": "constructed",
+      "candidates": "exclude",
+      "maxNodes": 2000,
+      "maxRecords": 5000,
+      "environment": "source-profile",
+      "ids": []
+    }
+  },
+  {
+    "name": "GET /api/commercial-items/soft-offer-packages",
+    "request": {
+      "format": "groundwork-query/v3",
+      "snapshot": "41fc2e67ba0f71e8d93ec9e55ec52ba3339603546e54372c7859c34a14409877",
+      "query": "trace",
+      "entry": "mascomplete-b360506-r2/entry/get-api-commercial-items-soft-offer-packages",
+      "value": null,
+      "context": [],
+      "outcome": null,
+      "changed": [],
+      "representation": "constructed",
+      "candidates": "exclude",
+      "maxNodes": 2000,
+      "maxRecords": 5000,
+      "environment": "source-profile",
+      "ids": []
+    }
+  },
+  {
+    "name": "POST /api/commercial-items/soft-offer-packages",
+    "request": {
+      "format": "groundwork-query/v3",
+      "snapshot": "41fc2e67ba0f71e8d93ec9e55ec52ba3339603546e54372c7859c34a14409877",
+      "query": "trace",
+      "entry": "mascomplete-b360506-r2/entry/post-api-commercial-items-soft-offer-packages",
+      "value": null,
+      "context": [],
+      "outcome": null,
+      "changed": [],
+      "representation": "constructed",
+      "candidates": "exclude",
+      "maxNodes": 2000,
+      "maxRecords": 5000,
+      "environment": "source-profile",
+      "ids": []
+    }
+  },
+  {
+    "name": "PUT /api/commercial-items/soft-offer-packages/{internalId}",
+    "request": {
+      "format": "groundwork-query/v3",
+      "snapshot": "41fc2e67ba0f71e8d93ec9e55ec52ba3339603546e54372c7859c34a14409877",
+      "query": "trace",
+      "entry": "mascomplete-b360506-r2/entry/put-api-commercial-items-soft-offer-packages-internalid",
+      "value": null,
+      "context": [],
+      "outcome": null,
+      "changed": [],
+      "representation": "constructed",
+      "candidates": "exclude",
+      "maxNodes": 2000,
+      "maxRecords": 5000,
+      "environment": "source-profile",
+      "ids": []
+    }
+  },
+  {
+    "name": "DELETE /api/commercial-items/soft-offer-packages/{internalId}",
+    "request": {
+      "format": "groundwork-query/v3",
+      "snapshot": "41fc2e67ba0f71e8d93ec9e55ec52ba3339603546e54372c7859c34a14409877",
+      "query": "trace",
+      "entry": "mascomplete-b360506-r2/entry/delete-api-commercial-items-soft-offer-packages-internalid",
+      "value": null,
+      "context": [],
+      "outcome": null,
+      "changed": [],
+      "representation": "constructed",
+      "candidates": "exclude",
+      "maxNodes": 2000,
+      "maxRecords": 5000,
+      "environment": "source-profile",
+      "ids": []
+    }
+  },
+  {
+    "name": "GET /api/commercial-items/soft-offers/{internalId}",
+    "request": {
+      "format": "groundwork-query/v3",
+      "snapshot": "41fc2e67ba0f71e8d93ec9e55ec52ba3339603546e54372c7859c34a14409877",
+      "query": "trace",
+      "entry": "mascomplete-b360506-r2/entry/get-api-commercial-items-soft-offers-internalid",
+      "value": null,
+      "context": [],
+      "outcome": null,
+      "changed": [],
+      "representation": "constructed",
+      "candidates": "exclude",
+      "maxNodes": 2000,
+      "maxRecords": 5000,
+      "environment": "source-profile",
+      "ids": []
+    }
+  },
+  {
+    "name": "GET /api/commercial-items/soft-offers",
+    "request": {
+      "format": "groundwork-query/v3",
+      "snapshot": "41fc2e67ba0f71e8d93ec9e55ec52ba3339603546e54372c7859c34a14409877",
+      "query": "trace",
+      "entry": "mascomplete-b360506-r2/entry/get-api-commercial-items-soft-offers",
+      "value": null,
+      "context": [],
+      "outcome": null,
+      "changed": [],
+      "representation": "constructed",
+      "candidates": "exclude",
+      "maxNodes": 2000,
+      "maxRecords": 5000,
+      "environment": "source-profile",
+      "ids": []
+    }
+  },
+  {
+    "name": "POST /api/commercial-items/soft-offers",
+    "request": {
+      "format": "groundwork-query/v3",
+      "snapshot": "41fc2e67ba0f71e8d93ec9e55ec52ba3339603546e54372c7859c34a14409877",
+      "query": "trace",
+      "entry": "s2/endpoint",
+      "value": null,
+      "context": [],
+      "outcome": null,
+      "changed": [],
+      "representation": "constructed",
+      "candidates": "exclude",
+      "maxNodes": 2000,
+      "maxRecords": 5000,
+      "environment": "source-profile",
+      "ids": []
+    }
+  },
+  {
+    "name": "PUT /api/commercial-items/soft-offers/{internalId}",
+    "request": {
+      "format": "groundwork-query/v3",
+      "snapshot": "41fc2e67ba0f71e8d93ec9e55ec52ba3339603546e54372c7859c34a14409877",
+      "query": "trace",
+      "entry": "mascomplete-b360506-r2/entry/put-api-commercial-items-soft-offers-internalid",
+      "value": null,
+      "context": [],
+      "outcome": null,
+      "changed": [],
+      "representation": "constructed",
+      "candidates": "exclude",
+      "maxNodes": 2000,
+      "maxRecords": 5000,
+      "environment": "source-profile",
+      "ids": []
+    }
+  },
+  {
+    "name": "DELETE /api/commercial-items/soft-offers/{internalId}",
+    "request": {
+      "format": "groundwork-query/v3",
+      "snapshot": "41fc2e67ba0f71e8d93ec9e55ec52ba3339603546e54372c7859c34a14409877",
+      "query": "trace",
+      "entry": "mascomplete-b360506-r2/entry/delete-api-commercial-items-soft-offers-internalid",
+      "value": null,
+      "context": [],
+      "outcome": null,
+      "changed": [],
+      "representation": "constructed",
+      "candidates": "exclude",
+      "maxNodes": 2000,
+      "maxRecords": 5000,
+      "environment": "source-profile",
+      "ids": []
+    }
+  },
+  {
+    "name": "GET /api/commercial-items/software-option-packages/{internalId}",
+    "request": {
+      "format": "groundwork-query/v3",
+      "snapshot": "41fc2e67ba0f71e8d93ec9e55ec52ba3339603546e54372c7859c34a14409877",
+      "query": "trace",
+      "entry": "mascomplete-b360506-r2/entry/get-api-commercial-items-software-option-packages-internalid",
+      "value": null,
+      "context": [],
+      "outcome": null,
+      "changed": [],
+      "representation": "constructed",
+      "candidates": "exclude",
+      "maxNodes": 2000,
+      "maxRecords": 5000,
+      "environment": "source-profile",
+      "ids": []
+    }
+  },
+  {
+    "name": "GET /api/commercial-items/software-option-packages",
+    "request": {
+      "format": "groundwork-query/v3",
+      "snapshot": "41fc2e67ba0f71e8d93ec9e55ec52ba3339603546e54372c7859c34a14409877",
+      "query": "trace",
+      "entry": "mascomplete-b360506-r2/entry/get-api-commercial-items-software-option-packages",
+      "value": null,
+      "context": [],
+      "outcome": null,
+      "changed": [],
+      "representation": "constructed",
+      "candidates": "exclude",
+      "maxNodes": 2000,
+      "maxRecords": 5000,
+      "environment": "source-profile",
+      "ids": []
+    }
+  },
+  {
+    "name": "POST /api/commercial-items/software-option-packages",
+    "request": {
+      "format": "groundwork-query/v3",
+      "snapshot": "41fc2e67ba0f71e8d93ec9e55ec52ba3339603546e54372c7859c34a14409877",
+      "query": "trace",
+      "entry": "mascomplete-b360506-r2/entry/post-api-commercial-items-software-option-packages",
+      "value": null,
+      "context": [],
+      "outcome": null,
+      "changed": [],
+      "representation": "constructed",
+      "candidates": "exclude",
+      "maxNodes": 2000,
+      "maxRecords": 5000,
+      "environment": "source-profile",
+      "ids": []
+    }
+  },
+  {
+    "name": "PUT /api/commercial-items/software-option-packages/{internalId}",
+    "request": {
+      "format": "groundwork-query/v3",
+      "snapshot": "41fc2e67ba0f71e8d93ec9e55ec52ba3339603546e54372c7859c34a14409877",
+      "query": "trace",
+      "entry": "mascomplete-b360506-r2/entry/put-api-commercial-items-software-option-packages-internalid",
+      "value": null,
+      "context": [],
+      "outcome": null,
+      "changed": [],
+      "representation": "constructed",
+      "candidates": "exclude",
+      "maxNodes": 2000,
+      "maxRecords": 5000,
+      "environment": "source-profile",
+      "ids": []
+    }
+  },
+  {
+    "name": "DELETE /api/commercial-items/software-option-packages/{internalId}",
+    "request": {
+      "format": "groundwork-query/v3",
+      "snapshot": "41fc2e67ba0f71e8d93ec9e55ec52ba3339603546e54372c7859c34a14409877",
+      "query": "trace",
+      "entry": "mascomplete-b360506-r2/entry/delete-api-commercial-items-software-option-packages-internalid",
+      "value": null,
+      "context": [],
+      "outcome": null,
+      "changed": [],
+      "representation": "constructed",
+      "candidates": "exclude",
+      "maxNodes": 2000,
+      "maxRecords": 5000,
+      "environment": "source-profile",
+      "ids": []
+    }
+  },
+  {
+    "name": "GET /api/commercial-items/software-options/{internalId}",
+    "request": {
+      "format": "groundwork-query/v3",
+      "snapshot": "41fc2e67ba0f71e8d93ec9e55ec52ba3339603546e54372c7859c34a14409877",
+      "query": "trace",
+      "entry": "mascomplete-b360506-r2/entry/get-api-commercial-items-software-options-internalid",
+      "value": null,
+      "context": [],
+      "outcome": null,
+      "changed": [],
+      "representation": "constructed",
+      "candidates": "exclude",
+      "maxNodes": 2000,
+      "maxRecords": 5000,
+      "environment": "source-profile",
+      "ids": []
+    }
+  },
+  {
+    "name": "GET /api/commercial-items/software-options",
+    "request": {
+      "format": "groundwork-query/v3",
+      "snapshot": "41fc2e67ba0f71e8d93ec9e55ec52ba3339603546e54372c7859c34a14409877",
+      "query": "trace",
+      "entry": "mascomplete-b360506-r2/entry/get-api-commercial-items-software-options",
+      "value": null,
+      "context": [],
+      "outcome": null,
+      "changed": [],
+      "representation": "constructed",
+      "candidates": "exclude",
+      "maxNodes": 2000,
+      "maxRecords": 5000,
+      "environment": "source-profile",
+      "ids": []
+    }
+  },
+  {
+    "name": "POST /api/commercial-items/software-options",
+    "request": {
+      "format": "groundwork-query/v3",
+      "snapshot": "41fc2e67ba0f71e8d93ec9e55ec52ba3339603546e54372c7859c34a14409877",
+      "query": "trace",
+      "entry": "mascomplete-b360506-r2/entry/post-api-commercial-items-software-options",
+      "value": null,
+      "context": [],
+      "outcome": null,
+      "changed": [],
+      "representation": "constructed",
+      "candidates": "exclude",
+      "maxNodes": 2000,
+      "maxRecords": 5000,
+      "environment": "source-profile",
+      "ids": []
+    }
+  },
+  {
+    "name": "PUT /api/commercial-items/software-options/{internalId}",
+    "request": {
+      "format": "groundwork-query/v3",
+      "snapshot": "41fc2e67ba0f71e8d93ec9e55ec52ba3339603546e54372c7859c34a14409877",
+      "query": "trace",
+      "entry": "mascomplete-b360506-r2/entry/put-api-commercial-items-software-options-internalid",
+      "value": null,
+      "context": [],
+      "outcome": null,
+      "changed": [],
+      "representation": "constructed",
+      "candidates": "exclude",
+      "maxNodes": 2000,
+      "maxRecords": 5000,
+      "environment": "source-profile",
+      "ids": []
+    }
+  },
+  {
+    "name": "DELETE /api/commercial-items/software-options/{internalId}",
+    "request": {
+      "format": "groundwork-query/v3",
+      "snapshot": "41fc2e67ba0f71e8d93ec9e55ec52ba3339603546e54372c7859c34a14409877",
+      "query": "trace",
+      "entry": "mascomplete-b360506-r2/entry/delete-api-commercial-items-software-options-internalid",
+      "value": null,
+      "context": [],
+      "outcome": null,
+      "changed": [],
+      "representation": "constructed",
+      "candidates": "exclude",
+      "maxNodes": 2000,
+      "maxRecords": 5000,
+      "environment": "source-profile",
+      "ids": []
+    }
+  },
+  {
+    "name": "GET /api/vehicle-codes/providers",
+    "request": {
+      "format": "groundwork-query/v3",
+      "snapshot": "41fc2e67ba0f71e8d93ec9e55ec52ba3339603546e54372c7859c34a14409877",
+      "query": "trace",
+      "entry": "mascomplete-b360506-r2/entry/get-api-vehicle-codes-providers",
+      "value": null,
+      "context": [],
+      "outcome": null,
+      "changed": [],
+      "representation": "constructed",
+      "candidates": "exclude",
+      "maxNodes": 2000,
+      "maxRecords": 5000,
+      "environment": "source-profile",
+      "ids": []
+    }
+  },
+  {
+    "name": "interactions POST /api/commercial-items/fees",
+    "request": {
+      "format": "groundwork-query/v3",
+      "snapshot": "41fc2e67ba0f71e8d93ec9e55ec52ba3339603546e54372c7859c34a14409877",
+      "query": "interactions",
+      "entry": "mascomplete-b360506-r2/entry/post-api-commercial-items-fees",
+      "value": null,
+      "context": [],
+      "outcome": null,
+      "changed": [],
+      "representation": "constructed",
+      "candidates": "exclude",
+      "maxNodes": 2000,
+      "maxRecords": 5000,
+      "environment": "source-profile",
+      "ids": []
+    }
+  },
+  {
+    "name": "effects POST /api/commercial-items/fees",
+    "request": {
+      "format": "groundwork-query/v3",
+      "snapshot": "41fc2e67ba0f71e8d93ec9e55ec52ba3339603546e54372c7859c34a14409877",
+      "query": "effects",
+      "entry": "mascomplete-b360506-r2/entry/post-api-commercial-items-fees",
+      "value": null,
+      "context": [],
+      "outcome": null,
+      "changed": [],
+      "representation": "constructed",
+      "candidates": "exclude",
+      "maxNodes": 2000,
+      "maxRecords": 5000,
+      "environment": "source-profile",
+      "ids": []
+    }
+  },
+  {
+    "name": "consistency POST /api/commercial-items/fees",
+    "request": {
+      "format": "groundwork-query/v3",
+      "snapshot": "41fc2e67ba0f71e8d93ec9e55ec52ba3339603546e54372c7859c34a14409877",
+      "query": "consistency",
+      "entry": "mascomplete-b360506-r2/entry/post-api-commercial-items-fees",
+      "value": null,
+      "context": [],
+      "outcome": null,
+      "changed": [],
+      "representation": "constructed",
+      "candidates": "exclude",
+      "maxNodes": 2000,
+      "maxRecords": 5000,
+      "environment": "source-profile",
+      "ids": []
+    }
+  },
+  {
+    "name": "interactions DELETE /api/commercial-segments/brands/{code}",
+    "request": {
+      "format": "groundwork-query/v3",
+      "snapshot": "41fc2e67ba0f71e8d93ec9e55ec52ba3339603546e54372c7859c34a14409877",
+      "query": "interactions",
+      "entry": "mascomplete-b360506-r2/entry/delete-api-commercial-segments-brands-code",
+      "value": null,
+      "context": [],
+      "outcome": null,
+      "changed": [],
+      "representation": "constructed",
+      "candidates": "exclude",
+      "maxNodes": 2000,
+      "maxRecords": 5000,
+      "environment": "source-profile",
+      "ids": []
+    }
+  },
+  {
+    "name": "effects DELETE /api/commercial-segments/brands/{code}",
+    "request": {
+      "format": "groundwork-query/v3",
+      "snapshot": "41fc2e67ba0f71e8d93ec9e55ec52ba3339603546e54372c7859c34a14409877",
+      "query": "effects",
+      "entry": "mascomplete-b360506-r2/entry/delete-api-commercial-segments-brands-code",
+      "value": null,
+      "context": [],
+      "outcome": null,
+      "changed": [],
+      "representation": "constructed",
+      "candidates": "exclude",
+      "maxNodes": 2000,
+      "maxRecords": 5000,
+      "environment": "source-profile",
+      "ids": []
+    }
+  },
+  {
+    "name": "consistency DELETE /api/commercial-segments/brands/{code}",
+    "request": {
+      "format": "groundwork-query/v3",
+      "snapshot": "41fc2e67ba0f71e8d93ec9e55ec52ba3339603546e54372c7859c34a14409877",
+      "query": "consistency",
+      "entry": "mascomplete-b360506-r2/entry/delete-api-commercial-segments-brands-code",
+      "value": null,
+      "context": [],
+      "outcome": null,
+      "changed": [],
+      "representation": "constructed",
+      "candidates": "exclude",
+      "maxNodes": 2000,
+      "maxRecords": 5000,
+      "environment": "source-profile",
+      "ids": []
+    }
+  },
+  {
+    "name": "interactions PUT /api/commercial-segments/markets/{code}",
+    "request": {
+      "format": "groundwork-query/v3",
+      "snapshot": "41fc2e67ba0f71e8d93ec9e55ec52ba3339603546e54372c7859c34a14409877",
+      "query": "interactions",
+      "entry": "mascomplete-b360506-r2/entry/put-api-commercial-segments-markets-code",
+      "value": null,
+      "context": [],
+      "outcome": null,
+      "changed": [],
+      "representation": "constructed",
+      "candidates": "exclude",
+      "maxNodes": 2000,
+      "maxRecords": 5000,
+      "environment": "source-profile",
+      "ids": []
+    }
+  },
+  {
+    "name": "effects PUT /api/commercial-segments/markets/{code}",
+    "request": {
+      "format": "groundwork-query/v3",
+      "snapshot": "41fc2e67ba0f71e8d93ec9e55ec52ba3339603546e54372c7859c34a14409877",
+      "query": "effects",
+      "entry": "mascomplete-b360506-r2/entry/put-api-commercial-segments-markets-code",
+      "value": null,
+      "context": [],
+      "outcome": null,
+      "changed": [],
+      "representation": "constructed",
+      "candidates": "exclude",
+      "maxNodes": 2000,
+      "maxRecords": 5000,
+      "environment": "source-profile",
+      "ids": []
+    }
+  },
+  {
+    "name": "consistency PUT /api/commercial-segments/markets/{code}",
+    "request": {
+      "format": "groundwork-query/v3",
+      "snapshot": "41fc2e67ba0f71e8d93ec9e55ec52ba3339603546e54372c7859c34a14409877",
+      "query": "consistency",
+      "entry": "mascomplete-b360506-r2/entry/put-api-commercial-segments-markets-code",
+      "value": null,
+      "context": [],
+      "outcome": null,
+      "changed": [],
+      "representation": "constructed",
+      "candidates": "exclude",
+      "maxNodes": 2000,
+      "maxRecords": 5000,
+      "environment": "source-profile",
+      "ids": []
+    }
+  },
+  {
+    "name": "interactions POST /api/commercial-items/mileages",
+    "request": {
+      "format": "groundwork-query/v3",
+      "snapshot": "41fc2e67ba0f71e8d93ec9e55ec52ba3339603546e54372c7859c34a14409877",
+      "query": "interactions",
+      "entry": "mascomplete-b360506-r2/entry/post-api-commercial-items-mileages",
+      "value": null,
+      "context": [],
+      "outcome": null,
+      "changed": [],
+      "representation": "constructed",
+      "candidates": "exclude",
+      "maxNodes": 2000,
+      "maxRecords": 5000,
+      "environment": "source-profile",
+      "ids": []
+    }
+  },
+  {
+    "name": "effects POST /api/commercial-items/mileages",
+    "request": {
+      "format": "groundwork-query/v3",
+      "snapshot": "41fc2e67ba0f71e8d93ec9e55ec52ba3339603546e54372c7859c34a14409877",
+      "query": "effects",
+      "entry": "mascomplete-b360506-r2/entry/post-api-commercial-items-mileages",
+      "value": null,
+      "context": [],
+      "outcome": null,
+      "changed": [],
+      "representation": "constructed",
+      "candidates": "exclude",
+      "maxNodes": 2000,
+      "maxRecords": 5000,
+      "environment": "source-profile",
+      "ids": []
+    }
+  },
+  {
+    "name": "consistency POST /api/commercial-items/mileages",
+    "request": {
+      "format": "groundwork-query/v3",
+      "snapshot": "41fc2e67ba0f71e8d93ec9e55ec52ba3339603546e54372c7859c34a14409877",
+      "query": "consistency",
+      "entry": "mascomplete-b360506-r2/entry/post-api-commercial-items-mileages",
+      "value": null,
+      "context": [],
+      "outcome": null,
+      "changed": [],
+      "representation": "constructed",
+      "candidates": "exclude",
+      "maxNodes": 2000,
+      "maxRecords": 5000,
+      "environment": "source-profile",
+      "ids": []
+    }
+  },
+  {
+    "name": "interactions GET /api/commercial-items/soft-offer-packages/{internalId}",
+    "request": {
+      "format": "groundwork-query/v3",
+      "snapshot": "41fc2e67ba0f71e8d93ec9e55ec52ba3339603546e54372c7859c34a14409877",
+      "query": "interactions",
+      "entry": "mascomplete-b360506-r2/entry/get-api-commercial-items-soft-offer-packages-internalid",
+      "value": null,
+      "context": [],
+      "outcome": null,
+      "changed": [],
+      "representation": "constructed",
+      "candidates": "exclude",
+      "maxNodes": 2000,
+      "maxRecords": 5000,
+      "environment": "source-profile",
+      "ids": []
+    }
+  },
+  {
+    "name": "effects GET /api/commercial-items/soft-offer-packages/{internalId}",
+    "request": {
+      "format": "groundwork-query/v3",
+      "snapshot": "41fc2e67ba0f71e8d93ec9e55ec52ba3339603546e54372c7859c34a14409877",
+      "query": "effects",
+      "entry": "mascomplete-b360506-r2/entry/get-api-commercial-items-soft-offer-packages-internalid",
+      "value": null,
+      "context": [],
+      "outcome": null,
+      "changed": [],
+      "representation": "constructed",
+      "candidates": "exclude",
+      "maxNodes": 2000,
+      "maxRecords": 5000,
+      "environment": "source-profile",
+      "ids": []
+    }
+  },
+  {
+    "name": "consistency GET /api/commercial-items/soft-offer-packages/{internalId}",
+    "request": {
+      "format": "groundwork-query/v3",
+      "snapshot": "41fc2e67ba0f71e8d93ec9e55ec52ba3339603546e54372c7859c34a14409877",
+      "query": "consistency",
+      "entry": "mascomplete-b360506-r2/entry/get-api-commercial-items-soft-offer-packages-internalid",
+      "value": null,
+      "context": [],
+      "outcome": null,
+      "changed": [],
+      "representation": "constructed",
+      "candidates": "exclude",
+      "maxNodes": 2000,
+      "maxRecords": 5000,
+      "environment": "source-profile",
+      "ids": []
+    }
+  },
+  {
+    "name": "fee source returned action value",
+    "request": {
+      "format": "groundwork-query/v3",
+      "snapshot": "41fc2e67ba0f71e8d93ec9e55ec52ba3339603546e54372c7859c34a14409877",
+      "query": "value",
+      "entry": "mascomplete-b360506-r2/entry/post-api-commercial-items-fees",
+      "value": "mascomplete-b360506-r2/native/value/5bdb5643a04518fd935a/20",
+      "context": [],
+      "outcome": null,
+      "changed": [],
+      "representation": "source",
+      "candidates": "exclude",
+      "maxNodes": 2000,
+      "maxRecords": 5000,
+      "environment": "source-profile",
+      "ids": []
+    }
+  },
+  {
+    "name": "fee source request value",
+    "request": {
+      "format": "groundwork-query/v3",
+      "snapshot": "41fc2e67ba0f71e8d93ec9e55ec52ba3339603546e54372c7859c34a14409877",
+      "query": "value",
+      "entry": "mascomplete-b360506-r2/entry/post-api-commercial-items-fees",
+      "value": "mascomplete-b360506-r2/native/param/5bdb5643a04518fd935a/0",
+      "context": [],
+      "outcome": null,
+      "changed": [],
+      "representation": "source",
+      "candidates": "exclude",
+      "maxNodes": 2000,
+      "maxRecords": 5000,
+      "environment": "source-profile",
+      "ids": []
+    }
+  },
+  {
+    "name": "source process Program.cs top-level global statements",
+    "request": {
+      "format": "groundwork-query/v3",
+      "snapshot": "41fc2e67ba0f71e8d93ec9e55ec52ba3339603546e54372c7859c34a14409877",
+      "query": "trace",
+      "entry": "mascomplete-b360506-r2/native/reviewed/program/entry",
+      "value": null,
+      "context": [],
+      "outcome": null,
+      "changed": [],
+      "representation": "constructed",
+      "candidates": "exclude",
+      "maxNodes": 2000,
+      "maxRecords": 5000,
+      "environment": "source-profile",
+      "ids": []
+    }
+  },
+  {
+    "name": "source callback PopCat.ManageAndSegment.Api.Authorization.PopAuthzAuthorizationHandler.HandleRequirementAsync(Microsoft.AspNetCore.Authorization.AuthorizationHandlerContext, PopCat.ManageAndSegment.Api.Authorization.PopAuthzRequirement)",
+    "request": {
+      "format": "groundwork-query/v3",
+      "snapshot": "41fc2e67ba0f71e8d93ec9e55ec52ba3339603546e54372c7859c34a14409877",
+      "query": "trace",
+      "entry": "mascomplete-b360506-r2/native/callback/dcdd982aca03545b46f2",
+      "value": null,
+      "context": [],
+      "outcome": null,
+      "changed": [],
+      "representation": "constructed",
+      "candidates": "exclude",
+      "maxNodes": 2000,
+      "maxRecords": 5000,
+      "environment": "source-profile",
+      "ids": []
+    }
+  },
+  {
+    "name": "source callback PopCat.ManageAndSegment.Api.Authorization.PopAuthzAuthorizationResultHandler.HandleAsync(Microsoft.AspNetCore.Http.RequestDelegate, Microsoft.AspNetCore.Http.HttpContext, Microsoft.AspNetCore.Authorization.AuthorizationPolicy, Microsoft.AspNetCore.Authorization.Policy.PolicyAuthorizationResult)",
+    "request": {
+      "format": "groundwork-query/v3",
+      "snapshot": "41fc2e67ba0f71e8d93ec9e55ec52ba3339603546e54372c7859c34a14409877",
+      "query": "trace",
+      "entry": "mascomplete-b360506-r2/native/callback/1a7b28dab87870d8720f",
+      "value": null,
+      "context": [],
+      "outcome": null,
+      "changed": [],
+      "representation": "constructed",
+      "candidates": "exclude",
+      "maxNodes": 2000,
+      "maxRecords": 5000,
+      "environment": "source-profile",
+      "ids": []
+    }
+  },
+  {
+    "name": "source callback PopCat.ManageAndSegment.Api.HealthCheck.ManageAndSegmentHealthCheck.CheckHealthAsync(Microsoft.Extensions.Diagnostics.HealthChecks.HealthCheckContext, System.Threading.CancellationToken)",
+    "request": {
+      "format": "groundwork-query/v3",
+      "snapshot": "41fc2e67ba0f71e8d93ec9e55ec52ba3339603546e54372c7859c34a14409877",
+      "query": "trace",
+      "entry": "mascomplete-b360506-r2/native/callback/5d8745a7b1b8b5b23d85",
+      "value": null,
+      "context": [],
+      "outcome": null,
+      "changed": [],
+      "representation": "constructed",
+      "candidates": "exclude",
+      "maxNodes": 2000,
+      "maxRecords": 5000,
+      "environment": "source-profile",
+      "ids": []
+    }
+  },
+  {
+    "name": "source callback PopCat.ManageAndSegment.Api.Helpers.FallbackStringEnumConverter.ReadJson(JsonReader, System.Type, object?, JsonSerializer)",
+    "request": {
+      "format": "groundwork-query/v3",
+      "snapshot": "41fc2e67ba0f71e8d93ec9e55ec52ba3339603546e54372c7859c34a14409877",
+      "query": "trace",
+      "entry": "mascomplete-b360506-r2/native/callback/0ae1ed9e917d306bf9dd",
+      "value": null,
+      "context": [],
+      "outcome": null,
+      "changed": [],
+      "representation": "constructed",
+      "candidates": "exclude",
+      "maxNodes": 2000,
+      "maxRecords": 5000,
+      "environment": "source-profile",
+      "ids": []
+    }
+  },
+  {
+    "name": "source callback PopCat.ManageAndSegment.Api.Middleware.ExceptionMiddleware.InvokeAsync(Microsoft.AspNetCore.Http.HttpContext)",
+    "request": {
+      "format": "groundwork-query/v3",
+      "snapshot": "41fc2e67ba0f71e8d93ec9e55ec52ba3339603546e54372c7859c34a14409877",
+      "query": "trace",
+      "entry": "mascomplete-b360506-r2/native/callback/e0447261a497ee6a3d55",
+      "value": null,
+      "context": [],
+      "outcome": null,
+      "changed": [],
+      "representation": "constructed",
+      "candidates": "exclude",
+      "maxNodes": 2000,
+      "maxRecords": 5000,
+      "environment": "source-profile",
+      "ids": []
+    }
+  },
+  {
+    "name": "source callback PopCat.ManageAndSegment.Api.Swagger.AuthorizationResponseFilter.Apply(OpenApiOperation, OperationFilterContext)",
+    "request": {
+      "format": "groundwork-query/v3",
+      "snapshot": "41fc2e67ba0f71e8d93ec9e55ec52ba3339603546e54372c7859c34a14409877",
+      "query": "trace",
+      "entry": "mascomplete-b360506-r2/native/callback/33a59fda8e8e4d6867e5",
+      "value": null,
+      "context": [],
+      "outcome": null,
+      "changed": [],
+      "representation": "constructed",
+      "candidates": "exclude",
+      "maxNodes": 2000,
+      "maxRecords": 5000,
+      "environment": "source-profile",
+      "ids": []
+    }
+  },
+  {
+    "name": "source callback PopCat.ManageAndSegment.Api.Swagger.OperationIdFilter.Apply(OpenApiOperation, OperationFilterContext)",
+    "request": {
+      "format": "groundwork-query/v3",
+      "snapshot": "41fc2e67ba0f71e8d93ec9e55ec52ba3339603546e54372c7859c34a14409877",
+      "query": "trace",
+      "entry": "mascomplete-b360506-r2/native/callback/07807b0ed23f599a7255",
+      "value": null,
+      "context": [],
+      "outcome": null,
+      "changed": [],
+      "representation": "constructed",
+      "candidates": "exclude",
+      "maxNodes": 2000,
+      "maxRecords": 5000,
+      "environment": "source-profile",
+      "ids": []
+    }
+  },
+  {
+    "name": "source callback PopCat.ManageAndSegment.Api.Swagger.TraceHeadersFilter.Apply(OpenApiOperation, OperationFilterContext)",
+    "request": {
+      "format": "groundwork-query/v3",
+      "snapshot": "41fc2e67ba0f71e8d93ec9e55ec52ba3339603546e54372c7859c34a14409877",
+      "query": "trace",
+      "entry": "mascomplete-b360506-r2/native/callback/3bf241eddcda54fff510",
+      "value": null,
+      "context": [],
+      "outcome": null,
+      "changed": [],
+      "representation": "constructed",
+      "candidates": "exclude",
+      "maxNodes": 2000,
+      "maxRecords": 5000,
+      "environment": "source-profile",
+      "ids": []
+    }
+  },
+  {
+    "name": "source callback PopCat.ManageAndSegment.Api.Swagger.VolvoExceptionFilter.Apply(OpenApiOperation, OperationFilterContext)",
+    "request": {
+      "format": "groundwork-query/v3",
+      "snapshot": "41fc2e67ba0f71e8d93ec9e55ec52ba3339603546e54372c7859c34a14409877",
+      "query": "trace",
+      "entry": "mascomplete-b360506-r2/native/callback/04d5e55896d2c3ca67a0",
+      "value": null,
+      "context": [],
+      "outcome": null,
+      "changed": [],
+      "representation": "constructed",
+      "candidates": "exclude",
+      "maxNodes": 2000,
+      "maxRecords": 5000,
+      "environment": "source-profile",
+      "ids": []
+    }
+  },
+  {
+    "name": "source callback PopCat.ManageAndSegment.VersionHandling.ApiExplorer.OverviewApiDescriptionProvider.OnProvidersExecuted(Microsoft.AspNetCore.Mvc.ApiExplorer.ApiDescriptionProviderContext)",
+    "request": {
+      "format": "groundwork-query/v3",
+      "snapshot": "41fc2e67ba0f71e8d93ec9e55ec52ba3339603546e54372c7859c34a14409877",
+      "query": "trace",
+      "entry": "mascomplete-b360506-r2/native/callback/e0dea8ef1b7517878030",
+      "value": null,
+      "context": [],
+      "outcome": null,
+      "changed": [],
+      "representation": "constructed",
+      "candidates": "exclude",
+      "maxNodes": 2000,
+      "maxRecords": 5000,
+      "environment": "source-profile",
+      "ids": []
+    }
+  },
+  {
+    "name": "source callback PopCat.ManageAndSegment.VersionHandling.Filters.UnsupportedMediaTypeFilter.OnActionExecuting(Microsoft.AspNetCore.Mvc.Filters.ActionExecutingContext)",
+    "request": {
+      "format": "groundwork-query/v3",
+      "snapshot": "41fc2e67ba0f71e8d93ec9e55ec52ba3339603546e54372c7859c34a14409877",
+      "query": "trace",
+      "entry": "mascomplete-b360506-r2/native/callback/7decc9d28ad9d308d5b6",
+      "value": null,
+      "context": [],
+      "outcome": null,
+      "changed": [],
+      "representation": "constructed",
+      "candidates": "exclude",
+      "maxNodes": 2000,
+      "maxRecords": 5000,
+      "environment": "source-profile",
+      "ids": []
+    }
+  },
+  {
+    "name": "source callback PopCat.ManageAndSegment.VersionHandling.Formatters.TypedSystemTextJsonInputFormatter.CanRead(Microsoft.AspNetCore.Mvc.Formatters.InputFormatterContext)",
+    "request": {
+      "format": "groundwork-query/v3",
+      "snapshot": "41fc2e67ba0f71e8d93ec9e55ec52ba3339603546e54372c7859c34a14409877",
+      "query": "trace",
+      "entry": "mascomplete-b360506-r2/native/callback/25d68d10aab030b02a41",
+      "value": null,
+      "context": [],
+      "outcome": null,
+      "changed": [],
+      "representation": "constructed",
+      "candidates": "exclude",
+      "maxNodes": 2000,
+      "maxRecords": 5000,
+      "environment": "source-profile",
+      "ids": []
+    }
+  },
+  {
+    "name": "source callback PopCat.ManageAndSegment.VersionHandling.Formatters.TypedSystemTextJsonInputFormatter.CanReadType(System.Type)",
+    "request": {
+      "format": "groundwork-query/v3",
+      "snapshot": "41fc2e67ba0f71e8d93ec9e55ec52ba3339603546e54372c7859c34a14409877",
+      "query": "trace",
+      "entry": "mascomplete-b360506-r2/native/callback/99742b7f3dffddfaff6d",
+      "value": null,
+      "context": [],
+      "outcome": null,
+      "changed": [],
+      "representation": "constructed",
+      "candidates": "exclude",
+      "maxNodes": 2000,
+      "maxRecords": 5000,
+      "environment": "source-profile",
+      "ids": []
+    }
+  },
+  {
+    "name": "source callback PopCat.ManageAndSegment.VersionHandling.Formatters.TypedSystemTextJsonOutputFormatter.CanWriteResult(Microsoft.AspNetCore.Mvc.Formatters.OutputFormatterCanWriteContext)",
+    "request": {
+      "format": "groundwork-query/v3",
+      "snapshot": "41fc2e67ba0f71e8d93ec9e55ec52ba3339603546e54372c7859c34a14409877",
+      "query": "trace",
+      "entry": "mascomplete-b360506-r2/native/callback/0f9d6e9b39c8d5f5b7ce",
+      "value": null,
+      "context": [],
+      "outcome": null,
+      "changed": [],
+      "representation": "constructed",
+      "candidates": "exclude",
+      "maxNodes": 2000,
+      "maxRecords": 5000,
+      "environment": "source-profile",
+      "ids": []
+    }
+  },
+  {
+    "name": "source callback PopCat.ManageAndSegment.VersionHandling.Formatters.TypedSystemTextJsonOutputFormatter.CanWriteType(System.Type)",
+    "request": {
+      "format": "groundwork-query/v3",
+      "snapshot": "41fc2e67ba0f71e8d93ec9e55ec52ba3339603546e54372c7859c34a14409877",
+      "query": "trace",
+      "entry": "mascomplete-b360506-r2/native/callback/dd08e88cdb0ad2be9c39",
+      "value": null,
+      "context": [],
+      "outcome": null,
+      "changed": [],
+      "representation": "constructed",
+      "candidates": "exclude",
+      "maxNodes": 2000,
+      "maxRecords": 5000,
+      "environment": "source-profile",
+      "ids": []
+    }
+  },
+  {
+    "name": "source callback PopCat.ManageAndSegment.VersionHandling.Formatters.TypedSystemTextNewtonsoftJsonInputFormatter.CanReadType(System.Type)",
+    "request": {
+      "format": "groundwork-query/v3",
+      "snapshot": "41fc2e67ba0f71e8d93ec9e55ec52ba3339603546e54372c7859c34a14409877",
+      "query": "trace",
+      "entry": "mascomplete-b360506-r2/native/callback/d83a9df34a110a45050c",
+      "value": null,
+      "context": [],
+      "outcome": null,
+      "changed": [],
+      "representation": "constructed",
+      "candidates": "exclude",
+      "maxNodes": 2000,
+      "maxRecords": 5000,
+      "environment": "source-profile",
+      "ids": []
+    }
+  },
+  {
+    "name": "source callback PopCat.ManageAndSegment.VersionHandling.Formatters.TypedSystemTextNewtonsoftJsonInputFormatter.CanRead(Microsoft.AspNetCore.Mvc.Formatters.InputFormatterContext)",
+    "request": {
+      "format": "groundwork-query/v3",
+      "snapshot": "41fc2e67ba0f71e8d93ec9e55ec52ba3339603546e54372c7859c34a14409877",
+      "query": "trace",
+      "entry": "mascomplete-b360506-r2/native/callback/0e98b538b7c2f4471574",
+      "value": null,
+      "context": [],
+      "outcome": null,
+      "changed": [],
+      "representation": "constructed",
+      "candidates": "exclude",
+      "maxNodes": 2000,
+      "maxRecords": 5000,
+      "environment": "source-profile",
+      "ids": []
+    }
+  },
+  {
+    "name": "source callback PopCat.ManageAndSegment.VersionHandling.Formatters.TypedSystemTextNewtonsoftJsonOutputFormatter.CanWriteResult(Microsoft.AspNetCore.Mvc.Formatters.OutputFormatterCanWriteContext)",
+    "request": {
+      "format": "groundwork-query/v3",
+      "snapshot": "41fc2e67ba0f71e8d93ec9e55ec52ba3339603546e54372c7859c34a14409877",
+      "query": "trace",
+      "entry": "mascomplete-b360506-r2/native/callback/701cd083172f52341c96",
+      "value": null,
+      "context": [],
+      "outcome": null,
+      "changed": [],
+      "representation": "constructed",
+      "candidates": "exclude",
+      "maxNodes": 2000,
+      "maxRecords": 5000,
+      "environment": "source-profile",
+      "ids": []
+    }
+  },
+  {
+    "name": "source callback PopCat.ManageAndSegment.VersionHandling.Formatters.TypedSystemTextNewtonsoftJsonOutputFormatter.CanWriteType(System.Type?)",
+    "request": {
+      "format": "groundwork-query/v3",
+      "snapshot": "41fc2e67ba0f71e8d93ec9e55ec52ba3339603546e54372c7859c34a14409877",
+      "query": "trace",
+      "entry": "mascomplete-b360506-r2/native/callback/66162c199e8408fb60ce",
+      "value": null,
+      "context": [],
+      "outcome": null,
+      "changed": [],
+      "representation": "constructed",
+      "candidates": "exclude",
+      "maxNodes": 2000,
+      "maxRecords": 5000,
+      "environment": "source-profile",
+      "ids": []
+    }
+  },
+  {
+    "name": "source callback PopCat.ManageAndSegment.VersionHandling.Formatters.UntypedSystemJsonTextOutputFormatter.CanWriteType(System.Type)",
+    "request": {
+      "format": "groundwork-query/v3",
+      "snapshot": "41fc2e67ba0f71e8d93ec9e55ec52ba3339603546e54372c7859c34a14409877",
+      "query": "trace",
+      "entry": "mascomplete-b360506-r2/native/callback/401e55ad475588145eea",
+      "value": null,
+      "context": [],
+      "outcome": null,
+      "changed": [],
+      "representation": "constructed",
+      "candidates": "exclude",
+      "maxNodes": 2000,
+      "maxRecords": 5000,
+      "environment": "source-profile",
+      "ids": []
+    }
+  },
+  {
+    "name": "source callback PopCat.ManageAndSegment.VersionHandling.Formatters.UntypedSystemNewtonsoftJsonTextOutputFormatter.CanWriteType(System.Type?)",
+    "request": {
+      "format": "groundwork-query/v3",
+      "snapshot": "41fc2e67ba0f71e8d93ec9e55ec52ba3339603546e54372c7859c34a14409877",
+      "query": "trace",
+      "entry": "mascomplete-b360506-r2/native/callback/c9b6f4c4787f987cb6e6",
+      "value": null,
+      "context": [],
+      "outcome": null,
+      "changed": [],
+      "representation": "constructed",
+      "candidates": "exclude",
+      "maxNodes": 2000,
+      "maxRecords": 5000,
+      "environment": "source-profile",
+      "ids": []
+    }
+  },
+  {
+    "name": "source callback PopCat.ManageAndSegment.VersionHandling.NotAcceptableResult.ExecuteResult(Microsoft.AspNetCore.Mvc.ActionContext)",
+    "request": {
+      "format": "groundwork-query/v3",
+      "snapshot": "41fc2e67ba0f71e8d93ec9e55ec52ba3339603546e54372c7859c34a14409877",
+      "query": "trace",
+      "entry": "mascomplete-b360506-r2/native/callback/0dc54559a8d402a4c97c",
+      "value": null,
+      "context": [],
+      "outcome": null,
+      "changed": [],
+      "representation": "constructed",
+      "candidates": "exclude",
+      "maxNodes": 2000,
+      "maxRecords": 5000,
+      "environment": "source-profile",
+      "ids": []
+    }
+  },
+  {
+    "name": "source callback PopCat.ManageAndSegment.VersionHandling.Options.MediaTypeVersioningOptions.Configure(Microsoft.AspNetCore.Mvc.MvcOptions)",
+    "request": {
+      "format": "groundwork-query/v3",
+      "snapshot": "41fc2e67ba0f71e8d93ec9e55ec52ba3339603546e54372c7859c34a14409877",
+      "query": "trace",
+      "entry": "mascomplete-b360506-r2/native/callback/c8e5f16b5de97ec4db32",
+      "value": null,
+      "context": [],
+      "outcome": null,
+      "changed": [],
+      "representation": "constructed",
+      "candidates": "exclude",
+      "maxNodes": 2000,
+      "maxRecords": 5000,
+      "environment": "source-profile",
+      "ids": []
+    }
+  },
+  {
+    "name": "source callback PopCat.ManageAndSegment.VersionHandling.Swagger.MediaTypeVersioningOperationFilter.Apply(OpenApiOperation, OperationFilterContext)",
+    "request": {
+      "format": "groundwork-query/v3",
+      "snapshot": "41fc2e67ba0f71e8d93ec9e55ec52ba3339603546e54372c7859c34a14409877",
+      "query": "trace",
+      "entry": "mascomplete-b360506-r2/native/callback/102373c23a0680162a13",
+      "value": null,
+      "context": [],
+      "outcome": null,
+      "changed": [],
+      "representation": "constructed",
+      "candidates": "exclude",
+      "maxNodes": 2000,
+      "maxRecords": 5000,
+      "environment": "source-profile",
+      "ids": []
+    }
+  },
+  {
+    "name": "source callback PopCat.ManageAndSegment.VersionHandling.VersionReaders.MediaTypeVersionReader.Read(Microsoft.AspNetCore.Http.HttpRequest)",
+    "request": {
+      "format": "groundwork-query/v3",
+      "snapshot": "41fc2e67ba0f71e8d93ec9e55ec52ba3339603546e54372c7859c34a14409877",
+      "query": "trace",
+      "entry": "mascomplete-b360506-r2/native/callback/cd89689a0f42991a5212",
+      "value": null,
+      "context": [],
+      "outcome": null,
+      "changed": [],
+      "representation": "constructed",
+      "candidates": "exclude",
+      "maxNodes": 2000,
+      "maxRecords": 5000,
+      "environment": "source-profile",
+      "ids": []
+    }
+  },
+  {
+    "name": "variation PUT /api/commercial-items/pre-orders/{internalId}",
+    "request": {
+      "format": "groundwork-query/v3",
+      "snapshot": "41fc2e67ba0f71e8d93ec9e55ec52ba3339603546e54372c7859c34a14409877",
+      "query": "effects",
+      "entry": "mascomplete-b360506-r2/entry/put-api-commercial-items-pre-orders-internalid",
+      "value": null,
+      "context": [],
+      "outcome": null,
+      "changed": [],
+      "representation": "constructed",
+      "candidates": "exclude",
+      "maxNodes": 2000,
+      "maxRecords": 5000,
+      "environment": "source-profile",
+      "ids": []
+    }
+  },
+  {
+    "name": "variation POST /api/commercial-items/sku-categories",
+    "request": {
+      "format": "groundwork-query/v3",
+      "snapshot": "41fc2e67ba0f71e8d93ec9e55ec52ba3339603546e54372c7859c34a14409877",
+      "query": "effects",
+      "entry": "mascomplete-b360506-r2/entry/post-api-commercial-items-sku-categories",
+      "value": null,
+      "context": [],
+      "outcome": null,
+      "changed": [],
+      "representation": "constructed",
+      "candidates": "exclude",
+      "maxNodes": 2000,
+      "maxRecords": 5000,
+      "environment": "source-profile",
+      "ids": []
+    }
+  },
+  {
+    "name": "variation POST /api/commercial-items/selection-categories",
+    "request": {
+      "format": "groundwork-query/v3",
+      "snapshot": "41fc2e67ba0f71e8d93ec9e55ec52ba3339603546e54372c7859c34a14409877",
+      "query": "effects",
+      "entry": "mascomplete-b360506-r2/entry/post-api-commercial-items-selection-categories",
+      "value": null,
+      "context": [],
+      "outcome": null,
+      "changed": [],
+      "representation": "constructed",
+      "candidates": "exclude",
+      "maxNodes": 2000,
+      "maxRecords": 5000,
+      "environment": "source-profile",
+      "ids": []
+    }
+  },
+  {
+    "name": "variation POST /api/commercial-segments/jato-code-mappings",
+    "request": {
+      "format": "groundwork-query/v3",
+      "snapshot": "41fc2e67ba0f71e8d93ec9e55ec52ba3339603546e54372c7859c34a14409877",
+      "query": "effects",
+      "entry": "mascomplete-b360506-r2/entry/post-api-commercial-segments-jato-code-mappings",
+      "value": null,
+      "context": [],
+      "outcome": null,
+      "changed": [],
+      "representation": "constructed",
+      "candidates": "exclude",
+      "maxNodes": 2000,
+      "maxRecords": 5000,
+      "environment": "source-profile",
+      "ids": []
+    }
+  },
+  {
+    "name": "retained original asynchronous continuation",
+    "request": {
+      "format": "groundwork-query/v3",
+      "snapshot": "41fc2e67ba0f71e8d93ec9e55ec52ba3339603546e54372c7859c34a14409877",
+      "query": "continuations",
+      "entry": "s2/endpoint",
+      "value": null,
+      "context": [],
+      "outcome": null,
+      "changed": [],
+      "representation": "constructed",
+      "candidates": "exclude",
+      "maxNodes": 2000,
+      "maxRecords": 5000,
+      "environment": "source-profile",
+      "ids": []
+    }
+  },
+  {
+    "name": "outcome 201 POST /api/commercial-items/fees",
+    "request": {
+      "format": "groundwork-query/v3",
+      "snapshot": "41fc2e67ba0f71e8d93ec9e55ec52ba3339603546e54372c7859c34a14409877",
+      "query": "outcome",
+      "entry": "mascomplete-b360506-r2/entry/post-api-commercial-items-fees",
+      "value": null,
+      "context": [],
+      "outcome": 201,
+      "changed": [],
+      "representation": "constructed",
+      "candidates": "exclude",
+      "maxNodes": 2000,
+      "maxRecords": 5000,
+      "environment": "source-profile",
+      "ids": []
+    }
+  },
+  {
+    "name": "outcome 400 POST /api/commercial-items/fees",
+    "request": {
+      "format": "groundwork-query/v3",
+      "snapshot": "41fc2e67ba0f71e8d93ec9e55ec52ba3339603546e54372c7859c34a14409877",
+      "query": "outcome",
+      "entry": "mascomplete-b360506-r2/entry/post-api-commercial-items-fees",
+      "value": null,
+      "context": [],
+      "outcome": 400,
+      "changed": [],
+      "representation": "constructed",
+      "candidates": "exclude",
+      "maxNodes": 2000,
+      "maxRecords": 5000,
+      "environment": "source-profile",
+      "ids": []
+    }
+  },
+  {
+    "name": "outcome 404 PUT /api/commercial-segments/markets/{code}",
+    "request": {
+      "format": "groundwork-query/v3",
+      "snapshot": "41fc2e67ba0f71e8d93ec9e55ec52ba3339603546e54372c7859c34a14409877",
+      "query": "outcome",
+      "entry": "mascomplete-b360506-r2/entry/put-api-commercial-segments-markets-code",
+      "value": null,
+      "context": [],
+      "outcome": 404,
+      "changed": [],
+      "representation": "constructed",
+      "candidates": "exclude",
+      "maxNodes": 2000,
+      "maxRecords": 5000,
+      "environment": "source-profile",
+      "ids": []
+    }
+  },
+  {
+    "name": "outcome 400 PUT /api/commercial-items/pre-orders/{internalId}",
+    "request": {
+      "format": "groundwork-query/v3",
+      "snapshot": "41fc2e67ba0f71e8d93ec9e55ec52ba3339603546e54372c7859c34a14409877",
+      "query": "outcome",
+      "entry": "mascomplete-b360506-r2/entry/put-api-commercial-items-pre-orders-internalid",
+      "value": null,
+      "context": [],
+      "outcome": 400,
+      "changed": [],
+      "representation": "constructed",
+      "candidates": "exclude",
+      "maxNodes": 2000,
+      "maxRecords": 5000,
+      "environment": "source-profile",
+      "ids": []
+    }
+  },
+  {
+    "name": "reviewed local auth version identity semantic facts",
+    "request": {
+      "format": "groundwork-query/v3",
+      "snapshot": "41fc2e67ba0f71e8d93ec9e55ec52ba3339603546e54372c7859c34a14409877",
+      "query": "records",
+      "entry": "mascomplete-b360506-r2/entry/get-api-util-authz-configurations",
+      "value": null,
+      "context": [],
+      "outcome": null,
+      "changed": [],
+      "representation": "constructed",
+      "candidates": "exclude",
+      "maxNodes": 2000,
+      "maxRecords": 5000,
+      "environment": "source-profile",
+      "ids": [
+        "mascomplete-b360506-r2/native/reviewed/fact/token-cache",
+        "mascomplete-b360506-r2/native/reviewed/fact/auth-startup",
+        "mascomplete-b360506-r2/native/reviewed/fact/auth-response",
+        "mascomplete-b360506-r2/native/reviewed/fact/version-reader",
+        "mascomplete-b360506-r2/native/reviewed/fact/formatters",
+        "mascomplete-b360506-r2/native/reviewed/fact/accept-filter",
+        "mascomplete-b360506-r2/native/reviewed/fact/version-registration",
+        "mascomplete-b360506-r2/native/reviewed/fact/id-helper"
+      ]
+    }
+  }
+]

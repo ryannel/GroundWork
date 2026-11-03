@@ -1,0 +1,29 @@
+{
+  "format": "groundwork-query/v3",
+  "snapshot": "5f8e714355588ffe92a4d7d00956d46f2f68763596d7a5a365f1b974904be709",
+  "query": "records",
+  "entry": "volvo/cds-paymentservice-customer/b0010537cdd5-r2/entry/create",
+  "value": null,
+  "context": [],
+  "outcome": null,
+  "changed": [],
+  "representation": "constructed",
+  "candidates": "exclude",
+  "maxNodes": 700,
+  "maxRecords": 5000,
+  "environment": "source-profile",
+  "ids": [
+    "volvo/cds-paymentservice-customer/b0010537cdd5-r2/claim/create-nonblank-names",
+    "volvo/cds-paymentservice-customer/b0010537cdd5-r2/claim/email-and-locale",
+    "volvo/cds-paymentservice-customer/b0010537cdd5-r2/claim/address-validation-boundary",
+    "volvo/cds-paymentservice-customer/b0010537cdd5-r2/claim/update-name-nullity",
+    "volvo/cds-paymentservice-customer/b0010537cdd5-r2/claim/response-declared-validation",
+    "volvo/cds-paymentservice-customer/b0010537cdd5-r2/claim/recurring-instrument-nonblank",
+    "volvo/cds-paymentservice-customer/b0010537cdd5-r2/claim/declared-indexes",
+    "volvo/cds-paymentservice-customer/b0010537cdd5-r2/claim/cache-association-create",
+    "volvo/cds-paymentservice-customer/b0010537cdd5-r2/claim/cache-association-get-or-create",
+    "volvo/cds-paymentservice-customer/b0010537cdd5-r2/claim/lock-options",
+    "volvo/cds-paymentservice-customer/b0010537cdd5-r2/claim/cache-loader-fallback",
+    "volvo/cds-paymentservice-customer/b0010537cdd5-r2/claim/cache-key-association"
+  ]
+}

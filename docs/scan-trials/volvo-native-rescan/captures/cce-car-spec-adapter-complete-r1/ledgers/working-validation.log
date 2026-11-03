@@ -1,0 +1,11 @@
+
+> groundwork@0.0.0 knowledge:validate
+> node --import ./tools/register.ts --conditions=react-server tools/validate-knowledge.ts reports/volvo-native-rescan/cce-car-spec-adapter-complete/working.bundle.json
+
+{
+  "snapshot": "a283a9cbcc43bd0baec56469f4adc7bc75978a04eede582437e7082b07ae5038",
+  "bundles": 1,
+  "records": 118054,
+  "sourceRangesChecked": 0,
+  "sourceVerification": "not_requested"
+}

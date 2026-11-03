@@ -1,0 +1,11 @@
+# CCE CPAM ingress source capture
+
+Selected snapshot `9273eddda4c5fff911958b4a6b82143b69d166f1a50b66279bb19755660f27aa` contains **160,947 records**, **18,713 checked pinned source ranges** (9,115unique tuples),744unique source bodies and1,645 native frames. All 169 tracked files are reconciled. Three hosts, six REST routes, two subscriptions and21startup bindings retain their actual registrations.
+
+Independent review read12full pinned files and passed83strict queries. All 5business REST routes positively expose Assortment or Azure; health exposes no I/O. Both actual consumer entries expose consumes, and the aggregator reaches Filter and conditional Kafka. HTTP uses Azure; local pipeline uses filesystem. Actual HTTP arguments, six guarded write acknowledgements and detached channel submission are checked. One independent compressed-publisher trace remains bounded; broad author views retain explicit cutoffs.
+
+Cached flag evaluation remains a source-library invocation without invented remote reachability. Every generated init is distinct by source location, and package-wide imports establish startup bindings separately from ordinary aggregator handler activation. The source author pack passes581standard queries and24support pages, plus198assertions across63source queries. Every saved query message and continuation is schema validated.
+
+The source compressed publisher can log a marshal error and return nil without publishing. Rules/components publication is sequential and can partially succeed. Blob recovery may delete an archived blob before a retry fails. Queue goroutines can block after their scheduling method has returned. SDK delivery/offset policy, mutable heap, runtime codecs, committed-header behaviour and deployment remain unresolved.
+
+[Compressed bundle](bundle.json.gz), [snapshot](snapshot.json), [source report](source-report.md), [handoff](HANDOFF.md), [independent acceptance](independent-review/root-final-r5-acceptance.json) and [publication equality](publication-equality.json) retain the proof. Decompress into a new file for validation/import. The selected original pair and1340-file publication seal remain preserved; formatting preserves parsed publication facts. No production app migration, fetch or live source-system call was made.

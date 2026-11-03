@@ -1,0 +1,266 @@
+[
+  {
+    "id": "volvo/cds-paymentservice-customer/b0010537cdd5-r2/gap/source-wire-closure",
+    "kind": "gap",
+    "owner": "volvo/cds-paymentservice-customer/b0010537cdd5-r2/entry/create",
+    "obligation": "source-wire-closure",
+    "reason": "Source DTOs, inheritance and explicit validation are retained; imported Address/Customer/AttributeBase models, serializers, response wrappers and effective JSON/BSON formats remain partial.",
+    "action": "Inspect the remaining local paths or resolve the exact imported implementation/configuration before extending this claim.",
+    "evidence": [
+      "volvo/cds-paymentservice-customer/b0010537cdd5-r2/e/ce431a2956c5cbe3",
+      "volvo/cds-paymentservice-customer/b0010537cdd5-r2/e/8dcab1ece8a083f7"
+    ]
+  },
+  {
+    "id": "volvo/cds-paymentservice-customer/b0010537cdd5-r2/gap/runtime-configuration",
+    "kind": "gap",
+    "owner": "volvo/cds-paymentservice-customer/b0010537cdd5-r2/entry/create",
+    "obligation": "runtime-configuration",
+    "reason": "Committed defaults name Mongo payment_services, Redis caching/locks and a PSP integration URL; physical connections, config-server overrides and deployment are not established.",
+    "action": "Inspect the remaining local paths or resolve the exact imported implementation/configuration before extending this claim.",
+    "evidence": ["volvo/cds-paymentservice-customer/b0010537cdd5-r2/e/63c7197c65a27d30"]
+  },
+  {
+    "id": "volvo/cds-paymentservice-customer/b0010537cdd5-r2/gap/security-middleware",
+    "kind": "gap",
+    "owner": "volvo/cds-paymentservice-customer/b0010537cdd5-r2/entry/create",
+    "obligation": "security-middleware",
+    "reason": "Role guards and imported EcomWebAppConfiguration are declared, but effective filter/token/header/advice ordering is not traced at exact artefact versions.",
+    "action": "Inspect the remaining local paths or resolve the exact imported implementation/configuration before extending this claim.",
+    "evidence": [
+      "volvo/cds-paymentservice-customer/b0010537cdd5-r2/e/5316f71b8f933273",
+      "volvo/cds-paymentservice-customer/b0010537cdd5-r2/e/cd5241002ecc0d5a"
+    ]
+  },
+  {
+    "id": "volvo/cds-paymentservice-customer/b0010537cdd5-r2/gap/psp-sdk",
+    "kind": "gap",
+    "owner": "volvo/cds-paymentservice-customer/b0010537cdd5-r2/entry/create",
+    "obligation": "psp-sdk",
+    "reason": "Requested PSP client 1.3.243 has no resolved artefact digest/source correspondence. Source constructor wiring, arguments, response use and configured intended endpoint are retained; effective HTTP route/serialization/retry policy is unresolved.",
+    "action": "Inspect the remaining local paths or resolve the exact imported implementation/configuration before extending this claim.",
+    "evidence": [
+      "volvo/cds-paymentservice-customer/b0010537cdd5-r2/e/70b73ee8c5fe29a2",
+      "volvo/cds-paymentservice-customer/b0010537cdd5-r2/e/e717798f9a78b872",
+      "volvo/cds-paymentservice-customer/b0010537cdd5-r2/e/2360220a689179d1"
+    ]
+  },
+  {
+    "id": "volvo/cds-paymentservice-customer/b0010537cdd5-r2/gap/mongo-driver",
+    "kind": "gap",
+    "owner": "volvo/cds-paymentservice-customer/b0010537cdd5-r2/entry/create",
+    "obligation": "mongo-driver",
+    "reason": "Mongo repositories declare derived/custom queries and saves; generated driver commands, write concern, server behaviour and exact byte representation are not inspected/executed.",
+    "action": "Inspect the remaining local paths or resolve the exact imported implementation/configuration before extending this claim.",
+    "evidence": [
+      "volvo/cds-paymentservice-customer/b0010537cdd5-r2/e/843d3746d9a44ca3",
+      "volvo/cds-paymentservice-customer/b0010537cdd5-r2/e/3d22098d3807535e"
+    ]
+  },
+  {
+    "id": "volvo/cds-paymentservice-customer/b0010537cdd5-r2/gap/cache-lock-advice",
+    "kind": "gap",
+    "owner": "volvo/cds-paymentservice-customer/b0010537cdd5-r2/entry/create",
+    "obligation": "cache-lock-advice",
+    "reason": "Cache and distributed-lock annotations are source declared. Effective advisor order, lock implementation/fault tolerance and connection scope are imported. Cache hit can bypass body; source cache errors can fall back to body or ignored put. The local get(key,Callable) wrapper can re-call its loader after RuntimeException, but the imported advisor overload selection is not established.",
+    "action": "Inspect the remaining local paths or resolve the exact imported implementation/configuration before extending this claim.",
+    "evidence": [
+      "volvo/cds-paymentservice-customer/b0010537cdd5-r2/e/6a747931c030b869",
+      "volvo/cds-paymentservice-customer/b0010537cdd5-r2/e/af58ebf59d64a6d5",
+      "volvo/cds-paymentservice-customer/b0010537cdd5-r2/e/084689d6fbf6c828",
+      "volvo/cds-paymentservice-customer/b0010537cdd5-r2/e/872ac223c1465c89"
+    ]
+  },
+  {
+    "id": "volvo/cds-paymentservice-customer/b0010537cdd5-r2/gap/read-mapping",
+    "kind": "gap",
+    "owner": "volvo/cds-paymentservice-customer/b0010537cdd5-r2/impl/read-id",
+    "obligation": "read-mapping",
+    "reason": "Local customer and relation mappings are inspected but compressed to a bounded mapping operation; implicit getter/collection failures and imported domain class/defaults remain partial.",
+    "action": "Inspect the remaining local paths or resolve the exact imported implementation/configuration before extending this claim.",
+    "evidence": [
+      "volvo/cds-paymentservice-customer/b0010537cdd5-r2/e/1ffb90e1118c03b2",
+      "volvo/cds-paymentservice-customer/b0010537cdd5-r2/e/08b50499a0da7b5c",
+      "volvo/cds-paymentservice-customer/b0010537cdd5-r2/e/48945722b27cdc68"
+    ]
+  },
+  {
+    "id": "volvo/cds-paymentservice-customer/b0010537cdd5-r2/gap/save-sequence",
+    "kind": "gap",
+    "owner": "volvo/cds-paymentservice-customer/b0010537cdd5-r2/impl/save",
+    "obligation": "save-sequence",
+    "reason": "Save duplicate/conflict checks and relation loops are compressed, not a complete per-branch/per-item trace. Customer save, each relation delete and relation saveAll are separate calls; atomic shared transaction and write concern are unknown. Per-relation deletion remains an explicit conditional write effect/operation; this bounded capture does not establish a separate normal-return acknowledgement for each loop iteration.",
+    "action": "Inspect the remaining local paths or resolve the exact imported implementation/configuration before extending this claim.",
+    "evidence": [
+      "volvo/cds-paymentservice-customer/b0010537cdd5-r2/e/47466cd0cc191c20",
+      "volvo/cds-paymentservice-customer/b0010537cdd5-r2/e/e9e7cd48791688ca",
+      "volvo/cds-paymentservice-customer/b0010537cdd5-r2/e/e0c28274b252db92"
+    ]
+  },
+  {
+    "id": "volvo/cds-paymentservice-customer/b0010537cdd5-r2/gap/create-helper-closure",
+    "kind": "gap",
+    "owner": "volvo/cds-paymentservice-customer/b0010537cdd5-r2/impl/create",
+    "obligation": "create-helper-closure",
+    "reason": "Source create branching, anonymisation, store-before-PSP and relation-save order are native. Existing lookup internals, account configuration, nullable imported builders/getters and exception status/serialization remain partial.",
+    "action": "Inspect the remaining local paths or resolve the exact imported implementation/configuration before extending this claim.",
+    "evidence": [
+      "volvo/cds-paymentservice-customer/b0010537cdd5-r2/e/295c1c26ec14dafa",
+      "volvo/cds-paymentservice-customer/b0010537cdd5-r2/e/532393f0f4f16d5b"
+    ]
+  },
+  {
+    "id": "volvo/cds-paymentservice-customer/b0010537cdd5-r2/gap/update-exception-closure",
+    "kind": "gap",
+    "owner": "volvo/cds-paymentservice-customer/b0010537cdd5-r2/impl/update",
+    "obligation": "update-exception-closure",
+    "reason": "Source store-before-PSP order, conflict handling and per-relation loop are captured; imported SDK/network exceptions, earlier relation writes, physical transactions and exact status paths are not exhaustive.",
+    "action": "Inspect the remaining local paths or resolve the exact imported implementation/configuration before extending this claim.",
+    "evidence": ["volvo/cds-paymentservice-customer/b0010537cdd5-r2/e/471f961f9c57f570"]
+  },
+  {
+    "id": "volvo/cds-paymentservice-customer/b0010537cdd5-r2/gap/route-get-external",
+    "kind": "gap",
+    "owner": "volvo/cds-paymentservice-customer/b0010537cdd5-r2/impl/controller-get-external",
+    "obligation": "route-get-external",
+    "reason": "Source get by external identifier resolves STRIPE market account, finds customer and requires matching PSP account relation; full library/config/query/mapping closure remains partial.",
+    "action": "Inspect the remaining local paths or resolve the exact imported implementation/configuration before extending this claim.",
+    "evidence": ["volvo/cds-paymentservice-customer/b0010537cdd5-r2/e/c887e7f89be6e3e4"]
+  },
+  {
+    "id": "volvo/cds-paymentservice-customer/b0010537cdd5-r2/gap/route-get-recurring",
+    "kind": "gap",
+    "owner": "volvo/cds-paymentservice-customer/b0010537cdd5-r2/impl/controller-get-recurring",
+    "obligation": "route-get-recurring",
+    "reason": "Load recurring charge, throw404 if missing, require requested customer ownership or403, build response; imported models and inner repository closure partial.",
+    "action": "Inspect the remaining local paths or resolve the exact imported implementation/configuration before extending this claim.",
+    "evidence": ["volvo/cds-paymentservice-customer/b0010537cdd5-r2/e/f53b6a17a1da5455"]
+  },
+  {
+    "id": "volvo/cds-paymentservice-customer/b0010537cdd5-r2/gap/route-update-recurring",
+    "kind": "gap",
+    "owner": "volvo/cds-paymentservice-customer/b0010537cdd5-r2/impl/controller-update-recurring",
+    "obligation": "route-update-recurring",
+    "reason": "Load recurring charge, validate customer/current/new instrument ownership (missing old instrument can be ignored), replace instrument, save, build result; full inner branches partial.",
+    "action": "Inspect the remaining local paths or resolve the exact imported implementation/configuration before extending this claim.",
+    "evidence": ["volvo/cds-paymentservice-customer/b0010537cdd5-r2/e/613526a33d70989d"]
+  },
+  {
+    "id": "volvo/cds-paymentservice-customer/b0010537cdd5-r2/gap/route-guest-create",
+    "kind": "gap",
+    "owner": "volvo/cds-paymentservice-customer/b0010537cdd5-r2/impl/controller-guest-create",
+    "obligation": "route-guest-create",
+    "reason": "Create anonymised customer in DB, then call PSP, append PSP relation and save again; full guest-specific source data/exception trace remains partial.",
+    "action": "Inspect the remaining local paths or resolve the exact imported implementation/configuration before extending this claim.",
+    "evidence": ["volvo/cds-paymentservice-customer/b0010537cdd5-r2/e/6862b9ac713b3bad"]
+  },
+  {
+    "id": "volvo/cds-paymentservice-customer/b0010537cdd5-r2/gap/route-get-or-create",
+    "kind": "gap",
+    "owner": "volvo/cds-paymentservice-customer/b0010537cdd5-r2/impl/controller-get-or-create",
+    "obligation": "route-get-or-create",
+    "reason": "Apply Quebec fr-CA override for Canadian G/H/J postal prefixes; missing Volvo ID creates directly; otherwise get customer and align locale/email; CustomerNotFound creates. Alignment may write DB and call PSP; full branch closure partial.",
+    "action": "Inspect the remaining local paths or resolve the exact imported implementation/configuration before extending this claim.",
+    "evidence": ["volvo/cds-paymentservice-customer/b0010537cdd5-r2/e/ef9c8ae7f933f1c1"]
+  },
+  {
+    "id": "volvo/cds-paymentservice-customer/b0010537cdd5-r2/gap/route-update-external",
+    "kind": "gap",
+    "owner": "volvo/cds-paymentservice-customer/b0010537cdd5-r2/impl/controller-update-external",
+    "obligation": "route-update-external",
+    "reason": "Require VOLVO_ID in controller, load external identifier, perform market/merge/save/PSP relation updates; shared update body and exception closure not expanded for this invocation.",
+    "action": "Inspect the remaining local paths or resolve the exact imported implementation/configuration before extending this claim.",
+    "evidence": ["volvo/cds-paymentservice-customer/b0010537cdd5-r2/e/836e4dae257b6ddd"]
+  },
+  {
+    "id": "volvo/cds-paymentservice-customer/b0010537cdd5-r2/gap/operational-swagger-config",
+    "kind": "gap",
+    "owner": "volvo/cds-paymentservice-customer/b0010537cdd5-r2/impl/controller-swagger-config",
+    "obligation": "operational-swagger-config",
+    "reason": "Operational route registration is known; local statements and imported config/constructor/wrapper behaviour remain a bounded opaque source body.",
+    "action": "Inspect the remaining local paths or resolve the exact imported implementation/configuration before extending this claim.",
+    "evidence": [
+      "volvo/cds-paymentservice-customer/b0010537cdd5-r2/e/071c6baadfc2c518",
+      "volvo/cds-paymentservice-customer/b0010537cdd5-r2/e/7fd6928a371bef4b"
+    ]
+  },
+  {
+    "id": "volvo/cds-paymentservice-customer/b0010537cdd5-r2/gap/operational-version-v1",
+    "kind": "gap",
+    "owner": "volvo/cds-paymentservice-customer/b0010537cdd5-r2/impl/controller-version-v1",
+    "obligation": "operational-version-v1",
+    "reason": "Operational route registration is known; local statements and imported config/constructor/wrapper behaviour remain a bounded opaque source body.",
+    "action": "Inspect the remaining local paths or resolve the exact imported implementation/configuration before extending this claim.",
+    "evidence": [
+      "volvo/cds-paymentservice-customer/b0010537cdd5-r2/e/102e46fe8ec6cc11",
+      "volvo/cds-paymentservice-customer/b0010537cdd5-r2/e/f7e397a4cf72b1ae"
+    ]
+  },
+  {
+    "id": "volvo/cds-paymentservice-customer/b0010537cdd5-r2/gap/operational-version-v2",
+    "kind": "gap",
+    "owner": "volvo/cds-paymentservice-customer/b0010537cdd5-r2/impl/controller-version-v2",
+    "obligation": "operational-version-v2",
+    "reason": "Operational route registration is known; local statements and imported config/constructor/wrapper behaviour remain a bounded opaque source body.",
+    "action": "Inspect the remaining local paths or resolve the exact imported implementation/configuration before extending this claim.",
+    "evidence": [
+      "volvo/cds-paymentservice-customer/b0010537cdd5-r2/e/93f9ed3b5433fcb7",
+      "volvo/cds-paymentservice-customer/b0010537cdd5-r2/e/25e8bc7a82b61939"
+    ]
+  },
+  {
+    "id": "volvo/cds-paymentservice-customer/b0010537cdd5-r2/gap/framework-actuator",
+    "kind": "gap",
+    "owner": "volvo/cds-paymentservice-customer/b0010537cdd5-r2/entry/create",
+    "obligation": "framework-actuator",
+    "reason": "Actuator health/prometheus with health liveness/readiness probes; source health groups exclude Redis; exact effective imported route expansion not established.",
+    "action": "Inspect the remaining local paths or resolve the exact imported implementation/configuration before extending this claim.",
+    "evidence": ["volvo/cds-paymentservice-customer/b0010537cdd5-r2/e/2e6ee8bbd93665a9"]
+  },
+  {
+    "id": "volvo/cds-paymentservice-customer/b0010537cdd5-r2/gap/framework-springdoc",
+    "kind": "gap",
+    "owner": "volvo/cds-paymentservice-customer/b0010537cdd5-r2/entry/create",
+    "obligation": "framework-springdoc",
+    "reason": "Springdoc Swagger UI and API-docs configured defaults; imported dynamic registrations/profile conditions unexpanded; exact effective imported route expansion not established.",
+    "action": "Inspect the remaining local paths or resolve the exact imported implementation/configuration before extending this claim.",
+    "evidence": ["volvo/cds-paymentservice-customer/b0010537cdd5-r2/e/6e2a62e518d3bc26"]
+  },
+  {
+    "id": "volvo/cds-paymentservice-customer/b0010537cdd5-r2/gap/cross-field-update-validation",
+    "kind": "gap",
+    "owner": "volvo/cds-paymentservice-customer/b0010537cdd5-r2/entry/update-id",
+    "obligation": "cross-field-update-validation",
+    "reason": "Source custom validator requires firstName and lastName to be both null or both non-null. Flat field optionality alone cannot express this; the source check is retained by evidence and coverage. Preferred-locale regex and imported Address validation/defaults remain unresolved.",
+    "action": "Inspect the remaining local paths or resolve the exact imported implementation/configuration before extending this claim.",
+    "evidence": [
+      "volvo/cds-paymentservice-customer/b0010537cdd5-r2/e/4dac9ab7ef1d82fa",
+      "volvo/cds-paymentservice-customer/b0010537cdd5-r2/e/76e18f88305105d0",
+      "volvo/cds-paymentservice-customer/b0010537cdd5-r2/e/8dcab1ece8a083f7"
+    ]
+  },
+  {
+    "id": "volvo/cds-paymentservice-customer/b0010537cdd5-r2/gap/account-config",
+    "kind": "gap",
+    "owner": "volvo/cds-paymentservice-customer/b0010537cdd5-r2/entry/create",
+    "obligation": "account-config",
+    "reason": "AccountConfigService is imported from cds-paymentservice-properties 2.0.32. Caller arguments/Account field use are known; exact source/artefact and whether it uses local configuration or any network transport are unresolved.",
+    "action": "Inspect the remaining local paths or resolve the exact imported implementation/configuration before extending this claim.",
+    "evidence": [
+      "volvo/cds-paymentservice-customer/b0010537cdd5-r2/e/fd170d1411e2ba6f",
+      "volvo/cds-paymentservice-customer/b0010537cdd5-r2/e/ce431a2956c5cbe3"
+    ]
+  },
+  {
+    "id": "volvo/cds-paymentservice-customer/b0010537cdd5-r2/gap/invalidation-closure",
+    "kind": "gap",
+    "owner": "volvo/cds-paymentservice-customer/b0010537cdd5-r2/entry/create",
+    "obligation": "invalidation-closure",
+    "reason": "Conservative derivations link facts to this entire source revision and explicit referenced records/evidence. Imported helper/policy/schema correspondence is still unknown; unchanged cited lines cannot establish unchanged behaviour.",
+    "action": "Inspect the remaining local paths or resolve the exact imported implementation/configuration before extending this claim.",
+    "evidence": [
+      "volvo/cds-paymentservice-customer/b0010537cdd5-r2/e/ce431a2956c5cbe3",
+      "volvo/cds-paymentservice-customer/b0010537cdd5-r2/e/5316f71b8f933273"
+    ]
+  }
+]

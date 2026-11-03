@@ -1,0 +1,62 @@
+[
+  {
+    "write": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/storage_write/source/57ee52c8ed027f3a8540",
+    "host": "http",
+    "call": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/operation/2605ef6b97baeb1b7017/4",
+    "guard": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/operation/2605ef6b97baeb1b7017/10",
+    "ack": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/operation/nil-error-ack/57ee52c8ed027f3a8540",
+    "name": "CreateContainer",
+    "path": "internal/filestorage/blobstorage.go",
+    "lines": [57, 57]
+  },
+  {
+    "write": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/storage_write/source/5535f85777a278746af6",
+    "host": "http",
+    "call": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/operation/aace5a8a3d09f793657f/20",
+    "guard": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/operation/aace5a8a3d09f793657f/26",
+    "ack": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/operation/nil-error-ack/5535f85777a278746af6",
+    "name": "UploadBuffer",
+    "path": "internal/filestorage/blobstorage.go",
+    "lines": [78, 78]
+  },
+  {
+    "write": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/storage_write/source/bc02800dd83e87bdd507",
+    "host": "http",
+    "call": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/operation/aace5a8a3d09f793657f/37",
+    "guard": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/operation/aace5a8a3d09f793657f/43",
+    "ack": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/operation/nil-error-ack/bc02800dd83e87bdd507",
+    "name": "DeleteBlob",
+    "path": "internal/filestorage/blobstorage.go",
+    "lines": [83, 83]
+  },
+  {
+    "write": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/storage_write/source/78b7babcbbbbd531f7c9",
+    "host": "http",
+    "call": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/operation/aace5a8a3d09f793657f/55",
+    "guard": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/operation/aace5a8a3d09f793657f/61",
+    "ack": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/operation/nil-error-ack/78b7babcbbbbd531f7c9",
+    "name": "UploadBuffer",
+    "path": "internal/filestorage/blobstorage.go",
+    "lines": [88, 88]
+  },
+  {
+    "write": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/storage_write/source/84c8629420b771ed2d68",
+    "host": "pipeline",
+    "call": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/operation/94e7858d326b01d0a35b/8",
+    "guard": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/operation/94e7858d326b01d0a35b/12",
+    "ack": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/operation/nil-error-ack/84c8629420b771ed2d68",
+    "name": "MkdirAll",
+    "path": "internal/filestorage/localstorage.go",
+    "lines": [43, 43]
+  },
+  {
+    "write": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/storage_write/source/4a5e91754b02266b8ee6",
+    "host": "pipeline",
+    "call": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/operation/2ba5c7b269029665fb4c/30",
+    "guard": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/operation/2ba5c7b269029665fb4c/34",
+    "ack": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/operation/nil-error-ack/4a5e91754b02266b8ee6",
+    "name": "WriteFile",
+    "path": "internal/filestorage/localstorage.go",
+    "lines": [65, 65]
+  }
+]

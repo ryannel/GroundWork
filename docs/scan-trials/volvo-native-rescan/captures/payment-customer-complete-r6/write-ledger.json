@@ -1,0 +1,65 @@
+[
+  {
+    "write": "customer-b0010537-complete-r6/write/73bf93cb4359812f",
+    "operation": "customer-b0010537-complete-r6/op/de45105ac757a9f5/2",
+    "acknowledgedAt": "customer-b0010537-complete-r6/ack/73bf93cb4359812f",
+    "owner": "customer-b0010537-complete-r6/method/de45105ac757a9f5",
+    "effect": "customer-b0010537-complete-r6/boundary-effect/73bf93cb4359812f"
+  },
+  {
+    "write": "customer-b0010537-complete-r6/write/1dda35000e71ec5b",
+    "operation": "customer-b0010537-complete-r6/op/22d1ff7bcb19d5c0/2",
+    "acknowledgedAt": "customer-b0010537-complete-r6/ack/1dda35000e71ec5b",
+    "owner": "customer-b0010537-complete-r6/method/22d1ff7bcb19d5c0",
+    "effect": "customer-b0010537-complete-r6/boundary-effect/1dda35000e71ec5b"
+  },
+  {
+    "write": "customer-b0010537-complete-r6/write/1335df500c4ab6fa",
+    "operation": "customer-b0010537-complete-r6/op/bb458d8f60461bf8/2",
+    "acknowledgedAt": "customer-b0010537-complete-r6/ack/1335df500c4ab6fa",
+    "owner": "customer-b0010537-complete-r6/method/bb458d8f60461bf8",
+    "effect": "customer-b0010537-complete-r6/boundary-effect/1335df500c4ab6fa"
+  },
+  {
+    "write": "customer-b0010537-complete-r6/write/02f80c54a941c9b0",
+    "operation": "customer-b0010537-complete-r6/op/0d7a5a8ef4adf99a/2",
+    "acknowledgedAt": "customer-b0010537-complete-r6/ack/02f80c54a941c9b0",
+    "owner": "customer-b0010537-complete-r6/method/0d7a5a8ef4adf99a",
+    "effect": "customer-b0010537-complete-r6/boundary-effect/02f80c54a941c9b0"
+  },
+  {
+    "write": "customer-b0010537-complete-r6/write/fa3bdcbcd540ca18",
+    "operation": "customer-b0010537-complete-r6/op/94583de3e24e7d65/9",
+    "acknowledgedAt": "customer-b0010537-complete-r6/ack/fa3bdcbcd540ca18",
+    "owner": "customer-b0010537-complete-r6/method/94583de3e24e7d65",
+    "effect": "customer-b0010537-complete-r6/boundary-effect/fa3bdcbcd540ca18"
+  },
+  {
+    "write": "customer-b0010537-complete-r6/write/b1d6ad05eb35cf7a",
+    "operation": "customer-b0010537-complete-r6/op/64c11c22439e313d/12",
+    "acknowledgedAt": "customer-b0010537-complete-r6/ack/b1d6ad05eb35cf7a",
+    "owner": "customer-b0010537-complete-r6/method/64c11c22439e313d",
+    "effect": "customer-b0010537-complete-r6/boundary-effect/b1d6ad05eb35cf7a"
+  },
+  {
+    "write": "customer-b0010537-complete-r6/write/c634eee8d90ac1bb",
+    "operation": "customer-b0010537-complete-r6/op/ce3136aef0d86bf5/8",
+    "acknowledgedAt": "customer-b0010537-complete-r6/ack/c634eee8d90ac1bb",
+    "owner": "customer-b0010537-complete-r6/method/ce3136aef0d86bf5",
+    "effect": "customer-b0010537-complete-r6/boundary-effect/c634eee8d90ac1bb"
+  },
+  {
+    "write": "customer-b0010537-complete-r6/write/89f350b5f6ecd400",
+    "operation": "customer-b0010537-complete-r6/op/04c4e33a8dc202e4/22",
+    "acknowledgedAt": "customer-b0010537-complete-r6/ack/89f350b5f6ecd400",
+    "owner": "customer-b0010537-complete-r6/method/04c4e33a8dc202e4",
+    "effect": "customer-b0010537-complete-r6/boundary-effect/89f350b5f6ecd400"
+  },
+  {
+    "write": "customer-b0010537-complete-r6/write/747d669b033e5bfb",
+    "operation": "customer-b0010537-complete-r6/op/a46f050148dfe4ff/2",
+    "acknowledgedAt": "customer-b0010537-complete-r6/ack/747d669b033e5bfb",
+    "owner": "customer-b0010537-complete-r6/method/a46f050148dfe4ff",
+    "effect": "customer-b0010537-complete-r6/boundary-effect/747d669b033e5bfb"
+  }
+]

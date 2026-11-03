@@ -1,0 +1,2081 @@
+[
+  {
+    "method": "com.volvocars.ecom.paymentservice.psp.inbound.api.App#main(String[])",
+    "implementation": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/0c8d6cb9b9e7984b5a21",
+    "path": "com-volvocars-ecom-paymentservice-psp-inbound-api/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/api/App.java",
+    "lines": [20, 23],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 2,
+    "localResolved": 0,
+    "callbacks": [],
+    "unexpanded": [],
+    "branches": [],
+    "gap": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/gap/method/0c8d6cb9b9e7984b5a21"
+  },
+  {
+    "method": "com.volvocars.ecom.paymentservice.psp.inbound.api.configuration.v1.SwaggerUIController#getSwaggerConfig()",
+    "implementation": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/01cb4fa9b922ad9b002b",
+    "path": "com-volvocars-ecom-paymentservice-psp-inbound-api/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/api/configuration/v1/SwaggerUIController.java",
+    "lines": [23, 35],
+    "hasBody": false,
+    "runtimeRole": "source_host_context",
+    "status": "declaration_only_implementation_external",
+    "calls": 0,
+    "localResolved": 0,
+    "callbacks": [],
+    "unexpanded": [],
+    "branches": [],
+    "gap": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/gap/method/01cb4fa9b922ad9b002b"
+  },
+  {
+    "method": "com.volvocars.ecom.paymentservice.psp.inbound.api.configuration.v1.impl.SwaggerUIControllerImpl#<init>(SwaggerUIConfig)",
+    "implementation": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/6cc5411b00701421204e",
+    "path": "com-volvocars-ecom-paymentservice-psp-inbound-api/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/api/configuration/v1/impl/SwaggerUIControllerImpl.java",
+    "lines": [17, 19],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 0,
+    "localResolved": 0,
+    "callbacks": [],
+    "unexpanded": [],
+    "branches": [],
+    "gap": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/gap/method/6cc5411b00701421204e"
+  },
+  {
+    "method": "com.volvocars.ecom.paymentservice.psp.inbound.api.configuration.v1.impl.SwaggerUIControllerImpl#getSwaggerConfig()",
+    "implementation": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/05854a5b7f788293eec9",
+    "path": "com-volvocars-ecom-paymentservice-psp-inbound-api/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/api/configuration/v1/impl/SwaggerUIControllerImpl.java",
+    "lines": [21, 36],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 17,
+    "localResolved": 0,
+    "callbacks": [],
+    "unexpanded": [],
+    "branches": [
+      "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/operation/05854a5b7f788293eec9/4",
+      "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/operation/05854a5b7f788293eec9/31"
+    ],
+    "gap": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/gap/method/05854a5b7f788293eec9"
+  },
+  {
+    "method": "com.volvocars.ecom.paymentservice.psp.inbound.api.security.IpAuthorizationFilter#<init>(IpAddressVerifier)",
+    "implementation": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/3949b9021d555f292e87",
+    "path": "com-volvocars-ecom-paymentservice-psp-inbound-api/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/api/security/IpAuthorizationFilter.java",
+    "lines": [26, 28],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 0,
+    "localResolved": 0,
+    "callbacks": [],
+    "unexpanded": [],
+    "branches": [],
+    "gap": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/gap/method/3949b9021d555f292e87"
+  },
+  {
+    "method": "com.volvocars.ecom.paymentservice.psp.inbound.api.security.IpAuthorizationFilter#doFilterInternal(HttpServletRequest,HttpServletResponse,FilterChain)",
+    "implementation": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/b4514f60ae0c301d4859",
+    "path": "com-volvocars-ecom-paymentservice-psp-inbound-api/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/api/security/IpAuthorizationFilter.java",
+    "lines": [30, 50],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 17,
+    "localResolved": 3,
+    "callbacks": [],
+    "unexpanded": [],
+    "branches": [
+      "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/operation/b4514f60ae0c301d4859/5",
+      "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/operation/b4514f60ae0c301d4859/22"
+    ],
+    "gap": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/gap/method/b4514f60ae0c301d4859"
+  },
+  {
+    "method": "com.volvocars.ecom.paymentservice.psp.inbound.api.security.IpAuthorizationFilter#getErrorResponse(HttpServletRequest)",
+    "implementation": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/14e8a1963cd9b38afbcf",
+    "path": "com-volvocars-ecom-paymentservice-psp-inbound-api/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/api/security/IpAuthorizationFilter.java",
+    "lines": [52, 59],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 5,
+    "localResolved": 0,
+    "callbacks": [],
+    "unexpanded": [],
+    "branches": [],
+    "gap": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/gap/method/14e8a1963cd9b38afbcf"
+  },
+  {
+    "method": "com.volvocars.ecom.paymentservice.psp.inbound.api.webhook.v2.InboundController#receive(Psp,String,String,Map<String, String>,Map<String, String>)",
+    "implementation": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/5bfa428bec40105563c9",
+    "path": "com-volvocars-ecom-paymentservice-psp-inbound-api/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/api/webhook/v2/InboundController.java",
+    "lines": [24, 42],
+    "hasBody": false,
+    "runtimeRole": "source_host_context",
+    "status": "declaration_only_implementation_external",
+    "calls": 0,
+    "localResolved": 0,
+    "callbacks": [],
+    "unexpanded": [],
+    "branches": [],
+    "gap": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/gap/method/5bfa428bec40105563c9"
+  },
+  {
+    "method": "com.volvocars.ecom.paymentservice.psp.inbound.api.webhook.v2.impl.InboundControllerImpl#receive(Psp,String,String,Map<String, String>,Map<String, String>)",
+    "implementation": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/e32c19d0dc43398e91a2",
+    "path": "com-volvocars-ecom-paymentservice-psp-inbound-api/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/api/webhook/v2/impl/InboundControllerImpl.java",
+    "lines": [22, 36],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 7,
+    "localResolved": 4,
+    "callbacks": [],
+    "unexpanded": [],
+    "branches": [],
+    "gap": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/gap/method/e32c19d0dc43398e91a2"
+  },
+  {
+    "method": "com.volvocars.ecom.paymentservice.psp.inbound.common.InboundControllerAdvice#handleNotFoundException(HttpServletRequest,Exception)",
+    "implementation": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/1fcf10a046474ae20296",
+    "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/common/InboundControllerAdvice.java",
+    "lines": [38, 51],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 1,
+    "localResolved": 1,
+    "callbacks": [],
+    "unexpanded": [],
+    "branches": [],
+    "gap": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/gap/method/1fcf10a046474ae20296"
+  },
+  {
+    "method": "com.volvocars.ecom.paymentservice.psp.inbound.common.InboundControllerAdvice#getLogLevel(HttpStatus)",
+    "implementation": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/fd29dee42c2c25e96fff",
+    "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/common/InboundControllerAdvice.java",
+    "lines": [53, 58],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 2,
+    "localResolved": 0,
+    "callbacks": [],
+    "unexpanded": [],
+    "branches": [
+      "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/operation/fd29dee42c2c25e96fff/4",
+      "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/operation/fd29dee42c2c25e96fff/9"
+    ],
+    "gap": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/gap/method/fd29dee42c2c25e96fff"
+  },
+  {
+    "method": "com.volvocars.ecom.paymentservice.psp.inbound.common.InboundControllerAdvice#handleError(HttpServletRequest,HttpStatus,Throwable)",
+    "implementation": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/b9effc8ab93b9ce60a6c",
+    "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/common/InboundControllerAdvice.java",
+    "lines": [60, 66],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 5,
+    "localResolved": 2,
+    "callbacks": [],
+    "unexpanded": [],
+    "branches": [],
+    "gap": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/gap/method/b9effc8ab93b9ce60a6c"
+  },
+  {
+    "method": "com.volvocars.ecom.paymentservice.psp.inbound.common.InboundControllerAdvice#log(Level,HttpServletRequest,HttpStatus,Throwable)",
+    "implementation": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/b2c4b9d337550664a572",
+    "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/common/InboundControllerAdvice.java",
+    "lines": [68, 73],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 4,
+    "localResolved": 0,
+    "callbacks": [
+      {
+        "operation": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/operation/b2c4b9d337550664a572/8",
+        "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/common/InboundControllerAdvice.java",
+        "lines": [72, 72],
+        "text": "() -> MessageFormat.format(LOG_MESSAGE, httpStatus, path, ex.getMessage())",
+        "kind": "LAMBDA_EXPRESSION",
+        "status": "association_only_no_eager_invocation",
+        "implementation": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/423b34ee45109119a7d0",
+        "formalParameters": [],
+        "captures": [
+          {
+            "name": "this",
+            "type": "com.volvocars.ecom.paymentservice.psp.inbound.common.InboundControllerAdvice",
+            "actual": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/b2c4b9d337550664a572/receiver",
+            "value": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/423b34ee45109119a7d0/capture/this"
+          },
+          {
+            "name": "httpStatus",
+            "type": "HttpStatus",
+            "actual": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/b2c4b9d337550664a572/parameter/httpStatus",
+            "value": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/423b34ee45109119a7d0/capture/httpStatus"
+          },
+          {
+            "name": "ex",
+            "type": "Throwable",
+            "actual": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/b2c4b9d337550664a572/parameter/ex",
+            "value": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/423b34ee45109119a7d0/capture/ex"
+          },
+          {
+            "name": "path",
+            "type": "String",
+            "actual": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/value/ea5cf9a0625a6f97d12c",
+            "value": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/423b34ee45109119a7d0/capture/path"
+          }
+        ]
+      }
+    ],
+    "unexpanded": [],
+    "branches": [],
+    "gap": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/gap/method/b2c4b9d337550664a572"
+  },
+  {
+    "method": "com.volvocars.ecom.paymentservice.psp.inbound.config.AllowedSourceEvents#getAllowedSourceEventConfigs()",
+    "implementation": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/c67e91b6f6cc293c59a5",
+    "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/config/AllowedSourceEvents.java",
+    "lines": [16, 18],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 0,
+    "localResolved": 0,
+    "callbacks": [],
+    "unexpanded": [],
+    "branches": [],
+    "gap": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/gap/method/c67e91b6f6cc293c59a5"
+  },
+  {
+    "method": "com.volvocars.ecom.paymentservice.psp.inbound.config.AllowedSourceEvents#setAllowedSourceEventConfigs(List<SourceEventsConfig>)",
+    "implementation": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/71df016fa6534ff348af",
+    "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/config/AllowedSourceEvents.java",
+    "lines": [20, 22],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 0,
+    "localResolved": 0,
+    "callbacks": [],
+    "unexpanded": [],
+    "branches": [],
+    "gap": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/gap/method/71df016fa6534ff348af"
+  },
+  {
+    "method": "com.volvocars.ecom.paymentservice.psp.inbound.config.AllowedSourceEvents#getAllowedEventTypesBySource(String)",
+    "implementation": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/4ca99e015409666821f0",
+    "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/config/AllowedSourceEvents.java",
+    "lines": [24, 33],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 6,
+    "localResolved": 1,
+    "callbacks": [
+      {
+        "operation": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/operation/4ca99e015409666821f0/3",
+        "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/config/AllowedSourceEvents.java",
+        "lines": [27, 27],
+        "text": "sourceEventsConfig -> sourceEventsConfig.getName().equalsIgnoreCase(sourceName)",
+        "kind": "LAMBDA_EXPRESSION",
+        "status": "association_only_no_eager_invocation",
+        "implementation": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/54d733e9531a24ed1cef",
+        "formalParameters": [
+          "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/54d733e9531a24ed1cef/parameter/sourceEventsConfig"
+        ],
+        "captures": [
+          {
+            "name": "sourceName",
+            "type": "String",
+            "actual": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/4ca99e015409666821f0/parameter/sourceName",
+            "value": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/54d733e9531a24ed1cef/capture/sourceName"
+          }
+        ]
+      }
+    ],
+    "unexpanded": [],
+    "branches": [
+      "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/operation/4ca99e015409666821f0/14"
+    ],
+    "gap": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/gap/method/4ca99e015409666821f0"
+  },
+  {
+    "method": "com.volvocars.ecom.paymentservice.psp.inbound.config.AllowedSourceEvents#isAllowedSourceEvent(String,PspEventType)",
+    "implementation": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/4b871e68f62eda9dc7b0",
+    "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/config/AllowedSourceEvents.java",
+    "lines": [35, 38],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 2,
+    "localResolved": 0,
+    "callbacks": [],
+    "unexpanded": [],
+    "branches": [
+      "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/operation/4b871e68f62eda9dc7b0/3"
+    ],
+    "gap": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/gap/method/4b871e68f62eda9dc7b0"
+  },
+  {
+    "method": "com.volvocars.ecom.paymentservice.psp.inbound.config.AllowedSourceEvents#isAllowedSource(String)",
+    "implementation": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/9bd16087c97b369e712e",
+    "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/config/AllowedSourceEvents.java",
+    "lines": [40, 43],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 3,
+    "localResolved": 1,
+    "callbacks": [
+      {
+        "operation": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/operation/9bd16087c97b369e712e/3",
+        "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/config/AllowedSourceEvents.java",
+        "lines": [42, 42],
+        "text": "sourceEventsConfig -> sourceEventsConfig.getName().equalsIgnoreCase(sourceName)",
+        "kind": "LAMBDA_EXPRESSION",
+        "status": "association_only_no_eager_invocation",
+        "implementation": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/45a671ce3e3b42f6a81a",
+        "formalParameters": [
+          "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/45a671ce3e3b42f6a81a/parameter/sourceEventsConfig"
+        ],
+        "captures": [
+          {
+            "name": "sourceName",
+            "type": "String",
+            "actual": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/9bd16087c97b369e712e/parameter/sourceName",
+            "value": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/45a671ce3e3b42f6a81a/capture/sourceName"
+          }
+        ]
+      }
+    ],
+    "unexpanded": [],
+    "branches": [],
+    "gap": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/gap/method/9bd16087c97b369e712e"
+  },
+  {
+    "method": "com.volvocars.ecom.paymentservice.psp.inbound.config.AllowedSourceEvents#getAllAllowedSourcesInLowerCase()",
+    "implementation": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/5cabfe8240d08d6acb06",
+    "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/config/AllowedSourceEvents.java",
+    "lines": [45, 50],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 6,
+    "localResolved": 1,
+    "callbacks": [
+      {
+        "operation": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/operation/5cabfe8240d08d6acb06/3",
+        "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/config/AllowedSourceEvents.java",
+        "lines": [47, 47],
+        "text": "SourceEventsConfig::getName",
+        "kind": "MEMBER_REFERENCE",
+        "status": "local_method_reference_associated",
+        "implementation": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/e6ef23a066924366949d",
+        "formalParameters": [],
+        "referenceReceiver": "element"
+      },
+      {
+        "operation": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/operation/5cabfe8240d08d6acb06/6",
+        "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/config/AllowedSourceEvents.java",
+        "lines": [48, 48],
+        "text": "String::toLowerCase",
+        "kind": "MEMBER_REFERENCE",
+        "status": "imported_method_reference_invocation_boundary",
+        "receiverType": "String",
+        "referenceName": "toLowerCase"
+      }
+    ],
+    "unexpanded": [],
+    "branches": [],
+    "gap": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/gap/method/5cabfe8240d08d6acb06"
+  },
+  {
+    "method": "com.volvocars.ecom.paymentservice.psp.inbound.config.PspConverter#addFormatters(FormatterRegistry)",
+    "implementation": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/e633b9a66045cebf91da",
+    "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/config/PspConverter.java",
+    "lines": [12, 16],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 2,
+    "localResolved": 0,
+    "callbacks": [],
+    "unexpanded": [],
+    "branches": [],
+    "gap": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/gap/method/e633b9a66045cebf91da"
+  },
+  {
+    "method": "com.volvocars.ecom.paymentservice.psp.inbound.config.PspConverter#convert(String)",
+    "implementation": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/db74615e181b98f8b922",
+    "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/config/PspConverter.java",
+    "lines": [18, 21],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 2,
+    "localResolved": 0,
+    "callbacks": [],
+    "unexpanded": [],
+    "branches": [],
+    "gap": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/gap/method/db74615e181b98f8b922"
+  },
+  {
+    "method": "com.volvocars.ecom.paymentservice.psp.inbound.config.PspSettings#get(Psp,String)",
+    "implementation": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/aec0b0707225e06e3dff",
+    "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/config/PspSettings.java",
+    "lines": [16, 18],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 1,
+    "localResolved": 1,
+    "callbacks": [],
+    "unexpanded": [],
+    "branches": [],
+    "gap": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/gap/method/aec0b0707225e06e3dff"
+  },
+  {
+    "method": "com.volvocars.ecom.paymentservice.psp.inbound.config.PspSettings#get(Psp,String,Class<T>)",
+    "implementation": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/c2db6daeeef693d70847",
+    "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/config/PspSettings.java",
+    "lines": [20, 22],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 3,
+    "localResolved": 0,
+    "callbacks": [],
+    "unexpanded": [],
+    "branches": [],
+    "gap": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/gap/method/c2db6daeeef693d70847"
+  },
+  {
+    "method": "com.volvocars.ecom.paymentservice.psp.inbound.entity.NotificationResponse#<init>(HttpStatus,String)",
+    "implementation": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/7b3b08cd0180dd0cfb03",
+    "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/entity/NotificationResponse.java",
+    "lines": [10, 13],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 0,
+    "localResolved": 0,
+    "callbacks": [],
+    "unexpanded": [],
+    "branches": [],
+    "gap": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/gap/method/7b3b08cd0180dd0cfb03"
+  },
+  {
+    "method": "com.volvocars.ecom.paymentservice.psp.inbound.entity.NotificationResponse#getStatus()",
+    "implementation": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/153e9747527c40c56ac4",
+    "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/entity/NotificationResponse.java",
+    "lines": [15, 17],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 0,
+    "localResolved": 0,
+    "callbacks": [],
+    "unexpanded": [],
+    "branches": [],
+    "gap": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/gap/method/153e9747527c40c56ac4"
+  },
+  {
+    "method": "com.volvocars.ecom.paymentservice.psp.inbound.entity.NotificationResponse#getBody()",
+    "implementation": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/dd723d376fd84790066b",
+    "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/entity/NotificationResponse.java",
+    "lines": [19, 21],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 0,
+    "localResolved": 0,
+    "callbacks": [],
+    "unexpanded": [],
+    "branches": [],
+    "gap": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/gap/method/dd723d376fd84790066b"
+  },
+  {
+    "method": "com.volvocars.ecom.paymentservice.psp.inbound.entity.NotificationResponse.NotificationResponseBuilder#builder()",
+    "implementation": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/9de9a211553b93f2974c",
+    "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/entity/NotificationResponse.java",
+    "lines": [27, 29],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 0,
+    "localResolved": 0,
+    "callbacks": [],
+    "unexpanded": [],
+    "branches": [],
+    "gap": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/gap/method/9de9a211553b93f2974c"
+  },
+  {
+    "method": "com.volvocars.ecom.paymentservice.psp.inbound.entity.NotificationResponse.NotificationResponseBuilder#status(HttpStatus)",
+    "implementation": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/4aaee7003a53edbd1d2c",
+    "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/entity/NotificationResponse.java",
+    "lines": [31, 34],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 0,
+    "localResolved": 0,
+    "callbacks": [],
+    "unexpanded": [],
+    "branches": [],
+    "gap": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/gap/method/4aaee7003a53edbd1d2c"
+  },
+  {
+    "method": "com.volvocars.ecom.paymentservice.psp.inbound.entity.NotificationResponse.NotificationResponseBuilder#body(String)",
+    "implementation": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/cb32200d7d0543588767",
+    "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/entity/NotificationResponse.java",
+    "lines": [36, 39],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 0,
+    "localResolved": 0,
+    "callbacks": [],
+    "unexpanded": [],
+    "branches": [],
+    "gap": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/gap/method/cb32200d7d0543588767"
+  },
+  {
+    "method": "com.volvocars.ecom.paymentservice.psp.inbound.entity.NotificationResponse.NotificationResponseBuilder#build()",
+    "implementation": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/4d2e4ca22be64eee046c",
+    "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/entity/NotificationResponse.java",
+    "lines": [41, 43],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 0,
+    "localResolved": 0,
+    "callbacks": [],
+    "unexpanded": [],
+    "branches": [],
+    "gap": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/gap/method/4d2e4ca22be64eee046c"
+  },
+  {
+    "method": "com.volvocars.ecom.paymentservice.psp.inbound.messaging.KafkaProducer#<init>(KafkaProducerConfig,KafkaTemplate<String, Event<PspInboundEventPayload>>)",
+    "implementation": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/08fa62f4d986882d12c9",
+    "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/messaging/KafkaProducer.java",
+    "lines": [20, 25],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 0,
+    "localResolved": 0,
+    "callbacks": [],
+    "unexpanded": [],
+    "branches": [],
+    "gap": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/gap/method/08fa62f4d986882d12c9"
+  },
+  {
+    "method": "com.volvocars.ecom.paymentservice.psp.inbound.messaging.KafkaProducer#sendMessage(Event<PspInboundEventPayload>)",
+    "implementation": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/3ccc6bbab819be062a1c",
+    "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/messaging/KafkaProducer.java",
+    "lines": [27, 48],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 6,
+    "localResolved": 1,
+    "callbacks": [
+      {
+        "operation": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/operation/3ccc6bbab819be062a1c/10",
+        "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/messaging/KafkaProducer.java",
+        "lines": [32, 47],
+        "text": "(result, exception) -> {\n              if (Objects.isNull(exception)) {\n                LogUtils.setCorrelationId(correlationId);\n                log.info(\n                    MessageFormat.format(\n                        \"Message was sent to internal topic. Event type: {0}, external event id: {1}\",\n                        event.getPayload().getType(), event.getPayload().getId()));\n              } else {\n                LogUtils.setCorrelationId(correlationId);\n                log.error(\n                    MessageFormat.format(\n                        \"Failed to send message to internal topic. Event type: {0}, external event id: {1}\",\n                        event.getPayload().getType(), event.getPayload().getId()),\n                    exception);\n              }\n            }",
+        "kind": "LAMBDA_EXPRESSION",
+        "status": "association_only_no_eager_invocation",
+        "implementation": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/a6301a3869818de4adbb",
+        "formalParameters": [
+          "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/a6301a3869818de4adbb/parameter/result",
+          "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/a6301a3869818de4adbb/parameter/exception"
+        ],
+        "captures": [
+          {
+            "name": "this",
+            "type": "com.volvocars.ecom.paymentservice.psp.inbound.messaging.KafkaProducer",
+            "actual": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/3ccc6bbab819be062a1c/receiver",
+            "value": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/a6301a3869818de4adbb/capture/this"
+          },
+          {
+            "name": "event",
+            "type": "Event<PspInboundEventPayload>",
+            "actual": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/3ccc6bbab819be062a1c/parameter/event",
+            "value": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/a6301a3869818de4adbb/capture/event"
+          },
+          {
+            "name": "correlationId",
+            "type": "String",
+            "actual": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/value/b9f202937a6107e9962c",
+            "value": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/a6301a3869818de4adbb/capture/correlationId"
+          }
+        ]
+      }
+    ],
+    "unexpanded": [],
+    "branches": [],
+    "gap": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/gap/method/3ccc6bbab819be062a1c"
+  },
+  {
+    "method": "com.volvocars.ecom.paymentservice.psp.inbound.messaging.KafkaProducerConfig#getTopic()",
+    "implementation": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/4f507747194b6dabb86d",
+    "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/messaging/KafkaProducerConfig.java",
+    "lines": [9, 11],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 0,
+    "localResolved": 0,
+    "callbacks": [],
+    "unexpanded": [],
+    "branches": [],
+    "gap": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/gap/method/4f507747194b6dabb86d"
+  },
+  {
+    "method": "com.volvocars.ecom.paymentservice.psp.inbound.messaging.KafkaProducerConfig#<init>(String)",
+    "implementation": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/1e258b402c7d490604e4",
+    "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/messaging/KafkaProducerConfig.java",
+    "lines": [13, 15],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 0,
+    "localResolved": 0,
+    "callbacks": [],
+    "unexpanded": [],
+    "branches": [],
+    "gap": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/gap/method/1e258b402c7d490604e4"
+  },
+  {
+    "method": "com.volvocars.ecom.paymentservice.psp.inbound.messaging.ScheduledMessageProducer#<init>(String,KafkaTemplate<String, Event<PspInboundEventPayload>>)",
+    "implementation": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/9951fc81c2e45117ed11",
+    "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/messaging/ScheduledMessageProducer.java",
+    "lines": [33, 38],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 0,
+    "localResolved": 0,
+    "callbacks": [],
+    "unexpanded": [],
+    "branches": [],
+    "gap": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/gap/method/9951fc81c2e45117ed11"
+  },
+  {
+    "method": "com.volvocars.ecom.paymentservice.psp.inbound.messaging.ScheduledMessageProducer#sendHeartbeat()",
+    "implementation": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/895db8fc09ddb9f8dc77",
+    "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/messaging/ScheduledMessageProducer.java",
+    "lines": [40, 56],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 6,
+    "localResolved": 0,
+    "callbacks": [
+      {
+        "operation": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/operation/895db8fc09ddb9f8dc77/15",
+        "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/messaging/ScheduledMessageProducer.java",
+        "lines": [48, 55],
+        "text": "(result, throwable) -> {\n              Duration duration = Duration.between(start, Instant.now());\n              if (throwable == null) {\n                onSuccess(messageKey, duration);\n              } else {\n                onFailure(messageKey, throwable, duration);\n              }\n            }",
+        "kind": "LAMBDA_EXPRESSION",
+        "status": "association_only_no_eager_invocation",
+        "implementation": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/6ed5aeea7f88b26a8f2a",
+        "formalParameters": [
+          "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/6ed5aeea7f88b26a8f2a/parameter/result",
+          "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/6ed5aeea7f88b26a8f2a/parameter/throwable"
+        ],
+        "captures": [
+          {
+            "name": "this",
+            "type": "com.volvocars.ecom.paymentservice.psp.inbound.messaging.ScheduledMessageProducer",
+            "actual": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/895db8fc09ddb9f8dc77/receiver",
+            "value": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/6ed5aeea7f88b26a8f2a/capture/this"
+          },
+          {
+            "name": "start",
+            "type": "Instant",
+            "actual": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/value/eed8e728aa628167f56d",
+            "value": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/6ed5aeea7f88b26a8f2a/capture/start"
+          },
+          {
+            "name": "messageKey",
+            "type": "String",
+            "actual": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/value/8a32b0dd9c56be9f5b77",
+            "value": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/6ed5aeea7f88b26a8f2a/capture/messageKey"
+          }
+        ]
+      }
+    ],
+    "unexpanded": [],
+    "branches": [],
+    "gap": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/gap/method/895db8fc09ddb9f8dc77"
+  },
+  {
+    "method": "com.volvocars.ecom.paymentservice.psp.inbound.messaging.ScheduledMessageProducer#onSuccess(String,Duration)",
+    "implementation": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/7cce8fbaefb81f0e2acc",
+    "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/messaging/ScheduledMessageProducer.java",
+    "lines": [58, 64],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 2,
+    "localResolved": 0,
+    "callbacks": [],
+    "unexpanded": [],
+    "branches": [],
+    "gap": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/gap/method/7cce8fbaefb81f0e2acc"
+  },
+  {
+    "method": "com.volvocars.ecom.paymentservice.psp.inbound.messaging.ScheduledMessageProducer#onFailure(String,Throwable,Duration)",
+    "implementation": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/3f4fb27f839954744097",
+    "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/messaging/ScheduledMessageProducer.java",
+    "lines": [66, 69],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 2,
+    "localResolved": 0,
+    "callbacks": [],
+    "unexpanded": [],
+    "branches": [],
+    "gap": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/gap/method/3f4fb27f839954744097"
+  },
+  {
+    "method": "com.volvocars.ecom.paymentservice.psp.inbound.security.IpAddressVerifier#<init>(PspSettings,AppConfig)",
+    "implementation": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/acf51cabcc635e054c06",
+    "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/security/IpAddressVerifier.java",
+    "lines": [25, 29],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 0,
+    "localResolved": 0,
+    "callbacks": [],
+    "unexpanded": [],
+    "branches": [],
+    "gap": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/gap/method/acf51cabcc635e054c06"
+  },
+  {
+    "method": "com.volvocars.ecom.paymentservice.psp.inbound.security.IpAddressVerifier#init()",
+    "implementation": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/13d8bb8684dc85b189aa",
+    "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/security/IpAddressVerifier.java",
+    "lines": [32, 47],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 3,
+    "localResolved": 0,
+    "callbacks": [
+      {
+        "operation": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/operation/13d8bb8684dc85b189aa/6",
+        "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/security/IpAddressVerifier.java",
+        "lines": [39, 46],
+        "text": "psp -> {\n              @SuppressWarnings(\"unchecked\")\n              LinkedHashMap<String, String> ipAddresses =\n                  pspSettings.get(psp, \"ip-addresses\", LinkedHashMap.class);\n              ipAddresses\n                  .values()\n                  .forEach(ipAddress -> ipAddressMatchers.add(new IpAddressMatcher(ipAddress)));\n            }",
+        "kind": "LAMBDA_EXPRESSION",
+        "status": "association_only_no_eager_invocation",
+        "implementation": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/68753c5424ec9378113f",
+        "formalParameters": [
+          "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/68753c5424ec9378113f/parameter/psp"
+        ],
+        "captures": [
+          {
+            "name": "this",
+            "type": "com.volvocars.ecom.paymentservice.psp.inbound.security.IpAddressVerifier",
+            "actual": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/13d8bb8684dc85b189aa/receiver",
+            "value": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/68753c5424ec9378113f/capture/this"
+          }
+        ]
+      }
+    ],
+    "unexpanded": [],
+    "branches": [],
+    "gap": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/gap/method/13d8bb8684dc85b189aa"
+  },
+  {
+    "method": "com.volvocars.ecom.paymentservice.psp.inbound.security.IpAddressVerifier#isAuthExcludedPath(HttpServletRequest)",
+    "implementation": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/4a48784fda6bd76310dc",
+    "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/security/IpAddressVerifier.java",
+    "lines": [49, 52],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 3,
+    "localResolved": 0,
+    "callbacks": [
+      {
+        "operation": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/operation/4a48784fda6bd76310dc/4",
+        "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/security/IpAddressVerifier.java",
+        "lines": [51, 51],
+        "text": "pattern -> pathMatcher.match(pattern, request.getServletPath())",
+        "kind": "LAMBDA_EXPRESSION",
+        "status": "association_only_no_eager_invocation",
+        "implementation": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/a04f28a2a64a52ee4ee7",
+        "formalParameters": [
+          "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/a04f28a2a64a52ee4ee7/parameter/pattern"
+        ],
+        "captures": [
+          {
+            "name": "this",
+            "type": "com.volvocars.ecom.paymentservice.psp.inbound.security.IpAddressVerifier",
+            "actual": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/4a48784fda6bd76310dc/receiver",
+            "value": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/a04f28a2a64a52ee4ee7/capture/this"
+          },
+          {
+            "name": "request",
+            "type": "HttpServletRequest",
+            "actual": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/4a48784fda6bd76310dc/parameter/request",
+            "value": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/a04f28a2a64a52ee4ee7/capture/request"
+          }
+        ]
+      }
+    ],
+    "unexpanded": [],
+    "branches": [],
+    "gap": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/gap/method/4a48784fda6bd76310dc"
+  },
+  {
+    "method": "com.volvocars.ecom.paymentservice.psp.inbound.security.IpAddressVerifier#isAllowed(HttpServletRequest)",
+    "implementation": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/f6cbcb8ca95dc838cfcf",
+    "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/security/IpAddressVerifier.java",
+    "lines": [65, 69],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 3,
+    "localResolved": 1,
+    "callbacks": [
+      {
+        "operation": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/operation/f6cbcb8ca95dc838cfcf/5",
+        "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/security/IpAddressVerifier.java",
+        "lines": [68, 68],
+        "text": "ipAddressMatcher -> ipAddressMatcher.matches(getIpAddress(request))",
+        "kind": "LAMBDA_EXPRESSION",
+        "status": "association_only_no_eager_invocation",
+        "implementation": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/f4343b43ce0edfff3b08",
+        "formalParameters": [
+          "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/f4343b43ce0edfff3b08/parameter/ipAddressMatcher"
+        ],
+        "captures": [
+          {
+            "name": "this",
+            "type": "com.volvocars.ecom.paymentservice.psp.inbound.security.IpAddressVerifier",
+            "actual": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/f6cbcb8ca95dc838cfcf/receiver",
+            "value": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/f4343b43ce0edfff3b08/capture/this"
+          },
+          {
+            "name": "request",
+            "type": "HttpServletRequest",
+            "actual": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/f6cbcb8ca95dc838cfcf/parameter/request",
+            "value": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/f4343b43ce0edfff3b08/capture/request"
+          }
+        ]
+      }
+    ],
+    "unexpanded": [],
+    "branches": [
+      "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/operation/f6cbcb8ca95dc838cfcf/2"
+    ],
+    "gap": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/gap/method/f6cbcb8ca95dc838cfcf"
+  },
+  {
+    "method": "com.volvocars.ecom.paymentservice.psp.inbound.security.IpAddressVerifier#getIpAddress(HttpServletRequest)",
+    "implementation": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/31cb6e6e1f5caef37bdc",
+    "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/security/IpAddressVerifier.java",
+    "lines": [71, 88],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 17,
+    "localResolved": 0,
+    "callbacks": [
+      {
+        "operation": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/operation/31cb6e6e1f5caef37bdc/17",
+        "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/security/IpAddressVerifier.java",
+        "lines": [80, 80],
+        "text": "String::trim",
+        "kind": "MEMBER_REFERENCE",
+        "status": "imported_method_reference_invocation_boundary",
+        "receiverType": "String",
+        "referenceName": "trim"
+      }
+    ],
+    "unexpanded": [],
+    "branches": [
+      "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/operation/31cb6e6e1f5caef37bdc/30",
+      "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/operation/31cb6e6e1f5caef37bdc/36",
+      "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/operation/31cb6e6e1f5caef37bdc/42"
+    ],
+    "gap": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/gap/method/31cb6e6e1f5caef37bdc"
+  },
+  {
+    "method": "com.volvocars.ecom.paymentservice.psp.inbound.webhook.InboundRequest#getHeader(String)",
+    "implementation": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/33bbaf70089544de1930",
+    "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/webhook/InboundRequest.java",
+    "lines": [12, 14],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 3,
+    "localResolved": 0,
+    "callbacks": [],
+    "unexpanded": [],
+    "branches": [],
+    "gap": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/gap/method/33bbaf70089544de1930"
+  },
+  {
+    "method": "com.volvocars.ecom.paymentservice.psp.inbound.webhook.InboundRequest#getParam(String,String)",
+    "implementation": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/15e310f7b746e7eb9023",
+    "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/webhook/InboundRequest.java",
+    "lines": [16, 18],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 1,
+    "localResolved": 0,
+    "callbacks": [],
+    "unexpanded": [],
+    "branches": [],
+    "gap": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/gap/method/15e310f7b746e7eb9023"
+  },
+  {
+    "method": "com.volvocars.ecom.paymentservice.psp.inbound.webhook.InboundRequest#getParam(String)",
+    "implementation": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/0ed5c4d7c5c3f840dccf",
+    "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/webhook/InboundRequest.java",
+    "lines": [20, 22],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 3,
+    "localResolved": 0,
+    "callbacks": [],
+    "unexpanded": [],
+    "branches": [],
+    "gap": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/gap/method/0ed5c4d7c5c3f840dccf"
+  },
+  {
+    "method": "com.volvocars.ecom.paymentservice.psp.inbound.webhook.InboundService#receiveInbound(InboundRequest)",
+    "implementation": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/d1f04fb69710486cf2ad",
+    "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/webhook/InboundService.java",
+    "lines": [12, 13],
+    "hasBody": false,
+    "runtimeRole": "source_host_context",
+    "status": "declaration_only_implementation_external",
+    "calls": 0,
+    "localResolved": 0,
+    "callbacks": [],
+    "unexpanded": [],
+    "branches": [],
+    "gap": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/gap/method/d1f04fb69710486cf2ad"
+  },
+  {
+    "method": "com.volvocars.ecom.paymentservice.psp.inbound.webhook.InboundService#getPsp()",
+    "implementation": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/f9285503d6b2ff310300",
+    "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/webhook/InboundService.java",
+    "lines": [15, 15],
+    "hasBody": false,
+    "runtimeRole": "source_host_context",
+    "status": "declaration_only_implementation_external",
+    "calls": 0,
+    "localResolved": 0,
+    "callbacks": [],
+    "unexpanded": [],
+    "branches": [],
+    "gap": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/gap/method/f9285503d6b2ff310300"
+  },
+  {
+    "method": "com.volvocars.ecom.paymentservice.psp.inbound.webhook.InboundServiceFactory#<init>(List<InboundService>)",
+    "implementation": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/f8e038edc6198466925e",
+    "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/webhook/InboundServiceFactory.java",
+    "lines": [12, 14],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 0,
+    "localResolved": 0,
+    "callbacks": [],
+    "unexpanded": [],
+    "branches": [],
+    "gap": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/gap/method/f8e038edc6198466925e"
+  },
+  {
+    "method": "com.volvocars.ecom.paymentservice.psp.inbound.webhook.InboundServiceFactory#get(Psp)",
+    "implementation": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/1f7c18f5f27a8c5b809a",
+    "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/webhook/InboundServiceFactory.java",
+    "lines": [16, 22],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 4,
+    "localResolved": 0,
+    "callbacks": [
+      {
+        "operation": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/operation/1f7c18f5f27a8c5b809a/3",
+        "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/webhook/InboundServiceFactory.java",
+        "lines": [18, 18],
+        "text": "inboundService -> inboundService.getPsp().equals(psp)",
+        "kind": "LAMBDA_EXPRESSION",
+        "status": "association_only_no_eager_invocation",
+        "implementation": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/d30b042fa2d582c0235c",
+        "formalParameters": [
+          "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/d30b042fa2d582c0235c/parameter/inboundService"
+        ],
+        "captures": [
+          {
+            "name": "psp",
+            "type": "Psp",
+            "actual": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/1f7c18f5f27a8c5b809a/parameter/psp",
+            "value": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/d30b042fa2d582c0235c/capture/psp"
+          }
+        ]
+      },
+      {
+        "operation": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/operation/1f7c18f5f27a8c5b809a/12",
+        "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/webhook/InboundServiceFactory.java",
+        "lines": [21, 21],
+        "text": "() -> new IllegalArgumentException(\"No inbound service found for psp: \" + psp)",
+        "kind": "LAMBDA_EXPRESSION",
+        "status": "association_only_no_eager_invocation",
+        "implementation": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/e6a0de954a58ba040c31",
+        "formalParameters": [],
+        "captures": [
+          {
+            "name": "psp",
+            "type": "Psp",
+            "actual": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/1f7c18f5f27a8c5b809a/parameter/psp",
+            "value": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/e6a0de954a58ba040c31/capture/psp"
+          }
+        ]
+      }
+    ],
+    "unexpanded": [],
+    "branches": [],
+    "gap": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/gap/method/1f7c18f5f27a8c5b809a"
+  },
+  {
+    "method": "com.volvocars.ecom.paymentservice.psp.inbound.webhook.InboundServiceImpl#<init>(KafkaProducer)",
+    "implementation": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/3a6a50e3beb677b16bdf",
+    "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/webhook/InboundServiceImpl.java",
+    "lines": [23, 26],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 1,
+    "localResolved": 0,
+    "callbacks": [],
+    "unexpanded": [],
+    "branches": [],
+    "gap": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/gap/method/3a6a50e3beb677b16bdf"
+  },
+  {
+    "method": "com.volvocars.ecom.paymentservice.psp.inbound.webhook.InboundServiceImpl#toInternalEvent(Psp,String,String,EventCategoryName,String,Long,String)",
+    "implementation": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/f7a6e0cc4715797b87c6",
+    "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/webhook/InboundServiceImpl.java",
+    "lines": [28, 39],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 2,
+    "localResolved": 2,
+    "callbacks": [],
+    "unexpanded": [],
+    "branches": [],
+    "gap": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/gap/method/f7a6e0cc4715797b87c6"
+  },
+  {
+    "method": "com.volvocars.ecom.paymentservice.psp.inbound.webhook.InboundServiceImpl#toInternalEvent(Psp,String,String,EventCategoryName,Map<String, Object>,Long,String)",
+    "implementation": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/270d6c7c14726f8cb1a0",
+    "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/webhook/InboundServiceImpl.java",
+    "lines": [41, 61],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 12,
+    "localResolved": 2,
+    "callbacks": [],
+    "unexpanded": [],
+    "branches": [],
+    "gap": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/gap/method/270d6c7c14726f8cb1a0"
+  },
+  {
+    "method": "com.volvocars.ecom.paymentservice.psp.inbound.webhook.InboundServiceImpl#getMessageKey(EventCategoryName,PspInboundEventPayload)",
+    "implementation": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/6d8984ca4e74e5d74c46",
+    "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/webhook/InboundServiceImpl.java",
+    "lines": [70, 71],
+    "hasBody": false,
+    "runtimeRole": "source_host_context",
+    "status": "declaration_only_implementation_external",
+    "calls": 0,
+    "localResolved": 0,
+    "callbacks": [],
+    "unexpanded": [],
+    "branches": [],
+    "gap": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/gap/method/6d8984ca4e74e5d74c46"
+  },
+  {
+    "method": "com.volvocars.ecom.paymentservice.psp.inbound.webhook.InboundServiceImpl#getPayloadAsMap(String)",
+    "implementation": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/06c1c374d8da25a99e57",
+    "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/webhook/InboundServiceImpl.java",
+    "lines": [73, 83],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 2,
+    "localResolved": 0,
+    "callbacks": [],
+    "unexpanded": [],
+    "branches": [],
+    "gap": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/gap/method/06c1c374d8da25a99e57"
+  },
+  {
+    "method": "com.volvocars.ecom.paymentservice.psp.inbound.webhook.InboundServiceImpl#buildMetadata(Psp,EventCategoryName,Long,String)",
+    "implementation": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/01a7fe6bd3ab9db9b4dd",
+    "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/webhook/InboundServiceImpl.java",
+    "lines": [85, 94],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 12,
+    "localResolved": 0,
+    "callbacks": [],
+    "unexpanded": [],
+    "branches": [
+      "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/operation/01a7fe6bd3ab9db9b4dd/13"
+    ],
+    "gap": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/gap/method/01a7fe6bd3ab9db9b4dd"
+  },
+  {
+    "method": "com.volvocars.ecom.paymentservice.psp.inbound.webhook.SourceEventsConfig#getName()",
+    "implementation": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/e6ef23a066924366949d",
+    "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/webhook/SourceEventsConfig.java",
+    "lines": [11, 13],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 0,
+    "localResolved": 0,
+    "callbacks": [],
+    "unexpanded": [],
+    "branches": [],
+    "gap": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/gap/method/e6ef23a066924366949d"
+  },
+  {
+    "method": "com.volvocars.ecom.paymentservice.psp.inbound.webhook.SourceEventsConfig#setName(String)",
+    "implementation": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/e70de208d614bb00f4c6",
+    "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/webhook/SourceEventsConfig.java",
+    "lines": [15, 18],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 0,
+    "localResolved": 0,
+    "callbacks": [],
+    "unexpanded": [],
+    "branches": [],
+    "gap": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/gap/method/e70de208d614bb00f4c6"
+  },
+  {
+    "method": "com.volvocars.ecom.paymentservice.psp.inbound.webhook.SourceEventsConfig#getAllowedEvents()",
+    "implementation": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/b89f02cbb841e19a68de",
+    "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/webhook/SourceEventsConfig.java",
+    "lines": [20, 22],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 0,
+    "localResolved": 0,
+    "callbacks": [],
+    "unexpanded": [],
+    "branches": [],
+    "gap": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/gap/method/b89f02cbb841e19a68de"
+  },
+  {
+    "method": "com.volvocars.ecom.paymentservice.psp.inbound.webhook.SourceEventsConfig#setAllowedEvents(EnumSet<PspEventType>)",
+    "implementation": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/53cb930a50ce1caa1937",
+    "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/webhook/SourceEventsConfig.java",
+    "lines": [24, 27],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 0,
+    "localResolved": 0,
+    "callbacks": [],
+    "unexpanded": [],
+    "branches": [],
+    "gap": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/gap/method/53cb930a50ce1caa1937"
+  },
+  {
+    "method": "com.volvocars.ecom.paymentservice.psp.inbound.webhook.SourceEventsConfigService#<init>(AllowedSourceEvents)",
+    "implementation": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/b4db75951f55928acfca",
+    "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/webhook/SourceEventsConfigService.java",
+    "lines": [23, 25],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 0,
+    "localResolved": 0,
+    "callbacks": [],
+    "unexpanded": [],
+    "branches": [],
+    "gap": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/gap/method/b4db75951f55928acfca"
+  },
+  {
+    "method": "com.volvocars.ecom.paymentservice.psp.inbound.webhook.SourceEventsConfigService#isValidEvent(Event<PspInboundEventPayload>,Psp)",
+    "implementation": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/6a3221a2b71a172b60b7",
+    "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/webhook/SourceEventsConfigService.java",
+    "lines": [27, 85],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 46,
+    "localResolved": 2,
+    "callbacks": [
+      {
+        "operation": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/operation/6a3221a2b71a172b60b7/23",
+        "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/webhook/SourceEventsConfigService.java",
+        "lines": [35, 35],
+        "text": "PspInboundEventPayload::getId",
+        "kind": "MEMBER_REFERENCE",
+        "status": "imported_method_reference_invocation_boundary",
+        "receiverType": "PspInboundEventPayload",
+        "referenceName": "getId"
+      },
+      {
+        "operation": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/operation/6a3221a2b71a172b60b7/55",
+        "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/webhook/SourceEventsConfigService.java",
+        "lines": [50, 50],
+        "text": "Object::toString",
+        "kind": "MEMBER_REFERENCE",
+        "status": "imported_method_reference_invocation_boundary",
+        "receiverType": "Object",
+        "referenceName": "toString"
+      },
+      {
+        "operation": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/operation/6a3221a2b71a172b60b7/66",
+        "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/webhook/SourceEventsConfigService.java",
+        "lines": [51, 51],
+        "text": "Object::toString",
+        "kind": "MEMBER_REFERENCE",
+        "status": "imported_method_reference_invocation_boundary",
+        "receiverType": "Object",
+        "referenceName": "toString"
+      },
+      {
+        "operation": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/operation/6a3221a2b71a172b60b7/79",
+        "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/webhook/SourceEventsConfigService.java",
+        "lines": [55, 55],
+        "text": "Objects::nonNull",
+        "kind": "MEMBER_REFERENCE",
+        "status": "imported_method_reference_invocation_boundary",
+        "receiverType": "Objects",
+        "referenceName": "nonNull"
+      },
+      {
+        "operation": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/operation/6a3221a2b71a172b60b7/82",
+        "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/webhook/SourceEventsConfigService.java",
+        "lines": [56, 56],
+        "text": "String::toLowerCase",
+        "kind": "MEMBER_REFERENCE",
+        "status": "imported_method_reference_invocation_boundary",
+        "receiverType": "String",
+        "referenceName": "toLowerCase"
+      },
+      {
+        "operation": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/operation/6a3221a2b71a172b60b7/85",
+        "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/webhook/SourceEventsConfigService.java",
+        "lines": [57, 57],
+        "text": "allowedSourceEvents.getAllAllowedSourcesInLowerCase()::contains",
+        "kind": "MEMBER_REFERENCE",
+        "status": "imported_method_reference_invocation_boundary",
+        "receiverType": "Set<String>",
+        "referenceName": "contains"
+      }
+    ],
+    "unexpanded": [],
+    "branches": [
+      "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/operation/6a3221a2b71a172b60b7/4",
+      "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/operation/6a3221a2b71a172b60b7/10",
+      "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/operation/6a3221a2b71a172b60b7/17",
+      "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/operation/6a3221a2b71a172b60b7/102",
+      "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/operation/6a3221a2b71a172b60b7/117"
+    ],
+    "gap": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/gap/method/6a3221a2b71a172b60b7"
+  },
+  {
+    "method": "com.volvocars.ecom.paymentservice.psp.inbound.webhook.exception.InboundCaptureException#<init>(String,String)",
+    "implementation": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/d5c066ee23f53b4ecda0",
+    "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/webhook/exception/InboundCaptureException.java",
+    "lines": [6, 8],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 1,
+    "localResolved": 0,
+    "callbacks": [],
+    "unexpanded": [],
+    "branches": [],
+    "gap": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/gap/method/d5c066ee23f53b4ecda0"
+  },
+  {
+    "method": "com.volvocars.ecom.paymentservice.psp.inbound.webhook.exception.InvalidMessageSignatureException#<init>(String,String)",
+    "implementation": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/c613883089289df98c2d",
+    "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/webhook/exception/InvalidMessageSignatureException.java",
+    "lines": [5, 7],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 1,
+    "localResolved": 1,
+    "callbacks": [],
+    "unexpanded": [],
+    "branches": [],
+    "gap": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/gap/method/c613883089289df98c2d"
+  },
+  {
+    "method": "com.volvocars.ecom.paymentservice.psp.inbound.webhook.exception.PayloadDeserializationException#<init>(String,String)",
+    "implementation": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/4683fa8238e15dca4dd5",
+    "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/webhook/exception/PayloadDeserializationException.java",
+    "lines": [4, 6],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 1,
+    "localResolved": 1,
+    "callbacks": [],
+    "unexpanded": [],
+    "branches": [],
+    "gap": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/gap/method/4683fa8238e15dca4dd5"
+  },
+  {
+    "method": "com.volvocars.ecom.paymentservice.psp.inbound.webhook.stripe.MessageKeyProvider#getMessageKey(Map<String, String>,EventCategoryName)",
+    "implementation": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/8f3d568d114619ce1593",
+    "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/webhook/stripe/MessageKeyProvider.java",
+    "lines": [27, 49],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 8,
+    "localResolved": 3,
+    "callbacks": [
+      {
+        "operation": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/operation/8f3d568d114619ce1593/13",
+        "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/webhook/stripe/MessageKeyProvider.java",
+        "lines": [34, 34],
+        "text": "() -> getPaymentSessionId(metadata)",
+        "kind": "LAMBDA_EXPRESSION",
+        "status": "association_only_no_eager_invocation",
+        "implementation": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/1dbe43e3bff70a273e7b",
+        "formalParameters": [],
+        "captures": [
+          {
+            "name": "this",
+            "type": "com.volvocars.ecom.paymentservice.psp.inbound.webhook.stripe.MessageKeyProvider",
+            "actual": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/8f3d568d114619ce1593/receiver",
+            "value": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/1dbe43e3bff70a273e7b/capture/this"
+          },
+          {
+            "name": "metadata",
+            "type": "Map<String, String>",
+            "actual": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/8f3d568d114619ce1593/parameter/metadata",
+            "value": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/1dbe43e3bff70a273e7b/capture/metadata"
+          }
+        ]
+      },
+      {
+        "operation": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/operation/8f3d568d114619ce1593/18",
+        "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/webhook/stripe/MessageKeyProvider.java",
+        "lines": [35, 35],
+        "text": "MessageKeyProvider::randomUUID",
+        "kind": "MEMBER_REFERENCE",
+        "status": "local_method_reference_associated",
+        "implementation": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/37a77b11ea0bb059e14c",
+        "formalParameters": [],
+        "referenceReceiver": "static"
+      },
+      {
+        "operation": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/operation/8f3d568d114619ce1593/25",
+        "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/webhook/stripe/MessageKeyProvider.java",
+        "lines": [38, 38],
+        "text": "() -> getVolvoId(metadata)",
+        "kind": "LAMBDA_EXPRESSION",
+        "status": "association_only_no_eager_invocation",
+        "implementation": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/af95f82c8f7bb0ca666b",
+        "formalParameters": [],
+        "captures": [
+          {
+            "name": "this",
+            "type": "com.volvocars.ecom.paymentservice.psp.inbound.webhook.stripe.MessageKeyProvider",
+            "actual": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/8f3d568d114619ce1593/receiver",
+            "value": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/af95f82c8f7bb0ca666b/capture/this"
+          },
+          {
+            "name": "metadata",
+            "type": "Map<String, String>",
+            "actual": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/8f3d568d114619ce1593/parameter/metadata",
+            "value": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/af95f82c8f7bb0ca666b/capture/metadata"
+          }
+        ]
+      },
+      {
+        "operation": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/operation/8f3d568d114619ce1593/30",
+        "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/webhook/stripe/MessageKeyProvider.java",
+        "lines": [39, 39],
+        "text": "MessageKeyProvider::randomUUID",
+        "kind": "MEMBER_REFERENCE",
+        "status": "local_method_reference_associated",
+        "implementation": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/37a77b11ea0bb059e14c",
+        "formalParameters": [],
+        "referenceReceiver": "static"
+      }
+    ],
+    "unexpanded": [],
+    "branches": [
+      "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/operation/8f3d568d114619ce1593/3",
+      "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/operation/8f3d568d114619ce1593/6"
+    ],
+    "gap": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/gap/method/8f3d568d114619ce1593"
+  },
+  {
+    "method": "com.volvocars.ecom.paymentservice.psp.inbound.webhook.stripe.MessageKeyProvider#getVolvoId(Map<String, String>)",
+    "implementation": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/b46b714ef1ff1b47e94a",
+    "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/webhook/stripe/MessageKeyProvider.java",
+    "lines": [51, 54],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 2,
+    "localResolved": 1,
+    "callbacks": [
+      {
+        "operation": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/operation/b46b714ef1ff1b47e94a/3",
+        "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/webhook/stripe/MessageKeyProvider.java",
+        "lines": [53, 53],
+        "text": "() -> getValue(metadata, IdType.VOLVO_ID.getDisplayName())",
+        "kind": "LAMBDA_EXPRESSION",
+        "status": "association_only_no_eager_invocation",
+        "implementation": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/1f6687d554010ebf5ecb",
+        "formalParameters": [],
+        "captures": [
+          {
+            "name": "metadata",
+            "type": "Map<String, String>",
+            "actual": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/b46b714ef1ff1b47e94a/parameter/metadata",
+            "value": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/1f6687d554010ebf5ecb/capture/metadata"
+          }
+        ]
+      }
+    ],
+    "unexpanded": [],
+    "branches": [],
+    "gap": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/gap/method/b46b714ef1ff1b47e94a"
+  },
+  {
+    "method": "com.volvocars.ecom.paymentservice.psp.inbound.webhook.stripe.MessageKeyProvider#getPaymentSessionId(Map<String, String>)",
+    "implementation": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/5164efdbed1d634f4920",
+    "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/webhook/stripe/MessageKeyProvider.java",
+    "lines": [56, 58],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 1,
+    "localResolved": 1,
+    "callbacks": [],
+    "unexpanded": [],
+    "branches": [],
+    "gap": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/gap/method/5164efdbed1d634f4920"
+  },
+  {
+    "method": "com.volvocars.ecom.paymentservice.psp.inbound.webhook.stripe.MessageKeyProvider#getValue(Map<String, String>,String)",
+    "implementation": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/aea14ab3ab63df048091",
+    "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/webhook/stripe/MessageKeyProvider.java",
+    "lines": [60, 68],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 4,
+    "localResolved": 0,
+    "callbacks": [],
+    "unexpanded": [],
+    "branches": [
+      "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/operation/aea14ab3ab63df048091/5"
+    ],
+    "gap": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/gap/method/aea14ab3ab63df048091"
+  },
+  {
+    "method": "com.volvocars.ecom.paymentservice.psp.inbound.webhook.stripe.MessageKeyProvider#randomUUID()",
+    "implementation": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/37a77b11ea0bb059e14c",
+    "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/webhook/stripe/MessageKeyProvider.java",
+    "lines": [70, 73],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 3,
+    "localResolved": 0,
+    "callbacks": [],
+    "unexpanded": [],
+    "branches": [],
+    "gap": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/gap/method/37a77b11ea0bb059e14c"
+  },
+  {
+    "method": "com.volvocars.ecom.paymentservice.psp.inbound.webhook.stripe.StripeEventParser#parseEvent(String,String,String)",
+    "implementation": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/d006761d471e98007ef6",
+    "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/webhook/stripe/StripeEventParser.java",
+    "lines": [17, 29],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 6,
+    "localResolved": 0,
+    "callbacks": [],
+    "unexpanded": [],
+    "branches": [],
+    "gap": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/gap/method/d006761d471e98007ef6"
+  },
+  {
+    "method": "com.volvocars.ecom.paymentservice.psp.inbound.webhook.stripe.StripeEventParser#jsonFromEvent(Event)",
+    "implementation": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/1d5565ca2ef7a4fe302d",
+    "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/webhook/stripe/StripeEventParser.java",
+    "lines": [31, 45],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 4,
+    "localResolved": 0,
+    "callbacks": [
+      {
+        "operation": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/operation/1d5565ca2ef7a4fe302d/3",
+        "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/webhook/stripe/StripeEventParser.java",
+        "lines": [36, 39],
+        "text": "stripeObject -> {\n              log.info(\"Using Stripe object for payload\");\n              return stripeObject.toJson();\n            }",
+        "kind": "LAMBDA_EXPRESSION",
+        "status": "association_only_no_eager_invocation",
+        "implementation": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/d7b56ca3741fb36aaf4c",
+        "formalParameters": [
+          "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/d7b56ca3741fb36aaf4c/parameter/stripeObject"
+        ],
+        "captures": []
+      },
+      {
+        "operation": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/operation/1d5565ca2ef7a4fe302d/9",
+        "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/webhook/stripe/StripeEventParser.java",
+        "lines": [41, 44],
+        "text": "() -> {\n              log.info(\"Using Raw Json for payload\");\n              return event.getDataObjectDeserializer().getRawJson();\n            }",
+        "kind": "LAMBDA_EXPRESSION",
+        "status": "association_only_no_eager_invocation",
+        "implementation": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/00957d3e9e77d9529e8c",
+        "formalParameters": [],
+        "captures": [
+          {
+            "name": "event",
+            "type": "Event",
+            "actual": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/1d5565ca2ef7a4fe302d/parameter/event",
+            "value": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/00957d3e9e77d9529e8c/capture/event"
+          }
+        ]
+      }
+    ],
+    "unexpanded": [],
+    "branches": [],
+    "gap": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/gap/method/1d5565ca2ef7a4fe302d"
+  },
+  {
+    "method": "com.volvocars.ecom.paymentservice.psp.inbound.webhook.stripe.StripeInboundServiceImpl#<init>(StripeEventParser,SourceEventsConfigService,MessageKeyProvider,StripeSecretProvider,KafkaProducer)",
+    "implementation": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/71795b10f37cde486e54",
+    "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/webhook/stripe/StripeInboundServiceImpl.java",
+    "lines": [37, 48],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 1,
+    "localResolved": 1,
+    "callbacks": [],
+    "unexpanded": [],
+    "branches": [],
+    "gap": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/gap/method/71795b10f37cde486e54"
+  },
+  {
+    "method": "com.volvocars.ecom.paymentservice.psp.inbound.webhook.stripe.StripeInboundServiceImpl#receiveInbound(InboundRequest)",
+    "implementation": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/4503e20353e6547083ac",
+    "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/webhook/stripe/StripeInboundServiceImpl.java",
+    "lines": [50, 63],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 11,
+    "localResolved": 10,
+    "callbacks": [],
+    "unexpanded": [],
+    "branches": [
+      "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/operation/4503e20353e6547083ac/14"
+    ],
+    "gap": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/gap/method/4503e20353e6547083ac"
+  },
+  {
+    "method": "com.volvocars.ecom.paymentservice.psp.inbound.webhook.stripe.StripeInboundServiceImpl#toInternalEvent(String,com.stripe.model.Event)",
+    "implementation": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/c52e44e60bffcacc845a",
+    "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/webhook/stripe/StripeInboundServiceImpl.java",
+    "lines": [65, 78],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 12,
+    "localResolved": 2,
+    "callbacks": [],
+    "unexpanded": [],
+    "branches": [
+      "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/operation/c52e44e60bffcacc845a/21"
+    ],
+    "gap": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/gap/method/c52e44e60bffcacc845a"
+  },
+  {
+    "method": "com.volvocars.ecom.paymentservice.psp.inbound.webhook.stripe.StripeInboundServiceImpl#getSignature(InboundRequest)",
+    "implementation": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/28c78598e2f3d38effb4",
+    "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/webhook/stripe/StripeInboundServiceImpl.java",
+    "lines": [80, 82],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 1,
+    "localResolved": 1,
+    "callbacks": [],
+    "unexpanded": [],
+    "branches": [],
+    "gap": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/gap/method/28c78598e2f3d38effb4"
+  },
+  {
+    "method": "com.volvocars.ecom.paymentservice.psp.inbound.webhook.stripe.StripeInboundServiceImpl#getMessageKey(EventCategoryName,PspInboundEventPayload)",
+    "implementation": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/918d603a495787fd7363",
+    "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/webhook/stripe/StripeInboundServiceImpl.java",
+    "lines": [84, 87],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 4,
+    "localResolved": 2,
+    "callbacks": [],
+    "unexpanded": [],
+    "branches": [],
+    "gap": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/gap/method/918d603a495787fd7363"
+  },
+  {
+    "method": "com.volvocars.ecom.paymentservice.psp.inbound.webhook.stripe.StripeInboundServiceImpl#getMetadata(PspInboundEventPayload)",
+    "implementation": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/b3d3e2f932e19add8f90",
+    "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/webhook/stripe/StripeInboundServiceImpl.java",
+    "lines": [89, 94],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 3,
+    "localResolved": 0,
+    "callbacks": [
+      {
+        "operation": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/operation/b3d3e2f932e19add8f90/3",
+        "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/webhook/stripe/StripeInboundServiceImpl.java",
+        "lines": [92, 92],
+        "text": "PspInboundEventPayload::getAdditionalParameters",
+        "kind": "MEMBER_REFERENCE",
+        "status": "imported_method_reference_invocation_boundary",
+        "receiverType": "PspInboundEventPayload",
+        "referenceName": "getAdditionalParameters"
+      },
+      {
+        "operation": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/operation/b3d3e2f932e19add8f90/10",
+        "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/webhook/stripe/StripeInboundServiceImpl.java",
+        "lines": [93, 93],
+        "text": "stringObjectMap -> (Map<String, String>) stringObjectMap.get(\"metadata\")",
+        "kind": "LAMBDA_EXPRESSION",
+        "status": "association_only_no_eager_invocation",
+        "implementation": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/0b30fc0dfca543b0f985",
+        "formalParameters": [
+          "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/0b30fc0dfca543b0f985/parameter/stringObjectMap"
+        ],
+        "captures": []
+      }
+    ],
+    "unexpanded": [],
+    "branches": [],
+    "gap": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/gap/method/b3d3e2f932e19add8f90"
+  },
+  {
+    "method": "com.volvocars.ecom.paymentservice.psp.inbound.webhook.stripe.StripeInboundServiceImpl#getPsp()",
+    "implementation": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/bbb324d6770b591d880b",
+    "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/webhook/stripe/StripeInboundServiceImpl.java",
+    "lines": [96, 99],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 0,
+    "localResolved": 0,
+    "callbacks": [],
+    "unexpanded": [],
+    "branches": [],
+    "gap": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/gap/method/bbb324d6770b591d880b"
+  },
+  {
+    "method": "com.volvocars.ecom.paymentservice.psp.inbound.webhook.stripe.StripeInboundServiceImpl#getSecret(InboundRequest)",
+    "implementation": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/6df74e5de9a3b6ecaff8",
+    "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/webhook/stripe/StripeInboundServiceImpl.java",
+    "lines": [101, 106],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 5,
+    "localResolved": 4,
+    "callbacks": [],
+    "unexpanded": [],
+    "branches": [
+      "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/operation/6df74e5de9a3b6ecaff8/6"
+    ],
+    "gap": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/gap/method/6df74e5de9a3b6ecaff8"
+  },
+  {
+    "method": "com.volvocars.ecom.paymentservice.psp.inbound.webhook.stripe.StripeInboundServiceImpl#isFromConnectedAccount(Map<String, String>)",
+    "implementation": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/c491910124ed570b0d8e",
+    "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/webhook/stripe/StripeInboundServiceImpl.java",
+    "lines": [108, 111],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 3,
+    "localResolved": 0,
+    "callbacks": [],
+    "unexpanded": [],
+    "branches": [],
+    "gap": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/gap/method/c491910124ed570b0d8e"
+  },
+  {
+    "method": "com.volvocars.ecom.paymentservice.psp.inbound.webhook.stripe.StripeInboundServiceImpl#getPlatformAccountId(InboundRequest)",
+    "implementation": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/73607ff274fbd55c926d",
+    "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/webhook/stripe/StripeInboundServiceImpl.java",
+    "lines": [113, 115],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 1,
+    "localResolved": 1,
+    "callbacks": [],
+    "unexpanded": [],
+    "branches": [],
+    "gap": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/gap/method/73607ff274fbd55c926d"
+  },
+  {
+    "method": "com.volvocars.ecom.paymentservice.psp.inbound.webhook.stripe.StripeSecretProvider#getSecretForPlatformAccountEvents(String)",
+    "implementation": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/d429ff96f9d7259759d2",
+    "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/webhook/stripe/StripeSecretProvider.java",
+    "lines": [21, 26],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 4,
+    "localResolved": 1,
+    "callbacks": [],
+    "unexpanded": [],
+    "branches": [],
+    "gap": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/gap/method/d429ff96f9d7259759d2"
+  },
+  {
+    "method": "com.volvocars.ecom.paymentservice.psp.inbound.webhook.stripe.StripeSecretProvider#getSecretForConnectedAccountEvents(String)",
+    "implementation": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/f4ce25fb905d8ac997ec",
+    "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/webhook/stripe/StripeSecretProvider.java",
+    "lines": [28, 33],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 4,
+    "localResolved": 1,
+    "callbacks": [],
+    "unexpanded": [],
+    "branches": [],
+    "gap": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/gap/method/f4ce25fb905d8ac997ec"
+  },
+  {
+    "method": "com.volvocars.ecom.paymentservice.psp.inbound.common.InboundControllerAdvice#log(Level,HttpServletRequest,HttpStatus,Throwable)$lambda@3013",
+    "implementation": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/423b34ee45109119a7d0",
+    "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/common/InboundControllerAdvice.java",
+    "lines": [72, 72],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 2,
+    "localResolved": 0,
+    "callbacks": [],
+    "unexpanded": [],
+    "branches": [],
+    "gap": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/gap/method/423b34ee45109119a7d0"
+  },
+  {
+    "method": "com.volvocars.ecom.paymentservice.psp.inbound.config.AllowedSourceEvents#getAllowedEventTypesBySource(String)$lambda@1042",
+    "implementation": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/54d733e9531a24ed1cef",
+    "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/config/AllowedSourceEvents.java",
+    "lines": [27, 27],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 2,
+    "localResolved": 1,
+    "callbacks": [],
+    "unexpanded": [],
+    "branches": [],
+    "gap": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/gap/method/54d733e9531a24ed1cef"
+  },
+  {
+    "method": "com.volvocars.ecom.paymentservice.psp.inbound.config.AllowedSourceEvents#isAllowedSource(String)$lambda@1688",
+    "implementation": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/45a671ce3e3b42f6a81a",
+    "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/config/AllowedSourceEvents.java",
+    "lines": [42, 42],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 2,
+    "localResolved": 1,
+    "callbacks": [],
+    "unexpanded": [],
+    "branches": [],
+    "gap": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/gap/method/45a671ce3e3b42f6a81a"
+  },
+  {
+    "method": "com.volvocars.ecom.paymentservice.psp.inbound.messaging.KafkaProducer#sendMessage(Event<PspInboundEventPayload>)$lambda@1241",
+    "implementation": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/a6301a3869818de4adbb",
+    "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/messaging/KafkaProducer.java",
+    "lines": [32, 47],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 15,
+    "localResolved": 0,
+    "callbacks": [],
+    "unexpanded": [],
+    "branches": [
+      "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/operation/a6301a3869818de4adbb/3"
+    ],
+    "gap": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/gap/method/a6301a3869818de4adbb"
+  },
+  {
+    "method": "com.volvocars.ecom.paymentservice.psp.inbound.messaging.ScheduledMessageProducer#sendHeartbeat()$lambda@2053",
+    "implementation": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/6ed5aeea7f88b26a8f2a",
+    "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/messaging/ScheduledMessageProducer.java",
+    "lines": [48, 55],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 4,
+    "localResolved": 2,
+    "callbacks": [],
+    "unexpanded": [],
+    "branches": [
+      "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/operation/6ed5aeea7f88b26a8f2a/8"
+    ],
+    "gap": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/gap/method/6ed5aeea7f88b26a8f2a"
+  },
+  {
+    "method": "com.volvocars.ecom.paymentservice.psp.inbound.security.IpAddressVerifier#init()$lambda@1351",
+    "implementation": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/68753c5424ec9378113f",
+    "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/security/IpAddressVerifier.java",
+    "lines": [39, 46],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 3,
+    "localResolved": 1,
+    "callbacks": [
+      {
+        "operation": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/operation/68753c5424ec9378113f/8",
+        "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/security/IpAddressVerifier.java",
+        "lines": [45, 45],
+        "text": "ipAddress -> ipAddressMatchers.add(new IpAddressMatcher(ipAddress))",
+        "kind": "LAMBDA_EXPRESSION",
+        "status": "association_only_no_eager_invocation",
+        "implementation": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/ef513231e048260a974d",
+        "formalParameters": [
+          "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/ef513231e048260a974d/parameter/ipAddress"
+        ],
+        "captures": [
+          {
+            "name": "this",
+            "type": "com.volvocars.ecom.paymentservice.psp.inbound.security.IpAddressVerifier",
+            "actual": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/68753c5424ec9378113f/capture/this",
+            "value": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/ef513231e048260a974d/capture/this"
+          }
+        ]
+      }
+    ],
+    "unexpanded": [],
+    "branches": [],
+    "gap": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/gap/method/68753c5424ec9378113f"
+  },
+  {
+    "method": "com.volvocars.ecom.paymentservice.psp.inbound.security.IpAddressVerifier#isAuthExcludedPath(HttpServletRequest)$lambda@1855",
+    "implementation": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/a04f28a2a64a52ee4ee7",
+    "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/security/IpAddressVerifier.java",
+    "lines": [51, 51],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 2,
+    "localResolved": 0,
+    "callbacks": [],
+    "unexpanded": [],
+    "branches": [],
+    "gap": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/gap/method/a04f28a2a64a52ee4ee7"
+  },
+  {
+    "method": "com.volvocars.ecom.paymentservice.psp.inbound.security.IpAddressVerifier#isAllowed(HttpServletRequest)$lambda@2406",
+    "implementation": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/f4343b43ce0edfff3b08",
+    "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/security/IpAddressVerifier.java",
+    "lines": [68, 68],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 2,
+    "localResolved": 1,
+    "callbacks": [],
+    "unexpanded": [],
+    "branches": [],
+    "gap": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/gap/method/f4343b43ce0edfff3b08"
+  },
+  {
+    "method": "com.volvocars.ecom.paymentservice.psp.inbound.webhook.InboundServiceFactory#get(Psp)$lambda@505",
+    "implementation": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/d30b042fa2d582c0235c",
+    "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/webhook/InboundServiceFactory.java",
+    "lines": [18, 18],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 2,
+    "localResolved": 1,
+    "callbacks": [],
+    "unexpanded": [],
+    "branches": [],
+    "gap": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/gap/method/d30b042fa2d582c0235c"
+  },
+  {
+    "method": "com.volvocars.ecom.paymentservice.psp.inbound.webhook.InboundServiceFactory#get(Psp)$lambda@615",
+    "implementation": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/e6a0de954a58ba040c31",
+    "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/webhook/InboundServiceFactory.java",
+    "lines": [21, 21],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 0,
+    "localResolved": 0,
+    "callbacks": [],
+    "unexpanded": [],
+    "branches": [],
+    "gap": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/gap/method/e6a0de954a58ba040c31"
+  },
+  {
+    "method": "com.volvocars.ecom.paymentservice.psp.inbound.webhook.stripe.MessageKeyProvider#getMessageKey(Map<String, String>,EventCategoryName)$lambda@1270",
+    "implementation": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/1dbe43e3bff70a273e7b",
+    "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/webhook/stripe/MessageKeyProvider.java",
+    "lines": [34, 34],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 1,
+    "localResolved": 1,
+    "callbacks": [],
+    "unexpanded": [],
+    "branches": [],
+    "gap": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/gap/method/1dbe43e3bff70a273e7b"
+  },
+  {
+    "method": "com.volvocars.ecom.paymentservice.psp.inbound.webhook.stripe.MessageKeyProvider#getMessageKey(Map<String, String>,EventCategoryName)$lambda@1456",
+    "implementation": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/af95f82c8f7bb0ca666b",
+    "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/webhook/stripe/MessageKeyProvider.java",
+    "lines": [38, 38],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 1,
+    "localResolved": 1,
+    "callbacks": [],
+    "unexpanded": [],
+    "branches": [],
+    "gap": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/gap/method/af95f82c8f7bb0ca666b"
+  },
+  {
+    "method": "com.volvocars.ecom.paymentservice.psp.inbound.webhook.stripe.MessageKeyProvider#getVolvoId(Map<String, String>)$lambda@1948",
+    "implementation": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/1f6687d554010ebf5ecb",
+    "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/webhook/stripe/MessageKeyProvider.java",
+    "lines": [53, 53],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 2,
+    "localResolved": 1,
+    "callbacks": [],
+    "unexpanded": [],
+    "branches": [],
+    "gap": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/gap/method/1f6687d554010ebf5ecb"
+  },
+  {
+    "method": "com.volvocars.ecom.paymentservice.psp.inbound.webhook.stripe.StripeEventParser#jsonFromEvent(Event)$lambda@1313",
+    "implementation": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/d7b56ca3741fb36aaf4c",
+    "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/webhook/stripe/StripeEventParser.java",
+    "lines": [36, 39],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 2,
+    "localResolved": 0,
+    "callbacks": [],
+    "unexpanded": [],
+    "branches": [],
+    "gap": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/gap/method/d7b56ca3741fb36aaf4c"
+  },
+  {
+    "method": "com.volvocars.ecom.paymentservice.psp.inbound.webhook.stripe.StripeEventParser#jsonFromEvent(Event)$lambda@1481",
+    "implementation": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/00957d3e9e77d9529e8c",
+    "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/webhook/stripe/StripeEventParser.java",
+    "lines": [41, 44],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 3,
+    "localResolved": 0,
+    "callbacks": [],
+    "unexpanded": [],
+    "branches": [],
+    "gap": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/gap/method/00957d3e9e77d9529e8c"
+  },
+  {
+    "method": "com.volvocars.ecom.paymentservice.psp.inbound.webhook.stripe.StripeInboundServiceImpl#getMetadata(PspInboundEventPayload)$lambda@4218",
+    "implementation": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/0b30fc0dfca543b0f985",
+    "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/webhook/stripe/StripeInboundServiceImpl.java",
+    "lines": [93, 93],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 1,
+    "localResolved": 0,
+    "callbacks": [],
+    "unexpanded": [],
+    "branches": [],
+    "gap": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/gap/method/0b30fc0dfca543b0f985"
+  },
+  {
+    "method": "com.volvocars.ecom.paymentservice.psp.inbound.security.IpAddressVerifier#init()$lambda@1351$lambda@1621",
+    "implementation": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/ef513231e048260a974d",
+    "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/security/IpAddressVerifier.java",
+    "lines": [45, 45],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 1,
+    "localResolved": 0,
+    "callbacks": [],
+    "unexpanded": [],
+    "branches": [],
+    "gap": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/gap/method/ef513231e048260a974d"
+  }
+]

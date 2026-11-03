@@ -1,0 +1,226 @@
+[
+  {
+    "write": "volvo/cce-filter-service/2020ff59219b/local-r3/storage_write/28b89fe7391dcc125f",
+    "effect": "volvo/cce-filter-service/2020ff59219b/local-r3/effect/28b89fe7391dcc125f",
+    "operation": "volvo/cce-filter-service/2020ff59219b/local-r3/operation/32273c1157dea77a19/26",
+    "acknowledgementOperation": "volvo/cce-filter-service/2020ff59219b/local-r3/operation/32273c1157dea77a19/28",
+    "sourceSQL": "\n            INSERT INTO config_policy (id, name, parent_id, payload)\n            VALUES (%s, %s, %s, %s)\n            ON CONFLICT (id) DO NOTHING\n        "
+  },
+  {
+    "write": "volvo/cce-filter-service/2020ff59219b/local-r3/storage_write/0e1298ca0b5f03867f",
+    "effect": "volvo/cce-filter-service/2020ff59219b/local-r3/effect/0e1298ca0b5f03867f",
+    "operation": "volvo/cce-filter-service/2020ff59219b/local-r3/operation/d1e7a61933e6904d55/26",
+    "acknowledgementOperation": "volvo/cce-filter-service/2020ff59219b/local-r3/operation/d1e7a61933e6904d55/28",
+    "sourceSQL": "\n            INSERT INTO config_policy (id, name, parent_id, payload)\n            VALUES (%s, %s, %s, %s)\n            ON CONFLICT (id) DO NOTHING\n        "
+  },
+  {
+    "write": "volvo/cce-filter-service/2020ff59219b/local-r3/storage_write/631188014aa7ef73e3",
+    "effect": "volvo/cce-filter-service/2020ff59219b/local-r3/effect/631188014aa7ef73e3",
+    "operation": "volvo/cce-filter-service/2020ff59219b/local-r3/operation/4929faee81c9300e31/26",
+    "acknowledgementOperation": "volvo/cce-filter-service/2020ff59219b/local-r3/operation/4929faee81c9300e31/28",
+    "sourceSQL": "\n            UPDATE config_policy SET name = %s, parent_id = %s, payload = %s WHERE id = %s\n        "
+  },
+  {
+    "write": "volvo/cce-filter-service/2020ff59219b/local-r3/storage_write/3650cbc40332b145f4",
+    "effect": "volvo/cce-filter-service/2020ff59219b/local-r3/effect/3650cbc40332b145f4",
+    "operation": "volvo/cce-filter-service/2020ff59219b/local-r3/operation/1655fc86540f05e193/26",
+    "acknowledgementOperation": "volvo/cce-filter-service/2020ff59219b/local-r3/operation/1655fc86540f05e193/28",
+    "sourceSQL": "\n            UPDATE config_policy SET name = %s, parent_id = %s, payload = %s WHERE id = %s\n        "
+  },
+  {
+    "write": "volvo/cce-filter-service/2020ff59219b/local-r3/storage_write/ebb893c398fbd777de",
+    "effect": "volvo/cce-filter-service/2020ff59219b/local-r3/effect/ebb893c398fbd777de",
+    "operation": "volvo/cce-filter-service/2020ff59219b/local-r3/operation/db88d431480077ca63/8",
+    "acknowledgementOperation": "volvo/cce-filter-service/2020ff59219b/local-r3/operation/db88d431480077ca63/13",
+    "sourceSQL": "DELETE FROM config_policy WHERE id = %s"
+  },
+  {
+    "write": "volvo/cce-filter-service/2020ff59219b/local-r3/storage_write/2fc1c73d1f71f26264",
+    "effect": "volvo/cce-filter-service/2020ff59219b/local-r3/effect/2fc1c73d1f71f26264",
+    "operation": "volvo/cce-filter-service/2020ff59219b/local-r3/operation/21895f9b0945d44f8b/8",
+    "acknowledgementOperation": "volvo/cce-filter-service/2020ff59219b/local-r3/operation/21895f9b0945d44f8b/13",
+    "sourceSQL": "DELETE FROM config_policy WHERE id = %s"
+  },
+  {
+    "write": "volvo/cce-filter-service/2020ff59219b/local-r3/storage_write/fe90e962054fff95b2",
+    "effect": "volvo/cce-filter-service/2020ff59219b/local-r3/effect/fe90e962054fff95b2",
+    "operation": "volvo/cce-filter-service/2020ff59219b/local-r3/operation/82974b53455d831a45/30",
+    "acknowledgementOperation": "volvo/cce-filter-service/2020ff59219b/local-r3/operation/82974b53455d831a45/32",
+    "sourceSQL": "\n            INSERT INTO partners (\n                partner_id,\n                name,\n                brand,\n                country_code,\n                distributor_id,\n                role,\n                role_code,\n                program_market,\n                is_active\n            )\n            VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)\n            ON CONFLICT (partner_id) DO UPDATE \n            SET name = EXCLUDED.name,\n                brand = EXCLUDED.brand,\n                country_code = EXCLUDED.country_code,\n                distributor_id = EXCLUDED.distributor_id,\n                role = EXCLUDED.role,\n                role_code = EXCLUDED.role_code,\n                program_market = EXCLUDED.program_market,\n                is_active = EXCLUDED.is_active\n        "
+  },
+  {
+    "write": "volvo/cce-filter-service/2020ff59219b/local-r3/storage_write/00a62d01a843a6d63c",
+    "effect": "volvo/cce-filter-service/2020ff59219b/local-r3/effect/00a62d01a843a6d63c",
+    "operation": "volvo/cce-filter-service/2020ff59219b/local-r3/operation/b9384c0c43b2d86f2d/30",
+    "acknowledgementOperation": "volvo/cce-filter-service/2020ff59219b/local-r3/operation/b9384c0c43b2d86f2d/32",
+    "sourceSQL": "\n            INSERT INTO partners (\n                partner_id,\n                name,\n                brand,\n                country_code,\n                distributor_id,\n                role,\n                role_code,\n                program_market,\n                is_active\n            )\n            VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)\n            ON CONFLICT (partner_id) DO UPDATE \n            SET name = EXCLUDED.name,\n                brand = EXCLUDED.brand,\n                country_code = EXCLUDED.country_code,\n                distributor_id = EXCLUDED.distributor_id,\n                role = EXCLUDED.role,\n                role_code = EXCLUDED.role_code,\n                program_market = EXCLUDED.program_market,\n                is_active = EXCLUDED.is_active\n        "
+  },
+  {
+    "write": "volvo/cce-filter-service/2020ff59219b/local-r3/storage_write/b05645c76bf144d50d",
+    "effect": "volvo/cce-filter-service/2020ff59219b/local-r3/effect/b05645c76bf144d50d",
+    "operation": "volvo/cce-filter-service/2020ff59219b/local-r3/operation/9dc4a818cdff6e5fbc/7",
+    "acknowledgementOperation": "volvo/cce-filter-service/2020ff59219b/local-r3/operation/9dc4a818cdff6e5fbc/9",
+    "sourceSQL": "DELETE FROM partners"
+  },
+  {
+    "write": "volvo/cce-filter-service/2020ff59219b/local-r3/storage_write/59648c1bdeefde1fc4",
+    "effect": "volvo/cce-filter-service/2020ff59219b/local-r3/effect/59648c1bdeefde1fc4",
+    "operation": "volvo/cce-filter-service/2020ff59219b/local-r3/operation/388119e76c96c4c8a2/7",
+    "acknowledgementOperation": "volvo/cce-filter-service/2020ff59219b/local-r3/operation/388119e76c96c4c8a2/9",
+    "sourceSQL": "DELETE FROM partners"
+  },
+  {
+    "write": "volvo/cce-filter-service/2020ff59219b/local-r3/storage_write/f0a17c181d362eed8e",
+    "effect": "volvo/cce-filter-service/2020ff59219b/local-r3/effect/f0a17c181d362eed8e",
+    "operation": "volvo/cce-filter-service/2020ff59219b/local-r3/operation/e0937044e456d10bb9/29",
+    "acknowledgementOperation": "volvo/cce-filter-service/2020ff59219b/local-r3/operation/e0937044e456d10bb9/31",
+    "sourceSQL": "\n            INSERT INTO partner_policy (\n                policy_id,\n                rule,\n                brand,\n                program_market,\n                applies_for_partners\n            ) VALUES (%s, %s, %s, %s, %s)\n            ON CONFLICT (policy_id) DO UPDATE\n            SET rule = EXCLUDED.rule,\n                brand = EXCLUDED.brand,\n                program_market = EXCLUDED.program_market,\n                applies_for_partners = EXCLUDED.applies_for_partners\n        "
+  },
+  {
+    "write": "volvo/cce-filter-service/2020ff59219b/local-r3/storage_write/c25e3e70c6a24c666a",
+    "effect": "volvo/cce-filter-service/2020ff59219b/local-r3/effect/c25e3e70c6a24c666a",
+    "operation": "volvo/cce-filter-service/2020ff59219b/local-r3/operation/d9272a77cd3b4e91c0/29",
+    "acknowledgementOperation": "volvo/cce-filter-service/2020ff59219b/local-r3/operation/d9272a77cd3b4e91c0/31",
+    "sourceSQL": "\n            INSERT INTO partner_policy (\n                policy_id,\n                rule,\n                brand,\n                program_market,\n                applies_for_partners\n            ) VALUES (%s, %s, %s, %s, %s)\n            ON CONFLICT (policy_id) DO UPDATE\n            SET rule = EXCLUDED.rule,\n                brand = EXCLUDED.brand,\n                program_market = EXCLUDED.program_market,\n                applies_for_partners = EXCLUDED.applies_for_partners\n        "
+  },
+  {
+    "write": "volvo/cce-filter-service/2020ff59219b/local-r3/storage_write/138a7e6ce0d804ca8d",
+    "effect": "volvo/cce-filter-service/2020ff59219b/local-r3/effect/138a7e6ce0d804ca8d",
+    "operation": "volvo/cce-filter-service/2020ff59219b/local-r3/operation/e18622439d8246d835/8",
+    "acknowledgementOperation": "volvo/cce-filter-service/2020ff59219b/local-r3/operation/e18622439d8246d835/10",
+    "sourceSQL": "DELETE FROM partner_policy WHERE policy_id = %s"
+  },
+  {
+    "write": "volvo/cce-filter-service/2020ff59219b/local-r3/storage_write/08265878902ec99db7",
+    "effect": "volvo/cce-filter-service/2020ff59219b/local-r3/effect/08265878902ec99db7",
+    "operation": "volvo/cce-filter-service/2020ff59219b/local-r3/operation/d8e2e3ec6338a7d2d7/8",
+    "acknowledgementOperation": "volvo/cce-filter-service/2020ff59219b/local-r3/operation/d8e2e3ec6338a7d2d7/10",
+    "sourceSQL": "DELETE FROM partner_policy WHERE policy_id = %s"
+  },
+  {
+    "write": "volvo/cce-filter-service/2020ff59219b/local-r3/storage_write/d7d1dbff144649bb8a",
+    "effect": "volvo/cce-filter-service/2020ff59219b/local-r3/effect/d7d1dbff144649bb8a",
+    "operation": "volvo/cce-filter-service/2020ff59219b/local-r3/operation/8ddf5925933be03d4a/21",
+    "acknowledgementOperation": "volvo/cce-filter-service/2020ff59219b/local-r3/operation/8ddf5925933be03d4a/23",
+    "sourceSQL": "\n            INSERT INTO components_policy_pno12 (policy_id, pno12, included, components)\n            VALUES (%s, %s, %s, %s)\n            ON CONFLICT (policy_id, pno12) DO NOTHING\n        "
+  },
+  {
+    "write": "volvo/cce-filter-service/2020ff59219b/local-r3/storage_write/2146c1d4931f4490b2",
+    "effect": "volvo/cce-filter-service/2020ff59219b/local-r3/effect/2146c1d4931f4490b2",
+    "operation": "volvo/cce-filter-service/2020ff59219b/local-r3/operation/612aaf3a9d4adc98ba/21",
+    "acknowledgementOperation": "volvo/cce-filter-service/2020ff59219b/local-r3/operation/612aaf3a9d4adc98ba/23",
+    "sourceSQL": "\n            INSERT INTO components_policy_pno12 (policy_id, pno12, included, components)\n            VALUES (%s, %s, %s, %s)\n            ON CONFLICT (policy_id, pno12) DO NOTHING\n        "
+  },
+  {
+    "write": "volvo/cce-filter-service/2020ff59219b/local-r3/storage_write/92283535e6247d8e69",
+    "effect": "volvo/cce-filter-service/2020ff59219b/local-r3/effect/92283535e6247d8e69",
+    "operation": "volvo/cce-filter-service/2020ff59219b/local-r3/operation/8c7e1a7b65c558df82/21",
+    "acknowledgementOperation": "volvo/cce-filter-service/2020ff59219b/local-r3/operation/8c7e1a7b65c558df82/23",
+    "sourceSQL": "\n            INSERT INTO components_policy_pno12 (policy_id, pno12, included, components)\n            VALUES (%s, %s, %s, %s)\n            ON CONFLICT (policy_id, pno12) DO UPDATE\n            SET included = EXCLUDED.included,\n                components = EXCLUDED.components\n        "
+  },
+  {
+    "write": "volvo/cce-filter-service/2020ff59219b/local-r3/storage_write/f40e3ff0d0e0803ade",
+    "effect": "volvo/cce-filter-service/2020ff59219b/local-r3/effect/f40e3ff0d0e0803ade",
+    "operation": "volvo/cce-filter-service/2020ff59219b/local-r3/operation/dd99a50076cfcf8bfa/21",
+    "acknowledgementOperation": "volvo/cce-filter-service/2020ff59219b/local-r3/operation/dd99a50076cfcf8bfa/23",
+    "sourceSQL": "\n            INSERT INTO components_policy_pno12 (policy_id, pno12, included, components)\n            VALUES (%s, %s, %s, %s)\n            ON CONFLICT (policy_id, pno12) DO UPDATE\n            SET included = EXCLUDED.included,\n                components = EXCLUDED.components\n        "
+  },
+  {
+    "write": "volvo/cce-filter-service/2020ff59219b/local-r3/storage_write/cc130e8a4335ac8ffe",
+    "effect": "volvo/cce-filter-service/2020ff59219b/local-r3/effect/cc130e8a4335ac8ffe",
+    "operation": "volvo/cce-filter-service/2020ff59219b/local-r3/operation/bdd1eaf3cc2b2e3728/14",
+    "acknowledgementOperation": "volvo/cce-filter-service/2020ff59219b/local-r3/operation/bdd1eaf3cc2b2e3728/16",
+    "sourceSQL": "DELETE FROM components_policy_pno12 WHERE policy_id = %s AND pno12 = %s"
+  },
+  {
+    "write": "volvo/cce-filter-service/2020ff59219b/local-r3/storage_write/7f777338d844f9f922",
+    "effect": "volvo/cce-filter-service/2020ff59219b/local-r3/effect/7f777338d844f9f922",
+    "operation": "volvo/cce-filter-service/2020ff59219b/local-r3/operation/e705bf8fbcf8cbe26e/14",
+    "acknowledgementOperation": "volvo/cce-filter-service/2020ff59219b/local-r3/operation/e705bf8fbcf8cbe26e/16",
+    "sourceSQL": "DELETE FROM components_policy_pno12 WHERE policy_id = %s AND pno12 = %s"
+  },
+  {
+    "write": "volvo/cce-filter-service/2020ff59219b/local-r3/storage_write/337f2362c39aeec5a9",
+    "effect": "volvo/cce-filter-service/2020ff59219b/local-r3/effect/337f2362c39aeec5a9",
+    "operation": "volvo/cce-filter-service/2020ff59219b/local-r3/operation/4158521b26eb1b881b/14",
+    "acknowledgementOperation": "volvo/cce-filter-service/2020ff59219b/local-r3/operation/4158521b26eb1b881b/32",
+    "sourceSQL": "DELETE FROM policy_status WHERE policy_id = ANY(%s)"
+  },
+  {
+    "write": "volvo/cce-filter-service/2020ff59219b/local-r3/storage_write/f0e04a478aa6c099f8",
+    "effect": "volvo/cce-filter-service/2020ff59219b/local-r3/effect/f0e04a478aa6c099f8",
+    "operation": "volvo/cce-filter-service/2020ff59219b/local-r3/operation/4158521b26eb1b881b/20",
+    "acknowledgementOperation": "volvo/cce-filter-service/2020ff59219b/local-r3/operation/4158521b26eb1b881b/32",
+    "sourceSQL": "\n                    INSERT INTO policy_status (\n                        request_id,\n                        policy_id,\n                        status,\n                        timestamp\n                    )\n                    VALUES (%s, %s, %s, %s)\n                "
+  },
+  {
+    "write": "volvo/cce-filter-service/2020ff59219b/local-r3/storage_write/67246ab3a6f54769d3",
+    "effect": "volvo/cce-filter-service/2020ff59219b/local-r3/effect/67246ab3a6f54769d3",
+    "operation": "volvo/cce-filter-service/2020ff59219b/local-r3/operation/b954c71a0e13ce3ae1/14",
+    "acknowledgementOperation": "volvo/cce-filter-service/2020ff59219b/local-r3/operation/b954c71a0e13ce3ae1/32",
+    "sourceSQL": "DELETE FROM policy_status WHERE policy_id = ANY(%s)"
+  },
+  {
+    "write": "volvo/cce-filter-service/2020ff59219b/local-r3/storage_write/5b337bf0ef2179c503",
+    "effect": "volvo/cce-filter-service/2020ff59219b/local-r3/effect/5b337bf0ef2179c503",
+    "operation": "volvo/cce-filter-service/2020ff59219b/local-r3/operation/b954c71a0e13ce3ae1/20",
+    "acknowledgementOperation": "volvo/cce-filter-service/2020ff59219b/local-r3/operation/b954c71a0e13ce3ae1/32",
+    "sourceSQL": "\n                    INSERT INTO policy_status (\n                        request_id,\n                        policy_id,\n                        status,\n                        timestamp\n                    )\n                    VALUES (%s, %s, %s, %s)\n                "
+  },
+  {
+    "write": "volvo/cce-filter-service/2020ff59219b/local-r3/storage_write/b48b58422b441fcf6b",
+    "effect": "volvo/cce-filter-service/2020ff59219b/local-r3/effect/b48b58422b441fcf6b",
+    "operation": "volvo/cce-filter-service/2020ff59219b/local-r3/operation/50bc8a50862651ae44/15",
+    "acknowledgementOperation": "volvo/cce-filter-service/2020ff59219b/local-r3/operation/50bc8a50862651ae44/29",
+    "sourceSQL": "UPDATE policy_status SET status = %s WHERE request_id = %s"
+  },
+  {
+    "write": "volvo/cce-filter-service/2020ff59219b/local-r3/storage_write/4d7be92d04ce940d38",
+    "effect": "volvo/cce-filter-service/2020ff59219b/local-r3/effect/4d7be92d04ce940d38",
+    "operation": "volvo/cce-filter-service/2020ff59219b/local-r3/operation/d19511740250a1a854/15",
+    "acknowledgementOperation": "volvo/cce-filter-service/2020ff59219b/local-r3/operation/d19511740250a1a854/29",
+    "sourceSQL": "UPDATE policy_status SET status = %s WHERE request_id = %s"
+  },
+  {
+    "write": "volvo/cce-filter-service/2020ff59219b/local-r3/storage_write/0dbb93d8ffac29d6be",
+    "effect": "volvo/cce-filter-service/2020ff59219b/local-r3/effect/0dbb93d8ffac29d6be",
+    "operation": "volvo/cce-filter-service/2020ff59219b/local-r3/operation/bf43e61f753df9e6bb/13",
+    "acknowledgementOperation": "volvo/cce-filter-service/2020ff59219b/local-r3/operation/bf43e61f753df9e6bb/13",
+    "sourceSQL": "\n            INSERT INTO policy_status_info (\n                request_id,\n                message,\n                timestamp\n            )\n            VALUES (%s, %s, %s)\n        "
+  },
+  {
+    "write": "volvo/cce-filter-service/2020ff59219b/local-r3/storage_write/c1d7b036087ff25a61",
+    "effect": "volvo/cce-filter-service/2020ff59219b/local-r3/effect/c1d7b036087ff25a61",
+    "operation": "volvo/cce-filter-service/2020ff59219b/local-r3/operation/8797c48fe65f498a3f/13",
+    "acknowledgementOperation": "volvo/cce-filter-service/2020ff59219b/local-r3/operation/8797c48fe65f498a3f/13",
+    "sourceSQL": "\n            INSERT INTO policy_status_info (\n                request_id,\n                message,\n                timestamp\n            )\n            VALUES (%s, %s, %s)\n        "
+  },
+  {
+    "write": "volvo/cce-filter-service/2020ff59219b/local-r3/storage_write/f50d46d15131f35d2e",
+    "effect": "volvo/cce-filter-service/2020ff59219b/local-r3/effect/f50d46d15131f35d2e",
+    "operation": "volvo/cce-filter-service/2020ff59219b/local-r3/operation/727f9d27c8852a243d/12",
+    "acknowledgementOperation": "volvo/cce-filter-service/2020ff59219b/local-r3/operation/727f9d27c8852a243d/14",
+    "sourceSQL": "\n            INSERT INTO wheels (code)\n            VALUES (%s)\n            ON CONFLICT (code) DO NOTHING\n        "
+  },
+  {
+    "write": "volvo/cce-filter-service/2020ff59219b/local-r3/storage_write/252ae27443d98e523a",
+    "effect": "volvo/cce-filter-service/2020ff59219b/local-r3/effect/252ae27443d98e523a",
+    "operation": "volvo/cce-filter-service/2020ff59219b/local-r3/operation/8100a3b54cf4774a0b/12",
+    "acknowledgementOperation": "volvo/cce-filter-service/2020ff59219b/local-r3/operation/8100a3b54cf4774a0b/14",
+    "sourceSQL": "\n            INSERT INTO wheels (code)\n            VALUES (%s)\n            ON CONFLICT (code) DO NOTHING\n        "
+  },
+  {
+    "write": "volvo/cce-filter-service/2020ff59219b/local-r3/storage_write/6a322ccd6215986e94",
+    "effect": "volvo/cce-filter-service/2020ff59219b/local-r3/effect/6a322ccd6215986e94",
+    "operation": "volvo/cce-filter-service/2020ff59219b/local-r3/operation/d7de5714ccfd025279/8",
+    "acknowledgementOperation": "volvo/cce-filter-service/2020ff59219b/local-r3/operation/d7de5714ccfd025279/11",
+    "sourceSQL": "DELETE FROM wheels WHERE code = %s"
+  },
+  {
+    "write": "volvo/cce-filter-service/2020ff59219b/local-r3/storage_write/aa289e24dec94a0cb7",
+    "effect": "volvo/cce-filter-service/2020ff59219b/local-r3/effect/aa289e24dec94a0cb7",
+    "operation": "volvo/cce-filter-service/2020ff59219b/local-r3/operation/64b216c3467667ec35/8",
+    "acknowledgementOperation": "volvo/cce-filter-service/2020ff59219b/local-r3/operation/64b216c3467667ec35/11",
+    "sourceSQL": "DELETE FROM wheels WHERE code = %s"
+  }
+]

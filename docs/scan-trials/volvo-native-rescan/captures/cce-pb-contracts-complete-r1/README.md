@@ -1,0 +1,7 @@
+# CCE configuration protobuf contracts
+
+Selected snapshot `9d5411b64c10e530e8307fb8c6dc9f0c1b3b76151a769f6f94a1c746385d08c5` contains **961 records** and **515 checked pinned ranges**. All 21 files are reviewed, including19protobuf files with102messages,4 enums and358fields. This repository declares schemas; it has no running components, endpoints, stores or subscriptions to invent.
+
+Independent review read all 21 pinned files and passed11strict catalogue queries across34pages, including fully consumed pagination with duplicate requested IDs. Nested lexical types, recursive references, v1/v2 identity, wire tags, repeated item shapes, explicitoptional/deprecated source options and enum numeric zero are retained. Nonsequential field numbers are not inferred reserved tags. The exact ParterNames spelling remains. Google Timestamp is an explicit external-source gap; runtime codec/default/JSON behaviour and generated/deployed correspondence are separate.
+
+The author pack passes213strict queries/pages with no traversal limits; all 19 seal files verify. [Compressed bundle](bundle.json.gz), [snapshot](snapshot.json), [report](REPORT.md), [handoff](HANDOFF.md), [field ledger](fields-ledger.json), [independent acceptance](independent-review/root-acceptance.json) and [publication equality](publication-equality.json) retain the proof. Decompress into a new file for validation/import. No production app migration or live source-system call was made.

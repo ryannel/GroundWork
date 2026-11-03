@@ -1,0 +1,548 @@
+[
+  {
+    "entry": "s2/endpoint",
+    "logicalId": "api:mas-soft-offers-create",
+    "implementation": "s2/http",
+    "role": "immutable historical proof",
+    "evidence": ["s2/e/controller"],
+    "coverage": [],
+    "gaps": ["s2/gap/deployment", "s2/gap/http-scope", "u3/gap/soft-wire"]
+  },
+  {
+    "entry": "assortment-6114c5d-complete-r5/retained/entry/controller/About-GetVersionV1",
+    "logicalId": "api:assortment-controller-About-GetVersionV1",
+    "implementation": "assortment-6114c5d-complete-r5/method/ab49b3ed4b1df0a1",
+    "role": "current source entry",
+    "evidence": ["assortment-6114c5d-complete-r5/retained/e/b91fd64edb22"],
+    "coverage": ["assortment-6114c5d-complete-r5/source-body/ab49b3ed4b1df0a1"],
+    "gaps": []
+  },
+  {
+    "entry": "assortment-6114c5d-complete-r5/retained/entry/controller/Cache-RemoveCarConfigFromCache",
+    "logicalId": "api:assortment-admin-remove-carconfig",
+    "implementation": "assortment-6114c5d-complete-r5/method/badd92b2b3e7da40",
+    "role": "current source entry",
+    "evidence": ["assortment-6114c5d-complete-r5/retained/e/e3e42d0eef01"],
+    "coverage": ["assortment-6114c5d-complete-r5/source-body/badd92b2b3e7da40"],
+    "gaps": []
+  },
+  {
+    "entry": "assortment-6114c5d-complete-r5/retained/entry/controller/Cache-RemoveExternalCarCodeFromCache",
+    "logicalId": "api:assortment-admin-remove-external-car-code",
+    "implementation": "assortment-6114c5d-complete-r5/method/0055bf32a7b9f806",
+    "role": "current source entry",
+    "evidence": ["assortment-6114c5d-complete-r5/retained/e/8271fcaad771"],
+    "coverage": ["assortment-6114c5d-complete-r5/source-body/0055bf32a7b9f806"],
+    "gaps": []
+  },
+  {
+    "entry": "assortment-6114c5d-complete-r5/retained/entry/controller/Cache-RemoveProductDetailsFromCache",
+    "logicalId": "api:assortment-admin-remove-product-details",
+    "implementation": "assortment-6114c5d-complete-r5/method/375d7b92c79d4381",
+    "role": "current source entry",
+    "evidence": ["assortment-6114c5d-complete-r5/retained/e/5eb6ce815583"],
+    "coverage": ["assortment-6114c5d-complete-r5/source-body/375d7b92c79d4381"],
+    "gaps": []
+  },
+  {
+    "entry": "assortment-6114c5d-complete-r5/retained/entry/controller/Cache-ImportProductDetails",
+    "logicalId": "api:assortment-admin-import-product-details",
+    "implementation": "assortment-6114c5d-complete-r5/method/1afae546d3c34bac",
+    "role": "current source entry",
+    "evidence": ["assortment-6114c5d-complete-r5/retained/e/67e48fbdf13f"],
+    "coverage": ["assortment-6114c5d-complete-r5/source-body/1afae546d3c34bac"],
+    "gaps": []
+  },
+  {
+    "entry": "assortment-6114c5d-complete-r5/retained/entry/controller/Cache-ImportUpstreamEntities",
+    "logicalId": "api:assortment-admin-import-upstream-entities",
+    "implementation": "assortment-6114c5d-complete-r5/method/a0ecd09c96559ed2",
+    "role": "current source entry",
+    "evidence": ["assortment-6114c5d-complete-r5/retained/e/660d6c258a53"],
+    "coverage": ["assortment-6114c5d-complete-r5/source-body/a0ecd09c96559ed2"],
+    "gaps": []
+  },
+  {
+    "entry": "assortment-6114c5d-complete-r5/retained/entry/controller/CarConfig-GetCarConfig",
+    "logicalId": "api:assortment-carconfig-get",
+    "implementation": "assortment-6114c5d-complete-r5/method/7bb323018fea3ec2",
+    "role": "current source entry",
+    "evidence": ["assortment-6114c5d-complete-r5/retained/e/9f62e5fbc62e"],
+    "coverage": ["assortment-6114c5d-complete-r5/source-body/7bb323018fea3ec2"],
+    "gaps": []
+  },
+  {
+    "entry": "assortment-6114c5d-complete-r5/retained/entry/controller/CarConfig-ListPno12s",
+    "logicalId": "api:assortment-carconfig-pno12s",
+    "implementation": "assortment-6114c5d-complete-r5/method/c63c49afa6109dd7",
+    "role": "current source entry",
+    "evidence": ["assortment-6114c5d-complete-r5/retained/e/c11398ddabdb"],
+    "coverage": ["assortment-6114c5d-complete-r5/source-body/c63c49afa6109dd7"],
+    "gaps": []
+  },
+  {
+    "entry": "assortment-6114c5d-complete-r5/retained/entry/controller/Classification-GetAllClassifications",
+    "logicalId": "api:assortment-classifications-list",
+    "implementation": "assortment-6114c5d-complete-r5/method/9a26688178c977cd",
+    "role": "current source entry",
+    "evidence": ["assortment-6114c5d-complete-r5/retained/e/3bdaa9e0a918"],
+    "coverage": ["assortment-6114c5d-complete-r5/source-body/9a26688178c977cd"],
+    "gaps": []
+  },
+  {
+    "entry": "assortment-6114c5d-complete-r5/retained/entry/controller/ExternalCarCode-GetExternalCarCode",
+    "logicalId": "api:assortment-external-car-code-get",
+    "implementation": "assortment-6114c5d-complete-r5/method/5e49b65eae463c8e",
+    "role": "current source entry",
+    "evidence": ["assortment-6114c5d-complete-r5/retained/e/1cb44aad573a"],
+    "coverage": ["assortment-6114c5d-complete-r5/source-body/5e49b65eae463c8e"],
+    "gaps": []
+  },
+  {
+    "entry": "assortment-6114c5d-complete-r5/retained/entry/controller/ExternalCarCode-GetExternalComponentCode",
+    "logicalId": "api:assortment-external-component-code-get",
+    "implementation": "assortment-6114c5d-complete-r5/method/9a0c5e340284f9ec",
+    "role": "current source entry",
+    "evidence": ["assortment-6114c5d-complete-r5/retained/e/72a726c8f5db"],
+    "coverage": ["assortment-6114c5d-complete-r5/source-body/9a0c5e340284f9ec"],
+    "gaps": []
+  },
+  {
+    "entry": "assortment-6114c5d-complete-r5/retained/entry/controller/GlobalDictionary-GetGlobalDictionaryEntries",
+    "logicalId": "api:assortment-global-dictionary-entries",
+    "implementation": "assortment-6114c5d-complete-r5/method/46ea90244d9a551f",
+    "role": "current source entry",
+    "evidence": ["assortment-6114c5d-complete-r5/retained/e/61a4263a83bd"],
+    "coverage": ["assortment-6114c5d-complete-r5/source-body/46ea90244d9a551f"],
+    "gaps": []
+  },
+  {
+    "entry": "assortment-6114c5d-complete-r5/retained/entry/controller/MarketAuth-GetMarketAuthEntries",
+    "logicalId": "api:assortment-market-auth-entries",
+    "implementation": "assortment-6114c5d-complete-r5/method/ca2cbe51de321e57",
+    "role": "current source entry",
+    "evidence": ["assortment-6114c5d-complete-r5/retained/e/5e0e63bc9973"],
+    "coverage": ["assortment-6114c5d-complete-r5/source-body/ca2cbe51de321e57"],
+    "gaps": []
+  },
+  {
+    "entry": "assortment-6114c5d-complete-r5/retained/entry/controller/ProductDetails-GetProductById",
+    "logicalId": "api:assortment-product-get",
+    "implementation": "assortment-6114c5d-complete-r5/method/fdc02f3331519fc9",
+    "role": "current source entry",
+    "evidence": ["assortment-6114c5d-complete-r5/retained/e/14e85f0d79c3"],
+    "coverage": ["assortment-6114c5d-complete-r5/source-body/fdc02f3331519fc9"],
+    "gaps": []
+  },
+  {
+    "entry": "assortment-6114c5d-complete-r5/retained/entry/controller/ProductDetails-BatchGetProductByIds",
+    "logicalId": "api:assortment-products-batch",
+    "implementation": "assortment-6114c5d-complete-r5/method/1712f65e7001d702",
+    "role": "current source entry",
+    "evidence": ["assortment-6114c5d-complete-r5/retained/e/1c01c9ac25ef"],
+    "coverage": ["assortment-6114c5d-complete-r5/source-body/1712f65e7001d702"],
+    "gaps": []
+  },
+  {
+    "entry": "assortment-6114c5d-complete-r5/retained/entry/controller/ProductDetails-GetProductTypeById",
+    "logicalId": "api:assortment-product-type-by-product",
+    "implementation": "assortment-6114c5d-complete-r5/method/8ff7311d70b0dfbe",
+    "role": "current source entry",
+    "evidence": ["assortment-6114c5d-complete-r5/retained/e/1d07dfe66676"],
+    "coverage": ["assortment-6114c5d-complete-r5/source-body/8ff7311d70b0dfbe"],
+    "gaps": []
+  },
+  {
+    "entry": "assortment-6114c5d-complete-r5/retained/entry/controller/ProductDetails-ListProductsByType",
+    "logicalId": "api:assortment-products-by-type",
+    "implementation": "assortment-6114c5d-complete-r5/method/ef1a402dbbcc9537",
+    "role": "current source entry",
+    "evidence": ["assortment-6114c5d-complete-r5/retained/e/d59cb0950d25"],
+    "coverage": ["assortment-6114c5d-complete-r5/source-body/ef1a402dbbcc9537"],
+    "gaps": []
+  },
+  {
+    "entry": "assortment-6114c5d-complete-r5/retained/entry/controller/ProductDetails-GetVariantById",
+    "logicalId": "api:assortment-variant-get",
+    "implementation": "assortment-6114c5d-complete-r5/method/7fc4b2b3b8169a83",
+    "role": "current source entry",
+    "evidence": ["assortment-6114c5d-complete-r5/retained/e/7171711af0d9"],
+    "coverage": ["assortment-6114c5d-complete-r5/source-body/7fc4b2b3b8169a83"],
+    "gaps": []
+  },
+  {
+    "entry": "assortment-6114c5d-complete-r5/retained/entry/controller/ProductDetails-BatchGetVariantByIds",
+    "logicalId": "api:assortment-variants-batch",
+    "implementation": "assortment-6114c5d-complete-r5/method/666eefd338942c92",
+    "role": "current source entry",
+    "evidence": ["assortment-6114c5d-complete-r5/retained/e/0115721f2d56"],
+    "coverage": ["assortment-6114c5d-complete-r5/source-body/666eefd338942c92"],
+    "gaps": []
+  },
+  {
+    "entry": "assortment-6114c5d-complete-r5/retained/entry/controller/ProductDetails-GetProductTypeByVariantId",
+    "logicalId": "api:assortment-product-type-by-variant",
+    "implementation": "assortment-6114c5d-complete-r5/method/4b5522d0090d2072",
+    "role": "current source entry",
+    "evidence": ["assortment-6114c5d-complete-r5/retained/e/5bcc9d7c7377"],
+    "coverage": ["assortment-6114c5d-complete-r5/source-body/4b5522d0090d2072"],
+    "gaps": []
+  },
+  {
+    "entry": "assortment-6114c5d-complete-r5/retained/entry/controller/ProductDetails-GetVariantsByProductId",
+    "logicalId": "api:assortment-variants-by-product",
+    "implementation": "assortment-6114c5d-complete-r5/method/c3660ad69f5da388",
+    "role": "current source entry",
+    "evidence": ["assortment-6114c5d-complete-r5/retained/e/9aff099ed8ed"],
+    "coverage": ["assortment-6114c5d-complete-r5/source-body/c3660ad69f5da388"],
+    "gaps": []
+  },
+  {
+    "entry": "assortment-6114c5d-complete-r5/retained/entry/controller/ProductDetails-ListVariantsByType",
+    "logicalId": "api:assortment-variants-by-type",
+    "implementation": "assortment-6114c5d-complete-r5/method/ff7bf8ba5826041d",
+    "role": "current source entry",
+    "evidence": ["assortment-6114c5d-complete-r5/retained/e/c3b78e1e0585"],
+    "coverage": ["assortment-6114c5d-complete-r5/source-body/ff7bf8ba5826041d"],
+    "gaps": []
+  },
+  {
+    "entry": "assortment-6114c5d-complete-r5/retained/entry/controller/ProductDetails-ListAvailableProductTypes",
+    "logicalId": "api:assortment-product-types-list",
+    "implementation": "assortment-6114c5d-complete-r5/method/f9c0c1e41948b6c8",
+    "role": "current source entry",
+    "evidence": ["assortment-6114c5d-complete-r5/retained/e/a2504660b3a6"],
+    "coverage": ["assortment-6114c5d-complete-r5/source-body/f9c0c1e41948b6c8"],
+    "gaps": []
+  },
+  {
+    "entry": "assortment-6114c5d-complete-r5/retained/entry/controller/ProductDetails-TransformationCarTokenToVariant",
+    "logicalId": "api:assortment-transformation",
+    "implementation": "assortment-6114c5d-complete-r5/method/0bcdc8a0e026a9a7",
+    "role": "current source entry",
+    "evidence": ["assortment-6114c5d-complete-r5/retained/e/c51e65160251"],
+    "coverage": ["assortment-6114c5d-complete-r5/source-body/0bcdc8a0e026a9a7"],
+    "gaps": []
+  },
+  {
+    "entry": "assortment-6114c5d-complete-r5/retained/entry/controller/Products-GetProductOutput",
+    "logicalId": "api:assortment-products-output",
+    "implementation": "assortment-6114c5d-complete-r5/method/3de91935cfc756f5",
+    "role": "current source entry",
+    "evidence": ["assortment-6114c5d-complete-r5/retained/e/7c81f64c2c03"],
+    "coverage": ["assortment-6114c5d-complete-r5/source-body/3de91935cfc756f5"],
+    "gaps": []
+  },
+  {
+    "entry": "assortment-6114c5d-complete-r5/retained/entry/controller/Products-GetProductOutputWithoutCodes",
+    "logicalId": "api:assortment-products-output-without-codes",
+    "implementation": "assortment-6114c5d-complete-r5/method/2cc5de602184a380",
+    "role": "current source entry",
+    "evidence": ["assortment-6114c5d-complete-r5/retained/e/5d7cd07e969e"],
+    "coverage": ["assortment-6114c5d-complete-r5/source-body/2cc5de602184a380"],
+    "gaps": []
+  },
+  {
+    "entry": "assortment-6114c5d-complete-r5/retained/entry/controller/SpecMarket-GetSpecMarkets",
+    "logicalId": "api:assortment-spec-markets-list",
+    "implementation": "assortment-6114c5d-complete-r5/method/79f5d55a657ede18",
+    "role": "current source entry",
+    "evidence": ["assortment-6114c5d-complete-r5/retained/e/c4b19caaf2a7"],
+    "coverage": ["assortment-6114c5d-complete-r5/source-body/79f5d55a657ede18"],
+    "gaps": []
+  },
+  {
+    "entry": "assortment-6114c5d-complete-r5/retained/entry/controller/Specification-GetSpecifications",
+    "logicalId": "api:assortment-specifications-list",
+    "implementation": "assortment-6114c5d-complete-r5/method/b954b1c5dcac3bfb",
+    "role": "current source entry",
+    "evidence": ["assortment-6114c5d-complete-r5/retained/e/5c48c500109a"],
+    "coverage": ["assortment-6114c5d-complete-r5/source-body/b954b1c5dcac3bfb"],
+    "gaps": []
+  },
+  {
+    "entry": "assortment-6114c5d-complete-r5/retained/entry/controller/Specification-GetSpecificationValues",
+    "logicalId": "api:assortment-specification-values-list",
+    "implementation": "assortment-6114c5d-complete-r5/method/8048dd7d58b7b528",
+    "role": "current source entry",
+    "evidence": ["assortment-6114c5d-complete-r5/retained/e/7af775851bd3"],
+    "coverage": ["assortment-6114c5d-complete-r5/source-body/8048dd7d58b7b528"],
+    "gaps": []
+  },
+  {
+    "entry": "assortment-6114c5d-complete-r5/retained/entry/health/Host--health-startup",
+    "logicalId": "api:assortment-health-Host--health-startup",
+    "implementation": "assortment-6114c5d-complete-r5/retained/impl/health/Host--health-startup",
+    "role": "source health registration; framework execution boundary",
+    "evidence": ["assortment-6114c5d-complete-r5/retained/e/6de013794720"],
+    "coverage": [],
+    "gaps": []
+  },
+  {
+    "entry": "assortment-6114c5d-complete-r5/retained/entry/health/Host--health-ready",
+    "logicalId": "api:assortment-health-Host--health-ready",
+    "implementation": "assortment-6114c5d-complete-r5/retained/impl/health/Host--health-ready",
+    "role": "source health registration; framework execution boundary",
+    "evidence": ["assortment-6114c5d-complete-r5/retained/e/b20eb0d0d1dc"],
+    "coverage": [],
+    "gaps": []
+  },
+  {
+    "entry": "assortment-6114c5d-complete-r5/retained/entry/health/Host--health-live",
+    "logicalId": "api:assortment-health-Host--health-live",
+    "implementation": "assortment-6114c5d-complete-r5/retained/impl/health/Host--health-live",
+    "role": "source health registration; framework execution boundary",
+    "evidence": ["assortment-6114c5d-complete-r5/retained/e/a8402b24a52a"],
+    "coverage": [],
+    "gaps": []
+  },
+  {
+    "entry": "assortment-6114c5d-complete-r5/retained/entry/health/Host--health",
+    "logicalId": "api:assortment-health-Host--health",
+    "implementation": "assortment-6114c5d-complete-r5/retained/impl/health/Host--health",
+    "role": "source health registration; framework execution boundary",
+    "evidence": ["assortment-6114c5d-complete-r5/retained/e/3bb67acffae5"],
+    "coverage": [],
+    "gaps": []
+  },
+  {
+    "entry": "assortment-6114c5d-complete-r5/retained/entry/health/Ocelot.Host--health-startup",
+    "logicalId": "api:assortment-health-Ocelot.Host--health-startup",
+    "implementation": "assortment-6114c5d-complete-r5/retained/impl/health/Ocelot.Host--health-startup",
+    "role": "source health registration; framework execution boundary",
+    "evidence": ["assortment-6114c5d-complete-r5/retained/e/d9ba50688f1e"],
+    "coverage": [],
+    "gaps": []
+  },
+  {
+    "entry": "assortment-6114c5d-complete-r5/retained/entry/health/Ocelot.Host--health-ready",
+    "logicalId": "api:assortment-health-Ocelot.Host--health-ready",
+    "implementation": "assortment-6114c5d-complete-r5/retained/impl/health/Ocelot.Host--health-ready",
+    "role": "source health registration; framework execution boundary",
+    "evidence": ["assortment-6114c5d-complete-r5/retained/e/ca0d801faee0"],
+    "coverage": [],
+    "gaps": []
+  },
+  {
+    "entry": "assortment-6114c5d-complete-r5/retained/entry/health/Ocelot.Host--health-live",
+    "logicalId": "api:assortment-health-Ocelot.Host--health-live",
+    "implementation": "assortment-6114c5d-complete-r5/retained/impl/health/Ocelot.Host--health-live",
+    "role": "source health registration; framework execution boundary",
+    "evidence": ["assortment-6114c5d-complete-r5/retained/e/f081ff3bf5fd"],
+    "coverage": [],
+    "gaps": []
+  },
+  {
+    "entry": "assortment-6114c5d-complete-r5/retained/entry/health/Ocelot.Host--health",
+    "logicalId": "api:assortment-health-Ocelot.Host--health",
+    "implementation": "assortment-6114c5d-complete-r5/retained/impl/health/Ocelot.Host--health",
+    "role": "source health registration; framework execution boundary",
+    "evidence": ["assortment-6114c5d-complete-r5/retained/e/937c8e437331"],
+    "coverage": [],
+    "gaps": []
+  },
+  {
+    "entry": "assortment-6114c5d-complete-r5/retained/entry/swagger/Ocelot.Host-proxy",
+    "logicalId": "api:assortment-swagger-Ocelot.Host-proxy",
+    "implementation": "assortment-6114c5d-complete-r5/method/06917e823e5bb57e",
+    "role": "current source entry",
+    "evidence": [
+      "assortment-6114c5d-complete-r5/retained/e/bb56f4fd0e74",
+      "assortment-6114c5d-complete-r5/retained/e/e04028a8d964"
+    ],
+    "coverage": ["assortment-6114c5d-complete-r5/source-body/06917e823e5bb57e"],
+    "gaps": []
+  },
+  {
+    "entry": "assortment-6114c5d-complete-r5/retained/entry/gateway/0",
+    "logicalId": "api:assortment-gateway-0",
+    "implementation": "assortment-6114c5d-complete-r5/retained/impl/gateway/0",
+    "role": "gateway configuration registration with imported Ocelot execution boundary",
+    "evidence": ["assortment-6114c5d-complete-r5/retained/e/336453a6edc8"],
+    "coverage": [],
+    "gaps": []
+  },
+  {
+    "entry": "assortment-6114c5d-complete-r5/retained/entry/gateway/1",
+    "logicalId": "api:assortment-gateway-1",
+    "implementation": "assortment-6114c5d-complete-r5/retained/impl/gateway/1",
+    "role": "gateway configuration registration with imported Ocelot execution boundary",
+    "evidence": ["assortment-6114c5d-complete-r5/retained/e/ffbc34c62c28"],
+    "coverage": [],
+    "gaps": []
+  },
+  {
+    "entry": "assortment-6114c5d-complete-r5/retained/entry/gateway/2",
+    "logicalId": "api:assortment-gateway-2",
+    "implementation": "assortment-6114c5d-complete-r5/retained/impl/gateway/2",
+    "role": "gateway configuration registration with imported Ocelot execution boundary",
+    "evidence": ["assortment-6114c5d-complete-r5/retained/e/d33cd0c650c8"],
+    "coverage": [],
+    "gaps": []
+  },
+  {
+    "entry": "assortment-6114c5d-complete-r5/retained/entry/gateway/3",
+    "logicalId": "api:assortment-gateway-3",
+    "implementation": "assortment-6114c5d-complete-r5/retained/impl/gateway/3",
+    "role": "gateway configuration registration with imported Ocelot execution boundary",
+    "evidence": ["assortment-6114c5d-complete-r5/retained/e/6d4323ba58ba"],
+    "coverage": [],
+    "gaps": []
+  },
+  {
+    "entry": "assortment-6114c5d-complete-r5/retained/entry/gateway/4",
+    "logicalId": "api:assortment-gateway-4",
+    "implementation": "assortment-6114c5d-complete-r5/retained/impl/gateway/4",
+    "role": "gateway configuration registration with imported Ocelot execution boundary",
+    "evidence": ["assortment-6114c5d-complete-r5/retained/e/da1617f86a37"],
+    "coverage": [],
+    "gaps": []
+  },
+  {
+    "entry": "assortment-6114c5d-complete-r5/retained/entry/gateway/5",
+    "logicalId": "api:assortment-gateway-5",
+    "implementation": "assortment-6114c5d-complete-r5/retained/impl/gateway/5",
+    "role": "gateway configuration registration with imported Ocelot execution boundary",
+    "evidence": ["assortment-6114c5d-complete-r5/retained/e/3cec724b6581"],
+    "coverage": [],
+    "gaps": []
+  },
+  {
+    "entry": "assortment-6114c5d-complete-r5/retained/entry/gateway/6",
+    "logicalId": "api:assortment-gateway-6",
+    "implementation": "assortment-6114c5d-complete-r5/retained/impl/gateway/6",
+    "role": "gateway configuration registration with imported Ocelot execution boundary",
+    "evidence": ["assortment-6114c5d-complete-r5/retained/e/94e9f55ad3a7"],
+    "coverage": [],
+    "gaps": []
+  },
+  {
+    "entry": "assortment-6114c5d-complete-r5/retained/entry/job/kafka-loop",
+    "logicalId": "api:assortment-job-kafka-loop",
+    "implementation": "assortment-6114c5d-complete-r5/method/a9ca5ded7068efba",
+    "role": "current source entry",
+    "evidence": [
+      "assortment-6114c5d-complete-r5/retained/e/eeff40d9e1dc",
+      "assortment-6114c5d-complete-r5/retained/e/4dd87ea6c77d"
+    ],
+    "coverage": ["assortment-6114c5d-complete-r5/source-body/a9ca5ded7068efba"],
+    "gaps": []
+  },
+  {
+    "entry": "assortment-6114c5d-complete-r5/processor/ClassificationMessageProcessor",
+    "logicalId": "entry:assortment:processor:ClassificationMessageProcessor",
+    "implementation": "assortment-6114c5d-complete-r5/method/2243a593331345b6",
+    "role": "direct source processor entry; not a second registration",
+    "evidence": ["assortment-6114c5d-complete-r5/e/58ad3b1d19c6156a"],
+    "coverage": ["assortment-6114c5d-complete-r5/source-body/2243a593331345b6"],
+    "gaps": []
+  },
+  {
+    "entry": "assortment-6114c5d-complete-r5/processor/ManageCommercialMessageProcessor",
+    "logicalId": "entry:assortment:processor:ManageCommercialMessageProcessor",
+    "implementation": "assortment-6114c5d-complete-r5/method/8391a5c6e6acdb01",
+    "role": "direct source processor entry; not a second registration",
+    "evidence": ["assortment-6114c5d-complete-r5/e/df55fc9310c08f74"],
+    "coverage": ["assortment-6114c5d-complete-r5/source-body/8391a5c6e6acdb01"],
+    "gaps": []
+  },
+  {
+    "entry": "assortment-6114c5d-complete-r5/processor/ManageSegmentMessageProcessor",
+    "logicalId": "entry:assortment:processor:ManageSegmentMessageProcessor",
+    "implementation": "assortment-6114c5d-complete-r5/method/0750ad38e178ce3e",
+    "role": "direct source processor entry; not a second registration",
+    "evidence": ["assortment-6114c5d-complete-r5/e/e1173176071b1aaa"],
+    "coverage": ["assortment-6114c5d-complete-r5/source-body/0750ad38e178ce3e"],
+    "gaps": []
+  },
+  {
+    "entry": "assortment-6114c5d-complete-r5/processor/PCFCarConfigMessageProcessor",
+    "logicalId": "entry:assortment:processor:PCFCarConfigMessageProcessor",
+    "implementation": "assortment-6114c5d-complete-r5/method/ff982fac4f07c495",
+    "role": "direct source processor entry; not a second registration",
+    "evidence": ["assortment-6114c5d-complete-r5/e/7427221d0787ac81"],
+    "coverage": ["assortment-6114c5d-complete-r5/source-body/ff982fac4f07c495"],
+    "gaps": []
+  },
+  {
+    "entry": "assortment-6114c5d-complete-r5/processor/PCFGlobalDictionaryEntriesMessageProcessor",
+    "logicalId": "entry:assortment:processor:PCFGlobalDictionaryEntriesMessageProcessor",
+    "implementation": "assortment-6114c5d-complete-r5/method/6950c90c3e9b9dde",
+    "role": "direct source processor entry; not a second registration",
+    "evidence": ["assortment-6114c5d-complete-r5/e/fa3b7fcd4383bbd4"],
+    "coverage": ["assortment-6114c5d-complete-r5/source-body/6950c90c3e9b9dde"],
+    "gaps": []
+  },
+  {
+    "entry": "assortment-6114c5d-complete-r5/processor/PCFGlobalDictionaryMessageProcessor",
+    "logicalId": "entry:assortment:processor:PCFGlobalDictionaryMessageProcessor",
+    "implementation": "assortment-6114c5d-complete-r5/method/994032e4240662cf",
+    "role": "direct source processor entry; not a second registration",
+    "evidence": ["assortment-6114c5d-complete-r5/e/ae20bb58530c754a"],
+    "coverage": ["assortment-6114c5d-complete-r5/source-body/994032e4240662cf"],
+    "gaps": []
+  },
+  {
+    "entry": "assortment-6114c5d-complete-r5/processor/PCFMarketAuthEntriesMessageProcessor",
+    "logicalId": "entry:assortment:processor:PCFMarketAuthEntriesMessageProcessor",
+    "implementation": "assortment-6114c5d-complete-r5/method/023017b36257865a",
+    "role": "direct source processor entry; not a second registration",
+    "evidence": ["assortment-6114c5d-complete-r5/e/400481df049ada1f"],
+    "coverage": ["assortment-6114c5d-complete-r5/source-body/023017b36257865a"],
+    "gaps": []
+  },
+  {
+    "entry": "assortment-6114c5d-complete-r5/processor/PCFMarketAuthMessageProcessor",
+    "logicalId": "entry:assortment:processor:PCFMarketAuthMessageProcessor",
+    "implementation": "assortment-6114c5d-complete-r5/method/b0955333753acea2",
+    "role": "direct source processor entry; not a second registration",
+    "evidence": ["assortment-6114c5d-complete-r5/e/b9f3972d5e02fdc5"],
+    "coverage": ["assortment-6114c5d-complete-r5/source-body/b0955333753acea2"],
+    "gaps": []
+  },
+  {
+    "entry": "assortment-6114c5d-complete-r5/processor/PDSMessageProcessor",
+    "logicalId": "entry:assortment:processor:PDSMessageProcessor",
+    "implementation": "assortment-6114c5d-complete-r5/method/80fdbb3682ae5ff2",
+    "role": "direct source processor entry; not a second registration",
+    "evidence": ["assortment-6114c5d-complete-r5/e/c598b55b515b9d1d"],
+    "coverage": ["assortment-6114c5d-complete-r5/source-body/80fdbb3682ae5ff2"],
+    "gaps": []
+  },
+  {
+    "entry": "assortment-6114c5d-complete-r5/processor/SpecificationMessageProcessor",
+    "logicalId": "entry:assortment:processor:SpecificationMessageProcessor",
+    "implementation": "assortment-6114c5d-complete-r5/method/da272a8efd21f55e",
+    "role": "direct source processor entry; not a second registration",
+    "evidence": ["assortment-6114c5d-complete-r5/e/9737ea0e24ab457b"],
+    "coverage": ["assortment-6114c5d-complete-r5/source-body/da272a8efd21f55e"],
+    "gaps": []
+  },
+  {
+    "entry": "assortment-6114c5d-complete-r5/process/e4afeccaf6b4306a",
+    "logicalId": "entry:assortment:process:src/PopCat.Assortment.Ocelot.Host/Program.cs",
+    "implementation": "assortment-6114c5d-complete-r5/method/e4afeccaf6b4306a",
+    "role": "source process entry",
+    "evidence": ["assortment-6114c5d-complete-r5/e/8eb3358872b8870c"],
+    "coverage": ["assortment-6114c5d-complete-r5/source-body/e4afeccaf6b4306a"],
+    "gaps": []
+  },
+  {
+    "entry": "assortment-6114c5d-complete-r5/process/b6981fb259d19a11",
+    "logicalId": "entry:assortment:process:src/PopCat.Assortment.Host/Program.cs",
+    "implementation": "assortment-6114c5d-complete-r5/method/b6981fb259d19a11",
+    "role": "source process entry",
+    "evidence": ["assortment-6114c5d-complete-r5/e/7e37f9908c895f11"],
+    "coverage": ["assortment-6114c5d-complete-r5/source-body/b6981fb259d19a11"],
+    "gaps": []
+  },
+  {
+    "entry": "assortment-6114c5d-complete-r5/process/0a262b975a9e75be",
+    "logicalId": "entry:assortment:process:src/PopCat.Assortment.CacheWorker.Host/Program.cs",
+    "implementation": "assortment-6114c5d-complete-r5/method/0a262b975a9e75be",
+    "role": "source process entry",
+    "evidence": ["assortment-6114c5d-complete-r5/e/98d38b14e04d9e4e"],
+    "coverage": ["assortment-6114c5d-complete-r5/source-body/0a262b975a9e75be"],
+    "gaps": []
+  }
+]

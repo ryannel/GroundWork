@@ -1,0 +1,11 @@
+
+> groundwork@0.0.0 knowledge:validate
+> node --import ./tools/register.ts --conditions=react-server tools/validate-knowledge.ts reports/volvo-native-rescan/psp-integration-complete/revision-002/bundle.json --sources /Users/RNEL/.cache/groundwork/clones
+
+{
+  "snapshot": "b70c8fd860424a42de9de948c21109efc6cee4e340ced841c0ec50d45d7586ac",
+  "bundles": 1,
+  "records": 31278,
+  "sourceRangesChecked": 3868,
+  "sourceVerification": "pinned_local_files"
+}

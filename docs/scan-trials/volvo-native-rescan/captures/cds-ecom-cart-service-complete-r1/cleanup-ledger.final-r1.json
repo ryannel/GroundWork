@@ -1,0 +1,16 @@
+[
+  {
+    "owner": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/method/1bed170b53418ea3d7bb",
+    "path": "src/main/java/com/volvocars/ecom/cart/input/graphql/GraphQlController.java",
+    "lines": [48, 53],
+    "resources": ["InputStream inputStream = resource.getInputStream()"],
+    "status": "source_language_policy_association_imported_close_frontier"
+  },
+  {
+    "owner": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/method/b04ca1f6c5436e384160",
+    "path": "src/main/java/com/volvocars/ecom/cart/output/offer/FakeOfferRestClient.java",
+    "lines": [33, 37],
+    "resources": ["InputStream inputStream = resource.getInputStream()"],
+    "status": "source_language_policy_association_imported_close_frontier"
+  }
+]

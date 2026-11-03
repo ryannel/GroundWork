@@ -1,0 +1,10 @@
+{
+  "repo": "volvo-cars/graphql-federation-router",
+  "commit": "b8e0790b09e8f6772b8ada267a1e5114ab4fc707",
+  "tree": "4e740824cc5b4f7e4786f68872be935892e907e1",
+  "ref": "b8e0790b09e8f6772b8ada267a1e5114ab4fc707",
+  "environmentDigest": "56f3551408675f847a82a52a73d7021d6893f22514750eb84ea556ea01cd35db",
+  "configDigest": "fc0ff0bb089e828b3a18fb0b4abca69b3d8b61d84f3c7a48b12ea0edb934bb78",
+  "toolchainDigest": "b16ded74a22257e77b0812ca305eacec645a6c40e4eb4996451698b7a2417db0",
+  "ruleDigest": "4588b092f7c1ebdf6cf0fbaa09eb21432b858331b4309986508f3055f36d9a6c"
+}

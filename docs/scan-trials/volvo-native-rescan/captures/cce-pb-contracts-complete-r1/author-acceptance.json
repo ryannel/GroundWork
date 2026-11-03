@@ -1,0 +1,1507 @@
+{
+  "snapshot": "9d5411b64c10e530e8307fb8c6dc9f0c1b3b76151a769f6f94a1c746385d08c5",
+  "records": 961,
+  "queries": [
+    {
+      "name": "google.protobuf.Timestamp imported declaration; source unavailable",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "Protobuf scalar string declaration",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "volvocars.contracts.carconfiguration.CarKey.options repeated string",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "volvocars.contracts.carconfiguration.CarKey.packages repeated string",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "volvocars.contracts.carconfiguration.CarKey protobuf message declaration",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "volvocars.contracts.carconfiguration.CarConfigurationAdded protobuf message declaration",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "volvocars.contracts.carconfiguration.CarConfigurationRemoved protobuf message declaration",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "volvocars.contracts.carconfiguration.CarSyncCompleted protobuf message declaration",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "volvocars.contracts.carconfiguration.CarSyncFailed protobuf message declaration",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "volvocars.contracts.carconfiguration.Component protobuf message declaration",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "volvocars.contracts.carconfiguration.ComponentMeta protobuf message declaration",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "volvocars.contracts.carconfiguration.ComponentType protobuf enum declaration",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "volvocars.contracts.carconfiguration.ComponentUpdated protobuf message declaration",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "volvocars.contracts.carconfiguration.Condition.subConditions repeated SubCondition",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "volvocars.contracts.carconfiguration.Condition protobuf message declaration",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "volvocars.contracts.carconfiguration.SubCondition.components repeated Component",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "volvocars.contracts.carconfiguration.SubCondition protobuf message declaration",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "volvocars.contracts.carconfiguration.Relation protobuf enum declaration",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "volvocars.contracts.carconfiguration.ConfigPolicy.configRuleSets repeated ConfigRuleSet",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "volvocars.contracts.carconfiguration.ConfigPolicy.structureWeeksRuleSets repeated StructureWeeksRuleSet",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "volvocars.contracts.carconfiguration.ConfigPolicy protobuf message declaration",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "volvocars.contracts.carconfiguration.ConfigPolicyCreated.configRuleSets repeated ConfigRuleSet",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "volvocars.contracts.carconfiguration.ConfigPolicyCreated.structureWeeksRuleSets repeated StructureWeeksRuleSet",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "volvocars.contracts.carconfiguration.ConfigPolicyCreated protobuf message declaration",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "volvocars.contracts.carconfiguration.ConfigPolicyUpdated.configRuleSets repeated ConfigRuleSet",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "volvocars.contracts.carconfiguration.ConfigPolicyUpdated.structureWeeksRuleSets repeated StructureWeeksRuleSet",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "volvocars.contracts.carconfiguration.ConfigPolicyUpdated protobuf message declaration",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "volvocars.contracts.carconfiguration.ConfigPolicyDeleted.configRuleSets repeated ConfigRuleSet",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "volvocars.contracts.carconfiguration.ConfigPolicyDeleted.structureWeeksRuleSets repeated StructureWeeksRuleSet",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "volvocars.contracts.carconfiguration.ConfigPolicyDeleted protobuf message declaration",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "volvocars.contracts.carconfiguration.ConfigPolicyRulesUpdated.configRuleSets repeated ConfigRuleSet",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "volvocars.contracts.carconfiguration.ConfigPolicyRulesUpdated.structureWeeksRuleSets repeated StructureWeeksRuleSet",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "volvocars.contracts.carconfiguration.ConfigPolicyRulesUpdated protobuf message declaration",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "volvocars.contracts.carconfiguration.ActiveVersionChanged protobuf message declaration",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "volvocars.contracts.carconfiguration.Pno12RuleSetMeta.components repeated Component",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "volvocars.contracts.carconfiguration.Pno12RuleSetMeta.preSelected repeated Component",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "volvocars.contracts.carconfiguration.Pno12RuleSetMeta protobuf message declaration",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "volvocars.contracts.carconfiguration.PolicyRulesUpdated.pno12RuleSetMetas repeated Pno12RuleSetMeta",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "volvocars.contracts.carconfiguration.PolicyRulesUpdated protobuf message declaration",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "volvocars.contracts.carconfiguration.PolicyDeleted protobuf message declaration",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "volvocars.contracts.carconfiguration.PoliciesDeleted.policiesDeleted repeated PolicyDeleted",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "volvocars.contracts.carconfiguration.PoliciesDeleted protobuf message declaration",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "volvocars.contracts.carconfiguration.PoliciesRulesUpdated.policyRulesUpdates repeated PolicyRulesUpdated",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "volvocars.contracts.carconfiguration.PoliciesRulesUpdated protobuf message declaration",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "volvocars.contracts.carconfiguration.Pno12ActiveStatus protobuf message declaration",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "volvocars.contracts.carconfiguration.PolicyStatusUpdated.pno12ActiveStatus repeated Pno12ActiveStatus",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "volvocars.contracts.carconfiguration.PolicyStatusUpdated protobuf message declaration",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "volvocars.contracts.carconfiguration.PolicyRulesSaved protobuf message declaration",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "volvocars.contracts.carconfiguration.RulesImported protobuf message declaration",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "volvocars.contracts.carconfiguration.RuleSet protobuf message declaration",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "volvocars.contracts.carconfiguration.RuleSetCreated protobuf message declaration",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "volvocars.contracts.carconfiguration.ConfigRuleSet.configRules repeated ConfigRule",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "volvocars.contracts.carconfiguration.ConfigRuleSet protobuf message declaration",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "volvocars.contracts.carconfiguration.ConfigRule protobuf message declaration",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "volvocars.contracts.carconfiguration.ConfigRulesCreated protobuf message declaration",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "volvocars.contracts.carconfiguration.ConfigRulesUpdated protobuf message declaration",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "volvocars.contracts.carconfiguration.StructureWeeksRuleSet.structureWeeksRules repeated StructureWeeksRule",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "volvocars.contracts.carconfiguration.StructureWeeksRuleSet protobuf message declaration",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "volvocars.contracts.carconfiguration.StructureWeeksRule protobuf message declaration",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "volvocars.contracts.carconfiguration.Consequence.components repeated Component",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "volvocars.contracts.carconfiguration.Consequence protobuf message declaration",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "volvocars.contracts.carconfiguration.StructureWeeksConsequence protobuf message declaration",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "volvocars.contracts.carconfiguration.PriceRuleConsequence protobuf message declaration",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "volvocars.contracts.carconfiguration.RuleType protobuf enum declaration",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "volvocars.contracts.carconfiguration.SpecMarketImported.pno12RulesImports repeated Pno12RulesImported",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "volvocars.contracts.carconfiguration.SpecMarketImported.components repeated Component",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "volvocars.contracts.carconfiguration.SpecMarketImported protobuf message declaration",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "volvocars.contracts.carconfiguration.Pno12ComponentsImported.pno12ComponentsMapping repeated Pno12ComponentMapping",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "volvocars.contracts.carconfiguration.Pno12ComponentsImported protobuf message declaration",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "volvocars.contracts.carconfiguration.Pno12ComponentMapping.components repeated Component",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "volvocars.contracts.carconfiguration.Pno12ComponentMapping protobuf message declaration",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "volvocars.contracts.carconfiguration.Pno12RulesImported.swMappings repeated SWmapping",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "volvocars.contracts.carconfiguration.Pno12RulesImported protobuf message declaration",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "volvocars.contracts.carconfiguration.SWmapping.structureWeeks repeated StructureWeek",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "volvocars.contracts.carconfiguration.SWmapping protobuf message declaration",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "volvocars.contracts.carconfiguration.StructureWeek protobuf message declaration",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "volvocars.contracts.carconfiguration.MarketAuthUpdated protobuf message declaration",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "volvocars.contracts.carconfiguration.MarketAuthsUpdated.marketAuths repeated MarketAuthUpdated",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "volvocars.contracts.carconfiguration.MarketAuthsUpdated protobuf message declaration",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "volvocars.contracts.carconfiguration.MarketAuthIdentifier protobuf message declaration",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "volvocars.contracts.carconfiguration.PartnerDetails.retailData repeated RetailData",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "volvocars.contracts.carconfiguration.PartnerDetails protobuf message declaration",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "volvocars.contracts.carconfiguration.RetailData.partners repeated PartnersDetailsData",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "volvocars.contracts.carconfiguration.RetailData protobuf message declaration",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "volvocars.contracts.carconfiguration.PartnersDetailsData.partnerNames repeated ParterNames",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "volvocars.contracts.carconfiguration.PartnersDetailsData protobuf message declaration",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "volvocars.contracts.carconfiguration.ParterNames protobuf message declaration",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "volvocars.contracts.carconfiguration.PartnerNotificationData protobuf message declaration",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "volvocars.contracts.carconfiguration.PartnerNotification protobuf message declaration",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "volvocars.contracts.carconfiguration.PartnerNotifications.partnerNotifications repeated PartnerNotification",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "volvocars.contracts.carconfiguration.PartnerNotifications protobuf message declaration",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "volvocars.contracts.carconfiguration.RuleSetStatus protobuf message declaration",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "volvocars.contracts.carconfiguration.RuleSetIndexed.rule_sets repeated RuleSetStatus",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "volvocars.contracts.carconfiguration.RuleSetIndexed protobuf message declaration",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "volvocars.contracts.carconfiguration.RuleSetIndexingFailed.rule_sets repeated RuleSetStatus",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "volvocars.contracts.carconfiguration.RuleSetIndexingFailed protobuf message declaration",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "volvocars.contracts.carconfiguration.RuleSetRemoved protobuf message declaration",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "volvocars.contracts.carconfiguration.RuleSetRequestStatus protobuf message declaration",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "volvocars.contracts.carconfiguration.PolicyRuleSetsIndexed protobuf message declaration",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "volvocars.contracts.carconfiguration.PolicyRuleSetsIndexCreated.requests repeated PolicyRuleSetsIndexed",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "volvocars.contracts.carconfiguration.PolicyRuleSetsIndexCreated protobuf message declaration",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "volvocars.contracts.carconfiguration.PolicyRuleSetsCacheWarmed.requests repeated PolicyRuleSetsIndexed",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "volvocars.contracts.carconfiguration.PolicyRuleSetsCacheWarmed protobuf message declaration",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "volvocars.contracts.carconfiguration.Rule.components repeated Component",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "volvocars.contracts.carconfiguration.Rule.conditions repeated Condition",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "volvocars.contracts.carconfiguration.Rule protobuf message declaration",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "volvocars.contracts.carconfiguration.Rule.Component protobuf message declaration",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "volvocars.contracts.carconfiguration.Rule.Condition.components repeated Component",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "volvocars.contracts.carconfiguration.Rule.Condition.conditions repeated Condition",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "volvocars.contracts.carconfiguration.Rule.Condition protobuf message declaration",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "volvocars.contracts.carconfiguration.v2.CarConfigurationRuleset protobuf message declaration",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "volvocars.contracts.carconfiguration.v2.ConfigurationRuleset.selectable_variables repeated string",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "volvocars.contracts.carconfiguration.v2.ConfigurationRuleset.dependent_variables repeated string",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "volvocars.contracts.carconfiguration.v2.ConfigurationRuleset.independent_variables repeated string",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "volvocars.contracts.carconfiguration.v2.ConfigurationRuleset.preferred_variables repeated string",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "volvocars.contracts.carconfiguration.v2.ConfigurationRuleset.period_variables repeated TimeBoundVariable",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "volvocars.contracts.carconfiguration.v2.ConfigurationRuleset protobuf message declaration",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "volvocars.contracts.carconfiguration.v2.Polyhedron.a_matrix repeated Row",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "Protobuf scalar int32 declaration",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "volvocars.contracts.carconfiguration.v2.Polyhedron.b_vector repeated int32",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "volvocars.contracts.carconfiguration.v2.Polyhedron protobuf message declaration",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "volvocars.contracts.carconfiguration.v2.Row.values repeated int32",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "volvocars.contracts.carconfiguration.v2.Row protobuf message declaration",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "volvocars.contracts.carconfiguration.v2.Components.s_message_codes repeated string",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "volvocars.contracts.carconfiguration.v2.Components.color_codes repeated string",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "volvocars.contracts.carconfiguration.v2.Components.upholstery_codes repeated string",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "volvocars.contracts.carconfiguration.v2.Components.wheel_codes repeated string",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "volvocars.contracts.carconfiguration.v2.Components.option_codes repeated string",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "volvocars.contracts.carconfiguration.v2.Components.package_codes repeated string",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "volvocars.contracts.carconfiguration.v2.Components protobuf message declaration",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "volvocars.contracts.carconfiguration.v2.TimeBoundVariable protobuf message declaration",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "volvocars.contracts.carconfiguration.v2.Period protobuf message declaration",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "volvocars.contracts.carconfiguration.v2.CarKey.options repeated string",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "volvocars.contracts.carconfiguration.v2.CarKey.packages repeated string",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "volvocars.contracts.carconfiguration.v2.CarKey protobuf message declaration",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "volvocars.contracts.carconfiguration.v2.CarDetails protobuf message declaration",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "volvocars.contracts.carconfiguration.v2.CarKeyInPeriod protobuf message declaration",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "volvocars.contracts.carconfiguration.v2.CarSpecification.forbidden_structure_week_periods repeated StructureWeekPeriod",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "volvocars.contracts.carconfiguration.v2.CarSpecification protobuf message declaration",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "volvocars.contracts.carconfiguration.v2.SMessageSpecification.s_messages repeated SMessage",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "volvocars.contracts.carconfiguration.v2.SMessageSpecification protobuf message declaration",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "volvocars.contracts.carconfiguration.v2.SMessage protobuf message declaration",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "volvocars.contracts.carconfiguration.v2.StylingSpecification.colors repeated Color",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "volvocars.contracts.carconfiguration.v2.StylingSpecification.upholsteries repeated Upholstery",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "volvocars.contracts.carconfiguration.v2.StylingSpecification.default_colors repeated TimeBoundCode",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "volvocars.contracts.carconfiguration.v2.StylingSpecification.default_upholsteries repeated TimeBoundCode",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "volvocars.contracts.carconfiguration.v2.StylingSpecification protobuf message declaration",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "volvocars.contracts.carconfiguration.v2.StylingCombination protobuf message declaration",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "volvocars.contracts.carconfiguration.v2.TimeBoundCode protobuf message declaration",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "volvocars.contracts.carconfiguration.v2.Color.required_options repeated TimeBoundAtLeastOne",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "volvocars.contracts.carconfiguration.v2.Color.forbids_options repeated Forbids",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "volvocars.contracts.carconfiguration.v2.Color.forbids_upholsteries repeated Forbids",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "volvocars.contracts.carconfiguration.v2.Color.required_wheels repeated TimeBoundExactlyOne",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "volvocars.contracts.carconfiguration.v2.Color.forbids_wheels repeated Forbids",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "volvocars.contracts.carconfiguration.v2.Color protobuf message declaration",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "volvocars.contracts.carconfiguration.v2.Upholstery.required_options repeated TimeBoundAtLeastOne",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "volvocars.contracts.carconfiguration.v2.Upholstery.forbids_options repeated Forbids",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "volvocars.contracts.carconfiguration.v2.Upholstery.forbids_colors repeated Forbids",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "volvocars.contracts.carconfiguration.v2.Upholstery.forbids_wheels repeated Forbids",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "volvocars.contracts.carconfiguration.v2.Upholstery protobuf message declaration",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "volvocars.contracts.carconfiguration.v2.OptionSpecification.options repeated Option",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "volvocars.contracts.carconfiguration.v2.OptionSpecification.package_only_option_codes repeated string",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "volvocars.contracts.carconfiguration.v2.OptionSpecification.included_options repeated TimeBoundExactlyOne",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "volvocars.contracts.carconfiguration.v2.OptionSpecification.combined_requirements repeated CombinedOptionRequirement",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "volvocars.contracts.carconfiguration.v2.OptionSpecification protobuf message declaration",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "volvocars.contracts.carconfiguration.v2.Option.required_colors repeated TimeBoundExactlyOne",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "volvocars.contracts.carconfiguration.v2.Option.required_upholsteries repeated TimeBoundExactlyOne",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "volvocars.contracts.carconfiguration.v2.Option.required_options repeated TimeBoundAtLeastOne",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "volvocars.contracts.carconfiguration.v2.Option.required_wheels repeated TimeBoundExactlyOne",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "volvocars.contracts.carconfiguration.v2.Option.forbids_options repeated Forbids",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "volvocars.contracts.carconfiguration.v2.Option.forbids_colors repeated Forbids",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "volvocars.contracts.carconfiguration.v2.Option.forbids_wheels repeated Forbids",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "volvocars.contracts.carconfiguration.v2.Option.forbids_upholsteries repeated Forbids",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "volvocars.contracts.carconfiguration.v2.Option protobuf message declaration",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "volvocars.contracts.carconfiguration.v2.CombinedOptionRequirement.requiring_option_codes repeated string",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "volvocars.contracts.carconfiguration.v2.CombinedOptionRequirement protobuf message declaration",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "volvocars.contracts.carconfiguration.v2.PackageSpecification.packages repeated Package",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "volvocars.contracts.carconfiguration.v2.PackageSpecification.included_packages repeated TimeBoundExactlyOne",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "volvocars.contracts.carconfiguration.v2.PackageSpecification protobuf message declaration",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "volvocars.contracts.carconfiguration.v2.Package.required_options repeated ExactlyOne",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "volvocars.contracts.carconfiguration.v2.Package protobuf message declaration",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "volvocars.contracts.carconfiguration.v2.WheelSpecification.wheels repeated Wheel",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "volvocars.contracts.carconfiguration.v2.WheelSpecification protobuf message declaration",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "volvocars.contracts.carconfiguration.v2.Wheel.required_colors repeated TimeBoundExactlyOne",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "volvocars.contracts.carconfiguration.v2.Wheel.required_options repeated TimeBoundAtLeastOne",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "volvocars.contracts.carconfiguration.v2.Wheel.required_upholsteries repeated TimeBoundExactlyOne",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "volvocars.contracts.carconfiguration.v2.Wheel.forbids_options repeated Forbids",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "volvocars.contracts.carconfiguration.v2.Wheel.forbids_upholsteries repeated Forbids",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "volvocars.contracts.carconfiguration.v2.Wheel protobuf message declaration",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "volvocars.contracts.carconfiguration.v2.TimeBoundExactlyOne.codes repeated string",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "volvocars.contracts.carconfiguration.v2.TimeBoundExactlyOne protobuf message declaration",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "volvocars.contracts.carconfiguration.v2.ExactlyOne.codes repeated string",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "volvocars.contracts.carconfiguration.v2.ExactlyOne protobuf message declaration",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "volvocars.contracts.carconfiguration.v2.TimeBoundAtLeastOne.codes repeated string",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "volvocars.contracts.carconfiguration.v2.TimeBoundAtLeastOne protobuf message declaration",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "volvocars.contracts.carconfiguration.v2.Forbids protobuf message declaration",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "volvocars.contracts.carconfiguration.v2.CarSpecificationUpserted protobuf message declaration",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "volvocars.contracts.carconfiguration.v2.CarSpecificationRemoved protobuf message declaration",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "volvocars.contracts.carconfiguration.v2.MarketAuthIdentifier protobuf message declaration",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "volvocars.contracts.carconfiguration.v2.ComponentWithCarKeys.car_keys repeated CarKeyInPeriod",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "volvocars.contracts.carconfiguration.v2.ComponentWithCarKeys protobuf message declaration",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "volvocars.contracts.carconfiguration.v2.Component protobuf message declaration",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "volvocars.contracts.carconfiguration.v2.PackageComponentWithCarKeys.car_keys repeated CarKeyInPeriod",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "volvocars.contracts.carconfiguration.v2.PackageComponentWithCarKeys protobuf message declaration",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "volvocars.contracts.carconfiguration.v2.PackageComponent.variant repeated Component",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "volvocars.contracts.carconfiguration.v2.PackageComponent protobuf message declaration",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "volvocars.contracts.carconfiguration.v2.Selection.sub_selection_codes repeated string",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "volvocars.contracts.carconfiguration.v2.Selection protobuf message declaration",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "volvocars.contracts.carconfiguration.v2.Action protobuf enum declaration",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "volvocars.contracts.carconfiguration.v2.StructureWeek protobuf message declaration",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "volvocars.contracts.carconfiguration.v2.StructureWeekPeriod protobuf message declaration",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "repository declaration/source scope",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "all stored declaration records",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    }
+  ],
+  "assertions": [
+    "106 message/enum declarations",
+    "102 messages/358 fields",
+    "nested namespace distinction",
+    "wire tags and repeated item shapes",
+    "explicit optional and deprecated source options",
+    "no inferred reserved gaps",
+    "external Timestamp partial",
+    "zero executable/runtime/network registrations"
+  ]
+}

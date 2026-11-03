@@ -1,0 +1,143 @@
+{
+  "parentCommit": "286985b6bebccb6123de78d03aa87b7513f69ed5",
+  "gitlinkPath": "pb-contracts-car-configuration",
+  "commit": "8395ad4b5985b6b8d579045d4449bb4b191b2d2c",
+  "offlineMirror": "/Users/RNEL/.cache/groundwork/clones/volvo-cars/cce-pb-contracts-car-configuration",
+  "files": [
+    {
+      "path": "Dockerfile",
+      "blob": "2dca3b0428d9abab585c06bbb5da47e547c948c2",
+      "available": false
+    },
+    {
+      "path": "README.md",
+      "blob": "d3ab53f9350b311e50290d6de5dc469af253a43d",
+      "available": false
+    },
+    {
+      "path": "generate.sh",
+      "blob": "b2dba1a9cb613e44fe15a918df14c40a60f4fcbc",
+      "available": false
+    },
+    {
+      "path": "go.mod",
+      "blob": "34036e24686bded8a04a46a8a09e4aefc8055c9f",
+      "available": false
+    },
+    {
+      "path": "go.sum",
+      "blob": "12c51c7aa820115911ff07ae133e7ee9a6169408",
+      "available": false
+    },
+    {
+      "path": "proto-files-list-example.txt",
+      "blob": "f4000c5f7c2122bd1d58490b6eee38753db6eea4",
+      "available": false
+    },
+    {
+      "path": "volvocars/contracts/carconfiguration/black-box.proto",
+      "blob": "ea47a22a195b42a5e9eb944b0dbb2e6993ffde55",
+      "available": false
+    },
+    {
+      "path": "volvocars/contracts/carconfiguration/cas.proto",
+      "blob": "68f4c30865ce748da9d33a414b95cb1975f2a111",
+      "available": false
+    },
+    {
+      "path": "volvocars/contracts/carconfiguration/cc-pim.proto",
+      "blob": "3a35f9e77eab07ac77cbf152d8683607fec2f397",
+      "available": false
+    },
+    {
+      "path": "volvocars/contracts/carconfiguration/component.proto",
+      "blob": "ef46539ce8fa4323db8d2933a4439d0144728145",
+      "available": false
+    },
+    {
+      "path": "volvocars/contracts/carconfiguration/condition.proto",
+      "blob": "323138f675ab3de4bbbd5e714008102e25502c98",
+      "available": false
+    },
+    {
+      "path": "volvocars/contracts/carconfiguration/config-policy.proto",
+      "blob": "cfe7586905336cf62630693e0c9a92c1fab79cf6",
+      "available": false
+    },
+    {
+      "path": "volvocars/contracts/carconfiguration/config-rules.proto",
+      "blob": "91720d3bab047fe5408f710147c496e27aff5540",
+      "available": false
+    },
+    {
+      "path": "volvocars/contracts/carconfiguration/consequence.proto",
+      "blob": "8c61ca91b310647561b3d72959cff7ca6922c0ac",
+      "available": false
+    },
+    {
+      "path": "volvocars/contracts/carconfiguration/cpam-ingress.proto",
+      "blob": "f9f2a700326b26bccd4ad78fdb3c431db94b199e",
+      "available": false
+    },
+    {
+      "path": "volvocars/contracts/carconfiguration/global-metadata.proto",
+      "blob": "6ebaef7a17cb1310f24c832ceee9abf2920fe755",
+      "available": false
+    },
+    {
+      "path": "volvocars/contracts/carconfiguration/group.proto",
+      "blob": "76ac4fe53b1a6bbb374db1068dac87ca0b35e54d",
+      "available": false
+    },
+    {
+      "path": "volvocars/contracts/carconfiguration/partnerDetailsFeed.proto",
+      "blob": "9bb4d1e5428622d30038e0641bb06e8c851d2af5",
+      "available": false
+    },
+    {
+      "path": "volvocars/contracts/carconfiguration/partnerNotify.proto",
+      "blob": "9d79d4c1958c26ccdcc57da656c58ee116c73f81",
+      "available": false
+    },
+    {
+      "path": "volvocars/contracts/carconfiguration/policy-meta.proto",
+      "blob": "ca5e2c17ebabd9529121aaf8bf607b7f339f6d72",
+      "available": false
+    },
+    {
+      "path": "volvocars/contracts/carconfiguration/price-adjustment.proto",
+      "blob": "3703d87f64ca39f6985ce866067236bba8e4b56a",
+      "available": false
+    },
+    {
+      "path": "volvocars/contracts/carconfiguration/price-rules.proto",
+      "blob": "b1e53030c45de64b3fa4f304319169856dbc2a86",
+      "available": false
+    },
+    {
+      "path": "volvocars/contracts/carconfiguration/rule.proto",
+      "blob": "926836fcc65bba87370e4fb37a561d695d0c9978",
+      "available": false
+    },
+    {
+      "path": "volvocars/contracts/carconfiguration/scng.proto",
+      "blob": "e4469de0077046ec403b479296568dd760db5077",
+      "available": false
+    },
+    {
+      "path": "volvocars/contracts/carconfiguration/startingpoint.proto",
+      "blob": "3dcd319079d32845de29335803b55ae8bfa7bc5e",
+      "available": false
+    },
+    {
+      "path": "volvocars/contracts/carconfiguration/virutal-price-list.proto",
+      "blob": "d0432e828e3e0d6a9c049c9bab4f2b9f83999277",
+      "available": false
+    },
+    {
+      "path": "volvocars/contracts/carconfiguration/webhook-notification.proto",
+      "blob": "60eb2bc69b3dc9f7c855f54e6e406e54d0d4dbab",
+      "available": false
+    }
+  ]
+}

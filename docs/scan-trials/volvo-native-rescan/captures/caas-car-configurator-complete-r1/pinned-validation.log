@@ -1,0 +1,11 @@
+
+> groundwork@0.0.0 knowledge:validate
+> node --import ./tools/register.ts --conditions=react-server tools/validate-knowledge.ts reports/volvo-native-rescan/caas-car-configurator-complete/working.bundle.json --write-snapshot reports/volvo-native-rescan/caas-car-configurator-complete/working.snapshot.json --sources /Users/RNEL/.cache/groundwork/clones
+
+{
+  "snapshot": "bba83f88302e60668a388fce10536a09af76be5e274a724c2e4a98298e87f018",
+  "bundles": 1,
+  "records": 96262,
+  "sourceRangesChecked": 12479,
+  "sourceVerification": "pinned_local_files"
+}

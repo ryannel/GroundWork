@@ -1,0 +1,202 @@
+[
+  {
+    "entity": "BrandCarTypeMapping",
+    "implementation": "mascomplete-b360506-r2/native/method/410939187fcdb08fed4a",
+    "operation": "mascomplete-b360506-r2/native/op/410939187fcdb08fed4a/a35",
+    "interaction": "mascomplete-b360506-r2/native/reviewed/topic-interaction/BrandCarTypeMapping",
+    "target": "mascomplete-b360506-r2/component/commercial-segment-topic",
+    "topicOption": "CommercialSegmentTopicName",
+    "topicParameter": "mascomplete-b360506-r2/native/param/410939187fcdb08fed4a/3",
+    "messageArgument": "mascomplete-b360506-r2/native/value/410939187fcdb08fed4a/34"
+  },
+  {
+    "entity": "Brand",
+    "implementation": "mascomplete-b360506-r2/native/method/27bffc2d3ae3d8bd92bc",
+    "operation": "mascomplete-b360506-r2/native/op/27bffc2d3ae3d8bd92bc/a35",
+    "interaction": "mascomplete-b360506-r2/native/reviewed/topic-interaction/Brand",
+    "target": "mascomplete-b360506-r2/component/commercial-segment-topic",
+    "topicOption": "CommercialSegmentTopicName",
+    "topicParameter": "mascomplete-b360506-r2/native/param/27bffc2d3ae3d8bd92bc/3",
+    "messageArgument": "mascomplete-b360506-r2/native/value/27bffc2d3ae3d8bd92bc/34"
+  },
+  {
+    "entity": "CapCodeMapping",
+    "implementation": "mascomplete-b360506-r2/native/method/2c13df8848767a295970",
+    "operation": "mascomplete-b360506-r2/native/op/2c13df8848767a295970/a35",
+    "interaction": "mascomplete-b360506-r2/native/reviewed/topic-interaction/CapCodeMapping",
+    "target": "mascomplete-b360506-r2/component/commercial-segment-topic",
+    "topicOption": "CommercialSegmentTopicName",
+    "topicParameter": "mascomplete-b360506-r2/native/param/2c13df8848767a295970/3",
+    "messageArgument": "mascomplete-b360506-r2/native/value/2c13df8848767a295970/34"
+  },
+  {
+    "entity": "Client",
+    "implementation": "mascomplete-b360506-r2/native/method/507336f69b51dc71e755",
+    "operation": "mascomplete-b360506-r2/native/op/507336f69b51dc71e755/a35",
+    "interaction": "mascomplete-b360506-r2/native/reviewed/topic-interaction/Client",
+    "target": "mascomplete-b360506-r2/component/commercial-segment-topic",
+    "topicOption": "CommercialSegmentTopicName",
+    "topicParameter": "mascomplete-b360506-r2/native/param/507336f69b51dc71e755/3",
+    "messageArgument": "mascomplete-b360506-r2/native/value/507336f69b51dc71e755/34"
+  },
+  {
+    "entity": "ContractLength",
+    "implementation": "mascomplete-b360506-r2/native/method/081b74f08e54e5361fdf",
+    "operation": "mascomplete-b360506-r2/native/op/081b74f08e54e5361fdf/a35",
+    "interaction": "mascomplete-b360506-r2/native/reviewed/topic-interaction/ContractLength",
+    "target": "mascomplete-b360506-r2/component/commercial-segment-topic",
+    "topicOption": "CommercialSegmentTopicName",
+    "topicParameter": "mascomplete-b360506-r2/native/param/081b74f08e54e5361fdf/3",
+    "messageArgument": "mascomplete-b360506-r2/native/value/081b74f08e54e5361fdf/34"
+  },
+  {
+    "entity": "CustomerType",
+    "implementation": "mascomplete-b360506-r2/native/method/7f05fe99504cfc64e307",
+    "operation": "mascomplete-b360506-r2/native/op/7f05fe99504cfc64e307/a35",
+    "interaction": "mascomplete-b360506-r2/native/reviewed/topic-interaction/CustomerType",
+    "target": "mascomplete-b360506-r2/component/commercial-segment-topic",
+    "topicOption": "CommercialSegmentTopicName",
+    "topicParameter": "mascomplete-b360506-r2/native/param/7f05fe99504cfc64e307/3",
+    "messageArgument": "mascomplete-b360506-r2/native/value/7f05fe99504cfc64e307/34"
+  },
+  {
+    "entity": "Fee",
+    "implementation": "mascomplete-b360506-r2/native/method/abdb495d4cec118d2145",
+    "operation": "mascomplete-b360506-r2/native/op/abdb495d4cec118d2145/a35",
+    "interaction": "mascomplete-b360506-r2/native/reviewed/topic-interaction/Fee",
+    "target": "u3/component/commercial-topic",
+    "topicOption": "CommercialItemTopicName",
+    "topicParameter": "mascomplete-b360506-r2/native/param/abdb495d4cec118d2145/3",
+    "messageArgument": "mascomplete-b360506-r2/native/value/abdb495d4cec118d2145/34"
+  },
+  {
+    "entity": "JatoCodeMapping",
+    "implementation": "mascomplete-b360506-r2/native/method/0563ea9459a680f2e22f",
+    "operation": "mascomplete-b360506-r2/native/op/0563ea9459a680f2e22f/a35",
+    "interaction": "mascomplete-b360506-r2/native/reviewed/topic-interaction/JatoCodeMapping",
+    "target": "mascomplete-b360506-r2/component/commercial-segment-topic",
+    "topicOption": "CommercialSegmentTopicName",
+    "topicParameter": "mascomplete-b360506-r2/native/param/0563ea9459a680f2e22f/3",
+    "messageArgument": "mascomplete-b360506-r2/native/value/0563ea9459a680f2e22f/34"
+  },
+  {
+    "entity": "Market",
+    "implementation": "mascomplete-b360506-r2/native/method/2d501adc5ce884fa9ba1",
+    "operation": "mascomplete-b360506-r2/native/op/2d501adc5ce884fa9ba1/a35",
+    "interaction": "mascomplete-b360506-r2/native/reviewed/topic-interaction/Market",
+    "target": "mascomplete-b360506-r2/component/commercial-segment-topic",
+    "topicOption": "CommercialSegmentTopicName",
+    "topicParameter": "mascomplete-b360506-r2/native/param/2d501adc5ce884fa9ba1/3",
+    "messageArgument": "mascomplete-b360506-r2/native/value/2d501adc5ce884fa9ba1/34"
+  },
+  {
+    "entity": "Mileage",
+    "implementation": "mascomplete-b360506-r2/native/method/b884b98d57b935a36794",
+    "operation": "mascomplete-b360506-r2/native/op/b884b98d57b935a36794/a35",
+    "interaction": "mascomplete-b360506-r2/native/reviewed/topic-interaction/Mileage",
+    "target": "u3/component/commercial-topic",
+    "topicOption": "CommercialItemTopicName",
+    "topicParameter": "mascomplete-b360506-r2/native/param/b884b98d57b935a36794/3",
+    "messageArgument": "mascomplete-b360506-r2/native/value/b884b98d57b935a36794/34"
+  },
+  {
+    "entity": "NatcodeMapping",
+    "implementation": "mascomplete-b360506-r2/native/method/2511c27327f0f7b18901",
+    "operation": "mascomplete-b360506-r2/native/op/2511c27327f0f7b18901/a35",
+    "interaction": "mascomplete-b360506-r2/native/reviewed/topic-interaction/NatcodeMapping",
+    "target": "mascomplete-b360506-r2/component/commercial-segment-topic",
+    "topicOption": "CommercialSegmentTopicName",
+    "topicParameter": "mascomplete-b360506-r2/native/param/2511c27327f0f7b18901/3",
+    "messageArgument": "mascomplete-b360506-r2/native/value/2511c27327f0f7b18901/34"
+  },
+  {
+    "entity": "PreOrder",
+    "implementation": "mascomplete-b360506-r2/native/method/e82afb1ec67b4a1c5559",
+    "operation": "mascomplete-b360506-r2/native/op/e82afb1ec67b4a1c5559/a35",
+    "interaction": "mascomplete-b360506-r2/native/reviewed/topic-interaction/PreOrder",
+    "target": "u3/component/commercial-topic",
+    "topicOption": "CommercialItemTopicName",
+    "topicParameter": "mascomplete-b360506-r2/native/param/e82afb1ec67b4a1c5559/3",
+    "messageArgument": "mascomplete-b360506-r2/native/value/e82afb1ec67b4a1c5559/34"
+  },
+  {
+    "entity": "SalesModel",
+    "implementation": "mascomplete-b360506-r2/native/method/a62a16adf13aae11b168",
+    "operation": "mascomplete-b360506-r2/native/op/a62a16adf13aae11b168/a35",
+    "interaction": "mascomplete-b360506-r2/native/reviewed/topic-interaction/SalesModel",
+    "target": "mascomplete-b360506-r2/component/commercial-segment-topic",
+    "topicOption": "CommercialSegmentTopicName",
+    "topicParameter": "mascomplete-b360506-r2/native/param/a62a16adf13aae11b168/3",
+    "messageArgument": "mascomplete-b360506-r2/native/value/a62a16adf13aae11b168/34"
+  },
+  {
+    "entity": "SchwackeCodeMapping",
+    "implementation": "mascomplete-b360506-r2/native/method/7a740a3141125cc2c008",
+    "operation": "mascomplete-b360506-r2/native/op/7a740a3141125cc2c008/a35",
+    "interaction": "mascomplete-b360506-r2/native/reviewed/topic-interaction/SchwackeCodeMapping",
+    "target": "mascomplete-b360506-r2/component/commercial-segment-topic",
+    "topicOption": "CommercialSegmentTopicName",
+    "topicParameter": "mascomplete-b360506-r2/native/param/7a740a3141125cc2c008/3",
+    "messageArgument": "mascomplete-b360506-r2/native/value/7a740a3141125cc2c008/34"
+  },
+  {
+    "entity": "SelectionCategory",
+    "implementation": "mascomplete-b360506-r2/native/method/b8f2006a978d4b850085",
+    "operation": "mascomplete-b360506-r2/native/op/b8f2006a978d4b850085/a35",
+    "interaction": "mascomplete-b360506-r2/native/reviewed/topic-interaction/SelectionCategory",
+    "target": "u3/component/commercial-topic",
+    "topicOption": "CommercialItemTopicName",
+    "topicParameter": "mascomplete-b360506-r2/native/param/b8f2006a978d4b850085/3",
+    "messageArgument": "mascomplete-b360506-r2/native/value/b8f2006a978d4b850085/34"
+  },
+  {
+    "entity": "SkuCategory",
+    "implementation": "mascomplete-b360506-r2/native/method/e348c6d65a53bde5c434",
+    "operation": "mascomplete-b360506-r2/native/op/e348c6d65a53bde5c434/a35",
+    "interaction": "mascomplete-b360506-r2/native/reviewed/topic-interaction/SkuCategory",
+    "target": "mascomplete-b360506-r2/component/commercial-segment-topic",
+    "topicOption": "CommercialSegmentTopicName",
+    "topicParameter": "mascomplete-b360506-r2/native/param/e348c6d65a53bde5c434/3",
+    "messageArgument": "mascomplete-b360506-r2/native/value/e348c6d65a53bde5c434/34"
+  },
+  {
+    "entity": "SoftOfferPackage",
+    "implementation": "mascomplete-b360506-r2/native/method/c29de9949dddd5e17932",
+    "operation": "mascomplete-b360506-r2/native/op/c29de9949dddd5e17932/a35",
+    "interaction": "mascomplete-b360506-r2/native/reviewed/topic-interaction/SoftOfferPackage",
+    "target": "u3/component/commercial-topic",
+    "topicOption": "CommercialItemTopicName",
+    "topicParameter": "mascomplete-b360506-r2/native/param/c29de9949dddd5e17932/3",
+    "messageArgument": "mascomplete-b360506-r2/native/value/c29de9949dddd5e17932/34"
+  },
+  {
+    "entity": "SoftOffer",
+    "implementation": "mascomplete-b360506-r2/native/method/cde3b179f0f9612bd4e1",
+    "operation": "mascomplete-b360506-r2/native/op/cde3b179f0f9612bd4e1/a35",
+    "interaction": "mascomplete-b360506-r2/native/reviewed/topic-interaction/SoftOffer",
+    "target": "u3/component/commercial-topic",
+    "topicOption": "CommercialItemTopicName",
+    "topicParameter": "mascomplete-b360506-r2/native/param/cde3b179f0f9612bd4e1/3",
+    "messageArgument": "mascomplete-b360506-r2/native/value/cde3b179f0f9612bd4e1/34"
+  },
+  {
+    "entity": "SoftwareOptionPackage",
+    "implementation": "mascomplete-b360506-r2/native/method/b8172ecafbd6a405db88",
+    "operation": "mascomplete-b360506-r2/native/op/b8172ecafbd6a405db88/a35",
+    "interaction": "mascomplete-b360506-r2/native/reviewed/topic-interaction/SoftwareOptionPackage",
+    "target": "u3/component/commercial-topic",
+    "topicOption": "CommercialItemTopicName",
+    "topicParameter": "mascomplete-b360506-r2/native/param/b8172ecafbd6a405db88/3",
+    "messageArgument": "mascomplete-b360506-r2/native/value/b8172ecafbd6a405db88/34"
+  },
+  {
+    "entity": "SoftwareOption",
+    "implementation": "mascomplete-b360506-r2/native/method/cae43eb1649bc47e1040",
+    "operation": "mascomplete-b360506-r2/native/op/cae43eb1649bc47e1040/a35",
+    "interaction": "mascomplete-b360506-r2/native/reviewed/topic-interaction/SoftwareOption",
+    "target": "u3/component/commercial-topic",
+    "topicOption": "CommercialItemTopicName",
+    "topicParameter": "mascomplete-b360506-r2/native/param/cae43eb1649bc47e1040/3",
+    "messageArgument": "mascomplete-b360506-r2/native/value/cae43eb1649bc47e1040/34"
+  }
+]

@@ -1,0 +1,39 @@
+{
+  "format": "scan-scope/v1",
+  "workspace": "volvo-cars",
+  "id": "rust-router",
+  "repo": "volvo-cars/graphql-federation-router",
+  "commit": "b8e0790b09e8f6772b8ada267a1e5114ab4fc707",
+  "ref": "b8e0790b09e8f6772b8ada267a1e5114ab4fc707",
+  "files": [
+    {
+      "path": "src/main.rs",
+      "language": "rust",
+      "environment": "server"
+    },
+    {
+      "path": "src/require_client_name.rs",
+      "language": "rust",
+      "environment": "server"
+    },
+    {
+      "path": "src/request_cache/structs.rs",
+      "language": "rust",
+      "environment": "server"
+    }
+  ],
+  "questions": [
+    {
+      "id": "rust-router-entry",
+      "profile": "endpoint",
+      "path": "src/require_client_name.rs",
+      "symbol": "supergraph_service",
+      "checks": [
+        {
+          "kind": "entry",
+          "text": "supergraph_service"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,92 @@
+{
+  "repo": "volvo-cars/cds-paymentservice-psp-inbound",
+  "commit": "ae1d9ddfb34dae71c15913e9f28d41321d66266a",
+  "explicitRestRegistrations": 2,
+  "configuredOperationalFamilies": 4,
+  "scheduledLocalJobs": 1,
+  "configuredImportedScheduledBehaviours": 1,
+  "localSubscriptions": 0,
+  "localPersistedSchemasEstablished": 0,
+  "entries": [
+    {
+      "kind": "REST source registration",
+      "id": "pspin-ae1d9dd/entry/webhook",
+      "method": "POST",
+      "path": "/v2/{psp}/{platformAccountId}/inbound",
+      "implementation": "pspin-ae1d9dd/impl/webhook",
+      "coverage": "partial",
+      "evidence": ["pspin-ae1d9dd/e/b0f59c0cf7873c", "pspin-ae1d9dd/e/3b2f57f1f5e2a7"]
+    },
+    {
+      "kind": "scheduled application job",
+      "id": "pspin-ae1d9dd/impl/heartbeat",
+      "queryRoot": "pspin-ae1d9dd/impl/heartbeat",
+      "trigger": "fixedDelayString=${payment-service.scheduled-message.delay-millis}",
+      "condition": "payment-service.scheduled-message.enabled=true",
+      "sourceProfileDelayMillis": "10_000",
+      "coverage": "local source examined; runtime/producer policies partial",
+      "evidence": ["pspin-ae1d9dd/e/08044b5f297afe", "pspin-ae1d9dd/e/f03fa9a3c7c0a1"]
+    },
+    {
+      "kind": "REST source registration",
+      "id": "pspin-ae1d9dd/entry/swagger-config",
+      "method": "GET",
+      "path": "/v1/configurations/swagger-config",
+      "implementation": "pspin-ae1d9dd/impl/swagger-config",
+      "coverage": "partial",
+      "evidence": ["pspin-ae1d9dd/e/23200a9d2ba735", "pspin-ae1d9dd/e/ce3068853769e6"]
+    },
+    {
+      "kind": "configuration-declared operational family",
+      "id": "pspin-ae1d9dd/entry/actuator-health",
+      "method": "UNRESOLVED",
+      "path": "unresolved:Actuator health route",
+      "implementation": "pspin-ae1d9dd/impl/actuator-health",
+      "coverage": "partial",
+      "evidence": ["pspin-ae1d9dd/e/5b51ab0d8bb53f"]
+    },
+    {
+      "kind": "configuration-declared operational family",
+      "id": "pspin-ae1d9dd/entry/actuator-prometheus",
+      "method": "UNRESOLVED",
+      "path": "unresolved:Actuator prometheus route",
+      "implementation": "pspin-ae1d9dd/impl/actuator-prometheus",
+      "coverage": "partial",
+      "evidence": ["pspin-ae1d9dd/e/5b51ab0d8bb53f"]
+    },
+    {
+      "kind": "configuration-declared operational family",
+      "id": "pspin-ae1d9dd/entry/swagger-ui",
+      "method": "UNRESOLVED",
+      "path": "/swagger-ui.html",
+      "implementation": "pspin-ae1d9dd/impl/swagger-ui",
+      "coverage": "partial",
+      "evidence": ["pspin-ae1d9dd/e/d458ca24c8b99a"]
+    },
+    {
+      "kind": "configuration-declared operational family",
+      "id": "pspin-ae1d9dd/entry/api-docs",
+      "method": "UNRESOLVED",
+      "path": "unresolved:Springdoc API docs route",
+      "implementation": "pspin-ae1d9dd/impl/api-docs",
+      "coverage": "partial",
+      "evidence": ["pspin-ae1d9dd/e/d458ca24c8b99a"]
+    },
+    {
+      "kind": "configuration-declared imported scheduled behaviour",
+      "id": "pspin-ae1d9dd/impl/config-refresh",
+      "queryRoot": "pspin-ae1d9dd/impl/config-refresh",
+      "trigger": "app-cloud-config.refresh-cron",
+      "coverage": "partial opaque imported implementation",
+      "evidence": ["pspin-ae1d9dd/e/83f6a6c8f8f9fb", "pspin-ae1d9dd/e/17e290ee98f429"]
+    }
+  ],
+  "excluded": [
+    "CodeQL/Sonarqube scheduled scans and Dependabot are repository maintenance automation, outside application runtime scope"
+  ],
+  "notes": [
+    "No fetch; local checkpoint revision is analysed, upstream freshness separate",
+    "Job queries use bound implementation roots rather than invented HTTP exposures",
+    "No consumer/header filters invented: no local subscribers found"
+  ]
+}

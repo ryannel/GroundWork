@@ -1,0 +1,181 @@
+{
+  "status": "passed",
+  "snapshot": "5f244b8b75661ddc2c58cee97ab0d61ca2c0f73b58fbf65e775236cdd0dda3ae",
+  "records": 816,
+  "queries": {
+    "registrationTrace": {
+      "nodes": 30,
+      "edges": 31,
+      "records": 199,
+      "sourceLinks": 98,
+      "limits": [],
+      "frontiers": ["unhandled_exception", "unhandled_exception", "unhandled_exception"]
+    },
+    "registrationInteractions": {
+      "nodes": 2,
+      "edges": 3,
+      "records": 160,
+      "sourceLinks": 102,
+      "limits": [],
+      "frontiers": ["unhandled_exception", "unhandled_exception", "unhandled_exception"]
+    },
+    "registration200": {
+      "nodes": 24,
+      "edges": 25,
+      "records": 180,
+      "sourceLinks": 92,
+      "limits": [],
+      "frontiers": []
+    },
+    "registration208": {
+      "nodes": 9,
+      "edges": 9,
+      "records": 118,
+      "sourceLinks": 72,
+      "limits": [],
+      "frontiers": []
+    },
+    "registration404": {
+      "nodes": 13,
+      "edges": 13,
+      "records": 132,
+      "sourceLinks": 76,
+      "limits": [],
+      "frontiers": []
+    },
+    "registrationResponse": {
+      "nodes": 7,
+      "edges": 6,
+      "records": 121,
+      "sourceLinks": 79,
+      "limits": [],
+      "frontiers": ["version_unresolved", "version_unresolved"]
+    },
+    "createdJob": {
+      "nodes": 3,
+      "edges": 2,
+      "records": 98,
+      "sourceLinks": 67,
+      "limits": [],
+      "frontiers": []
+    },
+    "pollTrace": {
+      "nodes": 111,
+      "edges": 126,
+      "records": 413,
+      "sourceLinks": 151,
+      "limits": [],
+      "frontiers": [
+        "unhandled_exception",
+        "opaque",
+        "unhandled_exception",
+        "version_unresolved",
+        "opaque"
+      ]
+    },
+    "pollInteractions": {
+      "nodes": 4,
+      "edges": 15,
+      "records": 265,
+      "sourceLinks": 130,
+      "limits": [],
+      "frontiers": [
+        "unhandled_exception",
+        "opaque",
+        "unhandled_exception",
+        "version_unresolved",
+        "opaque"
+      ]
+    },
+    "pollConsistency": {
+      "nodes": 111,
+      "edges": 126,
+      "records": 451,
+      "sourceLinks": 175,
+      "limits": [],
+      "frontiers": [
+        "unhandled_exception",
+        "opaque",
+        "unhandled_exception",
+        "version_unresolved",
+        "opaque"
+      ]
+    },
+    "notificationKey": {
+      "nodes": 20,
+      "edges": 21,
+      "records": 209,
+      "sourceLinks": 95,
+      "limits": [],
+      "frontiers": [
+        "version_unresolved",
+        "version_unresolved",
+        "version_unresolved",
+        "version_unresolved",
+        "version_unresolved"
+      ]
+    },
+    "notificationEvent": {
+      "nodes": 20,
+      "edges": 21,
+      "records": 214,
+      "sourceLinks": 97,
+      "limits": [],
+      "frontiers": [
+        "version_unresolved",
+        "version_unresolved",
+        "version_unresolved",
+        "version_unresolved",
+        "version_unresolved",
+        "version_unresolved",
+        "version_unresolved"
+      ]
+    },
+    "producerTrace": {
+      "nodes": 3,
+      "edges": 2,
+      "records": 32,
+      "sourceLinks": 11,
+      "limits": [],
+      "frontiers": ["opaque"]
+    },
+    "callbackTrace": {
+      "nodes": 4,
+      "edges": 3,
+      "records": 30,
+      "sourceLinks": 9,
+      "limits": [],
+      "frontiers": []
+    },
+    "continuations": {
+      "nodes": 111,
+      "edges": 126,
+      "records": 413,
+      "sourceLinks": 151,
+      "limits": [],
+      "frontiers": [
+        "unhandled_exception",
+        "opaque",
+        "unhandled_exception",
+        "version_unresolved",
+        "opaque"
+      ]
+    },
+    "refreshTrace": {
+      "nodes": 4,
+      "edges": 3,
+      "records": 26,
+      "sourceLinks": 9,
+      "limits": [],
+      "frontiers": ["version_unresolved"]
+    },
+    "schemas": {
+      "nodes": 0,
+      "edges": 0,
+      "records": 162,
+      "sourceLinks": 106,
+      "limits": [],
+      "frontiers": []
+    }
+  }
+}

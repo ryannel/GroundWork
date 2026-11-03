@@ -1,0 +1,30 @@
+[
+  {
+    "name": "delete-affected-row-and-error",
+    "nodes": 24,
+    "edges": 23,
+    "limits": []
+  },
+  {
+    "name": "read-scan-nil-error",
+    "nodes": 527,
+    "edges": 558,
+    "limits": []
+  },
+  {
+    "name": "create-error-commit-defer",
+    "nodes": 2000,
+    "edges": 2036,
+    "limits": [
+      "maxNodes"
+    ]
+  },
+  {
+    "name": "specification-insert-error",
+    "nodes": 2000,
+    "edges": 2033,
+    "limits": [
+      "maxNodes"
+    ]
+  }
+]

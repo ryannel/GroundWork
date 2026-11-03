@@ -1,0 +1,497 @@
+{
+  "status": "passed",
+  "snapshot": "f06cf27a34008539e23495f4d8023b6cd4f407d1768ab0470d8506af7a1ee6e8",
+  "qualification": "Independent19full pinned source files. Both actual authenticated REST registrations positively reach TRL/RDM and conditional Kafka/local transport, detached worker separate. Every source I/O contract and all actual request arguments are queried, with rooted request contexts; helpers unused by routes stay excluded. Imported codec, delivery, authentication library, mutable alias and deployed identity limits retained. Child gitlink blobs absent; available parent proto/generated declarations remain distinct.",
+  "queries": [
+    {
+      "name": "Unauthenticated health has no source I/O",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual authenticated path /notifyPartner",
+      "nodes": 4,
+      "edges": 7,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual authenticated path /republish-all-partners",
+      "nodes": 4,
+      "edges": 7,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Detached republish worker reaches RDM and conditional publishers",
+      "nodes": 3,
+      "edges": 3,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual source I/O owner c.internalClient.Do(req)",
+      "nodes": 2,
+      "edges": 1,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Exact source I/O contract volvo/cce-retail-ingress/95d091aa445f/final-r1/interaction/io/dynamic/0b80df5bc0e79fe6edbd",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Exact source I/O argument volvo/cce-retail-ingress/95d091aa445f/final-r1/interaction/io/dynamic/0b80df5bc0e79fe6edbd argument0",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual source I/O owner c.client.Do(req)",
+      "nodes": 2,
+      "edges": 1,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Exact source I/O contract volvo/cce-retail-ingress/95d091aa445f/final-r1/interaction/io/rdm/3e2e2b5b77acb9f18f68",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Exact source I/O argument volvo/cce-retail-ingress/95d091aa445f/final-r1/interaction/io/rdm/3e2e2b5b77acb9f18f68 argument0",
+      "nodes": 54,
+      "edges": 53,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Exact source I/O argument volvo/cce-retail-ingress/95d091aa445f/final-r1/interaction/io/rdm/3e2e2b5b77acb9f18f68 sourceCallerConstruction",
+      "nodes": 20,
+      "edges": 20,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual source I/O owner c.client.Do(req)",
+      "nodes": 2,
+      "edges": 1,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Exact source I/O contract volvo/cce-retail-ingress/95d091aa445f/final-r1/interaction/io/rdm/3119c3e3b877b04db8a8",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Exact source I/O argument volvo/cce-retail-ingress/95d091aa445f/final-r1/interaction/io/rdm/3119c3e3b877b04db8a8 argument0",
+      "nodes": 54,
+      "edges": 53,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Exact source I/O argument volvo/cce-retail-ingress/95d091aa445f/final-r1/interaction/io/rdm/3119c3e3b877b04db8a8 sourceCallerConstruction",
+      "nodes": 22,
+      "edges": 22,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual source I/O owner a.httpClient.Do(req)",
+      "nodes": 2,
+      "edges": 1,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Exact source I/O contract volvo/cce-retail-ingress/95d091aa445f/final-r1/interaction/io/token-unused/e2aeccbd8da3f6be7ee0",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Exact source I/O argument volvo/cce-retail-ingress/95d091aa445f/final-r1/interaction/io/token-unused/e2aeccbd8da3f6be7ee0 argument0",
+      "nodes": 47,
+      "edges": 46,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual source I/O owner p.publisher.Publish(p.topic, msg)",
+      "nodes": 2,
+      "edges": 2,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Exact source I/O contract volvo/cce-retail-ingress/95d091aa445f/final-r1/interaction/io/kafka/7158421cd9da128c2185",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Exact source I/O argument volvo/cce-retail-ingress/95d091aa445f/final-r1/interaction/io/kafka/7158421cd9da128c2185 argument0",
+      "nodes": 2,
+      "edges": 1,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Exact source I/O argument volvo/cce-retail-ingress/95d091aa445f/final-r1/interaction/io/kafka/7158421cd9da128c2185 argument1",
+      "nodes": 2,
+      "edges": 1,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Exact source I/O argument volvo/cce-retail-ingress/95d091aa445f/final-r1/interaction/io/kafka/7158421cd9da128c2185 sourceCallerConstruction",
+      "nodes": 99,
+      "edges": 112,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Exact source I/O argument volvo/cce-retail-ingress/95d091aa445f/final-r1/interaction/io/kafka/7158421cd9da128c2185 sourceCallerConstruction",
+      "nodes": 99,
+      "edges": 112,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual source I/O owner p.publisher.Publish(p.topic, msg)",
+      "nodes": 2,
+      "edges": 2,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Exact source I/O contract volvo/cce-retail-ingress/95d091aa445f/final-r1/interaction/io/local/7158421cd9da128c2185",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Exact source I/O argument volvo/cce-retail-ingress/95d091aa445f/final-r1/interaction/io/local/7158421cd9da128c2185 argument0",
+      "nodes": 2,
+      "edges": 1,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Exact source I/O argument volvo/cce-retail-ingress/95d091aa445f/final-r1/interaction/io/local/7158421cd9da128c2185 argument1",
+      "nodes": 2,
+      "edges": 1,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Exact source I/O argument volvo/cce-retail-ingress/95d091aa445f/final-r1/interaction/io/local/7158421cd9da128c2185 sourceCallerConstruction",
+      "nodes": 99,
+      "edges": 112,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Exact source I/O argument volvo/cce-retail-ingress/95d091aa445f/final-r1/interaction/io/local/7158421cd9da128c2185 sourceCallerConstruction",
+      "nodes": 99,
+      "edges": 112,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual source I/O owner http.Get(a.trlURL + a.domain)",
+      "nodes": 2,
+      "edges": 1,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Exact source I/O contract volvo/cce-retail-ingress/95d091aa445f/final-r1/interaction/io/trl/fe729e2aba608f0c4574",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Exact source I/O argument volvo/cce-retail-ingress/95d091aa445f/final-r1/interaction/io/trl/fe729e2aba608f0c4574 argument0",
+      "nodes": 4,
+      "edges": 4,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Rooted request /notifyPartner Configured RDM GraphQL API argument0",
+      "nodes": 63,
+      "edges": 62,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Rooted request /notifyPartner Configured RDM GraphQL API sourceCallerConstruction",
+      "nodes": 46,
+      "edges": 46,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Rooted request /notifyPartner Configured retail feed topic argument0",
+      "nodes": 8,
+      "edges": 7,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Rooted request /notifyPartner Configured retail feed topic argument1",
+      "nodes": 2,
+      "edges": 1,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Rooted request /notifyPartner Configured retail feed topic sourceCallerConstruction",
+      "nodes": 214,
+      "edges": 227,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Rooted request /notifyPartner Configured retail feed topic sourceCallerConstruction",
+      "nodes": 214,
+      "edges": 227,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Rooted request /notifyPartner CCE Retail Ingress argument0",
+      "nodes": 8,
+      "edges": 7,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Rooted request /notifyPartner CCE Retail Ingress argument1",
+      "nodes": 2,
+      "edges": 1,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Rooted request /notifyPartner CCE Retail Ingress sourceCallerConstruction",
+      "nodes": 214,
+      "edges": 227,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Rooted request /notifyPartner CCE Retail Ingress sourceCallerConstruction",
+      "nodes": 214,
+      "edges": 227,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Rooted request /notifyPartner Configured VTS token revocation list argument0",
+      "nodes": 7,
+      "edges": 7,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Rooted request /republish-all-partners Configured RDM GraphQL API argument0",
+      "nodes": 66,
+      "edges": 65,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Rooted request /republish-all-partners Configured RDM GraphQL API sourceCallerConstruction",
+      "nodes": 162,
+      "edges": 169,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Rooted request /republish-all-partners Configured retail feed topic argument0",
+      "nodes": 9,
+      "edges": 8,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Rooted request /republish-all-partners Configured retail feed topic argument1",
+      "nodes": 2,
+      "edges": 1,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Rooted request /republish-all-partners Configured retail feed topic sourceCallerConstruction",
+      "nodes": 258,
+      "edges": 276,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Rooted request /republish-all-partners Configured retail feed topic sourceCallerConstruction",
+      "nodes": 258,
+      "edges": 276,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Rooted request /republish-all-partners CCE Retail Ingress argument0",
+      "nodes": 9,
+      "edges": 8,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Rooted request /republish-all-partners CCE Retail Ingress argument1",
+      "nodes": 2,
+      "edges": 1,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Rooted request /republish-all-partners CCE Retail Ingress sourceCallerConstruction",
+      "nodes": 258,
+      "edges": 276,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Rooted request /republish-all-partners CCE Retail Ingress sourceCallerConstruction",
+      "nodes": 258,
+      "edges": 276,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Rooted request /republish-all-partners Configured VTS token revocation list argument0",
+      "nodes": 7,
+      "edges": 7,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual source behaviour auth",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual source behaviour route-errors",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual source behaviour notification",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual source behaviour republish",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual source behaviour pagination",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual source behaviour publishing",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual source behaviour event-mapping",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual source behaviour unused-oauth",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual source behaviour request-builder",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "RDM whole source envelopes and constructed POST requests",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual published protobuf closure",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "RDM response outer Data/Errors shape",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Detached work has no eventual return result",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Finite route profiles retain true source-owned middleware contexts",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Local channel uses process host",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    }
+  ]
+}

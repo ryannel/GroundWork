@@ -9,3 +9,6 @@ groundwork.local.yaml
 .workspaces
 reports
 .stryker-tmp
+
+# Screenshots and layout dumps from review sessions; not part of the product or its scan data
+/artifacts/

@@ -1,0 +1,415 @@
+{
+  "format": "groundwork-result/v3",
+  "snapshot": "9958d25719399c959ece547e827c4b7f92f853a983c8b2669f34e08ca6f7f0cc",
+  "queryVersion": "knowledge-query/v3",
+  "request": {
+    "format": "groundwork-query/v3",
+    "snapshot": "9958d25719399c959ece547e827c4b7f92f853a983c8b2669f34e08ca6f7f0cc",
+    "query": "trace",
+    "entry": "masdeep-b360506/entry/post-api-commercial-items-mileages",
+    "value": null,
+    "context": [],
+    "outcome": null,
+    "changed": [],
+    "representation": "constructed",
+    "candidates": "exclude",
+    "maxNodes": 1500,
+    "maxRecords": 5000,
+    "environment": "production-profile",
+    "ids": []
+  },
+  "nodes": [
+    {
+      "id": "root::masdeep-b360506/op/post-api-commercial-items-mileages/entry",
+      "record": "masdeep-b360506/op/post-api-commercial-items-mileages/entry",
+      "context": [],
+      "label": "MileagesController.cs.Post",
+      "component": "u3/component/mas",
+      "execution": "masdeep-b360506/runs/post-api-commercial-items-mileages"
+    },
+    {
+      "id": "root::masdeep-b360506/op/post-api-commercial-items-mileages/opaque",
+      "record": "masdeep-b360506/op/post-api-commercial-items-mileages/opaque",
+      "context": [],
+      "label": "Delegated control/data flow not traced; effects remain unknown",
+      "component": "u3/component/mas",
+      "execution": "masdeep-b360506/runs/post-api-commercial-items-mileages"
+    }
+  ],
+  "edges": [
+    {
+      "from": "root::masdeep-b360506/op/post-api-commercial-items-mileages/entry",
+      "to": "root::masdeep-b360506/op/post-api-commercial-items-mileages/opaque",
+      "on": "normal",
+      "condition": null,
+      "assumption": null,
+      "evidence": ["masdeep-b360506/e/501405adeead1c95"],
+      "record": "masdeep-b360506/t/post-api-commercial-items-mileages/opaque"
+    }
+  ],
+  "claims": [],
+  "evidence": [
+    "masdeep-b360506/e/0103ca62f8f18cc7",
+    "masdeep-b360506/e/095f6b7fcffabd78",
+    "masdeep-b360506/e/501405adeead1c95",
+    "masdeep-b360506/e/d48633b9d8efec6c",
+    "s2/e/controller",
+    "s2/e/input",
+    "s2/e/middleware",
+    "u3/e/mas-program"
+  ],
+  "coverage": [
+    "masdeep-b360506/coverage/post-api-commercial-items-mileages/registration",
+    "masdeep-b360506/coverage/post-api-commercial-items-mileages/contract",
+    "masdeep-b360506/coverage/post-api-commercial-items-mileages/execution"
+  ],
+  "frontiers": [
+    {
+      "at": "root::masdeep-b360506/op/post-api-commercial-items-mileages/opaque",
+      "reason": "opaque",
+      "detail": "Delegated control/data flow not traced; effects remain unknown",
+      "references": ["masdeep-b360506/op/post-api-commercial-items-mileages/opaque"]
+    }
+  ],
+  "limitsHit": [],
+  "feasibility": "not_checked",
+  "exhaustive": false,
+  "records": [
+    {
+      "id": "masdeep-b360506/coverage/post-api-commercial-items-mileages/contract",
+      "kind": "coverage",
+      "owner": "masdeep-b360506/entry/post-api-commercial-items-mileages",
+      "obligation": "Source request/response contracts",
+      "status": "partial",
+      "scope": "Controller annotations and local DTO declaration closure; effective formatter/authentication unresolved",
+      "evidence": ["masdeep-b360506/e/501405adeead1c95"],
+      "gaps": ["masdeep-b360506/gap/wire", "masdeep-b360506/gap/security"]
+    },
+    {
+      "id": "masdeep-b360506/coverage/post-api-commercial-items-mileages/execution",
+      "kind": "coverage",
+      "owner": "masdeep-b360506/entry/post-api-commercial-items-mileages",
+      "obligation": "Endpoint control/data flow",
+      "status": "partial",
+      "scope": "Controller method source read; opaque delegated continuation retained rather than empty logic",
+      "evidence": ["masdeep-b360506/e/501405adeead1c95"],
+      "gaps": ["masdeep-b360506/gap/delegates"]
+    },
+    {
+      "id": "masdeep-b360506/coverage/post-api-commercial-items-mileages/registration",
+      "kind": "coverage",
+      "owner": "masdeep-b360506/entry/post-api-commercial-items-mileages",
+      "obligation": "Registered HTTP method/path and handler",
+      "status": "examined",
+      "scope": "src/PopCat.ManageAndSegment.Api/Controllers/V1/MileagesController.cs:Post; direct source registration at pinned commit",
+      "evidence": ["masdeep-b360506/e/501405adeead1c95"],
+      "gaps": []
+    },
+    {
+      "id": "masdeep-b360506/e/0103ca62f8f18cc7",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Api/Authorization/PopAuthzAuthorizationHandler.cs",
+      "lines": [1, 147],
+      "basis": "source"
+    },
+    {
+      "id": "masdeep-b360506/e/095f6b7fcffabd78",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Api/Startup.cs",
+      "lines": [1, 60],
+      "basis": "source"
+    },
+    {
+      "id": "masdeep-b360506/e/501405adeead1c95",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Api/Controllers/V1/MileagesController.cs",
+      "lines": [78, 89],
+      "basis": "source"
+    },
+    {
+      "id": "masdeep-b360506/e/d48633b9d8efec6c",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Api/Controllers/V1/MileagesController.cs",
+      "lines": [83, 89],
+      "basis": "source"
+    },
+    {
+      "id": "masdeep-b360506/entry/post-api-commercial-items-mileages",
+      "kind": "entry",
+      "logicalId": "POST /api/commercial-items/mileages",
+      "method": "POST",
+      "path": "/api/commercial-items/mileages",
+      "implementation": "masdeep-b360506/impl/post-api-commercial-items-mileages",
+      "evidence": ["masdeep-b360506/e/501405adeead1c95", "masdeep-b360506/e/d48633b9d8efec6c"]
+    },
+    {
+      "id": "masdeep-b360506/gap/delegates",
+      "kind": "gap",
+      "owner": "s2/http",
+      "obligation": "Source closure",
+      "reason": "Registration/contracts are examined; delegated service/repository and framework control/data flow is not fully traced for this entry. An opaque operation preserves the boundary; it does not assert no effects.",
+      "action": "Trace the named controller method, mapper, bound service, repository and middleware through branches, exceptions and values.",
+      "evidence": ["masdeep-b360506/e/095f6b7fcffabd78"]
+    },
+    {
+      "id": "masdeep-b360506/gap/security",
+      "kind": "gap",
+      "owner": "s2/http",
+      "obligation": "Source closure",
+      "reason": "Authorisation policy source is available, but full imported authentication, token validation and effective middleware enforcement are not established.",
+      "action": "Resolve authentication middleware/registration, policy execution and deployment configuration.",
+      "evidence": ["masdeep-b360506/e/0103ca62f8f18cc7", "masdeep-b360506/e/095f6b7fcffabd78"]
+    },
+    {
+      "id": "masdeep-b360506/gap/wire",
+      "kind": "gap",
+      "owner": "s2/http",
+      "obligation": "Source closure",
+      "reason": "Effective request/response formatter selection, imported middleware and negotiation are not fully resolved. Source DTO fields are not a complete effective wire contract.",
+      "action": "Resolve pinned shared assemblies, model version handling and effective MVC formatter configuration.",
+      "evidence": ["masdeep-b360506/e/095f6b7fcffabd78"]
+    },
+    {
+      "id": "masdeep-b360506/impl/post-api-commercial-items-mileages",
+      "kind": "implementation",
+      "logicalId": "MileagesController.cs.Post",
+      "scope": "s2/p",
+      "entry": "masdeep-b360506/op/post-api-commercial-items-mileages/entry",
+      "parameters": [],
+      "evidence": ["masdeep-b360506/e/501405adeead1c95", "masdeep-b360506/e/d48633b9d8efec6c"]
+    },
+    {
+      "id": "masdeep-b360506/op/post-api-commercial-items-mileages/entry",
+      "kind": "operation",
+      "owner": "masdeep-b360506/impl/post-api-commercial-items-mileages",
+      "action": "entry",
+      "label": "MileagesController.cs.Post",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": null,
+      "httpStatus": null,
+      "evidence": ["masdeep-b360506/e/501405adeead1c95"]
+    },
+    {
+      "id": "masdeep-b360506/op/post-api-commercial-items-mileages/opaque",
+      "kind": "operation",
+      "owner": "masdeep-b360506/impl/post-api-commercial-items-mileages",
+      "action": "opaque",
+      "label": "Delegated control/data flow not traced; effects remain unknown",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": null,
+      "httpStatus": null,
+      "evidence": ["masdeep-b360506/e/501405adeead1c95"]
+    },
+    {
+      "id": "masdeep-b360506/runs/post-api-commercial-items-mileages",
+      "kind": "execution_binding",
+      "implementation": "masdeep-b360506/impl/post-api-commercial-items-mileages",
+      "component": "u3/component/mas",
+      "basis": "source_declared",
+      "artifactBinding": null,
+      "gaps": [],
+      "evidence": ["masdeep-b360506/e/501405adeead1c95"]
+    },
+    {
+      "id": "masdeep-b360506/t/post-api-commercial-items-mileages/opaque",
+      "kind": "transition",
+      "owner": "masdeep-b360506/impl/post-api-commercial-items-mileages",
+      "from": "masdeep-b360506/op/post-api-commercial-items-mileages/entry",
+      "to": "masdeep-b360506/op/post-api-commercial-items-mileages/opaque",
+      "on": "normal",
+      "condition": null,
+      "values": [],
+      "evidence": ["masdeep-b360506/e/501405adeead1c95"]
+    },
+    {
+      "id": "s2/e/controller",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Api/Controllers/V1/SoftOffersController.cs",
+      "lines": [17, 90],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "s2/e/input",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Api/Models/V1/Request/SoftOfferInput.cs",
+      "lines": [1, 53],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "s2/e/middleware",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Api/Middleware/ExceptionMiddleware.cs",
+      "lines": [1, 85],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "s2/http",
+      "kind": "implementation",
+      "logicalId": "impl:soft-offer-http",
+      "scope": "s2/p",
+      "entry": "s2/http.start",
+      "parameters": ["s2/v/request"],
+      "evidence": ["s2/e/controller", "s2/e/middleware"]
+    },
+    {
+      "id": "s2/http.start",
+      "kind": "operation",
+      "owner": "s2/http",
+      "action": "entry",
+      "label": "Authenticated, bound soft-offer input",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": null,
+      "httpStatus": null,
+      "evidence": ["s2/e/controller", "s2/e/input"]
+    },
+    {
+      "id": "s2/p",
+      "kind": "source_revision",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110"
+    },
+    {
+      "id": "s2/shape/input",
+      "kind": "shape",
+      "representation": "constructed",
+      "label": "SoftOfferInput",
+      "fields": [
+        {
+          "name": "Code",
+          "type": "string",
+          "status": "declared"
+        },
+        {
+          "name": "Type",
+          "type": "string",
+          "status": "declared"
+        },
+        {
+          "name": "Name",
+          "type": "string",
+          "status": "declared"
+        },
+        {
+          "name": "SkuCategory",
+          "type": "string",
+          "status": "declared"
+        },
+        {
+          "name": "SkuIdentifier",
+          "type": "string",
+          "status": "declared"
+        }
+      ],
+      "completeness": "closed",
+      "gaps": [],
+      "evidence": ["s2/e/input"],
+      "encoding": "json"
+    },
+    {
+      "id": "s2/v/request",
+      "kind": "value",
+      "owner": "s2/http",
+      "definition": "s2/http.start",
+      "label": "SoftOfferInput request body",
+      "role": "parameter",
+      "representation": "constructed",
+      "shape": "s2/shape/input",
+      "evidence": ["s2/e/input", "s2/e/controller"],
+      "accessPath": []
+    },
+    {
+      "id": "u3/component/mas",
+      "kind": "runtime_component",
+      "logicalId": "svc:manage-and-segment-api",
+      "label": "Manage and Segment API",
+      "category": "service",
+      "technology": ".NET / ASP.NET Core",
+      "sources": ["s2/p"],
+      "basis": "source_declared",
+      "evidence": ["u3/e/mas-program", "s2/e/controller"],
+      "gaps": []
+    },
+    {
+      "id": "u3/e/mas-program",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Api/Program.cs",
+      "lines": [1, 24],
+      "basis": "source"
+    }
+  ],
+  "traversalComplete": true,
+  "findings": [],
+  "sourceLinks": [
+    {
+      "evidence": "masdeep-b360506/e/501405adeead1c95",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Api/Controllers/V1/MileagesController.cs#L78-L89",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Api/Controllers/V1/MileagesController.cs:78–89"
+    },
+    {
+      "evidence": "masdeep-b360506/e/d48633b9d8efec6c",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Api/Controllers/V1/MileagesController.cs#L83-L89",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Api/Controllers/V1/MileagesController.cs:83–89"
+    },
+    {
+      "evidence": "s2/e/input",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Api/Models/V1/Request/SoftOfferInput.cs#L1-L53",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Api/Models/V1/Request/SoftOfferInput.cs:1–53"
+    },
+    {
+      "evidence": "s2/e/controller",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Api/Controllers/V1/SoftOffersController.cs#L17-L90",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Api/Controllers/V1/SoftOffersController.cs:17–90"
+    },
+    {
+      "evidence": "s2/e/middleware",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Api/Middleware/ExceptionMiddleware.cs#L1-L85",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Api/Middleware/ExceptionMiddleware.cs:1–85"
+    },
+    {
+      "evidence": "masdeep-b360506/e/095f6b7fcffabd78",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Api/Startup.cs#L1-L60",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Api/Startup.cs:1–60"
+    },
+    {
+      "evidence": "masdeep-b360506/e/0103ca62f8f18cc7",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Api/Authorization/PopAuthzAuthorizationHandler.cs#L1-L147",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Api/Authorization/PopAuthzAuthorizationHandler.cs:1–147"
+    },
+    {
+      "evidence": "u3/e/mas-program",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Api/Program.cs#L1-L24",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Api/Program.cs:1–24"
+    }
+  ],
+  "nextRequest": null
+}

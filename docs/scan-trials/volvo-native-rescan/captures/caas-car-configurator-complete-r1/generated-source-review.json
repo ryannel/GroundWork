@@ -1,0 +1,3893 @@
+{
+  "scope": "exact parsed generated function bodies; getters reviewed by explicit guard/field/default template, non-getters below",
+  "functions": [
+    {
+      "path": "internal/api/grpcserver/contracts/car-configuration-ruleset.pb.go",
+      "name": "Reset",
+      "lines": [34, 39],
+      "bodyLines": [34, 39],
+      "category": "Reset",
+      "source": "func (x *CarConfigurationRuleset) Reset() {\n\t*x = CarConfigurationRuleset{}\n\tmi := &file_car_configuration_ruleset_proto_msgTypes[0]\n\tms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))\n\tms.StoreMessageInfo(mi)\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-configuration-ruleset.pb.go",
+      "name": "String",
+      "lines": [41, 43],
+      "bodyLines": [41, 43],
+      "category": "String",
+      "source": "func (x *CarConfigurationRuleset) String() string {\n\treturn protoimpl.X.MessageStringOf(x)\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-configuration-ruleset.pb.go",
+      "name": "ProtoMessage",
+      "lines": [45, 45],
+      "bodyLines": [45, 45],
+      "category": "ProtoMessage",
+      "source": "func (*CarConfigurationRuleset) ProtoMessage() {}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-configuration-ruleset.pb.go",
+      "name": "ProtoReflect",
+      "lines": [47, 57],
+      "bodyLines": [47, 57],
+      "category": "ProtoReflect",
+      "source": "func (x *CarConfigurationRuleset) ProtoReflect() protoreflect.Message {\n\tmi := &file_car_configuration_ruleset_proto_msgTypes[0]\n\tif x != nil {\n\t\tms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))\n\t\tif ms.LoadMessageInfo() == nil {\n\t\t\tms.StoreMessageInfo(mi)\n\t\t}\n\t\treturn ms\n\t}\n\treturn mi.MessageOf(x)\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-configuration-ruleset.pb.go",
+      "name": "Descriptor",
+      "lines": [60, 62],
+      "bodyLines": [60, 62],
+      "category": "Descriptor",
+      "source": "func (*CarConfigurationRuleset) Descriptor() ([]byte, []int) {\n\treturn file_car_configuration_ruleset_proto_rawDescGZIP(), []int{0}\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-configuration-ruleset.pb.go",
+      "name": "GetCarDetails",
+      "lines": [64, 69],
+      "bodyLines": [64, 69],
+      "category": "nil-guarded source getter",
+      "source": "func (x *CarConfigurationRuleset) GetCarDetails() *CarDetails {\n\tif x != nil {\n\t\treturn x.CarDetails\n\t}\n\treturn nil\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-configuration-ruleset.pb.go",
+      "name": "GetRuleset",
+      "lines": [71, 76],
+      "bodyLines": [71, 76],
+      "category": "nil-guarded source getter",
+      "source": "func (x *CarConfigurationRuleset) GetRuleset() *ConfigurationRuleset {\n\tif x != nil {\n\t\treturn x.Ruleset\n\t}\n\treturn nil\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-configuration-ruleset.pb.go",
+      "name": "GetComponents",
+      "lines": [78, 83],
+      "bodyLines": [78, 83],
+      "category": "nil-guarded source getter",
+      "source": "func (x *CarConfigurationRuleset) GetComponents() *Components {\n\tif x != nil {\n\t\treturn x.Components\n\t}\n\treturn nil\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-configuration-ruleset.pb.go",
+      "name": "Reset",
+      "lines": [97, 102],
+      "bodyLines": [97, 102],
+      "category": "Reset",
+      "source": "func (x *ConfigurationRuleset) Reset() {\n\t*x = ConfigurationRuleset{}\n\tmi := &file_car_configuration_ruleset_proto_msgTypes[1]\n\tms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))\n\tms.StoreMessageInfo(mi)\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-configuration-ruleset.pb.go",
+      "name": "String",
+      "lines": [104, 106],
+      "bodyLines": [104, 106],
+      "category": "String",
+      "source": "func (x *ConfigurationRuleset) String() string {\n\treturn protoimpl.X.MessageStringOf(x)\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-configuration-ruleset.pb.go",
+      "name": "ProtoMessage",
+      "lines": [108, 108],
+      "bodyLines": [108, 108],
+      "category": "ProtoMessage",
+      "source": "func (*ConfigurationRuleset) ProtoMessage() {}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-configuration-ruleset.pb.go",
+      "name": "ProtoReflect",
+      "lines": [110, 120],
+      "bodyLines": [110, 120],
+      "category": "ProtoReflect",
+      "source": "func (x *ConfigurationRuleset) ProtoReflect() protoreflect.Message {\n\tmi := &file_car_configuration_ruleset_proto_msgTypes[1]\n\tif x != nil {\n\t\tms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))\n\t\tif ms.LoadMessageInfo() == nil {\n\t\t\tms.StoreMessageInfo(mi)\n\t\t}\n\t\treturn ms\n\t}\n\treturn mi.MessageOf(x)\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-configuration-ruleset.pb.go",
+      "name": "Descriptor",
+      "lines": [123, 125],
+      "bodyLines": [123, 125],
+      "category": "Descriptor",
+      "source": "func (*ConfigurationRuleset) Descriptor() ([]byte, []int) {\n\treturn file_car_configuration_ruleset_proto_rawDescGZIP(), []int{1}\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-configuration-ruleset.pb.go",
+      "name": "GetPolyhedron",
+      "lines": [127, 132],
+      "bodyLines": [127, 132],
+      "category": "nil-guarded source getter",
+      "source": "func (x *ConfigurationRuleset) GetPolyhedron() *Polyhedron {\n\tif x != nil {\n\t\treturn x.Polyhedron\n\t}\n\treturn nil\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-configuration-ruleset.pb.go",
+      "name": "GetSelectableVariables",
+      "lines": [134, 139],
+      "bodyLines": [134, 139],
+      "category": "nil-guarded source getter",
+      "source": "func (x *ConfigurationRuleset) GetSelectableVariables() []string {\n\tif x != nil {\n\t\treturn x.SelectableVariables\n\t}\n\treturn nil\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-configuration-ruleset.pb.go",
+      "name": "GetDependentVariables",
+      "lines": [141, 146],
+      "bodyLines": [141, 146],
+      "category": "nil-guarded source getter",
+      "source": "func (x *ConfigurationRuleset) GetDependentVariables() []string {\n\tif x != nil {\n\t\treturn x.DependentVariables\n\t}\n\treturn nil\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-configuration-ruleset.pb.go",
+      "name": "GetIndependentVariables",
+      "lines": [148, 153],
+      "bodyLines": [148, 153],
+      "category": "nil-guarded source getter",
+      "source": "func (x *ConfigurationRuleset) GetIndependentVariables() []string {\n\tif x != nil {\n\t\treturn x.IndependentVariables\n\t}\n\treturn nil\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-configuration-ruleset.pb.go",
+      "name": "GetPreferredVariables",
+      "lines": [155, 160],
+      "bodyLines": [155, 160],
+      "category": "nil-guarded source getter",
+      "source": "func (x *ConfigurationRuleset) GetPreferredVariables() []string {\n\tif x != nil {\n\t\treturn x.PreferredVariables\n\t}\n\treturn nil\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-configuration-ruleset.pb.go",
+      "name": "GetPeriodVariables",
+      "lines": [162, 167],
+      "bodyLines": [162, 167],
+      "category": "nil-guarded source getter",
+      "source": "func (x *ConfigurationRuleset) GetPeriodVariables() []*TimeBoundVariable {\n\tif x != nil {\n\t\treturn x.PeriodVariables\n\t}\n\treturn nil\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-configuration-ruleset.pb.go",
+      "name": "Reset",
+      "lines": [177, 182],
+      "bodyLines": [177, 182],
+      "category": "Reset",
+      "source": "func (x *Polyhedron) Reset() {\n\t*x = Polyhedron{}\n\tmi := &file_car_configuration_ruleset_proto_msgTypes[2]\n\tms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))\n\tms.StoreMessageInfo(mi)\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-configuration-ruleset.pb.go",
+      "name": "String",
+      "lines": [184, 186],
+      "bodyLines": [184, 186],
+      "category": "String",
+      "source": "func (x *Polyhedron) String() string {\n\treturn protoimpl.X.MessageStringOf(x)\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-configuration-ruleset.pb.go",
+      "name": "ProtoMessage",
+      "lines": [188, 188],
+      "bodyLines": [188, 188],
+      "category": "ProtoMessage",
+      "source": "func (*Polyhedron) ProtoMessage() {}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-configuration-ruleset.pb.go",
+      "name": "ProtoReflect",
+      "lines": [190, 200],
+      "bodyLines": [190, 200],
+      "category": "ProtoReflect",
+      "source": "func (x *Polyhedron) ProtoReflect() protoreflect.Message {\n\tmi := &file_car_configuration_ruleset_proto_msgTypes[2]\n\tif x != nil {\n\t\tms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))\n\t\tif ms.LoadMessageInfo() == nil {\n\t\t\tms.StoreMessageInfo(mi)\n\t\t}\n\t\treturn ms\n\t}\n\treturn mi.MessageOf(x)\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-configuration-ruleset.pb.go",
+      "name": "Descriptor",
+      "lines": [203, 205],
+      "bodyLines": [203, 205],
+      "category": "Descriptor",
+      "source": "func (*Polyhedron) Descriptor() ([]byte, []int) {\n\treturn file_car_configuration_ruleset_proto_rawDescGZIP(), []int{2}\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-configuration-ruleset.pb.go",
+      "name": "GetAMatrix",
+      "lines": [207, 212],
+      "bodyLines": [207, 212],
+      "category": "nil-guarded source getter",
+      "source": "func (x *Polyhedron) GetAMatrix() []*Row {\n\tif x != nil {\n\t\treturn x.AMatrix\n\t}\n\treturn nil\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-configuration-ruleset.pb.go",
+      "name": "GetBVector",
+      "lines": [214, 219],
+      "bodyLines": [214, 219],
+      "category": "nil-guarded source getter",
+      "source": "func (x *Polyhedron) GetBVector() []int32 {\n\tif x != nil {\n\t\treturn x.BVector\n\t}\n\treturn nil\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-configuration-ruleset.pb.go",
+      "name": "Reset",
+      "lines": [228, 233],
+      "bodyLines": [228, 233],
+      "category": "Reset",
+      "source": "func (x *Row) Reset() {\n\t*x = Row{}\n\tmi := &file_car_configuration_ruleset_proto_msgTypes[3]\n\tms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))\n\tms.StoreMessageInfo(mi)\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-configuration-ruleset.pb.go",
+      "name": "String",
+      "lines": [235, 237],
+      "bodyLines": [235, 237],
+      "category": "String",
+      "source": "func (x *Row) String() string {\n\treturn protoimpl.X.MessageStringOf(x)\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-configuration-ruleset.pb.go",
+      "name": "ProtoMessage",
+      "lines": [239, 239],
+      "bodyLines": [239, 239],
+      "category": "ProtoMessage",
+      "source": "func (*Row) ProtoMessage() {}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-configuration-ruleset.pb.go",
+      "name": "ProtoReflect",
+      "lines": [241, 251],
+      "bodyLines": [241, 251],
+      "category": "ProtoReflect",
+      "source": "func (x *Row) ProtoReflect() protoreflect.Message {\n\tmi := &file_car_configuration_ruleset_proto_msgTypes[3]\n\tif x != nil {\n\t\tms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))\n\t\tif ms.LoadMessageInfo() == nil {\n\t\t\tms.StoreMessageInfo(mi)\n\t\t}\n\t\treturn ms\n\t}\n\treturn mi.MessageOf(x)\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-configuration-ruleset.pb.go",
+      "name": "Descriptor",
+      "lines": [254, 256],
+      "bodyLines": [254, 256],
+      "category": "Descriptor",
+      "source": "func (*Row) Descriptor() ([]byte, []int) {\n\treturn file_car_configuration_ruleset_proto_rawDescGZIP(), []int{3}\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-configuration-ruleset.pb.go",
+      "name": "GetValues",
+      "lines": [258, 263],
+      "bodyLines": [258, 263],
+      "category": "nil-guarded source getter",
+      "source": "func (x *Row) GetValues() []int32 {\n\tif x != nil {\n\t\treturn x.Values\n\t}\n\treturn nil\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-configuration-ruleset.pb.go",
+      "name": "Reset",
+      "lines": [277, 282],
+      "bodyLines": [277, 282],
+      "category": "Reset",
+      "source": "func (x *Components) Reset() {\n\t*x = Components{}\n\tmi := &file_car_configuration_ruleset_proto_msgTypes[4]\n\tms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))\n\tms.StoreMessageInfo(mi)\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-configuration-ruleset.pb.go",
+      "name": "String",
+      "lines": [284, 286],
+      "bodyLines": [284, 286],
+      "category": "String",
+      "source": "func (x *Components) String() string {\n\treturn protoimpl.X.MessageStringOf(x)\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-configuration-ruleset.pb.go",
+      "name": "ProtoMessage",
+      "lines": [288, 288],
+      "bodyLines": [288, 288],
+      "category": "ProtoMessage",
+      "source": "func (*Components) ProtoMessage() {}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-configuration-ruleset.pb.go",
+      "name": "ProtoReflect",
+      "lines": [290, 300],
+      "bodyLines": [290, 300],
+      "category": "ProtoReflect",
+      "source": "func (x *Components) ProtoReflect() protoreflect.Message {\n\tmi := &file_car_configuration_ruleset_proto_msgTypes[4]\n\tif x != nil {\n\t\tms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))\n\t\tif ms.LoadMessageInfo() == nil {\n\t\t\tms.StoreMessageInfo(mi)\n\t\t}\n\t\treturn ms\n\t}\n\treturn mi.MessageOf(x)\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-configuration-ruleset.pb.go",
+      "name": "Descriptor",
+      "lines": [303, 305],
+      "bodyLines": [303, 305],
+      "category": "Descriptor",
+      "source": "func (*Components) Descriptor() ([]byte, []int) {\n\treturn file_car_configuration_ruleset_proto_rawDescGZIP(), []int{4}\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-configuration-ruleset.pb.go",
+      "name": "GetSMessageCodes",
+      "lines": [307, 312],
+      "bodyLines": [307, 312],
+      "category": "nil-guarded source getter",
+      "source": "func (x *Components) GetSMessageCodes() []string {\n\tif x != nil {\n\t\treturn x.SMessageCodes\n\t}\n\treturn nil\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-configuration-ruleset.pb.go",
+      "name": "GetColorCodes",
+      "lines": [314, 319],
+      "bodyLines": [314, 319],
+      "category": "nil-guarded source getter",
+      "source": "func (x *Components) GetColorCodes() []string {\n\tif x != nil {\n\t\treturn x.ColorCodes\n\t}\n\treturn nil\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-configuration-ruleset.pb.go",
+      "name": "GetUpholsteryCodes",
+      "lines": [321, 326],
+      "bodyLines": [321, 326],
+      "category": "nil-guarded source getter",
+      "source": "func (x *Components) GetUpholsteryCodes() []string {\n\tif x != nil {\n\t\treturn x.UpholsteryCodes\n\t}\n\treturn nil\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-configuration-ruleset.pb.go",
+      "name": "GetWheelCodes",
+      "lines": [328, 333],
+      "bodyLines": [328, 333],
+      "category": "nil-guarded source getter",
+      "source": "func (x *Components) GetWheelCodes() []string {\n\tif x != nil {\n\t\treturn x.WheelCodes\n\t}\n\treturn nil\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-configuration-ruleset.pb.go",
+      "name": "GetOptionCodes",
+      "lines": [335, 340],
+      "bodyLines": [335, 340],
+      "category": "nil-guarded source getter",
+      "source": "func (x *Components) GetOptionCodes() []string {\n\tif x != nil {\n\t\treturn x.OptionCodes\n\t}\n\treturn nil\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-configuration-ruleset.pb.go",
+      "name": "GetPackageCodes",
+      "lines": [342, 347],
+      "bodyLines": [342, 347],
+      "category": "nil-guarded source getter",
+      "source": "func (x *Components) GetPackageCodes() []string {\n\tif x != nil {\n\t\treturn x.PackageCodes\n\t}\n\treturn nil\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-configuration-ruleset.pb.go",
+      "name": "Reset",
+      "lines": [357, 362],
+      "bodyLines": [357, 362],
+      "category": "Reset",
+      "source": "func (x *TimeBoundVariable) Reset() {\n\t*x = TimeBoundVariable{}\n\tmi := &file_car_configuration_ruleset_proto_msgTypes[5]\n\tms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))\n\tms.StoreMessageInfo(mi)\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-configuration-ruleset.pb.go",
+      "name": "String",
+      "lines": [364, 366],
+      "bodyLines": [364, 366],
+      "category": "String",
+      "source": "func (x *TimeBoundVariable) String() string {\n\treturn protoimpl.X.MessageStringOf(x)\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-configuration-ruleset.pb.go",
+      "name": "ProtoMessage",
+      "lines": [368, 368],
+      "bodyLines": [368, 368],
+      "category": "ProtoMessage",
+      "source": "func (*TimeBoundVariable) ProtoMessage() {}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-configuration-ruleset.pb.go",
+      "name": "ProtoReflect",
+      "lines": [370, 380],
+      "bodyLines": [370, 380],
+      "category": "ProtoReflect",
+      "source": "func (x *TimeBoundVariable) ProtoReflect() protoreflect.Message {\n\tmi := &file_car_configuration_ruleset_proto_msgTypes[5]\n\tif x != nil {\n\t\tms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))\n\t\tif ms.LoadMessageInfo() == nil {\n\t\t\tms.StoreMessageInfo(mi)\n\t\t}\n\t\treturn ms\n\t}\n\treturn mi.MessageOf(x)\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-configuration-ruleset.pb.go",
+      "name": "Descriptor",
+      "lines": [383, 385],
+      "bodyLines": [383, 385],
+      "category": "Descriptor",
+      "source": "func (*TimeBoundVariable) Descriptor() ([]byte, []int) {\n\treturn file_car_configuration_ruleset_proto_rawDescGZIP(), []int{5}\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-configuration-ruleset.pb.go",
+      "name": "GetVariable",
+      "lines": [387, 392],
+      "bodyLines": [387, 392],
+      "category": "nil-guarded source getter",
+      "source": "func (x *TimeBoundVariable) GetVariable() string {\n\tif x != nil {\n\t\treturn x.Variable\n\t}\n\treturn \"\"\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-configuration-ruleset.pb.go",
+      "name": "GetPeriod",
+      "lines": [394, 399],
+      "bodyLines": [394, 399],
+      "category": "nil-guarded source getter",
+      "source": "func (x *TimeBoundVariable) GetPeriod() *Period {\n\tif x != nil {\n\t\treturn x.Period\n\t}\n\treturn nil\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-configuration-ruleset.pb.go",
+      "name": "Reset",
+      "lines": [409, 414],
+      "bodyLines": [409, 414],
+      "category": "Reset",
+      "source": "func (x *Period) Reset() {\n\t*x = Period{}\n\tmi := &file_car_configuration_ruleset_proto_msgTypes[6]\n\tms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))\n\tms.StoreMessageInfo(mi)\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-configuration-ruleset.pb.go",
+      "name": "String",
+      "lines": [416, 418],
+      "bodyLines": [416, 418],
+      "category": "String",
+      "source": "func (x *Period) String() string {\n\treturn protoimpl.X.MessageStringOf(x)\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-configuration-ruleset.pb.go",
+      "name": "ProtoMessage",
+      "lines": [420, 420],
+      "bodyLines": [420, 420],
+      "category": "ProtoMessage",
+      "source": "func (*Period) ProtoMessage() {}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-configuration-ruleset.pb.go",
+      "name": "ProtoReflect",
+      "lines": [422, 432],
+      "bodyLines": [422, 432],
+      "category": "ProtoReflect",
+      "source": "func (x *Period) ProtoReflect() protoreflect.Message {\n\tmi := &file_car_configuration_ruleset_proto_msgTypes[6]\n\tif x != nil {\n\t\tms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))\n\t\tif ms.LoadMessageInfo() == nil {\n\t\t\tms.StoreMessageInfo(mi)\n\t\t}\n\t\treturn ms\n\t}\n\treturn mi.MessageOf(x)\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-configuration-ruleset.pb.go",
+      "name": "Descriptor",
+      "lines": [435, 437],
+      "bodyLines": [435, 437],
+      "category": "Descriptor",
+      "source": "func (*Period) Descriptor() ([]byte, []int) {\n\treturn file_car_configuration_ruleset_proto_rawDescGZIP(), []int{6}\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-configuration-ruleset.pb.go",
+      "name": "GetFrom",
+      "lines": [439, 444],
+      "bodyLines": [439, 444],
+      "category": "nil-guarded source getter",
+      "source": "func (x *Period) GetFrom() *timestamppb.Timestamp {\n\tif x != nil {\n\t\treturn x.From\n\t}\n\treturn nil\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-configuration-ruleset.pb.go",
+      "name": "GetTo",
+      "lines": [446, 451],
+      "bodyLines": [446, 451],
+      "category": "nil-guarded source getter",
+      "source": "func (x *Period) GetTo() *timestamppb.Timestamp {\n\tif x != nil {\n\t\treturn x.To\n\t}\n\treturn nil\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-configuration-ruleset.pb.go",
+      "name": "file_car_configuration_ruleset_proto_rawDescGZIP",
+      "lines": [502, 507],
+      "bodyLines": [502, 507],
+      "category": "once descriptor compression",
+      "source": "func file_car_configuration_ruleset_proto_rawDescGZIP() []byte {\n\tfile_car_configuration_ruleset_proto_rawDescOnce.Do(func() {\n\t\tfile_car_configuration_ruleset_proto_rawDescData = protoimpl.X.CompressGZIP(unsafe.Slice(unsafe.StringData(file_car_configuration_ruleset_proto_rawDesc), len(file_car_configuration_ruleset_proto_rawDesc)))\n\t})\n\treturn file_car_configuration_ruleset_proto_rawDescData\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-configuration-ruleset.pb.go",
+      "name": "init",
+      "lines": [538, 538],
+      "bodyLines": [538, 538],
+      "category": "package init",
+      "source": "func init() { file_car_configuration_ruleset_proto_init() }"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-configuration-ruleset.pb.go",
+      "name": "file_car_configuration_ruleset_proto_init",
+      "lines": [539, 561],
+      "bodyLines": [539, 561],
+      "category": "descriptor initializer",
+      "source": "func file_car_configuration_ruleset_proto_init() {\n\tif File_car_configuration_ruleset_proto != nil {\n\t\treturn\n\t}\n\tfile_car_key_proto_init()\n\ttype x struct{}\n\tout := protoimpl.TypeBuilder{\n\t\tFile: protoimpl.DescBuilder{\n\t\t\tGoPackagePath: reflect.TypeOf(x{}).PkgPath(),\n\t\t\tRawDescriptor: unsafe.Slice(unsafe.StringData(file_car_configuration_ruleset_proto_rawDesc), len(file_car_configuration_ruleset_proto_rawDesc)),\n\t\t\tNumEnums:      0,\n\t\t\tNumMessages:   7,\n\t\t\tNumExtensions: 0,\n\t\t\tNumServices:   0,\n\t\t},\n\t\tGoTypes:           file_car_configuration_ruleset_proto_goTypes,\n\t\tDependencyIndexes: file_car_configuration_ruleset_proto_depIdxs,\n\t\tMessageInfos:      file_car_configuration_ruleset_proto_msgTypes,\n\t}.Build()\n\tFile_car_configuration_ruleset_proto = out.File\n\tfile_car_configuration_ruleset_proto_goTypes = nil\n\tfile_car_configuration_ruleset_proto_depIdxs = nil\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-key.pb.go",
+      "name": "Reset",
+      "lines": [38, 43],
+      "bodyLines": [38, 43],
+      "category": "Reset",
+      "source": "func (x *CarKey) Reset() {\n\t*x = CarKey{}\n\tmi := &file_car_key_proto_msgTypes[0]\n\tms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))\n\tms.StoreMessageInfo(mi)\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-key.pb.go",
+      "name": "String",
+      "lines": [45, 47],
+      "bodyLines": [45, 47],
+      "category": "String",
+      "source": "func (x *CarKey) String() string {\n\treturn protoimpl.X.MessageStringOf(x)\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-key.pb.go",
+      "name": "ProtoMessage",
+      "lines": [49, 49],
+      "bodyLines": [49, 49],
+      "category": "ProtoMessage",
+      "source": "func (*CarKey) ProtoMessage() {}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-key.pb.go",
+      "name": "ProtoReflect",
+      "lines": [51, 61],
+      "bodyLines": [51, 61],
+      "category": "ProtoReflect",
+      "source": "func (x *CarKey) ProtoReflect() protoreflect.Message {\n\tmi := &file_car_key_proto_msgTypes[0]\n\tif x != nil {\n\t\tms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))\n\t\tif ms.LoadMessageInfo() == nil {\n\t\t\tms.StoreMessageInfo(mi)\n\t\t}\n\t\treturn ms\n\t}\n\treturn mi.MessageOf(x)\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-key.pb.go",
+      "name": "Descriptor",
+      "lines": [64, 66],
+      "bodyLines": [64, 66],
+      "category": "Descriptor",
+      "source": "func (*CarKey) Descriptor() ([]byte, []int) {\n\treturn file_car_key_proto_rawDescGZIP(), []int{0}\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-key.pb.go",
+      "name": "GetDetails",
+      "lines": [68, 73],
+      "bodyLines": [68, 73],
+      "category": "nil-guarded source getter",
+      "source": "func (x *CarKey) GetDetails() *CarDetails {\n\tif x != nil {\n\t\treturn x.Details\n\t}\n\treturn nil\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-key.pb.go",
+      "name": "GetSMessage",
+      "lines": [75, 80],
+      "bodyLines": [75, 80],
+      "category": "nil-guarded source getter",
+      "source": "func (x *CarKey) GetSMessage() string {\n\tif x != nil && x.SMessage != nil {\n\t\treturn *x.SMessage\n\t}\n\treturn \"\"\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-key.pb.go",
+      "name": "GetColor",
+      "lines": [82, 87],
+      "bodyLines": [82, 87],
+      "category": "nil-guarded source getter",
+      "source": "func (x *CarKey) GetColor() string {\n\tif x != nil {\n\t\treturn x.Color\n\t}\n\treturn \"\"\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-key.pb.go",
+      "name": "GetUpholstery",
+      "lines": [89, 94],
+      "bodyLines": [89, 94],
+      "category": "nil-guarded source getter",
+      "source": "func (x *CarKey) GetUpholstery() string {\n\tif x != nil {\n\t\treturn x.Upholstery\n\t}\n\treturn \"\"\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-key.pb.go",
+      "name": "GetWheel",
+      "lines": [96, 101],
+      "bodyLines": [96, 101],
+      "category": "nil-guarded source getter",
+      "source": "func (x *CarKey) GetWheel() string {\n\tif x != nil {\n\t\treturn x.Wheel\n\t}\n\treturn \"\"\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-key.pb.go",
+      "name": "GetOptions",
+      "lines": [103, 108],
+      "bodyLines": [103, 108],
+      "category": "nil-guarded source getter",
+      "source": "func (x *CarKey) GetOptions() []string {\n\tif x != nil {\n\t\treturn x.Options\n\t}\n\treturn nil\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-key.pb.go",
+      "name": "GetPackages",
+      "lines": [110, 115],
+      "bodyLines": [110, 115],
+      "category": "nil-guarded source getter",
+      "source": "func (x *CarKey) GetPackages() []string {\n\tif x != nil {\n\t\treturn x.Packages\n\t}\n\treturn nil\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-key.pb.go",
+      "name": "GetStructureWeek",
+      "lines": [117, 122],
+      "bodyLines": [117, 122],
+      "category": "nil-guarded source getter",
+      "source": "func (x *CarKey) GetStructureWeek() *StructureWeek {\n\tif x != nil {\n\t\treturn x.StructureWeek\n\t}\n\treturn nil\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-key.pb.go",
+      "name": "Reset",
+      "lines": [142, 147],
+      "bodyLines": [142, 147],
+      "category": "Reset",
+      "source": "func (x *CarDetails) Reset() {\n\t*x = CarDetails{}\n\tmi := &file_car_key_proto_msgTypes[1]\n\tms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))\n\tms.StoreMessageInfo(mi)\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-key.pb.go",
+      "name": "String",
+      "lines": [149, 151],
+      "bodyLines": [149, 151],
+      "category": "String",
+      "source": "func (x *CarDetails) String() string {\n\treturn protoimpl.X.MessageStringOf(x)\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-key.pb.go",
+      "name": "ProtoMessage",
+      "lines": [153, 153],
+      "bodyLines": [153, 153],
+      "category": "ProtoMessage",
+      "source": "func (*CarDetails) ProtoMessage() {}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-key.pb.go",
+      "name": "ProtoReflect",
+      "lines": [155, 165],
+      "bodyLines": [155, 165],
+      "category": "ProtoReflect",
+      "source": "func (x *CarDetails) ProtoReflect() protoreflect.Message {\n\tmi := &file_car_key_proto_msgTypes[1]\n\tif x != nil {\n\t\tms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))\n\t\tif ms.LoadMessageInfo() == nil {\n\t\t\tms.StoreMessageInfo(mi)\n\t\t}\n\t\treturn ms\n\t}\n\treturn mi.MessageOf(x)\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-key.pb.go",
+      "name": "Descriptor",
+      "lines": [168, 170],
+      "bodyLines": [168, 170],
+      "category": "Descriptor",
+      "source": "func (*CarDetails) Descriptor() ([]byte, []int) {\n\treturn file_car_key_proto_rawDescGZIP(), []int{1}\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-key.pb.go",
+      "name": "GetModelYear",
+      "lines": [172, 177],
+      "bodyLines": [172, 177],
+      "category": "nil-guarded source getter",
+      "source": "func (x *CarDetails) GetModelYear() int32 {\n\tif x != nil {\n\t\treturn x.ModelYear\n\t}\n\treturn 0\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-key.pb.go",
+      "name": "GetSpecMarket",
+      "lines": [179, 184],
+      "bodyLines": [179, 184],
+      "category": "nil-guarded source getter",
+      "source": "func (x *CarDetails) GetSpecMarket() string {\n\tif x != nil {\n\t\treturn x.SpecMarket\n\t}\n\treturn \"\"\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-key.pb.go",
+      "name": "GetCarType",
+      "lines": [186, 191],
+      "bodyLines": [186, 191],
+      "category": "nil-guarded source getter",
+      "source": "func (x *CarDetails) GetCarType() string {\n\tif x != nil {\n\t\treturn x.CarType\n\t}\n\treturn \"\"\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-key.pb.go",
+      "name": "GetEngine",
+      "lines": [193, 198],
+      "bodyLines": [193, 198],
+      "category": "nil-guarded source getter",
+      "source": "func (x *CarDetails) GetEngine() string {\n\tif x != nil {\n\t\treturn x.Engine\n\t}\n\treturn \"\"\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-key.pb.go",
+      "name": "GetSalesVersion",
+      "lines": [200, 205],
+      "bodyLines": [200, 205],
+      "category": "nil-guarded source getter",
+      "source": "func (x *CarDetails) GetSalesVersion() string {\n\tif x != nil {\n\t\treturn x.SalesVersion\n\t}\n\treturn \"\"\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-key.pb.go",
+      "name": "GetBody",
+      "lines": [207, 212],
+      "bodyLines": [207, 212],
+      "category": "nil-guarded source getter",
+      "source": "func (x *CarDetails) GetBody() string {\n\tif x != nil {\n\t\treturn x.Body\n\t}\n\treturn \"\"\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-key.pb.go",
+      "name": "GetGearbox",
+      "lines": [214, 219],
+      "bodyLines": [214, 219],
+      "category": "nil-guarded source getter",
+      "source": "func (x *CarDetails) GetGearbox() string {\n\tif x != nil {\n\t\treturn x.Gearbox\n\t}\n\treturn \"\"\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-key.pb.go",
+      "name": "GetSteering",
+      "lines": [221, 226],
+      "bodyLines": [221, 226],
+      "category": "nil-guarded source getter",
+      "source": "func (x *CarDetails) GetSteering() string {\n\tif x != nil {\n\t\treturn x.Steering\n\t}\n\treturn \"\"\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-key.pb.go",
+      "name": "GetMarketingCode",
+      "lines": [228, 233],
+      "bodyLines": [228, 233],
+      "category": "nil-guarded source getter",
+      "source": "func (x *CarDetails) GetMarketingCode() string {\n\tif x != nil {\n\t\treturn x.MarketingCode\n\t}\n\treturn \"\"\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-key.pb.go",
+      "name": "GetLocalTrimEditionCode",
+      "lines": [236, 241],
+      "bodyLines": [236, 241],
+      "category": "nil-guarded source getter",
+      "source": "func (x *CarDetails) GetLocalTrimEditionCode() string {\n\tif x != nil && x.LocalTrimEditionCode != nil {\n\t\treturn *x.LocalTrimEditionCode\n\t}\n\treturn \"\"\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-key.pb.go",
+      "name": "GetLocalEditionCode",
+      "lines": [243, 248],
+      "bodyLines": [243, 248],
+      "category": "nil-guarded source getter",
+      "source": "func (x *CarDetails) GetLocalEditionCode() string {\n\tif x != nil && x.LocalEditionCode != nil {\n\t\treturn *x.LocalEditionCode\n\t}\n\treturn \"\"\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-key.pb.go",
+      "name": "Reset",
+      "lines": [258, 263],
+      "bodyLines": [258, 263],
+      "category": "Reset",
+      "source": "func (x *CarKeyInPeriod) Reset() {\n\t*x = CarKeyInPeriod{}\n\tmi := &file_car_key_proto_msgTypes[2]\n\tms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))\n\tms.StoreMessageInfo(mi)\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-key.pb.go",
+      "name": "String",
+      "lines": [265, 267],
+      "bodyLines": [265, 267],
+      "category": "String",
+      "source": "func (x *CarKeyInPeriod) String() string {\n\treturn protoimpl.X.MessageStringOf(x)\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-key.pb.go",
+      "name": "ProtoMessage",
+      "lines": [269, 269],
+      "bodyLines": [269, 269],
+      "category": "ProtoMessage",
+      "source": "func (*CarKeyInPeriod) ProtoMessage() {}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-key.pb.go",
+      "name": "ProtoReflect",
+      "lines": [271, 281],
+      "bodyLines": [271, 281],
+      "category": "ProtoReflect",
+      "source": "func (x *CarKeyInPeriod) ProtoReflect() protoreflect.Message {\n\tmi := &file_car_key_proto_msgTypes[2]\n\tif x != nil {\n\t\tms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))\n\t\tif ms.LoadMessageInfo() == nil {\n\t\t\tms.StoreMessageInfo(mi)\n\t\t}\n\t\treturn ms\n\t}\n\treturn mi.MessageOf(x)\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-key.pb.go",
+      "name": "Descriptor",
+      "lines": [284, 286],
+      "bodyLines": [284, 286],
+      "category": "Descriptor",
+      "source": "func (*CarKeyInPeriod) Descriptor() ([]byte, []int) {\n\treturn file_car_key_proto_rawDescGZIP(), []int{2}\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-key.pb.go",
+      "name": "GetCarKey",
+      "lines": [288, 293],
+      "bodyLines": [288, 293],
+      "category": "nil-guarded source getter",
+      "source": "func (x *CarKeyInPeriod) GetCarKey() *CarKey {\n\tif x != nil {\n\t\treturn x.CarKey\n\t}\n\treturn nil\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-key.pb.go",
+      "name": "GetPeriod",
+      "lines": [295, 300],
+      "bodyLines": [295, 300],
+      "category": "nil-guarded source getter",
+      "source": "func (x *CarKeyInPeriod) GetPeriod() *StructureWeekPeriod {\n\tif x != nil {\n\t\treturn x.Period\n\t}\n\treturn nil\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-key.pb.go",
+      "name": "file_car_key_proto_rawDescGZIP",
+      "lines": [347, 352],
+      "bodyLines": [347, 352],
+      "category": "once descriptor compression",
+      "source": "func file_car_key_proto_rawDescGZIP() []byte {\n\tfile_car_key_proto_rawDescOnce.Do(func() {\n\t\tfile_car_key_proto_rawDescData = protoimpl.X.CompressGZIP(unsafe.Slice(unsafe.StringData(file_car_key_proto_rawDesc), len(file_car_key_proto_rawDesc)))\n\t})\n\treturn file_car_key_proto_rawDescData\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-key.pb.go",
+      "name": "init",
+      "lines": [374, 374],
+      "bodyLines": [374, 374],
+      "category": "package init",
+      "source": "func init() { file_car_key_proto_init() }"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-key.pb.go",
+      "name": "file_car_key_proto_init",
+      "lines": [375, 399],
+      "bodyLines": [375, 399],
+      "category": "descriptor initializer",
+      "source": "func file_car_key_proto_init() {\n\tif File_car_key_proto != nil {\n\t\treturn\n\t}\n\tfile_structure_week_proto_init()\n\tfile_car_key_proto_msgTypes[0].OneofWrappers = []any{}\n\tfile_car_key_proto_msgTypes[1].OneofWrappers = []any{}\n\ttype x struct{}\n\tout := protoimpl.TypeBuilder{\n\t\tFile: protoimpl.DescBuilder{\n\t\t\tGoPackagePath: reflect.TypeOf(x{}).PkgPath(),\n\t\t\tRawDescriptor: unsafe.Slice(unsafe.StringData(file_car_key_proto_rawDesc), len(file_car_key_proto_rawDesc)),\n\t\t\tNumEnums:      0,\n\t\t\tNumMessages:   3,\n\t\t\tNumExtensions: 0,\n\t\t\tNumServices:   0,\n\t\t},\n\t\tGoTypes:           file_car_key_proto_goTypes,\n\t\tDependencyIndexes: file_car_key_proto_depIdxs,\n\t\tMessageInfos:      file_car_key_proto_msgTypes,\n\t}.Build()\n\tFile_car_key_proto = out.File\n\tfile_car_key_proto_goTypes = nil\n\tfile_car_key_proto_depIdxs = nil\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+      "name": "Reset",
+      "lines": [38, 43],
+      "bodyLines": [38, 43],
+      "category": "Reset",
+      "source": "func (x *CarSpecification) Reset() {\n\t*x = CarSpecification{}\n\tmi := &file_car_specification_proto_msgTypes[0]\n\tms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))\n\tms.StoreMessageInfo(mi)\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+      "name": "String",
+      "lines": [45, 47],
+      "bodyLines": [45, 47],
+      "category": "String",
+      "source": "func (x *CarSpecification) String() string {\n\treturn protoimpl.X.MessageStringOf(x)\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+      "name": "ProtoMessage",
+      "lines": [49, 49],
+      "bodyLines": [49, 49],
+      "category": "ProtoMessage",
+      "source": "func (*CarSpecification) ProtoMessage() {}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+      "name": "ProtoReflect",
+      "lines": [51, 61],
+      "bodyLines": [51, 61],
+      "category": "ProtoReflect",
+      "source": "func (x *CarSpecification) ProtoReflect() protoreflect.Message {\n\tmi := &file_car_specification_proto_msgTypes[0]\n\tif x != nil {\n\t\tms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))\n\t\tif ms.LoadMessageInfo() == nil {\n\t\t\tms.StoreMessageInfo(mi)\n\t\t}\n\t\treturn ms\n\t}\n\treturn mi.MessageOf(x)\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+      "name": "Descriptor",
+      "lines": [64, 66],
+      "bodyLines": [64, 66],
+      "category": "Descriptor",
+      "source": "func (*CarSpecification) Descriptor() ([]byte, []int) {\n\treturn file_car_specification_proto_rawDescGZIP(), []int{0}\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+      "name": "GetCarDetails",
+      "lines": [68, 73],
+      "bodyLines": [68, 73],
+      "category": "nil-guarded source getter",
+      "source": "func (x *CarSpecification) GetCarDetails() *CarDetails {\n\tif x != nil {\n\t\treturn x.CarDetails\n\t}\n\treturn nil\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+      "name": "GetStructureWeekPeriod",
+      "lines": [75, 80],
+      "bodyLines": [75, 80],
+      "category": "nil-guarded source getter",
+      "source": "func (x *CarSpecification) GetStructureWeekPeriod() *StructureWeekPeriod {\n\tif x != nil {\n\t\treturn x.StructureWeekPeriod\n\t}\n\treturn nil\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+      "name": "GetForbiddenStructureWeekPeriods",
+      "lines": [82, 87],
+      "bodyLines": [82, 87],
+      "category": "nil-guarded source getter",
+      "source": "func (x *CarSpecification) GetForbiddenStructureWeekPeriods() []*StructureWeekPeriod {\n\tif x != nil {\n\t\treturn x.ForbiddenStructureWeekPeriods\n\t}\n\treturn nil\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+      "name": "GetSMessages",
+      "lines": [89, 94],
+      "bodyLines": [89, 94],
+      "category": "nil-guarded source getter",
+      "source": "func (x *CarSpecification) GetSMessages() *SMessageSpecification {\n\tif x != nil {\n\t\treturn x.SMessages\n\t}\n\treturn nil\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+      "name": "GetStylings",
+      "lines": [96, 101],
+      "bodyLines": [96, 101],
+      "category": "nil-guarded source getter",
+      "source": "func (x *CarSpecification) GetStylings() *StylingSpecification {\n\tif x != nil {\n\t\treturn x.Stylings\n\t}\n\treturn nil\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+      "name": "GetOptions",
+      "lines": [103, 108],
+      "bodyLines": [103, 108],
+      "category": "nil-guarded source getter",
+      "source": "func (x *CarSpecification) GetOptions() *OptionSpecification {\n\tif x != nil {\n\t\treturn x.Options\n\t}\n\treturn nil\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+      "name": "GetPackages",
+      "lines": [110, 115],
+      "bodyLines": [110, 115],
+      "category": "nil-guarded source getter",
+      "source": "func (x *CarSpecification) GetPackages() *PackageSpecification {\n\tif x != nil {\n\t\treturn x.Packages\n\t}\n\treturn nil\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+      "name": "GetWheels",
+      "lines": [117, 122],
+      "bodyLines": [117, 122],
+      "category": "nil-guarded source getter",
+      "source": "func (x *CarSpecification) GetWheels() *WheelSpecification {\n\tif x != nil {\n\t\treturn x.Wheels\n\t}\n\treturn nil\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+      "name": "Reset",
+      "lines": [131, 136],
+      "bodyLines": [131, 136],
+      "category": "Reset",
+      "source": "func (x *SMessageSpecification) Reset() {\n\t*x = SMessageSpecification{}\n\tmi := &file_car_specification_proto_msgTypes[1]\n\tms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))\n\tms.StoreMessageInfo(mi)\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+      "name": "String",
+      "lines": [138, 140],
+      "bodyLines": [138, 140],
+      "category": "String",
+      "source": "func (x *SMessageSpecification) String() string {\n\treturn protoimpl.X.MessageStringOf(x)\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+      "name": "ProtoMessage",
+      "lines": [142, 142],
+      "bodyLines": [142, 142],
+      "category": "ProtoMessage",
+      "source": "func (*SMessageSpecification) ProtoMessage() {}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+      "name": "ProtoReflect",
+      "lines": [144, 154],
+      "bodyLines": [144, 154],
+      "category": "ProtoReflect",
+      "source": "func (x *SMessageSpecification) ProtoReflect() protoreflect.Message {\n\tmi := &file_car_specification_proto_msgTypes[1]\n\tif x != nil {\n\t\tms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))\n\t\tif ms.LoadMessageInfo() == nil {\n\t\t\tms.StoreMessageInfo(mi)\n\t\t}\n\t\treturn ms\n\t}\n\treturn mi.MessageOf(x)\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+      "name": "Descriptor",
+      "lines": [157, 159],
+      "bodyLines": [157, 159],
+      "category": "Descriptor",
+      "source": "func (*SMessageSpecification) Descriptor() ([]byte, []int) {\n\treturn file_car_specification_proto_rawDescGZIP(), []int{1}\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+      "name": "GetSMessages",
+      "lines": [161, 166],
+      "bodyLines": [161, 166],
+      "category": "nil-guarded source getter",
+      "source": "func (x *SMessageSpecification) GetSMessages() []*SMessage {\n\tif x != nil {\n\t\treturn x.SMessages\n\t}\n\treturn nil\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+      "name": "Reset",
+      "lines": [176, 181],
+      "bodyLines": [176, 181],
+      "category": "Reset",
+      "source": "func (x *SMessage) Reset() {\n\t*x = SMessage{}\n\tmi := &file_car_specification_proto_msgTypes[2]\n\tms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))\n\tms.StoreMessageInfo(mi)\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+      "name": "String",
+      "lines": [183, 185],
+      "bodyLines": [183, 185],
+      "category": "String",
+      "source": "func (x *SMessage) String() string {\n\treturn protoimpl.X.MessageStringOf(x)\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+      "name": "ProtoMessage",
+      "lines": [187, 187],
+      "bodyLines": [187, 187],
+      "category": "ProtoMessage",
+      "source": "func (*SMessage) ProtoMessage() {}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+      "name": "ProtoReflect",
+      "lines": [189, 199],
+      "bodyLines": [189, 199],
+      "category": "ProtoReflect",
+      "source": "func (x *SMessage) ProtoReflect() protoreflect.Message {\n\tmi := &file_car_specification_proto_msgTypes[2]\n\tif x != nil {\n\t\tms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))\n\t\tif ms.LoadMessageInfo() == nil {\n\t\t\tms.StoreMessageInfo(mi)\n\t\t}\n\t\treturn ms\n\t}\n\treturn mi.MessageOf(x)\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+      "name": "Descriptor",
+      "lines": [202, 204],
+      "bodyLines": [202, 204],
+      "category": "Descriptor",
+      "source": "func (*SMessage) Descriptor() ([]byte, []int) {\n\treturn file_car_specification_proto_rawDescGZIP(), []int{2}\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+      "name": "GetCode",
+      "lines": [206, 211],
+      "bodyLines": [206, 211],
+      "category": "nil-guarded source getter",
+      "source": "func (x *SMessage) GetCode() string {\n\tif x != nil {\n\t\treturn x.Code\n\t}\n\treturn \"\"\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+      "name": "GetPeriod",
+      "lines": [213, 218],
+      "bodyLines": [213, 218],
+      "category": "nil-guarded source getter",
+      "source": "func (x *SMessage) GetPeriod() *StructureWeekPeriod {\n\tif x != nil {\n\t\treturn x.Period\n\t}\n\treturn nil\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+      "name": "Reset",
+      "lines": [232, 237],
+      "bodyLines": [232, 237],
+      "category": "Reset",
+      "source": "func (x *StylingSpecification) Reset() {\n\t*x = StylingSpecification{}\n\tmi := &file_car_specification_proto_msgTypes[3]\n\tms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))\n\tms.StoreMessageInfo(mi)\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+      "name": "String",
+      "lines": [239, 241],
+      "bodyLines": [239, 241],
+      "category": "String",
+      "source": "func (x *StylingSpecification) String() string {\n\treturn protoimpl.X.MessageStringOf(x)\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+      "name": "ProtoMessage",
+      "lines": [243, 243],
+      "bodyLines": [243, 243],
+      "category": "ProtoMessage",
+      "source": "func (*StylingSpecification) ProtoMessage() {}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+      "name": "ProtoReflect",
+      "lines": [245, 255],
+      "bodyLines": [245, 255],
+      "category": "ProtoReflect",
+      "source": "func (x *StylingSpecification) ProtoReflect() protoreflect.Message {\n\tmi := &file_car_specification_proto_msgTypes[3]\n\tif x != nil {\n\t\tms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))\n\t\tif ms.LoadMessageInfo() == nil {\n\t\t\tms.StoreMessageInfo(mi)\n\t\t}\n\t\treturn ms\n\t}\n\treturn mi.MessageOf(x)\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+      "name": "Descriptor",
+      "lines": [258, 260],
+      "bodyLines": [258, 260],
+      "category": "Descriptor",
+      "source": "func (*StylingSpecification) Descriptor() ([]byte, []int) {\n\treturn file_car_specification_proto_rawDescGZIP(), []int{3}\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+      "name": "GetColors",
+      "lines": [262, 267],
+      "bodyLines": [262, 267],
+      "category": "nil-guarded source getter",
+      "source": "func (x *StylingSpecification) GetColors() []*Color {\n\tif x != nil {\n\t\treturn x.Colors\n\t}\n\treturn nil\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+      "name": "GetUpholsteries",
+      "lines": [269, 274],
+      "bodyLines": [269, 274],
+      "category": "nil-guarded source getter",
+      "source": "func (x *StylingSpecification) GetUpholsteries() []*Upholstery {\n\tif x != nil {\n\t\treturn x.Upholsteries\n\t}\n\treturn nil\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+      "name": "GetDefaultCombination",
+      "lines": [277, 282],
+      "bodyLines": [277, 282],
+      "category": "nil-guarded source getter",
+      "source": "func (x *StylingSpecification) GetDefaultCombination() *StylingCombination {\n\tif x != nil {\n\t\treturn x.DefaultCombination\n\t}\n\treturn nil\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+      "name": "GetDefaultColors",
+      "lines": [284, 289],
+      "bodyLines": [284, 289],
+      "category": "nil-guarded source getter",
+      "source": "func (x *StylingSpecification) GetDefaultColors() []*TimeBoundCode {\n\tif x != nil {\n\t\treturn x.DefaultColors\n\t}\n\treturn nil\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+      "name": "GetDefaultUpholsteries",
+      "lines": [291, 296],
+      "bodyLines": [291, 296],
+      "category": "nil-guarded source getter",
+      "source": "func (x *StylingSpecification) GetDefaultUpholsteries() []*TimeBoundCode {\n\tif x != nil {\n\t\treturn x.DefaultUpholsteries\n\t}\n\treturn nil\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+      "name": "Reset",
+      "lines": [306, 311],
+      "bodyLines": [306, 311],
+      "category": "Reset",
+      "source": "func (x *StylingCombination) Reset() {\n\t*x = StylingCombination{}\n\tmi := &file_car_specification_proto_msgTypes[4]\n\tms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))\n\tms.StoreMessageInfo(mi)\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+      "name": "String",
+      "lines": [313, 315],
+      "bodyLines": [313, 315],
+      "category": "String",
+      "source": "func (x *StylingCombination) String() string {\n\treturn protoimpl.X.MessageStringOf(x)\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+      "name": "ProtoMessage",
+      "lines": [317, 317],
+      "bodyLines": [317, 317],
+      "category": "ProtoMessage",
+      "source": "func (*StylingCombination) ProtoMessage() {}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+      "name": "ProtoReflect",
+      "lines": [319, 329],
+      "bodyLines": [319, 329],
+      "category": "ProtoReflect",
+      "source": "func (x *StylingCombination) ProtoReflect() protoreflect.Message {\n\tmi := &file_car_specification_proto_msgTypes[4]\n\tif x != nil {\n\t\tms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))\n\t\tif ms.LoadMessageInfo() == nil {\n\t\t\tms.StoreMessageInfo(mi)\n\t\t}\n\t\treturn ms\n\t}\n\treturn mi.MessageOf(x)\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+      "name": "Descriptor",
+      "lines": [332, 334],
+      "bodyLines": [332, 334],
+      "category": "Descriptor",
+      "source": "func (*StylingCombination) Descriptor() ([]byte, []int) {\n\treturn file_car_specification_proto_rawDescGZIP(), []int{4}\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+      "name": "GetColorCode",
+      "lines": [336, 341],
+      "bodyLines": [336, 341],
+      "category": "nil-guarded source getter",
+      "source": "func (x *StylingCombination) GetColorCode() string {\n\tif x != nil {\n\t\treturn x.ColorCode\n\t}\n\treturn \"\"\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+      "name": "GetUpholsteryCode",
+      "lines": [343, 348],
+      "bodyLines": [343, 348],
+      "category": "nil-guarded source getter",
+      "source": "func (x *StylingCombination) GetUpholsteryCode() string {\n\tif x != nil {\n\t\treturn x.UpholsteryCode\n\t}\n\treturn \"\"\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+      "name": "Reset",
+      "lines": [358, 363],
+      "bodyLines": [358, 363],
+      "category": "Reset",
+      "source": "func (x *TimeBoundCode) Reset() {\n\t*x = TimeBoundCode{}\n\tmi := &file_car_specification_proto_msgTypes[5]\n\tms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))\n\tms.StoreMessageInfo(mi)\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+      "name": "String",
+      "lines": [365, 367],
+      "bodyLines": [365, 367],
+      "category": "String",
+      "source": "func (x *TimeBoundCode) String() string {\n\treturn protoimpl.X.MessageStringOf(x)\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+      "name": "ProtoMessage",
+      "lines": [369, 369],
+      "bodyLines": [369, 369],
+      "category": "ProtoMessage",
+      "source": "func (*TimeBoundCode) ProtoMessage() {}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+      "name": "ProtoReflect",
+      "lines": [371, 381],
+      "bodyLines": [371, 381],
+      "category": "ProtoReflect",
+      "source": "func (x *TimeBoundCode) ProtoReflect() protoreflect.Message {\n\tmi := &file_car_specification_proto_msgTypes[5]\n\tif x != nil {\n\t\tms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))\n\t\tif ms.LoadMessageInfo() == nil {\n\t\t\tms.StoreMessageInfo(mi)\n\t\t}\n\t\treturn ms\n\t}\n\treturn mi.MessageOf(x)\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+      "name": "Descriptor",
+      "lines": [384, 386],
+      "bodyLines": [384, 386],
+      "category": "Descriptor",
+      "source": "func (*TimeBoundCode) Descriptor() ([]byte, []int) {\n\treturn file_car_specification_proto_rawDescGZIP(), []int{5}\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+      "name": "GetCode",
+      "lines": [388, 393],
+      "bodyLines": [388, 393],
+      "category": "nil-guarded source getter",
+      "source": "func (x *TimeBoundCode) GetCode() string {\n\tif x != nil {\n\t\treturn x.Code\n\t}\n\treturn \"\"\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+      "name": "GetPeriod",
+      "lines": [395, 400],
+      "bodyLines": [395, 400],
+      "category": "nil-guarded source getter",
+      "source": "func (x *TimeBoundCode) GetPeriod() *StructureWeekPeriod {\n\tif x != nil {\n\t\treturn x.Period\n\t}\n\treturn nil\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+      "name": "Reset",
+      "lines": [415, 420],
+      "bodyLines": [415, 420],
+      "category": "Reset",
+      "source": "func (x *Color) Reset() {\n\t*x = Color{}\n\tmi := &file_car_specification_proto_msgTypes[6]\n\tms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))\n\tms.StoreMessageInfo(mi)\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+      "name": "String",
+      "lines": [422, 424],
+      "bodyLines": [422, 424],
+      "category": "String",
+      "source": "func (x *Color) String() string {\n\treturn protoimpl.X.MessageStringOf(x)\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+      "name": "ProtoMessage",
+      "lines": [426, 426],
+      "bodyLines": [426, 426],
+      "category": "ProtoMessage",
+      "source": "func (*Color) ProtoMessage() {}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+      "name": "ProtoReflect",
+      "lines": [428, 438],
+      "bodyLines": [428, 438],
+      "category": "ProtoReflect",
+      "source": "func (x *Color) ProtoReflect() protoreflect.Message {\n\tmi := &file_car_specification_proto_msgTypes[6]\n\tif x != nil {\n\t\tms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))\n\t\tif ms.LoadMessageInfo() == nil {\n\t\t\tms.StoreMessageInfo(mi)\n\t\t}\n\t\treturn ms\n\t}\n\treturn mi.MessageOf(x)\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+      "name": "Descriptor",
+      "lines": [441, 443],
+      "bodyLines": [441, 443],
+      "category": "Descriptor",
+      "source": "func (*Color) Descriptor() ([]byte, []int) {\n\treturn file_car_specification_proto_rawDescGZIP(), []int{6}\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+      "name": "GetCode",
+      "lines": [445, 450],
+      "bodyLines": [445, 450],
+      "category": "nil-guarded source getter",
+      "source": "func (x *Color) GetCode() string {\n\tif x != nil {\n\t\treturn x.Code\n\t}\n\treturn \"\"\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+      "name": "GetRequiredOptions",
+      "lines": [452, 457],
+      "bodyLines": [452, 457],
+      "category": "nil-guarded source getter",
+      "source": "func (x *Color) GetRequiredOptions() []*TimeBoundAtLeastOne {\n\tif x != nil {\n\t\treturn x.RequiredOptions\n\t}\n\treturn nil\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+      "name": "GetForbidsOptions",
+      "lines": [459, 464],
+      "bodyLines": [459, 464],
+      "category": "nil-guarded source getter",
+      "source": "func (x *Color) GetForbidsOptions() []*Forbids {\n\tif x != nil {\n\t\treturn x.ForbidsOptions\n\t}\n\treturn nil\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+      "name": "GetForbidsUpholsteries",
+      "lines": [466, 471],
+      "bodyLines": [466, 471],
+      "category": "nil-guarded source getter",
+      "source": "func (x *Color) GetForbidsUpholsteries() []*Forbids {\n\tif x != nil {\n\t\treturn x.ForbidsUpholsteries\n\t}\n\treturn nil\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+      "name": "GetRequiredWheels",
+      "lines": [473, 478],
+      "bodyLines": [473, 478],
+      "category": "nil-guarded source getter",
+      "source": "func (x *Color) GetRequiredWheels() []*TimeBoundExactlyOne {\n\tif x != nil {\n\t\treturn x.RequiredWheels\n\t}\n\treturn nil\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+      "name": "GetForbidsWheels",
+      "lines": [480, 485],
+      "bodyLines": [480, 485],
+      "category": "nil-guarded source getter",
+      "source": "func (x *Color) GetForbidsWheels() []*Forbids {\n\tif x != nil {\n\t\treturn x.ForbidsWheels\n\t}\n\treturn nil\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+      "name": "GetPeriod",
+      "lines": [487, 492],
+      "bodyLines": [487, 492],
+      "category": "nil-guarded source getter",
+      "source": "func (x *Color) GetPeriod() *StructureWeekPeriod {\n\tif x != nil {\n\t\treturn x.Period\n\t}\n\treturn nil\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+      "name": "Reset",
+      "lines": [506, 511],
+      "bodyLines": [506, 511],
+      "category": "Reset",
+      "source": "func (x *Upholstery) Reset() {\n\t*x = Upholstery{}\n\tmi := &file_car_specification_proto_msgTypes[7]\n\tms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))\n\tms.StoreMessageInfo(mi)\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+      "name": "String",
+      "lines": [513, 515],
+      "bodyLines": [513, 515],
+      "category": "String",
+      "source": "func (x *Upholstery) String() string {\n\treturn protoimpl.X.MessageStringOf(x)\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+      "name": "ProtoMessage",
+      "lines": [517, 517],
+      "bodyLines": [517, 517],
+      "category": "ProtoMessage",
+      "source": "func (*Upholstery) ProtoMessage() {}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+      "name": "ProtoReflect",
+      "lines": [519, 529],
+      "bodyLines": [519, 529],
+      "category": "ProtoReflect",
+      "source": "func (x *Upholstery) ProtoReflect() protoreflect.Message {\n\tmi := &file_car_specification_proto_msgTypes[7]\n\tif x != nil {\n\t\tms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))\n\t\tif ms.LoadMessageInfo() == nil {\n\t\t\tms.StoreMessageInfo(mi)\n\t\t}\n\t\treturn ms\n\t}\n\treturn mi.MessageOf(x)\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+      "name": "Descriptor",
+      "lines": [532, 534],
+      "bodyLines": [532, 534],
+      "category": "Descriptor",
+      "source": "func (*Upholstery) Descriptor() ([]byte, []int) {\n\treturn file_car_specification_proto_rawDescGZIP(), []int{7}\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+      "name": "GetCode",
+      "lines": [536, 541],
+      "bodyLines": [536, 541],
+      "category": "nil-guarded source getter",
+      "source": "func (x *Upholstery) GetCode() string {\n\tif x != nil {\n\t\treturn x.Code\n\t}\n\treturn \"\"\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+      "name": "GetRequiredOptions",
+      "lines": [543, 548],
+      "bodyLines": [543, 548],
+      "category": "nil-guarded source getter",
+      "source": "func (x *Upholstery) GetRequiredOptions() []*TimeBoundAtLeastOne {\n\tif x != nil {\n\t\treturn x.RequiredOptions\n\t}\n\treturn nil\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+      "name": "GetForbidsOptions",
+      "lines": [550, 555],
+      "bodyLines": [550, 555],
+      "category": "nil-guarded source getter",
+      "source": "func (x *Upholstery) GetForbidsOptions() []*Forbids {\n\tif x != nil {\n\t\treturn x.ForbidsOptions\n\t}\n\treturn nil\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+      "name": "GetForbidsColors",
+      "lines": [557, 562],
+      "bodyLines": [557, 562],
+      "category": "nil-guarded source getter",
+      "source": "func (x *Upholstery) GetForbidsColors() []*Forbids {\n\tif x != nil {\n\t\treturn x.ForbidsColors\n\t}\n\treturn nil\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+      "name": "GetForbidsWheels",
+      "lines": [564, 569],
+      "bodyLines": [564, 569],
+      "category": "nil-guarded source getter",
+      "source": "func (x *Upholstery) GetForbidsWheels() []*Forbids {\n\tif x != nil {\n\t\treturn x.ForbidsWheels\n\t}\n\treturn nil\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+      "name": "GetPeriod",
+      "lines": [571, 576],
+      "bodyLines": [571, 576],
+      "category": "nil-guarded source getter",
+      "source": "func (x *Upholstery) GetPeriod() *StructureWeekPeriod {\n\tif x != nil {\n\t\treturn x.Period\n\t}\n\treturn nil\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+      "name": "Reset",
+      "lines": [589, 594],
+      "bodyLines": [589, 594],
+      "category": "Reset",
+      "source": "func (x *OptionSpecification) Reset() {\n\t*x = OptionSpecification{}\n\tmi := &file_car_specification_proto_msgTypes[8]\n\tms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))\n\tms.StoreMessageInfo(mi)\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+      "name": "String",
+      "lines": [596, 598],
+      "bodyLines": [596, 598],
+      "category": "String",
+      "source": "func (x *OptionSpecification) String() string {\n\treturn protoimpl.X.MessageStringOf(x)\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+      "name": "ProtoMessage",
+      "lines": [600, 600],
+      "bodyLines": [600, 600],
+      "category": "ProtoMessage",
+      "source": "func (*OptionSpecification) ProtoMessage() {}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+      "name": "ProtoReflect",
+      "lines": [602, 612],
+      "bodyLines": [602, 612],
+      "category": "ProtoReflect",
+      "source": "func (x *OptionSpecification) ProtoReflect() protoreflect.Message {\n\tmi := &file_car_specification_proto_msgTypes[8]\n\tif x != nil {\n\t\tms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))\n\t\tif ms.LoadMessageInfo() == nil {\n\t\t\tms.StoreMessageInfo(mi)\n\t\t}\n\t\treturn ms\n\t}\n\treturn mi.MessageOf(x)\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+      "name": "Descriptor",
+      "lines": [615, 617],
+      "bodyLines": [615, 617],
+      "category": "Descriptor",
+      "source": "func (*OptionSpecification) Descriptor() ([]byte, []int) {\n\treturn file_car_specification_proto_rawDescGZIP(), []int{8}\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+      "name": "GetOptions",
+      "lines": [619, 624],
+      "bodyLines": [619, 624],
+      "category": "nil-guarded source getter",
+      "source": "func (x *OptionSpecification) GetOptions() []*Option {\n\tif x != nil {\n\t\treturn x.Options\n\t}\n\treturn nil\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+      "name": "GetPackageOnlyOptionCodes",
+      "lines": [626, 631],
+      "bodyLines": [626, 631],
+      "category": "nil-guarded source getter",
+      "source": "func (x *OptionSpecification) GetPackageOnlyOptionCodes() []string {\n\tif x != nil {\n\t\treturn x.PackageOnlyOptionCodes\n\t}\n\treturn nil\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+      "name": "GetIncludedOptions",
+      "lines": [633, 638],
+      "bodyLines": [633, 638],
+      "category": "nil-guarded source getter",
+      "source": "func (x *OptionSpecification) GetIncludedOptions() []*TimeBoundExactlyOne {\n\tif x != nil {\n\t\treturn x.IncludedOptions\n\t}\n\treturn nil\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+      "name": "GetCombinedRequirements",
+      "lines": [640, 645],
+      "bodyLines": [640, 645],
+      "category": "nil-guarded source getter",
+      "source": "func (x *OptionSpecification) GetCombinedRequirements() []*CombinedOptionRequirement {\n\tif x != nil {\n\t\treturn x.CombinedRequirements\n\t}\n\treturn nil\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+      "name": "Reset",
+      "lines": [663, 668],
+      "bodyLines": [663, 668],
+      "category": "Reset",
+      "source": "func (x *Option) Reset() {\n\t*x = Option{}\n\tmi := &file_car_specification_proto_msgTypes[9]\n\tms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))\n\tms.StoreMessageInfo(mi)\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+      "name": "String",
+      "lines": [670, 672],
+      "bodyLines": [670, 672],
+      "category": "String",
+      "source": "func (x *Option) String() string {\n\treturn protoimpl.X.MessageStringOf(x)\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+      "name": "ProtoMessage",
+      "lines": [674, 674],
+      "bodyLines": [674, 674],
+      "category": "ProtoMessage",
+      "source": "func (*Option) ProtoMessage() {}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+      "name": "ProtoReflect",
+      "lines": [676, 686],
+      "bodyLines": [676, 686],
+      "category": "ProtoReflect",
+      "source": "func (x *Option) ProtoReflect() protoreflect.Message {\n\tmi := &file_car_specification_proto_msgTypes[9]\n\tif x != nil {\n\t\tms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))\n\t\tif ms.LoadMessageInfo() == nil {\n\t\t\tms.StoreMessageInfo(mi)\n\t\t}\n\t\treturn ms\n\t}\n\treturn mi.MessageOf(x)\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+      "name": "Descriptor",
+      "lines": [689, 691],
+      "bodyLines": [689, 691],
+      "category": "Descriptor",
+      "source": "func (*Option) Descriptor() ([]byte, []int) {\n\treturn file_car_specification_proto_rawDescGZIP(), []int{9}\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+      "name": "GetCode",
+      "lines": [693, 698],
+      "bodyLines": [693, 698],
+      "category": "nil-guarded source getter",
+      "source": "func (x *Option) GetCode() string {\n\tif x != nil {\n\t\treturn x.Code\n\t}\n\treturn \"\"\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+      "name": "GetRequiredColors",
+      "lines": [700, 705],
+      "bodyLines": [700, 705],
+      "category": "nil-guarded source getter",
+      "source": "func (x *Option) GetRequiredColors() []*TimeBoundExactlyOne {\n\tif x != nil {\n\t\treturn x.RequiredColors\n\t}\n\treturn nil\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+      "name": "GetRequiredUpholsteries",
+      "lines": [707, 712],
+      "bodyLines": [707, 712],
+      "category": "nil-guarded source getter",
+      "source": "func (x *Option) GetRequiredUpholsteries() []*TimeBoundExactlyOne {\n\tif x != nil {\n\t\treturn x.RequiredUpholsteries\n\t}\n\treturn nil\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+      "name": "GetRequiredOptions",
+      "lines": [714, 719],
+      "bodyLines": [714, 719],
+      "category": "nil-guarded source getter",
+      "source": "func (x *Option) GetRequiredOptions() []*TimeBoundAtLeastOne {\n\tif x != nil {\n\t\treturn x.RequiredOptions\n\t}\n\treturn nil\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+      "name": "GetRequiredWheels",
+      "lines": [721, 726],
+      "bodyLines": [721, 726],
+      "category": "nil-guarded source getter",
+      "source": "func (x *Option) GetRequiredWheels() []*TimeBoundExactlyOne {\n\tif x != nil {\n\t\treturn x.RequiredWheels\n\t}\n\treturn nil\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+      "name": "GetForbidsOptions",
+      "lines": [728, 733],
+      "bodyLines": [728, 733],
+      "category": "nil-guarded source getter",
+      "source": "func (x *Option) GetForbidsOptions() []*Forbids {\n\tif x != nil {\n\t\treturn x.ForbidsOptions\n\t}\n\treturn nil\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+      "name": "GetForbidsColors",
+      "lines": [735, 740],
+      "bodyLines": [735, 740],
+      "category": "nil-guarded source getter",
+      "source": "func (x *Option) GetForbidsColors() []*Forbids {\n\tif x != nil {\n\t\treturn x.ForbidsColors\n\t}\n\treturn nil\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+      "name": "GetForbidsWheels",
+      "lines": [742, 747],
+      "bodyLines": [742, 747],
+      "category": "nil-guarded source getter",
+      "source": "func (x *Option) GetForbidsWheels() []*Forbids {\n\tif x != nil {\n\t\treturn x.ForbidsWheels\n\t}\n\treturn nil\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+      "name": "GetForbidsUpholsteries",
+      "lines": [749, 754],
+      "bodyLines": [749, 754],
+      "category": "nil-guarded source getter",
+      "source": "func (x *Option) GetForbidsUpholsteries() []*Forbids {\n\tif x != nil {\n\t\treturn x.ForbidsUpholsteries\n\t}\n\treturn nil\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+      "name": "GetPeriod",
+      "lines": [756, 761],
+      "bodyLines": [756, 761],
+      "category": "nil-guarded source getter",
+      "source": "func (x *Option) GetPeriod() *StructureWeekPeriod {\n\tif x != nil {\n\t\treturn x.Period\n\t}\n\treturn nil\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+      "name": "Reset",
+      "lines": [771, 776],
+      "bodyLines": [771, 776],
+      "category": "Reset",
+      "source": "func (x *CombinedOptionRequirement) Reset() {\n\t*x = CombinedOptionRequirement{}\n\tmi := &file_car_specification_proto_msgTypes[10]\n\tms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))\n\tms.StoreMessageInfo(mi)\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+      "name": "String",
+      "lines": [778, 780],
+      "bodyLines": [778, 780],
+      "category": "String",
+      "source": "func (x *CombinedOptionRequirement) String() string {\n\treturn protoimpl.X.MessageStringOf(x)\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+      "name": "ProtoMessage",
+      "lines": [782, 782],
+      "bodyLines": [782, 782],
+      "category": "ProtoMessage",
+      "source": "func (*CombinedOptionRequirement) ProtoMessage() {}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+      "name": "ProtoReflect",
+      "lines": [784, 794],
+      "bodyLines": [784, 794],
+      "category": "ProtoReflect",
+      "source": "func (x *CombinedOptionRequirement) ProtoReflect() protoreflect.Message {\n\tmi := &file_car_specification_proto_msgTypes[10]\n\tif x != nil {\n\t\tms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))\n\t\tif ms.LoadMessageInfo() == nil {\n\t\t\tms.StoreMessageInfo(mi)\n\t\t}\n\t\treturn ms\n\t}\n\treturn mi.MessageOf(x)\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+      "name": "Descriptor",
+      "lines": [797, 799],
+      "bodyLines": [797, 799],
+      "category": "Descriptor",
+      "source": "func (*CombinedOptionRequirement) Descriptor() ([]byte, []int) {\n\treturn file_car_specification_proto_rawDescGZIP(), []int{10}\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+      "name": "GetRequiringOptionCodes",
+      "lines": [801, 806],
+      "bodyLines": [801, 806],
+      "category": "nil-guarded source getter",
+      "source": "func (x *CombinedOptionRequirement) GetRequiringOptionCodes() []string {\n\tif x != nil {\n\t\treturn x.RequiringOptionCodes\n\t}\n\treturn nil\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+      "name": "GetRequiredOptionCode",
+      "lines": [808, 813],
+      "bodyLines": [808, 813],
+      "category": "nil-guarded source getter",
+      "source": "func (x *CombinedOptionRequirement) GetRequiredOptionCode() string {\n\tif x != nil {\n\t\treturn x.RequiredOptionCode\n\t}\n\treturn \"\"\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+      "name": "Reset",
+      "lines": [824, 829],
+      "bodyLines": [824, 829],
+      "category": "Reset",
+      "source": "func (x *PackageSpecification) Reset() {\n\t*x = PackageSpecification{}\n\tmi := &file_car_specification_proto_msgTypes[11]\n\tms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))\n\tms.StoreMessageInfo(mi)\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+      "name": "String",
+      "lines": [831, 833],
+      "bodyLines": [831, 833],
+      "category": "String",
+      "source": "func (x *PackageSpecification) String() string {\n\treturn protoimpl.X.MessageStringOf(x)\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+      "name": "ProtoMessage",
+      "lines": [835, 835],
+      "bodyLines": [835, 835],
+      "category": "ProtoMessage",
+      "source": "func (*PackageSpecification) ProtoMessage() {}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+      "name": "ProtoReflect",
+      "lines": [837, 847],
+      "bodyLines": [837, 847],
+      "category": "ProtoReflect",
+      "source": "func (x *PackageSpecification) ProtoReflect() protoreflect.Message {\n\tmi := &file_car_specification_proto_msgTypes[11]\n\tif x != nil {\n\t\tms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))\n\t\tif ms.LoadMessageInfo() == nil {\n\t\t\tms.StoreMessageInfo(mi)\n\t\t}\n\t\treturn ms\n\t}\n\treturn mi.MessageOf(x)\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+      "name": "Descriptor",
+      "lines": [850, 852],
+      "bodyLines": [850, 852],
+      "category": "Descriptor",
+      "source": "func (*PackageSpecification) Descriptor() ([]byte, []int) {\n\treturn file_car_specification_proto_rawDescGZIP(), []int{11}\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+      "name": "GetPackages",
+      "lines": [854, 859],
+      "bodyLines": [854, 859],
+      "category": "nil-guarded source getter",
+      "source": "func (x *PackageSpecification) GetPackages() []*Package {\n\tif x != nil {\n\t\treturn x.Packages\n\t}\n\treturn nil\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+      "name": "GetIncludedPackages",
+      "lines": [861, 866],
+      "bodyLines": [861, 866],
+      "category": "nil-guarded source getter",
+      "source": "func (x *PackageSpecification) GetIncludedPackages() []*TimeBoundExactlyOne {\n\tif x != nil {\n\t\treturn x.IncludedPackages\n\t}\n\treturn nil\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+      "name": "GetMakeOverlappingPackagesExclusive",
+      "lines": [868, 873],
+      "bodyLines": [868, 873],
+      "category": "nil-guarded source getter",
+      "source": "func (x *PackageSpecification) GetMakeOverlappingPackagesExclusive() bool {\n\tif x != nil {\n\t\treturn x.MakeOverlappingPackagesExclusive\n\t}\n\treturn false\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+      "name": "Reset",
+      "lines": [887, 892],
+      "bodyLines": [887, 892],
+      "category": "Reset",
+      "source": "func (x *Package) Reset() {\n\t*x = Package{}\n\tmi := &file_car_specification_proto_msgTypes[12]\n\tms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))\n\tms.StoreMessageInfo(mi)\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+      "name": "String",
+      "lines": [894, 896],
+      "bodyLines": [894, 896],
+      "category": "String",
+      "source": "func (x *Package) String() string {\n\treturn protoimpl.X.MessageStringOf(x)\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+      "name": "ProtoMessage",
+      "lines": [898, 898],
+      "bodyLines": [898, 898],
+      "category": "ProtoMessage",
+      "source": "func (*Package) ProtoMessage() {}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+      "name": "ProtoReflect",
+      "lines": [900, 910],
+      "bodyLines": [900, 910],
+      "category": "ProtoReflect",
+      "source": "func (x *Package) ProtoReflect() protoreflect.Message {\n\tmi := &file_car_specification_proto_msgTypes[12]\n\tif x != nil {\n\t\tms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))\n\t\tif ms.LoadMessageInfo() == nil {\n\t\t\tms.StoreMessageInfo(mi)\n\t\t}\n\t\treturn ms\n\t}\n\treturn mi.MessageOf(x)\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+      "name": "Descriptor",
+      "lines": [913, 915],
+      "bodyLines": [913, 915],
+      "category": "Descriptor",
+      "source": "func (*Package) Descriptor() ([]byte, []int) {\n\treturn file_car_specification_proto_rawDescGZIP(), []int{12}\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+      "name": "GetCode",
+      "lines": [917, 922],
+      "bodyLines": [917, 922],
+      "category": "nil-guarded source getter",
+      "source": "func (x *Package) GetCode() string {\n\tif x != nil {\n\t\treturn x.Code\n\t}\n\treturn \"\"\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+      "name": "GetRequiredColors",
+      "lines": [924, 929],
+      "bodyLines": [924, 929],
+      "category": "nil-guarded source getter",
+      "source": "func (x *Package) GetRequiredColors() *ExactlyOne {\n\tif x != nil {\n\t\treturn x.RequiredColors\n\t}\n\treturn nil\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+      "name": "GetRequiredUpholsteries",
+      "lines": [931, 936],
+      "bodyLines": [931, 936],
+      "category": "nil-guarded source getter",
+      "source": "func (x *Package) GetRequiredUpholsteries() *ExactlyOne {\n\tif x != nil {\n\t\treturn x.RequiredUpholsteries\n\t}\n\treturn nil\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+      "name": "GetRequiredOptions",
+      "lines": [938, 943],
+      "bodyLines": [938, 943],
+      "category": "nil-guarded source getter",
+      "source": "func (x *Package) GetRequiredOptions() []*ExactlyOne {\n\tif x != nil {\n\t\treturn x.RequiredOptions\n\t}\n\treturn nil\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+      "name": "GetRequiredWheels",
+      "lines": [945, 950],
+      "bodyLines": [945, 950],
+      "category": "nil-guarded source getter",
+      "source": "func (x *Package) GetRequiredWheels() *ExactlyOne {\n\tif x != nil {\n\t\treturn x.RequiredWheels\n\t}\n\treturn nil\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+      "name": "GetPeriod",
+      "lines": [952, 957],
+      "bodyLines": [952, 957],
+      "category": "nil-guarded source getter",
+      "source": "func (x *Package) GetPeriod() *StructureWeekPeriod {\n\tif x != nil {\n\t\treturn x.Period\n\t}\n\treturn nil\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+      "name": "Reset",
+      "lines": [969, 974],
+      "bodyLines": [969, 974],
+      "category": "Reset",
+      "source": "func (x *WheelSpecification) Reset() {\n\t*x = WheelSpecification{}\n\tmi := &file_car_specification_proto_msgTypes[13]\n\tms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))\n\tms.StoreMessageInfo(mi)\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+      "name": "String",
+      "lines": [976, 978],
+      "bodyLines": [976, 978],
+      "category": "String",
+      "source": "func (x *WheelSpecification) String() string {\n\treturn protoimpl.X.MessageStringOf(x)\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+      "name": "ProtoMessage",
+      "lines": [980, 980],
+      "bodyLines": [980, 980],
+      "category": "ProtoMessage",
+      "source": "func (*WheelSpecification) ProtoMessage() {}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+      "name": "ProtoReflect",
+      "lines": [982, 992],
+      "bodyLines": [982, 992],
+      "category": "ProtoReflect",
+      "source": "func (x *WheelSpecification) ProtoReflect() protoreflect.Message {\n\tmi := &file_car_specification_proto_msgTypes[13]\n\tif x != nil {\n\t\tms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))\n\t\tif ms.LoadMessageInfo() == nil {\n\t\t\tms.StoreMessageInfo(mi)\n\t\t}\n\t\treturn ms\n\t}\n\treturn mi.MessageOf(x)\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+      "name": "Descriptor",
+      "lines": [995, 997],
+      "bodyLines": [995, 997],
+      "category": "Descriptor",
+      "source": "func (*WheelSpecification) Descriptor() ([]byte, []int) {\n\treturn file_car_specification_proto_rawDescGZIP(), []int{13}\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+      "name": "GetWheels",
+      "lines": [999, 1004],
+      "bodyLines": [999, 1004],
+      "category": "nil-guarded source getter",
+      "source": "func (x *WheelSpecification) GetWheels() []*Wheel {\n\tif x != nil {\n\t\treturn x.Wheels\n\t}\n\treturn nil\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+      "name": "GetStandardWheel",
+      "lines": [1006, 1011],
+      "bodyLines": [1006, 1011],
+      "category": "nil-guarded source getter",
+      "source": "func (x *WheelSpecification) GetStandardWheel() string {\n\tif x != nil && x.StandardWheel != nil {\n\t\treturn *x.StandardWheel\n\t}\n\treturn \"\"\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+      "name": "Reset",
+      "lines": [1026, 1031],
+      "bodyLines": [1026, 1031],
+      "category": "Reset",
+      "source": "func (x *Wheel) Reset() {\n\t*x = Wheel{}\n\tmi := &file_car_specification_proto_msgTypes[14]\n\tms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))\n\tms.StoreMessageInfo(mi)\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+      "name": "String",
+      "lines": [1033, 1035],
+      "bodyLines": [1033, 1035],
+      "category": "String",
+      "source": "func (x *Wheel) String() string {\n\treturn protoimpl.X.MessageStringOf(x)\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+      "name": "ProtoMessage",
+      "lines": [1037, 1037],
+      "bodyLines": [1037, 1037],
+      "category": "ProtoMessage",
+      "source": "func (*Wheel) ProtoMessage() {}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+      "name": "ProtoReflect",
+      "lines": [1039, 1049],
+      "bodyLines": [1039, 1049],
+      "category": "ProtoReflect",
+      "source": "func (x *Wheel) ProtoReflect() protoreflect.Message {\n\tmi := &file_car_specification_proto_msgTypes[14]\n\tif x != nil {\n\t\tms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))\n\t\tif ms.LoadMessageInfo() == nil {\n\t\t\tms.StoreMessageInfo(mi)\n\t\t}\n\t\treturn ms\n\t}\n\treturn mi.MessageOf(x)\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+      "name": "Descriptor",
+      "lines": [1052, 1054],
+      "bodyLines": [1052, 1054],
+      "category": "Descriptor",
+      "source": "func (*Wheel) Descriptor() ([]byte, []int) {\n\treturn file_car_specification_proto_rawDescGZIP(), []int{14}\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+      "name": "GetCode",
+      "lines": [1056, 1061],
+      "bodyLines": [1056, 1061],
+      "category": "nil-guarded source getter",
+      "source": "func (x *Wheel) GetCode() string {\n\tif x != nil {\n\t\treturn x.Code\n\t}\n\treturn \"\"\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+      "name": "GetRequiredColors",
+      "lines": [1063, 1068],
+      "bodyLines": [1063, 1068],
+      "category": "nil-guarded source getter",
+      "source": "func (x *Wheel) GetRequiredColors() []*TimeBoundExactlyOne {\n\tif x != nil {\n\t\treturn x.RequiredColors\n\t}\n\treturn nil\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+      "name": "GetRequiredOptions",
+      "lines": [1070, 1075],
+      "bodyLines": [1070, 1075],
+      "category": "nil-guarded source getter",
+      "source": "func (x *Wheel) GetRequiredOptions() []*TimeBoundAtLeastOne {\n\tif x != nil {\n\t\treturn x.RequiredOptions\n\t}\n\treturn nil\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+      "name": "GetRequiredUpholsteries",
+      "lines": [1077, 1082],
+      "bodyLines": [1077, 1082],
+      "category": "nil-guarded source getter",
+      "source": "func (x *Wheel) GetRequiredUpholsteries() []*TimeBoundExactlyOne {\n\tif x != nil {\n\t\treturn x.RequiredUpholsteries\n\t}\n\treturn nil\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+      "name": "GetForbidsOptions",
+      "lines": [1084, 1089],
+      "bodyLines": [1084, 1089],
+      "category": "nil-guarded source getter",
+      "source": "func (x *Wheel) GetForbidsOptions() []*Forbids {\n\tif x != nil {\n\t\treturn x.ForbidsOptions\n\t}\n\treturn nil\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+      "name": "GetForbidsUpholsteries",
+      "lines": [1091, 1096],
+      "bodyLines": [1091, 1096],
+      "category": "nil-guarded source getter",
+      "source": "func (x *Wheel) GetForbidsUpholsteries() []*Forbids {\n\tif x != nil {\n\t\treturn x.ForbidsUpholsteries\n\t}\n\treturn nil\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+      "name": "GetPeriod",
+      "lines": [1098, 1103],
+      "bodyLines": [1098, 1103],
+      "category": "nil-guarded source getter",
+      "source": "func (x *Wheel) GetPeriod() *StructureWeekPeriod {\n\tif x != nil {\n\t\treturn x.Period\n\t}\n\treturn nil\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+      "name": "Reset",
+      "lines": [1114, 1119],
+      "bodyLines": [1114, 1119],
+      "category": "Reset",
+      "source": "func (x *TimeBoundExactlyOne) Reset() {\n\t*x = TimeBoundExactlyOne{}\n\tmi := &file_car_specification_proto_msgTypes[15]\n\tms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))\n\tms.StoreMessageInfo(mi)\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+      "name": "String",
+      "lines": [1121, 1123],
+      "bodyLines": [1121, 1123],
+      "category": "String",
+      "source": "func (x *TimeBoundExactlyOne) String() string {\n\treturn protoimpl.X.MessageStringOf(x)\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+      "name": "ProtoMessage",
+      "lines": [1125, 1125],
+      "bodyLines": [1125, 1125],
+      "category": "ProtoMessage",
+      "source": "func (*TimeBoundExactlyOne) ProtoMessage() {}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+      "name": "ProtoReflect",
+      "lines": [1127, 1137],
+      "bodyLines": [1127, 1137],
+      "category": "ProtoReflect",
+      "source": "func (x *TimeBoundExactlyOne) ProtoReflect() protoreflect.Message {\n\tmi := &file_car_specification_proto_msgTypes[15]\n\tif x != nil {\n\t\tms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))\n\t\tif ms.LoadMessageInfo() == nil {\n\t\t\tms.StoreMessageInfo(mi)\n\t\t}\n\t\treturn ms\n\t}\n\treturn mi.MessageOf(x)\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+      "name": "Descriptor",
+      "lines": [1140, 1142],
+      "bodyLines": [1140, 1142],
+      "category": "Descriptor",
+      "source": "func (*TimeBoundExactlyOne) Descriptor() ([]byte, []int) {\n\treturn file_car_specification_proto_rawDescGZIP(), []int{15}\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+      "name": "GetCodes",
+      "lines": [1144, 1149],
+      "bodyLines": [1144, 1149],
+      "category": "nil-guarded source getter",
+      "source": "func (x *TimeBoundExactlyOne) GetCodes() []string {\n\tif x != nil {\n\t\treturn x.Codes\n\t}\n\treturn nil\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+      "name": "GetDefaultCode",
+      "lines": [1151, 1156],
+      "bodyLines": [1151, 1156],
+      "category": "nil-guarded source getter",
+      "source": "func (x *TimeBoundExactlyOne) GetDefaultCode() string {\n\tif x != nil && x.DefaultCode != nil {\n\t\treturn *x.DefaultCode\n\t}\n\treturn \"\"\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+      "name": "GetPeriod",
+      "lines": [1158, 1163],
+      "bodyLines": [1158, 1163],
+      "category": "nil-guarded source getter",
+      "source": "func (x *TimeBoundExactlyOne) GetPeriod() *StructureWeekPeriod {\n\tif x != nil {\n\t\treturn x.Period\n\t}\n\treturn nil\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+      "name": "Reset",
+      "lines": [1173, 1178],
+      "bodyLines": [1173, 1178],
+      "category": "Reset",
+      "source": "func (x *ExactlyOne) Reset() {\n\t*x = ExactlyOne{}\n\tmi := &file_car_specification_proto_msgTypes[16]\n\tms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))\n\tms.StoreMessageInfo(mi)\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+      "name": "String",
+      "lines": [1180, 1182],
+      "bodyLines": [1180, 1182],
+      "category": "String",
+      "source": "func (x *ExactlyOne) String() string {\n\treturn protoimpl.X.MessageStringOf(x)\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+      "name": "ProtoMessage",
+      "lines": [1184, 1184],
+      "bodyLines": [1184, 1184],
+      "category": "ProtoMessage",
+      "source": "func (*ExactlyOne) ProtoMessage() {}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+      "name": "ProtoReflect",
+      "lines": [1186, 1196],
+      "bodyLines": [1186, 1196],
+      "category": "ProtoReflect",
+      "source": "func (x *ExactlyOne) ProtoReflect() protoreflect.Message {\n\tmi := &file_car_specification_proto_msgTypes[16]\n\tif x != nil {\n\t\tms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))\n\t\tif ms.LoadMessageInfo() == nil {\n\t\t\tms.StoreMessageInfo(mi)\n\t\t}\n\t\treturn ms\n\t}\n\treturn mi.MessageOf(x)\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+      "name": "Descriptor",
+      "lines": [1199, 1201],
+      "bodyLines": [1199, 1201],
+      "category": "Descriptor",
+      "source": "func (*ExactlyOne) Descriptor() ([]byte, []int) {\n\treturn file_car_specification_proto_rawDescGZIP(), []int{16}\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+      "name": "GetCodes",
+      "lines": [1203, 1208],
+      "bodyLines": [1203, 1208],
+      "category": "nil-guarded source getter",
+      "source": "func (x *ExactlyOne) GetCodes() []string {\n\tif x != nil {\n\t\treturn x.Codes\n\t}\n\treturn nil\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+      "name": "GetDefaultCode",
+      "lines": [1210, 1215],
+      "bodyLines": [1210, 1215],
+      "category": "nil-guarded source getter",
+      "source": "func (x *ExactlyOne) GetDefaultCode() string {\n\tif x != nil && x.DefaultCode != nil {\n\t\treturn *x.DefaultCode\n\t}\n\treturn \"\"\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+      "name": "Reset",
+      "lines": [1226, 1231],
+      "bodyLines": [1226, 1231],
+      "category": "Reset",
+      "source": "func (x *TimeBoundAtLeastOne) Reset() {\n\t*x = TimeBoundAtLeastOne{}\n\tmi := &file_car_specification_proto_msgTypes[17]\n\tms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))\n\tms.StoreMessageInfo(mi)\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+      "name": "String",
+      "lines": [1233, 1235],
+      "bodyLines": [1233, 1235],
+      "category": "String",
+      "source": "func (x *TimeBoundAtLeastOne) String() string {\n\treturn protoimpl.X.MessageStringOf(x)\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+      "name": "ProtoMessage",
+      "lines": [1237, 1237],
+      "bodyLines": [1237, 1237],
+      "category": "ProtoMessage",
+      "source": "func (*TimeBoundAtLeastOne) ProtoMessage() {}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+      "name": "ProtoReflect",
+      "lines": [1239, 1249],
+      "bodyLines": [1239, 1249],
+      "category": "ProtoReflect",
+      "source": "func (x *TimeBoundAtLeastOne) ProtoReflect() protoreflect.Message {\n\tmi := &file_car_specification_proto_msgTypes[17]\n\tif x != nil {\n\t\tms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))\n\t\tif ms.LoadMessageInfo() == nil {\n\t\t\tms.StoreMessageInfo(mi)\n\t\t}\n\t\treturn ms\n\t}\n\treturn mi.MessageOf(x)\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+      "name": "Descriptor",
+      "lines": [1252, 1254],
+      "bodyLines": [1252, 1254],
+      "category": "Descriptor",
+      "source": "func (*TimeBoundAtLeastOne) Descriptor() ([]byte, []int) {\n\treturn file_car_specification_proto_rawDescGZIP(), []int{17}\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+      "name": "GetCodes",
+      "lines": [1256, 1261],
+      "bodyLines": [1256, 1261],
+      "category": "nil-guarded source getter",
+      "source": "func (x *TimeBoundAtLeastOne) GetCodes() []string {\n\tif x != nil {\n\t\treturn x.Codes\n\t}\n\treturn nil\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+      "name": "GetDefaultCode",
+      "lines": [1263, 1268],
+      "bodyLines": [1263, 1268],
+      "category": "nil-guarded source getter",
+      "source": "func (x *TimeBoundAtLeastOne) GetDefaultCode() string {\n\tif x != nil && x.DefaultCode != nil {\n\t\treturn *x.DefaultCode\n\t}\n\treturn \"\"\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+      "name": "GetPeriod",
+      "lines": [1270, 1275],
+      "bodyLines": [1270, 1275],
+      "category": "nil-guarded source getter",
+      "source": "func (x *TimeBoundAtLeastOne) GetPeriod() *StructureWeekPeriod {\n\tif x != nil {\n\t\treturn x.Period\n\t}\n\treturn nil\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+      "name": "Reset",
+      "lines": [1285, 1290],
+      "bodyLines": [1285, 1290],
+      "category": "Reset",
+      "source": "func (x *Forbids) Reset() {\n\t*x = Forbids{}\n\tmi := &file_car_specification_proto_msgTypes[18]\n\tms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))\n\tms.StoreMessageInfo(mi)\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+      "name": "String",
+      "lines": [1292, 1294],
+      "bodyLines": [1292, 1294],
+      "category": "String",
+      "source": "func (x *Forbids) String() string {\n\treturn protoimpl.X.MessageStringOf(x)\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+      "name": "ProtoMessage",
+      "lines": [1296, 1296],
+      "bodyLines": [1296, 1296],
+      "category": "ProtoMessage",
+      "source": "func (*Forbids) ProtoMessage() {}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+      "name": "ProtoReflect",
+      "lines": [1298, 1308],
+      "bodyLines": [1298, 1308],
+      "category": "ProtoReflect",
+      "source": "func (x *Forbids) ProtoReflect() protoreflect.Message {\n\tmi := &file_car_specification_proto_msgTypes[18]\n\tif x != nil {\n\t\tms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))\n\t\tif ms.LoadMessageInfo() == nil {\n\t\t\tms.StoreMessageInfo(mi)\n\t\t}\n\t\treturn ms\n\t}\n\treturn mi.MessageOf(x)\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+      "name": "Descriptor",
+      "lines": [1311, 1313],
+      "bodyLines": [1311, 1313],
+      "category": "Descriptor",
+      "source": "func (*Forbids) Descriptor() ([]byte, []int) {\n\treturn file_car_specification_proto_rawDescGZIP(), []int{18}\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+      "name": "GetCode",
+      "lines": [1315, 1320],
+      "bodyLines": [1315, 1320],
+      "category": "nil-guarded source getter",
+      "source": "func (x *Forbids) GetCode() string {\n\tif x != nil {\n\t\treturn x.Code\n\t}\n\treturn \"\"\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+      "name": "GetPeriod",
+      "lines": [1322, 1327],
+      "bodyLines": [1322, 1327],
+      "category": "nil-guarded source getter",
+      "source": "func (x *Forbids) GetPeriod() *StructureWeekPeriod {\n\tif x != nil {\n\t\treturn x.Period\n\t}\n\treturn nil\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+      "name": "Reset",
+      "lines": [1338, 1343],
+      "bodyLines": [1338, 1343],
+      "category": "Reset",
+      "source": "func (x *CarSpecificationUpserted) Reset() {\n\t*x = CarSpecificationUpserted{}\n\tmi := &file_car_specification_proto_msgTypes[19]\n\tms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))\n\tms.StoreMessageInfo(mi)\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+      "name": "String",
+      "lines": [1345, 1347],
+      "bodyLines": [1345, 1347],
+      "category": "String",
+      "source": "func (x *CarSpecificationUpserted) String() string {\n\treturn protoimpl.X.MessageStringOf(x)\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+      "name": "ProtoMessage",
+      "lines": [1349, 1349],
+      "bodyLines": [1349, 1349],
+      "category": "ProtoMessage",
+      "source": "func (*CarSpecificationUpserted) ProtoMessage() {}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+      "name": "ProtoReflect",
+      "lines": [1351, 1361],
+      "bodyLines": [1351, 1361],
+      "category": "ProtoReflect",
+      "source": "func (x *CarSpecificationUpserted) ProtoReflect() protoreflect.Message {\n\tmi := &file_car_specification_proto_msgTypes[19]\n\tif x != nil {\n\t\tms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))\n\t\tif ms.LoadMessageInfo() == nil {\n\t\t\tms.StoreMessageInfo(mi)\n\t\t}\n\t\treturn ms\n\t}\n\treturn mi.MessageOf(x)\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+      "name": "Descriptor",
+      "lines": [1364, 1366],
+      "bodyLines": [1364, 1366],
+      "category": "Descriptor",
+      "source": "func (*CarSpecificationUpserted) Descriptor() ([]byte, []int) {\n\treturn file_car_specification_proto_rawDescGZIP(), []int{19}\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+      "name": "GetSpecification",
+      "lines": [1368, 1373],
+      "bodyLines": [1368, 1373],
+      "category": "nil-guarded source getter",
+      "source": "func (x *CarSpecificationUpserted) GetSpecification() *CarSpecification {\n\tif x != nil {\n\t\treturn x.Specification\n\t}\n\treturn nil\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+      "name": "GetMarketAuthIdentifier",
+      "lines": [1375, 1380],
+      "bodyLines": [1375, 1380],
+      "category": "nil-guarded source getter",
+      "source": "func (x *CarSpecificationUpserted) GetMarketAuthIdentifier() *MarketAuthIdentifier {\n\tif x != nil {\n\t\treturn x.MarketAuthIdentifier\n\t}\n\treturn nil\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+      "name": "GetBrand",
+      "lines": [1382, 1387],
+      "bodyLines": [1382, 1387],
+      "category": "nil-guarded source getter",
+      "source": "func (x *CarSpecificationUpserted) GetBrand() string {\n\tif x != nil {\n\t\treturn x.Brand\n\t}\n\treturn \"\"\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+      "name": "Reset",
+      "lines": [1401, 1406],
+      "bodyLines": [1401, 1406],
+      "category": "Reset",
+      "source": "func (x *CarSpecificationRemoved) Reset() {\n\t*x = CarSpecificationRemoved{}\n\tmi := &file_car_specification_proto_msgTypes[20]\n\tms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))\n\tms.StoreMessageInfo(mi)\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+      "name": "String",
+      "lines": [1408, 1410],
+      "bodyLines": [1408, 1410],
+      "category": "String",
+      "source": "func (x *CarSpecificationRemoved) String() string {\n\treturn protoimpl.X.MessageStringOf(x)\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+      "name": "ProtoMessage",
+      "lines": [1412, 1412],
+      "bodyLines": [1412, 1412],
+      "category": "ProtoMessage",
+      "source": "func (*CarSpecificationRemoved) ProtoMessage() {}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+      "name": "ProtoReflect",
+      "lines": [1414, 1424],
+      "bodyLines": [1414, 1424],
+      "category": "ProtoReflect",
+      "source": "func (x *CarSpecificationRemoved) ProtoReflect() protoreflect.Message {\n\tmi := &file_car_specification_proto_msgTypes[20]\n\tif x != nil {\n\t\tms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))\n\t\tif ms.LoadMessageInfo() == nil {\n\t\t\tms.StoreMessageInfo(mi)\n\t\t}\n\t\treturn ms\n\t}\n\treturn mi.MessageOf(x)\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+      "name": "Descriptor",
+      "lines": [1427, 1429],
+      "bodyLines": [1427, 1429],
+      "category": "Descriptor",
+      "source": "func (*CarSpecificationRemoved) Descriptor() ([]byte, []int) {\n\treturn file_car_specification_proto_rawDescGZIP(), []int{20}\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+      "name": "GetPno12",
+      "lines": [1431, 1436],
+      "bodyLines": [1431, 1436],
+      "category": "nil-guarded source getter",
+      "source": "func (x *CarSpecificationRemoved) GetPno12() string {\n\tif x != nil {\n\t\treturn x.Pno12\n\t}\n\treturn \"\"\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+      "name": "GetSpecMarket",
+      "lines": [1438, 1443],
+      "bodyLines": [1438, 1443],
+      "category": "nil-guarded source getter",
+      "source": "func (x *CarSpecificationRemoved) GetSpecMarket() string {\n\tif x != nil {\n\t\treturn x.SpecMarket\n\t}\n\treturn \"\"\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+      "name": "GetModelYear",
+      "lines": [1445, 1450],
+      "bodyLines": [1445, 1450],
+      "category": "nil-guarded source getter",
+      "source": "func (x *CarSpecificationRemoved) GetModelYear() int32 {\n\tif x != nil {\n\t\treturn x.ModelYear\n\t}\n\treturn 0\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+      "name": "GetLocalTrimEditionCode",
+      "lines": [1453, 1458],
+      "bodyLines": [1453, 1458],
+      "category": "nil-guarded source getter",
+      "source": "func (x *CarSpecificationRemoved) GetLocalTrimEditionCode() string {\n\tif x != nil && x.LocalTrimEditionCode != nil {\n\t\treturn *x.LocalTrimEditionCode\n\t}\n\treturn \"\"\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+      "name": "GetLocalEditionCode",
+      "lines": [1460, 1465],
+      "bodyLines": [1460, 1465],
+      "category": "nil-guarded source getter",
+      "source": "func (x *CarSpecificationRemoved) GetLocalEditionCode() string {\n\tif x != nil && x.LocalEditionCode != nil {\n\t\treturn *x.LocalEditionCode\n\t}\n\treturn \"\"\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+      "name": "Reset",
+      "lines": [1475, 1480],
+      "bodyLines": [1475, 1480],
+      "category": "Reset",
+      "source": "func (x *MarketAuthIdentifier) Reset() {\n\t*x = MarketAuthIdentifier{}\n\tmi := &file_car_specification_proto_msgTypes[21]\n\tms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))\n\tms.StoreMessageInfo(mi)\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+      "name": "String",
+      "lines": [1482, 1484],
+      "bodyLines": [1482, 1484],
+      "category": "String",
+      "source": "func (x *MarketAuthIdentifier) String() string {\n\treturn protoimpl.X.MessageStringOf(x)\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+      "name": "ProtoMessage",
+      "lines": [1486, 1486],
+      "bodyLines": [1486, 1486],
+      "category": "ProtoMessage",
+      "source": "func (*MarketAuthIdentifier) ProtoMessage() {}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+      "name": "ProtoReflect",
+      "lines": [1488, 1498],
+      "bodyLines": [1488, 1498],
+      "category": "ProtoReflect",
+      "source": "func (x *MarketAuthIdentifier) ProtoReflect() protoreflect.Message {\n\tmi := &file_car_specification_proto_msgTypes[21]\n\tif x != nil {\n\t\tms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))\n\t\tif ms.LoadMessageInfo() == nil {\n\t\t\tms.StoreMessageInfo(mi)\n\t\t}\n\t\treturn ms\n\t}\n\treturn mi.MessageOf(x)\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+      "name": "Descriptor",
+      "lines": [1501, 1503],
+      "bodyLines": [1501, 1503],
+      "category": "Descriptor",
+      "source": "func (*MarketAuthIdentifier) Descriptor() ([]byte, []int) {\n\treturn file_car_specification_proto_rawDescGZIP(), []int{21}\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+      "name": "GetTimestamp",
+      "lines": [1505, 1510],
+      "bodyLines": [1505, 1510],
+      "category": "nil-guarded source getter",
+      "source": "func (x *MarketAuthIdentifier) GetTimestamp() string {\n\tif x != nil {\n\t\treturn x.Timestamp\n\t}\n\treturn \"\"\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+      "name": "GetStandardWheelFeatureCode",
+      "lines": [1512, 1517],
+      "bodyLines": [1512, 1517],
+      "category": "nil-guarded source getter",
+      "source": "func (x *MarketAuthIdentifier) GetStandardWheelFeatureCode() string {\n\tif x != nil {\n\t\treturn x.StandardWheelFeatureCode\n\t}\n\treturn \"\"\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+      "name": "file_car_specification_proto_rawDescGZIP",
+      "lines": [1657, 1662],
+      "bodyLines": [1657, 1662],
+      "category": "once descriptor compression",
+      "source": "func file_car_specification_proto_rawDescGZIP() []byte {\n\tfile_car_specification_proto_rawDescOnce.Do(func() {\n\t\tfile_car_specification_proto_rawDescData = protoimpl.X.CompressGZIP(unsafe.Slice(unsafe.StringData(file_car_specification_proto_rawDesc), len(file_car_specification_proto_rawDesc)))\n\t})\n\treturn file_car_specification_proto_rawDescData\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+      "name": "init",
+      "lines": [1757, 1757],
+      "bodyLines": [1757, 1757],
+      "category": "package init",
+      "source": "func init() { file_car_specification_proto_init() }"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+      "name": "file_car_specification_proto_init",
+      "lines": [1758, 1787],
+      "bodyLines": [1758, 1787],
+      "category": "descriptor initializer",
+      "source": "func file_car_specification_proto_init() {\n\tif File_car_specification_proto != nil {\n\t\treturn\n\t}\n\tfile_car_key_proto_init()\n\tfile_structure_week_proto_init()\n\tfile_car_specification_proto_msgTypes[12].OneofWrappers = []any{}\n\tfile_car_specification_proto_msgTypes[13].OneofWrappers = []any{}\n\tfile_car_specification_proto_msgTypes[15].OneofWrappers = []any{}\n\tfile_car_specification_proto_msgTypes[16].OneofWrappers = []any{}\n\tfile_car_specification_proto_msgTypes[17].OneofWrappers = []any{}\n\tfile_car_specification_proto_msgTypes[20].OneofWrappers = []any{}\n\ttype x struct{}\n\tout := protoimpl.TypeBuilder{\n\t\tFile: protoimpl.DescBuilder{\n\t\t\tGoPackagePath: reflect.TypeOf(x{}).PkgPath(),\n\t\t\tRawDescriptor: unsafe.Slice(unsafe.StringData(file_car_specification_proto_rawDesc), len(file_car_specification_proto_rawDesc)),\n\t\t\tNumEnums:      0,\n\t\t\tNumMessages:   22,\n\t\t\tNumExtensions: 0,\n\t\t\tNumServices:   0,\n\t\t},\n\t\tGoTypes:           file_car_specification_proto_goTypes,\n\t\tDependencyIndexes: file_car_specification_proto_depIdxs,\n\t\tMessageInfos:      file_car_specification_proto_msgTypes,\n\t}.Build()\n\tFile_car_specification_proto = out.File\n\tfile_car_specification_proto_goTypes = nil\n\tfile_car_specification_proto_depIdxs = nil\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/components.pb.go",
+      "name": "Reset",
+      "lines": [32, 37],
+      "bodyLines": [32, 37],
+      "category": "Reset",
+      "source": "func (x *ComponentWithCarKeys) Reset() {\n\t*x = ComponentWithCarKeys{}\n\tmi := &file_components_proto_msgTypes[0]\n\tms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))\n\tms.StoreMessageInfo(mi)\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/components.pb.go",
+      "name": "String",
+      "lines": [39, 41],
+      "bodyLines": [39, 41],
+      "category": "String",
+      "source": "func (x *ComponentWithCarKeys) String() string {\n\treturn protoimpl.X.MessageStringOf(x)\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/components.pb.go",
+      "name": "ProtoMessage",
+      "lines": [43, 43],
+      "bodyLines": [43, 43],
+      "category": "ProtoMessage",
+      "source": "func (*ComponentWithCarKeys) ProtoMessage() {}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/components.pb.go",
+      "name": "ProtoReflect",
+      "lines": [45, 55],
+      "bodyLines": [45, 55],
+      "category": "ProtoReflect",
+      "source": "func (x *ComponentWithCarKeys) ProtoReflect() protoreflect.Message {\n\tmi := &file_components_proto_msgTypes[0]\n\tif x != nil {\n\t\tms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))\n\t\tif ms.LoadMessageInfo() == nil {\n\t\t\tms.StoreMessageInfo(mi)\n\t\t}\n\t\treturn ms\n\t}\n\treturn mi.MessageOf(x)\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/components.pb.go",
+      "name": "Descriptor",
+      "lines": [58, 60],
+      "bodyLines": [58, 60],
+      "category": "Descriptor",
+      "source": "func (*ComponentWithCarKeys) Descriptor() ([]byte, []int) {\n\treturn file_components_proto_rawDescGZIP(), []int{0}\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/components.pb.go",
+      "name": "GetComponent",
+      "lines": [62, 67],
+      "bodyLines": [62, 67],
+      "category": "nil-guarded source getter",
+      "source": "func (x *ComponentWithCarKeys) GetComponent() *Component {\n\tif x != nil {\n\t\treturn x.Component\n\t}\n\treturn nil\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/components.pb.go",
+      "name": "GetCarKeys",
+      "lines": [69, 74],
+      "bodyLines": [69, 74],
+      "category": "nil-guarded source getter",
+      "source": "func (x *ComponentWithCarKeys) GetCarKeys() []*CarKeyInPeriod {\n\tif x != nil {\n\t\treturn x.CarKeys\n\t}\n\treturn nil\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/components.pb.go",
+      "name": "Reset",
+      "lines": [84, 89],
+      "bodyLines": [84, 89],
+      "category": "Reset",
+      "source": "func (x *Component) Reset() {\n\t*x = Component{}\n\tmi := &file_components_proto_msgTypes[1]\n\tms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))\n\tms.StoreMessageInfo(mi)\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/components.pb.go",
+      "name": "String",
+      "lines": [91, 93],
+      "bodyLines": [91, 93],
+      "category": "String",
+      "source": "func (x *Component) String() string {\n\treturn protoimpl.X.MessageStringOf(x)\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/components.pb.go",
+      "name": "ProtoMessage",
+      "lines": [95, 95],
+      "bodyLines": [95, 95],
+      "category": "ProtoMessage",
+      "source": "func (*Component) ProtoMessage() {}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/components.pb.go",
+      "name": "ProtoReflect",
+      "lines": [97, 107],
+      "bodyLines": [97, 107],
+      "category": "ProtoReflect",
+      "source": "func (x *Component) ProtoReflect() protoreflect.Message {\n\tmi := &file_components_proto_msgTypes[1]\n\tif x != nil {\n\t\tms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))\n\t\tif ms.LoadMessageInfo() == nil {\n\t\t\tms.StoreMessageInfo(mi)\n\t\t}\n\t\treturn ms\n\t}\n\treturn mi.MessageOf(x)\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/components.pb.go",
+      "name": "Descriptor",
+      "lines": [110, 112],
+      "bodyLines": [110, 112],
+      "category": "Descriptor",
+      "source": "func (*Component) Descriptor() ([]byte, []int) {\n\treturn file_components_proto_rawDescGZIP(), []int{1}\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/components.pb.go",
+      "name": "GetCode",
+      "lines": [114, 119],
+      "bodyLines": [114, 119],
+      "category": "nil-guarded source getter",
+      "source": "func (x *Component) GetCode() string {\n\tif x != nil {\n\t\treturn x.Code\n\t}\n\treturn \"\"\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/components.pb.go",
+      "name": "GetType",
+      "lines": [121, 126],
+      "bodyLines": [121, 126],
+      "category": "nil-guarded source getter",
+      "source": "func (x *Component) GetType() string {\n\tif x != nil {\n\t\treturn x.Type\n\t}\n\treturn \"\"\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/components.pb.go",
+      "name": "Reset",
+      "lines": [136, 141],
+      "bodyLines": [136, 141],
+      "category": "Reset",
+      "source": "func (x *PackageComponentWithCarKeys) Reset() {\n\t*x = PackageComponentWithCarKeys{}\n\tmi := &file_components_proto_msgTypes[2]\n\tms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))\n\tms.StoreMessageInfo(mi)\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/components.pb.go",
+      "name": "String",
+      "lines": [143, 145],
+      "bodyLines": [143, 145],
+      "category": "String",
+      "source": "func (x *PackageComponentWithCarKeys) String() string {\n\treturn protoimpl.X.MessageStringOf(x)\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/components.pb.go",
+      "name": "ProtoMessage",
+      "lines": [147, 147],
+      "bodyLines": [147, 147],
+      "category": "ProtoMessage",
+      "source": "func (*PackageComponentWithCarKeys) ProtoMessage() {}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/components.pb.go",
+      "name": "ProtoReflect",
+      "lines": [149, 159],
+      "bodyLines": [149, 159],
+      "category": "ProtoReflect",
+      "source": "func (x *PackageComponentWithCarKeys) ProtoReflect() protoreflect.Message {\n\tmi := &file_components_proto_msgTypes[2]\n\tif x != nil {\n\t\tms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))\n\t\tif ms.LoadMessageInfo() == nil {\n\t\t\tms.StoreMessageInfo(mi)\n\t\t}\n\t\treturn ms\n\t}\n\treturn mi.MessageOf(x)\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/components.pb.go",
+      "name": "Descriptor",
+      "lines": [162, 164],
+      "bodyLines": [162, 164],
+      "category": "Descriptor",
+      "source": "func (*PackageComponentWithCarKeys) Descriptor() ([]byte, []int) {\n\treturn file_components_proto_rawDescGZIP(), []int{2}\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/components.pb.go",
+      "name": "GetComponent",
+      "lines": [166, 171],
+      "bodyLines": [166, 171],
+      "category": "nil-guarded source getter",
+      "source": "func (x *PackageComponentWithCarKeys) GetComponent() *PackageComponent {\n\tif x != nil {\n\t\treturn x.Component\n\t}\n\treturn nil\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/components.pb.go",
+      "name": "GetCarKeys",
+      "lines": [173, 178],
+      "bodyLines": [173, 178],
+      "category": "nil-guarded source getter",
+      "source": "func (x *PackageComponentWithCarKeys) GetCarKeys() []*CarKeyInPeriod {\n\tif x != nil {\n\t\treturn x.CarKeys\n\t}\n\treturn nil\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/components.pb.go",
+      "name": "Reset",
+      "lines": [188, 193],
+      "bodyLines": [188, 193],
+      "category": "Reset",
+      "source": "func (x *PackageComponent) Reset() {\n\t*x = PackageComponent{}\n\tmi := &file_components_proto_msgTypes[3]\n\tms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))\n\tms.StoreMessageInfo(mi)\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/components.pb.go",
+      "name": "String",
+      "lines": [195, 197],
+      "bodyLines": [195, 197],
+      "category": "String",
+      "source": "func (x *PackageComponent) String() string {\n\treturn protoimpl.X.MessageStringOf(x)\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/components.pb.go",
+      "name": "ProtoMessage",
+      "lines": [199, 199],
+      "bodyLines": [199, 199],
+      "category": "ProtoMessage",
+      "source": "func (*PackageComponent) ProtoMessage() {}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/components.pb.go",
+      "name": "ProtoReflect",
+      "lines": [201, 211],
+      "bodyLines": [201, 211],
+      "category": "ProtoReflect",
+      "source": "func (x *PackageComponent) ProtoReflect() protoreflect.Message {\n\tmi := &file_components_proto_msgTypes[3]\n\tif x != nil {\n\t\tms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))\n\t\tif ms.LoadMessageInfo() == nil {\n\t\t\tms.StoreMessageInfo(mi)\n\t\t}\n\t\treturn ms\n\t}\n\treturn mi.MessageOf(x)\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/components.pb.go",
+      "name": "Descriptor",
+      "lines": [214, 216],
+      "bodyLines": [214, 216],
+      "category": "Descriptor",
+      "source": "func (*PackageComponent) Descriptor() ([]byte, []int) {\n\treturn file_components_proto_rawDescGZIP(), []int{3}\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/components.pb.go",
+      "name": "GetCode",
+      "lines": [218, 223],
+      "bodyLines": [218, 223],
+      "category": "nil-guarded source getter",
+      "source": "func (x *PackageComponent) GetCode() string {\n\tif x != nil {\n\t\treturn x.Code\n\t}\n\treturn \"\"\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/components.pb.go",
+      "name": "GetVariant",
+      "lines": [225, 230],
+      "bodyLines": [225, 230],
+      "category": "nil-guarded source getter",
+      "source": "func (x *PackageComponent) GetVariant() []*Component {\n\tif x != nil {\n\t\treturn x.Variant\n\t}\n\treturn nil\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/components.pb.go",
+      "name": "file_components_proto_rawDescGZIP",
+      "lines": [255, 260],
+      "bodyLines": [255, 260],
+      "category": "once descriptor compression",
+      "source": "func file_components_proto_rawDescGZIP() []byte {\n\tfile_components_proto_rawDescOnce.Do(func() {\n\t\tfile_components_proto_rawDescData = protoimpl.X.CompressGZIP(unsafe.Slice(unsafe.StringData(file_components_proto_rawDesc), len(file_components_proto_rawDesc)))\n\t})\n\treturn file_components_proto_rawDescData\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/components.pb.go",
+      "name": "init",
+      "lines": [283, 283],
+      "bodyLines": [283, 283],
+      "category": "package init",
+      "source": "func init() { file_components_proto_init() }"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/components.pb.go",
+      "name": "file_components_proto_init",
+      "lines": [284, 306],
+      "bodyLines": [284, 306],
+      "category": "descriptor initializer",
+      "source": "func file_components_proto_init() {\n\tif File_components_proto != nil {\n\t\treturn\n\t}\n\tfile_car_key_proto_init()\n\ttype x struct{}\n\tout := protoimpl.TypeBuilder{\n\t\tFile: protoimpl.DescBuilder{\n\t\t\tGoPackagePath: reflect.TypeOf(x{}).PkgPath(),\n\t\t\tRawDescriptor: unsafe.Slice(unsafe.StringData(file_components_proto_rawDesc), len(file_components_proto_rawDesc)),\n\t\t\tNumEnums:      0,\n\t\t\tNumMessages:   4,\n\t\t\tNumExtensions: 0,\n\t\t\tNumServices:   0,\n\t\t},\n\t\tGoTypes:           file_components_proto_goTypes,\n\t\tDependencyIndexes: file_components_proto_depIdxs,\n\t\tMessageInfos:      file_components_proto_msgTypes,\n\t}.Build()\n\tFile_components_proto = out.File\n\tfile_components_proto_goTypes = nil\n\tfile_components_proto_depIdxs = nil\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/selection.pb.go",
+      "name": "Enum",
+      "lines": [43, 47],
+      "bodyLines": [43, 47],
+      "category": "Enum",
+      "source": "func (x Action) Enum() *Action {\n\tp := new(Action)\n\t*p = x\n\treturn p\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/selection.pb.go",
+      "name": "String",
+      "lines": [49, 51],
+      "bodyLines": [49, 51],
+      "category": "String",
+      "source": "func (x Action) String() string {\n\treturn protoimpl.X.EnumStringOf(x.Descriptor(), protoreflect.EnumNumber(x))\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/selection.pb.go",
+      "name": "Descriptor",
+      "lines": [53, 55],
+      "bodyLines": [53, 55],
+      "category": "Descriptor",
+      "source": "func (Action) Descriptor() protoreflect.EnumDescriptor {\n\treturn file_selection_proto_enumTypes[0].Descriptor()\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/selection.pb.go",
+      "name": "Type",
+      "lines": [57, 59],
+      "bodyLines": [57, 59],
+      "category": "Type",
+      "source": "func (Action) Type() protoreflect.EnumType {\n\treturn &file_selection_proto_enumTypes[0]\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/selection.pb.go",
+      "name": "Number",
+      "lines": [61, 63],
+      "bodyLines": [61, 63],
+      "category": "Number",
+      "source": "func (x Action) Number() protoreflect.EnumNumber {\n\treturn protoreflect.EnumNumber(x)\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/selection.pb.go",
+      "name": "EnumDescriptor",
+      "lines": [66, 68],
+      "bodyLines": [66, 68],
+      "category": "EnumDescriptor",
+      "source": "func (Action) EnumDescriptor() ([]byte, []int) {\n\treturn file_selection_proto_rawDescGZIP(), []int{0}\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/selection.pb.go",
+      "name": "Reset",
+      "lines": [79, 84],
+      "bodyLines": [79, 84],
+      "category": "Reset",
+      "source": "func (x *Selection) Reset() {\n\t*x = Selection{}\n\tmi := &file_selection_proto_msgTypes[0]\n\tms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))\n\tms.StoreMessageInfo(mi)\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/selection.pb.go",
+      "name": "String",
+      "lines": [86, 88],
+      "bodyLines": [86, 88],
+      "category": "String",
+      "source": "func (x *Selection) String() string {\n\treturn protoimpl.X.MessageStringOf(x)\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/selection.pb.go",
+      "name": "ProtoMessage",
+      "lines": [90, 90],
+      "bodyLines": [90, 90],
+      "category": "ProtoMessage",
+      "source": "func (*Selection) ProtoMessage() {}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/selection.pb.go",
+      "name": "ProtoReflect",
+      "lines": [92, 102],
+      "bodyLines": [92, 102],
+      "category": "ProtoReflect",
+      "source": "func (x *Selection) ProtoReflect() protoreflect.Message {\n\tmi := &file_selection_proto_msgTypes[0]\n\tif x != nil {\n\t\tms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))\n\t\tif ms.LoadMessageInfo() == nil {\n\t\t\tms.StoreMessageInfo(mi)\n\t\t}\n\t\treturn ms\n\t}\n\treturn mi.MessageOf(x)\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/selection.pb.go",
+      "name": "Descriptor",
+      "lines": [105, 107],
+      "bodyLines": [105, 107],
+      "category": "Descriptor",
+      "source": "func (*Selection) Descriptor() ([]byte, []int) {\n\treturn file_selection_proto_rawDescGZIP(), []int{0}\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/selection.pb.go",
+      "name": "GetCode",
+      "lines": [109, 114],
+      "bodyLines": [109, 114],
+      "category": "nil-guarded source getter",
+      "source": "func (x *Selection) GetCode() string {\n\tif x != nil {\n\t\treturn x.Code\n\t}\n\treturn \"\"\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/selection.pb.go",
+      "name": "GetAction",
+      "lines": [116, 121],
+      "bodyLines": [116, 121],
+      "category": "nil-guarded source getter",
+      "source": "func (x *Selection) GetAction() Action {\n\tif x != nil {\n\t\treturn x.Action\n\t}\n\treturn Action_ADD\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/selection.pb.go",
+      "name": "GetSubSelectionCodes",
+      "lines": [123, 128],
+      "bodyLines": [123, 128],
+      "category": "nil-guarded source getter",
+      "source": "func (x *Selection) GetSubSelectionCodes() []string {\n\tif x != nil {\n\t\treturn x.SubSelectionCodes\n\t}\n\treturn nil\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/selection.pb.go",
+      "name": "file_selection_proto_rawDescGZIP",
+      "lines": [149, 154],
+      "bodyLines": [149, 154],
+      "category": "once descriptor compression",
+      "source": "func file_selection_proto_rawDescGZIP() []byte {\n\tfile_selection_proto_rawDescOnce.Do(func() {\n\t\tfile_selection_proto_rawDescData = protoimpl.X.CompressGZIP(unsafe.Slice(unsafe.StringData(file_selection_proto_rawDesc), len(file_selection_proto_rawDesc)))\n\t})\n\treturn file_selection_proto_rawDescData\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/selection.pb.go",
+      "name": "init",
+      "lines": [171, 171],
+      "bodyLines": [171, 171],
+      "category": "package init",
+      "source": "func init() { file_selection_proto_init() }"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/selection.pb.go",
+      "name": "file_selection_proto_init",
+      "lines": [172, 194],
+      "bodyLines": [172, 194],
+      "category": "descriptor initializer",
+      "source": "func file_selection_proto_init() {\n\tif File_selection_proto != nil {\n\t\treturn\n\t}\n\ttype x struct{}\n\tout := protoimpl.TypeBuilder{\n\t\tFile: protoimpl.DescBuilder{\n\t\t\tGoPackagePath: reflect.TypeOf(x{}).PkgPath(),\n\t\t\tRawDescriptor: unsafe.Slice(unsafe.StringData(file_selection_proto_rawDesc), len(file_selection_proto_rawDesc)),\n\t\t\tNumEnums:      1,\n\t\t\tNumMessages:   1,\n\t\t\tNumExtensions: 0,\n\t\t\tNumServices:   0,\n\t\t},\n\t\tGoTypes:           file_selection_proto_goTypes,\n\t\tDependencyIndexes: file_selection_proto_depIdxs,\n\t\tEnumInfos:         file_selection_proto_enumTypes,\n\t\tMessageInfos:      file_selection_proto_msgTypes,\n\t}.Build()\n\tFile_selection_proto = out.File\n\tfile_selection_proto_goTypes = nil\n\tfile_selection_proto_depIdxs = nil\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/service.pb.go",
+      "name": "Enum",
+      "lines": [44, 48],
+      "bodyLines": [44, 48],
+      "category": "Enum",
+      "source": "func (x HealthStatus) Enum() *HealthStatus {\n\tp := new(HealthStatus)\n\t*p = x\n\treturn p\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/service.pb.go",
+      "name": "String",
+      "lines": [50, 52],
+      "bodyLines": [50, 52],
+      "category": "String",
+      "source": "func (x HealthStatus) String() string {\n\treturn protoimpl.X.EnumStringOf(x.Descriptor(), protoreflect.EnumNumber(x))\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/service.pb.go",
+      "name": "Descriptor",
+      "lines": [54, 56],
+      "bodyLines": [54, 56],
+      "category": "Descriptor",
+      "source": "func (HealthStatus) Descriptor() protoreflect.EnumDescriptor {\n\treturn file_service_proto_enumTypes[0].Descriptor()\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/service.pb.go",
+      "name": "Type",
+      "lines": [58, 60],
+      "bodyLines": [58, 60],
+      "category": "Type",
+      "source": "func (HealthStatus) Type() protoreflect.EnumType {\n\treturn &file_service_proto_enumTypes[0]\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/service.pb.go",
+      "name": "Number",
+      "lines": [62, 64],
+      "bodyLines": [62, 64],
+      "category": "Number",
+      "source": "func (x HealthStatus) Number() protoreflect.EnumNumber {\n\treturn protoreflect.EnumNumber(x)\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/service.pb.go",
+      "name": "EnumDescriptor",
+      "lines": [67, 69],
+      "bodyLines": [67, 69],
+      "category": "EnumDescriptor",
+      "source": "func (HealthStatus) EnumDescriptor() ([]byte, []int) {\n\treturn file_service_proto_rawDescGZIP(), []int{0}\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/service.pb.go",
+      "name": "Reset",
+      "lines": [77, 82],
+      "bodyLines": [77, 82],
+      "category": "Reset",
+      "source": "func (x *HealthCheckRequest) Reset() {\n\t*x = HealthCheckRequest{}\n\tmi := &file_service_proto_msgTypes[0]\n\tms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))\n\tms.StoreMessageInfo(mi)\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/service.pb.go",
+      "name": "String",
+      "lines": [84, 86],
+      "bodyLines": [84, 86],
+      "category": "String",
+      "source": "func (x *HealthCheckRequest) String() string {\n\treturn protoimpl.X.MessageStringOf(x)\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/service.pb.go",
+      "name": "ProtoMessage",
+      "lines": [88, 88],
+      "bodyLines": [88, 88],
+      "category": "ProtoMessage",
+      "source": "func (*HealthCheckRequest) ProtoMessage() {}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/service.pb.go",
+      "name": "ProtoReflect",
+      "lines": [90, 100],
+      "bodyLines": [90, 100],
+      "category": "ProtoReflect",
+      "source": "func (x *HealthCheckRequest) ProtoReflect() protoreflect.Message {\n\tmi := &file_service_proto_msgTypes[0]\n\tif x != nil {\n\t\tms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))\n\t\tif ms.LoadMessageInfo() == nil {\n\t\t\tms.StoreMessageInfo(mi)\n\t\t}\n\t\treturn ms\n\t}\n\treturn mi.MessageOf(x)\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/service.pb.go",
+      "name": "Descriptor",
+      "lines": [103, 105],
+      "bodyLines": [103, 105],
+      "category": "Descriptor",
+      "source": "func (*HealthCheckRequest) Descriptor() ([]byte, []int) {\n\treturn file_service_proto_rawDescGZIP(), []int{0}\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/service.pb.go",
+      "name": "Reset",
+      "lines": [114, 119],
+      "bodyLines": [114, 119],
+      "category": "Reset",
+      "source": "func (x *HealthCheckResponse) Reset() {\n\t*x = HealthCheckResponse{}\n\tmi := &file_service_proto_msgTypes[1]\n\tms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))\n\tms.StoreMessageInfo(mi)\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/service.pb.go",
+      "name": "String",
+      "lines": [121, 123],
+      "bodyLines": [121, 123],
+      "category": "String",
+      "source": "func (x *HealthCheckResponse) String() string {\n\treturn protoimpl.X.MessageStringOf(x)\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/service.pb.go",
+      "name": "ProtoMessage",
+      "lines": [125, 125],
+      "bodyLines": [125, 125],
+      "category": "ProtoMessage",
+      "source": "func (*HealthCheckResponse) ProtoMessage() {}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/service.pb.go",
+      "name": "ProtoReflect",
+      "lines": [127, 137],
+      "bodyLines": [127, 137],
+      "category": "ProtoReflect",
+      "source": "func (x *HealthCheckResponse) ProtoReflect() protoreflect.Message {\n\tmi := &file_service_proto_msgTypes[1]\n\tif x != nil {\n\t\tms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))\n\t\tif ms.LoadMessageInfo() == nil {\n\t\t\tms.StoreMessageInfo(mi)\n\t\t}\n\t\treturn ms\n\t}\n\treturn mi.MessageOf(x)\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/service.pb.go",
+      "name": "Descriptor",
+      "lines": [140, 142],
+      "bodyLines": [140, 142],
+      "category": "Descriptor",
+      "source": "func (*HealthCheckResponse) Descriptor() ([]byte, []int) {\n\treturn file_service_proto_rawDescGZIP(), []int{1}\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/service.pb.go",
+      "name": "GetStatus",
+      "lines": [144, 149],
+      "bodyLines": [144, 149],
+      "category": "nil-guarded source getter",
+      "source": "func (x *HealthCheckResponse) GetStatus() HealthStatus {\n\tif x != nil {\n\t\treturn x.Status\n\t}\n\treturn HealthStatus_HEALTHY\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/service.pb.go",
+      "name": "Reset",
+      "lines": [158, 163],
+      "bodyLines": [158, 163],
+      "category": "Reset",
+      "source": "func (x *CreateRulesetResponse) Reset() {\n\t*x = CreateRulesetResponse{}\n\tmi := &file_service_proto_msgTypes[2]\n\tms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))\n\tms.StoreMessageInfo(mi)\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/service.pb.go",
+      "name": "String",
+      "lines": [165, 167],
+      "bodyLines": [165, 167],
+      "category": "String",
+      "source": "func (x *CreateRulesetResponse) String() string {\n\treturn protoimpl.X.MessageStringOf(x)\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/service.pb.go",
+      "name": "ProtoMessage",
+      "lines": [169, 169],
+      "bodyLines": [169, 169],
+      "category": "ProtoMessage",
+      "source": "func (*CreateRulesetResponse) ProtoMessage() {}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/service.pb.go",
+      "name": "ProtoReflect",
+      "lines": [171, 181],
+      "bodyLines": [171, 181],
+      "category": "ProtoReflect",
+      "source": "func (x *CreateRulesetResponse) ProtoReflect() protoreflect.Message {\n\tmi := &file_service_proto_msgTypes[2]\n\tif x != nil {\n\t\tms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))\n\t\tif ms.LoadMessageInfo() == nil {\n\t\t\tms.StoreMessageInfo(mi)\n\t\t}\n\t\treturn ms\n\t}\n\treturn mi.MessageOf(x)\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/service.pb.go",
+      "name": "Descriptor",
+      "lines": [184, 186],
+      "bodyLines": [184, 186],
+      "category": "Descriptor",
+      "source": "func (*CreateRulesetResponse) Descriptor() ([]byte, []int) {\n\treturn file_service_proto_rawDescGZIP(), []int{2}\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/service.pb.go",
+      "name": "GetId",
+      "lines": [188, 193],
+      "bodyLines": [188, 193],
+      "category": "nil-guarded source getter",
+      "source": "func (x *CreateRulesetResponse) GetId() string {\n\tif x != nil {\n\t\treturn x.Id\n\t}\n\treturn \"\"\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/service.pb.go",
+      "name": "Reset",
+      "lines": [202, 207],
+      "bodyLines": [202, 207],
+      "category": "Reset",
+      "source": "func (x *DeleteRulesetRequest) Reset() {\n\t*x = DeleteRulesetRequest{}\n\tmi := &file_service_proto_msgTypes[3]\n\tms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))\n\tms.StoreMessageInfo(mi)\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/service.pb.go",
+      "name": "String",
+      "lines": [209, 211],
+      "bodyLines": [209, 211],
+      "category": "String",
+      "source": "func (x *DeleteRulesetRequest) String() string {\n\treturn protoimpl.X.MessageStringOf(x)\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/service.pb.go",
+      "name": "ProtoMessage",
+      "lines": [213, 213],
+      "bodyLines": [213, 213],
+      "category": "ProtoMessage",
+      "source": "func (*DeleteRulesetRequest) ProtoMessage() {}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/service.pb.go",
+      "name": "ProtoReflect",
+      "lines": [215, 225],
+      "bodyLines": [215, 225],
+      "category": "ProtoReflect",
+      "source": "func (x *DeleteRulesetRequest) ProtoReflect() protoreflect.Message {\n\tmi := &file_service_proto_msgTypes[3]\n\tif x != nil {\n\t\tms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))\n\t\tif ms.LoadMessageInfo() == nil {\n\t\t\tms.StoreMessageInfo(mi)\n\t\t}\n\t\treturn ms\n\t}\n\treturn mi.MessageOf(x)\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/service.pb.go",
+      "name": "Descriptor",
+      "lines": [228, 230],
+      "bodyLines": [228, 230],
+      "category": "Descriptor",
+      "source": "func (*DeleteRulesetRequest) Descriptor() ([]byte, []int) {\n\treturn file_service_proto_rawDescGZIP(), []int{3}\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/service.pb.go",
+      "name": "GetId",
+      "lines": [232, 237],
+      "bodyLines": [232, 237],
+      "category": "nil-guarded source getter",
+      "source": "func (x *DeleteRulesetRequest) GetId() string {\n\tif x != nil {\n\t\treturn x.Id\n\t}\n\treturn \"\"\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/service.pb.go",
+      "name": "Reset",
+      "lines": [249, 254],
+      "bodyLines": [249, 254],
+      "category": "Reset",
+      "source": "func (x *CalculateCarKeyRequestV2) Reset() {\n\t*x = CalculateCarKeyRequestV2{}\n\tmi := &file_service_proto_msgTypes[4]\n\tms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))\n\tms.StoreMessageInfo(mi)\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/service.pb.go",
+      "name": "String",
+      "lines": [256, 258],
+      "bodyLines": [256, 258],
+      "category": "String",
+      "source": "func (x *CalculateCarKeyRequestV2) String() string {\n\treturn protoimpl.X.MessageStringOf(x)\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/service.pb.go",
+      "name": "ProtoMessage",
+      "lines": [260, 260],
+      "bodyLines": [260, 260],
+      "category": "ProtoMessage",
+      "source": "func (*CalculateCarKeyRequestV2) ProtoMessage() {}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/service.pb.go",
+      "name": "ProtoReflect",
+      "lines": [262, 272],
+      "bodyLines": [262, 272],
+      "category": "ProtoReflect",
+      "source": "func (x *CalculateCarKeyRequestV2) ProtoReflect() protoreflect.Message {\n\tmi := &file_service_proto_msgTypes[4]\n\tif x != nil {\n\t\tms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))\n\t\tif ms.LoadMessageInfo() == nil {\n\t\t\tms.StoreMessageInfo(mi)\n\t\t}\n\t\treturn ms\n\t}\n\treturn mi.MessageOf(x)\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/service.pb.go",
+      "name": "Descriptor",
+      "lines": [275, 277],
+      "bodyLines": [275, 277],
+      "category": "Descriptor",
+      "source": "func (*CalculateCarKeyRequestV2) Descriptor() ([]byte, []int) {\n\treturn file_service_proto_rawDescGZIP(), []int{4}\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/service.pb.go",
+      "name": "GetRulesetId",
+      "lines": [279, 284],
+      "bodyLines": [279, 284],
+      "category": "nil-guarded source getter",
+      "source": "func (x *CalculateCarKeyRequestV2) GetRulesetId() string {\n\tif x != nil {\n\t\treturn x.RulesetId\n\t}\n\treturn \"\"\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/service.pb.go",
+      "name": "GetSelections",
+      "lines": [286, 291],
+      "bodyLines": [286, 291],
+      "category": "nil-guarded source getter",
+      "source": "func (x *CalculateCarKeyRequestV2) GetSelections() []*Selection {\n\tif x != nil {\n\t\treturn x.Selections\n\t}\n\treturn nil\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/service.pb.go",
+      "name": "GetFromWeek",
+      "lines": [293, 298],
+      "bodyLines": [293, 298],
+      "category": "nil-guarded source getter",
+      "source": "func (x *CalculateCarKeyRequestV2) GetFromWeek() *StructureWeek {\n\tif x != nil {\n\t\treturn x.FromWeek\n\t}\n\treturn nil\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/service.pb.go",
+      "name": "GetToWeek",
+      "lines": [300, 305],
+      "bodyLines": [300, 305],
+      "category": "nil-guarded source getter",
+      "source": "func (x *CalculateCarKeyRequestV2) GetToWeek() *StructureWeek {\n\tif x != nil {\n\t\treturn x.ToWeek\n\t}\n\treturn nil\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/service.pb.go",
+      "name": "Reset",
+      "lines": [314, 319],
+      "bodyLines": [314, 319],
+      "category": "Reset",
+      "source": "func (x *CalculateStartCarKeysRequest) Reset() {\n\t*x = CalculateStartCarKeysRequest{}\n\tmi := &file_service_proto_msgTypes[5]\n\tms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))\n\tms.StoreMessageInfo(mi)\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/service.pb.go",
+      "name": "String",
+      "lines": [321, 323],
+      "bodyLines": [321, 323],
+      "category": "String",
+      "source": "func (x *CalculateStartCarKeysRequest) String() string {\n\treturn protoimpl.X.MessageStringOf(x)\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/service.pb.go",
+      "name": "ProtoMessage",
+      "lines": [325, 325],
+      "bodyLines": [325, 325],
+      "category": "ProtoMessage",
+      "source": "func (*CalculateStartCarKeysRequest) ProtoMessage() {}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/service.pb.go",
+      "name": "ProtoReflect",
+      "lines": [327, 337],
+      "bodyLines": [327, 337],
+      "category": "ProtoReflect",
+      "source": "func (x *CalculateStartCarKeysRequest) ProtoReflect() protoreflect.Message {\n\tmi := &file_service_proto_msgTypes[5]\n\tif x != nil {\n\t\tms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))\n\t\tif ms.LoadMessageInfo() == nil {\n\t\t\tms.StoreMessageInfo(mi)\n\t\t}\n\t\treturn ms\n\t}\n\treturn mi.MessageOf(x)\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/service.pb.go",
+      "name": "Descriptor",
+      "lines": [340, 342],
+      "bodyLines": [340, 342],
+      "category": "Descriptor",
+      "source": "func (*CalculateStartCarKeysRequest) Descriptor() ([]byte, []int) {\n\treturn file_service_proto_rawDescGZIP(), []int{5}\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/service.pb.go",
+      "name": "GetRulesetId",
+      "lines": [344, 349],
+      "bodyLines": [344, 349],
+      "category": "nil-guarded source getter",
+      "source": "func (x *CalculateStartCarKeysRequest) GetRulesetId() string {\n\tif x != nil {\n\t\treturn x.RulesetId\n\t}\n\treturn \"\"\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/service.pb.go",
+      "name": "Reset",
+      "lines": [358, 363],
+      "bodyLines": [358, 363],
+      "category": "Reset",
+      "source": "func (x *StartCarKeysResponse) Reset() {\n\t*x = StartCarKeysResponse{}\n\tmi := &file_service_proto_msgTypes[6]\n\tms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))\n\tms.StoreMessageInfo(mi)\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/service.pb.go",
+      "name": "String",
+      "lines": [365, 367],
+      "bodyLines": [365, 367],
+      "category": "String",
+      "source": "func (x *StartCarKeysResponse) String() string {\n\treturn protoimpl.X.MessageStringOf(x)\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/service.pb.go",
+      "name": "ProtoMessage",
+      "lines": [369, 369],
+      "bodyLines": [369, 369],
+      "category": "ProtoMessage",
+      "source": "func (*StartCarKeysResponse) ProtoMessage() {}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/service.pb.go",
+      "name": "ProtoReflect",
+      "lines": [371, 381],
+      "bodyLines": [371, 381],
+      "category": "ProtoReflect",
+      "source": "func (x *StartCarKeysResponse) ProtoReflect() protoreflect.Message {\n\tmi := &file_service_proto_msgTypes[6]\n\tif x != nil {\n\t\tms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))\n\t\tif ms.LoadMessageInfo() == nil {\n\t\t\tms.StoreMessageInfo(mi)\n\t\t}\n\t\treturn ms\n\t}\n\treturn mi.MessageOf(x)\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/service.pb.go",
+      "name": "Descriptor",
+      "lines": [384, 386],
+      "bodyLines": [384, 386],
+      "category": "Descriptor",
+      "source": "func (*StartCarKeysResponse) Descriptor() ([]byte, []int) {\n\treturn file_service_proto_rawDescGZIP(), []int{6}\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/service.pb.go",
+      "name": "GetCarKeys",
+      "lines": [388, 393],
+      "bodyLines": [388, 393],
+      "category": "nil-guarded source getter",
+      "source": "func (x *StartCarKeysResponse) GetCarKeys() []*CarKeyInPeriod {\n\tif x != nil {\n\t\treturn x.CarKeys\n\t}\n\treturn nil\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/service.pb.go",
+      "name": "Reset",
+      "lines": [402, 407],
+      "bodyLines": [402, 407],
+      "category": "Reset",
+      "source": "func (x *CalculateBaseCarKeysRequest) Reset() {\n\t*x = CalculateBaseCarKeysRequest{}\n\tmi := &file_service_proto_msgTypes[7]\n\tms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))\n\tms.StoreMessageInfo(mi)\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/service.pb.go",
+      "name": "String",
+      "lines": [409, 411],
+      "bodyLines": [409, 411],
+      "category": "String",
+      "source": "func (x *CalculateBaseCarKeysRequest) String() string {\n\treturn protoimpl.X.MessageStringOf(x)\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/service.pb.go",
+      "name": "ProtoMessage",
+      "lines": [413, 413],
+      "bodyLines": [413, 413],
+      "category": "ProtoMessage",
+      "source": "func (*CalculateBaseCarKeysRequest) ProtoMessage() {}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/service.pb.go",
+      "name": "ProtoReflect",
+      "lines": [415, 425],
+      "bodyLines": [415, 425],
+      "category": "ProtoReflect",
+      "source": "func (x *CalculateBaseCarKeysRequest) ProtoReflect() protoreflect.Message {\n\tmi := &file_service_proto_msgTypes[7]\n\tif x != nil {\n\t\tms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))\n\t\tif ms.LoadMessageInfo() == nil {\n\t\t\tms.StoreMessageInfo(mi)\n\t\t}\n\t\treturn ms\n\t}\n\treturn mi.MessageOf(x)\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/service.pb.go",
+      "name": "Descriptor",
+      "lines": [428, 430],
+      "bodyLines": [428, 430],
+      "category": "Descriptor",
+      "source": "func (*CalculateBaseCarKeysRequest) Descriptor() ([]byte, []int) {\n\treturn file_service_proto_rawDescGZIP(), []int{7}\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/service.pb.go",
+      "name": "GetRulesetId",
+      "lines": [432, 437],
+      "bodyLines": [432, 437],
+      "category": "nil-guarded source getter",
+      "source": "func (x *CalculateBaseCarKeysRequest) GetRulesetId() string {\n\tif x != nil {\n\t\treturn x.RulesetId\n\t}\n\treturn \"\"\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/service.pb.go",
+      "name": "Reset",
+      "lines": [447, 452],
+      "bodyLines": [447, 452],
+      "category": "Reset",
+      "source": "func (x *BaseCarKeysResponse) Reset() {\n\t*x = BaseCarKeysResponse{}\n\tmi := &file_service_proto_msgTypes[8]\n\tms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))\n\tms.StoreMessageInfo(mi)\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/service.pb.go",
+      "name": "String",
+      "lines": [454, 456],
+      "bodyLines": [454, 456],
+      "category": "String",
+      "source": "func (x *BaseCarKeysResponse) String() string {\n\treturn protoimpl.X.MessageStringOf(x)\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/service.pb.go",
+      "name": "ProtoMessage",
+      "lines": [458, 458],
+      "bodyLines": [458, 458],
+      "category": "ProtoMessage",
+      "source": "func (*BaseCarKeysResponse) ProtoMessage() {}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/service.pb.go",
+      "name": "ProtoReflect",
+      "lines": [460, 470],
+      "bodyLines": [460, 470],
+      "category": "ProtoReflect",
+      "source": "func (x *BaseCarKeysResponse) ProtoReflect() protoreflect.Message {\n\tmi := &file_service_proto_msgTypes[8]\n\tif x != nil {\n\t\tms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))\n\t\tif ms.LoadMessageInfo() == nil {\n\t\t\tms.StoreMessageInfo(mi)\n\t\t}\n\t\treturn ms\n\t}\n\treturn mi.MessageOf(x)\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/service.pb.go",
+      "name": "Descriptor",
+      "lines": [473, 475],
+      "bodyLines": [473, 475],
+      "category": "Descriptor",
+      "source": "func (*BaseCarKeysResponse) Descriptor() ([]byte, []int) {\n\treturn file_service_proto_rawDescGZIP(), []int{8}\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/service.pb.go",
+      "name": "GetComponents",
+      "lines": [477, 482],
+      "bodyLines": [477, 482],
+      "category": "nil-guarded source getter",
+      "source": "func (x *BaseCarKeysResponse) GetComponents() []*ComponentWithCarKeys {\n\tif x != nil {\n\t\treturn x.Components\n\t}\n\treturn nil\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/service.pb.go",
+      "name": "GetPackageComponents",
+      "lines": [484, 489],
+      "bodyLines": [484, 489],
+      "category": "nil-guarded source getter",
+      "source": "func (x *BaseCarKeysResponse) GetPackageComponents() []*PackageComponentWithCarKeys {\n\tif x != nil {\n\t\treturn x.PackageComponents\n\t}\n\treturn nil\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/service.pb.go",
+      "name": "Reset",
+      "lines": [501, 506],
+      "bodyLines": [501, 506],
+      "category": "Reset",
+      "source": "func (x *CalculateNextCarKeysRequest) Reset() {\n\t*x = CalculateNextCarKeysRequest{}\n\tmi := &file_service_proto_msgTypes[9]\n\tms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))\n\tms.StoreMessageInfo(mi)\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/service.pb.go",
+      "name": "String",
+      "lines": [508, 510],
+      "bodyLines": [508, 510],
+      "category": "String",
+      "source": "func (x *CalculateNextCarKeysRequest) String() string {\n\treturn protoimpl.X.MessageStringOf(x)\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/service.pb.go",
+      "name": "ProtoMessage",
+      "lines": [512, 512],
+      "bodyLines": [512, 512],
+      "category": "ProtoMessage",
+      "source": "func (*CalculateNextCarKeysRequest) ProtoMessage() {}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/service.pb.go",
+      "name": "ProtoReflect",
+      "lines": [514, 524],
+      "bodyLines": [514, 524],
+      "category": "ProtoReflect",
+      "source": "func (x *CalculateNextCarKeysRequest) ProtoReflect() protoreflect.Message {\n\tmi := &file_service_proto_msgTypes[9]\n\tif x != nil {\n\t\tms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))\n\t\tif ms.LoadMessageInfo() == nil {\n\t\t\tms.StoreMessageInfo(mi)\n\t\t}\n\t\treturn ms\n\t}\n\treturn mi.MessageOf(x)\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/service.pb.go",
+      "name": "Descriptor",
+      "lines": [527, 529],
+      "bodyLines": [527, 529],
+      "category": "Descriptor",
+      "source": "func (*CalculateNextCarKeysRequest) Descriptor() ([]byte, []int) {\n\treturn file_service_proto_rawDescGZIP(), []int{9}\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/service.pb.go",
+      "name": "GetRulesetId",
+      "lines": [531, 536],
+      "bodyLines": [531, 536],
+      "category": "nil-guarded source getter",
+      "source": "func (x *CalculateNextCarKeysRequest) GetRulesetId() string {\n\tif x != nil {\n\t\treturn x.RulesetId\n\t}\n\treturn \"\"\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/service.pb.go",
+      "name": "GetCurrentSelections",
+      "lines": [538, 543],
+      "bodyLines": [538, 543],
+      "category": "nil-guarded source getter",
+      "source": "func (x *CalculateNextCarKeysRequest) GetCurrentSelections() []*Selection {\n\tif x != nil {\n\t\treturn x.CurrentSelections\n\t}\n\treturn nil\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/service.pb.go",
+      "name": "GetFromWeek",
+      "lines": [545, 550],
+      "bodyLines": [545, 550],
+      "category": "nil-guarded source getter",
+      "source": "func (x *CalculateNextCarKeysRequest) GetFromWeek() *StructureWeek {\n\tif x != nil {\n\t\treturn x.FromWeek\n\t}\n\treturn nil\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/service.pb.go",
+      "name": "GetToWeek",
+      "lines": [552, 557],
+      "bodyLines": [552, 557],
+      "category": "nil-guarded source getter",
+      "source": "func (x *CalculateNextCarKeysRequest) GetToWeek() *StructureWeek {\n\tif x != nil {\n\t\treturn x.ToWeek\n\t}\n\treturn nil\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/service.pb.go",
+      "name": "Reset",
+      "lines": [566, 571],
+      "bodyLines": [566, 571],
+      "category": "Reset",
+      "source": "func (x *NextCarKeysResponse) Reset() {\n\t*x = NextCarKeysResponse{}\n\tmi := &file_service_proto_msgTypes[10]\n\tms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))\n\tms.StoreMessageInfo(mi)\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/service.pb.go",
+      "name": "String",
+      "lines": [573, 575],
+      "bodyLines": [573, 575],
+      "category": "String",
+      "source": "func (x *NextCarKeysResponse) String() string {\n\treturn protoimpl.X.MessageStringOf(x)\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/service.pb.go",
+      "name": "ProtoMessage",
+      "lines": [577, 577],
+      "bodyLines": [577, 577],
+      "category": "ProtoMessage",
+      "source": "func (*NextCarKeysResponse) ProtoMessage() {}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/service.pb.go",
+      "name": "ProtoReflect",
+      "lines": [579, 589],
+      "bodyLines": [579, 589],
+      "category": "ProtoReflect",
+      "source": "func (x *NextCarKeysResponse) ProtoReflect() protoreflect.Message {\n\tmi := &file_service_proto_msgTypes[10]\n\tif x != nil {\n\t\tms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))\n\t\tif ms.LoadMessageInfo() == nil {\n\t\t\tms.StoreMessageInfo(mi)\n\t\t}\n\t\treturn ms\n\t}\n\treturn mi.MessageOf(x)\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/service.pb.go",
+      "name": "Descriptor",
+      "lines": [592, 594],
+      "bodyLines": [592, 594],
+      "category": "Descriptor",
+      "source": "func (*NextCarKeysResponse) Descriptor() ([]byte, []int) {\n\treturn file_service_proto_rawDescGZIP(), []int{10}\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/service.pb.go",
+      "name": "GetCarKeysBySelection",
+      "lines": [596, 601],
+      "bodyLines": [596, 601],
+      "category": "nil-guarded source getter",
+      "source": "func (x *NextCarKeysResponse) GetCarKeysBySelection() []*CarKeyForSelection {\n\tif x != nil {\n\t\treturn x.CarKeysBySelection\n\t}\n\treturn nil\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/service.pb.go",
+      "name": "Reset",
+      "lines": [611, 616],
+      "bodyLines": [611, 616],
+      "category": "Reset",
+      "source": "func (x *CarKeyForSelection) Reset() {\n\t*x = CarKeyForSelection{}\n\tmi := &file_service_proto_msgTypes[11]\n\tms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))\n\tms.StoreMessageInfo(mi)\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/service.pb.go",
+      "name": "String",
+      "lines": [618, 620],
+      "bodyLines": [618, 620],
+      "category": "String",
+      "source": "func (x *CarKeyForSelection) String() string {\n\treturn protoimpl.X.MessageStringOf(x)\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/service.pb.go",
+      "name": "ProtoMessage",
+      "lines": [622, 622],
+      "bodyLines": [622, 622],
+      "category": "ProtoMessage",
+      "source": "func (*CarKeyForSelection) ProtoMessage() {}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/service.pb.go",
+      "name": "ProtoReflect",
+      "lines": [624, 634],
+      "bodyLines": [624, 634],
+      "category": "ProtoReflect",
+      "source": "func (x *CarKeyForSelection) ProtoReflect() protoreflect.Message {\n\tmi := &file_service_proto_msgTypes[11]\n\tif x != nil {\n\t\tms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))\n\t\tif ms.LoadMessageInfo() == nil {\n\t\t\tms.StoreMessageInfo(mi)\n\t\t}\n\t\treturn ms\n\t}\n\treturn mi.MessageOf(x)\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/service.pb.go",
+      "name": "Descriptor",
+      "lines": [637, 639],
+      "bodyLines": [637, 639],
+      "category": "Descriptor",
+      "source": "func (*CarKeyForSelection) Descriptor() ([]byte, []int) {\n\treturn file_service_proto_rawDescGZIP(), []int{11}\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/service.pb.go",
+      "name": "GetSelection",
+      "lines": [641, 646],
+      "bodyLines": [641, 646],
+      "category": "nil-guarded source getter",
+      "source": "func (x *CarKeyForSelection) GetSelection() *Selection {\n\tif x != nil {\n\t\treturn x.Selection\n\t}\n\treturn nil\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/service.pb.go",
+      "name": "GetCarKey",
+      "lines": [648, 653],
+      "bodyLines": [648, 653],
+      "category": "nil-guarded source getter",
+      "source": "func (x *CarKeyForSelection) GetCarKey() *CarKey {\n\tif x != nil {\n\t\treturn x.CarKey\n\t}\n\treturn nil\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/service.pb.go",
+      "name": "Reset",
+      "lines": [665, 670],
+      "bodyLines": [665, 670],
+      "category": "Reset",
+      "source": "func (x *CalculateManyCarKeysRequest) Reset() {\n\t*x = CalculateManyCarKeysRequest{}\n\tmi := &file_service_proto_msgTypes[12]\n\tms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))\n\tms.StoreMessageInfo(mi)\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/service.pb.go",
+      "name": "String",
+      "lines": [672, 674],
+      "bodyLines": [672, 674],
+      "category": "String",
+      "source": "func (x *CalculateManyCarKeysRequest) String() string {\n\treturn protoimpl.X.MessageStringOf(x)\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/service.pb.go",
+      "name": "ProtoMessage",
+      "lines": [676, 676],
+      "bodyLines": [676, 676],
+      "category": "ProtoMessage",
+      "source": "func (*CalculateManyCarKeysRequest) ProtoMessage() {}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/service.pb.go",
+      "name": "ProtoReflect",
+      "lines": [678, 688],
+      "bodyLines": [678, 688],
+      "category": "ProtoReflect",
+      "source": "func (x *CalculateManyCarKeysRequest) ProtoReflect() protoreflect.Message {\n\tmi := &file_service_proto_msgTypes[12]\n\tif x != nil {\n\t\tms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))\n\t\tif ms.LoadMessageInfo() == nil {\n\t\t\tms.StoreMessageInfo(mi)\n\t\t}\n\t\treturn ms\n\t}\n\treturn mi.MessageOf(x)\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/service.pb.go",
+      "name": "Descriptor",
+      "lines": [691, 693],
+      "bodyLines": [691, 693],
+      "category": "Descriptor",
+      "source": "func (*CalculateManyCarKeysRequest) Descriptor() ([]byte, []int) {\n\treturn file_service_proto_rawDescGZIP(), []int{12}\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/service.pb.go",
+      "name": "GetRulesetId",
+      "lines": [695, 700],
+      "bodyLines": [695, 700],
+      "category": "nil-guarded source getter",
+      "source": "func (x *CalculateManyCarKeysRequest) GetRulesetId() string {\n\tif x != nil {\n\t\treturn x.RulesetId\n\t}\n\treturn \"\"\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/service.pb.go",
+      "name": "GetSelectionGroups",
+      "lines": [702, 707],
+      "bodyLines": [702, 707],
+      "category": "nil-guarded source getter",
+      "source": "func (x *CalculateManyCarKeysRequest) GetSelectionGroups() []*SelectionGroup {\n\tif x != nil {\n\t\treturn x.SelectionGroups\n\t}\n\treturn nil\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/service.pb.go",
+      "name": "GetFromWeek",
+      "lines": [709, 714],
+      "bodyLines": [709, 714],
+      "category": "nil-guarded source getter",
+      "source": "func (x *CalculateManyCarKeysRequest) GetFromWeek() *StructureWeek {\n\tif x != nil {\n\t\treturn x.FromWeek\n\t}\n\treturn nil\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/service.pb.go",
+      "name": "GetToWeek",
+      "lines": [716, 721],
+      "bodyLines": [716, 721],
+      "category": "nil-guarded source getter",
+      "source": "func (x *CalculateManyCarKeysRequest) GetToWeek() *StructureWeek {\n\tif x != nil {\n\t\treturn x.ToWeek\n\t}\n\treturn nil\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/service.pb.go",
+      "name": "Reset",
+      "lines": [730, 735],
+      "bodyLines": [730, 735],
+      "category": "Reset",
+      "source": "func (x *SelectionGroup) Reset() {\n\t*x = SelectionGroup{}\n\tmi := &file_service_proto_msgTypes[13]\n\tms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))\n\tms.StoreMessageInfo(mi)\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/service.pb.go",
+      "name": "String",
+      "lines": [737, 739],
+      "bodyLines": [737, 739],
+      "category": "String",
+      "source": "func (x *SelectionGroup) String() string {\n\treturn protoimpl.X.MessageStringOf(x)\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/service.pb.go",
+      "name": "ProtoMessage",
+      "lines": [741, 741],
+      "bodyLines": [741, 741],
+      "category": "ProtoMessage",
+      "source": "func (*SelectionGroup) ProtoMessage() {}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/service.pb.go",
+      "name": "ProtoReflect",
+      "lines": [743, 753],
+      "bodyLines": [743, 753],
+      "category": "ProtoReflect",
+      "source": "func (x *SelectionGroup) ProtoReflect() protoreflect.Message {\n\tmi := &file_service_proto_msgTypes[13]\n\tif x != nil {\n\t\tms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))\n\t\tif ms.LoadMessageInfo() == nil {\n\t\t\tms.StoreMessageInfo(mi)\n\t\t}\n\t\treturn ms\n\t}\n\treturn mi.MessageOf(x)\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/service.pb.go",
+      "name": "Descriptor",
+      "lines": [756, 758],
+      "bodyLines": [756, 758],
+      "category": "Descriptor",
+      "source": "func (*SelectionGroup) Descriptor() ([]byte, []int) {\n\treturn file_service_proto_rawDescGZIP(), []int{13}\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/service.pb.go",
+      "name": "GetSelections",
+      "lines": [760, 765],
+      "bodyLines": [760, 765],
+      "category": "nil-guarded source getter",
+      "source": "func (x *SelectionGroup) GetSelections() []*Selection {\n\tif x != nil {\n\t\treturn x.Selections\n\t}\n\treturn nil\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/service.pb.go",
+      "name": "Reset",
+      "lines": [774, 779],
+      "bodyLines": [774, 779],
+      "category": "Reset",
+      "source": "func (x *CalculateManyCarKeysResponse) Reset() {\n\t*x = CalculateManyCarKeysResponse{}\n\tmi := &file_service_proto_msgTypes[14]\n\tms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))\n\tms.StoreMessageInfo(mi)\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/service.pb.go",
+      "name": "String",
+      "lines": [781, 783],
+      "bodyLines": [781, 783],
+      "category": "String",
+      "source": "func (x *CalculateManyCarKeysResponse) String() string {\n\treturn protoimpl.X.MessageStringOf(x)\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/service.pb.go",
+      "name": "ProtoMessage",
+      "lines": [785, 785],
+      "bodyLines": [785, 785],
+      "category": "ProtoMessage",
+      "source": "func (*CalculateManyCarKeysResponse) ProtoMessage() {}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/service.pb.go",
+      "name": "ProtoReflect",
+      "lines": [787, 797],
+      "bodyLines": [787, 797],
+      "category": "ProtoReflect",
+      "source": "func (x *CalculateManyCarKeysResponse) ProtoReflect() protoreflect.Message {\n\tmi := &file_service_proto_msgTypes[14]\n\tif x != nil {\n\t\tms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))\n\t\tif ms.LoadMessageInfo() == nil {\n\t\t\tms.StoreMessageInfo(mi)\n\t\t}\n\t\treturn ms\n\t}\n\treturn mi.MessageOf(x)\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/service.pb.go",
+      "name": "Descriptor",
+      "lines": [800, 802],
+      "bodyLines": [800, 802],
+      "category": "Descriptor",
+      "source": "func (*CalculateManyCarKeysResponse) Descriptor() ([]byte, []int) {\n\treturn file_service_proto_rawDescGZIP(), []int{14}\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/service.pb.go",
+      "name": "GetCarKeysBySelectionGroup",
+      "lines": [804, 809],
+      "bodyLines": [804, 809],
+      "category": "nil-guarded source getter",
+      "source": "func (x *CalculateManyCarKeysResponse) GetCarKeysBySelectionGroup() []*CarKeyForSelectionGroup {\n\tif x != nil {\n\t\treturn x.CarKeysBySelectionGroup\n\t}\n\treturn nil\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/service.pb.go",
+      "name": "Reset",
+      "lines": [819, 824],
+      "bodyLines": [819, 824],
+      "category": "Reset",
+      "source": "func (x *CarKeyForSelectionGroup) Reset() {\n\t*x = CarKeyForSelectionGroup{}\n\tmi := &file_service_proto_msgTypes[15]\n\tms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))\n\tms.StoreMessageInfo(mi)\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/service.pb.go",
+      "name": "String",
+      "lines": [826, 828],
+      "bodyLines": [826, 828],
+      "category": "String",
+      "source": "func (x *CarKeyForSelectionGroup) String() string {\n\treturn protoimpl.X.MessageStringOf(x)\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/service.pb.go",
+      "name": "ProtoMessage",
+      "lines": [830, 830],
+      "bodyLines": [830, 830],
+      "category": "ProtoMessage",
+      "source": "func (*CarKeyForSelectionGroup) ProtoMessage() {}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/service.pb.go",
+      "name": "ProtoReflect",
+      "lines": [832, 842],
+      "bodyLines": [832, 842],
+      "category": "ProtoReflect",
+      "source": "func (x *CarKeyForSelectionGroup) ProtoReflect() protoreflect.Message {\n\tmi := &file_service_proto_msgTypes[15]\n\tif x != nil {\n\t\tms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))\n\t\tif ms.LoadMessageInfo() == nil {\n\t\t\tms.StoreMessageInfo(mi)\n\t\t}\n\t\treturn ms\n\t}\n\treturn mi.MessageOf(x)\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/service.pb.go",
+      "name": "Descriptor",
+      "lines": [845, 847],
+      "bodyLines": [845, 847],
+      "category": "Descriptor",
+      "source": "func (*CarKeyForSelectionGroup) Descriptor() ([]byte, []int) {\n\treturn file_service_proto_rawDescGZIP(), []int{15}\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/service.pb.go",
+      "name": "GetSelections",
+      "lines": [849, 854],
+      "bodyLines": [849, 854],
+      "category": "nil-guarded source getter",
+      "source": "func (x *CarKeyForSelectionGroup) GetSelections() []*Selection {\n\tif x != nil {\n\t\treturn x.Selections\n\t}\n\treturn nil\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/service.pb.go",
+      "name": "GetCarKey",
+      "lines": [856, 861],
+      "bodyLines": [856, 861],
+      "category": "nil-guarded source getter",
+      "source": "func (x *CarKeyForSelectionGroup) GetCarKey() *CarKey {\n\tif x != nil {\n\t\treturn x.CarKey\n\t}\n\treturn nil\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/service.pb.go",
+      "name": "Reset",
+      "lines": [870, 875],
+      "bodyLines": [870, 875],
+      "category": "Reset",
+      "source": "func (x *GetCarSpecificationRequest) Reset() {\n\t*x = GetCarSpecificationRequest{}\n\tmi := &file_service_proto_msgTypes[16]\n\tms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))\n\tms.StoreMessageInfo(mi)\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/service.pb.go",
+      "name": "String",
+      "lines": [877, 879],
+      "bodyLines": [877, 879],
+      "category": "String",
+      "source": "func (x *GetCarSpecificationRequest) String() string {\n\treturn protoimpl.X.MessageStringOf(x)\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/service.pb.go",
+      "name": "ProtoMessage",
+      "lines": [881, 881],
+      "bodyLines": [881, 881],
+      "category": "ProtoMessage",
+      "source": "func (*GetCarSpecificationRequest) ProtoMessage() {}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/service.pb.go",
+      "name": "ProtoReflect",
+      "lines": [883, 893],
+      "bodyLines": [883, 893],
+      "category": "ProtoReflect",
+      "source": "func (x *GetCarSpecificationRequest) ProtoReflect() protoreflect.Message {\n\tmi := &file_service_proto_msgTypes[16]\n\tif x != nil {\n\t\tms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))\n\t\tif ms.LoadMessageInfo() == nil {\n\t\t\tms.StoreMessageInfo(mi)\n\t\t}\n\t\treturn ms\n\t}\n\treturn mi.MessageOf(x)\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/service.pb.go",
+      "name": "Descriptor",
+      "lines": [896, 898],
+      "bodyLines": [896, 898],
+      "category": "Descriptor",
+      "source": "func (*GetCarSpecificationRequest) Descriptor() ([]byte, []int) {\n\treturn file_service_proto_rawDescGZIP(), []int{16}\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/service.pb.go",
+      "name": "GetRulesetId",
+      "lines": [900, 905],
+      "bodyLines": [900, 905],
+      "category": "nil-guarded source getter",
+      "source": "func (x *GetCarSpecificationRequest) GetRulesetId() string {\n\tif x != nil {\n\t\treturn x.RulesetId\n\t}\n\treturn \"\"\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/service.pb.go",
+      "name": "file_service_proto_rawDescGZIP",
+      "lines": [995, 1000],
+      "bodyLines": [995, 1000],
+      "category": "once descriptor compression",
+      "source": "func file_service_proto_rawDescGZIP() []byte {\n\tfile_service_proto_rawDescOnce.Do(func() {\n\t\tfile_service_proto_rawDescData = protoimpl.X.CompressGZIP(unsafe.Slice(unsafe.StringData(file_service_proto_rawDesc), len(file_service_proto_rawDesc)))\n\t})\n\treturn file_service_proto_rawDescData\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/service.pb.go",
+      "name": "init",
+      "lines": [1078, 1078],
+      "bodyLines": [1078, 1078],
+      "category": "package init",
+      "source": "func init() { file_service_proto_init() }"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/service.pb.go",
+      "name": "file_service_proto_init",
+      "lines": [1079, 1107],
+      "bodyLines": [1079, 1107],
+      "category": "descriptor initializer",
+      "source": "func file_service_proto_init() {\n\tif File_service_proto != nil {\n\t\treturn\n\t}\n\tfile_car_specification_proto_init()\n\tfile_car_key_proto_init()\n\tfile_selection_proto_init()\n\tfile_structure_week_proto_init()\n\tfile_components_proto_init()\n\tfile_service_proto_msgTypes[9].OneofWrappers = []any{}\n\ttype x struct{}\n\tout := protoimpl.TypeBuilder{\n\t\tFile: protoimpl.DescBuilder{\n\t\t\tGoPackagePath: reflect.TypeOf(x{}).PkgPath(),\n\t\t\tRawDescriptor: unsafe.Slice(unsafe.StringData(file_service_proto_rawDesc), len(file_service_proto_rawDesc)),\n\t\t\tNumEnums:      1,\n\t\t\tNumMessages:   17,\n\t\t\tNumExtensions: 0,\n\t\t\tNumServices:   1,\n\t\t},\n\t\tGoTypes:           file_service_proto_goTypes,\n\t\tDependencyIndexes: file_service_proto_depIdxs,\n\t\tEnumInfos:         file_service_proto_enumTypes,\n\t\tMessageInfos:      file_service_proto_msgTypes,\n\t}.Build()\n\tFile_service_proto = out.File\n\tfile_service_proto_goTypes = nil\n\tfile_service_proto_depIdxs = nil\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/structure-week.pb.go",
+      "name": "Reset",
+      "lines": [32, 37],
+      "bodyLines": [32, 37],
+      "category": "Reset",
+      "source": "func (x *StructureWeek) Reset() {\n\t*x = StructureWeek{}\n\tmi := &file_structure_week_proto_msgTypes[0]\n\tms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))\n\tms.StoreMessageInfo(mi)\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/structure-week.pb.go",
+      "name": "String",
+      "lines": [39, 41],
+      "bodyLines": [39, 41],
+      "category": "String",
+      "source": "func (x *StructureWeek) String() string {\n\treturn protoimpl.X.MessageStringOf(x)\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/structure-week.pb.go",
+      "name": "ProtoMessage",
+      "lines": [43, 43],
+      "bodyLines": [43, 43],
+      "category": "ProtoMessage",
+      "source": "func (*StructureWeek) ProtoMessage() {}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/structure-week.pb.go",
+      "name": "ProtoReflect",
+      "lines": [45, 55],
+      "bodyLines": [45, 55],
+      "category": "ProtoReflect",
+      "source": "func (x *StructureWeek) ProtoReflect() protoreflect.Message {\n\tmi := &file_structure_week_proto_msgTypes[0]\n\tif x != nil {\n\t\tms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))\n\t\tif ms.LoadMessageInfo() == nil {\n\t\t\tms.StoreMessageInfo(mi)\n\t\t}\n\t\treturn ms\n\t}\n\treturn mi.MessageOf(x)\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/structure-week.pb.go",
+      "name": "Descriptor",
+      "lines": [58, 60],
+      "bodyLines": [58, 60],
+      "category": "Descriptor",
+      "source": "func (*StructureWeek) Descriptor() ([]byte, []int) {\n\treturn file_structure_week_proto_rawDescGZIP(), []int{0}\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/structure-week.pb.go",
+      "name": "GetYear",
+      "lines": [62, 67],
+      "bodyLines": [62, 67],
+      "category": "nil-guarded source getter",
+      "source": "func (x *StructureWeek) GetYear() int32 {\n\tif x != nil {\n\t\treturn x.Year\n\t}\n\treturn 0\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/structure-week.pb.go",
+      "name": "GetWeek",
+      "lines": [69, 74],
+      "bodyLines": [69, 74],
+      "category": "nil-guarded source getter",
+      "source": "func (x *StructureWeek) GetWeek() int32 {\n\tif x != nil {\n\t\treturn x.Week\n\t}\n\treturn 0\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/structure-week.pb.go",
+      "name": "Reset",
+      "lines": [84, 89],
+      "bodyLines": [84, 89],
+      "category": "Reset",
+      "source": "func (x *StructureWeekPeriod) Reset() {\n\t*x = StructureWeekPeriod{}\n\tmi := &file_structure_week_proto_msgTypes[1]\n\tms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))\n\tms.StoreMessageInfo(mi)\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/structure-week.pb.go",
+      "name": "String",
+      "lines": [91, 93],
+      "bodyLines": [91, 93],
+      "category": "String",
+      "source": "func (x *StructureWeekPeriod) String() string {\n\treturn protoimpl.X.MessageStringOf(x)\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/structure-week.pb.go",
+      "name": "ProtoMessage",
+      "lines": [95, 95],
+      "bodyLines": [95, 95],
+      "category": "ProtoMessage",
+      "source": "func (*StructureWeekPeriod) ProtoMessage() {}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/structure-week.pb.go",
+      "name": "ProtoReflect",
+      "lines": [97, 107],
+      "bodyLines": [97, 107],
+      "category": "ProtoReflect",
+      "source": "func (x *StructureWeekPeriod) ProtoReflect() protoreflect.Message {\n\tmi := &file_structure_week_proto_msgTypes[1]\n\tif x != nil {\n\t\tms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))\n\t\tif ms.LoadMessageInfo() == nil {\n\t\t\tms.StoreMessageInfo(mi)\n\t\t}\n\t\treturn ms\n\t}\n\treturn mi.MessageOf(x)\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/structure-week.pb.go",
+      "name": "Descriptor",
+      "lines": [110, 112],
+      "bodyLines": [110, 112],
+      "category": "Descriptor",
+      "source": "func (*StructureWeekPeriod) Descriptor() ([]byte, []int) {\n\treturn file_structure_week_proto_rawDescGZIP(), []int{1}\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/structure-week.pb.go",
+      "name": "GetFrom",
+      "lines": [114, 119],
+      "bodyLines": [114, 119],
+      "category": "nil-guarded source getter",
+      "source": "func (x *StructureWeekPeriod) GetFrom() *StructureWeek {\n\tif x != nil {\n\t\treturn x.From\n\t}\n\treturn nil\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/structure-week.pb.go",
+      "name": "GetTo",
+      "lines": [121, 126],
+      "bodyLines": [121, 126],
+      "category": "nil-guarded source getter",
+      "source": "func (x *StructureWeekPeriod) GetTo() *StructureWeek {\n\tif x != nil {\n\t\treturn x.To\n\t}\n\treturn nil\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/structure-week.pb.go",
+      "name": "file_structure_week_proto_rawDescGZIP",
+      "lines": [145, 150],
+      "bodyLines": [145, 150],
+      "category": "once descriptor compression",
+      "source": "func file_structure_week_proto_rawDescGZIP() []byte {\n\tfile_structure_week_proto_rawDescOnce.Do(func() {\n\t\tfile_structure_week_proto_rawDescData = protoimpl.X.CompressGZIP(unsafe.Slice(unsafe.StringData(file_structure_week_proto_rawDesc), len(file_structure_week_proto_rawDesc)))\n\t})\n\treturn file_structure_week_proto_rawDescData\n}"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/structure-week.pb.go",
+      "name": "init",
+      "lines": [167, 167],
+      "bodyLines": [167, 167],
+      "category": "package init",
+      "source": "func init() { file_structure_week_proto_init() }"
+    },
+    {
+      "path": "internal/api/grpcserver/contracts/structure-week.pb.go",
+      "name": "file_structure_week_proto_init",
+      "lines": [168, 189],
+      "bodyLines": [168, 189],
+      "category": "descriptor initializer",
+      "source": "func file_structure_week_proto_init() {\n\tif File_structure_week_proto != nil {\n\t\treturn\n\t}\n\ttype x struct{}\n\tout := protoimpl.TypeBuilder{\n\t\tFile: protoimpl.DescBuilder{\n\t\t\tGoPackagePath: reflect.TypeOf(x{}).PkgPath(),\n\t\t\tRawDescriptor: unsafe.Slice(unsafe.StringData(file_structure_week_proto_rawDesc), len(file_structure_week_proto_rawDesc)),\n\t\t\tNumEnums:      0,\n\t\t\tNumMessages:   2,\n\t\t\tNumExtensions: 0,\n\t\t\tNumServices:   0,\n\t\t},\n\t\tGoTypes:           file_structure_week_proto_goTypes,\n\t\tDependencyIndexes: file_structure_week_proto_depIdxs,\n\t\tMessageInfos:      file_structure_week_proto_msgTypes,\n\t}.Build()\n\tFile_structure_week_proto = out.File\n\tfile_structure_week_proto_goTypes = nil\n\tfile_structure_week_proto_depIdxs = nil\n}"
+    }
+  ]
+}

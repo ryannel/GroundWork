@@ -1,0 +1,335 @@
+[
+  {
+    "operation": "volvo/cce-policy-admin/88a3512f0307/local-r2/operation/py/migrate_config_policy/6",
+    "effect": "volvo/cce-policy-admin/88a3512f0307/local-r2/effect/py/d89e7c82892996cc3f",
+    "table": "config_policy",
+    "fields": [],
+    "ddl": true,
+    "sql": "\n        CREATE TABLE IF NOT EXISTS config_policy (\n            uid TEXT PRIMARY KEY,\n            name TEXT,\n            parent_uid TEXT,\n            payload BYTEA\n        )\n    ",
+    "owner": "volvo/cce-policy-admin/88a3512f0307/local-r2/implementation/py/migrate_config_policy",
+    "lines": [41, 48]
+  },
+  {
+    "operation": "volvo/cce-policy-admin/88a3512f0307/local-r2/operation/py/migrate_config_policy/23",
+    "effect": "volvo/cce-policy-admin/88a3512f0307/local-r2/effect/py/677fb6112a09985dc8",
+    "table": "config_policy",
+    "fields": [
+      {
+        "path": ["uid"],
+        "value": "volvo/cce-policy-admin/88a3512f0307/local-r2/value/py/migrate_config_policy/15",
+        "transform": "Exact migration INSERT column/placeholder/source tuple operand document['uid']"
+      },
+      {
+        "path": ["name"],
+        "value": "volvo/cce-policy-admin/88a3512f0307/local-r2/value/py/migrate_config_policy/17",
+        "transform": "Exact migration INSERT column/placeholder/source tuple operand document['name']"
+      },
+      {
+        "path": ["parent_uid"],
+        "value": "volvo/cce-policy-admin/88a3512f0307/local-r2/value/py/migrate_config_policy/19",
+        "transform": "Exact migration INSERT column/placeholder/source tuple operand document['parent_uid']"
+      },
+      {
+        "path": ["payload"],
+        "value": "volvo/cce-policy-admin/88a3512f0307/local-r2/value/py/migrate_config_policy/21",
+        "transform": "Exact migration INSERT column/placeholder/source tuple operand document['payload']"
+      }
+    ],
+    "ddl": false,
+    "sql": "\n            INSERT INTO config_policy (uid, name, parent_uid, payload)\n            VALUES (%s, %s, %s, %s)\n            ON CONFLICT (uid) DO NOTHING\n        ",
+    "owner": "volvo/cce-policy-admin/88a3512f0307/local-r2/implementation/py/migrate_config_policy",
+    "lines": [53, 57]
+  },
+  {
+    "operation": "volvo/cce-policy-admin/88a3512f0307/local-r2/operation/py/migrate_partners/6",
+    "effect": "volvo/cce-policy-admin/88a3512f0307/local-r2/effect/py/4d4bd8aa7584bb3a78",
+    "table": "partners",
+    "fields": [],
+    "ddl": true,
+    "sql": "\n        CREATE TABLE IF NOT EXISTS partners (\n            partner_id TEXT PRIMARY KEY,\n            brand TEXT,\n            country_code TEXT,\n            role TEXT,\n            role_code TEXT,\n            program_market TEXT,\n            is_active BOOLEAN\n        )\n    ",
+    "owner": "volvo/cce-policy-admin/88a3512f0307/local-r2/implementation/py/migrate_partners",
+    "lines": [63, 73]
+  },
+  {
+    "operation": "volvo/cce-policy-admin/88a3512f0307/local-r2/operation/py/migrate_partners/28",
+    "effect": "volvo/cce-policy-admin/88a3512f0307/local-r2/effect/py/ccb6238c19160c676c",
+    "table": "partners",
+    "fields": [
+      {
+        "path": ["partner_id"],
+        "value": "volvo/cce-policy-admin/88a3512f0307/local-r2/value/py/migrate_partners/14",
+        "transform": "Exact migration INSERT column/placeholder/source tuple operand document['partner_id']"
+      },
+      {
+        "path": ["brand"],
+        "value": "volvo/cce-policy-admin/88a3512f0307/local-r2/value/py/migrate_partners/16",
+        "transform": "Exact migration INSERT column/placeholder/source tuple operand document['brand']"
+      },
+      {
+        "path": ["country_code"],
+        "value": "volvo/cce-policy-admin/88a3512f0307/local-r2/value/py/migrate_partners/18",
+        "transform": "Exact migration INSERT column/placeholder/source tuple operand document['country_code']"
+      },
+      {
+        "path": ["role"],
+        "value": "volvo/cce-policy-admin/88a3512f0307/local-r2/value/py/migrate_partners/20",
+        "transform": "Exact migration INSERT column/placeholder/source tuple operand document['role']"
+      },
+      {
+        "path": ["role_code"],
+        "value": "volvo/cce-policy-admin/88a3512f0307/local-r2/value/py/migrate_partners/22",
+        "transform": "Exact migration INSERT column/placeholder/source tuple operand document['role_code']"
+      },
+      {
+        "path": ["program_market"],
+        "value": "volvo/cce-policy-admin/88a3512f0307/local-r2/value/py/migrate_partners/24",
+        "transform": "Exact migration INSERT column/placeholder/source tuple operand document['program_market']"
+      },
+      {
+        "path": ["is_active"],
+        "value": "volvo/cce-policy-admin/88a3512f0307/local-r2/value/py/migrate_partners/26",
+        "transform": "Exact migration INSERT column/placeholder/source tuple operand document['is_active']"
+      }
+    ],
+    "ddl": false,
+    "sql": "\n            INSERT INTO partners (partner_id, brand, country_code, role, role_code, program_market, is_active)\n            VALUES (%s, %s, %s, %s, %s, %s, %s)\n            ON CONFLICT (partner_id) DO NOTHING\n        ",
+    "owner": "volvo/cce-policy-admin/88a3512f0307/local-r2/implementation/py/migrate_partners",
+    "lines": [77, 81]
+  },
+  {
+    "operation": "volvo/cce-policy-admin/88a3512f0307/local-r2/operation/py/migrate_partner_policy/6",
+    "effect": "volvo/cce-policy-admin/88a3512f0307/local-r2/effect/py/f0d028b2d40200eb92",
+    "table": "partner_policy",
+    "fields": [],
+    "ddl": true,
+    "sql": "\n        CREATE TABLE IF NOT EXISTS partner_policy (\n            policy_uid TEXT PRIMARY KEY,\n            program_market TEXT,\n            brand TEXT,\n            rule TEXT,\n            applies_for_partners JSONB\n        )\n    ",
+    "owner": "volvo/cce-policy-admin/88a3512f0307/local-r2/implementation/py/migrate_partner_policy",
+    "lines": [87, 95]
+  },
+  {
+    "operation": "volvo/cce-policy-admin/88a3512f0307/local-r2/operation/py/migrate_partner_policy/26",
+    "effect": "volvo/cce-policy-admin/88a3512f0307/local-r2/effect/py/10fa6fe34982d8799e",
+    "table": "partner_policy",
+    "fields": [
+      {
+        "path": ["policy_uid"],
+        "value": "volvo/cce-policy-admin/88a3512f0307/local-r2/value/py/migrate_partner_policy/14",
+        "transform": "Exact migration INSERT column/placeholder/source tuple operand document['policy_uid']"
+      },
+      {
+        "path": ["program_market"],
+        "value": "volvo/cce-policy-admin/88a3512f0307/local-r2/value/py/migrate_partner_policy/16",
+        "transform": "Exact migration INSERT column/placeholder/source tuple operand document['program_market']"
+      },
+      {
+        "path": ["brand"],
+        "value": "volvo/cce-policy-admin/88a3512f0307/local-r2/value/py/migrate_partner_policy/18",
+        "transform": "Exact migration INSERT column/placeholder/source tuple operand document['brand']"
+      },
+      {
+        "path": ["rule"],
+        "value": "volvo/cce-policy-admin/88a3512f0307/local-r2/value/py/migrate_partner_policy/20",
+        "transform": "Exact migration INSERT column/placeholder/source tuple operand document['rule']"
+      },
+      {
+        "path": ["applies_for_partners"],
+        "value": "volvo/cce-policy-admin/88a3512f0307/local-r2/value/py/migrate_partner_policy/24",
+        "transform": "Exact migration INSERT column/placeholder/source tuple operand json.dumps(document['applies_for_partners'])"
+      }
+    ],
+    "ddl": false,
+    "sql": "\n            INSERT INTO partner_policy (policy_uid, program_market, brand, rule, applies_for_partners)\n            VALUES (%s, %s, %s, %s, %s)\n            ON CONFLICT (policy_uid) DO NOTHING\n        ",
+    "owner": "volvo/cce-policy-admin/88a3512f0307/local-r2/implementation/py/migrate_partner_policy",
+    "lines": [99, 103]
+  },
+  {
+    "operation": "volvo/cce-policy-admin/88a3512f0307/local-r2/operation/py/migrate_components_policy_pno12/6",
+    "effect": "volvo/cce-policy-admin/88a3512f0307/local-r2/effect/py/cecca6e24412251ca4",
+    "table": "components_policy_pno12",
+    "fields": [],
+    "ddl": true,
+    "sql": "\n        CREATE TABLE IF NOT EXISTS components_policy_pno12 (\n            policy_uid TEXT,\n            pno12 TEXT,\n            included BOOLEAN,\n            components JSONB,\n            PRIMARY KEY (policy_uid, pno12)\n        )\n    ",
+    "owner": "volvo/cce-policy-admin/88a3512f0307/local-r2/implementation/py/migrate_components_policy_pno12",
+    "lines": [109, 117]
+  },
+  {
+    "operation": "volvo/cce-policy-admin/88a3512f0307/local-r2/operation/py/migrate_components_policy_pno12/24",
+    "effect": "volvo/cce-policy-admin/88a3512f0307/local-r2/effect/py/167f4b9121c85a15ad",
+    "table": "components_policy_pno12",
+    "fields": [
+      {
+        "path": ["policy_uid"],
+        "value": "volvo/cce-policy-admin/88a3512f0307/local-r2/value/py/migrate_components_policy_pno12/14",
+        "transform": "Exact migration INSERT column/placeholder/source tuple operand document['policy_uid']"
+      },
+      {
+        "path": ["pno12"],
+        "value": "volvo/cce-policy-admin/88a3512f0307/local-r2/value/py/migrate_components_policy_pno12/16",
+        "transform": "Exact migration INSERT column/placeholder/source tuple operand document['pno12']"
+      },
+      {
+        "path": ["included"],
+        "value": "volvo/cce-policy-admin/88a3512f0307/local-r2/value/py/migrate_components_policy_pno12/18",
+        "transform": "Exact migration INSERT column/placeholder/source tuple operand document['included']"
+      },
+      {
+        "path": ["components"],
+        "value": "volvo/cce-policy-admin/88a3512f0307/local-r2/value/py/migrate_components_policy_pno12/22",
+        "transform": "Exact migration INSERT column/placeholder/source tuple operand json.dumps(document['components'])"
+      }
+    ],
+    "ddl": false,
+    "sql": "\n            INSERT INTO components_policy_pno12 (policy_uid, pno12, included, components)\n            VALUES (%s, %s, %s, %s)\n            ON CONFLICT (policy_uid, pno12) DO NOTHING\n        ",
+    "owner": "volvo/cce-policy-admin/88a3512f0307/local-r2/implementation/py/migrate_components_policy_pno12",
+    "lines": [121, 125]
+  },
+  {
+    "operation": "volvo/cce-policy-admin/88a3512f0307/local-r2/operation/py/migrate_components_policy_modelyear_pno3/6",
+    "effect": "volvo/cce-policy-admin/88a3512f0307/local-r2/effect/py/a225b5e71061c8ab53",
+    "table": "components_policy_modelyear_pno3",
+    "fields": [],
+    "ddl": true,
+    "sql": "\n        CREATE TABLE IF NOT EXISTS components_policy_modelyear_pno3 (\n            policy_uid TEXT,\n            model_year TEXT,\n            car_type TEXT,\n            components JSONB,\n            PRIMARY KEY (policy_uid, model_year, car_type)\n        )\n    ",
+    "owner": "volvo/cce-policy-admin/88a3512f0307/local-r2/implementation/py/migrate_components_policy_modelyear_pno3",
+    "lines": [131, 139]
+  },
+  {
+    "operation": "volvo/cce-policy-admin/88a3512f0307/local-r2/operation/py/migrate_components_policy_modelyear_pno3/24",
+    "effect": "volvo/cce-policy-admin/88a3512f0307/local-r2/effect/py/9ab24b4b60c8da559f",
+    "table": "components_policy_modelyear_pno3",
+    "fields": [
+      {
+        "path": ["policy_uid"],
+        "value": "volvo/cce-policy-admin/88a3512f0307/local-r2/value/py/migrate_components_policy_modelyear_pno3/14",
+        "transform": "Exact migration INSERT column/placeholder/source tuple operand document['policy_uid']"
+      },
+      {
+        "path": ["model_year"],
+        "value": "volvo/cce-policy-admin/88a3512f0307/local-r2/value/py/migrate_components_policy_modelyear_pno3/16",
+        "transform": "Exact migration INSERT column/placeholder/source tuple operand document['model_year']"
+      },
+      {
+        "path": ["car_type"],
+        "value": "volvo/cce-policy-admin/88a3512f0307/local-r2/value/py/migrate_components_policy_modelyear_pno3/18",
+        "transform": "Exact migration INSERT column/placeholder/source tuple operand document['car_type']"
+      },
+      {
+        "path": ["components"],
+        "value": "volvo/cce-policy-admin/88a3512f0307/local-r2/value/py/migrate_components_policy_modelyear_pno3/22",
+        "transform": "Exact migration INSERT column/placeholder/source tuple operand json.dumps(document['components'])"
+      }
+    ],
+    "ddl": false,
+    "sql": "\n            INSERT INTO components_policy_modelyear_pno3 (policy_uid, model_year, car_type, components)\n            VALUES (%s, %s, %s, %s)\n            ON CONFLICT (policy_uid, model_year, car_type) DO NOTHING\n        ",
+    "owner": "volvo/cce-policy-admin/88a3512f0307/local-r2/implementation/py/migrate_components_policy_modelyear_pno3",
+    "lines": [143, 147]
+  },
+  {
+    "operation": "volvo/cce-policy-admin/88a3512f0307/local-r2/operation/py/migrate_components_policy/6",
+    "effect": "volvo/cce-policy-admin/88a3512f0307/local-r2/effect/py/f42b29356e7aa6f8ea",
+    "table": "components_policy",
+    "fields": [],
+    "ddl": true,
+    "sql": "\n        CREATE TABLE IF NOT EXISTS components_policy (\n            policy_uid TEXT PRIMARY KEY,\n            components JSONB\n        )\n    ",
+    "owner": "volvo/cce-policy-admin/88a3512f0307/local-r2/implementation/py/migrate_components_policy",
+    "lines": [153, 158]
+  },
+  {
+    "operation": "volvo/cce-policy-admin/88a3512f0307/local-r2/operation/py/migrate_components_policy/20",
+    "effect": "volvo/cce-policy-admin/88a3512f0307/local-r2/effect/py/31328e0a597b0588ca",
+    "table": "components_policy",
+    "fields": [
+      {
+        "path": ["policy_uid"],
+        "value": "volvo/cce-policy-admin/88a3512f0307/local-r2/value/py/migrate_components_policy/14",
+        "transform": "Exact migration INSERT column/placeholder/source tuple operand document['policy_uid']"
+      },
+      {
+        "path": ["components"],
+        "value": "volvo/cce-policy-admin/88a3512f0307/local-r2/value/py/migrate_components_policy/18",
+        "transform": "Exact migration INSERT column/placeholder/source tuple operand json.dumps(document['components'])"
+      }
+    ],
+    "ddl": false,
+    "sql": "\n            INSERT INTO components_policy (policy_uid, components)\n            VALUES (%s, %s)\n            ON CONFLICT (policy_uid) DO NOTHING\n        ",
+    "owner": "volvo/cce-policy-admin/88a3512f0307/local-r2/implementation/py/migrate_components_policy",
+    "lines": [162, 166]
+  },
+  {
+    "operation": "volvo/cce-policy-admin/88a3512f0307/local-r2/operation/py/migrate_policy_status/6",
+    "effect": "volvo/cce-policy-admin/88a3512f0307/local-r2/effect/py/d7b461e6314bd6f17d",
+    "table": "policy_status",
+    "fields": [],
+    "ddl": true,
+    "sql": "\n        CREATE TABLE IF NOT EXISTS policy_status (\n            policy_uid TEXT PRIMARY KEY,\n            request_uid TEXT,\n            status TEXT,\n            timestamp TIMESTAMP,\n            info JSONB,\n            request_action TEXT\n        )\n    ",
+    "owner": "volvo/cce-policy-admin/88a3512f0307/local-r2/implementation/py/migrate_policy_status",
+    "lines": [172, 181]
+  },
+  {
+    "operation": "volvo/cce-policy-admin/88a3512f0307/local-r2/operation/py/migrate_policy_status/30",
+    "effect": "volvo/cce-policy-admin/88a3512f0307/local-r2/effect/py/0d723f1c2ab5998782",
+    "table": "policy_status",
+    "fields": [
+      {
+        "path": ["policy_uid"],
+        "value": "volvo/cce-policy-admin/88a3512f0307/local-r2/value/py/migrate_policy_status/14",
+        "transform": "Exact migration INSERT column/placeholder/source tuple operand document['policy_uid']"
+      },
+      {
+        "path": ["request_uid"],
+        "value": "volvo/cce-policy-admin/88a3512f0307/local-r2/value/py/migrate_policy_status/16",
+        "transform": "Exact migration INSERT column/placeholder/source tuple operand document['request_uid']"
+      },
+      {
+        "path": ["status"],
+        "value": "volvo/cce-policy-admin/88a3512f0307/local-r2/value/py/migrate_policy_status/18",
+        "transform": "Exact migration INSERT column/placeholder/source tuple operand document['status']"
+      },
+      {
+        "path": ["timestamp"],
+        "value": "volvo/cce-policy-admin/88a3512f0307/local-r2/value/py/migrate_policy_status/22",
+        "transform": "Exact migration INSERT column/placeholder/source tuple operand datetime.fromtimestamp(document['timestamp'])"
+      },
+      {
+        "path": ["info"],
+        "value": "volvo/cce-policy-admin/88a3512f0307/local-r2/value/py/migrate_policy_status/26",
+        "transform": "Exact migration INSERT column/placeholder/source tuple operand json.dumps(document['info'])"
+      },
+      {
+        "path": ["request_action"],
+        "value": "volvo/cce-policy-admin/88a3512f0307/local-r2/value/py/migrate_policy_status/28",
+        "transform": "Exact migration INSERT column/placeholder/source tuple operand document['request_action']"
+      }
+    ],
+    "ddl": false,
+    "sql": "\n            INSERT INTO policy_status (policy_uid, request_uid, status, timestamp, info, request_action)\n            VALUES (%s, %s, %s, %s, %s, %s)\n            ON CONFLICT (policy_uid) DO NOTHING\n        ",
+    "owner": "volvo/cce-policy-admin/88a3512f0307/local-r2/implementation/py/migrate_policy_status",
+    "lines": [185, 189]
+  },
+  {
+    "operation": "volvo/cce-policy-admin/88a3512f0307/local-r2/operation/py/migrate_wheels/6",
+    "effect": "volvo/cce-policy-admin/88a3512f0307/local-r2/effect/py/d540c7b2983f57b047",
+    "table": "wheels",
+    "fields": [],
+    "ddl": true,
+    "sql": "\n        CREATE TABLE IF NOT EXISTS wheels (\n            code TEXT PRIMARY KEY\n        )\n    ",
+    "owner": "volvo/cce-policy-admin/88a3512f0307/local-r2/implementation/py/migrate_wheels",
+    "lines": [195, 199]
+  },
+  {
+    "operation": "volvo/cce-policy-admin/88a3512f0307/local-r2/operation/py/migrate_wheels/16",
+    "effect": "volvo/cce-policy-admin/88a3512f0307/local-r2/effect/py/6ff7f4b06bda65b1aa",
+    "table": "wheels",
+    "fields": [
+      {
+        "path": ["code"],
+        "value": "volvo/cce-policy-admin/88a3512f0307/local-r2/value/py/migrate_wheels/14",
+        "transform": "Exact migration INSERT column/placeholder/source tuple operand document['code']"
+      }
+    ],
+    "ddl": false,
+    "sql": "\n            INSERT INTO wheels (code)\n            VALUES (%s)\n            ON CONFLICT (code) DO NOTHING\n        ",
+    "owner": "volvo/cce-policy-admin/88a3512f0307/local-r2/implementation/py/migrate_wheels",
+    "lines": [203, 207]
+  }
+]

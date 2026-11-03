@@ -1,0 +1,6 @@
+{
+  "namespace": "volvo/cce-retail-ingress/95d091aa445f/final-r1/",
+  "predecessorDraftNamespace": "volvo/cce-retail-ingress/95d091aa445f/draft-r1/",
+  "policy": "Fresh immutable selected namespace; all record references moved, logicalIds/source identities preserved. Working draft was not selected or sealed.",
+  "records": 25378
+}

@@ -1,0 +1,157 @@
+[
+  {
+    "entry": "assortment-6114c5d-r5/entry/controller/About-GetVersionV1",
+    "priorImplementation": "assortment-6114c5d-r5/impl/controller/About-GetVersionV1",
+    "implementation": "assortment-6114c5d-complete-r5/method/ab49b3ed4b1df0a1"
+  },
+  {
+    "entry": "assortment-6114c5d-r5/entry/controller/Cache-RemoveCarConfigFromCache",
+    "priorImplementation": "assortment-6114c5d-r5/impl/controller/Cache-RemoveCarConfigFromCache",
+    "implementation": "assortment-6114c5d-complete-r5/method/badd92b2b3e7da40"
+  },
+  {
+    "entry": "assortment-6114c5d-r5/entry/controller/Cache-RemoveExternalCarCodeFromCache",
+    "priorImplementation": "assortment-6114c5d-r5/impl/controller/Cache-RemoveExternalCarCodeFromCache",
+    "implementation": "assortment-6114c5d-complete-r5/method/0055bf32a7b9f806"
+  },
+  {
+    "entry": "assortment-6114c5d-r5/entry/controller/Cache-RemoveProductDetailsFromCache",
+    "priorImplementation": "assortment-6114c5d-r5/impl/controller/Cache-RemoveProductDetailsFromCache",
+    "implementation": "assortment-6114c5d-complete-r5/method/375d7b92c79d4381"
+  },
+  {
+    "entry": "assortment-6114c5d-r5/entry/controller/Cache-ImportProductDetails",
+    "priorImplementation": "assortment-6114c5d-r5/impl/controller/Cache-ImportProductDetails",
+    "implementation": "assortment-6114c5d-complete-r5/method/1afae546d3c34bac"
+  },
+  {
+    "entry": "assortment-6114c5d-r5/entry/controller/Cache-ImportUpstreamEntities",
+    "priorImplementation": "assortment-6114c5d-r5/impl/controller/Cache-ImportUpstreamEntities",
+    "implementation": "assortment-6114c5d-complete-r5/method/a0ecd09c96559ed2"
+  },
+  {
+    "entry": "assortment-6114c5d-r5/entry/controller/CarConfig-GetCarConfig",
+    "priorImplementation": "assortment-6114c5d-r5/impl/controller/CarConfig-GetCarConfig",
+    "implementation": "assortment-6114c5d-complete-r5/method/7bb323018fea3ec2"
+  },
+  {
+    "entry": "assortment-6114c5d-r5/entry/controller/CarConfig-ListPno12s",
+    "priorImplementation": "assortment-6114c5d-r5/impl/controller/CarConfig-ListPno12s",
+    "implementation": "assortment-6114c5d-complete-r5/method/c63c49afa6109dd7"
+  },
+  {
+    "entry": "assortment-6114c5d-r5/entry/controller/Classification-GetAllClassifications",
+    "priorImplementation": "assortment-6114c5d-r5/impl/controller/Classification-GetAllClassifications",
+    "implementation": "assortment-6114c5d-complete-r5/method/9a26688178c977cd"
+  },
+  {
+    "entry": "assortment-6114c5d-r5/entry/controller/ExternalCarCode-GetExternalCarCode",
+    "priorImplementation": "assortment-6114c5d-r5/impl/controller/ExternalCarCode-GetExternalCarCode",
+    "implementation": "assortment-6114c5d-complete-r5/method/5e49b65eae463c8e"
+  },
+  {
+    "entry": "assortment-6114c5d-r5/entry/controller/ExternalCarCode-GetExternalComponentCode",
+    "priorImplementation": "assortment-6114c5d-r5/impl/controller/ExternalCarCode-GetExternalComponentCode",
+    "implementation": "assortment-6114c5d-complete-r5/method/9a0c5e340284f9ec"
+  },
+  {
+    "entry": "assortment-6114c5d-r5/entry/controller/GlobalDictionary-GetGlobalDictionaryEntries",
+    "priorImplementation": "assortment-6114c5d-r5/impl/controller/GlobalDictionary-GetGlobalDictionaryEntries",
+    "implementation": "assortment-6114c5d-complete-r5/method/46ea90244d9a551f"
+  },
+  {
+    "entry": "assortment-6114c5d-r5/entry/controller/MarketAuth-GetMarketAuthEntries",
+    "priorImplementation": "assortment-6114c5d-r5/impl/controller/MarketAuth-GetMarketAuthEntries",
+    "implementation": "assortment-6114c5d-complete-r5/method/ca2cbe51de321e57"
+  },
+  {
+    "entry": "assortment-6114c5d-r5/entry/controller/ProductDetails-GetProductById",
+    "priorImplementation": "assortment-6114c5d-r5/impl/controller/ProductDetails-GetProductById",
+    "implementation": "assortment-6114c5d-complete-r5/method/fdc02f3331519fc9"
+  },
+  {
+    "entry": "assortment-6114c5d-r5/entry/controller/ProductDetails-BatchGetProductByIds",
+    "priorImplementation": "assortment-6114c5d-r5/impl/controller/ProductDetails-BatchGetProductByIds",
+    "implementation": "assortment-6114c5d-complete-r5/method/1712f65e7001d702"
+  },
+  {
+    "entry": "assortment-6114c5d-r5/entry/controller/ProductDetails-GetProductTypeById",
+    "priorImplementation": "assortment-6114c5d-r5/impl/controller/ProductDetails-GetProductTypeById",
+    "implementation": "assortment-6114c5d-complete-r5/method/8ff7311d70b0dfbe"
+  },
+  {
+    "entry": "assortment-6114c5d-r5/entry/controller/ProductDetails-ListProductsByType",
+    "priorImplementation": "assortment-6114c5d-r5/impl/controller/ProductDetails-ListProductsByType",
+    "implementation": "assortment-6114c5d-complete-r5/method/ef1a402dbbcc9537"
+  },
+  {
+    "entry": "assortment-6114c5d-r5/entry/controller/ProductDetails-GetVariantById",
+    "priorImplementation": "assortment-6114c5d-r5/impl/controller/ProductDetails-GetVariantById",
+    "implementation": "assortment-6114c5d-complete-r5/method/7fc4b2b3b8169a83"
+  },
+  {
+    "entry": "assortment-6114c5d-r5/entry/controller/ProductDetails-BatchGetVariantByIds",
+    "priorImplementation": "assortment-6114c5d-r5/impl/controller/ProductDetails-BatchGetVariantByIds",
+    "implementation": "assortment-6114c5d-complete-r5/method/666eefd338942c92"
+  },
+  {
+    "entry": "assortment-6114c5d-r5/entry/controller/ProductDetails-GetProductTypeByVariantId",
+    "priorImplementation": "assortment-6114c5d-r5/impl/controller/ProductDetails-GetProductTypeByVariantId",
+    "implementation": "assortment-6114c5d-complete-r5/method/4b5522d0090d2072"
+  },
+  {
+    "entry": "assortment-6114c5d-r5/entry/controller/ProductDetails-GetVariantsByProductId",
+    "priorImplementation": "assortment-6114c5d-r5/impl/controller/ProductDetails-GetVariantsByProductId",
+    "implementation": "assortment-6114c5d-complete-r5/method/c3660ad69f5da388"
+  },
+  {
+    "entry": "assortment-6114c5d-r5/entry/controller/ProductDetails-ListVariantsByType",
+    "priorImplementation": "assortment-6114c5d-r5/impl/controller/ProductDetails-ListVariantsByType",
+    "implementation": "assortment-6114c5d-complete-r5/method/ff7bf8ba5826041d"
+  },
+  {
+    "entry": "assortment-6114c5d-r5/entry/controller/ProductDetails-ListAvailableProductTypes",
+    "priorImplementation": "assortment-6114c5d-r5/impl/controller/ProductDetails-ListAvailableProductTypes",
+    "implementation": "assortment-6114c5d-complete-r5/method/f9c0c1e41948b6c8"
+  },
+  {
+    "entry": "assortment-6114c5d-r5/entry/controller/ProductDetails-TransformationCarTokenToVariant",
+    "priorImplementation": "assortment-6114c5d-r5/impl/controller/ProductDetails-TransformationCarTokenToVariant",
+    "implementation": "assortment-6114c5d-complete-r5/method/0bcdc8a0e026a9a7"
+  },
+  {
+    "entry": "assortment-6114c5d-r5/entry/controller/Products-GetProductOutput",
+    "priorImplementation": "assortment-6114c5d-r5/impl/controller/Products-GetProductOutput",
+    "implementation": "assortment-6114c5d-complete-r5/method/3de91935cfc756f5"
+  },
+  {
+    "entry": "assortment-6114c5d-r5/entry/controller/Products-GetProductOutputWithoutCodes",
+    "priorImplementation": "assortment-6114c5d-r5/impl/controller/Products-GetProductOutputWithoutCodes",
+    "implementation": "assortment-6114c5d-complete-r5/method/2cc5de602184a380"
+  },
+  {
+    "entry": "assortment-6114c5d-r5/entry/controller/SpecMarket-GetSpecMarkets",
+    "priorImplementation": "assortment-6114c5d-r5/impl/controller/SpecMarket-GetSpecMarkets",
+    "implementation": "assortment-6114c5d-complete-r5/method/79f5d55a657ede18"
+  },
+  {
+    "entry": "assortment-6114c5d-r5/entry/controller/Specification-GetSpecifications",
+    "priorImplementation": "assortment-6114c5d-r5/impl/controller/Specification-GetSpecifications",
+    "implementation": "assortment-6114c5d-complete-r5/method/b954b1c5dcac3bfb"
+  },
+  {
+    "entry": "assortment-6114c5d-r5/entry/controller/Specification-GetSpecificationValues",
+    "priorImplementation": "assortment-6114c5d-r5/impl/controller/Specification-GetSpecificationValues",
+    "implementation": "assortment-6114c5d-complete-r5/method/8048dd7d58b7b528"
+  },
+  {
+    "entry": "assortment-6114c5d-r5/entry/swagger/Ocelot.Host-proxy",
+    "priorImplementation": "assortment-6114c5d-r5/impl/swagger/Ocelot.Host-proxy",
+    "implementation": "assortment-6114c5d-complete-r5/method/06917e823e5bb57e"
+  },
+  {
+    "entry": "assortment-6114c5d-r5/entry/job/kafka-loop",
+    "priorImplementation": "assortment-6114c5d-r5/impl/job/kafka-loop",
+    "implementation": "assortment-6114c5d-complete-r5/method/a9ca5ded7068efba"
+  }
+]

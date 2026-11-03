@@ -1,0 +1,521 @@
+{
+  "format": "scan-interpretation/v1",
+  "id": "interpretation:customer-service-historical-2026-10-25",
+  "state": "complete",
+  "contexts": [
+    {
+      "kind": "scan_snapshot",
+      "id": "context:historical-source",
+      "scan_id": "scan:spring:d18b9b8e72d0f564cf19bc022f4f03c8715eb06c30250746eb4286f42eb7bdd1",
+      "sha256": "d2c9b6db7ed2f33122f77b732c52fd13909af90e643b7e58a646daf931233e50",
+      "repo": "volvo-cars/cds-ecom-customer-service",
+      "commit": "09623ab3a1f39845d8fc02abc3d591b53a3b5fea",
+      "role": "target"
+    },
+    {
+      "kind": "context_snapshot",
+      "id": "context:profile-review",
+      "sha256": "163b08726c0ca72f7b6de02dcd9749a4451dfcd1fce41dfe3867caa47b5b60eb",
+      "role": "surrounding",
+      "uri": "workspace:docs/scan-trials/customer-service-messaging/answerability.json",
+      "title": "Previously reviewed profile integration context",
+      "revision": "sha256:163b08726c0ca72f7b6de02dcd9749a4451dfcd1fce41dfe3867caa47b5b60eb",
+      "authority": "documentation",
+      "input_provenance": {
+        "provided_by": "workspace",
+        "retrieved_at": "2026-10-25T11:57:14.605612Z",
+        "description": "Existing reviewed source-question answers for individual and corporate profile integrations, examined during this interpretation."
+      },
+      "pins": [
+        {
+          "repo": "volvo-cars/cds-ecom-customer-service",
+          "commit": "09623ab3a1f39845d8fc02abc3d591b53a3b5fea"
+        }
+      ]
+    }
+  ],
+  "runs": [
+    {
+      "id": "run:customer-service-interpretation-2026-10-25",
+      "provider": "OpenAI",
+      "model": {
+        "name": null,
+        "provenance": "unknown"
+      },
+      "started_at": "2026-10-25T11:49:26Z",
+      "finished_at": "2026-10-25T11:57:14.605612Z",
+      "method": "LLM-authored best-effort interpretation in this conversation; timestamps bound the recorded authorship/materialisation window, not provider latency. No new model API request was made by the materialisation script. Exact model identifier and per-request usage are not exposed.",
+      "input_context_ids": ["context:historical-source", "context:profile-review"],
+      "usage": {
+        "state": "unknown",
+        "calls_lower_bound": 1,
+        "reason": "This conversation used an LLM to examine the cited evidence and author these claims; exact per-phase calls/tokens are unavailable. The scripted source extraction’s zero-call count is not used here."
+      }
+    }
+  ],
+  "claims": [
+    {
+      "id": "inferred:customer-purpose",
+      "kind": "purpose",
+      "label": "inferred",
+      "statement": "Probably provides a shared customer record capability for commerce, combining person or company profiles with order-related retention and restoration.",
+      "reasoning": "Create/update customer interfaces, individual/corporate request shapes, reviewed identity/profile integrations and the order consumer form a coherent customer-lifecycle responsibility. The business purpose is inferred from that combination.",
+      "confidence": "medium",
+      "alternatives": [
+        "It may primarily support back-office customer data maintenance rather than a checkout-facing capability."
+      ],
+      "limitations": [
+        "This is an inferred business interpretation of a historical pinned capture, not a newly completed catalogue scan.",
+        "No user interface or caller repository was examined for this interpretation; actor identities and journey order are hypotheses.",
+        "Source configuration does not establish deployment, security activation, broker delivery, durable persistence or runtime atomicity."
+      ],
+      "support": [
+        {
+          "kind": "observed_record",
+          "context_id": "context:historical-source",
+          "record_id": "spring-route:source:eb62975cb4b309b31d984412:source:6fc00fca408e2c7f92ff9734:POST:/v1/customers",
+          "source_ids": ["source:6fc00fca408e2c7f92ff9734"]
+        },
+        {
+          "kind": "observed_record",
+          "context_id": "context:historical-source",
+          "record_id": "spring-route:source:eb62975cb4b309b31d984412:source:c3b270d7259eaf2d9ab82fc6:PUT:/v1/customers/{customerId}",
+          "source_ids": ["source:c3b270d7259eaf2d9ab82fc6"]
+        },
+        {
+          "kind": "observed_record",
+          "context_id": "context:historical-source",
+          "record_id": "consumer:source:710f19843367807bbac770e3",
+          "source_ids": ["source:710f19843367807bbac770e3"]
+        },
+        {
+          "kind": "context_snapshot",
+          "context_id": "context:profile-review",
+          "locator": "Previously reviewed individual, Fleet and Partner profile integrations",
+          "lines": [89, 101]
+        },
+        {
+          "kind": "observed_record",
+          "context_id": "context:historical-source",
+          "record_id": "spring-schema:com.volvocars.ecom.customerservice.customer.CustomerRequest",
+          "source_ids": ["source:e3b59bf3e8f435655aa37999"]
+        }
+      ],
+      "dependencies": [],
+      "run_id": "run:customer-service-interpretation-2026-10-25",
+      "subject": {
+        "kind": "observed_record",
+        "context_id": "context:historical-source",
+        "record_id": "host:34a1fafbf6917ed6"
+      }
+    },
+    {
+      "id": "inferred:commerce-applications",
+      "kind": "actor",
+      "label": "inferred",
+      "statement": "Commerce applications are probable direct users of the customer APIs and publishers of the order-change messages.",
+      "reasoning": "HTTP customer maintenance capabilities and order-event payloads suggest system-to-system commerce clients. The caller implementations and effective identities have not been examined.",
+      "confidence": "medium",
+      "alternatives": [],
+      "limitations": [
+        "This is an inferred business interpretation of a historical pinned capture, not a newly completed catalogue scan.",
+        "No user interface or caller repository was examined for this interpretation; actor identities and journey order are hypotheses.",
+        "Source configuration does not establish deployment, security activation, broker delivery, durable persistence or runtime atomicity."
+      ],
+      "support": [
+        {
+          "kind": "observed_record",
+          "context_id": "context:historical-source",
+          "record_id": "spring-route:source:eb62975cb4b309b31d984412:source:6fc00fca408e2c7f92ff9734:POST:/v1/customers",
+          "source_ids": ["source:6fc00fca408e2c7f92ff9734"]
+        },
+        {
+          "kind": "observed_record",
+          "context_id": "context:historical-source",
+          "record_id": "spring-route:source:eb62975cb4b309b31d984412:source:c3b270d7259eaf2d9ab82fc6:PUT:/v1/customers/{customerId}",
+          "source_ids": ["source:c3b270d7259eaf2d9ab82fc6"]
+        },
+        {
+          "kind": "observed_record",
+          "context_id": "context:historical-source",
+          "record_id": "consumer:source:710f19843367807bbac770e3",
+          "source_ids": ["source:710f19843367807bbac770e3"]
+        },
+        {
+          "kind": "context_snapshot",
+          "context_id": "context:profile-review",
+          "locator": "Previously reviewed individual, Fleet and Partner profile integrations",
+          "lines": [89, 101]
+        }
+      ],
+      "dependencies": [],
+      "run_id": "run:customer-service-interpretation-2026-10-25",
+      "name": "Upstream commerce applications",
+      "actor_type": "system",
+      "goal": "Keep customer information usable across a purchase and its later lifecycle."
+    },
+    {
+      "id": "inferred:buyer",
+      "kind": "actor",
+      "label": "inferred",
+      "statement": "A buyer or company signatory is a probable beneficiary whose identity, contact and organisation details are maintained.",
+      "reasoning": "The customer and profile shapes describe individuals and corporate entities; the surrounding profile review includes identity providers, Fleet and Partner data. This supports a useful buyer/signatory hypothesis without establishing a particular UI user.",
+      "confidence": "low",
+      "alternatives": [
+        "The person may be a customer-care colleague maintaining records on someone else’s behalf."
+      ],
+      "limitations": [
+        "This is an inferred business interpretation of a historical pinned capture, not a newly completed catalogue scan.",
+        "No user interface or caller repository was examined for this interpretation; actor identities and journey order are hypotheses.",
+        "Source configuration does not establish deployment, security activation, broker delivery, durable persistence or runtime atomicity."
+      ],
+      "support": [
+        {
+          "kind": "observed_record",
+          "context_id": "context:historical-source",
+          "record_id": "spring-route:source:eb62975cb4b309b31d984412:source:6fc00fca408e2c7f92ff9734:POST:/v1/customers",
+          "source_ids": ["source:6fc00fca408e2c7f92ff9734"]
+        },
+        {
+          "kind": "observed_record",
+          "context_id": "context:historical-source",
+          "record_id": "spring-route:source:eb62975cb4b309b31d984412:source:c3b270d7259eaf2d9ab82fc6:PUT:/v1/customers/{customerId}",
+          "source_ids": ["source:c3b270d7259eaf2d9ab82fc6"]
+        },
+        {
+          "kind": "observed_record",
+          "context_id": "context:historical-source",
+          "record_id": "consumer:source:710f19843367807bbac770e3",
+          "source_ids": ["source:710f19843367807bbac770e3"]
+        },
+        {
+          "kind": "context_snapshot",
+          "context_id": "context:profile-review",
+          "locator": "Previously reviewed individual, Fleet and Partner profile integrations",
+          "lines": [89, 101]
+        }
+      ],
+      "dependencies": [],
+      "run_id": "run:customer-service-interpretation-2026-10-25",
+      "name": "Buyer or company signatory",
+      "actor_type": "person",
+      "goal": "Reuse correct personal or company details when buying or resuming contact."
+    },
+    {
+      "id": "inferred:maintain-profile",
+      "kind": "action",
+      "label": "inferred",
+      "statement": "A commerce application probably creates or corrects a customer profile on the buyer’s behalf.",
+      "reasoning": "The create and update entrypoints provide the capability; using it during a purchase is an interpretation rather than an observed caller flow.",
+      "confidence": "medium",
+      "alternatives": [],
+      "limitations": [
+        "This is an inferred business interpretation of a historical pinned capture, not a newly completed catalogue scan.",
+        "No user interface or caller repository was examined for this interpretation; actor identities and journey order are hypotheses.",
+        "Source configuration does not establish deployment, security activation, broker delivery, durable persistence or runtime atomicity."
+      ],
+      "support": [
+        {
+          "kind": "observed_record",
+          "context_id": "context:historical-source",
+          "record_id": "spring-route:source:eb62975cb4b309b31d984412:source:6fc00fca408e2c7f92ff9734:POST:/v1/customers",
+          "source_ids": ["source:6fc00fca408e2c7f92ff9734"]
+        },
+        {
+          "kind": "observed_record",
+          "context_id": "context:historical-source",
+          "record_id": "spring-route:source:eb62975cb4b309b31d984412:source:c3b270d7259eaf2d9ab82fc6:PUT:/v1/customers/{customerId}",
+          "source_ids": ["source:c3b270d7259eaf2d9ab82fc6"]
+        },
+        {
+          "kind": "observed_record",
+          "context_id": "context:historical-source",
+          "record_id": "consumer:source:710f19843367807bbac770e3",
+          "source_ids": ["source:710f19843367807bbac770e3"]
+        },
+        {
+          "kind": "context_snapshot",
+          "context_id": "context:profile-review",
+          "locator": "Previously reviewed individual, Fleet and Partner profile integrations",
+          "lines": [89, 101]
+        }
+      ],
+      "dependencies": ["inferred:commerce-applications"],
+      "run_id": "run:customer-service-interpretation-2026-10-25",
+      "actor": "inferred:commerce-applications",
+      "name": "Maintain a customer profile",
+      "entrypoints": [
+        {
+          "kind": "observed_record",
+          "context_id": "context:historical-source",
+          "record_id": "spring-route:source:eb62975cb4b309b31d984412:source:6fc00fca408e2c7f92ff9734:POST:/v1/customers",
+          "source_ids": ["source:6fc00fca408e2c7f92ff9734"]
+        },
+        {
+          "kind": "observed_record",
+          "context_id": "context:historical-source",
+          "record_id": "spring-route:source:eb62975cb4b309b31d984412:source:c3b270d7259eaf2d9ab82fc6:PUT:/v1/customers/{customerId}",
+          "source_ids": ["source:c3b270d7259eaf2d9ab82fc6"]
+        }
+      ],
+      "goal": "Give the purchase or customer interaction a consistent customer identity."
+    },
+    {
+      "id": "inferred:react-to-order-lifecycle",
+      "kind": "action",
+      "label": "inferred",
+      "statement": "Order-processing applications probably use lifecycle changes to reduce retention of customer records after an order completes, is cancelled or is abandoned.",
+      "reasoning": "The examined order consumer accepts those statuses, maps archival reasons and invokes marking. Reduced retention is a likely purpose; the legal or product retention policy was not supplied.",
+      "confidence": "medium",
+      "alternatives": [],
+      "limitations": [
+        "This is an inferred business interpretation of a historical pinned capture, not a newly completed catalogue scan.",
+        "No user interface or caller repository was examined for this interpretation; actor identities and journey order are hypotheses.",
+        "Source configuration does not establish deployment, security activation, broker delivery, durable persistence or runtime atomicity."
+      ],
+      "support": [
+        {
+          "kind": "observed_record",
+          "context_id": "context:historical-source",
+          "record_id": "consumer:source:710f19843367807bbac770e3",
+          "source_ids": ["source:710f19843367807bbac770e3"]
+        },
+        {
+          "kind": "context_snapshot",
+          "context_id": "context:profile-review",
+          "locator": "Previously reviewed individual, Fleet and Partner profile integrations",
+          "lines": [89, 101]
+        }
+      ],
+      "dependencies": ["inferred:commerce-applications"],
+      "run_id": "run:customer-service-interpretation-2026-10-25",
+      "actor": "inferred:commerce-applications",
+      "name": "React to an order lifecycle change",
+      "entrypoints": [
+        {
+          "kind": "observed_record",
+          "context_id": "context:historical-source",
+          "record_id": "consumer:source:710f19843367807bbac770e3",
+          "source_ids": ["source:710f19843367807bbac770e3"]
+        }
+      ],
+      "goal": "Retain active customer data for an appropriate business period."
+    },
+    {
+      "id": "inferred:resume-customer-record",
+      "kind": "action",
+      "label": "inferred",
+      "statement": "A later customer interaction may restore an archived record or clear its archival marker.",
+      "reasoning": "The unarchive API and CustomerUpdate branch provide restoration mechanisms. Renewed engagement is a plausible reason, while administrative correction is another.",
+      "confidence": "medium",
+      "alternatives": [
+        "CustomerUpdate may represent a back-office correction rather than a returning buyer."
+      ],
+      "limitations": [
+        "This is an inferred business interpretation of a historical pinned capture, not a newly completed catalogue scan.",
+        "No user interface or caller repository was examined for this interpretation; actor identities and journey order are hypotheses.",
+        "Source configuration does not establish deployment, security activation, broker delivery, durable persistence or runtime atomicity."
+      ],
+      "support": [
+        {
+          "kind": "observed_record",
+          "context_id": "context:historical-source",
+          "record_id": "spring-route:source:eb62975cb4b309b31d984412:source:6fc00fca408e2c7f92ff9734:POST:/v1/customers",
+          "source_ids": ["source:6fc00fca408e2c7f92ff9734"]
+        },
+        {
+          "kind": "observed_record",
+          "context_id": "context:historical-source",
+          "record_id": "spring-route:source:eb62975cb4b309b31d984412:source:c3b270d7259eaf2d9ab82fc6:PUT:/v1/customers/{customerId}",
+          "source_ids": ["source:c3b270d7259eaf2d9ab82fc6"]
+        },
+        {
+          "kind": "observed_record",
+          "context_id": "context:historical-source",
+          "record_id": "consumer:source:710f19843367807bbac770e3",
+          "source_ids": ["source:710f19843367807bbac770e3"]
+        },
+        {
+          "kind": "context_snapshot",
+          "context_id": "context:profile-review",
+          "locator": "Previously reviewed individual, Fleet and Partner profile integrations",
+          "lines": [89, 101]
+        }
+      ],
+      "dependencies": ["inferred:commerce-applications"],
+      "run_id": "run:customer-service-interpretation-2026-10-25",
+      "actor": "inferred:commerce-applications",
+      "name": "Resume use of the customer record",
+      "entrypoints": [
+        {
+          "kind": "observed_record",
+          "context_id": "context:historical-source",
+          "record_id": "spring-route:source:eb62975cb4b309b31d984412:source:1fb096247c6f762ef8f5a48d:PATCH:/v1/customers/{customerId}/unarchive",
+          "source_ids": ["source:1fb096247c6f762ef8f5a48d"]
+        },
+        {
+          "kind": "observed_record",
+          "context_id": "context:historical-source",
+          "record_id": "consumer:source:710f19843367807bbac770e3",
+          "source_ids": ["source:710f19843367807bbac770e3"]
+        }
+      ],
+      "goal": "Make an existing customer record usable for renewed activity."
+    },
+    {
+      "id": "inferred:customer-lifecycle-journey",
+      "kind": "journey",
+      "label": "inferred",
+      "statement": "A probable journey is to establish customer details for a purchase, react to the order outcome, and restore the record if the customer relationship resumes.",
+      "reasoning": "The APIs, profile context and order-driven archival/restoration behaviour can explain a useful lifecycle journey. Their business sequencing and the human trigger remain inferred.",
+      "confidence": "medium",
+      "alternatives": [
+        "The capabilities may be independent administrative workflows rather than one end-to-end journey."
+      ],
+      "limitations": [
+        "This is an inferred business interpretation of a historical pinned capture, not a newly completed catalogue scan.",
+        "No user interface or caller repository was examined for this interpretation; actor identities and journey order are hypotheses.",
+        "Source configuration does not establish deployment, security activation, broker delivery, durable persistence or runtime atomicity."
+      ],
+      "support": [
+        {
+          "kind": "observed_record",
+          "context_id": "context:historical-source",
+          "record_id": "spring-route:source:eb62975cb4b309b31d984412:source:6fc00fca408e2c7f92ff9734:POST:/v1/customers",
+          "source_ids": ["source:6fc00fca408e2c7f92ff9734"]
+        },
+        {
+          "kind": "observed_record",
+          "context_id": "context:historical-source",
+          "record_id": "spring-route:source:eb62975cb4b309b31d984412:source:c3b270d7259eaf2d9ab82fc6:PUT:/v1/customers/{customerId}",
+          "source_ids": ["source:c3b270d7259eaf2d9ab82fc6"]
+        },
+        {
+          "kind": "observed_record",
+          "context_id": "context:historical-source",
+          "record_id": "consumer:source:710f19843367807bbac770e3",
+          "source_ids": ["source:710f19843367807bbac770e3"]
+        },
+        {
+          "kind": "context_snapshot",
+          "context_id": "context:profile-review",
+          "locator": "Previously reviewed individual, Fleet and Partner profile integrations",
+          "lines": [89, 101]
+        }
+      ],
+      "dependencies": [
+        "inferred:buyer",
+        "inferred:maintain-profile",
+        "inferred:react-to-order-lifecycle",
+        "inferred:resume-customer-record"
+      ],
+      "run_id": "run:customer-service-interpretation-2026-10-25",
+      "actor": "inferred:buyer",
+      "name": "Purchase and later resume a customer relationship",
+      "goal": "Carry a usable customer identity through purchase, retention and renewed contact.",
+      "steps": [
+        {
+          "action": "inferred:maintain-profile",
+          "reason": "The commerce application may prepare or correct the buyer’s profile."
+        },
+        {
+          "action": "inferred:react-to-order-lifecycle",
+          "reason": "The eventual order outcome may start a retention period."
+        },
+        {
+          "action": "inferred:resume-customer-record",
+          "reason": "A later interaction may need the same record again."
+        }
+      ]
+    },
+    {
+      "id": "inferred:identity-profile-relationship",
+      "kind": "relationship",
+      "label": "inferred",
+      "statement": "The customer capability probably acts as a bridge between commerce records and the surrounding identity and profile providers.",
+      "reasoning": "The reviewed Volvo ID, Connect, Entra, CDB, Fleet and Partner boundaries suggest an integration role. This is a conceptual relationship, not a claim that every path contacts every provider.",
+      "confidence": "medium",
+      "alternatives": [],
+      "limitations": [
+        "This is an inferred business interpretation of a historical pinned capture, not a newly completed catalogue scan.",
+        "No user interface or caller repository was examined for this interpretation; actor identities and journey order are hypotheses.",
+        "Source configuration does not establish deployment, security activation, broker delivery, durable persistence or runtime atomicity."
+      ],
+      "support": [
+        {
+          "kind": "observed_record",
+          "context_id": "context:historical-source",
+          "record_id": "spring-route:source:eb62975cb4b309b31d984412:source:6fc00fca408e2c7f92ff9734:POST:/v1/customers",
+          "source_ids": ["source:6fc00fca408e2c7f92ff9734"]
+        },
+        {
+          "kind": "observed_record",
+          "context_id": "context:historical-source",
+          "record_id": "spring-schema:com.volvocars.ecom.customerservice.customer.CustomerRequest",
+          "source_ids": ["source:e3b59bf3e8f435655aa37999"]
+        },
+        {
+          "kind": "context_snapshot",
+          "context_id": "context:profile-review",
+          "locator": "Previously reviewed individual, Fleet and Partner profile integrations",
+          "lines": [89, 101]
+        }
+      ],
+      "dependencies": ["inferred:customer-purpose"],
+      "run_id": "run:customer-service-interpretation-2026-10-25",
+      "from": {
+        "kind": "observed_record",
+        "context_id": "context:historical-source",
+        "record_id": "host:34a1fafbf6917ed6"
+      },
+      "to": {
+        "kind": "context_snapshot",
+        "context_id": "context:profile-review",
+        "locator": "Individual and corporate profile provider context",
+        "lines": [89, 101]
+      },
+      "relationship": "uses"
+    }
+  ],
+  "attempts": [
+    {
+      "area": "purpose",
+      "outcome": "claims_proposed",
+      "claim_ids": ["inferred:customer-purpose"],
+      "reason": "Proposed the most plausible useful interpretation from examined historical entry facts and surrounding profile-integration context; alternatives and limits remain explicit.",
+      "run_id": "run:customer-service-interpretation-2026-10-25"
+    },
+    {
+      "area": "actor",
+      "outcome": "claims_proposed",
+      "claim_ids": ["inferred:commerce-applications", "inferred:buyer"],
+      "reason": "Proposed the most plausible useful interpretation from examined historical entry facts and surrounding profile-integration context; alternatives and limits remain explicit.",
+      "run_id": "run:customer-service-interpretation-2026-10-25"
+    },
+    {
+      "area": "action",
+      "outcome": "claims_proposed",
+      "claim_ids": [
+        "inferred:maintain-profile",
+        "inferred:react-to-order-lifecycle",
+        "inferred:resume-customer-record"
+      ],
+      "reason": "Proposed the most plausible useful interpretation from examined historical entry facts and surrounding profile-integration context; alternatives and limits remain explicit.",
+      "run_id": "run:customer-service-interpretation-2026-10-25"
+    },
+    {
+      "area": "journey",
+      "outcome": "claims_proposed",
+      "claim_ids": ["inferred:customer-lifecycle-journey"],
+      "reason": "Proposed the most plausible useful interpretation from examined historical entry facts and surrounding profile-integration context; alternatives and limits remain explicit.",
+      "run_id": "run:customer-service-interpretation-2026-10-25"
+    },
+    {
+      "area": "relationship",
+      "outcome": "claims_proposed",
+      "claim_ids": ["inferred:identity-profile-relationship"],
+      "reason": "Proposed the most plausible useful interpretation from examined historical entry facts and surrounding profile-integration context; alternatives and limits remain explicit.",
+      "run_id": "run:customer-service-interpretation-2026-10-25"
+    }
+  ]
+}

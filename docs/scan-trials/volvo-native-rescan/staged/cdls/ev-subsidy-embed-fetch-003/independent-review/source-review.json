@@ -1,0 +1,40 @@
+{
+  "scope": "Six full helper source files plus full caller layout read independently; the layout execution is excluded from this bounded unit",
+  "files": [
+    {
+      "path": "apps/ev-subsidy/app/[siteSlug]/layout.tsx",
+      "bytes": 2382,
+      "sha256": "7e3a2846f727f4d3ca0f108436255c2eef0e825305f932f8807702dea5109288"
+    },
+    {
+      "path": "packages/site-footer-embed/src/fetchSiteFooterProps.ts",
+      "bytes": 2917,
+      "sha256": "2bf08dff9a9af52fc7a86fde58d4aeed7837967dd5732f5de125573d8f7ee5f4"
+    },
+    {
+      "path": "packages/site-footer-embed/src/getSiteFooterUrl.ts",
+      "bytes": 699,
+      "sha256": "81d93baa45b76e5df3896017945303945012331ea37676f2df83e736fcca517b"
+    },
+    {
+      "path": "packages/site-footer-embed/src/types.ts",
+      "bytes": 687,
+      "sha256": "ab8679208f67d055a64aed7efe0130a2c3d2561c045006f5fe9ec0332d24ee74"
+    },
+    {
+      "path": "packages/site-nav-embed/src/fetchSiteNavigationProps.ts",
+      "bytes": 2933,
+      "sha256": "f397fd89056d44e95b32c3fc0470479f5f231bf54f4b34c5cb2a0a996583366c"
+    },
+    {
+      "path": "packages/site-nav-embed/src/getSiteNavigationUrl.ts",
+      "bytes": 936,
+      "sha256": "d108ad484cca0505e19219de4fa8e33a3d4c3bd930a3611749e4486580551668"
+    },
+    {
+      "path": "packages/site-nav-embed/src/types.ts",
+      "bytes": 936,
+      "sha256": "87fc1c5454c4b6eb92a6d27d844c36e1899b9950e10367a4a40d3632fcab04e6"
+    }
+  ]
+}

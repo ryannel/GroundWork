@@ -1,0 +1,1279 @@
+[
+  {
+    "owner": "volvocars.contracts.carconfiguration.CarConfigurationAdded",
+    "field": "carKey",
+    "sourceType": "CarKey",
+    "target": "volvo/cce-pb-contracts-car-configuration/72cbaedcad24/local-r1/shape/volvocars.contracts.carconfiguration.CarKey",
+    "scope": "local exact package/nesting resolution",
+    "importBasis": "same source file/lexical namespace",
+    "targetPath": "volvocars/contracts/carconfiguration/car-configuration.proto"
+  },
+  {
+    "owner": "volvocars.contracts.carconfiguration.CarConfigurationRemoved",
+    "field": "carKey",
+    "sourceType": "CarKey",
+    "target": "volvo/cce-pb-contracts-car-configuration/72cbaedcad24/local-r1/shape/volvocars.contracts.carconfiguration.CarKey",
+    "scope": "local exact package/nesting resolution",
+    "importBasis": "same source file/lexical namespace",
+    "targetPath": "volvocars/contracts/carconfiguration/car-configuration.proto"
+  },
+  {
+    "owner": "volvocars.contracts.carconfiguration.Component",
+    "field": "type",
+    "sourceType": "ComponentType",
+    "target": "volvo/cce-pb-contracts-car-configuration/72cbaedcad24/local-r1/shape/volvocars.contracts.carconfiguration.ComponentType",
+    "scope": "local exact package/nesting resolution",
+    "importBasis": "same source file/lexical namespace",
+    "targetPath": "volvocars/contracts/carconfiguration/component.proto"
+  },
+  {
+    "owner": "volvocars.contracts.carconfiguration.Component",
+    "field": "meta",
+    "sourceType": "ComponentMeta",
+    "target": "volvo/cce-pb-contracts-car-configuration/72cbaedcad24/local-r1/shape/volvocars.contracts.carconfiguration.ComponentMeta",
+    "scope": "local exact package/nesting resolution",
+    "importBasis": "same source file/lexical namespace",
+    "targetPath": "volvocars/contracts/carconfiguration/component.proto"
+  },
+  {
+    "owner": "volvocars.contracts.carconfiguration.ComponentUpdated",
+    "field": "component",
+    "sourceType": "Component",
+    "target": "volvo/cce-pb-contracts-car-configuration/72cbaedcad24/local-r1/shape/volvocars.contracts.carconfiguration.Component",
+    "scope": "local exact package/nesting resolution",
+    "importBasis": "same source file/lexical namespace",
+    "targetPath": "volvocars/contracts/carconfiguration/component.proto"
+  },
+  {
+    "owner": "volvocars.contracts.carconfiguration.Condition",
+    "field": "relation",
+    "sourceType": "Relation",
+    "target": "volvo/cce-pb-contracts-car-configuration/72cbaedcad24/local-r1/shape/volvocars.contracts.carconfiguration.Relation",
+    "scope": "local exact package/nesting resolution",
+    "importBasis": "same source file/lexical namespace",
+    "targetPath": "volvocars/contracts/carconfiguration/condition.proto"
+  },
+  {
+    "owner": "volvocars.contracts.carconfiguration.Condition",
+    "field": "subConditions",
+    "sourceType": "SubCondition",
+    "target": "volvo/cce-pb-contracts-car-configuration/72cbaedcad24/local-r1/shape/volvocars.contracts.carconfiguration.SubCondition",
+    "scope": "local exact package/nesting resolution",
+    "importBasis": "same source file/lexical namespace",
+    "targetPath": "volvocars/contracts/carconfiguration/condition.proto"
+  },
+  {
+    "owner": "volvocars.contracts.carconfiguration.SubCondition",
+    "field": "relation",
+    "sourceType": "Relation",
+    "target": "volvo/cce-pb-contracts-car-configuration/72cbaedcad24/local-r1/shape/volvocars.contracts.carconfiguration.Relation",
+    "scope": "local exact package/nesting resolution",
+    "importBasis": "same source file/lexical namespace",
+    "targetPath": "volvocars/contracts/carconfiguration/condition.proto"
+  },
+  {
+    "owner": "volvocars.contracts.carconfiguration.SubCondition",
+    "field": "components",
+    "sourceType": "Component",
+    "target": "volvo/cce-pb-contracts-car-configuration/72cbaedcad24/local-r1/shape/volvocars.contracts.carconfiguration.Component",
+    "scope": "local exact package/nesting resolution",
+    "importBasis": "exact direct local import",
+    "targetPath": "volvocars/contracts/carconfiguration/component.proto"
+  },
+  {
+    "owner": "volvocars.contracts.carconfiguration.ConfigPolicy",
+    "field": "configRuleSets",
+    "sourceType": "ConfigRuleSet",
+    "target": "volvo/cce-pb-contracts-car-configuration/72cbaedcad24/local-r1/shape/volvocars.contracts.carconfiguration.ConfigRuleSet",
+    "scope": "local exact package/nesting resolution",
+    "importBasis": "exact direct local import",
+    "targetPath": "volvocars/contracts/carconfiguration/config-rules.proto"
+  },
+  {
+    "owner": "volvocars.contracts.carconfiguration.ConfigPolicy",
+    "field": "structureWeeksRuleSets",
+    "sourceType": "StructureWeeksRuleSet",
+    "target": "volvo/cce-pb-contracts-car-configuration/72cbaedcad24/local-r1/shape/volvocars.contracts.carconfiguration.StructureWeeksRuleSet",
+    "scope": "local exact package/nesting resolution",
+    "importBasis": "exact direct local import",
+    "targetPath": "volvocars/contracts/carconfiguration/config-rules.proto"
+  },
+  {
+    "owner": "volvocars.contracts.carconfiguration.ConfigPolicyCreated",
+    "field": "configRuleSets",
+    "sourceType": "ConfigRuleSet",
+    "target": "volvo/cce-pb-contracts-car-configuration/72cbaedcad24/local-r1/shape/volvocars.contracts.carconfiguration.ConfigRuleSet",
+    "scope": "local exact package/nesting resolution",
+    "importBasis": "exact direct local import",
+    "targetPath": "volvocars/contracts/carconfiguration/config-rules.proto"
+  },
+  {
+    "owner": "volvocars.contracts.carconfiguration.ConfigPolicyCreated",
+    "field": "structureWeeksRuleSets",
+    "sourceType": "StructureWeeksRuleSet",
+    "target": "volvo/cce-pb-contracts-car-configuration/72cbaedcad24/local-r1/shape/volvocars.contracts.carconfiguration.StructureWeeksRuleSet",
+    "scope": "local exact package/nesting resolution",
+    "importBasis": "exact direct local import",
+    "targetPath": "volvocars/contracts/carconfiguration/config-rules.proto"
+  },
+  {
+    "owner": "volvocars.contracts.carconfiguration.ConfigPolicyUpdated",
+    "field": "configRuleSets",
+    "sourceType": "ConfigRuleSet",
+    "target": "volvo/cce-pb-contracts-car-configuration/72cbaedcad24/local-r1/shape/volvocars.contracts.carconfiguration.ConfigRuleSet",
+    "scope": "local exact package/nesting resolution",
+    "importBasis": "exact direct local import",
+    "targetPath": "volvocars/contracts/carconfiguration/config-rules.proto"
+  },
+  {
+    "owner": "volvocars.contracts.carconfiguration.ConfigPolicyUpdated",
+    "field": "structureWeeksRuleSets",
+    "sourceType": "StructureWeeksRuleSet",
+    "target": "volvo/cce-pb-contracts-car-configuration/72cbaedcad24/local-r1/shape/volvocars.contracts.carconfiguration.StructureWeeksRuleSet",
+    "scope": "local exact package/nesting resolution",
+    "importBasis": "exact direct local import",
+    "targetPath": "volvocars/contracts/carconfiguration/config-rules.proto"
+  },
+  {
+    "owner": "volvocars.contracts.carconfiguration.ConfigPolicyDeleted",
+    "field": "configRuleSets",
+    "sourceType": "ConfigRuleSet",
+    "target": "volvo/cce-pb-contracts-car-configuration/72cbaedcad24/local-r1/shape/volvocars.contracts.carconfiguration.ConfigRuleSet",
+    "scope": "local exact package/nesting resolution",
+    "importBasis": "exact direct local import",
+    "targetPath": "volvocars/contracts/carconfiguration/config-rules.proto"
+  },
+  {
+    "owner": "volvocars.contracts.carconfiguration.ConfigPolicyDeleted",
+    "field": "structureWeeksRuleSets",
+    "sourceType": "StructureWeeksRuleSet",
+    "target": "volvo/cce-pb-contracts-car-configuration/72cbaedcad24/local-r1/shape/volvocars.contracts.carconfiguration.StructureWeeksRuleSet",
+    "scope": "local exact package/nesting resolution",
+    "importBasis": "exact direct local import",
+    "targetPath": "volvocars/contracts/carconfiguration/config-rules.proto"
+  },
+  {
+    "owner": "volvocars.contracts.carconfiguration.ConfigPolicyRulesUpdated",
+    "field": "configRuleSets",
+    "sourceType": "ConfigRuleSet",
+    "target": "volvo/cce-pb-contracts-car-configuration/72cbaedcad24/local-r1/shape/volvocars.contracts.carconfiguration.ConfigRuleSet",
+    "scope": "local exact package/nesting resolution",
+    "importBasis": "exact direct local import",
+    "targetPath": "volvocars/contracts/carconfiguration/config-rules.proto"
+  },
+  {
+    "owner": "volvocars.contracts.carconfiguration.ConfigPolicyRulesUpdated",
+    "field": "structureWeeksRuleSets",
+    "sourceType": "StructureWeeksRuleSet",
+    "target": "volvo/cce-pb-contracts-car-configuration/72cbaedcad24/local-r1/shape/volvocars.contracts.carconfiguration.StructureWeeksRuleSet",
+    "scope": "local exact package/nesting resolution",
+    "importBasis": "exact direct local import",
+    "targetPath": "volvocars/contracts/carconfiguration/config-rules.proto"
+  },
+  {
+    "owner": "volvocars.contracts.carconfiguration.Pno12RuleSetMeta",
+    "field": "components",
+    "sourceType": "Component",
+    "target": "volvo/cce-pb-contracts-car-configuration/72cbaedcad24/local-r1/shape/volvocars.contracts.carconfiguration.Component",
+    "scope": "local exact package/nesting resolution",
+    "importBasis": "exact direct local import",
+    "targetPath": "volvocars/contracts/carconfiguration/component.proto"
+  },
+  {
+    "owner": "volvocars.contracts.carconfiguration.Pno12RuleSetMeta",
+    "field": "preSelected",
+    "sourceType": "Component",
+    "target": "volvo/cce-pb-contracts-car-configuration/72cbaedcad24/local-r1/shape/volvocars.contracts.carconfiguration.Component",
+    "scope": "local exact package/nesting resolution",
+    "importBasis": "exact direct local import",
+    "targetPath": "volvocars/contracts/carconfiguration/component.proto"
+  },
+  {
+    "owner": "volvocars.contracts.carconfiguration.PolicyRulesUpdated",
+    "field": "pno12RuleSetMetas",
+    "sourceType": "Pno12RuleSetMeta",
+    "target": "volvo/cce-pb-contracts-car-configuration/72cbaedcad24/local-r1/shape/volvocars.contracts.carconfiguration.Pno12RuleSetMeta",
+    "scope": "local exact package/nesting resolution",
+    "importBasis": "same source file/lexical namespace",
+    "targetPath": "volvocars/contracts/carconfiguration/config-policy.proto"
+  },
+  {
+    "owner": "volvocars.contracts.carconfiguration.PoliciesDeleted",
+    "field": "policiesDeleted",
+    "sourceType": "PolicyDeleted",
+    "target": "volvo/cce-pb-contracts-car-configuration/72cbaedcad24/local-r1/shape/volvocars.contracts.carconfiguration.PolicyDeleted",
+    "scope": "local exact package/nesting resolution",
+    "importBasis": "same source file/lexical namespace",
+    "targetPath": "volvocars/contracts/carconfiguration/config-policy.proto"
+  },
+  {
+    "owner": "volvocars.contracts.carconfiguration.PoliciesRulesUpdated",
+    "field": "policyRulesUpdates",
+    "sourceType": "PolicyRulesUpdated",
+    "target": "volvo/cce-pb-contracts-car-configuration/72cbaedcad24/local-r1/shape/volvocars.contracts.carconfiguration.PolicyRulesUpdated",
+    "scope": "local exact package/nesting resolution",
+    "importBasis": "same source file/lexical namespace",
+    "targetPath": "volvocars/contracts/carconfiguration/config-policy.proto"
+  },
+  {
+    "owner": "volvocars.contracts.carconfiguration.PolicyStatusUpdated",
+    "field": "pno12ActiveStatus",
+    "sourceType": "Pno12ActiveStatus",
+    "target": "volvo/cce-pb-contracts-car-configuration/72cbaedcad24/local-r1/shape/volvocars.contracts.carconfiguration.Pno12ActiveStatus",
+    "scope": "local exact package/nesting resolution",
+    "importBasis": "same source file/lexical namespace",
+    "targetPath": "volvocars/contracts/carconfiguration/config-policy.proto"
+  },
+  {
+    "owner": "volvocars.contracts.carconfiguration.RulesImported",
+    "field": "timePublished",
+    "sourceType": "google.protobuf.Timestamp",
+    "target": "volvo/cce-pb-contracts-car-configuration/72cbaedcad24/local-r1/shape/google.protobuf.Timestamp",
+    "scope": "external import source gap"
+  },
+  {
+    "owner": "volvocars.contracts.carconfiguration.RuleSet",
+    "field": "configRuleSet",
+    "sourceType": "ConfigRuleSet",
+    "target": "volvo/cce-pb-contracts-car-configuration/72cbaedcad24/local-r1/shape/volvocars.contracts.carconfiguration.ConfigRuleSet",
+    "scope": "local exact package/nesting resolution",
+    "importBasis": "same source file/lexical namespace",
+    "targetPath": "volvocars/contracts/carconfiguration/config-rules.proto"
+  },
+  {
+    "owner": "volvocars.contracts.carconfiguration.RuleSet",
+    "field": "structureWeeksRuleSet",
+    "sourceType": "StructureWeeksRuleSet",
+    "target": "volvo/cce-pb-contracts-car-configuration/72cbaedcad24/local-r1/shape/volvocars.contracts.carconfiguration.StructureWeeksRuleSet",
+    "scope": "local exact package/nesting resolution",
+    "importBasis": "same source file/lexical namespace",
+    "targetPath": "volvocars/contracts/carconfiguration/config-rules.proto"
+  },
+  {
+    "owner": "volvocars.contracts.carconfiguration.RuleSetCreated",
+    "field": "ruleSet",
+    "sourceType": "RuleSet",
+    "target": "volvo/cce-pb-contracts-car-configuration/72cbaedcad24/local-r1/shape/volvocars.contracts.carconfiguration.RuleSet",
+    "scope": "local exact package/nesting resolution",
+    "importBasis": "same source file/lexical namespace",
+    "targetPath": "volvocars/contracts/carconfiguration/config-rules.proto"
+  },
+  {
+    "owner": "volvocars.contracts.carconfiguration.RuleSetCreated",
+    "field": "timePublished",
+    "sourceType": "google.protobuf.Timestamp",
+    "target": "volvo/cce-pb-contracts-car-configuration/72cbaedcad24/local-r1/shape/google.protobuf.Timestamp",
+    "scope": "external import source gap"
+  },
+  {
+    "owner": "volvocars.contracts.carconfiguration.ConfigRuleSet",
+    "field": "configRules",
+    "sourceType": "ConfigRule",
+    "target": "volvo/cce-pb-contracts-car-configuration/72cbaedcad24/local-r1/shape/volvocars.contracts.carconfiguration.ConfigRule",
+    "scope": "local exact package/nesting resolution",
+    "importBasis": "same source file/lexical namespace",
+    "targetPath": "volvocars/contracts/carconfiguration/config-rules.proto"
+  },
+  {
+    "owner": "volvocars.contracts.carconfiguration.ConfigRule",
+    "field": "condition",
+    "sourceType": "Condition",
+    "target": "volvo/cce-pb-contracts-car-configuration/72cbaedcad24/local-r1/shape/volvocars.contracts.carconfiguration.Condition",
+    "scope": "local exact package/nesting resolution",
+    "importBasis": "exact direct local import",
+    "targetPath": "volvocars/contracts/carconfiguration/condition.proto"
+  },
+  {
+    "owner": "volvocars.contracts.carconfiguration.ConfigRule",
+    "field": "consequence",
+    "sourceType": "Consequence",
+    "target": "volvo/cce-pb-contracts-car-configuration/72cbaedcad24/local-r1/shape/volvocars.contracts.carconfiguration.Consequence",
+    "scope": "local exact package/nesting resolution",
+    "importBasis": "exact direct local import",
+    "targetPath": "volvocars/contracts/carconfiguration/consequence.proto"
+  },
+  {
+    "owner": "volvocars.contracts.carconfiguration.ConfigRulesCreated",
+    "field": "configRuleSet",
+    "sourceType": "ConfigRuleSet",
+    "target": "volvo/cce-pb-contracts-car-configuration/72cbaedcad24/local-r1/shape/volvocars.contracts.carconfiguration.ConfigRuleSet",
+    "scope": "local exact package/nesting resolution",
+    "importBasis": "same source file/lexical namespace",
+    "targetPath": "volvocars/contracts/carconfiguration/config-rules.proto"
+  },
+  {
+    "owner": "volvocars.contracts.carconfiguration.ConfigRulesUpdated",
+    "field": "configRuleSet",
+    "sourceType": "ConfigRuleSet",
+    "target": "volvo/cce-pb-contracts-car-configuration/72cbaedcad24/local-r1/shape/volvocars.contracts.carconfiguration.ConfigRuleSet",
+    "scope": "local exact package/nesting resolution",
+    "importBasis": "same source file/lexical namespace",
+    "targetPath": "volvocars/contracts/carconfiguration/config-rules.proto"
+  },
+  {
+    "owner": "volvocars.contracts.carconfiguration.StructureWeeksRuleSet",
+    "field": "structureWeeksRules",
+    "sourceType": "StructureWeeksRule",
+    "target": "volvo/cce-pb-contracts-car-configuration/72cbaedcad24/local-r1/shape/volvocars.contracts.carconfiguration.StructureWeeksRule",
+    "scope": "local exact package/nesting resolution",
+    "importBasis": "same source file/lexical namespace",
+    "targetPath": "volvocars/contracts/carconfiguration/config-rules.proto"
+  },
+  {
+    "owner": "volvocars.contracts.carconfiguration.StructureWeeksRule",
+    "field": "condition",
+    "sourceType": "Condition",
+    "target": "volvo/cce-pb-contracts-car-configuration/72cbaedcad24/local-r1/shape/volvocars.contracts.carconfiguration.Condition",
+    "scope": "local exact package/nesting resolution",
+    "importBasis": "exact direct local import",
+    "targetPath": "volvocars/contracts/carconfiguration/condition.proto"
+  },
+  {
+    "owner": "volvocars.contracts.carconfiguration.StructureWeeksRule",
+    "field": "consequence",
+    "sourceType": "StructureWeeksConsequence",
+    "target": "volvo/cce-pb-contracts-car-configuration/72cbaedcad24/local-r1/shape/volvocars.contracts.carconfiguration.StructureWeeksConsequence",
+    "scope": "local exact package/nesting resolution",
+    "importBasis": "exact direct local import",
+    "targetPath": "volvocars/contracts/carconfiguration/consequence.proto"
+  },
+  {
+    "owner": "volvocars.contracts.carconfiguration.Consequence",
+    "field": "ruleType",
+    "sourceType": "RuleType",
+    "target": "volvo/cce-pb-contracts-car-configuration/72cbaedcad24/local-r1/shape/volvocars.contracts.carconfiguration.RuleType",
+    "scope": "local exact package/nesting resolution",
+    "importBasis": "same source file/lexical namespace",
+    "targetPath": "volvocars/contracts/carconfiguration/consequence.proto"
+  },
+  {
+    "owner": "volvocars.contracts.carconfiguration.Consequence",
+    "field": "components",
+    "sourceType": "Component",
+    "target": "volvo/cce-pb-contracts-car-configuration/72cbaedcad24/local-r1/shape/volvocars.contracts.carconfiguration.Component",
+    "scope": "local exact package/nesting resolution",
+    "importBasis": "exact direct local import",
+    "targetPath": "volvocars/contracts/carconfiguration/component.proto"
+  },
+  {
+    "owner": "volvocars.contracts.carconfiguration.SpecMarketImported",
+    "field": "pno12RulesImports",
+    "sourceType": "Pno12RulesImported",
+    "target": "volvo/cce-pb-contracts-car-configuration/72cbaedcad24/local-r1/shape/volvocars.contracts.carconfiguration.Pno12RulesImported",
+    "scope": "local exact package/nesting resolution",
+    "importBasis": "same source file/lexical namespace",
+    "targetPath": "volvocars/contracts/carconfiguration/cpam-ingress.proto"
+  },
+  {
+    "owner": "volvocars.contracts.carconfiguration.SpecMarketImported",
+    "field": "components",
+    "sourceType": "Component",
+    "target": "volvo/cce-pb-contracts-car-configuration/72cbaedcad24/local-r1/shape/volvocars.contracts.carconfiguration.Component",
+    "scope": "local exact package/nesting resolution",
+    "importBasis": "exact direct local import",
+    "targetPath": "volvocars/contracts/carconfiguration/component.proto"
+  },
+  {
+    "owner": "volvocars.contracts.carconfiguration.Pno12ComponentsImported",
+    "field": "pno12ComponentsMapping",
+    "sourceType": "Pno12ComponentMapping",
+    "target": "volvo/cce-pb-contracts-car-configuration/72cbaedcad24/local-r1/shape/volvocars.contracts.carconfiguration.Pno12ComponentMapping",
+    "scope": "local exact package/nesting resolution",
+    "importBasis": "same source file/lexical namespace",
+    "targetPath": "volvocars/contracts/carconfiguration/cpam-ingress.proto"
+  },
+  {
+    "owner": "volvocars.contracts.carconfiguration.Pno12ComponentMapping",
+    "field": "components",
+    "sourceType": "Component",
+    "target": "volvo/cce-pb-contracts-car-configuration/72cbaedcad24/local-r1/shape/volvocars.contracts.carconfiguration.Component",
+    "scope": "local exact package/nesting resolution",
+    "importBasis": "exact direct local import",
+    "targetPath": "volvocars/contracts/carconfiguration/component.proto"
+  },
+  {
+    "owner": "volvocars.contracts.carconfiguration.Pno12RulesImported",
+    "field": "structureWeekFrom",
+    "sourceType": "StructureWeek",
+    "target": "volvo/cce-pb-contracts-car-configuration/72cbaedcad24/local-r1/shape/volvocars.contracts.carconfiguration.StructureWeek",
+    "scope": "local exact package/nesting resolution",
+    "importBasis": "same source file/lexical namespace",
+    "targetPath": "volvocars/contracts/carconfiguration/cpam-ingress.proto"
+  },
+  {
+    "owner": "volvocars.contracts.carconfiguration.Pno12RulesImported",
+    "field": "structureWeekTo",
+    "sourceType": "StructureWeek",
+    "target": "volvo/cce-pb-contracts-car-configuration/72cbaedcad24/local-r1/shape/volvocars.contracts.carconfiguration.StructureWeek",
+    "scope": "local exact package/nesting resolution",
+    "importBasis": "same source file/lexical namespace",
+    "targetPath": "volvocars/contracts/carconfiguration/cpam-ingress.proto"
+  },
+  {
+    "owner": "volvocars.contracts.carconfiguration.Pno12RulesImported",
+    "field": "swMappings",
+    "sourceType": "SWmapping",
+    "target": "volvo/cce-pb-contracts-car-configuration/72cbaedcad24/local-r1/shape/volvocars.contracts.carconfiguration.SWmapping",
+    "scope": "local exact package/nesting resolution",
+    "importBasis": "same source file/lexical namespace",
+    "targetPath": "volvocars/contracts/carconfiguration/cpam-ingress.proto"
+  },
+  {
+    "owner": "volvocars.contracts.carconfiguration.Pno12RulesImported",
+    "field": "timePublished",
+    "sourceType": "google.protobuf.Timestamp",
+    "target": "volvo/cce-pb-contracts-car-configuration/72cbaedcad24/local-r1/shape/google.protobuf.Timestamp",
+    "scope": "external import source gap"
+  },
+  {
+    "owner": "volvocars.contracts.carconfiguration.Pno12RulesImported",
+    "field": "marketAuthIdentifiers",
+    "sourceType": "MarketAuthIdentifier",
+    "target": "volvo/cce-pb-contracts-car-configuration/72cbaedcad24/local-r1/shape/volvocars.contracts.carconfiguration.MarketAuthIdentifier",
+    "scope": "local exact package/nesting resolution",
+    "importBasis": "exact direct local import",
+    "targetPath": "volvocars/contracts/carconfiguration/market-auth-identifier.proto"
+  },
+  {
+    "owner": "volvocars.contracts.carconfiguration.SWmapping",
+    "field": "structureWeeks",
+    "sourceType": "StructureWeek",
+    "target": "volvo/cce-pb-contracts-car-configuration/72cbaedcad24/local-r1/shape/volvocars.contracts.carconfiguration.StructureWeek",
+    "scope": "local exact package/nesting resolution",
+    "importBasis": "same source file/lexical namespace",
+    "targetPath": "volvocars/contracts/carconfiguration/cpam-ingress.proto"
+  },
+  {
+    "owner": "volvocars.contracts.carconfiguration.MarketAuthsUpdated",
+    "field": "marketAuths",
+    "sourceType": "MarketAuthUpdated",
+    "target": "volvo/cce-pb-contracts-car-configuration/72cbaedcad24/local-r1/shape/volvocars.contracts.carconfiguration.MarketAuthUpdated",
+    "scope": "local exact package/nesting resolution",
+    "importBasis": "same source file/lexical namespace",
+    "targetPath": "volvocars/contracts/carconfiguration/cpam-ingress.proto"
+  },
+  {
+    "owner": "volvocars.contracts.carconfiguration.PartnerDetails",
+    "field": "retailData",
+    "sourceType": "RetailData",
+    "target": "volvo/cce-pb-contracts-car-configuration/72cbaedcad24/local-r1/shape/volvocars.contracts.carconfiguration.RetailData",
+    "scope": "local exact package/nesting resolution",
+    "importBasis": "same source file/lexical namespace",
+    "targetPath": "volvocars/contracts/carconfiguration/partnerDetailsFeed.proto"
+  },
+  {
+    "owner": "volvocars.contracts.carconfiguration.RetailData",
+    "field": "partners",
+    "sourceType": "PartnersDetailsData",
+    "target": "volvo/cce-pb-contracts-car-configuration/72cbaedcad24/local-r1/shape/volvocars.contracts.carconfiguration.PartnersDetailsData",
+    "scope": "local exact package/nesting resolution",
+    "importBasis": "same source file/lexical namespace",
+    "targetPath": "volvocars/contracts/carconfiguration/partnerDetailsFeed.proto"
+  },
+  {
+    "owner": "volvocars.contracts.carconfiguration.PartnersDetailsData",
+    "field": "partnerNames",
+    "sourceType": "ParterNames",
+    "target": "volvo/cce-pb-contracts-car-configuration/72cbaedcad24/local-r1/shape/volvocars.contracts.carconfiguration.ParterNames",
+    "scope": "local exact package/nesting resolution",
+    "importBasis": "same source file/lexical namespace",
+    "targetPath": "volvocars/contracts/carconfiguration/partnerDetailsFeed.proto"
+  },
+  {
+    "owner": "volvocars.contracts.carconfiguration.PartnerNotification",
+    "field": "data",
+    "sourceType": "PartnerNotificationData",
+    "target": "volvo/cce-pb-contracts-car-configuration/72cbaedcad24/local-r1/shape/volvocars.contracts.carconfiguration.PartnerNotificationData",
+    "scope": "local exact package/nesting resolution",
+    "importBasis": "same source file/lexical namespace",
+    "targetPath": "volvocars/contracts/carconfiguration/partnerNotify.proto"
+  },
+  {
+    "owner": "volvocars.contracts.carconfiguration.PartnerNotifications",
+    "field": "partnerNotifications",
+    "sourceType": "PartnerNotification",
+    "target": "volvo/cce-pb-contracts-car-configuration/72cbaedcad24/local-r1/shape/volvocars.contracts.carconfiguration.PartnerNotification",
+    "scope": "local exact package/nesting resolution",
+    "importBasis": "same source file/lexical namespace",
+    "targetPath": "volvocars/contracts/carconfiguration/partnerNotify.proto"
+  },
+  {
+    "owner": "volvocars.contracts.carconfiguration.RuleSetIndexed",
+    "field": "rule_sets",
+    "sourceType": "RuleSetStatus",
+    "target": "volvo/cce-pb-contracts-car-configuration/72cbaedcad24/local-r1/shape/volvocars.contracts.carconfiguration.RuleSetStatus",
+    "scope": "local exact package/nesting resolution",
+    "importBasis": "same source file/lexical namespace",
+    "targetPath": "volvocars/contracts/carconfiguration/rule-set.proto"
+  },
+  {
+    "owner": "volvocars.contracts.carconfiguration.RuleSetIndexingFailed",
+    "field": "rule_sets",
+    "sourceType": "RuleSetStatus",
+    "target": "volvo/cce-pb-contracts-car-configuration/72cbaedcad24/local-r1/shape/volvocars.contracts.carconfiguration.RuleSetStatus",
+    "scope": "local exact package/nesting resolution",
+    "importBasis": "same source file/lexical namespace",
+    "targetPath": "volvocars/contracts/carconfiguration/rule-set.proto"
+  },
+  {
+    "owner": "volvocars.contracts.carconfiguration.PolicyRuleSetsIndexCreated",
+    "field": "requests",
+    "sourceType": "PolicyRuleSetsIndexed",
+    "target": "volvo/cce-pb-contracts-car-configuration/72cbaedcad24/local-r1/shape/volvocars.contracts.carconfiguration.PolicyRuleSetsIndexed",
+    "scope": "local exact package/nesting resolution",
+    "importBasis": "same source file/lexical namespace",
+    "targetPath": "volvocars/contracts/carconfiguration/rule-set.proto"
+  },
+  {
+    "owner": "volvocars.contracts.carconfiguration.PolicyRuleSetsCacheWarmed",
+    "field": "requests",
+    "sourceType": "PolicyRuleSetsIndexed",
+    "target": "volvo/cce-pb-contracts-car-configuration/72cbaedcad24/local-r1/shape/volvocars.contracts.carconfiguration.PolicyRuleSetsIndexed",
+    "scope": "local exact package/nesting resolution",
+    "importBasis": "same source file/lexical namespace",
+    "targetPath": "volvocars/contracts/carconfiguration/rule-set.proto"
+  },
+  {
+    "owner": "volvocars.contracts.carconfiguration.Rule",
+    "field": "components",
+    "sourceType": "Component",
+    "target": "volvo/cce-pb-contracts-car-configuration/72cbaedcad24/local-r1/shape/volvocars.contracts.carconfiguration.Rule.Component",
+    "scope": "local exact package/nesting resolution",
+    "importBasis": "same source file/lexical namespace",
+    "targetPath": "volvocars/contracts/carconfiguration/rule.proto"
+  },
+  {
+    "owner": "volvocars.contracts.carconfiguration.Rule",
+    "field": "conditions",
+    "sourceType": "Condition",
+    "target": "volvo/cce-pb-contracts-car-configuration/72cbaedcad24/local-r1/shape/volvocars.contracts.carconfiguration.Rule.Condition",
+    "scope": "local exact package/nesting resolution",
+    "importBasis": "same source file/lexical namespace",
+    "targetPath": "volvocars/contracts/carconfiguration/rule.proto"
+  },
+  {
+    "owner": "volvocars.contracts.carconfiguration.Rule.Condition",
+    "field": "components",
+    "sourceType": "Component",
+    "target": "volvo/cce-pb-contracts-car-configuration/72cbaedcad24/local-r1/shape/volvocars.contracts.carconfiguration.Rule.Component",
+    "scope": "local exact package/nesting resolution",
+    "importBasis": "same source file/lexical namespace",
+    "targetPath": "volvocars/contracts/carconfiguration/rule.proto"
+  },
+  {
+    "owner": "volvocars.contracts.carconfiguration.Rule.Condition",
+    "field": "conditions",
+    "sourceType": "Condition",
+    "target": "volvo/cce-pb-contracts-car-configuration/72cbaedcad24/local-r1/shape/volvocars.contracts.carconfiguration.Rule.Condition",
+    "scope": "local exact package/nesting resolution",
+    "importBasis": "same source file/lexical namespace",
+    "targetPath": "volvocars/contracts/carconfiguration/rule.proto"
+  },
+  {
+    "owner": "volvocars.contracts.carconfiguration.v2.CarConfigurationRuleset",
+    "field": "car_details",
+    "sourceType": "CarDetails",
+    "target": "volvo/cce-pb-contracts-car-configuration/72cbaedcad24/local-r1/shape/volvocars.contracts.carconfiguration.v2.CarDetails",
+    "scope": "local exact package/nesting resolution",
+    "importBasis": "exact direct local import",
+    "targetPath": "volvocars/contracts/carconfiguration/v2/car-key.proto"
+  },
+  {
+    "owner": "volvocars.contracts.carconfiguration.v2.CarConfigurationRuleset",
+    "field": "ruleset",
+    "sourceType": "ConfigurationRuleset",
+    "target": "volvo/cce-pb-contracts-car-configuration/72cbaedcad24/local-r1/shape/volvocars.contracts.carconfiguration.v2.ConfigurationRuleset",
+    "scope": "local exact package/nesting resolution",
+    "importBasis": "same source file/lexical namespace",
+    "targetPath": "volvocars/contracts/carconfiguration/v2/car-configuration-ruleset.proto"
+  },
+  {
+    "owner": "volvocars.contracts.carconfiguration.v2.CarConfigurationRuleset",
+    "field": "components",
+    "sourceType": "Components",
+    "target": "volvo/cce-pb-contracts-car-configuration/72cbaedcad24/local-r1/shape/volvocars.contracts.carconfiguration.v2.Components",
+    "scope": "local exact package/nesting resolution",
+    "importBasis": "same source file/lexical namespace",
+    "targetPath": "volvocars/contracts/carconfiguration/v2/car-configuration-ruleset.proto"
+  },
+  {
+    "owner": "volvocars.contracts.carconfiguration.v2.ConfigurationRuleset",
+    "field": "polyhedron",
+    "sourceType": "Polyhedron",
+    "target": "volvo/cce-pb-contracts-car-configuration/72cbaedcad24/local-r1/shape/volvocars.contracts.carconfiguration.v2.Polyhedron",
+    "scope": "local exact package/nesting resolution",
+    "importBasis": "same source file/lexical namespace",
+    "targetPath": "volvocars/contracts/carconfiguration/v2/car-configuration-ruleset.proto"
+  },
+  {
+    "owner": "volvocars.contracts.carconfiguration.v2.ConfigurationRuleset",
+    "field": "period_variables",
+    "sourceType": "TimeBoundVariable",
+    "target": "volvo/cce-pb-contracts-car-configuration/72cbaedcad24/local-r1/shape/volvocars.contracts.carconfiguration.v2.TimeBoundVariable",
+    "scope": "local exact package/nesting resolution",
+    "importBasis": "same source file/lexical namespace",
+    "targetPath": "volvocars/contracts/carconfiguration/v2/car-configuration-ruleset.proto"
+  },
+  {
+    "owner": "volvocars.contracts.carconfiguration.v2.Polyhedron",
+    "field": "a_matrix",
+    "sourceType": "Row",
+    "target": "volvo/cce-pb-contracts-car-configuration/72cbaedcad24/local-r1/shape/volvocars.contracts.carconfiguration.v2.Row",
+    "scope": "local exact package/nesting resolution",
+    "importBasis": "same source file/lexical namespace",
+    "targetPath": "volvocars/contracts/carconfiguration/v2/car-configuration-ruleset.proto"
+  },
+  {
+    "owner": "volvocars.contracts.carconfiguration.v2.TimeBoundVariable",
+    "field": "period",
+    "sourceType": "Period",
+    "target": "volvo/cce-pb-contracts-car-configuration/72cbaedcad24/local-r1/shape/volvocars.contracts.carconfiguration.v2.Period",
+    "scope": "local exact package/nesting resolution",
+    "importBasis": "same source file/lexical namespace",
+    "targetPath": "volvocars/contracts/carconfiguration/v2/car-configuration-ruleset.proto"
+  },
+  {
+    "owner": "volvocars.contracts.carconfiguration.v2.Period",
+    "field": "from",
+    "sourceType": "google.protobuf.Timestamp",
+    "target": "volvo/cce-pb-contracts-car-configuration/72cbaedcad24/local-r1/shape/google.protobuf.Timestamp",
+    "scope": "external import source gap"
+  },
+  {
+    "owner": "volvocars.contracts.carconfiguration.v2.Period",
+    "field": "to",
+    "sourceType": "google.protobuf.Timestamp",
+    "target": "volvo/cce-pb-contracts-car-configuration/72cbaedcad24/local-r1/shape/google.protobuf.Timestamp",
+    "scope": "external import source gap"
+  },
+  {
+    "owner": "volvocars.contracts.carconfiguration.v2.CarKey",
+    "field": "details",
+    "sourceType": "CarDetails",
+    "target": "volvo/cce-pb-contracts-car-configuration/72cbaedcad24/local-r1/shape/volvocars.contracts.carconfiguration.v2.CarDetails",
+    "scope": "local exact package/nesting resolution",
+    "importBasis": "same source file/lexical namespace",
+    "targetPath": "volvocars/contracts/carconfiguration/v2/car-key.proto"
+  },
+  {
+    "owner": "volvocars.contracts.carconfiguration.v2.CarKey",
+    "field": "structure_week",
+    "sourceType": "StructureWeek",
+    "target": "volvo/cce-pb-contracts-car-configuration/72cbaedcad24/local-r1/shape/volvocars.contracts.carconfiguration.v2.StructureWeek",
+    "scope": "local exact package/nesting resolution",
+    "importBasis": "exact direct local import",
+    "targetPath": "volvocars/contracts/carconfiguration/v2/structure-week.proto"
+  },
+  {
+    "owner": "volvocars.contracts.carconfiguration.v2.CarKeyInPeriod",
+    "field": "car_key",
+    "sourceType": "CarKey",
+    "target": "volvo/cce-pb-contracts-car-configuration/72cbaedcad24/local-r1/shape/volvocars.contracts.carconfiguration.v2.CarKey",
+    "scope": "local exact package/nesting resolution",
+    "importBasis": "same source file/lexical namespace",
+    "targetPath": "volvocars/contracts/carconfiguration/v2/car-key.proto"
+  },
+  {
+    "owner": "volvocars.contracts.carconfiguration.v2.CarKeyInPeriod",
+    "field": "period",
+    "sourceType": "StructureWeekPeriod",
+    "target": "volvo/cce-pb-contracts-car-configuration/72cbaedcad24/local-r1/shape/volvocars.contracts.carconfiguration.v2.StructureWeekPeriod",
+    "scope": "local exact package/nesting resolution",
+    "importBasis": "exact direct local import",
+    "targetPath": "volvocars/contracts/carconfiguration/v2/structure-week.proto"
+  },
+  {
+    "owner": "volvocars.contracts.carconfiguration.v2.CarSpecification",
+    "field": "car_details",
+    "sourceType": "CarDetails",
+    "target": "volvo/cce-pb-contracts-car-configuration/72cbaedcad24/local-r1/shape/volvocars.contracts.carconfiguration.v2.CarDetails",
+    "scope": "local exact package/nesting resolution",
+    "importBasis": "exact direct local import",
+    "targetPath": "volvocars/contracts/carconfiguration/v2/car-key.proto"
+  },
+  {
+    "owner": "volvocars.contracts.carconfiguration.v2.CarSpecification",
+    "field": "structure_week_period",
+    "sourceType": "StructureWeekPeriod",
+    "target": "volvo/cce-pb-contracts-car-configuration/72cbaedcad24/local-r1/shape/volvocars.contracts.carconfiguration.v2.StructureWeekPeriod",
+    "scope": "local exact package/nesting resolution",
+    "importBasis": "exact direct local import",
+    "targetPath": "volvocars/contracts/carconfiguration/v2/structure-week.proto"
+  },
+  {
+    "owner": "volvocars.contracts.carconfiguration.v2.CarSpecification",
+    "field": "forbidden_structure_week_periods",
+    "sourceType": "StructureWeekPeriod",
+    "target": "volvo/cce-pb-contracts-car-configuration/72cbaedcad24/local-r1/shape/volvocars.contracts.carconfiguration.v2.StructureWeekPeriod",
+    "scope": "local exact package/nesting resolution",
+    "importBasis": "exact direct local import",
+    "targetPath": "volvocars/contracts/carconfiguration/v2/structure-week.proto"
+  },
+  {
+    "owner": "volvocars.contracts.carconfiguration.v2.CarSpecification",
+    "field": "s_messages",
+    "sourceType": "SMessageSpecification",
+    "target": "volvo/cce-pb-contracts-car-configuration/72cbaedcad24/local-r1/shape/volvocars.contracts.carconfiguration.v2.SMessageSpecification",
+    "scope": "local exact package/nesting resolution",
+    "importBasis": "same source file/lexical namespace",
+    "targetPath": "volvocars/contracts/carconfiguration/v2/car-specification.proto"
+  },
+  {
+    "owner": "volvocars.contracts.carconfiguration.v2.CarSpecification",
+    "field": "stylings",
+    "sourceType": "StylingSpecification",
+    "target": "volvo/cce-pb-contracts-car-configuration/72cbaedcad24/local-r1/shape/volvocars.contracts.carconfiguration.v2.StylingSpecification",
+    "scope": "local exact package/nesting resolution",
+    "importBasis": "same source file/lexical namespace",
+    "targetPath": "volvocars/contracts/carconfiguration/v2/car-specification.proto"
+  },
+  {
+    "owner": "volvocars.contracts.carconfiguration.v2.CarSpecification",
+    "field": "options",
+    "sourceType": "OptionSpecification",
+    "target": "volvo/cce-pb-contracts-car-configuration/72cbaedcad24/local-r1/shape/volvocars.contracts.carconfiguration.v2.OptionSpecification",
+    "scope": "local exact package/nesting resolution",
+    "importBasis": "same source file/lexical namespace",
+    "targetPath": "volvocars/contracts/carconfiguration/v2/car-specification.proto"
+  },
+  {
+    "owner": "volvocars.contracts.carconfiguration.v2.CarSpecification",
+    "field": "packages",
+    "sourceType": "PackageSpecification",
+    "target": "volvo/cce-pb-contracts-car-configuration/72cbaedcad24/local-r1/shape/volvocars.contracts.carconfiguration.v2.PackageSpecification",
+    "scope": "local exact package/nesting resolution",
+    "importBasis": "same source file/lexical namespace",
+    "targetPath": "volvocars/contracts/carconfiguration/v2/car-specification.proto"
+  },
+  {
+    "owner": "volvocars.contracts.carconfiguration.v2.CarSpecification",
+    "field": "wheels",
+    "sourceType": "WheelSpecification",
+    "target": "volvo/cce-pb-contracts-car-configuration/72cbaedcad24/local-r1/shape/volvocars.contracts.carconfiguration.v2.WheelSpecification",
+    "scope": "local exact package/nesting resolution",
+    "importBasis": "same source file/lexical namespace",
+    "targetPath": "volvocars/contracts/carconfiguration/v2/car-specification.proto"
+  },
+  {
+    "owner": "volvocars.contracts.carconfiguration.v2.SMessageSpecification",
+    "field": "s_messages",
+    "sourceType": "SMessage",
+    "target": "volvo/cce-pb-contracts-car-configuration/72cbaedcad24/local-r1/shape/volvocars.contracts.carconfiguration.v2.SMessage",
+    "scope": "local exact package/nesting resolution",
+    "importBasis": "same source file/lexical namespace",
+    "targetPath": "volvocars/contracts/carconfiguration/v2/car-specification.proto"
+  },
+  {
+    "owner": "volvocars.contracts.carconfiguration.v2.SMessage",
+    "field": "period",
+    "sourceType": "StructureWeekPeriod",
+    "target": "volvo/cce-pb-contracts-car-configuration/72cbaedcad24/local-r1/shape/volvocars.contracts.carconfiguration.v2.StructureWeekPeriod",
+    "scope": "local exact package/nesting resolution",
+    "importBasis": "exact direct local import",
+    "targetPath": "volvocars/contracts/carconfiguration/v2/structure-week.proto"
+  },
+  {
+    "owner": "volvocars.contracts.carconfiguration.v2.StylingSpecification",
+    "field": "colors",
+    "sourceType": "Color",
+    "target": "volvo/cce-pb-contracts-car-configuration/72cbaedcad24/local-r1/shape/volvocars.contracts.carconfiguration.v2.Color",
+    "scope": "local exact package/nesting resolution",
+    "importBasis": "same source file/lexical namespace",
+    "targetPath": "volvocars/contracts/carconfiguration/v2/car-specification.proto"
+  },
+  {
+    "owner": "volvocars.contracts.carconfiguration.v2.StylingSpecification",
+    "field": "upholsteries",
+    "sourceType": "Upholstery",
+    "target": "volvo/cce-pb-contracts-car-configuration/72cbaedcad24/local-r1/shape/volvocars.contracts.carconfiguration.v2.Upholstery",
+    "scope": "local exact package/nesting resolution",
+    "importBasis": "same source file/lexical namespace",
+    "targetPath": "volvocars/contracts/carconfiguration/v2/car-specification.proto"
+  },
+  {
+    "owner": "volvocars.contracts.carconfiguration.v2.StylingSpecification",
+    "field": "default_combination",
+    "sourceType": "StylingCombination",
+    "target": "volvo/cce-pb-contracts-car-configuration/72cbaedcad24/local-r1/shape/volvocars.contracts.carconfiguration.v2.StylingCombination",
+    "scope": "local exact package/nesting resolution",
+    "importBasis": "same source file/lexical namespace",
+    "targetPath": "volvocars/contracts/carconfiguration/v2/car-specification.proto"
+  },
+  {
+    "owner": "volvocars.contracts.carconfiguration.v2.StylingSpecification",
+    "field": "default_colors",
+    "sourceType": "TimeBoundCode",
+    "target": "volvo/cce-pb-contracts-car-configuration/72cbaedcad24/local-r1/shape/volvocars.contracts.carconfiguration.v2.TimeBoundCode",
+    "scope": "local exact package/nesting resolution",
+    "importBasis": "same source file/lexical namespace",
+    "targetPath": "volvocars/contracts/carconfiguration/v2/car-specification.proto"
+  },
+  {
+    "owner": "volvocars.contracts.carconfiguration.v2.StylingSpecification",
+    "field": "default_upholsteries",
+    "sourceType": "TimeBoundCode",
+    "target": "volvo/cce-pb-contracts-car-configuration/72cbaedcad24/local-r1/shape/volvocars.contracts.carconfiguration.v2.TimeBoundCode",
+    "scope": "local exact package/nesting resolution",
+    "importBasis": "same source file/lexical namespace",
+    "targetPath": "volvocars/contracts/carconfiguration/v2/car-specification.proto"
+  },
+  {
+    "owner": "volvocars.contracts.carconfiguration.v2.TimeBoundCode",
+    "field": "period",
+    "sourceType": "StructureWeekPeriod",
+    "target": "volvo/cce-pb-contracts-car-configuration/72cbaedcad24/local-r1/shape/volvocars.contracts.carconfiguration.v2.StructureWeekPeriod",
+    "scope": "local exact package/nesting resolution",
+    "importBasis": "exact direct local import",
+    "targetPath": "volvocars/contracts/carconfiguration/v2/structure-week.proto"
+  },
+  {
+    "owner": "volvocars.contracts.carconfiguration.v2.Color",
+    "field": "required_options",
+    "sourceType": "TimeBoundAtLeastOne",
+    "target": "volvo/cce-pb-contracts-car-configuration/72cbaedcad24/local-r1/shape/volvocars.contracts.carconfiguration.v2.TimeBoundAtLeastOne",
+    "scope": "local exact package/nesting resolution",
+    "importBasis": "same source file/lexical namespace",
+    "targetPath": "volvocars/contracts/carconfiguration/v2/car-specification.proto"
+  },
+  {
+    "owner": "volvocars.contracts.carconfiguration.v2.Color",
+    "field": "forbids_options",
+    "sourceType": "Forbids",
+    "target": "volvo/cce-pb-contracts-car-configuration/72cbaedcad24/local-r1/shape/volvocars.contracts.carconfiguration.v2.Forbids",
+    "scope": "local exact package/nesting resolution",
+    "importBasis": "same source file/lexical namespace",
+    "targetPath": "volvocars/contracts/carconfiguration/v2/car-specification.proto"
+  },
+  {
+    "owner": "volvocars.contracts.carconfiguration.v2.Color",
+    "field": "forbids_upholsteries",
+    "sourceType": "Forbids",
+    "target": "volvo/cce-pb-contracts-car-configuration/72cbaedcad24/local-r1/shape/volvocars.contracts.carconfiguration.v2.Forbids",
+    "scope": "local exact package/nesting resolution",
+    "importBasis": "same source file/lexical namespace",
+    "targetPath": "volvocars/contracts/carconfiguration/v2/car-specification.proto"
+  },
+  {
+    "owner": "volvocars.contracts.carconfiguration.v2.Color",
+    "field": "required_wheels",
+    "sourceType": "TimeBoundExactlyOne",
+    "target": "volvo/cce-pb-contracts-car-configuration/72cbaedcad24/local-r1/shape/volvocars.contracts.carconfiguration.v2.TimeBoundExactlyOne",
+    "scope": "local exact package/nesting resolution",
+    "importBasis": "same source file/lexical namespace",
+    "targetPath": "volvocars/contracts/carconfiguration/v2/car-specification.proto"
+  },
+  {
+    "owner": "volvocars.contracts.carconfiguration.v2.Color",
+    "field": "forbids_wheels",
+    "sourceType": "Forbids",
+    "target": "volvo/cce-pb-contracts-car-configuration/72cbaedcad24/local-r1/shape/volvocars.contracts.carconfiguration.v2.Forbids",
+    "scope": "local exact package/nesting resolution",
+    "importBasis": "same source file/lexical namespace",
+    "targetPath": "volvocars/contracts/carconfiguration/v2/car-specification.proto"
+  },
+  {
+    "owner": "volvocars.contracts.carconfiguration.v2.Color",
+    "field": "period",
+    "sourceType": "StructureWeekPeriod",
+    "target": "volvo/cce-pb-contracts-car-configuration/72cbaedcad24/local-r1/shape/volvocars.contracts.carconfiguration.v2.StructureWeekPeriod",
+    "scope": "local exact package/nesting resolution",
+    "importBasis": "exact direct local import",
+    "targetPath": "volvocars/contracts/carconfiguration/v2/structure-week.proto"
+  },
+  {
+    "owner": "volvocars.contracts.carconfiguration.v2.Upholstery",
+    "field": "required_options",
+    "sourceType": "TimeBoundAtLeastOne",
+    "target": "volvo/cce-pb-contracts-car-configuration/72cbaedcad24/local-r1/shape/volvocars.contracts.carconfiguration.v2.TimeBoundAtLeastOne",
+    "scope": "local exact package/nesting resolution",
+    "importBasis": "same source file/lexical namespace",
+    "targetPath": "volvocars/contracts/carconfiguration/v2/car-specification.proto"
+  },
+  {
+    "owner": "volvocars.contracts.carconfiguration.v2.Upholstery",
+    "field": "forbids_options",
+    "sourceType": "Forbids",
+    "target": "volvo/cce-pb-contracts-car-configuration/72cbaedcad24/local-r1/shape/volvocars.contracts.carconfiguration.v2.Forbids",
+    "scope": "local exact package/nesting resolution",
+    "importBasis": "same source file/lexical namespace",
+    "targetPath": "volvocars/contracts/carconfiguration/v2/car-specification.proto"
+  },
+  {
+    "owner": "volvocars.contracts.carconfiguration.v2.Upholstery",
+    "field": "forbids_colors",
+    "sourceType": "Forbids",
+    "target": "volvo/cce-pb-contracts-car-configuration/72cbaedcad24/local-r1/shape/volvocars.contracts.carconfiguration.v2.Forbids",
+    "scope": "local exact package/nesting resolution",
+    "importBasis": "same source file/lexical namespace",
+    "targetPath": "volvocars/contracts/carconfiguration/v2/car-specification.proto"
+  },
+  {
+    "owner": "volvocars.contracts.carconfiguration.v2.Upholstery",
+    "field": "forbids_wheels",
+    "sourceType": "Forbids",
+    "target": "volvo/cce-pb-contracts-car-configuration/72cbaedcad24/local-r1/shape/volvocars.contracts.carconfiguration.v2.Forbids",
+    "scope": "local exact package/nesting resolution",
+    "importBasis": "same source file/lexical namespace",
+    "targetPath": "volvocars/contracts/carconfiguration/v2/car-specification.proto"
+  },
+  {
+    "owner": "volvocars.contracts.carconfiguration.v2.Upholstery",
+    "field": "period",
+    "sourceType": "StructureWeekPeriod",
+    "target": "volvo/cce-pb-contracts-car-configuration/72cbaedcad24/local-r1/shape/volvocars.contracts.carconfiguration.v2.StructureWeekPeriod",
+    "scope": "local exact package/nesting resolution",
+    "importBasis": "exact direct local import",
+    "targetPath": "volvocars/contracts/carconfiguration/v2/structure-week.proto"
+  },
+  {
+    "owner": "volvocars.contracts.carconfiguration.v2.OptionSpecification",
+    "field": "options",
+    "sourceType": "Option",
+    "target": "volvo/cce-pb-contracts-car-configuration/72cbaedcad24/local-r1/shape/volvocars.contracts.carconfiguration.v2.Option",
+    "scope": "local exact package/nesting resolution",
+    "importBasis": "same source file/lexical namespace",
+    "targetPath": "volvocars/contracts/carconfiguration/v2/car-specification.proto"
+  },
+  {
+    "owner": "volvocars.contracts.carconfiguration.v2.OptionSpecification",
+    "field": "included_options",
+    "sourceType": "TimeBoundExactlyOne",
+    "target": "volvo/cce-pb-contracts-car-configuration/72cbaedcad24/local-r1/shape/volvocars.contracts.carconfiguration.v2.TimeBoundExactlyOne",
+    "scope": "local exact package/nesting resolution",
+    "importBasis": "same source file/lexical namespace",
+    "targetPath": "volvocars/contracts/carconfiguration/v2/car-specification.proto"
+  },
+  {
+    "owner": "volvocars.contracts.carconfiguration.v2.OptionSpecification",
+    "field": "combined_requirements",
+    "sourceType": "CombinedOptionRequirement",
+    "target": "volvo/cce-pb-contracts-car-configuration/72cbaedcad24/local-r1/shape/volvocars.contracts.carconfiguration.v2.CombinedOptionRequirement",
+    "scope": "local exact package/nesting resolution",
+    "importBasis": "same source file/lexical namespace",
+    "targetPath": "volvocars/contracts/carconfiguration/v2/car-specification.proto"
+  },
+  {
+    "owner": "volvocars.contracts.carconfiguration.v2.Option",
+    "field": "required_colors",
+    "sourceType": "TimeBoundExactlyOne",
+    "target": "volvo/cce-pb-contracts-car-configuration/72cbaedcad24/local-r1/shape/volvocars.contracts.carconfiguration.v2.TimeBoundExactlyOne",
+    "scope": "local exact package/nesting resolution",
+    "importBasis": "same source file/lexical namespace",
+    "targetPath": "volvocars/contracts/carconfiguration/v2/car-specification.proto"
+  },
+  {
+    "owner": "volvocars.contracts.carconfiguration.v2.Option",
+    "field": "required_upholsteries",
+    "sourceType": "TimeBoundExactlyOne",
+    "target": "volvo/cce-pb-contracts-car-configuration/72cbaedcad24/local-r1/shape/volvocars.contracts.carconfiguration.v2.TimeBoundExactlyOne",
+    "scope": "local exact package/nesting resolution",
+    "importBasis": "same source file/lexical namespace",
+    "targetPath": "volvocars/contracts/carconfiguration/v2/car-specification.proto"
+  },
+  {
+    "owner": "volvocars.contracts.carconfiguration.v2.Option",
+    "field": "required_options",
+    "sourceType": "TimeBoundAtLeastOne",
+    "target": "volvo/cce-pb-contracts-car-configuration/72cbaedcad24/local-r1/shape/volvocars.contracts.carconfiguration.v2.TimeBoundAtLeastOne",
+    "scope": "local exact package/nesting resolution",
+    "importBasis": "same source file/lexical namespace",
+    "targetPath": "volvocars/contracts/carconfiguration/v2/car-specification.proto"
+  },
+  {
+    "owner": "volvocars.contracts.carconfiguration.v2.Option",
+    "field": "required_wheels",
+    "sourceType": "TimeBoundExactlyOne",
+    "target": "volvo/cce-pb-contracts-car-configuration/72cbaedcad24/local-r1/shape/volvocars.contracts.carconfiguration.v2.TimeBoundExactlyOne",
+    "scope": "local exact package/nesting resolution",
+    "importBasis": "same source file/lexical namespace",
+    "targetPath": "volvocars/contracts/carconfiguration/v2/car-specification.proto"
+  },
+  {
+    "owner": "volvocars.contracts.carconfiguration.v2.Option",
+    "field": "forbids_options",
+    "sourceType": "Forbids",
+    "target": "volvo/cce-pb-contracts-car-configuration/72cbaedcad24/local-r1/shape/volvocars.contracts.carconfiguration.v2.Forbids",
+    "scope": "local exact package/nesting resolution",
+    "importBasis": "same source file/lexical namespace",
+    "targetPath": "volvocars/contracts/carconfiguration/v2/car-specification.proto"
+  },
+  {
+    "owner": "volvocars.contracts.carconfiguration.v2.Option",
+    "field": "forbids_colors",
+    "sourceType": "Forbids",
+    "target": "volvo/cce-pb-contracts-car-configuration/72cbaedcad24/local-r1/shape/volvocars.contracts.carconfiguration.v2.Forbids",
+    "scope": "local exact package/nesting resolution",
+    "importBasis": "same source file/lexical namespace",
+    "targetPath": "volvocars/contracts/carconfiguration/v2/car-specification.proto"
+  },
+  {
+    "owner": "volvocars.contracts.carconfiguration.v2.Option",
+    "field": "forbids_wheels",
+    "sourceType": "Forbids",
+    "target": "volvo/cce-pb-contracts-car-configuration/72cbaedcad24/local-r1/shape/volvocars.contracts.carconfiguration.v2.Forbids",
+    "scope": "local exact package/nesting resolution",
+    "importBasis": "same source file/lexical namespace",
+    "targetPath": "volvocars/contracts/carconfiguration/v2/car-specification.proto"
+  },
+  {
+    "owner": "volvocars.contracts.carconfiguration.v2.Option",
+    "field": "forbids_upholsteries",
+    "sourceType": "Forbids",
+    "target": "volvo/cce-pb-contracts-car-configuration/72cbaedcad24/local-r1/shape/volvocars.contracts.carconfiguration.v2.Forbids",
+    "scope": "local exact package/nesting resolution",
+    "importBasis": "same source file/lexical namespace",
+    "targetPath": "volvocars/contracts/carconfiguration/v2/car-specification.proto"
+  },
+  {
+    "owner": "volvocars.contracts.carconfiguration.v2.Option",
+    "field": "period",
+    "sourceType": "StructureWeekPeriod",
+    "target": "volvo/cce-pb-contracts-car-configuration/72cbaedcad24/local-r1/shape/volvocars.contracts.carconfiguration.v2.StructureWeekPeriod",
+    "scope": "local exact package/nesting resolution",
+    "importBasis": "exact direct local import",
+    "targetPath": "volvocars/contracts/carconfiguration/v2/structure-week.proto"
+  },
+  {
+    "owner": "volvocars.contracts.carconfiguration.v2.PackageSpecification",
+    "field": "packages",
+    "sourceType": "Package",
+    "target": "volvo/cce-pb-contracts-car-configuration/72cbaedcad24/local-r1/shape/volvocars.contracts.carconfiguration.v2.Package",
+    "scope": "local exact package/nesting resolution",
+    "importBasis": "same source file/lexical namespace",
+    "targetPath": "volvocars/contracts/carconfiguration/v2/car-specification.proto"
+  },
+  {
+    "owner": "volvocars.contracts.carconfiguration.v2.PackageSpecification",
+    "field": "included_packages",
+    "sourceType": "TimeBoundExactlyOne",
+    "target": "volvo/cce-pb-contracts-car-configuration/72cbaedcad24/local-r1/shape/volvocars.contracts.carconfiguration.v2.TimeBoundExactlyOne",
+    "scope": "local exact package/nesting resolution",
+    "importBasis": "same source file/lexical namespace",
+    "targetPath": "volvocars/contracts/carconfiguration/v2/car-specification.proto"
+  },
+  {
+    "owner": "volvocars.contracts.carconfiguration.v2.Package",
+    "field": "required_colors",
+    "sourceType": "ExactlyOne",
+    "target": "volvo/cce-pb-contracts-car-configuration/72cbaedcad24/local-r1/shape/volvocars.contracts.carconfiguration.v2.ExactlyOne",
+    "scope": "local exact package/nesting resolution",
+    "importBasis": "same source file/lexical namespace",
+    "targetPath": "volvocars/contracts/carconfiguration/v2/car-specification.proto"
+  },
+  {
+    "owner": "volvocars.contracts.carconfiguration.v2.Package",
+    "field": "required_upholsteries",
+    "sourceType": "ExactlyOne",
+    "target": "volvo/cce-pb-contracts-car-configuration/72cbaedcad24/local-r1/shape/volvocars.contracts.carconfiguration.v2.ExactlyOne",
+    "scope": "local exact package/nesting resolution",
+    "importBasis": "same source file/lexical namespace",
+    "targetPath": "volvocars/contracts/carconfiguration/v2/car-specification.proto"
+  },
+  {
+    "owner": "volvocars.contracts.carconfiguration.v2.Package",
+    "field": "required_options",
+    "sourceType": "ExactlyOne",
+    "target": "volvo/cce-pb-contracts-car-configuration/72cbaedcad24/local-r1/shape/volvocars.contracts.carconfiguration.v2.ExactlyOne",
+    "scope": "local exact package/nesting resolution",
+    "importBasis": "same source file/lexical namespace",
+    "targetPath": "volvocars/contracts/carconfiguration/v2/car-specification.proto"
+  },
+  {
+    "owner": "volvocars.contracts.carconfiguration.v2.Package",
+    "field": "required_wheels",
+    "sourceType": "ExactlyOne",
+    "target": "volvo/cce-pb-contracts-car-configuration/72cbaedcad24/local-r1/shape/volvocars.contracts.carconfiguration.v2.ExactlyOne",
+    "scope": "local exact package/nesting resolution",
+    "importBasis": "same source file/lexical namespace",
+    "targetPath": "volvocars/contracts/carconfiguration/v2/car-specification.proto"
+  },
+  {
+    "owner": "volvocars.contracts.carconfiguration.v2.Package",
+    "field": "period",
+    "sourceType": "StructureWeekPeriod",
+    "target": "volvo/cce-pb-contracts-car-configuration/72cbaedcad24/local-r1/shape/volvocars.contracts.carconfiguration.v2.StructureWeekPeriod",
+    "scope": "local exact package/nesting resolution",
+    "importBasis": "exact direct local import",
+    "targetPath": "volvocars/contracts/carconfiguration/v2/structure-week.proto"
+  },
+  {
+    "owner": "volvocars.contracts.carconfiguration.v2.WheelSpecification",
+    "field": "wheels",
+    "sourceType": "Wheel",
+    "target": "volvo/cce-pb-contracts-car-configuration/72cbaedcad24/local-r1/shape/volvocars.contracts.carconfiguration.v2.Wheel",
+    "scope": "local exact package/nesting resolution",
+    "importBasis": "same source file/lexical namespace",
+    "targetPath": "volvocars/contracts/carconfiguration/v2/car-specification.proto"
+  },
+  {
+    "owner": "volvocars.contracts.carconfiguration.v2.Wheel",
+    "field": "required_colors",
+    "sourceType": "TimeBoundExactlyOne",
+    "target": "volvo/cce-pb-contracts-car-configuration/72cbaedcad24/local-r1/shape/volvocars.contracts.carconfiguration.v2.TimeBoundExactlyOne",
+    "scope": "local exact package/nesting resolution",
+    "importBasis": "same source file/lexical namespace",
+    "targetPath": "volvocars/contracts/carconfiguration/v2/car-specification.proto"
+  },
+  {
+    "owner": "volvocars.contracts.carconfiguration.v2.Wheel",
+    "field": "required_options",
+    "sourceType": "TimeBoundAtLeastOne",
+    "target": "volvo/cce-pb-contracts-car-configuration/72cbaedcad24/local-r1/shape/volvocars.contracts.carconfiguration.v2.TimeBoundAtLeastOne",
+    "scope": "local exact package/nesting resolution",
+    "importBasis": "same source file/lexical namespace",
+    "targetPath": "volvocars/contracts/carconfiguration/v2/car-specification.proto"
+  },
+  {
+    "owner": "volvocars.contracts.carconfiguration.v2.Wheel",
+    "field": "required_upholsteries",
+    "sourceType": "TimeBoundExactlyOne",
+    "target": "volvo/cce-pb-contracts-car-configuration/72cbaedcad24/local-r1/shape/volvocars.contracts.carconfiguration.v2.TimeBoundExactlyOne",
+    "scope": "local exact package/nesting resolution",
+    "importBasis": "same source file/lexical namespace",
+    "targetPath": "volvocars/contracts/carconfiguration/v2/car-specification.proto"
+  },
+  {
+    "owner": "volvocars.contracts.carconfiguration.v2.Wheel",
+    "field": "forbids_options",
+    "sourceType": "Forbids",
+    "target": "volvo/cce-pb-contracts-car-configuration/72cbaedcad24/local-r1/shape/volvocars.contracts.carconfiguration.v2.Forbids",
+    "scope": "local exact package/nesting resolution",
+    "importBasis": "same source file/lexical namespace",
+    "targetPath": "volvocars/contracts/carconfiguration/v2/car-specification.proto"
+  },
+  {
+    "owner": "volvocars.contracts.carconfiguration.v2.Wheel",
+    "field": "forbids_upholsteries",
+    "sourceType": "Forbids",
+    "target": "volvo/cce-pb-contracts-car-configuration/72cbaedcad24/local-r1/shape/volvocars.contracts.carconfiguration.v2.Forbids",
+    "scope": "local exact package/nesting resolution",
+    "importBasis": "same source file/lexical namespace",
+    "targetPath": "volvocars/contracts/carconfiguration/v2/car-specification.proto"
+  },
+  {
+    "owner": "volvocars.contracts.carconfiguration.v2.Wheel",
+    "field": "period",
+    "sourceType": "StructureWeekPeriod",
+    "target": "volvo/cce-pb-contracts-car-configuration/72cbaedcad24/local-r1/shape/volvocars.contracts.carconfiguration.v2.StructureWeekPeriod",
+    "scope": "local exact package/nesting resolution",
+    "importBasis": "exact direct local import",
+    "targetPath": "volvocars/contracts/carconfiguration/v2/structure-week.proto"
+  },
+  {
+    "owner": "volvocars.contracts.carconfiguration.v2.TimeBoundExactlyOne",
+    "field": "period",
+    "sourceType": "StructureWeekPeriod",
+    "target": "volvo/cce-pb-contracts-car-configuration/72cbaedcad24/local-r1/shape/volvocars.contracts.carconfiguration.v2.StructureWeekPeriod",
+    "scope": "local exact package/nesting resolution",
+    "importBasis": "exact direct local import",
+    "targetPath": "volvocars/contracts/carconfiguration/v2/structure-week.proto"
+  },
+  {
+    "owner": "volvocars.contracts.carconfiguration.v2.TimeBoundAtLeastOne",
+    "field": "period",
+    "sourceType": "StructureWeekPeriod",
+    "target": "volvo/cce-pb-contracts-car-configuration/72cbaedcad24/local-r1/shape/volvocars.contracts.carconfiguration.v2.StructureWeekPeriod",
+    "scope": "local exact package/nesting resolution",
+    "importBasis": "exact direct local import",
+    "targetPath": "volvocars/contracts/carconfiguration/v2/structure-week.proto"
+  },
+  {
+    "owner": "volvocars.contracts.carconfiguration.v2.Forbids",
+    "field": "period",
+    "sourceType": "StructureWeekPeriod",
+    "target": "volvo/cce-pb-contracts-car-configuration/72cbaedcad24/local-r1/shape/volvocars.contracts.carconfiguration.v2.StructureWeekPeriod",
+    "scope": "local exact package/nesting resolution",
+    "importBasis": "exact direct local import",
+    "targetPath": "volvocars/contracts/carconfiguration/v2/structure-week.proto"
+  },
+  {
+    "owner": "volvocars.contracts.carconfiguration.v2.CarSpecificationUpserted",
+    "field": "specification",
+    "sourceType": "CarSpecification",
+    "target": "volvo/cce-pb-contracts-car-configuration/72cbaedcad24/local-r1/shape/volvocars.contracts.carconfiguration.v2.CarSpecification",
+    "scope": "local exact package/nesting resolution",
+    "importBasis": "same source file/lexical namespace",
+    "targetPath": "volvocars/contracts/carconfiguration/v2/car-specification.proto"
+  },
+  {
+    "owner": "volvocars.contracts.carconfiguration.v2.CarSpecificationUpserted",
+    "field": "market_auth_identifier",
+    "sourceType": "MarketAuthIdentifier",
+    "target": "volvo/cce-pb-contracts-car-configuration/72cbaedcad24/local-r1/shape/volvocars.contracts.carconfiguration.v2.MarketAuthIdentifier",
+    "scope": "local exact package/nesting resolution",
+    "importBasis": "same source file/lexical namespace",
+    "targetPath": "volvocars/contracts/carconfiguration/v2/car-specification.proto"
+  },
+  {
+    "owner": "volvocars.contracts.carconfiguration.v2.ComponentWithCarKeys",
+    "field": "component",
+    "sourceType": "Component",
+    "target": "volvo/cce-pb-contracts-car-configuration/72cbaedcad24/local-r1/shape/volvocars.contracts.carconfiguration.v2.Component",
+    "scope": "local exact package/nesting resolution",
+    "importBasis": "same source file/lexical namespace",
+    "targetPath": "volvocars/contracts/carconfiguration/v2/components.proto"
+  },
+  {
+    "owner": "volvocars.contracts.carconfiguration.v2.ComponentWithCarKeys",
+    "field": "car_keys",
+    "sourceType": "CarKeyInPeriod",
+    "target": "volvo/cce-pb-contracts-car-configuration/72cbaedcad24/local-r1/shape/volvocars.contracts.carconfiguration.v2.CarKeyInPeriod",
+    "scope": "local exact package/nesting resolution",
+    "importBasis": "exact direct local import",
+    "targetPath": "volvocars/contracts/carconfiguration/v2/car-key.proto"
+  },
+  {
+    "owner": "volvocars.contracts.carconfiguration.v2.PackageComponentWithCarKeys",
+    "field": "component",
+    "sourceType": "PackageComponent",
+    "target": "volvo/cce-pb-contracts-car-configuration/72cbaedcad24/local-r1/shape/volvocars.contracts.carconfiguration.v2.PackageComponent",
+    "scope": "local exact package/nesting resolution",
+    "importBasis": "same source file/lexical namespace",
+    "targetPath": "volvocars/contracts/carconfiguration/v2/components.proto"
+  },
+  {
+    "owner": "volvocars.contracts.carconfiguration.v2.PackageComponentWithCarKeys",
+    "field": "car_keys",
+    "sourceType": "CarKeyInPeriod",
+    "target": "volvo/cce-pb-contracts-car-configuration/72cbaedcad24/local-r1/shape/volvocars.contracts.carconfiguration.v2.CarKeyInPeriod",
+    "scope": "local exact package/nesting resolution",
+    "importBasis": "exact direct local import",
+    "targetPath": "volvocars/contracts/carconfiguration/v2/car-key.proto"
+  },
+  {
+    "owner": "volvocars.contracts.carconfiguration.v2.PackageComponent",
+    "field": "variant",
+    "sourceType": "Component",
+    "target": "volvo/cce-pb-contracts-car-configuration/72cbaedcad24/local-r1/shape/volvocars.contracts.carconfiguration.v2.Component",
+    "scope": "local exact package/nesting resolution",
+    "importBasis": "same source file/lexical namespace",
+    "targetPath": "volvocars/contracts/carconfiguration/v2/components.proto"
+  },
+  {
+    "owner": "volvocars.contracts.carconfiguration.v2.Selection",
+    "field": "action",
+    "sourceType": "Action",
+    "target": "volvo/cce-pb-contracts-car-configuration/72cbaedcad24/local-r1/shape/volvocars.contracts.carconfiguration.v2.Action",
+    "scope": "local exact package/nesting resolution",
+    "importBasis": "same source file/lexical namespace",
+    "targetPath": "volvocars/contracts/carconfiguration/v2/selection.proto"
+  },
+  {
+    "owner": "volvocars.contracts.carconfiguration.v2.StructureWeekPeriod",
+    "field": "from",
+    "sourceType": "StructureWeek",
+    "target": "volvo/cce-pb-contracts-car-configuration/72cbaedcad24/local-r1/shape/volvocars.contracts.carconfiguration.v2.StructureWeek",
+    "scope": "local exact package/nesting resolution",
+    "importBasis": "same source file/lexical namespace",
+    "targetPath": "volvocars/contracts/carconfiguration/v2/structure-week.proto"
+  },
+  {
+    "owner": "volvocars.contracts.carconfiguration.v2.StructureWeekPeriod",
+    "field": "to",
+    "sourceType": "StructureWeek",
+    "target": "volvo/cce-pb-contracts-car-configuration/72cbaedcad24/local-r1/shape/volvocars.contracts.carconfiguration.v2.StructureWeek",
+    "scope": "local exact package/nesting resolution",
+    "importBasis": "same source file/lexical namespace",
+    "targetPath": "volvocars/contracts/carconfiguration/v2/structure-week.proto"
+  }
+]

@@ -1,0 +1,54 @@
+{
+  "snapshot": "c928e6c2ac32cd9acf39877d95d4e6b0f4081d2066a120c42a7a9d281752a5df",
+  "status": "passed",
+  "checks": [
+    {
+      "name": "register route Mongo writes",
+      "nodes": 2,
+      "edges": 4,
+      "limits": []
+    },
+    {
+      "name": "poller database and payment API",
+      "nodes": 3,
+      "edges": 17,
+      "limits": ["maxNodes"]
+    },
+    {
+      "name": "actual notification Kafka publish",
+      "nodes": 2,
+      "edges": 1,
+      "limits": []
+    },
+    {
+      "name": "notification source argument 0",
+      "nodes": 6,
+      "edges": 5,
+      "limits": []
+    },
+    {
+      "name": "notification source argument 1",
+      "nodes": 7,
+      "edges": 6,
+      "limits": []
+    },
+    {
+      "name": "notification source argument 2",
+      "nodes": 43,
+      "edges": 47,
+      "limits": []
+    },
+    {
+      "name": "lock release actual remove and returned count",
+      "nodes": 2,
+      "edges": 2,
+      "limits": []
+    },
+    {
+      "name": "structured writes with unknown save policy",
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    }
+  ]
+}

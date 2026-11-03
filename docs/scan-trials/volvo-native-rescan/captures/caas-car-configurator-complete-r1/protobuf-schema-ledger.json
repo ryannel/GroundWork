@@ -1,0 +1,350 @@
+[
+  {
+    "path": "internal/api/grpcserver/protobufs/car-configuration-ruleset.proto",
+    "name": "CarConfigurationRuleset",
+    "kind": "message",
+    "lines": [8, 12]
+  },
+  {
+    "path": "internal/api/grpcserver/protobufs/car-configuration-ruleset.proto",
+    "name": "ConfigurationRuleset",
+    "kind": "message",
+    "lines": [14, 21]
+  },
+  {
+    "path": "internal/api/grpcserver/protobufs/car-configuration-ruleset.proto",
+    "name": "Polyhedron",
+    "kind": "message",
+    "lines": [23, 26]
+  },
+  {
+    "path": "internal/api/grpcserver/protobufs/car-configuration-ruleset.proto",
+    "name": "Row",
+    "kind": "message",
+    "lines": [28, 30]
+  },
+  {
+    "path": "internal/api/grpcserver/protobufs/car-configuration-ruleset.proto",
+    "name": "Components",
+    "kind": "message",
+    "lines": [32, 39]
+  },
+  {
+    "path": "internal/api/grpcserver/protobufs/car-configuration-ruleset.proto",
+    "name": "TimeBoundVariable",
+    "kind": "message",
+    "lines": [41, 44]
+  },
+  {
+    "path": "internal/api/grpcserver/protobufs/car-configuration-ruleset.proto",
+    "name": "Period",
+    "kind": "message",
+    "lines": [46, 49]
+  },
+  {
+    "path": "internal/api/grpcserver/protobufs/car-key.proto",
+    "name": "CarKey",
+    "kind": "message",
+    "lines": [7, 18]
+  },
+  {
+    "path": "internal/api/grpcserver/protobufs/car-key.proto",
+    "name": "CarDetails",
+    "kind": "message",
+    "lines": [20, 32]
+  },
+  {
+    "path": "internal/api/grpcserver/protobufs/car-key.proto",
+    "name": "CarKeyInPeriod",
+    "kind": "message",
+    "lines": [34, 37]
+  },
+  {
+    "path": "internal/api/grpcserver/protobufs/car-specification.proto",
+    "name": "CarSpecification",
+    "kind": "message",
+    "lines": [8, 18]
+  },
+  {
+    "path": "internal/api/grpcserver/protobufs/car-specification.proto",
+    "name": "SMessageSpecification",
+    "kind": "message",
+    "lines": [20, 22]
+  },
+  {
+    "path": "internal/api/grpcserver/protobufs/car-specification.proto",
+    "name": "SMessage",
+    "kind": "message",
+    "lines": [24, 27]
+  },
+  {
+    "path": "internal/api/grpcserver/protobufs/car-specification.proto",
+    "name": "StylingSpecification",
+    "kind": "message",
+    "lines": [29, 36]
+  },
+  {
+    "path": "internal/api/grpcserver/protobufs/car-specification.proto",
+    "name": "StylingCombination",
+    "kind": "message",
+    "lines": [38, 41]
+  },
+  {
+    "path": "internal/api/grpcserver/protobufs/car-specification.proto",
+    "name": "TimeBoundCode",
+    "kind": "message",
+    "lines": [43, 47]
+  },
+  {
+    "path": "internal/api/grpcserver/protobufs/car-specification.proto",
+    "name": "Color",
+    "kind": "message",
+    "lines": [49, 59]
+  },
+  {
+    "path": "internal/api/grpcserver/protobufs/car-specification.proto",
+    "name": "Upholstery",
+    "kind": "message",
+    "lines": [61, 70]
+  },
+  {
+    "path": "internal/api/grpcserver/protobufs/car-specification.proto",
+    "name": "OptionSpecification",
+    "kind": "message",
+    "lines": [72, 79]
+  },
+  {
+    "path": "internal/api/grpcserver/protobufs/car-specification.proto",
+    "name": "Option",
+    "kind": "message",
+    "lines": [81, 95]
+  },
+  {
+    "path": "internal/api/grpcserver/protobufs/car-specification.proto",
+    "name": "CombinedOptionRequirement",
+    "kind": "message",
+    "lines": [97, 100]
+  },
+  {
+    "path": "internal/api/grpcserver/protobufs/car-specification.proto",
+    "name": "PackageSpecification",
+    "kind": "message",
+    "lines": [102, 106]
+  },
+  {
+    "path": "internal/api/grpcserver/protobufs/car-specification.proto",
+    "name": "Package",
+    "kind": "message",
+    "lines": [108, 117]
+  },
+  {
+    "path": "internal/api/grpcserver/protobufs/car-specification.proto",
+    "name": "WheelSpecification",
+    "kind": "message",
+    "lines": [121, 124]
+  },
+  {
+    "path": "internal/api/grpcserver/protobufs/car-specification.proto",
+    "name": "Wheel",
+    "kind": "message",
+    "lines": [126, 137]
+  },
+  {
+    "path": "internal/api/grpcserver/protobufs/car-specification.proto",
+    "name": "TimeBoundExactlyOne",
+    "kind": "message",
+    "lines": [139, 144]
+  },
+  {
+    "path": "internal/api/grpcserver/protobufs/car-specification.proto",
+    "name": "ExactlyOne",
+    "kind": "message",
+    "lines": [146, 149]
+  },
+  {
+    "path": "internal/api/grpcserver/protobufs/car-specification.proto",
+    "name": "TimeBoundAtLeastOne",
+    "kind": "message",
+    "lines": [151, 156]
+  },
+  {
+    "path": "internal/api/grpcserver/protobufs/car-specification.proto",
+    "name": "Forbids",
+    "kind": "message",
+    "lines": [158, 162]
+  },
+  {
+    "path": "internal/api/grpcserver/protobufs/car-specification.proto",
+    "name": "CarSpecificationUpserted",
+    "kind": "message",
+    "lines": [164, 168]
+  },
+  {
+    "path": "internal/api/grpcserver/protobufs/car-specification.proto",
+    "name": "CarSpecificationRemoved",
+    "kind": "message",
+    "lines": [170, 176]
+  },
+  {
+    "path": "internal/api/grpcserver/protobufs/car-specification.proto",
+    "name": "MarketAuthIdentifier",
+    "kind": "message",
+    "lines": [178, 181]
+  },
+  {
+    "path": "internal/api/grpcserver/protobufs/components.proto",
+    "name": "ComponentWithCarKeys",
+    "kind": "message",
+    "lines": [8, 11]
+  },
+  {
+    "path": "internal/api/grpcserver/protobufs/components.proto",
+    "name": "Component",
+    "kind": "message",
+    "lines": [13, 16]
+  },
+  {
+    "path": "internal/api/grpcserver/protobufs/components.proto",
+    "name": "PackageComponentWithCarKeys",
+    "kind": "message",
+    "lines": [18, 21]
+  },
+  {
+    "path": "internal/api/grpcserver/protobufs/components.proto",
+    "name": "PackageComponent",
+    "kind": "message",
+    "lines": [23, 26]
+  },
+  {
+    "path": "internal/api/grpcserver/protobufs/selection.proto",
+    "name": "Selection",
+    "kind": "message",
+    "lines": [5, 9]
+  },
+  {
+    "path": "internal/api/grpcserver/protobufs/selection.proto",
+    "name": "Action",
+    "kind": "enum",
+    "lines": [11, 14]
+  },
+  {
+    "path": "internal/api/grpcserver/protobufs/service.proto",
+    "name": "HealthCheckRequest",
+    "kind": "message",
+    "lines": [47, 47]
+  },
+  {
+    "path": "internal/api/grpcserver/protobufs/service.proto",
+    "name": "HealthCheckResponse",
+    "kind": "message",
+    "lines": [49, 51]
+  },
+  {
+    "path": "internal/api/grpcserver/protobufs/service.proto",
+    "name": "HealthStatus",
+    "kind": "enum",
+    "lines": [53, 56]
+  },
+  {
+    "path": "internal/api/grpcserver/protobufs/service.proto",
+    "name": "CreateRulesetResponse",
+    "kind": "message",
+    "lines": [58, 60]
+  },
+  {
+    "path": "internal/api/grpcserver/protobufs/service.proto",
+    "name": "DeleteRulesetRequest",
+    "kind": "message",
+    "lines": [63, 65]
+  },
+  {
+    "path": "internal/api/grpcserver/protobufs/service.proto",
+    "name": "CalculateCarKeyRequestV2",
+    "kind": "message",
+    "lines": [67, 72]
+  },
+  {
+    "path": "internal/api/grpcserver/protobufs/service.proto",
+    "name": "CalculateStartCarKeysRequest",
+    "kind": "message",
+    "lines": [74, 76]
+  },
+  {
+    "path": "internal/api/grpcserver/protobufs/service.proto",
+    "name": "StartCarKeysResponse",
+    "kind": "message",
+    "lines": [78, 80]
+  },
+  {
+    "path": "internal/api/grpcserver/protobufs/service.proto",
+    "name": "CalculateBaseCarKeysRequest",
+    "kind": "message",
+    "lines": [82, 84]
+  },
+  {
+    "path": "internal/api/grpcserver/protobufs/service.proto",
+    "name": "BaseCarKeysResponse",
+    "kind": "message",
+    "lines": [86, 89]
+  },
+  {
+    "path": "internal/api/grpcserver/protobufs/service.proto",
+    "name": "CalculateNextCarKeysRequest",
+    "kind": "message",
+    "lines": [91, 96]
+  },
+  {
+    "path": "internal/api/grpcserver/protobufs/service.proto",
+    "name": "NextCarKeysResponse",
+    "kind": "message",
+    "lines": [98, 100]
+  },
+  {
+    "path": "internal/api/grpcserver/protobufs/service.proto",
+    "name": "CarKeyForSelection",
+    "kind": "message",
+    "lines": [102, 105]
+  },
+  {
+    "path": "internal/api/grpcserver/protobufs/service.proto",
+    "name": "CalculateManyCarKeysRequest",
+    "kind": "message",
+    "lines": [107, 112]
+  },
+  {
+    "path": "internal/api/grpcserver/protobufs/service.proto",
+    "name": "SelectionGroup",
+    "kind": "message",
+    "lines": [114, 116]
+  },
+  {
+    "path": "internal/api/grpcserver/protobufs/service.proto",
+    "name": "CalculateManyCarKeysResponse",
+    "kind": "message",
+    "lines": [118, 120]
+  },
+  {
+    "path": "internal/api/grpcserver/protobufs/service.proto",
+    "name": "CarKeyForSelectionGroup",
+    "kind": "message",
+    "lines": [122, 125]
+  },
+  {
+    "path": "internal/api/grpcserver/protobufs/service.proto",
+    "name": "GetCarSpecificationRequest",
+    "kind": "message",
+    "lines": [127, 129]
+  },
+  {
+    "path": "internal/api/grpcserver/protobufs/structure-week.proto",
+    "name": "StructureWeek",
+    "kind": "message",
+    "lines": [5, 8]
+  },
+  {
+    "path": "internal/api/grpcserver/protobufs/structure-week.proto",
+    "name": "StructureWeekPeriod",
+    "kind": "message",
+    "lines": [10, 13]
+  }
+]

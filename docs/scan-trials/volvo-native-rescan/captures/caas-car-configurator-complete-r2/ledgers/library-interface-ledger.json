@@ -1,0 +1,56 @@
+[
+  {
+    "name": "HealthCheck",
+    "contract": "caas-car-configurator-5495209-complete-r2/interface_contract/exported-client/HealthCheck",
+    "runtimeHost": null,
+    "entryBinding": null
+  },
+  {
+    "name": "CreateRuleset",
+    "contract": "caas-car-configurator-5495209-complete-r2/interface_contract/exported-client/CreateRuleset",
+    "runtimeHost": null,
+    "entryBinding": null
+  },
+  {
+    "name": "DeleteRuleset",
+    "contract": "caas-car-configurator-5495209-complete-r2/interface_contract/exported-client/DeleteRuleset",
+    "runtimeHost": null,
+    "entryBinding": null
+  },
+  {
+    "name": "CalculateCarKeyV2",
+    "contract": "caas-car-configurator-5495209-complete-r2/interface_contract/exported-client/CalculateCarKeyV2",
+    "runtimeHost": null,
+    "entryBinding": null
+  },
+  {
+    "name": "CalculateStartCarKeys",
+    "contract": "caas-car-configurator-5495209-complete-r2/interface_contract/exported-client/CalculateStartCarKeys",
+    "runtimeHost": null,
+    "entryBinding": null
+  },
+  {
+    "name": "CalculateBaseCarKeys",
+    "contract": "caas-car-configurator-5495209-complete-r2/interface_contract/exported-client/CalculateBaseCarKeys",
+    "runtimeHost": null,
+    "entryBinding": null
+  },
+  {
+    "name": "CalculateNextCarKeys",
+    "contract": "caas-car-configurator-5495209-complete-r2/interface_contract/exported-client/CalculateNextCarKeys",
+    "runtimeHost": null,
+    "entryBinding": null
+  },
+  {
+    "name": "CalculateManyCarKeys",
+    "contract": "caas-car-configurator-5495209-complete-r2/interface_contract/exported-client/CalculateManyCarKeys",
+    "runtimeHost": null,
+    "entryBinding": null
+  },
+  {
+    "name": "GetCarSpecification",
+    "contract": "caas-car-configurator-5495209-complete-r2/interface_contract/exported-client/GetCarSpecification",
+    "runtimeHost": null,
+    "entryBinding": null
+  }
+]

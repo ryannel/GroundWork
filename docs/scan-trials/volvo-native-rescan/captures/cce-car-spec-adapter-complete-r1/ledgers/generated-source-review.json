@@ -1,0 +1,1983 @@
+{
+  "scope": "Exact generated Go templates and all exceptions checked against pinned AST/source. All five protobuf descriptor initializers and Swagger register initializer separately read. No generated service descriptor or server registration in these files. Raw descriptors/types/field tags retained as declarations, not extra runtime entrypoints.",
+  "counts": {
+    "source-initialiser": 6,
+    "Reset": 29,
+    "String": 29,
+    "ProtoMessage": 29,
+    "ProtoReflect": 29,
+    "Descriptor": 29,
+    "nil-guarded-field-getter": 120,
+    "deferred-compression-registration": 5,
+    "descriptor-builder": 5
+  },
+  "methods": [
+    {
+      "path": "api/docs.go",
+      "name": "init",
+      "lines": [1032, 1034],
+      "category": "source-initialiser",
+      "source": "func init() {\n\tswag.Register(SwaggerInfo.InstanceName(), SwaggerInfo)\n}"
+    },
+    {
+      "path": "internal/messaging/contracts/car-key.pb.go",
+      "name": "Reset",
+      "lines": [38, 43],
+      "category": "Reset",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-key.pb.go",
+      "name": "String",
+      "lines": [45, 47],
+      "category": "String",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-key.pb.go",
+      "name": "ProtoMessage",
+      "lines": [49, 49],
+      "category": "ProtoMessage",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-key.pb.go",
+      "name": "ProtoReflect",
+      "lines": [51, 61],
+      "category": "ProtoReflect",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-key.pb.go",
+      "name": "Descriptor",
+      "lines": [64, 66],
+      "category": "Descriptor",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-key.pb.go",
+      "name": "GetDetails",
+      "lines": [68, 73],
+      "category": "nil-guarded-field-getter",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-key.pb.go",
+      "name": "GetSMessage",
+      "lines": [75, 80],
+      "category": "nil-guarded-field-getter",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-key.pb.go",
+      "name": "GetColor",
+      "lines": [82, 87],
+      "category": "nil-guarded-field-getter",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-key.pb.go",
+      "name": "GetUpholstery",
+      "lines": [89, 94],
+      "category": "nil-guarded-field-getter",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-key.pb.go",
+      "name": "GetWheel",
+      "lines": [96, 101],
+      "category": "nil-guarded-field-getter",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-key.pb.go",
+      "name": "GetOptions",
+      "lines": [103, 108],
+      "category": "nil-guarded-field-getter",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-key.pb.go",
+      "name": "GetPackages",
+      "lines": [110, 115],
+      "category": "nil-guarded-field-getter",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-key.pb.go",
+      "name": "GetStructureWeek",
+      "lines": [117, 122],
+      "category": "nil-guarded-field-getter",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-key.pb.go",
+      "name": "Reset",
+      "lines": [142, 147],
+      "category": "Reset",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-key.pb.go",
+      "name": "String",
+      "lines": [149, 151],
+      "category": "String",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-key.pb.go",
+      "name": "ProtoMessage",
+      "lines": [153, 153],
+      "category": "ProtoMessage",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-key.pb.go",
+      "name": "ProtoReflect",
+      "lines": [155, 165],
+      "category": "ProtoReflect",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-key.pb.go",
+      "name": "Descriptor",
+      "lines": [168, 170],
+      "category": "Descriptor",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-key.pb.go",
+      "name": "GetModelYear",
+      "lines": [172, 177],
+      "category": "nil-guarded-field-getter",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-key.pb.go",
+      "name": "GetSpecMarket",
+      "lines": [179, 184],
+      "category": "nil-guarded-field-getter",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-key.pb.go",
+      "name": "GetCarType",
+      "lines": [186, 191],
+      "category": "nil-guarded-field-getter",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-key.pb.go",
+      "name": "GetEngine",
+      "lines": [193, 198],
+      "category": "nil-guarded-field-getter",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-key.pb.go",
+      "name": "GetSalesVersion",
+      "lines": [200, 205],
+      "category": "nil-guarded-field-getter",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-key.pb.go",
+      "name": "GetBody",
+      "lines": [207, 212],
+      "category": "nil-guarded-field-getter",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-key.pb.go",
+      "name": "GetGearbox",
+      "lines": [214, 219],
+      "category": "nil-guarded-field-getter",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-key.pb.go",
+      "name": "GetSteering",
+      "lines": [221, 226],
+      "category": "nil-guarded-field-getter",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-key.pb.go",
+      "name": "GetMarketingCode",
+      "lines": [228, 233],
+      "category": "nil-guarded-field-getter",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-key.pb.go",
+      "name": "GetLocalTrimEditionCode",
+      "lines": [236, 241],
+      "category": "nil-guarded-field-getter",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-key.pb.go",
+      "name": "GetLocalEditionCode",
+      "lines": [243, 248],
+      "category": "nil-guarded-field-getter",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-key.pb.go",
+      "name": "Reset",
+      "lines": [258, 263],
+      "category": "Reset",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-key.pb.go",
+      "name": "String",
+      "lines": [265, 267],
+      "category": "String",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-key.pb.go",
+      "name": "ProtoMessage",
+      "lines": [269, 269],
+      "category": "ProtoMessage",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-key.pb.go",
+      "name": "ProtoReflect",
+      "lines": [271, 281],
+      "category": "ProtoReflect",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-key.pb.go",
+      "name": "Descriptor",
+      "lines": [284, 286],
+      "category": "Descriptor",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-key.pb.go",
+      "name": "GetCarKey",
+      "lines": [288, 293],
+      "category": "nil-guarded-field-getter",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-key.pb.go",
+      "name": "GetPeriod",
+      "lines": [295, 300],
+      "category": "nil-guarded-field-getter",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-key.pb.go",
+      "name": "file_car_key_proto_rawDescGZIP",
+      "lines": [347, 352],
+      "category": "deferred-compression-registration",
+      "source": "func file_car_key_proto_rawDescGZIP() []byte {\n\tfile_car_key_proto_rawDescOnce.Do(func() {\n\t\tfile_car_key_proto_rawDescData = protoimpl.X.CompressGZIP(unsafe.Slice(unsafe.StringData(file_car_key_proto_rawDesc), len(file_car_key_proto_rawDesc)))\n\t})\n\treturn file_car_key_proto_rawDescData\n}"
+    },
+    {
+      "path": "internal/messaging/contracts/car-key.pb.go",
+      "name": "init",
+      "lines": [374, 374],
+      "category": "source-initialiser",
+      "source": "func init() { file_car_key_proto_init() }"
+    },
+    {
+      "path": "internal/messaging/contracts/car-key.pb.go",
+      "name": "file_car_key_proto_init",
+      "lines": [375, 399],
+      "category": "descriptor-builder",
+      "source": "func file_car_key_proto_init() {\n\tif File_car_key_proto != nil {\n\t\treturn\n\t}\n\tfile_structure_week_proto_init()\n\tfile_car_key_proto_msgTypes[0].OneofWrappers = []any{}\n\tfile_car_key_proto_msgTypes[1].OneofWrappers = []any{}\n\ttype x struct{}\n\tout := protoimpl.TypeBuilder{\n\t\tFile: protoimpl.DescBuilder{\n\t\t\tGoPackagePath: reflect.TypeOf(x{}).PkgPath(),\n\t\t\tRawDescriptor: unsafe.Slice(unsafe.StringData(file_car_key_proto_rawDesc), len(file_car_key_proto_rawDesc)),\n\t\t\tNumEnums:      0,\n\t\t\tNumMessages:   3,\n\t\t\tNumExtensions: 0,\n\t\t\tNumServices:   0,\n\t\t},\n\t\tGoTypes:           file_car_key_proto_goTypes,\n\t\tDependencyIndexes: file_car_key_proto_depIdxs,\n\t\tMessageInfos:      file_car_key_proto_msgTypes,\n\t}.Build()\n\tFile_car_key_proto = out.File\n\tfile_car_key_proto_goTypes = nil\n\tfile_car_key_proto_depIdxs = nil\n}"
+    },
+    {
+      "path": "internal/messaging/contracts/car-specification.pb.go",
+      "name": "Reset",
+      "lines": [38, 43],
+      "category": "Reset",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-specification.pb.go",
+      "name": "String",
+      "lines": [45, 47],
+      "category": "String",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-specification.pb.go",
+      "name": "ProtoMessage",
+      "lines": [49, 49],
+      "category": "ProtoMessage",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-specification.pb.go",
+      "name": "ProtoReflect",
+      "lines": [51, 61],
+      "category": "ProtoReflect",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-specification.pb.go",
+      "name": "Descriptor",
+      "lines": [64, 66],
+      "category": "Descriptor",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-specification.pb.go",
+      "name": "GetCarDetails",
+      "lines": [68, 73],
+      "category": "nil-guarded-field-getter",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-specification.pb.go",
+      "name": "GetStructureWeekPeriod",
+      "lines": [75, 80],
+      "category": "nil-guarded-field-getter",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-specification.pb.go",
+      "name": "GetForbiddenStructureWeekPeriods",
+      "lines": [82, 87],
+      "category": "nil-guarded-field-getter",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-specification.pb.go",
+      "name": "GetSMessages",
+      "lines": [89, 94],
+      "category": "nil-guarded-field-getter",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-specification.pb.go",
+      "name": "GetStylings",
+      "lines": [96, 101],
+      "category": "nil-guarded-field-getter",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-specification.pb.go",
+      "name": "GetOptions",
+      "lines": [103, 108],
+      "category": "nil-guarded-field-getter",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-specification.pb.go",
+      "name": "GetPackages",
+      "lines": [110, 115],
+      "category": "nil-guarded-field-getter",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-specification.pb.go",
+      "name": "GetWheels",
+      "lines": [117, 122],
+      "category": "nil-guarded-field-getter",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-specification.pb.go",
+      "name": "Reset",
+      "lines": [131, 136],
+      "category": "Reset",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-specification.pb.go",
+      "name": "String",
+      "lines": [138, 140],
+      "category": "String",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-specification.pb.go",
+      "name": "ProtoMessage",
+      "lines": [142, 142],
+      "category": "ProtoMessage",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-specification.pb.go",
+      "name": "ProtoReflect",
+      "lines": [144, 154],
+      "category": "ProtoReflect",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-specification.pb.go",
+      "name": "Descriptor",
+      "lines": [157, 159],
+      "category": "Descriptor",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-specification.pb.go",
+      "name": "GetSMessages",
+      "lines": [161, 166],
+      "category": "nil-guarded-field-getter",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-specification.pb.go",
+      "name": "Reset",
+      "lines": [176, 181],
+      "category": "Reset",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-specification.pb.go",
+      "name": "String",
+      "lines": [183, 185],
+      "category": "String",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-specification.pb.go",
+      "name": "ProtoMessage",
+      "lines": [187, 187],
+      "category": "ProtoMessage",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-specification.pb.go",
+      "name": "ProtoReflect",
+      "lines": [189, 199],
+      "category": "ProtoReflect",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-specification.pb.go",
+      "name": "Descriptor",
+      "lines": [202, 204],
+      "category": "Descriptor",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-specification.pb.go",
+      "name": "GetCode",
+      "lines": [206, 211],
+      "category": "nil-guarded-field-getter",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-specification.pb.go",
+      "name": "GetPeriod",
+      "lines": [213, 218],
+      "category": "nil-guarded-field-getter",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-specification.pb.go",
+      "name": "Reset",
+      "lines": [232, 237],
+      "category": "Reset",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-specification.pb.go",
+      "name": "String",
+      "lines": [239, 241],
+      "category": "String",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-specification.pb.go",
+      "name": "ProtoMessage",
+      "lines": [243, 243],
+      "category": "ProtoMessage",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-specification.pb.go",
+      "name": "ProtoReflect",
+      "lines": [245, 255],
+      "category": "ProtoReflect",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-specification.pb.go",
+      "name": "Descriptor",
+      "lines": [258, 260],
+      "category": "Descriptor",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-specification.pb.go",
+      "name": "GetColors",
+      "lines": [262, 267],
+      "category": "nil-guarded-field-getter",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-specification.pb.go",
+      "name": "GetUpholsteries",
+      "lines": [269, 274],
+      "category": "nil-guarded-field-getter",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-specification.pb.go",
+      "name": "GetDefaultCombination",
+      "lines": [277, 282],
+      "category": "nil-guarded-field-getter",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-specification.pb.go",
+      "name": "GetDefaultColors",
+      "lines": [284, 289],
+      "category": "nil-guarded-field-getter",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-specification.pb.go",
+      "name": "GetDefaultUpholsteries",
+      "lines": [291, 296],
+      "category": "nil-guarded-field-getter",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-specification.pb.go",
+      "name": "Reset",
+      "lines": [306, 311],
+      "category": "Reset",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-specification.pb.go",
+      "name": "String",
+      "lines": [313, 315],
+      "category": "String",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-specification.pb.go",
+      "name": "ProtoMessage",
+      "lines": [317, 317],
+      "category": "ProtoMessage",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-specification.pb.go",
+      "name": "ProtoReflect",
+      "lines": [319, 329],
+      "category": "ProtoReflect",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-specification.pb.go",
+      "name": "Descriptor",
+      "lines": [332, 334],
+      "category": "Descriptor",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-specification.pb.go",
+      "name": "GetColorCode",
+      "lines": [336, 341],
+      "category": "nil-guarded-field-getter",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-specification.pb.go",
+      "name": "GetUpholsteryCode",
+      "lines": [343, 348],
+      "category": "nil-guarded-field-getter",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-specification.pb.go",
+      "name": "Reset",
+      "lines": [358, 363],
+      "category": "Reset",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-specification.pb.go",
+      "name": "String",
+      "lines": [365, 367],
+      "category": "String",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-specification.pb.go",
+      "name": "ProtoMessage",
+      "lines": [369, 369],
+      "category": "ProtoMessage",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-specification.pb.go",
+      "name": "ProtoReflect",
+      "lines": [371, 381],
+      "category": "ProtoReflect",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-specification.pb.go",
+      "name": "Descriptor",
+      "lines": [384, 386],
+      "category": "Descriptor",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-specification.pb.go",
+      "name": "GetCode",
+      "lines": [388, 393],
+      "category": "nil-guarded-field-getter",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-specification.pb.go",
+      "name": "GetPeriod",
+      "lines": [395, 400],
+      "category": "nil-guarded-field-getter",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-specification.pb.go",
+      "name": "Reset",
+      "lines": [415, 420],
+      "category": "Reset",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-specification.pb.go",
+      "name": "String",
+      "lines": [422, 424],
+      "category": "String",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-specification.pb.go",
+      "name": "ProtoMessage",
+      "lines": [426, 426],
+      "category": "ProtoMessage",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-specification.pb.go",
+      "name": "ProtoReflect",
+      "lines": [428, 438],
+      "category": "ProtoReflect",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-specification.pb.go",
+      "name": "Descriptor",
+      "lines": [441, 443],
+      "category": "Descriptor",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-specification.pb.go",
+      "name": "GetCode",
+      "lines": [445, 450],
+      "category": "nil-guarded-field-getter",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-specification.pb.go",
+      "name": "GetRequiredOptions",
+      "lines": [452, 457],
+      "category": "nil-guarded-field-getter",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-specification.pb.go",
+      "name": "GetForbidsOptions",
+      "lines": [459, 464],
+      "category": "nil-guarded-field-getter",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-specification.pb.go",
+      "name": "GetForbidsUpholsteries",
+      "lines": [466, 471],
+      "category": "nil-guarded-field-getter",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-specification.pb.go",
+      "name": "GetRequiredWheels",
+      "lines": [473, 478],
+      "category": "nil-guarded-field-getter",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-specification.pb.go",
+      "name": "GetForbidsWheels",
+      "lines": [480, 485],
+      "category": "nil-guarded-field-getter",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-specification.pb.go",
+      "name": "GetPeriod",
+      "lines": [487, 492],
+      "category": "nil-guarded-field-getter",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-specification.pb.go",
+      "name": "Reset",
+      "lines": [506, 511],
+      "category": "Reset",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-specification.pb.go",
+      "name": "String",
+      "lines": [513, 515],
+      "category": "String",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-specification.pb.go",
+      "name": "ProtoMessage",
+      "lines": [517, 517],
+      "category": "ProtoMessage",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-specification.pb.go",
+      "name": "ProtoReflect",
+      "lines": [519, 529],
+      "category": "ProtoReflect",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-specification.pb.go",
+      "name": "Descriptor",
+      "lines": [532, 534],
+      "category": "Descriptor",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-specification.pb.go",
+      "name": "GetCode",
+      "lines": [536, 541],
+      "category": "nil-guarded-field-getter",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-specification.pb.go",
+      "name": "GetRequiredOptions",
+      "lines": [543, 548],
+      "category": "nil-guarded-field-getter",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-specification.pb.go",
+      "name": "GetForbidsOptions",
+      "lines": [550, 555],
+      "category": "nil-guarded-field-getter",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-specification.pb.go",
+      "name": "GetForbidsColors",
+      "lines": [557, 562],
+      "category": "nil-guarded-field-getter",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-specification.pb.go",
+      "name": "GetForbidsWheels",
+      "lines": [564, 569],
+      "category": "nil-guarded-field-getter",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-specification.pb.go",
+      "name": "GetPeriod",
+      "lines": [571, 576],
+      "category": "nil-guarded-field-getter",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-specification.pb.go",
+      "name": "Reset",
+      "lines": [589, 594],
+      "category": "Reset",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-specification.pb.go",
+      "name": "String",
+      "lines": [596, 598],
+      "category": "String",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-specification.pb.go",
+      "name": "ProtoMessage",
+      "lines": [600, 600],
+      "category": "ProtoMessage",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-specification.pb.go",
+      "name": "ProtoReflect",
+      "lines": [602, 612],
+      "category": "ProtoReflect",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-specification.pb.go",
+      "name": "Descriptor",
+      "lines": [615, 617],
+      "category": "Descriptor",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-specification.pb.go",
+      "name": "GetOptions",
+      "lines": [619, 624],
+      "category": "nil-guarded-field-getter",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-specification.pb.go",
+      "name": "GetPackageOnlyOptionCodes",
+      "lines": [626, 631],
+      "category": "nil-guarded-field-getter",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-specification.pb.go",
+      "name": "GetIncludedOptions",
+      "lines": [633, 638],
+      "category": "nil-guarded-field-getter",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-specification.pb.go",
+      "name": "GetCombinedRequirements",
+      "lines": [640, 645],
+      "category": "nil-guarded-field-getter",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-specification.pb.go",
+      "name": "Reset",
+      "lines": [663, 668],
+      "category": "Reset",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-specification.pb.go",
+      "name": "String",
+      "lines": [670, 672],
+      "category": "String",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-specification.pb.go",
+      "name": "ProtoMessage",
+      "lines": [674, 674],
+      "category": "ProtoMessage",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-specification.pb.go",
+      "name": "ProtoReflect",
+      "lines": [676, 686],
+      "category": "ProtoReflect",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-specification.pb.go",
+      "name": "Descriptor",
+      "lines": [689, 691],
+      "category": "Descriptor",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-specification.pb.go",
+      "name": "GetCode",
+      "lines": [693, 698],
+      "category": "nil-guarded-field-getter",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-specification.pb.go",
+      "name": "GetRequiredColors",
+      "lines": [700, 705],
+      "category": "nil-guarded-field-getter",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-specification.pb.go",
+      "name": "GetRequiredUpholsteries",
+      "lines": [707, 712],
+      "category": "nil-guarded-field-getter",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-specification.pb.go",
+      "name": "GetRequiredOptions",
+      "lines": [714, 719],
+      "category": "nil-guarded-field-getter",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-specification.pb.go",
+      "name": "GetRequiredWheels",
+      "lines": [721, 726],
+      "category": "nil-guarded-field-getter",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-specification.pb.go",
+      "name": "GetForbidsOptions",
+      "lines": [728, 733],
+      "category": "nil-guarded-field-getter",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-specification.pb.go",
+      "name": "GetForbidsColors",
+      "lines": [735, 740],
+      "category": "nil-guarded-field-getter",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-specification.pb.go",
+      "name": "GetForbidsWheels",
+      "lines": [742, 747],
+      "category": "nil-guarded-field-getter",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-specification.pb.go",
+      "name": "GetForbidsUpholsteries",
+      "lines": [749, 754],
+      "category": "nil-guarded-field-getter",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-specification.pb.go",
+      "name": "GetPeriod",
+      "lines": [756, 761],
+      "category": "nil-guarded-field-getter",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-specification.pb.go",
+      "name": "Reset",
+      "lines": [771, 776],
+      "category": "Reset",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-specification.pb.go",
+      "name": "String",
+      "lines": [778, 780],
+      "category": "String",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-specification.pb.go",
+      "name": "ProtoMessage",
+      "lines": [782, 782],
+      "category": "ProtoMessage",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-specification.pb.go",
+      "name": "ProtoReflect",
+      "lines": [784, 794],
+      "category": "ProtoReflect",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-specification.pb.go",
+      "name": "Descriptor",
+      "lines": [797, 799],
+      "category": "Descriptor",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-specification.pb.go",
+      "name": "GetRequiringOptionCodes",
+      "lines": [801, 806],
+      "category": "nil-guarded-field-getter",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-specification.pb.go",
+      "name": "GetRequiredOptionCode",
+      "lines": [808, 813],
+      "category": "nil-guarded-field-getter",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-specification.pb.go",
+      "name": "Reset",
+      "lines": [824, 829],
+      "category": "Reset",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-specification.pb.go",
+      "name": "String",
+      "lines": [831, 833],
+      "category": "String",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-specification.pb.go",
+      "name": "ProtoMessage",
+      "lines": [835, 835],
+      "category": "ProtoMessage",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-specification.pb.go",
+      "name": "ProtoReflect",
+      "lines": [837, 847],
+      "category": "ProtoReflect",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-specification.pb.go",
+      "name": "Descriptor",
+      "lines": [850, 852],
+      "category": "Descriptor",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-specification.pb.go",
+      "name": "GetPackages",
+      "lines": [854, 859],
+      "category": "nil-guarded-field-getter",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-specification.pb.go",
+      "name": "GetIncludedPackages",
+      "lines": [861, 866],
+      "category": "nil-guarded-field-getter",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-specification.pb.go",
+      "name": "GetMakeOverlappingPackagesExclusive",
+      "lines": [868, 873],
+      "category": "nil-guarded-field-getter",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-specification.pb.go",
+      "name": "Reset",
+      "lines": [887, 892],
+      "category": "Reset",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-specification.pb.go",
+      "name": "String",
+      "lines": [894, 896],
+      "category": "String",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-specification.pb.go",
+      "name": "ProtoMessage",
+      "lines": [898, 898],
+      "category": "ProtoMessage",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-specification.pb.go",
+      "name": "ProtoReflect",
+      "lines": [900, 910],
+      "category": "ProtoReflect",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-specification.pb.go",
+      "name": "Descriptor",
+      "lines": [913, 915],
+      "category": "Descriptor",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-specification.pb.go",
+      "name": "GetCode",
+      "lines": [917, 922],
+      "category": "nil-guarded-field-getter",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-specification.pb.go",
+      "name": "GetRequiredColors",
+      "lines": [924, 929],
+      "category": "nil-guarded-field-getter",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-specification.pb.go",
+      "name": "GetRequiredUpholsteries",
+      "lines": [931, 936],
+      "category": "nil-guarded-field-getter",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-specification.pb.go",
+      "name": "GetRequiredOptions",
+      "lines": [938, 943],
+      "category": "nil-guarded-field-getter",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-specification.pb.go",
+      "name": "GetRequiredWheels",
+      "lines": [945, 950],
+      "category": "nil-guarded-field-getter",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-specification.pb.go",
+      "name": "GetPeriod",
+      "lines": [952, 957],
+      "category": "nil-guarded-field-getter",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-specification.pb.go",
+      "name": "Reset",
+      "lines": [969, 974],
+      "category": "Reset",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-specification.pb.go",
+      "name": "String",
+      "lines": [976, 978],
+      "category": "String",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-specification.pb.go",
+      "name": "ProtoMessage",
+      "lines": [980, 980],
+      "category": "ProtoMessage",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-specification.pb.go",
+      "name": "ProtoReflect",
+      "lines": [982, 992],
+      "category": "ProtoReflect",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-specification.pb.go",
+      "name": "Descriptor",
+      "lines": [995, 997],
+      "category": "Descriptor",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-specification.pb.go",
+      "name": "GetWheels",
+      "lines": [999, 1004],
+      "category": "nil-guarded-field-getter",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-specification.pb.go",
+      "name": "GetStandardWheel",
+      "lines": [1006, 1011],
+      "category": "nil-guarded-field-getter",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-specification.pb.go",
+      "name": "Reset",
+      "lines": [1026, 1031],
+      "category": "Reset",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-specification.pb.go",
+      "name": "String",
+      "lines": [1033, 1035],
+      "category": "String",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-specification.pb.go",
+      "name": "ProtoMessage",
+      "lines": [1037, 1037],
+      "category": "ProtoMessage",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-specification.pb.go",
+      "name": "ProtoReflect",
+      "lines": [1039, 1049],
+      "category": "ProtoReflect",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-specification.pb.go",
+      "name": "Descriptor",
+      "lines": [1052, 1054],
+      "category": "Descriptor",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-specification.pb.go",
+      "name": "GetCode",
+      "lines": [1056, 1061],
+      "category": "nil-guarded-field-getter",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-specification.pb.go",
+      "name": "GetRequiredColors",
+      "lines": [1063, 1068],
+      "category": "nil-guarded-field-getter",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-specification.pb.go",
+      "name": "GetRequiredOptions",
+      "lines": [1070, 1075],
+      "category": "nil-guarded-field-getter",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-specification.pb.go",
+      "name": "GetRequiredUpholsteries",
+      "lines": [1077, 1082],
+      "category": "nil-guarded-field-getter",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-specification.pb.go",
+      "name": "GetForbidsOptions",
+      "lines": [1084, 1089],
+      "category": "nil-guarded-field-getter",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-specification.pb.go",
+      "name": "GetForbidsUpholsteries",
+      "lines": [1091, 1096],
+      "category": "nil-guarded-field-getter",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-specification.pb.go",
+      "name": "GetPeriod",
+      "lines": [1098, 1103],
+      "category": "nil-guarded-field-getter",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-specification.pb.go",
+      "name": "Reset",
+      "lines": [1114, 1119],
+      "category": "Reset",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-specification.pb.go",
+      "name": "String",
+      "lines": [1121, 1123],
+      "category": "String",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-specification.pb.go",
+      "name": "ProtoMessage",
+      "lines": [1125, 1125],
+      "category": "ProtoMessage",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-specification.pb.go",
+      "name": "ProtoReflect",
+      "lines": [1127, 1137],
+      "category": "ProtoReflect",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-specification.pb.go",
+      "name": "Descriptor",
+      "lines": [1140, 1142],
+      "category": "Descriptor",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-specification.pb.go",
+      "name": "GetCodes",
+      "lines": [1144, 1149],
+      "category": "nil-guarded-field-getter",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-specification.pb.go",
+      "name": "GetDefaultCode",
+      "lines": [1151, 1156],
+      "category": "nil-guarded-field-getter",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-specification.pb.go",
+      "name": "GetPeriod",
+      "lines": [1158, 1163],
+      "category": "nil-guarded-field-getter",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-specification.pb.go",
+      "name": "Reset",
+      "lines": [1173, 1178],
+      "category": "Reset",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-specification.pb.go",
+      "name": "String",
+      "lines": [1180, 1182],
+      "category": "String",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-specification.pb.go",
+      "name": "ProtoMessage",
+      "lines": [1184, 1184],
+      "category": "ProtoMessage",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-specification.pb.go",
+      "name": "ProtoReflect",
+      "lines": [1186, 1196],
+      "category": "ProtoReflect",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-specification.pb.go",
+      "name": "Descriptor",
+      "lines": [1199, 1201],
+      "category": "Descriptor",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-specification.pb.go",
+      "name": "GetCodes",
+      "lines": [1203, 1208],
+      "category": "nil-guarded-field-getter",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-specification.pb.go",
+      "name": "GetDefaultCode",
+      "lines": [1210, 1215],
+      "category": "nil-guarded-field-getter",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-specification.pb.go",
+      "name": "Reset",
+      "lines": [1226, 1231],
+      "category": "Reset",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-specification.pb.go",
+      "name": "String",
+      "lines": [1233, 1235],
+      "category": "String",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-specification.pb.go",
+      "name": "ProtoMessage",
+      "lines": [1237, 1237],
+      "category": "ProtoMessage",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-specification.pb.go",
+      "name": "ProtoReflect",
+      "lines": [1239, 1249],
+      "category": "ProtoReflect",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-specification.pb.go",
+      "name": "Descriptor",
+      "lines": [1252, 1254],
+      "category": "Descriptor",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-specification.pb.go",
+      "name": "GetCodes",
+      "lines": [1256, 1261],
+      "category": "nil-guarded-field-getter",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-specification.pb.go",
+      "name": "GetDefaultCode",
+      "lines": [1263, 1268],
+      "category": "nil-guarded-field-getter",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-specification.pb.go",
+      "name": "GetPeriod",
+      "lines": [1270, 1275],
+      "category": "nil-guarded-field-getter",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-specification.pb.go",
+      "name": "Reset",
+      "lines": [1285, 1290],
+      "category": "Reset",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-specification.pb.go",
+      "name": "String",
+      "lines": [1292, 1294],
+      "category": "String",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-specification.pb.go",
+      "name": "ProtoMessage",
+      "lines": [1296, 1296],
+      "category": "ProtoMessage",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-specification.pb.go",
+      "name": "ProtoReflect",
+      "lines": [1298, 1308],
+      "category": "ProtoReflect",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-specification.pb.go",
+      "name": "Descriptor",
+      "lines": [1311, 1313],
+      "category": "Descriptor",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-specification.pb.go",
+      "name": "GetCode",
+      "lines": [1315, 1320],
+      "category": "nil-guarded-field-getter",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-specification.pb.go",
+      "name": "GetPeriod",
+      "lines": [1322, 1327],
+      "category": "nil-guarded-field-getter",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-specification.pb.go",
+      "name": "Reset",
+      "lines": [1338, 1343],
+      "category": "Reset",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-specification.pb.go",
+      "name": "String",
+      "lines": [1345, 1347],
+      "category": "String",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-specification.pb.go",
+      "name": "ProtoMessage",
+      "lines": [1349, 1349],
+      "category": "ProtoMessage",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-specification.pb.go",
+      "name": "ProtoReflect",
+      "lines": [1351, 1361],
+      "category": "ProtoReflect",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-specification.pb.go",
+      "name": "Descriptor",
+      "lines": [1364, 1366],
+      "category": "Descriptor",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-specification.pb.go",
+      "name": "GetSpecification",
+      "lines": [1368, 1373],
+      "category": "nil-guarded-field-getter",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-specification.pb.go",
+      "name": "GetMarketAuthIdentifier",
+      "lines": [1375, 1380],
+      "category": "nil-guarded-field-getter",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-specification.pb.go",
+      "name": "GetBrand",
+      "lines": [1382, 1387],
+      "category": "nil-guarded-field-getter",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-specification.pb.go",
+      "name": "Reset",
+      "lines": [1401, 1406],
+      "category": "Reset",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-specification.pb.go",
+      "name": "String",
+      "lines": [1408, 1410],
+      "category": "String",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-specification.pb.go",
+      "name": "ProtoMessage",
+      "lines": [1412, 1412],
+      "category": "ProtoMessage",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-specification.pb.go",
+      "name": "ProtoReflect",
+      "lines": [1414, 1424],
+      "category": "ProtoReflect",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-specification.pb.go",
+      "name": "Descriptor",
+      "lines": [1427, 1429],
+      "category": "Descriptor",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-specification.pb.go",
+      "name": "GetPno12",
+      "lines": [1431, 1436],
+      "category": "nil-guarded-field-getter",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-specification.pb.go",
+      "name": "GetSpecMarket",
+      "lines": [1438, 1443],
+      "category": "nil-guarded-field-getter",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-specification.pb.go",
+      "name": "GetModelYear",
+      "lines": [1445, 1450],
+      "category": "nil-guarded-field-getter",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-specification.pb.go",
+      "name": "GetLocalTrimEditionCode",
+      "lines": [1453, 1458],
+      "category": "nil-guarded-field-getter",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-specification.pb.go",
+      "name": "GetLocalEditionCode",
+      "lines": [1460, 1465],
+      "category": "nil-guarded-field-getter",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-specification.pb.go",
+      "name": "Reset",
+      "lines": [1475, 1480],
+      "category": "Reset",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-specification.pb.go",
+      "name": "String",
+      "lines": [1482, 1484],
+      "category": "String",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-specification.pb.go",
+      "name": "ProtoMessage",
+      "lines": [1486, 1486],
+      "category": "ProtoMessage",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-specification.pb.go",
+      "name": "ProtoReflect",
+      "lines": [1488, 1498],
+      "category": "ProtoReflect",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-specification.pb.go",
+      "name": "Descriptor",
+      "lines": [1501, 1503],
+      "category": "Descriptor",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-specification.pb.go",
+      "name": "GetTimestamp",
+      "lines": [1505, 1510],
+      "category": "nil-guarded-field-getter",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-specification.pb.go",
+      "name": "GetStandardWheelFeatureCode",
+      "lines": [1512, 1517],
+      "category": "nil-guarded-field-getter",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/car-specification.pb.go",
+      "name": "file_car_specification_proto_rawDescGZIP",
+      "lines": [1657, 1662],
+      "category": "deferred-compression-registration",
+      "source": "func file_car_specification_proto_rawDescGZIP() []byte {\n\tfile_car_specification_proto_rawDescOnce.Do(func() {\n\t\tfile_car_specification_proto_rawDescData = protoimpl.X.CompressGZIP(unsafe.Slice(unsafe.StringData(file_car_specification_proto_rawDesc), len(file_car_specification_proto_rawDesc)))\n\t})\n\treturn file_car_specification_proto_rawDescData\n}"
+    },
+    {
+      "path": "internal/messaging/contracts/car-specification.pb.go",
+      "name": "init",
+      "lines": [1757, 1757],
+      "category": "source-initialiser",
+      "source": "func init() { file_car_specification_proto_init() }"
+    },
+    {
+      "path": "internal/messaging/contracts/car-specification.pb.go",
+      "name": "file_car_specification_proto_init",
+      "lines": [1758, 1787],
+      "category": "descriptor-builder",
+      "source": "func file_car_specification_proto_init() {\n\tif File_car_specification_proto != nil {\n\t\treturn\n\t}\n\tfile_car_key_proto_init()\n\tfile_structure_week_proto_init()\n\tfile_car_specification_proto_msgTypes[12].OneofWrappers = []any{}\n\tfile_car_specification_proto_msgTypes[13].OneofWrappers = []any{}\n\tfile_car_specification_proto_msgTypes[15].OneofWrappers = []any{}\n\tfile_car_specification_proto_msgTypes[16].OneofWrappers = []any{}\n\tfile_car_specification_proto_msgTypes[17].OneofWrappers = []any{}\n\tfile_car_specification_proto_msgTypes[20].OneofWrappers = []any{}\n\ttype x struct{}\n\tout := protoimpl.TypeBuilder{\n\t\tFile: protoimpl.DescBuilder{\n\t\t\tGoPackagePath: reflect.TypeOf(x{}).PkgPath(),\n\t\t\tRawDescriptor: unsafe.Slice(unsafe.StringData(file_car_specification_proto_rawDesc), len(file_car_specification_proto_rawDesc)),\n\t\t\tNumEnums:      0,\n\t\t\tNumMessages:   22,\n\t\t\tNumExtensions: 0,\n\t\t\tNumServices:   0,\n\t\t},\n\t\tGoTypes:           file_car_specification_proto_goTypes,\n\t\tDependencyIndexes: file_car_specification_proto_depIdxs,\n\t\tMessageInfos:      file_car_specification_proto_msgTypes,\n\t}.Build()\n\tFile_car_specification_proto = out.File\n\tfile_car_specification_proto_goTypes = nil\n\tfile_car_specification_proto_depIdxs = nil\n}"
+    },
+    {
+      "path": "internal/messaging/contracts/marketauthmessage.pb.go",
+      "name": "Reset",
+      "lines": [35, 40],
+      "category": "Reset",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/marketauthmessage.pb.go",
+      "name": "String",
+      "lines": [42, 44],
+      "category": "String",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/marketauthmessage.pb.go",
+      "name": "ProtoMessage",
+      "lines": [46, 46],
+      "category": "ProtoMessage",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/marketauthmessage.pb.go",
+      "name": "ProtoReflect",
+      "lines": [48, 58],
+      "category": "ProtoReflect",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/marketauthmessage.pb.go",
+      "name": "Descriptor",
+      "lines": [61, 63],
+      "category": "Descriptor",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/marketauthmessage.pb.go",
+      "name": "GetCarType",
+      "lines": [65, 70],
+      "category": "nil-guarded-field-getter",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/marketauthmessage.pb.go",
+      "name": "GetModelYear",
+      "lines": [72, 77],
+      "category": "nil-guarded-field-getter",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/marketauthmessage.pb.go",
+      "name": "GetSpecMarket",
+      "lines": [79, 84],
+      "category": "nil-guarded-field-getter",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/marketauthmessage.pb.go",
+      "name": "GetLegacyGccMarket",
+      "lines": [86, 91],
+      "category": "nil-guarded-field-getter",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/marketauthmessage.pb.go",
+      "name": "file_marketauthmessage_proto_rawDescGZIP",
+      "lines": [111, 116],
+      "category": "deferred-compression-registration",
+      "source": "func file_marketauthmessage_proto_rawDescGZIP() []byte {\n\tfile_marketauthmessage_proto_rawDescOnce.Do(func() {\n\t\tfile_marketauthmessage_proto_rawDescData = protoimpl.X.CompressGZIP(unsafe.Slice(unsafe.StringData(file_marketauthmessage_proto_rawDesc), len(file_marketauthmessage_proto_rawDesc)))\n\t})\n\treturn file_marketauthmessage_proto_rawDescData\n}"
+    },
+    {
+      "path": "internal/messaging/contracts/marketauthmessage.pb.go",
+      "name": "init",
+      "lines": [132, 132],
+      "category": "source-initialiser",
+      "source": "func init() { file_marketauthmessage_proto_init() }"
+    },
+    {
+      "path": "internal/messaging/contracts/marketauthmessage.pb.go",
+      "name": "file_marketauthmessage_proto_init",
+      "lines": [133, 154],
+      "category": "descriptor-builder",
+      "source": "func file_marketauthmessage_proto_init() {\n\tif File_marketauthmessage_proto != nil {\n\t\treturn\n\t}\n\ttype x struct{}\n\tout := protoimpl.TypeBuilder{\n\t\tFile: protoimpl.DescBuilder{\n\t\t\tGoPackagePath: reflect.TypeOf(x{}).PkgPath(),\n\t\t\tRawDescriptor: unsafe.Slice(unsafe.StringData(file_marketauthmessage_proto_rawDesc), len(file_marketauthmessage_proto_rawDesc)),\n\t\t\tNumEnums:      0,\n\t\t\tNumMessages:   1,\n\t\t\tNumExtensions: 0,\n\t\t\tNumServices:   0,\n\t\t},\n\t\tGoTypes:           file_marketauthmessage_proto_goTypes,\n\t\tDependencyIndexes: file_marketauthmessage_proto_depIdxs,\n\t\tMessageInfos:      file_marketauthmessage_proto_msgTypes,\n\t}.Build()\n\tFile_marketauthmessage_proto = out.File\n\tfile_marketauthmessage_proto_goTypes = nil\n\tfile_marketauthmessage_proto_depIdxs = nil\n}"
+    },
+    {
+      "path": "internal/messaging/contracts/pcgmarketauthmessage.pb.go",
+      "name": "Reset",
+      "lines": [35, 40],
+      "category": "Reset",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/pcgmarketauthmessage.pb.go",
+      "name": "String",
+      "lines": [42, 44],
+      "category": "String",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/pcgmarketauthmessage.pb.go",
+      "name": "ProtoMessage",
+      "lines": [46, 46],
+      "category": "ProtoMessage",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/pcgmarketauthmessage.pb.go",
+      "name": "ProtoReflect",
+      "lines": [48, 58],
+      "category": "ProtoReflect",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/pcgmarketauthmessage.pb.go",
+      "name": "Descriptor",
+      "lines": [61, 63],
+      "category": "Descriptor",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/pcgmarketauthmessage.pb.go",
+      "name": "GetPno12",
+      "lines": [65, 70],
+      "category": "nil-guarded-field-getter",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/pcgmarketauthmessage.pb.go",
+      "name": "GetModelYear",
+      "lines": [72, 77],
+      "category": "nil-guarded-field-getter",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/pcgmarketauthmessage.pb.go",
+      "name": "GetSpecMarket",
+      "lines": [79, 84],
+      "category": "nil-guarded-field-getter",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/pcgmarketauthmessage.pb.go",
+      "name": "GetLegacyGccMarket",
+      "lines": [86, 91],
+      "category": "nil-guarded-field-getter",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/pcgmarketauthmessage.pb.go",
+      "name": "file_pcgmarketauthmessage_proto_rawDescGZIP",
+      "lines": [111, 116],
+      "category": "deferred-compression-registration",
+      "source": "func file_pcgmarketauthmessage_proto_rawDescGZIP() []byte {\n\tfile_pcgmarketauthmessage_proto_rawDescOnce.Do(func() {\n\t\tfile_pcgmarketauthmessage_proto_rawDescData = protoimpl.X.CompressGZIP(unsafe.Slice(unsafe.StringData(file_pcgmarketauthmessage_proto_rawDesc), len(file_pcgmarketauthmessage_proto_rawDesc)))\n\t})\n\treturn file_pcgmarketauthmessage_proto_rawDescData\n}"
+    },
+    {
+      "path": "internal/messaging/contracts/pcgmarketauthmessage.pb.go",
+      "name": "init",
+      "lines": [132, 132],
+      "category": "source-initialiser",
+      "source": "func init() { file_pcgmarketauthmessage_proto_init() }"
+    },
+    {
+      "path": "internal/messaging/contracts/pcgmarketauthmessage.pb.go",
+      "name": "file_pcgmarketauthmessage_proto_init",
+      "lines": [133, 154],
+      "category": "descriptor-builder",
+      "source": "func file_pcgmarketauthmessage_proto_init() {\n\tif File_pcgmarketauthmessage_proto != nil {\n\t\treturn\n\t}\n\ttype x struct{}\n\tout := protoimpl.TypeBuilder{\n\t\tFile: protoimpl.DescBuilder{\n\t\t\tGoPackagePath: reflect.TypeOf(x{}).PkgPath(),\n\t\t\tRawDescriptor: unsafe.Slice(unsafe.StringData(file_pcgmarketauthmessage_proto_rawDesc), len(file_pcgmarketauthmessage_proto_rawDesc)),\n\t\t\tNumEnums:      0,\n\t\t\tNumMessages:   1,\n\t\t\tNumExtensions: 0,\n\t\t\tNumServices:   0,\n\t\t},\n\t\tGoTypes:           file_pcgmarketauthmessage_proto_goTypes,\n\t\tDependencyIndexes: file_pcgmarketauthmessage_proto_depIdxs,\n\t\tMessageInfos:      file_pcgmarketauthmessage_proto_msgTypes,\n\t}.Build()\n\tFile_pcgmarketauthmessage_proto = out.File\n\tfile_pcgmarketauthmessage_proto_goTypes = nil\n\tfile_pcgmarketauthmessage_proto_depIdxs = nil\n}"
+    },
+    {
+      "path": "internal/messaging/contracts/structure-week.pb.go",
+      "name": "Reset",
+      "lines": [32, 37],
+      "category": "Reset",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/structure-week.pb.go",
+      "name": "String",
+      "lines": [39, 41],
+      "category": "String",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/structure-week.pb.go",
+      "name": "ProtoMessage",
+      "lines": [43, 43],
+      "category": "ProtoMessage",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/structure-week.pb.go",
+      "name": "ProtoReflect",
+      "lines": [45, 55],
+      "category": "ProtoReflect",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/structure-week.pb.go",
+      "name": "Descriptor",
+      "lines": [58, 60],
+      "category": "Descriptor",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/structure-week.pb.go",
+      "name": "GetYear",
+      "lines": [62, 67],
+      "category": "nil-guarded-field-getter",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/structure-week.pb.go",
+      "name": "GetWeek",
+      "lines": [69, 74],
+      "category": "nil-guarded-field-getter",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/structure-week.pb.go",
+      "name": "Reset",
+      "lines": [84, 89],
+      "category": "Reset",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/structure-week.pb.go",
+      "name": "String",
+      "lines": [91, 93],
+      "category": "String",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/structure-week.pb.go",
+      "name": "ProtoMessage",
+      "lines": [95, 95],
+      "category": "ProtoMessage",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/structure-week.pb.go",
+      "name": "ProtoReflect",
+      "lines": [97, 107],
+      "category": "ProtoReflect",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/structure-week.pb.go",
+      "name": "Descriptor",
+      "lines": [110, 112],
+      "category": "Descriptor",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/structure-week.pb.go",
+      "name": "GetFrom",
+      "lines": [114, 119],
+      "category": "nil-guarded-field-getter",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/structure-week.pb.go",
+      "name": "GetTo",
+      "lines": [121, 126],
+      "category": "nil-guarded-field-getter",
+      "source": null
+    },
+    {
+      "path": "internal/messaging/contracts/structure-week.pb.go",
+      "name": "file_structure_week_proto_rawDescGZIP",
+      "lines": [145, 150],
+      "category": "deferred-compression-registration",
+      "source": "func file_structure_week_proto_rawDescGZIP() []byte {\n\tfile_structure_week_proto_rawDescOnce.Do(func() {\n\t\tfile_structure_week_proto_rawDescData = protoimpl.X.CompressGZIP(unsafe.Slice(unsafe.StringData(file_structure_week_proto_rawDesc), len(file_structure_week_proto_rawDesc)))\n\t})\n\treturn file_structure_week_proto_rawDescData\n}"
+    },
+    {
+      "path": "internal/messaging/contracts/structure-week.pb.go",
+      "name": "init",
+      "lines": [167, 167],
+      "category": "source-initialiser",
+      "source": "func init() { file_structure_week_proto_init() }"
+    },
+    {
+      "path": "internal/messaging/contracts/structure-week.pb.go",
+      "name": "file_structure_week_proto_init",
+      "lines": [168, 189],
+      "category": "descriptor-builder",
+      "source": "func file_structure_week_proto_init() {\n\tif File_structure_week_proto != nil {\n\t\treturn\n\t}\n\ttype x struct{}\n\tout := protoimpl.TypeBuilder{\n\t\tFile: protoimpl.DescBuilder{\n\t\t\tGoPackagePath: reflect.TypeOf(x{}).PkgPath(),\n\t\t\tRawDescriptor: unsafe.Slice(unsafe.StringData(file_structure_week_proto_rawDesc), len(file_structure_week_proto_rawDesc)),\n\t\t\tNumEnums:      0,\n\t\t\tNumMessages:   2,\n\t\t\tNumExtensions: 0,\n\t\t\tNumServices:   0,\n\t\t},\n\t\tGoTypes:           file_structure_week_proto_goTypes,\n\t\tDependencyIndexes: file_structure_week_proto_depIdxs,\n\t\tMessageInfos:      file_structure_week_proto_msgTypes,\n\t}.Build()\n\tFile_structure_week_proto = out.File\n\tfile_structure_week_proto_goTypes = nil\n\tfile_structure_week_proto_depIdxs = nil\n}"
+    }
+  ]
+}

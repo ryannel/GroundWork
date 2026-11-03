@@ -1,0 +1,75 @@
+{
+  "policy": "Exact duplicate records only; conflicting IDs fail. No matching by label, owner, route or similar version.",
+  "inputs": [
+    {
+      "capture": "payment-transaction",
+      "selection": "ec4e7c5d37593f43639ecef8a8040dccbb30260eba2fc2b84825f2deaa74cb92",
+      "files": [
+        {
+          "file": "bundle.json",
+          "digest": "c1685e825d1ef40b1e74a0df6581b2b717b321586b4038d34818b2da60dd5199"
+        }
+      ]
+    },
+    {
+      "capture": "manage-and-segment",
+      "selection": "dc7180b74158fccc486c12834b8f9dfbfedcd501359e852e61caa387631c284d",
+      "files": [
+        {
+          "file": "bundle.json",
+          "digest": "554762d0584fa23098117ce2964658cb088fb1acfddc89bd0b1e01195b7b8419"
+        }
+      ]
+    },
+    {
+      "capture": "assortment-api",
+      "selection": "dcc8fe6133bb403c805875b5698eb6fd390e35f858d0bf3e74c33c7ea0d7a34e",
+      "files": [
+        {
+          "file": "bundle.json",
+          "digest": "b2d0140aa5b5d6dcc59f6dc5a5cbcd4165ef2694a14521656b287dab5f3ec5f6"
+        }
+      ]
+    },
+    {
+      "capture": "psp-integration",
+      "selection": "83dca2d1f3de790273d6451f1ba875edfc6f9661680d0124077485d0aec4b24c",
+      "files": [
+        {
+          "file": "bundle.json",
+          "digest": "b0a806a6ef585df664292ff5ad6666e9a7a0677b68cc871dc78f8cbbbb03d58d"
+        }
+      ]
+    },
+    {
+      "capture": "payment-customer",
+      "selection": "b311d40d99a8e4a888d975f56b814e3dff51f2dc7778c30cff4bc07639495c0e",
+      "files": [
+        {
+          "file": "bundle.json",
+          "digest": "75d20deb6907284a6d6b88cee6c7aba21052fa7e65b934ecfe8c4099a40bc724"
+        }
+      ]
+    },
+    {
+      "capture": "psp-inbound",
+      "selection": "8f5b505536f6140e260bbc4a079a419a80eb79573d760b1e252b0c8ad3a5a19d",
+      "files": [
+        {
+          "file": "bundle.json",
+          "digest": "c0b0163a27626fd44339e18b3626b0efdfffd4d395ee82df906d61b15b9104ba"
+        },
+        {
+          "file": "associations.bundle.json",
+          "digest": "38174e0f017ac778092570feaf43c972dcc6a8a00cff129c52dc1bbfaa3ba1ce"
+        },
+        {
+          "file": "source-review-v2.bundle.json",
+          "digest": "b74f51db5bb7437b35745b8cfd39605705e0e3eada950b31b5fddf25911eae6d"
+        }
+      ]
+    }
+  ],
+  "identicalDuplicateOccurrences": 602,
+  "records": 9959
+}

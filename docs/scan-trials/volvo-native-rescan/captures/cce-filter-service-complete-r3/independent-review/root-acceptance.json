@@ -1,0 +1,553 @@
+{
+  "snapshot": "026b45380097c239e2511a7ce9186329c0af6e0a24ba7bf73beac41b6e39705f",
+  "status": "passed",
+  "qualification": "Independent source and strict bounded query checks; derived conditional adapters are not physical subscriptions. SQL source arguments and field names are native; imported commit/durability and runtime path feasibility remain unresolved.",
+  "queries": [
+    {
+      "name": "POST /build volvo/cce-filter-service/2020ff59219b/local-r3/entry/api/1cf48856cb69f37aa4",
+      "nodes": 3,
+      "edges": 2,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "GET /wheelComponents volvo/cce-filter-service/2020ff59219b/local-r3/entry/api/bd451c1b8df439bf40",
+      "nodes": 2,
+      "edges": 1,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "POST /populateWheel volvo/cce-filter-service/2020ff59219b/local-r3/entry/api/b44abef1be975cf491",
+      "nodes": 2,
+      "edges": 4,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "GET /filters volvo/cce-filter-service/2020ff59219b/local-r3/entry/api/02c502e449b222e02f",
+      "nodes": 2,
+      "edges": 2,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "GET /health volvo/cce-filter-service/2020ff59219b/local-r3/entry/api/8694d95461fa5e971e",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "GET /health volvo/cce-filter-service/2020ff59219b/local-r3/entry/event/8694d95461fa5e971e",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "GET /ready volvo/cce-filter-service/2020ff59219b/local-r3/entry/api/e81474de6180ecde83",
+      "nodes": 2,
+      "edges": 1,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "GET /ready volvo/cce-filter-service/2020ff59219b/local-r3/entry/event/e81474de6180ecde83",
+      "nodes": 2,
+      "edges": 1,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "GET /partner/rulesForPolicy volvo/cce-filter-service/2020ff59219b/local-r3/entry/api/900cb81f3585447b9b",
+      "nodes": 2,
+      "edges": 4,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "PUT /partner/rulesForPolicy volvo/cce-filter-service/2020ff59219b/local-r3/entry/api/e7d1fec5a98072c00d",
+      "nodes": 2,
+      "edges": 1,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "DELETE /partner/rulesForPolicy volvo/cce-filter-service/2020ff59219b/local-r3/entry/api/de0012233227f89b83",
+      "nodes": 2,
+      "edges": 1,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "GET /partner/validPolicies volvo/cce-filter-service/2020ff59219b/local-r3/entry/api/37e6f39531f86379b9",
+      "nodes": 2,
+      "edges": 3,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "GET /partner/partners volvo/cce-filter-service/2020ff59219b/local-r3/entry/api/5cfdcf3e8737c8d91c",
+      "nodes": 2,
+      "edges": 1,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "DELETE /partner/allPartnerData volvo/cce-filter-service/2020ff59219b/local-r3/entry/api/343a3776c3ee3079a1",
+      "nodes": 2,
+      "edges": 1,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "GET /v2/policies/{policy_uid} volvo/cce-filter-service/2020ff59219b/local-r3/entry/api/7c0fa450c944751868",
+      "nodes": 2,
+      "edges": 2,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "GET /v2/policies/status/{request_uid} volvo/cce-filter-service/2020ff59219b/local-r3/entry/api/6457f6e3e5e43aa728",
+      "nodes": 2,
+      "edges": 2,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "GET /v2/policies/{policy_uid}/status volvo/cce-filter-service/2020ff59219b/local-r3/entry/api/cc55fb681df70758ce",
+      "nodes": 2,
+      "edges": 2,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "POST /v2/policies/status volvo/cce-filter-service/2020ff59219b/local-r3/entry/api/7ea52104ab2a60885b",
+      "nodes": 2,
+      "edges": 1,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "POST /v2/tree/policies volvo/cce-filter-service/2020ff59219b/local-r3/entry/api/bc6a0e0a7f99d39a55",
+      "nodes": 2,
+      "edges": 1,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "GET /v2/tree/policies volvo/cce-filter-service/2020ff59219b/local-r3/entry/api/0f33c530488749b62f",
+      "nodes": 2,
+      "edges": 2,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "POST /v2/policies volvo/cce-filter-service/2020ff59219b/local-r3/entry/api/387a763c1cedc23bf1",
+      "nodes": 4,
+      "edges": 4,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "PUT /v2/policies/{policy_uid} volvo/cce-filter-service/2020ff59219b/local-r3/entry/api/f4eb2179aecb5e3e51",
+      "nodes": 4,
+      "edges": 5,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "PUT /v2/policies volvo/cce-filter-service/2020ff59219b/local-r3/entry/api/198654898c82ef8dd0",
+      "nodes": 4,
+      "edges": 3,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "DELETE /v2/policies/{policy_uid} volvo/cce-filter-service/2020ff59219b/local-r3/entry/api/2eb24e7428832d091c",
+      "nodes": 4,
+      "edges": 12,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "GET /v2/allPolicyUids volvo/cce-filter-service/2020ff59219b/local-r3/entry/api/41e3780a6689bbb254",
+      "nodes": 2,
+      "edges": 1,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "GET /v2/allSpecMarkets volvo/cce-filter-service/2020ff59219b/local-r3/entry/api/29cb702bab25bf7749",
+      "nodes": 2,
+      "edges": 1,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Conditional handler volvocars.contracts.car-configuration.policy-rules-saved",
+      "nodes": 3,
+      "edges": 15,
+      "limits": ["maxNodes"],
+      "pages": 1
+    },
+    {
+      "name": "Conditional handler partnerDetailsLoaded",
+      "nodes": 3,
+      "edges": 2,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Conditional handler volvocars.contracts.car-configuration.pno12-components-imported",
+      "nodes": 4,
+      "edges": 11,
+      "limits": ["maxNodes"],
+      "pages": 1
+    },
+    {
+      "name": "Conditional handler volvocars.contracts.car-configuration.v2.car-specification-upserted",
+      "nodes": 4,
+      "edges": 10,
+      "limits": ["maxNodes"],
+      "pages": 1
+    },
+    {
+      "name": "Conditional handler volvocars.contracts.car-configuration.v2.car-specification-removed",
+      "nodes": 4,
+      "edges": 4,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Conditional handler volvocars.contracts.car-configuration.policy-deleted-result",
+      "nodes": 3,
+      "edges": 4,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Conditional handler volvocars.contracts.cce.car-sync-completed",
+      "nodes": 3,
+      "edges": 4,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Conditional handler volvocars.contracts.cce.car-sync-failed",
+      "nodes": 3,
+      "edges": 4,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Typed SQL columns volvo/cce-filter-service/2020ff59219b/local-r3/storage_write/28b89fe7391dcc125f",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual persisted payload operand volvo/cce-filter-service/2020ff59219b/local-r3/storage_write/28b89fe7391dcc125f",
+      "nodes": 15,
+      "edges": 17,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Typed SQL columns volvo/cce-filter-service/2020ff59219b/local-r3/storage_write/0e1298ca0b5f03867f",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual persisted payload operand volvo/cce-filter-service/2020ff59219b/local-r3/storage_write/0e1298ca0b5f03867f",
+      "nodes": 15,
+      "edges": 17,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Typed SQL columns volvo/cce-filter-service/2020ff59219b/local-r3/storage_write/631188014aa7ef73e3",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual persisted payload operand volvo/cce-filter-service/2020ff59219b/local-r3/storage_write/631188014aa7ef73e3",
+      "nodes": 15,
+      "edges": 17,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Typed SQL columns volvo/cce-filter-service/2020ff59219b/local-r3/storage_write/3650cbc40332b145f4",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual persisted payload operand volvo/cce-filter-service/2020ff59219b/local-r3/storage_write/3650cbc40332b145f4",
+      "nodes": 15,
+      "edges": 17,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Typed SQL columns volvo/cce-filter-service/2020ff59219b/local-r3/storage_write/ebb893c398fbd777de",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Typed SQL columns volvo/cce-filter-service/2020ff59219b/local-r3/storage_write/2fc1c73d1f71f26264",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Typed SQL columns volvo/cce-filter-service/2020ff59219b/local-r3/storage_write/fe90e962054fff95b2",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Typed SQL columns volvo/cce-filter-service/2020ff59219b/local-r3/storage_write/00a62d01a843a6d63c",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Typed SQL columns volvo/cce-filter-service/2020ff59219b/local-r3/storage_write/b05645c76bf144d50d",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Typed SQL columns volvo/cce-filter-service/2020ff59219b/local-r3/storage_write/59648c1bdeefde1fc4",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Typed SQL columns volvo/cce-filter-service/2020ff59219b/local-r3/storage_write/f0a17c181d362eed8e",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Typed SQL columns volvo/cce-filter-service/2020ff59219b/local-r3/storage_write/c25e3e70c6a24c666a",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Typed SQL columns volvo/cce-filter-service/2020ff59219b/local-r3/storage_write/138a7e6ce0d804ca8d",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Typed SQL columns volvo/cce-filter-service/2020ff59219b/local-r3/storage_write/08265878902ec99db7",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Typed SQL columns volvo/cce-filter-service/2020ff59219b/local-r3/storage_write/d7d1dbff144649bb8a",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Typed SQL columns volvo/cce-filter-service/2020ff59219b/local-r3/storage_write/2146c1d4931f4490b2",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Typed SQL columns volvo/cce-filter-service/2020ff59219b/local-r3/storage_write/92283535e6247d8e69",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Typed SQL columns volvo/cce-filter-service/2020ff59219b/local-r3/storage_write/f40e3ff0d0e0803ade",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Typed SQL columns volvo/cce-filter-service/2020ff59219b/local-r3/storage_write/cc130e8a4335ac8ffe",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Typed SQL columns volvo/cce-filter-service/2020ff59219b/local-r3/storage_write/7f777338d844f9f922",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Typed SQL columns volvo/cce-filter-service/2020ff59219b/local-r3/storage_write/337f2362c39aeec5a9",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Typed SQL columns volvo/cce-filter-service/2020ff59219b/local-r3/storage_write/f0e04a478aa6c099f8",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Typed SQL columns volvo/cce-filter-service/2020ff59219b/local-r3/storage_write/67246ab3a6f54769d3",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Typed SQL columns volvo/cce-filter-service/2020ff59219b/local-r3/storage_write/5b337bf0ef2179c503",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Typed SQL columns volvo/cce-filter-service/2020ff59219b/local-r3/storage_write/b48b58422b441fcf6b",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Typed SQL columns volvo/cce-filter-service/2020ff59219b/local-r3/storage_write/4d7be92d04ce940d38",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Typed SQL columns volvo/cce-filter-service/2020ff59219b/local-r3/storage_write/0dbb93d8ffac29d6be",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Typed SQL columns volvo/cce-filter-service/2020ff59219b/local-r3/storage_write/c1d7b036087ff25a61",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Typed SQL columns volvo/cce-filter-service/2020ff59219b/local-r3/storage_write/f50d46d15131f35d2e",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Typed SQL columns volvo/cce-filter-service/2020ff59219b/local-r3/storage_write/252ae27443d98e523a",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Typed SQL columns volvo/cce-filter-service/2020ff59219b/local-r3/storage_write/6a322ccd6215986e94",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Typed SQL columns volvo/cce-filter-service/2020ff59219b/local-r3/storage_write/aa289e24dec94a0cb7",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Flag library no invented remote target volvo/cce-filter-service/2020ff59219b/local-r3/interaction/a24302debf0e667cbf",
+      "nodes": 2,
+      "edges": 1,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Flag library no invented remote target volvo/cce-filter-service/2020ff59219b/local-r3/interaction/3359f2e693de55fc43",
+      "nodes": 2,
+      "edges": 1,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual populate return survives conflicting None annotation",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Ready handler exception wrapper source branches",
+      "nodes": 71,
+      "edges": 79,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual subscription source-context outbound value volvocars.contracts.car-configuration.policy-rules-saved Configured Filter Azure blob storage",
+      "nodes": 12,
+      "edges": 11,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual subscription source-context outbound value volvocars.contracts.car-configuration.policy-rules-saved Configured CONFIG_POLICY_TOPIC topic",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual subscription source-context outbound value volvocars.contracts.car-configuration.pno12-components-imported Configured Filter Azure blob storage",
+      "nodes": 12,
+      "edges": 11,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual subscription source-context outbound value volvocars.contracts.car-configuration.pno12-components-imported Configured CONFIG_POLICY_TOPIC topic",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    }
+  ]
+}

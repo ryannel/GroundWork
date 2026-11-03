@@ -1,0 +1,20 @@
+[
+  {
+    "name": "capture",
+    "overflow": [],
+    "pageOverflow": false,
+    "functionVisible": "u3-runs-r1-capture",
+    "sourceLinks": 23,
+    "validLinks": true,
+    "contractVisible": true
+  },
+  {
+    "name": "soft-offer",
+    "overflow": [],
+    "pageOverflow": false,
+    "functionVisible": "u3-runs-s2-add",
+    "sourceLinks": 23,
+    "validLinks": true,
+    "contractVisible": true
+  }
+]

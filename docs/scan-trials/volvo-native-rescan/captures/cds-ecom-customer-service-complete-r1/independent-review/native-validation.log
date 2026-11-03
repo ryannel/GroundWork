@@ -1,0 +1,11 @@
+
+> groundwork@0.0.0 knowledge:validate
+> node --import ./tools/register.ts --conditions=react-server tools/validate-knowledge.ts reports/volvo-native-rescan/cds-ecom-customer-service-complete/bundle.final-r1.json --snapshot reports/volvo-native-rescan/cds-ecom-customer-service-complete/snapshot.final-r1.json --sources /Users/RNEL/.cache/groundwork/clones
+
+{
+  "snapshot": "b5306d23d996ef477ee3b61b90d68a7dbac9006fa258a2cd3a3e323a9d8f3dbb",
+  "bundles": 1,
+  "records": 53496,
+  "sourceRangesChecked": 5880,
+  "sourceVerification": "pinned_local_files"
+}

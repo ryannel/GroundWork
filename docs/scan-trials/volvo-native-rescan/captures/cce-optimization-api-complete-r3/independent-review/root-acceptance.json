@@ -1,0 +1,329 @@
+{
+  "snapshot": "bd0ce620207f239f5d3d2fe197a26fe533e31b25dc690680b145d771cf5d6664",
+  "status": "passed",
+  "qualification": "Independent12full-file pinned-source review and strict bounded queries. GraphQL mount, conditional field/callback registrations, engine declarations and actual source I/O are separate; imported scheduling/constructor dispatch remains a frontier.",
+  "queries": [
+    {
+      "name": "Health source tuple without I/O",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Thread queue drains locally without posterior persistence",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "GraphQL mount keeps imported dispatch opaque",
+      "nodes": 2,
+      "edges": 1,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "GraphQL field registration catalogue is separate from mount",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Selected actual GraphQL source resolver queries.query.Query.resolve_hey",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Selected actual GraphQL source resolver queries.query.Query.resolve_system",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Selected actual GraphQL source resolver queries.query.Query.resolve_molytope_query",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Selected actual GraphQL source resolver queries.query.Query.resolve_polytope_pair_query",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Singleton cache guard is retained before constructor-dispatch frontier",
+      "nodes": 21,
+      "edges": 21,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual owned I/O or library invocation volvo/cce-optimization-api/286985b6bebc/final-r3/interaction/io/0891f2b2364dbd813f",
+      "nodes": 2,
+      "edges": 1,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual source interface contract volvo/cce-optimization-api/286985b6bebc/final-r3/interaction/io/0891f2b2364dbd813f",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual boundary argument volvo/cce-optimization-api/286985b6bebc/final-r3/interaction/io/0891f2b2364dbd813f",
+      "nodes": 4,
+      "edges": 3,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual owned I/O or library invocation volvo/cce-optimization-api/286985b6bebc/final-r3/interaction/io/82f3784e9fddbc4b16",
+      "nodes": 3,
+      "edges": 2,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual source interface contract volvo/cce-optimization-api/286985b6bebc/final-r3/interaction/io/82f3784e9fddbc4b16",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual boundary argument volvo/cce-optimization-api/286985b6bebc/final-r3/interaction/io/82f3784e9fddbc4b16",
+      "nodes": 6,
+      "edges": 5,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual owned I/O or library invocation volvo/cce-optimization-api/286985b6bebc/final-r3/interaction/io/41207b6bc3822825f7",
+      "nodes": 3,
+      "edges": 2,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual source interface contract volvo/cce-optimization-api/286985b6bebc/final-r3/interaction/io/41207b6bc3822825f7",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual boundary argument volvo/cce-optimization-api/286985b6bebc/final-r3/interaction/io/41207b6bc3822825f7",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual owned I/O or library invocation volvo/cce-optimization-api/286985b6bebc/final-r3/interaction/io/82078d7d6e10f177a4",
+      "nodes": 2,
+      "edges": 1,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual source interface contract volvo/cce-optimization-api/286985b6bebc/final-r3/interaction/io/82078d7d6e10f177a4",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual boundary argument volvo/cce-optimization-api/286985b6bebc/final-r3/interaction/io/82078d7d6e10f177a4",
+      "nodes": 3,
+      "edges": 2,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual owned I/O or library invocation volvo/cce-optimization-api/286985b6bebc/final-r3/interaction/io/99273cf1049bbca310",
+      "nodes": 2,
+      "edges": 1,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual source interface contract volvo/cce-optimization-api/286985b6bebc/final-r3/interaction/io/99273cf1049bbca310",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual boundary argument volvo/cce-optimization-api/286985b6bebc/final-r3/interaction/io/99273cf1049bbca310",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual owned I/O or library invocation volvo/cce-optimization-api/286985b6bebc/final-r3/interaction/io/93f62851d140070404",
+      "nodes": 2,
+      "edges": 2,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual source interface contract volvo/cce-optimization-api/286985b6bebc/final-r3/interaction/io/93f62851d140070404",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual boundary argument volvo/cce-optimization-api/286985b6bebc/final-r3/interaction/io/93f62851d140070404",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual owned I/O or library invocation volvo/cce-optimization-api/286985b6bebc/final-r3/interaction/io/40f062e4c7d08d8c4e",
+      "nodes": 2,
+      "edges": 2,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual source interface contract volvo/cce-optimization-api/286985b6bebc/final-r3/interaction/io/40f062e4c7d08d8c4e",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual boundary argument volvo/cce-optimization-api/286985b6bebc/final-r3/interaction/io/40f062e4c7d08d8c4e",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual owned I/O or library invocation volvo/cce-optimization-api/286985b6bebc/final-r3/interaction/io/1056a444a159a94bd5",
+      "nodes": 2,
+      "edges": 1,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual source interface contract volvo/cce-optimization-api/286985b6bebc/final-r3/interaction/io/1056a444a159a94bd5",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual boundary argument volvo/cce-optimization-api/286985b6bebc/final-r3/interaction/io/1056a444a159a94bd5",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual owned I/O or library invocation volvo/cce-optimization-api/286985b6bebc/final-r3/interaction/io/480622acf15791f4ab",
+      "nodes": 3,
+      "edges": 2,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual source interface contract volvo/cce-optimization-api/286985b6bebc/final-r3/interaction/io/480622acf15791f4ab",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual boundary argument volvo/cce-optimization-api/286985b6bebc/final-r3/interaction/io/480622acf15791f4ab",
+      "nodes": 9,
+      "edges": 8,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual owned I/O or library invocation volvo/cce-optimization-api/286985b6bebc/final-r3/interaction/io/7c87c17b42918431e5",
+      "nodes": 3,
+      "edges": 2,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual source interface contract volvo/cce-optimization-api/286985b6bebc/final-r3/interaction/io/7c87c17b42918431e5",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual boundary argument volvo/cce-optimization-api/286985b6bebc/final-r3/interaction/io/7c87c17b42918431e5",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Source-registered FetchRules callback reaches Azure",
+      "nodes": 2,
+      "edges": 4,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Selected awaited child reaches Azure",
+      "nodes": 2,
+      "edges": 4,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Local imported CVXOPT is not a remote solver",
+      "nodes": 2,
+      "edges": 1,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Exact composition dependency declarations remain queryable",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual source callback registrations remain queryable",
+      "nodes": 0,
+      "edges": 0,
+      "limits": ["maxRecords"],
+      "pages": 2
+    },
+    {
+      "name": "SDK writes have source call-only acknowledgement",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Source storage/queue/health policy is explicit",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    }
+  ]
+}

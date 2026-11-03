@@ -1,0 +1,2197 @@
+{
+  "mode": "Pinned GraphQL document parse only; no registry/composed schema or live execution",
+  "documents": [
+    {
+      "file": "src/query/carComponentsQuery.ts",
+      "binding": "carComponentsQuery",
+      "document": "\n  query CarComponentsQuery(\n    $token: String!\n    $priceConfigInput: PriceConfigurationInput\n    $locale: String!\n  ) {\n    carByToken(token: $token) {\n      configurationByToken(token: $token) {\n        token {\n          short\n        }\n        components {\n          tags\n          code\n          type\n          content(locale: $locale) {\n            displayName {\n              value\n            }\n            description {\n              value\n            }\n            ... on OptionContent {\n              group {\n                value\n                formatted\n              }\n              categoryPlacement {\n                path {\n                  displayName {\n                    value\n                  }\n                }\n              }\n            }\n            ... on PackageContent {\n              group {\n                value\n                formatted\n              }\n            }\n            ... on ColourContent {\n              group {\n                value\n                formatted\n              }\n              colorType {\n                formatted\n              }\n            }\n            ... on UpholsteryContent {\n              group {\n                value\n                formatted\n              }\n              upholsteryMaterial {\n                formatted\n              }\n            }\n            image {\n              url\n            }\n          }\n          requires {\n            content(locale: $locale) {\n              description {\n                value\n              }\n              displayName {\n                value\n              }\n              image {\n                url\n              }\n            }\n            code\n          }\n          inConfiguration {\n            selected\n            included\n            active\n          }\n          configurations {\n            appliedChange {\n              priceSummary(priceConfigInput: $priceConfigInput) {\n                all {\n                  relativeBasePriceInclTax {\n                    display\n                  }\n                  priceBreakdownPriceInclTax {\n                    display\n                  }\n                }\n              }\n            }\n          }\n          alternativeCodes\n          visible\n          requiresExclusively {\n            content(locale: $locale) {\n              description {\n                value\n              }\n              displayName {\n                value\n              }\n              image {\n                url\n              }\n            }\n          }\n        }\n      }\n      commercialModelYear {\n        name\n        structureWeekFrom\n      }\n      visualizations(marketOrLocale: $locale) {\n        views {\n          exterior {\n            standardizedSideView {\n              sizes {\n                default {\n                  url\n                }\n              }\n            }\n          }\n        }\n      }\n    }\n  }\n",
+      "operations": [
+        {
+          "name": "CarComponentsQuery",
+          "operation": "query",
+          "variables": [
+            {
+              "name": "token",
+              "type": "String!",
+              "default": null
+            },
+            {
+              "name": "priceConfigInput",
+              "type": "PriceConfigurationInput",
+              "default": null
+            },
+            {
+              "name": "locale",
+              "type": "String!",
+              "default": null
+            }
+          ],
+          "fields": [
+            {
+              "name": "carByToken",
+              "alias": null,
+              "arguments": [
+                {
+                  "name": "token",
+                  "value": "$token"
+                }
+              ]
+            },
+            {
+              "name": "configurationByToken",
+              "alias": null,
+              "arguments": [
+                {
+                  "name": "token",
+                  "value": "$token"
+                }
+              ]
+            },
+            {
+              "name": "token",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "short",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "components",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "tags",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "code",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "type",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "content",
+              "alias": null,
+              "arguments": [
+                {
+                  "name": "locale",
+                  "value": "$locale"
+                }
+              ]
+            },
+            {
+              "name": "displayName",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "value",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "description",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "value",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "group",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "value",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "formatted",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "categoryPlacement",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "path",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "displayName",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "value",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "group",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "value",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "formatted",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "group",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "value",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "formatted",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "colorType",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "formatted",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "group",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "value",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "formatted",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "upholsteryMaterial",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "formatted",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "image",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "url",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "requires",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "content",
+              "alias": null,
+              "arguments": [
+                {
+                  "name": "locale",
+                  "value": "$locale"
+                }
+              ]
+            },
+            {
+              "name": "description",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "value",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "displayName",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "value",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "image",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "url",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "code",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "inConfiguration",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "selected",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "included",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "active",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "configurations",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "appliedChange",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "priceSummary",
+              "alias": null,
+              "arguments": [
+                {
+                  "name": "priceConfigInput",
+                  "value": "$priceConfigInput"
+                }
+              ]
+            },
+            {
+              "name": "all",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "relativeBasePriceInclTax",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "display",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "priceBreakdownPriceInclTax",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "display",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "alternativeCodes",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "visible",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "requiresExclusively",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "content",
+              "alias": null,
+              "arguments": [
+                {
+                  "name": "locale",
+                  "value": "$locale"
+                }
+              ]
+            },
+            {
+              "name": "description",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "value",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "displayName",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "value",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "image",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "url",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "commercialModelYear",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "name",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "structureWeekFrom",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "visualizations",
+              "alias": null,
+              "arguments": [
+                {
+                  "name": "marketOrLocale",
+                  "value": "$locale"
+                }
+              ]
+            },
+            {
+              "name": "views",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "exterior",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "standardizedSideView",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "sizes",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "default",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "url",
+              "alias": null,
+              "arguments": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "file": "src/query/model-family-v2.ts",
+      "binding": "modelFamilyQuery",
+      "document": "\n  query CarsByPolicy(\n    $policy: String!\n    $locale: String!\n    $priceConfigInput: PriceConfigurationInput\n    $clientType: String!\n  ) {\n    carsByPolicy(policy: $policy, clientType: $clientType) {\n      cars {\n        priceListDisplayName(locale: $locale)\n        priceSummary(priceConfigInput: $priceConfigInput) {\n          price {\n            display\n            amount\n          }\n        }\n        model(locale: $locale) {\n          displayName {\n            value\n          }\n        }\n        salesVersion: trim(locale: $locale) {\n          displayName {\n            value\n          }\n          description {\n            value\n          }\n        }\n        theme: trimFamily(locale: $locale) {\n          displayName {\n            value\n          }\n          description {\n            value\n          }\n        }\n        engine {\n          content(locale: $locale) {\n            fuelType {\n              formatted\n              value\n            }\n            engineType {\n              formatted\n              value\n            }\n          }\n        }\n        driveline {\n          content(locale: $locale) {\n            driveType {\n              formatted\n              value\n            }\n            transmissionType {\n              formatted\n            }\n            gearboxFullName {\n              value\n            }\n          }\n        }\n        pno {\n          pno12\n        }\n        carKeyExpanded {\n          carType\n          engine\n          salesVersion\n          gearbox\n          steering\n          marketingCode\n          specMarket\n          body\n          modelYear\n        }\n        visualizations(marketOrLocale: $locale) {\n          views {\n            exterior {\n              studio {\n                left {\n                  sizes {\n                    default {\n                      url\n                    }\n                  }\n                }\n              }\n            }\n          }\n        }\n        technicalData(locale: $locale) {\n          all {\n            key\n            label\n            formatted\n          }\n        }\n        configuration {\n          token {\n            short\n          }\n        }\n      }\n    }\n  }\n",
+      "operations": [
+        {
+          "name": "CarsByPolicy",
+          "operation": "query",
+          "variables": [
+            {
+              "name": "policy",
+              "type": "String!",
+              "default": null
+            },
+            {
+              "name": "locale",
+              "type": "String!",
+              "default": null
+            },
+            {
+              "name": "priceConfigInput",
+              "type": "PriceConfigurationInput",
+              "default": null
+            },
+            {
+              "name": "clientType",
+              "type": "String!",
+              "default": null
+            }
+          ],
+          "fields": [
+            {
+              "name": "carsByPolicy",
+              "alias": null,
+              "arguments": [
+                {
+                  "name": "policy",
+                  "value": "$policy"
+                },
+                {
+                  "name": "clientType",
+                  "value": "$clientType"
+                }
+              ]
+            },
+            {
+              "name": "cars",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "priceListDisplayName",
+              "alias": null,
+              "arguments": [
+                {
+                  "name": "locale",
+                  "value": "$locale"
+                }
+              ]
+            },
+            {
+              "name": "priceSummary",
+              "alias": null,
+              "arguments": [
+                {
+                  "name": "priceConfigInput",
+                  "value": "$priceConfigInput"
+                }
+              ]
+            },
+            {
+              "name": "price",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "display",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "amount",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "model",
+              "alias": null,
+              "arguments": [
+                {
+                  "name": "locale",
+                  "value": "$locale"
+                }
+              ]
+            },
+            {
+              "name": "displayName",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "value",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "trim",
+              "alias": "salesVersion",
+              "arguments": [
+                {
+                  "name": "locale",
+                  "value": "$locale"
+                }
+              ]
+            },
+            {
+              "name": "displayName",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "value",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "description",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "value",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "trimFamily",
+              "alias": "theme",
+              "arguments": [
+                {
+                  "name": "locale",
+                  "value": "$locale"
+                }
+              ]
+            },
+            {
+              "name": "displayName",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "value",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "description",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "value",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "engine",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "content",
+              "alias": null,
+              "arguments": [
+                {
+                  "name": "locale",
+                  "value": "$locale"
+                }
+              ]
+            },
+            {
+              "name": "fuelType",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "formatted",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "value",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "engineType",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "formatted",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "value",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "driveline",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "content",
+              "alias": null,
+              "arguments": [
+                {
+                  "name": "locale",
+                  "value": "$locale"
+                }
+              ]
+            },
+            {
+              "name": "driveType",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "formatted",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "value",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "transmissionType",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "formatted",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "gearboxFullName",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "value",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "pno",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "pno12",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "carKeyExpanded",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "carType",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "engine",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "salesVersion",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "gearbox",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "steering",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "marketingCode",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "specMarket",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "body",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "modelYear",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "visualizations",
+              "alias": null,
+              "arguments": [
+                {
+                  "name": "marketOrLocale",
+                  "value": "$locale"
+                }
+              ]
+            },
+            {
+              "name": "views",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "exterior",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "studio",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "left",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "sizes",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "default",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "url",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "technicalData",
+              "alias": null,
+              "arguments": [
+                {
+                  "name": "locale",
+                  "value": "$locale"
+                }
+              ]
+            },
+            {
+              "name": "all",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "key",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "label",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "formatted",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "configuration",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "token",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "short",
+              "alias": null,
+              "arguments": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "file": "src/query/optionLocalizationQuery.ts",
+      "binding": "optionLocalizationQuery",
+      "document": "query FetchOptionLocalization($policy: String!, $locale: String!) {\n  assortment(modelYear: 2024, policy: $policy) {\n    packages {\n      code\n      content(locale: $locale) {\n        displayName {\n          value\n        }\n      }\n      globalName {\n        globalName\n        exceptions {\n          globalName\n          carType\n        }\n      }\n    }\n    colors {\n      code\n      content(locale: $locale) {\n        displayName {\n          value\n        }\n      }\n      globalName {\n        globalName\n        exceptions {\n          globalName\n          carType\n        }\n      }\n    }\n    engines {\n      code\n      content(locale: $locale) {\n        displayName {\n          value\n        }\n      }\n      globalName {\n        globalName\n        exceptions {\n          globalName\n          carType\n        }\n      }\n    }\n    options {\n      code\n      content(locale: $locale) {\n        displayName {\n          value\n        }\n      }\n      globalName {\n        globalName\n        exceptions {\n          globalName\n          carType\n        }\n      }\n    }\n    gearboxes {\n      code\n      globalName {\n        globalName\n      }\n      content(locale: $locale) {\n        displayName {\n          value\n        }\n      }\n    }\n    salesVersions {\n      code\n      globalName {\n        globalName\n      }\n      content(locale: $locale) {\n        displayName {\n          value\n        }\n      }\n    }\n    upholsteries {\n      code\n      globalName {\n        globalName\n      }\n      content(locale: $locale) {\n        displayName {\n          value\n        }\n      }\n    }\n    steerings {\n      code\n      globalName {\n        globalName\n      }\n      content(locale: $locale) {\n        displayName {\n          value\n        }\n      }\n    }\n    sMessages {\n      code\n      globalName {\n        globalName\n      }\n      content(locale: $locale) {\n        displayName {\n          value\n        }\n      }\n    }\n    marketingCodes {\n      code\n      globalName {\n        globalName\n      }\n      content(locale: $locale) {\n        displayName {\n          value\n        }\n      }\n    }\n    carTypes {\n      code\n      globalName {\n        globalName\n      }\n      content(locale: $locale) {\n        displayName {\n          value\n        }\n      }\n    }\n  }\n}\n",
+      "operations": [
+        {
+          "name": "FetchOptionLocalization",
+          "operation": "query",
+          "variables": [
+            {
+              "name": "policy",
+              "type": "String!",
+              "default": null
+            },
+            {
+              "name": "locale",
+              "type": "String!",
+              "default": null
+            }
+          ],
+          "fields": [
+            {
+              "name": "assortment",
+              "alias": null,
+              "arguments": [
+                {
+                  "name": "modelYear",
+                  "value": "2024"
+                },
+                {
+                  "name": "policy",
+                  "value": "$policy"
+                }
+              ]
+            },
+            {
+              "name": "packages",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "code",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "content",
+              "alias": null,
+              "arguments": [
+                {
+                  "name": "locale",
+                  "value": "$locale"
+                }
+              ]
+            },
+            {
+              "name": "displayName",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "value",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "globalName",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "globalName",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "exceptions",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "globalName",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "carType",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "colors",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "code",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "content",
+              "alias": null,
+              "arguments": [
+                {
+                  "name": "locale",
+                  "value": "$locale"
+                }
+              ]
+            },
+            {
+              "name": "displayName",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "value",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "globalName",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "globalName",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "exceptions",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "globalName",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "carType",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "engines",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "code",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "content",
+              "alias": null,
+              "arguments": [
+                {
+                  "name": "locale",
+                  "value": "$locale"
+                }
+              ]
+            },
+            {
+              "name": "displayName",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "value",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "globalName",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "globalName",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "exceptions",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "globalName",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "carType",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "options",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "code",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "content",
+              "alias": null,
+              "arguments": [
+                {
+                  "name": "locale",
+                  "value": "$locale"
+                }
+              ]
+            },
+            {
+              "name": "displayName",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "value",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "globalName",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "globalName",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "exceptions",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "globalName",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "carType",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "gearboxes",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "code",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "globalName",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "globalName",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "content",
+              "alias": null,
+              "arguments": [
+                {
+                  "name": "locale",
+                  "value": "$locale"
+                }
+              ]
+            },
+            {
+              "name": "displayName",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "value",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "salesVersions",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "code",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "globalName",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "globalName",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "content",
+              "alias": null,
+              "arguments": [
+                {
+                  "name": "locale",
+                  "value": "$locale"
+                }
+              ]
+            },
+            {
+              "name": "displayName",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "value",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "upholsteries",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "code",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "globalName",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "globalName",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "content",
+              "alias": null,
+              "arguments": [
+                {
+                  "name": "locale",
+                  "value": "$locale"
+                }
+              ]
+            },
+            {
+              "name": "displayName",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "value",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "steerings",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "code",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "globalName",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "globalName",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "content",
+              "alias": null,
+              "arguments": [
+                {
+                  "name": "locale",
+                  "value": "$locale"
+                }
+              ]
+            },
+            {
+              "name": "displayName",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "value",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "sMessages",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "code",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "globalName",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "globalName",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "content",
+              "alias": null,
+              "arguments": [
+                {
+                  "name": "locale",
+                  "value": "$locale"
+                }
+              ]
+            },
+            {
+              "name": "displayName",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "value",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "marketingCodes",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "code",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "globalName",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "globalName",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "content",
+              "alias": null,
+              "arguments": [
+                {
+                  "name": "locale",
+                  "value": "$locale"
+                }
+              ]
+            },
+            {
+              "name": "displayName",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "value",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "carTypes",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "code",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "globalName",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "globalName",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "content",
+              "alias": null,
+              "arguments": [
+                {
+                  "name": "locale",
+                  "value": "$locale"
+                }
+              ]
+            },
+            {
+              "name": "displayName",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "value",
+              "alias": null,
+              "arguments": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "file": "src/query/pno12Query.ts",
+      "binding": "pno12Query",
+      "document": "\n  query Pno12Query(\n    $policy: String!\n    $locale: String!\n    $priceConfigInput: PriceConfigurationInput\n  ) {\n    carsByPolicy(policy: $policy) {\n      cars {\n        priceListDisplayName(locale: $locale)\n        priceSummary(priceConfigInput: $priceConfigInput) {\n          price {\n            display\n            amount\n          }\n        }\n        model(locale: $locale) {\n          displayName {\n            value\n          }\n        }\n        salesVersion: trim(locale: $locale) {\n          displayName {\n            value\n          }\n          description {\n            value\n          }\n        }\n        theme: trimFamily(locale: $locale) {\n          displayName {\n            value\n          }\n          description {\n            value\n          }\n        }\n        engine {\n          content(locale: $locale) {\n            fuelType {\n              formatted\n              value\n            }\n            engineType {\n              formatted\n              value\n            }\n          }\n        }\n        driveline {\n          content(locale: $locale) {\n            driveType {\n              formatted\n              value\n            }\n            transmissionType {\n              formatted\n            }\n            gearboxFullName {\n              value\n            }\n          }\n        }\n        pno {\n          pno12\n        }\n        carKeyExpanded {\n          carType\n          engine\n          salesVersion\n          gearbox\n          steering\n          marketingCode\n          specMarket\n          body\n          modelYear\n        }\n        visualizations(marketOrLocale: $locale) {\n          views {\n            exterior {\n              studio {\n                left {\n                  sizes {\n                    default {\n                      url\n                    }\n                  }\n                }\n              }\n            }\n          }\n        }\n        technicalData(locale: $locale) {\n          all {\n            key\n            formatted\n          }\n        }\n        configuration {\n          token {\n            short\n          }\n        }\n      }\n    }\n  }\n",
+      "operations": [
+        {
+          "name": "Pno12Query",
+          "operation": "query",
+          "variables": [
+            {
+              "name": "policy",
+              "type": "String!",
+              "default": null
+            },
+            {
+              "name": "locale",
+              "type": "String!",
+              "default": null
+            },
+            {
+              "name": "priceConfigInput",
+              "type": "PriceConfigurationInput",
+              "default": null
+            }
+          ],
+          "fields": [
+            {
+              "name": "carsByPolicy",
+              "alias": null,
+              "arguments": [
+                {
+                  "name": "policy",
+                  "value": "$policy"
+                }
+              ]
+            },
+            {
+              "name": "cars",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "priceListDisplayName",
+              "alias": null,
+              "arguments": [
+                {
+                  "name": "locale",
+                  "value": "$locale"
+                }
+              ]
+            },
+            {
+              "name": "priceSummary",
+              "alias": null,
+              "arguments": [
+                {
+                  "name": "priceConfigInput",
+                  "value": "$priceConfigInput"
+                }
+              ]
+            },
+            {
+              "name": "price",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "display",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "amount",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "model",
+              "alias": null,
+              "arguments": [
+                {
+                  "name": "locale",
+                  "value": "$locale"
+                }
+              ]
+            },
+            {
+              "name": "displayName",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "value",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "trim",
+              "alias": "salesVersion",
+              "arguments": [
+                {
+                  "name": "locale",
+                  "value": "$locale"
+                }
+              ]
+            },
+            {
+              "name": "displayName",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "value",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "description",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "value",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "trimFamily",
+              "alias": "theme",
+              "arguments": [
+                {
+                  "name": "locale",
+                  "value": "$locale"
+                }
+              ]
+            },
+            {
+              "name": "displayName",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "value",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "description",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "value",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "engine",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "content",
+              "alias": null,
+              "arguments": [
+                {
+                  "name": "locale",
+                  "value": "$locale"
+                }
+              ]
+            },
+            {
+              "name": "fuelType",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "formatted",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "value",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "engineType",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "formatted",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "value",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "driveline",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "content",
+              "alias": null,
+              "arguments": [
+                {
+                  "name": "locale",
+                  "value": "$locale"
+                }
+              ]
+            },
+            {
+              "name": "driveType",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "formatted",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "value",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "transmissionType",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "formatted",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "gearboxFullName",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "value",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "pno",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "pno12",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "carKeyExpanded",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "carType",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "engine",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "salesVersion",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "gearbox",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "steering",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "marketingCode",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "specMarket",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "body",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "modelYear",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "visualizations",
+              "alias": null,
+              "arguments": [
+                {
+                  "name": "marketOrLocale",
+                  "value": "$locale"
+                }
+              ]
+            },
+            {
+              "name": "views",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "exterior",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "studio",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "left",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "sizes",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "default",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "url",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "technicalData",
+              "alias": null,
+              "arguments": [
+                {
+                  "name": "locale",
+                  "value": "$locale"
+                }
+              ]
+            },
+            {
+              "name": "all",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "key",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "formatted",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "configuration",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "token",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "short",
+              "alias": null,
+              "arguments": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "file": "src/query/preConfigValidationQuery.ts",
+      "binding": "preConfigValidationQuery",
+      "document": "\n  query PreConfigValidation(\n    $policy: String!\n    $specification: CarConfigurationSpecification!\n  ) {\n    carConfigurationBySpecification(\n      policy: $policy\n      specification: $specification\n    ) {\n      appliedChange {\n        componentsAdded {\n          globalName\n          code\n          type\n        }\n        componentsRemoved {\n          code\n          globalName\n          type\n        }\n      }\n    }\n  }\n",
+      "operations": [
+        {
+          "name": "PreConfigValidation",
+          "operation": "query",
+          "variables": [
+            {
+              "name": "policy",
+              "type": "String!",
+              "default": null
+            },
+            {
+              "name": "specification",
+              "type": "CarConfigurationSpecification!",
+              "default": null
+            }
+          ],
+          "fields": [
+            {
+              "name": "carConfigurationBySpecification",
+              "alias": null,
+              "arguments": [
+                {
+                  "name": "policy",
+                  "value": "$policy"
+                },
+                {
+                  "name": "specification",
+                  "value": "$specification"
+                }
+              ]
+            },
+            {
+              "name": "appliedChange",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "componentsAdded",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "globalName",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "code",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "type",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "componentsRemoved",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "code",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "globalName",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "type",
+              "alias": null,
+              "arguments": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "file": "src/query/priceBreakdownQuery.ts",
+      "binding": "priceBreakdownQuery",
+      "document": "\n  query PriceBreakdownQuery(\n    $token: String!\n    $priceConfigInput: PriceConfigurationInput\n  ) {\n    carByToken(token: $token) {\n      priceSummary(priceConfigInput: $priceConfigInput) {\n        totalPrice {\n          display\n        }\n        totalPriceWithoutTax {\n          display\n        }\n        taxes {\n          informational {\n            name\n            vatRate\n            vatPosition\n            price {\n              display\n            }\n          }\n          acquisition {\n            name\n            vatRate\n            vatPosition\n            price {\n              display\n            }\n          }\n        }\n        breakDown {\n          color {\n            code\n            type\n            price {\n              display\n              amount\n            }\n          }\n          upholstery {\n            code\n            type\n            price {\n              display\n              amount\n            }\n          }\n          options {\n            code\n            type\n            price {\n              display\n              amount\n            }\n          }\n          packages {\n            code\n            type\n            price {\n              display\n              amount\n            }\n          }\n        }\n      }\n    }\n  }\n",
+      "operations": [
+        {
+          "name": "PriceBreakdownQuery",
+          "operation": "query",
+          "variables": [
+            {
+              "name": "token",
+              "type": "String!",
+              "default": null
+            },
+            {
+              "name": "priceConfigInput",
+              "type": "PriceConfigurationInput",
+              "default": null
+            }
+          ],
+          "fields": [
+            {
+              "name": "carByToken",
+              "alias": null,
+              "arguments": [
+                {
+                  "name": "token",
+                  "value": "$token"
+                }
+              ]
+            },
+            {
+              "name": "priceSummary",
+              "alias": null,
+              "arguments": [
+                {
+                  "name": "priceConfigInput",
+                  "value": "$priceConfigInput"
+                }
+              ]
+            },
+            {
+              "name": "totalPrice",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "display",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "totalPriceWithoutTax",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "display",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "taxes",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "informational",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "name",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "vatRate",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "vatPosition",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "price",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "display",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "acquisition",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "name",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "vatRate",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "vatPosition",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "price",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "display",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "breakDown",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "color",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "code",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "type",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "price",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "display",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "amount",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "upholstery",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "code",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "type",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "price",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "display",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "amount",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "options",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "code",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "type",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "price",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "display",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "amount",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "packages",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "code",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "type",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "price",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "display",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "amount",
+              "alias": null,
+              "arguments": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "file": "src/query/priceQuery.ts",
+      "binding": "priceQuery",
+      "document": "\n  query PriceQuery($token: String!, $priceConfigInput: PriceConfigurationInput) {\n    carByToken(token: $token) {\n      priceSummary(priceConfigInput: $priceConfigInput) {\n        totalPrice {\n          display\n        }\n      }\n    }\n  }\n",
+      "operations": [
+        {
+          "name": "PriceQuery",
+          "operation": "query",
+          "variables": [
+            {
+              "name": "token",
+              "type": "String!",
+              "default": null
+            },
+            {
+              "name": "priceConfigInput",
+              "type": "PriceConfigurationInput",
+              "default": null
+            }
+          ],
+          "fields": [
+            {
+              "name": "carByToken",
+              "alias": null,
+              "arguments": [
+                {
+                  "name": "token",
+                  "value": "$token"
+                }
+              ]
+            },
+            {
+              "name": "priceSummary",
+              "alias": null,
+              "arguments": [
+                {
+                  "name": "priceConfigInput",
+                  "value": "$priceConfigInput"
+                }
+              ]
+            },
+            {
+              "name": "totalPrice",
+              "alias": null,
+              "arguments": []
+            },
+            {
+              "name": "display",
+              "alias": null,
+              "arguments": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

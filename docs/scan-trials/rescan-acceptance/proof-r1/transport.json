@@ -1,0 +1,18 @@
+{
+  "format": "canonical-proof-transport/v1",
+  "qualification": "Gzip transport preserves the exact original canonical API page JSON bytes; no records, order or receipt claims changed.",
+  "files": [
+    {
+      "path": "python/pages.json.gz",
+      "encoding": "gzip",
+      "decodedSha256": "e0a79674f1cd2125b89432968532867a41430595e9d7f0549523bdb63cd161ca",
+      "decodedBytes": 72663
+    },
+    {
+      "path": "rust/pages.json.gz",
+      "encoding": "gzip",
+      "decodedSha256": "8e60a74c8d0f1a72d2ed71ea3fbefbd788b340a645875749974a9327aa85099a",
+      "decodedBytes": 115828
+    }
+  ]
+}

@@ -1,0 +1,376 @@
+[
+  {
+    "paths": [
+      "internal/app/app.go",
+      "internal/app/appmigration.go",
+      "internal/api/httpserver/routes.go",
+      "cmd/car-spec-adapter/main.go",
+      "cmd/postgres-migrator/main.go"
+    ],
+    "facts": [
+      "Two actual executables: main adapter host and dedicated migrator host. Host-specific Fx provider/invoke/lifecycle annotations must not be flattened into one global interface map. Three named FeatureCodeFetcher dependencies select CPAM, CarFeatures PRINS and PCG, then aggregate into StandardWheelFeatureCodeService.",
+      "Seven business REST methods plus Swagger imported handler; private sync/baseline and v1 reads/local-edition writes. Common middleware order source explicit. Watermill startup and publisher lifecycle are source registrations, not eager ordinary calls."
+    ]
+  },
+  {
+    "paths": [
+      "internal/api/httpserver/carspecifications/controller.go",
+      "internal/api/httpserver/carspecifications/map.go",
+      "internal/api/httpserver/carspecifications/model.go",
+      "internal/api/httpserver/localeditions/controller.go",
+      "internal/api/httpserver/localeditions/map.go",
+      "internal/api/httpserver/localeditions/model.go"
+    ],
+    "facts": [
+      "Sync/Baseline validate source query and permitted modelYear before starting Go goroutine; return202 only initiates work, with background context enriched by operationID and logged async failure. Get uses localEditionCode with deprecated localTrimEditionCode fallback only when primary empty.",
+      "LocalEdition Upsert uses exact skipValidation query equality true, decodes JSON then constructs domain key/code, waits service call and returns201. Delete waits updater then writes204 with no respond envelope. GetLocalEditionCode has explicit404 branch bypassing error responder for no-log notfound.",
+      "Source DTO mappings retain nested domain values, forbidden/required/default fields and separate JSON-tag shapes. No local edition sentinel maps to empty string; both deprecated/new response code fields get same mapped code."
+    ]
+  },
+  {
+    "paths": [
+      "internal/database/postgres/carspecrepository.go",
+      "internal/database/postgres/localeditionrepository.go"
+    ],
+    "facts": [
+      "CarSpec Upsert Begin/deferRollback\u2192getID\u2192conditionalcreate/update\u2192Commit; helper INSERT/UPDATE error==nil acknowledgement distinct from commit. CarSpec Delete ignores affected rows and returns nil if Exec error nil; no false NotFound. Read key is pno12/specMarket/modelYear/localEditionCode; carModel query uses SUBSTRING(pno12,1,3).",
+      "LocalEdition Get uses transaction and commits before returning entity; List/GetForCarModel use rows iteration/deferredClose/rows.Err. Upsert tests getErr nil vs ErrLocalEditionNotFound before actual UPDATE/INSERT. Delete does not inspect affected rows. Scan pointer outputs must not equal source SQL or error values."
+    ]
+  },
+  {
+    "paths": [
+      "internal/service/carspecsyncer.go",
+      "internal/service/featurecodefetcher.go",
+      "internal/service/localeditionservice.go"
+    ],
+    "facts": [
+      "Source sync distinguishes PCG/nonPCG identifiers and documents; PCG hardcoded wheel codes200001/200005/200026, nonPCG filterservice only if at least one nonPCG. Source-specific feature fetcher applies exemptions and PCG/Prins/CPAM classification, conditional helper skip on empty map and maps.Copy in PCG\u2192Prins\u2192CPAM order. Named dependency dispatch remains source association through generic fetcher formal.",
+      "Changes apply all storage changes before publication, then upsert messages before remove messages. No database/message atomic transaction or outbox. Failure after earlier applied changes retains partial window. Baseline specMarket/modelYear enumerate identifiers, log individual errors and continue; those baseline aggregate methods may return nil even when an individual baseline failed.",
+      "LocalEdition skipValidation directly calls storage; otherwise fetches ordinary MarketAuth (not PCG branch), maps absent document to validation error, validates domain then stores. Delete simply forwards."
+    ]
+  },
+  {
+    "paths": [
+      "internal/gateway/client/client.go",
+      "internal/gateway/client/oauth.go",
+      "internal/gateway/client/requestbuilder.go",
+      "internal/gateway/client/roundtripper.go",
+      "internal/gateway/client/tokensource.go",
+      "internal/gateway/filterservice/client.go"
+    ],
+    "facts": [
+      "Actual NewHTTPClient timeout80seconds despite comment10seconds; options and reverse-order wrapper application are available local bodies, imported roundtrip dispatch remains association. Local HTTPClient is not a remote service.",
+      "RequestBuilder value receivers return actual RequestBuilder; fieldmaps mutate referenced maps. Build calls http.NewRequest then applies context before checking err; retain literal source order. Local filterservice GET baseURL+/wheelComponents, optional VCC-Operation-ID header,200guard, JSON[]string\u2192maptrue. Source config target purpose distinct from local client wrapper.",
+      "Token POST uses application/x-www-form-urlencoded grant_type/client_credentials, clientID/clientSecret/resource;200guard, JSONtoken embedded importedOauth token, expires_instring parsedint, positiveExpiry time.Now+durationseconds. Explicit network source implementation available."
+    ]
+  },
+  {
+    "paths": [
+      "internal/messaging/consumer.go",
+      "internal/messaging/publisher.go",
+      "internal/messaging/marketauthmessagehandler.go",
+      "internal/messaging/types.go",
+      "internal/messaging/setup.go",
+      "internal/app/kafka.go"
+    ],
+    "facts": [
+      "Two current Kafka consumer registrations from configured marketAuth/pcgMarketAuth topics; explicit x-type equals actual fully-qualified message constants. Wrong types logged and nil-returned. Local poison middleware uses topicpoison while consumer registeredtopicpoisonqueue; preserve actual names without fabricated join or asserted runtime outcome. skip reader/writer chooses in-process GoChannel, not proven Kafka execution.",
+      "Handler protoUnmarshal actual payload, builds identifiers/queries, correlationID fallbackUUID, feature flag guard and permittedModelYear guard before SyncByIdentifier. Imported broker ack/redelivery/poison dispatch policy unknown, source comment not proof.",
+      "Publisher builds Upserted protobuf(specification+sourceTimestamp/featureCode+brand), Removed protobuf(pno12/specMarket/modelYear + conditionalbothdeprecated/neweditioncodes); source deterministicID passed as Watermill messageUUID, not automatically brokerkey. Metadatax-type/correlationID plus trace injection; actual Publish return distinct from consumer completion/durability."
+    ]
+  },
+  {
+    "paths": [
+      "internal/app/config.go",
+      "internal/app/client.go",
+      "internal/app/auth.go",
+      "internal/api/httpserver/server.go",
+      "internal/api/httpserver/respond/respond.go",
+      "internal/api/httpserver/respond/model.go",
+      "internal/api/httpserver/respond/error.go"
+    ],
+    "facts": [
+      "Adapter/migrator configs bind separate application/migration databasecredentials. Explicit configfields identify upstream/token/JWKS/Kafka/LaunchDarkly/telemetry purpose; no deploymentvalue assertion. keyfunc.Get JWKS refresh1hour source configuration, transport/library policy unavailable. Imported HTTPserver readiness/timeouts30seconds do not establish unavailable healthroute paths.",
+      "Response wrapper actual local Response[T](status,operationId,data,omitempty) distinct from innerdataDTO; actual json.Marshal after payload(error) test. ErrorResponder maps source errors404/422, default writes500 withoutbody, error-middleware later may addwrapper. Do void; write emitsJSONheader thenstatus thenbytes, writeerrorattempt500 after earlierwrite preserved."
+    ]
+  },
+  {
+    "paths": [
+      "internal/api/httpserver/middleware/appid.go",
+      "internal/api/httpserver/middleware/error.go",
+      "internal/api/httpserver/middleware/jwt.go",
+      "internal/api/httpserver/middleware/logger.go",
+      "internal/api/httpserver/middleware/panic.go",
+      "internal/api/httpserver/middleware/request.go",
+      "internal/api/httpserver/middleware/telemetry.go",
+      "internal/api/httpserver/jwt/claims.go",
+      "internal/api/httpserver/jwt/context.go",
+      "internal/api/httpserver/jwt/parser.go",
+      "internal/api/httpserver/jwt/token.go"
+    ],
+    "facts": [
+      "JWT header parses Fields caseinsensitiveBearer exactly2parts; missing/malformed400, invalidtoken401, unexpectedmethoderror500 viahandleError. Parser requires token.Valid and SigningMethodRSA type (not specific RS256-only claim), claims.Valid, required audience/issuer. Imported embedded StandardClaims shape partial. No source role/scope authorization despite FlattenRolesAndScopes helper.",
+      "AddJWTAppIDAsHTTPHeader lacks return after next.ServeHTTP when ClaimsFromContext false, then later calls next again; retain exact source conditional calls, not idealized middleware. logger.go contains auxiliary mockLogger even production-named; not source activation. Panic logs and re-panics recovered original; ErrorResponse defer may callrespondafterstatus>=500; source implications separate from importedwritercommit policy.",
+      "Request operationID headerVCC-Api-OperationId elseUUID; downstream local header additionVCC-Oidc-ClientId; route telemetry afterhandler usesdefer withnil/empty guards."
+    ]
+  },
+  {
+    "paths": [
+      "internal/gateway/assortment/client.go",
+      "internal/gateway/assortment/marketauthfetcher.go",
+      "internal/gateway/assortment/resolvemarketauthidentifiers.go",
+      "internal/gateway/carfeatures/client.go",
+      "internal/gateway/carfeatures/featurecodefetcher.go",
+      "internal/gateway/carfeatures/map.go",
+      "internal/gateway/carfeatures/model.go",
+      "internal/gateway/cpam/client.go",
+      "internal/gateway/cpam/featurecodefetcher.go",
+      "internal/gateway/cpam/model.go"
+    ],
+    "facts": [
+      "Assortment current caller wire source: GET /v1/cars/CarConfig/query SpecMarket+Take10000000 JSONheaders+VCC-Api-Key; GET /v1/cars/MarketAuth SpecMarket/ModelYear/CarType; GET /v1/cars/PcgMarketAuth/{SpecMarket}/{Pno12}/{ModelYear}. Ordinary/PCG404\u2192ErrMarketAuthNotFound;2xxguard then bytesread. CarConfig response target pointerdecoder into caller response; no generic arg\u2192result flow.",
+      "Assortment auth identifiers dedup source map, PCG car group by fullPno12 vsother CarType, lowercased groupingkey; filter invalidnilPno12Components first. Get-by-query filters modelYear and dynamic identifier carType. Available local parser/newdomain bodies continue pending.",
+      "CarFeatures PRINS methodrefgetFullFeaturesV1; PCG methodrefgetFullFeaturesV2, chosen construction storedfunctionfield and laterinvoked in commonfetcher. Actual wire POST V1bodypno12/specMarket/structureWeek/modelYear allstrings; V2noModelYear, optionsempty[] plusstringothers. Separate response FeatureListobjects vsFeaturesstrings.200..299guard, jsondecoder.Decode(&response) exactsource. Matching standardwheel requireslength4 and actualyear/cartypemap2charprefix, absentmappingfalse.",
+      "CPAM actual POST /cpam/service/StdFeatureColorUphols xml.Marshal SOAPnamespace/body/client/market/pno12/week/dummyoption000000, user-keyheader,200guard. Decodes nestedresponse Body.Inner.StdFeaturesCU; feature selection onlylen>2 prefixR1, requires exactlyone. ClosestToCurrentWeek vsCarFeatures period.From source distinction; ignored domain.ModelYearformal staysgenuineformal."
+    ]
+  },
+  {
+    "paths": [
+      "internal/domain/baseline.go",
+      "internal/domain/brand.go",
+      "internal/domain/car.go",
+      "internal/domain/carmodelquery.go",
+      "internal/domain/carquery.go",
+      "internal/domain/cartype.go",
+      "internal/domain/collectionutils.go",
+      "internal/domain/errors.go",
+      "internal/domain/featurecodemap.go",
+      "internal/domain/localedition.go",
+      "internal/domain/localeditioncarspec.go",
+      "internal/domain/localeditioncode.go",
+      "internal/domain/localeditionvalidator.go",
+      "internal/domain/modelyear.go",
+      "internal/domain/nostandardwheelcartypes.go",
+      "internal/domain/package_exclusivity.go",
+      "internal/domain/pcgcars.go",
+      "internal/domain/pcgmarketauth.go",
+      "internal/domain/pcgmodel.go",
+      "internal/domain/pno12.go",
+      "internal/domain/prinscars.go",
+      "internal/domain/sourceidentifier.go",
+      "internal/domain/specmarket.go",
+      "internal/domain/standardwheel.go",
+      "internal/domain/versionedcarspec.go"
+    ],
+    "facts": [
+      "Source modelYear1000..9999, permittedSync>=2023; SpecMarket length3 plus explicit legacydenylist, CarType len3, Pno12 len12/componentwidths (not numeric-only normalization). Baseline carType requiresmodelYear. LocalEditionCode empty/NONE\u2192sentinel, else5or6characters; NewLocalEdition rejects sentinel;5package,6option. FilterPno12+CarType requiresmatchingfirst3characters.",
+      "Car deterministicUUIDSHA1 uses explicitnamespace and specMarket-modelYear-pno12, adds-localEditiononlynonnullsentinel. Brand uses actualsourcecartypelists. Source collectionmapiteration orderunspecified. PCGsourcecars actual2028types416/417; Prins/exemptionsseparateactualmaps. Package-exclusivity skipmapcurrentlyempty withcommentedexamples only.",
+      "LocalEdition validatorrequires matchingICV Pno12 +ICS Pno12/Code1 andequalperiod. CreateLocalEditionSpec copiescomponents, addsincludedoption/package accordingcodelength, sharesidentifier in VersionedLocalEdition. AppendLocalEditionCarSpecs keepsoriginals andaddsone matchinglocalEdition perkey.",
+      "Versionednormal ICA timestamp +featuremap; PCGprocessingtimeUTC20060102-150405 notsourceeventtimestamp. SourceIdentifier requires timestamp, featurecode unlesscarTypeexempted. Standardwheel featurecodeexact4chars maps$Fprefix. Available embeddedCarSpecification methods are source-promoted receivers, not fakecopyformal arguments."
+    ]
+  },
+  {
+    "paths": ["internal/domain/carspecification.go", "internal/domain/carspecificationchange.go"],
+    "facts": [
+      "Actual source nested constructors/getters and deep-copy helpers examined. Copies preserve nil slices, clone nested mutable slices/default string pointers; some value periods copied directly. ExactlyOne/TimeBound constructors onlystore inputs here; no invented nonempty/defaultmembershipvalidation atconstructor. AddIncludedOption/Package requires existing code andappends singletondefault rule with actualcomponentperiod.",
+      "Syncchanges additions\u2192updates\u2192deletions; source identitycompares Carincludingeditioncode; source comparison importedcmp.Equal with declaredallowunexported/EquateEmpty/SortSlices methodrefs. Baseline alwaysADD allsource specs plusdeletions (doesnot inferupdate/nochange). Add/update requiresnon-nilSourceIdentifier;removal allowsnil. Comparator policies/callbacktypesretainedassociations, not eager calls."
+    ]
+  },
+  {
+    "paths": [
+      "internal/database/postgres/map_db.go",
+      "internal/database/postgres/map_domain.go",
+      "internal/database/postgres/model.go",
+      "internal/database/postgres/config.go",
+      "internal/database/postgres/migrator.go",
+      "internal/database/postgres/pool.go",
+      "internal/database/postgres/readycheck.go",
+      "internal/database/postgres/redact.go",
+      "internal/database/postgres/rollback.go"
+    ],
+    "facts": [
+      "All source/persisted-model field maps examined, nested arrays/defaults/periods/packageexclusivity and localedition fields retained. Readmapping validates Caridentity/specmarket/modelYear/Pno12/edition but builds periods directly fromstoredYear/Week (no blanketvalidationclaim). PersistedJSONnames differ from REST DTO source:car vsCarDetails and noomitempty inmost arrays.",
+      "Config URL.UserPassword+JoinHostPort+sslmode QueryEncode, distinct application/migratorcredentials. redaction intentionally replaces error chain usingencoded/rawpasswordforms andconstructsnewerror; nil/noPasswordreturns original. No secret valuesread.",
+      "Migrator embedded migrations source; Up nil orErrNoChange accepted; noClose callinthissource. Dedicated migratorhost invokesMigrate thenshutdown; sourceDDL not deployedobservations. NewPool ParseConfig\u2192Tracer\u2192NewWithConfig; Readiness IsReady actualpool.Ping, but imported serverhealthrouteunknown. Rollback void logs nonnil exceptErrTxClosed;no return/taskhandle."
+    ]
+  },
+  {
+    "paths": [
+      "internal/domain/period.go",
+      "internal/domain/periodadjuster.go",
+      "internal/domain/marketauth.go"
+    ],
+    "facts": [
+      "StructureWeek constructor validatesweek1..53/year1000..9999 (not ISO53validity). ParseStructureWeek onlysixchars/integerparsing andreturnsstructdirectly; no constructorvalidation. Periodinclusive order/contains/overlap/intersect; Subtract returnsnilifcovered,errorifinterior splits two, +/-weekotherwise. Sweden fixedUTC+1 currentweek noDST; closestweekclamps; Increaseignoresconstructorerror actualsource.",
+      "Periods Gaps/Merge adjacencyoneweek, importedSort callbacks capturedslice; JoinOverlapping erroronzero/gaps, consecutivepartition actualtimeedges plusweekend+7days thenTo-1day. No service boundaryforcopiedperiodalgorithm.",
+      "PeriodAdjuster mutates recordpointers from grouped sliceelements; requires exactlyoneICV perPNO12; max min(originalTo, start.AddDate5years), adjustsICV/ICR/ICS sequentially andretains prior mutationsiflatererror. ICRperiodnilpreserved. Generic GetPno12 dispatchsourceconcreteassociationsneeded, not missingavailablebodies.",
+      "Two concreteidentifier typeswitch branches genuineformal/casevariabletypes; nonPCG AsCarModelQuery returnsonevalue whereasPCG returnsvalue,error. SortvariantsspecMarketascending/modelYeardescending; ManyMarketAuthIdentifiers adds cartypetiebreaker, genericSort doesnot. ICA timestamp onlyrequiresnonemptyDate/Time thenjoinsdash; source group pointer vsvalue functionsdistinct."
+    ]
+  },
+  {
+    "paths": [
+      "internal/gateway/assortment/model.go",
+      "internal/gateway/assortment/map.go",
+      "internal/gateway/assortment/pcgmodel.go",
+      "internal/gateway/assortment/pcgmap.go",
+      "internal/gateway/assortment/parse/parser.go",
+      "internal/gateway/assortment/parse/grouprows.go",
+      "internal/gateway/assortment/parse/models.go",
+      "internal/gateway/assortment/parse/parseica.go",
+      "internal/gateway/assortment/parse/parseicc.go",
+      "internal/gateway/assortment/parse/parseicm.go",
+      "internal/gateway/assortment/parse/parseicn.go",
+      "internal/gateway/assortment/parse/parseicp.go",
+      "internal/gateway/assortment/parse/parseicr.go",
+      "internal/gateway/assortment/parse/parseics.go",
+      "internal/gateway/assortment/parse/parseicv.go"
+    ],
+    "facts": [
+      "All parsed/domain source field mapping examined. NonPCG ICV BodyStyle/SalesDateFrom are not populated by asDomainICVRecord although domain fields exist. Generic recordMapper/PCG mapSlice actual formal callbacks and nested recursive CodeRef associations. PCG JSON modelyear/smessages/100Percent tags preserve literal names distinct from source fields.",
+      "Raw text scanner slices row[0:3] without local short-row guard and does not check scanner.Err; ICA/ICM/ICN absent/multiple fatal, list-record parse errors logged/skipped. Regex constraints exact source, createFieldMap named matches and TrimRight spaces to JSON marshal/unmarshal uses struct tags including string numbers and embedded Pno12/StructureWeek."
+    ]
+  },
+  {
+    "paths": [
+      "internal/domain/convert/convertintocarspecification.go",
+      "internal/domain/convert/specification_creator.go",
+      "internal/domain/convert/component.go",
+      "internal/domain/convert/atleastone.go",
+      "internal/domain/convert/exactlyone.go",
+      "internal/domain/convert/includedoptions.go",
+      "internal/domain/convert/includedpackages.go",
+      "internal/domain/convert/package_content.go",
+      "internal/domain/convert/grouprecordsbypno12.go",
+      "internal/domain/convert/period.go",
+      "internal/domain/convert/ptr.go",
+      "internal/domain/convert/slices.go"
+    ],
+    "facts": [
+      "Full nonPCG convert orchestration: grouped PNO12 to components/rules, car/spec period, styling/options/wheels/packages/smessages and domain validation. Source errors stop current conversion, no remote I/O invented. All894 specification_creator lines examined including middle wheel branches. Type codes010/011/012/013/017/054, B styling default/H hundredPercent/P package-only source guards. Component at most2 records, exactly1 SMessage and ICV period, excludes wheel options according to global map.",
+      "Styling extends forbidden gaps, creates forbids by unmatched pair/period subtraction; multiple pair components error, actual pointer dereference after Subtract retained. Required rules filter must/type and group primary; exactly-one default only when alternatives, at-least-one primary default. Included options require H, exchangeable correct types/no wheels/non-null period/no secondary, contained in H period; included packages require exchangeable package type/no secondary/no period.",
+      "Mandatory wheel branch versus normal feature-code branch. Missing feature code only exempt cars and nonempty sorted wheel codes choose first; otherwise $F feature wheel appended. Package exclusive uses actual IsPackageExclusive. Package content guards reject empties/packages and enforce styling standard xor deviation/no exchangeable, non-styling not standard/deviation. Documented exchangeable type validation is not implemented. Generic grouping/ptr/dedupe available local bodies; automatic dispatch limits remain separate."
+    ]
+  },
+  {
+    "paths": [
+      "internal/domain/convert/packagecreator.go",
+      "internal/domain/convert/rule.go",
+      "internal/domain/convert/stylings.go",
+      "internal/domain/convert/wheel.go",
+      "internal/domain/validate/packageavailability.go",
+      "internal/domain/validate/validate.go"
+    ],
+    "facts": [
+      "NonPCG package requirements validate component/package identity, standard styling presence/uniqueness, wheel membership/exchangeables and option exclusions; grouped options preserve first occurrence order. Rule restrictions1/2/3, conditional secondary onlymust/non000, exchangeable package period mustnil and other rules requireperiod. Styling gaps extended asdefault onlywhen precedingweek default; merged periods preserve componentidentity. Mandatorywheel exactlyone fullPNO12/Hperiod; exchangeable constraints and actualperiodcontainment retained.",
+      "Domain validation only package-only options available in a package and no wheel codes within option rules for colors/upholsteries/options/wheels. No wider fullspec validation invented. Imported ContainsFunc/sort callbacks available local targets retained without eager call."
+    ]
+  },
+  {
+    "paths": [
+      "internal/domain/convertpcg/convertintocarspecification.go",
+      "internal/domain/convertpcg/dependency.go",
+      "internal/domain/convertpcg/options.go",
+      "internal/domain/convertpcg/specification_creator.go",
+      "internal/domain/convertpcg/smessages.go",
+      "internal/domain/convertpcg/wheels.go",
+      "internal/domain/convertpcg/stylings.go",
+      "internal/domain/convertpcg/packages.go"
+    ],
+    "facts": [
+      "PCG root effectivity nonempty, merge to outer range plus forbidden gaps; effectivity parse followed by NewPeriod validation, produces exactlyone source CarSpecification. Components split by periods; options/localoptions merged with local packageOnlyfalse; wheel options removed then separatewheel specification requiresknownfeaturecode, unlike nonPCG exemptionfallback.",
+      "PCG dependency lookup partitions wheel/nonwheel demand groups through source keep callbacks. Rules with no effectivity use component period, others intersect overlaps. Empty demandcode forbidden; exact-one no default, at-least-one firstcode default. Package content indexed lastwrite percode; no matchingcontent skips component. Fields Accessory/CO2Effect are source inputs but are not all used by conversion.",
+      "PCG styling color period requires JoinOverlapping; upholstery may produce merged separate period components; defaults triggered anybaseMarking. Source closure getCode/matchesParent formals and capturedcolor/uph identities retained through getForbiddenStylings/collectAvailablePeriodsMap. Forbids derive unavailable/cutgap periods, no fabricated single-period summary. Package requirements include actual firstdefault/dedupe/order and matchingwheel grouping; optional emptyrequirementsnil; Exchangeables shallow code list construction follows source, not arbitraryrecursiveflatten."
+    ]
+  },
+  {
+    "paths": [
+      "internal/app/logging.go",
+      "internal/app/sentry.go",
+      "internal/app/telemetry.go",
+      "internal/featureflag/launchdarkly.go",
+      "internal/messaging/logger.go",
+      "internal/messaging/telemetry.go",
+      "internal/observability/telemetry/providers.go",
+      "internal/observability/telemetry/resource.go",
+      "internal/observability/logging/bridge.go",
+      "internal/observability/logging/customlogfields.go",
+      "internal/domain/fake.go",
+      "internal/domain/stub.go",
+      "internal/fake/fake.go"
+    ],
+    "facts": [
+      "Sentry config validation/noop branch; local SentryClient Init/Close/CaptureMessage signatures separate from actual SDK returntypes. ConfigureScope source callback sets service tag and calls CaptureMessage, flush2seconds ignores bool. Zap hook triggers onlyError/Panic levels. Dedicated migrator app does not invoke adapter initializeSentry/syncLogger lifecycle; do not rebind all shared hooks to both hosts.",
+      "LaunchDarkly skip returns source default false; actual context key car-spec-adapter and specMarket attribute, flag car-spec-adapter-auto-sync-feature; errors logged andfalse. SDK MakeClient5seconds and BoolVariation policy remains imported, no per-call network assumption.",
+      "Telemetry source provider noop/console/OTLP flags, metric30s vsconsole5s periods, batchtrace/log vsconsole sync/simple, runtime.Start failure shuts meterprovider with ignored result. Defaultconfig metrics/traces true. Providers source OTLP destination environment only, no fixed endpoint. ShutdownConcurrently creates per-iteration goroutines then WaitGroup.Wait and joins errors; no fire-and-forget completion claim.",
+      "Bridge source optionalconsole takeover vsTee; parses string trace/span fields and attaches context onlyifvalidfound, level fallbackInfo. Resource exact fixed serviceNamespace cce/AppID/owner, optionalconfigattributes, hostnamecallback orUUIDfallback. Kafka trace middleware actual namedreturns, deferredspanerror/panic handling and re-panic; message context propagate outgoing. Logger adapter methods are void and With returns importedLoggerAdapter.",
+      "Fake/stub source files examined but no production activation observed. faker min/maxslices1..10, importedFakeData errorpanic; helpers ignore certain domainconstructorerrors as source, not production guarantee."
+    ]
+  },
+  {
+    "paths": ["internal/messaging/convert_contracts.go", "internal/messaging/convert_entities.go"],
+    "facts": [
+      "Full protobuf/domain mapping bodies examined both directions; fields, arrays, defaults, periods and packageexclusivity preserved. Proto\u2192ToCarEntity casts ModelYear/SpecMarket directly rather than validating corresponding constructors, validatesPno12 viaNewPno12/NewCar, onlynewLocalEditionCodefield consumed; no deprecatedfallback. toPeriodEntity niloutererror but nilfrom/to returnszeroPeriod,nil. Available helper does not itself establish subscription.",
+      "Domain\u2192protobuf emits bothnew/deprecatedLocalEditionCode pointers iffnotNONE, optionalStandardWheel onlynonempty, nil requiredpackagecomponentsguarded; upsertcaller nests actualspec/sourceidentifier/brand, removedcaller ownfields. No genericargument\u2192resultlineage used for importedMarshal/Decode."
+    ]
+  },
+  {
+    "paths": [
+      "api/docs.go",
+      "internal/messaging/contracts/car-key.pb.go",
+      "internal/messaging/contracts/car-specification.pb.go",
+      "internal/messaging/contracts/marketauthmessage.pb.go",
+      "internal/messaging/contracts/pcgmarketauthmessage.pb.go",
+      "internal/messaging/contracts/structure-week.pb.go",
+      "test/e2e/apiclient/car_spec_adapter_client.go",
+      "test/e2e/apiclient/car_specifications/car_specifications_client.go",
+      "test/e2e/apiclient/car_specifications/get_v1_car_specifications_parameters.go",
+      "test/e2e/apiclient/car_specifications/get_v1_car_specifications_responses.go",
+      "test/e2e/apiclient/local_editions/delete_v1_local_editions_parameters.go",
+      "test/e2e/apiclient/local_editions/delete_v1_local_editions_responses.go",
+      "test/e2e/apiclient/local_editions/get_v1_local_edition_code_parameters.go",
+      "test/e2e/apiclient/local_editions/get_v1_local_edition_code_responses.go",
+      "test/e2e/apiclient/local_editions/get_v1_local_editions_parameters.go",
+      "test/e2e/apiclient/local_editions/get_v1_local_editions_responses.go",
+      "test/e2e/apiclient/local_editions/local_editions_client.go",
+      "test/e2e/apiclient/local_editions/put_v1_local_editions_parameters.go",
+      "test/e2e/apiclient/local_editions/put_v1_local_editions_responses.go",
+      "test/e2e/apiclient/models/carspecifications_car_details.go",
+      "test/e2e/apiclient/models/carspecifications_car_specification.go",
+      "test/e2e/apiclient/models/carspecifications_color.go",
+      "test/e2e/apiclient/models/carspecifications_exactly_one.go",
+      "test/e2e/apiclient/models/carspecifications_forbids.go",
+      "test/e2e/apiclient/models/carspecifications_get_car_specification_response.go",
+      "test/e2e/apiclient/models/carspecifications_option.go",
+      "test/e2e/apiclient/models/carspecifications_option_specification.go",
+      "test/e2e/apiclient/models/carspecifications_package.go",
+      "test/e2e/apiclient/models/carspecifications_package_specification.go",
+      "test/e2e/apiclient/models/carspecifications_period.go",
+      "test/e2e/apiclient/models/carspecifications_s_message.go",
+      "test/e2e/apiclient/models/carspecifications_s_message_specification.go",
+      "test/e2e/apiclient/models/carspecifications_structure_week.go",
+      "test/e2e/apiclient/models/carspecifications_styling_specification.go",
+      "test/e2e/apiclient/models/carspecifications_time_bound_at_least_one.go",
+      "test/e2e/apiclient/models/carspecifications_time_bound_code.go",
+      "test/e2e/apiclient/models/carspecifications_time_bound_exactly_one.go",
+      "test/e2e/apiclient/models/carspecifications_upholstery.go",
+      "test/e2e/apiclient/models/carspecifications_wheel.go",
+      "test/e2e/apiclient/models/carspecifications_wheel_specification.go",
+      "test/e2e/apiclient/models/get_car_specification_response.go",
+      "test/e2e/apiclient/models/get_local_edition_code_response.go",
+      "test/e2e/apiclient/models/internal_api_httpserver_localeditions_get_local_edition_code_response.go",
+      "test/e2e/apiclient/models/internal_api_httpserver_localeditions_list_local_editions_response.go",
+      "test/e2e/apiclient/models/internal_api_httpserver_localeditions_local_edition_response.go",
+      "test/e2e/apiclient/models/internal_api_httpserver_localeditions_upsert_local_edition_request.go",
+      "test/e2e/apiclient/models/list_local_editions_response.go",
+      "test/e2e/apiclient/models/local_edition_response.go",
+      "test/e2e/apiclient/models/respond_error_detail.go",
+      "test/e2e/apiclient/models/respond_error_list.go",
+      "test/e2e/apiclient/models/respond_error_message.go",
+      "test/e2e/apiclient/models/respond_error_response.go"
+    ],
+    "facts": [
+      "120 generated getters match exact field/nil/optional-pointer/default templates;29 each Reset/String/ProtoMessage/ProtoReflect/Descriptor checked;five descriptor builders/compression registrations and Swagger init separately examined. Protobuf descriptor NumServices0 throughout: no invented gRPC API. No .proto source committed; generatedtags/descriptors are actual wire declaration authority.",
+      "Protobuf source fields include imported wrapperspb.StringValue unresolved imported definition; local optional code pointers distinguish absent/default, repeated fields retain array containers, deprecatedLocalTrimEditionCode field retained separately from new code. Swagger registration documentation does not establish private/health route execution."
+    ]
+  }
+]

@@ -1,0 +1,16 @@
+[
+  {
+    "operation": "volvo/cce-prins-validator/dc68082c5777/final-r1/operation/a5053c573d12cf93c453/17",
+    "target": "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/ac2a39b771c9f6d03990",
+    "callable": "volvo/cce-prins-validator/dc68082c5777/final-r1/value/a5053c573d12cf93c453/16",
+    "captures": [
+      {
+        "capture": "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/ac2a39b771c9f6d03990/capture/client",
+        "value": "volvo/cce-prins-validator/dc68082c5777/final-r1/value/callback-cell/41ee4b906fda370e2450",
+        "mode": "reference"
+      }
+    ],
+    "source": "internal/gateway/client.go",
+    "lines": [58, 58]
+  }
+]

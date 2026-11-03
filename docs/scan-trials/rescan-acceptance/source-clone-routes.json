@@ -1,0 +1,763 @@
+{
+  "format": "rescan-clone-routes/v1",
+  "cloneRoot": "/Users/RNEL/Workspace/groundWork/reports/rescan-launch-readiness-001/source-clones",
+  "qualification": "Read-only directory aliases to existing clones; no worktree or ref changes. Pins remain mandatory.",
+  "repositories": [
+    {
+      "repo": "volvo-cars/account-profile-api",
+      "commit": "bc3003a9130cd9a8013d74ec4561575d1f1d935b",
+      "clone": "/Users/RNEL/.cache/groundwork/clones/volvo-cars/account-profile-api",
+      "launchAlias": "/Users/RNEL/Workspace/groundWork/reports/rescan-launch-readiness-001/source-clones/volvo-cars/account-profile-api",
+      "reason": "previously_selected_pinned_clone"
+    },
+    {
+      "repo": "volvo-cars/caas-car-configurator",
+      "commit": "5495209c1485f7098f666ad066a44ccc140a4fb9",
+      "clone": "/Users/RNEL/.cache/groundwork/clones/volvo-cars/caas-car-configurator",
+      "launchAlias": "/Users/RNEL/Workspace/groundWork/reports/rescan-launch-readiness-001/source-clones/volvo-cars/caas-car-configurator",
+      "reason": "previously_selected_pinned_clone"
+    },
+    {
+      "repo": "volvo-cars/cce-admin-ui",
+      "commit": "2bea451cf1ae51f05f8770f4a78750a5d7495ba6",
+      "clone": "/Users/RNEL/.cache/groundwork/clones/volvo-cars/cce-admin-ui",
+      "launchAlias": "/Users/RNEL/Workspace/groundWork/reports/rescan-launch-readiness-001/source-clones/volvo-cars/cce-admin-ui",
+      "reason": "previously_selected_pinned_clone"
+    },
+    {
+      "repo": "volvo-cars/cce-car-configuration-generator",
+      "commit": "c91f73a5a3b6cdb56168f7138352a0f409fa8300",
+      "clone": "/Users/RNEL/.cache/groundwork/clones/volvo-cars/cce-car-configuration-generator",
+      "launchAlias": "/Users/RNEL/Workspace/groundWork/reports/rescan-launch-readiness-001/source-clones/volvo-cars/cce-car-configuration-generator",
+      "reason": "previously_selected_pinned_clone"
+    },
+    {
+      "repo": "volvo-cars/cce-car-spec-adapter",
+      "commit": "667a00a5f96fdb8b9aad35e0afe80dc792cbc1b5",
+      "clone": "/Users/RNEL/.cache/groundwork/clones/volvo-cars/cce-car-spec-adapter",
+      "launchAlias": "/Users/RNEL/Workspace/groundWork/reports/rescan-launch-readiness-001/source-clones/volvo-cars/cce-car-spec-adapter",
+      "reason": "previously_selected_pinned_clone"
+    },
+    {
+      "repo": "volvo-cars/cce-cpam-ingress",
+      "commit": "6db6ba2b9c76751a690ea9b0184b42e58412a09e",
+      "clone": "/Users/RNEL/.cache/groundwork/clones/volvo-cars/cce-cpam-ingress",
+      "launchAlias": "/Users/RNEL/Workspace/groundWork/reports/rescan-launch-readiness-001/source-clones/volvo-cars/cce-cpam-ingress",
+      "reason": "previously_selected_pinned_clone"
+    },
+    {
+      "repo": "volvo-cars/cce-filter-service",
+      "commit": "2020ff59219b4d7bb9ad935fde361b2a6e857112",
+      "clone": "/Users/RNEL/.cache/groundwork/clones/volvo-cars/cce-filter-service",
+      "launchAlias": "/Users/RNEL/Workspace/groundWork/reports/rescan-launch-readiness-001/source-clones/volvo-cars/cce-filter-service",
+      "reason": "previously_selected_pinned_clone"
+    },
+    {
+      "repo": "volvo-cars/cce-optimization-api",
+      "commit": "286985b6bebccb6123de78d03aa87b7513f69ed5",
+      "clone": "/Users/RNEL/.cache/groundwork/clones/volvo-cars/cce-optimization-api",
+      "launchAlias": "/Users/RNEL/Workspace/groundWork/reports/rescan-launch-readiness-001/source-clones/volvo-cars/cce-optimization-api",
+      "reason": "previously_selected_pinned_clone"
+    },
+    {
+      "repo": "volvo-cars/cce-optimization-facade",
+      "commit": "8da8ebe3227a43817bbbca25fdec182edfaa6584",
+      "clone": "/Users/RNEL/.cache/groundwork/clones/volvo-cars/cce-optimization-facade",
+      "launchAlias": "/Users/RNEL/Workspace/groundWork/reports/rescan-launch-readiness-001/source-clones/volvo-cars/cce-optimization-facade",
+      "reason": "previously_selected_pinned_clone"
+    },
+    {
+      "repo": "volvo-cars/cce-pb-contracts-car-configuration",
+      "commit": "72cbaedcad24e6b02729b7f4fc6a9d6d94a4d769",
+      "clone": "/Users/RNEL/.cache/groundwork/clones/volvo-cars/cce-pb-contracts-car-configuration",
+      "launchAlias": "/Users/RNEL/Workspace/groundWork/reports/rescan-launch-readiness-001/source-clones/volvo-cars/cce-pb-contracts-car-configuration",
+      "reason": "previously_selected_pinned_clone"
+    },
+    {
+      "repo": "volvo-cars/cce-policy-admin",
+      "commit": "88a3512f0307016b7b1dbcbc729c743fe83ed368",
+      "clone": "/Users/RNEL/.cache/groundwork/clones/volvo-cars/cce-policy-admin",
+      "launchAlias": "/Users/RNEL/Workspace/groundWork/reports/rescan-launch-readiness-001/source-clones/volvo-cars/cce-policy-admin",
+      "reason": "previously_selected_pinned_clone"
+    },
+    {
+      "repo": "volvo-cars/cce-prins-validator",
+      "commit": "dc68082c577756ce31ea30d9b5bbc5e60a2f9a7d",
+      "clone": "/Users/RNEL/.cache/groundwork/clones/volvo-cars/cce-prins-validator",
+      "launchAlias": "/Users/RNEL/Workspace/groundWork/reports/rescan-launch-readiness-001/source-clones/volvo-cars/cce-prins-validator",
+      "reason": "previously_selected_pinned_clone"
+    },
+    {
+      "repo": "volvo-cars/cce-retail-ingress",
+      "commit": "95d091aa445f26500a497554236ec07c8ca7b27c",
+      "clone": "/Users/RNEL/.cache/groundwork/clones/volvo-cars/cce-retail-ingress",
+      "launchAlias": "/Users/RNEL/Workspace/groundWork/reports/rescan-launch-readiness-001/source-clones/volvo-cars/cce-retail-ingress",
+      "reason": "previously_selected_pinned_clone"
+    },
+    {
+      "repo": "volvo-cars/cdls-mono-volvocars",
+      "commit": "8e1fd20c525fd3ef46f89fa7734dba06b06c79fc",
+      "clone": "/Users/RNEL/.cache/groundwork/clones/volvo-cars/cdls-mono-volvocars",
+      "launchAlias": "/Users/RNEL/Workspace/groundWork/reports/rescan-launch-readiness-001/source-clones/volvo-cars/cdls-mono-volvocars",
+      "reason": "previously_selected_pinned_clone"
+    },
+    {
+      "repo": "volvo-cars/cds-ecom-cart-service",
+      "commit": "ebad8522ba26bbd0f986a0cf88f484a32d864c17",
+      "clone": "/Users/RNEL/.cache/groundwork/clones/volvo-cars/cds-ecom-cart-service",
+      "launchAlias": "/Users/RNEL/Workspace/groundWork/reports/rescan-launch-readiness-001/source-clones/volvo-cars/cds-ecom-cart-service",
+      "reason": "previously_selected_pinned_clone"
+    },
+    {
+      "repo": "volvo-cars/cds-ecom-conditional-order",
+      "commit": "139e74e69fdf2205da7d2e391fb2bddbc1154dd8",
+      "clone": "/Users/RNEL/.cache/groundwork/clones/volvo-cars/cds-ecom-conditional-order",
+      "launchAlias": "/Users/RNEL/Workspace/groundWork/reports/rescan-launch-readiness-001/source-clones/volvo-cars/cds-ecom-conditional-order",
+      "reason": "previously_selected_pinned_clone"
+    },
+    {
+      "repo": "volvo-cars/cds-ecom-customer-crm-synchronizer",
+      "commit": "4ea3677cd5df3a19e0d0903d6c803c1413e6a2cd",
+      "clone": "/Users/RNEL/.cache/groundwork/clones/volvo-cars/cds-ecom-customer-crm-synchronizer",
+      "launchAlias": "/Users/RNEL/Workspace/groundWork/reports/rescan-launch-readiness-001/source-clones/volvo-cars/cds-ecom-customer-crm-synchronizer",
+      "reason": "previously_selected_pinned_clone"
+    },
+    {
+      "repo": "volvo-cars/cds-ecom-customer-service",
+      "commit": "09623ab3a1f39845d8fc02abc3d591b53a3b5fea",
+      "clone": "/Users/RNEL/.cache/groundwork/clones/volvo-cars/cds-ecom-customer-service",
+      "launchAlias": "/Users/RNEL/Workspace/groundWork/reports/rescan-launch-readiness-001/source-clones/volvo-cars/cds-ecom-customer-service",
+      "reason": "previously_selected_pinned_clone"
+    },
+    {
+      "repo": "volvo-cars/cds-ecom-orchestrator",
+      "commit": "5c076211551906fa3814c11d4f56dbf857f44145",
+      "clone": "/Users/RNEL/.cache/groundwork/clones/volvo-cars/cds-ecom-orchestrator",
+      "launchAlias": "/Users/RNEL/Workspace/groundWork/reports/rescan-launch-readiness-001/source-clones/volvo-cars/cds-ecom-orchestrator",
+      "reason": "previously_selected_pinned_clone"
+    },
+    {
+      "repo": "volvo-cars/cds-ecom-search-service",
+      "commit": "b5cedcaec6598407422209638c67e969b586c770",
+      "clone": "/Users/RNEL/.cache/groundwork/clones/volvo-cars/cds-ecom-search-service",
+      "launchAlias": "/Users/RNEL/Workspace/groundWork/reports/rescan-launch-readiness-001/source-clones/volvo-cars/cds-ecom-search-service",
+      "reason": "previously_selected_pinned_clone"
+    },
+    {
+      "repo": "volvo-cars/cds-ecom-storefront",
+      "commit": "4f577382be098dbaf899c412e253b11d84f3672f",
+      "clone": "/Users/RNEL/.cache/groundwork/clones/volvo-cars/cds-ecom-storefront",
+      "launchAlias": "/Users/RNEL/Workspace/groundWork/reports/rescan-launch-readiness-001/source-clones/volvo-cars/cds-ecom-storefront",
+      "reason": "previously_selected_pinned_clone"
+    },
+    {
+      "repo": "volvo-cars/cds-ecom-tnc-service",
+      "commit": "99c9f16e91527df97301905b97c8115622957d07",
+      "clone": "/Users/RNEL/.cache/groundwork/clones/volvo-cars/cds-ecom-tnc-service",
+      "launchAlias": "/Users/RNEL/Workspace/groundWork/reports/rescan-launch-readiness-001/source-clones/volvo-cars/cds-ecom-tnc-service",
+      "reason": "previously_selected_pinned_clone"
+    },
+    {
+      "repo": "volvo-cars/cds-finance-engine",
+      "commit": "7fe6410d055b4e52f17374a9d9e280c8faf11c4e",
+      "clone": "/Users/RNEL/.cache/groundwork/clones/volvo-cars/cds-finance-engine",
+      "launchAlias": "/Users/RNEL/Workspace/groundWork/reports/rescan-launch-readiness-001/source-clones/volvo-cars/cds-finance-engine",
+      "reason": "previously_selected_pinned_clone"
+    },
+    {
+      "repo": "volvo-cars/cds-finance-engine-bank-integration",
+      "commit": "a8e7b9dc5dadcdd2b0d146c4b1af44654d10b47a",
+      "clone": "/Users/RNEL/.cache/groundwork/clones/volvo-cars/cds-finance-engine-bank-integration",
+      "launchAlias": "/Users/RNEL/Workspace/groundWork/reports/rescan-launch-readiness-001/source-clones/volvo-cars/cds-finance-engine-bank-integration",
+      "reason": "previously_selected_pinned_clone"
+    },
+    {
+      "repo": "volvo-cars/cds-finance-engine-core-service",
+      "commit": "4a16a9599e61dbdf8d8a5afa42d8a03dc29a2d51",
+      "clone": "/Users/RNEL/.cache/groundwork/clones/volvo-cars/cds-finance-engine-core-service",
+      "launchAlias": "/Users/RNEL/Workspace/groundWork/reports/rescan-launch-readiness-001/source-clones/volvo-cars/cds-finance-engine-core-service",
+      "reason": "previously_selected_pinned_clone"
+    },
+    {
+      "repo": "volvo-cars/cds-finance-engine-data-synchronizer",
+      "commit": "483e7c75a92eec0cea39e9285af3d8389a46e65e",
+      "clone": "/Users/RNEL/.cache/groundwork/clones/volvo-cars/cds-finance-engine-data-synchronizer",
+      "launchAlias": "/Users/RNEL/Workspace/groundWork/reports/rescan-launch-readiness-001/source-clones/volvo-cars/cds-finance-engine-data-synchronizer",
+      "reason": "previously_selected_pinned_clone"
+    },
+    {
+      "repo": "volvo-cars/cds-finance-engine-event-processor",
+      "commit": "8ae2cce04eedba75e56024887f9eba9dd207df4e",
+      "clone": "/Users/RNEL/.cache/groundwork/clones/volvo-cars/cds-finance-engine-event-processor",
+      "launchAlias": "/Users/RNEL/Workspace/groundWork/reports/rescan-launch-readiness-001/source-clones/volvo-cars/cds-finance-engine-event-processor",
+      "reason": "previously_selected_pinned_clone"
+    },
+    {
+      "repo": "volvo-cars/cds-finance-engine-experience-service",
+      "commit": "8b359b02d1c5d51ee470454b7ce0948ca5f67e47",
+      "clone": "/Users/RNEL/.cache/groundwork/clones/volvo-cars/cds-finance-engine-experience-service",
+      "launchAlias": "/Users/RNEL/Workspace/groundWork/reports/rescan-launch-readiness-001/source-clones/volvo-cars/cds-finance-engine-experience-service",
+      "reason": "previously_selected_pinned_clone"
+    },
+    {
+      "repo": "volvo-cars/cds-finance-engine-financingparty-adapter",
+      "commit": "b26a18384596640849b9d47e07d46f21d4aa1316",
+      "clone": "/Users/RNEL/.cache/groundwork/clones/volvo-cars/cds-finance-engine-financingparty-adapter",
+      "launchAlias": "/Users/RNEL/Workspace/groundWork/reports/rescan-launch-readiness-001/source-clones/volvo-cars/cds-finance-engine-financingparty-adapter",
+      "reason": "previously_selected_pinned_clone"
+    },
+    {
+      "repo": "volvo-cars/cds-finance-engine-inbound-api",
+      "commit": "c8b1d3914d618f6a981af467cc1017b9dd081754",
+      "clone": "/Users/RNEL/.cache/groundwork/clones/volvo-cars/cds-finance-engine-inbound-api",
+      "launchAlias": "/Users/RNEL/Workspace/groundWork/reports/rescan-launch-readiness-001/source-clones/volvo-cars/cds-finance-engine-inbound-api",
+      "reason": "previously_selected_pinned_clone"
+    },
+    {
+      "repo": "volvo-cars/cds-finance-engine-integration-service",
+      "commit": "04d025381ca2a55607d60a22ba2fffe19612b826",
+      "clone": "/Users/RNEL/.cache/groundwork/clones/volvo-cars/cds-finance-engine-integration-service",
+      "launchAlias": "/Users/RNEL/Workspace/groundWork/reports/rescan-launch-readiness-001/source-clones/volvo-cars/cds-finance-engine-integration-service",
+      "reason": "previously_selected_pinned_clone"
+    },
+    {
+      "repo": "volvo-cars/cds-finance-engine-scf-client",
+      "commit": "e4fc6035656efda71f1fca25342242fb56f7179d",
+      "clone": "/Users/RNEL/.cache/groundwork/clones/volvo-cars/cds-finance-engine-scf-client",
+      "launchAlias": "/Users/RNEL/Workspace/groundWork/reports/rescan-launch-readiness-001/source-clones/volvo-cars/cds-finance-engine-scf-client",
+      "reason": "previously_selected_pinned_clone"
+    },
+    {
+      "repo": "volvo-cars/cds-finance-engine-scheduler",
+      "commit": "aff51de350ea00582fbe6e58b2cde969eac04c4c",
+      "clone": "/Users/RNEL/.cache/groundwork/clones/volvo-cars/cds-finance-engine-scheduler",
+      "launchAlias": "/Users/RNEL/Workspace/groundWork/reports/rescan-launch-readiness-001/source-clones/volvo-cars/cds-finance-engine-scheduler",
+      "reason": "previously_selected_pinned_clone"
+    },
+    {
+      "repo": "volvo-cars/cds-finance-engine-zenith-client",
+      "commit": "60b1b772dca6d82e6a50aebb4f2381d989a0b06e",
+      "clone": "/Users/RNEL/.cache/groundwork/clones/volvo-cars/cds-finance-engine-zenith-client",
+      "launchAlias": "/Users/RNEL/Workspace/groundWork/reports/rescan-launch-readiness-001/source-clones/volvo-cars/cds-finance-engine-zenith-client",
+      "reason": "previously_selected_pinned_clone"
+    },
+    {
+      "repo": "volvo-cars/cds-om-order-manager",
+      "commit": "d4b3fc3c474ed43ae27d915ebaa8e92e33447e46",
+      "clone": "/Users/RNEL/.cache/groundwork/clones/volvo-cars/cds-om-order-manager",
+      "launchAlias": "/Users/RNEL/Workspace/groundWork/reports/rescan-launch-readiness-001/source-clones/volvo-cars/cds-om-order-manager",
+      "reason": "previously_selected_pinned_clone"
+    },
+    {
+      "repo": "volvo-cars/cds-om-order-status-tracking-service",
+      "commit": "0e6981a77884b73c16f6ef3784b77d17d178707f",
+      "clone": "/Users/RNEL/.cache/groundwork/clones/volvo-cars/cds-om-order-status-tracking-service",
+      "launchAlias": "/Users/RNEL/Workspace/groundWork/reports/rescan-launch-readiness-001/source-clones/volvo-cars/cds-om-order-status-tracking-service",
+      "reason": "previously_selected_pinned_clone"
+    },
+    {
+      "repo": "volvo-cars/cds-paymentservice-customer",
+      "commit": "b0010537cdd5a308a30a885541748727c97ecb2e",
+      "clone": "/Users/RNEL/.cache/groundwork/clones/volvo-cars/cds-paymentservice-customer",
+      "launchAlias": "/Users/RNEL/Workspace/groundWork/reports/rescan-launch-readiness-001/source-clones/volvo-cars/cds-paymentservice-customer",
+      "reason": "previously_selected_pinned_clone"
+    },
+    {
+      "repo": "volvo-cars/cds-paymentservice-psp-inbound",
+      "commit": "ae1d9ddfb34dae71c15913e9f28d41321d66266a",
+      "clone": "/Users/RNEL/.cache/groundwork/clones/volvo-cars/cds-paymentservice-psp-inbound",
+      "launchAlias": "/Users/RNEL/Workspace/groundWork/reports/rescan-launch-readiness-001/source-clones/volvo-cars/cds-paymentservice-psp-inbound",
+      "reason": "previously_selected_pinned_clone"
+    },
+    {
+      "repo": "volvo-cars/cds-paymentservice-psp-integration",
+      "commit": "dabd6c825499b706ff4ddbf15eaf354adbfb6794",
+      "clone": "/Users/RNEL/.cache/groundwork/clones/volvo-cars/cds-paymentservice-psp-integration",
+      "launchAlias": "/Users/RNEL/Workspace/groundWork/reports/rescan-launch-readiness-001/source-clones/volvo-cars/cds-paymentservice-psp-integration",
+      "reason": "previously_selected_pinned_clone"
+    },
+    {
+      "repo": "volvo-cars/cds-paymentservice-scheduler",
+      "commit": "c00df60c8233b1a8f47829ce382d5805bf164c6b",
+      "clone": "/Users/RNEL/.cache/groundwork/clones/volvo-cars/cds-paymentservice-scheduler",
+      "launchAlias": "/Users/RNEL/Workspace/groundWork/reports/rescan-launch-readiness-001/source-clones/volvo-cars/cds-paymentservice-scheduler",
+      "reason": "previously_selected_pinned_clone"
+    },
+    {
+      "repo": "volvo-cars/cds-paymentservice-transaction",
+      "commit": "020d2fabb141b47b6d1e8173c02405795f71613a",
+      "clone": "/Users/RNEL/.cache/groundwork/clones/volvo-cars/cds-paymentservice-transaction",
+      "launchAlias": "/Users/RNEL/Workspace/groundWork/reports/rescan-launch-readiness-001/source-clones/volvo-cars/cds-paymentservice-transaction",
+      "reason": "previously_selected_pinned_clone"
+    },
+    {
+      "repo": "volvo-cars/cdshop-paymentservice",
+      "commit": "dcdc6f8675adfca345126c0ca7484294b6969e61",
+      "clone": "/Users/RNEL/.cache/groundwork/clones/volvo-cars/cdshop-paymentservice",
+      "launchAlias": "/Users/RNEL/Workspace/groundWork/reports/rescan-launch-readiness-001/source-clones/volvo-cars/cdshop-paymentservice",
+      "reason": "previously_selected_pinned_clone"
+    },
+    {
+      "repo": "volvo-cars/cdshop-paymentservice-api",
+      "commit": "b4bf49bb7ef368f9730f4c0074b1baf77c42ddea",
+      "clone": "/Users/RNEL/.cache/groundwork/clones/volvo-cars/cdshop-paymentservice-api",
+      "launchAlias": "/Users/RNEL/Workspace/groundWork/reports/rescan-launch-readiness-001/source-clones/volvo-cars/cdshop-paymentservice-api",
+      "reason": "previously_selected_pinned_clone"
+    },
+    {
+      "repo": "volvo-cars/cdshop-paymentservice-experience",
+      "commit": "f95c7eb1d9db53865eb40444f6e5cd3ac176a110",
+      "clone": "/Users/RNEL/.cache/groundwork/clones/volvo-cars/cdshop-paymentservice-experience",
+      "launchAlias": "/Users/RNEL/Workspace/groundWork/reports/rescan-launch-readiness-001/source-clones/volvo-cars/cdshop-paymentservice-experience",
+      "reason": "previously_selected_pinned_clone"
+    },
+    {
+      "repo": "volvo-cars/cdshop-paymentservice-integration",
+      "commit": "6832f339f54acc2906ca9a62f69b65b1b57c8f0e",
+      "clone": "/Users/RNEL/.cache/groundwork/clones/volvo-cars/cdshop-paymentservice-integration",
+      "launchAlias": "/Users/RNEL/Workspace/groundWork/reports/rescan-launch-readiness-001/source-clones/volvo-cars/cdshop-paymentservice-integration",
+      "reason": "previously_selected_pinned_clone"
+    },
+    {
+      "repo": "volvo-cars/CLE.ReservationApi",
+      "commit": "7c647185135d3cce413bed87afc816c2cf78bc3c",
+      "clone": "/Users/RNEL/.cache/groundwork/clones/volvo-cars/CLE.ReservationApi",
+      "launchAlias": "/Users/RNEL/Workspace/groundWork/reports/rescan-launch-readiness-001/source-clones/volvo-cars/CLE.ReservationApi",
+      "reason": "previously_selected_pinned_clone"
+    },
+    {
+      "repo": "volvo-cars/content-green-light",
+      "commit": "88383197b84653b2b5769d57ba6aac5e3ec007e9",
+      "clone": "/Users/RNEL/Workspace/cb-special-projects/.repos/content-green-light",
+      "launchAlias": "/Users/RNEL/Workspace/groundWork/reports/rescan-launch-readiness-001/source-clones/volvo-cars/content-green-light",
+      "reason": "previously_selected_pinned_clone"
+    },
+    {
+      "repo": "volvo-cars/cpam-facade",
+      "commit": "c7e53976e248c526a079bc46593f4bd83e179659",
+      "clone": "/Users/RNEL/.cache/groundwork/clones/volvo-cars/cpam-facade",
+      "launchAlias": "/Users/RNEL/Workspace/groundWork/reports/rescan-launch-readiness-001/source-clones/volvo-cars/cpam-facade",
+      "reason": "previously_selected_pinned_clone"
+    },
+    {
+      "repo": "volvo-cars/disco",
+      "commit": "36b480b64f7f618c25954380373eafcf73d31b02",
+      "clone": "/Users/RNEL/.cache/groundwork/clones/volvo-cars/disco",
+      "launchAlias": "/Users/RNEL/Workspace/groundWork/reports/rescan-launch-readiness-001/source-clones/volvo-cars/disco",
+      "reason": "previously_selected_pinned_clone"
+    },
+    {
+      "repo": "volvo-cars/disco-data",
+      "commit": "99db90b9d0bc83f2937f677227a5f9e1a60b4e57",
+      "clone": "/Users/RNEL/.cache/groundwork/clones/volvo-cars/disco-data",
+      "launchAlias": "/Users/RNEL/Workspace/groundWork/reports/rescan-launch-readiness-001/source-clones/volvo-cars/disco-data",
+      "reason": "previously_selected_pinned_clone"
+    },
+    {
+      "repo": "volvo-cars/disco-frontend",
+      "commit": "e2c3ae699a41052508eec5109b4fe08666620682",
+      "clone": "/Users/RNEL/.cache/groundwork/clones/volvo-cars/disco-frontend",
+      "launchAlias": "/Users/RNEL/Workspace/groundWork/reports/rescan-launch-readiness-001/source-clones/volvo-cars/disco-frontend",
+      "reason": "previously_selected_pinned_clone"
+    },
+    {
+      "repo": "volvo-cars/disco-offer",
+      "commit": "67827218dc2207edc77a41a650a4193996a2d108",
+      "clone": "/Users/RNEL/.cache/groundwork/clones/volvo-cars/disco-offer",
+      "launchAlias": "/Users/RNEL/Workspace/groundWork/reports/rescan-launch-readiness-001/source-clones/volvo-cars/disco-offer",
+      "reason": "previously_selected_pinned_clone"
+    },
+    {
+      "repo": "volvo-cars/disco-proto",
+      "commit": "73894147eac4af2e9a6ee8b5a73455f35e2b82c8",
+      "clone": "/Users/RNEL/.cache/groundwork/clones/volvo-cars/disco-proto",
+      "launchAlias": "/Users/RNEL/Workspace/groundWork/reports/rescan-launch-readiness-001/source-clones/volvo-cars/disco-proto",
+      "reason": "previously_selected_pinned_clone"
+    },
+    {
+      "repo": "volvo-cars/disco-query",
+      "commit": "241e9f1421785d77e9ce8104ad9ada6e84417bd9",
+      "clone": "/Users/RNEL/.cache/groundwork/clones/volvo-cars/disco-query",
+      "launchAlias": "/Users/RNEL/Workspace/groundWork/reports/rescan-launch-readiness-001/source-clones/volvo-cars/disco-query",
+      "reason": "previously_selected_pinned_clone"
+    },
+    {
+      "repo": "volvo-cars/fleet-account",
+      "commit": "b07c22ef7427c00567f00635f92f89b3caaffd72",
+      "clone": "/Users/RNEL/.cache/groundwork/clones/volvo-cars/fleet-account",
+      "launchAlias": "/Users/RNEL/Workspace/groundWork/reports/rescan-launch-readiness-001/source-clones/volvo-cars/fleet-account",
+      "reason": "previously_selected_pinned_clone"
+    },
+    {
+      "repo": "volvo-cars/gpe-common",
+      "commit": "be551c0997ca9352f8cf8f1044049a7112e7371d",
+      "clone": "/Users/RNEL/.cache/groundwork/clones/volvo-cars/gpe-common",
+      "launchAlias": "/Users/RNEL/Workspace/groundWork/reports/rescan-launch-readiness-001/source-clones/volvo-cars/gpe-common",
+      "reason": "previously_selected_pinned_clone"
+    },
+    {
+      "repo": "volvo-cars/gpe-configuration",
+      "commit": "eb07546b77b5ddbb535fd3068085c6004fb1b8f2",
+      "clone": "/Users/RNEL/.cache/groundwork/clones/volvo-cars/gpe-configuration",
+      "launchAlias": "/Users/RNEL/Workspace/groundWork/reports/rescan-launch-readiness-001/source-clones/volvo-cars/gpe-configuration",
+      "reason": "previously_selected_pinned_clone"
+    },
+    {
+      "repo": "volvo-cars/gpe-external-price",
+      "commit": "8445e8ca01c1bf279bfa9336ecf9187b9f699fc8",
+      "clone": "/Users/RNEL/.cache/groundwork/clones/volvo-cars/gpe-external-price",
+      "launchAlias": "/Users/RNEL/Workspace/groundWork/reports/rescan-launch-readiness-001/source-clones/volvo-cars/gpe-external-price",
+      "reason": "previously_selected_pinned_clone"
+    },
+    {
+      "repo": "volvo-cars/gpe-financial-calculator",
+      "commit": "c8924a906b4f709c0ff50c98d52903905cec7264",
+      "clone": "/Users/RNEL/.cache/groundwork/clones/volvo-cars/gpe-financial-calculator",
+      "launchAlias": "/Users/RNEL/Workspace/groundWork/reports/rescan-launch-readiness-001/source-clones/volvo-cars/gpe-financial-calculator",
+      "reason": "previously_selected_pinned_clone"
+    },
+    {
+      "repo": "volvo-cars/gpe-green-light",
+      "commit": "06ff7f2fee0e15a50a523ef8853df278c117476c",
+      "clone": "/Users/RNEL/.cache/groundwork/clones/volvo-cars/gpe-green-light",
+      "launchAlias": "/Users/RNEL/Workspace/groundWork/reports/rescan-launch-readiness-001/source-clones/volvo-cars/gpe-green-light",
+      "reason": "previously_selected_pinned_clone"
+    },
+    {
+      "repo": "volvo-cars/gpe-pretax",
+      "commit": "9ac2fd76c450a64d6f5c4bd49e1942ef8eb42c56",
+      "clone": "/Users/RNEL/.cache/groundwork/clones/volvo-cars/gpe-pretax",
+      "launchAlias": "/Users/RNEL/Workspace/groundWork/reports/rescan-launch-readiness-001/source-clones/volvo-cars/gpe-pretax",
+      "reason": "previously_selected_pinned_clone"
+    },
+    {
+      "repo": "volvo-cars/gpe-price",
+      "commit": "045660f3bfc3476eab6f4a1e8506bbbc9f8d28be",
+      "clone": "/Users/RNEL/.cache/groundwork/clones/volvo-cars/gpe-price",
+      "launchAlias": "/Users/RNEL/Workspace/groundWork/reports/rescan-launch-readiness-001/source-clones/volvo-cars/gpe-price",
+      "reason": "previously_selected_pinned_clone"
+    },
+    {
+      "repo": "volvo-cars/gpe-price-data",
+      "commit": "dd4ac6f97ed334f0a47318f0f5a33d0d3d72e473",
+      "clone": "/Users/RNEL/.cache/groundwork/clones/volvo-cars/gpe-price-data",
+      "launchAlias": "/Users/RNEL/Workspace/groundWork/reports/rescan-launch-readiness-001/source-clones/volvo-cars/gpe-price-data",
+      "reason": "previously_selected_pinned_clone"
+    },
+    {
+      "repo": "volvo-cars/gpe-price-event-dispatcher",
+      "commit": "a51af4a836bb67437459ba4da7c8a149dc73e8aa",
+      "clone": "/Users/RNEL/.cache/groundwork/clones/volvo-cars/gpe-price-event-dispatcher",
+      "launchAlias": "/Users/RNEL/Workspace/groundWork/reports/rescan-launch-readiness-001/source-clones/volvo-cars/gpe-price-event-dispatcher",
+      "reason": "previously_selected_pinned_clone"
+    },
+    {
+      "repo": "volvo-cars/graphql-federation-mono",
+      "commit": "8212cd552701f46678e165a9592135ae055b91ca",
+      "clone": "/Users/RNEL/.cache/groundwork/clones/volvo-cars/graphql-federation-mono",
+      "launchAlias": "/Users/RNEL/Workspace/groundWork/reports/rescan-launch-readiness-001/source-clones/volvo-cars/graphql-federation-mono",
+      "reason": "previously_selected_pinned_clone"
+    },
+    {
+      "repo": "volvo-cars/graphql-federation-mono-gitops",
+      "commit": "a01ee436747ee9b097c0eb8d4c13d8d2b231617c",
+      "clone": "/Users/RNEL/.cache/groundwork/clones/volvo-cars/graphql-federation-mono-gitops",
+      "launchAlias": "/Users/RNEL/Workspace/groundWork/reports/rescan-launch-readiness-001/source-clones/volvo-cars/graphql-federation-mono-gitops",
+      "reason": "previously_selected_pinned_clone"
+    },
+    {
+      "repo": "volvo-cars/graphql-federation-router",
+      "commit": "b8e0790b09e8f6772b8ada267a1e5114ab4fc707",
+      "clone": "/Users/RNEL/.cache/groundwork/clones/volvo-cars/graphql-federation-router",
+      "launchAlias": "/Users/RNEL/Workspace/groundWork/reports/rescan-launch-readiness-001/source-clones/volvo-cars/graphql-federation-router",
+      "reason": "previously_selected_pinned_clone"
+    },
+    {
+      "repo": "volvo-cars/lcs",
+      "commit": "485c1818b144656bd2828e2053367d73199538be",
+      "clone": "/Users/RNEL/.cache/groundwork/clones/volvo-cars/lcs",
+      "launchAlias": "/Users/RNEL/Workspace/groundWork/reports/rescan-launch-readiness-001/source-clones/volvo-cars/lcs",
+      "reason": "previously_selected_pinned_clone"
+    },
+    {
+      "repo": "volvo-cars/marketing-feeds-api",
+      "commit": "3e2f68ea1397b0dff3e0abba88af24775e2368fe",
+      "clone": "/Users/RNEL/.cache/groundwork/clones/volvo-cars/marketing-feeds-api",
+      "launchAlias": "/Users/RNEL/Workspace/groundWork/reports/rescan-launch-readiness-001/source-clones/volvo-cars/marketing-feeds-api",
+      "reason": "previously_selected_pinned_clone"
+    },
+    {
+      "repo": "volvo-cars/offer-management",
+      "commit": "f0ed500bcf9204b109eed10b31b0cee9e0fdc7e5",
+      "clone": "/Users/RNEL/.cache/groundwork/clones/volvo-cars/offer-management",
+      "launchAlias": "/Users/RNEL/Workspace/groundWork/reports/rescan-launch-readiness-001/source-clones/volvo-cars/offer-management",
+      "reason": "previously_selected_pinned_clone"
+    },
+    {
+      "repo": "volvo-cars/ooe-financing-offers",
+      "commit": "b66fdb08082dc07cfea8c63d0465d80224067181",
+      "clone": "/Users/RNEL/.cache/groundwork/clones/volvo-cars/ooe-financing-offers",
+      "launchAlias": "/Users/RNEL/Workspace/groundWork/reports/rescan-launch-readiness-001/source-clones/volvo-cars/ooe-financing-offers",
+      "reason": "previously_selected_pinned_clone"
+    },
+    {
+      "repo": "volvo-cars/ooe-product-offer-logging",
+      "commit": "52ab5af9f63177a8f95105b21e5ebe62784d16c2",
+      "clone": "/Users/RNEL/.cache/groundwork/clones/volvo-cars/ooe-product-offer-logging",
+      "launchAlias": "/Users/RNEL/Workspace/groundWork/reports/rescan-launch-readiness-001/source-clones/volvo-cars/ooe-product-offer-logging",
+      "reason": "previously_selected_pinned_clone"
+    },
+    {
+      "repo": "volvo-cars/pop-assortment-gitops",
+      "commit": "1a2ae34e7e7dd5ed5a69d0df40d60f67325892bf",
+      "clone": "/Users/RNEL/Workspace/cb-special-projects/.repos/pop-assortment-gitops",
+      "launchAlias": "/Users/RNEL/Workspace/groundWork/reports/rescan-launch-readiness-001/source-clones/volvo-cars/pop-assortment-gitops",
+      "reason": "previously_selected_pinned_clone"
+    },
+    {
+      "repo": "volvo-cars/pop-assortment-libraries",
+      "commit": "1a3e2494a332c46c336fca14cf35af4a168161ee",
+      "clone": "/Users/RNEL/.cache/groundwork/clones/volvo-cars/pop-assortment-libraries",
+      "launchAlias": "/Users/RNEL/Workspace/groundWork/reports/rescan-launch-readiness-001/source-clones/volvo-cars/pop-assortment-libraries",
+      "reason": "previously_selected_pinned_clone"
+    },
+    {
+      "repo": "volvo-cars/pop-authz",
+      "commit": "e22e7b522193536a182835c5df4c9abbb7198cd9",
+      "clone": "/Users/RNEL/.cache/groundwork/clones/volvo-cars/pop-authz",
+      "launchAlias": "/Users/RNEL/Workspace/groundWork/reports/rescan-launch-readiness-001/source-clones/volvo-cars/pop-authz",
+      "reason": "previously_selected_pinned_clone"
+    },
+    {
+      "repo": "volvo-cars/pop-offers-green-light-service",
+      "commit": "78ebfcd3fd297b1fbad64cd3ddc15128f0988a86",
+      "clone": "/Users/RNEL/.cache/groundwork/clones/volvo-cars/pop-offers-green-light-service",
+      "launchAlias": "/Users/RNEL/Workspace/groundWork/reports/rescan-launch-readiness-001/source-clones/volvo-cars/pop-offers-green-light-service",
+      "reason": "previously_selected_pinned_clone"
+    },
+    {
+      "repo": "volvo-cars/popcat-assortment-admin-api",
+      "commit": "0c08718771b698ce60178a7518b147f961ca8d44",
+      "clone": "/Users/RNEL/.cache/groundwork/clones/volvo-cars/popcat-assortment-admin-api",
+      "launchAlias": "/Users/RNEL/Workspace/groundWork/reports/rescan-launch-readiness-001/source-clones/volvo-cars/popcat-assortment-admin-api",
+      "reason": "previously_selected_pinned_clone"
+    },
+    {
+      "repo": "volvo-cars/popcat-assortment-api",
+      "commit": "6114c5db0f2b4b490cf89b9c512088f01dbf0b98",
+      "clone": "/Users/RNEL/.cache/groundwork/clones/volvo-cars/popcat-assortment-api",
+      "launchAlias": "/Users/RNEL/Workspace/groundWork/reports/rescan-launch-readiness-001/source-clones/volvo-cars/popcat-assortment-api",
+      "reason": "previously_selected_pinned_clone"
+    },
+    {
+      "repo": "volvo-cars/popcat-carfeatures",
+      "commit": "fb46a71193eaf8a7937b571ce4e8a90da89f57ad",
+      "clone": "/Users/RNEL/.cache/groundwork/clones/volvo-cars/popcat-carfeatures",
+      "launchAlias": "/Users/RNEL/Workspace/groundWork/reports/rescan-launch-readiness-001/source-clones/volvo-cars/popcat-carfeatures",
+      "reason": "previously_selected_pinned_clone"
+    },
+    {
+      "repo": "volvo-cars/popcat-eligibility-api",
+      "commit": "bb4edc2468b7890f19d95f80973684825253e0e5",
+      "clone": "/Users/RNEL/.cache/groundwork/clones/volvo-cars/popcat-eligibility-api",
+      "launchAlias": "/Users/RNEL/Workspace/groundWork/reports/rescan-launch-readiness-001/source-clones/volvo-cars/popcat-eligibility-api",
+      "reason": "previously_selected_pinned_clone"
+    },
+    {
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "clone": "/Users/RNEL/.cache/groundwork/clones/volvo-cars/popcat-manage-and-segment",
+      "launchAlias": "/Users/RNEL/Workspace/groundWork/reports/rescan-launch-readiness-001/source-clones/volvo-cars/popcat-manage-and-segment",
+      "reason": "previously_selected_pinned_clone"
+    },
+    {
+      "repo": "volvo-cars/popcat-prins-ingestion",
+      "commit": "611c811884f04e097b0c78502e1046acab1c10d6",
+      "clone": "/Users/RNEL/.cache/groundwork/clones/volvo-cars/popcat-prins-ingestion",
+      "launchAlias": "/Users/RNEL/Workspace/groundWork/reports/rescan-launch-readiness-001/source-clones/volvo-cars/popcat-prins-ingestion",
+      "reason": "previously_selected_pinned_clone"
+    },
+    {
+      "repo": "volvo-cars/popcat-product-details-service",
+      "commit": "0bfc59d69d1e683de7f484b467b835befcd6fba5",
+      "clone": "/Users/RNEL/.cache/groundwork/clones/volvo-cars/popcat-product-details-service",
+      "launchAlias": "/Users/RNEL/Workspace/groundWork/reports/rescan-launch-readiness-001/source-clones/volvo-cars/popcat-product-details-service",
+      "reason": "previously_selected_pinned_clone"
+    },
+    {
+      "repo": "volvo-cars/popcat-product-mapper",
+      "commit": "b81ab9eb4452049a3c746b26fc2f9e82167adc7e",
+      "clone": "/Users/RNEL/Workspace/cb-special-projects/.repos/popcat-product-mapper",
+      "launchAlias": "/Users/RNEL/Workspace/groundWork/reports/rescan-launch-readiness-001/source-clones/volvo-cars/popcat-product-mapper",
+      "reason": "complete_existing_alternate_clone"
+    },
+    {
+      "repo": "volvo-cars/price-core-ui-mono",
+      "commit": "50cbd51c933105942b169f59b1fabf5b31e1ecea",
+      "clone": "/Users/RNEL/.cache/groundwork/clones/volvo-cars/price-core-ui-mono",
+      "launchAlias": "/Users/RNEL/Workspace/groundWork/reports/rescan-launch-readiness-001/source-clones/volvo-cars/price-core-ui-mono",
+      "reason": "previously_selected_pinned_clone"
+    },
+    {
+      "repo": "volvo-cars/price-data-management",
+      "commit": "b244d1e2dcf9545299ebdbf6e35c6c8f0fad3697",
+      "clone": "/Users/RNEL/Workspace/cb-special-projects/.repos/price-data-management",
+      "launchAlias": "/Users/RNEL/Workspace/groundWork/reports/rescan-launch-readiness-001/source-clones/volvo-cars/price-data-management",
+      "reason": "complete_existing_alternate_clone"
+    },
+    {
+      "repo": "volvo-cars/pricing-catalog-api",
+      "commit": "abacb06ac2f6a2403d244cad6de1839b12887f9c",
+      "clone": "/Users/RNEL/.cache/groundwork/clones/volvo-cars/pricing-catalog-api",
+      "launchAlias": "/Users/RNEL/Workspace/groundWork/reports/rescan-launch-readiness-001/source-clones/volvo-cars/pricing-catalog-api",
+      "reason": "previously_selected_pinned_clone"
+    },
+    {
+      "repo": "volvo-cars/prism",
+      "commit": "12bedbccc139b501ae455fd6c659a4f1f2c75057",
+      "clone": "/Users/RNEL/.cache/groundwork/clones/volvo-cars/prism",
+      "launchAlias": "/Users/RNEL/Workspace/groundWork/reports/rescan-launch-readiness-001/source-clones/volvo-cars/prism",
+      "reason": "previously_selected_pinned_clone"
+    },
+    {
+      "repo": "volvo-cars/prismedia",
+      "commit": "464738155c90f8217667a94963be5bf2de7170c5",
+      "clone": "/Users/RNEL/.cache/groundwork/clones/volvo-cars/prismedia",
+      "launchAlias": "/Users/RNEL/Workspace/groundWork/reports/rescan-launch-readiness-001/source-clones/volvo-cars/prismedia",
+      "reason": "previously_selected_pinned_clone"
+    },
+    {
+      "repo": "volvo-cars/product-catalog-api",
+      "commit": "f677c934db1e427326a0c02db167c4de777aa105",
+      "clone": "/Users/RNEL/.cache/groundwork/clones/volvo-cars/product-catalog-api",
+      "launchAlias": "/Users/RNEL/Workspace/groundWork/reports/rescan-launch-readiness-001/source-clones/volvo-cars/product-catalog-api",
+      "reason": "previously_selected_pinned_clone"
+    },
+    {
+      "repo": "volvo-cars/product-catalog-ui",
+      "commit": "6b013e0f9195f855d22ca65318417b120a642b02",
+      "clone": "/Users/RNEL/.cache/groundwork/clones/volvo-cars/product-catalog-ui",
+      "launchAlias": "/Users/RNEL/Workspace/groundWork/reports/rescan-launch-readiness-001/source-clones/volvo-cars/product-catalog-ui",
+      "reason": "previously_selected_pinned_clone"
+    },
+    {
+      "repo": "volvo-cars/product-configuration-facade",
+      "commit": "7ab979757f842587815a361ef32d011dadd64574",
+      "clone": "/Users/RNEL/.cache/groundwork/clones/volvo-cars/product-configuration-facade",
+      "launchAlias": "/Users/RNEL/Workspace/groundWork/reports/rescan-launch-readiness-001/source-clones/volvo-cars/product-configuration-facade",
+      "reason": "previously_selected_pinned_clone"
+    },
+    {
+      "repo": "volvo-cars/product-enrichment-tools",
+      "commit": "4fe72b050d15f43d4f24513c1a5d466b038397e4",
+      "clone": "/Users/RNEL/.cache/groundwork/clones/volvo-cars/product-enrichment-tools",
+      "launchAlias": "/Users/RNEL/Workspace/groundWork/reports/rescan-launch-readiness-001/source-clones/volvo-cars/product-enrichment-tools",
+      "reason": "previously_selected_pinned_clone"
+    },
+    {
+      "repo": "volvo-cars/product-offer-bto-enabled-baseliner",
+      "commit": "2e0d69dbb54267f435054f53f0fb1fb289ffcfb9",
+      "clone": "/Users/RNEL/.cache/groundwork/clones/volvo-cars/product-offer-bto-enabled-baseliner",
+      "launchAlias": "/Users/RNEL/Workspace/groundWork/reports/rescan-launch-readiness-001/source-clones/volvo-cars/product-offer-bto-enabled-baseliner",
+      "reason": "previously_selected_pinned_clone"
+    },
+    {
+      "repo": "volvo-cars/product-offer-search",
+      "commit": "89e3848de3f5c3175abe382ce7ea924dfa96b4e6",
+      "clone": "/Users/RNEL/.cache/groundwork/clones/volvo-cars/product-offer-search",
+      "launchAlias": "/Users/RNEL/Workspace/groundWork/reports/rescan-launch-readiness-001/source-clones/volvo-cars/product-offer-search",
+      "reason": "previously_selected_pinned_clone"
+    },
+    {
+      "repo": "volvo-cars/product-service",
+      "commit": "ad0e90a90ed01c07c89f2d0da9ec1669a8428a2e",
+      "clone": "/Users/RNEL/.cache/groundwork/clones/volvo-cars/product-service",
+      "launchAlias": "/Users/RNEL/Workspace/groundWork/reports/rescan-launch-readiness-001/source-clones/volvo-cars/product-service",
+      "reason": "previously_selected_pinned_clone"
+    },
+    {
+      "repo": "volvo-cars/rdm-commercial-partner-graphql-api",
+      "commit": "a326ff0d6aca382c16067bbe8dd601ebeac2d456",
+      "clone": "/Users/RNEL/.cache/groundwork/clones/volvo-cars/rdm-commercial-partner-graphql-api",
+      "launchAlias": "/Users/RNEL/Workspace/groundWork/reports/rescan-launch-readiness-001/source-clones/volvo-cars/rdm-commercial-partner-graphql-api",
+      "reason": "previously_selected_pinned_clone"
+    },
+    {
+      "repo": "volvo-cars/rules-engine-offer-service",
+      "commit": "891389913af71afeee347efde5ce2d8e02e6d714",
+      "clone": "/Users/RNEL/.cache/groundwork/clones/volvo-cars/rules-engine-offer-service",
+      "launchAlias": "/Users/RNEL/Workspace/groundWork/reports/rescan-launch-readiness-001/source-clones/volvo-cars/rules-engine-offer-service",
+      "reason": "previously_selected_pinned_clone"
+    },
+    {
+      "repo": "volvo-cars/rules-engine-offers-read-view",
+      "commit": "f13e2cfb98c6764512ba6196b5faa3ec08e73a2b",
+      "clone": "/Users/RNEL/.cache/groundwork/clones/volvo-cars/rules-engine-offers-read-view",
+      "launchAlias": "/Users/RNEL/Workspace/groundWork/reports/rescan-launch-readiness-001/source-clones/volvo-cars/rules-engine-offers-read-view",
+      "reason": "previously_selected_pinned_clone"
+    },
+    {
+      "repo": "volvo-cars/stock-catalog-api",
+      "commit": "81b5950f12abc53f86fa06f40ac0413f92da716f",
+      "clone": "/Users/RNEL/.cache/groundwork/clones/volvo-cars/stock-catalog-api",
+      "launchAlias": "/Users/RNEL/Workspace/groundWork/reports/rescan-launch-readiness-001/source-clones/volvo-cars/stock-catalog-api",
+      "reason": "previously_selected_pinned_clone"
+    },
+    {
+      "repo": "volvo-cars/tax-calculator",
+      "commit": "5a9b302b8dd3f9160e42735920cc5ecf71585d85",
+      "clone": "/Users/RNEL/.cache/groundwork/clones/volvo-cars/tax-calculator",
+      "launchAlias": "/Users/RNEL/Workspace/groundWork/reports/rescan-launch-readiness-001/source-clones/volvo-cars/tax-calculator",
+      "reason": "previously_selected_pinned_clone"
+    },
+    {
+      "repo": "volvo-cars/techno",
+      "commit": "c0a236ddc3c290fefdc57f608fe3d810d5012a49",
+      "clone": "/Users/RNEL/.cache/groundwork/clones/volvo-cars/techno",
+      "launchAlias": "/Users/RNEL/Workspace/groundWork/reports/rescan-launch-readiness-001/source-clones/volvo-cars/techno",
+      "reason": "previously_selected_pinned_clone"
+    },
+    {
+      "repo": "volvo-cars/test-drive-api",
+      "commit": "f74a57bb823f6c31b80c74b9427c6b2fe61a4a40",
+      "clone": "/Users/RNEL/.cache/groundwork/clones/volvo-cars/test-drive-api",
+      "launchAlias": "/Users/RNEL/Workspace/groundWork/reports/rescan-launch-readiness-001/source-clones/volvo-cars/test-drive-api",
+      "reason": "previously_selected_pinned_clone"
+    },
+    {
+      "repo": "volvo-cars/tyre-label-service",
+      "commit": "ac0244dd36aa716e857a577aaa7344ab5936fc81",
+      "clone": "/Users/RNEL/.cache/groundwork/clones/volvo-cars/tyre-label-service",
+      "launchAlias": "/Users/RNEL/Workspace/groundWork/reports/rescan-launch-readiness-001/source-clones/volvo-cars/tyre-label-service",
+      "reason": "previously_selected_pinned_clone"
+    },
+    {
+      "repo": "volvo-cars/urax",
+      "commit": "65d95a7073308e607ca253680cf3cf75a78b25d1",
+      "clone": "/Users/RNEL/.cache/groundwork/clones/volvo-cars/urax",
+      "launchAlias": "/Users/RNEL/Workspace/groundWork/reports/rescan-launch-readiness-001/source-clones/volvo-cars/urax",
+      "reason": "previously_selected_pinned_clone"
+    },
+    {
+      "repo": "volvo-cars/urax-ui",
+      "commit": "b7927c33fdd39352e49a29d1d6d67a0d70bd2195",
+      "clone": "/Users/RNEL/.cache/groundwork/clones/volvo-cars/urax-ui",
+      "launchAlias": "/Users/RNEL/Workspace/groundWork/reports/rescan-launch-readiness-001/source-clones/volvo-cars/urax-ui",
+      "reason": "previously_selected_pinned_clone"
+    },
+    {
+      "repo": "volvo-cars/visibility-service",
+      "commit": "092c795f3015f4bcd526dad72f255e719380e77d",
+      "clone": "/Users/RNEL/.cache/groundwork/clones/volvo-cars/visibility-service",
+      "launchAlias": "/Users/RNEL/Workspace/groundWork/reports/rescan-launch-readiness-001/source-clones/volvo-cars/visibility-service",
+      "reason": "previously_selected_pinned_clone"
+    },
+    {
+      "repo": "volvo-cars/wltp-facade",
+      "commit": "ea60388bfd7a8eea9867a5ec8f9224350fd13090",
+      "clone": "/Users/RNEL/.cache/groundwork/clones/volvo-cars/wltp-facade",
+      "launchAlias": "/Users/RNEL/Workspace/groundWork/reports/rescan-launch-readiness-001/source-clones/volvo-cars/wltp-facade",
+      "reason": "previously_selected_pinned_clone"
+    }
+  ]
+}

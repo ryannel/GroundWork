@@ -1,0 +1,104 @@
+{
+  "repo": "volvo-cars/cce-filter-service",
+  "commit": "2020ff59219b4d7bb9ad935fde361b2a6e857112",
+  "status": "16full pinned source files independently read;78strict queries passed;3explicit limits retained",
+  "files": [
+    {
+      "path": "src/main.py",
+      "lines": 56,
+      "sha256": "e99a40e25a7f3b5b495f84a3d2ada5cba83ee4181a6f425cddc455113842fe61",
+      "review": "Entire pinned source read by root before final candidate; native/query review pending"
+    },
+    {
+      "path": "src/main-event.py",
+      "lines": 168,
+      "sha256": "16682a3e01f0590acf4f2e2027bad164783bab389771bfe35a176a99acf24d9a",
+      "review": "Entire pinned source read by root before final candidate; native/query review pending"
+    },
+    {
+      "path": "src/messaging/kafka/producer.py",
+      "lines": 39,
+      "sha256": "888ea09c05d456c737314f1102dedee2b776b103bac4fae007e4dac78229ec00",
+      "review": "Entire pinned source read by root before final candidate; native/query review pending"
+    },
+    {
+      "path": "src/messaging/kafka/consumer.py",
+      "lines": 102,
+      "sha256": "25ea3837ddc3255baeb7a30566cda3325f3b79737db6f5128056d36357d9a26c",
+      "review": "Entire pinned source read by root before final candidate; native/query review pending"
+    },
+    {
+      "path": "src/api/components.py",
+      "lines": 35,
+      "sha256": "d4f3deb2bdb5181db95e1f343e9d4bf59e07fd319344a9c4aa9cd22e8f88272a",
+      "review": "Entire pinned source read by root before final candidate; native/query review pending"
+    },
+    {
+      "path": "src/api/policies_v2.py",
+      "lines": 198,
+      "sha256": "a8ed11733990705710aa496a32e05119aefe6e904c5eb185c97e1b09ab9ea2f8",
+      "review": "Entire pinned source read by root before final candidate; native/query review pending"
+    },
+    {
+      "path": "src/database/postgres/pool.py",
+      "lines": 54,
+      "sha256": "6e0fedc9aa16d542cdb1b3bc7913a03b245fcf2693ab5d8e9fc23abaf4d933b5",
+      "review": "Entire pinned source read by root before final candidate; native/query review pending"
+    },
+    {
+      "path": "src/storages/azure_blob_storage.py",
+      "lines": 50,
+      "sha256": "b419c0fae157d1a90fb795904a251bea6839ef3635441466a9bdd2c7c0a715ce",
+      "review": "Entire pinned source read by root before final candidate; native/query review pending"
+    },
+    {
+      "path": "src/services/components_service.py",
+      "lines": 612,
+      "sha256": "e8dcfc039f6088b91a44d6da76e5e1478b376de44d09a4a108224b0e9255261f",
+      "review": "Entire pinned source read by root before final candidate; native/query review pending"
+    },
+    {
+      "path": "src/setupeventproducer.py",
+      "lines": 25,
+      "sha256": "07f696bd678b18878e38d7f2a3369155ce2322cecacb2763f3c7e2bb92c3786b",
+      "review": "Entire pinned source read by root before final candidate; native/query review pending"
+    },
+    {
+      "path": "src/api/healthcheck.py",
+      "lines": 40,
+      "sha256": "e8368c88c4e68d96b6121b0396b91f87bcb2c158bcd5ba807a33a14808350ac9",
+      "review": "Entire pinned source read by root before final candidate; native/query review pending"
+    },
+    {
+      "path": "src/messaging/event.py",
+      "lines": 84,
+      "sha256": "32b9c156fb96375d989b883a57ca37c96f3332121c90e0aca4e7dcdc748c566d",
+      "review": "Entire pinned source read by root before final candidate; native/query review pending"
+    },
+    {
+      "path": "src/models/camelmodel.py",
+      "lines": 9,
+      "sha256": "7470fbe5964ab920b9087934d4d60d4013b952965bcdb4b7f874dda88fd194e6",
+      "review": "Entire pinned source read by root before final candidate; native/query review pending"
+    },
+    {
+      "path": "Dockerfile.app",
+      "lines": 43,
+      "sha256": "709af9fe52f5eae938ab8da5868457066a2dd15252feef4c121e0347404c99c6",
+      "review": "Entire pinned source read by root before final candidate; native/query review pending"
+    },
+    {
+      "path": "docker-compose.yml",
+      "lines": 97,
+      "sha256": "1318efb8c7071b9823078847f5d26eec028053d9003b6f0b4df8200465290a23",
+      "review": "Entire pinned source read by root before final candidate; native/query review pending"
+    },
+    {
+      "path": "src/database/postgres/repository.py",
+      "lines": 614,
+      "sha256": "7556fe32c70ec2fc930e49e9b1f00de51b7e93479e04ce30ee1c9624504b5ea9",
+      "review": "Entire pinned file independently read, including all32contextual SQL write column projections, helper tuple/append construction and actual gzip/JSON transformations"
+    }
+  ],
+  "snapshot": "026b45380097c239e2511a7ce9186329c0af6e0a24ba7bf73beac41b6e39705f"
+}

@@ -1,0 +1,634 @@
+[
+  {
+    "type": "VolvoCars.AccountProfile.Business.Constants.ValidationErrorCodes",
+    "shape": "account-profile-bc3003a-complete-r1/shape/source/e9465d4fb185bfd5",
+    "path": "VolvoCars.AccountProfile.Business/Constants/ValidationErrorCodes.cs",
+    "lines": [3, 7],
+    "fields": 0,
+    "completeness": "closed"
+  },
+  {
+    "type": "VolvoCars.AccountProfile.Business.Constants.CdbDefaultValues",
+    "shape": "account-profile-bc3003a-complete-r1/shape/source/96c60483c166d6a5",
+    "path": "VolvoCars.AccountProfile.Business/Constants/CdbDefaultValues.cs",
+    "lines": [3, 6],
+    "fields": 0,
+    "completeness": "closed"
+  },
+  {
+    "type": "VolvoCars.AccountProfile.Business.Constants.CdbLanguages",
+    "shape": "account-profile-bc3003a-complete-r1/shape/source/cdbf890b79cdfd54",
+    "path": "VolvoCars.AccountProfile.Business/Constants/CdbLanguages.cs",
+    "lines": [5, 196],
+    "fields": 0,
+    "completeness": "closed"
+  },
+  {
+    "type": "VolvoCars.AccountProfile.Business.Constants.DateFormats",
+    "shape": "account-profile-bc3003a-complete-r1/shape/source/827bfad095889cff",
+    "path": "VolvoCars.AccountProfile.Business/Constants/DateFormats.cs",
+    "lines": [3, 6],
+    "fields": 0,
+    "completeness": "closed"
+  },
+  {
+    "type": "VolvoCars.AccountProfile.Business.Constants.ServiceType",
+    "shape": "account-profile-bc3003a-complete-r1/shape/source/5abc6a3239c3aa52",
+    "path": "VolvoCars.AccountProfile.Business/Constants/ServiceType.cs",
+    "lines": [7, 19],
+    "fields": 0,
+    "completeness": "closed"
+  },
+  {
+    "type": "VolvoCars.AccountProfile.Business.Constants.VdwAccountStatusType",
+    "shape": "account-profile-bc3003a-complete-r1/shape/source/148098fc989d6201",
+    "path": "VolvoCars.AccountProfile.Business/Constants/VdwAccountStatusType.cs",
+    "lines": [6, 22],
+    "fields": 0,
+    "completeness": "closed"
+  },
+  {
+    "type": "VolvoCars.AccountProfile.Business.Constants.SettingsFieldNames",
+    "shape": "account-profile-bc3003a-complete-r1/shape/source/365183e25bde5976",
+    "path": "VolvoCars.AccountProfile.Business/Constants/SettingsFieldNames.cs",
+    "lines": [5, 8],
+    "fields": 0,
+    "completeness": "closed"
+  },
+  {
+    "type": "VolvoCars.AccountProfile.Business.Constants.MediaTypes",
+    "shape": "account-profile-bc3003a-complete-r1/shape/source/a240018fbf98c42b",
+    "path": "VolvoCars.AccountProfile.Business/Constants/MediaTypes.cs",
+    "lines": [3, 7],
+    "fields": 0,
+    "completeness": "closed"
+  },
+  {
+    "type": "VolvoCars.AccountProfile.Business.Constants.ValidationRules",
+    "shape": "account-profile-bc3003a-complete-r1/shape/source/9ebe9fdd92ef3b6f",
+    "path": "VolvoCars.AccountProfile.Business/Constants/ValidationRules.cs",
+    "lines": [3, 9],
+    "fields": 0,
+    "completeness": "closed"
+  },
+  {
+    "type": "VolvoCars.AccountProfile.Business.Constants.AccountStatuses",
+    "shape": "account-profile-bc3003a-complete-r1/shape/source/1ecad8e5fb239238",
+    "path": "VolvoCars.AccountProfile.Business/Constants/AccountStatuses.cs",
+    "lines": [3, 7],
+    "fields": 0,
+    "completeness": "closed"
+  },
+  {
+    "type": "VolvoCars.AccountProfile.Business.Constants.RegexPatterns",
+    "shape": "account-profile-bc3003a-complete-r1/shape/source/8cb8c030a450dad9",
+    "path": "VolvoCars.AccountProfile.Business/Constants/RegexPatterns.cs",
+    "lines": [3, 8],
+    "fields": 0,
+    "completeness": "closed"
+  },
+  {
+    "type": "VolvoCars.AccountProfile.Business.Constants.CdbMediums",
+    "shape": "account-profile-bc3003a-complete-r1/shape/source/ed0d591017ef5f1e",
+    "path": "VolvoCars.AccountProfile.Business/Constants/CdbMediums.cs",
+    "lines": [3, 8],
+    "fields": 0,
+    "completeness": "closed"
+  },
+  {
+    "type": "VolvoCars.AccountProfile.Business.Constants.AlternativeId",
+    "shape": "account-profile-bc3003a-complete-r1/shape/source/9ab613a4eb8c145d",
+    "path": "VolvoCars.AccountProfile.Business/Constants/AlternativeId.cs",
+    "lines": [3, 7],
+    "fields": 0,
+    "completeness": "closed"
+  },
+  {
+    "type": "VolvoCars.AccountProfile.Business.Constants.SystemNames",
+    "shape": "account-profile-bc3003a-complete-r1/shape/source/c9703ff061d91496",
+    "path": "VolvoCars.AccountProfile.Business/Constants/SystemNames.cs",
+    "lines": [3, 9],
+    "fields": 0,
+    "completeness": "closed"
+  },
+  {
+    "type": "VolvoCars.AccountProfile.Business.Constants.CacheKeys",
+    "shape": "account-profile-bc3003a-complete-r1/shape/source/e5caeac0a922b096",
+    "path": "VolvoCars.AccountProfile.Business/Constants/CacheKeys.cs",
+    "lines": [3, 6],
+    "fields": 0,
+    "completeness": "closed"
+  },
+  {
+    "type": "VolvoCars.AccountProfile.Business.Constants.CdbUsages",
+    "shape": "account-profile-bc3003a-complete-r1/shape/source/6c7029cdf23e05e8",
+    "path": "VolvoCars.AccountProfile.Business/Constants/CdbUsages.cs",
+    "lines": [3, 8],
+    "fields": 0,
+    "completeness": "closed"
+  },
+  {
+    "type": "VolvoCars.AccountProfile.Business.Constants.VolvoIdActionType",
+    "shape": "account-profile-bc3003a-complete-r1/shape/source/aadad02c937c36e9",
+    "path": "VolvoCars.AccountProfile.Business/Constants/VolvoIdActionType.cs",
+    "lines": [8, 34],
+    "fields": 0,
+    "completeness": "closed"
+  },
+  {
+    "type": "VolvoCars.AccountProfile.Business.Providers.ISettingsProvider",
+    "shape": "account-profile-bc3003a-complete-r1/shape/source/ecf5ecc6d9614ce3",
+    "path": "VolvoCars.AccountProfile.Business/Providers/SettingsProvider.cs",
+    "lines": [16, 20],
+    "fields": 0,
+    "completeness": "closed"
+  },
+  {
+    "type": "VolvoCars.AccountProfile.Business.Providers.SettingsProvider",
+    "shape": "account-profile-bc3003a-complete-r1/shape/source/73047a20b0c1fb58",
+    "path": "VolvoCars.AccountProfile.Business/Providers/SettingsProvider.cs",
+    "lines": [22, 136],
+    "fields": 0,
+    "completeness": "closed"
+  },
+  {
+    "type": "VolvoCars.AccountProfile.Business.Managers.IAccountManager",
+    "shape": "account-profile-bc3003a-complete-r1/shape/source/cfbb8be77c29b72d",
+    "path": "VolvoCars.AccountProfile.Business/Managers/AccountManager.cs",
+    "lines": [13, 18],
+    "fields": 0,
+    "completeness": "closed"
+  },
+  {
+    "type": "VolvoCars.AccountProfile.Business.Layer.LayerBase<VolvoCars.AccountProfile.Business.Managers.AccountManager>",
+    "shape": "account-profile-bc3003a-complete-r1/shape/source/3eb5a2e088d499f6",
+    "path": "VolvoCars.AccountProfile.Business/Layer/LayerBase.cs",
+    "lines": [5, 53],
+    "fields": 0,
+    "completeness": "closed"
+  },
+  {
+    "type": "VolvoCars.AccountProfile.Business.Managers.AccountManager",
+    "shape": "account-profile-bc3003a-complete-r1/shape/source/88a255148ac4891e",
+    "path": "VolvoCars.AccountProfile.Business/Managers/AccountManager.cs",
+    "lines": [20, 123],
+    "fields": 0,
+    "completeness": "closed"
+  },
+  {
+    "type": "VolvoCars.AccountProfile.Business.Managers.ISettingsManager",
+    "shape": "account-profile-bc3003a-complete-r1/shape/source/92f9e05ecee1a9de",
+    "path": "VolvoCars.AccountProfile.Business/Managers/SettingsManager.cs",
+    "lines": [9, 12],
+    "fields": 0,
+    "completeness": "closed"
+  },
+  {
+    "type": "VolvoCars.AccountProfile.Business.Layer.LayerBase<VolvoCars.AccountProfile.Business.Managers.SettingsManager>",
+    "shape": "account-profile-bc3003a-complete-r1/shape/source/466925afd8a57a74",
+    "path": "VolvoCars.AccountProfile.Business/Layer/LayerBase.cs",
+    "lines": [5, 53],
+    "fields": 0,
+    "completeness": "closed"
+  },
+  {
+    "type": "VolvoCars.AccountProfile.Business.Managers.SettingsManager",
+    "shape": "account-profile-bc3003a-complete-r1/shape/source/c8f2cc27e3f248ad",
+    "path": "VolvoCars.AccountProfile.Business/Managers/SettingsManager.cs",
+    "lines": [14, 26],
+    "fields": 0,
+    "completeness": "closed"
+  },
+  {
+    "type": "VolvoCars.AccountProfile.Business.Enums.AppEnvironment",
+    "shape": "account-profile-bc3003a-complete-r1/shape/source/0f4fa4c0eb3ca257",
+    "path": "VolvoCars.AccountProfile.Business/Enums/AppEnvironment.cs",
+    "lines": [3, 3],
+    "fields": 0,
+    "completeness": "closed"
+  },
+  {
+    "type": "VolvoCars.AccountProfile.Business.Enums.Gender",
+    "shape": "account-profile-bc3003a-complete-r1/shape/source/aa1b933823af358c",
+    "path": "VolvoCars.AccountProfile.Business/Enums/Gender.cs",
+    "lines": [3, 8],
+    "fields": 0,
+    "completeness": "closed"
+  },
+  {
+    "type": "VolvoCars.AccountProfile.Business.Enums.Brands",
+    "shape": "account-profile-bc3003a-complete-r1/shape/source/5eba3e85e63e30aa",
+    "path": "VolvoCars.AccountProfile.Business/Enums/Brands.cs",
+    "lines": [3, 7],
+    "fields": 0,
+    "completeness": "closed"
+  },
+  {
+    "type": "VolvoCars.AccountProfile.Business.Logic.IAccountLogic",
+    "shape": "account-profile-bc3003a-complete-r1/shape/source/8df412532dd0c68c",
+    "path": "VolvoCars.AccountProfile.Business/Logic/AccountLogic.cs",
+    "lines": [16, 20],
+    "fields": 0,
+    "completeness": "closed"
+  },
+  {
+    "type": "VolvoCars.AccountProfile.Business.Layer.LayerBase<VolvoCars.AccountProfile.Business.Logic.AccountLogic>",
+    "shape": "account-profile-bc3003a-complete-r1/shape/source/57d9b9d548c8af4a",
+    "path": "VolvoCars.AccountProfile.Business/Layer/LayerBase.cs",
+    "lines": [5, 53],
+    "fields": 0,
+    "completeness": "closed"
+  },
+  {
+    "type": "VolvoCars.AccountProfile.Business.Logic.AccountLogic",
+    "shape": "account-profile-bc3003a-complete-r1/shape/source/c779b06a328bb671",
+    "path": "VolvoCars.AccountProfile.Business/Logic/AccountLogic.cs",
+    "lines": [22, 70],
+    "fields": 0,
+    "completeness": "closed"
+  },
+  {
+    "type": "VolvoCars.AccountProfile.Business.Logic.ISettingsLogic",
+    "shape": "account-profile-bc3003a-complete-r1/shape/source/f7e90d18dc2ba045",
+    "path": "VolvoCars.AccountProfile.Business/Logic/SettingsLogic.cs",
+    "lines": [10, 13],
+    "fields": 0,
+    "completeness": "closed"
+  },
+  {
+    "type": "VolvoCars.AccountProfile.Business.Layer.LayerBase<VolvoCars.AccountProfile.Business.Logic.SettingsLogic>",
+    "shape": "account-profile-bc3003a-complete-r1/shape/source/864844f80fb18aca",
+    "path": "VolvoCars.AccountProfile.Business/Layer/LayerBase.cs",
+    "lines": [5, 53],
+    "fields": 0,
+    "completeness": "closed"
+  },
+  {
+    "type": "VolvoCars.AccountProfile.Business.Logic.SettingsLogic",
+    "shape": "account-profile-bc3003a-complete-r1/shape/source/9c59e2390844f9a8",
+    "path": "VolvoCars.AccountProfile.Business/Logic/SettingsLogic.cs",
+    "lines": [15, 28],
+    "fields": 0,
+    "completeness": "closed"
+  },
+  {
+    "type": "VolvoCars.AccountProfile.Business.Models.UserProperties",
+    "shape": "account-profile-bc3003a-complete-r1/shape/source/c4056f77a2f7cc61",
+    "path": "VolvoCars.AccountProfile.Business/Models/UserProperties.cs",
+    "lines": [5, 11],
+    "fields": 4,
+    "completeness": "closed"
+  },
+  {
+    "type": "VolvoCars.AccountProfile.Business.Extensions.KeyVaultExtensions",
+    "shape": "account-profile-bc3003a-complete-r1/shape/source/3974f18f791ac187",
+    "path": "VolvoCars.AccountProfile.Business/Extensions/KeyVaultExtensions.cs",
+    "lines": [8, 29],
+    "fields": 0,
+    "completeness": "closed"
+  },
+  {
+    "type": "VolvoCars.AccountProfile.Business.Resolvers.MarketResolvedResult",
+    "shape": "account-profile-bc3003a-complete-r1/shape/source/6cf15949707fd03f",
+    "path": "VolvoCars.AccountProfile.Business/Resolvers/MarketResolvedResult.cs",
+    "lines": [3, 9],
+    "fields": 4,
+    "completeness": "closed"
+  },
+  {
+    "type": "VolvoCars.AccountProfile.Business.Resolvers.ICdbSettingsResolver",
+    "shape": "account-profile-bc3003a-complete-r1/shape/source/c04e8334b6dd10e0",
+    "path": "VolvoCars.AccountProfile.Business/Resolvers/CdbSettingsResolver.cs",
+    "lines": [9, 14],
+    "fields": 0,
+    "completeness": "closed"
+  },
+  {
+    "type": "VolvoCars.AccountProfile.Business.Resolvers.CdbSettingsResolver",
+    "shape": "account-profile-bc3003a-complete-r1/shape/source/b85ae2f4307bc649",
+    "path": "VolvoCars.AccountProfile.Business/Resolvers/CdbSettingsResolver.cs",
+    "lines": [16, 70],
+    "fields": 0,
+    "completeness": "closed"
+  },
+  {
+    "type": "VolvoCars.AccountProfile.Business.Utilities.StringUtils",
+    "shape": "account-profile-bc3003a-complete-r1/shape/source/a8c41c962f1923f3",
+    "path": "VolvoCars.AccountProfile.Business/Utilities/StringUtils.cs",
+    "lines": [4, 36],
+    "fields": 0,
+    "completeness": "closed"
+  },
+  {
+    "type": "VolvoCars.AccountProfile.Business.Layer.LayerOutcomeCode",
+    "shape": "account-profile-bc3003a-complete-r1/shape/source/f68ad8fdb2b9a650",
+    "path": "VolvoCars.AccountProfile.Business/Layer/LayerOutcomeCode.cs",
+    "lines": [3, 10],
+    "fields": 0,
+    "completeness": "closed"
+  },
+  {
+    "type": "VolvoCars.AccountProfile.Business.Layer.LayerOutcome",
+    "shape": "account-profile-bc3003a-complete-r1/shape/source/c0605a2afd9f9e52",
+    "path": "VolvoCars.AccountProfile.Business/Layer/LayerOutcome.cs",
+    "lines": [3, 8],
+    "fields": 3,
+    "completeness": "closed"
+  },
+  {
+    "type": "VolvoCars.AccountProfile.Business.Layer.LayerOutcome<T>",
+    "shape": "account-profile-bc3003a-complete-r1/shape/source/dc51ff2655dad04c",
+    "path": "VolvoCars.AccountProfile.Business/Layer/LayerOutcome.cs",
+    "lines": [10, 13],
+    "fields": 4,
+    "completeness": "closed"
+  },
+  {
+    "type": "VolvoCars.AccountProfile.Business.Layer.LayerBase<T>",
+    "shape": "account-profile-bc3003a-complete-r1/shape/source/e2f70695c3c10b5c",
+    "path": "VolvoCars.AccountProfile.Business/Layer/LayerBase.cs",
+    "lines": [5, 53],
+    "fields": 0,
+    "completeness": "closed"
+  },
+  {
+    "type": "VolvoCars.AccountProfile.Api.Constants.Scopes",
+    "shape": "account-profile-bc3003a-complete-r1/shape/source/91d54ce73c710cc6",
+    "path": "VolvoCars.AccountProfile.Api/Constants/Scopes.cs",
+    "lines": [3, 7],
+    "fields": 0,
+    "completeness": "closed"
+  },
+  {
+    "type": "VolvoCars.AccountProfile.Api.Constants.Headers",
+    "shape": "account-profile-bc3003a-complete-r1/shape/source/975e5a1a732134b4",
+    "path": "VolvoCars.AccountProfile.Api/Constants/Headers.cs",
+    "lines": [3, 6],
+    "fields": 0,
+    "completeness": "closed"
+  },
+  {
+    "type": "VolvoCars.AccountProfile.Api.Constants.Policies",
+    "shape": "account-profile-bc3003a-complete-r1/shape/source/b8b879f87a517c27",
+    "path": "VolvoCars.AccountProfile.Api/Constants/Policies.cs",
+    "lines": [3, 6],
+    "fields": 0,
+    "completeness": "closed"
+  },
+  {
+    "type": "VolvoCars.AccountProfile.Api.Constants.DefaultValues",
+    "shape": "account-profile-bc3003a-complete-r1/shape/source/6ee2c10684038c9a",
+    "path": "VolvoCars.AccountProfile.Api/Constants/DefaultValues.cs",
+    "lines": [3, 8],
+    "fields": 0,
+    "completeness": "closed"
+  },
+  {
+    "type": "VolvoCars.AccountProfile.Api.Constants.Messages",
+    "shape": "account-profile-bc3003a-complete-r1/shape/source/f2e81195bd1778e9",
+    "path": "VolvoCars.AccountProfile.Api/Constants/Messages.cs",
+    "lines": [3, 8],
+    "fields": 0,
+    "completeness": "closed"
+  },
+  {
+    "type": "VolvoCars.AccountProfile.Api.Extensions.ApiStartupExtensions",
+    "shape": "account-profile-bc3003a-complete-r1/shape/source/4b5b2bf1bcf8e6fb",
+    "path": "VolvoCars.AccountProfile.Api/Extensions/ApiStartupExtensions.cs",
+    "lines": [18, 43],
+    "fields": 0,
+    "completeness": "closed"
+  },
+  {
+    "type": "VolvoCars.AccountProfile.Api.Extensions.IServiceCollectionExtensions",
+    "shape": "account-profile-bc3003a-complete-r1/shape/source/b2efd7829df7b36b",
+    "path": "VolvoCars.AccountProfile.Api/Extensions/IServiceCollectionExtensions.cs",
+    "lines": [20, 92],
+    "fields": 0,
+    "completeness": "closed"
+  },
+  {
+    "type": "VolvoCars.AccountProfile.Api.Layer.ExtendedControllerBase",
+    "shape": "account-profile-bc3003a-complete-r1/shape/source/a65d8434cb2ec00c",
+    "path": "VolvoCars.AccountProfile.Api/Layer/ExtendedControllerBase.cs",
+    "lines": [9, 29],
+    "fields": 0,
+    "completeness": "partial"
+  },
+  {
+    "type": "VolvoCars.AccountProfile.Api.Factories.IPaginationFactory",
+    "shape": "account-profile-bc3003a-complete-r1/shape/source/2fe0759c6ce1e76c",
+    "path": "VolvoCars.AccountProfile.Api/Factories/PaginationFactory.cs",
+    "lines": [11, 15],
+    "fields": 0,
+    "completeness": "closed"
+  },
+  {
+    "type": "VolvoCars.AccountProfile.Api.Factories.PaginationFactory",
+    "shape": "account-profile-bc3003a-complete-r1/shape/source/6f9b7a5a00bbe8a4",
+    "path": "VolvoCars.AccountProfile.Api/Factories/PaginationFactory.cs",
+    "lines": [17, 81],
+    "fields": 0,
+    "completeness": "closed"
+  },
+  {
+    "type": "VolvoCars.AccountProfile.Business.Providers.Models.SettingsDto",
+    "shape": "account-profile-bc3003a-complete-r1/shape/source/5f2b70163be1b400",
+    "path": "VolvoCars.AccountProfile.Business/Providers/Models/SettingsDTO.cs",
+    "lines": [5, 31],
+    "fields": 6,
+    "completeness": "closed"
+  },
+  {
+    "type": "VolvoCars.AccountProfile.Business.Managers.Factories.IAddressFactory",
+    "shape": "account-profile-bc3003a-complete-r1/shape/source/9caf8b085d90747d",
+    "path": "VolvoCars.AccountProfile.Business/Managers/Factories/AddressFactory.cs",
+    "lines": [6, 10],
+    "fields": 0,
+    "completeness": "closed"
+  },
+  {
+    "type": "VolvoCars.AccountProfile.Business.Managers.Factories.AddressFactory",
+    "shape": "account-profile-bc3003a-complete-r1/shape/source/d5da8be915a8c5a7",
+    "path": "VolvoCars.AccountProfile.Business/Managers/Factories/AddressFactory.cs",
+    "lines": [12, 60],
+    "fields": 0,
+    "completeness": "closed"
+  },
+  {
+    "type": "VolvoCars.AccountProfile.Business.Managers.Factories.IAccountFactory",
+    "shape": "account-profile-bc3003a-complete-r1/shape/source/d1c9e8101e7112f3",
+    "path": "VolvoCars.AccountProfile.Business/Managers/Factories/AccountFactory.cs",
+    "lines": [12, 16],
+    "fields": 0,
+    "completeness": "closed"
+  },
+  {
+    "type": "VolvoCars.AccountProfile.Business.Managers.Factories.AccountFactory",
+    "shape": "account-profile-bc3003a-complete-r1/shape/source/63e91bf6bf19da24",
+    "path": "VolvoCars.AccountProfile.Business/Managers/Factories/AccountFactory.cs",
+    "lines": [18, 96],
+    "fields": 0,
+    "completeness": "closed"
+  },
+  {
+    "type": "VolvoCars.AccountProfile.Business.Logic.Validators.UpdateAccountValidator",
+    "shape": "account-profile-bc3003a-complete-r1/shape/source/a88327753d7ad894",
+    "path": "VolvoCars.AccountProfile.Business/Logic/Validators/UpdateAccountValidator.cs",
+    "lines": [14, 62],
+    "fields": 0,
+    "completeness": "partial"
+  },
+  {
+    "type": "VolvoCars.AccountProfile.Business.Models.AppSettings.CdbSettings",
+    "shape": "account-profile-bc3003a-complete-r1/shape/source/692bf516b0c7fe6a",
+    "path": "VolvoCars.AccountProfile.Business/Models/AppSettings/CdbSettings.cs",
+    "lines": [5, 11],
+    "fields": 4,
+    "completeness": "closed"
+  },
+  {
+    "type": "VolvoCars.AccountProfile.Business.Models.AppSettings.FeatureToggleSettings",
+    "shape": "account-profile-bc3003a-complete-r1/shape/source/2f4a96581b078544",
+    "path": "VolvoCars.AccountProfile.Business/Models/AppSettings/FeatureToggleSettings.cs",
+    "lines": [3, 10],
+    "fields": 5,
+    "completeness": "closed"
+  },
+  {
+    "type": "VolvoCars.AccountProfile.Business.Models.AppSettings.KeyVaultSettings",
+    "shape": "account-profile-bc3003a-complete-r1/shape/source/fa4fe2b61b276304",
+    "path": "VolvoCars.AccountProfile.Business/Models/AppSettings/KeyVaultSettings.cs",
+    "lines": [3, 9],
+    "fields": 4,
+    "completeness": "closed"
+  },
+  {
+    "type": "VolvoCars.AccountProfile.Business.Models.Base.AddressBase",
+    "shape": "account-profile-bc3003a-complete-r1/shape/source/648053eea0d4f6df",
+    "path": "VolvoCars.AccountProfile.Business/Models/Base/AddressBase.cs",
+    "lines": [5, 28],
+    "fields": 5,
+    "completeness": "closed"
+  },
+  {
+    "type": "VolvoCars.AccountProfile.Business.Models.Base.AccountBase",
+    "shape": "account-profile-bc3003a-complete-r1/shape/source/5f83a8ca1daae837",
+    "path": "VolvoCars.AccountProfile.Business/Models/Base/AccountBase.cs",
+    "lines": [9, 36],
+    "fields": 5,
+    "completeness": "closed"
+  },
+  {
+    "type": "VolvoCars.AccountProfile.Business.Models.Base.UpdateAccountBase",
+    "shape": "account-profile-bc3003a-complete-r1/shape/source/a38e078844dbf29a",
+    "path": "VolvoCars.AccountProfile.Business/Models/Base/UpdateAccountBase.cs",
+    "lines": [3, 9],
+    "fields": 6,
+    "completeness": "closed"
+  },
+  {
+    "type": "VolvoCars.AccountProfile.Business.FeatureToggling.Settings.LaunchDarklySettings",
+    "shape": "account-profile-bc3003a-complete-r1/shape/source/4298fe7eda8383ae",
+    "path": "VolvoCars.AccountProfile.Business/FeatureToggling/Settings/LaunchDarklySettings.cs",
+    "lines": [3, 6],
+    "fields": 1,
+    "completeness": "closed"
+  },
+  {
+    "type": "VolvoCars.AccountProfile.Business.FeatureToggling.Constants.FeatureToggles",
+    "shape": "account-profile-bc3003a-complete-r1/shape/source/4fe44d28d84edea1",
+    "path": "VolvoCars.AccountProfile.Business/FeatureToggling/Constants/FeatureToggles.cs",
+    "lines": [3, 9],
+    "fields": 0,
+    "completeness": "closed"
+  },
+  {
+    "type": "VolvoCars.AccountProfile.Business.FeatureToggling.Extensions.ServiceCollectionExtensions",
+    "shape": "account-profile-bc3003a-complete-r1/shape/source/8c855137ef177bff",
+    "path": "VolvoCars.AccountProfile.Business/FeatureToggling/Extensions/IServiceCollectionExtensions.cs",
+    "lines": [10, 18],
+    "fields": 0,
+    "completeness": "closed"
+  },
+  {
+    "type": "VolvoCars.AccountProfile.Business.FeatureToggling.Services.IFeatureToggleService",
+    "shape": "account-profile-bc3003a-complete-r1/shape/source/7fd5ba142257d9b2",
+    "path": "VolvoCars.AccountProfile.Business/FeatureToggling/Services/FeatureToggleService.cs",
+    "lines": [8, 12],
+    "fields": 0,
+    "completeness": "closed"
+  },
+  {
+    "type": "VolvoCars.AccountProfile.Business.FeatureToggling.Services.FeatureToggleService",
+    "shape": "account-profile-bc3003a-complete-r1/shape/source/e91c1a6cb205c169",
+    "path": "VolvoCars.AccountProfile.Business/FeatureToggling/Services/FeatureToggleService.cs",
+    "lines": [14, 87],
+    "fields": 0,
+    "completeness": "closed"
+  },
+  {
+    "type": "VolvoCars.AccountProfile.Api.Controllers.V1.AccountController",
+    "shape": "account-profile-bc3003a-complete-r1/shape/source/f46baa43f3143e7c",
+    "path": "VolvoCars.AccountProfile.Api/Controllers/V1/AccountController.cs",
+    "lines": [25, 131],
+    "fields": 0,
+    "completeness": "partial"
+  },
+  {
+    "type": "VolvoCars.AccountProfile.Api.Controllers.V1.SettingsController",
+    "shape": "account-profile-bc3003a-complete-r1/shape/source/fbf75f8047e930f0",
+    "path": "VolvoCars.AccountProfile.Api/Controllers/V1/SettingsController.cs",
+    "lines": [16, 61],
+    "fields": 0,
+    "completeness": "partial"
+  },
+  {
+    "type": "VolvoCars.AccountProfile.Business.Models.V1.Response.Address",
+    "shape": "account-profile-bc3003a-complete-r1/shape/source/5adfe6b19ea66f06",
+    "path": "VolvoCars.AccountProfile.Business/Models/V1/Response/Address.cs",
+    "lines": [5, 11],
+    "fields": 6,
+    "completeness": "closed"
+  },
+  {
+    "type": "VolvoCars.AccountProfile.Business.Models.V1.Response.AccountData",
+    "shape": "account-profile-bc3003a-complete-r1/shape/source/70a0a4ef7fb53c61",
+    "path": "VolvoCars.AccountProfile.Business/Models/V1/Response/AccountData.cs",
+    "lines": [7, 36],
+    "fields": 13,
+    "completeness": "closed"
+  },
+  {
+    "type": "VolvoCars.AccountProfile.Api.Controllers.V1.Models.Response.Account",
+    "shape": "account-profile-bc3003a-complete-r1/shape/source/659c7fe1a0d19f58",
+    "path": "VolvoCars.AccountProfile.Api/Controllers/V1/Models/Response/Account.cs",
+    "lines": [7, 11],
+    "fields": 0,
+    "completeness": "partial"
+  },
+  {
+    "type": "VolvoCars.AccountProfile.Api.Controllers.V1.Models.Response.SettingsList",
+    "shape": "account-profile-bc3003a-complete-r1/shape/source/3e114f185434028e",
+    "path": "VolvoCars.AccountProfile.Api/Controllers/V1/Models/Response/Settings.cs",
+    "lines": [7, 10],
+    "fields": 0,
+    "completeness": "partial"
+  },
+  {
+    "type": "VolvoCars.AccountProfile.Api.Controllers.V1.Models.Request.SettingsFilterQuery",
+    "shape": "account-profile-bc3003a-complete-r1/shape/source/73b0f87c49c73948",
+    "path": "VolvoCars.AccountProfile.Api/Controllers/V1/Models/Request/SettingsFilterQuery.cs",
+    "lines": [6, 23],
+    "fields": 3,
+    "completeness": "closed"
+  },
+  {
+    "type": "VolvoCars.AccountProfile.Api.Controllers.V1.Models.Request.UpdateAccount",
+    "shape": "account-profile-bc3003a-complete-r1/shape/source/260e356ee5fb99ec",
+    "path": "VolvoCars.AccountProfile.Api/Controllers/V1/Models/Request/UpdateAccount.cs",
+    "lines": [6, 7],
+    "fields": 6,
+    "completeness": "closed"
+  }
+]

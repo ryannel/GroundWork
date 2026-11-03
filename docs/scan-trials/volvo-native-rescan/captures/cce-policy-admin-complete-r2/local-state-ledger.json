@@ -1,0 +1,22 @@
+[
+  {
+    "implementation": "volvo/cce-policy-admin/88a3512f0307/local-r2/implementation/4197d85807b47a9937",
+    "method": "FindAll",
+    "effect": "volvo/cce-policy-admin/88a3512f0307/local-r2/effect/local/4197d85807b47a9937"
+  },
+  {
+    "implementation": "volvo/cce-policy-admin/88a3512f0307/local-r2/implementation/da8c80f07dc77f7a41",
+    "method": "FindByID",
+    "effect": "volvo/cce-policy-admin/88a3512f0307/local-r2/effect/local/da8c80f07dc77f7a41"
+  },
+  {
+    "implementation": "volvo/cce-policy-admin/88a3512f0307/local-r2/implementation/20c0b04fb536bf7359",
+    "method": "Update",
+    "effect": "volvo/cce-policy-admin/88a3512f0307/local-r2/effect/local/20c0b04fb536bf7359"
+  },
+  {
+    "implementation": "volvo/cce-policy-admin/88a3512f0307/local-r2/implementation/93721f3ff1d7f8b40c",
+    "method": "GetCarsBySpecMarket",
+    "effect": "volvo/cce-policy-admin/88a3512f0307/local-r2/effect/local/93721f3ff1d7f8b40c"
+  }
+]

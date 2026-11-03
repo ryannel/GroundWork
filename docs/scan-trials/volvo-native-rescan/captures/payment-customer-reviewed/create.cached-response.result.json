@@ -1,0 +1,803 @@
+{
+  "format": "groundwork-result/v3",
+  "snapshot": "5f8e714355588ffe92a4d7d00956d46f2f68763596d7a5a365f1b974904be709",
+  "queryVersion": "knowledge-query/v3",
+  "request": {
+    "format": "groundwork-query/v3",
+    "snapshot": "5f8e714355588ffe92a4d7d00956d46f2f68763596d7a5a365f1b974904be709",
+    "query": "value",
+    "entry": "volvo/cds-paymentservice-customer/b0010537cdd5-r2/entry/create",
+    "value": "volvo/cds-paymentservice-customer/b0010537cdd5-r2/value/controller-create.cached",
+    "context": [],
+    "outcome": null,
+    "changed": [],
+    "representation": "constructed",
+    "candidates": "exclude",
+    "maxNodes": 700,
+    "maxRecords": 5000,
+    "environment": "source-profile",
+    "ids": []
+  },
+  "nodes": [
+    {
+      "id": "root::volvo/cds-paymentservice-customer/b0010537cdd5-r2/value/controller-create.cached",
+      "record": "volvo/cds-paymentservice-customer/b0010537cdd5-r2/value/controller-create.cached",
+      "context": [],
+      "label": "Cached BaseResponse whole response; effective bytes/envelope partial",
+      "component": "volvo/cds-paymentservice-customer/b0010537cdd5-r2/component/api",
+      "execution": "volvo/cds-paymentservice-customer/b0010537cdd5-r2/runs/controller-create"
+    }
+  ],
+  "edges": [],
+  "claims": [],
+  "evidence": [
+    "volvo/cds-paymentservice-customer/b0010537cdd5-r2/e/005f5399ec74c133",
+    "volvo/cds-paymentservice-customer/b0010537cdd5-r2/e/084689d6fbf6c828",
+    "volvo/cds-paymentservice-customer/b0010537cdd5-r2/e/1173a40e0daad41a",
+    "volvo/cds-paymentservice-customer/b0010537cdd5-r2/e/2e6ee8bbd93665a9",
+    "volvo/cds-paymentservice-customer/b0010537cdd5-r2/e/39244335e8a8b64c",
+    "volvo/cds-paymentservice-customer/b0010537cdd5-r2/e/4fb9c08d43212ae5",
+    "volvo/cds-paymentservice-customer/b0010537cdd5-r2/e/5316f71b8f933273",
+    "volvo/cds-paymentservice-customer/b0010537cdd5-r2/e/63c7197c65a27d30",
+    "volvo/cds-paymentservice-customer/b0010537cdd5-r2/e/66bab7a5675e24a6",
+    "volvo/cds-paymentservice-customer/b0010537cdd5-r2/e/6a747931c030b869",
+    "volvo/cds-paymentservice-customer/b0010537cdd5-r2/e/6e2a62e518d3bc26",
+    "volvo/cds-paymentservice-customer/b0010537cdd5-r2/e/7938370236781947",
+    "volvo/cds-paymentservice-customer/b0010537cdd5-r2/e/8109057cd1800bd3",
+    "volvo/cds-paymentservice-customer/b0010537cdd5-r2/e/872ac223c1465c89",
+    "volvo/cds-paymentservice-customer/b0010537cdd5-r2/e/8dcab1ece8a083f7",
+    "volvo/cds-paymentservice-customer/b0010537cdd5-r2/e/9accf4ffd0791c30",
+    "volvo/cds-paymentservice-customer/b0010537cdd5-r2/e/af58ebf59d64a6d5",
+    "volvo/cds-paymentservice-customer/b0010537cdd5-r2/e/b4da2e7fa89c723b",
+    "volvo/cds-paymentservice-customer/b0010537cdd5-r2/e/cd5241002ecc0d5a",
+    "volvo/cds-paymentservice-customer/b0010537cdd5-r2/e/ce431a2956c5cbe3",
+    "volvo/cds-paymentservice-customer/b0010537cdd5-r2/e/e5c0539b981a80fb",
+    "volvo/cds-paymentservice-customer/b0010537cdd5-r2/e/e954b9a01ceb0b3a",
+    "volvo/cds-paymentservice-customer/b0010537cdd5-r2/e/ec22cd4d873ce84a",
+    "volvo/cds-paymentservice-customer/b0010537cdd5-r2/e/f63691ab62b6d32a",
+    "volvo/cds-paymentservice-customer/b0010537cdd5-r2/e/fb362ecca6139de3",
+    "volvo/cds-paymentservice-customer/b0010537cdd5-r2/e/fb45c9fbc397fdb9",
+    "volvo/cds-paymentservice-customer/b0010537cdd5-r2/e/fbafcebf46c95978"
+  ],
+  "coverage": [
+    "volvo/cds-paymentservice-customer/b0010537cdd5-r2/coverage/entry-create",
+    "volvo/cds-paymentservice-customer/b0010537cdd5-r2/coverage/framework-actuator",
+    "volvo/cds-paymentservice-customer/b0010537cdd5-r2/coverage/framework-springdoc",
+    "volvo/cds-paymentservice-customer/b0010537cdd5-r2/coverage/invalidation-closure",
+    "volvo/cds-paymentservice-customer/b0010537cdd5-r2/coverage/repository-registration-census"
+  ],
+  "frontiers": [],
+  "limitsHit": [],
+  "feasibility": "not_checked",
+  "exhaustive": false,
+  "records": [
+    {
+      "id": "volvo/cds-paymentservice-customer/b0010537cdd5-r2/component/api",
+      "kind": "runtime_component",
+      "logicalId": "component:payment-customer-api",
+      "label": "Payment customer API",
+      "category": "service",
+      "technology": "Java / Spring Boot",
+      "sources": ["volvo/cds-paymentservice-customer/b0010537cdd5-r2/source"],
+      "basis": "source_declared",
+      "evidence": [
+        "volvo/cds-paymentservice-customer/b0010537cdd5-r2/e/5316f71b8f933273",
+        "volvo/cds-paymentservice-customer/b0010537cdd5-r2/e/39244335e8a8b64c"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "volvo/cds-paymentservice-customer/b0010537cdd5-r2/coverage/entry-create",
+      "kind": "coverage",
+      "owner": "volvo/cds-paymentservice-customer/b0010537cdd5-r2/entry/create",
+      "obligation": "entry-create",
+      "status": "partial",
+      "scope": "Source registration/controller bindings/contract captured; selected source local create/update/read slice expanded; imported middleware/SDK/driver/wire closure partial.",
+      "evidence": [
+        "volvo/cds-paymentservice-customer/b0010537cdd5-r2/e/4fb9c08d43212ae5",
+        "volvo/cds-paymentservice-customer/b0010537cdd5-r2/e/e5c0539b981a80fb",
+        "volvo/cds-paymentservice-customer/b0010537cdd5-r2/e/b4da2e7fa89c723b"
+      ],
+      "gaps": [
+        "volvo/cds-paymentservice-customer/b0010537cdd5-r2/gap/source-wire-closure",
+        "volvo/cds-paymentservice-customer/b0010537cdd5-r2/gap/security-middleware",
+        "volvo/cds-paymentservice-customer/b0010537cdd5-r2/gap/cache-lock-advice"
+      ]
+    },
+    {
+      "id": "volvo/cds-paymentservice-customer/b0010537cdd5-r2/coverage/framework-actuator",
+      "kind": "coverage",
+      "owner": "volvo/cds-paymentservice-customer/b0010537cdd5-r2/entry/create",
+      "obligation": "framework-actuator",
+      "status": "not_examined",
+      "scope": "Actuator health/prometheus with health liveness/readiness probes; source health groups exclude Redis",
+      "evidence": ["volvo/cds-paymentservice-customer/b0010537cdd5-r2/e/2e6ee8bbd93665a9"],
+      "gaps": ["volvo/cds-paymentservice-customer/b0010537cdd5-r2/gap/framework-actuator"]
+    },
+    {
+      "id": "volvo/cds-paymentservice-customer/b0010537cdd5-r2/coverage/framework-springdoc",
+      "kind": "coverage",
+      "owner": "volvo/cds-paymentservice-customer/b0010537cdd5-r2/entry/create",
+      "obligation": "framework-springdoc",
+      "status": "not_examined",
+      "scope": "Springdoc Swagger UI and API-docs configured defaults; imported dynamic registrations/profile conditions unexpanded",
+      "evidence": ["volvo/cds-paymentservice-customer/b0010537cdd5-r2/e/6e2a62e518d3bc26"],
+      "gaps": ["volvo/cds-paymentservice-customer/b0010537cdd5-r2/gap/framework-springdoc"]
+    },
+    {
+      "id": "volvo/cds-paymentservice-customer/b0010537cdd5-r2/coverage/invalidation-closure",
+      "kind": "coverage",
+      "owner": "volvo/cds-paymentservice-customer/b0010537cdd5-r2/entry/create",
+      "obligation": "invalidation-closure",
+      "status": "partial",
+      "scope": "Re-explore the repository conservatively when its selected source revision or unresolved dependency/configuration changes; no fine-grained complete invalidation claim.",
+      "evidence": ["volvo/cds-paymentservice-customer/b0010537cdd5-r2/e/ce431a2956c5cbe3"],
+      "gaps": ["volvo/cds-paymentservice-customer/b0010537cdd5-r2/gap/invalidation-closure"]
+    },
+    {
+      "id": "volvo/cds-paymentservice-customer/b0010537cdd5-r2/coverage/repository-registration-census",
+      "kind": "coverage",
+      "owner": "volvo/cds-paymentservice-customer/b0010537cdd5-r2/entry/create",
+      "obligation": "repository-registration-census",
+      "status": "examined",
+      "scope": "All 55 production Java files searched for source controllers, listeners, schedulers and functional registrations: 12 explicit routes; no local consumers/jobs; imported framework families separately bounded.",
+      "evidence": [
+        "volvo/cds-paymentservice-customer/b0010537cdd5-r2/e/5316f71b8f933273",
+        "volvo/cds-paymentservice-customer/b0010537cdd5-r2/e/cd5241002ecc0d5a",
+        "volvo/cds-paymentservice-customer/b0010537cdd5-r2/e/63c7197c65a27d30"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "volvo/cds-paymentservice-customer/b0010537cdd5-r2/e/005f5399ec74c133",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/cds-paymentservice-customer",
+      "commit": "b0010537cdd5a308a30a885541748727c97ecb2e",
+      "path": "cds-paymentservice-customer-shared/src/main/java/com/volvocars/ecom/paymentservice/customer/CustomerPayloadBase.java",
+      "lines": [50, 59],
+      "basis": "source"
+    },
+    {
+      "id": "volvo/cds-paymentservice-customer/b0010537cdd5-r2/e/084689d6fbf6c828",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/cds-paymentservice-customer",
+      "commit": "b0010537cdd5a308a30a885541748727c97ecb2e",
+      "path": "cds-paymentservice-customer-core/src/main/java/com/volvocars/ecom/paymentservice/configuration/FaultTolerantCacheManager.java",
+      "lines": [1, 119],
+      "basis": "source"
+    },
+    {
+      "id": "volvo/cds-paymentservice-customer/b0010537cdd5-r2/e/1173a40e0daad41a",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/cds-paymentservice-customer",
+      "commit": "b0010537cdd5a308a30a885541748727c97ecb2e",
+      "path": "cds-paymentservice-customer-api/src/main/java/com/volvocars/ecom/paymentservice/customer/api/customer/v1/impl/CustomerControllerImpl.java",
+      "lines": [1, 193],
+      "basis": "source"
+    },
+    {
+      "id": "volvo/cds-paymentservice-customer/b0010537cdd5-r2/e/2e6ee8bbd93665a9",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/cds-paymentservice-customer",
+      "commit": "b0010537cdd5a308a30a885541748727c97ecb2e",
+      "path": "cds-paymentservice-customer-api/src/main/resources/application.yml",
+      "lines": [48, 68],
+      "basis": "source"
+    },
+    {
+      "id": "volvo/cds-paymentservice-customer/b0010537cdd5-r2/e/39244335e8a8b64c",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/cds-paymentservice-customer",
+      "commit": "b0010537cdd5a308a30a885541748727c97ecb2e",
+      "path": "pom.xml",
+      "lines": [16, 22],
+      "basis": "source"
+    },
+    {
+      "id": "volvo/cds-paymentservice-customer/b0010537cdd5-r2/e/4fb9c08d43212ae5",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/cds-paymentservice-customer",
+      "commit": "b0010537cdd5a308a30a885541748727c97ecb2e",
+      "path": "cds-paymentservice-customer-api/src/main/java/com/volvocars/ecom/paymentservice/customer/api/customer/v1/CustomerController.java",
+      "lines": [96, 113],
+      "basis": "source"
+    },
+    {
+      "id": "volvo/cds-paymentservice-customer/b0010537cdd5-r2/e/5316f71b8f933273",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/cds-paymentservice-customer",
+      "commit": "b0010537cdd5a308a30a885541748727c97ecb2e",
+      "path": "cds-paymentservice-customer-api/src/main/java/com/volvocars/ecom/paymentservice/customer/api/App.java",
+      "lines": [1, 25],
+      "basis": "source"
+    },
+    {
+      "id": "volvo/cds-paymentservice-customer/b0010537cdd5-r2/e/63c7197c65a27d30",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/cds-paymentservice-customer",
+      "commit": "b0010537cdd5a308a30a885541748727c97ecb2e",
+      "path": "cds-paymentservice-customer-api/src/main/resources/application.yml",
+      "lines": [1, 131],
+      "basis": "source"
+    },
+    {
+      "id": "volvo/cds-paymentservice-customer/b0010537cdd5-r2/e/66bab7a5675e24a6",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/cds-paymentservice-customer",
+      "commit": "b0010537cdd5a308a30a885541748727c97ecb2e",
+      "path": "cds-paymentservice-customer-shared/src/main/java/com/volvocars/ecom/paymentservice/customer/CustomerPayloadBase.java",
+      "lines": [36, 43],
+      "basis": "source"
+    },
+    {
+      "id": "volvo/cds-paymentservice-customer/b0010537cdd5-r2/e/6a747931c030b869",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/cds-paymentservice-customer",
+      "commit": "b0010537cdd5a308a30a885541748727c97ecb2e",
+      "path": "cds-paymentservice-customer-api/src/main/java/com/volvocars/ecom/paymentservice/customer/api/customer/v1/impl/CustomerControllerImpl.java",
+      "lines": [90, 121],
+      "basis": "source"
+    },
+    {
+      "id": "volvo/cds-paymentservice-customer/b0010537cdd5-r2/e/6e2a62e518d3bc26",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/cds-paymentservice-customer",
+      "commit": "b0010537cdd5a308a30a885541748727c97ecb2e",
+      "path": "cds-paymentservice-customer-api/src/main/resources/application.yml",
+      "lines": [91, 101],
+      "basis": "source"
+    },
+    {
+      "id": "volvo/cds-paymentservice-customer/b0010537cdd5-r2/e/7938370236781947",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/cds-paymentservice-customer",
+      "commit": "b0010537cdd5a308a30a885541748727c97ecb2e",
+      "path": "cds-paymentservice-customer-shared/src/main/java/com/volvocars/ecom/paymentservice/customer/CustomerCreatePayload.java",
+      "lines": [1, 74],
+      "basis": "source"
+    },
+    {
+      "id": "volvo/cds-paymentservice-customer/b0010537cdd5-r2/e/8109057cd1800bd3",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/cds-paymentservice-customer",
+      "commit": "b0010537cdd5a308a30a885541748727c97ecb2e",
+      "path": "cds-paymentservice-customer-api/src/main/java/com/volvocars/ecom/paymentservice/customer/api/customer/v1/impl/CustomerControllerImpl.java",
+      "lines": [90, 103],
+      "basis": "source"
+    },
+    {
+      "id": "volvo/cds-paymentservice-customer/b0010537cdd5-r2/e/872ac223c1465c89",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/cds-paymentservice-customer",
+      "commit": "b0010537cdd5a308a30a885541748727c97ecb2e",
+      "path": "cds-paymentservice-customer-api/src/main/resources/application.yml",
+      "lines": [127, 131],
+      "basis": "source"
+    },
+    {
+      "id": "volvo/cds-paymentservice-customer/b0010537cdd5-r2/e/8dcab1ece8a083f7",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/cds-paymentservice-customer",
+      "commit": "b0010537cdd5a308a30a885541748727c97ecb2e",
+      "path": "cds-paymentservice-customer-shared/src/main/java/com/volvocars/ecom/paymentservice/customer/CustomerPayloadBase.java",
+      "lines": [1, 60],
+      "basis": "source"
+    },
+    {
+      "id": "volvo/cds-paymentservice-customer/b0010537cdd5-r2/e/9accf4ffd0791c30",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/cds-paymentservice-customer",
+      "commit": "b0010537cdd5a308a30a885541748727c97ecb2e",
+      "path": "cds-paymentservice-customer-shared/src/main/java/com/volvocars/ecom/paymentservice/customer/CustomerCreatePayload.java",
+      "lines": [29, 31],
+      "basis": "source"
+    },
+    {
+      "id": "volvo/cds-paymentservice-customer/b0010537cdd5-r2/e/af58ebf59d64a6d5",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/cds-paymentservice-customer",
+      "commit": "b0010537cdd5a308a30a885541748727c97ecb2e",
+      "path": "cds-paymentservice-customer-core/src/main/java/com/volvocars/ecom/paymentservice/configuration/CacheConfiguration.java",
+      "lines": [1, 75],
+      "basis": "source"
+    },
+    {
+      "id": "volvo/cds-paymentservice-customer/b0010537cdd5-r2/e/b4da2e7fa89c723b",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/cds-paymentservice-customer",
+      "commit": "b0010537cdd5a308a30a885541748727c97ecb2e",
+      "path": "cds-paymentservice-customer-api/src/main/java/com/volvocars/ecom/paymentservice/customer/api/customer/v1/impl/CustomerControllerImpl.java",
+      "lines": [32, 39],
+      "basis": "source"
+    },
+    {
+      "id": "volvo/cds-paymentservice-customer/b0010537cdd5-r2/e/cd5241002ecc0d5a",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/cds-paymentservice-customer",
+      "commit": "b0010537cdd5a308a30a885541748727c97ecb2e",
+      "path": "cds-paymentservice-customer-api/src/main/java/com/volvocars/ecom/paymentservice/customer/api/customer/v1/CustomerController.java",
+      "lines": [1, 195],
+      "basis": "source"
+    },
+    {
+      "id": "volvo/cds-paymentservice-customer/b0010537cdd5-r2/e/ce431a2956c5cbe3",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/cds-paymentservice-customer",
+      "commit": "b0010537cdd5a308a30a885541748727c97ecb2e",
+      "path": "pom.xml",
+      "lines": [1, 161],
+      "basis": "source"
+    },
+    {
+      "id": "volvo/cds-paymentservice-customer/b0010537cdd5-r2/e/e5c0539b981a80fb",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/cds-paymentservice-customer",
+      "commit": "b0010537cdd5a308a30a885541748727c97ecb2e",
+      "path": "cds-paymentservice-customer-api/src/main/java/com/volvocars/ecom/paymentservice/customer/api/customer/v1/CustomerController.java",
+      "lines": [27, 28],
+      "basis": "source"
+    },
+    {
+      "id": "volvo/cds-paymentservice-customer/b0010537cdd5-r2/e/e954b9a01ceb0b3a",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/cds-paymentservice-customer",
+      "commit": "b0010537cdd5a308a30a885541748727c97ecb2e",
+      "path": "cds-paymentservice-customer-shared/src/main/java/com/volvocars/ecom/paymentservice/customer/CustomerPayloadBase.java",
+      "lines": [28, 32],
+      "basis": "source"
+    },
+    {
+      "id": "volvo/cds-paymentservice-customer/b0010537cdd5-r2/e/ec22cd4d873ce84a",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/cds-paymentservice-customer",
+      "commit": "b0010537cdd5a308a30a885541748727c97ecb2e",
+      "path": "cds-paymentservice-customer-shared/src/main/java/com/volvocars/ecom/paymentservice/customer/CustomerPayloadBase.java",
+      "lines": [32, 36],
+      "basis": "source"
+    },
+    {
+      "id": "volvo/cds-paymentservice-customer/b0010537cdd5-r2/e/f63691ab62b6d32a",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/cds-paymentservice-customer",
+      "commit": "b0010537cdd5a308a30a885541748727c97ecb2e",
+      "path": "cds-paymentservice-customer-shared/src/main/java/com/volvocars/ecom/paymentservice/customer/CustomerCreatePayload.java",
+      "lines": [36, 37],
+      "basis": "source"
+    },
+    {
+      "id": "volvo/cds-paymentservice-customer/b0010537cdd5-r2/e/fb362ecca6139de3",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/cds-paymentservice-customer",
+      "commit": "b0010537cdd5a308a30a885541748727c97ecb2e",
+      "path": "cds-paymentservice-customer-shared/src/main/java/com/volvocars/ecom/paymentservice/customer/BaseCustomerCreatePayload.java",
+      "lines": [23, 27],
+      "basis": "source"
+    },
+    {
+      "id": "volvo/cds-paymentservice-customer/b0010537cdd5-r2/e/fb45c9fbc397fdb9",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/cds-paymentservice-customer",
+      "commit": "b0010537cdd5a308a30a885541748727c97ecb2e",
+      "path": "cds-paymentservice-customer-shared/src/main/java/com/volvocars/ecom/paymentservice/customer/BaseCustomerCreatePayload.java",
+      "lines": [19, 23],
+      "basis": "source"
+    },
+    {
+      "id": "volvo/cds-paymentservice-customer/b0010537cdd5-r2/e/fbafcebf46c95978",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/cds-paymentservice-customer",
+      "commit": "b0010537cdd5a308a30a885541748727c97ecb2e",
+      "path": "cds-paymentservice-customer-shared/src/main/java/com/volvocars/ecom/paymentservice/customer/CustomerPayloadBase.java",
+      "lines": [43, 50],
+      "basis": "source"
+    },
+    {
+      "id": "volvo/cds-paymentservice-customer/b0010537cdd5-r2/entry/create",
+      "kind": "entry",
+      "logicalId": "endpoint:payment-customer:POST /v1/customers",
+      "method": "POST",
+      "path": "/v1/customers",
+      "implementation": "volvo/cds-paymentservice-customer/b0010537cdd5-r2/impl/controller-create",
+      "evidence": [
+        "volvo/cds-paymentservice-customer/b0010537cdd5-r2/e/4fb9c08d43212ae5",
+        "volvo/cds-paymentservice-customer/b0010537cdd5-r2/e/e5c0539b981a80fb",
+        "volvo/cds-paymentservice-customer/b0010537cdd5-r2/e/b4da2e7fa89c723b"
+      ]
+    },
+    {
+      "id": "volvo/cds-paymentservice-customer/b0010537cdd5-r2/gap/cache-lock-advice",
+      "kind": "gap",
+      "owner": "volvo/cds-paymentservice-customer/b0010537cdd5-r2/entry/create",
+      "obligation": "cache-lock-advice",
+      "reason": "Cache and distributed-lock annotations are source declared. Effective advisor order, lock implementation/fault tolerance and connection scope are imported. Cache hit can bypass body; source cache errors can fall back to body or ignored put. The local get(key,Callable) wrapper can re-call its loader after RuntimeException, but the imported advisor overload selection is not established.",
+      "action": "Inspect the remaining local paths or resolve the exact imported implementation/configuration before extending this claim.",
+      "evidence": [
+        "volvo/cds-paymentservice-customer/b0010537cdd5-r2/e/6a747931c030b869",
+        "volvo/cds-paymentservice-customer/b0010537cdd5-r2/e/af58ebf59d64a6d5",
+        "volvo/cds-paymentservice-customer/b0010537cdd5-r2/e/084689d6fbf6c828",
+        "volvo/cds-paymentservice-customer/b0010537cdd5-r2/e/872ac223c1465c89"
+      ]
+    },
+    {
+      "id": "volvo/cds-paymentservice-customer/b0010537cdd5-r2/gap/framework-actuator",
+      "kind": "gap",
+      "owner": "volvo/cds-paymentservice-customer/b0010537cdd5-r2/entry/create",
+      "obligation": "framework-actuator",
+      "reason": "Actuator health/prometheus with health liveness/readiness probes; source health groups exclude Redis; exact effective imported route expansion not established.",
+      "action": "Inspect the remaining local paths or resolve the exact imported implementation/configuration before extending this claim.",
+      "evidence": ["volvo/cds-paymentservice-customer/b0010537cdd5-r2/e/2e6ee8bbd93665a9"]
+    },
+    {
+      "id": "volvo/cds-paymentservice-customer/b0010537cdd5-r2/gap/framework-springdoc",
+      "kind": "gap",
+      "owner": "volvo/cds-paymentservice-customer/b0010537cdd5-r2/entry/create",
+      "obligation": "framework-springdoc",
+      "reason": "Springdoc Swagger UI and API-docs configured defaults; imported dynamic registrations/profile conditions unexpanded; exact effective imported route expansion not established.",
+      "action": "Inspect the remaining local paths or resolve the exact imported implementation/configuration before extending this claim.",
+      "evidence": ["volvo/cds-paymentservice-customer/b0010537cdd5-r2/e/6e2a62e518d3bc26"]
+    },
+    {
+      "id": "volvo/cds-paymentservice-customer/b0010537cdd5-r2/gap/invalidation-closure",
+      "kind": "gap",
+      "owner": "volvo/cds-paymentservice-customer/b0010537cdd5-r2/entry/create",
+      "obligation": "invalidation-closure",
+      "reason": "Conservative derivations link facts to this entire source revision and explicit referenced records/evidence. Imported helper/policy/schema correspondence is still unknown; unchanged cited lines cannot establish unchanged behaviour.",
+      "action": "Inspect the remaining local paths or resolve the exact imported implementation/configuration before extending this claim.",
+      "evidence": [
+        "volvo/cds-paymentservice-customer/b0010537cdd5-r2/e/ce431a2956c5cbe3",
+        "volvo/cds-paymentservice-customer/b0010537cdd5-r2/e/5316f71b8f933273"
+      ]
+    },
+    {
+      "id": "volvo/cds-paymentservice-customer/b0010537cdd5-r2/gap/security-middleware",
+      "kind": "gap",
+      "owner": "volvo/cds-paymentservice-customer/b0010537cdd5-r2/entry/create",
+      "obligation": "security-middleware",
+      "reason": "Role guards and imported EcomWebAppConfiguration are declared, but effective filter/token/header/advice ordering is not traced at exact artefact versions.",
+      "action": "Inspect the remaining local paths or resolve the exact imported implementation/configuration before extending this claim.",
+      "evidence": [
+        "volvo/cds-paymentservice-customer/b0010537cdd5-r2/e/5316f71b8f933273",
+        "volvo/cds-paymentservice-customer/b0010537cdd5-r2/e/cd5241002ecc0d5a"
+      ]
+    },
+    {
+      "id": "volvo/cds-paymentservice-customer/b0010537cdd5-r2/gap/source-wire-closure",
+      "kind": "gap",
+      "owner": "volvo/cds-paymentservice-customer/b0010537cdd5-r2/entry/create",
+      "obligation": "source-wire-closure",
+      "reason": "Source DTOs, inheritance and explicit validation are retained; imported Address/Customer/AttributeBase models, serializers, response wrappers and effective JSON/BSON formats remain partial.",
+      "action": "Inspect the remaining local paths or resolve the exact imported implementation/configuration before extending this claim.",
+      "evidence": [
+        "volvo/cds-paymentservice-customer/b0010537cdd5-r2/e/ce431a2956c5cbe3",
+        "volvo/cds-paymentservice-customer/b0010537cdd5-r2/e/8dcab1ece8a083f7"
+      ]
+    },
+    {
+      "id": "volvo/cds-paymentservice-customer/b0010537cdd5-r2/impl/controller-create",
+      "kind": "implementation",
+      "logicalId": "CustomerControllerImpl.create",
+      "scope": "volvo/cds-paymentservice-customer/b0010537cdd5-r2/source",
+      "entry": "volvo/cds-paymentservice-customer/b0010537cdd5-r2/op/controller-create.entry",
+      "parameters": [
+        "volvo/cds-paymentservice-customer/b0010537cdd5-r2/value/controller-create.payload"
+      ],
+      "evidence": ["volvo/cds-paymentservice-customer/b0010537cdd5-r2/e/1173a40e0daad41a"]
+    },
+    {
+      "id": "volvo/cds-paymentservice-customer/b0010537cdd5-r2/op/controller-create.advice",
+      "kind": "operation",
+      "owner": "volvo/cds-paymentservice-customer/b0010537cdd5-r2/impl/controller-create",
+      "action": "opaque",
+      "label": "Source-declared cache/lock advice; effective advisor ordering/Redis binding/imported policy remains unresolved",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": null,
+      "httpStatus": null,
+      "evidence": ["volvo/cds-paymentservice-customer/b0010537cdd5-r2/e/8109057cd1800bd3"]
+    },
+    {
+      "id": "volvo/cds-paymentservice-customer/b0010537cdd5-r2/op/controller-create.entry",
+      "kind": "operation",
+      "owner": "volvo/cds-paymentservice-customer/b0010537cdd5-r2/impl/controller-create",
+      "action": "entry",
+      "label": "Enter CustomerControllerImpl.create",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": null,
+      "httpStatus": null,
+      "evidence": ["volvo/cds-paymentservice-customer/b0010537cdd5-r2/e/1173a40e0daad41a"]
+    },
+    {
+      "id": "volvo/cds-paymentservice-customer/b0010537cdd5-r2/runs/controller-create",
+      "kind": "execution_binding",
+      "implementation": "volvo/cds-paymentservice-customer/b0010537cdd5-r2/impl/controller-create",
+      "component": "volvo/cds-paymentservice-customer/b0010537cdd5-r2/component/api",
+      "basis": "source_declared",
+      "artifactBinding": null,
+      "gaps": [],
+      "evidence": ["volvo/cds-paymentservice-customer/b0010537cdd5-r2/e/1173a40e0daad41a"]
+    },
+    {
+      "id": "volvo/cds-paymentservice-customer/b0010537cdd5-r2/shape/cds-paymentservice-customer-shared-src-main-java-com-volvocars-ecom-paymentservice-customer-CustomerCreatePayload",
+      "kind": "shape",
+      "representation": "constructed",
+      "label": "CustomerCreatePayload source declaration",
+      "fields": [
+        {
+          "name": "address",
+          "type": "Address",
+          "status": "declared",
+          "evidence": ["volvo/cds-paymentservice-customer/b0010537cdd5-r2/e/e954b9a01ceb0b3a"]
+        },
+        {
+          "name": "companyInfo",
+          "type": "CompanyInfo",
+          "status": "declared",
+          "evidence": ["volvo/cds-paymentservice-customer/b0010537cdd5-r2/e/ec22cd4d873ce84a"]
+        },
+        {
+          "name": "mobilePhoneNumber",
+          "type": "String",
+          "status": "declared",
+          "evidence": ["volvo/cds-paymentservice-customer/b0010537cdd5-r2/e/66bab7a5675e24a6"]
+        },
+        {
+          "name": "email",
+          "type": "String",
+          "status": "declared",
+          "evidence": ["volvo/cds-paymentservice-customer/b0010537cdd5-r2/e/fbafcebf46c95978"]
+        },
+        {
+          "name": "preferredLocale",
+          "type": "String",
+          "status": "declared",
+          "evidence": ["volvo/cds-paymentservice-customer/b0010537cdd5-r2/e/005f5399ec74c133"]
+        },
+        {
+          "name": "firstName",
+          "type": "String",
+          "status": "declared",
+          "evidence": ["volvo/cds-paymentservice-customer/b0010537cdd5-r2/e/fb45c9fbc397fdb9"],
+          "optional": false,
+          "nullable": false
+        },
+        {
+          "name": "lastName",
+          "type": "String",
+          "status": "declared",
+          "evidence": ["volvo/cds-paymentservice-customer/b0010537cdd5-r2/e/fb362ecca6139de3"],
+          "optional": false,
+          "nullable": false
+        },
+        {
+          "name": "countryCode",
+          "type": "String",
+          "status": "declared",
+          "evidence": ["volvo/cds-paymentservice-customer/b0010537cdd5-r2/e/9accf4ffd0791c30"],
+          "optional": false,
+          "nullable": false
+        },
+        {
+          "name": "externalIdentifiers",
+          "type": "List<ExternalIdentifier>",
+          "status": "declared",
+          "evidence": ["volvo/cds-paymentservice-customer/b0010537cdd5-r2/e/f63691ab62b6d32a"]
+        }
+      ],
+      "completeness": "partial",
+      "gaps": ["volvo/cds-paymentservice-customer/b0010537cdd5-r2/gap/source-wire-closure"],
+      "evidence": ["volvo/cds-paymentservice-customer/b0010537cdd5-r2/e/7938370236781947"],
+      "container": "object"
+    },
+    {
+      "id": "volvo/cds-paymentservice-customer/b0010537cdd5-r2/shape/response-envelope-CustomerResponseDto",
+      "kind": "shape",
+      "representation": "constructed",
+      "label": "Constructed BaseResponse<CustomerResponseDto> from imported SuccessResponse.ok; outer fields unresolved",
+      "fields": [],
+      "completeness": "partial",
+      "gaps": ["volvo/cds-paymentservice-customer/b0010537cdd5-r2/gap/source-wire-closure"],
+      "evidence": ["volvo/cds-paymentservice-customer/b0010537cdd5-r2/e/1173a40e0daad41a"],
+      "container": "object"
+    },
+    {
+      "id": "volvo/cds-paymentservice-customer/b0010537cdd5-r2/source",
+      "kind": "source_revision",
+      "repo": "volvo-cars/cds-paymentservice-customer",
+      "commit": "b0010537cdd5a308a30a885541748727c97ecb2e"
+    },
+    {
+      "id": "volvo/cds-paymentservice-customer/b0010537cdd5-r2/value/controller-create.cached",
+      "kind": "value",
+      "owner": "volvo/cds-paymentservice-customer/b0010537cdd5-r2/impl/controller-create",
+      "definition": "volvo/cds-paymentservice-customer/b0010537cdd5-r2/op/controller-create.advice",
+      "label": "Cached BaseResponse whole response; effective bytes/envelope partial",
+      "role": "definition",
+      "representation": "constructed",
+      "shape": "volvo/cds-paymentservice-customer/b0010537cdd5-r2/shape/response-envelope-CustomerResponseDto",
+      "evidence": ["volvo/cds-paymentservice-customer/b0010537cdd5-r2/e/8109057cd1800bd3"],
+      "accessPath": []
+    },
+    {
+      "id": "volvo/cds-paymentservice-customer/b0010537cdd5-r2/value/controller-create.payload",
+      "kind": "value",
+      "owner": "volvo/cds-paymentservice-customer/b0010537cdd5-r2/impl/controller-create",
+      "definition": "volvo/cds-paymentservice-customer/b0010537cdd5-r2/op/controller-create.entry",
+      "label": "payload",
+      "role": "parameter",
+      "representation": "constructed",
+      "shape": "volvo/cds-paymentservice-customer/b0010537cdd5-r2/shape/cds-paymentservice-customer-shared-src-main-java-com-volvocars-ecom-paymentservice-customer-CustomerCreatePayload",
+      "evidence": ["volvo/cds-paymentservice-customer/b0010537cdd5-r2/e/1173a40e0daad41a"],
+      "accessPath": []
+    }
+  ],
+  "traversalComplete": true,
+  "findings": [],
+  "sourceLinks": [
+    {
+      "evidence": "volvo/cds-paymentservice-customer/b0010537cdd5-r2/e/f63691ab62b6d32a",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-customer/blob/b0010537cdd5a308a30a885541748727c97ecb2e/cds-paymentservice-customer-shared/src/main/java/com/volvocars/ecom/paymentservice/customer/CustomerCreatePayload.java#L36-L37",
+      "label": "volvo-cars/cds-paymentservice-customer/cds-paymentservice-customer-shared/src/main/java/com/volvocars/ecom/paymentservice/customer/CustomerCreatePayload.java:36–37"
+    },
+    {
+      "evidence": "volvo/cds-paymentservice-customer/b0010537cdd5-r2/e/9accf4ffd0791c30",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-customer/blob/b0010537cdd5a308a30a885541748727c97ecb2e/cds-paymentservice-customer-shared/src/main/java/com/volvocars/ecom/paymentservice/customer/CustomerCreatePayload.java#L29-L31",
+      "label": "volvo-cars/cds-paymentservice-customer/cds-paymentservice-customer-shared/src/main/java/com/volvocars/ecom/paymentservice/customer/CustomerCreatePayload.java:29–31"
+    },
+    {
+      "evidence": "volvo/cds-paymentservice-customer/b0010537cdd5-r2/e/fb362ecca6139de3",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-customer/blob/b0010537cdd5a308a30a885541748727c97ecb2e/cds-paymentservice-customer-shared/src/main/java/com/volvocars/ecom/paymentservice/customer/BaseCustomerCreatePayload.java#L23-L27",
+      "label": "volvo-cars/cds-paymentservice-customer/cds-paymentservice-customer-shared/src/main/java/com/volvocars/ecom/paymentservice/customer/BaseCustomerCreatePayload.java:23–27"
+    },
+    {
+      "evidence": "volvo/cds-paymentservice-customer/b0010537cdd5-r2/e/fb45c9fbc397fdb9",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-customer/blob/b0010537cdd5a308a30a885541748727c97ecb2e/cds-paymentservice-customer-shared/src/main/java/com/volvocars/ecom/paymentservice/customer/BaseCustomerCreatePayload.java#L19-L23",
+      "label": "volvo-cars/cds-paymentservice-customer/cds-paymentservice-customer-shared/src/main/java/com/volvocars/ecom/paymentservice/customer/BaseCustomerCreatePayload.java:19–23"
+    },
+    {
+      "evidence": "volvo/cds-paymentservice-customer/b0010537cdd5-r2/e/005f5399ec74c133",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-customer/blob/b0010537cdd5a308a30a885541748727c97ecb2e/cds-paymentservice-customer-shared/src/main/java/com/volvocars/ecom/paymentservice/customer/CustomerPayloadBase.java#L50-L59",
+      "label": "volvo-cars/cds-paymentservice-customer/cds-paymentservice-customer-shared/src/main/java/com/volvocars/ecom/paymentservice/customer/CustomerPayloadBase.java:50–59"
+    },
+    {
+      "evidence": "volvo/cds-paymentservice-customer/b0010537cdd5-r2/e/fbafcebf46c95978",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-customer/blob/b0010537cdd5a308a30a885541748727c97ecb2e/cds-paymentservice-customer-shared/src/main/java/com/volvocars/ecom/paymentservice/customer/CustomerPayloadBase.java#L43-L50",
+      "label": "volvo-cars/cds-paymentservice-customer/cds-paymentservice-customer-shared/src/main/java/com/volvocars/ecom/paymentservice/customer/CustomerPayloadBase.java:43–50"
+    },
+    {
+      "evidence": "volvo/cds-paymentservice-customer/b0010537cdd5-r2/e/66bab7a5675e24a6",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-customer/blob/b0010537cdd5a308a30a885541748727c97ecb2e/cds-paymentservice-customer-shared/src/main/java/com/volvocars/ecom/paymentservice/customer/CustomerPayloadBase.java#L36-L43",
+      "label": "volvo-cars/cds-paymentservice-customer/cds-paymentservice-customer-shared/src/main/java/com/volvocars/ecom/paymentservice/customer/CustomerPayloadBase.java:36–43"
+    },
+    {
+      "evidence": "volvo/cds-paymentservice-customer/b0010537cdd5-r2/e/ec22cd4d873ce84a",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-customer/blob/b0010537cdd5a308a30a885541748727c97ecb2e/cds-paymentservice-customer-shared/src/main/java/com/volvocars/ecom/paymentservice/customer/CustomerPayloadBase.java#L32-L36",
+      "label": "volvo-cars/cds-paymentservice-customer/cds-paymentservice-customer-shared/src/main/java/com/volvocars/ecom/paymentservice/customer/CustomerPayloadBase.java:32–36"
+    },
+    {
+      "evidence": "volvo/cds-paymentservice-customer/b0010537cdd5-r2/e/e954b9a01ceb0b3a",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-customer/blob/b0010537cdd5a308a30a885541748727c97ecb2e/cds-paymentservice-customer-shared/src/main/java/com/volvocars/ecom/paymentservice/customer/CustomerPayloadBase.java#L28-L32",
+      "label": "volvo-cars/cds-paymentservice-customer/cds-paymentservice-customer-shared/src/main/java/com/volvocars/ecom/paymentservice/customer/CustomerPayloadBase.java:28–32"
+    },
+    {
+      "evidence": "volvo/cds-paymentservice-customer/b0010537cdd5-r2/e/8dcab1ece8a083f7",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-customer/blob/b0010537cdd5a308a30a885541748727c97ecb2e/cds-paymentservice-customer-shared/src/main/java/com/volvocars/ecom/paymentservice/customer/CustomerPayloadBase.java#L1-L60",
+      "label": "volvo-cars/cds-paymentservice-customer/cds-paymentservice-customer-shared/src/main/java/com/volvocars/ecom/paymentservice/customer/CustomerPayloadBase.java:1–60"
+    },
+    {
+      "evidence": "volvo/cds-paymentservice-customer/b0010537cdd5-r2/e/ce431a2956c5cbe3",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-customer/blob/b0010537cdd5a308a30a885541748727c97ecb2e/pom.xml#L1-L161",
+      "label": "volvo-cars/cds-paymentservice-customer/pom.xml:1–161"
+    },
+    {
+      "evidence": "volvo/cds-paymentservice-customer/b0010537cdd5-r2/e/7938370236781947",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-customer/blob/b0010537cdd5a308a30a885541748727c97ecb2e/cds-paymentservice-customer-shared/src/main/java/com/volvocars/ecom/paymentservice/customer/CustomerCreatePayload.java#L1-L74",
+      "label": "volvo-cars/cds-paymentservice-customer/cds-paymentservice-customer-shared/src/main/java/com/volvocars/ecom/paymentservice/customer/CustomerCreatePayload.java:1–74"
+    },
+    {
+      "evidence": "volvo/cds-paymentservice-customer/b0010537cdd5-r2/e/1173a40e0daad41a",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-customer/blob/b0010537cdd5a308a30a885541748727c97ecb2e/cds-paymentservice-customer-api/src/main/java/com/volvocars/ecom/paymentservice/customer/api/customer/v1/impl/CustomerControllerImpl.java#L1-L193",
+      "label": "volvo-cars/cds-paymentservice-customer/cds-paymentservice-customer-api/src/main/java/com/volvocars/ecom/paymentservice/customer/api/customer/v1/impl/CustomerControllerImpl.java:1–193"
+    },
+    {
+      "evidence": "volvo/cds-paymentservice-customer/b0010537cdd5-r2/e/b4da2e7fa89c723b",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-customer/blob/b0010537cdd5a308a30a885541748727c97ecb2e/cds-paymentservice-customer-api/src/main/java/com/volvocars/ecom/paymentservice/customer/api/customer/v1/impl/CustomerControllerImpl.java#L32-L39",
+      "label": "volvo-cars/cds-paymentservice-customer/cds-paymentservice-customer-api/src/main/java/com/volvocars/ecom/paymentservice/customer/api/customer/v1/impl/CustomerControllerImpl.java:32–39"
+    },
+    {
+      "evidence": "volvo/cds-paymentservice-customer/b0010537cdd5-r2/e/e5c0539b981a80fb",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-customer/blob/b0010537cdd5a308a30a885541748727c97ecb2e/cds-paymentservice-customer-api/src/main/java/com/volvocars/ecom/paymentservice/customer/api/customer/v1/CustomerController.java#L27-L28",
+      "label": "volvo-cars/cds-paymentservice-customer/cds-paymentservice-customer-api/src/main/java/com/volvocars/ecom/paymentservice/customer/api/customer/v1/CustomerController.java:27–28"
+    },
+    {
+      "evidence": "volvo/cds-paymentservice-customer/b0010537cdd5-r2/e/4fb9c08d43212ae5",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-customer/blob/b0010537cdd5a308a30a885541748727c97ecb2e/cds-paymentservice-customer-api/src/main/java/com/volvocars/ecom/paymentservice/customer/api/customer/v1/CustomerController.java#L96-L113",
+      "label": "volvo-cars/cds-paymentservice-customer/cds-paymentservice-customer-api/src/main/java/com/volvocars/ecom/paymentservice/customer/api/customer/v1/CustomerController.java:96–113"
+    },
+    {
+      "evidence": "volvo/cds-paymentservice-customer/b0010537cdd5-r2/e/63c7197c65a27d30",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-customer/blob/b0010537cdd5a308a30a885541748727c97ecb2e/cds-paymentservice-customer-api/src/main/resources/application.yml#L1-L131",
+      "label": "volvo-cars/cds-paymentservice-customer/cds-paymentservice-customer-api/src/main/resources/application.yml:1–131"
+    },
+    {
+      "evidence": "volvo/cds-paymentservice-customer/b0010537cdd5-r2/e/cd5241002ecc0d5a",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-customer/blob/b0010537cdd5a308a30a885541748727c97ecb2e/cds-paymentservice-customer-api/src/main/java/com/volvocars/ecom/paymentservice/customer/api/customer/v1/CustomerController.java#L1-L195",
+      "label": "volvo-cars/cds-paymentservice-customer/cds-paymentservice-customer-api/src/main/java/com/volvocars/ecom/paymentservice/customer/api/customer/v1/CustomerController.java:1–195"
+    },
+    {
+      "evidence": "volvo/cds-paymentservice-customer/b0010537cdd5-r2/e/5316f71b8f933273",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-customer/blob/b0010537cdd5a308a30a885541748727c97ecb2e/cds-paymentservice-customer-api/src/main/java/com/volvocars/ecom/paymentservice/customer/api/App.java#L1-L25",
+      "label": "volvo-cars/cds-paymentservice-customer/cds-paymentservice-customer-api/src/main/java/com/volvocars/ecom/paymentservice/customer/api/App.java:1–25"
+    },
+    {
+      "evidence": "volvo/cds-paymentservice-customer/b0010537cdd5-r2/e/6e2a62e518d3bc26",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-customer/blob/b0010537cdd5a308a30a885541748727c97ecb2e/cds-paymentservice-customer-api/src/main/resources/application.yml#L91-L101",
+      "label": "volvo-cars/cds-paymentservice-customer/cds-paymentservice-customer-api/src/main/resources/application.yml:91–101"
+    },
+    {
+      "evidence": "volvo/cds-paymentservice-customer/b0010537cdd5-r2/e/2e6ee8bbd93665a9",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-customer/blob/b0010537cdd5a308a30a885541748727c97ecb2e/cds-paymentservice-customer-api/src/main/resources/application.yml#L48-L68",
+      "label": "volvo-cars/cds-paymentservice-customer/cds-paymentservice-customer-api/src/main/resources/application.yml:48–68"
+    },
+    {
+      "evidence": "volvo/cds-paymentservice-customer/b0010537cdd5-r2/e/872ac223c1465c89",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-customer/blob/b0010537cdd5a308a30a885541748727c97ecb2e/cds-paymentservice-customer-api/src/main/resources/application.yml#L127-L131",
+      "label": "volvo-cars/cds-paymentservice-customer/cds-paymentservice-customer-api/src/main/resources/application.yml:127–131"
+    },
+    {
+      "evidence": "volvo/cds-paymentservice-customer/b0010537cdd5-r2/e/084689d6fbf6c828",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-customer/blob/b0010537cdd5a308a30a885541748727c97ecb2e/cds-paymentservice-customer-core/src/main/java/com/volvocars/ecom/paymentservice/configuration/FaultTolerantCacheManager.java#L1-L119",
+      "label": "volvo-cars/cds-paymentservice-customer/cds-paymentservice-customer-core/src/main/java/com/volvocars/ecom/paymentservice/configuration/FaultTolerantCacheManager.java:1–119"
+    },
+    {
+      "evidence": "volvo/cds-paymentservice-customer/b0010537cdd5-r2/e/af58ebf59d64a6d5",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-customer/blob/b0010537cdd5a308a30a885541748727c97ecb2e/cds-paymentservice-customer-core/src/main/java/com/volvocars/ecom/paymentservice/configuration/CacheConfiguration.java#L1-L75",
+      "label": "volvo-cars/cds-paymentservice-customer/cds-paymentservice-customer-core/src/main/java/com/volvocars/ecom/paymentservice/configuration/CacheConfiguration.java:1–75"
+    },
+    {
+      "evidence": "volvo/cds-paymentservice-customer/b0010537cdd5-r2/e/6a747931c030b869",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-customer/blob/b0010537cdd5a308a30a885541748727c97ecb2e/cds-paymentservice-customer-api/src/main/java/com/volvocars/ecom/paymentservice/customer/api/customer/v1/impl/CustomerControllerImpl.java#L90-L121",
+      "label": "volvo-cars/cds-paymentservice-customer/cds-paymentservice-customer-api/src/main/java/com/volvocars/ecom/paymentservice/customer/api/customer/v1/impl/CustomerControllerImpl.java:90–121"
+    },
+    {
+      "evidence": "volvo/cds-paymentservice-customer/b0010537cdd5-r2/e/39244335e8a8b64c",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-customer/blob/b0010537cdd5a308a30a885541748727c97ecb2e/pom.xml#L16-L22",
+      "label": "volvo-cars/cds-paymentservice-customer/pom.xml:16–22"
+    },
+    {
+      "evidence": "volvo/cds-paymentservice-customer/b0010537cdd5-r2/e/8109057cd1800bd3",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-customer/blob/b0010537cdd5a308a30a885541748727c97ecb2e/cds-paymentservice-customer-api/src/main/java/com/volvocars/ecom/paymentservice/customer/api/customer/v1/impl/CustomerControllerImpl.java#L90-L103",
+      "label": "volvo-cars/cds-paymentservice-customer/cds-paymentservice-customer-api/src/main/java/com/volvocars/ecom/paymentservice/customer/api/customer/v1/impl/CustomerControllerImpl.java:90–103"
+    }
+  ],
+  "nextRequest": null
+}

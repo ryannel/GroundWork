@@ -1,0 +1,23 @@
+{
+  "format": "groundwork-query/v3",
+  "snapshot": "dcc8fe6133bb403c805875b5698eb6fd390e35f858d0bf3e74c33c7ea0d7a34e",
+  "query": "records",
+  "entry": "assortment-6114c5d-r5/entry/controller/Classification-GetAllClassifications",
+  "value": null,
+  "context": [],
+  "outcome": null,
+  "changed": [],
+  "representation": "constructed",
+  "candidates": "exclude",
+  "maxNodes": 500,
+  "environment": "production-profile",
+  "maxRecords": 5000,
+  "ids": [
+    "assortment-6114c5d-r5/subscription/ClassificationMessageProcessor/topic",
+    "assortment-6114c5d-r5/shape/json-event-source/Classification",
+    "assortment-6114c5d-r5/shape/json-event-wire/Classification",
+    "assortment-6114c5d-r5/subscription/SpecificationMessageProcessor/topic",
+    "assortment-6114c5d-r5/shape/json-event-source/Specification",
+    "assortment-6114c5d-r5/shape/json-event-wire/Specification"
+  ]
+}

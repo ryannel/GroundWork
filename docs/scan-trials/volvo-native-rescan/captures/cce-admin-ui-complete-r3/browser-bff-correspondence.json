@@ -1,0 +1,812 @@
+[
+  {
+    "path": "src/app/super-admins/audit-logs/page.tsx",
+    "operation": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/operation/4eca69260e049e7a52be/65",
+    "interaction": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/interaction/browser-bff/91c66b4806edb85e90bc",
+    "implementation": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/method/4eca69260e049e7a52be",
+    "method": "GET",
+    "sourcePath": "/api/audit-logs?${query.toString()}",
+    "targetEntry": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/entry/rest/dbc915d2c560d5c878c2"
+  },
+  {
+    "path": "src/app/super-admins/audit-logs/page.tsx",
+    "operation": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/operation/3e3de7c2146fd79c5a85/30",
+    "interaction": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/interaction/browser-bff/b680fe95d64ecfe3b063",
+    "implementation": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/method/3e3de7c2146fd79c5a85",
+    "method": "GET",
+    "sourcePath": "/api/audit-logs?${query.toString()}",
+    "targetEntry": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/entry/rest/dbc915d2c560d5c878c2"
+  },
+  {
+    "path": "src/state/Assortment/AssortmentProvider.tsx",
+    "operation": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/operation/9f1a963586119a17bebb/25",
+    "interaction": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/interaction/browser-bff/d73447e327f338a767a1",
+    "implementation": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/method/9f1a963586119a17bebb",
+    "method": "GET",
+    "sourcePath": "/api/assortment-admin/global-dictionaries?modelYear=${modelYear}&policyId=${policyId}",
+    "targetEntry": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/entry/rest/80840f3d9f79391e8833"
+  },
+  {
+    "path": "src/state/Filter/FilterProvider.tsx",
+    "operation": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/operation/b2c61e613fb95f24ea57/13",
+    "interaction": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/interaction/browser-bff/42bbb445511d09d0c491",
+    "implementation": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/method/b2c61e613fb95f24ea57",
+    "method": "GET",
+    "sourcePath": "/api/filter/${policyId}",
+    "targetEntry": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/entry/rest/2b9eb4d00483d83ea9b7"
+  },
+  {
+    "path": "src/state/MarketDetails/MarketDetailsProvider.tsx",
+    "operation": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/operation/ffffe00ec80cefba8fbc/29",
+    "interaction": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/interaction/browser-bff/1df4dc3e9c0d8b6c3bd5",
+    "implementation": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/method/ffffe00ec80cefba8fbc",
+    "method": "GET",
+    "sourcePath": "/api/market-details/supporting-values",
+    "targetEntry": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/entry/rest/868437e8fbaf4a9845ca"
+  },
+  {
+    "path": "src/state/MarketDetails/MarketDetailsProvider.tsx",
+    "operation": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/operation/50389e1f0b2e2f626129/29",
+    "interaction": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/interaction/browser-bff/168941ba97377776f88b",
+    "implementation": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/method/50389e1f0b2e2f626129",
+    "method": "GET",
+    "sourcePath": "/api/market-details/price-inputs",
+    "targetEntry": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/entry/rest/bd869235a8e5d7b8ae1c"
+  },
+  {
+    "path": "src/state/MarketDetails/MarketDetailsProvider.tsx",
+    "operation": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/operation/9922bec5d1d972a2efee/16",
+    "interaction": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/interaction/browser-bff/598b0976fe41275e0a57",
+    "implementation": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/method/9922bec5d1d972a2efee",
+    "method": "GET",
+    "sourcePath": "/api/market-details/markets",
+    "targetEntry": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/entry/rest/1ad0c480fdfbd29f6b4a"
+  },
+  {
+    "path": "src/state/MarketDetails/MarketDetailsProvider.tsx",
+    "operation": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/operation/ab5248731e4d04eef1a1/18",
+    "interaction": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/interaction/browser-bff/48d2e47e25093f86b6bd",
+    "implementation": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/method/ab5248731e4d04eef1a1",
+    "method": "GET",
+    "sourcePath": "/api/market-details/markets/${id}",
+    "targetEntry": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/entry/rest/d2f6054018b4518120ee"
+  },
+  {
+    "path": "src/state/MarketDetails/MarketDetailsProvider.tsx",
+    "operation": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/operation/5becac421d4b3e8e719d/16",
+    "interaction": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/interaction/browser-bff/890836e3030b4ddab20b",
+    "implementation": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/method/5becac421d4b3e8e719d",
+    "method": "GET",
+    "sourcePath": "/api/market-details/spec-markets",
+    "targetEntry": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/entry/rest/ea498fdc17484ab33537"
+  },
+  {
+    "path": "src/state/MarketDetails/MarketDetailsProvider.tsx",
+    "operation": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/operation/f18638ad78717028bd17/34",
+    "interaction": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/interaction/browser-bff/15973df468e550ae4220",
+    "implementation": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/method/f18638ad78717028bd17",
+    "method": "PUT",
+    "sourcePath": "/api/market-details/markets/${market.id}",
+    "targetEntry": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/entry/rest/3d33f84a8905326cdf9d"
+  },
+  {
+    "path": "src/state/MarketDetails/MarketDetailsProvider.tsx",
+    "operation": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/operation/bdfefc1a4a4fcff40fed/37",
+    "interaction": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/interaction/browser-bff/006740434748d6a02a6e",
+    "implementation": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/method/bdfefc1a4a4fcff40fed",
+    "method": "PUT",
+    "sourcePath": "/api/market-details/sales-models/${model.id}",
+    "targetEntry": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/entry/rest/81c472c0b4f7298b38e3"
+  },
+  {
+    "path": "src/state/MarketDetails/MarketDetailsProvider.tsx",
+    "operation": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/operation/f11ae391b4410eabc83f/39",
+    "interaction": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/interaction/browser-bff/90d94321e0bb7abcbae7",
+    "implementation": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/method/f11ae391b4410eabc83f",
+    "method": "PUT",
+    "sourcePath": "/api/market-details/energy-efficiencies/${energyEfficiency.id}",
+    "targetEntry": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/entry/rest/a6bffa0a6711cfb45c6c"
+  },
+  {
+    "path": "src/state/MarketDetails/MarketDetailsProvider.tsx",
+    "operation": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/operation/e4ec07d8be079accc72e/22",
+    "interaction": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/interaction/browser-bff/a887ca1318b1b34d035e",
+    "implementation": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/method/e4ec07d8be079accc72e",
+    "method": "POST",
+    "sourcePath": "/api/market-details/config-clients",
+    "targetEntry": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/entry/rest/a8fe67662400bf26038a"
+  },
+  {
+    "path": "src/state/MarketDetails/MarketDetailsProvider.tsx",
+    "operation": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/operation/d1612fef2dc57e052110/25",
+    "interaction": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/interaction/browser-bff/c6fc635508cc8bc65125",
+    "implementation": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/method/d1612fef2dc57e052110",
+    "method": "PUT",
+    "sourcePath": "/api/market-details/config-clients/${configClient.id}",
+    "targetEntry": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/entry/rest/0b57eb0ddeea7176dde9"
+  },
+  {
+    "path": "src/state/Partner/PartnerProvider.tsx",
+    "operation": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/operation/1142145983ec08e8f938/27",
+    "interaction": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/interaction/browser-bff/d5e66ff7f256f80b4dd9",
+    "implementation": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/method/1142145983ec08e8f938",
+    "method": "GET",
+    "sourcePath": "/api/partner/rulesForPolicy/${policyUid}?programMarket=${programMarket}&countryCode=${countryCode}&brand=${brand}",
+    "targetEntry": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/entry/rest/9ffab72c50e62e639283"
+  },
+  {
+    "path": "src/state/Partner/PartnerProvider.tsx",
+    "operation": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/operation/bef175bb525bc03f2a31/26",
+    "interaction": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/interaction/browser-bff/84a6a580d7a08fedcdd7",
+    "implementation": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/method/bef175bb525bc03f2a31",
+    "method": "PUT",
+    "sourcePath": "/api/partner/rulesForPolicy/${model.policyUid}",
+    "targetEntry": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/entry/rest/8f10c909269e255801ee"
+  },
+  {
+    "path": "src/state/Partner/PartnerProvider.tsx",
+    "operation": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/operation/2ec4ff9b30332c37d487/25",
+    "interaction": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/interaction/browser-bff/da4eb24c1f0e245771e5",
+    "implementation": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/method/2ec4ff9b30332c37d487",
+    "method": "GET",
+    "sourcePath": "/api/partner/partners/${policyUid}?&countryCode=${countryCode}&brand=${brand}",
+    "targetEntry": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/entry/rest/7c7a1874ef67fd6a4e29"
+  },
+  {
+    "path": "src/state/Policies/PoliciesProvider.tsx",
+    "operation": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/operation/c4d8efa2bfedf4a01748/16",
+    "interaction": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/interaction/browser-bff/4316a3b9c95f881816a0",
+    "implementation": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/method/c4d8efa2bfedf4a01748",
+    "method": "GET",
+    "sourcePath": "/api/policies",
+    "targetEntry": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/entry/rest/5cb523154cb116014ff6"
+  },
+  {
+    "path": "src/state/Policies/PoliciesProvider.tsx",
+    "operation": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/operation/58e9a4a23662092ed63c/28",
+    "interaction": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/interaction/browser-bff/4fe5ec846c4658eaae12",
+    "implementation": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/method/58e9a4a23662092ed63c",
+    "method": "POST",
+    "sourcePath": "/api/policies/status",
+    "targetEntry": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/entry/rest/35bdc8af0e4e582e19f8"
+  },
+  {
+    "path": "src/state/Policies/PoliciesProvider.tsx",
+    "operation": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/operation/a4ff36f5125b1476245a/15",
+    "interaction": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/interaction/browser-bff/f10d2d9eac622c67ce40",
+    "implementation": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/method/a4ff36f5125b1476245a",
+    "method": "POST",
+    "sourcePath": "/api/policies",
+    "targetEntry": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/entry/rest/5dafdbd73d5f78df9f34"
+  },
+  {
+    "path": "src/state/Policies/PoliciesProvider.tsx",
+    "operation": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/operation/9acdad3bf7c149300ccf/17",
+    "interaction": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/interaction/browser-bff/7cfe63d948f12d980d56",
+    "implementation": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/method/9acdad3bf7c149300ccf",
+    "method": "DELETE",
+    "sourcePath": "/api/policies/${id}?returnTree=true",
+    "targetEntry": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/entry/rest/cf1251a09c21ee831850"
+  },
+  {
+    "path": "src/state/Policies/PoliciesProvider.tsx",
+    "operation": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/operation/d701c51bba04fafe1a0d/18",
+    "interaction": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/interaction/browser-bff/221adeabac55f67471bc",
+    "implementation": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/method/d701c51bba04fafe1a0d",
+    "method": "GET",
+    "sourcePath": "/api/policies/${id}",
+    "targetEntry": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/entry/rest/e90db2a07f7de3e1e859"
+  },
+  {
+    "path": "src/state/Policies/PoliciesProvider.tsx",
+    "operation": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/operation/512c7c61e14d385c2b2f/15",
+    "interaction": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/interaction/browser-bff/ba8d7bb4931d8f625782",
+    "implementation": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/method/512c7c61e14d385c2b2f",
+    "method": "PUT",
+    "sourcePath": "/api/policies?returnTree=true",
+    "targetEntry": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/entry/rest/723946cf753f01331876"
+  },
+  {
+    "path": "src/state/Policy/PolicyProvider.tsx",
+    "operation": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/operation/d180585cbd26d0323c4c/21",
+    "interaction": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/interaction/browser-bff/c6eb29a898ba5aedc1ba",
+    "implementation": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/method/d180585cbd26d0323c4c",
+    "method": "GET",
+    "sourcePath": "/api/policies/${id}",
+    "targetEntry": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/entry/rest/e90db2a07f7de3e1e859"
+  },
+  {
+    "path": "src/state/Policy/PolicyProvider.tsx",
+    "operation": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/operation/b955c75ced0dd0e4c07f/20",
+    "interaction": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/interaction/browser-bff/39ccd60c1c49980d0562",
+    "implementation": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/method/b955c75ced0dd0e4c07f",
+    "method": "GET",
+    "sourcePath": "/api/policies/${id}",
+    "targetEntry": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/entry/rest/e90db2a07f7de3e1e859"
+  },
+  {
+    "path": "src/state/Policy/PolicyProvider.tsx",
+    "operation": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/operation/c6a4f3d8a8b852358716/20",
+    "interaction": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/interaction/browser-bff/5c5e070544e2263e8e25",
+    "implementation": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/method/c6a4f3d8a8b852358716",
+    "method": "GET",
+    "sourcePath": "/api/policies/${id}/status",
+    "targetEntry": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/entry/rest/4e3fd8001c54847fa52c"
+  },
+  {
+    "path": "src/state/Policy/PolicyProvider.tsx",
+    "operation": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/operation/f1b9b6eeae4cbf6842a2/20",
+    "interaction": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/interaction/browser-bff/8892336af76a8302bc81",
+    "implementation": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/method/f1b9b6eeae4cbf6842a2",
+    "method": "GET",
+    "sourcePath": "/api/policies/${id}/status",
+    "targetEntry": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/entry/rest/4e3fd8001c54847fa52c"
+  },
+  {
+    "path": "src/state/Policy/PolicyProvider.tsx",
+    "operation": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/operation/a249bec2b3fb2e9ec4fb/20",
+    "interaction": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/interaction/browser-bff/ac14d6370c681daa2cbe",
+    "implementation": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/method/a249bec2b3fb2e9ec4fb",
+    "method": "GET",
+    "sourcePath": "/api/policies/${id}/status",
+    "targetEntry": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/entry/rest/4e3fd8001c54847fa52c"
+  },
+  {
+    "path": "src/state/Policy/PolicyProvider.tsx",
+    "operation": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/operation/2b1f55889ee429816b49/15",
+    "interaction": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/interaction/browser-bff/eae43652d531b00ce30a",
+    "implementation": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/method/2b1f55889ee429816b49",
+    "method": "PUT",
+    "sourcePath": "/api/policies",
+    "targetEntry": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/entry/rest/723946cf753f01331876"
+  },
+  {
+    "path": "src/state/Policy/PolicyProvider.tsx",
+    "operation": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/operation/4643a21e48c569c39721/18",
+    "interaction": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/interaction/browser-bff/7c2d162375a330e51499",
+    "implementation": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/method/4643a21e48c569c39721",
+    "method": "DELETE",
+    "sourcePath": "/api/policies/${id}",
+    "targetEntry": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/entry/rest/cf1251a09c21ee831850"
+  },
+  {
+    "path": "src/state/Policy/PolicyProvider.tsx",
+    "operation": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/operation/a9975092b8382e00950b/18",
+    "interaction": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/interaction/browser-bff/44c8cac29d14a4a90cfb",
+    "implementation": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/method/a9975092b8382e00950b",
+    "method": "PUT",
+    "sourcePath": "/api/policies/${id}",
+    "targetEntry": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/entry/rest/e3ea7b9f3a9a57818aa2"
+  },
+  {
+    "path": "src/state/PolicyConfigs/Provider.tsx",
+    "operation": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/operation/cf867c1dcf8e8c54fdb7/18",
+    "interaction": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/interaction/browser-bff/f92586a3732a19dea8da",
+    "implementation": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/method/cf867c1dcf8e8c54fdb7",
+    "method": "GET",
+    "sourcePath": "/api/config-policies",
+    "targetEntry": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/entry/rest/ca1da6527eeaef84bb69"
+  },
+  {
+    "path": "src/state/PolicyPreConfigGroupMapping/Provider.tsx",
+    "operation": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/operation/38b6aac7cfa45c23cf7b/18",
+    "interaction": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/interaction/browser-bff/8359827c2df82dcbfea7",
+    "implementation": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/method/38b6aac7cfa45c23cf7b",
+    "method": "GET",
+    "sourcePath": "/api/policy-pre-config-group/mappings",
+    "targetEntry": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/entry/rest/2b551d3f9cf89ad214ed"
+  },
+  {
+    "path": "src/state/PolicyPreConfigGroupMapping/Provider.tsx",
+    "operation": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/operation/3c7186c893cb638fc74e/17",
+    "interaction": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/interaction/browser-bff/474f2532d01872b79f8c",
+    "implementation": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/method/3c7186c893cb638fc74e",
+    "method": "POST",
+    "sourcePath": "/api/policy-pre-config-group/mappings",
+    "targetEntry": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/entry/rest/ec774080f0f9a331abfd"
+  },
+  {
+    "path": "src/state/PolicyPreConfigGroupMapping/Provider.tsx",
+    "operation": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/operation/7dd12b51782699268b3e/20",
+    "interaction": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/interaction/browser-bff/91b2a48fe7a24a57dcdf",
+    "implementation": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/method/7dd12b51782699268b3e",
+    "method": "DELETE",
+    "sourcePath": "/api/policy-pre-config-group/mappings/${id}",
+    "targetEntry": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/entry/rest/0e23c66fcba8bd2e745f"
+  },
+  {
+    "path": "src/state/PreConfiguration/PreConfigurationProvider.tsx",
+    "operation": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/operation/c59683a656790208bd9c/20",
+    "interaction": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/interaction/browser-bff/5bd11b7a83194b3cce4e",
+    "implementation": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/method/c59683a656790208bd9c",
+    "method": "GET",
+    "sourcePath": "/api/pre-config/market/${market}",
+    "targetEntry": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/entry/rest/ef3e7bbfb801d45a203f"
+  },
+  {
+    "path": "src/state/PreConfiguration/PreConfigurationProvider.tsx",
+    "operation": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/operation/e96f4fc712fc47cedda1/18",
+    "interaction": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/interaction/browser-bff/d338783df15c89d84b30",
+    "implementation": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/method/e96f4fc712fc47cedda1",
+    "method": "GET",
+    "sourcePath": "/api/pre-config/all",
+    "targetEntry": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/entry/rest/ae6fdd7d0f811b6aa0c1"
+  },
+  {
+    "path": "src/state/PreConfiguration/PreConfigurationProvider.tsx",
+    "operation": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/operation/40f71059f7f5762df697/20",
+    "interaction": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/interaction/browser-bff/a9591456b05b3856e7ce",
+    "implementation": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/method/40f71059f7f5762df697",
+    "method": "POST",
+    "sourcePath": "/api/pre-config/update/${market}",
+    "targetEntry": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/entry/rest/3de43ddc58cedbb3953b"
+  },
+  {
+    "path": "src/state/StructureWeeks/StructureWeeksProvider.tsx",
+    "operation": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/operation/3a7e1b05b39762c14f93/27",
+    "interaction": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/interaction/browser-bff/7891150d86e6b6749bfc",
+    "implementation": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/method/3a7e1b05b39762c14f93",
+    "method": "GET",
+    "sourcePath": "/api/structure-weeks/all/${brand}/${market.id}",
+    "targetEntry": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/entry/rest/2703190478951a687877"
+  },
+  {
+    "path": "src/state/User/UserProvider.tsx",
+    "operation": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/operation/f51ce7df966587968f03/9",
+    "interaction": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/interaction/browser-bff/ca6ccad6c464346f78e4",
+    "implementation": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/method/f51ce7df966587968f03",
+    "method": "GET",
+    "sourcePath": "/api/user",
+    "targetEntry": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/entry/rest/1810293c0dd1717cf94e"
+  },
+  {
+    "path": "src/state/User/UserProvider.tsx",
+    "operation": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/operation/d49b7b372b0782cdfac2/9",
+    "interaction": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/interaction/browser-bff/acf34c07af0e36bbcce4",
+    "implementation": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/method/d49b7b372b0782cdfac2",
+    "method": "GET",
+    "sourcePath": "/api/users/super-admins",
+    "targetEntry": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/entry/rest/418542074e90305e6066"
+  },
+  {
+    "path": "src/state/User/UserProvider.tsx",
+    "operation": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/operation/b3fb0fa1a271cc8b8322/17",
+    "interaction": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/interaction/browser-bff/a265570d028cc784d757",
+    "implementation": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/method/b3fb0fa1a271cc8b8322",
+    "method": "POST",
+    "sourcePath": "/api/user/super-admins/rights/${cdsid}?${new URLSearchParams({ requestReference })}",
+    "targetEntry": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/entry/rest/11ec02b547c71fcf8607"
+  },
+  {
+    "path": "src/state/User/UserProvider.tsx",
+    "operation": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/operation/6f6351765c59cf32a28e/16",
+    "interaction": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/interaction/browser-bff/cdd3443deefedb83fab6",
+    "implementation": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/method/6f6351765c59cf32a28e",
+    "method": "DELETE",
+    "sourcePath": "/api/user/super-admins/rights/${cdsid}?${new URLSearchParams({ requestReference })}",
+    "targetEntry": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/entry/rest/6b0ba34dccdfb60d68c8"
+  },
+  {
+    "path": "src/state/User/UserProvider.tsx",
+    "operation": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/operation/0fda075885673b30660c/11",
+    "interaction": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/interaction/browser-bff/7869d1757bb6706604e8",
+    "implementation": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/method/0fda075885673b30660c",
+    "method": "GET",
+    "sourcePath": "/api/users/${policyId}",
+    "targetEntry": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/entry/rest/2fbda89c18bdf99094ef"
+  },
+  {
+    "path": "src/state/User/UserProvider.tsx",
+    "operation": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/operation/0bc136c445454b91d5da/15",
+    "interaction": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/interaction/browser-bff/2c9c7f45c8e3bb2cb62b",
+    "implementation": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/method/0bc136c445454b91d5da",
+    "method": "PUT",
+    "sourcePath": "/api/user/roles/${cdsid}?${new URLSearchParams({ requestReference })}",
+    "targetEntry": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/entry/rest/3550e92b1b03dd0170ef"
+  },
+  {
+    "path": "src/state/User/UserProvider.tsx",
+    "operation": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/operation/cec0b8419429bafdcd30/17",
+    "interaction": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/interaction/browser-bff/e26be419307ef1285f0f",
+    "implementation": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/method/cec0b8419429bafdcd30",
+    "method": "DELETE",
+    "sourcePath": "/api/users/roles/${cdsid}/${policyId}?${new URLSearchParams({ requestReference })}",
+    "targetEntry": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/entry/rest/8897eacba43bb717b6cc"
+  },
+  {
+    "path": "src/state/User/UserProvider.tsx",
+    "operation": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/operation/eb26acc680ee84eee2c7/15",
+    "interaction": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/interaction/browser-bff/ad3fd346e173b2f3c96c",
+    "implementation": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/method/eb26acc680ee84eee2c7",
+    "method": "DELETE",
+    "sourcePath": "/api/user/super-admin/${cdsid}?${new URLSearchParams({ requestReference })}",
+    "targetEntry": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/entry/rest/a6210b1bed82d740e90c"
+  },
+  {
+    "path": "src/app/super-admins/audit-logs/page.tsx",
+    "operation": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/operation/cbd9d91f1a886fd13e98/65",
+    "interaction": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/interaction/browser-bff/da17df2e59a9112cb100",
+    "implementation": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/method/cbd9d91f1a886fd13e98",
+    "method": "GET",
+    "sourcePath": "/api/audit-logs?${query.toString()}",
+    "targetEntry": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/entry/rest/dbc915d2c560d5c878c2"
+  },
+  {
+    "path": "src/app/super-admins/audit-logs/page.tsx",
+    "operation": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/operation/ebfcbf4f504502beed66/30",
+    "interaction": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/interaction/browser-bff/b3a54e6098fe3bcd946d",
+    "implementation": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/method/ebfcbf4f504502beed66",
+    "method": "GET",
+    "sourcePath": "/api/audit-logs?${query.toString()}",
+    "targetEntry": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/entry/rest/dbc915d2c560d5c878c2"
+  },
+  {
+    "path": "src/state/Assortment/AssortmentProvider.tsx",
+    "operation": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/operation/02b9095c2472f4458320/25",
+    "interaction": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/interaction/browser-bff/3fb6c0a68638ad49ed3e",
+    "implementation": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/method/02b9095c2472f4458320",
+    "method": "GET",
+    "sourcePath": "/api/assortment-admin/global-dictionaries?modelYear=${modelYear}&policyId=${policyId}",
+    "targetEntry": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/entry/rest/80840f3d9f79391e8833"
+  },
+  {
+    "path": "src/state/MarketDetails/MarketDetailsProvider.tsx",
+    "operation": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/operation/aeedcc0d2ba646c1f3c1/29",
+    "interaction": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/interaction/browser-bff/2c57dee3c3bcd1fcab7e",
+    "implementation": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/method/aeedcc0d2ba646c1f3c1",
+    "method": "GET",
+    "sourcePath": "/api/market-details/supporting-values",
+    "targetEntry": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/entry/rest/868437e8fbaf4a9845ca"
+  },
+  {
+    "path": "src/state/MarketDetails/MarketDetailsProvider.tsx",
+    "operation": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/operation/79fa1ed29ff122d849f9/29",
+    "interaction": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/interaction/browser-bff/fb9e253af78640d4bc32",
+    "implementation": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/method/79fa1ed29ff122d849f9",
+    "method": "GET",
+    "sourcePath": "/api/market-details/price-inputs",
+    "targetEntry": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/entry/rest/bd869235a8e5d7b8ae1c"
+  },
+  {
+    "path": "src/state/MarketDetails/MarketDetailsProvider.tsx",
+    "operation": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/operation/e85b6ab4964773867ca8/16",
+    "interaction": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/interaction/browser-bff/9f9a7f929c29c53c2473",
+    "implementation": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/method/e85b6ab4964773867ca8",
+    "method": "GET",
+    "sourcePath": "/api/market-details/markets",
+    "targetEntry": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/entry/rest/1ad0c480fdfbd29f6b4a"
+  },
+  {
+    "path": "src/state/MarketDetails/MarketDetailsProvider.tsx",
+    "operation": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/operation/5f364910e4b1f83e652a/18",
+    "interaction": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/interaction/browser-bff/3805faddd68967ec5019",
+    "implementation": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/method/5f364910e4b1f83e652a",
+    "method": "GET",
+    "sourcePath": "/api/market-details/markets/${id}",
+    "targetEntry": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/entry/rest/d2f6054018b4518120ee"
+  },
+  {
+    "path": "src/state/MarketDetails/MarketDetailsProvider.tsx",
+    "operation": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/operation/44876fbef62479ed4722/16",
+    "interaction": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/interaction/browser-bff/c586884b916ed33aa4c1",
+    "implementation": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/method/44876fbef62479ed4722",
+    "method": "GET",
+    "sourcePath": "/api/market-details/spec-markets",
+    "targetEntry": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/entry/rest/ea498fdc17484ab33537"
+  },
+  {
+    "path": "src/state/MarketDetails/MarketDetailsProvider.tsx",
+    "operation": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/operation/2305fe02066410f65cd8/34",
+    "interaction": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/interaction/browser-bff/7409e4a4efa5e9940e1c",
+    "implementation": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/method/2305fe02066410f65cd8",
+    "method": "PUT",
+    "sourcePath": "/api/market-details/markets/${market.id}",
+    "targetEntry": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/entry/rest/3d33f84a8905326cdf9d"
+  },
+  {
+    "path": "src/state/MarketDetails/MarketDetailsProvider.tsx",
+    "operation": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/operation/41b15d022730ae571aed/37",
+    "interaction": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/interaction/browser-bff/18472011956b76cc3abb",
+    "implementation": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/method/41b15d022730ae571aed",
+    "method": "PUT",
+    "sourcePath": "/api/market-details/sales-models/${model.id}",
+    "targetEntry": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/entry/rest/81c472c0b4f7298b38e3"
+  },
+  {
+    "path": "src/state/MarketDetails/MarketDetailsProvider.tsx",
+    "operation": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/operation/7f00533d37ac05cdfeeb/39",
+    "interaction": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/interaction/browser-bff/a55c5cd742d3c641647a",
+    "implementation": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/method/7f00533d37ac05cdfeeb",
+    "method": "PUT",
+    "sourcePath": "/api/market-details/energy-efficiencies/${energyEfficiency.id}",
+    "targetEntry": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/entry/rest/a6bffa0a6711cfb45c6c"
+  },
+  {
+    "path": "src/state/MarketDetails/MarketDetailsProvider.tsx",
+    "operation": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/operation/858d9098a9dd787853f1/22",
+    "interaction": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/interaction/browser-bff/860350e32fd290b108ce",
+    "implementation": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/method/858d9098a9dd787853f1",
+    "method": "POST",
+    "sourcePath": "/api/market-details/config-clients",
+    "targetEntry": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/entry/rest/a8fe67662400bf26038a"
+  },
+  {
+    "path": "src/state/MarketDetails/MarketDetailsProvider.tsx",
+    "operation": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/operation/97b4e6170feab125c02a/25",
+    "interaction": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/interaction/browser-bff/a6bc5f7d209c02800495",
+    "implementation": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/method/97b4e6170feab125c02a",
+    "method": "PUT",
+    "sourcePath": "/api/market-details/config-clients/${configClient.id}",
+    "targetEntry": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/entry/rest/0b57eb0ddeea7176dde9"
+  },
+  {
+    "path": "src/state/Policies/PoliciesProvider.tsx",
+    "operation": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/operation/28ba5b4086a72b3ec4c9/16",
+    "interaction": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/interaction/browser-bff/aeff93fcf2522f83c42f",
+    "implementation": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/method/28ba5b4086a72b3ec4c9",
+    "method": "GET",
+    "sourcePath": "/api/policies",
+    "targetEntry": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/entry/rest/5cb523154cb116014ff6"
+  },
+  {
+    "path": "src/state/Policies/PoliciesProvider.tsx",
+    "operation": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/operation/c3e89a9d70c8c1ec66b8/28",
+    "interaction": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/interaction/browser-bff/c80fa78e25e38a3e50b6",
+    "implementation": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/method/c3e89a9d70c8c1ec66b8",
+    "method": "POST",
+    "sourcePath": "/api/policies/status",
+    "targetEntry": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/entry/rest/35bdc8af0e4e582e19f8"
+  },
+  {
+    "path": "src/state/Policies/PoliciesProvider.tsx",
+    "operation": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/operation/861841494c57e559b72e/15",
+    "interaction": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/interaction/browser-bff/512fd9a37d6e29e01aef",
+    "implementation": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/method/861841494c57e559b72e",
+    "method": "POST",
+    "sourcePath": "/api/policies",
+    "targetEntry": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/entry/rest/5dafdbd73d5f78df9f34"
+  },
+  {
+    "path": "src/state/Policies/PoliciesProvider.tsx",
+    "operation": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/operation/8531af3380609e317760/17",
+    "interaction": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/interaction/browser-bff/cd3217096c5447069da6",
+    "implementation": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/method/8531af3380609e317760",
+    "method": "DELETE",
+    "sourcePath": "/api/policies/${id}?returnTree=true",
+    "targetEntry": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/entry/rest/cf1251a09c21ee831850"
+  },
+  {
+    "path": "src/state/Policies/PoliciesProvider.tsx",
+    "operation": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/operation/73cbc7203d232fcaeba4/18",
+    "interaction": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/interaction/browser-bff/3daf23d62b6331bfaee2",
+    "implementation": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/method/73cbc7203d232fcaeba4",
+    "method": "GET",
+    "sourcePath": "/api/policies/${id}",
+    "targetEntry": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/entry/rest/e90db2a07f7de3e1e859"
+  },
+  {
+    "path": "src/state/Policies/PoliciesProvider.tsx",
+    "operation": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/operation/b41419d68e17f9b057dc/15",
+    "interaction": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/interaction/browser-bff/af00f66a20899ab0e1cc",
+    "implementation": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/method/b41419d68e17f9b057dc",
+    "method": "PUT",
+    "sourcePath": "/api/policies?returnTree=true",
+    "targetEntry": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/entry/rest/723946cf753f01331876"
+  },
+  {
+    "path": "src/state/Policy/PolicyProvider.tsx",
+    "operation": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/operation/c1dfd4d1782c62cc8be7/21",
+    "interaction": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/interaction/browser-bff/d34cb913fcadcf41127a",
+    "implementation": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/method/c1dfd4d1782c62cc8be7",
+    "method": "GET",
+    "sourcePath": "/api/policies/${id}",
+    "targetEntry": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/entry/rest/e90db2a07f7de3e1e859"
+  },
+  {
+    "path": "src/state/Policy/PolicyProvider.tsx",
+    "operation": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/operation/9f4a74a3b4257704f917/20",
+    "interaction": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/interaction/browser-bff/f38300fff824908b72e5",
+    "implementation": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/method/9f4a74a3b4257704f917",
+    "method": "GET",
+    "sourcePath": "/api/policies/${id}",
+    "targetEntry": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/entry/rest/e90db2a07f7de3e1e859"
+  },
+  {
+    "path": "src/state/Policy/PolicyProvider.tsx",
+    "operation": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/operation/c3e46e07c75c6796ea97/20",
+    "interaction": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/interaction/browser-bff/920687f74bf6db411d39",
+    "implementation": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/method/c3e46e07c75c6796ea97",
+    "method": "GET",
+    "sourcePath": "/api/policies/${id}/status",
+    "targetEntry": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/entry/rest/4e3fd8001c54847fa52c"
+  },
+  {
+    "path": "src/state/Policy/PolicyProvider.tsx",
+    "operation": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/operation/5abea7ec5e20deb33a50/20",
+    "interaction": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/interaction/browser-bff/cc6af1334eb52c033e4a",
+    "implementation": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/method/5abea7ec5e20deb33a50",
+    "method": "GET",
+    "sourcePath": "/api/policies/${id}/status",
+    "targetEntry": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/entry/rest/4e3fd8001c54847fa52c"
+  },
+  {
+    "path": "src/state/Policy/PolicyProvider.tsx",
+    "operation": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/operation/eece42009f6ef6f866c4/20",
+    "interaction": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/interaction/browser-bff/1ad02f1959bef0c529c4",
+    "implementation": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/method/eece42009f6ef6f866c4",
+    "method": "GET",
+    "sourcePath": "/api/policies/${id}/status",
+    "targetEntry": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/entry/rest/4e3fd8001c54847fa52c"
+  },
+  {
+    "path": "src/state/Policy/PolicyProvider.tsx",
+    "operation": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/operation/d8a688a9711b04bbee89/15",
+    "interaction": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/interaction/browser-bff/3420e42c92cb1a1799cf",
+    "implementation": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/method/d8a688a9711b04bbee89",
+    "method": "PUT",
+    "sourcePath": "/api/policies",
+    "targetEntry": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/entry/rest/723946cf753f01331876"
+  },
+  {
+    "path": "src/state/Policy/PolicyProvider.tsx",
+    "operation": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/operation/0935db194a75a6947502/18",
+    "interaction": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/interaction/browser-bff/fe3d54ccb8e7e98aefd2",
+    "implementation": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/method/0935db194a75a6947502",
+    "method": "DELETE",
+    "sourcePath": "/api/policies/${id}",
+    "targetEntry": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/entry/rest/cf1251a09c21ee831850"
+  },
+  {
+    "path": "src/state/Policy/PolicyProvider.tsx",
+    "operation": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/operation/92fe81ea0ac18a4b58df/18",
+    "interaction": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/interaction/browser-bff/3c825c1323a6aad31779",
+    "implementation": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/method/92fe81ea0ac18a4b58df",
+    "method": "PUT",
+    "sourcePath": "/api/policies/${id}",
+    "targetEntry": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/entry/rest/e3ea7b9f3a9a57818aa2"
+  },
+  {
+    "path": "src/state/PolicyConfigs/Provider.tsx",
+    "operation": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/operation/048eeb04a08ede830344/18",
+    "interaction": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/interaction/browser-bff/fcc0581b55f269044149",
+    "implementation": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/method/048eeb04a08ede830344",
+    "method": "GET",
+    "sourcePath": "/api/config-policies",
+    "targetEntry": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/entry/rest/ca1da6527eeaef84bb69"
+  },
+  {
+    "path": "src/state/PolicyPreConfigGroupMapping/Provider.tsx",
+    "operation": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/operation/606378a480260080edc2/18",
+    "interaction": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/interaction/browser-bff/fa06d338ed678666173f",
+    "implementation": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/method/606378a480260080edc2",
+    "method": "GET",
+    "sourcePath": "/api/policy-pre-config-group/mappings",
+    "targetEntry": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/entry/rest/2b551d3f9cf89ad214ed"
+  },
+  {
+    "path": "src/state/PolicyPreConfigGroupMapping/Provider.tsx",
+    "operation": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/operation/13ac12e751a398dc7f95/17",
+    "interaction": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/interaction/browser-bff/9fcfbbd0fd74e9ebb180",
+    "implementation": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/method/13ac12e751a398dc7f95",
+    "method": "POST",
+    "sourcePath": "/api/policy-pre-config-group/mappings",
+    "targetEntry": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/entry/rest/ec774080f0f9a331abfd"
+  },
+  {
+    "path": "src/state/PolicyPreConfigGroupMapping/Provider.tsx",
+    "operation": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/operation/b40f7058e85b6f4a8f25/20",
+    "interaction": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/interaction/browser-bff/69ac4847c7ced397ca96",
+    "implementation": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/method/b40f7058e85b6f4a8f25",
+    "method": "DELETE",
+    "sourcePath": "/api/policy-pre-config-group/mappings/${id}",
+    "targetEntry": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/entry/rest/0e23c66fcba8bd2e745f"
+  },
+  {
+    "path": "src/state/PreConfiguration/PreConfigurationProvider.tsx",
+    "operation": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/operation/b084b76b7244397b7600/20",
+    "interaction": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/interaction/browser-bff/1ba1c0658224d9cc85a0",
+    "implementation": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/method/b084b76b7244397b7600",
+    "method": "GET",
+    "sourcePath": "/api/pre-config/market/${market}",
+    "targetEntry": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/entry/rest/ef3e7bbfb801d45a203f"
+  },
+  {
+    "path": "src/state/PreConfiguration/PreConfigurationProvider.tsx",
+    "operation": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/operation/ddb4ae061bd8df24acde/18",
+    "interaction": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/interaction/browser-bff/b3b8abfdb2e8c42aa595",
+    "implementation": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/method/ddb4ae061bd8df24acde",
+    "method": "GET",
+    "sourcePath": "/api/pre-config/all",
+    "targetEntry": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/entry/rest/ae6fdd7d0f811b6aa0c1"
+  },
+  {
+    "path": "src/state/PreConfiguration/PreConfigurationProvider.tsx",
+    "operation": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/operation/924dceb673df9be7f016/20",
+    "interaction": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/interaction/browser-bff/ea967a180c008e373362",
+    "implementation": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/method/924dceb673df9be7f016",
+    "method": "POST",
+    "sourcePath": "/api/pre-config/update/${market}",
+    "targetEntry": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/entry/rest/3de43ddc58cedbb3953b"
+  },
+  {
+    "path": "src/state/StructureWeeks/StructureWeeksProvider.tsx",
+    "operation": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/operation/dc53062a38561234cae0/27",
+    "interaction": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/interaction/browser-bff/8a8f0384fa93ca8401f9",
+    "implementation": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/method/dc53062a38561234cae0",
+    "method": "GET",
+    "sourcePath": "/api/structure-weeks/all/${brand}/${market.id}",
+    "targetEntry": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/entry/rest/2703190478951a687877"
+  },
+  {
+    "path": "src/state/User/UserProvider.tsx",
+    "operation": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/operation/5fa779dec3ec0f94a71c/9",
+    "interaction": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/interaction/browser-bff/7515a941b668348136f4",
+    "implementation": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/method/5fa779dec3ec0f94a71c",
+    "method": "GET",
+    "sourcePath": "/api/user",
+    "targetEntry": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/entry/rest/1810293c0dd1717cf94e"
+  },
+  {
+    "path": "src/state/User/UserProvider.tsx",
+    "operation": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/operation/6d5cceb2534cda48fb35/9",
+    "interaction": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/interaction/browser-bff/87118c5d33b7742e2c63",
+    "implementation": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/method/6d5cceb2534cda48fb35",
+    "method": "GET",
+    "sourcePath": "/api/users/super-admins",
+    "targetEntry": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/entry/rest/418542074e90305e6066"
+  },
+  {
+    "path": "src/state/User/UserProvider.tsx",
+    "operation": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/operation/b3e06b641e6626eea7cc/17",
+    "interaction": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/interaction/browser-bff/335650c613bace603667",
+    "implementation": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/method/b3e06b641e6626eea7cc",
+    "method": "POST",
+    "sourcePath": "/api/user/super-admins/rights/${cdsid}?${new URLSearchParams({ requestReference })}",
+    "targetEntry": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/entry/rest/11ec02b547c71fcf8607"
+  },
+  {
+    "path": "src/state/User/UserProvider.tsx",
+    "operation": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/operation/67867a1ed13ee290cb81/16",
+    "interaction": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/interaction/browser-bff/43f05f49182345dfeee2",
+    "implementation": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/method/67867a1ed13ee290cb81",
+    "method": "DELETE",
+    "sourcePath": "/api/user/super-admins/rights/${cdsid}?${new URLSearchParams({ requestReference })}",
+    "targetEntry": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/entry/rest/6b0ba34dccdfb60d68c8"
+  },
+  {
+    "path": "src/state/User/UserProvider.tsx",
+    "operation": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/operation/23eab70c56d2aaa69210/11",
+    "interaction": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/interaction/browser-bff/02fe9f22056f0b4103ec",
+    "implementation": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/method/23eab70c56d2aaa69210",
+    "method": "GET",
+    "sourcePath": "/api/users/${policyId}",
+    "targetEntry": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/entry/rest/2fbda89c18bdf99094ef"
+  },
+  {
+    "path": "src/state/User/UserProvider.tsx",
+    "operation": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/operation/7d976c5734942c56b004/15",
+    "interaction": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/interaction/browser-bff/3891c3788728219f467e",
+    "implementation": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/method/7d976c5734942c56b004",
+    "method": "PUT",
+    "sourcePath": "/api/user/roles/${cdsid}?${new URLSearchParams({ requestReference })}",
+    "targetEntry": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/entry/rest/3550e92b1b03dd0170ef"
+  },
+  {
+    "path": "src/state/User/UserProvider.tsx",
+    "operation": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/operation/f4e7576fd819c9e98313/17",
+    "interaction": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/interaction/browser-bff/3ded721dcb2256840d2a",
+    "implementation": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/method/f4e7576fd819c9e98313",
+    "method": "DELETE",
+    "sourcePath": "/api/users/roles/${cdsid}/${policyId}?${new URLSearchParams({ requestReference })}",
+    "targetEntry": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/entry/rest/8897eacba43bb717b6cc"
+  },
+  {
+    "path": "src/state/User/UserProvider.tsx",
+    "operation": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/operation/79496c2a92661964739f/15",
+    "interaction": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/interaction/browser-bff/6f9b8dc8028659941497",
+    "implementation": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/method/79496c2a92661964739f",
+    "method": "DELETE",
+    "sourcePath": "/api/user/super-admin/${cdsid}?${new URLSearchParams({ requestReference })}",
+    "targetEntry": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/entry/rest/a6210b1bed82d740e90c"
+  }
+]

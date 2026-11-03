@@ -1,0 +1,21 @@
+{
+  "scope": "Combined review candidate, not changes to immutable native records",
+  "findings": [
+    {
+      "id": "topic-declarations-sharing-logical-id",
+      "recordKind": "runtime_component",
+      "logicalId": "topic:app5981.ps-recurring-charge-internal",
+      "records": [
+        "volvo/cds-paymentservice-scheduler/c00df60c8233/full-r1/revised/625a42d7fea8ea8a00b9",
+        "volvo/cds-paymentservice-transaction/return-contracts-r6/revised/280d05c1b8128c3f72a2"
+      ],
+      "status": "unresolved_cross_source_identity",
+      "reason": "Both source configurations use the same topic address. Matching names/logical IDs do not by themselves establish the same broker/profile/deployed destination. Keep declarations distinct until environment/transport correspondence is established; do not count record identities as a census of deployed components.",
+      "requiredEvidence": "Broker/profile/source configuration correspondence and message/schema compatibility before any delivery binding."
+    }
+  ],
+  "applicationAdoptionGates": [
+    "Historical/current registrations and internal processor views need distinct catalogue projections",
+    "Large endpoint expansion can exhaust control node budget before an outbound call is reached; an empty partial interaction view is not an absence claim. CaaS unsealed CreateRuleset is the current reproducer. A future hierarchical/source-dependency projection must declare its reachability/feasibility semantics separately from bounded path interactions."
+  ]
+}

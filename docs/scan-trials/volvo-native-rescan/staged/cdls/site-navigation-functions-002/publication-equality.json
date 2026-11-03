@@ -1,0 +1,8 @@
+{
+  "status": "passed",
+  "snapshot": "ceb4c52e4c43a47904357409f1ba2c04a2bdd8b4839ec68642e6c9989a1ea1e8",
+  "sourceBundleByteSha256": "ac1a8372b6977700c9df5d4ce42a72d1a38dc9e78c2a536f85039b66eaf2647b",
+  "gzipDecompression": "Exactly equal immutable Functions002 bytes",
+  "authorSealVerified": 22,
+  "supersession": "Independent normalized delta checked:5source shapes changed/4support records added/no execution graph changes"
+}

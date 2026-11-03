@@ -1,0 +1,359 @@
+{
+  "files": [
+    {
+      "path": ".github/CODEOWNERS",
+      "bytes": 279,
+      "sha256": "cf010a98b50d1e149ac944ec009ced12f3544c75e2b626c2bab818a7e39abb28",
+      "lines": 4,
+      "unavailable": false,
+      "review": "Full pinned source/declaration/document read",
+      "declarations": [],
+      "executableBodies": 0,
+      "registrations": 0
+    },
+    {
+      "path": "README.md",
+      "bytes": 1323,
+      "sha256": "12ddd1dc75dc3fc01bc4c906ece7b0a7c5e4af252c84e37a1fa4f8dcf21bc7ea",
+      "lines": 47,
+      "unavailable": false,
+      "review": "Full pinned source/declaration/document read",
+      "declarations": [],
+      "executableBodies": 0,
+      "registrations": 0
+    },
+    {
+      "path": "volvocars/contracts/carconfiguration/car-configuration.proto",
+      "bytes": 686,
+      "sha256": "c27a60d9d894f73f9195a07c0c3ac64fc2b61744fee634a52fb64804009fcc8e",
+      "lines": 33,
+      "unavailable": false,
+      "review": "Full pinned source/declaration/document read",
+      "declarations": [
+        "volvocars.contracts.carconfiguration.CarKey",
+        "volvocars.contracts.carconfiguration.CarConfigurationAdded",
+        "volvocars.contracts.carconfiguration.CarConfigurationRemoved"
+      ],
+      "executableBodies": 0,
+      "registrations": 0
+    },
+    {
+      "path": "volvocars/contracts/carconfiguration/car-sync.proto",
+      "bytes": 229,
+      "sha256": "8a1d4002acd872f8b5561f5b3195f507401b9ca6abbda3756fbc27c66171669d",
+      "lines": 13,
+      "unavailable": false,
+      "review": "Full pinned source/declaration/document read",
+      "declarations": [
+        "volvocars.contracts.carconfiguration.CarSyncCompleted",
+        "volvocars.contracts.carconfiguration.CarSyncFailed"
+      ],
+      "executableBodies": 0,
+      "registrations": 0
+    },
+    {
+      "path": "volvocars/contracts/carconfiguration/component.proto",
+      "bytes": 878,
+      "sha256": "a671561349c6b24c57bf55961f64b879cbdd6e11aa25baac03e44d29624ff91a",
+      "lines": 44,
+      "unavailable": false,
+      "review": "Full pinned source/declaration/document read",
+      "declarations": [
+        "volvocars.contracts.carconfiguration.Component",
+        "volvocars.contracts.carconfiguration.ComponentMeta",
+        "volvocars.contracts.carconfiguration.ComponentType",
+        "volvocars.contracts.carconfiguration.ComponentUpdated"
+      ],
+      "executableBodies": 0,
+      "registrations": 0
+    },
+    {
+      "path": "volvocars/contracts/carconfiguration/condition.proto",
+      "bytes": 324,
+      "sha256": "b568896b6a26dd76bfa1bdb56bcd70b29c6cb3957724b49551afe33199f75ae9",
+      "lines": 19,
+      "unavailable": false,
+      "review": "Full pinned source/declaration/document read",
+      "declarations": [
+        "volvocars.contracts.carconfiguration.Condition",
+        "volvocars.contracts.carconfiguration.SubCondition",
+        "volvocars.contracts.carconfiguration.Relation"
+      ],
+      "executableBodies": 0,
+      "registrations": 0
+    },
+    {
+      "path": "volvocars/contracts/carconfiguration/config-policy.proto",
+      "bytes": 2246,
+      "sha256": "fa8e8b46955fe0d904e8cb530e132b1c0a08adc882d05d38c0f3c17c6345f790",
+      "lines": 102,
+      "unavailable": false,
+      "review": "Full pinned source/declaration/document read",
+      "declarations": [
+        "volvocars.contracts.carconfiguration.ConfigPolicy",
+        "volvocars.contracts.carconfiguration.ConfigPolicyCreated",
+        "volvocars.contracts.carconfiguration.ConfigPolicyUpdated",
+        "volvocars.contracts.carconfiguration.ConfigPolicyDeleted",
+        "volvocars.contracts.carconfiguration.ConfigPolicyRulesUpdated",
+        "volvocars.contracts.carconfiguration.ActiveVersionChanged",
+        "volvocars.contracts.carconfiguration.Pno12RuleSetMeta",
+        "volvocars.contracts.carconfiguration.PolicyRulesUpdated",
+        "volvocars.contracts.carconfiguration.PolicyDeleted",
+        "volvocars.contracts.carconfiguration.PoliciesDeleted",
+        "volvocars.contracts.carconfiguration.PoliciesRulesUpdated",
+        "volvocars.contracts.carconfiguration.Pno12ActiveStatus",
+        "volvocars.contracts.carconfiguration.PolicyStatusUpdated",
+        "volvocars.contracts.carconfiguration.PolicyRulesSaved"
+      ],
+      "executableBodies": 0,
+      "registrations": 0
+    },
+    {
+      "path": "volvocars/contracts/carconfiguration/config-rules.proto",
+      "bytes": 1262,
+      "sha256": "ce993e006f2dc949cd5097e300b3d3dbdd8439f72163a52b48d551f1f96f79c8",
+      "lines": 58,
+      "unavailable": false,
+      "review": "Full pinned source/declaration/document read",
+      "declarations": [
+        "volvocars.contracts.carconfiguration.RulesImported",
+        "volvocars.contracts.carconfiguration.RuleSet",
+        "volvocars.contracts.carconfiguration.RuleSetCreated",
+        "volvocars.contracts.carconfiguration.ConfigRuleSet",
+        "volvocars.contracts.carconfiguration.ConfigRule",
+        "volvocars.contracts.carconfiguration.ConfigRulesCreated",
+        "volvocars.contracts.carconfiguration.ConfigRulesUpdated",
+        "volvocars.contracts.carconfiguration.StructureWeeksRuleSet",
+        "volvocars.contracts.carconfiguration.StructureWeeksRule"
+      ],
+      "executableBodies": 0,
+      "registrations": 0
+    },
+    {
+      "path": "volvocars/contracts/carconfiguration/consequence.proto",
+      "bytes": 560,
+      "sha256": "f88492989c2d36a3d33ecac82601da475391df39fd3c7d3eedd6f2c2cd0260b9",
+      "lines": 31,
+      "unavailable": false,
+      "review": "Full pinned source/declaration/document read",
+      "declarations": [
+        "volvocars.contracts.carconfiguration.Consequence",
+        "volvocars.contracts.carconfiguration.StructureWeeksConsequence",
+        "volvocars.contracts.carconfiguration.PriceRuleConsequence",
+        "volvocars.contracts.carconfiguration.RuleType"
+      ],
+      "executableBodies": 0,
+      "registrations": 0
+    },
+    {
+      "path": "volvocars/contracts/carconfiguration/cpam-ingress.proto",
+      "bytes": 1218,
+      "sha256": "c54a42cf8f8b470504c5e435f2fa57b274a39c1133736515ada078f2e9c7682e",
+      "lines": 53,
+      "unavailable": false,
+      "review": "Full pinned source/declaration/document read",
+      "declarations": [
+        "volvocars.contracts.carconfiguration.SpecMarketImported",
+        "volvocars.contracts.carconfiguration.Pno12ComponentsImported",
+        "volvocars.contracts.carconfiguration.Pno12ComponentMapping",
+        "volvocars.contracts.carconfiguration.Pno12RulesImported",
+        "volvocars.contracts.carconfiguration.SWmapping",
+        "volvocars.contracts.carconfiguration.StructureWeek",
+        "volvocars.contracts.carconfiguration.MarketAuthUpdated",
+        "volvocars.contracts.carconfiguration.MarketAuthsUpdated"
+      ],
+      "executableBodies": 0,
+      "registrations": 0
+    },
+    {
+      "path": "volvocars/contracts/carconfiguration/market-auth-identifier.proto",
+      "bytes": 167,
+      "sha256": "7b571fd1527380ee84e816a75d005bbb9d8c53263e721097a9f9705764ec81cf",
+      "lines": 8,
+      "unavailable": false,
+      "review": "Full pinned source/declaration/document read",
+      "declarations": ["volvocars.contracts.carconfiguration.MarketAuthIdentifier"],
+      "executableBodies": 0,
+      "registrations": 0
+    },
+    {
+      "path": "volvocars/contracts/carconfiguration/partnerDetailsFeed.proto",
+      "bytes": 674,
+      "sha256": "7ace702c26f5088c7a097d46020220a43bed70e4ba449ab135218014240e7729",
+      "lines": 32,
+      "unavailable": false,
+      "review": "Full pinned source/declaration/document read",
+      "declarations": [
+        "volvocars.contracts.carconfiguration.PartnerDetails",
+        "volvocars.contracts.carconfiguration.RetailData",
+        "volvocars.contracts.carconfiguration.PartnersDetailsData",
+        "volvocars.contracts.carconfiguration.ParterNames"
+      ],
+      "executableBodies": 0,
+      "registrations": 0
+    },
+    {
+      "path": "volvocars/contracts/carconfiguration/partnerNotify.proto",
+      "bytes": 578,
+      "sha256": "b20da16178e55f14061a68f1f1a35446f0b05f9925df18c51ec529df081dc8af",
+      "lines": 26,
+      "unavailable": false,
+      "review": "Full pinned source/declaration/document read",
+      "declarations": [
+        "volvocars.contracts.carconfiguration.PartnerNotificationData",
+        "volvocars.contracts.carconfiguration.PartnerNotification",
+        "volvocars.contracts.carconfiguration.PartnerNotifications"
+      ],
+      "executableBodies": 0,
+      "registrations": 0
+    },
+    {
+      "path": "volvocars/contracts/carconfiguration/rule-set.proto",
+      "bytes": 1204,
+      "sha256": "aff9ae493deb4430b925c7bc1cbb2b1d1ab791524d86fab6e1c485323773a177",
+      "lines": 52,
+      "unavailable": false,
+      "review": "Full pinned source/declaration/document read",
+      "declarations": [
+        "volvocars.contracts.carconfiguration.RuleSetStatus",
+        "volvocars.contracts.carconfiguration.RuleSetIndexed",
+        "volvocars.contracts.carconfiguration.RuleSetIndexingFailed",
+        "volvocars.contracts.carconfiguration.RuleSetRemoved",
+        "volvocars.contracts.carconfiguration.RuleSetRequestStatus",
+        "volvocars.contracts.carconfiguration.PolicyRuleSetsIndexed",
+        "volvocars.contracts.carconfiguration.PolicyRuleSetsIndexCreated",
+        "volvocars.contracts.carconfiguration.PolicyRuleSetsCacheWarmed"
+      ],
+      "executableBodies": 0,
+      "registrations": 0
+    },
+    {
+      "path": "volvocars/contracts/carconfiguration/rule.proto",
+      "bytes": 577,
+      "sha256": "b444016d6b53d09b929fb361ee8b46426123cac252f45a85a1355e23c7a7dd01",
+      "lines": 26,
+      "unavailable": false,
+      "review": "Full pinned source/declaration/document read",
+      "declarations": [
+        "volvocars.contracts.carconfiguration.Rule",
+        "volvocars.contracts.carconfiguration.Rule.Component",
+        "volvocars.contracts.carconfiguration.Rule.Condition"
+      ],
+      "executableBodies": 0,
+      "registrations": 0
+    },
+    {
+      "path": "volvocars/contracts/carconfiguration/v2/car-configuration-ruleset.proto",
+      "bytes": 1147,
+      "sha256": "0c4ad13a4ac1b2c90edd7f77c322a48974b2aef9eb430cc6476f4100701be883",
+      "lines": 49,
+      "unavailable": false,
+      "review": "Full pinned source/declaration/document read",
+      "declarations": [
+        "volvocars.contracts.carconfiguration.v2.CarConfigurationRuleset",
+        "volvocars.contracts.carconfiguration.v2.ConfigurationRuleset",
+        "volvocars.contracts.carconfiguration.v2.Polyhedron",
+        "volvocars.contracts.carconfiguration.v2.Row",
+        "volvocars.contracts.carconfiguration.v2.Components",
+        "volvocars.contracts.carconfiguration.v2.TimeBoundVariable",
+        "volvocars.contracts.carconfiguration.v2.Period"
+      ],
+      "executableBodies": 0,
+      "registrations": 0
+    },
+    {
+      "path": "volvocars/contracts/carconfiguration/v2/car-key.proto",
+      "bytes": 822,
+      "sha256": "0d91bc08f7cb983cd9e6281be41583cfa268b0d791e0fbdc9cf5d3338735136d",
+      "lines": 37,
+      "unavailable": false,
+      "review": "Full pinned source/declaration/document read",
+      "declarations": [
+        "volvocars.contracts.carconfiguration.v2.CarKey",
+        "volvocars.contracts.carconfiguration.v2.CarDetails",
+        "volvocars.contracts.carconfiguration.v2.CarKeyInPeriod"
+      ],
+      "executableBodies": 0,
+      "registrations": 0
+    },
+    {
+      "path": "volvocars/contracts/carconfiguration/v2/car-specification.proto",
+      "bytes": 4581,
+      "sha256": "fde43397cb23db59def178a595a5550afcde19ea8397742ba466799a00f207a2",
+      "lines": 181,
+      "unavailable": false,
+      "review": "Full pinned source/declaration/document read",
+      "declarations": [
+        "volvocars.contracts.carconfiguration.v2.CarSpecification",
+        "volvocars.contracts.carconfiguration.v2.SMessageSpecification",
+        "volvocars.contracts.carconfiguration.v2.SMessage",
+        "volvocars.contracts.carconfiguration.v2.StylingSpecification",
+        "volvocars.contracts.carconfiguration.v2.StylingCombination",
+        "volvocars.contracts.carconfiguration.v2.TimeBoundCode",
+        "volvocars.contracts.carconfiguration.v2.Color",
+        "volvocars.contracts.carconfiguration.v2.Upholstery",
+        "volvocars.contracts.carconfiguration.v2.OptionSpecification",
+        "volvocars.contracts.carconfiguration.v2.Option",
+        "volvocars.contracts.carconfiguration.v2.CombinedOptionRequirement",
+        "volvocars.contracts.carconfiguration.v2.PackageSpecification",
+        "volvocars.contracts.carconfiguration.v2.Package",
+        "volvocars.contracts.carconfiguration.v2.WheelSpecification",
+        "volvocars.contracts.carconfiguration.v2.Wheel",
+        "volvocars.contracts.carconfiguration.v2.TimeBoundExactlyOne",
+        "volvocars.contracts.carconfiguration.v2.ExactlyOne",
+        "volvocars.contracts.carconfiguration.v2.TimeBoundAtLeastOne",
+        "volvocars.contracts.carconfiguration.v2.Forbids",
+        "volvocars.contracts.carconfiguration.v2.CarSpecificationUpserted",
+        "volvocars.contracts.carconfiguration.v2.CarSpecificationRemoved",
+        "volvocars.contracts.carconfiguration.v2.MarketAuthIdentifier"
+      ],
+      "executableBodies": 0,
+      "registrations": 0
+    },
+    {
+      "path": "volvocars/contracts/carconfiguration/v2/components.proto",
+      "bytes": 455,
+      "sha256": "3caa7fc7f057e2ff9d4afb1432ee37b4650d49127874423e8cbcc5f48b7070b1",
+      "lines": 26,
+      "unavailable": false,
+      "review": "Full pinned source/declaration/document read",
+      "declarations": [
+        "volvocars.contracts.carconfiguration.v2.ComponentWithCarKeys",
+        "volvocars.contracts.carconfiguration.v2.Component",
+        "volvocars.contracts.carconfiguration.v2.PackageComponentWithCarKeys",
+        "volvocars.contracts.carconfiguration.v2.PackageComponent"
+      ],
+      "executableBodies": 0,
+      "registrations": 0
+    },
+    {
+      "path": "volvocars/contracts/carconfiguration/v2/selection.proto",
+      "bytes": 227,
+      "sha256": "1d00f69c86e40aed0f5fd85d62039b19494d490f1b5e15d92079daab2a326997",
+      "lines": 14,
+      "unavailable": false,
+      "review": "Full pinned source/declaration/document read",
+      "declarations": [
+        "volvocars.contracts.carconfiguration.v2.Selection",
+        "volvocars.contracts.carconfiguration.v2.Action"
+      ],
+      "executableBodies": 0,
+      "registrations": 0
+    },
+    {
+      "path": "volvocars/contracts/carconfiguration/v2/structure-week.proto",
+      "bytes": 223,
+      "sha256": "bd1a5ed8256bdf4308dabb5133fe547385f414b74535fbabf2036f13108ef4b3",
+      "lines": 13,
+      "unavailable": false,
+      "review": "Full pinned source/declaration/document read",
+      "declarations": [
+        "volvocars.contracts.carconfiguration.v2.StructureWeek",
+        "volvocars.contracts.carconfiguration.v2.StructureWeekPeriod"
+      ],
+      "executableBodies": 0,
+      "registrations": 0
+    }
+  ],
+  "unexaminedAvailableSource": []
+}

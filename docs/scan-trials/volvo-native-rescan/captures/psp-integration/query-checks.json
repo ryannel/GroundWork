@@ -1,0 +1,107 @@
+{
+  "status": "passed",
+  "snapshot": "83dca2d1f3de790273d6451f1ba875edfc6f9661680d0124077485d0aec4b24c",
+  "records": 1203,
+  "queries": {
+    "captureTrace": {
+      "nodes": 27,
+      "edges": 26,
+      "records": 158,
+      "sourceLinks": 60,
+      "limits": [],
+      "frontiers": ["version_unresolved", "version_unresolved"]
+    },
+    "captureInteractions": {
+      "nodes": 3,
+      "edges": 2,
+      "records": 109,
+      "sourceLinks": 46,
+      "limits": [],
+      "frontiers": [
+        "version_unresolved",
+        "version_unresolved",
+        "binding_unresolved",
+        "binding_unresolved"
+      ]
+    },
+    "capture200": {
+      "nodes": 18,
+      "edges": 17,
+      "records": 133,
+      "sourceLinks": 53,
+      "limits": [],
+      "frontiers": ["version_unresolved", "version_unresolved"]
+    },
+    "capture404": {
+      "nodes": 16,
+      "edges": 15,
+      "records": 113,
+      "sourceLinks": 41,
+      "limits": [],
+      "frontiers": ["version_unresolved"]
+    },
+    "captureProviderId": {
+      "nodes": 6,
+      "edges": 5,
+      "records": 76,
+      "sourceLinks": 32,
+      "limits": [],
+      "frontiers": ["version_unresolved"]
+    },
+    "captureParams": {
+      "nodes": 6,
+      "edges": 5,
+      "records": 82,
+      "sourceLinks": 35,
+      "limits": [],
+      "frontiers": ["version_unresolved", "version_unresolved"]
+    },
+    "refundTrace": {
+      "nodes": 28,
+      "edges": 28,
+      "records": 164,
+      "sourceLinks": 65,
+      "limits": [],
+      "frontiers": ["version_unresolved", "version_unresolved"]
+    },
+    "refundParams": {
+      "nodes": 9,
+      "edges": 8,
+      "records": 121,
+      "sourceLinks": 56,
+      "limits": [],
+      "frontiers": [
+        "version_unresolved",
+        "version_unresolved",
+        "version_unresolved",
+        "version_unresolved",
+        "version_unresolved",
+        "version_unresolved"
+      ]
+    },
+    "refundResponse": {
+      "nodes": 5,
+      "edges": 4,
+      "records": 100,
+      "sourceLinks": 48,
+      "limits": [],
+      "frontiers": ["version_unresolved", "version_unresolved"]
+    },
+    "schemas": {
+      "nodes": 0,
+      "edges": 0,
+      "records": 31,
+      "sourceLinks": 24,
+      "limits": [],
+      "frontiers": []
+    },
+    "effects": {
+      "nodes": 27,
+      "edges": 26,
+      "records": 158,
+      "sourceLinks": 60,
+      "limits": [],
+      "frontiers": ["version_unresolved", "version_unresolved"]
+    }
+  }
+}

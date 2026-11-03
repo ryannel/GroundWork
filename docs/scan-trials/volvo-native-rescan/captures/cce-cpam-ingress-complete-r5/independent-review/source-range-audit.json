@@ -1,0 +1,7 @@
+{
+  "status": "passed",
+  "snapshot": "9273eddda4c5fff911958b4a6b82143b69d166f1a50b66279bb19755660f27aa",
+  "evidenceRecords": 18713,
+  "uniqueFiles": 124,
+  "method": "Exact pinned Git bytes cached by host/repo/commit/path; every inclusive range validated; availability/bounds does not establish semantic correctness"
+}

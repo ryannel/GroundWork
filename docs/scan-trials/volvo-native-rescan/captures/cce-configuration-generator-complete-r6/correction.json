@@ -1,0 +1,25 @@
+{
+  "predecessorSnapshot": "ad0e9efd9dbc91d24235956f8ccfc9759ae2c905a64f122c005de66398fd50da",
+  "prefixMap": {
+    "/final-r5/": "/final-r6/"
+  },
+  "changedFacts": [
+    "volvo/cce-car-configuration-generator/c91f73a5a3b6/final-r6/body/shape/construction/93cda32de9473231c06d",
+    "volvo/cce-car-configuration-generator/c91f73a5a3b6/final-r6/body/value/member/82acbbe9f0f9de134461",
+    "volvo/cce-car-configuration-generator/c91f73a5a3b6/final-r6/body/flow/233e500c7487bf36b2fd",
+    "volvo/cce-car-configuration-generator/c91f73a5a3b6/final-r6/body/flow/d53756e2ff6e1dc25351"
+  ],
+  "addedFacts": [
+    "volvo/cce-car-configuration-generator/c91f73a5a3b6/final-r6/body/gap/computed-river-queue-key",
+    "volvo/cce-car-configuration-generator/c91f73a5a3b6/final-r6/body/shape/computed-river-queue-key",
+    "volvo/cce-car-configuration-generator/c91f73a5a3b6/final-r6/body/value/computed-river-queue-key",
+    "volvo/cce-car-configuration-generator/c91f73a5a3b6/final-r6/body/flow/computed-river-queue-key",
+    "volvo/cce-car-configuration-generator/c91f73a5a3b6/final-r6/body/claim/computed-river-queue-key",
+    "volvo/cce-car-configuration-generator/c91f73a5a3b6/final-r6/body/coverage/computed-river-queue-key"
+  ],
+  "recordCount": 137812,
+  "evidenceTuplesUnchanged": 8904,
+  "sourceVerificationReuse": "All8904 unchanged evidence tuples reuse the successfully verified immutable r5 selection; root had independently read the full queuedb source. No new source ranges introduced.",
+  "unchangedScope": "Every other record is exactly unchanged after prefix translation; no I/O, write, runtime host or control operation changes.",
+  "bundleByteSha256": "08d603daceda26732aa65ea3b11ea34e69764ccef874dc35c6708aa6d2f000a7"
+}

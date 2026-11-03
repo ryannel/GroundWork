@@ -1,0 +1,513 @@
+[
+  {
+    "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/2fa46faad38b5a28",
+    "path": "internal/api/httpserver/carspecifications/controller.go",
+    "lines": [104, 104],
+    "reason": "Source Go goroutine starts without result handle. Scheduler/interleaving/process-wide panic/recover effects are not established by local query frame separation.",
+    "gap": "cce-car-spec-adapter-667a00a-complete-r1/gap/execution/2fa46faad38b5a28/8a8fa44947d5c673"
+  },
+  {
+    "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/c7917c39e66c7fb8",
+    "path": "internal/api/httpserver/carspecifications/controller.go",
+    "lines": [144, 144],
+    "reason": "Source Go goroutine starts without result handle. Scheduler/interleaving/process-wide panic/recover effects are not established by local query frame separation.",
+    "gap": "cce-car-spec-adapter-667a00a-complete-r1/gap/execution/c7917c39e66c7fb8/17abfc3eab0b70aa"
+  },
+  {
+    "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/e8264b747c2fd051",
+    "path": "internal/api/httpserver/localeditions/controller.go",
+    "lines": [155, 155],
+    "reason": "Exact source decoding/out-pointer association through encoding/json.Decoder.Decode: req is supplied by address and read after the call. Post-call value is distinct from prior zero state and error result; conditional mutation, exact codec field contents and caller/callee alias joins remain query limitations.",
+    "gap": "cce-car-spec-adapter-667a00a-complete-r1/gap/execution/e8264b747c2fd051/be4c04abc1c24fe3"
+  },
+  {
+    "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/ecba0abc40dd852c",
+    "path": "internal/api/httpserver/middleware/panic.go",
+    "lines": [16, 16],
+    "reason": "Go panic value and local deferred-call associations retained; recover stack context and process-wide propagation are not mechanically established.",
+    "gap": "cce-car-spec-adapter-667a00a-complete-r1/gap/execution/ecba0abc40dd852c/54cc02eda6027cba"
+  },
+  {
+    "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/d8325224a9e1d372",
+    "path": "internal/app/app.go",
+    "lines": [175, 180],
+    "reason": "Source Go goroutine starts without result handle. Scheduler/interleaving/process-wide panic/recover effects are not established by local query frame separation.",
+    "gap": "cce-car-spec-adapter-667a00a-complete-r1/gap/execution/d8325224a9e1d372/0fe0151111e3db4d"
+  },
+  {
+    "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/4d5c377577f32db0",
+    "path": "internal/app/kafka.go",
+    "lines": [75, 80],
+    "reason": "Source Go goroutine starts without result handle. Scheduler/interleaving/process-wide panic/recover effects are not established by local query frame separation.",
+    "gap": "cce-car-spec-adapter-667a00a-complete-r1/gap/execution/4d5c377577f32db0/31ba03ad748d3788"
+  },
+  {
+    "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/babb773e4d14909a",
+    "path": "internal/app/telemetry.go",
+    "lines": [143, 146],
+    "reason": "Source Go goroutine starts without result handle. Scheduler/interleaving/process-wide panic/recover effects are not established by local query frame separation.",
+    "gap": "cce-car-spec-adapter-667a00a-complete-r1/gap/execution/babb773e4d14909a/49730ce0e7210d78"
+  },
+  {
+    "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/8a14e165dd684403",
+    "path": "internal/database/postgres/carspecrepository.go",
+    "lines": [50, 50],
+    "reason": "Exact local pointer-out mutation: carSpec is passed by address to row.Scan then read by local conversion. Post-call source value is retained separately from prior zero initialisation and Scan error result. Imported decoding/heap contents are not mechanically inferred.",
+    "gap": "cce-car-spec-adapter-667a00a-complete-r1/gap/execution/8a14e165dd684403/ff5d9cf66484b64b"
+  },
+  {
+    "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/a19af72385f3a93a",
+    "path": "internal/database/postgres/carspecrepository.go",
+    "lines": [85, 85],
+    "reason": "Deferred source invocation after evaluating return values. Registration-time argument values and LIFO call are retained; defer mutation of named result cells, panic/recover stack policy and heap alias effects are not automatically solved.",
+    "gap": "cce-car-spec-adapter-667a00a-complete-r1/gap/execution/a19af72385f3a93a/909b55a7b05eeb43"
+  },
+  {
+    "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/a19af72385f3a93a",
+    "path": "internal/database/postgres/carspecrepository.go",
+    "lines": [85, 85],
+    "reason": "Deferred source invocation after evaluating return values. Registration-time argument values and LIFO call are retained; defer mutation of named result cells, panic/recover stack policy and heap alias effects are not automatically solved.",
+    "gap": "cce-car-spec-adapter-667a00a-complete-r1/gap/execution/a19af72385f3a93a/909b55a7b05eeb43"
+  },
+  {
+    "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/2f21273e2ff78827",
+    "path": "internal/database/postgres/carspecrepository.go",
+    "lines": [101, 101],
+    "reason": "Exact local pointer-out mutation: carSpec is passed by address to row.Scan then read by local conversion. Post-call source value is retained separately from prior zero initialisation and Scan error result. Imported decoding/heap contents are not mechanically inferred.",
+    "gap": "cce-car-spec-adapter-667a00a-complete-r1/gap/execution/2f21273e2ff78827/15f10ade563c964f"
+  },
+  {
+    "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/01a7b30e3caf8b8a",
+    "path": "internal/database/postgres/carspecrepository.go",
+    "lines": [125, 125],
+    "reason": "Deferred source invocation after evaluating return values. Registration-time argument values and LIFO call are retained; defer mutation of named result cells, panic/recover stack policy and heap alias effects are not automatically solved.",
+    "gap": "cce-car-spec-adapter-667a00a-complete-r1/gap/execution/01a7b30e3caf8b8a/bceb3c38c7943a86"
+  },
+  {
+    "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/01a7b30e3caf8b8a",
+    "path": "internal/database/postgres/carspecrepository.go",
+    "lines": [125, 125],
+    "reason": "Deferred source invocation after evaluating return values. Registration-time argument values and LIFO call are retained; defer mutation of named result cells, panic/recover stack policy and heap alias effects are not automatically solved.",
+    "gap": "cce-car-spec-adapter-667a00a-complete-r1/gap/execution/01a7b30e3caf8b8a/bceb3c38c7943a86"
+  },
+  {
+    "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/43c53163c1240f45",
+    "path": "internal/database/postgres/carspecrepository.go",
+    "lines": [257, 257],
+    "reason": "Exact local pointer-out mutation: id is passed by address to row.Scan then read by local conversion. Post-call source value is retained separately from prior zero initialisation and Scan error result. Imported decoding/heap contents are not mechanically inferred.",
+    "gap": "cce-car-spec-adapter-667a00a-complete-r1/gap/execution/43c53163c1240f45/10745d0e94468908"
+  },
+  {
+    "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/e69f427d49f9e1e3",
+    "path": "internal/database/postgres/localeditionrepository.go",
+    "lines": [72, 72],
+    "reason": "Deferred source invocation after evaluating return values. Registration-time argument values and LIFO call are retained; defer mutation of named result cells, panic/recover stack policy and heap alias effects are not automatically solved.",
+    "gap": "cce-car-spec-adapter-667a00a-complete-r1/gap/execution/e69f427d49f9e1e3/683fa826edc53d55"
+  },
+  {
+    "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/a1c763c21b2234d2",
+    "path": "internal/database/postgres/localeditionrepository.go",
+    "lines": [85, 85],
+    "reason": "Deferred source invocation after evaluating return values. Registration-time argument values and LIFO call are retained; defer mutation of named result cells, panic/recover stack policy and heap alias effects are not automatically solved.",
+    "gap": "cce-car-spec-adapter-667a00a-complete-r1/gap/execution/a1c763c21b2234d2/e8e12bb675e933fa"
+  },
+  {
+    "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/a1c763c21b2234d2",
+    "path": "internal/database/postgres/localeditionrepository.go",
+    "lines": [85, 85],
+    "reason": "Deferred source invocation after evaluating return values. Registration-time argument values and LIFO call are retained; defer mutation of named result cells, panic/recover stack policy and heap alias effects are not automatically solved.",
+    "gap": "cce-car-spec-adapter-667a00a-complete-r1/gap/execution/a1c763c21b2234d2/e8e12bb675e933fa"
+  },
+  {
+    "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/a1c763c21b2234d2",
+    "path": "internal/database/postgres/localeditionrepository.go",
+    "lines": [85, 85],
+    "reason": "Deferred source invocation after evaluating return values. Registration-time argument values and LIFO call are retained; defer mutation of named result cells, panic/recover stack policy and heap alias effects are not automatically solved.",
+    "gap": "cce-car-spec-adapter-667a00a-complete-r1/gap/execution/a1c763c21b2234d2/e8e12bb675e933fa"
+  },
+  {
+    "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/d836aaed71a5d331",
+    "path": "internal/database/postgres/localeditionrepository.go",
+    "lines": [119, 119],
+    "reason": "Deferred source invocation after evaluating return values. Registration-time argument values and LIFO call are retained; defer mutation of named result cells, panic/recover stack policy and heap alias effects are not automatically solved.",
+    "gap": "cce-car-spec-adapter-667a00a-complete-r1/gap/execution/d836aaed71a5d331/a094519833dcae94"
+  },
+  {
+    "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/77edc4870f674fef",
+    "path": "internal/database/postgres/localeditionrepository.go",
+    "lines": [132, 132],
+    "reason": "Deferred source invocation after evaluating return values. Registration-time argument values and LIFO call are retained; defer mutation of named result cells, panic/recover stack policy and heap alias effects are not automatically solved.",
+    "gap": "cce-car-spec-adapter-667a00a-complete-r1/gap/execution/77edc4870f674fef/15c4ed558f09a84c"
+  },
+  {
+    "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/77edc4870f674fef",
+    "path": "internal/database/postgres/localeditionrepository.go",
+    "lines": [132, 132],
+    "reason": "Deferred source invocation after evaluating return values. Registration-time argument values and LIFO call are retained; defer mutation of named result cells, panic/recover stack policy and heap alias effects are not automatically solved.",
+    "gap": "cce-car-spec-adapter-667a00a-complete-r1/gap/execution/77edc4870f674fef/15c4ed558f09a84c"
+  },
+  {
+    "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/77edc4870f674fef",
+    "path": "internal/database/postgres/localeditionrepository.go",
+    "lines": [132, 132],
+    "reason": "Deferred source invocation after evaluating return values. Registration-time argument values and LIFO call are retained; defer mutation of named result cells, panic/recover stack policy and heap alias effects are not automatically solved.",
+    "gap": "cce-car-spec-adapter-667a00a-complete-r1/gap/execution/77edc4870f674fef/15c4ed558f09a84c"
+  },
+  {
+    "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/427b45d65ced347b",
+    "path": "internal/database/postgres/localeditionrepository.go",
+    "lines": [294, 294],
+    "reason": "Exact local pointer-out mutation: modelYearInt is passed by address to row.Scan then read by local conversion. Post-call source value is retained separately from prior zero initialisation and Scan error result. Imported decoding/heap contents are not mechanically inferred.",
+    "gap": "cce-car-spec-adapter-667a00a-complete-r1/gap/execution/427b45d65ced347b/339afb6e76a1a579"
+  },
+  {
+    "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/427b45d65ced347b",
+    "path": "internal/database/postgres/localeditionrepository.go",
+    "lines": [294, 294],
+    "reason": "Exact local pointer-out mutation: pno12Str is passed by address to row.Scan then read by local conversion. Post-call source value is retained separately from prior zero initialisation and Scan error result. Imported decoding/heap contents are not mechanically inferred.",
+    "gap": "cce-car-spec-adapter-667a00a-complete-r1/gap/execution/427b45d65ced347b/fb3119566baf6abd"
+  },
+  {
+    "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/427b45d65ced347b",
+    "path": "internal/database/postgres/localeditionrepository.go",
+    "lines": [294, 294],
+    "reason": "Exact local pointer-out mutation: specMarketStr is passed by address to row.Scan then read by local conversion. Post-call source value is retained separately from prior zero initialisation and Scan error result. Imported decoding/heap contents are not mechanically inferred.",
+    "gap": "cce-car-spec-adapter-667a00a-complete-r1/gap/execution/427b45d65ced347b/868b02ea606aa03e"
+  },
+  {
+    "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/427b45d65ced347b",
+    "path": "internal/database/postgres/localeditionrepository.go",
+    "lines": [294, 294],
+    "reason": "Exact local pointer-out mutation: localEditionCode is passed by address to row.Scan then read by local conversion. Post-call source value is retained separately from prior zero initialisation and Scan error result. Imported decoding/heap contents are not mechanically inferred.",
+    "gap": "cce-car-spec-adapter-667a00a-complete-r1/gap/execution/427b45d65ced347b/a3e6d8540b1b57ee"
+  },
+  {
+    "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/0aa6476f2a600028",
+    "path": "internal/fake/fake.go",
+    "lines": [25, 25],
+    "reason": "Go panic value and local deferred-call associations retained; recover stack context and process-wide propagation are not mechanically established.",
+    "gap": "cce-car-spec-adapter-667a00a-complete-r1/gap/execution/0aa6476f2a600028/f74ecd35a2ee8bad"
+  },
+  {
+    "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/1014a9f4a6e1f565",
+    "path": "internal/gateway/assortment/client.go",
+    "lines": [87, 87],
+    "reason": "Exact source decoding/out-pointer association through Available local doRequest response-formal to decoder alias: response is supplied by address and read after the call. Post-call value is distinct from prior zero state and error result; conditional mutation, exact codec field contents and caller/callee alias joins remain query limitations.",
+    "gap": "cce-car-spec-adapter-667a00a-complete-r1/gap/execution/1014a9f4a6e1f565/4f9e16a59ff2febd"
+  },
+  {
+    "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/975f54a44d9abfaa",
+    "path": "internal/gateway/assortment/client.go",
+    "lines": [125, 125],
+    "reason": "Deferred source invocation after evaluating return values. Registration-time argument values and LIFO call are retained; defer mutation of named result cells, panic/recover stack policy and heap alias effects are not automatically solved.",
+    "gap": "cce-car-spec-adapter-667a00a-complete-r1/gap/execution/975f54a44d9abfaa/f7033339d621d52a"
+  },
+  {
+    "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/975f54a44d9abfaa",
+    "path": "internal/gateway/assortment/client.go",
+    "lines": [125, 125],
+    "reason": "Deferred source invocation after evaluating return values. Registration-time argument values and LIFO call are retained; defer mutation of named result cells, panic/recover stack policy and heap alias effects are not automatically solved.",
+    "gap": "cce-car-spec-adapter-667a00a-complete-r1/gap/execution/975f54a44d9abfaa/f7033339d621d52a"
+  },
+  {
+    "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/975f54a44d9abfaa",
+    "path": "internal/gateway/assortment/client.go",
+    "lines": [125, 125],
+    "reason": "Deferred source invocation after evaluating return values. Registration-time argument values and LIFO call are retained; defer mutation of named result cells, panic/recover stack policy and heap alias effects are not automatically solved.",
+    "gap": "cce-car-spec-adapter-667a00a-complete-r1/gap/execution/975f54a44d9abfaa/f7033339d621d52a"
+  },
+  {
+    "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/975f54a44d9abfaa",
+    "path": "internal/gateway/assortment/client.go",
+    "lines": [125, 125],
+    "reason": "Deferred source invocation after evaluating return values. Registration-time argument values and LIFO call are retained; defer mutation of named result cells, panic/recover stack policy and heap alias effects are not automatically solved.",
+    "gap": "cce-car-spec-adapter-667a00a-complete-r1/gap/execution/975f54a44d9abfaa/f7033339d621d52a"
+  },
+  {
+    "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/21008b684662a2e4",
+    "path": "internal/gateway/assortment/client.go",
+    "lines": [176, 176],
+    "reason": "Deferred source invocation after evaluating return values. Registration-time argument values and LIFO call are retained; defer mutation of named result cells, panic/recover stack policy and heap alias effects are not automatically solved.",
+    "gap": "cce-car-spec-adapter-667a00a-complete-r1/gap/execution/21008b684662a2e4/5f8833f410743b28"
+  },
+  {
+    "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/21008b684662a2e4",
+    "path": "internal/gateway/assortment/client.go",
+    "lines": [176, 176],
+    "reason": "Deferred source invocation after evaluating return values. Registration-time argument values and LIFO call are retained; defer mutation of named result cells, panic/recover stack policy and heap alias effects are not automatically solved.",
+    "gap": "cce-car-spec-adapter-667a00a-complete-r1/gap/execution/21008b684662a2e4/5f8833f410743b28"
+  },
+  {
+    "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/21008b684662a2e4",
+    "path": "internal/gateway/assortment/client.go",
+    "lines": [176, 176],
+    "reason": "Deferred source invocation after evaluating return values. Registration-time argument values and LIFO call are retained; defer mutation of named result cells, panic/recover stack policy and heap alias effects are not automatically solved.",
+    "gap": "cce-car-spec-adapter-667a00a-complete-r1/gap/execution/21008b684662a2e4/5f8833f410743b28"
+  },
+  {
+    "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/21008b684662a2e4",
+    "path": "internal/gateway/assortment/client.go",
+    "lines": [176, 176],
+    "reason": "Deferred source invocation after evaluating return values. Registration-time argument values and LIFO call are retained; defer mutation of named result cells, panic/recover stack policy and heap alias effects are not automatically solved.",
+    "gap": "cce-car-spec-adapter-667a00a-complete-r1/gap/execution/21008b684662a2e4/5f8833f410743b28"
+  },
+  {
+    "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/d239dab50df222cd",
+    "path": "internal/gateway/assortment/client.go",
+    "lines": [227, 227],
+    "reason": "Deferred source invocation after evaluating return values. Registration-time argument values and LIFO call are retained; defer mutation of named result cells, panic/recover stack policy and heap alias effects are not automatically solved.",
+    "gap": "cce-car-spec-adapter-667a00a-complete-r1/gap/execution/d239dab50df222cd/f7c1437b3183d7bb"
+  },
+  {
+    "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/d239dab50df222cd",
+    "path": "internal/gateway/assortment/client.go",
+    "lines": [227, 227],
+    "reason": "Deferred source invocation after evaluating return values. Registration-time argument values and LIFO call are retained; defer mutation of named result cells, panic/recover stack policy and heap alias effects are not automatically solved.",
+    "gap": "cce-car-spec-adapter-667a00a-complete-r1/gap/execution/d239dab50df222cd/f7c1437b3183d7bb"
+  },
+  {
+    "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/d239dab50df222cd",
+    "path": "internal/gateway/assortment/client.go",
+    "lines": [227, 227],
+    "reason": "Deferred source invocation after evaluating return values. Registration-time argument values and LIFO call are retained; defer mutation of named result cells, panic/recover stack policy and heap alias effects are not automatically solved.",
+    "gap": "cce-car-spec-adapter-667a00a-complete-r1/gap/execution/d239dab50df222cd/f7c1437b3183d7bb"
+  },
+  {
+    "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/d239dab50df222cd",
+    "path": "internal/gateway/assortment/client.go",
+    "lines": [227, 227],
+    "reason": "Deferred source invocation after evaluating return values. Registration-time argument values and LIFO call are retained; defer mutation of named result cells, panic/recover stack policy and heap alias effects are not automatically solved.",
+    "gap": "cce-car-spec-adapter-667a00a-complete-r1/gap/execution/d239dab50df222cd/f7c1437b3183d7bb"
+  },
+  {
+    "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/957667bccf50d015",
+    "path": "internal/gateway/assortment/parse/parseica.go",
+    "lines": [38, 38],
+    "reason": "Exact source decoding/out-pointer association through encoding/json.Unmarshal: record is supplied by address and read after the call. Post-call value is distinct from prior zero state and error result; conditional mutation, exact codec field contents and caller/callee alias joins remain query limitations.",
+    "gap": "cce-car-spec-adapter-667a00a-complete-r1/gap/execution/957667bccf50d015/2ff2f1035ce0bf94"
+  },
+  {
+    "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/629036bdb320b11d",
+    "path": "internal/gateway/assortment/parse/parseicc.go",
+    "lines": [53, 53],
+    "reason": "Exact source decoding/out-pointer association through encoding/json.Unmarshal: record is supplied by address and read after the call. Post-call value is distinct from prior zero state and error result; conditional mutation, exact codec field contents and caller/callee alias joins remain query limitations.",
+    "gap": "cce-car-spec-adapter-667a00a-complete-r1/gap/execution/629036bdb320b11d/96b737f164d99930"
+  },
+  {
+    "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/83a43fadbaac097d",
+    "path": "internal/gateway/assortment/parse/parseicm.go",
+    "lines": [38, 38],
+    "reason": "Exact source decoding/out-pointer association through encoding/json.Unmarshal: record is supplied by address and read after the call. Post-call value is distinct from prior zero state and error result; conditional mutation, exact codec field contents and caller/callee alias joins remain query limitations.",
+    "gap": "cce-car-spec-adapter-667a00a-complete-r1/gap/execution/83a43fadbaac097d/940a85645f09b8a3"
+  },
+  {
+    "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/57247f00a62abcab",
+    "path": "internal/gateway/assortment/parse/parseicn.go",
+    "lines": [38, 38],
+    "reason": "Exact source decoding/out-pointer association through encoding/json.Unmarshal: record is supplied by address and read after the call. Post-call value is distinct from prior zero state and error result; conditional mutation, exact codec field contents and caller/callee alias joins remain query limitations.",
+    "gap": "cce-car-spec-adapter-667a00a-complete-r1/gap/execution/57247f00a62abcab/b4abf50265b4f8fd"
+  },
+  {
+    "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/ba0b039e527659c3",
+    "path": "internal/gateway/assortment/parse/parseicp.go",
+    "lines": [53, 53],
+    "reason": "Exact source decoding/out-pointer association through encoding/json.Unmarshal: record is supplied by address and read after the call. Post-call value is distinct from prior zero state and error result; conditional mutation, exact codec field contents and caller/callee alias joins remain query limitations.",
+    "gap": "cce-car-spec-adapter-667a00a-complete-r1/gap/execution/ba0b039e527659c3/20a14b31a07f0456"
+  },
+  {
+    "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/334b21cb4da000f8",
+    "path": "internal/gateway/assortment/parse/parseicr.go",
+    "lines": [53, 53],
+    "reason": "Exact source decoding/out-pointer association through encoding/json.Unmarshal: record is supplied by address and read after the call. Post-call value is distinct from prior zero state and error result; conditional mutation, exact codec field contents and caller/callee alias joins remain query limitations.",
+    "gap": "cce-car-spec-adapter-667a00a-complete-r1/gap/execution/334b21cb4da000f8/9bb052fe726e21c7"
+  },
+  {
+    "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/aab3015d7afd7277",
+    "path": "internal/gateway/assortment/parse/parseics.go",
+    "lines": [53, 53],
+    "reason": "Exact source decoding/out-pointer association through encoding/json.Unmarshal: record is supplied by address and read after the call. Post-call value is distinct from prior zero state and error result; conditional mutation, exact codec field contents and caller/callee alias joins remain query limitations.",
+    "gap": "cce-car-spec-adapter-667a00a-complete-r1/gap/execution/aab3015d7afd7277/145d878a78806bd1"
+  },
+  {
+    "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/b0cc2685cf4ac219",
+    "path": "internal/gateway/assortment/parse/parseicv.go",
+    "lines": [53, 53],
+    "reason": "Exact source decoding/out-pointer association through encoding/json.Unmarshal: record is supplied by address and read after the call. Post-call value is distinct from prior zero state and error result; conditional mutation, exact codec field contents and caller/callee alias joins remain query limitations.",
+    "gap": "cce-car-spec-adapter-667a00a-complete-r1/gap/execution/b0cc2685cf4ac219/71e5f7d787d106c4"
+  },
+  {
+    "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/f0f8ed40c2f29652",
+    "path": "internal/gateway/assortment/pcgmodel.go",
+    "lines": [123, 123],
+    "reason": "Exact source decoding/out-pointer association through encoding/json.Unmarshal: doc is supplied by address and read after the call. Post-call value is distinct from prior zero state and error result; conditional mutation, exact codec field contents and caller/callee alias joins remain query limitations.",
+    "gap": "cce-car-spec-adapter-667a00a-complete-r1/gap/execution/f0f8ed40c2f29652/87613af6641e3e5b"
+  },
+  {
+    "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/50b82c5c1d208394",
+    "path": "internal/gateway/carfeatures/client.go",
+    "lines": [77, 77],
+    "reason": "Deferred source invocation after evaluating return values. Registration-time argument values and LIFO call are retained; defer mutation of named result cells, panic/recover stack policy and heap alias effects are not automatically solved.",
+    "gap": "cce-car-spec-adapter-667a00a-complete-r1/gap/execution/50b82c5c1d208394/c415da538b5a56e1"
+  },
+  {
+    "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/50b82c5c1d208394",
+    "path": "internal/gateway/carfeatures/client.go",
+    "lines": [77, 77],
+    "reason": "Deferred source invocation after evaluating return values. Registration-time argument values and LIFO call are retained; defer mutation of named result cells, panic/recover stack policy and heap alias effects are not automatically solved.",
+    "gap": "cce-car-spec-adapter-667a00a-complete-r1/gap/execution/50b82c5c1d208394/c415da538b5a56e1"
+  },
+  {
+    "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/50b82c5c1d208394",
+    "path": "internal/gateway/carfeatures/client.go",
+    "lines": [87, 87],
+    "reason": "Exact source decoding/out-pointer association through encoding/json.Decoder.Decode: response is supplied by address and read after the call. Post-call value is distinct from prior zero state and error result; conditional mutation, exact codec field contents and caller/callee alias joins remain query limitations.",
+    "gap": "cce-car-spec-adapter-667a00a-complete-r1/gap/execution/50b82c5c1d208394/6e295e7a875096f3"
+  },
+  {
+    "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/50b82c5c1d208394",
+    "path": "internal/gateway/carfeatures/client.go",
+    "lines": [77, 77],
+    "reason": "Deferred source invocation after evaluating return values. Registration-time argument values and LIFO call are retained; defer mutation of named result cells, panic/recover stack policy and heap alias effects are not automatically solved.",
+    "gap": "cce-car-spec-adapter-667a00a-complete-r1/gap/execution/50b82c5c1d208394/c415da538b5a56e1"
+  },
+  {
+    "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/50b82c5c1d208394",
+    "path": "internal/gateway/carfeatures/client.go",
+    "lines": [77, 77],
+    "reason": "Deferred source invocation after evaluating return values. Registration-time argument values and LIFO call are retained; defer mutation of named result cells, panic/recover stack policy and heap alias effects are not automatically solved.",
+    "gap": "cce-car-spec-adapter-667a00a-complete-r1/gap/execution/50b82c5c1d208394/c415da538b5a56e1"
+  },
+  {
+    "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/d63a91db38df27b0",
+    "path": "internal/gateway/carfeatures/client.go",
+    "lines": [107, 107],
+    "reason": "Exact source decoding/out-pointer association through Available local doRequest response-formal to decoder alias: response is supplied by address and read after the call. Post-call value is distinct from prior zero state and error result; conditional mutation, exact codec field contents and caller/callee alias joins remain query limitations.",
+    "gap": "cce-car-spec-adapter-667a00a-complete-r1/gap/execution/d63a91db38df27b0/94d007199dcfbfe8"
+  },
+  {
+    "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/a2f935454d998689",
+    "path": "internal/gateway/carfeatures/client.go",
+    "lines": [127, 127],
+    "reason": "Exact source decoding/out-pointer association through Available local doRequest response-formal to decoder alias: response is supplied by address and read after the call. Post-call value is distinct from prior zero state and error result; conditional mutation, exact codec field contents and caller/callee alias joins remain query limitations.",
+    "gap": "cce-car-spec-adapter-667a00a-complete-r1/gap/execution/a2f935454d998689/33bbb250acbe41ee"
+  },
+  {
+    "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/4edbed7ba8c926c8",
+    "path": "internal/gateway/client/tokensource.go",
+    "lines": [80, 80],
+    "reason": "Deferred source invocation after evaluating return values. Registration-time argument values and LIFO call are retained; defer mutation of named result cells, panic/recover stack policy and heap alias effects are not automatically solved.",
+    "gap": "cce-car-spec-adapter-667a00a-complete-r1/gap/execution/4edbed7ba8c926c8/014140f56e451ee2"
+  },
+  {
+    "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/4edbed7ba8c926c8",
+    "path": "internal/gateway/client/tokensource.go",
+    "lines": [87, 87],
+    "reason": "Exact source decoding/out-pointer association through encoding/json.Decoder.Decode: token is supplied by address and read after the call. Post-call value is distinct from prior zero state and error result; conditional mutation, exact codec field contents and caller/callee alias joins remain query limitations.",
+    "gap": "cce-car-spec-adapter-667a00a-complete-r1/gap/execution/4edbed7ba8c926c8/7d8dc51f529cc22e"
+  },
+  {
+    "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/4edbed7ba8c926c8",
+    "path": "internal/gateway/client/tokensource.go",
+    "lines": [80, 80],
+    "reason": "Deferred source invocation after evaluating return values. Registration-time argument values and LIFO call are retained; defer mutation of named result cells, panic/recover stack policy and heap alias effects are not automatically solved.",
+    "gap": "cce-car-spec-adapter-667a00a-complete-r1/gap/execution/4edbed7ba8c926c8/014140f56e451ee2"
+  },
+  {
+    "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/4edbed7ba8c926c8",
+    "path": "internal/gateway/client/tokensource.go",
+    "lines": [80, 80],
+    "reason": "Deferred source invocation after evaluating return values. Registration-time argument values and LIFO call are retained; defer mutation of named result cells, panic/recover stack policy and heap alias effects are not automatically solved.",
+    "gap": "cce-car-spec-adapter-667a00a-complete-r1/gap/execution/4edbed7ba8c926c8/014140f56e451ee2"
+  },
+  {
+    "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/4edbed7ba8c926c8",
+    "path": "internal/gateway/client/tokensource.go",
+    "lines": [80, 80],
+    "reason": "Deferred source invocation after evaluating return values. Registration-time argument values and LIFO call are retained; defer mutation of named result cells, panic/recover stack policy and heap alias effects are not automatically solved.",
+    "gap": "cce-car-spec-adapter-667a00a-complete-r1/gap/execution/4edbed7ba8c926c8/014140f56e451ee2"
+  },
+  {
+    "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/76ab54fe28cb1659",
+    "path": "internal/gateway/cpam/client.go",
+    "lines": [74, 74],
+    "reason": "Deferred source invocation after evaluating return values. Registration-time argument values and LIFO call are retained; defer mutation of named result cells, panic/recover stack policy and heap alias effects are not automatically solved.",
+    "gap": "cce-car-spec-adapter-667a00a-complete-r1/gap/execution/76ab54fe28cb1659/49031289f926daa5"
+  },
+  {
+    "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/76ab54fe28cb1659",
+    "path": "internal/gateway/cpam/client.go",
+    "lines": [81, 81],
+    "reason": "Exact source decoding/out-pointer association through encoding/xml.Decoder.Decode: result is supplied by address and read after the call. Post-call value is distinct from prior zero state and error result; conditional mutation, exact codec field contents and caller/callee alias joins remain query limitations.",
+    "gap": "cce-car-spec-adapter-667a00a-complete-r1/gap/execution/76ab54fe28cb1659/12f063b1c6262b74"
+  },
+  {
+    "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/76ab54fe28cb1659",
+    "path": "internal/gateway/cpam/client.go",
+    "lines": [74, 74],
+    "reason": "Deferred source invocation after evaluating return values. Registration-time argument values and LIFO call are retained; defer mutation of named result cells, panic/recover stack policy and heap alias effects are not automatically solved.",
+    "gap": "cce-car-spec-adapter-667a00a-complete-r1/gap/execution/76ab54fe28cb1659/49031289f926daa5"
+  },
+  {
+    "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/76ab54fe28cb1659",
+    "path": "internal/gateway/cpam/client.go",
+    "lines": [74, 74],
+    "reason": "Deferred source invocation after evaluating return values. Registration-time argument values and LIFO call are retained; defer mutation of named result cells, panic/recover stack policy and heap alias effects are not automatically solved.",
+    "gap": "cce-car-spec-adapter-667a00a-complete-r1/gap/execution/76ab54fe28cb1659/49031289f926daa5"
+  },
+  {
+    "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/a43d55593e2e1399",
+    "path": "internal/gateway/filterservice/client.go",
+    "lines": [73, 73],
+    "reason": "Deferred source invocation after evaluating return values. Registration-time argument values and LIFO call are retained; defer mutation of named result cells, panic/recover stack policy and heap alias effects are not automatically solved.",
+    "gap": "cce-car-spec-adapter-667a00a-complete-r1/gap/execution/a43d55593e2e1399/3578a459aed7c8d1"
+  },
+  {
+    "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/a43d55593e2e1399",
+    "path": "internal/gateway/filterservice/client.go",
+    "lines": [80, 80],
+    "reason": "Exact source decoding/out-pointer association through encoding/json.Decoder.Decode: wheelCodes is supplied by address and read after the call. Post-call value is distinct from prior zero state and error result; conditional mutation, exact codec field contents and caller/callee alias joins remain query limitations.",
+    "gap": "cce-car-spec-adapter-667a00a-complete-r1/gap/execution/a43d55593e2e1399/d2b1892b11cbebbb"
+  },
+  {
+    "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/a43d55593e2e1399",
+    "path": "internal/gateway/filterservice/client.go",
+    "lines": [73, 73],
+    "reason": "Deferred source invocation after evaluating return values. Registration-time argument values and LIFO call are retained; defer mutation of named result cells, panic/recover stack policy and heap alias effects are not automatically solved.",
+    "gap": "cce-car-spec-adapter-667a00a-complete-r1/gap/execution/a43d55593e2e1399/3578a459aed7c8d1"
+  },
+  {
+    "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/a43d55593e2e1399",
+    "path": "internal/gateway/filterservice/client.go",
+    "lines": [73, 73],
+    "reason": "Deferred source invocation after evaluating return values. Registration-time argument values and LIFO call are retained; defer mutation of named result cells, panic/recover stack policy and heap alias effects are not automatically solved.",
+    "gap": "cce-car-spec-adapter-667a00a-complete-r1/gap/execution/a43d55593e2e1399/3578a459aed7c8d1"
+  },
+  {
+    "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/45eb4068db5384be",
+    "path": "internal/messaging/marketauthmessagehandler.go",
+    "lines": [53, 53],
+    "reason": "Exact source decoding/out-pointer association through google.golang.org/protobuf/proto.Unmarshal: marketAuthMsg is supplied by address and read after the call. Post-call value is distinct from prior zero state and error result; conditional mutation, exact codec field contents and caller/callee alias joins remain query limitations.",
+    "gap": "cce-car-spec-adapter-667a00a-complete-r1/gap/execution/45eb4068db5384be/84c2b7d73f560c1a"
+  },
+  {
+    "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/c44b748d0f6b15da",
+    "path": "internal/messaging/marketauthmessagehandler.go",
+    "lines": [93, 93],
+    "reason": "Exact source decoding/out-pointer association through google.golang.org/protobuf/proto.Unmarshal: pcgMsg is supplied by address and read after the call. Post-call value is distinct from prior zero state and error result; conditional mutation, exact codec field contents and caller/callee alias joins remain query limitations.",
+    "gap": "cce-car-spec-adapter-667a00a-complete-r1/gap/execution/c44b748d0f6b15da/98a300899acd5a44"
+  },
+  {
+    "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/1747b23921c9e894",
+    "path": "internal/messaging/telemetry.go",
+    "lines": [50, 64],
+    "reason": "Deferred source invocation after evaluating return values. Registration-time argument values and LIFO call are retained; defer mutation of named result cells, panic/recover stack policy and heap alias effects are not automatically solved.",
+    "gap": "cce-car-spec-adapter-667a00a-complete-r1/gap/execution/1747b23921c9e894/a894074857f902e2"
+  },
+  {
+    "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/5e8cb4f65f095cb9",
+    "path": "internal/messaging/telemetry.go",
+    "lines": [55, 55],
+    "reason": "Go panic value and local deferred-call associations retained; recover stack context and process-wide propagation are not mechanically established.",
+    "gap": "cce-car-spec-adapter-667a00a-complete-r1/gap/execution/5e8cb4f65f095cb9/60b87283d13cace7"
+  }
+]

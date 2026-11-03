@@ -1,0 +1,24 @@
+[
+  {
+    "path": "/notifyPartner",
+    "implementation": "volvo/cce-retail-ingress/95d091aa445f/final-r1/implementation/d9f0bc205613a4cb9919",
+    "execution": "volvo/cce-retail-ingress/95d091aa445f/final-r1/execution_binding/profile/d9f0bc205613a4cb9919",
+    "profiles": [
+      "volvo/cce-retail-ingress/95d091aa445f/final-r1/implementation/3de3098085988a817aa4",
+      "volvo/cce-retail-ingress/95d091aa445f/final-r1/implementation/8ffdab663772f68af968"
+    ],
+    "source": "github.com/volvo-cars/cce-retail-ingress/internal/restapi#API.Handle(string,string,web.Handler,...web.Middleware)->()$closure@4771",
+    "registrationLines": [52, 52]
+  },
+  {
+    "path": "/republish-all-partners",
+    "implementation": "volvo/cce-retail-ingress/95d091aa445f/final-r1/implementation/69c1e23c9a9085b51b0e",
+    "execution": "volvo/cce-retail-ingress/95d091aa445f/final-r1/execution_binding/profile/69c1e23c9a9085b51b0e",
+    "profiles": [
+      "volvo/cce-retail-ingress/95d091aa445f/final-r1/implementation/0e2676720c8bc09bd4b3",
+      "volvo/cce-retail-ingress/95d091aa445f/final-r1/implementation/76c659ff6ef5c50fc883"
+    ],
+    "source": "github.com/volvo-cars/cce-retail-ingress/internal/restapi#API.Handle(string,string,web.Handler,...web.Middleware)->()$closure@4771",
+    "registrationLines": [53, 53]
+  }
+]

@@ -1,0 +1,2135 @@
+[
+  {
+    "path": "src/PopCat.Assortment.Integration/Assortment/Models/AssortmentSchema.json",
+    "name": "AccessoryListResponse",
+    "pointer": "/components/schemas/AccessoryListResponse",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/f91e91cf1b643a1b",
+    "lines": [11838, 11861],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/Assortment/Models/AssortmentSchema.json",
+    "name": "AccessoryMetadataResponse",
+    "pointer": "/components/schemas/AccessoryMetadataResponse",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/a16dace3e1a146df",
+    "lines": [11862, 11879],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/Assortment/Models/AssortmentSchema.json",
+    "name": "AccessoryPackageListResponse",
+    "pointer": "/components/schemas/AccessoryPackageListResponse",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/85439295126ec813",
+    "lines": [11880, 11903],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/Assortment/Models/AssortmentSchema.json",
+    "name": "AccessoryPackageResponse",
+    "pointer": "/components/schemas/AccessoryPackageResponse",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/b55f91d04105c68e",
+    "lines": [11904, 11920],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/Assortment/Models/AssortmentSchema.json",
+    "name": "AccessoryPackageVariantResponse",
+    "pointer": "/components/schemas/AccessoryPackageVariantResponse",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/f4a20d146bcd39ec",
+    "lines": [11921, 11944],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/Assortment/Models/AssortmentSchema.json",
+    "name": "AccessoryResponse",
+    "pointer": "/components/schemas/AccessoryResponse",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/5df0adbdfb674452",
+    "lines": [11945, 11961],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/Assortment/Models/AssortmentSchema.json",
+    "name": "AccessoryVariantResponse",
+    "pointer": "/components/schemas/AccessoryVariantResponse",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/ab1cad2cfac7d3c5",
+    "lines": [11962, 11978],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/Assortment/Models/AssortmentSchema.json",
+    "name": "ClassificationListResponse",
+    "pointer": "/components/schemas/ClassificationListResponse",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/de75868019fe09b6",
+    "lines": [11979, 12002],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/Assortment/Models/AssortmentSchema.json",
+    "name": "MetadataResponse",
+    "pointer": "/components/schemas/MetadataResponse",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/89164468121ff6ac",
+    "lines": [12003, 12012],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/Assortment/Models/AssortmentSchema.json",
+    "name": "OffsetPagination",
+    "pointer": "/components/schemas/OffsetPagination",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/59831df83d774289",
+    "lines": [12013, 12040],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/Assortment/Models/AssortmentSchema.json",
+    "name": "PublicClassificationResponse",
+    "pointer": "/components/schemas/PublicClassificationResponse",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/fc2b023ee112a0a9",
+    "lines": [12041, 12054],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/Assortment/Models/AssortmentSchema.json",
+    "name": "PublicMetadata",
+    "pointer": "/components/schemas/PublicMetadata",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/6277a00051d328b1",
+    "lines": [12055, 12073],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/Assortment/Models/AssortmentSchema.json",
+    "name": "PublicPackageDetailsResponse",
+    "pointer": "/components/schemas/PublicPackageDetailsResponse",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/51a15a14920aac4b",
+    "lines": [12074, 12116],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/Assortment/Models/AssortmentSchema.json",
+    "name": "PublicPackageDetailsResponseListEnvelope",
+    "pointer": "/components/schemas/PublicPackageDetailsResponseListEnvelope",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/75766be823449854",
+    "lines": [12117, 12129],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/Assortment/Models/AssortmentSchema.json",
+    "name": "PublicPackageVariantResponse",
+    "pointer": "/components/schemas/PublicPackageVariantResponse",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/f5a4e0f2ce7c04b1",
+    "lines": [12130, 12164],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/Assortment/Models/AssortmentSchema.json",
+    "name": "PublicProductDetailsResponse",
+    "pointer": "/components/schemas/PublicProductDetailsResponse",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/d6037ce9688d2666",
+    "lines": [12165, 12211],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/Assortment/Models/AssortmentSchema.json",
+    "name": "PublicProductDetailsResponseListEnvelope",
+    "pointer": "/components/schemas/PublicProductDetailsResponseListEnvelope",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/2e419a308682fe92",
+    "lines": [12212, 12224],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/Assortment/Models/AssortmentSchema.json",
+    "name": "PublicProductVariantResponse",
+    "pointer": "/components/schemas/PublicProductVariantResponse",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/ac1427a7a63d4e1a",
+    "lines": [12225, 12256],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/Assortment/Models/AssortmentSchema.json",
+    "name": "PublicSpecificationValueResponse",
+    "pointer": "/components/schemas/PublicSpecificationValueResponse",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/80ce8e450ae7fc3b",
+    "lines": [12257, 12273],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/Assortment/Models/AssortmentSchema.json",
+    "name": "ServiceListResponse",
+    "pointer": "/components/schemas/ServiceListResponse",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/420bcf2387af2cb7",
+    "lines": [12274, 12297],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/Assortment/Models/AssortmentSchema.json",
+    "name": "ServicePlanListResponse",
+    "pointer": "/components/schemas/ServicePlanListResponse",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/a5b55c38c79ff1bf",
+    "lines": [12298, 12321],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/Assortment/Models/AssortmentSchema.json",
+    "name": "ServicePlanResponse",
+    "pointer": "/components/schemas/ServicePlanResponse",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/82a7a48af1d67043",
+    "lines": [12322, 12338],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/Assortment/Models/AssortmentSchema.json",
+    "name": "ServicePlanVariantResponse",
+    "pointer": "/components/schemas/ServicePlanVariantResponse",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/62a82a40b1499b60",
+    "lines": [12339, 12362],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/Assortment/Models/AssortmentSchema.json",
+    "name": "ServiceResponse",
+    "pointer": "/components/schemas/ServiceResponse",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/0733833a45ced58c",
+    "lines": [12363, 12379],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/Assortment/Models/AssortmentSchema.json",
+    "name": "ServiceVariantResponse",
+    "pointer": "/components/schemas/ServiceVariantResponse",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/d04371da03c44728",
+    "lines": [12380, 12404],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/Assortment/Models/AssortmentSchema.json",
+    "name": "SoftwareOptionListResponse",
+    "pointer": "/components/schemas/SoftwareOptionListResponse",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/bad6dc2a6788c900",
+    "lines": [12405, 12428],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/Assortment/Models/AssortmentSchema.json",
+    "name": "SoftwareOptionResponse",
+    "pointer": "/components/schemas/SoftwareOptionResponse",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/7d6549ae08a2fe38",
+    "lines": [12429, 12445],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/Assortment/Models/AssortmentSchema.json",
+    "name": "SoftwareOptionVariantResponse",
+    "pointer": "/components/schemas/SoftwareOptionVariantResponse",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/ec59003450a83b28",
+    "lines": [12446, 12470],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/Assortment/Models/AssortmentSchema.json",
+    "name": "SpecificationInfo",
+    "pointer": "/components/schemas/SpecificationInfo",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/7145af3cbae7a08f",
+    "lines": [12471, 12488],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/Assortment/Models/AssortmentSchema.json",
+    "name": "SpecificationListResponse",
+    "pointer": "/components/schemas/SpecificationListResponse",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/7252fb739f9fe8a8",
+    "lines": [12489, 12512],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/Assortment/Models/AssortmentSchema.json",
+    "name": "SpecificationResponse",
+    "pointer": "/components/schemas/SpecificationResponse",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/dca59836003fda9c",
+    "lines": [12513, 12545],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/Assortment/Models/AssortmentSchema.json",
+    "name": "SpecificationValueListResponse",
+    "pointer": "/components/schemas/SpecificationValueListResponse",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/62c5bb7db35d0a62",
+    "lines": [12546, 12569],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/Assortment/Models/AssortmentSchema.json",
+    "name": "SpecificationValueResponse",
+    "pointer": "/components/schemas/SpecificationValueResponse",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/a1df5a3a7493b3dd",
+    "lines": [12570, 12591],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/Assortment/Models/AssortmentSchema.json",
+    "name": "StateDiscoveryResponse",
+    "pointer": "/components/schemas/StateDiscoveryResponse",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/ce2e31aa400911c0",
+    "lines": [12592, 12604],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/Assortment/Models/AssortmentSchema.json",
+    "name": "StateFlags",
+    "pointer": "/components/schemas/StateFlags",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/3965698a19f8ce1a",
+    "lines": [12605, 12616],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/Assortment/Models/AssortmentSchema.json",
+    "name": "BrandInputBaseV1",
+    "pointer": "/components/schemas/BrandInputBaseV1",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/5cce7e9f72719833",
+    "lines": [12617, 12632],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/Assortment/Models/AssortmentSchema.json",
+    "name": "BrandInputV1",
+    "pointer": "/components/schemas/BrandInputV1",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/7d11411ac83b9aac",
+    "lines": [12633, 12655],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/Assortment/Models/AssortmentSchema.json",
+    "name": "BrandV1",
+    "pointer": "/components/schemas/BrandV1",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/0d2e4dae57b9217e",
+    "lines": [12656, 12675],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/Assortment/Models/AssortmentSchema.json",
+    "name": "CapCodeMappingInputV1",
+    "pointer": "/components/schemas/CapCodeMappingInputV1",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/fdb6808645ae5638",
+    "lines": [12676, 12739],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/Assortment/Models/AssortmentSchema.json",
+    "name": "CapCodeMappingV1",
+    "pointer": "/components/schemas/CapCodeMappingV1",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/dc0c283a8b744a50",
+    "lines": [12740, 12783],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/Assortment/Models/AssortmentSchema.json",
+    "name": "CarCodeInternalIdentifierRequestV1",
+    "pointer": "/components/schemas/CarCodeInternalIdentifierRequestV1",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/ef9e10ddea7440bf",
+    "lines": [12784, 12819],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/Assortment/Models/AssortmentSchema.json",
+    "name": "CarCodeInternalIdentifierResponseV1",
+    "pointer": "/components/schemas/CarCodeInternalIdentifierResponseV1",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/e0a1905545db8d45",
+    "lines": [12820, 12841],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/Assortment/Models/AssortmentSchema.json",
+    "name": "ClientInputV1",
+    "pointer": "/components/schemas/ClientInputV1",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/091d9e05a1a4a1d5",
+    "lines": [12842, 12869],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/Assortment/Models/AssortmentSchema.json",
+    "name": "ClientV1",
+    "pointer": "/components/schemas/ClientV1",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/73192cf981982345",
+    "lines": [12870, 12894],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/Assortment/Models/AssortmentSchema.json",
+    "name": "ContractLengthInputV1",
+    "pointer": "/components/schemas/ContractLengthInputV1",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/08729e807a33a994",
+    "lines": [12895, 12923],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/Assortment/Models/AssortmentSchema.json",
+    "name": "ContractLengthV1",
+    "pointer": "/components/schemas/ContractLengthV1",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/dbda96dcc602856b",
+    "lines": [12924, 12953],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/Assortment/Models/AssortmentSchema.json",
+    "name": "CustomerTypeInputV1",
+    "pointer": "/components/schemas/CustomerTypeInputV1",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/ebc9a12b8f51db89",
+    "lines": [12954, 12969],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/Assortment/Models/AssortmentSchema.json",
+    "name": "CustomerTypeV1",
+    "pointer": "/components/schemas/CustomerTypeV1",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/65a3601015013fa4",
+    "lines": [12970, 12980],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/Assortment/Models/AssortmentSchema.json",
+    "name": "ErrorData",
+    "pointer": "/components/schemas/ErrorData",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/0e23e6fc5faaeaca",
+    "lines": [12981, 12998],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/Assortment/Models/AssortmentSchema.json",
+    "name": "ErrorDataString",
+    "pointer": "/components/schemas/ErrorDataString",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/ad5a3f72ac865355",
+    "lines": [12999, 13023],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/Assortment/Models/AssortmentSchema.json",
+    "name": "ErrorDataValidationError",
+    "pointer": "/components/schemas/ErrorDataValidationError",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/400b71e11c3b6a72",
+    "lines": [13024, 13048],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/Assortment/Models/AssortmentSchema.json",
+    "name": "ErrorResponse",
+    "pointer": "/components/schemas/ErrorResponse",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/e2ccc70b6a50db72",
+    "lines": [13049, 13065],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/Assortment/Models/AssortmentSchema.json",
+    "name": "ErrorResponseString",
+    "pointer": "/components/schemas/ErrorResponseString",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/dfa1e67fc4635dd9",
+    "lines": [13066, 13082],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/Assortment/Models/AssortmentSchema.json",
+    "name": "ErrorResponseValidationError",
+    "pointer": "/components/schemas/ErrorResponseValidationError",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/0fb9932324f9e865",
+    "lines": [13083, 13099],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/Assortment/Models/AssortmentSchema.json",
+    "name": "ExternalCarCodeMappingResponseV1",
+    "pointer": "/components/schemas/ExternalCarCodeMappingResponseV1",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/39a9a9f6a481359f",
+    "lines": [13100, 13129],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/Assortment/Models/AssortmentSchema.json",
+    "name": "JatoCodeMappingInputV1",
+    "pointer": "/components/schemas/JatoCodeMappingInputV1",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/3428c40369b57b78",
+    "lines": [13130, 13141],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/Assortment/Models/AssortmentSchema.json",
+    "name": "JatoCodeMappingV1",
+    "pointer": "/components/schemas/JatoCodeMappingV1",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/ba25bd4b6a1148ac",
+    "lines": [13142, 13157],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/Assortment/Models/AssortmentSchema.json",
+    "name": "JatoExternalIdentifierRequestV1",
+    "pointer": "/components/schemas/JatoExternalIdentifierRequestV1",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/3b88f71d7b0a82a6",
+    "lines": [13158, 13171],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/Assortment/Models/AssortmentSchema.json",
+    "name": "JatoExternalIdentifierResponseV1",
+    "pointer": "/components/schemas/JatoExternalIdentifierResponseV1",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/80acba15f4d7101e",
+    "lines": [13172, 13181],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/Assortment/Models/AssortmentSchema.json",
+    "name": "LanguageInputV1",
+    "pointer": "/components/schemas/LanguageInputV1",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/d907cc3e30864d79",
+    "lines": [13182, 13203],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/Assortment/Models/AssortmentSchema.json",
+    "name": "LanguageV1",
+    "pointer": "/components/schemas/LanguageV1",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/429eb5b3f014e6f3",
+    "lines": [13204, 13223],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/Assortment/Models/AssortmentSchema.json",
+    "name": "ListSuccessResponseV1BrandV1",
+    "pointer": "/components/schemas/ListSuccessResponseV1BrandV1",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/d3566b1199368a09",
+    "lines": [13224, 13247],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/Assortment/Models/AssortmentSchema.json",
+    "name": "ListSuccessResponseV1CapCodeMappingV1",
+    "pointer": "/components/schemas/ListSuccessResponseV1CapCodeMappingV1",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/d789214e69180727",
+    "lines": [13248, 13271],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/Assortment/Models/AssortmentSchema.json",
+    "name": "ListSuccessResponseV1ClientV1",
+    "pointer": "/components/schemas/ListSuccessResponseV1ClientV1",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/36d61f5201f85edd",
+    "lines": [13272, 13295],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/Assortment/Models/AssortmentSchema.json",
+    "name": "ListSuccessResponseV1ContractLengthV1",
+    "pointer": "/components/schemas/ListSuccessResponseV1ContractLengthV1",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/56b58cdf74958d51",
+    "lines": [13296, 13319],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/Assortment/Models/AssortmentSchema.json",
+    "name": "ListSuccessResponseV1CustomerTypeV1",
+    "pointer": "/components/schemas/ListSuccessResponseV1CustomerTypeV1",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/378bb2532a997703",
+    "lines": [13320, 13343],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/Assortment/Models/AssortmentSchema.json",
+    "name": "ListSuccessResponseV1ExternalCarCodeMappingResponseV1",
+    "pointer": "/components/schemas/ListSuccessResponseV1ExternalCarCodeMappingResponseV1",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/bae1bcfd0b34dd06",
+    "lines": [13344, 13367],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/Assortment/Models/AssortmentSchema.json",
+    "name": "ListSuccessResponseV1JatoCodeMappingV1",
+    "pointer": "/components/schemas/ListSuccessResponseV1JatoCodeMappingV1",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/21b30f5b0269262a",
+    "lines": [13368, 13391],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/Assortment/Models/AssortmentSchema.json",
+    "name": "ListSuccessResponseV1MarketV1",
+    "pointer": "/components/schemas/ListSuccessResponseV1MarketV1",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/47d186646938e23d",
+    "lines": [13392, 13415],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/Assortment/Models/AssortmentSchema.json",
+    "name": "ListSuccessResponseV1SalesModelV1",
+    "pointer": "/components/schemas/ListSuccessResponseV1SalesModelV1",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/5d2a21494c637154",
+    "lines": [13416, 13439],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/Assortment/Models/AssortmentSchema.json",
+    "name": "ListSuccessResponseV1SchwackeCodeMappingV1",
+    "pointer": "/components/schemas/ListSuccessResponseV1SchwackeCodeMappingV1",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/9e64857fe1a0830c",
+    "lines": [13440, 13463],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/Assortment/Models/AssortmentSchema.json",
+    "name": "MarketInputBaseV1",
+    "pointer": "/components/schemas/MarketInputBaseV1",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/dd33b47573c470ff",
+    "lines": [13464, 13485],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/Assortment/Models/AssortmentSchema.json",
+    "name": "MarketInputV1",
+    "pointer": "/components/schemas/MarketInputV1",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/99d37e5993c3917d",
+    "lines": [13486, 13515],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/Assortment/Models/AssortmentSchema.json",
+    "name": "MarketV1",
+    "pointer": "/components/schemas/MarketV1",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/b5818eafae82eb75",
+    "lines": [13516, 13542],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/Assortment/Models/AssortmentSchema.json",
+    "name": "SalesModelInputV1",
+    "pointer": "/components/schemas/SalesModelInputV1",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/827ba5e1b75aa913",
+    "lines": [13543, 13582],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/Assortment/Models/AssortmentSchema.json",
+    "name": "SalesModelV1",
+    "pointer": "/components/schemas/SalesModelV1",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/9728d74ff8269adc",
+    "lines": [13583, 13613],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/Assortment/Models/AssortmentSchema.json",
+    "name": "SchwackeCodeMappingInputV1",
+    "pointer": "/components/schemas/SchwackeCodeMappingInputV1",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/4bd74e37f3d120de",
+    "lines": [13614, 13625],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/Assortment/Models/AssortmentSchema.json",
+    "name": "SchwackeCodeMappingV1",
+    "pointer": "/components/schemas/SchwackeCodeMappingV1",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/1a90a7a3d50c71cc",
+    "lines": [13626, 13641],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/Assortment/Models/AssortmentSchema.json",
+    "name": "SchwackeExternalIdentifierRequestV1",
+    "pointer": "/components/schemas/SchwackeExternalIdentifierRequestV1",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/ca5f5a51302486c6",
+    "lines": [13642, 13655],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/Assortment/Models/AssortmentSchema.json",
+    "name": "SchwackeExternalIdentifierResponseV1",
+    "pointer": "/components/schemas/SchwackeExternalIdentifierResponseV1",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/2f94ec3ac174f3ef",
+    "lines": [13656, 13665],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/Assortment/Models/AssortmentSchema.json",
+    "name": "SuccessResponseV1BrandV1",
+    "pointer": "/components/schemas/SuccessResponseV1BrandV1",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/b0ad6e6a977572f3",
+    "lines": [13666, 13684],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/Assortment/Models/AssortmentSchema.json",
+    "name": "SuccessResponseV1CapCodeMappingV1",
+    "pointer": "/components/schemas/SuccessResponseV1CapCodeMappingV1",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/6f6631b8236cb1ce",
+    "lines": [13685, 13703],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/Assortment/Models/AssortmentSchema.json",
+    "name": "SuccessResponseV1ClientV1",
+    "pointer": "/components/schemas/SuccessResponseV1ClientV1",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/1f43728d8edd7755",
+    "lines": [13704, 13722],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/Assortment/Models/AssortmentSchema.json",
+    "name": "SuccessResponseV1ContractLengthV1",
+    "pointer": "/components/schemas/SuccessResponseV1ContractLengthV1",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/3422a2fae880145d",
+    "lines": [13723, 13741],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/Assortment/Models/AssortmentSchema.json",
+    "name": "SuccessResponseV1CustomerTypeV1",
+    "pointer": "/components/schemas/SuccessResponseV1CustomerTypeV1",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/54a28302dd09e07f",
+    "lines": [13742, 13760],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/Assortment/Models/AssortmentSchema.json",
+    "name": "SuccessResponseV1JatoCodeMappingV1",
+    "pointer": "/components/schemas/SuccessResponseV1JatoCodeMappingV1",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/0c745bc882ec1d0d",
+    "lines": [13761, 13779],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/Assortment/Models/AssortmentSchema.json",
+    "name": "SuccessResponseV1MarketV1",
+    "pointer": "/components/schemas/SuccessResponseV1MarketV1",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/a5229e9227a284c3",
+    "lines": [13780, 13798],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/Assortment/Models/AssortmentSchema.json",
+    "name": "SuccessResponseV1SalesModelV1",
+    "pointer": "/components/schemas/SuccessResponseV1SalesModelV1",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/bad6b18f1aaf4a27",
+    "lines": [13799, 13817],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/Assortment/Models/AssortmentSchema.json",
+    "name": "SuccessResponseV1SchwackeCodeMappingV1",
+    "pointer": "/components/schemas/SuccessResponseV1SchwackeCodeMappingV1",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/2d790150e196f735",
+    "lines": [13818, 13836],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/Assortment/Models/AssortmentSchema.json",
+    "name": "ValidationError",
+    "pointer": "/components/schemas/ValidationError",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/29f594a85cff91c0",
+    "lines": [13837, 13850],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/Assortment/Models/AssortmentSchema.json",
+    "name": "AttributeValue",
+    "pointer": "/components/schemas/AttributeValue",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/32a4b3934efa65ce",
+    "lines": [13851, 13871],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/Assortment/Models/AssortmentSchema.json",
+    "name": "AttributeValueInfo",
+    "pointer": "/components/schemas/AttributeValueInfo",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/c4361d3dc9f1f99b",
+    "lines": [13872, 13906],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/Assortment/Models/AssortmentSchema.json",
+    "name": "AttributeValueInputV1",
+    "pointer": "/components/schemas/AttributeValueInputV1",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/5fdae152fa2dba24",
+    "lines": [13907, 13925],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/Assortment/Models/AssortmentSchema.json",
+    "name": "ListSuccessResponseV1MileageV1",
+    "pointer": "/components/schemas/ListSuccessResponseV1MileageV1",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/3d1d7b63c7d5b376",
+    "lines": [13926, 13949],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/Assortment/Models/AssortmentSchema.json",
+    "name": "ListSuccessResponseV1PreOrderV1",
+    "pointer": "/components/schemas/ListSuccessResponseV1PreOrderV1",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/6754053c0491d670",
+    "lines": [13950, 13973],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/Assortment/Models/AssortmentSchema.json",
+    "name": "ListSuccessResponseV1SoftOfferPackageV1",
+    "pointer": "/components/schemas/ListSuccessResponseV1SoftOfferPackageV1",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/4f3c640b0ac51c2b",
+    "lines": [13974, 13997],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/Assortment/Models/AssortmentSchema.json",
+    "name": "ListSuccessResponseV1SoftOfferV1",
+    "pointer": "/components/schemas/ListSuccessResponseV1SoftOfferV1",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/b69423d56eabf053",
+    "lines": [13998, 14021],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/Assortment/Models/AssortmentSchema.json",
+    "name": "ListSuccessResponseV1SoftwareOptionV1",
+    "pointer": "/components/schemas/ListSuccessResponseV1SoftwareOptionV1",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/406306b4354533fc",
+    "lines": [14022, 14045],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/Assortment/Models/AssortmentSchema.json",
+    "name": "MileageInputV1",
+    "pointer": "/components/schemas/MileageInputV1",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/845de508c4ae5b8e",
+    "lines": [14046, 14079],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/Assortment/Models/AssortmentSchema.json",
+    "name": "MileageUnit",
+    "pointer": "/components/schemas/MileageUnit",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/2f896aca24c330d8",
+    "lines": [14080, 14089],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/Assortment/Models/AssortmentSchema.json",
+    "name": "MileageV1",
+    "pointer": "/components/schemas/MileageV1",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/5bbbd6cfcc69920e",
+    "lines": [14090, 14124],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/Assortment/Models/AssortmentSchema.json",
+    "name": "PreOrderInputV1",
+    "pointer": "/components/schemas/PreOrderInputV1",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/41debf637d89e946",
+    "lines": [14125, 14175],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/Assortment/Models/AssortmentSchema.json",
+    "name": "PreOrderRequirementsInputV1",
+    "pointer": "/components/schemas/PreOrderRequirementsInputV1",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/92122cd5285069ec",
+    "lines": [14176, 14200],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/Assortment/Models/AssortmentSchema.json",
+    "name": "PreOrderRequirementsV1",
+    "pointer": "/components/schemas/PreOrderRequirementsV1",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/08d0e32c607d87f2",
+    "lines": [14201, 14226],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/Assortment/Models/AssortmentSchema.json",
+    "name": "PreOrderUpdateInputV1",
+    "pointer": "/components/schemas/PreOrderUpdateInputV1",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/f14d0a066d938d1d",
+    "lines": [14227, 14273],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/Assortment/Models/AssortmentSchema.json",
+    "name": "PreOrderV1",
+    "pointer": "/components/schemas/PreOrderV1",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/2b6f878032b83dc5",
+    "lines": [14274, 14326],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/Assortment/Models/AssortmentSchema.json",
+    "name": "ProductAttributeGroup",
+    "pointer": "/components/schemas/ProductAttributeGroup",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/a450596fae45aaa5",
+    "lines": [14327, 14340],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/Assortment/Models/AssortmentSchema.json",
+    "name": "SoftOfferInputV1",
+    "pointer": "/components/schemas/SoftOfferInputV1",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/0a0be54175088584",
+    "lines": [14341, 14396],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/Assortment/Models/AssortmentSchema.json",
+    "name": "SoftOfferPackageIncludedProductsInputV1",
+    "pointer": "/components/schemas/SoftOfferPackageIncludedProductsInputV1",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/b4c5d5ad91c8f463",
+    "lines": [14397, 14412],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/Assortment/Models/AssortmentSchema.json",
+    "name": "SoftOfferPackageIncludedProductsV1",
+    "pointer": "/components/schemas/SoftOfferPackageIncludedProductsV1",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/1f57ff06238cb1f3",
+    "lines": [14413, 14428],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/Assortment/Models/AssortmentSchema.json",
+    "name": "SoftOfferPackageInputV1",
+    "pointer": "/components/schemas/SoftOfferPackageInputV1",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/cc3c30d5b5c48452",
+    "lines": [14429, 14488],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/Assortment/Models/AssortmentSchema.json",
+    "name": "SoftOfferPackageV1",
+    "pointer": "/components/schemas/SoftOfferPackageV1",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/e958ea4a9747af15",
+    "lines": [14489, 14551],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/Assortment/Models/AssortmentSchema.json",
+    "name": "SoftOfferV1",
+    "pointer": "/components/schemas/SoftOfferV1",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/7b2a3077715e535c",
+    "lines": [14552, 14600],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/Assortment/Models/AssortmentSchema.json",
+    "name": "SoftwareOptionInputV1",
+    "pointer": "/components/schemas/SoftwareOptionInputV1",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/65ba44f152445cfc",
+    "lines": [14601, 14656],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/Assortment/Models/AssortmentSchema.json",
+    "name": "SoftwareOptionV1",
+    "pointer": "/components/schemas/SoftwareOptionV1",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/e35c1751be00608b",
+    "lines": [14657, 14705],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/Assortment/Models/AssortmentSchema.json",
+    "name": "SuccessResponseV1MileageV1",
+    "pointer": "/components/schemas/SuccessResponseV1MileageV1",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/c140d8e2e796d012",
+    "lines": [14706, 14724],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/Assortment/Models/AssortmentSchema.json",
+    "name": "SuccessResponseV1PreOrderV1",
+    "pointer": "/components/schemas/SuccessResponseV1PreOrderV1",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/2b71c26b4215de9b",
+    "lines": [14725, 14743],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/Assortment/Models/AssortmentSchema.json",
+    "name": "SuccessResponseV1SoftOfferPackageV1",
+    "pointer": "/components/schemas/SuccessResponseV1SoftOfferPackageV1",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/a1b4ba460f168f3b",
+    "lines": [14744, 14762],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/Assortment/Models/AssortmentSchema.json",
+    "name": "SuccessResponseV1SoftOfferV1",
+    "pointer": "/components/schemas/SuccessResponseV1SoftOfferV1",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/90737668868d4fb1",
+    "lines": [14763, 14781],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/Assortment/Models/AssortmentSchema.json",
+    "name": "SuccessResponseV1SoftwareOptionV1",
+    "pointer": "/components/schemas/SuccessResponseV1SoftwareOptionV1",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/2fe3cfd691b3d72e",
+    "lines": [14782, 14800],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/Assortment/Models/AssortmentSchema.json",
+    "name": "ActionResult",
+    "pointer": "/components/schemas/ActionResult",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/5baf516f64f0b480",
+    "lines": [14801, 14804],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/Assortment/Models/AssortmentSchema.json",
+    "name": "CarConfig",
+    "pointer": "/components/schemas/CarConfig",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/cc390d2fcce796b2",
+    "lines": [14805, 14869],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/Assortment/Models/AssortmentSchema.json",
+    "name": "CarInformation",
+    "pointer": "/components/schemas/CarInformation",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/06ab8fd504487979",
+    "lines": [14870, 14931],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/Assortment/Models/AssortmentSchema.json",
+    "name": "Colour",
+    "pointer": "/components/schemas/Colour",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/0c3ddc5138b237c9",
+    "lines": [14932, 14955],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/Assortment/Models/AssortmentSchema.json",
+    "name": "CommercialComponents",
+    "pointer": "/components/schemas/CommercialComponents",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/e076ad78c1ef7a60",
+    "lines": [14956, 14989],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/Assortment/Models/AssortmentSchema.json",
+    "name": "CommercialSegments",
+    "pointer": "/components/schemas/CommercialSegments",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/5f6465b66bcb03a3",
+    "lines": [14990, 15010],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/Assortment/Models/AssortmentSchema.json",
+    "name": "Component",
+    "pointer": "/components/schemas/Component",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/38de5c30268a416a",
+    "lines": [15011, 15035],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/Assortment/Models/AssortmentSchema.json",
+    "name": "ComponentQueryResponse",
+    "pointer": "/components/schemas/ComponentQueryResponse",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/027597aae3e13c74",
+    "lines": [15036, 15060],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/Assortment/Models/AssortmentSchema.json",
+    "name": "ConfigurableProduct",
+    "pointer": "/components/schemas/ConfigurableProduct",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/0cbb160d90d30465",
+    "lines": [15061, 15091],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/Assortment/Models/AssortmentSchema.json",
+    "name": "ConfigurableProductQueryResponse",
+    "pointer": "/components/schemas/ConfigurableProductQueryResponse",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/689a20cd531ffd2c",
+    "lines": [15092, 15116],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/Assortment/Models/AssortmentSchema.json",
+    "name": "ConfigurableProductQueryResponseActionResult",
+    "pointer": "/components/schemas/ConfigurableProductQueryResponseActionResult",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/61ef997df41cc7d6",
+    "lines": [15117, 15128],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/Assortment/Models/AssortmentSchema.json",
+    "name": "Country",
+    "pointer": "/components/schemas/Country",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/154dc0a46c232a0e",
+    "lines": [15129, 15150],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/Assortment/Models/AssortmentSchema.json",
+    "name": "Feature",
+    "pointer": "/components/schemas/Feature",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/0db31eca5861f49e",
+    "lines": [15151, 15190],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/Assortment/Models/AssortmentSchema.json",
+    "name": "FeatureType",
+    "pointer": "/components/schemas/FeatureType",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/46bd3c7236fc1d76",
+    "lines": [15191, 15209],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/Assortment/Models/AssortmentSchema.json",
+    "name": "GlobalDictionaryEntry",
+    "pointer": "/components/schemas/GlobalDictionaryEntry",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/4579ae6de15d0e32",
+    "lines": [15210, 15243],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/Assortment/Models/AssortmentSchema.json",
+    "name": "InteriorRoom",
+    "pointer": "/components/schemas/InteriorRoom",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/466519bc9b1ff38e",
+    "lines": [15244, 15274],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/Assortment/Models/AssortmentSchema.json",
+    "name": "MarketAuthEntry",
+    "pointer": "/components/schemas/MarketAuthEntry",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/212dfc97899ea915",
+    "lines": [15275, 15303],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/Assortment/Models/AssortmentSchema.json",
+    "name": "MarketAuthEntryOffsetPaginationListResponse",
+    "pointer": "/components/schemas/MarketAuthEntryOffsetPaginationListResponse",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/c4b54f51c0995cd7",
+    "lines": [15304, 15327],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/Assortment/Models/AssortmentSchema.json",
+    "name": "Option",
+    "pointer": "/components/schemas/Option",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/31833c2ba4a3f67d",
+    "lines": [15328, 15365],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/Assortment/Models/AssortmentSchema.json",
+    "name": "Package",
+    "pointer": "/components/schemas/Package",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/370ec424f6059610",
+    "lines": [15366, 15410],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/Assortment/Models/AssortmentSchema.json",
+    "name": "PackageColour",
+    "pointer": "/components/schemas/PackageColour",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/64900cdb03d3bdf3",
+    "lines": [15411, 15441],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/Assortment/Models/AssortmentSchema.json",
+    "name": "PackageInteriorRoom",
+    "pointer": "/components/schemas/PackageInteriorRoom",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/d95302c07ea59d5d",
+    "lines": [15442, 15479],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/Assortment/Models/AssortmentSchema.json",
+    "name": "PackageOption",
+    "pointer": "/components/schemas/PackageOption",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/241abacd852c2234",
+    "lines": [15480, 15524],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/Assortment/Models/AssortmentSchema.json",
+    "name": "Pno12Components",
+    "pointer": "/components/schemas/Pno12Components",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/8d4a0c516529f324",
+    "lines": [15525, 15558],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/Assortment/Models/AssortmentSchema.json",
+    "name": "Pno12ListItem",
+    "pointer": "/components/schemas/Pno12ListItem",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/ca889cd0c0c8b2ba",
+    "lines": [15559, 15591],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/Assortment/Models/AssortmentSchema.json",
+    "name": "Pno12QueryAggregation",
+    "pointer": "/components/schemas/Pno12QueryAggregation",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/a26f39ed43ea1909",
+    "lines": [15592, 15669],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/Assortment/Models/AssortmentSchema.json",
+    "name": "Pno12QueryResponse",
+    "pointer": "/components/schemas/Pno12QueryResponse",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/9b6f03e9f7c1c34f",
+    "lines": [15670, 15697],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/Assortment/Models/AssortmentSchema.json",
+    "name": "ProductionDates",
+    "pointer": "/components/schemas/ProductionDates",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/16d63b0e8e55c7a6",
+    "lines": [15698, 15709],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/Assortment/Models/AssortmentSchema.json",
+    "name": "ProductionDatesV1",
+    "pointer": "/components/schemas/ProductionDatesV1",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/f12a286ca72819b8",
+    "lines": [15710, 15721],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/Assortment/Models/AssortmentSchema.json",
+    "name": "ProductionWeek",
+    "pointer": "/components/schemas/ProductionWeek",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/76aa3a08c75970a4",
+    "lines": [15722, 15735],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/Assortment/Models/AssortmentSchema.json",
+    "name": "ProductionWeekV1",
+    "pointer": "/components/schemas/ProductionWeekV1",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/5b0faac4d5b16b7e",
+    "lines": [15736, 15749],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/Assortment/Models/AssortmentSchema.json",
+    "name": "ReplacedOption",
+    "pointer": "/components/schemas/ReplacedOption",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/63ad9abbc9fc3586",
+    "lines": [15750, 15780],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/Assortment/Models/AssortmentSchema.json",
+    "name": "SMessage",
+    "pointer": "/components/schemas/SMessage",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/d33b2d74028b7958",
+    "lines": [15781, 15804],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/Assortment/Models/AssortmentSchema.json",
+    "name": "SegmentGroup",
+    "pointer": "/components/schemas/SegmentGroup",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/363368581cd11072",
+    "lines": [15805, 15829],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/Assortment/Models/AssortmentSchema.json",
+    "name": "SpecMarket",
+    "pointer": "/components/schemas/SpecMarket",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/c89dbddfa8497e3b",
+    "lines": [15830, 15854],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/Assortment/Models/AssortmentSchema.json",
+    "name": "SpecMarketQueryResponse",
+    "pointer": "/components/schemas/SpecMarketQueryResponse",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/3ec0f65c673f3993",
+    "lines": [15855, 15879],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/Assortment/Models/AssortmentSchema.json",
+    "name": "Tag",
+    "pointer": "/components/schemas/Tag",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/26cda26762a175a8",
+    "lines": [15880, 15892],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/Assortment/Models/AssortmentSchema.json",
+    "name": "FeatureItem",
+    "pointer": "/components/schemas/FeatureItem",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/5203eea0c28488d1",
+    "lines": [15893, 15909],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/Assortment/Models/AssortmentSchema.json",
+    "name": "GetFullFeaturesRequest",
+    "pointer": "/components/schemas/GetFullFeaturesRequest",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/a00fe7c351f921a0",
+    "lines": [15910, 15946],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/Assortment/Models/AssortmentSchema.json",
+    "name": "Item",
+    "pointer": "/components/schemas/Item",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/626c16a7d595fc9b",
+    "lines": [15947, 15960],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/Assortment/Models/AssortmentSchema.json",
+    "name": "PrinsFullFeaturesResponse",
+    "pointer": "/components/schemas/PrinsFullFeaturesResponse",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/1ac00867569de700",
+    "lines": [15961, 16014],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/Assortment/Models/AssortmentSchema.json",
+    "name": "Brand",
+    "pointer": "/components/schemas/Brand",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/e815c1d508021d63",
+    "lines": [16015, 16021],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/Assortment/Models/AssortmentSchema.json",
+    "name": "Classification",
+    "pointer": "/components/schemas/Classification",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/2ae5fa9615262f4b",
+    "lines": [16022, 16044],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/Assortment/Models/AssortmentSchema.json",
+    "name": "ClassificationType",
+    "pointer": "/components/schemas/ClassificationType",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/561e14049d420023",
+    "lines": [16045, 16052],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/Assortment/Models/AssortmentSchema.json",
+    "name": "ComponentFlags",
+    "pointer": "/components/schemas/ComponentFlags",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/c5c28c150a4b3a31",
+    "lines": [16053, 16060],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/Assortment/Models/AssortmentSchema.json",
+    "name": "ItemType",
+    "pointer": "/components/schemas/ItemType",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/eb9052698f635ab9",
+    "lines": [16061, 16085],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/Assortment/Models/AssortmentSchema.json",
+    "name": "Product",
+    "pointer": "/components/schemas/Product",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/65e76d691dde7e53",
+    "lines": [16086, 16122],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/Assortment/Models/AssortmentSchema.json",
+    "name": "ProductType",
+    "pointer": "/components/schemas/ProductType",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/1222c5464b7a96ad",
+    "lines": [16123, 16150],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/Assortment/Models/AssortmentSchema.json",
+    "name": "Rule",
+    "pointer": "/components/schemas/Rule",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/c217da74a623cfed",
+    "lines": [16151, 16183],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/Assortment/Models/AssortmentSchema.json",
+    "name": "RuleType",
+    "pointer": "/components/schemas/RuleType",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/be4ce1b4942174ef",
+    "lines": [16184, 16219],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/Assortment/Models/AssortmentSchema.json",
+    "name": "UpstreamListItem",
+    "pointer": "/components/schemas/UpstreamListItem",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/3b9bdddd4024ae83",
+    "lines": [16220, 16260],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/Assortment/Models/AssortmentSchema.json",
+    "name": "Variant",
+    "pointer": "/components/schemas/Variant",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/6e843dab77650f86",
+    "lines": [16261, 16302],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/ProductMapper/Proxy/product-mapper-open-api.json",
+    "name": "Marten_Pagination_IPagedList_1__ProductMapper_Api_Host_Models_Product__ProductMapper_Api_Host__Version_1_0_0_0__Culture_neutral__PublicKeyToken_null__",
+    "pointer": "/components/schemas/Marten_Pagination_IPagedList_1__ProductMapper_Api_Host_Models_Product__ProductMapper_Api_Host__Version_1_0_0_0__Culture_neutral__PublicKeyToken_null__",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/a7ae383de477a2d6",
+    "lines": [398, 403],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/ProductMapper/Proxy/product-mapper-open-api.json",
+    "name": "Marten_Pagination_IPagedList_1__ProductMapper_Core_Models_ProductVariant__ProductMapper_Api_Host__Version_1_0_0_0__Culture_neutral__PublicKeyToken_null__",
+    "pointer": "/components/schemas/Marten_Pagination_IPagedList_1__ProductMapper_Core_Models_ProductVariant__ProductMapper_Api_Host__Version_1_0_0_0__Culture_neutral__PublicKeyToken_null__",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/0079809365288c77",
+    "lines": [404, 409],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/ProductMapper/Proxy/product-mapper-open-api.json",
+    "name": "ProductMapper_Api_Host_Core_Models_Car",
+    "pointer": "/components/schemas/ProductMapper_Api_Host_Core_Models_Car",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/43183c316371276e",
+    "lines": [410, 431],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/ProductMapper/Proxy/product-mapper-open-api.json",
+    "name": "ProductMapper_Api_Host_Core_Models_MatchingProduct",
+    "pointer": "/components/schemas/ProductMapper_Api_Host_Core_Models_MatchingProduct",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/ff88ca5472c737e3",
+    "lines": [432, 450],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/ProductMapper/Proxy/product-mapper-open-api.json",
+    "name": "ProductMapper_Api_Host_Core_Models_Sku",
+    "pointer": "/components/schemas/ProductMapper_Api_Host_Core_Models_Sku",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/86aace4a646ebe9f",
+    "lines": [451, 488],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/ProductMapper/Proxy/product-mapper-open-api.json",
+    "name": "ProductMapper_Api_Host_Core_Models_StructureWeekRange",
+    "pointer": "/components/schemas/ProductMapper_Api_Host_Core_Models_StructureWeekRange",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/df7694d242b9d742",
+    "lines": [489, 503],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/ProductMapper/Proxy/product-mapper-open-api.json",
+    "name": "ProductMapper_Api_Host_Core_Models_TransformationsResponse",
+    "pointer": "/components/schemas/ProductMapper_Api_Host_Core_Models_TransformationsResponse",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/6e226958bc90443f",
+    "lines": [504, 518],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/ProductMapper/Proxy/product-mapper-open-api.json",
+    "name": "ProductMapper_Api_Host_Core_Models_UpstreamProduct",
+    "pointer": "/components/schemas/ProductMapper_Api_Host_Core_Models_UpstreamProduct",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/e1185ce37591d6fb",
+    "lines": [519, 533],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/ProductMapper/Proxy/product-mapper-open-api.json",
+    "name": "ProductMapper_Api_Host_Core_Models_VariantCollection",
+    "pointer": "/components/schemas/ProductMapper_Api_Host_Core_Models_VariantCollection",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/6cd15002aad3ef02",
+    "lines": [534, 669],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/ProductMapper/Proxy/product-mapper-open-api.json",
+    "name": "ProductMapper_Api_Host_Core_Services_CarProduct",
+    "pointer": "/components/schemas/ProductMapper_Api_Host_Core_Services_CarProduct",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/2c285f30703ad236",
+    "lines": [670, 702],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/ProductMapper/Proxy/product-mapper-open-api.json",
+    "name": "ProductMapper_Api_Host_Core_Services_ConfigurableCarResponse",
+    "pointer": "/components/schemas/ProductMapper_Api_Host_Core_Services_ConfigurableCarResponse",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/9a8ef3c745b78f26",
+    "lines": [703, 755],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/ProductMapper/Proxy/product-mapper-open-api.json",
+    "name": "ProductMapper_Api_Host_Core_Services_MatchingBundle",
+    "pointer": "/components/schemas/ProductMapper_Api_Host_Core_Services_MatchingBundle",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/c394cf09a07aa966",
+    "lines": [756, 770],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/ProductMapper/Proxy/product-mapper-open-api.json",
+    "name": "ProductMapper_Api_Host_Handlers_BatchResolveVariantsCommandHandler_BatchResolveVariantsCompleted",
+    "pointer": "/components/schemas/ProductMapper_Api_Host_Handlers_BatchResolveVariantsCommandHandler_BatchResolveVariantsCompleted",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/dc9ce6ddaad3bd8d",
+    "lines": [771, 781],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/ProductMapper/Proxy/product-mapper-open-api.json",
+    "name": "ProductMapper_Api_Host_Handlers_BatchVariantCollectionCommandHandler_BatchVariantCollectionsCompleted",
+    "pointer": "/components/schemas/ProductMapper_Api_Host_Handlers_BatchVariantCollectionCommandHandler_BatchVariantCollectionsCompleted",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/7fe33cc42b952153",
+    "lines": [782, 792],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/ProductMapper/Proxy/product-mapper-open-api.json",
+    "name": "ProductMapper_Api_Host_Handlers_CarProductsCommandHandler_CarProductsCommand",
+    "pointer": "/components/schemas/ProductMapper_Api_Host_Handlers_CarProductsCommandHandler_CarProductsCommand",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/478828e8b8eb83bd",
+    "lines": [793, 811],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/ProductMapper/Proxy/product-mapper-open-api.json",
+    "name": "ProductMapper_Api_Host_Handlers_CarProductsCommandHandler_CarProductsCompleted",
+    "pointer": "/components/schemas/ProductMapper_Api_Host_Handlers_CarProductsCommandHandler_CarProductsCompleted",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/045326914411af67",
+    "lines": [812, 826],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/ProductMapper/Proxy/product-mapper-open-api.json",
+    "name": "ProductMapper_Api_Host_Handlers_ConfigurableCarsCommandHandler_ConfigurableCarCommand",
+    "pointer": "/components/schemas/ProductMapper_Api_Host_Handlers_ConfigurableCarsCommandHandler_ConfigurableCarCommand",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/b834bd2a172b7501",
+    "lines": [827, 840],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/ProductMapper/Proxy/product-mapper-open-api.json",
+    "name": "ProductMapper_Api_Host_Handlers_ConfigurableCarsCommandHandler_ConfigurableCarCompleted",
+    "pointer": "/components/schemas/ProductMapper_Api_Host_Handlers_ConfigurableCarsCommandHandler_ConfigurableCarCompleted",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/7262dfd4de659255",
+    "lines": [841, 855],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/ProductMapper/Proxy/product-mapper-open-api.json",
+    "name": "ProductMapper_Api_Host_Handlers_ProductSyncId",
+    "pointer": "/components/schemas/ProductMapper_Api_Host_Handlers_ProductSyncId",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/40a01e2bd47de51a",
+    "lines": [856, 856],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/ProductMapper/Proxy/product-mapper-open-api.json",
+    "name": "ProductMapper_Api_Host_Handlers_ProductsSyncHandler_SyncRequest",
+    "pointer": "/components/schemas/ProductMapper_Api_Host_Handlers_ProductsSyncHandler_SyncRequest",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/1812771d90dd7279",
+    "lines": [857, 867],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/ProductMapper/Proxy/product-mapper-open-api.json",
+    "name": "ProductMapper_Api_Host_Handlers_ProductsSyncHandler_SyncResponse",
+    "pointer": "/components/schemas/ProductMapper_Api_Host_Handlers_ProductsSyncHandler_SyncResponse",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/f8e2d76051e0ed85",
+    "lines": [868, 878],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/ProductMapper/Proxy/product-mapper-open-api.json",
+    "name": "ProductMapper_Api_Host_Handlers_ResolveVariantsCommandHandler_ResolveVariantCommand",
+    "pointer": "/components/schemas/ProductMapper_Api_Host_Handlers_ResolveVariantsCommandHandler_ResolveVariantCommand",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/0931c0e92c57f6ba",
+    "lines": [879, 969],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/ProductMapper/Proxy/product-mapper-open-api.json",
+    "name": "ProductMapper_Api_Host_Handlers_ResolveVariantsCommandHandler_ResolveVariantCommand__",
+    "pointer": "/components/schemas/ProductMapper_Api_Host_Handlers_ResolveVariantsCommandHandler_ResolveVariantCommand__",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/3e34892656a28a7c",
+    "lines": [970, 975],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/ProductMapper/Proxy/product-mapper-open-api.json",
+    "name": "ProductMapper_Api_Host_Handlers_ResolveVariantsCommandHandler_ResolveVariantCompleted",
+    "pointer": "/components/schemas/ProductMapper_Api_Host_Handlers_ResolveVariantsCommandHandler_ResolveVariantCompleted",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/dc888b062e69e346",
+    "lines": [976, 986],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/ProductMapper/Proxy/product-mapper-open-api.json",
+    "name": "ProductMapper_Api_Host_Handlers_TransformationsCommandHandler_TransformationsCommand",
+    "pointer": "/components/schemas/ProductMapper_Api_Host_Handlers_TransformationsCommandHandler_TransformationsCommand",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/097cd62ef5f4f65e",
+    "lines": [987, 1081],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/ProductMapper/Proxy/product-mapper-open-api.json",
+    "name": "ProductMapper_Api_Host_Handlers_TransformationsCommandHandler_TransformationsCompleted",
+    "pointer": "/components/schemas/ProductMapper_Api_Host_Handlers_TransformationsCommandHandler_TransformationsCompleted",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/b0aaff774df34559",
+    "lines": [1082, 1092],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/ProductMapper/Proxy/product-mapper-open-api.json",
+    "name": "ProductMapper_Api_Host_Handlers_VariantCollectionCommandHandler_VariantCollectionsCommand",
+    "pointer": "/components/schemas/ProductMapper_Api_Host_Handlers_VariantCollectionCommandHandler_VariantCollectionsCommand",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/8c314569840d7c02",
+    "lines": [1093, 1111],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/ProductMapper/Proxy/product-mapper-open-api.json",
+    "name": "ProductMapper_Api_Host_Handlers_VariantCollectionCommandHandler_VariantCollectionsCommand__",
+    "pointer": "/components/schemas/ProductMapper_Api_Host_Handlers_VariantCollectionCommandHandler_VariantCollectionsCommand__",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/7510da9f65f00d72",
+    "lines": [1112, 1117],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/ProductMapper/Proxy/product-mapper-open-api.json",
+    "name": "ProductMapper_Api_Host_Handlers_VariantCollectionCommandHandler_VariantCollectionsCompleted",
+    "pointer": "/components/schemas/ProductMapper_Api_Host_Handlers_VariantCollectionCommandHandler_VariantCollectionsCompleted",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/fddcd387779b5b4e",
+    "lines": [1118, 1151],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/ProductMapper/Proxy/product-mapper-open-api.json",
+    "name": "ProductMapper_Api_Host_Models_Product",
+    "pointer": "/components/schemas/ProductMapper_Api_Host_Models_Product",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/d8e2523ec6df4502",
+    "lines": [1152, 1166],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/ProductMapper/Proxy/product-mapper-open-api.json",
+    "name": "ProductMapper_Api_Host_Models_ProductId",
+    "pointer": "/components/schemas/ProductMapper_Api_Host_Models_ProductId",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/e0438806f860f1d5",
+    "lines": [1167, 1167],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/ProductMapper/Proxy/product-mapper-open-api.json",
+    "name": "ProductMapper_Api_Host_Sagas_ProductsSync",
+    "pointer": "/components/schemas/ProductMapper_Api_Host_Sagas_ProductsSync",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/dd621fb75c88b718",
+    "lines": [1168, 1191],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/ProductMapper/Proxy/product-mapper-open-api.json",
+    "name": "ProductMapper_Api_Host_Sagas_SyncStatus",
+    "pointer": "/components/schemas/ProductMapper_Api_Host_Sagas_SyncStatus",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/013bf7d238f21a9f",
+    "lines": [1192, 1194],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/ProductMapper/Proxy/product-mapper-open-api.json",
+    "name": "ProductMapper_Core_Models_Classification",
+    "pointer": "/components/schemas/ProductMapper_Core_Models_Classification",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/53ad23dc63b23c3e",
+    "lines": [1195, 1217],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/ProductMapper/Proxy/product-mapper-open-api.json",
+    "name": "ProductMapper_Core_Models_ClassificationType",
+    "pointer": "/components/schemas/ProductMapper_Core_Models_ClassificationType",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/c4c3a68bc8bd094a",
+    "lines": [1218, 1220],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/ProductMapper/Proxy/product-mapper-open-api.json",
+    "name": "ProductMapper_Core_Models_Matching",
+    "pointer": "/components/schemas/ProductMapper_Core_Models_Matching",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/da92a110394fc098",
+    "lines": [1221, 1235],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/ProductMapper/Proxy/product-mapper-open-api.json",
+    "name": "ProductMapper_Core_Models_MatchingVariant",
+    "pointer": "/components/schemas/ProductMapper_Core_Models_MatchingVariant",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/ed912e2efe440508",
+    "lines": [1236, 1268],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/ProductMapper/Proxy/product-mapper-open-api.json",
+    "name": "ProductMapper_Core_Models_MatchingVariantsResponse",
+    "pointer": "/components/schemas/ProductMapper_Core_Models_MatchingVariantsResponse",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/e48f9fe6e37a7f1c",
+    "lines": [1269, 1393],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/ProductMapper/Proxy/product-mapper-open-api.json",
+    "name": "ProductMapper_Core_Models_Matching__",
+    "pointer": "/components/schemas/ProductMapper_Core_Models_Matching__",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/07777f823a921bf6",
+    "lines": [1394, 1399],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/ProductMapper/Proxy/product-mapper-open-api.json",
+    "name": "ProductMapper_Core_Models_ProductType",
+    "pointer": "/components/schemas/ProductMapper_Core_Models_ProductType",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/37d58597ca6618f1",
+    "lines": [1400, 1402],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/ProductMapper/Proxy/product-mapper-open-api.json",
+    "name": "ProductMapper_Core_Models_ProductVariant",
+    "pointer": "/components/schemas/ProductMapper_Core_Models_ProductVariant",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/5618a42cca9b55ad",
+    "lines": [1403, 1448],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/ProductMapper/Proxy/product-mapper-open-api.json",
+    "name": "ProductMapper_Core_Models_Rule",
+    "pointer": "/components/schemas/ProductMapper_Core_Models_Rule",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/e6a00993146545fe",
+    "lines": [1449, 1509],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/ProductMapper/Proxy/product-mapper-open-api.json",
+    "name": "ProductMapper_Core_Models_RuleType",
+    "pointer": "/components/schemas/ProductMapper_Core_Models_RuleType",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/de0656785e8749d0",
+    "lines": [1510, 1512],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/ProductMapper/Proxy/product-mapper-open-api.json",
+    "name": "ProductMapper_Core_Models_Rule__",
+    "pointer": "/components/schemas/ProductMapper_Core_Models_Rule__",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/73c16c8fcbf245b9",
+    "lines": [1513, 1518],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/ProductMapper/Proxy/product-mapper-open-api.json",
+    "name": "System_Collections_Generic_HashSet_1__System_String__System_Private_CoreLib__Version_10_0_0_0__Culture_neutral__PublicKeyToken_7cec85d7bea7798e__",
+    "pointer": "/components/schemas/System_Collections_Generic_HashSet_1__System_String__System_Private_CoreLib__Version_10_0_0_0__Culture_neutral__PublicKeyToken_7cec85d7bea7798e__",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/7c6bf27f0f9a22ef",
+    "lines": [1519, 1524],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/ProductMapper/Proxy/product-mapper-open-api.json",
+    "name": "System_Collections_Generic_IReadOnlyCollection_1__ProductMapper_Core_Models_MatchingVariant__ProductMapper_Api_Host__Version_1_0_0_0__Culture_neutral__PublicKeyToken_null__",
+    "pointer": "/components/schemas/System_Collections_Generic_IReadOnlyCollection_1__ProductMapper_Core_Models_MatchingVariant__ProductMapper_Api_Host__Version_1_0_0_0__Culture_neutral__PublicKeyToken_null__",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/5281621a399a8cd7",
+    "lines": [1525, 1530],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/ProductMapper/Proxy/product-mapper-open-api.json",
+    "name": "System_Collections_Generic_IReadOnlyList_1__ProductMapper_Api_Host_Sagas_ProductsSync__ProductMapper_Api_Host__Version_1_0_0_0__Culture_neutral__PublicKeyToken_null__",
+    "pointer": "/components/schemas/System_Collections_Generic_IReadOnlyList_1__ProductMapper_Api_Host_Sagas_ProductsSync__ProductMapper_Api_Host__Version_1_0_0_0__Culture_neutral__PublicKeyToken_null__",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/db500de106326db1",
+    "lines": [1531, 1536],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/ProductMapper/Proxy/product-mapper-open-api.json",
+    "name": "System_Collections_Generic_List_1__ProductMapper_Api_Host_Core_Models_MatchingProduct__ProductMapper_Api_Host__Version_1_0_0_0__Culture_neutral__PublicKeyToken_null__",
+    "pointer": "/components/schemas/System_Collections_Generic_List_1__ProductMapper_Api_Host_Core_Models_MatchingProduct__ProductMapper_Api_Host__Version_1_0_0_0__Culture_neutral__PublicKeyToken_null__",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/1cf97c17afa72e3c",
+    "lines": [1537, 1542],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/ProductMapper/Proxy/product-mapper-open-api.json",
+    "name": "System_Collections_Generic_List_1__ProductMapper_Api_Host_Core_Models_UpstreamProduct__ProductMapper_Api_Host__Version_1_0_0_0__Culture_neutral__PublicKeyToken_null__",
+    "pointer": "/components/schemas/System_Collections_Generic_List_1__ProductMapper_Api_Host_Core_Models_UpstreamProduct__ProductMapper_Api_Host__Version_1_0_0_0__Culture_neutral__PublicKeyToken_null__",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/0420c74118f186b2",
+    "lines": [1543, 1548],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/ProductMapper/Proxy/product-mapper-open-api.json",
+    "name": "System_Collections_Immutable_ImmutableArray_1__ProductMapper_Api_Host_Core_Models_VariantCollection__ProductMapper_Api_Host__Version_1_0_0_0__Culture_neutral__PublicKeyToken_null__",
+    "pointer": "/components/schemas/System_Collections_Immutable_ImmutableArray_1__ProductMapper_Api_Host_Core_Models_VariantCollection__ProductMapper_Api_Host__Version_1_0_0_0__Culture_neutral__PublicKeyToken_null__",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/c2609859dcc00a1d",
+    "lines": [1549, 1554],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/ProductMapper/Proxy/product-mapper-open-api.json",
+    "name": "System_Collections_Immutable_ImmutableArray_1__ProductMapper_Api_Host_Core_Services_CarProduct__ProductMapper_Api_Host__Version_1_0_0_0__Culture_neutral__PublicKeyToken_null__",
+    "pointer": "/components/schemas/System_Collections_Immutable_ImmutableArray_1__ProductMapper_Api_Host_Core_Services_CarProduct__ProductMapper_Api_Host__Version_1_0_0_0__Culture_neutral__PublicKeyToken_null__",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/10a3476baf3ea876",
+    "lines": [1555, 1560],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/ProductMapper/Proxy/product-mapper-open-api.json",
+    "name": "System_Collections_Immutable_ImmutableArray_1__ProductMapper_Api_Host_Core_Services_ConfigurableCarResponse__ProductMapper_Api_Host__Version_1_0_0_0__Culture_neutral__PublicKeyToken_null__",
+    "pointer": "/components/schemas/System_Collections_Immutable_ImmutableArray_1__ProductMapper_Api_Host_Core_Services_ConfigurableCarResponse__ProductMapper_Api_Host__Version_1_0_0_0__Culture_neutral__PublicKeyToken_null__",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/6be523389042a42e",
+    "lines": [1561, 1566],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/ProductMapper/Proxy/product-mapper-open-api.json",
+    "name": "System_Collections_Immutable_ImmutableArray_1__ProductMapper_Api_Host_Core_Services_MatchingBundle__ProductMapper_Api_Host__Version_1_0_0_0__Culture_neutral__PublicKeyToken_null__",
+    "pointer": "/components/schemas/System_Collections_Immutable_ImmutableArray_1__ProductMapper_Api_Host_Core_Services_MatchingBundle__ProductMapper_Api_Host__Version_1_0_0_0__Culture_neutral__PublicKeyToken_null__",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/1154fe7a4d165fab",
+    "lines": [1567, 1572],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/ProductMapper/Proxy/product-mapper-open-api.json",
+    "name": "System_Collections_Immutable_ImmutableArray_1__ProductMapper_Api_Host_Handlers_ResolveVariantsCommandHandler_ResolveVariantCompleted__ProductMapper_Api_Host__Version_1_0_0_0__Culture_neutral__PublicKeyToken_null__",
+    "pointer": "/components/schemas/System_Collections_Immutable_ImmutableArray_1__ProductMapper_Api_Host_Handlers_ResolveVariantsCommandHandler_ResolveVariantCompleted__ProductMapper_Api_Host__Version_1_0_0_0__Culture_neutral__PublicKeyToken_null__",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/79b6a04e68713355",
+    "lines": [1573, 1578],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/ProductMapper/Proxy/product-mapper-open-api.json",
+    "name": "System_Collections_Immutable_ImmutableArray_1__ProductMapper_Api_Host_Handlers_VariantCollectionCommandHandler_VariantCollectionsCompleted__ProductMapper_Api_Host__Version_1_0_0_0__Culture_neutral__PublicKeyToken_null__",
+    "pointer": "/components/schemas/System_Collections_Immutable_ImmutableArray_1__ProductMapper_Api_Host_Handlers_VariantCollectionCommandHandler_VariantCollectionsCompleted__ProductMapper_Api_Host__Version_1_0_0_0__Culture_neutral__PublicKeyToken_null__",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/26db96c915582a32",
+    "lines": [1579, 1584],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/ProductMapper/Proxy/product-mapper-open-api.json",
+    "name": "System_Collections_Immutable_ImmutableArray_1__ProductMapper_Core_Models_MatchingVariant__ProductMapper_Api_Host__Version_1_0_0_0__Culture_neutral__PublicKeyToken_null__",
+    "pointer": "/components/schemas/System_Collections_Immutable_ImmutableArray_1__ProductMapper_Core_Models_MatchingVariant__ProductMapper_Api_Host__Version_1_0_0_0__Culture_neutral__PublicKeyToken_null__",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/8aea636123c921f2",
+    "lines": [1585, 1590],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/ProductMapper/Proxy/product-mapper-open-api.json",
+    "name": "System_Collections_Immutable_ImmutableArray_1__System_String__System_Private_CoreLib__Version_10_0_0_0__Culture_neutral__PublicKeyToken_7cec85d7bea7798e__",
+    "pointer": "/components/schemas/System_Collections_Immutable_ImmutableArray_1__System_String__System_Private_CoreLib__Version_10_0_0_0__Culture_neutral__PublicKeyToken_7cec85d7bea7798e__",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/5816e8535a4d0782",
+    "lines": [1591, 1596],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/ProductMapper/Proxy/product-mapper-open-api.json",
+    "name": "System_DateTimeOffset",
+    "pointer": "/components/schemas/System_DateTimeOffset",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/f309ea844e6e6d60",
+    "lines": [1597, 1600],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/ProductMapper/Proxy/product-mapper-open-api.json",
+    "name": "System_Guid",
+    "pointer": "/components/schemas/System_Guid",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/378fd08199d4da7e",
+    "lines": [1601, 1604],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/ProductMapper/Proxy/product-mapper-open-api.json",
+    "name": "System_Int32",
+    "pointer": "/components/schemas/System_Int32",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/1c5190187be2ffff",
+    "lines": [1605, 1612],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/ProductMapper/Proxy/product-mapper-open-api.json",
+    "name": "System_Nullable_1__System_Guid__System_Private_CoreLib__Version_10_0_0_0__Culture_neutral__PublicKeyToken_7cec85d7bea7798e__",
+    "pointer": "/components/schemas/System_Nullable_1__System_Guid__System_Private_CoreLib__Version_10_0_0_0__Culture_neutral__PublicKeyToken_7cec85d7bea7798e__",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/701eb4c2dd6651a5",
+    "lines": [1613, 1616],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/ProductMapper/Proxy/product-mapper-open-api.json",
+    "name": "System_Nullable_1__System_Int32__System_Private_CoreLib__Version_10_0_0_0__Culture_neutral__PublicKeyToken_7cec85d7bea7798e__",
+    "pointer": "/components/schemas/System_Nullable_1__System_Int32__System_Private_CoreLib__Version_10_0_0_0__Culture_neutral__PublicKeyToken_7cec85d7bea7798e__",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/a84c6f839ecb71b3",
+    "lines": [1617, 1624],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/ProductMapper/Proxy/product-mapper-open-api.json",
+    "name": "System_String",
+    "pointer": "/components/schemas/System_String",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/121860cd124cc31f",
+    "lines": [1625, 1627],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/ProductMapper/Proxy/product-mapper-open-api.json",
+    "name": "System_String__",
+    "pointer": "/components/schemas/System_String__",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/9a98023ad5e4056b",
+    "lines": [1628, 1633],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/ProductMapper/Proxy/product-mapper-open-api.json",
+    "name": "__f__AnonymousType0_2__System_String__System_Private_CoreLib__Version_10_0_0_0__Culture_neutral__PublicKeyToken_7cec85d7bea7798e___System_String__System_Private_CoreLib__Version_10_0_0_0__Culture_neutral__PublicKeyToken_7cec85d7bea7798e__",
+    "pointer": "/components/schemas/__f__AnonymousType0_2__System_String__System_Private_CoreLib__Version_10_0_0_0__Culture_neutral__PublicKeyToken_7cec85d7bea7798e___System_String__System_Private_CoreLib__Version_10_0_0_0__Culture_neutral__PublicKeyToken_7cec85d7bea7798e__",
+    "shape": "assortment-6114c5d-complete-r5/shape/openapi/04b013d86bb61205",
+    "lines": [1634, 1648],
+    "sourceDeclaration": "examined",
+    "runtimeGeneratedImplementation": "absent"
+  }
+]

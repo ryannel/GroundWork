@@ -1,0 +1,12 @@
+{
+  "assertions": "passed",
+  "sourceKnownVoidCalls": 32,
+  "goroutinesWithoutHandles": 2,
+  "grpcExposures": 9,
+  "unhostedExportedClientDeclarations": 9,
+  "writeFields": ["id", "ruleset", "client_id", "ruleset_id", "specification"],
+  "realExpansionLimits": 27,
+  "recordCount": 96262,
+  "uniqueRecordIDs": 96262,
+  "bundleSha256": "bf5b36fc398e0f7ee593b18a5771e16daaeab7cb9298fc74917bb673e767fdd7"
+}

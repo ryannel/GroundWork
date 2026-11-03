@@ -1,0 +1,8 @@
+{
+  "status": "passed",
+  "snapshot": "9273eddda4c5fff911958b4a6b82143b69d166f1a50b66279bb19755660f27aa",
+  "sourceBundleByteSha256": "8d9162c2ca327b098851357dafde06c8df3309d1833cc7478b4ceb4d8020098d",
+  "gzipDecompression": "Exactly equal immutable selected original bytes",
+  "sourceSeal": "independent-review/publication-seal.json",
+  "sourceRanges": "independent-review/source-range-audit.json"
+}

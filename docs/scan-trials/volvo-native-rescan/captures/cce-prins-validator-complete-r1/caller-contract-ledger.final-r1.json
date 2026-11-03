@@ -1,0 +1,195 @@
+[
+  {
+    "source": "github.com/volvo-cars/cce-prins-validator/internal/gateway/filterservice#Client.GetWheelComponents(context.Context)->([]string,error)",
+    "implementation": "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/0ff52a730f799e287a3c",
+    "contract": "volvo/cce-prins-validator/dc68082c5777/final-r1/interface_contract/caller/0ff52a730f799e287a3c",
+    "method": "GET",
+    "path": "/wheelComponents",
+    "actualOperations": [
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/operation/0ff52a730f799e287a3c/9",
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/operation/0ff52a730f799e287a3c/10",
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/operation/0ff52a730f799e287a3c/11",
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/operation/0ff52a730f799e287a3c/14",
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/operation/0ff52a730f799e287a3c/17",
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/operation/0ff52a730f799e287a3c/18",
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/operation/0ff52a730f799e287a3c/33"
+    ],
+    "actualValues": [
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/value/0ff52a730f799e287a3c/8",
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/0ff52a730f799e287a3c/parameter/0",
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/value/0ff52a730f799e287a3c/5",
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/value/0ff52a730f799e287a3c/12",
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/value/0ff52a730f799e287a3c/13",
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/value/0ff52a730f799e287a3c/15",
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/value/0ff52a730f799e287a3c/16",
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/value/0ff52a730f799e287a3c/21",
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/value/0ff52a730f799e287a3c/32"
+    ]
+  },
+  {
+    "source": "github.com/volvo-cars/cce-prins-validator/internal/gateway/optimizationfacade#Client.GenerateCombinations(context.Context,CombinationsRequestPayload,string)->(GenerateConfigurationsResponse,error)",
+    "implementation": "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/78cc5ff8d463649c0367",
+    "contract": "volvo/cce-prins-validator/dc68082c5777/final-r1/interface_contract/caller/78cc5ff8d463649c0367",
+    "method": "POST",
+    "path": "/v3/generate-configurations",
+    "actualOperations": [
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/operation/78cc5ff8d463649c0367/1",
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/operation/78cc5ff8d463649c0367/21",
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/operation/78cc5ff8d463649c0367/24",
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/operation/78cc5ff8d463649c0367/26",
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/operation/78cc5ff8d463649c0367/28",
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/operation/78cc5ff8d463649c0367/29",
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/operation/78cc5ff8d463649c0367/30",
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/operation/78cc5ff8d463649c0367/33",
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/operation/78cc5ff8d463649c0367/36",
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/operation/78cc5ff8d463649c0367/37",
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/operation/78cc5ff8d463649c0367/52"
+    ],
+    "actualValues": [
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/78cc5ff8d463649c0367/parameter/1",
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/value/78cc5ff8d463649c0367/20",
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/value/78cc5ff8d463649c0367/22",
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/value/78cc5ff8d463649c0367/23",
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/value/78cc5ff8d463649c0367/25",
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/78cc5ff8d463649c0367/parameter/2",
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/value/78cc5ff8d463649c0367/27",
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/78cc5ff8d463649c0367/parameter/0",
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/value/78cc5ff8d463649c0367/17",
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/value/78cc5ff8d463649c0367/31",
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/value/78cc5ff8d463649c0367/32",
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/value/78cc5ff8d463649c0367/34",
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/value/78cc5ff8d463649c0367/35",
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/value/78cc5ff8d463649c0367/40",
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/value/78cc5ff8d463649c0367/51"
+    ]
+  },
+  {
+    "source": "github.com/volvo-cars/cce-prins-validator/internal/gateway/optimizationfacade#Client.GetStartStates(context.Context,string)->(StartStatesResponse,error)",
+    "implementation": "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/6831e984490d0f03ed0d",
+    "contract": "volvo/cce-prins-validator/dc68082c5777/final-r1/interface_contract/caller/6831e984490d0f03ed0d",
+    "method": "GET",
+    "path": "/v3/policies/{policy}/start-states",
+    "actualOperations": [
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/operation/6831e984490d0f03ed0d/8",
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/operation/6831e984490d0f03ed0d/9",
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/operation/6831e984490d0f03ed0d/10",
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/operation/6831e984490d0f03ed0d/13",
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/operation/6831e984490d0f03ed0d/16",
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/operation/6831e984490d0f03ed0d/17",
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/operation/6831e984490d0f03ed0d/32"
+    ],
+    "actualValues": [
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/value/6831e984490d0f03ed0d/7",
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/6831e984490d0f03ed0d/parameter/0",
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/value/6831e984490d0f03ed0d/4",
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/value/6831e984490d0f03ed0d/11",
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/value/6831e984490d0f03ed0d/12",
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/value/6831e984490d0f03ed0d/14",
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/value/6831e984490d0f03ed0d/15",
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/value/6831e984490d0f03ed0d/20",
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/value/6831e984490d0f03ed0d/31"
+    ]
+  },
+  {
+    "source": "github.com/volvo-cars/cce-prins-validator/internal/gateway/optimizationfacade#Client.GetComponents(context.Context,string,string)->(ComponentsResponse,error)",
+    "implementation": "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/2161c01cb55d7d5fdef4",
+    "contract": "volvo/cce-prins-validator/dc68082c5777/final-r1/interface_contract/caller/2161c01cb55d7d5fdef4",
+    "method": "GET",
+    "path": "/v2/components",
+    "actualOperations": [
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/operation/2161c01cb55d7d5fdef4/8",
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/operation/2161c01cb55d7d5fdef4/10",
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/operation/2161c01cb55d7d5fdef4/12",
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/operation/2161c01cb55d7d5fdef4/13",
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/operation/2161c01cb55d7d5fdef4/14",
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/operation/2161c01cb55d7d5fdef4/17",
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/operation/2161c01cb55d7d5fdef4/20",
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/operation/2161c01cb55d7d5fdef4/21",
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/operation/2161c01cb55d7d5fdef4/36"
+    ],
+    "actualValues": [
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/value/2161c01cb55d7d5fdef4/7",
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/value/2161c01cb55d7d5fdef4/9",
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/2161c01cb55d7d5fdef4/parameter/1",
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/value/2161c01cb55d7d5fdef4/11",
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/2161c01cb55d7d5fdef4/parameter/2",
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/2161c01cb55d7d5fdef4/parameter/0",
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/value/2161c01cb55d7d5fdef4/4",
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/value/2161c01cb55d7d5fdef4/15",
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/value/2161c01cb55d7d5fdef4/16",
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/value/2161c01cb55d7d5fdef4/18",
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/value/2161c01cb55d7d5fdef4/19",
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/value/2161c01cb55d7d5fdef4/24",
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/value/2161c01cb55d7d5fdef4/35"
+    ]
+  },
+  {
+    "source": "github.com/volvo-cars/cce-prins-validator/internal/gateway/optimizationfacade#Client.PostStateFromConfig(context.Context,StateFromConfigPayload)->(State,error)",
+    "implementation": "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/0a0a1cc33b01d1b97875",
+    "contract": "volvo/cce-prins-validator/dc68082c5777/final-r1/interface_contract/caller/0a0a1cc33b01d1b97875",
+    "method": "POST",
+    "path": "/v2/stateFromConfig",
+    "actualOperations": [
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/operation/0a0a1cc33b01d1b97875/1",
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/operation/0a0a1cc33b01d1b97875/20",
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/operation/0a0a1cc33b01d1b97875/22",
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/operation/0a0a1cc33b01d1b97875/23",
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/operation/0a0a1cc33b01d1b97875/24",
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/operation/0a0a1cc33b01d1b97875/27",
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/operation/0a0a1cc33b01d1b97875/30",
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/operation/0a0a1cc33b01d1b97875/33",
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/operation/0a0a1cc33b01d1b97875/34",
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/operation/0a0a1cc33b01d1b97875/49"
+    ],
+    "actualValues": [
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/0a0a1cc33b01d1b97875/parameter/1",
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/value/0a0a1cc33b01d1b97875/19",
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/value/0a0a1cc33b01d1b97875/21",
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/0a0a1cc33b01d1b97875/parameter/0",
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/value/0a0a1cc33b01d1b97875/16",
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/value/0a0a1cc33b01d1b97875/25",
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/value/0a0a1cc33b01d1b97875/26",
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/value/0a0a1cc33b01d1b97875/28",
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/value/0a0a1cc33b01d1b97875/29",
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/value/0a0a1cc33b01d1b97875/31",
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/value/0a0a1cc33b01d1b97875/32",
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/value/0a0a1cc33b01d1b97875/37",
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/value/0a0a1cc33b01d1b97875/48"
+    ]
+  },
+  {
+    "source": "github.com/volvo-cars/cce-prins-validator/internal/gateway/prins#Client.GetStoredCpvSets(context.Context,string,string,int)->(PrinsQueryResponse,error)",
+    "implementation": "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/db72d5bdd659ded7fb82",
+    "contract": "volvo/cce-prins-validator/dc68082c5777/final-r1/interface_contract/caller/prins",
+    "method": null,
+    "path": null,
+    "actualOperations": [
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/operation/db72d5bdd659ded7fb82/2",
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/operation/db72d5bdd659ded7fb82/7",
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/operation/db72d5bdd659ded7fb82/10",
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/operation/db72d5bdd659ded7fb82/12",
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/operation/db72d5bdd659ded7fb82/14",
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/operation/db72d5bdd659ded7fb82/18",
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/operation/db72d5bdd659ded7fb82/23",
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/operation/db72d5bdd659ded7fb82/28"
+    ],
+    "actualValues": [
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/value/db72d5bdd659ded7fb82/1",
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/value/db72d5bdd659ded7fb82/6",
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/db72d5bdd659ded7fb82/parameter/1",
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/value/db72d5bdd659ded7fb82/8",
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/value/db72d5bdd659ded7fb82/9",
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/value/db72d5bdd659ded7fb82/11",
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/value/db72d5bdd659ded7fb82/5",
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/value/db72d5bdd659ded7fb82/13",
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/db72d5bdd659ded7fb82/parameter/2",
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/value/db72d5bdd659ded7fb82/15",
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/value/db72d5bdd659ded7fb82/17",
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/value/db72d5bdd659ded7fb82/20",
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/value/db72d5bdd659ded7fb82/22",
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/db72d5bdd659ded7fb82/parameter/0",
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/value/db72d5bdd659ded7fb82/3",
+      "volvo/cce-prins-validator/dc68082c5777/final-r1/value/db72d5bdd659ded7fb82/27"
+    ]
+  }
+]

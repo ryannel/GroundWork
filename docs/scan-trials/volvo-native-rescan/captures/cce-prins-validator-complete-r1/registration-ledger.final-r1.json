@@ -1,0 +1,98 @@
+[
+  {
+    "registration": "fx.Provide",
+    "expression": "newBinderConfig",
+    "target": "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/066d5df93966e4b7c948",
+    "claim": "volvo/cce-prins-validator/dc68082c5777/final-r1/claim/fx-registration/2d763ee1eda3b419f8c6"
+  },
+  {
+    "registration": "fx.Provide",
+    "expression": "newConfig",
+    "target": "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/bdb2ff36001ced275ca7",
+    "claim": "volvo/cce-prins-validator/dc68082c5777/final-r1/claim/fx-registration/2cd1489d65f936559e69"
+  },
+  {
+    "registration": "fx.Provide",
+    "expression": "newFilterApiConfig",
+    "target": "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/2c9e822f01a1c4b41994",
+    "claim": "volvo/cce-prins-validator/dc68082c5777/final-r1/claim/fx-registration/93ca3c6d9f65a7f6527a"
+  },
+  {
+    "registration": "fx.Provide",
+    "expression": "newOptimizationFacadeConfig",
+    "target": "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/8e9cfb6b357979ddf13d",
+    "claim": "volvo/cce-prins-validator/dc68082c5777/final-r1/claim/fx-registration/56fc225de8dcf924bae5"
+  },
+  {
+    "registration": "fx.Provide",
+    "expression": "newPrinsConfig",
+    "target": "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/de138ae678e87fb4b269",
+    "claim": "volvo/cce-prins-validator/dc68082c5777/final-r1/claim/fx-registration/1982b24b912624832bef"
+  },
+  {
+    "registration": "fx.Provide",
+    "expression": "newHttpClient",
+    "target": "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/e4d5069ac6659e77cf4e",
+    "claim": "volvo/cce-prins-validator/dc68082c5777/final-r1/claim/fx-registration/f1d35aaf5466cbf7a658"
+  },
+  {
+    "registration": "fx.Provide",
+    "expression": "filterservice.NewClient",
+    "target": "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/a712b6c4163ef902e7a8",
+    "claim": "volvo/cce-prins-validator/dc68082c5777/final-r1/claim/fx-registration/b3a6cd7e007e9a0944c6"
+  },
+  {
+    "registration": "fx.Provide",
+    "expression": "optimizationfacade.NewClient",
+    "target": "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/05580af2163f55257dc9",
+    "claim": "volvo/cce-prins-validator/dc68082c5777/final-r1/claim/fx-registration/6d3635ee1b4ecad912fe"
+  },
+  {
+    "registration": "fx.Provide",
+    "expression": "optimizationfacade.NewComponentProvider",
+    "target": "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/88fee5d8e2adc2b3fea0",
+    "claim": "volvo/cce-prins-validator/dc68082c5777/final-r1/claim/fx-registration/d1705c67f2e573312649"
+  },
+  {
+    "registration": "fx.Provide",
+    "expression": "optimizationfacade.NewConfigurationGenerator",
+    "target": "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/5381554bfd3aeb6ee5f8",
+    "claim": "volvo/cce-prins-validator/dc68082c5777/final-r1/claim/fx-registration/28cb4ac19063f839a811"
+  },
+  {
+    "registration": "fx.Provide",
+    "expression": "optimizationfacade.NewStartConfigurationProvider",
+    "target": "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/ff8db9652860e529f6dd",
+    "claim": "volvo/cce-prins-validator/dc68082c5777/final-r1/claim/fx-registration/359414e3f4a68474b443"
+  },
+  {
+    "registration": "fx.Provide",
+    "expression": "prins.NewClient",
+    "target": "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/cd2afd94ac802c27b434",
+    "claim": "volvo/cce-prins-validator/dc68082c5777/final-r1/claim/fx-registration/ab8fb1edeedda6d785fc"
+  },
+  {
+    "registration": "fx.Provide",
+    "expression": "prins.NewConfigurationFetcher",
+    "target": "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/748e229a553603f48e56",
+    "claim": "volvo/cce-prins-validator/dc68082c5777/final-r1/claim/fx-registration/516fd26e83905b6e4cfa"
+  },
+  {
+    "registration": "fx.Provide",
+    "expression": "service.NewRulesetValidator",
+    "target": "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/86ff304d90322e9fda21",
+    "claim": "volvo/cce-prins-validator/dc68082c5777/final-r1/claim/fx-registration/fc34b727e4ed8254cdde"
+  },
+  {
+    "registration": "fx.Provide",
+    "expression": "fx.Annotate(\n\t\t\t\t\tfunc(cfg config, client *http.Client) *graphql.Client {\n\t\t\t\t\t\treturn graphql.NewClient(\n\t\t\t\t\t\t\tcfg.PrinsBaseUrl,\n\t\t\t\t\t\t\tgraphql.WithHTTPClient(client),\n\t\t\t\t\t\t)\n\t\t\t\t\t},\n\t\t\t\t\tfx.As(new(prins.MachineboxClient)),\n\t\t\t\t)",
+    "target": "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/b0ab305910c7be7b5ac9",
+    "claim": "volvo/cce-prins-validator/dc68082c5777/final-r1/claim/fx-registration/e8804e39f74cb7bb0ac7"
+  },
+  {
+    "registration": "fx.Invoke",
+    "expression": "runValidation",
+    "target": "volvo/cce-prins-validator/dc68082c5777/final-r1/implementation/0190e0a8648d93e6b255",
+    "claim": "volvo/cce-prins-validator/dc68082c5777/final-r1/claim/fx-registration/1853ccf902f7bbcd5995"
+  }
+]

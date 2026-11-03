@@ -1,0 +1,101 @@
+[
+  {
+    "write": "volvo/cce-car-configuration-generator/c91f73a5a3b6/final-r6/body/storage_write/source/7b73d387829af5dcc6a4",
+    "call": "volvo/cce-car-configuration-generator/c91f73a5a3b6/final-r6/body/operation/342dec31f38b24c41807/30",
+    "guard": "volvo/cce-car-configuration-generator/c91f73a5a3b6/final-r6/body/operation/342dec31f38b24c41807/34",
+    "ack": "volvo/cce-car-configuration-generator/c91f73a5a3b6/final-r6/body/operation/nil-error-ack/7b73d387829af5dcc6a4",
+    "name": "Commit",
+    "path": "internal/database/postgres/carkeyrepository.go",
+    "lines": [186, 186]
+  },
+  {
+    "write": "volvo/cce-car-configuration-generator/c91f73a5a3b6/final-r6/body/storage_write/source/885c94c21b190e0bca91",
+    "call": "volvo/cce-car-configuration-generator/c91f73a5a3b6/final-r6/body/operation/ba2520bb1643861a654f/7",
+    "guard": "volvo/cce-car-configuration-generator/c91f73a5a3b6/final-r6/body/operation/ba2520bb1643861a654f/13",
+    "ack": "volvo/cce-car-configuration-generator/c91f73a5a3b6/final-r6/body/operation/nil-error-ack/885c94c21b190e0bca91",
+    "name": "Exec",
+    "path": "internal/database/postgres/carkeyrepository.go",
+    "lines": [198, 208]
+  },
+  {
+    "write": "volvo/cce-car-configuration-generator/c91f73a5a3b6/final-r6/body/storage_write/source/97435590bed88b78c51a",
+    "call": "volvo/cce-car-configuration-generator/c91f73a5a3b6/final-r6/body/operation/e38a5ff1715f500a34cb/11",
+    "guard": "volvo/cce-car-configuration-generator/c91f73a5a3b6/final-r6/body/operation/e38a5ff1715f500a34cb/17",
+    "ack": "volvo/cce-car-configuration-generator/c91f73a5a3b6/final-r6/body/operation/nil-error-ack/97435590bed88b78c51a",
+    "name": "Exec",
+    "path": "internal/database/postgres/carkeyrepository.go",
+    "lines": [218, 224]
+  },
+  {
+    "write": "volvo/cce-car-configuration-generator/c91f73a5a3b6/final-r6/body/storage_write/source/a11f63d1f1d84db82c36",
+    "call": "volvo/cce-car-configuration-generator/c91f73a5a3b6/final-r6/body/operation/e38a5ff1715f500a34cb/31",
+    "guard": "volvo/cce-car-configuration-generator/c91f73a5a3b6/final-r6/body/operation/e38a5ff1715f500a34cb/37",
+    "ack": "volvo/cce-car-configuration-generator/c91f73a5a3b6/final-r6/body/operation/nil-error-ack/a11f63d1f1d84db82c36",
+    "name": "Exec",
+    "path": "internal/database/postgres/carkeyrepository.go",
+    "lines": [231, 239]
+  },
+  {
+    "write": "volvo/cce-car-configuration-generator/c91f73a5a3b6/final-r6/body/storage_write/source/879b37215842a5b7976f",
+    "call": "volvo/cce-car-configuration-generator/c91f73a5a3b6/final-r6/body/operation/3265b1cde7ebd175a9c3/3",
+    "guard": "volvo/cce-car-configuration-generator/c91f73a5a3b6/final-r6/body/operation/3265b1cde7ebd175a9c3/9",
+    "ack": "volvo/cce-car-configuration-generator/c91f73a5a3b6/final-r6/body/operation/nil-error-ack/879b37215842a5b7976f",
+    "name": "Exec",
+    "path": "internal/database/postgres/carkeyrepository.go",
+    "lines": [280, 280]
+  },
+  {
+    "write": "volvo/cce-car-configuration-generator/c91f73a5a3b6/final-r6/body/storage_write/source/852078fc32e9b4e93e88",
+    "call": "volvo/cce-car-configuration-generator/c91f73a5a3b6/final-r6/body/operation/2dc432b9c77329283c7a/47",
+    "guard": "volvo/cce-car-configuration-generator/c91f73a5a3b6/final-r6/body/operation/2dc432b9c77329283c7a/51",
+    "ack": "volvo/cce-car-configuration-generator/c91f73a5a3b6/final-r6/body/operation/nil-error-ack/852078fc32e9b4e93e88",
+    "name": "Commit",
+    "path": "internal/database/postgres/carspecrepository.go",
+    "lines": [110, 110]
+  },
+  {
+    "write": "volvo/cce-car-configuration-generator/c91f73a5a3b6/final-r6/body/storage_write/source/57c2fed20de1b6b8082f",
+    "call": "volvo/cce-car-configuration-generator/c91f73a5a3b6/final-r6/body/operation/dbab5dbe91610d2d04c5/7",
+    "guard": "volvo/cce-car-configuration-generator/c91f73a5a3b6/final-r6/body/operation/dbab5dbe91610d2d04c5/13",
+    "ack": "volvo/cce-car-configuration-generator/c91f73a5a3b6/final-r6/body/operation/nil-error-ack/57c2fed20de1b6b8082f",
+    "name": "Exec",
+    "path": "internal/database/postgres/carspecrepository.go",
+    "lines": [230, 237]
+  },
+  {
+    "write": "volvo/cce-car-configuration-generator/c91f73a5a3b6/final-r6/body/storage_write/source/72d8cc7d865f7d53a432",
+    "call": "volvo/cce-car-configuration-generator/c91f73a5a3b6/final-r6/body/operation/69b2ede1968c146cd9d2/4",
+    "guard": "volvo/cce-car-configuration-generator/c91f73a5a3b6/final-r6/body/operation/69b2ede1968c146cd9d2/10",
+    "ack": "volvo/cce-car-configuration-generator/c91f73a5a3b6/final-r6/body/operation/nil-error-ack/72d8cc7d865f7d53a432",
+    "name": "Exec",
+    "path": "internal/database/postgres/carspecrepository.go",
+    "lines": [253, 259]
+  },
+  {
+    "write": "volvo/cce-car-configuration-generator/c91f73a5a3b6/final-r6/body/storage_write/source/db48c74913c54adb5e50",
+    "call": "volvo/cce-car-configuration-generator/c91f73a5a3b6/final-r6/body/operation/23546c1eedb6c2b5d43d/2",
+    "guard": "volvo/cce-car-configuration-generator/c91f73a5a3b6/final-r6/body/operation/23546c1eedb6c2b5d43d/8",
+    "ack": "volvo/cce-car-configuration-generator/c91f73a5a3b6/final-r6/body/operation/nil-error-ack/db48c74913c54adb5e50",
+    "name": "Exec",
+    "path": "internal/database/postgres/carspecrepository.go",
+    "lines": [287, 291]
+  },
+  {
+    "write": "volvo/cce-car-configuration-generator/c91f73a5a3b6/final-r6/body/storage_write/source/98eab109c06f6ec68a5e",
+    "call": "volvo/cce-car-configuration-generator/c91f73a5a3b6/final-r6/body/operation/089ad6e1a88c7fd291fb/31",
+    "guard": "volvo/cce-car-configuration-generator/c91f73a5a3b6/final-r6/body/operation/089ad6e1a88c7fd291fb/37",
+    "ack": "volvo/cce-car-configuration-generator/c91f73a5a3b6/final-r6/body/operation/nil-error-ack/98eab109c06f6ec68a5e",
+    "name": "InsertTx",
+    "path": "internal/database/queuedb/client.go",
+    "lines": [110, 110]
+  },
+  {
+    "write": "volvo/cce-car-configuration-generator/c91f73a5a3b6/final-r6/body/storage_write/batch-source-rows",
+    "call": "volvo/cce-car-configuration-generator/c91f73a5a3b6/final-r6/body/operation/3265b1cde7ebd175a9c3/1",
+    "guard": "volvo/cce-car-configuration-generator/c91f73a5a3b6/final-r6/body/operation/3265b1cde7ebd175a9c3/18",
+    "ack": "volvo/cce-car-configuration-generator/c91f73a5a3b6/final-r6/body/operation/batch-close-ack",
+    "name": "SendBatch/Close",
+    "path": "internal/database/postgres/carkeyrepository.go",
+    "lines": [259, 289]
+  }
+]

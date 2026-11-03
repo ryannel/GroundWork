@@ -1,0 +1,1071 @@
+{
+  "repo": "volvo-cars/cds-paymentservice-psp-inbound",
+  "commit": "ae1d9ddfb34dae71c15913e9f28d41321d66266a",
+  "files": [
+    {
+      "path": ".github/CODEOWNERS",
+      "sha256": "306048a0d103faceb4af79e79d8ad61121db1e580eaa34006b249381008b0b10",
+      "lines": 1,
+      "bytes": 26,
+      "role": "build_deployment_or_repository_declaration",
+      "status": "source_declaration_read_not_runtime_observation",
+      "methods": []
+    },
+    {
+      "path": ".github/dependabot.yml",
+      "sha256": "23d543d623e39d265667d18da398b9d1a53bc952d7536e7bdd986d3ef54cde2e",
+      "lines": 57,
+      "bytes": 1697,
+      "role": "build_deployment_or_repository_declaration",
+      "status": "source_declaration_read_not_runtime_observation",
+      "methods": []
+    },
+    {
+      "path": ".github/workflows/apim-publish.yml",
+      "sha256": "18ec3caffdf36f292bdfbadca494d345433723954894e5ce6d0c669900118f34",
+      "lines": 43,
+      "bytes": 1320,
+      "role": "build_deployment_or_repository_declaration",
+      "status": "source_declaration_read_not_runtime_observation",
+      "methods": []
+    },
+    {
+      "path": ".github/workflows/build-deploy.yml",
+      "sha256": "03b7a927519236c780d177a974b2766e5deb5f224cfeae1743ae173d895f0792",
+      "lines": 132,
+      "bytes": 4889,
+      "role": "build_deployment_or_repository_declaration",
+      "status": "source_declaration_read_not_runtime_observation",
+      "methods": []
+    },
+    {
+      "path": ".github/workflows/codeql.yml",
+      "sha256": "578c0f03dc81d8e153029037093348561e797078f25dc18f0e7a2562dfd0ce05",
+      "lines": 55,
+      "bytes": 1377,
+      "role": "build_deployment_or_repository_declaration",
+      "status": "source_declaration_read_not_runtime_observation",
+      "methods": []
+    },
+    {
+      "path": ".github/workflows/scheduled-sonarqube.yml",
+      "sha256": "2b315697eb93128befa43db22a7489bd2944f09c0cc9c21434d18b18adf2186b",
+      "lines": 14,
+      "bytes": 350,
+      "role": "build_deployment_or_repository_declaration",
+      "status": "source_declaration_read_not_runtime_observation",
+      "methods": []
+    },
+    {
+      "path": ".gitignore",
+      "sha256": "da66c494849ec9a763eecbfe964f44da8603dd518f03717f56e7e8048508828d",
+      "lines": 239,
+      "bytes": 4799,
+      "role": "build_deployment_or_repository_declaration",
+      "status": "source_declaration_read_not_runtime_observation",
+      "methods": []
+    },
+    {
+      "path": ".m2/settings.xml",
+      "sha256": "5a506ffa80bb2eb1eb0f3dbb3ecfd7a3851965186159f8456163bf221939b942",
+      "lines": 17,
+      "bytes": 663,
+      "role": "build_deployment_or_repository_declaration",
+      "status": "source_declaration_read_not_runtime_observation",
+      "methods": []
+    },
+    {
+      "path": "Dockerfile",
+      "sha256": "2fc8db74142ea5737b51103c5e80104baaf90bce515c199c2f117335008224dc",
+      "lines": 21,
+      "bytes": 560,
+      "role": "build_deployment_or_repository_declaration",
+      "status": "source_declaration_read_not_runtime_observation",
+      "methods": []
+    },
+    {
+      "path": "README.md",
+      "sha256": "3ca55079d36a707f10eb22523bc6b3c952b6fe4a63d4812c45fafa5a396d62dd",
+      "lines": 159,
+      "bytes": 4454,
+      "role": "build_deployment_or_repository_declaration",
+      "status": "source_declaration_read_not_runtime_observation",
+      "methods": []
+    },
+    {
+      "path": "com-volvocars-ecom-paymentservice-psp-inbound-api/pom.xml",
+      "sha256": "b9f307f08926a8050238d9e6fe578b1eee28d49fac29a9b8a9549e1ac7d17409",
+      "lines": 95,
+      "bytes": 4017,
+      "role": "build_deployment_or_repository_declaration",
+      "status": "source_declaration_read_not_runtime_observation",
+      "methods": []
+    },
+    {
+      "path": "com-volvocars-ecom-paymentservice-psp-inbound-api/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/api/App.java",
+      "sha256": "80ff45484a2065ec62da0bb6545a1d2870e0926e32cad1f0db02bce8a262118f",
+      "lines": 24,
+      "bytes": 1181,
+      "role": "production_source",
+      "status": "whole_explicit_body_and_declaration_reviewed",
+      "methods": [
+        "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/0c8d6cb9b9e7984b5a21"
+      ]
+    },
+    {
+      "path": "com-volvocars-ecom-paymentservice-psp-inbound-api/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/api/configuration/v1/SwaggerUIController.java",
+      "sha256": "fe0ebc9850522740896b29c4877794e958de05920b7942000a410f844a1bf5fb",
+      "lines": 36,
+      "bytes": 1567,
+      "role": "production_source",
+      "status": "whole_explicit_body_and_declaration_reviewed",
+      "methods": [
+        "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/01cb4fa9b922ad9b002b"
+      ]
+    },
+    {
+      "path": "com-volvocars-ecom-paymentservice-psp-inbound-api/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/api/configuration/v1/impl/SwaggerUIControllerImpl.java",
+      "sha256": "9d5191e38b1bf755600d519cd9416460ad7c5ddb5f36ecd528f143a0c089c0cc",
+      "lines": 37,
+      "bytes": 1616,
+      "role": "production_source",
+      "status": "whole_explicit_body_and_declaration_reviewed",
+      "methods": [
+        "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/6cc5411b00701421204e",
+        "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/05854a5b7f788293eec9"
+      ]
+    },
+    {
+      "path": "com-volvocars-ecom-paymentservice-psp-inbound-api/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/api/security/IpAuthorizationFilter.java",
+      "sha256": "47d3aa9f618ebc3d31f4c5bcd7c40a7d6affc519d1fa96ce4eebb0f34ccb205b",
+      "lines": 60,
+      "bytes": 2472,
+      "role": "production_source",
+      "status": "whole_explicit_body_and_declaration_reviewed",
+      "methods": [
+        "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/3949b9021d555f292e87",
+        "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/b4514f60ae0c301d4859",
+        "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/14e8a1963cd9b38afbcf"
+      ]
+    },
+    {
+      "path": "com-volvocars-ecom-paymentservice-psp-inbound-api/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/api/webhook/v2/InboundController.java",
+      "sha256": "7411910ffd6f226c55317dcdbfe102c149e25e1456aadc6c790d137b9f65f033",
+      "lines": 43,
+      "bytes": 1945,
+      "role": "production_source",
+      "status": "whole_explicit_body_and_declaration_reviewed",
+      "methods": [
+        "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/5bfa428bec40105563c9"
+      ]
+    },
+    {
+      "path": "com-volvocars-ecom-paymentservice-psp-inbound-api/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/api/webhook/v2/impl/InboundControllerImpl.java",
+      "sha256": "ff0eb6c0f3dbe023fe593e628f4946de6cb6e67c07f56c2792c91749616edeaf",
+      "lines": 37,
+      "bytes": 1627,
+      "role": "production_source",
+      "status": "whole_explicit_body_and_declaration_reviewed",
+      "methods": [
+        "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/e32c19d0dc43398e91a2"
+      ]
+    },
+    {
+      "path": "com-volvocars-ecom-paymentservice-psp-inbound-api/src/main/resources/application-development.yml",
+      "sha256": "c4f10e9236ee4ab1903f5aabb20ef20f38ae366bd3dadce040510fc45513b081",
+      "lines": 18,
+      "bytes": 260,
+      "role": "source_configuration",
+      "status": "source_declaration_read_not_runtime_observation",
+      "methods": []
+    },
+    {
+      "path": "com-volvocars-ecom-paymentservice-psp-inbound-api/src/main/resources/application-ecp-us-prod.yml",
+      "sha256": "9be37070ad3011f92f51fab1f1de203642ba1e30e98891bd210a74ed06303334",
+      "lines": 10,
+      "bytes": 204,
+      "role": "source_configuration",
+      "status": "source_declaration_read_not_runtime_observation",
+      "methods": []
+    },
+    {
+      "path": "com-volvocars-ecom-paymentservice-psp-inbound-api/src/main/resources/application-ecp-us-qa.yml",
+      "sha256": "594910527466cc4c9633842d0b65360d58c874f0bf2cc841290145d6f247d649",
+      "lines": 10,
+      "bytes": 205,
+      "role": "source_configuration",
+      "status": "source_declaration_read_not_runtime_observation",
+      "methods": []
+    },
+    {
+      "path": "com-volvocars-ecom-paymentservice-psp-inbound-api/src/main/resources/application-ecp-weu-dev.yml",
+      "sha256": "7bf4b8b3146eaf9fb44075da6524b4d38c61e9baa3f1b518739e8cf0dba3392d",
+      "lines": 17,
+      "bytes": 364,
+      "role": "source_configuration",
+      "status": "source_declaration_read_not_runtime_observation",
+      "methods": []
+    },
+    {
+      "path": "com-volvocars-ecom-paymentservice-psp-inbound-api/src/main/resources/application-ecp-weu-prod.yml",
+      "sha256": "fc9a4fff218a0040c03dde42d4a245eb6702de4815b75ce0db439532a02b4719",
+      "lines": 16,
+      "bytes": 355,
+      "role": "source_configuration",
+      "status": "source_declaration_read_not_runtime_observation",
+      "methods": []
+    },
+    {
+      "path": "com-volvocars-ecom-paymentservice-psp-inbound-api/src/main/resources/application-ecp-weu-qa.yml",
+      "sha256": "27fd28bb0868865ebf66004961bd55940ff6968e87beb40e3877d684b5b35a4b",
+      "lines": 16,
+      "bytes": 357,
+      "role": "source_configuration",
+      "status": "source_declaration_read_not_runtime_observation",
+      "methods": []
+    },
+    {
+      "path": "com-volvocars-ecom-paymentservice-psp-inbound-api/src/main/resources/application-local.yml",
+      "sha256": "574cc7dc777433efd73ff25ea334253e53c35766659490fdf9e31048137a2168",
+      "lines": 31,
+      "bytes": 571,
+      "role": "source_configuration",
+      "status": "source_declaration_read_not_runtime_observation",
+      "methods": []
+    },
+    {
+      "path": "com-volvocars-ecom-paymentservice-psp-inbound-api/src/main/resources/application-production.yml",
+      "sha256": "e05859f8d9269b860ccdb95e4b6006737152fd19061875f504d13cb01a5f2d6f",
+      "lines": 22,
+      "bytes": 319,
+      "role": "source_configuration",
+      "status": "source_declaration_read_not_runtime_observation",
+      "methods": []
+    },
+    {
+      "path": "com-volvocars-ecom-paymentservice-psp-inbound-api/src/main/resources/application-staging.yml",
+      "sha256": "601925a6aebe4fe1ce5bd1e3af4f55931d77f516a8b738401f13151527d05088",
+      "lines": 18,
+      "bytes": 258,
+      "role": "source_configuration",
+      "status": "source_declaration_read_not_runtime_observation",
+      "methods": []
+    },
+    {
+      "path": "com-volvocars-ecom-paymentservice-psp-inbound-api/src/main/resources/application.yml",
+      "sha256": "7b13dc0d22ee3dd30d64c7a16b62a9599d68ad02fa6c65a03e34232c6d7d6a0a",
+      "lines": 157,
+      "bytes": 3588,
+      "role": "source_configuration",
+      "status": "source_declaration_read_not_runtime_observation",
+      "methods": []
+    },
+    {
+      "path": "com-volvocars-ecom-paymentservice-psp-inbound-api/src/main/resources/log4j2-spring-local.xml",
+      "sha256": "27b8b2b0815d7685170889bf425c7c1e50f236b16f657297bcf85c2777fdbe8f",
+      "lines": 15,
+      "bytes": 723,
+      "role": "source_configuration",
+      "status": "source_declaration_read_not_runtime_observation",
+      "methods": []
+    },
+    {
+      "path": "com-volvocars-ecom-paymentservice-psp-inbound-api/src/main/resources/log4j2-spring.xml",
+      "sha256": "e3a46b32c6f099a8ec6ea317fc40b3397b670b203565cb14971dd22e1ab7eb14",
+      "lines": 32,
+      "bytes": 1581,
+      "role": "source_configuration",
+      "status": "source_declaration_read_not_runtime_observation",
+      "methods": []
+    },
+    {
+      "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/pom.xml",
+      "sha256": "4973bac2deb7dedd76075f3d0b311e9ccf7274e9507bd126d761f6a58ac20a18",
+      "lines": 63,
+      "bytes": 2467,
+      "role": "build_deployment_or_repository_declaration",
+      "status": "source_declaration_read_not_runtime_observation",
+      "methods": []
+    },
+    {
+      "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/common/InboundControllerAdvice.java",
+      "sha256": "f68427705209633c961efcb6413207f9db3b6cf9c72708690dc4f217f101fa7e",
+      "lines": 74,
+      "bytes": 3100,
+      "role": "production_source",
+      "status": "whole_explicit_body_and_declaration_reviewed",
+      "methods": [
+        "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/1fcf10a046474ae20296",
+        "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/fd29dee42c2c25e96fff",
+        "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/b9effc8ab93b9ce60a6c",
+        "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/b2c4b9d337550664a572",
+        "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/423b34ee45109119a7d0"
+      ]
+    },
+    {
+      "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/config/AllowedSourceEvents.java",
+      "sha256": "b948196f287ed2b455a850acad6e1eed5e1dafc944ed8357bc2019255bb00c26",
+      "lines": 51,
+      "bytes": 2008,
+      "role": "production_source",
+      "status": "whole_explicit_body_and_declaration_reviewed",
+      "methods": [
+        "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/c67e91b6f6cc293c59a5",
+        "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/71df016fa6534ff348af",
+        "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/4ca99e015409666821f0",
+        "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/4b871e68f62eda9dc7b0",
+        "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/9bd16087c97b369e712e",
+        "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/5cabfe8240d08d6acb06",
+        "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/54d733e9531a24ed1cef",
+        "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/45a671ce3e3b42f6a81a"
+      ]
+    },
+    {
+      "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/config/PspConverter.java",
+      "sha256": "15a69bf7fcdd01933420916edd7173e5b1b2b6bfc34800a6ead4bdd28630f28c",
+      "lines": 22,
+      "bytes": 725,
+      "role": "production_source",
+      "status": "whole_explicit_body_and_declaration_reviewed",
+      "methods": [
+        "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/e633b9a66045cebf91da",
+        "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/db74615e181b98f8b922"
+      ]
+    },
+    {
+      "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/config/PspSettings.java",
+      "sha256": "926d90a92b2db29731c505684475ef57e707b8144bce757a72595b8ea47cdad2",
+      "lines": 23,
+      "bytes": 591,
+      "role": "production_source",
+      "status": "whole_explicit_body_and_declaration_reviewed",
+      "methods": [
+        "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/aec0b0707225e06e3dff",
+        "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/c2db6daeeef693d70847"
+      ]
+    },
+    {
+      "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/entity/NotificationResponse.java",
+      "sha256": "6a1277d454ff50142bb0aa2ac2b8468c0cd83c3f140a9a155c9e5b6d6d12615b",
+      "lines": 45,
+      "bytes": 982,
+      "role": "production_source",
+      "status": "whole_explicit_body_and_declaration_reviewed",
+      "methods": [
+        "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/7b3b08cd0180dd0cfb03",
+        "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/153e9747527c40c56ac4",
+        "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/dd723d376fd84790066b",
+        "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/9de9a211553b93f2974c",
+        "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/4aaee7003a53edbd1d2c",
+        "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/cb32200d7d0543588767",
+        "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/4d2e4ca22be64eee046c"
+      ]
+    },
+    {
+      "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/messaging/KafkaProducer.java",
+      "sha256": "566893d7ac5d67cd0e9129f1fadb52f8097039120928c26ede05c84c6093a6dc",
+      "lines": 49,
+      "bytes": 2038,
+      "role": "production_source",
+      "status": "whole_explicit_body_and_declaration_reviewed",
+      "methods": [
+        "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/08fa62f4d986882d12c9",
+        "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/3ccc6bbab819be062a1c",
+        "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/a6301a3869818de4adbb"
+      ]
+    },
+    {
+      "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/messaging/KafkaProducerConfig.java",
+      "sha256": "0dd17db16c29c817ffdb93bdb641825c84d437ddaafe693c6071f15f4c936c0c",
+      "lines": 16,
+      "bytes": 401,
+      "role": "production_source",
+      "status": "whole_explicit_body_and_declaration_reviewed",
+      "methods": [
+        "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/4f507747194b6dabb86d",
+        "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/1e258b402c7d490604e4"
+      ]
+    },
+    {
+      "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/messaging/ScheduledMessageProducer.java",
+      "sha256": "57a3eeeeef83e3862111944260a6855dce05a3f97e6731a39fdb4cc7aa1fc023",
+      "lines": 70,
+      "bytes": 2788,
+      "role": "production_source",
+      "status": "whole_explicit_body_and_declaration_reviewed",
+      "methods": [
+        "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/9951fc81c2e45117ed11",
+        "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/895db8fc09ddb9f8dc77",
+        "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/7cce8fbaefb81f0e2acc",
+        "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/3f4fb27f839954744097",
+        "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/6ed5aeea7f88b26a8f2a"
+      ]
+    },
+    {
+      "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/security/IpAddressVerifier.java",
+      "sha256": "50df80d35d72d6b0ac2ad6578fdfef6d2a1b41cd704513cd6b3de177dfd1fb8d",
+      "lines": 89,
+      "bytes": 3153,
+      "role": "production_source",
+      "status": "whole_explicit_body_and_declaration_reviewed",
+      "methods": [
+        "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/acf51cabcc635e054c06",
+        "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/13d8bb8684dc85b189aa",
+        "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/4a48784fda6bd76310dc",
+        "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/f6cbcb8ca95dc838cfcf",
+        "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/31cb6e6e1f5caef37bdc",
+        "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/68753c5424ec9378113f",
+        "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/a04f28a2a64a52ee4ee7",
+        "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/f4343b43ce0edfff3b08",
+        "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/ef513231e048260a974d"
+      ]
+    },
+    {
+      "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/webhook/InboundRequest.java",
+      "sha256": "10b9baeac716bb5b9f9e37a9ffe17fd32cff9fa6a9a8ffedccb1ae263793e3ab",
+      "lines": 23,
+      "bytes": 629,
+      "role": "production_source",
+      "status": "whole_explicit_body_and_declaration_reviewed",
+      "methods": [
+        "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/33bbaf70089544de1930",
+        "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/15e310f7b746e7eb9023",
+        "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/0ed5c4d7c5c3f840dccf"
+      ]
+    },
+    {
+      "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/webhook/InboundService.java",
+      "sha256": "afd273d64226b6c6d6ee69ca2a4ec1aafd3a7bc64928f7f9cfa6cdc6d7fafd9b",
+      "lines": 16,
+      "bytes": 627,
+      "role": "production_source",
+      "status": "whole_explicit_body_and_declaration_reviewed",
+      "methods": [
+        "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/d1f04fb69710486cf2ad",
+        "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/f9285503d6b2ff310300"
+      ]
+    },
+    {
+      "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/webhook/InboundServiceFactory.java",
+      "sha256": "8133e3174ae21cfa9b060aba74801a9ac103e3360222246ca50643ff0ace7cfe",
+      "lines": 23,
+      "bytes": 702,
+      "role": "production_source",
+      "status": "whole_explicit_body_and_declaration_reviewed",
+      "methods": [
+        "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/f8e038edc6198466925e",
+        "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/1f7c18f5f27a8c5b809a",
+        "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/d30b042fa2d582c0235c",
+        "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/e6a0de954a58ba040c31"
+      ]
+    },
+    {
+      "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/webhook/InboundServiceImpl.java",
+      "sha256": "7c8b6ac5b45f1b0dcc2b78ad74863600be58a2aeb6e96373621d2faaeaf1d827",
+      "lines": 95,
+      "bytes": 3501,
+      "role": "production_source",
+      "status": "whole_explicit_body_and_declaration_reviewed",
+      "methods": [
+        "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/3a6a50e3beb677b16bdf",
+        "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/f7a6e0cc4715797b87c6",
+        "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/270d6c7c14726f8cb1a0",
+        "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/6d8984ca4e74e5d74c46",
+        "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/06c1c374d8da25a99e57",
+        "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/01a7fe6bd3ab9db9b4dd"
+      ]
+    },
+    {
+      "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/webhook/SourceEventsConfig.java",
+      "sha256": "3fb3467ee2329ae635cb630947e8ef6f1934667deabefe64cd7b0c121dcdaa15",
+      "lines": 28,
+      "bytes": 665,
+      "role": "production_source",
+      "status": "whole_explicit_body_and_declaration_reviewed",
+      "methods": [
+        "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/e6ef23a066924366949d",
+        "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/e70de208d614bb00f4c6",
+        "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/b89f02cbb841e19a68de",
+        "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/53cb930a50ce1caa1937"
+      ]
+    },
+    {
+      "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/webhook/SourceEventsConfigService.java",
+      "sha256": "c29fe33a9b0364182639c8eede3caf291a228638022a6eb51928fb016dad47bb",
+      "lines": 86,
+      "bytes": 3524,
+      "role": "production_source",
+      "status": "whole_explicit_body_and_declaration_reviewed",
+      "methods": [
+        "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/b4db75951f55928acfca",
+        "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/6a3221a2b71a172b60b7"
+      ]
+    },
+    {
+      "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/webhook/exception/InboundCaptureException.java",
+      "sha256": "4f901bdcfebafc41b3d45fad244cd7867408d1295099aecd3daa118abaee3319",
+      "lines": 9,
+      "bytes": 318,
+      "role": "production_source",
+      "status": "whole_explicit_body_and_declaration_reviewed",
+      "methods": [
+        "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/d5c066ee23f53b4ecda0"
+      ]
+    },
+    {
+      "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/webhook/exception/InvalidMessageSignatureException.java",
+      "sha256": "57a6ac16e1061f9f3dbfa43ea06062a18f57c433567dadb76e4e5e9ce8b7fbf9",
+      "lines": 8,
+      "bytes": 274,
+      "role": "production_source",
+      "status": "whole_explicit_body_and_declaration_reviewed",
+      "methods": [
+        "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/c613883089289df98c2d"
+      ]
+    },
+    {
+      "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/webhook/exception/PayloadDeserializationException.java",
+      "sha256": "0bc69ad7c29aa00e9b23c54baa466944d9e910338447b784d75c4d504f5407aa",
+      "lines": 7,
+      "bytes": 271,
+      "role": "production_source",
+      "status": "whole_explicit_body_and_declaration_reviewed",
+      "methods": [
+        "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/4683fa8238e15dca4dd5"
+      ]
+    },
+    {
+      "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/webhook/stripe/MessageKeyProvider.java",
+      "sha256": "8f60c0301459b61b6f25c18db544564c8cb7ef90031548d331e71599a529d96e",
+      "lines": 74,
+      "bytes": 2666,
+      "role": "production_source",
+      "status": "whole_explicit_body_and_declaration_reviewed",
+      "methods": [
+        "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/8f3d568d114619ce1593",
+        "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/b46b714ef1ff1b47e94a",
+        "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/5164efdbed1d634f4920",
+        "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/aea14ab3ab63df048091",
+        "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/37a77b11ea0bb059e14c",
+        "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/1dbe43e3bff70a273e7b",
+        "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/af95f82c8f7bb0ca666b",
+        "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/1f6687d554010ebf5ecb"
+      ]
+    },
+    {
+      "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/webhook/stripe/StripeEventParser.java",
+      "sha256": "6bb7ac58e8433ac59d39315034b19ef27e5f72fc46cb30cd536123008e660824",
+      "lines": 46,
+      "bytes": 1634,
+      "role": "production_source",
+      "status": "whole_explicit_body_and_declaration_reviewed",
+      "methods": [
+        "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/d006761d471e98007ef6",
+        "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/1d5565ca2ef7a4fe302d",
+        "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/d7b56ca3741fb36aaf4c",
+        "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/00957d3e9e77d9529e8c"
+      ]
+    },
+    {
+      "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/webhook/stripe/StripeInboundServiceImpl.java",
+      "sha256": "4836c5a9eaafb672142b2bc99fcf0fbbe4cf0a380fddfcfca81967f548d876e3",
+      "lines": 116,
+      "bytes": 5057,
+      "role": "production_source",
+      "status": "whole_explicit_body_and_declaration_reviewed",
+      "methods": [
+        "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/71795b10f37cde486e54",
+        "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/4503e20353e6547083ac",
+        "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/c52e44e60bffcacc845a",
+        "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/28c78598e2f3d38effb4",
+        "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/918d603a495787fd7363",
+        "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/b3d3e2f932e19add8f90",
+        "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/bbb324d6770b591d880b",
+        "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/6df74e5de9a3b6ecaff8",
+        "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/c491910124ed570b0d8e",
+        "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/73607ff274fbd55c926d",
+        "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/0b30fc0dfca543b0f985"
+      ]
+    },
+    {
+      "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/webhook/stripe/StripeSecretProvider.java",
+      "sha256": "e52dfdbc55fe1fcaa79afe874860966384b8a53f5120bafa889eac78d9766f6c",
+      "lines": 34,
+      "bytes": 1436,
+      "role": "production_source",
+      "status": "whole_explicit_body_and_declaration_reviewed",
+      "methods": [
+        "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/d429ff96f9d7259759d2",
+        "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/f4ce25fb905d8ac997ec"
+      ]
+    },
+    {
+      "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/test/java/com/volvocars/ecom/paymentservice/psp/inbound/fixtures/accounts/AccountMother.java",
+      "sha256": "b166298797578c45ee924e7215695d68826ce2a65b107dbb3fc2a92d27a82ec4",
+      "lines": 38,
+      "bytes": 1465,
+      "role": "test_source_or_fixture",
+      "status": "excluded_from_execution_analysis_not_executed",
+      "methods": []
+    },
+    {
+      "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/test/java/com/volvocars/ecom/paymentservice/psp/inbound/messaging/KafkaProducerConfigTest.java",
+      "sha256": "5ac0dbf5aca96f493aad48b70cca0dc31e57ac36a660095372ada09f254c7e12",
+      "lines": 26,
+      "bytes": 747,
+      "role": "test_source_or_fixture",
+      "status": "excluded_from_execution_analysis_not_executed",
+      "methods": []
+    },
+    {
+      "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/test/java/com/volvocars/ecom/paymentservice/psp/inbound/messaging/KafkaProducerTest.java",
+      "sha256": "b04468162d06e4a54a86b24f59a159453f9ac194f14a95beb572d1a2c08376f5",
+      "lines": 68,
+      "bytes": 2386,
+      "role": "test_source_or_fixture",
+      "status": "excluded_from_execution_analysis_not_executed",
+      "methods": []
+    },
+    {
+      "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/test/java/com/volvocars/ecom/paymentservice/psp/inbound/messaging/ScheduledMessageProducerTest.java",
+      "sha256": "cc6e8ede4457a6fb2df6122528462b173ddfc60b43a55b1740c25321a0d1fc5b",
+      "lines": 49,
+      "bytes": 1648,
+      "role": "test_source_or_fixture",
+      "status": "excluded_from_execution_analysis_not_executed",
+      "methods": []
+    },
+    {
+      "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/test/java/com/volvocars/ecom/paymentservice/psp/inbound/security/IpAddressVerifierTest.java",
+      "sha256": "46335c9bc798355ad028309b19ceb4097b5031ff456addde55e6ec9660011848",
+      "lines": 85,
+      "bytes": 2992,
+      "role": "test_source_or_fixture",
+      "status": "excluded_from_execution_analysis_not_executed",
+      "methods": []
+    },
+    {
+      "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/test/java/com/volvocars/ecom/paymentservice/psp/inbound/webhook/SourceEventsConfigServiceTest.java",
+      "sha256": "fa48ba2d8038be77abd39d88c58ef7100c030ceea9ac7cbe169bcae8c885613f",
+      "lines": 93,
+      "bytes": 4177,
+      "role": "test_source_or_fixture",
+      "status": "excluded_from_execution_analysis_not_executed",
+      "methods": []
+    },
+    {
+      "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/test/java/com/volvocars/ecom/paymentservice/psp/inbound/webhook/stripe/MessageKeyProviderTest.java",
+      "sha256": "5bb0e29133d77c1ec0404d023ade1405ef87f387d6ed48828e343482a9674d95",
+      "lines": 109,
+      "bytes": 4075,
+      "role": "test_source_or_fixture",
+      "status": "excluded_from_execution_analysis_not_executed",
+      "methods": []
+    },
+    {
+      "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/test/java/com/volvocars/ecom/paymentservice/psp/inbound/webhook/stripe/StripeInboundServiceImplTest.java",
+      "sha256": "1c70f1111933cbaaa5186ff093e7793d8ed910541e3d285a198f18eae6e8fe3a",
+      "lines": 175,
+      "bytes": 8268,
+      "role": "test_source_or_fixture",
+      "status": "excluded_from_execution_analysis_not_executed",
+      "methods": []
+    },
+    {
+      "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/test/java/com/volvocars/ecom/paymentservice/psp/inbound/webhook/stripe/StripeSecretProviderTest.java",
+      "sha256": "3113a9a9412bd805e93e35ff24c70fc0b982d0b370868d51cad071a21deb585f",
+      "lines": 77,
+      "bytes": 3049,
+      "role": "test_source_or_fixture",
+      "status": "excluded_from_execution_analysis_not_executed",
+      "methods": []
+    },
+    {
+      "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/test/java/com/volvocars/ecom/paymentservice/psp/inbound/webhook/stripe/StripeTestUtil.java",
+      "sha256": "a5303a7170d3f23264c4c622d33473771a5e9472730717c2b50d89659b56b207",
+      "lines": 19,
+      "bytes": 688,
+      "role": "test_source_or_fixture",
+      "status": "excluded_from_execution_analysis_not_executed",
+      "methods": []
+    },
+    {
+      "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/test/resources/internal-stripe-events/manual-source-in-metadata.json",
+      "sha256": "0c6de2a7012acab24cd5da0b8375dc582f8761546211be7ac80c38095a3ef2ca",
+      "lines": 94,
+      "bytes": 2750,
+      "role": "test_source_or_fixture",
+      "status": "excluded_from_execution_analysis_not_executed",
+      "methods": []
+    },
+    {
+      "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/test/resources/internal-stripe-events/no-additional-params.json",
+      "sha256": "a428112758036b0d18e9ab31eca310c95938cc1d6d78e8645c6d8e33ea421fd7",
+      "lines": 88,
+      "bytes": 2597,
+      "role": "test_source_or_fixture",
+      "status": "excluded_from_execution_analysis_not_executed",
+      "methods": []
+    },
+    {
+      "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/test/resources/internal-stripe-events/no-metadata.json",
+      "sha256": "18640994d6d90a0371563996d201c75a0337d54027231b10a22eed743429e8e5",
+      "lines": 83,
+      "bytes": 2468,
+      "role": "test_source_or_fixture",
+      "status": "excluded_from_execution_analysis_not_executed",
+      "methods": []
+    },
+    {
+      "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/test/resources/internal-stripe-events/no-source-in-metadata.json",
+      "sha256": "2d56de150b4f6e2efd7bb84ba8aa270d85c646462a60b7c34ca78dd7cc0acbf6",
+      "lines": 93,
+      "bytes": 2722,
+      "role": "test_source_or_fixture",
+      "status": "excluded_from_execution_analysis_not_executed",
+      "methods": []
+    },
+    {
+      "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/test/resources/internal-stripe-events/other-payment_intent-but-system-name.json",
+      "sha256": "2d600e0ea9769ccd7f4ed659bb6a021965f471b54e431eb4442006e0d2c44f54",
+      "lines": 90,
+      "bytes": 2675,
+      "role": "test_source_or_fixture",
+      "status": "excluded_from_execution_analysis_not_executed",
+      "methods": []
+    },
+    {
+      "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/test/resources/internal-stripe-events/other-payment_intent-system-name.json",
+      "sha256": "841d6851630dd407b9ddf29ecbcc09f1e85cabb1b64e9b74eb3d1d9e6f01de0f",
+      "lines": 90,
+      "bytes": 2659,
+      "role": "test_source_or_fixture",
+      "status": "excluded_from_execution_analysis_not_executed",
+      "methods": []
+    },
+    {
+      "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/test/resources/internal-stripe-events/other-payment_intent.json",
+      "sha256": "fc9f1caf7c8f462c1b7561cbc6cfd54bdb4813aea9874d716949461e1bca74c4",
+      "lines": 56,
+      "bytes": 1542,
+      "role": "test_source_or_fixture",
+      "status": "excluded_from_execution_analysis_not_executed",
+      "methods": []
+    },
+    {
+      "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/test/resources/internal-stripe-events/ps-payment_intent.json",
+      "sha256": "89b3ca9bd0dfa3621c35ef9e6b78414a55719a12233a918402f33059d06f4964",
+      "lines": 94,
+      "bytes": 2780,
+      "role": "test_source_or_fixture",
+      "status": "excluded_from_execution_analysis_not_executed",
+      "methods": []
+    },
+    {
+      "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/test/resources/internal-stripe-events/voc-payment_intent.json",
+      "sha256": "41799fdb3c4a4640b62f452c6fb87ca83ee52a6a5fffd39eefbb2a2f45e34a0d",
+      "lines": 97,
+      "bytes": 2910,
+      "role": "test_source_or_fixture",
+      "status": "excluded_from_execution_analysis_not_executed",
+      "methods": []
+    },
+    {
+      "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/test/resources/internal-stripe-events/voc-setup_intent.succeeded.json",
+      "sha256": "bd835566d4cb0fddde0cac6d1a9a69fc6a64deb757e88c4c4250d6e1cbf2d141",
+      "lines": 63,
+      "bytes": 1809,
+      "role": "test_source_or_fixture",
+      "status": "excluded_from_execution_analysis_not_executed",
+      "methods": []
+    },
+    {
+      "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/test/resources/internal-stripe-events/voc-transfer.json",
+      "sha256": "d76c647b12502b5d0e930881d08e27f70dbd48c811835c239b2c29e276892bb4",
+      "lines": 95,
+      "bytes": 2757,
+      "role": "test_source_or_fixture",
+      "status": "excluded_from_execution_analysis_not_executed",
+      "methods": []
+    },
+    {
+      "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/test/resources/stripe-events/no-metadata.json",
+      "sha256": "1aff7a5e74a51f0eca88400c7c9476ed1d07db7bfb898d60023356b12d11ee87",
+      "lines": 74,
+      "bytes": 2191,
+      "role": "test_source_or_fixture",
+      "status": "excluded_from_execution_analysis_not_executed",
+      "methods": []
+    },
+    {
+      "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/test/resources/stripe-events/no-source-system.json",
+      "sha256": "fd73dd3090a676f1f3b949d9a8ad0755fd80570f4ece3aec1f3984bae9438ebd",
+      "lines": 76,
+      "bytes": 2221,
+      "role": "test_source_or_fixture",
+      "status": "excluded_from_execution_analysis_not_executed",
+      "methods": []
+    },
+    {
+      "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/test/resources/stripe-events/other-payment_intent-but-system-name.json",
+      "sha256": "f7ee0e4061fae8c6557fab081f1c7f21563cd7d8c2e9238e1242d20132dc1d91",
+      "lines": 78,
+      "bytes": 2293,
+      "role": "test_source_or_fixture",
+      "status": "excluded_from_execution_analysis_not_executed",
+      "methods": []
+    },
+    {
+      "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/test/resources/stripe-events/other-payment_intent-system-name.json",
+      "sha256": "5b59ede7d6d87d275daa4671681b2c7ff85e34afaf721043d7092a65c3df9e43",
+      "lines": 80,
+      "bytes": 2222,
+      "role": "test_source_or_fixture",
+      "status": "excluded_from_execution_analysis_not_executed",
+      "methods": []
+    },
+    {
+      "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/test/resources/stripe-events/other-payment_intent.json",
+      "sha256": "92839d6b854ff343a9101a25397ebdeffbc219f6712793cad135be49d987479f",
+      "lines": 77,
+      "bytes": 2246,
+      "role": "test_source_or_fixture",
+      "status": "excluded_from_execution_analysis_not_executed",
+      "methods": []
+    },
+    {
+      "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/test/resources/stripe-events/ps-payment_intent.json",
+      "sha256": "890c54e49b16fceb48901173cf06e294810f68c6218c49a32f649e941fd2bdd5",
+      "lines": 98,
+      "bytes": 3232,
+      "role": "test_source_or_fixture",
+      "status": "excluded_from_execution_analysis_not_executed",
+      "methods": []
+    },
+    {
+      "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/test/resources/stripe-events/voc-payment_intent.json",
+      "sha256": "eed285074ba93204429239165de9f733912b46aa608415fa3b08dd4868a861d3",
+      "lines": 84,
+      "bytes": 2524,
+      "role": "test_source_or_fixture",
+      "status": "excluded_from_execution_analysis_not_executed",
+      "methods": []
+    },
+    {
+      "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/test/resources/stripe-events/voc-transfer.json",
+      "sha256": "5e45c93f44e3603ac8f295866f4440c885886e5d1216a9a570fd4e236c235d60",
+      "lines": 84,
+      "bytes": 2518,
+      "role": "test_source_or_fixture",
+      "status": "excluded_from_execution_analysis_not_executed",
+      "methods": []
+    },
+    {
+      "path": "com-volvocars-ecom-paymentservice-psp-inbound-test/pom.xml",
+      "sha256": "40ad9bad594a5dad908c4887daf09d763d2de0bbd8667107b4393c5e3cc8d525",
+      "lines": 97,
+      "bytes": 3939,
+      "role": "build_deployment_or_repository_declaration",
+      "status": "source_declaration_read_not_runtime_observation",
+      "methods": []
+    },
+    {
+      "path": "com-volvocars-ecom-paymentservice-psp-inbound-test/src/test/java/com/volvocars/ecom/paymentservice/psp/inbound/webhook/TestBase.java",
+      "sha256": "e8cada1f4d2ffcc9e298377b3bcb5e372df98813ee60685144cde93e577a59f4",
+      "lines": 71,
+      "bytes": 3072,
+      "role": "test_source_or_fixture",
+      "status": "excluded_from_execution_analysis_not_executed",
+      "methods": []
+    },
+    {
+      "path": "com-volvocars-ecom-paymentservice-psp-inbound-test/src/test/java/com/volvocars/ecom/paymentservice/psp/inbound/webhook/config/CustomJsonDeserializer.java",
+      "sha256": "67198babe34132310bafdff83a1d5e6392a64f431da2b0212d0e5aa36455ecfd",
+      "lines": 25,
+      "bytes": 851,
+      "role": "test_source_or_fixture",
+      "status": "excluded_from_execution_analysis_not_executed",
+      "methods": []
+    },
+    {
+      "path": "com-volvocars-ecom-paymentservice-psp-inbound-test/src/test/java/com/volvocars/ecom/paymentservice/psp/inbound/webhook/config/KafkaConsumerConfig.java",
+      "sha256": "6f193545e6f91a4daa5849d9d09fff20f8347f13c105ae260d7f1523815d6759",
+      "lines": 39,
+      "bytes": 1874,
+      "role": "test_source_or_fixture",
+      "status": "excluded_from_execution_analysis_not_executed",
+      "methods": []
+    },
+    {
+      "path": "com-volvocars-ecom-paymentservice-psp-inbound-test/src/test/java/com/volvocars/ecom/paymentservice/psp/inbound/webhook/config/TestContainersConfig.java",
+      "sha256": "704c1001477312151993350022b902589be8e425f395dce0bac712fcdc34f17f",
+      "lines": 24,
+      "bytes": 807,
+      "role": "test_source_or_fixture",
+      "status": "excluded_from_execution_analysis_not_executed",
+      "methods": []
+    },
+    {
+      "path": "com-volvocars-ecom-paymentservice-psp-inbound-test/src/test/java/com/volvocars/ecom/paymentservice/psp/inbound/webhook/stripe/StripeInboundServiceTest.java",
+      "sha256": "d8af1bdedf86bbd5b6999659263064d8ed351e9b49d83b5c31bae9bf27b311ef",
+      "lines": 228,
+      "bytes": 9372,
+      "role": "test_source_or_fixture",
+      "status": "excluded_from_execution_analysis_not_executed",
+      "methods": []
+    },
+    {
+      "path": "com-volvocars-ecom-paymentservice-psp-inbound-test/src/test/java/com/volvocars/ecom/paymentservice/psp/inbound/webhook/stripe/StripeTestUtil.java",
+      "sha256": "a5303a7170d3f23264c4c622d33473771a5e9472730717c2b50d89659b56b207",
+      "lines": 19,
+      "bytes": 688,
+      "role": "test_source_or_fixture",
+      "status": "excluded_from_execution_analysis_not_executed",
+      "methods": []
+    },
+    {
+      "path": "com-volvocars-ecom-paymentservice-psp-inbound-test/src/test/resources/application-test.yml",
+      "sha256": "1ee11f319674045ab7c5773bdeebe5b1c27297fea3660791956cd36efb7c64c9",
+      "lines": 46,
+      "bytes": 810,
+      "role": "test_source_or_fixture",
+      "status": "excluded_from_execution_analysis_not_executed",
+      "methods": []
+    },
+    {
+      "path": "com-volvocars-ecom-paymentservice-psp-inbound-test/src/test/resources/bootstrap.yml",
+      "sha256": "e3c0b0d860db737a6a4287530e96a5ba9e516b84f93aad6d28cc896d966771ff",
+      "lines": 17,
+      "bytes": 312,
+      "role": "test_source_or_fixture",
+      "status": "excluded_from_execution_analysis_not_executed",
+      "methods": []
+    },
+    {
+      "path": "com-volvocars-ecom-paymentservice-psp-inbound-test/src/test/resources/config-repo/accounts.yaml",
+      "sha256": "4794e95e5cacb203907a0c11b03e0bb3016e5898e0f27e040efd7b476efb5ae2",
+      "lines": 87,
+      "bytes": 2909,
+      "role": "test_source_or_fixture",
+      "status": "excluded_from_execution_analysis_not_executed",
+      "methods": []
+    },
+    {
+      "path": "com-volvocars-ecom-paymentservice-psp-inbound-test/src/test/resources/config-repo/decline-code-configs.yaml",
+      "sha256": "318752f1d63f1141c922d02cee8bac6680cc943b59b6a0bc3dd7ffaecd54ab36",
+      "lines": 12,
+      "bytes": 370,
+      "role": "test_source_or_fixture",
+      "status": "excluded_from_execution_analysis_not_executed",
+      "methods": []
+    },
+    {
+      "path": "com-volvocars-ecom-paymentservice-psp-inbound-test/src/test/resources/config-repo/market-properties.yaml",
+      "sha256": "340b5211b1e45ce7e67397749ecffb4626d82b22664be41ebe2d2f30314b61e3",
+      "lines": 15,
+      "bytes": 328,
+      "role": "test_source_or_fixture",
+      "status": "excluded_from_execution_analysis_not_executed",
+      "methods": []
+    },
+    {
+      "path": "com-volvocars-ecom-paymentservice-psp-inbound-test/src/test/resources/config-repo/ps-config.yaml",
+      "sha256": "072754b3d1cf98d370bf41790f36c763abdfc94f3bf93b43ea2b2c365b46672f",
+      "lines": 7,
+      "bytes": 143,
+      "role": "test_source_or_fixture",
+      "status": "excluded_from_execution_analysis_not_executed",
+      "methods": []
+    },
+    {
+      "path": "com-volvocars-ecom-paymentservice-psp-inbound-test/src/test/resources/config-repo/psp-settings.yaml",
+      "sha256": "d6fbc5e78d4cf31496dd565c0eed1848a68cd86a75e6e1f3f982628b427f3f5a",
+      "lines": 83,
+      "bytes": 2135,
+      "role": "test_source_or_fixture",
+      "status": "excluded_from_execution_analysis_not_executed",
+      "methods": []
+    },
+    {
+      "path": "com-volvocars-ecom-paymentservice-psp-inbound-test/src/test/resources/log4j2.xml",
+      "sha256": "d3ac978adf59cc2be7fa1ecdc79b4756a0d61960b23c0166a0831182e5c28ae6",
+      "lines": 18,
+      "bytes": 864,
+      "role": "test_source_or_fixture",
+      "status": "excluded_from_execution_analysis_not_executed",
+      "methods": []
+    },
+    {
+      "path": "docs/3scale/xvcc/ecp-weu-dev.json",
+      "sha256": "88235b9234a4ae8778a00979705c98381f2e3d35cad71382acdb21805690b790",
+      "lines": 61,
+      "bytes": 1718,
+      "role": "build_deployment_or_repository_declaration",
+      "status": "source_declaration_read_not_runtime_observation",
+      "methods": []
+    },
+    {
+      "path": "docs/3scale/xvcc/ecp-weu-prod.json",
+      "sha256": "f67411cd76e22edb51ef01a19987150e4ff4cc9d686fd8a66f590f6b0f097941",
+      "lines": 62,
+      "bytes": 1746,
+      "role": "build_deployment_or_repository_declaration",
+      "status": "source_declaration_read_not_runtime_observation",
+      "methods": []
+    },
+    {
+      "path": "docs/3scale/xvcc/ecp-weu-qa.json",
+      "sha256": "2fba9937cc97e7c736c02ff6e10efedde4c81af9ff0396f8ae12570c44a56e7e",
+      "lines": 62,
+      "bytes": 1749,
+      "role": "build_deployment_or_repository_declaration",
+      "status": "source_declaration_read_not_runtime_observation",
+      "methods": []
+    },
+    {
+      "path": "docs/icoe-apim/README.md",
+      "sha256": "ef7d9dde7f65afecdfb8267accec1e105f4bb492f71dc17f8eecc1d913814ea8",
+      "lines": 15,
+      "bytes": 642,
+      "role": "build_deployment_or_repository_declaration",
+      "status": "source_declaration_read_not_runtime_observation",
+      "methods": []
+    },
+    {
+      "path": "docs/icoe-apim/ecp-weu-dev.json",
+      "sha256": "2fc33034a32825077e1624a2bbd2abe106b81ed42a5ebb21075aebc2ecf27da5",
+      "lines": 14,
+      "bytes": 510,
+      "role": "build_deployment_or_repository_declaration",
+      "status": "source_declaration_read_not_runtime_observation",
+      "methods": []
+    },
+    {
+      "path": "format.sh",
+      "sha256": "753b2e9c54b0d5fa0724d759e53ccffb01ee8de22d45b63679fafa9e28d8682e",
+      "lines": 2,
+      "bytes": 55,
+      "role": "build_deployment_or_repository_declaration",
+      "status": "source_declaration_read_not_runtime_observation",
+      "methods": []
+    },
+    {
+      "path": "lombok.config",
+      "sha256": "e16cc0bbfd6d58bf4d15a915a24511445c7489e44adbbd0ced0b73beb43662c2",
+      "lines": 10,
+      "bytes": 417,
+      "role": "build_deployment_or_repository_declaration",
+      "status": "source_declaration_read_not_runtime_observation",
+      "methods": []
+    },
+    {
+      "path": "pom.xml",
+      "sha256": "87806e430425dab98a6997a77a25a0f0997653bd1cabec843397658326124657",
+      "lines": 85,
+      "bytes": 3736,
+      "role": "build_deployment_or_repository_declaration",
+      "status": "source_declaration_read_not_runtime_observation",
+      "methods": []
+    }
+  ]
+}

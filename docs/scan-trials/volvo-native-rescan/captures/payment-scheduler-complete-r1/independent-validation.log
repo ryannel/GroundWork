@@ -1,0 +1,11 @@
+
+> groundwork@0.0.0 knowledge:validate
+> node --import ./tools/register.ts --conditions=react-server tools/validate-knowledge.ts reports/volvo-native-rescan/payment-scheduler-complete/bundle.final-r1.json --sources /Users/RNEL/.cache/groundwork/clones
+
+{
+  "snapshot": "c928e6c2ac32cd9acf39877d95d4e6b0f4081d2066a120c42a7a9d281752a5df",
+  "bundles": 1,
+  "records": 27184,
+  "sourceRangesChecked": 1447,
+  "sourceVerification": "pinned_local_files"
+}

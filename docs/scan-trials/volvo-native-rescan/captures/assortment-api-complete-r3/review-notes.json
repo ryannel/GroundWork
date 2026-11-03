@@ -1,0 +1,149 @@
+[
+  {
+    "claim": "assortment-6114c5d-complete-r3/review/28e6e96035a93561",
+    "method": "assortment-6114c5d-complete-r3/method/28e6e96035a93561",
+    "path": "src/PopCat.Assortment.Core/Services/ClassificationCacheService.cs",
+    "lines": [59, 72],
+    "finding": "A successful cache Result is deserialised and returned immediately. A deserialisation failure on that warm path does not fetch the provider. Only failed cache read enters the provider/SetCache source chain."
+  },
+  {
+    "claim": "assortment-6114c5d-complete-r3/review/e872c2892ff7a708",
+    "method": "assortment-6114c5d-complete-r3/method/e872c2892ff7a708",
+    "path": "src/PopCat.Assortment.Core/Services/CacheSerializerService.cs",
+    "lines": [25, 33],
+    "finding": "The null guard constructs Result.Fail but does not return it. Source execution continues to Result.Try(MessagePackSerializer.Serialize). Serializer options select ContractlessStandardResolver with Lz4BlockArray."
+  },
+  {
+    "claim": "assortment-6114c5d-complete-r3/review/467d66fa199981f7",
+    "method": "assortment-6114c5d-complete-r3/method/467d66fa199981f7",
+    "path": "src/PopCat.Assortment.Core/Services/ProductFullDetailsCacheService.cs",
+    "lines": [273, 287],
+    "finding": "The awaited RemoveVariants result is ignored; source then calls SetVariants. A failed Result is not tested here, while a thrown exception is a different path."
+  },
+  {
+    "claim": "assortment-6114c5d-complete-r3/review/66797fb4d6f33053",
+    "method": "assortment-6114c5d-complete-r3/method/66797fb4d6f33053",
+    "path": "src/PopCat.Assortment.Core/Services/ProductFullDetailsCacheService.cs",
+    "lines": [258, 267],
+    "finding": "The purge chain removes product/variant records and indexes through cacheManagement hot-cache removals. These local removal methods do not delete their cold Blob copies; source GetWithColdFallback can subsequently read a cold copy and warm Redis."
+  },
+  {
+    "claim": "assortment-6114c5d-complete-r3/review/049b37234a79fc54",
+    "method": "assortment-6114c5d-complete-r3/method/049b37234a79fc54",
+    "path": "src/PopCat.Assortment.Core/Services/ProductFullDetailsCacheManagementService.cs",
+    "lines": [60, 65],
+    "finding": "After Task.WhenAll, each per-id failed Result is mapped to null and the outer collection is passed to Result.Ok. The corresponding variants method has the same failure-to-null rule."
+  },
+  {
+    "claim": "assortment-6114c5d-complete-r3/review/8b242f38d3d97c9c",
+    "method": "assortment-6114c5d-complete-r3/method/8b242f38d3d97c9c",
+    "path": "src/PopCat.Assortment.Core/Services/ProductFullDetailsCacheManagementService.cs",
+    "lines": [198, 226],
+    "finding": "Hot Exists success/true enters hot Get+deserialize directly. Otherwise source checks cold Exists; successful cold read starts an awaited hot Set but ignores its Result before deserialising. Missing cold key returns NotFoundError; read/deserialize outcomes remain distinct."
+  },
+  {
+    "claim": "assortment-6114c5d-complete-r3/review/0a8cc05b30589140",
+    "method": "assortment-6114c5d-complete-r3/method/0a8cc05b30589140",
+    "path": "src/PopCat.Assortment.Core/Services/VariantHistoryService.cs",
+    "lines": [14, 51],
+    "finding": "Source writes the new version before reading/closing the preceding open version. A subsequent failure can leave the previous record unclosed. ReadWithEffectiveEndAsync can derive an end from the next start without rewriting that previous record."
+  },
+  {
+    "claim": "assortment-6114c5d-complete-r3/review/f50b15bac9dfc2d2",
+    "method": "assortment-6114c5d-complete-r3/method/f50b15bac9dfc2d2",
+    "path": "src/PopCat.Assortment.Core/Services/UpstreamEntityCacheService.cs",
+    "lines": [127, 141],
+    "finding": "Source reads the whole current list, treats NotFound as empty, applies the supplied local mutation, serialises, then calls SetBoth. No local lock, compare-and-swap or transaction spans the read and both cache writes."
+  },
+  {
+    "claim": "assortment-6114c5d-complete-r3/review/7fb343c89e259b4e",
+    "method": "assortment-6114c5d-complete-r3/method/7fb343c89e259b4e",
+    "path": "src/PopCat.Assortment.Core/Services/CarConfigCacheService.cs",
+    "lines": [100, 205],
+    "finding": "The fan-out branch is used only when requested spec markets are empty, filtered car types exist and known spec-market codes exist. Fan-out skips invalid parsed names; the other branch yields failure and stops. Offset/limit and cancellation conditions remain explicit in the body."
+  },
+  {
+    "claim": "assortment-6114c5d-complete-r3/review/9767e96aa8ebaa07",
+    "method": "assortment-6114c5d-complete-r3/method/9767e96aa8ebaa07",
+    "path": "src/PopCat.Assortment.Integration/ProductService/ProductServiceClient.cs",
+    "lines": [74, 95],
+    "finding": "After the success-status check, source detects an authentication redirect whose final host is login.microsoftonline.com, even if the status was200. Content null/deserialisation failure is a separate Result path."
+  },
+  {
+    "claim": "assortment-6114c5d-complete-r3/review/35f7b8a19f400fac",
+    "method": "assortment-6114c5d-complete-r3/method/35f7b8a19f400fac",
+    "path": "src/PopCat.Assortment.Integration/Azure/TokenProvider.cs",
+    "lines": [31, 58],
+    "finding": "A non-null memory-cache token is returned directly. This source method does not call Token.IsExpired; newly fetched tokens use absolute memory-cache expiry at their ExpiresAt value."
+  },
+  {
+    "claim": "assortment-6114c5d-complete-r3/review/97a1141cc002c409",
+    "method": "assortment-6114c5d-complete-r3/method/97a1141cc002c409",
+    "path": "src/PopCat.Assortment.Integration/Assortment/Provider/AssortmentProvider.cs",
+    "lines": [154, 180],
+    "finding": "The local helper calls and returns apiCall() inside try without awaiting it. Its catches cover exceptions thrown synchronously by that invocation; they do not establish that asynchronously faulted Tasks are converted into failed Results."
+  },
+  {
+    "claim": "assortment-6114c5d-complete-r3/review/5a410b0946200f95",
+    "method": "assortment-6114c5d-complete-r3/method/5a410b0946200f95",
+    "path": "src/PopCat.Assortment.Integration/ProductMapper/ProductMapperProvider.cs",
+    "lines": [31, 59],
+    "finding": "This helper awaits apiCall() inside try and has separate NotFound404, API error, cancellation, invalid-operation and invalid-argument catches. The actual caller lambda and generated proxy implementation boundary remain distinct."
+  },
+  {
+    "claim": "assortment-6114c5d-complete-r3/review/6b182ac0ff3e9df1",
+    "method": "assortment-6114c5d-complete-r3/method/6b182ac0ff3e9df1",
+    "path": "src/PopCat.Assortment.Repository/BlobStorage/BlobStorageClient.cs",
+    "lines": [34, 63],
+    "finding": "Source prefixes the name with /, checks ExistsAsync, awaits DownloadToAsync, and returns memoryStream.ToArray through Result.Try. Catch calls background rehydration only when IsArchivedBlobException finds RequestFailedException status409 and BlobArchived error code."
+  },
+  {
+    "claim": "assortment-6114c5d-complete-r3/review/0ead59983353b3bc",
+    "method": "assortment-6114c5d-complete-r3/method/0ead59983353b3bc",
+    "path": "src/PopCat.Assortment.Repository/BlobStorage/BlobStorageClient.cs",
+    "lines": [101, 106],
+    "finding": "SetAccessTierAsync(Hot,None) is not awaited. ContinueWith reads tierTask.Exception only on fault with TaskScheduler.Default. This is an ignored-result update intent, not an acknowledged successful tier change or Kafka subscription."
+  },
+  {
+    "claim": "assortment-6114c5d-complete-r3/review/a9ca5ded7068efba",
+    "method": "assortment-6114c5d-complete-r3/method/a9ca5ded7068efba",
+    "path": "src/PopCat.Assortment.CacheWorker.Host/Services/KafkaConsumerService.cs",
+    "lines": [17, 61],
+    "finding": "The hosted loop exits on no topics, subscribes registered topics, skips null messages/values, chooses exactly one processor by topic, awaits ProcessMessage in the supplied callback, logs failed Results, catches cancellation/errors, then closes consumer. Offset/commit/retry defaults belong to unavailable exact imported implementation/configuration."
+  },
+  {
+    "claim": "assortment-6114c5d-complete-r3/review/e5e421073d29f653",
+    "method": "assortment-6114c5d-complete-r3/method/e5e421073d29f653",
+    "path": "src/PopCat.Assortment.CacheWorker.Host/MessageProcessor/MessageProcessorFactory.cs",
+    "lines": [10, 11],
+    "finding": "The factory calls GetServices<IMessageProcessor>().Single(p=>p.IsValidFor(topic)). IsValidFor compares Topic==topic. Registration/topic selection is separate from body header decoding and event-type guards."
+  },
+  {
+    "claim": "assortment-6114c5d-complete-r3/review/987a6e87d966bb6b",
+    "method": "assortment-6114c5d-complete-r3/method/987a6e87d966bb6b",
+    "path": "src/PopCat.Assortment.CacheWorker.Host/MessageProcessor/PCFGlobalDictionaryEntriesMessageProcessor.cs",
+    "lines": [46, 78],
+    "finding": "Entries are grouped by CarType and ModelYear. Each group maps its own upserts/deletes and aggregates failures. Producer chunks can contain more than one key; source does not apply the whole chunk to the first entry key."
+  },
+  {
+    "claim": "assortment-6114c5d-complete-r3/review/ec23eaee64e371c5",
+    "method": "assortment-6114c5d-complete-r3/method/ec23eaee64e371c5",
+    "path": "src/PopCat.Assortment.CacheWorker.Host/MessageProcessor/PCFMarketAuthEntriesMessageProcessor.cs",
+    "lines": [45, 69],
+    "finding": "Source rejects an empty entries list or failed FeatureType parse, maps entries, and uses the first entry SpecMarket/CarType/ModelYear for the resulting MarketAuthEntriesInfo."
+  },
+  {
+    "claim": "assortment-6114c5d-complete-r3/review/fb6ff644b4a0f3f9",
+    "method": "assortment-6114c5d-complete-r3/method/fb6ff644b4a0f3f9",
+    "path": "src/PopCat.Assortment.Core/Services/TransformationService.cs",
+    "lines": [14, 43],
+    "finding": "Source rejects missing car variant ID and missing product variant IDs, resolves a mounted wheel, builds a car variant and writes it before returning the transformation result. Mapper-generated transport and external callback policy remain explicit boundaries."
+  },
+  {
+    "claim": "assortment-6114c5d-complete-r3/review/cd07774b4e7ff5f9",
+    "method": "assortment-6114c5d-complete-r3/method/cd07774b4e7ff5f9",
+    "path": "src/PopCat.Assortment.Ocelot.Host/Middlewares/SwaggerProxy/SwaggerProxyMiddleware.cs",
+    "lines": [39, 70],
+    "finding": "Source fetches downstream Swagger documents through the supplied delegate in endpoint order, parses them, applies route/method/exclusion filters, copies referenced components and merges security. HTTP fetching belongs to FetchSwaggerJson, not the merge helper."
+  }
+]

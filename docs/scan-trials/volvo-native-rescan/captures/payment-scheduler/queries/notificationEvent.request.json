@@ -1,0 +1,21 @@
+{
+  "format": "groundwork-query/v3",
+  "snapshot": "5f244b8b75661ddc2c58cee97ab0d61ca2c0f73b58fbf65e775236cdd0dda3ae",
+  "query": "value",
+  "entry": "scheduler-c00df60-r5/impl/poll",
+  "value": "scheduler-c00df60-r5/value/notify-retry/event",
+  "context": [
+    "scheduler-c00df60-r5/op/poll/cycle",
+    "scheduler-c00df60-r5/op/poll-cycle/execute",
+    "scheduler-c00df60-r5/op/execute-job/retry",
+    "scheduler-c00df60-r5/op/execute-retry/notify"
+  ],
+  "outcome": null,
+  "changed": [],
+  "representation": "constructed",
+  "candidates": "exclude",
+  "maxNodes": 1500,
+  "environment": "production-profile",
+  "maxRecords": 5000,
+  "ids": []
+}

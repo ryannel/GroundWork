@@ -1,0 +1,11 @@
+# CCE car-spec adapter source capture
+
+Selected snapshot `31585b5be35778f319c8edc78ed346af9eba722bbd9e09a0e819d25ba3eeb1d1` contains **118,416 records** and **14,282 checked pinned source ranges**. All366 tracked files,157 production-named Go files and1,416 source frames are reconciled.
+
+Seven business REST registrations, three actual subscriptions and process/lifecycle callbacks are separate. Eight caller constructions retain Assortment, Car Features V1/V2, filter, CPAM SOAP and OAuth request details. Source signatures, generated protobuf, JSON, persisted schemas and effective wire uncertainty remain distinct. Six typed SQL writes retain values and source nil-error acknowledgement separately from Commit, rollback and durability. Publication can fail after earlier database changes; no outbox is invented.
+
+Independent review read18 full pinned files and passed51 strict queries plus supporting continuations. All7 REST roots positively reach their expected Postgres or Assortment family; broad Sync/Baseline/Get/Upsert views retain limits. Actual HTTP owner queries positively expose outbound calls and their arguments; all3 subscription roots expose consumes. Four shared Sentry method-only projections remain host-ambiguous and are excluded from positive acceptance. The author pack passes253 strict primary queries and one continuation.
+
+Detached background work remains separate from attempted202. Conditional Kafka/GoChannel instances are distinct, and poison publication differs from the registered poisonqueue subscription. The finite source audit retains evaluated map keys and five unresolved range types; source-known void calls have no invented results. Imported framework dispatch, heap, scheduling, broker guarantees and deployed configuration remain explicit gaps.
+
+[Compressed bundle](bundle.json.gz), [snapshot](snapshot.json), [handoff](HANDOFF.md), [independent acceptance](independent-review/root-acceptance.json) and [publication equality](publication-equality.json) retain the proof. Decompress the bundle into a new file for validation/import. The sealed source pair and572-file seal remain unchanged; formatted publication copies preserve parsed facts. Source completeness does not establish observed runtime behaviour. No production app migration or live source-system call was made.

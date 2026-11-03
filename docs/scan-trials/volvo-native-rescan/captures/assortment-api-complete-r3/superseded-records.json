@@ -1,0 +1,299 @@
+{
+  "retiredImplementations": [
+    "assortment-6114c5d-r5/impl/controller/About-GetVersionV1",
+    "assortment-6114c5d-r5/impl/controller/Cache-ImportProductDetails",
+    "assortment-6114c5d-r5/impl/controller/Cache-ImportUpstreamEntities",
+    "assortment-6114c5d-r5/impl/controller/Cache-RemoveCarConfigFromCache",
+    "assortment-6114c5d-r5/impl/controller/Cache-RemoveExternalCarCodeFromCache",
+    "assortment-6114c5d-r5/impl/controller/Cache-RemoveProductDetailsFromCache",
+    "assortment-6114c5d-r5/impl/controller/CarConfig-GetCarConfig",
+    "assortment-6114c5d-r5/impl/controller/CarConfig-ListPno12s",
+    "assortment-6114c5d-r5/impl/controller/Classification-GetAllClassifications",
+    "assortment-6114c5d-r5/impl/controller/ExternalCarCode-GetExternalCarCode",
+    "assortment-6114c5d-r5/impl/controller/ExternalCarCode-GetExternalComponentCode",
+    "assortment-6114c5d-r5/impl/controller/GlobalDictionary-GetGlobalDictionaryEntries",
+    "assortment-6114c5d-r5/impl/controller/MarketAuth-GetMarketAuthEntries",
+    "assortment-6114c5d-r5/impl/controller/ProductDetails-BatchGetProductByIds",
+    "assortment-6114c5d-r5/impl/controller/ProductDetails-BatchGetVariantByIds",
+    "assortment-6114c5d-r5/impl/controller/ProductDetails-GetProductById",
+    "assortment-6114c5d-r5/impl/controller/ProductDetails-GetProductTypeById",
+    "assortment-6114c5d-r5/impl/controller/ProductDetails-GetProductTypeByVariantId",
+    "assortment-6114c5d-r5/impl/controller/ProductDetails-GetVariantById",
+    "assortment-6114c5d-r5/impl/controller/ProductDetails-GetVariantsByProductId",
+    "assortment-6114c5d-r5/impl/controller/ProductDetails-ListAvailableProductTypes",
+    "assortment-6114c5d-r5/impl/controller/ProductDetails-ListProductsByType",
+    "assortment-6114c5d-r5/impl/controller/ProductDetails-ListVariantsByType",
+    "assortment-6114c5d-r5/impl/controller/ProductDetails-TransformationCarTokenToVariant",
+    "assortment-6114c5d-r5/impl/controller/Products-GetProductOutput",
+    "assortment-6114c5d-r5/impl/controller/Products-GetProductOutputWithoutCodes",
+    "assortment-6114c5d-r5/impl/controller/SpecMarket-GetSpecMarkets",
+    "assortment-6114c5d-r5/impl/controller/Specification-GetSpecificationValues",
+    "assortment-6114c5d-r5/impl/controller/Specification-GetSpecifications",
+    "assortment-6114c5d-r5/impl/job/kafka-loop",
+    "assortment-6114c5d-r5/impl/swagger/Ocelot.Host-proxy"
+  ],
+  "retiredRecords": [
+    "assortment-6114c5d-r5/edge/classifications-http/200",
+    "assortment-6114c5d-r5/edge/classifications-http/404",
+    "assortment-6114c5d-r5/edge/classifications-http/500",
+    "assortment-6114c5d-r5/edge/classifications-http/call",
+    "assortment-6114c5d-r5/edge/classifications-http/result",
+    "assortment-6114c5d-r5/impl/controller/About-GetVersionV1",
+    "assortment-6114c5d-r5/impl/controller/Cache-ImportProductDetails",
+    "assortment-6114c5d-r5/impl/controller/Cache-ImportUpstreamEntities",
+    "assortment-6114c5d-r5/impl/controller/Cache-RemoveCarConfigFromCache",
+    "assortment-6114c5d-r5/impl/controller/Cache-RemoveExternalCarCodeFromCache",
+    "assortment-6114c5d-r5/impl/controller/Cache-RemoveProductDetailsFromCache",
+    "assortment-6114c5d-r5/impl/controller/CarConfig-GetCarConfig",
+    "assortment-6114c5d-r5/impl/controller/CarConfig-ListPno12s",
+    "assortment-6114c5d-r5/impl/controller/Classification-GetAllClassifications",
+    "assortment-6114c5d-r5/impl/controller/ExternalCarCode-GetExternalCarCode",
+    "assortment-6114c5d-r5/impl/controller/ExternalCarCode-GetExternalComponentCode",
+    "assortment-6114c5d-r5/impl/controller/GlobalDictionary-GetGlobalDictionaryEntries",
+    "assortment-6114c5d-r5/impl/controller/MarketAuth-GetMarketAuthEntries",
+    "assortment-6114c5d-r5/impl/controller/ProductDetails-BatchGetProductByIds",
+    "assortment-6114c5d-r5/impl/controller/ProductDetails-BatchGetVariantByIds",
+    "assortment-6114c5d-r5/impl/controller/ProductDetails-GetProductById",
+    "assortment-6114c5d-r5/impl/controller/ProductDetails-GetProductTypeById",
+    "assortment-6114c5d-r5/impl/controller/ProductDetails-GetProductTypeByVariantId",
+    "assortment-6114c5d-r5/impl/controller/ProductDetails-GetVariantById",
+    "assortment-6114c5d-r5/impl/controller/ProductDetails-GetVariantsByProductId",
+    "assortment-6114c5d-r5/impl/controller/ProductDetails-ListAvailableProductTypes",
+    "assortment-6114c5d-r5/impl/controller/ProductDetails-ListProductsByType",
+    "assortment-6114c5d-r5/impl/controller/ProductDetails-ListVariantsByType",
+    "assortment-6114c5d-r5/impl/controller/ProductDetails-TransformationCarTokenToVariant",
+    "assortment-6114c5d-r5/impl/controller/Products-GetProductOutput",
+    "assortment-6114c5d-r5/impl/controller/Products-GetProductOutputWithoutCodes",
+    "assortment-6114c5d-r5/impl/controller/SpecMarket-GetSpecMarkets",
+    "assortment-6114c5d-r5/impl/controller/Specification-GetSpecificationValues",
+    "assortment-6114c5d-r5/impl/controller/Specification-GetSpecifications",
+    "assortment-6114c5d-r5/impl/job/kafka-loop",
+    "assortment-6114c5d-r5/impl/swagger/Ocelot.Host-proxy",
+    "assortment-6114c5d-r5/op/classifications-http/200",
+    "assortment-6114c5d-r5/op/classifications-http/404",
+    "assortment-6114c5d-r5/op/classifications-http/500",
+    "assortment-6114c5d-r5/op/classifications-http/call",
+    "assortment-6114c5d-r5/op/classifications-http/result",
+    "assortment-6114c5d-r5/op/controller/About-GetVersionV1/start",
+    "assortment-6114c5d-r5/op/controller/Cache-ImportProductDetails/start",
+    "assortment-6114c5d-r5/op/controller/Cache-ImportUpstreamEntities/start",
+    "assortment-6114c5d-r5/op/controller/Cache-RemoveCarConfigFromCache/start",
+    "assortment-6114c5d-r5/op/controller/Cache-RemoveExternalCarCodeFromCache/start",
+    "assortment-6114c5d-r5/op/controller/Cache-RemoveProductDetailsFromCache/start",
+    "assortment-6114c5d-r5/op/controller/CarConfig-GetCarConfig/start",
+    "assortment-6114c5d-r5/op/controller/CarConfig-ListPno12s/start",
+    "assortment-6114c5d-r5/op/controller/Classification-GetAllClassifications/start",
+    "assortment-6114c5d-r5/op/controller/ExternalCarCode-GetExternalCarCode/start",
+    "assortment-6114c5d-r5/op/controller/ExternalCarCode-GetExternalComponentCode/start",
+    "assortment-6114c5d-r5/op/controller/GlobalDictionary-GetGlobalDictionaryEntries/start",
+    "assortment-6114c5d-r5/op/controller/MarketAuth-GetMarketAuthEntries/start",
+    "assortment-6114c5d-r5/op/controller/ProductDetails-BatchGetProductByIds/start",
+    "assortment-6114c5d-r5/op/controller/ProductDetails-BatchGetVariantByIds/start",
+    "assortment-6114c5d-r5/op/controller/ProductDetails-GetProductById/start",
+    "assortment-6114c5d-r5/op/controller/ProductDetails-GetProductTypeById/start",
+    "assortment-6114c5d-r5/op/controller/ProductDetails-GetProductTypeByVariantId/start",
+    "assortment-6114c5d-r5/op/controller/ProductDetails-GetVariantById/start",
+    "assortment-6114c5d-r5/op/controller/ProductDetails-GetVariantsByProductId/start",
+    "assortment-6114c5d-r5/op/controller/ProductDetails-ListAvailableProductTypes/start",
+    "assortment-6114c5d-r5/op/controller/ProductDetails-ListProductsByType/start",
+    "assortment-6114c5d-r5/op/controller/ProductDetails-ListVariantsByType/start",
+    "assortment-6114c5d-r5/op/controller/ProductDetails-TransformationCarTokenToVariant/start",
+    "assortment-6114c5d-r5/op/controller/Products-GetProductOutput/start",
+    "assortment-6114c5d-r5/op/controller/Products-GetProductOutputWithoutCodes/start",
+    "assortment-6114c5d-r5/op/controller/SpecMarket-GetSpecMarkets/start",
+    "assortment-6114c5d-r5/op/controller/Specification-GetSpecificationValues/start",
+    "assortment-6114c5d-r5/op/controller/Specification-GetSpecifications/start",
+    "assortment-6114c5d-r5/op/job/kafka-loop/start",
+    "assortment-6114c5d-r5/op/swagger/Ocelot.Host-proxy/start",
+    "assortment-6114c5d-r5/resolve/classifications-service",
+    "assortment-6114c5d-r5/runs/About-GetVersionV1-api",
+    "assortment-6114c5d-r5/runs/Cache-ImportProductDetails-api",
+    "assortment-6114c5d-r5/runs/Cache-ImportUpstreamEntities-api",
+    "assortment-6114c5d-r5/runs/Cache-RemoveCarConfigFromCache-api",
+    "assortment-6114c5d-r5/runs/Cache-RemoveExternalCarCodeFromCache-api",
+    "assortment-6114c5d-r5/runs/Cache-RemoveProductDetailsFromCache-api",
+    "assortment-6114c5d-r5/runs/CarConfig-GetCarConfig-api",
+    "assortment-6114c5d-r5/runs/CarConfig-ListPno12s-api",
+    "assortment-6114c5d-r5/runs/Classification-GetAllClassifications-api",
+    "assortment-6114c5d-r5/runs/ExternalCarCode-GetExternalCarCode-api",
+    "assortment-6114c5d-r5/runs/ExternalCarCode-GetExternalComponentCode-api",
+    "assortment-6114c5d-r5/runs/GlobalDictionary-GetGlobalDictionaryEntries-api",
+    "assortment-6114c5d-r5/runs/MarketAuth-GetMarketAuthEntries-api",
+    "assortment-6114c5d-r5/runs/Ocelot.Host-proxy-gateway",
+    "assortment-6114c5d-r5/runs/ProductDetails-BatchGetProductByIds-api",
+    "assortment-6114c5d-r5/runs/ProductDetails-BatchGetVariantByIds-api",
+    "assortment-6114c5d-r5/runs/ProductDetails-GetProductById-api",
+    "assortment-6114c5d-r5/runs/ProductDetails-GetProductTypeById-api",
+    "assortment-6114c5d-r5/runs/ProductDetails-GetProductTypeByVariantId-api",
+    "assortment-6114c5d-r5/runs/ProductDetails-GetVariantById-api",
+    "assortment-6114c5d-r5/runs/ProductDetails-GetVariantsByProductId-api",
+    "assortment-6114c5d-r5/runs/ProductDetails-ListAvailableProductTypes-api",
+    "assortment-6114c5d-r5/runs/ProductDetails-ListProductsByType-api",
+    "assortment-6114c5d-r5/runs/ProductDetails-ListVariantsByType-api",
+    "assortment-6114c5d-r5/runs/ProductDetails-TransformationCarTokenToVariant-api",
+    "assortment-6114c5d-r5/runs/Products-GetProductOutput-api",
+    "assortment-6114c5d-r5/runs/Products-GetProductOutputWithoutCodes-api",
+    "assortment-6114c5d-r5/runs/SpecMarket-GetSpecMarkets-api",
+    "assortment-6114c5d-r5/runs/Specification-GetSpecificationValues-api",
+    "assortment-6114c5d-r5/runs/Specification-GetSpecifications-api",
+    "assortment-6114c5d-r5/runs/kafka-loop-assortment-worker",
+    "assortment-6114c5d-r5/value/classifications-http/result"
+  ],
+  "sourceMethodRevisionMap": [
+    {
+      "entry": "assortment-6114c5d-r5/entry/controller/About-GetVersionV1",
+      "priorImplementation": "assortment-6114c5d-r5/impl/controller/About-GetVersionV1",
+      "implementation": "assortment-6114c5d-complete-r3/method/ab49b3ed4b1df0a1"
+    },
+    {
+      "entry": "assortment-6114c5d-r5/entry/controller/Cache-RemoveCarConfigFromCache",
+      "priorImplementation": "assortment-6114c5d-r5/impl/controller/Cache-RemoveCarConfigFromCache",
+      "implementation": "assortment-6114c5d-complete-r3/method/badd92b2b3e7da40"
+    },
+    {
+      "entry": "assortment-6114c5d-r5/entry/controller/Cache-RemoveExternalCarCodeFromCache",
+      "priorImplementation": "assortment-6114c5d-r5/impl/controller/Cache-RemoveExternalCarCodeFromCache",
+      "implementation": "assortment-6114c5d-complete-r3/method/0055bf32a7b9f806"
+    },
+    {
+      "entry": "assortment-6114c5d-r5/entry/controller/Cache-RemoveProductDetailsFromCache",
+      "priorImplementation": "assortment-6114c5d-r5/impl/controller/Cache-RemoveProductDetailsFromCache",
+      "implementation": "assortment-6114c5d-complete-r3/method/375d7b92c79d4381"
+    },
+    {
+      "entry": "assortment-6114c5d-r5/entry/controller/Cache-ImportProductDetails",
+      "priorImplementation": "assortment-6114c5d-r5/impl/controller/Cache-ImportProductDetails",
+      "implementation": "assortment-6114c5d-complete-r3/method/1afae546d3c34bac"
+    },
+    {
+      "entry": "assortment-6114c5d-r5/entry/controller/Cache-ImportUpstreamEntities",
+      "priorImplementation": "assortment-6114c5d-r5/impl/controller/Cache-ImportUpstreamEntities",
+      "implementation": "assortment-6114c5d-complete-r3/method/a0ecd09c96559ed2"
+    },
+    {
+      "entry": "assortment-6114c5d-r5/entry/controller/CarConfig-GetCarConfig",
+      "priorImplementation": "assortment-6114c5d-r5/impl/controller/CarConfig-GetCarConfig",
+      "implementation": "assortment-6114c5d-complete-r3/method/7bb323018fea3ec2"
+    },
+    {
+      "entry": "assortment-6114c5d-r5/entry/controller/CarConfig-ListPno12s",
+      "priorImplementation": "assortment-6114c5d-r5/impl/controller/CarConfig-ListPno12s",
+      "implementation": "assortment-6114c5d-complete-r3/method/c63c49afa6109dd7"
+    },
+    {
+      "entry": "assortment-6114c5d-r5/entry/controller/Classification-GetAllClassifications",
+      "priorImplementation": "assortment-6114c5d-r5/impl/controller/Classification-GetAllClassifications",
+      "implementation": "assortment-6114c5d-complete-r3/method/9a26688178c977cd"
+    },
+    {
+      "entry": "assortment-6114c5d-r5/entry/controller/ExternalCarCode-GetExternalCarCode",
+      "priorImplementation": "assortment-6114c5d-r5/impl/controller/ExternalCarCode-GetExternalCarCode",
+      "implementation": "assortment-6114c5d-complete-r3/method/5e49b65eae463c8e"
+    },
+    {
+      "entry": "assortment-6114c5d-r5/entry/controller/ExternalCarCode-GetExternalComponentCode",
+      "priorImplementation": "assortment-6114c5d-r5/impl/controller/ExternalCarCode-GetExternalComponentCode",
+      "implementation": "assortment-6114c5d-complete-r3/method/9a0c5e340284f9ec"
+    },
+    {
+      "entry": "assortment-6114c5d-r5/entry/controller/GlobalDictionary-GetGlobalDictionaryEntries",
+      "priorImplementation": "assortment-6114c5d-r5/impl/controller/GlobalDictionary-GetGlobalDictionaryEntries",
+      "implementation": "assortment-6114c5d-complete-r3/method/46ea90244d9a551f"
+    },
+    {
+      "entry": "assortment-6114c5d-r5/entry/controller/MarketAuth-GetMarketAuthEntries",
+      "priorImplementation": "assortment-6114c5d-r5/impl/controller/MarketAuth-GetMarketAuthEntries",
+      "implementation": "assortment-6114c5d-complete-r3/method/ca2cbe51de321e57"
+    },
+    {
+      "entry": "assortment-6114c5d-r5/entry/controller/ProductDetails-GetProductById",
+      "priorImplementation": "assortment-6114c5d-r5/impl/controller/ProductDetails-GetProductById",
+      "implementation": "assortment-6114c5d-complete-r3/method/fdc02f3331519fc9"
+    },
+    {
+      "entry": "assortment-6114c5d-r5/entry/controller/ProductDetails-BatchGetProductByIds",
+      "priorImplementation": "assortment-6114c5d-r5/impl/controller/ProductDetails-BatchGetProductByIds",
+      "implementation": "assortment-6114c5d-complete-r3/method/1712f65e7001d702"
+    },
+    {
+      "entry": "assortment-6114c5d-r5/entry/controller/ProductDetails-GetProductTypeById",
+      "priorImplementation": "assortment-6114c5d-r5/impl/controller/ProductDetails-GetProductTypeById",
+      "implementation": "assortment-6114c5d-complete-r3/method/8ff7311d70b0dfbe"
+    },
+    {
+      "entry": "assortment-6114c5d-r5/entry/controller/ProductDetails-ListProductsByType",
+      "priorImplementation": "assortment-6114c5d-r5/impl/controller/ProductDetails-ListProductsByType",
+      "implementation": "assortment-6114c5d-complete-r3/method/ef1a402dbbcc9537"
+    },
+    {
+      "entry": "assortment-6114c5d-r5/entry/controller/ProductDetails-GetVariantById",
+      "priorImplementation": "assortment-6114c5d-r5/impl/controller/ProductDetails-GetVariantById",
+      "implementation": "assortment-6114c5d-complete-r3/method/7fc4b2b3b8169a83"
+    },
+    {
+      "entry": "assortment-6114c5d-r5/entry/controller/ProductDetails-BatchGetVariantByIds",
+      "priorImplementation": "assortment-6114c5d-r5/impl/controller/ProductDetails-BatchGetVariantByIds",
+      "implementation": "assortment-6114c5d-complete-r3/method/666eefd338942c92"
+    },
+    {
+      "entry": "assortment-6114c5d-r5/entry/controller/ProductDetails-GetProductTypeByVariantId",
+      "priorImplementation": "assortment-6114c5d-r5/impl/controller/ProductDetails-GetProductTypeByVariantId",
+      "implementation": "assortment-6114c5d-complete-r3/method/4b5522d0090d2072"
+    },
+    {
+      "entry": "assortment-6114c5d-r5/entry/controller/ProductDetails-GetVariantsByProductId",
+      "priorImplementation": "assortment-6114c5d-r5/impl/controller/ProductDetails-GetVariantsByProductId",
+      "implementation": "assortment-6114c5d-complete-r3/method/c3660ad69f5da388"
+    },
+    {
+      "entry": "assortment-6114c5d-r5/entry/controller/ProductDetails-ListVariantsByType",
+      "priorImplementation": "assortment-6114c5d-r5/impl/controller/ProductDetails-ListVariantsByType",
+      "implementation": "assortment-6114c5d-complete-r3/method/ff7bf8ba5826041d"
+    },
+    {
+      "entry": "assortment-6114c5d-r5/entry/controller/ProductDetails-ListAvailableProductTypes",
+      "priorImplementation": "assortment-6114c5d-r5/impl/controller/ProductDetails-ListAvailableProductTypes",
+      "implementation": "assortment-6114c5d-complete-r3/method/f9c0c1e41948b6c8"
+    },
+    {
+      "entry": "assortment-6114c5d-r5/entry/controller/ProductDetails-TransformationCarTokenToVariant",
+      "priorImplementation": "assortment-6114c5d-r5/impl/controller/ProductDetails-TransformationCarTokenToVariant",
+      "implementation": "assortment-6114c5d-complete-r3/method/0bcdc8a0e026a9a7"
+    },
+    {
+      "entry": "assortment-6114c5d-r5/entry/controller/Products-GetProductOutput",
+      "priorImplementation": "assortment-6114c5d-r5/impl/controller/Products-GetProductOutput",
+      "implementation": "assortment-6114c5d-complete-r3/method/3de91935cfc756f5"
+    },
+    {
+      "entry": "assortment-6114c5d-r5/entry/controller/Products-GetProductOutputWithoutCodes",
+      "priorImplementation": "assortment-6114c5d-r5/impl/controller/Products-GetProductOutputWithoutCodes",
+      "implementation": "assortment-6114c5d-complete-r3/method/2cc5de602184a380"
+    },
+    {
+      "entry": "assortment-6114c5d-r5/entry/controller/SpecMarket-GetSpecMarkets",
+      "priorImplementation": "assortment-6114c5d-r5/impl/controller/SpecMarket-GetSpecMarkets",
+      "implementation": "assortment-6114c5d-complete-r3/method/79f5d55a657ede18"
+    },
+    {
+      "entry": "assortment-6114c5d-r5/entry/controller/Specification-GetSpecifications",
+      "priorImplementation": "assortment-6114c5d-r5/impl/controller/Specification-GetSpecifications",
+      "implementation": "assortment-6114c5d-complete-r3/method/b954b1c5dcac3bfb"
+    },
+    {
+      "entry": "assortment-6114c5d-r5/entry/controller/Specification-GetSpecificationValues",
+      "priorImplementation": "assortment-6114c5d-r5/impl/controller/Specification-GetSpecificationValues",
+      "implementation": "assortment-6114c5d-complete-r3/method/8048dd7d58b7b528"
+    },
+    {
+      "entry": "assortment-6114c5d-r5/entry/swagger/Ocelot.Host-proxy",
+      "priorImplementation": "assortment-6114c5d-r5/impl/swagger/Ocelot.Host-proxy",
+      "implementation": "assortment-6114c5d-complete-r3/method/06917e823e5bb57e"
+    },
+    {
+      "entry": "assortment-6114c5d-r5/entry/job/kafka-loop",
+      "priorImplementation": "assortment-6114c5d-r5/impl/job/kafka-loop",
+      "implementation": "assortment-6114c5d-complete-r3/method/a9ca5ded7068efba"
+    }
+  ]
+}

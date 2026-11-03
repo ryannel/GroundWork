@@ -1,0 +1,8 @@
+{
+  "status": "passed",
+  "snapshot": "5f59c5db11e155019ace1500542dc4db1648a1616d330523ac05aa7481724664",
+  "sourceBundleByteSha256": "db88d65fc8bef85b38ad4902cb270b5dcc7ae5074e6ef952ffbdb20891887ea6",
+  "gzipDecompression": "Exactly equal frozen bounded source unit bytes",
+  "sealedFiles": 10,
+  "coverage": "Four API endpoints only; no full app/repository completion or production selection advance"
+}

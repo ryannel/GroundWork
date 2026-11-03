@@ -1,0 +1,10 @@
+{
+  "snapshot": "0ac2e18ce4b075f34192ea8ac6d08ec111f69de317b351aaffa47d1889eb6106",
+  "nativeValidation": "passed; independent-review/native-validation.log",
+  "standardQueries": 941,
+  "sourceAssertions": 314,
+  "sourceQueries": 34,
+  "independentQueries": 41,
+  "sourceRangesCheckedReused": 8904,
+  "evidenceReuse": "All source tuples equal immutable r5 proof; predecessor-verification.json retains original r5 metadata. Original r6 source seal remains unchanged and includes its copied predecessor metadata under original source path."
+}

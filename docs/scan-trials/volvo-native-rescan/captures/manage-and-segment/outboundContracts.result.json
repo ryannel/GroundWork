@@ -1,0 +1,2258 @@
+{
+  "format": "groundwork-result/v3",
+  "snapshot": "dc7180b74158fccc486c12834b8f9dfbfedcd501359e852e61caa387631c284d",
+  "queryVersion": "knowledge-query/v3",
+  "request": {
+    "format": "groundwork-query/v3",
+    "snapshot": "dc7180b74158fccc486c12834b8f9dfbfedcd501359e852e61caa387631c284d",
+    "query": "records",
+    "entry": "mas-b360506/entry/post-api-commercial-items-fees",
+    "value": null,
+    "context": [],
+    "outcome": null,
+    "changed": [],
+    "representation": "constructed",
+    "candidates": "exclude",
+    "maxNodes": 500,
+    "maxRecords": 5000,
+    "environment": "production-profile",
+    "ids": [
+      "mas-b360506/outbound/check-access/interaction",
+      "mas-b360506/outbound/delete-tuple/interaction",
+      "mas-b360506/outbound/list-tuples/interaction",
+      "mas-b360506/outbound/get-tuple/interaction",
+      "mas-b360506/outbound/save-tuple/interaction",
+      "mas-b360506/outbound/access-token/interaction"
+    ]
+  },
+  "nodes": [],
+  "edges": [],
+  "claims": [],
+  "evidence": [
+    "mas-b360506/e/0597020416657fbc",
+    "mas-b360506/e/095f6b7fcffabd78",
+    "mas-b360506/e/0bc354da2a55ded3",
+    "mas-b360506/e/12e47fe2e24e416d",
+    "mas-b360506/e/13cf1230d85c3f58",
+    "mas-b360506/e/1600f7e41b17d114",
+    "mas-b360506/e/1934073f23d491ca",
+    "mas-b360506/e/1ab034ef6a13b3f8",
+    "mas-b360506/e/3933a28608477a67",
+    "mas-b360506/e/3a4faf6d9512e6ad",
+    "mas-b360506/e/3cff639c14dff1d4",
+    "mas-b360506/e/459baa8b6c951e1e",
+    "mas-b360506/e/4b318f4d0e504261",
+    "mas-b360506/e/4fffd28382b10d18",
+    "mas-b360506/e/5070216e36a1c25d",
+    "mas-b360506/e/5417e42a91fcc07f",
+    "mas-b360506/e/60faec0ca5e84fbb",
+    "mas-b360506/e/84a7672b5359133e",
+    "mas-b360506/e/a04fe1d8ac9735c6",
+    "mas-b360506/e/a3790b8d60344524",
+    "mas-b360506/e/b087a58c8b44fc10",
+    "mas-b360506/e/bd726f840f8a4190",
+    "mas-b360506/e/bfeace96ab75ba42",
+    "mas-b360506/e/c061febc22586de4",
+    "mas-b360506/e/cbfdefa4d08b413a",
+    "mas-b360506/e/d8ff2a637cdacb5c",
+    "mas-b360506/e/dcbcc5cc3c990c89",
+    "mas-b360506/e/eeadf7b371004ead",
+    "mas-b360506/e/f6439bc2f329e95f",
+    "mas-b360506/e/fdb3410c41f3d63a",
+    "s2/e/controller",
+    "s2/e/input",
+    "s2/e/middleware",
+    "u3/e/mas-program"
+  ],
+  "coverage": [],
+  "frontiers": [],
+  "limitsHit": [],
+  "feasibility": "not_checked",
+  "exhaustive": false,
+  "records": [
+    {
+      "id": "mas-b360506/component/azure-ad",
+      "kind": "runtime_component",
+      "logicalId": "mas:azure-ad",
+      "label": "Configured Azure AD token service",
+      "category": "external",
+      "technology": "HTTP service; configured destination",
+      "sources": ["s2/p"],
+      "basis": "source_declared",
+      "gaps": ["mas-b360506/gap/physical"],
+      "evidence": ["mas-b360506/e/5417e42a91fcc07f"]
+    },
+    {
+      "id": "mas-b360506/component/pop-authz",
+      "kind": "runtime_component",
+      "logicalId": "mas:pop-authz",
+      "label": "Configured Pop Authz API",
+      "category": "external",
+      "technology": "HTTP service; configured destination",
+      "sources": ["s2/p"],
+      "basis": "source_declared",
+      "gaps": ["mas-b360506/gap/physical"],
+      "evidence": ["mas-b360506/e/eeadf7b371004ead"]
+    },
+    {
+      "id": "mas-b360506/e/0597020416657fbc",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Infrastructure/Integrations/PopAuthz/Models/AuthorizationResponse.cs",
+      "lines": [1, 7],
+      "basis": "source"
+    },
+    {
+      "id": "mas-b360506/e/095f6b7fcffabd78",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Api/Startup.cs",
+      "lines": [1, 60],
+      "basis": "source"
+    },
+    {
+      "id": "mas-b360506/e/0bc354da2a55ded3",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Infrastructure/Integrations/PopAuthz/AuthorizationClient.cs",
+      "lines": [138, 152],
+      "basis": "source"
+    },
+    {
+      "id": "mas-b360506/e/12e47fe2e24e416d",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Infrastructure/Integrations/PopAuthz/Models/AuthorizationTuple.cs",
+      "lines": [11, 12],
+      "basis": "source"
+    },
+    {
+      "id": "mas-b360506/e/13cf1230d85c3f58",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Infrastructure/Integrations/PopAuthz/Models/AuthorizationTuple.cs",
+      "lines": [14, 16],
+      "basis": "source"
+    },
+    {
+      "id": "mas-b360506/e/1600f7e41b17d114",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Infrastructure/Integrations/PopAuthz/Models/AuthorizationResponse.cs",
+      "lines": [5, 5],
+      "basis": "source"
+    },
+    {
+      "id": "mas-b360506/e/1934073f23d491ca",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Infrastructure/Integrations/PopAuthz/Models/AuthorizationTuple.cs",
+      "lines": [1, 51],
+      "basis": "source"
+    },
+    {
+      "id": "mas-b360506/e/1ab034ef6a13b3f8",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Infrastructure/Integrations/AzureAD/AzureAdAuthenticationService.cs",
+      "lines": [43, 77],
+      "basis": "source"
+    },
+    {
+      "id": "mas-b360506/e/3933a28608477a67",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Infrastructure/Integrations/PopAuthz/AuthorizationClient.cs",
+      "lines": [93, 105],
+      "basis": "source"
+    },
+    {
+      "id": "mas-b360506/e/3a4faf6d9512e6ad",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Infrastructure/Integrations/PopAuthz/Models/AuthorizationRequest.cs",
+      "lines": [1, 22],
+      "basis": "source"
+    },
+    {
+      "id": "mas-b360506/e/3cff639c14dff1d4",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Infrastructure/Integrations/AzureAD/Models/UserTokenResponse.cs",
+      "lines": [8, 8],
+      "basis": "source"
+    },
+    {
+      "id": "mas-b360506/e/459baa8b6c951e1e",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Infrastructure/Integrations/PopAuthz/Models/AuthorizationRequest.cs",
+      "lines": [8, 10],
+      "basis": "source"
+    },
+    {
+      "id": "mas-b360506/e/4b318f4d0e504261",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Infrastructure/Integrations/PopAuthz/AuthorizationClient.cs",
+      "lines": [46, 61],
+      "basis": "source"
+    },
+    {
+      "id": "mas-b360506/e/4fffd28382b10d18",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Infrastructure/Integrations/PopAuthz/Models/AuthorizationTuple.cs",
+      "lines": [20, 21],
+      "basis": "source"
+    },
+    {
+      "id": "mas-b360506/e/5070216e36a1c25d",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Infrastructure/Integrations/PopAuthz/AuthorizationClient.cs",
+      "lines": [107, 135],
+      "basis": "source"
+    },
+    {
+      "id": "mas-b360506/e/5417e42a91fcc07f",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Infrastructure/Integrations/AzureAD/AzureAdAuthenticationService.cs",
+      "lines": [1, 112],
+      "basis": "source"
+    },
+    {
+      "id": "mas-b360506/e/60faec0ca5e84fbb",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Infrastructure/Integrations/AzureAD/Models/UserTokenResponse.cs",
+      "lines": [6, 6],
+      "basis": "source"
+    },
+    {
+      "id": "mas-b360506/e/84a7672b5359133e",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Infrastructure/Integrations/PopAuthz/Models/AuthorizationTuple.cs",
+      "lines": [24, 25],
+      "basis": "source"
+    },
+    {
+      "id": "mas-b360506/e/a04fe1d8ac9735c6",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Infrastructure/Integrations/PopAuthz/Models/AuthorizationRelationTuples.cs",
+      "lines": [8, 10],
+      "basis": "source"
+    },
+    {
+      "id": "mas-b360506/e/a3790b8d60344524",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Infrastructure/Integrations/PopAuthz/Models/AuthorizationRequest.cs",
+      "lines": [16, 20],
+      "basis": "source"
+    },
+    {
+      "id": "mas-b360506/e/b087a58c8b44fc10",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Infrastructure/Integrations/PopAuthz/AuthorizationClient.cs",
+      "lines": [155, 174],
+      "basis": "source"
+    },
+    {
+      "id": "mas-b360506/e/bd726f840f8a4190",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Infrastructure/Integrations/AzureAD/AzureAdAuthenticationService.cs",
+      "lines": [82, 109],
+      "basis": "source"
+    },
+    {
+      "id": "mas-b360506/e/bfeace96ab75ba42",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Infrastructure/Integrations/PopAuthz/Models/AuthorizationTuple.cs",
+      "lines": [12, 14],
+      "basis": "source"
+    },
+    {
+      "id": "mas-b360506/e/c061febc22586de4",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Infrastructure/Integrations/AzureAD/Models/UserTokenResponse.cs",
+      "lines": [1, 10],
+      "basis": "source"
+    },
+    {
+      "id": "mas-b360506/e/cbfdefa4d08b413a",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Infrastructure/Integrations/PopAuthz/Models/AuthorizationRelationTuples.cs",
+      "lines": [1, 12],
+      "basis": "source"
+    },
+    {
+      "id": "mas-b360506/e/d8ff2a637cdacb5c",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Infrastructure/Integrations/PopAuthz/Models/AuthorizationRequest.cs",
+      "lines": [10, 13],
+      "basis": "source"
+    },
+    {
+      "id": "mas-b360506/e/dcbcc5cc3c990c89",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Infrastructure/Integrations/AzureAD/Models/UserTokenResponse.cs",
+      "lines": [7, 7],
+      "basis": "source"
+    },
+    {
+      "id": "mas-b360506/e/eeadf7b371004ead",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Infrastructure/Integrations/PopAuthz/AuthorizationClient.cs",
+      "lines": [1, 211],
+      "basis": "source"
+    },
+    {
+      "id": "mas-b360506/e/f6439bc2f329e95f",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Infrastructure/Integrations/PopAuthz/Models/AuthorizationRequest.cs",
+      "lines": [13, 16],
+      "basis": "source"
+    },
+    {
+      "id": "mas-b360506/e/fdb3410c41f3d63a",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Infrastructure/Integrations/PopAuthz/Models/AuthorizationRelationTuples.cs",
+      "lines": [7, 8],
+      "basis": "source"
+    },
+    {
+      "id": "mas-b360506/gap/outbound-access-token",
+      "kind": "gap",
+      "owner": "mas-b360506/impl/outbound-access-token",
+      "obligation": "Source closure",
+      "reason": "Caller request construction and HTTP destination configuration are declared. Effective destination/profile, retries/timeouts, complete response wire schema and all callers remain unresolved; this isolated client graph is not proof that every endpoint invokes it.",
+      "action": "Trace callers and bind effective HTTP configuration/exact dependencies. Keep source construction distinct from wire enforcement.",
+      "evidence": ["mas-b360506/e/1ab034ef6a13b3f8"]
+    },
+    {
+      "id": "mas-b360506/gap/outbound-check-access",
+      "kind": "gap",
+      "owner": "mas-b360506/impl/outbound-check-access",
+      "obligation": "Source closure",
+      "reason": "Caller request construction and HTTP destination configuration are declared. Effective destination/profile, retries/timeouts, complete response wire schema and all callers remain unresolved; this isolated client graph is not proof that every endpoint invokes it.",
+      "action": "Trace callers and bind effective HTTP configuration/exact dependencies. Keep source construction distinct from wire enforcement.",
+      "evidence": ["mas-b360506/e/4b318f4d0e504261"]
+    },
+    {
+      "id": "mas-b360506/gap/outbound-delete-tuple",
+      "kind": "gap",
+      "owner": "mas-b360506/impl/outbound-delete-tuple",
+      "obligation": "Source closure",
+      "reason": "Caller request construction and HTTP destination configuration are declared. Effective destination/profile, retries/timeouts, complete response wire schema and all callers remain unresolved; this isolated client graph is not proof that every endpoint invokes it.",
+      "action": "Trace callers and bind effective HTTP configuration/exact dependencies. Keep source construction distinct from wire enforcement.",
+      "evidence": ["mas-b360506/e/3933a28608477a67"]
+    },
+    {
+      "id": "mas-b360506/gap/outbound-get-tuple",
+      "kind": "gap",
+      "owner": "mas-b360506/impl/outbound-get-tuple",
+      "obligation": "Source closure",
+      "reason": "Caller request construction and HTTP destination configuration are declared. Effective destination/profile, retries/timeouts, complete response wire schema and all callers remain unresolved; this isolated client graph is not proof that every endpoint invokes it.",
+      "action": "Trace callers and bind effective HTTP configuration/exact dependencies. Keep source construction distinct from wire enforcement.",
+      "evidence": ["mas-b360506/e/0bc354da2a55ded3"]
+    },
+    {
+      "id": "mas-b360506/gap/outbound-list-tuples",
+      "kind": "gap",
+      "owner": "mas-b360506/impl/outbound-list-tuples",
+      "obligation": "Source closure",
+      "reason": "Caller request construction and HTTP destination configuration are declared. Effective destination/profile, retries/timeouts, complete response wire schema and all callers remain unresolved; this isolated client graph is not proof that every endpoint invokes it.",
+      "action": "Trace callers and bind effective HTTP configuration/exact dependencies. Keep source construction distinct from wire enforcement.",
+      "evidence": ["mas-b360506/e/5070216e36a1c25d"]
+    },
+    {
+      "id": "mas-b360506/gap/outbound-save-tuple",
+      "kind": "gap",
+      "owner": "mas-b360506/impl/outbound-save-tuple",
+      "obligation": "Source closure",
+      "reason": "Caller request construction and HTTP destination configuration are declared. Effective destination/profile, retries/timeouts, complete response wire schema and all callers remain unresolved; this isolated client graph is not proof that every endpoint invokes it.",
+      "action": "Trace callers and bind effective HTTP configuration/exact dependencies. Keep source construction distinct from wire enforcement.",
+      "evidence": ["mas-b360506/e/b087a58c8b44fc10"]
+    },
+    {
+      "id": "mas-b360506/gap/physical",
+      "kind": "gap",
+      "owner": "s2/http",
+      "obligation": "Source closure",
+      "reason": "Committed settings and source declarations do not establish deployed database/broker or external service instances.",
+      "action": "Bind the selected source profile to an actual deployment without exposing credentials.",
+      "evidence": ["mas-b360506/e/095f6b7fcffabd78"]
+    },
+    {
+      "id": "mas-b360506/impl/outbound-access-token",
+      "kind": "implementation",
+      "logicalId": "CreateAccessToken source invocation",
+      "scope": "s2/p",
+      "entry": "mas-b360506/op/outbound-access-token/entry",
+      "parameters": ["mas-b360506/outbound/access-token/argument"],
+      "evidence": ["mas-b360506/e/1ab034ef6a13b3f8"]
+    },
+    {
+      "id": "mas-b360506/impl/outbound-check-access",
+      "kind": "implementation",
+      "logicalId": "CheckAccess source invocation",
+      "scope": "s2/p",
+      "entry": "mas-b360506/op/outbound-check-access/entry",
+      "parameters": ["mas-b360506/outbound/check-access/argument"],
+      "evidence": ["mas-b360506/e/4b318f4d0e504261"]
+    },
+    {
+      "id": "mas-b360506/impl/outbound-delete-tuple",
+      "kind": "implementation",
+      "logicalId": "DeleteAuthorizationTuple source invocation",
+      "scope": "s2/p",
+      "entry": "mas-b360506/op/outbound-delete-tuple/entry",
+      "parameters": ["mas-b360506/outbound/delete-tuple/argument"],
+      "evidence": ["mas-b360506/e/3933a28608477a67"]
+    },
+    {
+      "id": "mas-b360506/impl/outbound-get-tuple",
+      "kind": "implementation",
+      "logicalId": "GetAuthorizationTuple source invocation",
+      "scope": "s2/p",
+      "entry": "mas-b360506/op/outbound-get-tuple/entry",
+      "parameters": ["mas-b360506/outbound/get-tuple/argument"],
+      "evidence": ["mas-b360506/e/0bc354da2a55ded3"]
+    },
+    {
+      "id": "mas-b360506/impl/outbound-list-tuples",
+      "kind": "implementation",
+      "logicalId": "ListAuthorizationTuplesByObjectName source invocation",
+      "scope": "s2/p",
+      "entry": "mas-b360506/op/outbound-list-tuples/entry",
+      "parameters": ["mas-b360506/outbound/list-tuples/argument"],
+      "evidence": ["mas-b360506/e/5070216e36a1c25d"]
+    },
+    {
+      "id": "mas-b360506/impl/outbound-save-tuple",
+      "kind": "implementation",
+      "logicalId": "SaveAuthorizationTuple source invocation",
+      "scope": "s2/p",
+      "entry": "mas-b360506/op/outbound-save-tuple/entry",
+      "parameters": ["mas-b360506/outbound/save-tuple/argument"],
+      "evidence": ["mas-b360506/e/b087a58c8b44fc10"]
+    },
+    {
+      "id": "mas-b360506/op/outbound-access-token/entry",
+      "kind": "operation",
+      "owner": "mas-b360506/impl/outbound-access-token",
+      "action": "entry",
+      "label": "CreateAccessToken source invocation",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": null,
+      "httpStatus": null,
+      "evidence": ["mas-b360506/e/1ab034ef6a13b3f8"]
+    },
+    {
+      "id": "mas-b360506/op/outbound-check-access/entry",
+      "kind": "operation",
+      "owner": "mas-b360506/impl/outbound-check-access",
+      "action": "entry",
+      "label": "CheckAccess source invocation",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": null,
+      "httpStatus": null,
+      "evidence": ["mas-b360506/e/4b318f4d0e504261"]
+    },
+    {
+      "id": "mas-b360506/op/outbound-delete-tuple/entry",
+      "kind": "operation",
+      "owner": "mas-b360506/impl/outbound-delete-tuple",
+      "action": "entry",
+      "label": "DeleteAuthorizationTuple source invocation",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": null,
+      "httpStatus": null,
+      "evidence": ["mas-b360506/e/3933a28608477a67"]
+    },
+    {
+      "id": "mas-b360506/op/outbound-get-tuple/entry",
+      "kind": "operation",
+      "owner": "mas-b360506/impl/outbound-get-tuple",
+      "action": "entry",
+      "label": "GetAuthorizationTuple source invocation",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": null,
+      "httpStatus": null,
+      "evidence": ["mas-b360506/e/0bc354da2a55ded3"]
+    },
+    {
+      "id": "mas-b360506/op/outbound-list-tuples/entry",
+      "kind": "operation",
+      "owner": "mas-b360506/impl/outbound-list-tuples",
+      "action": "entry",
+      "label": "ListAuthorizationTuplesByObjectName source invocation",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": null,
+      "httpStatus": null,
+      "evidence": ["mas-b360506/e/5070216e36a1c25d"]
+    },
+    {
+      "id": "mas-b360506/op/outbound-save-tuple/entry",
+      "kind": "operation",
+      "owner": "mas-b360506/impl/outbound-save-tuple",
+      "action": "entry",
+      "label": "SaveAuthorizationTuple source invocation",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": null,
+      "httpStatus": null,
+      "evidence": ["mas-b360506/e/b087a58c8b44fc10"]
+    },
+    {
+      "id": "mas-b360506/outbound/access-token/argument",
+      "kind": "value",
+      "owner": "mas-b360506/impl/outbound-access-token",
+      "definition": "mas-b360506/op/outbound-access-token/entry",
+      "label": "Source CreateAccessToken request construction; no credential values captured",
+      "role": "parameter",
+      "representation": "constructed",
+      "shape": "mas-b360506/outbound/token-form",
+      "evidence": ["mas-b360506/e/1ab034ef6a13b3f8"],
+      "accessPath": []
+    },
+    {
+      "id": "mas-b360506/outbound/access-token/contract",
+      "kind": "interface_contract",
+      "component": "mas-b360506/component/azure-ad",
+      "protocol": "http",
+      "name": "POST /{tenant}/oauth2/token caller contract",
+      "method": "POST",
+      "path": "/{tenant}/oauth2/token",
+      "authority": "caller_construction",
+      "request": [
+        {
+          "part": "body",
+          "presence": "present",
+          "shape": null,
+          "sourceShape": "mas-b360506/outbound/token-form",
+          "contentType": "application/x-www-form-urlencoded",
+          "gaps": ["mas-b360506/gap/outbound-access-token"],
+          "evidence": ["mas-b360506/e/1ab034ef6a13b3f8"]
+        },
+        {
+          "part": "headers",
+          "presence": "unresolved",
+          "shape": null,
+          "sourceShape": null,
+          "contentType": null,
+          "gaps": ["mas-b360506/gap/outbound-access-token"],
+          "evidence": ["mas-b360506/e/1ab034ef6a13b3f8"]
+        },
+        {
+          "part": "path",
+          "presence": "present",
+          "shape": "mas-b360506/outbound/token-path",
+          "sourceShape": null,
+          "contentType": null,
+          "gaps": [],
+          "evidence": ["mas-b360506/e/1ab034ef6a13b3f8"]
+        }
+      ],
+      "responses": [
+        {
+          "status": "source_response",
+          "body": {
+            "part": "body",
+            "presence": "unresolved",
+            "shape": null,
+            "sourceShape": "mas-b360506/shape/48b31af24e02bcf6",
+            "contentType": null,
+            "gaps": ["mas-b360506/gap/outbound-access-token"],
+            "evidence": ["mas-b360506/e/1ab034ef6a13b3f8"]
+          },
+          "meaning": "PopAuthz accepts successful statuses or 403 then deserialises; other statuses throw. Token service success deserialises; unsuccessful/null paths return null.",
+          "evidence": ["mas-b360506/e/1ab034ef6a13b3f8"]
+        }
+      ],
+      "gaps": ["mas-b360506/gap/outbound-access-token", "mas-b360506/gap/physical"],
+      "evidence": ["mas-b360506/e/1ab034ef6a13b3f8"]
+    },
+    {
+      "id": "mas-b360506/outbound/access-token/effect",
+      "kind": "effect",
+      "owner": "mas-b360506/impl/outbound-access-token",
+      "operation": "mas-b360506/outbound/access-token/send",
+      "effect": "call",
+      "resource": "mas-b360506/outbound/access-token/resource",
+      "modality": "source_declared",
+      "representation": "logical",
+      "selection": [],
+      "payload": ["mas-b360506/outbound/access-token/argument"],
+      "evidence": ["mas-b360506/e/1ab034ef6a13b3f8"]
+    },
+    {
+      "id": "mas-b360506/outbound/access-token/interaction",
+      "kind": "interaction",
+      "owner": "mas-b360506/impl/outbound-access-token",
+      "execution": "mas-b360506/runs/outbound-access-token",
+      "operation": "mas-b360506/outbound/access-token/send",
+      "target": "mas-b360506/component/azure-ad",
+      "targetEntry": null,
+      "contract": "mas-b360506/outbound/access-token/contract",
+      "effect": "mas-b360506/outbound/access-token/effect",
+      "handoff": null,
+      "mode": "request_response",
+      "boundary": "network",
+      "waitsFor": "response",
+      "condition": "Token cache/request conditions from GetAccessToken/CreateAccessToken; required configuration checked before request creation",
+      "requestBindings": [
+        {
+          "part": "selection",
+          "path": [],
+          "value": "mas-b360506/outbound/access-token/argument",
+          "transform": "Source arguments/query/form construction; contract retains established parts and explicit unknown wire closure"
+        }
+      ],
+      "responseBindings": [
+        {
+          "part": "result",
+          "path": [],
+          "value": "mas-b360506/outbound/access-token/result",
+          "transform": "Read response content and deserialize expected source DTO; null/failure possibilities remain partial"
+        }
+      ],
+      "gaps": ["mas-b360506/gap/outbound-access-token", "mas-b360506/gap/physical"],
+      "evidence": ["mas-b360506/e/1ab034ef6a13b3f8"]
+    },
+    {
+      "id": "mas-b360506/outbound/access-token/resource",
+      "kind": "resource",
+      "label": "POST /{tenant}/oauth2/token",
+      "technology": "HttpClient",
+      "declaredDatabase": null,
+      "physicalLocation": null,
+      "shapes": [],
+      "gaps": ["mas-b360506/gap/outbound-access-token", "mas-b360506/gap/physical"],
+      "evidence": ["mas-b360506/e/1ab034ef6a13b3f8"]
+    },
+    {
+      "id": "mas-b360506/outbound/access-token/result",
+      "kind": "value",
+      "owner": "mas-b360506/impl/outbound-access-token",
+      "definition": "mas-b360506/outbound/access-token/send",
+      "label": "Deserialised UserTokenResponse or null; source response",
+      "role": "definition",
+      "representation": "constructed",
+      "shape": "mas-b360506/shape/48b31af24e02bcf6",
+      "evidence": ["mas-b360506/e/1ab034ef6a13b3f8"],
+      "accessPath": []
+    },
+    {
+      "id": "mas-b360506/outbound/access-token/send",
+      "kind": "operation",
+      "owner": "mas-b360506/impl/outbound-access-token",
+      "action": "opaque",
+      "label": "Await HttpClient.SendAsync; network request constructed in CreateAccessToken",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": null,
+      "httpStatus": null,
+      "evidence": ["mas-b360506/e/1ab034ef6a13b3f8"]
+    },
+    {
+      "id": "mas-b360506/outbound/check-access/argument",
+      "kind": "value",
+      "owner": "mas-b360506/impl/outbound-check-access",
+      "definition": "mas-b360506/op/outbound-check-access/entry",
+      "label": "Source CheckAccess request construction; no credential values captured",
+      "role": "parameter",
+      "representation": "constructed",
+      "shape": "mas-b360506/shape/92259fabff62afe6",
+      "evidence": ["mas-b360506/e/4b318f4d0e504261"],
+      "accessPath": []
+    },
+    {
+      "id": "mas-b360506/outbound/check-access/contract",
+      "kind": "interface_contract",
+      "component": "mas-b360506/component/pop-authz",
+      "protocol": "http",
+      "name": "POST relation-tuples/check caller contract",
+      "method": "POST",
+      "path": "relation-tuples/check",
+      "authority": "caller_construction",
+      "request": [
+        {
+          "part": "body",
+          "presence": "present",
+          "shape": null,
+          "sourceShape": "mas-b360506/shape/92259fabff62afe6",
+          "contentType": "application/json",
+          "gaps": ["mas-b360506/gap/outbound-check-access"],
+          "evidence": ["mas-b360506/e/4b318f4d0e504261"]
+        },
+        {
+          "part": "headers",
+          "presence": "unresolved",
+          "shape": null,
+          "sourceShape": null,
+          "contentType": null,
+          "gaps": ["mas-b360506/gap/outbound-check-access"],
+          "evidence": ["mas-b360506/e/4b318f4d0e504261"]
+        }
+      ],
+      "responses": [
+        {
+          "status": "source_response",
+          "body": {
+            "part": "body",
+            "presence": "unresolved",
+            "shape": null,
+            "sourceShape": "mas-b360506/shape/564b927babc210c6",
+            "contentType": null,
+            "gaps": ["mas-b360506/gap/outbound-check-access"],
+            "evidence": ["mas-b360506/e/4b318f4d0e504261"]
+          },
+          "meaning": "PopAuthz accepts successful statuses or 403 then deserialises; other statuses throw. Token service success deserialises; unsuccessful/null paths return null.",
+          "evidence": ["mas-b360506/e/4b318f4d0e504261"]
+        }
+      ],
+      "gaps": ["mas-b360506/gap/outbound-check-access", "mas-b360506/gap/physical"],
+      "evidence": ["mas-b360506/e/4b318f4d0e504261"]
+    },
+    {
+      "id": "mas-b360506/outbound/check-access/effect",
+      "kind": "effect",
+      "owner": "mas-b360506/impl/outbound-check-access",
+      "operation": "mas-b360506/outbound/check-access/send",
+      "effect": "call",
+      "resource": "mas-b360506/outbound/check-access/resource",
+      "modality": "source_declared",
+      "representation": "logical",
+      "selection": [],
+      "payload": ["mas-b360506/outbound/check-access/argument"],
+      "evidence": ["mas-b360506/e/4b318f4d0e504261"]
+    },
+    {
+      "id": "mas-b360506/outbound/check-access/interaction",
+      "kind": "interaction",
+      "owner": "mas-b360506/impl/outbound-check-access",
+      "execution": "mas-b360506/runs/outbound-check-access",
+      "operation": "mas-b360506/outbound/check-access/send",
+      "target": "mas-b360506/component/pop-authz",
+      "targetEntry": null,
+      "contract": "mas-b360506/outbound/check-access/contract",
+      "effect": "mas-b360506/outbound/check-access/effect",
+      "handoff": null,
+      "mode": "request_response",
+      "boundary": "network",
+      "waitsFor": "response",
+      "condition": "Authorization handler: enabled, non-GET, readable subject upn and mapped object/relation; subjectId lowercased",
+      "requestBindings": [
+        {
+          "part": "selection",
+          "path": [],
+          "value": "mas-b360506/outbound/check-access/argument",
+          "transform": "Source arguments/query/form construction; contract retains established parts and explicit unknown wire closure"
+        }
+      ],
+      "responseBindings": [
+        {
+          "part": "result",
+          "path": [],
+          "value": "mas-b360506/outbound/check-access/result",
+          "transform": "Read response content and deserialize expected source DTO; null/failure possibilities remain partial"
+        }
+      ],
+      "gaps": ["mas-b360506/gap/outbound-check-access", "mas-b360506/gap/physical"],
+      "evidence": ["mas-b360506/e/4b318f4d0e504261"]
+    },
+    {
+      "id": "mas-b360506/outbound/check-access/resource",
+      "kind": "resource",
+      "label": "POST relation-tuples/check",
+      "technology": "HttpClient",
+      "declaredDatabase": null,
+      "physicalLocation": null,
+      "shapes": [],
+      "gaps": ["mas-b360506/gap/outbound-check-access", "mas-b360506/gap/physical"],
+      "evidence": ["mas-b360506/e/4b318f4d0e504261"]
+    },
+    {
+      "id": "mas-b360506/outbound/check-access/result",
+      "kind": "value",
+      "owner": "mas-b360506/impl/outbound-check-access",
+      "definition": "mas-b360506/outbound/check-access/send",
+      "label": "Deserialised AuthorizationResponse or null; source response",
+      "role": "definition",
+      "representation": "constructed",
+      "shape": "mas-b360506/shape/564b927babc210c6",
+      "evidence": ["mas-b360506/e/4b318f4d0e504261"],
+      "accessPath": []
+    },
+    {
+      "id": "mas-b360506/outbound/check-access/send",
+      "kind": "operation",
+      "owner": "mas-b360506/impl/outbound-check-access",
+      "action": "opaque",
+      "label": "Await HttpClient.SendAsync; network request constructed in CheckAccess",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": null,
+      "httpStatus": null,
+      "evidence": ["mas-b360506/e/4b318f4d0e504261"]
+    },
+    {
+      "id": "mas-b360506/outbound/delete-tuple/argument",
+      "kind": "value",
+      "owner": "mas-b360506/impl/outbound-delete-tuple",
+      "definition": "mas-b360506/op/outbound-delete-tuple/entry",
+      "label": "Source DeleteAuthorizationTuple request construction; no credential values captured",
+      "role": "parameter",
+      "representation": "constructed",
+      "shape": null,
+      "evidence": ["mas-b360506/e/3933a28608477a67"],
+      "accessPath": []
+    },
+    {
+      "id": "mas-b360506/outbound/delete-tuple/contract",
+      "kind": "interface_contract",
+      "component": "mas-b360506/component/pop-authz",
+      "protocol": "http",
+      "name": "DELETE admin/relation-tuples caller contract",
+      "method": "DELETE",
+      "path": "admin/relation-tuples",
+      "authority": "caller_construction",
+      "request": [
+        {
+          "part": "query",
+          "presence": "present",
+          "shape": "mas-b360506/outbound/delete-tuple/query",
+          "sourceShape": null,
+          "contentType": null,
+          "gaps": [],
+          "evidence": ["mas-b360506/e/3933a28608477a67"]
+        },
+        {
+          "part": "body",
+          "presence": "unresolved",
+          "shape": null,
+          "sourceShape": null,
+          "contentType": null,
+          "gaps": ["mas-b360506/gap/outbound-delete-tuple"],
+          "evidence": ["mas-b360506/e/3933a28608477a67"]
+        },
+        {
+          "part": "headers",
+          "presence": "unresolved",
+          "shape": null,
+          "sourceShape": null,
+          "contentType": null,
+          "gaps": ["mas-b360506/gap/outbound-delete-tuple"],
+          "evidence": ["mas-b360506/e/3933a28608477a67"]
+        }
+      ],
+      "responses": [
+        {
+          "status": "source_response",
+          "body": {
+            "part": "body",
+            "presence": "unresolved",
+            "shape": null,
+            "sourceShape": "mas-b360506/shape/bafdb7d745cac2c9",
+            "contentType": null,
+            "gaps": ["mas-b360506/gap/outbound-delete-tuple"],
+            "evidence": ["mas-b360506/e/3933a28608477a67"]
+          },
+          "meaning": "PopAuthz accepts successful statuses or 403 then deserialises; other statuses throw. Token service success deserialises; unsuccessful/null paths return null.",
+          "evidence": ["mas-b360506/e/3933a28608477a67"]
+        }
+      ],
+      "gaps": ["mas-b360506/gap/outbound-delete-tuple", "mas-b360506/gap/physical"],
+      "evidence": ["mas-b360506/e/3933a28608477a67"]
+    },
+    {
+      "id": "mas-b360506/outbound/delete-tuple/effect",
+      "kind": "effect",
+      "owner": "mas-b360506/impl/outbound-delete-tuple",
+      "operation": "mas-b360506/outbound/delete-tuple/send",
+      "effect": "call",
+      "resource": "mas-b360506/outbound/delete-tuple/resource",
+      "modality": "source_declared",
+      "representation": "logical",
+      "selection": [],
+      "payload": ["mas-b360506/outbound/delete-tuple/argument"],
+      "evidence": ["mas-b360506/e/3933a28608477a67"]
+    },
+    {
+      "id": "mas-b360506/outbound/delete-tuple/interaction",
+      "kind": "interaction",
+      "owner": "mas-b360506/impl/outbound-delete-tuple",
+      "execution": "mas-b360506/runs/outbound-delete-tuple",
+      "operation": "mas-b360506/outbound/delete-tuple/send",
+      "target": "mas-b360506/component/pop-authz",
+      "targetEntry": null,
+      "contract": "mas-b360506/outbound/delete-tuple/contract",
+      "effect": "mas-b360506/outbound/delete-tuple/effect",
+      "handoff": null,
+      "mode": "request_response",
+      "boundary": "network",
+      "waitsFor": "response",
+      "condition": "Per tuple listed by DeleteAuthorizationTuplesByObjectName; optional token header",
+      "requestBindings": [
+        {
+          "part": "selection",
+          "path": [],
+          "value": "mas-b360506/outbound/delete-tuple/argument",
+          "transform": "Source arguments/query/form construction; contract retains established parts and explicit unknown wire closure"
+        }
+      ],
+      "responseBindings": [
+        {
+          "part": "result",
+          "path": [],
+          "value": "mas-b360506/outbound/delete-tuple/result",
+          "transform": "Read response content and deserialize expected source DTO; null/failure possibilities remain partial"
+        }
+      ],
+      "gaps": ["mas-b360506/gap/outbound-delete-tuple", "mas-b360506/gap/physical"],
+      "evidence": ["mas-b360506/e/3933a28608477a67"]
+    },
+    {
+      "id": "mas-b360506/outbound/delete-tuple/query",
+      "kind": "shape",
+      "label": "DeleteAuthorizationTuple query construction",
+      "representation": "constructed",
+      "container": "object",
+      "fields": [
+        {
+          "name": "namespace",
+          "type": "string",
+          "status": "declared",
+          "evidence": ["mas-b360506/e/3933a28608477a67"]
+        },
+        {
+          "name": "object",
+          "type": "string",
+          "status": "declared",
+          "evidence": ["mas-b360506/e/3933a28608477a67"]
+        },
+        {
+          "name": "relation",
+          "type": "string",
+          "status": "declared",
+          "evidence": ["mas-b360506/e/3933a28608477a67"]
+        },
+        {
+          "name": "subject_id",
+          "type": "string",
+          "status": "declared",
+          "evidence": ["mas-b360506/e/3933a28608477a67"]
+        },
+        {
+          "name": "subject_set.namespace",
+          "type": "string",
+          "status": "declared",
+          "evidence": ["mas-b360506/e/3933a28608477a67"]
+        },
+        {
+          "name": "subject_set.object",
+          "type": "string",
+          "status": "declared",
+          "evidence": ["mas-b360506/e/3933a28608477a67"]
+        },
+        {
+          "name": "subject_set.relation",
+          "type": "string",
+          "status": "declared",
+          "evidence": ["mas-b360506/e/3933a28608477a67"]
+        }
+      ],
+      "completeness": "closed",
+      "gaps": [],
+      "evidence": ["mas-b360506/e/3933a28608477a67"]
+    },
+    {
+      "id": "mas-b360506/outbound/delete-tuple/resource",
+      "kind": "resource",
+      "label": "DELETE admin/relation-tuples",
+      "technology": "HttpClient",
+      "declaredDatabase": null,
+      "physicalLocation": null,
+      "shapes": [],
+      "gaps": ["mas-b360506/gap/outbound-delete-tuple", "mas-b360506/gap/physical"],
+      "evidence": ["mas-b360506/e/3933a28608477a67"]
+    },
+    {
+      "id": "mas-b360506/outbound/delete-tuple/result",
+      "kind": "value",
+      "owner": "mas-b360506/impl/outbound-delete-tuple",
+      "definition": "mas-b360506/outbound/delete-tuple/send",
+      "label": "Deserialised AuthorizationRelationTuples or null; source response",
+      "role": "definition",
+      "representation": "constructed",
+      "shape": "mas-b360506/shape/bafdb7d745cac2c9",
+      "evidence": ["mas-b360506/e/3933a28608477a67"],
+      "accessPath": []
+    },
+    {
+      "id": "mas-b360506/outbound/delete-tuple/send",
+      "kind": "operation",
+      "owner": "mas-b360506/impl/outbound-delete-tuple",
+      "action": "opaque",
+      "label": "Await HttpClient.SendAsync; network request constructed in DeleteAuthorizationTuple",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": null,
+      "httpStatus": null,
+      "evidence": ["mas-b360506/e/3933a28608477a67"]
+    },
+    {
+      "id": "mas-b360506/outbound/get-tuple/argument",
+      "kind": "value",
+      "owner": "mas-b360506/impl/outbound-get-tuple",
+      "definition": "mas-b360506/op/outbound-get-tuple/entry",
+      "label": "Source GetAuthorizationTuple request construction; no credential values captured",
+      "role": "parameter",
+      "representation": "constructed",
+      "shape": null,
+      "evidence": ["mas-b360506/e/0bc354da2a55ded3"],
+      "accessPath": []
+    },
+    {
+      "id": "mas-b360506/outbound/get-tuple/contract",
+      "kind": "interface_contract",
+      "component": "mas-b360506/component/pop-authz",
+      "protocol": "http",
+      "name": "GET relation-tuples-by-namespace caller contract",
+      "method": "GET",
+      "path": "relation-tuples-by-namespace",
+      "authority": "caller_construction",
+      "request": [
+        {
+          "part": "query",
+          "presence": "present",
+          "shape": "mas-b360506/outbound/get-tuple/query",
+          "sourceShape": null,
+          "contentType": null,
+          "gaps": [],
+          "evidence": ["mas-b360506/e/0bc354da2a55ded3"]
+        },
+        {
+          "part": "body",
+          "presence": "unresolved",
+          "shape": null,
+          "sourceShape": null,
+          "contentType": null,
+          "gaps": ["mas-b360506/gap/outbound-get-tuple"],
+          "evidence": ["mas-b360506/e/0bc354da2a55ded3"]
+        },
+        {
+          "part": "headers",
+          "presence": "unresolved",
+          "shape": null,
+          "sourceShape": null,
+          "contentType": null,
+          "gaps": ["mas-b360506/gap/outbound-get-tuple"],
+          "evidence": ["mas-b360506/e/0bc354da2a55ded3"]
+        }
+      ],
+      "responses": [
+        {
+          "status": "source_response",
+          "body": {
+            "part": "body",
+            "presence": "unresolved",
+            "shape": null,
+            "sourceShape": "mas-b360506/shape/bafdb7d745cac2c9",
+            "contentType": null,
+            "gaps": ["mas-b360506/gap/outbound-get-tuple"],
+            "evidence": ["mas-b360506/e/0bc354da2a55ded3"]
+          },
+          "meaning": "PopAuthz accepts successful statuses or 403 then deserialises; other statuses throw. Token service success deserialises; unsuccessful/null paths return null.",
+          "evidence": ["mas-b360506/e/0bc354da2a55ded3"]
+        }
+      ],
+      "gaps": ["mas-b360506/gap/outbound-get-tuple", "mas-b360506/gap/physical"],
+      "evidence": ["mas-b360506/e/0bc354da2a55ded3"]
+    },
+    {
+      "id": "mas-b360506/outbound/get-tuple/effect",
+      "kind": "effect",
+      "owner": "mas-b360506/impl/outbound-get-tuple",
+      "operation": "mas-b360506/outbound/get-tuple/send",
+      "effect": "call",
+      "resource": "mas-b360506/outbound/get-tuple/resource",
+      "modality": "source_declared",
+      "representation": "logical",
+      "selection": [],
+      "payload": ["mas-b360506/outbound/get-tuple/argument"],
+      "evidence": ["mas-b360506/e/0bc354da2a55ded3"]
+    },
+    {
+      "id": "mas-b360506/outbound/get-tuple/interaction",
+      "kind": "interaction",
+      "owner": "mas-b360506/impl/outbound-get-tuple",
+      "execution": "mas-b360506/runs/outbound-get-tuple",
+      "operation": "mas-b360506/outbound/get-tuple/send",
+      "target": "mas-b360506/component/pop-authz",
+      "targetEntry": null,
+      "contract": "mas-b360506/outbound/get-tuple/contract",
+      "effect": "mas-b360506/outbound/get-tuple/effect",
+      "handoff": null,
+      "mode": "request_response",
+      "boundary": "network",
+      "waitsFor": "response",
+      "condition": "When startup authorization service asks whether configured tuple exists",
+      "requestBindings": [
+        {
+          "part": "selection",
+          "path": [],
+          "value": "mas-b360506/outbound/get-tuple/argument",
+          "transform": "Source arguments/query/form construction; contract retains established parts and explicit unknown wire closure"
+        }
+      ],
+      "responseBindings": [
+        {
+          "part": "result",
+          "path": [],
+          "value": "mas-b360506/outbound/get-tuple/result",
+          "transform": "Read response content and deserialize expected source DTO; null/failure possibilities remain partial"
+        }
+      ],
+      "gaps": ["mas-b360506/gap/outbound-get-tuple", "mas-b360506/gap/physical"],
+      "evidence": ["mas-b360506/e/0bc354da2a55ded3"]
+    },
+    {
+      "id": "mas-b360506/outbound/get-tuple/query",
+      "kind": "shape",
+      "label": "GetAuthorizationTuple query construction",
+      "representation": "constructed",
+      "container": "object",
+      "fields": [
+        {
+          "name": "namespace",
+          "type": "string",
+          "status": "declared",
+          "evidence": ["mas-b360506/e/0bc354da2a55ded3"]
+        },
+        {
+          "name": "object",
+          "type": "string",
+          "status": "declared",
+          "evidence": ["mas-b360506/e/0bc354da2a55ded3"]
+        },
+        {
+          "name": "relation",
+          "type": "string",
+          "status": "declared",
+          "evidence": ["mas-b360506/e/0bc354da2a55ded3"]
+        },
+        {
+          "name": "subjectSetNamespace",
+          "type": "string",
+          "status": "declared",
+          "evidence": ["mas-b360506/e/0bc354da2a55ded3"]
+        },
+        {
+          "name": "subjectSetObject",
+          "type": "string",
+          "status": "declared",
+          "evidence": ["mas-b360506/e/0bc354da2a55ded3"]
+        },
+        {
+          "name": "subjectSetRelation",
+          "type": "string",
+          "status": "declared",
+          "evidence": ["mas-b360506/e/0bc354da2a55ded3"]
+        }
+      ],
+      "completeness": "closed",
+      "gaps": [],
+      "evidence": ["mas-b360506/e/0bc354da2a55ded3"]
+    },
+    {
+      "id": "mas-b360506/outbound/get-tuple/resource",
+      "kind": "resource",
+      "label": "GET relation-tuples-by-namespace",
+      "technology": "HttpClient",
+      "declaredDatabase": null,
+      "physicalLocation": null,
+      "shapes": [],
+      "gaps": ["mas-b360506/gap/outbound-get-tuple", "mas-b360506/gap/physical"],
+      "evidence": ["mas-b360506/e/0bc354da2a55ded3"]
+    },
+    {
+      "id": "mas-b360506/outbound/get-tuple/result",
+      "kind": "value",
+      "owner": "mas-b360506/impl/outbound-get-tuple",
+      "definition": "mas-b360506/outbound/get-tuple/send",
+      "label": "Deserialised AuthorizationRelationTuples or null; source response",
+      "role": "definition",
+      "representation": "constructed",
+      "shape": "mas-b360506/shape/bafdb7d745cac2c9",
+      "evidence": ["mas-b360506/e/0bc354da2a55ded3"],
+      "accessPath": []
+    },
+    {
+      "id": "mas-b360506/outbound/get-tuple/send",
+      "kind": "operation",
+      "owner": "mas-b360506/impl/outbound-get-tuple",
+      "action": "opaque",
+      "label": "Await HttpClient.SendAsync; network request constructed in GetAuthorizationTuple",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": null,
+      "httpStatus": null,
+      "evidence": ["mas-b360506/e/0bc354da2a55ded3"]
+    },
+    {
+      "id": "mas-b360506/outbound/list-tuples/argument",
+      "kind": "value",
+      "owner": "mas-b360506/impl/outbound-list-tuples",
+      "definition": "mas-b360506/op/outbound-list-tuples/entry",
+      "label": "Source ListAuthorizationTuplesByObjectName request construction; no credential values captured",
+      "role": "parameter",
+      "representation": "constructed",
+      "shape": null,
+      "evidence": ["mas-b360506/e/5070216e36a1c25d"],
+      "accessPath": []
+    },
+    {
+      "id": "mas-b360506/outbound/list-tuples/contract",
+      "kind": "interface_contract",
+      "component": "mas-b360506/component/pop-authz",
+      "protocol": "http",
+      "name": "GET relation-tuples-by-namespace caller contract",
+      "method": "GET",
+      "path": "relation-tuples-by-namespace",
+      "authority": "caller_construction",
+      "request": [
+        {
+          "part": "query",
+          "presence": "present",
+          "shape": "mas-b360506/outbound/list-tuples/query",
+          "sourceShape": null,
+          "contentType": null,
+          "gaps": [],
+          "evidence": ["mas-b360506/e/5070216e36a1c25d"]
+        },
+        {
+          "part": "body",
+          "presence": "unresolved",
+          "shape": null,
+          "sourceShape": null,
+          "contentType": null,
+          "gaps": ["mas-b360506/gap/outbound-list-tuples"],
+          "evidence": ["mas-b360506/e/5070216e36a1c25d"]
+        },
+        {
+          "part": "headers",
+          "presence": "unresolved",
+          "shape": null,
+          "sourceShape": null,
+          "contentType": null,
+          "gaps": ["mas-b360506/gap/outbound-list-tuples"],
+          "evidence": ["mas-b360506/e/5070216e36a1c25d"]
+        }
+      ],
+      "responses": [
+        {
+          "status": "source_response",
+          "body": {
+            "part": "body",
+            "presence": "unresolved",
+            "shape": null,
+            "sourceShape": "mas-b360506/shape/bafdb7d745cac2c9",
+            "contentType": null,
+            "gaps": ["mas-b360506/gap/outbound-list-tuples"],
+            "evidence": ["mas-b360506/e/5070216e36a1c25d"]
+          },
+          "meaning": "PopAuthz accepts successful statuses or 403 then deserialises; other statuses throw. Token service success deserialises; unsuccessful/null paths return null.",
+          "evidence": ["mas-b360506/e/5070216e36a1c25d"]
+        }
+      ],
+      "gaps": ["mas-b360506/gap/outbound-list-tuples", "mas-b360506/gap/physical"],
+      "evidence": ["mas-b360506/e/5070216e36a1c25d"]
+    },
+    {
+      "id": "mas-b360506/outbound/list-tuples/effect",
+      "kind": "effect",
+      "owner": "mas-b360506/impl/outbound-list-tuples",
+      "operation": "mas-b360506/outbound/list-tuples/send",
+      "effect": "call",
+      "resource": "mas-b360506/outbound/list-tuples/resource",
+      "modality": "source_declared",
+      "representation": "logical",
+      "selection": [],
+      "payload": ["mas-b360506/outbound/list-tuples/argument"],
+      "evidence": ["mas-b360506/e/5070216e36a1c25d"]
+    },
+    {
+      "id": "mas-b360506/outbound/list-tuples/interaction",
+      "kind": "interaction",
+      "owner": "mas-b360506/impl/outbound-list-tuples",
+      "execution": "mas-b360506/runs/outbound-list-tuples",
+      "operation": "mas-b360506/outbound/list-tuples/send",
+      "target": "mas-b360506/component/pop-authz",
+      "targetEntry": null,
+      "contract": "mas-b360506/outbound/list-tuples/contract",
+      "effect": "mas-b360506/outbound/list-tuples/effect",
+      "handoff": null,
+      "mode": "request_response",
+      "boundary": "network",
+      "waitsFor": "response",
+      "condition": "do/while pagination until NextPageToken empty; null result breaks loop",
+      "requestBindings": [
+        {
+          "part": "selection",
+          "path": [],
+          "value": "mas-b360506/outbound/list-tuples/argument",
+          "transform": "Source arguments/query/form construction; contract retains established parts and explicit unknown wire closure"
+        }
+      ],
+      "responseBindings": [
+        {
+          "part": "result",
+          "path": [],
+          "value": "mas-b360506/outbound/list-tuples/result",
+          "transform": "Read response content and deserialize expected source DTO; null/failure possibilities remain partial"
+        }
+      ],
+      "gaps": ["mas-b360506/gap/outbound-list-tuples", "mas-b360506/gap/physical"],
+      "evidence": ["mas-b360506/e/5070216e36a1c25d"]
+    },
+    {
+      "id": "mas-b360506/outbound/list-tuples/query",
+      "kind": "shape",
+      "label": "ListAuthorizationTuplesByObjectName query construction",
+      "representation": "constructed",
+      "container": "object",
+      "fields": [
+        {
+          "name": "namespace",
+          "type": "string",
+          "status": "declared",
+          "evidence": ["mas-b360506/e/5070216e36a1c25d"]
+        },
+        {
+          "name": "object",
+          "type": "string",
+          "status": "declared",
+          "evidence": ["mas-b360506/e/5070216e36a1c25d"]
+        },
+        {
+          "name": "page_token",
+          "type": "string",
+          "status": "declared",
+          "evidence": ["mas-b360506/e/5070216e36a1c25d"]
+        }
+      ],
+      "completeness": "closed",
+      "gaps": [],
+      "evidence": ["mas-b360506/e/5070216e36a1c25d"]
+    },
+    {
+      "id": "mas-b360506/outbound/list-tuples/resource",
+      "kind": "resource",
+      "label": "GET relation-tuples-by-namespace",
+      "technology": "HttpClient",
+      "declaredDatabase": null,
+      "physicalLocation": null,
+      "shapes": [],
+      "gaps": ["mas-b360506/gap/outbound-list-tuples", "mas-b360506/gap/physical"],
+      "evidence": ["mas-b360506/e/5070216e36a1c25d"]
+    },
+    {
+      "id": "mas-b360506/outbound/list-tuples/result",
+      "kind": "value",
+      "owner": "mas-b360506/impl/outbound-list-tuples",
+      "definition": "mas-b360506/outbound/list-tuples/send",
+      "label": "Deserialised AuthorizationRelationTuples or null; source response",
+      "role": "definition",
+      "representation": "constructed",
+      "shape": "mas-b360506/shape/bafdb7d745cac2c9",
+      "evidence": ["mas-b360506/e/5070216e36a1c25d"],
+      "accessPath": []
+    },
+    {
+      "id": "mas-b360506/outbound/list-tuples/send",
+      "kind": "operation",
+      "owner": "mas-b360506/impl/outbound-list-tuples",
+      "action": "opaque",
+      "label": "Await HttpClient.SendAsync; network request constructed in ListAuthorizationTuplesByObjectName",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": null,
+      "httpStatus": null,
+      "evidence": ["mas-b360506/e/5070216e36a1c25d"]
+    },
+    {
+      "id": "mas-b360506/outbound/save-tuple/argument",
+      "kind": "value",
+      "owner": "mas-b360506/impl/outbound-save-tuple",
+      "definition": "mas-b360506/op/outbound-save-tuple/entry",
+      "label": "Source SaveAuthorizationTuple request construction; no credential values captured",
+      "role": "parameter",
+      "representation": "constructed",
+      "shape": "mas-b360506/shape/f30844d0ffcbfa81",
+      "evidence": ["mas-b360506/e/b087a58c8b44fc10"],
+      "accessPath": []
+    },
+    {
+      "id": "mas-b360506/outbound/save-tuple/contract",
+      "kind": "interface_contract",
+      "component": "mas-b360506/component/pop-authz",
+      "protocol": "http",
+      "name": "PUT admin/relation-tuples caller contract",
+      "method": "PUT",
+      "path": "admin/relation-tuples",
+      "authority": "caller_construction",
+      "request": [
+        {
+          "part": "body",
+          "presence": "present",
+          "shape": null,
+          "sourceShape": "mas-b360506/shape/f30844d0ffcbfa81",
+          "contentType": "application/json",
+          "gaps": ["mas-b360506/gap/outbound-save-tuple"],
+          "evidence": ["mas-b360506/e/b087a58c8b44fc10"]
+        },
+        {
+          "part": "headers",
+          "presence": "unresolved",
+          "shape": null,
+          "sourceShape": null,
+          "contentType": null,
+          "gaps": ["mas-b360506/gap/outbound-save-tuple"],
+          "evidence": ["mas-b360506/e/b087a58c8b44fc10"]
+        }
+      ],
+      "responses": [
+        {
+          "status": "source_response",
+          "body": {
+            "part": "body",
+            "presence": "unresolved",
+            "shape": null,
+            "sourceShape": "mas-b360506/shape/f30844d0ffcbfa81",
+            "contentType": null,
+            "gaps": ["mas-b360506/gap/outbound-save-tuple"],
+            "evidence": ["mas-b360506/e/b087a58c8b44fc10"]
+          },
+          "meaning": "PopAuthz accepts successful statuses or 403 then deserialises; other statuses throw. Token service success deserialises; unsuccessful/null paths return null.",
+          "evidence": ["mas-b360506/e/b087a58c8b44fc10"]
+        }
+      ],
+      "gaps": ["mas-b360506/gap/outbound-save-tuple", "mas-b360506/gap/physical"],
+      "evidence": ["mas-b360506/e/b087a58c8b44fc10"]
+    },
+    {
+      "id": "mas-b360506/outbound/save-tuple/effect",
+      "kind": "effect",
+      "owner": "mas-b360506/impl/outbound-save-tuple",
+      "operation": "mas-b360506/outbound/save-tuple/send",
+      "effect": "call",
+      "resource": "mas-b360506/outbound/save-tuple/resource",
+      "modality": "source_declared",
+      "representation": "logical",
+      "selection": [],
+      "payload": ["mas-b360506/outbound/save-tuple/argument"],
+      "evidence": ["mas-b360506/e/b087a58c8b44fc10"]
+    },
+    {
+      "id": "mas-b360506/outbound/save-tuple/interaction",
+      "kind": "interaction",
+      "owner": "mas-b360506/impl/outbound-save-tuple",
+      "execution": "mas-b360506/runs/outbound-save-tuple",
+      "operation": "mas-b360506/outbound/save-tuple/send",
+      "target": "mas-b360506/component/pop-authz",
+      "targetEntry": null,
+      "contract": "mas-b360506/outbound/save-tuple/contract",
+      "effect": "mas-b360506/outbound/save-tuple/effect",
+      "handoff": null,
+      "mode": "request_response",
+      "boundary": "network",
+      "waitsFor": "response",
+      "condition": "Only if Azure AD GetAccessToken returns non-null; otherwise false returned without send",
+      "requestBindings": [
+        {
+          "part": "selection",
+          "path": [],
+          "value": "mas-b360506/outbound/save-tuple/argument",
+          "transform": "Source arguments/query/form construction; contract retains established parts and explicit unknown wire closure"
+        }
+      ],
+      "responseBindings": [
+        {
+          "part": "result",
+          "path": [],
+          "value": "mas-b360506/outbound/save-tuple/result",
+          "transform": "Read response content and deserialize expected source DTO; null/failure possibilities remain partial"
+        }
+      ],
+      "gaps": ["mas-b360506/gap/outbound-save-tuple", "mas-b360506/gap/physical"],
+      "evidence": ["mas-b360506/e/b087a58c8b44fc10"]
+    },
+    {
+      "id": "mas-b360506/outbound/save-tuple/resource",
+      "kind": "resource",
+      "label": "PUT admin/relation-tuples",
+      "technology": "HttpClient",
+      "declaredDatabase": null,
+      "physicalLocation": null,
+      "shapes": [],
+      "gaps": ["mas-b360506/gap/outbound-save-tuple", "mas-b360506/gap/physical"],
+      "evidence": ["mas-b360506/e/b087a58c8b44fc10"]
+    },
+    {
+      "id": "mas-b360506/outbound/save-tuple/result",
+      "kind": "value",
+      "owner": "mas-b360506/impl/outbound-save-tuple",
+      "definition": "mas-b360506/outbound/save-tuple/send",
+      "label": "Deserialised AuthorizationTuple or null; source response",
+      "role": "definition",
+      "representation": "constructed",
+      "shape": "mas-b360506/shape/f30844d0ffcbfa81",
+      "evidence": ["mas-b360506/e/b087a58c8b44fc10"],
+      "accessPath": []
+    },
+    {
+      "id": "mas-b360506/outbound/save-tuple/send",
+      "kind": "operation",
+      "owner": "mas-b360506/impl/outbound-save-tuple",
+      "action": "opaque",
+      "label": "Await HttpClient.SendAsync; network request constructed in SaveAuthorizationTuple",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": null,
+      "httpStatus": null,
+      "evidence": ["mas-b360506/e/b087a58c8b44fc10"]
+    },
+    {
+      "id": "mas-b360506/outbound/token-form",
+      "kind": "shape",
+      "label": "Token form field names; credential values excluded",
+      "representation": "constructed",
+      "container": "object",
+      "fields": [
+        {
+          "name": "client_id",
+          "type": "credential/configuration string",
+          "status": "declared",
+          "evidence": ["mas-b360506/e/bd726f840f8a4190"]
+        },
+        {
+          "name": "resource",
+          "type": "credential/configuration string",
+          "status": "declared",
+          "evidence": ["mas-b360506/e/bd726f840f8a4190"]
+        },
+        {
+          "name": "grant_type",
+          "type": "credential/configuration string",
+          "status": "declared",
+          "evidence": ["mas-b360506/e/bd726f840f8a4190"]
+        },
+        {
+          "name": "username",
+          "type": "credential/configuration string",
+          "status": "declared",
+          "evidence": ["mas-b360506/e/bd726f840f8a4190"]
+        },
+        {
+          "name": "password",
+          "type": "credential/configuration string",
+          "status": "declared",
+          "evidence": ["mas-b360506/e/bd726f840f8a4190"]
+        }
+      ],
+      "completeness": "closed",
+      "gaps": [],
+      "evidence": ["mas-b360506/e/bd726f840f8a4190"]
+    },
+    {
+      "id": "mas-b360506/outbound/token-path",
+      "kind": "shape",
+      "label": "Tenant path interpolation",
+      "representation": "constructed",
+      "container": "object",
+      "fields": [
+        {
+          "name": "tenant",
+          "type": "string configuration TenantId",
+          "status": "declared",
+          "evidence": ["mas-b360506/e/bd726f840f8a4190"]
+        }
+      ],
+      "completeness": "closed",
+      "gaps": [],
+      "evidence": ["mas-b360506/e/bd726f840f8a4190"]
+    },
+    {
+      "id": "mas-b360506/runs/outbound-access-token",
+      "kind": "execution_binding",
+      "implementation": "mas-b360506/impl/outbound-access-token",
+      "component": "u3/component/mas",
+      "basis": "source_declared",
+      "artifactBinding": null,
+      "gaps": [],
+      "evidence": ["mas-b360506/e/1ab034ef6a13b3f8"]
+    },
+    {
+      "id": "mas-b360506/runs/outbound-check-access",
+      "kind": "execution_binding",
+      "implementation": "mas-b360506/impl/outbound-check-access",
+      "component": "u3/component/mas",
+      "basis": "source_declared",
+      "artifactBinding": null,
+      "gaps": [],
+      "evidence": ["mas-b360506/e/4b318f4d0e504261"]
+    },
+    {
+      "id": "mas-b360506/runs/outbound-delete-tuple",
+      "kind": "execution_binding",
+      "implementation": "mas-b360506/impl/outbound-delete-tuple",
+      "component": "u3/component/mas",
+      "basis": "source_declared",
+      "artifactBinding": null,
+      "gaps": [],
+      "evidence": ["mas-b360506/e/3933a28608477a67"]
+    },
+    {
+      "id": "mas-b360506/runs/outbound-get-tuple",
+      "kind": "execution_binding",
+      "implementation": "mas-b360506/impl/outbound-get-tuple",
+      "component": "u3/component/mas",
+      "basis": "source_declared",
+      "artifactBinding": null,
+      "gaps": [],
+      "evidence": ["mas-b360506/e/0bc354da2a55ded3"]
+    },
+    {
+      "id": "mas-b360506/runs/outbound-list-tuples",
+      "kind": "execution_binding",
+      "implementation": "mas-b360506/impl/outbound-list-tuples",
+      "component": "u3/component/mas",
+      "basis": "source_declared",
+      "artifactBinding": null,
+      "gaps": [],
+      "evidence": ["mas-b360506/e/5070216e36a1c25d"]
+    },
+    {
+      "id": "mas-b360506/runs/outbound-save-tuple",
+      "kind": "execution_binding",
+      "implementation": "mas-b360506/impl/outbound-save-tuple",
+      "component": "u3/component/mas",
+      "basis": "source_declared",
+      "artifactBinding": null,
+      "gaps": [],
+      "evidence": ["mas-b360506/e/b087a58c8b44fc10"]
+    },
+    {
+      "id": "mas-b360506/shape/48b31af24e02bcf6",
+      "kind": "shape",
+      "label": "integration UserTokenResponse source DTO",
+      "representation": "source",
+      "fields": [
+        {
+          "name": "token_type",
+          "type": "string",
+          "status": "declared",
+          "evidence": ["mas-b360506/e/60faec0ca5e84fbb"]
+        },
+        {
+          "name": "expires_in",
+          "type": "int",
+          "status": "declared",
+          "evidence": ["mas-b360506/e/dcbcc5cc3c990c89"]
+        },
+        {
+          "name": "access_token",
+          "type": "string",
+          "status": "declared",
+          "evidence": ["mas-b360506/e/3cff639c14dff1d4"]
+        }
+      ],
+      "container": "object",
+      "completeness": "closed",
+      "gaps": [],
+      "evidence": ["mas-b360506/e/c061febc22586de4"]
+    },
+    {
+      "id": "mas-b360506/shape/49cf3bc9709ed041",
+      "kind": "shape",
+      "label": "List<AuthorizationTuple> source collection",
+      "representation": "source",
+      "fields": [],
+      "container": "array",
+      "completeness": "closed",
+      "gaps": [],
+      "evidence": ["mas-b360506/e/1934073f23d491ca"],
+      "items": "mas-b360506/shape/f30844d0ffcbfa81"
+    },
+    {
+      "id": "mas-b360506/shape/564b927babc210c6",
+      "kind": "shape",
+      "label": "integration AuthorizationResponse source DTO",
+      "representation": "source",
+      "fields": [
+        {
+          "name": "allowed",
+          "type": "bool",
+          "status": "declared",
+          "evidence": ["mas-b360506/e/1600f7e41b17d114"]
+        }
+      ],
+      "container": "object",
+      "completeness": "closed",
+      "gaps": [],
+      "evidence": ["mas-b360506/e/0597020416657fbc"]
+    },
+    {
+      "id": "mas-b360506/shape/5771e5c07312ca1f",
+      "kind": "shape",
+      "label": "integration AuthorizationTuple? source DTO",
+      "representation": "source",
+      "fields": [
+        {
+          "name": "Namespace",
+          "type": "string",
+          "status": "declared",
+          "evidence": ["mas-b360506/e/12e47fe2e24e416d"]
+        },
+        {
+          "name": "Object",
+          "type": "string",
+          "status": "declared",
+          "evidence": ["mas-b360506/e/bfeace96ab75ba42"]
+        },
+        {
+          "name": "Relation",
+          "type": "string",
+          "status": "declared",
+          "evidence": ["mas-b360506/e/13cf1230d85c3f58"]
+        },
+        {
+          "name": "SubjectSet",
+          "type": "AuthorizationTuple?",
+          "status": "declared",
+          "evidence": ["mas-b360506/e/4fffd28382b10d18"],
+          "nullable": true,
+          "shape": "mas-b360506/shape/5771e5c07312ca1f"
+        },
+        {
+          "name": "SubjectId",
+          "type": "string?",
+          "status": "declared",
+          "evidence": ["mas-b360506/e/84a7672b5359133e"],
+          "nullable": true
+        }
+      ],
+      "container": "object",
+      "completeness": "closed",
+      "gaps": [],
+      "evidence": ["mas-b360506/e/1934073f23d491ca"]
+    },
+    {
+      "id": "mas-b360506/shape/92259fabff62afe6",
+      "kind": "shape",
+      "label": "integration AuthorizationRequest source DTO",
+      "representation": "source",
+      "fields": [
+        {
+          "name": "NamespaceValue",
+          "type": "string",
+          "status": "declared",
+          "evidence": ["mas-b360506/e/459baa8b6c951e1e"],
+          "optional": false
+        },
+        {
+          "name": "ObjectValue",
+          "type": "string",
+          "status": "declared",
+          "evidence": ["mas-b360506/e/d8ff2a637cdacb5c"],
+          "optional": false
+        },
+        {
+          "name": "Relation",
+          "type": "string",
+          "status": "declared",
+          "evidence": ["mas-b360506/e/f6439bc2f329e95f"],
+          "optional": false
+        },
+        {
+          "name": "SubjectId",
+          "type": "string",
+          "status": "declared",
+          "evidence": ["mas-b360506/e/a3790b8d60344524"],
+          "optional": false
+        }
+      ],
+      "container": "object",
+      "completeness": "closed",
+      "gaps": [],
+      "evidence": ["mas-b360506/e/3a4faf6d9512e6ad"]
+    },
+    {
+      "id": "mas-b360506/shape/bafdb7d745cac2c9",
+      "kind": "shape",
+      "label": "integration AuthorizationRelationTuples source DTO",
+      "representation": "source",
+      "fields": [
+        {
+          "name": "RelationTuples",
+          "type": "List<AuthorizationTuple>",
+          "status": "declared",
+          "evidence": ["mas-b360506/e/fdb3410c41f3d63a"],
+          "shape": "mas-b360506/shape/49cf3bc9709ed041"
+        },
+        {
+          "name": "NextPageToken",
+          "type": "string",
+          "status": "declared",
+          "evidence": ["mas-b360506/e/a04fe1d8ac9735c6"]
+        }
+      ],
+      "container": "object",
+      "completeness": "closed",
+      "gaps": [],
+      "evidence": ["mas-b360506/e/cbfdefa4d08b413a"]
+    },
+    {
+      "id": "mas-b360506/shape/f30844d0ffcbfa81",
+      "kind": "shape",
+      "label": "integration AuthorizationTuple source DTO",
+      "representation": "source",
+      "fields": [
+        {
+          "name": "Namespace",
+          "type": "string",
+          "status": "declared",
+          "evidence": ["mas-b360506/e/12e47fe2e24e416d"]
+        },
+        {
+          "name": "Object",
+          "type": "string",
+          "status": "declared",
+          "evidence": ["mas-b360506/e/bfeace96ab75ba42"]
+        },
+        {
+          "name": "Relation",
+          "type": "string",
+          "status": "declared",
+          "evidence": ["mas-b360506/e/13cf1230d85c3f58"]
+        },
+        {
+          "name": "SubjectSet",
+          "type": "AuthorizationTuple?",
+          "status": "declared",
+          "evidence": ["mas-b360506/e/4fffd28382b10d18"],
+          "nullable": true,
+          "shape": "mas-b360506/shape/5771e5c07312ca1f"
+        },
+        {
+          "name": "SubjectId",
+          "type": "string?",
+          "status": "declared",
+          "evidence": ["mas-b360506/e/84a7672b5359133e"],
+          "nullable": true
+        }
+      ],
+      "container": "object",
+      "completeness": "closed",
+      "gaps": [],
+      "evidence": ["mas-b360506/e/1934073f23d491ca"]
+    },
+    {
+      "id": "s2/e/controller",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Api/Controllers/V1/SoftOffersController.cs",
+      "lines": [17, 90],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "s2/e/input",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Api/Models/V1/Request/SoftOfferInput.cs",
+      "lines": [1, 53],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "s2/e/middleware",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Api/Middleware/ExceptionMiddleware.cs",
+      "lines": [1, 85],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "s2/http",
+      "kind": "implementation",
+      "logicalId": "impl:soft-offer-http",
+      "scope": "s2/p",
+      "entry": "s2/http.start",
+      "parameters": ["s2/v/request"],
+      "evidence": ["s2/e/controller", "s2/e/middleware"]
+    },
+    {
+      "id": "s2/http.start",
+      "kind": "operation",
+      "owner": "s2/http",
+      "action": "entry",
+      "label": "Authenticated, bound soft-offer input",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": null,
+      "httpStatus": null,
+      "evidence": ["s2/e/controller", "s2/e/input"]
+    },
+    {
+      "id": "s2/p",
+      "kind": "source_revision",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110"
+    },
+    {
+      "id": "s2/shape/input",
+      "kind": "shape",
+      "representation": "constructed",
+      "label": "SoftOfferInput",
+      "fields": [
+        {
+          "name": "Code",
+          "type": "string",
+          "status": "declared"
+        },
+        {
+          "name": "Type",
+          "type": "string",
+          "status": "declared"
+        },
+        {
+          "name": "Name",
+          "type": "string",
+          "status": "declared"
+        },
+        {
+          "name": "SkuCategory",
+          "type": "string",
+          "status": "declared"
+        },
+        {
+          "name": "SkuIdentifier",
+          "type": "string",
+          "status": "declared"
+        }
+      ],
+      "completeness": "closed",
+      "gaps": [],
+      "evidence": ["s2/e/input"],
+      "encoding": "json"
+    },
+    {
+      "id": "s2/v/request",
+      "kind": "value",
+      "owner": "s2/http",
+      "definition": "s2/http.start",
+      "label": "SoftOfferInput request body",
+      "role": "parameter",
+      "representation": "constructed",
+      "shape": "s2/shape/input",
+      "evidence": ["s2/e/input", "s2/e/controller"],
+      "accessPath": []
+    },
+    {
+      "id": "u3/component/mas",
+      "kind": "runtime_component",
+      "logicalId": "svc:manage-and-segment-api",
+      "label": "Manage and Segment API",
+      "category": "service",
+      "technology": ".NET / ASP.NET Core",
+      "sources": ["s2/p"],
+      "basis": "source_declared",
+      "evidence": ["u3/e/mas-program", "s2/e/controller"],
+      "gaps": []
+    },
+    {
+      "id": "u3/e/mas-program",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Api/Program.cs",
+      "lines": [1, 24],
+      "basis": "source"
+    }
+  ],
+  "traversalComplete": true,
+  "findings": [],
+  "sourceLinks": [
+    {
+      "evidence": "mas-b360506/e/3cff639c14dff1d4",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Infrastructure/Integrations/AzureAD/Models/UserTokenResponse.cs#L8-L8",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Infrastructure/Integrations/AzureAD/Models/UserTokenResponse.cs:8–8"
+    },
+    {
+      "evidence": "mas-b360506/e/dcbcc5cc3c990c89",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Infrastructure/Integrations/AzureAD/Models/UserTokenResponse.cs#L7-L7",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Infrastructure/Integrations/AzureAD/Models/UserTokenResponse.cs:7–7"
+    },
+    {
+      "evidence": "mas-b360506/e/60faec0ca5e84fbb",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Infrastructure/Integrations/AzureAD/Models/UserTokenResponse.cs#L6-L6",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Infrastructure/Integrations/AzureAD/Models/UserTokenResponse.cs:6–6"
+    },
+    {
+      "evidence": "mas-b360506/e/c061febc22586de4",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Infrastructure/Integrations/AzureAD/Models/UserTokenResponse.cs#L1-L10",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Infrastructure/Integrations/AzureAD/Models/UserTokenResponse.cs:1–10"
+    },
+    {
+      "evidence": "mas-b360506/e/bd726f840f8a4190",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Infrastructure/Integrations/AzureAD/AzureAdAuthenticationService.cs#L82-L109",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Infrastructure/Integrations/AzureAD/AzureAdAuthenticationService.cs:82–109"
+    },
+    {
+      "evidence": "mas-b360506/e/1ab034ef6a13b3f8",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Infrastructure/Integrations/AzureAD/AzureAdAuthenticationService.cs#L43-L77",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Infrastructure/Integrations/AzureAD/AzureAdAuthenticationService.cs:43–77"
+    },
+    {
+      "evidence": "s2/e/input",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Api/Models/V1/Request/SoftOfferInput.cs#L1-L53",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Api/Models/V1/Request/SoftOfferInput.cs:1–53"
+    },
+    {
+      "evidence": "s2/e/controller",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Api/Controllers/V1/SoftOffersController.cs#L17-L90",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Api/Controllers/V1/SoftOffersController.cs:17–90"
+    },
+    {
+      "evidence": "s2/e/middleware",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Api/Middleware/ExceptionMiddleware.cs#L1-L85",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Api/Middleware/ExceptionMiddleware.cs:1–85"
+    },
+    {
+      "evidence": "mas-b360506/e/095f6b7fcffabd78",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Api/Startup.cs#L1-L60",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Api/Startup.cs:1–60"
+    },
+    {
+      "evidence": "mas-b360506/e/5417e42a91fcc07f",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Infrastructure/Integrations/AzureAD/AzureAdAuthenticationService.cs#L1-L112",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Infrastructure/Integrations/AzureAD/AzureAdAuthenticationService.cs:1–112"
+    },
+    {
+      "evidence": "u3/e/mas-program",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Api/Program.cs#L1-L24",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Api/Program.cs:1–24"
+    },
+    {
+      "evidence": "mas-b360506/e/84a7672b5359133e",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Infrastructure/Integrations/PopAuthz/Models/AuthorizationTuple.cs#L24-L25",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Infrastructure/Integrations/PopAuthz/Models/AuthorizationTuple.cs:24–25"
+    },
+    {
+      "evidence": "mas-b360506/e/4fffd28382b10d18",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Infrastructure/Integrations/PopAuthz/Models/AuthorizationTuple.cs#L20-L21",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Infrastructure/Integrations/PopAuthz/Models/AuthorizationTuple.cs:20–21"
+    },
+    {
+      "evidence": "mas-b360506/e/13cf1230d85c3f58",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Infrastructure/Integrations/PopAuthz/Models/AuthorizationTuple.cs#L14-L16",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Infrastructure/Integrations/PopAuthz/Models/AuthorizationTuple.cs:14–16"
+    },
+    {
+      "evidence": "mas-b360506/e/bfeace96ab75ba42",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Infrastructure/Integrations/PopAuthz/Models/AuthorizationTuple.cs#L12-L14",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Infrastructure/Integrations/PopAuthz/Models/AuthorizationTuple.cs:12–14"
+    },
+    {
+      "evidence": "mas-b360506/e/12e47fe2e24e416d",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Infrastructure/Integrations/PopAuthz/Models/AuthorizationTuple.cs#L11-L12",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Infrastructure/Integrations/PopAuthz/Models/AuthorizationTuple.cs:11–12"
+    },
+    {
+      "evidence": "mas-b360506/e/1934073f23d491ca",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Infrastructure/Integrations/PopAuthz/Models/AuthorizationTuple.cs#L1-L51",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Infrastructure/Integrations/PopAuthz/Models/AuthorizationTuple.cs:1–51"
+    },
+    {
+      "evidence": "mas-b360506/e/b087a58c8b44fc10",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Infrastructure/Integrations/PopAuthz/AuthorizationClient.cs#L155-L174",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Infrastructure/Integrations/PopAuthz/AuthorizationClient.cs:155–174"
+    },
+    {
+      "evidence": "mas-b360506/e/eeadf7b371004ead",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Infrastructure/Integrations/PopAuthz/AuthorizationClient.cs#L1-L211",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Infrastructure/Integrations/PopAuthz/AuthorizationClient.cs:1–211"
+    },
+    {
+      "evidence": "mas-b360506/e/a04fe1d8ac9735c6",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Infrastructure/Integrations/PopAuthz/Models/AuthorizationRelationTuples.cs#L8-L10",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Infrastructure/Integrations/PopAuthz/Models/AuthorizationRelationTuples.cs:8–10"
+    },
+    {
+      "evidence": "mas-b360506/e/fdb3410c41f3d63a",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Infrastructure/Integrations/PopAuthz/Models/AuthorizationRelationTuples.cs#L7-L8",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Infrastructure/Integrations/PopAuthz/Models/AuthorizationRelationTuples.cs:7–8"
+    },
+    {
+      "evidence": "mas-b360506/e/cbfdefa4d08b413a",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Infrastructure/Integrations/PopAuthz/Models/AuthorizationRelationTuples.cs#L1-L12",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Infrastructure/Integrations/PopAuthz/Models/AuthorizationRelationTuples.cs:1–12"
+    },
+    {
+      "evidence": "mas-b360506/e/0bc354da2a55ded3",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Infrastructure/Integrations/PopAuthz/AuthorizationClient.cs#L138-L152",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Infrastructure/Integrations/PopAuthz/AuthorizationClient.cs:138–152"
+    },
+    {
+      "evidence": "mas-b360506/e/5070216e36a1c25d",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Infrastructure/Integrations/PopAuthz/AuthorizationClient.cs#L107-L135",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Infrastructure/Integrations/PopAuthz/AuthorizationClient.cs:107–135"
+    },
+    {
+      "evidence": "mas-b360506/e/3933a28608477a67",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Infrastructure/Integrations/PopAuthz/AuthorizationClient.cs#L93-L105",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Infrastructure/Integrations/PopAuthz/AuthorizationClient.cs:93–105"
+    },
+    {
+      "evidence": "mas-b360506/e/1600f7e41b17d114",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Infrastructure/Integrations/PopAuthz/Models/AuthorizationResponse.cs#L5-L5",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Infrastructure/Integrations/PopAuthz/Models/AuthorizationResponse.cs:5–5"
+    },
+    {
+      "evidence": "mas-b360506/e/0597020416657fbc",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Infrastructure/Integrations/PopAuthz/Models/AuthorizationResponse.cs#L1-L7",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Infrastructure/Integrations/PopAuthz/Models/AuthorizationResponse.cs:1–7"
+    },
+    {
+      "evidence": "mas-b360506/e/a3790b8d60344524",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Infrastructure/Integrations/PopAuthz/Models/AuthorizationRequest.cs#L16-L20",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Infrastructure/Integrations/PopAuthz/Models/AuthorizationRequest.cs:16–20"
+    },
+    {
+      "evidence": "mas-b360506/e/f6439bc2f329e95f",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Infrastructure/Integrations/PopAuthz/Models/AuthorizationRequest.cs#L13-L16",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Infrastructure/Integrations/PopAuthz/Models/AuthorizationRequest.cs:13–16"
+    },
+    {
+      "evidence": "mas-b360506/e/d8ff2a637cdacb5c",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Infrastructure/Integrations/PopAuthz/Models/AuthorizationRequest.cs#L10-L13",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Infrastructure/Integrations/PopAuthz/Models/AuthorizationRequest.cs:10–13"
+    },
+    {
+      "evidence": "mas-b360506/e/459baa8b6c951e1e",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Infrastructure/Integrations/PopAuthz/Models/AuthorizationRequest.cs#L8-L10",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Infrastructure/Integrations/PopAuthz/Models/AuthorizationRequest.cs:8–10"
+    },
+    {
+      "evidence": "mas-b360506/e/3a4faf6d9512e6ad",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Infrastructure/Integrations/PopAuthz/Models/AuthorizationRequest.cs#L1-L22",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Infrastructure/Integrations/PopAuthz/Models/AuthorizationRequest.cs:1–22"
+    },
+    {
+      "evidence": "mas-b360506/e/4b318f4d0e504261",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Infrastructure/Integrations/PopAuthz/AuthorizationClient.cs#L46-L61",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Infrastructure/Integrations/PopAuthz/AuthorizationClient.cs:46–61"
+    }
+  ],
+  "nextRequest": null
+}

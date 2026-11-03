@@ -1,0 +1,4702 @@
+{
+  "snapshot": "b957447c66cc73327797c780159c9277dbeb17159f0758d5ab8a225f3a0092f1",
+  "records": 12329,
+  "entries": 57,
+  "implementations": 152,
+  "interactions": 20,
+  "queries": [
+    {
+      "name": "entry source:Application.main",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "trace source:Application.main",
+      "nodes": 7,
+      "edges": 6,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "entry source:@Bean:com.volvocars.ecom.cart.config.GraphQLConfig#federationSchemaFactory()",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "trace source:@Bean:com.volvocars.ecom.cart.config.GraphQLConfig#federationSchemaFactory()",
+      "nodes": 5,
+      "edges": 4,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "entry source:@Bean:com.volvocars.ecom.cart.config.GraphQLConfig#federationTransform(FederationSchemaFactory)",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "trace source:@Bean:com.volvocars.ecom.cart.config.GraphQLConfig#federationTransform(FederationSchemaFactory)",
+      "nodes": 3,
+      "edges": 2,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "entry source:@Bean:com.volvocars.ecom.cart.config.GraphQLConfig#uuidScalarConfigurer()",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "trace source:@Bean:com.volvocars.ecom.cart.config.GraphQLConfig#uuidScalarConfigurer()",
+      "nodes": 18,
+      "edges": 17,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "entry source:@Bean:com.volvocars.ecom.cart.config.MongoConfig#mongoTargetSystem(MongoTemplate)",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "trace source:@Bean:com.volvocars.ecom.cart.config.MongoConfig#mongoTargetSystem(MongoTemplate)",
+      "nodes": 6,
+      "edges": 5,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "entry source:@Bean:com.volvocars.ecom.cart.config.MongoConfig#auditStore(MongoDBSpringDataTargetSystem)",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "trace source:@Bean:com.volvocars.ecom.cart.config.MongoConfig#auditStore(MongoDBSpringDataTargetSystem)",
+      "nodes": 5,
+      "edges": 4,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "entry source:@Bean:com.volvocars.ecom.cart.config.MongoConfig#mongoDatabase(MongoTemplate)",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "trace source:@Bean:com.volvocars.ecom.cart.config.MongoConfig#mongoDatabase(MongoTemplate)",
+      "nodes": 4,
+      "edges": 3,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "entry source:framework:com.volvocars.ecom.cart.config.security.GraphQlAuthenticationEntryPoint#commence(HttpServletRequest,HttpServletResponse,AuthenticationException)",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "trace source:framework:com.volvocars.ecom.cart.config.security.GraphQlAuthenticationEntryPoint#commence(HttpServletRequest,HttpServletResponse,AuthenticationException)",
+      "nodes": 34,
+      "edges": 33,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "entry source:@Bean:com.volvocars.ecom.cart.config.security.PermitAllSecurityConfig#noSecurityFilterChain(HttpSecurity)",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "trace source:@Bean:com.volvocars.ecom.cart.config.security.PermitAllSecurityConfig#noSecurityFilterChain(HttpSecurity)",
+      "nodes": 11,
+      "edges": 10,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "entry source:@Bean:com.volvocars.ecom.cart.config.security.SecurityConfig#managementSecurityFilterChain(HttpSecurity)",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "trace source:@Bean:com.volvocars.ecom.cart.config.security.SecurityConfig#managementSecurityFilterChain(HttpSecurity)",
+      "nodes": 14,
+      "edges": 13,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "entry source:@Bean:com.volvocars.ecom.cart.config.security.SecurityConfig#graphqlSecurityFilterChain(HttpSecurity,AuthenticationManagerResolver<HttpServletRequest>,GraphQlAuthenticationEntryPoint)",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "trace source:@Bean:com.volvocars.ecom.cart.config.security.SecurityConfig#graphqlSecurityFilterChain(HttpSecurity,AuthenticationManagerResolver<HttpServletRequest>,GraphQlAuthenticationEntryPoint)",
+      "nodes": 20,
+      "edges": 19,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "entry source:@Bean:com.volvocars.ecom.cart.config.security.SecurityConfig#apiSecurityFilterChain(HttpSecurity,AuthenticationManagerResolver<HttpServletRequest>)",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "trace source:@Bean:com.volvocars.ecom.cart.config.security.SecurityConfig#apiSecurityFilterChain(HttpSecurity,AuthenticationManagerResolver<HttpServletRequest>)",
+      "nodes": 14,
+      "edges": 13,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "entry source:@Bean:com.volvocars.ecom.cart.config.security.SecurityConfig#jwtAuthenticationManagerResolver(TrustedIssuersProperties)",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "trace source:@Bean:com.volvocars.ecom.cart.config.security.SecurityConfig#jwtAuthenticationManagerResolver(TrustedIssuersProperties)",
+      "nodes": 35,
+      "edges": 35,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "entry source:@Scheduled:${cart-expiration.scheduler.cron}",
+      "nodes": 2,
+      "edges": 6,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "trace source:@Scheduled:${cart-expiration.scheduler.cron}",
+      "nodes": 249,
+      "edges": 286,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "entry graphql:Entity.CartLineV2",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "trace graphql:Entity.CartLineV2",
+      "nodes": 6,
+      "edges": 5,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "entry graphql:Entity.CartLineItemV2",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "trace graphql:Entity.CartLineItemV2",
+      "nodes": 6,
+      "edges": 5,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "entry graphql:CartLineV2.offer",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "trace graphql:CartLineV2.offer",
+      "nodes": 7,
+      "edges": 6,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "entry graphql:CartLineItemV2.productVariant",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "trace graphql:CartLineItemV2.productVariant",
+      "nodes": 7,
+      "edges": 6,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "entry graphql:CartLineItemV2.financingOfferVariant",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "trace graphql:CartLineItemV2.financingOfferVariant",
+      "nodes": 7,
+      "edges": 6,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "entry graphql:CartV2.lines",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "trace graphql:CartV2.lines",
+      "nodes": 9,
+      "edges": 8,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "entry graphql:CartV2.buyer",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "trace graphql:CartV2.buyer",
+      "nodes": 91,
+      "edges": 99,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "entry graphql:CartLineV2.cart",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "trace graphql:CartLineV2.cart",
+      "nodes": 2,
+      "edges": 1,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "entry graphql:CartLineItemV2.cart",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "trace graphql:CartLineItemV2.cart",
+      "nodes": 2,
+      "edges": 1,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "entry graphql:Query.cartV2",
+      "nodes": 2,
+      "edges": 2,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "trace graphql:Query.cartV2",
+      "nodes": 42,
+      "edges": 43,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "entry graphql:Entity.CartV2",
+      "nodes": 2,
+      "edges": 2,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "trace graphql:Entity.CartV2",
+      "nodes": 42,
+      "edges": 43,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "entry source:@PreAuthorize:com.volvocars.ecom.cart.input.graphql.GraphQlController#getCart(String,String)",
+      "nodes": 2,
+      "edges": 2,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "trace source:@PreAuthorize:com.volvocars.ecom.cart.input.graphql.GraphQlController#getCart(String,String)",
+      "nodes": 273,
+      "edges": 291,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "entry graphql:Mutation.createCartV2",
+      "nodes": 3,
+      "edges": 2,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "trace graphql:Mutation.createCartV2",
+      "nodes": 486,
+      "edges": 546,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "entry graphql:Mutation.addCartLineV2",
+      "nodes": 2,
+      "edges": 2,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "trace graphql:Mutation.addCartLineV2",
+      "nodes": 162,
+      "edges": 165,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "entry source:@PreAuthorize:com.volvocars.ecom.cart.input.graphql.GraphQlController#addCartLine(String,CartLineInput,String)",
+      "nodes": 2,
+      "edges": 2,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "trace source:@PreAuthorize:com.volvocars.ecom.cart.input.graphql.GraphQlController#addCartLine(String,CartLineInput,String)",
+      "nodes": 273,
+      "edges": 291,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "entry graphql:Mutation.replaceCartLineV2",
+      "nodes": 2,
+      "edges": 2,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "trace graphql:Mutation.replaceCartLineV2",
+      "nodes": 198,
+      "edges": 204,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "entry source:@PreAuthorize:com.volvocars.ecom.cart.input.graphql.GraphQlController#replaceCartLine(String,String,CartLineInput,String)",
+      "nodes": 2,
+      "edges": 2,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "trace source:@PreAuthorize:com.volvocars.ecom.cart.input.graphql.GraphQlController#replaceCartLine(String,String,CartLineInput,String)",
+      "nodes": 273,
+      "edges": 291,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "entry graphql:Mutation.removeCartLineV2",
+      "nodes": 2,
+      "edges": 2,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "trace graphql:Mutation.removeCartLineV2",
+      "nodes": 109,
+      "edges": 113,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "entry source:@PreAuthorize:com.volvocars.ecom.cart.input.graphql.GraphQlController#removeCartLine(String,String,String)",
+      "nodes": 2,
+      "edges": 2,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "trace source:@PreAuthorize:com.volvocars.ecom.cart.input.graphql.GraphQlController#removeCartLine(String,String,String)",
+      "nodes": 273,
+      "edges": 291,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "entry graphql:Mutation.updateBuyerV2",
+      "nodes": 2,
+      "edges": 2,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "trace graphql:Mutation.updateBuyerV2",
+      "nodes": 62,
+      "edges": 62,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "entry source:@PreAuthorize:com.volvocars.ecom.cart.input.graphql.GraphQlController#updateBuyer(String,BuyerInput,String)",
+      "nodes": 2,
+      "edges": 2,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "trace source:@PreAuthorize:com.volvocars.ecom.cart.input.graphql.GraphQlController#updateBuyer(String,BuyerInput,String)",
+      "nodes": 273,
+      "edges": 291,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "entry graphql:Mutation.checkoutCartV2",
+      "nodes": 3,
+      "edges": 8,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "trace graphql:Mutation.checkoutCartV2",
+      "nodes": 564,
+      "edges": 664,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "entry source:@PreAuthorize:com.volvocars.ecom.cart.input.graphql.GraphQlController#checkoutCart(String,CheckoutInput,String,String)",
+      "nodes": 2,
+      "edges": 2,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "trace source:@PreAuthorize:com.volvocars.ecom.cart.input.graphql.GraphQlController#checkoutCart(String,CheckoutInput,String,String)",
+      "nodes": 273,
+      "edges": 291,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "entry graphql:Mutation.createCartFromCceToken",
+      "nodes": 2,
+      "edges": 2,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "trace graphql:Mutation.createCartFromCceToken",
+      "nodes": 210,
+      "edges": 217,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "entry source:framework:com.volvocars.ecom.cart.input.graphql.GraphQlExceptionHandlerAdvice#handleCartNotFound(CartNotFoundException,DataFetchingEnvironment)",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "trace source:framework:com.volvocars.ecom.cart.input.graphql.GraphQlExceptionHandlerAdvice#handleCartNotFound(CartNotFoundException,DataFetchingEnvironment)",
+      "nodes": 27,
+      "edges": 26,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "entry source:framework:com.volvocars.ecom.cart.input.graphql.GraphQlExceptionHandlerAdvice#handleCartLineNotFound(CartLineNotFoundException,DataFetchingEnvironment)",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "trace source:framework:com.volvocars.ecom.cart.input.graphql.GraphQlExceptionHandlerAdvice#handleCartLineNotFound(CartLineNotFoundException,DataFetchingEnvironment)",
+      "nodes": 27,
+      "edges": 26,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "entry source:framework:com.volvocars.ecom.cart.input.graphql.GraphQlExceptionHandlerAdvice#handleCartAlreadyCheckedOut(CartAlreadyCheckedOutException,DataFetchingEnvironment)",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "trace source:framework:com.volvocars.ecom.cart.input.graphql.GraphQlExceptionHandlerAdvice#handleCartAlreadyCheckedOut(CartAlreadyCheckedOutException,DataFetchingEnvironment)",
+      "nodes": 27,
+      "edges": 26,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "entry source:framework:com.volvocars.ecom.cart.input.graphql.GraphQlExceptionHandlerAdvice#handleCheckoutException(CheckoutException,DataFetchingEnvironment)",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "trace source:framework:com.volvocars.ecom.cart.input.graphql.GraphQlExceptionHandlerAdvice#handleCheckoutException(CheckoutException,DataFetchingEnvironment)",
+      "nodes": 27,
+      "edges": 26,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "entry source:framework:com.volvocars.ecom.cart.input.graphql.GraphQlExceptionHandlerAdvice#handleDuplicateCartLine(DuplicateCartLineException,DataFetchingEnvironment)",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "trace source:framework:com.volvocars.ecom.cart.input.graphql.GraphQlExceptionHandlerAdvice#handleDuplicateCartLine(DuplicateCartLineException,DataFetchingEnvironment)",
+      "nodes": 27,
+      "edges": 26,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "entry source:framework:com.volvocars.ecom.cart.input.graphql.GraphQlExceptionHandlerAdvice#handleIllegalState(IllegalStateException,DataFetchingEnvironment)",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "trace source:framework:com.volvocars.ecom.cart.input.graphql.GraphQlExceptionHandlerAdvice#handleIllegalState(IllegalStateException,DataFetchingEnvironment)",
+      "nodes": 27,
+      "edges": 26,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "entry source:framework:com.volvocars.ecom.cart.input.graphql.GraphQlExceptionHandlerAdvice#authenticationException(AuthenticationException,DataFetchingEnvironment)",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "trace source:framework:com.volvocars.ecom.cart.input.graphql.GraphQlExceptionHandlerAdvice#authenticationException(AuthenticationException,DataFetchingEnvironment)",
+      "nodes": 27,
+      "edges": 26,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "entry source:framework:com.volvocars.ecom.cart.input.graphql.GraphQlExceptionHandlerAdvice#accessDeniedException(AccessDeniedException,DataFetchingEnvironment)",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "trace source:framework:com.volvocars.ecom.cart.input.graphql.GraphQlExceptionHandlerAdvice#accessDeniedException(AccessDeniedException,DataFetchingEnvironment)",
+      "nodes": 59,
+      "edges": 58,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "entry source:framework:com.volvocars.ecom.cart.input.graphql.GraphQlInterceptor#intercept(WebGraphQlRequest,Chain)",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "trace source:framework:com.volvocars.ecom.cart.input.graphql.GraphQlInterceptor#intercept(WebGraphQlRequest,Chain)",
+      "nodes": 44,
+      "edges": 46,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "entry source:migration:com.volvocars.ecom.cart.migration.AddIdToCartLineItemMigration#execute(MongoDatabase)",
+      "nodes": 2,
+      "edges": 2,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "trace source:migration:com.volvocars.ecom.cart.migration.AddIdToCartLineItemMigration#execute(MongoDatabase)",
+      "nodes": 82,
+      "edges": 88,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "entry source:migration:com.volvocars.ecom.cart.migration.AddIdToCartLineItemMigration#rollback(MongoDatabase)",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "trace source:migration:com.volvocars.ecom.cart.migration.AddIdToCartLineItemMigration#rollback(MongoDatabase)",
+      "nodes": 6,
+      "edges": 5,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "entry source:migration:com.volvocars.ecom.cart.migration._0002__MoveBuyerVolvoIdToOwner#apply(MongoTemplate,TrustedIssuersProperties)",
+      "nodes": 2,
+      "edges": 2,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "trace source:migration:com.volvocars.ecom.cart.migration._0002__MoveBuyerVolvoIdToOwner#apply(MongoTemplate,TrustedIssuersProperties)",
+      "nodes": 93,
+      "edges": 93,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "entry source:migration:com.volvocars.ecom.cart.migration._0002__MoveBuyerVolvoIdToOwner#rollback()",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "trace source:migration:com.volvocars.ecom.cart.migration._0002__MoveBuyerVolvoIdToOwner#rollback()",
+      "nodes": 6,
+      "edges": 5,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "entry /graphql",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "trace /graphql",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "entry /actuator/health",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "trace /actuator/health",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "entry /actuator/prometheus",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "trace /actuator/prometheus",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "entry /actuator/info",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "trace /actuator/info",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "entry /actuator/version",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "trace /actuator/version",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "entry /graphiql",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "trace /graphiql",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body com.volvocars.ecom.cart.Application#main(String[])",
+      "nodes": 7,
+      "edges": 6,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body com.volvocars.ecom.cart.config.GraphQLConfig#federationSchemaFactory()",
+      "nodes": 5,
+      "edges": 4,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body com.volvocars.ecom.cart.config.GraphQLConfig#federationTransform(FederationSchemaFactory)",
+      "nodes": 3,
+      "edges": 2,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body com.volvocars.ecom.cart.config.GraphQLConfig#uuidScalarConfigurer()",
+      "nodes": 18,
+      "edges": 17,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body com.volvocars.ecom.cart.config.MongoConfig#mongoTargetSystem(MongoTemplate)",
+      "nodes": 6,
+      "edges": 5,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body com.volvocars.ecom.cart.config.MongoConfig#auditStore(MongoDBSpringDataTargetSystem)",
+      "nodes": 5,
+      "edges": 4,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body com.volvocars.ecom.cart.config.MongoConfig#mongoDatabase(MongoTemplate)",
+      "nodes": 4,
+      "edges": 3,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body com.volvocars.ecom.cart.config.security.GraphQlAuthenticationEntryPoint#<init>(JsonMapper)",
+      "nodes": 3,
+      "edges": 2,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body com.volvocars.ecom.cart.config.security.GraphQlAuthenticationEntryPoint#commence(HttpServletRequest,HttpServletResponse,AuthenticationException)",
+      "nodes": 34,
+      "edges": 33,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body com.volvocars.ecom.cart.config.security.PermitAllSecurityConfig#noSecurityFilterChain(HttpSecurity)",
+      "nodes": 11,
+      "edges": 10,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body com.volvocars.ecom.cart.config.security.SecurityConfig#managementSecurityFilterChain(HttpSecurity)",
+      "nodes": 14,
+      "edges": 13,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body com.volvocars.ecom.cart.config.security.SecurityConfig#graphqlSecurityFilterChain(HttpSecurity,AuthenticationManagerResolver<HttpServletRequest>,GraphQlAuthenticationEntryPoint)",
+      "nodes": 20,
+      "edges": 19,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body com.volvocars.ecom.cart.config.security.SecurityConfig#apiSecurityFilterChain(HttpSecurity,AuthenticationManagerResolver<HttpServletRequest>)",
+      "nodes": 14,
+      "edges": 13,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body com.volvocars.ecom.cart.config.security.SecurityConfig#jwtAuthenticationManagerResolver(TrustedIssuersProperties)",
+      "nodes": 35,
+      "edges": 35,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body com.volvocars.ecom.cart.config.security.TrustedIssuersProperties#getIssuers()",
+      "nodes": 14,
+      "edges": 13,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body com.volvocars.ecom.cart.config.security.TrustedIssuersProperties#getIssuer(IssuerKey)",
+      "nodes": 11,
+      "edges": 11,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body com.volvocars.ecom.cart.config.security.TrustedIssuersProperties#isVolvoIdIssuer(String)",
+      "nodes": 40,
+      "edges": 43,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body com.volvocars.ecom.cart.core.cartarchive.CartArchive#<init>(Cart)",
+      "nodes": 6,
+      "edges": 5,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body com.volvocars.ecom.cart.core.cartarchive.CartArchiveService#archiveCart(Cart)",
+      "nodes": 33,
+      "edges": 32,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body com.volvocars.ecom.cart.core.cartexpiration.CartExpirationJob#start()",
+      "nodes": 245,
+      "edges": 282,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body com.volvocars.ecom.cart.core.cartexpiration.CartExpirationJobStatistics#addFailed()",
+      "nodes": 4,
+      "edges": 3,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body com.volvocars.ecom.cart.core.cartexpiration.CartExpirationJobStatistics#addExpired()",
+      "nodes": 4,
+      "edges": 3,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body com.volvocars.ecom.cart.core.cartexpiration.CartExpirationJobStatistics#addDeleted()",
+      "nodes": 4,
+      "edges": 3,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body com.volvocars.ecom.cart.core.cartexpiration.CartExpirationScheduler#run()",
+      "nodes": 249,
+      "edges": 286,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body com.volvocars.ecom.cart.core.cartexpiration.CartExpirationService#processExpiredCarts(CartExpirationJobStatistics)",
+      "nodes": 146,
+      "edges": 157,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body com.volvocars.ecom.cart.core.cartexpiration.CartExpirationService#setStatusExpiredAndArchive(Cart,CartExpirationJobStatistics)",
+      "nodes": 114,
+      "edges": 125,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body com.volvocars.ecom.cart.core.cartexpiration.CartExpirationService#deleteExpiredCartsThatPassedDeleteDays(CartExpirationJobStatistics)",
+      "nodes": 63,
+      "edges": 66,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body com.volvocars.ecom.cart.core.cartexpiration.CartExpirationService#deleteCart(Cart,CartExpirationJobStatistics)",
+      "nodes": 31,
+      "edges": 34,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body com.volvocars.ecom.cart.core.exception.CartAlreadyCheckedOutException#<init>(String)",
+      "nodes": 6,
+      "edges": 5,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body com.volvocars.ecom.cart.core.exception.CartLineNotFoundException#<init>(String)",
+      "nodes": 6,
+      "edges": 5,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body com.volvocars.ecom.cart.core.exception.CartNotFoundException#<init>(String)",
+      "nodes": 6,
+      "edges": 5,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body com.volvocars.ecom.cart.core.exception.CheckoutException#<init>(String)",
+      "nodes": 4,
+      "edges": 3,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body com.volvocars.ecom.cart.core.exception.CheckoutException#<init>(String,Throwable)",
+      "nodes": 4,
+      "edges": 3,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body com.volvocars.ecom.cart.core.exception.ConditionalOrderException#<init>(String,Throwable)",
+      "nodes": 9,
+      "edges": 8,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body com.volvocars.ecom.cart.core.exception.DuplicateCartLineException#<init>(String)",
+      "nodes": 6,
+      "edges": 5,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body com.volvocars.ecom.cart.core.exception.IllegalOperationException#<init>(String)",
+      "nodes": 4,
+      "edges": 3,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body com.volvocars.ecom.cart.core.exception.IllegalOperationException#<init>(String,Throwable)",
+      "nodes": 4,
+      "edges": 3,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body com.volvocars.ecom.cart.core.model.Cart#<init>(String,String,String,List<CartLine>,CartBuyer,SalesPartner,SalesPartner,String,CartStatus,CartOwner,Instant,Instant)",
+      "nodes": 10,
+      "edges": 10,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body com.volvocars.ecom.cart.core.model.Cart#withLines(List<CartLine>)",
+      "nodes": 29,
+      "edges": 29,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body com.volvocars.ecom.cart.core.model.Cart#withBuyer(CartBuyer)",
+      "nodes": 29,
+      "edges": 29,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body com.volvocars.ecom.cart.core.model.Cart#withStatus(CartStatus)",
+      "nodes": 29,
+      "edges": 29,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body com.volvocars.ecom.cart.core.model.Cart#withOwner(CartOwner)",
+      "nodes": 29,
+      "edges": 29,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body com.volvocars.ecom.cart.core.model.CartLineItem#<init>(String,String,InstallationTarget)",
+      "nodes": 9,
+      "edges": 8,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body com.volvocars.ecom.cart.core.model.CartOwner#matches(String,String)",
+      "nodes": 22,
+      "edges": 24,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body com.volvocars.ecom.cart.core.service.CartService#getCart(String)",
+      "nodes": 8,
+      "edges": 7,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body com.volvocars.ecom.cart.core.service.CartService#createCart(CartInput)",
+      "nodes": 482,
+      "edges": 541,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body com.volvocars.ecom.cart.core.service.CartService#createCartFromCceToken(CreateCartFromCceTokenInput)",
+      "nodes": 206,
+      "edges": 213,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body com.volvocars.ecom.cart.core.service.CartService#addCartLine(String,CartLineInput)",
+      "nodes": 158,
+      "edges": 161,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body com.volvocars.ecom.cart.core.service.CartService#replaceCartLine(String,String,CartLineInput)",
+      "nodes": 194,
+      "edges": 199,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body com.volvocars.ecom.cart.core.service.CartService#removeCartLine(String,String)",
+      "nodes": 105,
+      "edges": 109,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body com.volvocars.ecom.cart.core.service.CartService#updateBuyer(String,BuyerInput)",
+      "nodes": 58,
+      "edges": 58,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body com.volvocars.ecom.cart.core.service.CartService#updateStatus(String,CartStatus)",
+      "nodes": 50,
+      "edges": 50,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body com.volvocars.ecom.cart.core.service.CartService#claimCart(Cart,CartOwner)",
+      "nodes": 45,
+      "edges": 45,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body com.volvocars.ecom.cart.core.service.CartService#mapBuyer(BuyerInput)",
+      "nodes": 19,
+      "edges": 18,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body com.volvocars.ecom.cart.core.service.CartService#mapDeliveryPartner(CartInput)",
+      "nodes": 30,
+      "edges": 30,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body com.volvocars.ecom.cart.core.service.CartService#mapSalesPartner(CartInput)",
+      "nodes": 31,
+      "edges": 31,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body com.volvocars.ecom.cart.core.service.CartService#validateNoDuplicateOfferIds(List<CartLine>)",
+      "nodes": 28,
+      "edges": 28,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body com.volvocars.ecom.cart.core.service.CartService#mapCartLineInput(CartLineInput)",
+      "nodes": 67,
+      "edges": 68,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body com.volvocars.ecom.cart.core.service.CartService#mapCartLineInput(String,CartLineInput)",
+      "nodes": 59,
+      "edges": 59,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body com.volvocars.ecom.cart.core.service.CartService#findAllByStatusAndUpdatedAtBefore(CartStatus,Instant)",
+      "nodes": 5,
+      "edges": 4,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body com.volvocars.ecom.cart.core.service.CartService#delete(String)",
+      "nodes": 5,
+      "edges": 4,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body com.volvocars.ecom.cart.core.service.CheckoutService#checkout(String,CheckoutInput,String)",
+      "nodes": 560,
+      "edges": 660,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body com.volvocars.ecom.cart.core.service.CheckoutService#validateCartForCheckout(Cart)",
+      "nodes": 32,
+      "edges": 31,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body com.volvocars.ecom.cart.core.service.ConditionalOrderMapper#toConditionalOrderRequest(Cart,CheckoutInput)",
+      "nodes": 285,
+      "edges": 297,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body com.volvocars.ecom.cart.core.service.ConditionalOrderMapper#toDeliveryPartner(Cart,CheckoutInput)",
+      "nodes": 31,
+      "edges": 30,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body com.volvocars.ecom.cart.core.service.ConditionalOrderMapper#toCustomer(CustomerInput,Cart)",
+      "nodes": 160,
+      "edges": 167,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body com.volvocars.ecom.cart.core.service.ConditionalOrderMapper#toAddress(AddressInput)",
+      "nodes": 21,
+      "edges": 20,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body com.volvocars.ecom.cart.core.service.ConditionalOrderMapper#toLine(CartLine)",
+      "nodes": 46,
+      "edges": 46,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body com.volvocars.ecom.cart.core.service.ConditionalOrderMapper#toItem(CartLineItem)",
+      "nodes": 23,
+      "edges": 23,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body com.volvocars.ecom.cart.core.service.OfferCartResponseMapper#toCart(OfferCartResponse)",
+      "nodes": 102,
+      "edges": 103,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body com.volvocars.ecom.cart.core.service.OfferCartResponseMapper#toCart(OfferCartResponse,CartOwner)",
+      "nodes": 98,
+      "edges": 99,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body com.volvocars.ecom.cart.core.service.OfferCartResponseMapper#toCartLine(OfferCartResponse)",
+      "nodes": 49,
+      "edges": 48,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body com.volvocars.ecom.cart.core.service.OpportunityPrePopulationService#resolve(String,SalesPartner,SalesPartner)",
+      "nodes": 156,
+      "edges": 197,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body com.volvocars.ecom.cart.core.service.OpportunityPrePopulationService#toDeliveryPartner(Opportunity.Retailer)",
+      "nodes": 19,
+      "edges": 18,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body com.volvocars.ecom.cart.core.service.OpportunityPrePopulationService#toSalesPartner(Opportunity.Retailer)",
+      "nodes": 28,
+      "edges": 28,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body com.volvocars.ecom.cart.core.service.SecurityService#isAuthorized(Authentication,String,String)",
+      "nodes": 273,
+      "edges": 291,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body com.volvocars.ecom.cart.core.service.SecurityService#getJwtTokenValue()",
+      "nodes": 23,
+      "edges": 23,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body com.volvocars.ecom.cart.core.service.SecurityService#authorizeIdentity(Cart,CartOwner,String)",
+      "nodes": 142,
+      "edges": 147,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body com.volvocars.ecom.cart.core.service.SecurityService#authorizeAccessToken(Cart,String)",
+      "nodes": 58,
+      "edges": 59,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body com.volvocars.ecom.cart.core.service.SecurityService#matchesAccessToken(Cart,String)",
+      "nodes": 11,
+      "edges": 11,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body com.volvocars.ecom.cart.core.service.SecurityService#ownerOf(Cart)",
+      "nodes": 17,
+      "edges": 17,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body com.volvocars.ecom.cart.core.service.TokenIdentity#<init>()",
+      "nodes": 2,
+      "edges": 1,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body com.volvocars.ecom.cart.core.service.TokenIdentity#current()",
+      "nodes": 59,
+      "edges": 63,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body com.volvocars.ecom.cart.core.service.TokenIdentity#of(Authentication)",
+      "nodes": 51,
+      "edges": 53,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body com.volvocars.ecom.cart.core.service.VolvoIdResolver#resolve(Cart)",
+      "nodes": 67,
+      "edges": 73,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body com.volvocars.ecom.cart.core.service.VolvoIdResolver#resolve(CartOwner)",
+      "nodes": 57,
+      "edges": 61,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body com.volvocars.ecom.cart.input.graphql.CartFederationController#resolveCartLine()",
+      "nodes": 6,
+      "edges": 5,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body com.volvocars.ecom.cart.input.graphql.CartFederationController#resolveCartLineItem()",
+      "nodes": 6,
+      "edges": 5,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body com.volvocars.ecom.cart.input.graphql.CartFederationController#offer(CartLine)",
+      "nodes": 7,
+      "edges": 6,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body com.volvocars.ecom.cart.input.graphql.CartFederationController#productVariant(CartLineItem)",
+      "nodes": 7,
+      "edges": 6,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body com.volvocars.ecom.cart.input.graphql.CartFederationController#financingOfferVariant(CartLineItem)",
+      "nodes": 7,
+      "edges": 6,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body com.volvocars.ecom.cart.input.graphql.CartFederationController#cartContext(Cart,DataFetchingEnvironment)",
+      "nodes": 9,
+      "edges": 8,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body com.volvocars.ecom.cart.input.graphql.CartFederationController#buyer(Cart)",
+      "nodes": 91,
+      "edges": 99,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body com.volvocars.ecom.cart.input.graphql.CartFederationController#lineCart(Cart)",
+      "nodes": 2,
+      "edges": 1,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body com.volvocars.ecom.cart.input.graphql.CartFederationController#itemCart(Cart)",
+      "nodes": 2,
+      "edges": 1,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body com.volvocars.ecom.cart.input.graphql.GraphQlController#getCart(String,String)",
+      "nodes": 42,
+      "edges": 43,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body com.volvocars.ecom.cart.input.graphql.GraphQlController#createCart(CartInput)",
+      "nodes": 486,
+      "edges": 546,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body com.volvocars.ecom.cart.input.graphql.GraphQlController#addCartLine(String,CartLineInput,String)",
+      "nodes": 162,
+      "edges": 165,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body com.volvocars.ecom.cart.input.graphql.GraphQlController#replaceCartLine(String,String,CartLineInput,String)",
+      "nodes": 198,
+      "edges": 204,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body com.volvocars.ecom.cart.input.graphql.GraphQlController#removeCartLine(String,String,String)",
+      "nodes": 109,
+      "edges": 113,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body com.volvocars.ecom.cart.input.graphql.GraphQlController#updateBuyer(String,BuyerInput,String)",
+      "nodes": 62,
+      "edges": 62,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body com.volvocars.ecom.cart.input.graphql.GraphQlController#checkoutCart(String,CheckoutInput,String,String)",
+      "nodes": 564,
+      "edges": 664,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body com.volvocars.ecom.cart.input.graphql.GraphQlController#createCartFromCceToken(CreateCartFromCceTokenInput)",
+      "nodes": 210,
+      "edges": 217,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body com.volvocars.ecom.cart.input.graphql.GraphQlExceptionHandlerAdvice#handleCartNotFound(CartNotFoundException,DataFetchingEnvironment)",
+      "nodes": 27,
+      "edges": 26,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body com.volvocars.ecom.cart.input.graphql.GraphQlExceptionHandlerAdvice#handleCartLineNotFound(CartLineNotFoundException,DataFetchingEnvironment)",
+      "nodes": 27,
+      "edges": 26,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body com.volvocars.ecom.cart.input.graphql.GraphQlExceptionHandlerAdvice#handleCartAlreadyCheckedOut(CartAlreadyCheckedOutException,DataFetchingEnvironment)",
+      "nodes": 27,
+      "edges": 26,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body com.volvocars.ecom.cart.input.graphql.GraphQlExceptionHandlerAdvice#handleCheckoutException(CheckoutException,DataFetchingEnvironment)",
+      "nodes": 27,
+      "edges": 26,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body com.volvocars.ecom.cart.input.graphql.GraphQlExceptionHandlerAdvice#handleDuplicateCartLine(DuplicateCartLineException,DataFetchingEnvironment)",
+      "nodes": 27,
+      "edges": 26,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body com.volvocars.ecom.cart.input.graphql.GraphQlExceptionHandlerAdvice#handleIllegalState(IllegalStateException,DataFetchingEnvironment)",
+      "nodes": 27,
+      "edges": 26,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body com.volvocars.ecom.cart.input.graphql.GraphQlExceptionHandlerAdvice#authenticationException(AuthenticationException,DataFetchingEnvironment)",
+      "nodes": 27,
+      "edges": 26,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body com.volvocars.ecom.cart.input.graphql.GraphQlExceptionHandlerAdvice#accessDeniedException(AccessDeniedException,DataFetchingEnvironment)",
+      "nodes": 59,
+      "edges": 58,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body com.volvocars.ecom.cart.input.graphql.GraphQlInterceptor#intercept(WebGraphQlRequest,Chain)",
+      "nodes": 44,
+      "edges": 46,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body com.volvocars.ecom.cart.migration.AddIdToCartLineItemMigration#execute(MongoDatabase)",
+      "nodes": 82,
+      "edges": 88,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body com.volvocars.ecom.cart.migration.AddIdToCartLineItemMigration#rollback(MongoDatabase)",
+      "nodes": 6,
+      "edges": 5,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body com.volvocars.ecom.cart.migration.AddIdToCartLineItemMigration#populateMissingIds(Document)",
+      "nodes": 51,
+      "edges": 54,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body com.volvocars.ecom.cart.migration._0002__MoveBuyerVolvoIdToOwner#apply(MongoTemplate,TrustedIssuersProperties)",
+      "nodes": 93,
+      "edges": 93,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body com.volvocars.ecom.cart.migration._0002__MoveBuyerVolvoIdToOwner#rollback()",
+      "nodes": 6,
+      "edges": 5,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body com.volvocars.ecom.cart.output.offer.FakeOfferRestClient#convertCceTokenToCart(String,BigDecimal)",
+      "nodes": 25,
+      "edges": 25,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body com.volvocars.ecom.cart.output.offer.OfferRestClient#convertCceTokenToCart(String,BigDecimal)",
+      "nodes": 3,
+      "edges": 2,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body com.volvocars.ecom.cart.output.opportunity.OpportunityClient#<init>(RestClientRegistry)",
+      "nodes": 6,
+      "edges": 5,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body com.volvocars.ecom.cart.output.opportunity.OpportunityClient#getOpportunity(String)",
+      "nodes": 43,
+      "edges": 53,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body com.volvocars.ecom.cart.output.order.ConditionalOrderRestClient#checkout(ConditionalOrderRequest,String)",
+      "nodes": 3,
+      "edges": 2,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body com.volvocars.ecom.cart.output.order.RestClientConditionalOrderClient#<init>(RestClientRegistry)",
+      "nodes": 6,
+      "edges": 5,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body com.volvocars.ecom.cart.output.order.RestClientConditionalOrderClient#checkout(ConditionalOrderRequest,String)",
+      "nodes": 49,
+      "edges": 56,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body com.volvocars.ecom.cart.output.repository.CartRepository#findAllByStatusAndUpdatedAtBefore(CartStatus,Instant)",
+      "nodes": 3,
+      "edges": 2,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body com.volvocars.ecom.cart.config.GraphQLConfig#federationTransform(FederationSchemaFactory)$lambda@727",
+      "nodes": 5,
+      "edges": 4,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body com.volvocars.ecom.cart.config.GraphQLConfig#uuidScalarConfigurer()$lambda@1053",
+      "nodes": 4,
+      "edges": 3,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body com.volvocars.ecom.cart.config.security.PermitAllSecurityConfig#noSecurityFilterChain(HttpSecurity)$lambda@716",
+      "nodes": 6,
+      "edges": 5,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body com.volvocars.ecom.cart.config.security.SecurityConfig#managementSecurityFilterChain(HttpSecurity)$lambda@1939",
+      "nodes": 6,
+      "edges": 5,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body com.volvocars.ecom.cart.config.security.SecurityConfig#graphqlSecurityFilterChain(HttpSecurity,AuthenticationManagerResolver<HttpServletRequest>,GraphQlAuthenticationEntryPoint)$lambda@2689",
+      "nodes": 6,
+      "edges": 5,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body com.volvocars.ecom.cart.config.security.SecurityConfig#graphqlSecurityFilterChain(HttpSecurity,AuthenticationManagerResolver<HttpServletRequest>,GraphQlAuthenticationEntryPoint)$lambda@2765",
+      "nodes": 6,
+      "edges": 5,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body com.volvocars.ecom.cart.config.security.SecurityConfig#apiSecurityFilterChain(HttpSecurity,AuthenticationManagerResolver<HttpServletRequest>)$lambda@3317",
+      "nodes": 6,
+      "edges": 5,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body com.volvocars.ecom.cart.config.security.SecurityConfig#apiSecurityFilterChain(HttpSecurity,AuthenticationManagerResolver<HttpServletRequest>)$lambda@3397",
+      "nodes": 4,
+      "edges": 3,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body com.volvocars.ecom.cart.config.security.SecurityConfig#jwtAuthenticationManagerResolver(TrustedIssuersProperties)$lambda@4210",
+      "nodes": 3,
+      "edges": 2,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body com.volvocars.ecom.cart.core.cartexpiration.CartExpirationService#processExpiredCarts(CartExpirationJobStatistics)$lambda@980",
+      "nodes": 117,
+      "edges": 128,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body com.volvocars.ecom.cart.core.cartexpiration.CartExpirationService#deleteExpiredCartsThatPassedDeleteDays(CartExpirationJobStatistics)$lambda@1828",
+      "nodes": 34,
+      "edges": 37,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body com.volvocars.ecom.cart.core.service.CartService#getCart(String)$lambda@1927",
+      "nodes": 11,
+      "edges": 10,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body com.volvocars.ecom.cart.core.service.CartService#replaceCartLine(String,String,CartLineInput)$lambda@4237",
+      "nodes": 6,
+      "edges": 5,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body com.volvocars.ecom.cart.core.service.CartService#replaceCartLine(String,String,CartLineInput)$lambda@4518",
+      "nodes": 8,
+      "edges": 7,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body com.volvocars.ecom.cart.core.service.CartService#removeCartLine(String,String)$lambda@4963",
+      "nodes": 6,
+      "edges": 5,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body com.volvocars.ecom.cart.core.service.CartService#removeCartLine(String,String)$lambda@5158",
+      "nodes": 7,
+      "edges": 6,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body com.volvocars.ecom.cart.core.service.CartService#mapCartLineInput(String,CartLineInput)$lambda@7740",
+      "nodes": 36,
+      "edges": 36,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body com.volvocars.ecom.cart.core.service.OfferCartResponseMapper#toCartLine(OfferCartResponse)$lambda@1299",
+      "nodes": 22,
+      "edges": 21,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body com.volvocars.ecom.cart.input.graphql.GraphQlInterceptor#intercept(WebGraphQlRequest,Chain)$lambda@1276",
+      "nodes": 6,
+      "edges": 5,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body com.volvocars.ecom.cart.output.order.RestClientConditionalOrderClient#checkout(ConditionalOrderRequest,String)$lambda@1530",
+      "nodes": 10,
+      "edges": 10,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body com.volvocars.ecom.cart.config.security.SecurityConfig#jwtAuthenticationManagerResolver(TrustedIssuersProperties)$lambda@4210$lambda@4231",
+      "nodes": 6,
+      "edges": 5,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body source:imported-mount:/graphql",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body source:imported-mount:/actuator/health",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body source:imported-mount:/actuator/prometheus",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body source:imported-mount:/actuator/info",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body source:imported-mount:/actuator/version",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body source:imported-mount:/graphiql",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "owned I/O cartArchiveRepository.save(toSave)",
+      "nodes": 2,
+      "edges": 1,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "I/O contract",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "actual I/O volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/io/222970fa5618ec84da24 recordargument0",
+      "nodes": 9,
+      "edges": 8,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "actual I/O volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/io/222970fa5618ec84da24 result",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "owned I/O cartRepository.findById(id)",
+      "nodes": 2,
+      "edges": 1,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "I/O contract",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "actual I/O volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/io/2bf71be3cbdd5a975365 recordargument0",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "actual I/O volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/io/2bf71be3cbdd5a975365 result",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "owned I/O cartRepository.save(cart)",
+      "nodes": 3,
+      "edges": 2,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "I/O contract",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "actual I/O volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/io/e2b9cd7bb33ff58b85e3 recordargument0",
+      "nodes": 134,
+      "edges": 146,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "actual I/O volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/io/e2b9cd7bb33ff58b85e3 result",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "owned I/O cartRepository.save(cart)",
+      "nodes": 2,
+      "edges": 2,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "I/O contract",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "actual I/O volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/io/01d7c4e865ca60dfb664 recordargument0",
+      "nodes": 48,
+      "edges": 48,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "actual I/O volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/io/01d7c4e865ca60dfb664 result",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "owned I/O cartRepository.save(cart.withLines(List.copyOf(updatedLines)))",
+      "nodes": 2,
+      "edges": 2,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "I/O contract",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "actual I/O volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/io/6007b50665172d7afcb9 recordargument0",
+      "nodes": 33,
+      "edges": 41,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "actual I/O volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/io/6007b50665172d7afcb9 result",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "owned I/O cartRepository.save(cart.withLines(updatedLines))",
+      "nodes": 2,
+      "edges": 2,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "I/O contract",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "actual I/O volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/io/e5abbaaba82be19343ef recordargument0",
+      "nodes": 34,
+      "edges": 42,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "actual I/O volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/io/e5abbaaba82be19343ef result",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "owned I/O cartRepository.save(cart.withLines(updatedLines))",
+      "nodes": 2,
+      "edges": 2,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "I/O contract",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "actual I/O volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/io/90a620f75102bae117f7 recordargument0",
+      "nodes": 34,
+      "edges": 42,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "actual I/O volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/io/90a620f75102bae117f7 result",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "owned I/O cartRepository.save(cart.withBuyer(updatedBuyer))",
+      "nodes": 2,
+      "edges": 2,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "I/O contract",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "actual I/O volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/io/216a2eb1a32403f3e5c0 recordargument0",
+      "nodes": 40,
+      "edges": 49,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "actual I/O volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/io/216a2eb1a32403f3e5c0 result",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "owned I/O cartRepository.save(cart.withStatus(status))",
+      "nodes": 2,
+      "edges": 2,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "I/O contract",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "actual I/O volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/io/32c702f69b36021c27a9 recordargument0",
+      "nodes": 33,
+      "edges": 41,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "actual I/O volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/io/32c702f69b36021c27a9 result",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "owned I/O cartRepository.save(cart.withOwner(owner))",
+      "nodes": 2,
+      "edges": 1,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "I/O contract",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "actual I/O volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/io/39c1e4797d6e310c38ad recordargument0",
+      "nodes": 31,
+      "edges": 39,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "actual I/O volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/io/39c1e4797d6e310c38ad result",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "owned I/O cartRepository.findAllByStatusAndUpdatedAtBefore(cartStatus, modifiedBefore)",
+      "nodes": 2,
+      "edges": 1,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "I/O contract",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "actual I/O volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/io/88e11d565ddb084b061e recordargument0",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "actual I/O volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/io/88e11d565ddb084b061e recordargument1",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "actual I/O volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/io/88e11d565ddb084b061e result",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "owned I/O cartRepository.deleteById(cartId)",
+      "nodes": 2,
+      "edges": 1,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "I/O contract",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "actual I/O volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/io/ccb86fccb93d37958f36 recordargument0",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "actual I/O volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/io/ccb86fccb93d37958f36 result",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "owned I/O carts.find()",
+      "nodes": 2,
+      "edges": 2,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "I/O contract",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "actual I/O volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/io/bb3da36b829354dd2b28 result",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "owned I/O carts.replaceOne(new Document(\"_id\", cart.get(\"_id\")), cart)",
+      "nodes": 2,
+      "edges": 2,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "I/O contract",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "actual I/O volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/io/826e012bccc5b189d23a recordargument0",
+      "nodes": 2,
+      "edges": 1,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "actual I/O volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/io/826e012bccc5b189d23a recordargument1",
+      "nodes": 2,
+      "edges": 1,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "actual I/O volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/io/826e012bccc5b189d23a result",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "owned I/O carts\n            .updateMany(\n                ownedButNotMigrated,\n                List.of(\n                    new Document(\n                        \"$set\",\n                        new Document(OWNER_SUBJECT, \"$\" + BUYER_VOLVO_ID)\n                            .append(OWNER_ISSUER, issuer))))",
+      "nodes": 2,
+      "edges": 2,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "I/O contract",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "actual I/O volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/io/66d5f64933b459146cd8 recordargument0",
+      "nodes": 2,
+      "edges": 1,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "actual I/O volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/io/66d5f64933b459146cd8 recordargument1",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "actual I/O volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/io/66d5f64933b459146cd8 result",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "owned I/O carts\n            .updateMany(Filters.exists(BUYER_VOLVO_ID), Updates.unset(BUYER_VOLVO_ID))",
+      "nodes": 2,
+      "edges": 2,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "I/O contract",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "actual I/O volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/io/5006d2257a1fcd1ebbe6 recordargument0",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "actual I/O volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/io/5006d2257a1fcd1ebbe6 recordargument1",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "actual I/O volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/io/5006d2257a1fcd1ebbe6 result",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "owned I/O resource.getInputStream()",
+      "nodes": 1,
+      "edges": 1,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "I/O contract",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "actual I/O volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/io/3798e60941f713542995 result",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "owned I/O restClient\n              .get()\n              .uri(\"/opportunities/{externalOpportunityId}\", opportunityId)\n              .accept(MediaType.APPLICATION_JSON)\n              .retrieve()\n              .body(Opportunity.Response.class)",
+      "nodes": 2,
+      "edges": 1,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "I/O contract",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "actual I/O volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/io/f8250412af7743f95c25 recordargument0",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "actual I/O volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/io/f8250412af7743f95c25 pathexternalOpportunityId",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "actual I/O volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/io/f8250412af7743f95c25 result",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "owned I/O restClient\n              .post()\n              .uri(\"/v2/checkout\")\n              .contentType(MediaType.APPLICATION_JSON)\n              .accept(MediaType.APPLICATION_JSON)\n              .headers(\n                  headers -> {\n                    if (StringUtils.hasText(idempotencyKey)) {\n                      headers.add(IDEMPOTENCY_KEY_HEADER, idempotencyKey);\n                    }\n                  })\n              .body(request)\n              .retrieve()\n              .body(ConditionalOrderResponse.class)",
+      "nodes": 2,
+      "edges": 1,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "I/O contract",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "actual I/O volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/io/02b0cad3270bb34fd50a recordargument0",
+      "nodes": 2,
+      "edges": 1,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "actual I/O volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/io/02b0cad3270bb34fd50a body",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "actual I/O volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/io/02b0cad3270bb34fd50a headersIdempotency-Key",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "actual I/O volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/io/02b0cad3270bb34fd50a result",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "owned I/O resource.getInputStream()",
+      "nodes": 2,
+      "edges": 2,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "I/O contract",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "actual I/O volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/fallback-io/fdaf4ed38381b347397e recordid",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "actual I/O volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/fallback-io/fdaf4ed38381b347397e result",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "positive business graphql:Query.cartV2",
+      "nodes": 2,
+      "edges": 2,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "positive business graphql:Entity.CartV2",
+      "nodes": 2,
+      "edges": 2,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "positive business graphql:Mutation.createCartV2",
+      "nodes": 3,
+      "edges": 2,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "positive business graphql:Mutation.addCartLineV2",
+      "nodes": 2,
+      "edges": 2,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "positive business graphql:Mutation.replaceCartLineV2",
+      "nodes": 2,
+      "edges": 2,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "positive business graphql:Mutation.removeCartLineV2",
+      "nodes": 2,
+      "edges": 2,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "positive business graphql:Mutation.updateBuyerV2",
+      "nodes": 2,
+      "edges": 2,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "positive business graphql:Mutation.checkoutCartV2",
+      "nodes": 3,
+      "edges": 8,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "positive business graphql:Mutation.createCartFromCceToken",
+      "nodes": 2,
+      "edges": 2,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "declared policy callback com.volvocars.ecom.cart.input.graphql.GraphQlController#getCart(String,String)",
+      "nodes": 2,
+      "edges": 2,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "business policy association com.volvocars.ecom.cart.input.graphql.GraphQlController#getCart(String,String)",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "declared policy callback com.volvocars.ecom.cart.input.graphql.GraphQlController#addCartLine(String,CartLineInput,String)",
+      "nodes": 2,
+      "edges": 2,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "business policy association com.volvocars.ecom.cart.input.graphql.GraphQlController#addCartLine(String,CartLineInput,String)",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "declared policy callback com.volvocars.ecom.cart.input.graphql.GraphQlController#replaceCartLine(String,String,CartLineInput,String)",
+      "nodes": 2,
+      "edges": 2,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "business policy association com.volvocars.ecom.cart.input.graphql.GraphQlController#replaceCartLine(String,String,CartLineInput,String)",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "declared policy callback com.volvocars.ecom.cart.input.graphql.GraphQlController#removeCartLine(String,String,String)",
+      "nodes": 2,
+      "edges": 2,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "business policy association com.volvocars.ecom.cart.input.graphql.GraphQlController#removeCartLine(String,String,String)",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "declared policy callback com.volvocars.ecom.cart.input.graphql.GraphQlController#updateBuyer(String,BuyerInput,String)",
+      "nodes": 2,
+      "edges": 2,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "business policy association com.volvocars.ecom.cart.input.graphql.GraphQlController#updateBuyer(String,BuyerInput,String)",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "declared policy callback com.volvocars.ecom.cart.input.graphql.GraphQlController#checkoutCart(String,CheckoutInput,String,String)",
+      "nodes": 2,
+      "edges": 2,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "business policy association com.volvocars.ecom.cart.input.graphql.GraphQlController#checkoutCart(String,CheckoutInput,String,String)",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "positive actual scheduler",
+      "nodes": 2,
+      "edges": 6,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "migration actual source:migration:com.volvocars.ecom.cart.migration.AddIdToCartLineItemMigration#execute(MongoDatabase)",
+      "nodes": 2,
+      "edges": 2,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "migration actual source:migration:com.volvocars.ecom.cart.migration.AddIdToCartLineItemMigration#rollback(MongoDatabase)",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "migration actual source:migration:com.volvocars.ecom.cart.migration._0002__MoveBuyerVolvoIdToOwner#apply(MongoTemplate,TrustedIssuersProperties)",
+      "nodes": 2,
+      "edges": 2,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "migration actual source:migration:com.volvocars.ecom.cart.migration._0002__MoveBuyerVolvoIdToOwner#rollback()",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "opaque imported mount /graphql",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "opaque imported mount /actuator/health",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "opaque imported mount /actuator/prometheus",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "opaque imported mount /actuator/info",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "opaque imported mount /actuator/version",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "opaque imported mount /graphiql",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "lexical capture actual undefined",
+      "nodes": 2,
+      "edges": 1,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "lexical capture actual undefined",
+      "nodes": 2,
+      "edges": 1,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "lexical capture actual undefined",
+      "nodes": 2,
+      "edges": 1,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "lexical capture actual undefined",
+      "nodes": 2,
+      "edges": 1,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "lexical capture actual undefined",
+      "nodes": 2,
+      "edges": 1,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "lexical capture actual undefined",
+      "nodes": 2,
+      "edges": 1,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "lexical capture actual undefined",
+      "nodes": 17,
+      "edges": 16,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "lexical capture actual undefined",
+      "nodes": 2,
+      "edges": 1,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "lexical capture actual undefined",
+      "nodes": 2,
+      "edges": 1,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "methodref actual receiver",
+      "nodes": 2,
+      "edges": 1,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "write staging and acknowledgement",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "write actual payload",
+      "nodes": 9,
+      "edges": 8,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "write staging and acknowledgement",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "write actual payload",
+      "nodes": 134,
+      "edges": 146,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "write staging and acknowledgement",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "write actual payload",
+      "nodes": 48,
+      "edges": 48,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "write staging and acknowledgement",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "write actual payload",
+      "nodes": 33,
+      "edges": 41,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "write staging and acknowledgement",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "write actual payload",
+      "nodes": 34,
+      "edges": 42,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "write staging and acknowledgement",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "write actual payload",
+      "nodes": 34,
+      "edges": 42,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "write staging and acknowledgement",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "write actual payload",
+      "nodes": 40,
+      "edges": 49,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "write staging and acknowledgement",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "write actual payload",
+      "nodes": 33,
+      "edges": 41,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "write staging and acknowledgement",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "write actual payload",
+      "nodes": 31,
+      "edges": 39,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "write staging and acknowledgement",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "write staging and acknowledgement",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "write actual payload",
+      "nodes": 2,
+      "edges": 1,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "write staging and acknowledgement",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "write actual payload",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "write staging and acknowledgement",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "write actual payload",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "caller contract com.volvocars.ecom.cart.output.opportunity.OpportunityClient#getOpportunity(String)",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "caller contract com.volvocars.ecom.cart.output.order.RestClientConditionalOrderClient#checkout(ConditionalOrderRequest,String)",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "source policy checkout-order",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "source policy authorization",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "source policy expiry",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "source policy opportunity",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "source policy fake-offer",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "source policy customer",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "source policy mapping",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "source policy record-pattern",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "source policy records",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "source policy migration-id",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "source policy migration-owner",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "source policy security-config",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "source policy interceptor",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "source policy sdl",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema com.volvocars.ecom.cart.Application source declaration; inherited local fields retained",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema com.volvocars.ecom.cart.config.GraphQLConfig source declaration; inherited local fields retained",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema com.volvocars.ecom.cart.config.MongoConfig source declaration; inherited local fields retained",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema com.volvocars.ecom.cart.config.security.GraphQlAuthenticationEntryPoint source declaration; inherited local fields retained",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema com.volvocars.ecom.cart.config.security.IssuerKey source declaration; inherited local fields retained",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema com.volvocars.ecom.cart.config.security.PermitAllSecurityConfig source declaration; inherited local fields retained",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema com.volvocars.ecom.cart.config.security.SecurityConfig source declaration; inherited local fields retained",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema com.volvocars.ecom.cart.config.security.TrustedIssuersProperties source declaration; inherited local fields retained",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema com.volvocars.ecom.cart.core.cartarchive.CartArchive source declaration; inherited local fields retained",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema com.volvocars.ecom.cart.core.cartarchive.CartArchiveRepository source declaration; inherited local fields retained",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema com.volvocars.ecom.cart.core.cartarchive.CartArchiveService source declaration; inherited local fields retained",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema com.volvocars.ecom.cart.core.cartexpiration.CartExpirationJob source declaration; inherited local fields retained",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema com.volvocars.ecom.cart.core.cartexpiration.CartExpirationJobStatistics source declaration; inherited local fields retained",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema com.volvocars.ecom.cart.core.cartexpiration.CartExpirationProperties source declaration; inherited local fields retained",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema com.volvocars.ecom.cart.core.cartexpiration.CartExpirationScheduler source declaration; inherited local fields retained",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema com.volvocars.ecom.cart.core.cartexpiration.CartExpirationService source declaration; inherited local fields retained",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema com.volvocars.ecom.cart.core.exception.CartAlreadyCheckedOutException source declaration; inherited local fields retained",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema com.volvocars.ecom.cart.core.exception.CartLineNotFoundException source declaration; inherited local fields retained",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema com.volvocars.ecom.cart.core.exception.CartNotFoundException source declaration; inherited local fields retained",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema com.volvocars.ecom.cart.core.exception.CheckoutException source declaration; inherited local fields retained",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema com.volvocars.ecom.cart.core.exception.ConditionalOrderException source declaration; inherited local fields retained",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema com.volvocars.ecom.cart.core.exception.DuplicateCartLineException source declaration; inherited local fields retained",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema com.volvocars.ecom.cart.core.exception.IllegalOperationException source declaration; inherited local fields retained",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema List<CartLine> source collection",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema com.volvocars.ecom.cart.core.model.Cart source declaration; inherited local fields retained",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema com.volvocars.ecom.cart.core.model.CartBuyer source declaration; inherited local fields retained",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema List<CartLineItem> source collection",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema com.volvocars.ecom.cart.core.model.CartLine source declaration; inherited local fields retained",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema com.volvocars.ecom.cart.core.model.CartLineItem source declaration; inherited local fields retained",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema com.volvocars.ecom.cart.core.model.CartOwner source declaration; inherited local fields retained",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema com.volvocars.ecom.cart.core.model.CartStatus source declaration; inherited local fields retained",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema com.volvocars.ecom.cart.core.model.CheckoutResult source declaration; inherited local fields retained",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema com.volvocars.ecom.cart.core.model.CustomerType source declaration; inherited local fields retained",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema com.volvocars.ecom.cart.core.model.DeliveryPartner source declaration; inherited local fields retained",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema com.volvocars.ecom.cart.core.model.InstallationTarget source declaration; inherited local fields retained",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema com.volvocars.ecom.cart.core.model.InstallationTarget.Vin source declaration; inherited local fields retained",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema com.volvocars.ecom.cart.core.model.InstallationTargetType source declaration; inherited local fields retained",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema com.volvocars.ecom.cart.core.model.SalesPartner source declaration; inherited local fields retained",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema com.volvocars.ecom.cart.core.service.CartService source declaration; inherited local fields retained",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema com.volvocars.ecom.cart.core.service.CheckoutService source declaration; inherited local fields retained",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema com.volvocars.ecom.cart.core.service.ConditionalOrderMapper source declaration; inherited local fields retained",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema com.volvocars.ecom.cart.core.service.OfferCartResponseMapper source declaration; inherited local fields retained",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema com.volvocars.ecom.cart.core.service.OpportunityPrePopulation source declaration; inherited local fields retained",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema com.volvocars.ecom.cart.core.service.OpportunityPrePopulationService source declaration; inherited local fields retained",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema com.volvocars.ecom.cart.core.service.SecurityService source declaration; inherited local fields retained",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema com.volvocars.ecom.cart.core.service.TokenIdentity source declaration; inherited local fields retained",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema com.volvocars.ecom.cart.core.service.VolvoIdResolver source declaration; inherited local fields retained",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema com.volvocars.ecom.cart.input.graphql.CartFederationController source declaration; inherited local fields retained",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema com.volvocars.ecom.cart.input.graphql.GraphQlController source declaration; inherited local fields retained",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema com.volvocars.ecom.cart.input.graphql.GraphQlExceptionHandlerAdvice source declaration; inherited local fields retained",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema com.volvocars.ecom.cart.input.graphql.GraphQlInterceptor source declaration; inherited local fields retained",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema com.volvocars.ecom.cart.input.graphql.model.CartBuyerResponse source declaration; inherited local fields retained",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema com.volvocars.ecom.cart.input.graphql.model.EntityStub source declaration; inherited local fields retained",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema com.volvocars.ecom.cart.input.model.AddressInput source declaration; inherited local fields retained",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema com.volvocars.ecom.cart.input.model.BuyerInput source declaration; inherited local fields retained",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema List<CartLineInput> source collection",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema com.volvocars.ecom.cart.input.model.CartInput source declaration; inherited local fields retained",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema List<CartLineItemInput> source collection",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema com.volvocars.ecom.cart.input.model.CartLineInput source declaration; inherited local fields retained",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema com.volvocars.ecom.cart.input.model.CartLineItemInput source declaration; inherited local fields retained",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema com.volvocars.ecom.cart.input.model.CheckoutInput source declaration; inherited local fields retained",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema com.volvocars.ecom.cart.input.model.CreateCartFromCceTokenInput source declaration; inherited local fields retained",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema List<Partner> source collection",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema List<Line> source collection",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema com.volvocars.ecom.cart.input.model.CreateCartRequest source declaration; inherited local fields retained",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema com.volvocars.ecom.cart.input.model.CreateCartRequest.Buyer source declaration; inherited local fields retained",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema com.volvocars.ecom.cart.input.model.CreateCartRequest.Partner source declaration; inherited local fields retained",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema com.volvocars.ecom.cart.input.model.CreateCartRequest.Line source declaration; inherited local fields retained",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema com.volvocars.ecom.cart.input.model.CustomerInput source declaration; inherited local fields retained",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema com.volvocars.ecom.cart.input.model.DeliveryPartnerInput source declaration; inherited local fields retained",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema com.volvocars.ecom.cart.input.model.IndividualInput source declaration; inherited local fields retained",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema com.volvocars.ecom.cart.input.model.InstallationTargetInput source declaration; inherited local fields retained",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema com.volvocars.ecom.cart.input.model.OrganizationInput source declaration; inherited local fields retained",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema com.volvocars.ecom.cart.input.model.PartnersInput source declaration; inherited local fields retained",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema com.volvocars.ecom.cart.input.model.SalesPartnerInput source declaration; inherited local fields retained",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema com.volvocars.ecom.cart.input.model.metadata.DeviceType source declaration; inherited local fields retained",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema com.volvocars.ecom.cart.input.model.metadata.Metadata source declaration; inherited local fields retained",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema List<AnalyticsTags> source collection",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema com.volvocars.ecom.cart.input.model.metadata.analytics.Analytics source declaration; inherited local fields retained",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema com.volvocars.ecom.cart.input.model.metadata.analytics.AnalyticsTags source declaration; inherited local fields retained",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema com.volvocars.ecom.cart.input.model.metadata.analytics.AnalyticsUtm source declaration; inherited local fields retained",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema com.volvocars.ecom.cart.input.model.metadata.analytics.AnalyticsVolvoTracking source declaration; inherited local fields retained",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema com.volvocars.ecom.cart.migration.AddIdToCartLineItemMigration source declaration; inherited local fields retained",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema com.volvocars.ecom.cart.migration._0002__MoveBuyerVolvoIdToOwner source declaration; inherited local fields retained",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema com.volvocars.ecom.cart.output.offer.FakeOfferRestClient source declaration; inherited local fields retained",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema com.volvocars.ecom.cart.output.offer.OfferRestClient source declaration; inherited local fields retained",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema List<ProductReference> source collection",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema com.volvocars.ecom.cart.output.offer.model.OfferCartResponse source declaration; inherited local fields retained",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema com.volvocars.ecom.cart.output.offer.model.OfferCartResponse.Scope source declaration; inherited local fields retained",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema com.volvocars.ecom.cart.output.offer.model.OfferCartResponse.ProductReference source declaration; inherited local fields retained",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema com.volvocars.ecom.cart.output.opportunity.OpportunityClient source declaration; inherited local fields retained",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema com.volvocars.ecom.cart.output.opportunity.model.Opportunity source declaration; inherited local fields retained",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema com.volvocars.ecom.cart.output.opportunity.model.Opportunity.Response source declaration; inherited local fields retained",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema com.volvocars.ecom.cart.output.opportunity.model.Opportunity.Interest source declaration; inherited local fields retained",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema com.volvocars.ecom.cart.output.opportunity.model.Opportunity.Retailer source declaration; inherited local fields retained",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema com.volvocars.ecom.cart.output.order.ConditionalOrderProperties source declaration; inherited local fields retained",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema com.volvocars.ecom.cart.output.order.ConditionalOrderRestClient source declaration; inherited local fields retained",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema com.volvocars.ecom.cart.output.order.RestClientConditionalOrderClient source declaration; inherited local fields retained",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema List<Line> source collection",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema com.volvocars.ecom.cart.output.order.model.ConditionalOrderRequest source declaration; inherited local fields retained",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema com.volvocars.ecom.cart.output.order.model.ConditionalOrderRequest.Customer source declaration; inherited local fields retained",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema com.volvocars.ecom.cart.output.order.model.ConditionalOrderRequest.Customer.Individual source declaration; inherited local fields retained",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema com.volvocars.ecom.cart.output.order.model.ConditionalOrderRequest.Customer.Organization source declaration; inherited local fields retained",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema com.volvocars.ecom.cart.output.order.model.ConditionalOrderRequest.Customer.Address source declaration; inherited local fields retained",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema com.volvocars.ecom.cart.output.order.model.ConditionalOrderRequest.DeliveryPartner source declaration; inherited local fields retained",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema com.volvocars.ecom.cart.output.order.model.ConditionalOrderRequest.SalesPartner source declaration; inherited local fields retained",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema List<Item> source collection",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema com.volvocars.ecom.cart.output.order.model.ConditionalOrderRequest.Line source declaration; inherited local fields retained",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema com.volvocars.ecom.cart.output.order.model.ConditionalOrderRequest.Line.Item source declaration; inherited local fields retained",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema com.volvocars.ecom.cart.output.order.model.ConditionalOrderRequest.Line.Item.InstallationTarget source declaration; inherited local fields retained",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema com.volvocars.ecom.cart.output.order.model.ConditionalOrderResponse source declaration; inherited local fields retained",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema com.volvocars.ecom.cart.output.repository.CartRepository source declaration; inherited local fields retained",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema Source terminal collection of explicit mapped construction",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema Source terminal collection of explicit mapped construction",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema Source terminal collection of explicit mapped construction",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema Source terminal collection of explicit mapped construction",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema Source terminal collection of explicit mapped construction",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema Source terminal collection of explicit mapped construction",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema String source declared collection element",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema List<String> source collection",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema String source declared collection element",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema List<String> source collection",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema String source declared collection element",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema List<String> source collection",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema GraphQL SDL type Query; effective engine coercion unresolved",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema GraphQL SDL type Mutation; effective engine coercion unresolved",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema GraphQL SDL CartV2.lines declared sequence",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema GraphQL SDL type CartV2; effective engine coercion unresolved",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema GraphQL SDL type CartBuyerV2; effective engine coercion unresolved",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema GraphQL SDL CartLineV2.items declared sequence",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema GraphQL SDL type CartLineV2; effective engine coercion unresolved",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema GraphQL SDL type CartLineItemV2; effective engine coercion unresolved",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema GraphQL SDL type InstallationTarget; effective engine coercion unresolved",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema GraphQL SDL type CartPartnerV2; effective engine coercion unresolved",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema GraphQL SDL CartInputV2.lines declared sequence",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema GraphQL SDL input CartInputV2; effective engine coercion unresolved",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema GraphQL SDL input BuyerInputV2; effective engine coercion unresolved",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema GraphQL SDL CartLineInputV2.items declared sequence",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema GraphQL SDL input CartLineInputV2; effective engine coercion unresolved",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema GraphQL SDL input CartLineItemInputV2; effective engine coercion unresolved",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema GraphQL SDL input InstallationTargetInput; effective engine coercion unresolved",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema GraphQL SDL input PartnersInputV2; effective engine coercion unresolved",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema GraphQL SDL input DeliveryPartnerInputV2; effective engine coercion unresolved",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema GraphQL SDL input SalesPartnerInputV2; effective engine coercion unresolved",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema GraphQL SDL input CreateCartFromCceTokenInput; effective engine coercion unresolved",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema GraphQL SDL input CheckoutInputV2; effective engine coercion unresolved",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema GraphQL SDL input CustomerInput; effective engine coercion unresolved",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema GraphQL SDL enum CartCustomerTypeV2; effective engine coercion unresolved",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema GraphQL SDL input IndividualInput; effective engine coercion unresolved",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema GraphQL SDL input OrganizationInput; effective engine coercion unresolved",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema GraphQL SDL input AddressInput; effective engine coercion unresolved",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema GraphQL SDL type CheckoutResult; effective engine coercion unresolved",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema GraphQL SDL enum CartStatusV2; effective engine coercion unresolved",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema GraphQL SDL type OfferV2; effective engine coercion unresolved",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema GraphQL SDL type FinancingOfferVariantV2; effective engine coercion unresolved",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema GraphQL SDL type ProductVariantV2; effective engine coercion unresolved",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema graphql:Entity.CartLineV2 source Java resolver formals; argument/context/source-object annotations retained",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema graphql:Entity.CartLineItemV2 source Java resolver formals; argument/context/source-object annotations retained",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema graphql:CartLineV2.offer source Java resolver formals; argument/context/source-object annotations retained",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema graphql:CartLineItemV2.productVariant source Java resolver formals; argument/context/source-object annotations retained",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema graphql:CartLineItemV2.financingOfferVariant source Java resolver formals; argument/context/source-object annotations retained",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema graphql:CartV2.lines source Java resolver formals; argument/context/source-object annotations retained",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema graphql:CartV2.buyer source Java resolver formals; argument/context/source-object annotations retained",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema graphql:CartLineV2.cart source Java resolver formals; argument/context/source-object annotations retained",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema graphql:CartLineItemV2.cart source Java resolver formals; argument/context/source-object annotations retained",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema graphql:Query.cartV2 source Java resolver formals; argument/context/source-object annotations retained",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema graphql:Entity.CartV2 source Java resolver formals; argument/context/source-object annotations retained",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema graphql:Mutation.createCartV2 source Java resolver formals; argument/context/source-object annotations retained",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema graphql:Mutation.addCartLineV2 source Java resolver formals; argument/context/source-object annotations retained",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema graphql:Mutation.replaceCartLineV2 source Java resolver formals; argument/context/source-object annotations retained",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema graphql:Mutation.removeCartLineV2 source Java resolver formals; argument/context/source-object annotations retained",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema graphql:Mutation.updateBuyerV2 source Java resolver formals; argument/context/source-object annotations retained",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema graphql:Mutation.checkoutCartV2 source Java resolver formals; argument/context/source-object annotations retained",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema graphql:Mutation.createCartFromCceToken source Java resolver formals; argument/context/source-object annotations retained",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema Pinned fixture ccetoken/default/scope/customerSegment/item",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema Pinned fixture ccetoken/default/scope/customerSegment",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema Pinned fixture ccetoken/default/scope/salesChannels/item",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema Pinned fixture ccetoken/default/scope/salesChannels",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema Pinned fixture ccetoken/default/scope",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema Pinned fixture ccetoken/default/productReference/item/tags/item",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema Pinned fixture ccetoken/default/productReference/item/tags",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema Pinned fixture ccetoken/default/productReference/item",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema Pinned fixture ccetoken/default/productReference",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema Pinned fixture ccetoken/default",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema archive save exact actual call signature",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema carts findById exact actual call signature",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema carts save exact actual call signature",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema carts save exact actual call signature",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema carts save exact actual call signature",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema carts save exact actual call signature",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema carts save exact actual call signature",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema carts save exact actual call signature",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema carts save exact actual call signature",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema carts save exact actual call signature",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema carts findAllByStatusAndUpdatedAtBefore exact actual call signature",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema carts deleteById exact actual call signature",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema carts find exact actual call signature",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema carts replaceOne exact actual call signature",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema carts updateMany exact actual call signature",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema carts updateMany exact actual call signature",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema fixture getInputStream exact actual call signature",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema opportunity body exact actual call signature",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema order body exact actual call signature",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema Conditional checkout exact declared request headers",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema GraphQL SDL scalar UUID with source GraphQLString coercing configuration; no UUID format guarantee",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "archive actual whole Cart delegation",
+      "nodes": 9,
+      "edges": 8,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "actual token forwarding into customer",
+      "nodes": 3,
+      "edges": 2,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "rooted actual graphql:Query.cartV2 cartRepository.findById(id) record",
+      "nodes": 2,
+      "edges": 1,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "rooted actual graphql:Query.cartV2 resource.getInputStream() record",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "rooted actual graphql:Entity.CartV2 cartRepository.findById(id) record",
+      "nodes": 2,
+      "edges": 1,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "rooted actual graphql:Entity.CartV2 resource.getInputStream() record",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "rooted actual graphql:Mutation.createCartV2 cartRepository.save(cart) record",
+      "nodes": 135,
+      "edges": 147,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "rooted actual graphql:Mutation.createCartV2 restClient\n              .get()\n              .uri(\"/opportunities/{externalOpportunityId}\", opportunityId)\n              .accept(MediaType.APPLICATION_JSON)\n              .retrieve()\n              .body(Opportunity.Response.class) record",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "rooted actual graphql:Mutation.createCartV2 restClient\n              .get()\n              .uri(\"/opportunities/{externalOpportunityId}\", opportunityId)\n              .accept(MediaType.APPLICATION_JSON)\n              .retrieve()\n              .body(Opportunity.Response.class) path",
+      "nodes": 5,
+      "edges": 4,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "rooted actual graphql:Mutation.addCartLineV2 cartRepository.findById(id) record",
+      "nodes": 3,
+      "edges": 2,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "rooted actual graphql:Mutation.addCartLineV2 cartRepository.save(cart.withLines(List.copyOf(updatedLines))) record",
+      "nodes": 33,
+      "edges": 41,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "rooted actual graphql:Mutation.replaceCartLineV2 cartRepository.findById(id) record",
+      "nodes": 3,
+      "edges": 2,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "rooted actual graphql:Mutation.replaceCartLineV2 cartRepository.save(cart.withLines(updatedLines)) record",
+      "nodes": 34,
+      "edges": 42,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "rooted actual graphql:Mutation.removeCartLineV2 cartRepository.findById(id) record",
+      "nodes": 3,
+      "edges": 2,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "rooted actual graphql:Mutation.removeCartLineV2 cartRepository.save(cart.withLines(updatedLines)) record",
+      "nodes": 34,
+      "edges": 42,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "rooted actual graphql:Mutation.updateBuyerV2 cartRepository.findById(id) record",
+      "nodes": 3,
+      "edges": 2,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "rooted actual graphql:Mutation.updateBuyerV2 cartRepository.save(cart.withBuyer(updatedBuyer)) record",
+      "nodes": 41,
+      "edges": 50,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "rooted actual graphql:Mutation.checkoutCartV2 cartRepository.findById(id) record",
+      "nodes": 3,
+      "edges": 2,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "rooted actual graphql:Mutation.checkoutCartV2 cartRepository.save(cart.withStatus(status)) record",
+      "nodes": 35,
+      "edges": 43,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "rooted actual graphql:Mutation.checkoutCartV2 restClient\n              .post()\n              .uri(\"/v2/checkout\")\n              .contentType(MediaType.APPLICATION_JSON)\n              .accept(MediaType.APPLICATION_JSON)\n              .headers(\n                  headers -> {\n                    if (StringUtils.hasText(idempotencyKey)) {\n                      headers.add(IDEMPOTENCY_KEY_HEADER, idempotencyKey);\n                    }\n                  })\n              .body(request)\n              .retrieve()\n              .body(ConditionalOrderResponse.class) record",
+      "nodes": 2,
+      "edges": 1,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "rooted actual graphql:Mutation.checkoutCartV2 restClient\n              .post()\n              .uri(\"/v2/checkout\")\n              .contentType(MediaType.APPLICATION_JSON)\n              .accept(MediaType.APPLICATION_JSON)\n              .headers(\n                  headers -> {\n                    if (StringUtils.hasText(idempotencyKey)) {\n                      headers.add(IDEMPOTENCY_KEY_HEADER, idempotencyKey);\n                    }\n                  })\n              .body(request)\n              .retrieve()\n              .body(ConditionalOrderResponse.class) body",
+      "nodes": 144,
+      "edges": 165,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "rooted actual graphql:Mutation.checkoutCartV2 restClient\n              .post()\n              .uri(\"/v2/checkout\")\n              .contentType(MediaType.APPLICATION_JSON)\n              .accept(MediaType.APPLICATION_JSON)\n              .headers(\n                  headers -> {\n                    if (StringUtils.hasText(idempotencyKey)) {\n                      headers.add(IDEMPOTENCY_KEY_HEADER, idempotencyKey);\n                    }\n                  })\n              .body(request)\n              .retrieve()\n              .body(ConditionalOrderResponse.class) headers",
+      "nodes": 3,
+      "edges": 2,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "rooted actual graphql:Mutation.createCartFromCceToken cartRepository.save(cart) record",
+      "nodes": 48,
+      "edges": 48,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "rooted actual source:@Scheduled:${cart-expiration.scheduler.cron} cartArchiveRepository.save(toSave) record",
+      "nodes": 13,
+      "edges": 12,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "rooted actual source:@Scheduled:${cart-expiration.scheduler.cron} cartRepository.findById(id) record",
+      "nodes": 8,
+      "edges": 7,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "rooted actual source:@Scheduled:${cart-expiration.scheduler.cron} cartRepository.save(cart.withStatus(status)) record",
+      "nodes": 35,
+      "edges": 43,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "rooted actual source:@Scheduled:${cart-expiration.scheduler.cron} cartRepository.findAllByStatusAndUpdatedAtBefore(cartStatus, modifiedBefore) record",
+      "nodes": 3,
+      "edges": 2,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "rooted actual source:@Scheduled:${cart-expiration.scheduler.cron} cartRepository.findAllByStatusAndUpdatedAtBefore(cartStatus, modifiedBefore) record",
+      "nodes": 3,
+      "edges": 2,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "rooted actual source:@Scheduled:${cart-expiration.scheduler.cron} cartRepository.deleteById(cartId) record",
+      "nodes": 7,
+      "edges": 6,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "rooted actual source:@PreAuthorize:com.volvocars.ecom.cart.input.graphql.GraphQlController#getCart(String,String) cartRepository.findById(id) record",
+      "nodes": 2,
+      "edges": 1,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "rooted actual source:@PreAuthorize:com.volvocars.ecom.cart.input.graphql.GraphQlController#getCart(String,String) cartRepository.save(cart.withOwner(owner)) record",
+      "nodes": 49,
+      "edges": 57,
+      "limits": [],
+      "pages": 1
+    }
+  ],
+  "requests": 670,
+  "assertions": 881,
+  "bounded": []
+}

@@ -1,0 +1,88 @@
+{
+  "format": "groundwork-knowledge/v3",
+  "workspace": "volvo",
+  "records": [
+    {
+      "id": "pspin-ae1d9dd/claim/webhook-future-association",
+      "kind": "claim",
+      "owner": "pspin-ae1d9dd/impl/webhook",
+      "statement": "KafkaProducer.sendMessage registers whenComplete at the publication call site; result/exception callback is the separate webhook-callback implementation. The callback closes over event and correlationId. It logs completion and does not supply a broker consumer handoff or synchronously unwind a returned HTTP response. Typed future/closure continuation binding is not currently native.",
+      "basis": "source_traced",
+      "inputs": [
+        "pspin-ae1d9dd/op/webhook/publish",
+        "pspin-ae1d9dd/effect/webhook-publish",
+        "pspin-ae1d9dd/impl/webhook-callback",
+        "pspin-ae1d9dd/runs/webhook-callback"
+      ],
+      "assumptions": [
+        "Source-backed association/validation policy; does not establish effective deployment or imported implementation correspondence"
+      ],
+      "evidence": ["pspin-ae1d9dd/e/820f1fb51ff0ae", "pspin-ae1d9dd/e/6b815f11a1c278"]
+    },
+    {
+      "id": "pspin-ae1d9dd/claim/heartbeat-future-association",
+      "kind": "claim",
+      "owner": "pspin-ae1d9dd/impl/heartbeat",
+      "statement": "ScheduledMessageProducer.sendHeartbeat registers whenComplete after sending a null value; its separate heartbeat-callback receives result/throwable and closes over start/messageKey to compute duration and log success/failure. This is a local future callback, not a Kafka consumer. Typed future/closure transfer remains a model/query limitation.",
+      "basis": "source_traced",
+      "inputs": [
+        "pspin-ae1d9dd/op/heartbeat/publish",
+        "pspin-ae1d9dd/effect/heartbeat-publish",
+        "pspin-ae1d9dd/impl/heartbeat-callback",
+        "pspin-ae1d9dd/runs/heartbeat-callback"
+      ],
+      "assumptions": [
+        "Source-backed association/validation policy; does not establish effective deployment or imported implementation correspondence"
+      ],
+      "evidence": ["pspin-ae1d9dd/e/08044b5f297afe"]
+    },
+    {
+      "id": "pspin-ae1d9dd/claim/input-validation-invariants",
+      "kind": "claim",
+      "owner": "pspin-ae1d9dd/impl/webhook",
+      "statement": "Source validation policies not expressible as simple scalar shape-field constraints: PSP text is uppercased then passed to imported Psp.valueOf; IP policy combines source-excluded path OR any configured PSP IP matcher; forwarded-address precedence and first-item selection precede matching. InboundRequest declares NonNull payload/params/headers; getHeader/getParam use Optional.orElseThrow for missing values. Stripe SDK constructEvent verifies the raw payload against signature/secret with local signature-exception translation. Imported enum values, Lombok/framework enforcement, proxy trust, signature algorithm/tolerance and HTTP error mapping remain unresolved; no pattern, complete enum or additional-properties rule is invented.",
+      "basis": "source_traced",
+      "inputs": [
+        "pspin-ae1d9dd/op/webhook/convert",
+        "pspin-ae1d9dd/op/webhook/ip-allowed",
+        "pspin-ae1d9dd/op/webhook/signature",
+        "pspin-ae1d9dd/op/webhook/verify",
+        "pspin-ae1d9dd/shape/inbound-request",
+        "pspin-ae1d9dd/gap/imported-models",
+        "pspin-ae1d9dd/gap/ip-enforcement",
+        "pspin-ae1d9dd/gap/wire"
+      ],
+      "assumptions": [
+        "Source-backed association/validation policy; does not establish effective deployment or imported implementation correspondence"
+      ],
+      "evidence": [
+        "pspin-ae1d9dd/e/787491a162b7f7",
+        "pspin-ae1d9dd/e/256e3143511556",
+        "pspin-ae1d9dd/e/4af9325a4d6fd7",
+        "pspin-ae1d9dd/e/fd4f8ca42f9844",
+        "pspin-ae1d9dd/e/e9275cdb69256d"
+      ]
+    },
+    {
+      "id": "pspin-ae1d9dd/claim/source-selection-validation-invariants",
+      "kind": "claim",
+      "owner": "pspin-ae1d9dd/impl/webhook",
+      "statement": "Metadata/source/event validation depends on related values and configuration: payload/additionalParameters/metadata must be present; source candidates are checked in source then system_name order after case-folding against configured allowed sources; an empty allowed-event set permits all event types, otherwise membership is required. SourceEventsConfig initially allows all imported enum members. These are control/configuration invariants, not static scalar field enums or complete runtime schema guarantees; malformed dynamic map types and unresolved enum conversion can still fail.",
+      "basis": "source_traced",
+      "inputs": [
+        "pspin-ae1d9dd/op/webhook/metadata",
+        "pspin-ae1d9dd/op/webhook/source",
+        "pspin-ae1d9dd/op/webhook/event-allowed",
+        "pspin-ae1d9dd/gap/imported-models"
+      ],
+      "assumptions": [
+        "Source-backed association/validation policy; does not establish effective deployment or imported implementation correspondence"
+      ],
+      "evidence": [
+        "pspin-ae1d9dd/e/6f762f52fab2cc",
+        "pspin-ae1d9dd/e/5dae8228e97703",
+        "pspin-ae1d9dd/e/72ea2971fc9d37"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,1732 @@
+{
+  "snapshot": "e2ec8f901c7ba3b9fcf11455638ec14ae764a0f41c0551af91bf20efbbec3d1c",
+  "entries": [
+    {
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-6/revised/01287b29df4367d70118",
+      "method": "POST",
+      "path": "/v1/payment-sessions/{paymentSessionId}/transaction-capture"
+    },
+    {
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-6/revised/a5909ccb608b86850966",
+      "method": "POST",
+      "path": "/v1/payment-sessions/{paymentSessionId}/retry"
+    },
+    {
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-6/revised/e7ee10f2914d3cfaa8d5",
+      "method": "POST",
+      "path": "/v1/payment-sessions/{paymentSessionId}/resubmit"
+    },
+    {
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-6/revised/4450a3e42a604c8a31d2",
+      "method": "GET",
+      "path": "/v1/payment-sessions/{paymentSessionId}"
+    },
+    {
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-6/revised/d2ee92c1b54666ee220d",
+      "method": "POST",
+      "path": "/v1/payment-sessions"
+    },
+    {
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-6/revised/5d18126d3346ff204b49",
+      "method": "POST",
+      "path": "/v1/payment-sessions/charge"
+    },
+    {
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-6/revised/c3175c9f90a92bab08d8",
+      "method": "POST",
+      "path": "/v1/payment-sessions/{paymentSessionId}/transaction-refund"
+    },
+    {
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-6/revised/9fcaf70a30c31627bf04",
+      "method": "POST",
+      "path": "/v1/payment-sessions/{paymentSessionId}/psp/{psp}/transaction-create"
+    },
+    {
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-6/revised/36d7d84e2c11015223c8",
+      "method": "GET",
+      "path": "/v1/configurations/swagger-config"
+    },
+    {
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-6/revised/08083b6894438a0b29c8",
+      "method": "GET",
+      "path": "/v1/version"
+    },
+    {
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-6/revised/0341347708db594dcf90",
+      "method": "GET",
+      "path": "/v2/version"
+    },
+    {
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-6/entry/process-main",
+      "method": "PROCESS",
+      "path": "com.volvocars.ecom.paymentservice.transaction.api.App#main(String[])"
+    }
+  ],
+  "queries": [
+    {
+      "name": "01.trace",
+      "query": "trace",
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-6/revised/01287b29df4367d70118",
+      "nodes": 704,
+      "records": 2870,
+      "limits": [],
+      "frontiers": 211
+    },
+    {
+      "name": "01.interactions",
+      "query": "interactions",
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-6/revised/01287b29df4367d70118",
+      "nodes": 3,
+      "records": 1515,
+      "limits": [],
+      "frontiers": 211
+    },
+    {
+      "name": "01.effects",
+      "query": "effects",
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-6/revised/01287b29df4367d70118",
+      "nodes": 704,
+      "records": 3007,
+      "limits": [],
+      "frontiers": 211
+    },
+    {
+      "name": "01.continuations",
+      "query": "continuations",
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-6/revised/01287b29df4367d70118",
+      "nodes": 704,
+      "records": 2870,
+      "limits": [],
+      "frontiers": 211
+    },
+    {
+      "name": "01.consistency",
+      "query": "consistency",
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-6/revised/01287b29df4367d70118",
+      "nodes": 704,
+      "records": 2870,
+      "limits": [],
+      "frontiers": 211
+    },
+    {
+      "name": "01.outcome.200",
+      "query": "outcome",
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-6/revised/01287b29df4367d70118",
+      "nodes": 0,
+      "records": 231,
+      "limits": [],
+      "frontiers": 0
+    },
+    {
+      "name": "01.outcome.202",
+      "query": "outcome",
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-6/revised/01287b29df4367d70118",
+      "nodes": 543,
+      "records": 2354,
+      "limits": [],
+      "frontiers": 176
+    },
+    {
+      "name": "01.outcome.208",
+      "query": "outcome",
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-6/revised/01287b29df4367d70118",
+      "nodes": 572,
+      "records": 2497,
+      "limits": [],
+      "frontiers": 183
+    },
+    {
+      "name": "01.outcome.400",
+      "query": "outcome",
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-6/revised/01287b29df4367d70118",
+      "nodes": 0,
+      "records": 231,
+      "limits": [],
+      "frontiers": 0
+    },
+    {
+      "name": "01.outcome.402",
+      "query": "outcome",
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-6/revised/01287b29df4367d70118",
+      "nodes": 0,
+      "records": 231,
+      "limits": [],
+      "frontiers": 0
+    },
+    {
+      "name": "01.outcome.403",
+      "query": "outcome",
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-6/revised/01287b29df4367d70118",
+      "nodes": 0,
+      "records": 231,
+      "limits": [],
+      "frontiers": 0
+    },
+    {
+      "name": "01.outcome.404",
+      "query": "outcome",
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-6/revised/01287b29df4367d70118",
+      "nodes": 0,
+      "records": 231,
+      "limits": [],
+      "frontiers": 0
+    },
+    {
+      "name": "01.outcome.422",
+      "query": "outcome",
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-6/revised/01287b29df4367d70118",
+      "nodes": 0,
+      "records": 231,
+      "limits": [],
+      "frontiers": 0
+    },
+    {
+      "name": "01.outcome.500",
+      "query": "outcome",
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-6/revised/01287b29df4367d70118",
+      "nodes": 0,
+      "records": 231,
+      "limits": [],
+      "frontiers": 0
+    },
+    {
+      "name": "01.whole-response-value",
+      "query": "value",
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-6/revised/01287b29df4367d70118",
+      "nodes": 6,
+      "records": 257,
+      "limits": [],
+      "frontiers": 4
+    },
+    {
+      "name": "02.trace",
+      "query": "trace",
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-6/revised/a5909ccb608b86850966",
+      "nodes": 704,
+      "records": 2874,
+      "limits": [],
+      "frontiers": 211
+    },
+    {
+      "name": "02.interactions",
+      "query": "interactions",
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-6/revised/a5909ccb608b86850966",
+      "nodes": 3,
+      "records": 1547,
+      "limits": [],
+      "frontiers": 211
+    },
+    {
+      "name": "02.effects",
+      "query": "effects",
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-6/revised/a5909ccb608b86850966",
+      "nodes": 704,
+      "records": 3011,
+      "limits": [],
+      "frontiers": 211
+    },
+    {
+      "name": "02.continuations",
+      "query": "continuations",
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-6/revised/a5909ccb608b86850966",
+      "nodes": 704,
+      "records": 2874,
+      "limits": [],
+      "frontiers": 211
+    },
+    {
+      "name": "02.consistency",
+      "query": "consistency",
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-6/revised/a5909ccb608b86850966",
+      "nodes": 704,
+      "records": 2874,
+      "limits": [],
+      "frontiers": 211
+    },
+    {
+      "name": "02.outcome.200",
+      "query": "outcome",
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-6/revised/a5909ccb608b86850966",
+      "nodes": 0,
+      "records": 235,
+      "limits": [],
+      "frontiers": 0
+    },
+    {
+      "name": "02.outcome.202",
+      "query": "outcome",
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-6/revised/a5909ccb608b86850966",
+      "nodes": 543,
+      "records": 2358,
+      "limits": [],
+      "frontiers": 176
+    },
+    {
+      "name": "02.outcome.208",
+      "query": "outcome",
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-6/revised/a5909ccb608b86850966",
+      "nodes": 572,
+      "records": 2501,
+      "limits": [],
+      "frontiers": 183
+    },
+    {
+      "name": "02.outcome.400",
+      "query": "outcome",
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-6/revised/a5909ccb608b86850966",
+      "nodes": 0,
+      "records": 235,
+      "limits": [],
+      "frontiers": 0
+    },
+    {
+      "name": "02.outcome.402",
+      "query": "outcome",
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-6/revised/a5909ccb608b86850966",
+      "nodes": 0,
+      "records": 235,
+      "limits": [],
+      "frontiers": 0
+    },
+    {
+      "name": "02.outcome.403",
+      "query": "outcome",
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-6/revised/a5909ccb608b86850966",
+      "nodes": 0,
+      "records": 235,
+      "limits": [],
+      "frontiers": 0
+    },
+    {
+      "name": "02.outcome.404",
+      "query": "outcome",
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-6/revised/a5909ccb608b86850966",
+      "nodes": 0,
+      "records": 235,
+      "limits": [],
+      "frontiers": 0
+    },
+    {
+      "name": "02.outcome.422",
+      "query": "outcome",
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-6/revised/a5909ccb608b86850966",
+      "nodes": 0,
+      "records": 235,
+      "limits": [],
+      "frontiers": 0
+    },
+    {
+      "name": "02.outcome.500",
+      "query": "outcome",
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-6/revised/a5909ccb608b86850966",
+      "nodes": 0,
+      "records": 235,
+      "limits": [],
+      "frontiers": 0
+    },
+    {
+      "name": "02.whole-response-value",
+      "query": "value",
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-6/revised/a5909ccb608b86850966",
+      "nodes": 6,
+      "records": 261,
+      "limits": [],
+      "frontiers": 4
+    },
+    {
+      "name": "03.trace",
+      "query": "trace",
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-6/revised/e7ee10f2914d3cfaa8d5",
+      "nodes": 704,
+      "records": 2874,
+      "limits": [],
+      "frontiers": 211
+    },
+    {
+      "name": "03.interactions",
+      "query": "interactions",
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-6/revised/e7ee10f2914d3cfaa8d5",
+      "nodes": 3,
+      "records": 1517,
+      "limits": [],
+      "frontiers": 211
+    },
+    {
+      "name": "03.effects",
+      "query": "effects",
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-6/revised/e7ee10f2914d3cfaa8d5",
+      "nodes": 704,
+      "records": 3011,
+      "limits": [],
+      "frontiers": 211
+    },
+    {
+      "name": "03.continuations",
+      "query": "continuations",
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-6/revised/e7ee10f2914d3cfaa8d5",
+      "nodes": 704,
+      "records": 2874,
+      "limits": [],
+      "frontiers": 211
+    },
+    {
+      "name": "03.consistency",
+      "query": "consistency",
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-6/revised/e7ee10f2914d3cfaa8d5",
+      "nodes": 704,
+      "records": 2874,
+      "limits": [],
+      "frontiers": 211
+    },
+    {
+      "name": "03.outcome.200",
+      "query": "outcome",
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-6/revised/e7ee10f2914d3cfaa8d5",
+      "nodes": 0,
+      "records": 235,
+      "limits": [],
+      "frontiers": 0
+    },
+    {
+      "name": "03.outcome.202",
+      "query": "outcome",
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-6/revised/e7ee10f2914d3cfaa8d5",
+      "nodes": 543,
+      "records": 2358,
+      "limits": [],
+      "frontiers": 176
+    },
+    {
+      "name": "03.outcome.208",
+      "query": "outcome",
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-6/revised/e7ee10f2914d3cfaa8d5",
+      "nodes": 572,
+      "records": 2501,
+      "limits": [],
+      "frontiers": 183
+    },
+    {
+      "name": "03.outcome.400",
+      "query": "outcome",
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-6/revised/e7ee10f2914d3cfaa8d5",
+      "nodes": 0,
+      "records": 235,
+      "limits": [],
+      "frontiers": 0
+    },
+    {
+      "name": "03.outcome.402",
+      "query": "outcome",
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-6/revised/e7ee10f2914d3cfaa8d5",
+      "nodes": 0,
+      "records": 235,
+      "limits": [],
+      "frontiers": 0
+    },
+    {
+      "name": "03.outcome.403",
+      "query": "outcome",
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-6/revised/e7ee10f2914d3cfaa8d5",
+      "nodes": 0,
+      "records": 235,
+      "limits": [],
+      "frontiers": 0
+    },
+    {
+      "name": "03.outcome.404",
+      "query": "outcome",
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-6/revised/e7ee10f2914d3cfaa8d5",
+      "nodes": 0,
+      "records": 235,
+      "limits": [],
+      "frontiers": 0
+    },
+    {
+      "name": "03.outcome.422",
+      "query": "outcome",
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-6/revised/e7ee10f2914d3cfaa8d5",
+      "nodes": 0,
+      "records": 235,
+      "limits": [],
+      "frontiers": 0
+    },
+    {
+      "name": "03.outcome.500",
+      "query": "outcome",
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-6/revised/e7ee10f2914d3cfaa8d5",
+      "nodes": 0,
+      "records": 235,
+      "limits": [],
+      "frontiers": 0
+    },
+    {
+      "name": "03.whole-response-value",
+      "query": "value",
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-6/revised/e7ee10f2914d3cfaa8d5",
+      "nodes": 6,
+      "records": 261,
+      "limits": [],
+      "frontiers": 4
+    },
+    {
+      "name": "04.trace",
+      "query": "trace",
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-6/revised/4450a3e42a604c8a31d2",
+      "nodes": 704,
+      "records": 2874,
+      "limits": [],
+      "frontiers": 211
+    },
+    {
+      "name": "04.interactions",
+      "query": "interactions",
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-6/revised/4450a3e42a604c8a31d2",
+      "nodes": 3,
+      "records": 1517,
+      "limits": [],
+      "frontiers": 211
+    },
+    {
+      "name": "04.effects",
+      "query": "effects",
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-6/revised/4450a3e42a604c8a31d2",
+      "nodes": 704,
+      "records": 3011,
+      "limits": [],
+      "frontiers": 211
+    },
+    {
+      "name": "04.continuations",
+      "query": "continuations",
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-6/revised/4450a3e42a604c8a31d2",
+      "nodes": 704,
+      "records": 2874,
+      "limits": [],
+      "frontiers": 211
+    },
+    {
+      "name": "04.consistency",
+      "query": "consistency",
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-6/revised/4450a3e42a604c8a31d2",
+      "nodes": 704,
+      "records": 2874,
+      "limits": [],
+      "frontiers": 211
+    },
+    {
+      "name": "04.outcome.200",
+      "query": "outcome",
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-6/revised/4450a3e42a604c8a31d2",
+      "nodes": 0,
+      "records": 235,
+      "limits": [],
+      "frontiers": 0
+    },
+    {
+      "name": "04.outcome.202",
+      "query": "outcome",
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-6/revised/4450a3e42a604c8a31d2",
+      "nodes": 543,
+      "records": 2358,
+      "limits": [],
+      "frontiers": 176
+    },
+    {
+      "name": "04.outcome.208",
+      "query": "outcome",
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-6/revised/4450a3e42a604c8a31d2",
+      "nodes": 572,
+      "records": 2501,
+      "limits": [],
+      "frontiers": 183
+    },
+    {
+      "name": "04.outcome.400",
+      "query": "outcome",
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-6/revised/4450a3e42a604c8a31d2",
+      "nodes": 0,
+      "records": 235,
+      "limits": [],
+      "frontiers": 0
+    },
+    {
+      "name": "04.outcome.402",
+      "query": "outcome",
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-6/revised/4450a3e42a604c8a31d2",
+      "nodes": 0,
+      "records": 235,
+      "limits": [],
+      "frontiers": 0
+    },
+    {
+      "name": "04.outcome.403",
+      "query": "outcome",
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-6/revised/4450a3e42a604c8a31d2",
+      "nodes": 0,
+      "records": 235,
+      "limits": [],
+      "frontiers": 0
+    },
+    {
+      "name": "04.outcome.404",
+      "query": "outcome",
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-6/revised/4450a3e42a604c8a31d2",
+      "nodes": 0,
+      "records": 235,
+      "limits": [],
+      "frontiers": 0
+    },
+    {
+      "name": "04.outcome.422",
+      "query": "outcome",
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-6/revised/4450a3e42a604c8a31d2",
+      "nodes": 0,
+      "records": 235,
+      "limits": [],
+      "frontiers": 0
+    },
+    {
+      "name": "04.outcome.500",
+      "query": "outcome",
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-6/revised/4450a3e42a604c8a31d2",
+      "nodes": 0,
+      "records": 235,
+      "limits": [],
+      "frontiers": 0
+    },
+    {
+      "name": "04.whole-response-value",
+      "query": "value",
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-6/revised/4450a3e42a604c8a31d2",
+      "nodes": 6,
+      "records": 261,
+      "limits": [],
+      "frontiers": 4
+    },
+    {
+      "name": "05.trace",
+      "query": "trace",
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-6/revised/d2ee92c1b54666ee220d",
+      "nodes": 704,
+      "records": 2874,
+      "limits": [],
+      "frontiers": 211
+    },
+    {
+      "name": "05.interactions",
+      "query": "interactions",
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-6/revised/d2ee92c1b54666ee220d",
+      "nodes": 3,
+      "records": 1548,
+      "limits": [],
+      "frontiers": 211
+    },
+    {
+      "name": "05.effects",
+      "query": "effects",
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-6/revised/d2ee92c1b54666ee220d",
+      "nodes": 704,
+      "records": 3011,
+      "limits": [],
+      "frontiers": 211
+    },
+    {
+      "name": "05.continuations",
+      "query": "continuations",
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-6/revised/d2ee92c1b54666ee220d",
+      "nodes": 704,
+      "records": 2874,
+      "limits": [],
+      "frontiers": 211
+    },
+    {
+      "name": "05.consistency",
+      "query": "consistency",
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-6/revised/d2ee92c1b54666ee220d",
+      "nodes": 704,
+      "records": 2874,
+      "limits": [],
+      "frontiers": 211
+    },
+    {
+      "name": "05.outcome.200",
+      "query": "outcome",
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-6/revised/d2ee92c1b54666ee220d",
+      "nodes": 0,
+      "records": 235,
+      "limits": [],
+      "frontiers": 0
+    },
+    {
+      "name": "05.outcome.202",
+      "query": "outcome",
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-6/revised/d2ee92c1b54666ee220d",
+      "nodes": 543,
+      "records": 2358,
+      "limits": [],
+      "frontiers": 176
+    },
+    {
+      "name": "05.outcome.208",
+      "query": "outcome",
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-6/revised/d2ee92c1b54666ee220d",
+      "nodes": 572,
+      "records": 2501,
+      "limits": [],
+      "frontiers": 183
+    },
+    {
+      "name": "05.outcome.400",
+      "query": "outcome",
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-6/revised/d2ee92c1b54666ee220d",
+      "nodes": 0,
+      "records": 235,
+      "limits": [],
+      "frontiers": 0
+    },
+    {
+      "name": "05.outcome.402",
+      "query": "outcome",
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-6/revised/d2ee92c1b54666ee220d",
+      "nodes": 0,
+      "records": 235,
+      "limits": [],
+      "frontiers": 0
+    },
+    {
+      "name": "05.outcome.403",
+      "query": "outcome",
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-6/revised/d2ee92c1b54666ee220d",
+      "nodes": 0,
+      "records": 235,
+      "limits": [],
+      "frontiers": 0
+    },
+    {
+      "name": "05.outcome.404",
+      "query": "outcome",
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-6/revised/d2ee92c1b54666ee220d",
+      "nodes": 0,
+      "records": 235,
+      "limits": [],
+      "frontiers": 0
+    },
+    {
+      "name": "05.outcome.422",
+      "query": "outcome",
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-6/revised/d2ee92c1b54666ee220d",
+      "nodes": 0,
+      "records": 235,
+      "limits": [],
+      "frontiers": 0
+    },
+    {
+      "name": "05.outcome.500",
+      "query": "outcome",
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-6/revised/d2ee92c1b54666ee220d",
+      "nodes": 0,
+      "records": 235,
+      "limits": [],
+      "frontiers": 0
+    },
+    {
+      "name": "05.whole-response-value",
+      "query": "value",
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-6/revised/d2ee92c1b54666ee220d",
+      "nodes": 6,
+      "records": 261,
+      "limits": [],
+      "frontiers": 4
+    },
+    {
+      "name": "06.trace",
+      "query": "trace",
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-6/revised/5d18126d3346ff204b49",
+      "nodes": 704,
+      "records": 2874,
+      "limits": [],
+      "frontiers": 211
+    },
+    {
+      "name": "06.interactions",
+      "query": "interactions",
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-6/revised/5d18126d3346ff204b49",
+      "nodes": 3,
+      "records": 1548,
+      "limits": [],
+      "frontiers": 211
+    },
+    {
+      "name": "06.effects",
+      "query": "effects",
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-6/revised/5d18126d3346ff204b49",
+      "nodes": 704,
+      "records": 3011,
+      "limits": [],
+      "frontiers": 211
+    },
+    {
+      "name": "06.continuations",
+      "query": "continuations",
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-6/revised/5d18126d3346ff204b49",
+      "nodes": 704,
+      "records": 2874,
+      "limits": [],
+      "frontiers": 211
+    },
+    {
+      "name": "06.consistency",
+      "query": "consistency",
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-6/revised/5d18126d3346ff204b49",
+      "nodes": 704,
+      "records": 2874,
+      "limits": [],
+      "frontiers": 211
+    },
+    {
+      "name": "06.outcome.200",
+      "query": "outcome",
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-6/revised/5d18126d3346ff204b49",
+      "nodes": 0,
+      "records": 235,
+      "limits": [],
+      "frontiers": 0
+    },
+    {
+      "name": "06.outcome.202",
+      "query": "outcome",
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-6/revised/5d18126d3346ff204b49",
+      "nodes": 543,
+      "records": 2358,
+      "limits": [],
+      "frontiers": 176
+    },
+    {
+      "name": "06.outcome.208",
+      "query": "outcome",
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-6/revised/5d18126d3346ff204b49",
+      "nodes": 572,
+      "records": 2501,
+      "limits": [],
+      "frontiers": 183
+    },
+    {
+      "name": "06.outcome.400",
+      "query": "outcome",
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-6/revised/5d18126d3346ff204b49",
+      "nodes": 0,
+      "records": 235,
+      "limits": [],
+      "frontiers": 0
+    },
+    {
+      "name": "06.outcome.402",
+      "query": "outcome",
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-6/revised/5d18126d3346ff204b49",
+      "nodes": 0,
+      "records": 235,
+      "limits": [],
+      "frontiers": 0
+    },
+    {
+      "name": "06.outcome.403",
+      "query": "outcome",
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-6/revised/5d18126d3346ff204b49",
+      "nodes": 0,
+      "records": 235,
+      "limits": [],
+      "frontiers": 0
+    },
+    {
+      "name": "06.outcome.404",
+      "query": "outcome",
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-6/revised/5d18126d3346ff204b49",
+      "nodes": 0,
+      "records": 235,
+      "limits": [],
+      "frontiers": 0
+    },
+    {
+      "name": "06.outcome.422",
+      "query": "outcome",
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-6/revised/5d18126d3346ff204b49",
+      "nodes": 0,
+      "records": 235,
+      "limits": [],
+      "frontiers": 0
+    },
+    {
+      "name": "06.outcome.500",
+      "query": "outcome",
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-6/revised/5d18126d3346ff204b49",
+      "nodes": 0,
+      "records": 235,
+      "limits": [],
+      "frontiers": 0
+    },
+    {
+      "name": "06.whole-response-value",
+      "query": "value",
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-6/revised/5d18126d3346ff204b49",
+      "nodes": 6,
+      "records": 261,
+      "limits": [],
+      "frontiers": 4
+    },
+    {
+      "name": "07.trace",
+      "query": "trace",
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-6/revised/c3175c9f90a92bab08d8",
+      "nodes": 1642,
+      "records": 5000,
+      "limits": ["maxRecords"],
+      "frontiers": 502
+    },
+    {
+      "name": "07.interactions",
+      "query": "interactions",
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-6/revised/c3175c9f90a92bab08d8",
+      "nodes": 3,
+      "records": 2496,
+      "limits": [],
+      "frontiers": 502
+    },
+    {
+      "name": "07.effects",
+      "query": "effects",
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-6/revised/c3175c9f90a92bab08d8",
+      "nodes": 1642,
+      "records": 5000,
+      "limits": ["maxRecords"],
+      "frontiers": 502
+    },
+    {
+      "name": "07.continuations",
+      "query": "continuations",
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-6/revised/c3175c9f90a92bab08d8",
+      "nodes": 1642,
+      "records": 5000,
+      "limits": ["maxRecords"],
+      "frontiers": 502
+    },
+    {
+      "name": "07.consistency",
+      "query": "consistency",
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-6/revised/c3175c9f90a92bab08d8",
+      "nodes": 1642,
+      "records": 5000,
+      "limits": ["maxRecords"],
+      "frontiers": 502
+    },
+    {
+      "name": "07.outcome.200",
+      "query": "outcome",
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-6/revised/c3175c9f90a92bab08d8",
+      "nodes": 0,
+      "records": 289,
+      "limits": [],
+      "frontiers": 0
+    },
+    {
+      "name": "07.outcome.202",
+      "query": "outcome",
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-6/revised/c3175c9f90a92bab08d8",
+      "nodes": 0,
+      "records": 289,
+      "limits": [],
+      "frontiers": 0
+    },
+    {
+      "name": "07.outcome.208",
+      "query": "outcome",
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-6/revised/c3175c9f90a92bab08d8",
+      "nodes": 0,
+      "records": 289,
+      "limits": [],
+      "frontiers": 0
+    },
+    {
+      "name": "07.outcome.400",
+      "query": "outcome",
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-6/revised/c3175c9f90a92bab08d8",
+      "nodes": 0,
+      "records": 289,
+      "limits": [],
+      "frontiers": 0
+    },
+    {
+      "name": "07.outcome.402",
+      "query": "outcome",
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-6/revised/c3175c9f90a92bab08d8",
+      "nodes": 0,
+      "records": 289,
+      "limits": [],
+      "frontiers": 0
+    },
+    {
+      "name": "07.outcome.403",
+      "query": "outcome",
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-6/revised/c3175c9f90a92bab08d8",
+      "nodes": 0,
+      "records": 289,
+      "limits": [],
+      "frontiers": 0
+    },
+    {
+      "name": "07.outcome.404",
+      "query": "outcome",
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-6/revised/c3175c9f90a92bab08d8",
+      "nodes": 0,
+      "records": 289,
+      "limits": [],
+      "frontiers": 0
+    },
+    {
+      "name": "07.outcome.422",
+      "query": "outcome",
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-6/revised/c3175c9f90a92bab08d8",
+      "nodes": 0,
+      "records": 289,
+      "limits": [],
+      "frontiers": 0
+    },
+    {
+      "name": "07.outcome.500",
+      "query": "outcome",
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-6/revised/c3175c9f90a92bab08d8",
+      "nodes": 0,
+      "records": 289,
+      "limits": [],
+      "frontiers": 0
+    },
+    {
+      "name": "07.whole-response-value",
+      "query": "value",
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-6/revised/c3175c9f90a92bab08d8",
+      "nodes": 3,
+      "records": 304,
+      "limits": [],
+      "frontiers": 4
+    },
+    {
+      "name": "08.trace",
+      "query": "trace",
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-6/revised/9fcaf70a30c31627bf04",
+      "nodes": 2000,
+      "records": 5000,
+      "limits": ["maxNodes", "maxRecords"],
+      "frontiers": 690
+    },
+    {
+      "name": "08.interactions",
+      "query": "interactions",
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-6/revised/9fcaf70a30c31627bf04",
+      "nodes": 12,
+      "records": 3162,
+      "limits": ["maxNodes"],
+      "frontiers": 700
+    },
+    {
+      "name": "08.effects",
+      "query": "effects",
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-6/revised/9fcaf70a30c31627bf04",
+      "nodes": 2000,
+      "records": 5000,
+      "limits": ["maxNodes", "maxRecords"],
+      "frontiers": 690
+    },
+    {
+      "name": "08.continuations",
+      "query": "continuations",
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-6/revised/9fcaf70a30c31627bf04",
+      "nodes": 2000,
+      "records": 5000,
+      "limits": ["maxNodes", "maxRecords"],
+      "frontiers": 690
+    },
+    {
+      "name": "08.consistency",
+      "query": "consistency",
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-6/revised/9fcaf70a30c31627bf04",
+      "nodes": 2000,
+      "records": 5000,
+      "limits": ["maxNodes", "maxRecords"],
+      "frontiers": 690
+    },
+    {
+      "name": "08.outcome.200",
+      "query": "outcome",
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-6/revised/9fcaf70a30c31627bf04",
+      "nodes": 1003,
+      "records": 3946,
+      "limits": ["maxNodes"],
+      "frontiers": 374
+    },
+    {
+      "name": "08.outcome.202",
+      "query": "outcome",
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-6/revised/9fcaf70a30c31627bf04",
+      "nodes": 0,
+      "records": 474,
+      "limits": ["maxNodes"],
+      "frontiers": 1
+    },
+    {
+      "name": "08.outcome.208",
+      "query": "outcome",
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-6/revised/9fcaf70a30c31627bf04",
+      "nodes": 0,
+      "records": 474,
+      "limits": ["maxNodes"],
+      "frontiers": 1
+    },
+    {
+      "name": "08.outcome.400",
+      "query": "outcome",
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-6/revised/9fcaf70a30c31627bf04",
+      "nodes": 0,
+      "records": 474,
+      "limits": ["maxNodes"],
+      "frontiers": 1
+    },
+    {
+      "name": "08.outcome.402",
+      "query": "outcome",
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-6/revised/9fcaf70a30c31627bf04",
+      "nodes": 0,
+      "records": 474,
+      "limits": ["maxNodes"],
+      "frontiers": 1
+    },
+    {
+      "name": "08.outcome.403",
+      "query": "outcome",
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-6/revised/9fcaf70a30c31627bf04",
+      "nodes": 0,
+      "records": 474,
+      "limits": ["maxNodes"],
+      "frontiers": 1
+    },
+    {
+      "name": "08.outcome.404",
+      "query": "outcome",
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-6/revised/9fcaf70a30c31627bf04",
+      "nodes": 0,
+      "records": 474,
+      "limits": ["maxNodes"],
+      "frontiers": 1
+    },
+    {
+      "name": "08.outcome.422",
+      "query": "outcome",
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-6/revised/9fcaf70a30c31627bf04",
+      "nodes": 0,
+      "records": 474,
+      "limits": ["maxNodes"],
+      "frontiers": 1
+    },
+    {
+      "name": "08.outcome.500",
+      "query": "outcome",
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-6/revised/9fcaf70a30c31627bf04",
+      "nodes": 0,
+      "records": 474,
+      "limits": ["maxNodes"],
+      "frontiers": 1
+    },
+    {
+      "name": "08.whole-response-value",
+      "query": "value",
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-6/revised/9fcaf70a30c31627bf04",
+      "nodes": 280,
+      "records": 1862,
+      "limits": [],
+      "frontiers": 342
+    },
+    {
+      "name": "09.trace",
+      "query": "trace",
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-6/revised/36d7d84e2c11015223c8",
+      "nodes": 43,
+      "records": 402,
+      "limits": [],
+      "frontiers": 18
+    },
+    {
+      "name": "09.interactions",
+      "query": "interactions",
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-6/revised/36d7d84e2c11015223c8",
+      "nodes": 1,
+      "records": 283,
+      "limits": [],
+      "frontiers": 18
+    },
+    {
+      "name": "09.effects",
+      "query": "effects",
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-6/revised/36d7d84e2c11015223c8",
+      "nodes": 43,
+      "records": 402,
+      "limits": [],
+      "frontiers": 18
+    },
+    {
+      "name": "09.continuations",
+      "query": "continuations",
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-6/revised/36d7d84e2c11015223c8",
+      "nodes": 43,
+      "records": 402,
+      "limits": [],
+      "frontiers": 18
+    },
+    {
+      "name": "09.consistency",
+      "query": "consistency",
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-6/revised/36d7d84e2c11015223c8",
+      "nodes": 43,
+      "records": 402,
+      "limits": [],
+      "frontiers": 18
+    },
+    {
+      "name": "09.outcome.200",
+      "query": "outcome",
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-6/revised/36d7d84e2c11015223c8",
+      "nodes": 0,
+      "records": 244,
+      "limits": [],
+      "frontiers": 0
+    },
+    {
+      "name": "09.outcome.202",
+      "query": "outcome",
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-6/revised/36d7d84e2c11015223c8",
+      "nodes": 0,
+      "records": 244,
+      "limits": [],
+      "frontiers": 0
+    },
+    {
+      "name": "09.outcome.208",
+      "query": "outcome",
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-6/revised/36d7d84e2c11015223c8",
+      "nodes": 0,
+      "records": 244,
+      "limits": [],
+      "frontiers": 0
+    },
+    {
+      "name": "09.outcome.400",
+      "query": "outcome",
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-6/revised/36d7d84e2c11015223c8",
+      "nodes": 0,
+      "records": 244,
+      "limits": [],
+      "frontiers": 0
+    },
+    {
+      "name": "09.outcome.402",
+      "query": "outcome",
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-6/revised/36d7d84e2c11015223c8",
+      "nodes": 0,
+      "records": 244,
+      "limits": [],
+      "frontiers": 0
+    },
+    {
+      "name": "09.outcome.403",
+      "query": "outcome",
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-6/revised/36d7d84e2c11015223c8",
+      "nodes": 0,
+      "records": 244,
+      "limits": [],
+      "frontiers": 0
+    },
+    {
+      "name": "09.outcome.404",
+      "query": "outcome",
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-6/revised/36d7d84e2c11015223c8",
+      "nodes": 0,
+      "records": 244,
+      "limits": [],
+      "frontiers": 0
+    },
+    {
+      "name": "09.outcome.422",
+      "query": "outcome",
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-6/revised/36d7d84e2c11015223c8",
+      "nodes": 0,
+      "records": 244,
+      "limits": [],
+      "frontiers": 0
+    },
+    {
+      "name": "09.outcome.500",
+      "query": "outcome",
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-6/revised/36d7d84e2c11015223c8",
+      "nodes": 0,
+      "records": 244,
+      "limits": [],
+      "frontiers": 0
+    },
+    {
+      "name": "09.whole-response-value",
+      "query": "value",
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-6/revised/36d7d84e2c11015223c8",
+      "nodes": 11,
+      "records": 290,
+      "limits": [],
+      "frontiers": 10
+    },
+    {
+      "name": "10.trace",
+      "query": "trace",
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-6/revised/08083b6894438a0b29c8",
+      "nodes": 12,
+      "records": 288,
+      "limits": [],
+      "frontiers": 4
+    },
+    {
+      "name": "10.interactions",
+      "query": "interactions",
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-6/revised/08083b6894438a0b29c8",
+      "nodes": 1,
+      "records": 260,
+      "limits": [],
+      "frontiers": 4
+    },
+    {
+      "name": "10.effects",
+      "query": "effects",
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-6/revised/08083b6894438a0b29c8",
+      "nodes": 12,
+      "records": 288,
+      "limits": [],
+      "frontiers": 4
+    },
+    {
+      "name": "10.continuations",
+      "query": "continuations",
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-6/revised/08083b6894438a0b29c8",
+      "nodes": 12,
+      "records": 288,
+      "limits": [],
+      "frontiers": 4
+    },
+    {
+      "name": "10.consistency",
+      "query": "consistency",
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-6/revised/08083b6894438a0b29c8",
+      "nodes": 12,
+      "records": 288,
+      "limits": [],
+      "frontiers": 4
+    },
+    {
+      "name": "10.outcome.200",
+      "query": "outcome",
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-6/revised/08083b6894438a0b29c8",
+      "nodes": 12,
+      "records": 288,
+      "limits": [],
+      "frontiers": 4
+    },
+    {
+      "name": "10.outcome.202",
+      "query": "outcome",
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-6/revised/08083b6894438a0b29c8",
+      "nodes": 0,
+      "records": 248,
+      "limits": [],
+      "frontiers": 0
+    },
+    {
+      "name": "10.outcome.208",
+      "query": "outcome",
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-6/revised/08083b6894438a0b29c8",
+      "nodes": 0,
+      "records": 248,
+      "limits": [],
+      "frontiers": 0
+    },
+    {
+      "name": "10.outcome.400",
+      "query": "outcome",
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-6/revised/08083b6894438a0b29c8",
+      "nodes": 0,
+      "records": 248,
+      "limits": [],
+      "frontiers": 0
+    },
+    {
+      "name": "10.outcome.402",
+      "query": "outcome",
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-6/revised/08083b6894438a0b29c8",
+      "nodes": 0,
+      "records": 248,
+      "limits": [],
+      "frontiers": 0
+    },
+    {
+      "name": "10.outcome.403",
+      "query": "outcome",
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-6/revised/08083b6894438a0b29c8",
+      "nodes": 0,
+      "records": 248,
+      "limits": [],
+      "frontiers": 0
+    },
+    {
+      "name": "10.outcome.404",
+      "query": "outcome",
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-6/revised/08083b6894438a0b29c8",
+      "nodes": 0,
+      "records": 248,
+      "limits": [],
+      "frontiers": 0
+    },
+    {
+      "name": "10.outcome.422",
+      "query": "outcome",
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-6/revised/08083b6894438a0b29c8",
+      "nodes": 0,
+      "records": 248,
+      "limits": [],
+      "frontiers": 0
+    },
+    {
+      "name": "10.outcome.500",
+      "query": "outcome",
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-6/revised/08083b6894438a0b29c8",
+      "nodes": 0,
+      "records": 248,
+      "limits": [],
+      "frontiers": 0
+    },
+    {
+      "name": "10.whole-response-value",
+      "query": "value",
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-6/revised/08083b6894438a0b29c8",
+      "nodes": 4,
+      "records": 267,
+      "limits": [],
+      "frontiers": 4
+    },
+    {
+      "name": "11.trace",
+      "query": "trace",
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-6/revised/0341347708db594dcf90",
+      "nodes": 9,
+      "records": 275,
+      "limits": [],
+      "frontiers": 3
+    },
+    {
+      "name": "11.interactions",
+      "query": "interactions",
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-6/revised/0341347708db594dcf90",
+      "nodes": 1,
+      "records": 255,
+      "limits": [],
+      "frontiers": 3
+    },
+    {
+      "name": "11.effects",
+      "query": "effects",
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-6/revised/0341347708db594dcf90",
+      "nodes": 9,
+      "records": 275,
+      "limits": [],
+      "frontiers": 3
+    },
+    {
+      "name": "11.continuations",
+      "query": "continuations",
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-6/revised/0341347708db594dcf90",
+      "nodes": 9,
+      "records": 275,
+      "limits": [],
+      "frontiers": 3
+    },
+    {
+      "name": "11.consistency",
+      "query": "consistency",
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-6/revised/0341347708db594dcf90",
+      "nodes": 9,
+      "records": 275,
+      "limits": [],
+      "frontiers": 3
+    },
+    {
+      "name": "11.outcome.200",
+      "query": "outcome",
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-6/revised/0341347708db594dcf90",
+      "nodes": 9,
+      "records": 275,
+      "limits": [],
+      "frontiers": 3
+    },
+    {
+      "name": "11.outcome.202",
+      "query": "outcome",
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-6/revised/0341347708db594dcf90",
+      "nodes": 0,
+      "records": 243,
+      "limits": [],
+      "frontiers": 0
+    },
+    {
+      "name": "11.outcome.208",
+      "query": "outcome",
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-6/revised/0341347708db594dcf90",
+      "nodes": 0,
+      "records": 243,
+      "limits": [],
+      "frontiers": 0
+    },
+    {
+      "name": "11.outcome.400",
+      "query": "outcome",
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-6/revised/0341347708db594dcf90",
+      "nodes": 0,
+      "records": 243,
+      "limits": [],
+      "frontiers": 0
+    },
+    {
+      "name": "11.outcome.402",
+      "query": "outcome",
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-6/revised/0341347708db594dcf90",
+      "nodes": 0,
+      "records": 243,
+      "limits": [],
+      "frontiers": 0
+    },
+    {
+      "name": "11.outcome.403",
+      "query": "outcome",
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-6/revised/0341347708db594dcf90",
+      "nodes": 0,
+      "records": 243,
+      "limits": [],
+      "frontiers": 0
+    },
+    {
+      "name": "11.outcome.404",
+      "query": "outcome",
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-6/revised/0341347708db594dcf90",
+      "nodes": 0,
+      "records": 243,
+      "limits": [],
+      "frontiers": 0
+    },
+    {
+      "name": "11.outcome.422",
+      "query": "outcome",
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-6/revised/0341347708db594dcf90",
+      "nodes": 0,
+      "records": 243,
+      "limits": [],
+      "frontiers": 0
+    },
+    {
+      "name": "11.outcome.500",
+      "query": "outcome",
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-6/revised/0341347708db594dcf90",
+      "nodes": 0,
+      "records": 243,
+      "limits": [],
+      "frontiers": 0
+    },
+    {
+      "name": "11.whole-response-value",
+      "query": "value",
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-6/revised/0341347708db594dcf90",
+      "nodes": 3,
+      "records": 258,
+      "limits": [],
+      "frontiers": 4
+    },
+    {
+      "name": "12.trace",
+      "query": "trace",
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-6/entry/process-main",
+      "nodes": 8,
+      "records": 267,
+      "limits": [],
+      "frontiers": 2
+    },
+    {
+      "name": "12.interactions",
+      "query": "interactions",
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-6/entry/process-main",
+      "nodes": 1,
+      "records": 251,
+      "limits": [],
+      "frontiers": 2
+    },
+    {
+      "name": "12.effects",
+      "query": "effects",
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-6/entry/process-main",
+      "nodes": 8,
+      "records": 267,
+      "limits": [],
+      "frontiers": 2
+    },
+    {
+      "name": "12.continuations",
+      "query": "continuations",
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-6/entry/process-main",
+      "nodes": 8,
+      "records": 267,
+      "limits": [],
+      "frontiers": 2
+    },
+    {
+      "name": "12.consistency",
+      "query": "consistency",
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-6/entry/process-main",
+      "nodes": 8,
+      "records": 267,
+      "limits": [],
+      "frontiers": 2
+    },
+    {
+      "name": "12.outcome.200",
+      "query": "outcome",
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-6/entry/process-main",
+      "nodes": 0,
+      "records": 244,
+      "limits": [],
+      "frontiers": 0
+    },
+    {
+      "name": "12.outcome.202",
+      "query": "outcome",
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-6/entry/process-main",
+      "nodes": 0,
+      "records": 244,
+      "limits": [],
+      "frontiers": 0
+    },
+    {
+      "name": "12.outcome.208",
+      "query": "outcome",
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-6/entry/process-main",
+      "nodes": 0,
+      "records": 244,
+      "limits": [],
+      "frontiers": 0
+    },
+    {
+      "name": "12.outcome.400",
+      "query": "outcome",
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-6/entry/process-main",
+      "nodes": 0,
+      "records": 244,
+      "limits": [],
+      "frontiers": 0
+    },
+    {
+      "name": "12.outcome.402",
+      "query": "outcome",
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-6/entry/process-main",
+      "nodes": 0,
+      "records": 244,
+      "limits": [],
+      "frontiers": 0
+    },
+    {
+      "name": "12.outcome.403",
+      "query": "outcome",
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-6/entry/process-main",
+      "nodes": 0,
+      "records": 244,
+      "limits": [],
+      "frontiers": 0
+    },
+    {
+      "name": "12.outcome.404",
+      "query": "outcome",
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-6/entry/process-main",
+      "nodes": 0,
+      "records": 244,
+      "limits": [],
+      "frontiers": 0
+    },
+    {
+      "name": "12.outcome.422",
+      "query": "outcome",
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-6/entry/process-main",
+      "nodes": 0,
+      "records": 244,
+      "limits": [],
+      "frontiers": 0
+    },
+    {
+      "name": "12.outcome.500",
+      "query": "outcome",
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-6/entry/process-main",
+      "nodes": 0,
+      "records": 244,
+      "limits": [],
+      "frontiers": 0
+    },
+    {
+      "name": "custom-partial-write.trace",
+      "query": "trace",
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-6/method/8a6283e3abbea252fd04",
+      "nodes": 40,
+      "records": 391,
+      "limits": [],
+      "frontiers": 12
+    },
+    {
+      "name": "custom-partial-write.value",
+      "query": "value",
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-6/method/8a6283e3abbea252fd04",
+      "nodes": 3,
+      "records": 265,
+      "limits": [],
+      "frontiers": 1
+    },
+    {
+      "name": "java-object-capture.trace",
+      "query": "trace",
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-6/method/a182e61d18a469699811",
+      "nodes": 80,
+      "records": 688,
+      "limits": [],
+      "frontiers": 32
+    },
+    {
+      "name": "java-object-capture.value",
+      "query": "value",
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-6/method/a182e61d18a469699811",
+      "nodes": 2,
+      "records": 369,
+      "limits": [],
+      "frontiers": 0
+    },
+    {
+      "name": "instance-method-reference.trace",
+      "query": "trace",
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-6/method/67e1de552566c4ea8863",
+      "nodes": 45,
+      "records": 477,
+      "limits": [],
+      "frontiers": 20
+    },
+    {
+      "name": "instance-method-reference.value",
+      "query": "value",
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-6/method/67e1de552566c4ea8863",
+      "nodes": 4,
+      "records": 323,
+      "limits": [],
+      "frontiers": 2
+    }
+  ]
+}

@@ -1,0 +1,252 @@
+{
+  "snapshot": "ceb4c52e4c43a47904357409f1ba2c04a2bdd8b4839ec68642e6c9989a1ea1e8",
+  "qualification": "Complete nested source-host unit; imported Azure/Octokit/runtime/deployment and whole monorepo remain separate",
+  "queries": [
+    {
+      "name": "positive actual batch subscription to GitHub API",
+      "pages": 1,
+      "nodes": 4,
+      "edges": 5,
+      "limits": []
+    },
+    {
+      "name": "trace actual subscription",
+      "pages": 1,
+      "nodes": 73,
+      "edges": 88,
+      "limits": []
+    },
+    {
+      "name": "effects actual subscription",
+      "pages": 1,
+      "nodes": 73,
+      "edges": 88,
+      "limits": []
+    },
+    {
+      "name": "continuations actual subscription",
+      "pages": 1,
+      "nodes": 73,
+      "edges": 88,
+      "limits": []
+    },
+    {
+      "name": "source owner trace apps/site-navigation/function-app/src/functions/serviceBusTopicTrigger.ts#serviceBusTopicTrigger@16",
+      "pages": 1,
+      "nodes": 73,
+      "edges": 88,
+      "limits": []
+    },
+    {
+      "name": "source owner interactions apps/site-navigation/function-app/src/functions/serviceBusTopicTrigger.ts#serviceBusTopicTrigger@16",
+      "pages": 1,
+      "nodes": 4,
+      "edges": 5,
+      "limits": []
+    },
+    {
+      "name": "source owner trace apps/site-navigation/function-app/src/functions/serviceBusTopicTrigger.ts#shouldTriggerFooter@62",
+      "pages": 1,
+      "nodes": 3,
+      "edges": 2,
+      "limits": []
+    },
+    {
+      "name": "source owner interactions apps/site-navigation/function-app/src/functions/serviceBusTopicTrigger.ts#shouldTriggerFooter@62",
+      "pages": 1,
+      "nodes": 1,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "source owner trace apps/site-navigation/function-app/src/functions/serviceBusTopicTrigger.ts#shouldTriggerNavigation@68",
+      "pages": 1,
+      "nodes": 3,
+      "edges": 2,
+      "limits": []
+    },
+    {
+      "name": "source owner interactions apps/site-navigation/function-app/src/functions/serviceBusTopicTrigger.ts#shouldTriggerNavigation@68",
+      "pages": 1,
+      "nodes": 1,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "source owner trace apps/site-navigation/function-app/src/functions/serviceBusTopicTrigger.ts#triggerWorkflow@74",
+      "pages": 1,
+      "nodes": 19,
+      "edges": 19,
+      "limits": []
+    },
+    {
+      "name": "source owner interactions apps/site-navigation/function-app/src/functions/serviceBusTopicTrigger.ts#triggerWorkflow@74",
+      "pages": 1,
+      "nodes": 3,
+      "edges": 2,
+      "limits": []
+    },
+    {
+      "name": "subscription-rooted dispatch owner context volvo/cdls-mono-volvocars/8e1fd20c525f/site-navigation-functions-r2/op/serviceBusTopicTrigger/14",
+      "pages": 1,
+      "nodes": 1,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "subscription-rooted dispatch repo context volvo/cdls-mono-volvocars/8e1fd20c525f/site-navigation-functions-r2/op/serviceBusTopicTrigger/14",
+      "pages": 1,
+      "nodes": 1,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "subscription-rooted dispatch workflow_id context volvo/cdls-mono-volvocars/8e1fd20c525f/site-navigation-functions-r2/op/serviceBusTopicTrigger/14",
+      "pages": 1,
+      "nodes": 9,
+      "edges": 8,
+      "limits": []
+    },
+    {
+      "name": "subscription-rooted dispatch ref context volvo/cdls-mono-volvocars/8e1fd20c525f/site-navigation-functions-r2/op/serviceBusTopicTrigger/14",
+      "pages": 1,
+      "nodes": 13,
+      "edges": 13,
+      "limits": []
+    },
+    {
+      "name": "subscription-rooted dispatch inputs.deployEnv context volvo/cdls-mono-volvocars/8e1fd20c525f/site-navigation-functions-r2/op/serviceBusTopicTrigger/14",
+      "pages": 1,
+      "nodes": 9,
+      "edges": 8,
+      "limits": []
+    },
+    {
+      "name": "subscription-rooted dispatch inputs.commit context volvo/cdls-mono-volvocars/8e1fd20c525f/site-navigation-functions-r2/op/serviceBusTopicTrigger/14",
+      "pages": 1,
+      "nodes": 1,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "subscription-rooted dispatch inputs.rebuild context volvo/cdls-mono-volvocars/8e1fd20c525f/site-navigation-functions-r2/op/serviceBusTopicTrigger/14",
+      "pages": 1,
+      "nodes": 1,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "subscription-rooted dispatch aggregate volvo/cdls-mono-volvocars/8e1fd20c525f/site-navigation-functions-r2/op/serviceBusTopicTrigger/14",
+      "pages": 1,
+      "nodes": 21,
+      "edges": 26,
+      "limits": []
+    },
+    {
+      "name": "subscription-rooted dispatch owner context volvo/cdls-mono-volvocars/8e1fd20c525f/site-navigation-functions-r2/op/serviceBusTopicTrigger/21",
+      "pages": 1,
+      "nodes": 1,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "subscription-rooted dispatch repo context volvo/cdls-mono-volvocars/8e1fd20c525f/site-navigation-functions-r2/op/serviceBusTopicTrigger/21",
+      "pages": 1,
+      "nodes": 1,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "subscription-rooted dispatch workflow_id context volvo/cdls-mono-volvocars/8e1fd20c525f/site-navigation-functions-r2/op/serviceBusTopicTrigger/21",
+      "pages": 1,
+      "nodes": 9,
+      "edges": 8,
+      "limits": []
+    },
+    {
+      "name": "subscription-rooted dispatch ref context volvo/cdls-mono-volvocars/8e1fd20c525f/site-navigation-functions-r2/op/serviceBusTopicTrigger/21",
+      "pages": 1,
+      "nodes": 13,
+      "edges": 13,
+      "limits": []
+    },
+    {
+      "name": "subscription-rooted dispatch inputs.deployEnv context volvo/cdls-mono-volvocars/8e1fd20c525f/site-navigation-functions-r2/op/serviceBusTopicTrigger/21",
+      "pages": 1,
+      "nodes": 9,
+      "edges": 8,
+      "limits": []
+    },
+    {
+      "name": "subscription-rooted dispatch inputs.commit context volvo/cdls-mono-volvocars/8e1fd20c525f/site-navigation-functions-r2/op/serviceBusTopicTrigger/21",
+      "pages": 1,
+      "nodes": 1,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "subscription-rooted dispatch inputs.rebuild context volvo/cdls-mono-volvocars/8e1fd20c525f/site-navigation-functions-r2/op/serviceBusTopicTrigger/21",
+      "pages": 1,
+      "nodes": 1,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "subscription-rooted dispatch aggregate volvo/cdls-mono-volvocars/8e1fd20c525f/site-navigation-functions-r2/op/serviceBusTopicTrigger/21",
+      "pages": 1,
+      "nodes": 21,
+      "edges": 26,
+      "limits": []
+    },
+    {
+      "name": "caller or subscription contract volvo/cdls-mono-volvocars/8e1fd20c525f/site-navigation-functions-r2/io/installation-sdk",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "caller or subscription contract volvo/cdls-mono-volvocars/8e1fd20c525f/site-navigation-functions-r2/io/dispatch",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "caller or subscription contract volvo/cdls-mono-volvocars/8e1fd20c525f/site-navigation-functions-r2/io/consume",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "batch Message[] source schema",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "native source array item Targets",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "native source array item Locales",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "native source literal caller constraints",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    }
+  ],
+  "pages": 35
+}

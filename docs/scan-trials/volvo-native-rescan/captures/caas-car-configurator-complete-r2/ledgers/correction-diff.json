@@ -1,0 +1,179 @@
+{
+  "predecessorSnapshot": "bba83f88302e60668a388fce10536a09af76be5e274a724c2e4a98298e87f018",
+  "transformation": "All native physical IDs/references use new r2 namespace; all logical IDs unchanged. Only two unused range values lose unsupported int shape; two coverage records add exact gaps; two native claims and two native gaps added.",
+  "priorRecords": 96262,
+  "records": 96266,
+  "sourceTuplesUnchanged": true,
+  "pinnedRangeVerificationReused": 12479,
+  "changes": [
+    {
+      "value": "caas-car-configurator-5495209-complete-r2/value/ebfdc63acc19c2c3/v/65068",
+      "previousShape": "caas-car-configurator-5495209-complete-r2/shape/source-type/6da88c34ba124c41",
+      "newShape": null,
+      "gap": "caas-car-configurator-5495209-complete-r2/gap/aid-range-key/0",
+      "claim": "caas-car-configurator-5495209-complete-r2/claim/aid-range-key/0",
+      "sourcePath": "internal/domain/ruleset/nextcarkey.go",
+      "sourceLines": [456, 462]
+    },
+    {
+      "value": "caas-car-configurator-5495209-complete-r2/value/bfaa4a423a918691/v/73320",
+      "previousShape": "caas-car-configurator-5495209-complete-r2/shape/source-type/6da88c34ba124c41",
+      "newShape": null,
+      "gap": "caas-car-configurator-5495209-complete-r2/gap/aid-range-key/1",
+      "claim": "caas-car-configurator-5495209-complete-r2/claim/aid-range-key/1",
+      "sourcePath": "internal/domain/ruleset/selection.go",
+      "sourceLines": [74, 79]
+    }
+  ],
+  "semanticRecordDiff": [
+    {
+      "id": "caas-car-configurator-5495209-complete-r2/coverage/ebfdc63acc19c2c3",
+      "before": {
+        "id": "caas-car-configurator-5495209-complete-r2/coverage/ebfdc63acc19c2c3",
+        "kind": "coverage",
+        "owner": "caas-car-configurator-5495209-complete-r2/implementation/ebfdc63acc19c2c3",
+        "obligation": "Pinned source body inspection and native source transcription",
+        "status": "examined",
+        "scope": "Actual source signature, body, direct calls, control/value construction and local registration associations examined. Generated protobuf methods examined against exact source templates/AST, not counted as runtime registrations. This scope is source inspection; imported transport/library policy, interface/delegate dispatch, heap alias effects, defer/recover and bounded whole-entry query precision remain explicit limitations, not missing local source.",
+        "gaps": [],
+        "evidence": ["caas-car-configurator-5495209-complete-r2/evidence/504ecd0915307dda"]
+      },
+      "after": {
+        "id": "caas-car-configurator-5495209-complete-r2/coverage/ebfdc63acc19c2c3",
+        "kind": "coverage",
+        "owner": "caas-car-configurator-5495209-complete-r2/implementation/ebfdc63acc19c2c3",
+        "obligation": "Pinned source body inspection and native source transcription",
+        "status": "examined",
+        "scope": "Actual source signature, body, direct calls, control/value construction and local registration associations examined. Generated protobuf methods examined against exact source templates/AST, not counted as runtime registrations. This scope is source inspection; imported transport/library policy, interface/delegate dispatch, heap alias effects, defer/recover and bounded whole-entry query precision remain explicit limitations, not missing local source.",
+        "gaps": ["caas-car-configurator-5495209-complete-r2/gap/aid-range-key/0"],
+        "evidence": ["caas-car-configurator-5495209-complete-r2/evidence/504ecd0915307dda"]
+      }
+    },
+    {
+      "id": "caas-car-configurator-5495209-complete-r2/coverage/bfaa4a423a918691",
+      "before": {
+        "id": "caas-car-configurator-5495209-complete-r2/coverage/bfaa4a423a918691",
+        "kind": "coverage",
+        "owner": "caas-car-configurator-5495209-complete-r2/implementation/bfaa4a423a918691",
+        "obligation": "Pinned source body inspection and native source transcription",
+        "status": "examined",
+        "scope": "Actual source signature, body, direct calls, control/value construction and local registration associations examined. Generated protobuf methods examined against exact source templates/AST, not counted as runtime registrations. This scope is source inspection; imported transport/library policy, interface/delegate dispatch, heap alias effects, defer/recover and bounded whole-entry query precision remain explicit limitations, not missing local source.",
+        "gaps": [],
+        "evidence": ["caas-car-configurator-5495209-complete-r2/evidence/a73dae6b5d5c492a"]
+      },
+      "after": {
+        "id": "caas-car-configurator-5495209-complete-r2/coverage/bfaa4a423a918691",
+        "kind": "coverage",
+        "owner": "caas-car-configurator-5495209-complete-r2/implementation/bfaa4a423a918691",
+        "obligation": "Pinned source body inspection and native source transcription",
+        "status": "examined",
+        "scope": "Actual source signature, body, direct calls, control/value construction and local registration associations examined. Generated protobuf methods examined against exact source templates/AST, not counted as runtime registrations. This scope is source inspection; imported transport/library policy, interface/delegate dispatch, heap alias effects, defer/recover and bounded whole-entry query precision remain explicit limitations, not missing local source.",
+        "gaps": ["caas-car-configurator-5495209-complete-r2/gap/aid-range-key/1"],
+        "evidence": ["caas-car-configurator-5495209-complete-r2/evidence/a73dae6b5d5c492a"]
+      }
+    },
+    {
+      "id": "caas-car-configurator-5495209-complete-r2/value/ebfdc63acc19c2c3/v/65068",
+      "before": {
+        "id": "caas-car-configurator-5495209-complete-r2/value/ebfdc63acc19c2c3/v/65068",
+        "kind": "value",
+        "owner": "caas-car-configurator-5495209-complete-r2/implementation/ebfdc63acc19c2c3",
+        "definition": "caas-car-configurator-5495209-complete-r2/operation/ebfdc63acc19c2c3/n/8",
+        "label": "Source range key/index for this iteration",
+        "role": "definition",
+        "representation": "source",
+        "shape": "caas-car-configurator-5495209-complete-r2/shape/source-type/6da88c34ba124c41",
+        "accessPath": ["<iteration key/index>"],
+        "evidence": ["caas-car-configurator-5495209-complete-r2/evidence/3f9fd8474f5d55ad"]
+      },
+      "after": {
+        "id": "caas-car-configurator-5495209-complete-r2/value/ebfdc63acc19c2c3/v/65068",
+        "kind": "value",
+        "owner": "caas-car-configurator-5495209-complete-r2/implementation/ebfdc63acc19c2c3",
+        "definition": "caas-car-configurator-5495209-complete-r2/operation/ebfdc63acc19c2c3/n/8",
+        "label": "Source range key/index for this iteration",
+        "role": "definition",
+        "representation": "source",
+        "shape": null,
+        "accessPath": ["<iteration key/index>"],
+        "evidence": ["caas-car-configurator-5495209-complete-r2/evidence/3f9fd8474f5d55ad"]
+      }
+    },
+    {
+      "id": "caas-car-configurator-5495209-complete-r2/value/bfaa4a423a918691/v/73320",
+      "before": {
+        "id": "caas-car-configurator-5495209-complete-r2/value/bfaa4a423a918691/v/73320",
+        "kind": "value",
+        "owner": "caas-car-configurator-5495209-complete-r2/implementation/bfaa4a423a918691",
+        "definition": "caas-car-configurator-5495209-complete-r2/operation/bfaa4a423a918691/n/27",
+        "label": "Source range key/index for this iteration",
+        "role": "definition",
+        "representation": "source",
+        "shape": "caas-car-configurator-5495209-complete-r2/shape/source-type/6da88c34ba124c41",
+        "accessPath": ["<iteration key/index>"],
+        "evidence": ["caas-car-configurator-5495209-complete-r2/evidence/cfcb69de74c461f6"]
+      },
+      "after": {
+        "id": "caas-car-configurator-5495209-complete-r2/value/bfaa4a423a918691/v/73320",
+        "kind": "value",
+        "owner": "caas-car-configurator-5495209-complete-r2/implementation/bfaa4a423a918691",
+        "definition": "caas-car-configurator-5495209-complete-r2/operation/bfaa4a423a918691/n/27",
+        "label": "Source range key/index for this iteration",
+        "role": "definition",
+        "representation": "source",
+        "shape": null,
+        "accessPath": ["<iteration key/index>"],
+        "evidence": ["caas-car-configurator-5495209-complete-r2/evidence/cfcb69de74c461f6"]
+      }
+    }
+  ],
+  "addedRecords": [
+    {
+      "id": "caas-car-configurator-5495209-complete-r2/gap/aid-range-key/0",
+      "kind": "gap",
+      "owner": "caas-car-configurator-5495209-complete-r2/implementation/ebfdc63acc19c2c3",
+      "obligation": "Imported range return signature and source key projection",
+      "reason": "Exact source range first variable is blank; imported Selection.SubSelectionIDs() return signature is unavailable. Local source does not establish the first yielded type. The earlier int shape was a fallback, not source proof. The yielded component ID and inspected local body remain unchanged.",
+      "action": "Keep this unused first-yield value untyped; resolve exact imported signature before any typed key assertion. This is an automatic type-projection limit, not missing local source inspection.",
+      "evidence": ["caas-car-configurator-5495209-complete-r2/evidence/3f9fd8474f5d55ad"]
+    },
+    {
+      "id": "caas-car-configurator-5495209-complete-r2/claim/aid-range-key/0",
+      "kind": "claim",
+      "owner": "caas-car-configurator-5495209-complete-r2/implementation/ebfdc63acc19c2c3",
+      "statement": "Exact source range first variable is blank; imported Selection.SubSelectionIDs() return signature is unavailable. Local source does not establish the first yielded type. The earlier int shape was a fallback, not source proof. The yielded component ID and inspected local body remain unchanged. No outgoing native flow or used local binding originates at this blank projection.",
+      "basis": "source_declared",
+      "inputs": [
+        "caas-car-configurator-5495209-complete-r2/value/ebfdc63acc19c2c3/v/65068",
+        "caas-car-configurator-5495209-complete-r2/gap/aid-range-key/0",
+        "caas-car-configurator-5495209-complete-r2/value/ebfdc63acc19c2c3/v/65057"
+      ],
+      "assumptions": [],
+      "evidence": ["caas-car-configurator-5495209-complete-r2/evidence/3f9fd8474f5d55ad"]
+    },
+    {
+      "id": "caas-car-configurator-5495209-complete-r2/gap/aid-range-key/1",
+      "kind": "gap",
+      "owner": "caas-car-configurator-5495209-complete-r2/implementation/bfaa4a423a918691",
+      "obligation": "Imported range return signature and source key projection",
+      "reason": "Exact source range first variable is blank; imported Selection.IDs() return signature is unavailable. Local source does not establish the first yielded type. The earlier int shape was a fallback, not source proof. The yielded component ID and inspected local body remain unchanged.",
+      "action": "Keep this unused first-yield value untyped; resolve exact imported signature before any typed key assertion. This is an automatic type-projection limit, not missing local source inspection.",
+      "evidence": ["caas-car-configurator-5495209-complete-r2/evidence/cfcb69de74c461f6"]
+    },
+    {
+      "id": "caas-car-configurator-5495209-complete-r2/claim/aid-range-key/1",
+      "kind": "claim",
+      "owner": "caas-car-configurator-5495209-complete-r2/implementation/bfaa4a423a918691",
+      "statement": "Exact source range first variable is blank; imported Selection.IDs() return signature is unavailable. Local source does not establish the first yielded type. The earlier int shape was a fallback, not source proof. The yielded component ID and inspected local body remain unchanged. No outgoing native flow or used local binding originates at this blank projection.",
+      "basis": "source_declared",
+      "inputs": [
+        "caas-car-configurator-5495209-complete-r2/value/bfaa4a423a918691/v/73320",
+        "caas-car-configurator-5495209-complete-r2/gap/aid-range-key/1",
+        "caas-car-configurator-5495209-complete-r2/value/bfaa4a423a918691/v/73309"
+      ],
+      "assumptions": [],
+      "evidence": ["caas-car-configurator-5495209-complete-r2/evidence/cfcb69de74c461f6"]
+    }
+  ],
+  "predecessorBundleSha256": "bf5b36fc398e0f7ee593b18a5771e16daaeab7cb9298fc74917bb673e767fdd7"
+}

@@ -1,0 +1,8 @@
+{
+  "old": "payment-customer-complete/bundle.complete-06.json",
+  "new": "payment-customer-complete/bundle.complete-08.json",
+  "sourceTuplesEqual": true,
+  "oldCount": 1564,
+  "newCount": 1564,
+  "interpretation": "Exact evidence source tuples compared; prior independent pinned verification applies only when equality holds"
+}

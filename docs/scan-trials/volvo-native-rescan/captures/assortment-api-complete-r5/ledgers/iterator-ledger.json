@@ -1,0 +1,81 @@
+[
+  {
+    "creation": "assortment-6114c5d-complete-r5/op/cedf140e9f34e466/1",
+    "owner": "assortment-6114c5d-complete-r5/method/cedf140e9f34e466",
+    "iterator": "assortment-6114c5d-complete-r5/method/7fb343c89e259b4e",
+    "bindings": [
+      {
+        "parameter": "assortment-6114c5d-complete-r5/v/7fb343c89e259b4e/p/0",
+        "value": "assortment-6114c5d-complete-r5/field/cedf140e9f34e466/3546a839900b9a5d"
+      },
+      {
+        "parameter": "assortment-6114c5d-complete-r5/v/7fb343c89e259b4e/p/1",
+        "value": "assortment-6114c5d-complete-r5/v/cedf140e9f34e466/p/0"
+      },
+      {
+        "parameter": "assortment-6114c5d-complete-r5/v/7fb343c89e259b4e/p/2",
+        "value": "assortment-6114c5d-complete-r5/field/cedf140e9f34e466/b4f346684451d936"
+      },
+      {
+        "parameter": "assortment-6114c5d-complete-r5/v/7fb343c89e259b4e/p/3",
+        "value": "assortment-6114c5d-complete-r5/v/cedf140e9f34e466/p/1"
+      }
+    ],
+    "receiver": null,
+    "captures": [],
+    "enumerable": "assortment-6114c5d-complete-r5/v/cedf140e9f34e466/0",
+    "enumerationFlows": ["assortment-6114c5d-complete-r5/flow/e0c58d3108d7294d"],
+    "claim": "assortment-6114c5d-complete-r5/iterator-association/003b69f32cb34e4f",
+    "gap": "assortment-6114c5d-complete-r5/iterator-gap/003b69f32cb34e4f"
+  },
+  {
+    "creation": "assortment-6114c5d-complete-r5/op/ddda17e787d5c714/1",
+    "owner": "assortment-6114c5d-complete-r5/method/ddda17e787d5c714",
+    "iterator": "assortment-6114c5d-complete-r5/method/c696d88ab0ec1c8e",
+    "bindings": [
+      {
+        "parameter": "assortment-6114c5d-complete-r5/v/c696d88ab0ec1c8e/p/0",
+        "value": "assortment-6114c5d-complete-r5/v/ddda17e787d5c714/p/0"
+      },
+      {
+        "parameter": "assortment-6114c5d-complete-r5/v/c696d88ab0ec1c8e/p/1",
+        "value": "assortment-6114c5d-complete-r5/v/ddda17e787d5c714/p/1"
+      },
+      {
+        "parameter": "assortment-6114c5d-complete-r5/v/c696d88ab0ec1c8e/p/2",
+        "value": "assortment-6114c5d-complete-r5/v/ddda17e787d5c714/p/2"
+      }
+    ],
+    "receiver": null,
+    "captures": [],
+    "enumerable": "assortment-6114c5d-complete-r5/v/ddda17e787d5c714/0",
+    "enumerationFlows": ["assortment-6114c5d-complete-r5/flow/20ae1aa8129329df"],
+    "claim": "assortment-6114c5d-complete-r5/iterator-association/52905efb1de42848",
+    "gap": "assortment-6114c5d-complete-r5/iterator-gap/52905efb1de42848"
+  },
+  {
+    "creation": "assortment-6114c5d-complete-r5/op/53b1805692f22100/1",
+    "owner": "assortment-6114c5d-complete-r5/method/53b1805692f22100",
+    "iterator": "assortment-6114c5d-complete-r5/method/ca5a28e9993201eb",
+    "bindings": [
+      {
+        "parameter": "assortment-6114c5d-complete-r5/v/ca5a28e9993201eb/p/0",
+        "value": "assortment-6114c5d-complete-r5/v/53b1805692f22100/p/0"
+      },
+      {
+        "parameter": "assortment-6114c5d-complete-r5/v/ca5a28e9993201eb/p/1",
+        "value": "assortment-6114c5d-complete-r5/v/53b1805692f22100/p/1"
+      },
+      {
+        "parameter": "assortment-6114c5d-complete-r5/v/ca5a28e9993201eb/p/2",
+        "value": "assortment-6114c5d-complete-r5/v/53b1805692f22100/p/2"
+      }
+    ],
+    "receiver": null,
+    "captures": [],
+    "enumerable": "assortment-6114c5d-complete-r5/v/53b1805692f22100/0",
+    "enumerationFlows": ["assortment-6114c5d-complete-r5/flow/de6d657cf274dd21"],
+    "claim": "assortment-6114c5d-complete-r5/iterator-association/046cd4f5a435cdcd",
+    "gap": "assortment-6114c5d-complete-r5/iterator-gap/046cd4f5a435cdcd"
+  }
+]

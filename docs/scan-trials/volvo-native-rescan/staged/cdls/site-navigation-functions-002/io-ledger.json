@@ -1,0 +1,158 @@
+[
+  {
+    "id": "volvo/cdls-mono-volvocars/8e1fd20c525f/site-navigation-functions-r2/io/installation-sdk",
+    "kind": "interaction",
+    "owner": "volvo/cdls-mono-volvocars/8e1fd20c525f/site-navigation-functions-r2/method/triggerWorkflow",
+    "execution": "volvo/cdls-mono-volvocars/8e1fd20c525f/site-navigation-functions-r2/execution/triggerWorkflow",
+    "operation": "volvo/cdls-mono-volvocars/8e1fd20c525f/site-navigation-functions-r2/op/triggerWorkflow/14",
+    "target": null,
+    "targetEntry": null,
+    "contract": "volvo/cdls-mono-volvocars/8e1fd20c525f/site-navigation-functions-r2/contract/installation-sdk",
+    "effect": null,
+    "handoff": null,
+    "mode": "unknown",
+    "boundary": "unresolved",
+    "waitsFor": "unknown",
+    "condition": "Actual imported App installation method; no separate auth network component or SDK internal policy inferred",
+    "requestBindings": [
+      {
+        "part": "record",
+        "path": ["argument0"],
+        "value": "volvo/cdls-mono-volvocars/8e1fd20c525f/site-navigation-functions-r2/v/triggerWorkflow/117",
+        "transform": "Exact numeric source argument"
+      }
+    ],
+    "responseBindings": [
+      {
+        "part": "result",
+        "path": [],
+        "value": "volvo/cdls-mono-volvocars/8e1fd20c525f/site-navigation-functions-r2/v/triggerWorkflow/122",
+        "transform": "Immediate imported result/handle, distinct from awaited source object"
+      }
+    ],
+    "gaps": [
+      "volvo/cdls-mono-volvocars/8e1fd20c525f/site-navigation-functions-r2/gap/imported-runtime"
+    ],
+    "evidence": [
+      "volvo/cdls-mono-volvocars/8e1fd20c525f/site-navigation-functions-r2/e/a280e4d406ce4e4b9932"
+    ]
+  },
+  {
+    "id": "volvo/cdls-mono-volvocars/8e1fd20c525f/site-navigation-functions-r2/io/dispatch",
+    "kind": "interaction",
+    "owner": "volvo/cdls-mono-volvocars/8e1fd20c525f/site-navigation-functions-r2/method/triggerWorkflow",
+    "execution": "volvo/cdls-mono-volvocars/8e1fd20c525f/site-navigation-functions-r2/execution/triggerWorkflow",
+    "operation": "volvo/cdls-mono-volvocars/8e1fd20c525f/site-navigation-functions-r2/op/triggerWorkflow/18",
+    "target": "volvo/cdls-mono-volvocars/8e1fd20c525f/site-navigation-functions-r2/component/github-api",
+    "targetEntry": null,
+    "contract": "volvo/cdls-mono-volvocars/8e1fd20c525f/site-navigation-functions-r2/contract/dispatch",
+    "effect": null,
+    "handoff": null,
+    "mode": "request_response",
+    "boundary": "network",
+    "waitsFor": "response",
+    "condition": "Literal HTTP POST route and GitHub App source request intent; exact SDK host/transport/return/ack policy unknown",
+    "requestBindings": [
+      {
+        "part": "record",
+        "path": ["argument0"],
+        "value": "volvo/cdls-mono-volvocars/8e1fd20c525f/site-navigation-functions-r2/v/triggerWorkflow/134",
+        "transform": "Exact literal source HTTP method/route"
+      },
+      {
+        "part": "record",
+        "path": ["argument1"],
+        "value": "volvo/cdls-mono-volvocars/8e1fd20c525f/site-navigation-functions-r2/v/triggerWorkflow/139",
+        "transform": "Exact source options object; no guessed wire-body split"
+      },
+      {
+        "part": "record",
+        "path": ["argument1", "owner"],
+        "value": "volvo/cdls-mono-volvocars/8e1fd20c525f/site-navigation-functions-r2/v/triggerWorkflow/319",
+        "transform": "Exact source field of the allocated options argument; not an extra argument or guessed HTTP wire field"
+      },
+      {
+        "part": "record",
+        "path": ["argument1", "repo"],
+        "value": "volvo/cdls-mono-volvocars/8e1fd20c525f/site-navigation-functions-r2/v/triggerWorkflow/322",
+        "transform": "Exact source field of the allocated options argument; not an extra argument or guessed HTTP wire field"
+      },
+      {
+        "part": "record",
+        "path": ["argument1", "workflow_id"],
+        "value": "volvo/cdls-mono-volvocars/8e1fd20c525f/site-navigation-functions-r2/v/triggerWorkflow/325",
+        "transform": "Exact source field of the allocated options argument; not an extra argument or guessed HTTP wire field"
+      },
+      {
+        "part": "record",
+        "path": ["argument1", "ref"],
+        "value": "volvo/cdls-mono-volvocars/8e1fd20c525f/site-navigation-functions-r2/v/triggerWorkflow/329",
+        "transform": "Exact source field of the allocated options argument; not an extra argument or guessed HTTP wire field"
+      },
+      {
+        "part": "record",
+        "path": ["argument1", "inputs", "deployEnv"],
+        "value": "volvo/cdls-mono-volvocars/8e1fd20c525f/site-navigation-functions-r2/v/triggerWorkflow/333",
+        "transform": "Exact source field of the allocated options argument; not an extra argument or guessed HTTP wire field"
+      },
+      {
+        "part": "record",
+        "path": ["argument1", "inputs", "commit"],
+        "value": "volvo/cdls-mono-volvocars/8e1fd20c525f/site-navigation-functions-r2/v/triggerWorkflow/337",
+        "transform": "Exact source field of the allocated options argument; not an extra argument or guessed HTTP wire field"
+      },
+      {
+        "part": "record",
+        "path": ["argument1", "inputs", "rebuild"],
+        "value": "volvo/cdls-mono-volvocars/8e1fd20c525f/site-navigation-functions-r2/v/triggerWorkflow/340",
+        "transform": "Exact source field of the allocated options argument; not an extra argument or guessed HTTP wire field"
+      }
+    ],
+    "responseBindings": [
+      {
+        "part": "result",
+        "path": [],
+        "value": "volvo/cdls-mono-volvocars/8e1fd20c525f/site-navigation-functions-r2/v/triggerWorkflow/147",
+        "transform": "Immediate imported dispatch result, no inspected status/run/deployment completion"
+      }
+    ],
+    "gaps": [
+      "volvo/cdls-mono-volvocars/8e1fd20c525f/site-navigation-functions-r2/gap/imported-runtime"
+    ],
+    "evidence": [
+      "volvo/cdls-mono-volvocars/8e1fd20c525f/site-navigation-functions-r2/e/1c3db643e60314ba14fd"
+    ]
+  },
+  {
+    "id": "volvo/cdls-mono-volvocars/8e1fd20c525f/site-navigation-functions-r2/io/consume",
+    "kind": "interaction",
+    "owner": "volvo/cdls-mono-volvocars/8e1fd20c525f/site-navigation-functions-r2/method/serviceBusTopicTrigger",
+    "execution": "volvo/cdls-mono-volvocars/8e1fd20c525f/site-navigation-functions-r2/execution/serviceBusTopicTrigger",
+    "operation": "volvo/cdls-mono-volvocars/8e1fd20c525f/site-navigation-functions-r2/op/serviceBusTopicTrigger/entry",
+    "target": "volvo/cdls-mono-volvocars/8e1fd20c525f/site-navigation-functions-r2/component/content-topic",
+    "targetEntry": null,
+    "contract": "volvo/cdls-mono-volvocars/8e1fd20c525f/site-navigation-functions-r2/contract/consume",
+    "effect": null,
+    "handoff": null,
+    "mode": "consume",
+    "boundary": "network",
+    "waitsFor": "handler_result",
+    "condition": "Actual source registration cardinality many. No source type-header filter; wire decoding, broker subscription filters, settlement/ACK and active host are not established.",
+    "requestBindings": [
+      {
+        "part": "message",
+        "path": [],
+        "value": "volvo/cdls-mono-volvocars/8e1fd20c525f/site-navigation-functions-r2/v/serviceBusTopicTrigger/20",
+        "transform": "Actual first source handler formal Message[]; imported binding decoding is unresolved"
+      }
+    ],
+    "responseBindings": [],
+    "gaps": [
+      "volvo/cdls-mono-volvocars/8e1fd20c525f/site-navigation-functions-r2/gap/imported-runtime"
+    ],
+    "evidence": [
+      "volvo/cdls-mono-volvocars/8e1fd20c525f/site-navigation-functions-r2/e/8b6f8c74b2c9014a7ccf",
+      "volvo/cdls-mono-volvocars/8e1fd20c525f/site-navigation-functions-r2/e/7b93633099c7b4aefb6a"
+    ]
+  }
+]

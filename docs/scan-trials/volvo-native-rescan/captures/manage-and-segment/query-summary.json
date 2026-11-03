@@ -1,0 +1,87 @@
+{
+  "acceptance": "passed",
+  "snapshot": "dc7180b74158fccc486c12834b8f9dfbfedcd501359e852e61caa387631c284d",
+  "queries": {
+    "feeTrace": {
+      "nodes": 18,
+      "edges": 30,
+      "records": 102,
+      "frontiers": ["unhandled_exception", "opaque", "opaque", "opaque"],
+      "sourceLinks": 32,
+      "traversalComplete": true,
+      "exhaustive": false
+    },
+    "feeInteractions": {
+      "nodes": 3,
+      "edges": 3,
+      "records": 139,
+      "frontiers": ["unhandled_exception", "opaque", "opaque", "opaque"],
+      "sourceLinks": 69,
+      "traversalComplete": true,
+      "exhaustive": false
+    },
+    "fee201": {
+      "nodes": 17,
+      "edges": 22,
+      "records": 92,
+      "frontiers": ["opaque", "opaque", "opaque"],
+      "sourceLinks": 31,
+      "traversalComplete": true,
+      "exhaustive": false
+    },
+    "feeNameLineage": {
+      "nodes": 3,
+      "edges": 2,
+      "records": 52,
+      "frontiers": ["version_unresolved", "version_unresolved", "representation_unresolved"],
+      "sourceLinks": 23,
+      "traversalComplete": true,
+      "exhaustive": false
+    },
+    "feeConsistency": {
+      "nodes": 18,
+      "edges": 30,
+      "records": 154,
+      "frontiers": ["unhandled_exception", "opaque", "opaque", "opaque"],
+      "sourceLinks": 56,
+      "traversalComplete": true,
+      "exhaustive": false
+    },
+    "softOfferContinuation": {
+      "nodes": 47,
+      "edges": 71,
+      "records": 225,
+      "frontiers": ["opaque", "version_unresolved", "opaque", "opaque", "opaque"],
+      "sourceLinks": 44,
+      "traversalComplete": true,
+      "exhaustive": false
+    },
+    "opaqueRegistration": {
+      "nodes": 2,
+      "edges": 1,
+      "records": 25,
+      "frontiers": ["opaque"],
+      "sourceLinks": 7,
+      "traversalComplete": true,
+      "exhaustive": false
+    },
+    "outboundContracts": {
+      "nodes": 0,
+      "edges": 0,
+      "records": 121,
+      "frontiers": [],
+      "sourceLinks": 34,
+      "traversalComplete": true,
+      "exhaustive": false
+    },
+    "messageSchemas": {
+      "nodes": 0,
+      "edges": 0,
+      "records": 246,
+      "frontiers": [],
+      "sourceLinks": 166,
+      "traversalComplete": true,
+      "exhaustive": false
+    }
+  }
+}

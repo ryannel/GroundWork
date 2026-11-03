@@ -1,0 +1,802 @@
+[
+  {
+    "id": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/shape/9f00eab099665776f953",
+    "label": "com.volvocars.ecom.customer.crm.synchronizer.api.App source declaration; inherited local fields retained",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/shape/4c8b6f7e89d0ad175c04",
+    "label": "com.volvocars.ecom.customer.crm.synchronizer.api.config.CdbExceptionHandler source declaration; inherited local fields retained",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/shape/a7393feccad8f1488567",
+    "label": "com.volvocars.ecom.customer.crm.synchronizer.api.config.HealthMetricsExportConfiguration source declaration; inherited local fields retained",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/shape/1df3449708918ff90a58",
+    "label": "com.volvocars.ecom.customer.crm.synchronizer.api.config.KafkaHealthIndicator source declaration; inherited local fields retained",
+    "fields": 2
+  },
+  {
+    "id": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/shape/1d148a2cc52c15b823f1",
+    "label": "com.volvocars.ecom.customer.crm.synchronizer.api.config.KafkaHealthMetricsExportConfiguration source declaration; inherited local fields retained",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/shape/e3a2e692aff30deb0e44",
+    "label": "com.volvocars.ecom.customer.crm.synchronizer.api.customer.CdbSyncEventConsumer source declaration; inherited local fields retained",
+    "fields": 2
+  },
+  {
+    "id": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/shape/2b9a488009725a20c482",
+    "label": "com.volvocars.ecom.customer.crm.synchronizer.api.customer.CustomerEventConsumer source declaration; inherited local fields retained",
+    "fields": 3
+  },
+  {
+    "id": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/shape/ae76af4e93254fb3d0b8",
+    "label": "com.volvocars.ecom.customer.crm.synchronizer.api.customer.CustomerEventOMConsumer source declaration; inherited local fields retained",
+    "fields": 2
+  },
+  {
+    "id": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/shape/a8fa17b07d26fada0179",
+    "label": "com.volvocars.ecom.customer.crm.synchronizer.api.v1.CustomerCrmSyncControllerV1 source declaration; inherited local fields retained",
+    "fields": 2
+  },
+  {
+    "id": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/shape/89d34e5f66d3ab9bcb49",
+    "label": "com.volvocars.ecom.customer.crm.synchronizer.core.cdb.CdbClient source declaration; inherited local fields retained",
+    "fields": 1
+  },
+  {
+    "id": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/shape/62591099607f74a0c059",
+    "label": "com.volvocars.ecom.customer.crm.synchronizer.core.cdb.exception.CdbClientException source declaration; inherited local fields retained",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/shape/e871550e499b80edc519",
+    "label": "com.volvocars.ecom.customer.crm.synchronizer.core.cdb.exception.CdbConsumerLockedException source declaration; inherited local fields retained",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/shape/05d56fb8ce9e2b57e445",
+    "label": "com.volvocars.ecom.customer.crm.synchronizer.core.cdb.exception.CdbDataRejectedException source declaration; inherited local fields retained",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/shape/97087a9aade13f91eb01",
+    "label": "com.volvocars.ecom.customer.crm.synchronizer.core.cdb.mapper.CreateOrUpdateAddressMapper source declaration; inherited local fields retained",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/shape/e57e5c2dc1a12ba81f12",
+    "label": "com.volvocars.ecom.customer.crm.synchronizer.core.cdb.mapper.CreateOrUpdateAddressMapper.ComparableAddress source declaration; inherited local fields retained",
+    "fields": 8
+  },
+  {
+    "id": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/shape/e5ad125c254656654401",
+    "label": "com.volvocars.ecom.customer.crm.synchronizer.core.cdb.mapper.CreateOrUpdateAlternativeConsumerIdMapper source declaration; inherited local fields retained",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/shape/009e9886636cefc798e4",
+    "label": "com.volvocars.ecom.customer.crm.synchronizer.core.cdb.mapper.CreateOrUpdateConsumerInfoMapper source declaration; inherited local fields retained",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/shape/ff81669a3480a7586699",
+    "label": "com.volvocars.ecom.customer.crm.synchronizer.core.cdb.mapper.CreateOrUpdateConsumerMapper source declaration; inherited local fields retained",
+    "fields": 9
+  },
+  {
+    "id": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/shape/0bf5cdd1674b2e78743d",
+    "label": "com.volvocars.ecom.customer.crm.synchronizer.core.cdb.mapper.CreateOrUpdateConsumerRelationMapper source declaration; inherited local fields retained",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/shape/63d40926f6d1305c05d3",
+    "label": "com.volvocars.ecom.customer.crm.synchronizer.core.cdb.mapper.CreateOrUpdateConsumerResponseMapper source declaration; inherited local fields retained",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/shape/fa5e73cca8a3f7657339",
+    "label": "com.volvocars.ecom.customer.crm.synchronizer.core.cdb.mapper.CreateOrUpdateContactDetailsMapper source declaration; inherited local fields retained",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/shape/6cd18c8d7e45e39f7961",
+    "label": "com.volvocars.ecom.customer.crm.synchronizer.core.cdb.mapper.CreateOrUpdateEmailAddressMapper source declaration; inherited local fields retained",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/shape/3869d18786dbde34d1b5",
+    "label": "com.volvocars.ecom.customer.crm.synchronizer.core.cdb.mapper.CreateOrUpdateOrganizationMapper source declaration; inherited local fields retained",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/shape/c7c93154317696cd4001",
+    "label": "com.volvocars.ecom.customer.crm.synchronizer.core.cdb.mapper.CreateOrUpdatePersonMapper source declaration; inherited local fields retained",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/shape/6f14a95a15f6405a3f0e",
+    "label": "com.volvocars.ecom.customer.crm.synchronizer.core.cdb.mapper.CreateOrUpdateRequestMapper source declaration; inherited local fields retained",
+    "fields": 1
+  },
+  {
+    "id": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/shape/0a8d4e9b7d076aa992fd",
+    "label": "com.volvocars.ecom.customer.crm.synchronizer.core.cdb.mapper.CreateOrUpdateVehicleRelationMapper source declaration; inherited local fields retained",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/array/c4e85dc94937a2aceb33",
+    "label": "List<AlternativeConsumerId> source collection",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/shape/638fda2c63bf63065321",
+    "label": "com.volvocars.ecom.customer.crm.synchronizer.core.cdb.model.CdbConsumerByVolvoId source declaration; inherited local fields retained",
+    "fields": 2
+  },
+  {
+    "id": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/shape/77b3eea6f6df56e1e43b",
+    "label": "com.volvocars.ecom.customer.crm.synchronizer.core.cdb.model.CdbConsumerByVolvoId.ConsumerInfo source declaration; inherited local fields retained",
+    "fields": 2
+  },
+  {
+    "id": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/shape/a1bc7ea6792cf6153121",
+    "label": "com.volvocars.ecom.customer.crm.synchronizer.core.cdb.model.CdbConsumerByVolvoId.AlternativeConsumerId source declaration; inherited local fields retained",
+    "fields": 2
+  },
+  {
+    "id": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/shape/be65d330fce253f88704",
+    "label": "com.volvocars.ecom.customer.crm.synchronizer.core.cdb.model.CdbConsumerByVolvoIdResponse source declaration; inherited local fields retained",
+    "fields": 1
+  },
+  {
+    "id": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/shape/0027c906c64aacd48565",
+    "label": "com.volvocars.ecom.customer.crm.synchronizer.core.cdb.model.CdbResponse source declaration; inherited local fields retained",
+    "fields": 1
+  },
+  {
+    "id": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/shape/8237ef413667b71be914",
+    "label": "com.volvocars.ecom.customer.crm.synchronizer.core.cdb.model.ConsumerId source declaration; inherited local fields retained",
+    "fields": 2
+  },
+  {
+    "id": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/shape/58066b66ccfa960ea46d",
+    "label": "com.volvocars.ecom.customer.crm.synchronizer.core.cdb.model.ConsumerResponse source declaration; inherited local fields retained",
+    "fields": 1
+  },
+  {
+    "id": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/array/2c0f299eca01614d2abc",
+    "label": "List<Id> source collection",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/shape/69acf3a133ef6b9ebe22",
+    "label": "com.volvocars.ecom.customer.crm.synchronizer.core.cdb.model.ConsumerResponse.ConsumerId source declaration; inherited local fields retained",
+    "fields": 1
+  },
+  {
+    "id": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/shape/007fe91e75f946f9100f",
+    "label": "com.volvocars.ecom.customer.crm.synchronizer.core.cdb.model.ConsumerResponse.Id source declaration; inherited local fields retained",
+    "fields": 2
+  },
+  {
+    "id": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/shape/a5f29661fafb36b930bf",
+    "label": "com.volvocars.ecom.customer.crm.synchronizer.core.common.CustomerSyncException source declaration; inherited local fields retained",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/shape/679222a9651d13166802",
+    "label": "com.volvocars.ecom.customer.crm.synchronizer.core.config.CdbSyncEventDeserializer source declaration; inherited local fields retained",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/shape/9579de941e4b2eec8dce",
+    "label": "com.volvocars.ecom.customer.crm.synchronizer.core.config.CdbSyncEventDeserializer.$anonymous@784 source declaration; inherited local fields retained",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/shape/87e4d599e2223f918dc3",
+    "label": "com.volvocars.ecom.customer.crm.synchronizer.core.config.CdbSyncEventPayload source declaration; inherited local fields retained",
+    "fields": 2
+  },
+  {
+    "id": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/shape/83e40181ac0069894cdf",
+    "label": "com.volvocars.ecom.customer.crm.synchronizer.core.config.Constants source declaration; inherited local fields retained",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/shape/77c95ce998b6c4891d36",
+    "label": "com.volvocars.ecom.customer.crm.synchronizer.core.config.CustomerEventConfig source declaration; inherited local fields retained",
+    "fields": 2
+  },
+  {
+    "id": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/shape/014de321eb850b3859e2",
+    "label": "com.volvocars.ecom.customer.crm.synchronizer.core.config.CustomerEventDeserializer source declaration; inherited local fields retained",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/shape/8f97dae6d6af407c42a8",
+    "label": "com.volvocars.ecom.customer.crm.synchronizer.core.config.CustomerEventDeserializer.$anonymous@792 source declaration; inherited local fields retained",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/shape/059b28d26bb03512c843",
+    "label": "com.volvocars.ecom.customer.crm.synchronizer.core.config.CustomerEventPayload source declaration; inherited local fields retained",
+    "fields": 3
+  },
+  {
+    "id": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/shape/a43d7d75662ce3e390be",
+    "label": "com.volvocars.ecom.customer.crm.synchronizer.core.config.EventConfig source declaration; inherited local fields retained",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/shape/f6dcd10b2aaad438aacd",
+    "label": "com.volvocars.ecom.customer.crm.synchronizer.core.config.KafkaSettings source declaration; inherited local fields retained",
+    "fields": 9
+  },
+  {
+    "id": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/shape/60fc227132363cbf5f6c",
+    "label": "com.volvocars.ecom.customer.crm.synchronizer.core.config.KafkaSettings.KafkaSecuritySettings source declaration; inherited local fields retained",
+    "fields": 1
+  },
+  {
+    "id": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/shape/e54e1c70d4b16091330d",
+    "label": "com.volvocars.ecom.customer.crm.synchronizer.core.config.KafkaSettings.KafkaSslSettings source declaration; inherited local fields retained",
+    "fields": 3
+  },
+  {
+    "id": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/shape/ec76283d42047d5e697e",
+    "label": "com.volvocars.ecom.customer.crm.synchronizer.core.config.KafkaSettings.KafkaConsumerSettings source declaration; inherited local fields retained",
+    "fields": 3
+  },
+  {
+    "id": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/shape/4a22c820a5c833a3d3d6",
+    "label": "com.volvocars.ecom.customer.crm.synchronizer.core.config.RetryConfig source declaration; inherited local fields retained",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/shape/be904b385ad3e36ce4cd",
+    "label": "com.volvocars.ecom.customer.crm.synchronizer.core.customer.CustomerClient source declaration; inherited local fields retained",
+    "fields": 1
+  },
+  {
+    "id": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/shape/9b6329854c6901249e35",
+    "label": "com.volvocars.ecom.customer.crm.synchronizer.core.customer.CustomerClient.$anonymous@1812 source declaration; inherited local fields retained",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/shape/cbfa3f7155ed51a9ae64",
+    "label": "com.volvocars.ecom.customer.crm.synchronizer.core.customer.CustomerEventRecoverer source declaration; inherited local fields retained",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/shape/5f60cc9622768f615a10",
+    "label": "com.volvocars.ecom.customer.crm.synchronizer.core.customer.CustomerRequestMapper source declaration; inherited local fields retained",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/shape/b68b679b424cf40c97bf",
+    "label": "com.volvocars.ecom.customer.crm.synchronizer.core.customer.CustomerService source declaration; inherited local fields retained",
+    "fields": 3
+  },
+  {
+    "id": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/shape/61a79693d8c59d3741fc",
+    "label": "com.volvocars.ecom.customer.crm.synchronizer.core.customer.exception.CustomerNotFoundException source declaration; inherited local fields retained",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/shape/33577af1e72a0dc326f0",
+    "label": "com.volvocars.ecom.customer.crm.synchronizer.core.customer.exception.CustomerServiceApiException source declaration; inherited local fields retained",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/array/5a14710c495948d8ff4b",
+    "label": "List<Email> source collection",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/array/00dd2b1b923790855388",
+    "label": "List<Phone> source collection",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/array/f9202d93e113fc9d3a51",
+    "label": "List<Address> source collection",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/array/834ac2d5153e1ccb3282",
+    "label": "Set<Role> source collection",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/shape/3097b3a67a8c6b46f08d",
+    "label": "com.volvocars.ecom.customer.crm.synchronizer.core.customer.model.CorporateEntity source declaration; inherited local fields retained",
+    "fields": 12
+  },
+  {
+    "id": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/array/d475a00270a5b0371a3c",
+    "label": "List<CorporateEntity> source collection",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/array/9e0686e9a68a68b5ff23",
+    "label": "List<Individual> source collection",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/shape/a5beaa4122cd068bc353",
+    "label": "com.volvocars.ecom.customer.crm.synchronizer.core.customer.model.Customer source declaration; inherited local fields retained",
+    "fields": 5
+  },
+  {
+    "id": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/array/1a469d3a0ff7c23405e5",
+    "label": "List<Email> source collection",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/array/b51ec9d71ce3cc2a163d",
+    "label": "List<Phone> source collection",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/array/5d266eef2ab6fa805605",
+    "label": "List<Address> source collection",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/array/e2b2aa5f1e6f062459a4",
+    "label": "Set<Role> source collection",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/shape/85d7f71a31e4461964dd",
+    "label": "com.volvocars.ecom.customer.crm.synchronizer.core.customer.model.Individual source declaration; inherited local fields retained",
+    "fields": 15
+  },
+  {
+    "id": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/array/0e042231e9a0bb257c23",
+    "label": "List<PatchActorRequest> source collection",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/array/2a77223211ca2d39afc4",
+    "label": "List<PatchActorRequest> source collection",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/shape/4af5b7b50b8346821f64",
+    "label": "com.volvocars.ecom.customer.crm.synchronizer.core.customer.model.PatchCustomerRequest source declaration; inherited local fields retained",
+    "fields": 2
+  },
+  {
+    "id": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/shape/c8b3c3c1bd861d6ec0c9",
+    "label": "com.volvocars.ecom.customer.crm.synchronizer.core.customer.model.PatchCustomerRequest.PatchActorRequest source declaration; inherited local fields retained",
+    "fields": 3
+  },
+  {
+    "id": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/shape/561446b76d3e6b1ba7bb",
+    "label": "com.volvocars.ecom.customer.crm.synchronizer.core.customer.model.actor.Actor source declaration; inherited local fields retained",
+    "fields": 7
+  },
+  {
+    "id": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/shape/e3171ac79ceee3824b04",
+    "label": "com.volvocars.ecom.customer.crm.synchronizer.core.customer.model.actor.Address source declaration; inherited local fields retained",
+    "fields": 11
+  },
+  {
+    "id": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/array/ac105c6d9ea7b78e5b71",
+    "label": "Set<EmailRole> source collection",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/shape/2b18177af0e2adfc4120",
+    "label": "com.volvocars.ecom.customer.crm.synchronizer.core.customer.model.actor.Email source declaration; inherited local fields retained",
+    "fields": 2
+  },
+  {
+    "id": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/shape/505b466c382ed17807e9",
+    "label": "com.volvocars.ecom.customer.crm.synchronizer.core.customer.model.actor.EmailRole source declaration; inherited local fields retained",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/array/40cd772943b43ed456f3",
+    "label": "Set<PhoneRole> source collection",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/shape/25b0f9e2a011cbb8affc",
+    "label": "com.volvocars.ecom.customer.crm.synchronizer.core.customer.model.actor.Phone source declaration; inherited local fields retained",
+    "fields": 2
+  },
+  {
+    "id": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/shape/7972a4334287feda8a8b",
+    "label": "com.volvocars.ecom.customer.crm.synchronizer.core.customer.model.actor.PhoneRole source declaration; inherited local fields retained",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/shape/7afb8010d0da1ef85f41",
+    "label": "com.volvocars.ecom.customer.crm.synchronizer.core.customer.model.actor.Role source declaration; inherited local fields retained",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/array/d78d57c663e1ddeedac8",
+    "label": "List<AlternativeConsumer> source collection",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/shape/57db44c4abeb01c73324",
+    "label": "com.volvocars.ecom.customer.crm.synchronizer.core.customersync.CdbConsumerData source declaration; inherited local fields retained",
+    "fields": 3
+  },
+  {
+    "id": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/shape/7aaffcbf99f526465535",
+    "label": "com.volvocars.ecom.customer.crm.synchronizer.core.customersync.CdbConsumerData.AlternativeConsumer source declaration; inherited local fields retained",
+    "fields": 2
+  },
+  {
+    "id": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/shape/226d16b7e1c677e0d5dc",
+    "label": "com.volvocars.ecom.customer.crm.synchronizer.core.customersync.CdbConsumerService source declaration; inherited local fields retained",
+    "fields": 1
+  },
+  {
+    "id": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/shape/07fb4f53a2d402e498c0",
+    "label": "com.volvocars.ecom.customer.crm.synchronizer.core.customersync.CorporateEntitySyncService source declaration; inherited local fields retained",
+    "fields": 3
+  },
+  {
+    "id": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/shape/cedecd049738677edf3b",
+    "label": "com.volvocars.ecom.customer.crm.synchronizer.core.customersync.CustomerSyncService source declaration; inherited local fields retained",
+    "fields": 3
+  },
+  {
+    "id": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/shape/d264bdc23f8003b3b5c0",
+    "label": "com.volvocars.ecom.customer.crm.synchronizer.core.customersync.IndividualSyncService source declaration; inherited local fields retained",
+    "fields": 3
+  },
+  {
+    "id": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/shape/9e50d3718bbb753acd0b",
+    "label": "com.volvocars.ecom.customer.crm.synchronizer.core.ordermanager.OrderManagerClient source declaration; inherited local fields retained",
+    "fields": 1
+  },
+  {
+    "id": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/shape/04bcb527bea06f0b49e9",
+    "label": "com.volvocars.ecom.customer.crm.synchronizer.core.ordermanager.OrderManagerService source declaration; inherited local fields retained",
+    "fields": 2
+  },
+  {
+    "id": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/shape/6526abe7edaf1aba7eca",
+    "label": "com.volvocars.ecom.customer.crm.synchronizer.core.ordermanager.exception.OrderManagerApiException source declaration; inherited local fields retained",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/shape/18fc95e3d10206fc68b3",
+    "label": "com.volvocars.ecom.customer.crm.synchronizer.core.ordermanager.request.OMCustomerUpdateEventRequest source declaration; inherited local fields retained",
+    "fields": 1
+  },
+  {
+    "id": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/shape/abeca3e213d9623e3534",
+    "label": "com.volvocars.ecom.customer.crm.synchronizer.core.ordermanager.request.OMUpdateEventCategory source declaration; inherited local fields retained",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/array/dbea459335c0ddf3ff00",
+    "label": "List<Actor> source collection",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/array/409ed48e98326d300260",
+    "label": "List<Actor> source collection",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/shape/bc2099d8ae75a555af5e",
+    "label": "com.volvocars.ecom.customer.crm.synchronizer.shared.CdbSyncResult source declaration; inherited local fields retained",
+    "fields": 2
+  },
+  {
+    "id": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/shape/6567339f75b140d00beb",
+    "label": "com.volvocars.ecom.customer.crm.synchronizer.shared.CdbSyncResult.Actor source declaration; inherited local fields retained",
+    "fields": 4
+  },
+  {
+    "id": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/shape/ce252b7e9feb338a84fd",
+    "label": "com.volvocars.ecom.customer.crm.synchronizer.shared.VehicleRelationRequest source declaration; inherited local fields retained",
+    "fields": 2
+  },
+  {
+    "id": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/boundary-result/e49b141c19a9d33c687c",
+    "label": "SuccessResponse.ok whole source factory/client result; distinct from data/getData argument or projection",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/boundary-result/245e9008e783614d9d34",
+    "label": "SuccessResponse.ok whole source factory/client result; distinct from data/getData argument or projection",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/boundary-result/28492f071172a2483872",
+    "label": "SuccessResponse.ok whole source factory/client result; distinct from data/getData argument or projection",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/stream-construction/f45e6716f3a62f7d3335",
+    "label": "Source terminal collection of explicit mapped construction",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/stream-construction/35d17fee23df30d1b69a",
+    "label": "Source terminal collection of explicit mapped construction",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/stream-construction/d00704e6e6d51cab5d9c",
+    "label": "Source terminal collection of explicit mapped construction",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/stream-construction/afe72e836d724198be0b",
+    "label": "Source terminal collection of explicit mapped construction",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/stream-construction/761c82e0fbb21550b15b",
+    "label": "Source terminal collection of explicit mapped construction",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/catalogue-shape/setter/0544566e554da8915727",
+    "label": "CreateOrUpdateAddress exact source setter-intent projection (imported DTO semantics unresolved)",
+    "fields": 10
+  },
+  {
+    "id": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/catalogue-shape/setter/48decda5a40287144480",
+    "label": "CreateOrUpdateAlternativeConsumerId exact source setter-intent projection (imported DTO semantics unresolved)",
+    "fields": 2
+  },
+  {
+    "id": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/catalogue-shape/setter/6dcd6645a3e22134b03e",
+    "label": "CreateOrUpdateConsumerInfo exact source setter-intent projection (imported DTO semantics unresolved)",
+    "fields": 5
+  },
+  {
+    "id": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/catalogue-shape/setter/e3cad603e8e4b191e3a9",
+    "label": "CreateOrUpdateConsumerInfo exact source setter-intent projection (imported DTO semantics unresolved)",
+    "fields": 5
+  },
+  {
+    "id": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/catalogue-shape/setter/ff6cb6114a3f2e47516a",
+    "label": "CreateOrUpdateConsumer exact source setter-intent projection (imported DTO semantics unresolved)",
+    "fields": 9
+  },
+  {
+    "id": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/catalogue-shape/setter/ac2eca68c609af3e7022",
+    "label": "CreateOrUpdateConsumerRelation exact source setter-intent projection (imported DTO semantics unresolved)",
+    "fields": 3
+  },
+  {
+    "id": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/catalogue-shape/setter/3deaf84238f9427b0111",
+    "label": "CreateOrUpdateContactDetails exact source setter-intent projection (imported DTO semantics unresolved)",
+    "fields": 4
+  },
+  {
+    "id": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/catalogue-shape/setter/ace1227f9efe3960d990",
+    "label": "CreateOrUpdateEmailAddress exact source setter-intent projection (imported DTO semantics unresolved)",
+    "fields": 3
+  },
+  {
+    "id": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/catalogue-shape/setter/2811480e60adfeec2ed5",
+    "label": "CreateOrUpdateOrganization exact source setter-intent projection (imported DTO semantics unresolved)",
+    "fields": 4
+  },
+  {
+    "id": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/catalogue-shape/setter/4a61f58b761161bb77bd",
+    "label": "CreateOrUpdatePerson exact source setter-intent projection (imported DTO semantics unresolved)",
+    "fields": 6
+  },
+  {
+    "id": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/catalogue-shape/setter/4aedcc61528e75947916",
+    "label": "CreateOrUpdateRequest exact source setter-intent projection (imported DTO semantics unresolved)",
+    "fields": 5
+  },
+  {
+    "id": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/catalogue-shape/setter/bee694021fdeae25a73e",
+    "label": "CreateOrUpdateVehicleRelation exact source setter-intent projection (imported DTO semantics unresolved)",
+    "fields": 3
+  },
+  {
+    "id": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/catalogue-shape/imported-vocabulary/CreateOrUpdateAddress",
+    "label": "CreateOrUpdateAddress partial caller setter vocabulary across source branches; not allocated/wire object",
+    "fields": 10
+  },
+  {
+    "id": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/catalogue-shape/imported-vocabulary/CreateOrUpdateAlternativeConsumerId",
+    "label": "CreateOrUpdateAlternativeConsumerId partial caller setter vocabulary across source branches; not allocated/wire object",
+    "fields": 2
+  },
+  {
+    "id": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/catalogue-shape/imported-vocabulary/CreateOrUpdateConsumerInfo",
+    "label": "CreateOrUpdateConsumerInfo partial caller setter vocabulary across source branches; not allocated/wire object",
+    "fields": 5
+  },
+  {
+    "id": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/catalogue-shape/imported-array/CreateOrUpdateConsumer/alternativeConsumerId",
+    "label": "List<CreateOrUpdateAlternativeConsumerId> source caller collection",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/catalogue-shape/imported-array/CreateOrUpdateConsumer/consumerRelation",
+    "label": "List<CreateOrUpdateConsumerRelation> source caller collection",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/catalogue-shape/imported-array/CreateOrUpdateConsumer/address",
+    "label": "List<CreateOrUpdateAddress> source caller collection",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/catalogue-shape/imported-array/CreateOrUpdateConsumer/contactDetails",
+    "label": "List<CreateOrUpdateContactDetails> source caller collection",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/catalogue-shape/imported-array/CreateOrUpdateConsumer/emailAddress",
+    "label": "List<CreateOrUpdateEmailAddress> source caller collection",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/catalogue-shape/imported-array/CreateOrUpdateConsumer/vehicleRelation",
+    "label": "List<CreateOrUpdateVehicleRelation> source caller collection",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/catalogue-shape/imported-vocabulary/CreateOrUpdateConsumer",
+    "label": "CreateOrUpdateConsumer partial caller setter vocabulary across source branches; not allocated/wire object",
+    "fields": 9
+  },
+  {
+    "id": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/catalogue-shape/imported-vocabulary/CreateOrUpdateConsumerRelation",
+    "label": "CreateOrUpdateConsumerRelation partial caller setter vocabulary across source branches; not allocated/wire object",
+    "fields": 3
+  },
+  {
+    "id": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/catalogue-shape/imported-vocabulary/CreateOrUpdateContactDetails",
+    "label": "CreateOrUpdateContactDetails partial caller setter vocabulary across source branches; not allocated/wire object",
+    "fields": 4
+  },
+  {
+    "id": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/catalogue-shape/imported-vocabulary/CreateOrUpdateEmailAddress",
+    "label": "CreateOrUpdateEmailAddress partial caller setter vocabulary across source branches; not allocated/wire object",
+    "fields": 3
+  },
+  {
+    "id": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/catalogue-shape/imported-vocabulary/CreateOrUpdateOrganization",
+    "label": "CreateOrUpdateOrganization partial caller setter vocabulary across source branches; not allocated/wire object",
+    "fields": 4
+  },
+  {
+    "id": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/catalogue-shape/imported-vocabulary/CreateOrUpdatePerson",
+    "label": "CreateOrUpdatePerson partial caller setter vocabulary across source branches; not allocated/wire object",
+    "fields": 6
+  },
+  {
+    "id": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/catalogue-shape/imported-vocabulary/CreateOrUpdateRequest",
+    "label": "CreateOrUpdateRequest partial caller setter vocabulary across source branches; not allocated/wire object",
+    "fields": 5
+  },
+  {
+    "id": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/catalogue-shape/imported-vocabulary/CreateOrUpdateVehicleRelation",
+    "label": "CreateOrUpdateVehicleRelation partial caller setter vocabulary across source branches; not allocated/wire object",
+    "fields": 3
+  },
+  {
+    "id": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/catalogue-shape/metadata",
+    "label": "Imported Event.Metadata observed projections only",
+    "fields": 3
+  },
+  {
+    "id": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/catalogue-shape/event/CustomerEventPayload",
+    "label": "Imported Event<CustomerEventPayload> observed whole envelope",
+    "fields": 2
+  },
+  {
+    "id": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/catalogue-shape/event/CdbSyncEventPayload",
+    "label": "Imported Event<CdbSyncEventPayload> observed whole envelope",
+    "fields": 2
+  },
+  {
+    "id": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/catalogue-shape/customer-envelope",
+    "label": "Imported SuccessResponse<Customer> whole observed wrapper",
+    "fields": 1
+  },
+  {
+    "id": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/catalogue-shape/openapi/BaseResponseError",
+    "label": "Pinned OpenAPI BaseResponseError declared contract",
+    "fields": 3
+  },
+  {
+    "id": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/catalogue-shape/openapi/Error",
+    "label": "Pinned OpenAPI Error declared contract",
+    "fields": 3
+  },
+  {
+    "id": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/catalogue-shape/openapi/ErrorResponse",
+    "label": "Pinned OpenAPI ErrorResponse declared contract",
+    "fields": 3
+  },
+  {
+    "id": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/catalogue-shape/openapi/VehicleRelationRequest",
+    "label": "Pinned OpenAPI VehicleRelationRequest declared contract",
+    "fields": 2
+  },
+  {
+    "id": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/catalogue-shape/openapi/BaseResponseString",
+    "label": "Pinned OpenAPI BaseResponseString declared contract",
+    "fields": 3
+  },
+  {
+    "id": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/catalogue-shape/openapi/AlternativeConsumer",
+    "label": "Pinned OpenAPI AlternativeConsumer declared contract",
+    "fields": 2
+  },
+  {
+    "id": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/catalogue-shape/openapi/BaseResponseCdbConsumerData",
+    "label": "Pinned OpenAPI BaseResponseCdbConsumerData declared contract",
+    "fields": 3
+  },
+  {
+    "id": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/catalogue-shape/openapi-array/CdbConsumerData/alternateConsumerList",
+    "label": "OpenAPI CdbConsumerData.alternateConsumerList array",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/catalogue-shape/openapi/CdbConsumerData",
+    "label": "Pinned OpenAPI CdbConsumerData declared contract",
+    "fields": 3
+  },
+  {
+    "id": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/catalogue-shape/rest/syncToCdb",
+    "label": "/v1/{customerId}/cdb-sync exact Java formals / annotations",
+    "fields": 2
+  },
+  {
+    "id": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/catalogue-shape/rest/syncVehicleRelationToCdb",
+    "label": "/v1/{customerId}/cdb-vehicle-sync exact Java formals / annotations",
+    "fields": 3
+  },
+  {
+    "id": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/catalogue-shape/rest/getConsumerByVolvoId",
+    "label": "/v1/consumer/volvoid/{volvoId} exact Java formals / annotations",
+    "fields": 2
+  },
+  {
+    "id": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/catalogue-shape/path/d0efce9a9dfe0bf854e0",
+    "label": "/consumer/alternativeIds/{alternativeId}?type={idType} exact source path actual",
+    "fields": 1
+  },
+  {
+    "id": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/catalogue-shape/cdb-idtype",
+    "label": "Exact source CDB query",
+    "fields": 1
+  },
+  {
+    "id": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/catalogue-shape/path/04f5264e87f637a18159",
+    "label": "/v1/customers/{customerId} exact source path actual",
+    "fields": 1
+  },
+  {
+    "id": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/catalogue-shape/path/c1d3ef11399032f03444",
+    "label": "/v1/customers/{customerId} exact source path actual",
+    "fields": 1
+  },
+  {
+    "id": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/catalogue-shape/path/d279427e2ea845bc1b2b",
+    "label": "/internal/ordermanager/v1/orders/customer-update-event/{customerId} exact source path actual",
+    "fields": 1
+  }
+]

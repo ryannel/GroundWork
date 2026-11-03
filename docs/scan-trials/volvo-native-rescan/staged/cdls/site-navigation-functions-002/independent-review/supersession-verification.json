@@ -1,0 +1,30 @@
+{
+  "status": "passed",
+  "changedShapes": [
+    "volvo/cdls-mono-volvocars/8e1fd20c525f/site-navigation-functions-r1/shape/message",
+    "volvo/cdls-mono-volvocars/8e1fd20c525f/site-navigation-functions-r1/shape/workflow-argument",
+    "volvo/cdls-mono-volvocars/8e1fd20c525f/site-navigation-functions-r1/shape/dispatch-options",
+    "volvo/cdls-mono-volvocars/8e1fd20c525f/site-navigation-functions-r1/shape/dispatch-signature",
+    "volvo/cdls-mono-volvocars/8e1fd20c525f/site-navigation-functions-r1/shape/dispatch-inputs"
+  ],
+  "added": [
+    {
+      "id": "volvo/cdls-mono-volvocars/8e1fd20c525f/site-navigation-functions-r1/e/c2f26a0079c12b9e93d0",
+      "kind": "evidence"
+    },
+    {
+      "id": "volvo/cdls-mono-volvocars/8e1fd20c525f/site-navigation-functions-r1/shape/source-string-element",
+      "kind": "shape"
+    },
+    {
+      "id": "volvo/cdls-mono-volvocars/8e1fd20c525f/site-navigation-functions-r1/shape/source-string-array",
+      "kind": "shape"
+    },
+    {
+      "id": "volvo/cdls-mono-volvocars/8e1fd20c525f/site-navigation-functions-r1/claim/source-constraints",
+      "kind": "claim"
+    }
+  ],
+  "removed": [],
+  "qualification": "Five source shapes gain native declared constraints/item references; four supporting source records added. All execution/control/data/value/I/O/registration facts equal after namespace translation."
+}

@@ -1,0 +1,1770 @@
+{
+  "format": "rescan-object-availability/v1",
+  "status": "local_object_availability_blocked",
+  "rosterSha256": "e3d397ca6c5fd1cab1eb8c451a8a28be0ffc71f6a41fb07b9fa0346b9ee970a9",
+  "repositoryCount": 108,
+  "qualification": "Pinned local Git object metadata only. Blob bodies/content hashes, semantic completeness, gitlink child source and remote/deployed freshness are not verified. No lazy fetch or network.",
+  "repositories": [
+    {
+      "repo": "volvo-cars/account-profile-api",
+      "commit": "bc3003a9130cd9a8013d74ec4561575d1f1d935b",
+      "tree": "3bcdd381405106a422a0dad5b8233c503d93bbb5",
+      "clone": "/Users/RNEL/.cache/groundwork/clones/volvo-cars/account-profile-api",
+      "status": "local_object_headers_available",
+      "trackedEntries": 110,
+      "trackedBlobPaths": 110,
+      "checkedUniqueHeaders": 112,
+      "metadataSha256": "68d7a5f011c880ece9974eb6e5016ebe4a228dc5a1a260fdd8708f68a876bf7c",
+      "failures": [],
+      "externalGitlinks": []
+    },
+    {
+      "repo": "volvo-cars/caas-car-configurator",
+      "commit": "5495209c1485f7098f666ad066a44ccc140a4fb9",
+      "tree": "8c871aa5c80ac0305a8f7317278ce3aff685c62a",
+      "clone": "/Users/RNEL/.cache/groundwork/clones/volvo-cars/caas-car-configurator",
+      "status": "local_object_headers_available",
+      "trackedEntries": 232,
+      "trackedBlobPaths": 232,
+      "checkedUniqueHeaders": 234,
+      "metadataSha256": "dbf3778626ddffa435f5216e1a43ead2ae6d1c4e3a0884d78178926214757801",
+      "failures": [],
+      "externalGitlinks": []
+    },
+    {
+      "repo": "volvo-cars/cce-admin-ui",
+      "commit": "2bea451cf1ae51f05f8770f4a78750a5d7495ba6",
+      "tree": "3478db1b5974598728b64f46d2a26f4068d605c6",
+      "clone": "/Users/RNEL/.cache/groundwork/clones/volvo-cars/cce-admin-ui",
+      "status": "local_object_headers_available",
+      "trackedEntries": 980,
+      "trackedBlobPaths": 980,
+      "checkedUniqueHeaders": 977,
+      "metadataSha256": "85bb456dec63058571bfc70f59ea7d01cf1a1c7074d143f80f772944a05cd1d4",
+      "failures": [],
+      "externalGitlinks": []
+    },
+    {
+      "repo": "volvo-cars/cce-car-configuration-generator",
+      "commit": "c91f73a5a3b6cdb56168f7138352a0f409fa8300",
+      "tree": "a9a07b9b62df2668461b9c8ad8147a16ece1493a",
+      "clone": "/Users/RNEL/.cache/groundwork/clones/volvo-cars/cce-car-configuration-generator",
+      "status": "local_object_headers_available",
+      "trackedEntries": 256,
+      "trackedBlobPaths": 256,
+      "checkedUniqueHeaders": 258,
+      "metadataSha256": "d04d58c99bd7bff700175c46fc9407f4942f9a258e986ee5fb44df77f1505258",
+      "failures": [],
+      "externalGitlinks": []
+    },
+    {
+      "repo": "volvo-cars/cce-car-spec-adapter",
+      "commit": "667a00a5f96fdb8b9aad35e0afe80dc792cbc1b5",
+      "tree": "576d1803ee2f7e5d2002a948e86c5966098496ab",
+      "clone": "/Users/RNEL/.cache/groundwork/clones/volvo-cars/cce-car-spec-adapter",
+      "status": "local_object_headers_available",
+      "trackedEntries": 366,
+      "trackedBlobPaths": 366,
+      "checkedUniqueHeaders": 368,
+      "metadataSha256": "8d211986ad2903498e70dc931489ec86ae0befd5d3791de56553be9ec8c6df7a",
+      "failures": [],
+      "externalGitlinks": []
+    },
+    {
+      "repo": "volvo-cars/cce-cpam-ingress",
+      "commit": "6db6ba2b9c76751a690ea9b0184b42e58412a09e",
+      "tree": "25278af5377341882cca35f5912c7e1d5f5db889",
+      "clone": "/Users/RNEL/.cache/groundwork/clones/volvo-cars/cce-cpam-ingress",
+      "status": "local_object_headers_available",
+      "trackedEntries": 169,
+      "trackedBlobPaths": 169,
+      "checkedUniqueHeaders": 171,
+      "metadataSha256": "6da4d4591fada109102d17d7715bad88f983eb3c75ee17af83c4a88bbcfea933",
+      "failures": [],
+      "externalGitlinks": []
+    },
+    {
+      "repo": "volvo-cars/cce-filter-service",
+      "commit": "2020ff59219b4d7bb9ad935fde361b2a6e857112",
+      "tree": "6d2c83055e9e2a7e60fab6c8aa672e4f6406b30f",
+      "clone": "/Users/RNEL/.cache/groundwork/clones/volvo-cars/cce-filter-service",
+      "status": "local_object_headers_available",
+      "trackedEntries": 136,
+      "trackedBlobPaths": 136,
+      "checkedUniqueHeaders": 125,
+      "metadataSha256": "5a56f6b7cdb6b8fd593a596b4a194673bfe4c1d2d20f4077482414d8324aa90f",
+      "failures": [],
+      "externalGitlinks": []
+    },
+    {
+      "repo": "volvo-cars/cce-optimization-api",
+      "commit": "286985b6bebccb6123de78d03aa87b7513f69ed5",
+      "tree": "7f7a582162fa964d02dcb7256c67a29628b81a0b",
+      "clone": "/Users/RNEL/.cache/groundwork/clones/volvo-cars/cce-optimization-api",
+      "status": "local_object_headers_available",
+      "trackedEntries": 139,
+      "trackedBlobPaths": 138,
+      "checkedUniqueHeaders": 113,
+      "metadataSha256": "d04a12425ccc0573d9d8070f365a5292adf06e7c095d55ff7a87bc2c61a307d3",
+      "failures": [],
+      "externalGitlinks": [
+        {
+          "path": "pb-contracts-car-configuration",
+          "commit": "8395ad4b5985b6b8d579045d4449bb4b191b2d2c",
+          "status": "external_child_source_unexamined"
+        }
+      ]
+    },
+    {
+      "repo": "volvo-cars/cce-optimization-facade",
+      "commit": "8da8ebe3227a43817bbbca25fdec182edfaa6584",
+      "tree": "2da662ae8913c70da308f262d12e15b14b71f483",
+      "clone": "/Users/RNEL/.cache/groundwork/clones/volvo-cars/cce-optimization-facade",
+      "status": "local_object_headers_available",
+      "trackedEntries": 738,
+      "trackedBlobPaths": 738,
+      "checkedUniqueHeaders": 736,
+      "metadataSha256": "13adc0c469650cf8b1a3b014f3d4120ac3a39c005bd6d640c8527cd93ee47699",
+      "failures": [],
+      "externalGitlinks": []
+    },
+    {
+      "repo": "volvo-cars/cce-pb-contracts-car-configuration",
+      "commit": "72cbaedcad24e6b02729b7f4fc6a9d6d94a4d769",
+      "tree": "2354ea9682db2cc3bab6a5c5c12ca26fc89b511d",
+      "clone": "/Users/RNEL/.cache/groundwork/clones/volvo-cars/cce-pb-contracts-car-configuration",
+      "status": "local_object_headers_available",
+      "trackedEntries": 21,
+      "trackedBlobPaths": 21,
+      "checkedUniqueHeaders": 23,
+      "metadataSha256": "dd05509bed597b5c171f1eec69f16103954ac057967ac817fb1bf306dfdb0fc5",
+      "failures": [],
+      "externalGitlinks": []
+    },
+    {
+      "repo": "volvo-cars/cce-policy-admin",
+      "commit": "88a3512f0307016b7b1dbcbc729c743fe83ed368",
+      "tree": "9b9e977ea3d7a748b013a02f1dfdd5a9c3673b61",
+      "clone": "/Users/RNEL/.cache/groundwork/clones/volvo-cars/cce-policy-admin",
+      "status": "local_object_headers_available",
+      "trackedEntries": 47,
+      "trackedBlobPaths": 47,
+      "checkedUniqueHeaders": 49,
+      "metadataSha256": "7acb1f6e0628f52c0eba07f29ad95527ba4d3e4daeaaeabafcaa0000c9a6b752",
+      "failures": [],
+      "externalGitlinks": []
+    },
+    {
+      "repo": "volvo-cars/cce-prins-validator",
+      "commit": "dc68082c577756ce31ea30d9b5bbc5e60a2f9a7d",
+      "tree": "13618ab2bfa2000d95f44e905890d16b69afd9bb",
+      "clone": "/Users/RNEL/.cache/groundwork/clones/volvo-cars/cce-prins-validator",
+      "status": "local_object_headers_available",
+      "trackedEntries": 37,
+      "trackedBlobPaths": 37,
+      "checkedUniqueHeaders": 39,
+      "metadataSha256": "76e76da37b19e2514fb1974bc5f575692b0c62a68724140ea30dba8e9fe79632",
+      "failures": [],
+      "externalGitlinks": []
+    },
+    {
+      "repo": "volvo-cars/cce-retail-ingress",
+      "commit": "95d091aa445f26500a497554236ec07c8ca7b27c",
+      "tree": "fa8a49279bd4db7701317ba843b7cbac948f186d",
+      "clone": "/Users/RNEL/.cache/groundwork/clones/volvo-cars/cce-retail-ingress",
+      "status": "local_object_headers_available",
+      "trackedEntries": 56,
+      "trackedBlobPaths": 55,
+      "checkedUniqueHeaders": 57,
+      "metadataSha256": "f12782670a5d18f12a58f060ca7a8938ae3d11c6f5bd7be7a819a414678721b7",
+      "failures": [],
+      "externalGitlinks": [
+        {
+          "path": "events/pb-contracts-car-configuration",
+          "commit": "dfd4da51de4ce6389a9fddae66d7d3e45b5dbc1a",
+          "status": "external_child_source_unexamined"
+        }
+      ]
+    },
+    {
+      "repo": "volvo-cars/cdls-mono-volvocars",
+      "commit": "8e1fd20c525fd3ef46f89fa7734dba06b06c79fc",
+      "tree": "a9dd05bd0028684f49d647a685ec0df14a1f1ee9",
+      "clone": "/Users/RNEL/.cache/groundwork/clones/volvo-cars/cdls-mono-volvocars",
+      "status": "local_object_headers_available",
+      "trackedEntries": 32658,
+      "trackedBlobPaths": 32658,
+      "checkedUniqueHeaders": 30899,
+      "metadataSha256": "906c13d61ef14a4a18f96211484328d28ce70dda51c5bc662889540d52c5ade6",
+      "failures": [],
+      "externalGitlinks": []
+    },
+    {
+      "repo": "volvo-cars/cds-ecom-cart-service",
+      "commit": "ebad8522ba26bbd0f986a0cf88f484a32d864c17",
+      "tree": "3803ee3b673b1ac64ad6a89593aa38048089e5e4",
+      "clone": "/Users/RNEL/.cache/groundwork/clones/volvo-cars/cds-ecom-cart-service",
+      "status": "local_object_headers_available",
+      "trackedEntries": 155,
+      "trackedBlobPaths": 155,
+      "checkedUniqueHeaders": 157,
+      "metadataSha256": "7d0eb5e4c5ab29a396b5a87ca8f6a7ada8185459212f00baa1762a4dead42da9",
+      "failures": [],
+      "externalGitlinks": []
+    },
+    {
+      "repo": "volvo-cars/cds-ecom-conditional-order",
+      "commit": "139e74e69fdf2205da7d2e391fb2bddbc1154dd8",
+      "tree": "093122994cd2c54c42e30b7f8531dce890180f73",
+      "clone": "/Users/RNEL/.cache/groundwork/clones/volvo-cars/cds-ecom-conditional-order",
+      "status": "local_object_headers_available",
+      "trackedEntries": 783,
+      "trackedBlobPaths": 783,
+      "checkedUniqueHeaders": 785,
+      "metadataSha256": "2b2d7e2775f504bd4c96d8b5ba956c023699e28afd5b3a03d8fd24a3acfb26e6",
+      "failures": [],
+      "externalGitlinks": []
+    },
+    {
+      "repo": "volvo-cars/cds-ecom-customer-crm-synchronizer",
+      "commit": "4ea3677cd5df3a19e0d0903d6c803c1413e6a2cd",
+      "tree": "755fdb1a63011eb0e5ed2c63288854f54dca561d",
+      "clone": "/Users/RNEL/.cache/groundwork/clones/volvo-cars/cds-ecom-customer-crm-synchronizer",
+      "status": "local_object_headers_available",
+      "trackedEntries": 149,
+      "trackedBlobPaths": 149,
+      "checkedUniqueHeaders": 151,
+      "metadataSha256": "2fce0a70cc30801f5c94639529fc8892f069d7d6ee1160b83dbfa60005a79cbd",
+      "failures": [],
+      "externalGitlinks": []
+    },
+    {
+      "repo": "volvo-cars/cds-ecom-customer-service",
+      "commit": "09623ab3a1f39845d8fc02abc3d591b53a3b5fea",
+      "tree": "90d342355c0ce3653b29fd2991650ea9ed2cc072",
+      "clone": "/Users/RNEL/.cache/groundwork/clones/volvo-cars/cds-ecom-customer-service",
+      "status": "local_object_headers_available",
+      "trackedEntries": 386,
+      "trackedBlobPaths": 386,
+      "checkedUniqueHeaders": 388,
+      "metadataSha256": "859820f73c21cc3750fcf95a861d9acf8b87d52c42281502620433535a97ba03",
+      "failures": [],
+      "externalGitlinks": []
+    },
+    {
+      "repo": "volvo-cars/cds-ecom-orchestrator",
+      "commit": "5c076211551906fa3814c11d4f56dbf857f44145",
+      "tree": "25847ee50623da6ffbc819d47fe71df0483eb2f7",
+      "clone": "/Users/RNEL/.cache/groundwork/clones/volvo-cars/cds-ecom-orchestrator",
+      "status": "local_object_headers_available",
+      "trackedEntries": 180,
+      "trackedBlobPaths": 180,
+      "checkedUniqueHeaders": 181,
+      "metadataSha256": "576ce697f7988e27f33d57411e51f053c397630671d53d593a27822195ea985d",
+      "failures": [],
+      "externalGitlinks": []
+    },
+    {
+      "repo": "volvo-cars/cds-ecom-search-service",
+      "commit": "b5cedcaec6598407422209638c67e969b586c770",
+      "tree": "3c7befca9e62727fe7943a745bfca07437bf6ceb",
+      "clone": "/Users/RNEL/.cache/groundwork/clones/volvo-cars/cds-ecom-search-service",
+      "status": "local_object_headers_available",
+      "trackedEntries": 140,
+      "trackedBlobPaths": 140,
+      "checkedUniqueHeaders": 142,
+      "metadataSha256": "dc4b4df533e54b6e0def2971096ae639ddc5675be357a394933b433fd1563306",
+      "failures": [],
+      "externalGitlinks": []
+    },
+    {
+      "repo": "volvo-cars/cds-ecom-storefront",
+      "commit": "4f577382be098dbaf899c412e253b11d84f3672f",
+      "tree": "80b58846bd5f734b59f08be1fa118eb9e0ba842d",
+      "clone": "/Users/RNEL/.cache/groundwork/clones/volvo-cars/cds-ecom-storefront",
+      "status": "local_object_headers_available",
+      "trackedEntries": 732,
+      "trackedBlobPaths": 732,
+      "checkedUniqueHeaders": 734,
+      "metadataSha256": "fcef88bb87289c13d0e85df17e63a80804a2910cf2df790cf54c10f3caaaca58",
+      "failures": [],
+      "externalGitlinks": []
+    },
+    {
+      "repo": "volvo-cars/cds-ecom-tnc-service",
+      "commit": "99c9f16e91527df97301905b97c8115622957d07",
+      "tree": "eb506ac656790380819c496d495e71642c458234",
+      "clone": "/Users/RNEL/.cache/groundwork/clones/volvo-cars/cds-ecom-tnc-service",
+      "status": "local_object_headers_available",
+      "trackedEntries": 145,
+      "trackedBlobPaths": 145,
+      "checkedUniqueHeaders": 146,
+      "metadataSha256": "f6a9eecda6821c21922d802c0dda9d3cd7a14ad10127b66287500b09d0d7cad8",
+      "failures": [],
+      "externalGitlinks": []
+    },
+    {
+      "repo": "volvo-cars/cds-finance-engine",
+      "commit": "7fe6410d055b4e52f17374a9d9e280c8faf11c4e",
+      "tree": "8d817383045f6427f366608a34f7a8e0c26c23b3",
+      "clone": "/Users/RNEL/.cache/groundwork/clones/volvo-cars/cds-finance-engine",
+      "status": "missing_or_invalid_local_objects",
+      "trackedEntries": 411,
+      "trackedBlobPaths": 411,
+      "checkedUniqueHeaders": 412,
+      "metadataSha256": "7389200133cb8dccdf3c3bf878fd89e9a6e40a9afa423bb9ae425e00f08a262b",
+      "failures": [
+        {
+          "id": "2f97db9e7455921e9228b3890b4f8739e02eb4ec",
+          "type": "missing",
+          "size": null,
+          "paths": [
+            "cds-finance-engine-shared/src/main/java/com/volvocars/ecom/financeengine/product/rule/FinancingRule.java"
+          ]
+        },
+        {
+          "id": "5fb9319b028a401197488aa3511ffe740f1f0c27",
+          "type": "missing",
+          "size": null,
+          "paths": [
+            "cds-finance-engine-rexec/src/main/java/com/volvocars/financeengine/rexec/RuleExecutor.java"
+          ]
+        },
+        {
+          "id": "8dac8db355640b0668197bb9d810a72f6f2854fe",
+          "type": "missing",
+          "size": null,
+          "paths": [
+            "cds-finance-engine-rexec/src/test/java/com/volvocars/financeengine/rexec/service/RuleExecutorImplTest.java"
+          ]
+        },
+        {
+          "id": "911739731cc8171528f88e1f2c75be7665316e01",
+          "type": "missing",
+          "size": null,
+          "paths": [
+            "cds-finance-engine-rexec/src/main/java/com/volvocars/financeengine/rexec/service/RuleExecutorImpl.java"
+          ]
+        },
+        {
+          "id": "9a4dc0058d950dfe72dadc53e74787aa93fbd446",
+          "type": "missing",
+          "size": null,
+          "paths": [
+            "cds-finance-engine-shared/src/test/java/com/volvocars/ecom/financeengine/product/rule/FinancingRuleTest.java"
+          ]
+        },
+        {
+          "id": "ca02e0fa31f8d30a1fd26b39fe55bc8b31e4cb8f",
+          "type": "missing",
+          "size": null,
+          "paths": [
+            "cds-finance-engine-shared/src/test/java/com/volvocars/ecom/financeengine/product/rule/RuleConditionTest.java"
+          ]
+        }
+      ],
+      "externalGitlinks": []
+    },
+    {
+      "repo": "volvo-cars/cds-finance-engine-bank-integration",
+      "commit": "a8e7b9dc5dadcdd2b0d146c4b1af44654d10b47a",
+      "tree": "770e9e6eed686718b3f65303b0ff3a7dd0743d41",
+      "clone": "/Users/RNEL/.cache/groundwork/clones/volvo-cars/cds-finance-engine-bank-integration",
+      "status": "local_object_headers_available",
+      "trackedEntries": 665,
+      "trackedBlobPaths": 665,
+      "checkedUniqueHeaders": 667,
+      "metadataSha256": "7a6a47c821753a3a23ad5dca2abecc099af0536d68b0b0d1e5ff6caaf296de6a",
+      "failures": [],
+      "externalGitlinks": []
+    },
+    {
+      "repo": "volvo-cars/cds-finance-engine-core-service",
+      "commit": "4a16a9599e61dbdf8d8a5afa42d8a03dc29a2d51",
+      "tree": "6d01f28fc9f5e08689b7fd614fadd2e282dbdbed",
+      "clone": "/Users/RNEL/.cache/groundwork/clones/volvo-cars/cds-finance-engine-core-service",
+      "status": "local_object_headers_available",
+      "trackedEntries": 81,
+      "trackedBlobPaths": 81,
+      "checkedUniqueHeaders": 81,
+      "metadataSha256": "6904a8ec22b0c630a51bf5811c2461a11ce8ff1e5d65757e26b3f3804f9cfb86",
+      "failures": [],
+      "externalGitlinks": []
+    },
+    {
+      "repo": "volvo-cars/cds-finance-engine-data-synchronizer",
+      "commit": "483e7c75a92eec0cea39e9285af3d8389a46e65e",
+      "tree": "5f75afd4b949af6b1ea3a83949508f7cc057d559",
+      "clone": "/Users/RNEL/.cache/groundwork/clones/volvo-cars/cds-finance-engine-data-synchronizer",
+      "status": "local_object_headers_available",
+      "trackedEntries": 158,
+      "trackedBlobPaths": 158,
+      "checkedUniqueHeaders": 160,
+      "metadataSha256": "3739f6cc91fe0d4703090f5cf3321c831f82aa66d61746a769b52029ec74fc7e",
+      "failures": [],
+      "externalGitlinks": []
+    },
+    {
+      "repo": "volvo-cars/cds-finance-engine-event-processor",
+      "commit": "8ae2cce04eedba75e56024887f9eba9dd207df4e",
+      "tree": "24b91b00b81a2c48dd9783d287b0c11503e91c96",
+      "clone": "/Users/RNEL/.cache/groundwork/clones/volvo-cars/cds-finance-engine-event-processor",
+      "status": "local_object_headers_available",
+      "trackedEntries": 66,
+      "trackedBlobPaths": 66,
+      "checkedUniqueHeaders": 68,
+      "metadataSha256": "268b40432909548decdd9ea0aea9485c46ae3e84846a11190fb01c4e93ce5cbf",
+      "failures": [],
+      "externalGitlinks": []
+    },
+    {
+      "repo": "volvo-cars/cds-finance-engine-experience-service",
+      "commit": "8b359b02d1c5d51ee470454b7ce0948ca5f67e47",
+      "tree": "94cecdec2b6cf0ec27ef70f60298a747cd70d5a0",
+      "clone": "/Users/RNEL/.cache/groundwork/clones/volvo-cars/cds-finance-engine-experience-service",
+      "status": "local_object_headers_available",
+      "trackedEntries": 58,
+      "trackedBlobPaths": 58,
+      "checkedUniqueHeaders": 58,
+      "metadataSha256": "d74ffb092c39f05ae9152ca14d5eea5dadbcb2e40b7c5d815d1529bb1463a4c5",
+      "failures": [],
+      "externalGitlinks": []
+    },
+    {
+      "repo": "volvo-cars/cds-finance-engine-financingparty-adapter",
+      "commit": "b26a18384596640849b9d47e07d46f21d4aa1316",
+      "tree": "577b8edb19bbf0a173d80ca8df60cca0893b1bb1",
+      "clone": "/Users/RNEL/.cache/groundwork/clones/volvo-cars/cds-finance-engine-financingparty-adapter",
+      "status": "local_object_headers_available",
+      "trackedEntries": 48,
+      "trackedBlobPaths": 48,
+      "checkedUniqueHeaders": 50,
+      "metadataSha256": "db2cbfdaa61d6bffcbd47bf149927f13e44e812c9249a3942a3a79654f0835c8",
+      "failures": [],
+      "externalGitlinks": []
+    },
+    {
+      "repo": "volvo-cars/cds-finance-engine-inbound-api",
+      "commit": "c8b1d3914d618f6a981af467cc1017b9dd081754",
+      "tree": "e50bffb9b8e2bd093781de2c3010e7e51a3d53b7",
+      "clone": "/Users/RNEL/.cache/groundwork/clones/volvo-cars/cds-finance-engine-inbound-api",
+      "status": "local_object_headers_available",
+      "trackedEntries": 86,
+      "trackedBlobPaths": 86,
+      "checkedUniqueHeaders": 88,
+      "metadataSha256": "b43cae557964651f73aeda3c588f0e44f7af3ab7d2b16d3f66217c8d1f796ead",
+      "failures": [],
+      "externalGitlinks": []
+    },
+    {
+      "repo": "volvo-cars/cds-finance-engine-integration-service",
+      "commit": "04d025381ca2a55607d60a22ba2fffe19612b826",
+      "tree": "7a3c096487ddc21cdd2a81999e5eca88dd56b9f0",
+      "clone": "/Users/RNEL/.cache/groundwork/clones/volvo-cars/cds-finance-engine-integration-service",
+      "status": "local_object_headers_available",
+      "trackedEntries": 352,
+      "trackedBlobPaths": 352,
+      "checkedUniqueHeaders": 352,
+      "metadataSha256": "896f90c9504a0968eec5eda2486491c1bf42d5a57a355f46c137b14603b15a23",
+      "failures": [],
+      "externalGitlinks": []
+    },
+    {
+      "repo": "volvo-cars/cds-finance-engine-scf-client",
+      "commit": "e4fc6035656efda71f1fca25342242fb56f7179d",
+      "tree": "93a5846f90a62f7a1933daa7465214ea966f5307",
+      "clone": "/Users/RNEL/.cache/groundwork/clones/volvo-cars/cds-finance-engine-scf-client",
+      "status": "local_object_headers_available",
+      "trackedEntries": 116,
+      "trackedBlobPaths": 116,
+      "checkedUniqueHeaders": 118,
+      "metadataSha256": "c4ef3dc3a1e754d808445ca9645c907784ce32fb7681905015007b493cd30ad5",
+      "failures": [],
+      "externalGitlinks": []
+    },
+    {
+      "repo": "volvo-cars/cds-finance-engine-scheduler",
+      "commit": "aff51de350ea00582fbe6e58b2cde969eac04c4c",
+      "tree": "828ff24d8f858dc934cb51cfbd1bb517e0160cf0",
+      "clone": "/Users/RNEL/.cache/groundwork/clones/volvo-cars/cds-finance-engine-scheduler",
+      "status": "local_object_headers_available",
+      "trackedEntries": 45,
+      "trackedBlobPaths": 45,
+      "checkedUniqueHeaders": 47,
+      "metadataSha256": "d486ebc30e0774d49e3f062e93ba90eb0d3f8b7c5f60c6b159b3aef57cb81a7f",
+      "failures": [],
+      "externalGitlinks": []
+    },
+    {
+      "repo": "volvo-cars/cds-finance-engine-zenith-client",
+      "commit": "60b1b772dca6d82e6a50aebb4f2381d989a0b06e",
+      "tree": "6a803302993ac3af1054b8a24cbbe1e83ec6093b",
+      "clone": "/Users/RNEL/.cache/groundwork/clones/volvo-cars/cds-finance-engine-zenith-client",
+      "status": "local_object_headers_available",
+      "trackedEntries": 84,
+      "trackedBlobPaths": 84,
+      "checkedUniqueHeaders": 86,
+      "metadataSha256": "dcee6d6427d720b48ea25804944b4256bcfd9e72087c5797f31affafcad7e922",
+      "failures": [],
+      "externalGitlinks": []
+    },
+    {
+      "repo": "volvo-cars/cds-om-order-manager",
+      "commit": "d4b3fc3c474ed43ae27d915ebaa8e92e33447e46",
+      "tree": "7d2dbe2129c211546a14a1f863e8a26fc22a4118",
+      "clone": "/Users/RNEL/.cache/groundwork/clones/volvo-cars/cds-om-order-manager",
+      "status": "local_object_headers_available",
+      "trackedEntries": 1509,
+      "trackedBlobPaths": 1509,
+      "checkedUniqueHeaders": 1503,
+      "metadataSha256": "6ae7dc1ba80e3ee94f4b763a999bb821532124e5c12fa464a581f46b49fd28c7",
+      "failures": [],
+      "externalGitlinks": []
+    },
+    {
+      "repo": "volvo-cars/cds-om-order-status-tracking-service",
+      "commit": "0e6981a77884b73c16f6ef3784b77d17d178707f",
+      "tree": "f45560a786108a9865a335a9f5db3355e779614e",
+      "clone": "/Users/RNEL/.cache/groundwork/clones/volvo-cars/cds-om-order-status-tracking-service",
+      "status": "local_object_headers_available",
+      "trackedEntries": 168,
+      "trackedBlobPaths": 168,
+      "checkedUniqueHeaders": 170,
+      "metadataSha256": "f86461460952a0f35ce1ab2df77d4c689f90fc9c238d6274a9cff59fd3544068",
+      "failures": [],
+      "externalGitlinks": []
+    },
+    {
+      "repo": "volvo-cars/cds-paymentservice-customer",
+      "commit": "b0010537cdd5a308a30a885541748727c97ecb2e",
+      "tree": "b5ddd89072ddfe2c8cd8e34c882eb5937abc64ac",
+      "clone": "/Users/RNEL/.cache/groundwork/clones/volvo-cars/cds-paymentservice-customer",
+      "status": "local_object_headers_available",
+      "trackedEntries": 133,
+      "trackedBlobPaths": 133,
+      "checkedUniqueHeaders": 135,
+      "metadataSha256": "e7832f35e44f93c3196d829317ebccce6192bc6ca9fb83f9b873dc3a284f48ba",
+      "failures": [],
+      "externalGitlinks": []
+    },
+    {
+      "repo": "volvo-cars/cds-paymentservice-psp-inbound",
+      "commit": "ae1d9ddfb34dae71c15913e9f28d41321d66266a",
+      "tree": "2c961c2c04ae5d59a8696323a31ca8a6074a4126",
+      "clone": "/Users/RNEL/.cache/groundwork/clones/volvo-cars/cds-paymentservice-psp-inbound",
+      "status": "local_object_headers_available",
+      "trackedEntries": 104,
+      "trackedBlobPaths": 104,
+      "checkedUniqueHeaders": 105,
+      "metadataSha256": "7a7e3c62676a7f56dc5feb96a3892224c078318a0c51b0359472669b758730de",
+      "failures": [],
+      "externalGitlinks": []
+    },
+    {
+      "repo": "volvo-cars/cds-paymentservice-psp-integration",
+      "commit": "dabd6c825499b706ff4ddbf15eaf354adbfb6794",
+      "tree": "7cbc1877d30b7188f7d154579f432071b4a20c69",
+      "clone": "/Users/RNEL/.cache/groundwork/clones/volvo-cars/cds-paymentservice-psp-integration",
+      "status": "local_object_headers_available",
+      "trackedEntries": 489,
+      "trackedBlobPaths": 489,
+      "checkedUniqueHeaders": 479,
+      "metadataSha256": "25859fcec584e2c6e0311b1fc941cbb04fd4b722c6e3db103c0efdbca666cea1",
+      "failures": [],
+      "externalGitlinks": []
+    },
+    {
+      "repo": "volvo-cars/cds-paymentservice-scheduler",
+      "commit": "c00df60c8233b1a8f47829ce382d5805bf164c6b",
+      "tree": "3984b752f08ff949af81b940333db4bc71144ab8",
+      "clone": "/Users/RNEL/.cache/groundwork/clones/volvo-cars/cds-paymentservice-scheduler",
+      "status": "local_object_headers_available",
+      "trackedEntries": 127,
+      "trackedBlobPaths": 127,
+      "checkedUniqueHeaders": 129,
+      "metadataSha256": "976a92ffacfd04f4f663ca9c2fd5bf91826af23b9a63f3a541f1b41d06f9d433",
+      "failures": [],
+      "externalGitlinks": []
+    },
+    {
+      "repo": "volvo-cars/cds-paymentservice-transaction",
+      "commit": "020d2fabb141b47b6d1e8173c02405795f71613a",
+      "tree": "020d6ee43aaf1966c1fadb8979e816bcc4be34aa",
+      "clone": "/Users/RNEL/.cache/groundwork/clones/volvo-cars/cds-paymentservice-transaction",
+      "status": "local_object_headers_available",
+      "trackedEntries": 250,
+      "trackedBlobPaths": 250,
+      "checkedUniqueHeaders": 252,
+      "metadataSha256": "31f2d8785ca8e00336f24ab9f44adefce59561afb0172e3202f4790f6993b74e",
+      "failures": [],
+      "externalGitlinks": []
+    },
+    {
+      "repo": "volvo-cars/cdshop-paymentservice",
+      "commit": "dcdc6f8675adfca345126c0ca7484294b6969e61",
+      "tree": "358dad5a1fa2dc7410eefb7ad6a82e547552b304",
+      "clone": "/Users/RNEL/.cache/groundwork/clones/volvo-cars/cdshop-paymentservice",
+      "status": "local_object_headers_available",
+      "trackedEntries": 365,
+      "trackedBlobPaths": 365,
+      "checkedUniqueHeaders": 367,
+      "metadataSha256": "547b11df4e545328c6f17808a35b5c06aa87c93c26888882ebc2f0accf21277a",
+      "failures": [],
+      "externalGitlinks": []
+    },
+    {
+      "repo": "volvo-cars/cdshop-paymentservice-api",
+      "commit": "b4bf49bb7ef368f9730f4c0074b1baf77c42ddea",
+      "tree": "a030df8af60077c40efb901f22389f0d215a1dad",
+      "clone": "/Users/RNEL/.cache/groundwork/clones/volvo-cars/cdshop-paymentservice-api",
+      "status": "local_object_headers_available",
+      "trackedEntries": 81,
+      "trackedBlobPaths": 81,
+      "checkedUniqueHeaders": 83,
+      "metadataSha256": "d99a5dd457e805cdedc30ae7b60163ef9bb603436fa3355cf13464c95fc66218",
+      "failures": [],
+      "externalGitlinks": []
+    },
+    {
+      "repo": "volvo-cars/cdshop-paymentservice-experience",
+      "commit": "f95c7eb1d9db53865eb40444f6e5cd3ac176a110",
+      "tree": "90a018fa3dd702ebfb10590ebeb366e043986ff0",
+      "clone": "/Users/RNEL/.cache/groundwork/clones/volvo-cars/cdshop-paymentservice-experience",
+      "status": "local_object_headers_available",
+      "trackedEntries": 145,
+      "trackedBlobPaths": 145,
+      "checkedUniqueHeaders": 147,
+      "metadataSha256": "ce334c3d2f50b24253834de3810275799589517ec7b67fbb1b0b6d3ee6f63734",
+      "failures": [],
+      "externalGitlinks": []
+    },
+    {
+      "repo": "volvo-cars/cdshop-paymentservice-integration",
+      "commit": "6832f339f54acc2906ca9a62f69b65b1b57c8f0e",
+      "tree": "235035268a64b93ff70df82362fc6057d83517ac",
+      "clone": "/Users/RNEL/.cache/groundwork/clones/volvo-cars/cdshop-paymentservice-integration",
+      "status": "local_object_headers_available",
+      "trackedEntries": 164,
+      "trackedBlobPaths": 164,
+      "checkedUniqueHeaders": 166,
+      "metadataSha256": "25b71838b99efda8161ea70ecfa333215c61a585f3c36f5b51772191a9ddf741",
+      "failures": [],
+      "externalGitlinks": []
+    },
+    {
+      "repo": "volvo-cars/CLE.ReservationApi",
+      "commit": "7c647185135d3cce413bed87afc816c2cf78bc3c",
+      "tree": "a3ee1a03e734265c7008602e65a7af0ffa6969f7",
+      "clone": "/Users/RNEL/.cache/groundwork/clones/volvo-cars/CLE.ReservationApi",
+      "status": "local_object_headers_available",
+      "trackedEntries": 125,
+      "trackedBlobPaths": 125,
+      "checkedUniqueHeaders": 126,
+      "metadataSha256": "ccc5191eb96e2a4ee93bf862d5a798957edbe4f7b035a988099deb810d69e42d",
+      "failures": [],
+      "externalGitlinks": []
+    },
+    {
+      "repo": "volvo-cars/content-green-light",
+      "commit": "88383197b84653b2b5769d57ba6aac5e3ec007e9",
+      "tree": "100754e1049b33dc9106827f771b794fe1115092",
+      "clone": "/Users/RNEL/Workspace/cb-special-projects/.repos/content-green-light",
+      "status": "local_object_headers_available",
+      "trackedEntries": 61,
+      "trackedBlobPaths": 61,
+      "checkedUniqueHeaders": 63,
+      "metadataSha256": "1d818f7a6c9584093c5c5b6efbef74a525d73862f849d4a9b12d842e857e7cbf",
+      "failures": [],
+      "externalGitlinks": []
+    },
+    {
+      "repo": "volvo-cars/cpam-facade",
+      "commit": "c7e53976e248c526a079bc46593f4bd83e179659",
+      "tree": "44764427357f42f6795bc8b48f35e574d4916e28",
+      "clone": "/Users/RNEL/.cache/groundwork/clones/volvo-cars/cpam-facade",
+      "status": "local_object_headers_available",
+      "trackedEntries": 70,
+      "trackedBlobPaths": 70,
+      "checkedUniqueHeaders": 72,
+      "metadataSha256": "699c3345406253ef41e5e515546b0e2733bf0b7411ab861ae8c9a4e0bd919c4c",
+      "failures": [],
+      "externalGitlinks": []
+    },
+    {
+      "repo": "volvo-cars/disco",
+      "commit": "36b480b64f7f618c25954380373eafcf73d31b02",
+      "tree": "f9750368c49b9e3681d5df5e756fbac2ed606f02",
+      "clone": "/Users/RNEL/.cache/groundwork/clones/volvo-cars/disco",
+      "status": "local_object_headers_available",
+      "trackedEntries": 237,
+      "trackedBlobPaths": 237,
+      "checkedUniqueHeaders": 236,
+      "metadataSha256": "79ae3136f46e2151cf671a0c47921b549c8bcf6708da7c9a4e7869b24670e46e",
+      "failures": [],
+      "externalGitlinks": []
+    },
+    {
+      "repo": "volvo-cars/disco-data",
+      "commit": "99db90b9d0bc83f2937f677227a5f9e1a60b4e57",
+      "tree": "6a4c6b16c48e108ee52bf6ce76d56422c2869ad9",
+      "clone": "/Users/RNEL/.cache/groundwork/clones/volvo-cars/disco-data",
+      "status": "local_object_headers_available",
+      "trackedEntries": 961,
+      "trackedBlobPaths": 960,
+      "checkedUniqueHeaders": 961,
+      "metadataSha256": "04c10917a7674ca2e8e03bbb0a5380f02909a010ad56b6cf00a1b652163c6b89",
+      "failures": [],
+      "externalGitlinks": [
+        {
+          "path": "LocalDev",
+          "commit": "71aef1710263fb0398542f73d4d9e8b527f21d3e",
+          "status": "external_child_source_unexamined"
+        }
+      ]
+    },
+    {
+      "repo": "volvo-cars/disco-frontend",
+      "commit": "e2c3ae699a41052508eec5109b4fe08666620682",
+      "tree": "21b07b6336a1b48ccaaeb39a80f2dcc5cad47e90",
+      "clone": "/Users/RNEL/.cache/groundwork/clones/volvo-cars/disco-frontend",
+      "status": "local_object_headers_available",
+      "trackedEntries": 338,
+      "trackedBlobPaths": 338,
+      "checkedUniqueHeaders": 339,
+      "metadataSha256": "400787e49b1e316d48ae55b84df88b9bf79dc2990845a7cbab9d940f84e3176b",
+      "failures": [],
+      "externalGitlinks": []
+    },
+    {
+      "repo": "volvo-cars/disco-offer",
+      "commit": "67827218dc2207edc77a41a650a4193996a2d108",
+      "tree": "61bc94f0c6bcb55437a5d4271d214e123b292ccd",
+      "clone": "/Users/RNEL/.cache/groundwork/clones/volvo-cars/disco-offer",
+      "status": "local_object_headers_available",
+      "trackedEntries": 24,
+      "trackedBlobPaths": 24,
+      "checkedUniqueHeaders": 26,
+      "metadataSha256": "38a8299751cfc971b75dd2bcc074916eeed3ec3709c67aa4515b41856bdca056",
+      "failures": [],
+      "externalGitlinks": []
+    },
+    {
+      "repo": "volvo-cars/disco-proto",
+      "commit": "73894147eac4af2e9a6ee8b5a73455f35e2b82c8",
+      "tree": "1db2b77efb61bf7b9c84d70eb92c694ff008e83f",
+      "clone": "/Users/RNEL/.cache/groundwork/clones/volvo-cars/disco-proto",
+      "status": "local_object_headers_available",
+      "trackedEntries": 2,
+      "trackedBlobPaths": 2,
+      "checkedUniqueHeaders": 4,
+      "metadataSha256": "30590ad8d8e4642f00d217a5e3b2951bc1f7eae780cf0645666348923f008960",
+      "failures": [],
+      "externalGitlinks": []
+    },
+    {
+      "repo": "volvo-cars/disco-query",
+      "commit": "241e9f1421785d77e9ce8104ad9ada6e84417bd9",
+      "tree": "3d3e0e51abfae90ea36684207b5a740efd0d97fd",
+      "clone": "/Users/RNEL/.cache/groundwork/clones/volvo-cars/disco-query",
+      "status": "local_object_headers_available",
+      "trackedEntries": 760,
+      "trackedBlobPaths": 759,
+      "checkedUniqueHeaders": 761,
+      "metadataSha256": "3b7d7f289b397da8c08bff4ebc579b34957a225b43dc722d27e6ac080bc649a7",
+      "failures": [],
+      "externalGitlinks": [
+        {
+          "path": "LocalDev",
+          "commit": "71aef1710263fb0398542f73d4d9e8b527f21d3e",
+          "status": "external_child_source_unexamined"
+        }
+      ]
+    },
+    {
+      "repo": "volvo-cars/fleet-account",
+      "commit": "b07c22ef7427c00567f00635f92f89b3caaffd72",
+      "tree": "a2f43ac3eaf043052960ed1d1b367232468cc8cd",
+      "clone": "/Users/RNEL/.cache/groundwork/clones/volvo-cars/fleet-account",
+      "status": "local_object_headers_available",
+      "trackedEntries": 1253,
+      "trackedBlobPaths": 1253,
+      "checkedUniqueHeaders": 1253,
+      "metadataSha256": "aecedb4995339d6f8071ce395517256b2ee602c117b73e5fe3bb5e45a2914a02",
+      "failures": [],
+      "externalGitlinks": []
+    },
+    {
+      "repo": "volvo-cars/gpe-common",
+      "commit": "be551c0997ca9352f8cf8f1044049a7112e7371d",
+      "tree": "707bd44f842ef45a7ae2c6b4e890888e59d3b473",
+      "clone": "/Users/RNEL/.cache/groundwork/clones/volvo-cars/gpe-common",
+      "status": "local_object_headers_available",
+      "trackedEntries": 130,
+      "trackedBlobPaths": 130,
+      "checkedUniqueHeaders": 132,
+      "metadataSha256": "597559c7e23ee1d4f04f6c631510323dcec8fd908f7f6739a67edf8d02a8fe52",
+      "failures": [],
+      "externalGitlinks": []
+    },
+    {
+      "repo": "volvo-cars/gpe-configuration",
+      "commit": "eb07546b77b5ddbb535fd3068085c6004fb1b8f2",
+      "tree": "f15e6ef767b31958b1f202cc283cf7188edac7a4",
+      "clone": "/Users/RNEL/.cache/groundwork/clones/volvo-cars/gpe-configuration",
+      "status": "local_object_headers_available",
+      "trackedEntries": 68,
+      "trackedBlobPaths": 68,
+      "checkedUniqueHeaders": 70,
+      "metadataSha256": "17150ac70fc42cf0bafb2930797c6be31e5f4d76caae6e6793356ad9aa6016da",
+      "failures": [],
+      "externalGitlinks": []
+    },
+    {
+      "repo": "volvo-cars/gpe-external-price",
+      "commit": "8445e8ca01c1bf279bfa9336ecf9187b9f699fc8",
+      "tree": "630ca454aa24a40bb173fabb74866027731028f8",
+      "clone": "/Users/RNEL/.cache/groundwork/clones/volvo-cars/gpe-external-price",
+      "status": "local_object_headers_available",
+      "trackedEntries": 80,
+      "trackedBlobPaths": 80,
+      "checkedUniqueHeaders": 77,
+      "metadataSha256": "d1432328b45197bbd58fa6d195f4211404a5383e8627ff69e8491adcc4291198",
+      "failures": [],
+      "externalGitlinks": []
+    },
+    {
+      "repo": "volvo-cars/gpe-financial-calculator",
+      "commit": "c8924a906b4f709c0ff50c98d52903905cec7264",
+      "tree": "8aa24807913a7a5c8a17b6367a8bd53cfb342e69",
+      "clone": "/Users/RNEL/.cache/groundwork/clones/volvo-cars/gpe-financial-calculator",
+      "status": "local_object_headers_available",
+      "trackedEntries": 283,
+      "trackedBlobPaths": 283,
+      "checkedUniqueHeaders": 283,
+      "metadataSha256": "66929fd7da748dc89dc5b411506118a637188e154d0e2983fe86f648add221b6",
+      "failures": [],
+      "externalGitlinks": []
+    },
+    {
+      "repo": "volvo-cars/gpe-green-light",
+      "commit": "06ff7f2fee0e15a50a523ef8853df278c117476c",
+      "tree": "c4d43a981ab609c570c254b1dc4beb1e622158c5",
+      "clone": "/Users/RNEL/.cache/groundwork/clones/volvo-cars/gpe-green-light",
+      "status": "local_object_headers_available",
+      "trackedEntries": 86,
+      "trackedBlobPaths": 86,
+      "checkedUniqueHeaders": 86,
+      "metadataSha256": "5607adcc3540069550487ec4e7ebb9ad8d5fb61b7fa5233c8ad941cf4caf0ee0",
+      "failures": [],
+      "externalGitlinks": []
+    },
+    {
+      "repo": "volvo-cars/gpe-pretax",
+      "commit": "9ac2fd76c450a64d6f5c4bd49e1942ef8eb42c56",
+      "tree": "c1f94131b2f9d0e030e9e65c5061e52e5b8f6aff",
+      "clone": "/Users/RNEL/.cache/groundwork/clones/volvo-cars/gpe-pretax",
+      "status": "local_object_headers_available",
+      "trackedEntries": 257,
+      "trackedBlobPaths": 257,
+      "checkedUniqueHeaders": 229,
+      "metadataSha256": "4dc31bd4c77d4acae7435b1868d85196b29a0ace5c204a39c52e727fabfa7e66",
+      "failures": [],
+      "externalGitlinks": []
+    },
+    {
+      "repo": "volvo-cars/gpe-price",
+      "commit": "045660f3bfc3476eab6f4a1e8506bbbc9f8d28be",
+      "tree": "7528bfcf1242f6bf99788aa143f8d18302c465d1",
+      "clone": "/Users/RNEL/.cache/groundwork/clones/volvo-cars/gpe-price",
+      "status": "local_object_headers_available",
+      "trackedEntries": 752,
+      "trackedBlobPaths": 752,
+      "checkedUniqueHeaders": 652,
+      "metadataSha256": "c9d10bd4568e981de4508faa5f3b601ab7e21b9ea8c14b3857b2f8656be446d6",
+      "failures": [],
+      "externalGitlinks": []
+    },
+    {
+      "repo": "volvo-cars/gpe-price-data",
+      "commit": "dd4ac6f97ed334f0a47318f0f5a33d0d3d72e473",
+      "tree": "aa4d45ad66d2539da70b7a51f5c0616502f5f758",
+      "clone": "/Users/RNEL/.cache/groundwork/clones/volvo-cars/gpe-price-data",
+      "status": "missing_or_invalid_local_objects",
+      "trackedEntries": 213,
+      "trackedBlobPaths": 213,
+      "checkedUniqueHeaders": 210,
+      "metadataSha256": "5defa80cfa1b55a2d136b3840fd4efdb8b7a939e1eab64b89e6e7f798a12189a",
+      "failures": [
+        {
+          "id": "177e60dcce2a0752a979acd1f0ed99849cd45e2a",
+          "type": "missing",
+          "size": null,
+          "paths": ["Core/Models/ProductPriceDocument/ProductPriceDocument.cs"]
+        },
+        {
+          "id": "5677bc2984b1adfafff01f6436e3f16351fa1176",
+          "type": "missing",
+          "size": null,
+          "paths": ["DocumentGenerator/Providers/PDM/Proxy/PriceDataManagement.json"]
+        },
+        {
+          "id": "abce0d93137c26da217e05a04d2d78f10385ef93",
+          "type": "missing",
+          "size": null,
+          "paths": ["DocumentGenerator/ProductPriceDocumentService.cs"]
+        },
+        {
+          "id": "ba5da5a44c9b93bf18b68fbd57f6708d1a472068",
+          "type": "missing",
+          "size": null,
+          "paths": [
+            "Importer.PriceDocument.Tests/PriceDocumentKafkaListenerTests.ConsumeMessage_ShouldSaveCorrectDataAndProduceKafkaNotificationForStandaloneProduct_WhenCustomerTypeIsEmptyString.verified.txt",
+            "Service.Tests/SyncService/DataSyncServiceTests.InitiateProductPriceDocumentsSync_ShouldSaveCorrectData_WhenNullCustomerTypeIsProvided.verified.txt"
+          ]
+        },
+        {
+          "id": "eac0d2974c2b107062add9de4fb5d1427d91fe0f",
+          "type": "missing",
+          "size": null,
+          "paths": [
+            "Service.Tests/Mocks/Proxy/SearchStandalonePrices_FI-1e7fc376-3ae0-4e4f-951b-a461176706b3.json"
+          ]
+        }
+      ],
+      "externalGitlinks": []
+    },
+    {
+      "repo": "volvo-cars/gpe-price-event-dispatcher",
+      "commit": "a51af4a836bb67437459ba4da7c8a149dc73e8aa",
+      "tree": "2669cd53f55885810cb203f8d7bed39e56287942",
+      "clone": "/Users/RNEL/.cache/groundwork/clones/volvo-cars/gpe-price-event-dispatcher",
+      "status": "local_object_headers_available",
+      "trackedEntries": 111,
+      "trackedBlobPaths": 111,
+      "checkedUniqueHeaders": 111,
+      "metadataSha256": "26e2c285c6fb175dcc8f14adea865a690bc8c20950995816c54a5549d394f335",
+      "failures": [],
+      "externalGitlinks": []
+    },
+    {
+      "repo": "volvo-cars/graphql-federation-mono",
+      "commit": "8212cd552701f46678e165a9592135ae055b91ca",
+      "tree": "a675ab2bc66db0944d51d9297b35d328f3bd06bd",
+      "clone": "/Users/RNEL/.cache/groundwork/clones/volvo-cars/graphql-federation-mono",
+      "status": "local_object_headers_available",
+      "trackedEntries": 5776,
+      "trackedBlobPaths": 5776,
+      "checkedUniqueHeaders": 5593,
+      "metadataSha256": "6c33ca7eb104fa7538b46a677abe6aa3e1a6b19cb0f9c6bc0bd2104352bf5cde",
+      "failures": [],
+      "externalGitlinks": []
+    },
+    {
+      "repo": "volvo-cars/graphql-federation-mono-gitops",
+      "commit": "a01ee436747ee9b097c0eb8d4c13d8d2b231617c",
+      "tree": "de6dc645004c153af9504d1b31f2af4392fcba01",
+      "clone": "/Users/RNEL/.cache/groundwork/clones/volvo-cars/graphql-federation-mono-gitops",
+      "status": "local_object_headers_available",
+      "trackedEntries": 155,
+      "trackedBlobPaths": 155,
+      "checkedUniqueHeaders": 154,
+      "metadataSha256": "fae28ffaabe6d91523930a83fbe6590d494bd25c7edef698e20de62f32965692",
+      "failures": [],
+      "externalGitlinks": []
+    },
+    {
+      "repo": "volvo-cars/graphql-federation-router",
+      "commit": "b8e0790b09e8f6772b8ada267a1e5114ab4fc707",
+      "tree": "4e740824cc5b4f7e4786f68872be935892e907e1",
+      "clone": "/Users/RNEL/.cache/groundwork/clones/volvo-cars/graphql-federation-router",
+      "status": "local_object_headers_available",
+      "trackedEntries": 72,
+      "trackedBlobPaths": 72,
+      "checkedUniqueHeaders": 74,
+      "metadataSha256": "4eadab38dbc72ca1b3934bb1c49f8fdc38cbd6c95710396444e15e2acfe791fe",
+      "failures": [],
+      "externalGitlinks": []
+    },
+    {
+      "repo": "volvo-cars/lcs",
+      "commit": "485c1818b144656bd2828e2053367d73199538be",
+      "tree": "76e0011c8f8f35661ec874aab169cbdc46955e78",
+      "clone": "/Users/RNEL/.cache/groundwork/clones/volvo-cars/lcs",
+      "status": "local_object_headers_available",
+      "trackedEntries": 559,
+      "trackedBlobPaths": 559,
+      "checkedUniqueHeaders": 559,
+      "metadataSha256": "8bcdc668535a1f1ed93d65cd3fc53e025766a63f42cd0928a7c4969ebba3778a",
+      "failures": [],
+      "externalGitlinks": []
+    },
+    {
+      "repo": "volvo-cars/marketing-feeds-api",
+      "commit": "3e2f68ea1397b0dff3e0abba88af24775e2368fe",
+      "tree": "1028b9c715d285fefa0cac464e2f7291f9b9f85c",
+      "clone": "/Users/RNEL/.cache/groundwork/clones/volvo-cars/marketing-feeds-api",
+      "status": "local_object_headers_available",
+      "trackedEntries": 2069,
+      "trackedBlobPaths": 2069,
+      "checkedUniqueHeaders": 1072,
+      "metadataSha256": "fd4fcc508f24cf7eb5da52706c5eb9c59d7d52d1c028b627f117adbf4054855e",
+      "failures": [],
+      "externalGitlinks": []
+    },
+    {
+      "repo": "volvo-cars/offer-management",
+      "commit": "f0ed500bcf9204b109eed10b31b0cee9e0fdc7e5",
+      "tree": "a5089faebfbf0d3d86f9e32842fd3eaffd6a1541",
+      "clone": "/Users/RNEL/.cache/groundwork/clones/volvo-cars/offer-management",
+      "status": "local_object_headers_available",
+      "trackedEntries": 548,
+      "trackedBlobPaths": 548,
+      "checkedUniqueHeaders": 550,
+      "metadataSha256": "d861aeccb564426d92fd1131d667bc56ee9e19324f698fb9ec791c5a3afc1d70",
+      "failures": [],
+      "externalGitlinks": []
+    },
+    {
+      "repo": "volvo-cars/ooe-financing-offers",
+      "commit": "b66fdb08082dc07cfea8c63d0465d80224067181",
+      "tree": "ab0de08dad76778f92638ad0cbbf287b639b9bb2",
+      "clone": "/Users/RNEL/.cache/groundwork/clones/volvo-cars/ooe-financing-offers",
+      "status": "local_object_headers_available",
+      "trackedEntries": 547,
+      "trackedBlobPaths": 547,
+      "checkedUniqueHeaders": 549,
+      "metadataSha256": "d5dfb9ed1884256b51d114b3d6a1b6119336c4fd6629845175211d1e29221ac9",
+      "failures": [],
+      "externalGitlinks": []
+    },
+    {
+      "repo": "volvo-cars/ooe-product-offer-logging",
+      "commit": "52ab5af9f63177a8f95105b21e5ebe62784d16c2",
+      "tree": "2e53ff5cb0beebf2b4eaed71dcba5b4680f934c7",
+      "clone": "/Users/RNEL/.cache/groundwork/clones/volvo-cars/ooe-product-offer-logging",
+      "status": "local_object_headers_available",
+      "trackedEntries": 25,
+      "trackedBlobPaths": 25,
+      "checkedUniqueHeaders": 27,
+      "metadataSha256": "8138d86bc6430f2c82139607cef6410c6666662abaab61a4e588ac54aabcc2db",
+      "failures": [],
+      "externalGitlinks": []
+    },
+    {
+      "repo": "volvo-cars/pop-assortment-gitops",
+      "commit": "1a2ae34e7e7dd5ed5a69d0df40d60f67325892bf",
+      "tree": "60c626b39c95cb0b6d7d49dbce8a79d727befac4",
+      "clone": "/Users/RNEL/Workspace/cb-special-projects/.repos/pop-assortment-gitops",
+      "status": "local_object_headers_available",
+      "trackedEntries": 334,
+      "trackedBlobPaths": 334,
+      "checkedUniqueHeaders": 294,
+      "metadataSha256": "344f5c2adeaeb2d4eb07edae9e76ddf924f5c2a13694350731c9f7ed38e6e758",
+      "failures": [],
+      "externalGitlinks": []
+    },
+    {
+      "repo": "volvo-cars/pop-assortment-libraries",
+      "commit": "1a3e2494a332c46c336fca14cf35af4a168161ee",
+      "tree": "dc7b6e25100bc249213e423c35ca34dc3c95cae3",
+      "clone": "/Users/RNEL/.cache/groundwork/clones/volvo-cars/pop-assortment-libraries",
+      "status": "local_object_headers_available",
+      "trackedEntries": 216,
+      "trackedBlobPaths": 216,
+      "checkedUniqueHeaders": 215,
+      "metadataSha256": "1e45f494c93ae3864eedf43b04e5a54ed5b6f292fe247e3698a3c33bd10d1221",
+      "failures": [],
+      "externalGitlinks": []
+    },
+    {
+      "repo": "volvo-cars/pop-authz",
+      "commit": "e22e7b522193536a182835c5df4c9abbb7198cd9",
+      "tree": "22e7eb8bde0e704d213937b3899f10f4afe4c30e",
+      "clone": "/Users/RNEL/.cache/groundwork/clones/volvo-cars/pop-authz",
+      "status": "local_object_headers_available",
+      "trackedEntries": 68,
+      "trackedBlobPaths": 68,
+      "checkedUniqueHeaders": 70,
+      "metadataSha256": "92fdac5f96f0ee986a326a5ca451b14425e805df9c099326a61fdd774dedbe54",
+      "failures": [],
+      "externalGitlinks": []
+    },
+    {
+      "repo": "volvo-cars/pop-offers-green-light-service",
+      "commit": "78ebfcd3fd297b1fbad64cd3ddc15128f0988a86",
+      "tree": "bd2d57dbd272482ed82d5d3c99adf9177228c839",
+      "clone": "/Users/RNEL/.cache/groundwork/clones/volvo-cars/pop-offers-green-light-service",
+      "status": "local_object_headers_available",
+      "trackedEntries": 192,
+      "trackedBlobPaths": 192,
+      "checkedUniqueHeaders": 194,
+      "metadataSha256": "edb8661c19c4fd7e7af464b0af2faf960074528ef971411d715b0355fabbe2e1",
+      "failures": [],
+      "externalGitlinks": []
+    },
+    {
+      "repo": "volvo-cars/popcat-assortment-admin-api",
+      "commit": "0c08718771b698ce60178a7518b147f961ca8d44",
+      "tree": "dc8cba51791b93c953a59e42584cd9b44140dba0",
+      "clone": "/Users/RNEL/.cache/groundwork/clones/volvo-cars/popcat-assortment-admin-api",
+      "status": "local_object_headers_available",
+      "trackedEntries": 603,
+      "trackedBlobPaths": 603,
+      "checkedUniqueHeaders": 600,
+      "metadataSha256": "1c2cbea0bc0d699cf76e69d1b7458525e3c67c43cda819188bf6e05c838c6bc2",
+      "failures": [],
+      "externalGitlinks": []
+    },
+    {
+      "repo": "volvo-cars/popcat-assortment-api",
+      "commit": "6114c5db0f2b4b490cf89b9c512088f01dbf0b98",
+      "tree": "4dcadb41d37b3396adb4a552fb23a8aea350a61c",
+      "clone": "/Users/RNEL/.cache/groundwork/clones/volvo-cars/popcat-assortment-api",
+      "status": "local_object_headers_available",
+      "trackedEntries": 391,
+      "trackedBlobPaths": 391,
+      "checkedUniqueHeaders": 389,
+      "metadataSha256": "eb18293ae3d32646469f31e3275461ebf4e16a15f813fb51d1defb5b0b94af1b",
+      "failures": [],
+      "externalGitlinks": []
+    },
+    {
+      "repo": "volvo-cars/popcat-carfeatures",
+      "commit": "fb46a71193eaf8a7937b571ce4e8a90da89f57ad",
+      "tree": "55a21908339414d4f8cd2fe7df38257367321362",
+      "clone": "/Users/RNEL/.cache/groundwork/clones/volvo-cars/popcat-carfeatures",
+      "status": "local_object_headers_available",
+      "trackedEntries": 197,
+      "trackedBlobPaths": 197,
+      "checkedUniqueHeaders": 199,
+      "metadataSha256": "c110d2a97c79a2516489cb15aaa81ae36f9787ecc13c64928b78fcd766929ecd",
+      "failures": [],
+      "externalGitlinks": []
+    },
+    {
+      "repo": "volvo-cars/popcat-eligibility-api",
+      "commit": "bb4edc2468b7890f19d95f80973684825253e0e5",
+      "tree": "6007bb729caf9e7957737368221190104fa69963",
+      "clone": "/Users/RNEL/.cache/groundwork/clones/volvo-cars/popcat-eligibility-api",
+      "status": "local_object_headers_available",
+      "trackedEntries": 155,
+      "trackedBlobPaths": 155,
+      "checkedUniqueHeaders": 156,
+      "metadataSha256": "bd299b9fb13684bbb8846b91b18dbe9ffcf105ac8f7075932f3db7b38a46a7fe",
+      "failures": [],
+      "externalGitlinks": []
+    },
+    {
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "tree": "78f89f1e5a250ee24ff5d21e22c50e9021741aff",
+      "clone": "/Users/RNEL/.cache/groundwork/clones/volvo-cars/popcat-manage-and-segment",
+      "status": "local_object_headers_available",
+      "trackedEntries": 562,
+      "trackedBlobPaths": 562,
+      "checkedUniqueHeaders": 562,
+      "metadataSha256": "d0cc034716b4f0f9f782aec9e93228187d69704a5f2bc8c0f9153469b489aaa1",
+      "failures": [],
+      "externalGitlinks": []
+    },
+    {
+      "repo": "volvo-cars/popcat-prins-ingestion",
+      "commit": "611c811884f04e097b0c78502e1046acab1c10d6",
+      "tree": "93242a12593600aae040a8d7b88d1bab000441b4",
+      "clone": "/Users/RNEL/.cache/groundwork/clones/volvo-cars/popcat-prins-ingestion",
+      "status": "local_object_headers_available",
+      "trackedEntries": 282,
+      "trackedBlobPaths": 282,
+      "checkedUniqueHeaders": 282,
+      "metadataSha256": "4316bc3ba85b5a6ee92fba43aefc6141ab5fdf04de0353c05193f33f9739f0b1",
+      "failures": [],
+      "externalGitlinks": []
+    },
+    {
+      "repo": "volvo-cars/popcat-product-details-service",
+      "commit": "0bfc59d69d1e683de7f484b467b835befcd6fba5",
+      "tree": "2ce460b7296498c43f4da77bafa7d330aadde4f5",
+      "clone": "/Users/RNEL/.cache/groundwork/clones/volvo-cars/popcat-product-details-service",
+      "status": "local_object_headers_available",
+      "trackedEntries": 386,
+      "trackedBlobPaths": 386,
+      "checkedUniqueHeaders": 387,
+      "metadataSha256": "7f9837e5981a3eded01a4c391affa61a782aaf09912b2ab5ec443f335ac1ed4b",
+      "failures": [],
+      "externalGitlinks": []
+    },
+    {
+      "repo": "volvo-cars/popcat-product-mapper",
+      "commit": "b81ab9eb4452049a3c746b26fc2f9e82167adc7e",
+      "tree": "9d103786e3ac8d34c9dc7b3ce8bb2662f105c665",
+      "clone": "/Users/RNEL/.cache/groundwork/clones/volvo-cars/popcat-product-mapper",
+      "status": "missing_or_invalid_local_objects",
+      "trackedEntries": 223,
+      "trackedBlobPaths": 223,
+      "checkedUniqueHeaders": 225,
+      "metadataSha256": "7d1ae1737e957a76a7f45a48d7947f7dd77276e3118be039d33499526f0afb2a",
+      "failures": [
+        {
+          "id": "54da0c926012a18a01e6ade2bc4cb95f1c64dfbf",
+          "type": "missing",
+          "size": null,
+          "paths": [".github/PULL_REQUEST_TEMPLATE.md"]
+        },
+        {
+          "id": "f9b0f47d3e93fc62ede3089487d0fd62c510dd1b",
+          "type": "missing",
+          "size": null,
+          "paths": [".github/copilot-instructions.md"]
+        }
+      ],
+      "externalGitlinks": []
+    },
+    {
+      "repo": "volvo-cars/price-core-ui-mono",
+      "commit": "50cbd51c933105942b169f59b1fabf5b31e1ecea",
+      "tree": "0cca3ae17ecda8b4ceebd632f03cd1be85f63c60",
+      "clone": "/Users/RNEL/.cache/groundwork/clones/volvo-cars/price-core-ui-mono",
+      "status": "local_object_headers_available",
+      "trackedEntries": 664,
+      "trackedBlobPaths": 664,
+      "checkedUniqueHeaders": 652,
+      "metadataSha256": "a5ad965fa1bc2630b362715afaa8883f94752c7b4e45836a915a9dcdc818487b",
+      "failures": [],
+      "externalGitlinks": []
+    },
+    {
+      "repo": "volvo-cars/price-data-management",
+      "commit": "b244d1e2dcf9545299ebdbf6e35c6c8f0fad3697",
+      "tree": "1fa117cdbbc416d543bab32fbff9ae543bd6d01a",
+      "clone": "/Users/RNEL/.cache/groundwork/clones/volvo-cars/price-data-management",
+      "status": "missing_or_invalid_local_objects",
+      "trackedEntries": 1572,
+      "trackedBlobPaths": 1572,
+      "checkedUniqueHeaders": 1545,
+      "metadataSha256": "e1a817f4e6d2c9d77c5a68dfa80f788f96f27bcf69c606f3301a178e1d84c51a",
+      "failures": [
+        {
+          "id": "0a26b2eff755e91128feb10d06803ae52c0f9e6b",
+          "type": "missing",
+          "size": null,
+          "paths": ["RelationalDB/PriceRepository.cs"]
+        },
+        {
+          "id": "0febf3e63164ceca04763a6c200052a982a03c2b",
+          "type": "missing",
+          "size": null,
+          "paths": ["Core/BCM/Models/BcmItemSummary.cs"]
+        },
+        {
+          "id": "16c930c43c5fac00c23e212014015bc60664fde0",
+          "type": "missing",
+          "size": null,
+          "paths": ["Core/BCM/Calculation/Calculators/Items/GrossRevenueCalculator.cs"]
+        },
+        {
+          "id": "2a7a6b57356dd835d13c5a4bbbf343805441f0d0",
+          "type": "missing",
+          "size": null,
+          "paths": ["Api/Controllers/Models/BCM/Requests.cs"]
+        },
+        {
+          "id": "2b60a5105fc0299f608fed394399b24473e391a8",
+          "type": "missing",
+          "size": null,
+          "paths": ["Core/BCM/Calculation/Calculators/Items/NetRevenueCalculator.cs"]
+        },
+        {
+          "id": "2b65d336157ec6d1ddf90700abbdb7cd1aa9c908",
+          "type": "missing",
+          "size": null,
+          "paths": ["Core/BCM/Calculation/BcmValueTypeCatalog.cs"]
+        },
+        {
+          "id": "36ad8fa6227eb0401e10c88a994f6c3723ee979b",
+          "type": "missing",
+          "size": null,
+          "paths": ["RelationalDB/DataContext.cs"]
+        },
+        {
+          "id": "378b866a534a5afe90a594627ed0314297f3c14e",
+          "type": "missing",
+          "size": null,
+          "paths": ["RelationalDB/Helpers/QueryableExtensions.cs"]
+        },
+        {
+          "id": "3dc6dffb76c272b5ca5fb1fe0b15fa2d9f3d790a",
+          "type": "missing",
+          "size": null,
+          "paths": ["Core/BCM/Calculation/BcmValueContext.cs"]
+        },
+        {
+          "id": "45521844206123050cc82cc8417625d2c04cd732",
+          "type": "missing",
+          "size": null,
+          "paths": ["Core/BCM/Calculation/Calculators/Items/ContributionMarginCalculator.cs"]
+        },
+        {
+          "id": "49ed5a03879bf8b4689bf7f7d88ee86db8168faf",
+          "type": "missing",
+          "size": null,
+          "paths": ["Core/BCM/Calculation/Calculators/Items/FdmCalculator.cs"]
+        },
+        {
+          "id": "4ffb61edc0233c0d18bf1102816a14cc2a9880d0",
+          "type": "missing",
+          "size": null,
+          "paths": ["Core/Models/FieldOrder.cs"]
+        },
+        {
+          "id": "5bca6360200193bbdc7624e645748940a03f9c60",
+          "type": "missing",
+          "size": null,
+          "paths": ["Core.Tests/BCM/BcmRealCaseTests.cs"]
+        },
+        {
+          "id": "5d73c330032d731d3efc311e84556bd7ac17360b",
+          "type": "missing",
+          "size": null,
+          "paths": ["Core/BCM/InboundPorts/BcmProductListService.cs"]
+        },
+        {
+          "id": "6050532af3ac15c1a6f23ed3e303dd0fe5e579ac",
+          "type": "missing",
+          "size": null,
+          "paths": ["Core.Tests/BCM/BcmCalculationRealDataTests.cs"]
+        },
+        {
+          "id": "6166112b50be436fa1d0556ac24bd073f01dd889",
+          "type": "missing",
+          "size": null,
+          "paths": ["Api/Controllers/Models/BCM/Responses.cs"]
+        },
+        {
+          "id": "62e728a631ce5e92dc96f3ee7b1aa3f266083d9c",
+          "type": "missing",
+          "size": null,
+          "paths": ["Core/BCM/Calculation/BcmProductIdMap.cs"]
+        },
+        {
+          "id": "7c1fc34e7628c9f3939ce7f50b7e8bc938024f57",
+          "type": "missing",
+          "size": null,
+          "paths": ["Core.Tests/BCM/BcmProductIdMapTests.cs"]
+        },
+        {
+          "id": "7e3a99a8cfd1643606251b50067c206036039858",
+          "type": "missing",
+          "size": null,
+          "paths": ["Core.Tests/BCM/BcmBusinessCaseServiceTests.cs"]
+        },
+        {
+          "id": "7f7ba708f6d55f5620759344f3b70bb180994d29",
+          "type": "missing",
+          "size": null,
+          "paths": ["RelationalDB/BCM/BcmRepository.cs"]
+        },
+        {
+          "id": "8e1d0fc20021e77f45d5f92cf738bdb130f922e5",
+          "type": "missing",
+          "size": null,
+          "paths": ["RelationalDB/Migrations/RDBDataContextModelSnapshot.cs"]
+        },
+        {
+          "id": "92bce0797483e6456826cfb940fe01f06883a71e",
+          "type": "missing",
+          "size": null,
+          "paths": ["Api.Tests/Controllers/BcmFullCycleControllerTests.cs"]
+        },
+        {
+          "id": "95274ea095fc2d8df498345a575072c933f2dc07",
+          "type": "missing",
+          "size": null,
+          "paths": ["Core/BCM/OutboundPorts/IBcmBusinessCaseService.cs"]
+        },
+        {
+          "id": "967e93484b503913496820f160dcc1f09085dc83",
+          "type": "missing",
+          "size": null,
+          "paths": ["Core/BCM/Calculation/BcmValueType.cs"]
+        },
+        {
+          "id": "97b4f3eb49364a7d30f4515f83e6925a574e761f",
+          "type": "missing",
+          "size": null,
+          "paths": ["Core/BCM/Models/BcmBusinessCase.cs"]
+        },
+        {
+          "id": "9b64d8dfd42f2d1c123525d96aac340f84be1689",
+          "type": "missing",
+          "size": null,
+          "paths": ["Core/BCM/Models/BcmItemBundleValue.cs"]
+        },
+        {
+          "id": "9c991863252c19e364e5d31ab3735e3a7c87420f",
+          "type": "missing",
+          "size": null,
+          "paths": ["Api/Controllers/Models/StandalonePriceModels.cs"]
+        },
+        {
+          "id": "a62c89bcb926ad4f24dc4a9a56863131f5e5682d",
+          "type": "missing",
+          "size": null,
+          "paths": ["Api.Tests/Controllers/BCMControllerTests.cs"]
+        },
+        {
+          "id": "a76e7ddd53f7774258720c522d35d3882b96cfdf",
+          "type": "missing",
+          "size": null,
+          "paths": ["Api/Controllers/BCMController.cs"]
+        },
+        {
+          "id": "a82ca768dea45e6975425ab8b457b332e3eabb00",
+          "type": "missing",
+          "size": null,
+          "paths": ["Core/BCM/OutboundPorts/IBcmRepository.cs"]
+        },
+        {
+          "id": "ad5d8ec1680f67173ca5aa6bef9cd1dc85def44a",
+          "type": "missing",
+          "size": null,
+          "paths": ["Core/BCM/Calculation/Calculators/Items/VdmCalculator.cs"]
+        },
+        {
+          "id": "ae8337f4a059ca579ae21c00823e3047d833c0b2",
+          "type": "missing",
+          "size": null,
+          "paths": ["Core/BCM/InboundPorts/BcmRawDataExportService.cs"]
+        },
+        {
+          "id": "b802eedd33fc5d1808e9405828bc1d181c19d1b1",
+          "type": "missing",
+          "size": null,
+          "paths": ["RelationalDB/Models/BCM/DBBCMBusinessCaseItems.cs"]
+        },
+        {
+          "id": "bcb53daa97b975cc0518af9ca47c2d841741917b",
+          "type": "missing",
+          "size": null,
+          "paths": ["Core/BCM/InboundPorts/BcmCalculationService.cs"]
+        },
+        {
+          "id": "c069b7a0a7efdd9c8f486e8dba1019894fe6b6da",
+          "type": "missing",
+          "size": null,
+          "paths": ["Core/BCM/Bct/BctWorkbookReader.cs"]
+        },
+        {
+          "id": "c27d1e9f211decb5ff8e8b96da899930fa643661",
+          "type": "missing",
+          "size": null,
+          "paths": ["Core/BCM/InboundPorts/BcmBusinessCaseService.cs"]
+        },
+        {
+          "id": "dba69b0e3209b4067b542099703e4effaa8754cd",
+          "type": "missing",
+          "size": null,
+          "paths": ["Service/Configuration/BcmConfiguration.cs"]
+        },
+        {
+          "id": "dc5feada8e0efb9d3aab994cf426b43cef35e2c6",
+          "type": "missing",
+          "size": null,
+          "paths": ["Api/Controllers/Mappers/BcmMapper.cs"]
+        },
+        {
+          "id": "f45cb6bdcf103ac777e5ef43e649a9b67ecf82c6",
+          "type": "missing",
+          "size": null,
+          "paths": ["Core/BCM/Calculation/Calculators/NetRevenueCalculator.cs"]
+        }
+      ],
+      "externalGitlinks": []
+    },
+    {
+      "repo": "volvo-cars/pricing-catalog-api",
+      "commit": "abacb06ac2f6a2403d244cad6de1839b12887f9c",
+      "tree": "662637a4f982571a9d0e7887b111c0e52e331c23",
+      "clone": "/Users/RNEL/.cache/groundwork/clones/volvo-cars/pricing-catalog-api",
+      "status": "local_object_headers_available",
+      "trackedEntries": 214,
+      "trackedBlobPaths": 214,
+      "checkedUniqueHeaders": 216,
+      "metadataSha256": "21f26d7ea0125d2e76abacaa3165ffaa39aa8ecd754f6ec6b82b714618f537e8",
+      "failures": [],
+      "externalGitlinks": []
+    },
+    {
+      "repo": "volvo-cars/prism",
+      "commit": "12bedbccc139b501ae455fd6c659a4f1f2c75057",
+      "tree": "0fe1bd20a253a38809575e368bd6ba3d683fb922",
+      "clone": "/Users/RNEL/.cache/groundwork/clones/volvo-cars/prism",
+      "status": "local_object_headers_available",
+      "trackedEntries": 2415,
+      "trackedBlobPaths": 2415,
+      "checkedUniqueHeaders": 2352,
+      "metadataSha256": "85e462b543a5a444b2996794154bdd621f57b6f5ae03947c7f715c84da2e6b10",
+      "failures": [],
+      "externalGitlinks": []
+    },
+    {
+      "repo": "volvo-cars/prismedia",
+      "commit": "464738155c90f8217667a94963be5bf2de7170c5",
+      "tree": "2da36d5b852a955eaf309f34b1285af18ec55243",
+      "clone": "/Users/RNEL/.cache/groundwork/clones/volvo-cars/prismedia",
+      "status": "local_object_headers_available",
+      "trackedEntries": 177,
+      "trackedBlobPaths": 177,
+      "checkedUniqueHeaders": 179,
+      "metadataSha256": "f1f17b0324b4bd973492eb287b033d77430f2e9dc0a5998851f38439ec794f36",
+      "failures": [],
+      "externalGitlinks": []
+    },
+    {
+      "repo": "volvo-cars/product-catalog-api",
+      "commit": "f677c934db1e427326a0c02db167c4de777aa105",
+      "tree": "976639e819bc202a59b9421dbba8d1ba996c3e7d",
+      "clone": "/Users/RNEL/.cache/groundwork/clones/volvo-cars/product-catalog-api",
+      "status": "local_object_headers_available",
+      "trackedEntries": 1019,
+      "trackedBlobPaths": 1019,
+      "checkedUniqueHeaders": 1014,
+      "metadataSha256": "18f17d3c3dd5f75a108e7933163580902339385c2a1dd563bd5a42425ebed1da",
+      "failures": [],
+      "externalGitlinks": []
+    },
+    {
+      "repo": "volvo-cars/product-catalog-ui",
+      "commit": "6b013e0f9195f855d22ca65318417b120a642b02",
+      "tree": "2d75b691a695572138027212f8a9571665263287",
+      "clone": "/Users/RNEL/.cache/groundwork/clones/volvo-cars/product-catalog-ui",
+      "status": "local_object_headers_available",
+      "trackedEntries": 2131,
+      "trackedBlobPaths": 2131,
+      "checkedUniqueHeaders": 2080,
+      "metadataSha256": "4639a2ef0e302d07ef2028c7f82b7331c042f80272fec92736483e8ecd008bc7",
+      "failures": [],
+      "externalGitlinks": []
+    },
+    {
+      "repo": "volvo-cars/product-configuration-facade",
+      "commit": "7ab979757f842587815a361ef32d011dadd64574",
+      "tree": "f5900b1c63f67121dc63aac1dc71033c4fae2a71",
+      "clone": "/Users/RNEL/.cache/groundwork/clones/volvo-cars/product-configuration-facade",
+      "status": "local_object_headers_available",
+      "trackedEntries": 812,
+      "trackedBlobPaths": 812,
+      "checkedUniqueHeaders": 800,
+      "metadataSha256": "f01f930f8b1714dd3d075f07f8144e91d04564c5cabfc8d5f0a4a2f94d97cc5d",
+      "failures": [],
+      "externalGitlinks": []
+    },
+    {
+      "repo": "volvo-cars/product-enrichment-tools",
+      "commit": "4fe72b050d15f43d4f24513c1a5d466b038397e4",
+      "tree": "19eeee34eb93d104095bb35721eeea0ec39fdd98",
+      "clone": "/Users/RNEL/.cache/groundwork/clones/volvo-cars/product-enrichment-tools",
+      "status": "local_object_headers_available",
+      "trackedEntries": 87,
+      "trackedBlobPaths": 87,
+      "checkedUniqueHeaders": 86,
+      "metadataSha256": "7f438fbe2e92b921766eda4a1633d22bb3931fff8614eb8fa85813fbe6e82e82",
+      "failures": [],
+      "externalGitlinks": []
+    },
+    {
+      "repo": "volvo-cars/product-offer-bto-enabled-baseliner",
+      "commit": "2e0d69dbb54267f435054f53f0fb1fb289ffcfb9",
+      "tree": "0ab01e05ac548945c3fcb39e152b22e92c269d26",
+      "clone": "/Users/RNEL/.cache/groundwork/clones/volvo-cars/product-offer-bto-enabled-baseliner",
+      "status": "local_object_headers_available",
+      "trackedEntries": 14,
+      "trackedBlobPaths": 14,
+      "checkedUniqueHeaders": 16,
+      "metadataSha256": "ef1134ac934ce3b9d7956cfaf80a7d628fc703b6eb1e0cbc46cd9d6511de5c3d",
+      "failures": [],
+      "externalGitlinks": []
+    },
+    {
+      "repo": "volvo-cars/product-offer-search",
+      "commit": "89e3848de3f5c3175abe382ce7ea924dfa96b4e6",
+      "tree": "733b2a73e1a1627ce80e59a7afd8caf877a1d02c",
+      "clone": "/Users/RNEL/.cache/groundwork/clones/volvo-cars/product-offer-search",
+      "status": "local_object_headers_available",
+      "trackedEntries": 211,
+      "trackedBlobPaths": 211,
+      "checkedUniqueHeaders": 213,
+      "metadataSha256": "bebd18118ac5eb1de8e275145ca433606354bc294924d85ac5d71852ee38d7bf",
+      "failures": [],
+      "externalGitlinks": []
+    },
+    {
+      "repo": "volvo-cars/product-service",
+      "commit": "ad0e90a90ed01c07c89f2d0da9ec1669a8428a2e",
+      "tree": "2a60ecf2744e5002c002c5d9e24508dc8f05e78d",
+      "clone": "/Users/RNEL/.cache/groundwork/clones/volvo-cars/product-service",
+      "status": "local_object_headers_available",
+      "trackedEntries": 398,
+      "trackedBlobPaths": 398,
+      "checkedUniqueHeaders": 399,
+      "metadataSha256": "a9278317233d870eca318415b0a218a48933aedb59a61ea185bb4852c4a2b75e",
+      "failures": [],
+      "externalGitlinks": []
+    },
+    {
+      "repo": "volvo-cars/rdm-commercial-partner-graphql-api",
+      "commit": "a326ff0d6aca382c16067bbe8dd601ebeac2d456",
+      "tree": "a6a52365f0e83bbb6181e27a8ed9d9c38a9b2b0e",
+      "clone": "/Users/RNEL/.cache/groundwork/clones/volvo-cars/rdm-commercial-partner-graphql-api",
+      "status": "local_object_headers_available",
+      "trackedEntries": 180,
+      "trackedBlobPaths": 180,
+      "checkedUniqueHeaders": 181,
+      "metadataSha256": "eeb629f0800a6f9bcc886ab0bd7f0b9f1b22de8e9d4731b0ac0caae86fe95cab",
+      "failures": [],
+      "externalGitlinks": []
+    },
+    {
+      "repo": "volvo-cars/rules-engine-offer-service",
+      "commit": "891389913af71afeee347efde5ce2d8e02e6d714",
+      "tree": "6d7a04d86523f9a9692201f427303859223a8f1b",
+      "clone": "/Users/RNEL/.cache/groundwork/clones/volvo-cars/rules-engine-offer-service",
+      "status": "local_object_headers_available",
+      "trackedEntries": 696,
+      "trackedBlobPaths": 696,
+      "checkedUniqueHeaders": 696,
+      "metadataSha256": "984fd0b590da89e71a2ca1316b266b9af5b8ab30476701aea30407db0c3d086e",
+      "failures": [],
+      "externalGitlinks": []
+    },
+    {
+      "repo": "volvo-cars/rules-engine-offers-read-view",
+      "commit": "f13e2cfb98c6764512ba6196b5faa3ec08e73a2b",
+      "tree": "8c6fad8e4fd5547fdf954b64bafe8dc18ab55c5f",
+      "clone": "/Users/RNEL/.cache/groundwork/clones/volvo-cars/rules-engine-offers-read-view",
+      "status": "local_object_headers_available",
+      "trackedEntries": 250,
+      "trackedBlobPaths": 250,
+      "checkedUniqueHeaders": 252,
+      "metadataSha256": "65f7eb05b4cc453d1604eb584ac0a7ae5106d6442e988bfd206848cdf263b5d8",
+      "failures": [],
+      "externalGitlinks": []
+    },
+    {
+      "repo": "volvo-cars/stock-catalog-api",
+      "commit": "81b5950f12abc53f86fa06f40ac0413f92da716f",
+      "tree": "31efad88703c03f8ad8f9502acbc359dc9d8daf9",
+      "clone": "/Users/RNEL/.cache/groundwork/clones/volvo-cars/stock-catalog-api",
+      "status": "local_object_headers_available",
+      "trackedEntries": 174,
+      "trackedBlobPaths": 174,
+      "checkedUniqueHeaders": 176,
+      "metadataSha256": "84aaf3ea6b174d6a4d9c260a306dd2cb1a7049492e4681b7ef4e3456f025ff9a",
+      "failures": [],
+      "externalGitlinks": []
+    },
+    {
+      "repo": "volvo-cars/tax-calculator",
+      "commit": "5a9b302b8dd3f9160e42735920cc5ecf71585d85",
+      "tree": "1133f969ec78459495879fecb5f30f755f51de5f",
+      "clone": "/Users/RNEL/.cache/groundwork/clones/volvo-cars/tax-calculator",
+      "status": "local_object_headers_available",
+      "trackedEntries": 718,
+      "trackedBlobPaths": 718,
+      "checkedUniqueHeaders": 702,
+      "metadataSha256": "0fbc82a83b9d58252b29a518bd4df2f5be36901f5678e854fc81de4adec68808",
+      "failures": [],
+      "externalGitlinks": []
+    },
+    {
+      "repo": "volvo-cars/techno",
+      "commit": "c0a236ddc3c290fefdc57f608fe3d810d5012a49",
+      "tree": "d4fa88889cd8ea2c918bed19250da430263d5b4c",
+      "clone": "/Users/RNEL/.cache/groundwork/clones/volvo-cars/techno",
+      "status": "local_object_headers_available",
+      "trackedEntries": 1119,
+      "trackedBlobPaths": 1119,
+      "checkedUniqueHeaders": 1119,
+      "metadataSha256": "2911be16120c98d4dd4f4f203c144d761a3209b9fa81d2e9a3c22dbbc6c1c09f",
+      "failures": [],
+      "externalGitlinks": []
+    },
+    {
+      "repo": "volvo-cars/test-drive-api",
+      "commit": "f74a57bb823f6c31b80c74b9427c6b2fe61a4a40",
+      "tree": "8e70075d6a3ebee0c8d69a4bbdcb92cdf8ba2907",
+      "clone": "/Users/RNEL/.cache/groundwork/clones/volvo-cars/test-drive-api",
+      "status": "local_object_headers_available",
+      "trackedEntries": 537,
+      "trackedBlobPaths": 537,
+      "checkedUniqueHeaders": 539,
+      "metadataSha256": "7ed8e34ae7db513fd8023497cbdcac02d74971fabb6ff0976ac3ddf21549bf5f",
+      "failures": [],
+      "externalGitlinks": []
+    },
+    {
+      "repo": "volvo-cars/tyre-label-service",
+      "commit": "ac0244dd36aa716e857a577aaa7344ab5936fc81",
+      "tree": "421fac5e7b708cc3196616282efb3211f2ea42cb",
+      "clone": "/Users/RNEL/.cache/groundwork/clones/volvo-cars/tyre-label-service",
+      "status": "local_object_headers_available",
+      "trackedEntries": 148,
+      "trackedBlobPaths": 148,
+      "checkedUniqueHeaders": 149,
+      "metadataSha256": "f92fa58e73e811bf82317c0889235bf24f38bb8617f51d4398d7d555e8839b1c",
+      "failures": [],
+      "externalGitlinks": []
+    },
+    {
+      "repo": "volvo-cars/urax",
+      "commit": "65d95a7073308e607ca253680cf3cf75a78b25d1",
+      "tree": "7c9d090b0dabd90d48de0887595e8a6a6ff69c24",
+      "clone": "/Users/RNEL/.cache/groundwork/clones/volvo-cars/urax",
+      "status": "local_object_headers_available",
+      "trackedEntries": 891,
+      "trackedBlobPaths": 891,
+      "checkedUniqueHeaders": 891,
+      "metadataSha256": "314a3abbd264cad7bf01b09d56030787bc0f3d879a9e7badb0131acb76e82de8",
+      "failures": [],
+      "externalGitlinks": []
+    },
+    {
+      "repo": "volvo-cars/urax-ui",
+      "commit": "b7927c33fdd39352e49a29d1d6d67a0d70bd2195",
+      "tree": "56c498e823bfe04612f74107d52ae31127e42312",
+      "clone": "/Users/RNEL/.cache/groundwork/clones/volvo-cars/urax-ui",
+      "status": "local_object_headers_available",
+      "trackedEntries": 590,
+      "trackedBlobPaths": 590,
+      "checkedUniqueHeaders": 581,
+      "metadataSha256": "395c6140caf376d2cec88f690c72c320de6a45172536f9a476424580b5e8d365",
+      "failures": [],
+      "externalGitlinks": []
+    },
+    {
+      "repo": "volvo-cars/visibility-service",
+      "commit": "092c795f3015f4bcd526dad72f255e719380e77d",
+      "tree": "3cff1d60cbafce803bfdaba70555d56b8662e831",
+      "clone": "/Users/RNEL/.cache/groundwork/clones/volvo-cars/visibility-service",
+      "status": "local_object_headers_available",
+      "trackedEntries": 104,
+      "trackedBlobPaths": 104,
+      "checkedUniqueHeaders": 104,
+      "metadataSha256": "f8bc97eb8c6d27b45336c132806bf874f33bd8aaf42f9e07c33631abf3632b85",
+      "failures": [],
+      "externalGitlinks": []
+    },
+    {
+      "repo": "volvo-cars/wltp-facade",
+      "commit": "ea60388bfd7a8eea9867a5ec8f9224350fd13090",
+      "tree": "3dfa1801c8ffc682a829f8a4212a85d433d49699",
+      "clone": "/Users/RNEL/.cache/groundwork/clones/volvo-cars/wltp-facade",
+      "status": "local_object_headers_available",
+      "trackedEntries": 87,
+      "trackedBlobPaths": 87,
+      "checkedUniqueHeaders": 89,
+      "metadataSha256": "0667ab1a196ffe97d1407dc4ed70f432793cc646b21674ddbf43317eaae9def3",
+      "failures": [],
+      "externalGitlinks": []
+    }
+  ]
+}

@@ -1,0 +1,415 @@
+[
+  {
+    "module": "github.com/MicahParks/keyfunc/v3",
+    "version": "v3.8.2",
+    "indirect": false,
+    "source": "go.mod",
+    "implementationInRepository": false
+  },
+  {
+    "module": "github.com/cucumber/godog",
+    "version": "v0.16.0",
+    "indirect": false,
+    "source": "go.mod",
+    "implementationInRepository": false
+  },
+  {
+    "module": "github.com/getsentry/sentry-go",
+    "version": "v0.50.0",
+    "indirect": false,
+    "source": "go.mod",
+    "implementationInRepository": false
+  },
+  {
+    "module": "github.com/go-chi/chi/v5",
+    "version": "v5.5.0",
+    "indirect": false,
+    "source": "go.mod",
+    "implementationInRepository": false
+  },
+  {
+    "module": "github.com/go-errors/errors",
+    "version": "v1.5.1",
+    "indirect": false,
+    "source": "go.mod",
+    "implementationInRepository": false
+  },
+  {
+    "module": "github.com/go-faker/faker/v4",
+    "version": "v4.12.0",
+    "indirect": false,
+    "source": "go.mod",
+    "implementationInRepository": false
+  },
+  {
+    "module": "github.com/golang-jwt/jwt/v5",
+    "version": "v5.3.1",
+    "indirect": false,
+    "source": "go.mod",
+    "implementationInRepository": false
+  },
+  {
+    "module": "github.com/golang-migrate/migrate/v4",
+    "version": "v4.20.1",
+    "indirect": false,
+    "source": "go.mod",
+    "implementationInRepository": false
+  },
+  {
+    "module": "github.com/google/go-cmp",
+    "version": "v0.7.0",
+    "indirect": false,
+    "source": "go.mod",
+    "implementationInRepository": false
+  },
+  {
+    "module": "github.com/google/uuid",
+    "version": "v1.6.0",
+    "indirect": false,
+    "source": "go.mod",
+    "implementationInRepository": false
+  },
+  {
+    "module": "github.com/hashicorp/go-retryablehttp",
+    "version": "v0.7.8",
+    "indirect": false,
+    "source": "go.mod",
+    "implementationInRepository": false
+  },
+  {
+    "module": "github.com/jackc/pgx/v5",
+    "version": "v5.11.0",
+    "indirect": false,
+    "source": "go.mod",
+    "implementationInRepository": false
+  },
+  {
+    "module": "github.com/ourstudio-se/binder",
+    "version": "v1.1.7",
+    "indirect": false,
+    "source": "go.mod",
+    "implementationInRepository": false
+  },
+  {
+    "module": "github.com/ourstudio-se/puan-sdk-go",
+    "version": "v1.9.0",
+    "indirect": false,
+    "source": "go.mod",
+    "implementationInRepository": false
+  },
+  {
+    "module": "github.com/stretchr/testify",
+    "version": "v1.12.1",
+    "indirect": false,
+    "source": "go.mod",
+    "implementationInRepository": false
+  },
+  {
+    "module": "github.com/volvo-cars/go-httpserver",
+    "version": "v1.1.0",
+    "indirect": false,
+    "source": "go.mod",
+    "implementationInRepository": false
+  },
+  {
+    "module": "github.com/volvo-cars/ooe-product-offer-logging",
+    "version": "v1.3.1",
+    "indirect": false,
+    "source": "go.mod",
+    "implementationInRepository": false
+  },
+  {
+    "module": "go.opentelemetry.io/contrib/instrumentation/runtime",
+    "version": "v0.72.0",
+    "indirect": false,
+    "source": "go.mod",
+    "implementationInRepository": false
+  },
+  {
+    "module": "go.opentelemetry.io/otel",
+    "version": "v1.47.0",
+    "indirect": false,
+    "source": "go.mod",
+    "implementationInRepository": false
+  },
+  {
+    "module": "go.opentelemetry.io/otel/exporters/otlp/otlpmetric/otlpmetricgrpc",
+    "version": "v1.47.0",
+    "indirect": false,
+    "source": "go.mod",
+    "implementationInRepository": false
+  },
+  {
+    "module": "go.opentelemetry.io/otel/metric",
+    "version": "v1.47.0",
+    "indirect": false,
+    "source": "go.mod",
+    "implementationInRepository": false
+  },
+  {
+    "module": "go.opentelemetry.io/otel/sdk",
+    "version": "v1.47.0",
+    "indirect": false,
+    "source": "go.mod",
+    "implementationInRepository": false
+  },
+  {
+    "module": "go.opentelemetry.io/otel/sdk/metric",
+    "version": "v1.47.0",
+    "indirect": false,
+    "source": "go.mod",
+    "implementationInRepository": false
+  },
+  {
+    "module": "go.uber.org/fx",
+    "version": "v1.24.0",
+    "indirect": false,
+    "source": "go.mod",
+    "implementationInRepository": false
+  },
+  {
+    "module": "google.golang.org/grpc",
+    "version": "v1.84.0",
+    "indirect": false,
+    "source": "go.mod",
+    "implementationInRepository": false
+  },
+  {
+    "module": "google.golang.org/protobuf",
+    "version": "v1.36.12",
+    "indirect": false,
+    "source": "go.mod",
+    "implementationInRepository": false
+  },
+  {
+    "module": "github.com/MicahParks/jwkset",
+    "version": "v0.11.3",
+    "indirect": true,
+    "source": "go.mod",
+    "implementationInRepository": false
+  },
+  {
+    "module": "github.com/cenkalti/backoff/v5",
+    "version": "v5.0.3",
+    "indirect": true,
+    "source": "go.mod",
+    "implementationInRepository": false
+  },
+  {
+    "module": "github.com/cespare/xxhash/v2",
+    "version": "v2.3.0",
+    "indirect": true,
+    "source": "go.mod",
+    "implementationInRepository": false
+  },
+  {
+    "module": "github.com/cucumber/gherkin/go/v42",
+    "version": "v42.0.0",
+    "indirect": true,
+    "source": "go.mod",
+    "implementationInRepository": false
+  },
+  {
+    "module": "github.com/cucumber/messages/go/v34",
+    "version": "v34.2.0",
+    "indirect": true,
+    "source": "go.mod",
+    "implementationInRepository": false
+  },
+  {
+    "module": "github.com/fsnotify/fsnotify",
+    "version": "v1.9.0",
+    "indirect": true,
+    "source": "go.mod",
+    "implementationInRepository": false
+  },
+  {
+    "module": "github.com/go-logr/logr",
+    "version": "v1.4.4",
+    "indirect": true,
+    "source": "go.mod",
+    "implementationInRepository": false
+  },
+  {
+    "module": "github.com/go-logr/stdr",
+    "version": "v1.2.2",
+    "indirect": true,
+    "source": "go.mod",
+    "implementationInRepository": false
+  },
+  {
+    "module": "github.com/grpc-ecosystem/grpc-gateway/v2",
+    "version": "v2.30.0",
+    "indirect": true,
+    "source": "go.mod",
+    "implementationInRepository": false
+  },
+  {
+    "module": "github.com/hashicorp/go-cleanhttp",
+    "version": "v0.5.2",
+    "indirect": true,
+    "source": "go.mod",
+    "implementationInRepository": false
+  },
+  {
+    "module": "github.com/hashicorp/go-immutable-radix",
+    "version": "v1.3.1",
+    "indirect": true,
+    "source": "go.mod",
+    "implementationInRepository": false
+  },
+  {
+    "module": "github.com/hashicorp/go-memdb",
+    "version": "v1.3.5",
+    "indirect": true,
+    "source": "go.mod",
+    "implementationInRepository": false
+  },
+  {
+    "module": "github.com/hashicorp/golang-lru",
+    "version": "v1.0.2",
+    "indirect": true,
+    "source": "go.mod",
+    "implementationInRepository": false
+  },
+  {
+    "module": "github.com/jackc/pgpassfile",
+    "version": "v1.0.0",
+    "indirect": true,
+    "source": "go.mod",
+    "implementationInRepository": false
+  },
+  {
+    "module": "github.com/jackc/pgservicefile",
+    "version": "v0.0.0-20240606120523-5a60cdf6a761",
+    "indirect": true,
+    "source": "go.mod",
+    "implementationInRepository": false
+  },
+  {
+    "module": "github.com/jackc/puddle/v2",
+    "version": "v2.2.2",
+    "indirect": true,
+    "source": "go.mod",
+    "implementationInRepository": false
+  },
+  {
+    "module": "github.com/lib/pq",
+    "version": "v1.12.0",
+    "indirect": true,
+    "source": "go.mod",
+    "implementationInRepository": false
+  },
+  {
+    "module": "github.com/spf13/pflag",
+    "version": "v1.0.10",
+    "indirect": true,
+    "source": "go.mod",
+    "implementationInRepository": false
+  },
+  {
+    "module": "go.opentelemetry.io/auto/sdk",
+    "version": "v1.2.1",
+    "indirect": true,
+    "source": "go.mod",
+    "implementationInRepository": false
+  },
+  {
+    "module": "go.opentelemetry.io/otel/log",
+    "version": "v1.47.0",
+    "indirect": true,
+    "source": "go.mod",
+    "implementationInRepository": false
+  },
+  {
+    "module": "go.opentelemetry.io/otel/trace",
+    "version": "v1.47.0",
+    "indirect": true,
+    "source": "go.mod",
+    "implementationInRepository": false
+  },
+  {
+    "module": "go.opentelemetry.io/proto/otlp",
+    "version": "v1.11.0",
+    "indirect": true,
+    "source": "go.mod",
+    "implementationInRepository": false
+  },
+  {
+    "module": "go.uber.org/dig",
+    "version": "v1.19.0",
+    "indirect": true,
+    "source": "go.mod",
+    "implementationInRepository": false
+  },
+  {
+    "module": "go.uber.org/multierr",
+    "version": "v1.11.0",
+    "indirect": true,
+    "source": "go.mod",
+    "implementationInRepository": false
+  },
+  {
+    "module": "go.uber.org/zap",
+    "version": "v1.27.1",
+    "indirect": true,
+    "source": "go.mod",
+    "implementationInRepository": false
+  },
+  {
+    "module": "go.yaml.in/yaml/v3",
+    "version": "v3.0.5",
+    "indirect": true,
+    "source": "go.mod",
+    "implementationInRepository": false
+  },
+  {
+    "module": "golang.org/x/net",
+    "version": "v0.61.0",
+    "indirect": true,
+    "source": "go.mod",
+    "implementationInRepository": false
+  },
+  {
+    "module": "golang.org/x/sync",
+    "version": "v0.24.0",
+    "indirect": true,
+    "source": "go.mod",
+    "implementationInRepository": false
+  },
+  {
+    "module": "golang.org/x/sys",
+    "version": "v0.49.0",
+    "indirect": true,
+    "source": "go.mod",
+    "implementationInRepository": false
+  },
+  {
+    "module": "golang.org/x/text",
+    "version": "v0.43.0",
+    "indirect": true,
+    "source": "go.mod",
+    "implementationInRepository": false
+  },
+  {
+    "module": "golang.org/x/time",
+    "version": "v0.15.0",
+    "indirect": true,
+    "source": "go.mod",
+    "implementationInRepository": false
+  },
+  {
+    "module": "google.golang.org/genproto/googleapis/api",
+    "version": "v0.0.0-20260928230214-8a89bd6388cc",
+    "indirect": true,
+    "source": "go.mod",
+    "implementationInRepository": false
+  },
+  {
+    "module": "google.golang.org/genproto/googleapis/rpc",
+    "version": "v0.0.0-20260928230214-8a89bd6388cc",
+    "indirect": true,
+    "source": "go.mod",
+    "implementationInRepository": false
+  }
+]

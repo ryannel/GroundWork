@@ -1,0 +1,13 @@
+# Cart service handoff
+
+Selected immutable pair: `bundle.final-r1.json`, `snapshot.final-r1.json`. Snapshot `b957447c66cc73327797c780159c9277dbeb17159f0758d5ab8a225f3a0092f1`;12,329 records at `ebad8522ba26bbd0f986a0cf88f484a32d864c17`.
+
+Author gates pass: native schema/semantic selection;1,490 pinned source ranges;670 strict queries /670 validated requests /881 assertions, no bounded requests or continuations. All actual GraphQL business roots, separately declared authorization policy callbacks, scheduler and applying migrations positively reach expected boundaries. Rollbacks zero I/O; local FakeOffer fixture is not a remote Offer service. All20 exact I/O owners,13 structured writes, constructor payload/capture/receiver/currentJWT associations and actual rooted values pass.
+
+All155 files available:84 production Java,26 tests,42 configuration/support, one SDL, one runtime fixture, one binary wrapper.102 types;125 explicit declarations (122 bodies)+21 lambdas =146 source frames; six opaque imported mount frames ->152 native frames.57 entries;205 shapes;29 declared Maven artefacts;236 non-executed test bodies. No missing blobs/gitlinks or unexpanded local statements.
+
+Review pack: README, final-r1 inventories/ledgers, annotation-policy-ledger, callback/cleanup ledgers, full source validation, query-final-r1 requests/results/summary/rooted paths, acceptance.final-r1.mjs and seal. No canonical preauthorize wrapper exists: original business methods/formals are intact, with annotation expression/bean/formal associations and separate real SecurityService callback entries. Imported dispatch/activation remains a frontier.
+
+Critical source: ownership authorization can save; checkout CHECKING_OUT save is outside try, then remotePOST and CHECKED_OUT, with FAILED-save/rethrow failure window. Opportunity conditional best effort; CCE token local fixed fixture. Expiry saves EXPIRED before archive; updatedAt reset controls later deletion. Both migration applications preserve actual filters/mutation operands/ignored counts and separate calls; no-op rollbacks. ConditionalOrder request forwards actual JWT in customer, Java metadata differs SDL, and source record pattern binds String vin. Source-known void calls/constructors have no result; allocation separate. Save mode unknown, no invented cross-call commit/compensation/broker.
+
+Local body/source review complete; inherited SDK/generated/formatter/engine/runtime/heap/guard gaps remain explicit. No source build/tests/application/livecalls/fetch/download or source clone changes. Only parse aid executed; no app/schema/skill/global/sibling edits. No author work remains. Parent independently reviews/publishes; preserve selected bytes and use a fresh namespace for any successor.

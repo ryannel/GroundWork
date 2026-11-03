@@ -1,0 +1,458 @@
+[
+  {
+    "entry": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/entry/process/main",
+    "implementation": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/method/2737bc1b2851fcb9a860",
+    "source": "com.volvocars.ecom.cart.Application#main(String[])",
+    "trigger": "process",
+    "address": "source:Application.main",
+    "contract": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/contract/process/main"
+  },
+  {
+    "entry": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/entry/bean/6fdbc8aa49987926345a",
+    "implementation": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/method/6fdbc8aa49987926345a",
+    "source": "com.volvocars.ecom.cart.config.GraphQLConfig#federationSchemaFactory()",
+    "trigger": "startup",
+    "address": "source:@Bean:com.volvocars.ecom.cart.config.GraphQLConfig#federationSchemaFactory()",
+    "contract": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/contract/bean/6fdbc8aa49987926345a"
+  },
+  {
+    "entry": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/entry/bean/4ae8148e0ace198e421b",
+    "implementation": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/method/4ae8148e0ace198e421b",
+    "source": "com.volvocars.ecom.cart.config.GraphQLConfig#federationTransform(FederationSchemaFactory)",
+    "trigger": "startup",
+    "address": "source:@Bean:com.volvocars.ecom.cart.config.GraphQLConfig#federationTransform(FederationSchemaFactory)",
+    "contract": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/contract/bean/4ae8148e0ace198e421b"
+  },
+  {
+    "entry": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/entry/bean/1f73cfa3b26de5c43c38",
+    "implementation": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/method/1f73cfa3b26de5c43c38",
+    "source": "com.volvocars.ecom.cart.config.GraphQLConfig#uuidScalarConfigurer()",
+    "trigger": "startup",
+    "address": "source:@Bean:com.volvocars.ecom.cart.config.GraphQLConfig#uuidScalarConfigurer()",
+    "contract": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/contract/bean/1f73cfa3b26de5c43c38"
+  },
+  {
+    "entry": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/entry/bean/baa1526644d505e68061",
+    "implementation": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/method/baa1526644d505e68061",
+    "source": "com.volvocars.ecom.cart.config.MongoConfig#mongoTargetSystem(MongoTemplate)",
+    "trigger": "startup",
+    "address": "source:@Bean:com.volvocars.ecom.cart.config.MongoConfig#mongoTargetSystem(MongoTemplate)",
+    "contract": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/contract/bean/baa1526644d505e68061"
+  },
+  {
+    "entry": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/entry/bean/06301900dd4273b12c9f",
+    "implementation": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/method/06301900dd4273b12c9f",
+    "source": "com.volvocars.ecom.cart.config.MongoConfig#auditStore(MongoDBSpringDataTargetSystem)",
+    "trigger": "startup",
+    "address": "source:@Bean:com.volvocars.ecom.cart.config.MongoConfig#auditStore(MongoDBSpringDataTargetSystem)",
+    "contract": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/contract/bean/06301900dd4273b12c9f"
+  },
+  {
+    "entry": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/entry/bean/a1c7a36484d79240f16d",
+    "implementation": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/method/a1c7a36484d79240f16d",
+    "source": "com.volvocars.ecom.cart.config.MongoConfig#mongoDatabase(MongoTemplate)",
+    "trigger": "startup",
+    "address": "source:@Bean:com.volvocars.ecom.cart.config.MongoConfig#mongoDatabase(MongoTemplate)",
+    "contract": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/contract/bean/a1c7a36484d79240f16d"
+  },
+  {
+    "entry": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/entry/framework/6567acf96b0eb547f6aa",
+    "implementation": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/method/6567acf96b0eb547f6aa",
+    "source": "com.volvocars.ecom.cart.config.security.GraphQlAuthenticationEntryPoint#commence(HttpServletRequest,HttpServletResponse,AuthenticationException)",
+    "trigger": "callback",
+    "address": "source:framework:com.volvocars.ecom.cart.config.security.GraphQlAuthenticationEntryPoint#commence(HttpServletRequest,HttpServletResponse,AuthenticationException)",
+    "contract": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/contract/framework/6567acf96b0eb547f6aa"
+  },
+  {
+    "entry": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/entry/bean/cbc4506a611caed65969",
+    "implementation": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/method/cbc4506a611caed65969",
+    "source": "com.volvocars.ecom.cart.config.security.PermitAllSecurityConfig#noSecurityFilterChain(HttpSecurity)",
+    "trigger": "startup",
+    "address": "source:@Bean:com.volvocars.ecom.cart.config.security.PermitAllSecurityConfig#noSecurityFilterChain(HttpSecurity)",
+    "contract": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/contract/bean/cbc4506a611caed65969"
+  },
+  {
+    "entry": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/entry/bean/cea373bd0494a654fc13",
+    "implementation": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/method/cea373bd0494a654fc13",
+    "source": "com.volvocars.ecom.cart.config.security.SecurityConfig#managementSecurityFilterChain(HttpSecurity)",
+    "trigger": "startup",
+    "address": "source:@Bean:com.volvocars.ecom.cart.config.security.SecurityConfig#managementSecurityFilterChain(HttpSecurity)",
+    "contract": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/contract/bean/cea373bd0494a654fc13"
+  },
+  {
+    "entry": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/entry/bean/eb327c254321c224f573",
+    "implementation": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/method/eb327c254321c224f573",
+    "source": "com.volvocars.ecom.cart.config.security.SecurityConfig#graphqlSecurityFilterChain(HttpSecurity,AuthenticationManagerResolver<HttpServletRequest>,GraphQlAuthenticationEntryPoint)",
+    "trigger": "startup",
+    "address": "source:@Bean:com.volvocars.ecom.cart.config.security.SecurityConfig#graphqlSecurityFilterChain(HttpSecurity,AuthenticationManagerResolver<HttpServletRequest>,GraphQlAuthenticationEntryPoint)",
+    "contract": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/contract/bean/eb327c254321c224f573"
+  },
+  {
+    "entry": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/entry/bean/2d97b2ea57d81dcf4054",
+    "implementation": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/method/2d97b2ea57d81dcf4054",
+    "source": "com.volvocars.ecom.cart.config.security.SecurityConfig#apiSecurityFilterChain(HttpSecurity,AuthenticationManagerResolver<HttpServletRequest>)",
+    "trigger": "startup",
+    "address": "source:@Bean:com.volvocars.ecom.cart.config.security.SecurityConfig#apiSecurityFilterChain(HttpSecurity,AuthenticationManagerResolver<HttpServletRequest>)",
+    "contract": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/contract/bean/2d97b2ea57d81dcf4054"
+  },
+  {
+    "entry": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/entry/bean/7dbcb19d5871c864ac5f",
+    "implementation": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/method/7dbcb19d5871c864ac5f",
+    "source": "com.volvocars.ecom.cart.config.security.SecurityConfig#jwtAuthenticationManagerResolver(TrustedIssuersProperties)",
+    "trigger": "startup",
+    "address": "source:@Bean:com.volvocars.ecom.cart.config.security.SecurityConfig#jwtAuthenticationManagerResolver(TrustedIssuersProperties)",
+    "contract": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/contract/bean/7dbcb19d5871c864ac5f"
+  },
+  {
+    "entry": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/entry/schedule/ca048f112dea670c356c",
+    "implementation": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/method/ca048f112dea670c356c",
+    "source": "com.volvocars.ecom.cart.core.cartexpiration.CartExpirationScheduler#run()",
+    "trigger": "schedule",
+    "address": "source:@Scheduled:${cart-expiration.scheduler.cron}",
+    "contract": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/contract/schedule/ca048f112dea670c356c"
+  },
+  {
+    "entry": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/entry/graphql/a0d15f4f2719b54e25cf",
+    "implementation": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/method/b12f8ee252262454d23e",
+    "source": "com.volvocars.ecom.cart.input.graphql.CartFederationController#resolveCartLine()",
+    "trigger": "callback",
+    "address": "graphql:Entity.CartLineV2",
+    "contract": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/contract/graphql/a0d15f4f2719b54e25cf"
+  },
+  {
+    "entry": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/entry/graphql/0671d7a692852a88a17f",
+    "implementation": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/method/66b267511afb4fe43bea",
+    "source": "com.volvocars.ecom.cart.input.graphql.CartFederationController#resolveCartLineItem()",
+    "trigger": "callback",
+    "address": "graphql:Entity.CartLineItemV2",
+    "contract": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/contract/graphql/0671d7a692852a88a17f"
+  },
+  {
+    "entry": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/entry/graphql/faa580d03038a336715d",
+    "implementation": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/method/e3b0949400c3a0923aee",
+    "source": "com.volvocars.ecom.cart.input.graphql.CartFederationController#offer(CartLine)",
+    "trigger": "callback",
+    "address": "graphql:CartLineV2.offer",
+    "contract": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/contract/graphql/faa580d03038a336715d"
+  },
+  {
+    "entry": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/entry/graphql/4c43edd27b570b585d62",
+    "implementation": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/method/6487a33cf59fc2bfbd52",
+    "source": "com.volvocars.ecom.cart.input.graphql.CartFederationController#productVariant(CartLineItem)",
+    "trigger": "callback",
+    "address": "graphql:CartLineItemV2.productVariant",
+    "contract": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/contract/graphql/4c43edd27b570b585d62"
+  },
+  {
+    "entry": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/entry/graphql/66505c5f94df99014d23",
+    "implementation": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/method/8ce2a16de1334e43d331",
+    "source": "com.volvocars.ecom.cart.input.graphql.CartFederationController#financingOfferVariant(CartLineItem)",
+    "trigger": "callback",
+    "address": "graphql:CartLineItemV2.financingOfferVariant",
+    "contract": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/contract/graphql/66505c5f94df99014d23"
+  },
+  {
+    "entry": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/entry/graphql/1a2b9da51eab42b6de97",
+    "implementation": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/method/26e2212ea6cc5694b16d",
+    "source": "com.volvocars.ecom.cart.input.graphql.CartFederationController#cartContext(Cart,DataFetchingEnvironment)",
+    "trigger": "callback",
+    "address": "graphql:CartV2.lines",
+    "contract": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/contract/graphql/1a2b9da51eab42b6de97"
+  },
+  {
+    "entry": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/entry/graphql/89b4ca5ef6f2e7c056fd",
+    "implementation": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/method/39c7ea829c36a2aa4bfd",
+    "source": "com.volvocars.ecom.cart.input.graphql.CartFederationController#buyer(Cart)",
+    "trigger": "callback",
+    "address": "graphql:CartV2.buyer",
+    "contract": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/contract/graphql/89b4ca5ef6f2e7c056fd"
+  },
+  {
+    "entry": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/entry/graphql/271dfde3104d284cf50b",
+    "implementation": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/method/a649c83b0101805df094",
+    "source": "com.volvocars.ecom.cart.input.graphql.CartFederationController#lineCart(Cart)",
+    "trigger": "callback",
+    "address": "graphql:CartLineV2.cart",
+    "contract": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/contract/graphql/271dfde3104d284cf50b"
+  },
+  {
+    "entry": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/entry/graphql/9002559074e95338d455",
+    "implementation": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/method/7826453354f76a0f6d0a",
+    "source": "com.volvocars.ecom.cart.input.graphql.CartFederationController#itemCart(Cart)",
+    "trigger": "callback",
+    "address": "graphql:CartLineItemV2.cart",
+    "contract": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/contract/graphql/9002559074e95338d455"
+  },
+  {
+    "entry": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/entry/graphql/a001f38e6b33dc926759",
+    "implementation": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/method/1bed170b53418ea3d7bb",
+    "source": "com.volvocars.ecom.cart.input.graphql.GraphQlController#getCart(String,String)",
+    "trigger": "callback",
+    "address": "graphql:Query.cartV2",
+    "contract": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/contract/graphql/a001f38e6b33dc926759"
+  },
+  {
+    "entry": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/entry/graphql/15cadc2a3500375399f9",
+    "implementation": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/method/1bed170b53418ea3d7bb",
+    "source": "com.volvocars.ecom.cart.input.graphql.GraphQlController#getCart(String,String)",
+    "trigger": "callback",
+    "address": "graphql:Entity.CartV2",
+    "contract": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/contract/graphql/15cadc2a3500375399f9"
+  },
+  {
+    "entry": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/entry/policy/1bed170b53418ea3d7bb",
+    "implementation": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/method/63b2958039488300ac99",
+    "source": "com.volvocars.ecom.cart.core.service.SecurityService#isAuthorized(Authentication,String,String)",
+    "trigger": "callback",
+    "address": "source:@PreAuthorize:com.volvocars.ecom.cart.input.graphql.GraphQlController#getCart(String,String)",
+    "contract": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/contract/policy/1bed170b53418ea3d7bb"
+  },
+  {
+    "entry": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/entry/graphql/ff22f384db1d05c17acf",
+    "implementation": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/method/4364f2c0cb9436234a3f",
+    "source": "com.volvocars.ecom.cart.input.graphql.GraphQlController#createCart(CartInput)",
+    "trigger": "callback",
+    "address": "graphql:Mutation.createCartV2",
+    "contract": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/contract/graphql/ff22f384db1d05c17acf"
+  },
+  {
+    "entry": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/entry/graphql/2bb12fa65783d140caba",
+    "implementation": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/method/6d6cae4085fca1a41f83",
+    "source": "com.volvocars.ecom.cart.input.graphql.GraphQlController#addCartLine(String,CartLineInput,String)",
+    "trigger": "callback",
+    "address": "graphql:Mutation.addCartLineV2",
+    "contract": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/contract/graphql/2bb12fa65783d140caba"
+  },
+  {
+    "entry": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/entry/policy/6d6cae4085fca1a41f83",
+    "implementation": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/method/63b2958039488300ac99",
+    "source": "com.volvocars.ecom.cart.core.service.SecurityService#isAuthorized(Authentication,String,String)",
+    "trigger": "callback",
+    "address": "source:@PreAuthorize:com.volvocars.ecom.cart.input.graphql.GraphQlController#addCartLine(String,CartLineInput,String)",
+    "contract": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/contract/policy/6d6cae4085fca1a41f83"
+  },
+  {
+    "entry": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/entry/graphql/f40c31497fb89905ca8c",
+    "implementation": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/method/a139f3088dc81d956d59",
+    "source": "com.volvocars.ecom.cart.input.graphql.GraphQlController#replaceCartLine(String,String,CartLineInput,String)",
+    "trigger": "callback",
+    "address": "graphql:Mutation.replaceCartLineV2",
+    "contract": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/contract/graphql/f40c31497fb89905ca8c"
+  },
+  {
+    "entry": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/entry/policy/a139f3088dc81d956d59",
+    "implementation": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/method/63b2958039488300ac99",
+    "source": "com.volvocars.ecom.cart.core.service.SecurityService#isAuthorized(Authentication,String,String)",
+    "trigger": "callback",
+    "address": "source:@PreAuthorize:com.volvocars.ecom.cart.input.graphql.GraphQlController#replaceCartLine(String,String,CartLineInput,String)",
+    "contract": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/contract/policy/a139f3088dc81d956d59"
+  },
+  {
+    "entry": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/entry/graphql/4a1ea0f379b0e3e1bf25",
+    "implementation": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/method/d655b2d75cd752fbc610",
+    "source": "com.volvocars.ecom.cart.input.graphql.GraphQlController#removeCartLine(String,String,String)",
+    "trigger": "callback",
+    "address": "graphql:Mutation.removeCartLineV2",
+    "contract": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/contract/graphql/4a1ea0f379b0e3e1bf25"
+  },
+  {
+    "entry": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/entry/policy/d655b2d75cd752fbc610",
+    "implementation": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/method/63b2958039488300ac99",
+    "source": "com.volvocars.ecom.cart.core.service.SecurityService#isAuthorized(Authentication,String,String)",
+    "trigger": "callback",
+    "address": "source:@PreAuthorize:com.volvocars.ecom.cart.input.graphql.GraphQlController#removeCartLine(String,String,String)",
+    "contract": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/contract/policy/d655b2d75cd752fbc610"
+  },
+  {
+    "entry": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/entry/graphql/fc25e6daa5905310c1f9",
+    "implementation": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/method/8101f04b982739b972c3",
+    "source": "com.volvocars.ecom.cart.input.graphql.GraphQlController#updateBuyer(String,BuyerInput,String)",
+    "trigger": "callback",
+    "address": "graphql:Mutation.updateBuyerV2",
+    "contract": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/contract/graphql/fc25e6daa5905310c1f9"
+  },
+  {
+    "entry": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/entry/policy/8101f04b982739b972c3",
+    "implementation": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/method/63b2958039488300ac99",
+    "source": "com.volvocars.ecom.cart.core.service.SecurityService#isAuthorized(Authentication,String,String)",
+    "trigger": "callback",
+    "address": "source:@PreAuthorize:com.volvocars.ecom.cart.input.graphql.GraphQlController#updateBuyer(String,BuyerInput,String)",
+    "contract": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/contract/policy/8101f04b982739b972c3"
+  },
+  {
+    "entry": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/entry/graphql/f550e464431a5662b716",
+    "implementation": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/method/b0566a92c8c49b7d2677",
+    "source": "com.volvocars.ecom.cart.input.graphql.GraphQlController#checkoutCart(String,CheckoutInput,String,String)",
+    "trigger": "callback",
+    "address": "graphql:Mutation.checkoutCartV2",
+    "contract": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/contract/graphql/f550e464431a5662b716"
+  },
+  {
+    "entry": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/entry/policy/b0566a92c8c49b7d2677",
+    "implementation": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/method/63b2958039488300ac99",
+    "source": "com.volvocars.ecom.cart.core.service.SecurityService#isAuthorized(Authentication,String,String)",
+    "trigger": "callback",
+    "address": "source:@PreAuthorize:com.volvocars.ecom.cart.input.graphql.GraphQlController#checkoutCart(String,CheckoutInput,String,String)",
+    "contract": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/contract/policy/b0566a92c8c49b7d2677"
+  },
+  {
+    "entry": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/entry/graphql/d36cd3de5f574c4c1019",
+    "implementation": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/method/2bb853d5268566d6b300",
+    "source": "com.volvocars.ecom.cart.input.graphql.GraphQlController#createCartFromCceToken(CreateCartFromCceTokenInput)",
+    "trigger": "callback",
+    "address": "graphql:Mutation.createCartFromCceToken",
+    "contract": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/contract/graphql/d36cd3de5f574c4c1019"
+  },
+  {
+    "entry": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/entry/framework/76e5bfc3a0f76f0521f1",
+    "implementation": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/method/76e5bfc3a0f76f0521f1",
+    "source": "com.volvocars.ecom.cart.input.graphql.GraphQlExceptionHandlerAdvice#handleCartNotFound(CartNotFoundException,DataFetchingEnvironment)",
+    "trigger": "callback",
+    "address": "source:framework:com.volvocars.ecom.cart.input.graphql.GraphQlExceptionHandlerAdvice#handleCartNotFound(CartNotFoundException,DataFetchingEnvironment)",
+    "contract": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/contract/framework/76e5bfc3a0f76f0521f1"
+  },
+  {
+    "entry": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/entry/framework/b8b3a744d30d90f5cfb9",
+    "implementation": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/method/b8b3a744d30d90f5cfb9",
+    "source": "com.volvocars.ecom.cart.input.graphql.GraphQlExceptionHandlerAdvice#handleCartLineNotFound(CartLineNotFoundException,DataFetchingEnvironment)",
+    "trigger": "callback",
+    "address": "source:framework:com.volvocars.ecom.cart.input.graphql.GraphQlExceptionHandlerAdvice#handleCartLineNotFound(CartLineNotFoundException,DataFetchingEnvironment)",
+    "contract": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/contract/framework/b8b3a744d30d90f5cfb9"
+  },
+  {
+    "entry": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/entry/framework/a12e9e0d7f3827e52ec6",
+    "implementation": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/method/a12e9e0d7f3827e52ec6",
+    "source": "com.volvocars.ecom.cart.input.graphql.GraphQlExceptionHandlerAdvice#handleCartAlreadyCheckedOut(CartAlreadyCheckedOutException,DataFetchingEnvironment)",
+    "trigger": "callback",
+    "address": "source:framework:com.volvocars.ecom.cart.input.graphql.GraphQlExceptionHandlerAdvice#handleCartAlreadyCheckedOut(CartAlreadyCheckedOutException,DataFetchingEnvironment)",
+    "contract": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/contract/framework/a12e9e0d7f3827e52ec6"
+  },
+  {
+    "entry": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/entry/framework/cc7bed8daf342c88565e",
+    "implementation": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/method/cc7bed8daf342c88565e",
+    "source": "com.volvocars.ecom.cart.input.graphql.GraphQlExceptionHandlerAdvice#handleCheckoutException(CheckoutException,DataFetchingEnvironment)",
+    "trigger": "callback",
+    "address": "source:framework:com.volvocars.ecom.cart.input.graphql.GraphQlExceptionHandlerAdvice#handleCheckoutException(CheckoutException,DataFetchingEnvironment)",
+    "contract": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/contract/framework/cc7bed8daf342c88565e"
+  },
+  {
+    "entry": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/entry/framework/8de8ca9c0e9419c47207",
+    "implementation": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/method/8de8ca9c0e9419c47207",
+    "source": "com.volvocars.ecom.cart.input.graphql.GraphQlExceptionHandlerAdvice#handleDuplicateCartLine(DuplicateCartLineException,DataFetchingEnvironment)",
+    "trigger": "callback",
+    "address": "source:framework:com.volvocars.ecom.cart.input.graphql.GraphQlExceptionHandlerAdvice#handleDuplicateCartLine(DuplicateCartLineException,DataFetchingEnvironment)",
+    "contract": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/contract/framework/8de8ca9c0e9419c47207"
+  },
+  {
+    "entry": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/entry/framework/ac79e8230c21ba73201f",
+    "implementation": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/method/ac79e8230c21ba73201f",
+    "source": "com.volvocars.ecom.cart.input.graphql.GraphQlExceptionHandlerAdvice#handleIllegalState(IllegalStateException,DataFetchingEnvironment)",
+    "trigger": "callback",
+    "address": "source:framework:com.volvocars.ecom.cart.input.graphql.GraphQlExceptionHandlerAdvice#handleIllegalState(IllegalStateException,DataFetchingEnvironment)",
+    "contract": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/contract/framework/ac79e8230c21ba73201f"
+  },
+  {
+    "entry": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/entry/framework/4ea702252841ac871c31",
+    "implementation": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/method/4ea702252841ac871c31",
+    "source": "com.volvocars.ecom.cart.input.graphql.GraphQlExceptionHandlerAdvice#authenticationException(AuthenticationException,DataFetchingEnvironment)",
+    "trigger": "callback",
+    "address": "source:framework:com.volvocars.ecom.cart.input.graphql.GraphQlExceptionHandlerAdvice#authenticationException(AuthenticationException,DataFetchingEnvironment)",
+    "contract": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/contract/framework/4ea702252841ac871c31"
+  },
+  {
+    "entry": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/entry/framework/eadf4f5bf3c17fdaca2b",
+    "implementation": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/method/eadf4f5bf3c17fdaca2b",
+    "source": "com.volvocars.ecom.cart.input.graphql.GraphQlExceptionHandlerAdvice#accessDeniedException(AccessDeniedException,DataFetchingEnvironment)",
+    "trigger": "callback",
+    "address": "source:framework:com.volvocars.ecom.cart.input.graphql.GraphQlExceptionHandlerAdvice#accessDeniedException(AccessDeniedException,DataFetchingEnvironment)",
+    "contract": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/contract/framework/eadf4f5bf3c17fdaca2b"
+  },
+  {
+    "entry": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/entry/framework/f2cea6684fe858444010",
+    "implementation": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/method/f2cea6684fe858444010",
+    "source": "com.volvocars.ecom.cart.input.graphql.GraphQlInterceptor#intercept(WebGraphQlRequest,Chain)",
+    "trigger": "callback",
+    "address": "source:framework:com.volvocars.ecom.cart.input.graphql.GraphQlInterceptor#intercept(WebGraphQlRequest,Chain)",
+    "contract": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/contract/framework/f2cea6684fe858444010"
+  },
+  {
+    "entry": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/entry/migration/b9e646ff96e25a48a89f",
+    "implementation": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/method/b9e646ff96e25a48a89f",
+    "source": "com.volvocars.ecom.cart.migration.AddIdToCartLineItemMigration#execute(MongoDatabase)",
+    "trigger": "callback",
+    "address": "source:migration:com.volvocars.ecom.cart.migration.AddIdToCartLineItemMigration#execute(MongoDatabase)",
+    "contract": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/contract/migration/b9e646ff96e25a48a89f"
+  },
+  {
+    "entry": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/entry/migration/0314713677952540c12a",
+    "implementation": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/method/0314713677952540c12a",
+    "source": "com.volvocars.ecom.cart.migration.AddIdToCartLineItemMigration#rollback(MongoDatabase)",
+    "trigger": "callback",
+    "address": "source:migration:com.volvocars.ecom.cart.migration.AddIdToCartLineItemMigration#rollback(MongoDatabase)",
+    "contract": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/contract/migration/0314713677952540c12a"
+  },
+  {
+    "entry": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/entry/migration/006d166e9fde9a86c33b",
+    "implementation": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/method/006d166e9fde9a86c33b",
+    "source": "com.volvocars.ecom.cart.migration._0002__MoveBuyerVolvoIdToOwner#apply(MongoTemplate,TrustedIssuersProperties)",
+    "trigger": "callback",
+    "address": "source:migration:com.volvocars.ecom.cart.migration._0002__MoveBuyerVolvoIdToOwner#apply(MongoTemplate,TrustedIssuersProperties)",
+    "contract": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/contract/migration/006d166e9fde9a86c33b"
+  },
+  {
+    "entry": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/entry/migration/26369d1c482d93a55c28",
+    "implementation": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/method/26369d1c482d93a55c28",
+    "source": "com.volvocars.ecom.cart.migration._0002__MoveBuyerVolvoIdToOwner#rollback()",
+    "trigger": "callback",
+    "address": "source:migration:com.volvocars.ecom.cart.migration._0002__MoveBuyerVolvoIdToOwner#rollback()",
+    "contract": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/contract/migration/26369d1c482d93a55c28"
+  },
+  {
+    "entry": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/entry/framework-mount/e6862b57c5407b8605e5",
+    "implementation": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/framework-mount/e6862b57c5407b8605e5",
+    "source": "imported:/graphql",
+    "trigger": "rest",
+    "address": "/graphql",
+    "contract": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/contract/framework-mount/e6862b57c5407b8605e5"
+  },
+  {
+    "entry": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/entry/framework-mount/e2088215902ba29f2dde",
+    "implementation": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/framework-mount/e2088215902ba29f2dde",
+    "source": "imported:/actuator/health",
+    "trigger": "rest",
+    "address": "/actuator/health",
+    "contract": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/contract/framework-mount/e2088215902ba29f2dde"
+  },
+  {
+    "entry": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/entry/framework-mount/d88281ff1f21051787ee",
+    "implementation": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/framework-mount/d88281ff1f21051787ee",
+    "source": "imported:/actuator/prometheus",
+    "trigger": "rest",
+    "address": "/actuator/prometheus",
+    "contract": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/contract/framework-mount/d88281ff1f21051787ee"
+  },
+  {
+    "entry": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/entry/framework-mount/3f96d764a8857bfa589f",
+    "implementation": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/framework-mount/3f96d764a8857bfa589f",
+    "source": "imported:/actuator/info",
+    "trigger": "rest",
+    "address": "/actuator/info",
+    "contract": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/contract/framework-mount/3f96d764a8857bfa589f"
+  },
+  {
+    "entry": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/entry/framework-mount/c61f6059df9b097f2175",
+    "implementation": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/framework-mount/c61f6059df9b097f2175",
+    "source": "imported:/actuator/version",
+    "trigger": "rest",
+    "address": "/actuator/version",
+    "contract": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/contract/framework-mount/c61f6059df9b097f2175"
+  },
+  {
+    "entry": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/entry/framework-mount/ac5333fb4bd8ced710bb",
+    "implementation": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/framework-mount/ac5333fb4bd8ced710bb",
+    "source": "imported:/graphiql",
+    "trigger": "rest",
+    "address": "/graphiql",
+    "contract": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/contract/framework-mount/ac5333fb4bd8ced710bb"
+  }
+]

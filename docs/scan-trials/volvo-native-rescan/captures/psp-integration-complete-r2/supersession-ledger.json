@@ -1,0 +1,133 @@
+{
+  "previous": "../../psp-integration-reviewed/bundle.json",
+  "preservation": "prior sealed bytes unchanged",
+  "selection": "new revision namespace and source-owned graphs replace prior bounded implementation graphs; no prior bounded implementation/summary/call graph is selected",
+  "sharedIDs": "All retained metadata/REST records remapped into new revision namespace; technical logicalIds preserved",
+  "workspace": "volvo-cars",
+  "routeCorrespondence": [
+    {
+      "entry": "volvo/cds-paymentservice-psp-integration/dabd6c825499/local-r2/base/psp-dabd6c8-r4/entry/SwaggerUIController-getSwaggerConfig",
+      "method": "GET",
+      "path": "/v1/configurations/swagger-config",
+      "implementation": "volvo/cds-paymentservice-psp-integration/dabd6c825499/local-r2/method/c4eae5a5e53b5680a464"
+    },
+    {
+      "entry": "volvo/cds-paymentservice-psp-integration/dabd6c825499/local-r2/base/psp-dabd6c8-r4/entry/CustomerController-create",
+      "method": "POST",
+      "path": "/v1/customers/",
+      "implementation": "volvo/cds-paymentservice-psp-integration/dabd6c825499/local-r2/method/9674285590ec54ef9998"
+    },
+    {
+      "entry": "volvo/cds-paymentservice-psp-integration/dabd6c825499/local-r2/base/psp-dabd6c8-r4/entry/CustomerController-get",
+      "method": "GET",
+      "path": "/v1/customers/psp/{PSP}/{pspCustomerId}",
+      "implementation": "volvo/cds-paymentservice-psp-integration/dabd6c825499/local-r2/method/48d98a22116e5a39970d"
+    },
+    {
+      "entry": "volvo/cds-paymentservice-psp-integration/dabd6c825499/local-r2/base/psp-dabd6c8-r4/entry/CustomerController-getByVolvoId",
+      "method": "GET",
+      "path": "/v1/customers/psp/{PSP}/volvoId/{volvoId}",
+      "implementation": "volvo/cds-paymentservice-psp-integration/dabd6c825499/local-r2/method/6b6ab7a70e672e08b1be"
+    },
+    {
+      "entry": "volvo/cds-paymentservice-psp-integration/dabd6c825499/local-r2/base/psp-dabd6c8-r4/entry/CustomerController-delete",
+      "method": "DELETE",
+      "path": "/v1/customers/psp/{PSP}/{pspCustomerId}",
+      "implementation": "volvo/cds-paymentservice-psp-integration/dabd6c825499/local-r2/method/9eb5453b9f72abac13f1"
+    },
+    {
+      "entry": "volvo/cds-paymentservice-psp-integration/dabd6c825499/local-r2/base/psp-dabd6c8-r4/entry/CustomerController-update",
+      "method": "PATCH",
+      "path": "/v1/customers/psp/{PSP}/{pspCustomerId}",
+      "implementation": "volvo/cds-paymentservice-psp-integration/dabd6c825499/local-r2/method/f15bdcc8449c8cb4d608"
+    },
+    {
+      "entry": "volvo/cds-paymentservice-psp-integration/dabd6c825499/local-r2/base/psp-dabd6c8-r4/entry/PaymentInstrumentController-setup",
+      "method": "POST",
+      "path": "/v1/payment-instruments/setup",
+      "implementation": "volvo/cds-paymentservice-psp-integration/dabd6c825499/local-r2/method/76377ceb33ae2f406ce0"
+    },
+    {
+      "entry": "volvo/cds-paymentservice-psp-integration/dabd6c825499/local-r2/base/psp-dabd6c8-r4/entry/PaymentInstrumentController-detach",
+      "method": "POST",
+      "path": "/v1/payment-instruments/detach",
+      "implementation": "volvo/cds-paymentservice-psp-integration/dabd6c825499/local-r2/method/fc120969203cf8781db2"
+    },
+    {
+      "entry": "volvo/cds-paymentservice-psp-integration/dabd6c825499/local-r2/base/psp-dabd6c8-r4/entry/PaymentInstrumentController-retrievePaymentMethods",
+      "method": "GET",
+      "path": "/v1/payment-instruments/{externalCustomerId}/accounts/{accountId}/psp/{psp}",
+      "implementation": "volvo/cds-paymentservice-psp-integration/dabd6c825499/local-r2/method/7b1cd33a26f11fe7362d"
+    },
+    {
+      "entry": "volvo/cds-paymentservice-psp-integration/dabd6c825499/local-r2/base/psp-dabd6c8-r4/entry/PaymentInstrumentController-retrievePaymentMethod",
+      "method": "GET",
+      "path": "/v1/payment-instruments/psp/{psp}/accounts/{accountId}/payment-method/{externalPaymentMethodId}",
+      "implementation": "volvo/cds-paymentservice-psp-integration/dabd6c825499/local-r2/method/7fb51a2c6d3d0b8c6820"
+    },
+    {
+      "entry": "volvo/cds-paymentservice-psp-integration/dabd6c825499/local-r2/base/psp-dabd6c8-r4/entry/RefundController-create",
+      "method": "POST",
+      "path": "/v1/refunds/",
+      "implementation": "volvo/cds-paymentservice-psp-integration/dabd6c825499/local-r2/method/7f50a332040e9b76cbfc"
+    },
+    {
+      "entry": "volvo/cds-paymentservice-psp-integration/dabd6c825499/local-r2/base/psp-dabd6c8-r4/entry/TransactionController-create",
+      "method": "POST",
+      "path": "/v1/transactions/",
+      "implementation": "volvo/cds-paymentservice-psp-integration/dabd6c825499/local-r2/method/0cb479cafddba94cfb72"
+    },
+    {
+      "entry": "volvo/cds-paymentservice-psp-integration/dabd6c825499/local-r2/base/psp-dabd6c8-r4/entry/TransactionController-authorise",
+      "method": "POST",
+      "path": "/v1/transactions/{transactionId}/authorise",
+      "implementation": "volvo/cds-paymentservice-psp-integration/dabd6c825499/local-r2/method/55ad83e3fedbe12b1487"
+    },
+    {
+      "entry": "volvo/cds-paymentservice-psp-integration/dabd6c825499/local-r2/base/psp-dabd6c8-r4/entry/TransactionController-capture",
+      "method": "POST",
+      "path": "/v1/transactions/{transactionId}/psp/{psp}/capture",
+      "implementation": "volvo/cds-paymentservice-psp-integration/dabd6c825499/local-r2/method/b83a6b721b6d27e4d795"
+    },
+    {
+      "entry": "volvo/cds-paymentservice-psp-integration/dabd6c825499/local-r2/base/psp-dabd6c8-r4/entry/TransactionController-cancel",
+      "method": "POST",
+      "path": "/v1/transactions/{transactionId}/cancel",
+      "implementation": "volvo/cds-paymentservice-psp-integration/dabd6c825499/local-r2/method/a90d5839b6067ed8f2b3"
+    },
+    {
+      "entry": "volvo/cds-paymentservice-psp-integration/dabd6c825499/local-r2/base/psp-dabd6c8-r4/entry/TransactionController-invalidate",
+      "method": "POST",
+      "path": "/v1/transactions/{transactionId}/invalidate",
+      "implementation": "volvo/cds-paymentservice-psp-integration/dabd6c825499/local-r2/method/e604f9b32ce5105c89f7"
+    },
+    {
+      "entry": "volvo/cds-paymentservice-psp-integration/dabd6c825499/local-r2/base/psp-dabd6c8-r4/entry/TransferController-create",
+      "method": "POST",
+      "path": "/v1/transfers/create",
+      "implementation": "volvo/cds-paymentservice-psp-integration/dabd6c825499/local-r2/method/14013e80ca8b76a69f90"
+    },
+    {
+      "entry": "volvo/cds-paymentservice-psp-integration/dabd6c825499/local-r2/base/psp-dabd6c8-r4/entry/TransferController-reverse",
+      "method": "POST",
+      "path": "/v1/transfers/reverse",
+      "implementation": "volvo/cds-paymentservice-psp-integration/dabd6c825499/local-r2/method/551f80b9b251643618ed"
+    },
+    {
+      "entry": "volvo/cds-paymentservice-psp-integration/dabd6c825499/local-r2/base/psp-dabd6c8-r4/entry/TransferController-update",
+      "method": "PUT",
+      "path": "/v1/transfers/update",
+      "implementation": "volvo/cds-paymentservice-psp-integration/dabd6c825499/local-r2/method/23c09fac6a37878f9815"
+    },
+    {
+      "entry": "volvo/cds-paymentservice-psp-integration/dabd6c825499/local-r2/base/psp-dabd6c8-r4/entry/VersionController-getServiceVersion",
+      "method": "GET",
+      "path": "/v1/version",
+      "implementation": "volvo/cds-paymentservice-psp-integration/dabd6c825499/local-r2/method/206787220355967f28bd"
+    }
+  ],
+  "crossRepository": "Transaction caller artifact version 1.3.257 differs from declared source artifact 1.3.274-SNAPSHOT; matching names/routes do not bind exact cross-repository runtime correspondence",
+  "previousNative": "../bundle.json",
+  "previousNativeSnapshot": "61b97213488ed325396783c206339f27d5931b88f16ff53c911aac117c5f03fe",
+  "newNativeReturnKinds": "Source-known immediate return declarations added; previous sealed bytes remain unchanged"
+}

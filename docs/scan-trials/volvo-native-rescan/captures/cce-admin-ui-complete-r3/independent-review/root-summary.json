@@ -1,0 +1,132 @@
+{
+  "snapshot": "2a2790fddb9e55b08afa6b9487a33753a0876f5ece3932861b055ca2564d2067",
+  "status": "Independent bounded query checks passed against revision-003; runtime and whole-entry projection limits retained",
+  "checks": [
+    {
+      "name": "PUT Market exact CCH family",
+      "nodes": 4,
+      "edges": 3,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "GET dictionary with actual token branch",
+      "nodes": 5,
+      "edges": 4,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "DELETE role actual user save and audit delivery",
+      "nodes": 3,
+      "edges": 7,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "DELETE role actual write argument or receiver 0",
+      "nodes": 3,
+      "edges": 2,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "DELETE role actual write argument or receiver 1",
+      "nodes": 8,
+      "edges": 7,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "DELETE role actual write argument or receiver 2",
+      "nodes": 8,
+      "edges": 7,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "DELETE role actual write argument or receiver 3",
+      "nodes": 4,
+      "edges": 3,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "health source-owned handler no application I/O",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "source-bound background outbox body",
+      "nodes": 2,
+      "edges": 7,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Browser remove policy role reaches actual BFF entry",
+      "nodes": 2,
+      "edges": 1,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Browser remove policy role actual argument0",
+      "nodes": 10,
+      "edges": 9,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Browser remove policy role actual argument1",
+      "nodes": 23,
+      "edges": 24,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Generated and stored assortment-admin caller contracts",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual generated assortment-admin request options",
+      "nodes": 8,
+      "edges": 7,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Generated and stored cch-configuration-api caller contracts",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual generated cch-configuration-api request options",
+      "nodes": 3,
+      "edges": 2,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Generated and stored filter-admin caller contracts",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual generated filter-admin request options",
+      "nodes": 7,
+      "edges": 6,
+      "limits": [],
+      "pages": 1
+    }
+  ]
+}

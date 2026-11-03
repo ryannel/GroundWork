@@ -1,0 +1,2099 @@
+{
+  "repo": "volvo-cars/cds-ecom-cart-service",
+  "commit": "ebad8522ba26bbd0f986a0cf88f484a32d864c17",
+  "classes": [
+    {
+      "fqn": "com.volvocars.ecom.cart.Application",
+      "name": "Application",
+      "kind": "class",
+      "path": "src/main/java/com/volvocars/ecom/cart/Application.java",
+      "fields": [],
+      "annotations": []
+    },
+    {
+      "fqn": "com.volvocars.ecom.cart.config.GraphQLConfig",
+      "name": "GraphQLConfig",
+      "kind": "class",
+      "path": "src/main/java/com/volvocars/ecom/cart/config/GraphQLConfig.java",
+      "fields": [],
+      "annotations": []
+    },
+    {
+      "fqn": "com.volvocars.ecom.cart.config.MongoConfig",
+      "name": "MongoConfig",
+      "kind": "class",
+      "path": "src/main/java/com/volvocars/ecom/cart/config/MongoConfig.java",
+      "fields": [],
+      "annotations": []
+    },
+    {
+      "fqn": "com.volvocars.ecom.cart.config.security.GraphQlAuthenticationEntryPoint",
+      "name": "GraphQlAuthenticationEntryPoint",
+      "kind": "class",
+      "path": "src/main/java/com/volvocars/ecom/cart/config/security/GraphQlAuthenticationEntryPoint.java",
+      "fields": [
+        {
+          "name": "ERRORS",
+          "modifiers": ["static"],
+          "annotations": []
+        },
+        {
+          "name": "jsonMapper",
+          "modifiers": [],
+          "annotations": []
+        }
+      ],
+      "annotations": []
+    },
+    {
+      "fqn": "com.volvocars.ecom.cart.config.security.IssuerKey",
+      "name": "IssuerKey",
+      "kind": "enum",
+      "path": "src/main/java/com/volvocars/ecom/cart/config/security/IssuerKey.java",
+      "fields": [
+        {
+          "name": "AZURE_AD_V1",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "AZURE_AD_V2",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "VOLVO_ID",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "VOLVO_ID_KEYCLOAK",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "CONNECT",
+          "modifiers": [],
+          "annotations": []
+        }
+      ],
+      "annotations": []
+    },
+    {
+      "fqn": "com.volvocars.ecom.cart.config.security.PermitAllSecurityConfig",
+      "name": "PermitAllSecurityConfig",
+      "kind": "class",
+      "path": "src/main/java/com/volvocars/ecom/cart/config/security/PermitAllSecurityConfig.java",
+      "fields": [],
+      "annotations": []
+    },
+    {
+      "fqn": "com.volvocars.ecom.cart.config.security.SecurityConfig",
+      "name": "SecurityConfig",
+      "kind": "class",
+      "path": "src/main/java/com/volvocars/ecom/cart/config/security/SecurityConfig.java",
+      "fields": [],
+      "annotations": []
+    },
+    {
+      "fqn": "com.volvocars.ecom.cart.config.security.TrustedIssuersProperties",
+      "name": "TrustedIssuersProperties",
+      "kind": "record",
+      "path": "src/main/java/com/volvocars/ecom/cart/config/security/TrustedIssuersProperties.java",
+      "fields": [
+        {
+          "name": "trustedIssuers",
+          "modifiers": [],
+          "annotations": []
+        }
+      ],
+      "annotations": []
+    },
+    {
+      "fqn": "com.volvocars.ecom.cart.core.cartarchive.CartArchive",
+      "name": "CartArchive",
+      "kind": "record",
+      "path": "src/main/java/com/volvocars/ecom/cart/core/cartarchive/CartArchive.java",
+      "fields": [
+        {
+          "name": "id",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "cart",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "created",
+          "modifiers": [],
+          "annotations": []
+        }
+      ],
+      "annotations": []
+    },
+    {
+      "fqn": "com.volvocars.ecom.cart.core.cartarchive.CartArchiveRepository",
+      "name": "CartArchiveRepository",
+      "kind": "interface",
+      "path": "src/main/java/com/volvocars/ecom/cart/core/cartarchive/CartArchiveRepository.java",
+      "fields": [],
+      "annotations": []
+    },
+    {
+      "fqn": "com.volvocars.ecom.cart.core.cartarchive.CartArchiveService",
+      "name": "CartArchiveService",
+      "kind": "class",
+      "path": "src/main/java/com/volvocars/ecom/cart/core/cartarchive/CartArchiveService.java",
+      "fields": [
+        {
+          "name": "cartArchiveRepository",
+          "modifiers": [],
+          "annotations": []
+        }
+      ],
+      "annotations": []
+    },
+    {
+      "fqn": "com.volvocars.ecom.cart.core.cartexpiration.CartExpirationJob",
+      "name": "CartExpirationJob",
+      "kind": "class",
+      "path": "src/main/java/com/volvocars/ecom/cart/core/cartexpiration/CartExpirationJob.java",
+      "fields": [
+        {
+          "name": "cartExpirationService",
+          "modifiers": [],
+          "annotations": []
+        }
+      ],
+      "annotations": []
+    },
+    {
+      "fqn": "com.volvocars.ecom.cart.core.cartexpiration.CartExpirationJobStatistics",
+      "name": "CartExpirationJobStatistics",
+      "kind": "class",
+      "path": "src/main/java/com/volvocars/ecom/cart/core/cartexpiration/CartExpirationJobStatistics.java",
+      "fields": [
+        {
+          "name": "numberOfExpired",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "numberOfFailed",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "numberOfDeleted",
+          "modifiers": [],
+          "annotations": []
+        }
+      ],
+      "annotations": []
+    },
+    {
+      "fqn": "com.volvocars.ecom.cart.core.cartexpiration.CartExpirationProperties",
+      "name": "CartExpirationProperties",
+      "kind": "record",
+      "path": "src/main/java/com/volvocars/ecom/cart/core/cartexpiration/CartExpirationProperties.java",
+      "fields": [
+        {
+          "name": "expirationDays",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "deletionDays",
+          "modifiers": [],
+          "annotations": []
+        }
+      ],
+      "annotations": []
+    },
+    {
+      "fqn": "com.volvocars.ecom.cart.core.cartexpiration.CartExpirationScheduler",
+      "name": "CartExpirationScheduler",
+      "kind": "class",
+      "path": "src/main/java/com/volvocars/ecom/cart/core/cartexpiration/CartExpirationScheduler.java",
+      "fields": [
+        {
+          "name": "cartExpirationJob",
+          "modifiers": [],
+          "annotations": []
+        }
+      ],
+      "annotations": []
+    },
+    {
+      "fqn": "com.volvocars.ecom.cart.core.cartexpiration.CartExpirationService",
+      "name": "CartExpirationService",
+      "kind": "class",
+      "path": "src/main/java/com/volvocars/ecom/cart/core/cartexpiration/CartExpirationService.java",
+      "fields": [
+        {
+          "name": "cartService",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "cartArchiveService",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "properties",
+          "modifiers": [],
+          "annotations": []
+        }
+      ],
+      "annotations": []
+    },
+    {
+      "fqn": "com.volvocars.ecom.cart.core.exception.CartAlreadyCheckedOutException",
+      "name": "CartAlreadyCheckedOutException",
+      "kind": "class",
+      "path": "src/main/java/com/volvocars/ecom/cart/core/exception/CartAlreadyCheckedOutException.java",
+      "fields": [],
+      "annotations": []
+    },
+    {
+      "fqn": "com.volvocars.ecom.cart.core.exception.CartLineNotFoundException",
+      "name": "CartLineNotFoundException",
+      "kind": "class",
+      "path": "src/main/java/com/volvocars/ecom/cart/core/exception/CartLineNotFoundException.java",
+      "fields": [],
+      "annotations": []
+    },
+    {
+      "fqn": "com.volvocars.ecom.cart.core.exception.CartNotFoundException",
+      "name": "CartNotFoundException",
+      "kind": "class",
+      "path": "src/main/java/com/volvocars/ecom/cart/core/exception/CartNotFoundException.java",
+      "fields": [],
+      "annotations": []
+    },
+    {
+      "fqn": "com.volvocars.ecom.cart.core.exception.CheckoutException",
+      "name": "CheckoutException",
+      "kind": "class",
+      "path": "src/main/java/com/volvocars/ecom/cart/core/exception/CheckoutException.java",
+      "fields": [],
+      "annotations": []
+    },
+    {
+      "fqn": "com.volvocars.ecom.cart.core.exception.ConditionalOrderException",
+      "name": "ConditionalOrderException",
+      "kind": "class",
+      "path": "src/main/java/com/volvocars/ecom/cart/core/exception/ConditionalOrderException.java",
+      "fields": [],
+      "annotations": []
+    },
+    {
+      "fqn": "com.volvocars.ecom.cart.core.exception.DuplicateCartLineException",
+      "name": "DuplicateCartLineException",
+      "kind": "class",
+      "path": "src/main/java/com/volvocars/ecom/cart/core/exception/DuplicateCartLineException.java",
+      "fields": [],
+      "annotations": []
+    },
+    {
+      "fqn": "com.volvocars.ecom.cart.core.exception.IllegalOperationException",
+      "name": "IllegalOperationException",
+      "kind": "class",
+      "path": "src/main/java/com/volvocars/ecom/cart/core/exception/IllegalOperationException.java",
+      "fields": [],
+      "annotations": []
+    },
+    {
+      "fqn": "com.volvocars.ecom.cart.core.model.Cart",
+      "name": "Cart",
+      "kind": "record",
+      "path": "src/main/java/com/volvocars/ecom/cart/core/model/Cart.java",
+      "fields": [
+        {
+          "name": "id",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "accessToken",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "countryCode",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "lines",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "buyer",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "deliveryPartner",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "salesPartner",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "opportunityId",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "status",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "owner",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "createdAt",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "updatedAt",
+          "modifiers": [],
+          "annotations": []
+        }
+      ],
+      "annotations": []
+    },
+    {
+      "fqn": "com.volvocars.ecom.cart.core.model.CartBuyer",
+      "name": "CartBuyer",
+      "kind": "record",
+      "path": "src/main/java/com/volvocars/ecom/cart/core/model/CartBuyer.java",
+      "fields": [
+        {
+          "name": "fleetId",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "partnerId",
+          "modifiers": [],
+          "annotations": []
+        }
+      ],
+      "annotations": []
+    },
+    {
+      "fqn": "com.volvocars.ecom.cart.core.model.CartLine",
+      "name": "CartLine",
+      "kind": "record",
+      "path": "src/main/java/com/volvocars/ecom/cart/core/model/CartLine.java",
+      "fields": [
+        {
+          "name": "id",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "offerId",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "items",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "quantity",
+          "modifiers": [],
+          "annotations": []
+        }
+      ],
+      "annotations": []
+    },
+    {
+      "fqn": "com.volvocars.ecom.cart.core.model.CartLineItem",
+      "name": "CartLineItem",
+      "kind": "record",
+      "path": "src/main/java/com/volvocars/ecom/cart/core/model/CartLineItem.java",
+      "fields": [
+        {
+          "name": "id",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "productVariantId",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "financingOfferVariantId",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "installationTarget",
+          "modifiers": [],
+          "annotations": []
+        }
+      ],
+      "annotations": []
+    },
+    {
+      "fqn": "com.volvocars.ecom.cart.core.model.CartOwner",
+      "name": "CartOwner",
+      "kind": "record",
+      "path": "src/main/java/com/volvocars/ecom/cart/core/model/CartOwner.java",
+      "fields": [
+        {
+          "name": "issuer",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "subject",
+          "modifiers": [],
+          "annotations": []
+        }
+      ],
+      "annotations": []
+    },
+    {
+      "fqn": "com.volvocars.ecom.cart.core.model.CartStatus",
+      "name": "CartStatus",
+      "kind": "enum",
+      "path": "src/main/java/com/volvocars/ecom/cart/core/model/CartStatus.java",
+      "fields": [
+        {
+          "name": "ACTIVE",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "CHECKING_OUT",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "CHECKED_OUT",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "FAILED",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "EXPIRED",
+          "modifiers": [],
+          "annotations": []
+        }
+      ],
+      "annotations": []
+    },
+    {
+      "fqn": "com.volvocars.ecom.cart.core.model.CheckoutResult",
+      "name": "CheckoutResult",
+      "kind": "record",
+      "path": "src/main/java/com/volvocars/ecom/cart/core/model/CheckoutResult.java",
+      "fields": [
+        {
+          "name": "orderId",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "displayOrderId",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "paymentSessionId",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "redirectUrl",
+          "modifiers": [],
+          "annotations": []
+        }
+      ],
+      "annotations": []
+    },
+    {
+      "fqn": "com.volvocars.ecom.cart.core.model.CustomerType",
+      "name": "CustomerType",
+      "kind": "enum",
+      "path": "src/main/java/com/volvocars/ecom/cart/core/model/CustomerType.java",
+      "fields": [
+        {
+          "name": "B2C",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "B2B",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "INDIVIDUAL",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "ORGANIZATION",
+          "modifiers": [],
+          "annotations": []
+        }
+      ],
+      "annotations": []
+    },
+    {
+      "fqn": "com.volvocars.ecom.cart.core.model.DeliveryPartner",
+      "name": "DeliveryPartner",
+      "kind": "record",
+      "path": "src/main/java/com/volvocars/ecom/cart/core/model/DeliveryPartner.java",
+      "fields": [
+        {
+          "name": "id",
+          "modifiers": [],
+          "annotations": []
+        }
+      ],
+      "annotations": []
+    },
+    {
+      "fqn": "com.volvocars.ecom.cart.core.model.InstallationTarget",
+      "name": "InstallationTarget",
+      "kind": "interface",
+      "path": "src/main/java/com/volvocars/ecom/cart/core/model/InstallationTarget.java",
+      "fields": [],
+      "annotations": []
+    },
+    {
+      "fqn": "com.volvocars.ecom.cart.core.model.InstallationTarget.Vin",
+      "name": "InstallationTarget.Vin",
+      "kind": "record",
+      "path": "src/main/java/com/volvocars/ecom/cart/core/model/InstallationTarget.java",
+      "fields": [
+        {
+          "name": "vin",
+          "modifiers": [],
+          "annotations": []
+        }
+      ],
+      "annotations": []
+    },
+    {
+      "fqn": "com.volvocars.ecom.cart.core.model.InstallationTargetType",
+      "name": "InstallationTargetType",
+      "kind": "enum",
+      "path": "src/main/java/com/volvocars/ecom/cart/core/model/InstallationTargetType.java",
+      "fields": [
+        {
+          "name": "VIN",
+          "modifiers": [],
+          "annotations": []
+        }
+      ],
+      "annotations": []
+    },
+    {
+      "fqn": "com.volvocars.ecom.cart.core.model.SalesPartner",
+      "name": "SalesPartner",
+      "kind": "record",
+      "path": "src/main/java/com/volvocars/ecom/cart/core/model/SalesPartner.java",
+      "fields": [
+        {
+          "name": "id",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "assistingSalesConsultantId",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "externalId",
+          "modifiers": [],
+          "annotations": []
+        }
+      ],
+      "annotations": []
+    },
+    {
+      "fqn": "com.volvocars.ecom.cart.core.service.CartService",
+      "name": "CartService",
+      "kind": "class",
+      "path": "src/main/java/com/volvocars/ecom/cart/core/service/CartService.java",
+      "fields": [
+        {
+          "name": "cartRepository",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "offerRestClient",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "offerCartResponseMapper",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "opportunityPrePopulationService",
+          "modifiers": [],
+          "annotations": []
+        }
+      ],
+      "annotations": []
+    },
+    {
+      "fqn": "com.volvocars.ecom.cart.core.service.CheckoutService",
+      "name": "CheckoutService",
+      "kind": "class",
+      "path": "src/main/java/com/volvocars/ecom/cart/core/service/CheckoutService.java",
+      "fields": [
+        {
+          "name": "cartService",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "conditionalOrderClient",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "conditionalOrderMapper",
+          "modifiers": [],
+          "annotations": []
+        }
+      ],
+      "annotations": []
+    },
+    {
+      "fqn": "com.volvocars.ecom.cart.core.service.ConditionalOrderMapper",
+      "name": "ConditionalOrderMapper",
+      "kind": "class",
+      "path": "src/main/java/com/volvocars/ecom/cart/core/service/ConditionalOrderMapper.java",
+      "fields": [
+        {
+          "name": "VIN",
+          "modifiers": ["static"],
+          "annotations": []
+        },
+        {
+          "name": "securityService",
+          "modifiers": [],
+          "annotations": []
+        }
+      ],
+      "annotations": []
+    },
+    {
+      "fqn": "com.volvocars.ecom.cart.core.service.OfferCartResponseMapper",
+      "name": "OfferCartResponseMapper",
+      "kind": "class",
+      "path": "src/main/java/com/volvocars/ecom/cart/core/service/OfferCartResponseMapper.java",
+      "fields": [],
+      "annotations": []
+    },
+    {
+      "fqn": "com.volvocars.ecom.cart.core.service.OpportunityPrePopulation",
+      "name": "OpportunityPrePopulation",
+      "kind": "record",
+      "path": "src/main/java/com/volvocars/ecom/cart/core/service/OpportunityPrePopulation.java",
+      "fields": [
+        {
+          "name": "deliveryPartner",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "salesPartner",
+          "modifiers": [],
+          "annotations": []
+        }
+      ],
+      "annotations": []
+    },
+    {
+      "fqn": "com.volvocars.ecom.cart.core.service.OpportunityPrePopulationService",
+      "name": "OpportunityPrePopulationService",
+      "kind": "class",
+      "path": "src/main/java/com/volvocars/ecom/cart/core/service/OpportunityPrePopulationService.java",
+      "fields": [
+        {
+          "name": "opportunityClient",
+          "modifiers": [],
+          "annotations": []
+        }
+      ],
+      "annotations": []
+    },
+    {
+      "fqn": "com.volvocars.ecom.cart.core.service.SecurityService",
+      "name": "SecurityService",
+      "kind": "class",
+      "path": "src/main/java/com/volvocars/ecom/cart/core/service/SecurityService.java",
+      "fields": [
+        {
+          "name": "cartService",
+          "modifiers": [],
+          "annotations": []
+        }
+      ],
+      "annotations": []
+    },
+    {
+      "fqn": "com.volvocars.ecom.cart.core.service.TokenIdentity",
+      "name": "TokenIdentity",
+      "kind": "class",
+      "path": "src/main/java/com/volvocars/ecom/cart/core/service/TokenIdentity.java",
+      "fields": [],
+      "annotations": []
+    },
+    {
+      "fqn": "com.volvocars.ecom.cart.core.service.VolvoIdResolver",
+      "name": "VolvoIdResolver",
+      "kind": "class",
+      "path": "src/main/java/com/volvocars/ecom/cart/core/service/VolvoIdResolver.java",
+      "fields": [
+        {
+          "name": "trustedIssuersProperties",
+          "modifiers": [],
+          "annotations": []
+        }
+      ],
+      "annotations": []
+    },
+    {
+      "fqn": "com.volvocars.ecom.cart.input.graphql.CartFederationController",
+      "name": "CartFederationController",
+      "kind": "class",
+      "path": "src/main/java/com/volvocars/ecom/cart/input/graphql/CartFederationController.java",
+      "fields": [
+        {
+          "name": "volvoIdResolver",
+          "modifiers": [],
+          "annotations": []
+        }
+      ],
+      "annotations": []
+    },
+    {
+      "fqn": "com.volvocars.ecom.cart.input.graphql.GraphQlController",
+      "name": "GraphQlController",
+      "kind": "class",
+      "path": "src/main/java/com/volvocars/ecom/cart/input/graphql/GraphQlController.java",
+      "fields": [
+        {
+          "name": "CART_ACCESS_TOKEN_HEADER",
+          "modifiers": ["static"],
+          "annotations": []
+        },
+        {
+          "name": "IDEMPOTENCY_KEY_HEADER",
+          "modifiers": ["static"],
+          "annotations": []
+        },
+        {
+          "name": "objectMapper",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "cartService",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "checkoutService",
+          "modifiers": [],
+          "annotations": []
+        }
+      ],
+      "annotations": []
+    },
+    {
+      "fqn": "com.volvocars.ecom.cart.input.graphql.GraphQlExceptionHandlerAdvice",
+      "name": "GraphQlExceptionHandlerAdvice",
+      "kind": "class",
+      "path": "src/main/java/com/volvocars/ecom/cart/input/graphql/GraphQlExceptionHandlerAdvice.java",
+      "fields": [],
+      "annotations": []
+    },
+    {
+      "fqn": "com.volvocars.ecom.cart.input.graphql.GraphQlInterceptor",
+      "name": "GraphQlInterceptor",
+      "kind": "class",
+      "path": "src/main/java/com/volvocars/ecom/cart/input/graphql/GraphQlInterceptor.java",
+      "fields": [
+        {
+          "name": "CART_ACCESS_TOKEN_HEADER",
+          "modifiers": ["static"],
+          "annotations": []
+        },
+        {
+          "name": "IDEMPOTENCY_KEY_HEADER",
+          "modifiers": ["static"],
+          "annotations": []
+        }
+      ],
+      "annotations": []
+    },
+    {
+      "fqn": "com.volvocars.ecom.cart.input.graphql.model.CartBuyerResponse",
+      "name": "CartBuyerResponse",
+      "kind": "record",
+      "path": "src/main/java/com/volvocars/ecom/cart/input/graphql/model/CartBuyerResponse.java",
+      "fields": [
+        {
+          "name": "volvoId",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "fleetId",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "partnerId",
+          "modifiers": [],
+          "annotations": []
+        }
+      ],
+      "annotations": []
+    },
+    {
+      "fqn": "com.volvocars.ecom.cart.input.graphql.model.EntityStub",
+      "name": "EntityStub",
+      "kind": "record",
+      "path": "src/main/java/com/volvocars/ecom/cart/input/graphql/model/EntityStub.java",
+      "fields": [
+        {
+          "name": "id",
+          "modifiers": [],
+          "annotations": []
+        }
+      ],
+      "annotations": []
+    },
+    {
+      "fqn": "com.volvocars.ecom.cart.input.model.AddressInput",
+      "name": "AddressInput",
+      "kind": "record",
+      "path": "src/main/java/com/volvocars/ecom/cart/input/model/AddressInput.java",
+      "fields": [
+        {
+          "name": "line1",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "line2",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "city",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "state",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "postalCode",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "countryCode",
+          "modifiers": [],
+          "annotations": []
+        }
+      ],
+      "annotations": []
+    },
+    {
+      "fqn": "com.volvocars.ecom.cart.input.model.BuyerInput",
+      "name": "BuyerInput",
+      "kind": "record",
+      "path": "src/main/java/com/volvocars/ecom/cart/input/model/BuyerInput.java",
+      "fields": [
+        {
+          "name": "fleetId",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "partnerId",
+          "modifiers": [],
+          "annotations": []
+        }
+      ],
+      "annotations": []
+    },
+    {
+      "fqn": "com.volvocars.ecom.cart.input.model.CartInput",
+      "name": "CartInput",
+      "kind": "record",
+      "path": "src/main/java/com/volvocars/ecom/cart/input/model/CartInput.java",
+      "fields": [
+        {
+          "name": "countryCode",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "buyer",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "partners",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "lines",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "opportunityId",
+          "modifiers": [],
+          "annotations": []
+        }
+      ],
+      "annotations": []
+    },
+    {
+      "fqn": "com.volvocars.ecom.cart.input.model.CartLineInput",
+      "name": "CartLineInput",
+      "kind": "record",
+      "path": "src/main/java/com/volvocars/ecom/cart/input/model/CartLineInput.java",
+      "fields": [
+        {
+          "name": "offerId",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "items",
+          "modifiers": [],
+          "annotations": []
+        }
+      ],
+      "annotations": []
+    },
+    {
+      "fqn": "com.volvocars.ecom.cart.input.model.CartLineItemInput",
+      "name": "CartLineItemInput",
+      "kind": "record",
+      "path": "src/main/java/com/volvocars/ecom/cart/input/model/CartLineItemInput.java",
+      "fields": [
+        {
+          "name": "productVariantId",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "financingOfferVariantId",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "installationTarget",
+          "modifiers": [],
+          "annotations": []
+        }
+      ],
+      "annotations": []
+    },
+    {
+      "fqn": "com.volvocars.ecom.cart.input.model.CheckoutInput",
+      "name": "CheckoutInput",
+      "kind": "record",
+      "path": "src/main/java/com/volvocars/ecom/cart/input/model/CheckoutInput.java",
+      "fields": [
+        {
+          "name": "metadata",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "customer",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "deliveryPartner",
+          "modifiers": [],
+          "annotations": []
+        }
+      ],
+      "annotations": []
+    },
+    {
+      "fqn": "com.volvocars.ecom.cart.input.model.CreateCartFromCceTokenInput",
+      "name": "CreateCartFromCceTokenInput",
+      "kind": "record",
+      "path": "src/main/java/com/volvocars/ecom/cart/input/model/CreateCartFromCceTokenInput.java",
+      "fields": [
+        {
+          "name": "cceToken",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "advancePayment",
+          "modifiers": [],
+          "annotations": []
+        }
+      ],
+      "annotations": []
+    },
+    {
+      "fqn": "com.volvocars.ecom.cart.input.model.CreateCartRequest",
+      "name": "CreateCartRequest",
+      "kind": "record",
+      "path": "src/main/java/com/volvocars/ecom/cart/input/model/CreateCartRequest.java",
+      "fields": [
+        {
+          "name": "buyer",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "partners",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "countryCode",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "lines",
+          "modifiers": [],
+          "annotations": []
+        }
+      ],
+      "annotations": []
+    },
+    {
+      "fqn": "com.volvocars.ecom.cart.input.model.CreateCartRequest.Buyer",
+      "name": "CreateCartRequest.Buyer",
+      "kind": "record",
+      "path": "src/main/java/com/volvocars/ecom/cart/input/model/CreateCartRequest.java",
+      "fields": [
+        {
+          "name": "customerType",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "volvoId",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "fleetId",
+          "modifiers": [],
+          "annotations": []
+        }
+      ],
+      "annotations": []
+    },
+    {
+      "fqn": "com.volvocars.ecom.cart.input.model.CreateCartRequest.Partner",
+      "name": "CreateCartRequest.Partner",
+      "kind": "record",
+      "path": "src/main/java/com/volvocars/ecom/cart/input/model/CreateCartRequest.java",
+      "fields": [
+        {
+          "name": "id",
+          "modifiers": [],
+          "annotations": []
+        }
+      ],
+      "annotations": []
+    },
+    {
+      "fqn": "com.volvocars.ecom.cart.input.model.CreateCartRequest.Line",
+      "name": "CreateCartRequest.Line",
+      "kind": "record",
+      "path": "src/main/java/com/volvocars/ecom/cart/input/model/CreateCartRequest.java",
+      "fields": [
+        {
+          "name": "productVariantId",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "financingOfferVariantId",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "offerId",
+          "modifiers": [],
+          "annotations": []
+        }
+      ],
+      "annotations": []
+    },
+    {
+      "fqn": "com.volvocars.ecom.cart.input.model.CustomerInput",
+      "name": "CustomerInput",
+      "kind": "record",
+      "path": "src/main/java/com/volvocars/ecom/cart/input/model/CustomerInput.java",
+      "fields": [
+        {
+          "name": "type",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "individual",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "organization",
+          "modifiers": [],
+          "annotations": []
+        }
+      ],
+      "annotations": []
+    },
+    {
+      "fqn": "com.volvocars.ecom.cart.input.model.DeliveryPartnerInput",
+      "name": "DeliveryPartnerInput",
+      "kind": "record",
+      "path": "src/main/java/com/volvocars/ecom/cart/input/model/DeliveryPartnerInput.java",
+      "fields": [
+        {
+          "name": "id",
+          "modifiers": [],
+          "annotations": []
+        }
+      ],
+      "annotations": []
+    },
+    {
+      "fqn": "com.volvocars.ecom.cart.input.model.IndividualInput",
+      "name": "IndividualInput",
+      "kind": "record",
+      "path": "src/main/java/com/volvocars/ecom/cart/input/model/IndividualInput.java",
+      "fields": [
+        {
+          "name": "firstName",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "lastName",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "email",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "phone",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "address",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "volvoId",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "language",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "spinPersonNumber",
+          "modifiers": [],
+          "annotations": []
+        }
+      ],
+      "annotations": []
+    },
+    {
+      "fqn": "com.volvocars.ecom.cart.input.model.InstallationTargetInput",
+      "name": "InstallationTargetInput",
+      "kind": "record",
+      "path": "src/main/java/com/volvocars/ecom/cart/input/model/InstallationTargetInput.java",
+      "fields": [
+        {
+          "name": "vin",
+          "modifiers": [],
+          "annotations": []
+        }
+      ],
+      "annotations": []
+    },
+    {
+      "fqn": "com.volvocars.ecom.cart.input.model.OrganizationInput",
+      "name": "OrganizationInput",
+      "kind": "record",
+      "path": "src/main/java/com/volvocars/ecom/cart/input/model/OrganizationInput.java",
+      "fields": [
+        {
+          "name": "name",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "registrationNumber",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "vatNumber",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "contactPerson",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "address",
+          "modifiers": [],
+          "annotations": []
+        }
+      ],
+      "annotations": []
+    },
+    {
+      "fqn": "com.volvocars.ecom.cart.input.model.PartnersInput",
+      "name": "PartnersInput",
+      "kind": "record",
+      "path": "src/main/java/com/volvocars/ecom/cart/input/model/PartnersInput.java",
+      "fields": [
+        {
+          "name": "deliveryPartner",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "salesPartner",
+          "modifiers": [],
+          "annotations": []
+        }
+      ],
+      "annotations": []
+    },
+    {
+      "fqn": "com.volvocars.ecom.cart.input.model.SalesPartnerInput",
+      "name": "SalesPartnerInput",
+      "kind": "record",
+      "path": "src/main/java/com/volvocars/ecom/cart/input/model/SalesPartnerInput.java",
+      "fields": [
+        {
+          "name": "id",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "assistingSalesConsultantId",
+          "modifiers": [],
+          "annotations": []
+        }
+      ],
+      "annotations": []
+    },
+    {
+      "fqn": "com.volvocars.ecom.cart.input.model.metadata.DeviceType",
+      "name": "DeviceType",
+      "kind": "enum",
+      "path": "src/main/java/com/volvocars/ecom/cart/input/model/metadata/DeviceType.java",
+      "fields": [
+        {
+          "name": "IOS",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "ANDROID",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "WEB",
+          "modifiers": [],
+          "annotations": []
+        }
+      ],
+      "annotations": []
+    },
+    {
+      "fqn": "com.volvocars.ecom.cart.input.model.metadata.Metadata",
+      "name": "Metadata",
+      "kind": "record",
+      "path": "src/main/java/com/volvocars/ecom/cart/input/model/metadata/Metadata.java",
+      "fields": [
+        {
+          "name": "analytics",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "deviceType",
+          "modifiers": [],
+          "annotations": []
+        }
+      ],
+      "annotations": []
+    },
+    {
+      "fqn": "com.volvocars.ecom.cart.input.model.metadata.analytics.Analytics",
+      "name": "Analytics",
+      "kind": "record",
+      "path": "src/main/java/com/volvocars/ecom/cart/input/model/metadata/analytics/Analytics.java",
+      "fields": [
+        {
+          "name": "userAgent",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "utm",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "volvoTracking",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "tags",
+          "modifiers": [],
+          "annotations": []
+        }
+      ],
+      "annotations": []
+    },
+    {
+      "fqn": "com.volvocars.ecom.cart.input.model.metadata.analytics.AnalyticsTags",
+      "name": "AnalyticsTags",
+      "kind": "record",
+      "path": "src/main/java/com/volvocars/ecom/cart/input/model/metadata/analytics/AnalyticsTags.java",
+      "fields": [
+        {
+          "name": "key",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "value",
+          "modifiers": [],
+          "annotations": []
+        }
+      ],
+      "annotations": []
+    },
+    {
+      "fqn": "com.volvocars.ecom.cart.input.model.metadata.analytics.AnalyticsUtm",
+      "name": "AnalyticsUtm",
+      "kind": "record",
+      "path": "src/main/java/com/volvocars/ecom/cart/input/model/metadata/analytics/AnalyticsUtm.java",
+      "fields": [
+        {
+          "name": "medium",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "source",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "campaign",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "content",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "term",
+          "modifiers": [],
+          "annotations": []
+        }
+      ],
+      "annotations": []
+    },
+    {
+      "fqn": "com.volvocars.ecom.cart.input.model.metadata.analytics.AnalyticsVolvoTracking",
+      "name": "AnalyticsVolvoTracking",
+      "kind": "record",
+      "path": "src/main/java/com/volvocars/ecom/cart/input/model/metadata/analytics/AnalyticsVolvoTracking.java",
+      "fields": [
+        {
+          "name": "sessionId",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "deviceId",
+          "modifiers": [],
+          "annotations": []
+        }
+      ],
+      "annotations": []
+    },
+    {
+      "fqn": "com.volvocars.ecom.cart.migration.AddIdToCartLineItemMigration",
+      "name": "AddIdToCartLineItemMigration",
+      "kind": "class",
+      "path": "src/main/java/com/volvocars/ecom/cart/migration/AddIdToCartLineItemMigration.java",
+      "fields": [],
+      "annotations": []
+    },
+    {
+      "fqn": "com.volvocars.ecom.cart.migration._0002__MoveBuyerVolvoIdToOwner",
+      "name": "_0002__MoveBuyerVolvoIdToOwner",
+      "kind": "class",
+      "path": "src/main/java/com/volvocars/ecom/cart/migration/_0002__MoveBuyerVolvoIdToOwner.java",
+      "fields": [
+        {
+          "name": "CARTS",
+          "modifiers": ["static"],
+          "annotations": []
+        },
+        {
+          "name": "BUYER_VOLVO_ID",
+          "modifiers": ["static"],
+          "annotations": []
+        },
+        {
+          "name": "OWNER_SUBJECT",
+          "modifiers": ["static"],
+          "annotations": []
+        },
+        {
+          "name": "OWNER_ISSUER",
+          "modifiers": ["static"],
+          "annotations": []
+        }
+      ],
+      "annotations": []
+    },
+    {
+      "fqn": "com.volvocars.ecom.cart.output.offer.FakeOfferRestClient",
+      "name": "FakeOfferRestClient",
+      "kind": "class",
+      "path": "src/main/java/com/volvocars/ecom/cart/output/offer/FakeOfferRestClient.java",
+      "fields": [
+        {
+          "name": "objectMapper",
+          "modifiers": [],
+          "annotations": []
+        }
+      ],
+      "annotations": []
+    },
+    {
+      "fqn": "com.volvocars.ecom.cart.output.offer.OfferRestClient",
+      "name": "OfferRestClient",
+      "kind": "interface",
+      "path": "src/main/java/com/volvocars/ecom/cart/output/offer/OfferRestClient.java",
+      "fields": [],
+      "annotations": []
+    },
+    {
+      "fqn": "com.volvocars.ecom.cart.output.offer.model.OfferCartResponse",
+      "name": "OfferCartResponse",
+      "kind": "record",
+      "path": "src/main/java/com/volvocars/ecom/cart/output/offer/model/OfferCartResponse.java",
+      "fields": [
+        {
+          "name": "offerId",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "scope",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "productReference",
+          "modifiers": [],
+          "annotations": []
+        }
+      ],
+      "annotations": []
+    },
+    {
+      "fqn": "com.volvocars.ecom.cart.output.offer.model.OfferCartResponse.Scope",
+      "name": "OfferCartResponse.Scope",
+      "kind": "record",
+      "path": "src/main/java/com/volvocars/ecom/cart/output/offer/model/OfferCartResponse.java",
+      "fields": [
+        {
+          "name": "market",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "customerSegment",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "customerType",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "salesChannels",
+          "modifiers": [],
+          "annotations": []
+        }
+      ],
+      "annotations": []
+    },
+    {
+      "fqn": "com.volvocars.ecom.cart.output.offer.model.OfferCartResponse.ProductReference",
+      "name": "OfferCartResponse.ProductReference",
+      "kind": "record",
+      "path": "src/main/java/com/volvocars/ecom/cart/output/offer/model/OfferCartResponse.java",
+      "fields": [
+        {
+          "name": "id",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "code",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "productType",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "optional",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "fovId",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "tags",
+          "modifiers": [],
+          "annotations": []
+        }
+      ],
+      "annotations": []
+    },
+    {
+      "fqn": "com.volvocars.ecom.cart.output.opportunity.OpportunityClient",
+      "name": "OpportunityClient",
+      "kind": "class",
+      "path": "src/main/java/com/volvocars/ecom/cart/output/opportunity/OpportunityClient.java",
+      "fields": [
+        {
+          "name": "CLIENT_QUALIFIER",
+          "modifiers": ["static"],
+          "annotations": []
+        },
+        {
+          "name": "restClient",
+          "modifiers": [],
+          "annotations": []
+        }
+      ],
+      "annotations": []
+    },
+    {
+      "fqn": "com.volvocars.ecom.cart.output.opportunity.model.Opportunity",
+      "name": "Opportunity",
+      "kind": "record",
+      "path": "src/main/java/com/volvocars/ecom/cart/output/opportunity/model/Opportunity.java",
+      "fields": [
+        {
+          "name": "interest",
+          "modifiers": [],
+          "annotations": []
+        }
+      ],
+      "annotations": []
+    },
+    {
+      "fqn": "com.volvocars.ecom.cart.output.opportunity.model.Opportunity.Response",
+      "name": "Opportunity.Response",
+      "kind": "record",
+      "path": "src/main/java/com/volvocars/ecom/cart/output/opportunity/model/Opportunity.java",
+      "fields": [
+        {
+          "name": "responseDetails",
+          "modifiers": [],
+          "annotations": []
+        }
+      ],
+      "annotations": []
+    },
+    {
+      "fqn": "com.volvocars.ecom.cart.output.opportunity.model.Opportunity.Interest",
+      "name": "Opportunity.Interest",
+      "kind": "record",
+      "path": "src/main/java/com/volvocars/ecom/cart/output/opportunity/model/Opportunity.java",
+      "fields": [
+        {
+          "name": "retailer",
+          "modifiers": [],
+          "annotations": []
+        }
+      ],
+      "annotations": []
+    },
+    {
+      "fqn": "com.volvocars.ecom.cart.output.opportunity.model.Opportunity.Retailer",
+      "name": "Opportunity.Retailer",
+      "kind": "record",
+      "path": "src/main/java/com/volvocars/ecom/cart/output/opportunity/model/Opportunity.java",
+      "fields": [
+        {
+          "name": "partnerId",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "parmaPartnerCode",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "parmaPartnerCodeDelivery",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "salesRepresentative",
+          "modifiers": [],
+          "annotations": []
+        }
+      ],
+      "annotations": []
+    },
+    {
+      "fqn": "com.volvocars.ecom.cart.output.order.ConditionalOrderProperties",
+      "name": "ConditionalOrderProperties",
+      "kind": "record",
+      "path": "src/main/java/com/volvocars/ecom/cart/output/order/ConditionalOrderProperties.java",
+      "fields": [
+        {
+          "name": "baseUrl",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "oauthRegistrationId",
+          "modifiers": [],
+          "annotations": []
+        }
+      ],
+      "annotations": []
+    },
+    {
+      "fqn": "com.volvocars.ecom.cart.output.order.ConditionalOrderRestClient",
+      "name": "ConditionalOrderRestClient",
+      "kind": "interface",
+      "path": "src/main/java/com/volvocars/ecom/cart/output/order/ConditionalOrderRestClient.java",
+      "fields": [],
+      "annotations": []
+    },
+    {
+      "fqn": "com.volvocars.ecom.cart.output.order.RestClientConditionalOrderClient",
+      "name": "RestClientConditionalOrderClient",
+      "kind": "class",
+      "path": "src/main/java/com/volvocars/ecom/cart/output/order/RestClientConditionalOrderClient.java",
+      "fields": [
+        {
+          "name": "CLIENT_QUALIFIER",
+          "modifiers": ["static"],
+          "annotations": []
+        },
+        {
+          "name": "IDEMPOTENCY_KEY_HEADER",
+          "modifiers": ["static"],
+          "annotations": []
+        },
+        {
+          "name": "restClient",
+          "modifiers": [],
+          "annotations": []
+        }
+      ],
+      "annotations": []
+    },
+    {
+      "fqn": "com.volvocars.ecom.cart.output.order.model.ConditionalOrderRequest",
+      "name": "ConditionalOrderRequest",
+      "kind": "record",
+      "path": "src/main/java/com/volvocars/ecom/cart/output/order/model/ConditionalOrderRequest.java",
+      "fields": [
+        {
+          "name": "countryCode",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "customer",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "deliveryPartner",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "salesPartner",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "lines",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "metadata",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "cartId",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "opportunityId",
+          "modifiers": [],
+          "annotations": []
+        }
+      ],
+      "annotations": []
+    },
+    {
+      "fqn": "com.volvocars.ecom.cart.output.order.model.ConditionalOrderRequest.Customer",
+      "name": "ConditionalOrderRequest.Customer",
+      "kind": "record",
+      "path": "src/main/java/com/volvocars/ecom/cart/output/order/model/ConditionalOrderRequest.java",
+      "fields": [
+        {
+          "name": "individual",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "organization",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "userAccessToken",
+          "modifiers": [],
+          "annotations": []
+        }
+      ],
+      "annotations": []
+    },
+    {
+      "fqn": "com.volvocars.ecom.cart.output.order.model.ConditionalOrderRequest.Customer.Individual",
+      "name": "ConditionalOrderRequest.Customer.Individual",
+      "kind": "record",
+      "path": "src/main/java/com/volvocars/ecom/cart/output/order/model/ConditionalOrderRequest.java",
+      "fields": [
+        {
+          "name": "firstName",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "lastName",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "email",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "phone",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "address",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "language",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "spinPersonNumber",
+          "modifiers": [],
+          "annotations": []
+        }
+      ],
+      "annotations": []
+    },
+    {
+      "fqn": "com.volvocars.ecom.cart.output.order.model.ConditionalOrderRequest.Customer.Organization",
+      "name": "ConditionalOrderRequest.Customer.Organization",
+      "kind": "record",
+      "path": "src/main/java/com/volvocars/ecom/cart/output/order/model/ConditionalOrderRequest.java",
+      "fields": [
+        {
+          "name": "name",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "registrationNumber",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "vatNumber",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "address",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "partnerId",
+          "modifiers": [],
+          "annotations": []
+        }
+      ],
+      "annotations": []
+    },
+    {
+      "fqn": "com.volvocars.ecom.cart.output.order.model.ConditionalOrderRequest.Customer.Address",
+      "name": "ConditionalOrderRequest.Customer.Address",
+      "kind": "record",
+      "path": "src/main/java/com/volvocars/ecom/cart/output/order/model/ConditionalOrderRequest.java",
+      "fields": [
+        {
+          "name": "line1",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "line2",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "city",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "postalCode",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "countryCode",
+          "modifiers": [],
+          "annotations": []
+        }
+      ],
+      "annotations": []
+    },
+    {
+      "fqn": "com.volvocars.ecom.cart.output.order.model.ConditionalOrderRequest.DeliveryPartner",
+      "name": "ConditionalOrderRequest.DeliveryPartner",
+      "kind": "record",
+      "path": "src/main/java/com/volvocars/ecom/cart/output/order/model/ConditionalOrderRequest.java",
+      "fields": [
+        {
+          "name": "id",
+          "modifiers": [],
+          "annotations": []
+        }
+      ],
+      "annotations": []
+    },
+    {
+      "fqn": "com.volvocars.ecom.cart.output.order.model.ConditionalOrderRequest.SalesPartner",
+      "name": "ConditionalOrderRequest.SalesPartner",
+      "kind": "record",
+      "path": "src/main/java/com/volvocars/ecom/cart/output/order/model/ConditionalOrderRequest.java",
+      "fields": [
+        {
+          "name": "id",
+          "modifiers": [],
+          "annotations": []
+        }
+      ],
+      "annotations": []
+    },
+    {
+      "fqn": "com.volvocars.ecom.cart.output.order.model.ConditionalOrderRequest.Line",
+      "name": "ConditionalOrderRequest.Line",
+      "kind": "record",
+      "path": "src/main/java/com/volvocars/ecom/cart/output/order/model/ConditionalOrderRequest.java",
+      "fields": [
+        {
+          "name": "offerId",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "items",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "quantity",
+          "modifiers": [],
+          "annotations": []
+        }
+      ],
+      "annotations": []
+    },
+    {
+      "fqn": "com.volvocars.ecom.cart.output.order.model.ConditionalOrderRequest.Line.Item",
+      "name": "ConditionalOrderRequest.Line.Item",
+      "kind": "record",
+      "path": "src/main/java/com/volvocars/ecom/cart/output/order/model/ConditionalOrderRequest.java",
+      "fields": [
+        {
+          "name": "productVariantId",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "financingOfferVariantId",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "installationTarget",
+          "modifiers": [],
+          "annotations": []
+        }
+      ],
+      "annotations": []
+    },
+    {
+      "fqn": "com.volvocars.ecom.cart.output.order.model.ConditionalOrderRequest.Line.Item.InstallationTarget",
+      "name": "ConditionalOrderRequest.Line.Item.InstallationTarget",
+      "kind": "record",
+      "path": "src/main/java/com/volvocars/ecom/cart/output/order/model/ConditionalOrderRequest.java",
+      "fields": [
+        {
+          "name": "type",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "value",
+          "modifiers": [],
+          "annotations": []
+        }
+      ],
+      "annotations": []
+    },
+    {
+      "fqn": "com.volvocars.ecom.cart.output.order.model.ConditionalOrderResponse",
+      "name": "ConditionalOrderResponse",
+      "kind": "record",
+      "path": "src/main/java/com/volvocars/ecom/cart/output/order/model/ConditionalOrderResponse.java",
+      "fields": [
+        {
+          "name": "orderId",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "displayOrderId",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "paymentSessionId",
+          "modifiers": [],
+          "annotations": []
+        },
+        {
+          "name": "redirectUrl",
+          "modifiers": [],
+          "annotations": []
+        }
+      ],
+      "annotations": []
+    },
+    {
+      "fqn": "com.volvocars.ecom.cart.output.repository.CartRepository",
+      "name": "CartRepository",
+      "kind": "interface",
+      "path": "src/main/java/com/volvocars/ecom/cart/output/repository/CartRepository.java",
+      "fields": [],
+      "annotations": []
+    }
+  ],
+  "qualification": "Original Java syntax exporter; source class kind and independent exact method bodies. Lexical legacy parser compact-record limitation not used."
+}

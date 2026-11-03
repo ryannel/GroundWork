@@ -1,0 +1,62 @@
+{
+  "format": "groundwork-knowledge/v3",
+  "workspace": "volvo-cars",
+  "records": [
+    {
+      "id": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r2/source_revision/source",
+      "kind": "source_revision",
+      "repo": "volvo-cars/cce-cpam-ingress",
+      "commit": "6db6ba2b9c76751a690ea9b0184b42e58412a09e"
+    },
+    {
+      "id": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r2/evidence/44a6ee9766dab0d29b04",
+      "kind": "evidence",
+      "repo": "volvo-cars/cce-cpam-ingress",
+      "host": "github.com",
+      "commit": "6db6ba2b9c76751a690ea9b0184b42e58412a09e",
+      "path": "events/carconfiguration/component.pb.go",
+      "lines": [391, 391],
+      "basis": "source"
+    },
+    {
+      "id": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r2/evidence/4ee5f27ef11c4ca2fa0e",
+      "kind": "evidence",
+      "repo": "volvo-cars/cce-cpam-ingress",
+      "host": "github.com",
+      "commit": "6db6ba2b9c76751a690ea9b0184b42e58412a09e",
+      "path": "events/carconfiguration/condition.pb.go",
+      "lines": [223, 223],
+      "basis": "source"
+    },
+    {
+      "id": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r2/evidence/188257597eb2a03d9fb2",
+      "kind": "evidence",
+      "repo": "volvo-cars/cce-cpam-ingress",
+      "host": "github.com",
+      "commit": "6db6ba2b9c76751a690ea9b0184b42e58412a09e",
+      "path": "events/carconfiguration/config-rules.pb.go",
+      "lines": [623, 623],
+      "basis": "source"
+    },
+    {
+      "id": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r2/evidence/4228b159359ccab15509",
+      "kind": "evidence",
+      "repo": "volvo-cars/cce-cpam-ingress",
+      "host": "github.com",
+      "commit": "6db6ba2b9c76751a690ea9b0184b42e58412a09e",
+      "path": "events/carconfiguration/consequence.pb.go",
+      "lines": [311, 311],
+      "basis": "source"
+    },
+    {
+      "id": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r2/evidence/c6ed0dcddcd42f9dd59d",
+      "kind": "evidence",
+      "repo": "volvo-cars/cce-cpam-ingress",
+      "host": "github.com",
+      "commit": "6db6ba2b9c76751a690ea9b0184b42e58412a09e",
+      "path": "events/carconfiguration/cpam-ingress.pb.go",
+      "lines": [591, 591],
+      "basis": "source"
+    }
+  ]
+}

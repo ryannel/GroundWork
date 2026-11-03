@@ -1,0 +1,9 @@
+{
+  "status": "passed",
+  "snapshot": "9e022859e4914b70a3c8a8471e410025f4a69f006a47ba076256a14ed722c373",
+  "sourceBundleByteSha256": "09c343d14c0a540c333c951fc67c80d95b510eb8c1fe4e7f0297dce4ca7bd77c",
+  "gzipDecompression": "Exactly equal immutable selected original bytes",
+  "authorSealVerified": 62,
+  "predecessor": "Original immutable r1 pair retained in predecessor; exact normalised delta independently checked",
+  "handoffQualification": "Original sealed handoff records earlier152-query independent gate; final independent181-query pack extends coverage and is selected here"
+}

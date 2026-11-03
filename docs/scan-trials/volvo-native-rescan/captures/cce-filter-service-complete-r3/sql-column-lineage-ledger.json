@@ -1,0 +1,1570 @@
+[
+  {
+    "operation": "volvo/cce-filter-service/2020ff59219b/local-r3/operation/a1da602108a66ecc7a/8",
+    "effect": "volvo/cce-filter-service/2020ff59219b/local-r3/effect/67d87ff75acbd312f2",
+    "path": "src/database/postgres/repository.py",
+    "line": 35,
+    "sql": "SELECT payload FROM config_policy WHERE id = %s",
+    "table": "config_policy",
+    "fields": [],
+    "selection": [
+      {
+        "path": ["id"],
+        "value": "volvo/cce-filter-service/2020ff59219b/local-r3/value/a1da602108a66ecc7a/parameter/id",
+        "transform": "Exact SQL placeholder 0 and source operand id"
+      }
+    ],
+    "derivedIndexedProjections": [],
+    "status": "statically mapped",
+    "unresolved": false
+  },
+  {
+    "operation": "volvo/cce-filter-service/2020ff59219b/local-r3/operation/0a93de90b80a8f407c/8",
+    "effect": "volvo/cce-filter-service/2020ff59219b/local-r3/effect/0e307bf71a2eb9d039",
+    "path": "src/database/postgres/repository.py",
+    "line": 35,
+    "sql": "SELECT payload FROM config_policy WHERE id = %s",
+    "table": "config_policy",
+    "fields": [],
+    "selection": [
+      {
+        "path": ["id"],
+        "value": "volvo/cce-filter-service/2020ff59219b/local-r3/value/0a93de90b80a8f407c/parameter/id",
+        "transform": "Exact SQL placeholder 0 and source operand id"
+      }
+    ],
+    "derivedIndexedProjections": [],
+    "status": "statically mapped",
+    "unresolved": false
+  },
+  {
+    "operation": "volvo/cce-filter-service/2020ff59219b/local-r3/operation/e3bdd4e37a32a4fb99/8",
+    "effect": "volvo/cce-filter-service/2020ff59219b/local-r3/effect/3553f9e8e23c19988e",
+    "path": "src/database/postgres/repository.py",
+    "line": 45,
+    "sql": "SELECT id, name, parent_id FROM config_policy WHERE id = %s",
+    "table": "config_policy",
+    "fields": [],
+    "selection": [
+      {
+        "path": ["id"],
+        "value": "volvo/cce-filter-service/2020ff59219b/local-r3/value/e3bdd4e37a32a4fb99/parameter/id",
+        "transform": "Exact SQL placeholder 0 and source operand id"
+      }
+    ],
+    "derivedIndexedProjections": [],
+    "status": "statically mapped",
+    "unresolved": false
+  },
+  {
+    "operation": "volvo/cce-filter-service/2020ff59219b/local-r3/operation/96d102f2b3a462ac84/8",
+    "effect": "volvo/cce-filter-service/2020ff59219b/local-r3/effect/598246ba3c870f9d7e",
+    "path": "src/database/postgres/repository.py",
+    "line": 45,
+    "sql": "SELECT id, name, parent_id FROM config_policy WHERE id = %s",
+    "table": "config_policy",
+    "fields": [],
+    "selection": [
+      {
+        "path": ["id"],
+        "value": "volvo/cce-filter-service/2020ff59219b/local-r3/value/96d102f2b3a462ac84/parameter/id",
+        "transform": "Exact SQL placeholder 0 and source operand id"
+      }
+    ],
+    "derivedIndexedProjections": [],
+    "status": "statically mapped",
+    "unresolved": false
+  },
+  {
+    "operation": "volvo/cce-filter-service/2020ff59219b/local-r3/operation/4e938c7a1269abd0e8/7",
+    "effect": "volvo/cce-filter-service/2020ff59219b/local-r3/effect/14c4c10245c7a49603",
+    "path": "src/database/postgres/repository.py",
+    "line": 55,
+    "sql": "SELECT id, name, parent_id FROM config_policy",
+    "table": "config_policy",
+    "fields": [],
+    "selection": [],
+    "derivedIndexedProjections": [],
+    "status": "statically mapped",
+    "unresolved": false
+  },
+  {
+    "operation": "volvo/cce-filter-service/2020ff59219b/local-r3/operation/b5faca56d2bad228ba/7",
+    "effect": "volvo/cce-filter-service/2020ff59219b/local-r3/effect/42d90804b887ae40cf",
+    "path": "src/database/postgres/repository.py",
+    "line": 55,
+    "sql": "SELECT id, name, parent_id FROM config_policy",
+    "table": "config_policy",
+    "fields": [],
+    "selection": [],
+    "derivedIndexedProjections": [],
+    "status": "statically mapped",
+    "unresolved": false
+  },
+  {
+    "operation": "volvo/cce-filter-service/2020ff59219b/local-r3/operation/c6bff815828d453a28/8",
+    "effect": "volvo/cce-filter-service/2020ff59219b/local-r3/effect/64f9b924486f06f49b",
+    "path": "src/database/postgres/repository.py",
+    "line": 65,
+    "sql": "SELECT id, name FROM config_policy WHERE parent_id = %s",
+    "table": "config_policy",
+    "fields": [],
+    "selection": [
+      {
+        "path": ["parent_id"],
+        "value": "volvo/cce-filter-service/2020ff59219b/local-r3/value/c6bff815828d453a28/parameter/id",
+        "transform": "Exact SQL placeholder 0 and source operand id"
+      }
+    ],
+    "derivedIndexedProjections": [],
+    "status": "statically mapped",
+    "unresolved": false
+  },
+  {
+    "operation": "volvo/cce-filter-service/2020ff59219b/local-r3/operation/541579af9430254673/8",
+    "effect": "volvo/cce-filter-service/2020ff59219b/local-r3/effect/d67bd5f64a1f9c51e7",
+    "path": "src/database/postgres/repository.py",
+    "line": 65,
+    "sql": "SELECT id, name FROM config_policy WHERE parent_id = %s",
+    "table": "config_policy",
+    "fields": [],
+    "selection": [
+      {
+        "path": ["parent_id"],
+        "value": "volvo/cce-filter-service/2020ff59219b/local-r3/value/541579af9430254673/parameter/id",
+        "transform": "Exact SQL placeholder 0 and source operand id"
+      }
+    ],
+    "derivedIndexedProjections": [],
+    "status": "statically mapped",
+    "unresolved": false
+  },
+  {
+    "operation": "volvo/cce-filter-service/2020ff59219b/local-r3/operation/0acb1f22710be48c07/8",
+    "effect": "volvo/cce-filter-service/2020ff59219b/local-r3/effect/63fd8beb5380dfb72d",
+    "path": "src/database/postgres/repository.py",
+    "line": 75,
+    "sql": "SELECT parent_id FROM config_policy WHERE id = %s",
+    "table": "config_policy",
+    "fields": [],
+    "selection": [
+      {
+        "path": ["id"],
+        "value": "volvo/cce-filter-service/2020ff59219b/local-r3/value/0acb1f22710be48c07/parameter/id",
+        "transform": "Exact SQL placeholder 0 and source operand id"
+      }
+    ],
+    "derivedIndexedProjections": [],
+    "status": "statically mapped",
+    "unresolved": false
+  },
+  {
+    "operation": "volvo/cce-filter-service/2020ff59219b/local-r3/operation/622a336168175f1eb7/8",
+    "effect": "volvo/cce-filter-service/2020ff59219b/local-r3/effect/dc09d18c5e22653c6b",
+    "path": "src/database/postgres/repository.py",
+    "line": 75,
+    "sql": "SELECT parent_id FROM config_policy WHERE id = %s",
+    "table": "config_policy",
+    "fields": [],
+    "selection": [
+      {
+        "path": ["id"],
+        "value": "volvo/cce-filter-service/2020ff59219b/local-r3/value/622a336168175f1eb7/parameter/id",
+        "transform": "Exact SQL placeholder 0 and source operand id"
+      }
+    ],
+    "derivedIndexedProjections": [],
+    "status": "statically mapped",
+    "unresolved": false
+  },
+  {
+    "operation": "volvo/cce-filter-service/2020ff59219b/local-r3/operation/32273c1157dea77a19/26",
+    "effect": "volvo/cce-filter-service/2020ff59219b/local-r3/effect/28b89fe7391dcc125f",
+    "path": "src/database/postgres/repository.py",
+    "line": 90,
+    "sql": "\n            INSERT INTO config_policy (id, name, parent_id, payload)\n            VALUES (%s, %s, %s, %s)\n            ON CONFLICT (id) DO NOTHING\n        ",
+    "table": "config_policy",
+    "fields": [
+      {
+        "path": ["id"],
+        "value": "volvo/cce-filter-service/2020ff59219b/local-r3/value/32273c1157dea77a19/18",
+        "transform": "Exact SQL placeholder 0 and source operand compressed_data['uid']"
+      },
+      {
+        "path": ["name"],
+        "value": "volvo/cce-filter-service/2020ff59219b/local-r3/value/32273c1157dea77a19/20",
+        "transform": "Exact SQL placeholder 1 and source operand compressed_data['name']"
+      },
+      {
+        "path": ["parent_id"],
+        "value": "volvo/cce-filter-service/2020ff59219b/local-r3/value/32273c1157dea77a19/22",
+        "transform": "Exact SQL placeholder 2 and source operand compressed_data['parent_uid']"
+      },
+      {
+        "path": ["payload"],
+        "value": "volvo/cce-filter-service/2020ff59219b/local-r3/value/32273c1157dea77a19/24",
+        "transform": "Exact SQL placeholder 3 and source operand compressed_data['payload']"
+      }
+    ],
+    "selection": [
+      {
+        "path": ["id"],
+        "value": "volvo/cce-filter-service/2020ff59219b/local-r3/value/32273c1157dea77a19/18",
+        "transform": "Exact SQL placeholder 0 and source operand compressed_data['uid']"
+      }
+    ],
+    "derivedIndexedProjections": [],
+    "status": "statically mapped",
+    "unresolved": false
+  },
+  {
+    "operation": "volvo/cce-filter-service/2020ff59219b/local-r3/operation/d1e7a61933e6904d55/26",
+    "effect": "volvo/cce-filter-service/2020ff59219b/local-r3/effect/0e1298ca0b5f03867f",
+    "path": "src/database/postgres/repository.py",
+    "line": 90,
+    "sql": "\n            INSERT INTO config_policy (id, name, parent_id, payload)\n            VALUES (%s, %s, %s, %s)\n            ON CONFLICT (id) DO NOTHING\n        ",
+    "table": "config_policy",
+    "fields": [
+      {
+        "path": ["id"],
+        "value": "volvo/cce-filter-service/2020ff59219b/local-r3/value/d1e7a61933e6904d55/18",
+        "transform": "Exact SQL placeholder 0 and source operand compressed_data['uid']"
+      },
+      {
+        "path": ["name"],
+        "value": "volvo/cce-filter-service/2020ff59219b/local-r3/value/d1e7a61933e6904d55/20",
+        "transform": "Exact SQL placeholder 1 and source operand compressed_data['name']"
+      },
+      {
+        "path": ["parent_id"],
+        "value": "volvo/cce-filter-service/2020ff59219b/local-r3/value/d1e7a61933e6904d55/22",
+        "transform": "Exact SQL placeholder 2 and source operand compressed_data['parent_uid']"
+      },
+      {
+        "path": ["payload"],
+        "value": "volvo/cce-filter-service/2020ff59219b/local-r3/value/d1e7a61933e6904d55/24",
+        "transform": "Exact SQL placeholder 3 and source operand compressed_data['payload']"
+      }
+    ],
+    "selection": [
+      {
+        "path": ["id"],
+        "value": "volvo/cce-filter-service/2020ff59219b/local-r3/value/d1e7a61933e6904d55/18",
+        "transform": "Exact SQL placeholder 0 and source operand compressed_data['uid']"
+      }
+    ],
+    "derivedIndexedProjections": [],
+    "status": "statically mapped",
+    "unresolved": false
+  },
+  {
+    "operation": "volvo/cce-filter-service/2020ff59219b/local-r3/operation/4929faee81c9300e31/26",
+    "effect": "volvo/cce-filter-service/2020ff59219b/local-r3/effect/631188014aa7ef73e3",
+    "path": "src/database/postgres/repository.py",
+    "line": 109,
+    "sql": "\n            UPDATE config_policy SET name = %s, parent_id = %s, payload = %s WHERE id = %s\n        ",
+    "table": "config_policy",
+    "fields": [
+      {
+        "path": ["name"],
+        "value": "volvo/cce-filter-service/2020ff59219b/local-r3/value/4929faee81c9300e31/18",
+        "transform": "Exact SQL placeholder 0 and source operand compressed_data['name']"
+      },
+      {
+        "path": ["parent_id"],
+        "value": "volvo/cce-filter-service/2020ff59219b/local-r3/value/4929faee81c9300e31/20",
+        "transform": "Exact SQL placeholder 1 and source operand compressed_data['parent_uid']"
+      },
+      {
+        "path": ["payload"],
+        "value": "volvo/cce-filter-service/2020ff59219b/local-r3/value/4929faee81c9300e31/22",
+        "transform": "Exact SQL placeholder 2 and source operand compressed_data['payload']"
+      }
+    ],
+    "selection": [
+      {
+        "path": ["id"],
+        "value": "volvo/cce-filter-service/2020ff59219b/local-r3/value/4929faee81c9300e31/24",
+        "transform": "Exact SQL placeholder 3 and source operand compressed_data['uid']"
+      }
+    ],
+    "derivedIndexedProjections": [],
+    "status": "statically mapped",
+    "unresolved": false
+  },
+  {
+    "operation": "volvo/cce-filter-service/2020ff59219b/local-r3/operation/1655fc86540f05e193/26",
+    "effect": "volvo/cce-filter-service/2020ff59219b/local-r3/effect/3650cbc40332b145f4",
+    "path": "src/database/postgres/repository.py",
+    "line": 109,
+    "sql": "\n            UPDATE config_policy SET name = %s, parent_id = %s, payload = %s WHERE id = %s\n        ",
+    "table": "config_policy",
+    "fields": [
+      {
+        "path": ["name"],
+        "value": "volvo/cce-filter-service/2020ff59219b/local-r3/value/1655fc86540f05e193/18",
+        "transform": "Exact SQL placeholder 0 and source operand compressed_data['name']"
+      },
+      {
+        "path": ["parent_id"],
+        "value": "volvo/cce-filter-service/2020ff59219b/local-r3/value/1655fc86540f05e193/20",
+        "transform": "Exact SQL placeholder 1 and source operand compressed_data['parent_uid']"
+      },
+      {
+        "path": ["payload"],
+        "value": "volvo/cce-filter-service/2020ff59219b/local-r3/value/1655fc86540f05e193/22",
+        "transform": "Exact SQL placeholder 2 and source operand compressed_data['payload']"
+      }
+    ],
+    "selection": [
+      {
+        "path": ["id"],
+        "value": "volvo/cce-filter-service/2020ff59219b/local-r3/value/1655fc86540f05e193/24",
+        "transform": "Exact SQL placeholder 3 and source operand compressed_data['uid']"
+      }
+    ],
+    "derivedIndexedProjections": [],
+    "status": "statically mapped",
+    "unresolved": false
+  },
+  {
+    "operation": "volvo/cce-filter-service/2020ff59219b/local-r3/operation/db88d431480077ca63/8",
+    "effect": "volvo/cce-filter-service/2020ff59219b/local-r3/effect/ebb893c398fbd777de",
+    "path": "src/database/postgres/repository.py",
+    "line": 123,
+    "sql": "DELETE FROM config_policy WHERE id = %s",
+    "table": "config_policy",
+    "fields": [],
+    "selection": [
+      {
+        "path": ["id"],
+        "value": "volvo/cce-filter-service/2020ff59219b/local-r3/value/db88d431480077ca63/parameter/id",
+        "transform": "Exact SQL placeholder 0 and source operand id"
+      }
+    ],
+    "derivedIndexedProjections": [],
+    "status": "statically mapped",
+    "unresolved": false
+  },
+  {
+    "operation": "volvo/cce-filter-service/2020ff59219b/local-r3/operation/21895f9b0945d44f8b/8",
+    "effect": "volvo/cce-filter-service/2020ff59219b/local-r3/effect/2fc1c73d1f71f26264",
+    "path": "src/database/postgres/repository.py",
+    "line": 123,
+    "sql": "DELETE FROM config_policy WHERE id = %s",
+    "table": "config_policy",
+    "fields": [],
+    "selection": [
+      {
+        "path": ["id"],
+        "value": "volvo/cce-filter-service/2020ff59219b/local-r3/value/21895f9b0945d44f8b/parameter/id",
+        "transform": "Exact SQL placeholder 0 and source operand id"
+      }
+    ],
+    "derivedIndexedProjections": [],
+    "status": "statically mapped",
+    "unresolved": false
+  },
+  {
+    "operation": "volvo/cce-filter-service/2020ff59219b/local-r3/operation/02f2dd44159256f55f/8",
+    "effect": "volvo/cce-filter-service/2020ff59219b/local-r3/effect/ca4dd3e535d3faf745",
+    "path": "src/database/postgres/repository.py",
+    "line": 173,
+    "sql": "\n            SELECT\n                partner_id,\n                name,\n                brand,\n                country_code,\n                distributor_id,\n                role,\n                role_code,\n                program_market,\n                is_active\n            FROM partners\n            WHERE country_code = %s\n            AND brand = %s\n        ",
+    "table": "partners",
+    "fields": [],
+    "selection": [
+      {
+        "path": ["country_code"],
+        "value": "volvo/cce-filter-service/2020ff59219b/local-r3/value/02f2dd44159256f55f/parameter/country_code",
+        "transform": "Exact SQL placeholder 0 and source operand country_code"
+      },
+      {
+        "path": ["brand"],
+        "value": "volvo/cce-filter-service/2020ff59219b/local-r3/value/02f2dd44159256f55f/parameter/brand",
+        "transform": "Exact SQL placeholder 1 and source operand brand"
+      }
+    ],
+    "derivedIndexedProjections": [],
+    "status": "statically mapped",
+    "unresolved": false
+  },
+  {
+    "operation": "volvo/cce-filter-service/2020ff59219b/local-r3/operation/9d91b8d98c4d284d1c/8",
+    "effect": "volvo/cce-filter-service/2020ff59219b/local-r3/effect/c3a079455753e13595",
+    "path": "src/database/postgres/repository.py",
+    "line": 173,
+    "sql": "\n            SELECT\n                partner_id,\n                name,\n                brand,\n                country_code,\n                distributor_id,\n                role,\n                role_code,\n                program_market,\n                is_active\n            FROM partners\n            WHERE country_code = %s\n            AND brand = %s\n        ",
+    "table": "partners",
+    "fields": [],
+    "selection": [
+      {
+        "path": ["country_code"],
+        "value": "volvo/cce-filter-service/2020ff59219b/local-r3/value/9d91b8d98c4d284d1c/parameter/country_code",
+        "transform": "Exact SQL placeholder 0 and source operand country_code"
+      },
+      {
+        "path": ["brand"],
+        "value": "volvo/cce-filter-service/2020ff59219b/local-r3/value/9d91b8d98c4d284d1c/parameter/brand",
+        "transform": "Exact SQL placeholder 1 and source operand brand"
+      }
+    ],
+    "derivedIndexedProjections": [],
+    "status": "statically mapped",
+    "unresolved": false
+  },
+  {
+    "operation": "volvo/cce-filter-service/2020ff59219b/local-r3/operation/82974b53455d831a45/30",
+    "effect": "volvo/cce-filter-service/2020ff59219b/local-r3/effect/fe90e962054fff95b2",
+    "path": "src/database/postgres/repository.py",
+    "line": 203,
+    "sql": "\n            INSERT INTO partners (\n                partner_id,\n                name,\n                brand,\n                country_code,\n                distributor_id,\n                role,\n                role_code,\n                program_market,\n                is_active\n            )\n            VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)\n            ON CONFLICT (partner_id) DO UPDATE \n            SET name = EXCLUDED.name,\n                brand = EXCLUDED.brand,\n                country_code = EXCLUDED.country_code,\n                distributor_id = EXCLUDED.distributor_id,\n                role = EXCLUDED.role,\n                role_code = EXCLUDED.role_code,\n                program_market = EXCLUDED.program_market,\n                is_active = EXCLUDED.is_active\n        ",
+    "table": "partners",
+    "fields": [
+      {
+        "path": ["partner_id"],
+        "value": "volvo/cce-filter-service/2020ff59219b/local-r3/value/82974b53455d831a45/11",
+        "transform": "Exact SQL placeholder 0 and source operand p['partner_id']"
+      },
+      {
+        "path": ["name"],
+        "value": "volvo/cce-filter-service/2020ff59219b/local-r3/value/82974b53455d831a45/13",
+        "transform": "Exact SQL placeholder 1 and source operand p['name']"
+      },
+      {
+        "path": ["brand"],
+        "value": "volvo/cce-filter-service/2020ff59219b/local-r3/value/82974b53455d831a45/15",
+        "transform": "Exact SQL placeholder 2 and source operand p['brand']"
+      },
+      {
+        "path": ["country_code"],
+        "value": "volvo/cce-filter-service/2020ff59219b/local-r3/value/82974b53455d831a45/17",
+        "transform": "Exact SQL placeholder 3 and source operand p['country_code']"
+      },
+      {
+        "path": ["distributor_id"],
+        "value": "volvo/cce-filter-service/2020ff59219b/local-r3/value/82974b53455d831a45/19",
+        "transform": "Exact SQL placeholder 4 and source operand p['distributor_id']"
+      },
+      {
+        "path": ["role"],
+        "value": "volvo/cce-filter-service/2020ff59219b/local-r3/value/82974b53455d831a45/21",
+        "transform": "Exact SQL placeholder 5 and source operand p['role']"
+      },
+      {
+        "path": ["role_code"],
+        "value": "volvo/cce-filter-service/2020ff59219b/local-r3/value/82974b53455d831a45/23",
+        "transform": "Exact SQL placeholder 6 and source operand p['role_code']"
+      },
+      {
+        "path": ["program_market"],
+        "value": "volvo/cce-filter-service/2020ff59219b/local-r3/value/82974b53455d831a45/25",
+        "transform": "Exact SQL placeholder 7 and source operand p['program_market']"
+      },
+      {
+        "path": ["is_active"],
+        "value": "volvo/cce-filter-service/2020ff59219b/local-r3/value/82974b53455d831a45/27",
+        "transform": "Exact SQL placeholder 8 and source operand p['is_active']"
+      }
+    ],
+    "selection": [
+      {
+        "path": ["partner_id"],
+        "value": "volvo/cce-filter-service/2020ff59219b/local-r3/value/82974b53455d831a45/11",
+        "transform": "Exact SQL placeholder 0 and source operand p['partner_id']"
+      }
+    ],
+    "derivedIndexedProjections": [],
+    "status": "statically mapped",
+    "unresolved": false
+  },
+  {
+    "operation": "volvo/cce-filter-service/2020ff59219b/local-r3/operation/b9384c0c43b2d86f2d/30",
+    "effect": "volvo/cce-filter-service/2020ff59219b/local-r3/effect/00a62d01a843a6d63c",
+    "path": "src/database/postgres/repository.py",
+    "line": 203,
+    "sql": "\n            INSERT INTO partners (\n                partner_id,\n                name,\n                brand,\n                country_code,\n                distributor_id,\n                role,\n                role_code,\n                program_market,\n                is_active\n            )\n            VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)\n            ON CONFLICT (partner_id) DO UPDATE \n            SET name = EXCLUDED.name,\n                brand = EXCLUDED.brand,\n                country_code = EXCLUDED.country_code,\n                distributor_id = EXCLUDED.distributor_id,\n                role = EXCLUDED.role,\n                role_code = EXCLUDED.role_code,\n                program_market = EXCLUDED.program_market,\n                is_active = EXCLUDED.is_active\n        ",
+    "table": "partners",
+    "fields": [
+      {
+        "path": ["partner_id"],
+        "value": "volvo/cce-filter-service/2020ff59219b/local-r3/value/b9384c0c43b2d86f2d/11",
+        "transform": "Exact SQL placeholder 0 and source operand p['partner_id']"
+      },
+      {
+        "path": ["name"],
+        "value": "volvo/cce-filter-service/2020ff59219b/local-r3/value/b9384c0c43b2d86f2d/13",
+        "transform": "Exact SQL placeholder 1 and source operand p['name']"
+      },
+      {
+        "path": ["brand"],
+        "value": "volvo/cce-filter-service/2020ff59219b/local-r3/value/b9384c0c43b2d86f2d/15",
+        "transform": "Exact SQL placeholder 2 and source operand p['brand']"
+      },
+      {
+        "path": ["country_code"],
+        "value": "volvo/cce-filter-service/2020ff59219b/local-r3/value/b9384c0c43b2d86f2d/17",
+        "transform": "Exact SQL placeholder 3 and source operand p['country_code']"
+      },
+      {
+        "path": ["distributor_id"],
+        "value": "volvo/cce-filter-service/2020ff59219b/local-r3/value/b9384c0c43b2d86f2d/19",
+        "transform": "Exact SQL placeholder 4 and source operand p['distributor_id']"
+      },
+      {
+        "path": ["role"],
+        "value": "volvo/cce-filter-service/2020ff59219b/local-r3/value/b9384c0c43b2d86f2d/21",
+        "transform": "Exact SQL placeholder 5 and source operand p['role']"
+      },
+      {
+        "path": ["role_code"],
+        "value": "volvo/cce-filter-service/2020ff59219b/local-r3/value/b9384c0c43b2d86f2d/23",
+        "transform": "Exact SQL placeholder 6 and source operand p['role_code']"
+      },
+      {
+        "path": ["program_market"],
+        "value": "volvo/cce-filter-service/2020ff59219b/local-r3/value/b9384c0c43b2d86f2d/25",
+        "transform": "Exact SQL placeholder 7 and source operand p['program_market']"
+      },
+      {
+        "path": ["is_active"],
+        "value": "volvo/cce-filter-service/2020ff59219b/local-r3/value/b9384c0c43b2d86f2d/27",
+        "transform": "Exact SQL placeholder 8 and source operand p['is_active']"
+      }
+    ],
+    "selection": [
+      {
+        "path": ["partner_id"],
+        "value": "volvo/cce-filter-service/2020ff59219b/local-r3/value/b9384c0c43b2d86f2d/11",
+        "transform": "Exact SQL placeholder 0 and source operand p['partner_id']"
+      }
+    ],
+    "derivedIndexedProjections": [],
+    "status": "statically mapped",
+    "unresolved": false
+  },
+  {
+    "operation": "volvo/cce-filter-service/2020ff59219b/local-r3/operation/9dc4a818cdff6e5fbc/7",
+    "effect": "volvo/cce-filter-service/2020ff59219b/local-r3/effect/b05645c76bf144d50d",
+    "path": "src/database/postgres/repository.py",
+    "line": 222,
+    "sql": "DELETE FROM partners",
+    "table": "partners",
+    "fields": [],
+    "selection": [],
+    "derivedIndexedProjections": [],
+    "status": "statically mapped",
+    "unresolved": false
+  },
+  {
+    "operation": "volvo/cce-filter-service/2020ff59219b/local-r3/operation/388119e76c96c4c8a2/7",
+    "effect": "volvo/cce-filter-service/2020ff59219b/local-r3/effect/59648c1bdeefde1fc4",
+    "path": "src/database/postgres/repository.py",
+    "line": 222,
+    "sql": "DELETE FROM partners",
+    "table": "partners",
+    "fields": [],
+    "selection": [],
+    "derivedIndexedProjections": [],
+    "status": "statically mapped",
+    "unresolved": false
+  },
+  {
+    "operation": "volvo/cce-filter-service/2020ff59219b/local-r3/operation/425167d67833760466/8",
+    "effect": "volvo/cce-filter-service/2020ff59219b/local-r3/effect/1b62d16d3154fcd0ad",
+    "path": "src/database/postgres/repository.py",
+    "line": 240,
+    "sql": "\n            SELECT\n                policy_id,\n                rule,\n                brand,\n                program_market,\n                applies_for_partners\n            FROM partner_policy\n            WHERE policy_id = %s\n        ",
+    "table": "partner_policy",
+    "fields": [],
+    "selection": [
+      {
+        "path": ["policy_id"],
+        "value": "volvo/cce-filter-service/2020ff59219b/local-r3/value/425167d67833760466/parameter/policy_id",
+        "transform": "Exact SQL placeholder 0 and source operand policy_id"
+      }
+    ],
+    "derivedIndexedProjections": [],
+    "status": "statically mapped",
+    "unresolved": false
+  },
+  {
+    "operation": "volvo/cce-filter-service/2020ff59219b/local-r3/operation/1443ea76e0588903ce/8",
+    "effect": "volvo/cce-filter-service/2020ff59219b/local-r3/effect/c83b2249dd2821ffab",
+    "path": "src/database/postgres/repository.py",
+    "line": 240,
+    "sql": "\n            SELECT\n                policy_id,\n                rule,\n                brand,\n                program_market,\n                applies_for_partners\n            FROM partner_policy\n            WHERE policy_id = %s\n        ",
+    "table": "partner_policy",
+    "fields": [],
+    "selection": [
+      {
+        "path": ["policy_id"],
+        "value": "volvo/cce-filter-service/2020ff59219b/local-r3/value/1443ea76e0588903ce/parameter/policy_id",
+        "transform": "Exact SQL placeholder 0 and source operand policy_id"
+      }
+    ],
+    "derivedIndexedProjections": [],
+    "status": "statically mapped",
+    "unresolved": false
+  },
+  {
+    "operation": "volvo/cce-filter-service/2020ff59219b/local-r3/operation/e0937044e456d10bb9/29",
+    "effect": "volvo/cce-filter-service/2020ff59219b/local-r3/effect/f0a17c181d362eed8e",
+    "path": "src/database/postgres/repository.py",
+    "line": 272,
+    "sql": "\n            INSERT INTO partner_policy (\n                policy_id,\n                rule,\n                brand,\n                program_market,\n                applies_for_partners\n            ) VALUES (%s, %s, %s, %s, %s)\n            ON CONFLICT (policy_id) DO UPDATE\n            SET rule = EXCLUDED.rule,\n                brand = EXCLUDED.brand,\n                program_market = EXCLUDED.program_market,\n                applies_for_partners = EXCLUDED.applies_for_partners\n        ",
+    "table": "partner_policy",
+    "fields": [
+      {
+        "path": ["policy_id"],
+        "value": "volvo/cce-filter-service/2020ff59219b/local-r3/value/e0937044e456d10bb9/17",
+        "transform": "Exact SQL placeholder 0 and source operand data['policy_uid']"
+      },
+      {
+        "path": ["rule"],
+        "value": "volvo/cce-filter-service/2020ff59219b/local-r3/value/e0937044e456d10bb9/19",
+        "transform": "Exact SQL placeholder 1 and source operand data['rule']"
+      },
+      {
+        "path": ["brand"],
+        "value": "volvo/cce-filter-service/2020ff59219b/local-r3/value/e0937044e456d10bb9/21",
+        "transform": "Exact SQL placeholder 2 and source operand data['brand']"
+      },
+      {
+        "path": ["program_market"],
+        "value": "volvo/cce-filter-service/2020ff59219b/local-r3/value/e0937044e456d10bb9/23",
+        "transform": "Exact SQL placeholder 3 and source operand data['program_market']"
+      },
+      {
+        "path": ["applies_for_partners"],
+        "value": "volvo/cce-filter-service/2020ff59219b/local-r3/value/e0937044e456d10bb9/27",
+        "transform": "Exact SQL placeholder 4 and source operand json.dumps(data['applies_for_partners'])"
+      }
+    ],
+    "selection": [
+      {
+        "path": ["policy_id"],
+        "value": "volvo/cce-filter-service/2020ff59219b/local-r3/value/e0937044e456d10bb9/17",
+        "transform": "Exact SQL placeholder 0 and source operand data['policy_uid']"
+      }
+    ],
+    "derivedIndexedProjections": [],
+    "status": "statically mapped",
+    "unresolved": false
+  },
+  {
+    "operation": "volvo/cce-filter-service/2020ff59219b/local-r3/operation/d9272a77cd3b4e91c0/29",
+    "effect": "volvo/cce-filter-service/2020ff59219b/local-r3/effect/c25e3e70c6a24c666a",
+    "path": "src/database/postgres/repository.py",
+    "line": 272,
+    "sql": "\n            INSERT INTO partner_policy (\n                policy_id,\n                rule,\n                brand,\n                program_market,\n                applies_for_partners\n            ) VALUES (%s, %s, %s, %s, %s)\n            ON CONFLICT (policy_id) DO UPDATE\n            SET rule = EXCLUDED.rule,\n                brand = EXCLUDED.brand,\n                program_market = EXCLUDED.program_market,\n                applies_for_partners = EXCLUDED.applies_for_partners\n        ",
+    "table": "partner_policy",
+    "fields": [
+      {
+        "path": ["policy_id"],
+        "value": "volvo/cce-filter-service/2020ff59219b/local-r3/value/d9272a77cd3b4e91c0/17",
+        "transform": "Exact SQL placeholder 0 and source operand data['policy_uid']"
+      },
+      {
+        "path": ["rule"],
+        "value": "volvo/cce-filter-service/2020ff59219b/local-r3/value/d9272a77cd3b4e91c0/19",
+        "transform": "Exact SQL placeholder 1 and source operand data['rule']"
+      },
+      {
+        "path": ["brand"],
+        "value": "volvo/cce-filter-service/2020ff59219b/local-r3/value/d9272a77cd3b4e91c0/21",
+        "transform": "Exact SQL placeholder 2 and source operand data['brand']"
+      },
+      {
+        "path": ["program_market"],
+        "value": "volvo/cce-filter-service/2020ff59219b/local-r3/value/d9272a77cd3b4e91c0/23",
+        "transform": "Exact SQL placeholder 3 and source operand data['program_market']"
+      },
+      {
+        "path": ["applies_for_partners"],
+        "value": "volvo/cce-filter-service/2020ff59219b/local-r3/value/d9272a77cd3b4e91c0/27",
+        "transform": "Exact SQL placeholder 4 and source operand json.dumps(data['applies_for_partners'])"
+      }
+    ],
+    "selection": [
+      {
+        "path": ["policy_id"],
+        "value": "volvo/cce-filter-service/2020ff59219b/local-r3/value/d9272a77cd3b4e91c0/17",
+        "transform": "Exact SQL placeholder 0 and source operand data['policy_uid']"
+      }
+    ],
+    "derivedIndexedProjections": [],
+    "status": "statically mapped",
+    "unresolved": false
+  },
+  {
+    "operation": "volvo/cce-filter-service/2020ff59219b/local-r3/operation/e18622439d8246d835/8",
+    "effect": "volvo/cce-filter-service/2020ff59219b/local-r3/effect/138a7e6ce0d804ca8d",
+    "path": "src/database/postgres/repository.py",
+    "line": 287,
+    "sql": "DELETE FROM partner_policy WHERE policy_id = %s",
+    "table": "partner_policy",
+    "fields": [],
+    "selection": [
+      {
+        "path": ["policy_id"],
+        "value": "volvo/cce-filter-service/2020ff59219b/local-r3/value/e18622439d8246d835/parameter/policy_id",
+        "transform": "Exact SQL placeholder 0 and source operand policy_id"
+      }
+    ],
+    "derivedIndexedProjections": [],
+    "status": "statically mapped",
+    "unresolved": false
+  },
+  {
+    "operation": "volvo/cce-filter-service/2020ff59219b/local-r3/operation/d8e2e3ec6338a7d2d7/8",
+    "effect": "volvo/cce-filter-service/2020ff59219b/local-r3/effect/08265878902ec99db7",
+    "path": "src/database/postgres/repository.py",
+    "line": 287,
+    "sql": "DELETE FROM partner_policy WHERE policy_id = %s",
+    "table": "partner_policy",
+    "fields": [],
+    "selection": [
+      {
+        "path": ["policy_id"],
+        "value": "volvo/cce-filter-service/2020ff59219b/local-r3/value/d8e2e3ec6338a7d2d7/parameter/policy_id",
+        "transform": "Exact SQL placeholder 0 and source operand policy_id"
+      }
+    ],
+    "derivedIndexedProjections": [],
+    "status": "statically mapped",
+    "unresolved": false
+  },
+  {
+    "operation": "volvo/cce-filter-service/2020ff59219b/local-r3/operation/6e8310a29cf81d23a7/9",
+    "effect": "volvo/cce-filter-service/2020ff59219b/local-r3/effect/0a003ffbd35202f2ec",
+    "path": "src/database/postgres/repository.py",
+    "line": 305,
+    "sql": "\n            SELECT\n                policy_id,\n                pno12,\n                included,\n                components\n            FROM components_policy_pno12\n            WHERE policy_id = %s\n        ",
+    "table": "components_policy_pno12",
+    "fields": [],
+    "selection": [
+      {
+        "path": ["policy_id"],
+        "value": "volvo/cce-filter-service/2020ff59219b/local-r3/value/6e8310a29cf81d23a7/parameter/policy_id",
+        "transform": "Exact SQL placeholder 0 and source operand policy_id"
+      }
+    ],
+    "derivedIndexedProjections": [],
+    "status": "statically mapped",
+    "unresolved": false
+  },
+  {
+    "operation": "volvo/cce-filter-service/2020ff59219b/local-r3/operation/088954bfab9c394001/9",
+    "effect": "volvo/cce-filter-service/2020ff59219b/local-r3/effect/540a052a28d189b64d",
+    "path": "src/database/postgres/repository.py",
+    "line": 305,
+    "sql": "\n            SELECT\n                policy_id,\n                pno12,\n                included,\n                components\n            FROM components_policy_pno12\n            WHERE policy_id = %s\n        ",
+    "table": "components_policy_pno12",
+    "fields": [],
+    "selection": [
+      {
+        "path": ["policy_id"],
+        "value": "volvo/cce-filter-service/2020ff59219b/local-r3/value/088954bfab9c394001/parameter/policy_id",
+        "transform": "Exact SQL placeholder 0 and source operand policy_id"
+      }
+    ],
+    "derivedIndexedProjections": [],
+    "status": "statically mapped",
+    "unresolved": false
+  },
+  {
+    "operation": "volvo/cce-filter-service/2020ff59219b/local-r3/operation/97f32a654e48c67f9d/9",
+    "effect": "volvo/cce-filter-service/2020ff59219b/local-r3/effect/92d872fe43a78062e4",
+    "path": "src/database/postgres/repository.py",
+    "line": 321,
+    "sql": "SELECT components FROM components_policy_pno12 WHERE policy_id = %s",
+    "table": "components_policy_pno12",
+    "fields": [],
+    "selection": [
+      {
+        "path": ["policy_id"],
+        "value": "volvo/cce-filter-service/2020ff59219b/local-r3/value/97f32a654e48c67f9d/parameter/policy_id",
+        "transform": "Exact SQL placeholder 0 and source operand policy_id"
+      }
+    ],
+    "derivedIndexedProjections": [],
+    "status": "statically mapped",
+    "unresolved": false
+  },
+  {
+    "operation": "volvo/cce-filter-service/2020ff59219b/local-r3/operation/f9b4b9a2f31caf166e/9",
+    "effect": "volvo/cce-filter-service/2020ff59219b/local-r3/effect/73dffca961b1dc6418",
+    "path": "src/database/postgres/repository.py",
+    "line": 321,
+    "sql": "SELECT components FROM components_policy_pno12 WHERE policy_id = %s",
+    "table": "components_policy_pno12",
+    "fields": [],
+    "selection": [
+      {
+        "path": ["policy_id"],
+        "value": "volvo/cce-filter-service/2020ff59219b/local-r3/value/f9b4b9a2f31caf166e/parameter/policy_id",
+        "transform": "Exact SQL placeholder 0 and source operand policy_id"
+      }
+    ],
+    "derivedIndexedProjections": [],
+    "status": "statically mapped",
+    "unresolved": false
+  },
+  {
+    "operation": "volvo/cce-filter-service/2020ff59219b/local-r3/operation/f7224de5a13a853247/8",
+    "effect": "volvo/cce-filter-service/2020ff59219b/local-r3/effect/6d2e01ff0e0014f254",
+    "path": "src/database/postgres/repository.py",
+    "line": 340,
+    "sql": "\n            SELECT pno12\n            FROM components_policy_pno12\n            WHERE policy_id = %s\n            AND included = TRUE\n        ",
+    "table": "components_policy_pno12",
+    "fields": [],
+    "selection": [
+      {
+        "path": ["policy_id"],
+        "value": "volvo/cce-filter-service/2020ff59219b/local-r3/value/f7224de5a13a853247/parameter/policy_id",
+        "transform": "Exact SQL placeholder 0 and source operand policy_id"
+      }
+    ],
+    "derivedIndexedProjections": [],
+    "status": "statically mapped",
+    "unresolved": false
+  },
+  {
+    "operation": "volvo/cce-filter-service/2020ff59219b/local-r3/operation/514cd39ef66f6c685b/8",
+    "effect": "volvo/cce-filter-service/2020ff59219b/local-r3/effect/7cee4fc3d32aa1f3fc",
+    "path": "src/database/postgres/repository.py",
+    "line": 340,
+    "sql": "\n            SELECT pno12\n            FROM components_policy_pno12\n            WHERE policy_id = %s\n            AND included = TRUE\n        ",
+    "table": "components_policy_pno12",
+    "fields": [],
+    "selection": [
+      {
+        "path": ["policy_id"],
+        "value": "volvo/cce-filter-service/2020ff59219b/local-r3/value/514cd39ef66f6c685b/parameter/policy_id",
+        "transform": "Exact SQL placeholder 0 and source operand policy_id"
+      }
+    ],
+    "derivedIndexedProjections": [],
+    "status": "statically mapped",
+    "unresolved": false
+  },
+  {
+    "operation": "volvo/cce-filter-service/2020ff59219b/local-r3/operation/8ddf5925933be03d4a/21",
+    "effect": "volvo/cce-filter-service/2020ff59219b/local-r3/effect/d7d1dbff144649bb8a",
+    "path": "src/database/postgres/repository.py",
+    "line": 356,
+    "sql": "\n            INSERT INTO components_policy_pno12 (policy_id, pno12, included, components)\n            VALUES (%s, %s, %s, %s)\n            ON CONFLICT (policy_id, pno12) DO NOTHING\n        ",
+    "table": "components_policy_pno12",
+    "fields": [
+      {
+        "path": ["policy_id"],
+        "value": "volvo/cce-filter-service/2020ff59219b/local-r3/value/8ddf5925933be03d4a/11",
+        "transform": "Exact SQL placeholder 0 and source operand d['policy_uid']"
+      },
+      {
+        "path": ["pno12"],
+        "value": "volvo/cce-filter-service/2020ff59219b/local-r3/value/8ddf5925933be03d4a/13",
+        "transform": "Exact SQL placeholder 1 and source operand d['pno12']"
+      },
+      {
+        "path": ["included"],
+        "value": "volvo/cce-filter-service/2020ff59219b/local-r3/value/8ddf5925933be03d4a/15",
+        "transform": "Exact SQL placeholder 2 and source operand d['included']"
+      },
+      {
+        "path": ["components"],
+        "value": "volvo/cce-filter-service/2020ff59219b/local-r3/value/8ddf5925933be03d4a/18",
+        "transform": "Exact SQL placeholder 3 and source operand self._compress_components(d['components'])"
+      }
+    ],
+    "selection": [
+      {
+        "path": ["policy_id"],
+        "value": "volvo/cce-filter-service/2020ff59219b/local-r3/value/8ddf5925933be03d4a/11",
+        "transform": "Exact SQL placeholder 0 and source operand d['policy_uid']"
+      },
+      {
+        "path": ["pno12"],
+        "value": "volvo/cce-filter-service/2020ff59219b/local-r3/value/8ddf5925933be03d4a/13",
+        "transform": "Exact SQL placeholder 1 and source operand d['pno12']"
+      }
+    ],
+    "derivedIndexedProjections": [],
+    "status": "statically mapped",
+    "unresolved": false
+  },
+  {
+    "operation": "volvo/cce-filter-service/2020ff59219b/local-r3/operation/612aaf3a9d4adc98ba/21",
+    "effect": "volvo/cce-filter-service/2020ff59219b/local-r3/effect/2146c1d4931f4490b2",
+    "path": "src/database/postgres/repository.py",
+    "line": 356,
+    "sql": "\n            INSERT INTO components_policy_pno12 (policy_id, pno12, included, components)\n            VALUES (%s, %s, %s, %s)\n            ON CONFLICT (policy_id, pno12) DO NOTHING\n        ",
+    "table": "components_policy_pno12",
+    "fields": [
+      {
+        "path": ["policy_id"],
+        "value": "volvo/cce-filter-service/2020ff59219b/local-r3/value/612aaf3a9d4adc98ba/11",
+        "transform": "Exact SQL placeholder 0 and source operand d['policy_uid']"
+      },
+      {
+        "path": ["pno12"],
+        "value": "volvo/cce-filter-service/2020ff59219b/local-r3/value/612aaf3a9d4adc98ba/13",
+        "transform": "Exact SQL placeholder 1 and source operand d['pno12']"
+      },
+      {
+        "path": ["included"],
+        "value": "volvo/cce-filter-service/2020ff59219b/local-r3/value/612aaf3a9d4adc98ba/15",
+        "transform": "Exact SQL placeholder 2 and source operand d['included']"
+      },
+      {
+        "path": ["components"],
+        "value": "volvo/cce-filter-service/2020ff59219b/local-r3/value/612aaf3a9d4adc98ba/18",
+        "transform": "Exact SQL placeholder 3 and source operand self._compress_components(d['components'])"
+      }
+    ],
+    "selection": [
+      {
+        "path": ["policy_id"],
+        "value": "volvo/cce-filter-service/2020ff59219b/local-r3/value/612aaf3a9d4adc98ba/11",
+        "transform": "Exact SQL placeholder 0 and source operand d['policy_uid']"
+      },
+      {
+        "path": ["pno12"],
+        "value": "volvo/cce-filter-service/2020ff59219b/local-r3/value/612aaf3a9d4adc98ba/13",
+        "transform": "Exact SQL placeholder 1 and source operand d['pno12']"
+      }
+    ],
+    "derivedIndexedProjections": [],
+    "status": "statically mapped",
+    "unresolved": false
+  },
+  {
+    "operation": "volvo/cce-filter-service/2020ff59219b/local-r3/operation/8c7e1a7b65c558df82/21",
+    "effect": "volvo/cce-filter-service/2020ff59219b/local-r3/effect/92283535e6247d8e69",
+    "path": "src/database/postgres/repository.py",
+    "line": 377,
+    "sql": "\n            INSERT INTO components_policy_pno12 (policy_id, pno12, included, components)\n            VALUES (%s, %s, %s, %s)\n            ON CONFLICT (policy_id, pno12) DO UPDATE\n            SET included = EXCLUDED.included,\n                components = EXCLUDED.components\n        ",
+    "table": "components_policy_pno12",
+    "fields": [
+      {
+        "path": ["policy_id"],
+        "value": "volvo/cce-filter-service/2020ff59219b/local-r3/value/8c7e1a7b65c558df82/11",
+        "transform": "Exact SQL placeholder 0 and source operand d['policy_uid']"
+      },
+      {
+        "path": ["pno12"],
+        "value": "volvo/cce-filter-service/2020ff59219b/local-r3/value/8c7e1a7b65c558df82/13",
+        "transform": "Exact SQL placeholder 1 and source operand d['pno12']"
+      },
+      {
+        "path": ["included"],
+        "value": "volvo/cce-filter-service/2020ff59219b/local-r3/value/8c7e1a7b65c558df82/15",
+        "transform": "Exact SQL placeholder 2 and source operand d['included']"
+      },
+      {
+        "path": ["components"],
+        "value": "volvo/cce-filter-service/2020ff59219b/local-r3/value/8c7e1a7b65c558df82/18",
+        "transform": "Exact SQL placeholder 3 and source operand self._compress_components(d['components'])"
+      }
+    ],
+    "selection": [
+      {
+        "path": ["policy_id"],
+        "value": "volvo/cce-filter-service/2020ff59219b/local-r3/value/8c7e1a7b65c558df82/11",
+        "transform": "Exact SQL placeholder 0 and source operand d['policy_uid']"
+      },
+      {
+        "path": ["pno12"],
+        "value": "volvo/cce-filter-service/2020ff59219b/local-r3/value/8c7e1a7b65c558df82/13",
+        "transform": "Exact SQL placeholder 1 and source operand d['pno12']"
+      }
+    ],
+    "derivedIndexedProjections": [],
+    "status": "statically mapped",
+    "unresolved": false
+  },
+  {
+    "operation": "volvo/cce-filter-service/2020ff59219b/local-r3/operation/dd99a50076cfcf8bfa/21",
+    "effect": "volvo/cce-filter-service/2020ff59219b/local-r3/effect/f40e3ff0d0e0803ade",
+    "path": "src/database/postgres/repository.py",
+    "line": 377,
+    "sql": "\n            INSERT INTO components_policy_pno12 (policy_id, pno12, included, components)\n            VALUES (%s, %s, %s, %s)\n            ON CONFLICT (policy_id, pno12) DO UPDATE\n            SET included = EXCLUDED.included,\n                components = EXCLUDED.components\n        ",
+    "table": "components_policy_pno12",
+    "fields": [
+      {
+        "path": ["policy_id"],
+        "value": "volvo/cce-filter-service/2020ff59219b/local-r3/value/dd99a50076cfcf8bfa/11",
+        "transform": "Exact SQL placeholder 0 and source operand d['policy_uid']"
+      },
+      {
+        "path": ["pno12"],
+        "value": "volvo/cce-filter-service/2020ff59219b/local-r3/value/dd99a50076cfcf8bfa/13",
+        "transform": "Exact SQL placeholder 1 and source operand d['pno12']"
+      },
+      {
+        "path": ["included"],
+        "value": "volvo/cce-filter-service/2020ff59219b/local-r3/value/dd99a50076cfcf8bfa/15",
+        "transform": "Exact SQL placeholder 2 and source operand d['included']"
+      },
+      {
+        "path": ["components"],
+        "value": "volvo/cce-filter-service/2020ff59219b/local-r3/value/dd99a50076cfcf8bfa/18",
+        "transform": "Exact SQL placeholder 3 and source operand self._compress_components(d['components'])"
+      }
+    ],
+    "selection": [
+      {
+        "path": ["policy_id"],
+        "value": "volvo/cce-filter-service/2020ff59219b/local-r3/value/dd99a50076cfcf8bfa/11",
+        "transform": "Exact SQL placeholder 0 and source operand d['policy_uid']"
+      },
+      {
+        "path": ["pno12"],
+        "value": "volvo/cce-filter-service/2020ff59219b/local-r3/value/dd99a50076cfcf8bfa/13",
+        "transform": "Exact SQL placeholder 1 and source operand d['pno12']"
+      }
+    ],
+    "derivedIndexedProjections": [],
+    "status": "statically mapped",
+    "unresolved": false
+  },
+  {
+    "operation": "volvo/cce-filter-service/2020ff59219b/local-r3/operation/bdd1eaf3cc2b2e3728/14",
+    "effect": "volvo/cce-filter-service/2020ff59219b/local-r3/effect/cc130e8a4335ac8ffe",
+    "path": "src/database/postgres/repository.py",
+    "line": 392,
+    "sql": "DELETE FROM components_policy_pno12 WHERE policy_id = %s AND pno12 = %s",
+    "table": "components_policy_pno12",
+    "fields": [],
+    "selection": [
+      {
+        "path": ["policy_id"],
+        "value": "volvo/cce-filter-service/2020ff59219b/local-r3/value/bdd1eaf3cc2b2e3728/11",
+        "transform": "Exact SQL placeholder 0 and source operand policy"
+      },
+      {
+        "path": ["pno12"],
+        "value": "volvo/cce-filter-service/2020ff59219b/local-r3/value/bdd1eaf3cc2b2e3728/10",
+        "transform": "Exact SQL placeholder 1 and source operand pno12"
+      }
+    ],
+    "derivedIndexedProjections": [],
+    "status": "statically mapped",
+    "unresolved": false
+  },
+  {
+    "operation": "volvo/cce-filter-service/2020ff59219b/local-r3/operation/e705bf8fbcf8cbe26e/14",
+    "effect": "volvo/cce-filter-service/2020ff59219b/local-r3/effect/7f777338d844f9f922",
+    "path": "src/database/postgres/repository.py",
+    "line": 392,
+    "sql": "DELETE FROM components_policy_pno12 WHERE policy_id = %s AND pno12 = %s",
+    "table": "components_policy_pno12",
+    "fields": [],
+    "selection": [
+      {
+        "path": ["policy_id"],
+        "value": "volvo/cce-filter-service/2020ff59219b/local-r3/value/e705bf8fbcf8cbe26e/11",
+        "transform": "Exact SQL placeholder 0 and source operand policy"
+      },
+      {
+        "path": ["pno12"],
+        "value": "volvo/cce-filter-service/2020ff59219b/local-r3/value/e705bf8fbcf8cbe26e/10",
+        "transform": "Exact SQL placeholder 1 and source operand pno12"
+      }
+    ],
+    "derivedIndexedProjections": [],
+    "status": "statically mapped",
+    "unresolved": false
+  },
+  {
+    "operation": "volvo/cce-filter-service/2020ff59219b/local-r3/operation/ad3995dbdaed100ca7/8",
+    "effect": "volvo/cce-filter-service/2020ff59219b/local-r3/effect/f7aaf5f0f984866f9a",
+    "path": "src/database/postgres/repository.py",
+    "line": 431,
+    "sql": "\n            SELECT\n                policy_id,\n                policy_status.request_id,\n                status,\n                policy_status.timestamp,\n                policy_status_info.message,\n                policy_status_info.timestamp AS info_timestamp\n            FROM policy_status\n            LEFT JOIN policy_status_info\n            ON policy_status.request_id = policy_status_info.request_id\n            WHERE policy_id = %s\n        ",
+    "table": "policy_status",
+    "fields": [],
+    "selection": [
+      {
+        "path": ["policy_id"],
+        "value": "volvo/cce-filter-service/2020ff59219b/local-r3/value/ad3995dbdaed100ca7/parameter/policy_id",
+        "transform": "Exact SQL placeholder 0 and source operand policy_id"
+      }
+    ],
+    "derivedIndexedProjections": [],
+    "status": "statically mapped",
+    "unresolved": false
+  },
+  {
+    "operation": "volvo/cce-filter-service/2020ff59219b/local-r3/operation/b8086ef83340ef1fc9/8",
+    "effect": "volvo/cce-filter-service/2020ff59219b/local-r3/effect/76e3c010bdffb9b033",
+    "path": "src/database/postgres/repository.py",
+    "line": 431,
+    "sql": "\n            SELECT\n                policy_id,\n                policy_status.request_id,\n                status,\n                policy_status.timestamp,\n                policy_status_info.message,\n                policy_status_info.timestamp AS info_timestamp\n            FROM policy_status\n            LEFT JOIN policy_status_info\n            ON policy_status.request_id = policy_status_info.request_id\n            WHERE policy_id = %s\n        ",
+    "table": "policy_status",
+    "fields": [],
+    "selection": [
+      {
+        "path": ["policy_id"],
+        "value": "volvo/cce-filter-service/2020ff59219b/local-r3/value/b8086ef83340ef1fc9/parameter/policy_id",
+        "transform": "Exact SQL placeholder 0 and source operand policy_id"
+      }
+    ],
+    "derivedIndexedProjections": [],
+    "status": "statically mapped",
+    "unresolved": false
+  },
+  {
+    "operation": "volvo/cce-filter-service/2020ff59219b/local-r3/operation/011834efb1348737a7/8",
+    "effect": "volvo/cce-filter-service/2020ff59219b/local-r3/effect/74dda088b80ee91a7f",
+    "path": "src/database/postgres/repository.py",
+    "line": 456,
+    "sql": "\n            SELECT\n                policy_id,\n                policy_status.request_id,\n                status,\n                policy_status.timestamp,\n                policy_status_info.message,\n                policy_status_info.timestamp AS info_timestamp\n            FROM policy_status\n            LEFT JOIN policy_status_info\n            ON policy_status.request_id = policy_status_info.request_id\n            WHERE policy_id = ANY(%s)\n        ",
+    "table": "policy_status",
+    "fields": [],
+    "selection": [
+      {
+        "path": ["policy_id"],
+        "value": "volvo/cce-filter-service/2020ff59219b/local-r3/value/011834efb1348737a7/parameter/policy_ids",
+        "transform": "Exact SQL placeholder 0 and source operand policy_ids"
+      }
+    ],
+    "derivedIndexedProjections": [],
+    "status": "statically mapped",
+    "unresolved": false
+  },
+  {
+    "operation": "volvo/cce-filter-service/2020ff59219b/local-r3/operation/71321071fdb9f97529/8",
+    "effect": "volvo/cce-filter-service/2020ff59219b/local-r3/effect/4603bb26ccec2aeb21",
+    "path": "src/database/postgres/repository.py",
+    "line": 456,
+    "sql": "\n            SELECT\n                policy_id,\n                policy_status.request_id,\n                status,\n                policy_status.timestamp,\n                policy_status_info.message,\n                policy_status_info.timestamp AS info_timestamp\n            FROM policy_status\n            LEFT JOIN policy_status_info\n            ON policy_status.request_id = policy_status_info.request_id\n            WHERE policy_id = ANY(%s)\n        ",
+    "table": "policy_status",
+    "fields": [],
+    "selection": [
+      {
+        "path": ["policy_id"],
+        "value": "volvo/cce-filter-service/2020ff59219b/local-r3/value/71321071fdb9f97529/parameter/policy_ids",
+        "transform": "Exact SQL placeholder 0 and source operand policy_ids"
+      }
+    ],
+    "derivedIndexedProjections": [],
+    "status": "statically mapped",
+    "unresolved": false
+  },
+  {
+    "operation": "volvo/cce-filter-service/2020ff59219b/local-r3/operation/e3b8382f9119ac4cdf/8",
+    "effect": "volvo/cce-filter-service/2020ff59219b/local-r3/effect/8ad9c70aa8d0ef538b",
+    "path": "src/database/postgres/repository.py",
+    "line": 480,
+    "sql": "\n            SELECT\n                policy_id,\n                policy_status.request_id,\n                status,\n                policy_status.timestamp,\n                policy_status_info.message,\n                policy_status_info.timestamp AS info_timestamp\n            FROM policy_status\n            LEFT JOIN policy_status_info\n            ON policy_status.request_id = policy_status_info.request_id\n            WHERE policy_status.request_id = %s\n        ",
+    "table": "policy_status",
+    "fields": [],
+    "selection": [
+      {
+        "path": ["request_id"],
+        "value": "volvo/cce-filter-service/2020ff59219b/local-r3/value/e3b8382f9119ac4cdf/parameter/request_id",
+        "transform": "Exact SQL placeholder 0 and source operand request_id"
+      }
+    ],
+    "derivedIndexedProjections": [],
+    "status": "statically mapped",
+    "unresolved": false
+  },
+  {
+    "operation": "volvo/cce-filter-service/2020ff59219b/local-r3/operation/2c485c05804b8ecfc2/8",
+    "effect": "volvo/cce-filter-service/2020ff59219b/local-r3/effect/b63d5b6c77830d5cd1",
+    "path": "src/database/postgres/repository.py",
+    "line": 480,
+    "sql": "\n            SELECT\n                policy_id,\n                policy_status.request_id,\n                status,\n                policy_status.timestamp,\n                policy_status_info.message,\n                policy_status_info.timestamp AS info_timestamp\n            FROM policy_status\n            LEFT JOIN policy_status_info\n            ON policy_status.request_id = policy_status_info.request_id\n            WHERE policy_status.request_id = %s\n        ",
+    "table": "policy_status",
+    "fields": [],
+    "selection": [
+      {
+        "path": ["request_id"],
+        "value": "volvo/cce-filter-service/2020ff59219b/local-r3/value/2c485c05804b8ecfc2/parameter/request_id",
+        "transform": "Exact SQL placeholder 0 and source operand request_id"
+      }
+    ],
+    "derivedIndexedProjections": [],
+    "status": "statically mapped",
+    "unresolved": false
+  },
+  {
+    "operation": "volvo/cce-filter-service/2020ff59219b/local-r3/operation/7540d57be619cc1e23/8",
+    "effect": "volvo/cce-filter-service/2020ff59219b/local-r3/effect/94aa0c005b37c87383",
+    "path": "src/database/postgres/repository.py",
+    "line": 493,
+    "sql": "SELECT EXISTS(SELECT 1 FROM policy_status WHERE request_id = %s)",
+    "table": "policy_status",
+    "fields": [],
+    "selection": [
+      {
+        "path": ["request_id"],
+        "value": "volvo/cce-filter-service/2020ff59219b/local-r3/value/7540d57be619cc1e23/parameter/request_id",
+        "transform": "Exact SQL placeholder 0 and source operand request_id"
+      }
+    ],
+    "derivedIndexedProjections": [],
+    "status": "statically mapped",
+    "unresolved": false
+  },
+  {
+    "operation": "volvo/cce-filter-service/2020ff59219b/local-r3/operation/dafe4b967a3710f34d/8",
+    "effect": "volvo/cce-filter-service/2020ff59219b/local-r3/effect/f58307be366a549599",
+    "path": "src/database/postgres/repository.py",
+    "line": 493,
+    "sql": "SELECT EXISTS(SELECT 1 FROM policy_status WHERE request_id = %s)",
+    "table": "policy_status",
+    "fields": [],
+    "selection": [
+      {
+        "path": ["request_id"],
+        "value": "volvo/cce-filter-service/2020ff59219b/local-r3/value/dafe4b967a3710f34d/parameter/request_id",
+        "transform": "Exact SQL placeholder 0 and source operand request_id"
+      }
+    ],
+    "derivedIndexedProjections": [],
+    "status": "statically mapped",
+    "unresolved": false
+  },
+  {
+    "operation": "volvo/cce-filter-service/2020ff59219b/local-r3/operation/4158521b26eb1b881b/14",
+    "effect": "volvo/cce-filter-service/2020ff59219b/local-r3/effect/337f2362c39aeec5a9",
+    "path": "src/database/postgres/repository.py",
+    "line": 502,
+    "sql": "DELETE FROM policy_status WHERE policy_id = ANY(%s)",
+    "table": "policy_status",
+    "fields": [],
+    "selection": [
+      {
+        "path": ["policy_id"],
+        "value": "volvo/cce-filter-service/2020ff59219b/local-r3/value/4158521b26eb1b881b/5",
+        "transform": "Exact SQL placeholder 0 and source operand policy_ids"
+      }
+    ],
+    "derivedIndexedProjections": [],
+    "status": "statically mapped",
+    "unresolved": false
+  },
+  {
+    "operation": "volvo/cce-filter-service/2020ff59219b/local-r3/operation/4158521b26eb1b881b/20",
+    "effect": "volvo/cce-filter-service/2020ff59219b/local-r3/effect/f0e04a478aa6c099f8",
+    "path": "src/database/postgres/repository.py",
+    "line": 513,
+    "sql": "\n                    INSERT INTO policy_status (\n                        request_id,\n                        policy_id,\n                        status,\n                        timestamp\n                    )\n                    VALUES (%s, %s, %s, %s)\n                ",
+    "table": "policy_status",
+    "fields": [
+      {
+        "path": ["request_id"],
+        "value": "volvo/cce-filter-service/2020ff59219b/local-r3/value/sql/f0e04a478aa6c099f8/0",
+        "transform": "Exact SQL placeholder 0 and source operand document['request_uid']"
+      },
+      {
+        "path": ["policy_id"],
+        "value": "volvo/cce-filter-service/2020ff59219b/local-r3/value/sql/f0e04a478aa6c099f8/1",
+        "transform": "Exact SQL placeholder 1 and source operand document['policy_uid']"
+      },
+      {
+        "path": ["status"],
+        "value": "volvo/cce-filter-service/2020ff59219b/local-r3/value/sql/f0e04a478aa6c099f8/2",
+        "transform": "Exact SQL placeholder 2 and source operand document['status']"
+      },
+      {
+        "path": ["timestamp"],
+        "value": "volvo/cce-filter-service/2020ff59219b/local-r3/value/sql/f0e04a478aa6c099f8/3",
+        "transform": "Exact SQL placeholder 3 and source operand document['timestamp']"
+      }
+    ],
+    "selection": [],
+    "derivedIndexedProjections": [
+      "volvo/cce-filter-service/2020ff59219b/local-r3/value/sql/f0e04a478aa6c099f8/0",
+      "volvo/cce-filter-service/2020ff59219b/local-r3/value/sql/f0e04a478aa6c099f8/1",
+      "volvo/cce-filter-service/2020ff59219b/local-r3/value/sql/f0e04a478aa6c099f8/2",
+      "volvo/cce-filter-service/2020ff59219b/local-r3/value/sql/f0e04a478aa6c099f8/3"
+    ],
+    "status": "statically mapped",
+    "unresolved": false
+  },
+  {
+    "operation": "volvo/cce-filter-service/2020ff59219b/local-r3/operation/b954c71a0e13ce3ae1/14",
+    "effect": "volvo/cce-filter-service/2020ff59219b/local-r3/effect/67246ab3a6f54769d3",
+    "path": "src/database/postgres/repository.py",
+    "line": 502,
+    "sql": "DELETE FROM policy_status WHERE policy_id = ANY(%s)",
+    "table": "policy_status",
+    "fields": [],
+    "selection": [
+      {
+        "path": ["policy_id"],
+        "value": "volvo/cce-filter-service/2020ff59219b/local-r3/value/b954c71a0e13ce3ae1/5",
+        "transform": "Exact SQL placeholder 0 and source operand policy_ids"
+      }
+    ],
+    "derivedIndexedProjections": [],
+    "status": "statically mapped",
+    "unresolved": false
+  },
+  {
+    "operation": "volvo/cce-filter-service/2020ff59219b/local-r3/operation/b954c71a0e13ce3ae1/20",
+    "effect": "volvo/cce-filter-service/2020ff59219b/local-r3/effect/5b337bf0ef2179c503",
+    "path": "src/database/postgres/repository.py",
+    "line": 513,
+    "sql": "\n                    INSERT INTO policy_status (\n                        request_id,\n                        policy_id,\n                        status,\n                        timestamp\n                    )\n                    VALUES (%s, %s, %s, %s)\n                ",
+    "table": "policy_status",
+    "fields": [
+      {
+        "path": ["request_id"],
+        "value": "volvo/cce-filter-service/2020ff59219b/local-r3/value/sql/5b337bf0ef2179c503/0",
+        "transform": "Exact SQL placeholder 0 and source operand document['request_uid']"
+      },
+      {
+        "path": ["policy_id"],
+        "value": "volvo/cce-filter-service/2020ff59219b/local-r3/value/sql/5b337bf0ef2179c503/1",
+        "transform": "Exact SQL placeholder 1 and source operand document['policy_uid']"
+      },
+      {
+        "path": ["status"],
+        "value": "volvo/cce-filter-service/2020ff59219b/local-r3/value/sql/5b337bf0ef2179c503/2",
+        "transform": "Exact SQL placeholder 2 and source operand document['status']"
+      },
+      {
+        "path": ["timestamp"],
+        "value": "volvo/cce-filter-service/2020ff59219b/local-r3/value/sql/5b337bf0ef2179c503/3",
+        "transform": "Exact SQL placeholder 3 and source operand document['timestamp']"
+      }
+    ],
+    "selection": [],
+    "derivedIndexedProjections": [
+      "volvo/cce-filter-service/2020ff59219b/local-r3/value/sql/5b337bf0ef2179c503/0",
+      "volvo/cce-filter-service/2020ff59219b/local-r3/value/sql/5b337bf0ef2179c503/1",
+      "volvo/cce-filter-service/2020ff59219b/local-r3/value/sql/5b337bf0ef2179c503/2",
+      "volvo/cce-filter-service/2020ff59219b/local-r3/value/sql/5b337bf0ef2179c503/3"
+    ],
+    "status": "statically mapped",
+    "unresolved": false
+  },
+  {
+    "operation": "volvo/cce-filter-service/2020ff59219b/local-r3/operation/50bc8a50862651ae44/15",
+    "effect": "volvo/cce-filter-service/2020ff59219b/local-r3/effect/b48b58422b441fcf6b",
+    "path": "src/database/postgres/repository.py",
+    "line": 535,
+    "sql": "UPDATE policy_status SET status = %s WHERE request_id = %s",
+    "table": "policy_status",
+    "fields": [
+      {
+        "path": ["status"],
+        "value": "volvo/cce-filter-service/2020ff59219b/local-r3/value/50bc8a50862651ae44/13",
+        "transform": "Exact SQL placeholder 0 and source operand new_status['status']"
+      }
+    ],
+    "selection": [
+      {
+        "path": ["request_id"],
+        "value": "volvo/cce-filter-service/2020ff59219b/local-r3/value/50bc8a50862651ae44/parameter/request_id",
+        "transform": "Exact SQL placeholder 1 and source operand request_id"
+      }
+    ],
+    "derivedIndexedProjections": [],
+    "status": "statically mapped",
+    "unresolved": false
+  },
+  {
+    "operation": "volvo/cce-filter-service/2020ff59219b/local-r3/operation/d19511740250a1a854/15",
+    "effect": "volvo/cce-filter-service/2020ff59219b/local-r3/effect/4d7be92d04ce940d38",
+    "path": "src/database/postgres/repository.py",
+    "line": 535,
+    "sql": "UPDATE policy_status SET status = %s WHERE request_id = %s",
+    "table": "policy_status",
+    "fields": [
+      {
+        "path": ["status"],
+        "value": "volvo/cce-filter-service/2020ff59219b/local-r3/value/d19511740250a1a854/13",
+        "transform": "Exact SQL placeholder 0 and source operand new_status['status']"
+      }
+    ],
+    "selection": [
+      {
+        "path": ["request_id"],
+        "value": "volvo/cce-filter-service/2020ff59219b/local-r3/value/d19511740250a1a854/parameter/request_id",
+        "transform": "Exact SQL placeholder 1 and source operand request_id"
+      }
+    ],
+    "derivedIndexedProjections": [],
+    "status": "statically mapped",
+    "unresolved": false
+  },
+  {
+    "operation": "volvo/cce-filter-service/2020ff59219b/local-r3/operation/bf43e61f753df9e6bb/13",
+    "effect": "volvo/cce-filter-service/2020ff59219b/local-r3/effect/0dbb93d8ffac29d6be",
+    "path": "src/database/postgres/repository.py",
+    "line": 556,
+    "sql": "\n            INSERT INTO policy_status_info (\n                request_id,\n                message,\n                timestamp\n            )\n            VALUES (%s, %s, %s)\n        ",
+    "table": "policy_status_info",
+    "fields": [
+      {
+        "path": ["request_id"],
+        "value": "volvo/cce-filter-service/2020ff59219b/local-r3/value/bf43e61f753df9e6bb/parameter/request_id",
+        "transform": "Exact SQL placeholder 0 and source operand request_id"
+      },
+      {
+        "path": ["message"],
+        "value": "volvo/cce-filter-service/2020ff59219b/local-r3/value/bf43e61f753df9e6bb/8",
+        "transform": "Exact SQL placeholder 1 and source operand info['text']"
+      },
+      {
+        "path": ["timestamp"],
+        "value": "volvo/cce-filter-service/2020ff59219b/local-r3/value/bf43e61f753df9e6bb/10",
+        "transform": "Exact SQL placeholder 2 and source operand info['timestamp']"
+      }
+    ],
+    "selection": [],
+    "derivedIndexedProjections": [],
+    "status": "statically mapped",
+    "unresolved": false
+  },
+  {
+    "operation": "volvo/cce-filter-service/2020ff59219b/local-r3/operation/8797c48fe65f498a3f/13",
+    "effect": "volvo/cce-filter-service/2020ff59219b/local-r3/effect/c1d7b036087ff25a61",
+    "path": "src/database/postgres/repository.py",
+    "line": 556,
+    "sql": "\n            INSERT INTO policy_status_info (\n                request_id,\n                message,\n                timestamp\n            )\n            VALUES (%s, %s, %s)\n        ",
+    "table": "policy_status_info",
+    "fields": [
+      {
+        "path": ["request_id"],
+        "value": "volvo/cce-filter-service/2020ff59219b/local-r3/value/8797c48fe65f498a3f/parameter/request_id",
+        "transform": "Exact SQL placeholder 0 and source operand request_id"
+      },
+      {
+        "path": ["message"],
+        "value": "volvo/cce-filter-service/2020ff59219b/local-r3/value/8797c48fe65f498a3f/8",
+        "transform": "Exact SQL placeholder 1 and source operand info['text']"
+      },
+      {
+        "path": ["timestamp"],
+        "value": "volvo/cce-filter-service/2020ff59219b/local-r3/value/8797c48fe65f498a3f/10",
+        "transform": "Exact SQL placeholder 2 and source operand info['timestamp']"
+      }
+    ],
+    "selection": [],
+    "derivedIndexedProjections": [],
+    "status": "statically mapped",
+    "unresolved": false
+  },
+  {
+    "operation": "volvo/cce-filter-service/2020ff59219b/local-r3/operation/727f9d27c8852a243d/12",
+    "effect": "volvo/cce-filter-service/2020ff59219b/local-r3/effect/f50d46d15131f35d2e",
+    "path": "src/database/postgres/repository.py",
+    "line": 600,
+    "sql": "\n            INSERT INTO wheels (code)\n            VALUES (%s)\n            ON CONFLICT (code) DO NOTHING\n        ",
+    "table": "wheels",
+    "fields": [
+      {
+        "path": ["code"],
+        "value": "volvo/cce-filter-service/2020ff59219b/local-r3/value/727f9d27c8852a243d/3",
+        "transform": "Exact SQL placeholder 0 and source operand wheel"
+      }
+    ],
+    "selection": [
+      {
+        "path": ["code"],
+        "value": "volvo/cce-filter-service/2020ff59219b/local-r3/value/727f9d27c8852a243d/3",
+        "transform": "Exact SQL placeholder 0 and source operand wheel"
+      }
+    ],
+    "derivedIndexedProjections": [],
+    "status": "statically mapped",
+    "unresolved": false
+  },
+  {
+    "operation": "volvo/cce-filter-service/2020ff59219b/local-r3/operation/8100a3b54cf4774a0b/12",
+    "effect": "volvo/cce-filter-service/2020ff59219b/local-r3/effect/252ae27443d98e523a",
+    "path": "src/database/postgres/repository.py",
+    "line": 600,
+    "sql": "\n            INSERT INTO wheels (code)\n            VALUES (%s)\n            ON CONFLICT (code) DO NOTHING\n        ",
+    "table": "wheels",
+    "fields": [
+      {
+        "path": ["code"],
+        "value": "volvo/cce-filter-service/2020ff59219b/local-r3/value/8100a3b54cf4774a0b/3",
+        "transform": "Exact SQL placeholder 0 and source operand wheel"
+      }
+    ],
+    "selection": [
+      {
+        "path": ["code"],
+        "value": "volvo/cce-filter-service/2020ff59219b/local-r3/value/8100a3b54cf4774a0b/3",
+        "transform": "Exact SQL placeholder 0 and source operand wheel"
+      }
+    ],
+    "derivedIndexedProjections": [],
+    "status": "statically mapped",
+    "unresolved": false
+  },
+  {
+    "operation": "volvo/cce-filter-service/2020ff59219b/local-r3/operation/a408885ec845a2faed/7",
+    "effect": "volvo/cce-filter-service/2020ff59219b/local-r3/effect/821c6f353a5a1248fe",
+    "path": "src/database/postgres/repository.py",
+    "line": 606,
+    "sql": "SELECT code FROM wheels",
+    "table": "wheels",
+    "fields": [],
+    "selection": [],
+    "derivedIndexedProjections": [],
+    "status": "statically mapped",
+    "unresolved": false
+  },
+  {
+    "operation": "volvo/cce-filter-service/2020ff59219b/local-r3/operation/b567e33877a271cf7d/7",
+    "effect": "volvo/cce-filter-service/2020ff59219b/local-r3/effect/f2c08f1d3d59ba19e6",
+    "path": "src/database/postgres/repository.py",
+    "line": 606,
+    "sql": "SELECT code FROM wheels",
+    "table": "wheels",
+    "fields": [],
+    "selection": [],
+    "derivedIndexedProjections": [],
+    "status": "statically mapped",
+    "unresolved": false
+  },
+  {
+    "operation": "volvo/cce-filter-service/2020ff59219b/local-r3/operation/d7de5714ccfd025279/8",
+    "effect": "volvo/cce-filter-service/2020ff59219b/local-r3/effect/6a322ccd6215986e94",
+    "path": "src/database/postgres/repository.py",
+    "line": 613,
+    "sql": "DELETE FROM wheels WHERE code = %s",
+    "table": "wheels",
+    "fields": [],
+    "selection": [
+      {
+        "path": ["code"],
+        "value": "volvo/cce-filter-service/2020ff59219b/local-r3/value/d7de5714ccfd025279/parameter/code",
+        "transform": "Exact SQL placeholder 0 and source operand code"
+      }
+    ],
+    "derivedIndexedProjections": [],
+    "status": "statically mapped",
+    "unresolved": false
+  },
+  {
+    "operation": "volvo/cce-filter-service/2020ff59219b/local-r3/operation/64b216c3467667ec35/8",
+    "effect": "volvo/cce-filter-service/2020ff59219b/local-r3/effect/aa289e24dec94a0cb7",
+    "path": "src/database/postgres/repository.py",
+    "line": 613,
+    "sql": "DELETE FROM wheels WHERE code = %s",
+    "table": "wheels",
+    "fields": [],
+    "selection": [
+      {
+        "path": ["code"],
+        "value": "volvo/cce-filter-service/2020ff59219b/local-r3/value/64b216c3467667ec35/parameter/code",
+        "transform": "Exact SQL placeholder 0 and source operand code"
+      }
+    ],
+    "derivedIndexedProjections": [],
+    "status": "statically mapped",
+    "unresolved": false
+  }
+]

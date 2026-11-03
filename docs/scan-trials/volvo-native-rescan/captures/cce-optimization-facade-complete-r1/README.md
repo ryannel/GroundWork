@@ -1,0 +1,11 @@
+# CCE optimisation facade source capture
+
+Snapshot `475db9bd25a492383b7555b51089fd85825371fe9c2cfd55fde43bc6c6f048e2` contains **338,292 records** and **40,525 checked pinned ranges**. The source pass reconciles 738 tracked files, including 365 production Go files and all actual route, subscription and worker registrations. Independent review read 23 full pinned files and checked 43 targeted queries over 81 strict pages using a fresh SQLite selection. Eight broad views retain traversal limits.
+
+Four event routes, four workers and three subscriptions expose their actual PostgreSQL, River, Kafka, local transport or consume boundaries. All eleven registered market-mapping Handle bodies reach exact SQL without traversal bounds; seven project PostgreSQL interactions and four retain host ambiguity. These direct handler proofs do not establish automatic endpoint traversal through the mutable generic typed registry. Registration, caller type, receiver and SQL remain available for deliberate drill-down; the missing context-sensitive dispatch is explicit.
+
+The five component-period upsert columns/actual values are checked. Nil-error execution/commit remains separate from durability. Source row shapes describe migration history, not an observed applied database. Local HTTP wrappers and feature-flag libraries do not become extra remote services. Configured purposes do not prove deployed destinations.
+
+[Compressed bundle](bundle.json.gz), [snapshot](snapshot.json), [handoff](HANDOFF.md), [author acceptance](acceptance.json), [independent query acceptance](independent-queries/acceptance.json), [source notes](independent-source/source-notes.md) and [publication equality](publication-equality.json) retain the selected proof. Author source ledgers/scripts are archived; the original large author query dumps remain unchanged in local reports. The 43 independent queries include their full compressed request/response continuations.
+
+[Measured pagination cost](independent-source/pagination-cost.json) shows why the current proof pipeline needs redesign: growing omission lists make requests expensive despite record caps. This source selection is accepted with explicit query limitations; it is not a claim of production UI performance or complete generic-dispatch traversal. No app migration, source application execution or live request occurred.

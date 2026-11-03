@@ -1,0 +1,282 @@
+[
+  {
+    "source": "github.com/volvo-cars/cce-prins-validator/internal/app.App",
+    "shape": "volvo/cce-prins-validator/dc68082c5777/final-r1/shape/6e32dc4e901f1a233bda",
+    "path": "internal/app/app.go",
+    "lines": [16, 18],
+    "kind": "StructType"
+  },
+  {
+    "source": "github.com/volvo-cars/cce-prins-validator/internal/app.config",
+    "shape": "volvo/cce-prins-validator/dc68082c5777/final-r1/shape/701dfe78a481e5961880",
+    "path": "internal/app/config.go",
+    "lines": [12, 23],
+    "kind": "StructType"
+  },
+  {
+    "source": "github.com/volvo-cars/cce-prins-validator/internal/domain.CarConfiguration",
+    "shape": "volvo/cce-prins-validator/dc68082c5777/final-r1/shape/336e892a94c7e2719052",
+    "path": "internal/domain/carconfiguration.go",
+    "lines": [10, 15],
+    "kind": "StructType"
+  },
+  {
+    "source": "github.com/volvo-cars/cce-prins-validator/internal/domain.Pno34",
+    "shape": "volvo/cce-prins-validator/dc68082c5777/final-r1/shape/25a8395746eef275c71b",
+    "path": "internal/domain/carconfiguration.go",
+    "lines": [17, 23],
+    "kind": "StructType"
+  },
+  {
+    "source": "github.com/volvo-cars/cce-prins-validator/internal/domain.Component",
+    "shape": "volvo/cce-prins-validator/dc68082c5777/final-r1/shape/162910b53b1d7748725a",
+    "path": "internal/domain/components.go",
+    "lines": [3, 6],
+    "kind": "StructType"
+  },
+  {
+    "source": "github.com/volvo-cars/cce-prins-validator/internal/domain.ComponentsToVary",
+    "shape": "volvo/cce-prins-validator/dc68082c5777/final-r1/shape/b92e7940f8606b4d204e",
+    "path": "internal/domain/componentstovary.go",
+    "lines": [3, 9],
+    "kind": "StructType"
+  },
+  {
+    "source": "github.com/volvo-cars/cce-prins-validator/internal/domain.Pno12",
+    "shape": "volvo/cce-prins-validator/dc68082c5777/final-r1/shape/768b32e6ecde5e9c7fdd",
+    "path": "internal/domain/pno12.go",
+    "lines": [12, 20],
+    "kind": "StructType"
+  },
+  {
+    "source": "github.com/volvo-cars/cce-prins-validator/internal/domain.PrinsConfiguration",
+    "shape": "volvo/cce-prins-validator/dc68082c5777/final-r1/shape/6c242a53876cc24ecd41",
+    "path": "internal/domain/prins.go",
+    "lines": [9, 14],
+    "kind": "StructType"
+  },
+  {
+    "source": "github.com/volvo-cars/cce-prins-validator/internal/domain.PrinsConfigurations",
+    "shape": "volvo/cce-prins-validator/dc68082c5777/final-r1/shape/dbcf38af7c40d0a8edca",
+    "path": "internal/domain/prins.go",
+    "lines": [44, 44],
+    "kind": "ArrayType"
+  },
+  {
+    "source": "github.com/volvo-cars/cce-prins-validator/internal/domain.SetOfCars",
+    "shape": "volvo/cce-prins-validator/dc68082c5777/final-r1/shape/e2eb3c19d154aeb43b71",
+    "path": "internal/domain/setofcars.go",
+    "lines": [3, 8],
+    "kind": "StructType"
+  },
+  {
+    "source": "github.com/volvo-cars/cce-prins-validator/internal/gateway.RoundTripperFunc",
+    "shape": "volvo/cce-prins-validator/dc68082c5777/final-r1/shape/9a8912c0374b79379ede",
+    "path": "internal/gateway/client.go",
+    "lines": [9, 9],
+    "kind": "FuncType"
+  },
+  {
+    "source": "github.com/volvo-cars/cce-prins-validator/internal/gateway.Tripperware",
+    "shape": "volvo/cce-prins-validator/dc68082c5777/final-r1/shape/ddd2569e8ba48830b7ee",
+    "path": "internal/gateway/client.go",
+    "lines": [17, 17],
+    "kind": "FuncType"
+  },
+  {
+    "source": "github.com/volvo-cars/cce-prins-validator/internal/gateway.Option",
+    "shape": "volvo/cce-prins-validator/dc68082c5777/final-r1/shape/89219a3b88e0ee593c1e",
+    "path": "internal/gateway/client.go",
+    "lines": [20, 20],
+    "kind": "FuncType"
+  },
+  {
+    "source": "github.com/volvo-cars/cce-prins-validator/internal/gateway.HTTPClient",
+    "shape": "volvo/cce-prins-validator/dc68082c5777/final-r1/shape/426247bda04d9dd5082d",
+    "path": "internal/gateway/client.go",
+    "lines": [23, 26],
+    "kind": "StructType"
+  },
+  {
+    "source": "github.com/volvo-cars/cce-prins-validator/internal/gateway/filterservice.Config",
+    "shape": "volvo/cce-prins-validator/dc68082c5777/final-r1/shape/d283e663ec7af4b1186e",
+    "path": "internal/gateway/filterservice/client.go",
+    "lines": [13, 15],
+    "kind": "StructType"
+  },
+  {
+    "source": "github.com/volvo-cars/cce-prins-validator/internal/gateway/filterservice.Client",
+    "shape": "volvo/cce-prins-validator/dc68082c5777/final-r1/shape/99c9ecb288b038d1d7e6",
+    "path": "internal/gateway/filterservice/client.go",
+    "lines": [23, 26],
+    "kind": "StructType"
+  },
+  {
+    "source": "github.com/volvo-cars/cce-prins-validator/internal/gateway/optimizationfacade.Config",
+    "shape": "volvo/cce-prins-validator/dc68082c5777/final-r1/shape/7d4e8508e9db472ed8fc",
+    "path": "internal/gateway/optimizationfacade/client.go",
+    "lines": [14, 16],
+    "kind": "StructType"
+  },
+  {
+    "source": "github.com/volvo-cars/cce-prins-validator/internal/gateway/optimizationfacade.Client",
+    "shape": "volvo/cce-prins-validator/dc68082c5777/final-r1/shape/dc4b57a7ca7f74ca971e",
+    "path": "internal/gateway/optimizationfacade/client.go",
+    "lines": [24, 27],
+    "kind": "StructType"
+  },
+  {
+    "source": "github.com/volvo-cars/cce-prins-validator/internal/gateway/optimizationfacade.ComponentProvider",
+    "shape": "volvo/cce-prins-validator/dc68082c5777/final-r1/shape/ff33b13bc8460195bee4",
+    "path": "internal/gateway/optimizationfacade/componentprovider.go",
+    "lines": [11, 13],
+    "kind": "StructType"
+  },
+  {
+    "source": "github.com/volvo-cars/cce-prins-validator/internal/gateway/optimizationfacade.ConfigurationGenerator",
+    "shape": "volvo/cce-prins-validator/dc68082c5777/final-r1/shape/fe547a1252775676bad9",
+    "path": "internal/gateway/optimizationfacade/configurationgenerator.go",
+    "lines": [10, 12],
+    "kind": "StructType"
+  },
+  {
+    "source": "github.com/volvo-cars/cce-prins-validator/internal/gateway/optimizationfacade.Response",
+    "shape": "volvo/cce-prins-validator/dc68082c5777/final-r1/shape/46aed73843b5991b3ec5",
+    "path": "internal/gateway/optimizationfacade/model.go",
+    "lines": [3, 8],
+    "kind": "StructType"
+  },
+  {
+    "source": "github.com/volvo-cars/cce-prins-validator/internal/gateway/optimizationfacade.Pagination",
+    "shape": "volvo/cce-prins-validator/dc68082c5777/final-r1/shape/4aa5395a04c32b620f42",
+    "path": "internal/gateway/optimizationfacade/model.go",
+    "lines": [10, 14],
+    "kind": "StructType"
+  },
+  {
+    "source": "github.com/volvo-cars/cce-prins-validator/internal/gateway/optimizationfacade.CombinationsRequestPayload",
+    "shape": "volvo/cce-prins-validator/dc68082c5777/final-r1/shape/9cf2e09356037dbcc35c",
+    "path": "internal/gateway/optimizationfacade/model.go",
+    "lines": [16, 25],
+    "kind": "StructType"
+  },
+  {
+    "source": "github.com/volvo-cars/cce-prins-validator/internal/gateway/optimizationfacade.GenerateConfigurationsResponse",
+    "shape": "volvo/cce-prins-validator/dc68082c5777/final-r1/shape/cf92d0377e1e2f3e6db5",
+    "path": "internal/gateway/optimizationfacade/model.go",
+    "lines": [27, 32],
+    "kind": "StructType"
+  },
+  {
+    "source": "github.com/volvo-cars/cce-prins-validator/internal/gateway/optimizationfacade.ConfigurationWithWeeks",
+    "shape": "volvo/cce-prins-validator/dc68082c5777/final-r1/shape/6824f17855225e4e572c",
+    "path": "internal/gateway/optimizationfacade/model.go",
+    "lines": [34, 38],
+    "kind": "StructType"
+  },
+  {
+    "source": "github.com/volvo-cars/cce-prins-validator/internal/gateway/optimizationfacade.CarConfiguration",
+    "shape": "volvo/cce-prins-validator/dc68082c5777/final-r1/shape/005ddc998dc5ecc08466",
+    "path": "internal/gateway/optimizationfacade/model.go",
+    "lines": [40, 47],
+    "kind": "StructType"
+  },
+  {
+    "source": "github.com/volvo-cars/cce-prins-validator/internal/gateway/optimizationfacade.StartStatesResponse",
+    "shape": "volvo/cce-prins-validator/dc68082c5777/final-r1/shape/cad0bcbd664a04a08f2c",
+    "path": "internal/gateway/optimizationfacade/model.go",
+    "lines": [49, 53],
+    "kind": "StructType"
+  },
+  {
+    "source": "github.com/volvo-cars/cce-prins-validator/internal/gateway/optimizationfacade.State",
+    "shape": "volvo/cce-prins-validator/dc68082c5777/final-r1/shape/2bbf5365ed05c2ada50a",
+    "path": "internal/gateway/optimizationfacade/model.go",
+    "lines": [55, 60],
+    "kind": "StructType"
+  },
+  {
+    "source": "github.com/volvo-cars/cce-prins-validator/internal/gateway/optimizationfacade.ComponentsResponse",
+    "shape": "volvo/cce-prins-validator/dc68082c5777/final-r1/shape/159793f3c187a603bab8",
+    "path": "internal/gateway/optimizationfacade/model.go",
+    "lines": [62, 65],
+    "kind": "StructType"
+  },
+  {
+    "source": "github.com/volvo-cars/cce-prins-validator/internal/gateway/optimizationfacade.ComponentName",
+    "shape": "volvo/cce-prins-validator/dc68082c5777/final-r1/shape/c0123f2780f4d4148e6b",
+    "path": "internal/gateway/optimizationfacade/model.go",
+    "lines": [67, 70],
+    "kind": "StructType"
+  },
+  {
+    "source": "github.com/volvo-cars/cce-prins-validator/internal/gateway/optimizationfacade.StateFromConfigPayload",
+    "shape": "volvo/cce-prins-validator/dc68082c5777/final-r1/shape/6f2c60e0849b453a697e",
+    "path": "internal/gateway/optimizationfacade/model.go",
+    "lines": [72, 77],
+    "kind": "StructType"
+  },
+  {
+    "source": "github.com/volvo-cars/cce-prins-validator/internal/gateway/optimizationfacade.Component",
+    "shape": "volvo/cce-prins-validator/dc68082c5777/final-r1/shape/5503f924902d69d8d786",
+    "path": "internal/gateway/optimizationfacade/model.go",
+    "lines": [79, 82],
+    "kind": "StructType"
+  },
+  {
+    "source": "github.com/volvo-cars/cce-prins-validator/internal/gateway/optimizationfacade.StartConfigurationProvider",
+    "shape": "volvo/cce-prins-validator/dc68082c5777/final-r1/shape/d59b3165feeb321c4268",
+    "path": "internal/gateway/optimizationfacade/startconfigurationprovider.go",
+    "lines": [9, 11],
+    "kind": "StructType"
+  },
+  {
+    "source": "github.com/volvo-cars/cce-prins-validator/internal/gateway/prins.Config",
+    "shape": "volvo/cce-prins-validator/dc68082c5777/final-r1/shape/eaba1fa1edbda4ffb921",
+    "path": "internal/gateway/prins/client.go",
+    "lines": [10, 12],
+    "kind": "StructType"
+  },
+  {
+    "source": "github.com/volvo-cars/cce-prins-validator/internal/gateway/prins.MachineboxClient",
+    "shape": "volvo/cce-prins-validator/dc68082c5777/final-r1/shape/45470a7069ee491c1ae0",
+    "path": "internal/gateway/prins/client.go",
+    "lines": [20, 22],
+    "kind": "InterfaceType"
+  },
+  {
+    "source": "github.com/volvo-cars/cce-prins-validator/internal/gateway/prins.Client",
+    "shape": "volvo/cce-prins-validator/dc68082c5777/final-r1/shape/e5baa7b8775284cb9b7f",
+    "path": "internal/gateway/prins/client.go",
+    "lines": [24, 27],
+    "kind": "StructType"
+  },
+  {
+    "source": "github.com/volvo-cars/cce-prins-validator/internal/gateway/prins.ConfigurationFetcher",
+    "shape": "volvo/cce-prins-validator/dc68082c5777/final-r1/shape/3265145532286b26ba2f",
+    "path": "internal/gateway/prins/configurationfetcher.go",
+    "lines": [10, 12],
+    "kind": "StructType"
+  },
+  {
+    "source": "github.com/volvo-cars/cce-prins-validator/internal/gateway/prins.PrinsQueryResponse",
+    "shape": "volvo/cce-prins-validator/dc68082c5777/final-r1/shape/e7e8619e61a622d41e42",
+    "path": "internal/gateway/prins/model.go",
+    "lines": [3, 7],
+    "kind": "StructType"
+  },
+  {
+    "source": "github.com/volvo-cars/cce-prins-validator/internal/gateway.RequestBuilder",
+    "shape": "volvo/cce-prins-validator/dc68082c5777/final-r1/shape/56ab776606ac15bde3c5",
+    "path": "internal/gateway/requestBuilder.go",
+    "lines": [11, 17],
+    "kind": "StructType"
+  },
+  {
+    "source": "github.com/volvo-cars/cce-prins-validator/internal/service.RulesetValidator",
+    "shape": "volvo/cce-prins-validator/dc68082c5777/final-r1/shape/c186b037b76a549f12a7",
+    "path": "internal/service/rulesetvalidator.go",
+    "lines": [15, 21],
+    "kind": "StructType"
+  }
+]

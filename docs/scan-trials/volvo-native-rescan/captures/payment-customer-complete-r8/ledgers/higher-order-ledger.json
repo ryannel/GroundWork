@@ -1,0 +1,79 @@
+[
+  {
+    "caller": "customer-b0010537-complete-r8/method/0dc0f78816e66015",
+    "call": "customer-b0010537-complete-r8/op/0dc0f78816e66015/3",
+    "target": "customer-b0010537-complete-r8/method/b253deecca3da275",
+    "formal": "customer-b0010537-complete-r8/formal/b253deecca3da275/1",
+    "actual": "customer-b0010537-complete-r8/v/0dc0f78816e66015/7",
+    "delegate": {
+      "owner": "customer-b0010537-complete-r8/method/0dc0f78816e66015",
+      "value": "customer-b0010537-complete-r8/v/0dc0f78816e66015/7",
+      "registration": "customer-b0010537-complete-r8/op/0dc0f78816e66015/2",
+      "source": "customer::setCompany",
+      "receiverValue": "customer-b0010537-complete-r8/formal/0dc0f78816e66015/1",
+      "receiverType": "Customer",
+      "targets": [],
+      "mode": "bound reference"
+    },
+    "claim": "customer-b0010537-complete-r8/higher-order/bed35b4b78ebd66d"
+  },
+  {
+    "caller": "customer-b0010537-complete-r8/method/0dc0f78816e66015",
+    "call": "customer-b0010537-complete-r8/op/0dc0f78816e66015/6",
+    "target": "customer-b0010537-complete-r8/method/781868edb871a58f",
+    "formal": "customer-b0010537-complete-r8/formal/781868edb871a58f/1",
+    "actual": "customer-b0010537-complete-r8/v/0dc0f78816e66015/11",
+    "delegate": {
+      "enclosing": "customer-b0010537-complete-r8/method/0dc0f78816e66015",
+      "callback": "customer-b0010537-complete-r8/method/1ab5575645a326f4",
+      "registration": "customer-b0010537-complete-r8/op/0dc0f78816e66015/5",
+      "value": "customer-b0010537-complete-r8/v/0dc0f78816e66015/11",
+      "source": "carMarket -> customer.setAttributeValue(Customer.CAR_MARKET, carMarket)",
+      "captures": [
+        {
+          "capture": "customer-b0010537-complete-r8/capture/1ab5575645a326f4/b6c45863875e3448",
+          "value": "customer-b0010537-complete-r8/formal/0dc0f78816e66015/1",
+          "mode": "value"
+        }
+      ],
+      "claim": "customer-b0010537-complete-r8/lambda/8791faa34455ee02"
+    },
+    "claim": "customer-b0010537-complete-r8/higher-order/84880f2d4333ee34"
+  },
+  {
+    "caller": "customer-b0010537-complete-r8/method/0dc0f78816e66015",
+    "call": "customer-b0010537-complete-r8/op/0dc0f78816e66015/9",
+    "target": "customer-b0010537-complete-r8/method/781868edb871a58f",
+    "formal": "customer-b0010537-complete-r8/formal/781868edb871a58f/1",
+    "actual": "customer-b0010537-complete-r8/v/0dc0f78816e66015/15",
+    "delegate": {
+      "owner": "customer-b0010537-complete-r8/method/0dc0f78816e66015",
+      "value": "customer-b0010537-complete-r8/v/0dc0f78816e66015/15",
+      "registration": "customer-b0010537-complete-r8/op/0dc0f78816e66015/8",
+      "source": "customer::setPreferredLocale",
+      "receiverValue": "customer-b0010537-complete-r8/formal/0dc0f78816e66015/1",
+      "receiverType": "Customer",
+      "targets": [],
+      "mode": "bound reference"
+    },
+    "claim": "customer-b0010537-complete-r8/higher-order/0fcc3a8a857e02b5"
+  },
+  {
+    "caller": "customer-b0010537-complete-r8/method/0dc0f78816e66015",
+    "call": "customer-b0010537-complete-r8/op/0dc0f78816e66015/12",
+    "target": "customer-b0010537-complete-r8/method/781868edb871a58f",
+    "formal": "customer-b0010537-complete-r8/formal/781868edb871a58f/1",
+    "actual": "customer-b0010537-complete-r8/v/0dc0f78816e66015/19",
+    "delegate": {
+      "owner": "customer-b0010537-complete-r8/method/0dc0f78816e66015",
+      "value": "customer-b0010537-complete-r8/v/0dc0f78816e66015/19",
+      "registration": "customer-b0010537-complete-r8/op/0dc0f78816e66015/11",
+      "source": "customer::setEmail",
+      "receiverValue": "customer-b0010537-complete-r8/formal/0dc0f78816e66015/1",
+      "receiverType": "Customer",
+      "targets": [],
+      "mode": "bound reference"
+    },
+    "claim": "customer-b0010537-complete-r8/higher-order/d22a1dc1138a2e92"
+  }
+]

@@ -1,0 +1,11 @@
+# CCE Filter Service source capture
+
+Selected snapshot `026b45380097c239e2511a7ce9186329c0af6e0a24ba7bf73beac41b6e39705f` contains **60,208 records** and **3,633 checked pinned ranges**. All 136 files and293production functions are reconciled. API, event worker and migration hosts have30actual entry registrations, including26REST routes. Eight type-header handlers, one subscribe site and four topic settings are distinct from32derived conditional topic/handler projections.
+
+Independent review read16full pinned files and passed78strict queries, with3explicit cutoffs. Policy create/delete reach PostgreSQL and Kafka, readiness reaches PostgreSQL, and health has no I/O. Eight selected handler families positively expose database boundaries. Source-bound invocation contexts and actual transferred values reach Azure/Kafka beyond broad graph limits. All 32 contextual SQL writes have native column/selection mappings; config_policy.payload traces to actual source values. FourAzure writes retain SDK argument and acknowledgement uncertainty.
+
+Coroutine construction and awaited execution are separate. Actual return values survive conflicting None annotations. Consumer normal return and guarded source commit differ from durable broker acknowledgement; producer callbacks can log without changing the returned result. SDK flag evaluation has no invented remote destination. Context-manager commit policy, heap aliases, imported codecs, runtime scheduling and deployment remain unresolved.
+
+The author replay passes123strict queries/pages and retains17maxNodes frontiers. Earlier diagnostic revisions are preserved; the selected revision fixes exact synthetic-edge provenance and SQL column lineage. All 3633 ranges independently resolve within122pinned files, and all 35 source seal files verify.
+
+[Compressed bundle](bundle.json.gz), [snapshot](snapshot.json), [report](REPORT.md), [handoff](HANDOFF.md), [SQL lineage](sql-column-lineage-ledger.json), [independent acceptance](independent-review/root-acceptance.json) and [publication equality](publication-equality.json) retain the proof. Decompress into a new file for validation/import. Source completeness is separate from runtime proof; no production app migration or live source-system call was made.

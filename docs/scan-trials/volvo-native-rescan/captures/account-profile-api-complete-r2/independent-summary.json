@@ -1,0 +1,121 @@
+{
+  "snapshot": "3279017c3ab086d138a0b7115f74612844f6bdff280a613228c1ecf3887fd5e0",
+  "checks": [
+    {
+      "name": "account-get",
+      "nodes": 2,
+      "edges": 1,
+      "records": 561
+    },
+    {
+      "name": "account-get source argument 0",
+      "nodes": 26,
+      "edges": 26,
+      "records": 434
+    },
+    {
+      "name": "account-get source argument 1",
+      "nodes": 26,
+      "edges": 26,
+      "records": 434
+    },
+    {
+      "name": "account-get source argument 2",
+      "nodes": 26,
+      "edges": 26,
+      "records": 434
+    },
+    {
+      "name": "account-get source argument 3",
+      "nodes": 26,
+      "edges": 26,
+      "records": 434
+    },
+    {
+      "name": "account-get source argument 4",
+      "nodes": 4,
+      "edges": 3,
+      "records": 380
+    },
+    {
+      "name": "account-update",
+      "nodes": 2,
+      "edges": 1,
+      "records": 1265
+    },
+    {
+      "name": "account-update source argument 0",
+      "nodes": 48,
+      "edges": 56,
+      "records": 1259
+    },
+    {
+      "name": "account-update source argument 1",
+      "nodes": 26,
+      "edges": 26,
+      "records": 1144
+    },
+    {
+      "name": "account-update source argument 2",
+      "nodes": 26,
+      "edges": 26,
+      "records": 1144
+    },
+    {
+      "name": "account-update source argument 3",
+      "nodes": 26,
+      "edges": 26,
+      "records": 1144
+    },
+    {
+      "name": "account-update source argument 4",
+      "nodes": 26,
+      "edges": 26,
+      "records": 1144
+    },
+    {
+      "name": "account-update source argument 5",
+      "nodes": 4,
+      "edges": 3,
+      "records": 1090
+    },
+    {
+      "name": "settings has no Account SDK boundary",
+      "nodes": 1,
+      "edges": 0,
+      "records": 387
+    },
+    {
+      "name": "update source field Firstname",
+      "nodes": 2,
+      "edges": 1,
+      "records": 82
+    },
+    {
+      "name": "update source field Lastname",
+      "nodes": 2,
+      "edges": 1,
+      "records": 82
+    },
+    {
+      "name": "update source field Gender",
+      "nodes": 9,
+      "edges": 8,
+      "records": 119
+    },
+    {
+      "name": "update source field Address",
+      "nodes": 17,
+      "edges": 21,
+      "records": 151
+    },
+    {
+      "name": "update source field Birthdate",
+      "nodes": 7,
+      "edges": 6,
+      "records": 122
+    }
+  ],
+  "sourceFilesIndependentlyRead": 20,
+  "status": "Root bounded source/native review passed; no actionable findings"
+}

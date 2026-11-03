@@ -1,0 +1,9 @@
+# CaaS car configurator source capture
+
+Selected snapshot `73731576937e6406a98aa6e365638fd7a95248c5f5e1491b32d06e880e66eaaf` contains **96,266 records** and **12,479 checked pinned ranges**. This successor corrects two unsupported int shapes on unused blank range-key values. Fourfacts change, fourclaims/gaps are added, and every other fact is equal after namespace translation. All logical IDs and source tuples are unchanged.
+
+The [complete r1 source survey](../caas-car-configurator-complete-r1/README.md) remains applicable:86 production-named Go files,1,415 source frames,9 gRPC methods,17 I/O boundaries and3typed writes. Independent review retains16full pinned source files and reruns26strict queries on r2. The author replays129original gates,26 root-harness checks and4new correction queries. All 320 new seal files and309predecessor seal files are verified.
+
+The finite audit covers247range sites, allcomputed map constructions and generated init cardinality. Supported local aliases/source constraints are retained; missing imported signatures stay unresolved. CreateRuleset whole-entry and two owner views remain bounded; this is not proof of absent database calls. SQL helper results, Commit, deferred rollback, actual SDK arguments, protobuf and persisted JSON remain separate. Imported solver transport, mutable heap, scheduling and deployment remain unresolved.
+
+[Compressed bundle](bundle.json.gz), [snapshot](snapshot.json), [handoff](HANDOFF.md), [exact correction](ledgers/correction-diff.json), [independent acceptance](independent-review/root-r2-acceptance.json) and [publication equality](publication-equality.json) retain the proof. Decompress into a new file for validation/import. A historical bounded deep-value result differs under current query code; the preserved current-code predecessor/successor comparison shows equal semantic edge records. No production app migration or live source-system call was made.

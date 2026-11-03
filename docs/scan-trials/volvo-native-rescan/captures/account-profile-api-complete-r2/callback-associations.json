@@ -1,0 +1,374 @@
+[
+  {
+    "enclosing": "account-profile-bc3003a-complete-r1/method/451ed3505d0395b2",
+    "callback": "account-profile-bc3003a-complete-r1/method/545780e67dca0469",
+    "registration": "account-profile-bc3003a-complete-r1/op/451ed3505d0395b2/3",
+    "claim": "account-profile-bc3003a-complete-r1/callback/51cdde0a8a50be43",
+    "source": "s => s.MediaTypes.Intersect(mediaTypes).Any()",
+    "captureBindings": [
+      {
+        "capture": "account-profile-bc3003a-complete-r1/capture/545780e67dca0469/4e4885c49afdb298",
+        "value": "account-profile-bc3003a-complete-r1/v/451ed3505d0395b2/p/0",
+        "mode": "reference"
+      }
+    ]
+  },
+  {
+    "enclosing": "account-profile-bc3003a-complete-r1/method/e6ef180d170e07d9",
+    "callback": "account-profile-bc3003a-complete-r1/method/d2f4b9fdbd1de49c",
+    "registration": "account-profile-bc3003a-complete-r1/op/e6ef180d170e07d9/6",
+    "claim": "account-profile-bc3003a-complete-r1/callback/bba7da6cf906a8f9",
+    "source": "t => t.IsGenericType && t.GetGenericTypeDefinition() == typeof(IEnumerable<>)",
+    "captureBindings": []
+  },
+  {
+    "enclosing": "account-profile-bc3003a-complete-r1/method/e6ef180d170e07d9",
+    "callback": "account-profile-bc3003a-complete-r1/method/1ede2177a21fc234",
+    "registration": "account-profile-bc3003a-complete-r1/op/e6ef180d170e07d9/8",
+    "claim": "account-profile-bc3003a-complete-r1/callback/085a233e04901e7b",
+    "source": "t => t.GenericTypeArguments[0]",
+    "captureBindings": []
+  },
+  {
+    "enclosing": "account-profile-bc3003a-complete-r1/method/28e923e8b8d8d681",
+    "callback": "account-profile-bc3003a-complete-r1/method/dcd1cde3add78226",
+    "registration": "account-profile-bc3003a-complete-r1/op/28e923e8b8d8d681/5",
+    "claim": "account-profile-bc3003a-complete-r1/callback/51dd32bc235e5f1f",
+    "source": "x => x.ErrorCode?.Equals(ValidationErrorCodes.BadDataCode) == true",
+    "captureBindings": []
+  },
+  {
+    "enclosing": "account-profile-bc3003a-complete-r1/method/28e923e8b8d8d681",
+    "callback": "account-profile-bc3003a-complete-r1/method/a33b07d8880c4068",
+    "registration": "account-profile-bc3003a-complete-r1/op/28e923e8b8d8d681/12",
+    "claim": "account-profile-bc3003a-complete-r1/callback/0f4c5515158e3351",
+    "source": "v => new ValidationError { Message = v.ErrorMessage, PropertyName = v.PropertyName }",
+    "captureBindings": []
+  },
+  {
+    "enclosing": "account-profile-bc3003a-complete-r1/method/28e923e8b8d8d681",
+    "callback": "account-profile-bc3003a-complete-r1/method/4900813f98d15503",
+    "registration": "account-profile-bc3003a-complete-r1/op/28e923e8b8d8d681/16",
+    "claim": "account-profile-bc3003a-complete-r1/callback/817416a5ce6d1bfd",
+    "source": "v => new ValidationError { Message = v.ErrorMessage, PropertyName = v.PropertyName }",
+    "captureBindings": []
+  },
+  {
+    "enclosing": "account-profile-bc3003a-complete-r1/method/df8abfd9d82066d1",
+    "callback": "account-profile-bc3003a-complete-r1/method/05e8e11477c2be75",
+    "registration": "account-profile-bc3003a-complete-r1/op/df8abfd9d82066d1/1",
+    "claim": "account-profile-bc3003a-complete-r1/callback/dd9d6b928dfbe0e1",
+    "source": "options =>\n        {\n            var dir = new DirectoryInfo(PlatformServices.Default.Application.ApplicationBasePath);\n\n            foreach (var xmlFile in dir.GetFiles(\"VolvoCars.AccountProfile*.xml\"))\n            {\n                options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, xmlFile.FullName));\n            }\n\n            options.AddVolvoSwaggerGen(services, new OpenApiInfo\n            {\n                Title = \"Account Profile API\",\n                Description = \"Globally scaled highly responsive API which enables retrieval and update of account profile information for the current signed in end - user.<br /> <a href='https://collaboration.volvocars.net/sites/vccapi/apiconsumers/SitePages/Account-Profile-API-Consumer-Guide.aspx' target='_blank'>Consumer Guide</a>\",\n                Version = \"1\",\n            });\n            options.AddVolvocarsCommonFilters();\n            options.AddVolvoIdValidationFilter();\n        }",
+    "captureBindings": [
+      {
+        "capture": "account-profile-bc3003a-complete-r1/capture/05e8e11477c2be75/ef1c4b45f2ed7632",
+        "value": "account-profile-bc3003a-complete-r1/v/df8abfd9d82066d1/p/0",
+        "mode": "reference"
+      }
+    ]
+  },
+  {
+    "enclosing": "account-profile-bc3003a-complete-r1/method/8e162ddb2dd5bc85",
+    "callback": "account-profile-bc3003a-complete-r1/method/074022046c8846ad",
+    "registration": "account-profile-bc3003a-complete-r1/op/8e162ddb2dd5bc85/3",
+    "claim": "account-profile-bc3003a-complete-r1/callback/cdd83223145606d5",
+    "source": "options =>\n            {\n                options.JsonSerializerOptions.IgnoreNullValues = true;\n                options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());\n            }",
+    "captureBindings": []
+  },
+  {
+    "enclosing": "account-profile-bc3003a-complete-r1/method/8e162ddb2dd5bc85",
+    "callback": "account-profile-bc3003a-complete-r1/method/0629f92fb7c93c0f",
+    "registration": "account-profile-bc3003a-complete-r1/op/8e162ddb2dd5bc85/5",
+    "claim": "account-profile-bc3003a-complete-r1/callback/217132080dcab355",
+    "source": "o =>\n            {\n                // This is used when serializing/deserializing\n                o.SerializerSettings.NullValueHandling = NullValueHandling.Ignore;\n                o.SerializerSettings.Converters.Add(new StringEnumConverter());\n                o.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver()\n                {\n                    NamingStrategy = new CamelCaseNamingStrategy\n                    {\n                        ProcessDictionaryKeys = false\n                    }\n                };\n            }",
+    "captureBindings": []
+  },
+  {
+    "enclosing": "account-profile-bc3003a-complete-r1/method/2c59f7be478c8369",
+    "callback": "account-profile-bc3003a-complete-r1/method/89e3ff2e07f03193",
+    "registration": "account-profile-bc3003a-complete-r1/op/2c59f7be478c8369/1",
+    "claim": "account-profile-bc3003a-complete-r1/callback/40d6edfa1845883e",
+    "source": "opts =>\n        {\n            opts.AddPolicy(Policies.Profile, policy =>\n            {\n                policy.RequireVolvoIDScope(Scopes.OpenId);\n                policy.RequireVolvoIDScope(Scopes.Profile);\n                policy.AddAuthenticationSchemes(VolvoIdTokenValidationDefaults.AuthenticationScheme);\n            });\n        }",
+    "captureBindings": []
+  },
+  {
+    "enclosing": "account-profile-bc3003a-complete-r1/method/1f8a8ec41eaabb92",
+    "callback": "account-profile-bc3003a-complete-r1/method/3d500d5fa68abd22",
+    "registration": "account-profile-bc3003a-complete-r1/op/1f8a8ec41eaabb92/2",
+    "claim": "account-profile-bc3003a-complete-r1/callback/1630da6cbb1e7f39",
+    "source": "options =>\n                {\n                    options.ClientId = tokenValidationSettings.VolvoIdAuthenticationClientId;\n                    options.ClientSecret = tokenValidationSettings.VolvoIdAuthenticationSecret;\n                    options.Environment = tokenValidationSettings.Environment;\n                }",
+    "captureBindings": [
+      {
+        "capture": "account-profile-bc3003a-complete-r1/capture/3d500d5fa68abd22/7ca406909a584b48",
+        "value": "account-profile-bc3003a-complete-r1/v/1f8a8ec41eaabb92/p/1",
+        "mode": "reference"
+      }
+    ]
+  },
+  {
+    "enclosing": "account-profile-bc3003a-complete-r1/method/fad63fa0da1e74c8",
+    "callback": "account-profile-bc3003a-complete-r1/method/84c04bbb835fde47",
+    "registration": "account-profile-bc3003a-complete-r1/op/fad63fa0da1e74c8/1",
+    "claim": "account-profile-bc3003a-complete-r1/callback/43c8e4982817bb53",
+    "source": "o => { o.DefaultApiVersion = new ApiVersion(1, 0); }",
+    "captureBindings": []
+  },
+  {
+    "enclosing": "account-profile-bc3003a-complete-r1/method/6a4d89edeba90bc5",
+    "callback": "account-profile-bc3003a-complete-r1/method/55d5a09c54ec308c",
+    "registration": "account-profile-bc3003a-complete-r1/op/6a4d89edeba90bc5/2",
+    "claim": "account-profile-bc3003a-complete-r1/callback/6f2288a9fd570a10",
+    "source": "p => !string.IsNullOrEmpty(p.Value)",
+    "captureBindings": [
+      {
+        "capture": "account-profile-bc3003a-complete-r1/capture/55d5a09c54ec308c/1eb79602411ef02c",
+        "value": "account-profile-bc3003a-complete-r1/v/6a4d89edeba90bc5/2",
+        "mode": "value"
+      }
+    ]
+  },
+  {
+    "enclosing": "account-profile-bc3003a-complete-r1/method/484e23dc8bf5f7e0",
+    "callback": "account-profile-bc3003a-complete-r1/method/2bfaa28a2f33fb45",
+    "registration": "account-profile-bc3003a-complete-r1/op/484e23dc8bf5f7e0/2",
+    "claim": "account-profile-bc3003a-complete-r1/callback/08875c8a6ff7c3bc",
+    "source": "x => x.FirstName",
+    "captureBindings": []
+  },
+  {
+    "enclosing": "account-profile-bc3003a-complete-r1/method/484e23dc8bf5f7e0",
+    "callback": "account-profile-bc3003a-complete-r1/method/72f1722960fb98ef",
+    "registration": "account-profile-bc3003a-complete-r1/op/484e23dc8bf5f7e0/4",
+    "claim": "account-profile-bc3003a-complete-r1/callback/8ab0c5849d1aa443",
+    "source": "x => char.IsLetter(x[0])",
+    "captureBindings": []
+  },
+  {
+    "enclosing": "account-profile-bc3003a-complete-r1/method/484e23dc8bf5f7e0",
+    "callback": "account-profile-bc3003a-complete-r1/method/a5ea181d8d1b30cf",
+    "registration": "account-profile-bc3003a-complete-r1/op/484e23dc8bf5f7e0/17",
+    "claim": "account-profile-bc3003a-complete-r1/callback/025ed06cf07891ab",
+    "source": "x => !string.IsNullOrEmpty(x.FirstName)",
+    "captureBindings": []
+  },
+  {
+    "enclosing": "account-profile-bc3003a-complete-r1/method/484e23dc8bf5f7e0",
+    "callback": "account-profile-bc3003a-complete-r1/method/ec6f1fd502eb7aae",
+    "registration": "account-profile-bc3003a-complete-r1/op/484e23dc8bf5f7e0/19",
+    "claim": "account-profile-bc3003a-complete-r1/callback/21fcd40c796536b5",
+    "source": "x => x.LastName",
+    "captureBindings": []
+  },
+  {
+    "enclosing": "account-profile-bc3003a-complete-r1/method/484e23dc8bf5f7e0",
+    "callback": "account-profile-bc3003a-complete-r1/method/516713c67482acce",
+    "registration": "account-profile-bc3003a-complete-r1/op/484e23dc8bf5f7e0/21",
+    "claim": "account-profile-bc3003a-complete-r1/callback/8cb19a0a4b12d44e",
+    "source": "x => char.IsLetter(x[0])",
+    "captureBindings": []
+  },
+  {
+    "enclosing": "account-profile-bc3003a-complete-r1/method/484e23dc8bf5f7e0",
+    "callback": "account-profile-bc3003a-complete-r1/method/c413c2934a7d5a79",
+    "registration": "account-profile-bc3003a-complete-r1/op/484e23dc8bf5f7e0/34",
+    "claim": "account-profile-bc3003a-complete-r1/callback/58297b607fbbcd0f",
+    "source": "x => !string.IsNullOrEmpty(x.LastName)",
+    "captureBindings": []
+  },
+  {
+    "enclosing": "account-profile-bc3003a-complete-r1/method/484e23dc8bf5f7e0",
+    "callback": "account-profile-bc3003a-complete-r1/method/bcaed2475a2c1e75",
+    "registration": "account-profile-bc3003a-complete-r1/op/484e23dc8bf5f7e0/36",
+    "claim": "account-profile-bc3003a-complete-r1/callback/39305d7f8dc4504f",
+    "source": "x => x.Birthdate",
+    "captureBindings": []
+  },
+  {
+    "enclosing": "account-profile-bc3003a-complete-r1/method/484e23dc8bf5f7e0",
+    "callback": "account-profile-bc3003a-complete-r1/method/e2d1203539eab1de",
+    "registration": "account-profile-bc3003a-complete-r1/op/484e23dc8bf5f7e0/38",
+    "claim": "account-profile-bc3003a-complete-r1/callback/50805f16fe80c2f9",
+    "source": "x => DateTime.TryParse(x, out var birthDate) && birthDate < DateTime.UtcNow",
+    "captureBindings": []
+  },
+  {
+    "enclosing": "account-profile-bc3003a-complete-r1/method/484e23dc8bf5f7e0",
+    "callback": "account-profile-bc3003a-complete-r1/method/b45e36cb438fb5a2",
+    "registration": "account-profile-bc3003a-complete-r1/op/484e23dc8bf5f7e0/48",
+    "claim": "account-profile-bc3003a-complete-r1/callback/690d18499c490288",
+    "source": "x => !string.IsNullOrEmpty(x.Birthdate)",
+    "captureBindings": []
+  },
+  {
+    "enclosing": "account-profile-bc3003a-complete-r1/method/484e23dc8bf5f7e0",
+    "callback": "account-profile-bc3003a-complete-r1/method/d6928d533a81bb73",
+    "registration": "account-profile-bc3003a-complete-r1/op/484e23dc8bf5f7e0/50",
+    "claim": "account-profile-bc3003a-complete-r1/callback/98130fe78bbb804a",
+    "source": "x => x.Address.Country",
+    "captureBindings": []
+  },
+  {
+    "enclosing": "account-profile-bc3003a-complete-r1/method/484e23dc8bf5f7e0",
+    "callback": "account-profile-bc3003a-complete-r1/method/75fa2462cff924b4",
+    "registration": "account-profile-bc3003a-complete-r1/op/484e23dc8bf5f7e0/52",
+    "claim": "account-profile-bc3003a-complete-r1/method-group/3f2d4fafbc5df4b4",
+    "source": "BeValidCountry",
+    "captureBindings": [],
+    "receiver": "account-profile-bc3003a-complete-r1/receiver/484e23dc8bf5f7e0",
+    "form": "method_group"
+  },
+  {
+    "enclosing": "account-profile-bc3003a-complete-r1/method/484e23dc8bf5f7e0",
+    "callback": "account-profile-bc3003a-complete-r1/method/56e2ab3df65cf956",
+    "registration": "account-profile-bc3003a-complete-r1/op/484e23dc8bf5f7e0/58",
+    "claim": "account-profile-bc3003a-complete-r1/callback/59bcdf39d423f948",
+    "source": "x => !string.IsNullOrEmpty(x?.Address?.Country) && featureToggleSettings.Value.EnableCountryValidation",
+    "captureBindings": [
+      {
+        "capture": "account-profile-bc3003a-complete-r1/capture/56e2ab3df65cf956/7947788beb21b2a6",
+        "value": "account-profile-bc3003a-complete-r1/v/484e23dc8bf5f7e0/p/1",
+        "mode": "reference"
+      }
+    ]
+  },
+  {
+    "enclosing": "account-profile-bc3003a-complete-r1/method/484e23dc8bf5f7e0",
+    "callback": "account-profile-bc3003a-complete-r1/method/a70c528f5a9be61d",
+    "registration": "account-profile-bc3003a-complete-r1/op/484e23dc8bf5f7e0/60",
+    "claim": "account-profile-bc3003a-complete-r1/callback/b4d9e635d88dea33",
+    "source": "x => x.Zoneinfo",
+    "captureBindings": []
+  },
+  {
+    "enclosing": "account-profile-bc3003a-complete-r1/method/484e23dc8bf5f7e0",
+    "callback": "account-profile-bc3003a-complete-r1/method/a60a695ae79b2e3f",
+    "registration": "account-profile-bc3003a-complete-r1/op/484e23dc8bf5f7e0/62",
+    "claim": "account-profile-bc3003a-complete-r1/method-group/50bc53bcf7d4b0a5",
+    "source": "BeValidZoneinfo",
+    "captureBindings": [],
+    "receiver": "account-profile-bc3003a-complete-r1/receiver/484e23dc8bf5f7e0",
+    "form": "method_group"
+  },
+  {
+    "enclosing": "account-profile-bc3003a-complete-r1/method/484e23dc8bf5f7e0",
+    "callback": "account-profile-bc3003a-complete-r1/method/5e366692f31a0919",
+    "registration": "account-profile-bc3003a-complete-r1/op/484e23dc8bf5f7e0/68",
+    "claim": "account-profile-bc3003a-complete-r1/callback/ad10fedf1890ad1e",
+    "source": "x => !string.IsNullOrEmpty(x.Zoneinfo)",
+    "captureBindings": []
+  },
+  {
+    "enclosing": "account-profile-bc3003a-complete-r1/method/75fa2462cff924b4",
+    "callback": "account-profile-bc3003a-complete-r1/method/e91e46d74c86626c",
+    "registration": "account-profile-bc3003a-complete-r1/op/75fa2462cff924b4/3",
+    "claim": "account-profile-bc3003a-complete-r1/callback/b96d0bf26d864141",
+    "source": "x => x.FieldName.Equals(SettingsFieldNames.AddressCountry)",
+    "captureBindings": []
+  },
+  {
+    "enclosing": "account-profile-bc3003a-complete-r1/method/75fa2462cff924b4",
+    "callback": "account-profile-bc3003a-complete-r1/method/9f8f63dbab44e483",
+    "registration": "account-profile-bc3003a-complete-r1/op/75fa2462cff924b4/9",
+    "claim": "account-profile-bc3003a-complete-r1/callback/e52186044d2f0f6f",
+    "source": "x => x.Equals(arg, StringComparison.OrdinalIgnoreCase)",
+    "captureBindings": [
+      {
+        "capture": "account-profile-bc3003a-complete-r1/capture/9f8f63dbab44e483/b25f03dedd69be07",
+        "value": "account-profile-bc3003a-complete-r1/v/75fa2462cff924b4/p/0",
+        "mode": "reference"
+      }
+    ]
+  },
+  {
+    "enclosing": "account-profile-bc3003a-complete-r1/method/5faeb4b41ccca715",
+    "callback": "account-profile-bc3003a-complete-r1/method/26951dfa8f538e76",
+    "registration": "account-profile-bc3003a-complete-r1/op/5faeb4b41ccca715/4",
+    "claim": "account-profile-bc3003a-complete-r1/callback/406c9653a7da3edd",
+    "source": "_ => new LdClient(ldConfig.Key)",
+    "captureBindings": [
+      {
+        "capture": "account-profile-bc3003a-complete-r1/capture/26951dfa8f538e76/e6a9131028f2a747",
+        "value": "account-profile-bc3003a-complete-r1/v/5faeb4b41ccca715/2",
+        "mode": "reference"
+      }
+    ]
+  },
+  {
+    "enclosing": "account-profile-bc3003a-complete-r1/method/9ecf8433701cd74f",
+    "callback": "account-profile-bc3003a-complete-r1/method/258682995fdec848",
+    "registration": "account-profile-bc3003a-complete-r1/op/9ecf8433701cd74f/24",
+    "claim": "account-profile-bc3003a-complete-r1/callback/e7826023bbcd9224",
+    "source": "x => x.Message",
+    "captureBindings": []
+  },
+  {
+    "enclosing": "account-profile-bc3003a-complete-r1/method/9437044e0c6d53e8",
+    "callback": "account-profile-bc3003a-complete-r1/method/94072cb1dde1faad",
+    "registration": "account-profile-bc3003a-complete-r1/op/9437044e0c6d53e8/1",
+    "claim": "account-profile-bc3003a-complete-r1/callback/d1c060ac85a5c90d",
+    "source": "m => m.ToLower()",
+    "captureBindings": []
+  },
+  {
+    "enclosing": "account-profile-bc3003a-complete-r1/method/2e9f3a5189a18fe0",
+    "callback": "account-profile-bc3003a-complete-r1/method/8b5607a3e35d5777",
+    "registration": "account-profile-bc3003a-complete-r1/op/2e9f3a5189a18fe0/4",
+    "claim": "account-profile-bc3003a-complete-r1/callback/18ee089db6887a66",
+    "source": "x => x.ConfigureKeyVault()",
+    "captureBindings": []
+  },
+  {
+    "enclosing": "account-profile-bc3003a-complete-r1/method/2e9f3a5189a18fe0",
+    "callback": "account-profile-bc3003a-complete-r1/method/fee876ecfb8ab560",
+    "registration": "account-profile-bc3003a-complete-r1/op/2e9f3a5189a18fe0/12",
+    "claim": "account-profile-bc3003a-complete-r1/callback/6575177720dfc0fb",
+    "source": "loggerConfiguration =>\n    {\n        loggerConfiguration\n            .MinimumLevel.Override(\"CorrelationId.CorrelationIdMiddleware\", LogEventLevel.Warning)\n            .MinimumLevel.Override(\"Elastic.Apm\", LogEventLevel.Error);\n    }",
+    "captureBindings": []
+  },
+  {
+    "enclosing": "account-profile-bc3003a-complete-r1/method/2e9f3a5189a18fe0",
+    "callback": "account-profile-bc3003a-complete-r1/method/ccfce0e0d709541d",
+    "registration": "account-profile-bc3003a-complete-r1/op/2e9f3a5189a18fe0/34",
+    "claim": "account-profile-bc3003a-complete-r1/callback/2f2ea87e50644152",
+    "source": "options =>\n{\n    options.RequestHeader = \"VCC-Api-OperationId\";\n    options.IncludeInResponse = true;\n    options.UpdateTraceIdentifier = false;\n}",
+    "captureBindings": []
+  },
+  {
+    "enclosing": "account-profile-bc3003a-complete-r1/method/2e9f3a5189a18fe0",
+    "callback": "account-profile-bc3003a-complete-r1/method/2f9e0a2104e19123",
+    "registration": "account-profile-bc3003a-complete-r1/op/2e9f3a5189a18fe0/45",
+    "claim": "account-profile-bc3003a-complete-r1/callback/310344a63122b5f2",
+    "source": "endpoints => { endpoints.MapControllers(); }",
+    "captureBindings": []
+  },
+  {
+    "enclosing": "account-profile-bc3003a-complete-r1/method/2e9f3a5189a18fe0",
+    "callback": "account-profile-bc3003a-complete-r1/method/d42be3437a6bfdee",
+    "registration": "account-profile-bc3003a-complete-r1/op/2e9f3a5189a18fe0/47",
+    "claim": "account-profile-bc3003a-complete-r1/callback/81da8ea0d074feb5",
+    "source": "options => { options.SetVolvoRouteTemplate(); }",
+    "captureBindings": []
+  },
+  {
+    "enclosing": "account-profile-bc3003a-complete-r1/method/2e9f3a5189a18fe0",
+    "callback": "account-profile-bc3003a-complete-r1/method/0e4f7117266c2475",
+    "registration": "account-profile-bc3003a-complete-r1/op/2e9f3a5189a18fe0/49",
+    "claim": "account-profile-bc3003a-complete-r1/callback/78ba6108ce0c062b",
+    "source": "options => options.AddVolvoUIOptions(app.Services.GetRequiredService<IApiVersionDescriptionProvider>())",
+    "captureBindings": [
+      {
+        "capture": "account-profile-bc3003a-complete-r1/capture/0e4f7117266c2475/a172cedcae47474b",
+        "value": "account-profile-bc3003a-complete-r1/v/2e9f3a5189a18fe0/28",
+        "mode": "reference"
+      }
+    ]
+  },
+  {
+    "enclosing": "account-profile-bc3003a-complete-r1/method/89e3ff2e07f03193",
+    "callback": "account-profile-bc3003a-complete-r1/method/ee6ab9d668435390",
+    "registration": "account-profile-bc3003a-complete-r1/op/89e3ff2e07f03193/2",
+    "claim": "account-profile-bc3003a-complete-r1/callback/6d654e446bb45b2b",
+    "source": "policy =>\n            {\n                policy.RequireVolvoIDScope(Scopes.OpenId);\n                policy.RequireVolvoIDScope(Scopes.Profile);\n                policy.AddAuthenticationSchemes(VolvoIdTokenValidationDefaults.AuthenticationScheme);\n            }",
+    "captureBindings": []
+  }
+]

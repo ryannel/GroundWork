@@ -1,0 +1,147 @@
+[
+  {
+    "coordinate": "org.springframework.boot:spring-boot-starter-web",
+    "version": "parent-managed-unresolved",
+    "artifact": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/artifact/a579ebcba78e8191b3fa"
+  },
+  {
+    "coordinate": "org.springframework.boot:spring-boot-starter-graphql",
+    "version": "parent-managed-unresolved",
+    "artifact": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/artifact/e3b41379410c1181e504"
+  },
+  {
+    "coordinate": "org.springframework.boot:spring-boot-starter-security",
+    "version": "parent-managed-unresolved",
+    "artifact": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/artifact/41df1a5061fa3c05c31e"
+  },
+  {
+    "coordinate": "org.springframework.boot:spring-boot-starter-oauth2-resource-server",
+    "version": "parent-managed-unresolved",
+    "artifact": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/artifact/e9b3dc663ecd5e9ef55e"
+  },
+  {
+    "coordinate": "org.springframework.boot:spring-boot-starter-oauth2-client",
+    "version": "parent-managed-unresolved",
+    "artifact": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/artifact/e8681e8f6a6dd14a3d0d"
+  },
+  {
+    "coordinate": "org.springframework.boot:spring-boot-starter-validation",
+    "version": "parent-managed-unresolved",
+    "artifact": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/artifact/dc6c8795da4bebc54286"
+  },
+  {
+    "coordinate": "org.springframework.boot:spring-boot-starter-data-mongodb",
+    "version": "parent-managed-unresolved",
+    "artifact": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/artifact/c15c501e16a700ecd216"
+  },
+  {
+    "coordinate": "org.springframework.boot:spring-boot-starter-actuator",
+    "version": "parent-managed-unresolved",
+    "artifact": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/artifact/274bf57db375b2f0ffdd"
+  },
+  {
+    "coordinate": "com.volvocars.ecom:com-volvocars-ecom-web-logging",
+    "version": "4.0.48",
+    "artifact": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/artifact/c634d93dbe551dbf0ebc"
+  },
+  {
+    "coordinate": "io.micrometer:micrometer-registry-prometheus",
+    "version": "parent-managed-unresolved",
+    "artifact": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/artifact/dfa41a8c7d61d6a3157e"
+  },
+  {
+    "coordinate": "org.apache.logging.log4j:log4j-layout-template-json",
+    "version": "parent-managed-unresolved",
+    "artifact": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/artifact/ecd7c57cc37613d57c88"
+  },
+  {
+    "coordinate": "io.opentelemetry.instrumentation:opentelemetry-spring-boot-starter",
+    "version": "parent-managed-unresolved",
+    "artifact": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/artifact/22d7c7e0d241466d2a59"
+  },
+  {
+    "coordinate": "com.apollographql.federation:federation-graphql-java-support",
+    "version": "6.1.0",
+    "artifact": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/artifact/dac3ce22d70144a6de53"
+  },
+  {
+    "coordinate": "org.projectlombok:lombok",
+    "version": "parent-managed-unresolved",
+    "artifact": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/artifact/1858d8f44fc2fd750e0e"
+  },
+  {
+    "coordinate": "org.instancio:instancio-junit",
+    "version": "6.0.1",
+    "artifact": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/artifact/86d0c43dbbaf367bbbb4"
+  },
+  {
+    "coordinate": "org.springframework.boot:spring-boot-starter-test",
+    "version": "parent-managed-unresolved",
+    "artifact": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/artifact/1a6803fa107003c8ee61"
+  },
+  {
+    "coordinate": "org.springframework.boot:spring-boot-testcontainers",
+    "version": "parent-managed-unresolved",
+    "artifact": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/artifact/db1753c79c0a497d5d02"
+  },
+  {
+    "coordinate": "org.testcontainers:testcontainers-mongodb",
+    "version": "parent-managed-unresolved",
+    "artifact": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/artifact/faa1e7c82ffe19d0c429"
+  },
+  {
+    "coordinate": "org.testcontainers:testcontainers-junit-jupiter",
+    "version": "parent-managed-unresolved",
+    "artifact": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/artifact/a9b6cbf20c0ce014ff4b"
+  },
+  {
+    "coordinate": "org.springframework.boot:spring-boot-starter-graphql-test",
+    "version": "parent-managed-unresolved",
+    "artifact": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/artifact/869dcc2500a66db0cafa"
+  },
+  {
+    "coordinate": "org.springframework.boot:spring-boot-starter-security-test",
+    "version": "parent-managed-unresolved",
+    "artifact": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/artifact/f52c181940ed8c952a5a"
+  },
+  {
+    "coordinate": "com.volvocars.ecom:restclient",
+    "version": "1.23.0",
+    "artifact": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/artifact/5a8c897ae08307cc5ef4"
+  },
+  {
+    "coordinate": "io.flamingock:flamingock-community",
+    "version": "parent-managed-unresolved",
+    "artifact": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/artifact/8d400b92d6ae07e2b379"
+  },
+  {
+    "coordinate": "io.flamingock:flamingock-springboot-integration",
+    "version": "parent-managed-unresolved",
+    "artifact": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/artifact/217ecfc453c5a3811450"
+  },
+  {
+    "coordinate": "io.flamingock:flamingock-mongodb-springdata-targetsystem",
+    "version": "parent-managed-unresolved",
+    "artifact": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/artifact/580157d10b60b0ea6cfb"
+  },
+  {
+    "coordinate": "io.flamingock:mongock-support",
+    "version": "parent-managed-unresolved",
+    "artifact": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/artifact/7c957e0a2e8e96195b81"
+  },
+  {
+    "coordinate": "io.flamingock:flamingock-springboot-test-support",
+    "version": "parent-managed-unresolved",
+    "artifact": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/artifact/23cc7a243b89bbb096c2"
+  },
+  {
+    "coordinate": "org.springframework.cloud:spring-cloud-starter-vault-config",
+    "version": "parent-managed-unresolved",
+    "artifact": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/artifact/46d3edfc5ed61f0b34f0"
+  },
+  {
+    "coordinate": "com.volvocars.ecom:com-volvocars-ecom",
+    "version": "4.0.48",
+    "artifact": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/artifact/27997992e8b7928fa7c2"
+  }
+]

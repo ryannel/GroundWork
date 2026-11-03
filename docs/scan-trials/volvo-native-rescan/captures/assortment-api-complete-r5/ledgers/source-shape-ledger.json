@@ -1,0 +1,2282 @@
+[
+  {
+    "type": "PopCat.Assortment.Repository.Configure",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/9e6931ac0a76a258",
+    "path": "src/PopCat.Assortment.Repository/Configure.cs",
+    "lines": [9, 29],
+    "fields": 0,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Ocelot.Host.Constants",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/5050ed05eb573817",
+    "path": "src/PopCat.Assortment.Ocelot.Host/Constants.cs",
+    "lines": [3, 6],
+    "fields": 0,
+    "completeness": "closed"
+  },
+  {
+    "type": "Program",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/90920d93e2c7e632",
+    "path": "src/PopCat.Assortment.CacheWorker.Host/Program.cs",
+    "lines": [37, 37],
+    "fields": 0,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Core.Configure",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/b26aea2328428643",
+    "path": "src/PopCat.Assortment.Core/Configure.cs",
+    "lines": [13, 44],
+    "fields": 0,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Core.FluentResultLogger",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/63ae0a685b1b9322",
+    "path": "src/PopCat.Assortment.Core/FluentResultLogger.cs",
+    "lines": [3, 28],
+    "fields": 0,
+    "completeness": "partial"
+  },
+  {
+    "type": "PopCat.Assortment.Integration.Configure",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/77875ca1fe238957",
+    "path": "src/PopCat.Assortment.Integration/Configure.cs",
+    "lines": [23, 128],
+    "fields": 0,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Repository.BlobStorage.IBlobStorageClient",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/6c34a8893ff7232e",
+    "path": "src/PopCat.Assortment.Repository/BlobStorage/BlobStorageClient.cs",
+    "lines": [12, 21],
+    "fields": 0,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Repository.BlobStorage.BlobStorageClient",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/d96fd4292b91574a",
+    "path": "src/PopCat.Assortment.Repository/BlobStorage/BlobStorageClient.cs",
+    "lines": [23, 112],
+    "fields": 0,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Repository.BlobStorage.BlobProductFullDetailsKey",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/e4ad8f0c6f59b4ca",
+    "path": "src/PopCat.Assortment.Repository/BlobStorage/ProductFullDetailsRepository.cs",
+    "lines": [3, 7],
+    "fields": 1,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Repository.BlobStorage.Repository<PopCat.Assortment.Repository.BlobStorage.BlobProductFullDetailsKey>",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/c4f1641213aae5c5",
+    "path": "src/PopCat.Assortment.Repository/BlobStorage/Repository.cs",
+    "lines": [8, 21],
+    "fields": 0,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Repository.BlobStorage.ProductFullDetailsRepository",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/87d20142311f03e1",
+    "path": "src/PopCat.Assortment.Repository/BlobStorage/ProductFullDetailsRepository.cs",
+    "lines": [9, 12],
+    "fields": 0,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Repository.BlobStorage.VariantHistoryRepository",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/dd2059d64594ecfa",
+    "path": "src/PopCat.Assortment.Repository/BlobStorage/VariantHistoryRepository.cs",
+    "lines": [9, 66],
+    "fields": 0,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Repository.BlobStorage.GlobalDataKey",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/d174eb5e7d34ccd0",
+    "path": "src/PopCat.Assortment.Repository/BlobStorage/GlobalDataRepository.cs",
+    "lines": [3, 7],
+    "fields": 1,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Repository.BlobStorage.Repository<PopCat.Assortment.Repository.BlobStorage.GlobalDataKey>",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/cbd1a3bb1496a082",
+    "path": "src/PopCat.Assortment.Repository/BlobStorage/Repository.cs",
+    "lines": [8, 21],
+    "fields": 0,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Repository.BlobStorage.GlobalDataRepository",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/c2b427acdcbfd9fb",
+    "path": "src/PopCat.Assortment.Repository/BlobStorage/GlobalDataRepository.cs",
+    "lines": [9, 12],
+    "fields": 0,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Repository.BlobStorage.HasMoreSuccess",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/925422548932099f",
+    "path": "src/PopCat.Assortment.Repository/BlobStorage/HasMoreSuccess.cs",
+    "lines": [2, 7],
+    "fields": 0,
+    "completeness": "partial"
+  },
+  {
+    "type": "PopCat.Assortment.Repository.BlobStorage.IRepositoryKey",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/b1b6a33d7d5ff39b",
+    "path": "src/PopCat.Assortment.Repository/BlobStorage/Repository.cs",
+    "lines": [3, 6],
+    "fields": 0,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Repository.BlobStorage.Repository<T>",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/21f5ab990b1f1a8a",
+    "path": "src/PopCat.Assortment.Repository/BlobStorage/Repository.cs",
+    "lines": [8, 21],
+    "fields": 0,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Repository.BlobStorage.GlobalDictionaryEntriesKey",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/d939a3798bc21712",
+    "path": "src/PopCat.Assortment.Repository/BlobStorage/GlobalDictionaryEntriesRepository.cs",
+    "lines": [3, 7],
+    "fields": 2,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Repository.BlobStorage.Repository<PopCat.Assortment.Repository.BlobStorage.GlobalDictionaryEntriesKey>",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/433f7b775bc429ff",
+    "path": "src/PopCat.Assortment.Repository/BlobStorage/Repository.cs",
+    "lines": [8, 21],
+    "fields": 0,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Repository.BlobStorage.GlobalDictionaryEntriesRepository",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/a5657a29e71fb234",
+    "path": "src/PopCat.Assortment.Repository/BlobStorage/GlobalDictionaryEntriesRepository.cs",
+    "lines": [9, 12],
+    "fields": 0,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Repository.BlobStorage.MarketAuthEntriesKey",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/41df256edf34f7c2",
+    "path": "src/PopCat.Assortment.Repository/BlobStorage/MarketAuthEntriesRepository.cs",
+    "lines": [3, 7],
+    "fields": 3,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Repository.BlobStorage.Repository<PopCat.Assortment.Repository.BlobStorage.MarketAuthEntriesKey>",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/82457e6d7e6fb0fe",
+    "path": "src/PopCat.Assortment.Repository/BlobStorage/Repository.cs",
+    "lines": [8, 21],
+    "fields": 0,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Repository.BlobStorage.MarketAuthEntriesRepository",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/d3f5b99f4a8820e7",
+    "path": "src/PopCat.Assortment.Repository/BlobStorage/MarketAuthEntriesRepository.cs",
+    "lines": [9, 12],
+    "fields": 0,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Repository.BlobStorage.BlobStorageHealthCheck",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/10f6a35612bf04da",
+    "path": "src/PopCat.Assortment.Repository/BlobStorage/BlobStorageHealthCheck.cs",
+    "lines": [5, 33],
+    "fields": 0,
+    "completeness": "partial"
+  },
+  {
+    "type": "PopCat.Assortment.Repository.BlobStorage.CarConfigurationKey",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/83b278c6ebc6fe3c",
+    "path": "src/PopCat.Assortment.Repository/BlobStorage/CarConfigurationRepository.cs",
+    "lines": [3, 18],
+    "fields": 3,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Repository.BlobStorage.Repository<PopCat.Assortment.Repository.BlobStorage.CarConfigurationKey>",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/82c29e559910d970",
+    "path": "src/PopCat.Assortment.Repository/BlobStorage/Repository.cs",
+    "lines": [8, 21],
+    "fields": 0,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Repository.BlobStorage.CarConfigurationRepository",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/735d569fdbb8ae28",
+    "path": "src/PopCat.Assortment.Repository/BlobStorage/CarConfigurationRepository.cs",
+    "lines": [20, 23],
+    "fields": 0,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Repository.BlobStorage.UpstreamEntitiesKey",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/48af972497ab9951",
+    "path": "src/PopCat.Assortment.Repository/BlobStorage/UpstreamEntitiesRepository.cs",
+    "lines": [3, 7],
+    "fields": 1,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Repository.BlobStorage.Repository<PopCat.Assortment.Repository.BlobStorage.UpstreamEntitiesKey>",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/d5049c541d6975fd",
+    "path": "src/PopCat.Assortment.Repository/BlobStorage/Repository.cs",
+    "lines": [8, 21],
+    "fields": 0,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Repository.BlobStorage.UpstreamEntitiesRepository",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/532441528ad8d77f",
+    "path": "src/PopCat.Assortment.Repository/BlobStorage/UpstreamEntitiesRepository.cs",
+    "lines": [9, 12],
+    "fields": 0,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Ocelot.Host.Configuration.OcelotHost",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/db0d6cef67b42b59",
+    "path": "src/PopCat.Assortment.Ocelot.Host/Configuration/OcelotHost.cs",
+    "lines": [3, 11],
+    "fields": 5,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Ocelot.Host.Configuration.OAuthSettings",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/2618648d1153b5e0",
+    "path": "src/PopCat.Assortment.Ocelot.Host/Configuration/OAuthSettings.cs",
+    "lines": [6, 15],
+    "fields": 6,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Ocelot.Host.Configuration.OAuthConfig",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/3e12c523cedb4b24",
+    "path": "src/PopCat.Assortment.Ocelot.Host/Configuration/OAuthSettings.cs",
+    "lines": [17, 17],
+    "fields": 6,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Ocelot.Host.Configuration.OAuthSettingsExtensions",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/ffc8ac9ec924568e",
+    "path": "src/PopCat.Assortment.Ocelot.Host/Configuration/OAuthSettings.cs",
+    "lines": [19, 58],
+    "fields": 0,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Ocelot.Host.Extensions.ApplicationBuilderExtensions",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/7f2f35567a2a8f63",
+    "path": "src/PopCat.Assortment.Ocelot.Host/Extensions/ApplicationBuilderExtensions.cs",
+    "lines": [13, 91],
+    "fields": 0,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Ocelot.Host.Extensions.CorrelationIdExtensions",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/0bb0acdafbdaa4f0",
+    "path": "src/PopCat.Assortment.Ocelot.Host/Extensions/CorrelationIdExtensions.cs",
+    "lines": [6, 24],
+    "fields": 0,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Ocelot.Host.Extensions.OcelotExtensions",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/572fd1122f3db193",
+    "path": "src/PopCat.Assortment.Ocelot.Host/Extensions/OcelotExtensions.cs",
+    "lines": [9, 36],
+    "fields": 0,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Ocelot.Host.Extensions.SwaggerExtensions",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/5d6fc1ae762e2bce",
+    "path": "src/PopCat.Assortment.Ocelot.Host/Extensions/SwaggerExtensions.cs",
+    "lines": [9, 93],
+    "fields": 0,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Ocelot.Host.Extensions.HealthCheckExtensions",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/0154a60777c2ebf0",
+    "path": "src/PopCat.Assortment.Ocelot.Host/Extensions/HealthCheckExtensions.cs",
+    "lines": [5, 35],
+    "fields": 0,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Core.Configuration.RedisSettings",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/931d01557f348dc2",
+    "path": "src/PopCat.Assortment.Core/Configuration/RedisSettings.cs",
+    "lines": [3, 7],
+    "fields": 2,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Core.Configuration.ProviderClientNameSettings",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/7d2f8ee348e995e4",
+    "path": "src/PopCat.Assortment.Core/Configuration/ProviderClientNameSettings.cs",
+    "lines": [3, 7],
+    "fields": 2,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Core.Builders.MarketAuthEntryFactory",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/7384b7352c7162f4",
+    "path": "src/PopCat.Assortment.Core/Builders/MarketAuthEntryFactory.cs",
+    "lines": [4, 30],
+    "fields": 0,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Core.Builders.IProductDetailsBuilder",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/ffec61c22b3c9ddd",
+    "path": "src/PopCat.Assortment.Core/Builders/ProductDetailsBuilder.cs",
+    "lines": [5, 11],
+    "fields": 0,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Core.Builders.ProductDetailsBuilder",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/17fe2d3a5669877d",
+    "path": "src/PopCat.Assortment.Core/Builders/ProductDetailsBuilder.cs",
+    "lines": [13, 76],
+    "fields": 0,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Core.Keys.CacheKeys",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/d6536e71c7ac7bf4",
+    "path": "src/PopCat.Assortment.Core/Keys/CacheKeys.cs",
+    "lines": [3, 16],
+    "fields": 0,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Core.Helper.CountrySetup",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/ee8e24802931c3a4",
+    "path": "src/PopCat.Assortment.Core/Helper/CountrySetup.cs",
+    "lines": [5, 275],
+    "fields": 0,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Core.Services.CarConfigCacheService",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/cdc1c64e5cf75799",
+    "path": "src/PopCat.Assortment.Core/Services/CarConfigCacheService.cs",
+    "lines": [13, 244],
+    "fields": 0,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Core.Services.UpstreamEntityCacheService",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/f67e8ff83819a069",
+    "path": "src/PopCat.Assortment.Core/Services/UpstreamEntityCacheService.cs",
+    "lines": [10, 142],
+    "fields": 0,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Core.Services.ProductServiceService",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/37c8530f3f8885a4",
+    "path": "src/PopCat.Assortment.Core/Services/ProductServiceService.cs",
+    "lines": [10, 146],
+    "fields": 0,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Core.Services.ExternalCarCodeCacheService",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/edfd0acfb72196be",
+    "path": "src/PopCat.Assortment.Core/Services/ExternalCarCodeCacheService.cs",
+    "lines": [14, 175],
+    "fields": 0,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Core.Services.GlobalDictionaryCacheService",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/a47432f9b146ac69",
+    "path": "src/PopCat.Assortment.Core/Services/GlobalDictionaryCacheService.cs",
+    "lines": [11, 132],
+    "fields": 0,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Core.Services.ClassificationCacheService",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/9f0d2fe60799d34d",
+    "path": "src/PopCat.Assortment.Core/Services/ClassificationCacheService.cs",
+    "lines": [9, 85],
+    "fields": 0,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Core.Services.MarketAuthCacheService",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/fd8429d3f77b34c5",
+    "path": "src/PopCat.Assortment.Core/Services/MarketAuthCacheService.cs",
+    "lines": [12, 128],
+    "fields": 0,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Core.Services.RedisCacheService",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/c366d4d39bfe54cf",
+    "path": "src/PopCat.Assortment.Core/Services/RedisCacheService.cs",
+    "lines": [6, 82],
+    "fields": 0,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Core.Services.SpecMarketService",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/ddb1bdbe092a2d28",
+    "path": "src/PopCat.Assortment.Core/Services/SpecMarketService.cs",
+    "lines": [7, 143],
+    "fields": 0,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Core.Services.ICacheSerializerService",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/b93395aab538d476",
+    "path": "src/PopCat.Assortment.Core/Services/CacheSerializerService.cs",
+    "lines": [5, 9],
+    "fields": 0,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Core.Services.CacheSerializerService",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/0d6d1e82eab2bffd",
+    "path": "src/PopCat.Assortment.Core/Services/CacheSerializerService.cs",
+    "lines": [11, 34],
+    "fields": 0,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Core.Services.ProductFullDetailsCacheService",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/b359a5cbdd484498",
+    "path": "src/PopCat.Assortment.Core/Services/ProductFullDetailsCacheService.cs",
+    "lines": [11, 314],
+    "fields": 0,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Core.Services.SpecificationCacheService",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/b2c3c15d1dc49c81",
+    "path": "src/PopCat.Assortment.Core/Services/SpecificationCacheService.cs",
+    "lines": [9, 140],
+    "fields": 0,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Core.Services.ProductFullDetailsCacheManagementService",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/6e55b9aa9427e40e",
+    "path": "src/PopCat.Assortment.Core/Services/ProductFullDetailsCacheManagementService.cs",
+    "lines": [14, 335],
+    "fields": 0,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Core.Services.VariantHistoryService",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/f834546ff536211d",
+    "path": "src/PopCat.Assortment.Core/Services/VariantHistoryService.cs",
+    "lines": [12, 112],
+    "fields": 0,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Core.Services.IHotCacheService",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/fc0a5ab2151ea704",
+    "path": "src/PopCat.Assortment.Core/Services/IHotCacheService.cs",
+    "lines": [3, 10],
+    "fields": 0,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Core.Services.HotCacheDatabase",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/9088921b604faf50",
+    "path": "src/PopCat.Assortment.Core/Services/IHotCacheService.cs",
+    "lines": [12, 16],
+    "fields": 0,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Core.Services.TransformationService",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/9e604b97430e182d",
+    "path": "src/PopCat.Assortment.Core/Services/TransformationService.cs",
+    "lines": [10, 194],
+    "fields": 0,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Host.Configuration.OAuthSettings",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/bfead09ae033b99d",
+    "path": "src/PopCat.Assortment.Host/Configuration/OAuthSettings.cs",
+    "lines": [6, 15],
+    "fields": 6,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Host.Configuration.OAuthConfig",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/848132ba1df2bc9c",
+    "path": "src/PopCat.Assortment.Host/Configuration/OAuthSettings.cs",
+    "lines": [17, 17],
+    "fields": 6,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Host.Configuration.OAuthSettingsExtensions",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/ec14a08fa2f9efc1",
+    "path": "src/PopCat.Assortment.Host/Configuration/OAuthSettings.cs",
+    "lines": [19, 58],
+    "fields": 0,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Host.Extensions.ApplicationBuilderExtensions",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/a95ada1e9d7d4865",
+    "path": "src/PopCat.Assortment.Host/Extensions/ApplicationBuilderExtensions.cs",
+    "lines": [18, 139],
+    "fields": 0,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Host.Extensions.CorrelationIdExtensions",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/a33ac9fd04f54c72",
+    "path": "src/PopCat.Assortment.Host/Extensions/CorrelationIdExtensions.cs",
+    "lines": [6, 24],
+    "fields": 0,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Host.Extensions.SwaggerExtensions",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/6c616433d0ca3550",
+    "path": "src/PopCat.Assortment.Host/Extensions/SwaggerExtensions.cs",
+    "lines": [5, 55],
+    "fields": 0,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Host.Extensions.HealthCheckExtensions",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/f7c7966de2a79327",
+    "path": "src/PopCat.Assortment.Host/Extensions/HealthCheckExtensions.cs",
+    "lines": [6, 36],
+    "fields": 0,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Api.Response.TransformationCarResponse",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/3215c6474dc6c8cc",
+    "path": "src/PopCat.Assortment.Api/Response/TransformationResponse.cs",
+    "lines": [9, 12],
+    "fields": 1,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Api.Response.TransformationProductResponse",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/bad29b456ba17f6b",
+    "path": "src/PopCat.Assortment.Api/Response/TransformationResponse.cs",
+    "lines": [14, 19],
+    "fields": 3,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Api.Response.TransformationResponse",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/b90a5f6a7d13d066",
+    "path": "src/PopCat.Assortment.Api/Response/TransformationResponse.cs",
+    "lines": [3, 7],
+    "fields": 2,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Api.Utils.InputValidations",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/0497482d87cdcd5a",
+    "path": "src/PopCat.Assortment.Api/Utils/InputValidations.cs",
+    "lines": [6, 56],
+    "fields": 0,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Api.Utils.InputValidations.ValidSpecMarketAttribute",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/b84a8ae8d168849d",
+    "path": "src/PopCat.Assortment.Api/Utils/InputValidations.cs",
+    "lines": [9, 15],
+    "fields": 0,
+    "completeness": "partial"
+  },
+  {
+    "type": "PopCat.Assortment.Api.Utils.InputValidations.ValidMarketAttribute",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/61317b2cd1c3cc83",
+    "path": "src/PopCat.Assortment.Api/Utils/InputValidations.cs",
+    "lines": [17, 23],
+    "fields": 0,
+    "completeness": "partial"
+  },
+  {
+    "type": "PopCat.Assortment.Api.Utils.InputValidations.ValidPno12Attribute",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/f9ae8ca0b9f73e8f",
+    "path": "src/PopCat.Assortment.Api/Utils/InputValidations.cs",
+    "lines": [25, 31],
+    "fields": 0,
+    "completeness": "partial"
+  },
+  {
+    "type": "PopCat.Assortment.Api.Utils.InputValidations.ValidModelYearAttribute",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/901924fc4e9fd364",
+    "path": "src/PopCat.Assortment.Api/Utils/InputValidations.cs",
+    "lines": [33, 39],
+    "fields": 0,
+    "completeness": "partial"
+  },
+  {
+    "type": "PopCat.Assortment.Api.Utils.InputValidations.ValidGuidAttribute",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/b357436d53f09fa9",
+    "path": "src/PopCat.Assortment.Api/Utils/InputValidations.cs",
+    "lines": [40, 55],
+    "fields": 0,
+    "completeness": "partial"
+  },
+  {
+    "type": "PopCat.Assortment.Api.Utils.TransformationMapper",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/c302f541b67603dc",
+    "path": "src/PopCat.Assortment.Api/Utils/TransformationMapper.cs",
+    "lines": [7, 51],
+    "fields": 0,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Api.Request.ListPno12sRequest",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/e2bdd4d860b02a73",
+    "path": "src/PopCat.Assortment.Api/Request/ListPno12sRequest.cs",
+    "lines": [7, 22],
+    "fields": 5,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Api.Request.GetExternalCarCodeRequest",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/6b9454bbd84f5680",
+    "path": "src/PopCat.Assortment.Api/Request/GetExternalCarCodeRequest.cs",
+    "lines": [4, 9],
+    "fields": 5,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Api.Request.GetCarConfigRequest",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/c75ea61ed725c2bd",
+    "path": "src/PopCat.Assortment.Api/Request/GetCarConfigRequest.cs",
+    "lines": [6, 18],
+    "fields": 3,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Api.Request.TransformationCar",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/8cbabc1f24423991",
+    "path": "src/PopCat.Assortment.Api/Request/TransformationRequest.cs",
+    "lines": [15, 32],
+    "fields": 15,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Api.Request.TransformationProduct",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/9d3c27b26562ff2a",
+    "path": "src/PopCat.Assortment.Api/Request/TransformationRequest.cs",
+    "lines": [9, 13],
+    "fields": 2,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Api.Request.TransformationRequest",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/208ab3f4f08013b9",
+    "path": "src/PopCat.Assortment.Api/Request/TransformationRequest.cs",
+    "lines": [3, 7],
+    "fields": 2,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Api.Controllers.AssortmentApiControllerBase<T>",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/c742d539cdffcd9d",
+    "path": "src/PopCat.Assortment.Api/Controllers/AssortmentApiControllerBase.cs",
+    "lines": [8, 37],
+    "fields": 0,
+    "completeness": "partial"
+  },
+  {
+    "type": "PopCat.Assortment.Api.Controllers.SpecificationController",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/c534ad37c9ff7e90",
+    "path": "src/PopCat.Assortment.Api/Controllers/SpecificationController.cs",
+    "lines": [10, 50],
+    "fields": 0,
+    "completeness": "partial"
+  },
+  {
+    "type": "PopCat.Assortment.Api.Controllers.AboutController",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/e7c59f75ecf91ca7",
+    "path": "src/PopCat.Assortment.Api/Controllers/AboutController.cs",
+    "lines": [6, 18],
+    "fields": 0,
+    "completeness": "partial"
+  },
+  {
+    "type": "PopCat.Assortment.Api.Controllers.AssortmentApiControllerBase<PopCat.Assortment.Api.Controllers.MarketAuthController>",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/66e32f176645b471",
+    "path": "src/PopCat.Assortment.Api/Controllers/AssortmentApiControllerBase.cs",
+    "lines": [8, 37],
+    "fields": 0,
+    "completeness": "partial"
+  },
+  {
+    "type": "PopCat.Assortment.Api.Controllers.MarketAuthController",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/a2d628ce2a8f7b95",
+    "path": "src/PopCat.Assortment.Api/Controllers/MarketAuthController.cs",
+    "lines": [10, 38],
+    "fields": 0,
+    "completeness": "partial"
+  },
+  {
+    "type": "PopCat.Assortment.Api.Controllers.ProductsController",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/a8c4685c781f6f80",
+    "path": "src/PopCat.Assortment.Api/Controllers/ProductsController.cs",
+    "lines": [10, 50],
+    "fields": 0,
+    "completeness": "partial"
+  },
+  {
+    "type": "PopCat.Assortment.Api.Controllers.SpecMarketController",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/4515670765e9af6d",
+    "path": "src/PopCat.Assortment.Api/Controllers/SpecMarketController.cs",
+    "lines": [9, 21],
+    "fields": 0,
+    "completeness": "partial"
+  },
+  {
+    "type": "PopCat.Assortment.Api.Controllers.ExternalCarCodeController",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/5bff0c6991add5cf",
+    "path": "src/PopCat.Assortment.Api/Controllers/ExternalCarCodeController.cs",
+    "lines": [12, 59],
+    "fields": 0,
+    "completeness": "partial"
+  },
+  {
+    "type": "PopCat.Assortment.Api.Controllers.ClassificationController",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/34aa40bca3f82597",
+    "path": "src/PopCat.Assortment.Api/Controllers/ClassificationController.cs",
+    "lines": [15, 42],
+    "fields": 0,
+    "completeness": "partial"
+  },
+  {
+    "type": "PopCat.Assortment.Api.Controllers.CarConfigController",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/4d6b913f97297081",
+    "path": "src/PopCat.Assortment.Api/Controllers/CarConfigController.cs",
+    "lines": [13, 59],
+    "fields": 0,
+    "completeness": "partial"
+  },
+  {
+    "type": "PopCat.Assortment.Api.Controllers.GlobalDictionaryController",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/49ef37166bf30006",
+    "path": "src/PopCat.Assortment.Api/Controllers/GlobalDictionaryController.cs",
+    "lines": [10, 42],
+    "fields": 0,
+    "completeness": "partial"
+  },
+  {
+    "type": "PopCat.Assortment.Api.Controllers.ProductDetailsController",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/59c044ede0386f7e",
+    "path": "src/PopCat.Assortment.Api/Controllers/ProductDetailsController.cs",
+    "lines": [14, 186],
+    "fields": 0,
+    "completeness": "partial"
+  },
+  {
+    "type": "PopCat.Assortment.Contracts.HealthChecks.HealthCheckTags",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/ab7ca59f2c60e306",
+    "path": "src/PopCat.Assortment.Contracts/HealthChecks/HealthCheckTags.cs",
+    "lines": [3, 7],
+    "fields": 0,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Contracts.Models.Pno12QueryAggregation",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/18e5b4cb3795968f",
+    "path": "src/PopCat.Assortment.Contracts/Models/Pno12QueryAggregation.cs",
+    "lines": [3, 12],
+    "fields": 9,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Contracts.Models.ProductionWeek",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/815670d8052b451b",
+    "path": "src/PopCat.Assortment.Contracts/Models/ProductionWeek.cs",
+    "lines": [3, 6],
+    "fields": 2,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Contracts.Models.ProductionDates",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/f2c9cbc1d4278d7d",
+    "path": "src/PopCat.Assortment.Contracts/Models/ProductionDates.cs",
+    "lines": [3, 6],
+    "fields": 2,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Contracts.Models.IConfigItem",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/bb2a87aa6860763f",
+    "path": "src/PopCat.Assortment.Contracts/Models/IConfigItem.cs",
+    "lines": [3, 9],
+    "fields": 4,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Contracts.Models.CarConfigKey",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/90718fb845cc3f00",
+    "path": "src/PopCat.Assortment.Contracts/Models/CarConfigKey.cs",
+    "lines": [3, 7],
+    "fields": 3,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Contracts.Models.UpstreamEntity",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/d6a4d057c14c077e",
+    "path": "src/PopCat.Assortment.Contracts/Models/UpstreamEntity.cs",
+    "lines": [3, 3],
+    "fields": 6,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Contracts.Models.Feature",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/f0d62a2389a2f661",
+    "path": "src/PopCat.Assortment.Contracts/Models/Feature.cs",
+    "lines": [3, 12],
+    "fields": 8,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Contracts.Models.ProductIdPaginationToken",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/950f5427089c1231",
+    "path": "src/PopCat.Assortment.Contracts/Models/ProductIdPaginationToken.cs",
+    "lines": [5, 13],
+    "fields": 2,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Contracts.Models.ElementType",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/2b1127f3fd70e8c7",
+    "path": "src/PopCat.Assortment.Contracts/Models/ElementType.cs",
+    "lines": [2, 15],
+    "fields": 0,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Contracts.Models.ICC",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/cb636f7ac4cf47a2",
+    "path": "src/PopCat.Assortment.Contracts/Models/ICC.cs",
+    "lines": [4, 63],
+    "fields": 13,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Contracts.Models.ReplacedOption",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/971b71ba2a8e5f3e",
+    "path": "src/PopCat.Assortment.Contracts/Models/ReplacedOption.cs",
+    "lines": [3, 9],
+    "fields": 5,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Contracts.Models.PackageOption",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/83bc132b40cb57e1",
+    "path": "src/PopCat.Assortment.Contracts/Models/PackageOption.cs",
+    "lines": [3, 11],
+    "fields": 7,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Contracts.Models.Colour",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/3fb87167fa2e04ea",
+    "path": "src/PopCat.Assortment.Contracts/Models/Colour.cs",
+    "lines": [3, 8],
+    "fields": 4,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Contracts.Models.PackageColour",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/29854b0cebdbbe9d",
+    "path": "src/PopCat.Assortment.Contracts/Models/PackageColour.cs",
+    "lines": [3, 9],
+    "fields": 5,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Contracts.Models.InteriorRoom",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/d27d08d228faac04",
+    "path": "src/PopCat.Assortment.Contracts/Models/InteriorRoom.cs",
+    "lines": [3, 9],
+    "fields": 5,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Contracts.Models.PackageInteriorRoom",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/87034b3f4700b012",
+    "path": "src/PopCat.Assortment.Contracts/Models/PackageInteriorRoom.cs",
+    "lines": [3, 10],
+    "fields": 6,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Contracts.Models.Package",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/e0974f9ac065ac28",
+    "path": "src/PopCat.Assortment.Contracts/Models/Package.cs",
+    "lines": [3, 11],
+    "fields": 7,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Contracts.Models.ProductTypePaginationToken",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/1e5b4437f426411f",
+    "path": "src/PopCat.Assortment.Contracts/Models/ProductTypePaginationToken.cs",
+    "lines": [5, 13],
+    "fields": 2,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Contracts.Models.ProductDetailsLookUp",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/434382f68b438094",
+    "path": "src/PopCat.Assortment.Contracts/Models/ProductDetailsLookUp.cs",
+    "lines": [3, 3],
+    "fields": 1,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Contracts.Models.ListPno12Query",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/bb2452e406468271",
+    "path": "src/PopCat.Assortment.Contracts/Models/ListPno12Query.cs",
+    "lines": [3, 9],
+    "fields": 5,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Contracts.Models.IDI",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/a3f106e06788b2e2",
+    "path": "src/PopCat.Assortment.Contracts/Models/IDI.cs",
+    "lines": [2, 26],
+    "fields": 9,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Contracts.Models.UpstreamProductType",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/72ebb8e13e1d3ecb",
+    "path": "src/PopCat.Assortment.Contracts/Models/DetailInfo.cs",
+    "lines": [20, 30],
+    "fields": 0,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Contracts.Models.Classification",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/3ebf40d39a25bb63",
+    "path": "src/PopCat.Assortment.Contracts/Models/Classification.cs",
+    "lines": [3, 3],
+    "fields": 3,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Contracts.Models.SpecificationValue",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/63ff65aad43d4c93",
+    "path": "src/PopCat.Assortment.Contracts/Models/SpecificationValue.cs",
+    "lines": [3, 3],
+    "fields": 7,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Contracts.Models.Transformation.TransformationCarQuery",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/b25549edd6924070",
+    "path": "src/PopCat.Assortment.Contracts/Models/Transformation/TransformationQuery.cs",
+    "lines": [9, 26],
+    "fields": 15,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Contracts.Models.VariantDetail",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/f99cde28b8b7c9f2",
+    "path": "src/PopCat.Assortment.Contracts/Models/VariantDetail.cs",
+    "lines": [5, 15],
+    "fields": 10,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Contracts.Models.ProductDetail",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/5b64f0d49426af4c",
+    "path": "src/PopCat.Assortment.Contracts/Models/ProductDetail.cs",
+    "lines": [3, 10],
+    "fields": 7,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Contracts.Models.Country",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/057b8235d92c98b5",
+    "path": "src/PopCat.Assortment.Contracts/Models/Country.cs",
+    "lines": [3, 8],
+    "fields": 4,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Contracts.Models.SpecMarket",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/8bca67d626a81a89",
+    "path": "src/PopCat.Assortment.Contracts/Models/SpecMarket.cs",
+    "lines": [3, 8],
+    "fields": 4,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Contracts.Models.SpecMarketsResponse",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/f60c29cf8a90d8cc",
+    "path": "src/PopCat.Assortment.Contracts/Models/SpecMarketsResponse.cs",
+    "lines": [3, 4],
+    "fields": 2,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Contracts.Models.CarInformation",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/c62e8d056a4d63e5",
+    "path": "src/PopCat.Assortment.Contracts/Models/CarInformation.cs",
+    "lines": [3, 18],
+    "fields": 14,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Contracts.Models.SMessage",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/f35b830bef27032c",
+    "path": "src/PopCat.Assortment.Contracts/Models/SMessage.cs",
+    "lines": [3, 8],
+    "fields": 4,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Contracts.Models.Option",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/413b77e515833ca6",
+    "path": "src/PopCat.Assortment.Contracts/Models/Option.cs",
+    "lines": [3, 10],
+    "fields": 6,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Contracts.Models.CarConfig",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/722ea071dc65acf4",
+    "path": "src/PopCat.Assortment.Contracts/Models/CarConfig.cs",
+    "lines": [3, 15],
+    "fields": 11,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Contracts.Models.VersionStatus",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/3e7178ff7761f15a",
+    "path": "src/PopCat.Assortment.Contracts/Models/VariantVersion.cs",
+    "lines": [3, 7],
+    "fields": 0,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Contracts.Models.VariantVersion",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/bd9b1fc53b1c7f53",
+    "path": "src/PopCat.Assortment.Contracts/Models/VariantVersion.cs",
+    "lines": [12, 17],
+    "fields": 5,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Contracts.Models.Pno12Components",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/a3ddcc4e6e081b32",
+    "path": "src/PopCat.Assortment.Contracts/Models/Pno12Components.cs",
+    "lines": [3, 12],
+    "fields": 7,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Contracts.Models.Pno12ListItem",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/810562e99c0adbc5",
+    "path": "src/PopCat.Assortment.Contracts/Models/Pno12ListItem.cs",
+    "lines": [3, 10],
+    "fields": 7,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Contracts.Models.ExternalCarCodeInfo",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/1ca3dd84d1db95c2",
+    "path": "src/PopCat.Assortment.Contracts/Models/ExternalCarCodeInfo.cs",
+    "lines": [3, 3],
+    "fields": 6,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Contracts.Models.ExternalCarCodeResponse",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/6778064fd47b73c3",
+    "path": "src/PopCat.Assortment.Contracts/Models/ExternalCarCodeInfo.cs",
+    "lines": [5, 5],
+    "fields": 2,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Contracts.Models.GlobalTags",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/19d2f9503f60f77a",
+    "path": "src/PopCat.Assortment.Contracts/Models/GlobalTags.cs",
+    "lines": [2, 2],
+    "fields": 2,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Contracts.Models.ListPno12QueryResult",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/bebee9ae2c5eea88",
+    "path": "src/PopCat.Assortment.Contracts/Models/ListPno12QueryResult.cs",
+    "lines": [3, 6],
+    "fields": 2,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Contracts.Models.Pno12",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/c8a40d7a11c5ce8a",
+    "path": "src/PopCat.Assortment.Contracts/Models/Pno12.cs",
+    "lines": [3, 8],
+    "fields": 5,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Contracts.Models.GlobalDictionary",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/962f41aa300f4ced",
+    "path": "src/PopCat.Assortment.Contracts/Models/GlobalDictionary.cs",
+    "lines": [2, 31],
+    "fields": 0,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Contracts.Models.IPno12Components",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/a6cef64f522f109d",
+    "path": "src/PopCat.Assortment.Contracts/Models/IPno12Components.cs",
+    "lines": [3, 12],
+    "fields": 7,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Contracts.Models.FeatureType",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/1d387d467d69a942",
+    "path": "src/PopCat.Assortment.Contracts/Models/FeatureType.cs",
+    "lines": [2, 18],
+    "fields": 0,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Contracts.Models.MarketAuthEntry",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/dcfea1cb187be283",
+    "path": "src/PopCat.Assortment.Contracts/Models/MarketAuthEntry.cs",
+    "lines": [2, 4],
+    "fields": 3,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Contracts.Models.GlobalDictionaryEntryDto",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/f5cc8f3bf03d2901",
+    "path": "src/PopCat.Assortment.Contracts/Models/GlobalDictionaryEntryDto.cs",
+    "lines": [2, 8],
+    "fields": 6,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Contracts.Models.GlobalDictionaryEntry",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/32890fa889df1366",
+    "path": "src/PopCat.Assortment.Contracts/Models/GlobalDictionaryEntry.cs",
+    "lines": [2, 6],
+    "fields": 4,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Contracts.Models.MarketAuthEntriesInfo",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/beaa557df36bf23d",
+    "path": "src/PopCat.Assortment.Contracts/Models/MarketAuthEntriesInfo.cs",
+    "lines": [3, 6],
+    "fields": 4,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Contracts.Models.MarketAuthorization",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/2decccfae0ffbdec",
+    "path": "src/PopCat.Assortment.Contracts/Models/MarketAuthorization.cs",
+    "lines": [2, 18],
+    "fields": 0,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Contracts.Models.Specification",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/d8f04f7ad8e52454",
+    "path": "src/PopCat.Assortment.Contracts/Models/Specification.cs",
+    "lines": [3, 3],
+    "fields": 6,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Contracts.Models.ICarConfigSummary",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/1e1e0d98dd7f8971",
+    "path": "src/PopCat.Assortment.Contracts/Models/ICarConfigSummary.cs",
+    "lines": [3, 10],
+    "fields": 5,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Contracts.Models.GlobalDictionaryEntriesInfo",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/c40bf3648467a068",
+    "path": "src/PopCat.Assortment.Contracts/Models/GlobalDictionaryEntriesInfo.cs",
+    "lines": [3, 5],
+    "fields": 3,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Contracts.Models.DetailInfoVariant",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/0200b901abe8c0d4",
+    "path": "src/PopCat.Assortment.Contracts/Models/DetailInfo.cs",
+    "lines": [12, 18],
+    "fields": 6,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Contracts.Models.DetailInfo",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/5e0cb803e5276c39",
+    "path": "src/PopCat.Assortment.Contracts/Models/DetailInfo.cs",
+    "lines": [3, 10],
+    "fields": 7,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Contracts.Errors.NotFoundError",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/461e2e34cece04ce",
+    "path": "src/PopCat.Assortment.Contracts/Errors/NotFoundError.cs",
+    "lines": [2, 9],
+    "fields": 3,
+    "completeness": "partial"
+  },
+  {
+    "type": "PopCat.Assortment.Contracts.Errors.ResultErrorExtensions",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/409f26923c0416dc",
+    "path": "src/PopCat.Assortment.Contracts/Errors/ResultErrorExtensions.cs",
+    "lines": [3, 10],
+    "fields": 0,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Contracts.Interfaces.ISpecMarketService",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/83b2ee46c17010a4",
+    "path": "src/PopCat.Assortment.Contracts/Interfaces/ISpecMarketService.cs",
+    "lines": [5, 10],
+    "fields": 0,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Contracts.Interfaces.IClassificationCacheService",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/a8ceb8d372a8a45a",
+    "path": "src/PopCat.Assortment.Contracts/Interfaces/IClassificationCacheService.cs",
+    "lines": [5, 10],
+    "fields": 0,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Contracts.Interfaces.ICarConfigCacheService",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/64a9ecf21a469fb2",
+    "path": "src/PopCat.Assortment.Contracts/Interfaces/ICarConfigCacheService.cs",
+    "lines": [4, 10],
+    "fields": 0,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Contracts.Interfaces.IUpstreamEntityCacheService",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/a861c23efa4c43cc",
+    "path": "src/PopCat.Assortment.Contracts/Interfaces/IUpstreamEntityCacheService.cs",
+    "lines": [5, 12],
+    "fields": 0,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Contracts.Interfaces.IExternalCarCodeCacheService",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/32028a8b4a9f9caf",
+    "path": "src/PopCat.Assortment.Contracts/Interfaces/IExternalCarCodeCacheService.cs",
+    "lines": [6, 12],
+    "fields": 0,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Contracts.Interfaces.IProductServiceService",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/8ab314530952e85b",
+    "path": "src/PopCat.Assortment.Contracts/Interfaces/IProductServiceService.cs",
+    "lines": [5, 10],
+    "fields": 0,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Contracts.Interfaces.IProductFullDetailsCacheService",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/9b13701e4cc321f6",
+    "path": "src/PopCat.Assortment.Contracts/Interfaces/IProductFullDetailsCacheService.cs",
+    "lines": [6, 23],
+    "fields": 0,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Contracts.Interfaces.IProductFullDetailsCacheManagementService",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/7922c37998b8cb9b",
+    "path": "src/PopCat.Assortment.Contracts/Interfaces/IProductFullDetailsCacheManagementService.cs",
+    "lines": [6, 35],
+    "fields": 0,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Contracts.Interfaces.ISpecificationCacheService",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/d4a9813a4de538bc",
+    "path": "src/PopCat.Assortment.Contracts/Interfaces/ISpecificationCacheService.cs",
+    "lines": [5, 12],
+    "fields": 0,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Contracts.Interfaces.ITransformationService",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/90cb30a04dd52f82",
+    "path": "src/PopCat.Assortment.Contracts/Interfaces/ITransformationService.cs",
+    "lines": [5, 8],
+    "fields": 0,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Contracts.Interfaces.IMarketAuthCacheService",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/c63689208b324c3f",
+    "path": "src/PopCat.Assortment.Contracts/Interfaces/IMarketAuthCacheService.cs",
+    "lines": [4, 9],
+    "fields": 0,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Contracts.Interfaces.IGlobalDictionaryCacheService",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/15e79397950f90d3",
+    "path": "src/PopCat.Assortment.Contracts/Interfaces/IGlobalDictionaryCacheService.cs",
+    "lines": [4, 10],
+    "fields": 0,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Contracts.Interfaces.IVariantHistoryService",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/8cea17be5e4a15f7",
+    "path": "src/PopCat.Assortment.Contracts/Interfaces/IVariantHistoryService.cs",
+    "lines": [6, 16],
+    "fields": 0,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.CacheWorker.Host.Configuration.KafkaConsumerSettings",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/1bdac77ba78ec09d",
+    "path": "src/PopCat.Assortment.CacheWorker.Host/Configuration/KafkaConsumerSettings.cs",
+    "lines": [4, 27],
+    "fields": 17,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.CacheWorker.Host.Configuration.KafkaConsumerSettingsExtensions",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/d8e37351cfd5a005",
+    "path": "src/PopCat.Assortment.CacheWorker.Host/Configuration/KafkaConsumerSettings.cs",
+    "lines": [28, 45],
+    "fields": 0,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.CacheWorker.Host.Extensions.LogExtensions",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/a76829b18da90da3",
+    "path": "src/PopCat.Assortment.CacheWorker.Host/Extensions/LogExtensions.cs",
+    "lines": [6, 21],
+    "fields": 0,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.CacheWorker.Host.Extensions.ApplicationBuilderExtensions",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/22281cfab26ff4de",
+    "path": "src/PopCat.Assortment.CacheWorker.Host/Extensions/ApplicationBuilderExtensions.cs",
+    "lines": [16, 75],
+    "fields": 0,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.CacheWorker.Host.MessageProcessor.ManageCommercialMessageProcessor",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/756763847637f136",
+    "path": "src/PopCat.Assortment.CacheWorker.Host/MessageProcessor/ManageCommercialMessageProcessor.cs",
+    "lines": [11, 125],
+    "fields": 1,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.CacheWorker.Host.MessageProcessor.ManageCommercialMessageProcessor.CommercialItem",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/ec0f7108de05ff11",
+    "path": "src/PopCat.Assortment.CacheWorker.Host/MessageProcessor/ManageCommercialMessageProcessor.cs",
+    "lines": [124, 124],
+    "fields": 2,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.CacheWorker.Host.MessageProcessor.ClassificationMessageProcessor",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/09a50250a63e5212",
+    "path": "src/PopCat.Assortment.CacheWorker.Host/MessageProcessor/ClassificationMessageProcessor.cs",
+    "lines": [11, 88],
+    "fields": 1,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.CacheWorker.Host.MessageProcessor.PCFGlobalDictionaryMessageProcessor",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/f3629a286f4a1ac0",
+    "path": "src/PopCat.Assortment.CacheWorker.Host/MessageProcessor/PCFGlobalDictionaryMessageProcessor.cs",
+    "lines": [9, 29],
+    "fields": 1,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.CacheWorker.Host.MessageProcessor.SpecificationMessageProcessor",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/ec8ba2fe1a5873a9",
+    "path": "src/PopCat.Assortment.CacheWorker.Host/MessageProcessor/SpecificationMessageProcessor.cs",
+    "lines": [11, 89],
+    "fields": 1,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.CacheWorker.Host.MessageProcessor.PCFCarConfigMessageProcessor",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/dc78974db60def3c",
+    "path": "src/PopCat.Assortment.CacheWorker.Host/MessageProcessor/PCFCarConfigMessageProcessor.cs",
+    "lines": [9, 28],
+    "fields": 1,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.CacheWorker.Host.MessageProcessor.PCFMarketAuthMessageProcessor",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/1164de22979209cb",
+    "path": "src/PopCat.Assortment.CacheWorker.Host/MessageProcessor/PCFMarketAuthMessageProcessor.cs",
+    "lines": [9, 26],
+    "fields": 1,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.CacheWorker.Host.MessageProcessor.ManageSegmentMessageProcessor",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/648b1159cc1c54bc",
+    "path": "src/PopCat.Assortment.CacheWorker.Host/MessageProcessor/ManageSegmentMessageProcessor.cs",
+    "lines": [11, 122],
+    "fields": 1,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.CacheWorker.Host.MessageProcessor.IMessageProcessor",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/1ad900113b1ba3e9",
+    "path": "src/PopCat.Assortment.CacheWorker.Host/MessageProcessor/IMessageProcessor.cs",
+    "lines": [5, 18],
+    "fields": 1,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.CacheWorker.Host.MessageProcessor.IMessageProcessorFactory",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/881d02c0c53637d4",
+    "path": "src/PopCat.Assortment.CacheWorker.Host/MessageProcessor/IMessageProcessorFactory.cs",
+    "lines": [3, 7],
+    "fields": 1,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.CacheWorker.Host.MessageProcessor.MessageProcessorFactory",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/21ceddc691b08903",
+    "path": "src/PopCat.Assortment.CacheWorker.Host/MessageProcessor/MessageProcessorFactory.cs",
+    "lines": [3, 12],
+    "fields": 1,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.CacheWorker.Host.MessageProcessor.PDSMessageProcessor",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/26181a6196be088d",
+    "path": "src/PopCat.Assortment.CacheWorker.Host/MessageProcessor/PDSMessageProcessor.cs",
+    "lines": [12, 160],
+    "fields": 1,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.CacheWorker.Host.MessageProcessor.PCFGlobalDictionaryEntriesMessageProcessor",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/8415c16607baf08f",
+    "path": "src/PopCat.Assortment.CacheWorker.Host/MessageProcessor/PCFGlobalDictionaryEntriesMessageProcessor.cs",
+    "lines": [11, 107],
+    "fields": 1,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.CacheWorker.Host.MessageProcessor.PCFMarketAuthEntriesMessageProcessor",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/e227594f43cdabb4",
+    "path": "src/PopCat.Assortment.CacheWorker.Host/MessageProcessor/PCFMarketAuthEntriesMessageProcessor.cs",
+    "lines": [11, 75],
+    "fields": 1,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.CacheWorker.Host.MessageProcessor.KafkaEventType",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/d5f782e4eb35b3d2",
+    "path": "src/PopCat.Assortment.CacheWorker.Host/MessageProcessor/KafkaEvent.cs",
+    "lines": [5, 11],
+    "fields": 0,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.CacheWorker.Host.MessageProcessor.KafkaEvent<T>",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/6a191c0559577f6f",
+    "path": "src/PopCat.Assortment.CacheWorker.Host/MessageProcessor/KafkaEvent.cs",
+    "lines": [13, 13],
+    "fields": 2,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.CacheWorker.Host.Services.KafkaConsumerService",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/c3488793ee5cd866",
+    "path": "src/PopCat.Assortment.CacheWorker.Host/Services/KafkaConsumerService.cs",
+    "lines": [7, 98],
+    "fields": 0,
+    "completeness": "partial"
+  },
+  {
+    "type": "PopCat.Assortment.Integration.PCF.IProductConfigurationClient",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/89b8099cf0fa9ccb",
+    "path": "src/PopCat.Assortment.Integration/PCF/ProductConfigurationClient.cs",
+    "lines": [16, 23],
+    "fields": 0,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Integration.PCF.ProductConfigurationClient",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/84fced34618e4c24",
+    "path": "src/PopCat.Assortment.Integration/PCF/ProductConfigurationClient.cs",
+    "lines": [25, 210],
+    "fields": 0,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Integration.ProductService.ProductServiceClientSettings",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/45fd14bf6561ee4c",
+    "path": "src/PopCat.Assortment.Integration/ProductService/ProductServiceClientSettings.cs",
+    "lines": [3, 8],
+    "fields": 3,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Integration.ProductService.IProductServiceClient",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/6756b3ac8e0e24a3",
+    "path": "src/PopCat.Assortment.Integration/ProductService/ProductServiceClient.cs",
+    "lines": [10, 15],
+    "fields": 0,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Integration.ProductService.ProductServiceClient",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/af75f34420bb2be2",
+    "path": "src/PopCat.Assortment.Integration/ProductService/ProductServiceClient.cs",
+    "lines": [17, 96],
+    "fields": 0,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Integration.HealthChecks.AzureTokenHealthCheck",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/ad5ad09f5defbd5d",
+    "path": "src/PopCat.Assortment.Integration/HealthChecks/AzureTokenHealthCheck.cs",
+    "lines": [6, 20],
+    "fields": 0,
+    "completeness": "partial"
+  },
+  {
+    "type": "PopCat.Assortment.Integration.HealthChecks.ProductServiceHealthCheck",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/5116a528fd6c251e",
+    "path": "src/PopCat.Assortment.Integration/HealthChecks/ProductServiceHealthCheck.cs",
+    "lines": [6, 17],
+    "fields": 0,
+    "completeness": "partial"
+  },
+  {
+    "type": "PopCat.Assortment.Integration.Azure.ITokenClient",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/8edeee751387a60b",
+    "path": "src/PopCat.Assortment.Integration/Azure/TokenClient.cs",
+    "lines": [7, 10],
+    "fields": 0,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Integration.Azure.TokenClient",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/6981efd387322c6e",
+    "path": "src/PopCat.Assortment.Integration/Azure/TokenClient.cs",
+    "lines": [12, 66],
+    "fields": 1,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Integration.Azure.ITokenProvider",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/3ce85962baa825be",
+    "path": "src/PopCat.Assortment.Integration/Azure/TokenProvider.cs",
+    "lines": [6, 9],
+    "fields": 0,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Integration.Azure.TokenProvider",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/297b902185646aa0",
+    "path": "src/PopCat.Assortment.Integration/Azure/TokenProvider.cs",
+    "lines": [11, 59],
+    "fields": 0,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Integration.LaunchDarkly.IFeatureFlagService",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/1038ddd1ed36be96",
+    "path": "src/PopCat.Assortment.Integration/LaunchDarkly/FeatureFlagService.cs",
+    "lines": [3, 7],
+    "fields": 0,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Integration.LaunchDarkly.FeatureFlagService",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/3906161439f8e176",
+    "path": "src/PopCat.Assortment.Integration/LaunchDarkly/FeatureFlagService.cs",
+    "lines": [9, 22],
+    "fields": 0,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Integration.LaunchDarkly.IFeatureFlagClient",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/11624d4e7fcd8ee5",
+    "path": "src/PopCat.Assortment.Integration/LaunchDarkly/FeatureFlagClient.cs",
+    "lines": [8, 13],
+    "fields": 0,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Integration.LaunchDarkly.FeatureFlagClient",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/b412cd04c8e04353",
+    "path": "src/PopCat.Assortment.Integration/LaunchDarkly/FeatureFlagClient.cs",
+    "lines": [15, 64],
+    "fields": 0,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Integration.LaunchDarkly.LaunchDarklySettings",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/f4aef1288d650b51",
+    "path": "src/PopCat.Assortment.Integration/LaunchDarkly/LaunchDarklySettings.cs",
+    "lines": [3, 8],
+    "fields": 2,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Integration.LaunchDarkly.LaunchDarklyConfig",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/0c8d2fb7249c1aec",
+    "path": "src/PopCat.Assortment.Integration/LaunchDarkly/LaunchDarklySettings.cs",
+    "lines": [10, 16],
+    "fields": 2,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Integration.Common.AssortmentSettings",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/f7e52132cfe76acf",
+    "path": "src/PopCat.Assortment.Integration/Common/AssortmentSettings.cs",
+    "lines": [3, 8],
+    "fields": 3,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Integration.Common.RetryOptions",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/d24d18051b7d732d",
+    "path": "src/PopCat.Assortment.Integration/Common/RetryOptions.cs",
+    "lines": [2, 10],
+    "fields": 5,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Integration.Common.RetryConfig",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/658cefc10d0d7600",
+    "path": "src/PopCat.Assortment.Integration/Common/RetryOptions.cs",
+    "lines": [12, 12],
+    "fields": 5,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Integration.Common.RetryOptionsExtensions",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/ec72bb95ed908d76",
+    "path": "src/PopCat.Assortment.Integration/Common/RetryOptions.cs",
+    "lines": [14, 36],
+    "fields": 0,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Integration.ProductMapper.ProductMapperClientSettings",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/73f89cd1c4d99cb7",
+    "path": "src/PopCat.Assortment.Integration/ProductMapper/ProductMapperClientSettings.cs",
+    "lines": [3, 6],
+    "fields": 1,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Integration.ProductMapper.IProductMapperProvider",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/dff7bf938458ce00",
+    "path": "src/PopCat.Assortment.Integration/ProductMapper/ProductMapperProvider.cs",
+    "lines": [7, 10],
+    "fields": 0,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Integration.ProductMapper.ProductMapperProvider",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/66f935d34451850d",
+    "path": "src/PopCat.Assortment.Integration/ProductMapper/ProductMapperProvider.cs",
+    "lines": [12, 172],
+    "fields": 0,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Integration.Authentication.IConfidentialClientApplicationWrapper",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/597427ae3b14d00e",
+    "path": "src/PopCat.Assortment.Integration/Authentication/ConfidentialClientApplicationWrapper.cs",
+    "lines": [5, 8],
+    "fields": 0,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Integration.Authentication.ConfidentialClientApplicationWrapper",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/f868e7d712aa5c0c",
+    "path": "src/PopCat.Assortment.Integration/Authentication/ConfidentialClientApplicationWrapper.cs",
+    "lines": [10, 18],
+    "fields": 0,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Integration.Authentication.AzureAuthenticationDelegatingHandler",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/dbb1b577d6d40a13",
+    "path": "src/PopCat.Assortment.Integration/Authentication/AzureAuthenticationDelegatingHandler.cs",
+    "lines": [6, 40],
+    "fields": 0,
+    "completeness": "partial"
+  },
+  {
+    "type": "PopCat.Assortment.Repository.BlobStorage.Models.BlobStorageSettings",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/d8a64fd5760658e8",
+    "path": "src/PopCat.Assortment.Repository/BlobStorage/Models/BlobStorageSettings.cs",
+    "lines": [3, 6],
+    "fields": 1,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Ocelot.Host.Middlewares.SwaggerProxy.EndpointFilter",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/e8759ce3830b75aa",
+    "path": "src/PopCat.Assortment.Ocelot.Host/Middlewares/SwaggerProxy/EndpointFilter.cs",
+    "lines": [3, 33],
+    "fields": 2,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Ocelot.Host.Middlewares.SwaggerProxy.EndpointInformation",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/730d63b831a2afe4",
+    "path": "src/PopCat.Assortment.Ocelot.Host/Middlewares/SwaggerProxy/EndpointInformation.cs",
+    "lines": [3, 12],
+    "fields": 2,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Ocelot.Host.Middlewares.SwaggerProxy.SwaggerProxyOptions",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/a6f468353daebba2",
+    "path": "src/PopCat.Assortment.Ocelot.Host/Middlewares/SwaggerProxy/SwaggerProxyOptions.cs",
+    "lines": [3, 7],
+    "fields": 2,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Ocelot.Host.Middlewares.SwaggerProxy.SwaggerProxyMiddleware",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/c54fdfe9cc8e487c",
+    "path": "src/PopCat.Assortment.Ocelot.Host/Middlewares/SwaggerProxy/SwaggerProxyMiddleware.cs",
+    "lines": [10, 283],
+    "fields": 0,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Api.Controllers.AssortmentApiControllerBase<PopCat.Assortment.Api.Controllers.Admin.CacheController>",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/cf71e58fb31bf888",
+    "path": "src/PopCat.Assortment.Api/Controllers/AssortmentApiControllerBase.cs",
+    "lines": [8, 37],
+    "fields": 0,
+    "completeness": "partial"
+  },
+  {
+    "type": "PopCat.Assortment.Api.Controllers.Admin.CacheController",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/67d20a8a29e0e690",
+    "path": "src/PopCat.Assortment.Api/Controllers/Admin/CacheController.cs",
+    "lines": [10, 82],
+    "fields": 0,
+    "completeness": "partial"
+  },
+  {
+    "type": "PopCat.Assortment.Contracts.Models.Response.ProductDetailListResponse",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/e72cc1a11b59a64d",
+    "path": "src/PopCat.Assortment.Contracts/Models/Response/ProductDetailListResponse.cs",
+    "lines": [5, 7],
+    "fields": 0,
+    "completeness": "partial"
+  },
+  {
+    "type": "PopCat.Assortment.Contracts.Models.Response.ProductTypesListResponse",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/f037cea4351efccf",
+    "path": "src/PopCat.Assortment.Contracts/Models/Response/ProductTypesListResponse.cs",
+    "lines": [4, 6],
+    "fields": 0,
+    "completeness": "partial"
+  },
+  {
+    "type": "PopCat.Assortment.Contracts.Models.Response.VariantDetailListResponse",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/82a03db7595b2ae4",
+    "path": "src/PopCat.Assortment.Contracts/Models/Response/VariantDetailListResponse.cs",
+    "lines": [5, 7],
+    "fields": 0,
+    "completeness": "partial"
+  },
+  {
+    "type": "PopCat.Assortment.Contracts.Models.Response.CarConfigKeyListResponse",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/93bc08f9986ed825",
+    "path": "src/PopCat.Assortment.Contracts/Models/Response/Pno12ListResponse.cs",
+    "lines": [5, 8],
+    "fields": 1,
+    "completeness": "partial"
+  },
+  {
+    "type": "PopCat.Assortment.Contracts.Models.Constants.ExternalCarProviderConstants",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/e5802bff3059d1f0",
+    "path": "src/PopCat.Assortment.Contracts/Models/Constants/ExternalCarProviderConstants.cs",
+    "lines": [3, 9],
+    "fields": 0,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Contracts.Models.Transformation.TransformationCarResult",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/578f3772a64536d1",
+    "path": "src/PopCat.Assortment.Contracts/Models/Transformation/TransformationResult.cs",
+    "lines": [9, 12],
+    "fields": 1,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Contracts.Models.Transformation.TransformationProductResult",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/b695a3b83ca60c98",
+    "path": "src/PopCat.Assortment.Contracts/Models/Transformation/TransformationResult.cs",
+    "lines": [14, 19],
+    "fields": 3,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Contracts.Models.Transformation.TransformationResult",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/eb3f5e6707cc23bb",
+    "path": "src/PopCat.Assortment.Contracts/Models/Transformation/TransformationResult.cs",
+    "lines": [3, 7],
+    "fields": 2,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Contracts.Models.Transformation.TransformationProductQuery",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/23a28df8a3f9e0b4",
+    "path": "src/PopCat.Assortment.Contracts/Models/Transformation/TransformationQuery.cs",
+    "lines": [28, 32],
+    "fields": 2,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Contracts.Models.Transformation.TransformationQuery",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/e95338b3e3220b2a",
+    "path": "src/PopCat.Assortment.Contracts/Models/Transformation/TransformationQuery.cs",
+    "lines": [3, 7],
+    "fields": 2,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Contracts.Models.Requests.CarConfigQueryRequest",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/88d4c2acc6b13184",
+    "path": "src/PopCat.Assortment.Contracts/Models/Requests/CarConfigQueryRequest.cs",
+    "lines": [3, 17],
+    "fields": 12,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Contracts.Models.Requests.CarConfigDetailsRequest",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/3d6bdf361f48692a",
+    "path": "src/PopCat.Assortment.Contracts/Models/Requests/CarConfigDetailsRequest.cs",
+    "lines": [2, 2],
+    "fields": 3,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Contracts.Models.Requests.ExternalCarCodeRequest",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/3a42e8d5552b3519",
+    "path": "src/PopCat.Assortment.Contracts/Models/Requests/ExternalCarCodeRequest.cs",
+    "lines": [3, 3],
+    "fields": 5,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Contracts.Models.ProductOutput.RuleType",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/f628095588397d12",
+    "path": "src/PopCat.Assortment.Contracts/Models/ProductOutput/VariantRule.cs",
+    "lines": [17, 50],
+    "fields": 0,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Contracts.Models.ProductOutput.ClassificationType",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/1e513f7debf7b957",
+    "path": "src/PopCat.Assortment.Contracts/Models/ProductOutput/Classification.cs",
+    "lines": [11, 16],
+    "fields": 0,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Contracts.Models.ProductOutput.Brand",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/982f3c4851611db4",
+    "path": "src/PopCat.Assortment.Contracts/Models/ProductOutput/Brand.cs",
+    "lines": [3, 8],
+    "fields": 0,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Contracts.Models.ProductOutput.Classification",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/3f2c1d1dc314b357",
+    "path": "src/PopCat.Assortment.Contracts/Models/ProductOutput/Classification.cs",
+    "lines": [3, 9],
+    "fields": 5,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Contracts.Models.ProductOutput.Rule",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/4987b2ceb295a64a",
+    "path": "src/PopCat.Assortment.Contracts/Models/ProductOutput/VariantRule.cs",
+    "lines": [8, 15],
+    "fields": 6,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Contracts.Models.ProductOutput.ProductType",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/103ebbf2b405ffa3",
+    "path": "src/PopCat.Assortment.Contracts/Models/ProductOutput/ProductType.cs",
+    "lines": [3, 31],
+    "fields": 0,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Contracts.Models.ProductOutput.ProductQuery",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/96cd10cb8d2e5a22",
+    "path": "src/PopCat.Assortment.Contracts/Models/ProductOutput/ProductQuery.cs",
+    "lines": [3, 42],
+    "fields": 5,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Contracts.Models.ProductOutput.ComponentType",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/8c80acf4135ac301",
+    "path": "src/PopCat.Assortment.Contracts/Models/ProductOutput/ComponentTypes.cs",
+    "lines": [3, 7],
+    "fields": 0,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Contracts.Models.ProductOutput.ItemType",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/24b2f2035e8c8601",
+    "path": "src/PopCat.Assortment.Contracts/Models/ProductOutput/UpstreamItem.cs",
+    "lines": [14, 37],
+    "fields": 0,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Contracts.Models.ProductOutput.UpstreamItem",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/73c1428b7d1daab4",
+    "path": "src/PopCat.Assortment.Contracts/Models/ProductOutput/UpstreamItem.cs",
+    "lines": [3, 12],
+    "fields": 8,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Contracts.Models.ProductOutput.ProductVariant",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/d2e9ec0dfef94cdf",
+    "path": "src/PopCat.Assortment.Contracts/Models/ProductOutput/ProductVariant.cs",
+    "lines": [3, 12],
+    "fields": 8,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Contracts.Models.ProductOutput.Product",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/0be24b75aefbe5ff",
+    "path": "src/PopCat.Assortment.Contracts/Models/ProductOutput/Product.cs",
+    "lines": [3, 10],
+    "fields": 6,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Integration.ProductService.Models.PsProductType",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/f27a385c3f190625",
+    "path": "src/PopCat.Assortment.Integration/ProductService/Models/PsProductType.cs",
+    "lines": [3, 31],
+    "fields": 0,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Integration.ProductService.Models.PsBrand",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/12f988eb7fbb468d",
+    "path": "src/PopCat.Assortment.Integration/ProductService/Models/PsBrand.cs",
+    "lines": [5, 10],
+    "fields": 0,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Integration.ProductService.Models.PsProductQuery",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/c0a112c0efa2e714",
+    "path": "src/PopCat.Assortment.Integration/ProductService/Models/PsProductQuery.cs",
+    "lines": [5, 44],
+    "fields": 5,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Integration.ProductService.Models.PsProductQueryExtensions",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/39c17bd9fafae555",
+    "path": "src/PopCat.Assortment.Integration/ProductService/Models/PsProductQuery.cs",
+    "lines": [46, 56],
+    "fields": 0,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Integration.ProductService.Models.PsClassificationType",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/561783b5d9632908",
+    "path": "src/PopCat.Assortment.Integration/ProductService/Models/PsClassification.cs",
+    "lines": [13, 18],
+    "fields": 0,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Integration.ProductService.Models.PsRuleType",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/40bf8de003ee51d9",
+    "path": "src/PopCat.Assortment.Integration/ProductService/Models/PsRule.cs",
+    "lines": [45, 78],
+    "fields": 0,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Integration.ProductService.Models.PsRule",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/40482cf5a03edea3",
+    "path": "src/PopCat.Assortment.Integration/ProductService/Models/PsRule.cs",
+    "lines": [10, 22],
+    "fields": 6,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Integration.ProductService.Models.PsClassification",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/134c4e0ce97bc394",
+    "path": "src/PopCat.Assortment.Integration/ProductService/Models/PsClassification.cs",
+    "lines": [5, 11],
+    "fields": 5,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Integration.ProductService.Models.PsClassificationExtensions",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/e30132e37ac4fd49",
+    "path": "src/PopCat.Assortment.Integration/ProductService/Models/PsClassification.cs",
+    "lines": [20, 37],
+    "fields": 0,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Integration.ProductService.Models.PsComponentTypes",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/55f8d9a07bf120c1",
+    "path": "src/PopCat.Assortment.Integration/ProductService/Models/PsComponentTypes.cs",
+    "lines": [3, 7],
+    "fields": 0,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Integration.ProductService.Models.PsItemType",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/557e8e5b74527dc6",
+    "path": "src/PopCat.Assortment.Integration/ProductService/Models/PsUpstreamItem.cs",
+    "lines": [36, 59],
+    "fields": 0,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Integration.ProductService.Models.PsUpstreamItem",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/8073d3b56c5737f7",
+    "path": "src/PopCat.Assortment.Integration/ProductService/Models/PsUpstreamItem.cs",
+    "lines": [5, 14],
+    "fields": 8,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Integration.ProductService.Models.PsProductVariant",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/f9f5bcd6a4ab95f5",
+    "path": "src/PopCat.Assortment.Integration/ProductService/Models/PsProductVariant.cs",
+    "lines": [5, 14],
+    "fields": 8,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Integration.ProductService.Models.PsProduct",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/ef319acf5047550e",
+    "path": "src/PopCat.Assortment.Integration/ProductService/Models/PsProduct.cs",
+    "lines": [5, 12],
+    "fields": 6,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Integration.ProductService.Models.PsProductExtensions",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/de67ff7d4d5e1d55",
+    "path": "src/PopCat.Assortment.Integration/ProductService/Models/PsProduct.cs",
+    "lines": [14, 30],
+    "fields": 0,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Integration.ProductService.Models.PsRuleExtensions",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/4e42668db8556edf",
+    "path": "src/PopCat.Assortment.Integration/ProductService/Models/PsRule.cs",
+    "lines": [24, 43],
+    "fields": 0,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Integration.ProductService.Models.PsUpstreamItemExtensions",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/37157fa9db30c302",
+    "path": "src/PopCat.Assortment.Integration/ProductService/Models/PsUpstreamItem.cs",
+    "lines": [16, 34],
+    "fields": 0,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Integration.ProductService.Models.PsProductVariantExtensions",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/e1269682e6a1624c",
+    "path": "src/PopCat.Assortment.Integration/ProductService/Models/PsProductVariant.cs",
+    "lines": [16, 34],
+    "fields": 0,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Integration.ProductService.Models.PsBrandExtensions",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/ebb6fda2ffce4731",
+    "path": "src/PopCat.Assortment.Integration/ProductService/Models/PsBrand.cs",
+    "lines": [12, 16],
+    "fields": 0,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Integration.Azure.Models.AzureAdSettings",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/333e8dceb43318c7",
+    "path": "src/PopCat.Assortment.Integration/Azure/Models/AzureAdSettings.cs",
+    "lines": [2, 9],
+    "fields": 5,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Integration.Azure.Models.Token",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/2f29a9947f691cac",
+    "path": "src/PopCat.Assortment.Integration/Azure/Models/Token.cs",
+    "lines": [4, 26],
+    "fields": 3,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Integration.ProductMapper.Models.TokenToVariantsProduct",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/875647e16f865bef",
+    "path": "src/PopCat.Assortment.Integration/ProductMapper/Models/TokenToVariantsModels.cs",
+    "lines": [26, 30],
+    "fields": 2,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Integration.ProductMapper.Models.TokenToVariantsRequest",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/4e8774abe7f4f107",
+    "path": "src/PopCat.Assortment.Integration/ProductMapper/Models/TokenToVariantsModels.cs",
+    "lines": [5, 24],
+    "fields": 17,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Integration.ProductMapper.Models.TokenToVariantsMatchingVariant",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/2e8dbe5d772f55fe",
+    "path": "src/PopCat.Assortment.Integration/ProductMapper/Models/TokenToVariantsModels.cs",
+    "lines": [65, 71],
+    "fields": 4,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Integration.ProductMapper.Models.TokenToVariantsVariantResponse",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/436ba5bb48168375",
+    "path": "src/PopCat.Assortment.Integration/ProductMapper/Models/TokenToVariantsModels.cs",
+    "lines": [49, 63],
+    "fields": 12,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Integration.ProductMapper.Models.TokenToVariantsCarVariant",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/318e0cd6f8b61ec0",
+    "path": "src/PopCat.Assortment.Integration/ProductMapper/Models/TokenToVariantsModels.cs",
+    "lines": [43, 47],
+    "fields": 2,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Integration.ProductMapper.Models.TokenToVariantsMatchingProduct",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/9cd656b64b011bb4",
+    "path": "src/PopCat.Assortment.Integration/ProductMapper/Models/TokenToVariantsModels.cs",
+    "lines": [73, 78],
+    "fields": 3,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Integration.ProductMapper.Models.TokenToVariantsTransformationResult",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/1b43d1411fcd971d",
+    "path": "src/PopCat.Assortment.Integration/ProductMapper/Models/TokenToVariantsModels.cs",
+    "lines": [37, 41],
+    "fields": 2,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Integration.ProductMapper.Models.TokenToVariantsResponse",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/b7ff0827a8d0aaf9",
+    "path": "src/PopCat.Assortment.Integration/ProductMapper/Models/TokenToVariantsModels.cs",
+    "lines": [32, 35],
+    "fields": 1,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Integration.Assortment.Provider.IAssortmentProvider",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/f65e26e07425ffe0",
+    "path": "src/PopCat.Assortment.Integration/Assortment/Provider/AssortmentProvider.cs",
+    "lines": [5, 13],
+    "fields": 0,
+    "completeness": "closed"
+  },
+  {
+    "type": "PopCat.Assortment.Integration.Assortment.Provider.AssortmentProvider",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/c9b56679c5c3eda3",
+    "path": "src/PopCat.Assortment.Integration/Assortment/Provider/AssortmentProvider.cs",
+    "lines": [15, 326],
+    "fields": 0,
+    "completeness": "closed"
+  },
+  {
+    "type": "KafkaEvent<Classification>",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/65c7f1fff6149b6d",
+    "path": "src/PopCat.Assortment.CacheWorker.Host/MessageProcessor/KafkaEvent.cs",
+    "lines": [13, 13],
+    "fields": 2,
+    "completeness": "closed"
+  },
+  {
+    "type": "KafkaEvent<Specification>",
+    "shape": "assortment-6114c5d-complete-r5/shape/source/7e4f521bdac49f34",
+    "path": "src/PopCat.Assortment.CacheWorker.Host/MessageProcessor/KafkaEvent.cs",
+    "lines": [13, 13],
+    "fields": 2,
+    "completeness": "closed"
+  }
+]

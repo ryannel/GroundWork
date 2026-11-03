@@ -1,0 +1,15 @@
+# CaaS Car Configurator source capture
+
+Selected snapshot `bba83f88302e60668a388fce10536a09af76be5e274a724c2e4a98298e87f018` contains **96,262 records** and **12,479 checked pinned source ranges**.
+
+The complete local-source pass reconciles 232 tracked files, including all 86 production-named Go files and 1,415 function/lambda frames. Nine actual unary gRPC methods have host bindings, protobuf contracts and generated method addresses. Ten lifecycle entries and the process entry are separate. Exported client declarations are not server registrations; protobuf event declarations do not establish a broker subscription.
+
+Independent review read 16 full pinned files and passed 26 strict-schema queries, including support continuations. DeleteRuleset positively reaches Postgres without limits. GetCarSpecification and calculation entries reach Postgres before any cutoff; several calculation entries also reach the configured solver SDK boundary. HealthCheck's own handler has no outbound interaction. Middleware and imported policies remain separate source obligations.
+
+CreateRuleset's whole-entry query reaches its budget before displaying an I/O edge. Its source does write: begin a transaction, insert the ruleset and specification, then return Commit's error with deferred rollback. The exact boundaries, actual SQL arguments, persisted JSON fields and conditional nil-error acknowledgements are captured. A partial empty interaction view does not mean no outbound call. Commit and specification INSERT are also cut off in their owner traversals; exact-record/value queries retain them without claiming whole-path reachability.
+
+The author pack passes 129 schema-validated queries; 30 retain bounds. All 17 I/O sites have positive records and actual-argument checks, with 15 positive owner traversals. Three typed writes distinguish individual SQL success from transaction commit and durability. DDL describes intended tables, JSONB, defaults and cascade, not observed deployment. Go source shapes, protobuf message shapes and persisted JSON names such as `components2` remain separate. Protobuf content-type annotations describe the declared message encoding; effective imported gRPC headers/framing are not established here.
+
+[Compressed bundle](bundle.json.gz), [snapshot](snapshot.json), [handoff](HANDOFF.md), [author acceptance](acceptance.json) and [independent acceptance](independent-review/root-acceptance.json) retain the evidence. Decompress the bundle to a new JSON file for the validator/importer. Its parsed contents and digest are unchanged. The original-path source seal verifies 309 files; publication copies are separate.
+
+Source inspection is complete; automatic projection remains partial for defer/panic, goroutine interleaving, mutable aliases and imported dispatch/Scan/SDK transport. Solver calls retain actual source signatures and unresolved boundaries, without inventing HTTP paths or assuming each invocation performs network I/O. No app migration, source application build/test, fetch or live endpoint/store/broker call was performed.

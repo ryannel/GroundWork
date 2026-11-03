@@ -1,0 +1,191 @@
+[
+  {
+    "owner": "caas-car-configurator-5495209-complete-r2/implementation/47fcb3b925e25584",
+    "path": "internal/api/grpcserver/interceptors/panic.go",
+    "lines": [26, 32],
+    "reason": "Deferred source invocation after evaluating return values. Registration-time argument values and LIFO call are retained; defer mutation of named result cells, panic/recover stack policy and heap alias effects are not automatically solved.",
+    "gap": "caas-car-configurator-5495209-complete-r2/gap/execution/47fcb3b925e25584/b76f5d1cf5790cec"
+  },
+  {
+    "owner": "caas-car-configurator-5495209-complete-r2/implementation/1923c2adc7402555",
+    "path": "internal/api/grpcserver/interceptors/panic.go",
+    "lines": [30, 30],
+    "reason": "Go panic value and local deferred-call associations retained; recover stack context and process-wide propagation are not mechanically established.",
+    "gap": "caas-car-configurator-5495209-complete-r2/gap/execution/1923c2adc7402555/14c8fb61c35c9c2d"
+  },
+  {
+    "owner": "caas-car-configurator-5495209-complete-r2/implementation/e78e074dccefa7b8",
+    "path": "internal/app/lifecycle.go",
+    "lines": [28, 34],
+    "reason": "Source Go goroutine starts without result handle. Scheduler/interleaving/process-wide panic/recover effects are not established by local query frame separation.",
+    "gap": "caas-car-configurator-5495209-complete-r2/gap/execution/e78e074dccefa7b8/06bcf5a25391788c"
+  },
+  {
+    "owner": "caas-car-configurator-5495209-complete-r2/implementation/ac76bde1b20efd74",
+    "path": "internal/app/lifecycle.go",
+    "lines": [61, 66],
+    "reason": "Source Go goroutine starts without result handle. Scheduler/interleaving/process-wide panic/recover effects are not established by local query frame separation.",
+    "gap": "caas-car-configurator-5495209-complete-r2/gap/execution/ac76bde1b20efd74/47e8ed311bcfc962"
+  },
+  {
+    "owner": "caas-car-configurator-5495209-complete-r2/implementation/458d857dbf9dbbd3",
+    "path": "internal/database/postgres/migrator.go",
+    "lines": [43, 43],
+    "reason": "Deferred source invocation after evaluating return values. Registration-time argument values and LIFO call are retained; defer mutation of named result cells, panic/recover stack policy and heap alias effects are not automatically solved.",
+    "gap": "caas-car-configurator-5495209-complete-r2/gap/execution/458d857dbf9dbbd3/abd1605433593010"
+  },
+  {
+    "owner": "caas-car-configurator-5495209-complete-r2/implementation/458d857dbf9dbbd3",
+    "path": "internal/database/postgres/migrator.go",
+    "lines": [43, 43],
+    "reason": "Deferred source invocation after evaluating return values. Registration-time argument values and LIFO call are retained; defer mutation of named result cells, panic/recover stack policy and heap alias effects are not automatically solved.",
+    "gap": "caas-car-configurator-5495209-complete-r2/gap/execution/458d857dbf9dbbd3/abd1605433593010"
+  },
+  {
+    "owner": "caas-car-configurator-5495209-complete-r2/implementation/458d857dbf9dbbd3",
+    "path": "internal/database/postgres/migrator.go",
+    "lines": [43, 43],
+    "reason": "Deferred source invocation after evaluating return values. Registration-time argument values and LIFO call are retained; defer mutation of named result cells, panic/recover stack policy and heap alias effects are not automatically solved.",
+    "gap": "caas-car-configurator-5495209-complete-r2/gap/execution/458d857dbf9dbbd3/abd1605433593010"
+  },
+  {
+    "owner": "caas-car-configurator-5495209-complete-r2/implementation/4c8d7f70755c449c",
+    "path": "internal/database/postgres/repository.go",
+    "lines": [44, 44],
+    "reason": "Exact local pointer-out mutation: stored is passed by address to row.Scan then read by local conversion. Post-call source value is retained separately from prior zero initialisation and Scan error result. Imported decoding/heap contents are not mechanically inferred.",
+    "gap": "caas-car-configurator-5495209-complete-r2/gap/execution/4c8d7f70755c449c/049a511ac242e91e"
+  },
+  {
+    "owner": "caas-car-configurator-5495209-complete-r2/implementation/2031891f8292a08b",
+    "path": "internal/database/postgres/repository.go",
+    "lines": [73, 73],
+    "reason": "Exact local pointer-out mutation: spec is passed by address to row.Scan then read by local conversion. Post-call source value is retained separately from prior zero initialisation and Scan error result. Imported decoding/heap contents are not mechanically inferred.",
+    "gap": "caas-car-configurator-5495209-complete-r2/gap/execution/2031891f8292a08b/27a3e854004b2752"
+  },
+  {
+    "owner": "caas-car-configurator-5495209-complete-r2/implementation/d463707e969cdf53",
+    "path": "internal/database/postgres/repository.go",
+    "lines": [98, 98],
+    "reason": "Deferred source invocation after evaluating return values. Registration-time argument values and LIFO call are retained; defer mutation of named result cells, panic/recover stack policy and heap alias effects are not automatically solved.",
+    "gap": "caas-car-configurator-5495209-complete-r2/gap/execution/d463707e969cdf53/535a1bf5f4374857"
+  },
+  {
+    "owner": "caas-car-configurator-5495209-complete-r2/implementation/d463707e969cdf53",
+    "path": "internal/database/postgres/repository.go",
+    "lines": [98, 98],
+    "reason": "Deferred source invocation after evaluating return values. Registration-time argument values and LIFO call are retained; defer mutation of named result cells, panic/recover stack policy and heap alias effects are not automatically solved.",
+    "gap": "caas-car-configurator-5495209-complete-r2/gap/execution/d463707e969cdf53/535a1bf5f4374857"
+  },
+  {
+    "owner": "caas-car-configurator-5495209-complete-r2/implementation/d463707e969cdf53",
+    "path": "internal/database/postgres/repository.go",
+    "lines": [98, 98],
+    "reason": "Deferred source invocation after evaluating return values. Registration-time argument values and LIFO call are retained; defer mutation of named result cells, panic/recover stack policy and heap alias effects are not automatically solved.",
+    "gap": "caas-car-configurator-5495209-complete-r2/gap/execution/d463707e969cdf53/535a1bf5f4374857"
+  },
+  {
+    "owner": "caas-car-configurator-5495209-complete-r2/implementation/a8830b509feea3fd",
+    "path": "internal/domain/ruleset/fake.go",
+    "lines": [59, 59],
+    "reason": "Go panic value and local deferred-call associations retained; recover stack context and process-wide propagation are not mechanically established.",
+    "gap": "caas-car-configurator-5495209-complete-r2/gap/execution/a8830b509feea3fd/a482221082f44e19"
+  },
+  {
+    "owner": "caas-car-configurator-5495209-complete-r2/implementation/a8830b509feea3fd",
+    "path": "internal/domain/ruleset/fake.go",
+    "lines": [75, 75],
+    "reason": "Go panic value and local deferred-call associations retained; recover stack context and process-wide propagation are not mechanically established.",
+    "gap": "caas-car-configurator-5495209-complete-r2/gap/execution/a8830b509feea3fd/be0974e68d63250e"
+  },
+  {
+    "owner": "caas-car-configurator-5495209-complete-r2/implementation/c6b05d4221a4020b",
+    "path": "internal/domain/ruleset/fake.go",
+    "lines": [126, 126],
+    "reason": "Go panic value and local deferred-call associations retained; recover stack context and process-wide propagation are not mechanically established.",
+    "gap": "caas-car-configurator-5495209-complete-r2/gap/execution/c6b05d4221a4020b/866b9d1958dc60e3"
+  },
+  {
+    "owner": "caas-car-configurator-5495209-complete-r2/implementation/e8193431b4afb39d",
+    "path": "internal/domain/specification/fake_builder.go",
+    "lines": [135, 135],
+    "reason": "Go panic value and local deferred-call associations retained; recover stack context and process-wide propagation are not mechanically established.",
+    "gap": "caas-car-configurator-5495209-complete-r2/gap/execution/e8193431b4afb39d/3deee33a1c13b63d"
+  },
+  {
+    "owner": "caas-car-configurator-5495209-complete-r2/implementation/f7c1fb27328b1ed5",
+    "path": "internal/domain/specification/fake_builder.go",
+    "lines": [154, 154],
+    "reason": "Go panic value and local deferred-call associations retained; recover stack context and process-wide propagation are not mechanically established.",
+    "gap": "caas-car-configurator-5495209-complete-r2/gap/execution/f7c1fb27328b1ed5/135c8956b78fb100"
+  },
+  {
+    "owner": "caas-car-configurator-5495209-complete-r2/implementation/54dbfe502ea592f5",
+    "path": "internal/domain/specification/fake_builder.go",
+    "lines": [173, 173],
+    "reason": "Go panic value and local deferred-call associations retained; recover stack context and process-wide propagation are not mechanically established.",
+    "gap": "caas-car-configurator-5495209-complete-r2/gap/execution/54dbfe502ea592f5/6552b8978078aaf7"
+  },
+  {
+    "owner": "caas-car-configurator-5495209-complete-r2/implementation/b62e162e38faf41c",
+    "path": "internal/domain/specification/fake_builder.go",
+    "lines": [406, 406],
+    "reason": "Go panic value and local deferred-call associations retained; recover stack context and process-wide propagation are not mechanically established.",
+    "gap": "caas-car-configurator-5495209-complete-r2/gap/execution/b62e162e38faf41c/f99f8c178f9c7f86"
+  },
+  {
+    "owner": "caas-car-configurator-5495209-complete-r2/implementation/235dfb52aee8dd3a",
+    "path": "internal/domain/specification/fake_builder.go",
+    "lines": [493, 493],
+    "reason": "Go panic value and local deferred-call associations retained; recover stack context and process-wide propagation are not mechanically established.",
+    "gap": "caas-car-configurator-5495209-complete-r2/gap/execution/235dfb52aee8dd3a/2cbeb67717414ff8"
+  },
+  {
+    "owner": "caas-car-configurator-5495209-complete-r2/implementation/5472f94485cbda7e",
+    "path": "internal/domain/specification/fake_builder.go",
+    "lines": [511, 511],
+    "reason": "Go panic value and local deferred-call associations retained; recover stack context and process-wide propagation are not mechanically established.",
+    "gap": "caas-car-configurator-5495209-complete-r2/gap/execution/5472f94485cbda7e/1ece457102d42620"
+  },
+  {
+    "owner": "caas-car-configurator-5495209-complete-r2/implementation/b4f09d393e26c62c",
+    "path": "internal/domain/specification/fake_builder.go",
+    "lines": [529, 529],
+    "reason": "Go panic value and local deferred-call associations retained; recover stack context and process-wide propagation are not mechanically established.",
+    "gap": "caas-car-configurator-5495209-complete-r2/gap/execution/b4f09d393e26c62c/8fd298c37c659451"
+  },
+  {
+    "owner": "caas-car-configurator-5495209-complete-r2/implementation/29ac62a357424bea",
+    "path": "internal/domain/specification/fake_builder.go",
+    "lines": [547, 547],
+    "reason": "Go panic value and local deferred-call associations retained; recover stack context and process-wide propagation are not mechanically established.",
+    "gap": "caas-car-configurator-5495209-complete-r2/gap/execution/29ac62a357424bea/08b960743b158b21"
+  },
+  {
+    "owner": "caas-car-configurator-5495209-complete-r2/implementation/558ecc999f13fd31",
+    "path": "internal/domain/specification/fake_builder.go",
+    "lines": [700, 700],
+    "reason": "Go panic value and local deferred-call associations retained; recover stack context and process-wide propagation are not mechanically established.",
+    "gap": "caas-car-configurator-5495209-complete-r2/gap/execution/558ecc999f13fd31/dad97face69b6bc5"
+  },
+  {
+    "owner": "caas-car-configurator-5495209-complete-r2/implementation/7ae3f3899a524da4",
+    "path": "internal/domain/specification/fake_builder.go",
+    "lines": [710, 710],
+    "reason": "Go panic value and local deferred-call associations retained; recover stack context and process-wide propagation are not mechanically established.",
+    "gap": "caas-car-configurator-5495209-complete-r2/gap/execution/7ae3f3899a524da4/266421880dd9f755"
+  },
+  {
+    "owner": "caas-car-configurator-5495209-complete-r2/implementation/5b1477763154a1c0",
+    "path": "internal/domain/specification/fake_builder.go",
+    "lines": [720, 720],
+    "reason": "Go panic value and local deferred-call associations retained; recover stack context and process-wide propagation are not mechanically established.",
+    "gap": "caas-car-configurator-5495209-complete-r2/gap/execution/5b1477763154a1c0/185e9b207b4248dd"
+  },
+  {
+    "owner": "caas-car-configurator-5495209-complete-r2/implementation/b0b0ca8ad8e82332",
+    "path": "internal/fake/fake.go",
+    "lines": [21, 21],
+    "reason": "Go panic value and local deferred-call associations retained; recover stack context and process-wide propagation are not mechanically established.",
+    "gap": "caas-car-configurator-5495209-complete-r2/gap/execution/b0b0ca8ad8e82332/ac14fe259cc8aa21"
+  }
+]

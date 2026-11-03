@@ -1,0 +1,548 @@
+[
+  {
+    "source": "api.healthcheck.HealthCheckFilter",
+    "shape": "volvo/cce-filter-service/2020ff59219b/local-r3/shape/python-class/07920a731dad5cc427",
+    "path": "src/api/healthcheck.py",
+    "lines": [10, 13]
+  },
+  {
+    "source": "database.postgres.pool.PostgresPool",
+    "shape": "volvo/cce-filter-service/2020ff59219b/local-r3/shape/python-class/fff21d34bef831c0de",
+    "path": "src/database/postgres/pool.py",
+    "lines": [5, 54]
+  },
+  {
+    "source": "database.postgres.repository.BaseRepository",
+    "shape": "volvo/cce-filter-service/2020ff59219b/local-r3/shape/python-class/1703f29e741d6ecc22",
+    "path": "src/database/postgres/repository.py",
+    "lines": [24, 26]
+  },
+  {
+    "source": "database.postgres.repository.ConfigPolicyRepository",
+    "shape": "volvo/cce-filter-service/2020ff59219b/local-r3/shape/python-class/72ab17471c16ac7bb1",
+    "path": "src/database/postgres/repository.py",
+    "lines": [29, 150]
+  },
+  {
+    "source": "database.postgres.repository.PartnerRepository",
+    "shape": "volvo/cce-filter-service/2020ff59219b/local-r3/shape/python-class/7c78b542aa9067fc8a",
+    "path": "src/database/postgres/repository.py",
+    "lines": [153, 222]
+  },
+  {
+    "source": "database.postgres.repository.PartnerPolicyRepository",
+    "shape": "volvo/cce-filter-service/2020ff59219b/local-r3/shape/python-class/62e8b98de866d3f2b4",
+    "path": "src/database/postgres/repository.py",
+    "lines": [225, 287]
+  },
+  {
+    "source": "database.postgres.repository.ComponentsRepository",
+    "shape": "volvo/cce-filter-service/2020ff59219b/local-r3/shape/python-class/0fc6caca1906bb100c",
+    "path": "src/database/postgres/repository.py",
+    "lines": [290, 410]
+  },
+  {
+    "source": "database.postgres.repository.PolicyStatusRepository",
+    "shape": "volvo/cce-filter-service/2020ff59219b/local-r3/shape/python-class/217d72a353267c7d04",
+    "path": "src/database/postgres/repository.py",
+    "lines": [413, 585]
+  },
+  {
+    "source": "database.postgres.repository.WheelComponentsRepository",
+    "shape": "volvo/cce-filter-service/2020ff59219b/local-r3/shape/python-class/b80ed767dd3e938632",
+    "path": "src/database/postgres/repository.py",
+    "lines": [588, 614]
+  },
+  {
+    "source": "messaging.ProducerConfiguration",
+    "shape": "volvo/cce-filter-service/2020ff59219b/local-r3/shape/python-class/609cb1855d17a9ff4b",
+    "path": "src/messaging/__init__.py",
+    "lines": [5, 7]
+  },
+  {
+    "source": "messaging.consumer.EventConsumer",
+    "shape": "volvo/cce-filter-service/2020ff59219b/local-r3/shape/python-class/a681b4d6ea702bed7f",
+    "path": "src/messaging/consumer.py",
+    "lines": [6, 18]
+  },
+  {
+    "source": "messaging.event.EventMeta",
+    "shape": "volvo/cce-filter-service/2020ff59219b/local-r3/shape/python-class/dcbc2c78f7d5744173",
+    "path": "src/messaging/event.py",
+    "lines": [11, 60]
+  },
+  {
+    "source": "messaging.event.Event",
+    "shape": "volvo/cce-filter-service/2020ff59219b/local-r3/shape/python-class/173756e87057c457d4",
+    "path": "src/messaging/event.py",
+    "lines": [63, 84]
+  },
+  {
+    "source": "messaging.kafka.config.KafkaConfig",
+    "shape": "volvo/cce-filter-service/2020ff59219b/local-r3/shape/python-class/abc84c8eef1847aff2",
+    "path": "src/messaging/kafka/config.py",
+    "lines": [5, 40]
+  },
+  {
+    "source": "messaging.kafka.config.SASLSSLKafkaConfig",
+    "shape": "volvo/cce-filter-service/2020ff59219b/local-r3/shape/python-class/46c79d094353d99355",
+    "path": "src/messaging/kafka/config.py",
+    "lines": [43, 63]
+  },
+  {
+    "source": "messaging.kafka.config.SSLAuthKafkaConfig",
+    "shape": "volvo/cce-filter-service/2020ff59219b/local-r3/shape/python-class/adfb7d0d185c04a36f",
+    "path": "src/messaging/kafka/config.py",
+    "lines": [66, 89]
+  },
+  {
+    "source": "messaging.kafka.consumer.KafkaConsumer",
+    "shape": "volvo/cce-filter-service/2020ff59219b/local-r3/shape/python-class/f83a4932100f48bc7a",
+    "path": "src/messaging/kafka/consumer.py",
+    "lines": [13, 102]
+  },
+  {
+    "source": "messaging.kafka.producer.KafkaProducer",
+    "shape": "volvo/cce-filter-service/2020ff59219b/local-r3/shape/python-class/2db96c5d497c891459",
+    "path": "src/messaging/kafka/producer.py",
+    "lines": [9, 39]
+  },
+  {
+    "source": "messaging.noop.consumer.NoopConsumer",
+    "shape": "volvo/cce-filter-service/2020ff59219b/local-r3/shape/python-class/fb9ddbf5bb0c30b677",
+    "path": "src/messaging/noop/consumer.py",
+    "lines": [10, 25]
+  },
+  {
+    "source": "messaging.noop.producer.NoopProducer",
+    "shape": "volvo/cce-filter-service/2020ff59219b/local-r3/shape/python-class/99b9b83ce2ef4f83e7",
+    "path": "src/messaging/noop/producer.py",
+    "lines": [9, 16]
+  },
+  {
+    "source": "messaging.producer.EventProducer",
+    "shape": "volvo/cce-filter-service/2020ff59219b/local-r3/shape/python-class/b377db1ebe2acb48f6",
+    "path": "src/messaging/producer.py",
+    "lines": [5, 9]
+  },
+  {
+    "source": "models.camelmodel.CamelModel",
+    "shape": "volvo/cce-filter-service/2020ff59219b/local-r3/shape/python-class/e799d71debc4d09375",
+    "path": "src/models/camelmodel.py",
+    "lines": [5, 9]
+  },
+  {
+    "source": "models.config_policy_v2.ComponentType",
+    "shape": "volvo/cce-filter-service/2020ff59219b/local-r3/shape/python-class/be5e86e67dbf8618fe",
+    "path": "src/models/config_policy_v2.py",
+    "lines": [13, 35]
+  },
+  {
+    "source": "models.config_policy_v2.ComponentMeta",
+    "shape": "volvo/cce-filter-service/2020ff59219b/local-r3/shape/python-class/3ae0726e20dd504a17",
+    "path": "src/models/config_policy_v2.py",
+    "lines": [38, 40]
+  },
+  {
+    "source": "models.config_policy_v2.Component",
+    "shape": "volvo/cce-filter-service/2020ff59219b/local-r3/shape/python-class/b77307dab92acdd1ce",
+    "path": "src/models/config_policy_v2.py",
+    "lines": [43, 57]
+  },
+  {
+    "source": "models.config_policy_v2.Pno12ComponentMapper",
+    "shape": "volvo/cce-filter-service/2020ff59219b/local-r3/shape/python-class/be073c5042560fe2fe",
+    "path": "src/models/config_policy_v2.py",
+    "lines": [65, 122]
+  },
+  {
+    "source": "models.config_policy_v2.ComponentUpdated",
+    "shape": "volvo/cce-filter-service/2020ff59219b/local-r3/shape/python-class/be15a4b25ef3451f3d",
+    "path": "src/models/config_policy_v2.py",
+    "lines": [125, 127]
+  },
+  {
+    "source": "models.config_policy_v2.Relation",
+    "shape": "volvo/cce-filter-service/2020ff59219b/local-r3/shape/python-class/0d57ea247039feb7da",
+    "path": "src/models/config_policy_v2.py",
+    "lines": [130, 136]
+  },
+  {
+    "source": "models.config_policy_v2.SubCondition",
+    "shape": "volvo/cce-filter-service/2020ff59219b/local-r3/shape/python-class/b93ce8d8177605c5f4",
+    "path": "src/models/config_policy_v2.py",
+    "lines": [139, 145]
+  },
+  {
+    "source": "models.config_policy_v2.Condition",
+    "shape": "volvo/cce-filter-service/2020ff59219b/local-r3/shape/python-class/170e81114d60d3c19b",
+    "path": "src/models/config_policy_v2.py",
+    "lines": [153, 159]
+  },
+  {
+    "source": "models.config_policy_v2.RuleType",
+    "shape": "volvo/cce-filter-service/2020ff59219b/local-r3/shape/python-class/ad7625baef1b5cb8f4",
+    "path": "src/models/config_policy_v2.py",
+    "lines": [162, 172]
+  },
+  {
+    "source": "models.config_policy_v2.Consequence",
+    "shape": "volvo/cce-filter-service/2020ff59219b/local-r3/shape/python-class/5ce3f28e0e9aad6b47",
+    "path": "src/models/config_policy_v2.py",
+    "lines": [175, 194]
+  },
+  {
+    "source": "models.config_policy_v2.ConfigRule",
+    "shape": "volvo/cce-filter-service/2020ff59219b/local-r3/shape/python-class/d331494e682de43cc5",
+    "path": "src/models/config_policy_v2.py",
+    "lines": [197, 208]
+  },
+  {
+    "source": "models.config_policy_v2.ConfigRuleSet",
+    "shape": "volvo/cce-filter-service/2020ff59219b/local-r3/shape/python-class/f5c8ba63dce45783b0",
+    "path": "src/models/config_policy_v2.py",
+    "lines": [216, 230]
+  },
+  {
+    "source": "models.config_policy_v2.StructureWeeksConsequence",
+    "shape": "volvo/cce-filter-service/2020ff59219b/local-r3/shape/python-class/673ec2b4067b960158",
+    "path": "src/models/config_policy_v2.py",
+    "lines": [233, 238]
+  },
+  {
+    "source": "models.config_policy_v2.StructureWeeksRule",
+    "shape": "volvo/cce-filter-service/2020ff59219b/local-r3/shape/python-class/d6dae90154428d3b6d",
+    "path": "src/models/config_policy_v2.py",
+    "lines": [241, 244]
+  },
+  {
+    "source": "models.config_policy_v2.StructureWeeksRuleSet",
+    "shape": "volvo/cce-filter-service/2020ff59219b/local-r3/shape/python-class/a9d9634dd2cb8ae183",
+    "path": "src/models/config_policy_v2.py",
+    "lines": [247, 250]
+  },
+  {
+    "source": "models.config_policy_v2.ConfigRulesCreated",
+    "shape": "volvo/cce-filter-service/2020ff59219b/local-r3/shape/python-class/dbbc10da73c2ac3afe",
+    "path": "src/models/config_policy_v2.py",
+    "lines": [253, 255]
+  },
+  {
+    "source": "models.config_policy_v2.ConfigRulesUpdated",
+    "shape": "volvo/cce-filter-service/2020ff59219b/local-r3/shape/python-class/eb0353287ed585c277",
+    "path": "src/models/config_policy_v2.py",
+    "lines": [258, 260]
+  },
+  {
+    "source": "models.config_policy_v2.ConfigPolicy",
+    "shape": "volvo/cce-filter-service/2020ff59219b/local-r3/shape/python-class/df59190f173d6649ec",
+    "path": "src/models/config_policy_v2.py",
+    "lines": [263, 274]
+  },
+  {
+    "source": "models.config_policy_v2.PolicyRequestResponse",
+    "shape": "volvo/cce-filter-service/2020ff59219b/local-r3/shape/python-class/fa67f3c75498928adc",
+    "path": "src/models/config_policy_v2.py",
+    "lines": [277, 280]
+  },
+  {
+    "source": "models.config_policy_v2.Tree",
+    "shape": "volvo/cce-filter-service/2020ff59219b/local-r3/shape/python-class/dcada09460bc5d8cdd",
+    "path": "src/models/config_policy_v2.py",
+    "lines": [283, 288]
+  },
+  {
+    "source": "models.config_policy_v2.ComponentCollection",
+    "shape": "volvo/cce-filter-service/2020ff59219b/local-r3/shape/python-class/7b8c1822ce4e9fd8f1",
+    "path": "src/models/config_policy_v2.py",
+    "lines": [294, 302]
+  },
+  {
+    "source": "models.config_policy_v2.ComponentsByPno12",
+    "shape": "volvo/cce-filter-service/2020ff59219b/local-r3/shape/python-class/7ece6dfd19ab3970d3",
+    "path": "src/models/config_policy_v2.py",
+    "lines": [305, 322]
+  },
+  {
+    "source": "models.config_policy_v2.ComponentsByPolicy",
+    "shape": "volvo/cce-filter-service/2020ff59219b/local-r3/shape/python-class/12d8859d6911cddc27",
+    "path": "src/models/config_policy_v2.py",
+    "lines": [325, 331]
+  },
+  {
+    "source": "models.config_policy_v2.PolicySpecMarket",
+    "shape": "volvo/cce-filter-service/2020ff59219b/local-r3/shape/python-class/22ab852d00a9406898",
+    "path": "src/models/config_policy_v2.py",
+    "lines": [334, 337]
+  },
+  {
+    "source": "models.config_policy_v2.PopulateWheelResult",
+    "shape": "volvo/cce-filter-service/2020ff59219b/local-r3/shape/python-class/0d74ccc0db176b6b4c",
+    "path": "src/models/config_policy_v2.py",
+    "lines": [340, 343]
+  },
+  {
+    "source": "models.filters_response.FilterGroupType",
+    "shape": "volvo/cce-filter-service/2020ff59219b/local-r3/shape/python-class/46745ed951e27fefed",
+    "path": "src/models/filters_response.py",
+    "lines": [7, 14]
+  },
+  {
+    "source": "models.filters_response.ComponentCode",
+    "shape": "volvo/cce-filter-service/2020ff59219b/local-r3/shape/python-class/0588e6b5c7d205888a",
+    "path": "src/models/filters_response.py",
+    "lines": [17, 19]
+  },
+  {
+    "source": "models.filters_response.Filter",
+    "shape": "volvo/cce-filter-service/2020ff59219b/local-r3/shape/python-class/24c3c12c3077a392af",
+    "path": "src/models/filters_response.py",
+    "lines": [22, 26]
+  },
+  {
+    "source": "models.filters_response.FilterGroup",
+    "shape": "volvo/cce-filter-service/2020ff59219b/local-r3/shape/python-class/52fed5071f38de4ca1",
+    "path": "src/models/filters_response.py",
+    "lines": [29, 33]
+  },
+  {
+    "source": "models.filters_response.FiltersResponse",
+    "shape": "volvo/cce-filter-service/2020ff59219b/local-r3/shape/python-class/89661e4f8883faf2cf",
+    "path": "src/models/filters_response.py",
+    "lines": [36, 38]
+  },
+  {
+    "source": "models.partner.PartnerRuleType",
+    "shape": "volvo/cce-filter-service/2020ff59219b/local-r3/shape/python-class/00ff10356d2e103c8b",
+    "path": "src/models/partner.py",
+    "lines": [6, 8]
+  },
+  {
+    "source": "models.partner.PartnerRuleMeta",
+    "shape": "volvo/cce-filter-service/2020ff59219b/local-r3/shape/python-class/792ec94f6ba5fd190b",
+    "path": "src/models/partner.py",
+    "lines": [11, 17]
+  },
+  {
+    "source": "models.partner.PartnerRuleList",
+    "shape": "volvo/cce-filter-service/2020ff59219b/local-r3/shape/python-class/84cde4faf2424c7e53",
+    "path": "src/models/partner.py",
+    "lines": [20, 26]
+  },
+  {
+    "source": "models.partner.Partner",
+    "shape": "volvo/cce-filter-service/2020ff59219b/local-r3/shape/python-class/13589ff8014456916b",
+    "path": "src/models/partner.py",
+    "lines": [29, 38]
+  },
+  {
+    "source": "models.pno12.Pno12",
+    "shape": "volvo/cce-filter-service/2020ff59219b/local-r3/shape/python-class/7679b7b282fab89b05",
+    "path": "src/models/pno12.py",
+    "lines": [3, 16]
+  },
+  {
+    "source": "models.pno12.LegacyPno12",
+    "shape": "volvo/cce-filter-service/2020ff59219b/local-r3/shape/python-class/1cc53311b5c1a4edbe",
+    "path": "src/models/pno12.py",
+    "lines": [29, 36]
+  },
+  {
+    "source": "providers.rule_set_provider.ConfigRuleSetProvider",
+    "shape": "volvo/cce-filter-service/2020ff59219b/local-r3/shape/python-class/7b90e8af5bc2e66559",
+    "path": "src/providers/rule_set_provider.py",
+    "lines": [9, 43]
+  },
+  {
+    "source": "providers.singleton.Singleton",
+    "shape": "volvo/cce-filter-service/2020ff59219b/local-r3/shape/python-class/adf345fff245a3352c",
+    "path": "src/providers/singleton.py",
+    "lines": [1, 7]
+  },
+  {
+    "source": "services.build_policy_service.BuildPolicyService",
+    "shape": "volvo/cce-filter-service/2020ff59219b/local-r3/shape/python-class/5cb1a9e08982e6918b",
+    "path": "src/services/build_policy_service.py",
+    "lines": [22, 159]
+  },
+  {
+    "source": "services.components_service.ComponentsService",
+    "shape": "volvo/cce-filter-service/2020ff59219b/local-r3/shape/python-class/128b5c88a0f4aaccac",
+    "path": "src/services/components_service.py",
+    "lines": [30, 612]
+  },
+  {
+    "source": "services.config_policy_service.ConfigPolicyService",
+    "shape": "volvo/cce-filter-service/2020ff59219b/local-r3/shape/python-class/1f35801a148ca98c26",
+    "path": "src/services/config_policy_service.py",
+    "lines": [21, 328]
+  },
+  {
+    "source": "services.convert_rule_set_service.ConvertContext",
+    "shape": "volvo/cce-filter-service/2020ff59219b/local-r3/shape/python-class/3007e5d9c0140964c1",
+    "path": "src/services/convert_rule_set_service.py",
+    "lines": [22, 92]
+  },
+  {
+    "source": "services.convert_rule_set_service.ConvertRuleSetService",
+    "shape": "volvo/cce-filter-service/2020ff59219b/local-r3/shape/python-class/755203928236274e07",
+    "path": "src/services/convert_rule_set_service.py",
+    "lines": [95, 332]
+  },
+  {
+    "source": "services.new_flow_policy_sync_only_feature_flag.NewFlowPolicySyncOnlyFeatureFlag",
+    "shape": "volvo/cce-filter-service/2020ff59219b/local-r3/shape/python-class/f0828ff40b429a339b",
+    "path": "src/services/new_flow_policy_sync_only_feature_flag.py",
+    "lines": [29, 31]
+  },
+  {
+    "source": "services.new_flow_policy_sync_only_feature_flag.NewFlowPolicySyncOnlyFlagTarget",
+    "shape": "volvo/cce-filter-service/2020ff59219b/local-r3/shape/python-class/26769eb1dfa3cb9913",
+    "path": "src/services/new_flow_policy_sync_only_feature_flag.py",
+    "lines": [35, 48]
+  },
+  {
+    "source": "services.new_flow_policy_sync_only_feature_flag.MockNewFlowPolicySyncOnlyFeatureFlag",
+    "shape": "volvo/cce-filter-service/2020ff59219b/local-r3/shape/python-class/3d221978565ca75b30",
+    "path": "src/services/new_flow_policy_sync_only_feature_flag.py",
+    "lines": [51, 57]
+  },
+  {
+    "source": "services.new_flow_policy_sync_only_feature_flag.LaunchDarklyNewFlowPolicySyncOnlyFeatureFlag",
+    "shape": "volvo/cce-filter-service/2020ff59219b/local-r3/shape/python-class/5d8e288ed01f60171d",
+    "path": "src/services/new_flow_policy_sync_only_feature_flag.py",
+    "lines": [60, 76]
+  },
+  {
+    "source": "services.partner_service.PartnerService",
+    "shape": "volvo/cce-filter-service/2020ff59219b/local-r3/shape/python-class/b6403eb983ddd19952",
+    "path": "src/services/partner_service.py",
+    "lines": [7, 147]
+  },
+  {
+    "source": "services.pno12_policy_service.Pno12PolicyService",
+    "shape": "volvo/cce-filter-service/2020ff59219b/local-r3/shape/python-class/1e217d35d63e0f1b1f",
+    "path": "src/services/pno12_policy_service.py",
+    "lines": [5, 88]
+  },
+  {
+    "source": "services.policy_status_service.Status",
+    "shape": "volvo/cce-filter-service/2020ff59219b/local-r3/shape/python-class/2294693e8c77b9fb40",
+    "path": "src/services/policy_status_service.py",
+    "lines": [17, 21]
+  },
+  {
+    "source": "services.policy_status_service.RequestAction",
+    "shape": "volvo/cce-filter-service/2020ff59219b/local-r3/shape/python-class/25c3d72ad9f199369a",
+    "path": "src/services/policy_status_service.py",
+    "lines": [24, 26]
+  },
+  {
+    "source": "services.policy_status_service.Info",
+    "shape": "volvo/cce-filter-service/2020ff59219b/local-r3/shape/python-class/12647c6412b4893c65",
+    "path": "src/services/policy_status_service.py",
+    "lines": [29, 31]
+  },
+  {
+    "source": "services.policy_status_service.PolicyStatus",
+    "shape": "volvo/cce-filter-service/2020ff59219b/local-r3/shape/python-class/a1848293656e404862",
+    "path": "src/services/policy_status_service.py",
+    "lines": [34, 41]
+  },
+  {
+    "source": "services.policy_status_service.Pno12",
+    "shape": "volvo/cce-filter-service/2020ff59219b/local-r3/shape/python-class/3e95985f461f009f9a",
+    "path": "src/services/policy_status_service.py",
+    "lines": [44, 57]
+  },
+  {
+    "source": "services.policy_status_service.Pno34",
+    "shape": "volvo/cce-filter-service/2020ff59219b/local-r3/shape/python-class/67520233663478aaaa",
+    "path": "src/services/policy_status_service.py",
+    "lines": [60, 65]
+  },
+  {
+    "source": "services.policy_status_service.PolicyStatusService",
+    "shape": "volvo/cce-filter-service/2020ff59219b/local-r3/shape/python-class/cb5a0e655eaf0c81a8",
+    "path": "src/services/policy_status_service.py",
+    "lines": [68, 151]
+  },
+  {
+    "source": "services.policy_status_service.PnoParser",
+    "shape": "volvo/cce-filter-service/2020ff59219b/local-r3/shape/python-class/efa30858bc891071ab",
+    "path": "src/services/policy_status_service.py",
+    "lines": [154, 229]
+  },
+  {
+    "source": "storages.Factory",
+    "shape": "volvo/cce-filter-service/2020ff59219b/local-r3/shape/python-class/4435e9d673ee9de556",
+    "path": "src/storages/__init__.py",
+    "lines": [5, 7]
+  },
+  {
+    "source": "storages.azure_blob_storage.CompressionNotDefined",
+    "shape": "volvo/cce-filter-service/2020ff59219b/local-r3/shape/python-class/b82da18167274cd451",
+    "path": "src/storages/azure_blob_storage.py",
+    "lines": [9, 10]
+  },
+  {
+    "source": "storages.azure_blob_storage.AzureBlobStorage",
+    "shape": "volvo/cce-filter-service/2020ff59219b/local-r3/shape/python-class/8f27a6638e1ab8032c",
+    "path": "src/storages/azure_blob_storage.py",
+    "lines": [13, 50]
+  },
+  {
+    "source": "utils.config_rules_utils.ConfigRulesUtils",
+    "shape": "volvo/cce-filter-service/2020ff59219b/local-r3/shape/python-class/945d20401b151f96f5",
+    "path": "src/utils/config_rules_utils.py",
+    "lines": [4, 213]
+  },
+  {
+    "source": "utils.exceptions.ProviderException",
+    "shape": "volvo/cce-filter-service/2020ff59219b/local-r3/shape/python-class/0adaf04ce027474c3c",
+    "path": "src/utils/exceptions.py",
+    "lines": [1, 2]
+  },
+  {
+    "source": "utils.exceptions.RepositoryError",
+    "shape": "volvo/cce-filter-service/2020ff59219b/local-r3/shape/python-class/4159bc4764b941162b",
+    "path": "src/utils/exceptions.py",
+    "lines": [4, 5]
+  },
+  {
+    "source": "utils.exceptions.ConfigRuleError",
+    "shape": "volvo/cce-filter-service/2020ff59219b/local-r3/shape/python-class/23f7fe1fc619e03b88",
+    "path": "src/utils/exceptions.py",
+    "lines": [7, 8]
+  },
+  {
+    "source": "utils.exceptions.ComponentsError",
+    "shape": "volvo/cce-filter-service/2020ff59219b/local-r3/shape/python-class/8de268f6025c11af33",
+    "path": "src/utils/exceptions.py",
+    "lines": [10, 11]
+  },
+  {
+    "source": "utils.exceptions.BuildError",
+    "shape": "volvo/cce-filter-service/2020ff59219b/local-r3/shape/python-class/eb5059723e916e1b51",
+    "path": "src/utils/exceptions.py",
+    "lines": [13, 14]
+  },
+  {
+    "source": "utils.exceptions.PolicyNotFoundError",
+    "shape": "volvo/cce-filter-service/2020ff59219b/local-r3/shape/python-class/09b422aad9cb1d4d91",
+    "path": "src/utils/exceptions.py",
+    "lines": [16, 17]
+  },
+  {
+    "source": "utils.exceptions.NotConfiguredException",
+    "shape": "volvo/cce-filter-service/2020ff59219b/local-r3/shape/python-class/ffef7a99a5b7e19574",
+    "path": "src/utils/exceptions.py",
+    "lines": [19, 20]
+  },
+  {
+    "source": "utils.exceptions.PolicyStatusNotFoundError",
+    "shape": "volvo/cce-filter-service/2020ff59219b/local-r3/shape/python-class/36084764d4cc52e881",
+    "path": "src/utils/exceptions.py",
+    "lines": [22, 23]
+  }
+]

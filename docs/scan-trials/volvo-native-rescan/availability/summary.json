@@ -1,0 +1,8 @@
+{
+  "status": "passed",
+  "repositories": 78,
+  "trackedEntries": 37469,
+  "uniqueBlobLookups": 35905,
+  "gitlinkEntries": 2,
+  "qualification": "Pinned parent tree and blob object/size lookup availability only, not content hash verification, source semantic review, native captures or completed repository scans. Gitlink child contents and dependency source authority require separate checks. Offline Git only; no source clone mutation or fetch."
+}

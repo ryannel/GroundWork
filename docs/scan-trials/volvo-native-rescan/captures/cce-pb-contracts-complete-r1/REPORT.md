@@ -1,0 +1,17 @@
+# Car configuration contracts
+
+This repository declares private CCE protobuf contracts. It contains no executable service, RPC/REST registration, publisher, consumer, store or asynchronous body.
+
+Pinned repository `volvo-cars/cce-pb-contracts-car-configuration`, commit `72cbaedcad24e6b02729b7f4fc6a9d6d94a4d769`, workspace `volvo-cars`. The current canonical pair is `bundle.json` and `snapshot.json`; snapshot `9d5411b64c10e530e8307fb8c6dc9f0c1b3b76151a769f6f94a1c746385d08c5` selects 961 records. All 21 pinned files were locally readable and fully reviewed: 19 proto files, README and CODEOWNERS. Every Git read disabled lazy fetching and terminal prompts.
+
+The capture retains 102 messages, four enums and 358 fields, with exact names, field numbers, types, repeated item shapes, explicit optional presence and source deprecation options. There are 211 native shapes, including array/scalar source projections and one partial external Timestamp declaration. Enum numeric symbols use source declaration shapes and field constraints; zero enum values are not invented positive message field tags. No gaps in numeric field numbering are inferred to be reserved.
+
+Nested `Rule.Component` differs from package `Component`, and nested `Rule.Condition` recursively refers to itself. v1/v2 types remain separate. The source spelling `ParterNames` is preserved. `CarSpecification.forbidden_structure_week_periods` remains tag 8 despite source order. Deprecated optional trim edition fields remain distinct from replacement edition fields; styling defaults and wheel/option requirements retain their exact tags and cardinality.
+
+All 143 non-scalar field references resolve through exact same-file lexical/package scope or direct local import, except the explicit external Timestamp reference. The 16 import declarations resolve locally or to the absent `google/protobuf/timestamp.proto`. The external source version and generated/runtime codec correspondence remain a gap. Declaration closure does not prove unknown-field handling, actual wire bytes, protobuf JSON spelling/defaults or consumer compatibility.
+
+README generation instructions use older `cce` paths rather than this tree's `carconfiguration` paths and mention Betterproto compiler `v1.2.5`. These instructions do not prove a generated or deployed artifact. No consumer implementation is bound by nearby names. Message names, a `topic` field and private-eventstream prose do not establish runtime subscriptions, envelopes, headers or broker topic identities.
+
+Native schema/ownership/selection validation and all 515 pinned evidence ranges pass. The strict pack validates 213 requests/responses/pages with maxNodes 2000/maxRecords 5000, draining all continuations; no query hits a bound. Every shape and the source revision catalogue are queried, with positive assertions for nesting, recursion, numeric tags, repeated references, optional/deprecated source facts and external incompleteness. Negative assertions require zero executable/runtime/network registrations. There are no actual entry-to-I/O queries to run because those scopes are absent, rather than unexamined.
+
+The sourcefile/declaration/field/import/symbol-resolution/registration ledgers distinguish full source review from external runtime limits. No compiler/generator, source application build/test, registry, broker, store or live endpoint was invoked. No app/schema/skills/workspace/source-clone changes were made. Root independently reviews and publishes the selection.

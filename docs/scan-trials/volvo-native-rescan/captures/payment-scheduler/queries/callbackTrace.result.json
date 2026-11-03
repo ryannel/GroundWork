@@ -1,0 +1,481 @@
+{
+  "format": "groundwork-result/v3",
+  "snapshot": "5f244b8b75661ddc2c58cee97ab0d61ca2c0f73b58fbf65e775236cdd0dda3ae",
+  "queryVersion": "knowledge-query/v3",
+  "request": {
+    "format": "groundwork-query/v3",
+    "snapshot": "5f244b8b75661ddc2c58cee97ab0d61ca2c0f73b58fbf65e775236cdd0dda3ae",
+    "query": "trace",
+    "entry": "scheduler-c00df60-r5/impl/kafka-completion-callback",
+    "value": null,
+    "context": [],
+    "outcome": null,
+    "changed": [],
+    "representation": "constructed",
+    "candidates": "exclude",
+    "maxNodes": 1500,
+    "environment": "production-profile",
+    "maxRecords": 5000,
+    "ids": []
+  },
+  "nodes": [
+    {
+      "id": "root::scheduler-c00df60-r5/op/kafka-completion-callback/start",
+      "record": "scheduler-c00df60-r5/op/kafka-completion-callback/start",
+      "context": [],
+      "label": "KafkaProducer.sendMessage.whenComplete callback",
+      "component": "scheduler-c00df60-r5/component/api",
+      "execution": "scheduler-c00df60-r5/runs/kafka-completion-callback"
+    },
+    {
+      "id": "root::scheduler-c00df60-r5/op/kafka-completion-callback/branch",
+      "record": "scheduler-c00df60-r5/op/kafka-completion-callback/branch",
+      "context": [],
+      "label": "Objects.isNull(exception)",
+      "component": "scheduler-c00df60-r5/component/api",
+      "execution": "scheduler-c00df60-r5/runs/kafka-completion-callback"
+    },
+    {
+      "id": "root::scheduler-c00df60-r5/op/kafka-completion-callback/failure",
+      "record": "scheduler-c00df60-r5/op/kafka-completion-callback/failure",
+      "context": [],
+      "label": "Log failed to send; no job status update or retry is declared",
+      "component": "scheduler-c00df60-r5/component/api",
+      "execution": "scheduler-c00df60-r5/runs/kafka-completion-callback"
+    },
+    {
+      "id": "root::scheduler-c00df60-r5/op/kafka-completion-callback/success",
+      "record": "scheduler-c00df60-r5/op/kafka-completion-callback/success",
+      "context": [],
+      "label": "Log message was sent",
+      "component": "scheduler-c00df60-r5/component/api",
+      "execution": "scheduler-c00df60-r5/runs/kafka-completion-callback"
+    }
+  ],
+  "edges": [
+    {
+      "from": "root::scheduler-c00df60-r5/op/kafka-completion-callback/start",
+      "to": "root::scheduler-c00df60-r5/op/kafka-completion-callback/branch",
+      "on": "normal",
+      "condition": null,
+      "assumption": null,
+      "evidence": ["scheduler-c00df60-r5/e/1d3b35f0b613"],
+      "record": "scheduler-c00df60-r5/edge/kafka-completion-callback/branch"
+    },
+    {
+      "from": "root::scheduler-c00df60-r5/op/kafka-completion-callback/branch",
+      "to": "root::scheduler-c00df60-r5/op/kafka-completion-callback/failure",
+      "on": "normal",
+      "condition": "exception != null",
+      "assumption": null,
+      "evidence": ["scheduler-c00df60-r5/e/edd229d10ffd"],
+      "record": "scheduler-c00df60-r5/edge/kafka-completion-callback/failure"
+    },
+    {
+      "from": "root::scheduler-c00df60-r5/op/kafka-completion-callback/branch",
+      "to": "root::scheduler-c00df60-r5/op/kafka-completion-callback/success",
+      "on": "normal",
+      "condition": "exception == null",
+      "assumption": null,
+      "evidence": ["scheduler-c00df60-r5/e/edd229d10ffd"],
+      "record": "scheduler-c00df60-r5/edge/kafka-completion-callback/success"
+    }
+  ],
+  "claims": [],
+  "evidence": [
+    "scheduler-c00df60-r5/e/06c23e6c88ee",
+    "scheduler-c00df60-r5/e/1d3b35f0b613",
+    "scheduler-c00df60-r5/e/5e52dd8eb680",
+    "scheduler-c00df60-r5/e/8377781a2b50",
+    "scheduler-c00df60-r5/e/8916d8a85f98",
+    "scheduler-c00df60-r5/e/a24bf1ffc9bd",
+    "scheduler-c00df60-r5/e/d97b85e588e6",
+    "scheduler-c00df60-r5/e/de1b32c24ee4",
+    "scheduler-c00df60-r5/e/edd229d10ffd"
+  ],
+  "coverage": ["scheduler-c00df60-r5/coverage/callback"],
+  "frontiers": [],
+  "limitsHit": [],
+  "feasibility": "not_checked",
+  "exhaustive": false,
+  "records": [
+    {
+      "id": "scheduler-c00df60-r5/census",
+      "kind": "implementation",
+      "logicalId": "impl:scheduler-source-census",
+      "scope": "scheduler-c00df60-r5/source",
+      "entry": "scheduler-c00df60-r5/op/census/start",
+      "parameters": [],
+      "evidence": ["scheduler-c00df60-r5/e/de1b32c24ee4"]
+    },
+    {
+      "id": "scheduler-c00df60-r5/component/api",
+      "kind": "runtime_component",
+      "logicalId": "svc:payment-scheduler",
+      "label": "Payment scheduler",
+      "category": "service",
+      "technology": "Java / Spring Boot",
+      "sources": ["scheduler-c00df60-r5/source"],
+      "basis": "source_declared",
+      "gaps": ["scheduler-c00df60-r5/gap/deployment", "scheduler-c00df60-r5/gap/dependencies"],
+      "evidence": ["scheduler-c00df60-r5/e/8377781a2b50", "scheduler-c00df60-r5/e/5e52dd8eb680"]
+    },
+    {
+      "id": "scheduler-c00df60-r5/coverage/callback",
+      "kind": "coverage",
+      "owner": "scheduler-c00df60-r5/impl/kafka-completion-callback",
+      "obligation": "bounded_source_analysis",
+      "status": "examined",
+      "scope": "Local callback checks exception and logs only; no source job-state write or message subscription.",
+      "gaps": [
+        "scheduler-c00df60-r5/gap/dependencies",
+        "scheduler-c00df60-r5/gap/deployment",
+        "scheduler-c00df60-r5/gap/future-continuation"
+      ],
+      "evidence": ["scheduler-c00df60-r5/e/1d3b35f0b613"]
+    },
+    {
+      "id": "scheduler-c00df60-r5/e/06c23e6c88ee",
+      "kind": "evidence",
+      "repo": "volvo-cars/cds-paymentservice-scheduler",
+      "commit": "c00df60c8233b1a8f47829ce382d5805bf164c6b",
+      "path": "cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/messaging/KafkaProducer.java",
+      "lines": [31, 39],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "scheduler-c00df60-r5/e/1d3b35f0b613",
+      "kind": "evidence",
+      "repo": "volvo-cars/cds-paymentservice-scheduler",
+      "commit": "c00df60c8233b1a8f47829ce382d5805bf164c6b",
+      "path": "cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/messaging/KafkaProducer.java",
+      "lines": [29, 41],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "scheduler-c00df60-r5/e/5e52dd8eb680",
+      "kind": "evidence",
+      "repo": "volvo-cars/cds-paymentservice-scheduler",
+      "commit": "c00df60c8233b1a8f47829ce382d5805bf164c6b",
+      "path": "Dockerfile",
+      "lines": [1, 22],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "scheduler-c00df60-r5/e/8377781a2b50",
+      "kind": "evidence",
+      "repo": "volvo-cars/cds-paymentservice-scheduler",
+      "commit": "c00df60c8233b1a8f47829ce382d5805bf164c6b",
+      "path": "cds-paymentservice-scheduler-api/src/main/java/com/volvocars/ecom/paymentservice/scheduler/App.java",
+      "lines": [14, 25],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "scheduler-c00df60-r5/e/8916d8a85f98",
+      "kind": "evidence",
+      "repo": "volvo-cars/cds-paymentservice-scheduler",
+      "commit": "c00df60c8233b1a8f47829ce382d5805bf164c6b",
+      "path": "cds-paymentservice-scheduler-api/src/main/resources/application.yml",
+      "lines": [1, 143],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "scheduler-c00df60-r5/e/a24bf1ffc9bd",
+      "kind": "evidence",
+      "repo": "volvo-cars/cds-paymentservice-scheduler",
+      "commit": "c00df60c8233b1a8f47829ce382d5805bf164c6b",
+      "path": "pom.xml",
+      "lines": [1, 103],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "scheduler-c00df60-r5/e/d97b85e588e6",
+      "kind": "evidence",
+      "repo": "volvo-cars/cds-paymentservice-scheduler",
+      "commit": "c00df60c8233b1a8f47829ce382d5805bf164c6b",
+      "path": "cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/messaging/KafkaProducer.java",
+      "lines": [26, 41],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "scheduler-c00df60-r5/e/de1b32c24ee4",
+      "kind": "evidence",
+      "repo": "volvo-cars/cds-paymentservice-scheduler",
+      "commit": "c00df60c8233b1a8f47829ce382d5805bf164c6b",
+      "path": "cds-paymentservice-scheduler-api/src/main/java/com/volvocars/ecom/paymentservice/scheduler/App.java",
+      "lines": [1, 27],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "scheduler-c00df60-r5/e/edd229d10ffd",
+      "kind": "evidence",
+      "repo": "volvo-cars/cds-paymentservice-scheduler",
+      "commit": "c00df60c8233b1a8f47829ce382d5805bf164c6b",
+      "path": "cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/messaging/KafkaProducer.java",
+      "lines": [30, 39],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "scheduler-c00df60-r5/edge/kafka-completion-callback/branch",
+      "kind": "transition",
+      "owner": "scheduler-c00df60-r5/impl/kafka-completion-callback",
+      "from": "scheduler-c00df60-r5/op/kafka-completion-callback/start",
+      "to": "scheduler-c00df60-r5/op/kafka-completion-callback/branch",
+      "on": "normal",
+      "condition": null,
+      "values": [],
+      "evidence": ["scheduler-c00df60-r5/e/1d3b35f0b613"]
+    },
+    {
+      "id": "scheduler-c00df60-r5/edge/kafka-completion-callback/failure",
+      "kind": "transition",
+      "owner": "scheduler-c00df60-r5/impl/kafka-completion-callback",
+      "from": "scheduler-c00df60-r5/op/kafka-completion-callback/branch",
+      "to": "scheduler-c00df60-r5/op/kafka-completion-callback/failure",
+      "on": "normal",
+      "condition": "exception != null",
+      "values": ["scheduler-c00df60-r5/value/kafka-completion-callback/exception"],
+      "evidence": ["scheduler-c00df60-r5/e/edd229d10ffd"]
+    },
+    {
+      "id": "scheduler-c00df60-r5/edge/kafka-completion-callback/success",
+      "kind": "transition",
+      "owner": "scheduler-c00df60-r5/impl/kafka-completion-callback",
+      "from": "scheduler-c00df60-r5/op/kafka-completion-callback/branch",
+      "to": "scheduler-c00df60-r5/op/kafka-completion-callback/success",
+      "on": "normal",
+      "condition": "exception == null",
+      "values": ["scheduler-c00df60-r5/value/kafka-completion-callback/exception"],
+      "evidence": ["scheduler-c00df60-r5/e/edd229d10ffd"]
+    },
+    {
+      "id": "scheduler-c00df60-r5/gap/dependencies",
+      "kind": "gap",
+      "owner": "scheduler-c00df60-r5/census",
+      "obligation": "dependencies",
+      "reason": "Imported payment DTO, ApiClientCreator/auth/interceptors, shared enums and Spring/Kafka/Mongo implementations lack exact resolved digest/source correspondence here.",
+      "action": "Trace the named continuation or resolve exact dependency/converter/configuration correspondence without assuming deployment.",
+      "evidence": ["scheduler-c00df60-r5/e/a24bf1ffc9bd"]
+    },
+    {
+      "id": "scheduler-c00df60-r5/gap/deployment",
+      "kind": "gap",
+      "owner": "scheduler-c00df60-r5/census",
+      "obligation": "deployment",
+      "reason": "Committed base/profile declarations do not establish deployed destinations, index definitions, environment overrides or current remote freshness.",
+      "action": "Trace the named continuation or resolve exact dependency/converter/configuration correspondence without assuming deployment.",
+      "evidence": ["scheduler-c00df60-r5/e/8916d8a85f98"]
+    },
+    {
+      "id": "scheduler-c00df60-r5/gap/future-continuation",
+      "kind": "gap",
+      "owner": "scheduler-c00df60-r5/census",
+      "obligation": "future-continuation",
+      "reason": "Kafka future callback executes later in a local execution context. Its runtime executor, timing and completion policy are not established; native typed broker subscriptions cannot truthfully describe this callback.",
+      "action": "Trace the named continuation or resolve exact dependency/converter/configuration correspondence without assuming deployment.",
+      "evidence": ["scheduler-c00df60-r5/e/d97b85e588e6"]
+    },
+    {
+      "id": "scheduler-c00df60-r5/impl/kafka-completion-callback",
+      "kind": "implementation",
+      "logicalId": "impl:scheduler-KafkaProducer.sendMessage.whenComplete callback",
+      "scope": "scheduler-c00df60-r5/source",
+      "entry": "scheduler-c00df60-r5/op/kafka-completion-callback/start",
+      "parameters": [
+        "scheduler-c00df60-r5/value/kafka-completion-callback/result",
+        "scheduler-c00df60-r5/value/kafka-completion-callback/exception",
+        "scheduler-c00df60-r5/value/kafka-completion-callback/topic",
+        "scheduler-c00df60-r5/value/kafka-completion-callback/event"
+      ],
+      "evidence": ["scheduler-c00df60-r5/e/1d3b35f0b613"]
+    },
+    {
+      "id": "scheduler-c00df60-r5/op/census/start",
+      "kind": "operation",
+      "owner": "scheduler-c00df60-r5/census",
+      "action": "opaque",
+      "label": "Repository discovery context",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": null,
+      "httpStatus": null,
+      "evidence": ["scheduler-c00df60-r5/e/de1b32c24ee4"]
+    },
+    {
+      "id": "scheduler-c00df60-r5/op/kafka-completion-callback/branch",
+      "kind": "operation",
+      "owner": "scheduler-c00df60-r5/impl/kafka-completion-callback",
+      "action": "branch",
+      "label": "Objects.isNull(exception)",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": null,
+      "httpStatus": null,
+      "evidence": ["scheduler-c00df60-r5/e/edd229d10ffd"]
+    },
+    {
+      "id": "scheduler-c00df60-r5/op/kafka-completion-callback/failure",
+      "kind": "operation",
+      "owner": "scheduler-c00df60-r5/impl/kafka-completion-callback",
+      "action": "return",
+      "label": "Log failed to send; no job status update or retry is declared",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": "normal",
+      "httpStatus": null,
+      "evidence": ["scheduler-c00df60-r5/e/06c23e6c88ee"]
+    },
+    {
+      "id": "scheduler-c00df60-r5/op/kafka-completion-callback/start",
+      "kind": "operation",
+      "owner": "scheduler-c00df60-r5/impl/kafka-completion-callback",
+      "action": "entry",
+      "label": "KafkaProducer.sendMessage.whenComplete callback",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": null,
+      "httpStatus": null,
+      "evidence": ["scheduler-c00df60-r5/e/1d3b35f0b613"]
+    },
+    {
+      "id": "scheduler-c00df60-r5/op/kafka-completion-callback/success",
+      "kind": "operation",
+      "owner": "scheduler-c00df60-r5/impl/kafka-completion-callback",
+      "action": "return",
+      "label": "Log message was sent",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": "normal",
+      "httpStatus": null,
+      "evidence": ["scheduler-c00df60-r5/e/06c23e6c88ee"]
+    },
+    {
+      "id": "scheduler-c00df60-r5/runs/kafka-completion-callback",
+      "kind": "execution_binding",
+      "implementation": "scheduler-c00df60-r5/impl/kafka-completion-callback",
+      "component": "scheduler-c00df60-r5/component/api",
+      "basis": "source_declared",
+      "artifactBinding": null,
+      "gaps": [],
+      "evidence": ["scheduler-c00df60-r5/e/1d3b35f0b613"]
+    },
+    {
+      "id": "scheduler-c00df60-r5/source",
+      "kind": "source_revision",
+      "repo": "volvo-cars/cds-paymentservice-scheduler",
+      "commit": "c00df60c8233b1a8f47829ce382d5805bf164c6b"
+    },
+    {
+      "id": "scheduler-c00df60-r5/value/kafka-completion-callback/event",
+      "kind": "value",
+      "owner": "scheduler-c00df60-r5/impl/kafka-completion-callback",
+      "definition": "scheduler-c00df60-r5/op/kafka-completion-callback/start",
+      "label": "event",
+      "role": "parameter",
+      "representation": "source",
+      "shape": null,
+      "accessPath": [],
+      "evidence": ["scheduler-c00df60-r5/e/1d3b35f0b613"]
+    },
+    {
+      "id": "scheduler-c00df60-r5/value/kafka-completion-callback/exception",
+      "kind": "value",
+      "owner": "scheduler-c00df60-r5/impl/kafka-completion-callback",
+      "definition": "scheduler-c00df60-r5/op/kafka-completion-callback/start",
+      "label": "exception",
+      "role": "parameter",
+      "representation": "source",
+      "shape": null,
+      "accessPath": [],
+      "evidence": ["scheduler-c00df60-r5/e/1d3b35f0b613"]
+    },
+    {
+      "id": "scheduler-c00df60-r5/value/kafka-completion-callback/result",
+      "kind": "value",
+      "owner": "scheduler-c00df60-r5/impl/kafka-completion-callback",
+      "definition": "scheduler-c00df60-r5/op/kafka-completion-callback/start",
+      "label": "result",
+      "role": "parameter",
+      "representation": "source",
+      "shape": null,
+      "accessPath": [],
+      "evidence": ["scheduler-c00df60-r5/e/1d3b35f0b613"]
+    },
+    {
+      "id": "scheduler-c00df60-r5/value/kafka-completion-callback/topic",
+      "kind": "value",
+      "owner": "scheduler-c00df60-r5/impl/kafka-completion-callback",
+      "definition": "scheduler-c00df60-r5/op/kafka-completion-callback/start",
+      "label": "topic",
+      "role": "parameter",
+      "representation": "source",
+      "shape": null,
+      "accessPath": [],
+      "evidence": ["scheduler-c00df60-r5/e/1d3b35f0b613"]
+    }
+  ],
+  "traversalComplete": true,
+  "findings": [],
+  "sourceLinks": [
+    {
+      "evidence": "scheduler-c00df60-r5/e/de1b32c24ee4",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-scheduler/blob/c00df60c8233b1a8f47829ce382d5805bf164c6b/cds-paymentservice-scheduler-api/src/main/java/com/volvocars/ecom/paymentservice/scheduler/App.java#L1-L27",
+      "label": "volvo-cars/cds-paymentservice-scheduler/cds-paymentservice-scheduler-api/src/main/java/com/volvocars/ecom/paymentservice/scheduler/App.java:1–27"
+    },
+    {
+      "evidence": "scheduler-c00df60-r5/e/d97b85e588e6",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-scheduler/blob/c00df60c8233b1a8f47829ce382d5805bf164c6b/cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/messaging/KafkaProducer.java#L26-L41",
+      "label": "volvo-cars/cds-paymentservice-scheduler/cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/messaging/KafkaProducer.java:26–41"
+    },
+    {
+      "evidence": "scheduler-c00df60-r5/e/8916d8a85f98",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-scheduler/blob/c00df60c8233b1a8f47829ce382d5805bf164c6b/cds-paymentservice-scheduler-api/src/main/resources/application.yml#L1-L143",
+      "label": "volvo-cars/cds-paymentservice-scheduler/cds-paymentservice-scheduler-api/src/main/resources/application.yml:1–143"
+    },
+    {
+      "evidence": "scheduler-c00df60-r5/e/a24bf1ffc9bd",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-scheduler/blob/c00df60c8233b1a8f47829ce382d5805bf164c6b/pom.xml#L1-L103",
+      "label": "volvo-cars/cds-paymentservice-scheduler/pom.xml:1–103"
+    },
+    {
+      "evidence": "scheduler-c00df60-r5/e/1d3b35f0b613",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-scheduler/blob/c00df60c8233b1a8f47829ce382d5805bf164c6b/cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/messaging/KafkaProducer.java#L29-L41",
+      "label": "volvo-cars/cds-paymentservice-scheduler/cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/messaging/KafkaProducer.java:29–41"
+    },
+    {
+      "evidence": "scheduler-c00df60-r5/e/06c23e6c88ee",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-scheduler/blob/c00df60c8233b1a8f47829ce382d5805bf164c6b/cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/messaging/KafkaProducer.java#L31-L39",
+      "label": "volvo-cars/cds-paymentservice-scheduler/cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/messaging/KafkaProducer.java:31–39"
+    },
+    {
+      "evidence": "scheduler-c00df60-r5/e/edd229d10ffd",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-scheduler/blob/c00df60c8233b1a8f47829ce382d5805bf164c6b/cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/messaging/KafkaProducer.java#L30-L39",
+      "label": "volvo-cars/cds-paymentservice-scheduler/cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/messaging/KafkaProducer.java:30–39"
+    },
+    {
+      "evidence": "scheduler-c00df60-r5/e/5e52dd8eb680",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-scheduler/blob/c00df60c8233b1a8f47829ce382d5805bf164c6b/Dockerfile#L1-L22",
+      "label": "volvo-cars/cds-paymentservice-scheduler/Dockerfile:1–22"
+    },
+    {
+      "evidence": "scheduler-c00df60-r5/e/8377781a2b50",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-scheduler/blob/c00df60c8233b1a8f47829ce382d5805bf164c6b/cds-paymentservice-scheduler-api/src/main/java/com/volvocars/ecom/paymentservice/scheduler/App.java#L14-L25",
+      "label": "volvo-cars/cds-paymentservice-scheduler/cds-paymentservice-scheduler-api/src/main/java/com/volvocars/ecom/paymentservice/scheduler/App.java:14–25"
+    }
+  ],
+  "nextRequest": null
+}

@@ -1,0 +1,33 @@
+{
+  "format": "groundwork-query/v3",
+  "snapshot": "8f5b505536f6140e260bbc4a079a419a80eb79573d760b1e252b0c8ad3a5a19d",
+  "query": "records",
+  "entry": "pspin-ae1d9dd/entry/webhook",
+  "value": null,
+  "context": [],
+  "outcome": null,
+  "changed": [],
+  "representation": "constructed",
+  "candidates": "exclude",
+  "maxNodes": 500,
+  "maxRecords": 1500,
+  "environment": "ecp-weu-prod-source-profile",
+  "ids": [
+    "pspin-ae1d9dd/channel/internal",
+    "pspin-ae1d9dd/channel/heartbeat",
+    "pspin-ae1d9dd/contract/webhook",
+    "pspin-ae1d9dd/contract/webhook-publication",
+    "pspin-ae1d9dd/policy/webhook",
+    "pspin-ae1d9dd/contract/account-lookup",
+    "pspin-ae1d9dd/milestone/webhook-publication-attempt",
+    "pspin-ae1d9dd/milestone/webhook-http200",
+    "pspin-ae1d9dd/boundary/http-publication",
+    "pspin-ae1d9dd/contract/heartbeat-publication",
+    "pspin-ae1d9dd/policy/heartbeat",
+    "pspin-ae1d9dd/contract/swagger-config",
+    "pspin-ae1d9dd/contract/actuator-health",
+    "pspin-ae1d9dd/contract/actuator-prometheus",
+    "pspin-ae1d9dd/contract/swagger-ui",
+    "pspin-ae1d9dd/contract/api-docs"
+  ]
+}

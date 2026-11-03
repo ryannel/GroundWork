@@ -1,0 +1,84 @@
+{
+  "snapshot": "9d5411b64c10e530e8307fb8c6dc9f0c1b3b76151a769f6f94a1c746385d08c5",
+  "status": "passed",
+  "qualification": "All21pinned source files independently read. Pure source/schema catalogue; no invented runtime registrations. Native wire tags, lexical nested types, recursion, optional/deprecated source options and bounded pagination verified.",
+  "queries": [
+    {
+      "name": "Native schema volvocars.contracts.carconfiguration.CarKey",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Native schema volvocars.contracts.carconfiguration.v2.CarKey",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Native schema volvocars.contracts.carconfiguration.Rule.Condition",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Native schema volvocars.contracts.carconfiguration.v2.CarDetails",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Native schema volvocars.contracts.carconfiguration.v2.CarSpecification",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Native schema volvocars.contracts.carconfiguration.v2.CarSpecificationRemoved",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Native schema volvocars.contracts.carconfiguration.RuleSetRemoved",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Native schema volvocars.contracts.carconfiguration.ParterNames",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Enum numeric symbols are separate from positive field tags",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Unavailable Timestamp declaration stays partial",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "All declarations strictly paginated with duplicate IDs",
+      "nodes": 0,
+      "edges": 0,
+      "limits": ["maxRecords"],
+      "pages": 24
+    }
+  ]
+}

@@ -1,0 +1,98 @@
+[
+  {
+    "path": "internal/messaging/contracts/bto_car.proto",
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/local-proto/628268dc56295392fb",
+    "correspondence": [
+      {
+        "message": "volvocars.contracts.pop.cce.BtoCarAdded",
+        "wireShape": "volvo/cce-policy-admin/88a3512f0307/local-r2/shape/protobuf/volvocars.contracts.pop.cce.BtoCarAdded",
+        "fields": [
+          ["market", "TYPE_STRING", 1, false],
+          ["business_model", "TYPE_STRING", 2, false],
+          ["car", "volvocars.contracts.pop.cce.Car", 3, false]
+        ],
+        "storedPath": "internal/messaging/contracts/cce/bto_car.pb.go"
+      },
+      {
+        "message": "volvocars.contracts.pop.cce.BtoCarUpdated",
+        "wireShape": "volvo/cce-policy-admin/88a3512f0307/local-r2/shape/protobuf/volvocars.contracts.pop.cce.BtoCarUpdated",
+        "fields": [
+          ["market", "TYPE_STRING", 1, false],
+          ["business_model", "TYPE_STRING", 2, false],
+          ["car", "volvocars.contracts.pop.cce.Car", 3, false]
+        ],
+        "storedPath": "internal/messaging/contracts/cce/bto_car.pb.go"
+      },
+      {
+        "message": "volvocars.contracts.pop.cce.BtoCarRemoved",
+        "wireShape": "volvo/cce-policy-admin/88a3512f0307/local-r2/shape/protobuf/volvocars.contracts.pop.cce.BtoCarRemoved",
+        "fields": [
+          ["market", "TYPE_STRING", 1, false],
+          ["business_model", "TYPE_STRING", 2, false],
+          ["car", "volvocars.contracts.pop.cce.Car", 3, false]
+        ],
+        "storedPath": "internal/messaging/contracts/cce/bto_car.pb.go"
+      },
+      {
+        "message": "volvocars.contracts.pop.cce.Car",
+        "wireShape": "volvo/cce-policy-admin/88a3512f0307/local-r2/shape/protobuf/volvocars.contracts.pop.cce.Car",
+        "fields": [
+          ["id", "TYPE_STRING", 1, false],
+          ["pno12", "TYPE_STRING", 2, false],
+          ["model_year", "TYPE_INT32", 3, false],
+          ["spec_market", "TYPE_STRING", 4, false],
+          ["local_edition_code", "TYPE_STRING", 5, false]
+        ],
+        "storedPath": "internal/messaging/contracts/cce/bto_car.pb.go"
+      }
+    ]
+  },
+  {
+    "path": "internal/messaging/contracts/car-configuration.proto",
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/local-proto/6baf30f4f8c664d198",
+    "correspondence": [
+      {
+        "message": "volvocars.contracts.carconfiguration.CarKey",
+        "wireShape": "volvo/cce-policy-admin/88a3512f0307/local-r2/shape/protobuf/volvocars.contracts.carconfiguration.CarKey",
+        "fields": [
+          ["modelYear", "TYPE_INT32", 1, false],
+          ["specMarket", "TYPE_STRING", 2, false],
+          ["carType", "TYPE_STRING", 3, false],
+          ["engine", "TYPE_STRING", 4, false],
+          ["salesVersion", "TYPE_STRING", 5, false],
+          ["body", "TYPE_STRING", 6, false],
+          ["gearbox", "TYPE_STRING", 7, false],
+          ["steering", "TYPE_STRING", 8, false],
+          ["marketingCode", "TYPE_STRING", 9, false],
+          ["sMessage", "TYPE_STRING", 10, false],
+          ["color", "TYPE_STRING", 11, false],
+          ["upholstery", "TYPE_STRING", 12, false],
+          ["options", "TYPE_STRING", 13, true],
+          ["packages", "TYPE_STRING", 14, true],
+          ["structureWeek", "TYPE_INT32", 15, false]
+        ],
+        "storedPath": "internal/messaging/contracts/cce/car-configuration.pb.go"
+      },
+      {
+        "message": "volvocars.contracts.carconfiguration.CarConfigurationAdded",
+        "wireShape": "volvo/cce-policy-admin/88a3512f0307/local-r2/shape/protobuf/volvocars.contracts.carconfiguration.CarConfigurationAdded",
+        "fields": [
+          ["market", "TYPE_STRING", 1, false],
+          ["validFromStructureWeek", "TYPE_INT32", 2, false],
+          ["validToStructureWeek", "TYPE_INT32", 3, false],
+          ["carKey", "volvocars.contracts.carconfiguration.CarKey", 4, false]
+        ],
+        "storedPath": "internal/messaging/contracts/cce/car-configuration.pb.go"
+      },
+      {
+        "message": "volvocars.contracts.carconfiguration.CarConfigurationRemoved",
+        "wireShape": "volvo/cce-policy-admin/88a3512f0307/local-r2/shape/protobuf/volvocars.contracts.carconfiguration.CarConfigurationRemoved",
+        "fields": [
+          ["market", "TYPE_STRING", 1, false],
+          ["carKey", "volvocars.contracts.carconfiguration.CarKey", 2, false]
+        ],
+        "storedPath": "internal/messaging/contracts/cce/car-configuration.pb.go"
+      }
+    ]
+  }
+]

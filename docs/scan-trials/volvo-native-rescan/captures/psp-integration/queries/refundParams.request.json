@@ -1,0 +1,20 @@
+{
+  "format": "groundwork-query/v3",
+  "snapshot": "83dca2d1f3de790273d6451f1ba875edfc6f9661680d0124077485d0aec4b24c",
+  "query": "value",
+  "entry": "psp-dabd6c8-r3/entry/RefundController-create",
+  "value": "psp-dabd6c8-r3/value/refund-stripe/params",
+  "context": [
+    "psp-dabd6c8-r3/op/refund-http/invoke",
+    "psp-dabd6c8-r3/op/refund-core/stripe",
+    "psp-dabd6c8-r3/op/refund-stripe/create-private-call"
+  ],
+  "outcome": null,
+  "changed": [],
+  "representation": "constructed",
+  "candidates": "exclude",
+  "maxNodes": 500,
+  "environment": "source-declared",
+  "maxRecords": 5000,
+  "ids": []
+}

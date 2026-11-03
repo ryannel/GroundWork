@@ -1,0 +1,322 @@
+[
+  {
+    "host": "http",
+    "owner": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/implementation/31869a1379d85b79d3e6",
+    "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/operation/31869a1379d85b79d3e6/26",
+    "contract": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/interface_contract/io/cfbac7c4a38f529ece0c",
+    "method": "GET",
+    "path": "/v1/cars/MarketAuth",
+    "body": null,
+    "partValues": [
+      {
+        "part": "query",
+        "path": ["ModelYear"],
+        "owner": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/implementation/31869a1379d85b79d3e6",
+        "value": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/implementation/31869a1379d85b79d3e6/parameter/1",
+        "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/operation/31869a1379d85b79d3e6/5"
+      },
+      {
+        "part": "query",
+        "path": ["SpecMarket"],
+        "owner": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/implementation/31869a1379d85b79d3e6",
+        "value": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/implementation/31869a1379d85b79d3e6/parameter/2",
+        "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/operation/31869a1379d85b79d3e6/7"
+      },
+      {
+        "part": "query",
+        "path": ["CarType"],
+        "owner": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/implementation/31869a1379d85b79d3e6",
+        "value": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/implementation/31869a1379d85b79d3e6/parameter/3",
+        "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/operation/31869a1379d85b79d3e6/9"
+      },
+      {
+        "part": "headers",
+        "path": ["VCC-Api-Key"],
+        "owner": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/implementation/7e59730dbf15565eb995",
+        "value": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/value/7e59730dbf15565eb995/11",
+        "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/operation/7e59730dbf15565eb995/12"
+      }
+    ]
+  },
+  {
+    "host": "http",
+    "owner": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/implementation/bef48d4a882de36a6942",
+    "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/operation/bef48d4a882de36a6942/28",
+    "contract": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/interface_contract/io/8c8eacbfa9f93c1fcd26",
+    "method": "GET",
+    "path": "/v1/cars/CarConfig/query",
+    "body": null,
+    "partValues": [
+      {
+        "part": "query",
+        "path": ["SpecMarket"],
+        "owner": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/implementation/bef48d4a882de36a6942",
+        "value": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/implementation/bef48d4a882de36a6942/parameter/1",
+        "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/operation/bef48d4a882de36a6942/8"
+      },
+      {
+        "part": "query",
+        "path": ["Take"],
+        "owner": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/implementation/bef48d4a882de36a6942",
+        "value": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/value/bef48d4a882de36a6942/10",
+        "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/operation/bef48d4a882de36a6942/11"
+      },
+      {
+        "part": "headers",
+        "path": ["VCC-Api-Key"],
+        "owner": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/implementation/7e59730dbf15565eb995",
+        "value": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/value/7e59730dbf15565eb995/11",
+        "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/operation/7e59730dbf15565eb995/12"
+      },
+      {
+        "part": "headers",
+        "path": ["Accept"],
+        "owner": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/implementation/bef48d4a882de36a6942",
+        "value": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/value/bef48d4a882de36a6942/5",
+        "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/operation/bef48d4a882de36a6942/6"
+      }
+    ]
+  },
+  {
+    "host": "http",
+    "owner": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/implementation/5aed7c23169c8c375dba",
+    "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/operation/5aed7c23169c8c375dba/26",
+    "contract": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/interface_contract/io/31f61d39c141b50cb802",
+    "method": "GET",
+    "path": "/v1/cars/SpecMarket",
+    "body": null,
+    "partValues": [
+      {
+        "part": "query",
+        "path": ["Take"],
+        "owner": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/implementation/5aed7c23169c8c375dba",
+        "value": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/value/5aed7c23169c8c375dba/8",
+        "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/operation/5aed7c23169c8c375dba/9"
+      },
+      {
+        "part": "headers",
+        "path": ["VCC-Api-Key"],
+        "owner": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/implementation/7e59730dbf15565eb995",
+        "value": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/value/7e59730dbf15565eb995/11",
+        "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/operation/7e59730dbf15565eb995/12"
+      },
+      {
+        "part": "headers",
+        "path": ["Accept"],
+        "owner": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/implementation/5aed7c23169c8c375dba",
+        "value": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/value/5aed7c23169c8c375dba/5",
+        "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/operation/5aed7c23169c8c375dba/6"
+      }
+    ]
+  },
+  {
+    "host": "http",
+    "owner": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/implementation/8b1506d841fbe89c3134",
+    "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/operation/8b1506d841fbe89c3134/59",
+    "contract": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/interface_contract/io/42fa48f97108cfa46b26",
+    "method": "POST",
+    "path": "/api/v1/fullFeatures/getfullfeatures",
+    "body": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/implementation/8b1506d841fbe89c3134/parameter/1",
+    "partValues": [
+      {
+        "part": "headers",
+        "path": ["Content-Type"],
+        "owner": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/implementation/8b1506d841fbe89c3134",
+        "value": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/value/8b1506d841fbe89c3134/57",
+        "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/operation/8b1506d841fbe89c3134/58"
+      },
+      {
+        "part": "body",
+        "path": [],
+        "owner": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/implementation/8b1506d841fbe89c3134",
+        "value": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/implementation/8b1506d841fbe89c3134/parameter/1",
+        "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/operation/8b1506d841fbe89c3134/59"
+      }
+    ]
+  },
+  {
+    "host": "http",
+    "owner": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/implementation/f12e2184beef2495e4d4",
+    "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/operation/f12e2184beef2495e4d4/50",
+    "contract": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/interface_contract/io/05ddb8d82e145b607bf4",
+    "method": "GET",
+    "path": "/v1/local-editions",
+    "body": null,
+    "partValues": [
+      {
+        "part": "query",
+        "path": ["specMarket"],
+        "owner": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/implementation/f12e2184beef2495e4d4",
+        "value": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/implementation/f12e2184beef2495e4d4/parameter/1",
+        "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/operation/f12e2184beef2495e4d4/25"
+      },
+      {
+        "part": "query",
+        "path": ["modelYear"],
+        "owner": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/implementation/f12e2184beef2495e4d4",
+        "value": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/implementation/f12e2184beef2495e4d4/parameter/2",
+        "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/operation/f12e2184beef2495e4d4/27"
+      },
+      {
+        "part": "query",
+        "path": ["carType"],
+        "owner": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/implementation/f12e2184beef2495e4d4",
+        "value": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/implementation/f12e2184beef2495e4d4/parameter/3",
+        "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/operation/f12e2184beef2495e4d4/29"
+      }
+    ]
+  },
+  {
+    "host": "http",
+    "owner": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/implementation/f091c0b69a9d7edde68c",
+    "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/operation/f091c0b69a9d7edde68c/40",
+    "contract": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/interface_contract/io/1fa3512f6c8cf25674db",
+    "method": "POST",
+    "path": "configured CPAM_API URL",
+    "body": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/implementation/f091c0b69a9d7edde68c/parameter/1",
+    "partValues": [
+      {
+        "part": "headers",
+        "path": ["user-key"],
+        "owner": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/implementation/f091c0b69a9d7edde68c",
+        "value": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/value/f091c0b69a9d7edde68c/37",
+        "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/operation/f091c0b69a9d7edde68c/38"
+      },
+      {
+        "part": "body",
+        "path": [],
+        "owner": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/implementation/f091c0b69a9d7edde68c",
+        "value": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/implementation/f091c0b69a9d7edde68c/parameter/1",
+        "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/operation/f091c0b69a9d7edde68c/40"
+      }
+    ]
+  },
+  {
+    "host": "http",
+    "owner": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/implementation/f451f361555b7493e095",
+    "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/operation/f451f361555b7493e095/13",
+    "contract": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/interface_contract/io/88d4901a4f171d0cca80",
+    "method": "POST",
+    "path": "configured TOKEN_ENDPOINT",
+    "body": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/value/f451f361555b7493e095/9",
+    "partValues": [
+      {
+        "part": "body",
+        "path": [],
+        "owner": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/implementation/f451f361555b7493e095",
+        "value": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/value/f451f361555b7493e095/9",
+        "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/operation/f451f361555b7493e095/13"
+      }
+    ]
+  },
+  {
+    "host": "event",
+    "owner": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-event/implementation/f06747d0f80824ed9bca",
+    "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-event/operation/f06747d0f80824ed9bca/23",
+    "contract": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/interface_contract/io/ec3dc4f00582e25a2c15",
+    "method": "GET",
+    "path": "/v2/allPolicyUids",
+    "body": null,
+    "partValues": []
+  },
+  {
+    "host": "pipeline",
+    "owner": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/implementation/8b1506d841fbe89c3134",
+    "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/operation/8b1506d841fbe89c3134/59",
+    "contract": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/interface_contract/io/fe7b8ddaafc8b52c5cb9",
+    "method": "POST",
+    "path": "/api/v1/fullFeatures/getfullfeatures",
+    "body": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/implementation/8b1506d841fbe89c3134/parameter/1",
+    "partValues": [
+      {
+        "part": "headers",
+        "path": ["Content-Type"],
+        "owner": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/implementation/8b1506d841fbe89c3134",
+        "value": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/value/8b1506d841fbe89c3134/57",
+        "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/operation/8b1506d841fbe89c3134/58"
+      },
+      {
+        "part": "body",
+        "path": [],
+        "owner": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/implementation/8b1506d841fbe89c3134",
+        "value": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/implementation/8b1506d841fbe89c3134/parameter/1",
+        "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/operation/8b1506d841fbe89c3134/59"
+      }
+    ]
+  },
+  {
+    "host": "pipeline",
+    "owner": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/implementation/f12e2184beef2495e4d4",
+    "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/operation/f12e2184beef2495e4d4/50",
+    "contract": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/interface_contract/io/abd465737bf2d477ead0",
+    "method": "GET",
+    "path": "/v1/local-editions",
+    "body": null,
+    "partValues": [
+      {
+        "part": "query",
+        "path": ["specMarket"],
+        "owner": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/implementation/f12e2184beef2495e4d4",
+        "value": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/implementation/f12e2184beef2495e4d4/parameter/1",
+        "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/operation/f12e2184beef2495e4d4/25"
+      },
+      {
+        "part": "query",
+        "path": ["modelYear"],
+        "owner": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/implementation/f12e2184beef2495e4d4",
+        "value": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/implementation/f12e2184beef2495e4d4/parameter/2",
+        "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/operation/f12e2184beef2495e4d4/27"
+      },
+      {
+        "part": "query",
+        "path": ["carType"],
+        "owner": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/implementation/f12e2184beef2495e4d4",
+        "value": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/implementation/f12e2184beef2495e4d4/parameter/3",
+        "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/operation/f12e2184beef2495e4d4/29"
+      }
+    ]
+  },
+  {
+    "host": "pipeline",
+    "owner": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/implementation/f091c0b69a9d7edde68c",
+    "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/operation/f091c0b69a9d7edde68c/40",
+    "contract": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/interface_contract/io/584cad21e0d85e5c0631",
+    "method": "POST",
+    "path": "configured CPAM_API URL",
+    "body": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/implementation/f091c0b69a9d7edde68c/parameter/1",
+    "partValues": [
+      {
+        "part": "headers",
+        "path": ["user-key"],
+        "owner": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/implementation/f091c0b69a9d7edde68c",
+        "value": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/value/f091c0b69a9d7edde68c/37",
+        "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/operation/f091c0b69a9d7edde68c/38"
+      },
+      {
+        "part": "body",
+        "path": [],
+        "owner": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/implementation/f091c0b69a9d7edde68c",
+        "value": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/implementation/f091c0b69a9d7edde68c/parameter/1",
+        "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/operation/f091c0b69a9d7edde68c/40"
+      }
+    ]
+  },
+  {
+    "host": "pipeline",
+    "owner": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/implementation/f451f361555b7493e095",
+    "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/operation/f451f361555b7493e095/13",
+    "contract": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/interface_contract/io/d8d4fd23eed521465742",
+    "method": "POST",
+    "path": "configured TOKEN_ENDPOINT",
+    "body": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/value/f451f361555b7493e095/9",
+    "partValues": [
+      {
+        "part": "body",
+        "path": [],
+        "owner": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/implementation/f451f361555b7493e095",
+        "value": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/value/f451f361555b7493e095/9",
+        "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/operation/f451f361555b7493e095/13"
+      }
+    ]
+  }
+]

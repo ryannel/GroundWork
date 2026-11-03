@@ -1,0 +1,402 @@
+{
+  "snapshot": "9d0a63b6ca64b19212019fab88daf56965ac16d3c46dfc8b1cd6765c0b7b2475",
+  "status": "passed",
+  "interactions": [
+    {
+      "interaction": "volvo/cds-paymentservice-transaction/020d2fabb141/local-7/io-interaction/3a559a20112ab05f41f6",
+      "sourceSymbol": "com.volvocars.ecom.paymentservice.configuration.PaymentSessionExpiryConfiguration#<init>()",
+      "receiverType": "FileUtils",
+      "name": "getResourceStream",
+      "target": null,
+      "condition": "Only on source control paths reaching this exact invocation",
+      "nativeEdgeVerified": true
+    },
+    {
+      "interaction": "volvo/cds-paymentservice-transaction/020d2fabb141/local-7/io-interaction/9417ebae4116f10e8e62",
+      "sourceSymbol": "com.volvocars.ecom.paymentservice.messaging.KafkaProducer#sendRefundMessage(String,Event<RefundEventPayload>)",
+      "receiverType": "KafkaTemplate",
+      "name": "send",
+      "target": "volvo/cds-paymentservice-transaction/020d2fabb141/local-7/revised/98ef10446a07da950fc0",
+      "condition": "Only on source control paths reaching this exact invocation",
+      "nativeEdgeVerified": true
+    },
+    {
+      "interaction": "volvo/cds-paymentservice-transaction/020d2fabb141/local-7/io-interaction/70f6f8a65bd9598e3405",
+      "sourceSymbol": "com.volvocars.ecom.paymentservice.messaging.KafkaProducer#sendRecurringChargeMessage(String,Event<RecurringChargeInternalEventPayload>)",
+      "receiverType": "KafkaTemplate",
+      "name": "send",
+      "target": "volvo/cds-paymentservice-transaction/020d2fabb141/local-7/revised/ec6883fa32ad283a9e4c",
+      "condition": "Only on source control paths reaching this exact invocation",
+      "nativeEdgeVerified": true
+    },
+    {
+      "interaction": "volvo/cds-paymentservice-transaction/020d2fabb141/local-7/io-interaction/178a9bb3e35abc0ea567",
+      "sourceSymbol": "com.volvocars.ecom.paymentservice.paymentinstrument.PaymentInstrumentService#getByPaymentInstrumentId(String)",
+      "receiverType": "PaymentInstrumentRepository",
+      "name": "findByPaymentInstrumentId",
+      "target": "volvo/cds-paymentservice-transaction/020d2fabb141/local-7/revised/9a954c288b7980a7f4a0",
+      "condition": "Only on source control paths reaching this exact invocation",
+      "nativeEdgeVerified": true
+    },
+    {
+      "interaction": "volvo/cds-paymentservice-transaction/020d2fabb141/local-7/io-interaction/a99e0302113d93bffe40",
+      "sourceSymbol": "com.volvocars.ecom.paymentservice.paymentsession.PaymentSessionOperationService#getByPaymentSessionId(String)",
+      "receiverType": "PaymentSessionRepository",
+      "name": "findByPaymentSessionId",
+      "target": "volvo/cds-paymentservice-transaction/020d2fabb141/local-7/revised/9a954c288b7980a7f4a0",
+      "condition": "Only on source control paths reaching this exact invocation",
+      "nativeEdgeVerified": true
+    },
+    {
+      "interaction": "volvo/cds-paymentservice-transaction/020d2fabb141/local-7/io-interaction/41aaa4823fad020c3b4f",
+      "sourceSymbol": "com.volvocars.ecom.paymentservice.paymentsession.PaymentSessionOperationService#save(PaymentSessionEntity)",
+      "receiverType": "PaymentSessionRepository",
+      "name": "findByPaymentSessionId",
+      "target": "volvo/cds-paymentservice-transaction/020d2fabb141/local-7/revised/9a954c288b7980a7f4a0",
+      "condition": "Only on source control paths reaching this exact invocation",
+      "nativeEdgeVerified": true
+    },
+    {
+      "interaction": "volvo/cds-paymentservice-transaction/020d2fabb141/local-7/io-interaction/21c279b88f4ef237333f",
+      "sourceSymbol": "com.volvocars.ecom.paymentservice.paymentsession.PaymentSessionOperationService#update(PaymentSessionEntity,PaymentSessionEntity)",
+      "receiverType": "PaymentSessionRepository",
+      "name": "save",
+      "target": "volvo/cds-paymentservice-transaction/020d2fabb141/local-7/revised/9a954c288b7980a7f4a0",
+      "condition": "Only on source control paths reaching this exact invocation",
+      "nativeEdgeVerified": true
+    },
+    {
+      "interaction": "volvo/cds-paymentservice-transaction/020d2fabb141/local-7/io-interaction/f369bc9c62ef02450dd7",
+      "sourceSymbol": "com.volvocars.ecom.paymentservice.paymentsession.PaymentSessionOperationService#insert(PaymentSessionEntity)",
+      "receiverType": "PaymentSessionRepository",
+      "name": "insert",
+      "target": "volvo/cds-paymentservice-transaction/020d2fabb141/local-7/revised/9a954c288b7980a7f4a0",
+      "condition": "Only on source control paths reaching this exact invocation",
+      "nativeEdgeVerified": true
+    },
+    {
+      "interaction": "volvo/cds-paymentservice-transaction/020d2fabb141/local-7/io-interaction/76728ddcea54443e49ab",
+      "sourceSymbol": "com.volvocars.ecom.paymentservice.paymentsession.PaymentSessionSettingService#getAccount(Market,Psp)",
+      "receiverType": "AccountConfigService",
+      "name": "getPaymentComponentAccount",
+      "target": null,
+      "condition": "Only on source control paths reaching this exact invocation",
+      "nativeEdgeVerified": true
+    },
+    {
+      "interaction": "volvo/cds-paymentservice-transaction/020d2fabb141/local-7/io-interaction/91223278b7a072f04e47",
+      "sourceSymbol": "com.volvocars.ecom.paymentservice.recurringcharge.RecurringChargeOperationService#getByRecurringChargeId(String)",
+      "receiverType": "RecurringChargeRepository",
+      "name": "findByRecurringChargeId",
+      "target": "volvo/cds-paymentservice-transaction/020d2fabb141/local-7/revised/9a954c288b7980a7f4a0",
+      "condition": "Only on source control paths reaching this exact invocation",
+      "nativeEdgeVerified": true
+    },
+    {
+      "interaction": "volvo/cds-paymentservice-transaction/020d2fabb141/local-7/io-interaction/f811f5f0d88bbaa4c1b6",
+      "sourceSymbol": "com.volvocars.ecom.paymentservice.recurringcharge.RecurringChargeOperationService#getByOriginalPaymentSessionId(String)",
+      "receiverType": "RecurringChargeRepository",
+      "name": "findByOriginalPaymentSessionId",
+      "target": "volvo/cds-paymentservice-transaction/020d2fabb141/local-7/revised/9a954c288b7980a7f4a0",
+      "condition": "Only on source control paths reaching this exact invocation",
+      "nativeEdgeVerified": true
+    },
+    {
+      "interaction": "volvo/cds-paymentservice-transaction/020d2fabb141/local-7/io-interaction/29eb709c396f29ff2836",
+      "sourceSymbol": "com.volvocars.ecom.paymentservice.recurringcharge.RecurringChargeOperationService#getByPaymentInstrumentId(String)",
+      "receiverType": "RecurringChargeRepository",
+      "name": "findByPaymentInstrumentId",
+      "target": "volvo/cds-paymentservice-transaction/020d2fabb141/local-7/revised/9a954c288b7980a7f4a0",
+      "condition": "Only on source control paths reaching this exact invocation",
+      "nativeEdgeVerified": true
+    },
+    {
+      "interaction": "volvo/cds-paymentservice-transaction/020d2fabb141/local-7/io-interaction/d38c5d2f8d18befdf812",
+      "sourceSymbol": "com.volvocars.ecom.paymentservice.recurringcharge.RecurringChargeOperationService#getByCustomerId(String)",
+      "receiverType": "RecurringChargeRepository",
+      "name": "findByCustomerId",
+      "target": "volvo/cds-paymentservice-transaction/020d2fabb141/local-7/revised/9a954c288b7980a7f4a0",
+      "condition": "Only on source control paths reaching this exact invocation",
+      "nativeEdgeVerified": true
+    },
+    {
+      "interaction": "volvo/cds-paymentservice-transaction/020d2fabb141/local-7/io-interaction/09a7e539d2d9956b561f",
+      "sourceSymbol": "com.volvocars.ecom.paymentservice.recurringcharge.RecurringChargeOperationService#insert(RecurringChargeEntity)",
+      "receiverType": "RecurringChargeRepository",
+      "name": "save",
+      "target": "volvo/cds-paymentservice-transaction/020d2fabb141/local-7/revised/9a954c288b7980a7f4a0",
+      "condition": "Only on source control paths reaching this exact invocation",
+      "nativeEdgeVerified": true
+    },
+    {
+      "interaction": "volvo/cds-paymentservice-transaction/020d2fabb141/local-7/io-interaction/9d2cb10d05426d6451ec",
+      "sourceSymbol": "com.volvocars.ecom.paymentservice.recurringcharge.RecurringChargeOperationService#update(RecurringChargeEntity)",
+      "receiverType": "RecurringChargeRepository",
+      "name": "findByRecurringChargeId",
+      "target": "volvo/cds-paymentservice-transaction/020d2fabb141/local-7/revised/9a954c288b7980a7f4a0",
+      "condition": "Only on source control paths reaching this exact invocation",
+      "nativeEdgeVerified": true
+    },
+    {
+      "interaction": "volvo/cds-paymentservice-transaction/020d2fabb141/local-7/io-interaction/eb7cfae4d7f09f529fde",
+      "sourceSymbol": "com.volvocars.ecom.paymentservice.recurringcharge.RecurringChargeOperationService#update(RecurringChargeEntity)",
+      "receiverType": "RecurringChargeRepository",
+      "name": "save",
+      "target": "volvo/cds-paymentservice-transaction/020d2fabb141/local-7/revised/9a954c288b7980a7f4a0",
+      "condition": "Only on source control paths reaching this exact invocation",
+      "nativeEdgeVerified": true
+    },
+    {
+      "interaction": "volvo/cds-paymentservice-transaction/020d2fabb141/local-7/io-interaction/cb1fd3e10839c9b5f6e3",
+      "sourceSymbol": "com.volvocars.ecom.paymentservice.refund.RefundOperationService#getByTransactionId(String)",
+      "receiverType": "RefundRepository",
+      "name": "findByTransactionId",
+      "target": "volvo/cds-paymentservice-transaction/020d2fabb141/local-7/revised/9a954c288b7980a7f4a0",
+      "condition": "Only on source control paths reaching this exact invocation",
+      "nativeEdgeVerified": true
+    },
+    {
+      "interaction": "volvo/cds-paymentservice-transaction/020d2fabb141/local-7/io-interaction/e1a0469efa054ba43129",
+      "sourceSymbol": "com.volvocars.ecom.paymentservice.refund.RefundOperationService#save(RefundEntity)",
+      "receiverType": "RefundRepository",
+      "name": "findByRefundId",
+      "target": "volvo/cds-paymentservice-transaction/020d2fabb141/local-7/revised/9a954c288b7980a7f4a0",
+      "condition": "Only on source control paths reaching this exact invocation",
+      "nativeEdgeVerified": true
+    },
+    {
+      "interaction": "volvo/cds-paymentservice-transaction/020d2fabb141/local-7/io-interaction/d0cfe84088f8e58e4ee5",
+      "sourceSymbol": "com.volvocars.ecom.paymentservice.refund.RefundOperationService#update(RefundEntity,RefundEntity)",
+      "receiverType": "RefundRepository",
+      "name": "save",
+      "target": "volvo/cds-paymentservice-transaction/020d2fabb141/local-7/revised/9a954c288b7980a7f4a0",
+      "condition": "Only on source control paths reaching this exact invocation",
+      "nativeEdgeVerified": true
+    },
+    {
+      "interaction": "volvo/cds-paymentservice-transaction/020d2fabb141/local-7/io-interaction/b491622a8bb83f382efe",
+      "sourceSymbol": "com.volvocars.ecom.paymentservice.setting.PspSettingService#getSupportedPaymentMethodTypes(PaymentSession,Customer,Psp)",
+      "receiverType": "PspSettingConfigService",
+      "name": "getPspConfiguration",
+      "target": null,
+      "condition": "Only on source control paths reaching this exact invocation",
+      "nativeEdgeVerified": true
+    },
+    {
+      "interaction": "volvo/cds-paymentservice-transaction/020d2fabb141/local-7/io-interaction/38b1761fe7753116fbb4",
+      "sourceSymbol": "com.volvocars.ecom.paymentservice.setting.PspSettingService#getSupportedPaymentMethodTypes(Market,CustomerType,Psp)",
+      "receiverType": "PspSettingConfigService",
+      "name": "getPspConfiguration",
+      "target": null,
+      "condition": "Only on source control paths reaching this exact invocation",
+      "nativeEdgeVerified": true
+    },
+    {
+      "interaction": "volvo/cds-paymentservice-transaction/020d2fabb141/local-7/io-interaction/bba1320e6d31e889aa87",
+      "sourceSymbol": "com.volvocars.ecom.paymentservice.transaction.CustomTransactionRepositoryImpl#partialUpdate(AfterTransactionCreate)",
+      "receiverType": "MongoTemplate",
+      "name": "updateFirst",
+      "target": "volvo/cds-paymentservice-transaction/020d2fabb141/local-7/revised/9a954c288b7980a7f4a0",
+      "condition": "Only on source control paths reaching this exact invocation",
+      "nativeEdgeVerified": true
+    },
+    {
+      "interaction": "volvo/cds-paymentservice-transaction/020d2fabb141/local-7/io-interaction/b489086a0f9c4d87c6e0",
+      "sourceSymbol": "com.volvocars.ecom.paymentservice.transaction.TransactionOperationService#findByPaymentSessionIdAndPsp(String,Psp)",
+      "receiverType": "TransactionRepository",
+      "name": "findByPaymentSessionIdAndPsp",
+      "target": "volvo/cds-paymentservice-transaction/020d2fabb141/local-7/revised/9a954c288b7980a7f4a0",
+      "condition": "Only on source control paths reaching this exact invocation",
+      "nativeEdgeVerified": true
+    },
+    {
+      "interaction": "volvo/cds-paymentservice-transaction/020d2fabb141/local-7/io-interaction/2c1b4c873c20891f3180",
+      "sourceSymbol": "com.volvocars.ecom.paymentservice.transaction.TransactionOperationService#findByPaymentSessionId(String)",
+      "receiverType": "TransactionRepository",
+      "name": "findByPaymentSessionId",
+      "target": "volvo/cds-paymentservice-transaction/020d2fabb141/local-7/revised/9a954c288b7980a7f4a0",
+      "condition": "Only on source control paths reaching this exact invocation",
+      "nativeEdgeVerified": true
+    },
+    {
+      "interaction": "volvo/cds-paymentservice-transaction/020d2fabb141/local-7/io-interaction/ffe5a3133bd5a4a7f033",
+      "sourceSymbol": "com.volvocars.ecom.paymentservice.transaction.TransactionOperationService#findByTransactionId(String)",
+      "receiverType": "TransactionRepository",
+      "name": "findByTransactionId",
+      "target": "volvo/cds-paymentservice-transaction/020d2fabb141/local-7/revised/9a954c288b7980a7f4a0",
+      "condition": "Only on source control paths reaching this exact invocation",
+      "nativeEdgeVerified": true
+    },
+    {
+      "interaction": "volvo/cds-paymentservice-transaction/020d2fabb141/local-7/io-interaction/020e3082981d6a101ede",
+      "sourceSymbol": "com.volvocars.ecom.paymentservice.transaction.TransactionOperationService#insert(TransactionEntity)",
+      "receiverType": "TransactionRepository",
+      "name": "save",
+      "target": "volvo/cds-paymentservice-transaction/020d2fabb141/local-7/revised/9a954c288b7980a7f4a0",
+      "condition": "Only on source control paths reaching this exact invocation",
+      "nativeEdgeVerified": true
+    },
+    {
+      "interaction": "volvo/cds-paymentservice-transaction/020d2fabb141/local-7/io-interaction/c39a4ed364c81086579d",
+      "sourceSymbol": "com.volvocars.ecom.paymentservice.transaction.TransactionOperationService#update(TransactionEntity,TransactionEntity)",
+      "receiverType": "TransactionRepository",
+      "name": "save",
+      "target": "volvo/cds-paymentservice-transaction/020d2fabb141/local-7/revised/9a954c288b7980a7f4a0",
+      "condition": "Only on source control paths reaching this exact invocation",
+      "nativeEdgeVerified": true
+    },
+    {
+      "interaction": "volvo/cds-paymentservice-transaction/020d2fabb141/local-7/io-interaction/11c72a95515b3d0d317d",
+      "sourceSymbol": "com.volvocars.ecom.paymentservice.transaction.TransactionProcessor#submitTransactionToPsp(Transaction,TransactionCreatePayload)",
+      "receiverType": "TransactionClient",
+      "name": "create",
+      "target": "volvo/cds-paymentservice-transaction/020d2fabb141/local-7/component/configured-psp",
+      "condition": "Only on source control paths reaching this exact invocation",
+      "nativeEdgeVerified": true
+    },
+    {
+      "interaction": "volvo/cds-paymentservice-transaction/020d2fabb141/local-7/io-interaction/9258419a4002fb63970c",
+      "sourceSymbol": "com.volvocars.ecom.paymentservice.transaction.capture.CaptureTransactionService#capture(String,TransactionCapturePayload)",
+      "receiverType": "TransactionClient",
+      "name": "capture",
+      "target": "volvo/cds-paymentservice-transaction/020d2fabb141/local-7/component/configured-psp",
+      "condition": "Only on source control paths reaching this exact invocation",
+      "nativeEdgeVerified": true
+    },
+    {
+      "interaction": "volvo/cds-paymentservice-transaction/020d2fabb141/local-7/io-interaction/d05f1c84c7b66251c663",
+      "sourceSymbol": "com.volvocars.ecom.paymentservice.transaction.create.AutoTransferTransactionService#initiate(PaymentSession,Psp)",
+      "receiverType": "AccountConfigService",
+      "name": "getAutoTransferDestinationAccount",
+      "target": null,
+      "condition": "Only on source control paths reaching this exact invocation",
+      "nativeEdgeVerified": true
+    },
+    {
+      "interaction": "volvo/cds-paymentservice-transaction/020d2fabb141/local-7/io-interaction/1199a8c97ca59f871008",
+      "sourceSymbol": "com.volvocars.ecom.paymentservice.transaction.create.AutoTransferTransactionService#isAutoTransferSupported(PaymentSession,Psp)",
+      "receiverType": "MarketPropertyConfigService",
+      "name": "getMarketProperty",
+      "target": null,
+      "condition": "Only on source control paths reaching this exact invocation",
+      "nativeEdgeVerified": true
+    },
+    {
+      "interaction": "volvo/cds-paymentservice-transaction/020d2fabb141/local-7/io-interaction/028a73be34e78d9b7bd0",
+      "sourceSymbol": "com.volvocars.ecom.paymentservice.transaction.create.AutoTransferTransactionService#isAutoTransferSupported(PaymentSession,Psp)",
+      "receiverType": "MarketPropertyConfigService",
+      "name": "hasCapability",
+      "target": null,
+      "condition": "Only on source control paths reaching this exact invocation",
+      "nativeEdgeVerified": true
+    },
+    {
+      "interaction": "volvo/cds-paymentservice-transaction/020d2fabb141/local-7/io-interaction/22ee01d768c3e7bfdb36",
+      "sourceSymbol": "com.volvocars.ecom.paymentservice.transaction.create.CreateTransactionPayloadMapper#mapCustomer(CreateTransactionContext)",
+      "receiverType": "AccountConfigService",
+      "name": "resolvePrimarySyncAccount",
+      "target": null,
+      "condition": "Only on source control paths reaching this exact invocation",
+      "nativeEdgeVerified": true
+    },
+    {
+      "interaction": "volvo/cds-paymentservice-transaction/020d2fabb141/local-7/io-interaction/659aeac65a6910075251",
+      "sourceSymbol": "com.volvocars.ecom.paymentservice.transaction.create.CreateTransactionService#createTransaction(PaymentSession,Psp,CreateTransactionPayload)",
+      "receiverType": "MarketPropertyConfigService",
+      "name": "getMarketProperty",
+      "target": null,
+      "condition": "Only on source control paths reaching this exact invocation",
+      "nativeEdgeVerified": true
+    },
+    {
+      "interaction": "volvo/cds-paymentservice-transaction/020d2fabb141/local-7/io-interaction/ad14434f8cfe7f1d8af7",
+      "sourceSymbol": "com.volvocars.ecom.paymentservice.transaction.create.CreateTransactionService#createTransaction(PaymentSession,Psp,CreateTransactionPayload)",
+      "receiverType": "AccountConfigService",
+      "name": "getDirectTransactionDestinationAccount",
+      "target": null,
+      "condition": "Only on source control paths reaching this exact invocation",
+      "nativeEdgeVerified": true
+    },
+    {
+      "interaction": "volvo/cds-paymentservice-transaction/020d2fabb141/local-7/io-interaction/ffaceb44df60d32b6a76",
+      "sourceSymbol": "com.volvocars.ecom.paymentservice.transaction.create.CreateTransactionService#getAccountId(Transaction,PaymentSession)",
+      "receiverType": "AccountConfigService",
+      "name": "getAccount",
+      "target": null,
+      "condition": "Only on source control paths reaching this exact invocation",
+      "nativeEdgeVerified": true
+    },
+    {
+      "interaction": "volvo/cds-paymentservice-transaction/020d2fabb141/local-7/io-interaction/c196a6f7e830a87562db",
+      "sourceSymbol": "com.volvocars.ecom.paymentservice.transaction.create.CreateTransactionService#getAccountId(Transaction,PaymentSession)",
+      "receiverType": "AccountConfigService",
+      "name": "getAutoTransferTransactionAccount",
+      "target": null,
+      "condition": "Only on source control paths reaching this exact invocation",
+      "nativeEdgeVerified": true
+    },
+    {
+      "interaction": "volvo/cds-paymentservice-transaction/020d2fabb141/local-7/io-interaction/37e582aa92787d8e51d1",
+      "sourceSymbol": "com.volvocars.ecom.paymentservice.transaction.retry.RetryJobsIntegrationService#registerRetryJobIfApplicable(PaymentSession,RecurringCharge,RecurringChargeState)",
+      "receiverType": "RetryJobsClient",
+      "name": "registerRetryJob",
+      "target": "volvo/cds-paymentservice-transaction/020d2fabb141/local-7/component/configured-scheduler",
+      "condition": "Only on source control paths reaching this exact invocation",
+      "nativeEdgeVerified": true
+    },
+    {
+      "interaction": "volvo/cds-paymentservice-transaction/020d2fabb141/local-7/io-interaction/7fc602ff531ef29b55ac",
+      "sourceSymbol": "com.volvocars.ecom.paymentservice.transaction.retry.RetryPaymentSessionService#attemptCharge(PaymentSession,RecurringCharge,Customer,String)",
+      "receiverType": "AccountConfigService",
+      "name": "getAccount",
+      "target": null,
+      "condition": "Only on source control paths reaching this exact invocation",
+      "nativeEdgeVerified": true
+    },
+    {
+      "interaction": "volvo/cds-paymentservice-transaction/020d2fabb141/local-7/io-interaction/d187e44ee02900e8280f",
+      "sourceSymbol": "com.volvocars.ecom.paymentservice.transaction.retry.RetryPaymentSessionService#save(PaymentSession,Account,RecurringCharge)",
+      "receiverType": "MarketPropertyConfigService",
+      "name": "getMarketProperty",
+      "target": null,
+      "condition": "Only on source control paths reaching this exact invocation",
+      "nativeEdgeVerified": true
+    },
+    {
+      "interaction": "volvo/cds-paymentservice-transaction/020d2fabb141/local-7/io-interaction/e2fb655ded2f467c4084",
+      "sourceSymbol": "com.volvocars.ecom.paymentservice.transaction.retry.RetryPaymentSessionService#submitToPsp(Transaction,PaymentSession,Account,String,String,Customer,PaymentInstrument)",
+      "receiverType": "TransactionClient",
+      "name": "create",
+      "target": "volvo/cds-paymentservice-transaction/020d2fabb141/local-7/component/configured-psp",
+      "condition": "Only on source control paths reaching this exact invocation",
+      "nativeEdgeVerified": true
+    },
+    {
+      "interaction": "volvo/cds-paymentservice-transaction/020d2fabb141/local-7/io-interaction/a6820166a8b284c5dc8c",
+      "sourceSymbol": "com.volvocars.ecom.paymentservice.refund.RefundOperationService#save(RefundEntity)$lambda@713",
+      "receiverType": "RefundRepository",
+      "name": "save",
+      "target": "volvo/cds-paymentservice-transaction/020d2fabb141/local-7/revised/9a954c288b7980a7f4a0",
+      "condition": "Only on source control paths reaching this exact invocation",
+      "nativeEdgeVerified": true
+    },
+    {
+      "interaction": "volvo/cds-paymentservice-transaction/020d2fabb141/local-7/io-interaction/e6e232b6125225aa392c",
+      "sourceSymbol": "com.volvocars.ecom.paymentservice.transaction.retry.RetryPaymentSessionService#attemptCharge(PaymentSession,RecurringCharge,Customer,String)$lambda@9174",
+      "receiverType": "DeclineCodeConfigService",
+      "name": "getDeclineCodeConfig",
+      "target": null,
+      "condition": "Only on source control paths reaching this exact invocation",
+      "nativeEdgeVerified": true
+    }
+  ],
+  "sourceOwnerQueries": 39,
+  "negativeChecks": [
+    "source-local Optional update callbacks do not become I/O edges",
+    "configuration library calls have no network destination",
+    "each I/O edge uses the exact actual invocation receiver/name/arguments",
+    "two generated repository flatMap callbacks remain genuine conditional reads, with explicit target labels",
+    "flatMap preserves declared Optional<RefundEntity> and true implicit lambda input type"
+  ],
+  "preservedInteractions": 43
+}

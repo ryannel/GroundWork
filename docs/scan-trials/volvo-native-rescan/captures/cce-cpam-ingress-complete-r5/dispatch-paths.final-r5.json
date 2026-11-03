@@ -1,0 +1,814 @@
+[
+  {
+    "host": "http",
+    "original": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/operation/dc1b4e79f91865a65bfe/12",
+    "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/operation/source-dispatch/fa64a3bb64b87692f40f",
+    "target": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/implementation/9bae29d79c6454cac06f",
+    "condition": "Actual callable element is the source-registered github.com/volvo-cars/cce-cpam-ingress/internal/action#subRuleActions.createExactlyOneRulesFromIcs()->(); conditional registrations execute only under their source guards"
+  },
+  {
+    "host": "http",
+    "original": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/operation/dc1b4e79f91865a65bfe/12",
+    "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/operation/source-dispatch/ea32835713b59a2e8f74",
+    "target": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/implementation/5942c3f318f4dcd0fbe0",
+    "condition": "Actual callable element is the source-registered github.com/volvo-cars/cce-cpam-ingress/internal/action#subRuleActions.createForbidsRuleForEditionCodeForNonEdition()->(); conditional registrations execute only under their source guards"
+  },
+  {
+    "host": "http",
+    "original": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/operation/dc1b4e79f91865a65bfe/12",
+    "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/operation/source-dispatch/53b9d7dd8677fb9b4011",
+    "target": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/implementation/6b0438373f60510bc371",
+    "condition": "Actual callable element is the source-registered github.com/volvo-cars/cce-cpam-ingress/internal/action#subRuleActions.createOptionPackageRequiresExclusivelyRules()->(); conditional registrations execute only under their source guards"
+  },
+  {
+    "host": "http",
+    "original": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/operation/dc1b4e79f91865a65bfe/12",
+    "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/operation/source-dispatch/c3e1c25382084da856bd",
+    "target": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/implementation/5c56983a99740f1771d0",
+    "condition": "Actual callable element is the source-registered github.com/volvo-cars/cce-cpam-ingress/internal/action#subRuleActions.create100PercentOptionAndPackageRules()->(); conditional registrations execute only under their source guards"
+  },
+  {
+    "host": "http",
+    "original": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/operation/dc1b4e79f91865a65bfe/12",
+    "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/operation/source-dispatch/c6b19db90754065814fb",
+    "target": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/implementation/0ba3f5203dd92f2e27f9",
+    "condition": "Actual callable element is the source-registered github.com/volvo-cars/cce-cpam-ingress/internal/action#subRuleActions.createPackageForbidsRules()->(); conditional registrations execute only under their source guards"
+  },
+  {
+    "host": "http",
+    "original": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/operation/dc1b4e79f91865a65bfe/12",
+    "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/operation/source-dispatch/2a1c0220189c05f037ec",
+    "target": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/implementation/583720605c311de3189c",
+    "condition": "Actual callable element is the source-registered github.com/volvo-cars/cce-cpam-ingress/internal/action#subRuleActions.createPackageOnlyRules()->(); conditional registrations execute only under their source guards"
+  },
+  {
+    "host": "http",
+    "original": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/operation/dc1b4e79f91865a65bfe/12",
+    "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/operation/source-dispatch/6e632c3a26a48688c0bb",
+    "target": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/implementation/7ba4093ff8c984b5d717",
+    "condition": "Actual callable element is the source-registered github.com/volvo-cars/cce-cpam-ingress/internal/action#subRuleActions.createPackageRequiresRules()->(); conditional registrations execute only under their source guards"
+  },
+  {
+    "host": "http",
+    "original": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/operation/dc1b4e79f91865a65bfe/12",
+    "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/operation/source-dispatch/5fbc16b33c4ba4228435",
+    "target": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/implementation/4d4890aa12a3f6f29488",
+    "condition": "Actual callable element is the source-registered github.com/volvo-cars/cce-cpam-ingress/internal/action#subRuleActions.createPreferredRulesFunc()->(); conditional registrations execute only under their source guards"
+  },
+  {
+    "host": "http",
+    "original": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/operation/dc1b4e79f91865a65bfe/12",
+    "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/operation/source-dispatch/cb11c2779f8485fb87a0",
+    "target": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/implementation/293d55296d8b20d66dd5",
+    "condition": "Actual callable element is the source-registered github.com/volvo-cars/cce-cpam-ingress/internal/action#subRuleActions.createRequiresForbidsRules()->(); conditional registrations execute only under their source guards"
+  },
+  {
+    "host": "http",
+    "original": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/operation/dc1b4e79f91865a65bfe/12",
+    "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/operation/source-dispatch/bb4b07aecc2a772008fb",
+    "target": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/implementation/7dac6b4f259d007e1ee3",
+    "condition": "Actual callable element is the source-registered github.com/volvo-cars/cce-cpam-ingress/internal/action#subRuleActions.createReversedOfferRules()->(); conditional registrations execute only under their source guards"
+  },
+  {
+    "host": "http",
+    "original": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/operation/dc1b4e79f91865a65bfe/12",
+    "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/operation/source-dispatch/749979601b0bd87dc4b1",
+    "target": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/implementation/30516a33450baa672ff8",
+    "condition": "Actual callable element is the source-registered github.com/volvo-cars/cce-cpam-ingress/internal/action#subRuleActions.createStylingRulesFromIcs()->(); conditional registrations execute only under their source guards"
+  },
+  {
+    "host": "http",
+    "original": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/operation/dc1b4e79f91865a65bfe/12",
+    "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/operation/source-dispatch/1127d6169ccae94208ff",
+    "target": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/implementation/7e56a9227fb2eafdfc5b",
+    "condition": "Actual callable element is the source-registered github.com/volvo-cars/cce-cpam-ingress/internal/action#subRuleActions.createWheelRulesFromIcsAndIcc()->(); conditional registrations execute only under their source guards"
+  },
+  {
+    "host": "http",
+    "original": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/operation/dc1b4e79f91865a65bfe/12",
+    "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/operation/source-dispatch/2d5353ce4bf310563243",
+    "target": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/implementation/f52e6bf699564b94a085",
+    "condition": "Actual callable element is the source-registered github.com/volvo-cars/cce-cpam-ingress/internal/action#subRuleActions.createWheelExclusivelyRulesFromIcs()->(); conditional registrations execute only under their source guards"
+  },
+  {
+    "host": "http",
+    "original": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/operation/e59e6eb471bd20cbcccc/1",
+    "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/operation/source-dispatch/3df3aec1e0a441bb995f",
+    "target": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/implementation/256d67de796bb1a240c5",
+    "condition": "Actual iteration object is github.com/volvo-cars/cce-cpam-ingress/internal/cpam#icpGroupable.getGroup(int)->(string) from the ordered registrations in internal/app/pipeline.go"
+  },
+  {
+    "host": "http",
+    "original": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/operation/e59e6eb471bd20cbcccc/1",
+    "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/operation/source-dispatch/f8c322dca0afe2688fdc",
+    "target": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/implementation/c38f1af79181cfd88f68",
+    "condition": "Actual iteration object is github.com/volvo-cars/cce-cpam-ingress/internal/cpam#icrGroupable.getGroup(int)->(string) from the ordered registrations in internal/app/pipeline.go"
+  },
+  {
+    "host": "http",
+    "original": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/operation/e59e6eb471bd20cbcccc/2",
+    "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/operation/source-dispatch/28c6f14c50066aa70b26",
+    "target": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/implementation/256d67de796bb1a240c5",
+    "condition": "Actual iteration object is github.com/volvo-cars/cce-cpam-ingress/internal/cpam#icpGroupable.getGroup(int)->(string) from the ordered registrations in internal/app/pipeline.go"
+  },
+  {
+    "host": "http",
+    "original": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/operation/e59e6eb471bd20cbcccc/2",
+    "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/operation/source-dispatch/d51f14312f5effa70888",
+    "target": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/implementation/c38f1af79181cfd88f68",
+    "condition": "Actual iteration object is github.com/volvo-cars/cce-cpam-ingress/internal/cpam#icrGroupable.getGroup(int)->(string) from the ordered registrations in internal/app/pipeline.go"
+  },
+  {
+    "host": "http",
+    "original": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/operation/0b3b965179d188bccb33/3",
+    "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/operation/source-dispatch/ac842d30de8daad76fd8",
+    "target": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/implementation/ac56ee304fa5b3f73a29",
+    "condition": "Actual iteration object is github.com/volvo-cars/cce-cpam-ingress/internal/cpam#icpGroupable.length()->(int) from the ordered registrations in internal/app/pipeline.go"
+  },
+  {
+    "host": "http",
+    "original": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/operation/0b3b965179d188bccb33/3",
+    "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/operation/source-dispatch/16138b6ab9b218e3547e",
+    "target": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/implementation/8364abff55a2a6ef82ad",
+    "condition": "Actual iteration object is github.com/volvo-cars/cce-cpam-ingress/internal/cpam#icrGroupable.length()->(int) from the ordered registrations in internal/app/pipeline.go"
+  },
+  {
+    "host": "http",
+    "original": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/operation/0b3b965179d188bccb33/10",
+    "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/operation/source-dispatch/13c9a00bfecee40d9f11",
+    "target": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/implementation/492efae46b803746a5d2",
+    "condition": "Actual iteration object is github.com/volvo-cars/cce-cpam-ingress/internal/cpam#icpGroupable.getSlice()->(interface{}) from the ordered registrations in internal/app/pipeline.go"
+  },
+  {
+    "host": "http",
+    "original": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/operation/0b3b965179d188bccb33/10",
+    "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/operation/source-dispatch/a546e8f2e306d119c283",
+    "target": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/implementation/0a75f381e9891ed30b25",
+    "condition": "Actual iteration object is github.com/volvo-cars/cce-cpam-ingress/internal/cpam#icrGroupable.getSlice()->(interface{}) from the ordered registrations in internal/app/pipeline.go"
+  },
+  {
+    "host": "http",
+    "original": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/operation/0b3b965179d188bccb33/16",
+    "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/operation/source-dispatch/88daba48302af455ba4a",
+    "target": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/implementation/256d67de796bb1a240c5",
+    "condition": "Actual iteration object is github.com/volvo-cars/cce-cpam-ingress/internal/cpam#icpGroupable.getGroup(int)->(string) from the ordered registrations in internal/app/pipeline.go"
+  },
+  {
+    "host": "http",
+    "original": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/operation/0b3b965179d188bccb33/16",
+    "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/operation/source-dispatch/817bb8c7e021a4d4d77e",
+    "target": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/implementation/c38f1af79181cfd88f68",
+    "condition": "Actual iteration object is github.com/volvo-cars/cce-cpam-ingress/internal/cpam#icrGroupable.getGroup(int)->(string) from the ordered registrations in internal/app/pipeline.go"
+  },
+  {
+    "host": "http",
+    "original": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/operation/0b3b965179d188bccb33/29",
+    "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/operation/source-dispatch/a990dd12389150bdded3",
+    "target": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/implementation/256d67de796bb1a240c5",
+    "condition": "Actual iteration object is github.com/volvo-cars/cce-cpam-ingress/internal/cpam#icpGroupable.getGroup(int)->(string) from the ordered registrations in internal/app/pipeline.go"
+  },
+  {
+    "host": "http",
+    "original": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/operation/0b3b965179d188bccb33/29",
+    "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/operation/source-dispatch/c59ce675efb65a787247",
+    "target": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/implementation/c38f1af79181cfd88f68",
+    "condition": "Actual iteration object is github.com/volvo-cars/cce-cpam-ingress/internal/cpam#icrGroupable.getGroup(int)->(string) from the ordered registrations in internal/app/pipeline.go"
+  },
+  {
+    "host": "http",
+    "original": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/operation/44b5225a02d739b8002a/21",
+    "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/operation/source-dispatch/fcbb4911420f2b74b4ff",
+    "target": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/implementation/537ba1c72f37e5cd1345",
+    "condition": "Actual iteration object is github.com/volvo-cars/cce-cpam-ingress/internal/messaging/kafka#SugaredWriter.PublishCompressedMessage(proto.Message,string,string)->(error) from the ordered registrations in internal/app/pipeline.go"
+  },
+  {
+    "host": "http",
+    "original": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/operation/44b5225a02d739b8002a/21",
+    "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/operation/source-dispatch/4326867272ebf83d6e25",
+    "target": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/implementation/a000c4e04ae5e6b82e11",
+    "condition": "Actual iteration object is github.com/volvo-cars/cce-cpam-ingress/internal/messaging/kafka#MockEventWriter.PublishCompressedMessage(proto.Message,string,string)->(error) from the ordered registrations in internal/app/pipeline.go"
+  },
+  {
+    "host": "http",
+    "original": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/operation/44b5225a02d739b8002a/35",
+    "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/operation/source-dispatch/b001462050a3bd856948",
+    "target": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/implementation/537ba1c72f37e5cd1345",
+    "condition": "Actual iteration object is github.com/volvo-cars/cce-cpam-ingress/internal/messaging/kafka#SugaredWriter.PublishCompressedMessage(proto.Message,string,string)->(error) from the ordered registrations in internal/app/pipeline.go"
+  },
+  {
+    "host": "http",
+    "original": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/operation/44b5225a02d739b8002a/35",
+    "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/operation/source-dispatch/fbecc67de4857531b081",
+    "target": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/implementation/a000c4e04ae5e6b82e11",
+    "condition": "Actual iteration object is github.com/volvo-cars/cce-cpam-ingress/internal/messaging/kafka#MockEventWriter.PublishCompressedMessage(proto.Message,string,string)->(error) from the ordered registrations in internal/app/pipeline.go"
+  },
+  {
+    "host": "http",
+    "original": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/operation/fb6dba36092b40c46090/14",
+    "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/operation/source-dispatch/650529812d47c1e5e567",
+    "target": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/implementation/97258fd65d6a7d004b80",
+    "condition": "Provider.getSource selects CPAM when !shouldUsePcfFetcher(icv.Variant.CarType)"
+  },
+  {
+    "host": "http",
+    "original": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/operation/fb6dba36092b40c46090/14",
+    "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/operation/source-dispatch/219632dff53502ccc86b",
+    "target": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/implementation/3e5e7dacfbf60f391701",
+    "condition": "Provider.getSource selects CPAM when !shouldUsePcfFetcher(icv.Variant.CarType)"
+  },
+  {
+    "host": "http",
+    "original": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/operation/fdb1b7beec636f73f2df/11",
+    "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/operation/source-dispatch/4f3a940688e14a76b4a4",
+    "target": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/implementation/05a7d4b828b2e513dc17",
+    "condition": "Actual callable element is the source-registered github.com/volvo-cars/cce-cpam-ingress/internal/pipeline#WithCpamAction(CpamAction)->(Config)$closure@933; conditional registrations execute only under their source guards"
+  },
+  {
+    "host": "http",
+    "original": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/operation/fdb1b7beec636f73f2df/11",
+    "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/operation/source-dispatch/2b1587c90b7c62640d68",
+    "target": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/implementation/43f9ba9221a0d0b60d69",
+    "condition": "Actual callable element is the source-registered github.com/volvo-cars/cce-cpam-ingress/internal/pipeline#WithVerifier(CpamVerifier)->(Config)$closure@1311; conditional registrations execute only under their source guards"
+  },
+  {
+    "host": "http",
+    "original": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/operation/fdb1b7beec636f73f2df/11",
+    "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/operation/source-dispatch/3e30082bbeb25dcba0b0",
+    "target": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/implementation/ce4f27c3ab5229eb0ff8",
+    "condition": "Actual callable element is the source-registered github.com/volvo-cars/cce-cpam-ingress/internal/pipeline#WithConverter(CpamConverter)->(Config)$closure@1060; conditional registrations execute only under their source guards"
+  },
+  {
+    "host": "http",
+    "original": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/operation/fdb1b7beec636f73f2df/11",
+    "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/operation/source-dispatch/be87f3f9d5489941ab23",
+    "target": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/implementation/dca3fb3da3306195cfa7",
+    "condition": "Actual callable element is the source-registered github.com/volvo-cars/cce-cpam-ingress/internal/pipeline#WithParser(CpamParser)->(Config)$closure@1187; conditional registrations execute only under their source guards"
+  },
+  {
+    "host": "http",
+    "original": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/operation/cf3848f1cdb2ada522f1/30",
+    "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/operation/source-dispatch/bc8c753fc3e72bfa865a",
+    "target": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/implementation/d26be1974299bf37b0eb",
+    "condition": "Actual callable element is the source-registered github.com/volvo-cars/cce-cpam-ingress/internal/parser#ParseIca(string,*cpam.Data)->(error); conditional registrations execute only under their source guards"
+  },
+  {
+    "host": "http",
+    "original": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/operation/cf3848f1cdb2ada522f1/30",
+    "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/operation/source-dispatch/d7af92b7172913097775",
+    "target": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/implementation/e4135b2cdb47cbd8d021",
+    "condition": "Actual callable element is the source-registered github.com/volvo-cars/cce-cpam-ingress/internal/parser#ParseIcc(string,*cpam.Data)->(error); conditional registrations execute only under their source guards"
+  },
+  {
+    "host": "http",
+    "original": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/operation/cf3848f1cdb2ada522f1/30",
+    "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/operation/source-dispatch/cd23d50499248b45afcd",
+    "target": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/implementation/c12c813819b6a1969ef0",
+    "condition": "Actual callable element is the source-registered github.com/volvo-cars/cce-cpam-ingress/internal/parser#ParseIcm(string,*cpam.Data)->(error); conditional registrations execute only under their source guards"
+  },
+  {
+    "host": "http",
+    "original": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/operation/cf3848f1cdb2ada522f1/30",
+    "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/operation/source-dispatch/357488106a1766f82dc3",
+    "target": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/implementation/9a3c9c4809fca9ae3f80",
+    "condition": "Actual callable element is the source-registered github.com/volvo-cars/cce-cpam-ingress/internal/parser#ParseIcn(string,*cpam.Data)->(error); conditional registrations execute only under their source guards"
+  },
+  {
+    "host": "http",
+    "original": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/operation/cf3848f1cdb2ada522f1/30",
+    "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/operation/source-dispatch/39c10915ce9d0c03f180",
+    "target": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/implementation/a31fce7e2967baf8b7de",
+    "condition": "Actual callable element is the source-registered github.com/volvo-cars/cce-cpam-ingress/internal/parser#ParseIcp(string,*cpam.Data)->(error); conditional registrations execute only under their source guards"
+  },
+  {
+    "host": "http",
+    "original": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/operation/cf3848f1cdb2ada522f1/30",
+    "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/operation/source-dispatch/0a8860b0ce07bbee58cb",
+    "target": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/implementation/afc649995b82bd9d78f3",
+    "condition": "Actual callable element is the source-registered github.com/volvo-cars/cce-cpam-ingress/internal/parser#ParseIcr(string,*cpam.Data)->(error); conditional registrations execute only under their source guards"
+  },
+  {
+    "host": "http",
+    "original": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/operation/cf3848f1cdb2ada522f1/30",
+    "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/operation/source-dispatch/acaf9514392f5013073e",
+    "target": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/implementation/2dc1eb914fc819894279",
+    "condition": "Actual callable element is the source-registered github.com/volvo-cars/cce-cpam-ingress/internal/parser#ParseIcs(string,*cpam.Data)->(error); conditional registrations execute only under their source guards"
+  },
+  {
+    "host": "http",
+    "original": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/operation/cf3848f1cdb2ada522f1/30",
+    "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/operation/source-dispatch/cea8c586123db545177b",
+    "target": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/implementation/3c193060f9ae22430e40",
+    "condition": "Actual callable element is the source-registered github.com/volvo-cars/cce-cpam-ingress/internal/parser#ParseIcv(string,*cpam.Data)->(error); conditional registrations execute only under their source guards"
+  },
+  {
+    "host": "http",
+    "original": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/operation/cf3848f1cdb2ada522f1/30",
+    "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/operation/source-dispatch/5d2f4a5b6930a7f5bb86",
+    "target": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/implementation/e2136e61966a0e0151cc",
+    "condition": "Actual callable element is the source-registered github.com/volvo-cars/cce-cpam-ingress/internal/parser#ParseIcz(string,*cpam.Data)->(error); conditional registrations execute only under their source guards"
+  },
+  {
+    "host": "http",
+    "original": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/operation/cf3848f1cdb2ada522f1/53",
+    "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/operation/source-dispatch/f9c58ebccb044e649091",
+    "target": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/implementation/2574769acdec280b5ed2",
+    "condition": "Actual iteration object is github.com/volvo-cars/cce-cpam-ingress/internal/verifier#Verifier100PercentOption.Verify(*cpam.Data)->() from the ordered registrations in internal/app/pipeline.go"
+  },
+  {
+    "host": "http",
+    "original": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/operation/cf3848f1cdb2ada522f1/53",
+    "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/operation/source-dispatch/f60d0f6a919ba2f712de",
+    "target": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/implementation/14248c5b0bab63c2f7c4",
+    "condition": "Actual iteration object is github.com/volvo-cars/cce-cpam-ingress/internal/verifier#BidirectionalForbidsVerifier.Verify(*cpam.Data)->() from the ordered registrations in internal/app/pipeline.go"
+  },
+  {
+    "host": "http",
+    "original": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/operation/cf3848f1cdb2ada522f1/53",
+    "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/operation/source-dispatch/1cfb76691686d559a0a1",
+    "target": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/implementation/658c0aa20a46c6941ca9",
+    "condition": "Actual iteration object is github.com/volvo-cars/cce-cpam-ingress/internal/verifier#OrderOfExchangeablesVerifier.Verify(*cpam.Data)->() from the ordered registrations in internal/app/pipeline.go"
+  },
+  {
+    "host": "http",
+    "original": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/operation/cf3848f1cdb2ada522f1/53",
+    "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/operation/source-dispatch/9479a04b5d376dad2e27",
+    "target": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/implementation/d5ce2fca8682bed2e69c",
+    "condition": "Actual iteration object is github.com/volvo-cars/cce-cpam-ingress/internal/verifier#PackageWindowVerifier.Verify(*cpam.Data)->() from the ordered registrations in internal/app/pipeline.go"
+  },
+  {
+    "host": "http",
+    "original": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/operation/cf3848f1cdb2ada522f1/62",
+    "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/operation/source-dispatch/b31f75cb81115e64e1cd",
+    "target": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/implementation/98d0dc4b8436aacd4c68",
+    "condition": "Actual iteration object is github.com/volvo-cars/cce-cpam-ingress/internal/verifier#Verifier100PercentOption.ReadErrors()->([]error,Severity) from the ordered registrations in internal/app/pipeline.go"
+  },
+  {
+    "host": "http",
+    "original": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/operation/cf3848f1cdb2ada522f1/62",
+    "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/operation/source-dispatch/60a1361623e01238daea",
+    "target": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/implementation/4a1fd2f43210cb7044ea",
+    "condition": "Actual iteration object is github.com/volvo-cars/cce-cpam-ingress/internal/verifier#BidirectionalForbidsVerifier.ReadErrors()->([]error,Severity) from the ordered registrations in internal/app/pipeline.go"
+  },
+  {
+    "host": "http",
+    "original": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/operation/cf3848f1cdb2ada522f1/62",
+    "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/operation/source-dispatch/ba159855a9359bb0e04a",
+    "target": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/implementation/d94021807cb771d5fd24",
+    "condition": "Actual iteration object is github.com/volvo-cars/cce-cpam-ingress/internal/verifier#OrderOfExchangeablesVerifier.ReadErrors()->([]error,Severity) from the ordered registrations in internal/app/pipeline.go"
+  },
+  {
+    "host": "http",
+    "original": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/operation/cf3848f1cdb2ada522f1/62",
+    "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/operation/source-dispatch/87d1669fb8d2e4ea7505",
+    "target": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/implementation/fca6ba9bc854260aecdf",
+    "condition": "Actual iteration object is github.com/volvo-cars/cce-cpam-ingress/internal/verifier#PackageWindowVerifier.ReadErrors()->([]error,Severity) from the ordered registrations in internal/app/pipeline.go"
+  },
+  {
+    "host": "http",
+    "original": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/operation/cf3848f1cdb2ada522f1/97",
+    "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/operation/source-dispatch/26c8a145da855a4876b4",
+    "target": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/implementation/cb588652551a5867ab6e",
+    "condition": "Actual iteration object is github.com/volvo-cars/cce-cpam-ingress/internal/convert#LimitEndWeekConversion.Convert(*cpam.Data)->(error) from the ordered registrations in internal/app/pipeline.go"
+  },
+  {
+    "host": "http",
+    "original": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/operation/cf3848f1cdb2ada522f1/97",
+    "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/operation/source-dispatch/b8dcc286fa1392a90e84",
+    "target": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/implementation/86c523ec659916ed16bd",
+    "condition": "Actual iteration object is github.com/volvo-cars/cce-cpam-ingress/internal/convert#SplitVariantConversion.Convert(*cpam.Data)->(error) from the ordered registrations in internal/app/pipeline.go"
+  },
+  {
+    "host": "http",
+    "original": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/operation/cf3848f1cdb2ada522f1/97",
+    "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/operation/source-dispatch/2d360c2ad56d98e90b3f",
+    "target": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/implementation/859d2edc81a8a43d49f1",
+    "condition": "Actual iteration object is github.com/volvo-cars/cce-cpam-ingress/internal/convert#StandardFeaturesConversion.Convert(*cpam.Data)->(error) from the ordered registrations in internal/app/pipeline.go"
+  },
+  {
+    "host": "http",
+    "original": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/operation/cf3848f1cdb2ada522f1/97",
+    "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/operation/source-dispatch/fbd3a82b6c1b6f69add7",
+    "target": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/implementation/eab79db533db61f72e6a",
+    "condition": "Actual iteration object is github.com/volvo-cars/cce-cpam-ingress/internal/convert#TypeRemovalConversion.Convert(*cpam.Data)->(error) from the ordered registrations in internal/app/pipeline.go"
+  },
+  {
+    "host": "http",
+    "original": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/operation/cf3848f1cdb2ada522f1/97",
+    "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/operation/source-dispatch/e7d0a149ffb2e4a303fe",
+    "target": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/implementation/f86cb712286eec4cd1e9",
+    "condition": "Actual iteration object is github.com/volvo-cars/cce-cpam-ingress/internal/convert#EditionRuleConversion.Convert(*cpam.Data)->(error) from the ordered registrations in internal/app/pipeline.go"
+  },
+  {
+    "host": "http",
+    "original": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/operation/cf3848f1cdb2ada522f1/122",
+    "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/operation/source-dispatch/88d7d000827b3a6f688a",
+    "target": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/implementation/6b8963f69af9330b381e",
+    "condition": "Actual iteration object is github.com/volvo-cars/cce-cpam-ingress/internal/action#Pno12RulesAction.Action(context.Context,*cpam.Data,string)->(error) from the ordered registrations in internal/app/pipeline.go"
+  },
+  {
+    "host": "http",
+    "original": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/operation/cf3848f1cdb2ada522f1/122",
+    "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/operation/source-dispatch/92c181ea1ce0fac93396",
+    "target": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/implementation/13d0d94c7bf1f3f9777d",
+    "condition": "Actual iteration object is github.com/volvo-cars/cce-cpam-ingress/internal/action#Pno12ComponentAction.Action(context.Context,*cpam.Data,string)->(error) from the ordered registrations in internal/app/pipeline.go"
+  },
+  {
+    "host": "event",
+    "original": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-event/operation/76dacb144776cc3e069b/97",
+    "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/operation/source-dispatch/451eeb4e9b51441cdda8",
+    "target": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-event/implementation/ef904803c428195263a3",
+    "condition": "Actual iteration object is github.com/volvo-cars/cce-cpam-ingress/internal/messaging/kafka#SugaredWriter.PublishMessage(proto.Message,string,string)->(error) from the ordered registrations in internal/app/pipeline.go"
+  },
+  {
+    "host": "event",
+    "original": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-event/operation/76dacb144776cc3e069b/97",
+    "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/operation/source-dispatch/c6394d89105e5c51f797",
+    "target": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-event/implementation/d8216085ba9a39fd0714",
+    "condition": "Actual iteration object is github.com/volvo-cars/cce-cpam-ingress/internal/messaging/kafka#MockEventWriter.PublishMessage(proto.Message,string,string)->(error) from the ordered registrations in internal/app/pipeline.go"
+  },
+  {
+    "host": "pipeline",
+    "original": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/operation/dc1b4e79f91865a65bfe/12",
+    "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/operation/source-dispatch/6fc8f8ae16fce598aa65",
+    "target": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/implementation/9bae29d79c6454cac06f",
+    "condition": "Actual callable element is the source-registered github.com/volvo-cars/cce-cpam-ingress/internal/action#subRuleActions.createExactlyOneRulesFromIcs()->(); conditional registrations execute only under their source guards"
+  },
+  {
+    "host": "pipeline",
+    "original": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/operation/dc1b4e79f91865a65bfe/12",
+    "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/operation/source-dispatch/92d154735f1d5176511f",
+    "target": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/implementation/5942c3f318f4dcd0fbe0",
+    "condition": "Actual callable element is the source-registered github.com/volvo-cars/cce-cpam-ingress/internal/action#subRuleActions.createForbidsRuleForEditionCodeForNonEdition()->(); conditional registrations execute only under their source guards"
+  },
+  {
+    "host": "pipeline",
+    "original": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/operation/dc1b4e79f91865a65bfe/12",
+    "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/operation/source-dispatch/19d708c785c26af29c51",
+    "target": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/implementation/6b0438373f60510bc371",
+    "condition": "Actual callable element is the source-registered github.com/volvo-cars/cce-cpam-ingress/internal/action#subRuleActions.createOptionPackageRequiresExclusivelyRules()->(); conditional registrations execute only under their source guards"
+  },
+  {
+    "host": "pipeline",
+    "original": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/operation/dc1b4e79f91865a65bfe/12",
+    "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/operation/source-dispatch/2fcfd39c45e2e10c3c18",
+    "target": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/implementation/5c56983a99740f1771d0",
+    "condition": "Actual callable element is the source-registered github.com/volvo-cars/cce-cpam-ingress/internal/action#subRuleActions.create100PercentOptionAndPackageRules()->(); conditional registrations execute only under their source guards"
+  },
+  {
+    "host": "pipeline",
+    "original": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/operation/dc1b4e79f91865a65bfe/12",
+    "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/operation/source-dispatch/9ef250e80f9fb8061a5d",
+    "target": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/implementation/0ba3f5203dd92f2e27f9",
+    "condition": "Actual callable element is the source-registered github.com/volvo-cars/cce-cpam-ingress/internal/action#subRuleActions.createPackageForbidsRules()->(); conditional registrations execute only under their source guards"
+  },
+  {
+    "host": "pipeline",
+    "original": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/operation/dc1b4e79f91865a65bfe/12",
+    "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/operation/source-dispatch/68442633784d4f4f758d",
+    "target": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/implementation/583720605c311de3189c",
+    "condition": "Actual callable element is the source-registered github.com/volvo-cars/cce-cpam-ingress/internal/action#subRuleActions.createPackageOnlyRules()->(); conditional registrations execute only under their source guards"
+  },
+  {
+    "host": "pipeline",
+    "original": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/operation/dc1b4e79f91865a65bfe/12",
+    "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/operation/source-dispatch/b17ea0a673eab51f65fe",
+    "target": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/implementation/7ba4093ff8c984b5d717",
+    "condition": "Actual callable element is the source-registered github.com/volvo-cars/cce-cpam-ingress/internal/action#subRuleActions.createPackageRequiresRules()->(); conditional registrations execute only under their source guards"
+  },
+  {
+    "host": "pipeline",
+    "original": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/operation/dc1b4e79f91865a65bfe/12",
+    "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/operation/source-dispatch/77ca205a515deca99bb4",
+    "target": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/implementation/4d4890aa12a3f6f29488",
+    "condition": "Actual callable element is the source-registered github.com/volvo-cars/cce-cpam-ingress/internal/action#subRuleActions.createPreferredRulesFunc()->(); conditional registrations execute only under their source guards"
+  },
+  {
+    "host": "pipeline",
+    "original": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/operation/dc1b4e79f91865a65bfe/12",
+    "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/operation/source-dispatch/ec399badca542670a226",
+    "target": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/implementation/293d55296d8b20d66dd5",
+    "condition": "Actual callable element is the source-registered github.com/volvo-cars/cce-cpam-ingress/internal/action#subRuleActions.createRequiresForbidsRules()->(); conditional registrations execute only under their source guards"
+  },
+  {
+    "host": "pipeline",
+    "original": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/operation/dc1b4e79f91865a65bfe/12",
+    "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/operation/source-dispatch/ef644c38543599cfc831",
+    "target": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/implementation/7dac6b4f259d007e1ee3",
+    "condition": "Actual callable element is the source-registered github.com/volvo-cars/cce-cpam-ingress/internal/action#subRuleActions.createReversedOfferRules()->(); conditional registrations execute only under their source guards"
+  },
+  {
+    "host": "pipeline",
+    "original": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/operation/dc1b4e79f91865a65bfe/12",
+    "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/operation/source-dispatch/22564ca36e96acf6bffa",
+    "target": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/implementation/30516a33450baa672ff8",
+    "condition": "Actual callable element is the source-registered github.com/volvo-cars/cce-cpam-ingress/internal/action#subRuleActions.createStylingRulesFromIcs()->(); conditional registrations execute only under their source guards"
+  },
+  {
+    "host": "pipeline",
+    "original": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/operation/dc1b4e79f91865a65bfe/12",
+    "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/operation/source-dispatch/d2017ae86795c91d4915",
+    "target": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/implementation/7e56a9227fb2eafdfc5b",
+    "condition": "Actual callable element is the source-registered github.com/volvo-cars/cce-cpam-ingress/internal/action#subRuleActions.createWheelRulesFromIcsAndIcc()->(); conditional registrations execute only under their source guards"
+  },
+  {
+    "host": "pipeline",
+    "original": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/operation/dc1b4e79f91865a65bfe/12",
+    "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/operation/source-dispatch/ece77ff40504faca000f",
+    "target": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/implementation/f52e6bf699564b94a085",
+    "condition": "Actual callable element is the source-registered github.com/volvo-cars/cce-cpam-ingress/internal/action#subRuleActions.createWheelExclusivelyRulesFromIcs()->(); conditional registrations execute only under their source guards"
+  },
+  {
+    "host": "pipeline",
+    "original": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/operation/e59e6eb471bd20cbcccc/1",
+    "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/operation/source-dispatch/be643d7f507b78d8d570",
+    "target": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/implementation/256d67de796bb1a240c5",
+    "condition": "Actual iteration object is github.com/volvo-cars/cce-cpam-ingress/internal/cpam#icpGroupable.getGroup(int)->(string) from the ordered registrations in internal/app/pipeline.go"
+  },
+  {
+    "host": "pipeline",
+    "original": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/operation/e59e6eb471bd20cbcccc/1",
+    "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/operation/source-dispatch/8d892bf628ce773ed757",
+    "target": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/implementation/c38f1af79181cfd88f68",
+    "condition": "Actual iteration object is github.com/volvo-cars/cce-cpam-ingress/internal/cpam#icrGroupable.getGroup(int)->(string) from the ordered registrations in internal/app/pipeline.go"
+  },
+  {
+    "host": "pipeline",
+    "original": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/operation/e59e6eb471bd20cbcccc/2",
+    "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/operation/source-dispatch/d7d23d1f831a383e67a5",
+    "target": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/implementation/256d67de796bb1a240c5",
+    "condition": "Actual iteration object is github.com/volvo-cars/cce-cpam-ingress/internal/cpam#icpGroupable.getGroup(int)->(string) from the ordered registrations in internal/app/pipeline.go"
+  },
+  {
+    "host": "pipeline",
+    "original": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/operation/e59e6eb471bd20cbcccc/2",
+    "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/operation/source-dispatch/808db455e8d9ee918e5a",
+    "target": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/implementation/c38f1af79181cfd88f68",
+    "condition": "Actual iteration object is github.com/volvo-cars/cce-cpam-ingress/internal/cpam#icrGroupable.getGroup(int)->(string) from the ordered registrations in internal/app/pipeline.go"
+  },
+  {
+    "host": "pipeline",
+    "original": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/operation/0b3b965179d188bccb33/3",
+    "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/operation/source-dispatch/d3e9dd8babddb4875bea",
+    "target": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/implementation/ac56ee304fa5b3f73a29",
+    "condition": "Actual iteration object is github.com/volvo-cars/cce-cpam-ingress/internal/cpam#icpGroupable.length()->(int) from the ordered registrations in internal/app/pipeline.go"
+  },
+  {
+    "host": "pipeline",
+    "original": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/operation/0b3b965179d188bccb33/3",
+    "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/operation/source-dispatch/b24580fa92f0cf980126",
+    "target": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/implementation/8364abff55a2a6ef82ad",
+    "condition": "Actual iteration object is github.com/volvo-cars/cce-cpam-ingress/internal/cpam#icrGroupable.length()->(int) from the ordered registrations in internal/app/pipeline.go"
+  },
+  {
+    "host": "pipeline",
+    "original": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/operation/0b3b965179d188bccb33/10",
+    "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/operation/source-dispatch/4531284987e1d9620f34",
+    "target": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/implementation/492efae46b803746a5d2",
+    "condition": "Actual iteration object is github.com/volvo-cars/cce-cpam-ingress/internal/cpam#icpGroupable.getSlice()->(interface{}) from the ordered registrations in internal/app/pipeline.go"
+  },
+  {
+    "host": "pipeline",
+    "original": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/operation/0b3b965179d188bccb33/10",
+    "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/operation/source-dispatch/d98fd52d6ab2fd79d9cd",
+    "target": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/implementation/0a75f381e9891ed30b25",
+    "condition": "Actual iteration object is github.com/volvo-cars/cce-cpam-ingress/internal/cpam#icrGroupable.getSlice()->(interface{}) from the ordered registrations in internal/app/pipeline.go"
+  },
+  {
+    "host": "pipeline",
+    "original": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/operation/0b3b965179d188bccb33/16",
+    "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/operation/source-dispatch/80fa9437ea07017fc268",
+    "target": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/implementation/256d67de796bb1a240c5",
+    "condition": "Actual iteration object is github.com/volvo-cars/cce-cpam-ingress/internal/cpam#icpGroupable.getGroup(int)->(string) from the ordered registrations in internal/app/pipeline.go"
+  },
+  {
+    "host": "pipeline",
+    "original": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/operation/0b3b965179d188bccb33/16",
+    "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/operation/source-dispatch/8ad64513102b3a96191b",
+    "target": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/implementation/c38f1af79181cfd88f68",
+    "condition": "Actual iteration object is github.com/volvo-cars/cce-cpam-ingress/internal/cpam#icrGroupable.getGroup(int)->(string) from the ordered registrations in internal/app/pipeline.go"
+  },
+  {
+    "host": "pipeline",
+    "original": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/operation/0b3b965179d188bccb33/29",
+    "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/operation/source-dispatch/c27f8fea3cd58eb92419",
+    "target": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/implementation/256d67de796bb1a240c5",
+    "condition": "Actual iteration object is github.com/volvo-cars/cce-cpam-ingress/internal/cpam#icpGroupable.getGroup(int)->(string) from the ordered registrations in internal/app/pipeline.go"
+  },
+  {
+    "host": "pipeline",
+    "original": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/operation/0b3b965179d188bccb33/29",
+    "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/operation/source-dispatch/0c6f5195ac7b8936395c",
+    "target": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/implementation/c38f1af79181cfd88f68",
+    "condition": "Actual iteration object is github.com/volvo-cars/cce-cpam-ingress/internal/cpam#icrGroupable.getGroup(int)->(string) from the ordered registrations in internal/app/pipeline.go"
+  },
+  {
+    "host": "pipeline",
+    "original": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/operation/fb6dba36092b40c46090/14",
+    "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/operation/source-dispatch/5572a85d0a711c63cb4c",
+    "target": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/implementation/97258fd65d6a7d004b80",
+    "condition": "Provider.getSource selects CPAM when !shouldUsePcfFetcher(icv.Variant.CarType)"
+  },
+  {
+    "host": "pipeline",
+    "original": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/operation/fb6dba36092b40c46090/14",
+    "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/operation/source-dispatch/34598f1ecd2a158451b8",
+    "target": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/implementation/3e5e7dacfbf60f391701",
+    "condition": "Provider.getSource selects CPAM when !shouldUsePcfFetcher(icv.Variant.CarType)"
+  },
+  {
+    "host": "pipeline",
+    "original": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/operation/fdb1b7beec636f73f2df/11",
+    "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/operation/source-dispatch/80c9abd283b9c269683d",
+    "target": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/implementation/05a7d4b828b2e513dc17",
+    "condition": "Actual callable element is the source-registered github.com/volvo-cars/cce-cpam-ingress/internal/pipeline#WithCpamAction(CpamAction)->(Config)$closure@933; conditional registrations execute only under their source guards"
+  },
+  {
+    "host": "pipeline",
+    "original": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/operation/fdb1b7beec636f73f2df/11",
+    "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/operation/source-dispatch/a9826dddd9666d897739",
+    "target": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/implementation/43f9ba9221a0d0b60d69",
+    "condition": "Actual callable element is the source-registered github.com/volvo-cars/cce-cpam-ingress/internal/pipeline#WithVerifier(CpamVerifier)->(Config)$closure@1311; conditional registrations execute only under their source guards"
+  },
+  {
+    "host": "pipeline",
+    "original": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/operation/fdb1b7beec636f73f2df/11",
+    "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/operation/source-dispatch/3eab06d17c99d5887ea4",
+    "target": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/implementation/ce4f27c3ab5229eb0ff8",
+    "condition": "Actual callable element is the source-registered github.com/volvo-cars/cce-cpam-ingress/internal/pipeline#WithConverter(CpamConverter)->(Config)$closure@1060; conditional registrations execute only under their source guards"
+  },
+  {
+    "host": "pipeline",
+    "original": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/operation/fdb1b7beec636f73f2df/11",
+    "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/operation/source-dispatch/f43b5b810620062a8b52",
+    "target": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/implementation/dca3fb3da3306195cfa7",
+    "condition": "Actual callable element is the source-registered github.com/volvo-cars/cce-cpam-ingress/internal/pipeline#WithParser(CpamParser)->(Config)$closure@1187; conditional registrations execute only under their source guards"
+  },
+  {
+    "host": "pipeline",
+    "original": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/operation/cf3848f1cdb2ada522f1/30",
+    "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/operation/source-dispatch/82dc7a462005940d3eb6",
+    "target": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/implementation/d26be1974299bf37b0eb",
+    "condition": "Actual callable element is the source-registered github.com/volvo-cars/cce-cpam-ingress/internal/parser#ParseIca(string,*cpam.Data)->(error); conditional registrations execute only under their source guards"
+  },
+  {
+    "host": "pipeline",
+    "original": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/operation/cf3848f1cdb2ada522f1/30",
+    "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/operation/source-dispatch/509f18b88de9bfa7a2db",
+    "target": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/implementation/e4135b2cdb47cbd8d021",
+    "condition": "Actual callable element is the source-registered github.com/volvo-cars/cce-cpam-ingress/internal/parser#ParseIcc(string,*cpam.Data)->(error); conditional registrations execute only under their source guards"
+  },
+  {
+    "host": "pipeline",
+    "original": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/operation/cf3848f1cdb2ada522f1/30",
+    "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/operation/source-dispatch/bb77a716a48d496b6bbf",
+    "target": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/implementation/c12c813819b6a1969ef0",
+    "condition": "Actual callable element is the source-registered github.com/volvo-cars/cce-cpam-ingress/internal/parser#ParseIcm(string,*cpam.Data)->(error); conditional registrations execute only under their source guards"
+  },
+  {
+    "host": "pipeline",
+    "original": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/operation/cf3848f1cdb2ada522f1/30",
+    "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/operation/source-dispatch/9647d48552ad7bcb9f6c",
+    "target": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/implementation/9a3c9c4809fca9ae3f80",
+    "condition": "Actual callable element is the source-registered github.com/volvo-cars/cce-cpam-ingress/internal/parser#ParseIcn(string,*cpam.Data)->(error); conditional registrations execute only under their source guards"
+  },
+  {
+    "host": "pipeline",
+    "original": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/operation/cf3848f1cdb2ada522f1/30",
+    "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/operation/source-dispatch/8f7844c6b5db7c68214c",
+    "target": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/implementation/a31fce7e2967baf8b7de",
+    "condition": "Actual callable element is the source-registered github.com/volvo-cars/cce-cpam-ingress/internal/parser#ParseIcp(string,*cpam.Data)->(error); conditional registrations execute only under their source guards"
+  },
+  {
+    "host": "pipeline",
+    "original": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/operation/cf3848f1cdb2ada522f1/30",
+    "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/operation/source-dispatch/093c1daae65c2957f7eb",
+    "target": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/implementation/afc649995b82bd9d78f3",
+    "condition": "Actual callable element is the source-registered github.com/volvo-cars/cce-cpam-ingress/internal/parser#ParseIcr(string,*cpam.Data)->(error); conditional registrations execute only under their source guards"
+  },
+  {
+    "host": "pipeline",
+    "original": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/operation/cf3848f1cdb2ada522f1/30",
+    "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/operation/source-dispatch/b7fcdc2127e4a5ea53e4",
+    "target": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/implementation/2dc1eb914fc819894279",
+    "condition": "Actual callable element is the source-registered github.com/volvo-cars/cce-cpam-ingress/internal/parser#ParseIcs(string,*cpam.Data)->(error); conditional registrations execute only under their source guards"
+  },
+  {
+    "host": "pipeline",
+    "original": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/operation/cf3848f1cdb2ada522f1/30",
+    "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/operation/source-dispatch/c39346ddbd5b0e709d70",
+    "target": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/implementation/3c193060f9ae22430e40",
+    "condition": "Actual callable element is the source-registered github.com/volvo-cars/cce-cpam-ingress/internal/parser#ParseIcv(string,*cpam.Data)->(error); conditional registrations execute only under their source guards"
+  },
+  {
+    "host": "pipeline",
+    "original": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/operation/cf3848f1cdb2ada522f1/30",
+    "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/operation/source-dispatch/c2a27c2e5524be1812b9",
+    "target": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/implementation/e2136e61966a0e0151cc",
+    "condition": "Actual callable element is the source-registered github.com/volvo-cars/cce-cpam-ingress/internal/parser#ParseIcz(string,*cpam.Data)->(error); conditional registrations execute only under their source guards"
+  },
+  {
+    "host": "pipeline",
+    "original": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/operation/cf3848f1cdb2ada522f1/53",
+    "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/operation/source-dispatch/02f93b222dde216f5c4c",
+    "target": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/implementation/2574769acdec280b5ed2",
+    "condition": "Actual iteration object is github.com/volvo-cars/cce-cpam-ingress/internal/verifier#Verifier100PercentOption.Verify(*cpam.Data)->() from the ordered registrations in internal/app/pipeline.go"
+  },
+  {
+    "host": "pipeline",
+    "original": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/operation/cf3848f1cdb2ada522f1/53",
+    "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/operation/source-dispatch/dcd99c8a09d459ead168",
+    "target": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/implementation/14248c5b0bab63c2f7c4",
+    "condition": "Actual iteration object is github.com/volvo-cars/cce-cpam-ingress/internal/verifier#BidirectionalForbidsVerifier.Verify(*cpam.Data)->() from the ordered registrations in internal/app/pipeline.go"
+  },
+  {
+    "host": "pipeline",
+    "original": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/operation/cf3848f1cdb2ada522f1/53",
+    "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/operation/source-dispatch/17e59d44047708de9778",
+    "target": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/implementation/658c0aa20a46c6941ca9",
+    "condition": "Actual iteration object is github.com/volvo-cars/cce-cpam-ingress/internal/verifier#OrderOfExchangeablesVerifier.Verify(*cpam.Data)->() from the ordered registrations in internal/app/pipeline.go"
+  },
+  {
+    "host": "pipeline",
+    "original": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/operation/cf3848f1cdb2ada522f1/53",
+    "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/operation/source-dispatch/21a13b7d50214f25d4fd",
+    "target": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/implementation/d5ce2fca8682bed2e69c",
+    "condition": "Actual iteration object is github.com/volvo-cars/cce-cpam-ingress/internal/verifier#PackageWindowVerifier.Verify(*cpam.Data)->() from the ordered registrations in internal/app/pipeline.go"
+  },
+  {
+    "host": "pipeline",
+    "original": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/operation/cf3848f1cdb2ada522f1/62",
+    "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/operation/source-dispatch/dd121aa836dbb5d7ee4c",
+    "target": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/implementation/98d0dc4b8436aacd4c68",
+    "condition": "Actual iteration object is github.com/volvo-cars/cce-cpam-ingress/internal/verifier#Verifier100PercentOption.ReadErrors()->([]error,Severity) from the ordered registrations in internal/app/pipeline.go"
+  },
+  {
+    "host": "pipeline",
+    "original": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/operation/cf3848f1cdb2ada522f1/62",
+    "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/operation/source-dispatch/f2ced68f52ec5ec45ef1",
+    "target": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/implementation/4a1fd2f43210cb7044ea",
+    "condition": "Actual iteration object is github.com/volvo-cars/cce-cpam-ingress/internal/verifier#BidirectionalForbidsVerifier.ReadErrors()->([]error,Severity) from the ordered registrations in internal/app/pipeline.go"
+  },
+  {
+    "host": "pipeline",
+    "original": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/operation/cf3848f1cdb2ada522f1/62",
+    "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/operation/source-dispatch/5291717a97c41fd57fa3",
+    "target": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/implementation/d94021807cb771d5fd24",
+    "condition": "Actual iteration object is github.com/volvo-cars/cce-cpam-ingress/internal/verifier#OrderOfExchangeablesVerifier.ReadErrors()->([]error,Severity) from the ordered registrations in internal/app/pipeline.go"
+  },
+  {
+    "host": "pipeline",
+    "original": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/operation/cf3848f1cdb2ada522f1/62",
+    "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/operation/source-dispatch/3ba82ef8843e5371b0ca",
+    "target": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/implementation/fca6ba9bc854260aecdf",
+    "condition": "Actual iteration object is github.com/volvo-cars/cce-cpam-ingress/internal/verifier#PackageWindowVerifier.ReadErrors()->([]error,Severity) from the ordered registrations in internal/app/pipeline.go"
+  },
+  {
+    "host": "pipeline",
+    "original": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/operation/cf3848f1cdb2ada522f1/97",
+    "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/operation/source-dispatch/2e651fc51a21d4a4e3a4",
+    "target": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/implementation/cb588652551a5867ab6e",
+    "condition": "Actual iteration object is github.com/volvo-cars/cce-cpam-ingress/internal/convert#LimitEndWeekConversion.Convert(*cpam.Data)->(error) from the ordered registrations in internal/app/pipeline.go"
+  },
+  {
+    "host": "pipeline",
+    "original": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/operation/cf3848f1cdb2ada522f1/97",
+    "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/operation/source-dispatch/deb321ec91e6b5523111",
+    "target": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/implementation/86c523ec659916ed16bd",
+    "condition": "Actual iteration object is github.com/volvo-cars/cce-cpam-ingress/internal/convert#SplitVariantConversion.Convert(*cpam.Data)->(error) from the ordered registrations in internal/app/pipeline.go"
+  },
+  {
+    "host": "pipeline",
+    "original": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/operation/cf3848f1cdb2ada522f1/97",
+    "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/operation/source-dispatch/700b8bacc4a0fbab791a",
+    "target": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/implementation/859d2edc81a8a43d49f1",
+    "condition": "Actual iteration object is github.com/volvo-cars/cce-cpam-ingress/internal/convert#StandardFeaturesConversion.Convert(*cpam.Data)->(error) from the ordered registrations in internal/app/pipeline.go"
+  },
+  {
+    "host": "pipeline",
+    "original": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/operation/cf3848f1cdb2ada522f1/97",
+    "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/operation/source-dispatch/0d85135f98e41b6d8cb4",
+    "target": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/implementation/eab79db533db61f72e6a",
+    "condition": "Actual iteration object is github.com/volvo-cars/cce-cpam-ingress/internal/convert#TypeRemovalConversion.Convert(*cpam.Data)->(error) from the ordered registrations in internal/app/pipeline.go"
+  },
+  {
+    "host": "pipeline",
+    "original": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/operation/cf3848f1cdb2ada522f1/97",
+    "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/operation/source-dispatch/f8180faf4d03d8fa155b",
+    "target": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/implementation/f86cb712286eec4cd1e9",
+    "condition": "Actual iteration object is github.com/volvo-cars/cce-cpam-ingress/internal/convert#EditionRuleConversion.Convert(*cpam.Data)->(error) from the ordered registrations in internal/app/pipeline.go"
+  },
+  {
+    "host": "pipeline",
+    "original": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/operation/cf3848f1cdb2ada522f1/122",
+    "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/operation/source-dispatch/b7f50ed2fd21b439f094",
+    "target": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/implementation/6b8963f69af9330b381e",
+    "condition": "Actual iteration object is github.com/volvo-cars/cce-cpam-ingress/internal/action#Pno12RulesAction.Action(context.Context,*cpam.Data,string)->(error) from the ordered registrations in internal/app/pipeline.go"
+  },
+  {
+    "host": "pipeline",
+    "original": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/operation/cf3848f1cdb2ada522f1/122",
+    "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/operation/source-dispatch/07fea59eb65f490da6ce",
+    "target": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/implementation/13d0d94c7bf1f3f9777d",
+    "condition": "Actual iteration object is github.com/volvo-cars/cce-cpam-ingress/internal/action#Pno12ComponentAction.Action(context.Context,*cpam.Data,string)->(error) from the ordered registrations in internal/app/pipeline.go"
+  }
+]

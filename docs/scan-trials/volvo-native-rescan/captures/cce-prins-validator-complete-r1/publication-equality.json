@@ -1,0 +1,8 @@
+{
+  "status": "passed",
+  "snapshot": "51b6a331102fba3d4883137b7e7845e9c6bd0a71c7e4d2d621bb926668267905",
+  "sourceBundleByteSha256": "a52480776708ed2ada107d952ce4603349034c667a9378ecfc8451d52669862c",
+  "gzipDecompression": "Exactly equal immutable selected original bytes",
+  "authorSealVerified": 26,
+  "publishedSourceReport": "Links rewritten to published compressed bundle and snapshot only; original report preserved in author-proof.tar.gz"
+}

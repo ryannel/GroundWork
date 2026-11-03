@@ -1,0 +1,116 @@
+{
+  "github.com/volvo-cars/cce-car-configuration-generator/internal/service.GenerateCarsEventPublisher": {
+    "concrete": "*github.com/volvo-cars/cce-car-configuration-generator/internal/messaging.GenerateCarsPublisher",
+    "path": "internal/app/app.go",
+    "lines": [60, 63],
+    "constructor": "github.com/volvo-cars/cce-car-configuration-generator/internal/app#newGenerateCarsPublisher(config,message.Publisher,*loggingsdk.Logger)->(*messaging.GenerateCarsPublisher)"
+  },
+  "github.com/volvo-cars/cce-car-configuration-generator/internal/database/queuedb.JobCompletionNotifier": {
+    "concrete": "*github.com/volvo-cars/cce-car-configuration-generator/internal/service.JobCompletionNotifier",
+    "path": "internal/app/app.go",
+    "lines": [64, 67],
+    "constructor": "github.com/volvo-cars/cce-car-configuration-generator/internal/service#NewJobCompletionNotifier(CarKeyStorage,GenerateCarsEventPublisher)->(*JobCompletionNotifier)"
+  },
+  "github.com/volvo-cars/cce-car-configuration-generator/internal/gateway/puan.FeatureFlagger": {
+    "concrete": "*github.com/volvo-cars/cce-car-configuration-generator/internal/featureflag.FeatureFlagger",
+    "path": "internal/app/app.go",
+    "lines": [69, 72],
+    "constructor": "github.com/volvo-cars/cce-car-configuration-generator/internal/featureflag#NewFeatureFlagger(FeatureFlaggerConfig)->(*FeatureFlagger,error)"
+  },
+  "github.com/volvo-cars/cce-car-configuration-generator/internal/app.MarketAuthMessageHandler": {
+    "concrete": "*github.com/volvo-cars/cce-car-configuration-generator/internal/messaging.MarketAuthMessageHandler",
+    "path": "internal/app/app.go",
+    "lines": [73, 76],
+    "constructor": "github.com/volvo-cars/cce-car-configuration-generator/internal/messaging#NewMarketAuthMessageHandler(MarketAuthSynchronizer,MarketAuthSyncCounter,*loggingsdk.Logger)->(*MarketAuthMessageHandler)"
+  },
+  "github.com/volvo-cars/cce-car-configuration-generator/internal/service.CarSpecStorage": {
+    "concrete": "*github.com/volvo-cars/cce-car-configuration-generator/internal/database/postgres.CarSpecRepository",
+    "path": "internal/app/app.go",
+    "lines": [77, 83],
+    "constructor": "github.com/volvo-cars/cce-car-configuration-generator/internal/database/postgres#NewCarSpecRepository(*pgxpool.Pool,*loggingsdk.Logger)->(*CarSpecRepository)"
+  },
+  "github.com/volvo-cars/cce-car-configuration-generator/internal/api/httpserver/carspecifications.CarAttributeFetcher": {
+    "concrete": "*github.com/volvo-cars/cce-car-configuration-generator/internal/database/postgres.CarSpecRepository",
+    "path": "internal/app/app.go",
+    "lines": [77, 83],
+    "constructor": "github.com/volvo-cars/cce-car-configuration-generator/internal/database/postgres#NewCarSpecRepository(*pgxpool.Pool,*loggingsdk.Logger)->(*CarSpecRepository)"
+  },
+  "github.com/volvo-cars/cce-car-configuration-generator/internal/api/httpserver/carspecifications.CarSpecificationFetcher": {
+    "concrete": "*github.com/volvo-cars/cce-car-configuration-generator/internal/database/postgres.CarSpecRepository",
+    "path": "internal/app/app.go",
+    "lines": [77, 83],
+    "constructor": "github.com/volvo-cars/cce-car-configuration-generator/internal/database/postgres#NewCarSpecRepository(*pgxpool.Pool,*loggingsdk.Logger)->(*CarSpecRepository)"
+  },
+  "github.com/volvo-cars/cce-car-configuration-generator/internal/api/httpserver/carconfigurations.CarSpecificationFetcher": {
+    "concrete": "*github.com/volvo-cars/cce-car-configuration-generator/internal/database/postgres.CarSpecRepository",
+    "path": "internal/app/app.go",
+    "lines": [77, 83],
+    "constructor": "github.com/volvo-cars/cce-car-configuration-generator/internal/database/postgres#NewCarSpecRepository(*pgxpool.Pool,*loggingsdk.Logger)->(*CarSpecRepository)"
+  },
+  "github.com/volvo-cars/cce-car-configuration-generator/internal/service.CarKeyStorage": {
+    "concrete": "*github.com/volvo-cars/cce-car-configuration-generator/internal/database/postgres.CarKeyRepository",
+    "path": "internal/app/app.go",
+    "lines": [84, 88],
+    "constructor": "github.com/volvo-cars/cce-car-configuration-generator/internal/database/postgres#NewCarKeyRepository(*pgxpool.Pool,*loggingsdk.Logger,InsertCarKeysRecorder)->(*CarKeyRepository)"
+  },
+  "github.com/volvo-cars/cce-car-configuration-generator/internal/api/httpserver/carconfigurations.CarKeyStorage": {
+    "concrete": "*github.com/volvo-cars/cce-car-configuration-generator/internal/database/postgres.CarKeyRepository",
+    "path": "internal/app/app.go",
+    "lines": [84, 88],
+    "constructor": "github.com/volvo-cars/cce-car-configuration-generator/internal/database/postgres#NewCarKeyRepository(*pgxpool.Pool,*loggingsdk.Logger,InsertCarKeysRecorder)->(*CarKeyRepository)"
+  },
+  "github.com/volvo-cars/cce-car-configuration-generator/internal/api/httpserver/carconfigurations.WheelCodeFetcher": {
+    "concrete": "*github.com/volvo-cars/cce-car-configuration-generator/internal/gateway/filterservice.FilterServiceClient",
+    "path": "internal/app/app.go",
+    "lines": [89, 92],
+    "constructor": "github.com/volvo-cars/cce-car-configuration-generator/internal/app#newFilterServiceClient(config,*client.HTTPClient)->(*filterservice.FilterServiceClient)"
+  },
+  "github.com/volvo-cars/cce-car-configuration-generator/internal/gateway/assortment.Parser": {
+    "concrete": "*github.com/volvo-cars/cce-car-configuration-generator/internal/gateway/assortment/parse.parser",
+    "path": "internal/app/app.go",
+    "lines": [100, 103],
+    "constructor": "github.com/volvo-cars/cce-car-configuration-generator/internal/gateway/assortment/parse#NewParser(*loggingsdk.Logger)->(*parser)"
+  },
+  "github.com/volvo-cars/cce-car-configuration-generator/internal/service.SpecificationFetcher": {
+    "concrete": "*github.com/volvo-cars/cce-car-configuration-generator/internal/gateway/assortment.RuleFetcher",
+    "path": "internal/app/app.go",
+    "lines": [104, 107],
+    "constructor": "github.com/volvo-cars/cce-car-configuration-generator/internal/gateway/assortment#NewFetcher(*Client,Parser,*loggingsdk.Logger)->(*RuleFetcher)"
+  },
+  "github.com/volvo-cars/cce-car-configuration-generator/internal/api/httpserver/carspecifications.CarSpecificationSyncer": {
+    "concrete": "*github.com/volvo-cars/cce-car-configuration-generator/internal/service.Synchronizer",
+    "path": "internal/app/app.go",
+    "lines": [108, 112],
+    "constructor": "github.com/volvo-cars/cce-car-configuration-generator/internal/service#NewSynchronizer(SpecificationFetcher,CarSpecStorage,*loggingsdk.Logger)->(*Synchronizer)"
+  },
+  "github.com/volvo-cars/cce-car-configuration-generator/internal/messaging.MarketAuthSynchronizer": {
+    "concrete": "*github.com/volvo-cars/cce-car-configuration-generator/internal/service.Synchronizer",
+    "path": "internal/app/app.go",
+    "lines": [108, 112],
+    "constructor": "github.com/volvo-cars/cce-car-configuration-generator/internal/service#NewSynchronizer(SpecificationFetcher,CarSpecStorage,*loggingsdk.Logger)->(*Synchronizer)"
+  },
+  "github.com/volvo-cars/cce-car-configuration-generator/internal/service.CarConfigurationGenerator": {
+    "concrete": "*github.com/volvo-cars/cce-car-configuration-generator/internal/gateway/puan.CarConfigurationGenerator",
+    "path": "internal/app/app.go",
+    "lines": [113, 116],
+    "constructor": "github.com/volvo-cars/cce-car-configuration-generator/internal/gateway/puan#NewCarConfigurationGenerator(*Client,FeatureFlagger,*loggingsdk.Logger)->(*CarConfigurationGenerator)"
+  },
+  "github.com/volvo-cars/cce-car-configuration-generator/internal/database/queuedb.CarConfigurationBatchGenerator": {
+    "concrete": "*github.com/volvo-cars/cce-car-configuration-generator/internal/service.BatchGenerator",
+    "path": "internal/app/app.go",
+    "lines": [117, 120],
+    "constructor": "github.com/volvo-cars/cce-car-configuration-generator/internal/service#NewBatchGenerator(CarSpecStorage,CarKeyStorage,CarConfigurationGenerator)->(*BatchGenerator)"
+  },
+  "github.com/volvo-cars/cce-car-configuration-generator/internal/api/httpserver/carconfigurations.JobOrchestrator": {
+    "concrete": "*github.com/volvo-cars/cce-car-configuration-generator/internal/service.JobOrchestrator",
+    "path": "internal/app/app.go",
+    "lines": [122, 125],
+    "constructor": "github.com/volvo-cars/cce-car-configuration-generator/internal/service#NewJobOrchestrator(*queuedb.RiverClient,CarKeyStorage,JobOrchestratorConfig)->(*JobOrchestrator)"
+  },
+  "github.com/volvo-cars/cce-car-configuration-generator/internal/api/httpserver/projectcars.ProjectCarsFetcher": {
+    "concrete": "*github.com/volvo-cars/cce-car-configuration-generator/internal/service.ProjectCarsFetcher",
+    "path": "internal/app/app.go",
+    "lines": [126, 129],
+    "constructor": "github.com/volvo-cars/cce-car-configuration-generator/internal/service#NewProjectCarsFetcher(CarSpecStorage,*loggingsdk.Logger)->(*ProjectCarsFetcher)"
+  }
+}

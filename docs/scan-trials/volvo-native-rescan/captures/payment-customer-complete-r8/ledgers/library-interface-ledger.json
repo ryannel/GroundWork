@@ -1,0 +1,187 @@
+[
+  {
+    "contract": "customer-b0010537-complete-r8/library-contract/db47108809ca2a12",
+    "type": "com.volvocars.ecom.paymentservice.customer.client.customer.CustomerApi",
+    "name": "createCustomer",
+    "method": "POST",
+    "path": "/v1/customers",
+    "returnType": "SuccessResponse<CustomerResponseDto>",
+    "parameters": [
+      {
+        "name": "payload",
+        "type": "CustomerCreatePayload"
+      }
+    ],
+    "declaration": "@RequestLine(\"POST \" + CUSTOMER_BASE_PATH)\n  @Headers({\"Content-Type: application/json\", \"Accept: application/json\"})\n  SuccessResponse<CustomerResponseDto> createCustomer(CustomerCreatePayload payload);",
+    "serverEntry": "customer-b0010537-complete-r8/retained/entry/create",
+    "runtime": "library declaration only; no execution binding or entry registration"
+  },
+  {
+    "contract": "customer-b0010537-complete-r8/library-contract/7a21fee9f3eea155",
+    "type": "com.volvocars.ecom.paymentservice.customer.client.customer.CustomerApi",
+    "name": "createGuestCustomer",
+    "method": "POST",
+    "path": "/v1/guest-customers",
+    "returnType": "SuccessResponse<CustomerResponseDto>",
+    "parameters": [
+      {
+        "name": "payload",
+        "type": "GuestCustomerCreatePayload"
+      }
+    ],
+    "declaration": "@RequestLine(\"POST \" + GUEST_CUSTOMER_BASE_PATH)\n  @Headers({\"Content-Type: application/json\", \"Accept: application/json\"})\n  SuccessResponse<CustomerResponseDto> createGuestCustomer(GuestCustomerCreatePayload payload);",
+    "serverEntry": "customer-b0010537-complete-r8/retained/entry/guest-create",
+    "runtime": "library declaration only; no execution binding or entry registration"
+  },
+  {
+    "contract": "customer-b0010537-complete-r8/library-contract/0f02d78ecec869bb",
+    "type": "com.volvocars.ecom.paymentservice.customer.client.customer.CustomerApi",
+    "name": "getCustomerByExternalId",
+    "method": "GET",
+    "path": "/v1/customers/{idType}/{idValue}/{countryCode}",
+    "returnType": "SuccessResponse<CustomerResponseDto>",
+    "parameters": [
+      {
+        "name": "idType",
+        "type": "String"
+      },
+      {
+        "name": "idValue",
+        "type": "String"
+      },
+      {
+        "name": "countryCode",
+        "type": "String"
+      }
+    ],
+    "declaration": "@RequestLine(\"GET \" + CUSTOMER_BASE_PATH + \"/{idType}/{idValue}/{countryCode}\")\n  @Headers({\"Accept: application/json\"})\n  SuccessResponse<CustomerResponseDto> getCustomerByExternalId(\n      @Param(\"idType\") String idType,\n      @Param(\"idValue\") String idValue,\n      @Param(\"countryCode\") String countryCode);",
+    "serverEntry": "customer-b0010537-complete-r8/retained/entry/get-external",
+    "runtime": "library declaration only; no execution binding or entry registration"
+  },
+  {
+    "contract": "customer-b0010537-complete-r8/library-contract/76c73bf32f8eec4b",
+    "type": "com.volvocars.ecom.paymentservice.customer.client.customer.CustomerApi",
+    "name": "getCustomerByCustomerId",
+    "method": "GET",
+    "path": "/v1/customers/{customerId}",
+    "returnType": "SuccessResponse<CustomerResponseDto>",
+    "parameters": [
+      {
+        "name": "customerId",
+        "type": "String"
+      }
+    ],
+    "declaration": "@RequestLine(\"GET \" + CUSTOMER_BASE_PATH + \"/{customerId}\")\n  @Headers({\"Accept: application/json\"})\n  SuccessResponse<CustomerResponseDto> getCustomerByCustomerId(\n      @Param(\"customerId\") String customerId);",
+    "serverEntry": "customer-b0010537-complete-r8/retained/entry/get-id",
+    "runtime": "library declaration only; no execution binding or entry registration"
+  },
+  {
+    "contract": "customer-b0010537-complete-r8/library-contract/04fa6299e295fe00",
+    "type": "com.volvocars.ecom.paymentservice.customer.client.customer.CustomerApi",
+    "name": "getRecurringCharge",
+    "method": "GET",
+    "path": "/v1/customers/{customerId}/recurring-charges/{recurringChargeId}",
+    "returnType": "SuccessResponse<RecurringChargeDto>",
+    "parameters": [
+      {
+        "name": "customerId",
+        "type": "String"
+      },
+      {
+        "name": "recurringChargeId",
+        "type": "String"
+      }
+    ],
+    "declaration": "@RequestLine(\"GET \" + CUSTOMER_BASE_PATH + \"/{customerId}/recurring-charges/{recurringChargeId}\")\n  @Headers({\"Accept: application/json\"})\n  SuccessResponse<RecurringChargeDto> getRecurringCharge(\n      @Param(\"customerId\") String customerId, @Param(\"recurringChargeId\") String recurringChargeId);",
+    "serverEntry": "customer-b0010537-complete-r8/retained/entry/get-recurring",
+    "runtime": "library declaration only; no execution binding or entry registration"
+  },
+  {
+    "contract": "customer-b0010537-complete-r8/library-contract/4a0e6bf1201cc833",
+    "type": "com.volvocars.ecom.paymentservice.customer.client.customer.CustomerApi",
+    "name": "updateCustomerRecurringCharge",
+    "method": "PATCH",
+    "path": "/v1/customers/{customerId}/recurring-charges/{recurringChargeId}",
+    "returnType": "SuccessResponse<RecurringChargeDto>",
+    "parameters": [
+      {
+        "name": "customerId",
+        "type": "String"
+      },
+      {
+        "name": "recurringChargeId",
+        "type": "String"
+      },
+      {
+        "name": "payload",
+        "type": "RecurringChargeUpdatePayload"
+      }
+    ],
+    "declaration": "@RequestLine(\n      \"PATCH \" + CUSTOMER_BASE_PATH + \"/{customerId}/recurring-charges/{recurringChargeId}\")\n  @Headers({\"Content-Type: application/json\", \"Accept: application/json\"})\n  SuccessResponse<RecurringChargeDto> updateCustomerRecurringCharge(\n      @Param(\"customerId\") String customerId,\n      @Param(\"recurringChargeId\") String recurringChargeId,\n      RecurringChargeUpdatePayload payload);",
+    "serverEntry": "customer-b0010537-complete-r8/retained/entry/update-recurring",
+    "runtime": "library declaration only; no execution binding or entry registration"
+  },
+  {
+    "contract": "customer-b0010537-complete-r8/library-contract/1a1f146ccdce16f3",
+    "type": "com.volvocars.ecom.paymentservice.customer.client.customer.CustomerApi",
+    "name": "updateCustomerByExternalId",
+    "method": "PATCH",
+    "path": "/v1/customers/{idType}/{idValue}",
+    "returnType": "SuccessResponse<CustomerResponseDto>",
+    "parameters": [
+      {
+        "name": "idType",
+        "type": "String"
+      },
+      {
+        "name": "idValue",
+        "type": "String"
+      },
+      {
+        "name": "payload",
+        "type": "CustomerUpdatePayload"
+      }
+    ],
+    "declaration": "@RequestLine(\"PATCH \" + CUSTOMER_BASE_PATH + \"/{idType}/{idValue}\")\n  @Headers({\"Content-Type: application/json\", \"Accept: application/json\"})\n  SuccessResponse<CustomerResponseDto> updateCustomerByExternalId(\n      @Param(\"idType\") String idType,\n      @Param(\"idValue\") String idValue,\n      CustomerUpdatePayload payload);",
+    "serverEntry": "customer-b0010537-complete-r8/retained/entry/update-external",
+    "runtime": "library declaration only; no execution binding or entry registration"
+  },
+  {
+    "contract": "customer-b0010537-complete-r8/library-contract/b32cac9cca6f1a20",
+    "type": "com.volvocars.ecom.paymentservice.customer.client.customer.CustomerApi",
+    "name": "updateCustomer",
+    "method": "PATCH",
+    "path": "/v1/customers/{customerId}",
+    "returnType": "SuccessResponse<CustomerResponseDto>",
+    "parameters": [
+      {
+        "name": "customerId",
+        "type": "String"
+      },
+      {
+        "name": "payload",
+        "type": "CustomerUpdatePayload"
+      }
+    ],
+    "declaration": "@RequestLine(\"PATCH \" + CUSTOMER_BASE_PATH + \"/{customerId}\")\n  @Headers({\"Content-Type: application/json\", \"Accept: application/json\"})\n  SuccessResponse<CustomerResponseDto> updateCustomer(\n      @Param(\"customerId\") String customerId, CustomerUpdatePayload payload);",
+    "serverEntry": "customer-b0010537-complete-r8/retained/entry/update-id",
+    "runtime": "library declaration only; no execution binding or entry registration"
+  },
+  {
+    "contract": "customer-b0010537-complete-r8/library-contract/5fc125f80793d9c3",
+    "type": "com.volvocars.ecom.paymentservice.customer.client.customer.CustomerApi",
+    "name": "getOrCreateCustomer",
+    "method": "POST",
+    "path": "/v1/customers/get-or-create",
+    "returnType": "SuccessResponse<CustomerResponseDto>",
+    "parameters": [
+      {
+        "name": "payload",
+        "type": "CustomerCreatePayload"
+      }
+    ],
+    "declaration": "@RequestLine(\"POST \" + CUSTOMER_GET_OR_CREATE_PATH)\n  @Headers({\"Content-Type: application/json\", \"Accept: application/json\"})\n  SuccessResponse<CustomerResponseDto> getOrCreateCustomer(CustomerCreatePayload payload);",
+    "serverEntry": "customer-b0010537-complete-r8/retained/entry/get-or-create",
+    "runtime": "library declaration only; no execution binding or entry registration"
+  }
+]

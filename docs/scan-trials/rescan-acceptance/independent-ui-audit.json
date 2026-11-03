@@ -1,0 +1,173 @@
+{
+  "format": "independent-service-explorer-audit/v1",
+  "decision": "passed_for_selected_two_service_projection",
+  "manifest": {
+    "path": "reports/service-explorer-readiness-001/ui/manifest.json",
+    "sha256": "e6682d6251ca85d2a553b54ce247dbda4de341e79284d22b842052698de51df5",
+    "bytes": 239618,
+    "snapshot": "7850dc4be6c22265376baca5640b9d3306d7f43b622236e5229b017bb82e5192"
+  },
+  "producerReceipt": {
+    "path": "reports/service-explorer-readiness-001/ui-validation.json",
+    "sha256": "5b0dd4ceef21c631d7e5620d6c561d113bfee6ec357bcbf00f51bffa1452783a",
+    "ruleDigest": "4588b092f7c1ebdf6cf0fbaa09eb21432b858331b4309986508f3055f36d9a6c"
+  },
+  "checks": {
+    "allArtifactBytesAndHashes": true,
+    "allSnapshots": true,
+    "allSourceReferences": true,
+    "allTargetsExist": true,
+    "allSourcesCommitPinned": true,
+    "allPerPageBounds": true,
+    "noCandidateControlEdges": true,
+    "standaloneDeclaredSchemaIndex": true,
+    "nestedSpringFieldNavigation": true,
+    "unqualifiedSpringTypesRemainDataCandidates": true,
+    "csharpLabelsUseHumanTypeNames": true,
+    "allNativeAssociatedShapesReachable": true,
+    "cartRequestAndResponseBothReachable": true,
+    "candidateMethodLabelAndImplementationAnchor": true
+  },
+  "counts": {
+    "pages": 1727,
+    "maxPageBytes": 63951,
+    "partialPages": 309,
+    "navigationTargets": 1300,
+    "sourceReferences": 10765,
+    "nodes": 7643,
+    "links": 5642,
+    "fields": 1320,
+    "kinds": {
+      "data": 1050,
+      "flow": 667,
+      "overview": 8,
+      "callers": 2
+    }
+  },
+  "sourceReview": {
+    "sharedUiAiPageContract": true,
+    "loaderChecksManifestBytesDigestAndSnapshot": true,
+    "typedNativeCallTargetsRequireUniqueFunctionTarget": true,
+    "callbackDeclarationNotAutomaticAsync": true,
+    "byteAndSourceBoundOmissionsVisible": true,
+    "callerBuiltAndProviderDeclaredSchemasSeparated": true,
+    "inferenceExplicitlyLabelled": true,
+    "earlierFindings": "Candidate branches and silent byte/source trimming were corrected before this final audit."
+  },
+  "qualifications": [
+    "Static artefact and source-code audit; browser rendering is covered by the producer/root visual inspection, not re-claimed here.",
+    "The two-service manifest is 239618 bytes under a 262144-byte bound; this is not proof of whole-108-repository UI capacity. Larger exports must remain bounded or partitioned.",
+    "Declared DTOs without a proven endpoint association stay independently discoverable with an explicit gap. No response contract is invented.",
+    "UI visibility, parser coverage and inferred actors do not promote the frozen 22 source-question statuses.",
+    "Source correspondences do not establish deployed versions, policy activation, delivery or durable effects."
+  ],
+  "nestedSchemaReview": {
+    "springCandidateTypeEdges": 311,
+    "qualifiedTypeEdges": 0,
+    "csharpOpaqueLabels": 0,
+    "actualFleetEnvelopeNavigation": {
+      "file": "page-bb73d8fd9061e2fb44462651.json",
+      "field": "data: FleetAccount",
+      "targetTitle": "com.volvocars.ecom.customerservice.fleet.FleetAccount",
+      "relation": "candidate type; qualification unresolved",
+      "sourceIds": ["source:0c15df0bfcd95fe0d5aa5f80", "source:a5dcce3be28dc8e1e2e1b6c8"]
+    },
+    "qualification": "Unqualified short-name type matches are retained as candidates, with source anchors and unresolved qualification. They are data/type links, never executable control or proven runtime/wire association."
+  },
+  "associatedShapeReview": {
+    "nativeAspNetEntriesChecked": 6,
+    "proof": [
+      {
+        "file": "page-0763682389dc5167b15316e8.json",
+        "route": "api/v{version:apiVersion}/CalculateCart",
+        "nativeAssociatedContracts": 3,
+        "reachableShapes": [
+          "Declared shape: CalculateCartRequest",
+          "Declared shape: CancellationToken",
+          "Declared shape: CalculateCartResponse"
+        ]
+      },
+      {
+        "file": "page-dbdd5f55ce7152d679bb416b.json",
+        "route": "api/v{version:apiVersion}/CalculateProductPrices",
+        "nativeAssociatedContracts": 3,
+        "reachableShapes": [
+          "Declared shape: ProductPricesCalculationRequest",
+          "Declared shape: CancellationToken",
+          "Declared shape: ProductPricesCalculationResponse"
+        ]
+      },
+      {
+        "file": "page-794890af456376a4becc7255.json",
+        "route": "api/v{version:apiVersion}/priceList",
+        "nativeAssociatedContracts": 3,
+        "reachableShapes": [
+          "Declared shape: GetPriceListRequestV6",
+          "Declared shape: CancellationToken",
+          "Declared shape: GetPriceListResponseV6"
+        ]
+      },
+      {
+        "file": "page-f0377aa4adb92ac9a1b2f820.json",
+        "route": "api/v{version:apiVersion}/ProductPriceList",
+        "nativeAssociatedContracts": 3,
+        "reachableShapes": [
+          "Declared shape: ProductPriceListRequest",
+          "Declared shape: CancellationToken",
+          "Declared shape: ProductPriceListResponse"
+        ]
+      },
+      {
+        "file": "page-80bec1dbbc31967a0c38cf66.json",
+        "route": "api/v{version:apiVersion}/carPrice",
+        "nativeAssociatedContracts": 3,
+        "reachableShapes": [
+          "Declared shape: GetCarPriceRequestV5",
+          "Declared shape: CancellationToken",
+          "Declared shape: GetCarPriceResponseV5"
+        ]
+      },
+      {
+        "file": "page-e7e9f440e67391bedf80fda9.json",
+        "route": "api/v{version:apiVersion}/carPriceSimulation",
+        "nativeAssociatedContracts": 3,
+        "reachableShapes": [
+          "Declared shape: GetCarPriceSimulationRequest",
+          "Declared shape: CancellationToken",
+          "Declared shape: GetCarPriceResponseV5"
+        ]
+      }
+    ],
+    "cart": {
+      "file": "page-0763682389dc5167b15316e8.json",
+      "shapes": [
+        {
+          "label": "Declared shape: CalculateCartRequest",
+          "target": "page-50b883c3fddd1e0641579812.json"
+        },
+        {
+          "label": "Declared shape: CancellationToken",
+          "target": "page-bf5361e7a468a7c89c91657c.json"
+        },
+        {
+          "label": "Declared shape: CalculateCartResponse",
+          "target": "page-4b58a024a4e3807c85c2364d.json"
+        }
+      ],
+      "candidate": {
+        "label": "Candidate: CalculateCart",
+        "detail": "global::System.Threading.Tasks.Task<global::Core.Models.CartCalculation.CartCalculationResponse> global::Core.InboundPorts.CartCalculationService.CalculateCart(global::Core.Models.CartCalculation.CartCalculationRequest request, global::System.Threading.CancellationToken cancellationToken). Assembly-scan registration candidate; assembly membership and predicate applicability remain unresolved.. services.Scan(scan => scan\n            // Add all assemblies containing dependencies here\n            .FromAssemblies(DependencyAssemblies)\n            // Register types that implements an interface as the implemented interfaces\n            // Any type that expects a HttpClient dependency will not registered here but handled using .AddHttpClient<> below.\n            .AddClasses(classes => classes.Where(c =>\n                c.GetInterfaces().Any(i => i.Namespace != null && i.Namespace.StartsWith(\"Core\") &&\n                    !i.Namespace.StartsWith(\"Core.Models\"))\n                && !c.GetConstructors().Any(ctor => ctor.GetParameters().Any(p => p.ParameterType == typeof(HttpClient)))))\n            .AsImplementedInterfaces()\n            .WithScopedLifetime()\n        ). Source-only selected-fil",
+        "sourceIds": [
+          "source:944e89536f8cc49c061a65f7",
+          "source:857f5c6e54cc853dff090e3a",
+          "source:da9495fbb437e70bfdf58c94"
+        ],
+        "target": "page-d7ab79d4c457692dd38d21a7.json",
+        "edgeKind": "interaction",
+        "edgeLabel": "Conditional implementation candidate; runtime selection unresolved"
+      }
+    },
+    "unexpandedEntryHandling": "Source audit: the same rootSchemas collection supplies all unexpanded nodes and data links; the producer/root six-flow test suite covers request and response reachability.",
+    "qualification": "Shape associations are native source-signature references only. CancellationToken does not become a client body field, and conditional implementations do not become exact runtime calls."
+  }
+}

@@ -1,0 +1,50 @@
+[
+  {
+    "owner": "volvo/cce-policy-admin/88a3512f0307/local-r2/implementation/484b19d85e210096a6",
+    "path": "internal/database/blobstorage/blobstorage.go",
+    "lines": [84, 84],
+    "source": "s.client.CreateContainer(ctx, s.container, nil)",
+    "operation": "volvo/cce-policy-admin/88a3512f0307/local-r2/operation/484b19d85e210096a6/n/4",
+    "receiver": "volvo/cce-policy-admin/88a3512f0307/local-r2/value/484b19d85e210096a6/v/9698",
+    "arguments": [
+      "volvo/cce-policy-admin/88a3512f0307/local-r2/value/484b19d85e210096a6/p/0",
+      "volvo/cce-policy-admin/88a3512f0307/local-r2/value/484b19d85e210096a6/v/9702",
+      "volvo/cce-policy-admin/88a3512f0307/local-r2/value/484b19d85e210096a6/v/9706"
+    ],
+    "result": "volvo/cce-policy-admin/88a3512f0307/local-r2/value/484b19d85e210096a6/v/9710",
+    "target": null,
+    "resultTypes": [],
+    "receiverSourceType": "*github.com/Azure/azure-sdk-for-go/sdk/storage/azblob::Client",
+    "receiverAdjustment": null,
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/call-operands/abd41c08c66dd03edf",
+    "interaction": "volvo/cce-policy-admin/88a3512f0307/local-r2/interaction/io/abd41c08c66dd03edf",
+    "effect": "volvo/cce-policy-admin/88a3512f0307/local-r2/effect/io/abd41c08c66dd03edf",
+    "contract": "volvo/cce-policy-admin/88a3512f0307/local-r2/interface_contract/io/abd41c08c66dd03edf",
+    "targetComponent": "volvo/cce-policy-admin/88a3512f0307/local-r2/runtime_component/azure-blobs"
+  },
+  {
+    "owner": "volvo/cce-policy-admin/88a3512f0307/local-r2/implementation/338a89ca04849b6fdf",
+    "path": "internal/database/blobstorage/blobstorage.go",
+    "lines": [102, 102],
+    "source": "s.client.UploadBuffer(ctx, s.container, filename, data, nil)",
+    "operation": "volvo/cce-policy-admin/88a3512f0307/local-r2/operation/338a89ca04849b6fdf/n/7",
+    "receiver": "volvo/cce-policy-admin/88a3512f0307/local-r2/value/338a89ca04849b6fdf/v/9811",
+    "arguments": [
+      "volvo/cce-policy-admin/88a3512f0307/local-r2/value/338a89ca04849b6fdf/p/0",
+      "volvo/cce-policy-admin/88a3512f0307/local-r2/value/338a89ca04849b6fdf/v/9815",
+      "volvo/cce-policy-admin/88a3512f0307/local-r2/value/338a89ca04849b6fdf/v/9806",
+      "volvo/cce-policy-admin/88a3512f0307/local-r2/value/338a89ca04849b6fdf/p/3",
+      "volvo/cce-policy-admin/88a3512f0307/local-r2/value/338a89ca04849b6fdf/v/9819"
+    ],
+    "result": "volvo/cce-policy-admin/88a3512f0307/local-r2/value/338a89ca04849b6fdf/v/9823",
+    "target": null,
+    "resultTypes": [],
+    "receiverSourceType": "*github.com/Azure/azure-sdk-for-go/sdk/storage/azblob::Client",
+    "receiverAdjustment": null,
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/call-operands/42159dc141a6e4da4f",
+    "interaction": "volvo/cce-policy-admin/88a3512f0307/local-r2/interaction/io/42159dc141a6e4da4f",
+    "effect": "volvo/cce-policy-admin/88a3512f0307/local-r2/effect/io/42159dc141a6e4da4f",
+    "contract": "volvo/cce-policy-admin/88a3512f0307/local-r2/interface_contract/io/42159dc141a6e4da4f",
+    "targetComponent": "volvo/cce-policy-admin/88a3512f0307/local-r2/runtime_component/azure-blobs"
+  }
+]

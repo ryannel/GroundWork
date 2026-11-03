@@ -1,0 +1,982 @@
+[
+  {
+    "host": "http",
+    "entry": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/entry/http/272b6c47a6a1f3a82740",
+    "implementation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/implementation/44dc5ea9020df9d013fc",
+    "symbol": "github.com/volvo-cars/cce-cpam-ingress/cmd/cpam-ingress-http#main()->()",
+    "trigger": "process",
+    "method": "PROCESS",
+    "path": "github.com/volvo-cars/cce-cpam-ingress/cmd/cpam-ingress-http#main()->()",
+    "contract": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/interface_contract/entry/http/272b6c47a6a1f3a82740"
+  },
+  {
+    "host": "http",
+    "entry": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/entry/http/e0951796c950c71a049d",
+    "implementation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/implementation/df2d0f5af6f8099ea285",
+    "symbol": "github.com/volvo-cars/cce-cpam-ingress/events/carconfiguration#file_component_proto_rawDescGZIP()->([]byte)$closure@10473",
+    "trigger": "callback",
+    "method": "CALLBACK",
+    "path": "github.com/volvo-cars/cce-cpam-ingress/events/carconfiguration#file_component_proto_rawDescGZIP()->([]byte)$closure@10473",
+    "contract": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/interface_contract/entry/http/e0951796c950c71a049d"
+  },
+  {
+    "host": "http",
+    "entry": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/entry/http/18ffa0ad26af21dfb55a",
+    "implementation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/implementation/bd7ddf59b8edeb16f3cd",
+    "symbol": "github.com/volvo-cars/cce-cpam-ingress/events/carconfiguration#init()->()@events/carconfiguration/component.pb.go:11895",
+    "trigger": "startup",
+    "method": "STARTUP",
+    "path": "github.com/volvo-cars/cce-cpam-ingress/events/carconfiguration#init()->()@events/carconfiguration/component.pb.go:11895",
+    "contract": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/interface_contract/entry/http/18ffa0ad26af21dfb55a"
+  },
+  {
+    "host": "http",
+    "entry": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/entry/http/a49e0a41d454fac997e5",
+    "implementation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/implementation/e17304addb28ae5a3aa1",
+    "symbol": "github.com/volvo-cars/cce-cpam-ingress/events/carconfiguration#file_condition_proto_rawDescGZIP()->([]byte)$closure@5272",
+    "trigger": "callback",
+    "method": "CALLBACK",
+    "path": "github.com/volvo-cars/cce-cpam-ingress/events/carconfiguration#file_condition_proto_rawDescGZIP()->([]byte)$closure@5272",
+    "contract": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/interface_contract/entry/http/a49e0a41d454fac997e5"
+  },
+  {
+    "host": "http",
+    "entry": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/entry/http/8e23e1296dc6219fb49c",
+    "implementation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/implementation/65f9942691a964ab7540",
+    "symbol": "github.com/volvo-cars/cce-cpam-ingress/events/carconfiguration#init()->()@events/carconfiguration/condition.pb.go:6797",
+    "trigger": "startup",
+    "method": "STARTUP",
+    "path": "github.com/volvo-cars/cce-cpam-ingress/events/carconfiguration#init()->()@events/carconfiguration/condition.pb.go:6797",
+    "contract": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/interface_contract/entry/http/8e23e1296dc6219fb49c"
+  },
+  {
+    "host": "http",
+    "entry": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/entry/http/db2d916ce09c755a6874",
+    "implementation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/implementation/1b0df39a21d2f6be5d5e",
+    "symbol": "github.com/volvo-cars/cce-cpam-ingress/events/carconfiguration#file_config_rules_proto_rawDescGZIP()->([]byte)$closure@17209",
+    "trigger": "callback",
+    "method": "CALLBACK",
+    "path": "github.com/volvo-cars/cce-cpam-ingress/events/carconfiguration#file_config_rules_proto_rawDescGZIP()->([]byte)$closure@17209",
+    "contract": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/interface_contract/entry/http/db2d916ce09c755a6874"
+  },
+  {
+    "host": "http",
+    "entry": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/entry/http/64fc2520851ce70940f4",
+    "implementation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/implementation/cec736712a4c62eba3fe",
+    "symbol": "github.com/volvo-cars/cce-cpam-ingress/events/carconfiguration#init()->()@events/carconfiguration/config-rules.pb.go:20871",
+    "trigger": "startup",
+    "method": "STARTUP",
+    "path": "github.com/volvo-cars/cce-cpam-ingress/events/carconfiguration#init()->()@events/carconfiguration/config-rules.pb.go:20871",
+    "contract": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/interface_contract/entry/http/64fc2520851ce70940f4"
+  },
+  {
+    "host": "http",
+    "entry": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/entry/http/0323053ed57c796ee7c6",
+    "implementation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/implementation/84fd696400fa86feba85",
+    "symbol": "github.com/volvo-cars/cce-cpam-ingress/events/carconfiguration#file_consequence_proto_rawDescGZIP()->([]byte)$closure@7992",
+    "trigger": "callback",
+    "method": "CALLBACK",
+    "path": "github.com/volvo-cars/cce-cpam-ingress/events/carconfiguration#file_consequence_proto_rawDescGZIP()->([]byte)$closure@7992",
+    "contract": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/interface_contract/entry/http/0323053ed57c796ee7c6"
+  },
+  {
+    "host": "http",
+    "entry": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/entry/http/7360b20c540b3adf6024",
+    "implementation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/implementation/e99f7478d1eb5bbb4ef3",
+    "symbol": "github.com/volvo-cars/cce-cpam-ingress/events/carconfiguration#init()->()@events/carconfiguration/consequence.pb.go:9439",
+    "trigger": "startup",
+    "method": "STARTUP",
+    "path": "github.com/volvo-cars/cce-cpam-ingress/events/carconfiguration#init()->()@events/carconfiguration/consequence.pb.go:9439",
+    "contract": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/interface_contract/entry/http/7360b20c540b3adf6024"
+  },
+  {
+    "host": "http",
+    "entry": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/entry/http/c6bd14d954750f1cae95",
+    "implementation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/implementation/9922480e2826c0d5a22e",
+    "symbol": "github.com/volvo-cars/cce-cpam-ingress/events/carconfiguration#file_cpam_ingress_proto_rawDescGZIP()->([]byte)$closure@16762",
+    "trigger": "callback",
+    "method": "CALLBACK",
+    "path": "github.com/volvo-cars/cce-cpam-ingress/events/carconfiguration#file_cpam_ingress_proto_rawDescGZIP()->([]byte)$closure@16762",
+    "contract": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/interface_contract/entry/http/c6bd14d954750f1cae95"
+  },
+  {
+    "host": "http",
+    "entry": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/entry/http/741b9528532ea83e3c57",
+    "implementation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/implementation/a0b30ea119ba3d2db0ed",
+    "symbol": "github.com/volvo-cars/cce-cpam-ingress/events/carconfiguration#init()->()@events/carconfiguration/cpam-ingress.pb.go:20043",
+    "trigger": "startup",
+    "method": "STARTUP",
+    "path": "github.com/volvo-cars/cce-cpam-ingress/events/carconfiguration#init()->()@events/carconfiguration/cpam-ingress.pb.go:20043",
+    "contract": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/interface_contract/entry/http/741b9528532ea83e3c57"
+  },
+  {
+    "host": "http",
+    "entry": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/entry/http/94f53bc7c59458d4cd89",
+    "implementation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/implementation/24aa065197fdbb374b9a",
+    "symbol": "github.com/volvo-cars/cce-cpam-ingress/events/carconfiguration#file_market_auth_identifier_proto_rawDescGZIP()->([]byte)$closure@2820",
+    "trigger": "callback",
+    "method": "CALLBACK",
+    "path": "github.com/volvo-cars/cce-cpam-ingress/events/carconfiguration#file_market_auth_identifier_proto_rawDescGZIP()->([]byte)$closure@2820",
+    "contract": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/interface_contract/entry/http/94f53bc7c59458d4cd89"
+  },
+  {
+    "host": "http",
+    "entry": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/entry/http/eaa4d5cf9e0532a91d5c",
+    "implementation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/implementation/7376506512f868293f2f",
+    "symbol": "github.com/volvo-cars/cce-cpam-ingress/events/carconfiguration#init()->()@events/carconfiguration/market-auth-identifier.pb.go:3640",
+    "trigger": "startup",
+    "method": "STARTUP",
+    "path": "github.com/volvo-cars/cce-cpam-ingress/events/carconfiguration#init()->()@events/carconfiguration/market-auth-identifier.pb.go:3640",
+    "contract": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/interface_contract/entry/http/eaa4d5cf9e0532a91d5c"
+  },
+  {
+    "host": "http",
+    "entry": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/entry/http/23e35ad56c3d98efc514",
+    "implementation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/implementation/42e0f8768142c9184383",
+    "symbol": "github.com/volvo-cars/cce-cpam-ingress/internal/action#Pno12RulesAction.uploadConfigRuleSetsFromScopes(context.Context,[]scopeWithConfigRules)->(error)$closure@4649",
+    "trigger": "callback",
+    "method": "CALLBACK",
+    "path": "github.com/volvo-cars/cce-cpam-ingress/internal/action#Pno12RulesAction.uploadConfigRuleSetsFromScopes(context.Context,[]scopeWithConfigRules)->(error)$closure@4649",
+    "contract": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/interface_contract/entry/http/23e35ad56c3d98efc514"
+  },
+  {
+    "host": "http",
+    "entry": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/entry/http/f66ef6859888255bf07d",
+    "implementation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/implementation/3bf564340f1da2284759",
+    "symbol": "github.com/volvo-cars/cce-cpam-ingress/internal/action#Pno12RulesAction.uploadConfigRuleSetsFromScopes(context.Context,[]scopeWithConfigRules)->(error)$closure@4801",
+    "trigger": "callback",
+    "method": "CALLBACK",
+    "path": "github.com/volvo-cars/cce-cpam-ingress/internal/action#Pno12RulesAction.uploadConfigRuleSetsFromScopes(context.Context,[]scopeWithConfigRules)->(error)$closure@4801",
+    "contract": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/interface_contract/entry/http/f66ef6859888255bf07d"
+  },
+  {
+    "host": "http",
+    "entry": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/entry/http/fb9f2a3f70aed4df61f5",
+    "implementation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/implementation/a6b61e14e36993027c6c",
+    "symbol": "github.com/volvo-cars/cce-cpam-ingress/internal/app#App.Run()->()$closure@4626",
+    "trigger": "callback",
+    "method": "CALLBACK",
+    "path": "github.com/volvo-cars/cce-cpam-ingress/internal/app#App.Run()->()$closure@4626",
+    "contract": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/interface_contract/entry/http/fb9f2a3f70aed4df61f5"
+  },
+  {
+    "host": "http",
+    "entry": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/entry/http/4e436d855ffcf0eead97",
+    "implementation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/implementation/6ebcd90056d4ef90da50",
+    "symbol": "github.com/volvo-cars/cce-cpam-ingress/internal/app#App.Run()->()$closure@4739",
+    "trigger": "callback",
+    "method": "CALLBACK",
+    "path": "github.com/volvo-cars/cce-cpam-ingress/internal/app#App.Run()->()$closure@4739",
+    "contract": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/interface_contract/entry/http/4e436d855ffcf0eead97"
+  },
+  {
+    "host": "http",
+    "entry": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/entry/http/985c89cb1487c14bcc46",
+    "implementation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/implementation/0a67efbbab7b3bd84553",
+    "symbol": "github.com/volvo-cars/cce-cpam-ingress/internal/app#App.Run()->()$closure@4896",
+    "trigger": "callback",
+    "method": "CALLBACK",
+    "path": "github.com/volvo-cars/cce-cpam-ingress/internal/app#App.Run()->()$closure@4896",
+    "contract": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/interface_contract/entry/http/985c89cb1487c14bcc46"
+  },
+  {
+    "host": "http",
+    "entry": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/entry/http/9f6f8912946ad684de16",
+    "implementation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/implementation/040ef6b0a7917c590b5f",
+    "symbol": "github.com/volvo-cars/cce-cpam-ingress/internal/app#App.Run()->()$closure@5060",
+    "trigger": "callback",
+    "method": "CALLBACK",
+    "path": "github.com/volvo-cars/cce-cpam-ingress/internal/app#App.Run()->()$closure@5060",
+    "contract": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/interface_contract/entry/http/9f6f8912946ad684de16"
+  },
+  {
+    "host": "http",
+    "entry": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/entry/http/82da8dcffcaf3123f04b",
+    "implementation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/implementation/100b5167211a662c9318",
+    "symbol": "github.com/volvo-cars/cce-cpam-ingress/internal/app#newGatewayHTTPClient(*tracing.OtelTracer)->(*gateway.HTTPClient,error)$closure@926",
+    "trigger": "callback",
+    "method": "CALLBACK",
+    "path": "github.com/volvo-cars/cce-cpam-ingress/internal/app#newGatewayHTTPClient(*tracing.OtelTracer)->(*gateway.HTTPClient,error)$closure@926",
+    "contract": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/interface_contract/entry/http/82da8dcffcaf3123f04b"
+  },
+  {
+    "host": "http",
+    "entry": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/entry/http/5a652ce282ea1f42bec7",
+    "implementation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/implementation/2a26e060811c68d47b73",
+    "symbol": "github.com/volvo-cars/cce-cpam-ingress/internal/app#newGatewayHTTPClient(*tracing.OtelTracer)->(*gateway.HTTPClient,error)$closure@1156",
+    "trigger": "callback",
+    "method": "CALLBACK",
+    "path": "github.com/volvo-cars/cce-cpam-ingress/internal/app#newGatewayHTTPClient(*tracing.OtelTracer)->(*gateway.HTTPClient,error)$closure@1156",
+    "contract": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/interface_contract/entry/http/5a652ce282ea1f42bec7"
+  },
+  {
+    "host": "http",
+    "entry": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/entry/http/310bbf074d6c059e96e8",
+    "implementation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/implementation/b3b8e273d582f8381b9e",
+    "symbol": "github.com/volvo-cars/cce-cpam-ingress/internal/app#newGatewayHTTPClient(*tracing.OtelTracer)->(*gateway.HTTPClient,error)$closure@1328",
+    "trigger": "callback",
+    "method": "CALLBACK",
+    "path": "github.com/volvo-cars/cce-cpam-ingress/internal/app#newGatewayHTTPClient(*tracing.OtelTracer)->(*gateway.HTTPClient,error)$closure@1328",
+    "contract": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/interface_contract/entry/http/310bbf074d6c059e96e8"
+  },
+  {
+    "host": "http",
+    "entry": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/entry/http/1e0ddddd2cda9fa13b4f",
+    "implementation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/implementation/abd37cf359174e475b94",
+    "symbol": "github.com/volvo-cars/cce-cpam-ingress/internal/convert#constructWeekStackIncreasingOrder([]*util.Week)->(*weekStack)$closure@4301",
+    "trigger": "callback",
+    "method": "CALLBACK",
+    "path": "github.com/volvo-cars/cce-cpam-ingress/internal/convert#constructWeekStackIncreasingOrder([]*util.Week)->(*weekStack)$closure@4301",
+    "contract": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/interface_contract/entry/http/1e0ddddd2cda9fa13b4f"
+  },
+  {
+    "host": "http",
+    "entry": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/entry/http/13dde4facb398dc26498",
+    "implementation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/implementation/4a244d0b6b034442b424",
+    "symbol": "github.com/volvo-cars/cce-cpam-ingress/internal/convert#StandardFeaturesConversion.Convert(*cpam.Data)->(error)$closure@1436",
+    "trigger": "callback",
+    "method": "CALLBACK",
+    "path": "github.com/volvo-cars/cce-cpam-ingress/internal/convert#StandardFeaturesConversion.Convert(*cpam.Data)->(error)$closure@1436",
+    "contract": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/interface_contract/entry/http/13dde4facb398dc26498"
+  },
+  {
+    "host": "http",
+    "entry": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/entry/http/e87e3457c3503f8b21f9",
+    "implementation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/implementation/0cf24e2c437b46a2b6fe",
+    "symbol": "github.com/volvo-cars/cce-cpam-ingress/internal/convert#StandardFeaturesConversion.Convert(*cpam.Data)->(error)$closure@2129",
+    "trigger": "callback",
+    "method": "CALLBACK",
+    "path": "github.com/volvo-cars/cce-cpam-ingress/internal/convert#StandardFeaturesConversion.Convert(*cpam.Data)->(error)$closure@2129",
+    "contract": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/interface_contract/entry/http/e87e3457c3503f8b21f9"
+  },
+  {
+    "host": "http",
+    "entry": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/entry/http/49b140d8b3fcf6d65093",
+    "implementation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/implementation/e59e6eb471bd20cbcccc",
+    "symbol": "github.com/volvo-cars/cce-cpam-ingress/internal/cpam#createLessComparison(groupable)->(func(int, int) bool)$closure@1888",
+    "trigger": "callback",
+    "method": "CALLBACK",
+    "path": "github.com/volvo-cars/cce-cpam-ingress/internal/cpam#createLessComparison(groupable)->(func(int, int) bool)$closure@1888",
+    "contract": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/interface_contract/entry/http/49b140d8b3fcf6d65093"
+  },
+  {
+    "host": "http",
+    "entry": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/entry/http/46e2598d8517a3ef4327",
+    "implementation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/implementation/5b350871f137b9f4a773",
+    "symbol": "github.com/volvo-cars/cce-cpam-ingress/internal/cpamingress#ProcessOrchestrator.SendMarketAuthJob(*MarketAuthJob)->()$closure@2263",
+    "trigger": "callback",
+    "method": "CALLBACK",
+    "path": "github.com/volvo-cars/cce-cpam-ingress/internal/cpamingress#ProcessOrchestrator.SendMarketAuthJob(*MarketAuthJob)->()$closure@2263",
+    "contract": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/interface_contract/entry/http/46e2598d8517a3ef4327"
+  },
+  {
+    "host": "http",
+    "entry": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/entry/http/788ea082d2714b01696a",
+    "implementation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/implementation/e76dc692a7b7732a2836",
+    "symbol": "github.com/volvo-cars/cce-cpam-ingress/internal/cpamingress#ProcessOrchestrator.processMarketAuth(context.Context,*MarketAuthJob)->(error)$closure@3761",
+    "trigger": "callback",
+    "method": "CALLBACK",
+    "path": "github.com/volvo-cars/cce-cpam-ingress/internal/cpamingress#ProcessOrchestrator.processMarketAuth(context.Context,*MarketAuthJob)->(error)$closure@3761",
+    "contract": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/interface_contract/entry/http/788ea082d2714b01696a"
+  },
+  {
+    "host": "http",
+    "entry": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/entry/http/8ea65cfbbadc42a988d6",
+    "implementation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/implementation/48dcef678563c4d87ff8",
+    "symbol": "github.com/volvo-cars/cce-cpam-ingress/internal/gateway#WithRoundTripper(Tripperware)->(func(*HTTPClient))$closure@962",
+    "trigger": "callback",
+    "method": "CALLBACK",
+    "path": "github.com/volvo-cars/cce-cpam-ingress/internal/gateway#WithRoundTripper(Tripperware)->(func(*HTTPClient))$closure@962",
+    "contract": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/interface_contract/entry/http/8ea65cfbbadc42a988d6"
+  },
+  {
+    "host": "http",
+    "entry": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/entry/http/3cc8d1a74c1f377523bc",
+    "implementation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/implementation/2d8467e5eb4ce581eb5e",
+    "symbol": "github.com/volvo-cars/cce-cpam-ingress/internal/gateway#WithClient(*http.Client)->(func(*HTTPClient))$closure@1144",
+    "trigger": "callback",
+    "method": "CALLBACK",
+    "path": "github.com/volvo-cars/cce-cpam-ingress/internal/gateway#WithClient(*http.Client)->(func(*HTTPClient))$closure@1144",
+    "contract": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/interface_contract/entry/http/3cc8d1a74c1f377523bc"
+  },
+  {
+    "host": "http",
+    "entry": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/entry/http/25a69411833ad5b8dd93",
+    "implementation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/implementation/05a7d4b828b2e513dc17",
+    "symbol": "github.com/volvo-cars/cce-cpam-ingress/internal/pipeline#WithCpamAction(CpamAction)->(Config)$closure@933",
+    "trigger": "callback",
+    "method": "CALLBACK",
+    "path": "github.com/volvo-cars/cce-cpam-ingress/internal/pipeline#WithCpamAction(CpamAction)->(Config)$closure@933",
+    "contract": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/interface_contract/entry/http/25a69411833ad5b8dd93"
+  },
+  {
+    "host": "http",
+    "entry": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/entry/http/facd67e25be5bf5347d3",
+    "implementation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/implementation/ce4f27c3ab5229eb0ff8",
+    "symbol": "github.com/volvo-cars/cce-cpam-ingress/internal/pipeline#WithConverter(CpamConverter)->(Config)$closure@1060",
+    "trigger": "callback",
+    "method": "CALLBACK",
+    "path": "github.com/volvo-cars/cce-cpam-ingress/internal/pipeline#WithConverter(CpamConverter)->(Config)$closure@1060",
+    "contract": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/interface_contract/entry/http/facd67e25be5bf5347d3"
+  },
+  {
+    "host": "http",
+    "entry": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/entry/http/9e900e9b5e1fb8cf243e",
+    "implementation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/implementation/dca3fb3da3306195cfa7",
+    "symbol": "github.com/volvo-cars/cce-cpam-ingress/internal/pipeline#WithParser(CpamParser)->(Config)$closure@1187",
+    "trigger": "callback",
+    "method": "CALLBACK",
+    "path": "github.com/volvo-cars/cce-cpam-ingress/internal/pipeline#WithParser(CpamParser)->(Config)$closure@1187",
+    "contract": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/interface_contract/entry/http/9e900e9b5e1fb8cf243e"
+  },
+  {
+    "host": "http",
+    "entry": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/entry/http/0b5209b78fa2bdc3060c",
+    "implementation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/implementation/43f9ba9221a0d0b60d69",
+    "symbol": "github.com/volvo-cars/cce-cpam-ingress/internal/pipeline#WithVerifier(CpamVerifier)->(Config)$closure@1311",
+    "trigger": "callback",
+    "method": "CALLBACK",
+    "path": "github.com/volvo-cars/cce-cpam-ingress/internal/pipeline#WithVerifier(CpamVerifier)->(Config)$closure@1311",
+    "contract": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/interface_contract/entry/http/0b5209b78fa2bdc3060c"
+  },
+  {
+    "host": "http",
+    "entry": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/entry/http/cfbad01bc551632b61b5",
+    "implementation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/implementation/e373eae864e50831eb18",
+    "symbol": "github.com/volvo-cars/cce-cpam-ingress/internal/sourcedata#matchFilter(map[string]string,*sourceFile)->(bool)$closure@2228",
+    "trigger": "callback",
+    "method": "CALLBACK",
+    "path": "github.com/volvo-cars/cce-cpam-ingress/internal/sourcedata#matchFilter(map[string]string,*sourceFile)->(bool)$closure@2228",
+    "contract": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/interface_contract/entry/http/cfbad01bc551632b61b5"
+  },
+  {
+    "host": "event",
+    "entry": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/entry/event/090b38fd164a4af7df83",
+    "implementation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-event/implementation/e4e45dfe0c035db97ebc",
+    "symbol": "github.com/volvo-cars/cce-cpam-ingress/cmd/cpam-ingress-event#main()->()",
+    "trigger": "process",
+    "method": "PROCESS",
+    "path": "github.com/volvo-cars/cce-cpam-ingress/cmd/cpam-ingress-event#main()->()",
+    "contract": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/interface_contract/entry/event/090b38fd164a4af7df83"
+  },
+  {
+    "host": "event",
+    "entry": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/entry/event/e0951796c950c71a049d",
+    "implementation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-event/implementation/df2d0f5af6f8099ea285",
+    "symbol": "github.com/volvo-cars/cce-cpam-ingress/events/carconfiguration#file_component_proto_rawDescGZIP()->([]byte)$closure@10473",
+    "trigger": "callback",
+    "method": "CALLBACK",
+    "path": "github.com/volvo-cars/cce-cpam-ingress/events/carconfiguration#file_component_proto_rawDescGZIP()->([]byte)$closure@10473",
+    "contract": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/interface_contract/entry/event/e0951796c950c71a049d"
+  },
+  {
+    "host": "event",
+    "entry": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/entry/event/18ffa0ad26af21dfb55a",
+    "implementation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-event/implementation/bd7ddf59b8edeb16f3cd",
+    "symbol": "github.com/volvo-cars/cce-cpam-ingress/events/carconfiguration#init()->()@events/carconfiguration/component.pb.go:11895",
+    "trigger": "startup",
+    "method": "STARTUP",
+    "path": "github.com/volvo-cars/cce-cpam-ingress/events/carconfiguration#init()->()@events/carconfiguration/component.pb.go:11895",
+    "contract": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/interface_contract/entry/event/18ffa0ad26af21dfb55a"
+  },
+  {
+    "host": "event",
+    "entry": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/entry/event/a49e0a41d454fac997e5",
+    "implementation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-event/implementation/e17304addb28ae5a3aa1",
+    "symbol": "github.com/volvo-cars/cce-cpam-ingress/events/carconfiguration#file_condition_proto_rawDescGZIP()->([]byte)$closure@5272",
+    "trigger": "callback",
+    "method": "CALLBACK",
+    "path": "github.com/volvo-cars/cce-cpam-ingress/events/carconfiguration#file_condition_proto_rawDescGZIP()->([]byte)$closure@5272",
+    "contract": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/interface_contract/entry/event/a49e0a41d454fac997e5"
+  },
+  {
+    "host": "event",
+    "entry": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/entry/event/8e23e1296dc6219fb49c",
+    "implementation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-event/implementation/65f9942691a964ab7540",
+    "symbol": "github.com/volvo-cars/cce-cpam-ingress/events/carconfiguration#init()->()@events/carconfiguration/condition.pb.go:6797",
+    "trigger": "startup",
+    "method": "STARTUP",
+    "path": "github.com/volvo-cars/cce-cpam-ingress/events/carconfiguration#init()->()@events/carconfiguration/condition.pb.go:6797",
+    "contract": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/interface_contract/entry/event/8e23e1296dc6219fb49c"
+  },
+  {
+    "host": "event",
+    "entry": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/entry/event/db2d916ce09c755a6874",
+    "implementation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-event/implementation/1b0df39a21d2f6be5d5e",
+    "symbol": "github.com/volvo-cars/cce-cpam-ingress/events/carconfiguration#file_config_rules_proto_rawDescGZIP()->([]byte)$closure@17209",
+    "trigger": "callback",
+    "method": "CALLBACK",
+    "path": "github.com/volvo-cars/cce-cpam-ingress/events/carconfiguration#file_config_rules_proto_rawDescGZIP()->([]byte)$closure@17209",
+    "contract": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/interface_contract/entry/event/db2d916ce09c755a6874"
+  },
+  {
+    "host": "event",
+    "entry": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/entry/event/64fc2520851ce70940f4",
+    "implementation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-event/implementation/cec736712a4c62eba3fe",
+    "symbol": "github.com/volvo-cars/cce-cpam-ingress/events/carconfiguration#init()->()@events/carconfiguration/config-rules.pb.go:20871",
+    "trigger": "startup",
+    "method": "STARTUP",
+    "path": "github.com/volvo-cars/cce-cpam-ingress/events/carconfiguration#init()->()@events/carconfiguration/config-rules.pb.go:20871",
+    "contract": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/interface_contract/entry/event/64fc2520851ce70940f4"
+  },
+  {
+    "host": "event",
+    "entry": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/entry/event/0323053ed57c796ee7c6",
+    "implementation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-event/implementation/84fd696400fa86feba85",
+    "symbol": "github.com/volvo-cars/cce-cpam-ingress/events/carconfiguration#file_consequence_proto_rawDescGZIP()->([]byte)$closure@7992",
+    "trigger": "callback",
+    "method": "CALLBACK",
+    "path": "github.com/volvo-cars/cce-cpam-ingress/events/carconfiguration#file_consequence_proto_rawDescGZIP()->([]byte)$closure@7992",
+    "contract": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/interface_contract/entry/event/0323053ed57c796ee7c6"
+  },
+  {
+    "host": "event",
+    "entry": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/entry/event/7360b20c540b3adf6024",
+    "implementation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-event/implementation/e99f7478d1eb5bbb4ef3",
+    "symbol": "github.com/volvo-cars/cce-cpam-ingress/events/carconfiguration#init()->()@events/carconfiguration/consequence.pb.go:9439",
+    "trigger": "startup",
+    "method": "STARTUP",
+    "path": "github.com/volvo-cars/cce-cpam-ingress/events/carconfiguration#init()->()@events/carconfiguration/consequence.pb.go:9439",
+    "contract": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/interface_contract/entry/event/7360b20c540b3adf6024"
+  },
+  {
+    "host": "event",
+    "entry": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/entry/event/c6bd14d954750f1cae95",
+    "implementation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-event/implementation/9922480e2826c0d5a22e",
+    "symbol": "github.com/volvo-cars/cce-cpam-ingress/events/carconfiguration#file_cpam_ingress_proto_rawDescGZIP()->([]byte)$closure@16762",
+    "trigger": "callback",
+    "method": "CALLBACK",
+    "path": "github.com/volvo-cars/cce-cpam-ingress/events/carconfiguration#file_cpam_ingress_proto_rawDescGZIP()->([]byte)$closure@16762",
+    "contract": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/interface_contract/entry/event/c6bd14d954750f1cae95"
+  },
+  {
+    "host": "event",
+    "entry": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/entry/event/741b9528532ea83e3c57",
+    "implementation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-event/implementation/a0b30ea119ba3d2db0ed",
+    "symbol": "github.com/volvo-cars/cce-cpam-ingress/events/carconfiguration#init()->()@events/carconfiguration/cpam-ingress.pb.go:20043",
+    "trigger": "startup",
+    "method": "STARTUP",
+    "path": "github.com/volvo-cars/cce-cpam-ingress/events/carconfiguration#init()->()@events/carconfiguration/cpam-ingress.pb.go:20043",
+    "contract": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/interface_contract/entry/event/741b9528532ea83e3c57"
+  },
+  {
+    "host": "event",
+    "entry": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/entry/event/94f53bc7c59458d4cd89",
+    "implementation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-event/implementation/24aa065197fdbb374b9a",
+    "symbol": "github.com/volvo-cars/cce-cpam-ingress/events/carconfiguration#file_market_auth_identifier_proto_rawDescGZIP()->([]byte)$closure@2820",
+    "trigger": "callback",
+    "method": "CALLBACK",
+    "path": "github.com/volvo-cars/cce-cpam-ingress/events/carconfiguration#file_market_auth_identifier_proto_rawDescGZIP()->([]byte)$closure@2820",
+    "contract": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/interface_contract/entry/event/94f53bc7c59458d4cd89"
+  },
+  {
+    "host": "event",
+    "entry": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/entry/event/eaa4d5cf9e0532a91d5c",
+    "implementation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-event/implementation/7376506512f868293f2f",
+    "symbol": "github.com/volvo-cars/cce-cpam-ingress/events/carconfiguration#init()->()@events/carconfiguration/market-auth-identifier.pb.go:3640",
+    "trigger": "startup",
+    "method": "STARTUP",
+    "path": "github.com/volvo-cars/cce-cpam-ingress/events/carconfiguration#init()->()@events/carconfiguration/market-auth-identifier.pb.go:3640",
+    "contract": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/interface_contract/entry/event/eaa4d5cf9e0532a91d5c"
+  },
+  {
+    "host": "event",
+    "entry": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/entry/event/017fe4042d6e496db5e0",
+    "implementation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-event/implementation/673e0ca5ddd6f11cbe89",
+    "symbol": "github.com/volvo-cars/cce-cpam-ingress/events/pcf#file_marketauthmessage_proto_rawDescGZIP()->([]byte)$closure@3414",
+    "trigger": "callback",
+    "method": "CALLBACK",
+    "path": "github.com/volvo-cars/cce-cpam-ingress/events/pcf#file_marketauthmessage_proto_rawDescGZIP()->([]byte)$closure@3414",
+    "contract": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/interface_contract/entry/event/017fe4042d6e496db5e0"
+  },
+  {
+    "host": "event",
+    "entry": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/entry/event/764e6fe120e66f40ff37",
+    "implementation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-event/implementation/763272f034ee3fb9caa3",
+    "symbol": "github.com/volvo-cars/cce-cpam-ingress/events/pcf#init()->()@events/pcf/marketauthmessage.pb.go:4371",
+    "trigger": "startup",
+    "method": "STARTUP",
+    "path": "github.com/volvo-cars/cce-cpam-ingress/events/pcf#init()->()@events/pcf/marketauthmessage.pb.go:4371",
+    "contract": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/interface_contract/entry/event/764e6fe120e66f40ff37"
+  },
+  {
+    "host": "event",
+    "entry": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/entry/event/9b142f6e06efd46c7b19",
+    "implementation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-event/implementation/76dacb144776cc3e069b",
+    "symbol": "github.com/volvo-cars/cce-cpam-ingress/internal/aggregate#HandleFuncMarketAuth(EventWriter,SpecMarketFetcher)->(eventstream.HandlerFunc)$closure@811",
+    "trigger": "callback",
+    "method": "CALLBACK",
+    "path": "github.com/volvo-cars/cce-cpam-ingress/internal/aggregate#HandleFuncMarketAuth(EventWriter,SpecMarketFetcher)->(eventstream.HandlerFunc)$closure@811",
+    "contract": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/interface_contract/entry/event/9b142f6e06efd46c7b19"
+  },
+  {
+    "host": "event",
+    "entry": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/entry/event/8cadc0c572d7fc192767",
+    "implementation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-event/implementation/b9152195b5edd7178ffe",
+    "symbol": "github.com/volvo-cars/cce-cpam-ingress/internal/app#AggregatorApp.Run()->()$closure@2384",
+    "trigger": "callback",
+    "method": "CALLBACK",
+    "path": "github.com/volvo-cars/cce-cpam-ingress/internal/app#AggregatorApp.Run()->()$closure@2384",
+    "contract": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/interface_contract/entry/event/8cadc0c572d7fc192767"
+  },
+  {
+    "host": "event",
+    "entry": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/entry/event/9b06676c77f085dd135f",
+    "implementation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-event/implementation/a60cdca93276f0e3d4c7",
+    "symbol": "github.com/volvo-cars/cce-cpam-ingress/internal/app#AggregatorApp.Run()->()$closure@2542",
+    "trigger": "callback",
+    "method": "CALLBACK",
+    "path": "github.com/volvo-cars/cce-cpam-ingress/internal/app#AggregatorApp.Run()->()$closure@2542",
+    "contract": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/interface_contract/entry/event/9b06676c77f085dd135f"
+  },
+  {
+    "host": "event",
+    "entry": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/entry/event/82da8dcffcaf3123f04b",
+    "implementation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-event/implementation/100b5167211a662c9318",
+    "symbol": "github.com/volvo-cars/cce-cpam-ingress/internal/app#newGatewayHTTPClient(*tracing.OtelTracer)->(*gateway.HTTPClient,error)$closure@926",
+    "trigger": "callback",
+    "method": "CALLBACK",
+    "path": "github.com/volvo-cars/cce-cpam-ingress/internal/app#newGatewayHTTPClient(*tracing.OtelTracer)->(*gateway.HTTPClient,error)$closure@926",
+    "contract": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/interface_contract/entry/event/82da8dcffcaf3123f04b"
+  },
+  {
+    "host": "event",
+    "entry": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/entry/event/5a652ce282ea1f42bec7",
+    "implementation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-event/implementation/2a26e060811c68d47b73",
+    "symbol": "github.com/volvo-cars/cce-cpam-ingress/internal/app#newGatewayHTTPClient(*tracing.OtelTracer)->(*gateway.HTTPClient,error)$closure@1156",
+    "trigger": "callback",
+    "method": "CALLBACK",
+    "path": "github.com/volvo-cars/cce-cpam-ingress/internal/app#newGatewayHTTPClient(*tracing.OtelTracer)->(*gateway.HTTPClient,error)$closure@1156",
+    "contract": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/interface_contract/entry/event/5a652ce282ea1f42bec7"
+  },
+  {
+    "host": "event",
+    "entry": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/entry/event/310bbf074d6c059e96e8",
+    "implementation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-event/implementation/b3b8e273d582f8381b9e",
+    "symbol": "github.com/volvo-cars/cce-cpam-ingress/internal/app#newGatewayHTTPClient(*tracing.OtelTracer)->(*gateway.HTTPClient,error)$closure@1328",
+    "trigger": "callback",
+    "method": "CALLBACK",
+    "path": "github.com/volvo-cars/cce-cpam-ingress/internal/app#newGatewayHTTPClient(*tracing.OtelTracer)->(*gateway.HTTPClient,error)$closure@1328",
+    "contract": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/interface_contract/entry/event/310bbf074d6c059e96e8"
+  },
+  {
+    "host": "event",
+    "entry": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/entry/event/8ea65cfbbadc42a988d6",
+    "implementation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-event/implementation/48dcef678563c4d87ff8",
+    "symbol": "github.com/volvo-cars/cce-cpam-ingress/internal/gateway#WithRoundTripper(Tripperware)->(func(*HTTPClient))$closure@962",
+    "trigger": "callback",
+    "method": "CALLBACK",
+    "path": "github.com/volvo-cars/cce-cpam-ingress/internal/gateway#WithRoundTripper(Tripperware)->(func(*HTTPClient))$closure@962",
+    "contract": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/interface_contract/entry/event/8ea65cfbbadc42a988d6"
+  },
+  {
+    "host": "event",
+    "entry": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/entry/event/3cc8d1a74c1f377523bc",
+    "implementation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-event/implementation/2d8467e5eb4ce581eb5e",
+    "symbol": "github.com/volvo-cars/cce-cpam-ingress/internal/gateway#WithClient(*http.Client)->(func(*HTTPClient))$closure@1144",
+    "trigger": "callback",
+    "method": "CALLBACK",
+    "path": "github.com/volvo-cars/cce-cpam-ingress/internal/gateway#WithClient(*http.Client)->(func(*HTTPClient))$closure@1144",
+    "contract": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/interface_contract/entry/event/3cc8d1a74c1f377523bc"
+  },
+  {
+    "host": "pipeline",
+    "entry": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/entry/pipeline/491df85cf2951888afda",
+    "implementation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/implementation/2643dd1852bac53d15cc",
+    "symbol": "github.com/volvo-cars/cce-cpam-ingress/cmd/cpam-ingress-pipeline#main()->()",
+    "trigger": "process",
+    "method": "PROCESS",
+    "path": "github.com/volvo-cars/cce-cpam-ingress/cmd/cpam-ingress-pipeline#main()->()",
+    "contract": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/interface_contract/entry/pipeline/491df85cf2951888afda"
+  },
+  {
+    "host": "pipeline",
+    "entry": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/entry/pipeline/e0951796c950c71a049d",
+    "implementation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/implementation/df2d0f5af6f8099ea285",
+    "symbol": "github.com/volvo-cars/cce-cpam-ingress/events/carconfiguration#file_component_proto_rawDescGZIP()->([]byte)$closure@10473",
+    "trigger": "callback",
+    "method": "CALLBACK",
+    "path": "github.com/volvo-cars/cce-cpam-ingress/events/carconfiguration#file_component_proto_rawDescGZIP()->([]byte)$closure@10473",
+    "contract": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/interface_contract/entry/pipeline/e0951796c950c71a049d"
+  },
+  {
+    "host": "pipeline",
+    "entry": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/entry/pipeline/18ffa0ad26af21dfb55a",
+    "implementation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/implementation/bd7ddf59b8edeb16f3cd",
+    "symbol": "github.com/volvo-cars/cce-cpam-ingress/events/carconfiguration#init()->()@events/carconfiguration/component.pb.go:11895",
+    "trigger": "startup",
+    "method": "STARTUP",
+    "path": "github.com/volvo-cars/cce-cpam-ingress/events/carconfiguration#init()->()@events/carconfiguration/component.pb.go:11895",
+    "contract": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/interface_contract/entry/pipeline/18ffa0ad26af21dfb55a"
+  },
+  {
+    "host": "pipeline",
+    "entry": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/entry/pipeline/a49e0a41d454fac997e5",
+    "implementation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/implementation/e17304addb28ae5a3aa1",
+    "symbol": "github.com/volvo-cars/cce-cpam-ingress/events/carconfiguration#file_condition_proto_rawDescGZIP()->([]byte)$closure@5272",
+    "trigger": "callback",
+    "method": "CALLBACK",
+    "path": "github.com/volvo-cars/cce-cpam-ingress/events/carconfiguration#file_condition_proto_rawDescGZIP()->([]byte)$closure@5272",
+    "contract": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/interface_contract/entry/pipeline/a49e0a41d454fac997e5"
+  },
+  {
+    "host": "pipeline",
+    "entry": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/entry/pipeline/8e23e1296dc6219fb49c",
+    "implementation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/implementation/65f9942691a964ab7540",
+    "symbol": "github.com/volvo-cars/cce-cpam-ingress/events/carconfiguration#init()->()@events/carconfiguration/condition.pb.go:6797",
+    "trigger": "startup",
+    "method": "STARTUP",
+    "path": "github.com/volvo-cars/cce-cpam-ingress/events/carconfiguration#init()->()@events/carconfiguration/condition.pb.go:6797",
+    "contract": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/interface_contract/entry/pipeline/8e23e1296dc6219fb49c"
+  },
+  {
+    "host": "pipeline",
+    "entry": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/entry/pipeline/db2d916ce09c755a6874",
+    "implementation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/implementation/1b0df39a21d2f6be5d5e",
+    "symbol": "github.com/volvo-cars/cce-cpam-ingress/events/carconfiguration#file_config_rules_proto_rawDescGZIP()->([]byte)$closure@17209",
+    "trigger": "callback",
+    "method": "CALLBACK",
+    "path": "github.com/volvo-cars/cce-cpam-ingress/events/carconfiguration#file_config_rules_proto_rawDescGZIP()->([]byte)$closure@17209",
+    "contract": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/interface_contract/entry/pipeline/db2d916ce09c755a6874"
+  },
+  {
+    "host": "pipeline",
+    "entry": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/entry/pipeline/64fc2520851ce70940f4",
+    "implementation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/implementation/cec736712a4c62eba3fe",
+    "symbol": "github.com/volvo-cars/cce-cpam-ingress/events/carconfiguration#init()->()@events/carconfiguration/config-rules.pb.go:20871",
+    "trigger": "startup",
+    "method": "STARTUP",
+    "path": "github.com/volvo-cars/cce-cpam-ingress/events/carconfiguration#init()->()@events/carconfiguration/config-rules.pb.go:20871",
+    "contract": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/interface_contract/entry/pipeline/64fc2520851ce70940f4"
+  },
+  {
+    "host": "pipeline",
+    "entry": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/entry/pipeline/0323053ed57c796ee7c6",
+    "implementation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/implementation/84fd696400fa86feba85",
+    "symbol": "github.com/volvo-cars/cce-cpam-ingress/events/carconfiguration#file_consequence_proto_rawDescGZIP()->([]byte)$closure@7992",
+    "trigger": "callback",
+    "method": "CALLBACK",
+    "path": "github.com/volvo-cars/cce-cpam-ingress/events/carconfiguration#file_consequence_proto_rawDescGZIP()->([]byte)$closure@7992",
+    "contract": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/interface_contract/entry/pipeline/0323053ed57c796ee7c6"
+  },
+  {
+    "host": "pipeline",
+    "entry": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/entry/pipeline/7360b20c540b3adf6024",
+    "implementation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/implementation/e99f7478d1eb5bbb4ef3",
+    "symbol": "github.com/volvo-cars/cce-cpam-ingress/events/carconfiguration#init()->()@events/carconfiguration/consequence.pb.go:9439",
+    "trigger": "startup",
+    "method": "STARTUP",
+    "path": "github.com/volvo-cars/cce-cpam-ingress/events/carconfiguration#init()->()@events/carconfiguration/consequence.pb.go:9439",
+    "contract": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/interface_contract/entry/pipeline/7360b20c540b3adf6024"
+  },
+  {
+    "host": "pipeline",
+    "entry": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/entry/pipeline/c6bd14d954750f1cae95",
+    "implementation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/implementation/9922480e2826c0d5a22e",
+    "symbol": "github.com/volvo-cars/cce-cpam-ingress/events/carconfiguration#file_cpam_ingress_proto_rawDescGZIP()->([]byte)$closure@16762",
+    "trigger": "callback",
+    "method": "CALLBACK",
+    "path": "github.com/volvo-cars/cce-cpam-ingress/events/carconfiguration#file_cpam_ingress_proto_rawDescGZIP()->([]byte)$closure@16762",
+    "contract": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/interface_contract/entry/pipeline/c6bd14d954750f1cae95"
+  },
+  {
+    "host": "pipeline",
+    "entry": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/entry/pipeline/741b9528532ea83e3c57",
+    "implementation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/implementation/a0b30ea119ba3d2db0ed",
+    "symbol": "github.com/volvo-cars/cce-cpam-ingress/events/carconfiguration#init()->()@events/carconfiguration/cpam-ingress.pb.go:20043",
+    "trigger": "startup",
+    "method": "STARTUP",
+    "path": "github.com/volvo-cars/cce-cpam-ingress/events/carconfiguration#init()->()@events/carconfiguration/cpam-ingress.pb.go:20043",
+    "contract": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/interface_contract/entry/pipeline/741b9528532ea83e3c57"
+  },
+  {
+    "host": "pipeline",
+    "entry": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/entry/pipeline/94f53bc7c59458d4cd89",
+    "implementation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/implementation/24aa065197fdbb374b9a",
+    "symbol": "github.com/volvo-cars/cce-cpam-ingress/events/carconfiguration#file_market_auth_identifier_proto_rawDescGZIP()->([]byte)$closure@2820",
+    "trigger": "callback",
+    "method": "CALLBACK",
+    "path": "github.com/volvo-cars/cce-cpam-ingress/events/carconfiguration#file_market_auth_identifier_proto_rawDescGZIP()->([]byte)$closure@2820",
+    "contract": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/interface_contract/entry/pipeline/94f53bc7c59458d4cd89"
+  },
+  {
+    "host": "pipeline",
+    "entry": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/entry/pipeline/eaa4d5cf9e0532a91d5c",
+    "implementation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/implementation/7376506512f868293f2f",
+    "symbol": "github.com/volvo-cars/cce-cpam-ingress/events/carconfiguration#init()->()@events/carconfiguration/market-auth-identifier.pb.go:3640",
+    "trigger": "startup",
+    "method": "STARTUP",
+    "path": "github.com/volvo-cars/cce-cpam-ingress/events/carconfiguration#init()->()@events/carconfiguration/market-auth-identifier.pb.go:3640",
+    "contract": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/interface_contract/entry/pipeline/eaa4d5cf9e0532a91d5c"
+  },
+  {
+    "host": "pipeline",
+    "entry": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/entry/pipeline/23e35ad56c3d98efc514",
+    "implementation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/implementation/42e0f8768142c9184383",
+    "symbol": "github.com/volvo-cars/cce-cpam-ingress/internal/action#Pno12RulesAction.uploadConfigRuleSetsFromScopes(context.Context,[]scopeWithConfigRules)->(error)$closure@4649",
+    "trigger": "callback",
+    "method": "CALLBACK",
+    "path": "github.com/volvo-cars/cce-cpam-ingress/internal/action#Pno12RulesAction.uploadConfigRuleSetsFromScopes(context.Context,[]scopeWithConfigRules)->(error)$closure@4649",
+    "contract": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/interface_contract/entry/pipeline/23e35ad56c3d98efc514"
+  },
+  {
+    "host": "pipeline",
+    "entry": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/entry/pipeline/f66ef6859888255bf07d",
+    "implementation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/implementation/3bf564340f1da2284759",
+    "symbol": "github.com/volvo-cars/cce-cpam-ingress/internal/action#Pno12RulesAction.uploadConfigRuleSetsFromScopes(context.Context,[]scopeWithConfigRules)->(error)$closure@4801",
+    "trigger": "callback",
+    "method": "CALLBACK",
+    "path": "github.com/volvo-cars/cce-cpam-ingress/internal/action#Pno12RulesAction.uploadConfigRuleSetsFromScopes(context.Context,[]scopeWithConfigRules)->(error)$closure@4801",
+    "contract": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/interface_contract/entry/pipeline/f66ef6859888255bf07d"
+  },
+  {
+    "host": "pipeline",
+    "entry": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/entry/pipeline/82da8dcffcaf3123f04b",
+    "implementation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/implementation/100b5167211a662c9318",
+    "symbol": "github.com/volvo-cars/cce-cpam-ingress/internal/app#newGatewayHTTPClient(*tracing.OtelTracer)->(*gateway.HTTPClient,error)$closure@926",
+    "trigger": "callback",
+    "method": "CALLBACK",
+    "path": "github.com/volvo-cars/cce-cpam-ingress/internal/app#newGatewayHTTPClient(*tracing.OtelTracer)->(*gateway.HTTPClient,error)$closure@926",
+    "contract": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/interface_contract/entry/pipeline/82da8dcffcaf3123f04b"
+  },
+  {
+    "host": "pipeline",
+    "entry": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/entry/pipeline/5a652ce282ea1f42bec7",
+    "implementation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/implementation/2a26e060811c68d47b73",
+    "symbol": "github.com/volvo-cars/cce-cpam-ingress/internal/app#newGatewayHTTPClient(*tracing.OtelTracer)->(*gateway.HTTPClient,error)$closure@1156",
+    "trigger": "callback",
+    "method": "CALLBACK",
+    "path": "github.com/volvo-cars/cce-cpam-ingress/internal/app#newGatewayHTTPClient(*tracing.OtelTracer)->(*gateway.HTTPClient,error)$closure@1156",
+    "contract": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/interface_contract/entry/pipeline/5a652ce282ea1f42bec7"
+  },
+  {
+    "host": "pipeline",
+    "entry": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/entry/pipeline/310bbf074d6c059e96e8",
+    "implementation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/implementation/b3b8e273d582f8381b9e",
+    "symbol": "github.com/volvo-cars/cce-cpam-ingress/internal/app#newGatewayHTTPClient(*tracing.OtelTracer)->(*gateway.HTTPClient,error)$closure@1328",
+    "trigger": "callback",
+    "method": "CALLBACK",
+    "path": "github.com/volvo-cars/cce-cpam-ingress/internal/app#newGatewayHTTPClient(*tracing.OtelTracer)->(*gateway.HTTPClient,error)$closure@1328",
+    "contract": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/interface_contract/entry/pipeline/310bbf074d6c059e96e8"
+  },
+  {
+    "host": "pipeline",
+    "entry": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/entry/pipeline/1e0ddddd2cda9fa13b4f",
+    "implementation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/implementation/abd37cf359174e475b94",
+    "symbol": "github.com/volvo-cars/cce-cpam-ingress/internal/convert#constructWeekStackIncreasingOrder([]*util.Week)->(*weekStack)$closure@4301",
+    "trigger": "callback",
+    "method": "CALLBACK",
+    "path": "github.com/volvo-cars/cce-cpam-ingress/internal/convert#constructWeekStackIncreasingOrder([]*util.Week)->(*weekStack)$closure@4301",
+    "contract": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/interface_contract/entry/pipeline/1e0ddddd2cda9fa13b4f"
+  },
+  {
+    "host": "pipeline",
+    "entry": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/entry/pipeline/13dde4facb398dc26498",
+    "implementation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/implementation/4a244d0b6b034442b424",
+    "symbol": "github.com/volvo-cars/cce-cpam-ingress/internal/convert#StandardFeaturesConversion.Convert(*cpam.Data)->(error)$closure@1436",
+    "trigger": "callback",
+    "method": "CALLBACK",
+    "path": "github.com/volvo-cars/cce-cpam-ingress/internal/convert#StandardFeaturesConversion.Convert(*cpam.Data)->(error)$closure@1436",
+    "contract": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/interface_contract/entry/pipeline/13dde4facb398dc26498"
+  },
+  {
+    "host": "pipeline",
+    "entry": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/entry/pipeline/e87e3457c3503f8b21f9",
+    "implementation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/implementation/0cf24e2c437b46a2b6fe",
+    "symbol": "github.com/volvo-cars/cce-cpam-ingress/internal/convert#StandardFeaturesConversion.Convert(*cpam.Data)->(error)$closure@2129",
+    "trigger": "callback",
+    "method": "CALLBACK",
+    "path": "github.com/volvo-cars/cce-cpam-ingress/internal/convert#StandardFeaturesConversion.Convert(*cpam.Data)->(error)$closure@2129",
+    "contract": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/interface_contract/entry/pipeline/e87e3457c3503f8b21f9"
+  },
+  {
+    "host": "pipeline",
+    "entry": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/entry/pipeline/49b140d8b3fcf6d65093",
+    "implementation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/implementation/e59e6eb471bd20cbcccc",
+    "symbol": "github.com/volvo-cars/cce-cpam-ingress/internal/cpam#createLessComparison(groupable)->(func(int, int) bool)$closure@1888",
+    "trigger": "callback",
+    "method": "CALLBACK",
+    "path": "github.com/volvo-cars/cce-cpam-ingress/internal/cpam#createLessComparison(groupable)->(func(int, int) bool)$closure@1888",
+    "contract": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/interface_contract/entry/pipeline/49b140d8b3fcf6d65093"
+  },
+  {
+    "host": "pipeline",
+    "entry": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/entry/pipeline/8ea65cfbbadc42a988d6",
+    "implementation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/implementation/48dcef678563c4d87ff8",
+    "symbol": "github.com/volvo-cars/cce-cpam-ingress/internal/gateway#WithRoundTripper(Tripperware)->(func(*HTTPClient))$closure@962",
+    "trigger": "callback",
+    "method": "CALLBACK",
+    "path": "github.com/volvo-cars/cce-cpam-ingress/internal/gateway#WithRoundTripper(Tripperware)->(func(*HTTPClient))$closure@962",
+    "contract": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/interface_contract/entry/pipeline/8ea65cfbbadc42a988d6"
+  },
+  {
+    "host": "pipeline",
+    "entry": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/entry/pipeline/3cc8d1a74c1f377523bc",
+    "implementation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/implementation/2d8467e5eb4ce581eb5e",
+    "symbol": "github.com/volvo-cars/cce-cpam-ingress/internal/gateway#WithClient(*http.Client)->(func(*HTTPClient))$closure@1144",
+    "trigger": "callback",
+    "method": "CALLBACK",
+    "path": "github.com/volvo-cars/cce-cpam-ingress/internal/gateway#WithClient(*http.Client)->(func(*HTTPClient))$closure@1144",
+    "contract": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/interface_contract/entry/pipeline/3cc8d1a74c1f377523bc"
+  },
+  {
+    "host": "pipeline",
+    "entry": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/entry/pipeline/25a69411833ad5b8dd93",
+    "implementation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/implementation/05a7d4b828b2e513dc17",
+    "symbol": "github.com/volvo-cars/cce-cpam-ingress/internal/pipeline#WithCpamAction(CpamAction)->(Config)$closure@933",
+    "trigger": "callback",
+    "method": "CALLBACK",
+    "path": "github.com/volvo-cars/cce-cpam-ingress/internal/pipeline#WithCpamAction(CpamAction)->(Config)$closure@933",
+    "contract": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/interface_contract/entry/pipeline/25a69411833ad5b8dd93"
+  },
+  {
+    "host": "pipeline",
+    "entry": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/entry/pipeline/facd67e25be5bf5347d3",
+    "implementation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/implementation/ce4f27c3ab5229eb0ff8",
+    "symbol": "github.com/volvo-cars/cce-cpam-ingress/internal/pipeline#WithConverter(CpamConverter)->(Config)$closure@1060",
+    "trigger": "callback",
+    "method": "CALLBACK",
+    "path": "github.com/volvo-cars/cce-cpam-ingress/internal/pipeline#WithConverter(CpamConverter)->(Config)$closure@1060",
+    "contract": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/interface_contract/entry/pipeline/facd67e25be5bf5347d3"
+  },
+  {
+    "host": "pipeline",
+    "entry": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/entry/pipeline/9e900e9b5e1fb8cf243e",
+    "implementation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/implementation/dca3fb3da3306195cfa7",
+    "symbol": "github.com/volvo-cars/cce-cpam-ingress/internal/pipeline#WithParser(CpamParser)->(Config)$closure@1187",
+    "trigger": "callback",
+    "method": "CALLBACK",
+    "path": "github.com/volvo-cars/cce-cpam-ingress/internal/pipeline#WithParser(CpamParser)->(Config)$closure@1187",
+    "contract": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/interface_contract/entry/pipeline/9e900e9b5e1fb8cf243e"
+  },
+  {
+    "host": "pipeline",
+    "entry": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/entry/pipeline/0b5209b78fa2bdc3060c",
+    "implementation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/implementation/43f9ba9221a0d0b60d69",
+    "symbol": "github.com/volvo-cars/cce-cpam-ingress/internal/pipeline#WithVerifier(CpamVerifier)->(Config)$closure@1311",
+    "trigger": "callback",
+    "method": "CALLBACK",
+    "path": "github.com/volvo-cars/cce-cpam-ingress/internal/pipeline#WithVerifier(CpamVerifier)->(Config)$closure@1311",
+    "contract": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/interface_contract/entry/pipeline/0b5209b78fa2bdc3060c"
+  },
+  {
+    "host": "http",
+    "entry": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/entry/http/c30b00ea810658a2e795",
+    "implementation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/implementation/b63c2bfc1f0d234028a5",
+    "symbol": "github.com/volvo-cars/cce-cpam-ingress/internal/restapi#api.healthCheck(http.ResponseWriter,*http.Request)->()",
+    "trigger": "rest",
+    "method": "GET",
+    "path": "/health",
+    "contract": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/interface_contract/entry/http/c30b00ea810658a2e795"
+  },
+  {
+    "host": "http",
+    "entry": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/entry/http/fb04f39102aa779f2a58",
+    "implementation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/implementation/65a38464e3146e0a1eb8",
+    "symbol": "github.com/volvo-cars/cce-cpam-ingress/internal/restapi#api.handleImportSpecMarket(http.ResponseWriter,*http.Request)->()",
+    "trigger": "rest",
+    "method": "POST",
+    "path": "/importSpecMarket",
+    "contract": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/interface_contract/entry/http/fb04f39102aa779f2a58"
+  },
+  {
+    "host": "http",
+    "entry": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/entry/http/85509ac0c1de3565e04f",
+    "implementation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/implementation/2b7d022092c468af8a2a",
+    "symbol": "github.com/volvo-cars/cce-cpam-ingress/internal/restapi#api.handleGetPno3sFromPcf(http.ResponseWriter,*http.Request)->()",
+    "trigger": "rest",
+    "method": "GET",
+    "path": "/pno3sFromPcf",
+    "contract": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/interface_contract/entry/http/85509ac0c1de3565e04f"
+  },
+  {
+    "host": "http",
+    "entry": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/entry/http/b97636d8b6c144d663fb",
+    "implementation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/implementation/663de11951a9c8b4dc3d",
+    "symbol": "github.com/volvo-cars/cce-cpam-ingress/internal/restapi#api.handleImportedPno3s(http.ResponseWriter,*http.Request)->()",
+    "trigger": "rest",
+    "method": "GET",
+    "path": "/importedPno3s",
+    "contract": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/interface_contract/entry/http/b97636d8b6c144d663fb"
+  },
+  {
+    "host": "http",
+    "entry": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/entry/http/b305b5fb1481fe7053e5",
+    "implementation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/implementation/8dde63ec2c1308f5da9c",
+    "symbol": "github.com/volvo-cars/cce-cpam-ingress/internal/restapi#api.handleLatestImportedFiles(http.ResponseWriter,*http.Request)->()",
+    "trigger": "rest",
+    "method": "GET",
+    "path": "/latestImportedFiles",
+    "contract": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/interface_contract/entry/http/b305b5fb1481fe7053e5"
+  },
+  {
+    "host": "http",
+    "entry": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/entry/http/fdcb5998b773503b1183",
+    "implementation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/implementation/df34e2b05c93db02daad",
+    "symbol": "github.com/volvo-cars/cce-cpam-ingress/internal/restapi#api.handleCpamGetMarketAuthFile(http.ResponseWriter,*http.Request)->()",
+    "trigger": "rest",
+    "method": "GET",
+    "path": "/cpamMarketAuthFile",
+    "contract": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/interface_contract/entry/http/fdcb5998b773503b1183"
+  },
+  {
+    "host": "http",
+    "entry": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/entry/http/799a5c3c36685d2b0b04",
+    "implementation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/implementation/e8db184471ab57d12ec4",
+    "symbol": "github.com/volvo-cars/cce-cpam-ingress/internal/cpamingress#ProcessOrchestrator.Run(context.Context)->()",
+    "trigger": "callback",
+    "method": "CALLBACK",
+    "path": "github.com/volvo-cars/cce-cpam-ingress/internal/cpamingress#ProcessOrchestrator.Run(context.Context)->()",
+    "contract": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/interface_contract/entry/http/799a5c3c36685d2b0b04"
+  },
+  {
+    "host": "http",
+    "entry": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/entry/http/0ae6d4e63ee4bc3df08d",
+    "implementation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/implementation/353ded38f2508ad05cb5",
+    "symbol": "github.com/volvo-cars/cce-cpam-ingress/internal/cpamingress#CpamDataHandler.HandleMarketAuths(context.Context,[]*eventstream.ReceivedEvent)->()",
+    "trigger": "callback",
+    "method": "CALLBACK",
+    "path": "github.com/volvo-cars/cce-cpam-ingress/internal/cpamingress#CpamDataHandler.HandleMarketAuths(context.Context,[]*eventstream.ReceivedEvent)->()",
+    "contract": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/interface_contract/entry/http/0ae6d4e63ee4bc3df08d"
+  },
+  {
+    "host": "http",
+    "entry": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/entry/http/5a48122c0ba3658dacc4",
+    "implementation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/implementation/cf3848f1cdb2ada522f1",
+    "symbol": "github.com/volvo-cars/cce-cpam-ingress/internal/pipeline#Pipeline.Run(context.Context,*Input)->(error)",
+    "trigger": "callback",
+    "method": "CALLBACK",
+    "path": "github.com/volvo-cars/cce-cpam-ingress/internal/pipeline#Pipeline.Run(context.Context,*Input)->(error)",
+    "contract": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/interface_contract/entry/http/5a48122c0ba3658dacc4"
+  },
+  {
+    "host": "pipeline",
+    "entry": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/entry/pipeline/5a48122c0ba3658dacc4",
+    "implementation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/implementation/cf3848f1cdb2ada522f1",
+    "symbol": "github.com/volvo-cars/cce-cpam-ingress/internal/pipeline#Pipeline.Run(context.Context,*Input)->(error)",
+    "trigger": "callback",
+    "method": "CALLBACK",
+    "path": "github.com/volvo-cars/cce-cpam-ingress/internal/pipeline#Pipeline.Run(context.Context,*Input)->(error)",
+    "contract": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/interface_contract/entry/pipeline/5a48122c0ba3658dacc4"
+  },
+  {
+    "host": "http",
+    "entry": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/additions/entry/pcf-init/http",
+    "implementation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-event/implementation/763272f034ee3fb9caa3",
+    "symbol": "github.com/volvo-cars/cce-cpam-ingress/events/pcf#init()->()@events/pcf/marketauthmessage.pb.go:4371",
+    "trigger": "startup",
+    "method": "STARTUP",
+    "path": "github.com/volvo-cars/cce-cpam-ingress/events/pcf#init()->()@events/pcf/marketauthmessage.pb.go:4371",
+    "contract": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/additions/interface_contract/pcf-init/http"
+  },
+  {
+    "host": "pipeline",
+    "entry": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/additions/entry/pcf-init/pipeline",
+    "implementation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-event/implementation/763272f034ee3fb9caa3",
+    "symbol": "github.com/volvo-cars/cce-cpam-ingress/events/pcf#init()->()@events/pcf/marketauthmessage.pb.go:4371",
+    "trigger": "startup",
+    "method": "STARTUP",
+    "path": "github.com/volvo-cars/cce-cpam-ingress/events/pcf#init()->()@events/pcf/marketauthmessage.pb.go:4371",
+    "contract": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/additions/interface_contract/pcf-init/pipeline"
+  }
+]

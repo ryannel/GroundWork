@@ -1,0 +1,8 @@
+{
+  "status": "passed",
+  "snapshot": "ec13e0709f41ee068bfb69c4a86d0bdc68b389a1738c642d6f5ca7b841cf065d",
+  "sourceBundleByteSha256": "9db76cf23cce7f2e93f5ce7a20b8c4e905b582911752579bd9fcd139e4aac362",
+  "gzipDecompression": "Exactly equal original immutable selected bytes",
+  "authorSealVerified": 39,
+  "qualification": "Publication formatting may change JSON whitespace; parsed facts remain equal, original author-sealed files preserved in archive"
+}

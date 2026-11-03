@@ -1,0 +1,11 @@
+
+> groundwork@0.0.0 knowledge:validate
+> node --import ./tools/register.ts --conditions=react-server tools/validate-knowledge.ts reports/volvo-native-rescan/cce-filter-service-complete/revision-003/bundle.json --snapshot reports/volvo-native-rescan/cce-filter-service-complete/revision-003/snapshot.json
+
+{
+  "snapshot": "026b45380097c239e2511a7ce9186329c0af6e0a24ba7bf73beac41b6e39705f",
+  "bundles": 1,
+  "records": 60208,
+  "sourceRangesChecked": 0,
+  "sourceVerification": "not_requested"
+}

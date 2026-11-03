@@ -1,0 +1,840 @@
+[
+  {
+    "host": "http",
+    "entry": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/entry/http/c30b00ea810658a2e795",
+    "implementation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/implementation/b63c2bfc1f0d234028a5",
+    "symbol": "github.com/volvo-cars/cce-cpam-ingress/internal/restapi#api.healthCheck(http.ResponseWriter,*http.Request)->()",
+    "trigger": "rest",
+    "method": "GET",
+    "path": "/health",
+    "contract": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/interface_contract/entry/http/c30b00ea810658a2e795"
+  },
+  {
+    "host": "http",
+    "entry": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/entry/http/fb04f39102aa779f2a58",
+    "implementation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/implementation/65a38464e3146e0a1eb8",
+    "symbol": "github.com/volvo-cars/cce-cpam-ingress/internal/restapi#api.handleImportSpecMarket(http.ResponseWriter,*http.Request)->()",
+    "trigger": "rest",
+    "method": "POST",
+    "path": "/importSpecMarket",
+    "contract": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/interface_contract/entry/http/fb04f39102aa779f2a58"
+  },
+  {
+    "host": "http",
+    "entry": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/entry/http/85509ac0c1de3565e04f",
+    "implementation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/implementation/2b7d022092c468af8a2a",
+    "symbol": "github.com/volvo-cars/cce-cpam-ingress/internal/restapi#api.handleGetPno3sFromPcf(http.ResponseWriter,*http.Request)->()",
+    "trigger": "rest",
+    "method": "GET",
+    "path": "/pno3sFromPcf",
+    "contract": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/interface_contract/entry/http/85509ac0c1de3565e04f"
+  },
+  {
+    "host": "http",
+    "entry": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/entry/http/b97636d8b6c144d663fb",
+    "implementation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/implementation/663de11951a9c8b4dc3d",
+    "symbol": "github.com/volvo-cars/cce-cpam-ingress/internal/restapi#api.handleImportedPno3s(http.ResponseWriter,*http.Request)->()",
+    "trigger": "rest",
+    "method": "GET",
+    "path": "/importedPno3s",
+    "contract": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/interface_contract/entry/http/b97636d8b6c144d663fb"
+  },
+  {
+    "host": "http",
+    "entry": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/entry/http/b305b5fb1481fe7053e5",
+    "implementation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/implementation/8dde63ec2c1308f5da9c",
+    "symbol": "github.com/volvo-cars/cce-cpam-ingress/internal/restapi#api.handleLatestImportedFiles(http.ResponseWriter,*http.Request)->()",
+    "trigger": "rest",
+    "method": "GET",
+    "path": "/latestImportedFiles",
+    "contract": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/interface_contract/entry/http/b305b5fb1481fe7053e5"
+  },
+  {
+    "host": "http",
+    "entry": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/entry/http/fdcb5998b773503b1183",
+    "implementation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/implementation/df34e2b05c93db02daad",
+    "symbol": "github.com/volvo-cars/cce-cpam-ingress/internal/restapi#api.handleCpamGetMarketAuthFile(http.ResponseWriter,*http.Request)->()",
+    "trigger": "rest",
+    "method": "GET",
+    "path": "/cpamMarketAuthFile",
+    "contract": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/interface_contract/entry/http/fdcb5998b773503b1183"
+  },
+  {
+    "host": "http",
+    "path": "internal/action/rules-action-pno12.go",
+    "lines": [267, 267],
+    "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/operation/b6399c3bab6fa2c6f588/4",
+    "name": "registerSubRuleAction",
+    "arguments": ["sra.createExactlyOneRulesFromIcs"],
+    "actualValues": [
+      "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/value/b6399c3bab6fa2c6f588/3"
+    ]
+  },
+  {
+    "host": "http",
+    "path": "internal/action/rules-action-pno12.go",
+    "lines": [268, 268],
+    "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/operation/b6399c3bab6fa2c6f588/6",
+    "name": "registerSubRuleAction",
+    "arguments": ["sra.create100PercentOptionAndPackageRules"],
+    "actualValues": [
+      "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/value/b6399c3bab6fa2c6f588/5"
+    ]
+  },
+  {
+    "host": "http",
+    "path": "internal/action/rules-action-pno12.go",
+    "lines": [269, 269],
+    "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/operation/b6399c3bab6fa2c6f588/8",
+    "name": "registerSubRuleAction",
+    "arguments": ["sra.createPackageRequiresRules"],
+    "actualValues": [
+      "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/value/b6399c3bab6fa2c6f588/7"
+    ]
+  },
+  {
+    "host": "http",
+    "path": "internal/action/rules-action-pno12.go",
+    "lines": [270, 270],
+    "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/operation/b6399c3bab6fa2c6f588/10",
+    "name": "registerSubRuleAction",
+    "arguments": ["sra.createPackageOnlyRules"],
+    "actualValues": [
+      "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/value/b6399c3bab6fa2c6f588/9"
+    ]
+  },
+  {
+    "host": "http",
+    "path": "internal/action/rules-action-pno12.go",
+    "lines": [271, 271],
+    "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/operation/b6399c3bab6fa2c6f588/12",
+    "name": "registerSubRuleAction",
+    "arguments": ["sra.createPackageForbidsRules"],
+    "actualValues": [
+      "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/value/b6399c3bab6fa2c6f588/11"
+    ]
+  },
+  {
+    "host": "http",
+    "path": "internal/action/rules-action-pno12.go",
+    "lines": [272, 272],
+    "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/operation/b6399c3bab6fa2c6f588/14",
+    "name": "registerSubRuleAction",
+    "arguments": ["sra.createRequiresForbidsRules"],
+    "actualValues": [
+      "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/value/b6399c3bab6fa2c6f588/13"
+    ]
+  },
+  {
+    "host": "http",
+    "path": "internal/action/rules-action-pno12.go",
+    "lines": [273, 273],
+    "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/operation/b6399c3bab6fa2c6f588/16",
+    "name": "registerSubRuleAction",
+    "arguments": ["sra.createStylingRulesFromIcs"],
+    "actualValues": [
+      "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/value/b6399c3bab6fa2c6f588/15"
+    ]
+  },
+  {
+    "host": "http",
+    "path": "internal/action/rules-action-pno12.go",
+    "lines": [274, 274],
+    "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/operation/b6399c3bab6fa2c6f588/18",
+    "name": "registerSubRuleAction",
+    "arguments": ["sra.createReversedOfferRules"],
+    "actualValues": [
+      "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/value/b6399c3bab6fa2c6f588/17"
+    ]
+  },
+  {
+    "host": "http",
+    "path": "internal/action/rules-action-pno12.go",
+    "lines": [275, 275],
+    "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/operation/b6399c3bab6fa2c6f588/20",
+    "name": "registerSubRuleAction",
+    "arguments": ["sra.createWheelRulesFromIcsAndIcc"],
+    "actualValues": [
+      "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/value/b6399c3bab6fa2c6f588/19"
+    ]
+  },
+  {
+    "host": "http",
+    "path": "internal/action/rules-action-pno12.go",
+    "lines": [276, 276],
+    "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/operation/b6399c3bab6fa2c6f588/22",
+    "name": "registerSubRuleAction",
+    "arguments": ["sra.createWheelExclusivelyRulesFromIcs"],
+    "actualValues": [
+      "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/value/b6399c3bab6fa2c6f588/21"
+    ]
+  },
+  {
+    "host": "http",
+    "path": "internal/action/rules-action-pno12.go",
+    "lines": [282, 282],
+    "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/operation/b6399c3bab6fa2c6f588/42",
+    "name": "registerSubRuleAction",
+    "arguments": ["sra.createOptionPackageRequiresExclusivelyRules"],
+    "actualValues": [
+      "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/value/b6399c3bab6fa2c6f588/41"
+    ]
+  },
+  {
+    "host": "http",
+    "path": "internal/action/rules-action-pno12.go",
+    "lines": [288, 288],
+    "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/operation/b6399c3bab6fa2c6f588/53",
+    "name": "registerSubRuleAction",
+    "arguments": ["sra.createForbidsRuleForEditionCodeForNonEdition"],
+    "actualValues": [
+      "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/value/b6399c3bab6fa2c6f588/52"
+    ]
+  },
+  {
+    "host": "http",
+    "path": "internal/action/rules-action-pno12.go",
+    "lines": [291, 291],
+    "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/operation/b6399c3bab6fa2c6f588/56",
+    "name": "registerSubRuleAction",
+    "arguments": ["sra.createPreferredRulesFunc"],
+    "actualValues": [
+      "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/value/b6399c3bab6fa2c6f588/55"
+    ]
+  },
+  {
+    "host": "http",
+    "path": "internal/app/kafka.go",
+    "lines": [83, 85],
+    "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/operation/9b438f5d49ad61cf7af6/2",
+    "name": "WithHandler",
+    "arguments": ["kafka.EventTypeMarketAuthsUpdated", "marketAuthsUpdatedHandler"],
+    "actualValues": [
+      "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/value/9b438f5d49ad61cf7af6/1",
+      "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/implementation/9b438f5d49ad61cf7af6/parameter/0"
+    ]
+  },
+  {
+    "host": "http",
+    "path": "internal/app/kafka.go",
+    "lines": [104, 104],
+    "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/operation/0854b13dab50861cbc1d/34",
+    "name": "WithHandler",
+    "arguments": ["kafka.EventTypeMarketAuthMessage", "aggregateHandler"],
+    "actualValues": [
+      "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/value/0854b13dab50861cbc1d/33",
+      "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/implementation/0854b13dab50861cbc1d/parameter/1"
+    ]
+  },
+  {
+    "host": "http",
+    "path": "internal/app/pipeline.go",
+    "lines": [22, 22],
+    "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/operation/03c02818a8eb44a44222/3",
+    "name": "WithParser",
+    "arguments": ["parser.ParseIcc"],
+    "actualValues": [
+      "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/value/03c02818a8eb44a44222/2"
+    ]
+  },
+  {
+    "host": "http",
+    "path": "internal/app/pipeline.go",
+    "lines": [23, 23],
+    "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/operation/03c02818a8eb44a44222/6",
+    "name": "WithParser",
+    "arguments": ["parser.ParseIca"],
+    "actualValues": [
+      "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/value/03c02818a8eb44a44222/5"
+    ]
+  },
+  {
+    "host": "http",
+    "path": "internal/app/pipeline.go",
+    "lines": [24, 24],
+    "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/operation/03c02818a8eb44a44222/9",
+    "name": "WithParser",
+    "arguments": ["parser.ParseIcm"],
+    "actualValues": [
+      "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/value/03c02818a8eb44a44222/8"
+    ]
+  },
+  {
+    "host": "http",
+    "path": "internal/app/pipeline.go",
+    "lines": [25, 25],
+    "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/operation/03c02818a8eb44a44222/12",
+    "name": "WithParser",
+    "arguments": ["parser.ParseIcn"],
+    "actualValues": [
+      "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/value/03c02818a8eb44a44222/11"
+    ]
+  },
+  {
+    "host": "http",
+    "path": "internal/app/pipeline.go",
+    "lines": [26, 26],
+    "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/operation/03c02818a8eb44a44222/15",
+    "name": "WithParser",
+    "arguments": ["parser.ParseIcp"],
+    "actualValues": [
+      "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/value/03c02818a8eb44a44222/14"
+    ]
+  },
+  {
+    "host": "http",
+    "path": "internal/app/pipeline.go",
+    "lines": [27, 27],
+    "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/operation/03c02818a8eb44a44222/18",
+    "name": "WithParser",
+    "arguments": ["parser.ParseIcr"],
+    "actualValues": [
+      "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/value/03c02818a8eb44a44222/17"
+    ]
+  },
+  {
+    "host": "http",
+    "path": "internal/app/pipeline.go",
+    "lines": [28, 28],
+    "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/operation/03c02818a8eb44a44222/21",
+    "name": "WithParser",
+    "arguments": ["parser.ParseIcz"],
+    "actualValues": [
+      "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/value/03c02818a8eb44a44222/20"
+    ]
+  },
+  {
+    "host": "http",
+    "path": "internal/app/pipeline.go",
+    "lines": [29, 29],
+    "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/operation/03c02818a8eb44a44222/24",
+    "name": "WithParser",
+    "arguments": ["parser.ParseIcv"],
+    "actualValues": [
+      "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/value/03c02818a8eb44a44222/23"
+    ]
+  },
+  {
+    "host": "http",
+    "path": "internal/app/pipeline.go",
+    "lines": [30, 30],
+    "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/operation/03c02818a8eb44a44222/27",
+    "name": "WithParser",
+    "arguments": ["parser.ParseIcs"],
+    "actualValues": [
+      "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/value/03c02818a8eb44a44222/26"
+    ]
+  },
+  {
+    "host": "http",
+    "path": "internal/app/pipeline.go",
+    "lines": [31, 31],
+    "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/operation/03c02818a8eb44a44222/29",
+    "name": "WithVerifier",
+    "arguments": ["verifier.NewVerifier100PercentOption()"],
+    "actualValues": [
+      "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/value/03c02818a8eb44a44222/28"
+    ]
+  },
+  {
+    "host": "http",
+    "path": "internal/app/pipeline.go",
+    "lines": [32, 32],
+    "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/operation/03c02818a8eb44a44222/31",
+    "name": "WithVerifier",
+    "arguments": ["verifier.NewBidirectionalForbidsVerifier()"],
+    "actualValues": [
+      "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/value/03c02818a8eb44a44222/30"
+    ]
+  },
+  {
+    "host": "http",
+    "path": "internal/app/pipeline.go",
+    "lines": [33, 33],
+    "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/operation/03c02818a8eb44a44222/33",
+    "name": "WithVerifier",
+    "arguments": ["verifier.NewOrderOfExchangeablesVerifier()"],
+    "actualValues": [
+      "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/value/03c02818a8eb44a44222/32"
+    ]
+  },
+  {
+    "host": "http",
+    "path": "internal/app/pipeline.go",
+    "lines": [34, 34],
+    "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/operation/03c02818a8eb44a44222/35",
+    "name": "WithVerifier",
+    "arguments": ["verifier.NewPackageWindowVerifier()"],
+    "actualValues": [
+      "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/value/03c02818a8eb44a44222/34"
+    ]
+  },
+  {
+    "host": "http",
+    "path": "internal/app/pipeline.go",
+    "lines": [35, 35],
+    "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/operation/03c02818a8eb44a44222/37",
+    "name": "WithConverter",
+    "arguments": ["convert.NewLimitEndWeekConversion()"],
+    "actualValues": [
+      "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/value/03c02818a8eb44a44222/36"
+    ]
+  },
+  {
+    "host": "http",
+    "path": "internal/app/pipeline.go",
+    "lines": [36, 36],
+    "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/operation/03c02818a8eb44a44222/39",
+    "name": "WithConverter",
+    "arguments": ["convert.NewSplitVariantConversion()"],
+    "actualValues": [
+      "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/value/03c02818a8eb44a44222/38"
+    ]
+  },
+  {
+    "host": "http",
+    "path": "internal/app/pipeline.go",
+    "lines": [37, 37],
+    "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/operation/03c02818a8eb44a44222/41",
+    "name": "WithConverter",
+    "arguments": ["convert.NewStandardFeaturesConversion(featureCodeProvider)"],
+    "actualValues": [
+      "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/value/03c02818a8eb44a44222/40"
+    ]
+  },
+  {
+    "host": "http",
+    "path": "internal/app/pipeline.go",
+    "lines": [38, 38],
+    "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/operation/03c02818a8eb44a44222/43",
+    "name": "WithConverter",
+    "arguments": ["convert.NewTypeRemovalConversion()"],
+    "actualValues": [
+      "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/value/03c02818a8eb44a44222/42"
+    ]
+  },
+  {
+    "host": "http",
+    "path": "internal/app/pipeline.go",
+    "lines": [39, 41],
+    "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/operation/03c02818a8eb44a44222/45",
+    "name": "WithConverter",
+    "arguments": ["convert.NewEditionRuleConversion(\n\t\t\tlocalEditionCodeFetcher,\n\t\t)"],
+    "actualValues": [
+      "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/value/03c02818a8eb44a44222/44"
+    ]
+  },
+  {
+    "host": "http",
+    "path": "internal/app/pipeline.go",
+    "lines": [42, 46],
+    "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/operation/03c02818a8eb44a44222/49",
+    "name": "WithCpamAction",
+    "arguments": [
+      "action.NewPno12RulesAction(\n\t\t\tfileWriter,\n\t\t\tcfg.ConfigRuleSetPrefix, cfg.InternalPrefix,\n\t\t\tblockEditionCodeFeatureFlagger,\n\t\t)"
+    ],
+    "actualValues": [
+      "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/value/03c02818a8eb44a44222/48"
+    ]
+  },
+  {
+    "host": "http",
+    "path": "internal/app/pipeline.go",
+    "lines": [47, 47],
+    "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/operation/03c02818a8eb44a44222/52",
+    "name": "WithCpamAction",
+    "arguments": ["action.NewPno12ComponentAction(fileWriter, cfg.InternalPrefix)"],
+    "actualValues": [
+      "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/value/03c02818a8eb44a44222/51"
+    ]
+  },
+  {
+    "host": "event",
+    "path": "internal/app/kafka.go",
+    "lines": [83, 85],
+    "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-event/operation/9b438f5d49ad61cf7af6/2",
+    "name": "WithHandler",
+    "arguments": ["kafka.EventTypeMarketAuthsUpdated", "marketAuthsUpdatedHandler"],
+    "actualValues": [
+      "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-event/value/9b438f5d49ad61cf7af6/1",
+      "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-event/implementation/9b438f5d49ad61cf7af6/parameter/0"
+    ]
+  },
+  {
+    "host": "event",
+    "path": "internal/app/kafka.go",
+    "lines": [104, 104],
+    "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-event/operation/0854b13dab50861cbc1d/34",
+    "name": "WithHandler",
+    "arguments": ["kafka.EventTypeMarketAuthMessage", "aggregateHandler"],
+    "actualValues": [
+      "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-event/value/0854b13dab50861cbc1d/33",
+      "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-event/implementation/0854b13dab50861cbc1d/parameter/1"
+    ]
+  },
+  {
+    "host": "pipeline",
+    "path": "internal/action/rules-action-pno12.go",
+    "lines": [267, 267],
+    "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/operation/b6399c3bab6fa2c6f588/4",
+    "name": "registerSubRuleAction",
+    "arguments": ["sra.createExactlyOneRulesFromIcs"],
+    "actualValues": [
+      "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/value/b6399c3bab6fa2c6f588/3"
+    ]
+  },
+  {
+    "host": "pipeline",
+    "path": "internal/action/rules-action-pno12.go",
+    "lines": [268, 268],
+    "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/operation/b6399c3bab6fa2c6f588/6",
+    "name": "registerSubRuleAction",
+    "arguments": ["sra.create100PercentOptionAndPackageRules"],
+    "actualValues": [
+      "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/value/b6399c3bab6fa2c6f588/5"
+    ]
+  },
+  {
+    "host": "pipeline",
+    "path": "internal/action/rules-action-pno12.go",
+    "lines": [269, 269],
+    "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/operation/b6399c3bab6fa2c6f588/8",
+    "name": "registerSubRuleAction",
+    "arguments": ["sra.createPackageRequiresRules"],
+    "actualValues": [
+      "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/value/b6399c3bab6fa2c6f588/7"
+    ]
+  },
+  {
+    "host": "pipeline",
+    "path": "internal/action/rules-action-pno12.go",
+    "lines": [270, 270],
+    "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/operation/b6399c3bab6fa2c6f588/10",
+    "name": "registerSubRuleAction",
+    "arguments": ["sra.createPackageOnlyRules"],
+    "actualValues": [
+      "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/value/b6399c3bab6fa2c6f588/9"
+    ]
+  },
+  {
+    "host": "pipeline",
+    "path": "internal/action/rules-action-pno12.go",
+    "lines": [271, 271],
+    "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/operation/b6399c3bab6fa2c6f588/12",
+    "name": "registerSubRuleAction",
+    "arguments": ["sra.createPackageForbidsRules"],
+    "actualValues": [
+      "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/value/b6399c3bab6fa2c6f588/11"
+    ]
+  },
+  {
+    "host": "pipeline",
+    "path": "internal/action/rules-action-pno12.go",
+    "lines": [272, 272],
+    "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/operation/b6399c3bab6fa2c6f588/14",
+    "name": "registerSubRuleAction",
+    "arguments": ["sra.createRequiresForbidsRules"],
+    "actualValues": [
+      "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/value/b6399c3bab6fa2c6f588/13"
+    ]
+  },
+  {
+    "host": "pipeline",
+    "path": "internal/action/rules-action-pno12.go",
+    "lines": [273, 273],
+    "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/operation/b6399c3bab6fa2c6f588/16",
+    "name": "registerSubRuleAction",
+    "arguments": ["sra.createStylingRulesFromIcs"],
+    "actualValues": [
+      "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/value/b6399c3bab6fa2c6f588/15"
+    ]
+  },
+  {
+    "host": "pipeline",
+    "path": "internal/action/rules-action-pno12.go",
+    "lines": [274, 274],
+    "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/operation/b6399c3bab6fa2c6f588/18",
+    "name": "registerSubRuleAction",
+    "arguments": ["sra.createReversedOfferRules"],
+    "actualValues": [
+      "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/value/b6399c3bab6fa2c6f588/17"
+    ]
+  },
+  {
+    "host": "pipeline",
+    "path": "internal/action/rules-action-pno12.go",
+    "lines": [275, 275],
+    "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/operation/b6399c3bab6fa2c6f588/20",
+    "name": "registerSubRuleAction",
+    "arguments": ["sra.createWheelRulesFromIcsAndIcc"],
+    "actualValues": [
+      "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/value/b6399c3bab6fa2c6f588/19"
+    ]
+  },
+  {
+    "host": "pipeline",
+    "path": "internal/action/rules-action-pno12.go",
+    "lines": [276, 276],
+    "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/operation/b6399c3bab6fa2c6f588/22",
+    "name": "registerSubRuleAction",
+    "arguments": ["sra.createWheelExclusivelyRulesFromIcs"],
+    "actualValues": [
+      "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/value/b6399c3bab6fa2c6f588/21"
+    ]
+  },
+  {
+    "host": "pipeline",
+    "path": "internal/action/rules-action-pno12.go",
+    "lines": [282, 282],
+    "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/operation/b6399c3bab6fa2c6f588/42",
+    "name": "registerSubRuleAction",
+    "arguments": ["sra.createOptionPackageRequiresExclusivelyRules"],
+    "actualValues": [
+      "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/value/b6399c3bab6fa2c6f588/41"
+    ]
+  },
+  {
+    "host": "pipeline",
+    "path": "internal/action/rules-action-pno12.go",
+    "lines": [288, 288],
+    "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/operation/b6399c3bab6fa2c6f588/53",
+    "name": "registerSubRuleAction",
+    "arguments": ["sra.createForbidsRuleForEditionCodeForNonEdition"],
+    "actualValues": [
+      "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/value/b6399c3bab6fa2c6f588/52"
+    ]
+  },
+  {
+    "host": "pipeline",
+    "path": "internal/action/rules-action-pno12.go",
+    "lines": [291, 291],
+    "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/operation/b6399c3bab6fa2c6f588/56",
+    "name": "registerSubRuleAction",
+    "arguments": ["sra.createPreferredRulesFunc"],
+    "actualValues": [
+      "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/value/b6399c3bab6fa2c6f588/55"
+    ]
+  },
+  {
+    "host": "pipeline",
+    "path": "internal/app/pipeline.go",
+    "lines": [22, 22],
+    "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/operation/03c02818a8eb44a44222/3",
+    "name": "WithParser",
+    "arguments": ["parser.ParseIcc"],
+    "actualValues": [
+      "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/value/03c02818a8eb44a44222/2"
+    ]
+  },
+  {
+    "host": "pipeline",
+    "path": "internal/app/pipeline.go",
+    "lines": [23, 23],
+    "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/operation/03c02818a8eb44a44222/6",
+    "name": "WithParser",
+    "arguments": ["parser.ParseIca"],
+    "actualValues": [
+      "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/value/03c02818a8eb44a44222/5"
+    ]
+  },
+  {
+    "host": "pipeline",
+    "path": "internal/app/pipeline.go",
+    "lines": [24, 24],
+    "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/operation/03c02818a8eb44a44222/9",
+    "name": "WithParser",
+    "arguments": ["parser.ParseIcm"],
+    "actualValues": [
+      "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/value/03c02818a8eb44a44222/8"
+    ]
+  },
+  {
+    "host": "pipeline",
+    "path": "internal/app/pipeline.go",
+    "lines": [25, 25],
+    "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/operation/03c02818a8eb44a44222/12",
+    "name": "WithParser",
+    "arguments": ["parser.ParseIcn"],
+    "actualValues": [
+      "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/value/03c02818a8eb44a44222/11"
+    ]
+  },
+  {
+    "host": "pipeline",
+    "path": "internal/app/pipeline.go",
+    "lines": [26, 26],
+    "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/operation/03c02818a8eb44a44222/15",
+    "name": "WithParser",
+    "arguments": ["parser.ParseIcp"],
+    "actualValues": [
+      "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/value/03c02818a8eb44a44222/14"
+    ]
+  },
+  {
+    "host": "pipeline",
+    "path": "internal/app/pipeline.go",
+    "lines": [27, 27],
+    "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/operation/03c02818a8eb44a44222/18",
+    "name": "WithParser",
+    "arguments": ["parser.ParseIcr"],
+    "actualValues": [
+      "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/value/03c02818a8eb44a44222/17"
+    ]
+  },
+  {
+    "host": "pipeline",
+    "path": "internal/app/pipeline.go",
+    "lines": [28, 28],
+    "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/operation/03c02818a8eb44a44222/21",
+    "name": "WithParser",
+    "arguments": ["parser.ParseIcz"],
+    "actualValues": [
+      "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/value/03c02818a8eb44a44222/20"
+    ]
+  },
+  {
+    "host": "pipeline",
+    "path": "internal/app/pipeline.go",
+    "lines": [29, 29],
+    "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/operation/03c02818a8eb44a44222/24",
+    "name": "WithParser",
+    "arguments": ["parser.ParseIcv"],
+    "actualValues": [
+      "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/value/03c02818a8eb44a44222/23"
+    ]
+  },
+  {
+    "host": "pipeline",
+    "path": "internal/app/pipeline.go",
+    "lines": [30, 30],
+    "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/operation/03c02818a8eb44a44222/27",
+    "name": "WithParser",
+    "arguments": ["parser.ParseIcs"],
+    "actualValues": [
+      "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/value/03c02818a8eb44a44222/26"
+    ]
+  },
+  {
+    "host": "pipeline",
+    "path": "internal/app/pipeline.go",
+    "lines": [31, 31],
+    "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/operation/03c02818a8eb44a44222/29",
+    "name": "WithVerifier",
+    "arguments": ["verifier.NewVerifier100PercentOption()"],
+    "actualValues": [
+      "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/value/03c02818a8eb44a44222/28"
+    ]
+  },
+  {
+    "host": "pipeline",
+    "path": "internal/app/pipeline.go",
+    "lines": [32, 32],
+    "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/operation/03c02818a8eb44a44222/31",
+    "name": "WithVerifier",
+    "arguments": ["verifier.NewBidirectionalForbidsVerifier()"],
+    "actualValues": [
+      "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/value/03c02818a8eb44a44222/30"
+    ]
+  },
+  {
+    "host": "pipeline",
+    "path": "internal/app/pipeline.go",
+    "lines": [33, 33],
+    "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/operation/03c02818a8eb44a44222/33",
+    "name": "WithVerifier",
+    "arguments": ["verifier.NewOrderOfExchangeablesVerifier()"],
+    "actualValues": [
+      "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/value/03c02818a8eb44a44222/32"
+    ]
+  },
+  {
+    "host": "pipeline",
+    "path": "internal/app/pipeline.go",
+    "lines": [34, 34],
+    "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/operation/03c02818a8eb44a44222/35",
+    "name": "WithVerifier",
+    "arguments": ["verifier.NewPackageWindowVerifier()"],
+    "actualValues": [
+      "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/value/03c02818a8eb44a44222/34"
+    ]
+  },
+  {
+    "host": "pipeline",
+    "path": "internal/app/pipeline.go",
+    "lines": [35, 35],
+    "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/operation/03c02818a8eb44a44222/37",
+    "name": "WithConverter",
+    "arguments": ["convert.NewLimitEndWeekConversion()"],
+    "actualValues": [
+      "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/value/03c02818a8eb44a44222/36"
+    ]
+  },
+  {
+    "host": "pipeline",
+    "path": "internal/app/pipeline.go",
+    "lines": [36, 36],
+    "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/operation/03c02818a8eb44a44222/39",
+    "name": "WithConverter",
+    "arguments": ["convert.NewSplitVariantConversion()"],
+    "actualValues": [
+      "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/value/03c02818a8eb44a44222/38"
+    ]
+  },
+  {
+    "host": "pipeline",
+    "path": "internal/app/pipeline.go",
+    "lines": [37, 37],
+    "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/operation/03c02818a8eb44a44222/41",
+    "name": "WithConverter",
+    "arguments": ["convert.NewStandardFeaturesConversion(featureCodeProvider)"],
+    "actualValues": [
+      "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/value/03c02818a8eb44a44222/40"
+    ]
+  },
+  {
+    "host": "pipeline",
+    "path": "internal/app/pipeline.go",
+    "lines": [38, 38],
+    "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/operation/03c02818a8eb44a44222/43",
+    "name": "WithConverter",
+    "arguments": ["convert.NewTypeRemovalConversion()"],
+    "actualValues": [
+      "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/value/03c02818a8eb44a44222/42"
+    ]
+  },
+  {
+    "host": "pipeline",
+    "path": "internal/app/pipeline.go",
+    "lines": [39, 41],
+    "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/operation/03c02818a8eb44a44222/45",
+    "name": "WithConverter",
+    "arguments": ["convert.NewEditionRuleConversion(\n\t\t\tlocalEditionCodeFetcher,\n\t\t)"],
+    "actualValues": [
+      "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/value/03c02818a8eb44a44222/44"
+    ]
+  },
+  {
+    "host": "pipeline",
+    "path": "internal/app/pipeline.go",
+    "lines": [42, 46],
+    "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/operation/03c02818a8eb44a44222/49",
+    "name": "WithCpamAction",
+    "arguments": [
+      "action.NewPno12RulesAction(\n\t\t\tfileWriter,\n\t\t\tcfg.ConfigRuleSetPrefix, cfg.InternalPrefix,\n\t\t\tblockEditionCodeFeatureFlagger,\n\t\t)"
+    ],
+    "actualValues": [
+      "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/value/03c02818a8eb44a44222/48"
+    ]
+  },
+  {
+    "host": "pipeline",
+    "path": "internal/app/pipeline.go",
+    "lines": [47, 47],
+    "operation": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/operation/03c02818a8eb44a44222/52",
+    "name": "WithCpamAction",
+    "arguments": ["action.NewPno12ComponentAction(fileWriter, cfg.InternalPrefix)"],
+    "actualValues": [
+      "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-pipeline/value/03c02818a8eb44a44222/51"
+    ]
+  }
+]

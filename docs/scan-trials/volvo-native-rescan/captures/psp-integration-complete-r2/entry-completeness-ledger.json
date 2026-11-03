@@ -1,0 +1,763 @@
+{
+  "entries": [
+    {
+      "entry": "volvo/cds-paymentservice-psp-integration/dabd6c825499/local-r2/base/psp-dabd6c8-r4/entry/SwaggerUIController-getSwaggerConfig",
+      "trigger": "rest",
+      "method": "GET",
+      "path": "/v1/configurations/swagger-config",
+      "implementation": "volvo/cds-paymentservice-psp-integration/dabd6c825499/local-r2/method/c4eae5a5e53b5680a464",
+      "symbol": "com.volvocars.ecom.paymentservice.psp.integration.api.configuration.v1.impl.SwaggerUIControllerImpl#getSwaggerConfig()",
+      "status": "available_local_source_behaviour_reviewed",
+      "coverage": [
+        "volvo/cds-paymentservice-psp-integration/dabd6c825499/local-r2/entry-coverage/a34fb6d2f0ae72b7314b"
+      ],
+      "localSourceGaps": [],
+      "separateLimits": [
+        "Conditional provider/virtual dispatch",
+        "Imported/generated implementation, actual response/wire/enforcement",
+        "Automatic heap/alias/callback correspondence"
+      ]
+    },
+    {
+      "entry": "volvo/cds-paymentservice-psp-integration/dabd6c825499/local-r2/base/psp-dabd6c8-r4/entry/CustomerController-create",
+      "trigger": "rest",
+      "method": "POST",
+      "path": "/v1/customers/",
+      "implementation": "volvo/cds-paymentservice-psp-integration/dabd6c825499/local-r2/method/9674285590ec54ef9998",
+      "symbol": "com.volvocars.ecom.paymentservice.psp.integration.api.customer.v1.impl.CustomerControllerImpl#create(CustomerPayload)",
+      "status": "available_local_source_behaviour_reviewed",
+      "coverage": [
+        "volvo/cds-paymentservice-psp-integration/dabd6c825499/local-r2/entry-coverage/b5e4c5758bdcf75ee182"
+      ],
+      "localSourceGaps": [],
+      "separateLimits": [
+        "Conditional provider/virtual dispatch",
+        "Imported/generated implementation, actual response/wire/enforcement",
+        "Automatic heap/alias/callback correspondence"
+      ]
+    },
+    {
+      "entry": "volvo/cds-paymentservice-psp-integration/dabd6c825499/local-r2/base/psp-dabd6c8-r4/entry/CustomerController-get",
+      "trigger": "rest",
+      "method": "GET",
+      "path": "/v1/customers/psp/{PSP}/{pspCustomerId}",
+      "implementation": "volvo/cds-paymentservice-psp-integration/dabd6c825499/local-r2/method/48d98a22116e5a39970d",
+      "symbol": "com.volvocars.ecom.paymentservice.psp.integration.api.customer.v1.impl.CustomerControllerImpl#get(Psp,String,String)",
+      "status": "available_local_source_behaviour_reviewed",
+      "coverage": [
+        "volvo/cds-paymentservice-psp-integration/dabd6c825499/local-r2/entry-coverage/2aca964530d797a2c163"
+      ],
+      "localSourceGaps": [],
+      "separateLimits": [
+        "Conditional provider/virtual dispatch",
+        "Imported/generated implementation, actual response/wire/enforcement",
+        "Automatic heap/alias/callback correspondence"
+      ]
+    },
+    {
+      "entry": "volvo/cds-paymentservice-psp-integration/dabd6c825499/local-r2/base/psp-dabd6c8-r4/entry/CustomerController-getByVolvoId",
+      "trigger": "rest",
+      "method": "GET",
+      "path": "/v1/customers/psp/{PSP}/volvoId/{volvoId}",
+      "implementation": "volvo/cds-paymentservice-psp-integration/dabd6c825499/local-r2/method/6b6ab7a70e672e08b1be",
+      "symbol": "com.volvocars.ecom.paymentservice.psp.integration.api.customer.v1.impl.CustomerControllerImpl#getByVolvoId(Psp,String,String)",
+      "status": "available_local_source_behaviour_reviewed",
+      "coverage": [
+        "volvo/cds-paymentservice-psp-integration/dabd6c825499/local-r2/entry-coverage/e606e5b81d41184116d9"
+      ],
+      "localSourceGaps": [],
+      "separateLimits": [
+        "Conditional provider/virtual dispatch",
+        "Imported/generated implementation, actual response/wire/enforcement",
+        "Automatic heap/alias/callback correspondence"
+      ]
+    },
+    {
+      "entry": "volvo/cds-paymentservice-psp-integration/dabd6c825499/local-r2/base/psp-dabd6c8-r4/entry/CustomerController-delete",
+      "trigger": "rest",
+      "method": "DELETE",
+      "path": "/v1/customers/psp/{PSP}/{pspCustomerId}",
+      "implementation": "volvo/cds-paymentservice-psp-integration/dabd6c825499/local-r2/method/9eb5453b9f72abac13f1",
+      "symbol": "com.volvocars.ecom.paymentservice.psp.integration.api.customer.v1.impl.CustomerControllerImpl#delete(Psp,String,String)",
+      "status": "available_local_source_behaviour_reviewed",
+      "coverage": [
+        "volvo/cds-paymentservice-psp-integration/dabd6c825499/local-r2/entry-coverage/1120b7bba16b1b13995e"
+      ],
+      "localSourceGaps": [],
+      "separateLimits": [
+        "Conditional provider/virtual dispatch",
+        "Imported/generated implementation, actual response/wire/enforcement",
+        "Automatic heap/alias/callback correspondence"
+      ]
+    },
+    {
+      "entry": "volvo/cds-paymentservice-psp-integration/dabd6c825499/local-r2/base/psp-dabd6c8-r4/entry/CustomerController-update",
+      "trigger": "rest",
+      "method": "PATCH",
+      "path": "/v1/customers/psp/{PSP}/{pspCustomerId}",
+      "implementation": "volvo/cds-paymentservice-psp-integration/dabd6c825499/local-r2/method/f15bdcc8449c8cb4d608",
+      "symbol": "com.volvocars.ecom.paymentservice.psp.integration.api.customer.v1.impl.CustomerControllerImpl#update(Psp,String,CustomerPayload)",
+      "status": "available_local_source_behaviour_reviewed",
+      "coverage": [
+        "volvo/cds-paymentservice-psp-integration/dabd6c825499/local-r2/entry-coverage/308a46c764214ee12f7a"
+      ],
+      "localSourceGaps": [],
+      "separateLimits": [
+        "Conditional provider/virtual dispatch",
+        "Imported/generated implementation, actual response/wire/enforcement",
+        "Automatic heap/alias/callback correspondence"
+      ]
+    },
+    {
+      "entry": "volvo/cds-paymentservice-psp-integration/dabd6c825499/local-r2/base/psp-dabd6c8-r4/entry/PaymentInstrumentController-setup",
+      "trigger": "rest",
+      "method": "POST",
+      "path": "/v1/payment-instruments/setup",
+      "implementation": "volvo/cds-paymentservice-psp-integration/dabd6c825499/local-r2/method/76377ceb33ae2f406ce0",
+      "symbol": "com.volvocars.ecom.paymentservice.psp.integration.api.paymentinstrument.v1.impl.PaymentInstrumentControllerImpl#setup(PaymentInstrumentSetupPayload)",
+      "status": "available_local_source_behaviour_reviewed",
+      "coverage": [
+        "volvo/cds-paymentservice-psp-integration/dabd6c825499/local-r2/entry-coverage/8abf716e46e5ca837ef5"
+      ],
+      "localSourceGaps": [],
+      "separateLimits": [
+        "Conditional provider/virtual dispatch",
+        "Imported/generated implementation, actual response/wire/enforcement",
+        "Automatic heap/alias/callback correspondence"
+      ]
+    },
+    {
+      "entry": "volvo/cds-paymentservice-psp-integration/dabd6c825499/local-r2/base/psp-dabd6c8-r4/entry/PaymentInstrumentController-detach",
+      "trigger": "rest",
+      "method": "POST",
+      "path": "/v1/payment-instruments/detach",
+      "implementation": "volvo/cds-paymentservice-psp-integration/dabd6c825499/local-r2/method/fc120969203cf8781db2",
+      "symbol": "com.volvocars.ecom.paymentservice.psp.integration.api.paymentinstrument.v1.impl.PaymentInstrumentControllerImpl#detach(PaymentInstrumentDetachPayload)",
+      "status": "available_local_source_behaviour_reviewed",
+      "coverage": [
+        "volvo/cds-paymentservice-psp-integration/dabd6c825499/local-r2/entry-coverage/32eb83799c3f2948e1ab"
+      ],
+      "localSourceGaps": [],
+      "separateLimits": [
+        "Conditional provider/virtual dispatch",
+        "Imported/generated implementation, actual response/wire/enforcement",
+        "Automatic heap/alias/callback correspondence"
+      ]
+    },
+    {
+      "entry": "volvo/cds-paymentservice-psp-integration/dabd6c825499/local-r2/base/psp-dabd6c8-r4/entry/PaymentInstrumentController-retrievePaymentMethods",
+      "trigger": "rest",
+      "method": "GET",
+      "path": "/v1/payment-instruments/{externalCustomerId}/accounts/{accountId}/psp/{psp}",
+      "implementation": "volvo/cds-paymentservice-psp-integration/dabd6c825499/local-r2/method/7b1cd33a26f11fe7362d",
+      "symbol": "com.volvocars.ecom.paymentservice.psp.integration.api.paymentinstrument.v1.impl.PaymentInstrumentControllerImpl#retrievePaymentMethods(String,String,Psp)",
+      "status": "available_local_source_behaviour_reviewed",
+      "coverage": [
+        "volvo/cds-paymentservice-psp-integration/dabd6c825499/local-r2/entry-coverage/fd3c62ec1dc37b86d053"
+      ],
+      "localSourceGaps": [],
+      "separateLimits": [
+        "Conditional provider/virtual dispatch",
+        "Imported/generated implementation, actual response/wire/enforcement",
+        "Automatic heap/alias/callback correspondence"
+      ]
+    },
+    {
+      "entry": "volvo/cds-paymentservice-psp-integration/dabd6c825499/local-r2/base/psp-dabd6c8-r4/entry/PaymentInstrumentController-retrievePaymentMethod",
+      "trigger": "rest",
+      "method": "GET",
+      "path": "/v1/payment-instruments/psp/{psp}/accounts/{accountId}/payment-method/{externalPaymentMethodId}",
+      "implementation": "volvo/cds-paymentservice-psp-integration/dabd6c825499/local-r2/method/7fb51a2c6d3d0b8c6820",
+      "symbol": "com.volvocars.ecom.paymentservice.psp.integration.api.paymentinstrument.v1.impl.PaymentInstrumentControllerImpl#retrievePaymentMethod(String,String,Psp)",
+      "status": "available_local_source_behaviour_reviewed",
+      "coverage": [
+        "volvo/cds-paymentservice-psp-integration/dabd6c825499/local-r2/entry-coverage/bc415eda18fab24896c8"
+      ],
+      "localSourceGaps": [],
+      "separateLimits": [
+        "Conditional provider/virtual dispatch",
+        "Imported/generated implementation, actual response/wire/enforcement",
+        "Automatic heap/alias/callback correspondence"
+      ]
+    },
+    {
+      "entry": "volvo/cds-paymentservice-psp-integration/dabd6c825499/local-r2/base/psp-dabd6c8-r4/entry/RefundController-create",
+      "trigger": "rest",
+      "method": "POST",
+      "path": "/v1/refunds/",
+      "implementation": "volvo/cds-paymentservice-psp-integration/dabd6c825499/local-r2/method/7f50a332040e9b76cbfc",
+      "symbol": "com.volvocars.ecom.paymentservice.psp.integration.api.refund.v1.impl.RefundControllerImpl#create(RefundPayload)",
+      "status": "available_local_source_behaviour_reviewed",
+      "coverage": [
+        "volvo/cds-paymentservice-psp-integration/dabd6c825499/local-r2/entry-coverage/c0e101a3f74fdbdb86d7"
+      ],
+      "localSourceGaps": [],
+      "separateLimits": [
+        "Conditional provider/virtual dispatch",
+        "Imported/generated implementation, actual response/wire/enforcement",
+        "Automatic heap/alias/callback correspondence"
+      ]
+    },
+    {
+      "entry": "volvo/cds-paymentservice-psp-integration/dabd6c825499/local-r2/base/psp-dabd6c8-r4/entry/TransactionController-create",
+      "trigger": "rest",
+      "method": "POST",
+      "path": "/v1/transactions/",
+      "implementation": "volvo/cds-paymentservice-psp-integration/dabd6c825499/local-r2/method/0cb479cafddba94cfb72",
+      "symbol": "com.volvocars.ecom.paymentservice.psp.integration.api.transaction.v1.impl.TransactionControllerImpl#create(TransactionCreatePayload)",
+      "status": "available_local_source_behaviour_reviewed",
+      "coverage": [
+        "volvo/cds-paymentservice-psp-integration/dabd6c825499/local-r2/entry-coverage/26b6d97262a7ecde347f"
+      ],
+      "localSourceGaps": [],
+      "separateLimits": [
+        "Conditional provider/virtual dispatch",
+        "Imported/generated implementation, actual response/wire/enforcement",
+        "Automatic heap/alias/callback correspondence"
+      ]
+    },
+    {
+      "entry": "volvo/cds-paymentservice-psp-integration/dabd6c825499/local-r2/base/psp-dabd6c8-r4/entry/TransactionController-authorise",
+      "trigger": "rest",
+      "method": "POST",
+      "path": "/v1/transactions/{transactionId}/authorise",
+      "implementation": "volvo/cds-paymentservice-psp-integration/dabd6c825499/local-r2/method/55ad83e3fedbe12b1487",
+      "symbol": "com.volvocars.ecom.paymentservice.psp.integration.api.transaction.v1.impl.TransactionControllerImpl#authorise(String,TransactionAuthorisePayload)",
+      "status": "available_local_source_behaviour_reviewed",
+      "coverage": [
+        "volvo/cds-paymentservice-psp-integration/dabd6c825499/local-r2/entry-coverage/52f7dbbfe9a82f75cced"
+      ],
+      "localSourceGaps": [],
+      "separateLimits": [
+        "Conditional provider/virtual dispatch",
+        "Imported/generated implementation, actual response/wire/enforcement",
+        "Automatic heap/alias/callback correspondence"
+      ]
+    },
+    {
+      "entry": "volvo/cds-paymentservice-psp-integration/dabd6c825499/local-r2/base/psp-dabd6c8-r4/entry/TransactionController-capture",
+      "trigger": "rest",
+      "method": "POST",
+      "path": "/v1/transactions/{transactionId}/psp/{psp}/capture",
+      "implementation": "volvo/cds-paymentservice-psp-integration/dabd6c825499/local-r2/method/b83a6b721b6d27e4d795",
+      "symbol": "com.volvocars.ecom.paymentservice.psp.integration.api.transaction.v1.impl.TransactionControllerImpl#capture(String,Psp,TransactionCapturePayload)",
+      "status": "available_local_source_behaviour_reviewed",
+      "coverage": [
+        "volvo/cds-paymentservice-psp-integration/dabd6c825499/local-r2/entry-coverage/fa88652ee2f82ecfe301"
+      ],
+      "localSourceGaps": [],
+      "separateLimits": [
+        "Conditional provider/virtual dispatch",
+        "Imported/generated implementation, actual response/wire/enforcement",
+        "Automatic heap/alias/callback correspondence"
+      ]
+    },
+    {
+      "entry": "volvo/cds-paymentservice-psp-integration/dabd6c825499/local-r2/base/psp-dabd6c8-r4/entry/TransactionController-cancel",
+      "trigger": "rest",
+      "method": "POST",
+      "path": "/v1/transactions/{transactionId}/cancel",
+      "implementation": "volvo/cds-paymentservice-psp-integration/dabd6c825499/local-r2/method/a90d5839b6067ed8f2b3",
+      "symbol": "com.volvocars.ecom.paymentservice.psp.integration.api.transaction.v1.impl.TransactionControllerImpl#cancel(String,TransactionCancelPayload)",
+      "status": "available_local_source_behaviour_reviewed",
+      "coverage": [
+        "volvo/cds-paymentservice-psp-integration/dabd6c825499/local-r2/entry-coverage/51242494996ab5ec6593"
+      ],
+      "localSourceGaps": [],
+      "separateLimits": [
+        "Conditional provider/virtual dispatch",
+        "Imported/generated implementation, actual response/wire/enforcement",
+        "Automatic heap/alias/callback correspondence"
+      ]
+    },
+    {
+      "entry": "volvo/cds-paymentservice-psp-integration/dabd6c825499/local-r2/base/psp-dabd6c8-r4/entry/TransactionController-invalidate",
+      "trigger": "rest",
+      "method": "POST",
+      "path": "/v1/transactions/{transactionId}/invalidate",
+      "implementation": "volvo/cds-paymentservice-psp-integration/dabd6c825499/local-r2/method/e604f9b32ce5105c89f7",
+      "symbol": "com.volvocars.ecom.paymentservice.psp.integration.api.transaction.v1.impl.TransactionControllerImpl#invalidate(String,TransactionInvalidatePayload)",
+      "status": "available_local_source_behaviour_reviewed",
+      "coverage": [
+        "volvo/cds-paymentservice-psp-integration/dabd6c825499/local-r2/entry-coverage/bc833079c9ca6b75399d"
+      ],
+      "localSourceGaps": [],
+      "separateLimits": [
+        "Conditional provider/virtual dispatch",
+        "Imported/generated implementation, actual response/wire/enforcement",
+        "Automatic heap/alias/callback correspondence"
+      ]
+    },
+    {
+      "entry": "volvo/cds-paymentservice-psp-integration/dabd6c825499/local-r2/base/psp-dabd6c8-r4/entry/TransferController-create",
+      "trigger": "rest",
+      "method": "POST",
+      "path": "/v1/transfers/create",
+      "implementation": "volvo/cds-paymentservice-psp-integration/dabd6c825499/local-r2/method/14013e80ca8b76a69f90",
+      "symbol": "com.volvocars.ecom.paymentservice.psp.integration.api.transfer.impl.TransferControllerImpl#create(TransferCreatePayload)",
+      "status": "available_local_source_behaviour_reviewed",
+      "coverage": [
+        "volvo/cds-paymentservice-psp-integration/dabd6c825499/local-r2/entry-coverage/54b6e5025aaa30df8cc8"
+      ],
+      "localSourceGaps": [],
+      "separateLimits": [
+        "Conditional provider/virtual dispatch",
+        "Imported/generated implementation, actual response/wire/enforcement",
+        "Automatic heap/alias/callback correspondence"
+      ]
+    },
+    {
+      "entry": "volvo/cds-paymentservice-psp-integration/dabd6c825499/local-r2/base/psp-dabd6c8-r4/entry/TransferController-reverse",
+      "trigger": "rest",
+      "method": "POST",
+      "path": "/v1/transfers/reverse",
+      "implementation": "volvo/cds-paymentservice-psp-integration/dabd6c825499/local-r2/method/551f80b9b251643618ed",
+      "symbol": "com.volvocars.ecom.paymentservice.psp.integration.api.transfer.impl.TransferControllerImpl#reverse(TransferReversePayload)",
+      "status": "available_local_source_behaviour_reviewed",
+      "coverage": [
+        "volvo/cds-paymentservice-psp-integration/dabd6c825499/local-r2/entry-coverage/a91bc52f61ea5f6a3a59"
+      ],
+      "localSourceGaps": [],
+      "separateLimits": [
+        "Conditional provider/virtual dispatch",
+        "Imported/generated implementation, actual response/wire/enforcement",
+        "Automatic heap/alias/callback correspondence"
+      ]
+    },
+    {
+      "entry": "volvo/cds-paymentservice-psp-integration/dabd6c825499/local-r2/base/psp-dabd6c8-r4/entry/TransferController-update",
+      "trigger": "rest",
+      "method": "PUT",
+      "path": "/v1/transfers/update",
+      "implementation": "volvo/cds-paymentservice-psp-integration/dabd6c825499/local-r2/method/23c09fac6a37878f9815",
+      "symbol": "com.volvocars.ecom.paymentservice.psp.integration.api.transfer.impl.TransferControllerImpl#update(TransferMetadataUpdateRequest)",
+      "status": "available_local_source_behaviour_reviewed",
+      "coverage": [
+        "volvo/cds-paymentservice-psp-integration/dabd6c825499/local-r2/entry-coverage/0234d94040ce9fa38930"
+      ],
+      "localSourceGaps": [],
+      "separateLimits": [
+        "Conditional provider/virtual dispatch",
+        "Imported/generated implementation, actual response/wire/enforcement",
+        "Automatic heap/alias/callback correspondence"
+      ]
+    },
+    {
+      "entry": "volvo/cds-paymentservice-psp-integration/dabd6c825499/local-r2/base/psp-dabd6c8-r4/entry/VersionController-getServiceVersion",
+      "trigger": "rest",
+      "method": "GET",
+      "path": "/v1/version",
+      "implementation": "volvo/cds-paymentservice-psp-integration/dabd6c825499/local-r2/method/206787220355967f28bd",
+      "symbol": "com.volvocars.ecom.paymentservice.psp.integration.api.version.impl.VersionControllerImpl#getServiceVersion()",
+      "status": "available_local_source_behaviour_reviewed",
+      "coverage": [
+        "volvo/cds-paymentservice-psp-integration/dabd6c825499/local-r2/entry-coverage/5143121da8f1143350bd"
+      ],
+      "localSourceGaps": [],
+      "separateLimits": [
+        "Conditional provider/virtual dispatch",
+        "Imported/generated implementation, actual response/wire/enforcement",
+        "Automatic heap/alias/callback correspondence"
+      ]
+    },
+    {
+      "entry": "volvo/cds-paymentservice-psp-integration/dabd6c825499/local-r2/entry/f6c3efdb9a57289e4b78",
+      "trigger": "process",
+      "method": "PROCESS",
+      "path": "com.volvocars.ecom.paymentservice.psp.integration.api.App#main(String[])",
+      "implementation": "volvo/cds-paymentservice-psp-integration/dabd6c825499/local-r2/method/f6c3efdb9a57289e4b78",
+      "symbol": "com.volvocars.ecom.paymentservice.psp.integration.api.App#main(String[])",
+      "condition": "Actual Spring Boot main; imported boot activation does not call every callback eagerly",
+      "status": "available_local_source_behaviour_reviewed",
+      "coverage": [
+        "volvo/cds-paymentservice-psp-integration/dabd6c825499/local-r2/entry-coverage/4362ab62251b08ae7070"
+      ],
+      "localSourceGaps": [],
+      "separateLimits": [
+        "Conditional provider/virtual dispatch",
+        "Imported/generated implementation, actual response/wire/enforcement",
+        "Automatic heap/alias/callback correspondence"
+      ]
+    },
+    {
+      "entry": "volvo/cds-paymentservice-psp-integration/dabd6c825499/local-r2/entry/200c12607726f9e75f75",
+      "trigger": "callback",
+      "method": "CALLBACK",
+      "path": "com.volvocars.ecom.paymentservice.psp.integration.api.common.ApiControllerAdvice#handleHttpMediaTypeNotAcceptableException(HttpServletRequest,HttpMediaTypeNotAcceptableException)",
+      "implementation": "volvo/cds-paymentservice-psp-integration/dabd6c825499/local-r2/method/200c12607726f9e75f75",
+      "symbol": "com.volvocars.ecom.paymentservice.psp.integration.api.common.ApiControllerAdvice#handleHttpMediaTypeNotAcceptableException(HttpServletRequest,HttpMediaTypeNotAcceptableException)",
+      "condition": "Source advice exception handler; framework selection/order and exact imported exception hierarchy remain unresolved",
+      "status": "available_local_source_behaviour_reviewed",
+      "coverage": [
+        "volvo/cds-paymentservice-psp-integration/dabd6c825499/local-r2/entry-coverage/6e759d7fd5657d2f98e9"
+      ],
+      "localSourceGaps": [],
+      "separateLimits": [
+        "Conditional provider/virtual dispatch",
+        "Imported/generated implementation, actual response/wire/enforcement",
+        "Automatic heap/alias/callback correspondence"
+      ]
+    },
+    {
+      "entry": "volvo/cds-paymentservice-psp-integration/dabd6c825499/local-r2/entry/71c54883f22218c15c7c",
+      "trigger": "callback",
+      "method": "CALLBACK",
+      "path": "com.volvocars.ecom.paymentservice.psp.integration.api.common.ApiControllerAdvice#handleMethodArgumentNotValid(HttpServletRequest,MethodArgumentNotValidException)",
+      "implementation": "volvo/cds-paymentservice-psp-integration/dabd6c825499/local-r2/method/71c54883f22218c15c7c",
+      "symbol": "com.volvocars.ecom.paymentservice.psp.integration.api.common.ApiControllerAdvice#handleMethodArgumentNotValid(HttpServletRequest,MethodArgumentNotValidException)",
+      "condition": "Source advice exception handler; framework selection/order and exact imported exception hierarchy remain unresolved",
+      "status": "available_local_source_behaviour_reviewed",
+      "coverage": [
+        "volvo/cds-paymentservice-psp-integration/dabd6c825499/local-r2/entry-coverage/c70b4d976362ab9acd11"
+      ],
+      "localSourceGaps": [],
+      "separateLimits": [
+        "Conditional provider/virtual dispatch",
+        "Imported/generated implementation, actual response/wire/enforcement",
+        "Automatic heap/alias/callback correspondence"
+      ]
+    },
+    {
+      "entry": "volvo/cds-paymentservice-psp-integration/dabd6c825499/local-r2/entry/baa6c2cb735e37396887",
+      "trigger": "callback",
+      "method": "CALLBACK",
+      "path": "com.volvocars.ecom.paymentservice.psp.integration.api.common.ApiControllerAdvice#messageNotReadableHandling(HttpServletRequest,HttpMessageNotReadableException)",
+      "implementation": "volvo/cds-paymentservice-psp-integration/dabd6c825499/local-r2/method/baa6c2cb735e37396887",
+      "symbol": "com.volvocars.ecom.paymentservice.psp.integration.api.common.ApiControllerAdvice#messageNotReadableHandling(HttpServletRequest,HttpMessageNotReadableException)",
+      "condition": "Source advice exception handler; framework selection/order and exact imported exception hierarchy remain unresolved",
+      "status": "available_local_source_behaviour_reviewed",
+      "coverage": [
+        "volvo/cds-paymentservice-psp-integration/dabd6c825499/local-r2/entry-coverage/7df42fde60435090f563"
+      ],
+      "localSourceGaps": [],
+      "separateLimits": [
+        "Conditional provider/virtual dispatch",
+        "Imported/generated implementation, actual response/wire/enforcement",
+        "Automatic heap/alias/callback correspondence"
+      ]
+    },
+    {
+      "entry": "volvo/cds-paymentservice-psp-integration/dabd6c825499/local-r2/entry/2ec0d3be68427a80abd7",
+      "trigger": "callback",
+      "method": "CALLBACK",
+      "path": "com.volvocars.ecom.paymentservice.psp.integration.api.common.ApiControllerAdvice#handleInputValidationException(HttpServletRequest,InputValidationException)",
+      "implementation": "volvo/cds-paymentservice-psp-integration/dabd6c825499/local-r2/method/2ec0d3be68427a80abd7",
+      "symbol": "com.volvocars.ecom.paymentservice.psp.integration.api.common.ApiControllerAdvice#handleInputValidationException(HttpServletRequest,InputValidationException)",
+      "condition": "Source advice exception handler; framework selection/order and exact imported exception hierarchy remain unresolved",
+      "status": "available_local_source_behaviour_reviewed",
+      "coverage": [
+        "volvo/cds-paymentservice-psp-integration/dabd6c825499/local-r2/entry-coverage/575d802f9579a4757150"
+      ],
+      "localSourceGaps": [],
+      "separateLimits": [
+        "Conditional provider/virtual dispatch",
+        "Imported/generated implementation, actual response/wire/enforcement",
+        "Automatic heap/alias/callback correspondence"
+      ]
+    },
+    {
+      "entry": "volvo/cds-paymentservice-psp-integration/dabd6c825499/local-r2/entry/9b66fbe5a092f79880e4",
+      "trigger": "callback",
+      "method": "CALLBACK",
+      "path": "com.volvocars.ecom.paymentservice.psp.integration.api.common.ApiControllerAdvice#handleConstraintViolationException(HttpServletRequest,ConstraintViolationException)",
+      "implementation": "volvo/cds-paymentservice-psp-integration/dabd6c825499/local-r2/method/9b66fbe5a092f79880e4",
+      "symbol": "com.volvocars.ecom.paymentservice.psp.integration.api.common.ApiControllerAdvice#handleConstraintViolationException(HttpServletRequest,ConstraintViolationException)",
+      "condition": "Source advice exception handler; framework selection/order and exact imported exception hierarchy remain unresolved",
+      "status": "available_local_source_behaviour_reviewed",
+      "coverage": [
+        "volvo/cds-paymentservice-psp-integration/dabd6c825499/local-r2/entry-coverage/68c229d8af02abe9bbb9"
+      ],
+      "localSourceGaps": [],
+      "separateLimits": [
+        "Conditional provider/virtual dispatch",
+        "Imported/generated implementation, actual response/wire/enforcement",
+        "Automatic heap/alias/callback correspondence"
+      ]
+    },
+    {
+      "entry": "volvo/cds-paymentservice-psp-integration/dabd6c825499/local-r2/entry/2b3fbb469d4b15dbfb08",
+      "trigger": "callback",
+      "method": "CALLBACK",
+      "path": "com.volvocars.ecom.paymentservice.psp.integration.api.common.ApiControllerAdvice#handleMissingRequestParameterException(HttpServletRequest,MissingServletRequestParameterException)",
+      "implementation": "volvo/cds-paymentservice-psp-integration/dabd6c825499/local-r2/method/2b3fbb469d4b15dbfb08",
+      "symbol": "com.volvocars.ecom.paymentservice.psp.integration.api.common.ApiControllerAdvice#handleMissingRequestParameterException(HttpServletRequest,MissingServletRequestParameterException)",
+      "condition": "Source advice exception handler; framework selection/order and exact imported exception hierarchy remain unresolved",
+      "status": "available_local_source_behaviour_reviewed",
+      "coverage": [
+        "volvo/cds-paymentservice-psp-integration/dabd6c825499/local-r2/entry-coverage/edef2e04656f4b2e35ae"
+      ],
+      "localSourceGaps": [],
+      "separateLimits": [
+        "Conditional provider/virtual dispatch",
+        "Imported/generated implementation, actual response/wire/enforcement",
+        "Automatic heap/alias/callback correspondence"
+      ]
+    },
+    {
+      "entry": "volvo/cds-paymentservice-psp-integration/dabd6c825499/local-r2/entry/be31fecfdd2fdce8150a",
+      "trigger": "callback",
+      "method": "CALLBACK",
+      "path": "com.volvocars.ecom.paymentservice.psp.integration.api.common.ApiControllerAdvice#handleUnsupportedMediaTypeStatusException(HttpServletRequest,UnsupportedMediaTypeStatusException)",
+      "implementation": "volvo/cds-paymentservice-psp-integration/dabd6c825499/local-r2/method/be31fecfdd2fdce8150a",
+      "symbol": "com.volvocars.ecom.paymentservice.psp.integration.api.common.ApiControllerAdvice#handleUnsupportedMediaTypeStatusException(HttpServletRequest,UnsupportedMediaTypeStatusException)",
+      "condition": "Source advice exception handler; framework selection/order and exact imported exception hierarchy remain unresolved",
+      "status": "available_local_source_behaviour_reviewed",
+      "coverage": [
+        "volvo/cds-paymentservice-psp-integration/dabd6c825499/local-r2/entry-coverage/063dbccb2ddc38ce4120"
+      ],
+      "localSourceGaps": [],
+      "separateLimits": [
+        "Conditional provider/virtual dispatch",
+        "Imported/generated implementation, actual response/wire/enforcement",
+        "Automatic heap/alias/callback correspondence"
+      ]
+    },
+    {
+      "entry": "volvo/cds-paymentservice-psp-integration/dabd6c825499/local-r2/entry/f06636d2b5c52c7792ce",
+      "trigger": "callback",
+      "method": "CALLBACK",
+      "path": "com.volvocars.ecom.paymentservice.psp.integration.api.common.ApiControllerAdvice#handleHttpMediaTypeNotSupportedException(HttpServletRequest,HttpMediaTypeNotSupportedException)",
+      "implementation": "volvo/cds-paymentservice-psp-integration/dabd6c825499/local-r2/method/f06636d2b5c52c7792ce",
+      "symbol": "com.volvocars.ecom.paymentservice.psp.integration.api.common.ApiControllerAdvice#handleHttpMediaTypeNotSupportedException(HttpServletRequest,HttpMediaTypeNotSupportedException)",
+      "condition": "Source advice exception handler; framework selection/order and exact imported exception hierarchy remain unresolved",
+      "status": "available_local_source_behaviour_reviewed",
+      "coverage": [
+        "volvo/cds-paymentservice-psp-integration/dabd6c825499/local-r2/entry-coverage/cac1851c9b7fd1c75c3a"
+      ],
+      "localSourceGaps": [],
+      "separateLimits": [
+        "Conditional provider/virtual dispatch",
+        "Imported/generated implementation, actual response/wire/enforcement",
+        "Automatic heap/alias/callback correspondence"
+      ]
+    },
+    {
+      "entry": "volvo/cds-paymentservice-psp-integration/dabd6c825499/local-r2/entry/cb49a0936c303c12faae",
+      "trigger": "callback",
+      "method": "CALLBACK",
+      "path": "com.volvocars.ecom.paymentservice.psp.integration.api.common.ApiControllerAdvice#handleNoHandlerFoundException(HttpServletRequest,NoHandlerFoundException)",
+      "implementation": "volvo/cds-paymentservice-psp-integration/dabd6c825499/local-r2/method/cb49a0936c303c12faae",
+      "symbol": "com.volvocars.ecom.paymentservice.psp.integration.api.common.ApiControllerAdvice#handleNoHandlerFoundException(HttpServletRequest,NoHandlerFoundException)",
+      "condition": "Source advice exception handler; framework selection/order and exact imported exception hierarchy remain unresolved",
+      "status": "available_local_source_behaviour_reviewed",
+      "coverage": [
+        "volvo/cds-paymentservice-psp-integration/dabd6c825499/local-r2/entry-coverage/4d8152409524543fd714"
+      ],
+      "localSourceGaps": [],
+      "separateLimits": [
+        "Conditional provider/virtual dispatch",
+        "Imported/generated implementation, actual response/wire/enforcement",
+        "Automatic heap/alias/callback correspondence"
+      ]
+    },
+    {
+      "entry": "volvo/cds-paymentservice-psp-integration/dabd6c825499/local-r2/entry/7b31602bd2e67100ed9b",
+      "trigger": "callback",
+      "method": "CALLBACK",
+      "path": "com.volvocars.ecom.paymentservice.psp.integration.api.common.ApiControllerAdvice#handlePspTransactionException(HttpServletRequest,PspTransactionException)",
+      "implementation": "volvo/cds-paymentservice-psp-integration/dabd6c825499/local-r2/method/7b31602bd2e67100ed9b",
+      "symbol": "com.volvocars.ecom.paymentservice.psp.integration.api.common.ApiControllerAdvice#handlePspTransactionException(HttpServletRequest,PspTransactionException)",
+      "condition": "Source advice exception handler; framework selection/order and exact imported exception hierarchy remain unresolved",
+      "status": "available_local_source_behaviour_reviewed",
+      "coverage": [
+        "volvo/cds-paymentservice-psp-integration/dabd6c825499/local-r2/entry-coverage/6990180a9be022304318"
+      ],
+      "localSourceGaps": [],
+      "separateLimits": [
+        "Conditional provider/virtual dispatch",
+        "Imported/generated implementation, actual response/wire/enforcement",
+        "Automatic heap/alias/callback correspondence"
+      ]
+    },
+    {
+      "entry": "volvo/cds-paymentservice-psp-integration/dabd6c825499/local-r2/entry/135cd50ae7b73e32a860",
+      "trigger": "callback",
+      "method": "CALLBACK",
+      "path": "com.volvocars.ecom.paymentservice.psp.integration.api.common.ApiControllerAdvice#paymentServiceException(HttpServletRequest,PaymentServiceException)",
+      "implementation": "volvo/cds-paymentservice-psp-integration/dabd6c825499/local-r2/method/135cd50ae7b73e32a860",
+      "symbol": "com.volvocars.ecom.paymentservice.psp.integration.api.common.ApiControllerAdvice#paymentServiceException(HttpServletRequest,PaymentServiceException)",
+      "condition": "Source advice exception handler; framework selection/order and exact imported exception hierarchy remain unresolved",
+      "status": "available_local_source_behaviour_reviewed",
+      "coverage": [
+        "volvo/cds-paymentservice-psp-integration/dabd6c825499/local-r2/entry-coverage/f70803490ace0dc951fe"
+      ],
+      "localSourceGaps": [],
+      "separateLimits": [
+        "Conditional provider/virtual dispatch",
+        "Imported/generated implementation, actual response/wire/enforcement",
+        "Automatic heap/alias/callback correspondence"
+      ]
+    },
+    {
+      "entry": "volvo/cds-paymentservice-psp-integration/dabd6c825499/local-r2/entry/5b0ddee12ca073aab2a5",
+      "trigger": "callback",
+      "method": "CALLBACK",
+      "path": "com.volvocars.ecom.paymentservice.psp.integration.api.common.ApiControllerAdvice#apiClientException(HttpServletRequest,ApiClientException)",
+      "implementation": "volvo/cds-paymentservice-psp-integration/dabd6c825499/local-r2/method/5b0ddee12ca073aab2a5",
+      "symbol": "com.volvocars.ecom.paymentservice.psp.integration.api.common.ApiControllerAdvice#apiClientException(HttpServletRequest,ApiClientException)",
+      "condition": "Source advice exception handler; framework selection/order and exact imported exception hierarchy remain unresolved",
+      "status": "available_local_source_behaviour_reviewed",
+      "coverage": [
+        "volvo/cds-paymentservice-psp-integration/dabd6c825499/local-r2/entry-coverage/86adca4feb96e158f641"
+      ],
+      "localSourceGaps": [],
+      "separateLimits": [
+        "Conditional provider/virtual dispatch",
+        "Imported/generated implementation, actual response/wire/enforcement",
+        "Automatic heap/alias/callback correspondence"
+      ]
+    },
+    {
+      "entry": "volvo/cds-paymentservice-psp-integration/dabd6c825499/local-r2/entry/c6864c04263a1c703ed8",
+      "trigger": "callback",
+      "method": "CALLBACK",
+      "path": "com.volvocars.ecom.paymentservice.psp.integration.api.common.ApiControllerAdvice#handleNotFoundException(HttpServletRequest,Exception)",
+      "implementation": "volvo/cds-paymentservice-psp-integration/dabd6c825499/local-r2/method/c6864c04263a1c703ed8",
+      "symbol": "com.volvocars.ecom.paymentservice.psp.integration.api.common.ApiControllerAdvice#handleNotFoundException(HttpServletRequest,Exception)",
+      "condition": "Source advice exception handler; framework selection/order and exact imported exception hierarchy remain unresolved",
+      "status": "available_local_source_behaviour_reviewed",
+      "coverage": [
+        "volvo/cds-paymentservice-psp-integration/dabd6c825499/local-r2/entry-coverage/0282087462de0c242ccd"
+      ],
+      "localSourceGaps": [],
+      "separateLimits": [
+        "Conditional provider/virtual dispatch",
+        "Imported/generated implementation, actual response/wire/enforcement",
+        "Automatic heap/alias/callback correspondence"
+      ]
+    },
+    {
+      "entry": "volvo/cds-paymentservice-psp-integration/dabd6c825499/local-r2/entry/f7ccc98bc4106f240b8c",
+      "trigger": "callback",
+      "method": "CALLBACK",
+      "path": "com.volvocars.ecom.paymentservice.psp.integration.api.common.ApiControllerAdvice#handleAccessDeniedException(HttpServletRequest,Exception)",
+      "implementation": "volvo/cds-paymentservice-psp-integration/dabd6c825499/local-r2/method/f7ccc98bc4106f240b8c",
+      "symbol": "com.volvocars.ecom.paymentservice.psp.integration.api.common.ApiControllerAdvice#handleAccessDeniedException(HttpServletRequest,Exception)",
+      "condition": "Source advice exception handler; framework selection/order and exact imported exception hierarchy remain unresolved",
+      "status": "available_local_source_behaviour_reviewed",
+      "coverage": [
+        "volvo/cds-paymentservice-psp-integration/dabd6c825499/local-r2/entry-coverage/4de4c7c1e36ded876513"
+      ],
+      "localSourceGaps": [],
+      "separateLimits": [
+        "Conditional provider/virtual dispatch",
+        "Imported/generated implementation, actual response/wire/enforcement",
+        "Automatic heap/alias/callback correspondence"
+      ]
+    },
+    {
+      "entry": "volvo/cds-paymentservice-psp-integration/dabd6c825499/local-r2/entry/e9f8740b679e2c2a9af3",
+      "trigger": "callback",
+      "method": "CALLBACK",
+      "path": "com.volvocars.ecom.paymentservice.psp.integration.api.common.ApiControllerAdvice#handleForbiddenException(HttpServletRequest,ForbiddenException)",
+      "implementation": "volvo/cds-paymentservice-psp-integration/dabd6c825499/local-r2/method/e9f8740b679e2c2a9af3",
+      "symbol": "com.volvocars.ecom.paymentservice.psp.integration.api.common.ApiControllerAdvice#handleForbiddenException(HttpServletRequest,ForbiddenException)",
+      "condition": "Source advice exception handler; framework selection/order and exact imported exception hierarchy remain unresolved",
+      "status": "available_local_source_behaviour_reviewed",
+      "coverage": [
+        "volvo/cds-paymentservice-psp-integration/dabd6c825499/local-r2/entry-coverage/fd395375fa688933bf3c"
+      ],
+      "localSourceGaps": [],
+      "separateLimits": [
+        "Conditional provider/virtual dispatch",
+        "Imported/generated implementation, actual response/wire/enforcement",
+        "Automatic heap/alias/callback correspondence"
+      ]
+    },
+    {
+      "entry": "volvo/cds-paymentservice-psp-integration/dabd6c825499/local-r2/entry/1be7efe6c8b90e40045a",
+      "trigger": "callback",
+      "method": "CALLBACK",
+      "path": "com.volvocars.ecom.paymentservice.psp.integration.api.common.ApiControllerAdvice#handleAuthenticationException(HttpServletRequest,AuthenticationException)",
+      "implementation": "volvo/cds-paymentservice-psp-integration/dabd6c825499/local-r2/method/1be7efe6c8b90e40045a",
+      "symbol": "com.volvocars.ecom.paymentservice.psp.integration.api.common.ApiControllerAdvice#handleAuthenticationException(HttpServletRequest,AuthenticationException)",
+      "condition": "Source advice exception handler; framework selection/order and exact imported exception hierarchy remain unresolved",
+      "status": "available_local_source_behaviour_reviewed",
+      "coverage": [
+        "volvo/cds-paymentservice-psp-integration/dabd6c825499/local-r2/entry-coverage/48243f7307f2510baf94"
+      ],
+      "localSourceGaps": [],
+      "separateLimits": [
+        "Conditional provider/virtual dispatch",
+        "Imported/generated implementation, actual response/wire/enforcement",
+        "Automatic heap/alias/callback correspondence"
+      ]
+    },
+    {
+      "entry": "volvo/cds-paymentservice-psp-integration/dabd6c825499/local-r2/entry/5a5d6ccddc931457d764",
+      "trigger": "callback",
+      "method": "CALLBACK",
+      "path": "com.volvocars.ecom.paymentservice.psp.integration.api.common.ApiControllerAdvice#handleMethodArgumentNotValid(HttpServletRequest,UnprocessableEntityException)",
+      "implementation": "volvo/cds-paymentservice-psp-integration/dabd6c825499/local-r2/method/5a5d6ccddc931457d764",
+      "symbol": "com.volvocars.ecom.paymentservice.psp.integration.api.common.ApiControllerAdvice#handleMethodArgumentNotValid(HttpServletRequest,UnprocessableEntityException)",
+      "condition": "Source advice exception handler; framework selection/order and exact imported exception hierarchy remain unresolved",
+      "status": "available_local_source_behaviour_reviewed",
+      "coverage": [
+        "volvo/cds-paymentservice-psp-integration/dabd6c825499/local-r2/entry-coverage/3b11ccce777d62d82063"
+      ],
+      "localSourceGaps": [],
+      "separateLimits": [
+        "Conditional provider/virtual dispatch",
+        "Imported/generated implementation, actual response/wire/enforcement",
+        "Automatic heap/alias/callback correspondence"
+      ]
+    },
+    {
+      "entry": "volvo/cds-paymentservice-psp-integration/dabd6c825499/local-r2/entry/0446bd9484aef639a6a0",
+      "trigger": "callback",
+      "method": "CALLBACK",
+      "path": "com.volvocars.ecom.paymentservice.psp.integration.api.common.ApiControllerAdvice#handleServerException(HttpServletRequest,Exception)",
+      "implementation": "volvo/cds-paymentservice-psp-integration/dabd6c825499/local-r2/method/0446bd9484aef639a6a0",
+      "symbol": "com.volvocars.ecom.paymentservice.psp.integration.api.common.ApiControllerAdvice#handleServerException(HttpServletRequest,Exception)",
+      "condition": "Source advice exception handler; framework selection/order and exact imported exception hierarchy remain unresolved",
+      "status": "available_local_source_behaviour_reviewed",
+      "coverage": [
+        "volvo/cds-paymentservice-psp-integration/dabd6c825499/local-r2/entry-coverage/d485510cb683eaf11218"
+      ],
+      "localSourceGaps": [],
+      "separateLimits": [
+        "Conditional provider/virtual dispatch",
+        "Imported/generated implementation, actual response/wire/enforcement",
+        "Automatic heap/alias/callback correspondence"
+      ]
+    },
+    {
+      "entry": "volvo/cds-paymentservice-psp-integration/dabd6c825499/local-r2/entry/c12f61d1680763000188",
+      "trigger": "startup",
+      "method": "STARTUP",
+      "path": "com.volvocars.ecom.paymentservice.psp.integration.stripe.common.StripeConfiguration#initialize()",
+      "implementation": "volvo/cds-paymentservice-psp-integration/dabd6c825499/local-r2/method/c12f61d1680763000188",
+      "symbol": "com.volvocars.ecom.paymentservice.psp.integration.stripe.common.StripeConfiguration#initialize()",
+      "condition": "Source @PostConstruct callback, conditional on framework bean creation/activation",
+      "status": "available_local_source_behaviour_reviewed",
+      "coverage": [
+        "volvo/cds-paymentservice-psp-integration/dabd6c825499/local-r2/entry-coverage/14f7c79f68cb93496b03"
+      ],
+      "localSourceGaps": [],
+      "separateLimits": [
+        "Conditional provider/virtual dispatch",
+        "Imported/generated implementation, actual response/wire/enforcement",
+        "Automatic heap/alias/callback correspondence"
+      ]
+    }
+  ],
+  "excludedRegistrations": [
+    {
+      "kind": "client @RequestLine declarations",
+      "reason": "source caller contract, no execution host/server route proven"
+    },
+    {
+      "kind": "reload/refresh cron properties",
+      "reason": "no local @Scheduled implementation; imported scheduling is unresolved"
+    },
+    {
+      "kind": "actuator/Swagger tooling",
+      "reason": "committed exposure/path configuration retained; imported runtime routes not guessed"
+    },
+    {
+      "kind": "messages and event DTOs",
+      "reason": "no source consumer/publisher registration or broker implementation"
+    }
+  ],
+  "unreconciledSourceRegistrations": []
+}

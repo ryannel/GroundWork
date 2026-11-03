@@ -1,0 +1,1090 @@
+format: groundwork-endpoint-analysis/v1
+trial:
+  workspace: volvo-cars
+  inspected_on: 2026-10-23
+  method:
+    Static inspection at pinned commits. No endpoint/database invocation. Existing Java tests read, not
+    executed.
+  production_map_updated: false
+repositories:
+  - repo: volvo-cars/cds-paymentservice-transaction
+    commit: 020d2fabb141b47b6d1e8173c02405795f71613a
+    role: primary implementation
+  - repo: volvo-cars/cdshop-paymentservice
+    commit: dcdc6f8675adfca345126c0ca7484294b6969e61
+    role: candidate dependency source; version mismatch
+  - repo: volvo-cars/cds-paymentservice-psp-integration
+    commit: dabd6c825499b706ff4ddbf15eaf354adbfb6794
+    role: candidate client and downstream source; version/deployment binding unresolved
+sources:
+  route:
+    repo: volvo-cars/cds-paymentservice-transaction
+    commit: 020d2fabb141b47b6d1e8173c02405795f71613a
+    path: cds-paymentservice-transaction-api/src/main/java/com/volvocars/ecom/paymentservice/transaction/api/paymentsession/v1/PaymentSessionController.java
+    lines:
+      - 67
+      - 83
+  controller:
+    repo: volvo-cars/cds-paymentservice-transaction
+    commit: 020d2fabb141b47b6d1e8173c02405795f71613a
+    path: cds-paymentservice-transaction-api/src/main/java/com/volvocars/ecom/paymentservice/transaction/api/paymentsession/v1/impl/PaymentSessionControllerImpl.java
+    lines:
+      - 107
+      - 125
+  controller-prefix:
+    repo: volvo-cars/cds-paymentservice-transaction
+    commit: 020d2fabb141b47b6d1e8173c02405795f71613a
+    path: cds-paymentservice-transaction-api/src/main/java/com/volvocars/ecom/paymentservice/transaction/api/paymentsession/v1/impl/PaymentSessionControllerImpl.java
+    lines:
+      - 36
+      - 41
+  capture:
+    repo: volvo-cars/cds-paymentservice-transaction
+    commit: 020d2fabb141b47b6d1e8173c02405795f71613a
+    path: cds-paymentservice-transaction-core/src/main/java/com/volvocars/ecom/paymentservice/transaction/capture/CaptureTransactionService.java
+    lines:
+      - 42
+      - 118
+  request:
+    repo: volvo-cars/cds-paymentservice-transaction
+    commit: 020d2fabb141b47b6d1e8173c02405795f71613a
+    path: cds-paymentservice-transaction-shared/src/main/java/com/volvocars/ecom/paymentservice/transaction/capture/TransactionCapturePayload.java
+    lines:
+      - 1
+      - 33
+  completed:
+    repo: volvo-cars/cds-paymentservice-transaction
+    commit: 020d2fabb141b47b6d1e8173c02405795f71613a
+    path: cds-paymentservice-transaction-core/src/main/java/com/volvocars/ecom/paymentservice/transaction/validator/TransactionCompletedValidator.java
+    lines:
+      - 1
+      - 22
+  transaction-domain:
+    repo: volvo-cars/cds-paymentservice-transaction
+    commit: 020d2fabb141b47b6d1e8173c02405795f71613a
+    path: cds-paymentservice-transaction-shared/src/main/java/com/volvocars/ecom/paymentservice/transaction/Transaction.java
+    lines:
+      - 1
+      - 172
+  session-service:
+    repo: volvo-cars/cds-paymentservice-transaction
+    commit: 020d2fabb141b47b6d1e8173c02405795f71613a
+    path: cds-paymentservice-transaction-core/src/main/java/com/volvocars/ecom/paymentservice/paymentsession/PaymentSessionService.java
+    lines:
+      - 1
+      - 55
+  session-mapper:
+    repo: volvo-cars/cds-paymentservice-transaction
+    commit: 020d2fabb141b47b6d1e8173c02405795f71613a
+    path: cds-paymentservice-transaction-core/src/main/java/com/volvocars/ecom/paymentservice/paymentsession/PaymentSessionMapper.java
+    lines:
+      - 1
+      - 70
+  transaction-service:
+    repo: volvo-cars/cds-paymentservice-transaction
+    commit: 020d2fabb141b47b6d1e8173c02405795f71613a
+    path: cds-paymentservice-transaction-core/src/main/java/com/volvocars/ecom/paymentservice/transaction/TransactionService.java
+    lines:
+      - 1
+      - 96
+  transaction-operation:
+    repo: volvo-cars/cds-paymentservice-transaction
+    commit: 020d2fabb141b47b6d1e8173c02405795f71613a
+    path: cds-paymentservice-transaction-core/src/main/java/com/volvocars/ecom/paymentservice/transaction/TransactionOperationService.java
+    lines:
+      - 1
+      - 81
+  transaction-repository:
+    repo: volvo-cars/cds-paymentservice-transaction
+    commit: 020d2fabb141b47b6d1e8173c02405795f71613a
+    path: cds-paymentservice-transaction-core/src/main/java/com/volvocars/ecom/paymentservice/transaction/TransactionRepository.java
+    lines:
+      - 1
+      - 15
+  transaction-entity:
+    repo: volvo-cars/cds-paymentservice-transaction
+    commit: 020d2fabb141b47b6d1e8173c02405795f71613a
+    path: cds-paymentservice-transaction-core/src/main/java/com/volvocars/ecom/paymentservice/transaction/TransactionEntity.java
+    lines:
+      - 1
+      - 68
+  transaction-mapper:
+    repo: volvo-cars/cds-paymentservice-transaction
+    commit: 020d2fabb141b47b6d1e8173c02405795f71613a
+    path: cds-paymentservice-transaction-core/src/main/java/com/volvocars/ecom/paymentservice/transaction/TransactionMapper.java
+    lines:
+      - 1
+      - 66
+  stage-exception:
+    repo: volvo-cars/cds-paymentservice-transaction
+    commit: 020d2fabb141b47b6d1e8173c02405795f71613a
+    path: cds-paymentservice-transaction-shared/src/main/java/com/volvocars/ecom/paymentservice/transaction/exception/TransactionStageValidationException.java
+    lines:
+      - 1
+      - 16
+  missing-exception:
+    repo: volvo-cars/cds-paymentservice-transaction
+    commit: 020d2fabb141b47b6d1e8173c02405795f71613a
+    path: cds-paymentservice-transaction-shared/src/main/java/com/volvocars/ecom/paymentservice/transaction/exception/TransactionNotFoundException.java
+    lines:
+      - 1
+      - 14
+  exception-base:
+    repo: volvo-cars/cds-paymentservice-transaction
+    commit: 020d2fabb141b47b6d1e8173c02405795f71613a
+    path: cds-paymentservice-transaction-shared/src/main/java/com/volvocars/ecom/paymentservice/transaction/exception/TransactionException.java
+    lines:
+      - 1
+      - 14
+  service-exception:
+    repo: volvo-cars/cds-paymentservice-transaction
+    commit: 020d2fabb141b47b6d1e8173c02405795f71613a
+    path: cds-paymentservice-transaction-shared/src/main/java/com/volvocars/ecom/paymentservice/common/exception/PaymentServiceException.java
+    lines:
+      - 1
+      - 40
+  advice:
+    repo: volvo-cars/cds-paymentservice-transaction
+    commit: 020d2fabb141b47b6d1e8173c02405795f71613a
+    path: cds-paymentservice-transaction-api/src/main/java/com/volvocars/ecom/paymentservice/transaction/api/common/TransactionControllerAdvice.java
+    lines:
+      - 1
+      - 148
+  error-response:
+    repo: volvo-cars/cds-paymentservice-transaction
+    commit: 020d2fabb141b47b6d1e8173c02405795f71613a
+    path: cds-paymentservice-transaction-api/src/main/java/com/volvocars/ecom/paymentservice/transaction/api/common/ErrorResponseHandler.java
+    lines:
+      - 1
+      - 26
+  configuration:
+    repo: volvo-cars/cds-paymentservice-transaction
+    commit: 020d2fabb141b47b6d1e8173c02405795f71613a
+    path: cds-paymentservice-transaction-api/src/main/resources/application.yml
+    lines:
+      - 1
+      - 141
+  dependencies:
+    repo: volvo-cars/cds-paymentservice-transaction
+    commit: 020d2fabb141b47b6d1e8173c02405795f71613a
+    path: pom.xml
+    lines:
+      - 1
+      - 103
+  controller-test:
+    repo: volvo-cars/cds-paymentservice-transaction
+    commit: 020d2fabb141b47b6d1e8173c02405795f71613a
+    path: cds-paymentservice-transaction-test/src/test/java/com/volvocars/ecom/paymentservice/transaction/api/paymentsession/v1/CaptureTransactionControllerTest.java
+    lines:
+      - 1
+      - 154
+  service-test:
+    repo: volvo-cars/cds-paymentservice-transaction
+    commit: 020d2fabb141b47b6d1e8173c02405795f71613a
+    path: cds-paymentservice-transaction-core/src/test/java/com/volvocars/ecom/paymentservice/transaction/capture/CaptureTransactionServiceTest.java
+    lines:
+      - 1
+      - 236
+  candidate-library-version:
+    repo: volvo-cars/cdshop-paymentservice
+    commit: dcdc6f8675adfca345126c0ca7484294b6969e61
+    path: pom.xml
+    lines:
+      - 1
+      - 73
+  candidate-session-operation:
+    repo: volvo-cars/cdshop-paymentservice
+    commit: dcdc6f8675adfca345126c0ca7484294b6969e61
+    path: cds-paymentservice-core/src/main/java/com/volvocars/ecom/paymentservice/paymentsession/PaymentSessionOperationService.java
+    lines:
+      - 1
+      - 73
+  candidate-session-entity:
+    repo: volvo-cars/cdshop-paymentservice
+    commit: dcdc6f8675adfca345126c0ca7484294b6969e61
+    path: cds-paymentservice-core/src/main/java/com/volvocars/ecom/paymentservice/paymentsession/PaymentSessionEntity.java
+    lines:
+      - 1
+      - 106
+  candidate-base-entity:
+    repo: volvo-cars/cdshop-paymentservice
+    commit: dcdc6f8675adfca345126c0ca7484294b6969e61
+    path: cds-paymentservice-core/src/main/java/com/volvocars/ecom/paymentservice/common/BaseEntity.java
+    lines:
+      - 1
+      - 44
+  candidate-psp-entity:
+    repo: volvo-cars/cdshop-paymentservice
+    commit: dcdc6f8675adfca345126c0ca7484294b6969e61
+    path: cds-paymentservice-core/src/main/java/com/volvocars/ecom/paymentservice/common/BaseEntityWithPspJoint.java
+    lines:
+      - 1
+      - 64
+  candidate-attributes:
+    repo: volvo-cars/cdshop-paymentservice
+    commit: dcdc6f8675adfca345126c0ca7484294b6969e61
+    path: cds-paymentservice-shared/src/main/java/com/volvocars/ecom/paymentservice/common/AttributeBase.java
+    lines:
+      - 1
+      - 108
+  candidate-attribute:
+    repo: volvo-cars/cdshop-paymentservice
+    commit: dcdc6f8675adfca345126c0ca7484294b6969e61
+    path: cds-paymentservice-shared/src/main/java/com/volvocars/ecom/paymentservice/common/Attribute.java
+    lines:
+      - 1
+      - 23
+  candidate-client-version:
+    repo: volvo-cars/cds-paymentservice-psp-integration
+    commit: dabd6c825499b706ff4ddbf15eaf354adbfb6794
+    path: pom.xml
+    lines:
+      - 1
+      - 174
+  candidate-client:
+    repo: volvo-cars/cds-paymentservice-psp-integration
+    commit: dabd6c825499b706ff4ddbf15eaf354adbfb6794
+    path: cds-paymentservice-psp-integration-client/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/client/transaction/TransactionClient.java
+    lines:
+      - 1
+      - 43
+  candidate-client-route:
+    repo: volvo-cars/cds-paymentservice-psp-integration
+    commit: dabd6c825499b706ff4ddbf15eaf354adbfb6794
+    path: cds-paymentservice-psp-integration-client/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/client/transaction/TransactionApi.java
+    lines:
+      - 1
+      - 44
+  candidate-payload-base:
+    repo: volvo-cars/cds-paymentservice-psp-integration
+    commit: dabd6c825499b706ff4ddbf15eaf354adbfb6794
+    path: cds-paymentservice-psp-integration-shared/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/transaction/TransactionPayload.java
+    lines:
+      - 1
+      - 26
+  candidate-payload:
+    repo: volvo-cars/cds-paymentservice-psp-integration
+    commit: dabd6c825499b706ff4ddbf15eaf354adbfb6794
+    path: cds-paymentservice-psp-integration-shared/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/transaction/TransactionCapturePayload.java
+    lines:
+      - 1
+      - 41
+  candidate-target-service:
+    repo: volvo-cars/cds-paymentservice-psp-integration
+    commit: dabd6c825499b706ff4ddbf15eaf354adbfb6794
+    path: cds-paymentservice-psp-integration-core/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/transaction/PspTransactionService.java
+    lines:
+      - 88
+      - 99
+endpoints:
+  - id: api:payment-transaction-capture-transaction
+    method: POST
+    path: /v1/payment-sessions/{paymentSessionId}/transaction-capture
+    coverage:
+      state: partial
+      examined:
+        Primary route/controller, local capture/service/repository/mappers, local domain and exception
+        advice; candidate shared/client source and existing test assertions.
+      unresolved:
+        - shared-version
+        - client-version
+        - security-policy
+        - expiry-policy
+        - client-policy
+        - deployment-and-config
+        - response-envelope
+        - completion
+        - nested-storage-shape
+      runtime_observed: false
+    local_names:
+      request: input contract
+      session: PaymentSession mapped by map-session
+      transaction: Transaction mapped by load-transaction
+      outgoing: client arguments plus candidate wire request
+      downstream: client return wrapper
+      response: SuccessResponse or advice response
+    contracts:
+      - id: input
+        role: input
+        type: transaction.capture.TransactionCapturePayload
+        fields:
+          - name: paymentSessionId
+            location: path
+            type: String
+          - name: attributes
+            location: body
+            type: inherited AttributeBase; candidate List<Attribute{key:String,value:String}>
+            gap: shared-version
+        sources:
+          - route
+          - request
+          - candidate-attributes
+          - candidate-attribute
+      - id: internal-transaction
+        role: internal
+        type: Transaction
+        fields:
+          - transactionId
+          - paymentSessionId
+          - countryCode
+          - stage
+          - stageHistory
+          - inherited psp/externalId/accountId
+        sources:
+          - transaction-domain
+          - transaction-mapper
+        gaps:
+          - shared-version
+      - id: outgoing
+        role: outgoing
+        type: psp.integration.transaction.TransactionCapturePayload
+        fields:
+          - attributes
+          - psp
+          - countryCode
+          - pspTransactionId
+          - accountId
+        completeness: explicit builder assignments only; inherited defaults and exact wire shape unresolved
+        sources:
+          - capture
+        gaps:
+          - client-version
+          - shared-version
+      - id: success
+        role: response
+        type: BaseResponse<Void>
+        fields:
+          - data supplied as null
+          - operationId supplied by ControllerBase
+        sources:
+          - controller
+        gaps:
+          - response-envelope
+    steps:
+      - id: entry
+        kind: entry
+        does: Application route and declared role; shared security enforcement not closed.
+        sources:
+          - route
+          - controller-prefix
+        next: load-session
+        on_error:
+          - bad-input
+          - security-frontier
+        gaps:
+          - security-policy
+      - id: load-session
+        kind: read
+        does:
+          Invoke PaymentSessionService.getByPaymentSessionId; candidate shared operation looks up
+          paymentSessionId.
+        sources:
+          - capture
+          - session-service
+          - candidate-session-operation
+        target: sessions
+        bindings:
+          - session-selection
+        result: session-entity
+        next: map-session
+        on_error:
+          - session-not-found
+          - unclassified-error
+        gaps:
+          - shared-version
+      - id: map-session
+        kind: transform
+        does:
+          Map persisted session to internal PaymentSession, including computed expiry from created plus configured
+          duration.
+        sources:
+          - session-mapper
+        next: load-transaction
+        on_error:
+          - unclassified-error
+        gaps:
+          - expiry-policy
+          - shared-version
+      - id: load-transaction
+        kind: read
+        does: Use session.transactionId to find transaction and map entity to internal Transaction.
+        sources:
+          - capture
+          - transaction-service
+          - transaction-operation
+          - transaction-repository
+          - transaction-mapper
+        target: transactions
+        bindings:
+          - transaction-selection
+        result: transaction
+        next: completed-check
+        on_error:
+          - transaction-not-found
+          - unclassified-error
+      - id: completed-check
+        kind: branch
+        does: Current stage COMPLETE/SUCCEEDED, or any stageHistory entry COMPLETE/SUCCEEDED?
+        sources:
+          - completed
+          - transaction-domain
+        guard: transaction.stage and transaction.stageHistory[].stage
+        next: return-208
+        otherwise: automatic-check
+        on_error:
+          - unclassified-error
+      - id: return-208
+        kind: return
+        does: Validator throws TransactionAlreadyCompletedException; controller catches it and returns 208.
+        sources:
+          - completed
+          - controller
+        result: already-reported
+      - id: automatic-check
+        kind: branch
+        does: Reject captureMethod AUTOMATIC; the source does not explicitly require equality to MANUAL.
+        sources:
+          - capture
+        guard: session.captureMethod == AUTOMATIC
+        next: reject-automatic
+        otherwise: external-reference-check
+      - id: reject-automatic
+        kind: throw
+        does: Throw TransactionCaptureException carrying 422; advice creates HTTP error response.
+        sources:
+          - capture
+          - advice
+        result: unprocessable
+      - id: external-reference-check
+        kind: branch
+        does: Reject a null PSP reference; source tests null, not blankness.
+        sources:
+          - capture
+        guard: transaction.externalId == null
+        next: reject-missing-reference
+        otherwise: stage-check
+      - id: reject-missing-reference
+        kind: throw
+        does: Throw TransactionCaptureException carrying 422.
+        sources:
+          - capture
+          - advice
+        result: unprocessable
+      - id: stage-check
+        kind: branch
+        does: Allow only stage PROCESS with status REQUIRES_CAPTURE; a missing stage fails the check.
+        sources:
+          - capture
+          - transaction-domain
+        guard: transaction.stage != null && name == PROCESS && status == REQUIRES_CAPTURE
+        next: construct-request
+        otherwise: reject-stage
+      - id: reject-stage
+        kind: throw
+        does:
+          For a non-null invalid stage, throw TransactionStageValidationException carrying 422. A null stage is
+          dereferenced while building the message and can cause a generic 500.
+        sources:
+          - capture
+          - stage-exception
+          - advice
+        result: unprocessable
+        on_error:
+          - unclassified-error
+      - id: construct-request
+        kind: transform
+        does: Assemble the downstream request from incoming attributes and the stored transaction.
+        sources:
+          - capture
+        bindings:
+          - attributes
+          - provider
+          - country
+          - provider-reference
+          - account
+        next: capture-call
+        gaps:
+          - client-version
+          - shared-version
+      - id: capture-call
+        kind: call
+        does:
+          Synchronously invoke TransactionClient.capture; route/default host available only as separately scoped
+          evidence.
+        sources:
+          - capture
+          - configuration
+          - candidate-client
+          - candidate-client-route
+        target: api:psp-integration-capture-transaction
+        bindings:
+          - path-transaction
+          - path-provider
+        result: downstream
+        next: discard-result
+        on_error:
+          - mapped-service-error
+          - unclassified-error
+        gaps:
+          - client-version
+          - client-policy
+          - deployment-and-config
+          - completion
+      - id: discard-result
+        kind: transform
+        does:
+          Read getData() and discard it; return the previously loaded internal transaction, which the controller
+          also ignores.
+        sources:
+          - capture
+          - controller
+        bindings:
+          - discarded-response
+        next: return-202
+        on_error:
+          - unclassified-error
+      - id: return-202
+        kind: return
+        does:
+          Construct SuccessResponse.accepted(null, operationId) and HTTP 202; no explicit local save or publish in
+          the inspected capture path.
+        sources:
+          - controller
+          - capture
+        bindings:
+          - response-data
+        result: accepted
+        gaps:
+          - response-envelope
+          - completion
+    bindings:
+      - id: session-selection
+        step: load-session
+        from: request.path.paymentSessionId
+        to: sessions.selection.paymentSessionId
+        transformation: identity lookup in candidate shared source
+        sources:
+          - capture
+          - session-service
+          - candidate-session-operation
+        gaps:
+          - shared-version
+      - id: transaction-selection
+        step: load-transaction
+        from: session.transactionId
+        to: transactions.selection.transactionId
+        transformation: equality lookup through repository method
+        sources:
+          - capture
+          - transaction-service
+          - transaction-repository
+      - id: attributes
+        step: construct-request
+        from: request.body.attributes
+        to: outgoing.body.attributes
+        transformation: copy; getter/serialisation behaviour depends on imported types
+        sources:
+          - capture
+        gaps:
+          - shared-version
+          - client-version
+      - id: provider
+        step: construct-request
+        from: transaction.psp
+        to: outgoing.body.psp
+        transformation: copy; getter/serialisation behaviour depends on imported types
+        sources:
+          - capture
+        gaps:
+          - shared-version
+          - client-version
+      - id: country
+        step: construct-request
+        from: transaction.countryCode
+        to: outgoing.body.countryCode
+        transformation: copy; getter/serialisation behaviour depends on imported types
+        sources:
+          - capture
+        gaps:
+          - shared-version
+          - client-version
+      - id: provider-reference
+        step: construct-request
+        from: transaction.externalId
+        to: outgoing.body.pspTransactionId
+        transformation: copy; getter/serialisation behaviour depends on imported types
+        sources:
+          - capture
+        gaps:
+          - shared-version
+          - client-version
+      - id: account
+        step: construct-request
+        from: transaction.accountId
+        to: outgoing.body.accountId
+        transformation: copy; getter/serialisation behaviour depends on imported types
+        sources:
+          - capture
+        gaps:
+          - shared-version
+          - client-version
+      - id: path-transaction
+        step: capture-call
+        from: transaction.transactionId
+        to: outgoing.arguments.transactionId
+        transformation: first client argument; candidate client binds it to path
+        sources:
+          - capture
+          - candidate-client-route
+        gaps:
+          - client-version
+      - id: path-provider
+        step: capture-call
+        from: transaction.psp
+        to: outgoing.arguments.psp
+        transformation: second client argument; candidate client binds it to path
+        sources:
+          - capture
+          - candidate-client-route
+        gaps:
+          - client-version
+      - id: discarded-response
+        step: discard-result
+        from: downstream.data
+        to: discarded
+        transformation: getData() evaluated but not used or saved; a null response wrapper would fail
+        sources:
+          - capture
+      - id: response-data
+        step: return-202
+        from: constant null and ControllerBase.getOperationId()
+        to: response.successEnvelope
+        transformation: SuccessResponse.accepted; envelope implementation unavailable in trial
+        sources:
+          - controller
+        gaps:
+          - response-envelope
+    storage:
+      - id: sessions
+        engine: MongoDB
+        binding:
+          'spring.data.mongodb/database configuration: committed spring.mongodb.database=payment_services;
+          physical URI unresolved'
+        resource: candidate collection payment_sessions
+        schema:
+          type: PaymentSessionEntity extends BaseEntity
+          relevant_fields:
+            - paymentSessionId (candidate unique index)
+            - transactionId
+            - captureMethod
+            - created
+            - status
+          completeness: candidate source; shared version and nested/inherited type closure unresolved
+        access: read by request paymentSessionId; candidate shared implementation
+        sources:
+          - configuration
+          - session-service
+          - candidate-session-operation
+          - candidate-session-entity
+        gaps:
+          - shared-version
+          - deployment-and-config
+          - nested-storage-shape
+      - id: transactions
+        engine: MongoDB
+        binding: committed database payment_services; physical URI unresolved
+        resource: transactions
+        schema:
+          type: TransactionEntity extends BaseEntityWithPspJoint
+          fields:
+            - name: transactionId
+              type: String
+              constraint: declared unique index; configuration disables auto-index creation, actual index not verified
+            - name: paymentSessionId
+              type: String
+              constraint: declared index
+            - name: customerId
+              type: String
+            - name: paymentInstrumentId
+              type: String
+            - name: receiptUrl
+              type: String
+            - name: countryCode
+              type: String
+            - name: clientAppId
+              type: String
+            - name: externalInvoiceId
+              type: String
+            - name: stage
+              type: Stage; used name/status
+            - name: stageHistory
+              type: List<StageHistory>; completion checks each embedded stage
+            - name: pricing
+              type: declared in TransactionEntity; nested definition not closed in this trial
+            - name: transactionDate
+              type: declared in TransactionEntity; nested definition not closed in this trial
+            - name: paymentMethodType
+              type: declared in TransactionEntity; nested definition not closed in this trial
+            - name: eventHistory
+              type: declared in TransactionEntity; nested definition not closed in this trial
+            - name: cartLines
+              type: declared in TransactionEntity; nested definition not closed in this trial
+            - name: transferData
+              type: declared in TransactionEntity; nested definition not closed in this trial
+            - name: externalIdentifiers
+              type: declared in TransactionEntity; nested definition not closed in this trial
+            - name: psp/externalId/accountId
+              type: inherited; candidate Psp/String/String
+            - name: id/created/modified/createdBy/modifiedBy/version/attributes
+              type: inherited; candidate ObjectId/Instant/Instant/String/String/Integer/List<Attribute>
+          completeness: all directly declared field names recorded; inherited and nested fields partial
+        access: read by session.transactionId; local repository implementation
+        sources:
+          - configuration
+          - transaction-entity
+          - transaction-repository
+          - transaction-mapper
+          - candidate-psp-entity
+          - candidate-base-entity
+        gaps:
+          - shared-version
+          - deployment-and-config
+          - nested-storage-shape
+    outcomes:
+      - id: accepted
+        when: capture client returns a non-null wrapper without an uncaught exception
+        status: 202
+        body: SuccessResponse.accepted(null, operationId)
+        completion: local handler accepted; no established end-to-end completion
+        sources:
+          - capture
+          - controller
+      - id: already-reported
+        when: current or historical COMPLETE/SUCCEEDED stage
+        status: 208
+        body: SuccessResponse.success(208, null, operationId)
+        completion: no capture client invocation on this branch
+        sources:
+          - controller
+          - completed
+          - transaction-domain
+          - controller-test
+      - id: unprocessable
+        when: AUTOMATIC capture, null externalId, or non-null stage not PROCESS/REQUIRES_CAPTURE
+        status: 422
+        body: error envelope constructed by advice/helper
+        sources:
+          - capture
+          - stage-exception
+          - exception-base
+          - service-exception
+          - advice
+      - id: transaction-not-found
+        when: transaction repository returns empty
+        status: 404
+        body: error envelope
+        sources:
+          - transaction-service
+          - missing-exception
+          - advice
+      - id: session-not-found
+        when: shared session operation cannot find session
+        status: unresolved for imported version
+        body: advice uses status if PaymentServiceException
+        sources:
+          - candidate-session-operation
+          - advice
+        gaps:
+          - shared-version
+      - id: bad-input
+        when: request deserialisation or Bean Validation exception reaches inspected advice
+        status: 400
+        body: error envelope
+        sources:
+          - advice
+          - route
+        gaps:
+          - security-policy
+          - shared-version
+      - id: security-frontier
+        when: authentication or role enforcement rejects request
+        status: 401 asserted by existing no-auth test; full filter behaviour unresolved
+        body: not closed
+        sources:
+          - route
+          - controller-test
+        gaps:
+          - security-policy
+      - id: mapped-service-error
+        when: PaymentServiceException reaches local advice
+        status: exception.statusCode when set; otherwise 500
+        body: error envelope
+        sources:
+          - advice
+          - service-exception
+        gaps:
+          - client-policy
+          - response-envelope
+      - id: unclassified-error
+        when: other Exception reaches local advice, including null-stage message construction
+        status: 500
+        body: error envelope
+        sources:
+          - capture
+          - advice
+        gaps:
+          - client-policy
+          - response-envelope
+    gaps:
+      - id: shared-version
+        at: load-session and inherited types
+        question: What exact code and fields are in imported cds-paymentservice 2.0.32?
+        reason:
+          Candidate source identifies itself as 2.0.33-SNAPSHOT; cached clone has no matching tag/history. No
+          artefact fetched.
+        resolve_by: Resolve the Maven artefact/digest and its source or decompile the exact class files.
+        prevents:
+          - proven shared session lookup and complete inherited request/storage shape
+        sources:
+          - dependencies
+          - candidate-library-version
+      - id: client-version
+        at: capture-call
+        question: What exact route, payload and client behaviour are shipped in client 1.3.257?
+        reason: Candidate repository identifies itself as 1.3.274-SNAPSHOT, not declared client 1.3.257.
+        resolve_by: Resolve exact client artefact and source, then compare server contract separately.
+        prevents:
+          - proven exact wire route, inherited body defaults and client/server compatibility
+        sources:
+          - dependencies
+          - candidate-client-version
+      - id: security-policy
+        at: entry
+        question: Which shared filters enforce the declared role and what responses do they emit?
+        reason:
+          Role annotation inspected and no-auth test assertion read; effective shared security configuration not
+          resolved.
+        resolve_by: Resolve common web/security artefacts and applicable configuration.
+        prevents:
+          - complete pre-handler execution and production auth status claim
+        sources:
+          - route
+          - configuration
+          - controller-test
+      - id: expiry-policy
+        at: map-session
+        question: What effective expiry configuration and inherited types are used during the session mapping?
+        reason:
+          Mapper computes an expiry even though capture does not use it; configuration implementation is in the
+          mismatched library.
+        resolve_by: Resolve shared configuration implementation and applicable duration/unit values.
+        prevents:
+          - complete session-read failure analysis
+        sources:
+          - session-mapper
+          - dependencies
+      - id: client-policy
+        at: capture-call
+        question: What are the effective timeout, retry, interception, serialisation and error decoding behaviours?
+        reason: Imported Feign/common packages not resolved to exact artefacts.
+        resolve_by: Read exact client/base-client configuration and dependency defaults.
+        prevents:
+          - safe-to-retry claim, complete wire headers, complete downstream failure mapping
+        sources:
+          - dependencies
+          - configuration
+          - candidate-client
+      - id: deployment-and-config
+        at: sessions, transactions and capture-call
+        question: Which Mongo host and PSP service are active in each environment?
+        reason:
+          Committed Mongo URI is a placeholder; Spring Cloud Config and environment overrides apply. No
+          runtime/deployment observation.
+        resolve_by:
+          Inspect authorised effective configuration and deployed artefact bindings without reading secret
+          values.
+        prevents:
+          - physical production data location and deployed server version
+        sources:
+          - configuration
+      - id: response-envelope
+        at: return-202 and exception advice
+        question: What exact JSON envelope and error serialisation does the imported common web package produce?
+        reason:
+          Local error helper sets data/status/operationId and NonDetailError reason/message, but shared
+          SuccessResponse/ControllerBase/NonDetailError serialisation is outside inspected source.
+        resolve_by: Resolve common web artefact and inspect serialisation; local error helper already inspected.
+        prevents:
+          - complete success/error wire schema
+        sources:
+          - controller
+          - advice
+          - error-response
+          - dependencies
+      - id: completion
+        at: capture-call and accepted outcome
+        question: Where is capture completion persisted and what proves it belongs to this request?
+        reason:
+          Inspected local path contains no save or publication; candidate downstream code delegates to provider.
+          No deployed server/continuation correlation established.
+        resolve_by:
+          Bind server revision, trace provider effect and relevant event/webhook continuation through its
+          durable write.
+        prevents:
+          - end-to-end completion path, atomicity, local-write absence beyond examined scope
+        sources:
+          - capture
+          - controller
+          - candidate-target-service
+      - id: nested-storage-shape
+        at: transactions and sessions
+        question: What are all nested persisted fields and effective Mongo converters?
+        reason: Relevant local fields inspected; shared inherited version and nested type closure not resolved.
+        resolve_by: Resolve exact shared types, nested schema definitions and Mongo converter configuration.
+        prevents:
+          - complete BSON representation; full field lineage
+        sources:
+          - transaction-entity
+          - candidate-session-entity
+          - candidate-base-entity
+          - candidate-psp-entity
+    test_assertions_read:
+      - sources:
+          - controller-test
+        asserts:
+          - 202 and exact explicit builder payload
+          - 208 and no client interaction when completed
+          - 401 and no client interaction without auth
+        executed: false
+      - sources:
+          - service-test
+        asserts:
+          - payload mapping
+          - AUTOMATIC capture rejected
+          - missing session/transaction
+          - invalid stage exception
+          - null external reference blocks client
+          - downstream exception propagation
+        executed: false
+    acceptance:
+      - question: 1
+        result: partial
+        records:
+          - entry
+          - input
+          - security-policy
+      - question: 2
+        result: partial
+        records:
+          - completed-check
+          - automatic-check
+          - external-reference-check
+          - stage-check
+          - shared-version
+      - question: 3
+        result: established within inspected caller control flow
+        records:
+          - completed-check
+          - automatic-check
+          - external-reference-check
+          - stage-check
+          - capture-call
+      - question: 4
+        result: partial
+        records:
+          - session-selection
+          - transaction-selection
+          - attributes
+          - provider
+          - country
+          - provider-reference
+          - account
+          - path-transaction
+          - path-provider
+          - discarded-response
+          - response-data
+          - shared-version
+          - client-version
+          - response-envelope
+      - question: 5
+        result: partial
+        records:
+          - sessions
+          - transactions
+          - nested-storage-shape
+      - question: 6
+        result: established at caller
+        records:
+          - discard-result
+          - discarded-response
+      - question: 7
+        result: partial
+        records:
+          - unprocessable
+          - already-reported
+          - transaction-not-found
+          - client-policy
+          - security-policy
+      - question: 8
+        result: partial
+        records:
+          - accepted
+          - completion
+      - question: 9
+        result: partial
+        records:
+          - shared-version
+          - client-version
+          - deployment-and-config
+      - question: 10
+        result: established for trial scope
+        records:
+          - shared-version
+          - client-version
+          - security-policy
+          - expiry-policy
+          - client-policy
+          - deployment-and-config
+          - response-envelope
+          - completion
+          - nested-storage-shape
+    invalidation_inputs:
+      - repo: volvo-cars/cds-paymentservice-transaction
+        paths:
+          - cds-paymentservice-transaction-api/src/main/java/com/volvocars/ecom/paymentservice/transaction/api/paymentsession/v1/PaymentSessionController.java
+          - cds-paymentservice-transaction-api/src/main/java/com/volvocars/ecom/paymentservice/transaction/api/paymentsession/v1/impl/PaymentSessionControllerImpl.java
+          - cds-paymentservice-transaction-api/src/main/java/com/volvocars/ecom/paymentservice/transaction/api/paymentsession/v1/impl/PaymentSessionControllerImpl.java
+          - cds-paymentservice-transaction-core/src/main/java/com/volvocars/ecom/paymentservice/transaction/capture/CaptureTransactionService.java
+          - cds-paymentservice-transaction-shared/src/main/java/com/volvocars/ecom/paymentservice/transaction/capture/TransactionCapturePayload.java
+          - cds-paymentservice-transaction-core/src/main/java/com/volvocars/ecom/paymentservice/transaction/validator/TransactionCompletedValidator.java
+          - cds-paymentservice-transaction-shared/src/main/java/com/volvocars/ecom/paymentservice/transaction/Transaction.java
+          - cds-paymentservice-transaction-core/src/main/java/com/volvocars/ecom/paymentservice/paymentsession/PaymentSessionService.java
+          - cds-paymentservice-transaction-core/src/main/java/com/volvocars/ecom/paymentservice/paymentsession/PaymentSessionMapper.java
+          - cds-paymentservice-transaction-core/src/main/java/com/volvocars/ecom/paymentservice/transaction/TransactionService.java
+          - cds-paymentservice-transaction-core/src/main/java/com/volvocars/ecom/paymentservice/transaction/TransactionOperationService.java
+          - cds-paymentservice-transaction-core/src/main/java/com/volvocars/ecom/paymentservice/transaction/TransactionRepository.java
+          - cds-paymentservice-transaction-core/src/main/java/com/volvocars/ecom/paymentservice/transaction/TransactionEntity.java
+          - cds-paymentservice-transaction-core/src/main/java/com/volvocars/ecom/paymentservice/transaction/TransactionMapper.java
+          - cds-paymentservice-transaction-shared/src/main/java/com/volvocars/ecom/paymentservice/transaction/exception/TransactionStageValidationException.java
+          - cds-paymentservice-transaction-shared/src/main/java/com/volvocars/ecom/paymentservice/transaction/exception/TransactionNotFoundException.java
+          - cds-paymentservice-transaction-shared/src/main/java/com/volvocars/ecom/paymentservice/transaction/exception/TransactionException.java
+          - cds-paymentservice-transaction-shared/src/main/java/com/volvocars/ecom/paymentservice/common/exception/PaymentServiceException.java
+          - cds-paymentservice-transaction-api/src/main/java/com/volvocars/ecom/paymentservice/transaction/api/common/TransactionControllerAdvice.java
+          - cds-paymentservice-transaction-api/src/main/java/com/volvocars/ecom/paymentservice/transaction/api/common/ErrorResponseHandler.java
+          - cds-paymentservice-transaction-api/src/main/resources/application.yml
+          - pom.xml
+          - cds-paymentservice-transaction-test/src/test/java/com/volvocars/ecom/paymentservice/transaction/api/paymentsession/v1/CaptureTransactionControllerTest.java
+          - cds-paymentservice-transaction-core/src/test/java/com/volvocars/ecom/paymentservice/transaction/capture/CaptureTransactionServiceTest.java
+        affects: all local trace records
+        policy: re-evaluate on changes; conservative whole-module invalidation when closure unknown
+      - package: cds-paymentservice shared/core/feign/properties
+        declared_version: 2.0.32
+        affects: session lookup, inherited schema, client policy and expiry mapping
+      - package: cds-paymentservice-psp-integration-client
+        declared_version: 1.3.257
+        affects: capture-call route, body, defaults, decoding and headers
+      - package: com-volvocars-ecom shared/web and parent
+        declared_version: 4.0.37
+        affects: security, response envelope, framework/client defaults
+      - configuration: ps-config, PSP_INTEGRATION_URL, Mongo connection and expiry settings
+        affects: routing, storage placement, map-session and security applicability

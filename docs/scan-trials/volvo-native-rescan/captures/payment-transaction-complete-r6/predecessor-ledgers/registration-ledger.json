@@ -1,0 +1,540 @@
+{
+  "explicitRestEntries": [
+    {
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-7/revised/01287b29df4367d70118",
+      "method": "POST",
+      "path": "/v1/payment-sessions/{paymentSessionId}/transaction-capture",
+      "implementation": "volvo/cds-paymentservice-transaction/020d2fabb141/local-7/method/af48288be7d003f1cb3e",
+      "symbol": "com.volvocars.ecom.paymentservice.transaction.api.paymentsession.v1.impl.PaymentSessionControllerImpl#captureTransaction(String,TransactionCapturePayload)",
+      "status": "source_review_complete",
+      "runtimeStatus": "external_or_generated_boundaries_remain"
+    },
+    {
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-7/revised/a5909ccb608b86850966",
+      "method": "POST",
+      "path": "/v1/payment-sessions/{paymentSessionId}/retry",
+      "implementation": "volvo/cds-paymentservice-transaction/020d2fabb141/local-7/method/af48288be7d003f1cb3e",
+      "symbol": "com.volvocars.ecom.paymentservice.transaction.api.paymentsession.v1.impl.PaymentSessionControllerImpl#captureTransaction(String,TransactionCapturePayload)",
+      "status": "source_review_complete",
+      "runtimeStatus": "external_or_generated_boundaries_remain"
+    },
+    {
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-7/revised/e7ee10f2914d3cfaa8d5",
+      "method": "POST",
+      "path": "/v1/payment-sessions/{paymentSessionId}/resubmit",
+      "implementation": "volvo/cds-paymentservice-transaction/020d2fabb141/local-7/method/af48288be7d003f1cb3e",
+      "symbol": "com.volvocars.ecom.paymentservice.transaction.api.paymentsession.v1.impl.PaymentSessionControllerImpl#captureTransaction(String,TransactionCapturePayload)",
+      "status": "source_review_complete",
+      "runtimeStatus": "external_or_generated_boundaries_remain"
+    },
+    {
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-7/revised/4450a3e42a604c8a31d2",
+      "method": "GET",
+      "path": "/v1/payment-sessions/{paymentSessionId}",
+      "implementation": "volvo/cds-paymentservice-transaction/020d2fabb141/local-7/method/af48288be7d003f1cb3e",
+      "symbol": "com.volvocars.ecom.paymentservice.transaction.api.paymentsession.v1.impl.PaymentSessionControllerImpl#captureTransaction(String,TransactionCapturePayload)",
+      "status": "source_review_complete",
+      "runtimeStatus": "external_or_generated_boundaries_remain"
+    },
+    {
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-7/revised/d2ee92c1b54666ee220d",
+      "method": "POST",
+      "path": "/v1/payment-sessions",
+      "implementation": "volvo/cds-paymentservice-transaction/020d2fabb141/local-7/method/af48288be7d003f1cb3e",
+      "symbol": "com.volvocars.ecom.paymentservice.transaction.api.paymentsession.v1.impl.PaymentSessionControllerImpl#captureTransaction(String,TransactionCapturePayload)",
+      "status": "source_review_complete",
+      "runtimeStatus": "external_or_generated_boundaries_remain"
+    },
+    {
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-7/revised/5d18126d3346ff204b49",
+      "method": "POST",
+      "path": "/v1/payment-sessions/charge",
+      "implementation": "volvo/cds-paymentservice-transaction/020d2fabb141/local-7/method/af48288be7d003f1cb3e",
+      "symbol": "com.volvocars.ecom.paymentservice.transaction.api.paymentsession.v1.impl.PaymentSessionControllerImpl#captureTransaction(String,TransactionCapturePayload)",
+      "status": "source_review_complete",
+      "runtimeStatus": "external_or_generated_boundaries_remain"
+    },
+    {
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-7/revised/c3175c9f90a92bab08d8",
+      "method": "POST",
+      "path": "/v1/payment-sessions/{paymentSessionId}/transaction-refund",
+      "implementation": "volvo/cds-paymentservice-transaction/020d2fabb141/local-7/method/c1e4e63a13ed070fd39c",
+      "symbol": "com.volvocars.ecom.paymentservice.transaction.api.refund.v1.impl.RefundControllerImpl#refundPaymentSession(String,RefundPayload)",
+      "status": "source_review_complete",
+      "runtimeStatus": "external_or_generated_boundaries_remain"
+    },
+    {
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-7/revised/9fcaf70a30c31627bf04",
+      "method": "POST",
+      "path": "/v1/payment-sessions/{paymentSessionId}/psp/{psp}/transaction-create",
+      "implementation": "volvo/cds-paymentservice-transaction/020d2fabb141/local-7/method/0d6eb601a908589c74b9",
+      "symbol": "com.volvocars.ecom.paymentservice.transaction.api.transaction.v1.impl.TransactionControllerImpl#create(String,Psp,CreateTransactionPayload)",
+      "status": "source_review_complete",
+      "runtimeStatus": "external_or_generated_boundaries_remain"
+    },
+    {
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-7/revised/36d7d84e2c11015223c8",
+      "method": "GET",
+      "path": "/v1/configurations/swagger-config",
+      "implementation": "volvo/cds-paymentservice-transaction/020d2fabb141/local-7/method/94e2876dbc62eb296cc4",
+      "symbol": "com.volvocars.ecom.paymentservice.transaction.api.configuration.v1.impl.SwaggerUIControllerImpl#getSwaggerConfig()",
+      "status": "source_review_complete",
+      "runtimeStatus": "external_or_generated_boundaries_remain"
+    },
+    {
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-7/revised/08083b6894438a0b29c8",
+      "method": "GET",
+      "path": "/v1/version",
+      "implementation": "volvo/cds-paymentservice-transaction/020d2fabb141/local-7/method/997a0b847efe9430da80",
+      "symbol": "com.volvocars.ecom.paymentservice.transaction.api.version.v1.impl.VersionControllerImpl#getVersion()",
+      "status": "source_review_complete",
+      "runtimeStatus": "external_or_generated_boundaries_remain"
+    },
+    {
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-7/revised/0341347708db594dcf90",
+      "method": "GET",
+      "path": "/v2/version",
+      "implementation": "volvo/cds-paymentservice-transaction/020d2fabb141/local-7/method/6a8ca59d9bbe29f401d0",
+      "symbol": "com.volvocars.ecom.paymentservice.transaction.api.version.v2.impl.VersionControllerImpl#getVersion()",
+      "status": "source_review_complete",
+      "runtimeStatus": "external_or_generated_boundaries_remain"
+    }
+  ],
+  "processEntries": [
+    {
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/local-7/entry/process-main",
+      "trigger": "process",
+      "method": "PROCESS",
+      "path": "com.volvocars.ecom.paymentservice.transaction.api.App#main(String[])",
+      "implementation": "volvo/cds-paymentservice-transaction/020d2fabb141/local-7/method/94e4cabe18d25a24c986",
+      "symbol": "com.volvocars.ecom.paymentservice.transaction.api.App#main(String[])",
+      "status": "source_review_complete",
+      "runtimeStatus": "external_or_generated_boundaries_remain"
+    }
+  ],
+  "sourceFrameworkRegistrations": [
+    {
+      "path": "cds-paymentservice-transaction-api/src/main/java/com/volvocars/ecom/paymentservice/transaction/api/common/TransactionControllerAdvice.java",
+      "line": 49,
+      "declaration": "@ExceptionHandler(PaymentServiceException.class)",
+      "implementations": [
+        "volvo/cds-paymentservice-transaction/020d2fabb141/local-7/method/607f4230d06c53dad3d2"
+      ],
+      "association": "source_declared_framework_registration",
+      "activation": "conditional_on_imported_framework_configuration_not_an_eager_main_call"
+    },
+    {
+      "path": "cds-paymentservice-transaction-api/src/main/java/com/volvocars/ecom/paymentservice/transaction/api/common/TransactionControllerAdvice.java",
+      "line": 60,
+      "declaration": "@ExceptionHandler({InputValidationException.class})",
+      "implementations": [
+        "volvo/cds-paymentservice-transaction/020d2fabb141/local-7/method/ee9ea8ce0c626c8b7194"
+      ],
+      "association": "source_declared_framework_registration",
+      "activation": "conditional_on_imported_framework_configuration_not_an_eager_main_call"
+    },
+    {
+      "path": "cds-paymentservice-transaction-api/src/main/java/com/volvocars/ecom/paymentservice/transaction/api/common/TransactionControllerAdvice.java",
+      "line": 67,
+      "declaration": "@ExceptionHandler(MethodArgumentNotValidException.class)",
+      "implementations": [
+        "volvo/cds-paymentservice-transaction/020d2fabb141/local-7/method/98e89381ba88eb9dc0be"
+      ],
+      "association": "source_declared_framework_registration",
+      "activation": "conditional_on_imported_framework_configuration_not_an_eager_main_call"
+    },
+    {
+      "path": "cds-paymentservice-transaction-api/src/main/java/com/volvocars/ecom/paymentservice/transaction/api/common/TransactionControllerAdvice.java",
+      "line": 74,
+      "declaration": "@ExceptionHandler({HttpMessageNotReadableException.class})",
+      "implementations": [
+        "volvo/cds-paymentservice-transaction/020d2fabb141/local-7/method/9bbaa1d56815ae6cb66a"
+      ],
+      "association": "source_declared_framework_registration",
+      "activation": "conditional_on_imported_framework_configuration_not_an_eager_main_call"
+    },
+    {
+      "path": "cds-paymentservice-transaction-api/src/main/java/com/volvocars/ecom/paymentservice/transaction/api/common/TransactionControllerAdvice.java",
+      "line": 81,
+      "declaration": "@ExceptionHandler({ConstraintViolationException.class})",
+      "implementations": [
+        "volvo/cds-paymentservice-transaction/020d2fabb141/local-7/method/c7d284725c7e90907114"
+      ],
+      "association": "source_declared_framework_registration",
+      "activation": "conditional_on_imported_framework_configuration_not_an_eager_main_call"
+    },
+    {
+      "path": "cds-paymentservice-transaction-api/src/main/java/com/volvocars/ecom/paymentservice/transaction/api/common/TransactionControllerAdvice.java",
+      "line": 88,
+      "declaration": "@ExceptionHandler({IllegalArgumentException.class})",
+      "implementations": [
+        "volvo/cds-paymentservice-transaction/020d2fabb141/local-7/method/b137bd5d642f1bab03b5"
+      ],
+      "association": "source_declared_framework_registration",
+      "activation": "conditional_on_imported_framework_configuration_not_an_eager_main_call"
+    },
+    {
+      "path": "cds-paymentservice-transaction-api/src/main/java/com/volvocars/ecom/paymentservice/transaction/api/common/TransactionControllerAdvice.java",
+      "line": 95,
+      "declaration": "@ExceptionHandler({MethodArgumentTypeMismatchException.class})",
+      "implementations": [
+        "volvo/cds-paymentservice-transaction/020d2fabb141/local-7/method/87cdebd92296d7705bea"
+      ],
+      "association": "source_declared_framework_registration",
+      "activation": "conditional_on_imported_framework_configuration_not_an_eager_main_call"
+    },
+    {
+      "path": "cds-paymentservice-transaction-api/src/main/java/com/volvocars/ecom/paymentservice/transaction/api/common/TransactionControllerAdvice.java",
+      "line": 102,
+      "declaration": "@ExceptionHandler({NoHandlerFoundException.class})",
+      "implementations": [
+        "volvo/cds-paymentservice-transaction/020d2fabb141/local-7/method/95f678292abaa5d63ec0"
+      ],
+      "association": "source_declared_framework_registration",
+      "activation": "conditional_on_imported_framework_configuration_not_an_eager_main_call"
+    },
+    {
+      "path": "cds-paymentservice-transaction-api/src/main/java/com/volvocars/ecom/paymentservice/transaction/api/common/TransactionControllerAdvice.java",
+      "line": 109,
+      "declaration": "@ExceptionHandler({NoResourceFoundException.class})",
+      "implementations": [
+        "volvo/cds-paymentservice-transaction/020d2fabb141/local-7/method/945471c5e45aec868001"
+      ],
+      "association": "source_declared_framework_registration",
+      "activation": "conditional_on_imported_framework_configuration_not_an_eager_main_call"
+    },
+    {
+      "path": "cds-paymentservice-transaction-api/src/main/java/com/volvocars/ecom/paymentservice/transaction/api/common/TransactionControllerAdvice.java",
+      "line": 116,
+      "declaration": "@ExceptionHandler({AccessDeniedException.class})",
+      "implementations": [
+        "volvo/cds-paymentservice-transaction/020d2fabb141/local-7/method/a99283a952fe4b84ecd9"
+      ],
+      "association": "source_declared_framework_registration",
+      "activation": "conditional_on_imported_framework_configuration_not_an_eager_main_call"
+    },
+    {
+      "path": "cds-paymentservice-transaction-api/src/main/java/com/volvocars/ecom/paymentservice/transaction/api/common/TransactionControllerAdvice.java",
+      "line": 122,
+      "declaration": "@ExceptionHandler({Exception.class})",
+      "implementations": [
+        "volvo/cds-paymentservice-transaction/020d2fabb141/local-7/method/73e9901dc45670930246"
+      ],
+      "association": "source_declared_framework_registration",
+      "activation": "conditional_on_imported_framework_configuration_not_an_eager_main_call"
+    },
+    {
+      "path": "cds-paymentservice-transaction-api/src/main/java/com/volvocars/ecom/paymentservice/transaction/api/configuration/v1/SwaggerUIController.java",
+      "line": 23,
+      "declaration": "@GetMapping(path = \"/swagger-config\", produces = MediaType.APPLICATION_JSON_VALUE)",
+      "implementations": [
+        "volvo/cds-paymentservice-transaction/020d2fabb141/local-7/method/d61e5265d5287e21e6fd"
+      ],
+      "association": "source_declared_framework_registration",
+      "activation": "conditional_on_imported_framework_configuration_not_an_eager_main_call"
+    },
+    {
+      "path": "cds-paymentservice-transaction-api/src/main/java/com/volvocars/ecom/paymentservice/transaction/api/configuration/v1/impl/SwaggerUIControllerImpl.java",
+      "line": 12,
+      "declaration": "@RestController(value = \"Swaqgger Configuration API v1\")",
+      "implementations": [],
+      "association": "source_declared_framework_registration",
+      "activation": "conditional_on_imported_framework_configuration_not_an_eager_main_call"
+    },
+    {
+      "path": "cds-paymentservice-transaction-api/src/main/java/com/volvocars/ecom/paymentservice/transaction/api/configuration/v1/impl/SwaggerUIControllerImpl.java",
+      "line": 13,
+      "declaration": "@RequestMapping(path = \"/v1/configurations\")",
+      "implementations": [],
+      "association": "source_declared_framework_registration",
+      "activation": "conditional_on_imported_framework_configuration_not_an_eager_main_call"
+    },
+    {
+      "path": "cds-paymentservice-transaction-api/src/main/java/com/volvocars/ecom/paymentservice/transaction/api/paymentsession/v1/PaymentSessionController.java",
+      "line": 33,
+      "declaration": "@PostMapping(",
+      "implementations": [
+        "volvo/cds-paymentservice-transaction/020d2fabb141/local-7/method/99c32d1647decae0e14c"
+      ],
+      "association": "source_declared_framework_registration",
+      "activation": "conditional_on_imported_framework_configuration_not_an_eager_main_call"
+    },
+    {
+      "path": "cds-paymentservice-transaction-api/src/main/java/com/volvocars/ecom/paymentservice/transaction/api/paymentsession/v1/PaymentSessionController.java",
+      "line": 53,
+      "declaration": "@PostMapping(value = \"/{paymentSessionId}/resubmit\", produces = MediaType.APPLICATION_JSON_VALUE)",
+      "implementations": [
+        "volvo/cds-paymentservice-transaction/020d2fabb141/local-7/method/88dac29b80eb7bd9b00d"
+      ],
+      "association": "source_declared_framework_registration",
+      "activation": "conditional_on_imported_framework_configuration_not_an_eager_main_call"
+    },
+    {
+      "path": "cds-paymentservice-transaction-api/src/main/java/com/volvocars/ecom/paymentservice/transaction/api/paymentsession/v1/PaymentSessionController.java",
+      "line": 66,
+      "declaration": "@PostMapping(",
+      "implementations": [
+        "volvo/cds-paymentservice-transaction/020d2fabb141/local-7/method/7f360357b92a4e2b5c43"
+      ],
+      "association": "source_declared_framework_registration",
+      "activation": "conditional_on_imported_framework_configuration_not_an_eager_main_call"
+    },
+    {
+      "path": "cds-paymentservice-transaction-api/src/main/java/com/volvocars/ecom/paymentservice/transaction/api/paymentsession/v1/PaymentSessionController.java",
+      "line": 84,
+      "declaration": "@GetMapping(path = \"/{paymentSessionId}\", produces = MediaType.APPLICATION_JSON_VALUE)",
+      "implementations": [
+        "volvo/cds-paymentservice-transaction/020d2fabb141/local-7/method/f5493234ddfc5bf8dced"
+      ],
+      "association": "source_declared_framework_registration",
+      "activation": "conditional_on_imported_framework_configuration_not_an_eager_main_call"
+    },
+    {
+      "path": "cds-paymentservice-transaction-api/src/main/java/com/volvocars/ecom/paymentservice/transaction/api/paymentsession/v1/PaymentSessionController.java",
+      "line": 97,
+      "declaration": "@PostMapping(",
+      "implementations": [
+        "volvo/cds-paymentservice-transaction/020d2fabb141/local-7/method/cd850226e5642c6e3800"
+      ],
+      "association": "source_declared_framework_registration",
+      "activation": "conditional_on_imported_framework_configuration_not_an_eager_main_call"
+    },
+    {
+      "path": "cds-paymentservice-transaction-api/src/main/java/com/volvocars/ecom/paymentservice/transaction/api/paymentsession/v1/PaymentSessionController.java",
+      "line": 113,
+      "declaration": "@PostMapping(",
+      "implementations": [
+        "volvo/cds-paymentservice-transaction/020d2fabb141/local-7/method/cae00bd3904c8b23f66b"
+      ],
+      "association": "source_declared_framework_registration",
+      "activation": "conditional_on_imported_framework_configuration_not_an_eager_main_call"
+    },
+    {
+      "path": "cds-paymentservice-transaction-api/src/main/java/com/volvocars/ecom/paymentservice/transaction/api/paymentsession/v1/impl/PaymentSessionControllerImpl.java",
+      "line": 36,
+      "declaration": "@RestController",
+      "implementations": [],
+      "association": "source_declared_framework_registration",
+      "activation": "conditional_on_imported_framework_configuration_not_an_eager_main_call"
+    },
+    {
+      "path": "cds-paymentservice-transaction-api/src/main/java/com/volvocars/ecom/paymentservice/transaction/api/paymentsession/v1/impl/PaymentSessionControllerImpl.java",
+      "line": 37,
+      "declaration": "@RequestMapping(\"/v1/payment-sessions\")",
+      "implementations": [],
+      "association": "source_declared_framework_registration",
+      "activation": "conditional_on_imported_framework_configuration_not_an_eager_main_call"
+    },
+    {
+      "path": "cds-paymentservice-transaction-api/src/main/java/com/volvocars/ecom/paymentservice/transaction/api/refund/v1/RefundController.java",
+      "line": 23,
+      "declaration": "@PostMapping(",
+      "implementations": [
+        "volvo/cds-paymentservice-transaction/020d2fabb141/local-7/method/6fe60cc6f6e30c8b56a5"
+      ],
+      "association": "source_declared_framework_registration",
+      "activation": "conditional_on_imported_framework_configuration_not_an_eager_main_call"
+    },
+    {
+      "path": "cds-paymentservice-transaction-api/src/main/java/com/volvocars/ecom/paymentservice/transaction/api/refund/v1/impl/RefundControllerImpl.java",
+      "line": 15,
+      "declaration": "@RestController",
+      "implementations": [],
+      "association": "source_declared_framework_registration",
+      "activation": "conditional_on_imported_framework_configuration_not_an_eager_main_call"
+    },
+    {
+      "path": "cds-paymentservice-transaction-api/src/main/java/com/volvocars/ecom/paymentservice/transaction/api/refund/v1/impl/RefundControllerImpl.java",
+      "line": 16,
+      "declaration": "@RequestMapping(\"/v1/payment-sessions\")",
+      "implementations": [],
+      "association": "source_declared_framework_registration",
+      "activation": "conditional_on_imported_framework_configuration_not_an_eager_main_call"
+    },
+    {
+      "path": "cds-paymentservice-transaction-api/src/main/java/com/volvocars/ecom/paymentservice/transaction/api/transaction/v1/TransactionController.java",
+      "line": 26,
+      "declaration": "@PostMapping(",
+      "implementations": [
+        "volvo/cds-paymentservice-transaction/020d2fabb141/local-7/method/a1c94c1e912f7d838842"
+      ],
+      "association": "source_declared_framework_registration",
+      "activation": "conditional_on_imported_framework_configuration_not_an_eager_main_call"
+    },
+    {
+      "path": "cds-paymentservice-transaction-api/src/main/java/com/volvocars/ecom/paymentservice/transaction/api/transaction/v1/impl/TransactionControllerImpl.java",
+      "line": 20,
+      "declaration": "@RestController",
+      "implementations": [],
+      "association": "source_declared_framework_registration",
+      "activation": "conditional_on_imported_framework_configuration_not_an_eager_main_call"
+    },
+    {
+      "path": "cds-paymentservice-transaction-api/src/main/java/com/volvocars/ecom/paymentservice/transaction/api/transaction/v1/impl/TransactionControllerImpl.java",
+      "line": 21,
+      "declaration": "@RequestMapping(\"/v1/payment-sessions\")",
+      "implementations": [],
+      "association": "source_declared_framework_registration",
+      "activation": "conditional_on_imported_framework_configuration_not_an_eager_main_call"
+    },
+    {
+      "path": "cds-paymentservice-transaction-api/src/main/java/com/volvocars/ecom/paymentservice/transaction/api/version/v1/VersionController.java",
+      "line": 15,
+      "declaration": "@GetMapping(produces = AppInfoV1.MEDIA_TYPE)",
+      "implementations": [
+        "volvo/cds-paymentservice-transaction/020d2fabb141/local-7/method/8f8bcdf472d54a866985"
+      ],
+      "association": "source_declared_framework_registration",
+      "activation": "conditional_on_imported_framework_configuration_not_an_eager_main_call"
+    },
+    {
+      "path": "cds-paymentservice-transaction-api/src/main/java/com/volvocars/ecom/paymentservice/transaction/api/version/v1/impl/VersionControllerImpl.java",
+      "line": 13,
+      "declaration": "@RestController",
+      "implementations": [],
+      "association": "source_declared_framework_registration",
+      "activation": "conditional_on_imported_framework_configuration_not_an_eager_main_call"
+    },
+    {
+      "path": "cds-paymentservice-transaction-api/src/main/java/com/volvocars/ecom/paymentservice/transaction/api/version/v1/impl/VersionControllerImpl.java",
+      "line": 14,
+      "declaration": "@RequestMapping(\"/v1/version\")",
+      "implementations": [],
+      "association": "source_declared_framework_registration",
+      "activation": "conditional_on_imported_framework_configuration_not_an_eager_main_call"
+    },
+    {
+      "path": "cds-paymentservice-transaction-api/src/main/java/com/volvocars/ecom/paymentservice/transaction/api/version/v2/VersionController.java",
+      "line": 16,
+      "declaration": "@GetMapping(produces = AppInfoV2.MEDIA_TYPE)",
+      "implementations": [
+        "volvo/cds-paymentservice-transaction/020d2fabb141/local-7/method/09ad84e57b9fb462d128"
+      ],
+      "association": "source_declared_framework_registration",
+      "activation": "conditional_on_imported_framework_configuration_not_an_eager_main_call"
+    },
+    {
+      "path": "cds-paymentservice-transaction-api/src/main/java/com/volvocars/ecom/paymentservice/transaction/api/version/v2/impl/VersionControllerImpl.java",
+      "line": 13,
+      "declaration": "@RestController(value = \"versionControllerV2\")",
+      "implementations": [],
+      "association": "source_declared_framework_registration",
+      "activation": "conditional_on_imported_framework_configuration_not_an_eager_main_call"
+    },
+    {
+      "path": "cds-paymentservice-transaction-api/src/main/java/com/volvocars/ecom/paymentservice/transaction/api/version/v2/impl/VersionControllerImpl.java",
+      "line": 14,
+      "declaration": "@RequestMapping(path = \"/v2/version\")",
+      "implementations": [],
+      "association": "source_declared_framework_registration",
+      "activation": "conditional_on_imported_framework_configuration_not_an_eager_main_call"
+    },
+    {
+      "path": "cds-paymentservice-transaction-core/src/main/java/com/volvocars/ecom/paymentservice/configuration/MongoConfiguration.java",
+      "line": 7,
+      "declaration": "@Configuration",
+      "implementations": [],
+      "association": "source_declared_framework_registration",
+      "activation": "conditional_on_imported_framework_configuration_not_an_eager_main_call"
+    },
+    {
+      "path": "cds-paymentservice-transaction-core/src/main/java/com/volvocars/ecom/paymentservice/configuration/PaymentSessionExpiryConfiguration.java",
+      "line": 12,
+      "declaration": "@Configuration",
+      "implementations": [],
+      "association": "source_declared_framework_registration",
+      "activation": "conditional_on_imported_framework_configuration_not_an_eager_main_call"
+    },
+    {
+      "path": "cds-paymentservice-transaction-core/src/main/java/com/volvocars/ecom/paymentservice/configuration/PspIntegrationClientConfig.java",
+      "line": 8,
+      "declaration": "@ConfigurationProperties(\"psp-integration-client\")",
+      "implementations": [],
+      "association": "source_declared_framework_registration",
+      "activation": "conditional_on_imported_framework_configuration_not_an_eager_main_call"
+    },
+    {
+      "path": "cds-paymentservice-transaction-core/src/main/java/com/volvocars/ecom/paymentservice/configuration/PspIntegrationClientConfiguration.java",
+      "line": 7,
+      "declaration": "@Configuration",
+      "implementations": [],
+      "association": "source_declared_framework_registration",
+      "activation": "conditional_on_imported_framework_configuration_not_an_eager_main_call"
+    },
+    {
+      "path": "cds-paymentservice-transaction-core/src/main/java/com/volvocars/ecom/paymentservice/configuration/PspIntegrationClientConfiguration.java",
+      "line": 10,
+      "declaration": "@Bean",
+      "implementations": [
+        "volvo/cds-paymentservice-transaction/020d2fabb141/local-7/method/079a6a208ca6c580e838"
+      ],
+      "association": "source_declared_framework_registration",
+      "activation": "conditional_on_imported_framework_configuration_not_an_eager_main_call"
+    },
+    {
+      "path": "cds-paymentservice-transaction-core/src/main/java/com/volvocars/ecom/paymentservice/configuration/SchedulerClientConfig.java",
+      "line": 8,
+      "declaration": "@ConfigurationProperties(\"scheduler-client\")",
+      "implementations": [],
+      "association": "source_declared_framework_registration",
+      "activation": "conditional_on_imported_framework_configuration_not_an_eager_main_call"
+    },
+    {
+      "path": "cds-paymentservice-transaction-core/src/main/java/com/volvocars/ecom/paymentservice/configuration/SchedulerClientConfiguration.java",
+      "line": 7,
+      "declaration": "@Configuration",
+      "implementations": [],
+      "association": "source_declared_framework_registration",
+      "activation": "conditional_on_imported_framework_configuration_not_an_eager_main_call"
+    },
+    {
+      "path": "cds-paymentservice-transaction-core/src/main/java/com/volvocars/ecom/paymentservice/configuration/SchedulerClientConfiguration.java",
+      "line": 10,
+      "declaration": "@Bean",
+      "implementations": [
+        "volvo/cds-paymentservice-transaction/020d2fabb141/local-7/method/9472bf7e8dc334fd1126"
+      ],
+      "association": "source_declared_framework_registration",
+      "activation": "conditional_on_imported_framework_configuration_not_an_eager_main_call"
+    },
+    {
+      "path": "cds-paymentservice-transaction-core/src/main/java/com/volvocars/ecom/paymentservice/messaging/KafkaProducerConfig.java",
+      "line": 6,
+      "declaration": "@ConfigurationProperties(prefix = \"kafka-topics\")",
+      "implementations": [],
+      "association": "source_declared_framework_registration",
+      "activation": "conditional_on_imported_framework_configuration_not_an_eager_main_call"
+    }
+  ],
+  "localConsumerRegistrations": [],
+  "localScheduledJobs": [],
+  "frameworkFamilies": [
+    {
+      "kind": "framework_registration_family",
+      "name": "Actuator health/prometheus and health probes",
+      "registration": "management.endpoints.web.exposure.include health,prometheus; health.probes.enabled true; management.server.port 8779",
+      "status": "excluded",
+      "reason": "Imported actuator registrations and exact effective default paths/conditions are not expanded; no source-local controller exists for them.",
+      "evidence": [
+        "volvo/cds-paymentservice-transaction/020d2fabb141/e/240b4aade118bf32",
+        "volvo/cds-paymentservice-transaction/020d2fabb141/e/db8eedd4fc76cd66"
+      ],
+      "gap": "volvo/cds-paymentservice-transaction/020d2fabb141/local-7/revised/742d23b3fcfdfa6918a5",
+      "coverage": "volvo/cds-paymentservice-transaction/020d2fabb141/local-7/revised/edcd6d935a690affa4ed"
+    },
+    {
+      "kind": "framework_registration_family",
+      "name": "Springdoc UI and API docs",
+      "registration": "swagger-ui.path /swagger-ui.html and enabled true; configured docs/config URL expressions; production profile may disable",
+      "status": "excluded",
+      "reason": "Imported framework registrations and effective profile/route expansion are not analysed; source config registration family retained.",
+      "evidence": [
+        "volvo/cds-paymentservice-transaction/020d2fabb141/e/8ae6025fd8893f55",
+        "volvo/cds-paymentservice-transaction/020d2fabb141/e/38384501ac4061db"
+      ],
+      "gap": "volvo/cds-paymentservice-transaction/020d2fabb141/local-7/revised/25696bcde297826313f4",
+      "coverage": "volvo/cds-paymentservice-transaction/020d2fabb141/local-7/revised/028762fb3fa39d7c3e3f"
+    }
+  ],
+  "sourceLibraryExclusion": "client module source is fully extracted but is not assigned to API execution merely because it shares this repository"
+}

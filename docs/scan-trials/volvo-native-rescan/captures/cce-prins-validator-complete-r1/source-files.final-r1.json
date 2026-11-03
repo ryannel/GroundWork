@@ -1,0 +1,339 @@
+{
+  "repo": "volvo-cars/cce-prins-validator",
+  "commit": "dc68082c577756ce31ea30d9b5bbc5e60a2f9a7d",
+  "files": [
+    {
+      "path": ".gitignore",
+      "mode": "100644",
+      "gitType": "blob",
+      "blob": "712662e910823e6439e968ef95eaaf3a211f839d",
+      "bytes": 517,
+      "lines": 27,
+      "role": "configuration_support"
+    },
+    {
+      "path": ".secrets.example",
+      "mode": "100644",
+      "gitType": "blob",
+      "blob": "f460bfcc25d435743b22c3520ee46399aac4e951",
+      "bytes": 289,
+      "lines": 5,
+      "role": "configuration_support"
+    },
+    {
+      "path": "Makefile",
+      "mode": "100644",
+      "gitType": "blob",
+      "blob": "d593f3afc65b4477ea171223d8eeda5fef74b935",
+      "bytes": 104,
+      "lines": 7,
+      "role": "configuration_support"
+    },
+    {
+      "path": "README.md",
+      "mode": "100644",
+      "gitType": "blob",
+      "blob": "0ed073285dc21f1e6a09dcdcdab6bd7af9e64f28",
+      "bytes": 739,
+      "lines": 27,
+      "role": "configuration_support"
+    },
+    {
+      "path": "cmd/cce-prins-validator/main.go",
+      "mode": "100644",
+      "gitType": "blob",
+      "blob": "46ba4c496a7f911f5b1c1dbf0b8f77754efdc225",
+      "bytes": 124,
+      "lines": 8,
+      "role": "production_go"
+    },
+    {
+      "path": "go.mod",
+      "mode": "100644",
+      "gitType": "blob",
+      "blob": "ee7cdffd1c245ddb4eb192deaed6a7ad7e4e18d8",
+      "bytes": 795,
+      "lines": 26,
+      "role": "configuration_support"
+    },
+    {
+      "path": "go.sum",
+      "mode": "100644",
+      "gitType": "blob",
+      "blob": "aa92cb8c80df8a42e679a78c8a174664ada1a24e",
+      "bytes": 4787,
+      "lines": 56,
+      "role": "configuration_support"
+    },
+    {
+      "path": "internal/app/app.go",
+      "mode": "100644",
+      "gitType": "blob",
+      "blob": "0268d3d7e161d4882c90630af6cbc18f328847c5",
+      "bytes": 1827,
+      "lines": 74,
+      "role": "production_go"
+    },
+    {
+      "path": "internal/app/client.go",
+      "mode": "100644",
+      "gitType": "blob",
+      "blob": "6cd925f8b33d1c54730c03d7035a6b1ef1008e23",
+      "bytes": 379,
+      "lines": 21,
+      "role": "production_go"
+    },
+    {
+      "path": "internal/app/config.go",
+      "mode": "100644",
+      "gitType": "blob",
+      "blob": "5559072609b568710d933932900c9ad77718ab54",
+      "bytes": 1591,
+      "lines": 65,
+      "role": "production_go"
+    },
+    {
+      "path": "internal/domain/carconfiguration.go",
+      "mode": "100644",
+      "gitType": "blob",
+      "blob": "1d4ced736100b83d931f97167ea34bda7db364ba",
+      "bytes": 2208,
+      "lines": 99,
+      "role": "production_go"
+    },
+    {
+      "path": "internal/domain/carconfiguration_test.go",
+      "mode": "100644",
+      "gitType": "blob",
+      "blob": "f49a6e14495de499ebb30ce3d1aef1de5a3b6432",
+      "bytes": 4220,
+      "lines": 182,
+      "role": "test_go"
+    },
+    {
+      "path": "internal/domain/components.go",
+      "mode": "100644",
+      "gitType": "blob",
+      "blob": "6e5ad6e89ec162e9649066acd7901e362116b753",
+      "bytes": 267,
+      "lines": 16,
+      "role": "production_go"
+    },
+    {
+      "path": "internal/domain/components_test.go",
+      "mode": "100644",
+      "gitType": "blob",
+      "blob": "037cdf205b2056d44bc898aba93acd161ce587ad",
+      "bytes": 937,
+      "lines": 52,
+      "role": "test_go"
+    },
+    {
+      "path": "internal/domain/componentstovary.go",
+      "mode": "100644",
+      "gitType": "blob",
+      "blob": "e729cfbecef34e5d0816e23ee38a612ac8b5b7d7",
+      "bytes": 2633,
+      "lines": 110,
+      "role": "production_go"
+    },
+    {
+      "path": "internal/domain/componentstovary_test.go",
+      "mode": "100644",
+      "gitType": "blob",
+      "blob": "4cd55197bee7b353a38b1c33b40170788ea7691e",
+      "bytes": 6569,
+      "lines": 306,
+      "role": "test_go"
+    },
+    {
+      "path": "internal/domain/contains.go",
+      "mode": "100644",
+      "gitType": "blob",
+      "blob": "bbcca4ec2eaeaacafc82378f8e4aec3acd412cbb",
+      "bytes": 140,
+      "lines": 10,
+      "role": "production_go"
+    },
+    {
+      "path": "internal/domain/groups.go",
+      "mode": "100644",
+      "gitType": "blob",
+      "blob": "7146165a7a07b6d89cfd177f1287a37ad81289fb",
+      "bytes": 1614,
+      "lines": 42,
+      "role": "production_go"
+    },
+    {
+      "path": "internal/domain/pno12.go",
+      "mode": "100644",
+      "gitType": "blob",
+      "blob": "a17038b6f7ee87474af23f1a30040563d538b170",
+      "bytes": 1858,
+      "lines": 79,
+      "role": "production_go"
+    },
+    {
+      "path": "internal/domain/policy.go",
+      "mode": "100644",
+      "gitType": "blob",
+      "blob": "4d3838ed4a7fb3b4d2fa42607cae95126bed89cf",
+      "bytes": 1000,
+      "lines": 46,
+      "role": "production_go"
+    },
+    {
+      "path": "internal/domain/policy_test.go",
+      "mode": "100644",
+      "gitType": "blob",
+      "blob": "b0de4d16aef86c12cf49661d40318e7f07cb65c4",
+      "bytes": 896,
+      "lines": 50,
+      "role": "test_go"
+    },
+    {
+      "path": "internal/domain/prins.go",
+      "mode": "100644",
+      "gitType": "blob",
+      "blob": "c6561049a17adc87905812a65cd31ae7305b70e4",
+      "bytes": 2982,
+      "lines": 143,
+      "role": "production_go"
+    },
+    {
+      "path": "internal/domain/prins_test.go",
+      "mode": "100644",
+      "gitType": "blob",
+      "blob": "61c211c431b0cf902acdddb26fde3c38a69af8e8",
+      "bytes": 9704,
+      "lines": 470,
+      "role": "test_go"
+    },
+    {
+      "path": "internal/domain/setofcars.go",
+      "mode": "100644",
+      "gitType": "blob",
+      "blob": "ef8d496c6dfb2fedbe0e0d8b86697ba3abc56add",
+      "bytes": 139,
+      "lines": 8,
+      "role": "production_go"
+    },
+    {
+      "path": "internal/gateway/client.go",
+      "mode": "100644",
+      "gitType": "blob",
+      "blob": "a674d5bec75a724e6ef100512a48528fffefe687",
+      "bytes": 2616,
+      "lines": 93,
+      "role": "production_go"
+    },
+    {
+      "path": "internal/gateway/client_test.go",
+      "mode": "100644",
+      "gitType": "blob",
+      "blob": "e47899fb52763f3a42c2417c2d469d4515e8fe2a",
+      "bytes": 2391,
+      "lines": 99,
+      "role": "test_go"
+    },
+    {
+      "path": "internal/gateway/filterservice/client.go",
+      "mode": "100644",
+      "gitType": "blob",
+      "blob": "358179cefef07be43ee644eba0e63673cc991c47",
+      "bytes": 1543,
+      "lines": 73,
+      "role": "production_go"
+    },
+    {
+      "path": "internal/gateway/optimizationfacade/client.go",
+      "mode": "100644",
+      "gitType": "blob",
+      "blob": "7676c1697c3a0c40c7416c616d8750cb8e30f08f",
+      "bytes": 4130,
+      "lines": 159,
+      "role": "production_go"
+    },
+    {
+      "path": "internal/gateway/optimizationfacade/componentprovider.go",
+      "mode": "100644",
+      "gitType": "blob",
+      "blob": "8ac522dc77110ee1ed0f7ab1eef88937c197a717",
+      "bytes": 1100,
+      "lines": 52,
+      "role": "production_go"
+    },
+    {
+      "path": "internal/gateway/optimizationfacade/configurationgenerator.go",
+      "mode": "100644",
+      "gitType": "blob",
+      "blob": "8fe81af1a27eb05c44622d73b6c21edf61c3b19f",
+      "bytes": 3715,
+      "lines": 137,
+      "role": "production_go"
+    },
+    {
+      "path": "internal/gateway/optimizationfacade/model.go",
+      "mode": "100644",
+      "gitType": "blob",
+      "blob": "d7e207296e4b4bfafe31f79f1c938a00cf57e6cd",
+      "bytes": 2452,
+      "lines": 82,
+      "role": "production_go"
+    },
+    {
+      "path": "internal/gateway/optimizationfacade/startconfigurationprovider.go",
+      "mode": "100644",
+      "gitType": "blob",
+      "blob": "04e9c68a06cf064158063d0263912bfef577adac",
+      "bytes": 902,
+      "lines": 36,
+      "role": "production_go"
+    },
+    {
+      "path": "internal/gateway/prins/client.go",
+      "mode": "100644",
+      "gitType": "blob",
+      "blob": "a304b9584525937577415b04540ebe54aaaa2183",
+      "bytes": 1573,
+      "lines": 67,
+      "role": "production_go"
+    },
+    {
+      "path": "internal/gateway/prins/configurationfetcher.go",
+      "mode": "100644",
+      "gitType": "blob",
+      "blob": "ea8e1aea99b838710eabf2e2cfee59044867a512",
+      "bytes": 1197,
+      "lines": 51,
+      "role": "production_go"
+    },
+    {
+      "path": "internal/gateway/prins/model.go",
+      "mode": "100644",
+      "gitType": "blob",
+      "blob": "1accb23e3b1680f0d05a800628b9f5c536a5590b",
+      "bytes": 687,
+      "lines": 39,
+      "role": "production_go"
+    },
+    {
+      "path": "internal/gateway/requestBuilder.go",
+      "mode": "100644",
+      "gitType": "blob",
+      "blob": "a90976588a278a552b26b92af0e309575ed20899",
+      "bytes": 1471,
+      "lines": 79,
+      "role": "production_go"
+    },
+    {
+      "path": "internal/service/rulesetvalidator.go",
+      "mode": "100644",
+      "gitType": "blob",
+      "blob": "b2fbd85c22c5bfc9ce6efeb6ae6e6012efc26794",
+      "bytes": 8969,
+      "lines": 304,
+      "role": "production_go"
+    }
+  ]
+}

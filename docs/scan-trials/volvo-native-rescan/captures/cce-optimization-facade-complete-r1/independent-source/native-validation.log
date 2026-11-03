@@ -1,0 +1,11 @@
+
+> groundwork@0.0.0 knowledge:validate
+> node --import ./tools/register.ts --conditions=react-server tools/validate-knowledge.ts reports/volvo-native-rescan/cce-optimization-facade-complete/complete-01/bundle.json --snapshot reports/volvo-native-rescan/cce-optimization-facade-complete/complete-01/snapshot.json --sources /Users/RNEL/.cache/groundwork/clones
+
+{
+  "snapshot": "475db9bd25a492383b7555b51089fd85825371fe9c2cfd55fde43bc6c6f048e2",
+  "bundles": 1,
+  "records": 338292,
+  "sourceRangesChecked": 40525,
+  "sourceVerification": "pinned_local_files"
+}

@@ -1,0 +1,3929 @@
+[
+  {
+    "type": "PopCat.Assortment.Core.FluentResultLogger",
+    "path": "src/PopCat.Assortment.Core/FluentResultLogger.cs",
+    "lines": [3, 28],
+    "header": "public class FluentResultLogger(ILogger logger) : IResultLogger\n",
+    "formals": [
+      {
+        "name": "logger",
+        "type": "ILogger",
+        "source": "ILogger logger"
+      }
+    ],
+    "methods": [
+      "assortment-6114c5d-complete-r5/method/959f9cab243e9596",
+      "assortment-6114c5d-complete-r5/method/043cd090f2b62a02",
+      "assortment-6114c5d-complete-r5/method/ef4377a3fa584aff",
+      "assortment-6114c5d-complete-r5/method/9026a6a9b54c5ba8",
+      "assortment-6114c5d-complete-r5/method/1e309f71709cd02b",
+      "assortment-6114c5d-complete-r5/method/a33c78c6268713e8"
+    ],
+    "claim": "assortment-6114c5d-complete-r5/primary-constructor/63ae0a685b1b9322"
+  },
+  {
+    "type": "PopCat.Assortment.Repository.BlobStorage.BlobStorageClient",
+    "path": "src/PopCat.Assortment.Repository/BlobStorage/BlobStorageClient.cs",
+    "lines": [23, 112],
+    "header": "public class BlobStorageClient(IOptions<BlobStorageSettings> settings, ICachingMetrics metrics) : IBlobStorageClient\n",
+    "formals": [
+      {
+        "name": "settings",
+        "type": "IOptions<BlobStorageSettings>",
+        "source": "IOptions<BlobStorageSettings> settings"
+      },
+      {
+        "name": "metrics",
+        "type": "ICachingMetrics",
+        "source": "ICachingMetrics metrics"
+      }
+    ],
+    "methods": [
+      "assortment-6114c5d-complete-r5/method/495ab1186d2a6be2",
+      "assortment-6114c5d-complete-r5/method/6b182ac0ff3e9df1",
+      "assortment-6114c5d-complete-r5/method/836f8cf9c0b907c2",
+      "assortment-6114c5d-complete-r5/method/1c8ecae86f0ee40a",
+      "assortment-6114c5d-complete-r5/method/6255f5fe364d6f23",
+      "assortment-6114c5d-complete-r5/method/1f5dcc7cc3cefa92",
+      "assortment-6114c5d-complete-r5/method/a0b12cc047426b28",
+      "assortment-6114c5d-complete-r5/method/d20e9225338788bf",
+      "assortment-6114c5d-complete-r5/method/0ead59983353b3bc",
+      "assortment-6114c5d-complete-r5/method/b7270f3efc0b0806",
+      "assortment-6114c5d-complete-r5/method/f9c3ddc0d1fef157",
+      "assortment-6114c5d-complete-r5/method/7d9cdae3e076b895",
+      "assortment-6114c5d-complete-r5/method/cbadbe7a87d4f962",
+      "assortment-6114c5d-complete-r5/method/97ecdd1b7ff8b52b",
+      "assortment-6114c5d-complete-r5/method/a261bae0ae26aa25",
+      "assortment-6114c5d-complete-r5/method/66d81493ef9ab830",
+      "assortment-6114c5d-complete-r5/method/3616666f388d4b65"
+    ],
+    "claim": "assortment-6114c5d-complete-r5/primary-constructor/d96fd4292b91574a"
+  },
+  {
+    "type": "PopCat.Assortment.Repository.BlobStorage.BlobProductFullDetailsKey",
+    "path": "src/PopCat.Assortment.Repository/BlobStorage/ProductFullDetailsRepository.cs",
+    "lines": [3, 7],
+    "header": "public record BlobProductFullDetailsKey(string Key) : IRepositoryKey\n",
+    "formals": [
+      {
+        "name": "Key",
+        "type": "string",
+        "source": "string Key"
+      }
+    ],
+    "methods": ["assortment-6114c5d-complete-r5/method/2f7c35644a899b44"],
+    "claim": "assortment-6114c5d-complete-r5/primary-constructor/e4ad8f0c6f59b4ca"
+  },
+  {
+    "type": "PopCat.Assortment.Repository.BlobStorage.ProductFullDetailsRepository",
+    "path": "src/PopCat.Assortment.Repository/BlobStorage/ProductFullDetailsRepository.cs",
+    "lines": [9, 12],
+    "header": "public class ProductFullDetailsRepository(IBlobStorageClient blobStorageClient)\n    : Repository<BlobProductFullDetailsKey>(blobStorageClient, BlobProductFullDetailsKey.ContainerName)\n",
+    "formals": [
+      {
+        "name": "blobStorageClient",
+        "type": "IBlobStorageClient",
+        "source": "IBlobStorageClient blobStorageClient"
+      }
+    ],
+    "methods": [],
+    "claim": "assortment-6114c5d-complete-r5/primary-constructor/87d20142311f03e1"
+  },
+  {
+    "type": "PopCat.Assortment.Repository.BlobStorage.VariantHistoryRepository",
+    "path": "src/PopCat.Assortment.Repository/BlobStorage/VariantHistoryRepository.cs",
+    "lines": [9, 66],
+    "header": "public sealed class VariantHistoryRepository(IBlobStorageClient blobStorageClient)\n",
+    "formals": [
+      {
+        "name": "blobStorageClient",
+        "type": "IBlobStorageClient",
+        "source": "IBlobStorageClient blobStorageClient"
+      }
+    ],
+    "methods": [
+      "assortment-6114c5d-complete-r5/method/bd72b46196cfec79",
+      "assortment-6114c5d-complete-r5/method/664f5a704573987a",
+      "assortment-6114c5d-complete-r5/method/2785488c34b3199d",
+      "assortment-6114c5d-complete-r5/method/ada858e60ea7b3ff",
+      "assortment-6114c5d-complete-r5/method/fdcbce00d320ee2e",
+      "assortment-6114c5d-complete-r5/method/d37cb9fec7b3a0ee",
+      "assortment-6114c5d-complete-r5/method/14d7e14024694bb9"
+    ],
+    "claim": "assortment-6114c5d-complete-r5/primary-constructor/dd2059d64594ecfa"
+  },
+  {
+    "type": "PopCat.Assortment.Repository.BlobStorage.GlobalDataKey",
+    "path": "src/PopCat.Assortment.Repository/BlobStorage/GlobalDataRepository.cs",
+    "lines": [3, 7],
+    "header": "public record GlobalDataKey(string type) : IRepositoryKey\n",
+    "formals": [
+      {
+        "name": "type",
+        "type": "string",
+        "source": "string type"
+      }
+    ],
+    "methods": ["assortment-6114c5d-complete-r5/method/3ec28d67e3a04a0e"],
+    "claim": "assortment-6114c5d-complete-r5/primary-constructor/d174eb5e7d34ccd0"
+  },
+  {
+    "type": "PopCat.Assortment.Repository.BlobStorage.GlobalDataRepository",
+    "path": "src/PopCat.Assortment.Repository/BlobStorage/GlobalDataRepository.cs",
+    "lines": [9, 12],
+    "header": "public class GlobalDataRepository(IBlobStorageClient blobStorageClient)\n    : Repository<GlobalDataKey>(blobStorageClient, GlobalDataKey._containerName)\n",
+    "formals": [
+      {
+        "name": "blobStorageClient",
+        "type": "IBlobStorageClient",
+        "source": "IBlobStorageClient blobStorageClient"
+      }
+    ],
+    "methods": [],
+    "claim": "assortment-6114c5d-complete-r5/primary-constructor/c2b427acdcbfd9fb"
+  },
+  {
+    "type": "PopCat.Assortment.Repository.BlobStorage.HasMoreSuccess",
+    "path": "src/PopCat.Assortment.Repository/BlobStorage/HasMoreSuccess.cs",
+    "lines": [2, 7],
+    "header": "public class HasMoreSuccess(string message) : Success(message)\n",
+    "formals": [
+      {
+        "name": "message",
+        "type": "string",
+        "source": "string message"
+      }
+    ],
+    "methods": ["assortment-6114c5d-complete-r5/method/62dda8e9e98df212"],
+    "claim": "assortment-6114c5d-complete-r5/primary-constructor/925422548932099f"
+  },
+  {
+    "type": "PopCat.Assortment.Repository.BlobStorage.Repository<T>",
+    "path": "src/PopCat.Assortment.Repository/BlobStorage/Repository.cs",
+    "lines": [8, 21],
+    "header": "public abstract class Repository<T>(\n    IBlobStorageClient blobStorageClient,\n    string containerName) where T : IRepositoryKey\n",
+    "formals": [
+      {
+        "name": "blobStorageClient",
+        "type": "IBlobStorageClient",
+        "source": "IBlobStorageClient blobStorageClient"
+      },
+      {
+        "name": "containerName",
+        "type": "string",
+        "source": "string containerName"
+      }
+    ],
+    "methods": [
+      "assortment-6114c5d-complete-r5/method/0bac8df5a452aff8",
+      "assortment-6114c5d-complete-r5/method/05899682a380d87b",
+      "assortment-6114c5d-complete-r5/method/8ac0dbcacec4837e",
+      "assortment-6114c5d-complete-r5/method/7d49470ec9850417",
+      "assortment-6114c5d-complete-r5/method/09733e1c002ca58a",
+      "assortment-6114c5d-complete-r5/method/263c1be81a2f874b"
+    ],
+    "claim": "assortment-6114c5d-complete-r5/primary-constructor/21f5ab990b1f1a8a"
+  },
+  {
+    "type": "PopCat.Assortment.Repository.BlobStorage.GlobalDictionaryEntriesKey",
+    "path": "src/PopCat.Assortment.Repository/BlobStorage/GlobalDictionaryEntriesRepository.cs",
+    "lines": [3, 7],
+    "header": "public record GlobalDictionaryEntriesKey(string Pno3, int ModelYear) : IRepositoryKey\n",
+    "formals": [
+      {
+        "name": "Pno3",
+        "type": "string",
+        "source": "string Pno3"
+      },
+      {
+        "name": "ModelYear",
+        "type": "int",
+        "source": "int ModelYear"
+      }
+    ],
+    "methods": ["assortment-6114c5d-complete-r5/method/0bcdfc37c4def3b4"],
+    "claim": "assortment-6114c5d-complete-r5/primary-constructor/d939a3798bc21712"
+  },
+  {
+    "type": "PopCat.Assortment.Repository.BlobStorage.GlobalDictionaryEntriesRepository",
+    "path": "src/PopCat.Assortment.Repository/BlobStorage/GlobalDictionaryEntriesRepository.cs",
+    "lines": [9, 12],
+    "header": "public class GlobalDictionaryEntriesRepository(IBlobStorageClient blobStorageClient)\n    : Repository<GlobalDictionaryEntriesKey>(blobStorageClient, GlobalDictionaryEntriesKey._containerName)\n",
+    "formals": [
+      {
+        "name": "blobStorageClient",
+        "type": "IBlobStorageClient",
+        "source": "IBlobStorageClient blobStorageClient"
+      }
+    ],
+    "methods": [],
+    "claim": "assortment-6114c5d-complete-r5/primary-constructor/a5657a29e71fb234"
+  },
+  {
+    "type": "PopCat.Assortment.Repository.BlobStorage.MarketAuthEntriesKey",
+    "path": "src/PopCat.Assortment.Repository/BlobStorage/MarketAuthEntriesRepository.cs",
+    "lines": [3, 7],
+    "header": "public record MarketAuthEntriesKey(string SpecMarket, string Pno3, int ModelYear) : IRepositoryKey\n",
+    "formals": [
+      {
+        "name": "SpecMarket",
+        "type": "string",
+        "source": "string SpecMarket"
+      },
+      {
+        "name": "Pno3",
+        "type": "string",
+        "source": "string Pno3"
+      },
+      {
+        "name": "ModelYear",
+        "type": "int",
+        "source": "int ModelYear"
+      }
+    ],
+    "methods": ["assortment-6114c5d-complete-r5/method/234d58e482b43ff5"],
+    "claim": "assortment-6114c5d-complete-r5/primary-constructor/41df256edf34f7c2"
+  },
+  {
+    "type": "PopCat.Assortment.Repository.BlobStorage.MarketAuthEntriesRepository",
+    "path": "src/PopCat.Assortment.Repository/BlobStorage/MarketAuthEntriesRepository.cs",
+    "lines": [9, 12],
+    "header": "public class MarketAuthEntriesRepository(IBlobStorageClient blobStorageClient)\n    : Repository<MarketAuthEntriesKey>(blobStorageClient, MarketAuthEntriesKey._containerName)\n",
+    "formals": [
+      {
+        "name": "blobStorageClient",
+        "type": "IBlobStorageClient",
+        "source": "IBlobStorageClient blobStorageClient"
+      }
+    ],
+    "methods": [],
+    "claim": "assortment-6114c5d-complete-r5/primary-constructor/d3f5b99f4a8820e7"
+  },
+  {
+    "type": "PopCat.Assortment.Repository.BlobStorage.BlobStorageHealthCheck",
+    "path": "src/PopCat.Assortment.Repository/BlobStorage/BlobStorageHealthCheck.cs",
+    "lines": [5, 33],
+    "header": "public class BlobStorageHealthCheck(\n    ILogger<BlobStorageHealthCheck> logger,\n    CarConfigurationRepository carConfigurationRepository) : IHealthCheck\n",
+    "formals": [
+      {
+        "name": "logger",
+        "type": "ILogger<BlobStorageHealthCheck>",
+        "source": "ILogger<BlobStorageHealthCheck> logger"
+      },
+      {
+        "name": "carConfigurationRepository",
+        "type": "CarConfigurationRepository",
+        "source": "CarConfigurationRepository carConfigurationRepository"
+      }
+    ],
+    "methods": [
+      "assortment-6114c5d-complete-r5/method/f29ed744f38ec25e",
+      "assortment-6114c5d-complete-r5/method/953d0782458a7d79"
+    ],
+    "claim": "assortment-6114c5d-complete-r5/primary-constructor/10f6a35612bf04da"
+  },
+  {
+    "type": "PopCat.Assortment.Repository.BlobStorage.CarConfigurationKey",
+    "path": "src/PopCat.Assortment.Repository/BlobStorage/CarConfigurationRepository.cs",
+    "lines": [3, 18],
+    "header": "public record CarConfigurationKey(string SpecMarket, string Pno12, int ModelYear) : IRepositoryKey\n",
+    "formals": [
+      {
+        "name": "SpecMarket",
+        "type": "string",
+        "source": "string SpecMarket"
+      },
+      {
+        "name": "Pno12",
+        "type": "string",
+        "source": "string Pno12"
+      },
+      {
+        "name": "ModelYear",
+        "type": "int",
+        "source": "int ModelYear"
+      }
+    ],
+    "methods": [
+      "assortment-6114c5d-complete-r5/method/5f3dc301d9b3a5fd",
+      "assortment-6114c5d-complete-r5/method/e3f696749fc16fc9",
+      "assortment-6114c5d-complete-r5/method/7f8afc271c1ac73f",
+      "assortment-6114c5d-complete-r5/method/957eaf4f6a78501b"
+    ],
+    "claim": "assortment-6114c5d-complete-r5/primary-constructor/83b278c6ebc6fe3c"
+  },
+  {
+    "type": "PopCat.Assortment.Repository.BlobStorage.CarConfigurationRepository",
+    "path": "src/PopCat.Assortment.Repository/BlobStorage/CarConfigurationRepository.cs",
+    "lines": [20, 23],
+    "header": "public class CarConfigurationRepository(IBlobStorageClient blobStorageClient)\n    : Repository<CarConfigurationKey>(blobStorageClient, CarConfigurationKey._containerName)\n",
+    "formals": [
+      {
+        "name": "blobStorageClient",
+        "type": "IBlobStorageClient",
+        "source": "IBlobStorageClient blobStorageClient"
+      }
+    ],
+    "methods": [],
+    "claim": "assortment-6114c5d-complete-r5/primary-constructor/735d569fdbb8ae28"
+  },
+  {
+    "type": "PopCat.Assortment.Repository.BlobStorage.UpstreamEntitiesKey",
+    "path": "src/PopCat.Assortment.Repository/BlobStorage/UpstreamEntitiesRepository.cs",
+    "lines": [3, 7],
+    "header": "public record UpstreamEntitiesKey(string Key) : IRepositoryKey\n",
+    "formals": [
+      {
+        "name": "Key",
+        "type": "string",
+        "source": "string Key"
+      }
+    ],
+    "methods": ["assortment-6114c5d-complete-r5/method/f575444ba335c2e2"],
+    "claim": "assortment-6114c5d-complete-r5/primary-constructor/48af972497ab9951"
+  },
+  {
+    "type": "PopCat.Assortment.Repository.BlobStorage.UpstreamEntitiesRepository",
+    "path": "src/PopCat.Assortment.Repository/BlobStorage/UpstreamEntitiesRepository.cs",
+    "lines": [9, 12],
+    "header": "public class UpstreamEntitiesRepository(IBlobStorageClient blobStorageClient)\n    : Repository<UpstreamEntitiesKey>(blobStorageClient, UpstreamEntitiesKey.ContainerName)\n",
+    "formals": [
+      {
+        "name": "blobStorageClient",
+        "type": "IBlobStorageClient",
+        "source": "IBlobStorageClient blobStorageClient"
+      }
+    ],
+    "methods": [],
+    "claim": "assortment-6114c5d-complete-r5/primary-constructor/532441528ad8d77f"
+  },
+  {
+    "type": "PopCat.Assortment.Ocelot.Host.Configuration.OAuthConfig",
+    "path": "src/PopCat.Assortment.Ocelot.Host/Configuration/OAuthSettings.cs",
+    "lines": [17, 17],
+    "header": "internal record OAuthConfig(string AuthorityUrl, string Audience, string Issuer, bool RequireHttpsMetadata, ImmutableArray<string> ValidAudiences, ImmutableArray<string> ValidIssuers);",
+    "formals": [
+      {
+        "name": "AuthorityUrl",
+        "type": "string",
+        "source": "string AuthorityUrl"
+      },
+      {
+        "name": "Audience",
+        "type": "string",
+        "source": "string Audience"
+      },
+      {
+        "name": "Issuer",
+        "type": "string",
+        "source": "string Issuer"
+      },
+      {
+        "name": "RequireHttpsMetadata",
+        "type": "bool",
+        "source": "bool RequireHttpsMetadata"
+      },
+      {
+        "name": "ValidAudiences",
+        "type": "ImmutableArray<string>",
+        "source": "ImmutableArray<string> ValidAudiences"
+      },
+      {
+        "name": "ValidIssuers",
+        "type": "ImmutableArray<string>",
+        "source": "ImmutableArray<string> ValidIssuers"
+      }
+    ],
+    "methods": [],
+    "claim": "assortment-6114c5d-complete-r5/primary-constructor/3e12c523cedb4b24"
+  },
+  {
+    "type": "PopCat.Assortment.Core.Services.UpstreamEntityCacheService",
+    "path": "src/PopCat.Assortment.Core/Services/UpstreamEntityCacheService.cs",
+    "lines": [10, 142],
+    "header": "internal class UpstreamEntityCacheService(\n    IAssortmentProvider assortmentProvider,\n    ICacheSerializerService serializer,\n    IHotCacheService hotCache,\n    UpstreamEntitiesRepository coldStorage,\n    ILogger<UpstreamEntityCacheService> logger) : IUpstreamEntityCacheService\n",
+    "formals": [
+      {
+        "name": "assortmentProvider",
+        "type": "IAssortmentProvider",
+        "source": "IAssortmentProvider assortmentProvider"
+      },
+      {
+        "name": "serializer",
+        "type": "ICacheSerializerService",
+        "source": "ICacheSerializerService serializer"
+      },
+      {
+        "name": "hotCache",
+        "type": "IHotCacheService",
+        "source": "IHotCacheService hotCache"
+      },
+      {
+        "name": "coldStorage",
+        "type": "UpstreamEntitiesRepository",
+        "source": "UpstreamEntitiesRepository coldStorage"
+      },
+      {
+        "name": "logger",
+        "type": "ILogger<UpstreamEntityCacheService>",
+        "source": "ILogger<UpstreamEntityCacheService> logger"
+      }
+    ],
+    "methods": [
+      "assortment-6114c5d-complete-r5/method/63f207b5567db01e",
+      "assortment-6114c5d-complete-r5/method/be719c609dfbe1a5",
+      "assortment-6114c5d-complete-r5/method/f31d3e3554e6a9ee",
+      "assortment-6114c5d-complete-r5/method/6e2ab1729fa131cc",
+      "assortment-6114c5d-complete-r5/method/eeb5464c99e5f679",
+      "assortment-6114c5d-complete-r5/method/6b228803eb739521",
+      "assortment-6114c5d-complete-r5/method/69bc88a6a689b2ed",
+      "assortment-6114c5d-complete-r5/method/f50b15bac9dfc2d2",
+      "assortment-6114c5d-complete-r5/method/36192f1414ef7a2d",
+      "assortment-6114c5d-complete-r5/method/79aa8f642d6cd9e9",
+      "assortment-6114c5d-complete-r5/method/434c9468c950e898",
+      "assortment-6114c5d-complete-r5/method/61f869712566cf80",
+      "assortment-6114c5d-complete-r5/method/eb9288279cc968e8",
+      "assortment-6114c5d-complete-r5/method/aa71c905ef7ef583",
+      "assortment-6114c5d-complete-r5/method/0003ac2441c1575b",
+      "assortment-6114c5d-complete-r5/method/f4a5ba44f2244777",
+      "assortment-6114c5d-complete-r5/method/f3178d4f2a5f41d4",
+      "assortment-6114c5d-complete-r5/method/873e8399b2afe656",
+      "assortment-6114c5d-complete-r5/method/25c901161a328bb2",
+      "assortment-6114c5d-complete-r5/method/eda740e5e03c7e4f"
+    ],
+    "claim": "assortment-6114c5d-complete-r5/primary-constructor/f67e8ff83819a069"
+  },
+  {
+    "type": "PopCat.Assortment.Core.Services.ProductServiceService",
+    "path": "src/PopCat.Assortment.Core/Services/ProductServiceService.cs",
+    "lines": [10, 146],
+    "header": "internal class ProductServiceService(IProductServiceClient client) : IProductServiceService\n",
+    "formals": [
+      {
+        "name": "client",
+        "type": "IProductServiceClient",
+        "source": "IProductServiceClient client"
+      }
+    ],
+    "methods": [
+      "assortment-6114c5d-complete-r5/method/1280f581d72fac6d",
+      "assortment-6114c5d-complete-r5/method/4f43b5c81217b0dc",
+      "assortment-6114c5d-complete-r5/method/ddda17e787d5c714",
+      "assortment-6114c5d-complete-r5/method/53b1805692f22100",
+      "assortment-6114c5d-complete-r5/method/c696d88ab0ec1c8e",
+      "assortment-6114c5d-complete-r5/method/ca5a28e9993201eb",
+      "assortment-6114c5d-complete-r5/method/0f12d128076fb61d",
+      "assortment-6114c5d-complete-r5/method/147bca46fa161aa1",
+      "assortment-6114c5d-complete-r5/method/077778a3b82195d2",
+      "assortment-6114c5d-complete-r5/method/9d5cd0f21444602b",
+      "assortment-6114c5d-complete-r5/method/00baaa6162f30092",
+      "assortment-6114c5d-complete-r5/method/84a1fbbd3dffcf70",
+      "assortment-6114c5d-complete-r5/method/03eda92f439acb48",
+      "assortment-6114c5d-complete-r5/method/4cef5a5973fa546d",
+      "assortment-6114c5d-complete-r5/method/aefd62fa9b50aaf3"
+    ],
+    "claim": "assortment-6114c5d-complete-r5/primary-constructor/37c8530f3f8885a4"
+  },
+  {
+    "type": "PopCat.Assortment.Core.Services.ExternalCarCodeCacheService",
+    "path": "src/PopCat.Assortment.Core/Services/ExternalCarCodeCacheService.cs",
+    "lines": [14, 175],
+    "header": "internal class ExternalCarCodeCacheService(ICacheSerializerService serializer,\n    ILogger<ExternalCarCodeCacheService> logger,\n    IHotCacheService hotCache,\n    IAssortmentProvider assortmentProvider,\n    IOptions<ProviderClientNameSettings> providerClientNameSettings) : IExternalCarCodeCacheService\n",
+    "formals": [
+      {
+        "name": "serializer",
+        "type": "ICacheSerializerService",
+        "source": "ICacheSerializerService serializer"
+      },
+      {
+        "name": "logger",
+        "type": "ILogger<ExternalCarCodeCacheService>",
+        "source": "ILogger<ExternalCarCodeCacheService> logger"
+      },
+      {
+        "name": "hotCache",
+        "type": "IHotCacheService",
+        "source": "IHotCacheService hotCache"
+      },
+      {
+        "name": "assortmentProvider",
+        "type": "IAssortmentProvider",
+        "source": "IAssortmentProvider assortmentProvider"
+      },
+      {
+        "name": "providerClientNameSettings",
+        "type": "IOptions<ProviderClientNameSettings>",
+        "source": "IOptions<ProviderClientNameSettings> providerClientNameSettings"
+      }
+    ],
+    "methods": [
+      "assortment-6114c5d-complete-r5/method/53d7b1caaf76a3db",
+      "assortment-6114c5d-complete-r5/method/fce8092de6acc59d",
+      "assortment-6114c5d-complete-r5/method/437d17dae63d5b00",
+      "assortment-6114c5d-complete-r5/method/f879ff7e631d221a",
+      "assortment-6114c5d-complete-r5/method/6faf7f9357379c7f",
+      "assortment-6114c5d-complete-r5/method/5b943852823dd094",
+      "assortment-6114c5d-complete-r5/method/75f77c154ddf03b6",
+      "assortment-6114c5d-complete-r5/method/433c14d7150be835",
+      "assortment-6114c5d-complete-r5/method/8105078db174cd1a",
+      "assortment-6114c5d-complete-r5/method/51b15ee7ee02bec9",
+      "assortment-6114c5d-complete-r5/method/7222d27abdd8a22e",
+      "assortment-6114c5d-complete-r5/method/e626a4692ab353fc",
+      "assortment-6114c5d-complete-r5/method/659d61f5e510a5a5",
+      "assortment-6114c5d-complete-r5/method/6be167e6ecc26fdc"
+    ],
+    "claim": "assortment-6114c5d-complete-r5/primary-constructor/edfd0acfb72196be"
+  },
+  {
+    "type": "PopCat.Assortment.Core.Services.ClassificationCacheService",
+    "path": "src/PopCat.Assortment.Core/Services/ClassificationCacheService.cs",
+    "lines": [9, 85],
+    "header": "internal class ClassificationCacheService(\n    GlobalDataRepository _repository,\n    ICacheSerializerService _serializer,\n    IAssortmentProvider _provider) : IClassificationCacheService\n",
+    "formals": [
+      {
+        "name": "_repository",
+        "type": "GlobalDataRepository",
+        "source": "GlobalDataRepository _repository"
+      },
+      {
+        "name": "_serializer",
+        "type": "ICacheSerializerService",
+        "source": "ICacheSerializerService _serializer"
+      },
+      {
+        "name": "_provider",
+        "type": "IAssortmentProvider",
+        "source": "IAssortmentProvider _provider"
+      }
+    ],
+    "methods": [
+      "assortment-6114c5d-complete-r5/method/01f9b7bb039f7bb0",
+      "assortment-6114c5d-complete-r5/method/c2b5ca4a96ce49b0",
+      "assortment-6114c5d-complete-r5/method/b1851e4f94de91fb",
+      "assortment-6114c5d-complete-r5/method/e85f63e48fa9cc93",
+      "assortment-6114c5d-complete-r5/method/28e6e96035a93561",
+      "assortment-6114c5d-complete-r5/method/3415a9c60ddc2295",
+      "assortment-6114c5d-complete-r5/method/b2a81d06f1c2438b",
+      "assortment-6114c5d-complete-r5/method/b825b004a8953450",
+      "assortment-6114c5d-complete-r5/method/9c3f0c26b752a1cd",
+      "assortment-6114c5d-complete-r5/method/97d7cc7a448bf769",
+      "assortment-6114c5d-complete-r5/method/111ca244c31c37a0",
+      "assortment-6114c5d-complete-r5/method/27b3e9905a57c6d8",
+      "assortment-6114c5d-complete-r5/method/4c2b6abc28ca4ec7",
+      "assortment-6114c5d-complete-r5/method/d6e9b96ad97a2212",
+      "assortment-6114c5d-complete-r5/method/fc4172783695777a",
+      "assortment-6114c5d-complete-r5/method/00e38430dee9ce37",
+      "assortment-6114c5d-complete-r5/method/b793d3a93e67ad5c",
+      "assortment-6114c5d-complete-r5/method/1dda3aa913382f89"
+    ],
+    "claim": "assortment-6114c5d-complete-r5/primary-constructor/9f0d2fe60799d34d"
+  },
+  {
+    "type": "PopCat.Assortment.Core.Services.RedisCacheService",
+    "path": "src/PopCat.Assortment.Core/Services/RedisCacheService.cs",
+    "lines": [6, 82],
+    "header": "internal class RedisCacheService(IConnectionMultiplexer redis, ICachingMetrics metrics) : IHotCacheService\n",
+    "formals": [
+      {
+        "name": "redis",
+        "type": "IConnectionMultiplexer",
+        "source": "IConnectionMultiplexer redis"
+      },
+      {
+        "name": "metrics",
+        "type": "ICachingMetrics",
+        "source": "ICachingMetrics metrics"
+      }
+    ],
+    "methods": [
+      "assortment-6114c5d-complete-r5/method/018035059bfa00d3",
+      "assortment-6114c5d-complete-r5/method/ab2e2b791364afdc",
+      "assortment-6114c5d-complete-r5/method/c1229dbd22a5a664",
+      "assortment-6114c5d-complete-r5/method/0858eb48d0eae91f",
+      "assortment-6114c5d-complete-r5/method/ac816afc6906ccf5",
+      "assortment-6114c5d-complete-r5/method/0884d5f113a9c13e",
+      "assortment-6114c5d-complete-r5/method/09740a0c37bd5d4b",
+      "assortment-6114c5d-complete-r5/method/2ef683b6b4317247",
+      "assortment-6114c5d-complete-r5/method/a8e16b9bf16c8d2a",
+      "assortment-6114c5d-complete-r5/method/c8f10ad929d339a2",
+      "assortment-6114c5d-complete-r5/method/4e99ecd5fc30bd39"
+    ],
+    "claim": "assortment-6114c5d-complete-r5/primary-constructor/c366d4d39bfe54cf"
+  },
+  {
+    "type": "PopCat.Assortment.Core.Services.ProductFullDetailsCacheService",
+    "path": "src/PopCat.Assortment.Core/Services/ProductFullDetailsCacheService.cs",
+    "lines": [11, 314],
+    "header": "internal class ProductFullDetailsCacheService(\n    IClassificationCacheService classificationCacheService,\n    IProductDetailsBuilder productDetailsBuilder,\n    IAssortmentProvider assortmentProvider,\n    IProductFullDetailsCacheManagementService cacheManagement,\n    IUpstreamEntityCacheService upstreamEntityCacheService,\n    ILogger<ProductFullDetailsCacheService> logger) : IProductFullDetailsCacheService\n",
+    "formals": [
+      {
+        "name": "classificationCacheService",
+        "type": "IClassificationCacheService",
+        "source": "IClassificationCacheService classificationCacheService"
+      },
+      {
+        "name": "productDetailsBuilder",
+        "type": "IProductDetailsBuilder",
+        "source": "IProductDetailsBuilder productDetailsBuilder"
+      },
+      {
+        "name": "assortmentProvider",
+        "type": "IAssortmentProvider",
+        "source": "IAssortmentProvider assortmentProvider"
+      },
+      {
+        "name": "cacheManagement",
+        "type": "IProductFullDetailsCacheManagementService",
+        "source": "IProductFullDetailsCacheManagementService cacheManagement"
+      },
+      {
+        "name": "upstreamEntityCacheService",
+        "type": "IUpstreamEntityCacheService",
+        "source": "IUpstreamEntityCacheService upstreamEntityCacheService"
+      },
+      {
+        "name": "logger",
+        "type": "ILogger<ProductFullDetailsCacheService>",
+        "source": "ILogger<ProductFullDetailsCacheService> logger"
+      }
+    ],
+    "methods": [
+      "assortment-6114c5d-complete-r5/method/d0730d8238c8335b",
+      "assortment-6114c5d-complete-r5/method/267e0fb2ba9aaebb",
+      "assortment-6114c5d-complete-r5/method/b08ffb66c6f3afe4",
+      "assortment-6114c5d-complete-r5/method/67d853c8f47a2f8c",
+      "assortment-6114c5d-complete-r5/method/d8b524a821916956",
+      "assortment-6114c5d-complete-r5/method/e1c1b8de4fc33788",
+      "assortment-6114c5d-complete-r5/method/8feb98f2b0e9e64d",
+      "assortment-6114c5d-complete-r5/method/c1fd5cbad8cf05bb",
+      "assortment-6114c5d-complete-r5/method/80d890a797a51ccb",
+      "assortment-6114c5d-complete-r5/method/746a3bffdb33c278",
+      "assortment-6114c5d-complete-r5/method/caacca3b90913e37",
+      "assortment-6114c5d-complete-r5/method/68778c1baf723e23",
+      "assortment-6114c5d-complete-r5/method/4c5ce80d3345a20e",
+      "assortment-6114c5d-complete-r5/method/4791bcdb4177bb53",
+      "assortment-6114c5d-complete-r5/method/26b530b2cc58054b",
+      "assortment-6114c5d-complete-r5/method/25db5bafb65b2ec5",
+      "assortment-6114c5d-complete-r5/method/d26e2dbeb282f631",
+      "assortment-6114c5d-complete-r5/method/9590184e7e08b132",
+      "assortment-6114c5d-complete-r5/method/66797fb4d6f33053",
+      "assortment-6114c5d-complete-r5/method/467d66fa199981f7",
+      "assortment-6114c5d-complete-r5/method/21f7f2b9869a5323",
+      "assortment-6114c5d-complete-r5/method/753b55da4d8def3d",
+      "assortment-6114c5d-complete-r5/method/490eae629db813d3",
+      "assortment-6114c5d-complete-r5/method/04f89a8974260da1",
+      "assortment-6114c5d-complete-r5/method/2b00ac70b4b37988",
+      "assortment-6114c5d-complete-r5/method/1ecb0dbc47846115",
+      "assortment-6114c5d-complete-r5/method/a6a84947e740778c",
+      "assortment-6114c5d-complete-r5/method/6908f37ab9baed70",
+      "assortment-6114c5d-complete-r5/method/54a69bdbcb91817b",
+      "assortment-6114c5d-complete-r5/method/d759337f3f15c139",
+      "assortment-6114c5d-complete-r5/method/cfc52613ff0e9eaa",
+      "assortment-6114c5d-complete-r5/method/98e071890c81fb86",
+      "assortment-6114c5d-complete-r5/method/d18ecac984665106",
+      "assortment-6114c5d-complete-r5/method/f348d43161001cd2",
+      "assortment-6114c5d-complete-r5/method/884092f76b7270a0",
+      "assortment-6114c5d-complete-r5/method/7cf10157caa3c2f9",
+      "assortment-6114c5d-complete-r5/method/b65523ff44263fa9",
+      "assortment-6114c5d-complete-r5/method/4b4407dec16ef8a9",
+      "assortment-6114c5d-complete-r5/method/80c3fb204394e051",
+      "assortment-6114c5d-complete-r5/method/45180630631d4067",
+      "assortment-6114c5d-complete-r5/method/28490cde04cdf4e4"
+    ],
+    "claim": "assortment-6114c5d-complete-r5/primary-constructor/b359a5cbdd484498"
+  },
+  {
+    "type": "PopCat.Assortment.Core.Services.SpecificationCacheService",
+    "path": "src/PopCat.Assortment.Core/Services/SpecificationCacheService.cs",
+    "lines": [9, 140],
+    "header": "internal class SpecificationCacheService(\n    GlobalDataRepository _repository,\n    ICacheSerializerService _serializer,\n    IAssortmentProvider _assortmentProvider) : ISpecificationCacheService\n",
+    "formals": [
+      {
+        "name": "_repository",
+        "type": "GlobalDataRepository",
+        "source": "GlobalDataRepository _repository"
+      },
+      {
+        "name": "_serializer",
+        "type": "ICacheSerializerService",
+        "source": "ICacheSerializerService _serializer"
+      },
+      {
+        "name": "_assortmentProvider",
+        "type": "IAssortmentProvider",
+        "source": "IAssortmentProvider _assortmentProvider"
+      }
+    ],
+    "methods": [
+      "assortment-6114c5d-complete-r5/method/3e7884016b47dbc2",
+      "assortment-6114c5d-complete-r5/method/616f5d25c6da9b12",
+      "assortment-6114c5d-complete-r5/method/24f74d8f105dfb4d",
+      "assortment-6114c5d-complete-r5/method/69d9ad930df046e3",
+      "assortment-6114c5d-complete-r5/method/23bc31949d4116a1",
+      "assortment-6114c5d-complete-r5/method/7737368902d05e29",
+      "assortment-6114c5d-complete-r5/method/69fffc2fd29bac7f",
+      "assortment-6114c5d-complete-r5/method/f46d0c8e158f783b",
+      "assortment-6114c5d-complete-r5/method/bb62c93201849263",
+      "assortment-6114c5d-complete-r5/method/2a464ad628c7983e",
+      "assortment-6114c5d-complete-r5/method/56493fd969052cf2",
+      "assortment-6114c5d-complete-r5/method/54663cff192aef81",
+      "assortment-6114c5d-complete-r5/method/0854c87a76c4d03c",
+      "assortment-6114c5d-complete-r5/method/c36a77e127276ee3",
+      "assortment-6114c5d-complete-r5/method/97bc0a945f7113af",
+      "assortment-6114c5d-complete-r5/method/b659b23125b96a0a",
+      "assortment-6114c5d-complete-r5/method/73963d20b77841eb",
+      "assortment-6114c5d-complete-r5/method/511a960771e2ebff",
+      "assortment-6114c5d-complete-r5/method/9bdfd478057b93da",
+      "assortment-6114c5d-complete-r5/method/802b2a897b4503c2",
+      "assortment-6114c5d-complete-r5/method/5712738350b72bab",
+      "assortment-6114c5d-complete-r5/method/58f749364d07493d",
+      "assortment-6114c5d-complete-r5/method/d5ee6364b71ce4a5",
+      "assortment-6114c5d-complete-r5/method/f4f47e5ae83e6a44",
+      "assortment-6114c5d-complete-r5/method/cff32bdc3ef3cc4c",
+      "assortment-6114c5d-complete-r5/method/2a4b187bbcaf46b4",
+      "assortment-6114c5d-complete-r5/method/ed480cb4f1f5562a",
+      "assortment-6114c5d-complete-r5/method/f67592ab64a1dd96",
+      "assortment-6114c5d-complete-r5/method/e604df7f38d195b5",
+      "assortment-6114c5d-complete-r5/method/7dba0b67bec17ba1",
+      "assortment-6114c5d-complete-r5/method/2896684235f347a3",
+      "assortment-6114c5d-complete-r5/method/7327f032da145982"
+    ],
+    "claim": "assortment-6114c5d-complete-r5/primary-constructor/b2c3c15d1dc49c81"
+  },
+  {
+    "type": "PopCat.Assortment.Core.Services.ProductFullDetailsCacheManagementService",
+    "path": "src/PopCat.Assortment.Core/Services/ProductFullDetailsCacheManagementService.cs",
+    "lines": [14, 335],
+    "header": "internal class ProductFullDetailsCacheManagementService(\n    ICacheSerializerService serializer,\n    IHotCacheService hotCache,\n    ProductFullDetailsRepository coldStorage) : IProductFullDetailsCacheManagementService\n",
+    "formals": [
+      {
+        "name": "serializer",
+        "type": "ICacheSerializerService",
+        "source": "ICacheSerializerService serializer"
+      },
+      {
+        "name": "hotCache",
+        "type": "IHotCacheService",
+        "source": "IHotCacheService hotCache"
+      },
+      {
+        "name": "coldStorage",
+        "type": "ProductFullDetailsRepository",
+        "source": "ProductFullDetailsRepository coldStorage"
+      }
+    ],
+    "methods": [
+      "assortment-6114c5d-complete-r5/method/f2c3fe9191dc1fe6",
+      "assortment-6114c5d-complete-r5/method/ec81253d6d82fed8",
+      "assortment-6114c5d-complete-r5/method/41d1f2f962e72e24",
+      "assortment-6114c5d-complete-r5/method/f3780fd80506f346",
+      "assortment-6114c5d-complete-r5/method/a1324a79fba7de97",
+      "assortment-6114c5d-complete-r5/method/89efa71e17c34cd1",
+      "assortment-6114c5d-complete-r5/method/3d93f30abfd49978",
+      "assortment-6114c5d-complete-r5/method/049b37234a79fc54",
+      "assortment-6114c5d-complete-r5/method/18b3f0719f95354e",
+      "assortment-6114c5d-complete-r5/method/a0a3a1632dc5378c",
+      "assortment-6114c5d-complete-r5/method/50b9cb249080b790",
+      "assortment-6114c5d-complete-r5/method/6303eb723eae01cb",
+      "assortment-6114c5d-complete-r5/method/df99d58a90b453ea",
+      "assortment-6114c5d-complete-r5/method/22fe1e8ffa968f1b",
+      "assortment-6114c5d-complete-r5/method/3016f8c96ca6bb28",
+      "assortment-6114c5d-complete-r5/method/36240dc669186cd2",
+      "assortment-6114c5d-complete-r5/method/5eec253d84be4816",
+      "assortment-6114c5d-complete-r5/method/531029c7059d70f3",
+      "assortment-6114c5d-complete-r5/method/3fd7ada10fa251a2",
+      "assortment-6114c5d-complete-r5/method/876df370887219d0",
+      "assortment-6114c5d-complete-r5/method/298c8d915a5b0264",
+      "assortment-6114c5d-complete-r5/method/5f10936515873014",
+      "assortment-6114c5d-complete-r5/method/8b242f38d3d97c9c",
+      "assortment-6114c5d-complete-r5/method/ab5721b96f4bee0c",
+      "assortment-6114c5d-complete-r5/method/bb7f2b2cf3e990fe",
+      "assortment-6114c5d-complete-r5/method/6b106756f03ab1ff",
+      "assortment-6114c5d-complete-r5/method/d6a49de0ff05ab34",
+      "assortment-6114c5d-complete-r5/method/73ff027e479ce4a5",
+      "assortment-6114c5d-complete-r5/method/211d958731acb7a4",
+      "assortment-6114c5d-complete-r5/method/65f7e50b44c8619f",
+      "assortment-6114c5d-complete-r5/method/150d3d6b403ad5a0",
+      "assortment-6114c5d-complete-r5/method/e829c2159ba25a80",
+      "assortment-6114c5d-complete-r5/method/15e353e19009bd64",
+      "assortment-6114c5d-complete-r5/method/18e657adfa122a68",
+      "assortment-6114c5d-complete-r5/method/a6f655493a0bed51",
+      "assortment-6114c5d-complete-r5/method/815e884901aed45a",
+      "assortment-6114c5d-complete-r5/method/bea1e37d958599af",
+      "assortment-6114c5d-complete-r5/method/1b1f92f8430fbf26",
+      "assortment-6114c5d-complete-r5/method/bf41c10a3fbd8ef7",
+      "assortment-6114c5d-complete-r5/method/003bb2ba4d5cff48",
+      "assortment-6114c5d-complete-r5/method/705df1f6c7c2eb0c",
+      "assortment-6114c5d-complete-r5/method/f91f24ae5808c45a",
+      "assortment-6114c5d-complete-r5/method/e4737a0a1d740fdf",
+      "assortment-6114c5d-complete-r5/method/2d057e1b626e5d6d",
+      "assortment-6114c5d-complete-r5/method/cc285fdf987ff130",
+      "assortment-6114c5d-complete-r5/method/300267b4cf8f064b",
+      "assortment-6114c5d-complete-r5/method/5d48abed43dc4117",
+      "assortment-6114c5d-complete-r5/method/ce5a74278c23ae52",
+      "assortment-6114c5d-complete-r5/method/4a41d0c44f162cda",
+      "assortment-6114c5d-complete-r5/method/ca4dd51a5553565b",
+      "assortment-6114c5d-complete-r5/method/d88fed1d1cb48fed",
+      "assortment-6114c5d-complete-r5/method/5704a6363ae5cc17",
+      "assortment-6114c5d-complete-r5/method/e12447a7902ac1bd",
+      "assortment-6114c5d-complete-r5/method/7d2cf30d53d80571",
+      "assortment-6114c5d-complete-r5/method/9f6a73d33c20a4c3",
+      "assortment-6114c5d-complete-r5/method/db6033c0095ffa95",
+      "assortment-6114c5d-complete-r5/method/e243350fe51ee323",
+      "assortment-6114c5d-complete-r5/method/57f0102a7c662003",
+      "assortment-6114c5d-complete-r5/method/ae8ef2b4d61a9677",
+      "assortment-6114c5d-complete-r5/method/81467e4ccb5fef77",
+      "assortment-6114c5d-complete-r5/method/98bb9d9ed2593ef4",
+      "assortment-6114c5d-complete-r5/method/ab26fd71dc5d22c2",
+      "assortment-6114c5d-complete-r5/method/7e32286a5df4de8a",
+      "assortment-6114c5d-complete-r5/method/0302f494c0d294e2",
+      "assortment-6114c5d-complete-r5/method/50094507a4aee80c",
+      "assortment-6114c5d-complete-r5/method/53938e212cff64bb",
+      "assortment-6114c5d-complete-r5/method/715606e0e6bf6219",
+      "assortment-6114c5d-complete-r5/method/2fa3543dd347fd08",
+      "assortment-6114c5d-complete-r5/method/00fef844a11e1724",
+      "assortment-6114c5d-complete-r5/method/c170644d683cd872",
+      "assortment-6114c5d-complete-r5/method/8618bf308f61796c",
+      "assortment-6114c5d-complete-r5/method/5e198c26742fde56",
+      "assortment-6114c5d-complete-r5/method/d4b4b38d296e362c",
+      "assortment-6114c5d-complete-r5/method/d236f04fa8fd8695",
+      "assortment-6114c5d-complete-r5/method/57bdae2a03b7a186",
+      "assortment-6114c5d-complete-r5/method/b73aaad707914725"
+    ],
+    "claim": "assortment-6114c5d-complete-r5/primary-constructor/6e55b9aa9427e40e"
+  },
+  {
+    "type": "PopCat.Assortment.Core.Services.VariantHistoryService",
+    "path": "src/PopCat.Assortment.Core/Services/VariantHistoryService.cs",
+    "lines": [12, 112],
+    "header": "internal class VariantHistoryService(VariantHistoryRepository repository, ICacheSerializerService serializer) : IVariantHistoryService\n",
+    "formals": [
+      {
+        "name": "repository",
+        "type": "VariantHistoryRepository",
+        "source": "VariantHistoryRepository repository"
+      },
+      {
+        "name": "serializer",
+        "type": "ICacheSerializerService",
+        "source": "ICacheSerializerService serializer"
+      }
+    ],
+    "methods": [
+      "assortment-6114c5d-complete-r5/method/0a8cc05b30589140",
+      "assortment-6114c5d-complete-r5/method/d892c079cf9859ba",
+      "assortment-6114c5d-complete-r5/method/3f666872c72b9d14",
+      "assortment-6114c5d-complete-r5/method/faa94fded7be91b5",
+      "assortment-6114c5d-complete-r5/method/9f8a39cfac31115f",
+      "assortment-6114c5d-complete-r5/method/d2e5efa68d3526c0",
+      "assortment-6114c5d-complete-r5/method/2f1636a49e2da353"
+    ],
+    "claim": "assortment-6114c5d-complete-r5/primary-constructor/f834546ff536211d"
+  },
+  {
+    "type": "PopCat.Assortment.Core.Services.TransformationService",
+    "path": "src/PopCat.Assortment.Core/Services/TransformationService.cs",
+    "lines": [10, 194],
+    "header": "public class TransformationService(\n    IProductMapperProvider productMapperProvider,\n    IProductFullDetailsCacheService productDetailsCacheService) : ITransformationService\n",
+    "formals": [
+      {
+        "name": "productMapperProvider",
+        "type": "IProductMapperProvider",
+        "source": "IProductMapperProvider productMapperProvider"
+      },
+      {
+        "name": "productDetailsCacheService",
+        "type": "IProductFullDetailsCacheService",
+        "source": "IProductFullDetailsCacheService productDetailsCacheService"
+      }
+    ],
+    "methods": [
+      "assortment-6114c5d-complete-r5/method/fb6ff644b4a0f3f9",
+      "assortment-6114c5d-complete-r5/method/670da01c32681aaf",
+      "assortment-6114c5d-complete-r5/method/1f7e3b898e1058f7",
+      "assortment-6114c5d-complete-r5/method/289e520089d1c1d3",
+      "assortment-6114c5d-complete-r5/method/a26eb026308f9845",
+      "assortment-6114c5d-complete-r5/method/c0f56a2df0bed311",
+      "assortment-6114c5d-complete-r5/method/435c5bb9c67d0d12",
+      "assortment-6114c5d-complete-r5/method/e1bd323cd6152311",
+      "assortment-6114c5d-complete-r5/method/cde875612946af94",
+      "assortment-6114c5d-complete-r5/method/af4be859ab70d65b",
+      "assortment-6114c5d-complete-r5/method/2bdd0faa3a3eab30",
+      "assortment-6114c5d-complete-r5/method/9d279d3867f9a854",
+      "assortment-6114c5d-complete-r5/method/30494679475c8e75",
+      "assortment-6114c5d-complete-r5/method/51a27ac7113a421a",
+      "assortment-6114c5d-complete-r5/method/360da5fd5e6d192a",
+      "assortment-6114c5d-complete-r5/method/8e7955165853efb3",
+      "assortment-6114c5d-complete-r5/method/5ed312727eaa2854",
+      "assortment-6114c5d-complete-r5/method/af21425d2495b134",
+      "assortment-6114c5d-complete-r5/method/483b67e34dc8b2b5"
+    ],
+    "claim": "assortment-6114c5d-complete-r5/primary-constructor/9e604b97430e182d"
+  },
+  {
+    "type": "PopCat.Assortment.Host.Configuration.OAuthConfig",
+    "path": "src/PopCat.Assortment.Host/Configuration/OAuthSettings.cs",
+    "lines": [17, 17],
+    "header": "internal record OAuthConfig(string AuthorityUrl, string Audience, string Issuer, bool RequireHttpsMetadata, ImmutableArray<string> ValidAudiences, ImmutableArray<string> ValidIssuers);",
+    "formals": [
+      {
+        "name": "AuthorityUrl",
+        "type": "string",
+        "source": "string AuthorityUrl"
+      },
+      {
+        "name": "Audience",
+        "type": "string",
+        "source": "string Audience"
+      },
+      {
+        "name": "Issuer",
+        "type": "string",
+        "source": "string Issuer"
+      },
+      {
+        "name": "RequireHttpsMetadata",
+        "type": "bool",
+        "source": "bool RequireHttpsMetadata"
+      },
+      {
+        "name": "ValidAudiences",
+        "type": "ImmutableArray<string>",
+        "source": "ImmutableArray<string> ValidAudiences"
+      },
+      {
+        "name": "ValidIssuers",
+        "type": "ImmutableArray<string>",
+        "source": "ImmutableArray<string> ValidIssuers"
+      }
+    ],
+    "methods": [],
+    "claim": "assortment-6114c5d-complete-r5/primary-constructor/848132ba1df2bc9c"
+  },
+  {
+    "type": "PopCat.Assortment.Api.Request.ListPno12sRequest",
+    "path": "src/PopCat.Assortment.Api/Request/ListPno12sRequest.cs",
+    "lines": [7, 22],
+    "header": "public partial record ListPno12sRequest([Required] ImmutableArray<string> SpecMarkets, [Required] ImmutableArray<int> ModelYears, [Required] ImmutableArray<string> CarTypes, [Range(0, int.MaxValue)] int Offset = 0, [Range(1, int.MaxValue)] int Limit = 100)\n",
+    "formals": [
+      {
+        "name": "SpecMarkets",
+        "type": "ImmutableArray<string>",
+        "source": "[Required] ImmutableArray<string> SpecMarkets"
+      },
+      {
+        "name": "ModelYears",
+        "type": "ImmutableArray<int>",
+        "source": "[Required] ImmutableArray<int> ModelYears"
+      },
+      {
+        "name": "CarTypes",
+        "type": "ImmutableArray<string>",
+        "source": "[Required] ImmutableArray<string> CarTypes"
+      },
+      {
+        "name": "Offset",
+        "type": "int",
+        "source": "[Range(0, int.MaxValue)] int Offset = 0"
+      },
+      {
+        "name": "Limit",
+        "type": "int",
+        "source": "[Range(1, int.MaxValue)] int Limit = 100"
+      }
+    ],
+    "methods": [
+      "assortment-6114c5d-complete-r5/method/544ea37728be9925",
+      "assortment-6114c5d-complete-r5/method/09d84a28b97ed595"
+    ],
+    "claim": "assortment-6114c5d-complete-r5/primary-constructor/e2bdd4d860b02a73"
+  },
+  {
+    "type": "PopCat.Assortment.Api.Request.GetExternalCarCodeRequest",
+    "path": "src/PopCat.Assortment.Api/Request/GetExternalCarCodeRequest.cs",
+    "lines": [4, 9],
+    "header": "public record GetExternalCarCodeRequest(\n    [BindRequired] string Market,\n    [BindRequired] int ModelYear,\n    [BindRequired] string Pno12,\n    string ClientName = \"\",\n    string LocalEditionCode = \"\");",
+    "formals": [
+      {
+        "name": "Market",
+        "type": "string",
+        "source": "[BindRequired] string Market"
+      },
+      {
+        "name": "ModelYear",
+        "type": "int",
+        "source": "[BindRequired] int ModelYear"
+      },
+      {
+        "name": "Pno12",
+        "type": "string",
+        "source": "[BindRequired] string Pno12"
+      },
+      {
+        "name": "ClientName",
+        "type": "string",
+        "source": "string ClientName = \"\""
+      },
+      {
+        "name": "LocalEditionCode",
+        "type": "string",
+        "source": "string LocalEditionCode = \"\""
+      }
+    ],
+    "methods": [],
+    "claim": "assortment-6114c5d-complete-r5/primary-constructor/6b9454bbd84f5680"
+  },
+  {
+    "type": "PopCat.Assortment.Api.Request.GetCarConfigRequest",
+    "path": "src/PopCat.Assortment.Api/Request/GetCarConfigRequest.cs",
+    "lines": [6, 18],
+    "header": "public partial record GetCarConfigRequest([BindRequired] string SpecMarket, [BindRequired] int ModelYear, [BindRequired] string Pno12)\n",
+    "formals": [
+      {
+        "name": "SpecMarket",
+        "type": "string",
+        "source": "[BindRequired] string SpecMarket"
+      },
+      {
+        "name": "ModelYear",
+        "type": "int",
+        "source": "[BindRequired] int ModelYear"
+      },
+      {
+        "name": "Pno12",
+        "type": "string",
+        "source": "[BindRequired] string Pno12"
+      }
+    ],
+    "methods": [
+      "assortment-6114c5d-complete-r5/method/951f56001eb85f3a",
+      "assortment-6114c5d-complete-r5/method/2a4eb67babbfab3e"
+    ],
+    "claim": "assortment-6114c5d-complete-r5/primary-constructor/c75ea61ed725c2bd"
+  },
+  {
+    "type": "PopCat.Assortment.Api.Controllers.SpecificationController",
+    "path": "src/PopCat.Assortment.Api/Controllers/SpecificationController.cs",
+    "lines": [10, 50],
+    "header": "[ApiController]\n[ApiVersion(\"1.0\")]\n[Route(\"api/v{version:apiVersion}/[controller]\")]\npublic class SpecificationController(ISpecificationCacheService service) : ControllerBase\n",
+    "formals": [
+      {
+        "name": "service",
+        "type": "ISpecificationCacheService",
+        "source": "ISpecificationCacheService service"
+      }
+    ],
+    "methods": [
+      "assortment-6114c5d-complete-r5/method/b954b1c5dcac3bfb",
+      "assortment-6114c5d-complete-r5/method/8048dd7d58b7b528",
+      "assortment-6114c5d-complete-r5/method/3d8d163aae70204d",
+      "assortment-6114c5d-complete-r5/method/cab20c165860b140"
+    ],
+    "claim": "assortment-6114c5d-complete-r5/primary-constructor/c534ad37c9ff7e90"
+  },
+  {
+    "type": "PopCat.Assortment.Api.Controllers.MarketAuthController",
+    "path": "src/PopCat.Assortment.Api/Controllers/MarketAuthController.cs",
+    "lines": [10, 38],
+    "header": "[ApiController]\n[ApiVersion(\"1.0\")]\n[Route(\"/api/v{version:apiVersion}/[controller]\")]\npublic partial class MarketAuthController(ILogger<MarketAuthController> logger,\n    IMarketAuthCacheService cacheService) : AssortmentApiControllerBase<MarketAuthController>(logger)\n",
+    "formals": [
+      {
+        "name": "logger",
+        "type": "ILogger<MarketAuthController>",
+        "source": "ILogger<MarketAuthController> logger"
+      },
+      {
+        "name": "cacheService",
+        "type": "IMarketAuthCacheService",
+        "source": "IMarketAuthCacheService cacheService"
+      }
+    ],
+    "methods": [
+      "assortment-6114c5d-complete-r5/method/ca2cbe51de321e57",
+      "assortment-6114c5d-complete-r5/method/47dfa966c71417e5",
+      "assortment-6114c5d-complete-r5/method/d80784608da066bb"
+    ],
+    "claim": "assortment-6114c5d-complete-r5/primary-constructor/a2d628ce2a8f7b95"
+  },
+  {
+    "type": "PopCat.Assortment.Api.Controllers.ProductsController",
+    "path": "src/PopCat.Assortment.Api/Controllers/ProductsController.cs",
+    "lines": [10, 50],
+    "header": "[ApiController]\n[ApiVersion(\"1.0\")]\n[Route(\"/api/v{version:apiVersion}/[controller]\")]\npublic partial class ProductsController(IProductServiceService productServiceService) : ControllerBase\n",
+    "formals": [
+      {
+        "name": "productServiceService",
+        "type": "IProductServiceService",
+        "source": "IProductServiceService productServiceService"
+      }
+    ],
+    "methods": [
+      "assortment-6114c5d-complete-r5/method/3de91935cfc756f5",
+      "assortment-6114c5d-complete-r5/method/2cc5de602184a380",
+      "assortment-6114c5d-complete-r5/method/33f34b8c657f4eb4",
+      "assortment-6114c5d-complete-r5/method/2df7f4aff9c30228"
+    ],
+    "claim": "assortment-6114c5d-complete-r5/primary-constructor/a8c4685c781f6f80"
+  },
+  {
+    "type": "PopCat.Assortment.Api.Controllers.SpecMarketController",
+    "path": "src/PopCat.Assortment.Api/Controllers/SpecMarketController.cs",
+    "lines": [9, 21],
+    "header": "[ApiController]\n[ApiVersion(\"1.0\")]\n[Route(\"api/v{version:apiVersion}/[controller]\")]\npublic partial class SpecMarketController(ISpecMarketService specMarketService) : ControllerBase\n",
+    "formals": [
+      {
+        "name": "specMarketService",
+        "type": "ISpecMarketService",
+        "source": "ISpecMarketService specMarketService"
+      }
+    ],
+    "methods": ["assortment-6114c5d-complete-r5/method/79f5d55a657ede18"],
+    "claim": "assortment-6114c5d-complete-r5/primary-constructor/4515670765e9af6d"
+  },
+  {
+    "type": "PopCat.Assortment.Api.Controllers.ClassificationController",
+    "path": "src/PopCat.Assortment.Api/Controllers/ClassificationController.cs",
+    "lines": [15, 42],
+    "header": "[ApiController]\n[ApiVersion(\"1.0\")]\n[Route(\"api/v{version:apiVersion}/[controller]\")]\npublic class ClassificationController(IClassificationCacheService service) : ControllerBase\n",
+    "formals": [
+      {
+        "name": "service",
+        "type": "IClassificationCacheService",
+        "source": "IClassificationCacheService service"
+      }
+    ],
+    "methods": [
+      "assortment-6114c5d-complete-r5/method/9a26688178c977cd",
+      "assortment-6114c5d-complete-r5/method/b8505c705f9d53b5",
+      "assortment-6114c5d-complete-r5/method/1bf9a7c8569dc8d7"
+    ],
+    "claim": "assortment-6114c5d-complete-r5/primary-constructor/34aa40bca3f82597"
+  },
+  {
+    "type": "PopCat.Assortment.Api.Controllers.ProductDetailsController",
+    "path": "src/PopCat.Assortment.Api/Controllers/ProductDetailsController.cs",
+    "lines": [14, 186],
+    "header": "[ApiController]\n[ApiVersion(\"1.0\")]\n[Route(\"/api/v{version:apiVersion}/[controller]\")]\npublic partial class ProductDetailsController(IProductFullDetailsCacheService _cacheService, ITransformationService transformationService) : ControllerBase\n",
+    "formals": [
+      {
+        "name": "_cacheService",
+        "type": "IProductFullDetailsCacheService",
+        "source": "IProductFullDetailsCacheService _cacheService"
+      },
+      {
+        "name": "transformationService",
+        "type": "ITransformationService",
+        "source": "ITransformationService transformationService"
+      }
+    ],
+    "methods": [
+      "assortment-6114c5d-complete-r5/method/fdc02f3331519fc9",
+      "assortment-6114c5d-complete-r5/method/1712f65e7001d702",
+      "assortment-6114c5d-complete-r5/method/8ff7311d70b0dfbe",
+      "assortment-6114c5d-complete-r5/method/ef1a402dbbcc9537",
+      "assortment-6114c5d-complete-r5/method/7fc4b2b3b8169a83",
+      "assortment-6114c5d-complete-r5/method/666eefd338942c92",
+      "assortment-6114c5d-complete-r5/method/4b5522d0090d2072",
+      "assortment-6114c5d-complete-r5/method/c3660ad69f5da388",
+      "assortment-6114c5d-complete-r5/method/ff7bf8ba5826041d",
+      "assortment-6114c5d-complete-r5/method/f9c0c1e41948b6c8",
+      "assortment-6114c5d-complete-r5/method/0bcdc8a0e026a9a7",
+      "assortment-6114c5d-complete-r5/method/8662b78595e28fb8",
+      "assortment-6114c5d-complete-r5/method/315cef28ff0a4a21"
+    ],
+    "claim": "assortment-6114c5d-complete-r5/primary-constructor/59c044ede0386f7e"
+  },
+  {
+    "type": "PopCat.Assortment.Contracts.Models.Pno12QueryAggregation",
+    "path": "src/PopCat.Assortment.Contracts/Models/Pno12QueryAggregation.cs",
+    "lines": [3, 12],
+    "header": "public record Pno12QueryAggregation(\n    Dictionary<string, int> SpecMarket,\n    Dictionary<int, int> ModelYear,\n    Dictionary<string, int> CarType,\n    Dictionary<string, int> Engine,\n    Dictionary<string, int> SalesVersion,\n    Dictionary<string, int> Body,\n    Dictionary<string, int> GearBox,\n    Dictionary<string, int> Steering,\n    Dictionary<string, int> MarketCode);",
+    "formals": [
+      {
+        "name": "SpecMarket",
+        "type": "Dictionary<string, int>",
+        "source": "Dictionary<string, int> SpecMarket"
+      },
+      {
+        "name": "ModelYear",
+        "type": "Dictionary<int, int>",
+        "source": "Dictionary<int, int> ModelYear"
+      },
+      {
+        "name": "CarType",
+        "type": "Dictionary<string, int>",
+        "source": "Dictionary<string, int> CarType"
+      },
+      {
+        "name": "Engine",
+        "type": "Dictionary<string, int>",
+        "source": "Dictionary<string, int> Engine"
+      },
+      {
+        "name": "SalesVersion",
+        "type": "Dictionary<string, int>",
+        "source": "Dictionary<string, int> SalesVersion"
+      },
+      {
+        "name": "Body",
+        "type": "Dictionary<string, int>",
+        "source": "Dictionary<string, int> Body"
+      },
+      {
+        "name": "GearBox",
+        "type": "Dictionary<string, int>",
+        "source": "Dictionary<string, int> GearBox"
+      },
+      {
+        "name": "Steering",
+        "type": "Dictionary<string, int>",
+        "source": "Dictionary<string, int> Steering"
+      },
+      {
+        "name": "MarketCode",
+        "type": "Dictionary<string, int>",
+        "source": "Dictionary<string, int> MarketCode"
+      }
+    ],
+    "methods": [],
+    "claim": "assortment-6114c5d-complete-r5/primary-constructor/18e5b4cb3795968f"
+  },
+  {
+    "type": "PopCat.Assortment.Contracts.Models.CarConfigKey",
+    "path": "src/PopCat.Assortment.Contracts/Models/CarConfigKey.cs",
+    "lines": [3, 7],
+    "header": "public record CarConfigKey(\n    string SpecMarket,\n    int ModelYear,\n    string Pno12\n);",
+    "formals": [
+      {
+        "name": "SpecMarket",
+        "type": "string",
+        "source": "string SpecMarket"
+      },
+      {
+        "name": "ModelYear",
+        "type": "int",
+        "source": "int ModelYear"
+      },
+      {
+        "name": "Pno12",
+        "type": "string",
+        "source": "string Pno12"
+      }
+    ],
+    "methods": [],
+    "claim": "assortment-6114c5d-complete-r5/primary-constructor/90718fb845cc3f00"
+  },
+  {
+    "type": "PopCat.Assortment.Contracts.Models.UpstreamEntity",
+    "path": "src/PopCat.Assortment.Contracts/Models/UpstreamEntity.cs",
+    "lines": [3, 3],
+    "header": "public record UpstreamEntity(string Id, string Code, string Name, ImmutableList<string> Tags, string SkuCategory, string SkuIdentifier);",
+    "formals": [
+      {
+        "name": "Id",
+        "type": "string",
+        "source": "string Id"
+      },
+      {
+        "name": "Code",
+        "type": "string",
+        "source": "string Code"
+      },
+      {
+        "name": "Name",
+        "type": "string",
+        "source": "string Name"
+      },
+      {
+        "name": "Tags",
+        "type": "ImmutableList<string>",
+        "source": "ImmutableList<string> Tags"
+      },
+      {
+        "name": "SkuCategory",
+        "type": "string",
+        "source": "string SkuCategory"
+      },
+      {
+        "name": "SkuIdentifier",
+        "type": "string",
+        "source": "string SkuIdentifier"
+      }
+    ],
+    "methods": [],
+    "claim": "assortment-6114c5d-complete-r5/primary-constructor/d6a4d057c14c077e"
+  },
+  {
+    "type": "PopCat.Assortment.Contracts.Models.Feature",
+    "path": "src/PopCat.Assortment.Contracts/Models/Feature.cs",
+    "lines": [3, 12],
+    "header": "public record Feature(\n    string Code,\n    string Description,\n    ProductionDates ProductionDates,\n    ImmutableHashSet<string> Tags,\n    string ShortDescription,\n    string Family,\n    string Group,\n    string GroupDescription\n) : IConfigItem;",
+    "formals": [
+      {
+        "name": "Code",
+        "type": "string",
+        "source": "string Code"
+      },
+      {
+        "name": "Description",
+        "type": "string",
+        "source": "string Description"
+      },
+      {
+        "name": "ProductionDates",
+        "type": "ProductionDates",
+        "source": "ProductionDates ProductionDates"
+      },
+      {
+        "name": "Tags",
+        "type": "ImmutableHashSet<string>",
+        "source": "ImmutableHashSet<string> Tags"
+      },
+      {
+        "name": "ShortDescription",
+        "type": "string",
+        "source": "string ShortDescription"
+      },
+      {
+        "name": "Family",
+        "type": "string",
+        "source": "string Family"
+      },
+      {
+        "name": "Group",
+        "type": "string",
+        "source": "string Group"
+      },
+      {
+        "name": "GroupDescription",
+        "type": "string",
+        "source": "string GroupDescription"
+      }
+    ],
+    "methods": [],
+    "claim": "assortment-6114c5d-complete-r5/primary-constructor/f0d62a2389a2f661"
+  },
+  {
+    "type": "PopCat.Assortment.Contracts.Models.PackageOption",
+    "path": "src/PopCat.Assortment.Contracts/Models/PackageOption.cs",
+    "lines": [3, 11],
+    "header": "public record PackageOption(\n    string Code,\n    string Description,\n    ProductionDates ProductionDates,\n    ImmutableHashSet<string> Tags,\n    ImmutableList<Feature> Features,\n    ImmutableList<ReplacedOption> ReplacesOptions,\n    ImmutableList<ReplacedOption> ExchangeableWith\n) : IConfigItem;",
+    "formals": [
+      {
+        "name": "Code",
+        "type": "string",
+        "source": "string Code"
+      },
+      {
+        "name": "Description",
+        "type": "string",
+        "source": "string Description"
+      },
+      {
+        "name": "ProductionDates",
+        "type": "ProductionDates",
+        "source": "ProductionDates ProductionDates"
+      },
+      {
+        "name": "Tags",
+        "type": "ImmutableHashSet<string>",
+        "source": "ImmutableHashSet<string> Tags"
+      },
+      {
+        "name": "Features",
+        "type": "ImmutableList<Feature>",
+        "source": "ImmutableList<Feature> Features"
+      },
+      {
+        "name": "ReplacesOptions",
+        "type": "ImmutableList<ReplacedOption>",
+        "source": "ImmutableList<ReplacedOption> ReplacesOptions"
+      },
+      {
+        "name": "ExchangeableWith",
+        "type": "ImmutableList<ReplacedOption>",
+        "source": "ImmutableList<ReplacedOption> ExchangeableWith"
+      }
+    ],
+    "methods": [],
+    "claim": "assortment-6114c5d-complete-r5/primary-constructor/83bc132b40cb57e1"
+  },
+  {
+    "type": "PopCat.Assortment.Contracts.Models.Package",
+    "path": "src/PopCat.Assortment.Contracts/Models/Package.cs",
+    "lines": [3, 11],
+    "header": "public record Package(\n    string Code,\n    string Description,\n    ProductionDates ProductionDates,\n    ImmutableHashSet<string> Tags,\n    ImmutableList<PackageOption> OptionsInPackage,\n    ImmutableList<PackageColour> ColoursInPackage,\n    ImmutableList<PackageInteriorRoom> InteriorRoomsInPackage\n) : IConfigItem;",
+    "formals": [
+      {
+        "name": "Code",
+        "type": "string",
+        "source": "string Code"
+      },
+      {
+        "name": "Description",
+        "type": "string",
+        "source": "string Description"
+      },
+      {
+        "name": "ProductionDates",
+        "type": "ProductionDates",
+        "source": "ProductionDates ProductionDates"
+      },
+      {
+        "name": "Tags",
+        "type": "ImmutableHashSet<string>",
+        "source": "ImmutableHashSet<string> Tags"
+      },
+      {
+        "name": "OptionsInPackage",
+        "type": "ImmutableList<PackageOption>",
+        "source": "ImmutableList<PackageOption> OptionsInPackage"
+      },
+      {
+        "name": "ColoursInPackage",
+        "type": "ImmutableList<PackageColour>",
+        "source": "ImmutableList<PackageColour> ColoursInPackage"
+      },
+      {
+        "name": "InteriorRoomsInPackage",
+        "type": "ImmutableList<PackageInteriorRoom>",
+        "source": "ImmutableList<PackageInteriorRoom> InteriorRoomsInPackage"
+      }
+    ],
+    "methods": [],
+    "claim": "assortment-6114c5d-complete-r5/primary-constructor/e0974f9ac065ac28"
+  },
+  {
+    "type": "PopCat.Assortment.Contracts.Models.ProductionDates",
+    "path": "src/PopCat.Assortment.Contracts/Models/ProductionDates.cs",
+    "lines": [3, 6],
+    "header": "public record ProductionDates(\n    ProductionWeek Start,\n    ProductionWeek End\n);",
+    "formals": [
+      {
+        "name": "Start",
+        "type": "ProductionWeek",
+        "source": "ProductionWeek Start"
+      },
+      {
+        "name": "End",
+        "type": "ProductionWeek",
+        "source": "ProductionWeek End"
+      }
+    ],
+    "methods": [],
+    "claim": "assortment-6114c5d-complete-r5/primary-constructor/f2c9cbc1d4278d7d"
+  },
+  {
+    "type": "PopCat.Assortment.Contracts.Models.ProductDetailsLookUp",
+    "path": "src/PopCat.Assortment.Contracts/Models/ProductDetailsLookUp.cs",
+    "lines": [3, 3],
+    "header": "public record ProductDetailsLookUp(string Id);",
+    "formals": [
+      {
+        "name": "Id",
+        "type": "string",
+        "source": "string Id"
+      }
+    ],
+    "methods": [],
+    "claim": "assortment-6114c5d-complete-r5/primary-constructor/434382f68b438094"
+  },
+  {
+    "type": "PopCat.Assortment.Contracts.Models.ListPno12Query",
+    "path": "src/PopCat.Assortment.Contracts/Models/ListPno12Query.cs",
+    "lines": [3, 9],
+    "header": "public record ListPno12Query(\n    ImmutableHashSet<string> SpecMarkets,\n    ImmutableHashSet<int> ModelYears,\n    ImmutableHashSet<string> CarTypes,\n    int Offset,\n    int Limit\n);",
+    "formals": [
+      {
+        "name": "SpecMarkets",
+        "type": "ImmutableHashSet<string>",
+        "source": "ImmutableHashSet<string> SpecMarkets"
+      },
+      {
+        "name": "ModelYears",
+        "type": "ImmutableHashSet<int>",
+        "source": "ImmutableHashSet<int> ModelYears"
+      },
+      {
+        "name": "CarTypes",
+        "type": "ImmutableHashSet<string>",
+        "source": "ImmutableHashSet<string> CarTypes"
+      },
+      {
+        "name": "Offset",
+        "type": "int",
+        "source": "int Offset"
+      },
+      {
+        "name": "Limit",
+        "type": "int",
+        "source": "int Limit"
+      }
+    ],
+    "methods": [],
+    "claim": "assortment-6114c5d-complete-r5/primary-constructor/bb2452e406468271"
+  },
+  {
+    "type": "PopCat.Assortment.Contracts.Models.InteriorRoom",
+    "path": "src/PopCat.Assortment.Contracts/Models/InteriorRoom.cs",
+    "lines": [3, 9],
+    "header": "public record InteriorRoom(\n    string Code,\n    string Description,\n    ProductionDates ProductionDates,\n    ImmutableHashSet<string> Tags,\n    ImmutableList<Feature> Features\n) : IConfigItem;",
+    "formals": [
+      {
+        "name": "Code",
+        "type": "string",
+        "source": "string Code"
+      },
+      {
+        "name": "Description",
+        "type": "string",
+        "source": "string Description"
+      },
+      {
+        "name": "ProductionDates",
+        "type": "ProductionDates",
+        "source": "ProductionDates ProductionDates"
+      },
+      {
+        "name": "Tags",
+        "type": "ImmutableHashSet<string>",
+        "source": "ImmutableHashSet<string> Tags"
+      },
+      {
+        "name": "Features",
+        "type": "ImmutableList<Feature>",
+        "source": "ImmutableList<Feature> Features"
+      }
+    ],
+    "methods": [],
+    "claim": "assortment-6114c5d-complete-r5/primary-constructor/d27d08d228faac04"
+  },
+  {
+    "type": "PopCat.Assortment.Contracts.Models.ProductDetail",
+    "path": "src/PopCat.Assortment.Contracts/Models/ProductDetail.cs",
+    "lines": [3, 10],
+    "header": "public record ProductDetail(\n    string Id,\n    string Name,\n    ImmutableList<string> Codes,\n    string Handle,\n    UpstreamProductType ProductType,\n    ImmutableList<Classification> Classifications,\n    ImmutableList<VariantDetail> Variants);",
+    "formals": [
+      {
+        "name": "Id",
+        "type": "string",
+        "source": "string Id"
+      },
+      {
+        "name": "Name",
+        "type": "string",
+        "source": "string Name"
+      },
+      {
+        "name": "Codes",
+        "type": "ImmutableList<string>",
+        "source": "ImmutableList<string> Codes"
+      },
+      {
+        "name": "Handle",
+        "type": "string",
+        "source": "string Handle"
+      },
+      {
+        "name": "ProductType",
+        "type": "UpstreamProductType",
+        "source": "UpstreamProductType ProductType"
+      },
+      {
+        "name": "Classifications",
+        "type": "ImmutableList<Classification>",
+        "source": "ImmutableList<Classification> Classifications"
+      },
+      {
+        "name": "Variants",
+        "type": "ImmutableList<VariantDetail>",
+        "source": "ImmutableList<VariantDetail> Variants"
+      }
+    ],
+    "methods": [],
+    "claim": "assortment-6114c5d-complete-r5/primary-constructor/5b64f0d49426af4c"
+  },
+  {
+    "type": "PopCat.Assortment.Contracts.Models.SpecMarketsResponse",
+    "path": "src/PopCat.Assortment.Contracts/Models/SpecMarketsResponse.cs",
+    "lines": [3, 4],
+    "header": "public record SpecMarketsResponse(int Total,\n        IReadOnlyCollection<SpecMarket> Items);",
+    "formals": [
+      {
+        "name": "Total",
+        "type": "int",
+        "source": "int Total"
+      },
+      {
+        "name": "Items",
+        "type": "IReadOnlyCollection<SpecMarket>",
+        "source": "IReadOnlyCollection<SpecMarket> Items"
+      }
+    ],
+    "methods": [],
+    "claim": "assortment-6114c5d-complete-r5/primary-constructor/f60c29cf8a90d8cc"
+  },
+  {
+    "type": "PopCat.Assortment.Contracts.Models.CarInformation",
+    "path": "src/PopCat.Assortment.Contracts/Models/CarInformation.cs",
+    "lines": [3, 18],
+    "header": "public record CarInformation(\n    string CarType,\n    string CarTypeDescription,\n    string Engine,\n    string EngineDescription,\n    string SalesVersion,\n    string SalesVersionDescription,\n    string Body,\n    string BodyDescription,\n    string GearBox,\n    string GearBoxDescription,\n    string Steering,\n    string SteeringDescription,\n    string MarketCode,\n    string MarketCodeDescription\n) : IPno12Components;",
+    "formals": [
+      {
+        "name": "CarType",
+        "type": "string",
+        "source": "string CarType"
+      },
+      {
+        "name": "CarTypeDescription",
+        "type": "string",
+        "source": "string CarTypeDescription"
+      },
+      {
+        "name": "Engine",
+        "type": "string",
+        "source": "string Engine"
+      },
+      {
+        "name": "EngineDescription",
+        "type": "string",
+        "source": "string EngineDescription"
+      },
+      {
+        "name": "SalesVersion",
+        "type": "string",
+        "source": "string SalesVersion"
+      },
+      {
+        "name": "SalesVersionDescription",
+        "type": "string",
+        "source": "string SalesVersionDescription"
+      },
+      {
+        "name": "Body",
+        "type": "string",
+        "source": "string Body"
+      },
+      {
+        "name": "BodyDescription",
+        "type": "string",
+        "source": "string BodyDescription"
+      },
+      {
+        "name": "GearBox",
+        "type": "string",
+        "source": "string GearBox"
+      },
+      {
+        "name": "GearBoxDescription",
+        "type": "string",
+        "source": "string GearBoxDescription"
+      },
+      {
+        "name": "Steering",
+        "type": "string",
+        "source": "string Steering"
+      },
+      {
+        "name": "SteeringDescription",
+        "type": "string",
+        "source": "string SteeringDescription"
+      },
+      {
+        "name": "MarketCode",
+        "type": "string",
+        "source": "string MarketCode"
+      },
+      {
+        "name": "MarketCodeDescription",
+        "type": "string",
+        "source": "string MarketCodeDescription"
+      }
+    ],
+    "methods": [],
+    "claim": "assortment-6114c5d-complete-r5/primary-constructor/c62e8d056a4d63e5"
+  },
+  {
+    "type": "PopCat.Assortment.Contracts.Models.CarConfig",
+    "path": "src/PopCat.Assortment.Contracts/Models/CarConfig.cs",
+    "lines": [3, 15],
+    "header": "public record CarConfig(\n       string Pno12,\n       int ModelYear,\n       SpecMarket SpecMarket,\n       ProductionDates ProductionDates,\n       CarInformation CarInformation,\n       ImmutableList<SMessage> SMessages,\n       ImmutableList<Feature> StandardFeatures,\n       ImmutableList<Colour> Colours,\n       ImmutableList<InteriorRoom> InteriorRooms,\n       ImmutableList<Option> Options,\n       ImmutableList<Package> Packages\n   ) : ICarConfigSummary;",
+    "formals": [
+      {
+        "name": "Pno12",
+        "type": "string",
+        "source": "string Pno12"
+      },
+      {
+        "name": "ModelYear",
+        "type": "int",
+        "source": "int ModelYear"
+      },
+      {
+        "name": "SpecMarket",
+        "type": "SpecMarket",
+        "source": "SpecMarket SpecMarket"
+      },
+      {
+        "name": "ProductionDates",
+        "type": "ProductionDates",
+        "source": "ProductionDates ProductionDates"
+      },
+      {
+        "name": "CarInformation",
+        "type": "CarInformation",
+        "source": "CarInformation CarInformation"
+      },
+      {
+        "name": "SMessages",
+        "type": "ImmutableList<SMessage>",
+        "source": "ImmutableList<SMessage> SMessages"
+      },
+      {
+        "name": "StandardFeatures",
+        "type": "ImmutableList<Feature>",
+        "source": "ImmutableList<Feature> StandardFeatures"
+      },
+      {
+        "name": "Colours",
+        "type": "ImmutableList<Colour>",
+        "source": "ImmutableList<Colour> Colours"
+      },
+      {
+        "name": "InteriorRooms",
+        "type": "ImmutableList<InteriorRoom>",
+        "source": "ImmutableList<InteriorRoom> InteriorRooms"
+      },
+      {
+        "name": "Options",
+        "type": "ImmutableList<Option>",
+        "source": "ImmutableList<Option> Options"
+      },
+      {
+        "name": "Packages",
+        "type": "ImmutableList<Package>",
+        "source": "ImmutableList<Package> Packages"
+      }
+    ],
+    "methods": [],
+    "claim": "assortment-6114c5d-complete-r5/primary-constructor/722ea071dc65acf4"
+  },
+  {
+    "type": "PopCat.Assortment.Contracts.Models.Classification",
+    "path": "src/PopCat.Assortment.Contracts/Models/Classification.cs",
+    "lines": [3, 3],
+    "header": "public record Classification(string Id, string Code, bool IsType = false);",
+    "formals": [
+      {
+        "name": "Id",
+        "type": "string",
+        "source": "string Id"
+      },
+      {
+        "name": "Code",
+        "type": "string",
+        "source": "string Code"
+      },
+      {
+        "name": "IsType",
+        "type": "bool",
+        "source": "bool IsType = false"
+      }
+    ],
+    "methods": [],
+    "claim": "assortment-6114c5d-complete-r5/primary-constructor/3ebf40d39a25bb63"
+  },
+  {
+    "type": "PopCat.Assortment.Contracts.Models.Option",
+    "path": "src/PopCat.Assortment.Contracts/Models/Option.cs",
+    "lines": [3, 10],
+    "header": "public record Option(\n    string Code,\n    string Description,\n    ProductionDates ProductionDates,\n    ImmutableHashSet<string> Tags,\n    ImmutableList<Feature> Features,\n    ImmutableList<ReplacedOption> ReplacesOptions\n) : IConfigItem;",
+    "formals": [
+      {
+        "name": "Code",
+        "type": "string",
+        "source": "string Code"
+      },
+      {
+        "name": "Description",
+        "type": "string",
+        "source": "string Description"
+      },
+      {
+        "name": "ProductionDates",
+        "type": "ProductionDates",
+        "source": "ProductionDates ProductionDates"
+      },
+      {
+        "name": "Tags",
+        "type": "ImmutableHashSet<string>",
+        "source": "ImmutableHashSet<string> Tags"
+      },
+      {
+        "name": "Features",
+        "type": "ImmutableList<Feature>",
+        "source": "ImmutableList<Feature> Features"
+      },
+      {
+        "name": "ReplacesOptions",
+        "type": "ImmutableList<ReplacedOption>",
+        "source": "ImmutableList<ReplacedOption> ReplacesOptions"
+      }
+    ],
+    "methods": [],
+    "claim": "assortment-6114c5d-complete-r5/primary-constructor/413b77e515833ca6"
+  },
+  {
+    "type": "PopCat.Assortment.Contracts.Models.VariantVersion",
+    "path": "src/PopCat.Assortment.Contracts/Models/VariantVersion.cs",
+    "lines": [12, 17],
+    "header": "public sealed record VariantVersion(\n    VariantDetail Variant,\n    DateTimeOffset ValidFrom,\n    DateTimeOffset? ValidTo = null,\n    VersionStatus Status = VersionStatus.Active,\n    string? SourceEvent = null);",
+    "formals": [
+      {
+        "name": "Variant",
+        "type": "VariantDetail",
+        "source": "VariantDetail Variant"
+      },
+      {
+        "name": "ValidFrom",
+        "type": "DateTimeOffset",
+        "source": "DateTimeOffset ValidFrom"
+      },
+      {
+        "name": "ValidTo",
+        "type": "DateTimeOffset?",
+        "source": "DateTimeOffset? ValidTo = null"
+      },
+      {
+        "name": "Status",
+        "type": "VersionStatus",
+        "source": "VersionStatus Status = VersionStatus.Active"
+      },
+      {
+        "name": "SourceEvent",
+        "type": "string?",
+        "source": "string? SourceEvent = null"
+      }
+    ],
+    "methods": [],
+    "claim": "assortment-6114c5d-complete-r5/primary-constructor/bd9b1fc53b1c7f53"
+  },
+  {
+    "type": "PopCat.Assortment.Contracts.Models.ReplacedOption",
+    "path": "src/PopCat.Assortment.Contracts/Models/ReplacedOption.cs",
+    "lines": [3, 9],
+    "header": "public record ReplacedOption(\n    string Code,\n    string Description,\n    ProductionDates ProductionDates,\n    ImmutableHashSet<string> Tags,\n    ImmutableList<Feature> Features\n) : IConfigItem;",
+    "formals": [
+      {
+        "name": "Code",
+        "type": "string",
+        "source": "string Code"
+      },
+      {
+        "name": "Description",
+        "type": "string",
+        "source": "string Description"
+      },
+      {
+        "name": "ProductionDates",
+        "type": "ProductionDates",
+        "source": "ProductionDates ProductionDates"
+      },
+      {
+        "name": "Tags",
+        "type": "ImmutableHashSet<string>",
+        "source": "ImmutableHashSet<string> Tags"
+      },
+      {
+        "name": "Features",
+        "type": "ImmutableList<Feature>",
+        "source": "ImmutableList<Feature> Features"
+      }
+    ],
+    "methods": [],
+    "claim": "assortment-6114c5d-complete-r5/primary-constructor/971b71ba2a8e5f3e"
+  },
+  {
+    "type": "PopCat.Assortment.Contracts.Models.SpecMarket",
+    "path": "src/PopCat.Assortment.Contracts/Models/SpecMarket.cs",
+    "lines": [3, 8],
+    "header": "public record SpecMarket(\n    string Code,\n    string? LegacyGccCode,\n    string Name,\n    ImmutableList<Country> Countries\n);",
+    "formals": [
+      {
+        "name": "Code",
+        "type": "string",
+        "source": "string Code"
+      },
+      {
+        "name": "LegacyGccCode",
+        "type": "string?",
+        "source": "string? LegacyGccCode"
+      },
+      {
+        "name": "Name",
+        "type": "string",
+        "source": "string Name"
+      },
+      {
+        "name": "Countries",
+        "type": "ImmutableList<Country>",
+        "source": "ImmutableList<Country> Countries"
+      }
+    ],
+    "methods": [],
+    "claim": "assortment-6114c5d-complete-r5/primary-constructor/8bca67d626a81a89"
+  },
+  {
+    "type": "PopCat.Assortment.Contracts.Models.Pno12ListItem",
+    "path": "src/PopCat.Assortment.Contracts/Models/Pno12ListItem.cs",
+    "lines": [3, 10],
+    "header": "public record Pno12ListItem(\n    string Pno12,\n    Pno12Components Pno12Components,\n    DateTimeOffset LastImported,\n    string SpecMarket,\n    int StructureWeekFrom,\n    int StructureWeekTo,\n    int ModelYear);",
+    "formals": [
+      {
+        "name": "Pno12",
+        "type": "string",
+        "source": "string Pno12"
+      },
+      {
+        "name": "Pno12Components",
+        "type": "Pno12Components",
+        "source": "Pno12Components Pno12Components"
+      },
+      {
+        "name": "LastImported",
+        "type": "DateTimeOffset",
+        "source": "DateTimeOffset LastImported"
+      },
+      {
+        "name": "SpecMarket",
+        "type": "string",
+        "source": "string SpecMarket"
+      },
+      {
+        "name": "StructureWeekFrom",
+        "type": "int",
+        "source": "int StructureWeekFrom"
+      },
+      {
+        "name": "StructureWeekTo",
+        "type": "int",
+        "source": "int StructureWeekTo"
+      },
+      {
+        "name": "ModelYear",
+        "type": "int",
+        "source": "int ModelYear"
+      }
+    ],
+    "methods": [],
+    "claim": "assortment-6114c5d-complete-r5/primary-constructor/810562e99c0adbc5"
+  },
+  {
+    "type": "PopCat.Assortment.Contracts.Models.ExternalCarCodeInfo",
+    "path": "src/PopCat.Assortment.Contracts/Models/ExternalCarCodeInfo.cs",
+    "lines": [3, 3],
+    "header": "public record ExternalCarCodeInfo(string Pno12, int ModelYear, string LocalEditionCode, string Market, string Code, string Provider);",
+    "formals": [
+      {
+        "name": "Pno12",
+        "type": "string",
+        "source": "string Pno12"
+      },
+      {
+        "name": "ModelYear",
+        "type": "int",
+        "source": "int ModelYear"
+      },
+      {
+        "name": "LocalEditionCode",
+        "type": "string",
+        "source": "string LocalEditionCode"
+      },
+      {
+        "name": "Market",
+        "type": "string",
+        "source": "string Market"
+      },
+      {
+        "name": "Code",
+        "type": "string",
+        "source": "string Code"
+      },
+      {
+        "name": "Provider",
+        "type": "string",
+        "source": "string Provider"
+      }
+    ],
+    "methods": [],
+    "claim": "assortment-6114c5d-complete-r5/primary-constructor/1ca3dd84d1db95c2"
+  },
+  {
+    "type": "PopCat.Assortment.Contracts.Models.ExternalCarCodeResponse",
+    "path": "src/PopCat.Assortment.Contracts/Models/ExternalCarCodeInfo.cs",
+    "lines": [5, 5],
+    "header": "public record ExternalCarCodeResponse(string Code, string Provider);",
+    "formals": [
+      {
+        "name": "Code",
+        "type": "string",
+        "source": "string Code"
+      },
+      {
+        "name": "Provider",
+        "type": "string",
+        "source": "string Provider"
+      }
+    ],
+    "methods": [],
+    "claim": "assortment-6114c5d-complete-r5/primary-constructor/6778064fd47b73c3"
+  },
+  {
+    "type": "PopCat.Assortment.Contracts.Models.Pno12Components",
+    "path": "src/PopCat.Assortment.Contracts/Models/Pno12Components.cs",
+    "lines": [3, 12],
+    "header": "public record Pno12Components\n(\n    string CarType,\n    string Engine,\n    string SalesVersion,\n    string Body,\n    string GearBox,\n    string Steering,\n    string MarketCode\n) : IPno12Components;",
+    "formals": [
+      {
+        "name": "CarType",
+        "type": "string",
+        "source": "string CarType"
+      },
+      {
+        "name": "Engine",
+        "type": "string",
+        "source": "string Engine"
+      },
+      {
+        "name": "SalesVersion",
+        "type": "string",
+        "source": "string SalesVersion"
+      },
+      {
+        "name": "Body",
+        "type": "string",
+        "source": "string Body"
+      },
+      {
+        "name": "GearBox",
+        "type": "string",
+        "source": "string GearBox"
+      },
+      {
+        "name": "Steering",
+        "type": "string",
+        "source": "string Steering"
+      },
+      {
+        "name": "MarketCode",
+        "type": "string",
+        "source": "string MarketCode"
+      }
+    ],
+    "methods": [],
+    "claim": "assortment-6114c5d-complete-r5/primary-constructor/a3ddcc4e6e081b32"
+  },
+  {
+    "type": "PopCat.Assortment.Contracts.Models.GlobalTags",
+    "path": "src/PopCat.Assortment.Contracts/Models/GlobalTags.cs",
+    "lines": [2, 2],
+    "header": "public record GlobalTags(ICollection<string> Codes, ICollection<string> ClassificationCodes);",
+    "formals": [
+      {
+        "name": "Codes",
+        "type": "ICollection<string>",
+        "source": "ICollection<string> Codes"
+      },
+      {
+        "name": "ClassificationCodes",
+        "type": "ICollection<string>",
+        "source": "ICollection<string> ClassificationCodes"
+      }
+    ],
+    "methods": [],
+    "claim": "assortment-6114c5d-complete-r5/primary-constructor/19d2f9503f60f77a"
+  },
+  {
+    "type": "PopCat.Assortment.Contracts.Models.VariantDetail",
+    "path": "src/PopCat.Assortment.Contracts/Models/VariantDetail.cs",
+    "lines": [5, 15],
+    "header": "public record VariantDetail(\n    string Id,\n    string ProductId,\n    string Name,\n    string Code,\n    UpstreamProductType ProductType,\n    ImmutableList<Classification> Classifications,\n    ImmutableList<SpecificationValue> SpecificationValues,\n    ImmutableList<string> IncludedVariantIds,\n    TransformationCarQuery? TransformationCarKey,\n    UpstreamEntity? UpstreamEntity);",
+    "formals": [
+      {
+        "name": "Id",
+        "type": "string",
+        "source": "string Id"
+      },
+      {
+        "name": "ProductId",
+        "type": "string",
+        "source": "string ProductId"
+      },
+      {
+        "name": "Name",
+        "type": "string",
+        "source": "string Name"
+      },
+      {
+        "name": "Code",
+        "type": "string",
+        "source": "string Code"
+      },
+      {
+        "name": "ProductType",
+        "type": "UpstreamProductType",
+        "source": "UpstreamProductType ProductType"
+      },
+      {
+        "name": "Classifications",
+        "type": "ImmutableList<Classification>",
+        "source": "ImmutableList<Classification> Classifications"
+      },
+      {
+        "name": "SpecificationValues",
+        "type": "ImmutableList<SpecificationValue>",
+        "source": "ImmutableList<SpecificationValue> SpecificationValues"
+      },
+      {
+        "name": "IncludedVariantIds",
+        "type": "ImmutableList<string>",
+        "source": "ImmutableList<string> IncludedVariantIds"
+      },
+      {
+        "name": "TransformationCarKey",
+        "type": "TransformationCarQuery?",
+        "source": "TransformationCarQuery? TransformationCarKey"
+      },
+      {
+        "name": "UpstreamEntity",
+        "type": "UpstreamEntity?",
+        "source": "UpstreamEntity? UpstreamEntity"
+      }
+    ],
+    "methods": [],
+    "claim": "assortment-6114c5d-complete-r5/primary-constructor/f99cde28b8b7c9f2"
+  },
+  {
+    "type": "PopCat.Assortment.Contracts.Models.ListPno12QueryResult",
+    "path": "src/PopCat.Assortment.Contracts/Models/ListPno12QueryResult.cs",
+    "lines": [3, 6],
+    "header": "public record ListPno12QueryResult(\n    ImmutableHashSet<CarConfigKey> Keys,\n    bool HasMore\n);",
+    "formals": [
+      {
+        "name": "Keys",
+        "type": "ImmutableHashSet<CarConfigKey>",
+        "source": "ImmutableHashSet<CarConfigKey> Keys"
+      },
+      {
+        "name": "HasMore",
+        "type": "bool",
+        "source": "bool HasMore"
+      }
+    ],
+    "methods": [],
+    "claim": "assortment-6114c5d-complete-r5/primary-constructor/bebee9ae2c5eea88"
+  },
+  {
+    "type": "PopCat.Assortment.Contracts.Models.Pno12",
+    "path": "src/PopCat.Assortment.Contracts/Models/Pno12.cs",
+    "lines": [3, 8],
+    "header": "public record Pno12(\n      int Skip,\n      int Take,\n      int Total,\n      IReadOnlyCollection<Pno12ListItem> Items,\n      Pno12QueryAggregation? Aggregation);",
+    "formals": [
+      {
+        "name": "Skip",
+        "type": "int",
+        "source": "int Skip"
+      },
+      {
+        "name": "Take",
+        "type": "int",
+        "source": "int Take"
+      },
+      {
+        "name": "Total",
+        "type": "int",
+        "source": "int Total"
+      },
+      {
+        "name": "Items",
+        "type": "IReadOnlyCollection<Pno12ListItem>",
+        "source": "IReadOnlyCollection<Pno12ListItem> Items"
+      },
+      {
+        "name": "Aggregation",
+        "type": "Pno12QueryAggregation?",
+        "source": "Pno12QueryAggregation? Aggregation"
+      }
+    ],
+    "methods": [],
+    "claim": "assortment-6114c5d-complete-r5/primary-constructor/c8a40d7a11c5ce8a"
+  },
+  {
+    "type": "PopCat.Assortment.Contracts.Models.Colour",
+    "path": "src/PopCat.Assortment.Contracts/Models/Colour.cs",
+    "lines": [3, 8],
+    "header": "public record Colour(\n    string Code,\n    string Description,\n    ProductionDates ProductionDates,\n    ImmutableHashSet<string> Tags\n) : IConfigItem;",
+    "formals": [
+      {
+        "name": "Code",
+        "type": "string",
+        "source": "string Code"
+      },
+      {
+        "name": "Description",
+        "type": "string",
+        "source": "string Description"
+      },
+      {
+        "name": "ProductionDates",
+        "type": "ProductionDates",
+        "source": "ProductionDates ProductionDates"
+      },
+      {
+        "name": "Tags",
+        "type": "ImmutableHashSet<string>",
+        "source": "ImmutableHashSet<string> Tags"
+      }
+    ],
+    "methods": [],
+    "claim": "assortment-6114c5d-complete-r5/primary-constructor/3fb87167fa2e04ea"
+  },
+  {
+    "type": "PopCat.Assortment.Contracts.Models.PackageInteriorRoom",
+    "path": "src/PopCat.Assortment.Contracts/Models/PackageInteriorRoom.cs",
+    "lines": [3, 10],
+    "header": "public record PackageInteriorRoom(\n    string Code,\n    string Description,\n    ProductionDates ProductionDates,\n    ImmutableHashSet<string> Tags,\n    ImmutableList<Feature> Features,\n    ImmutableList<InteriorRoom> ExchangeableWith\n) : IConfigItem;",
+    "formals": [
+      {
+        "name": "Code",
+        "type": "string",
+        "source": "string Code"
+      },
+      {
+        "name": "Description",
+        "type": "string",
+        "source": "string Description"
+      },
+      {
+        "name": "ProductionDates",
+        "type": "ProductionDates",
+        "source": "ProductionDates ProductionDates"
+      },
+      {
+        "name": "Tags",
+        "type": "ImmutableHashSet<string>",
+        "source": "ImmutableHashSet<string> Tags"
+      },
+      {
+        "name": "Features",
+        "type": "ImmutableList<Feature>",
+        "source": "ImmutableList<Feature> Features"
+      },
+      {
+        "name": "ExchangeableWith",
+        "type": "ImmutableList<InteriorRoom>",
+        "source": "ImmutableList<InteriorRoom> ExchangeableWith"
+      }
+    ],
+    "methods": [],
+    "claim": "assortment-6114c5d-complete-r5/primary-constructor/87034b3f4700b012"
+  },
+  {
+    "type": "PopCat.Assortment.Contracts.Models.MarketAuthEntry",
+    "path": "src/PopCat.Assortment.Contracts/Models/MarketAuthEntry.cs",
+    "lines": [2, 4],
+    "header": "public record MarketAuthEntry(FeatureType Type,\n    string Code,\n    string Name);",
+    "formals": [
+      {
+        "name": "Type",
+        "type": "FeatureType",
+        "source": "FeatureType Type"
+      },
+      {
+        "name": "Code",
+        "type": "string",
+        "source": "string Code"
+      },
+      {
+        "name": "Name",
+        "type": "string",
+        "source": "string Name"
+      }
+    ],
+    "methods": [],
+    "claim": "assortment-6114c5d-complete-r5/primary-constructor/dcfea1cb187be283"
+  },
+  {
+    "type": "PopCat.Assortment.Contracts.Models.SMessage",
+    "path": "src/PopCat.Assortment.Contracts/Models/SMessage.cs",
+    "lines": [3, 8],
+    "header": "public record SMessage(\n    string Code,\n    string Description,\n    ProductionDates ProductionDates,\n    ImmutableHashSet<string> Tags\n) : IConfigItem;",
+    "formals": [
+      {
+        "name": "Code",
+        "type": "string",
+        "source": "string Code"
+      },
+      {
+        "name": "Description",
+        "type": "string",
+        "source": "string Description"
+      },
+      {
+        "name": "ProductionDates",
+        "type": "ProductionDates",
+        "source": "ProductionDates ProductionDates"
+      },
+      {
+        "name": "Tags",
+        "type": "ImmutableHashSet<string>",
+        "source": "ImmutableHashSet<string> Tags"
+      }
+    ],
+    "methods": [],
+    "claim": "assortment-6114c5d-complete-r5/primary-constructor/f35b830bef27032c"
+  },
+  {
+    "type": "PopCat.Assortment.Contracts.Models.GlobalDictionaryEntryDto",
+    "path": "src/PopCat.Assortment.Contracts/Models/GlobalDictionaryEntryDto.cs",
+    "lines": [2, 8],
+    "header": "public record GlobalDictionaryEntryDto(\n    int ModelYear,\n    string CarType,\n    string Type,\n    string Code,\n    string Name,\n    string LongName);",
+    "formals": [
+      {
+        "name": "ModelYear",
+        "type": "int",
+        "source": "int ModelYear"
+      },
+      {
+        "name": "CarType",
+        "type": "string",
+        "source": "string CarType"
+      },
+      {
+        "name": "Type",
+        "type": "string",
+        "source": "string Type"
+      },
+      {
+        "name": "Code",
+        "type": "string",
+        "source": "string Code"
+      },
+      {
+        "name": "Name",
+        "type": "string",
+        "source": "string Name"
+      },
+      {
+        "name": "LongName",
+        "type": "string",
+        "source": "string LongName"
+      }
+    ],
+    "methods": [],
+    "claim": "assortment-6114c5d-complete-r5/primary-constructor/f5cc8f3bf03d2901"
+  },
+  {
+    "type": "PopCat.Assortment.Contracts.Models.GlobalDictionaryEntry",
+    "path": "src/PopCat.Assortment.Contracts/Models/GlobalDictionaryEntry.cs",
+    "lines": [2, 6],
+    "header": "public record GlobalDictionaryEntry(\n    FeatureType Type,\n    string Code,\n    string Name,\n    string LongName);",
+    "formals": [
+      {
+        "name": "Type",
+        "type": "FeatureType",
+        "source": "FeatureType Type"
+      },
+      {
+        "name": "Code",
+        "type": "string",
+        "source": "string Code"
+      },
+      {
+        "name": "Name",
+        "type": "string",
+        "source": "string Name"
+      },
+      {
+        "name": "LongName",
+        "type": "string",
+        "source": "string LongName"
+      }
+    ],
+    "methods": [],
+    "claim": "assortment-6114c5d-complete-r5/primary-constructor/32890fa889df1366"
+  },
+  {
+    "type": "PopCat.Assortment.Contracts.Models.MarketAuthEntriesInfo",
+    "path": "src/PopCat.Assortment.Contracts/Models/MarketAuthEntriesInfo.cs",
+    "lines": [3, 6],
+    "header": "public record MarketAuthEntriesInfo(string SpecMarket,\n    string Pno3,\n    int ModelYear,\n    ImmutableList<MarketAuthEntry> Entries);",
+    "formals": [
+      {
+        "name": "SpecMarket",
+        "type": "string",
+        "source": "string SpecMarket"
+      },
+      {
+        "name": "Pno3",
+        "type": "string",
+        "source": "string Pno3"
+      },
+      {
+        "name": "ModelYear",
+        "type": "int",
+        "source": "int ModelYear"
+      },
+      {
+        "name": "Entries",
+        "type": "ImmutableList<MarketAuthEntry>",
+        "source": "ImmutableList<MarketAuthEntry> Entries"
+      }
+    ],
+    "methods": [],
+    "claim": "assortment-6114c5d-complete-r5/primary-constructor/beaa557df36bf23d"
+  },
+  {
+    "type": "PopCat.Assortment.Contracts.Models.Country",
+    "path": "src/PopCat.Assortment.Contracts/Models/Country.cs",
+    "lines": [3, 8],
+    "header": "public record Country(\n    string Name,\n    string Alpha2Code,\n    string Alpha3Code,\n    int NumericCode\n);",
+    "formals": [
+      {
+        "name": "Name",
+        "type": "string",
+        "source": "string Name"
+      },
+      {
+        "name": "Alpha2Code",
+        "type": "string",
+        "source": "string Alpha2Code"
+      },
+      {
+        "name": "Alpha3Code",
+        "type": "string",
+        "source": "string Alpha3Code"
+      },
+      {
+        "name": "NumericCode",
+        "type": "int",
+        "source": "int NumericCode"
+      }
+    ],
+    "methods": [],
+    "claim": "assortment-6114c5d-complete-r5/primary-constructor/057b8235d92c98b5"
+  },
+  {
+    "type": "PopCat.Assortment.Contracts.Models.Specification",
+    "path": "src/PopCat.Assortment.Contracts/Models/Specification.cs",
+    "lines": [3, 3],
+    "header": "public record Specification(string Id, string Name, string Unit, string Code, string DataType, ImmutableHashSet<string> ValidEnumValues);",
+    "formals": [
+      {
+        "name": "Id",
+        "type": "string",
+        "source": "string Id"
+      },
+      {
+        "name": "Name",
+        "type": "string",
+        "source": "string Name"
+      },
+      {
+        "name": "Unit",
+        "type": "string",
+        "source": "string Unit"
+      },
+      {
+        "name": "Code",
+        "type": "string",
+        "source": "string Code"
+      },
+      {
+        "name": "DataType",
+        "type": "string",
+        "source": "string DataType"
+      },
+      {
+        "name": "ValidEnumValues",
+        "type": "ImmutableHashSet<string>",
+        "source": "ImmutableHashSet<string> ValidEnumValues"
+      }
+    ],
+    "methods": [],
+    "claim": "assortment-6114c5d-complete-r5/primary-constructor/d8f04f7ad8e52454"
+  },
+  {
+    "type": "PopCat.Assortment.Contracts.Models.SpecificationValue",
+    "path": "src/PopCat.Assortment.Contracts/Models/SpecificationValue.cs",
+    "lines": [3, 3],
+    "header": "public record SpecificationValue(string Id, string Value, string SpecificationId, string Code, string Unit, string VariantId, string? Type = null);",
+    "formals": [
+      {
+        "name": "Id",
+        "type": "string",
+        "source": "string Id"
+      },
+      {
+        "name": "Value",
+        "type": "string",
+        "source": "string Value"
+      },
+      {
+        "name": "SpecificationId",
+        "type": "string",
+        "source": "string SpecificationId"
+      },
+      {
+        "name": "Code",
+        "type": "string",
+        "source": "string Code"
+      },
+      {
+        "name": "Unit",
+        "type": "string",
+        "source": "string Unit"
+      },
+      {
+        "name": "VariantId",
+        "type": "string",
+        "source": "string VariantId"
+      },
+      {
+        "name": "Type",
+        "type": "string?",
+        "source": "string? Type = null"
+      }
+    ],
+    "methods": [],
+    "claim": "assortment-6114c5d-complete-r5/primary-constructor/63ff65aad43d4c93"
+  },
+  {
+    "type": "PopCat.Assortment.Contracts.Models.PackageColour",
+    "path": "src/PopCat.Assortment.Contracts/Models/PackageColour.cs",
+    "lines": [3, 9],
+    "header": "public record PackageColour(\n    string Code,\n    string Description,\n    ProductionDates ProductionDates,\n    ImmutableHashSet<string> Tags,\n    ImmutableList<Colour> ExchangeableWith\n) : IConfigItem;",
+    "formals": [
+      {
+        "name": "Code",
+        "type": "string",
+        "source": "string Code"
+      },
+      {
+        "name": "Description",
+        "type": "string",
+        "source": "string Description"
+      },
+      {
+        "name": "ProductionDates",
+        "type": "ProductionDates",
+        "source": "ProductionDates ProductionDates"
+      },
+      {
+        "name": "Tags",
+        "type": "ImmutableHashSet<string>",
+        "source": "ImmutableHashSet<string> Tags"
+      },
+      {
+        "name": "ExchangeableWith",
+        "type": "ImmutableList<Colour>",
+        "source": "ImmutableList<Colour> ExchangeableWith"
+      }
+    ],
+    "methods": [],
+    "claim": "assortment-6114c5d-complete-r5/primary-constructor/29854b0cebdbbe9d"
+  },
+  {
+    "type": "PopCat.Assortment.Contracts.Models.GlobalDictionaryEntriesInfo",
+    "path": "src/PopCat.Assortment.Contracts/Models/GlobalDictionaryEntriesInfo.cs",
+    "lines": [3, 5],
+    "header": "public record GlobalDictionaryEntriesInfo(string Pno3,\n    int ModelYear,\n    ImmutableList<GlobalDictionaryEntry> Entries);",
+    "formals": [
+      {
+        "name": "Pno3",
+        "type": "string",
+        "source": "string Pno3"
+      },
+      {
+        "name": "ModelYear",
+        "type": "int",
+        "source": "int ModelYear"
+      },
+      {
+        "name": "Entries",
+        "type": "ImmutableList<GlobalDictionaryEntry>",
+        "source": "ImmutableList<GlobalDictionaryEntry> Entries"
+      }
+    ],
+    "methods": [],
+    "claim": "assortment-6114c5d-complete-r5/primary-constructor/c40bf3648467a068"
+  },
+  {
+    "type": "PopCat.Assortment.Contracts.Models.ProductionWeek",
+    "path": "src/PopCat.Assortment.Contracts/Models/ProductionWeek.cs",
+    "lines": [3, 6],
+    "header": "public record ProductionWeek(\n    int StructureWeek,\n    DateTime DateTime\n);",
+    "formals": [
+      {
+        "name": "StructureWeek",
+        "type": "int",
+        "source": "int StructureWeek"
+      },
+      {
+        "name": "DateTime",
+        "type": "DateTime",
+        "source": "DateTime DateTime"
+      }
+    ],
+    "methods": [],
+    "claim": "assortment-6114c5d-complete-r5/primary-constructor/815670d8052b451b"
+  },
+  {
+    "type": "PopCat.Assortment.Contracts.Models.DetailInfo",
+    "path": "src/PopCat.Assortment.Contracts/Models/DetailInfo.cs",
+    "lines": [3, 10],
+    "header": "public record DetailInfo(\n    string Id,\n    string Name,\n    ICollection<DetailInfoVariant> Variants,\n    ICollection<string> ClassificationCodes,\n    ICollection<string> Codes,\n    string Handle,\n    UpstreamProductType ProductType);",
+    "formals": [
+      {
+        "name": "Id",
+        "type": "string",
+        "source": "string Id"
+      },
+      {
+        "name": "Name",
+        "type": "string",
+        "source": "string Name"
+      },
+      {
+        "name": "Variants",
+        "type": "ICollection<DetailInfoVariant>",
+        "source": "ICollection<DetailInfoVariant> Variants"
+      },
+      {
+        "name": "ClassificationCodes",
+        "type": "ICollection<string>",
+        "source": "ICollection<string> ClassificationCodes"
+      },
+      {
+        "name": "Codes",
+        "type": "ICollection<string>",
+        "source": "ICollection<string> Codes"
+      },
+      {
+        "name": "Handle",
+        "type": "string",
+        "source": "string Handle"
+      },
+      {
+        "name": "ProductType",
+        "type": "UpstreamProductType",
+        "source": "UpstreamProductType ProductType"
+      }
+    ],
+    "methods": [],
+    "claim": "assortment-6114c5d-complete-r5/primary-constructor/5e0cb803e5276c39"
+  },
+  {
+    "type": "PopCat.Assortment.Contracts.Models.DetailInfoVariant",
+    "path": "src/PopCat.Assortment.Contracts/Models/DetailInfo.cs",
+    "lines": [12, 18],
+    "header": "public record DetailInfoVariant(\n    string Id,\n    string Name,\n    IDictionary<string, string> Metadata,\n    string Code,\n    ImmutableList<SpecificationValue> SpecificationValues,\n    ImmutableList<DetailInfoVariant> IncludedVariants);",
+    "formals": [
+      {
+        "name": "Id",
+        "type": "string",
+        "source": "string Id"
+      },
+      {
+        "name": "Name",
+        "type": "string",
+        "source": "string Name"
+      },
+      {
+        "name": "Metadata",
+        "type": "IDictionary<string, string>",
+        "source": "IDictionary<string, string> Metadata"
+      },
+      {
+        "name": "Code",
+        "type": "string",
+        "source": "string Code"
+      },
+      {
+        "name": "SpecificationValues",
+        "type": "ImmutableList<SpecificationValue>",
+        "source": "ImmutableList<SpecificationValue> SpecificationValues"
+      },
+      {
+        "name": "IncludedVariants",
+        "type": "ImmutableList<DetailInfoVariant>",
+        "source": "ImmutableList<DetailInfoVariant> IncludedVariants"
+      }
+    ],
+    "methods": [],
+    "claim": "assortment-6114c5d-complete-r5/primary-constructor/0200b901abe8c0d4"
+  },
+  {
+    "type": "PopCat.Assortment.Contracts.Errors.NotFoundError",
+    "path": "src/PopCat.Assortment.Contracts/Errors/NotFoundError.cs",
+    "lines": [2, 9],
+    "header": "public class NotFoundError(string message) : IError\n",
+    "formals": [
+      {
+        "name": "message",
+        "type": "string",
+        "source": "string message"
+      }
+    ],
+    "methods": [],
+    "claim": "assortment-6114c5d-complete-r5/primary-constructor/461e2e34cece04ce"
+  },
+  {
+    "type": "PopCat.Assortment.CacheWorker.Host.MessageProcessor.ManageCommercialMessageProcessor",
+    "path": "src/PopCat.Assortment.CacheWorker.Host/MessageProcessor/ManageCommercialMessageProcessor.cs",
+    "lines": [11, 125],
+    "header": "public class ManageCommercialMessageProcessor(\n    IOptions<KafkaConsumerSettings> kafkaOptions,\n    IUpstreamEntityCacheService upstreamEntityCacheService,\n    IProductFullDetailsCacheService productFullDetailsCacheService) : IMessageProcessor\n",
+    "formals": [
+      {
+        "name": "kafkaOptions",
+        "type": "IOptions<KafkaConsumerSettings>",
+        "source": "IOptions<KafkaConsumerSettings> kafkaOptions"
+      },
+      {
+        "name": "upstreamEntityCacheService",
+        "type": "IUpstreamEntityCacheService",
+        "source": "IUpstreamEntityCacheService upstreamEntityCacheService"
+      },
+      {
+        "name": "productFullDetailsCacheService",
+        "type": "IProductFullDetailsCacheService",
+        "source": "IProductFullDetailsCacheService productFullDetailsCacheService"
+      }
+    ],
+    "methods": [
+      "assortment-6114c5d-complete-r5/method/8391a5c6e6acdb01",
+      "assortment-6114c5d-complete-r5/method/47762378f0ebcd1e",
+      "assortment-6114c5d-complete-r5/method/a9d9491990c66a56",
+      "assortment-6114c5d-complete-r5/method/fc9f953ace0d2c76",
+      "assortment-6114c5d-complete-r5/method/79b689c34bbd5a43",
+      "assortment-6114c5d-complete-r5/method/d2672d54bec7c87a",
+      "assortment-6114c5d-complete-r5/method/8ddfceddf8ee7174",
+      "assortment-6114c5d-complete-r5/method/7dd1c638588e6865",
+      "assortment-6114c5d-complete-r5/method/66a17f87ef67cfce",
+      "assortment-6114c5d-complete-r5/method/d02dd6907e13a561",
+      "assortment-6114c5d-complete-r5/method/c75d57da473f35b9",
+      "assortment-6114c5d-complete-r5/method/30c278c55abf4c5d",
+      "assortment-6114c5d-complete-r5/method/6fdc4c1fcc9626a8",
+      "assortment-6114c5d-complete-r5/method/ea2c7f26958add66",
+      "assortment-6114c5d-complete-r5/method/c81239a05718d0aa",
+      "assortment-6114c5d-complete-r5/method/6ac034490e280c47",
+      "assortment-6114c5d-complete-r5/method/3b10172d4596e982",
+      "assortment-6114c5d-complete-r5/method/67cf325b2bda50fa",
+      "assortment-6114c5d-complete-r5/method/0d5c2c5073adc3b9",
+      "assortment-6114c5d-complete-r5/method/eba1b54589034f8b",
+      "assortment-6114c5d-complete-r5/method/7f0652c59e7a30a5",
+      "assortment-6114c5d-complete-r5/method/0b052bc00213339d",
+      "assortment-6114c5d-complete-r5/method/fcde92886204a422",
+      "assortment-6114c5d-complete-r5/method/7021dec7c05f3585",
+      "assortment-6114c5d-complete-r5/method/b586f928f0d9e48c",
+      "assortment-6114c5d-complete-r5/method/50766fadf9973364",
+      "assortment-6114c5d-complete-r5/method/035c9f84813ac721",
+      "assortment-6114c5d-complete-r5/method/7af6053f90acbc17",
+      "assortment-6114c5d-complete-r5/method/89f6f4f885c452af",
+      "assortment-6114c5d-complete-r5/method/02c19ac56ab0724b"
+    ],
+    "claim": "assortment-6114c5d-complete-r5/primary-constructor/756763847637f136"
+  },
+  {
+    "type": "PopCat.Assortment.CacheWorker.Host.MessageProcessor.ManageCommercialMessageProcessor.CommercialItem",
+    "path": "src/PopCat.Assortment.CacheWorker.Host/MessageProcessor/ManageCommercialMessageProcessor.cs",
+    "lines": [124, 124],
+    "header": "private sealed record CommercialItem(UpstreamEntity Entity, UpstreamProductType ProductType);",
+    "formals": [
+      {
+        "name": "Entity",
+        "type": "UpstreamEntity",
+        "source": "UpstreamEntity Entity"
+      },
+      {
+        "name": "ProductType",
+        "type": "UpstreamProductType",
+        "source": "UpstreamProductType ProductType"
+      }
+    ],
+    "methods": [],
+    "claim": "assortment-6114c5d-complete-r5/primary-constructor/ec0f7108de05ff11"
+  },
+  {
+    "type": "PopCat.Assortment.CacheWorker.Host.MessageProcessor.ClassificationMessageProcessor",
+    "path": "src/PopCat.Assortment.CacheWorker.Host/MessageProcessor/ClassificationMessageProcessor.cs",
+    "lines": [11, 88],
+    "header": "internal class ClassificationMessageProcessor(IOptions<KafkaConsumerSettings> kafkaOptions, IClassificationCacheService cacheService) : IMessageProcessor\n",
+    "formals": [
+      {
+        "name": "kafkaOptions",
+        "type": "IOptions<KafkaConsumerSettings>",
+        "source": "IOptions<KafkaConsumerSettings> kafkaOptions"
+      },
+      {
+        "name": "cacheService",
+        "type": "IClassificationCacheService",
+        "source": "IClassificationCacheService cacheService"
+      }
+    ],
+    "methods": [
+      "assortment-6114c5d-complete-r5/method/2243a593331345b6",
+      "assortment-6114c5d-complete-r5/method/cbe5cf6499b754a0",
+      "assortment-6114c5d-complete-r5/method/1df59ac4d7a7752c",
+      "assortment-6114c5d-complete-r5/method/8a87f6b9ebffc4d4"
+    ],
+    "claim": "assortment-6114c5d-complete-r5/primary-constructor/09a50250a63e5212"
+  },
+  {
+    "type": "PopCat.Assortment.CacheWorker.Host.MessageProcessor.PCFGlobalDictionaryMessageProcessor",
+    "path": "src/PopCat.Assortment.CacheWorker.Host/MessageProcessor/PCFGlobalDictionaryMessageProcessor.cs",
+    "lines": [9, 29],
+    "header": "public partial class PCFGlobalDictionaryMessageProcessor(\n    IOptions<KafkaConsumerSettings> options,\n    IGlobalDictionaryCacheService cacheService,\n    IFeatureFlagService featureFlagService) : IMessageProcessor\n",
+    "formals": [
+      {
+        "name": "options",
+        "type": "IOptions<KafkaConsumerSettings>",
+        "source": "IOptions<KafkaConsumerSettings> options"
+      },
+      {
+        "name": "cacheService",
+        "type": "IGlobalDictionaryCacheService",
+        "source": "IGlobalDictionaryCacheService cacheService"
+      },
+      {
+        "name": "featureFlagService",
+        "type": "IFeatureFlagService",
+        "source": "IFeatureFlagService featureFlagService"
+      }
+    ],
+    "methods": ["assortment-6114c5d-complete-r5/method/994032e4240662cf"],
+    "claim": "assortment-6114c5d-complete-r5/primary-constructor/f3629a286f4a1ac0"
+  },
+  {
+    "type": "PopCat.Assortment.CacheWorker.Host.MessageProcessor.SpecificationMessageProcessor",
+    "path": "src/PopCat.Assortment.CacheWorker.Host/MessageProcessor/SpecificationMessageProcessor.cs",
+    "lines": [11, 89],
+    "header": "internal class SpecificationMessageProcessor(IOptions<KafkaConsumerSettings> kafkaOptions, ISpecificationCacheService cacheService) : IMessageProcessor\n",
+    "formals": [
+      {
+        "name": "kafkaOptions",
+        "type": "IOptions<KafkaConsumerSettings>",
+        "source": "IOptions<KafkaConsumerSettings> kafkaOptions"
+      },
+      {
+        "name": "cacheService",
+        "type": "ISpecificationCacheService",
+        "source": "ISpecificationCacheService cacheService"
+      }
+    ],
+    "methods": [
+      "assortment-6114c5d-complete-r5/method/da272a8efd21f55e",
+      "assortment-6114c5d-complete-r5/method/4aee4e73c6071e5a",
+      "assortment-6114c5d-complete-r5/method/78db44bd674f6319",
+      "assortment-6114c5d-complete-r5/method/57570266d3936a6c"
+    ],
+    "claim": "assortment-6114c5d-complete-r5/primary-constructor/ec8ba2fe1a5873a9"
+  },
+  {
+    "type": "PopCat.Assortment.CacheWorker.Host.MessageProcessor.PCFCarConfigMessageProcessor",
+    "path": "src/PopCat.Assortment.CacheWorker.Host/MessageProcessor/PCFCarConfigMessageProcessor.cs",
+    "lines": [9, 28],
+    "header": "internal partial class PCFCarConfigMessageProcessor(IOptions<KafkaConsumerSettings> kafkaOptions, ICarConfigCacheService carConfigService) : IMessageProcessor\n",
+    "formals": [
+      {
+        "name": "kafkaOptions",
+        "type": "IOptions<KafkaConsumerSettings>",
+        "source": "IOptions<KafkaConsumerSettings> kafkaOptions"
+      },
+      {
+        "name": "carConfigService",
+        "type": "ICarConfigCacheService",
+        "source": "ICarConfigCacheService carConfigService"
+      }
+    ],
+    "methods": [
+      "assortment-6114c5d-complete-r5/method/ff982fac4f07c495",
+      "assortment-6114c5d-complete-r5/method/98982dc3ab54594e"
+    ],
+    "claim": "assortment-6114c5d-complete-r5/primary-constructor/dc78974db60def3c"
+  },
+  {
+    "type": "PopCat.Assortment.CacheWorker.Host.MessageProcessor.PCFMarketAuthMessageProcessor",
+    "path": "src/PopCat.Assortment.CacheWorker.Host/MessageProcessor/PCFMarketAuthMessageProcessor.cs",
+    "lines": [9, 26],
+    "header": "public partial class PCFMarketAuthMessageProcessor(\n    IOptions<KafkaConsumerSettings> options,\n    IMarketAuthCacheService marketAuthCacheService,\n    IFeatureFlagService featureFlagService) : IMessageProcessor\n",
+    "formals": [
+      {
+        "name": "options",
+        "type": "IOptions<KafkaConsumerSettings>",
+        "source": "IOptions<KafkaConsumerSettings> options"
+      },
+      {
+        "name": "marketAuthCacheService",
+        "type": "IMarketAuthCacheService",
+        "source": "IMarketAuthCacheService marketAuthCacheService"
+      },
+      {
+        "name": "featureFlagService",
+        "type": "IFeatureFlagService",
+        "source": "IFeatureFlagService featureFlagService"
+      }
+    ],
+    "methods": ["assortment-6114c5d-complete-r5/method/b0955333753acea2"],
+    "claim": "assortment-6114c5d-complete-r5/primary-constructor/1164de22979209cb"
+  },
+  {
+    "type": "PopCat.Assortment.CacheWorker.Host.MessageProcessor.ManageSegmentMessageProcessor",
+    "path": "src/PopCat.Assortment.CacheWorker.Host/MessageProcessor/ManageSegmentMessageProcessor.cs",
+    "lines": [11, 122],
+    "header": "public class ManageSegmentMessageProcessor(IOptions<KafkaConsumerSettings> kafkaOptions, IExternalCarCodeCacheService cacheService) : IMessageProcessor\n",
+    "formals": [
+      {
+        "name": "kafkaOptions",
+        "type": "IOptions<KafkaConsumerSettings>",
+        "source": "IOptions<KafkaConsumerSettings> kafkaOptions"
+      },
+      {
+        "name": "cacheService",
+        "type": "IExternalCarCodeCacheService",
+        "source": "IExternalCarCodeCacheService cacheService"
+      }
+    ],
+    "methods": [
+      "assortment-6114c5d-complete-r5/method/0750ad38e178ce3e",
+      "assortment-6114c5d-complete-r5/method/768c5c9f6bbabf49",
+      "assortment-6114c5d-complete-r5/method/7e0c59531c586830",
+      "assortment-6114c5d-complete-r5/method/5e8e9c878e2a004e",
+      "assortment-6114c5d-complete-r5/method/269bae3f9670b190",
+      "assortment-6114c5d-complete-r5/method/4e6c04de9670a25b",
+      "assortment-6114c5d-complete-r5/method/e6c63132f21a83a9",
+      "assortment-6114c5d-complete-r5/method/1886bc3cabde6203",
+      "assortment-6114c5d-complete-r5/method/bf42e101ecc27464",
+      "assortment-6114c5d-complete-r5/method/3390b648d0a65e76",
+      "assortment-6114c5d-complete-r5/method/946d54feb28bf880",
+      "assortment-6114c5d-complete-r5/method/891342cf27065825",
+      "assortment-6114c5d-complete-r5/method/4b24c7f6a7a1190d",
+      "assortment-6114c5d-complete-r5/method/94e8bd218c82fc48",
+      "assortment-6114c5d-complete-r5/method/acdf89aa7b7294bb",
+      "assortment-6114c5d-complete-r5/method/a4e520719880c973",
+      "assortment-6114c5d-complete-r5/method/073a2702cccea23d",
+      "assortment-6114c5d-complete-r5/method/e8b3e08111cb74c1",
+      "assortment-6114c5d-complete-r5/method/f83355c67561da97"
+    ],
+    "claim": "assortment-6114c5d-complete-r5/primary-constructor/648b1159cc1c54bc"
+  },
+  {
+    "type": "PopCat.Assortment.CacheWorker.Host.MessageProcessor.MessageProcessorFactory",
+    "path": "src/PopCat.Assortment.CacheWorker.Host/MessageProcessor/MessageProcessorFactory.cs",
+    "lines": [3, 12],
+    "header": "public class MessageProcessorFactory(IServiceProvider serviceProvider) : IMessageProcessorFactory\n",
+    "formals": [
+      {
+        "name": "serviceProvider",
+        "type": "IServiceProvider",
+        "source": "IServiceProvider serviceProvider"
+      }
+    ],
+    "methods": [
+      "assortment-6114c5d-complete-r5/method/e5e421073d29f653",
+      "assortment-6114c5d-complete-r5/method/0b1afa4b7a12a173"
+    ],
+    "claim": "assortment-6114c5d-complete-r5/primary-constructor/21ceddc691b08903"
+  },
+  {
+    "type": "PopCat.Assortment.CacheWorker.Host.MessageProcessor.PDSMessageProcessor",
+    "path": "src/PopCat.Assortment.CacheWorker.Host/MessageProcessor/PDSMessageProcessor.cs",
+    "lines": [12, 160],
+    "header": "internal class PDSMessageProcessor(\n    IOptions<KafkaConsumerSettings> kafkaOptions,\n    IProductFullDetailsCacheService fullCacheService) : IMessageProcessor\n",
+    "formals": [
+      {
+        "name": "kafkaOptions",
+        "type": "IOptions<KafkaConsumerSettings>",
+        "source": "IOptions<KafkaConsumerSettings> kafkaOptions"
+      },
+      {
+        "name": "fullCacheService",
+        "type": "IProductFullDetailsCacheService",
+        "source": "IProductFullDetailsCacheService fullCacheService"
+      }
+    ],
+    "methods": [
+      "assortment-6114c5d-complete-r5/method/80fdbb3682ae5ff2",
+      "assortment-6114c5d-complete-r5/method/cd7ad6591afe7dd6",
+      "assortment-6114c5d-complete-r5/method/1cc3c80c8e1c5517",
+      "assortment-6114c5d-complete-r5/method/0ac1fa3bdaba8c0b",
+      "assortment-6114c5d-complete-r5/method/322115fd599fde49",
+      "assortment-6114c5d-complete-r5/method/980c68c2059881de",
+      "assortment-6114c5d-complete-r5/method/7663015cef27a27d",
+      "assortment-6114c5d-complete-r5/method/81801f62e8506549",
+      "assortment-6114c5d-complete-r5/method/83a7efda09f912b6",
+      "assortment-6114c5d-complete-r5/method/c03704bb88488e1f",
+      "assortment-6114c5d-complete-r5/method/fca83fe9581b917d",
+      "assortment-6114c5d-complete-r5/method/57371810abdb6291",
+      "assortment-6114c5d-complete-r5/method/1e97c34498e26223",
+      "assortment-6114c5d-complete-r5/method/80013b7f7162116f",
+      "assortment-6114c5d-complete-r5/method/cca2ad35d6da1fbd",
+      "assortment-6114c5d-complete-r5/method/594248b0185e43aa",
+      "assortment-6114c5d-complete-r5/method/8306cc4e309ee306",
+      "assortment-6114c5d-complete-r5/method/67e0a77ae7721bfd",
+      "assortment-6114c5d-complete-r5/method/516cc001f7a94ea5",
+      "assortment-6114c5d-complete-r5/method/ae44641573f08add",
+      "assortment-6114c5d-complete-r5/method/46bc626e73c5292b",
+      "assortment-6114c5d-complete-r5/method/cbb0f7a3edc4f5d7",
+      "assortment-6114c5d-complete-r5/method/1e95db107ffc85fc",
+      "assortment-6114c5d-complete-r5/method/88a1f3b22a91b7a2",
+      "assortment-6114c5d-complete-r5/method/353c916a82953afe"
+    ],
+    "claim": "assortment-6114c5d-complete-r5/primary-constructor/26181a6196be088d"
+  },
+  {
+    "type": "PopCat.Assortment.CacheWorker.Host.MessageProcessor.PCFGlobalDictionaryEntriesMessageProcessor",
+    "path": "src/PopCat.Assortment.CacheWorker.Host/MessageProcessor/PCFGlobalDictionaryEntriesMessageProcessor.cs",
+    "lines": [11, 107],
+    "header": "public partial class PCFGlobalDictionaryEntriesMessageProcessor(\n    IOptions<KafkaConsumerSettings> kafkaOptions,\n    IGlobalDictionaryCacheService service,\n    IFeatureFlagService featureFlagService) : IMessageProcessor\n",
+    "formals": [
+      {
+        "name": "kafkaOptions",
+        "type": "IOptions<KafkaConsumerSettings>",
+        "source": "IOptions<KafkaConsumerSettings> kafkaOptions"
+      },
+      {
+        "name": "service",
+        "type": "IGlobalDictionaryCacheService",
+        "source": "IGlobalDictionaryCacheService service"
+      },
+      {
+        "name": "featureFlagService",
+        "type": "IFeatureFlagService",
+        "source": "IFeatureFlagService featureFlagService"
+      }
+    ],
+    "methods": [
+      "assortment-6114c5d-complete-r5/method/6950c90c3e9b9dde",
+      "assortment-6114c5d-complete-r5/method/e89bddc23778ac36",
+      "assortment-6114c5d-complete-r5/method/6ba41a1e5573c0fb",
+      "assortment-6114c5d-complete-r5/method/987a6e87d966bb6b",
+      "assortment-6114c5d-complete-r5/method/1e1ba9ed18ecc50e",
+      "assortment-6114c5d-complete-r5/method/6aa29c4f9676ac99",
+      "assortment-6114c5d-complete-r5/method/0b21159fede08350",
+      "assortment-6114c5d-complete-r5/method/7fdce95f48f6390c",
+      "assortment-6114c5d-complete-r5/method/6e6714b435388acb",
+      "assortment-6114c5d-complete-r5/method/76be2157754979ee",
+      "assortment-6114c5d-complete-r5/method/173a84fc24f66377",
+      "assortment-6114c5d-complete-r5/method/6f815cc8a7def6ee"
+    ],
+    "claim": "assortment-6114c5d-complete-r5/primary-constructor/8415c16607baf08f"
+  },
+  {
+    "type": "PopCat.Assortment.CacheWorker.Host.MessageProcessor.PCFMarketAuthEntriesMessageProcessor",
+    "path": "src/PopCat.Assortment.CacheWorker.Host/MessageProcessor/PCFMarketAuthEntriesMessageProcessor.cs",
+    "lines": [11, 75],
+    "header": "public partial class PCFMarketAuthEntriesMessageProcessor(\n    IOptions<KafkaConsumerSettings> kafkaOptions,\n    IMarketAuthCacheService service,\n    IFeatureFlagService featureFlagService) : IMessageProcessor\n",
+    "formals": [
+      {
+        "name": "kafkaOptions",
+        "type": "IOptions<KafkaConsumerSettings>",
+        "source": "IOptions<KafkaConsumerSettings> kafkaOptions"
+      },
+      {
+        "name": "service",
+        "type": "IMarketAuthCacheService",
+        "source": "IMarketAuthCacheService service"
+      },
+      {
+        "name": "featureFlagService",
+        "type": "IFeatureFlagService",
+        "source": "IFeatureFlagService featureFlagService"
+      }
+    ],
+    "methods": [
+      "assortment-6114c5d-complete-r5/method/023017b36257865a",
+      "assortment-6114c5d-complete-r5/method/405d1c77badc4682",
+      "assortment-6114c5d-complete-r5/method/70c0e47d5c89d61e",
+      "assortment-6114c5d-complete-r5/method/ec23eaee64e371c5",
+      "assortment-6114c5d-complete-r5/method/08264676c3901b6b",
+      "assortment-6114c5d-complete-r5/method/7b8230fa1e5a2272",
+      "assortment-6114c5d-complete-r5/method/30c2818dbbec3613",
+      "assortment-6114c5d-complete-r5/method/647586f6bad846ea",
+      "assortment-6114c5d-complete-r5/method/66cb032f3867f605",
+      "assortment-6114c5d-complete-r5/method/945ed5c6525519f0",
+      "assortment-6114c5d-complete-r5/method/5b78537719276827"
+    ],
+    "claim": "assortment-6114c5d-complete-r5/primary-constructor/e227594f43cdabb4"
+  },
+  {
+    "type": "PopCat.Assortment.CacheWorker.Host.MessageProcessor.KafkaEvent<T>",
+    "path": "src/PopCat.Assortment.CacheWorker.Host/MessageProcessor/KafkaEvent.cs",
+    "lines": [13, 13],
+    "header": "internal record KafkaEvent<T>(KafkaEventType EventType, T Data);",
+    "formals": [
+      {
+        "name": "EventType",
+        "type": "KafkaEventType",
+        "source": "KafkaEventType EventType"
+      },
+      {
+        "name": "Data",
+        "type": "T",
+        "source": "T Data"
+      }
+    ],
+    "methods": [],
+    "claim": "assortment-6114c5d-complete-r5/primary-constructor/6a191c0559577f6f"
+  },
+  {
+    "type": "PopCat.Assortment.CacheWorker.Host.Services.KafkaConsumerService",
+    "path": "src/PopCat.Assortment.CacheWorker.Host/Services/KafkaConsumerService.cs",
+    "lines": [7, 98],
+    "header": "public class KafkaConsumerService(\n    IMessageProcessorFactory messageProcessorFactory,\n    ILogger<KafkaConsumerService> logger,\n    InstrumentedConsumerBuilder<string, byte[]> consumerBuilder\n) : BackgroundService\n",
+    "formals": [
+      {
+        "name": "messageProcessorFactory",
+        "type": "IMessageProcessorFactory",
+        "source": "IMessageProcessorFactory messageProcessorFactory"
+      },
+      {
+        "name": "logger",
+        "type": "ILogger<KafkaConsumerService>",
+        "source": "ILogger<KafkaConsumerService> logger"
+      },
+      {
+        "name": "consumerBuilder",
+        "type": "InstrumentedConsumerBuilder<string, byte[]>",
+        "source": "InstrumentedConsumerBuilder<string, byte[]> consumerBuilder"
+      }
+    ],
+    "methods": [
+      "assortment-6114c5d-complete-r5/method/a9ca5ded7068efba",
+      "assortment-6114c5d-complete-r5/method/11900c3fe065730a",
+      "assortment-6114c5d-complete-r5/method/2a20bb4cdc539449",
+      "assortment-6114c5d-complete-r5/method/b97be64a37bfc4fe",
+      "assortment-6114c5d-complete-r5/method/b12255933268b957"
+    ],
+    "claim": "assortment-6114c5d-complete-r5/primary-constructor/c3488793ee5cd866"
+  },
+  {
+    "type": "PopCat.Assortment.Integration.HealthChecks.AzureTokenHealthCheck",
+    "path": "src/PopCat.Assortment.Integration/HealthChecks/AzureTokenHealthCheck.cs",
+    "lines": [6, 20],
+    "header": "public class AzureTokenHealthCheck(\n    ITokenProvider tokenProvider\n) : IHealthCheck\n",
+    "formals": [
+      {
+        "name": "tokenProvider",
+        "type": "ITokenProvider",
+        "source": "ITokenProvider tokenProvider"
+      }
+    ],
+    "methods": ["assortment-6114c5d-complete-r5/method/c14a5bdc157f334e"],
+    "claim": "assortment-6114c5d-complete-r5/primary-constructor/ad5ad09f5defbd5d"
+  },
+  {
+    "type": "PopCat.Assortment.Integration.HealthChecks.ProductServiceHealthCheck",
+    "path": "src/PopCat.Assortment.Integration/HealthChecks/ProductServiceHealthCheck.cs",
+    "lines": [6, 17],
+    "header": "public class ProductServiceHealthCheck(IProductServiceClient client) : IHealthCheck\n",
+    "formals": [
+      {
+        "name": "client",
+        "type": "IProductServiceClient",
+        "source": "IProductServiceClient client"
+      }
+    ],
+    "methods": ["assortment-6114c5d-complete-r5/method/efd358a8aaffca80"],
+    "claim": "assortment-6114c5d-complete-r5/primary-constructor/5116a528fd6c251e"
+  },
+  {
+    "type": "PopCat.Assortment.Integration.LaunchDarkly.FeatureFlagService",
+    "path": "src/PopCat.Assortment.Integration/LaunchDarkly/FeatureFlagService.cs",
+    "lines": [9, 22],
+    "header": "public class FeatureFlagService(IFeatureFlagClient client) : IFeatureFlagService\n",
+    "formals": [
+      {
+        "name": "client",
+        "type": "IFeatureFlagClient",
+        "source": "IFeatureFlagClient client"
+      }
+    ],
+    "methods": [
+      "assortment-6114c5d-complete-r5/method/a819128d7287e484",
+      "assortment-6114c5d-complete-r5/method/9dc64cf37d807746"
+    ],
+    "claim": "assortment-6114c5d-complete-r5/primary-constructor/3906161439f8e176"
+  },
+  {
+    "type": "PopCat.Assortment.Integration.LaunchDarkly.LaunchDarklyConfig",
+    "path": "src/PopCat.Assortment.Integration/LaunchDarkly/LaunchDarklySettings.cs",
+    "lines": [10, 16],
+    "header": "public record LaunchDarklyConfig(string SdkKey, string ServiceName)\n",
+    "formals": [
+      {
+        "name": "SdkKey",
+        "type": "string",
+        "source": "string SdkKey"
+      },
+      {
+        "name": "ServiceName",
+        "type": "string",
+        "source": "string ServiceName"
+      }
+    ],
+    "methods": ["assortment-6114c5d-complete-r5/method/e96c4437e5c0aebc"],
+    "claim": "assortment-6114c5d-complete-r5/primary-constructor/0c8d2fb7249c1aec"
+  },
+  {
+    "type": "PopCat.Assortment.Integration.Common.RetryConfig",
+    "path": "src/PopCat.Assortment.Integration/Common/RetryOptions.cs",
+    "lines": [12, 12],
+    "header": "internal record RetryConfig(int MaxRetryAttempts, int MaxRetryDelay, double FailureRatio, int MinimumThroughput, int TimeOut);",
+    "formals": [
+      {
+        "name": "MaxRetryAttempts",
+        "type": "int",
+        "source": "int MaxRetryAttempts"
+      },
+      {
+        "name": "MaxRetryDelay",
+        "type": "int",
+        "source": "int MaxRetryDelay"
+      },
+      {
+        "name": "FailureRatio",
+        "type": "double",
+        "source": "double FailureRatio"
+      },
+      {
+        "name": "MinimumThroughput",
+        "type": "int",
+        "source": "int MinimumThroughput"
+      },
+      {
+        "name": "TimeOut",
+        "type": "int",
+        "source": "int TimeOut"
+      }
+    ],
+    "methods": [],
+    "claim": "assortment-6114c5d-complete-r5/primary-constructor/658cefc10d0d7600"
+  },
+  {
+    "type": "PopCat.Assortment.Integration.Authentication.ConfidentialClientApplicationWrapper",
+    "path": "src/PopCat.Assortment.Integration/Authentication/ConfidentialClientApplicationWrapper.cs",
+    "lines": [10, 18],
+    "header": "public class ConfidentialClientApplicationWrapper(IConfidentialClientApplication app) : IConfidentialClientApplicationWrapper\n",
+    "formals": [
+      {
+        "name": "app",
+        "type": "IConfidentialClientApplication",
+        "source": "IConfidentialClientApplication app"
+      }
+    ],
+    "methods": ["assortment-6114c5d-complete-r5/method/765fb9ce7489116b"],
+    "claim": "assortment-6114c5d-complete-r5/primary-constructor/f868e7d712aa5c0c"
+  },
+  {
+    "type": "PopCat.Assortment.Integration.Authentication.AzureAuthenticationDelegatingHandler",
+    "path": "src/PopCat.Assortment.Integration/Authentication/AzureAuthenticationDelegatingHandler.cs",
+    "lines": [6, 40],
+    "header": "public class AzureAuthenticationDelegatingHandler(\n    IConfidentialClientApplicationWrapper confidentialClientApplicationWrapper,\n    string resourceId) : DelegatingHandler\n",
+    "formals": [
+      {
+        "name": "confidentialClientApplicationWrapper",
+        "type": "IConfidentialClientApplicationWrapper",
+        "source": "IConfidentialClientApplicationWrapper confidentialClientApplicationWrapper"
+      },
+      {
+        "name": "resourceId",
+        "type": "string",
+        "source": "string resourceId"
+      }
+    ],
+    "methods": [
+      "assortment-6114c5d-complete-r5/method/3ffe0213937c3121",
+      "assortment-6114c5d-complete-r5/method/b2d98fc60963a740"
+    ],
+    "claim": "assortment-6114c5d-complete-r5/primary-constructor/dbb1b577d6d40a13"
+  },
+  {
+    "type": "PopCat.Assortment.Contracts.Models.Requests.CarConfigDetailsRequest",
+    "path": "src/PopCat.Assortment.Contracts/Models/Requests/CarConfigDetailsRequest.cs",
+    "lines": [2, 2],
+    "header": "public record CarConfigDetailsRequest(string SpecMarket, int ModelYear, string Pno12);",
+    "formals": [
+      {
+        "name": "SpecMarket",
+        "type": "string",
+        "source": "string SpecMarket"
+      },
+      {
+        "name": "ModelYear",
+        "type": "int",
+        "source": "int ModelYear"
+      },
+      {
+        "name": "Pno12",
+        "type": "string",
+        "source": "string Pno12"
+      }
+    ],
+    "methods": [],
+    "claim": "assortment-6114c5d-complete-r5/primary-constructor/3d6bdf361f48692a"
+  },
+  {
+    "type": "PopCat.Assortment.Contracts.Models.Requests.ExternalCarCodeRequest",
+    "path": "src/PopCat.Assortment.Contracts/Models/Requests/ExternalCarCodeRequest.cs",
+    "lines": [3, 3],
+    "header": "public record ExternalCarCodeRequest(string Market, int ModelYear, string Pno12, string LocalEditionCode, string ClientName);",
+    "formals": [
+      {
+        "name": "Market",
+        "type": "string",
+        "source": "string Market"
+      },
+      {
+        "name": "ModelYear",
+        "type": "int",
+        "source": "int ModelYear"
+      },
+      {
+        "name": "Pno12",
+        "type": "string",
+        "source": "string Pno12"
+      },
+      {
+        "name": "LocalEditionCode",
+        "type": "string",
+        "source": "string LocalEditionCode"
+      },
+      {
+        "name": "ClientName",
+        "type": "string",
+        "source": "string ClientName"
+      }
+    ],
+    "methods": [],
+    "claim": "assortment-6114c5d-complete-r5/primary-constructor/3a42e8d5552b3519"
+  },
+  {
+    "type": "PopCat.Assortment.Contracts.Models.ProductOutput.Rule",
+    "path": "src/PopCat.Assortment.Contracts/Models/ProductOutput/VariantRule.cs",
+    "lines": [8, 15],
+    "header": "public record Rule(\n    RuleType Type,\n    ImmutableArray<Rule> SubRules,\n    string? StringValue,\n    int? IntValue,\n    Guid? ClassificationValueId,\n    Classification? ClassificationValue\n);",
+    "formals": [
+      {
+        "name": "Type",
+        "type": "RuleType",
+        "source": "RuleType Type"
+      },
+      {
+        "name": "SubRules",
+        "type": "ImmutableArray<Rule>",
+        "source": "ImmutableArray<Rule> SubRules"
+      },
+      {
+        "name": "StringValue",
+        "type": "string?",
+        "source": "string? StringValue"
+      },
+      {
+        "name": "IntValue",
+        "type": "int?",
+        "source": "int? IntValue"
+      },
+      {
+        "name": "ClassificationValueId",
+        "type": "Guid?",
+        "source": "Guid? ClassificationValueId"
+      },
+      {
+        "name": "ClassificationValue",
+        "type": "Classification?",
+        "source": "Classification? ClassificationValue"
+      }
+    ],
+    "methods": [],
+    "claim": "assortment-6114c5d-complete-r5/primary-constructor/4987b2ceb295a64a"
+  },
+  {
+    "type": "PopCat.Assortment.Contracts.Models.ProductOutput.ProductQuery",
+    "path": "src/PopCat.Assortment.Contracts/Models/ProductOutput/ProductQuery.cs",
+    "lines": [3, 42],
+    "header": "public record ProductQuery(\n    int Offset = 0,\n    int Limit = 0,\n    string? Query = null,\n    ProductType? Type = null,\n    Brand? Brand = null\n)\n",
+    "formals": [
+      {
+        "name": "Offset",
+        "type": "int",
+        "source": "int Offset = 0"
+      },
+      {
+        "name": "Limit",
+        "type": "int",
+        "source": "int Limit = 0"
+      },
+      {
+        "name": "Query",
+        "type": "string?",
+        "source": "string? Query = null"
+      },
+      {
+        "name": "Type",
+        "type": "ProductType?",
+        "source": "ProductType? Type = null"
+      },
+      {
+        "name": "Brand",
+        "type": "Brand?",
+        "source": "Brand? Brand = null"
+      }
+    ],
+    "methods": ["assortment-6114c5d-complete-r5/method/4bf49b521a5b3af7"],
+    "claim": "assortment-6114c5d-complete-r5/primary-constructor/96cd10cb8d2e5a22"
+  },
+  {
+    "type": "PopCat.Assortment.Contracts.Models.ProductOutput.Classification",
+    "path": "src/PopCat.Assortment.Contracts/Models/ProductOutput/Classification.cs",
+    "lines": [3, 9],
+    "header": "public record Classification(\n    Guid Id,\n    string SystemName,\n    ClassificationType Type,\n    Rule Rule,\n    Brand Brand\n);",
+    "formals": [
+      {
+        "name": "Id",
+        "type": "Guid",
+        "source": "Guid Id"
+      },
+      {
+        "name": "SystemName",
+        "type": "string",
+        "source": "string SystemName"
+      },
+      {
+        "name": "Type",
+        "type": "ClassificationType",
+        "source": "ClassificationType Type"
+      },
+      {
+        "name": "Rule",
+        "type": "Rule",
+        "source": "Rule Rule"
+      },
+      {
+        "name": "Brand",
+        "type": "Brand",
+        "source": "Brand Brand"
+      }
+    ],
+    "methods": [],
+    "claim": "assortment-6114c5d-complete-r5/primary-constructor/3f2c1d1dc314b357"
+  },
+  {
+    "type": "PopCat.Assortment.Contracts.Models.ProductOutput.UpstreamItem",
+    "path": "src/PopCat.Assortment.Contracts/Models/ProductOutput/UpstreamItem.cs",
+    "lines": [3, 12],
+    "header": "public record UpstreamItem(\n    Guid Id,\n    ItemType Type,\n    string Code,\n    ImmutableArray<string> SystemNames,\n    bool Archived,\n    string ArchiveReason,\n    bool Preliminary,\n    int NumVariants\n);",
+    "formals": [
+      {
+        "name": "Id",
+        "type": "Guid",
+        "source": "Guid Id"
+      },
+      {
+        "name": "Type",
+        "type": "ItemType",
+        "source": "ItemType Type"
+      },
+      {
+        "name": "Code",
+        "type": "string",
+        "source": "string Code"
+      },
+      {
+        "name": "SystemNames",
+        "type": "ImmutableArray<string>",
+        "source": "ImmutableArray<string> SystemNames"
+      },
+      {
+        "name": "Archived",
+        "type": "bool",
+        "source": "bool Archived"
+      },
+      {
+        "name": "ArchiveReason",
+        "type": "string",
+        "source": "string ArchiveReason"
+      },
+      {
+        "name": "Preliminary",
+        "type": "bool",
+        "source": "bool Preliminary"
+      },
+      {
+        "name": "NumVariants",
+        "type": "int",
+        "source": "int NumVariants"
+      }
+    ],
+    "methods": [],
+    "claim": "assortment-6114c5d-complete-r5/primary-constructor/73c1428b7d1daab4"
+  },
+  {
+    "type": "PopCat.Assortment.Contracts.Models.ProductOutput.ProductVariant",
+    "path": "src/PopCat.Assortment.Contracts/Models/ProductOutput/ProductVariant.cs",
+    "lines": [3, 12],
+    "header": "public record ProductVariant(\n    Guid Id,\n    string SystemName,\n    string ProductName,\n    string Key,\n    ProductType Type,\n    Rule Rule,\n    ImmutableArray<string> PrimaryCodes,\n    ImmutableArray<UpstreamItem> UpstreamItems\n);",
+    "formals": [
+      {
+        "name": "Id",
+        "type": "Guid",
+        "source": "Guid Id"
+      },
+      {
+        "name": "SystemName",
+        "type": "string",
+        "source": "string SystemName"
+      },
+      {
+        "name": "ProductName",
+        "type": "string",
+        "source": "string ProductName"
+      },
+      {
+        "name": "Key",
+        "type": "string",
+        "source": "string Key"
+      },
+      {
+        "name": "Type",
+        "type": "ProductType",
+        "source": "ProductType Type"
+      },
+      {
+        "name": "Rule",
+        "type": "Rule",
+        "source": "Rule Rule"
+      },
+      {
+        "name": "PrimaryCodes",
+        "type": "ImmutableArray<string>",
+        "source": "ImmutableArray<string> PrimaryCodes"
+      },
+      {
+        "name": "UpstreamItems",
+        "type": "ImmutableArray<UpstreamItem>",
+        "source": "ImmutableArray<UpstreamItem> UpstreamItems"
+      }
+    ],
+    "methods": [],
+    "claim": "assortment-6114c5d-complete-r5/primary-constructor/d2e9ec0dfef94cdf"
+  },
+  {
+    "type": "PopCat.Assortment.Contracts.Models.ProductOutput.Product",
+    "path": "src/PopCat.Assortment.Contracts/Models/ProductOutput/Product.cs",
+    "lines": [3, 10],
+    "header": "public record Product(\n    Guid Id,\n    string SystemName,\n    ImmutableArray<ProductVariant> Variants,\n    string Brand,\n    ProductType Type,\n    ImmutableArray<string> Codes\n);",
+    "formals": [
+      {
+        "name": "Id",
+        "type": "Guid",
+        "source": "Guid Id"
+      },
+      {
+        "name": "SystemName",
+        "type": "string",
+        "source": "string SystemName"
+      },
+      {
+        "name": "Variants",
+        "type": "ImmutableArray<ProductVariant>",
+        "source": "ImmutableArray<ProductVariant> Variants"
+      },
+      {
+        "name": "Brand",
+        "type": "string",
+        "source": "string Brand"
+      },
+      {
+        "name": "Type",
+        "type": "ProductType",
+        "source": "ProductType Type"
+      },
+      {
+        "name": "Codes",
+        "type": "ImmutableArray<string>",
+        "source": "ImmutableArray<string> Codes"
+      }
+    ],
+    "methods": [],
+    "claim": "assortment-6114c5d-complete-r5/primary-constructor/0be24b75aefbe5ff"
+  },
+  {
+    "type": "PopCat.Assortment.Integration.ProductService.Models.PsProductQuery",
+    "path": "src/PopCat.Assortment.Integration/ProductService/Models/PsProductQuery.cs",
+    "lines": [5, 44],
+    "header": "public record PsProductQuery(\n    int Offset = 0,\n    int Limit = 0,\n    string? Query = null,\n    PsProductType? Type = null,\n    PsBrand? Brand = null\n)\n",
+    "formals": [
+      {
+        "name": "Offset",
+        "type": "int",
+        "source": "int Offset = 0"
+      },
+      {
+        "name": "Limit",
+        "type": "int",
+        "source": "int Limit = 0"
+      },
+      {
+        "name": "Query",
+        "type": "string?",
+        "source": "string? Query = null"
+      },
+      {
+        "name": "Type",
+        "type": "PsProductType?",
+        "source": "PsProductType? Type = null"
+      },
+      {
+        "name": "Brand",
+        "type": "PsBrand?",
+        "source": "PsBrand? Brand = null"
+      }
+    ],
+    "methods": ["assortment-6114c5d-complete-r5/method/597dc75f3226dec7"],
+    "claim": "assortment-6114c5d-complete-r5/primary-constructor/c0a112c0efa2e714"
+  },
+  {
+    "type": "PopCat.Assortment.Integration.ProductService.Models.PsClassification",
+    "path": "src/PopCat.Assortment.Integration/ProductService/Models/PsClassification.cs",
+    "lines": [5, 11],
+    "header": "public record PsClassification(\n    Guid Id,\n    string? SystemName,\n    PsClassificationType? Type,\n    PsRule? Rule,\n    PsBrand? Brand\n);",
+    "formals": [
+      {
+        "name": "Id",
+        "type": "Guid",
+        "source": "Guid Id"
+      },
+      {
+        "name": "SystemName",
+        "type": "string?",
+        "source": "string? SystemName"
+      },
+      {
+        "name": "Type",
+        "type": "PsClassificationType?",
+        "source": "PsClassificationType? Type"
+      },
+      {
+        "name": "Rule",
+        "type": "PsRule?",
+        "source": "PsRule? Rule"
+      },
+      {
+        "name": "Brand",
+        "type": "PsBrand?",
+        "source": "PsBrand? Brand"
+      }
+    ],
+    "methods": [],
+    "claim": "assortment-6114c5d-complete-r5/primary-constructor/134c4e0ce97bc394"
+  },
+  {
+    "type": "PopCat.Assortment.Integration.ProductService.Models.PsProduct",
+    "path": "src/PopCat.Assortment.Integration/ProductService/Models/PsProduct.cs",
+    "lines": [5, 12],
+    "header": "public record PsProduct(\n    Guid Id,\n    string? SystemName,\n    ImmutableArray<PsProductVariant>? Variants,\n    string? Brand,\n    PsProductType? Type,\n    ImmutableArray<string>? Codes\n);",
+    "formals": [
+      {
+        "name": "Id",
+        "type": "Guid",
+        "source": "Guid Id"
+      },
+      {
+        "name": "SystemName",
+        "type": "string?",
+        "source": "string? SystemName"
+      },
+      {
+        "name": "Variants",
+        "type": "ImmutableArray<PsProductVariant>?",
+        "source": "ImmutableArray<PsProductVariant>? Variants"
+      },
+      {
+        "name": "Brand",
+        "type": "string?",
+        "source": "string? Brand"
+      },
+      {
+        "name": "Type",
+        "type": "PsProductType?",
+        "source": "PsProductType? Type"
+      },
+      {
+        "name": "Codes",
+        "type": "ImmutableArray<string>?",
+        "source": "ImmutableArray<string>? Codes"
+      }
+    ],
+    "methods": [],
+    "claim": "assortment-6114c5d-complete-r5/primary-constructor/ef319acf5047550e"
+  },
+  {
+    "type": "PopCat.Assortment.Integration.ProductService.Models.PsRule",
+    "path": "src/PopCat.Assortment.Integration/ProductService/Models/PsRule.cs",
+    "lines": [10, 22],
+    "header": "public record PsRule(\n    PsRuleType? Type,\n    ImmutableArray<PsRule>? SubRules,\n    string? StringValue,\n    int? IntValue,\n    Guid? ClassificationValueId,\n    PsClassification? ClassificationValue\n)\n",
+    "formals": [
+      {
+        "name": "Type",
+        "type": "PsRuleType?",
+        "source": "PsRuleType? Type"
+      },
+      {
+        "name": "SubRules",
+        "type": "ImmutableArray<PsRule>?",
+        "source": "ImmutableArray<PsRule>? SubRules"
+      },
+      {
+        "name": "StringValue",
+        "type": "string?",
+        "source": "string? StringValue"
+      },
+      {
+        "name": "IntValue",
+        "type": "int?",
+        "source": "int? IntValue"
+      },
+      {
+        "name": "ClassificationValueId",
+        "type": "Guid?",
+        "source": "Guid? ClassificationValueId"
+      },
+      {
+        "name": "ClassificationValue",
+        "type": "PsClassification?",
+        "source": "PsClassification? ClassificationValue"
+      }
+    ],
+    "methods": ["assortment-6114c5d-complete-r5/method/17f219870b78552b"],
+    "claim": "assortment-6114c5d-complete-r5/primary-constructor/40482cf5a03edea3"
+  },
+  {
+    "type": "PopCat.Assortment.Integration.ProductService.Models.PsUpstreamItem",
+    "path": "src/PopCat.Assortment.Integration/ProductService/Models/PsUpstreamItem.cs",
+    "lines": [5, 14],
+    "header": "public record PsUpstreamItem(\n    Guid Id,\n    PsItemType? Type,\n    string? Code,\n    ImmutableArray<string>? SystemNames,\n    bool? Archived,\n    string? ArchiveReason,\n    bool? Preliminary,\n    int? NumVariants\n);",
+    "formals": [
+      {
+        "name": "Id",
+        "type": "Guid",
+        "source": "Guid Id"
+      },
+      {
+        "name": "Type",
+        "type": "PsItemType?",
+        "source": "PsItemType? Type"
+      },
+      {
+        "name": "Code",
+        "type": "string?",
+        "source": "string? Code"
+      },
+      {
+        "name": "SystemNames",
+        "type": "ImmutableArray<string>?",
+        "source": "ImmutableArray<string>? SystemNames"
+      },
+      {
+        "name": "Archived",
+        "type": "bool?",
+        "source": "bool? Archived"
+      },
+      {
+        "name": "ArchiveReason",
+        "type": "string?",
+        "source": "string? ArchiveReason"
+      },
+      {
+        "name": "Preliminary",
+        "type": "bool?",
+        "source": "bool? Preliminary"
+      },
+      {
+        "name": "NumVariants",
+        "type": "int?",
+        "source": "int? NumVariants"
+      }
+    ],
+    "methods": [],
+    "claim": "assortment-6114c5d-complete-r5/primary-constructor/8073d3b56c5737f7"
+  },
+  {
+    "type": "PopCat.Assortment.Integration.ProductService.Models.PsProductVariant",
+    "path": "src/PopCat.Assortment.Integration/ProductService/Models/PsProductVariant.cs",
+    "lines": [5, 14],
+    "header": "public record PsProductVariant(\n    Guid Id,\n    string? SystemName,\n    string? ProductName,\n    string? Key,\n    PsProductType? Type,\n    PsRule? Rule,\n    ImmutableArray<string>? PrimaryCodes,\n    ImmutableArray<PsUpstreamItem>? UpstreamItems\n);",
+    "formals": [
+      {
+        "name": "Id",
+        "type": "Guid",
+        "source": "Guid Id"
+      },
+      {
+        "name": "SystemName",
+        "type": "string?",
+        "source": "string? SystemName"
+      },
+      {
+        "name": "ProductName",
+        "type": "string?",
+        "source": "string? ProductName"
+      },
+      {
+        "name": "Key",
+        "type": "string?",
+        "source": "string? Key"
+      },
+      {
+        "name": "Type",
+        "type": "PsProductType?",
+        "source": "PsProductType? Type"
+      },
+      {
+        "name": "Rule",
+        "type": "PsRule?",
+        "source": "PsRule? Rule"
+      },
+      {
+        "name": "PrimaryCodes",
+        "type": "ImmutableArray<string>?",
+        "source": "ImmutableArray<string>? PrimaryCodes"
+      },
+      {
+        "name": "UpstreamItems",
+        "type": "ImmutableArray<PsUpstreamItem>?",
+        "source": "ImmutableArray<PsUpstreamItem>? UpstreamItems"
+      }
+    ],
+    "methods": [],
+    "claim": "assortment-6114c5d-complete-r5/primary-constructor/f9f5bcd6a4ab95f5"
+  },
+  {
+    "type": "PopCat.Assortment.Integration.Assortment.Provider.AssortmentProvider",
+    "path": "src/PopCat.Assortment.Integration/Assortment/Provider/AssortmentProvider.cs",
+    "lines": [15, 326],
+    "header": "public class AssortmentProvider(IAssortmentProxy proxy) : IAssortmentProvider\n",
+    "formals": [
+      {
+        "name": "proxy",
+        "type": "IAssortmentProxy",
+        "source": "IAssortmentProxy proxy"
+      }
+    ],
+    "methods": [
+      "assortment-6114c5d-complete-r5/method/2189b5c7d67bddf1",
+      "assortment-6114c5d-complete-r5/method/c6bdef9fd74c8ce9",
+      "assortment-6114c5d-complete-r5/method/ddeec3088d5abac1",
+      "assortment-6114c5d-complete-r5/method/0a6a59abb7707873",
+      "assortment-6114c5d-complete-r5/method/f333786f85773504",
+      "assortment-6114c5d-complete-r5/method/a9aa071d05e46995",
+      "assortment-6114c5d-complete-r5/method/e74280cc1af08854",
+      "assortment-6114c5d-complete-r5/method/f4a2b92193e440b3",
+      "assortment-6114c5d-complete-r5/method/97a1141cc002c409",
+      "assortment-6114c5d-complete-r5/method/b42de7022b029880",
+      "assortment-6114c5d-complete-r5/method/ce94ec4796c1c8c2",
+      "assortment-6114c5d-complete-r5/method/f902290447cfd38a",
+      "assortment-6114c5d-complete-r5/method/e056dfc623ac1707",
+      "assortment-6114c5d-complete-r5/method/1106b4e51a15e292",
+      "assortment-6114c5d-complete-r5/method/6cdc5c8aad54f2fd",
+      "assortment-6114c5d-complete-r5/method/db31656ca6d3b116",
+      "assortment-6114c5d-complete-r5/method/7e6486874d95d9d7",
+      "assortment-6114c5d-complete-r5/method/f5fab996fb5d06f5",
+      "assortment-6114c5d-complete-r5/method/088e632e160ffd31",
+      "assortment-6114c5d-complete-r5/method/f912fd284902dcfc",
+      "assortment-6114c5d-complete-r5/method/e88c529bb9daaafc",
+      "assortment-6114c5d-complete-r5/method/95a613f0532fcca1",
+      "assortment-6114c5d-complete-r5/method/ccdc090cde335d78",
+      "assortment-6114c5d-complete-r5/method/f069baf682d8a1a2",
+      "assortment-6114c5d-complete-r5/method/e154d4d2a314dc62",
+      "assortment-6114c5d-complete-r5/method/6315e52f79e121b8",
+      "assortment-6114c5d-complete-r5/method/7c4c2773bd991ab4",
+      "assortment-6114c5d-complete-r5/method/d33b5e47541a470c",
+      "assortment-6114c5d-complete-r5/method/feb84f19b651da99",
+      "assortment-6114c5d-complete-r5/method/5d7a42b6267bb2b5",
+      "assortment-6114c5d-complete-r5/method/1978b6d0b488c833",
+      "assortment-6114c5d-complete-r5/method/95e5de3c73c28bb0",
+      "assortment-6114c5d-complete-r5/method/edf8ed4ec2b5cdff",
+      "assortment-6114c5d-complete-r5/method/98e5fa498f92ec77",
+      "assortment-6114c5d-complete-r5/method/231c0395470a90d6",
+      "assortment-6114c5d-complete-r5/method/b08e40676bd7cee7",
+      "assortment-6114c5d-complete-r5/method/db9ccdf136fe81f5",
+      "assortment-6114c5d-complete-r5/method/cd7bfcd1056b1416",
+      "assortment-6114c5d-complete-r5/method/a5e39b5792162ea0",
+      "assortment-6114c5d-complete-r5/method/6fca2d61f6c6c01d",
+      "assortment-6114c5d-complete-r5/method/2975330347d797ce",
+      "assortment-6114c5d-complete-r5/method/e6ce9001ebd9b4ad"
+    ],
+    "claim": "assortment-6114c5d-complete-r5/primary-constructor/c9b56679c5c3eda3"
+  }
+]

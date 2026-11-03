@@ -1,0 +1,16 @@
+{
+  "format": "groundwork-query/v3",
+  "snapshot": "8f5b505536f6140e260bbc4a079a419a80eb79573d760b1e252b0c8ad3a5a19d",
+  "query": "value",
+  "entry": "pspin-ae1d9dd/entry/webhook",
+  "value": "pspin-ae1d9dd/v/webhook/effective-account",
+  "context": [],
+  "outcome": null,
+  "changed": [],
+  "representation": "constructed",
+  "candidates": "exclude",
+  "maxNodes": 500,
+  "maxRecords": 1500,
+  "environment": "ecp-weu-prod-source-profile",
+  "ids": []
+}

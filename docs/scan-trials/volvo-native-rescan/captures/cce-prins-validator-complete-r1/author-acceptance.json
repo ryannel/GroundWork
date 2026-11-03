@@ -1,0 +1,2274 @@
+{
+  "snapshot": "51b6a331102fba3d4883137b7e7845e9c6bd0a71c7e4d2d621bb926668267905",
+  "records": 10680,
+  "entries": 21,
+  "implementations": 98,
+  "interactions": 4,
+  "queries": [
+    {
+      "name": "entry source:cmd/cce-prins-validator/main.go:main",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "trace source:cmd/cce-prins-validator/main.go:main",
+      "nodes": 42,
+      "edges": 41,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "entry source:internal/app/app.go:fx.Hook.OnStart",
+      "nodes": 4,
+      "edges": 4,
+      "limits": ["maxNodes"],
+      "pages": 1
+    },
+    {
+      "name": "trace source:internal/app/app.go:fx.Hook.OnStart",
+      "nodes": 2000,
+      "edges": 2145,
+      "limits": ["maxNodes", "maxRecords"],
+      "pages": 2
+    },
+    {
+      "name": "entry source:internal/app/app.go:OnStart:validation-goroutine",
+      "nodes": 4,
+      "edges": 4,
+      "limits": ["maxNodes"],
+      "pages": 1
+    },
+    {
+      "name": "trace source:internal/app/app.go:OnStart:validation-goroutine",
+      "nodes": 2000,
+      "edges": 2145,
+      "limits": ["maxNodes", "maxRecords"],
+      "pages": 2
+    },
+    {
+      "name": "entry fx:fx.Provide:github.com/volvo-cars/cce-prins-validator/internal/app#newBinderConfig()->(*binder.Config)",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "trace fx:fx.Provide:github.com/volvo-cars/cce-prins-validator/internal/app#newBinderConfig()->(*binder.Config)",
+      "nodes": 13,
+      "edges": 12,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "entry fx:fx.Provide:github.com/volvo-cars/cce-prins-validator/internal/app#newConfig(*binder.Config)->(config)",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "trace fx:fx.Provide:github.com/volvo-cars/cce-prins-validator/internal/app#newConfig(*binder.Config)->(config)",
+      "nodes": 28,
+      "edges": 29,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "entry fx:fx.Provide:github.com/volvo-cars/cce-prins-validator/internal/app#newFilterApiConfig(config)->(filterservice.Config)",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "trace fx:fx.Provide:github.com/volvo-cars/cce-prins-validator/internal/app#newFilterApiConfig(config)->(filterservice.Config)",
+      "nodes": 7,
+      "edges": 6,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "entry fx:fx.Provide:github.com/volvo-cars/cce-prins-validator/internal/app#newOptimizationFacadeConfig(config)->(optimizationfacade.Config)",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "trace fx:fx.Provide:github.com/volvo-cars/cce-prins-validator/internal/app#newOptimizationFacadeConfig(config)->(optimizationfacade.Config)",
+      "nodes": 7,
+      "edges": 6,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "entry fx:fx.Provide:github.com/volvo-cars/cce-prins-validator/internal/app#newPrinsConfig(config)->(prins.Config)",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "trace fx:fx.Provide:github.com/volvo-cars/cce-prins-validator/internal/app#newPrinsConfig(config)->(prins.Config)",
+      "nodes": 9,
+      "edges": 8,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "entry fx:fx.Provide:github.com/volvo-cars/cce-prins-validator/internal/app#newHttpClient(config)->(*http.Client,error)",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "trace fx:fx.Provide:github.com/volvo-cars/cce-prins-validator/internal/app#newHttpClient(config)->(*http.Client,error)",
+      "nodes": 90,
+      "edges": 92,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "entry fx:fx.Provide:github.com/volvo-cars/cce-prins-validator/internal/gateway/filterservice#NewClient(Config,*http.Client)->(*Client,error)",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "trace fx:fx.Provide:github.com/volvo-cars/cce-prins-validator/internal/gateway/filterservice#NewClient(Config,*http.Client)->(*Client,error)",
+      "nodes": 7,
+      "edges": 6,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "entry fx:fx.Provide:github.com/volvo-cars/cce-prins-validator/internal/gateway/optimizationfacade#NewClient(Config,*http.Client)->(*Client)",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "trace fx:fx.Provide:github.com/volvo-cars/cce-prins-validator/internal/gateway/optimizationfacade#NewClient(Config,*http.Client)->(*Client)",
+      "nodes": 5,
+      "edges": 4,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "entry fx:fx.Provide:github.com/volvo-cars/cce-prins-validator/internal/gateway/optimizationfacade#NewComponentProvider(*Client)->(*ComponentProvider)",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "trace fx:fx.Provide:github.com/volvo-cars/cce-prins-validator/internal/gateway/optimizationfacade#NewComponentProvider(*Client)->(*ComponentProvider)",
+      "nodes": 4,
+      "edges": 3,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "entry fx:fx.Provide:github.com/volvo-cars/cce-prins-validator/internal/gateway/optimizationfacade#NewConfigurationGenerator(*Client)->(*ConfigurationGenerator)",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "trace fx:fx.Provide:github.com/volvo-cars/cce-prins-validator/internal/gateway/optimizationfacade#NewConfigurationGenerator(*Client)->(*ConfigurationGenerator)",
+      "nodes": 4,
+      "edges": 3,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "entry fx:fx.Provide:github.com/volvo-cars/cce-prins-validator/internal/gateway/optimizationfacade#NewStartConfigurationProvider(*Client)->(*StartConfigurationProvider)",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "trace fx:fx.Provide:github.com/volvo-cars/cce-prins-validator/internal/gateway/optimizationfacade#NewStartConfigurationProvider(*Client)->(*StartConfigurationProvider)",
+      "nodes": 4,
+      "edges": 3,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "entry fx:fx.Provide:github.com/volvo-cars/cce-prins-validator/internal/gateway/prins#NewClient(MachineboxClient,Config)->(*Client)",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "trace fx:fx.Provide:github.com/volvo-cars/cce-prins-validator/internal/gateway/prins#NewClient(MachineboxClient,Config)->(*Client)",
+      "nodes": 4,
+      "edges": 3,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "entry fx:fx.Provide:github.com/volvo-cars/cce-prins-validator/internal/gateway/prins#NewConfigurationFetcher(*Client)->(*ConfigurationFetcher)",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "trace fx:fx.Provide:github.com/volvo-cars/cce-prins-validator/internal/gateway/prins#NewConfigurationFetcher(*Client)->(*ConfigurationFetcher)",
+      "nodes": 4,
+      "edges": 3,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "entry fx:fx.Provide:github.com/volvo-cars/cce-prins-validator/internal/service#NewRulesetValidator(*filterservice.Client,*prins.ConfigurationFetcher,*optimizationfacade.ComponentProvider,*optimizationfacade.ConfigurationGenerator,*optimizationfacade.StartConfigurationProvider)->(*RulesetValidator)",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "trace fx:fx.Provide:github.com/volvo-cars/cce-prins-validator/internal/service#NewRulesetValidator(*filterservice.Client,*prins.ConfigurationFetcher,*optimizationfacade.ComponentProvider,*optimizationfacade.ConfigurationGenerator,*optimizationfacade.StartConfigurationProvider)->(*RulesetValidator)",
+      "nodes": 4,
+      "edges": 3,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "entry fx:fx.Provide:github.com/volvo-cars/cce-prins-validator/internal/app#New(...fx.Option)->(App)$closure@975",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "trace fx:fx.Provide:github.com/volvo-cars/cce-prins-validator/internal/app#New(...fx.Option)->(App)$closure@975",
+      "nodes": 5,
+      "edges": 4,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "entry fx:fx.Invoke:github.com/volvo-cars/cce-prins-validator/internal/app#runValidation(fx.Lifecycle,*service.RulesetValidator,fx.Shutdowner)->()",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "trace fx:fx.Invoke:github.com/volvo-cars/cce-prins-validator/internal/app#runValidation(fx.Lifecycle,*service.RulesetValidator,fx.Shutdowner)->()",
+      "nodes": 5,
+      "edges": 4,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "entry package-init:github.com/volvo-cars/cce-prins-validator/internal/domain#package-var@internal/domain/pno12.go:81",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "trace package-init:github.com/volvo-cars/cce-prins-validator/internal/domain#package-var@internal/domain/pno12.go:81",
+      "nodes": 5,
+      "edges": 4,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "entry package-init:github.com/volvo-cars/cce-prins-validator/internal/gateway/prins#package-var@internal/gateway/prins/configurationfetcher.go:289",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "trace package-init:github.com/volvo-cars/cce-prins-validator/internal/gateway/prins#package-var@internal/gateway/prins/configurationfetcher.go:289",
+      "nodes": 7,
+      "edges": 6,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body github.com/volvo-cars/cce-prins-validator/cmd/cce-prins-validator#main()->()",
+      "nodes": 42,
+      "edges": 41,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body github.com/volvo-cars/cce-prins-validator/internal/app#New(...fx.Option)->(App)",
+      "nodes": 36,
+      "edges": 35,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body github.com/volvo-cars/cce-prins-validator/internal/app#New(...fx.Option)->(App)$closure@975",
+      "nodes": 5,
+      "edges": 4,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body github.com/volvo-cars/cce-prins-validator/internal/app#runValidation(fx.Lifecycle,*service.RulesetValidator,fx.Shutdowner)->()",
+      "nodes": 5,
+      "edges": 4,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body github.com/volvo-cars/cce-prins-validator/internal/app#runValidation(fx.Lifecycle,*service.RulesetValidator,fx.Shutdowner)->()$closure@1376",
+      "nodes": 2000,
+      "edges": 2145,
+      "limits": ["maxNodes", "maxRecords"],
+      "pages": 2
+    },
+    {
+      "name": "body github.com/volvo-cars/cce-prins-validator/internal/app#runValidation(fx.Lifecycle,*service.RulesetValidator,fx.Shutdowner)->()$closure@1416",
+      "nodes": 2000,
+      "edges": 2145,
+      "limits": ["maxNodes", "maxRecords"],
+      "pages": 2
+    },
+    {
+      "name": "body github.com/volvo-cars/cce-prins-validator/internal/app#shutdown(context.Context,fx.Shutdowner)->()",
+      "nodes": 13,
+      "edges": 13,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body github.com/volvo-cars/cce-prins-validator/internal/app#newHttpClient(config)->(*http.Client,error)",
+      "nodes": 90,
+      "edges": 92,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body github.com/volvo-cars/cce-prins-validator/internal/app#newBinderConfig()->(*binder.Config)",
+      "nodes": 13,
+      "edges": 12,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body github.com/volvo-cars/cce-prins-validator/internal/app#newConfig(*binder.Config)->(config)",
+      "nodes": 28,
+      "edges": 29,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body github.com/volvo-cars/cce-prins-validator/internal/app#newFilterApiConfig(config)->(filterservice.Config)",
+      "nodes": 7,
+      "edges": 6,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body github.com/volvo-cars/cce-prins-validator/internal/app#newOptimizationFacadeConfig(config)->(optimizationfacade.Config)",
+      "nodes": 7,
+      "edges": 6,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body github.com/volvo-cars/cce-prins-validator/internal/app#newPrinsConfig(config)->(prins.Config)",
+      "nodes": 9,
+      "edges": 8,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body github.com/volvo-cars/cce-prins-validator/internal/app#setEnvVariables(*binder.Config)->()",
+      "nodes": 21,
+      "edges": 22,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body github.com/volvo-cars/cce-prins-validator/internal/domain#ParsePno34(string,[]string,int)->(CarConfiguration,error)",
+      "nodes": 298,
+      "edges": 319,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body github.com/volvo-cars/cce-prins-validator/internal/domain#splitItemsFromGroupEntry(string)->([]string)",
+      "nodes": 27,
+      "edges": 28,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body github.com/volvo-cars/cce-prins-validator/internal/domain#splitIntoItemsSixCharsLong(string)->([]string)",
+      "nodes": 7,
+      "edges": 6,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body github.com/volvo-cars/cce-prins-validator/internal/domain#FindStandardWheel([]Component)->(string,bool)",
+      "nodes": 24,
+      "edges": 24,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body github.com/volvo-cars/cce-prins-validator/internal/domain#ExtractComponentsToVary([]PrinsConfiguration,[]string,map[Pno12]string)->([]ComponentsToVary)",
+      "nodes": 252,
+      "edges": 278,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body github.com/volvo-cars/cce-prins-validator/internal/domain#groupPrinsConfigurationsByPno12([]PrinsConfiguration)->(map[Pno12][]PrinsConfiguration)",
+      "nodes": 17,
+      "edges": 17,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body github.com/volvo-cars/cce-prins-validator/internal/domain#prinsConfigurationsWithoutWheelCodeExist([]PrinsConfiguration,[]string)->(bool)",
+      "nodes": 46,
+      "edges": 50,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body github.com/volvo-cars/cce-prins-validator/internal/domain#ComponentsToVary.addWheel(string)->()",
+      "nodes": 19,
+      "edges": 20,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body github.com/volvo-cars/cce-prins-validator/internal/domain#ComponentsToVary.addColor(string)->()",
+      "nodes": 19,
+      "edges": 20,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body github.com/volvo-cars/cce-prins-validator/internal/domain#ComponentsToVary.addInterior(string)->()",
+      "nodes": 19,
+      "edges": 20,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body github.com/volvo-cars/cce-prins-validator/internal/domain#ComponentsToVary.addOption(string)->()",
+      "nodes": 19,
+      "edges": 20,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body github.com/volvo-cars/cce-prins-validator/internal/domain#addIfNotExists([]string,string)->([]string)",
+      "nodes": 14,
+      "edges": 14,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body github.com/volvo-cars/cce-prins-validator/internal/domain#contains([]string,string)->(bool)",
+      "nodes": 15,
+      "edges": 15,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body github.com/volvo-cars/cce-prins-validator/internal/domain#getGroups(*regexp.Regexp,string)->(map[string]string)",
+      "nodes": 30,
+      "edges": 33,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body github.com/volvo-cars/cce-prins-validator/internal/domain#Pno12.String()->(string)",
+      "nodes": 11,
+      "edges": 10,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body github.com/volvo-cars/cce-prins-validator/internal/domain#ParsePno12(string)->(Pno12,error)",
+      "nodes": 145,
+      "edges": 156,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body github.com/volvo-cars/cce-prins-validator/internal/domain#pno12FromGroups(map[string]string)->(Pno12,error)",
+      "nodes": 95,
+      "edges": 101,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body github.com/volvo-cars/cce-prins-validator/internal/domain#Pno12.validate()->(error)",
+      "nodes": 66,
+      "edges": 65,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body github.com/volvo-cars/cce-prins-validator/internal/domain#GetSpecMarketFrom(string)->(string,error)",
+      "nodes": 79,
+      "edges": 84,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body github.com/volvo-cars/cce-prins-validator/internal/domain#isVCCSpecMarketPolicy(string)->(bool)",
+      "nodes": 21,
+      "edges": 22,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body github.com/volvo-cars/cce-prins-validator/internal/domain#isPolestarSpecMarketPolicy(string)->(bool)",
+      "nodes": 36,
+      "edges": 38,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body github.com/volvo-cars/cce-prins-validator/internal/domain#isCorrectSpecMarketCodeFormat(string)->(bool)",
+      "nodes": 18,
+      "edges": 18,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body github.com/volvo-cars/cce-prins-validator/internal/domain#ParsePrinsPno(string)->(PrinsConfiguration,error)",
+      "nodes": 184,
+      "edges": 199,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body github.com/volvo-cars/cce-prins-validator/internal/domain#PrinsConfigurations.PrintCarConfigurationsNotAllowed([]CarConfiguration,ComponentsToVary)->(bool)",
+      "nodes": 227,
+      "edges": 250,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body github.com/volvo-cars/cce-prins-validator/internal/domain#PrinsConfiguration.existsIn([]CarConfiguration,ComponentsToVary)->(bool)",
+      "nodes": 206,
+      "edges": 226,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body github.com/volvo-cars/cce-prins-validator/internal/domain#PrinsConfigurations.AllowsCarConfiguration(CarConfiguration,ComponentsToVary)->(bool)",
+      "nodes": 206,
+      "edges": 226,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body github.com/volvo-cars/cce-prins-validator/internal/domain#PrinsConfiguration.Matches(CarConfiguration,ComponentsToVary)->(bool)",
+      "nodes": 191,
+      "edges": 206,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body github.com/volvo-cars/cce-prins-validator/internal/domain#PrinsConfiguration.validateWheelAndOptions(CarConfiguration,ComponentsToVary)->(bool)",
+      "nodes": 134,
+      "edges": 146,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body github.com/volvo-cars/cce-prins-validator/internal/domain#intersection([]string,[]string)->([]string)",
+      "nodes": 33,
+      "edges": 36,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body github.com/volvo-cars/cce-prins-validator/internal/gateway#RoundTripperFunc.RoundTrip(*http.Request)->(*http.Response,error)",
+      "nodes": 6,
+      "edges": 5,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body github.com/volvo-cars/cce-prins-validator/internal/gateway#WithRoundTripper(Tripperware)->(func(*HTTPClient))",
+      "nodes": 3,
+      "edges": 2,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body github.com/volvo-cars/cce-prins-validator/internal/gateway#WithRoundTripper(Tripperware)->(func(*HTTPClient))$closure@962",
+      "nodes": 5,
+      "edges": 4,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body github.com/volvo-cars/cce-prins-validator/internal/gateway#WithClient(*http.Client)->(func(*HTTPClient))",
+      "nodes": 3,
+      "edges": 2,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body github.com/volvo-cars/cce-prins-validator/internal/gateway#WithClient(*http.Client)->(func(*HTTPClient))$closure@1144",
+      "nodes": 9,
+      "edges": 8,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body github.com/volvo-cars/cce-prins-validator/internal/gateway#NewHTTPClient(...Option)->(*HTTPClient)",
+      "nodes": 66,
+      "edges": 68,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body github.com/volvo-cars/cce-prins-validator/internal/gateway#HTTPClient.StandardClient()->(*http.Client)",
+      "nodes": 3,
+      "edges": 2,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body github.com/volvo-cars/cce-prins-validator/internal/gateway#HTTPClient.addRoundTrippers()->()",
+      "nodes": 37,
+      "edges": 38,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body github.com/volvo-cars/cce-prins-validator/internal/gateway#addInReverseOrder(http.RoundTripper,[]Tripperware)->(http.RoundTripper)",
+      "nodes": 29,
+      "edges": 30,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body github.com/volvo-cars/cce-prins-validator/internal/gateway#HTTPClient.Do(*http.Request)->(*http.Response,error)",
+      "nodes": 7,
+      "edges": 6,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body github.com/volvo-cars/cce-prins-validator/internal/gateway/filterservice#NewConfig(string)->(Config)",
+      "nodes": 3,
+      "edges": 2,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body github.com/volvo-cars/cce-prins-validator/internal/gateway/filterservice#NewClient(Config,*http.Client)->(*Client,error)",
+      "nodes": 7,
+      "edges": 6,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body github.com/volvo-cars/cce-prins-validator/internal/gateway/filterservice#Client.GetWheelComponents(context.Context)->([]string,error)",
+      "nodes": 176,
+      "edges": 185,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body github.com/volvo-cars/cce-prins-validator/internal/gateway/filterservice#Client.doRequest(*http.Request,interface{})->(error)",
+      "nodes": 60,
+      "edges": 63,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body github.com/volvo-cars/cce-prins-validator/internal/gateway/optimizationfacade#NewConfig(string)->(Config)",
+      "nodes": 3,
+      "edges": 2,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body github.com/volvo-cars/cce-prins-validator/internal/gateway/optimizationfacade#NewClient(Config,*http.Client)->(*Client)",
+      "nodes": 5,
+      "edges": 4,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body github.com/volvo-cars/cce-prins-validator/internal/gateway/optimizationfacade#Client.GenerateCombinations(context.Context,CombinationsRequestPayload,string)->(GenerateConfigurationsResponse,error)",
+      "nodes": 221,
+      "edges": 230,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body github.com/volvo-cars/cce-prins-validator/internal/gateway/optimizationfacade#Client.GetStartStates(context.Context,string)->(StartStatesResponse,error)",
+      "nodes": 176,
+      "edges": 185,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body github.com/volvo-cars/cce-prins-validator/internal/gateway/optimizationfacade#Client.GetComponents(context.Context,string,string)->(ComponentsResponse,error)",
+      "nodes": 187,
+      "edges": 196,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body github.com/volvo-cars/cce-prins-validator/internal/gateway/optimizationfacade#Client.PostStateFromConfig(context.Context,StateFromConfigPayload)->(State,error)",
+      "nodes": 199,
+      "edges": 208,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body github.com/volvo-cars/cce-prins-validator/internal/gateway/optimizationfacade#Client.doRequest(*http.Request,interface{})->(error)",
+      "nodes": 60,
+      "edges": 63,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body github.com/volvo-cars/cce-prins-validator/internal/gateway/optimizationfacade#NewComponentProvider(*Client)->(*ComponentProvider)",
+      "nodes": 4,
+      "edges": 3,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body github.com/volvo-cars/cce-prins-validator/internal/gateway/optimizationfacade#ComponentProvider.GetStandardWheelCode(context.Context,string,string,int,domain.Pno12)->(string,error)",
+      "nodes": 282,
+      "edges": 296,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body github.com/volvo-cars/cce-prins-validator/internal/gateway/optimizationfacade#NewConfigurationGenerator(*Client)->(*ConfigurationGenerator)",
+      "nodes": 4,
+      "edges": 3,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body github.com/volvo-cars/cce-prins-validator/internal/gateway/optimizationfacade#ConfigurationGenerator.GenerateConfigurations(context.Context,string,string,int,int,domain.ComponentsToVary,[]string)->([]domain.CarConfiguration,error)",
+      "nodes": 318,
+      "edges": 334,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body github.com/volvo-cars/cce-prins-validator/internal/gateway/optimizationfacade#ConfigurationGenerator.GenerateFromPrinsConfiguration(context.Context,string,string,int,int,[]string,domain.PrinsConfiguration)->(domain.CarConfiguration,error)",
+      "nodes": 573,
+      "edges": 614,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body github.com/volvo-cars/cce-prins-validator/internal/gateway/optimizationfacade#toPno34(domain.Pno12,CarConfiguration)->(domain.Pno34)",
+      "nodes": 7,
+      "edges": 6,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body github.com/volvo-cars/cce-prins-validator/internal/gateway/optimizationfacade#toComponents(domain.PrinsConfiguration)->([]Component)",
+      "nodes": 27,
+      "edges": 27,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body github.com/volvo-cars/cce-prins-validator/internal/gateway/optimizationfacade#NewStartConfigurationProvider(*Client)->(*StartConfigurationProvider)",
+      "nodes": 4,
+      "edges": 3,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body github.com/volvo-cars/cce-prins-validator/internal/gateway/optimizationfacade#StartConfigurationProvider.GetStartConfigurations(context.Context,string,[]string)->([]domain.CarConfiguration,error)",
+      "nodes": 518,
+      "edges": 558,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body github.com/volvo-cars/cce-prins-validator/internal/gateway/prins#NewConfig(string)->(Config)",
+      "nodes": 5,
+      "edges": 4,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body github.com/volvo-cars/cce-prins-validator/internal/gateway/prins#NewClient(MachineboxClient,Config)->(*Client)",
+      "nodes": 4,
+      "edges": 3,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body github.com/volvo-cars/cce-prins-validator/internal/gateway/prins#Client.GetStoredCpvSets(context.Context,string,string,int)->(PrinsQueryResponse,error)",
+      "nodes": 71,
+      "edges": 70,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body github.com/volvo-cars/cce-prins-validator/internal/gateway/prins#NewConfigurationFetcher(*Client)->(*ConfigurationFetcher)",
+      "nodes": 4,
+      "edges": 3,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body github.com/volvo-cars/cce-prins-validator/internal/gateway/prins#ConfigurationFetcher.GetConfigurations(context.Context,string,string,int)->(domain.PrinsConfigurations,error)",
+      "nodes": 316,
+      "edges": 337,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body github.com/volvo-cars/cce-prins-validator/internal/gateway#NewRequestBuilder()->(RequestBuilder)",
+      "nodes": 6,
+      "edges": 5,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body github.com/volvo-cars/cce-prins-validator/internal/gateway#RequestBuilder.WithMethod(string)->(RequestBuilder)",
+      "nodes": 3,
+      "edges": 2,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body github.com/volvo-cars/cce-prins-validator/internal/gateway#RequestBuilder.WithContext(context.Context)->(RequestBuilder)",
+      "nodes": 3,
+      "edges": 2,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body github.com/volvo-cars/cce-prins-validator/internal/gateway#RequestBuilder.WithEndpoint(string)->(RequestBuilder)",
+      "nodes": 3,
+      "edges": 2,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body github.com/volvo-cars/cce-prins-validator/internal/gateway#RequestBuilder.WithHeader(string,string)->(RequestBuilder)",
+      "nodes": 4,
+      "edges": 3,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body github.com/volvo-cars/cce-prins-validator/internal/gateway#RequestBuilder.WithBody(io.Reader)->(RequestBuilder)",
+      "nodes": 3,
+      "edges": 2,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body github.com/volvo-cars/cce-prins-validator/internal/gateway#RequestBuilder.WithQueryParam(string,string)->(RequestBuilder)",
+      "nodes": 4,
+      "edges": 3,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body github.com/volvo-cars/cce-prins-validator/internal/gateway#RequestBuilder.Build()->(*http.Request,error)",
+      "nodes": 48,
+      "edges": 49,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body github.com/volvo-cars/cce-prins-validator/internal/service#NewRulesetValidator(*filterservice.Client,*prins.ConfigurationFetcher,*optimizationfacade.ComponentProvider,*optimizationfacade.ConfigurationGenerator,*optimizationfacade.StartConfigurationProvider)->(*RulesetValidator)",
+      "nodes": 4,
+      "edges": 3,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body github.com/volvo-cars/cce-prins-validator/internal/service#RulesetValidator.ValidateMultipleCars(context.Context)->(error)",
+      "nodes": 2000,
+      "edges": 2144,
+      "limits": ["maxNodes", "maxRecords"],
+      "pages": 2
+    },
+    {
+      "name": "body github.com/volvo-cars/cce-prins-validator/internal/service#RulesetValidator.validateSetOfCars(context.Context,domain.SetOfCars)->(error)",
+      "nodes": 2000,
+      "edges": 2140,
+      "limits": ["maxNodes", "maxRecords"],
+      "pages": 2
+    },
+    {
+      "name": "body github.com/volvo-cars/cce-prins-validator/internal/service#RulesetValidator.validateCCEProducesPrinsPermittedConfigurations(context.Context,string,string,int,[]domain.ComponentsToVary,[]domain.CarConfiguration,domain.PrinsConfigurations,[]string)->(error)",
+      "nodes": 650,
+      "edges": 696,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body github.com/volvo-cars/cce-prins-validator/internal/service#RulesetValidator.validatePrinsConfigurationsPermittedByCCE(context.Context,string,string,int,[]domain.ComponentsToVary,[]domain.CarConfiguration,domain.PrinsConfigurations,[]string)->(error)",
+      "nodes": 916,
+      "edges": 989,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body github.com/volvo-cars/cce-prins-validator/internal/service#filterCarConfigurations([]domain.CarConfiguration,int,string)->([]domain.CarConfiguration)",
+      "nodes": 25,
+      "edges": 27,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body github.com/volvo-cars/cce-prins-validator/internal/service#getPno12FromCarConfigurations([]domain.CarConfiguration)->([]domain.Pno12)",
+      "nodes": 16,
+      "edges": 16,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body github.com/volvo-cars/cce-prins-validator/internal/service#getStartConfiguration([]domain.CarConfiguration,int,string,domain.Pno12)->(domain.CarConfiguration,bool)",
+      "nodes": 28,
+      "edges": 30,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body github.com/volvo-cars/cce-prins-validator/internal/service#RulesetValidator.getStandardFeatureCodesByPno12(context.Context,string,string,int,[]domain.Pno12)->(map[domain.Pno12]string,error)",
+      "nodes": 314,
+      "edges": 333,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body github.com/volvo-cars/cce-prins-validator/internal/service#getComponentsToVary(domain.Pno12,[]domain.ComponentsToVary)->(domain.ComponentsToVary,bool)",
+      "nodes": 19,
+      "edges": 19,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body github.com/volvo-cars/cce-prins-validator/internal/domain#package-var@internal/domain/pno12.go:81",
+      "nodes": 5,
+      "edges": 4,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "body github.com/volvo-cars/cce-prins-validator/internal/gateway/prins#package-var@internal/gateway/prins/configurationfetcher.go:289",
+      "nodes": 7,
+      "edges": 6,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "positive rooted source:internal/app/app.go:fx.Hook.OnStart",
+      "nodes": 4,
+      "edges": 4,
+      "limits": ["maxNodes"],
+      "pages": 1
+    },
+    {
+      "name": "positive rooted source:internal/app/app.go:OnStart:validation-goroutine",
+      "nodes": 4,
+      "edges": 4,
+      "limits": ["maxNodes"],
+      "pages": 1
+    },
+    {
+      "name": "owned I/O c.internalClient.Do(req)",
+      "nodes": 2,
+      "edges": 1,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "native I/O contract",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "actual SDK volvo/cce-prins-validator/dc68082c5777/final-r1/interaction/io/b755c557677ec83c3606 recordargument0",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "actual SDK volvo/cce-prins-validator/dc68082c5777/final-r1/interaction/io/b755c557677ec83c3606 result",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "owned I/O c.client.Do(req)",
+      "nodes": 2,
+      "edges": 1,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "native I/O contract",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "actual SDK volvo/cce-prins-validator/dc68082c5777/final-r1/interaction/io/6c2ac3ad66a939df47b7 recordargument0",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "actual SDK volvo/cce-prins-validator/dc68082c5777/final-r1/interaction/io/6c2ac3ad66a939df47b7 result",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "owned I/O c.client.Do(req)",
+      "nodes": 2,
+      "edges": 1,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "native I/O contract",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "actual SDK volvo/cce-prins-validator/dc68082c5777/final-r1/interaction/io/37f8e2f7069ea53ad6a1 recordargument0",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "actual SDK volvo/cce-prins-validator/dc68082c5777/final-r1/interaction/io/37f8e2f7069ea53ad6a1 result",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "owned I/O c.client.Run(ctx, request, &response)",
+      "nodes": 2,
+      "edges": 1,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "native I/O contract",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "actual SDK volvo/cce-prins-validator/dc68082c5777/final-r1/interaction/io/e4fa3583d81a5225ce64 recordargument0",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "actual SDK volvo/cce-prins-validator/dc68082c5777/final-r1/interaction/io/e4fa3583d81a5225ce64 recordargument1",
+      "nodes": 2,
+      "edges": 1,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "actual SDK volvo/cce-prins-validator/dc68082c5777/final-r1/interaction/io/e4fa3583d81a5225ce64 recordargument2",
+      "nodes": 3,
+      "edges": 2,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "actual SDK volvo/cce-prins-validator/dc68082c5777/final-r1/interaction/io/e4fa3583d81a5225ce64 result",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "caller contract github.com/volvo-cars/cce-prins-validator/internal/gateway/filterservice#Client.GetWheelComponents(context.Context)->([]string,error)",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "caller actual github.com/volvo-cars/cce-prins-validator/internal/gateway/filterservice#Client.GetWheelComponents(context.Context)->([]string,error) http.MethodGet",
+      "nodes": 2,
+      "edges": 1,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "caller actual github.com/volvo-cars/cce-prins-validator/internal/gateway/filterservice#Client.GetWheelComponents(context.Context)->([]string,error) Source formal ctx: context.Context",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "caller actual github.com/volvo-cars/cce-prins-validator/internal/gateway/filterservice#Client.GetWheelComponents(context.Context)->([]string,error) url := fmt.Sprintf(\"%s%s\", c.endpoint, \"/wheelComponents\")",
+      "nodes": 2,
+      "edges": 1,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "caller actual github.com/volvo-cars/cce-prins-validator/internal/gateway/filterservice#Client.GetWheelComponents(context.Context)->([]string,error) \"Accept\"",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "caller actual github.com/volvo-cars/cce-prins-validator/internal/gateway/filterservice#Client.GetWheelComponents(context.Context)->([]string,error) \"application/json\"",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "caller actual github.com/volvo-cars/cce-prins-validator/internal/gateway/filterservice#Client.GetWheelComponents(context.Context)->([]string,error) \"Content-Type\"",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "caller actual github.com/volvo-cars/cce-prins-validator/internal/gateway/filterservice#Client.GetWheelComponents(context.Context)->([]string,error) \"application/json\"",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "caller actual github.com/volvo-cars/cce-prins-validator/internal/gateway/filterservice#Client.GetWheelComponents(context.Context)->([]string,error) req, err := gateway.NewRequestBuilder().\n\t\tWithMethod(http.MethodGet).\n\t\tWithContext(ctx).\n\t\tWithEndpoint(url).\n\t\tWithHeader(\"Accept\", \"application/json\").\n\t\tWithHeader(\"Content-Type\", \"application/json\").\n\t\tBuild()",
+      "nodes": 49,
+      "edges": 48,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "caller actual github.com/volvo-cars/cce-prins-validator/internal/gateway/filterservice#Client.GetWheelComponents(context.Context)->([]string,error) &response",
+      "nodes": 3,
+      "edges": 2,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "caller contract github.com/volvo-cars/cce-prins-validator/internal/gateway/optimizationfacade#Client.GenerateCombinations(context.Context,CombinationsRequestPayload,string)->(GenerateConfigurationsResponse,error)",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "caller actual github.com/volvo-cars/cce-prins-validator/internal/gateway/optimizationfacade#Client.GenerateCombinations(context.Context,CombinationsRequestPayload,string)->(GenerateConfigurationsResponse,error) Source formal payload: CombinationsRequestPayload",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "caller actual github.com/volvo-cars/cce-prins-validator/internal/gateway/optimizationfacade#Client.GenerateCombinations(context.Context,CombinationsRequestPayload,string)->(GenerateConfigurationsResponse,error) http.MethodPost",
+      "nodes": 2,
+      "edges": 1,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "caller actual github.com/volvo-cars/cce-prins-validator/internal/gateway/optimizationfacade#Client.GenerateCombinations(context.Context,CombinationsRequestPayload,string)->(GenerateConfigurationsResponse,error) \"limit\"",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "caller actual github.com/volvo-cars/cce-prins-validator/internal/gateway/optimizationfacade#Client.GenerateCombinations(context.Context,CombinationsRequestPayload,string)->(GenerateConfigurationsResponse,error) \"10000\"",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "caller actual github.com/volvo-cars/cce-prins-validator/internal/gateway/optimizationfacade#Client.GenerateCombinations(context.Context,CombinationsRequestPayload,string)->(GenerateConfigurationsResponse,error) \"policyId\"",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "caller actual github.com/volvo-cars/cce-prins-validator/internal/gateway/optimizationfacade#Client.GenerateCombinations(context.Context,CombinationsRequestPayload,string)->(GenerateConfigurationsResponse,error) Source formal policyID: string",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "caller actual github.com/volvo-cars/cce-prins-validator/internal/gateway/optimizationfacade#Client.GenerateCombinations(context.Context,CombinationsRequestPayload,string)->(GenerateConfigurationsResponse,error) bytes.NewReader(bts)",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "caller actual github.com/volvo-cars/cce-prins-validator/internal/gateway/optimizationfacade#Client.GenerateCombinations(context.Context,CombinationsRequestPayload,string)->(GenerateConfigurationsResponse,error) Source formal ctx: context.Context",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "caller actual github.com/volvo-cars/cce-prins-validator/internal/gateway/optimizationfacade#Client.GenerateCombinations(context.Context,CombinationsRequestPayload,string)->(GenerateConfigurationsResponse,error) url := fmt.Sprintf(\"%s%s\", c.endpoint, \"/v3/generate-configurations\")",
+      "nodes": 2,
+      "edges": 1,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "caller actual github.com/volvo-cars/cce-prins-validator/internal/gateway/optimizationfacade#Client.GenerateCombinations(context.Context,CombinationsRequestPayload,string)->(GenerateConfigurationsResponse,error) \"Accept\"",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "caller actual github.com/volvo-cars/cce-prins-validator/internal/gateway/optimizationfacade#Client.GenerateCombinations(context.Context,CombinationsRequestPayload,string)->(GenerateConfigurationsResponse,error) \"application/json\"",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "caller actual github.com/volvo-cars/cce-prins-validator/internal/gateway/optimizationfacade#Client.GenerateCombinations(context.Context,CombinationsRequestPayload,string)->(GenerateConfigurationsResponse,error) \"Content-Type\"",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "caller actual github.com/volvo-cars/cce-prins-validator/internal/gateway/optimizationfacade#Client.GenerateCombinations(context.Context,CombinationsRequestPayload,string)->(GenerateConfigurationsResponse,error) \"application/json\"",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "caller actual github.com/volvo-cars/cce-prins-validator/internal/gateway/optimizationfacade#Client.GenerateCombinations(context.Context,CombinationsRequestPayload,string)->(GenerateConfigurationsResponse,error) req, err := gateway.NewRequestBuilder().\n\t\tWithMethod(http.MethodPost).\n\t\tWithQueryParam(\"limit\", \"10000\").\n\t\tWithQueryParam(\"policyId\", policyID).\n\t\tWithBody(bytes.NewReader(bts)).\n\t\tWithContext(ctx).\n\t\tWithEndpoint(url).\n\t\tWithHeader(\"Accept\", \"application/json\").\n\t\tWithHeader(\"Content-Type\", \"application/json\").\n\t\tBuild()",
+      "nodes": 58,
+      "edges": 57,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "caller actual github.com/volvo-cars/cce-prins-validator/internal/gateway/optimizationfacade#Client.GenerateCombinations(context.Context,CombinationsRequestPayload,string)->(GenerateConfigurationsResponse,error) &response",
+      "nodes": 3,
+      "edges": 2,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "caller contract github.com/volvo-cars/cce-prins-validator/internal/gateway/optimizationfacade#Client.GetStartStates(context.Context,string)->(StartStatesResponse,error)",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "caller actual github.com/volvo-cars/cce-prins-validator/internal/gateway/optimizationfacade#Client.GetStartStates(context.Context,string)->(StartStatesResponse,error) http.MethodGet",
+      "nodes": 2,
+      "edges": 1,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "caller actual github.com/volvo-cars/cce-prins-validator/internal/gateway/optimizationfacade#Client.GetStartStates(context.Context,string)->(StartStatesResponse,error) Source formal ctx: context.Context",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "caller actual github.com/volvo-cars/cce-prins-validator/internal/gateway/optimizationfacade#Client.GetStartStates(context.Context,string)->(StartStatesResponse,error) url := fmt.Sprintf(\"%s/v3/policies/%s/start-states\", c.endpoint, policy)",
+      "nodes": 2,
+      "edges": 1,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "caller actual github.com/volvo-cars/cce-prins-validator/internal/gateway/optimizationfacade#Client.GetStartStates(context.Context,string)->(StartStatesResponse,error) \"Accept\"",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "caller actual github.com/volvo-cars/cce-prins-validator/internal/gateway/optimizationfacade#Client.GetStartStates(context.Context,string)->(StartStatesResponse,error) \"application/json\"",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "caller actual github.com/volvo-cars/cce-prins-validator/internal/gateway/optimizationfacade#Client.GetStartStates(context.Context,string)->(StartStatesResponse,error) \"Content-Type\"",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "caller actual github.com/volvo-cars/cce-prins-validator/internal/gateway/optimizationfacade#Client.GetStartStates(context.Context,string)->(StartStatesResponse,error) \"application/json\"",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "caller actual github.com/volvo-cars/cce-prins-validator/internal/gateway/optimizationfacade#Client.GetStartStates(context.Context,string)->(StartStatesResponse,error) req, err := gateway.NewRequestBuilder().\n\t\tWithMethod(http.MethodGet).\n\t\tWithContext(ctx).\n\t\tWithEndpoint(url).\n\t\tWithHeader(\"Accept\", \"application/json\").\n\t\tWithHeader(\"Content-Type\", \"application/json\").\n\t\tBuild()",
+      "nodes": 49,
+      "edges": 48,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "caller actual github.com/volvo-cars/cce-prins-validator/internal/gateway/optimizationfacade#Client.GetStartStates(context.Context,string)->(StartStatesResponse,error) &response",
+      "nodes": 3,
+      "edges": 2,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "caller contract github.com/volvo-cars/cce-prins-validator/internal/gateway/optimizationfacade#Client.GetComponents(context.Context,string,string)->(ComponentsResponse,error)",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "caller actual github.com/volvo-cars/cce-prins-validator/internal/gateway/optimizationfacade#Client.GetComponents(context.Context,string,string)->(ComponentsResponse,error) http.MethodGet",
+      "nodes": 2,
+      "edges": 1,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "caller actual github.com/volvo-cars/cce-prins-validator/internal/gateway/optimizationfacade#Client.GetComponents(context.Context,string,string)->(ComponentsResponse,error) \"policyUid\"",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "caller actual github.com/volvo-cars/cce-prins-validator/internal/gateway/optimizationfacade#Client.GetComponents(context.Context,string,string)->(ComponentsResponse,error) Source formal policy: string",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "caller actual github.com/volvo-cars/cce-prins-validator/internal/gateway/optimizationfacade#Client.GetComponents(context.Context,string,string)->(ComponentsResponse,error) \"pno12Name\"",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "caller actual github.com/volvo-cars/cce-prins-validator/internal/gateway/optimizationfacade#Client.GetComponents(context.Context,string,string)->(ComponentsResponse,error) Source formal pno12Long: string",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "caller actual github.com/volvo-cars/cce-prins-validator/internal/gateway/optimizationfacade#Client.GetComponents(context.Context,string,string)->(ComponentsResponse,error) Source formal ctx: context.Context",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "caller actual github.com/volvo-cars/cce-prins-validator/internal/gateway/optimizationfacade#Client.GetComponents(context.Context,string,string)->(ComponentsResponse,error) url := fmt.Sprintf(\"%s/v2/components\", c.endpoint)",
+      "nodes": 2,
+      "edges": 1,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "caller actual github.com/volvo-cars/cce-prins-validator/internal/gateway/optimizationfacade#Client.GetComponents(context.Context,string,string)->(ComponentsResponse,error) \"Accept\"",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "caller actual github.com/volvo-cars/cce-prins-validator/internal/gateway/optimizationfacade#Client.GetComponents(context.Context,string,string)->(ComponentsResponse,error) \"application/json\"",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "caller actual github.com/volvo-cars/cce-prins-validator/internal/gateway/optimizationfacade#Client.GetComponents(context.Context,string,string)->(ComponentsResponse,error) \"Content-Type\"",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "caller actual github.com/volvo-cars/cce-prins-validator/internal/gateway/optimizationfacade#Client.GetComponents(context.Context,string,string)->(ComponentsResponse,error) \"application/json\"",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "caller actual github.com/volvo-cars/cce-prins-validator/internal/gateway/optimizationfacade#Client.GetComponents(context.Context,string,string)->(ComponentsResponse,error) req, err := gateway.NewRequestBuilder().\n\t\tWithMethod(http.MethodGet).\n\t\tWithQueryParam(\"policyUid\", policy).\n\t\tWithQueryParam(\"pno12Name\", pno12Long).\n\t\tWithContext(ctx).\n\t\tWithEndpoint(url).\n\t\tWithHeader(\"Accept\", \"application/json\").\n\t\tWithHeader(\"Content-Type\", \"application/json\").\n\t\tBuild()",
+      "nodes": 53,
+      "edges": 52,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "caller actual github.com/volvo-cars/cce-prins-validator/internal/gateway/optimizationfacade#Client.GetComponents(context.Context,string,string)->(ComponentsResponse,error) &response",
+      "nodes": 3,
+      "edges": 2,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "caller contract github.com/volvo-cars/cce-prins-validator/internal/gateway/optimizationfacade#Client.PostStateFromConfig(context.Context,StateFromConfigPayload)->(State,error)",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "caller actual github.com/volvo-cars/cce-prins-validator/internal/gateway/optimizationfacade#Client.PostStateFromConfig(context.Context,StateFromConfigPayload)->(State,error) Source formal payload: StateFromConfigPayload",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "caller actual github.com/volvo-cars/cce-prins-validator/internal/gateway/optimizationfacade#Client.PostStateFromConfig(context.Context,StateFromConfigPayload)->(State,error) http.MethodPost",
+      "nodes": 2,
+      "edges": 1,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "caller actual github.com/volvo-cars/cce-prins-validator/internal/gateway/optimizationfacade#Client.PostStateFromConfig(context.Context,StateFromConfigPayload)->(State,error) bytes.NewReader(bts)",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "caller actual github.com/volvo-cars/cce-prins-validator/internal/gateway/optimizationfacade#Client.PostStateFromConfig(context.Context,StateFromConfigPayload)->(State,error) Source formal ctx: context.Context",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "caller actual github.com/volvo-cars/cce-prins-validator/internal/gateway/optimizationfacade#Client.PostStateFromConfig(context.Context,StateFromConfigPayload)->(State,error) url := fmt.Sprintf(\"%s/v2/stateFromConfig\", c.endpoint)",
+      "nodes": 2,
+      "edges": 1,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "caller actual github.com/volvo-cars/cce-prins-validator/internal/gateway/optimizationfacade#Client.PostStateFromConfig(context.Context,StateFromConfigPayload)->(State,error) \"selectionStrategy\"",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "caller actual github.com/volvo-cars/cce-prins-validator/internal/gateway/optimizationfacade#Client.PostStateFromConfig(context.Context,StateFromConfigPayload)->(State,error) \"allSelected\"",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "caller actual github.com/volvo-cars/cce-prins-validator/internal/gateway/optimizationfacade#Client.PostStateFromConfig(context.Context,StateFromConfigPayload)->(State,error) \"Accept\"",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "caller actual github.com/volvo-cars/cce-prins-validator/internal/gateway/optimizationfacade#Client.PostStateFromConfig(context.Context,StateFromConfigPayload)->(State,error) \"application/json\"",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "caller actual github.com/volvo-cars/cce-prins-validator/internal/gateway/optimizationfacade#Client.PostStateFromConfig(context.Context,StateFromConfigPayload)->(State,error) \"Content-Type\"",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "caller actual github.com/volvo-cars/cce-prins-validator/internal/gateway/optimizationfacade#Client.PostStateFromConfig(context.Context,StateFromConfigPayload)->(State,error) \"application/json\"",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "caller actual github.com/volvo-cars/cce-prins-validator/internal/gateway/optimizationfacade#Client.PostStateFromConfig(context.Context,StateFromConfigPayload)->(State,error) req, err := gateway.NewRequestBuilder().\n\t\tWithMethod(http.MethodPost).\n\t\tWithBody(bytes.NewReader(bts)).\n\t\tWithContext(ctx).\n\t\tWithEndpoint(url).\n\t\tWithQueryParam(\"selectionStrategy\", \"allSelected\").\n\t\tWithHeader(\"Accept\", \"application/json\").\n\t\tWithHeader(\"Content-Type\", \"application/json\").\n\t\tBuild()",
+      "nodes": 56,
+      "edges": 55,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "caller actual github.com/volvo-cars/cce-prins-validator/internal/gateway/optimizationfacade#Client.PostStateFromConfig(context.Context,StateFromConfigPayload)->(State,error) &response",
+      "nodes": 3,
+      "edges": 2,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "caller contract github.com/volvo-cars/cce-prins-validator/internal/gateway/prins#Client.GetStoredCpvSets(context.Context,string,string,int)->(PrinsQueryResponse,error)",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "caller actual github.com/volvo-cars/cce-prins-validator/internal/gateway/prins#Client.GetStoredCpvSets(context.Context,string,string,int)->(PrinsQueryResponse,error) Source constant storedCpvSetsQueryDocument = `query StoredCpvSetsQuery(\n\t$offset: Int!,\n\t$limit: Int!,\n\t$configDictionaryName: String!,\n\t$specMarket: String,\n\t$modelYear: String\n) {\n\tstoredCpvSets(\n\t\twhere: {\n\t\t\tconfigurationDictionary: {\n\t\t\t\tname: $configDictionaryName\n\t\t\t}\n\t\t\tNOT:{status:\"Obsolete\"}\n\t\t\tspecMarkets_SOME: { name: $specMarket }\n\t\t\tmodelYear_STARTS_WITH: $modelYear\n\t\t},\n\t\toptions: {\n\t\t\tlimit: $limit,\n\t\t\toffset: $offset,\n\t\t}\n\t)\n\n\t{\n\t\tstatus\n\t\tmodelYear\n\t\tpno\n\t\teffectiveInWeek\n\t\teffectiveOutWeek\n\t}\n}\n`",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "caller actual github.com/volvo-cars/cce-prins-validator/internal/gateway/prins#Client.GetStoredCpvSets(context.Context,string,string,int)->(PrinsQueryResponse,error) \"configDictionaryName\"",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "caller actual github.com/volvo-cars/cce-prins-validator/internal/gateway/prins#Client.GetStoredCpvSets(context.Context,string,string,int)->(PrinsQueryResponse,error) Source formal dictCode: string",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "caller actual github.com/volvo-cars/cce-prins-validator/internal/gateway/prins#Client.GetStoredCpvSets(context.Context,string,string,int)->(PrinsQueryResponse,error) \"offset\"",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "caller actual github.com/volvo-cars/cce-prins-validator/internal/gateway/prins#Client.GetStoredCpvSets(context.Context,string,string,int)->(PrinsQueryResponse,error) 0",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "caller actual github.com/volvo-cars/cce-prins-validator/internal/gateway/prins#Client.GetStoredCpvSets(context.Context,string,string,int)->(PrinsQueryResponse,error) \"limit\"",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "caller actual github.com/volvo-cars/cce-prins-validator/internal/gateway/prins#Client.GetStoredCpvSets(context.Context,string,string,int)->(PrinsQueryResponse,error) limit := 10000",
+      "nodes": 2,
+      "edges": 1,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "caller actual github.com/volvo-cars/cce-prins-validator/internal/gateway/prins#Client.GetStoredCpvSets(context.Context,string,string,int)->(PrinsQueryResponse,error) \"specMarket\"",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "caller actual github.com/volvo-cars/cce-prins-validator/internal/gateway/prins#Client.GetStoredCpvSets(context.Context,string,string,int)->(PrinsQueryResponse,error) Source formal specMarket: string",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "caller actual github.com/volvo-cars/cce-prins-validator/internal/gateway/prins#Client.GetStoredCpvSets(context.Context,string,string,int)->(PrinsQueryResponse,error) \"modelYear\"",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "caller actual github.com/volvo-cars/cce-prins-validator/internal/gateway/prins#Client.GetStoredCpvSets(context.Context,string,string,int)->(PrinsQueryResponse,error) fmt.Sprintf(\"%d\", modelYear)",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "caller actual github.com/volvo-cars/cce-prins-validator/internal/gateway/prins#Client.GetStoredCpvSets(context.Context,string,string,int)->(PrinsQueryResponse,error) \"Authorization\"",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "caller actual github.com/volvo-cars/cce-prins-validator/internal/gateway/prins#Client.GetStoredCpvSets(context.Context,string,string,int)->(PrinsQueryResponse,error) c.config.authHeaderValue",
+      "nodes": 3,
+      "edges": 2,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "caller actual github.com/volvo-cars/cce-prins-validator/internal/gateway/prins#Client.GetStoredCpvSets(context.Context,string,string,int)->(PrinsQueryResponse,error) Source formal ctx: context.Context",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "caller actual github.com/volvo-cars/cce-prins-validator/internal/gateway/prins#Client.GetStoredCpvSets(context.Context,string,string,int)->(PrinsQueryResponse,error) request := graphql.NewRequest(storedCpvSetsQueryDocument)",
+      "nodes": 2,
+      "edges": 1,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "caller actual github.com/volvo-cars/cce-prins-validator/internal/gateway/prins#Client.GetStoredCpvSets(context.Context,string,string,int)->(PrinsQueryResponse,error) &response",
+      "nodes": 3,
+      "edges": 2,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "detached goroutine scheduling",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "captured cell actual value",
+      "nodes": 2,
+      "edges": 1,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "semantic validation-result-policy",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "semantic pagination-policy",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "semantic requestbuilder-policy",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "semantic lifecycle",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "semantic graphql-caller",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema github.com/volvo-cars/cce-prins-validator/internal/app.App source StructType declaration; declared tags remain separate from effective serialization",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema github.com/volvo-cars/cce-prins-validator/internal/app.config source StructType declaration; declared tags remain separate from effective serialization",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema github.com/volvo-cars/cce-prins-validator/internal/domain.CarConfiguration source StructType declaration; declared tags remain separate from effective serialization",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema []string source sequence declaration",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema github.com/volvo-cars/cce-prins-validator/internal/domain.Pno34 source StructType declaration; declared tags remain separate from effective serialization",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema github.com/volvo-cars/cce-prins-validator/internal/domain.Component source StructType declaration; declared tags remain separate from effective serialization",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema github.com/volvo-cars/cce-prins-validator/internal/domain.ComponentsToVary source StructType declaration; declared tags remain separate from effective serialization",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema github.com/volvo-cars/cce-prins-validator/internal/domain.Pno12 source StructType declaration; declared tags remain separate from effective serialization",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema github.com/volvo-cars/cce-prins-validator/internal/domain.PrinsConfiguration source StructType declaration; declared tags remain separate from effective serialization",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema []github.com/volvo-cars/cce-prins-validator/internal/domain.PrinsConfiguration source sequence declaration",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema github.com/volvo-cars/cce-prins-validator/internal/domain.PrinsConfigurations source ArrayType declaration; declared tags remain separate from effective serialization",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema github.com/volvo-cars/cce-prins-validator/internal/domain.SetOfCars source StructType declaration; declared tags remain separate from effective serialization",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema github.com/volvo-cars/cce-prins-validator/internal/gateway.RoundTripperFunc source FuncType declaration; declared tags remain separate from effective serialization",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema github.com/volvo-cars/cce-prins-validator/internal/gateway.Tripperware source FuncType declaration; declared tags remain separate from effective serialization",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema github.com/volvo-cars/cce-prins-validator/internal/gateway.Option source FuncType declaration; declared tags remain separate from effective serialization",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema []github.com/volvo-cars/cce-prins-validator/internal/gateway.Tripperware source sequence declaration",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema github.com/volvo-cars/cce-prins-validator/internal/gateway.HTTPClient source StructType declaration; declared tags remain separate from effective serialization",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema github.com/volvo-cars/cce-prins-validator/internal/gateway/filterservice.Config source StructType declaration; declared tags remain separate from effective serialization",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema github.com/volvo-cars/cce-prins-validator/internal/gateway/filterservice.Client source StructType declaration; declared tags remain separate from effective serialization",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema github.com/volvo-cars/cce-prins-validator/internal/gateway/optimizationfacade.Config source StructType declaration; declared tags remain separate from effective serialization",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema github.com/volvo-cars/cce-prins-validator/internal/gateway/optimizationfacade.Client source StructType declaration; declared tags remain separate from effective serialization",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema github.com/volvo-cars/cce-prins-validator/internal/gateway/optimizationfacade.ComponentProvider source StructType declaration; declared tags remain separate from effective serialization",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema github.com/volvo-cars/cce-prins-validator/internal/gateway/optimizationfacade.ConfigurationGenerator source StructType declaration; declared tags remain separate from effective serialization",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema github.com/volvo-cars/cce-prins-validator/internal/gateway/optimizationfacade.Response source StructType declaration; declared tags remain separate from effective serialization",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema github.com/volvo-cars/cce-prins-validator/internal/gateway/optimizationfacade.Pagination source StructType declaration; declared tags remain separate from effective serialization",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema github.com/volvo-cars/cce-prins-validator/internal/gateway/optimizationfacade.CombinationsRequestPayload source StructType declaration; declared tags remain separate from effective serialization",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema []github.com/volvo-cars/cce-prins-validator/internal/gateway/optimizationfacade.ConfigurationWithWeeks source sequence declaration",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema github.com/volvo-cars/cce-prins-validator/internal/gateway/optimizationfacade.GenerateConfigurationsResponse source StructType declaration; declared tags remain separate from effective serialization",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema github.com/volvo-cars/cce-prins-validator/internal/gateway/optimizationfacade.ConfigurationWithWeeks source StructType declaration; declared tags remain separate from effective serialization",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema github.com/volvo-cars/cce-prins-validator/internal/gateway/optimizationfacade.CarConfiguration source StructType declaration; declared tags remain separate from effective serialization",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema []github.com/volvo-cars/cce-prins-validator/internal/gateway/optimizationfacade.State source sequence declaration",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema github.com/volvo-cars/cce-prins-validator/internal/gateway/optimizationfacade.StartStatesResponse source StructType declaration; declared tags remain separate from effective serialization",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema github.com/volvo-cars/cce-prins-validator/internal/gateway/optimizationfacade.State source StructType declaration; declared tags remain separate from effective serialization",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema []github.com/volvo-cars/cce-prins-validator/internal/gateway/optimizationfacade.ComponentName source sequence declaration",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema github.com/volvo-cars/cce-prins-validator/internal/gateway/optimizationfacade.ComponentsResponse source StructType declaration; declared tags remain separate from effective serialization",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema github.com/volvo-cars/cce-prins-validator/internal/gateway/optimizationfacade.ComponentName source StructType declaration; declared tags remain separate from effective serialization",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema []github.com/volvo-cars/cce-prins-validator/internal/gateway/optimizationfacade.Component source sequence declaration",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema github.com/volvo-cars/cce-prins-validator/internal/gateway/optimizationfacade.StateFromConfigPayload source StructType declaration; declared tags remain separate from effective serialization",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema github.com/volvo-cars/cce-prins-validator/internal/gateway/optimizationfacade.Component source StructType declaration; declared tags remain separate from effective serialization",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema github.com/volvo-cars/cce-prins-validator/internal/gateway/optimizationfacade.StartConfigurationProvider source StructType declaration; declared tags remain separate from effective serialization",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema github.com/volvo-cars/cce-prins-validator/internal/gateway/prins.Config source StructType declaration; declared tags remain separate from effective serialization",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema github.com/volvo-cars/cce-prins-validator/internal/gateway/prins.MachineboxClient source InterfaceType declaration; declared tags remain separate from effective serialization",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema github.com/volvo-cars/cce-prins-validator/internal/gateway/prins.Client source StructType declaration; declared tags remain separate from effective serialization",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema github.com/volvo-cars/cce-prins-validator/internal/gateway/prins.ConfigurationFetcher source StructType declaration; declared tags remain separate from effective serialization",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema []*struct {\n\t\tPno string \"json:\\\"pno\\\" graphql:\\\"pno\\\"\"\n\t} source sequence declaration",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema github.com/volvo-cars/cce-prins-validator/internal/gateway/prins.PrinsQueryResponse source StructType declaration; declared tags remain separate from effective serialization",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema github.com/volvo-cars/cce-prins-validator/internal/gateway.RequestBuilder source StructType declaration; declared tags remain separate from effective serialization",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema github.com/volvo-cars/cce-prins-validator/internal/service.RulesetValidator source StructType declaration; declared tags remain separate from effective serialization",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema ...go.uber.org/fx.Option source sequence declaration",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema []github.com/volvo-cars/cce-prins-validator/internal/domain.Component source sequence declaration",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema []github.com/volvo-cars/cce-prins-validator/internal/domain.CarConfiguration source sequence declaration",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema ...github.com/volvo-cars/cce-prins-validator/internal/gateway.Option source sequence declaration",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema []github.com/volvo-cars/cce-prins-validator/internal/domain.ComponentsToVary source sequence declaration",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema []github.com/volvo-cars/cce-prins-validator/internal/domain.Pno12 source sequence declaration",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema []go.uber.org/fx.Option source sequence declaration",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema []github.com/volvo-cars/cce-prins-validator/internal/gateway.Option source sequence declaration",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema github.com/volvo-cars/cce-prins-validator/internal/gateway/optimizationfacade.Response[GenerateConfigurationsResponse] instantiated local generic source declaration",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema github.com/volvo-cars/cce-prins-validator/internal/gateway/optimizationfacade.Response[StartStatesResponse] instantiated local generic source declaration",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema []github.com/volvo-cars/cce-prins-validator/internal/domain.SetOfCars source sequence declaration",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "schema PrinsQueryResponse.StoredCpvSets anonymous source row",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "rooted actual SDK request Configured CCE Filter API",
+      "nodes": 53,
+      "edges": 52,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "rooted actual SDK request Configured CCE Optimisation Facade",
+      "nodes": 54,
+      "edges": 53,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "rooted actual SDK request Configured PRINS GraphQL API",
+      "nodes": 5,
+      "edges": 4,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "negative startup does not call reusable wrapper Do",
+      "nodes": 4,
+      "edges": 4,
+      "limits": ["maxNodes"],
+      "pages": 1
+    }
+  ],
+  "requests": 318,
+  "assertions": 452,
+  "bounded": [
+    {
+      "name": "entry source:internal/app/app.go:fx.Hook.OnStart",
+      "nodes": 4,
+      "edges": 4,
+      "limits": ["maxNodes"],
+      "pages": 1
+    },
+    {
+      "name": "trace source:internal/app/app.go:fx.Hook.OnStart",
+      "nodes": 2000,
+      "edges": 2145,
+      "limits": ["maxNodes", "maxRecords"],
+      "pages": 2
+    },
+    {
+      "name": "entry source:internal/app/app.go:OnStart:validation-goroutine",
+      "nodes": 4,
+      "edges": 4,
+      "limits": ["maxNodes"],
+      "pages": 1
+    },
+    {
+      "name": "trace source:internal/app/app.go:OnStart:validation-goroutine",
+      "nodes": 2000,
+      "edges": 2145,
+      "limits": ["maxNodes", "maxRecords"],
+      "pages": 2
+    },
+    {
+      "name": "body github.com/volvo-cars/cce-prins-validator/internal/app#runValidation(fx.Lifecycle,*service.RulesetValidator,fx.Shutdowner)->()$closure@1376",
+      "nodes": 2000,
+      "edges": 2145,
+      "limits": ["maxNodes", "maxRecords"],
+      "pages": 2
+    },
+    {
+      "name": "body github.com/volvo-cars/cce-prins-validator/internal/app#runValidation(fx.Lifecycle,*service.RulesetValidator,fx.Shutdowner)->()$closure@1416",
+      "nodes": 2000,
+      "edges": 2145,
+      "limits": ["maxNodes", "maxRecords"],
+      "pages": 2
+    },
+    {
+      "name": "body github.com/volvo-cars/cce-prins-validator/internal/service#RulesetValidator.ValidateMultipleCars(context.Context)->(error)",
+      "nodes": 2000,
+      "edges": 2144,
+      "limits": ["maxNodes", "maxRecords"],
+      "pages": 2
+    },
+    {
+      "name": "body github.com/volvo-cars/cce-prins-validator/internal/service#RulesetValidator.validateSetOfCars(context.Context,domain.SetOfCars)->(error)",
+      "nodes": 2000,
+      "edges": 2140,
+      "limits": ["maxNodes", "maxRecords"],
+      "pages": 2
+    },
+    {
+      "name": "positive rooted source:internal/app/app.go:fx.Hook.OnStart",
+      "nodes": 4,
+      "edges": 4,
+      "limits": ["maxNodes"],
+      "pages": 1
+    },
+    {
+      "name": "positive rooted source:internal/app/app.go:OnStart:validation-goroutine",
+      "nodes": 4,
+      "edges": 4,
+      "limits": ["maxNodes"],
+      "pages": 1
+    },
+    {
+      "name": "negative startup does not call reusable wrapper Do",
+      "nodes": 4,
+      "edges": 4,
+      "limits": ["maxNodes"],
+      "pages": 1
+    }
+  ]
+}

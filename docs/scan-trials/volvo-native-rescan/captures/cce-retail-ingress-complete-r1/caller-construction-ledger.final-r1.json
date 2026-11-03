@@ -1,0 +1,134 @@
+[
+  {
+    "source": "github.com/volvo-cars/cce-retail-ingress/internal/messaging#PartnerPublisher.PublishPartners(context.Context,[]domain.Partner)->(error)",
+    "owner": "volvo/cce-retail-ingress/95d091aa445f/final-r1/implementation/0fac874a0596b0607686",
+    "shape": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/caller-construction/0fac874a0596b0607686",
+    "value": "volvo/cce-retail-ingress/95d091aa445f/final-r1/value/caller-construction/0fac874a0596b0607686",
+    "operands": [
+      {
+        "name": "Marshal_090628f13c61611fea97_argument0",
+        "value": "volvo/cce-retail-ingress/95d091aa445f/final-r1/value/0fac874a0596b0607686/9"
+      },
+      {
+        "name": "NewMessage_4c3bf7e7169e87dd6158_argument0",
+        "value": "volvo/cce-retail-ingress/95d091aa445f/final-r1/value/0fac874a0596b0607686/24"
+      },
+      {
+        "name": "NewMessage_4c3bf7e7169e87dd6158_argument1",
+        "value": "volvo/cce-retail-ingress/95d091aa445f/final-r1/value/0fac874a0596b0607686/13"
+      },
+      {
+        "name": "Set_8e71355c59434ea9375a_argument0",
+        "value": "volvo/cce-retail-ingress/95d091aa445f/final-r1/value/0fac874a0596b0607686/28"
+      },
+      {
+        "name": "Set_8e71355c59434ea9375a_argument1",
+        "value": "volvo/cce-retail-ingress/95d091aa445f/final-r1/value/0fac874a0596b0607686/29"
+      }
+    ]
+  },
+  {
+    "source": "github.com/volvo-cars/cce-retail-ingress/internal/gateway/rdmclient#Client.GetPartnerData(context.Context,string)->(domain.Partner,error)",
+    "owner": "volvo/cce-retail-ingress/95d091aa445f/final-r1/implementation/7a00389b8d21eff9e187",
+    "shape": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/caller-construction/7a00389b8d21eff9e187",
+    "value": "volvo/cce-retail-ingress/95d091aa445f/final-r1/value/caller-construction/7a00389b8d21eff9e187",
+    "operands": [
+      {
+        "name": "Execute_210c513e5dc5f8affe56_argument0",
+        "value": "volvo/cce-retail-ingress/95d091aa445f/final-r1/value/7a00389b8d21eff9e187/18"
+      },
+      {
+        "name": "Execute_210c513e5dc5f8affe56_argument1",
+        "value": "volvo/cce-retail-ingress/95d091aa445f/final-r1/value/7a00389b8d21eff9e187/19"
+      },
+      {
+        "name": "Marshal_2cd182ebcc8cd3e39ad6_argument0",
+        "value": "volvo/cce-retail-ingress/95d091aa445f/final-r1/value/7a00389b8d21eff9e187/30"
+      },
+      {
+        "name": "WithMethod_8b63cbfe7af6ce075534_argument0",
+        "value": "volvo/cce-retail-ingress/95d091aa445f/final-r1/value/7a00389b8d21eff9e187/45"
+      },
+      {
+        "name": "WithEndpoint_f1cec9942f1fe2dc1e9d_argument0",
+        "value": "volvo/cce-retail-ingress/95d091aa445f/final-r1/value/7a00389b8d21eff9e187/47"
+      },
+      {
+        "name": "WithContext_22b2f57434b31a99afa2_argument0",
+        "value": "volvo/cce-retail-ingress/95d091aa445f/final-r1/implementation/7a00389b8d21eff9e187/parameter/0"
+      },
+      {
+        "name": "WithHeader_1af7684350d0f70c8c31_argument0",
+        "value": "volvo/cce-retail-ingress/95d091aa445f/final-r1/value/7a00389b8d21eff9e187/50"
+      },
+      {
+        "name": "WithHeader_1af7684350d0f70c8c31_argument1",
+        "value": "volvo/cce-retail-ingress/95d091aa445f/final-r1/value/7a00389b8d21eff9e187/51"
+      },
+      {
+        "name": "WithHeader_2e36ef74a5958ef863e7_argument0",
+        "value": "volvo/cce-retail-ingress/95d091aa445f/final-r1/value/7a00389b8d21eff9e187/53"
+      },
+      {
+        "name": "WithHeader_2e36ef74a5958ef863e7_argument1",
+        "value": "volvo/cce-retail-ingress/95d091aa445f/final-r1/value/7a00389b8d21eff9e187/54"
+      },
+      {
+        "name": "WithBody_a5ff9f73bcdefe6cd2c7_argument0",
+        "value": "volvo/cce-retail-ingress/95d091aa445f/final-r1/value/7a00389b8d21eff9e187/56"
+      }
+    ]
+  },
+  {
+    "source": "github.com/volvo-cars/cce-retail-ingress/internal/gateway/rdmclient#Client.getAllPartnersDataPage(context.Context,string,int)->(pageData,error)",
+    "owner": "volvo/cce-retail-ingress/95d091aa445f/final-r1/implementation/48bc2a19de3bed857258",
+    "shape": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/caller-construction/48bc2a19de3bed857258",
+    "value": "volvo/cce-retail-ingress/95d091aa445f/final-r1/value/caller-construction/48bc2a19de3bed857258",
+    "operands": [
+      {
+        "name": "Execute_e96ce92190914c7c8a44_argument0",
+        "value": "volvo/cce-retail-ingress/95d091aa445f/final-r1/value/48bc2a19de3bed857258/18"
+      },
+      {
+        "name": "Execute_e96ce92190914c7c8a44_argument1",
+        "value": "volvo/cce-retail-ingress/95d091aa445f/final-r1/value/48bc2a19de3bed857258/19"
+      },
+      {
+        "name": "Marshal_9ecbc61495e150dc9f1a_argument0",
+        "value": "volvo/cce-retail-ingress/95d091aa445f/final-r1/value/48bc2a19de3bed857258/30"
+      },
+      {
+        "name": "WithMethod_c2f53b5186157a21b016_argument0",
+        "value": "volvo/cce-retail-ingress/95d091aa445f/final-r1/value/48bc2a19de3bed857258/45"
+      },
+      {
+        "name": "WithEndpoint_9c1dc27f51bf1c4d6fb4_argument0",
+        "value": "volvo/cce-retail-ingress/95d091aa445f/final-r1/value/48bc2a19de3bed857258/47"
+      },
+      {
+        "name": "WithContext_764bb34be5c30223578e_argument0",
+        "value": "volvo/cce-retail-ingress/95d091aa445f/final-r1/implementation/48bc2a19de3bed857258/parameter/0"
+      },
+      {
+        "name": "WithHeader_5441fea4a8c83bf3a9fd_argument0",
+        "value": "volvo/cce-retail-ingress/95d091aa445f/final-r1/value/48bc2a19de3bed857258/50"
+      },
+      {
+        "name": "WithHeader_5441fea4a8c83bf3a9fd_argument1",
+        "value": "volvo/cce-retail-ingress/95d091aa445f/final-r1/value/48bc2a19de3bed857258/51"
+      },
+      {
+        "name": "WithHeader_af71859627569dfbf155_argument0",
+        "value": "volvo/cce-retail-ingress/95d091aa445f/final-r1/value/48bc2a19de3bed857258/53"
+      },
+      {
+        "name": "WithHeader_af71859627569dfbf155_argument1",
+        "value": "volvo/cce-retail-ingress/95d091aa445f/final-r1/value/48bc2a19de3bed857258/54"
+      },
+      {
+        "name": "WithBody_26140f0a49180e8801ed_argument0",
+        "value": "volvo/cce-retail-ingress/95d091aa445f/final-r1/value/48bc2a19de3bed857258/56"
+      }
+    ]
+  }
+]

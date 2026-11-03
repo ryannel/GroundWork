@@ -1,0 +1,37 @@
+[
+  {
+    "source": "reports/volvo-native-rescan/payment-transaction-complete",
+    "published": "docs/scan-trials/volvo-native-rescan/captures/payment-transaction-complete-r6",
+    "parsedBundleAndSnapshotEqual": true
+  },
+  {
+    "source": "reports/volvo-native-rescan/psp-inbound-complete",
+    "published": "docs/scan-trials/volvo-native-rescan/captures/psp-inbound-complete-r3",
+    "parsedBundleAndSnapshotEqual": true
+  },
+  {
+    "source": "reports/volvo-native-rescan/payment-customer-complete",
+    "published": "docs/scan-trials/volvo-native-rescan/captures/payment-customer-complete-r8",
+    "parsedBundleAndSnapshotEqual": true
+  },
+  {
+    "source": "reports/volvo-native-rescan/assortment-api-complete",
+    "published": "docs/scan-trials/volvo-native-rescan/captures/assortment-api-complete-r5",
+    "parsedBundleAndSnapshotEqual": true
+  },
+  {
+    "source": "reports/volvo-native-rescan/payment-scheduler-complete",
+    "published": "docs/scan-trials/volvo-native-rescan/captures/payment-scheduler-complete-r1",
+    "parsedBundleAndSnapshotEqual": true
+  },
+  {
+    "source": "reports/volvo-native-rescan/manage-and-segment-complete/revision-003",
+    "published": "docs/scan-trials/volvo-native-rescan/captures/manage-and-segment-complete-r3",
+    "parsedBundleAndSnapshotEqual": true
+  },
+  {
+    "source": "reports/volvo-native-rescan/psp-integration-complete/revision-002",
+    "published": "docs/scan-trials/volvo-native-rescan/captures/psp-integration-complete-r2",
+    "parsedBundleAndSnapshotEqual": true
+  }
+]

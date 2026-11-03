@@ -1,0 +1,81 @@
+{
+  "combinedSnapshot": "bc0610c246dadbb0e8084a03ddcc7b78052291b7c82f4d1e2a7f1ddd3ee60f17",
+  "status": "passed",
+  "sourceVerification": "Reuses completed independent pinned validations: exact evidence records from reviewed selections retained; source-tuple equality verified for return-only successors. No new or changed evidence in combined candidate.",
+  "uniqueEvidenceRecords": 26501,
+  "inputEvidenceRecords": 26551,
+  "selections": [
+    {
+      "repo": "volvo-cars/account-profile-api",
+      "commit": "bc3003a9130cd9a8013d74ec4561575d1f1d935b",
+      "selectedSnapshot": "3279017c3ab086d138a0b7115f74612844f6bdff280a613228c1ecf3887fd5e0",
+      "sourceRanges": 854,
+      "combinedEvidenceUnchanged": true,
+      "independentPinnedSourceValidationLog": "volvo-account-profile-independent.log",
+      "returnCorrectionSourceTupleEquality": "see independent review in repository selection; renamed evidence IDs retain exact source tuples"
+    },
+    {
+      "repo": "volvo-cars/cds-paymentservice-customer",
+      "commit": "b0010537cdd5a308a30a885541748727c97ecb2e",
+      "selectedSnapshot": "4ff3b8eb46af1252c54e83f0ecfd54473b14789701783ec1ff6fcb7d13591ab6",
+      "sourceRanges": 1564,
+      "combinedEvidenceUnchanged": true,
+      "independentPinnedSourceValidationLog": "volvo-customer-independent.log",
+      "returnCorrectionSourceTupleEquality": "see independent review in repository selection; renamed evidence IDs retain exact source tuples"
+    },
+    {
+      "repo": "volvo-cars/cds-paymentservice-psp-inbound",
+      "commit": "ae1d9ddfb34dae71c15913e9f28d41321d66266a",
+      "selectedSnapshot": "1b0d1a29545f67f31cc7f7eaf8f4a5c0d31f29568adde0f94697275af4b6a56c",
+      "sourceRanges": 636,
+      "combinedEvidenceUnchanged": true,
+      "independentPinnedSourceValidationLog": "volvo-psp-inbound-independent.log",
+      "returnCorrectionSourceTupleEquality": "see independent review in repository selection; renamed evidence IDs retain exact source tuples"
+    },
+    {
+      "repo": "volvo-cars/cds-paymentservice-psp-integration",
+      "commit": "dabd6c825499b706ff4ddbf15eaf354adbfb6794",
+      "selectedSnapshot": "b70c8fd860424a42de9de948c21109efc6cee4e340ced841c0ec50d45d7586ac",
+      "sourceRanges": 3868,
+      "combinedEvidenceUnchanged": true,
+      "independentPinnedSourceValidationLog": "volvo-psp-integration-r2-independent.log",
+      "returnCorrectionSourceTupleEquality": "see independent review in repository selection; renamed evidence IDs retain exact source tuples"
+    },
+    {
+      "repo": "volvo-cars/cds-paymentservice-scheduler",
+      "commit": "c00df60c8233b1a8f47829ce382d5805bf164c6b",
+      "selectedSnapshot": "c928e6c2ac32cd9acf39877d95d4e6b0f4081d2066a120c42a7a9d281752a5df",
+      "sourceRanges": 1447,
+      "combinedEvidenceUnchanged": true,
+      "independentPinnedSourceValidationLog": "volvo-scheduler-independent.log",
+      "returnCorrectionSourceTupleEquality": "see independent review in repository selection; renamed evidence IDs retain exact source tuples"
+    },
+    {
+      "repo": "volvo-cars/cds-paymentservice-transaction",
+      "commit": "020d2fabb141b47b6d1e8173c02405795f71613a",
+      "selectedSnapshot": "5c7d986c75ed935403fcd8f299d6183fcc24ba2988e7a717d8e47a0234cbaa1d",
+      "sourceRanges": 4417,
+      "combinedEvidenceUnchanged": true,
+      "independentPinnedSourceValidationLog": "volvo-tx-r5-independent.log",
+      "returnCorrectionSourceTupleEquality": "see independent review in repository selection; renamed evidence IDs retain exact source tuples"
+    },
+    {
+      "repo": "volvo-cars/popcat-assortment-api",
+      "commit": "6114c5db0f2b4b490cf89b9c512088f01dbf0b98",
+      "selectedSnapshot": "bde9df8e50cc2c5f43e1cc44cdb2b6828222a7b94dfd7d7c4d597beb86a4213c",
+      "sourceRanges": 7127,
+      "combinedEvidenceUnchanged": true,
+      "independentPinnedSourceValidationLog": "volvo-assortment-r3-independent.log",
+      "returnCorrectionSourceTupleEquality": "see independent review in repository selection; renamed evidence IDs retain exact source tuples"
+    },
+    {
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "selectedSnapshot": "f2469543e6a0839ae1bdb2dc3cdb832ab113ceea0cb97683d844132fad63e95e",
+      "sourceRanges": 6638,
+      "combinedEvidenceUnchanged": true,
+      "independentPinnedSourceValidationLog": "volvo-mas-r3-independent.log",
+      "returnCorrectionSourceTupleEquality": "see independent review in repository selection; renamed evidence IDs retain exact source tuples"
+    }
+  ]
+}

@@ -1,0 +1,173 @@
+{
+  "acceptance": "passed",
+  "snapshot": "9958d25719399c959ece547e827c4b7f92f853a983c8b2669f34e08ca6f7f0cc",
+  "queries": {
+    "feePost": {
+      "nodes": 97,
+      "edges": 132,
+      "records": 372,
+      "limitsHit": [],
+      "exhaustive": false
+    },
+    "feeGet": {
+      "nodes": 28,
+      "edges": 31,
+      "records": 136,
+      "limitsHit": [],
+      "exhaustive": false
+    },
+    "feeList": {
+      "nodes": 25,
+      "edges": 27,
+      "records": 130,
+      "limitsHit": [],
+      "exhaustive": false
+    },
+    "feePut": {
+      "nodes": 132,
+      "edges": 173,
+      "records": 422,
+      "limitsHit": [],
+      "exhaustive": false
+    },
+    "feeDelete": {
+      "nodes": 95,
+      "edges": 128,
+      "records": 336,
+      "limitsHit": [],
+      "exhaustive": false
+    },
+    "feeDelete404": {
+      "nodes": 43,
+      "edges": 44,
+      "records": 164,
+      "limitsHit": [],
+      "exhaustive": false
+    },
+    "feePost201": {
+      "nodes": 81,
+      "edges": 89,
+      "records": 313,
+      "limitsHit": [],
+      "exhaustive": false
+    },
+    "feePostInteractions": {
+      "nodes": 4,
+      "edges": 4,
+      "records": 222,
+      "limitsHit": [],
+      "exhaustive": false
+    },
+    "feeGetInteractions": {
+      "nodes": 2,
+      "edges": 1,
+      "records": 124,
+      "limitsHit": [],
+      "exhaustive": false
+    },
+    "feeConsistency": {
+      "nodes": 97,
+      "edges": 132,
+      "records": 402,
+      "limitsHit": [],
+      "exhaustive": false
+    },
+    "feeResponseLineage": {
+      "nodes": 9,
+      "edges": 8,
+      "records": 109,
+      "limitsHit": [],
+      "exhaustive": false
+    },
+    "feeMessageLineage": {
+      "nodes": 10,
+      "edges": 10,
+      "records": 162,
+      "limitsHit": [],
+      "exhaustive": false
+    },
+    "brandList": {
+      "nodes": 21,
+      "edges": 23,
+      "records": 115,
+      "limitsHit": [],
+      "exhaustive": false
+    },
+    "brandPost": {
+      "nodes": 80,
+      "edges": 111,
+      "records": 314,
+      "limitsHit": [],
+      "exhaustive": false
+    },
+    "brandGet": {
+      "nodes": 28,
+      "edges": 31,
+      "records": 134,
+      "limitsHit": [],
+      "exhaustive": false
+    },
+    "brandPut": {
+      "nodes": 99,
+      "edges": 134,
+      "records": 354,
+      "limitsHit": [],
+      "exhaustive": false
+    },
+    "brandDelete": {
+      "nodes": 98,
+      "edges": 131,
+      "records": 337,
+      "limitsHit": [],
+      "exhaustive": false
+    },
+    "brandDelete404": {
+      "nodes": 45,
+      "edges": 46,
+      "records": 166,
+      "limitsHit": [],
+      "exhaustive": false
+    },
+    "packageFallback": {
+      "nodes": 47,
+      "edges": 52,
+      "records": 196,
+      "limitsHit": [],
+      "exhaustive": false
+    },
+    "summaryRoute": {
+      "nodes": 2,
+      "edges": 1,
+      "records": 49,
+      "limitsHit": [],
+      "exhaustive": false
+    },
+    "untracedRoute": {
+      "nodes": 2,
+      "edges": 1,
+      "records": 26,
+      "limitsHit": [],
+      "exhaustive": false
+    },
+    "summaryFacts": {
+      "nodes": 0,
+      "edges": 0,
+      "records": 65,
+      "limitsHit": [],
+      "exhaustive": false
+    },
+    "originalContinuation": {
+      "nodes": 47,
+      "edges": 71,
+      "records": 225,
+      "limitsHit": [],
+      "exhaustive": false
+    }
+  },
+  "controllerRegistrations": 100,
+  "nativeRepresentativeRoutes": 11,
+  "inheritedOriginalRoutes": 1,
+  "sourceInspectedSummaries": 72,
+  "remainingLocalUntraced": 16,
+  "successEnvelopeCases": 99
+}

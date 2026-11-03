@@ -1,0 +1,2332 @@
+[
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/612059d8efc932a93c4d",
+    "label": "github.com/volvo-cars/cce-retail-ingress/events/carconfiguration.ComponentType source Ident declaration; declared tags remain separate from effective serialization",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/91a260257e82e6fa1a37",
+    "label": "github.com/volvo-cars/cce-retail-ingress/events/carconfiguration.Component source StructType declaration; declared tags remain separate from effective serialization",
+    "fields": 8
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/708ccb8279fa91cf4cae",
+    "label": "github.com/volvo-cars/cce-retail-ingress/events/carconfiguration.ComponentUpdated source StructType declaration; declared tags remain separate from effective serialization",
+    "fields": 4
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/78d14806ac3c72ef28c6",
+    "label": "github.com/volvo-cars/cce-retail-ingress/events/carconfiguration.Relation source Ident declaration; declared tags remain separate from effective serialization",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/array/e018f28f55f72a38655b",
+    "label": "[]*github.com/volvo-cars/cce-retail-ingress/events/carconfiguration.SubCondition source sequence declaration",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/44159443b41b47d1a5c1",
+    "label": "github.com/volvo-cars/cce-retail-ingress/events/carconfiguration.Condition source StructType declaration; declared tags remain separate from effective serialization",
+    "fields": 5
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/array/ed18cb8e1b7a7425ac71",
+    "label": "[]*github.com/volvo-cars/cce-retail-ingress/events/carconfiguration.Component source sequence declaration",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/d3a31d1d2b2b47145323",
+    "label": "github.com/volvo-cars/cce-retail-ingress/events/carconfiguration.SubCondition source StructType declaration; declared tags remain separate from effective serialization",
+    "fields": 5
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/array/e4dd667270ff9c95e2e5",
+    "label": "[]*github.com/volvo-cars/cce-retail-ingress/events/carconfiguration.ConfigRuleSet source sequence declaration",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/array/ede7922b561d950deb57",
+    "label": "[]*github.com/volvo-cars/cce-retail-ingress/events/carconfiguration.StructureWeeksRuleSet source sequence declaration",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/82cb647fcfae5d2ad48e",
+    "label": "github.com/volvo-cars/cce-retail-ingress/events/carconfiguration.ConfigPolicy source StructType declaration; declared tags remain separate from effective serialization",
+    "fields": 9
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/6413e2e2454c6262460a",
+    "label": "github.com/volvo-cars/cce-retail-ingress/events/carconfiguration.ConfigPolicyCreated source StructType declaration; declared tags remain separate from effective serialization",
+    "fields": 9
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/2d26088042dfbf855801",
+    "label": "github.com/volvo-cars/cce-retail-ingress/events/carconfiguration.ConfigPolicyUpdated source StructType declaration; declared tags remain separate from effective serialization",
+    "fields": 9
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/532312ee5164fe867b2e",
+    "label": "github.com/volvo-cars/cce-retail-ingress/events/carconfiguration.ConfigPolicyDeleted source StructType declaration; declared tags remain separate from effective serialization",
+    "fields": 4
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/98e48d730bce79bbcd71",
+    "label": "github.com/volvo-cars/cce-retail-ingress/events/carconfiguration.ConfigPolicyRulesUpdated source StructType declaration; declared tags remain separate from effective serialization",
+    "fields": 8
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/array/3718c54c2b9ad8c4b3cd",
+    "label": "[]*github.com/volvo-cars/cce-retail-ingress/events/carconfiguration.ConfigRule source sequence declaration",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/d061778bdd520ae700f7",
+    "label": "github.com/volvo-cars/cce-retail-ingress/events/carconfiguration.ConfigRuleSet source StructType declaration; declared tags remain separate from effective serialization",
+    "fields": 5
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/eb1e3b274e11dcd5c366",
+    "label": "github.com/volvo-cars/cce-retail-ingress/events/carconfiguration.ConfigRule source StructType declaration; declared tags remain separate from effective serialization",
+    "fields": 5
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/08de2b207c28076d2aa3",
+    "label": "github.com/volvo-cars/cce-retail-ingress/events/carconfiguration.ConfigRulesCreated source StructType declaration; declared tags remain separate from effective serialization",
+    "fields": 4
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/48213c5d686221045d45",
+    "label": "github.com/volvo-cars/cce-retail-ingress/events/carconfiguration.ConfigRulesUpdated source StructType declaration; declared tags remain separate from effective serialization",
+    "fields": 4
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/array/17b2d1d054ea79b7fe99",
+    "label": "[]*github.com/volvo-cars/cce-retail-ingress/events/carconfiguration.StructureWeeksRule source sequence declaration",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/8ba72e59f839f69422a1",
+    "label": "github.com/volvo-cars/cce-retail-ingress/events/carconfiguration.StructureWeeksRuleSet source StructType declaration; declared tags remain separate from effective serialization",
+    "fields": 5
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/5d9e40eddb37425eddce",
+    "label": "github.com/volvo-cars/cce-retail-ingress/events/carconfiguration.StructureWeeksRule source StructType declaration; declared tags remain separate from effective serialization",
+    "fields": 5
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/aaa6a4b6c81889af980a",
+    "label": "github.com/volvo-cars/cce-retail-ingress/events/carconfiguration.RuleType source Ident declaration; declared tags remain separate from effective serialization",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/e1df1aa6b07a762246e2",
+    "label": "github.com/volvo-cars/cce-retail-ingress/events/carconfiguration.Consequence source StructType declaration; declared tags remain separate from effective serialization",
+    "fields": 5
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/c2c1f05cec296e4f2839",
+    "label": "github.com/volvo-cars/cce-retail-ingress/events/carconfiguration.StructureWeeksConsequence source StructType declaration; declared tags remain separate from effective serialization",
+    "fields": 7
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/10dbf555f678d471e16f",
+    "label": "github.com/volvo-cars/cce-retail-ingress/events/carconfiguration.PriceRuleConsequence source StructType declaration; declared tags remain separate from effective serialization",
+    "fields": 4
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/4912ccc6755071356760",
+    "label": "github.com/volvo-cars/cce-retail-ingress/internal/app.App source StructType declaration; declared tags remain separate from effective serialization",
+    "fields": 2
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/cec963b1945b0ae6b8c9",
+    "label": "github.com/volvo-cars/cce-retail-ingress/internal/app.config source StructType declaration; declared tags remain separate from effective serialization",
+    "fields": 13
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/5ac75664ef5fc78665ce",
+    "label": "github.com/volvo-cars/cce-retail-ingress/internal/domain.Partner source StructType declaration; declared tags remain separate from effective serialization",
+    "fields": 11
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/2bda9f4669c4297c373a",
+    "label": "github.com/volvo-cars/cce-retail-ingress/internal/gateway.RoundTripperFunc source FuncType declaration; declared tags remain separate from effective serialization",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/b9f583259d62cfa59d33",
+    "label": "github.com/volvo-cars/cce-retail-ingress/internal/gateway.Tripperware source FuncType declaration; declared tags remain separate from effective serialization",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/e436ae19716313ad8eec",
+    "label": "github.com/volvo-cars/cce-retail-ingress/internal/gateway.Option source FuncType declaration; declared tags remain separate from effective serialization",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/array/fc2938c54b99b837ad70",
+    "label": "[]github.com/volvo-cars/cce-retail-ingress/internal/gateway.Tripperware source sequence declaration",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/7af9876e537232c1b9f4",
+    "label": "github.com/volvo-cars/cce-retail-ingress/internal/gateway.HTTPClient source StructType declaration; declared tags remain separate from effective serialization",
+    "fields": 2
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/a8a2a8dd735d2ce85988",
+    "label": "github.com/volvo-cars/cce-retail-ingress/internal/gateway/rdmclient.GraphQLRequest source StructType declaration; declared tags remain separate from effective serialization",
+    "fields": 1
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/55400721d3c770e66eaf",
+    "label": "github.com/volvo-cars/cce-retail-ingress/internal/gateway/rdmclient.graphQLPartnerDataQueryArgs source StructType declaration; declared tags remain separate from effective serialization",
+    "fields": 1
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/element/572fc2e9b00975560820",
+    "label": "struct {\n\t\tMessage string `json:\"message\"`\n\t} source sequence element type; representation unresolved",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/array/ec91491ee6dfad222c39",
+    "label": "[]struct {\n\t\tMessage string `json:\"message\"`\n\t} source sequence declaration",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/c9799b3382ae5cf3bee2",
+    "label": "github.com/volvo-cars/cce-retail-ingress/internal/gateway/rdmclient.GraphQLPartnerDataResponse source StructType declaration; declared tags remain separate from effective serialization",
+    "fields": 2
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/array/3191caab7b109e424e0b",
+    "label": "[]github.com/volvo-cars/cce-retail-ingress/internal/gateway/rdmclient.PartnerOrganizationalUnitName source sequence declaration",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/d75077e4ca3d08e7dea9",
+    "label": "github.com/volvo-cars/cce-retail-ingress/internal/gateway/rdmclient.PartnerOrganizationalUnit source StructType declaration; declared tags remain separate from effective serialization",
+    "fields": 9
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/534a5b40138b6f9f1c1d",
+    "label": "github.com/volvo-cars/cce-retail-ingress/internal/gateway/rdmclient.PartnerOrganizationalUnitName source StructType declaration; declared tags remain separate from effective serialization",
+    "fields": 2
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/979fc2e2750e3c181de3",
+    "label": "github.com/volvo-cars/cce-retail-ingress/internal/gateway/rdmclient.graphQLPartnersDataQueryArgs source StructType declaration; declared tags remain separate from effective serialization",
+    "fields": 2
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/197c980e4a09f5abd334",
+    "label": "github.com/volvo-cars/cce-retail-ingress/internal/gateway/rdmclient.GraphQLPartnersDataResponse source StructType declaration; declared tags remain separate from effective serialization",
+    "fields": 2
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/array/f59c5cc23e6e23014e31",
+    "label": "[]github.com/volvo-cars/cce-retail-ingress/internal/gateway/rdmclient.Edge source sequence declaration",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/20942240dac616335d9c",
+    "label": "github.com/volvo-cars/cce-retail-ingress/internal/gateway/rdmclient.PartnerOrganizationalUnits source StructType declaration; declared tags remain separate from effective serialization",
+    "fields": 3
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/bca323e28334d82379c1",
+    "label": "github.com/volvo-cars/cce-retail-ingress/internal/gateway/rdmclient.Edge source StructType declaration; declared tags remain separate from effective serialization",
+    "fields": 1
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/ea9f65c4815a7915c55a",
+    "label": "github.com/volvo-cars/cce-retail-ingress/internal/gateway/rdmclient.PageInfo source StructType declaration; declared tags remain separate from effective serialization",
+    "fields": 2
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/c21bdd7310bfab390663",
+    "label": "github.com/volvo-cars/cce-retail-ingress/internal/gateway/rdmclient.Config source StructType declaration; declared tags remain separate from effective serialization",
+    "fields": 2
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/941fdac1164964a8ed17",
+    "label": "github.com/volvo-cars/cce-retail-ingress/internal/gateway/rdmclient.Client source StructType declaration; declared tags remain separate from effective serialization",
+    "fields": 3
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/97662e764c4ec5132e92",
+    "label": "github.com/volvo-cars/cce-retail-ingress/internal/gateway/rdmclient.GraphQLResponse source StructType declaration; declared tags remain separate from effective serialization",
+    "fields": 2
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/array/8b1f8c122be82c02e96b",
+    "label": "[]github.com/volvo-cars/cce-retail-ingress/internal/domain.Partner source sequence declaration",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/771f4f32ed1b9887c8ae",
+    "label": "github.com/volvo-cars/cce-retail-ingress/internal/gateway/rdmclient.pageData source StructType declaration; declared tags remain separate from effective serialization",
+    "fields": 3
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/eeb93d340d241064434f",
+    "label": "github.com/volvo-cars/cce-retail-ingress/internal/gateway/rdmclient.TokenSourceConfig source StructType declaration; declared tags remain separate from effective serialization",
+    "fields": 4
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/56423aebe77ef567c581",
+    "label": "github.com/volvo-cars/cce-retail-ingress/internal/gateway/rdmclient.TokenSource source StructType declaration; declared tags remain separate from effective serialization",
+    "fields": 5
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/5b7b9bb181fabc77eaa0",
+    "label": "github.com/volvo-cars/cce-retail-ingress/internal/gateway/rdmclient.token source StructType declaration; declared tags remain separate from effective serialization",
+    "fields": 2
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/196d3f8d97157a093188",
+    "label": "github.com/volvo-cars/cce-retail-ingress/internal/gateway.RequestBuilder source StructType declaration; declared tags remain separate from effective serialization",
+    "fields": 6
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/aae9a1b9e7f221c719f2",
+    "label": "github.com/volvo-cars/cce-retail-ingress/internal/gateway.OperationIDRoundTripper source StructType declaration; declared tags remain separate from effective serialization",
+    "fields": 2
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/60ee37df83b09ad6ffbc",
+    "label": "github.com/volvo-cars/cce-retail-ingress/internal/messaging.Logger source StructType declaration; declared tags remain separate from effective serialization",
+    "fields": 1
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/3b47a3b7f19b82bcb7ef",
+    "label": "github.com/volvo-cars/cce-retail-ingress/internal/messaging.PartnerPublisher source StructType declaration; declared tags remain separate from effective serialization",
+    "fields": 3
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/bb9420be2d0f9ee3e963",
+    "label": "github.com/volvo-cars/cce-retail-ingress/internal/messaging.Config source StructType declaration; declared tags remain separate from effective serialization",
+    "fields": 5
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/a03414e001190a2a648a",
+    "label": "github.com/volvo-cars/cce-retail-ingress/internal/protobuf/pb.PartnerDetails source StructType declaration; declared tags remain separate from effective serialization",
+    "fields": 6
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/array/e1e2053e916cbbe70a15",
+    "label": "[]*github.com/volvo-cars/cce-retail-ingress/internal/protobuf/pb.PartnersDetailsData source sequence declaration",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/0c7426a8d29c932db042",
+    "label": "github.com/volvo-cars/cce-retail-ingress/internal/protobuf/pb.RetailData source StructType declaration; declared tags remain separate from effective serialization",
+    "fields": 8
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/array/0f8113be040ae3e6248a",
+    "label": "[]*github.com/volvo-cars/cce-retail-ingress/internal/protobuf/pb.ParterNames source sequence declaration",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/42c96c2ff8b0f128c2f3",
+    "label": "github.com/volvo-cars/cce-retail-ingress/internal/protobuf/pb.PartnersDetailsData source StructType declaration; declared tags remain separate from effective serialization",
+    "fields": 10
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/b5804d58101219537267",
+    "label": "github.com/volvo-cars/cce-retail-ingress/internal/protobuf/pb.ParterNames source StructType declaration; declared tags remain separate from effective serialization",
+    "fields": 5
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/8e68f48d3cf044de04b7",
+    "label": "github.com/volvo-cars/cce-retail-ingress/internal/protobuf/pb.PartnerNotificationData source StructType declaration; declared tags remain separate from effective serialization",
+    "fields": 8
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/1bf9952eee7f6488f50a",
+    "label": "github.com/volvo-cars/cce-retail-ingress/internal/protobuf/pb.PartnerNotification source StructType declaration; declared tags remain separate from effective serialization",
+    "fields": 11
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/array/b3a96ec20a2e1958f82f",
+    "label": "[]*github.com/volvo-cars/cce-retail-ingress/internal/protobuf/pb.PartnerNotification source sequence declaration",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/a9b2cfa9a5a596e9635f",
+    "label": "github.com/volvo-cars/cce-retail-ingress/internal/protobuf/pb.PartnerNotifications source StructType declaration; declared tags remain separate from effective serialization",
+    "fields": 4
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/c0638d18eab315c2183a",
+    "label": "github.com/volvo-cars/cce-retail-ingress/internal/restapi.RdmClient source InterfaceType declaration; declared tags remain separate from effective serialization",
+    "fields": 2
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/7106de63a12ad8b1a665",
+    "label": "github.com/volvo-cars/cce-retail-ingress/internal/restapi.PartnerEventWriter source InterfaceType declaration; declared tags remain separate from effective serialization",
+    "fields": 1
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/04cf3d1944604fbb6a19",
+    "label": "github.com/volvo-cars/cce-retail-ingress/internal/restapi.API source StructType declaration; declared tags remain separate from effective serialization",
+    "fields": 5
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/9320c9f3283ab35175b7",
+    "label": "github.com/volvo-cars/cce-retail-ingress/internal/restapi/mid.Authenticator source InterfaceType declaration; declared tags remain separate from effective serialization",
+    "fields": 1
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/cbf48189a9f97cecfccb",
+    "label": "github.com/volvo-cars/cce-retail-ingress/internal/restapi/mid.blockAllAuthenticator source StructType declaration; declared tags remain separate from effective serialization",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/c7e0e34e5d323e70aef2",
+    "label": "github.com/volvo-cars/cce-retail-ingress/internal/restapi/platform.VTSClaims source StructType declaration; declared tags remain separate from effective serialization",
+    "fields": 2
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/element/473287f8298dba7163a8",
+    "label": "string source sequence element type; representation unresolved",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/array/4af101177fe720bf0766",
+    "label": "[]string source sequence declaration",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/2330790392b1c94d5957",
+    "label": "github.com/volvo-cars/cce-retail-ingress/internal/restapi/platform.TRL source StructType declaration; declared tags remain separate from effective serialization",
+    "fields": 4
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/c35c64c865436c9e3bd3",
+    "label": "github.com/volvo-cars/cce-retail-ingress/internal/restapi/platform.ctxKey source Ident declaration; declared tags remain separate from effective serialization",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/b320e3d3940964641248",
+    "label": "github.com/volvo-cars/cce-retail-ingress/internal/restapi/platform.Authenticator source StructType declaration; declared tags remain separate from effective serialization",
+    "fields": 4
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/cc1b908e330db101136f",
+    "label": "github.com/volvo-cars/cce-retail-ingress/internal/restapi/platform.Config source StructType declaration; declared tags remain separate from effective serialization",
+    "fields": 4
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/55386e3fc8a7f69f9267",
+    "label": "github.com/volvo-cars/cce-retail-ingress/internal/web.FieldError source StructType declaration; declared tags remain separate from effective serialization",
+    "fields": 2
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/array/3bc3deab38a47052995c",
+    "label": "[]github.com/volvo-cars/cce-retail-ingress/internal/web.FieldError source sequence declaration",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/8c9bc549494c8c084786",
+    "label": "github.com/volvo-cars/cce-retail-ingress/internal/web.ErrorResponse source StructType declaration; declared tags remain separate from effective serialization",
+    "fields": 2
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/6ec35c4c9aa0a570340e",
+    "label": "github.com/volvo-cars/cce-retail-ingress/internal/web.Error source StructType declaration; declared tags remain separate from effective serialization",
+    "fields": 3
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/e1b65f113653688cc3af",
+    "label": "github.com/volvo-cars/cce-retail-ingress/internal/web.ctxKey source Ident declaration; declared tags remain separate from effective serialization",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/2d0a74bbda6ec9d7c961",
+    "label": "github.com/volvo-cars/cce-retail-ingress/internal/web.Values source StructType declaration; declared tags remain separate from effective serialization",
+    "fields": 2
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/a5e6ba1aa5ae00b2bbc8",
+    "label": "github.com/volvo-cars/cce-retail-ingress/internal/web.Handler source FuncType declaration; declared tags remain separate from effective serialization",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/2c398ccb40898e627644",
+    "label": "github.com/volvo-cars/cce-retail-ingress/internal/web.Middleware source FuncType declaration; declared tags remain separate from effective serialization",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/654eae4cb1788ab828d9",
+    "label": "github.com/volvo-cars/cce-retail-ingress/events/carconfiguration.x@local:github.com/volvo-cars/cce-retail-ingress/events/carconfiguration#file_carconfiguration_component_proto_init()->() source StructType declaration; declared tags remain separate from effective serialization",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/aa56549cf0abe0084c62",
+    "label": "github.com/volvo-cars/cce-retail-ingress/events/carconfiguration.x@local:github.com/volvo-cars/cce-retail-ingress/events/carconfiguration#file_carconfiguration_condition_proto_init()->() source StructType declaration; declared tags remain separate from effective serialization",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/6b546dabbb3ca0efc116",
+    "label": "github.com/volvo-cars/cce-retail-ingress/events/carconfiguration.x@local:github.com/volvo-cars/cce-retail-ingress/events/carconfiguration#file_carconfiguration_config_policy_proto_init()->() source StructType declaration; declared tags remain separate from effective serialization",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/ab2371a59f880d26f21a",
+    "label": "github.com/volvo-cars/cce-retail-ingress/events/carconfiguration.x@local:github.com/volvo-cars/cce-retail-ingress/events/carconfiguration#file_carconfiguration_config_rules_proto_init()->() source StructType declaration; declared tags remain separate from effective serialization",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/cc404777c07af24cb729",
+    "label": "github.com/volvo-cars/cce-retail-ingress/events/carconfiguration.x@local:github.com/volvo-cars/cce-retail-ingress/events/carconfiguration#file_carconfiguration_consequence_proto_init()->() source StructType declaration; declared tags remain separate from effective serialization",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/b4d8ad51c6a639250d7d",
+    "label": "github.com/volvo-cars/cce-retail-ingress/internal/protobuf/pb.x@local:github.com/volvo-cars/cce-retail-ingress/internal/protobuf/pb#file_partnerDetailsFeed_proto_init()->() source StructType declaration; declared tags remain separate from effective serialization",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/37bede10bae223ed17c8",
+    "label": "github.com/volvo-cars/cce-retail-ingress/internal/protobuf/pb.x@local:github.com/volvo-cars/cce-retail-ingress/internal/protobuf/pb#file_partnerNotify_proto_init()->() source StructType declaration; declared tags remain separate from effective serialization",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/94c9676e06264f7c6c43",
+    "label": "github.com/volvo-cars/cce-retail-ingress/internal/restapi.Response source StructType declaration; declared tags remain separate from effective serialization",
+    "fields": 1
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/array/e4bc4b8953e18129a3aa",
+    "label": "...github.com/volvo-cars/cce-retail-ingress/internal/gateway.Tripperware source sequence declaration",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/array/034a1deb50aede4f3c98",
+    "label": "...github.com/volvo-cars/cce-retail-ingress/internal/gateway.Option source sequence declaration",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/array/8ca421053f1dbc61e88b",
+    "label": "...github.com/volvo-cars/cce-retail-ingress/internal/web.Middleware source sequence declaration",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/array/9a79c0095d5f73372dac",
+    "label": "[]github.com/volvo-cars/cce-retail-ingress/internal/web.Middleware source sequence declaration",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/tuple/8173aaf54f4de1f6d3bc",
+    "label": "Source Go indexed multiresult tuple ['*github.com/volvo-cars/cce-retail-ingress/internal/app.App', 'error']; analyser projection, not an allocated runtime object",
+    "fields": 2
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/element/1c31626f568a075d2fd6",
+    "label": "byte source sequence element type; representation unresolved",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/array/874612457cdc8d731930",
+    "label": "[]byte source sequence declaration",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/element/6da88c34ba124c41f977",
+    "label": "int source sequence element type; representation unresolved",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/array/7c8c88665f5d7d690e67",
+    "label": "[]int source sequence declaration",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/construction/ef45741ae9c35d98f6bd",
+    "label": "[]int exact source composite construction; distinct from effective wire conversion",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/tuple/e673c8864bd7a6412d1c",
+    "label": "Source Go indexed multiresult tuple ['[]byte', '[]int']; analyser projection, not an allocated runtime object",
+    "fields": 2
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/construction/4e7408ec689d3adad49c",
+    "label": "github.com/volvo-cars/cce-retail-ingress/events/carconfiguration.Component exact source composite construction; distinct from effective wire conversion",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/construction/012833fc8c239cf03d20",
+    "label": "[]int exact source composite construction; distinct from effective wire conversion",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/tuple/4970bed87dafcf925ced",
+    "label": "Source Go indexed multiresult tuple ['[]byte', '[]int']; analyser projection, not an allocated runtime object",
+    "fields": 2
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/construction/945faaeac2f44c00cc2c",
+    "label": "github.com/volvo-cars/cce-retail-ingress/events/carconfiguration.ComponentUpdated exact source composite construction; distinct from effective wire conversion",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/construction/8bc83ac1ba0b003fce2b",
+    "label": "[]int exact source composite construction; distinct from effective wire conversion",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/tuple/cc24c2a623967fc3366d",
+    "label": "Source Go indexed multiresult tuple ['[]byte', '[]int']; analyser projection, not an allocated runtime object",
+    "fields": 2
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/construction/f05238059ff80a9f3d35",
+    "label": "x exact source composite construction; distinct from effective wire conversion",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/construction/b0f570db221a66c0cd15",
+    "label": "google.golang.org/protobuf/runtime/protoimpl.DescBuilder exact source composite construction; distinct from effective wire conversion",
+    "fields": 6
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/construction/3e26c0a7d359e559afb0",
+    "label": "google.golang.org/protobuf/runtime/protoimpl.TypeBuilder exact source composite construction; distinct from effective wire conversion",
+    "fields": 5
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/construction/5864ca55b30263817184",
+    "label": "[]int exact source composite construction; distinct from effective wire conversion",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/tuple/e2d3ecd475b3130b12d3",
+    "label": "Source Go indexed multiresult tuple ['[]byte', '[]int']; analyser projection, not an allocated runtime object",
+    "fields": 2
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/construction/0ecfd4b4e4a93b88ffad",
+    "label": "github.com/volvo-cars/cce-retail-ingress/events/carconfiguration.Condition exact source composite construction; distinct from effective wire conversion",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/construction/91c4d0fcdca5f1739065",
+    "label": "[]int exact source composite construction; distinct from effective wire conversion",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/tuple/97cac07ea2943fa19f12",
+    "label": "Source Go indexed multiresult tuple ['[]byte', '[]int']; analyser projection, not an allocated runtime object",
+    "fields": 2
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/construction/f290384a02c357a44822",
+    "label": "github.com/volvo-cars/cce-retail-ingress/events/carconfiguration.SubCondition exact source composite construction; distinct from effective wire conversion",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/construction/48395167455af7bc650a",
+    "label": "[]int exact source composite construction; distinct from effective wire conversion",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/tuple/7339c1ed5daf87d2ccff",
+    "label": "Source Go indexed multiresult tuple ['[]byte', '[]int']; analyser projection, not an allocated runtime object",
+    "fields": 2
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/construction/2250af79b752c87ffa67",
+    "label": "x exact source composite construction; distinct from effective wire conversion",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/construction/696f2e26830f212e6a0b",
+    "label": "google.golang.org/protobuf/runtime/protoimpl.DescBuilder exact source composite construction; distinct from effective wire conversion",
+    "fields": 6
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/construction/ff84b60f199343859a59",
+    "label": "google.golang.org/protobuf/runtime/protoimpl.TypeBuilder exact source composite construction; distinct from effective wire conversion",
+    "fields": 5
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/construction/fd0a9de9ecd708acc55d",
+    "label": "github.com/volvo-cars/cce-retail-ingress/events/carconfiguration.ConfigPolicy exact source composite construction; distinct from effective wire conversion",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/construction/59c5e1dc0c00cb1b0c1d",
+    "label": "[]int exact source composite construction; distinct from effective wire conversion",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/tuple/0c04d45f9ad0bb026bf3",
+    "label": "Source Go indexed multiresult tuple ['[]byte', '[]int']; analyser projection, not an allocated runtime object",
+    "fields": 2
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/construction/c472d60305e05d8cfab7",
+    "label": "github.com/volvo-cars/cce-retail-ingress/events/carconfiguration.ConfigPolicyCreated exact source composite construction; distinct from effective wire conversion",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/construction/e0c0b30b3c72c793ad91",
+    "label": "[]int exact source composite construction; distinct from effective wire conversion",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/tuple/10f7fcfed4c63c6b1c71",
+    "label": "Source Go indexed multiresult tuple ['[]byte', '[]int']; analyser projection, not an allocated runtime object",
+    "fields": 2
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/construction/9d299aedb1748fc0a9b9",
+    "label": "github.com/volvo-cars/cce-retail-ingress/events/carconfiguration.ConfigPolicyUpdated exact source composite construction; distinct from effective wire conversion",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/construction/67f26ab2ceebc2f566ed",
+    "label": "[]int exact source composite construction; distinct from effective wire conversion",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/tuple/97e1338b4d73dc91a805",
+    "label": "Source Go indexed multiresult tuple ['[]byte', '[]int']; analyser projection, not an allocated runtime object",
+    "fields": 2
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/construction/49280468c21e8c71dc70",
+    "label": "github.com/volvo-cars/cce-retail-ingress/events/carconfiguration.ConfigPolicyDeleted exact source composite construction; distinct from effective wire conversion",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/construction/01d3dcce7cfa05c32f58",
+    "label": "[]int exact source composite construction; distinct from effective wire conversion",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/tuple/a548d8ecabf72c93a461",
+    "label": "Source Go indexed multiresult tuple ['[]byte', '[]int']; analyser projection, not an allocated runtime object",
+    "fields": 2
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/construction/e85d67a78fec594727d7",
+    "label": "github.com/volvo-cars/cce-retail-ingress/events/carconfiguration.ConfigPolicyRulesUpdated exact source composite construction; distinct from effective wire conversion",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/construction/7950eaf29db8e21c9b9b",
+    "label": "[]int exact source composite construction; distinct from effective wire conversion",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/tuple/df27198ded5e2ba49150",
+    "label": "Source Go indexed multiresult tuple ['[]byte', '[]int']; analyser projection, not an allocated runtime object",
+    "fields": 2
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/construction/d762c9016484d5545534",
+    "label": "x exact source composite construction; distinct from effective wire conversion",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/construction/7d95866cc4f88b90ae1b",
+    "label": "google.golang.org/protobuf/runtime/protoimpl.DescBuilder exact source composite construction; distinct from effective wire conversion",
+    "fields": 6
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/construction/e5c370d8af52f940b7ac",
+    "label": "google.golang.org/protobuf/runtime/protoimpl.TypeBuilder exact source composite construction; distinct from effective wire conversion",
+    "fields": 4
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/construction/157c3e1be1524fd907bf",
+    "label": "github.com/volvo-cars/cce-retail-ingress/events/carconfiguration.ConfigRuleSet exact source composite construction; distinct from effective wire conversion",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/construction/dd3219b2d46e15e5a521",
+    "label": "[]int exact source composite construction; distinct from effective wire conversion",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/tuple/18f7be7e690b11bf413a",
+    "label": "Source Go indexed multiresult tuple ['[]byte', '[]int']; analyser projection, not an allocated runtime object",
+    "fields": 2
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/construction/01ab0bd64fd9f59b27ec",
+    "label": "github.com/volvo-cars/cce-retail-ingress/events/carconfiguration.ConfigRule exact source composite construction; distinct from effective wire conversion",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/construction/c14af97dd9fca39a45f4",
+    "label": "[]int exact source composite construction; distinct from effective wire conversion",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/tuple/33604af13f597ab9ffec",
+    "label": "Source Go indexed multiresult tuple ['[]byte', '[]int']; analyser projection, not an allocated runtime object",
+    "fields": 2
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/construction/01620d82faa7fdb6c9f0",
+    "label": "github.com/volvo-cars/cce-retail-ingress/events/carconfiguration.ConfigRulesCreated exact source composite construction; distinct from effective wire conversion",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/construction/1ac73016cf6b73195770",
+    "label": "[]int exact source composite construction; distinct from effective wire conversion",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/tuple/12dfc84995b32aaa80d9",
+    "label": "Source Go indexed multiresult tuple ['[]byte', '[]int']; analyser projection, not an allocated runtime object",
+    "fields": 2
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/construction/855e24527cf6e9da1d26",
+    "label": "github.com/volvo-cars/cce-retail-ingress/events/carconfiguration.ConfigRulesUpdated exact source composite construction; distinct from effective wire conversion",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/construction/451b569b176e7a38e770",
+    "label": "[]int exact source composite construction; distinct from effective wire conversion",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/tuple/128d56b5da94318ddcbb",
+    "label": "Source Go indexed multiresult tuple ['[]byte', '[]int']; analyser projection, not an allocated runtime object",
+    "fields": 2
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/construction/8e0fe28df6a5bd93e414",
+    "label": "github.com/volvo-cars/cce-retail-ingress/events/carconfiguration.StructureWeeksRuleSet exact source composite construction; distinct from effective wire conversion",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/construction/17dc35f4c6bb8b08aa2a",
+    "label": "[]int exact source composite construction; distinct from effective wire conversion",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/tuple/76da7dbea41062a0b01e",
+    "label": "Source Go indexed multiresult tuple ['[]byte', '[]int']; analyser projection, not an allocated runtime object",
+    "fields": 2
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/construction/c8f2f6c78f448d092c86",
+    "label": "github.com/volvo-cars/cce-retail-ingress/events/carconfiguration.StructureWeeksRule exact source composite construction; distinct from effective wire conversion",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/construction/b8e1ed53fc3928657827",
+    "label": "[]int exact source composite construction; distinct from effective wire conversion",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/tuple/fed4a0d42fcafe3388e3",
+    "label": "Source Go indexed multiresult tuple ['[]byte', '[]int']; analyser projection, not an allocated runtime object",
+    "fields": 2
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/construction/98fc6d0cd7523bc1bf72",
+    "label": "x exact source composite construction; distinct from effective wire conversion",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/construction/061da94d8946fade4e0c",
+    "label": "google.golang.org/protobuf/runtime/protoimpl.DescBuilder exact source composite construction; distinct from effective wire conversion",
+    "fields": 6
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/construction/4c6eb17cc9654b5fe605",
+    "label": "google.golang.org/protobuf/runtime/protoimpl.TypeBuilder exact source composite construction; distinct from effective wire conversion",
+    "fields": 4
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/construction/4fc4090b51dd90fa92e4",
+    "label": "[]int exact source composite construction; distinct from effective wire conversion",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/tuple/fd63b2f8148a2c0e7a4c",
+    "label": "Source Go indexed multiresult tuple ['[]byte', '[]int']; analyser projection, not an allocated runtime object",
+    "fields": 2
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/construction/611980b0b01fdffa2471",
+    "label": "github.com/volvo-cars/cce-retail-ingress/events/carconfiguration.Consequence exact source composite construction; distinct from effective wire conversion",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/construction/307af3cbe840e4441e9d",
+    "label": "[]int exact source composite construction; distinct from effective wire conversion",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/tuple/a3c8c4e55630a542c480",
+    "label": "Source Go indexed multiresult tuple ['[]byte', '[]int']; analyser projection, not an allocated runtime object",
+    "fields": 2
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/construction/9337428c3382a6b6e8b6",
+    "label": "github.com/volvo-cars/cce-retail-ingress/events/carconfiguration.StructureWeeksConsequence exact source composite construction; distinct from effective wire conversion",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/construction/2ffb77df3e0eee1cbf0a",
+    "label": "[]int exact source composite construction; distinct from effective wire conversion",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/tuple/f334cff79f125542255b",
+    "label": "Source Go indexed multiresult tuple ['[]byte', '[]int']; analyser projection, not an allocated runtime object",
+    "fields": 2
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/construction/2c7810dc940cecd51eb9",
+    "label": "github.com/volvo-cars/cce-retail-ingress/events/carconfiguration.PriceRuleConsequence exact source composite construction; distinct from effective wire conversion",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/construction/69156bb74e2f04e9032c",
+    "label": "[]int exact source composite construction; distinct from effective wire conversion",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/tuple/a5b511e43fee69156d8a",
+    "label": "Source Go indexed multiresult tuple ['[]byte', '[]int']; analyser projection, not an allocated runtime object",
+    "fields": 2
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/construction/0b5a42b925df515a7281",
+    "label": "x exact source composite construction; distinct from effective wire conversion",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/construction/3c2f3ca0825e338ab1ee",
+    "label": "google.golang.org/protobuf/runtime/protoimpl.DescBuilder exact source composite construction; distinct from effective wire conversion",
+    "fields": 6
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/construction/858be61691b4e4ab0ee2",
+    "label": "google.golang.org/protobuf/runtime/protoimpl.TypeBuilder exact source composite construction; distinct from effective wire conversion",
+    "fields": 5
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/tuple/1517a310dd4455189da2",
+    "label": "Source Go indexed multiresult tuple ['github.com/volvo-cars/cce-retail-ingress/internal/restapi/mid.Authenticator', 'error']; analyser projection, not an allocated runtime object",
+    "fields": 2
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/tuple/0e7c05b827825915855e",
+    "label": "Source Go indexed multiresult tuple ['github.com/ThreeDotsLabs/watermill/message.Publisher', 'error']; analyser projection, not an allocated runtime object",
+    "fields": 2
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/construction/bd80eba1a90f38a7f715",
+    "label": "github.com/volvo-cars/cce-retail-ingress/internal/app.App exact source composite construction; distinct from effective wire conversion",
+    "fields": 2
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/construction/e647a6ded4986bd054ff",
+    "label": "net/http.Server exact source composite construction; distinct from effective wire conversion",
+    "fields": 5
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/array/ab887f87e12b1b0b81f3",
+    "label": "[]github.com/volvo-cars/cce-retail-ingress/internal/gateway.Option source sequence declaration",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/tuple/0abb852948021d9bd9c9",
+    "label": "Source Go indexed multiresult tuple ['*github.com/volvo-cars/cce-retail-ingress/internal/restapi/platform.Authenticator', 'error']; analyser projection, not an allocated runtime object",
+    "fields": 2
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/construction/5c0ff14c8f89c1e29df3",
+    "label": "github.com/volvo-cars/cce-retail-ingress/internal/gateway/rdmclient.Config exact source composite construction; distinct from effective wire conversion",
+    "fields": 2
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/construction/d91cb0b8932db68325f2",
+    "label": "github.com/volvo-cars/cce-retail-ingress/internal/restapi/platform.Config exact source composite construction; distinct from effective wire conversion",
+    "fields": 4
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/tuple/a194de3a1f5270c9ba01",
+    "label": "Source Go indexed multiresult tuple ['github.com/ThreeDotsLabs/watermill/message.Publisher', 'error']; analyser projection, not an allocated runtime object",
+    "fields": 2
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/tuple/0345d954e747c4cf64bb",
+    "label": "Source Go indexed multiresult tuple ['*net/http.Response', 'error']; analyser projection, not an allocated runtime object",
+    "fields": 2
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/construction/9dac09bb2f7f9d91199b",
+    "label": "net/http.Client exact source composite construction; distinct from effective wire conversion",
+    "fields": 4
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/construction/6face391406120a035fd",
+    "label": "net/http.Client exact source composite construction; distinct from effective wire conversion",
+    "fields": 1
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/construction/d2ee9f5423ac76b0a519",
+    "label": "github.com/volvo-cars/cce-retail-ingress/internal/gateway.HTTPClient exact source composite construction; distinct from effective wire conversion",
+    "fields": 1
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/tuple/5b09a04defa2e8458f48",
+    "label": "Source Go indexed multiresult tuple ['*net/http.Response', 'error']; analyser projection, not an allocated runtime object",
+    "fields": 2
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/construction/d4add3200a5d3e193053",
+    "label": "github.com/volvo-cars/cce-retail-ingress/internal/gateway/rdmclient.Config exact source composite construction; distinct from effective wire conversion",
+    "fields": 2
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/construction/24397b96dd2db0831a4a",
+    "label": "github.com/volvo-cars/cce-retail-ingress/internal/gateway/rdmclient.Client exact source composite construction; distinct from effective wire conversion",
+    "fields": 3
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/construction/ed268bb9e5a8f9e2bdb9",
+    "label": "github.com/volvo-cars/cce-retail-ingress/internal/domain.Partner exact source composite construction; distinct from effective wire conversion",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/tuple/3718c990a19179b621c4",
+    "label": "Source Go indexed multiresult tuple ['github.com/volvo-cars/cce-retail-ingress/internal/domain.Partner', 'error']; analyser projection, not an allocated runtime object",
+    "fields": 2
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/construction/3d0b3263125fddbe7ebd",
+    "label": "github.com/volvo-cars/cce-retail-ingress/internal/gateway/rdmclient.graphQLPartnerDataQueryArgs exact source composite construction; distinct from effective wire conversion",
+    "fields": 1
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/construction/4d2aee0a2a9bc4b1115b",
+    "label": "github.com/volvo-cars/cce-retail-ingress/internal/domain.Partner exact source composite construction; distinct from effective wire conversion",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/construction/7c8471b2840bdb7f28be",
+    "label": "github.com/volvo-cars/cce-retail-ingress/internal/gateway/rdmclient.GraphQLRequest exact source composite construction; distinct from effective wire conversion",
+    "fields": 1
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/construction/f334f12a4c62d6848328",
+    "label": "github.com/volvo-cars/cce-retail-ingress/internal/domain.Partner exact source composite construction; distinct from effective wire conversion",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/tuple/5ff6a756afbea90a3619",
+    "label": "Source Go indexed multiresult tuple ['*net/http.Request', 'error']; analyser projection, not an allocated runtime object",
+    "fields": 2
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/construction/ba09ee8929fd94b4aeb3",
+    "label": "github.com/volvo-cars/cce-retail-ingress/internal/domain.Partner exact source composite construction; distinct from effective wire conversion",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/construction/d7a15eda0ed22ec65a76",
+    "label": "github.com/volvo-cars/cce-retail-ingress/internal/domain.Partner exact source composite construction; distinct from effective wire conversion",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/construction/6879ab491ebd40ceea0c",
+    "label": "github.com/volvo-cars/cce-retail-ingress/internal/domain.Partner exact source composite construction; distinct from effective wire conversion",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/construction/97ff05e9a21a0bb57217",
+    "label": "github.com/volvo-cars/cce-retail-ingress/internal/domain.Partner exact source composite construction; distinct from effective wire conversion",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/construction/c587a8ac1f77ba483732",
+    "label": "github.com/volvo-cars/cce-retail-ingress/internal/domain.Partner exact source composite construction; distinct from effective wire conversion",
+    "fields": 11
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/tuple/8753d588cc1410223938",
+    "label": "Source Go indexed multiresult tuple ['github.com/volvo-cars/cce-retail-ingress/internal/gateway/rdmclient.pageData', 'error']; analyser projection, not an allocated runtime object",
+    "fields": 2
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/tuple/d92f8adf5a9b143c8b40",
+    "label": "Source Go indexed multiresult tuple ['[]github.com/volvo-cars/cce-retail-ingress/internal/domain.Partner', 'error']; analyser projection, not an allocated runtime object",
+    "fields": 2
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/construction/824b85ff14f0e1901647",
+    "label": "github.com/volvo-cars/cce-retail-ingress/internal/gateway/rdmclient.pageData exact source composite construction; distinct from effective wire conversion",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/construction/d37633c3723a0264fa56",
+    "label": "github.com/volvo-cars/cce-retail-ingress/internal/gateway/rdmclient.graphQLPartnersDataQueryArgs exact source composite construction; distinct from effective wire conversion",
+    "fields": 2
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/construction/e77b96b72be8df28d9fc",
+    "label": "github.com/volvo-cars/cce-retail-ingress/internal/gateway/rdmclient.pageData exact source composite construction; distinct from effective wire conversion",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/construction/bf5ee5bc6d7ecc3d26cf",
+    "label": "github.com/volvo-cars/cce-retail-ingress/internal/gateway/rdmclient.GraphQLRequest exact source composite construction; distinct from effective wire conversion",
+    "fields": 1
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/construction/aca53265f95fff7be8ec",
+    "label": "github.com/volvo-cars/cce-retail-ingress/internal/gateway/rdmclient.pageData exact source composite construction; distinct from effective wire conversion",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/construction/46904a0561f49ba0ed31",
+    "label": "github.com/volvo-cars/cce-retail-ingress/internal/gateway/rdmclient.pageData exact source composite construction; distinct from effective wire conversion",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/construction/88af4809ac262d1a4924",
+    "label": "github.com/volvo-cars/cce-retail-ingress/internal/gateway/rdmclient.pageData exact source composite construction; distinct from effective wire conversion",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/construction/68a664c08bef4e64b5a4",
+    "label": "github.com/volvo-cars/cce-retail-ingress/internal/gateway/rdmclient.pageData exact source composite construction; distinct from effective wire conversion",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/construction/da751f4e5f19fa66b681",
+    "label": "github.com/volvo-cars/cce-retail-ingress/internal/gateway/rdmclient.pageData exact source composite construction; distinct from effective wire conversion",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/construction/fed22f1ffa52c66585d6",
+    "label": "github.com/volvo-cars/cce-retail-ingress/internal/gateway/rdmclient.pageData exact source composite construction; distinct from effective wire conversion",
+    "fields": 3
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/construction/3bfcf7015d61e7ed971e",
+    "label": "github.com/volvo-cars/cce-retail-ingress/internal/gateway/rdmclient.TokenSourceConfig exact source composite construction; distinct from effective wire conversion",
+    "fields": 4
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/construction/f4ee434fd3438d58b9e9",
+    "label": "github.com/volvo-cars/cce-retail-ingress/internal/gateway/rdmclient.TokenSource exact source composite construction; distinct from effective wire conversion",
+    "fields": 5
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/construction/8b720be17e1cf5cf8274",
+    "label": "? exact source composite construction; distinct from effective wire conversion",
+    "fields": 1
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/construction/bc47a316f9bcbf224567",
+    "label": "? exact source composite construction; distinct from effective wire conversion",
+    "fields": 1
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/construction/e6c364b9b2672870a603",
+    "label": "? exact source composite construction; distinct from effective wire conversion",
+    "fields": 1
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/construction/a518da65bab281942156",
+    "label": "? exact source composite construction; distinct from effective wire conversion",
+    "fields": 1
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/construction/5fa04d1e2d39c48e69c0",
+    "label": "net/url.Values exact source composite construction; distinct from effective wire conversion",
+    "fields": 4
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/tuple/60e2c011cae06dda696c",
+    "label": "Source Go indexed multiresult tuple ['*golang.org/x/oauth2.Token', 'error']; analyser projection, not an allocated runtime object",
+    "fields": 2
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/construction/b852c928c3c52529c2dd",
+    "label": "net/http.Header exact source composite construction; distinct from effective wire conversion",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/construction/37adc273d15e1f5f76a7",
+    "label": "github.com/volvo-cars/cce-retail-ingress/internal/gateway.RequestBuilder exact source composite construction; distinct from effective wire conversion",
+    "fields": 2
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/construction/05e47db00fd35633c058",
+    "label": "github.com/volvo-cars/cce-retail-ingress/internal/gateway.OperationIDRoundTripper exact source composite construction; distinct from effective wire conversion",
+    "fields": 2
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/tuple/7d23986012e72858c29e",
+    "label": "Source Go indexed multiresult tuple ['*net/http.Response', 'error']; analyser projection, not an allocated runtime object",
+    "fields": 2
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/construction/02effdb609886581e1f5",
+    "label": "github.com/volvo-cars/cce-retail-ingress/internal/messaging.Logger exact source composite construction; distinct from effective wire conversion",
+    "fields": 1
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/element/67949a726d5919e8925b",
+    "label": "go.uber.org/zap.Field source sequence element type; representation unresolved",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/array/2ab6ca40372b6f3f3890",
+    "label": "[]go.uber.org/zap.Field source sequence declaration",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/construction/3503856b6c1178a4918c",
+    "label": "github.com/volvo-cars/cce-retail-ingress/internal/messaging.Logger exact source composite construction; distinct from effective wire conversion",
+    "fields": 1
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/construction/fad619a70824d237e1a6",
+    "label": "github.com/volvo-cars/cce-retail-ingress/internal/protobuf/pb.PartnerDetails exact source composite construction; distinct from effective wire conversion",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/construction/f369042a14cdc9182517",
+    "label": "github.com/volvo-cars/cce-retail-ingress/internal/protobuf/pb.RetailData exact source composite construction; distinct from effective wire conversion",
+    "fields": 5
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/construction/8444493d89a1dfa89463",
+    "label": "github.com/volvo-cars/cce-retail-ingress/internal/protobuf/pb.ParterNames exact source composite construction; distinct from effective wire conversion",
+    "fields": 2
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/construction/4b50c3b6db2c52a74da2",
+    "label": "[]*github.com/volvo-cars/cce-retail-ingress/internal/protobuf/pb.ParterNames exact source composite construction; distinct from effective wire conversion",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/construction/037b5da6a52a56377a4b",
+    "label": "github.com/volvo-cars/cce-retail-ingress/internal/protobuf/pb.PartnersDetailsData exact source composite construction; distinct from effective wire conversion",
+    "fields": 7
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/construction/397c72600176f02b87b5",
+    "label": "github.com/volvo-cars/cce-retail-ingress/internal/messaging.PartnerPublisher exact source composite construction; distinct from effective wire conversion",
+    "fields": 3
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/array/408410a4772062de888c",
+    "label": "[]*github.com/volvo-cars/cce-retail-ingress/internal/protobuf/pb.PartnerDetails source sequence declaration",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/construction/7a1bcc2a432cb220ffe7",
+    "label": "[]string exact source composite construction; distinct from effective wire conversion",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/construction/2a7552f3271cabae9451",
+    "label": "github.com/ThreeDotsLabs/watermill-kafka/v3/pkg/kafka.PublisherConfig exact source composite construction; distinct from effective wire conversion",
+    "fields": 3
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/construction/41238029303b66e9b1ed",
+    "label": "crypto/tls.Config exact source composite construction; distinct from effective wire conversion",
+    "fields": 2
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/construction/886ef3d3f36619cd234c",
+    "label": "github.com/ThreeDotsLabs/watermill/pubsub/gochannel.Config exact source composite construction; distinct from effective wire conversion",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/construction/c0d873951885e12120c2",
+    "label": "github.com/volvo-cars/cce-retail-ingress/internal/protobuf/pb.PartnerDetails exact source composite construction; distinct from effective wire conversion",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/construction/be40bbb7a2637f216245",
+    "label": "[]int exact source composite construction; distinct from effective wire conversion",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/tuple/3273a803cbb52b8967e5",
+    "label": "Source Go indexed multiresult tuple ['[]byte', '[]int']; analyser projection, not an allocated runtime object",
+    "fields": 2
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/construction/77df9d977469de5e24f2",
+    "label": "github.com/volvo-cars/cce-retail-ingress/internal/protobuf/pb.RetailData exact source composite construction; distinct from effective wire conversion",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/construction/38b9561e2680959f01dc",
+    "label": "[]int exact source composite construction; distinct from effective wire conversion",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/tuple/d5518054eee8f9308ea9",
+    "label": "Source Go indexed multiresult tuple ['[]byte', '[]int']; analyser projection, not an allocated runtime object",
+    "fields": 2
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/construction/e041100b364caee1432f",
+    "label": "github.com/volvo-cars/cce-retail-ingress/internal/protobuf/pb.PartnersDetailsData exact source composite construction; distinct from effective wire conversion",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/construction/5fd4a3f39bb14f9032f9",
+    "label": "[]int exact source composite construction; distinct from effective wire conversion",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/tuple/b08ff9b1fcfc2f2acb36",
+    "label": "Source Go indexed multiresult tuple ['[]byte', '[]int']; analyser projection, not an allocated runtime object",
+    "fields": 2
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/construction/8c27a1cc415a895ff5aa",
+    "label": "github.com/volvo-cars/cce-retail-ingress/internal/protobuf/pb.ParterNames exact source composite construction; distinct from effective wire conversion",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/construction/9261cd7a49c5c8ece40b",
+    "label": "[]int exact source composite construction; distinct from effective wire conversion",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/tuple/0893f4a36edda449d4d1",
+    "label": "Source Go indexed multiresult tuple ['[]byte', '[]int']; analyser projection, not an allocated runtime object",
+    "fields": 2
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/construction/62d531d99094e3bee0b4",
+    "label": "x exact source composite construction; distinct from effective wire conversion",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/construction/706bebecac12e3ea23ad",
+    "label": "google.golang.org/protobuf/runtime/protoimpl.DescBuilder exact source composite construction; distinct from effective wire conversion",
+    "fields": 6
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/construction/d0cc0e253cc17045fd06",
+    "label": "google.golang.org/protobuf/runtime/protoimpl.TypeBuilder exact source composite construction; distinct from effective wire conversion",
+    "fields": 4
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/construction/50554497028f97f13715",
+    "label": "github.com/volvo-cars/cce-retail-ingress/internal/protobuf/pb.PartnerNotificationData exact source composite construction; distinct from effective wire conversion",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/construction/90ab7d060cf1b68b8011",
+    "label": "[]int exact source composite construction; distinct from effective wire conversion",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/tuple/9bcc77376f34418afb69",
+    "label": "Source Go indexed multiresult tuple ['[]byte', '[]int']; analyser projection, not an allocated runtime object",
+    "fields": 2
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/construction/4606b207113d6b5f9f9d",
+    "label": "github.com/volvo-cars/cce-retail-ingress/internal/protobuf/pb.PartnerNotification exact source composite construction; distinct from effective wire conversion",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/construction/3ebbaec6e5bf6266a55c",
+    "label": "[]int exact source composite construction; distinct from effective wire conversion",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/tuple/90d4e22134025d1a36a2",
+    "label": "Source Go indexed multiresult tuple ['[]byte', '[]int']; analyser projection, not an allocated runtime object",
+    "fields": 2
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/construction/88d41cb509253482690e",
+    "label": "github.com/volvo-cars/cce-retail-ingress/internal/protobuf/pb.PartnerNotifications exact source composite construction; distinct from effective wire conversion",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/construction/88bd183936021467816a",
+    "label": "[]int exact source composite construction; distinct from effective wire conversion",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/tuple/e11c93a21410c30bae1c",
+    "label": "Source Go indexed multiresult tuple ['[]byte', '[]int']; analyser projection, not an allocated runtime object",
+    "fields": 2
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/construction/6f5ba726bfeca32db8d6",
+    "label": "x exact source composite construction; distinct from effective wire conversion",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/construction/c62da7195e83b21e0303",
+    "label": "google.golang.org/protobuf/runtime/protoimpl.DescBuilder exact source composite construction; distinct from effective wire conversion",
+    "fields": 6
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/construction/9b9c62a849d295f9e247",
+    "label": "google.golang.org/protobuf/runtime/protoimpl.TypeBuilder exact source composite construction; distinct from effective wire conversion",
+    "fields": 4
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/construction/9e7a44f28e7b5ba0f415",
+    "label": "github.com/volvo-cars/cce-retail-ingress/internal/restapi.API exact source composite construction; distinct from effective wire conversion",
+    "fields": 5
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/construction/b35d924f069454e3d560",
+    "label": "github.com/volvo-cars/cce-retail-ingress/internal/restapi.Response exact source composite construction; distinct from effective wire conversion",
+    "fields": 1
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/construction/02ace12824e77e21977d",
+    "label": "[]github.com/volvo-cars/cce-retail-ingress/internal/domain.Partner exact source composite construction; distinct from effective wire conversion",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/construction/d2a5fca5c3c341cfeed9",
+    "label": "github.com/volvo-cars/cce-retail-ingress/internal/web.Values exact source composite construction; distinct from effective wire conversion",
+    "fields": 1
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/construction/03a03c353ea943005d75",
+    "label": "github.com/volvo-cars/cce-retail-ingress/internal/restapi/mid.blockAllAuthenticator exact source composite construction; distinct from effective wire conversion",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/tuple/39ca2d9189855333f0b5",
+    "label": "Source Go indexed multiresult tuple ['jwt.Claims', 'error']; analyser projection, not an allocated runtime object",
+    "fields": 2
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/tuple/72f8651ddde4d6a9acf6",
+    "label": "Source Go indexed multiresult tuple ['string', 'error']; analyser projection, not an allocated runtime object",
+    "fields": 2
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/tuple/49e797d990a5fe13fb0a",
+    "label": "Source Go indexed multiresult tuple ['jwt.Claims', 'error']; analyser projection, not an allocated runtime object",
+    "fields": 2
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/construction/bece90ca5f595c3a3247",
+    "label": "github.com/volvo-cars/cce-retail-ingress/internal/restapi/platform.Authenticator exact source composite construction; distinct from effective wire conversion",
+    "fields": 4
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/construction/1fce45f40af11de3eb90",
+    "label": "github.com/volvo-cars/cce-retail-ingress/internal/restapi/platform.VTSClaims exact source composite construction; distinct from effective wire conversion",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/construction/a97dd078bdb6e12b6d42",
+    "label": "github.com/volvo-cars/cce-retail-ingress/internal/restapi/platform.VTSClaims exact source composite construction; distinct from effective wire conversion",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/tuple/51a77d426e033989f2e5",
+    "label": "Source Go indexed multiresult tuple ['jwt.Claims', 'error']; analyser projection, not an allocated runtime object",
+    "fields": 2
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/construction/1aa7326cc76e80d6f674",
+    "label": "github.com/volvo-cars/cce-retail-ingress/internal/restapi/platform.VTSClaims exact source composite construction; distinct from effective wire conversion",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/construction/b45d7ac8a5b1f4b295df",
+    "label": "github.com/volvo-cars/cce-retail-ingress/internal/restapi/platform.VTSClaims exact source composite construction; distinct from effective wire conversion",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/construction/63d7853b1e656740e7af",
+    "label": "github.com/volvo-cars/cce-retail-ingress/internal/restapi/platform.VTSClaims exact source composite construction; distinct from effective wire conversion",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/construction/403e5accf7f4d84ac5d9",
+    "label": "github.com/volvo-cars/cce-retail-ingress/internal/restapi/platform.VTSClaims exact source composite construction; distinct from effective wire conversion",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/construction/e0ef590b4ade6cbb7719",
+    "label": "github.com/volvo-cars/cce-retail-ingress/internal/restapi/platform.TRL exact source composite construction; distinct from effective wire conversion",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/construction/cb78c9c647db7d96a360",
+    "label": "github.com/volvo-cars/cce-retail-ingress/internal/restapi/platform.VTSClaims exact source composite construction; distinct from effective wire conversion",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/tuple/0c502a9de8b9340bd18c",
+    "label": "Source Go indexed multiresult tuple ['interface{}', 'error']; analyser projection, not an allocated runtime object",
+    "fields": 2
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/construction/61f212129fa377a9b944",
+    "label": "github.com/volvo-cars/cce-retail-ingress/internal/web.Error exact source composite construction; distinct from effective wire conversion",
+    "fields": 3
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/construction/5fa73fef48b135e12a37",
+    "label": "github.com/ThreeDotsLabs/watermill-kafka/v3/pkg/kafka.DefaultMarshaler exact source composite construction; distinct from effective wire conversion",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/construction/d71a05e4d73861649a5a",
+    "label": "github.com/volvo-cars/cce-retail-ingress/internal/web.Values exact source composite construction; distinct from effective wire conversion",
+    "fields": 1
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/construction/5f7714fbe9be466ea95d",
+    "label": "github.com/volvo-cars/cce-retail-ingress/internal/web.Values exact source composite construction; distinct from effective wire conversion",
+    "fields": 1
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/json-source/91a260257e82e6fa1a37",
+    "label": "github.com/volvo-cars/cce-retail-ingress/events/carconfiguration.Component source JSON name/tag projection; imported encoding remains unresolved",
+    "fields": 5
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/json-source/708ccb8279fa91cf4cae",
+    "label": "github.com/volvo-cars/cce-retail-ingress/events/carconfiguration.ComponentUpdated source JSON name/tag projection; imported encoding remains unresolved",
+    "fields": 1
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/anonymous/44159443b41b47d1a5c1/SubConditions",
+    "label": "anonymous/44159443b41b47d1a5c1/SubConditions source array declaration",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/json-source/44159443b41b47d1a5c1",
+    "label": "github.com/volvo-cars/cce-retail-ingress/events/carconfiguration.Condition source JSON name/tag projection; imported encoding remains unresolved",
+    "fields": 2
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/anonymous/d3a31d1d2b2b47145323/Components",
+    "label": "anonymous/d3a31d1d2b2b47145323/Components source array declaration",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/json-source/d3a31d1d2b2b47145323",
+    "label": "github.com/volvo-cars/cce-retail-ingress/events/carconfiguration.SubCondition source JSON name/tag projection; imported encoding remains unresolved",
+    "fields": 2
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/anonymous/82cb647fcfae5d2ad48e/ConfigRuleSets",
+    "label": "anonymous/82cb647fcfae5d2ad48e/ConfigRuleSets source array declaration",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/anonymous/82cb647fcfae5d2ad48e/StructureWeeksRuleSets",
+    "label": "anonymous/82cb647fcfae5d2ad48e/StructureWeeksRuleSets source array declaration",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/json-source/82cb647fcfae5d2ad48e",
+    "label": "github.com/volvo-cars/cce-retail-ingress/events/carconfiguration.ConfigPolicy source JSON name/tag projection; imported encoding remains unresolved",
+    "fields": 6
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/anonymous/6413e2e2454c6262460a/ConfigRuleSets",
+    "label": "anonymous/6413e2e2454c6262460a/ConfigRuleSets source array declaration",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/anonymous/6413e2e2454c6262460a/StructureWeeksRuleSets",
+    "label": "anonymous/6413e2e2454c6262460a/StructureWeeksRuleSets source array declaration",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/json-source/6413e2e2454c6262460a",
+    "label": "github.com/volvo-cars/cce-retail-ingress/events/carconfiguration.ConfigPolicyCreated source JSON name/tag projection; imported encoding remains unresolved",
+    "fields": 6
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/anonymous/2d26088042dfbf855801/ConfigRuleSets",
+    "label": "anonymous/2d26088042dfbf855801/ConfigRuleSets source array declaration",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/anonymous/2d26088042dfbf855801/StructureWeeksRuleSets",
+    "label": "anonymous/2d26088042dfbf855801/StructureWeeksRuleSets source array declaration",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/json-source/2d26088042dfbf855801",
+    "label": "github.com/volvo-cars/cce-retail-ingress/events/carconfiguration.ConfigPolicyUpdated source JSON name/tag projection; imported encoding remains unresolved",
+    "fields": 6
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/json-source/532312ee5164fe867b2e",
+    "label": "github.com/volvo-cars/cce-retail-ingress/events/carconfiguration.ConfigPolicyDeleted source JSON name/tag projection; imported encoding remains unresolved",
+    "fields": 1
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/anonymous/98e48d730bce79bbcd71/ConfigRuleSets",
+    "label": "anonymous/98e48d730bce79bbcd71/ConfigRuleSets source array declaration",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/anonymous/98e48d730bce79bbcd71/StructureWeeksRuleSets",
+    "label": "anonymous/98e48d730bce79bbcd71/StructureWeeksRuleSets source array declaration",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/json-source/98e48d730bce79bbcd71",
+    "label": "github.com/volvo-cars/cce-retail-ingress/events/carconfiguration.ConfigPolicyRulesUpdated source JSON name/tag projection; imported encoding remains unresolved",
+    "fields": 5
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/anonymous/d061778bdd520ae700f7/ConfigRules",
+    "label": "anonymous/d061778bdd520ae700f7/ConfigRules source array declaration",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/json-source/d061778bdd520ae700f7",
+    "label": "github.com/volvo-cars/cce-retail-ingress/events/carconfiguration.ConfigRuleSet source JSON name/tag projection; imported encoding remains unresolved",
+    "fields": 2
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/json-source/eb1e3b274e11dcd5c366",
+    "label": "github.com/volvo-cars/cce-retail-ingress/events/carconfiguration.ConfigRule source JSON name/tag projection; imported encoding remains unresolved",
+    "fields": 2
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/json-source/08de2b207c28076d2aa3",
+    "label": "github.com/volvo-cars/cce-retail-ingress/events/carconfiguration.ConfigRulesCreated source JSON name/tag projection; imported encoding remains unresolved",
+    "fields": 1
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/json-source/48213c5d686221045d45",
+    "label": "github.com/volvo-cars/cce-retail-ingress/events/carconfiguration.ConfigRulesUpdated source JSON name/tag projection; imported encoding remains unresolved",
+    "fields": 1
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/anonymous/8ba72e59f839f69422a1/StructureWeeksRules",
+    "label": "anonymous/8ba72e59f839f69422a1/StructureWeeksRules source array declaration",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/json-source/8ba72e59f839f69422a1",
+    "label": "github.com/volvo-cars/cce-retail-ingress/events/carconfiguration.StructureWeeksRuleSet source JSON name/tag projection; imported encoding remains unresolved",
+    "fields": 2
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/json-source/5d9e40eddb37425eddce",
+    "label": "github.com/volvo-cars/cce-retail-ingress/events/carconfiguration.StructureWeeksRule source JSON name/tag projection; imported encoding remains unresolved",
+    "fields": 2
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/anonymous/e1df1aa6b07a762246e2/Components",
+    "label": "anonymous/e1df1aa6b07a762246e2/Components source array declaration",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/json-source/e1df1aa6b07a762246e2",
+    "label": "github.com/volvo-cars/cce-retail-ingress/events/carconfiguration.Consequence source JSON name/tag projection; imported encoding remains unresolved",
+    "fields": 2
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/json-source/c2c1f05cec296e4f2839",
+    "label": "github.com/volvo-cars/cce-retail-ingress/events/carconfiguration.StructureWeeksConsequence source JSON name/tag projection; imported encoding remains unresolved",
+    "fields": 4
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/json-source/10dbf555f678d471e16f",
+    "label": "github.com/volvo-cars/cce-retail-ingress/events/carconfiguration.PriceRuleConsequence source JSON name/tag projection; imported encoding remains unresolved",
+    "fields": 1
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/json-source/4912ccc6755071356760",
+    "label": "github.com/volvo-cars/cce-retail-ingress/internal/app.App source JSON name/tag projection; imported encoding remains unresolved",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/json-source/cec963b1945b0ae6b8c9",
+    "label": "github.com/volvo-cars/cce-retail-ingress/internal/app.config source JSON name/tag projection; imported encoding remains unresolved",
+    "fields": 13
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/json-source/5ac75664ef5fc78665ce",
+    "label": "github.com/volvo-cars/cce-retail-ingress/internal/domain.Partner source JSON name/tag projection; imported encoding remains unresolved",
+    "fields": 11
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/anonymous/7af9876e537232c1b9f4/roundTrippers",
+    "label": "anonymous/7af9876e537232c1b9f4/roundTrippers source array declaration",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/json-source/7af9876e537232c1b9f4",
+    "label": "github.com/volvo-cars/cce-retail-ingress/internal/gateway.HTTPClient source JSON name/tag projection; imported encoding remains unresolved",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/json-source/a8a2a8dd735d2ce85988",
+    "label": "github.com/volvo-cars/cce-retail-ingress/internal/gateway/rdmclient.GraphQLRequest source JSON name/tag projection; imported encoding remains unresolved",
+    "fields": 1
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/json-source/55400721d3c770e66eaf",
+    "label": "github.com/volvo-cars/cce-retail-ingress/internal/gateway/rdmclient.graphQLPartnerDataQueryArgs source JSON name/tag projection; imported encoding remains unresolved",
+    "fields": 1
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/anonymous/c9799b3382ae5cf3bee2/Data",
+    "label": "anonymous/c9799b3382ae5cf3bee2/Data anonymous source object",
+    "fields": 1
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/anonymous/c9799b3382ae5cf3bee2/Errors/item",
+    "label": "anonymous/c9799b3382ae5cf3bee2/Errors/item anonymous source object",
+    "fields": 1
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/anonymous/c9799b3382ae5cf3bee2/Errors",
+    "label": "anonymous/c9799b3382ae5cf3bee2/Errors source array declaration",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/json-source/c9799b3382ae5cf3bee2",
+    "label": "github.com/volvo-cars/cce-retail-ingress/internal/gateway/rdmclient.GraphQLPartnerDataResponse source JSON name/tag projection; imported encoding remains unresolved",
+    "fields": 2
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/anonymous/d75077e4ca3d08e7dea9/PartnerOrganizationalUnitNames",
+    "label": "anonymous/d75077e4ca3d08e7dea9/PartnerOrganizationalUnitNames source array declaration",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/json-source/d75077e4ca3d08e7dea9",
+    "label": "github.com/volvo-cars/cce-retail-ingress/internal/gateway/rdmclient.PartnerOrganizationalUnit source JSON name/tag projection; imported encoding remains unresolved",
+    "fields": 9
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/json-source/534a5b40138b6f9f1c1d",
+    "label": "github.com/volvo-cars/cce-retail-ingress/internal/gateway/rdmclient.PartnerOrganizationalUnitName source JSON name/tag projection; imported encoding remains unresolved",
+    "fields": 2
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/json-source/979fc2e2750e3c181de3",
+    "label": "github.com/volvo-cars/cce-retail-ingress/internal/gateway/rdmclient.graphQLPartnersDataQueryArgs source JSON name/tag projection; imported encoding remains unresolved",
+    "fields": 2
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/anonymous/197c980e4a09f5abd334/Data",
+    "label": "anonymous/197c980e4a09f5abd334/Data anonymous source object",
+    "fields": 1
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/anonymous/197c980e4a09f5abd334/Errors/item",
+    "label": "anonymous/197c980e4a09f5abd334/Errors/item anonymous source object",
+    "fields": 1
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/anonymous/197c980e4a09f5abd334/Errors",
+    "label": "anonymous/197c980e4a09f5abd334/Errors source array declaration",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/json-source/197c980e4a09f5abd334",
+    "label": "github.com/volvo-cars/cce-retail-ingress/internal/gateway/rdmclient.GraphQLPartnersDataResponse source JSON name/tag projection; imported encoding remains unresolved",
+    "fields": 2
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/anonymous/20942240dac616335d9c/Edges",
+    "label": "anonymous/20942240dac616335d9c/Edges source array declaration",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/json-source/20942240dac616335d9c",
+    "label": "github.com/volvo-cars/cce-retail-ingress/internal/gateway/rdmclient.PartnerOrganizationalUnits source JSON name/tag projection; imported encoding remains unresolved",
+    "fields": 3
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/json-source/bca323e28334d82379c1",
+    "label": "github.com/volvo-cars/cce-retail-ingress/internal/gateway/rdmclient.Edge source JSON name/tag projection; imported encoding remains unresolved",
+    "fields": 1
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/json-source/ea9f65c4815a7915c55a",
+    "label": "github.com/volvo-cars/cce-retail-ingress/internal/gateway/rdmclient.PageInfo source JSON name/tag projection; imported encoding remains unresolved",
+    "fields": 2
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/json-source/c21bdd7310bfab390663",
+    "label": "github.com/volvo-cars/cce-retail-ingress/internal/gateway/rdmclient.Config source JSON name/tag projection; imported encoding remains unresolved",
+    "fields": 2
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/json-source/941fdac1164964a8ed17",
+    "label": "github.com/volvo-cars/cce-retail-ingress/internal/gateway/rdmclient.Client source JSON name/tag projection; imported encoding remains unresolved",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/anonymous/97662e764c4ec5132e92/Errors/item",
+    "label": "anonymous/97662e764c4ec5132e92/Errors/item anonymous source object",
+    "fields": 1
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/anonymous/97662e764c4ec5132e92/Errors",
+    "label": "anonymous/97662e764c4ec5132e92/Errors source array declaration",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/json-source/97662e764c4ec5132e92",
+    "label": "github.com/volvo-cars/cce-retail-ingress/internal/gateway/rdmclient.GraphQLResponse source JSON name/tag projection; imported encoding remains unresolved",
+    "fields": 2
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/anonymous/771f4f32ed1b9887c8ae/partnersData",
+    "label": "anonymous/771f4f32ed1b9887c8ae/partnersData source array declaration",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/json-source/771f4f32ed1b9887c8ae",
+    "label": "github.com/volvo-cars/cce-retail-ingress/internal/gateway/rdmclient.pageData source JSON name/tag projection; imported encoding remains unresolved",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/json-source/eeb93d340d241064434f",
+    "label": "github.com/volvo-cars/cce-retail-ingress/internal/gateway/rdmclient.TokenSourceConfig source JSON name/tag projection; imported encoding remains unresolved",
+    "fields": 4
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/json-source/56423aebe77ef567c581",
+    "label": "github.com/volvo-cars/cce-retail-ingress/internal/gateway/rdmclient.TokenSource source JSON name/tag projection; imported encoding remains unresolved",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/json-source/5b7b9bb181fabc77eaa0",
+    "label": "github.com/volvo-cars/cce-retail-ingress/internal/gateway/rdmclient.token source JSON name/tag projection; imported encoding remains unresolved",
+    "fields": 2
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/json-source/196d3f8d97157a093188",
+    "label": "github.com/volvo-cars/cce-retail-ingress/internal/gateway.RequestBuilder source JSON name/tag projection; imported encoding remains unresolved",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/json-source/aae9a1b9e7f221c719f2",
+    "label": "github.com/volvo-cars/cce-retail-ingress/internal/gateway.OperationIDRoundTripper source JSON name/tag projection; imported encoding remains unresolved",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/json-source/60ee37df83b09ad6ffbc",
+    "label": "github.com/volvo-cars/cce-retail-ingress/internal/messaging.Logger source JSON name/tag projection; imported encoding remains unresolved",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/json-source/3b47a3b7f19b82bcb7ef",
+    "label": "github.com/volvo-cars/cce-retail-ingress/internal/messaging.PartnerPublisher source JSON name/tag projection; imported encoding remains unresolved",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/json-source/bb9420be2d0f9ee3e963",
+    "label": "github.com/volvo-cars/cce-retail-ingress/internal/messaging.Config source JSON name/tag projection; imported encoding remains unresolved",
+    "fields": 5
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/json-source/a03414e001190a2a648a",
+    "label": "github.com/volvo-cars/cce-retail-ingress/internal/protobuf/pb.PartnerDetails source JSON name/tag projection; imported encoding remains unresolved",
+    "fields": 3
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/anonymous/0c7426a8d29c932db042/Partners",
+    "label": "anonymous/0c7426a8d29c932db042/Partners source array declaration",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/json-source/0c7426a8d29c932db042",
+    "label": "github.com/volvo-cars/cce-retail-ingress/internal/protobuf/pb.RetailData source JSON name/tag projection; imported encoding remains unresolved",
+    "fields": 5
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/anonymous/42c96c2ff8b0f128c2f3/PartnerNames",
+    "label": "anonymous/42c96c2ff8b0f128c2f3/PartnerNames source array declaration",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/json-source/42c96c2ff8b0f128c2f3",
+    "label": "github.com/volvo-cars/cce-retail-ingress/internal/protobuf/pb.PartnersDetailsData source JSON name/tag projection; imported encoding remains unresolved",
+    "fields": 7
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/json-source/b5804d58101219537267",
+    "label": "github.com/volvo-cars/cce-retail-ingress/internal/protobuf/pb.ParterNames source JSON name/tag projection; imported encoding remains unresolved",
+    "fields": 2
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/json-source/8e68f48d3cf044de04b7",
+    "label": "github.com/volvo-cars/cce-retail-ingress/internal/protobuf/pb.PartnerNotificationData source JSON name/tag projection; imported encoding remains unresolved",
+    "fields": 5
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/json-source/1bf9952eee7f6488f50a",
+    "label": "github.com/volvo-cars/cce-retail-ingress/internal/protobuf/pb.PartnerNotification source JSON name/tag projection; imported encoding remains unresolved",
+    "fields": 8
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/anonymous/a9b2cfa9a5a596e9635f/PartnerNotifications",
+    "label": "anonymous/a9b2cfa9a5a596e9635f/PartnerNotifications source array declaration",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/json-source/a9b2cfa9a5a596e9635f",
+    "label": "github.com/volvo-cars/cce-retail-ingress/internal/protobuf/pb.PartnerNotifications source JSON name/tag projection; imported encoding remains unresolved",
+    "fields": 1
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/json-source/04cf3d1944604fbb6a19",
+    "label": "github.com/volvo-cars/cce-retail-ingress/internal/restapi.API source JSON name/tag projection; imported encoding remains unresolved",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/json-source/cbf48189a9f97cecfccb",
+    "label": "github.com/volvo-cars/cce-retail-ingress/internal/restapi/mid.blockAllAuthenticator source JSON name/tag projection; imported encoding remains unresolved",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/json-source/c7e0e34e5d323e70aef2",
+    "label": "github.com/volvo-cars/cce-retail-ingress/internal/restapi/platform.VTSClaims source JSON name/tag projection; imported encoding remains unresolved",
+    "fields": 2
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/anonymous/2330790392b1c94d5957/RevokedTokens/scalar-item",
+    "label": "string source sequence element",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/anonymous/2330790392b1c94d5957/RevokedTokens",
+    "label": "anonymous/2330790392b1c94d5957/RevokedTokens source array declaration",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/json-source/2330790392b1c94d5957",
+    "label": "github.com/volvo-cars/cce-retail-ingress/internal/restapi/platform.TRL source JSON name/tag projection; imported encoding remains unresolved",
+    "fields": 4
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/json-source/b320e3d3940964641248",
+    "label": "github.com/volvo-cars/cce-retail-ingress/internal/restapi/platform.Authenticator source JSON name/tag projection; imported encoding remains unresolved",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/json-source/cc1b908e330db101136f",
+    "label": "github.com/volvo-cars/cce-retail-ingress/internal/restapi/platform.Config source JSON name/tag projection; imported encoding remains unresolved",
+    "fields": 4
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/json-source/55386e3fc8a7f69f9267",
+    "label": "github.com/volvo-cars/cce-retail-ingress/internal/web.FieldError source JSON name/tag projection; imported encoding remains unresolved",
+    "fields": 2
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/anonymous/8c9bc549494c8c084786/Fields",
+    "label": "anonymous/8c9bc549494c8c084786/Fields source array declaration",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/json-source/8c9bc549494c8c084786",
+    "label": "github.com/volvo-cars/cce-retail-ingress/internal/web.ErrorResponse source JSON name/tag projection; imported encoding remains unresolved",
+    "fields": 2
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/anonymous/6ec35c4c9aa0a570340e/Fields",
+    "label": "anonymous/6ec35c4c9aa0a570340e/Fields source array declaration",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/json-source/6ec35c4c9aa0a570340e",
+    "label": "github.com/volvo-cars/cce-retail-ingress/internal/web.Error source JSON name/tag projection; imported encoding remains unresolved",
+    "fields": 3
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/json-source/2d0a74bbda6ec9d7c961",
+    "label": "github.com/volvo-cars/cce-retail-ingress/internal/web.Values source JSON name/tag projection; imported encoding remains unresolved",
+    "fields": 2
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/json-source/654eae4cb1788ab828d9",
+    "label": "github.com/volvo-cars/cce-retail-ingress/events/carconfiguration.x@local:github.com/volvo-cars/cce-retail-ingress/events/carconfiguration#file_carconfiguration_component_proto_init()->() source JSON name/tag projection; imported encoding remains unresolved",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/json-source/aa56549cf0abe0084c62",
+    "label": "github.com/volvo-cars/cce-retail-ingress/events/carconfiguration.x@local:github.com/volvo-cars/cce-retail-ingress/events/carconfiguration#file_carconfiguration_condition_proto_init()->() source JSON name/tag projection; imported encoding remains unresolved",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/json-source/6b546dabbb3ca0efc116",
+    "label": "github.com/volvo-cars/cce-retail-ingress/events/carconfiguration.x@local:github.com/volvo-cars/cce-retail-ingress/events/carconfiguration#file_carconfiguration_config_policy_proto_init()->() source JSON name/tag projection; imported encoding remains unresolved",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/json-source/ab2371a59f880d26f21a",
+    "label": "github.com/volvo-cars/cce-retail-ingress/events/carconfiguration.x@local:github.com/volvo-cars/cce-retail-ingress/events/carconfiguration#file_carconfiguration_config_rules_proto_init()->() source JSON name/tag projection; imported encoding remains unresolved",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/json-source/cc404777c07af24cb729",
+    "label": "github.com/volvo-cars/cce-retail-ingress/events/carconfiguration.x@local:github.com/volvo-cars/cce-retail-ingress/events/carconfiguration#file_carconfiguration_consequence_proto_init()->() source JSON name/tag projection; imported encoding remains unresolved",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/json-source/b4d8ad51c6a639250d7d",
+    "label": "github.com/volvo-cars/cce-retail-ingress/internal/protobuf/pb.x@local:github.com/volvo-cars/cce-retail-ingress/internal/protobuf/pb#file_partnerDetailsFeed_proto_init()->() source JSON name/tag projection; imported encoding remains unresolved",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/json-source/37bede10bae223ed17c8",
+    "label": "github.com/volvo-cars/cce-retail-ingress/internal/protobuf/pb.x@local:github.com/volvo-cars/cce-retail-ingress/internal/protobuf/pb#file_partnerNotify_proto_init()->() source JSON name/tag projection; imported encoding remains unresolved",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/json-source/94c9676e06264f7c6c43",
+    "label": "github.com/volvo-cars/cce-retail-ingress/internal/restapi.Response source JSON name/tag projection; imported encoding remains unresolved",
+    "fields": 1
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/protobuf/f1cc456878ff0050ad94",
+    "label": "volvocars.contracts.carconfiguration.Component pinned generated protobuf descriptor",
+    "fields": 5
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/protobuf/03e8ef57c615635af37d",
+    "label": "volvocars.contracts.carconfiguration.ComponentUpdated pinned generated protobuf descriptor",
+    "fields": 1
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/protobuf-array/d781c48d43db373c6819",
+    "label": "volvocars.contracts.carconfiguration.Condition.subConditions repeated protobuf elements",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/protobuf/e67fb1727f842377665e",
+    "label": "volvocars.contracts.carconfiguration.Condition pinned generated protobuf descriptor",
+    "fields": 2
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/protobuf-array/435003a574086347237d",
+    "label": "volvocars.contracts.carconfiguration.SubCondition.components repeated protobuf elements",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/protobuf/bbaab4a4b29477b5b058",
+    "label": "volvocars.contracts.carconfiguration.SubCondition pinned generated protobuf descriptor",
+    "fields": 2
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/protobuf-array/a313bf7dfc17e7fb9c1d",
+    "label": "volvocars.contracts.carconfiguration.ConfigPolicy.configRuleSets repeated protobuf elements",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/protobuf-array/81eddf9d37acc6521196",
+    "label": "volvocars.contracts.carconfiguration.ConfigPolicy.structureWeeksRuleSets repeated protobuf elements",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/protobuf/1ee41d3fd8344a46f341",
+    "label": "volvocars.contracts.carconfiguration.ConfigPolicy pinned generated protobuf descriptor",
+    "fields": 6
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/protobuf-array/ab7a5911d63b1ef597ed",
+    "label": "volvocars.contracts.carconfiguration.ConfigPolicyCreated.configRuleSets repeated protobuf elements",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/protobuf-array/ef4186010c5665d01c18",
+    "label": "volvocars.contracts.carconfiguration.ConfigPolicyCreated.structureWeeksRuleSets repeated protobuf elements",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/protobuf/069d97d709a27e959423",
+    "label": "volvocars.contracts.carconfiguration.ConfigPolicyCreated pinned generated protobuf descriptor",
+    "fields": 6
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/protobuf-array/3043d55615534c83710f",
+    "label": "volvocars.contracts.carconfiguration.ConfigPolicyUpdated.configRuleSets repeated protobuf elements",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/protobuf-array/943ff221465562048d60",
+    "label": "volvocars.contracts.carconfiguration.ConfigPolicyUpdated.structureWeeksRuleSets repeated protobuf elements",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/protobuf/06b982f1aae1416a1df1",
+    "label": "volvocars.contracts.carconfiguration.ConfigPolicyUpdated pinned generated protobuf descriptor",
+    "fields": 6
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/protobuf/b25b5605f872616bd643",
+    "label": "volvocars.contracts.carconfiguration.ConfigPolicyDeleted pinned generated protobuf descriptor",
+    "fields": 1
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/protobuf-array/cd600a7944f49495df25",
+    "label": "volvocars.contracts.carconfiguration.ConfigPolicyRulesUpdated.configRuleSets repeated protobuf elements",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/protobuf-array/d372321960a372c85326",
+    "label": "volvocars.contracts.carconfiguration.ConfigPolicyRulesUpdated.structureWeeksRuleSets repeated protobuf elements",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/protobuf/008931c6c665161e6caa",
+    "label": "volvocars.contracts.carconfiguration.ConfigPolicyRulesUpdated pinned generated protobuf descriptor",
+    "fields": 5
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/protobuf-array/bd29c0c9e7e85f9f64e8",
+    "label": "volvocars.contracts.carconfiguration.ConfigRuleSet.configRules repeated protobuf elements",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/protobuf/c551802697eb2054e781",
+    "label": "volvocars.contracts.carconfiguration.ConfigRuleSet pinned generated protobuf descriptor",
+    "fields": 2
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/protobuf/49980ad1579ee851e750",
+    "label": "volvocars.contracts.carconfiguration.ConfigRule pinned generated protobuf descriptor",
+    "fields": 2
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/protobuf/4385396c54399191256f",
+    "label": "volvocars.contracts.carconfiguration.ConfigRulesCreated pinned generated protobuf descriptor",
+    "fields": 1
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/protobuf/54cfd1fd980aa6acc8ee",
+    "label": "volvocars.contracts.carconfiguration.ConfigRulesUpdated pinned generated protobuf descriptor",
+    "fields": 1
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/protobuf-array/e9a64e34dbb68a0e28e4",
+    "label": "volvocars.contracts.carconfiguration.StructureWeeksRuleSet.structureWeeksRules repeated protobuf elements",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/protobuf/16fc89778b5402538760",
+    "label": "volvocars.contracts.carconfiguration.StructureWeeksRuleSet pinned generated protobuf descriptor",
+    "fields": 2
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/protobuf/dcba75be4b43895c1c8a",
+    "label": "volvocars.contracts.carconfiguration.StructureWeeksRule pinned generated protobuf descriptor",
+    "fields": 2
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/protobuf-array/d9d1602443c3c1492526",
+    "label": "volvocars.contracts.carconfiguration.Consequence.components repeated protobuf elements",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/protobuf/bb4b94473cfa3e308897",
+    "label": "volvocars.contracts.carconfiguration.Consequence pinned generated protobuf descriptor",
+    "fields": 2
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/protobuf/fee70511dd55fa66bb88",
+    "label": "volvocars.contracts.carconfiguration.StructureWeeksConsequence pinned generated protobuf descriptor",
+    "fields": 4
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/protobuf/2909683f6121413a519f",
+    "label": "volvocars.contracts.carconfiguration.PriceRuleConsequence pinned generated protobuf descriptor",
+    "fields": 1
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/protobuf/7d52121f1d71e6f3e9fc",
+    "label": "PartnerDetails pinned generated protobuf descriptor",
+    "fields": 3
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/protobuf-array/ecd741245fa4d208024f",
+    "label": "RetailData.partners repeated protobuf elements",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/protobuf/9a043de365df4f743ebb",
+    "label": "RetailData pinned generated protobuf descriptor",
+    "fields": 5
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/protobuf-array/4a294646eeb3cad43ed9",
+    "label": "PartnersDetailsData.partnerNames repeated protobuf elements",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/protobuf/d0ac3e7dd93dfbc92da4",
+    "label": "PartnersDetailsData pinned generated protobuf descriptor",
+    "fields": 7
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/protobuf/d3dc77a910e34a93fbb9",
+    "label": "ParterNames pinned generated protobuf descriptor",
+    "fields": 2
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/protobuf/d37352b2447b52f6c610",
+    "label": "PartnerNotificationData pinned generated protobuf descriptor",
+    "fields": 5
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/protobuf/5ad287ff94f7cbb2f34e",
+    "label": "PartnerNotification pinned generated protobuf descriptor",
+    "fields": 8
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/protobuf-array/110b103b8fb6c4ffa733",
+    "label": "PartnerNotifications.partnerNotifications repeated protobuf elements",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/protobuf/49f33641b48e2d778c3b",
+    "label": "PartnerNotifications pinned generated protobuf descriptor",
+    "fields": 1
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/imported-observed/VTSClaims",
+    "label": "VTSClaims observed imported embedded fields; full dependency declaration unavailable",
+    "fields": 2
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/imported-observed/token",
+    "label": "token observed imported embedded fields; full dependency declaration unavailable",
+    "fields": 1
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/notify-array",
+    "label": "Source caller notification array wrapped under partnerNotifications before encoding/json.Unmarshal",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/io-signature/0b80df5bc0e79fe6edbd",
+    "label": "dynamic actual call signature",
+    "fields": 1
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/io-signature/3e2e2b5b77acb9f18f68",
+    "label": "rdm actual call signature",
+    "fields": 2
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/io-signature/3119c3e3b877b04db8a8",
+    "label": "rdm actual call signature",
+    "fields": 2
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/io-signature/e2aeccbd8da3f6be7ee0",
+    "label": "token-unused actual call signature",
+    "fields": 1
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/io-signature/7158421cd9da128c2185",
+    "label": "publish actual call signature",
+    "fields": 3
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/io-signature/fe729e2aba608f0c4574",
+    "label": "trl actual call signature",
+    "fields": 1
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/rdm-headers/GetPartnerData",
+    "label": "GetPartnerData exact constructed request headers",
+    "fields": 2
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/rdm-headers/getAllPartnersDataPage",
+    "label": "getAllPartnersDataPage exact constructed request headers",
+    "fields": 2
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/caller-construction/0fac874a0596b0607686",
+    "label": "PublishPartners exact source call-operand construction projection; NOT imported runtime object layout",
+    "fields": 5
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/caller-construction/7a00389b8d21eff9e187",
+    "label": "GetPartnerData exact source call-operand construction projection; NOT imported runtime object layout",
+    "fields": 11
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/caller-construction/48bc2a19de3bed857258",
+    "label": "getAllPartnersDataPage exact source call-operand construction projection; NOT imported runtime object layout",
+    "fields": 11
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/response/health",
+    "label": "health exact source JSON construction",
+    "fields": 1
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/response/960aaab092276cab3f19",
+    "label": "960aaab092276cab3f19 exact source JSON construction",
+    "fields": 1
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/response/232e07b42441561501a7",
+    "label": "232e07b42441561501a7 exact source JSON construction",
+    "fields": 1
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/response/00333b857f717ffd041d",
+    "label": "00333b857f717ffd041d exact source JSON construction",
+    "fields": 1
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/response/fde81374441077cf8b21",
+    "label": "fde81374441077cf8b21 exact source JSON construction",
+    "fields": 1
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/response/d9694720be6370601a32",
+    "label": "d9694720be6370601a32 exact source JSON construction",
+    "fields": 1
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/response/9ae6c3d94c3841d45954",
+    "label": "9ae6c3d94c3841d45954 exact source JSON construction",
+    "fields": 1
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/response/2ede210cce09b213d176",
+    "label": "2ede210cce09b213d176 exact source JSON construction",
+    "fields": 1
+  },
+  {
+    "id": "volvo/cce-retail-ingress/95d091aa445f/final-r1/shape/response/1fa8db814849514f3c33",
+    "label": "1fa8db814849514f3c33 exact source JSON construction",
+    "fields": 1
+  }
+]

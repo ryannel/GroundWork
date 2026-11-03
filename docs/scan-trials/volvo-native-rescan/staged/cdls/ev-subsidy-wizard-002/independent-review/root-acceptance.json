@@ -1,0 +1,196 @@
+{
+  "status": "passed",
+  "snapshot": "e4df872bf2495bfe3b4e6bccea07a80012a44972aab2d4389586ac9d6df62d7b",
+  "qualification": "Five full pinned source files independently reviewed. Bounded network callback unit only, not full wizard/app/repo. Actual browser roots positively reach known server with both contracts and provider exposure retained across supporting-record continuations. Provider execution requires explicit drill-down; address correspondence does not prove compatible payloads/deployed versions. Non-awaited helper, Promise/Response separation, actual location/state/details lineage and unresolved captured runtime cells retained.",
+  "queries": [
+    {
+      "name": "Actual callback reaches browser/server only browser:ev-subsidy:StepAddress:onSelectAction",
+      "nodes": 2,
+      "edges": 1,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual callback control browser:ev-subsidy:StepAddress:onSelectAction",
+      "nodes": 21,
+      "edges": 33,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual callback reaches browser/server only browser:ev-subsidy:StepPersons:confirm-button:onClick",
+      "nodes": 2,
+      "edges": 1,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual callback control browser:ev-subsidy:StepPersons:confirm-button:onClick",
+      "nodes": 31,
+      "edges": 52,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Distinct caller/provider contracts with record-page continuation /api/ev-subsidy/eligibility",
+      "nodes": 0,
+      "edges": 0,
+      "limits": ["maxRecords"],
+      "pages": 10
+    },
+    {
+      "name": "Rooted browser actual /api/ev-subsidy/eligibility record argument0",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Rooted browser actual /api/ev-subsidy/eligibility record argument1",
+      "nodes": 6,
+      "edges": 6,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Rooted browser actual /api/ev-subsidy/eligibility body ",
+      "nodes": 5,
+      "edges": 5,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Promise and awaited Response remain separate /api/ev-subsidy/eligibility",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Explicit provider drill-down /api/ev-subsidy/eligibility",
+      "nodes": 2,
+      "edges": 2,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Distinct caller/provider contracts with record-page continuation /api/ev-subsidy/income",
+      "nodes": 0,
+      "edges": 0,
+      "limits": ["maxRecords"],
+      "pages": 9
+    },
+    {
+      "name": "Rooted browser actual /api/ev-subsidy/income record argument0",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Rooted browser actual /api/ev-subsidy/income record argument1",
+      "nodes": 7,
+      "edges": 6,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Rooted browser actual /api/ev-subsidy/income body ",
+      "nodes": 6,
+      "edges": 5,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Promise and awaited Response remain separate /api/ev-subsidy/income",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Explicit provider drill-down /api/ev-subsidy/income",
+      "nodes": 2,
+      "edges": 1,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Address actual source field location.lat",
+      "nodes": 2,
+      "edges": 1,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Address actual source field location.lng",
+      "nodes": 2,
+      "edges": 1,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Income body retains both lexical state inputs",
+      "nodes": 6,
+      "edges": 5,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual successful onNext field qualifiesForStartBonus",
+      "nodes": 4,
+      "edges": 3,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual successful onNext field adjustedIncome",
+      "nodes": 4,
+      "edges": 3,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual successful onNext field maxAdjustedIncome",
+      "nodes": 4,
+      "edges": 3,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual successful onNext field maxHouseholdIncome",
+      "nodes": 4,
+      "edges": 3,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual successful onNext field startBonusHouseholdIncome",
+      "nodes": 4,
+      "edges": 3,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual successful onNext field startBonusThreshold",
+      "nodes": 4,
+      "edges": 3,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Callback association and source gaps browser:ev-subsidy:StepAddress:onSelectAction",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Callback association and source gaps browser:ev-subsidy:StepPersons:confirm-button:onClick",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    }
+  ]
+}

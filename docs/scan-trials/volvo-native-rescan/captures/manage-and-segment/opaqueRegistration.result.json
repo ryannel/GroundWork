@@ -1,0 +1,399 @@
+{
+  "format": "groundwork-result/v3",
+  "snapshot": "dc7180b74158fccc486c12834b8f9dfbfedcd501359e852e61caa387631c284d",
+  "queryVersion": "knowledge-query/v3",
+  "request": {
+    "format": "groundwork-query/v3",
+    "snapshot": "dc7180b74158fccc486c12834b8f9dfbfedcd501359e852e61caa387631c284d",
+    "query": "trace",
+    "entry": "mas-b360506/entry/get-api-commercial-items-fees",
+    "value": null,
+    "context": [],
+    "outcome": null,
+    "changed": [],
+    "representation": "constructed",
+    "candidates": "exclude",
+    "maxNodes": 500,
+    "maxRecords": 5000,
+    "environment": "production-profile",
+    "ids": []
+  },
+  "nodes": [
+    {
+      "id": "root::mas-b360506/op/get-api-commercial-items-fees/entry",
+      "record": "mas-b360506/op/get-api-commercial-items-fees/entry",
+      "context": [],
+      "label": "FeesController.cs.List",
+      "component": "u3/component/mas",
+      "execution": "mas-b360506/runs/get-api-commercial-items-fees"
+    },
+    {
+      "id": "root::mas-b360506/op/get-api-commercial-items-fees/opaque",
+      "record": "mas-b360506/op/get-api-commercial-items-fees/opaque",
+      "context": [],
+      "label": "Delegated control/data flow not traced; effects remain unknown",
+      "component": "u3/component/mas",
+      "execution": "mas-b360506/runs/get-api-commercial-items-fees"
+    }
+  ],
+  "edges": [
+    {
+      "from": "root::mas-b360506/op/get-api-commercial-items-fees/entry",
+      "to": "root::mas-b360506/op/get-api-commercial-items-fees/opaque",
+      "on": "normal",
+      "condition": null,
+      "assumption": null,
+      "evidence": ["mas-b360506/e/d7667dd5afef6d81"],
+      "record": "mas-b360506/t/get-api-commercial-items-fees/opaque"
+    }
+  ],
+  "claims": [],
+  "evidence": [
+    "mas-b360506/e/0103ca62f8f18cc7",
+    "mas-b360506/e/095f6b7fcffabd78",
+    "mas-b360506/e/d7667dd5afef6d81",
+    "s2/e/controller",
+    "s2/e/input",
+    "s2/e/middleware",
+    "u3/e/mas-program"
+  ],
+  "coverage": [
+    "mas-b360506/coverage/get-api-commercial-items-fees/registration",
+    "mas-b360506/coverage/get-api-commercial-items-fees/contract",
+    "mas-b360506/coverage/get-api-commercial-items-fees/execution"
+  ],
+  "frontiers": [
+    {
+      "at": "root::mas-b360506/op/get-api-commercial-items-fees/opaque",
+      "reason": "opaque",
+      "detail": "Delegated control/data flow not traced; effects remain unknown",
+      "references": ["mas-b360506/op/get-api-commercial-items-fees/opaque"]
+    }
+  ],
+  "limitsHit": [],
+  "feasibility": "not_checked",
+  "exhaustive": false,
+  "records": [
+    {
+      "id": "mas-b360506/coverage/get-api-commercial-items-fees/contract",
+      "kind": "coverage",
+      "owner": "mas-b360506/entry/get-api-commercial-items-fees",
+      "obligation": "Source request/response contracts",
+      "status": "partial",
+      "scope": "Controller annotations and local DTO declaration closure; effective formatter/authentication unresolved",
+      "evidence": ["mas-b360506/e/d7667dd5afef6d81"],
+      "gaps": ["mas-b360506/gap/wire", "mas-b360506/gap/security"]
+    },
+    {
+      "id": "mas-b360506/coverage/get-api-commercial-items-fees/execution",
+      "kind": "coverage",
+      "owner": "mas-b360506/entry/get-api-commercial-items-fees",
+      "obligation": "Endpoint control/data flow",
+      "status": "partial",
+      "scope": "Controller method source read; opaque delegated continuation retained rather than empty logic",
+      "evidence": ["mas-b360506/e/d7667dd5afef6d81"],
+      "gaps": ["mas-b360506/gap/delegates"]
+    },
+    {
+      "id": "mas-b360506/coverage/get-api-commercial-items-fees/registration",
+      "kind": "coverage",
+      "owner": "mas-b360506/entry/get-api-commercial-items-fees",
+      "obligation": "Registered HTTP method/path and handler",
+      "status": "examined",
+      "scope": "src/PopCat.ManageAndSegment.Api/Controllers/V1/FeesController.cs:List; direct source registration at pinned commit",
+      "evidence": ["mas-b360506/e/d7667dd5afef6d81"],
+      "gaps": []
+    },
+    {
+      "id": "mas-b360506/e/0103ca62f8f18cc7",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Api/Authorization/PopAuthzAuthorizationHandler.cs",
+      "lines": [1, 147],
+      "basis": "source"
+    },
+    {
+      "id": "mas-b360506/e/095f6b7fcffabd78",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Api/Startup.cs",
+      "lines": [1, 60],
+      "basis": "source"
+    },
+    {
+      "id": "mas-b360506/e/d7667dd5afef6d81",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Api/Controllers/V1/FeesController.cs",
+      "lines": [56, 63],
+      "basis": "source"
+    },
+    {
+      "id": "mas-b360506/entry/get-api-commercial-items-fees",
+      "kind": "entry",
+      "logicalId": "GET /api/commercial-items/fees",
+      "method": "GET",
+      "path": "/api/commercial-items/fees",
+      "implementation": "mas-b360506/impl/get-api-commercial-items-fees",
+      "evidence": ["mas-b360506/e/d7667dd5afef6d81"]
+    },
+    {
+      "id": "mas-b360506/gap/delegates",
+      "kind": "gap",
+      "owner": "s2/http",
+      "obligation": "Source closure",
+      "reason": "Registration/contracts are examined; delegated service/repository and framework control/data flow is not fully traced for this entry. An opaque operation preserves the boundary; it does not assert no effects.",
+      "action": "Trace the named controller method, mapper, bound service, repository and middleware through branches, exceptions and values.",
+      "evidence": ["mas-b360506/e/095f6b7fcffabd78"]
+    },
+    {
+      "id": "mas-b360506/gap/security",
+      "kind": "gap",
+      "owner": "s2/http",
+      "obligation": "Source closure",
+      "reason": "Authorisation policy source is available, but full imported authentication, token validation and effective middleware enforcement are not established.",
+      "action": "Resolve authentication middleware/registration, policy execution and deployment configuration.",
+      "evidence": ["mas-b360506/e/0103ca62f8f18cc7", "mas-b360506/e/095f6b7fcffabd78"]
+    },
+    {
+      "id": "mas-b360506/gap/wire",
+      "kind": "gap",
+      "owner": "s2/http",
+      "obligation": "Source closure",
+      "reason": "Effective request/response formatter selection, imported middleware and negotiation are not fully resolved. Source DTO fields are not a complete effective wire contract.",
+      "action": "Resolve pinned shared assemblies, model version handling and effective MVC formatter configuration.",
+      "evidence": ["mas-b360506/e/095f6b7fcffabd78"]
+    },
+    {
+      "id": "mas-b360506/impl/get-api-commercial-items-fees",
+      "kind": "implementation",
+      "logicalId": "FeesController.cs.List",
+      "scope": "s2/p",
+      "entry": "mas-b360506/op/get-api-commercial-items-fees/entry",
+      "parameters": [],
+      "evidence": ["mas-b360506/e/d7667dd5afef6d81"]
+    },
+    {
+      "id": "mas-b360506/op/get-api-commercial-items-fees/entry",
+      "kind": "operation",
+      "owner": "mas-b360506/impl/get-api-commercial-items-fees",
+      "action": "entry",
+      "label": "FeesController.cs.List",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": null,
+      "httpStatus": null,
+      "evidence": ["mas-b360506/e/d7667dd5afef6d81"]
+    },
+    {
+      "id": "mas-b360506/op/get-api-commercial-items-fees/opaque",
+      "kind": "operation",
+      "owner": "mas-b360506/impl/get-api-commercial-items-fees",
+      "action": "opaque",
+      "label": "Delegated control/data flow not traced; effects remain unknown",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": null,
+      "httpStatus": null,
+      "evidence": ["mas-b360506/e/d7667dd5afef6d81"]
+    },
+    {
+      "id": "mas-b360506/runs/get-api-commercial-items-fees",
+      "kind": "execution_binding",
+      "implementation": "mas-b360506/impl/get-api-commercial-items-fees",
+      "component": "u3/component/mas",
+      "basis": "source_declared",
+      "artifactBinding": null,
+      "gaps": [],
+      "evidence": ["mas-b360506/e/d7667dd5afef6d81"]
+    },
+    {
+      "id": "mas-b360506/t/get-api-commercial-items-fees/opaque",
+      "kind": "transition",
+      "owner": "mas-b360506/impl/get-api-commercial-items-fees",
+      "from": "mas-b360506/op/get-api-commercial-items-fees/entry",
+      "to": "mas-b360506/op/get-api-commercial-items-fees/opaque",
+      "on": "normal",
+      "condition": null,
+      "values": [],
+      "evidence": ["mas-b360506/e/d7667dd5afef6d81"]
+    },
+    {
+      "id": "s2/e/controller",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Api/Controllers/V1/SoftOffersController.cs",
+      "lines": [17, 90],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "s2/e/input",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Api/Models/V1/Request/SoftOfferInput.cs",
+      "lines": [1, 53],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "s2/e/middleware",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Api/Middleware/ExceptionMiddleware.cs",
+      "lines": [1, 85],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "s2/http",
+      "kind": "implementation",
+      "logicalId": "impl:soft-offer-http",
+      "scope": "s2/p",
+      "entry": "s2/http.start",
+      "parameters": ["s2/v/request"],
+      "evidence": ["s2/e/controller", "s2/e/middleware"]
+    },
+    {
+      "id": "s2/http.start",
+      "kind": "operation",
+      "owner": "s2/http",
+      "action": "entry",
+      "label": "Authenticated, bound soft-offer input",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": null,
+      "httpStatus": null,
+      "evidence": ["s2/e/controller", "s2/e/input"]
+    },
+    {
+      "id": "s2/p",
+      "kind": "source_revision",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110"
+    },
+    {
+      "id": "s2/shape/input",
+      "kind": "shape",
+      "representation": "constructed",
+      "label": "SoftOfferInput",
+      "fields": [
+        {
+          "name": "Code",
+          "type": "string",
+          "status": "declared"
+        },
+        {
+          "name": "Type",
+          "type": "string",
+          "status": "declared"
+        },
+        {
+          "name": "Name",
+          "type": "string",
+          "status": "declared"
+        },
+        {
+          "name": "SkuCategory",
+          "type": "string",
+          "status": "declared"
+        },
+        {
+          "name": "SkuIdentifier",
+          "type": "string",
+          "status": "declared"
+        }
+      ],
+      "completeness": "closed",
+      "gaps": [],
+      "evidence": ["s2/e/input"],
+      "encoding": "json"
+    },
+    {
+      "id": "s2/v/request",
+      "kind": "value",
+      "owner": "s2/http",
+      "definition": "s2/http.start",
+      "label": "SoftOfferInput request body",
+      "role": "parameter",
+      "representation": "constructed",
+      "shape": "s2/shape/input",
+      "evidence": ["s2/e/input", "s2/e/controller"],
+      "accessPath": []
+    },
+    {
+      "id": "u3/component/mas",
+      "kind": "runtime_component",
+      "logicalId": "svc:manage-and-segment-api",
+      "label": "Manage and Segment API",
+      "category": "service",
+      "technology": ".NET / ASP.NET Core",
+      "sources": ["s2/p"],
+      "basis": "source_declared",
+      "evidence": ["u3/e/mas-program", "s2/e/controller"],
+      "gaps": []
+    },
+    {
+      "id": "u3/e/mas-program",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Api/Program.cs",
+      "lines": [1, 24],
+      "basis": "source"
+    }
+  ],
+  "traversalComplete": true,
+  "findings": [],
+  "sourceLinks": [
+    {
+      "evidence": "mas-b360506/e/d7667dd5afef6d81",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Api/Controllers/V1/FeesController.cs#L56-L63",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Api/Controllers/V1/FeesController.cs:56–63"
+    },
+    {
+      "evidence": "s2/e/input",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Api/Models/V1/Request/SoftOfferInput.cs#L1-L53",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Api/Models/V1/Request/SoftOfferInput.cs:1–53"
+    },
+    {
+      "evidence": "s2/e/controller",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Api/Controllers/V1/SoftOffersController.cs#L17-L90",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Api/Controllers/V1/SoftOffersController.cs:17–90"
+    },
+    {
+      "evidence": "s2/e/middleware",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Api/Middleware/ExceptionMiddleware.cs#L1-L85",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Api/Middleware/ExceptionMiddleware.cs:1–85"
+    },
+    {
+      "evidence": "mas-b360506/e/095f6b7fcffabd78",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Api/Startup.cs#L1-L60",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Api/Startup.cs:1–60"
+    },
+    {
+      "evidence": "mas-b360506/e/0103ca62f8f18cc7",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Api/Authorization/PopAuthzAuthorizationHandler.cs#L1-L147",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Api/Authorization/PopAuthzAuthorizationHandler.cs:1–147"
+    },
+    {
+      "evidence": "u3/e/mas-program",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Api/Program.cs#L1-L24",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Api/Program.cs:1–24"
+    }
+  ],
+  "nextRequest": null
+}

@@ -1,0 +1,789 @@
+{
+  "format": "volvo-entry-depth-ledger/v1",
+  "repo": "volvo-cars/cds-paymentservice-transaction",
+  "commit": "020d2fabb141b47b6d1e8173c02405795f71613a",
+  "snapshot": "c67c245880857715c9ea81ad95b44df8735d26465293ad4d3c428777c78df900",
+  "registrationCensus": {
+    "productionJavaFiles": 168,
+    "explicitRestEntries": 11,
+    "localConsumers": 0,
+    "localScheduledJobs": 0,
+    "frameworkFamiliesUnexpanded": 2
+  },
+  "behaviour": {
+    "fullyTracedEndToEnd": 0,
+    "partialRestEntries": 11,
+    "deepenedRestEntries": ["refund", "charge"],
+    "previousCapturePreserved": true
+  },
+  "entries": [
+    {
+      "key": "capture",
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/capture/r1/endpoint",
+      "method": "POST",
+      "path": "/v1/payment-sessions/{paymentSessionId}/transaction-capture",
+      "status": "partial",
+      "depth": "prior bounded trace retained"
+    },
+    {
+      "key": "retry",
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/revised/entry/retry",
+      "method": "POST",
+      "path": "/v1/payment-sessions/{paymentSessionId}/retry",
+      "status": "partial",
+      "depth": "prior bounded trace retained"
+    },
+    {
+      "key": "resubmit",
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/entry/resubmit",
+      "method": "POST",
+      "path": "/v1/payment-sessions/{paymentSessionId}/resubmit",
+      "status": "partial",
+      "depth": "prior bounded trace retained"
+    },
+    {
+      "key": "get-session",
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/entry/get-session",
+      "method": "GET",
+      "path": "/v1/payment-sessions/{paymentSessionId}",
+      "status": "partial",
+      "depth": "prior bounded trace retained"
+    },
+    {
+      "key": "create-session",
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/revised/entry/create-session",
+      "method": "POST",
+      "path": "/v1/payment-sessions",
+      "status": "partial",
+      "depth": "prior bounded trace retained"
+    },
+    {
+      "key": "charge",
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/revised/entry/charge",
+      "method": "POST",
+      "path": "/v1/payment-sessions/charge",
+      "status": "partial",
+      "depth": "Local initial session/transaction/link persistence, recurring/instrument lookups, PSP source construction/result use, conditional scheduler registration, history boundary, event/DTO construction and non-awaited send"
+    },
+    {
+      "key": "refund",
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/revised/entry/refund",
+      "method": "POST",
+      "path": "/v1/payment-sessions/{paymentSessionId}/transaction-refund",
+      "status": "partial",
+      "depth": "Local transaction query/mapper, refund guard/loop/arithmetic graph, prior-refund Mongo query, event construction and non-awaited Kafka send"
+    },
+    {
+      "key": "create-transaction",
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/revised/entry/create-transaction",
+      "method": "POST",
+      "path": "/v1/payment-sessions/{paymentSessionId}/psp/{psp}/transaction-create",
+      "status": "partial",
+      "depth": "prior bounded trace retained"
+    },
+    {
+      "key": "swagger-config",
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/entry/swagger-config",
+      "method": "GET",
+      "path": "/v1/configurations/swagger-config",
+      "status": "partial",
+      "depth": "prior bounded trace retained"
+    },
+    {
+      "key": "version-v1",
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/entry/version-v1",
+      "method": "GET",
+      "path": "/v1/version",
+      "status": "partial",
+      "depth": "prior bounded trace retained"
+    },
+    {
+      "key": "version-v2",
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/entry/version-v2",
+      "method": "GET",
+      "path": "/v2/version",
+      "status": "partial",
+      "depth": "prior bounded trace retained"
+    }
+  ],
+  "methodCoverage": [
+    {
+      "implementation": "volvo/cds-paymentservice-transaction/020d2fabb141/impl/session-get",
+      "obligation": "session-get",
+      "status": "partial",
+      "scope": "Source-local method expanded; external driver/model/getter/loader implementation and implicit exceptions remain bounded.",
+      "gaps": [
+        "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/revised/gap/source-wire-closure",
+        "volvo/cds-paymentservice-transaction/020d2fabb141/gap/mongo-driver"
+      ]
+    },
+    {
+      "implementation": "volvo/cds-paymentservice-transaction/020d2fabb141/impl/session-query",
+      "obligation": "session-query",
+      "status": "partial",
+      "scope": "Source-local method expanded; external driver/model/getter/loader implementation and implicit exceptions remain bounded.",
+      "gaps": [
+        "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/revised/gap/source-wire-closure",
+        "volvo/cds-paymentservice-transaction/020d2fabb141/gap/mongo-driver"
+      ]
+    },
+    {
+      "implementation": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/revised/impl/session-map",
+      "obligation": "session-map",
+      "status": "partial",
+      "scope": "Source-local method expanded; external driver/model/getter/loader implementation and implicit exceptions remain bounded.",
+      "gaps": [
+        "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/revised/gap/source-wire-closure",
+        "volvo/cds-paymentservice-transaction/020d2fabb141/gap/mongo-driver"
+      ]
+    },
+    {
+      "implementation": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/revised/impl/service-retry",
+      "obligation": "local-retry",
+      "status": "partial",
+      "scope": "Opaque local source method; source API contract and caller result use are retained.",
+      "gaps": ["volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/revised/gap/local-retry"]
+    },
+    {
+      "implementation": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/revised/impl/service-manager-create",
+      "obligation": "local-manager-create",
+      "status": "partial",
+      "scope": "Opaque local source method; source API contract and caller result use are retained.",
+      "gaps": [
+        "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/revised/gap/local-manager-create"
+      ]
+    },
+    {
+      "implementation": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/revised/impl/service-charge",
+      "obligation": "local-charge",
+      "status": "partial",
+      "scope": "Source charge orchestration expanded with pre-validation database save, recurring ownership/instrument guards, local attempt and scheduler conditions, event source values and response construction. Explicit partial dependencies remain.",
+      "gaps": ["volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/revised/gap/local-charge"]
+    },
+    {
+      "implementation": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/revised/impl/service-create-transaction",
+      "obligation": "local-create-transaction",
+      "status": "partial",
+      "scope": "Opaque local source method; source API contract and caller result use are retained.",
+      "gaps": [
+        "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/revised/gap/local-create-transaction"
+      ]
+    },
+    {
+      "implementation": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/revised/impl/refund-service",
+      "obligation": "refund-service",
+      "status": "partial",
+      "scope": "Controller -> local session query -> local transaction query/mapping -> ordered source refund validation and previous-refund read -> event construction -> non-waited Kafka send. Effective wire schemas, transport and implicit failures remain partial.",
+      "gaps": [
+        "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/revised/gap/refund-validator",
+        "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/revised/gap/refund-delivery",
+        "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/revised/gap/source-wire-closure"
+      ]
+    },
+    {
+      "implementation": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/revised/impl/refund-publish",
+      "obligation": "refund-publisher",
+      "status": "partial",
+      "scope": "Source send/callback invocation expanded; callback logs and does not rethrow or block HTTP response. Delivery/serialization imported and unverified.",
+      "gaps": [
+        "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/revised/gap/refund-delivery"
+      ]
+    },
+    {
+      "implementation": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/revised/entry/retry",
+      "obligation": "controller-retry",
+      "status": "partial",
+      "scope": "Registration, source request/response schemas, local runtime binding, caller arguments and return/status selection; service partial boundaries and effective middleware/wire serialisation remain explicit.",
+      "gaps": [
+        "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/revised/gap/source-wire-closure",
+        "volvo/cds-paymentservice-transaction/020d2fabb141/capture/r1/gap/security-policy",
+        "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/revised/gap/local-retry"
+      ]
+    },
+    {
+      "implementation": "volvo/cds-paymentservice-transaction/020d2fabb141/entry/resubmit",
+      "obligation": "controller-resubmit",
+      "status": "partial",
+      "scope": "Registration, source request/response schemas, local runtime binding, caller arguments and return/status selection; service partial boundaries and effective middleware/wire serialisation remain explicit.",
+      "gaps": [
+        "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/revised/gap/source-wire-closure",
+        "volvo/cds-paymentservice-transaction/020d2fabb141/capture/r1/gap/security-policy",
+        "volvo/cds-paymentservice-transaction/020d2fabb141/gap/local-resubmit"
+      ]
+    },
+    {
+      "implementation": "volvo/cds-paymentservice-transaction/020d2fabb141/entry/get-session",
+      "obligation": "controller-get-session",
+      "status": "partial",
+      "scope": "Registration, source request/response schemas, local runtime binding, caller arguments and return/status selection; service partial boundaries and effective middleware/wire serialisation remain explicit.",
+      "gaps": [
+        "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/revised/gap/source-wire-closure",
+        "volvo/cds-paymentservice-transaction/020d2fabb141/capture/r1/gap/security-policy",
+        "volvo/cds-paymentservice-transaction/020d2fabb141/gap/local-manager-get"
+      ]
+    },
+    {
+      "implementation": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/revised/entry/create-session",
+      "obligation": "controller-create-session",
+      "status": "partial",
+      "scope": "Registration, source request/response schemas, local runtime binding, caller arguments and return/status selection; service partial boundaries and effective middleware/wire serialisation remain explicit.",
+      "gaps": [
+        "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/revised/gap/source-wire-closure",
+        "volvo/cds-paymentservice-transaction/020d2fabb141/capture/r1/gap/security-policy",
+        "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/revised/gap/local-manager-create"
+      ]
+    },
+    {
+      "implementation": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/revised/entry/charge",
+      "obligation": "controller-charge",
+      "status": "partial",
+      "scope": "Registration, source request/response schemas, local runtime binding, caller arguments and return/status selection; service partial boundaries and effective middleware/wire serialisation remain explicit.",
+      "gaps": [
+        "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/revised/gap/source-wire-closure",
+        "volvo/cds-paymentservice-transaction/020d2fabb141/capture/r1/gap/security-policy",
+        "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/revised/gap/local-charge"
+      ]
+    },
+    {
+      "implementation": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/revised/entry/refund",
+      "obligation": "controller-refund",
+      "status": "partial",
+      "scope": "Registration, source request/response schemas, local runtime binding, caller arguments and return/status selection; service partial boundaries and effective middleware/wire serialisation remain explicit.",
+      "gaps": [
+        "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/revised/gap/source-wire-closure",
+        "volvo/cds-paymentservice-transaction/020d2fabb141/capture/r1/gap/security-policy",
+        "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/revised/gap/refund-validator"
+      ]
+    },
+    {
+      "implementation": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/revised/entry/create-transaction",
+      "obligation": "controller-create-transaction",
+      "status": "partial",
+      "scope": "Registration, source request/response schemas, local runtime binding, caller arguments and return/status selection; service partial boundaries and effective middleware/wire serialisation remain explicit.",
+      "gaps": [
+        "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/revised/gap/source-wire-closure",
+        "volvo/cds-paymentservice-transaction/020d2fabb141/capture/r1/gap/security-policy",
+        "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/revised/gap/local-create-transaction"
+      ]
+    },
+    {
+      "implementation": "volvo/cds-paymentservice-transaction/020d2fabb141/entry/swagger-config",
+      "obligation": "controller-swagger-config",
+      "status": "partial",
+      "scope": "Local controller statements expanded; imported constructor/config/base wrapper/serialization and security remain unexpanded.",
+      "gaps": [
+        "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/revised/gap/source-wire-closure",
+        "volvo/cds-paymentservice-transaction/020d2fabb141/capture/r1/gap/security-policy"
+      ]
+    },
+    {
+      "implementation": "volvo/cds-paymentservice-transaction/020d2fabb141/entry/version-v1",
+      "obligation": "controller-version-v1",
+      "status": "partial",
+      "scope": "Local controller statements expanded; imported constructor/config/base wrapper/serialization and security remain unexpanded.",
+      "gaps": [
+        "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/revised/gap/source-wire-closure",
+        "volvo/cds-paymentservice-transaction/020d2fabb141/capture/r1/gap/security-policy"
+      ]
+    },
+    {
+      "implementation": "volvo/cds-paymentservice-transaction/020d2fabb141/entry/version-v2",
+      "obligation": "controller-version-v2",
+      "status": "partial",
+      "scope": "Local controller statements expanded; imported constructor/config/base wrapper/serialization and security remain unexpanded.",
+      "gaps": [
+        "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/revised/gap/source-wire-closure",
+        "volvo/cds-paymentservice-transaction/020d2fabb141/capture/r1/gap/security-policy"
+      ]
+    },
+    {
+      "implementation": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/impl/refund-validate",
+      "obligation": "refund-rules",
+      "status": "partial",
+      "scope": "Source ordered cheap rules, prior-refund query, stage/partial loops, arithmetic and explicit error exits. Local helper/implicit exception and effective serialisation coverage remain bounded.",
+      "gaps": [
+        "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/gap/refund-implicit",
+        "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/revised/gap/source-wire-closure"
+      ]
+    },
+    {
+      "implementation": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/revised/impl/service-charge",
+      "obligation": "state-declaration",
+      "status": "partial",
+      "scope": "Local package-private source fields retained; JsonFormat declarations at nextRetryAt/attemptedAt do not establish the full effective formatter configuration.",
+      "gaps": [
+        "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/revised/gap/source-wire-closure"
+      ]
+    },
+    {
+      "implementation": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/impl/attempt",
+      "obligation": "attempt",
+      "status": "partial",
+      "scope": "Local orchestration, source PSP argument fields, result use, caught SDK exception branches and local persistence. Explicit imported/configuration/auto-transfer policy gaps remain.",
+      "gaps": [
+        "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/gap/attempt-local-policy",
+        "volvo/cds-paymentservice-transaction/020d2fabb141/capture/r1/gap/client-version",
+        "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/revised/gap/source-wire-closure"
+      ]
+    },
+    {
+      "implementation": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/revised/impl/service-charge",
+      "obligation": "charge-depth",
+      "status": "partial",
+      "scope": "Local orchestration, bounded helper expansion and argument/result flow; no whole-path completeness claim.",
+      "gaps": [
+        "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/gap/attempt-local-policy",
+        "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/gap/scheduler-sdk",
+        "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/gap/history-persistence",
+        "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/revised/gap/source-wire-closure"
+      ]
+    },
+    {
+      "implementation": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/impl/session-of",
+      "obligation": "session-of",
+      "status": "partial",
+      "scope": "Native source-local method statements and source member flow in the stated range; implicit failures/imported methods, driver semantics and effective wire/persisted representation remain partial.",
+      "gaps": [
+        "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/revised/gap/source-wire-closure",
+        "volvo/cds-paymentservice-transaction/020d2fabb141/gap/mongo-driver"
+      ]
+    },
+    {
+      "implementation": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/impl/tx-to",
+      "obligation": "tx-to",
+      "status": "partial",
+      "scope": "Native source-local method statements and source member flow in the stated range; implicit failures/imported methods, driver semantics and effective wire/persisted representation remain partial.",
+      "gaps": [
+        "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/revised/gap/source-wire-closure",
+        "volvo/cds-paymentservice-transaction/020d2fabb141/gap/mongo-driver"
+      ]
+    },
+    {
+      "implementation": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/impl/tx-of",
+      "obligation": "tx-of",
+      "status": "partial",
+      "scope": "Native source-local method statements and source member flow in the stated range; implicit failures/imported methods, driver semantics and effective wire/persisted representation remain partial.",
+      "gaps": [
+        "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/revised/gap/source-wire-closure",
+        "volvo/cds-paymentservice-transaction/020d2fabb141/gap/mongo-driver"
+      ]
+    },
+    {
+      "implementation": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/impl/rec-to",
+      "obligation": "rec-to",
+      "status": "partial",
+      "scope": "Native source-local method statements and source member flow in the stated range; implicit failures/imported methods, driver semantics and effective wire/persisted representation remain partial.",
+      "gaps": [
+        "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/revised/gap/source-wire-closure",
+        "volvo/cds-paymentservice-transaction/020d2fabb141/gap/mongo-driver"
+      ]
+    },
+    {
+      "implementation": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/impl/tx-id-query",
+      "obligation": "tx-id-query",
+      "status": "partial",
+      "scope": "Native source-local method statements and source member flow in the stated range; implicit failures/imported methods, driver semantics and effective wire/persisted representation remain partial.",
+      "gaps": [
+        "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/revised/gap/source-wire-closure",
+        "volvo/cds-paymentservice-transaction/020d2fabb141/gap/mongo-driver"
+      ]
+    },
+    {
+      "implementation": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/impl/tx-session-query",
+      "obligation": "tx-session-query",
+      "status": "partial",
+      "scope": "Native source-local method statements and source member flow in the stated range; implicit failures/imported methods, driver semantics and effective wire/persisted representation remain partial.",
+      "gaps": [
+        "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/revised/gap/source-wire-closure",
+        "volvo/cds-paymentservice-transaction/020d2fabb141/gap/mongo-driver"
+      ]
+    },
+    {
+      "implementation": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/impl/refund-query",
+      "obligation": "refund-query",
+      "status": "partial",
+      "scope": "Native source-local method statements and source member flow in the stated range; implicit failures/imported methods, driver semantics and effective wire/persisted representation remain partial.",
+      "gaps": [
+        "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/revised/gap/source-wire-closure",
+        "volvo/cds-paymentservice-transaction/020d2fabb141/gap/mongo-driver"
+      ]
+    },
+    {
+      "implementation": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/impl/rec-query",
+      "obligation": "rec-query",
+      "status": "partial",
+      "scope": "Native source-local method statements and source member flow in the stated range; implicit failures/imported methods, driver semantics and effective wire/persisted representation remain partial.",
+      "gaps": [
+        "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/revised/gap/source-wire-closure",
+        "volvo/cds-paymentservice-transaction/020d2fabb141/gap/mongo-driver"
+      ]
+    },
+    {
+      "implementation": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/impl/rec-instrument-query",
+      "obligation": "rec-instrument-query",
+      "status": "partial",
+      "scope": "Native source-local method statements and source member flow in the stated range; implicit failures/imported methods, driver semantics and effective wire/persisted representation remain partial.",
+      "gaps": [
+        "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/revised/gap/source-wire-closure",
+        "volvo/cds-paymentservice-transaction/020d2fabb141/gap/mongo-driver"
+      ]
+    },
+    {
+      "implementation": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/impl/tx-get",
+      "obligation": "tx-get",
+      "status": "partial",
+      "scope": "Native source-local method statements and source member flow in the stated range; implicit failures/imported methods, driver semantics and effective wire/persisted representation remain partial.",
+      "gaps": [
+        "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/revised/gap/source-wire-closure",
+        "volvo/cds-paymentservice-transaction/020d2fabb141/gap/mongo-driver"
+      ]
+    },
+    {
+      "implementation": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/impl/tx-latest",
+      "obligation": "tx-latest",
+      "status": "partial",
+      "scope": "Native source-local method statements and source member flow in the stated range; implicit failures/imported methods, driver semantics and effective wire/persisted representation remain partial.",
+      "gaps": [
+        "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/revised/gap/source-wire-closure",
+        "volvo/cds-paymentservice-transaction/020d2fabb141/gap/mongo-driver"
+      ]
+    },
+    {
+      "implementation": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/impl/rec-get",
+      "obligation": "rec-get",
+      "status": "partial",
+      "scope": "Native source-local method statements and source member flow in the stated range; implicit failures/imported methods, driver semantics and effective wire/persisted representation remain partial.",
+      "gaps": [
+        "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/revised/gap/source-wire-closure",
+        "volvo/cds-paymentservice-transaction/020d2fabb141/gap/mongo-driver"
+      ]
+    },
+    {
+      "implementation": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/impl/rec-by-instrument",
+      "obligation": "rec-by-instrument",
+      "status": "partial",
+      "scope": "Native source-local method statements and source member flow in the stated range; implicit failures/imported methods, driver semantics and effective wire/persisted representation remain partial.",
+      "gaps": [
+        "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/revised/gap/source-wire-closure",
+        "volvo/cds-paymentservice-transaction/020d2fabb141/gap/mongo-driver"
+      ]
+    },
+    {
+      "implementation": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/impl/session-save-db",
+      "obligation": "session-save-db",
+      "status": "partial",
+      "scope": "Native source-local method statements and source member flow in the stated range; implicit failures/imported methods, driver semantics and effective wire/persisted representation remain partial.",
+      "gaps": [
+        "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/revised/gap/source-wire-closure",
+        "volvo/cds-paymentservice-transaction/020d2fabb141/gap/mongo-driver"
+      ]
+    },
+    {
+      "implementation": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/impl/session-save",
+      "obligation": "session-save",
+      "status": "partial",
+      "scope": "Native source-local method statements and source member flow in the stated range; implicit failures/imported methods, driver semantics and effective wire/persisted representation remain partial.",
+      "gaps": [
+        "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/revised/gap/source-wire-closure",
+        "volvo/cds-paymentservice-transaction/020d2fabb141/gap/mongo-driver"
+      ]
+    },
+    {
+      "implementation": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/impl/retry-payload",
+      "obligation": "retry-payload",
+      "status": "partial",
+      "scope": "Native source-local method statements and source member flow in the stated range; implicit failures/imported methods, driver semantics and effective wire/persisted representation remain partial.",
+      "gaps": [
+        "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/revised/gap/source-wire-closure",
+        "volvo/cds-paymentservice-transaction/020d2fabb141/gap/mongo-driver"
+      ]
+    },
+    {
+      "implementation": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/impl/scheduler",
+      "obligation": "scheduler",
+      "status": "partial",
+      "scope": "Native source-local method statements and source member flow in the stated range; implicit failures/imported methods, driver semantics and effective wire/persisted representation remain partial.",
+      "gaps": [
+        "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/revised/gap/source-wire-closure",
+        "volvo/cds-paymentservice-transaction/020d2fabb141/gap/mongo-driver"
+      ]
+    },
+    {
+      "implementation": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/impl/instrument-to",
+      "obligation": "instrument-to",
+      "status": "partial",
+      "scope": "Native source-local method statements and source member flow in the stated range; implicit failures/imported methods, driver semantics and effective wire/persisted representation remain partial.",
+      "gaps": [
+        "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/revised/gap/source-wire-closure",
+        "volvo/cds-paymentservice-transaction/020d2fabb141/gap/mongo-driver",
+        "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/gap/attempt-local-policy"
+      ]
+    },
+    {
+      "implementation": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/impl/instrument-get",
+      "obligation": "instrument-get",
+      "status": "partial",
+      "scope": "Native source-local method statements and source member flow in the stated range; implicit failures/imported methods, driver semantics and effective wire/persisted representation remain partial.",
+      "gaps": [
+        "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/revised/gap/source-wire-closure",
+        "volvo/cds-paymentservice-transaction/020d2fabb141/gap/mongo-driver"
+      ]
+    },
+    {
+      "implementation": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/impl/tx-save-db",
+      "obligation": "tx-save-db",
+      "status": "partial",
+      "scope": "Native source-local method statements and source member flow in the stated range; implicit failures/imported methods, driver semantics and effective wire/persisted representation remain partial.",
+      "gaps": [
+        "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/revised/gap/source-wire-closure",
+        "volvo/cds-paymentservice-transaction/020d2fabb141/gap/mongo-driver"
+      ]
+    },
+    {
+      "implementation": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/impl/tx-save",
+      "obligation": "tx-save",
+      "status": "partial",
+      "scope": "Native source-local method statements and source member flow in the stated range; implicit failures/imported methods, driver semantics and effective wire/persisted representation remain partial.",
+      "gaps": [
+        "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/revised/gap/source-wire-closure",
+        "volvo/cds-paymentservice-transaction/020d2fabb141/gap/mongo-driver"
+      ]
+    },
+    {
+      "implementation": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/impl/tx-partial",
+      "obligation": "tx-partial",
+      "status": "partial",
+      "scope": "Native source-local method statements and source member flow in the stated range; implicit failures/imported methods, driver semantics and effective wire/persisted representation remain partial.",
+      "gaps": [
+        "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/revised/gap/source-wire-closure",
+        "volvo/cds-paymentservice-transaction/020d2fabb141/gap/mongo-driver",
+        "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/gap/attempt-local-policy"
+      ]
+    },
+    {
+      "implementation": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/impl/tx-partial-op",
+      "obligation": "tx-partial-op",
+      "status": "partial",
+      "scope": "Native source-local method statements and source member flow in the stated range; implicit failures/imported methods, driver semantics and effective wire/persisted representation remain partial.",
+      "gaps": [
+        "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/revised/gap/source-wire-closure",
+        "volvo/cds-paymentservice-transaction/020d2fabb141/gap/mongo-driver"
+      ]
+    },
+    {
+      "implementation": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/impl/tx-partial-service",
+      "obligation": "tx-partial-service",
+      "status": "partial",
+      "scope": "Native source-local method statements and source member flow in the stated range; implicit failures/imported methods, driver semantics and effective wire/persisted representation remain partial.",
+      "gaps": [
+        "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/revised/gap/source-wire-closure",
+        "volvo/cds-paymentservice-transaction/020d2fabb141/gap/mongo-driver"
+      ]
+    },
+    {
+      "implementation": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/impl/attempt-save",
+      "obligation": "attempt-save",
+      "status": "partial",
+      "scope": "Native source-local method statements and source member flow in the stated range; implicit failures/imported methods, driver semantics and effective wire/persisted representation remain partial.",
+      "gaps": [
+        "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/revised/gap/source-wire-closure",
+        "volvo/cds-paymentservice-transaction/020d2fabb141/gap/mongo-driver"
+      ]
+    },
+    {
+      "implementation": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/impl/psp-payload",
+      "obligation": "psp-payload",
+      "status": "partial",
+      "scope": "Native source-local method statements and source member flow in the stated range; implicit failures/imported methods, driver semantics and effective wire/persisted representation remain partial.",
+      "gaps": [
+        "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/revised/gap/source-wire-closure",
+        "volvo/cds-paymentservice-transaction/020d2fabb141/gap/mongo-driver"
+      ]
+    },
+    {
+      "implementation": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/impl/submit-psp",
+      "obligation": "submit-psp",
+      "status": "partial",
+      "scope": "Native source-local method statements and source member flow in the stated range; implicit failures/imported methods, driver semantics and effective wire/persisted representation remain partial.",
+      "gaps": [
+        "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/revised/gap/source-wire-closure",
+        "volvo/cds-paymentservice-transaction/020d2fabb141/gap/mongo-driver"
+      ]
+    },
+    {
+      "implementation": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/impl/session-history",
+      "obligation": "session-history",
+      "status": "partial",
+      "scope": "Native source-local method statements and source member flow in the stated range; implicit failures/imported methods, driver semantics and effective wire/persisted representation remain partial.",
+      "gaps": [
+        "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/revised/gap/source-wire-closure",
+        "volvo/cds-paymentservice-transaction/020d2fabb141/gap/mongo-driver"
+      ]
+    },
+    {
+      "implementation": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/impl/charge-dto",
+      "obligation": "charge-dto",
+      "status": "partial",
+      "scope": "Native source-local method statements and source member flow in the stated range; implicit failures/imported methods, driver semantics and effective wire/persisted representation remain partial.",
+      "gaps": [
+        "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/revised/gap/source-wire-closure",
+        "volvo/cds-paymentservice-transaction/020d2fabb141/gap/mongo-driver"
+      ]
+    }
+  ],
+  "responseWrappers": [
+    {
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/capture/r1/endpoint",
+      "status": 202,
+      "returnOperation": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/revised/capture/r1/controller.202",
+      "dataArgument": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/value/rest-capture-202.argument0",
+      "factoryArguments": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/shape/rest-capture-202-arguments",
+      "factoryResult": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/value/rest-capture-202.factory-result",
+      "responseBodySourceShape": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/shape/rest-capture-202-factory",
+      "actualReturn": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/value/rest-capture-202.http-result",
+      "gap": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/gap/rest-wrapper-capture"
+    },
+    {
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/capture/r1/endpoint",
+      "status": 208,
+      "returnOperation": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/revised/capture/r1/controller.208",
+      "dataArgument": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/value/rest-capture-208.argument0",
+      "factoryArguments": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/shape/rest-capture-208-arguments",
+      "factoryResult": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/value/rest-capture-208.factory-result",
+      "responseBodySourceShape": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/shape/rest-capture-208-factory",
+      "actualReturn": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/value/rest-capture-208.http-result",
+      "gap": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/gap/rest-wrapper-capture"
+    },
+    {
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/revised/entry/retry",
+      "status": 200,
+      "returnOperation": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/revised/op/controller-retry.return-200",
+      "dataArgument": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/revised/value/controller-retry.data",
+      "factoryArguments": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/shape/rest-retry-200-arguments",
+      "factoryResult": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/value/rest-retry-200.factory-result",
+      "responseBodySourceShape": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/shape/rest-retry-200-factory",
+      "actualReturn": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/value/rest-retry-200.http-result",
+      "gap": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/gap/rest-wrapper-retry"
+    },
+    {
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/revised/entry/retry",
+      "status": 202,
+      "returnOperation": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/revised/op/controller-retry.return-202",
+      "dataArgument": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/revised/value/controller-retry.data",
+      "factoryArguments": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/shape/rest-retry-202-arguments",
+      "factoryResult": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/value/rest-retry-202.factory-result",
+      "responseBodySourceShape": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/shape/rest-retry-202-factory",
+      "actualReturn": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/value/rest-retry-202.http-result",
+      "gap": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/gap/rest-wrapper-retry"
+    },
+    {
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/entry/resubmit",
+      "status": 200,
+      "returnOperation": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/revised/op/controller-resubmit.return-200",
+      "dataArgument": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/revised/value/controller-resubmit.data",
+      "factoryArguments": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/shape/rest-resubmit-200-arguments",
+      "factoryResult": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/value/rest-resubmit-200.factory-result",
+      "responseBodySourceShape": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/shape/rest-resubmit-200-factory",
+      "actualReturn": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/value/rest-resubmit-200.factory-result",
+      "gap": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/gap/rest-wrapper-resubmit"
+    },
+    {
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/entry/get-session",
+      "status": 200,
+      "returnOperation": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/revised/op/controller-get-session.return-200",
+      "dataArgument": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/revised/value/controller-get-session.data",
+      "factoryArguments": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/shape/rest-get-session-200-arguments",
+      "factoryResult": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/value/rest-get-session-200.factory-result",
+      "responseBodySourceShape": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/shape/rest-get-session-200-factory",
+      "actualReturn": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/value/rest-get-session-200.factory-result",
+      "gap": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/gap/rest-wrapper-get-session"
+    },
+    {
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/revised/entry/create-session",
+      "status": 200,
+      "returnOperation": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/revised/op/controller-create-session.return-200",
+      "dataArgument": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/revised/value/controller-create-session.data",
+      "factoryArguments": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/shape/rest-create-session-200-arguments",
+      "factoryResult": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/value/rest-create-session-200.factory-result",
+      "responseBodySourceShape": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/shape/rest-create-session-200-factory",
+      "actualReturn": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/value/rest-create-session-200.factory-result",
+      "gap": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/gap/rest-wrapper-create-session"
+    },
+    {
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/revised/entry/charge",
+      "status": 200,
+      "returnOperation": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/revised/op/controller-charge.return-200",
+      "dataArgument": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/revised/value/controller-charge.data",
+      "factoryArguments": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/shape/rest-charge-200-arguments",
+      "factoryResult": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/value/rest-charge-200.factory-result",
+      "responseBodySourceShape": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/shape/rest-charge-200-factory",
+      "actualReturn": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/value/rest-charge-200.http-result",
+      "gap": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/gap/rest-wrapper-charge"
+    },
+    {
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/revised/entry/charge",
+      "status": 202,
+      "returnOperation": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/revised/op/controller-charge.return-202",
+      "dataArgument": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/revised/value/controller-charge.data",
+      "factoryArguments": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/shape/rest-charge-202-arguments",
+      "factoryResult": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/value/rest-charge-202.factory-result",
+      "responseBodySourceShape": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/shape/rest-charge-202-factory",
+      "actualReturn": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/value/rest-charge-202.http-result",
+      "gap": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/gap/rest-wrapper-charge"
+    },
+    {
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/revised/entry/refund",
+      "status": 202,
+      "returnOperation": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/revised/op/controller-refund.return-202",
+      "dataArgument": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/value/rest-refund-202.argument0",
+      "factoryArguments": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/shape/rest-refund-202-arguments",
+      "factoryResult": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/value/rest-refund-202.factory-result",
+      "responseBodySourceShape": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/shape/rest-refund-202-factory",
+      "actualReturn": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/value/rest-refund-202.factory-result",
+      "gap": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/gap/rest-wrapper-refund"
+    },
+    {
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/revised/entry/create-transaction",
+      "status": 200,
+      "returnOperation": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/revised/op/controller-create-transaction.return-200",
+      "dataArgument": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/revised/value/controller-create-transaction.data",
+      "factoryArguments": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/shape/rest-create-transaction-200-arguments",
+      "factoryResult": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/value/rest-create-transaction-200.factory-result",
+      "responseBodySourceShape": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/shape/rest-create-transaction-200-factory",
+      "actualReturn": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/value/rest-create-transaction-200.factory-result",
+      "gap": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/gap/rest-wrapper-create-transaction"
+    },
+    {
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/entry/version-v1",
+      "status": 200,
+      "returnOperation": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/revised/op/controller-version-v1.return-200",
+      "dataArgument": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/revised/value/controller-version-v1.data",
+      "factoryArguments": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/shape/rest-version-v1-200-arguments",
+      "factoryResult": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/value/rest-version-v1-200.factory-result",
+      "responseBodySourceShape": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/shape/rest-version-v1-200-factory",
+      "actualReturn": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/value/rest-version-v1-200.factory-result",
+      "gap": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/gap/rest-wrapper-version-v1"
+    },
+    {
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/entry/version-v2",
+      "status": 200,
+      "returnOperation": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/revised/op/controller-version-v2.return-200",
+      "dataArgument": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/revised/value/controller-version-v2.data",
+      "factoryArguments": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/shape/rest-version-v2-200-arguments",
+      "factoryResult": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/value/rest-version-v2-200.factory-result",
+      "responseBodySourceShape": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/shape/rest-version-v2-200-factory",
+      "actualReturn": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/value/rest-version-v2-200.factory-result",
+      "gap": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/gap/rest-wrapper-version-v2"
+    }
+  ],
+  "remainingBoundaries": [
+    "Source-local auto-transfer initiation, payment-session supported-method/capability policy, retry/resubmit/create-session/create-transaction helper families remain partial.",
+    "Imported account, market and decline-code configuration implementations and transports remain unresolved.",
+    "PSP client 1.3.257 and scheduler client 1.0.52 exact implementations, transport/paths/headers/retries and effective response wire formats remain unresolved.",
+    "Local source DTO/model fields, inherited/generic/generated behaviour and effective validation/JSON/BSON formatter closure are not all complete.",
+    "Kafka send callbacks log and are not awaited; no broker/consumer completion, delivery guarantee or consumer handoff is established.",
+    "Explicit guards/exception paths are represented, but implicit null/duplicate-key/comparator/list/numeric failures and path feasibility are not exhaustively proved.",
+    "The new history state is prepended in memory; charge makes no later explicit session save. Later downstream persistence is outside this repository capture.",
+    "Derivations conservatively include the pinned source revision and explicit references. Fine-grained complete dependency invalidation is not claimed."
+  ]
+}

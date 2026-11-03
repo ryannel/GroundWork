@@ -1,0 +1,371 @@
+{
+  "snapshot": "8c7ac6f69f63c70ff8f40c3d8ece4c2af1a9a7205f60cf06a70d0bd81591692b",
+  "status": "passed",
+  "qualification": "Independent pinned-source review and strict bounded query acceptance. Broad node limits and shared-host ambiguity retained.",
+  "queries": [
+    {
+      "name": "POST /private/car-specifications/sync",
+      "nodes": 3,
+      "edges": 2,
+      "limits": ["maxNodes", "maxRecords"],
+      "pages": 6
+    },
+    {
+      "name": "POST /private/car-specifications/baseline",
+      "nodes": 2,
+      "edges": 3,
+      "limits": ["maxNodes", "maxRecords"],
+      "pages": 6
+    },
+    {
+      "name": "GET /v1/car-specifications",
+      "nodes": 2,
+      "edges": 1,
+      "limits": ["maxNodes"],
+      "pages": 1
+    },
+    {
+      "name": "GET /v1/local-editions",
+      "nodes": 2,
+      "edges": 1,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "GET /v1/local-edition-code",
+      "nodes": 2,
+      "edges": 6,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "PUT /v1/local-editions",
+      "nodes": 3,
+      "edges": 9,
+      "limits": ["maxNodes", "maxRecords"],
+      "pages": 2
+    },
+    {
+      "name": "DELETE /v1/local-editions",
+      "nodes": 2,
+      "edges": 1,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "HTTP owner cce-car-spec-adapter-667a00a-complete-r2/interaction/io/af59f8492af70993/api",
+      "nodes": 2,
+      "edges": 1,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "HTTP argument cce-car-spec-adapter-667a00a-complete-r2/interaction/io/af59f8492af70993/api",
+      "nodes": 23,
+      "edges": 23,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "HTTP owner cce-car-spec-adapter-667a00a-complete-r2/interaction/io/6d85db0f8f33c52e/api",
+      "nodes": 2,
+      "edges": 1,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "HTTP argument cce-car-spec-adapter-667a00a-complete-r2/interaction/io/6d85db0f8f33c52e/api",
+      "nodes": 23,
+      "edges": 23,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "HTTP owner cce-car-spec-adapter-667a00a-complete-r2/interaction/io/ea003de304fc1bde/api",
+      "nodes": 2,
+      "edges": 1,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "HTTP argument cce-car-spec-adapter-667a00a-complete-r2/interaction/io/ea003de304fc1bde/api",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "HTTP owner cce-car-spec-adapter-667a00a-complete-r2/interaction/io/ec2d0f0c08976666/api",
+      "nodes": 2,
+      "edges": 1,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "HTTP argument cce-car-spec-adapter-667a00a-complete-r2/interaction/io/ec2d0f0c08976666/api",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "HTTP owner cce-car-spec-adapter-667a00a-complete-r2/interaction/io/eb37bc5d7237cc92/api",
+      "nodes": 2,
+      "edges": 1,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "HTTP argument cce-car-spec-adapter-667a00a-complete-r2/interaction/io/eb37bc5d7237cc92/api",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "HTTP owner cce-car-spec-adapter-667a00a-complete-r2/interaction/io/0a8830c38e6038d1/api",
+      "nodes": 2,
+      "edges": 1,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "HTTP argument cce-car-spec-adapter-667a00a-complete-r2/interaction/io/0a8830c38e6038d1/api",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "HTTP owner cce-car-spec-adapter-667a00a-complete-r2/interaction/io/2508513d31a59608/api",
+      "nodes": 2,
+      "edges": 1,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "HTTP argument cce-car-spec-adapter-667a00a-complete-r2/interaction/io/2508513d31a59608/api",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "HTTP owner cce-car-spec-adapter-667a00a-complete-r2/interaction/io/3a4e3ddb1bb37ca5/api",
+      "nodes": 2,
+      "edges": 1,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "HTTP argument cce-car-spec-adapter-667a00a-complete-r2/interaction/io/3a4e3ddb1bb37ca5/api",
+      "nodes": 14,
+      "edges": 13,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "HTTP owner cce-car-spec-adapter-667a00a-complete-r2/interaction/io/1a488ce89c45264e/api",
+      "nodes": 2,
+      "edges": 1,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "HTTP argument cce-car-spec-adapter-667a00a-complete-r2/interaction/io/1a488ce89c45264e/api",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Request construction newQueryRequest",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Request construction newMarketAuthRequest",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Request construction newPCGMarketAuthRequest",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Request construction newGetFullFeaturesRequestV1",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Request construction newGetFullFeaturesRequestV2",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Request construction createWheelCodesRequest",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Request construction getFeatures",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Request construction Token",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual SQL write cce-car-spec-adapter-667a00a-complete-r2/storage_write/195d43ee416eb77c",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "SQL actual column value cce-car-spec-adapter-667a00a-complete-r2/storage_write/195d43ee416eb77c",
+      "nodes": 2,
+      "edges": 1,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual SQL write cce-car-spec-adapter-667a00a-complete-r2/storage_write/78968309efc96e50",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "SQL actual column value cce-car-spec-adapter-667a00a-complete-r2/storage_write/78968309efc96e50",
+      "nodes": 3,
+      "edges": 2,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual SQL write cce-car-spec-adapter-667a00a-complete-r2/storage_write/60eec3e194435978",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "SQL actual column value cce-car-spec-adapter-667a00a-complete-r2/storage_write/60eec3e194435978",
+      "nodes": 164,
+      "edges": 183,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual SQL write cce-car-spec-adapter-667a00a-complete-r2/storage_write/337d264d8f38ee29",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "SQL actual column value cce-car-spec-adapter-667a00a-complete-r2/storage_write/337d264d8f38ee29",
+      "nodes": 7,
+      "edges": 6,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual SQL write cce-car-spec-adapter-667a00a-complete-r2/storage_write/6492b8850e3b294c",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "SQL actual column value cce-car-spec-adapter-667a00a-complete-r2/storage_write/6492b8850e3b294c",
+      "nodes": 10,
+      "edges": 9,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual SQL write cce-car-spec-adapter-667a00a-complete-r2/storage_write/286a726cc45dfd1c",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "SQL actual column value cce-car-spec-adapter-667a00a-complete-r2/storage_write/286a726cc45dfd1c",
+      "nodes": 7,
+      "edges": 6,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual subscription cce-car-spec-adapter-667a00a-complete-r2/subscription/marketauth",
+      "nodes": 6,
+      "edges": 6,
+      "limits": ["maxNodes", "maxRecords"],
+      "pages": 6
+    },
+    {
+      "name": "Actual subscription cce-car-spec-adapter-667a00a-complete-r2/subscription/pcgmarketauth",
+      "nodes": 6,
+      "edges": 6,
+      "limits": ["maxNodes", "maxRecords"],
+      "pages": 6
+    },
+    {
+      "name": "Actual subscription cce-car-spec-adapter-667a00a-complete-r2/subscription/poisonqueue",
+      "nodes": 2,
+      "edges": 1,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Feature flag SDK call has no established remote target",
+      "nodes": 2,
+      "edges": 1,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Detached goroutines have no call results",
+      "nodes": 0,
+      "edges": 0,
+      "limits": ["maxRecords"],
+      "pages": 6
+    },
+    {
+      "name": "Poison producer and handler mismatch remains explicit",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "PCG dynamic map retains evaluated key",
+      "nodes": 256,
+      "edges": 275,
+      "limits": [],
+      "pages": 1
+    }
+  ]
+}

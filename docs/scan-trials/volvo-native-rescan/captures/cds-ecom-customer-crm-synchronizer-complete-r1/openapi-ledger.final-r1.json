@@ -1,0 +1,42 @@
+[
+  {
+    "authority": "pinned_openapi",
+    "name": "BaseResponseError",
+    "shape": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/catalogue-shape/openapi/BaseResponseError"
+  },
+  {
+    "authority": "pinned_openapi",
+    "name": "Error",
+    "shape": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/catalogue-shape/openapi/Error"
+  },
+  {
+    "authority": "pinned_openapi",
+    "name": "ErrorResponse",
+    "shape": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/catalogue-shape/openapi/ErrorResponse"
+  },
+  {
+    "authority": "pinned_openapi",
+    "name": "VehicleRelationRequest",
+    "shape": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/catalogue-shape/openapi/VehicleRelationRequest"
+  },
+  {
+    "authority": "pinned_openapi",
+    "name": "BaseResponseString",
+    "shape": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/catalogue-shape/openapi/BaseResponseString"
+  },
+  {
+    "authority": "pinned_openapi",
+    "name": "AlternativeConsumer",
+    "shape": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/catalogue-shape/openapi/AlternativeConsumer"
+  },
+  {
+    "authority": "pinned_openapi",
+    "name": "BaseResponseCdbConsumerData",
+    "shape": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/catalogue-shape/openapi/BaseResponseCdbConsumerData"
+  },
+  {
+    "authority": "pinned_openapi",
+    "name": "CdbConsumerData",
+    "shape": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/catalogue-shape/openapi/CdbConsumerData"
+  }
+]

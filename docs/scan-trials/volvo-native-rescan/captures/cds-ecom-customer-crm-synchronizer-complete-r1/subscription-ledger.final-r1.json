@@ -1,0 +1,32 @@
+[
+  {
+    "source": "CustomerEventConsumer",
+    "subscription": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/subscription/CustomerEventConsumer",
+    "entry": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/entry/listener/CustomerEventConsumer",
+    "implementation": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/46cccfd75a9d144146b2",
+    "interaction": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/consume-io/CustomerEventConsumer",
+    "topic": "app5541-customer-events",
+    "group": "${spring.kafka.consumer.group-id}",
+    "payloadShape": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/catalogue-shape/event/CustomerEventPayload"
+  },
+  {
+    "source": "CustomerEventOMConsumer",
+    "subscription": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/subscription/CustomerEventOMConsumer",
+    "entry": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/entry/listener/CustomerEventOMConsumer",
+    "implementation": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/c3894f4f7c90cf44136a",
+    "interaction": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/consume-io/CustomerEventOMConsumer",
+    "topic": "app5541-customer-events",
+    "group": "${spring.kafka.consumer.om-update.group-id}",
+    "payloadShape": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/catalogue-shape/event/CustomerEventPayload"
+  },
+  {
+    "source": "CdbSyncEventConsumer",
+    "subscription": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/subscription/CdbSyncEventConsumer",
+    "entry": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/entry/listener/CdbSyncEventConsumer",
+    "implementation": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/f383ed09672f35af3bd5",
+    "interaction": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/consume-io/CdbSyncEventConsumer",
+    "topic": "${spring.kafka.consumer.cdb-sync.topic-name}",
+    "group": "${spring.kafka.consumer.cdb-sync.group-id}",
+    "payloadShape": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/catalogue-shape/event/CdbSyncEventPayload"
+  }
+]

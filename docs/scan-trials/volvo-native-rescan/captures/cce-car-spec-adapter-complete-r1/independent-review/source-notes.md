@@ -1,0 +1,15 @@
+# Adapter independent source notes
+
+Actual seven business routes use common JWT middleware, including /private sync/baseline; Swagger mount is outside that group. Named FeatureCodeFetcher Fx result/parameter tags distinguish CPAM, Prins and PCG providers; both main and migrator executables have separate provider/entry scopes.
+
+GET car specification requires market/year/pno12; localEditionCode takes precedence, deprecated localTrimEditionCode is fallback only when empty. Sync checks permitted year, launches local goroutine, then attempts202. Child creates Background context carrying operation ID, logs its own errors. Baseline optional year/type selects whole market, year or model; per-query failures log and continue, so aggregate nil is not every-item success.
+
+PUT local editions only bypasses validation when skipValidation equals exact string true; domain construction still runs. Normal path gets MarketAuth and validates before upsert. Both insert/update return intended201. GET absent local edition returns404 without error responder; DELETE returns204 after nil-error Exec without checking affected rows. LocalEdition Get wraps its read in a transaction; upsert gets existing row, updates or inserts, then separately commits. CarSpec upsert forwards Commit's error; helper SQL nil-error return is distinct. No affected-row/wider atomicity or source DDL deployment guarantee.
+
+Sync fetches regular or PCG auth based on actual identifier type. Old Filter wheel codes are fetched once only if a non-PCG identifier occurs; PCG uses fixed200001/200005/200026. Standard-wheel provider partition skips exempt car types and selects PCG/Prins/CPAM; actual request order is PCG then Prins then CPAM, empty subsets skip remote fetch. Separate named interfaces cannot be globally bound by method name.
+
+Sync reads stored specifications, computes changes, applies every store change sequentially, then publishes upserts before removals. Failure can follow earlier per-car commits or partial publication. No source outbox bridges store and broker. Local-edition lookup appends edition-specific specs before change calculation. Source DDL uses JSONB and nonnull edition code; final rename/index declaration is separate from observed schema.
+
+Two consumer callbacks inspect x-type before protobuf decode. Correlation metadata falls back to UUID. Parsed identifier drives SyncByIdentifier; the separately constructed carModelQuery supplies flag/year/log context. Disabled market or old year returnsnil without sync. Poison publisher topic is poison while its consumer uses poisonqueue; retain mismatch rather than claiming delivery.
+
+Publisher builds protobuf upsert/removal messages, deterministic car ID message ID, x-type, correlation ID and trace metadata. Removal writes both deprecated LocalTrimEditionCode and LocalEditionCode pointers when present; modelYear conversion is source int32. Publish's nil error is separate from broker durability. SkipKafkaWriter/Reader each construct separate in-memory GoChannel alternatives; name equality does not join them.

@@ -1,0 +1,44 @@
+[
+  {
+    "entry": "volvo/cdls-mono-volvocars/8e1fd20c525f/ev-subsidy-api-r1/entry/eligibility",
+    "operation": "volvo/cdls-mono-volvocars/8e1fd20c525f/ev-subsidy-api-r1/op/eligibility/19",
+    "interaction": "volvo/cdls-mono-volvocars/8e1fd20c525f/ev-subsidy-api-r1/io/95",
+    "contract": "volvo/cdls-mono-volvocars/8e1fd20c525f/ev-subsidy-api-r1/io-contract/94",
+    "source": "apps/ev-subsidy/app/api/ev-subsidy/eligibility/route.ts",
+    "lines": [27, 35],
+    "actualValues": [
+      ["argument0", "volvo/cdls-mono-volvocars/8e1fd20c525f/ev-subsidy-api-r1/v/eligibility/79"],
+      ["argument1", "volvo/cdls-mono-volvocars/8e1fd20c525f/ev-subsidy-api-r1/v/eligibility/86"]
+    ],
+    "url": "/api/v1/lookup/deso?lat={lat}&lon={lng}",
+    "method": "GET"
+  },
+  {
+    "entry": "volvo/cdls-mono-volvocars/8e1fd20c525f/ev-subsidy-api-r1/entry/eligibility",
+    "operation": "volvo/cdls-mono-volvocars/8e1fd20c525f/ev-subsidy-api-r1/op/eligibility/40",
+    "interaction": "volvo/cdls-mono-volvocars/8e1fd20c525f/ev-subsidy-api-r1/io/192",
+    "contract": "volvo/cdls-mono-volvocars/8e1fd20c525f/ev-subsidy-api-r1/io-contract/191",
+    "source": "apps/ev-subsidy/app/api/ev-subsidy/eligibility/route.ts",
+    "lines": [66, 73],
+    "actualValues": [
+      ["argument0", "volvo/cdls-mono-volvocars/8e1fd20c525f/ev-subsidy-api-r1/v/eligibility/178"],
+      ["argument1", "volvo/cdls-mono-volvocars/8e1fd20c525f/ev-subsidy-api-r1/v/eligibility/183"]
+    ],
+    "url": "/api/v1/eligibility/status",
+    "method": "POST"
+  },
+  {
+    "entry": "volvo/cdls-mono-volvocars/8e1fd20c525f/ev-subsidy-api-r1/entry/income",
+    "operation": "volvo/cdls-mono-volvocars/8e1fd20c525f/ev-subsidy-api-r1/op/income/39",
+    "interaction": "volvo/cdls-mono-volvocars/8e1fd20c525f/ev-subsidy-api-r1/io/491",
+    "contract": "volvo/cdls-mono-volvocars/8e1fd20c525f/ev-subsidy-api-r1/io-contract/490",
+    "source": "apps/ev-subsidy/app/api/ev-subsidy/income/route.ts",
+    "lines": [65, 72],
+    "actualValues": [
+      ["argument0", "volvo/cdls-mono-volvocars/8e1fd20c525f/ev-subsidy-api-r1/v/income/477"],
+      ["argument1", "volvo/cdls-mono-volvocars/8e1fd20c525f/ev-subsidy-api-r1/v/income/482"]
+    ],
+    "url": "/api/v1/eligibility/status",
+    "method": "POST"
+  }
+]

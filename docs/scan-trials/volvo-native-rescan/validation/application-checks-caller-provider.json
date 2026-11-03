@@ -1,0 +1,58 @@
+{
+  "status": "passed",
+  "scope": "Caller/provider source address correspondence with separate interface schemas; production workspace loader unchanged",
+  "checks": {
+    "npm test": {
+      "status": "passed",
+      "testFiles": 265,
+      "tests": 2354
+    },
+    "npm run check": {
+      "status": "passed",
+      "testFiles": 266,
+      "tests": 2401,
+      "typeCoveragePercent": 100
+    },
+    "npm run build": {
+      "status": "passed",
+      "staticPages": 391
+    },
+    "skillValidation": "groundwork-explore passed after canonical guide update; earlier unchanged scan/schema validations retained",
+    "lint:changed": "passed"
+  },
+  "sourceFiles": [
+    {
+      "path": "schema/knowledge.schema.json",
+      "sha256": "7e1ac1e098a88320561b7d2da4df1d2fe789f0abb271cdae39e8b587fa177742"
+    },
+    {
+      "path": "src/domain/knowledge/check-interaction-target.ts",
+      "sha256": "b02ac0e7306c50d3a7b0ead0fd0bbe28eb6bf062fb35ce2cb8cc91cf663d0843"
+    },
+    {
+      "path": "src/domain/knowledge/check-interaction.ts",
+      "sha256": "f55968e675e89eebe4c02f8d57721fdcf1160e12aed4347d9acb74bc356c230a"
+    },
+    {
+      "path": "src/application/knowledge/query-support.ts",
+      "sha256": "7a428449179e7a73eb059e971be860486f33387a4ddff227cbe8a42aca087ebf"
+    },
+    {
+      "path": "src/application/knowledge/query-interactions.ts",
+      "sha256": "e5453aba7b453e36df16c9b2716cf79114dea30dcf49806aa0c7022caacf9273"
+    },
+    {
+      "path": "tools/endpoint-correspondence.test.ts",
+      "sha256": "466c13413e7365054ad8710f5af7caf46c61992a6b21d55fe1c1a547d683ae7e"
+    },
+    {
+      "path": ".agents/skills/groundwork-explore/canonical-scan.md",
+      "sha256": "f0a0b5c7af62763c6a105dffc75351a142ef5a455bf64be5b046e67320c8eea0"
+    },
+    {
+      "path": "tools/knowledge-source-check.ts",
+      "sha256": "9bcb37fd9a096d69f16afa767d2c53772565353bc18a72b5e5c2e76230d952f7"
+    }
+  ],
+  "qualification": "Checks run sequentially before build. TargetEntry establishes exact source component/protocol/method/path correspondence, not payload compatibility, deployed versions or provider execution in caller trace. Record pagination preserves both contracts/provider binding. Twenty source selections freshly schema/semantic/hash/range-replayed independently; no reconciled combined selection or app migration inferred."
+}

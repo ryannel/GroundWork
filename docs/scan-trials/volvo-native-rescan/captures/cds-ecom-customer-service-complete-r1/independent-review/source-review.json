@@ -1,0 +1,111 @@
+{
+  "files": [
+    {
+      "path": "customer-service-api/src/main/java/com/volvocars/ecom/customerservice/api/customer/v1/impl/CustomerControllerImpl.java",
+      "bytes": 5632,
+      "sha256": "d8a69850bb61f14f58d450bab05c336df3abcfb6e8fb6b1b6face489c5bc2519"
+    },
+    {
+      "path": "customer-service-core/src/main/java/com/volvocars/ecom/customerservice/analytics/AnalyticsEventService.java",
+      "bytes": 3701,
+      "sha256": "7e448ab84655e98ea60cb2fbaf6ffb5b3675b40fcdb68da28958887862933516"
+    },
+    {
+      "path": "customer-service-core/src/main/java/com/volvocars/ecom/customerservice/consent/MarketingConsentEventService.java",
+      "bytes": 5269,
+      "sha256": "ea4b87cba7895df16d6a49ce6ae16a318cfadff5045e6718198d650b86cda941"
+    },
+    {
+      "path": "customer-service-core/src/main/java/com/volvocars/ecom/customerservice/consumer/CdbClient.java",
+      "bytes": 2120,
+      "sha256": "bfa719fcd841a961278eff60181942ae98a0e992ae7f3fc932b983c1951cfb75"
+    },
+    {
+      "path": "customer-service-core/src/main/java/com/volvocars/ecom/customerservice/customer/CustomerFactory.java",
+      "bytes": 5333,
+      "sha256": "80124f32da3682b826ce12fa987efa6ea5916b8d98bce17b49182f6ce7b67d2c"
+    },
+    {
+      "path": "customer-service-core/src/main/java/com/volvocars/ecom/customerservice/customer/CustomerRepository.java",
+      "bytes": 765,
+      "sha256": "3f26c5d228fb28da13d2336867e9408e607ffbedbc3c02f7ed0023cb2502e499"
+    },
+    {
+      "path": "customer-service-core/src/main/java/com/volvocars/ecom/customerservice/customer/CustomerService.java",
+      "bytes": 13734,
+      "sha256": "54cabdb0fc39b532a961f92ce28907a1ee49990b60c14a3a23a11ee948cc6a13"
+    },
+    {
+      "path": "customer-service-core/src/main/java/com/volvocars/ecom/customerservice/customer/FactoryContext.java",
+      "bytes": 4399,
+      "sha256": "9c2ad947409849ef4140b721850601ce700b05cb322e137c32b1bf822350d767"
+    },
+    {
+      "path": "customer-service-core/src/main/java/com/volvocars/ecom/customerservice/customerarchive/CustomerArchiveService.java",
+      "bytes": 3385,
+      "sha256": "a359ccf7efa443040a6b6ba37ff99c1295ae87d116fb313abcfe9150343175e4"
+    },
+    {
+      "path": "customer-service-core/src/main/java/com/volvocars/ecom/customerservice/messaging/CustomerEventService.java",
+      "bytes": 4073,
+      "sha256": "cc491479785dd997038e44821dee165f99fc868530113966064876c447ccabdd"
+    },
+    {
+      "path": "customer-service-core/src/main/java/com/volvocars/ecom/customerservice/customer/ContextBuilder.java",
+      "bytes": 1978,
+      "sha256": "dad76b98979326d2dbab4c108c3603ab974e0ccfc46292c3e242280af47908b7"
+    },
+    {
+      "path": "customer-service-core/src/main/java/com/volvocars/ecom/customerservice/customer/CustomerSavePostProcessor.java",
+      "bytes": 1222,
+      "sha256": "c4955de3415c3e377e03aed6963594e363f63536623b85d65c7df7dedce19eda"
+    },
+    {
+      "path": "customer-service-core/src/main/java/com/volvocars/ecom/customerservice/customerarchive/CustomerArchiveRepository.java",
+      "bytes": 452,
+      "sha256": "a395fabbd1f3ab623fa7531627812495390cc71868940ad5cb5e620b60df3a72"
+    },
+    {
+      "path": "customer-service-core/src/main/java/com/volvocars/ecom/customerservice/individual/IIndividualFactory.java",
+      "bytes": 2075,
+      "sha256": "9ddb10bc9106df4ac1db629fc4b2294532a9a7e4533a5a16a58033fb72f07a4c"
+    },
+    {
+      "path": "customer-service-core/src/main/java/com/volvocars/ecom/customerservice/messaging/consumer/DeleteCustomerEventConsumer.java",
+      "bytes": 1574,
+      "sha256": "25b52dac8e08f10105794816ff81676b6a7eeda65cdd7364f2646870afaf6b9d"
+    },
+    {
+      "path": "customer-service-core/src/main/resources/graphql-documents/getConsumer.graphql",
+      "bytes": 415,
+      "sha256": "ef104bf30d535a49e8f74fc89037c786c9dac24fefaaf5025d5f6f5c42cb3d59"
+    },
+    {
+      "path": "customer-service-api/src/main/java/com/volvocars/ecom/customerservice/api/customer/v1/impl/CustomerApiService.java",
+      "bytes": 6216,
+      "sha256": "e3360a7ca753a071d04411405c70975344f5c4473d25eb288360d9adea3dd7b3"
+    },
+    {
+      "path": "customer-service-core/src/main/java/com/volvocars/ecom/customerservice/config/concurrency/ContextAwareCompletableFuture.java",
+      "bytes": 1509,
+      "sha256": "30532df0c02bad104f70c628b6fe6f6cf66a70732ecc228f70f52decafb445d6"
+    },
+    {
+      "path": "customer-service-core/src/main/java/com/volvocars/ecom/customerservice/customer/Customer.java",
+      "bytes": 2330,
+      "sha256": "47235238ddc6844490b43176cd649b6779e92a748777e5201e5dc79d45670f59"
+    },
+    {
+      "path": "customer-service-core/src/main/java/com/volvocars/ecom/customerservice/customerarchive/CustomerArchive.java",
+      "bytes": 634,
+      "sha256": "70e5eb3a4ce832a59615664bc757d6cec92c4620c70213249aaa8fa5215a8569"
+    },
+    {
+      "path": "customer-service-core/src/main/java/com/volvocars/ecom/customerservice/customerarchive/CustomerArchiveUpsertRepositoryImpl.java",
+      "bytes": 1025,
+      "sha256": "cc2b8c9128b13d1a8debb41c34fa35586d708ce070b9414d83ea09190e12003b"
+    }
+  ],
+  "snapshot": "b5306d23d996ef477ee3b61b90d68a7dbac9006fa258a2cd3a3e323a9d8f3dbb",
+  "status": "21full pinnedfiles independently read;51queries54pages10explicitbroadbounds;5880pinned ranges verified"
+}

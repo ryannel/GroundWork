@@ -1,0 +1,51 @@
+{
+  "format": "rescan-object-recovery/v1",
+  "initialMissingObjects": 52,
+  "initialMissingPaths": 53,
+  "existingAlternatesResolved": 41,
+  "explicitlyRequestedPinnedBlobObjects": 11,
+  "requests": [
+    {
+      "repo": "volvo-cars/cds-finance-engine",
+      "commit": "7fe6410d055b4e52f17374a9d9e280c8faf11c4e",
+      "origin": "https://github.com/volvo-cars/cds-finance-engine.git",
+      "requestedObjectIds": [
+        "2f97db9e7455921e9228b3890b4f8739e02eb4ec",
+        "5fb9319b028a401197488aa3511ffe740f1f0c27",
+        "8dac8db355640b0668197bb9d810a72f6f2854fe",
+        "911739731cc8171528f88e1f2c75be7665316e01",
+        "9a4dc0058d950dfe72dadc53e74787aa93fbd446",
+        "ca02e0fa31f8d30a1fd26b39fe55bc8b31e4cb8f"
+      ],
+      "destination": "/Users/RNEL/.cache/groundwork/clones/volvo-cars/cds-finance-engine",
+      "result": "explicit_fetch_succeeded_and_final_headers_available"
+    },
+    {
+      "repo": "volvo-cars/gpe-price-data",
+      "commit": "dd4ac6f97ed334f0a47318f0f5a33d0d3d72e473",
+      "origin": "https://github.com/volvo-cars/gpe-price-data.git",
+      "requestedObjectIds": [
+        "177e60dcce2a0752a979acd1f0ed99849cd45e2a",
+        "5677bc2984b1adfafff01f6436e3f16351fa1176",
+        "abce0d93137c26da217e05a04d2d78f10385ef93",
+        "ba5da5a44c9b93bf18b68fbd57f6708d1a472068",
+        "eac0d2974c2b107062add9de4fb5d1427d91fe0f"
+      ],
+      "destination": "/Users/RNEL/.cache/groundwork/clones/volvo-cars/gpe-price-data",
+      "result": "explicit_fetch_succeeded_and_final_headers_available"
+    }
+  ],
+  "fetchPolicy": [
+    "exact_object_SHA_wants_only",
+    "no_tags",
+    "no_write_fetch_head",
+    "no_recurse_submodules",
+    "maintenance_auto_disabled",
+    "no_worktree_or_branch_ref_update_requested"
+  ],
+  "sourceBodyInspection": "not_performed",
+  "semanticScan": "not_started",
+  "contentHashVerification": "deferred_to_actual_source_pass",
+  "launchCloneRoot": "/Users/RNEL/Workspace/groundWork/reports/rescan-launch-readiness-001/source-clones",
+  "qualification": "Git transport cached the 11 exact requested blob IDs; source bodies were not inspected. Existing complete alternate clones route the remaining 41 objects. Delta bases, if transferred by Git, are transport details, not a broader source selection."
+}

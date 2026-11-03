@@ -1,0 +1,17 @@
+{
+  "status": "passed",
+  "snapshot": "9e022859e4914b70a3c8a8471e410025f4a69f006a47ba076256a14ed722c373",
+  "predecessor": "revision-001",
+  "changedExistingRecords": [
+    "volvo/cce-policy-admin/88a3512f0307/local-r1/shape/protobuf/volvocars.contracts.carconfiguration.RuleSetCreated",
+    "volvo/cce-policy-admin/88a3512f0307/local-r1/shape/protobuf/volvocars.contracts.carconfiguration.RulesImported"
+  ],
+  "addedKinds": {
+    "claim": 49,
+    "evidence": 35,
+    "gap": 2,
+    "shape": 1
+  },
+  "removed": 0,
+  "qualification": "All control/value/resolution/effect/write/interaction/entry/execution facts equal after exact namespace translation;2wire shape closures changed and87declaration/evidence/schema/gap facts added"
+}

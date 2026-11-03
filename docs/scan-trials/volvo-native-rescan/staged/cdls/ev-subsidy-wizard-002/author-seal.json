@@ -1,0 +1,62 @@
+{
+  "snapshot": "e4df872bf2495bfe3b4e6bccea07a80012a44972aab2d4389586ac9d6df62d7b",
+  "qualification": "Immutable evidence-corrected bounded wizard/API source selection, not whole app/repo",
+  "requiresBundle": "../../ev-subsidy-api/checkpoint-001/bundle.json",
+  "files": [
+    {
+      "path": "REPORT.md",
+      "bytes": 4155,
+      "sha256": "d9262a6c35a6c9de7e3c1a33cd624e54e35a2198cde70ab7ff1869fee86ea045"
+    },
+    {
+      "path": "bundle.json",
+      "bytes": 225966,
+      "sha256": "e15c89941c31fcc7ac2f4e85b6bdbab7041dec70cb3fe9db88316fa494fd21b8"
+    },
+    {
+      "path": "capture.py",
+      "bytes": 23245,
+      "sha256": "b67a813229437e33c1938a7ef2e309f0180a2b665d7377f3b5bcdce7b915542a"
+    },
+    {
+      "path": "io-ledger.json",
+      "bytes": 1686,
+      "sha256": "10112d801af1906afe3b746340a99465e5222c63e1d043f7a33957256ac9b9fb"
+    },
+    {
+      "path": "native-validation.log",
+      "bytes": 713,
+      "sha256": "cd3e357b2aee8855cd3060328d01becdcd785b524a2e9a94bb6039fd3ecb092b"
+    },
+    {
+      "path": "queries.mjs",
+      "bytes": 5418,
+      "sha256": "f55711b8097898ab54a21cbea05946ae3298cdcc8fb4e20839dcf9a26ceee34e"
+    },
+    {
+      "path": "query-replay/requests.json",
+      "bytes": 12031,
+      "sha256": "86591797d3efd24ec547dde86d8dea0ba6b263557f459232f97d88fab8b957a2"
+    },
+    {
+      "path": "query-replay/responses.json.gz",
+      "bytes": 213674,
+      "sha256": "cf41c9d1e4e1459c1715b7e08ab8ef2bfa0f4ba87a61a82a73e33cd663733808"
+    },
+    {
+      "path": "query-replay/summary.json",
+      "bytes": 3274,
+      "sha256": "574e9df60d5ce32e1dea180c5c2544bed5a1d1aefae012c58b24b3f487800131"
+    },
+    {
+      "path": "snapshot.json",
+      "bytes": 338,
+      "sha256": "415d208aaac3b2d0d3ab40a4cd9819a09e394967b68ab0f49c3eaa70ee85c04b"
+    },
+    {
+      "path": "supersession-ledger.json",
+      "bytes": 3227,
+      "sha256": "6e1144b87bcc7222771c506a3ed0f557a57fbde7236e19edf83e58b87bfc60d5"
+    }
+  ]
+}

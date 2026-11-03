@@ -1,0 +1,122 @@
+{
+  "format": "answerability-review/v1",
+  "repo": "volvo-cars/cds-ecom-customer-service",
+  "commit": "09623ab3a1f39845d8fc02abc3d591b53a3b5fea",
+  "capture": "customer-service-pipeline-002",
+  "questionCount": 22,
+  "supported": 0,
+  "partial": 20,
+  "unsupported": 2,
+  "questions": [
+    {
+      "id": "Q01",
+      "status": "partial",
+      "answer": "The `getCustomer` declaration retains the `{customerId}` literal, request parameter, response type and mapping annotation candidate. There is no typed HTTP contract binding all 19 declarations to their implementation prefixes, effective routes and wire schemas. The capture does not answer the complete route inventory."
+    },
+    {
+      "id": "Q02",
+      "status": "partial",
+      "answer": "The archive declaration retains the `hasAnyRole('Cds.Ecom.Customer.Admin', 'Cds.Ecom.Customer.Archive')` policy literal. This is a declared condition; no control/action or enforcement binding establishes which effective callers can execute it."
+    },
+    {
+      "id": "Q03",
+      "status": "partial",
+      "answer": "CustomerRequest has typed declarations for `dataVersion`, `corporateEntities`, `individuals`, `customerType`, `market`, `hasAcceptedTerms` and `featureFlagDeterminants`, with annotation candidates. There are no wire contracts or effective validation-group bindings proving mandatory create/update/patch fields."
+    },
+    {
+      "id": "Q04",
+      "status": "partial",
+      "answer": "`updateCustomer` calls `customerFactory.update`; `patchCustomer` calls `customerFactory.patch`; both pass their result to `saveAndPostProcess`. Cross-call factory/omitted-field semantics and serialised request binding remain unclosed."
+    },
+    {
+      "id": "Q05",
+      "status": "partial",
+      "answer": "The local update method retains a membership guard and typed `throw` constructing `IndividualNotFoundException(individualId)`. The capture lacks the end-to-end exception-handler/HTTP outcome binding, so it cannot establish the response a caller sees."
+    },
+    {
+      "id": "Q06",
+      "status": "partial",
+      "answer": "The local code generates `numberOfDuplicates - 1` copies, calls `saveAllAndPostProcess`, and constructs a list beginning with the original customer ID. Identifier replacement and preserved fields need factory lineage and stream callback bindings; durable saves are not established."
+    },
+    {
+      "id": "Q07",
+      "status": "partial",
+      "answer": "Inside `saveAndPostProcess`, equality exits before validation, repository save and post-processing; otherwise those calls occur in that local order. The frozen question covers an unchanged customer write as a whole. Factories/callers may validate or perform effects before reaching this helper, and all endpoint entry paths are not proven."
+    },
+    {
+      "id": "Q08",
+      "status": "partial",
+      "answer": "Inside CustomerApiService, `forceArchive=false` marks for later and returns; true reaches the immediate `moveCustomerToArchive` call. A missing reason becomes `ArchiveReason.NONE_SPECIFIED`. The retained controller description conflicts with that branch. The missing clause is the actual archival effect: calling `moveCustomerToArchive` does not prove that the customer was moved successfully. The helper catches failures; effect/acknowledgement closure is absent."
+    },
+    {
+      "id": "Q09",
+      "status": "partial",
+      "answer": "Restore builds a version-reset customer, computes conditional archival data, invokes `saveCustomer`, then deletes the archived record. Local order is supported. Effective stored shape, atomicity and what remains after failure are not established by effect/acknowledgement records."
+    },
+    {
+      "id": "Q10",
+      "status": "partial",
+      "answer": "Audit pagination constructs `PageRequest.of(page, limit)`, invokes `findAllByCustomerIdOrderByVersionDesc` and builds pagination from the returned page. The repository method name and local call are retained; effective Mongo ordering, complete route/request bounds and wire output are not bound."
+    },
+    {
+      "id": "Q11",
+      "status": "partial",
+      "answer": "The resolver has a token-present guard and local dispatch to Volvo ID, Connect and Entra ID identity handling. TrustedIssuerValidator and OidcTokenDecoder are quarantined, so the capture cannot prove issuer checks or complete authentication/enforcement."
+    },
+    {
+      "id": "Q12",
+      "status": "partial",
+      "answer": "VolvoIdService calls `volvoIdClient.getUserInfo(userAccessToken)` and sanitises its result; its failure path returns an empty optional. This locates one profile lookup. Typed outbound HTTP contracts, all profile sources and effective serialisation remain missing."
+    },
+    {
+      "id": "Q13",
+      "status": "partial",
+      "answer": "Corporate creation generates an ID, validates registration/Fleet inputs and calls address/email/phone mappers. This is useful local structure. Fleet/Partner boundary identities, requests, responses and their complete customer lineage are unbound."
+    },
+    {
+      "id": "Q14",
+      "status": "partial",
+      "answer": "The customer declaration retains the `customers` collection annotation candidate and typed fields, and repository declarations are captured. No store identities or read/write effects bind all active/archive/audit collections to effective Mongo operations."
+    },
+    {
+      "id": "Q15",
+      "status": "partial",
+      "answer": "The post-processor locally calls customer publication, analytics publication, audit save and consent publication in that order. Q07 also establishes save-before-post-processing. No effect acknowledgements, delivery proof or failure/transaction closure establish the requested completion guarantees."
+    },
+    {
+      "id": "Q16",
+      "status": "partial",
+      "answer": "Four local guards exit before `sendSafely`: missing/disabled Kafka, missing individual/CDB ID, missing consent and unchanged consent. Changed-consent payload fields and effective wire publication remain unclosed."
+    },
+    {
+      "id": "Q17",
+      "status": "partial",
+      "answer": "Customer event selection branches to `CUSTOMER_CREATED` for no previous value, `CUSTOMER_ARCHIVED` for archival data and `CUSTOMER_UPDATED` otherwise. This is local event-type selection; analytics payload contracts and configured topic/publication bindings remain missing."
+    },
+    {
+      "id": "Q18",
+      "status": "partial",
+      "answer": "The delete consumer passes `event.getPayload().customerId()` to `customerService.deleteCustomer`. Kafka listener/topic annotations are candidates. Subscription, payload contract, deserialiser guarantees and broker failure/delivery semantics remain unbound."
+    },
+    {
+      "id": "Q19",
+      "status": "unsupported",
+      "answer": "OrderUpdateEventConsumer is quarantined after a parser diagnostic. The final capture retains source and an explicit gap, with no accepted local/native graph for its order-status filters or archive/restore behaviour. Raw source could answer this manually; it is not a pipeline answer."
+    },
+    {
+      "id": "Q20",
+      "status": "partial",
+      "answer": "The scheduler's local `run` calls `customerArchiveJob.start`; scheduled/conditional/locking annotations survive as declarations. Resource configuration is retained as unparsed text. Effective cron, lock, enablement, asynchronous activation and per-customer continuation are not joined into an execution answer."
+    },
+    {
+      "id": "Q21",
+      "status": "unsupported",
+      "answer": "No actor, surface, control, action, outcome, execution or journey records close this question. Role strings cannot establish people, intent, visible results or actor-to-action journeys."
+    },
+    {
+      "id": "Q22",
+      "status": "partial",
+      "answer": "Source anchors identify the full pinned commit, and shard baselines record analysis fingerprints. The run observes local HEAD. There is no remote observation or deployment evidence, so remote and production freshness are unknown."
+    }
+  ]
+}

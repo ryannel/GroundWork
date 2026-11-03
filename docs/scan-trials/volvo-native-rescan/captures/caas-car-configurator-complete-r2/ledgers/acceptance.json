@@ -1,0 +1,21 @@
+{
+  "status": "passed",
+  "snapshot": "73731576937e6406a98aa6e365638fd7a95248c5f5e1491b32d06e880e66eaaf",
+  "bundleDigest": "3730f7e5634ff8563b991632a31367086a01f2c9d5e84f70228c830019cc3130",
+  "bundleByteSha256": "7727fde852bf9121ff23aa11968e02d5d0c52b5249ccfd36506e66f9dfa8308c",
+  "records": 96266,
+  "priorAuthorQueriesReplayed": 129,
+  "rootHarnessQueriesReplayed": 26,
+  "newRangeCorrectionQueries": 4,
+  "strictQueryRequests": 159,
+  "normalBounds": {
+    "maxNodes": 2000,
+    "maxRecords": 5000
+  },
+  "sourceTuplesUnchanged": 12479,
+  "predecessorSealFilesVerified": 309,
+  "logicalIDsPreserved": true,
+  "unsupportedBlankKeyTypeShapesRemoved": 2,
+  "runtimeBehaviourChanged": false,
+  "qualification": "Source inspection retained; imported signatures and automatic delegate/heap/defer/bounded projections stay explicit. Historical bounded deep edges can differ under the current query implementation; current-code r1/r2 diagnostic semantic edge records match."
+}

@@ -1,0 +1,145 @@
+{
+  "repo": "volvo-cars/cce-optimization-facade",
+  "commit": "8da8ebe3227a43817bbbca25fdec182edfaa6584",
+  "status": "independent source preparation; native/query acceptance pending",
+  "files": [
+    {
+      "path": "internal/api/httpserver/routes.go",
+      "lines": 160,
+      "sha256": "4de7fbeebb7d8ea9aa90b10fac23fc7cbec4bec234b417f487ae45b44989a8ef",
+      "review": "Entire pinned source independently read by root; final candidate acceptance pending"
+    },
+    {
+      "path": "internal/app/app.go",
+      "lines": 354,
+      "sha256": "24586e2ae0aaa8fd3ef02dd8eff231c9d2d2b09f400f6ab60bccf4cf16290649",
+      "review": "Entire pinned source independently read by root; final candidate acceptance pending"
+    },
+    {
+      "path": "internal/app/appevent.go",
+      "lines": 308,
+      "sha256": "6c7a49e09a5c75539b1bb8f8b3880b580ee84f952de89836a0ba61d0e1f071a2",
+      "review": "Entire pinned source independently read by root; final candidate acceptance pending"
+    },
+    {
+      "path": "internal/api/httpserver/marketmappingroutes.go",
+      "lines": 94,
+      "sha256": "f85df81f133fa2d69996c6540e2ea28e4edbb97f8c0783f85c1928500def1d88",
+      "review": "Entire pinned source independently read by root; final candidate acceptance pending"
+    },
+    {
+      "path": "internal/api/httpserver/eventroutes.go",
+      "lines": 74,
+      "sha256": "df0bc2caeb20c4c45f9142f65b9436ded5db64850581b2ad5ae553706fc3c0bd",
+      "review": "Entire pinned source independently read by root; final candidate acceptance pending"
+    },
+    {
+      "path": "internal/api/httpserver/policy/synccontroller.go",
+      "lines": 165,
+      "sha256": "4eab009b64726d0fb7ad2374ebc9aedac8c9b77886389495cb2d4953e2f6d08b",
+      "review": "Entire pinned source independently read by root; final candidate acceptance pending"
+    },
+    {
+      "path": "internal/service/carsyncjobdispatcher.go",
+      "lines": 55,
+      "sha256": "1c44fbaad56c5e4844a37824f07feb494470291022aa41bd748942b5e20a7de0",
+      "review": "Entire pinned source independently read by root; final candidate acceptance pending"
+    },
+    {
+      "path": "internal/service/query/dispatcher.go",
+      "lines": 44,
+      "sha256": "29164c57af95b423aab80f405e8e0668312c27760251c4d04c0ec9011c1dea27",
+      "review": "Entire pinned source independently read by root; final candidate acceptance pending"
+    },
+    {
+      "path": "internal/caching/redisCache.go",
+      "lines": 50,
+      "sha256": "a6dd505867e683a9197bf70dd531b1d76038df064faf5fec6ac02b208646522c",
+      "review": "Entire pinned source independently read by root; final candidate acceptance pending"
+    },
+    {
+      "path": "internal/service/carspecificationpipeline.go",
+      "lines": 318,
+      "sha256": "cd1d7ee6ee4a6f62990a247cd97d9a58c01083bced990d970aa8bbce47dc7835",
+      "review": "Entire pinned source independently read by root; final candidate acceptance pending"
+    },
+    {
+      "path": "internal/database/queuedb/client.go",
+      "lines": 109,
+      "sha256": "f5aea0e1a291311a29d29931780f8e0e9f1ff09fc34595084f04aee5e53438cb",
+      "review": "Entire pinned source independently read by root; final candidate acceptance pending"
+    },
+    {
+      "path": "internal/messaging/setup.go",
+      "lines": 71,
+      "sha256": "01ddddd43a9bbaa080d09b51e393d3e2a906e7e1e18f2cf355029429f626a898",
+      "review": "Entire pinned source independently read by root; final candidate acceptance pending"
+    },
+    {
+      "path": "internal/app/appmarketmapping.go",
+      "lines": 146,
+      "sha256": "9a9a2edd05047d3e4a19464f4bfd916674f9e6dddac9d8ae5eb65150abf8f388",
+      "review": "Entire pinned source independently read by root; final candidate acceptance pending"
+    },
+    {
+      "path": "internal/database/postgres/componentperiodsrepository.go",
+      "lines": 175,
+      "sha256": "b2394b5abb5f40c44ab4aeb00513d0ad5a51b946794d0fb76f3e496229ccab5c",
+      "review": "Entire pinned source independently read; native/query acceptance pending"
+    },
+    {
+      "path": "internal/database/postgres/policyrulesetrepository.go",
+      "lines": 223,
+      "sha256": "43ca9585b6d665c0c7b245d48af11d8ad95a2978e7b86122481bcca776b0b063",
+      "review": "Entire pinned source independently read; native/query acceptance pending"
+    },
+    {
+      "path": "internal/database/postgres/specmarketrulesetrepository.go",
+      "lines": 317,
+      "sha256": "46d5648dc4178f66efe5f8391d906bc9e2c0223906173f5c6d64845c444ab2d1",
+      "review": "Entire pinned source independently read; native/query acceptance pending"
+    },
+    {
+      "path": "internal/gateway/client.go",
+      "lines": 97,
+      "sha256": "8fda09193c7b43ae9de55a3b5062f70a9cca36e82a07f6006526d8687f528b3f",
+      "review": "Entire pinned source independently read; native/query acceptance pending"
+    },
+    {
+      "path": "internal/backend/cached-graphql-client.go",
+      "lines": 164,
+      "sha256": "4c7465ea0be99c53e8c69e39e1ba11a8f2844e3235306dda33312a787ed07714",
+      "review": "Entire pinned source independently read; native/query acceptance pending"
+    },
+    {
+      "path": "internal/database/postgres/migrations/000018_add_market_mapping.up.sql",
+      "lines": 33,
+      "sha256": "f7faff863e2ea37e03f633fc550108c052bc12b820443fd9d70f99ff3f93ce09",
+      "review": "Entire pinned source independently read; native/query acceptance pending"
+    },
+    {
+      "path": "internal/database/postgres/migrations/000019_add_offer_mappings_market_policy_index.up.sql",
+      "lines": 2,
+      "sha256": "c1f1b1140f3c69813b4a65aa0e7cc80300c794b19176695e712d0d8631ca1bfc",
+      "review": "Entire pinned source independently read; native/query acceptance pending"
+    },
+    {
+      "path": "internal/database/postgres/migrations/000020_add_basecarconfigurations_table.up.sql",
+      "lines": 12,
+      "sha256": "47b0c0a5e3dd39fe91ef1249679461f14b8edfa0dfc6442718221c635786c94e",
+      "review": "Entire pinned source independently read; native/query acceptance pending"
+    },
+    {
+      "path": "internal/database/postgres/migrations/000021_add_components.up.sql",
+      "lines": 12,
+      "sha256": "1079cbbeea50f1fb49fd92f0fe58dd01dc5dc9b13fa904cc3ad773d0f5af5ba7",
+      "review": "Entire pinned source independently read; native/query acceptance pending"
+    },
+    {
+      "path": "internal/database/postgres/migrations/000022_add_lco_brand_type.up.sql",
+      "lines": 1,
+      "sha256": "4e109f404c2b0185a3a292a85de7cb7304c7b947c61af21bc73b4adb5ac310fd",
+      "review": "Entire pinned source independently read; native/query acceptance pending"
+    }
+  ]
+}

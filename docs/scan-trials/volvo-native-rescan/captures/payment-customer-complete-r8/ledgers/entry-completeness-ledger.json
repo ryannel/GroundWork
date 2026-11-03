@@ -1,0 +1,110 @@
+[
+  {
+    "entry": "customer-b0010537-complete-r8/retained/entry/get-external",
+    "method": "GET",
+    "path": "/v1/customers/{idType}/{idValue}/{countryCode}",
+    "implementation": "customer-b0010537-complete-r8/method/1d68f7eaa3dc242f",
+    "source": "cds-paymentservice-customer-api/src/main/java/com/volvocars/ecom/paymentservice/customer/api/customer/v1/impl/CustomerControllerImpl.java",
+    "lines": [41, 54],
+    "inspection": "examined local source; imported framework/serialisation gaps retained"
+  },
+  {
+    "entry": "customer-b0010537-complete-r8/retained/entry/get-id",
+    "method": "GET",
+    "path": "/v1/customers/{customerId}",
+    "implementation": "customer-b0010537-complete-r8/method/0d05956408857e3d",
+    "source": "cds-paymentservice-customer-api/src/main/java/com/volvocars/ecom/paymentservice/customer/api/customer/v1/impl/CustomerControllerImpl.java",
+    "lines": [56, 62],
+    "inspection": "examined local source; imported framework/serialisation gaps retained"
+  },
+  {
+    "entry": "customer-b0010537-complete-r8/retained/entry/get-recurring",
+    "method": "GET",
+    "path": "/v1/customers/{customerId}/recurring-charges/{recurringChargeId}",
+    "implementation": "customer-b0010537-complete-r8/method/0380a2b028aa5e32",
+    "source": "cds-paymentservice-customer-api/src/main/java/com/volvocars/ecom/paymentservice/customer/api/customer/v1/impl/CustomerControllerImpl.java",
+    "lines": [64, 72],
+    "inspection": "examined local source; imported framework/serialisation gaps retained"
+  },
+  {
+    "entry": "customer-b0010537-complete-r8/retained/entry/update-recurring",
+    "method": "PATCH",
+    "path": "/v1/customers/{customerId}/recurring-charges/{recurringChargeId}",
+    "implementation": "customer-b0010537-complete-r8/method/31f1530c4e2b83c8",
+    "source": "cds-paymentservice-customer-api/src/main/java/com/volvocars/ecom/paymentservice/customer/api/customer/v1/impl/CustomerControllerImpl.java",
+    "lines": [74, 88],
+    "inspection": "examined local source; imported framework/serialisation gaps retained"
+  },
+  {
+    "entry": "customer-b0010537-complete-r8/retained/entry/create",
+    "method": "POST",
+    "path": "/v1/customers",
+    "implementation": "customer-b0010537-complete-r8/method/8056dc952620ebc3",
+    "source": "cds-paymentservice-customer-api/src/main/java/com/volvocars/ecom/paymentservice/customer/api/customer/v1/impl/CustomerControllerImpl.java",
+    "lines": [90, 103],
+    "inspection": "examined local source; imported framework/serialisation gaps retained"
+  },
+  {
+    "entry": "customer-b0010537-complete-r8/retained/entry/guest-create",
+    "method": "POST",
+    "path": "/v1/guest-customers",
+    "implementation": "customer-b0010537-complete-r8/method/25217c6470966a28",
+    "source": "cds-paymentservice-customer-api/src/main/java/com/volvocars/ecom/paymentservice/customer/api/customer/v1/impl/CustomerControllerImpl.java",
+    "lines": [105, 112],
+    "inspection": "examined local source; imported framework/serialisation gaps retained"
+  },
+  {
+    "entry": "customer-b0010537-complete-r8/retained/entry/get-or-create",
+    "method": "POST",
+    "path": "/v1/customers/get-or-create",
+    "implementation": "customer-b0010537-complete-r8/method/30635b36aefefbb5",
+    "source": "cds-paymentservice-customer-api/src/main/java/com/volvocars/ecom/paymentservice/customer/api/customer/v1/impl/CustomerControllerImpl.java",
+    "lines": [114, 140],
+    "inspection": "examined local source; imported framework/serialisation gaps retained"
+  },
+  {
+    "entry": "customer-b0010537-complete-r8/retained/entry/update-external",
+    "method": "PATCH",
+    "path": "/v1/customers/{idType}/{idValue}",
+    "implementation": "customer-b0010537-complete-r8/method/21f23606f9e50703",
+    "source": "cds-paymentservice-customer-api/src/main/java/com/volvocars/ecom/paymentservice/customer/api/customer/v1/impl/CustomerControllerImpl.java",
+    "lines": [156, 167],
+    "inspection": "examined local source; imported framework/serialisation gaps retained"
+  },
+  {
+    "entry": "customer-b0010537-complete-r8/retained/entry/update-id",
+    "method": "PATCH",
+    "path": "/v1/customers/{customerId}",
+    "implementation": "customer-b0010537-complete-r8/method/35e39e14df914c97",
+    "source": "cds-paymentservice-customer-api/src/main/java/com/volvocars/ecom/paymentservice/customer/api/customer/v1/impl/CustomerControllerImpl.java",
+    "lines": [169, 176],
+    "inspection": "examined local source; imported framework/serialisation gaps retained"
+  },
+  {
+    "entry": "customer-b0010537-complete-r8/retained/entry/swagger-config",
+    "method": "GET",
+    "path": "/v1/configurations/swagger-config",
+    "implementation": "customer-b0010537-complete-r8/method/5454a409b1e3a6fa",
+    "source": "cds-paymentservice-customer-api/src/main/java/com/volvocars/ecom/paymentservice/customer/api/configuration/v1/impl/SwaggerUIControllerImpl.java",
+    "lines": [21, 36],
+    "inspection": "examined local source; imported framework/serialisation gaps retained"
+  },
+  {
+    "entry": "customer-b0010537-complete-r8/retained/entry/version-v1",
+    "method": "GET",
+    "path": "/v1/version",
+    "implementation": "customer-b0010537-complete-r8/method/332f28bbcb6dd132",
+    "source": "cds-paymentservice-customer-api/src/main/java/com/volvocars/ecom/paymentservice/customer/api/version/v1/impl/VersionControllerImpl.java",
+    "lines": [19, 26],
+    "inspection": "examined local source; imported framework/serialisation gaps retained"
+  },
+  {
+    "entry": "customer-b0010537-complete-r8/retained/entry/version-v2",
+    "method": "GET",
+    "path": "/v2/version",
+    "implementation": "customer-b0010537-complete-r8/method/d240de36d0d80435",
+    "source": "cds-paymentservice-customer-api/src/main/java/com/volvocars/ecom/paymentservice/customer/api/version/v2/impl/VersionControllerImpl.java",
+    "lines": [18, 22],
+    "inspection": "examined local source; imported framework/serialisation gaps retained"
+  }
+]

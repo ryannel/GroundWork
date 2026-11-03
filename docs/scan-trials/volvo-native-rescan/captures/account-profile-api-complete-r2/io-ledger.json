@@ -1,0 +1,31 @@
+[
+  {
+    "operation": "account-profile-bc3003a-complete-r1/op/96aabb8d08ea5268/8",
+    "interaction": "account-profile-bc3003a-complete-r1/interaction/f5c4188e95716476",
+    "owner": "account-profile-bc3003a-complete-r1/method/96aabb8d08ea5268",
+    "arguments": [
+      "account-profile-bc3003a-complete-r1/v/96aabb8d08ea5268/3",
+      "account-profile-bc3003a-complete-r1/v/96aabb8d08ea5268/4",
+      "account-profile-bc3003a-complete-r1/v/96aabb8d08ea5268/5",
+      "account-profile-bc3003a-complete-r1/v/96aabb8d08ea5268/6",
+      "account-profile-bc3003a-complete-r1/v/96aabb8d08ea5268/p/1"
+    ],
+    "expression": "volvoIdAccountApiClient.GetUserDataV2(userProperties.Uuid,\n                userProperties.Region, userProperties.Brand, userProperties.UserAccessToken,\n                operationId)",
+    "target": "account-profile-bc3003a-complete-r1/component/account-api"
+  },
+  {
+    "operation": "account-profile-bc3003a-complete-r1/op/6dfee1fdeb4bfbf1/9",
+    "interaction": "account-profile-bc3003a-complete-r1/interaction/b4657714beda1292",
+    "owner": "account-profile-bc3003a-complete-r1/method/6dfee1fdeb4bfbf1",
+    "arguments": [
+      "account-profile-bc3003a-complete-r1/v/6dfee1fdeb4bfbf1/3",
+      "account-profile-bc3003a-complete-r1/v/6dfee1fdeb4bfbf1/4",
+      "account-profile-bc3003a-complete-r1/v/6dfee1fdeb4bfbf1/5",
+      "account-profile-bc3003a-complete-r1/v/6dfee1fdeb4bfbf1/6",
+      "account-profile-bc3003a-complete-r1/v/6dfee1fdeb4bfbf1/7",
+      "account-profile-bc3003a-complete-r1/v/6dfee1fdeb4bfbf1/p/2"
+    ],
+    "expression": "volvoIdAccountApiClient.UpdateUserDataV2(updateUserData, userProperties.Uuid,\n                userProperties.Region, userProperties.Brand, userProperties.UserAccessToken,\n                operationId)",
+    "target": "account-profile-bc3003a-complete-r1/component/account-api"
+  }
+]

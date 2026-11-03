@@ -1,0 +1,11 @@
+
+> groundwork@0.0.0 knowledge:validate
+> node --import ./tools/register.ts --conditions=react-server tools/validate-knowledge.ts reports/volvo-native-rescan/cce-prins-validator-complete/bundle.final-r1.json --snapshot reports/volvo-native-rescan/cce-prins-validator-complete/snapshot.final-r1.json --sources /Users/RNEL/.cache/groundwork/clones
+
+{
+  "snapshot": "51b6a331102fba3d4883137b7e7845e9c6bd0a71c7e4d2d621bb926668267905",
+  "bundles": 1,
+  "records": 10680,
+  "sourceRangesChecked": 1302,
+  "sourceVerification": "pinned_local_files"
+}

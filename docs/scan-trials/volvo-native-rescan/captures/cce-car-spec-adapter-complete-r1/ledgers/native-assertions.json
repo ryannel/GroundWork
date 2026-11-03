@@ -1,0 +1,21 @@
+{
+  "status": "passed",
+  "records": 118416,
+  "sourceFrames": 1416,
+  "opaqueImportedRegistrationTargets": 1,
+  "boundSourceKnownVoidCalls": 86,
+  "localSignatureKnownVoidCalls": 5,
+  "goroutinesWithoutHandles": 5,
+  "sourceRESTBusinessRoutes": 7,
+  "subscriptions": 3,
+  "sqlWrites": 6,
+  "sourceInspection": "examined",
+  "sourceRangeKinds": {
+    "slice-or-array-source-projection": 287,
+    "map": 26,
+    "integer": 1,
+    "unresolved": 5
+  },
+  "analysisLimits": 73,
+  "bundleSha256": "8374d820919f8374306cb31d22759d5a67886ba721aee99ed6a23694546cda6e"
+}

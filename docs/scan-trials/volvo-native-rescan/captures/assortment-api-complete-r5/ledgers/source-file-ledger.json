@@ -1,0 +1,2662 @@
+[
+  {
+    "path": "src/PopCat.Assortment.Api/Controllers/AboutController.cs",
+    "sha256": "c5b3464c4d8ec45e180754d580f74ded9e2b05ebd3db284d3a795b916b3543f3",
+    "lines": 18,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 1,
+    "callbacks": 0,
+    "sourceTypes": 1,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Api/Controllers/Admin/CacheController.cs",
+    "sha256": "9f9ce59c10eb8ebbc23f9ee3176d02aab4e204ad46730163c6a954d5abe616f0",
+    "lines": 82,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 7,
+    "callbacks": 2,
+    "sourceTypes": 1,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Api/Controllers/AssortmentApiControllerBase.cs",
+    "sha256": "ebbb832407b1eb4241e1334a6426bbee5ec57b2382f0347b4c92a46d0831af50",
+    "lines": 38,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 4,
+    "callbacks": 2,
+    "sourceTypes": 1,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Api/Controllers/CarConfigController.cs",
+    "sha256": "0ae77dd32ecd909dc2aea2db2621c460446bd8c8dbb6b64dba393c01b076fe4a",
+    "lines": 59,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 2,
+    "callbacks": 0,
+    "sourceTypes": 1,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Api/Controllers/ClassificationController.cs",
+    "sha256": "ac19594b9f3aa7505adbd47b2d944f9687c62a2464ba1365f161821922612e03",
+    "lines": 42,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 2,
+    "callbacks": 1,
+    "sourceTypes": 1,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Api/Controllers/ExternalCarCodeController.cs",
+    "sha256": "205c2f66880143bb52ccb38e37aa6b401e6cced639975769c835431b8a205c0b",
+    "lines": 59,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 6,
+    "callbacks": 2,
+    "sourceTypes": 1,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Api/Controllers/GlobalDictionaryController.cs",
+    "sha256": "e65a614a69e1d0ac425dbbaa675aaa6de219948b25b47718a0f0bb8b0f958d94",
+    "lines": 42,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 3,
+    "callbacks": 1,
+    "sourceTypes": 1,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Api/Controllers/MarketAuthController.cs",
+    "sha256": "f2a19f88a2f297dd2339adf84823cade702d56f53d29adae0acb04f4cd4d46d5",
+    "lines": 38,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 2,
+    "callbacks": 1,
+    "sourceTypes": 1,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Api/Controllers/ProductDetailsController.cs",
+    "sha256": "2a0d7074b1f787efb0705d7770663fa8bfb165608dc81c44b2f1c472656c74db",
+    "lines": 186,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 12,
+    "callbacks": 1,
+    "sourceTypes": 1,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Api/Controllers/ProductsController.cs",
+    "sha256": "40c0d13f8d1f070519131c6e1b01b7825a800f0f4cf94eda54b1dd37d272ef86",
+    "lines": 50,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 3,
+    "callbacks": 1,
+    "sourceTypes": 1,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Api/Controllers/SpecMarketController.cs",
+    "sha256": "572a394b85f19cf05e8125a1af2c6fa8d1fb8a69504ac9d8865bceee87e3ae1d",
+    "lines": 21,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 1,
+    "callbacks": 0,
+    "sourceTypes": 1,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Api/Controllers/SpecificationController.cs",
+    "sha256": "dd94c0fde4986ad419a247501d371913d6c16e7cb47d71199fc46fc2c34370ba",
+    "lines": 50,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 3,
+    "callbacks": 1,
+    "sourceTypes": 1,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Api/PopCat.Assortment.Api.csproj",
+    "sha256": "7d9b639583d1cd67476c663b39c180f2aab64ced9cfefc51d337c0cf3b6806f8",
+    "lines": 21,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 0,
+    "callbacks": 0,
+    "sourceTypes": 0,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Api/Request/GetCarConfigRequest.cs",
+    "sha256": "0217f7a897a5ff0c48ba13351cf6e0b07703588ed7f6b1e4dc091111b1c7f490",
+    "lines": 18,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 2,
+    "callbacks": 0,
+    "sourceTypes": 1,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Api/Request/GetExternalCarCodeRequest.cs",
+    "sha256": "b81cb5e7bcab622fcfd542b76072484220953de673791324d731aaaa072c5efc",
+    "lines": 9,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 0,
+    "callbacks": 0,
+    "sourceTypes": 1,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Api/Request/ListPno12sRequest.cs",
+    "sha256": "4703863e39f4a27565d3c5b064315117dfa3c47838f271f58b0b3c4e921bbd21",
+    "lines": 22,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 2,
+    "callbacks": 0,
+    "sourceTypes": 1,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Api/Request/TransformationRequest.cs",
+    "sha256": "4df9bd174873ed3722cc6db833403134a69483292f10e462a7d56e1e45d51a0a",
+    "lines": 32,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 0,
+    "callbacks": 0,
+    "sourceTypes": 3,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Api/Response/TransformationResponse.cs",
+    "sha256": "56302e13833f00e8151439ce67ce4f53c402dc599669212da22f43b6a6640bad",
+    "lines": 19,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 0,
+    "callbacks": 0,
+    "sourceTypes": 3,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Api/Utils/InputValidations.cs",
+    "sha256": "c9e4ed715632dccf090d4275104f682679ae09dc8094dedd59311d3769f77163",
+    "lines": 56,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 6,
+    "callbacks": 0,
+    "sourceTypes": 6,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Api/Utils/TransformationMapper.cs",
+    "sha256": "c62082dc7fed617425cfdf489a67848c88fb52ed8cff056cc6e2739957fd9c23",
+    "lines": 52,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 2,
+    "callbacks": 2,
+    "sourceTypes": 1,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Api/packages.lock.json",
+    "sha256": "716a64c8e736262723cb52396b6eb10d1f62150b227850c1fd327588357db45a",
+    "lines": 135,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 0,
+    "callbacks": 0,
+    "sourceTypes": 0,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.CacheWorker.Host/Configuration/KafkaConsumerSettings.cs",
+    "sha256": "54ea46b6109d2d3352e20d3572f47010283f9b6fb30f16838cfbbf4a4da1e81d",
+    "lines": 45,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 1,
+    "callbacks": 0,
+    "sourceTypes": 2,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.CacheWorker.Host/Extensions/ApplicationBuilderExtensions.cs",
+    "sha256": "c63ea43f4bcec56f5b6b3dfd2bf8756acadc0572be2afcf9429d504ff7a4f5b1",
+    "lines": 75,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 5,
+    "callbacks": 3,
+    "sourceTypes": 1,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.CacheWorker.Host/Extensions/LogExtensions.cs",
+    "sha256": "16a3c9bf72444e95548dd08519ced6836efe64ac8beff55d85c98a931946e98f",
+    "lines": 21,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 2,
+    "callbacks": 0,
+    "sourceTypes": 1,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.CacheWorker.Host/MessageProcessor/ClassificationMessageProcessor.cs",
+    "sha256": "ca4b8ac3dec85311a10b68d38b9fc52504bf3419851bb49df832bde7dfe76b79",
+    "lines": 88,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 4,
+    "callbacks": 0,
+    "sourceTypes": 1,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.CacheWorker.Host/MessageProcessor/IMessageProcessor.cs",
+    "sha256": "2d0a2afab47641d4d44f20f38388d8ec592b75a06e1222aa4fd826b1beb36011",
+    "lines": 19,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 2,
+    "callbacks": 2,
+    "sourceTypes": 1,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.CacheWorker.Host/MessageProcessor/IMessageProcessorFactory.cs",
+    "sha256": "c3cdd90c48d7b690a17844ccd695c677ccfd9d4fd39d5e43bb956393057c1990",
+    "lines": 7,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 0,
+    "callbacks": 0,
+    "sourceTypes": 1,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.CacheWorker.Host/MessageProcessor/KafkaEvent.cs",
+    "sha256": "5cd1ab3b0d0cc83808a6f303b679f77a17546e8f61cfb8662f61e53658dfdcec",
+    "lines": 13,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 0,
+    "callbacks": 0,
+    "sourceTypes": 2,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.CacheWorker.Host/MessageProcessor/ManageCommercialMessageProcessor.cs",
+    "sha256": "e3aa1c02981b1149e66e3ebd90bfd7748c63af9bd80baa7ceef23eaf881538ce",
+    "lines": 125,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 10,
+    "callbacks": 20,
+    "sourceTypes": 2,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.CacheWorker.Host/MessageProcessor/ManageSegmentMessageProcessor.cs",
+    "sha256": "8fd9dc4784bb73b2cf86f768af76ec4bc2d03c11940e381d320117b521dfd3a4",
+    "lines": 122,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 6,
+    "callbacks": 13,
+    "sourceTypes": 1,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.CacheWorker.Host/MessageProcessor/MessageProcessorFactory.cs",
+    "sha256": "d33d741dfa4f18020797c0125ae56d804d07e1f9f22c71993e408004bf76a4be",
+    "lines": 12,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 1,
+    "callbacks": 1,
+    "sourceTypes": 1,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.CacheWorker.Host/MessageProcessor/PCFCarConfigMessageProcessor.cs",
+    "sha256": "e4a6dd0fc577f2574558b00919322491fe7da08f7f04da9de8d5db5aaffb746c",
+    "lines": 28,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 2,
+    "callbacks": 0,
+    "sourceTypes": 1,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.CacheWorker.Host/MessageProcessor/PCFGlobalDictionaryEntriesMessageProcessor.cs",
+    "sha256": "5a90bf8c067eb5d58ed63eb1eb8db963d2dac5a2cd7bb681b7111b68780a0262",
+    "lines": 107,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 5,
+    "callbacks": 7,
+    "sourceTypes": 1,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.CacheWorker.Host/MessageProcessor/PCFGlobalDictionaryMessageProcessor.cs",
+    "sha256": "4c7c8e0d52b89d6663a7f71e2614458f18c0351d6a93b1a03b455508c47f0138",
+    "lines": 29,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 1,
+    "callbacks": 0,
+    "sourceTypes": 1,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.CacheWorker.Host/MessageProcessor/PCFMarketAuthEntriesMessageProcessor.cs",
+    "sha256": "1bc583a6f15a7166907c0067b9772f022ad90fde9dd62e1d3ff40e6b6919b3a3",
+    "lines": 75,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 5,
+    "callbacks": 6,
+    "sourceTypes": 1,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.CacheWorker.Host/MessageProcessor/PCFMarketAuthMessageProcessor.cs",
+    "sha256": "d04dbd268ef3fc9605f9476de0af9cb898dde1387fc30b2996c811818e60414a",
+    "lines": 26,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 1,
+    "callbacks": 0,
+    "sourceTypes": 1,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.CacheWorker.Host/MessageProcessor/PDSMessageProcessor.cs",
+    "sha256": "0ad992cc41306c683e0d6d00eae4474cff526ff179e4ad3abd4b850392430b6e",
+    "lines": 160,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 10,
+    "callbacks": 15,
+    "sourceTypes": 1,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.CacheWorker.Host/MessageProcessor/SpecificationMessageProcessor.cs",
+    "sha256": "df25abd86fb3b921a0bb3e257546debfd2cf318c6a71244a66353df29f135e55",
+    "lines": 89,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 4,
+    "callbacks": 0,
+    "sourceTypes": 1,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.CacheWorker.Host/PopCat.Assortment.CacheWorker.Host.csproj",
+    "sha256": "449afa9efcb46a91124ed6dd57e959ee500971cc9f0298da21ef50c1fcf7936e",
+    "lines": 36,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 0,
+    "callbacks": 0,
+    "sourceTypes": 0,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.CacheWorker.Host/Program.cs",
+    "sha256": "d682d0505a7e85bb5f7c3d8b8c8a351ff017280b81ff0abe23bcb1ba24d08b84",
+    "lines": 37,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 1,
+    "callbacks": 0,
+    "sourceTypes": 1,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.CacheWorker.Host/Properties/launchSettings.json",
+    "sha256": "ea23629037caf5974330a241dd2aa212a0700c4ca74a790658396ba2424247ec",
+    "lines": 10,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 0,
+    "callbacks": 0,
+    "sourceTypes": 0,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.CacheWorker.Host/Protos/manage/capmessage.proto",
+    "sha256": "4b682e2018300c8761f7c8e436cc1a133b109dc108926ef9c21af475050177f3",
+    "lines": 21,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 0,
+    "callbacks": 0,
+    "sourceTypes": 0,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.CacheWorker.Host/Protos/manage/jatomessage.proto",
+    "sha256": "dbc83ae6250029824efe2b7642a50b78b39526d993b204ed5c7a0579eeab4d3f",
+    "lines": 19,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 0,
+    "callbacks": 0,
+    "sourceTypes": 0,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.CacheWorker.Host/Protos/manage/nat_code_mapping.proto",
+    "sha256": "3c9cc46d721d31268355aedffd8b8f7c0c9d6215b3035f16c9ed5b7ac489d360",
+    "lines": 19,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 0,
+    "callbacks": 0,
+    "sourceTypes": 0,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.CacheWorker.Host/Protos/manage/schwacke.proto",
+    "sha256": "2f5ac42dac4abd5f91dfc41b551c18acefe658aced867a9affac0dd660420083",
+    "lines": 19,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 0,
+    "callbacks": 0,
+    "sourceTypes": 0,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.CacheWorker.Host/Protos/manage/soft_offer.proto",
+    "sha256": "3b96f04660028b3c1d7724984c6e2be5ce14b8d76699e0d170ba758496517b62",
+    "lines": 22,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 0,
+    "callbacks": 0,
+    "sourceTypes": 0,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.CacheWorker.Host/Protos/manage/soft_offer_package.proto",
+    "sha256": "ffa38e5a422ce506f0f3f88c970a7e63abfe533965a78405d80a440a2186a276",
+    "lines": 28,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 0,
+    "callbacks": 0,
+    "sourceTypes": 0,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.CacheWorker.Host/Protos/manage/software_option.proto",
+    "sha256": "9bfcc1b21416a63ae9dd6798176de7d82a8d943b3c6cadc2924e010fac3268d2",
+    "lines": 22,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 0,
+    "callbacks": 0,
+    "sourceTypes": 0,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.CacheWorker.Host/Protos/pcf/carconfigmessage.proto",
+    "sha256": "b038b484dee148e8911510610cd899592d400d7a575aea6a5b2701420cd5e7c1",
+    "lines": 18,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 0,
+    "callbacks": 0,
+    "sourceTypes": 0,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.CacheWorker.Host/Protos/pcf/globaldictionaryentriesupdated.proto",
+    "sha256": "c7ca5e3f26c2a938c9e16fd71aa8262605d92f33f4b7a87974df785dde8c3f4c",
+    "lines": 19,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 0,
+    "callbacks": 0,
+    "sourceTypes": 0,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.CacheWorker.Host/Protos/pcf/globaldictionarymessage.proto",
+    "sha256": "1af357c9655b01e613fb3b39088d001add4938eab0f7a7f1baefd2838a2ef3b0",
+    "lines": 11,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 0,
+    "callbacks": 0,
+    "sourceTypes": 0,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.CacheWorker.Host/Protos/pcf/marketauthentriesupdated.proto",
+    "sha256": "3068e9c6f087387e2630b7f578f4e48258d10b91f4105d0ad3eaa4bf56a07f90",
+    "lines": 16,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 0,
+    "callbacks": 0,
+    "sourceTypes": 0,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.CacheWorker.Host/Protos/pcf/marketauthmessage.proto",
+    "sha256": "998038b96cd52dc2319fe84cdcf423f0d156995d82dcf9eab01c7c31958d6ea6",
+    "lines": 12,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 0,
+    "callbacks": 0,
+    "sourceTypes": 0,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.CacheWorker.Host/Protos/pds/productdetailservice_package.proto",
+    "sha256": "fcdf411e6104a1bb24515c1eb54bee7e5d65fb885934830a630b3d1c883a3745",
+    "lines": 43,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 0,
+    "callbacks": 0,
+    "sourceTypes": 0,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.CacheWorker.Host/Protos/pds/productdetailservice_product.proto",
+    "sha256": "bbf6733eb25d5969351389d42ee4abc8fe901f6de5cd089133ef10e2b9ad0b47",
+    "lines": 43,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 0,
+    "callbacks": 0,
+    "sourceTypes": 0,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.CacheWorker.Host/Protos/pds/specification_value.proto",
+    "sha256": "600c9b12b9dd7159419a655f5a37bc0c7d95278098f1e05ad8a609e4b4bd0028",
+    "lines": 18,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 0,
+    "callbacks": 0,
+    "sourceTypes": 0,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.CacheWorker.Host/Services/KafkaConsumerService.cs",
+    "sha256": "32240e0c81bccb13833b2eddb33114c70e0a12a3878e8fed3dc175b864a1d455",
+    "lines": 98,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 4,
+    "callbacks": 1,
+    "sourceTypes": 1,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.CacheWorker.Host/appsettings.Development.json",
+    "sha256": "b5b6abd6108e02b5c924afc2202dba50d73308cdb3b10a328cf76861f3ffbee5",
+    "lines": 27,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 0,
+    "callbacks": 0,
+    "sourceTypes": 0,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.CacheWorker.Host/appsettings.Production.json",
+    "sha256": "799be6d5c5504b0805f16be63eb2e31160c5c1ca87c7ba8a6e6d0b900b49d77f",
+    "lines": 5,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 0,
+    "callbacks": 0,
+    "sourceTypes": 0,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.CacheWorker.Host/appsettings.Qa.json",
+    "sha256": "6c9d454e9f8234e78c62e23e9a438c157dbd0eae80f604be3e598cb566892df3",
+    "lines": 5,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 0,
+    "callbacks": 0,
+    "sourceTypes": 0,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.CacheWorker.Host/appsettings.Test.json",
+    "sha256": "de6f5a51ac1c794195d7c2ade6273f9c3e40ee948838892d23ad7b27c1a4d1ac",
+    "lines": 16,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 0,
+    "callbacks": 0,
+    "sourceTypes": 0,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.CacheWorker.Host/appsettings.json",
+    "sha256": "62e0ca505c4e16021a722db0c8b5b98eebad9ce523d98c7eeca2c23bd5178e39",
+    "lines": 66,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 0,
+    "callbacks": 0,
+    "sourceTypes": 0,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.CacheWorker.Host/packages.lock.json",
+    "sha256": "7894e1b5fa76deef449125bb286fa32bcc4817d20f30b3e9e1365cadb5a3256d",
+    "lines": 1530,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 0,
+    "callbacks": 0,
+    "sourceTypes": 0,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Contracts/Errors/NotFoundError.cs",
+    "sha256": "09d943d147cb6f591341e569749a55172b07a4f78f95138975301d361f37bf65",
+    "lines": 9,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 0,
+    "callbacks": 0,
+    "sourceTypes": 1,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Contracts/Errors/ResultErrorExtensions.cs",
+    "sha256": "d64340e9483d10210e1fd2382ba4fe9922350042b9ff15eb326ac2ab95a4dc3e",
+    "lines": 10,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 2,
+    "callbacks": 2,
+    "sourceTypes": 1,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Contracts/HealthChecks/HealthCheckTags.cs",
+    "sha256": "04838ba36096dc503c53441c082d7128b2681bc8f6dd085020f1e8b7d1518d95",
+    "lines": 7,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 0,
+    "callbacks": 0,
+    "sourceTypes": 1,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Contracts/Interfaces/ICarConfigCacheService.cs",
+    "sha256": "d39b779a19b54649139c37e40c2e1f6292e81ab3ae18e1dd1ce4f115a56b7dd1",
+    "lines": 10,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 0,
+    "callbacks": 0,
+    "sourceTypes": 1,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Contracts/Interfaces/IClassificationCacheService.cs",
+    "sha256": "4a13fdddacc696300c4a2fff5b0894a9443e82d3a737c93b55eb54ca851c1fe9",
+    "lines": 10,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 0,
+    "callbacks": 0,
+    "sourceTypes": 1,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Contracts/Interfaces/IExternalCarCodeCacheService.cs",
+    "sha256": "c042f99ab6187f3aef3bc6c50a07aa7b863a6cfd9e5ab98194344ecffea791aa",
+    "lines": 12,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 0,
+    "callbacks": 0,
+    "sourceTypes": 1,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Contracts/Interfaces/IGlobalDictionaryCacheService.cs",
+    "sha256": "0fde1e62a2ddcbfe5337314bfbd25130cfa8732edf13b98df407a43828f10b3d",
+    "lines": 10,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 0,
+    "callbacks": 0,
+    "sourceTypes": 1,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Contracts/Interfaces/IMarketAuthCacheService.cs",
+    "sha256": "2e9a27688ffd717be6fa20031ca207c6bdd4e14bfed6e2f95b375e54a23cdfca",
+    "lines": 9,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 0,
+    "callbacks": 0,
+    "sourceTypes": 1,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Contracts/Interfaces/IProductFullDetailsCacheManagementService.cs",
+    "sha256": "47187b5d916d7b7e101fc6ed4c90ea5d1018dbbad0c98e1c0b887d595bcb28d0",
+    "lines": 35,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 0,
+    "callbacks": 0,
+    "sourceTypes": 1,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Contracts/Interfaces/IProductFullDetailsCacheService.cs",
+    "sha256": "92dcbb7a38c7a91f0f9b8d61cfa2332d73ce6497aafe57cc9f5a11ef059ffd33",
+    "lines": 23,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 0,
+    "callbacks": 0,
+    "sourceTypes": 1,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Contracts/Interfaces/IProductServiceService.cs",
+    "sha256": "06fee2b90de91a5527a876d4094bea2c1e0d877e1a0c0ed574ad8c1269d263a4",
+    "lines": 11,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 0,
+    "callbacks": 0,
+    "sourceTypes": 1,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Contracts/Interfaces/ISpecMarketService.cs",
+    "sha256": "501cd5875fbd9db15d97e15ce6056ccd43439779958520ca1be95dc9ad00b53b",
+    "lines": 10,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 0,
+    "callbacks": 0,
+    "sourceTypes": 1,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Contracts/Interfaces/ISpecificationCacheService.cs",
+    "sha256": "0b1f6496acc061757108d82d463f6b55f129231ed1e156fa5720f70a0d13e3e0",
+    "lines": 12,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 0,
+    "callbacks": 0,
+    "sourceTypes": 1,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Contracts/Interfaces/ITransformationService.cs",
+    "sha256": "1a42fbc8e369ab03221e40c2903ded26b3cedc3a38b4945f318b1403f71b8f22",
+    "lines": 8,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 0,
+    "callbacks": 0,
+    "sourceTypes": 1,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Contracts/Interfaces/IUpstreamEntityCacheService.cs",
+    "sha256": "7895ca07f3c6e56b9573121d50aaa9c5d56f3f03622d8ae4e673dd68670bc75d",
+    "lines": 12,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 0,
+    "callbacks": 0,
+    "sourceTypes": 1,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Contracts/Interfaces/IVariantHistoryService.cs",
+    "sha256": "0b815e87b17d9f3adf74d36dcbb1398f052b379911c87def226361577b093694",
+    "lines": 16,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 0,
+    "callbacks": 0,
+    "sourceTypes": 1,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Contracts/Models/CarConfig.cs",
+    "sha256": "76194f49b62056179c5ef8a8847d8ab6e600d27619e124b16f7f678695aafe51",
+    "lines": 15,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 0,
+    "callbacks": 0,
+    "sourceTypes": 1,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Contracts/Models/CarConfigKey.cs",
+    "sha256": "00acef6b4e19a2f39ae46a7236c1d69d836320d03d47a97218f8895b52594d7d",
+    "lines": 7,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 0,
+    "callbacks": 0,
+    "sourceTypes": 1,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Contracts/Models/CarInformation.cs",
+    "sha256": "515cd95d94484889c992a53f02741639e218bba8df8ea67472910fc7bd05b7da",
+    "lines": 18,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 0,
+    "callbacks": 0,
+    "sourceTypes": 1,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Contracts/Models/Classification.cs",
+    "sha256": "f655c1619e39d8011cc21ab26ee76c2575978a8eed00b32b22e239ab3272bbe3",
+    "lines": 3,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 0,
+    "callbacks": 0,
+    "sourceTypes": 1,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Contracts/Models/Colour.cs",
+    "sha256": "4be856efd79b51641062ea4f4214d0eee1eb7b989e22126ae5d93fb0a42ed111",
+    "lines": 8,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 0,
+    "callbacks": 0,
+    "sourceTypes": 1,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Contracts/Models/Constants/ExternalCarProviderConstants.cs",
+    "sha256": "b20a1b08f5b31dde09835f900820ffa07c0287e0facf549f4da69862c546b013",
+    "lines": 9,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 0,
+    "callbacks": 0,
+    "sourceTypes": 1,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Contracts/Models/Country.cs",
+    "sha256": "516643911f640d7ea632d3d0212d0b572b6f7aeda91e46dfc555811439833afd",
+    "lines": 8,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 0,
+    "callbacks": 0,
+    "sourceTypes": 1,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Contracts/Models/DetailInfo.cs",
+    "sha256": "0f344d52f8de186200c899c286bb5745aaf4234a591e3aeb722bb59085da4084",
+    "lines": 30,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 0,
+    "callbacks": 0,
+    "sourceTypes": 3,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Contracts/Models/ElementType.cs",
+    "sha256": "7c4e744db859d11e7fa97fd58064ac0d99aa46de3145585ab63c9fae8a47596f",
+    "lines": 15,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 0,
+    "callbacks": 0,
+    "sourceTypes": 1,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Contracts/Models/ExternalCarCodeInfo.cs",
+    "sha256": "b6f8acd43a42732528dcccbc13a28b3d2303f9d7141023d458b1fd8e2201509a",
+    "lines": 5,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 0,
+    "callbacks": 0,
+    "sourceTypes": 2,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Contracts/Models/Feature.cs",
+    "sha256": "e113e9765f9082e1da6eefe4c3923ff8339dc4b50ee94232599f3a1c5b480184",
+    "lines": 12,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 0,
+    "callbacks": 0,
+    "sourceTypes": 1,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Contracts/Models/FeatureType.cs",
+    "sha256": "fd1e59a84feaa5bf19dfa92f727f115fc4bc42324371f73b7b6d8df6a67fc908",
+    "lines": 18,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 0,
+    "callbacks": 0,
+    "sourceTypes": 1,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Contracts/Models/GlobalDictionary.cs",
+    "sha256": "79a99472c1e5f732c204be8d74dc4f1bb707ac46e876998332f4f50672e2c67d",
+    "lines": 31,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 2,
+    "callbacks": 0,
+    "sourceTypes": 1,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Contracts/Models/GlobalDictionaryEntriesInfo.cs",
+    "sha256": "0fd01725ab42a0325ce4cfc52e5fece231fc7cebe9795be4ccf287b7936dcdc9",
+    "lines": 5,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 0,
+    "callbacks": 0,
+    "sourceTypes": 1,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Contracts/Models/GlobalDictionaryEntry.cs",
+    "sha256": "35bae772ac27ec7190d3d059b8fa2e57281a96605f7878d2b8456835ecb284fb",
+    "lines": 6,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 0,
+    "callbacks": 0,
+    "sourceTypes": 1,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Contracts/Models/GlobalDictionaryEntryDto.cs",
+    "sha256": "928d4a85420f101da15237784a9de54e77a52bdf5d8019f7f887b4e9c5934baf",
+    "lines": 8,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 0,
+    "callbacks": 0,
+    "sourceTypes": 1,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Contracts/Models/GlobalTags.cs",
+    "sha256": "7bb9509d9fff5623aa4cfcdb0a5990ec4807715f3f1e05a63fa0e896e2787dd1",
+    "lines": 2,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 0,
+    "callbacks": 0,
+    "sourceTypes": 1,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Contracts/Models/ICC.cs",
+    "sha256": "44d8ec15ab7da9da2e8d360ef34944d6431c8640ab674915e89fc69e10cc62ed",
+    "lines": 63,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 3,
+    "callbacks": 0,
+    "sourceTypes": 1,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Contracts/Models/ICarConfigSummary.cs",
+    "sha256": "7ae4ca08c7b5debeec01e7f01e340a38568781facd4aad7b24baf5141788f6d9",
+    "lines": 10,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 0,
+    "callbacks": 0,
+    "sourceTypes": 1,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Contracts/Models/IConfigItem.cs",
+    "sha256": "70813867796cdd1e2b972ef2ea784dee9b5d64b9454c5eb2bcfe15e4564885bc",
+    "lines": 9,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 0,
+    "callbacks": 0,
+    "sourceTypes": 1,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Contracts/Models/IDI.cs",
+    "sha256": "c4263f270d7940ad9fef76764f6994d0c466082d3d69e355238b984f841e5935",
+    "lines": 26,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 1,
+    "callbacks": 0,
+    "sourceTypes": 1,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Contracts/Models/IPno12Components.cs",
+    "sha256": "8eece5b55b5e4805dcf9010df4e18b5bf99308c5bf83122bf193fc813351a9b2",
+    "lines": 12,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 0,
+    "callbacks": 0,
+    "sourceTypes": 1,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Contracts/Models/InteriorRoom.cs",
+    "sha256": "62955025bacd9ed975b3c97298a930efef9a8f929335a90fd53ebe4b630acb8f",
+    "lines": 9,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 0,
+    "callbacks": 0,
+    "sourceTypes": 1,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Contracts/Models/ListPno12Query.cs",
+    "sha256": "804e944fe4f3700ecd5a21a075de981e8a8f2f60402998dd35effd67d761d653",
+    "lines": 9,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 0,
+    "callbacks": 0,
+    "sourceTypes": 1,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Contracts/Models/ListPno12QueryResult.cs",
+    "sha256": "3d507397a27e6a22f08d6db305c25dca36b9fb0799861e1ae3c64d5df41973f8",
+    "lines": 6,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 0,
+    "callbacks": 0,
+    "sourceTypes": 1,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Contracts/Models/MarketAuthEntriesInfo.cs",
+    "sha256": "f6f75ac7236eb7e776c94428adc6341d898add9d5d7e1a298cd75a07d55a8d1b",
+    "lines": 6,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 0,
+    "callbacks": 0,
+    "sourceTypes": 1,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Contracts/Models/MarketAuthEntry.cs",
+    "sha256": "c28c55e4832729299f8ea6ac71ed309f9b9481df746e715b47964ffeab6856b2",
+    "lines": 4,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 0,
+    "callbacks": 0,
+    "sourceTypes": 1,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Contracts/Models/MarketAuthorization.cs",
+    "sha256": "4ee2ad82f5183c04f270a262ae851355f81c534d0a71d523b16ae7ad3dc55f0b",
+    "lines": 18,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 1,
+    "callbacks": 0,
+    "sourceTypes": 1,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Contracts/Models/Option.cs",
+    "sha256": "9e78989c3cacd49742706e078b9486a30f5061a6e70e4b405ae91c611ff7cb5c",
+    "lines": 10,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 0,
+    "callbacks": 0,
+    "sourceTypes": 1,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Contracts/Models/Package.cs",
+    "sha256": "7383db193ec6023cadedf0ba2c81d8393ce54e81e408f9e4f7e5ff5d65ebc8eb",
+    "lines": 11,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 0,
+    "callbacks": 0,
+    "sourceTypes": 1,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Contracts/Models/PackageColour.cs",
+    "sha256": "2078db237f1411c88503f207abd22e8ca6de70493a8b8e487d2de13caf525e97",
+    "lines": 9,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 0,
+    "callbacks": 0,
+    "sourceTypes": 1,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Contracts/Models/PackageInteriorRoom.cs",
+    "sha256": "77da9a1bea329e61e165665da7fd82b095888f5b3f12b4af32278cd0b95066bd",
+    "lines": 10,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 0,
+    "callbacks": 0,
+    "sourceTypes": 1,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Contracts/Models/PackageOption.cs",
+    "sha256": "47e27b47a1f71eb7590beb872d1b4fe0ed901449e6393e9a015d73cdf365b7dc",
+    "lines": 11,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 0,
+    "callbacks": 0,
+    "sourceTypes": 1,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Contracts/Models/Pno12.cs",
+    "sha256": "782824b8d57356e70c8f80ff9c9d1518c0dfdcec05b0f58589e698e3e88c1dc0",
+    "lines": 8,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 0,
+    "callbacks": 0,
+    "sourceTypes": 1,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Contracts/Models/Pno12Components.cs",
+    "sha256": "ab16bc3b465243b02fdc721b2919813098297c946aeb0be829595404672252df",
+    "lines": 12,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 0,
+    "callbacks": 0,
+    "sourceTypes": 1,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Contracts/Models/Pno12ListItem.cs",
+    "sha256": "ecfe76fe625a1fa68a1a466d1fb6654efb9251de7fa244561eee011d48bfec1e",
+    "lines": 10,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 0,
+    "callbacks": 0,
+    "sourceTypes": 1,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Contracts/Models/Pno12QueryAggregation.cs",
+    "sha256": "907e30eb72140c329ca7744e1d22fcdfc40b91e1f67e519781319d7844647674",
+    "lines": 12,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 0,
+    "callbacks": 0,
+    "sourceTypes": 1,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Contracts/Models/ProductDetail.cs",
+    "sha256": "f296324e229ede8f539250994720b89be1683c15b3bc7626908da3235380e5b1",
+    "lines": 10,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 0,
+    "callbacks": 0,
+    "sourceTypes": 1,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Contracts/Models/ProductDetailsLookUp.cs",
+    "sha256": "01f784dbdc5c65ca97c2b78a2b769bd356be50c4d079b8ba590d25fe5349a6a3",
+    "lines": 3,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 0,
+    "callbacks": 0,
+    "sourceTypes": 1,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Contracts/Models/ProductIdPaginationToken.cs",
+    "sha256": "753bd2951fd4d0fee9c937f936e04b6310f97f3d5f1b96a977abf6123f79dbca",
+    "lines": 13,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 0,
+    "callbacks": 0,
+    "sourceTypes": 1,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Contracts/Models/ProductOutput/Brand.cs",
+    "sha256": "5ea5f903b870500ed5779398f117d9d84dec0e670ebd00af26f37a67698f24e4",
+    "lines": 8,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 0,
+    "callbacks": 0,
+    "sourceTypes": 1,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Contracts/Models/ProductOutput/Classification.cs",
+    "sha256": "f1de88d6bd3b9d188f836aa80d043727f86f6e7e92cf5dd4f51071c32fcc43dc",
+    "lines": 16,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 0,
+    "callbacks": 0,
+    "sourceTypes": 2,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Contracts/Models/ProductOutput/ComponentTypes.cs",
+    "sha256": "f974dd711afb1b59d398a36fb096519565ba0dc8b97547820e4671a84542acc9",
+    "lines": 7,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 0,
+    "callbacks": 0,
+    "sourceTypes": 1,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Contracts/Models/ProductOutput/Product.cs",
+    "sha256": "34deba3f80ef5d21bd7e5ab4cfd0297151b95c96b0f89d91b95cc80c66a58704",
+    "lines": 10,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 0,
+    "callbacks": 0,
+    "sourceTypes": 1,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Contracts/Models/ProductOutput/ProductQuery.cs",
+    "sha256": "768e9e3ec53743d96bfddc198f2f5b70ea94b79e1996871be4c3e767d275188f",
+    "lines": 43,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 1,
+    "callbacks": 0,
+    "sourceTypes": 1,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Contracts/Models/ProductOutput/ProductType.cs",
+    "sha256": "f715b834087702ad68282dd6fea3899cb5ab542003b43ad93db167dcd3c54d96",
+    "lines": 31,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 0,
+    "callbacks": 0,
+    "sourceTypes": 1,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Contracts/Models/ProductOutput/ProductVariant.cs",
+    "sha256": "a0f035b810dd0bde518f39203170f74fbd44ede76c124d5d24002b2172b768bb",
+    "lines": 12,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 0,
+    "callbacks": 0,
+    "sourceTypes": 1,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Contracts/Models/ProductOutput/UpstreamItem.cs",
+    "sha256": "78dfc09ab19ed96509bf03a2305839798d2d02d7666bfe61b1ad5bdcd68d1996",
+    "lines": 37,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 0,
+    "callbacks": 0,
+    "sourceTypes": 2,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Contracts/Models/ProductOutput/VariantRule.cs",
+    "sha256": "1de714dcd4cbed063f467572a652bd0fbdc3ad2c9263de33c1d565ede5ad0c8f",
+    "lines": 50,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 0,
+    "callbacks": 0,
+    "sourceTypes": 2,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Contracts/Models/ProductTypePaginationToken.cs",
+    "sha256": "2479c720c007f87f5bac940cb053fb894126978bc776e2ae6e4ccff75d309bd9",
+    "lines": 13,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 0,
+    "callbacks": 0,
+    "sourceTypes": 1,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Contracts/Models/ProductionDates.cs",
+    "sha256": "f83b23e720e98dc1d9b4a903f302dd8d8e2f1bbd20b9b5392fd873c94cbc85a7",
+    "lines": 6,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 0,
+    "callbacks": 0,
+    "sourceTypes": 1,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Contracts/Models/ProductionWeek.cs",
+    "sha256": "8ea0915aac34e78f7ebbdbb80b65011bc4c5522bf0806d66a962e13fb2bab27d",
+    "lines": 6,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 0,
+    "callbacks": 0,
+    "sourceTypes": 1,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Contracts/Models/ReplacedOption.cs",
+    "sha256": "f7cf0e6ed929574825122510078f02bf01021f149a63bf14c49b61c8a1ae0227",
+    "lines": 9,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 0,
+    "callbacks": 0,
+    "sourceTypes": 1,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Contracts/Models/Requests/CarConfigDetailsRequest.cs",
+    "sha256": "ac60cd9b8b4d56783f6f7c623c45e591909a3563ff556f21a8b29dd23f0ee014",
+    "lines": 2,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 0,
+    "callbacks": 0,
+    "sourceTypes": 1,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Contracts/Models/Requests/CarConfigQueryRequest.cs",
+    "sha256": "f6d87aa3afeca2ecb01a6796d994afba233c04c28798dbd3344d456c24905f05",
+    "lines": 17,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 0,
+    "callbacks": 0,
+    "sourceTypes": 1,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Contracts/Models/Requests/ExternalCarCodeRequest.cs",
+    "sha256": "ff846ea79e8583cc3907b876c19927b7bb05472afcac712c447a8344de70713b",
+    "lines": 4,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 0,
+    "callbacks": 0,
+    "sourceTypes": 1,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Contracts/Models/Response/Pno12ListResponse.cs",
+    "sha256": "f8a10a7b089bbdeb8146b4bc7f80ba6479c9a241f1542429a1e0fcba6fb0fb8e",
+    "lines": 8,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 0,
+    "callbacks": 0,
+    "sourceTypes": 1,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Contracts/Models/Response/ProductDetailListResponse.cs",
+    "sha256": "6b463e37c6632255ab2912ebe26c9c7ba4c86e19fb2fa45cf14f6956b2f0bc57",
+    "lines": 7,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 0,
+    "callbacks": 0,
+    "sourceTypes": 1,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Contracts/Models/Response/ProductTypesListResponse.cs",
+    "sha256": "d3399d44c23f4cf86611584b075f1522473ca642371f9acc2322e34d1150cc26",
+    "lines": 6,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 0,
+    "callbacks": 0,
+    "sourceTypes": 1,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Contracts/Models/Response/VariantDetailListResponse.cs",
+    "sha256": "8995ae38228d90d90a69115ce17c3bbaf0253a57a0d1e5aa562563c693690717",
+    "lines": 7,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 0,
+    "callbacks": 0,
+    "sourceTypes": 1,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Contracts/Models/SMessage.cs",
+    "sha256": "d47187074b1840217733e93cc9508b257936e1c114e250a5023714190e4faee7",
+    "lines": 8,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 0,
+    "callbacks": 0,
+    "sourceTypes": 1,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Contracts/Models/SpecMarket.cs",
+    "sha256": "5e7bc16645a15ee44bd42901e51f7b477b14c6b1264a289b8d7837c771d57e31",
+    "lines": 8,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 0,
+    "callbacks": 0,
+    "sourceTypes": 1,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Contracts/Models/SpecMarketsResponse.cs",
+    "sha256": "6d11597ea3abd217c66fc9a2007f53669ad0052e5448e24fa1835aeec993e94d",
+    "lines": 4,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 0,
+    "callbacks": 0,
+    "sourceTypes": 1,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Contracts/Models/Specification.cs",
+    "sha256": "eab41f59c85c5b0cd0972ea08fdf31e227371d0121e1e795cd602d508f50360d",
+    "lines": 3,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 0,
+    "callbacks": 0,
+    "sourceTypes": 1,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Contracts/Models/SpecificationValue.cs",
+    "sha256": "ff09603bf631ff2e6e0490962352068fb2e134493a98396e0bf01e95c50ae921",
+    "lines": 3,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 0,
+    "callbacks": 0,
+    "sourceTypes": 1,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Contracts/Models/Transformation/TransformationQuery.cs",
+    "sha256": "16d529b75e9f686a4666c41937f44e73d3f91faa3dabbfcbb5b90c7ca3321304",
+    "lines": 32,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 0,
+    "callbacks": 0,
+    "sourceTypes": 3,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Contracts/Models/Transformation/TransformationResult.cs",
+    "sha256": "1c93dfac252b0abc7894caaf115389e94d456e213c30451eebcfe766207c3cb7",
+    "lines": 19,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 0,
+    "callbacks": 0,
+    "sourceTypes": 3,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Contracts/Models/UpstreamEntity.cs",
+    "sha256": "e090e45de59fb35ca37c6fbff70d801b0eda2cea3caae04802dcc568d56495f6",
+    "lines": 3,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 0,
+    "callbacks": 0,
+    "sourceTypes": 1,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Contracts/Models/VariantDetail.cs",
+    "sha256": "0b6e026989357e9e4c529749c9717bc1495640ba36ccf2ce4ee2b090edff7b2d",
+    "lines": 15,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 0,
+    "callbacks": 0,
+    "sourceTypes": 1,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Contracts/Models/VariantVersion.cs",
+    "sha256": "580ade825ea49baf96c3ded86b5cf7e70e3f095a23d5004dcd94a3d96a79bf15",
+    "lines": 17,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 0,
+    "callbacks": 0,
+    "sourceTypes": 2,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Contracts/PopCat.Assortment.Contracts.csproj",
+    "sha256": "6857b8035e20576adf4e224e47e1d86a8a8f0ba0009eb9b6dc6171dd61b1f836",
+    "lines": 12,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 0,
+    "callbacks": 0,
+    "sourceTypes": 0,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Contracts/packages.lock.json",
+    "sha256": "fc0287d5c289095e45ddf123c1d01dfefa7d8f52d0dd056592108fadc5b1d628",
+    "lines": 616,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 0,
+    "callbacks": 0,
+    "sourceTypes": 0,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Core/Builders/MarketAuthEntryFactory.cs",
+    "sha256": "27672a44b717b0190eb31a1037d15a270b6943e12d618d24e38db4500d0e0a78",
+    "lines": 30,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 2,
+    "callbacks": 1,
+    "sourceTypes": 1,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Core/Builders/ProductDetailsBuilder.cs",
+    "sha256": "3d68d589d212d143e5ab2dd46f26d1e89dd3c7207d8c29a1f762c0b5d5bb1738",
+    "lines": 76,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 3,
+    "callbacks": 5,
+    "sourceTypes": 2,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Core/Configuration/ProviderClientNameSettings.cs",
+    "sha256": "a04eda7fe55c26448949bc42aab7f5a9d3ad18462e71d71da84d8138d91c2a04",
+    "lines": 7,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 0,
+    "callbacks": 0,
+    "sourceTypes": 1,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Core/Configuration/RedisSettings.cs",
+    "sha256": "9300bf171a4ddd501e4416636b9ea00d3bef2d5a57099f10c6360fcbf7c36a4e",
+    "lines": 7,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 0,
+    "callbacks": 0,
+    "sourceTypes": 1,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Core/Configure.cs",
+    "sha256": "71bc9424d9317b291b505def8d705282dbc1761b02b686cd70b549173b0ece9a",
+    "lines": 44,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 1,
+    "callbacks": 2,
+    "sourceTypes": 1,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Core/FluentResultLogger.cs",
+    "sha256": "f482515e50a5211355d59710eff2dd9c2a17760efb5a2085f4bdad5a9b1ff92e",
+    "lines": 28,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 2,
+    "callbacks": 4,
+    "sourceTypes": 1,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Core/Helper/CountrySetup.cs",
+    "sha256": "d6fcc09b91ff2b94a21f4881aa194c3ddf9120bcc6ba208a2f78494a30b488e2",
+    "lines": 275,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 1,
+    "callbacks": 1,
+    "sourceTypes": 1,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Core/Keys/CacheKeys.cs",
+    "sha256": "32b8503abefeb35c6036c8883c29a9fc04ae085cfbdac2d9528d191ed25118b7",
+    "lines": 17,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 8,
+    "callbacks": 0,
+    "sourceTypes": 1,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Core/PopCat.Assortment.Core.csproj",
+    "sha256": "7df83464417ca1a1098031a349d97d14ace0ff76ec597d4d7206be383c182012",
+    "lines": 23,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 0,
+    "callbacks": 0,
+    "sourceTypes": 0,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Core/Services/CacheSerializerService.cs",
+    "sha256": "2e5f240ffaf0c839acef600f6b65ad3043e5f4de3afc01d3c4dc5c4669f2f019",
+    "lines": 34,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 3,
+    "callbacks": 2,
+    "sourceTypes": 2,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Core/Services/CarConfigCacheService.cs",
+    "sha256": "01890bcae5460631a6b87e6aae37e19d1deabee6af6f5b26e5b67bf7b20ff09f",
+    "lines": 244,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 11,
+    "callbacks": 16,
+    "sourceTypes": 1,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Core/Services/ClassificationCacheService.cs",
+    "sha256": "dcf03dc6b5eef0562513861a428d7a289104bdbc7b2a79d977db17dda35b2867",
+    "lines": 85,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 6,
+    "callbacks": 12,
+    "sourceTypes": 1,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Core/Services/ExternalCarCodeCacheService.cs",
+    "sha256": "ef8b59b7db0dd56173f8bb67f8d1281822b57918c6c84be27daf62fbab3c6bb4",
+    "lines": 175,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 8,
+    "callbacks": 6,
+    "sourceTypes": 1,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Core/Services/GlobalDictionaryCacheService.cs",
+    "sha256": "5daa6604562da814af043e672aa4f274fd0e7135ffd3887645c1818a11d39eb7",
+    "lines": 132,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 9,
+    "callbacks": 10,
+    "sourceTypes": 1,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Core/Services/IHotCacheService.cs",
+    "sha256": "0c5cf9257fbe4f2076869109b37974bf8043dedb833e65b77fe4dc3027531bbd",
+    "lines": 16,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 0,
+    "callbacks": 0,
+    "sourceTypes": 2,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Core/Services/MarketAuthCacheService.cs",
+    "sha256": "75fe4f5941e3fbd472bc6a417ac3b780f9d003bc11c0e84575bec323c6058598",
+    "lines": 128,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 10,
+    "callbacks": 15,
+    "sourceTypes": 1,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Core/Services/ProductFullDetailsCacheManagementService.cs",
+    "sha256": "ca875828133a7f7c73502e5d5d9fece831de0adb0479c1a07627818a1cacd0cb",
+    "lines": 335,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 31,
+    "callbacks": 45,
+    "sourceTypes": 1,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Core/Services/ProductFullDetailsCacheService.cs",
+    "sha256": "99d6bde6114fd6fc5be8937afa62278ce3ed1b7e8922a877e693040d663999c8",
+    "lines": 314,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 22,
+    "callbacks": 19,
+    "sourceTypes": 1,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Core/Services/ProductServiceService.cs",
+    "sha256": "1a261d3a49db72a7db20f9f1d371c281fd5b4a34c395bf4141df2c0bdffd6fcc",
+    "lines": 146,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 12,
+    "callbacks": 3,
+    "sourceTypes": 1,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Core/Services/RedisCacheService.cs",
+    "sha256": "7a43b4bd568d044baa28039c2d3b985cddab88846feb8ef7f53ae3914fb1ec1c",
+    "lines": 82,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 6,
+    "callbacks": 5,
+    "sourceTypes": 1,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Core/Services/SpecMarketService.cs",
+    "sha256": "ad363b72ca2bee0073a8448ce51056f0560ca6aad07efc9c58d6c30dd666e546",
+    "lines": 143,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 3,
+    "callbacks": 2,
+    "sourceTypes": 1,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Core/Services/SpecificationCacheService.cs",
+    "sha256": "daf4243ae7e266976d555ffed4d18b1aa72104077e30c9d6891b198a500a9bfa",
+    "lines": 140,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 11,
+    "callbacks": 21,
+    "sourceTypes": 1,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Core/Services/TransformationService.cs",
+    "sha256": "61d6f4fe189add2241ec038b307aadbc4e28b6bdeb2f9d930b63b8998eadd352",
+    "lines": 194,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 8,
+    "callbacks": 11,
+    "sourceTypes": 1,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Core/Services/UpstreamEntityCacheService.cs",
+    "sha256": "4ffb9ff492b048060a0cd4d77cd2f71e75983df794e902e31520d86609fdb140",
+    "lines": 142,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 8,
+    "callbacks": 12,
+    "sourceTypes": 1,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Core/Services/VariantHistoryService.cs",
+    "sha256": "2818d32718ffb1a4cfe82f9db9f843729141a69c892a92aee56c1c84a1a02c2d",
+    "lines": 112,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 6,
+    "callbacks": 1,
+    "sourceTypes": 1,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Core/packages.lock.json",
+    "sha256": "452fa523aef035d6f4820299d5362705e700af96ccf1cd63dcb43a718066745b",
+    "lines": 1057,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 0,
+    "callbacks": 0,
+    "sourceTypes": 0,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Host/Configuration/OAuthSettings.cs",
+    "sha256": "2f36f8a57cf561d51aeeefe802237f57fddc5aff519c1ef603fd48348224b859",
+    "lines": 59,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 2,
+    "callbacks": 0,
+    "sourceTypes": 3,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Host/Extensions/ApplicationBuilderExtensions.cs",
+    "sha256": "b1a0cdad9730c021cac8fb4f09eb95f88d3261a777ccb38db0fc9bd4e36fea46",
+    "lines": 139,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 9,
+    "callbacks": 9,
+    "sourceTypes": 1,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Host/Extensions/CorrelationIdExtensions.cs",
+    "sha256": "7b81be72fff4d13615268591c99a5a7432c14fc7fcd1922d0173258fcc6a74ae",
+    "lines": 24,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 2,
+    "callbacks": 1,
+    "sourceTypes": 1,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Host/Extensions/HealthCheckExtensions.cs",
+    "sha256": "1ef74d288b86a42eb629b42bef00f6bd651870bc849ffd7e10a6ec263f4f03a0",
+    "lines": 36,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 2,
+    "callbacks": 4,
+    "sourceTypes": 1,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Host/Extensions/SwaggerExtensions.cs",
+    "sha256": "68e104e61f976aca9ce3d5cff22a812411a5436e862f2189804cd6ea4e403d1b",
+    "lines": 55,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 2,
+    "callbacks": 5,
+    "sourceTypes": 1,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Host/PopCat.Assortment.Host.csproj",
+    "sha256": "97bfed52026a8fde8a1ed6449033d37a19bc8783c7aafad146f75447b93e9f7a",
+    "lines": 26,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 0,
+    "callbacks": 0,
+    "sourceTypes": 0,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Host/Program.cs",
+    "sha256": "f706b050f0b4b5f528ed853c011853fe8090ed99c263964410f9444a19aa6af7",
+    "lines": 46,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 1,
+    "callbacks": 0,
+    "sourceTypes": 0,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Host/Properties/launchSettings.json",
+    "sha256": "ed2e586124e8779b6e976e6a4cea1731f0d7e586b193c772f3e6b1e06e1f6f0f",
+    "lines": 41,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 0,
+    "callbacks": 0,
+    "sourceTypes": 0,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Host/appsettings.Development.json",
+    "sha256": "836c47cd0575dcd4c3b3bba8cf2be0d41c4a65b95fbc62974448f66d99305957",
+    "lines": 21,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 0,
+    "callbacks": 0,
+    "sourceTypes": 0,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Host/appsettings.Production.json",
+    "sha256": "ec2f00596f643c3181e6f3c6bfb64bb07cf8994f019df013681c886bee0d8b6a",
+    "lines": 1,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 0,
+    "callbacks": 0,
+    "sourceTypes": 0,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Host/appsettings.Qa.json",
+    "sha256": "ec2f00596f643c3181e6f3c6bfb64bb07cf8994f019df013681c886bee0d8b6a",
+    "lines": 1,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 0,
+    "callbacks": 0,
+    "sourceTypes": 0,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Host/appsettings.Test.json",
+    "sha256": "ec2f00596f643c3181e6f3c6bfb64bb07cf8994f019df013681c886bee0d8b6a",
+    "lines": 1,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 0,
+    "callbacks": 0,
+    "sourceTypes": 0,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Host/appsettings.json",
+    "sha256": "3fd8b79e1ba40665fb5e520e164c82726a85d94f832d1cf1501ebf49fc72a7b6",
+    "lines": 70,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 0,
+    "callbacks": 0,
+    "sourceTypes": 0,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Host/packages.lock.json",
+    "sha256": "6f7d470dff95c9321f2c25805b162fa62dc31e5d0557a867053a50cfe2229fff",
+    "lines": 946,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 0,
+    "callbacks": 0,
+    "sourceTypes": 0,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/Assortment/Models/AssortmentSchema.json",
+    "sha256": "58126921f346d3d7c80a4bdfbbfda1ad1af646d20fdb84933c579650cb0d294e",
+    "lines": 16325,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 0,
+    "callbacks": 0,
+    "sourceTypes": 0,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/Assortment/Provider/AssortmentProvider.cs",
+    "sha256": "facf4e4d959a1e27f2ecdeb61a2ab0388b6db61e428b8dfe4b4eba8e1dd28ea2",
+    "lines": 326,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 23,
+    "callbacks": 19,
+    "sourceTypes": 2,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/Authentication/AzureAuthenticationDelegatingHandler.cs",
+    "sha256": "a31b791f3aa79aa235ba235818d90dc02a2a0a6d055409bf66068cb9419163f1",
+    "lines": 40,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 2,
+    "callbacks": 0,
+    "sourceTypes": 1,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/Authentication/ConfidentialClientApplicationWrapper.cs",
+    "sha256": "f00fa72c0c5d9846c4fbab3e79f6f3ec728302917405419afa63984be9a0d2c1",
+    "lines": 18,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 1,
+    "callbacks": 0,
+    "sourceTypes": 2,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/Azure/Models/AzureAdSettings.cs",
+    "sha256": "a865b7739fe7e790f1507e7a9f6943c56f69d4f63cb5bb50d3182e6729167e95",
+    "lines": 9,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 0,
+    "callbacks": 0,
+    "sourceTypes": 1,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/Azure/Models/Token.cs",
+    "sha256": "66f067c839e15c45f8c5fbcdd4944e1b76f3ffb61a3974fc4f8eae1fd05b3bb5",
+    "lines": 26,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 2,
+    "callbacks": 0,
+    "sourceTypes": 1,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/Azure/TokenClient.cs",
+    "sha256": "d79cfd00a2eb5896445c9570367b99b18bbf004a9b7b5d1e4f620a19ba83baac",
+    "lines": 66,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 2,
+    "callbacks": 0,
+    "sourceTypes": 2,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/Azure/TokenProvider.cs",
+    "sha256": "a57b8ad4fe1190036dbc161664ad1554af88deb773ee016da27a646e2e39044e",
+    "lines": 59,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 2,
+    "callbacks": 0,
+    "sourceTypes": 2,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/Common/AssortmentSettings.cs",
+    "sha256": "755af245c2b017e34c60c135b474e55bff9d89016c92a3ac6aec6f4b2022a4cc",
+    "lines": 8,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 0,
+    "callbacks": 0,
+    "sourceTypes": 1,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/Common/RetryOptions.cs",
+    "sha256": "7c45585c26dfd6626e9534cc74b4f5772f5f998bef59ceddd48a536e4cc01ce4",
+    "lines": 36,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 1,
+    "callbacks": 0,
+    "sourceTypes": 3,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/Configure.cs",
+    "sha256": "c8e78b1fabdc8cd81fe763a213e2a4bf91523b22687b19e4a20bbd054fc31feb",
+    "lines": 128,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 2,
+    "callbacks": 7,
+    "sourceTypes": 1,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/HealthChecks/AzureTokenHealthCheck.cs",
+    "sha256": "04ec5d0cdc1ffbfe31131df0bd73d7deb9edd0c16fed19c7a6a1ef89b72d718c",
+    "lines": 20,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 1,
+    "callbacks": 0,
+    "sourceTypes": 1,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/HealthChecks/ProductServiceHealthCheck.cs",
+    "sha256": "50f8e070ef9688bb3df02943848b4ad6e25cc4bb048f18e18313af338ee0c3e5",
+    "lines": 17,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 1,
+    "callbacks": 0,
+    "sourceTypes": 1,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/LaunchDarkly/FeatureFlagClient.cs",
+    "sha256": "5409e498163b418ced8d0ad2603a4045fc3b5bd0cc8719a507fbc12494878300",
+    "lines": 64,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 4,
+    "callbacks": 0,
+    "sourceTypes": 2,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/LaunchDarkly/FeatureFlagService.cs",
+    "sha256": "63049b79d38075631ec21a3c42f36927235db45bb02f333699b2592a4d7b0478",
+    "lines": 22,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 2,
+    "callbacks": 0,
+    "sourceTypes": 2,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/LaunchDarkly/LaunchDarklySettings.cs",
+    "sha256": "2886eaaca2ddfb4b4b68920155a0a00aa0ad4f4014664c8300eba5cafd80bf91",
+    "lines": 16,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 1,
+    "callbacks": 0,
+    "sourceTypes": 2,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/PCF/ProductConfigurationClient.cs",
+    "sha256": "9ead484aa749c4cb8f69b10a800f38498d85a09c5a6e305c3ad98f78dd24aec1",
+    "lines": 210,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 8,
+    "callbacks": 1,
+    "sourceTypes": 2,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/PopCat.Assortment.Integration.csproj",
+    "sha256": "0a648ea3c9c866bfc9d50bf7415b935a2cbd224bf2f0ada04ac422ee567e95a5",
+    "lines": 51,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 0,
+    "callbacks": 0,
+    "sourceTypes": 0,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/ProductMapper/Models/TokenToVariantsModels.cs",
+    "sha256": "0d3e1aaac830d1281b07a7da5614672542ae72b19c492505fb47cd584e19f709",
+    "lines": 79,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 0,
+    "callbacks": 0,
+    "sourceTypes": 8,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/ProductMapper/ProductMapperClientSettings.cs",
+    "sha256": "86218f28c2c630c8ab115118db4beb07faf83fcd8ceeeb5daa6c2a7ad851702f",
+    "lines": 6,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 0,
+    "callbacks": 0,
+    "sourceTypes": 1,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/ProductMapper/ProductMapperProvider.cs",
+    "sha256": "ea0516d902c6960f5e84abd23363cbfbee42465521aa2e7f71310c253761b3c2",
+    "lines": 172,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 8,
+    "callbacks": 3,
+    "sourceTypes": 2,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/ProductMapper/Proxy/product-mapper-open-api.json",
+    "sha256": "2d7df8c65bf4138298ebb9e45d5314cb2e86cb0f9b94638737a0b2f2fd90dc4c",
+    "lines": 1671,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 0,
+    "callbacks": 0,
+    "sourceTypes": 0,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/ProductService/Models/PsBrand.cs",
+    "sha256": "778c60bcfd530dccf457be53ef210ebbc0b964247535f63e1e7af11ea1fa1fd2",
+    "lines": 16,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 1,
+    "callbacks": 0,
+    "sourceTypes": 2,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/ProductService/Models/PsClassification.cs",
+    "sha256": "f4be7d8dc4c21abdd02972715f452bef2f43c1b2fd3a16d85049b66454ada5ff",
+    "lines": 37,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 2,
+    "callbacks": 0,
+    "sourceTypes": 3,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/ProductService/Models/PsComponentTypes.cs",
+    "sha256": "22dc63855595b62a7972bfd0a8352d4ecb26a341760dbf3257e72861e5bc3d19",
+    "lines": 7,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 0,
+    "callbacks": 0,
+    "sourceTypes": 1,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/ProductService/Models/PsProduct.cs",
+    "sha256": "2d8bedcb9ed47eb6df6a39518a900aa5a36ae40ae07a36f8bd3d76859222124f",
+    "lines": 30,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 2,
+    "callbacks": 1,
+    "sourceTypes": 2,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/ProductService/Models/PsProductQuery.cs",
+    "sha256": "f17a88501bfc657f04cf519064e9aa430ec67f20063126283f57daaede6192e5",
+    "lines": 56,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 2,
+    "callbacks": 0,
+    "sourceTypes": 2,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/ProductService/Models/PsProductType.cs",
+    "sha256": "fb3ec000950f3e6ce671878ff084111defdff860aca9dad284b3a63cf663f889",
+    "lines": 31,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 0,
+    "callbacks": 0,
+    "sourceTypes": 1,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/ProductService/Models/PsProductVariant.cs",
+    "sha256": "d64564a76248b5f9ba7dfd079ca24942577261d35b6971124782e862aa2a7c93",
+    "lines": 34,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 2,
+    "callbacks": 1,
+    "sourceTypes": 2,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/ProductService/Models/PsRule.cs",
+    "sha256": "7fe2872ea76b21022d9204173791d35c7caea36a3df4cbaa525e921965fd2867",
+    "lines": 78,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 4,
+    "callbacks": 1,
+    "sourceTypes": 3,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/ProductService/Models/PsUpstreamItem.cs",
+    "sha256": "87a76ca1ed95dea1ed4bb7abc5399dd76943168b3d48ce871fdb05d71c5bf616",
+    "lines": 59,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 2,
+    "callbacks": 0,
+    "sourceTypes": 3,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/ProductService/ProductServiceClient.cs",
+    "sha256": "3193089b51233bc95a6924c2e4e1c9197be3955878f95c48621ddd6e95ab5a1c",
+    "lines": 96,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 5,
+    "callbacks": 2,
+    "sourceTypes": 2,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/ProductService/ProductServiceClientSettings.cs",
+    "sha256": "ff6fb77aa5f7c6ae978e8bfeebfe42a43492ced6b799725567166045347906b1",
+    "lines": 8,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 0,
+    "callbacks": 0,
+    "sourceTypes": 1,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Integration/packages.lock.json",
+    "sha256": "efd3ba6ebf843b534632505c929c367fdea60af510be288b1c00993af5015206",
+    "lines": 906,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 0,
+    "callbacks": 0,
+    "sourceTypes": 0,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Ocelot.Host/Configuration/OAuthSettings.cs",
+    "sha256": "d9d21af6e0578c49697465c7faa227c7876e7a8a531b60d877dcc2b7c67ea290",
+    "lines": 59,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 2,
+    "callbacks": 0,
+    "sourceTypes": 3,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Ocelot.Host/Configuration/OcelotHost.cs",
+    "sha256": "f9838232dfcdb107e1d29e785f64f2c1916da6e8aafe3b3e86a6155606062d9b",
+    "lines": 12,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 0,
+    "callbacks": 0,
+    "sourceTypes": 1,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Ocelot.Host/Constants.cs",
+    "sha256": "fe32c636dd4d201f7567ce28854b99ebed52d97462b074a47eb4cb347b571207",
+    "lines": 7,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 0,
+    "callbacks": 0,
+    "sourceTypes": 1,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Ocelot.Host/Extensions/ApplicationBuilderExtensions.cs",
+    "sha256": "6f9a60a70dd0b7c6fa521668134c1cd8f21ec390ee5ce684e6367b77dfee3d85",
+    "lines": 91,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 8,
+    "callbacks": 5,
+    "sourceTypes": 1,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Ocelot.Host/Extensions/CorrelationIdExtensions.cs",
+    "sha256": "f1a1f55f4d58b576421d52e64f0e68cd6985a225037aea206bfe007cc02eecd4",
+    "lines": 24,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 2,
+    "callbacks": 1,
+    "sourceTypes": 1,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Ocelot.Host/Extensions/HealthCheckExtensions.cs",
+    "sha256": "b3077740b4c226c4bd210d3dd91110bd02d2f6a9b40eaec297f9c028c49b6cb3",
+    "lines": 35,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 2,
+    "callbacks": 4,
+    "sourceTypes": 1,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Ocelot.Host/Extensions/OcelotExtensions.cs",
+    "sha256": "cc559dc7fd9fdc6aa1b2670cce72c4757e4839dc034ad8386ba5f639923ae0cf",
+    "lines": 36,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 2,
+    "callbacks": 4,
+    "sourceTypes": 1,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Ocelot.Host/Extensions/SwaggerExtensions.cs",
+    "sha256": "de557cd9cfd63988db4542fe96256eb977cc297c50ada1277bc0bce5b9821ca9",
+    "lines": 93,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 2,
+    "callbacks": 7,
+    "sourceTypes": 1,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Ocelot.Host/Middlewares/SwaggerProxy/EndpointFilter.cs",
+    "sha256": "dfa780606a70b19947ed3811c165715cd09e936491a7f34a5b716bd2a0e6886b",
+    "lines": 33,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 4,
+    "callbacks": 0,
+    "sourceTypes": 1,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Ocelot.Host/Middlewares/SwaggerProxy/EndpointInformation.cs",
+    "sha256": "c62ca71a5e4878fc53b84da028cc5d904466eb1ffe23b020e09bb35f8dc591a1",
+    "lines": 12,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 1,
+    "callbacks": 0,
+    "sourceTypes": 1,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Ocelot.Host/Middlewares/SwaggerProxy/SwaggerProxyMiddleware.cs",
+    "sha256": "8f1aa5141b88cb5eb70a5b8e7f4f0f3a2810c411e6e4e2803a87f8ae9f9fc6f1",
+    "lines": 283,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 9,
+    "callbacks": 3,
+    "sourceTypes": 1,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Ocelot.Host/Middlewares/SwaggerProxy/SwaggerProxyOptions.cs",
+    "sha256": "be5ce2fcf50d17d7b235bd0400d0c3b0631ad46763918f5d5945d3a2ddda61cf",
+    "lines": 7,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 0,
+    "callbacks": 0,
+    "sourceTypes": 1,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Ocelot.Host/PopCat.Assortment.Ocelot.Host.csproj",
+    "sha256": "a7cf97bdc66eabaacebd255d69307ae6a537f886375e0a177951ddc3710c41ca",
+    "lines": 24,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 0,
+    "callbacks": 0,
+    "sourceTypes": 0,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Ocelot.Host/Program.cs",
+    "sha256": "4d1cd46fddb9ec06b75315192b0857d58b3d36d5c684632ac6c0e9efb2c22369",
+    "lines": 46,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 1,
+    "callbacks": 0,
+    "sourceTypes": 0,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Ocelot.Host/Properties/launchSettings.json",
+    "sha256": "ed2e586124e8779b6e976e6a4cea1731f0d7e586b193c772f3e6b1e06e1f6f0f",
+    "lines": 41,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 0,
+    "callbacks": 0,
+    "sourceTypes": 0,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Ocelot.Host/appsettings.Development.json",
+    "sha256": "2424df455c798f3c3b18361bb6829e87d73216518a382ce35184cbd7302a4e61",
+    "lines": 17,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 0,
+    "callbacks": 0,
+    "sourceTypes": 0,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Ocelot.Host/appsettings.Prod.json",
+    "sha256": "859cfb6f11b4e57dc232ff29c8c560d74005ffc65505e5e58c51c910489043b9",
+    "lines": 5,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 0,
+    "callbacks": 0,
+    "sourceTypes": 0,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Ocelot.Host/appsettings.Qa.json",
+    "sha256": "2159a4c740a95e48db4cba37cf74088a7b4a2f653b1795b34f7f64b6bf9ae81b",
+    "lines": 5,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 0,
+    "callbacks": 0,
+    "sourceTypes": 0,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Ocelot.Host/appsettings.Test.json",
+    "sha256": "ca0306a98f94de11a72941689c355c342a6e6bbaf74243d1935394fb1771e2c7",
+    "lines": 5,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 0,
+    "callbacks": 0,
+    "sourceTypes": 0,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Ocelot.Host/appsettings.json",
+    "sha256": "46ef893308836a4c5758bb5b7566ff8a76786aac2b1a314b911d33e3fc68ccd3",
+    "lines": 49,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 0,
+    "callbacks": 0,
+    "sourceTypes": 0,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Ocelot.Host/ocelot.Development.json",
+    "sha256": "a107c72dfe4608c1639c3973c487a66f648081fb62682f174f483e397cdea131",
+    "lines": 81,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 0,
+    "callbacks": 0,
+    "sourceTypes": 0,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Ocelot.Host/ocelot.Prod.json",
+    "sha256": "f22a324f1dba1854400e11f88eacc212cfea6c90d6c877eed0c5265ed7cfb803",
+    "lines": 67,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 0,
+    "callbacks": 0,
+    "sourceTypes": 0,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Ocelot.Host/ocelot.Qa.json",
+    "sha256": "e0682dc61763675d5509df1d1235071aaa8212e4cce3fd4f30e66d393be01f7f",
+    "lines": 58,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 0,
+    "callbacks": 0,
+    "sourceTypes": 0,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Ocelot.Host/ocelot.Test.json",
+    "sha256": "3b8715cb5bd574a55a3269614c0530804d4fe6dd29f4d853df9d812f81cba050",
+    "lines": 67,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 0,
+    "callbacks": 0,
+    "sourceTypes": 0,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Ocelot.Host/ocelot.json",
+    "sha256": "0aa5724963a10259fc540579b8cb357db41b2003eb6d52c1114a6ba3fab4a34d",
+    "lines": 157,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 0,
+    "callbacks": 0,
+    "sourceTypes": 0,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Ocelot.Host/packages.lock.json",
+    "sha256": "f611f9329cc549b2a86000e7eaab78a2064044f8d63b0883c8b5a84a7662d7a6",
+    "lines": 676,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 0,
+    "callbacks": 0,
+    "sourceTypes": 0,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Repository/BlobStorage/BlobStorageClient.cs",
+    "sha256": "ca458453448751368576a788bb7ca5f5abac84f5ca6e03979c26b80655bd6aff",
+    "lines": 112,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 10,
+    "callbacks": 7,
+    "sourceTypes": 2,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Repository/BlobStorage/BlobStorageHealthCheck.cs",
+    "sha256": "a0171a2b37ec19da74354ccb5c2aa6159984b72846acc30ad05efe19b1756b8d",
+    "lines": 34,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 2,
+    "callbacks": 0,
+    "sourceTypes": 1,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Repository/BlobStorage/CarConfigurationRepository.cs",
+    "sha256": "8506f9c529bed663962e597e06c8313fe69ece02107e942c0ae1f5254c957227",
+    "lines": 23,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 4,
+    "callbacks": 0,
+    "sourceTypes": 2,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Repository/BlobStorage/GlobalDataRepository.cs",
+    "sha256": "98c85b82b9af07ed567d70a23c3e2c3c9568ec083bf42ef0888cf99d705a55b4",
+    "lines": 12,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 1,
+    "callbacks": 0,
+    "sourceTypes": 2,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Repository/BlobStorage/GlobalDictionaryEntriesRepository.cs",
+    "sha256": "5d274635e31ceda68ce6d34d5b8a848a0b6ca9bf3a73f03bb6f885b5e5aad00c",
+    "lines": 12,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 1,
+    "callbacks": 0,
+    "sourceTypes": 2,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Repository/BlobStorage/HasMoreSuccess.cs",
+    "sha256": "3ec356c43c729f874b0722f3ca3ebb0acbfbb9d0fee62c450a813ddac5db00c7",
+    "lines": 7,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 1,
+    "callbacks": 0,
+    "sourceTypes": 1,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Repository/BlobStorage/MarketAuthEntriesRepository.cs",
+    "sha256": "7c49e879187ddd2bb8abb9eed8994621679d9cadf92981905da1d5a33f867801",
+    "lines": 12,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 1,
+    "callbacks": 0,
+    "sourceTypes": 2,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Repository/BlobStorage/Models/BlobStorageSettings.cs",
+    "sha256": "f5e99c76c02406230f2bf8d0daa6efb6de02fa73a074a417d4adf2822537f1ff",
+    "lines": 6,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 0,
+    "callbacks": 0,
+    "sourceTypes": 1,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Repository/BlobStorage/ProductFullDetailsRepository.cs",
+    "sha256": "fb176de263f60a739c6b770e0134a8ec891f3a0cb369e0717bc7ea114b87be70",
+    "lines": 13,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 1,
+    "callbacks": 0,
+    "sourceTypes": 2,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Repository/BlobStorage/Repository.cs",
+    "sha256": "2a8242c946416f397e8d2b662ad592ed9e09b36aba7b8f12a702368e31350145",
+    "lines": 21,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 6,
+    "callbacks": 0,
+    "sourceTypes": 2,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Repository/BlobStorage/UpstreamEntitiesRepository.cs",
+    "sha256": "ec7b82d7d0402a19bf3f3f2e1c1c74da1f6b8fd9d802f076d45837632950926a",
+    "lines": 12,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 1,
+    "callbacks": 0,
+    "sourceTypes": 2,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Repository/BlobStorage/VariantHistoryRepository.cs",
+    "sha256": "2517ab10d2a7b4f002d4b91fce5c98e8cb1b961da75b381a07e415e171e14bd7",
+    "lines": 66,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 7,
+    "callbacks": 0,
+    "sourceTypes": 1,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Repository/Configure.cs",
+    "sha256": "3995c536abbc355bb4b5a74f264d6c7a6d9ddceeecafd42adf106cedc15bf723",
+    "lines": 29,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 1,
+    "callbacks": 0,
+    "sourceTypes": 1,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Repository/PopCat.Assortment.Repository.csproj",
+    "sha256": "f91e501498133c32f7ce0d026c2e9aaee6851ecb9b141ab20728790cde4aa2d0",
+    "lines": 17,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 0,
+    "callbacks": 0,
+    "sourceTypes": 0,
+    "scope": "source declaration/configuration; no deployment observation"
+  },
+  {
+    "path": "src/PopCat.Assortment.Repository/packages.lock.json",
+    "sha256": "ef873bfcd302cc4f59aee15ded11e192f438944a5418c1e32f9fc68d57b57fff",
+    "lines": 767,
+    "inspection": "examined pinned production source/input",
+    "sourceBodies": 0,
+    "callbacks": 0,
+    "sourceTypes": 0,
+    "scope": "source declaration/configuration; no deployment observation"
+  }
+]

@@ -1,0 +1,18 @@
+[
+  {
+    "host": "http",
+    "subscription": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/subscription/http",
+    "interaction": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/interaction/consume/http",
+    "callback": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-http/implementation/353ded38f2508ad05cb5",
+    "binding": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/channel_binding/consume/http",
+    "eventType": "volvocars.contracts.car-configuration.market-auths-updated"
+  },
+  {
+    "host": "event",
+    "subscription": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/subscription/event",
+    "interaction": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/interaction/consume/event",
+    "callback": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/host-event/implementation/76dacb144776cc3e069b",
+    "binding": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/channel_binding/consume/event",
+    "eventType": "volvocars.contracts.pop.pcf.MarketAuthMessage"
+  }
+]

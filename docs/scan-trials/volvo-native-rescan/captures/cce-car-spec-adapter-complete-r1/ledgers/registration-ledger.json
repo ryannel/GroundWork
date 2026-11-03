@@ -1,0 +1,2115 @@
+{
+  "lifecycle": [
+    {
+      "entry": "cce-car-spec-adapter-667a00a-complete-r1/entry/lifecycle/16646183130037e2",
+      "contract": "cce-car-spec-adapter-667a00a-complete-r1/interface_contract/lifecycle/16646183130037e2",
+      "implementation": "cce-car-spec-adapter-667a00a-complete-r1/implementation/d8325224a9e1d372",
+      "host": "api",
+      "path": "internal/app/app.go#OnStart@174",
+      "method": "STARTUP",
+      "registrationOwner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/259cfe9ca6518aa1",
+      "hook": "OnStart"
+    },
+    {
+      "entry": "cce-car-spec-adapter-667a00a-complete-r1/entry/lifecycle/4df412ccdfec7b16",
+      "contract": "cce-car-spec-adapter-667a00a-complete-r1/interface_contract/lifecycle/4df412ccdfec7b16",
+      "implementation": "cce-car-spec-adapter-667a00a-complete-r1/implementation/961232dd538d51d8",
+      "host": "api",
+      "path": "internal/app/app.go#OnStop@184",
+      "method": "CALLBACK",
+      "registrationOwner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/259cfe9ca6518aa1",
+      "hook": "OnStop"
+    },
+    {
+      "entry": "cce-car-spec-adapter-667a00a-complete-r1/entry/lifecycle/696896294cfaf4ab",
+      "contract": "cce-car-spec-adapter-667a00a-complete-r1/interface_contract/lifecycle/696896294cfaf4ab",
+      "implementation": "cce-car-spec-adapter-667a00a-complete-r1/implementation/c141d63087ef8ba2",
+      "host": "api",
+      "path": "internal/app/app.go#OnStop@199",
+      "method": "CALLBACK",
+      "registrationOwner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/a6c3e5b43d1520a4",
+      "hook": "OnStop"
+    },
+    {
+      "entry": "cce-car-spec-adapter-667a00a-complete-r1/entry/lifecycle/6072bd4373654b0d",
+      "contract": "cce-car-spec-adapter-667a00a-complete-r1/interface_contract/lifecycle/6072bd4373654b0d",
+      "implementation": "cce-car-spec-adapter-667a00a-complete-r1/implementation/2de66f7ffc083871",
+      "host": "api",
+      "path": "internal/app/kafka.go#OnStop@47",
+      "method": "CALLBACK",
+      "registrationOwner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/f10e4c3972bf430a",
+      "hook": "OnStop"
+    },
+    {
+      "entry": "cce-car-spec-adapter-667a00a-complete-r1/entry/lifecycle/80502cfa3ea139da",
+      "contract": "cce-car-spec-adapter-667a00a-complete-r1/interface_contract/lifecycle/80502cfa3ea139da",
+      "implementation": "cce-car-spec-adapter-667a00a-complete-r1/implementation/4d5c377577f32db0",
+      "host": "api",
+      "path": "internal/app/kafka.go#OnStart@73",
+      "method": "STARTUP",
+      "registrationOwner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/97accce8d74f35c1",
+      "hook": "OnStart"
+    },
+    {
+      "entry": "cce-car-spec-adapter-667a00a-complete-r1/entry/lifecycle/6b0edbd3a163324b",
+      "contract": "cce-car-spec-adapter-667a00a-complete-r1/interface_contract/lifecycle/6b0edbd3a163324b",
+      "implementation": "cce-car-spec-adapter-667a00a-complete-r1/implementation/a7163f7b00128f21",
+      "host": "api",
+      "path": "internal/app/kafka.go#OnStop@83",
+      "method": "CALLBACK",
+      "registrationOwner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/97accce8d74f35c1",
+      "hook": "OnStop"
+    },
+    {
+      "entry": "cce-car-spec-adapter-667a00a-complete-r1/entry/lifecycle/f52818ffb0b8d631",
+      "contract": "cce-car-spec-adapter-667a00a-complete-r1/interface_contract/lifecycle/f52818ffb0b8d631",
+      "implementation": "cce-car-spec-adapter-667a00a-complete-r1/implementation/3eecdf8169b56438",
+      "host": "api",
+      "path": "internal/app/logging.go#OnStop@68",
+      "method": "CALLBACK",
+      "registrationOwner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/b7341f92e6f5b0ed",
+      "hook": "OnStop"
+    },
+    {
+      "entry": "cce-car-spec-adapter-667a00a-complete-r1/entry/lifecycle/5ee3e0bb12bc15ad",
+      "contract": "cce-car-spec-adapter-667a00a-complete-r1/interface_contract/lifecycle/5ee3e0bb12bc15ad",
+      "implementation": "cce-car-spec-adapter-667a00a-complete-r1/implementation/318f8700b88dc581",
+      "host": "api",
+      "path": "internal/app/sentry.go#OnStart@136",
+      "method": "STARTUP",
+      "registrationOwner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/1210efbd8be25ccf",
+      "hook": "OnStart"
+    },
+    {
+      "entry": "cce-car-spec-adapter-667a00a-complete-r1/entry/lifecycle/cd58cb3f23daa4dd",
+      "contract": "cce-car-spec-adapter-667a00a-complete-r1/interface_contract/lifecycle/cd58cb3f23daa4dd",
+      "implementation": "cce-car-spec-adapter-667a00a-complete-r1/implementation/edbe5917971ba375",
+      "host": "api",
+      "path": "internal/app/sentry.go#OnStop@142",
+      "method": "CALLBACK",
+      "registrationOwner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/1210efbd8be25ccf",
+      "hook": "OnStop"
+    },
+    {
+      "entry": "cce-car-spec-adapter-667a00a-complete-r1/entry/lifecycle/a99a0ebe37bf16bc",
+      "contract": "cce-car-spec-adapter-667a00a-complete-r1/interface_contract/lifecycle/a99a0ebe37bf16bc",
+      "implementation": "cce-car-spec-adapter-667a00a-complete-r1/implementation/68553d286d0cff73",
+      "host": "api",
+      "path": "internal/app/telemetry.go#OnStop@127",
+      "method": "CALLBACK",
+      "registrationOwner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/81a47fc54414a91d",
+      "hook": "OnStop"
+    }
+  ],
+  "other": [
+    {
+      "kind": "closure",
+      "association": {
+        "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/28817d44fe8f7864",
+        "value": "cce-car-spec-adapter-667a00a-complete-r1/value/28817d44fe8f7864/v/19242",
+        "callback": "cce-car-spec-adapter-667a00a-complete-r1/implementation/ab5f4494f5ad538f",
+        "captures": [
+          {
+            "name": "next",
+            "capture": "cce-car-spec-adapter-667a00a-complete-r1/value/ab5f4494f5ad538f/capture/c6c1c9a9c8543f1e",
+            "value": "cce-car-spec-adapter-667a00a-complete-r1/value/28817d44fe8f7864/p/0",
+            "mode": "reference"
+          }
+        ],
+        "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/closure/fdced929cfdaeaee"
+      }
+    },
+    {
+      "kind": "closure",
+      "association": {
+        "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/1a0a074679862f23",
+        "value": "cce-car-spec-adapter-667a00a-complete-r1/value/1a0a074679862f23/v/19340",
+        "callback": "cce-car-spec-adapter-667a00a-complete-r1/implementation/00f309d82214a75d",
+        "captures": [],
+        "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/closure/dfebfb2878693c9e"
+      }
+    },
+    {
+      "kind": "closure",
+      "association": {
+        "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/00f309d82214a75d",
+        "value": "cce-car-spec-adapter-667a00a-complete-r1/value/00f309d82214a75d/v/19346",
+        "callback": "cce-car-spec-adapter-667a00a-complete-r1/implementation/6b2df6e7bd6d2702",
+        "captures": [
+          {
+            "name": "next",
+            "capture": "cce-car-spec-adapter-667a00a-complete-r1/value/6b2df6e7bd6d2702/capture/c6c1c9a9c8543f1e",
+            "value": "cce-car-spec-adapter-667a00a-complete-r1/value/00f309d82214a75d/p/0",
+            "mode": "reference"
+          }
+        ],
+        "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/closure/7dec447e35c3bdff"
+      }
+    },
+    {
+      "kind": "closure",
+      "association": {
+        "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/6b2df6e7bd6d2702",
+        "value": "cce-car-spec-adapter-667a00a-complete-r1/value/6b2df6e7bd6d2702/v/19377",
+        "callback": "cce-car-spec-adapter-667a00a-complete-r1/implementation/19b2637a87dc4e1d",
+        "captures": [
+          {
+            "name": "r",
+            "capture": "cce-car-spec-adapter-667a00a-complete-r1/value/19b2637a87dc4e1d/capture/454349e422f05297",
+            "value": "cce-car-spec-adapter-667a00a-complete-r1/value/6b2df6e7bd6d2702/p/1",
+            "mode": "reference"
+          },
+          {
+            "name": "rw",
+            "capture": "cce-car-spec-adapter-667a00a-complete-r1/value/19b2637a87dc4e1d/capture/55e1ebd3ebe4f1b4",
+            "value": "cce-car-spec-adapter-667a00a-complete-r1/value/6b2df6e7bd6d2702/v/19373",
+            "mode": "reference"
+          }
+        ],
+        "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/closure/92596d6e3ebc99b3"
+      }
+    },
+    {
+      "kind": "closure",
+      "association": {
+        "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/fecc73e064eafff4",
+        "value": "cce-car-spec-adapter-667a00a-complete-r1/value/fecc73e064eafff4/v/19451",
+        "callback": "cce-car-spec-adapter-667a00a-complete-r1/implementation/2ee97a527777a483",
+        "captures": [
+          {
+            "name": "a",
+            "capture": "cce-car-spec-adapter-667a00a-complete-r1/value/2ee97a527777a483/capture/ca978112ca1bbdca",
+            "value": "cce-car-spec-adapter-667a00a-complete-r1/value/fecc73e064eafff4/receiver",
+            "mode": "reference"
+          },
+          {
+            "name": "next",
+            "capture": "cce-car-spec-adapter-667a00a-complete-r1/value/2ee97a527777a483/capture/c6c1c9a9c8543f1e",
+            "value": "cce-car-spec-adapter-667a00a-complete-r1/value/fecc73e064eafff4/p/0",
+            "mode": "reference"
+          }
+        ],
+        "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/closure/7cbaabb9473980bb"
+      }
+    },
+    {
+      "kind": "closure",
+      "association": {
+        "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/7f52461ef02cb6db",
+        "value": "cce-car-spec-adapter-667a00a-complete-r1/value/7f52461ef02cb6db/v/19962",
+        "callback": "cce-car-spec-adapter-667a00a-complete-r1/implementation/64b8dc3c05516303",
+        "captures": [
+          {
+            "name": "logger",
+            "capture": "cce-car-spec-adapter-667a00a-complete-r1/value/64b8dc3c05516303/capture/2686af9f25e1a64f",
+            "value": "cce-car-spec-adapter-667a00a-complete-r1/value/7f52461ef02cb6db/p/0",
+            "mode": "reference"
+          }
+        ],
+        "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/closure/c95dfcbdfe675299"
+      }
+    },
+    {
+      "kind": "closure",
+      "association": {
+        "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/64b8dc3c05516303",
+        "value": "cce-car-spec-adapter-667a00a-complete-r1/value/64b8dc3c05516303/v/19969",
+        "callback": "cce-car-spec-adapter-667a00a-complete-r1/implementation/d6a863d24a703a14",
+        "captures": [
+          {
+            "name": "logger",
+            "capture": "cce-car-spec-adapter-667a00a-complete-r1/value/d6a863d24a703a14/capture/2686af9f25e1a64f",
+            "value": "cce-car-spec-adapter-667a00a-complete-r1/value/64b8dc3c05516303/capture/2686af9f25e1a64f",
+            "mode": "reference"
+          },
+          {
+            "name": "next",
+            "capture": "cce-car-spec-adapter-667a00a-complete-r1/value/d6a863d24a703a14/capture/c6c1c9a9c8543f1e",
+            "value": "cce-car-spec-adapter-667a00a-complete-r1/value/64b8dc3c05516303/p/0",
+            "mode": "reference"
+          }
+        ],
+        "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/closure/76c230a4f48060d3"
+      }
+    },
+    {
+      "kind": "closure",
+      "association": {
+        "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/d6a863d24a703a14",
+        "value": "cce-car-spec-adapter-667a00a-complete-r1/value/d6a863d24a703a14/v/19987",
+        "callback": "cce-car-spec-adapter-667a00a-complete-r1/implementation/ecba0abc40dd852c",
+        "captures": [
+          {
+            "name": "logger",
+            "capture": "cce-car-spec-adapter-667a00a-complete-r1/value/ecba0abc40dd852c/capture/2686af9f25e1a64f",
+            "value": "cce-car-spec-adapter-667a00a-complete-r1/value/d6a863d24a703a14/capture/2686af9f25e1a64f",
+            "mode": "reference"
+          },
+          {
+            "name": "r",
+            "capture": "cce-car-spec-adapter-667a00a-complete-r1/value/ecba0abc40dd852c/capture/454349e422f05297",
+            "value": "cce-car-spec-adapter-667a00a-complete-r1/value/d6a863d24a703a14/p/1",
+            "mode": "reference"
+          }
+        ],
+        "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/closure/47904af154adf45a"
+      }
+    },
+    {
+      "kind": "closure",
+      "association": {
+        "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/f7a1e09eaf8781b6",
+        "value": "cce-car-spec-adapter-667a00a-complete-r1/value/f7a1e09eaf8781b6/v/20060",
+        "callback": "cce-car-spec-adapter-667a00a-complete-r1/implementation/5da34891b81f9076",
+        "captures": [],
+        "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/closure/448d1608d4da0c92"
+      }
+    },
+    {
+      "kind": "closure",
+      "association": {
+        "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/5da34891b81f9076",
+        "value": "cce-car-spec-adapter-667a00a-complete-r1/value/5da34891b81f9076/v/20066",
+        "callback": "cce-car-spec-adapter-667a00a-complete-r1/implementation/c4b045e59183408f",
+        "captures": [
+          {
+            "name": "next",
+            "capture": "cce-car-spec-adapter-667a00a-complete-r1/value/c4b045e59183408f/capture/c6c1c9a9c8543f1e",
+            "value": "cce-car-spec-adapter-667a00a-complete-r1/value/5da34891b81f9076/p/0",
+            "mode": "reference"
+          }
+        ],
+        "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/closure/a98ba0767e768ab8"
+      }
+    },
+    {
+      "kind": "closure",
+      "association": {
+        "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/9c65bd62bc818641",
+        "value": "cce-car-spec-adapter-667a00a-complete-r1/value/9c65bd62bc818641/v/20160",
+        "callback": "cce-car-spec-adapter-667a00a-complete-r1/implementation/a0fb2e895ff055b0",
+        "captures": [],
+        "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/closure/7e2e2d516cf0f753"
+      }
+    },
+    {
+      "kind": "closure",
+      "association": {
+        "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/a0fb2e895ff055b0",
+        "value": "cce-car-spec-adapter-667a00a-complete-r1/value/a0fb2e895ff055b0/v/20166",
+        "callback": "cce-car-spec-adapter-667a00a-complete-r1/implementation/a2c4f3915d899b36",
+        "captures": [
+          {
+            "name": "next",
+            "capture": "cce-car-spec-adapter-667a00a-complete-r1/value/a2c4f3915d899b36/capture/c6c1c9a9c8543f1e",
+            "value": "cce-car-spec-adapter-667a00a-complete-r1/value/a0fb2e895ff055b0/p/0",
+            "mode": "reference"
+          }
+        ],
+        "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/closure/ee8970a1688bd772"
+      }
+    },
+    {
+      "kind": "closure",
+      "association": {
+        "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/a2c4f3915d899b36",
+        "value": "cce-car-spec-adapter-667a00a-complete-r1/value/a2c4f3915d899b36/v/20193",
+        "callback": "cce-car-spec-adapter-667a00a-complete-r1/implementation/d30d6eefd2cdbe1b",
+        "captures": [
+          {
+            "name": "ctx",
+            "capture": "cce-car-spec-adapter-667a00a-complete-r1/value/d30d6eefd2cdbe1b/capture/0230c6b1d833c51c",
+            "value": "cce-car-spec-adapter-667a00a-complete-r1/value/a2c4f3915d899b36/v/20189",
+            "mode": "reference"
+          },
+          {
+            "name": "r",
+            "capture": "cce-car-spec-adapter-667a00a-complete-r1/value/d30d6eefd2cdbe1b/capture/454349e422f05297",
+            "value": "cce-car-spec-adapter-667a00a-complete-r1/value/a2c4f3915d899b36/p/1",
+            "mode": "reference"
+          }
+        ],
+        "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/closure/64dfd11f6b960bcf"
+      }
+    },
+    {
+      "kind": "closure",
+      "association": {
+        "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/1cdb57d6b96baf1e",
+        "value": "cce-car-spec-adapter-667a00a-complete-r1/value/1cdb57d6b96baf1e/v/20909",
+        "callback": "cce-car-spec-adapter-667a00a-complete-r1/implementation/a94dee6fa680f100",
+        "captures": [
+          {
+            "name": "r",
+            "capture": "cce-car-spec-adapter-667a00a-complete-r1/value/a94dee6fa680f100/capture/454349e422f05297",
+            "value": "cce-car-spec-adapter-667a00a-complete-r1/value/1cdb57d6b96baf1e/receiver",
+            "mode": "reference"
+          }
+        ],
+        "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/closure/e6776fb38a1e04c0"
+      }
+    },
+    {
+      "kind": "closure",
+      "association": {
+        "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/a94dee6fa680f100",
+        "value": "cce-car-spec-adapter-667a00a-complete-r1/value/a94dee6fa680f100/v/20934",
+        "callback": "cce-car-spec-adapter-667a00a-complete-r1/implementation/0f4ee5c6ccf87d30",
+        "captures": [
+          {
+            "name": "r",
+            "capture": "cce-car-spec-adapter-667a00a-complete-r1/value/0f4ee5c6ccf87d30/capture/454349e422f05297",
+            "value": "cce-car-spec-adapter-667a00a-complete-r1/value/a94dee6fa680f100/capture/454349e422f05297",
+            "mode": "reference"
+          }
+        ],
+        "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/closure/3f410bf33531b117"
+      }
+    },
+    {
+      "kind": "closure",
+      "association": {
+        "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/a94dee6fa680f100",
+        "value": "cce-car-spec-adapter-667a00a-complete-r1/value/a94dee6fa680f100/v/20946",
+        "callback": "cce-car-spec-adapter-667a00a-complete-r1/implementation/6bcae42eb3a6be79",
+        "captures": [
+          {
+            "name": "r",
+            "capture": "cce-car-spec-adapter-667a00a-complete-r1/value/6bcae42eb3a6be79/capture/454349e422f05297",
+            "value": "cce-car-spec-adapter-667a00a-complete-r1/value/a94dee6fa680f100/capture/454349e422f05297",
+            "mode": "reference"
+          }
+        ],
+        "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/closure/bc187dbaefa8d2b9"
+      }
+    },
+    {
+      "kind": "closure",
+      "association": {
+        "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/7ed4bfb367c7195c",
+        "value": "cce-car-spec-adapter-667a00a-complete-r1/value/7ed4bfb367c7195c/v/21623",
+        "callback": "cce-car-spec-adapter-667a00a-complete-r1/implementation/1aa0b776f8670203",
+        "captures": [],
+        "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/closure/c9320a57558d126d"
+      }
+    },
+    {
+      "kind": "closure",
+      "association": {
+        "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/7ed4bfb367c7195c",
+        "value": "cce-car-spec-adapter-667a00a-complete-r1/value/7ed4bfb367c7195c/v/21804",
+        "callback": "cce-car-spec-adapter-667a00a-complete-r1/implementation/0427e53cd2561a01",
+        "captures": [],
+        "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/closure/1c74692e08bd9776"
+      }
+    },
+    {
+      "kind": "closure",
+      "association": {
+        "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/259cfe9ca6518aa1",
+        "value": "cce-car-spec-adapter-667a00a-complete-r1/value/259cfe9ca6518aa1/v/21900",
+        "callback": "cce-car-spec-adapter-667a00a-complete-r1/implementation/d8325224a9e1d372",
+        "captures": [
+          {
+            "name": "cfg",
+            "capture": "cce-car-spec-adapter-667a00a-complete-r1/value/d8325224a9e1d372/capture/e67d23e7820c49a8",
+            "value": "cce-car-spec-adapter-667a00a-complete-r1/value/259cfe9ca6518aa1/p/2",
+            "mode": "reference"
+          },
+          {
+            "name": "logger",
+            "capture": "cce-car-spec-adapter-667a00a-complete-r1/value/d8325224a9e1d372/capture/2686af9f25e1a64f",
+            "value": "cce-car-spec-adapter-667a00a-complete-r1/value/259cfe9ca6518aa1/p/3",
+            "mode": "reference"
+          },
+          {
+            "name": "server",
+            "capture": "cce-car-spec-adapter-667a00a-complete-r1/value/d8325224a9e1d372/capture/b3eacd33433b31b5",
+            "value": "cce-car-spec-adapter-667a00a-complete-r1/value/259cfe9ca6518aa1/p/1",
+            "mode": "reference"
+          },
+          {
+            "name": "shutdowner",
+            "capture": "cce-car-spec-adapter-667a00a-complete-r1/value/d8325224a9e1d372/capture/d80d4e03a8bad739",
+            "value": "cce-car-spec-adapter-667a00a-complete-r1/value/259cfe9ca6518aa1/p/4",
+            "mode": "reference"
+          }
+        ],
+        "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/closure/b1f7d2c405245f12"
+      }
+    },
+    {
+      "kind": "closure",
+      "association": {
+        "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/259cfe9ca6518aa1",
+        "value": "cce-car-spec-adapter-667a00a-complete-r1/value/259cfe9ca6518aa1/v/21908",
+        "callback": "cce-car-spec-adapter-667a00a-complete-r1/implementation/961232dd538d51d8",
+        "captures": [
+          {
+            "name": "server",
+            "capture": "cce-car-spec-adapter-667a00a-complete-r1/value/961232dd538d51d8/capture/b3eacd33433b31b5",
+            "value": "cce-car-spec-adapter-667a00a-complete-r1/value/259cfe9ca6518aa1/p/1",
+            "mode": "reference"
+          }
+        ],
+        "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/closure/504c8d7f4520e479"
+      }
+    },
+    {
+      "kind": "closure",
+      "association": {
+        "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/d8325224a9e1d372",
+        "value": "cce-car-spec-adapter-667a00a-complete-r1/value/d8325224a9e1d372/v/21926",
+        "callback": "cce-car-spec-adapter-667a00a-complete-r1/implementation/99534301a7553483",
+        "captures": [
+          {
+            "name": "cfg",
+            "capture": "cce-car-spec-adapter-667a00a-complete-r1/value/99534301a7553483/capture/e67d23e7820c49a8",
+            "value": "cce-car-spec-adapter-667a00a-complete-r1/value/d8325224a9e1d372/capture/e67d23e7820c49a8",
+            "mode": "reference"
+          },
+          {
+            "name": "ctx",
+            "capture": "cce-car-spec-adapter-667a00a-complete-r1/value/99534301a7553483/capture/0230c6b1d833c51c",
+            "value": "cce-car-spec-adapter-667a00a-complete-r1/value/d8325224a9e1d372/p/0",
+            "mode": "reference"
+          },
+          {
+            "name": "logger",
+            "capture": "cce-car-spec-adapter-667a00a-complete-r1/value/99534301a7553483/capture/2686af9f25e1a64f",
+            "value": "cce-car-spec-adapter-667a00a-complete-r1/value/d8325224a9e1d372/capture/2686af9f25e1a64f",
+            "mode": "reference"
+          },
+          {
+            "name": "server",
+            "capture": "cce-car-spec-adapter-667a00a-complete-r1/value/99534301a7553483/capture/b3eacd33433b31b5",
+            "value": "cce-car-spec-adapter-667a00a-complete-r1/value/d8325224a9e1d372/capture/b3eacd33433b31b5",
+            "mode": "reference"
+          },
+          {
+            "name": "shutdowner",
+            "capture": "cce-car-spec-adapter-667a00a-complete-r1/value/99534301a7553483/capture/d80d4e03a8bad739",
+            "value": "cce-car-spec-adapter-667a00a-complete-r1/value/d8325224a9e1d372/capture/d80d4e03a8bad739",
+            "mode": "reference"
+          }
+        ],
+        "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/closure/9e510947fb2efb83"
+      }
+    },
+    {
+      "kind": "closure",
+      "association": {
+        "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/a6c3e5b43d1520a4",
+        "value": "cce-car-spec-adapter-667a00a-complete-r1/value/a6c3e5b43d1520a4/v/22037",
+        "callback": "cce-car-spec-adapter-667a00a-complete-r1/implementation/c141d63087ef8ba2",
+        "captures": [
+          {
+            "name": "pool",
+            "capture": "cce-car-spec-adapter-667a00a-complete-r1/value/c141d63087ef8ba2/capture/27cac5503836765c",
+            "value": "cce-car-spec-adapter-667a00a-complete-r1/value/a6c3e5b43d1520a4/p/1",
+            "mode": "reference"
+          }
+        ],
+        "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/closure/3ad83fc54b819783"
+      }
+    },
+    {
+      "kind": "closure",
+      "association": {
+        "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/75153ceebb9b8903",
+        "value": "cce-car-spec-adapter-667a00a-complete-r1/value/75153ceebb9b8903/v/22126",
+        "callback": "cce-car-spec-adapter-667a00a-complete-r1/implementation/a69c939f234e9d19",
+        "captures": [],
+        "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/closure/25e5a989b736e1da"
+      }
+    },
+    {
+      "kind": "closure",
+      "association": {
+        "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/6ccc20a1e3bb8c42",
+        "value": "cce-car-spec-adapter-667a00a-complete-r1/value/6ccc20a1e3bb8c42/v/22336",
+        "callback": "cce-car-spec-adapter-667a00a-complete-r1/implementation/a3cac05cf03746c6",
+        "captures": [],
+        "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/closure/4e13161c3d72f3f6"
+      }
+    },
+    {
+      "kind": "closure",
+      "association": {
+        "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/6ccc20a1e3bb8c42",
+        "value": "cce-car-spec-adapter-667a00a-complete-r1/value/6ccc20a1e3bb8c42/v/22344",
+        "callback": "cce-car-spec-adapter-667a00a-complete-r1/implementation/a735ff8667c5c6e3",
+        "captures": [],
+        "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/closure/f3fb8f146a9d2d90"
+      }
+    },
+    {
+      "kind": "closure",
+      "association": {
+        "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/a735ff8667c5c6e3",
+        "value": "cce-car-spec-adapter-667a00a-complete-r1/value/a735ff8667c5c6e3/v/22392",
+        "callback": "cce-car-spec-adapter-667a00a-complete-r1/implementation/60e0720dc70b8514",
+        "captures": [
+          {
+            "name": "next",
+            "capture": "cce-car-spec-adapter-667a00a-complete-r1/value/60e0720dc70b8514/capture/c6c1c9a9c8543f1e",
+            "value": "cce-car-spec-adapter-667a00a-complete-r1/value/a735ff8667c5c6e3/p/0",
+            "mode": "reference"
+          }
+        ],
+        "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/closure/a6456df2a6e92475"
+      }
+    },
+    {
+      "kind": "closure",
+      "association": {
+        "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/f10e4c3972bf430a",
+        "value": "cce-car-spec-adapter-667a00a-complete-r1/value/f10e4c3972bf430a/v/22792",
+        "callback": "cce-car-spec-adapter-667a00a-complete-r1/implementation/2de66f7ffc083871",
+        "captures": [
+          {
+            "name": "watermillPublisher",
+            "capture": "cce-car-spec-adapter-667a00a-complete-r1/value/2de66f7ffc083871/capture/cbe5c04ab0e04e0d",
+            "value": "cce-car-spec-adapter-667a00a-complete-r1/value/f10e4c3972bf430a/p/1",
+            "mode": "reference"
+          }
+        ],
+        "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/closure/916d704a1847ac92"
+      }
+    },
+    {
+      "kind": "closure",
+      "association": {
+        "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/97accce8d74f35c1",
+        "value": "cce-car-spec-adapter-667a00a-complete-r1/value/97accce8d74f35c1/v/22865",
+        "callback": "cce-car-spec-adapter-667a00a-complete-r1/implementation/4d5c377577f32db0",
+        "captures": [
+          {
+            "name": "logger",
+            "capture": "cce-car-spec-adapter-667a00a-complete-r1/value/4d5c377577f32db0/capture/2686af9f25e1a64f",
+            "value": "cce-car-spec-adapter-667a00a-complete-r1/value/97accce8d74f35c1/p/1",
+            "mode": "reference"
+          },
+          {
+            "name": "router",
+            "capture": "cce-car-spec-adapter-667a00a-complete-r1/value/4d5c377577f32db0/capture/74c95604043427f0",
+            "value": "cce-car-spec-adapter-667a00a-complete-r1/value/97accce8d74f35c1/p/2",
+            "mode": "reference"
+          }
+        ],
+        "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/closure/68eb8e52507701c2"
+      }
+    },
+    {
+      "kind": "closure",
+      "association": {
+        "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/97accce8d74f35c1",
+        "value": "cce-car-spec-adapter-667a00a-complete-r1/value/97accce8d74f35c1/v/22871",
+        "callback": "cce-car-spec-adapter-667a00a-complete-r1/implementation/a7163f7b00128f21",
+        "captures": [
+          {
+            "name": "router",
+            "capture": "cce-car-spec-adapter-667a00a-complete-r1/value/a7163f7b00128f21/capture/74c95604043427f0",
+            "value": "cce-car-spec-adapter-667a00a-complete-r1/value/97accce8d74f35c1/p/2",
+            "mode": "reference"
+          }
+        ],
+        "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/closure/a1a432279fdd7d3b"
+      }
+    },
+    {
+      "kind": "closure",
+      "association": {
+        "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/4d5c377577f32db0",
+        "value": "cce-car-spec-adapter-667a00a-complete-r1/value/4d5c377577f32db0/v/22889",
+        "callback": "cce-car-spec-adapter-667a00a-complete-r1/implementation/dd8bf2b5450d0417",
+        "captures": [
+          {
+            "name": "logger",
+            "capture": "cce-car-spec-adapter-667a00a-complete-r1/value/dd8bf2b5450d0417/capture/2686af9f25e1a64f",
+            "value": "cce-car-spec-adapter-667a00a-complete-r1/value/4d5c377577f32db0/capture/2686af9f25e1a64f",
+            "mode": "reference"
+          },
+          {
+            "name": "router",
+            "capture": "cce-car-spec-adapter-667a00a-complete-r1/value/dd8bf2b5450d0417/capture/74c95604043427f0",
+            "value": "cce-car-spec-adapter-667a00a-complete-r1/value/4d5c377577f32db0/capture/74c95604043427f0",
+            "mode": "reference"
+          }
+        ],
+        "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/closure/07469e74a217c26d"
+      }
+    },
+    {
+      "kind": "closure",
+      "association": {
+        "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/5a6cfef9d3174c54",
+        "value": "cce-car-spec-adapter-667a00a-complete-r1/value/5a6cfef9d3174c54/v/23065",
+        "callback": "cce-car-spec-adapter-667a00a-complete-r1/implementation/b6974f96ad4fdf8d",
+        "captures": [
+          {
+            "name": "sentry",
+            "capture": "cce-car-spec-adapter-667a00a-complete-r1/value/b6974f96ad4fdf8d/capture/0cf6855c1a3c323b",
+            "value": "cce-car-spec-adapter-667a00a-complete-r1/value/5a6cfef9d3174c54/p/1",
+            "mode": "reference"
+          }
+        ],
+        "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/closure/2b64759482a29395"
+      }
+    },
+    {
+      "kind": "closure",
+      "association": {
+        "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/b7341f92e6f5b0ed",
+        "value": "cce-car-spec-adapter-667a00a-complete-r1/value/b7341f92e6f5b0ed/v/23211",
+        "callback": "cce-car-spec-adapter-667a00a-complete-r1/implementation/3eecdf8169b56438",
+        "captures": [
+          {
+            "name": "logger",
+            "capture": "cce-car-spec-adapter-667a00a-complete-r1/value/3eecdf8169b56438/capture/2686af9f25e1a64f",
+            "value": "cce-car-spec-adapter-667a00a-complete-r1/value/b7341f92e6f5b0ed/p/1",
+            "mode": "reference"
+          }
+        ],
+        "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/closure/eb1cddd3798419c6"
+      }
+    },
+    {
+      "kind": "closure",
+      "association": {
+        "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/b157e87b5768db64",
+        "value": "cce-car-spec-adapter-667a00a-complete-r1/value/b157e87b5768db64/v/23512",
+        "callback": "cce-car-spec-adapter-667a00a-complete-r1/implementation/542f65f2a3da30cc",
+        "captures": [],
+        "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/closure/af14ebbfb1d81b2e"
+      }
+    },
+    {
+      "kind": "closure",
+      "association": {
+        "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/2b6de66cf623890b",
+        "value": "cce-car-spec-adapter-667a00a-complete-r1/value/2b6de66cf623890b/v/23651",
+        "callback": "cce-car-spec-adapter-667a00a-complete-r1/implementation/c9abfe16cede400d",
+        "captures": [
+          {
+            "name": "c",
+            "capture": "cce-car-spec-adapter-667a00a-complete-r1/value/c9abfe16cede400d/capture/2e7d2c03a9507ae2",
+            "value": "cce-car-spec-adapter-667a00a-complete-r1/value/2b6de66cf623890b/receiver",
+            "mode": "reference"
+          },
+          {
+            "name": "message",
+            "capture": "cce-car-spec-adapter-667a00a-complete-r1/value/c9abfe16cede400d/capture/ab530a13e4591498",
+            "value": "cce-car-spec-adapter-667a00a-complete-r1/value/2b6de66cf623890b/p/0",
+            "mode": "reference"
+          }
+        ],
+        "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/closure/fb29559ea3eb3af6"
+      }
+    },
+    {
+      "kind": "closure",
+      "association": {
+        "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/1210efbd8be25ccf",
+        "value": "cce-car-spec-adapter-667a00a-complete-r1/value/1210efbd8be25ccf/v/23685",
+        "callback": "cce-car-spec-adapter-667a00a-complete-r1/implementation/318f8700b88dc581",
+        "captures": [
+          {
+            "name": "client",
+            "capture": "cce-car-spec-adapter-667a00a-complete-r1/value/318f8700b88dc581/capture/948fe603f61dc036",
+            "value": "cce-car-spec-adapter-667a00a-complete-r1/value/1210efbd8be25ccf/p/1",
+            "mode": "reference"
+          }
+        ],
+        "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/closure/f4e8e8e2f5caf184"
+      }
+    },
+    {
+      "kind": "closure",
+      "association": {
+        "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/1210efbd8be25ccf",
+        "value": "cce-car-spec-adapter-667a00a-complete-r1/value/1210efbd8be25ccf/v/23690",
+        "callback": "cce-car-spec-adapter-667a00a-complete-r1/implementation/edbe5917971ba375",
+        "captures": [
+          {
+            "name": "client",
+            "capture": "cce-car-spec-adapter-667a00a-complete-r1/value/edbe5917971ba375/capture/948fe603f61dc036",
+            "value": "cce-car-spec-adapter-667a00a-complete-r1/value/1210efbd8be25ccf/p/1",
+            "mode": "reference"
+          }
+        ],
+        "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/closure/2cbcfad4805e87a0"
+      }
+    },
+    {
+      "kind": "closure",
+      "association": {
+        "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/4a8db0119cf0d0d0",
+        "value": "cce-car-spec-adapter-667a00a-complete-r1/value/4a8db0119cf0d0d0/v/24107",
+        "callback": "cce-car-spec-adapter-667a00a-complete-r1/implementation/2ab64663918234f3",
+        "captures": [
+          {
+            "name": "logger",
+            "capture": "cce-car-spec-adapter-667a00a-complete-r1/value/2ab64663918234f3/capture/2686af9f25e1a64f",
+            "value": "cce-car-spec-adapter-667a00a-complete-r1/value/4a8db0119cf0d0d0/p/0",
+            "mode": "reference"
+          }
+        ],
+        "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/closure/221c5d18fdb2b6bd"
+      }
+    },
+    {
+      "kind": "closure",
+      "association": {
+        "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/81a47fc54414a91d",
+        "value": "cce-car-spec-adapter-667a00a-complete-r1/value/81a47fc54414a91d/v/24146",
+        "callback": "cce-car-spec-adapter-667a00a-complete-r1/implementation/68553d286d0cff73",
+        "captures": [
+          {
+            "name": "params",
+            "capture": "cce-car-spec-adapter-667a00a-complete-r1/value/68553d286d0cff73/capture/a20b52fae57cc7a9",
+            "value": "cce-car-spec-adapter-667a00a-complete-r1/value/81a47fc54414a91d/p/0",
+            "mode": "reference"
+          }
+        ],
+        "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/closure/f87eb4b57c6d375d"
+      }
+    },
+    {
+      "kind": "closure",
+      "association": {
+        "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/babb773e4d14909a",
+        "value": "cce-car-spec-adapter-667a00a-complete-r1/value/babb773e4d14909a/v/24246",
+        "callback": "cce-car-spec-adapter-667a00a-complete-r1/implementation/4298d495ac26947d",
+        "captures": [
+          {
+            "name": "ctx",
+            "capture": "cce-car-spec-adapter-667a00a-complete-r1/value/4298d495ac26947d/capture/0230c6b1d833c51c",
+            "value": "cce-car-spec-adapter-667a00a-complete-r1/value/babb773e4d14909a/p/0",
+            "mode": "reference"
+          },
+          {
+            "name": "errs",
+            "capture": "cce-car-spec-adapter-667a00a-complete-r1/value/4298d495ac26947d/capture/9a6f67df764eced0",
+            "value": "cce-car-spec-adapter-667a00a-complete-r1/value/babb773e4d14909a/v/24201",
+            "mode": "reference"
+          },
+          {
+            "name": "wg",
+            "capture": "cce-car-spec-adapter-667a00a-complete-r1/value/4298d495ac26947d/capture/99d382c5e390c4d5",
+            "value": "cce-car-spec-adapter-667a00a-complete-r1/value/babb773e4d14909a/v/24209",
+            "mode": "reference"
+          }
+        ],
+        "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/closure/77f3e9d22fb8a105"
+      }
+    },
+    {
+      "kind": "closure",
+      "association": {
+        "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/60ac4ca6c84e121d",
+        "value": "cce-car-spec-adapter-667a00a-complete-r1/value/60ac4ca6c84e121d/v/55494",
+        "callback": "cce-car-spec-adapter-667a00a-complete-r1/implementation/2886d90beee99a8d",
+        "captures": [
+          {
+            "name": "wheelCodes",
+            "capture": "cce-car-spec-adapter-667a00a-complete-r1/value/2886d90beee99a8d/capture/43a82afba8333fa2",
+            "value": "cce-car-spec-adapter-667a00a-complete-r1/value/60ac4ca6c84e121d/p/1",
+            "mode": "reference"
+          }
+        ],
+        "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/closure/6ef79590a9bb69e1"
+      }
+    },
+    {
+      "kind": "closure",
+      "association": {
+        "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/bd5825b872750f93",
+        "value": "cce-car-spec-adapter-667a00a-complete-r1/value/bd5825b872750f93/v/55527",
+        "callback": "cce-car-spec-adapter-667a00a-complete-r1/implementation/660d33385866bd2a",
+        "captures": [
+          {
+            "name": "wheelCodes",
+            "capture": "cce-car-spec-adapter-667a00a-complete-r1/value/660d33385866bd2a/capture/43a82afba8333fa2",
+            "value": "cce-car-spec-adapter-667a00a-complete-r1/value/bd5825b872750f93/p/1",
+            "mode": "reference"
+          }
+        ],
+        "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/closure/efd86345d34c88f4"
+      }
+    },
+    {
+      "kind": "closure",
+      "association": {
+        "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/8654451c1396835e",
+        "value": "cce-car-spec-adapter-667a00a-complete-r1/value/8654451c1396835e/v/55560",
+        "callback": "cce-car-spec-adapter-667a00a-complete-r1/implementation/5a6c0cf849b232aa",
+        "captures": [
+          {
+            "name": "wheelCodes",
+            "capture": "cce-car-spec-adapter-667a00a-complete-r1/value/5a6c0cf849b232aa/capture/43a82afba8333fa2",
+            "value": "cce-car-spec-adapter-667a00a-complete-r1/value/8654451c1396835e/p/1",
+            "mode": "reference"
+          }
+        ],
+        "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/closure/7791042289320098"
+      }
+    },
+    {
+      "kind": "closure",
+      "association": {
+        "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/453a8d36d4cfd98b",
+        "value": "cce-car-spec-adapter-667a00a-complete-r1/value/453a8d36d4cfd98b/v/55597",
+        "callback": "cce-car-spec-adapter-667a00a-complete-r1/implementation/9e8e5071553fe87d",
+        "captures": [
+          {
+            "name": "wheelCodes",
+            "capture": "cce-car-spec-adapter-667a00a-complete-r1/value/9e8e5071553fe87d/capture/43a82afba8333fa2",
+            "value": "cce-car-spec-adapter-667a00a-complete-r1/value/453a8d36d4cfd98b/p/1",
+            "mode": "reference"
+          }
+        ],
+        "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/closure/5012fa6558826bc1"
+      }
+    },
+    {
+      "kind": "closure",
+      "association": {
+        "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/c1f82c26ab681066",
+        "value": "cce-car-spec-adapter-667a00a-complete-r1/value/c1f82c26ab681066/v/62521",
+        "callback": "cce-car-spec-adapter-667a00a-complete-r1/implementation/bc33ed55ed9b2fcc",
+        "captures": [],
+        "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/closure/ec0f696a66fdba56"
+      }
+    },
+    {
+      "kind": "closure",
+      "association": {
+        "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/c1f82c26ab681066",
+        "value": "cce-car-spec-adapter-667a00a-complete-r1/value/c1f82c26ab681066/v/62525",
+        "callback": "cce-car-spec-adapter-667a00a-complete-r1/implementation/ef5afab991e179c2",
+        "captures": [
+          {
+            "name": "colorCode",
+            "capture": "cce-car-spec-adapter-667a00a-complete-r1/value/ef5afab991e179c2/capture/f3c70e35ddb1bf45",
+            "value": "cce-car-spec-adapter-667a00a-complete-r1/value/c1f82c26ab681066/p/0",
+            "mode": "reference"
+          }
+        ],
+        "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/closure/3051ed4ab461322e"
+      }
+    },
+    {
+      "kind": "closure",
+      "association": {
+        "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/53aafe2d0ece08bc",
+        "value": "cce-car-spec-adapter-667a00a-complete-r1/value/53aafe2d0ece08bc/v/62563",
+        "callback": "cce-car-spec-adapter-667a00a-complete-r1/implementation/84fa89e4c4bfda49",
+        "captures": [],
+        "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/closure/1a5003cbaa6cea19"
+      }
+    },
+    {
+      "kind": "closure",
+      "association": {
+        "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/53aafe2d0ece08bc",
+        "value": "cce-car-spec-adapter-667a00a-complete-r1/value/53aafe2d0ece08bc/v/62567",
+        "callback": "cce-car-spec-adapter-667a00a-complete-r1/implementation/33e0acc37356297d",
+        "captures": [
+          {
+            "name": "uphCode",
+            "capture": "cce-car-spec-adapter-667a00a-complete-r1/value/33e0acc37356297d/capture/12fc18ffbde86f39",
+            "value": "cce-car-spec-adapter-667a00a-complete-r1/value/53aafe2d0ece08bc/p/0",
+            "mode": "reference"
+          }
+        ],
+        "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/closure/b5deea1653a62f36"
+      }
+    },
+    {
+      "kind": "closure",
+      "association": {
+        "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/73d89fc6dde6dc2d",
+        "value": "cce-car-spec-adapter-667a00a-complete-r1/value/73d89fc6dde6dc2d/v/66616",
+        "callback": "cce-car-spec-adapter-667a00a-complete-r1/implementation/5e272662c899bef5",
+        "captures": [
+          {
+            "name": "ids",
+            "capture": "cce-car-spec-adapter-667a00a-complete-r1/value/5e272662c899bef5/capture/23466067f626bf8a",
+            "value": "cce-car-spec-adapter-667a00a-complete-r1/value/73d89fc6dde6dc2d/receiver",
+            "mode": "reference"
+          }
+        ],
+        "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/closure/6ed7479d0557ed6a"
+      }
+    },
+    {
+      "kind": "closure",
+      "association": {
+        "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/4d371c12a8a7a179",
+        "value": "cce-car-spec-adapter-667a00a-complete-r1/value/4d371c12a8a7a179/v/66869",
+        "callback": "cce-car-spec-adapter-667a00a-complete-r1/implementation/0a9ebc67a5ff0a13",
+        "captures": [
+          {
+            "name": "ids",
+            "capture": "cce-car-spec-adapter-667a00a-complete-r1/value/0a9ebc67a5ff0a13/capture/23466067f626bf8a",
+            "value": "cce-car-spec-adapter-667a00a-complete-r1/value/4d371c12a8a7a179/p/0",
+            "mode": "reference"
+          }
+        ],
+        "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/closure/b935eff8d48d7cda"
+      }
+    },
+    {
+      "kind": "closure",
+      "association": {
+        "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/35df9b20bc9341ec",
+        "value": "cce-car-spec-adapter-667a00a-complete-r1/value/35df9b20bc9341ec/v/68529",
+        "callback": "cce-car-spec-adapter-667a00a-complete-r1/implementation/46916338d0455e73",
+        "captures": [
+          {
+            "name": "sorted",
+            "capture": "cce-car-spec-adapter-667a00a-complete-r1/value/46916338d0455e73/capture/db8cf3338c29849e",
+            "value": "cce-car-spec-adapter-667a00a-complete-r1/value/35df9b20bc9341ec/v/68522",
+            "mode": "reference"
+          }
+        ],
+        "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/closure/40fddda2f00eae36"
+      }
+    },
+    {
+      "kind": "closure",
+      "association": {
+        "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/cc5a9a84ebeec7fc",
+        "value": "cce-car-spec-adapter-667a00a-complete-r1/value/cc5a9a84ebeec7fc/v/70408",
+        "callback": "cce-car-spec-adapter-667a00a-complete-r1/implementation/3995cff46b53b61f",
+        "captures": [
+          {
+            "name": "pds",
+            "capture": "cce-car-spec-adapter-667a00a-complete-r1/value/3995cff46b53b61f/capture/44df2b768f9be5af",
+            "value": "cce-car-spec-adapter-667a00a-complete-r1/value/cc5a9a84ebeec7fc/v/70401",
+            "mode": "reference"
+          }
+        ],
+        "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/closure/c34aadde83315f2d"
+      }
+    },
+    {
+      "kind": "closure",
+      "association": {
+        "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/ccdfba3a52985e9f",
+        "value": "cce-car-spec-adapter-667a00a-complete-r1/value/ccdfba3a52985e9f/v/70818",
+        "callback": "cce-car-spec-adapter-667a00a-complete-r1/implementation/e53f4e04cc4aa7bb",
+        "captures": [
+          {
+            "name": "sortedEdges",
+            "capture": "cce-car-spec-adapter-667a00a-complete-r1/value/e53f4e04cc4aa7bb/capture/e0e276f7dbb94309",
+            "value": "cce-car-spec-adapter-667a00a-complete-r1/value/ccdfba3a52985e9f/v/70813",
+            "mode": "reference"
+          }
+        ],
+        "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/closure/8b2fa318afcdf0b8"
+      }
+    },
+    {
+      "kind": "closure",
+      "association": {
+        "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/0aa6476f2a600028",
+        "value": "cce-car-spec-adapter-667a00a-complete-r1/value/0aa6476f2a600028/v/75078",
+        "callback": "cce-car-spec-adapter-667a00a-complete-r1/implementation/55970ef72153d1a9",
+        "captures": [],
+        "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/closure/0610c52b44ae204a"
+      }
+    },
+    {
+      "kind": "closure",
+      "association": {
+        "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/2f79965950f91ad3",
+        "value": "cce-car-spec-adapter-667a00a-complete-r1/value/2f79965950f91ad3/v/83327",
+        "callback": "cce-car-spec-adapter-667a00a-complete-r1/implementation/35e8c44bcb6d4843",
+        "captures": [],
+        "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/closure/84e024c5c91ecb0c"
+      }
+    },
+    {
+      "kind": "closure",
+      "association": {
+        "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/4ffc2c3adc1c002a",
+        "value": "cce-car-spec-adapter-667a00a-complete-r1/value/4ffc2c3adc1c002a/v/85604",
+        "callback": "cce-car-spec-adapter-667a00a-complete-r1/implementation/bc5b72fb6622de13",
+        "captures": [
+          {
+            "name": "t",
+            "capture": "cce-car-spec-adapter-667a00a-complete-r1/value/bc5b72fb6622de13/capture/e3b98a4da31a127d",
+            "value": "cce-car-spec-adapter-667a00a-complete-r1/value/4ffc2c3adc1c002a/p/0",
+            "mode": "reference"
+          }
+        ],
+        "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/closure/e04308060efe0c97"
+      }
+    },
+    {
+      "kind": "closure",
+      "association": {
+        "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/c5c616ab4f3b7705",
+        "value": "cce-car-spec-adapter-667a00a-complete-r1/value/c5c616ab4f3b7705/v/85628",
+        "callback": "cce-car-spec-adapter-667a00a-complete-r1/implementation/50ec5f0ce5604486",
+        "captures": [
+          {
+            "name": "client",
+            "capture": "cce-car-spec-adapter-667a00a-complete-r1/value/50ec5f0ce5604486/capture/948fe603f61dc036",
+            "value": "cce-car-spec-adapter-667a00a-complete-r1/value/c5c616ab4f3b7705/p/0",
+            "mode": "reference"
+          }
+        ],
+        "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/closure/567ec4c33eb4d3fc"
+      }
+    },
+    {
+      "kind": "closure",
+      "association": {
+        "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/7c3a961d88dc31f4",
+        "value": "cce-car-spec-adapter-667a00a-complete-r1/value/7c3a961d88dc31f4/v/85922",
+        "callback": "cce-car-spec-adapter-667a00a-complete-r1/implementation/928eb56dddfef7bb",
+        "captures": [
+          {
+            "name": "t",
+            "capture": "cce-car-spec-adapter-667a00a-complete-r1/value/928eb56dddfef7bb/capture/e3b98a4da31a127d",
+            "value": "cce-car-spec-adapter-667a00a-complete-r1/value/7c3a961d88dc31f4/v/85918",
+            "mode": "reference"
+          }
+        ],
+        "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/closure/3c0420fcd1299cdc"
+      }
+    },
+    {
+      "kind": "closure",
+      "association": {
+        "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/928eb56dddfef7bb",
+        "value": "cce-car-spec-adapter-667a00a-complete-r1/value/928eb56dddfef7bb/v/85929",
+        "callback": "cce-car-spec-adapter-667a00a-complete-r1/implementation/01b772762955eb61",
+        "captures": [
+          {
+            "name": "next",
+            "capture": "cce-car-spec-adapter-667a00a-complete-r1/value/01b772762955eb61/capture/c6c1c9a9c8543f1e",
+            "value": "cce-car-spec-adapter-667a00a-complete-r1/value/928eb56dddfef7bb/p/0",
+            "mode": "reference"
+          },
+          {
+            "name": "t",
+            "capture": "cce-car-spec-adapter-667a00a-complete-r1/value/01b772762955eb61/capture/e3b98a4da31a127d",
+            "value": "cce-car-spec-adapter-667a00a-complete-r1/value/928eb56dddfef7bb/capture/e3b98a4da31a127d",
+            "mode": "reference"
+          }
+        ],
+        "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/closure/6fb9b65cd73037a3"
+      }
+    },
+    {
+      "kind": "closure",
+      "association": {
+        "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/59baffb11aa7e50b",
+        "value": "cce-car-spec-adapter-667a00a-complete-r1/value/59baffb11aa7e50b/v/88434",
+        "callback": "cce-car-spec-adapter-667a00a-complete-r1/implementation/33601532d1b555a0",
+        "captures": [
+          {
+            "name": "logger",
+            "capture": "cce-car-spec-adapter-667a00a-complete-r1/value/33601532d1b555a0/capture/2686af9f25e1a64f",
+            "value": "cce-car-spec-adapter-667a00a-complete-r1/value/59baffb11aa7e50b/p/0",
+            "mode": "reference"
+          }
+        ],
+        "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/closure/c61fa288d457fbb6"
+      }
+    },
+    {
+      "kind": "closure",
+      "association": {
+        "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/4b209235c1781ff8",
+        "value": "cce-car-spec-adapter-667a00a-complete-r1/value/4b209235c1781ff8/v/88488",
+        "callback": "cce-car-spec-adapter-667a00a-complete-r1/implementation/c93a5098dc00e066",
+        "captures": [
+          {
+            "name": "h",
+            "capture": "cce-car-spec-adapter-667a00a-complete-r1/value/c93a5098dc00e066/capture/aaa9402664f1a41f",
+            "value": "cce-car-spec-adapter-667a00a-complete-r1/value/4b209235c1781ff8/p/0",
+            "mode": "reference"
+          }
+        ],
+        "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/closure/2625f2896c39175b"
+      }
+    },
+    {
+      "kind": "closure",
+      "association": {
+        "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/46dfe3333809b510",
+        "value": "cce-car-spec-adapter-667a00a-complete-r1/value/46dfe3333809b510/v/88934",
+        "callback": "cce-car-spec-adapter-667a00a-complete-r1/implementation/e5a4a03e027bbe79",
+        "captures": [
+          {
+            "name": "handler",
+            "capture": "cce-car-spec-adapter-667a00a-complete-r1/value/e5a4a03e027bbe79/capture/3128389bb1c21baf",
+            "value": "cce-car-spec-adapter-667a00a-complete-r1/value/46dfe3333809b510/p/4",
+            "mode": "reference"
+          },
+          {
+            "name": "logger",
+            "capture": "cce-car-spec-adapter-667a00a-complete-r1/value/e5a4a03e027bbe79/capture/2686af9f25e1a64f",
+            "value": "cce-car-spec-adapter-667a00a-complete-r1/value/46dfe3333809b510/p/2",
+            "mode": "reference"
+          }
+        ],
+        "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/closure/c159ba56eeb4d476"
+      }
+    },
+    {
+      "kind": "closure",
+      "association": {
+        "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/46dfe3333809b510",
+        "value": "cce-car-spec-adapter-667a00a-complete-r1/value/46dfe3333809b510/v/88959",
+        "callback": "cce-car-spec-adapter-667a00a-complete-r1/implementation/c45615bac70b1f2c",
+        "captures": [
+          {
+            "name": "handler",
+            "capture": "cce-car-spec-adapter-667a00a-complete-r1/value/c45615bac70b1f2c/capture/3128389bb1c21baf",
+            "value": "cce-car-spec-adapter-667a00a-complete-r1/value/46dfe3333809b510/p/4",
+            "mode": "reference"
+          },
+          {
+            "name": "logger",
+            "capture": "cce-car-spec-adapter-667a00a-complete-r1/value/c45615bac70b1f2c/capture/2686af9f25e1a64f",
+            "value": "cce-car-spec-adapter-667a00a-complete-r1/value/46dfe3333809b510/p/2",
+            "mode": "reference"
+          }
+        ],
+        "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/closure/6fd62fed35fcda3a"
+      }
+    },
+    {
+      "kind": "closure",
+      "association": {
+        "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/2f40b11956435b7f",
+        "value": "cce-car-spec-adapter-667a00a-complete-r1/value/2f40b11956435b7f/v/90221",
+        "callback": "cce-car-spec-adapter-667a00a-complete-r1/implementation/f5ff078ab9619fa7",
+        "captures": [],
+        "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/closure/28b6937dd2e7ae81"
+      }
+    },
+    {
+      "kind": "closure",
+      "association": {
+        "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/08b3eefd4f79e1d2",
+        "value": "cce-car-spec-adapter-667a00a-complete-r1/value/08b3eefd4f79e1d2/v/96590",
+        "callback": "cce-car-spec-adapter-667a00a-complete-r1/implementation/bc2d9272228c7361",
+        "captures": [],
+        "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/closure/75fdd89ecbff89cc"
+      }
+    },
+    {
+      "kind": "closure",
+      "association": {
+        "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/2150f86e6e35eccb",
+        "value": "cce-car-spec-adapter-667a00a-complete-r1/value/2150f86e6e35eccb/v/97196",
+        "callback": "cce-car-spec-adapter-667a00a-complete-r1/implementation/73767cfe4d10148e",
+        "captures": [],
+        "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/closure/b93f923d6a5d49fb"
+      }
+    },
+    {
+      "kind": "closure",
+      "association": {
+        "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/8e3a306f8a093633",
+        "value": "cce-car-spec-adapter-667a00a-complete-r1/value/8e3a306f8a093633/v/97666",
+        "callback": "cce-car-spec-adapter-667a00a-complete-r1/implementation/af3edb8831b77005",
+        "captures": [],
+        "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/closure/f87b0476b82ac05e"
+      }
+    },
+    {
+      "kind": "closure",
+      "association": {
+        "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/40364f66b64bed7e",
+        "value": "cce-car-spec-adapter-667a00a-complete-r1/value/40364f66b64bed7e/v/98309",
+        "callback": "cce-car-spec-adapter-667a00a-complete-r1/implementation/ff9bf21a1d95f693",
+        "captures": [],
+        "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/closure/dcb31c31c34edb8d"
+      }
+    },
+    {
+      "kind": "closure",
+      "association": {
+        "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/5c91a4148ad04c58",
+        "value": "cce-car-spec-adapter-667a00a-complete-r1/value/5c91a4148ad04c58/v/109055",
+        "callback": "cce-car-spec-adapter-667a00a-complete-r1/implementation/1747b23921c9e894",
+        "captures": [
+          {
+            "name": "h",
+            "capture": "cce-car-spec-adapter-667a00a-complete-r1/value/1747b23921c9e894/capture/aaa9402664f1a41f",
+            "value": "cce-car-spec-adapter-667a00a-complete-r1/value/5c91a4148ad04c58/p/0",
+            "mode": "reference"
+          }
+        ],
+        "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/closure/7563ed991d1e1029"
+      }
+    },
+    {
+      "kind": "closure",
+      "association": {
+        "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/1747b23921c9e894",
+        "value": "cce-car-spec-adapter-667a00a-complete-r1/value/1747b23921c9e894/v/109152",
+        "callback": "cce-car-spec-adapter-667a00a-complete-r1/implementation/5e8cb4f65f095cb9",
+        "captures": [
+          {
+            "name": "err",
+            "capture": "cce-car-spec-adapter-667a00a-complete-r1/value/5e8cb4f65f095cb9/capture/d9eb253e06987fa7",
+            "value": "cce-car-spec-adapter-667a00a-complete-r1/value/1747b23921c9e894/v/109061",
+            "mode": "reference"
+          },
+          {
+            "name": "span",
+            "capture": "cce-car-spec-adapter-667a00a-complete-r1/value/5e8cb4f65f095cb9/capture/37a0025aa1f2e29f",
+            "value": "cce-car-spec-adapter-667a00a-complete-r1/value/1747b23921c9e894/v/109148",
+            "mode": "reference"
+          }
+        ],
+        "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/closure/d5d83b7f8ee5cae3"
+      }
+    },
+    {
+      "kind": "closure",
+      "association": {
+        "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/8c54fdea9dd95123",
+        "value": "cce-car-spec-adapter-667a00a-complete-r1/value/8c54fdea9dd95123/v/109482",
+        "callback": "cce-car-spec-adapter-667a00a-complete-r1/implementation/137ffdd3de620078",
+        "captures": [
+          {
+            "name": "cfg",
+            "capture": "cce-car-spec-adapter-667a00a-complete-r1/value/137ffdd3de620078/capture/e67d23e7820c49a8",
+            "value": "cce-car-spec-adapter-667a00a-complete-r1/value/8c54fdea9dd95123/p/0",
+            "mode": "reference"
+          }
+        ],
+        "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/closure/bf1e28f86ae0467a"
+      }
+    },
+    {
+      "kind": "readiness",
+      "registration": {
+        "entry": "cce-car-spec-adapter-667a00a-complete-r1/entry/callback/readiness",
+        "contract": "cce-car-spec-adapter-667a00a-complete-r1/interface_contract/callback/readiness",
+        "implementation": "cce-car-spec-adapter-667a00a-complete-r1/implementation/b33d0a6cfa22b222",
+        "host": "api",
+        "path": "internal/api/httpserver/server.go#WithReadinessCheck(postgres)",
+        "method": "CALLBACK"
+      },
+      "limit": "Imported go-httpserver health route names/activation are not in pinned source; no guessed REST exposure."
+    },
+    {
+      "kind": "swagger-imported-handler",
+      "registration": {
+        "entry": "cce-car-spec-adapter-667a00a-complete-r1/entry/rest/swagger",
+        "contract": "cce-car-spec-adapter-667a00a-complete-r1/interface_contract/rest/swagger",
+        "implementation": "cce-car-spec-adapter-667a00a-complete-r1/implementation/swagger-registration-target",
+        "host": "api",
+        "path": "/swagger/*",
+        "method": "GET"
+      },
+      "gap": "cce-car-spec-adapter-667a00a-complete-r1/gap/swagger-target"
+    },
+    {
+      "kind": "Fx-source-declaration",
+      "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/7ed4bfb367c7195c",
+      "path": "internal/app/app.go",
+      "lines": [39, 39],
+      "source": "fx.Options(opts...)",
+      "operation": "cce-car-spec-adapter-667a00a-complete-r1/operation/7ed4bfb367c7195c/n/1",
+      "receiver": null,
+      "arguments": ["cce-car-spec-adapter-667a00a-complete-r1/value/7ed4bfb367c7195c/p/0"],
+      "result": "cce-car-spec-adapter-667a00a-complete-r1/value/7ed4bfb367c7195c/v/21254",
+      "target": null,
+      "resultTypes": [],
+      "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/call-operands/5c4044afcb611c69"
+    },
+    {
+      "kind": "Fx-source-declaration",
+      "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/7ed4bfb367c7195c",
+      "path": "internal/app/app.go",
+      "lines": [79, 79],
+      "source": "fx.As(new(messaging.AutoSyncFeatureFlagger))",
+      "operation": "cce-car-spec-adapter-667a00a-complete-r1/operation/7ed4bfb367c7195c/n/40",
+      "receiver": null,
+      "arguments": ["cce-car-spec-adapter-667a00a-complete-r1/value/7ed4bfb367c7195c/v/21444"],
+      "result": "cce-car-spec-adapter-667a00a-complete-r1/value/7ed4bfb367c7195c/v/21448",
+      "target": null,
+      "resultTypes": [],
+      "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/call-operands/f018418484939ec6"
+    },
+    {
+      "kind": "Fx-source-declaration",
+      "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/7ed4bfb367c7195c",
+      "path": "internal/app/app.go",
+      "lines": [77, 80],
+      "source": "fx.Annotate(\n\t\t\t\tfeatureflag.NewAutoSyncFeatureFlagger,\n\t\t\t\tfx.As(new(messaging.AutoSyncFeatureFlagger)),\n\t\t\t)",
+      "operation": "cce-car-spec-adapter-667a00a-complete-r1/operation/7ed4bfb367c7195c/n/41",
+      "receiver": null,
+      "arguments": [
+        "cce-car-spec-adapter-667a00a-complete-r1/value/7ed4bfb367c7195c/v/21439",
+        "cce-car-spec-adapter-667a00a-complete-r1/value/7ed4bfb367c7195c/v/21448"
+      ],
+      "result": "cce-car-spec-adapter-667a00a-complete-r1/value/7ed4bfb367c7195c/v/21454",
+      "target": null,
+      "resultTypes": [],
+      "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/call-operands/8e207e2d2b5d54f1"
+    },
+    {
+      "kind": "Fx-source-declaration",
+      "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/7ed4bfb367c7195c",
+      "path": "internal/app/app.go",
+      "lines": [83, 83],
+      "source": "fx.As(new(assortment.Parser))",
+      "operation": "cce-car-spec-adapter-667a00a-complete-r1/operation/7ed4bfb367c7195c/n/44",
+      "receiver": null,
+      "arguments": ["cce-car-spec-adapter-667a00a-complete-r1/value/7ed4bfb367c7195c/v/21464"],
+      "result": "cce-car-spec-adapter-667a00a-complete-r1/value/7ed4bfb367c7195c/v/21468",
+      "target": null,
+      "resultTypes": [],
+      "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/call-operands/3287640fa27a736d"
+    },
+    {
+      "kind": "Fx-source-declaration",
+      "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/7ed4bfb367c7195c",
+      "path": "internal/app/app.go",
+      "lines": [81, 84],
+      "source": "fx.Annotate(\n\t\t\t\tparse.NewParser,\n\t\t\t\tfx.As(new(assortment.Parser)),\n\t\t\t)",
+      "operation": "cce-car-spec-adapter-667a00a-complete-r1/operation/7ed4bfb367c7195c/n/45",
+      "receiver": null,
+      "arguments": [
+        "cce-car-spec-adapter-667a00a-complete-r1/value/7ed4bfb367c7195c/v/21459",
+        "cce-car-spec-adapter-667a00a-complete-r1/value/7ed4bfb367c7195c/v/21468"
+      ],
+      "result": "cce-car-spec-adapter-667a00a-complete-r1/value/7ed4bfb367c7195c/v/21474",
+      "target": null,
+      "resultTypes": [],
+      "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/call-operands/bf64a163523baa82"
+    },
+    {
+      "kind": "Fx-source-declaration",
+      "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/7ed4bfb367c7195c",
+      "path": "internal/app/app.go",
+      "lines": [87, 87],
+      "source": "fx.As(new(service.FeatureCodeFetcher))",
+      "operation": "cce-car-spec-adapter-667a00a-complete-r1/operation/7ed4bfb367c7195c/n/48",
+      "receiver": null,
+      "arguments": ["cce-car-spec-adapter-667a00a-complete-r1/value/7ed4bfb367c7195c/v/21484"],
+      "result": "cce-car-spec-adapter-667a00a-complete-r1/value/7ed4bfb367c7195c/v/21488",
+      "target": null,
+      "resultTypes": [],
+      "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/call-operands/cc1ac60224331fdc"
+    },
+    {
+      "kind": "Fx-source-declaration",
+      "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/7ed4bfb367c7195c",
+      "path": "internal/app/app.go",
+      "lines": [88, 88],
+      "source": "fx.ResultTags(`name:\"cpamFeatureCodeFetcher\"`)",
+      "operation": "cce-car-spec-adapter-667a00a-complete-r1/operation/7ed4bfb367c7195c/n/50",
+      "receiver": null,
+      "arguments": ["cce-car-spec-adapter-667a00a-complete-r1/value/7ed4bfb367c7195c/v/21493"],
+      "result": "cce-car-spec-adapter-667a00a-complete-r1/value/7ed4bfb367c7195c/v/21497",
+      "target": null,
+      "resultTypes": [],
+      "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/call-operands/6d7a76bb4f4073f1"
+    },
+    {
+      "kind": "Fx-source-declaration",
+      "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/7ed4bfb367c7195c",
+      "path": "internal/app/app.go",
+      "lines": [85, 89],
+      "source": "fx.Annotate(\n\t\t\t\tcpam.NewFeatureCodeFetcher,\n\t\t\t\tfx.As(new(service.FeatureCodeFetcher)),\n\t\t\t\tfx.ResultTags(`name:\"cpamFeatureCodeFetcher\"`),\n\t\t\t)",
+      "operation": "cce-car-spec-adapter-667a00a-complete-r1/operation/7ed4bfb367c7195c/n/51",
+      "receiver": null,
+      "arguments": [
+        "cce-car-spec-adapter-667a00a-complete-r1/value/7ed4bfb367c7195c/v/21479",
+        "cce-car-spec-adapter-667a00a-complete-r1/value/7ed4bfb367c7195c/v/21488",
+        "cce-car-spec-adapter-667a00a-complete-r1/value/7ed4bfb367c7195c/v/21497"
+      ],
+      "result": "cce-car-spec-adapter-667a00a-complete-r1/value/7ed4bfb367c7195c/v/21503",
+      "target": null,
+      "resultTypes": [],
+      "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/call-operands/1a70e26e267cfd1c"
+    },
+    {
+      "kind": "Fx-source-declaration",
+      "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/7ed4bfb367c7195c",
+      "path": "internal/app/app.go",
+      "lines": [92, 92],
+      "source": "fx.As(new(service.FeatureCodeFetcher))",
+      "operation": "cce-car-spec-adapter-667a00a-complete-r1/operation/7ed4bfb367c7195c/n/54",
+      "receiver": null,
+      "arguments": ["cce-car-spec-adapter-667a00a-complete-r1/value/7ed4bfb367c7195c/v/21513"],
+      "result": "cce-car-spec-adapter-667a00a-complete-r1/value/7ed4bfb367c7195c/v/21517",
+      "target": null,
+      "resultTypes": [],
+      "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/call-operands/c406d9a264436b9c"
+    },
+    {
+      "kind": "Fx-source-declaration",
+      "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/7ed4bfb367c7195c",
+      "path": "internal/app/app.go",
+      "lines": [93, 93],
+      "source": "fx.ResultTags(`name:\"carFeaturesFeatureCodeFetcher\"`)",
+      "operation": "cce-car-spec-adapter-667a00a-complete-r1/operation/7ed4bfb367c7195c/n/56",
+      "receiver": null,
+      "arguments": ["cce-car-spec-adapter-667a00a-complete-r1/value/7ed4bfb367c7195c/v/21522"],
+      "result": "cce-car-spec-adapter-667a00a-complete-r1/value/7ed4bfb367c7195c/v/21526",
+      "target": null,
+      "resultTypes": [],
+      "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/call-operands/0d813aae7c01694a"
+    },
+    {
+      "kind": "Fx-source-declaration",
+      "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/7ed4bfb367c7195c",
+      "path": "internal/app/app.go",
+      "lines": [90, 94],
+      "source": "fx.Annotate(\n\t\t\t\tcarfeatures.NewPrinsFeatureCodeFetcher,\n\t\t\t\tfx.As(new(service.FeatureCodeFetcher)),\n\t\t\t\tfx.ResultTags(`name:\"carFeaturesFeatureCodeFetcher\"`),\n\t\t\t)",
+      "operation": "cce-car-spec-adapter-667a00a-complete-r1/operation/7ed4bfb367c7195c/n/57",
+      "receiver": null,
+      "arguments": [
+        "cce-car-spec-adapter-667a00a-complete-r1/value/7ed4bfb367c7195c/v/21508",
+        "cce-car-spec-adapter-667a00a-complete-r1/value/7ed4bfb367c7195c/v/21517",
+        "cce-car-spec-adapter-667a00a-complete-r1/value/7ed4bfb367c7195c/v/21526"
+      ],
+      "result": "cce-car-spec-adapter-667a00a-complete-r1/value/7ed4bfb367c7195c/v/21532",
+      "target": null,
+      "resultTypes": [],
+      "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/call-operands/ae32d53af0b6af78"
+    },
+    {
+      "kind": "Fx-source-declaration",
+      "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/7ed4bfb367c7195c",
+      "path": "internal/app/app.go",
+      "lines": [97, 97],
+      "source": "fx.As(new(service.FeatureCodeFetcher))",
+      "operation": "cce-car-spec-adapter-667a00a-complete-r1/operation/7ed4bfb367c7195c/n/60",
+      "receiver": null,
+      "arguments": ["cce-car-spec-adapter-667a00a-complete-r1/value/7ed4bfb367c7195c/v/21542"],
+      "result": "cce-car-spec-adapter-667a00a-complete-r1/value/7ed4bfb367c7195c/v/21546",
+      "target": null,
+      "resultTypes": [],
+      "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/call-operands/3bc6b057db8253dc"
+    },
+    {
+      "kind": "Fx-source-declaration",
+      "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/7ed4bfb367c7195c",
+      "path": "internal/app/app.go",
+      "lines": [98, 98],
+      "source": "fx.ResultTags(`name:\"pcgFeatureCodeFetcher\"`)",
+      "operation": "cce-car-spec-adapter-667a00a-complete-r1/operation/7ed4bfb367c7195c/n/62",
+      "receiver": null,
+      "arguments": ["cce-car-spec-adapter-667a00a-complete-r1/value/7ed4bfb367c7195c/v/21551"],
+      "result": "cce-car-spec-adapter-667a00a-complete-r1/value/7ed4bfb367c7195c/v/21555",
+      "target": null,
+      "resultTypes": [],
+      "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/call-operands/3006e92ec7545a07"
+    },
+    {
+      "kind": "Fx-source-declaration",
+      "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/7ed4bfb367c7195c",
+      "path": "internal/app/app.go",
+      "lines": [95, 99],
+      "source": "fx.Annotate(\n\t\t\t\tcarfeatures.NewPCGFeatureCodeFetcher,\n\t\t\t\tfx.As(new(service.FeatureCodeFetcher)),\n\t\t\t\tfx.ResultTags(`name:\"pcgFeatureCodeFetcher\"`),\n\t\t\t)",
+      "operation": "cce-car-spec-adapter-667a00a-complete-r1/operation/7ed4bfb367c7195c/n/63",
+      "receiver": null,
+      "arguments": [
+        "cce-car-spec-adapter-667a00a-complete-r1/value/7ed4bfb367c7195c/v/21537",
+        "cce-car-spec-adapter-667a00a-complete-r1/value/7ed4bfb367c7195c/v/21546",
+        "cce-car-spec-adapter-667a00a-complete-r1/value/7ed4bfb367c7195c/v/21555"
+      ],
+      "result": "cce-car-spec-adapter-667a00a-complete-r1/value/7ed4bfb367c7195c/v/21561",
+      "target": null,
+      "resultTypes": [],
+      "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/call-operands/e1e594b7e0533e11"
+    },
+    {
+      "kind": "Fx-source-declaration",
+      "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/7ed4bfb367c7195c",
+      "path": "internal/app/app.go",
+      "lines": [102, 106],
+      "source": "fx.ParamTags(\n\t\t\t\t\t`name:\"cpamFeatureCodeFetcher\"`,\n\t\t\t\t\t`name:\"carFeaturesFeatureCodeFetcher\"`,\n\t\t\t\t\t`name:\"pcgFeatureCodeFetcher\"`,\n\t\t\t\t)",
+      "operation": "cce-car-spec-adapter-667a00a-complete-r1/operation/7ed4bfb367c7195c/n/68",
+      "receiver": null,
+      "arguments": [
+        "cce-car-spec-adapter-667a00a-complete-r1/value/7ed4bfb367c7195c/v/21571",
+        "cce-car-spec-adapter-667a00a-complete-r1/value/7ed4bfb367c7195c/v/21575",
+        "cce-car-spec-adapter-667a00a-complete-r1/value/7ed4bfb367c7195c/v/21579"
+      ],
+      "result": "cce-car-spec-adapter-667a00a-complete-r1/value/7ed4bfb367c7195c/v/21584",
+      "target": null,
+      "resultTypes": [],
+      "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/call-operands/58055913bc8413b8"
+    },
+    {
+      "kind": "Fx-source-declaration",
+      "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/7ed4bfb367c7195c",
+      "path": "internal/app/app.go",
+      "lines": [107, 107],
+      "source": "fx.As(new(service.FeatureCodeFetcher))",
+      "operation": "cce-car-spec-adapter-667a00a-complete-r1/operation/7ed4bfb367c7195c/n/70",
+      "receiver": null,
+      "arguments": ["cce-car-spec-adapter-667a00a-complete-r1/value/7ed4bfb367c7195c/v/21589"],
+      "result": "cce-car-spec-adapter-667a00a-complete-r1/value/7ed4bfb367c7195c/v/21593",
+      "target": null,
+      "resultTypes": [],
+      "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/call-operands/228af36250a1e15d"
+    },
+    {
+      "kind": "Fx-source-declaration",
+      "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/7ed4bfb367c7195c",
+      "path": "internal/app/app.go",
+      "lines": [100, 108],
+      "source": "fx.Annotate(\n\t\t\t\tservice.NewStandardWheelFeatureCodeService,\n\t\t\t\tfx.ParamTags(\n\t\t\t\t\t`name:\"cpamFeatureCodeFetcher\"`,\n\t\t\t\t\t`name:\"carFeaturesFeatureCodeFetcher\"`,\n\t\t\t\t\t`name:\"pcgFeatureCodeFetcher\"`,\n\t\t\t\t),\n\t\t\t\tfx.As(new(service.FeatureCodeFetcher)),\n\t\t\t)",
+      "operation": "cce-car-spec-adapter-667a00a-complete-r1/operation/7ed4bfb367c7195c/n/71",
+      "receiver": null,
+      "arguments": [
+        "cce-car-spec-adapter-667a00a-complete-r1/value/7ed4bfb367c7195c/v/21566",
+        "cce-car-spec-adapter-667a00a-complete-r1/value/7ed4bfb367c7195c/v/21584",
+        "cce-car-spec-adapter-667a00a-complete-r1/value/7ed4bfb367c7195c/v/21593"
+      ],
+      "result": "cce-car-spec-adapter-667a00a-complete-r1/value/7ed4bfb367c7195c/v/21599",
+      "target": null,
+      "resultTypes": [],
+      "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/call-operands/aeba055f097ed69d"
+    },
+    {
+      "kind": "Fx-source-declaration",
+      "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/7ed4bfb367c7195c",
+      "path": "internal/app/app.go",
+      "lines": [111, 111],
+      "source": "fx.As(new(service.MarketAuthFetcher))",
+      "operation": "cce-car-spec-adapter-667a00a-complete-r1/operation/7ed4bfb367c7195c/n/74",
+      "receiver": null,
+      "arguments": ["cce-car-spec-adapter-667a00a-complete-r1/value/7ed4bfb367c7195c/v/21609"],
+      "result": "cce-car-spec-adapter-667a00a-complete-r1/value/7ed4bfb367c7195c/v/21613",
+      "target": null,
+      "resultTypes": [],
+      "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/call-operands/fb115938e9ca0c31"
+    },
+    {
+      "kind": "Fx-source-declaration",
+      "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/7ed4bfb367c7195c",
+      "path": "internal/app/app.go",
+      "lines": [109, 112],
+      "source": "fx.Annotate(\n\t\t\t\tassortment.NewMarketAuthFetcher,\n\t\t\t\tfx.As(new(service.MarketAuthFetcher)),\n\t\t\t)",
+      "operation": "cce-car-spec-adapter-667a00a-complete-r1/operation/7ed4bfb367c7195c/n/75",
+      "receiver": null,
+      "arguments": [
+        "cce-car-spec-adapter-667a00a-complete-r1/value/7ed4bfb367c7195c/v/21604",
+        "cce-car-spec-adapter-667a00a-complete-r1/value/7ed4bfb367c7195c/v/21613"
+      ],
+      "result": "cce-car-spec-adapter-667a00a-complete-r1/value/7ed4bfb367c7195c/v/21619",
+      "target": null,
+      "resultTypes": [],
+      "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/call-operands/e1c9caf52876bcc3"
+    },
+    {
+      "kind": "Fx-source-declaration",
+      "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/7ed4bfb367c7195c",
+      "path": "internal/app/app.go",
+      "lines": [117, 117],
+      "source": "fx.As(new(service.WheelCodeFetcher))",
+      "operation": "cce-car-spec-adapter-667a00a-complete-r1/operation/7ed4bfb367c7195c/n/78",
+      "receiver": null,
+      "arguments": ["cce-car-spec-adapter-667a00a-complete-r1/value/7ed4bfb367c7195c/v/21628"],
+      "result": "cce-car-spec-adapter-667a00a-complete-r1/value/7ed4bfb367c7195c/v/21632",
+      "target": null,
+      "resultTypes": [],
+      "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/call-operands/a01b0d92cd9d679c"
+    },
+    {
+      "kind": "Fx-source-declaration",
+      "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/7ed4bfb367c7195c",
+      "path": "internal/app/app.go",
+      "lines": [113, 118],
+      "source": "fx.Annotate(\n\t\t\t\tfunc(cfg config, httpClient *client.HTTPClient) *filterservice.FilterServiceClient {\n\t\t\t\t\treturn filterservice.NewClient(httpClient, cfg.FilterServiceURL)\n\t\t\t\t},\n\t\t\t\tfx.As(new(service.WheelCodeFetcher)),\n\t\t\t)",
+      "operation": "cce-car-spec-adapter-667a00a-complete-r1/operation/7ed4bfb367c7195c/n/79",
+      "receiver": null,
+      "arguments": [
+        "cce-car-spec-adapter-667a00a-complete-r1/value/7ed4bfb367c7195c/v/21623",
+        "cce-car-spec-adapter-667a00a-complete-r1/value/7ed4bfb367c7195c/v/21632"
+      ],
+      "result": "cce-car-spec-adapter-667a00a-complete-r1/value/7ed4bfb367c7195c/v/21638",
+      "target": null,
+      "resultTypes": [],
+      "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/call-operands/c95a5c96dba2fc50"
+    },
+    {
+      "kind": "Fx-source-declaration",
+      "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/7ed4bfb367c7195c",
+      "path": "internal/app/app.go",
+      "lines": [121, 121],
+      "source": "fx.As(new(service.CarSpecStorage))",
+      "operation": "cce-car-spec-adapter-667a00a-complete-r1/operation/7ed4bfb367c7195c/n/82",
+      "receiver": null,
+      "arguments": ["cce-car-spec-adapter-667a00a-complete-r1/value/7ed4bfb367c7195c/v/21648"],
+      "result": "cce-car-spec-adapter-667a00a-complete-r1/value/7ed4bfb367c7195c/v/21652",
+      "target": null,
+      "resultTypes": [],
+      "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/call-operands/3a72a9bd22ebd658"
+    },
+    {
+      "kind": "Fx-source-declaration",
+      "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/7ed4bfb367c7195c",
+      "path": "internal/app/app.go",
+      "lines": [122, 122],
+      "source": "fx.As(new(carspecifications.CarSpecificationFetcher))",
+      "operation": "cce-car-spec-adapter-667a00a-complete-r1/operation/7ed4bfb367c7195c/n/84",
+      "receiver": null,
+      "arguments": ["cce-car-spec-adapter-667a00a-complete-r1/value/7ed4bfb367c7195c/v/21657"],
+      "result": "cce-car-spec-adapter-667a00a-complete-r1/value/7ed4bfb367c7195c/v/21661",
+      "target": null,
+      "resultTypes": [],
+      "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/call-operands/e865c6aa4e000df2"
+    },
+    {
+      "kind": "Fx-source-declaration",
+      "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/7ed4bfb367c7195c",
+      "path": "internal/app/app.go",
+      "lines": [119, 123],
+      "source": "fx.Annotate(\n\t\t\t\tpostgres.NewCarSpecRepository,\n\t\t\t\tfx.As(new(service.CarSpecStorage)),\n\t\t\t\tfx.As(new(carspecifications.CarSpecificationFetcher)),\n\t\t\t)",
+      "operation": "cce-car-spec-adapter-667a00a-complete-r1/operation/7ed4bfb367c7195c/n/85",
+      "receiver": null,
+      "arguments": [
+        "cce-car-spec-adapter-667a00a-complete-r1/value/7ed4bfb367c7195c/v/21643",
+        "cce-car-spec-adapter-667a00a-complete-r1/value/7ed4bfb367c7195c/v/21652",
+        "cce-car-spec-adapter-667a00a-complete-r1/value/7ed4bfb367c7195c/v/21661"
+      ],
+      "result": "cce-car-spec-adapter-667a00a-complete-r1/value/7ed4bfb367c7195c/v/21667",
+      "target": null,
+      "resultTypes": [],
+      "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/call-operands/1daf24f06e50c449"
+    },
+    {
+      "kind": "Fx-source-declaration",
+      "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/7ed4bfb367c7195c",
+      "path": "internal/app/app.go",
+      "lines": [126, 126],
+      "source": "fx.As(new(service.LocalEditionStorage))",
+      "operation": "cce-car-spec-adapter-667a00a-complete-r1/operation/7ed4bfb367c7195c/n/88",
+      "receiver": null,
+      "arguments": ["cce-car-spec-adapter-667a00a-complete-r1/value/7ed4bfb367c7195c/v/21677"],
+      "result": "cce-car-spec-adapter-667a00a-complete-r1/value/7ed4bfb367c7195c/v/21681",
+      "target": null,
+      "resultTypes": [],
+      "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/call-operands/04c73d0ebcd56760"
+    },
+    {
+      "kind": "Fx-source-declaration",
+      "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/7ed4bfb367c7195c",
+      "path": "internal/app/app.go",
+      "lines": [127, 127],
+      "source": "fx.As(new(service.LocalEditionLookup))",
+      "operation": "cce-car-spec-adapter-667a00a-complete-r1/operation/7ed4bfb367c7195c/n/90",
+      "receiver": null,
+      "arguments": ["cce-car-spec-adapter-667a00a-complete-r1/value/7ed4bfb367c7195c/v/21686"],
+      "result": "cce-car-spec-adapter-667a00a-complete-r1/value/7ed4bfb367c7195c/v/21690",
+      "target": null,
+      "resultTypes": [],
+      "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/call-operands/5d1627593ba41640"
+    },
+    {
+      "kind": "Fx-source-declaration",
+      "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/7ed4bfb367c7195c",
+      "path": "internal/app/app.go",
+      "lines": [128, 128],
+      "source": "fx.As(new(localeditions.LocalEditionFetcher))",
+      "operation": "cce-car-spec-adapter-667a00a-complete-r1/operation/7ed4bfb367c7195c/n/92",
+      "receiver": null,
+      "arguments": ["cce-car-spec-adapter-667a00a-complete-r1/value/7ed4bfb367c7195c/v/21695"],
+      "result": "cce-car-spec-adapter-667a00a-complete-r1/value/7ed4bfb367c7195c/v/21699",
+      "target": null,
+      "resultTypes": [],
+      "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/call-operands/b73839524cb4854d"
+    },
+    {
+      "kind": "Fx-source-declaration",
+      "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/7ed4bfb367c7195c",
+      "path": "internal/app/app.go",
+      "lines": [124, 129],
+      "source": "fx.Annotate(\n\t\t\t\tpostgres.NewLocalEditionRepository,\n\t\t\t\tfx.As(new(service.LocalEditionStorage)),\n\t\t\t\tfx.As(new(service.LocalEditionLookup)),\n\t\t\t\tfx.As(new(localeditions.LocalEditionFetcher)),\n\t\t\t)",
+      "operation": "cce-car-spec-adapter-667a00a-complete-r1/operation/7ed4bfb367c7195c/n/93",
+      "receiver": null,
+      "arguments": [
+        "cce-car-spec-adapter-667a00a-complete-r1/value/7ed4bfb367c7195c/v/21672",
+        "cce-car-spec-adapter-667a00a-complete-r1/value/7ed4bfb367c7195c/v/21681",
+        "cce-car-spec-adapter-667a00a-complete-r1/value/7ed4bfb367c7195c/v/21690",
+        "cce-car-spec-adapter-667a00a-complete-r1/value/7ed4bfb367c7195c/v/21699"
+      ],
+      "result": "cce-car-spec-adapter-667a00a-complete-r1/value/7ed4bfb367c7195c/v/21705",
+      "target": null,
+      "resultTypes": [],
+      "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/call-operands/531c38a3f3f514ad"
+    },
+    {
+      "kind": "Fx-source-declaration",
+      "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/7ed4bfb367c7195c",
+      "path": "internal/app/app.go",
+      "lines": [132, 132],
+      "source": "fx.As(new(localeditions.LocalEditionUpdater))",
+      "operation": "cce-car-spec-adapter-667a00a-complete-r1/operation/7ed4bfb367c7195c/n/96",
+      "receiver": null,
+      "arguments": ["cce-car-spec-adapter-667a00a-complete-r1/value/7ed4bfb367c7195c/v/21715"],
+      "result": "cce-car-spec-adapter-667a00a-complete-r1/value/7ed4bfb367c7195c/v/21719",
+      "target": null,
+      "resultTypes": [],
+      "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/call-operands/97f23a9e05c0b98b"
+    },
+    {
+      "kind": "Fx-source-declaration",
+      "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/7ed4bfb367c7195c",
+      "path": "internal/app/app.go",
+      "lines": [130, 133],
+      "source": "fx.Annotate(\n\t\t\t\tservice.NewLocalEditionService,\n\t\t\t\tfx.As(new(localeditions.LocalEditionUpdater)),\n\t\t\t)",
+      "operation": "cce-car-spec-adapter-667a00a-complete-r1/operation/7ed4bfb367c7195c/n/97",
+      "receiver": null,
+      "arguments": [
+        "cce-car-spec-adapter-667a00a-complete-r1/value/7ed4bfb367c7195c/v/21710",
+        "cce-car-spec-adapter-667a00a-complete-r1/value/7ed4bfb367c7195c/v/21719"
+      ],
+      "result": "cce-car-spec-adapter-667a00a-complete-r1/value/7ed4bfb367c7195c/v/21725",
+      "target": null,
+      "resultTypes": [],
+      "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/call-operands/d30aad3fc8f6cc49"
+    },
+    {
+      "kind": "Fx-source-declaration",
+      "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/7ed4bfb367c7195c",
+      "path": "internal/app/app.go",
+      "lines": [136, 136],
+      "source": "fx.As(new(carspecifications.CarSpecificationSyncer))",
+      "operation": "cce-car-spec-adapter-667a00a-complete-r1/operation/7ed4bfb367c7195c/n/100",
+      "receiver": null,
+      "arguments": ["cce-car-spec-adapter-667a00a-complete-r1/value/7ed4bfb367c7195c/v/21735"],
+      "result": "cce-car-spec-adapter-667a00a-complete-r1/value/7ed4bfb367c7195c/v/21739",
+      "target": null,
+      "resultTypes": [],
+      "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/call-operands/623a6a8239eeac92"
+    },
+    {
+      "kind": "Fx-source-declaration",
+      "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/7ed4bfb367c7195c",
+      "path": "internal/app/app.go",
+      "lines": [137, 137],
+      "source": "fx.As(new(messaging.CarSpecSyncer))",
+      "operation": "cce-car-spec-adapter-667a00a-complete-r1/operation/7ed4bfb367c7195c/n/102",
+      "receiver": null,
+      "arguments": ["cce-car-spec-adapter-667a00a-complete-r1/value/7ed4bfb367c7195c/v/21744"],
+      "result": "cce-car-spec-adapter-667a00a-complete-r1/value/7ed4bfb367c7195c/v/21748",
+      "target": null,
+      "resultTypes": [],
+      "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/call-operands/7b0db426da7aeb1f"
+    },
+    {
+      "kind": "Fx-source-declaration",
+      "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/7ed4bfb367c7195c",
+      "path": "internal/app/app.go",
+      "lines": [134, 138],
+      "source": "fx.Annotate(\n\t\t\t\tservice.NewCarSpecSyncer,\n\t\t\t\tfx.As(new(carspecifications.CarSpecificationSyncer)),\n\t\t\t\tfx.As(new(messaging.CarSpecSyncer)),\n\t\t\t)",
+      "operation": "cce-car-spec-adapter-667a00a-complete-r1/operation/7ed4bfb367c7195c/n/103",
+      "receiver": null,
+      "arguments": [
+        "cce-car-spec-adapter-667a00a-complete-r1/value/7ed4bfb367c7195c/v/21730",
+        "cce-car-spec-adapter-667a00a-complete-r1/value/7ed4bfb367c7195c/v/21739",
+        "cce-car-spec-adapter-667a00a-complete-r1/value/7ed4bfb367c7195c/v/21748"
+      ],
+      "result": "cce-car-spec-adapter-667a00a-complete-r1/value/7ed4bfb367c7195c/v/21754",
+      "target": null,
+      "resultTypes": [],
+      "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/call-operands/03b791629e796fcc"
+    },
+    {
+      "kind": "Fx-source-declaration",
+      "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/7ed4bfb367c7195c",
+      "path": "internal/app/app.go",
+      "lines": [141, 141],
+      "source": "fx.As(new(messaging.MarketAuthHandler))",
+      "operation": "cce-car-spec-adapter-667a00a-complete-r1/operation/7ed4bfb367c7195c/n/106",
+      "receiver": null,
+      "arguments": ["cce-car-spec-adapter-667a00a-complete-r1/value/7ed4bfb367c7195c/v/21764"],
+      "result": "cce-car-spec-adapter-667a00a-complete-r1/value/7ed4bfb367c7195c/v/21768",
+      "target": null,
+      "resultTypes": [],
+      "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/call-operands/21936324cd60a8ae"
+    },
+    {
+      "kind": "Fx-source-declaration",
+      "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/7ed4bfb367c7195c",
+      "path": "internal/app/app.go",
+      "lines": [139, 142],
+      "source": "fx.Annotate(\n\t\t\t\tmessaging.NewMarketAuthMessageHandler,\n\t\t\t\tfx.As(new(messaging.MarketAuthHandler)),\n\t\t\t)",
+      "operation": "cce-car-spec-adapter-667a00a-complete-r1/operation/7ed4bfb367c7195c/n/107",
+      "receiver": null,
+      "arguments": [
+        "cce-car-spec-adapter-667a00a-complete-r1/value/7ed4bfb367c7195c/v/21759",
+        "cce-car-spec-adapter-667a00a-complete-r1/value/7ed4bfb367c7195c/v/21768"
+      ],
+      "result": "cce-car-spec-adapter-667a00a-complete-r1/value/7ed4bfb367c7195c/v/21774",
+      "target": null,
+      "resultTypes": [],
+      "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/call-operands/f7c4df9083017f34"
+    },
+    {
+      "kind": "Fx-source-declaration",
+      "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/7ed4bfb367c7195c",
+      "path": "internal/app/app.go",
+      "lines": [145, 145],
+      "source": "fx.As(new(service.MessagePublisher))",
+      "operation": "cce-car-spec-adapter-667a00a-complete-r1/operation/7ed4bfb367c7195c/n/110",
+      "receiver": null,
+      "arguments": ["cce-car-spec-adapter-667a00a-complete-r1/value/7ed4bfb367c7195c/v/21784"],
+      "result": "cce-car-spec-adapter-667a00a-complete-r1/value/7ed4bfb367c7195c/v/21788",
+      "target": null,
+      "resultTypes": [],
+      "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/call-operands/3f8ca51fb5544bd0"
+    },
+    {
+      "kind": "Fx-source-declaration",
+      "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/7ed4bfb367c7195c",
+      "path": "internal/app/app.go",
+      "lines": [143, 146],
+      "source": "fx.Annotate(\n\t\t\t\tnewMessagePublisher,\n\t\t\t\tfx.As(new(service.MessagePublisher)),\n\t\t\t)",
+      "operation": "cce-car-spec-adapter-667a00a-complete-r1/operation/7ed4bfb367c7195c/n/111",
+      "receiver": null,
+      "arguments": [
+        "cce-car-spec-adapter-667a00a-complete-r1/value/7ed4bfb367c7195c/v/21779",
+        "cce-car-spec-adapter-667a00a-complete-r1/value/7ed4bfb367c7195c/v/21788"
+      ],
+      "result": "cce-car-spec-adapter-667a00a-complete-r1/value/7ed4bfb367c7195c/v/21794",
+      "target": null,
+      "resultTypes": [],
+      "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/call-operands/37b13fb6c1e61c08"
+    },
+    {
+      "kind": "Fx-source-declaration",
+      "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/7ed4bfb367c7195c",
+      "path": "internal/app/app.go",
+      "lines": [40, 147],
+      "source": "fx.Provide(\n\t\t\tnewBinderConfig,\n\t\t\tnewConfig,\n\t\t\tnewAppLogger,\n\t\t\tnewAppSentryConfig,\n\t\t\tnewSentryClient,\n\t\t\tnewTelemetryConfig,\n\t\t\tnewServiceName,\n\t\t\tnewTelemetryResource,\n\t\t\tnewLoggerProvider,\n\t\t\tnewTelemetryErrorLogger,\n\t\t\tnewTelemetryProviders,\n\t\t\tnewAssortmentConfig,\n\t\t\tnewDBApplicationConfig,\n\t\t\tpostgres.NewReadyCheck,\n\t\t\tpostgres.NewPool,\n\t\t\tnewJWTConfig,\n\t\t\tnewJWTParser,\n\t\t\tmiddleware.NewJWTMiddleware,\n\t\t\thttpsrvr.New,\n\t\t\thttpsrvr.NewRouter,\n\t\t\tnewGatewayHTTPClient,\n\t\t\tassortment.NewClient,\n\t\t\tnewCPAMClient,\n\t\t\tnewCarFeaturesConfig,\n\t\t\tcarfeatures.NewClient,\n\t\t\trespond.NewErrorResponder,\n\t\t\tcarspecifications.NewController,\n\t\t\tlocaleditions.NewController,\n\t\t\tnewKafkaPublisherConfig,\n\t\t\tmessaging.NewLogger,\n\t\t\tnewWatermillPublisher,\n\t\t\tnewKafkaConsumerConfig,\n\t\t\tmessaging.NewWatermillRouter,\n\t\t\tmessaging.NewWatermillKafkaSubscriber,\n\t\t\tnewFeatureFlaggerConfig,\n\t\t\tfeatureflag.NewLaunchDarklyClient,\n\t\t\tfx.Annotate(\n\t\t\t\tfeatureflag.NewAutoSyncFeatureFlagger,\n\t\t\t\tfx.As(new(messaging.AutoSyncFeatureFlagger)),\n\t\t\t),\n\t\t\tfx.Annotate(\n\t\t\t\tparse.NewParser,\n\t\t\t\tfx.As(new(assortment.Parser)),\n\t\t\t),\n\t\t\tfx.Annotate(\n\t\t\t\tcpam.NewFeatureCodeFetcher,\n\t\t\t\tfx.As(new(service.FeatureCodeFetcher)),\n\t\t\t\tfx.ResultTags(`name:\"cpamFeatureCodeFetcher\"`),\n\t\t\t),\n\t\t\tfx.Annotate(\n\t\t\t\tcarfeatures.NewPrinsFeatureCodeFetcher,\n\t\t\t\tfx.As(new(service.FeatureCodeFetcher)),\n\t\t\t\tfx.ResultTags(`name:\"carFeaturesFeatureCodeFetcher\"`),\n\t\t\t),\n\t\t\tfx.Annotate(\n\t\t\t\tcarfeatures.NewPCGFeatureCodeFetcher,\n\t\t\t\tfx.As(new(service.FeatureCodeFetcher)),\n\t\t\t\tfx.ResultTags(`name:\"pcgFeatureCodeFetcher\"`),\n\t\t\t),\n\t\t\tfx.Annotate(\n\t\t\t\tservice.NewStandardWheelFeatureCodeService,\n\t\t\t\tfx.ParamTags(\n\t\t\t\t\t`name:\"cpamFeatureCodeFetcher\"`,\n\t\t\t\t\t`name:\"carFeaturesFeatureCodeFetcher\"`,\n\t\t\t\t\t`name:\"pcgFeatureCodeFetcher\"`,\n\t\t\t\t),\n\t\t\t\tfx.As(new(service.FeatureCodeFetcher)),\n\t\t\t),\n\t\t\tfx.Annotate(\n\t\t\t\tassortment.NewMarketAuthFetcher,\n\t\t\t\tfx.As(new(service.MarketAuthFetcher)),\n\t\t\t),\n\t\t\tfx.Annotate(\n\t\t\t\tfunc(cfg config, httpClient *client.HTTPClient) *filterservice.FilterServiceClient {\n\t\t\t\t\treturn filterservice.NewClient(httpClient, cfg.FilterServiceURL)\n\t\t\t\t},\n\t\t\t\tfx.As(new(service.WheelCodeFetcher)),\n\t\t\t),\n\t\t\tfx.Annotate(\n\t\t\t\tpostgres.NewCarSpecRepository,\n\t\t\t\tfx.As(new(service.CarSpecStorage)),\n\t\t\t\tfx.As(new(carspecifications.CarSpecificationFetcher)),\n\t\t\t),\n\t\t\tfx.Annotate(\n\t\t\t\tpostgres.NewLocalEditionRepository,\n\t\t\t\tfx.As(new(service.LocalEditionStorage)),\n\t\t\t\tfx.As(new(service.LocalEditionLookup)),\n\t\t\t\tfx.As(new(localeditions.LocalEditionFetcher)),\n\t\t\t),\n\t\t\tfx.Annotate(\n\t\t\t\tservice.NewLocalEditionService,\n\t\t\t\tfx.As(new(localeditions.LocalEditionUpdater)),\n\t\t\t),\n\t\t\tfx.Annotate(\n\t\t\t\tservice.NewCarSpecSyncer,\n\t\t\t\tfx.As(new(carspecifications.CarSpecificationSyncer)),\n\t\t\t\tfx.As(new(messaging.CarSpecSyncer)),\n\t\t\t),\n\t\t\tfx.Annotate(\n\t\t\t\tmessaging.NewMarketAuthMessageHandler,\n\t\t\t\tfx.As(new(messaging.MarketAuthHandler)),\n\t\t\t),\n\t\t\tfx.Annotate(\n\t\t\t\tnewMessagePublisher,\n\t\t\t\tfx.As(new(service.MessagePublisher)),\n\t\t\t),\n\t\t)",
+      "operation": "cce-car-spec-adapter-667a00a-complete-r1/operation/7ed4bfb367c7195c/n/112",
+      "receiver": null,
+      "arguments": [
+        "cce-car-spec-adapter-667a00a-complete-r1/value/7ed4bfb367c7195c/v/21259",
+        "cce-car-spec-adapter-667a00a-complete-r1/value/7ed4bfb367c7195c/v/21264",
+        "cce-car-spec-adapter-667a00a-complete-r1/value/7ed4bfb367c7195c/v/21269",
+        "cce-car-spec-adapter-667a00a-complete-r1/value/7ed4bfb367c7195c/v/21274",
+        "cce-car-spec-adapter-667a00a-complete-r1/value/7ed4bfb367c7195c/v/21279",
+        "cce-car-spec-adapter-667a00a-complete-r1/value/7ed4bfb367c7195c/v/21284",
+        "cce-car-spec-adapter-667a00a-complete-r1/value/7ed4bfb367c7195c/v/21289",
+        "cce-car-spec-adapter-667a00a-complete-r1/value/7ed4bfb367c7195c/v/21294",
+        "cce-car-spec-adapter-667a00a-complete-r1/value/7ed4bfb367c7195c/v/21299",
+        "cce-car-spec-adapter-667a00a-complete-r1/value/7ed4bfb367c7195c/v/21304",
+        "cce-car-spec-adapter-667a00a-complete-r1/value/7ed4bfb367c7195c/v/21309",
+        "cce-car-spec-adapter-667a00a-complete-r1/value/7ed4bfb367c7195c/v/21314",
+        "cce-car-spec-adapter-667a00a-complete-r1/value/7ed4bfb367c7195c/v/21319",
+        "cce-car-spec-adapter-667a00a-complete-r1/value/7ed4bfb367c7195c/v/21324",
+        "cce-car-spec-adapter-667a00a-complete-r1/value/7ed4bfb367c7195c/v/21329",
+        "cce-car-spec-adapter-667a00a-complete-r1/value/7ed4bfb367c7195c/v/21334",
+        "cce-car-spec-adapter-667a00a-complete-r1/value/7ed4bfb367c7195c/v/21339",
+        "cce-car-spec-adapter-667a00a-complete-r1/value/7ed4bfb367c7195c/v/21344",
+        "cce-car-spec-adapter-667a00a-complete-r1/value/7ed4bfb367c7195c/v/21349",
+        "cce-car-spec-adapter-667a00a-complete-r1/value/7ed4bfb367c7195c/v/21354",
+        "cce-car-spec-adapter-667a00a-complete-r1/value/7ed4bfb367c7195c/v/21359",
+        "cce-car-spec-adapter-667a00a-complete-r1/value/7ed4bfb367c7195c/v/21364",
+        "cce-car-spec-adapter-667a00a-complete-r1/value/7ed4bfb367c7195c/v/21369",
+        "cce-car-spec-adapter-667a00a-complete-r1/value/7ed4bfb367c7195c/v/21374",
+        "cce-car-spec-adapter-667a00a-complete-r1/value/7ed4bfb367c7195c/v/21379",
+        "cce-car-spec-adapter-667a00a-complete-r1/value/7ed4bfb367c7195c/v/21384",
+        "cce-car-spec-adapter-667a00a-complete-r1/value/7ed4bfb367c7195c/v/21389",
+        "cce-car-spec-adapter-667a00a-complete-r1/value/7ed4bfb367c7195c/v/21394",
+        "cce-car-spec-adapter-667a00a-complete-r1/value/7ed4bfb367c7195c/v/21399",
+        "cce-car-spec-adapter-667a00a-complete-r1/value/7ed4bfb367c7195c/v/21404",
+        "cce-car-spec-adapter-667a00a-complete-r1/value/7ed4bfb367c7195c/v/21409",
+        "cce-car-spec-adapter-667a00a-complete-r1/value/7ed4bfb367c7195c/v/21414",
+        "cce-car-spec-adapter-667a00a-complete-r1/value/7ed4bfb367c7195c/v/21419",
+        "cce-car-spec-adapter-667a00a-complete-r1/value/7ed4bfb367c7195c/v/21424",
+        "cce-car-spec-adapter-667a00a-complete-r1/value/7ed4bfb367c7195c/v/21429",
+        "cce-car-spec-adapter-667a00a-complete-r1/value/7ed4bfb367c7195c/v/21434",
+        "cce-car-spec-adapter-667a00a-complete-r1/value/7ed4bfb367c7195c/v/21454",
+        "cce-car-spec-adapter-667a00a-complete-r1/value/7ed4bfb367c7195c/v/21474",
+        "cce-car-spec-adapter-667a00a-complete-r1/value/7ed4bfb367c7195c/v/21503",
+        "cce-car-spec-adapter-667a00a-complete-r1/value/7ed4bfb367c7195c/v/21532",
+        "cce-car-spec-adapter-667a00a-complete-r1/value/7ed4bfb367c7195c/v/21561",
+        "cce-car-spec-adapter-667a00a-complete-r1/value/7ed4bfb367c7195c/v/21599",
+        "cce-car-spec-adapter-667a00a-complete-r1/value/7ed4bfb367c7195c/v/21619",
+        "cce-car-spec-adapter-667a00a-complete-r1/value/7ed4bfb367c7195c/v/21638",
+        "cce-car-spec-adapter-667a00a-complete-r1/value/7ed4bfb367c7195c/v/21667",
+        "cce-car-spec-adapter-667a00a-complete-r1/value/7ed4bfb367c7195c/v/21705",
+        "cce-car-spec-adapter-667a00a-complete-r1/value/7ed4bfb367c7195c/v/21725",
+        "cce-car-spec-adapter-667a00a-complete-r1/value/7ed4bfb367c7195c/v/21754",
+        "cce-car-spec-adapter-667a00a-complete-r1/value/7ed4bfb367c7195c/v/21774",
+        "cce-car-spec-adapter-667a00a-complete-r1/value/7ed4bfb367c7195c/v/21794"
+      ],
+      "result": "cce-car-spec-adapter-667a00a-complete-r1/value/7ed4bfb367c7195c/v/21800",
+      "target": null,
+      "resultTypes": [],
+      "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/call-operands/82eda7e13aff0ae2"
+    },
+    {
+      "kind": "Fx-source-declaration",
+      "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/7ed4bfb367c7195c",
+      "path": "internal/app/app.go",
+      "lines": [148, 150],
+      "source": "fx.Invoke(func(router httpsrvr.Router) {\n\t\t\trouter.AddRoutes()\n\t\t})",
+      "operation": "cce-car-spec-adapter-667a00a-complete-r1/operation/7ed4bfb367c7195c/n/114",
+      "receiver": null,
+      "arguments": ["cce-car-spec-adapter-667a00a-complete-r1/value/7ed4bfb367c7195c/v/21804"],
+      "result": "cce-car-spec-adapter-667a00a-complete-r1/value/7ed4bfb367c7195c/v/21809",
+      "target": null,
+      "resultTypes": [],
+      "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/call-operands/6ce6a555224b3c3b"
+    },
+    {
+      "kind": "Fx-source-declaration",
+      "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/7ed4bfb367c7195c",
+      "path": "internal/app/app.go",
+      "lines": [151, 161],
+      "source": "fx.Invoke(\n\t\t\tsyncLogger,\n\t\t\tinitializeSentry,\n\t\t\tinitializeTelemetryErrorHandler,\n\t\t\tinitializeTelemetryShutdown,\n\t\t\tinitializeDBCloseHook,\n\t\t\tmessaging.AddEventHandlers,\n\t\t\tstartHTTPServer,\n\t\t\tinitializeKafkaPublisherCloseHook,\n\t\t\tinitializeWatermillRouter,\n\t\t)",
+      "operation": "cce-car-spec-adapter-667a00a-complete-r1/operation/7ed4bfb367c7195c/n/124",
+      "receiver": null,
+      "arguments": [
+        "cce-car-spec-adapter-667a00a-complete-r1/value/7ed4bfb367c7195c/v/21814",
+        "cce-car-spec-adapter-667a00a-complete-r1/value/7ed4bfb367c7195c/v/21819",
+        "cce-car-spec-adapter-667a00a-complete-r1/value/7ed4bfb367c7195c/v/21824",
+        "cce-car-spec-adapter-667a00a-complete-r1/value/7ed4bfb367c7195c/v/21829",
+        "cce-car-spec-adapter-667a00a-complete-r1/value/7ed4bfb367c7195c/v/21834",
+        "cce-car-spec-adapter-667a00a-complete-r1/value/7ed4bfb367c7195c/v/21839",
+        "cce-car-spec-adapter-667a00a-complete-r1/value/7ed4bfb367c7195c/v/21844",
+        "cce-car-spec-adapter-667a00a-complete-r1/value/7ed4bfb367c7195c/v/21849",
+        "cce-car-spec-adapter-667a00a-complete-r1/value/7ed4bfb367c7195c/v/21854"
+      ],
+      "result": "cce-car-spec-adapter-667a00a-complete-r1/value/7ed4bfb367c7195c/v/21860",
+      "target": null,
+      "resultTypes": [],
+      "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/call-operands/f11af0099bdab2fd"
+    },
+    {
+      "kind": "Fx-source-declaration",
+      "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/7ed4bfb367c7195c",
+      "path": "internal/app/app.go",
+      "lines": [162, 162],
+      "source": "fx.WithLogger(loggingsdk.NewFxEventLogger)",
+      "operation": "cce-car-spec-adapter-667a00a-complete-r1/operation/7ed4bfb367c7195c/n/126",
+      "receiver": null,
+      "arguments": ["cce-car-spec-adapter-667a00a-complete-r1/value/7ed4bfb367c7195c/v/21865"],
+      "result": "cce-car-spec-adapter-667a00a-complete-r1/value/7ed4bfb367c7195c/v/21869",
+      "target": null,
+      "resultTypes": [],
+      "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/call-operands/1775b5dd37d390e1"
+    },
+    {
+      "kind": "Fx-source-declaration",
+      "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/7ed4bfb367c7195c",
+      "path": "internal/app/app.go",
+      "lines": [38, 163],
+      "source": "fx.Options(\n\t\tfx.Options(opts...),\n\t\tfx.Provide(\n\t\t\tnewBinderConfig,\n\t\t\tnewConfig,\n\t\t\tnewAppLogger,\n\t\t\tnewAppSentryConfig,\n\t\t\tnewSentryClient,\n\t\t\tnewTelemetryConfig,\n\t\t\tnewServiceName,\n\t\t\tnewTelemetryResource,\n\t\t\tnewLoggerProvider,\n\t\t\tnewTelemetryErrorLogger,\n\t\t\tnewTelemetryProviders,\n\t\t\tnewAssortmentConfig,\n\t\t\tnewDBApplicationConfig,\n\t\t\tpostgres.NewReadyCheck,\n\t\t\tpostgres.NewPool,\n\t\t\tnewJWTConfig,\n\t\t\tnewJWTParser,\n\t\t\tmiddleware.NewJWTMiddleware,\n\t\t\thttpsrvr.New,\n\t\t\thttpsrvr.NewRouter,\n\t\t\tnewGatewayHTTPClient,\n\t\t\tassortment.NewClient,\n\t\t\tnewCPAMClient,\n\t\t\tnewCarFeaturesConfig,\n\t\t\tcarfeatures.NewClient,\n\t\t\trespond.NewErrorResponder,\n\t\t\tcarspecifications.NewController,\n\t\t\tlocaleditions.NewController,\n\t\t\tnewKafkaPublisherConfig,\n\t\t\tmessaging.NewLogger,\n\t\t\tnewWatermillPublisher,\n\t\t\tnewKafkaConsumerConfig,\n\t\t\tmessaging.NewWatermillRouter,\n\t\t\tmessaging.NewWatermillKafkaSubscriber,\n\t\t\tnewFeatureFlaggerConfig,\n\t\t\tfeatureflag.NewLaunchDarklyClient,\n\t\t\tfx.Annotate(\n\t\t\t\tfeatureflag.NewAutoSyncFeatureFlagger,\n\t\t\t\tfx.As(new(messaging.AutoSyncFeatureFlagger)),\n\t\t\t),\n\t\t\tfx.Annotate(\n\t\t\t\tparse.NewParser,\n\t\t\t\tfx.As(new(assortment.Parser)),\n\t\t\t),\n\t\t\tfx.Annotate(\n\t\t\t\tcpam.NewFeatureCodeFetcher,\n\t\t\t\tfx.As(new(service.FeatureCodeFetcher)),\n\t\t\t\tfx.ResultTags(`name:\"cpamFeatureCodeFetcher\"`),\n\t\t\t),\n\t\t\tfx.Annotate(\n\t\t\t\tcarfeatures.NewPrinsFeatureCodeFetcher,\n\t\t\t\tfx.As(new(service.FeatureCodeFetcher)),\n\t\t\t\tfx.ResultTags(`name:\"carFeaturesFeatureCodeFetcher\"`),\n\t\t\t),\n\t\t\tfx.Annotate(\n\t\t\t\tcarfeatures.NewPCGFeatureCodeFetcher,\n\t\t\t\tfx.As(new(service.FeatureCodeFetcher)),\n\t\t\t\tfx.ResultTags(`name:\"pcgFeatureCodeFetcher\"`),\n\t\t\t),\n\t\t\tfx.Annotate(\n\t\t\t\tservice.NewStandardWheelFeatureCodeService,\n\t\t\t\tfx.ParamTags(\n\t\t\t\t\t`name:\"cpamFeatureCodeFetcher\"`,\n\t\t\t\t\t`name:\"carFeaturesFeatureCodeFetcher\"`,\n\t\t\t\t\t`name:\"pcgFeatureCodeFetcher\"`,\n\t\t\t\t),\n\t\t\t\tfx.As(new(service.FeatureCodeFetcher)),\n\t\t\t),\n\t\t\tfx.Annotate(\n\t\t\t\tassortment.NewMarketAuthFetcher,\n\t\t\t\tfx.As(new(service.MarketAuthFetcher)),\n\t\t\t),\n\t\t\tfx.Annotate(\n\t\t\t\tfunc(cfg config, httpClient *client.HTTPClient) *filterservice.FilterServiceClient {\n\t\t\t\t\treturn filterservice.NewClient(httpClient, cfg.FilterServiceURL)\n\t\t\t\t},\n\t\t\t\tfx.As(new(service.WheelCodeFetcher)),\n\t\t\t),\n\t\t\tfx.Annotate(\n\t\t\t\tpostgres.NewCarSpecRepository,\n\t\t\t\tfx.As(new(service.CarSpecStorage)),\n\t\t\t\tfx.As(new(carspecifications.CarSpecificationFetcher)),\n\t\t\t),\n\t\t\tfx.Annotate(\n\t\t\t\tpostgres.NewLocalEditionRepository,\n\t\t\t\tfx.As(new(service.LocalEditionStorage)),\n\t\t\t\tfx.As(new(service.LocalEditionLookup)),\n\t\t\t\tfx.As(new(localeditions.LocalEditionFetcher)),\n\t\t\t),\n\t\t\tfx.Annotate(\n\t\t\t\tservice.NewLocalEditionService,\n\t\t\t\tfx.As(new(localeditions.LocalEditionUpdater)),\n\t\t\t),\n\t\t\tfx.Annotate(\n\t\t\t\tservice.NewCarSpecSyncer,\n\t\t\t\tfx.As(new(carspecifications.CarSpecificationSyncer)),\n\t\t\t\tfx.As(new(messaging.CarSpecSyncer)),\n\t\t\t),\n\t\t\tfx.Annotate(\n\t\t\t\tmessaging.NewMarketAuthMessageHandler,\n\t\t\t\tfx.As(new(messaging.MarketAuthHandler)),\n\t\t\t),\n\t\t\tfx.Annotate(\n\t\t\t\tnewMessagePublisher,\n\t\t\t\tfx.As(new(service.MessagePublisher)),\n\t\t\t),\n\t\t),\n\t\tfx.Invoke(func(router httpsrvr.Router) {\n\t\t\trouter.AddRoutes()\n\t\t}),\n\t\tfx.Invoke(\n\t\t\tsyncLogger,\n\t\t\tinitializeSentry,\n\t\t\tinitializeTelemetryErrorHandler,\n\t\t\tinitializeTelemetryShutdown,\n\t\t\tinitializeDBCloseHook,\n\t\t\tmessaging.AddEventHandlers,\n\t\t\tstartHTTPServer,\n\t\t\tinitializeKafkaPublisherCloseHook,\n\t\t\tinitializeWatermillRouter,\n\t\t),\n\t\tfx.WithLogger(loggingsdk.NewFxEventLogger),\n\t)",
+      "operation": "cce-car-spec-adapter-667a00a-complete-r1/operation/7ed4bfb367c7195c/n/127",
+      "receiver": null,
+      "arguments": [
+        "cce-car-spec-adapter-667a00a-complete-r1/value/7ed4bfb367c7195c/v/21254",
+        "cce-car-spec-adapter-667a00a-complete-r1/value/7ed4bfb367c7195c/v/21800",
+        "cce-car-spec-adapter-667a00a-complete-r1/value/7ed4bfb367c7195c/v/21809",
+        "cce-car-spec-adapter-667a00a-complete-r1/value/7ed4bfb367c7195c/v/21860",
+        "cce-car-spec-adapter-667a00a-complete-r1/value/7ed4bfb367c7195c/v/21869"
+      ],
+      "result": "cce-car-spec-adapter-667a00a-complete-r1/value/7ed4bfb367c7195c/v/21875",
+      "target": null,
+      "resultTypes": [],
+      "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/call-operands/add602be3fca3814"
+    },
+    {
+      "kind": "Fx-source-declaration",
+      "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/75153ceebb9b8903",
+      "path": "internal/app/appmigration.go",
+      "lines": [18, 18],
+      "source": "fx.Options(opts...)",
+      "operation": "cce-car-spec-adapter-667a00a-complete-r1/operation/75153ceebb9b8903/n/1",
+      "receiver": null,
+      "arguments": ["cce-car-spec-adapter-667a00a-complete-r1/value/75153ceebb9b8903/p/0"],
+      "result": "cce-car-spec-adapter-667a00a-complete-r1/value/75153ceebb9b8903/v/22067",
+      "target": null,
+      "resultTypes": [],
+      "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/call-operands/e6633df4139b9937"
+    },
+    {
+      "kind": "Fx-source-declaration",
+      "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/75153ceebb9b8903",
+      "path": "internal/app/appmigration.go",
+      "lines": [19, 27],
+      "source": "fx.Provide(\n\t\t\t\tnewBinderConfig,\n\t\t\t\tnewMigratorConfig,\n\t\t\t\tnewMigratorSentryConfig,\n\t\t\t\tnewSentryClient,\n\t\t\t\tnewMigratorLogger,\n\t\t\t\tnewDBMigratorConfig,\n\t\t\t\tpostgres.NewMigrator,\n\t\t\t)",
+      "operation": "cce-car-spec-adapter-667a00a-complete-r1/operation/75153ceebb9b8903/n/9",
+      "receiver": null,
+      "arguments": [
+        "cce-car-spec-adapter-667a00a-complete-r1/value/75153ceebb9b8903/v/22072",
+        "cce-car-spec-adapter-667a00a-complete-r1/value/75153ceebb9b8903/v/22077",
+        "cce-car-spec-adapter-667a00a-complete-r1/value/75153ceebb9b8903/v/22082",
+        "cce-car-spec-adapter-667a00a-complete-r1/value/75153ceebb9b8903/v/22087",
+        "cce-car-spec-adapter-667a00a-complete-r1/value/75153ceebb9b8903/v/22092",
+        "cce-car-spec-adapter-667a00a-complete-r1/value/75153ceebb9b8903/v/22097",
+        "cce-car-spec-adapter-667a00a-complete-r1/value/75153ceebb9b8903/v/22102"
+      ],
+      "result": "cce-car-spec-adapter-667a00a-complete-r1/value/75153ceebb9b8903/v/22108",
+      "target": null,
+      "resultTypes": [],
+      "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/call-operands/f8323a3ebf7ee54c"
+    },
+    {
+      "kind": "Fx-source-declaration",
+      "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/75153ceebb9b8903",
+      "path": "internal/app/appmigration.go",
+      "lines": [28, 28],
+      "source": "fx.WithLogger(loggingsdk.NewFxEventLogger)",
+      "operation": "cce-car-spec-adapter-667a00a-complete-r1/operation/75153ceebb9b8903/n/11",
+      "receiver": null,
+      "arguments": ["cce-car-spec-adapter-667a00a-complete-r1/value/75153ceebb9b8903/v/22113"],
+      "result": "cce-car-spec-adapter-667a00a-complete-r1/value/75153ceebb9b8903/v/22117",
+      "target": null,
+      "resultTypes": [],
+      "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/call-operands/43258d4dc8ed8714"
+    },
+    {
+      "kind": "Fx-source-declaration",
+      "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/75153ceebb9b8903",
+      "path": "internal/app/appmigration.go",
+      "lines": [29, 37],
+      "source": "fx.Invoke(\n\t\t\t\trunMigrations,\n\t\t\t\tfunc(shutdowner fx.Shutdowner, logger *loggingsdk.Logger) {\n\t\t\t\t\terr := shutdowner.Shutdown()\n\t\t\t\t\tif err != nil {\n\t\t\t\t\t\tlogger.Error(context.Background(), \"Shutdown failed\", err)\n\t\t\t\t\t}\n\t\t\t\t},\n\t\t\t)",
+      "operation": "cce-car-spec-adapter-667a00a-complete-r1/operation/75153ceebb9b8903/n/14",
+      "receiver": null,
+      "arguments": [
+        "cce-car-spec-adapter-667a00a-complete-r1/value/75153ceebb9b8903/v/22122",
+        "cce-car-spec-adapter-667a00a-complete-r1/value/75153ceebb9b8903/v/22126"
+      ],
+      "result": "cce-car-spec-adapter-667a00a-complete-r1/value/75153ceebb9b8903/v/22132",
+      "target": null,
+      "resultTypes": [],
+      "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/call-operands/d719d2a78455df87"
+    },
+    {
+      "kind": "Fx-source-declaration",
+      "owner": "cce-car-spec-adapter-667a00a-complete-r1/implementation/75153ceebb9b8903",
+      "path": "internal/app/appmigration.go",
+      "lines": [17, 38],
+      "source": "fx.New(\n\t\t\tfx.Options(opts...),\n\t\t\tfx.Provide(\n\t\t\t\tnewBinderConfig,\n\t\t\t\tnewMigratorConfig,\n\t\t\t\tnewMigratorSentryConfig,\n\t\t\t\tnewSentryClient,\n\t\t\t\tnewMigratorLogger,\n\t\t\t\tnewDBMigratorConfig,\n\t\t\t\tpostgres.NewMigrator,\n\t\t\t),\n\t\t\tfx.WithLogger(loggingsdk.NewFxEventLogger),\n\t\t\tfx.Invoke(\n\t\t\t\trunMigrations,\n\t\t\t\tfunc(shutdowner fx.Shutdowner, logger *loggingsdk.Logger) {\n\t\t\t\t\terr := shutdowner.Shutdown()\n\t\t\t\t\tif err != nil {\n\t\t\t\t\t\tlogger.Error(context.Background(), \"Shutdown failed\", err)\n\t\t\t\t\t}\n\t\t\t\t},\n\t\t\t),\n\t\t)",
+      "operation": "cce-car-spec-adapter-667a00a-complete-r1/operation/75153ceebb9b8903/n/15",
+      "receiver": null,
+      "arguments": [
+        "cce-car-spec-adapter-667a00a-complete-r1/value/75153ceebb9b8903/v/22067",
+        "cce-car-spec-adapter-667a00a-complete-r1/value/75153ceebb9b8903/v/22108",
+        "cce-car-spec-adapter-667a00a-complete-r1/value/75153ceebb9b8903/v/22117",
+        "cce-car-spec-adapter-667a00a-complete-r1/value/75153ceebb9b8903/v/22132"
+      ],
+      "result": "cce-car-spec-adapter-667a00a-complete-r1/value/75153ceebb9b8903/v/22138",
+      "target": null,
+      "resultTypes": [],
+      "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/call-operands/08c02ac3e3d9ac03"
+    }
+  ]
+}

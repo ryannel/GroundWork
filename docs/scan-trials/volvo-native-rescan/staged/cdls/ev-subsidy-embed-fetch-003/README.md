@@ -1,0 +1,9 @@
+# EV navigation and footer fetch helpers
+
+Combined snapshot `65ad154aae158cfd209f23f725485a963fc7ab37323076bac771f01646677709` contains **656 helper records plus 670 unchanged API001 records** and **250 checked pinned ranges**. It reuses the [existing EV API/server identity](../ev-subsidy-api-001/README.md). No new endpoint or helper service is introduced. CDLS remains incomplete and stopped at this checkpoint.
+
+Independent review read seven pinned helper/schema/caller files and passed **20 strict queries without traversal bounds**. Two configured HTML GETs retain exact URL/options, optional authentication construction, User-Agent, cache choices and source response/text/props values. Footer's default handling and omitted variant differ from navigation. Fallback URL selection occurs before one fetch; it is not retry. Native parameter/result objects retain source schemas and optional fields.
+
+Review added four missing source await dependencies in003. Immediate fetch/text handles remain distinct from awaited values; an opaque library's receiver-to-result mapping is not fabricated. The source response.text receiver can be inspected separately. This unit does not model the actual SSR wrappers, disable/forceFetch/ESI/cookie branches, renderer or effective deployed cache/transport behaviour.
+
+[Compressed unit bundle](bundle.json.gz), [combined snapshot](snapshot.json), [required API](required-api.json), [source report](source-report.md), [independent acceptance](independent-review/root-acceptance.json), [source notes](independent-review/source-notes.md) and [publication equality](publication-equality.json) retain the proof. Decompress this unit and the exact unchanged API001 bundle before validation/import. All20author-sealed hashes pass. The predecessor checkpoints remain unchanged. This staged unit does not advance the completed repository count. No source application execution or live calls occurred.

@@ -1,0 +1,56 @@
+{
+  "repo": "volvo-cars/cdls-mono-volvocars",
+  "commit": "8e1fd20c525fd3ef46f89fa7734dba06b06c79fc",
+  "status": "Independent8full pinned files reviewed;31strict queries zero bounds, native100ranges passed; bounded APIunit only, wholemonorepo remains incomplete",
+  "files": [
+    {
+      "path": "apps/ev-subsidy/app/api/ev-subsidy/eligibility/route.ts",
+      "lines": 100,
+      "sha256": "67457ad4e3e18eddbf82d8455192f09b5918bc8fc8c5849350defd0ec27de6e8",
+      "review": "Entire pinned source independently read; bounded unit acceptance pending"
+    },
+    {
+      "path": "apps/ev-subsidy/app/api/ev-subsidy/income/route.ts",
+      "lines": 104,
+      "sha256": "3dc6b48cfa7b45934da63675046b2c54d901e7f8de28e8778bacc3bee90af7ac",
+      "review": "Entire pinned source independently read; bounded unit acceptance pending"
+    },
+    {
+      "path": "apps/ev-subsidy/app/api/ev-subsidy/status/route.ts",
+      "lines": 5,
+      "sha256": "380b381d5b6698389ad8a1e8f3e1c1c194898c9141146e74cb2d75ab9159b298",
+      "review": "Entire pinned source independently read; bounded unit acceptance pending"
+    },
+    {
+      "path": "apps/ev-subsidy/app/docs/ev-subsidy/route.ts",
+      "lines": 5,
+      "sha256": "6829b6c898196c6ba75e588c79858ecd78b2b6851c55d7faaa0e454ed6b8dac9",
+      "review": "Entire pinned source independently read; bounded unit acceptance pending"
+    },
+    {
+      "path": "apps/ev-subsidy/package.json",
+      "lines": 74,
+      "sha256": "7ee5d1792f8e17827b6a578bd1c4be55e8a272c3463e9515e0d2420132daada8",
+      "review": "Entire pinned source independently read; bounded unit acceptance pending"
+    },
+    {
+      "path": "apps/ev-subsidy/Dockerfile",
+      "lines": 25,
+      "sha256": "fb6686db34dd328be91a0d3a15a3b6c6395df93a196210d35c2ee4c299595d18",
+      "review": "Entire pinned source independently read; bounded unit acceptance pending"
+    },
+    {
+      "path": "apps/ev-subsidy/proxy.ts",
+      "lines": 1,
+      "sha256": "30fa3db301cefe5a434a4c883fc6f53ac7326bad82c73311ea4b27c9e62c60fa",
+      "review": "Entire pinned source independently read; bounded unit acceptance pending"
+    },
+    {
+      "path": "shared/nextjs-utils/src/proxy.mjs",
+      "lines": 67,
+      "sha256": "cce8bcb4d6ebfb6a6de789ee14bdbb4cb7e0337e7eb8f5da6786a2847c1ba367",
+      "review": "Entire pinned source independently read; bounded unit acceptance pending"
+    }
+  ],
+  "snapshot": "5f59c5db11e155019ace1500542dc4db1648a1616d330523ac05aa7481724664"
+}

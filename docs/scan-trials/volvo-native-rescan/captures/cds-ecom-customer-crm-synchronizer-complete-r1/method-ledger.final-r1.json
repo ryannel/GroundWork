@@ -1,0 +1,2720 @@
+[
+  {
+    "method": "com.volvocars.ecom.customer.crm.synchronizer.api.App#main(String[])",
+    "implementation": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/72e63c41f95a86d5d000",
+    "path": "customer-crm-synchronizer-api/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/api/App.java",
+    "lines": [20, 23],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 2,
+    "localResolved": 0,
+    "callbacks": [],
+    "unexpanded": [],
+    "branches": [],
+    "gap": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/gap/method/72e63c41f95a86d5d000"
+  },
+  {
+    "method": "com.volvocars.ecom.customer.crm.synchronizer.api.config.CdbExceptionHandler#handleCdbDataRejected(HttpServletRequest,CdbDataRejectedException)",
+    "implementation": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/879849e5eedec4c6fce7",
+    "path": "customer-crm-synchronizer-api/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/api/config/CdbExceptionHandler.java",
+    "lines": [24, 30],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 2,
+    "localResolved": 0,
+    "callbacks": [],
+    "unexpanded": [],
+    "branches": [],
+    "gap": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/gap/method/879849e5eedec4c6fce7"
+  },
+  {
+    "method": "com.volvocars.ecom.customer.crm.synchronizer.api.config.CdbExceptionHandler#handleCdbConsumerLocked(HttpServletRequest,CdbConsumerLockedException)",
+    "implementation": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/5b1fc52e4e575b3d457a",
+    "path": "customer-crm-synchronizer-api/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/api/config/CdbExceptionHandler.java",
+    "lines": [32, 39],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 4,
+    "localResolved": 0,
+    "callbacks": [],
+    "unexpanded": [],
+    "branches": [],
+    "gap": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/gap/method/5b1fc52e4e575b3d457a"
+  },
+  {
+    "method": "com.volvocars.ecom.customer.crm.synchronizer.api.config.HealthMetricsExportConfiguration#<init>(MeterRegistry,HealthEndpoint)",
+    "implementation": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/73e23bb11c2d8eccb167",
+    "path": "customer-crm-synchronizer-api/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/api/config/HealthMetricsExportConfiguration.java",
+    "lines": [12, 16],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 3,
+    "localResolved": 0,
+    "callbacks": [
+      {
+        "operation": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/operation/73e23bb11c2d8eccb167/3",
+        "path": "customer-crm-synchronizer-api/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/api/config/HealthMetricsExportConfiguration.java",
+        "lines": [13, 13],
+        "text": "this::getStatusCode",
+        "kind": "MEMBER_REFERENCE",
+        "status": "local_method_reference_associated",
+        "implementation": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/38bbd58f6e4d434cd810",
+        "formalParameters": [
+          "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/38bbd58f6e4d434cd810/parameter/health"
+        ],
+        "referenceReceiver": "bound"
+      }
+    ],
+    "unexpanded": [],
+    "branches": [],
+    "gap": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/gap/method/73e23bb11c2d8eccb167"
+  },
+  {
+    "method": "com.volvocars.ecom.customer.crm.synchronizer.api.config.HealthMetricsExportConfiguration#getStatusCode(HealthEndpoint)",
+    "implementation": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/38bbd58f6e4d434cd810",
+    "path": "customer-crm-synchronizer-api/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/api/config/HealthMetricsExportConfiguration.java",
+    "lines": [18, 21],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 3,
+    "localResolved": 0,
+    "callbacks": [],
+    "unexpanded": [],
+    "branches": [
+      "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/operation/38bbd58f6e4d434cd810/7"
+    ],
+    "gap": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/gap/method/38bbd58f6e4d434cd810"
+  },
+  {
+    "method": "com.volvocars.ecom.customer.crm.synchronizer.api.config.KafkaHealthIndicator#<init>(KafkaSettings)",
+    "implementation": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/def2d3260a054a0a4051",
+    "path": "customer-crm-synchronizer-api/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/api/config/KafkaHealthIndicator.java",
+    "lines": [30, 36],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 5,
+    "localResolved": 1,
+    "callbacks": [],
+    "unexpanded": [],
+    "branches": [],
+    "gap": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/gap/method/def2d3260a054a0a4051"
+  },
+  {
+    "method": "com.volvocars.ecom.customer.crm.synchronizer.api.config.KafkaHealthIndicator#health()",
+    "implementation": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/43f68a25ac213c21e731",
+    "path": "customer-crm-synchronizer-api/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/api/config/KafkaHealthIndicator.java",
+    "lines": [38, 48],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 9,
+    "localResolved": 0,
+    "callbacks": [],
+    "unexpanded": [],
+    "branches": [],
+    "gap": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/gap/method/43f68a25ac213c21e731"
+  },
+  {
+    "method": "com.volvocars.ecom.customer.crm.synchronizer.api.config.KafkaHealthIndicator#destroy()",
+    "implementation": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/51e2e866341dc67a2916",
+    "path": "customer-crm-synchronizer-api/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/api/config/KafkaHealthIndicator.java",
+    "lines": [50, 53],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 2,
+    "localResolved": 0,
+    "callbacks": [],
+    "unexpanded": [],
+    "branches": [],
+    "gap": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/gap/method/51e2e866341dc67a2916"
+  },
+  {
+    "method": "com.volvocars.ecom.customer.crm.synchronizer.api.config.KafkaHealthMetricsExportConfiguration#<init>(MeterRegistry,KafkaHealthIndicator)",
+    "implementation": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/7ebd9dd38c3975612ec9",
+    "path": "customer-crm-synchronizer-api/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/api/config/KafkaHealthMetricsExportConfiguration.java",
+    "lines": [13, 18],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 3,
+    "localResolved": 0,
+    "callbacks": [
+      {
+        "operation": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/operation/7ebd9dd38c3975612ec9/3",
+        "path": "customer-crm-synchronizer-api/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/api/config/KafkaHealthMetricsExportConfiguration.java",
+        "lines": [15, 15],
+        "text": "this::getKafkaStatusCode",
+        "kind": "MEMBER_REFERENCE",
+        "status": "local_method_reference_associated",
+        "implementation": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/5309e8931eb695b4f47c",
+        "formalParameters": [
+          "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/5309e8931eb695b4f47c/parameter/healthIndicator"
+        ],
+        "referenceReceiver": "bound"
+      }
+    ],
+    "unexpanded": [],
+    "branches": [],
+    "gap": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/gap/method/7ebd9dd38c3975612ec9"
+  },
+  {
+    "method": "com.volvocars.ecom.customer.crm.synchronizer.api.config.KafkaHealthMetricsExportConfiguration#getKafkaStatusCode(KafkaHealthIndicator)",
+    "implementation": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/5309e8931eb695b4f47c",
+    "path": "customer-crm-synchronizer-api/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/api/config/KafkaHealthMetricsExportConfiguration.java",
+    "lines": [20, 23],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 3,
+    "localResolved": 1,
+    "callbacks": [],
+    "unexpanded": [],
+    "branches": [
+      "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/operation/5309e8931eb695b4f47c/7"
+    ],
+    "gap": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/gap/method/5309e8931eb695b4f47c"
+  },
+  {
+    "method": "com.volvocars.ecom.customer.crm.synchronizer.api.customer.CdbSyncEventConsumer#<init>(CustomerSyncService,CdbSyncEventDeserializer)",
+    "implementation": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/2fc2ea120feaf7f8af85",
+    "path": "customer-crm-synchronizer-api/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/api/customer/CdbSyncEventConsumer.java",
+    "lines": [22, 26],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 0,
+    "localResolved": 0,
+    "callbacks": [],
+    "unexpanded": [],
+    "branches": [],
+    "gap": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/gap/method/2fc2ea120feaf7f8af85"
+  },
+  {
+    "method": "com.volvocars.ecom.customer.crm.synchronizer.api.customer.CdbSyncEventConsumer#consume(String)",
+    "implementation": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/f383ed09672f35af3bd5",
+    "path": "customer-crm-synchronizer-api/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/api/customer/CdbSyncEventConsumer.java",
+    "lines": [28, 54],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 20,
+    "localResolved": 2,
+    "callbacks": [],
+    "unexpanded": [],
+    "branches": [],
+    "gap": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/gap/method/f383ed09672f35af3bd5"
+  },
+  {
+    "method": "com.volvocars.ecom.customer.crm.synchronizer.api.customer.CustomerEventConsumer#<init>(CustomerSyncService,CustomerEventDeserializer,String)",
+    "implementation": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/46b753d637f44e3c59b1",
+    "path": "customer-crm-synchronizer-api/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/api/customer/CustomerEventConsumer.java",
+    "lines": [31, 38],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 0,
+    "localResolved": 0,
+    "callbacks": [],
+    "unexpanded": [],
+    "branches": [],
+    "gap": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/gap/method/46b753d637f44e3c59b1"
+  },
+  {
+    "method": "com.volvocars.ecom.customer.crm.synchronizer.api.customer.CustomerEventConsumer#consume(String)",
+    "implementation": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/46cccfd75a9d144146b2",
+    "path": "customer-crm-synchronizer-api/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/api/customer/CustomerEventConsumer.java",
+    "lines": [40, 73],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 31,
+    "localResolved": 3,
+    "callbacks": [],
+    "unexpanded": [],
+    "branches": [
+      "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/operation/46cccfd75a9d144146b2/11",
+      "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/operation/46cccfd75a9d144146b2/16",
+      "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/operation/46cccfd75a9d144146b2/28"
+    ],
+    "gap": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/gap/method/46cccfd75a9d144146b2"
+  },
+  {
+    "method": "com.volvocars.ecom.customer.crm.synchronizer.api.customer.CustomerEventConsumer#getRemoteSystem(Event<CustomerEventPayload>)",
+    "implementation": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/44d9ff06869dd1c5417c",
+    "path": "customer-crm-synchronizer-api/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/api/customer/CustomerEventConsumer.java",
+    "lines": [75, 81],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 5,
+    "localResolved": 0,
+    "callbacks": [
+      {
+        "operation": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/operation/44d9ff06869dd1c5417c/3",
+        "path": "customer-crm-synchronizer-api/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/api/customer/CustomerEventConsumer.java",
+        "lines": [77, 77],
+        "text": "Event::getMetadata",
+        "kind": "MEMBER_REFERENCE",
+        "status": "imported_method_reference_invocation_boundary",
+        "receiverType": "Event",
+        "referenceName": "getMetadata"
+      },
+      {
+        "operation": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/operation/44d9ff06869dd1c5417c/10",
+        "path": "customer-crm-synchronizer-api/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/api/customer/CustomerEventConsumer.java",
+        "lines": [78, 78],
+        "text": "Metadata::getAttributes",
+        "kind": "MEMBER_REFERENCE",
+        "status": "imported_method_reference_invocation_boundary",
+        "receiverType": "Metadata",
+        "referenceName": "getAttributes"
+      },
+      {
+        "operation": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/operation/44d9ff06869dd1c5417c/17",
+        "path": "customer-crm-synchronizer-api/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/api/customer/CustomerEventConsumer.java",
+        "lines": [79, 79],
+        "text": "attributes -> attributes.getOrDefault(Constants.REMOTE_SYSTEM_ID, null)",
+        "kind": "LAMBDA_EXPRESSION",
+        "status": "association_only_no_eager_invocation",
+        "implementation": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/781403ea6ae924de352f",
+        "formalParameters": [
+          "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/781403ea6ae924de352f/parameter/attributes"
+        ],
+        "captures": []
+      }
+    ],
+    "unexpanded": [],
+    "branches": [],
+    "gap": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/gap/method/44d9ff06869dd1c5417c"
+  },
+  {
+    "method": "com.volvocars.ecom.customer.crm.synchronizer.api.customer.CustomerEventOMConsumer#consumeToUpdateOM(String)",
+    "implementation": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/c3894f4f7c90cf44136a",
+    "path": "customer-crm-synchronizer-api/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/api/customer/CustomerEventOMConsumer.java",
+    "lines": [27, 51],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 16,
+    "localResolved": 2,
+    "callbacks": [],
+    "unexpanded": [],
+    "branches": [
+      "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/operation/c3894f4f7c90cf44136a/17",
+      "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/operation/c3894f4f7c90cf44136a/23"
+    ],
+    "gap": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/gap/method/c3894f4f7c90cf44136a"
+  },
+  {
+    "method": "com.volvocars.ecom.customer.crm.synchronizer.api.v1.CustomerCrmSyncControllerV1#syncToCdb(String,String)",
+    "implementation": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/7dc7602e573c93206208",
+    "path": "customer-crm-synchronizer-api/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/api/v1/CustomerCrmSyncControllerV1.java",
+    "lines": [37, 46],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 3,
+    "localResolved": 1,
+    "callbacks": [],
+    "unexpanded": [],
+    "branches": [],
+    "gap": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/gap/method/7dc7602e573c93206208"
+  },
+  {
+    "method": "com.volvocars.ecom.customer.crm.synchronizer.api.v1.CustomerCrmSyncControllerV1#syncVehicleRelationToCdb(String,VehicleRelationRequest,String)",
+    "implementation": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/714b25b0759c554b2ef5",
+    "path": "customer-crm-synchronizer-api/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/api/v1/CustomerCrmSyncControllerV1.java",
+    "lines": [48, 60],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 3,
+    "localResolved": 1,
+    "callbacks": [],
+    "unexpanded": [],
+    "branches": [],
+    "gap": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/gap/method/714b25b0759c554b2ef5"
+  },
+  {
+    "method": "com.volvocars.ecom.customer.crm.synchronizer.api.v1.CustomerCrmSyncControllerV1#getConsumerByVolvoId(String,String)",
+    "implementation": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/a525458e6e5719ee37fb",
+    "path": "customer-crm-synchronizer-api/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/api/v1/CustomerCrmSyncControllerV1.java",
+    "lines": [62, 74],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 3,
+    "localResolved": 1,
+    "callbacks": [],
+    "unexpanded": [],
+    "branches": [],
+    "gap": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/gap/method/a525458e6e5719ee37fb"
+  },
+  {
+    "method": "com.volvocars.ecom.customer.crm.synchronizer.core.cdb.CdbClient#<init>(RestClientRegistry)",
+    "implementation": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/f79585a9104c0a817396",
+    "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/cdb/CdbClient.java",
+    "lines": [39, 41],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 1,
+    "localResolved": 0,
+    "callbacks": [],
+    "unexpanded": [],
+    "branches": [],
+    "gap": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/gap/method/f79585a9104c0a817396"
+  },
+  {
+    "method": "com.volvocars.ecom.customer.crm.synchronizer.core.cdb.CdbClient#createOrUpdateConsumer(CreateOrUpdateRequest)",
+    "implementation": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/ceeae96167b1d3dbc34e",
+    "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/cdb/CdbClient.java",
+    "lines": [43, 73],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 10,
+    "localResolved": 1,
+    "callbacks": [],
+    "unexpanded": [],
+    "branches": [
+      "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/operation/ceeae96167b1d3dbc34e/27",
+      "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/operation/ceeae96167b1d3dbc34e/32"
+    ],
+    "gap": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/gap/method/ceeae96167b1d3dbc34e"
+  },
+  {
+    "method": "com.volvocars.ecom.customer.crm.synchronizer.core.cdb.CdbClient#getCdbConsumerByVolvoId(String)",
+    "implementation": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/1df700397611120d07b9",
+    "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/cdb/CdbClient.java",
+    "lines": [75, 90],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 8,
+    "localResolved": 0,
+    "callbacks": [],
+    "unexpanded": [],
+    "branches": [
+      "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/operation/1df700397611120d07b9/17"
+    ],
+    "gap": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/gap/method/1df700397611120d07b9"
+  },
+  {
+    "method": "com.volvocars.ecom.customer.crm.synchronizer.core.cdb.CdbClient#toBadRequestException(HttpClientErrorException.BadRequest)",
+    "implementation": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/bf9daac5615941db9866",
+    "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/cdb/CdbClient.java",
+    "lines": [92, 102],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 6,
+    "localResolved": 1,
+    "callbacks": [],
+    "unexpanded": [],
+    "branches": [
+      "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/operation/bf9daac5615941db9866/6",
+      "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/operation/bf9daac5615941db9866/10"
+    ],
+    "gap": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/gap/method/bf9daac5615941db9866"
+  },
+  {
+    "method": "com.volvocars.ecom.customer.crm.synchronizer.core.cdb.CdbClient#getErrorDescription(String)",
+    "implementation": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/cef44dbd5efcb5be1bfd",
+    "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/cdb/CdbClient.java",
+    "lines": [104, 125],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 14,
+    "localResolved": 0,
+    "callbacks": [],
+    "unexpanded": [],
+    "branches": [
+      "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/operation/cef44dbd5efcb5be1bfd/4",
+      "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/operation/cef44dbd5efcb5be1bfd/21",
+      "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/operation/cef44dbd5efcb5be1bfd/30",
+      "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/operation/cef44dbd5efcb5be1bfd/36",
+      "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/operation/cef44dbd5efcb5be1bfd/49"
+    ],
+    "gap": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/gap/method/cef44dbd5efcb5be1bfd"
+  },
+  {
+    "method": "com.volvocars.ecom.customer.crm.synchronizer.core.cdb.exception.CdbClientException#<init>(String)",
+    "implementation": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/761be51be11dbcd39256",
+    "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/cdb/exception/CdbClientException.java",
+    "lines": [7, 9],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 1,
+    "localResolved": 1,
+    "callbacks": [],
+    "unexpanded": [],
+    "branches": [],
+    "gap": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/gap/method/761be51be11dbcd39256"
+  },
+  {
+    "method": "com.volvocars.ecom.customer.crm.synchronizer.core.cdb.exception.CdbClientException#<init>(String,Throwable)",
+    "implementation": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/e9ca215a862c35d623f2",
+    "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/cdb/exception/CdbClientException.java",
+    "lines": [11, 13],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 1,
+    "localResolved": 1,
+    "callbacks": [],
+    "unexpanded": [],
+    "branches": [],
+    "gap": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/gap/method/e9ca215a862c35d623f2"
+  },
+  {
+    "method": "com.volvocars.ecom.customer.crm.synchronizer.core.cdb.exception.CdbConsumerLockedException#<init>(String,Throwable)",
+    "implementation": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/2fa25594f471a26ee7eb",
+    "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/cdb/exception/CdbConsumerLockedException.java",
+    "lines": [7, 9],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 1,
+    "localResolved": 1,
+    "callbacks": [],
+    "unexpanded": [],
+    "branches": [],
+    "gap": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/gap/method/2fa25594f471a26ee7eb"
+  },
+  {
+    "method": "com.volvocars.ecom.customer.crm.synchronizer.core.cdb.exception.CdbDataRejectedException#<init>(String,Throwable)",
+    "implementation": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/9aa6c25440ff5a5799cd",
+    "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/cdb/exception/CdbDataRejectedException.java",
+    "lines": [7, 9],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 1,
+    "localResolved": 1,
+    "callbacks": [],
+    "unexpanded": [],
+    "branches": [],
+    "gap": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/gap/method/9aa6c25440ff5a5799cd"
+  },
+  {
+    "method": "com.volvocars.ecom.customer.crm.synchronizer.core.cdb.mapper.CreateOrUpdateAddressMapper#toList(Actor)",
+    "implementation": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/b5dd5d69bf212207cb90",
+    "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/cdb/mapper/CreateOrUpdateAddressMapper.java",
+    "lines": [21, 34],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 8,
+    "localResolved": 0,
+    "callbacks": [
+      {
+        "operation": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/operation/b5dd5d69bf212207cb90/18",
+        "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/cdb/mapper/CreateOrUpdateAddressMapper.java",
+        "lines": [29, 30],
+        "text": "address ->\n                !address.previous() && processedAddresses.add(new ComparableAddress(address))",
+        "kind": "LAMBDA_EXPRESSION",
+        "status": "association_only_no_eager_invocation",
+        "implementation": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/4e56ef07b7534f8f1b35",
+        "formalParameters": [
+          "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/4e56ef07b7534f8f1b35/parameter/address"
+        ],
+        "captures": [
+          {
+            "name": "processedAddresses",
+            "type": "Set<ComparableAddress>",
+            "actual": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/value/f7b2470e001ef787ffb6",
+            "value": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/4e56ef07b7534f8f1b35/capture/processedAddresses"
+          }
+        ]
+      },
+      {
+        "operation": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/operation/b5dd5d69bf212207cb90/20",
+        "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/cdb/mapper/CreateOrUpdateAddressMapper.java",
+        "lines": [31, 31],
+        "text": "address -> toAddress(address, getAddressType(actor))",
+        "kind": "LAMBDA_EXPRESSION",
+        "status": "association_only_no_eager_invocation",
+        "implementation": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/ab3267d5419988c8fa7f",
+        "formalParameters": [
+          "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/ab3267d5419988c8fa7f/parameter/address"
+        ],
+        "captures": [
+          {
+            "name": "this",
+            "type": "com.volvocars.ecom.customer.crm.synchronizer.core.cdb.mapper.CreateOrUpdateAddressMapper",
+            "actual": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/b5dd5d69bf212207cb90/receiver",
+            "value": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/ab3267d5419988c8fa7f/capture/this"
+          },
+          {
+            "name": "actor",
+            "type": "Actor",
+            "actual": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/b5dd5d69bf212207cb90/parameter/actor",
+            "value": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/ab3267d5419988c8fa7f/capture/actor"
+          }
+        ]
+      },
+      {
+        "operation": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/operation/b5dd5d69bf212207cb90/22",
+        "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/cdb/mapper/CreateOrUpdateAddressMapper.java",
+        "lines": [32, 32],
+        "text": "Objects::nonNull",
+        "kind": "MEMBER_REFERENCE",
+        "status": "imported_method_reference_invocation_boundary",
+        "receiverType": "Objects",
+        "referenceName": "nonNull"
+      }
+    ],
+    "unexpanded": [],
+    "branches": [
+      "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/operation/b5dd5d69bf212207cb90/3",
+      "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/operation/b5dd5d69bf212207cb90/8"
+    ],
+    "gap": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/gap/method/b5dd5d69bf212207cb90"
+  },
+  {
+    "method": "com.volvocars.ecom.customer.crm.synchronizer.core.cdb.mapper.CreateOrUpdateAddressMapper#toAddress(Address,String)",
+    "implementation": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/59a1f1a5d63d84e5693b",
+    "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/cdb/mapper/CreateOrUpdateAddressMapper.java",
+    "lines": [36, 50],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 20,
+    "localResolved": 0,
+    "callbacks": [],
+    "unexpanded": [],
+    "branches": [
+      "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/operation/59a1f1a5d63d84e5693b/25"
+    ],
+    "gap": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/gap/method/59a1f1a5d63d84e5693b"
+  },
+  {
+    "method": "com.volvocars.ecom.customer.crm.synchronizer.core.cdb.mapper.CreateOrUpdateAddressMapper#getAddressType(Actor)",
+    "implementation": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/c498df2eecdb994bbd8c",
+    "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/cdb/mapper/CreateOrUpdateAddressMapper.java",
+    "lines": [52, 57],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 0,
+    "localResolved": 0,
+    "callbacks": [],
+    "unexpanded": [],
+    "branches": [
+      "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/operation/c498df2eecdb994bbd8c/3"
+    ],
+    "gap": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/gap/method/c498df2eecdb994bbd8c"
+  },
+  {
+    "method": "com.volvocars.ecom.customer.crm.synchronizer.core.cdb.mapper.CreateOrUpdateAddressMapper.ComparableAddress#<init>(Address)",
+    "implementation": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/d3f5f05906614707f365",
+    "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/cdb/mapper/CreateOrUpdateAddressMapper.java",
+    "lines": [69, 80],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 19,
+    "localResolved": 8,
+    "callbacks": [],
+    "unexpanded": [],
+    "branches": [
+      "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/operation/d3f5f05906614707f365/16"
+    ],
+    "gap": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/gap/method/d3f5f05906614707f365"
+  },
+  {
+    "method": "com.volvocars.ecom.customer.crm.synchronizer.core.cdb.mapper.CreateOrUpdateAddressMapper.ComparableAddress#safeStringTrimAndToLowerCase(String)",
+    "implementation": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/1d938467c2d67f93455a",
+    "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/cdb/mapper/CreateOrUpdateAddressMapper.java",
+    "lines": [82, 86],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 3,
+    "localResolved": 0,
+    "callbacks": [
+      {
+        "operation": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/operation/1d938467c2d67f93455a/3",
+        "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/cdb/mapper/CreateOrUpdateAddressMapper.java",
+        "lines": [84, 84],
+        "text": "s -> s.trim().replaceAll(\" +\", \" \").toLowerCase(Locale.ENGLISH)",
+        "kind": "LAMBDA_EXPRESSION",
+        "status": "association_only_no_eager_invocation",
+        "implementation": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/c08b8cda13f1f452fd21",
+        "formalParameters": [
+          "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/c08b8cda13f1f452fd21/parameter/s"
+        ],
+        "captures": []
+      }
+    ],
+    "unexpanded": [],
+    "branches": [],
+    "gap": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/gap/method/1d938467c2d67f93455a"
+  },
+  {
+    "method": "com.volvocars.ecom.customer.crm.synchronizer.core.cdb.mapper.CreateOrUpdateAlternativeConsumerIdMapper#fromActor(Actor)",
+    "implementation": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/04781bbcea3e44609849",
+    "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/cdb/mapper/CreateOrUpdateAlternativeConsumerIdMapper.java",
+    "lines": [17, 32],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 10,
+    "localResolved": 3,
+    "callbacks": [],
+    "unexpanded": [],
+    "branches": [
+      "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/operation/04781bbcea3e44609849/8",
+      "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/operation/04781bbcea3e44609849/20"
+    ],
+    "gap": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/gap/method/04781bbcea3e44609849"
+  },
+  {
+    "method": "com.volvocars.ecom.customer.crm.synchronizer.core.cdb.mapper.CreateOrUpdateAlternativeConsumerIdMapper#fromIndividual(Individual)",
+    "implementation": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/3937409ddfeb58dc439d",
+    "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/cdb/mapper/CreateOrUpdateAlternativeConsumerIdMapper.java",
+    "lines": [34, 45],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 7,
+    "localResolved": 1,
+    "callbacks": [],
+    "unexpanded": [],
+    "branches": [
+      "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/operation/3937409ddfeb58dc439d/9",
+      "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/operation/3937409ddfeb58dc439d/14"
+    ],
+    "gap": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/gap/method/3937409ddfeb58dc439d"
+  },
+  {
+    "method": "com.volvocars.ecom.customer.crm.synchronizer.core.cdb.mapper.CreateOrUpdateAlternativeConsumerIdMapper#buildAlternativeConsumerId(String,String)",
+    "implementation": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/d3c7f9119d6a9efe2f16",
+    "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/cdb/mapper/CreateOrUpdateAlternativeConsumerIdMapper.java",
+    "lines": [47, 54],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 2,
+    "localResolved": 0,
+    "callbacks": [],
+    "unexpanded": [],
+    "branches": [],
+    "gap": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/gap/method/d3c7f9119d6a9efe2f16"
+  },
+  {
+    "method": "com.volvocars.ecom.customer.crm.synchronizer.core.cdb.mapper.CreateOrUpdateConsumerInfoMapper#fromActor(Customer,Actor)",
+    "implementation": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/e8e0803e97ccc3422d16",
+    "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/cdb/mapper/CreateOrUpdateConsumerInfoMapper.java",
+    "lines": [19, 31],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 6,
+    "localResolved": 2,
+    "callbacks": [],
+    "unexpanded": [],
+    "branches": [
+      "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/operation/e8e0803e97ccc3422d16/3",
+      "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/operation/e8e0803e97ccc3422d16/8",
+      "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/operation/e8e0803e97ccc3422d16/18",
+      "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/operation/e8e0803e97ccc3422d16/24"
+    ],
+    "gap": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/gap/method/e8e0803e97ccc3422d16"
+  },
+  {
+    "method": "com.volvocars.ecom.customer.crm.synchronizer.core.cdb.mapper.CreateOrUpdateConsumerInfoMapper#fromIndividual(Customer,Individual)",
+    "implementation": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/5cdaa37532647ee9a272",
+    "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/cdb/mapper/CreateOrUpdateConsumerInfoMapper.java",
+    "lines": [33, 42],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 12,
+    "localResolved": 1,
+    "callbacks": [],
+    "unexpanded": [],
+    "branches": [
+      "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/operation/5cdaa37532647ee9a272/12"
+    ],
+    "gap": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/gap/method/5cdaa37532647ee9a272"
+  },
+  {
+    "method": "com.volvocars.ecom.customer.crm.synchronizer.core.cdb.mapper.CreateOrUpdateConsumerInfoMapper#fromOrganization(Customer,CorporateEntity)",
+    "implementation": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/69fe315caede4707ee76",
+    "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/cdb/mapper/CreateOrUpdateConsumerInfoMapper.java",
+    "lines": [44, 53],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 12,
+    "localResolved": 1,
+    "callbacks": [],
+    "unexpanded": [],
+    "branches": [],
+    "gap": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/gap/method/69fe315caede4707ee76"
+  },
+  {
+    "method": "com.volvocars.ecom.customer.crm.synchronizer.core.cdb.mapper.CreateOrUpdateConsumerInfoMapper#getCdbMarket(Market)",
+    "implementation": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/c1b2a8787b127c82a7ef",
+    "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/cdb/mapper/CreateOrUpdateConsumerInfoMapper.java",
+    "lines": [55, 61],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 6,
+    "localResolved": 0,
+    "callbacks": [],
+    "unexpanded": [],
+    "branches": [
+      "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/operation/c1b2a8787b127c82a7ef/4"
+    ],
+    "gap": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/gap/method/c1b2a8787b127c82a7ef"
+  },
+  {
+    "method": "com.volvocars.ecom.customer.crm.synchronizer.core.cdb.mapper.CreateOrUpdateConsumerMapper#fromActor(Customer,Actor,String,VehicleRelationRequest)",
+    "implementation": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/79a92d0967fcb7ed8ff3",
+    "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/cdb/mapper/CreateOrUpdateConsumerMapper.java",
+    "lines": [23, 43],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 20,
+    "localResolved": 9,
+    "callbacks": [],
+    "unexpanded": [],
+    "branches": [
+      "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/operation/79a92d0967fcb7ed8ff3/31"
+    ],
+    "gap": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/gap/method/79a92d0967fcb7ed8ff3"
+  },
+  {
+    "method": "com.volvocars.ecom.customer.crm.synchronizer.core.cdb.mapper.CreateOrUpdateConsumerRelationMapper#toList(Customer,String)",
+    "implementation": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/c9aec440f4e4925fbda6",
+    "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/cdb/mapper/CreateOrUpdateConsumerRelationMapper.java",
+    "lines": [13, 18],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 3,
+    "localResolved": 1,
+    "callbacks": [],
+    "unexpanded": [],
+    "branches": [
+      "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/operation/c9aec440f4e4925fbda6/4"
+    ],
+    "gap": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/gap/method/c9aec440f4e4925fbda6"
+  },
+  {
+    "method": "com.volvocars.ecom.customer.crm.synchronizer.core.cdb.mapper.CreateOrUpdateConsumerRelationMapper#fromCdbId(Customer,String)",
+    "implementation": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/c1927c88291c5f9cc063",
+    "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/cdb/mapper/CreateOrUpdateConsumerRelationMapper.java",
+    "lines": [20, 26],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 4,
+    "localResolved": 0,
+    "callbacks": [],
+    "unexpanded": [],
+    "branches": [],
+    "gap": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/gap/method/c1927c88291c5f9cc063"
+  },
+  {
+    "method": "com.volvocars.ecom.customer.crm.synchronizer.core.cdb.mapper.CreateOrUpdateConsumerResponseMapper#getCdbId(ConsumerResponse)",
+    "implementation": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/e0239e833f4a51537878",
+    "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/cdb/mapper/CreateOrUpdateConsumerResponseMapper.java",
+    "lines": [13, 15],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 1,
+    "localResolved": 1,
+    "callbacks": [],
+    "unexpanded": [],
+    "branches": [],
+    "gap": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/gap/method/e0239e833f4a51537878"
+  },
+  {
+    "method": "com.volvocars.ecom.customer.crm.synchronizer.core.cdb.mapper.CreateOrUpdateConsumerResponseMapper#getTcId(ConsumerResponse)",
+    "implementation": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/ebc1ec2215bd24ce5738",
+    "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/cdb/mapper/CreateOrUpdateConsumerResponseMapper.java",
+    "lines": [17, 19],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 1,
+    "localResolved": 1,
+    "callbacks": [],
+    "unexpanded": [],
+    "branches": [],
+    "gap": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/gap/method/ebc1ec2215bd24ce5738"
+  },
+  {
+    "method": "com.volvocars.ecom.customer.crm.synchronizer.core.cdb.mapper.CreateOrUpdateConsumerResponseMapper#getId(String,ConsumerResponse)",
+    "implementation": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/6aea8b72716c7609ea5a",
+    "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/cdb/mapper/CreateOrUpdateConsumerResponseMapper.java",
+    "lines": [21, 32],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 10,
+    "localResolved": 0,
+    "callbacks": [
+      {
+        "operation": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/operation/6aea8b72716c7609ea5a/3",
+        "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/cdb/mapper/CreateOrUpdateConsumerResponseMapper.java",
+        "lines": [24, 24],
+        "text": "ConsumerResponse::consumerId",
+        "kind": "MEMBER_REFERENCE",
+        "status": "imported_method_reference_invocation_boundary",
+        "receiverType": "ConsumerResponse",
+        "referenceName": "consumerId"
+      },
+      {
+        "operation": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/operation/6aea8b72716c7609ea5a/10",
+        "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/cdb/mapper/CreateOrUpdateConsumerResponseMapper.java",
+        "lines": [25, 25],
+        "text": "ConsumerResponse.ConsumerId::id",
+        "kind": "MEMBER_REFERENCE",
+        "status": "imported_method_reference_invocation_boundary",
+        "receiverType": "com.volvocars.ecom.customer.crm.synchronizer.core.cdb.model.ConsumerResponse.ConsumerId",
+        "referenceName": "id"
+      },
+      {
+        "operation": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/operation/6aea8b72716c7609ea5a/21",
+        "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/cdb/mapper/CreateOrUpdateConsumerResponseMapper.java",
+        "lines": [28, 28],
+        "text": "id -> idType.equalsIgnoreCase(id.type())",
+        "kind": "LAMBDA_EXPRESSION",
+        "status": "association_only_no_eager_invocation",
+        "implementation": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/fb8cd16ae5e50ab0ff26",
+        "formalParameters": [
+          "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/fb8cd16ae5e50ab0ff26/parameter/id"
+        ],
+        "captures": [
+          {
+            "name": "idType",
+            "type": "String",
+            "actual": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/6aea8b72716c7609ea5a/parameter/idType",
+            "value": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/fb8cd16ae5e50ab0ff26/capture/idType"
+          }
+        ]
+      },
+      {
+        "operation": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/operation/6aea8b72716c7609ea5a/30",
+        "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/cdb/mapper/CreateOrUpdateConsumerResponseMapper.java",
+        "lines": [30, 30],
+        "text": "ConsumerResponse.Id::value",
+        "kind": "MEMBER_REFERENCE",
+        "status": "imported_method_reference_invocation_boundary",
+        "receiverType": "com.volvocars.ecom.customer.crm.synchronizer.core.cdb.model.ConsumerResponse.Id",
+        "referenceName": "value"
+      }
+    ],
+    "unexpanded": [],
+    "branches": [],
+    "gap": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/gap/method/6aea8b72716c7609ea5a"
+  },
+  {
+    "method": "com.volvocars.ecom.customer.crm.synchronizer.core.cdb.mapper.CreateOrUpdateContactDetailsMapper#toList(Actor)",
+    "implementation": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/3fd5d1526f351efba818",
+    "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/cdb/mapper/CreateOrUpdateContactDetailsMapper.java",
+    "lines": [18, 23],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 6,
+    "localResolved": 0,
+    "callbacks": [
+      {
+        "operation": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/operation/3fd5d1526f351efba818/12",
+        "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/cdb/mapper/CreateOrUpdateContactDetailsMapper.java",
+        "lines": [20, 20],
+        "text": "this::toPhoneContactDetails",
+        "kind": "MEMBER_REFERENCE",
+        "status": "local_method_reference_associated",
+        "implementation": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/f69e2d9e27e294ef6b98",
+        "formalParameters": [
+          "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/f69e2d9e27e294ef6b98/parameter/phone"
+        ],
+        "referenceReceiver": "bound"
+      }
+    ],
+    "unexpanded": [],
+    "branches": [
+      "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/operation/3fd5d1526f351efba818/3",
+      "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/operation/3fd5d1526f351efba818/9"
+    ],
+    "gap": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/gap/method/3fd5d1526f351efba818"
+  },
+  {
+    "method": "com.volvocars.ecom.customer.crm.synchronizer.core.cdb.mapper.CreateOrUpdateContactDetailsMapper#toPhoneContactDetails(Phone)",
+    "implementation": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/f69e2d9e27e294ef6b98",
+    "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/cdb/mapper/CreateOrUpdateContactDetailsMapper.java",
+    "lines": [25, 34],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 7,
+    "localResolved": 0,
+    "callbacks": [],
+    "unexpanded": [],
+    "branches": [
+      "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/operation/f69e2d9e27e294ef6b98/5"
+    ],
+    "gap": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/gap/method/f69e2d9e27e294ef6b98"
+  },
+  {
+    "method": "com.volvocars.ecom.customer.crm.synchronizer.core.cdb.mapper.CreateOrUpdateEmailAddressMapper#toList(Actor)",
+    "implementation": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/bc9aaef821c0f3bc0185",
+    "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/cdb/mapper/CreateOrUpdateEmailAddressMapper.java",
+    "lines": [19, 23],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 7,
+    "localResolved": 0,
+    "callbacks": [
+      {
+        "operation": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/operation/bc9aaef821c0f3bc0185/8",
+        "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/cdb/mapper/CreateOrUpdateEmailAddressMapper.java",
+        "lines": [21, 21],
+        "text": "email -> toCdbEmailAddress(actor, email)",
+        "kind": "LAMBDA_EXPRESSION",
+        "status": "association_only_no_eager_invocation",
+        "implementation": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/ea3b060af5b4bb55fb97",
+        "formalParameters": [
+          "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/ea3b060af5b4bb55fb97/parameter/email"
+        ],
+        "captures": [
+          {
+            "name": "this",
+            "type": "com.volvocars.ecom.customer.crm.synchronizer.core.cdb.mapper.CreateOrUpdateEmailAddressMapper",
+            "actual": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/bc9aaef821c0f3bc0185/receiver",
+            "value": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/ea3b060af5b4bb55fb97/capture/this"
+          },
+          {
+            "name": "actor",
+            "type": "Actor",
+            "actual": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/bc9aaef821c0f3bc0185/parameter/actor",
+            "value": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/ea3b060af5b4bb55fb97/capture/actor"
+          }
+        ]
+      }
+    ],
+    "unexpanded": [],
+    "branches": [],
+    "gap": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/gap/method/bc9aaef821c0f3bc0185"
+  },
+  {
+    "method": "com.volvocars.ecom.customer.crm.synchronizer.core.cdb.mapper.CreateOrUpdateEmailAddressMapper#toCdbEmailAddress(Actor,Email)",
+    "implementation": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/6f8701adf10c6e91b155",
+    "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/cdb/mapper/CreateOrUpdateEmailAddressMapper.java",
+    "lines": [25, 32],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 5,
+    "localResolved": 1,
+    "callbacks": [],
+    "unexpanded": [],
+    "branches": [],
+    "gap": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/gap/method/6f8701adf10c6e91b155"
+  },
+  {
+    "method": "com.volvocars.ecom.customer.crm.synchronizer.core.cdb.mapper.CreateOrUpdateEmailAddressMapper#getUsage(Actor,Email)",
+    "implementation": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/a479744267fad65d80e9",
+    "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/cdb/mapper/CreateOrUpdateEmailAddressMapper.java",
+    "lines": [34, 39],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 3,
+    "localResolved": 1,
+    "callbacks": [],
+    "unexpanded": [],
+    "branches": [
+      "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/operation/a479744267fad65d80e9/3",
+      "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/operation/a479744267fad65d80e9/6",
+      "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/operation/a479744267fad65d80e9/14"
+    ],
+    "gap": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/gap/method/a479744267fad65d80e9"
+  },
+  {
+    "method": "com.volvocars.ecom.customer.crm.synchronizer.core.cdb.mapper.CreateOrUpdateEmailAddressMapper#hasSoldToRole(Actor)",
+    "implementation": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/95863fc87319fa0a1761",
+    "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/cdb/mapper/CreateOrUpdateEmailAddressMapper.java",
+    "lines": [41, 43],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 4,
+    "localResolved": 0,
+    "callbacks": [],
+    "unexpanded": [],
+    "branches": [
+      "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/operation/95863fc87319fa0a1761/5"
+    ],
+    "gap": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/gap/method/95863fc87319fa0a1761"
+  },
+  {
+    "method": "com.volvocars.ecom.customer.crm.synchronizer.core.cdb.mapper.CreateOrUpdateOrganizationMapper#fromActor(Actor)",
+    "implementation": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/6c1267d4ab7eabb2c696",
+    "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/cdb/mapper/CreateOrUpdateOrganizationMapper.java",
+    "lines": [13, 18],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 1,
+    "localResolved": 1,
+    "callbacks": [],
+    "unexpanded": [],
+    "branches": [
+      "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/operation/6c1267d4ab7eabb2c696/3"
+    ],
+    "gap": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/gap/method/6c1267d4ab7eabb2c696"
+  },
+  {
+    "method": "com.volvocars.ecom.customer.crm.synchronizer.core.cdb.mapper.CreateOrUpdateOrganizationMapper#fromCorporateEntity(CorporateEntity)",
+    "implementation": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/812aa410b5d45507e01b",
+    "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/cdb/mapper/CreateOrUpdateOrganizationMapper.java",
+    "lines": [20, 31],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 12,
+    "localResolved": 0,
+    "callbacks": [],
+    "unexpanded": [],
+    "branches": [
+      "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/operation/812aa410b5d45507e01b/4",
+      "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/operation/812aa410b5d45507e01b/11"
+    ],
+    "gap": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/gap/method/812aa410b5d45507e01b"
+  },
+  {
+    "method": "com.volvocars.ecom.customer.crm.synchronizer.core.cdb.mapper.CreateOrUpdatePersonMapper#fromActor(Actor)",
+    "implementation": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/6e3b3c04e58cf0aad558",
+    "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/cdb/mapper/CreateOrUpdatePersonMapper.java",
+    "lines": [11, 17],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 1,
+    "localResolved": 1,
+    "callbacks": [],
+    "unexpanded": [],
+    "branches": [
+      "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/operation/6e3b3c04e58cf0aad558/3"
+    ],
+    "gap": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/gap/method/6e3b3c04e58cf0aad558"
+  },
+  {
+    "method": "com.volvocars.ecom.customer.crm.synchronizer.core.cdb.mapper.CreateOrUpdatePersonMapper#fromIndividual(Individual)",
+    "implementation": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/cf44d5f4f8e19d719234",
+    "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/cdb/mapper/CreateOrUpdatePersonMapper.java",
+    "lines": [19, 28],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 12,
+    "localResolved": 1,
+    "callbacks": [],
+    "unexpanded": [],
+    "branches": [],
+    "gap": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/gap/method/cf44d5f4f8e19d719234"
+  },
+  {
+    "method": "com.volvocars.ecom.customer.crm.synchronizer.core.cdb.mapper.CreateOrUpdatePersonMapper#getTitle(Individual)",
+    "implementation": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/acbfd43cbf30d18ebd35",
+    "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/cdb/mapper/CreateOrUpdatePersonMapper.java",
+    "lines": [30, 36],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 4,
+    "localResolved": 0,
+    "callbacks": [],
+    "unexpanded": [],
+    "branches": [
+      "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/operation/acbfd43cbf30d18ebd35/4",
+      "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/operation/acbfd43cbf30d18ebd35/9"
+    ],
+    "gap": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/gap/method/acbfd43cbf30d18ebd35"
+  },
+  {
+    "method": "com.volvocars.ecom.customer.crm.synchronizer.core.cdb.mapper.CreateOrUpdateRequestMapper#fromActor(Customer,Actor,VehicleRelationRequest)",
+    "implementation": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/c765bfe31775f9f591c9",
+    "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/cdb/mapper/CreateOrUpdateRequestMapper.java",
+    "lines": [20, 23],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 1,
+    "localResolved": 1,
+    "callbacks": [],
+    "unexpanded": [],
+    "branches": [],
+    "gap": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/gap/method/c765bfe31775f9f591c9"
+  },
+  {
+    "method": "com.volvocars.ecom.customer.crm.synchronizer.core.cdb.mapper.CreateOrUpdateRequestMapper#fromActor(Customer,Actor,String,VehicleRelationRequest)",
+    "implementation": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/d30549cd77052f079c87",
+    "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/cdb/mapper/CreateOrUpdateRequestMapper.java",
+    "lines": [25, 41],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 7,
+    "localResolved": 1,
+    "callbacks": [],
+    "unexpanded": [],
+    "branches": [
+      "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/operation/d30549cd77052f079c87/3"
+    ],
+    "gap": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/gap/method/d30549cd77052f079c87"
+  },
+  {
+    "method": "com.volvocars.ecom.customer.crm.synchronizer.core.cdb.mapper.CreateOrUpdateVehicleRelationMapper#fromActor(String,Instant,Actor)",
+    "implementation": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/ed186943e0d76c9f170e",
+    "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/cdb/mapper/CreateOrUpdateVehicleRelationMapper.java",
+    "lines": [18, 29],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 3,
+    "localResolved": 2,
+    "callbacks": [],
+    "unexpanded": [],
+    "branches": [
+      "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/operation/ed186943e0d76c9f170e/4",
+      "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/operation/ed186943e0d76c9f170e/8",
+      "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/operation/ed186943e0d76c9f170e/14",
+      "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/operation/ed186943e0d76c9f170e/19"
+    ],
+    "gap": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/gap/method/ed186943e0d76c9f170e"
+  },
+  {
+    "method": "com.volvocars.ecom.customer.crm.synchronizer.core.cdb.mapper.CreateOrUpdateVehicleRelationMapper#fromIndividual(String,Instant,Individual)",
+    "implementation": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/e938fb7ba2a007b7992a",
+    "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/cdb/mapper/CreateOrUpdateVehicleRelationMapper.java",
+    "lines": [31, 37],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 4,
+    "localResolved": 1,
+    "callbacks": [],
+    "unexpanded": [],
+    "branches": [
+      "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/operation/e938fb7ba2a007b7992a/6"
+    ],
+    "gap": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/gap/method/e938fb7ba2a007b7992a"
+  },
+  {
+    "method": "com.volvocars.ecom.customer.crm.synchronizer.core.cdb.mapper.CreateOrUpdateVehicleRelationMapper#fromCorporateEntity(String,Instant,CorporateEntity)",
+    "implementation": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/379223a4ffc5c4b2eccc",
+    "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/cdb/mapper/CreateOrUpdateVehicleRelationMapper.java",
+    "lines": [39, 45],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 4,
+    "localResolved": 1,
+    "callbacks": [],
+    "unexpanded": [],
+    "branches": [
+      "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/operation/379223a4ffc5c4b2eccc/6"
+    ],
+    "gap": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/gap/method/379223a4ffc5c4b2eccc"
+  },
+  {
+    "method": "com.volvocars.ecom.customer.crm.synchronizer.core.cdb.mapper.CreateOrUpdateVehicleRelationMapper#map(String,Instant,Actor)",
+    "implementation": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/d727a2fbc78f385bfee2",
+    "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/cdb/mapper/CreateOrUpdateVehicleRelationMapper.java",
+    "lines": [47, 53],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 4,
+    "localResolved": 1,
+    "callbacks": [],
+    "unexpanded": [],
+    "branches": [],
+    "gap": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/gap/method/d727a2fbc78f385bfee2"
+  },
+  {
+    "method": "com.volvocars.ecom.customer.crm.synchronizer.core.cdb.mapper.CreateOrUpdateVehicleRelationMapper#getType(Actor)",
+    "implementation": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/db4374efe89ce0f0dd0a",
+    "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/cdb/mapper/CreateOrUpdateVehicleRelationMapper.java",
+    "lines": [55, 61],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 0,
+    "localResolved": 0,
+    "callbacks": [],
+    "unexpanded": [],
+    "branches": [
+      "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/operation/db4374efe89ce0f0dd0a/3"
+    ],
+    "gap": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/gap/method/db4374efe89ce0f0dd0a"
+  },
+  {
+    "method": "com.volvocars.ecom.customer.crm.synchronizer.core.common.CustomerSyncException#<init>(String)",
+    "implementation": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/47e59177aea31f52ece1",
+    "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/common/CustomerSyncException.java",
+    "lines": [5, 7],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 1,
+    "localResolved": 0,
+    "callbacks": [],
+    "unexpanded": [],
+    "branches": [],
+    "gap": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/gap/method/47e59177aea31f52ece1"
+  },
+  {
+    "method": "com.volvocars.ecom.customer.crm.synchronizer.core.common.CustomerSyncException#<init>(String,Throwable)",
+    "implementation": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/3d3384d47c8389e56457",
+    "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/common/CustomerSyncException.java",
+    "lines": [9, 11],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 1,
+    "localResolved": 0,
+    "callbacks": [],
+    "unexpanded": [],
+    "branches": [],
+    "gap": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/gap/method/3d3384d47c8389e56457"
+  },
+  {
+    "method": "com.volvocars.ecom.customer.crm.synchronizer.core.config.CdbSyncEventDeserializer#deserialize(String)",
+    "implementation": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/f88ec8729cd3ffb200ae",
+    "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/config/CdbSyncEventDeserializer.java",
+    "lines": [20, 27],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 3,
+    "localResolved": 0,
+    "callbacks": [],
+    "unexpanded": [],
+    "branches": [],
+    "gap": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/gap/method/f88ec8729cd3ffb200ae"
+  },
+  {
+    "method": "com.volvocars.ecom.customer.crm.synchronizer.core.config.Constants#<init>()",
+    "implementation": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/92981f4ed163778de2b6",
+    "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/config/Constants.java",
+    "lines": [5, 7],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 0,
+    "localResolved": 0,
+    "callbacks": [],
+    "unexpanded": [],
+    "branches": [],
+    "gap": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/gap/method/92981f4ed163778de2b6"
+  },
+  {
+    "method": "com.volvocars.ecom.customer.crm.synchronizer.core.config.CustomerEventConfig#<init>(KafkaSettings,CustomerEventRecoverer)",
+    "implementation": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/dc4dfdf03df29bd43028",
+    "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/config/CustomerEventConfig.java",
+    "lines": [27, 30],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 0,
+    "localResolved": 0,
+    "callbacks": [],
+    "unexpanded": [],
+    "branches": [],
+    "gap": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/gap/method/dc4dfdf03df29bd43028"
+  },
+  {
+    "method": "com.volvocars.ecom.customer.crm.synchronizer.core.config.CustomerEventConfig#getCustomerListenerContainerFactory()",
+    "implementation": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/c725c9e8f6615172b0e6",
+    "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/config/CustomerEventConfig.java",
+    "lines": [32, 42],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 4,
+    "localResolved": 2,
+    "callbacks": [],
+    "unexpanded": [],
+    "branches": [],
+    "gap": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/gap/method/c725c9e8f6615172b0e6"
+  },
+  {
+    "method": "com.volvocars.ecom.customer.crm.synchronizer.core.config.CustomerEventConfig#getOrderCreateListenerContainerFactory()",
+    "implementation": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/ed338b236f9109651940",
+    "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/config/CustomerEventConfig.java",
+    "lines": [44, 55],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 4,
+    "localResolved": 2,
+    "callbacks": [],
+    "unexpanded": [],
+    "branches": [],
+    "gap": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/gap/method/ed338b236f9109651940"
+  },
+  {
+    "method": "com.volvocars.ecom.customer.crm.synchronizer.core.config.CustomerEventConfig#createErrorHandler()",
+    "implementation": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/a913bb42fed3bc5e55b9",
+    "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/config/CustomerEventConfig.java",
+    "lines": [57, 62],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 2,
+    "localResolved": 0,
+    "callbacks": [],
+    "unexpanded": [],
+    "branches": [],
+    "gap": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/gap/method/a913bb42fed3bc5e55b9"
+  },
+  {
+    "method": "com.volvocars.ecom.customer.crm.synchronizer.core.config.CustomerEventConfig#getCustomerConsumerSettings()",
+    "implementation": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/57b1f57da2e8b30a726d",
+    "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/config/CustomerEventConfig.java",
+    "lines": [64, 89],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 18,
+    "localResolved": 1,
+    "callbacks": [],
+    "unexpanded": [],
+    "branches": [],
+    "gap": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/gap/method/57b1f57da2e8b30a726d"
+  },
+  {
+    "method": "com.volvocars.ecom.customer.crm.synchronizer.core.config.CustomerEventDeserializer#deserialize(String)",
+    "implementation": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/c32c8d4dfd8f7c06be45",
+    "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/config/CustomerEventDeserializer.java",
+    "lines": [21, 28],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 3,
+    "localResolved": 0,
+    "callbacks": [],
+    "unexpanded": [],
+    "branches": [],
+    "gap": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/gap/method/c32c8d4dfd8f7c06be45"
+  },
+  {
+    "method": "com.volvocars.ecom.customer.crm.synchronizer.core.config.EventConfig#setSecuritySettings(Map<String, Object>,KafkaSettings)",
+    "implementation": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/83d63109bdf86c497c4f",
+    "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/config/EventConfig.java",
+    "lines": [9, 19],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 15,
+    "localResolved": 0,
+    "callbacks": [],
+    "unexpanded": [],
+    "branches": [
+      "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/operation/83d63109bdf86c497c4f/5"
+    ],
+    "gap": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/gap/method/83d63109bdf86c497c4f"
+  },
+  {
+    "method": "com.volvocars.ecom.customer.crm.synchronizer.core.customer.CustomerClient#<init>(RestClientRegistry)",
+    "implementation": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/c9b2da75277ab9260a08",
+    "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/customer/CustomerClient.java",
+    "lines": [24, 26],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 1,
+    "localResolved": 0,
+    "callbacks": [],
+    "unexpanded": [],
+    "branches": [],
+    "gap": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/gap/method/c9b2da75277ab9260a08"
+  },
+  {
+    "method": "com.volvocars.ecom.customer.crm.synchronizer.core.customer.CustomerClient#getCustomer(String)",
+    "implementation": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/47961f0c29fcee3583c6",
+    "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/customer/CustomerClient.java",
+    "lines": [28, 60],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 11,
+    "localResolved": 0,
+    "callbacks": [],
+    "unexpanded": [],
+    "branches": [
+      "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/operation/47961f0c29fcee3583c6/31",
+      "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/operation/47961f0c29fcee3583c6/36"
+    ],
+    "gap": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/gap/method/47961f0c29fcee3583c6"
+  },
+  {
+    "method": "com.volvocars.ecom.customer.crm.synchronizer.core.customer.CustomerClient#patchCustomer(String,PatchCustomerRequest)",
+    "implementation": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/7f3510724bfabfb2cc6a",
+    "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/customer/CustomerClient.java",
+    "lines": [62, 83],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 7,
+    "localResolved": 0,
+    "callbacks": [],
+    "unexpanded": [],
+    "branches": [],
+    "gap": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/gap/method/7f3510724bfabfb2cc6a"
+  },
+  {
+    "method": "com.volvocars.ecom.customer.crm.synchronizer.core.customer.CustomerEventRecoverer#accept(ConsumerRecord<?, ?>,Exception)",
+    "implementation": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/bf433bf8ba60d5d794f3",
+    "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/customer/CustomerEventRecoverer.java",
+    "lines": [18, 40],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 7,
+    "localResolved": 4,
+    "callbacks": [],
+    "unexpanded": [],
+    "branches": [
+      "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/operation/bf433bf8ba60d5d794f3/9"
+    ],
+    "gap": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/gap/method/bf433bf8ba60d5d794f3"
+  },
+  {
+    "method": "com.volvocars.ecom.customer.crm.synchronizer.core.customer.CustomerEventRecoverer#findDataRejectedCause(Throwable)",
+    "implementation": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/ebddd96fe2386ad9b444",
+    "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/customer/CustomerEventRecoverer.java",
+    "lines": [42, 49],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 1,
+    "localResolved": 0,
+    "callbacks": [],
+    "unexpanded": [],
+    "branches": [
+      "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/operation/ebddd96fe2386ad9b444/7"
+    ],
+    "gap": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/gap/method/ebddd96fe2386ad9b444"
+  },
+  {
+    "method": "com.volvocars.ecom.customer.crm.synchronizer.core.customer.CustomerEventRecoverer#extractStackTrace(Exception)",
+    "implementation": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/c16d5d1d287f0a7d8344",
+    "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/customer/CustomerEventRecoverer.java",
+    "lines": [51, 55],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 2,
+    "localResolved": 0,
+    "callbacks": [],
+    "unexpanded": [],
+    "branches": [],
+    "gap": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/gap/method/c16d5d1d287f0a7d8344"
+  },
+  {
+    "method": "com.volvocars.ecom.customer.crm.synchronizer.core.customer.CustomerEventRecoverer#getKey(ConsumerRecord<?, ?>)",
+    "implementation": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/b959caecb15292174648",
+    "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/customer/CustomerEventRecoverer.java",
+    "lines": [57, 67],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 6,
+    "localResolved": 0,
+    "callbacks": [],
+    "unexpanded": [],
+    "branches": [
+      "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/operation/b959caecb15292174648/4",
+      "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/operation/b959caecb15292174648/13"
+    ],
+    "gap": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/gap/method/b959caecb15292174648"
+  },
+  {
+    "method": "com.volvocars.ecom.customer.crm.synchronizer.core.customer.CustomerEventRecoverer#getPayload(ConsumerRecord<?, ?>)",
+    "implementation": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/0b4c33487b61a697120f",
+    "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/customer/CustomerEventRecoverer.java",
+    "lines": [69, 79],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 4,
+    "localResolved": 0,
+    "callbacks": [],
+    "unexpanded": [],
+    "branches": [
+      "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/operation/0b4c33487b61a697120f/4",
+      "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/operation/0b4c33487b61a697120f/11"
+    ],
+    "gap": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/gap/method/0b4c33487b61a697120f"
+  },
+  {
+    "method": "com.volvocars.ecom.customer.crm.synchronizer.core.customer.CustomerRequestMapper#fromCdbSyncResult(CdbSyncResult)",
+    "implementation": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/3d09632b4e97f3eba5e0",
+    "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/customer/CustomerRequestMapper.java",
+    "lines": [10, 20],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 10,
+    "localResolved": 0,
+    "callbacks": [
+      {
+        "operation": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/operation/3d09632b4e97f3eba5e0/3",
+        "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/customer/CustomerRequestMapper.java",
+        "lines": [13, 13],
+        "text": "CdbSyncResult.Actor::isUpdated",
+        "kind": "MEMBER_REFERENCE",
+        "status": "imported_method_reference_invocation_boundary",
+        "receiverType": "com.volvocars.ecom.customer.crm.synchronizer.shared.CdbSyncResult.Actor",
+        "referenceName": "isUpdated"
+      },
+      {
+        "operation": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/operation/3d09632b4e97f3eba5e0/5",
+        "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/customer/CustomerRequestMapper.java",
+        "lines": [14, 14],
+        "text": "this::fromCdbSyncActorResult",
+        "kind": "MEMBER_REFERENCE",
+        "status": "local_method_reference_associated",
+        "implementation": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/3315e5f089576adb522d",
+        "formalParameters": [
+          "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/3315e5f089576adb522d/parameter/actor"
+        ],
+        "referenceReceiver": "bound"
+      },
+      {
+        "operation": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/operation/3d09632b4e97f3eba5e0/17",
+        "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/customer/CustomerRequestMapper.java",
+        "lines": [17, 17],
+        "text": "CdbSyncResult.Actor::isUpdated",
+        "kind": "MEMBER_REFERENCE",
+        "status": "imported_method_reference_invocation_boundary",
+        "receiverType": "com.volvocars.ecom.customer.crm.synchronizer.shared.CdbSyncResult.Actor",
+        "referenceName": "isUpdated"
+      },
+      {
+        "operation": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/operation/3d09632b4e97f3eba5e0/19",
+        "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/customer/CustomerRequestMapper.java",
+        "lines": [18, 18],
+        "text": "this::fromCdbSyncActorResult",
+        "kind": "MEMBER_REFERENCE",
+        "status": "local_method_reference_associated",
+        "implementation": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/3315e5f089576adb522d",
+        "formalParameters": [
+          "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/3315e5f089576adb522d/parameter/actor"
+        ],
+        "referenceReceiver": "bound"
+      }
+    ],
+    "unexpanded": [],
+    "branches": [],
+    "gap": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/gap/method/3d09632b4e97f3eba5e0"
+  },
+  {
+    "method": "com.volvocars.ecom.customer.crm.synchronizer.core.customer.CustomerRequestMapper#fromCdbSyncActorResult(CdbSyncResult.Actor)",
+    "implementation": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/3315e5f089576adb522d",
+    "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/customer/CustomerRequestMapper.java",
+    "lines": [22, 24],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 3,
+    "localResolved": 0,
+    "callbacks": [],
+    "unexpanded": [],
+    "branches": [],
+    "gap": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/gap/method/3315e5f089576adb522d"
+  },
+  {
+    "method": "com.volvocars.ecom.customer.crm.synchronizer.core.customer.CustomerService#getCustomer(String)",
+    "implementation": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/9111fcde23391adee6eb",
+    "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/customer/CustomerService.java",
+    "lines": [21, 23],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 1,
+    "localResolved": 1,
+    "callbacks": [],
+    "unexpanded": [],
+    "branches": [],
+    "gap": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/gap/method/9111fcde23391adee6eb"
+  },
+  {
+    "method": "com.volvocars.ecom.customer.crm.synchronizer.core.customer.CustomerService#updateCustomerCdbIds(String,CdbSyncResult)",
+    "implementation": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/dbbb40ffce66cd7af7f0",
+    "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/customer/CustomerService.java",
+    "lines": [25, 38],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 9,
+    "localResolved": 3,
+    "callbacks": [],
+    "unexpanded": [],
+    "branches": [
+      "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/operation/dbbb40ffce66cd7af7f0/8",
+      "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/operation/dbbb40ffce66cd7af7f0/14"
+    ],
+    "gap": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/gap/method/dbbb40ffce66cd7af7f0"
+  },
+  {
+    "method": "com.volvocars.ecom.customer.crm.synchronizer.core.customer.exception.CustomerNotFoundException#<init>(String,Exception)",
+    "implementation": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/5fdb9659002db460136b",
+    "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/customer/exception/CustomerNotFoundException.java",
+    "lines": [6, 8],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 2,
+    "localResolved": 1,
+    "callbacks": [],
+    "unexpanded": [],
+    "branches": [],
+    "gap": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/gap/method/5fdb9659002db460136b"
+  },
+  {
+    "method": "com.volvocars.ecom.customer.crm.synchronizer.core.customer.exception.CustomerServiceApiException#<init>(String,Exception)",
+    "implementation": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/b437687bb5c1abe312ed",
+    "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/customer/exception/CustomerServiceApiException.java",
+    "lines": [7, 9],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 1,
+    "localResolved": 1,
+    "callbacks": [],
+    "unexpanded": [],
+    "branches": [],
+    "gap": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/gap/method/b437687bb5c1abe312ed"
+  },
+  {
+    "method": "com.volvocars.ecom.customer.crm.synchronizer.core.customer.exception.CustomerServiceApiException#<init>(String)",
+    "implementation": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/0a29ed6defb660aa64b4",
+    "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/customer/exception/CustomerServiceApiException.java",
+    "lines": [11, 13],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 1,
+    "localResolved": 1,
+    "callbacks": [],
+    "unexpanded": [],
+    "branches": [],
+    "gap": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/gap/method/0a29ed6defb660aa64b4"
+  },
+  {
+    "method": "com.volvocars.ecom.customer.crm.synchronizer.core.customer.model.actor.Actor#id()",
+    "implementation": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/ecf8c77f6cd0d820e6a3",
+    "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/customer/model/actor/Actor.java",
+    "lines": [7, 7],
+    "hasBody": false,
+    "runtimeRole": "source_host_context",
+    "status": "declaration_only_implementation_external",
+    "calls": 0,
+    "localResolved": 0,
+    "callbacks": [],
+    "unexpanded": [],
+    "branches": [],
+    "gap": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/gap/method/ecf8c77f6cd0d820e6a3"
+  },
+  {
+    "method": "com.volvocars.ecom.customer.crm.synchronizer.core.customer.model.actor.Actor#emails()",
+    "implementation": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/61c88884225fd081b919",
+    "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/customer/model/actor/Actor.java",
+    "lines": [9, 9],
+    "hasBody": false,
+    "runtimeRole": "source_host_context",
+    "status": "declaration_only_implementation_external",
+    "calls": 0,
+    "localResolved": 0,
+    "callbacks": [],
+    "unexpanded": [],
+    "branches": [],
+    "gap": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/gap/method/61c88884225fd081b919"
+  },
+  {
+    "method": "com.volvocars.ecom.customer.crm.synchronizer.core.customer.model.actor.Actor#phoneNumbers()",
+    "implementation": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/85ae73aaf04f5d510570",
+    "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/customer/model/actor/Actor.java",
+    "lines": [11, 11],
+    "hasBody": false,
+    "runtimeRole": "source_host_context",
+    "status": "declaration_only_implementation_external",
+    "calls": 0,
+    "localResolved": 0,
+    "callbacks": [],
+    "unexpanded": [],
+    "branches": [],
+    "gap": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/gap/method/85ae73aaf04f5d510570"
+  },
+  {
+    "method": "com.volvocars.ecom.customer.crm.synchronizer.core.customer.model.actor.Actor#addresses()",
+    "implementation": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/d8d68658941ec89e2041",
+    "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/customer/model/actor/Actor.java",
+    "lines": [13, 13],
+    "hasBody": false,
+    "runtimeRole": "source_host_context",
+    "status": "declaration_only_implementation_external",
+    "calls": 0,
+    "localResolved": 0,
+    "callbacks": [],
+    "unexpanded": [],
+    "branches": [],
+    "gap": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/gap/method/d8d68658941ec89e2041"
+  },
+  {
+    "method": "com.volvocars.ecom.customer.crm.synchronizer.core.customer.model.actor.Actor#roles()",
+    "implementation": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/3126e968ee0b3d088f21",
+    "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/customer/model/actor/Actor.java",
+    "lines": [15, 15],
+    "hasBody": false,
+    "runtimeRole": "source_host_context",
+    "status": "declaration_only_implementation_external",
+    "calls": 0,
+    "localResolved": 0,
+    "callbacks": [],
+    "unexpanded": [],
+    "branches": [],
+    "gap": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/gap/method/3126e968ee0b3d088f21"
+  },
+  {
+    "method": "com.volvocars.ecom.customer.crm.synchronizer.core.customer.model.actor.Actor#cdbId()",
+    "implementation": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/fbdb670d36de5cc373d7",
+    "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/customer/model/actor/Actor.java",
+    "lines": [17, 17],
+    "hasBody": false,
+    "runtimeRole": "source_host_context",
+    "status": "declaration_only_implementation_external",
+    "calls": 0,
+    "localResolved": 0,
+    "callbacks": [],
+    "unexpanded": [],
+    "branches": [],
+    "gap": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/gap/method/fbdb670d36de5cc373d7"
+  },
+  {
+    "method": "com.volvocars.ecom.customer.crm.synchronizer.core.customer.model.actor.Actor#cdbTcId()",
+    "implementation": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/a23625a09c69f26fabd5",
+    "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/customer/model/actor/Actor.java",
+    "lines": [19, 19],
+    "hasBody": false,
+    "runtimeRole": "source_host_context",
+    "status": "declaration_only_implementation_external",
+    "calls": 0,
+    "localResolved": 0,
+    "callbacks": [],
+    "unexpanded": [],
+    "branches": [],
+    "gap": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/gap/method/a23625a09c69f26fabd5"
+  },
+  {
+    "method": "com.volvocars.ecom.customer.crm.synchronizer.core.customer.model.actor.EmailRole#fromRole(String)",
+    "implementation": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/5879daab817689fac771",
+    "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/customer/model/actor/EmailRole.java",
+    "lines": [10, 16],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 5,
+    "localResolved": 0,
+    "callbacks": [
+      {
+        "operation": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/operation/5879daab817689fac771/4",
+        "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/customer/model/actor/EmailRole.java",
+        "lines": [13, 13],
+        "text": "role -> role.name().equals(value)",
+        "kind": "LAMBDA_EXPRESSION",
+        "status": "association_only_no_eager_invocation",
+        "implementation": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/cdebec7219c7e61499cb",
+        "formalParameters": [
+          "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/cdebec7219c7e61499cb/parameter/role"
+        ],
+        "captures": [
+          {
+            "name": "value",
+            "type": "String",
+            "actual": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/5879daab817689fac771/parameter/value",
+            "value": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/cdebec7219c7e61499cb/capture/value"
+          }
+        ]
+      }
+    ],
+    "unexpanded": [],
+    "branches": [],
+    "gap": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/gap/method/5879daab817689fac771"
+  },
+  {
+    "method": "com.volvocars.ecom.customer.crm.synchronizer.core.customer.model.actor.PhoneRole#fromRole(String)",
+    "implementation": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/1b647451647962236c98",
+    "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/customer/model/actor/PhoneRole.java",
+    "lines": [10, 16],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 5,
+    "localResolved": 0,
+    "callbacks": [
+      {
+        "operation": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/operation/1b647451647962236c98/4",
+        "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/customer/model/actor/PhoneRole.java",
+        "lines": [13, 13],
+        "text": "role -> role.name().equals(value)",
+        "kind": "LAMBDA_EXPRESSION",
+        "status": "association_only_no_eager_invocation",
+        "implementation": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/792eb03afe5f6c37a6f8",
+        "formalParameters": [
+          "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/792eb03afe5f6c37a6f8/parameter/role"
+        ],
+        "captures": [
+          {
+            "name": "value",
+            "type": "String",
+            "actual": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/1b647451647962236c98/parameter/value",
+            "value": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/792eb03afe5f6c37a6f8/capture/value"
+          }
+        ]
+      }
+    ],
+    "unexpanded": [],
+    "branches": [],
+    "gap": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/gap/method/1b647451647962236c98"
+  },
+  {
+    "method": "com.volvocars.ecom.customer.crm.synchronizer.core.customer.model.actor.Role#fromRole(String)",
+    "implementation": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/3b5d8f3cd52319e8173a",
+    "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/customer/model/actor/Role.java",
+    "lines": [13, 19],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 5,
+    "localResolved": 0,
+    "callbacks": [
+      {
+        "operation": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/operation/3b5d8f3cd52319e8173a/4",
+        "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/customer/model/actor/Role.java",
+        "lines": [16, 16],
+        "text": "role -> role.name().equals(value)",
+        "kind": "LAMBDA_EXPRESSION",
+        "status": "association_only_no_eager_invocation",
+        "implementation": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/e5ea577116a1e12d7e9e",
+        "formalParameters": [
+          "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/e5ea577116a1e12d7e9e/parameter/role"
+        ],
+        "captures": [
+          {
+            "name": "value",
+            "type": "String",
+            "actual": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/3b5d8f3cd52319e8173a/parameter/value",
+            "value": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/e5ea577116a1e12d7e9e/capture/value"
+          }
+        ]
+      }
+    ],
+    "unexpanded": [],
+    "branches": [],
+    "gap": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/gap/method/3b5d8f3cd52319e8173a"
+  },
+  {
+    "method": "com.volvocars.ecom.customer.crm.synchronizer.core.customersync.CdbConsumerService#getConsumerByVolvoId(String)",
+    "implementation": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/ee4ddc2041c3b11c25ba",
+    "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/customersync/CdbConsumerService.java",
+    "lines": [17, 25],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 4,
+    "localResolved": 4,
+    "callbacks": [],
+    "unexpanded": [],
+    "branches": [],
+    "gap": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/gap/method/ee4ddc2041c3b11c25ba"
+  },
+  {
+    "method": "com.volvocars.ecom.customer.crm.synchronizer.core.customersync.CdbConsumerService#extractConsumerId(CdbConsumerByVolvoId)",
+    "implementation": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/d97751a845fb3570985c",
+    "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/customersync/CdbConsumerService.java",
+    "lines": [27, 29],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 3,
+    "localResolved": 0,
+    "callbacks": [],
+    "unexpanded": [],
+    "branches": [
+      "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/operation/d97751a845fb3570985c/4"
+    ],
+    "gap": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/gap/method/d97751a845fb3570985c"
+  },
+  {
+    "method": "com.volvocars.ecom.customer.crm.synchronizer.core.customersync.CdbConsumerService#extractGlobalConsumerId(CdbConsumerByVolvoId)",
+    "implementation": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/0a267555d91f93dd164d",
+    "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/customersync/CdbConsumerService.java",
+    "lines": [31, 33],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 3,
+    "localResolved": 0,
+    "callbacks": [],
+    "unexpanded": [],
+    "branches": [
+      "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/operation/0a267555d91f93dd164d/4"
+    ],
+    "gap": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/gap/method/0a267555d91f93dd164d"
+  },
+  {
+    "method": "com.volvocars.ecom.customer.crm.synchronizer.core.customersync.CdbConsumerService#extractAlternateConsumerIds(CdbConsumerByVolvoId)",
+    "implementation": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/4697fc32a785c2f311e7",
+    "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/customersync/CdbConsumerService.java",
+    "lines": [35, 42],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 6,
+    "localResolved": 0,
+    "callbacks": [
+      {
+        "operation": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/operation/4697fc32a785c2f311e7/11",
+        "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/customersync/CdbConsumerService.java",
+        "lines": [40, 40],
+        "text": "alternateId -> new AlternativeConsumer(alternateId.type(), alternateId.value())",
+        "kind": "LAMBDA_EXPRESSION",
+        "status": "association_only_no_eager_invocation",
+        "implementation": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/1d084396d647e5e669d5",
+        "formalParameters": [
+          "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/1d084396d647e5e669d5/parameter/alternateId"
+        ],
+        "captures": []
+      }
+    ],
+    "unexpanded": [],
+    "branches": [
+      "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/operation/4697fc32a785c2f311e7/4"
+    ],
+    "gap": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/gap/method/4697fc32a785c2f311e7"
+  },
+  {
+    "method": "com.volvocars.ecom.customer.crm.synchronizer.core.customersync.CorporateEntitySyncService#syncToCdb(Customer,String,VehicleRelationRequest,boolean)",
+    "implementation": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/0dd1ad750796a616520a",
+    "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/customersync/CorporateEntitySyncService.java",
+    "lines": [28, 41],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 7,
+    "localResolved": 0,
+    "callbacks": [
+      {
+        "operation": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/operation/0dd1ad750796a616520a/11",
+        "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/customersync/CorporateEntitySyncService.java",
+        "lines": [38, 39],
+        "text": "corporateEntity ->\n                syncToCdb(customer, corporateEntity, relatedCdbId, vehicleRelationRequest, create)",
+        "kind": "LAMBDA_EXPRESSION",
+        "status": "association_only_no_eager_invocation",
+        "implementation": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/b587a7e94ff858edfc20",
+        "formalParameters": [
+          "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/b587a7e94ff858edfc20/parameter/corporateEntity"
+        ],
+        "captures": [
+          {
+            "name": "this",
+            "type": "com.volvocars.ecom.customer.crm.synchronizer.core.customersync.CorporateEntitySyncService",
+            "actual": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/0dd1ad750796a616520a/receiver",
+            "value": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/b587a7e94ff858edfc20/capture/this"
+          },
+          {
+            "name": "customer",
+            "type": "Customer",
+            "actual": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/0dd1ad750796a616520a/parameter/customer",
+            "value": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/b587a7e94ff858edfc20/capture/customer"
+          },
+          {
+            "name": "relatedCdbId",
+            "type": "String",
+            "actual": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/0dd1ad750796a616520a/parameter/relatedCdbId",
+            "value": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/b587a7e94ff858edfc20/capture/relatedCdbId"
+          },
+          {
+            "name": "vehicleRelationRequest",
+            "type": "VehicleRelationRequest",
+            "actual": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/0dd1ad750796a616520a/parameter/vehicleRelationRequest",
+            "value": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/b587a7e94ff858edfc20/capture/vehicleRelationRequest"
+          },
+          {
+            "name": "create",
+            "type": "boolean",
+            "actual": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/0dd1ad750796a616520a/parameter/create",
+            "value": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/b587a7e94ff858edfc20/capture/create"
+          }
+        ]
+      }
+    ],
+    "unexpanded": [],
+    "branches": [
+      "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/operation/0dd1ad750796a616520a/4"
+    ],
+    "gap": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/gap/method/0dd1ad750796a616520a"
+  },
+  {
+    "method": "com.volvocars.ecom.customer.crm.synchronizer.core.customersync.CorporateEntitySyncService#syncToCdb(Customer,CorporateEntity,String,VehicleRelationRequest,boolean)",
+    "implementation": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/8869f8757e692e821b38",
+    "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/customersync/CorporateEntitySyncService.java",
+    "lines": [43, 80],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 23,
+    "localResolved": 9,
+    "callbacks": [],
+    "unexpanded": [],
+    "branches": [
+      "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/operation/8869f8757e692e821b38/2",
+      "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/operation/8869f8757e692e821b38/37",
+      "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/operation/8869f8757e692e821b38/41"
+    ],
+    "gap": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/gap/method/8869f8757e692e821b38"
+  },
+  {
+    "method": "com.volvocars.ecom.customer.crm.synchronizer.core.customersync.CorporateEntitySyncService#toUnchangedResponse(CorporateEntity)",
+    "implementation": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/21186cc20b928119b837",
+    "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/customersync/CorporateEntitySyncService.java",
+    "lines": [82, 85],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 3,
+    "localResolved": 0,
+    "callbacks": [],
+    "unexpanded": [],
+    "branches": [],
+    "gap": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/gap/method/21186cc20b928119b837"
+  },
+  {
+    "method": "com.volvocars.ecom.customer.crm.synchronizer.core.customersync.CorporateEntitySyncService#isUnchanged(String,String)",
+    "implementation": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/012465aca7697c943f9c",
+    "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/customersync/CorporateEntitySyncService.java",
+    "lines": [87, 92],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 1,
+    "localResolved": 0,
+    "callbacks": [],
+    "unexpanded": [],
+    "branches": [
+      "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/operation/012465aca7697c943f9c/3"
+    ],
+    "gap": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/gap/method/012465aca7697c943f9c"
+  },
+  {
+    "method": "com.volvocars.ecom.customer.crm.synchronizer.core.customersync.CorporateEntitySyncService#shouldSkip(CorporateEntity,boolean)",
+    "implementation": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/1e128b87818e0d7813e1",
+    "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/customersync/CorporateEntitySyncService.java",
+    "lines": [94, 101],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 7,
+    "localResolved": 0,
+    "callbacks": [],
+    "unexpanded": [],
+    "branches": [
+      "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/operation/1e128b87818e0d7813e1/2",
+      "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/operation/1e128b87818e0d7813e1/7",
+      "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/operation/1e128b87818e0d7813e1/14",
+      "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/operation/1e128b87818e0d7813e1/21"
+    ],
+    "gap": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/gap/method/1e128b87818e0d7813e1"
+  },
+  {
+    "method": "com.volvocars.ecom.customer.crm.synchronizer.core.customersync.CustomerSyncService#syncToCdb(String,boolean)",
+    "implementation": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/363b61f72fdeabc1948c",
+    "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/customersync/CustomerSyncService.java",
+    "lines": [23, 25],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 1,
+    "localResolved": 1,
+    "callbacks": [],
+    "unexpanded": [],
+    "branches": [],
+    "gap": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/gap/method/363b61f72fdeabc1948c"
+  },
+  {
+    "method": "com.volvocars.ecom.customer.crm.synchronizer.core.customersync.CustomerSyncService#syncToCdb(String,VehicleRelationRequest,boolean)",
+    "implementation": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/f274b251caab4f00c92f",
+    "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/customersync/CustomerSyncService.java",
+    "lines": [27, 42],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 5,
+    "localResolved": 5,
+    "callbacks": [],
+    "unexpanded": [],
+    "branches": [],
+    "gap": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/gap/method/f274b251caab4f00c92f"
+  },
+  {
+    "method": "com.volvocars.ecom.customer.crm.synchronizer.core.customersync.CustomerSyncService#getSignatoryCdbId(Customer,List<CdbSyncResult.Actor>)",
+    "implementation": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/41c0c900bc6d46c2d440",
+    "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/customersync/CustomerSyncService.java",
+    "lines": [44, 58],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 11,
+    "localResolved": 0,
+    "callbacks": [
+      {
+        "operation": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/operation/41c0c900bc6d46c2d440/3",
+        "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/customersync/CustomerSyncService.java",
+        "lines": [47, 47],
+        "text": "individual -> individual.roles().contains(Role.SIGNATORY)",
+        "kind": "LAMBDA_EXPRESSION",
+        "status": "association_only_no_eager_invocation",
+        "implementation": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/b02719e9e0b5cc6c55e0",
+        "formalParameters": [
+          "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/b02719e9e0b5cc6c55e0/parameter/individual"
+        ],
+        "captures": []
+      },
+      {
+        "operation": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/operation/41c0c900bc6d46c2d440/22",
+        "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/customersync/CustomerSyncService.java",
+        "lines": [54, 54],
+        "text": "individual -> Objects.equals(signatory.id(), individual.id())",
+        "kind": "LAMBDA_EXPRESSION",
+        "status": "association_only_no_eager_invocation",
+        "implementation": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/12f46e375cb6745f3a3f",
+        "formalParameters": [
+          "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/12f46e375cb6745f3a3f/parameter/individual"
+        ],
+        "captures": [
+          {
+            "name": "signatory",
+            "type": "Individual",
+            "actual": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/value/ce158a13ef1cc5779be0",
+            "value": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/12f46e375cb6745f3a3f/capture/signatory"
+          }
+        ]
+      },
+      {
+        "operation": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/operation/41c0c900bc6d46c2d440/31",
+        "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/customersync/CustomerSyncService.java",
+        "lines": [56, 56],
+        "text": "CdbSyncResult.Actor::cdbId",
+        "kind": "MEMBER_REFERENCE",
+        "status": "imported_method_reference_invocation_boundary",
+        "receiverType": "com.volvocars.ecom.customer.crm.synchronizer.shared.CdbSyncResult.Actor",
+        "referenceName": "cdbId"
+      }
+    ],
+    "unexpanded": [],
+    "branches": [
+      "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/operation/41c0c900bc6d46c2d440/17"
+    ],
+    "gap": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/gap/method/41c0c900bc6d46c2d440"
+  },
+  {
+    "method": "com.volvocars.ecom.customer.crm.synchronizer.core.customersync.IndividualSyncService#syncToCdb(Customer,VehicleRelationRequest,boolean)",
+    "implementation": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/5ef21e8b4399a8080c5d",
+    "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/customersync/IndividualSyncService.java",
+    "lines": [30, 38],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 7,
+    "localResolved": 0,
+    "callbacks": [
+      {
+        "operation": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/operation/5ef21e8b4399a8080c5d/11",
+        "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/customersync/IndividualSyncService.java",
+        "lines": [36, 36],
+        "text": "individual -> syncToCdb(customer, individual, vehicleRelationRequest, create)",
+        "kind": "LAMBDA_EXPRESSION",
+        "status": "association_only_no_eager_invocation",
+        "implementation": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/fd2bf972637a19878fcf",
+        "formalParameters": [
+          "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/fd2bf972637a19878fcf/parameter/individual"
+        ],
+        "captures": [
+          {
+            "name": "this",
+            "type": "com.volvocars.ecom.customer.crm.synchronizer.core.customersync.IndividualSyncService",
+            "actual": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/5ef21e8b4399a8080c5d/receiver",
+            "value": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/fd2bf972637a19878fcf/capture/this"
+          },
+          {
+            "name": "customer",
+            "type": "Customer",
+            "actual": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/5ef21e8b4399a8080c5d/parameter/customer",
+            "value": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/fd2bf972637a19878fcf/capture/customer"
+          },
+          {
+            "name": "vehicleRelationRequest",
+            "type": "VehicleRelationRequest",
+            "actual": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/5ef21e8b4399a8080c5d/parameter/vehicleRelationRequest",
+            "value": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/fd2bf972637a19878fcf/capture/vehicleRelationRequest"
+          },
+          {
+            "name": "create",
+            "type": "boolean",
+            "actual": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/5ef21e8b4399a8080c5d/parameter/create",
+            "value": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/fd2bf972637a19878fcf/capture/create"
+          }
+        ]
+      }
+    ],
+    "unexpanded": [],
+    "branches": [
+      "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/operation/5ef21e8b4399a8080c5d/4"
+    ],
+    "gap": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/gap/method/5ef21e8b4399a8080c5d"
+  },
+  {
+    "method": "com.volvocars.ecom.customer.crm.synchronizer.core.customersync.IndividualSyncService#syncToCdb(Customer,Individual,VehicleRelationRequest,boolean)",
+    "implementation": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/88e884bf876d611803d4",
+    "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/customersync/IndividualSyncService.java",
+    "lines": [40, 74],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 23,
+    "localResolved": 9,
+    "callbacks": [],
+    "unexpanded": [],
+    "branches": [
+      "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/operation/88e884bf876d611803d4/2",
+      "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/operation/88e884bf876d611803d4/37",
+      "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/operation/88e884bf876d611803d4/41"
+    ],
+    "gap": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/gap/method/88e884bf876d611803d4"
+  },
+  {
+    "method": "com.volvocars.ecom.customer.crm.synchronizer.core.customersync.IndividualSyncService#toUnchangedResponse(Individual)",
+    "implementation": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/ea007da919859e86dda2",
+    "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/customersync/IndividualSyncService.java",
+    "lines": [76, 79],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 3,
+    "localResolved": 0,
+    "callbacks": [],
+    "unexpanded": [],
+    "branches": [],
+    "gap": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/gap/method/ea007da919859e86dda2"
+  },
+  {
+    "method": "com.volvocars.ecom.customer.crm.synchronizer.core.customersync.IndividualSyncService#isUnchanged(String,String)",
+    "implementation": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/b9f38f8230dd723429bc",
+    "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/customersync/IndividualSyncService.java",
+    "lines": [81, 86],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 1,
+    "localResolved": 0,
+    "callbacks": [],
+    "unexpanded": [],
+    "branches": [
+      "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/operation/b9f38f8230dd723429bc/3"
+    ],
+    "gap": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/gap/method/b9f38f8230dd723429bc"
+  },
+  {
+    "method": "com.volvocars.ecom.customer.crm.synchronizer.core.customersync.IndividualSyncService#shouldSkip(Customer,Individual,boolean)",
+    "implementation": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/f70ab61a5b272c010ccd",
+    "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/customersync/IndividualSyncService.java",
+    "lines": [88, 94],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 4,
+    "localResolved": 2,
+    "callbacks": [],
+    "unexpanded": [],
+    "branches": [
+      "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/operation/f70ab61a5b272c010ccd/2",
+      "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/operation/f70ab61a5b272c010ccd/7",
+      "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/operation/f70ab61a5b272c010ccd/13"
+    ],
+    "gap": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/gap/method/f70ab61a5b272c010ccd"
+  },
+  {
+    "method": "com.volvocars.ecom.customer.crm.synchronizer.core.customersync.IndividualSyncService#isUsMarketIndividualHasOnlyPayerRole(Market,Individual)",
+    "implementation": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/94a7cc9e932175ebd294",
+    "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/customersync/IndividualSyncService.java",
+    "lines": [96, 101],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 7,
+    "localResolved": 0,
+    "callbacks": [
+      {
+        "operation": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/operation/94a7cc9e932175ebd294/13",
+        "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/customersync/IndividualSyncService.java",
+        "lines": [99, 99],
+        "text": "Objects::nonNull",
+        "kind": "MEMBER_REFERENCE",
+        "status": "imported_method_reference_invocation_boundary",
+        "receiverType": "Objects",
+        "referenceName": "nonNull"
+      }
+    ],
+    "unexpanded": [],
+    "branches": [
+      "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/operation/94a7cc9e932175ebd294/4",
+      "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/operation/94a7cc9e932175ebd294/10"
+    ],
+    "gap": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/gap/method/94a7cc9e932175ebd294"
+  },
+  {
+    "method": "com.volvocars.ecom.customer.crm.synchronizer.core.customersync.IndividualSyncService#isUnnamedIndividualWithOnlyApproverRole(Individual)",
+    "implementation": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/3f033956be8937306753",
+    "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/customersync/IndividualSyncService.java",
+    "lines": [103, 109],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 10,
+    "localResolved": 0,
+    "callbacks": [
+      {
+        "operation": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/operation/3f033956be8937306753/13",
+        "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/customersync/IndividualSyncService.java",
+        "lines": [106, 106],
+        "text": "Objects::nonNull",
+        "kind": "MEMBER_REFERENCE",
+        "status": "imported_method_reference_invocation_boundary",
+        "receiverType": "Objects",
+        "referenceName": "nonNull"
+      }
+    ],
+    "unexpanded": [],
+    "branches": [
+      "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/operation/3f033956be8937306753/4",
+      "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/operation/3f033956be8937306753/10",
+      "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/operation/3f033956be8937306753/30"
+    ],
+    "gap": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/gap/method/3f033956be8937306753"
+  },
+  {
+    "method": "com.volvocars.ecom.customer.crm.synchronizer.core.ordermanager.OrderManagerClient#<init>(RestClientRegistry)",
+    "implementation": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/a89269ecee63c2aac9fb",
+    "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/ordermanager/OrderManagerClient.java",
+    "lines": [20, 22],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 1,
+    "localResolved": 0,
+    "callbacks": [],
+    "unexpanded": [],
+    "branches": [],
+    "gap": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/gap/method/a89269ecee63c2aac9fb"
+  },
+  {
+    "method": "com.volvocars.ecom.customer.crm.synchronizer.core.ordermanager.OrderManagerClient#sendCustomerUpdateEventInOm(OMCustomerUpdateEventRequest,String)",
+    "implementation": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/09ed18e479699d0ab6db",
+    "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/ordermanager/OrderManagerClient.java",
+    "lines": [24, 54],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 7,
+    "localResolved": 0,
+    "callbacks": [],
+    "unexpanded": [],
+    "branches": [],
+    "gap": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/gap/method/09ed18e479699d0ab6db"
+  },
+  {
+    "method": "com.volvocars.ecom.customer.crm.synchronizer.core.ordermanager.OrderManagerService#<init>(OrderManagerClient,boolean)",
+    "implementation": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/b6aa32987d16a43d840b",
+    "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/ordermanager/OrderManagerService.java",
+    "lines": [15, 20],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 0,
+    "localResolved": 0,
+    "callbacks": [],
+    "unexpanded": [],
+    "branches": [],
+    "gap": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/gap/method/b6aa32987d16a43d840b"
+  },
+  {
+    "method": "com.volvocars.ecom.customer.crm.synchronizer.core.ordermanager.OrderManagerService#sendCustomerUpdateEventInOm(OMUpdateEventCategory,String)",
+    "implementation": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/38bf605560c40063636b",
+    "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/ordermanager/OrderManagerService.java",
+    "lines": [22, 32],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 2,
+    "localResolved": 1,
+    "callbacks": [],
+    "unexpanded": [],
+    "branches": [
+      "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/operation/38bf605560c40063636b/2"
+    ],
+    "gap": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/gap/method/38bf605560c40063636b"
+  },
+  {
+    "method": "com.volvocars.ecom.customer.crm.synchronizer.core.ordermanager.exception.OrderManagerApiException#<init>(String,Exception)",
+    "implementation": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/4c3bd806112294a3250b",
+    "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/ordermanager/exception/OrderManagerApiException.java",
+    "lines": [7, 9],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 1,
+    "localResolved": 1,
+    "callbacks": [],
+    "unexpanded": [],
+    "branches": [],
+    "gap": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/gap/method/4c3bd806112294a3250b"
+  },
+  {
+    "method": "com.volvocars.ecom.customer.crm.synchronizer.api.customer.CustomerEventConsumer#getRemoteSystem(Event<CustomerEventPayload>)$lambda@3462",
+    "implementation": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/781403ea6ae924de352f",
+    "path": "customer-crm-synchronizer-api/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/api/customer/CustomerEventConsumer.java",
+    "lines": [79, 79],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 1,
+    "localResolved": 0,
+    "callbacks": [],
+    "unexpanded": [],
+    "branches": [],
+    "gap": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/gap/method/781403ea6ae924de352f"
+  },
+  {
+    "method": "com.volvocars.ecom.customer.crm.synchronizer.core.cdb.mapper.CreateOrUpdateAddressMapper#toList(Actor)$lambda@1111",
+    "implementation": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/4e56ef07b7534f8f1b35",
+    "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/cdb/mapper/CreateOrUpdateAddressMapper.java",
+    "lines": [29, 30],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 2,
+    "localResolved": 0,
+    "callbacks": [],
+    "unexpanded": [],
+    "branches": [
+      "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/operation/4e56ef07b7534f8f1b35/3"
+    ],
+    "gap": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/gap/method/4e56ef07b7534f8f1b35"
+  },
+  {
+    "method": "com.volvocars.ecom.customer.crm.synchronizer.core.cdb.mapper.CreateOrUpdateAddressMapper#toList(Actor)$lambda@1230",
+    "implementation": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/ab3267d5419988c8fa7f",
+    "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/cdb/mapper/CreateOrUpdateAddressMapper.java",
+    "lines": [31, 31],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 2,
+    "localResolved": 2,
+    "callbacks": [],
+    "unexpanded": [],
+    "branches": [],
+    "gap": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/gap/method/ab3267d5419988c8fa7f"
+  },
+  {
+    "method": "com.volvocars.ecom.customer.crm.synchronizer.core.cdb.mapper.CreateOrUpdateAddressMapper.ComparableAddress#safeStringTrimAndToLowerCase(String)$lambda@3270",
+    "implementation": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/c08b8cda13f1f452fd21",
+    "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/cdb/mapper/CreateOrUpdateAddressMapper.java",
+    "lines": [84, 84],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 3,
+    "localResolved": 0,
+    "callbacks": [],
+    "unexpanded": [],
+    "branches": [],
+    "gap": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/gap/method/c08b8cda13f1f452fd21"
+  },
+  {
+    "method": "com.volvocars.ecom.customer.crm.synchronizer.core.cdb.mapper.CreateOrUpdateConsumerResponseMapper#getId(String,ConsumerResponse)$lambda@970",
+    "implementation": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/fb8cd16ae5e50ab0ff26",
+    "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/cdb/mapper/CreateOrUpdateConsumerResponseMapper.java",
+    "lines": [28, 28],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 2,
+    "localResolved": 0,
+    "callbacks": [],
+    "unexpanded": [],
+    "branches": [],
+    "gap": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/gap/method/fb8cd16ae5e50ab0ff26"
+  },
+  {
+    "method": "com.volvocars.ecom.customer.crm.synchronizer.core.cdb.mapper.CreateOrUpdateEmailAddressMapper#toList(Actor)$lambda@1082",
+    "implementation": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/ea3b060af5b4bb55fb97",
+    "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/cdb/mapper/CreateOrUpdateEmailAddressMapper.java",
+    "lines": [21, 21],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 1,
+    "localResolved": 1,
+    "callbacks": [],
+    "unexpanded": [],
+    "branches": [],
+    "gap": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/gap/method/ea3b060af5b4bb55fb97"
+  },
+  {
+    "method": "com.volvocars.ecom.customer.crm.synchronizer.core.customer.model.actor.EmailRole#fromRole(String)$lambda@324",
+    "implementation": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/cdebec7219c7e61499cb",
+    "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/customer/model/actor/EmailRole.java",
+    "lines": [13, 13],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 2,
+    "localResolved": 0,
+    "callbacks": [],
+    "unexpanded": [],
+    "branches": [],
+    "gap": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/gap/method/cdebec7219c7e61499cb"
+  },
+  {
+    "method": "com.volvocars.ecom.customer.crm.synchronizer.core.customer.model.actor.PhoneRole#fromRole(String)$lambda@324",
+    "implementation": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/792eb03afe5f6c37a6f8",
+    "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/customer/model/actor/PhoneRole.java",
+    "lines": [13, 13],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 2,
+    "localResolved": 0,
+    "callbacks": [],
+    "unexpanded": [],
+    "branches": [],
+    "gap": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/gap/method/792eb03afe5f6c37a6f8"
+  },
+  {
+    "method": "com.volvocars.ecom.customer.crm.synchronizer.core.customer.model.actor.Role#fromRole(String)$lambda@348",
+    "implementation": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/e5ea577116a1e12d7e9e",
+    "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/customer/model/actor/Role.java",
+    "lines": [16, 16],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 2,
+    "localResolved": 0,
+    "callbacks": [],
+    "unexpanded": [],
+    "branches": [],
+    "gap": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/gap/method/e5ea577116a1e12d7e9e"
+  },
+  {
+    "method": "com.volvocars.ecom.customer.crm.synchronizer.core.customersync.CdbConsumerService#extractAlternateConsumerIds(CdbConsumerByVolvoId)$lambda@1624",
+    "implementation": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/1d084396d647e5e669d5",
+    "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/customersync/CdbConsumerService.java",
+    "lines": [40, 40],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 2,
+    "localResolved": 0,
+    "callbacks": [],
+    "unexpanded": [],
+    "branches": [],
+    "gap": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/gap/method/1d084396d647e5e669d5"
+  },
+  {
+    "method": "com.volvocars.ecom.customer.crm.synchronizer.core.customersync.CorporateEntitySyncService#syncToCdb(Customer,String,VehicleRelationRequest,boolean)$lambda@1777",
+    "implementation": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/b587a7e94ff858edfc20",
+    "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/customersync/CorporateEntitySyncService.java",
+    "lines": [38, 39],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 1,
+    "localResolved": 1,
+    "callbacks": [],
+    "unexpanded": [],
+    "branches": [],
+    "gap": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/gap/method/b587a7e94ff858edfc20"
+  },
+  {
+    "method": "com.volvocars.ecom.customer.crm.synchronizer.core.customersync.CustomerSyncService#getSignatoryCdbId(Customer,List<CdbSyncResult.Actor>)$lambda@1996",
+    "implementation": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/b02719e9e0b5cc6c55e0",
+    "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/customersync/CustomerSyncService.java",
+    "lines": [47, 47],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 2,
+    "localResolved": 0,
+    "callbacks": [],
+    "unexpanded": [],
+    "branches": [],
+    "gap": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/gap/method/b02719e9e0b5cc6c55e0"
+  },
+  {
+    "method": "com.volvocars.ecom.customer.crm.synchronizer.core.customersync.CustomerSyncService#getSignatoryCdbId(Customer,List<CdbSyncResult.Actor>)$lambda@2209",
+    "implementation": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/12f46e375cb6745f3a3f",
+    "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/customersync/CustomerSyncService.java",
+    "lines": [54, 54],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 3,
+    "localResolved": 0,
+    "callbacks": [],
+    "unexpanded": [],
+    "branches": [],
+    "gap": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/gap/method/12f46e375cb6745f3a3f"
+  },
+  {
+    "method": "com.volvocars.ecom.customer.crm.synchronizer.core.customersync.IndividualSyncService#syncToCdb(Customer,VehicleRelationRequest,boolean)$lambda@1770",
+    "implementation": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/fd2bf972637a19878fcf",
+    "path": "customer-crm-synchronizer-core/src/main/java/com/volvocars/ecom/customer/crm/synchronizer/core/customersync/IndividualSyncService.java",
+    "lines": [36, 36],
+    "hasBody": true,
+    "runtimeRole": "source_host_context",
+    "status": "source_body_examined",
+    "calls": 1,
+    "localResolved": 1,
+    "callbacks": [],
+    "unexpanded": [],
+    "branches": [],
+    "gap": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/gap/method/fd2bf972637a19878fcf"
+  }
+]

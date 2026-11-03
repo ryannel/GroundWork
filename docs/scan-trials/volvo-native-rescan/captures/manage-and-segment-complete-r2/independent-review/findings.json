@@ -1,0 +1,17 @@
+{
+  "snapshot": "41fc2e67ba0f71e8d93ec9e55ec52ba3339603546e54372c7859c34a14409877",
+  "findings": [],
+  "scope": "bounded independent source/native review; not a whole-repository rescan or runtime proof",
+  "positiveReplay": "positive/positive-interaction-summary.json",
+  "independentQueries": "crud/summary.json",
+  "sourceFiles": "source-review.json",
+  "sealedInputSha256": {
+    "bundle.json": "97788da62cbd4e4112b42ac2f2867c4e199d0afbcd3ab8627f800677662af87c",
+    "snapshot.json": "7984f5637b104f371e7597af843e9bcda90002af53c9eced1dc183346ac86f27"
+  },
+  "validation": {
+    "status": "passed",
+    "records": 128331,
+    "pinnedSourceRanges": 6638
+  }
+}

@@ -1,0 +1,147 @@
+{
+  "status": "passed",
+  "snapshot": "65ad154aae158cfd209f23f725485a963fc7ab37323076bac771f01646677709",
+  "qualification": "Independent full seven pinned helper/caller files; only six helpers claimed in bounded execution scope. Existing EV server host preserved; exactly two configured HTML GETs, no helper services/registrations. Actual input-to-URL and awaited-text-to-props and await-result-to-immediate-handle queries positive; response.text receiver retained separately across opaque library frontier; source options/optional params/native constraints and footer default/variant asymmetry checked. No SSR wrapper closure, live address, effective transport/cache or deployment inferred.",
+  "queries": [
+    {
+      "name": "Configured GET runs inside existing EV server packages/site-nav-embed/src/fetchSiteNavigationProps.ts",
+      "pages": 1,
+      "limits": [],
+      "nodes": 2,
+      "edges": 1
+    },
+    {
+      "name": "URL selection follows local builder and original source arguments packages/site-nav-embed/src/fetchSiteNavigationProps.ts",
+      "pages": 1,
+      "limits": [],
+      "nodes": 28,
+      "edges": 33
+    },
+    {
+      "name": "Returned HTML derives from awaited response and source options packages/site-nav-embed/src/fetchSiteNavigationProps.ts",
+      "pages": 1,
+      "limits": [],
+      "nodes": 14,
+      "edges": 15
+    },
+    {
+      "name": "Source awaited response reaches original fetch handle packages/site-nav-embed/src/fetchSiteNavigationProps.ts",
+      "pages": 1,
+      "limits": [],
+      "nodes": 2,
+      "edges": 1
+    },
+    {
+      "name": "Source result and call signature schemas packages/site-nav-embed/src/fetchSiteNavigationProps.ts",
+      "pages": 1,
+      "limits": [],
+      "nodes": 0,
+      "edges": 0
+    },
+    {
+      "name": "Actual source option headers.User-Agent packages/site-nav-embed/src/fetchSiteNavigationProps.ts",
+      "pages": 1,
+      "limits": [],
+      "nodes": 1,
+      "edges": 0
+    },
+    {
+      "name": "Actual source option next.revalidate packages/site-nav-embed/src/fetchSiteNavigationProps.ts",
+      "pages": 1,
+      "limits": [],
+      "nodes": 9,
+      "edges": 9
+    },
+    {
+      "name": "Native cache and header constraints packages/site-nav-embed/src/fetchSiteNavigationProps.ts",
+      "pages": 1,
+      "limits": [],
+      "nodes": 0,
+      "edges": 0
+    },
+    {
+      "name": "Source error branches and local helper control packages/site-nav-embed/src/fetchSiteNavigationProps.ts",
+      "pages": 1,
+      "limits": [],
+      "nodes": 66,
+      "edges": 75
+    },
+    {
+      "name": "Configured GET runs inside existing EV server packages/site-footer-embed/src/fetchSiteFooterProps.ts",
+      "pages": 1,
+      "limits": [],
+      "nodes": 2,
+      "edges": 1
+    },
+    {
+      "name": "URL selection follows local builder and original source arguments packages/site-footer-embed/src/fetchSiteFooterProps.ts",
+      "pages": 1,
+      "limits": [],
+      "nodes": 25,
+      "edges": 31
+    },
+    {
+      "name": "Returned HTML derives from awaited response and source options packages/site-footer-embed/src/fetchSiteFooterProps.ts",
+      "pages": 1,
+      "limits": [],
+      "nodes": 14,
+      "edges": 15
+    },
+    {
+      "name": "Source awaited response reaches original fetch handle packages/site-footer-embed/src/fetchSiteFooterProps.ts",
+      "pages": 1,
+      "limits": [],
+      "nodes": 2,
+      "edges": 1
+    },
+    {
+      "name": "Source result and call signature schemas packages/site-footer-embed/src/fetchSiteFooterProps.ts",
+      "pages": 1,
+      "limits": [],
+      "nodes": 0,
+      "edges": 0
+    },
+    {
+      "name": "Actual source option headers.User-Agent packages/site-footer-embed/src/fetchSiteFooterProps.ts",
+      "pages": 1,
+      "limits": [],
+      "nodes": 1,
+      "edges": 0
+    },
+    {
+      "name": "Actual source option next.revalidate packages/site-footer-embed/src/fetchSiteFooterProps.ts",
+      "pages": 1,
+      "limits": [],
+      "nodes": 9,
+      "edges": 9
+    },
+    {
+      "name": "Native cache and header constraints packages/site-footer-embed/src/fetchSiteFooterProps.ts",
+      "pages": 1,
+      "limits": [],
+      "nodes": 0,
+      "edges": 0
+    },
+    {
+      "name": "Source error branches and local helper control packages/site-footer-embed/src/fetchSiteFooterProps.ts",
+      "pages": 1,
+      "limits": [],
+      "nodes": 62,
+      "edges": 68
+    },
+    {
+      "name": "Declared URL object schema and result pairs packages/site-nav-embed/src/getSiteNavigationUrl.ts#navigation-getUrl@3",
+      "pages": 1,
+      "limits": [],
+      "nodes": 0,
+      "edges": 0
+    },
+    {
+      "name": "Declared URL object schema and result pairs packages/site-footer-embed/src/getSiteFooterUrl.ts#footer-getUrl@3",
+      "pages": 1,
+      "limits": [],
+      "nodes": 0,
+      "edges": 0
+    }
+  ]
+}

@@ -1,0 +1,93 @@
+[
+  {
+    "path": "src/app/policies/[id]/hooks/useCarComponentsQuery.ts",
+    "operation": "CarComponentsQuery",
+    "interaction": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/interaction/graphql/23d460793686c496ee6f",
+    "implementation": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/method/b173b861362f040f72e0",
+    "sourceCall": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/operation/b173b861362f040f72e0/40",
+    "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/graphql/44f177e27b37a563afae",
+    "arguments": [
+      "volvo/cce-admin-ui/2bea451cf1ae/local-r3/value/e5322db9ccff6241ee9f",
+      "volvo/cce-admin-ui/2bea451cf1ae/local-r3/value/a8d0ddea05a939bac330"
+    ],
+    "document": "src/query/carComponentsQuery.ts"
+  },
+  {
+    "path": "src/app/policies/[id]/hooks/useList.ts",
+    "operation": "CarsByPolicy",
+    "interaction": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/interaction/graphql/877962118fdd2c5fee50",
+    "implementation": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/method/9332d48c03dea6408adf",
+    "sourceCall": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/operation/9332d48c03dea6408adf/38",
+    "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/graphql/e21c6eb610e54ac08d2f",
+    "arguments": [
+      "volvo/cce-admin-ui/2bea451cf1ae/local-r3/value/693c2e374c7467ae049f",
+      "volvo/cce-admin-ui/2bea451cf1ae/local-r3/value/d3d75c97867cd796b502"
+    ],
+    "document": "src/query/model-family-v2.ts"
+  },
+  {
+    "path": "src/app/policies/[id]/hooks/useList.ts",
+    "operation": "CarsByPolicy",
+    "interaction": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/interaction/graphql/52875c7576a174f91eaa",
+    "implementation": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/method/9df10cd2faff2d0d08b6",
+    "sourceCall": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/operation/9df10cd2faff2d0d08b6/38",
+    "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/graphql/e21c6eb610e54ac08d2f",
+    "arguments": [
+      "volvo/cce-admin-ui/2bea451cf1ae/local-r3/value/0694bb1bf21acacc27e2",
+      "volvo/cce-admin-ui/2bea451cf1ae/local-r3/value/369907adf179e18d38b2"
+    ],
+    "document": "src/query/model-family-v2.ts"
+  },
+  {
+    "path": "src/app/policies/[id]/hooks/useOptionLocalization.ts",
+    "operation": "FetchOptionLocalization",
+    "interaction": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/interaction/graphql/5bc8bef9b4904bda8efb",
+    "implementation": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/method/38ca79a7b59899792a36",
+    "sourceCall": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/operation/38ca79a7b59899792a36/16",
+    "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/graphql/7a7a93f1cea3cb01c4f7",
+    "arguments": [
+      "volvo/cce-admin-ui/2bea451cf1ae/local-r3/value/ab9efdc7029965a34877",
+      "volvo/cce-admin-ui/2bea451cf1ae/local-r3/value/2dfa078f9ded60e8e290"
+    ],
+    "document": "src/query/optionLocalizationQuery.ts"
+  },
+  {
+    "path": "src/state/Pno12/Pno12Provider.tsx",
+    "operation": "Pno12Query",
+    "interaction": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/interaction/graphql/0c5f17defbf06e6871c1",
+    "implementation": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/method/32eefd523544b1a2e2b8",
+    "sourceCall": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/operation/32eefd523544b1a2e2b8/31",
+    "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/graphql/a0a4b9e15a4ecfc8e7cd",
+    "arguments": [
+      "volvo/cce-admin-ui/2bea451cf1ae/local-r3/value/3b6983a68c897259bfd4",
+      "volvo/cce-admin-ui/2bea451cf1ae/local-r3/value/f502bbb5cfa1fd57c08c"
+    ],
+    "document": "src/query/pno12Query.ts"
+  },
+  {
+    "path": "src/app/policies/[id]/hooks/usePriceBreakdown.ts",
+    "operation": "PriceBreakdownQuery",
+    "interaction": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/interaction/graphql/a568ade52f2459e97a3a",
+    "implementation": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/method/a56f1c195349fcda062c",
+    "sourceCall": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/operation/a56f1c195349fcda062c/36",
+    "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/graphql/a6b2d7f3d4349626aa08",
+    "arguments": [
+      "volvo/cce-admin-ui/2bea451cf1ae/local-r3/value/3ca557969732608f7884",
+      "volvo/cce-admin-ui/2bea451cf1ae/local-r3/value/b850b435e1e6f1073c59"
+    ],
+    "document": "src/query/priceBreakdownQuery.ts"
+  },
+  {
+    "path": "src/app/policies/[id]/hooks/usePriceQuery.ts",
+    "operation": "PriceQuery",
+    "interaction": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/interaction/graphql/34a830b477501b8ba34b",
+    "implementation": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/method/478e67172190ad3901de",
+    "sourceCall": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/operation/478e67172190ad3901de/37",
+    "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/contract/graphql/dc9b1b612783ad4e5231",
+    "arguments": [
+      "volvo/cce-admin-ui/2bea451cf1ae/local-r3/value/ce3757cbe3551a29778c",
+      "volvo/cce-admin-ui/2bea451cf1ae/local-r3/value/164fbf44deced00b33d0"
+    ],
+    "document": "src/query/priceQuery.ts"
+  }
+]

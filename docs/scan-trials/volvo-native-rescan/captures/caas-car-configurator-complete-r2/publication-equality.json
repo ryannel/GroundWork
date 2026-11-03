@@ -1,0 +1,8 @@
+{
+  "status": "passed",
+  "snapshot": "73731576937e6406a98aa6e365638fd7a95248c5f5e1491b32d06e880e66eaaf",
+  "sourceBundleByteSha256": "7727fde852bf9121ff23aa11968e02d5d0c52b5249ccfd36506e66f9dfa8308c",
+  "gzipDecompression": "Exactly equal original sealed r2 bytes",
+  "sourceEvidenceReuse": "All12479 exact tuples unchanged from verified r1 predecessor",
+  "semanticDiff": "independent-review/seal-r2-verification.json"
+}

@@ -1,0 +1,115 @@
+[
+  {
+    "entry": "volvo/cds-paymentservice-scheduler/c00df60c8233/full-r1/revised/9d2e929265f410160c5b",
+    "trigger": "rest",
+    "method": "POST",
+    "path": "/v1/retry-jobs",
+    "implementation": "volvo/cds-paymentservice-scheduler/c00df60c8233/full-r1/method/2495a528a4e771dd90a8",
+    "symbol": "com.volvocars.ecom.paymentservice.scheduler.retry.v1.impl.RetryControllerImpl#registerRetryJob(RegisterRetryPayload)"
+  },
+  {
+    "entry": "volvo/cds-paymentservice-scheduler/c00df60c8233/full-r1/revised/b620e6e7114a89fc8f85",
+    "trigger": "rest",
+    "method": "GET",
+    "path": "/v1/configurations/swagger-config",
+    "implementation": "volvo/cds-paymentservice-scheduler/c00df60c8233/full-r1/method/875ab86751b4acb41c28",
+    "symbol": "com.volvocars.ecom.paymentservice.scheduler.configuration.v1.impl.SwaggerUIControllerImpl#getSwaggerConfig()"
+  },
+  {
+    "entry": "volvo/cds-paymentservice-scheduler/c00df60c8233/full-r1/revised/63e422077f8d2a854ec5",
+    "trigger": "schedule",
+    "method": "SCHEDULE",
+    "path": "com.volvocars.ecom.paymentservice.poller.PollerService#poll()",
+    "implementation": "volvo/cds-paymentservice-scheduler/c00df60c8233/full-r1/method/1c90ae717812e065b271",
+    "symbol": "com.volvocars.ecom.paymentservice.poller.PollerService#poll()"
+  },
+  {
+    "entry": "volvo/cds-paymentservice-scheduler/c00df60c8233/full-r1/revised/72d40db1ac46c232ecd0",
+    "trigger": "schedule",
+    "method": "SCHEDULE",
+    "path": "com.volvocars.ecom.paymentservice.cloudconfig.ConfigRefreshScheduler#refreshConfig()",
+    "implementation": "volvo/cds-paymentservice-scheduler/c00df60c8233/full-r1/method/61d88cdc2dc334f2630d",
+    "symbol": "com.volvocars.ecom.paymentservice.cloudconfig.ConfigRefreshScheduler#refreshConfig()"
+  },
+  {
+    "entry": "volvo/cds-paymentservice-scheduler/c00df60c8233/full-r1/entry/ef227e11f3f791b36096",
+    "trigger": "process",
+    "method": "PROCESS",
+    "path": "com.volvocars.ecom.paymentservice.scheduler.App#main(String[])",
+    "implementation": "volvo/cds-paymentservice-scheduler/c00df60c8233/full-r1/method/ef227e11f3f791b36096",
+    "symbol": "com.volvocars.ecom.paymentservice.scheduler.App#main(String[])",
+    "condition": "Source Spring Boot main; framework activation is conditional, not eager calls to every bean or controller"
+  },
+  {
+    "entry": "volvo/cds-paymentservice-scheduler/c00df60c8233/full-r1/entry/eb945ae7ebd954619b06",
+    "trigger": "startup",
+    "method": "STARTUP",
+    "path": "com.volvocars.ecom.paymentservice.cloudconfig.ConfigRefreshScheduler#printConfigs()",
+    "implementation": "volvo/cds-paymentservice-scheduler/c00df60c8233/full-r1/method/eb945ae7ebd954619b06",
+    "symbol": "com.volvocars.ecom.paymentservice.cloudconfig.ConfigRefreshScheduler#printConfigs()",
+    "condition": "@PostConstruct logs the source bound SchedulerConfigs; actual remote configuration and bean activation unresolved"
+  },
+  {
+    "entry": "volvo/cds-paymentservice-scheduler/c00df60c8233/full-r1/entry/97c5600bc97cae06e892",
+    "trigger": "callback",
+    "method": "CALLBACK",
+    "path": "com.volvocars.ecom.paymentservice.scheduler.properties.validation.StrategyValidator#isValid(ConfigStrategy,ConstraintValidatorContext)",
+    "implementation": "volvo/cds-paymentservice-scheduler/c00df60c8233/full-r1/method/97c5600bc97cae06e892",
+    "symbol": "com.volvocars.ecom.paymentservice.scheduler.properties.validation.StrategyValidator#isValid(ConfigStrategy,ConstraintValidatorContext)",
+    "condition": "Source ConstraintValidator callback; actual framework validation activation is conditional"
+  },
+  {
+    "entry": "volvo/cds-paymentservice-scheduler/c00df60c8233/full-r1/entry/a00b23bb4d0a52c5960d",
+    "trigger": "callback",
+    "method": "CALLBACK",
+    "path": "com.volvocars.ecom.paymentservice.common.SchedulerControllerAdvice#handleNotFoundException(HttpServletRequest,ConfigNotFoundException)",
+    "implementation": "volvo/cds-paymentservice-scheduler/c00df60c8233/full-r1/method/a00b23bb4d0a52c5960d",
+    "symbol": "com.volvocars.ecom.paymentservice.common.SchedulerControllerAdvice#handleNotFoundException(HttpServletRequest,ConfigNotFoundException)",
+    "condition": "Source @ExceptionHandler ConfigNotFoundException @ResponseStatus NOT_FOUND; other exceptions are not automatically bound here"
+  },
+  {
+    "entry": "volvo/cds-paymentservice-scheduler/c00df60c8233/full-r1/entry/2eb4c3bc562c984284a7",
+    "trigger": "callback",
+    "method": "CALLBACK",
+    "path": "com.volvocars.ecom.paymentservice.scheduler.job.executor.JobExecutorConfig#executors(RetryJobExecutor,DefaultJobExecutor)",
+    "implementation": "volvo/cds-paymentservice-scheduler/c00df60c8233/full-r1/method/2eb4c3bc562c984284a7",
+    "symbol": "com.volvocars.ecom.paymentservice.scheduler.job.executor.JobExecutorConfig#executors(RetryJobExecutor,DefaultJobExecutor)",
+    "condition": "Source @Bean RETRY/DEFAULT executor map; runtime instance correspondence conditional"
+  },
+  {
+    "entry": "volvo/cds-paymentservice-scheduler/c00df60c8233/full-r1/entry/07cadacb2b61d4ed82f4",
+    "trigger": "callback",
+    "method": "CALLBACK",
+    "path": "com.volvocars.ecom.paymentservice.scheduler.job.mapper.MapperConfig#mappers(RetryJobMapper)",
+    "implementation": "volvo/cds-paymentservice-scheduler/c00df60c8233/full-r1/method/07cadacb2b61d4ed82f4",
+    "symbol": "com.volvocars.ecom.paymentservice.scheduler.job.mapper.MapperConfig#mappers(RetryJobMapper)",
+    "condition": "Source @Bean RETRY mapper map; default mapper fallback constructed at lookup"
+  },
+  {
+    "entry": "volvo/cds-paymentservice-scheduler/c00df60c8233/full-r1/entry/9b90d597e15d297da83a",
+    "trigger": "callback",
+    "method": "CALLBACK",
+    "path": "com.volvocars.ecom.paymentservice.client.IntegrationClientConfig#paymentSessionClient()",
+    "implementation": "volvo/cds-paymentservice-scheduler/c00df60c8233/full-r1/method/9b90d597e15d297da83a",
+    "symbol": "com.volvocars.ecom.paymentservice.client.IntegrationClientConfig#paymentSessionClient()",
+    "condition": "Source @Bean imported PaymentSessionClient construction; this declaration is not a source outbound invocation"
+  },
+  {
+    "entry": "volvo/cds-paymentservice-scheduler/c00df60c8233/full-r1/entry/071b19e403623465d3a5",
+    "trigger": "callback",
+    "method": "CALLBACK",
+    "path": "com.volvocars.ecom.paymentservice.client.IntegrationClientConfig#paymentApiPaymentSessionClient()",
+    "implementation": "volvo/cds-paymentservice-scheduler/c00df60c8233/full-r1/method/071b19e403623465d3a5",
+    "symbol": "com.volvocars.ecom.paymentservice.client.IntegrationClientConfig#paymentApiPaymentSessionClient()",
+    "condition": "Source @Bean local wrapper for declared Feign payment API; effective HTTP implementation unresolved"
+  },
+  {
+    "entry": "volvo/cds-paymentservice-scheduler/c00df60c8233/full-r1/entry/82029ee45d5558fba4f0",
+    "trigger": "callback",
+    "method": "CALLBACK",
+    "path": "com.volvocars.ecom.paymentservice.messaging.KafkaProducer#sendMessage(String,String,Event<? extends EventPayload>)$lambda@1095",
+    "implementation": "volvo/cds-paymentservice-scheduler/c00df60c8233/full-r1/method/82029ee45d5558fba4f0",
+    "symbol": "com.volvocars.ecom.paymentservice.messaging.KafkaProducer#sendMessage(String,String,Event<? extends EventPayload>)$lambda@1095",
+    "condition": "Source whenComplete future continuation; captured origins require registration context; no eager call or broker acknowledgement"
+  }
+]

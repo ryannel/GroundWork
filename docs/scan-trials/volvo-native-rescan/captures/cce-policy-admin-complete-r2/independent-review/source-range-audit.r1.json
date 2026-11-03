@@ -1,0 +1,7 @@
+{
+  "status": "passed",
+  "snapshot": "6a24964b02e0a22817e6ec209435b3d83840130dd9b477620a759015773683d8",
+  "checked_source_ranges": 4497,
+  "distinct_pinned_files": 35,
+  "policy": "Offline git show with no lazy fetch; all selected evidence line bounds independently rechecked; inert huge JSON range check is not leaf-level semantic review; no source execution"
+}

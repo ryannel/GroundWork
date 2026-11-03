@@ -1,0 +1,1027 @@
+[
+  {
+    "id": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/shape/d605799b1d4c12daae33",
+    "label": "com.volvocars.ecom.cart.Application source declaration; inherited local fields retained",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/shape/76893583060e180300e6",
+    "label": "com.volvocars.ecom.cart.config.GraphQLConfig source declaration; inherited local fields retained",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/shape/b0d517196d4a0967fcf0",
+    "label": "com.volvocars.ecom.cart.config.MongoConfig source declaration; inherited local fields retained",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/shape/a476e387d60a3582d488",
+    "label": "com.volvocars.ecom.cart.config.security.GraphQlAuthenticationEntryPoint source declaration; inherited local fields retained",
+    "fields": 1
+  },
+  {
+    "id": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/shape/17e9cec1d8c698e60460",
+    "label": "com.volvocars.ecom.cart.config.security.IssuerKey source declaration; inherited local fields retained",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/shape/72a46211f2dffd7ae463",
+    "label": "com.volvocars.ecom.cart.config.security.PermitAllSecurityConfig source declaration; inherited local fields retained",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/shape/2401b0dbf01a79222edb",
+    "label": "com.volvocars.ecom.cart.config.security.SecurityConfig source declaration; inherited local fields retained",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/shape/1e172fc19feb7454ec52",
+    "label": "com.volvocars.ecom.cart.config.security.TrustedIssuersProperties source declaration; inherited local fields retained",
+    "fields": 1
+  },
+  {
+    "id": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/shape/dc2f3e6a07544c6564c9",
+    "label": "com.volvocars.ecom.cart.core.cartarchive.CartArchive source declaration; inherited local fields retained",
+    "fields": 3
+  },
+  {
+    "id": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/shape/df849d3f8e9db04a56aa",
+    "label": "com.volvocars.ecom.cart.core.cartarchive.CartArchiveRepository source declaration; inherited local fields retained",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/shape/b1c08918e83ccfde49e0",
+    "label": "com.volvocars.ecom.cart.core.cartarchive.CartArchiveService source declaration; inherited local fields retained",
+    "fields": 1
+  },
+  {
+    "id": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/shape/5720b50f3e80bac2cfcd",
+    "label": "com.volvocars.ecom.cart.core.cartexpiration.CartExpirationJob source declaration; inherited local fields retained",
+    "fields": 1
+  },
+  {
+    "id": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/shape/49ccc755feda588edf3d",
+    "label": "com.volvocars.ecom.cart.core.cartexpiration.CartExpirationJobStatistics source declaration; inherited local fields retained",
+    "fields": 3
+  },
+  {
+    "id": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/shape/5c1a26c495dc687d0262",
+    "label": "com.volvocars.ecom.cart.core.cartexpiration.CartExpirationProperties source declaration; inherited local fields retained",
+    "fields": 2
+  },
+  {
+    "id": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/shape/59e008e8a0b26b5ceb53",
+    "label": "com.volvocars.ecom.cart.core.cartexpiration.CartExpirationScheduler source declaration; inherited local fields retained",
+    "fields": 1
+  },
+  {
+    "id": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/shape/056937c2b82a153bd4b6",
+    "label": "com.volvocars.ecom.cart.core.cartexpiration.CartExpirationService source declaration; inherited local fields retained",
+    "fields": 3
+  },
+  {
+    "id": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/shape/349cb2ad7b98c4d57c6a",
+    "label": "com.volvocars.ecom.cart.core.exception.CartAlreadyCheckedOutException source declaration; inherited local fields retained",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/shape/3c0c01144f84559fb0ce",
+    "label": "com.volvocars.ecom.cart.core.exception.CartLineNotFoundException source declaration; inherited local fields retained",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/shape/3b36afcb30e3982e5871",
+    "label": "com.volvocars.ecom.cart.core.exception.CartNotFoundException source declaration; inherited local fields retained",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/shape/1d1a0fe5285b591440a9",
+    "label": "com.volvocars.ecom.cart.core.exception.CheckoutException source declaration; inherited local fields retained",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/shape/98f4b83b069dd219030d",
+    "label": "com.volvocars.ecom.cart.core.exception.ConditionalOrderException source declaration; inherited local fields retained",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/shape/73a58afda490f4672521",
+    "label": "com.volvocars.ecom.cart.core.exception.DuplicateCartLineException source declaration; inherited local fields retained",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/shape/e14c360f3ab12548f1bd",
+    "label": "com.volvocars.ecom.cart.core.exception.IllegalOperationException source declaration; inherited local fields retained",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/array/c32d1e8eddf6f07428ee",
+    "label": "List<CartLine> source collection",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/shape/38b723dda609745f1527",
+    "label": "com.volvocars.ecom.cart.core.model.Cart source declaration; inherited local fields retained",
+    "fields": 12
+  },
+  {
+    "id": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/shape/51ac3bcaf272526f048b",
+    "label": "com.volvocars.ecom.cart.core.model.CartBuyer source declaration; inherited local fields retained",
+    "fields": 2
+  },
+  {
+    "id": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/array/1dcc77681a223283fda2",
+    "label": "List<CartLineItem> source collection",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/shape/845fb7497045bd3ac7da",
+    "label": "com.volvocars.ecom.cart.core.model.CartLine source declaration; inherited local fields retained",
+    "fields": 4
+  },
+  {
+    "id": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/shape/6417f5feedb438042d87",
+    "label": "com.volvocars.ecom.cart.core.model.CartLineItem source declaration; inherited local fields retained",
+    "fields": 4
+  },
+  {
+    "id": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/shape/d33e74521ce46c2624e9",
+    "label": "com.volvocars.ecom.cart.core.model.CartOwner source declaration; inherited local fields retained",
+    "fields": 2
+  },
+  {
+    "id": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/shape/3fdd8e061e1ad84b1729",
+    "label": "com.volvocars.ecom.cart.core.model.CartStatus source declaration; inherited local fields retained",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/shape/c7c74e7a230f55b3db98",
+    "label": "com.volvocars.ecom.cart.core.model.CheckoutResult source declaration; inherited local fields retained",
+    "fields": 4
+  },
+  {
+    "id": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/shape/e9ce7d69ae7a37be751d",
+    "label": "com.volvocars.ecom.cart.core.model.CustomerType source declaration; inherited local fields retained",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/shape/dc4411ae7d2712732076",
+    "label": "com.volvocars.ecom.cart.core.model.DeliveryPartner source declaration; inherited local fields retained",
+    "fields": 1
+  },
+  {
+    "id": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/shape/02c6ef2fa8145dff5e37",
+    "label": "com.volvocars.ecom.cart.core.model.InstallationTarget source declaration; inherited local fields retained",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/shape/b55b0aa00334e7fafada",
+    "label": "com.volvocars.ecom.cart.core.model.InstallationTarget.Vin source declaration; inherited local fields retained",
+    "fields": 1
+  },
+  {
+    "id": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/shape/4582c4d3189b6f9b2103",
+    "label": "com.volvocars.ecom.cart.core.model.InstallationTargetType source declaration; inherited local fields retained",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/shape/30b3903ed2c111981113",
+    "label": "com.volvocars.ecom.cart.core.model.SalesPartner source declaration; inherited local fields retained",
+    "fields": 3
+  },
+  {
+    "id": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/shape/26b688a054360afce6ff",
+    "label": "com.volvocars.ecom.cart.core.service.CartService source declaration; inherited local fields retained",
+    "fields": 4
+  },
+  {
+    "id": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/shape/41286592399c20f0c200",
+    "label": "com.volvocars.ecom.cart.core.service.CheckoutService source declaration; inherited local fields retained",
+    "fields": 3
+  },
+  {
+    "id": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/shape/004535722467be3c5cd1",
+    "label": "com.volvocars.ecom.cart.core.service.ConditionalOrderMapper source declaration; inherited local fields retained",
+    "fields": 1
+  },
+  {
+    "id": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/shape/1745074ae8a2aca541de",
+    "label": "com.volvocars.ecom.cart.core.service.OfferCartResponseMapper source declaration; inherited local fields retained",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/shape/a07434d86c6529c40205",
+    "label": "com.volvocars.ecom.cart.core.service.OpportunityPrePopulation source declaration; inherited local fields retained",
+    "fields": 2
+  },
+  {
+    "id": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/shape/2e994c297034746adac0",
+    "label": "com.volvocars.ecom.cart.core.service.OpportunityPrePopulationService source declaration; inherited local fields retained",
+    "fields": 1
+  },
+  {
+    "id": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/shape/627e51118d441b878b72",
+    "label": "com.volvocars.ecom.cart.core.service.SecurityService source declaration; inherited local fields retained",
+    "fields": 1
+  },
+  {
+    "id": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/shape/ad4b90afb2fcb3a19896",
+    "label": "com.volvocars.ecom.cart.core.service.TokenIdentity source declaration; inherited local fields retained",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/shape/bc4657b83b8f46f6aa8d",
+    "label": "com.volvocars.ecom.cart.core.service.VolvoIdResolver source declaration; inherited local fields retained",
+    "fields": 1
+  },
+  {
+    "id": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/shape/4352c8216eeda0a1d568",
+    "label": "com.volvocars.ecom.cart.input.graphql.CartFederationController source declaration; inherited local fields retained",
+    "fields": 1
+  },
+  {
+    "id": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/shape/784a100be2299e67f0cb",
+    "label": "com.volvocars.ecom.cart.input.graphql.GraphQlController source declaration; inherited local fields retained",
+    "fields": 3
+  },
+  {
+    "id": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/shape/670ad44addec7f15e942",
+    "label": "com.volvocars.ecom.cart.input.graphql.GraphQlExceptionHandlerAdvice source declaration; inherited local fields retained",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/shape/b382b94b227a1cfed62a",
+    "label": "com.volvocars.ecom.cart.input.graphql.GraphQlInterceptor source declaration; inherited local fields retained",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/shape/3437ddacc0dae650510d",
+    "label": "com.volvocars.ecom.cart.input.graphql.model.CartBuyerResponse source declaration; inherited local fields retained",
+    "fields": 3
+  },
+  {
+    "id": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/shape/3651e6ba411c4b14aab6",
+    "label": "com.volvocars.ecom.cart.input.graphql.model.EntityStub source declaration; inherited local fields retained",
+    "fields": 1
+  },
+  {
+    "id": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/shape/d1bb909107554d8c5a8d",
+    "label": "com.volvocars.ecom.cart.input.model.AddressInput source declaration; inherited local fields retained",
+    "fields": 6
+  },
+  {
+    "id": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/shape/eec650e6e375e424eae9",
+    "label": "com.volvocars.ecom.cart.input.model.BuyerInput source declaration; inherited local fields retained",
+    "fields": 2
+  },
+  {
+    "id": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/array/e1bdbcb44711a5d4f602",
+    "label": "List<CartLineInput> source collection",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/shape/48aeabc5e989ac51cc1d",
+    "label": "com.volvocars.ecom.cart.input.model.CartInput source declaration; inherited local fields retained",
+    "fields": 5
+  },
+  {
+    "id": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/array/150771550b1d76fb6011",
+    "label": "List<CartLineItemInput> source collection",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/shape/63872026e4619d48c140",
+    "label": "com.volvocars.ecom.cart.input.model.CartLineInput source declaration; inherited local fields retained",
+    "fields": 2
+  },
+  {
+    "id": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/shape/59b540cf5c01b48e4775",
+    "label": "com.volvocars.ecom.cart.input.model.CartLineItemInput source declaration; inherited local fields retained",
+    "fields": 3
+  },
+  {
+    "id": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/shape/827b7e6f99d4cb8449bc",
+    "label": "com.volvocars.ecom.cart.input.model.CheckoutInput source declaration; inherited local fields retained",
+    "fields": 3
+  },
+  {
+    "id": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/shape/49473b25560a4220e54a",
+    "label": "com.volvocars.ecom.cart.input.model.CreateCartFromCceTokenInput source declaration; inherited local fields retained",
+    "fields": 2
+  },
+  {
+    "id": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/array/48168dfbd826741913bf",
+    "label": "List<Partner> source collection",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/array/dca99c14f331a8bef5ca",
+    "label": "List<Line> source collection",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/shape/7a958e89fbb15fc14c6b",
+    "label": "com.volvocars.ecom.cart.input.model.CreateCartRequest source declaration; inherited local fields retained",
+    "fields": 4
+  },
+  {
+    "id": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/shape/27a557203d47e0df5177",
+    "label": "com.volvocars.ecom.cart.input.model.CreateCartRequest.Buyer source declaration; inherited local fields retained",
+    "fields": 3
+  },
+  {
+    "id": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/shape/ad2d8fa93c1ce7f49db1",
+    "label": "com.volvocars.ecom.cart.input.model.CreateCartRequest.Partner source declaration; inherited local fields retained",
+    "fields": 1
+  },
+  {
+    "id": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/shape/e15cb6b0e33724da08ba",
+    "label": "com.volvocars.ecom.cart.input.model.CreateCartRequest.Line source declaration; inherited local fields retained",
+    "fields": 3
+  },
+  {
+    "id": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/shape/e89de61c6e04feccbc3b",
+    "label": "com.volvocars.ecom.cart.input.model.CustomerInput source declaration; inherited local fields retained",
+    "fields": 3
+  },
+  {
+    "id": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/shape/48e52579abeba92a85ff",
+    "label": "com.volvocars.ecom.cart.input.model.DeliveryPartnerInput source declaration; inherited local fields retained",
+    "fields": 1
+  },
+  {
+    "id": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/shape/745a9d3b81c8d70633cd",
+    "label": "com.volvocars.ecom.cart.input.model.IndividualInput source declaration; inherited local fields retained",
+    "fields": 8
+  },
+  {
+    "id": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/shape/6cda82b5636481bf2a36",
+    "label": "com.volvocars.ecom.cart.input.model.InstallationTargetInput source declaration; inherited local fields retained",
+    "fields": 1
+  },
+  {
+    "id": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/shape/59c61adbfcf5ea7e9258",
+    "label": "com.volvocars.ecom.cart.input.model.OrganizationInput source declaration; inherited local fields retained",
+    "fields": 5
+  },
+  {
+    "id": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/shape/bad818be733ec1aef987",
+    "label": "com.volvocars.ecom.cart.input.model.PartnersInput source declaration; inherited local fields retained",
+    "fields": 2
+  },
+  {
+    "id": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/shape/2a47c88067c8cd9e9ee2",
+    "label": "com.volvocars.ecom.cart.input.model.SalesPartnerInput source declaration; inherited local fields retained",
+    "fields": 2
+  },
+  {
+    "id": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/shape/0d4c0ee0a28e98b8f357",
+    "label": "com.volvocars.ecom.cart.input.model.metadata.DeviceType source declaration; inherited local fields retained",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/shape/cf4ea89d76af114a15d0",
+    "label": "com.volvocars.ecom.cart.input.model.metadata.Metadata source declaration; inherited local fields retained",
+    "fields": 2
+  },
+  {
+    "id": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/array/98e1be7324a1993d8f4e",
+    "label": "List<AnalyticsTags> source collection",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/shape/45368be1f5d0375b8196",
+    "label": "com.volvocars.ecom.cart.input.model.metadata.analytics.Analytics source declaration; inherited local fields retained",
+    "fields": 4
+  },
+  {
+    "id": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/shape/5480d6ea3bad18888e11",
+    "label": "com.volvocars.ecom.cart.input.model.metadata.analytics.AnalyticsTags source declaration; inherited local fields retained",
+    "fields": 2
+  },
+  {
+    "id": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/shape/cfc7aabe3b3f20ddebb8",
+    "label": "com.volvocars.ecom.cart.input.model.metadata.analytics.AnalyticsUtm source declaration; inherited local fields retained",
+    "fields": 5
+  },
+  {
+    "id": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/shape/e1de8d5627c4deccfa0c",
+    "label": "com.volvocars.ecom.cart.input.model.metadata.analytics.AnalyticsVolvoTracking source declaration; inherited local fields retained",
+    "fields": 2
+  },
+  {
+    "id": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/shape/0687c67ee36f34ee40e8",
+    "label": "com.volvocars.ecom.cart.migration.AddIdToCartLineItemMigration source declaration; inherited local fields retained",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/shape/bbe666c93ba42dfd7afc",
+    "label": "com.volvocars.ecom.cart.migration._0002__MoveBuyerVolvoIdToOwner source declaration; inherited local fields retained",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/shape/9d62b2ff31980556a7c3",
+    "label": "com.volvocars.ecom.cart.output.offer.FakeOfferRestClient source declaration; inherited local fields retained",
+    "fields": 1
+  },
+  {
+    "id": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/shape/3849552dc98e3d4e21d6",
+    "label": "com.volvocars.ecom.cart.output.offer.OfferRestClient source declaration; inherited local fields retained",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/array/cb0b146d7252c61cea67",
+    "label": "List<ProductReference> source collection",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/shape/ea7a3cc8326a93056ab1",
+    "label": "com.volvocars.ecom.cart.output.offer.model.OfferCartResponse source declaration; inherited local fields retained",
+    "fields": 3
+  },
+  {
+    "id": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/shape/e96759ab35e44c33328b",
+    "label": "com.volvocars.ecom.cart.output.offer.model.OfferCartResponse.Scope source declaration; inherited local fields retained",
+    "fields": 4
+  },
+  {
+    "id": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/shape/48b35a35571d17872de1",
+    "label": "com.volvocars.ecom.cart.output.offer.model.OfferCartResponse.ProductReference source declaration; inherited local fields retained",
+    "fields": 6
+  },
+  {
+    "id": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/shape/d0747e78c611bf0a54f9",
+    "label": "com.volvocars.ecom.cart.output.opportunity.OpportunityClient source declaration; inherited local fields retained",
+    "fields": 1
+  },
+  {
+    "id": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/shape/c246ade848f79ad4b652",
+    "label": "com.volvocars.ecom.cart.output.opportunity.model.Opportunity source declaration; inherited local fields retained",
+    "fields": 1
+  },
+  {
+    "id": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/shape/ce2a1439fb4ab50efa36",
+    "label": "com.volvocars.ecom.cart.output.opportunity.model.Opportunity.Response source declaration; inherited local fields retained",
+    "fields": 1
+  },
+  {
+    "id": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/shape/3dfc2d6f70881900513f",
+    "label": "com.volvocars.ecom.cart.output.opportunity.model.Opportunity.Interest source declaration; inherited local fields retained",
+    "fields": 1
+  },
+  {
+    "id": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/shape/e59d440c8b8ce4c424ac",
+    "label": "com.volvocars.ecom.cart.output.opportunity.model.Opportunity.Retailer source declaration; inherited local fields retained",
+    "fields": 4
+  },
+  {
+    "id": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/shape/a5dde512d94225279d61",
+    "label": "com.volvocars.ecom.cart.output.order.ConditionalOrderProperties source declaration; inherited local fields retained",
+    "fields": 2
+  },
+  {
+    "id": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/shape/8b2c55db3cac46fd20a9",
+    "label": "com.volvocars.ecom.cart.output.order.ConditionalOrderRestClient source declaration; inherited local fields retained",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/shape/1a2f3a3ee4012cf32793",
+    "label": "com.volvocars.ecom.cart.output.order.RestClientConditionalOrderClient source declaration; inherited local fields retained",
+    "fields": 1
+  },
+  {
+    "id": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/array/746e56526435ec77fcdb",
+    "label": "List<Line> source collection",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/shape/da734152de5b99c1445f",
+    "label": "com.volvocars.ecom.cart.output.order.model.ConditionalOrderRequest source declaration; inherited local fields retained",
+    "fields": 8
+  },
+  {
+    "id": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/shape/3669eca8d9271536c1e4",
+    "label": "com.volvocars.ecom.cart.output.order.model.ConditionalOrderRequest.Customer source declaration; inherited local fields retained",
+    "fields": 3
+  },
+  {
+    "id": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/shape/b6562171ee409b735d7f",
+    "label": "com.volvocars.ecom.cart.output.order.model.ConditionalOrderRequest.Customer.Individual source declaration; inherited local fields retained",
+    "fields": 7
+  },
+  {
+    "id": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/shape/b0fab64da5715ab9c455",
+    "label": "com.volvocars.ecom.cart.output.order.model.ConditionalOrderRequest.Customer.Organization source declaration; inherited local fields retained",
+    "fields": 5
+  },
+  {
+    "id": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/shape/d14c7bc11eabc194eeca",
+    "label": "com.volvocars.ecom.cart.output.order.model.ConditionalOrderRequest.Customer.Address source declaration; inherited local fields retained",
+    "fields": 5
+  },
+  {
+    "id": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/shape/4f5b76817b54cf2e3944",
+    "label": "com.volvocars.ecom.cart.output.order.model.ConditionalOrderRequest.DeliveryPartner source declaration; inherited local fields retained",
+    "fields": 1
+  },
+  {
+    "id": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/shape/d27bdc9fab68e5783875",
+    "label": "com.volvocars.ecom.cart.output.order.model.ConditionalOrderRequest.SalesPartner source declaration; inherited local fields retained",
+    "fields": 1
+  },
+  {
+    "id": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/array/a48ae47d42760af163e7",
+    "label": "List<Item> source collection",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/shape/7a21e79669e871708703",
+    "label": "com.volvocars.ecom.cart.output.order.model.ConditionalOrderRequest.Line source declaration; inherited local fields retained",
+    "fields": 3
+  },
+  {
+    "id": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/shape/63caac28039fb56a5693",
+    "label": "com.volvocars.ecom.cart.output.order.model.ConditionalOrderRequest.Line.Item source declaration; inherited local fields retained",
+    "fields": 3
+  },
+  {
+    "id": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/shape/20fdcf241167764fbbc9",
+    "label": "com.volvocars.ecom.cart.output.order.model.ConditionalOrderRequest.Line.Item.InstallationTarget source declaration; inherited local fields retained",
+    "fields": 2
+  },
+  {
+    "id": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/shape/66a5e63e774cf42ee9d1",
+    "label": "com.volvocars.ecom.cart.output.order.model.ConditionalOrderResponse source declaration; inherited local fields retained",
+    "fields": 4
+  },
+  {
+    "id": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/shape/8d11b354563482836d16",
+    "label": "com.volvocars.ecom.cart.output.repository.CartRepository source declaration; inherited local fields retained",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/stream-construction/3fc69d986c1bfb2eff2c",
+    "label": "Source terminal collection of explicit mapped construction",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/stream-construction/251992b3b01937631142",
+    "label": "Source terminal collection of explicit mapped construction",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/stream-construction/629dc725f58c212089c7",
+    "label": "Source terminal collection of explicit mapped construction",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/stream-construction/66fc4dc336eef8c90145",
+    "label": "Source terminal collection of explicit mapped construction",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/stream-construction/9536b771c03b4b2e3086",
+    "label": "Source terminal collection of explicit mapped construction",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/stream-construction/ab061e0b9d813cd52076",
+    "label": "Source terminal collection of explicit mapped construction",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/scalar-item/780cef4d9f9dcf0aa061",
+    "label": "String source declared collection element",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/scalar-array/780cef4d9f9dcf0aa061",
+    "label": "List<String> source collection",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/scalar-item/00e306c9a95885d50004",
+    "label": "String source declared collection element",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/scalar-array/00e306c9a95885d50004",
+    "label": "List<String> source collection",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/scalar-item/32391202bd9378c0e7ce",
+    "label": "String source declared collection element",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/scalar-array/32391202bd9378c0e7ce",
+    "label": "List<String> source collection",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/shape/sdl/Query",
+    "label": "GraphQL SDL type Query; effective engine coercion unresolved",
+    "fields": 1
+  },
+  {
+    "id": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/shape/sdl/Mutation",
+    "label": "GraphQL SDL type Mutation; effective engine coercion unresolved",
+    "fields": 7
+  },
+  {
+    "id": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/sdl-array/CartV2/lines",
+    "label": "GraphQL SDL CartV2.lines declared sequence",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/shape/sdl/CartV2",
+    "label": "GraphQL SDL type CartV2; effective engine coercion unresolved",
+    "fields": 11
+  },
+  {
+    "id": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/shape/sdl/CartBuyerV2",
+    "label": "GraphQL SDL type CartBuyerV2; effective engine coercion unresolved",
+    "fields": 3
+  },
+  {
+    "id": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/sdl-array/CartLineV2/items",
+    "label": "GraphQL SDL CartLineV2.items declared sequence",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/shape/sdl/CartLineV2",
+    "label": "GraphQL SDL type CartLineV2; effective engine coercion unresolved",
+    "fields": 6
+  },
+  {
+    "id": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/shape/sdl/CartLineItemV2",
+    "label": "GraphQL SDL type CartLineItemV2; effective engine coercion unresolved",
+    "fields": 7
+  },
+  {
+    "id": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/shape/sdl/InstallationTarget",
+    "label": "GraphQL SDL type InstallationTarget; effective engine coercion unresolved",
+    "fields": 1
+  },
+  {
+    "id": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/shape/sdl/CartPartnerV2",
+    "label": "GraphQL SDL type CartPartnerV2; effective engine coercion unresolved",
+    "fields": 3
+  },
+  {
+    "id": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/sdl-array/CartInputV2/lines",
+    "label": "GraphQL SDL CartInputV2.lines declared sequence",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/shape/sdl/CartInputV2",
+    "label": "GraphQL SDL input CartInputV2; effective engine coercion unresolved",
+    "fields": 5
+  },
+  {
+    "id": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/shape/sdl/BuyerInputV2",
+    "label": "GraphQL SDL input BuyerInputV2; effective engine coercion unresolved",
+    "fields": 2
+  },
+  {
+    "id": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/sdl-array/CartLineInputV2/items",
+    "label": "GraphQL SDL CartLineInputV2.items declared sequence",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/shape/sdl/CartLineInputV2",
+    "label": "GraphQL SDL input CartLineInputV2; effective engine coercion unresolved",
+    "fields": 2
+  },
+  {
+    "id": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/shape/sdl/CartLineItemInputV2",
+    "label": "GraphQL SDL input CartLineItemInputV2; effective engine coercion unresolved",
+    "fields": 3
+  },
+  {
+    "id": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/shape/sdl/InstallationTargetInput",
+    "label": "GraphQL SDL input InstallationTargetInput; effective engine coercion unresolved",
+    "fields": 1
+  },
+  {
+    "id": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/shape/sdl/PartnersInputV2",
+    "label": "GraphQL SDL input PartnersInputV2; effective engine coercion unresolved",
+    "fields": 2
+  },
+  {
+    "id": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/shape/sdl/DeliveryPartnerInputV2",
+    "label": "GraphQL SDL input DeliveryPartnerInputV2; effective engine coercion unresolved",
+    "fields": 1
+  },
+  {
+    "id": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/shape/sdl/SalesPartnerInputV2",
+    "label": "GraphQL SDL input SalesPartnerInputV2; effective engine coercion unresolved",
+    "fields": 2
+  },
+  {
+    "id": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/shape/sdl/CreateCartFromCceTokenInput",
+    "label": "GraphQL SDL input CreateCartFromCceTokenInput; effective engine coercion unresolved",
+    "fields": 2
+  },
+  {
+    "id": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/shape/sdl/CheckoutInputV2",
+    "label": "GraphQL SDL input CheckoutInputV2; effective engine coercion unresolved",
+    "fields": 2
+  },
+  {
+    "id": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/shape/sdl/CustomerInput",
+    "label": "GraphQL SDL input CustomerInput; effective engine coercion unresolved",
+    "fields": 3
+  },
+  {
+    "id": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/shape/sdl/CartCustomerTypeV2",
+    "label": "GraphQL SDL enum CartCustomerTypeV2; effective engine coercion unresolved",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/shape/sdl/IndividualInput",
+    "label": "GraphQL SDL input IndividualInput; effective engine coercion unresolved",
+    "fields": 8
+  },
+  {
+    "id": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/shape/sdl/OrganizationInput",
+    "label": "GraphQL SDL input OrganizationInput; effective engine coercion unresolved",
+    "fields": 5
+  },
+  {
+    "id": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/shape/sdl/AddressInput",
+    "label": "GraphQL SDL input AddressInput; effective engine coercion unresolved",
+    "fields": 6
+  },
+  {
+    "id": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/shape/sdl/CheckoutResult",
+    "label": "GraphQL SDL type CheckoutResult; effective engine coercion unresolved",
+    "fields": 4
+  },
+  {
+    "id": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/shape/sdl/CartStatusV2",
+    "label": "GraphQL SDL enum CartStatusV2; effective engine coercion unresolved",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/shape/sdl/OfferV2",
+    "label": "GraphQL SDL type OfferV2; effective engine coercion unresolved",
+    "fields": 1
+  },
+  {
+    "id": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/shape/sdl/FinancingOfferVariantV2",
+    "label": "GraphQL SDL type FinancingOfferVariantV2; effective engine coercion unresolved",
+    "fields": 1
+  },
+  {
+    "id": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/shape/sdl/ProductVariantV2",
+    "label": "GraphQL SDL type ProductVariantV2; effective engine coercion unresolved",
+    "fields": 1
+  },
+  {
+    "id": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/entry-signature/a0d15f4f2719b54e25cf",
+    "label": "graphql:Entity.CartLineV2 source Java resolver formals; argument/context/source-object annotations retained",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/entry-signature/0671d7a692852a88a17f",
+    "label": "graphql:Entity.CartLineItemV2 source Java resolver formals; argument/context/source-object annotations retained",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/entry-signature/faa580d03038a336715d",
+    "label": "graphql:CartLineV2.offer source Java resolver formals; argument/context/source-object annotations retained",
+    "fields": 1
+  },
+  {
+    "id": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/entry-signature/4c43edd27b570b585d62",
+    "label": "graphql:CartLineItemV2.productVariant source Java resolver formals; argument/context/source-object annotations retained",
+    "fields": 1
+  },
+  {
+    "id": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/entry-signature/66505c5f94df99014d23",
+    "label": "graphql:CartLineItemV2.financingOfferVariant source Java resolver formals; argument/context/source-object annotations retained",
+    "fields": 1
+  },
+  {
+    "id": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/entry-signature/1a2b9da51eab42b6de97",
+    "label": "graphql:CartV2.lines source Java resolver formals; argument/context/source-object annotations retained",
+    "fields": 2
+  },
+  {
+    "id": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/entry-signature/89b4ca5ef6f2e7c056fd",
+    "label": "graphql:CartV2.buyer source Java resolver formals; argument/context/source-object annotations retained",
+    "fields": 1
+  },
+  {
+    "id": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/entry-signature/271dfde3104d284cf50b",
+    "label": "graphql:CartLineV2.cart source Java resolver formals; argument/context/source-object annotations retained",
+    "fields": 1
+  },
+  {
+    "id": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/entry-signature/9002559074e95338d455",
+    "label": "graphql:CartLineItemV2.cart source Java resolver formals; argument/context/source-object annotations retained",
+    "fields": 1
+  },
+  {
+    "id": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/entry-signature/a001f38e6b33dc926759",
+    "label": "graphql:Query.cartV2 source Java resolver formals; argument/context/source-object annotations retained",
+    "fields": 2
+  },
+  {
+    "id": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/entry-signature/15cadc2a3500375399f9",
+    "label": "graphql:Entity.CartV2 source Java resolver formals; argument/context/source-object annotations retained",
+    "fields": 2
+  },
+  {
+    "id": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/entry-signature/ff22f384db1d05c17acf",
+    "label": "graphql:Mutation.createCartV2 source Java resolver formals; argument/context/source-object annotations retained",
+    "fields": 1
+  },
+  {
+    "id": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/entry-signature/2bb12fa65783d140caba",
+    "label": "graphql:Mutation.addCartLineV2 source Java resolver formals; argument/context/source-object annotations retained",
+    "fields": 3
+  },
+  {
+    "id": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/entry-signature/f40c31497fb89905ca8c",
+    "label": "graphql:Mutation.replaceCartLineV2 source Java resolver formals; argument/context/source-object annotations retained",
+    "fields": 4
+  },
+  {
+    "id": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/entry-signature/4a1ea0f379b0e3e1bf25",
+    "label": "graphql:Mutation.removeCartLineV2 source Java resolver formals; argument/context/source-object annotations retained",
+    "fields": 3
+  },
+  {
+    "id": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/entry-signature/fc25e6daa5905310c1f9",
+    "label": "graphql:Mutation.updateBuyerV2 source Java resolver formals; argument/context/source-object annotations retained",
+    "fields": 3
+  },
+  {
+    "id": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/entry-signature/f550e464431a5662b716",
+    "label": "graphql:Mutation.checkoutCartV2 source Java resolver formals; argument/context/source-object annotations retained",
+    "fields": 4
+  },
+  {
+    "id": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/entry-signature/d36cd3de5f574c4c1019",
+    "label": "graphql:Mutation.createCartFromCceToken source Java resolver formals; argument/context/source-object annotations retained",
+    "fields": 1
+  },
+  {
+    "id": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/fixture/ccetoken/default/scope/customerSegment/item",
+    "label": "Pinned fixture ccetoken/default/scope/customerSegment/item",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/fixture/ccetoken/default/scope/customerSegment",
+    "label": "Pinned fixture ccetoken/default/scope/customerSegment",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/fixture/ccetoken/default/scope/salesChannels/item",
+    "label": "Pinned fixture ccetoken/default/scope/salesChannels/item",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/fixture/ccetoken/default/scope/salesChannels",
+    "label": "Pinned fixture ccetoken/default/scope/salesChannels",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/fixture/ccetoken/default/scope",
+    "label": "Pinned fixture ccetoken/default/scope",
+    "fields": 4
+  },
+  {
+    "id": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/fixture/ccetoken/default/productReference/item/tags/item",
+    "label": "Pinned fixture ccetoken/default/productReference/item/tags/item",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/fixture/ccetoken/default/productReference/item/tags",
+    "label": "Pinned fixture ccetoken/default/productReference/item/tags",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/fixture/ccetoken/default/productReference/item",
+    "label": "Pinned fixture ccetoken/default/productReference/item",
+    "fields": 6
+  },
+  {
+    "id": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/fixture/ccetoken/default/productReference",
+    "label": "Pinned fixture ccetoken/default/productReference",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/fixture/ccetoken/default",
+    "label": "Pinned fixture ccetoken/default",
+    "fields": 3
+  },
+  {
+    "id": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/io-signature/222970fa5618ec84da24",
+    "label": "archive save exact actual call signature",
+    "fields": 1
+  },
+  {
+    "id": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/io-signature/2bf71be3cbdd5a975365",
+    "label": "carts findById exact actual call signature",
+    "fields": 1
+  },
+  {
+    "id": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/io-signature/e2b9cd7bb33ff58b85e3",
+    "label": "carts save exact actual call signature",
+    "fields": 1
+  },
+  {
+    "id": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/io-signature/01d7c4e865ca60dfb664",
+    "label": "carts save exact actual call signature",
+    "fields": 1
+  },
+  {
+    "id": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/io-signature/6007b50665172d7afcb9",
+    "label": "carts save exact actual call signature",
+    "fields": 1
+  },
+  {
+    "id": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/io-signature/e5abbaaba82be19343ef",
+    "label": "carts save exact actual call signature",
+    "fields": 1
+  },
+  {
+    "id": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/io-signature/90a620f75102bae117f7",
+    "label": "carts save exact actual call signature",
+    "fields": 1
+  },
+  {
+    "id": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/io-signature/216a2eb1a32403f3e5c0",
+    "label": "carts save exact actual call signature",
+    "fields": 1
+  },
+  {
+    "id": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/io-signature/32c702f69b36021c27a9",
+    "label": "carts save exact actual call signature",
+    "fields": 1
+  },
+  {
+    "id": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/io-signature/39c1e4797d6e310c38ad",
+    "label": "carts save exact actual call signature",
+    "fields": 1
+  },
+  {
+    "id": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/io-signature/88e11d565ddb084b061e",
+    "label": "carts findAllByStatusAndUpdatedAtBefore exact actual call signature",
+    "fields": 2
+  },
+  {
+    "id": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/io-signature/ccb86fccb93d37958f36",
+    "label": "carts deleteById exact actual call signature",
+    "fields": 1
+  },
+  {
+    "id": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/io-signature/bb3da36b829354dd2b28",
+    "label": "carts find exact actual call signature",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/io-signature/826e012bccc5b189d23a",
+    "label": "carts replaceOne exact actual call signature",
+    "fields": 2
+  },
+  {
+    "id": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/io-signature/66d5f64933b459146cd8",
+    "label": "carts updateMany exact actual call signature",
+    "fields": 2
+  },
+  {
+    "id": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/io-signature/5006d2257a1fcd1ebbe6",
+    "label": "carts updateMany exact actual call signature",
+    "fields": 2
+  },
+  {
+    "id": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/io-signature/3798e60941f713542995",
+    "label": "fixture getInputStream exact actual call signature",
+    "fields": 0
+  },
+  {
+    "id": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/io-signature/f8250412af7743f95c25",
+    "label": "opportunity body exact actual call signature",
+    "fields": 1
+  },
+  {
+    "id": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/io-signature/02b0cad3270bb34fd50a",
+    "label": "order body exact actual call signature",
+    "fields": 1
+  },
+  {
+    "id": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/io-headers/order",
+    "label": "Conditional checkout exact declared request headers",
+    "fields": 3
+  },
+  {
+    "id": "volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/shape/sdl/UUID",
+    "label": "GraphQL SDL scalar UUID with source GraphQLString coercing configuration; no UUID format guarantee",
+    "fields": 0
+  }
+]

@@ -1,0 +1,1178 @@
+[
+  {
+    "type": "com.volvocars.ecom.paymentservice.customer.api.App",
+    "shape": "customer-b0010537-complete-r6/shape/8354bb81de3f8f7a",
+    "fields": 0,
+    "gaps": []
+  },
+  {
+    "type": "com.volvocars.ecom.paymentservice.customer.api.configuration.v1.SwaggerUIController",
+    "shape": "customer-b0010537-complete-r6/shape/2e94f854e4ffe350",
+    "fields": 0,
+    "gaps": []
+  },
+  {
+    "type": "ControllerBase",
+    "shape": "customer-b0010537-complete-r6/shape/67a9c65e5b5be709",
+    "fields": 0,
+    "gaps": ["customer-b0010537-complete-r6/shape-gap/67a9c65e5b5be709"]
+  },
+  {
+    "type": "SwaggerUIConfig",
+    "shape": "customer-b0010537-complete-r6/shape/a1c365f2d681d137",
+    "fields": 0,
+    "gaps": ["customer-b0010537-complete-r6/shape-gap/a1c365f2d681d137"]
+  },
+  {
+    "type": "com.volvocars.ecom.paymentservice.customer.api.configuration.v1.impl.SwaggerUIControllerImpl",
+    "shape": "customer-b0010537-complete-r6/shape/a5af87224638e0ef",
+    "fields": 1,
+    "gaps": ["customer-b0010537-complete-r6/shape-gap/67a9c65e5b5be709"]
+  },
+  {
+    "type": "com.volvocars.ecom.paymentservice.customer.api.customer.v1.CustomerController",
+    "shape": "customer-b0010537-complete-r6/shape/0e01d0908ba9bec5",
+    "fields": 0,
+    "gaps": []
+  },
+  {
+    "type": "com.volvocars.ecom.paymentservice.customer.api.customer.v1.CustomerController.CustomerDtoResponse",
+    "shape": "customer-b0010537-complete-r6/shape/009ddf4ed4909e24",
+    "fields": 0,
+    "gaps": []
+  },
+  {
+    "type": "com.volvocars.ecom.paymentservice.customer.CustomerRepository",
+    "shape": "customer-b0010537-complete-r6/shape/8ddad58df458353c",
+    "fields": 0,
+    "gaps": []
+  },
+  {
+    "type": "com.volvocars.ecom.paymentservice.customer.CustomerOperationService",
+    "shape": "customer-b0010537-complete-r6/shape/5a90392386073107",
+    "fields": 1,
+    "gaps": []
+  },
+  {
+    "type": "com.volvocars.ecom.paymentservice.customerpsprelation.CustomerPspRelationRepository",
+    "shape": "customer-b0010537-complete-r6/shape/2b0bf7b8c01ca585",
+    "fields": 0,
+    "gaps": []
+  },
+  {
+    "type": "com.volvocars.ecom.paymentservice.customerpsprelation.CustomerPspRelationOperationService",
+    "shape": "customer-b0010537-complete-r6/shape/2c74e27ea3266cb9",
+    "fields": 1,
+    "gaps": []
+  },
+  {
+    "type": "com.volvocars.ecom.paymentservice.customer.CustomerMapper",
+    "shape": "customer-b0010537-complete-r6/shape/28e5dce87f9fe133",
+    "fields": 0,
+    "gaps": []
+  },
+  {
+    "type": "com.volvocars.ecom.paymentservice.customerpsprelation.CustomerPspRelationMapper",
+    "shape": "customer-b0010537-complete-r6/shape/bd190e0717f11c25",
+    "fields": 0,
+    "gaps": []
+  },
+  {
+    "type": "com.volvocars.ecom.paymentservice.customer.CustomerService",
+    "shape": "customer-b0010537-complete-r6/shape/90f3952ddca15826",
+    "fields": 4,
+    "gaps": []
+  },
+  {
+    "type": "CustomerClient",
+    "shape": "customer-b0010537-complete-r6/shape/33f0cf46524f83ed",
+    "fields": 0,
+    "gaps": ["customer-b0010537-complete-r6/shape-gap/33f0cf46524f83ed"]
+  },
+  {
+    "type": "AccountConfigService",
+    "shape": "customer-b0010537-complete-r6/shape/4ffae158b60d494d",
+    "fields": 0,
+    "gaps": ["customer-b0010537-complete-r6/shape-gap/4ffae158b60d494d"]
+  },
+  {
+    "type": "com.volvocars.ecom.paymentservice.customer.CustomerManager",
+    "shape": "customer-b0010537-complete-r6/shape/1f0034a2b454dfac",
+    "fields": 3,
+    "gaps": []
+  },
+  {
+    "type": "com.volvocars.ecom.paymentservice.customer.api.customer.v1.mapper.CustomerApiMapper",
+    "shape": "customer-b0010537-complete-r6/shape/9167753ea7af1c2b",
+    "fields": 0,
+    "gaps": []
+  },
+  {
+    "type": "com.volvocars.ecom.paymentservice.recurringcharge.RecurringChargeRepository",
+    "shape": "customer-b0010537-complete-r6/shape/36a61f061e8380cc",
+    "fields": 0,
+    "gaps": []
+  },
+  {
+    "type": "com.volvocars.ecom.paymentservice.recurringcharge.RecurringChargeOperationService",
+    "shape": "customer-b0010537-complete-r6/shape/894d64a7737f9541",
+    "fields": 1,
+    "gaps": []
+  },
+  {
+    "type": "com.volvocars.ecom.paymentservice.recurringcharge.RecurringChargeMapper",
+    "shape": "customer-b0010537-complete-r6/shape/592b077bd3a705fe",
+    "fields": 0,
+    "gaps": []
+  },
+  {
+    "type": "com.volvocars.ecom.paymentservice.recurringcharge.RecurringChargeService",
+    "shape": "customer-b0010537-complete-r6/shape/095f874d27e1b508",
+    "fields": 2,
+    "gaps": []
+  },
+  {
+    "type": "com.volvocars.ecom.paymentservice.paymentinstrument.PaymentInstrumentRepository",
+    "shape": "customer-b0010537-complete-r6/shape/ceac3b89dd933e65",
+    "fields": 0,
+    "gaps": []
+  },
+  {
+    "type": "com.volvocars.ecom.paymentservice.paymentinstrument.PaymentInstrumentOperationService",
+    "shape": "customer-b0010537-complete-r6/shape/d4bdb9c1d0632835",
+    "fields": 1,
+    "gaps": []
+  },
+  {
+    "type": "com.volvocars.ecom.paymentservice.paymentinstrument.PaymentInstrumentService",
+    "shape": "customer-b0010537-complete-r6/shape/537c10e91ecb9425",
+    "fields": 1,
+    "gaps": []
+  },
+  {
+    "type": "com.volvocars.ecom.paymentservice.recurringcharge.RecurringChargeCustomerService",
+    "shape": "customer-b0010537-complete-r6/shape/1b9f53a9d8216503",
+    "fields": 2,
+    "gaps": []
+  },
+  {
+    "type": "com.volvocars.ecom.paymentservice.customer.api.customer.v1.impl.CustomerControllerImpl",
+    "shape": "customer-b0010537-complete-r6/shape/cfa6ab5ac2531fc3",
+    "fields": 3,
+    "gaps": ["customer-b0010537-complete-r6/shape-gap/67a9c65e5b5be709"]
+  },
+  {
+    "type": "com.volvocars.ecom.paymentservice.customer.api.version.v1.VersionController",
+    "shape": "customer-b0010537-complete-r6/shape/70f1094efed659a4",
+    "fields": 0,
+    "gaps": []
+  },
+  {
+    "type": "com.volvocars.ecom.paymentservice.customer.api.version.v1.VersionController.ApiInfoV1Response",
+    "shape": "customer-b0010537-complete-r6/shape/51156aa824b1a0ac",
+    "fields": 0,
+    "gaps": []
+  },
+  {
+    "type": "com.volvocars.ecom.paymentservice.customer.api.version.v1.impl.VersionControllerImpl",
+    "shape": "customer-b0010537-complete-r6/shape/e6b584e8210c114b",
+    "fields": 0,
+    "gaps": ["customer-b0010537-complete-r6/shape-gap/67a9c65e5b5be709"]
+  },
+  {
+    "type": "com.volvocars.ecom.paymentservice.customer.api.version.v2.VersionController",
+    "shape": "customer-b0010537-complete-r6/shape/d233c27b20d57b99",
+    "fields": 0,
+    "gaps": []
+  },
+  {
+    "type": "com.volvocars.ecom.paymentservice.customer.api.version.v2.VersionController.VersionResponse",
+    "shape": "customer-b0010537-complete-r6/shape/fdd1cb15b290fafa",
+    "fields": 0,
+    "gaps": []
+  },
+  {
+    "type": "com.volvocars.ecom.paymentservice.customer.api.version.v2.impl.VersionControllerImpl",
+    "shape": "customer-b0010537-complete-r6/shape/7cbfd4a0300bef99",
+    "fields": 0,
+    "gaps": ["customer-b0010537-complete-r6/shape-gap/67a9c65e5b5be709"]
+  },
+  {
+    "type": "ApiProperties",
+    "shape": "customer-b0010537-complete-r6/shape/c47800d4b2771663",
+    "fields": 0,
+    "gaps": ["customer-b0010537-complete-r6/shape-gap/c47800d4b2771663"]
+  },
+  {
+    "type": "T",
+    "shape": "customer-b0010537-complete-r6/shape/e632b7095b0bf32c",
+    "fields": 0,
+    "gaps": ["customer-b0010537-complete-r6/shape-gap/e632b7095b0bf32c"]
+  },
+  {
+    "type": "com.volvocars.ecom.paymentservice.customer.client.BaseCustomerClient",
+    "shape": "customer-b0010537-complete-r6/shape/e4f1c877bb3d76e5",
+    "fields": 2,
+    "gaps": []
+  },
+  {
+    "type": "String",
+    "shape": "customer-b0010537-complete-r6/shape/b2ef230e7f4f315a",
+    "fields": 0,
+    "gaps": []
+  },
+  {
+    "type": "com.volvocars.ecom.paymentservice.customer.client.customer.CustomerApi",
+    "shape": "customer-b0010537-complete-r6/shape/e26b45a143c3cc9f",
+    "fields": 3,
+    "gaps": []
+  },
+  {
+    "type": "com.volvocars.ecom.paymentservice.customer.client.customer.CustomerClient",
+    "shape": "customer-b0010537-complete-r6/shape/0b63df2d81089c9d",
+    "fields": 2,
+    "gaps": []
+  },
+  {
+    "type": "AttributeBase",
+    "shape": "customer-b0010537-complete-r6/shape/d7c3d0ad2a5a67b4",
+    "fields": 0,
+    "gaps": ["customer-b0010537-complete-r6/shape-gap/d7c3d0ad2a5a67b4"]
+  },
+  {
+    "type": "ObjectId",
+    "shape": "customer-b0010537-complete-r6/shape/6f02e08366f6d328",
+    "fields": 0,
+    "gaps": []
+  },
+  {
+    "type": "Instant",
+    "shape": "customer-b0010537-complete-r6/shape/e2861894f065ab75",
+    "fields": 0,
+    "gaps": []
+  },
+  {
+    "type": "Integer",
+    "shape": "customer-b0010537-complete-r6/shape/2876814bd73accf5",
+    "fields": 0,
+    "gaps": []
+  },
+  {
+    "type": "com.volvocars.ecom.paymentservice.common.BaseEntity",
+    "shape": "customer-b0010537-complete-r6/shape/a1a05309b6c18244",
+    "fields": 6,
+    "gaps": ["customer-b0010537-complete-r6/shape-gap/d7c3d0ad2a5a67b4"]
+  },
+  {
+    "type": "com.volvocars.ecom.paymentservice.common.ErrorResponseHandler.",
+    "shape": "customer-b0010537-complete-r6/shape/a296cddfc6cbd50d",
+    "fields": 0,
+    "gaps": []
+  },
+  {
+    "type": "com.volvocars.ecom.paymentservice.common.ErrorResponseHandler",
+    "shape": "customer-b0010537-complete-r6/shape/1b9a5b91b5d749a7",
+    "fields": 0,
+    "gaps": []
+  },
+  {
+    "type": "ObjectMapper",
+    "shape": "customer-b0010537-complete-r6/shape/9fbec40685e5ace0",
+    "fields": 0,
+    "gaps": ["customer-b0010537-complete-r6/shape-gap/9fbec40685e5ace0"]
+  },
+  {
+    "type": "com.volvocars.ecom.paymentservice.common.RequestHashCacheKeyResolver",
+    "shape": "customer-b0010537-complete-r6/shape/598043cbbdfb5c74",
+    "fields": 1,
+    "gaps": []
+  },
+  {
+    "type": "com.volvocars.ecom.paymentservice.configuration.CacheConfiguration.",
+    "shape": "customer-b0010537-complete-r6/shape/50205dfa5fff492d",
+    "fields": 0,
+    "gaps": []
+  },
+  {
+    "type": "com.volvocars.ecom.paymentservice.configuration.CacheConfiguration",
+    "shape": "customer-b0010537-complete-r6/shape/fb98cb3522e19221",
+    "fields": 0,
+    "gaps": []
+  },
+  {
+    "type": "CacheManager",
+    "shape": "customer-b0010537-complete-r6/shape/2ddb7cdbc3563d88",
+    "fields": 0,
+    "gaps": ["customer-b0010537-complete-r6/shape-gap/2ddb7cdbc3563d88"]
+  },
+  {
+    "type": "com.volvocars.ecom.paymentservice.configuration.FaultTolerantCacheManager",
+    "shape": "customer-b0010537-complete-r6/shape/ccfec1a62df32cc4",
+    "fields": 1,
+    "gaps": []
+  },
+  {
+    "type": "Cache",
+    "shape": "customer-b0010537-complete-r6/shape/a76ce82a974999d8",
+    "fields": 0,
+    "gaps": ["customer-b0010537-complete-r6/shape-gap/a76ce82a974999d8"]
+  },
+  {
+    "type": "com.volvocars.ecom.paymentservice.configuration.FaultTolerantCacheManager.FaultTolerantCache",
+    "shape": "customer-b0010537-complete-r6/shape/3fd60eaf02c01a45",
+    "fields": 1,
+    "gaps": []
+  },
+  {
+    "type": "com.volvocars.ecom.paymentservice.configuration.MongoConfiguration",
+    "shape": "customer-b0010537-complete-r6/shape/e63ffe5038c2fb0b",
+    "fields": 0,
+    "gaps": []
+  },
+  {
+    "type": "CustomerType",
+    "shape": "customer-b0010537-complete-r6/shape/a6712048acb511be",
+    "fields": 0,
+    "gaps": ["customer-b0010537-complete-r6/shape-gap/a6712048acb511be"]
+  },
+  {
+    "type": "ExternalIdentifier",
+    "shape": "customer-b0010537-complete-r6/shape/3c54bd53c30912cf",
+    "fields": 0,
+    "gaps": ["customer-b0010537-complete-r6/shape-gap/3c54bd53c30912cf"]
+  },
+  {
+    "type": "List<ExternalIdentifier>",
+    "shape": "customer-b0010537-complete-r6/shape/f149201fb4027c4c",
+    "fields": 0,
+    "gaps": []
+  },
+  {
+    "type": "Address",
+    "shape": "customer-b0010537-complete-r6/shape/56ef8f20955f2564",
+    "fields": 0,
+    "gaps": ["customer-b0010537-complete-r6/shape-gap/56ef8f20955f2564"]
+  },
+  {
+    "type": "CompanyInfo",
+    "shape": "customer-b0010537-complete-r6/shape/89adb2f97777da94",
+    "fields": 0,
+    "gaps": ["customer-b0010537-complete-r6/shape-gap/89adb2f97777da94"]
+  },
+  {
+    "type": "com.volvocars.ecom.paymentservice.customer.CustomerEntity",
+    "shape": "customer-b0010537-complete-r6/shape/8cb977d55a9d047a",
+    "fields": 18,
+    "gaps": ["customer-b0010537-complete-r6/shape-gap/d7c3d0ad2a5a67b4"]
+  },
+  {
+    "type": "Customer",
+    "shape": "customer-b0010537-complete-r6/shape/bf3763383aaf4306",
+    "fields": 0,
+    "gaps": ["customer-b0010537-complete-r6/shape-gap/bf3763383aaf4306"]
+  },
+  {
+    "type": "boolean",
+    "shape": "customer-b0010537-complete-r6/shape/bf84d3d60e93cc95",
+    "fields": 0,
+    "gaps": []
+  },
+  {
+    "type": "com.volvocars.ecom.paymentservice.customer.CustomerManager.CreateCustomerResult",
+    "shape": "customer-b0010537-complete-r6/shape/a3b8ec202c83c021",
+    "fields": 2,
+    "gaps": []
+  },
+  {
+    "type": "com.volvocars.ecom.paymentservice.customer.PspIntegrationClientConfig",
+    "shape": "customer-b0010537-complete-r6/shape/5568f8b67b5aa5db",
+    "fields": 1,
+    "gaps": []
+  },
+  {
+    "type": "com.volvocars.ecom.paymentservice.customer.cart.CartService",
+    "shape": "customer-b0010537-complete-r6/shape/283086b44d90fed8",
+    "fields": 0,
+    "gaps": []
+  },
+  {
+    "type": "Psp",
+    "shape": "customer-b0010537-complete-r6/shape/2ad13d3717eaa05c",
+    "fields": 0,
+    "gaps": ["customer-b0010537-complete-r6/shape-gap/2ad13d3717eaa05c"]
+  },
+  {
+    "type": "com.volvocars.ecom.paymentservice.customerpsprelation.CustomerPspRelationEntity",
+    "shape": "customer-b0010537-complete-r6/shape/5b7149b50362c25a",
+    "fields": 10,
+    "gaps": ["customer-b0010537-complete-r6/shape-gap/d7c3d0ad2a5a67b4"]
+  },
+  {
+    "type": "com.volvocars.ecom.paymentservice.integration.common.CustomerControllerAdvice",
+    "shape": "customer-b0010537-complete-r6/shape/990e1b718505ef45",
+    "fields": 0,
+    "gaps": []
+  },
+  {
+    "type": "com.volvocars.ecom.paymentservice.logging.ThreadContextWrapper",
+    "shape": "customer-b0010537-complete-r6/shape/4bd083ce55b16f53",
+    "fields": 0,
+    "gaps": []
+  },
+  {
+    "type": "com.volvocars.ecom.paymentservice.logging.ThreadContextWrapper.Key",
+    "shape": "customer-b0010537-complete-r6/shape/c56fba788c794e1a",
+    "fields": 0,
+    "gaps": []
+  },
+  {
+    "type": "com.volvocars.ecom.paymentservice.paymentinstrument.PaymentInstrumentEntity",
+    "shape": "customer-b0010537-complete-r6/shape/b8b179698234bc10",
+    "fields": 8,
+    "gaps": ["customer-b0010537-complete-r6/shape-gap/d7c3d0ad2a5a67b4"]
+  },
+  {
+    "type": "com.volvocars.ecom.paymentservice.recurringcharge.RecurringChargeEntity",
+    "shape": "customer-b0010537-complete-r6/shape/1c55e1bbc7894ac5",
+    "fields": 10,
+    "gaps": ["customer-b0010537-complete-r6/shape-gap/d7c3d0ad2a5a67b4"]
+  },
+  {
+    "type": "com.volvocars.ecom.paymentservice.customer.CustomerPayloadBase",
+    "shape": "customer-b0010537-complete-r6/shape/9ea21cbdcb236acc",
+    "fields": 7,
+    "gaps": []
+  },
+  {
+    "type": "com.volvocars.ecom.paymentservice.customer.BaseCustomerCreatePayload",
+    "shape": "customer-b0010537-complete-r6/shape/ce59c46883e6539c",
+    "fields": 7,
+    "gaps": []
+  },
+  {
+    "type": "com.volvocars.ecom.paymentservice.customer.CustomerCreatePayload",
+    "shape": "customer-b0010537-complete-r6/shape/334cee58ecb85a1a",
+    "fields": 9,
+    "gaps": []
+  },
+  {
+    "type": "com.volvocars.ecom.paymentservice.customer.PspRelationDto",
+    "shape": "customer-b0010537-complete-r6/shape/dca78e9ce6dec229",
+    "fields": 3,
+    "gaps": []
+  },
+  {
+    "type": "List<PspRelationDto>",
+    "shape": "customer-b0010537-complete-r6/shape/47ac21cc612fdc1b",
+    "fields": 0,
+    "gaps": []
+  },
+  {
+    "type": "com.volvocars.ecom.paymentservice.customer.CustomerResponseDto",
+    "shape": "customer-b0010537-complete-r6/shape/3144539803592f5d",
+    "fields": 11,
+    "gaps": []
+  },
+  {
+    "type": "com.volvocars.ecom.paymentservice.customer.CustomerUpdatePayload",
+    "shape": "customer-b0010537-complete-r6/shape/2a7b53f1c3edee2a",
+    "fields": 8,
+    "gaps": []
+  },
+  {
+    "type": "com.volvocars.ecom.paymentservice.customer.GuestCustomerCreatePayload",
+    "shape": "customer-b0010537-complete-r6/shape/797817cd4259a64d",
+    "fields": 8,
+    "gaps": []
+  },
+  {
+    "type": "com.volvocars.ecom.paymentservice.customer.cart.Cart",
+    "shape": "customer-b0010537-complete-r6/shape/8d02f3feb8dad33d",
+    "fields": 2,
+    "gaps": []
+  },
+  {
+    "type": "com.volvocars.ecom.paymentservice.customer.validation.FirstAndLastNameConstraint",
+    "shape": "customer-b0010537-complete-r6/shape/8c082d37f8dd94f9",
+    "fields": 0,
+    "gaps": []
+  },
+  {
+    "type": "com.volvocars.ecom.paymentservice.customer.validation.FirstAndLastNameValidator",
+    "shape": "customer-b0010537-complete-r6/shape/3cf50efecd2fb570",
+    "fields": 0,
+    "gaps": []
+  },
+  {
+    "type": "com.volvocars.ecom.paymentservice.recurringcharge.RecurringChargeDto",
+    "shape": "customer-b0010537-complete-r6/shape/fd005970d4cdb90f",
+    "fields": 2,
+    "gaps": []
+  },
+  {
+    "type": "com.volvocars.ecom.paymentservice.recurringcharge.RecurringChargeUpdatePayload",
+    "shape": "customer-b0010537-complete-r6/shape/96dc80afbf44da58",
+    "fields": 1,
+    "gaps": []
+  },
+  {
+    "type": "String[]",
+    "shape": "customer-b0010537-complete-r6/shape/7012076411be10d0",
+    "fields": 0,
+    "gaps": []
+  },
+  {
+    "type": "IdType",
+    "shape": "customer-b0010537-complete-r6/shape/92fcca2405383895",
+    "fields": 0,
+    "gaps": ["customer-b0010537-complete-r6/shape-gap/92fcca2405383895"]
+  },
+  {
+    "type": "PspRelation",
+    "shape": "customer-b0010537-complete-r6/shape/569b598adec1c33e",
+    "fields": 0,
+    "gaps": ["customer-b0010537-complete-r6/shape-gap/569b598adec1c33e"]
+  },
+  {
+    "type": "List<PspRelation>",
+    "shape": "customer-b0010537-complete-r6/shape/e005c3a70663ee35",
+    "fields": 0,
+    "gaps": []
+  },
+  {
+    "type": "Class<T>",
+    "shape": "customer-b0010537-complete-r6/shape/71d7a8cd494beeee",
+    "fields": 0,
+    "gaps": ["customer-b0010537-complete-r6/shape-gap/71d7a8cd494beeee"]
+  },
+  {
+    "type": "HttpResponse<String>",
+    "shape": "customer-b0010537-complete-r6/shape/9d7f22818f17b9d7",
+    "fields": 0,
+    "gaps": ["customer-b0010537-complete-r6/shape-gap/9d7f22818f17b9d7"]
+  },
+  {
+    "type": "HttpStatus",
+    "shape": "customer-b0010537-complete-r6/shape/840e5b5164b02029",
+    "fields": 0,
+    "gaps": ["customer-b0010537-complete-r6/shape-gap/840e5b5164b02029"]
+  },
+  {
+    "type": "Map<String, String>",
+    "shape": "customer-b0010537-complete-r6/shape/ab881850fdbd0fe2",
+    "fields": 0,
+    "gaps": ["customer-b0010537-complete-r6/shape-gap/ab881850fdbd0fe2"]
+  },
+  {
+    "type": "Object",
+    "shape": "customer-b0010537-complete-r6/shape/62a6da8735c18e2d",
+    "fields": 0,
+    "gaps": ["customer-b0010537-complete-r6/shape-gap/62a6da8735c18e2d"]
+  },
+  {
+    "type": "RedisConnectionFactory",
+    "shape": "customer-b0010537-complete-r6/shape/82fed7eef3e72608",
+    "fields": 0,
+    "gaps": ["customer-b0010537-complete-r6/shape-gap/82fed7eef3e72608"]
+  },
+  {
+    "type": "Duration",
+    "shape": "customer-b0010537-complete-r6/shape/4fc52a3c4c558b51",
+    "fields": 0,
+    "gaps": ["customer-b0010537-complete-r6/shape-gap/4fc52a3c4c558b51"]
+  },
+  {
+    "type": "RuntimeException",
+    "shape": "customer-b0010537-complete-r6/shape/7b5fefccc9fd5bb9",
+    "fields": 0,
+    "gaps": ["customer-b0010537-complete-r6/shape-gap/7b5fefccc9fd5bb9"]
+  },
+  {
+    "type": "Callable<T>",
+    "shape": "customer-b0010537-complete-r6/shape/9aad77b0d2909bde",
+    "fields": 0,
+    "gaps": ["customer-b0010537-complete-r6/shape-gap/9aad77b0d2909bde"]
+  },
+  {
+    "type": "Market",
+    "shape": "customer-b0010537-complete-r6/shape/5238d9bd03d543e6",
+    "fields": 0,
+    "gaps": ["customer-b0010537-complete-r6/shape-gap/5238d9bd03d543e6"]
+  },
+  {
+    "type": "Account",
+    "shape": "customer-b0010537-complete-r6/shape/7e1b0d5641f2640c",
+    "fields": 0,
+    "gaps": ["customer-b0010537-complete-r6/shape-gap/7e1b0d5641f2640c"]
+  },
+  {
+    "type": "Consumer<T>",
+    "shape": "customer-b0010537-complete-r6/shape/f532141ab387a245",
+    "fields": 0,
+    "gaps": ["customer-b0010537-complete-r6/shape-gap/f532141ab387a245"]
+  },
+  {
+    "type": "Logger.Level",
+    "shape": "customer-b0010537-complete-r6/shape/4061fcf7ed2e2164",
+    "fields": 0,
+    "gaps": ["customer-b0010537-complete-r6/shape-gap/4061fcf7ed2e2164"]
+  },
+  {
+    "type": "AuthSettings",
+    "shape": "customer-b0010537-complete-r6/shape/dd0aab310b08ff05",
+    "fields": 0,
+    "gaps": ["customer-b0010537-complete-r6/shape-gap/dd0aab310b08ff05"]
+  },
+  {
+    "type": "List<CustomerPspRelationEntity>",
+    "shape": "customer-b0010537-complete-r6/shape/7f110a4bbf018b38",
+    "fields": 0,
+    "gaps": []
+  },
+  {
+    "type": "HttpServletRequest",
+    "shape": "customer-b0010537-complete-r6/shape/862a7607e7c55fa6",
+    "fields": 0,
+    "gaps": ["customer-b0010537-complete-r6/shape-gap/862a7607e7c55fa6"]
+  },
+  {
+    "type": "HttpMediaTypeNotAcceptableException",
+    "shape": "customer-b0010537-complete-r6/shape/2ec2460a43a2bff0",
+    "fields": 0,
+    "gaps": ["customer-b0010537-complete-r6/shape-gap/2ec2460a43a2bff0"]
+  },
+  {
+    "type": "MethodArgumentNotValidException",
+    "shape": "customer-b0010537-complete-r6/shape/c39ff3f8239bb466",
+    "fields": 0,
+    "gaps": ["customer-b0010537-complete-r6/shape-gap/c39ff3f8239bb466"]
+  },
+  {
+    "type": "HttpMessageNotReadableException",
+    "shape": "customer-b0010537-complete-r6/shape/2ad4c9069d69da4f",
+    "fields": 0,
+    "gaps": ["customer-b0010537-complete-r6/shape-gap/2ad4c9069d69da4f"]
+  },
+  {
+    "type": "InputValidationException",
+    "shape": "customer-b0010537-complete-r6/shape/c177c5cd6580eada",
+    "fields": 0,
+    "gaps": ["customer-b0010537-complete-r6/shape-gap/c177c5cd6580eada"]
+  },
+  {
+    "type": "ConstraintViolationException",
+    "shape": "customer-b0010537-complete-r6/shape/08bb87a9b8cd3581",
+    "fields": 0,
+    "gaps": ["customer-b0010537-complete-r6/shape-gap/08bb87a9b8cd3581"]
+  },
+  {
+    "type": "IllegalArgumentException",
+    "shape": "customer-b0010537-complete-r6/shape/1f0d89d80de40929",
+    "fields": 0,
+    "gaps": ["customer-b0010537-complete-r6/shape-gap/1f0d89d80de40929"]
+  },
+  {
+    "type": "MethodArgumentTypeMismatchException",
+    "shape": "customer-b0010537-complete-r6/shape/913e28562fa7025a",
+    "fields": 0,
+    "gaps": ["customer-b0010537-complete-r6/shape-gap/913e28562fa7025a"]
+  },
+  {
+    "type": "UnsupportedMediaTypeStatusException",
+    "shape": "customer-b0010537-complete-r6/shape/51ed48960191417f",
+    "fields": 0,
+    "gaps": ["customer-b0010537-complete-r6/shape-gap/51ed48960191417f"]
+  },
+  {
+    "type": "HttpMediaTypeNotSupportedException",
+    "shape": "customer-b0010537-complete-r6/shape/3d3f665dcb01ca53",
+    "fields": 0,
+    "gaps": ["customer-b0010537-complete-r6/shape-gap/3d3f665dcb01ca53"]
+  },
+  {
+    "type": "NoHandlerFoundException",
+    "shape": "customer-b0010537-complete-r6/shape/b8891d28c9aa34b3",
+    "fields": 0,
+    "gaps": ["customer-b0010537-complete-r6/shape-gap/b8891d28c9aa34b3"]
+  },
+  {
+    "type": "NoResourceFoundException",
+    "shape": "customer-b0010537-complete-r6/shape/e9df2907bf7ced38",
+    "fields": 0,
+    "gaps": ["customer-b0010537-complete-r6/shape-gap/e9df2907bf7ced38"]
+  },
+  {
+    "type": "NotFoundException",
+    "shape": "customer-b0010537-complete-r6/shape/f01b14c65751d928",
+    "fields": 0,
+    "gaps": ["customer-b0010537-complete-r6/shape-gap/f01b14c65751d928"]
+  },
+  {
+    "type": "AccessDeniedException",
+    "shape": "customer-b0010537-complete-r6/shape/d25a50ee394ee0e9",
+    "fields": 0,
+    "gaps": ["customer-b0010537-complete-r6/shape-gap/d25a50ee394ee0e9"]
+  },
+  {
+    "type": "ForbiddenException",
+    "shape": "customer-b0010537-complete-r6/shape/13cb2ca091438dd5",
+    "fields": 0,
+    "gaps": ["customer-b0010537-complete-r6/shape-gap/13cb2ca091438dd5"]
+  },
+  {
+    "type": "AuthenticationException",
+    "shape": "customer-b0010537-complete-r6/shape/3bc680ca5f62afe2",
+    "fields": 0,
+    "gaps": ["customer-b0010537-complete-r6/shape-gap/3bc680ca5f62afe2"]
+  },
+  {
+    "type": "UnprocessableEntityException",
+    "shape": "customer-b0010537-complete-r6/shape/50f5af020b33390c",
+    "fields": 0,
+    "gaps": ["customer-b0010537-complete-r6/shape-gap/50f5af020b33390c"]
+  },
+  {
+    "type": "PaymentSessionAlreadyCompletedException",
+    "shape": "customer-b0010537-complete-r6/shape/51fbc0a10bde67a1",
+    "fields": 0,
+    "gaps": ["customer-b0010537-complete-r6/shape-gap/51fbc0a10bde67a1"]
+  },
+  {
+    "type": "ApiClientException",
+    "shape": "customer-b0010537-complete-r6/shape/eb347d538b67ca6e",
+    "fields": 0,
+    "gaps": ["customer-b0010537-complete-r6/shape-gap/eb347d538b67ca6e"]
+  },
+  {
+    "type": "UnsupportedOperationException",
+    "shape": "customer-b0010537-complete-r6/shape/a5264fb075edaf25",
+    "fields": 0,
+    "gaps": ["customer-b0010537-complete-r6/shape-gap/a5264fb075edaf25"]
+  },
+  {
+    "type": "Exception",
+    "shape": "customer-b0010537-complete-r6/shape/b4fe3d529dee467d",
+    "fields": 0,
+    "gaps": ["customer-b0010537-complete-r6/shape-gap/b4fe3d529dee467d"]
+  },
+  {
+    "type": "Throwable",
+    "shape": "customer-b0010537-complete-r6/shape/f2a23ed707103b16",
+    "fields": 0,
+    "gaps": ["customer-b0010537-complete-r6/shape-gap/f2a23ed707103b16"]
+  },
+  {
+    "type": "Level",
+    "shape": "customer-b0010537-complete-r6/shape/1709305c9fa966d1",
+    "fields": 0,
+    "gaps": ["customer-b0010537-complete-r6/shape-gap/1709305c9fa966d1"]
+  },
+  {
+    "type": "Supplier<String>",
+    "shape": "customer-b0010537-complete-r6/shape/dd50833e906b8c30",
+    "fields": 0,
+    "gaps": ["customer-b0010537-complete-r6/shape-gap/dd50833e906b8c30"]
+  },
+  {
+    "type": "Function<T, String>",
+    "shape": "customer-b0010537-complete-r6/shape/c848fbb35fe35899",
+    "fields": 0,
+    "gaps": ["customer-b0010537-complete-r6/shape-gap/c848fbb35fe35899"]
+  },
+  {
+    "type": "Stage",
+    "shape": "customer-b0010537-complete-r6/shape/de838855e4a6e04e",
+    "fields": 0,
+    "gaps": ["customer-b0010537-complete-r6/shape-gap/de838855e4a6e04e"]
+  },
+  {
+    "type": "Enum<?>",
+    "shape": "customer-b0010537-complete-r6/shape/e18f7bc1ac0fe562",
+    "fields": 0,
+    "gaps": ["customer-b0010537-complete-r6/shape-gap/e18f7bc1ac0fe562"]
+  },
+  {
+    "type": "RecurringCharge",
+    "shape": "customer-b0010537-complete-r6/shape/bd6b57eb84285165",
+    "fields": 0,
+    "gaps": ["customer-b0010537-complete-r6/shape-gap/bd6b57eb84285165"]
+  },
+  {
+    "type": "ConstraintValidatorContext",
+    "shape": "customer-b0010537-complete-r6/shape/ed239541ab8eb1d3",
+    "fields": 0,
+    "gaps": ["customer-b0010537-complete-r6/shape-gap/ed239541ab8eb1d3"]
+  },
+  {
+    "type": "inferred lambda parameter",
+    "shape": "customer-b0010537-complete-r6/shape/f81cfb1239ca5f4c",
+    "fields": 0,
+    "gaps": ["customer-b0010537-complete-r6/shape-gap/f81cfb1239ca5f4c"]
+  },
+  {
+    "type": "CustomerPspRelationEntity",
+    "shape": "customer-b0010537-complete-r6/shape/d2afbd9cb5415838",
+    "fields": 0,
+    "gaps": ["customer-b0010537-complete-r6/shape-gap/d2afbd9cb5415838"]
+  },
+  {
+    "type": "SwaggerUIConfigResponse$Builder",
+    "shape": "customer-b0010537-complete-r6/shape/306cff839883f2ca",
+    "fields": 0,
+    "gaps": ["customer-b0010537-complete-r6/shape-gap/306cff839883f2ca"]
+  },
+  {
+    "type": "SwaggerUIConfigResponse",
+    "shape": "customer-b0010537-complete-r6/shape/80d523ac12752d6a",
+    "fields": 0,
+    "gaps": ["customer-b0010537-complete-r6/shape-gap/80d523ac12752d6a"]
+  },
+  {
+    "type": "void",
+    "shape": "customer-b0010537-complete-r6/shape/445be54d48a2e629",
+    "fields": 0,
+    "gaps": []
+  },
+  {
+    "type": "ExternalIdentifier$Builder",
+    "shape": "customer-b0010537-complete-r6/shape/6051a42abbb1e85a",
+    "fields": 0,
+    "gaps": ["customer-b0010537-complete-r6/shape-gap/6051a42abbb1e85a"]
+  },
+  {
+    "type": "BaseResponse<CustomerResponseDto>",
+    "shape": "customer-b0010537-complete-r6/shape/80cf2d12e475607a",
+    "fields": 0,
+    "gaps": ["customer-b0010537-complete-r6/shape-gap/80cf2d12e475607a"]
+  },
+  {
+    "type": "BaseResponse<RecurringChargeDto>",
+    "shape": "customer-b0010537-complete-r6/shape/1c244f7de347f7fb",
+    "fields": 0,
+    "gaps": ["customer-b0010537-complete-r6/shape-gap/1c244f7de347f7fb"]
+  },
+  {
+    "type": "Optional<ExternalIdentifier>",
+    "shape": "customer-b0010537-complete-r6/shape/0a519e6c035cea0a",
+    "fields": 0,
+    "gaps": ["customer-b0010537-complete-r6/shape-gap/0a519e6c035cea0a"]
+  },
+  {
+    "type": "CustomerCreatePayload$Builder",
+    "shape": "customer-b0010537-complete-r6/shape/9a8df61c5dfa0eeb",
+    "fields": 0,
+    "gaps": ["customer-b0010537-complete-r6/shape-gap/9a8df61c5dfa0eeb"]
+  },
+  {
+    "type": "int",
+    "shape": "customer-b0010537-complete-r6/shape/6da88c34ba124c41",
+    "fields": 0,
+    "gaps": []
+  },
+  {
+    "type": "PaymentServiceException",
+    "shape": "customer-b0010537-complete-r6/shape/2947811709fd102c",
+    "fields": 0,
+    "gaps": ["customer-b0010537-complete-r6/shape-gap/2947811709fd102c"]
+  },
+  {
+    "type": "CustomerResponseDto$Builder",
+    "shape": "customer-b0010537-complete-r6/shape/4ac844f908ab9e97",
+    "fields": 0,
+    "gaps": ["customer-b0010537-complete-r6/shape-gap/4ac844f908ab9e97"]
+  },
+  {
+    "type": "ArrayList<>",
+    "shape": "customer-b0010537-complete-r6/shape/b5c51b03f0292f51",
+    "fields": 0,
+    "gaps": ["customer-b0010537-complete-r6/shape-gap/b5c51b03f0292f51"]
+  },
+  {
+    "type": "AppInfoV1",
+    "shape": "customer-b0010537-complete-r6/shape/4a8eea7819422f77",
+    "fields": 0,
+    "gaps": ["customer-b0010537-complete-r6/shape-gap/4a8eea7819422f77"]
+  },
+  {
+    "type": "BaseResponse<AppInfoV1>",
+    "shape": "customer-b0010537-complete-r6/shape/7090289dee9e16b4",
+    "fields": 0,
+    "gaps": ["customer-b0010537-complete-r6/shape-gap/7090289dee9e16b4"]
+  },
+  {
+    "type": "AppInfoV2",
+    "shape": "customer-b0010537-complete-r6/shape/9f355fd0467e0bb2",
+    "fields": 0,
+    "gaps": ["customer-b0010537-complete-r6/shape-gap/9f355fd0467e0bb2"]
+  },
+  {
+    "type": "BaseResponse<AppInfoV2>",
+    "shape": "customer-b0010537-complete-r6/shape/f48a7eabf8397481",
+    "fields": 0,
+    "gaps": ["customer-b0010537-complete-r6/shape-gap/f48a7eabf8397481"]
+  },
+  {
+    "type": "ApiClientCreator<>",
+    "shape": "customer-b0010537-complete-r6/shape/b7f4591dbd810a21",
+    "fields": 0,
+    "gaps": ["customer-b0010537-complete-r6/shape-gap/b7f4591dbd810a21"]
+  },
+  {
+    "type": "OperationIdInterceptor",
+    "shape": "customer-b0010537-complete-r6/shape/e0040fda6cb4e7f1",
+    "fields": 0,
+    "gaps": ["customer-b0010537-complete-r6/shape-gap/e0040fda6cb4e7f1"]
+  },
+  {
+    "type": "SuccessResponse<CustomerResponseDto>",
+    "shape": "customer-b0010537-complete-r6/shape/982181984265b693",
+    "fields": 0,
+    "gaps": ["customer-b0010537-complete-r6/shape-gap/982181984265b693"]
+  },
+  {
+    "type": "SuccessResponse<RecurringChargeDto>",
+    "shape": "customer-b0010537-complete-r6/shape/5f9617df08cc4d0e",
+    "fields": 0,
+    "gaps": ["customer-b0010537-complete-r6/shape-gap/5f9617df08cc4d0e"]
+  },
+  {
+    "type": "TypeReference<>",
+    "shape": "customer-b0010537-complete-r6/shape/0e1cd290a634e586",
+    "fields": 0,
+    "gaps": ["customer-b0010537-complete-r6/shape-gap/0e1cd290a634e586"]
+  },
+  {
+    "type": "ErrorResponse<NonDetailError>",
+    "shape": "customer-b0010537-complete-r6/shape/71378406f148cc6c",
+    "fields": 0,
+    "gaps": ["customer-b0010537-complete-r6/shape-gap/71378406f148cc6c"]
+  },
+  {
+    "type": "ErrorResponse$Builder",
+    "shape": "customer-b0010537-complete-r6/shape/504f63eed855e8f4",
+    "fields": 0,
+    "gaps": ["customer-b0010537-complete-r6/shape-gap/504f63eed855e8f4"]
+  },
+  {
+    "type": "ErrorResponse",
+    "shape": "customer-b0010537-complete-r6/shape/d60c61839346666d",
+    "fields": 0,
+    "gaps": ["customer-b0010537-complete-r6/shape-gap/d60c61839346666d"]
+  },
+  {
+    "type": "HttpEntity<BaseResponse<Error>>",
+    "shape": "customer-b0010537-complete-r6/shape/9a1a9990565ea7e5",
+    "fields": 0,
+    "gaps": ["customer-b0010537-complete-r6/shape-gap/9a1a9990565ea7e5"]
+  },
+  {
+    "type": "ErrorWithDetail$Builder",
+    "shape": "customer-b0010537-complete-r6/shape/cb63af466fc479bb",
+    "fields": 0,
+    "gaps": ["customer-b0010537-complete-r6/shape-gap/cb63af466fc479bb"]
+  },
+  {
+    "type": "ErrorWithDetail",
+    "shape": "customer-b0010537-complete-r6/shape/a8bdf95bb171cee2",
+    "fields": 0,
+    "gaps": ["customer-b0010537-complete-r6/shape-gap/a8bdf95bb171cee2"]
+  },
+  {
+    "type": "GenericJackson2JsonRedisSerializer",
+    "shape": "customer-b0010537-complete-r6/shape/a43661b67c81a023",
+    "fields": 0,
+    "gaps": ["customer-b0010537-complete-r6/shape-gap/a43661b67c81a023"]
+  },
+  {
+    "type": "RedisCacheManager$Builder",
+    "shape": "customer-b0010537-complete-r6/shape/e663283106efd09c",
+    "fields": 0,
+    "gaps": ["customer-b0010537-complete-r6/shape-gap/e663283106efd09c"]
+  },
+  {
+    "type": "RedisCacheManager",
+    "shape": "customer-b0010537-complete-r6/shape/4c20b37811b774cc",
+    "fields": 0,
+    "gaps": ["customer-b0010537-complete-r6/shape-gap/4c20b37811b774cc"]
+  },
+  {
+    "type": "CacheErrorHandler",
+    "shape": "customer-b0010537-complete-r6/shape/836ff299ff21fe66",
+    "fields": 0,
+    "gaps": ["customer-b0010537-complete-r6/shape-gap/836ff299ff21fe66"]
+  },
+  {
+    "type": "NoOpCache",
+    "shape": "customer-b0010537-complete-r6/shape/179035c0fa7cf156",
+    "fields": 0,
+    "gaps": ["customer-b0010537-complete-r6/shape-gap/179035c0fa7cf156"]
+  },
+  {
+    "type": "Collection<String>",
+    "shape": "customer-b0010537-complete-r6/shape/3316c866722c475a",
+    "fields": 0,
+    "gaps": []
+  },
+  {
+    "type": "ValueWrapper",
+    "shape": "customer-b0010537-complete-r6/shape/14eddbe58f45a9b5",
+    "fields": 0,
+    "gaps": ["customer-b0010537-complete-r6/shape-gap/14eddbe58f45a9b5"]
+  },
+  {
+    "type": "IllegalStateException",
+    "shape": "customer-b0010537-complete-r6/shape/53c67e0fa33f180e",
+    "fields": 0,
+    "gaps": ["customer-b0010537-complete-r6/shape-gap/53c67e0fa33f180e"]
+  },
+  {
+    "type": "CustomerDuplicateException",
+    "shape": "customer-b0010537-complete-r6/shape/3ea83dbd31f8c29e",
+    "fields": 0,
+    "gaps": ["customer-b0010537-complete-r6/shape-gap/3ea83dbd31f8c29e"]
+  },
+  {
+    "type": "com.volvocars.ecom.paymentservice.psp.integration.customer.CustomerDto",
+    "shape": "customer-b0010537-complete-r6/shape/569cf928581db208",
+    "fields": 0,
+    "gaps": ["customer-b0010537-complete-r6/shape-gap/569cf928581db208"]
+  },
+  {
+    "type": "PspRelation$Builder",
+    "shape": "customer-b0010537-complete-r6/shape/1362be18a5906769",
+    "fields": 0,
+    "gaps": ["customer-b0010537-complete-r6/shape-gap/1362be18a5906769"]
+  },
+  {
+    "type": "Optional<Customer>",
+    "shape": "customer-b0010537-complete-r6/shape/cf17e480e4ec9268",
+    "fields": 0,
+    "gaps": ["customer-b0010537-complete-r6/shape-gap/cf17e480e4ec9268"]
+  },
+  {
+    "type": "CustomerUpdatePayload$Builder",
+    "shape": "customer-b0010537-complete-r6/shape/c6b6c6434db9707e",
+    "fields": 0,
+    "gaps": ["customer-b0010537-complete-r6/shape-gap/c6b6c6434db9707e"]
+  },
+  {
+    "type": "CustomerDetails",
+    "shape": "customer-b0010537-complete-r6/shape/cf5437dac263f805",
+    "fields": 0,
+    "gaps": ["customer-b0010537-complete-r6/shape-gap/cf5437dac263f805"]
+  },
+  {
+    "type": "CustomerPayload$Builder",
+    "shape": "customer-b0010537-complete-r6/shape/b79cac576f80c4b0",
+    "fields": 0,
+    "gaps": ["customer-b0010537-complete-r6/shape-gap/b79cac576f80c4b0"]
+  },
+  {
+    "type": "CustomerPayload",
+    "shape": "customer-b0010537-complete-r6/shape/2a8373eec1c3c052",
+    "fields": 0,
+    "gaps": ["customer-b0010537-complete-r6/shape-gap/2a8373eec1c3c052"]
+  },
+  {
+    "type": "CustomerDetails$Builder",
+    "shape": "customer-b0010537-complete-r6/shape/182a055e1a4ac268",
+    "fields": 0,
+    "gaps": ["customer-b0010537-complete-r6/shape-gap/182a055e1a4ac268"]
+  },
+  {
+    "type": "CreateCustomerResult",
+    "shape": "customer-b0010537-complete-r6/shape/7297f84287bc1d0a",
+    "fields": 0,
+    "gaps": ["customer-b0010537-complete-r6/shape-gap/7297f84287bc1d0a"]
+  },
+  {
+    "type": "Customer$Builder",
+    "shape": "customer-b0010537-complete-r6/shape/08084c6e381a8b71",
+    "fields": 0,
+    "gaps": ["customer-b0010537-complete-r6/shape-gap/08084c6e381a8b71"]
+  },
+  {
+    "type": "CustomerEntity$Builder",
+    "shape": "customer-b0010537-complete-r6/shape/8c2c4638f5215bd7",
+    "fields": 0,
+    "gaps": ["customer-b0010537-complete-r6/shape-gap/8c2c4638f5215bd7"]
+  },
+  {
+    "type": "Optional<CustomerEntity>",
+    "shape": "customer-b0010537-complete-r6/shape/6b8a97621ebcbb28",
+    "fields": 0,
+    "gaps": ["customer-b0010537-complete-r6/shape-gap/6b8a97621ebcbb28"]
+  },
+  {
+    "type": "ApiProperties$Builder",
+    "shape": "customer-b0010537-complete-r6/shape/4d62d80628cbc6fd",
+    "fields": 0,
+    "gaps": ["customer-b0010537-complete-r6/shape-gap/4d62d80628cbc6fd"]
+  },
+  {
+    "type": "CustomerPspRelationEntity$Builder",
+    "shape": "customer-b0010537-complete-r6/shape/c414d41f540090d6",
+    "fields": 0,
+    "gaps": ["customer-b0010537-complete-r6/shape-gap/c414d41f540090d6"]
+  },
+  {
+    "type": "Optional<PaymentInstrumentEntity>",
+    "shape": "customer-b0010537-complete-r6/shape/eb64fa1c088328e2",
+    "fields": 0,
+    "gaps": ["customer-b0010537-complete-r6/shape-gap/eb64fa1c088328e2"]
+  },
+  {
+    "type": "Optional<RecurringCharge>",
+    "shape": "customer-b0010537-complete-r6/shape/931348b1903eb3fc",
+    "fields": 0,
+    "gaps": ["customer-b0010537-complete-r6/shape-gap/931348b1903eb3fc"]
+  },
+  {
+    "type": "RecurringChargeDto$Builder",
+    "shape": "customer-b0010537-complete-r6/shape/9d3378c869a96330",
+    "fields": 0,
+    "gaps": ["customer-b0010537-complete-r6/shape-gap/9d3378c869a96330"]
+  },
+  {
+    "type": "RecurringChargeEntity$Builder",
+    "shape": "customer-b0010537-complete-r6/shape/c9e374210583df42",
+    "fields": 0,
+    "gaps": ["customer-b0010537-complete-r6/shape-gap/c9e374210583df42"]
+  },
+  {
+    "type": "RecurringCharge$Builder",
+    "shape": "customer-b0010537-complete-r6/shape/9e7c2503c50745cd",
+    "fields": 0,
+    "gaps": ["customer-b0010537-complete-r6/shape-gap/9e7c2503c50745cd"]
+  },
+  {
+    "type": "Optional<RecurringChargeEntity>",
+    "shape": "customer-b0010537-complete-r6/shape/4848d1b93047f8ca",
+    "fields": 0,
+    "gaps": ["customer-b0010537-complete-r6/shape-gap/4848d1b93047f8ca"]
+  },
+  {
+    "type": "Attribute$Builder",
+    "shape": "customer-b0010537-complete-r6/shape/a040d78cc6e81e21",
+    "fields": 0,
+    "gaps": ["customer-b0010537-complete-r6/shape-gap/a040d78cc6e81e21"]
+  },
+  {
+    "type": "Attribute",
+    "shape": "customer-b0010537-complete-r6/shape/1d289028b79437ae",
+    "fields": 0,
+    "gaps": ["customer-b0010537-complete-r6/shape-gap/1d289028b79437ae"]
+  },
+  {
+    "type": "CustomerNotFoundException",
+    "shape": "customer-b0010537-complete-r6/shape/feb93a9653f4ee5d",
+    "fields": 0,
+    "gaps": ["customer-b0010537-complete-r6/shape-gap/feb93a9653f4ee5d"]
+  },
+  {
+    "type": "PaymentInstrumentNotFoundException",
+    "shape": "customer-b0010537-complete-r6/shape/4a7bd66b280f1986",
+    "fields": 0,
+    "gaps": ["customer-b0010537-complete-r6/shape-gap/4a7bd66b280f1986"]
+  }
+]

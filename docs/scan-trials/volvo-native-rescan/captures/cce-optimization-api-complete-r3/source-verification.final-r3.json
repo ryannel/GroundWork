@@ -1,0 +1,16 @@
+{
+  "status": "passed",
+  "sourceVerification": "pinned_local_files with exact tuple reuse",
+  "selected": "bundle.final-r3.json",
+  "baseline": "bundle.final-r2.json",
+  "baselineNativeLog": "source-verification.final-r2.log",
+  "baselineNativeRanges": 11428,
+  "selectedEvidenceRecords": 11428,
+  "selectedUniqueTuples": 11428,
+  "reusedEvidenceRecords": 11428,
+  "newTuples": [],
+  "tupleFields": ["host", "repo", "commit", "path", "lines", "symbol"],
+  "qualification": "R2 native source gate passed all11428 nonempty pinned source ranges. R3 changes source projection and fact namespace; every selected evidence tuple is identical to a successfully verified r2 tuple. No empty file is cited as line1.",
+  "baselineBundleSha256": "dffb631fb0fc10c39632afc6a9157b66103cd30280bc44a2b861027d927b736f",
+  "selectedBundleSha256": "3a4363fe8f594e017ad660a61c6dc2d7f6233cb254cec487f85ca83f8c5a4b6b"
+}

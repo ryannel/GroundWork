@@ -1,0 +1,37 @@
+{
+  "status": "passed",
+  "scope": "After in-process boundaries/resource locality and chunked/cached source-verifier changes; source captures are separate from unchanged production workspace loader",
+  "checks": {
+    "lint:changed": "passed",
+    "npm run check": {
+      "status": "passed",
+      "testFiles": 265,
+      "tests": 2384,
+      "typeCoveragePercent": 100
+    },
+    "npm run build": {
+      "status": "passed",
+      "staticPages": 391
+    },
+    "skillValidation": "groundwork-explore,groundwork-scan,groundwork-schema passed"
+  },
+  "sourceFiles": [
+    {
+      "path": "schema/knowledge.schema.json",
+      "sha256": "31669957d03378ad95b54b697718bb2a744ec6d094221c2ee3b98561dcf22aa5"
+    },
+    {
+      "path": "tools/knowledge-source-check.ts",
+      "sha256": "9bcb37fd9a096d69f16afa767d2c53772565353bc18a72b5e5c2e76230d952f7"
+    },
+    {
+      "path": "tools/knowledge-validation.ts",
+      "sha256": "0d285cad6c109bd7e2ee96c73fda48925731f758d24f996d2784a07d9ba694f3"
+    },
+    {
+      "path": "tools/knowledge-validation.test.ts",
+      "sha256": "073e502bcd0571744c06398662e79ad43bddf27450cc5997ec784fad4f48200c"
+    }
+  ],
+  "qualification": "Local application checks and source range checks do not prove runtime deployment, complete semantic coverage or a reconciled combined selection"
+}

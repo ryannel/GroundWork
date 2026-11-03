@@ -1,0 +1,74 @@
+{
+  "format": "independent-service-explorer-audit/v1",
+  "decision": "passed_for_selected_two_service_projection",
+  "manifest": {
+    "path": "reports/service-explorer-readiness-001/ui/manifest.json",
+    "sha256": "6db461e2a52e4f0e156eec2f7dd848fe9bb9ceca04b55d79b448330470e15d5d",
+    "bytes": 239618,
+    "snapshot": "7850dc4be6c22265376baca5640b9d3306d7f43b622236e5229b017bb82e5192"
+  },
+  "producerReceipt": {
+    "path": "reports/service-explorer-readiness-001/ui-validation.json",
+    "sha256": "4801ba7271c94e28f3852e579cc0a95650ab5f794fd4ccc140c26a5d9ca60b51",
+    "ruleDigest": "4588b092f7c1ebdf6cf0fbaa09eb21432b858331b4309986508f3055f36d9a6c"
+  },
+  "checks": {
+    "allArtifactBytesAndHashes": true,
+    "allSnapshots": true,
+    "allSourceReferences": true,
+    "allTargetsExist": true,
+    "allSourcesCommitPinned": true,
+    "allPerPageBounds": true,
+    "noCandidateControlEdges": true,
+    "standaloneDeclaredSchemaIndex": true,
+    "nestedSpringFieldNavigation": true,
+    "unqualifiedSpringTypesRemainDataCandidates": true,
+    "csharpLabelsUseHumanTypeNames": true
+  },
+  "counts": {
+    "pages": 1727,
+    "maxPageBytes": 63951,
+    "partialPages": 309,
+    "navigationTargets": 1276,
+    "sourceReferences": 10748,
+    "nodes": 7603,
+    "links": 5602,
+    "fields": 1320,
+    "kinds": {
+      "data": 1050,
+      "flow": 667,
+      "overview": 8,
+      "callers": 2
+    }
+  },
+  "sourceReview": {
+    "sharedUiAiPageContract": true,
+    "loaderChecksManifestBytesDigestAndSnapshot": true,
+    "typedNativeCallTargetsRequireUniqueFunctionTarget": true,
+    "callbackDeclarationNotAutomaticAsync": true,
+    "byteAndSourceBoundOmissionsVisible": true,
+    "callerBuiltAndProviderDeclaredSchemasSeparated": true,
+    "inferenceExplicitlyLabelled": true,
+    "earlierFindings": "Candidate branches and silent byte/source trimming were corrected before this final audit."
+  },
+  "qualifications": [
+    "Static artefact and source-code audit; browser rendering is covered by the producer/root visual inspection, not re-claimed here.",
+    "The two-service manifest is 239618 bytes under a 262144-byte bound; this is not proof of whole-108-repository UI capacity. Larger exports must remain bounded or partitioned.",
+    "Declared DTOs without a proven endpoint association stay independently discoverable with an explicit gap. No response contract is invented.",
+    "UI visibility, parser coverage and inferred actors do not promote the frozen 22 source-question statuses.",
+    "Source correspondences do not establish deployed versions, policy activation, delivery or durable effects."
+  ],
+  "nestedSchemaReview": {
+    "springCandidateTypeEdges": 311,
+    "qualifiedTypeEdges": 0,
+    "csharpOpaqueLabels": 0,
+    "actualFleetEnvelopeNavigation": {
+      "file": "page-bb73d8fd9061e2fb44462651.json",
+      "field": "data: FleetAccount",
+      "targetTitle": "com.volvocars.ecom.customerservice.fleet.FleetAccount",
+      "relation": "candidate type; qualification unresolved",
+      "sourceIds": ["source:0c15df0bfcd95fe0d5aa5f80", "source:a5dcce3be28dc8e1e2e1b6c8"]
+    },
+    "qualification": "Unqualified short-name type matches are retained as candidates, with source anchors and unresolved qualification. They are data/type links, never executable control or proven runtime/wire association."
+  }
+}

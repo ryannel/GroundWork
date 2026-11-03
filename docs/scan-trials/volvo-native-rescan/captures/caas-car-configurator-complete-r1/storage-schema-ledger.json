@@ -1,0 +1,1088 @@
+{
+  "declaredJsonShapes": [
+    {
+      "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/database/postgres::StoredCarRuleset",
+      "goShape": "caas-car-configurator-5495209-complete-r1/shape/639f4cd8739499b1",
+      "declaredJsonShape": "caas-car-configurator-5495209-complete-r1/shape/stored-json/639f4cd8739499b1",
+      "fields": [
+        {
+          "name": "car_details",
+          "type": "github.com/volvo-cars/caas-car-configurator/internal/database/postgres::StoredCarDetails",
+          "optional": false,
+          "nullable": false,
+          "shape": "caas-car-configurator-5495209-complete-r1/shape/stored-json/cddaaff2ab52c0c5"
+        },
+        {
+          "name": "ruleset",
+          "type": "github.com/volvo-cars/caas-car-configurator/internal/database/postgres::StoredConfigurationRuleset",
+          "optional": false,
+          "nullable": false,
+          "shape": "caas-car-configurator-5495209-complete-r1/shape/stored-json/642b15e991a65f76"
+        },
+        {
+          "name": "components2",
+          "type": "github.com/volvo-cars/caas-car-configurator/internal/database/postgres::ManyStoredComponents",
+          "optional": false,
+          "nullable": false,
+          "shape": "caas-car-configurator-5495209-complete-r1/shape/stored-json/007fe68865a72d8c"
+        },
+        {
+          "name": "package_components",
+          "type": "github.com/volvo-cars/caas-car-configurator/internal/database/postgres::ManyStoredPackageComponents",
+          "optional": false,
+          "nullable": false,
+          "shape": "caas-car-configurator-5495209-complete-r1/shape/stored-json/f0d36d2edcc77b78"
+        }
+      ]
+    },
+    {
+      "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/database/postgres::StoredCarDetails",
+      "goShape": "caas-car-configurator-5495209-complete-r1/shape/cddaaff2ab52c0c5",
+      "declaredJsonShape": "caas-car-configurator-5495209-complete-r1/shape/stored-json/cddaaff2ab52c0c5",
+      "fields": [
+        {
+          "name": "model_year",
+          "type": "int",
+          "optional": false,
+          "nullable": false,
+          "shape": "caas-car-configurator-5495209-complete-r1/shape/stored-json-scalar/cddaaff2ab52c0c5/0"
+        },
+        {
+          "name": "spec_market",
+          "type": "string",
+          "optional": false,
+          "nullable": false,
+          "shape": "caas-car-configurator-5495209-complete-r1/shape/stored-json-scalar/cddaaff2ab52c0c5/1"
+        },
+        {
+          "name": "car_type",
+          "type": "string",
+          "optional": false,
+          "nullable": false,
+          "shape": "caas-car-configurator-5495209-complete-r1/shape/stored-json-scalar/cddaaff2ab52c0c5/2"
+        },
+        {
+          "name": "engine",
+          "type": "string",
+          "optional": false,
+          "nullable": false,
+          "shape": "caas-car-configurator-5495209-complete-r1/shape/stored-json-scalar/cddaaff2ab52c0c5/3"
+        },
+        {
+          "name": "sales_version",
+          "type": "string",
+          "optional": false,
+          "nullable": false,
+          "shape": "caas-car-configurator-5495209-complete-r1/shape/stored-json-scalar/cddaaff2ab52c0c5/4"
+        },
+        {
+          "name": "body",
+          "type": "string",
+          "optional": false,
+          "nullable": false,
+          "shape": "caas-car-configurator-5495209-complete-r1/shape/stored-json-scalar/cddaaff2ab52c0c5/5"
+        },
+        {
+          "name": "gearbox",
+          "type": "string",
+          "optional": false,
+          "nullable": false,
+          "shape": "caas-car-configurator-5495209-complete-r1/shape/stored-json-scalar/cddaaff2ab52c0c5/6"
+        },
+        {
+          "name": "steering",
+          "type": "string",
+          "optional": false,
+          "nullable": false,
+          "shape": "caas-car-configurator-5495209-complete-r1/shape/stored-json-scalar/cddaaff2ab52c0c5/7"
+        },
+        {
+          "name": "marketing_code",
+          "type": "string",
+          "optional": false,
+          "nullable": false,
+          "shape": "caas-car-configurator-5495209-complete-r1/shape/stored-json-scalar/cddaaff2ab52c0c5/8"
+        },
+        {
+          "name": "local_edition_code",
+          "type": "*string",
+          "optional": true,
+          "nullable": true,
+          "shape": "caas-car-configurator-5495209-complete-r1/shape/stored-json-scalar/cddaaff2ab52c0c5/9"
+        }
+      ]
+    },
+    {
+      "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/database/postgres::StoredConfigurationRuleset",
+      "goShape": "caas-car-configurator-5495209-complete-r1/shape/642b15e991a65f76",
+      "declaredJsonShape": "caas-car-configurator-5495209-complete-r1/shape/stored-json/642b15e991a65f76",
+      "fields": [
+        {
+          "name": "polyhedron",
+          "type": "github.com/volvo-cars/caas-car-configurator/internal/database/postgres::StoredPolyhedron",
+          "optional": false,
+          "nullable": false,
+          "shape": "caas-car-configurator-5495209-complete-r1/shape/stored-json/d6b2197d14b28a8e"
+        },
+        {
+          "name": "selectable_variables",
+          "type": "[]string",
+          "optional": false,
+          "nullable": true,
+          "shape": "caas-car-configurator-5495209-complete-r1/shape/stored-json-array/642b15e991a65f76/1"
+        },
+        {
+          "name": "dependent_variables",
+          "type": "[]string",
+          "optional": false,
+          "nullable": true,
+          "shape": "caas-car-configurator-5495209-complete-r1/shape/stored-json-array/642b15e991a65f76/2"
+        },
+        {
+          "name": "independent_variables",
+          "type": "[]string",
+          "optional": false,
+          "nullable": true,
+          "shape": "caas-car-configurator-5495209-complete-r1/shape/stored-json-array/642b15e991a65f76/3"
+        },
+        {
+          "name": "preferred_variables",
+          "type": "[]string",
+          "optional": false,
+          "nullable": true,
+          "shape": "caas-car-configurator-5495209-complete-r1/shape/stored-json-array/642b15e991a65f76/4"
+        },
+        {
+          "name": "period_variables",
+          "type": "github.com/volvo-cars/caas-car-configurator/internal/database/postgres::StoredTimeBoundVariables",
+          "optional": false,
+          "nullable": false,
+          "shape": "caas-car-configurator-5495209-complete-r1/shape/stored-json/a54c3d4afcaaad76"
+        }
+      ]
+    },
+    {
+      "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/database/postgres::StoredPolyhedron",
+      "goShape": "caas-car-configurator-5495209-complete-r1/shape/d6b2197d14b28a8e",
+      "declaredJsonShape": "caas-car-configurator-5495209-complete-r1/shape/stored-json/d6b2197d14b28a8e",
+      "fields": [
+        {
+          "name": "a_matrix",
+          "type": "[][]int",
+          "optional": false,
+          "nullable": true,
+          "shape": "caas-car-configurator-5495209-complete-r1/shape/stored-json-array/d6b2197d14b28a8e/0"
+        },
+        {
+          "name": "b_vector",
+          "type": "[]int",
+          "optional": false,
+          "nullable": true,
+          "shape": "caas-car-configurator-5495209-complete-r1/shape/stored-json-array/d6b2197d14b28a8e/1"
+        }
+      ]
+    },
+    {
+      "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/database/postgres::StoredTimeBoundVariables",
+      "goShape": "caas-car-configurator-5495209-complete-r1/shape/a54c3d4afcaaad76",
+      "declaredJsonShape": "caas-car-configurator-5495209-complete-r1/shape/stored-json/a54c3d4afcaaad76",
+      "fields": []
+    },
+    {
+      "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/database/postgres::StoredTimeBoundVariable",
+      "goShape": "caas-car-configurator-5495209-complete-r1/shape/f9ef18ecf0ab62a5",
+      "declaredJsonShape": "caas-car-configurator-5495209-complete-r1/shape/stored-json/f9ef18ecf0ab62a5",
+      "fields": [
+        {
+          "name": "variable",
+          "type": "string",
+          "optional": false,
+          "nullable": false,
+          "shape": "caas-car-configurator-5495209-complete-r1/shape/stored-json-scalar/f9ef18ecf0ab62a5/0"
+        },
+        {
+          "name": "period",
+          "type": "github.com/volvo-cars/caas-car-configurator/internal/database/postgres::StoredPeriod",
+          "optional": false,
+          "nullable": false,
+          "shape": "caas-car-configurator-5495209-complete-r1/shape/stored-json/eb2efea81b6311f9"
+        }
+      ]
+    },
+    {
+      "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/database/postgres::StoredPeriod",
+      "goShape": "caas-car-configurator-5495209-complete-r1/shape/eb2efea81b6311f9",
+      "declaredJsonShape": "caas-car-configurator-5495209-complete-r1/shape/stored-json/eb2efea81b6311f9",
+      "fields": [
+        {
+          "name": "from",
+          "type": "time::Time",
+          "optional": false,
+          "nullable": false,
+          "shape": "caas-car-configurator-5495209-complete-r1/shape/stored-json-external/eb2efea81b6311f9/0"
+        },
+        {
+          "name": "to",
+          "type": "time::Time",
+          "optional": false,
+          "nullable": false,
+          "shape": "caas-car-configurator-5495209-complete-r1/shape/stored-json-external/eb2efea81b6311f9/1"
+        }
+      ]
+    },
+    {
+      "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/database/postgres::StoredComponents",
+      "goShape": "caas-car-configurator-5495209-complete-r1/shape/f3c768619caf3bf2",
+      "declaredJsonShape": "caas-car-configurator-5495209-complete-r1/shape/stored-json/f3c768619caf3bf2",
+      "fields": [
+        {
+          "name": "s_message_codes",
+          "type": "[]string",
+          "optional": false,
+          "nullable": true,
+          "shape": "caas-car-configurator-5495209-complete-r1/shape/stored-json-array/f3c768619caf3bf2/0"
+        },
+        {
+          "name": "color_codes",
+          "type": "[]string",
+          "optional": false,
+          "nullable": true,
+          "shape": "caas-car-configurator-5495209-complete-r1/shape/stored-json-array/f3c768619caf3bf2/1"
+        },
+        {
+          "name": "upholstery_codes",
+          "type": "[]string",
+          "optional": false,
+          "nullable": true,
+          "shape": "caas-car-configurator-5495209-complete-r1/shape/stored-json-array/f3c768619caf3bf2/2"
+        },
+        {
+          "name": "wheel_codes",
+          "type": "[]string",
+          "optional": false,
+          "nullable": true,
+          "shape": "caas-car-configurator-5495209-complete-r1/shape/stored-json-array/f3c768619caf3bf2/3"
+        },
+        {
+          "name": "option_codes",
+          "type": "[]string",
+          "optional": false,
+          "nullable": true,
+          "shape": "caas-car-configurator-5495209-complete-r1/shape/stored-json-array/f3c768619caf3bf2/4"
+        },
+        {
+          "name": "package_codes",
+          "type": "[]string",
+          "optional": false,
+          "nullable": true,
+          "shape": "caas-car-configurator-5495209-complete-r1/shape/stored-json-array/f3c768619caf3bf2/5"
+        }
+      ]
+    },
+    {
+      "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/database/postgres::StoredComponent",
+      "goShape": "caas-car-configurator-5495209-complete-r1/shape/5cdadea979be8ea3",
+      "declaredJsonShape": "caas-car-configurator-5495209-complete-r1/shape/stored-json/5cdadea979be8ea3",
+      "fields": [
+        {
+          "name": "code",
+          "type": "string",
+          "optional": false,
+          "nullable": false,
+          "shape": "caas-car-configurator-5495209-complete-r1/shape/stored-json-scalar/5cdadea979be8ea3/0"
+        },
+        {
+          "name": "type",
+          "type": "string",
+          "optional": false,
+          "nullable": false,
+          "shape": "caas-car-configurator-5495209-complete-r1/shape/stored-json-scalar/5cdadea979be8ea3/1"
+        }
+      ]
+    },
+    {
+      "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/database/postgres::ManyStoredComponents",
+      "goShape": "caas-car-configurator-5495209-complete-r1/shape/007fe68865a72d8c",
+      "declaredJsonShape": "caas-car-configurator-5495209-complete-r1/shape/stored-json/007fe68865a72d8c",
+      "fields": []
+    },
+    {
+      "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/database/postgres::StoredPackageComponent",
+      "goShape": "caas-car-configurator-5495209-complete-r1/shape/af138a2e914ed31a",
+      "declaredJsonShape": "caas-car-configurator-5495209-complete-r1/shape/stored-json/af138a2e914ed31a",
+      "fields": [
+        {
+          "name": "code",
+          "type": "string",
+          "optional": false,
+          "nullable": false,
+          "shape": "caas-car-configurator-5495209-complete-r1/shape/stored-json-scalar/af138a2e914ed31a/0"
+        },
+        {
+          "name": "variants",
+          "type": "[]github.com/volvo-cars/caas-car-configurator/internal/database/postgres::ManyStoredComponents",
+          "optional": false,
+          "nullable": true,
+          "shape": "caas-car-configurator-5495209-complete-r1/shape/stored-json-array/af138a2e914ed31a/1"
+        }
+      ]
+    },
+    {
+      "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/database/postgres::ManyStoredPackageComponents",
+      "goShape": "caas-car-configurator-5495209-complete-r1/shape/f0d36d2edcc77b78",
+      "declaredJsonShape": "caas-car-configurator-5495209-complete-r1/shape/stored-json/f0d36d2edcc77b78",
+      "fields": []
+    },
+    {
+      "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/database/postgres::StoredCarSpecification",
+      "goShape": "caas-car-configurator-5495209-complete-r1/shape/096064a1413e0a11",
+      "declaredJsonShape": "caas-car-configurator-5495209-complete-r1/shape/stored-json/096064a1413e0a11",
+      "fields": [
+        {
+          "name": "car_details",
+          "type": "github.com/volvo-cars/caas-car-configurator/internal/database/postgres::StoredCarDetails",
+          "optional": false,
+          "nullable": false,
+          "shape": "caas-car-configurator-5495209-complete-r1/shape/stored-json/cddaaff2ab52c0c5"
+        },
+        {
+          "name": "period",
+          "type": "github.com/volvo-cars/caas-car-configurator/internal/database/postgres::StoredStructureWeekPeriod",
+          "optional": false,
+          "nullable": false,
+          "shape": "caas-car-configurator-5495209-complete-r1/shape/stored-json/da3790e89a97a8df"
+        },
+        {
+          "name": "forbidden_periods",
+          "type": "github.com/volvo-cars/caas-car-configurator/internal/database/postgres::ManyStoredStructureWeekPeriods",
+          "optional": false,
+          "nullable": false,
+          "shape": "caas-car-configurator-5495209-complete-r1/shape/stored-json/fecb1f79408868aa"
+        },
+        {
+          "name": "s_messages",
+          "type": "github.com/volvo-cars/caas-car-configurator/internal/database/postgres::StoredSMessageSpecification",
+          "optional": false,
+          "nullable": false,
+          "shape": "caas-car-configurator-5495209-complete-r1/shape/stored-json/cf93b15ad55da955"
+        },
+        {
+          "name": "styling",
+          "type": "github.com/volvo-cars/caas-car-configurator/internal/database/postgres::StoredStylingSpecification",
+          "optional": false,
+          "nullable": false,
+          "shape": "caas-car-configurator-5495209-complete-r1/shape/stored-json/0f28e4a1b9b82326"
+        },
+        {
+          "name": "options",
+          "type": "github.com/volvo-cars/caas-car-configurator/internal/database/postgres::StoredOptionSpecification",
+          "optional": false,
+          "nullable": false,
+          "shape": "caas-car-configurator-5495209-complete-r1/shape/stored-json/4629345f7a20a613"
+        },
+        {
+          "name": "packages",
+          "type": "github.com/volvo-cars/caas-car-configurator/internal/database/postgres::StoredPackageSpecification",
+          "optional": false,
+          "nullable": false,
+          "shape": "caas-car-configurator-5495209-complete-r1/shape/stored-json/3091c77a67631482"
+        },
+        {
+          "name": "wheels",
+          "type": "github.com/volvo-cars/caas-car-configurator/internal/database/postgres::StoredWheelSpecification",
+          "optional": false,
+          "nullable": false,
+          "shape": "caas-car-configurator-5495209-complete-r1/shape/stored-json/8bb05c5f5ed54506"
+        }
+      ]
+    },
+    {
+      "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/database/postgres::StoredSMessageSpecification",
+      "goShape": "caas-car-configurator-5495209-complete-r1/shape/cf93b15ad55da955",
+      "declaredJsonShape": "caas-car-configurator-5495209-complete-r1/shape/stored-json/cf93b15ad55da955",
+      "fields": [
+        {
+          "name": "s_messages",
+          "type": "[]github.com/volvo-cars/caas-car-configurator/internal/database/postgres::StoredSMessage",
+          "optional": false,
+          "nullable": true,
+          "shape": "caas-car-configurator-5495209-complete-r1/shape/stored-json-array/cf93b15ad55da955/0"
+        }
+      ]
+    },
+    {
+      "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/database/postgres::StoredSMessage",
+      "goShape": "caas-car-configurator-5495209-complete-r1/shape/41a519724cbf90f9",
+      "declaredJsonShape": "caas-car-configurator-5495209-complete-r1/shape/stored-json/41a519724cbf90f9",
+      "fields": [
+        {
+          "name": "code",
+          "type": "string",
+          "optional": false,
+          "nullable": false,
+          "shape": "caas-car-configurator-5495209-complete-r1/shape/stored-json-scalar/41a519724cbf90f9/0"
+        },
+        {
+          "name": "period",
+          "type": "github.com/volvo-cars/caas-car-configurator/internal/database/postgres::StoredStructureWeekPeriod",
+          "optional": false,
+          "nullable": false,
+          "shape": "caas-car-configurator-5495209-complete-r1/shape/stored-json/da3790e89a97a8df"
+        }
+      ]
+    },
+    {
+      "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/database/postgres::StoredStylingSpecification",
+      "goShape": "caas-car-configurator-5495209-complete-r1/shape/0f28e4a1b9b82326",
+      "declaredJsonShape": "caas-car-configurator-5495209-complete-r1/shape/stored-json/0f28e4a1b9b82326",
+      "fields": [
+        {
+          "name": "colors",
+          "type": "github.com/volvo-cars/caas-car-configurator/internal/database/postgres::ManyStoredColors",
+          "optional": false,
+          "nullable": false,
+          "shape": "caas-car-configurator-5495209-complete-r1/shape/stored-json/e82eadb52265f7c3"
+        },
+        {
+          "name": "upholsteries",
+          "type": "github.com/volvo-cars/caas-car-configurator/internal/database/postgres::ManyStoredUpholsteries",
+          "optional": false,
+          "nullable": false,
+          "shape": "caas-car-configurator-5495209-complete-r1/shape/stored-json/8756df2801cdde24"
+        },
+        {
+          "name": "default_colors",
+          "type": "github.com/volvo-cars/caas-car-configurator/internal/database/postgres::ManyStoredTimeBoundCodes",
+          "optional": false,
+          "nullable": false,
+          "shape": "caas-car-configurator-5495209-complete-r1/shape/stored-json/6cb83c83dda4b874"
+        },
+        {
+          "name": "default_upholsteries",
+          "type": "github.com/volvo-cars/caas-car-configurator/internal/database/postgres::ManyStoredTimeBoundCodes",
+          "optional": false,
+          "nullable": false,
+          "shape": "caas-car-configurator-5495209-complete-r1/shape/stored-json/6cb83c83dda4b874"
+        }
+      ]
+    },
+    {
+      "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/database/postgres::ManyStoredColors",
+      "goShape": "caas-car-configurator-5495209-complete-r1/shape/e82eadb52265f7c3",
+      "declaredJsonShape": "caas-car-configurator-5495209-complete-r1/shape/stored-json/e82eadb52265f7c3",
+      "fields": []
+    },
+    {
+      "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/database/postgres::StoredColor",
+      "goShape": "caas-car-configurator-5495209-complete-r1/shape/b9ed693dae6a7138",
+      "declaredJsonShape": "caas-car-configurator-5495209-complete-r1/shape/stored-json/b9ed693dae6a7138",
+      "fields": [
+        {
+          "name": "code",
+          "type": "string",
+          "optional": false,
+          "nullable": false,
+          "shape": "caas-car-configurator-5495209-complete-r1/shape/stored-json-scalar/b9ed693dae6a7138/0"
+        },
+        {
+          "name": "required_options",
+          "type": "github.com/volvo-cars/caas-car-configurator/internal/database/postgres::ManyStoredTimeBoundAtLeastOne",
+          "optional": false,
+          "nullable": false,
+          "shape": "caas-car-configurator-5495209-complete-r1/shape/stored-json/b19ddb6ec3377e13"
+        },
+        {
+          "name": "required_wheels",
+          "type": "github.com/volvo-cars/caas-car-configurator/internal/database/postgres::ManyStoredTimeBoundExactlyOne",
+          "optional": false,
+          "nullable": false,
+          "shape": "caas-car-configurator-5495209-complete-r1/shape/stored-json/e368b24250d9c4c2"
+        },
+        {
+          "name": "forbids_options",
+          "type": "github.com/volvo-cars/caas-car-configurator/internal/database/postgres::ManyStoredForbids",
+          "optional": false,
+          "nullable": false,
+          "shape": "caas-car-configurator-5495209-complete-r1/shape/stored-json/f2dd7498aad9b898"
+        },
+        {
+          "name": "forbids_wheels",
+          "type": "github.com/volvo-cars/caas-car-configurator/internal/database/postgres::ManyStoredForbids",
+          "optional": false,
+          "nullable": false,
+          "shape": "caas-car-configurator-5495209-complete-r1/shape/stored-json/f2dd7498aad9b898"
+        },
+        {
+          "name": "forbids_upholsteries",
+          "type": "github.com/volvo-cars/caas-car-configurator/internal/database/postgres::ManyStoredForbids",
+          "optional": false,
+          "nullable": false,
+          "shape": "caas-car-configurator-5495209-complete-r1/shape/stored-json/f2dd7498aad9b898"
+        },
+        {
+          "name": "period",
+          "type": "github.com/volvo-cars/caas-car-configurator/internal/database/postgres::StoredStructureWeekPeriod",
+          "optional": false,
+          "nullable": false,
+          "shape": "caas-car-configurator-5495209-complete-r1/shape/stored-json/da3790e89a97a8df"
+        }
+      ]
+    },
+    {
+      "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/database/postgres::ManyStoredUpholsteries",
+      "goShape": "caas-car-configurator-5495209-complete-r1/shape/8756df2801cdde24",
+      "declaredJsonShape": "caas-car-configurator-5495209-complete-r1/shape/stored-json/8756df2801cdde24",
+      "fields": []
+    },
+    {
+      "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/database/postgres::StoredUpholstery",
+      "goShape": "caas-car-configurator-5495209-complete-r1/shape/1174244f7d50eb50",
+      "declaredJsonShape": "caas-car-configurator-5495209-complete-r1/shape/stored-json/1174244f7d50eb50",
+      "fields": [
+        {
+          "name": "code",
+          "type": "string",
+          "optional": false,
+          "nullable": false,
+          "shape": "caas-car-configurator-5495209-complete-r1/shape/stored-json-scalar/1174244f7d50eb50/0"
+        },
+        {
+          "name": "required_options",
+          "type": "github.com/volvo-cars/caas-car-configurator/internal/database/postgres::ManyStoredTimeBoundAtLeastOne",
+          "optional": false,
+          "nullable": false,
+          "shape": "caas-car-configurator-5495209-complete-r1/shape/stored-json/b19ddb6ec3377e13"
+        },
+        {
+          "name": "forbids_options",
+          "type": "github.com/volvo-cars/caas-car-configurator/internal/database/postgres::ManyStoredForbids",
+          "optional": false,
+          "nullable": false,
+          "shape": "caas-car-configurator-5495209-complete-r1/shape/stored-json/f2dd7498aad9b898"
+        },
+        {
+          "name": "forbids_colors",
+          "type": "github.com/volvo-cars/caas-car-configurator/internal/database/postgres::ManyStoredForbids",
+          "optional": false,
+          "nullable": false,
+          "shape": "caas-car-configurator-5495209-complete-r1/shape/stored-json/f2dd7498aad9b898"
+        },
+        {
+          "name": "forbids_wheels",
+          "type": "github.com/volvo-cars/caas-car-configurator/internal/database/postgres::ManyStoredForbids",
+          "optional": false,
+          "nullable": false,
+          "shape": "caas-car-configurator-5495209-complete-r1/shape/stored-json/f2dd7498aad9b898"
+        },
+        {
+          "name": "period",
+          "type": "github.com/volvo-cars/caas-car-configurator/internal/database/postgres::StoredStructureWeekPeriod",
+          "optional": false,
+          "nullable": false,
+          "shape": "caas-car-configurator-5495209-complete-r1/shape/stored-json/da3790e89a97a8df"
+        }
+      ]
+    },
+    {
+      "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/database/postgres::ManyStoredTimeBoundCodes",
+      "goShape": "caas-car-configurator-5495209-complete-r1/shape/6cb83c83dda4b874",
+      "declaredJsonShape": "caas-car-configurator-5495209-complete-r1/shape/stored-json/6cb83c83dda4b874",
+      "fields": []
+    },
+    {
+      "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/database/postgres::StoredTimeBoundCode",
+      "goShape": "caas-car-configurator-5495209-complete-r1/shape/cfa737444db81646",
+      "declaredJsonShape": "caas-car-configurator-5495209-complete-r1/shape/stored-json/cfa737444db81646",
+      "fields": [
+        {
+          "name": "code",
+          "type": "string",
+          "optional": false,
+          "nullable": false,
+          "shape": "caas-car-configurator-5495209-complete-r1/shape/stored-json-scalar/cfa737444db81646/0"
+        },
+        {
+          "name": "period",
+          "type": "github.com/volvo-cars/caas-car-configurator/internal/database/postgres::StoredStructureWeekPeriod",
+          "optional": false,
+          "nullable": false,
+          "shape": "caas-car-configurator-5495209-complete-r1/shape/stored-json/da3790e89a97a8df"
+        }
+      ]
+    },
+    {
+      "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/database/postgres::StoredOptionSpecification",
+      "goShape": "caas-car-configurator-5495209-complete-r1/shape/4629345f7a20a613",
+      "declaredJsonShape": "caas-car-configurator-5495209-complete-r1/shape/stored-json/4629345f7a20a613",
+      "fields": [
+        {
+          "name": "options",
+          "type": "[]github.com/volvo-cars/caas-car-configurator/internal/database/postgres::StoredOption",
+          "optional": false,
+          "nullable": true,
+          "shape": "caas-car-configurator-5495209-complete-r1/shape/stored-json-array/4629345f7a20a613/0"
+        },
+        {
+          "name": "package_only_option_codes",
+          "type": "[]string",
+          "optional": false,
+          "nullable": true,
+          "shape": "caas-car-configurator-5495209-complete-r1/shape/stored-json-array/4629345f7a20a613/1"
+        },
+        {
+          "name": "included_options",
+          "type": "github.com/volvo-cars/caas-car-configurator/internal/database/postgres::ManyStoredTimeBoundExactlyOne",
+          "optional": false,
+          "nullable": false,
+          "shape": "caas-car-configurator-5495209-complete-r1/shape/stored-json/e368b24250d9c4c2"
+        },
+        {
+          "name": "combined_requirements",
+          "type": "github.com/volvo-cars/caas-car-configurator/internal/database/postgres::ManyStoredCombinedOptionRequirements",
+          "optional": false,
+          "nullable": false,
+          "shape": "caas-car-configurator-5495209-complete-r1/shape/stored-json/37a5ff585d8cf623"
+        }
+      ]
+    },
+    {
+      "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/database/postgres::StoredOption",
+      "goShape": "caas-car-configurator-5495209-complete-r1/shape/789d984bbadb6a63",
+      "declaredJsonShape": "caas-car-configurator-5495209-complete-r1/shape/stored-json/789d984bbadb6a63",
+      "fields": [
+        {
+          "name": "code",
+          "type": "string",
+          "optional": false,
+          "nullable": false,
+          "shape": "caas-car-configurator-5495209-complete-r1/shape/stored-json-scalar/789d984bbadb6a63/0"
+        },
+        {
+          "name": "required_colors",
+          "type": "github.com/volvo-cars/caas-car-configurator/internal/database/postgres::ManyStoredTimeBoundExactlyOne",
+          "optional": false,
+          "nullable": false,
+          "shape": "caas-car-configurator-5495209-complete-r1/shape/stored-json/e368b24250d9c4c2"
+        },
+        {
+          "name": "required_upholsteries",
+          "type": "github.com/volvo-cars/caas-car-configurator/internal/database/postgres::ManyStoredTimeBoundExactlyOne",
+          "optional": false,
+          "nullable": false,
+          "shape": "caas-car-configurator-5495209-complete-r1/shape/stored-json/e368b24250d9c4c2"
+        },
+        {
+          "name": "required_options",
+          "type": "github.com/volvo-cars/caas-car-configurator/internal/database/postgres::ManyStoredTimeBoundAtLeastOne",
+          "optional": false,
+          "nullable": false,
+          "shape": "caas-car-configurator-5495209-complete-r1/shape/stored-json/b19ddb6ec3377e13"
+        },
+        {
+          "name": "required_wheels",
+          "type": "github.com/volvo-cars/caas-car-configurator/internal/database/postgres::ManyStoredTimeBoundExactlyOne",
+          "optional": false,
+          "nullable": false,
+          "shape": "caas-car-configurator-5495209-complete-r1/shape/stored-json/e368b24250d9c4c2"
+        },
+        {
+          "name": "forbids_options",
+          "type": "github.com/volvo-cars/caas-car-configurator/internal/database/postgres::ManyStoredForbids",
+          "optional": false,
+          "nullable": false,
+          "shape": "caas-car-configurator-5495209-complete-r1/shape/stored-json/f2dd7498aad9b898"
+        },
+        {
+          "name": "forbids_colors",
+          "type": "github.com/volvo-cars/caas-car-configurator/internal/database/postgres::ManyStoredForbids",
+          "optional": false,
+          "nullable": false,
+          "shape": "caas-car-configurator-5495209-complete-r1/shape/stored-json/f2dd7498aad9b898"
+        },
+        {
+          "name": "forbids_wheels",
+          "type": "github.com/volvo-cars/caas-car-configurator/internal/database/postgres::ManyStoredForbids",
+          "optional": false,
+          "nullable": false,
+          "shape": "caas-car-configurator-5495209-complete-r1/shape/stored-json/f2dd7498aad9b898"
+        },
+        {
+          "name": "forbids_upholsteries",
+          "type": "github.com/volvo-cars/caas-car-configurator/internal/database/postgres::ManyStoredForbids",
+          "optional": false,
+          "nullable": false,
+          "shape": "caas-car-configurator-5495209-complete-r1/shape/stored-json/f2dd7498aad9b898"
+        },
+        {
+          "name": "period",
+          "type": "github.com/volvo-cars/caas-car-configurator/internal/database/postgres::StoredStructureWeekPeriod",
+          "optional": false,
+          "nullable": false,
+          "shape": "caas-car-configurator-5495209-complete-r1/shape/stored-json/da3790e89a97a8df"
+        }
+      ]
+    },
+    {
+      "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/database/postgres::StoredCombinedOptionRequirement",
+      "goShape": "caas-car-configurator-5495209-complete-r1/shape/6a38862c0cb88599",
+      "declaredJsonShape": "caas-car-configurator-5495209-complete-r1/shape/stored-json/6a38862c0cb88599",
+      "fields": [
+        {
+          "name": "requiring_codes",
+          "type": "[]string",
+          "optional": false,
+          "nullable": true,
+          "shape": "caas-car-configurator-5495209-complete-r1/shape/stored-json-array/6a38862c0cb88599/0"
+        },
+        {
+          "name": "required_code",
+          "type": "string",
+          "optional": false,
+          "nullable": false,
+          "shape": "caas-car-configurator-5495209-complete-r1/shape/stored-json-scalar/6a38862c0cb88599/1"
+        }
+      ]
+    },
+    {
+      "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/database/postgres::ManyStoredCombinedOptionRequirements",
+      "goShape": "caas-car-configurator-5495209-complete-r1/shape/37a5ff585d8cf623",
+      "declaredJsonShape": "caas-car-configurator-5495209-complete-r1/shape/stored-json/37a5ff585d8cf623",
+      "fields": []
+    },
+    {
+      "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/database/postgres::StoredPackageSpecification",
+      "goShape": "caas-car-configurator-5495209-complete-r1/shape/3091c77a67631482",
+      "declaredJsonShape": "caas-car-configurator-5495209-complete-r1/shape/stored-json/3091c77a67631482",
+      "fields": [
+        {
+          "name": "packages",
+          "type": "[]github.com/volvo-cars/caas-car-configurator/internal/database/postgres::StoredPackage",
+          "optional": false,
+          "nullable": true,
+          "shape": "caas-car-configurator-5495209-complete-r1/shape/stored-json-array/3091c77a67631482/0"
+        },
+        {
+          "name": "included_packages",
+          "type": "github.com/volvo-cars/caas-car-configurator/internal/database/postgres::ManyStoredTimeBoundExactlyOne",
+          "optional": false,
+          "nullable": false,
+          "shape": "caas-car-configurator-5495209-complete-r1/shape/stored-json/e368b24250d9c4c2"
+        }
+      ]
+    },
+    {
+      "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/database/postgres::StoredPackage",
+      "goShape": "caas-car-configurator-5495209-complete-r1/shape/743d997810eeed80",
+      "declaredJsonShape": "caas-car-configurator-5495209-complete-r1/shape/stored-json/743d997810eeed80",
+      "fields": [
+        {
+          "name": "code",
+          "type": "string",
+          "optional": false,
+          "nullable": false,
+          "shape": "caas-car-configurator-5495209-complete-r1/shape/stored-json-scalar/743d997810eeed80/0"
+        },
+        {
+          "name": "required_colors",
+          "type": "*github.com/volvo-cars/caas-car-configurator/internal/database/postgres::StoredPermanentExactlyOne",
+          "optional": false,
+          "nullable": true,
+          "shape": "caas-car-configurator-5495209-complete-r1/shape/stored-json/e5c178448999bf8e"
+        },
+        {
+          "name": "required_upholsteries",
+          "type": "*github.com/volvo-cars/caas-car-configurator/internal/database/postgres::StoredPermanentExactlyOne",
+          "optional": false,
+          "nullable": true,
+          "shape": "caas-car-configurator-5495209-complete-r1/shape/stored-json/e5c178448999bf8e"
+        },
+        {
+          "name": "required_wheels",
+          "type": "*github.com/volvo-cars/caas-car-configurator/internal/database/postgres::StoredPermanentExactlyOne",
+          "optional": false,
+          "nullable": true,
+          "shape": "caas-car-configurator-5495209-complete-r1/shape/stored-json/e5c178448999bf8e"
+        },
+        {
+          "name": "required_options",
+          "type": "github.com/volvo-cars/caas-car-configurator/internal/database/postgres::ManyStoredPermanentExactlyOne",
+          "optional": false,
+          "nullable": false,
+          "shape": "caas-car-configurator-5495209-complete-r1/shape/stored-json/21bb532565100496"
+        },
+        {
+          "name": "period",
+          "type": "github.com/volvo-cars/caas-car-configurator/internal/database/postgres::StoredStructureWeekPeriod",
+          "optional": false,
+          "nullable": false,
+          "shape": "caas-car-configurator-5495209-complete-r1/shape/stored-json/da3790e89a97a8df"
+        }
+      ]
+    },
+    {
+      "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/database/postgres::StoredWheelSpecification",
+      "goShape": "caas-car-configurator-5495209-complete-r1/shape/8bb05c5f5ed54506",
+      "declaredJsonShape": "caas-car-configurator-5495209-complete-r1/shape/stored-json/8bb05c5f5ed54506",
+      "fields": [
+        {
+          "name": "wheels",
+          "type": "[]github.com/volvo-cars/caas-car-configurator/internal/database/postgres::StoredWheel",
+          "optional": false,
+          "nullable": true,
+          "shape": "caas-car-configurator-5495209-complete-r1/shape/stored-json-array/8bb05c5f5ed54506/0"
+        },
+        {
+          "name": "standard_wheel",
+          "type": "*string",
+          "optional": true,
+          "nullable": true,
+          "shape": "caas-car-configurator-5495209-complete-r1/shape/stored-json-scalar/8bb05c5f5ed54506/1"
+        }
+      ]
+    },
+    {
+      "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/database/postgres::StoredWheel",
+      "goShape": "caas-car-configurator-5495209-complete-r1/shape/603b97c8a137be96",
+      "declaredJsonShape": "caas-car-configurator-5495209-complete-r1/shape/stored-json/603b97c8a137be96",
+      "fields": [
+        {
+          "name": "code",
+          "type": "string",
+          "optional": false,
+          "nullable": false,
+          "shape": "caas-car-configurator-5495209-complete-r1/shape/stored-json-scalar/603b97c8a137be96/0"
+        },
+        {
+          "name": "required_colors",
+          "type": "github.com/volvo-cars/caas-car-configurator/internal/database/postgres::ManyStoredTimeBoundExactlyOne",
+          "optional": false,
+          "nullable": false,
+          "shape": "caas-car-configurator-5495209-complete-r1/shape/stored-json/e368b24250d9c4c2"
+        },
+        {
+          "name": "required_options",
+          "type": "github.com/volvo-cars/caas-car-configurator/internal/database/postgres::ManyStoredTimeBoundAtLeastOne",
+          "optional": false,
+          "nullable": false,
+          "shape": "caas-car-configurator-5495209-complete-r1/shape/stored-json/b19ddb6ec3377e13"
+        },
+        {
+          "name": "required_upholsteries",
+          "type": "github.com/volvo-cars/caas-car-configurator/internal/database/postgres::ManyStoredTimeBoundExactlyOne",
+          "optional": false,
+          "nullable": false,
+          "shape": "caas-car-configurator-5495209-complete-r1/shape/stored-json/e368b24250d9c4c2"
+        },
+        {
+          "name": "forbids_options",
+          "type": "github.com/volvo-cars/caas-car-configurator/internal/database/postgres::ManyStoredForbids",
+          "optional": false,
+          "nullable": false,
+          "shape": "caas-car-configurator-5495209-complete-r1/shape/stored-json/f2dd7498aad9b898"
+        },
+        {
+          "name": "forbids_upholsteries",
+          "type": "github.com/volvo-cars/caas-car-configurator/internal/database/postgres::ManyStoredForbids",
+          "optional": false,
+          "nullable": false,
+          "shape": "caas-car-configurator-5495209-complete-r1/shape/stored-json/f2dd7498aad9b898"
+        },
+        {
+          "name": "period",
+          "type": "github.com/volvo-cars/caas-car-configurator/internal/database/postgres::StoredStructureWeekPeriod",
+          "optional": false,
+          "nullable": false,
+          "shape": "caas-car-configurator-5495209-complete-r1/shape/stored-json/da3790e89a97a8df"
+        }
+      ]
+    },
+    {
+      "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/database/postgres::ManyStoredTimeBoundAtLeastOne",
+      "goShape": "caas-car-configurator-5495209-complete-r1/shape/b19ddb6ec3377e13",
+      "declaredJsonShape": "caas-car-configurator-5495209-complete-r1/shape/stored-json/b19ddb6ec3377e13",
+      "fields": []
+    },
+    {
+      "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/database/postgres::StoredTimeBoundAtLeastOne",
+      "goShape": "caas-car-configurator-5495209-complete-r1/shape/26e8ed43ba352083",
+      "declaredJsonShape": "caas-car-configurator-5495209-complete-r1/shape/stored-json/26e8ed43ba352083",
+      "fields": [
+        {
+          "name": "codes",
+          "type": "[]string",
+          "optional": false,
+          "nullable": true,
+          "shape": "caas-car-configurator-5495209-complete-r1/shape/stored-json-array/26e8ed43ba352083/0"
+        },
+        {
+          "name": "default_code",
+          "type": "*string",
+          "optional": true,
+          "nullable": true,
+          "shape": "caas-car-configurator-5495209-complete-r1/shape/stored-json-scalar/26e8ed43ba352083/1"
+        },
+        {
+          "name": "period",
+          "type": "github.com/volvo-cars/caas-car-configurator/internal/database/postgres::StoredStructureWeekPeriod",
+          "optional": false,
+          "nullable": false,
+          "shape": "caas-car-configurator-5495209-complete-r1/shape/stored-json/da3790e89a97a8df"
+        }
+      ]
+    },
+    {
+      "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/database/postgres::ManyStoredTimeBoundExactlyOne",
+      "goShape": "caas-car-configurator-5495209-complete-r1/shape/e368b24250d9c4c2",
+      "declaredJsonShape": "caas-car-configurator-5495209-complete-r1/shape/stored-json/e368b24250d9c4c2",
+      "fields": []
+    },
+    {
+      "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/database/postgres::StoredTimeBoundExactlyOne",
+      "goShape": "caas-car-configurator-5495209-complete-r1/shape/83512bf5e6bd2ec0",
+      "declaredJsonShape": "caas-car-configurator-5495209-complete-r1/shape/stored-json/83512bf5e6bd2ec0",
+      "fields": [
+        {
+          "name": "codes",
+          "type": "[]string",
+          "optional": false,
+          "nullable": true,
+          "shape": "caas-car-configurator-5495209-complete-r1/shape/stored-json-array/83512bf5e6bd2ec0/0"
+        },
+        {
+          "name": "default_code",
+          "type": "*string",
+          "optional": true,
+          "nullable": true,
+          "shape": "caas-car-configurator-5495209-complete-r1/shape/stored-json-scalar/83512bf5e6bd2ec0/1"
+        },
+        {
+          "name": "period",
+          "type": "github.com/volvo-cars/caas-car-configurator/internal/database/postgres::StoredStructureWeekPeriod",
+          "optional": false,
+          "nullable": false,
+          "shape": "caas-car-configurator-5495209-complete-r1/shape/stored-json/da3790e89a97a8df"
+        }
+      ]
+    },
+    {
+      "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/database/postgres::ManyStoredForbids",
+      "goShape": "caas-car-configurator-5495209-complete-r1/shape/f2dd7498aad9b898",
+      "declaredJsonShape": "caas-car-configurator-5495209-complete-r1/shape/stored-json/f2dd7498aad9b898",
+      "fields": []
+    },
+    {
+      "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/database/postgres::StoredForbids",
+      "goShape": "caas-car-configurator-5495209-complete-r1/shape/880cb496bef5d213",
+      "declaredJsonShape": "caas-car-configurator-5495209-complete-r1/shape/stored-json/880cb496bef5d213",
+      "fields": [
+        {
+          "name": "code",
+          "type": "string",
+          "optional": false,
+          "nullable": false,
+          "shape": "caas-car-configurator-5495209-complete-r1/shape/stored-json-scalar/880cb496bef5d213/0"
+        },
+        {
+          "name": "period",
+          "type": "github.com/volvo-cars/caas-car-configurator/internal/database/postgres::StoredStructureWeekPeriod",
+          "optional": false,
+          "nullable": false,
+          "shape": "caas-car-configurator-5495209-complete-r1/shape/stored-json/da3790e89a97a8df"
+        }
+      ]
+    },
+    {
+      "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/database/postgres::ManyStoredPermanentExactlyOne",
+      "goShape": "caas-car-configurator-5495209-complete-r1/shape/21bb532565100496",
+      "declaredJsonShape": "caas-car-configurator-5495209-complete-r1/shape/stored-json/21bb532565100496",
+      "fields": []
+    },
+    {
+      "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/database/postgres::StoredPermanentExactlyOne",
+      "goShape": "caas-car-configurator-5495209-complete-r1/shape/e5c178448999bf8e",
+      "declaredJsonShape": "caas-car-configurator-5495209-complete-r1/shape/stored-json/e5c178448999bf8e",
+      "fields": [
+        {
+          "name": "codes",
+          "type": "[]string",
+          "optional": false,
+          "nullable": true,
+          "shape": "caas-car-configurator-5495209-complete-r1/shape/stored-json-array/e5c178448999bf8e/0"
+        },
+        {
+          "name": "default_code",
+          "type": "*string",
+          "optional": true,
+          "nullable": true,
+          "shape": "caas-car-configurator-5495209-complete-r1/shape/stored-json-scalar/e5c178448999bf8e/1"
+        }
+      ]
+    },
+    {
+      "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/database/postgres::StoredStructureWeekPeriod",
+      "goShape": "caas-car-configurator-5495209-complete-r1/shape/da3790e89a97a8df",
+      "declaredJsonShape": "caas-car-configurator-5495209-complete-r1/shape/stored-json/da3790e89a97a8df",
+      "fields": [
+        {
+          "name": "from",
+          "type": "github.com/volvo-cars/caas-car-configurator/internal/database/postgres::StoredStructureWeek",
+          "optional": false,
+          "nullable": false,
+          "shape": "caas-car-configurator-5495209-complete-r1/shape/stored-json/f4cdc865e45dbb41"
+        },
+        {
+          "name": "to",
+          "type": "github.com/volvo-cars/caas-car-configurator/internal/database/postgres::StoredStructureWeek",
+          "optional": false,
+          "nullable": false,
+          "shape": "caas-car-configurator-5495209-complete-r1/shape/stored-json/f4cdc865e45dbb41"
+        }
+      ]
+    },
+    {
+      "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/database/postgres::ManyStoredStructureWeekPeriods",
+      "goShape": "caas-car-configurator-5495209-complete-r1/shape/fecb1f79408868aa",
+      "declaredJsonShape": "caas-car-configurator-5495209-complete-r1/shape/stored-json/fecb1f79408868aa",
+      "fields": []
+    },
+    {
+      "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/database/postgres::StoredStructureWeek",
+      "goShape": "caas-car-configurator-5495209-complete-r1/shape/f4cdc865e45dbb41",
+      "declaredJsonShape": "caas-car-configurator-5495209-complete-r1/shape/stored-json/f4cdc865e45dbb41",
+      "fields": [
+        {
+          "name": "year",
+          "type": "int",
+          "optional": false,
+          "nullable": false,
+          "shape": "caas-car-configurator-5495209-complete-r1/shape/stored-json-scalar/f4cdc865e45dbb41/0"
+        },
+        {
+          "name": "week",
+          "type": "int",
+          "optional": false,
+          "nullable": false,
+          "shape": "caas-car-configurator-5495209-complete-r1/shape/stored-json-scalar/f4cdc865e45dbb41/1"
+        }
+      ]
+    }
+  ],
+  "ddl": [
+    {
+      "path": "internal/database/postgres/migrations/000001_create_car_rulesets_table.up.sql",
+      "claim": "caas-car-configurator-5495209-complete-r1/claim/ddl/6f18dd2d1f69e9ca",
+      "sql": "CREATE TABLE car_rulesets (\n    ID UUID PRIMARY KEY,\n    ruleset JSONB NOT NULL,\n    created_at TIMESTAMP NOT NULL DEFAULT NOW()\n);\n\nCREATE TABLE car_specifications (\n  ruleset_id UUID PRIMARY KEY REFERENCES car_rulesets(id) ON DELETE CASCADE,\n  specification JSONB NOT NULL\n);\n"
+    },
+    {
+      "path": "internal/database/postgres/migrations/000002_update_ruleset_compression.up.sql",
+      "claim": "caas-car-configurator-5495209-complete-r1/claim/ddl/c6b1da98efd48282",
+      "sql": "ALTER TABLE car_rulesets\n    ALTER COLUMN ruleset SET COMPRESSION lz4;\n"
+    },
+    {
+      "path": "internal/database/postgres/migrations/000003_ruleset_client_id.up.sql",
+      "claim": "caas-car-configurator-5495209-complete-r1/claim/ddl/4545dd0a5c99ce14",
+      "sql": "ALTER TABLE car_rulesets\n    ADD COLUMN IF NOT EXISTS client_id UUID NOT NULL DEFAULT '00000000-0000-0000-0000-000000000000';\n"
+    }
+  ],
+  "codecGap": "caas-car-configurator-5495209-complete-r1/gap/storage-codec"
+}

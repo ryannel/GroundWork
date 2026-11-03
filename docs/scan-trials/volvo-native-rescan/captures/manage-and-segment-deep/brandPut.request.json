@@ -1,0 +1,16 @@
+{
+  "format": "groundwork-query/v3",
+  "snapshot": "9958d25719399c959ece547e827c4b7f92f853a983c8b2669f34e08ca6f7f0cc",
+  "query": "trace",
+  "entry": "masdeep-b360506/entry/put-api-commercial-segments-brands-code",
+  "value": null,
+  "context": [],
+  "outcome": null,
+  "changed": [],
+  "representation": "constructed",
+  "candidates": "exclude",
+  "maxNodes": 1500,
+  "maxRecords": 5000,
+  "environment": "production-profile",
+  "ids": []
+}

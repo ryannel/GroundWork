@@ -1,0 +1,2524 @@
+{
+  "format": "groundwork-result/v3",
+  "snapshot": "8f5b505536f6140e260bbc4a079a419a80eb79573d760b1e252b0c8ad3a5a19d",
+  "queryVersion": "knowledge-query/v3",
+  "request": {
+    "format": "groundwork-query/v3",
+    "snapshot": "8f5b505536f6140e260bbc4a079a419a80eb79573d760b1e252b0c8ad3a5a19d",
+    "query": "trace",
+    "entry": "pspin-ae1d9dd/entry/webhook",
+    "value": null,
+    "context": [],
+    "outcome": null,
+    "changed": [],
+    "representation": "constructed",
+    "candidates": "exclude",
+    "maxNodes": 500,
+    "maxRecords": 1500,
+    "environment": "ecp-weu-prod-source-profile",
+    "ids": []
+  },
+  "nodes": [
+    {
+      "id": "root::pspin-ae1d9dd/op/webhook/entry",
+      "record": "pspin-ae1d9dd/op/webhook/entry",
+      "context": [],
+      "label": "HTTP webhook invocation before local IP filter",
+      "component": "pspin-ae1d9dd/component/api",
+      "execution": "pspin-ae1d9dd/runs/webhook"
+    },
+    {
+      "id": "root::pspin-ae1d9dd/op/webhook/ip",
+      "record": "pspin-ae1d9dd/op/webhook/ip",
+      "context": [],
+      "label": "Extract first x-original-forwarded-for, else x-forwarded-for, else remoteAddr; trim and strip IPv4 port",
+      "component": "pspin-ae1d9dd/component/api",
+      "execution": "pspin-ae1d9dd/runs/webhook"
+    },
+    {
+      "id": "root::pspin-ae1d9dd/op/webhook/ip-allowed",
+      "record": "pspin-ae1d9dd/op/webhook/ip-allowed",
+      "context": [],
+      "label": "Auth-excluded path OR any configured PSP IP matcher?",
+      "component": "pspin-ae1d9dd/component/api",
+      "execution": "pspin-ae1d9dd/runs/webhook"
+    },
+    {
+      "id": "root::pspin-ae1d9dd/op/webhook/error",
+      "record": "pspin-ae1d9dd/op/webhook/error",
+      "context": [],
+      "label": "Local/imported exceptions escape; shared HTTP mapping unresolved",
+      "component": "pspin-ae1d9dd/component/api",
+      "execution": "pspin-ae1d9dd/runs/webhook"
+    },
+    {
+      "id": "root::pspin-ae1d9dd/op/webhook/forbidden",
+      "record": "pspin-ae1d9dd/op/webhook/forbidden",
+      "context": [],
+      "label": "IP filter sets 403 and serialises imported error envelope before controller",
+      "component": "pspin-ae1d9dd/component/api",
+      "execution": "pspin-ae1d9dd/runs/webhook"
+    },
+    {
+      "id": "root::pspin-ae1d9dd/op/webhook/convert",
+      "record": "pspin-ae1d9dd/op/webhook/convert",
+      "context": [],
+      "label": "MVC source converter uppercases PSP then Psp.valueOf; imported enum and conversion error response partial",
+      "component": "pspin-ae1d9dd/component/api",
+      "execution": "pspin-ae1d9dd/runs/webhook"
+    },
+    {
+      "id": "root::pspin-ae1d9dd/op/webhook/merge",
+      "record": "pspin-ae1d9dd/op/webhook/merge",
+      "context": [],
+      "label": "params.putIfAbsent(platformAccountId,pathValue): existing query value wins",
+      "component": "pspin-ae1d9dd/component/api",
+      "execution": "pspin-ae1d9dd/runs/webhook"
+    },
+    {
+      "id": "root::pspin-ae1d9dd/op/webhook/factory",
+      "record": "pspin-ae1d9dd/op/webhook/factory",
+      "context": [],
+      "label": "Factory selects matching getPsp(); local Stripe implementation returns STRIPE",
+      "component": "pspin-ae1d9dd/component/api",
+      "execution": "pspin-ae1d9dd/runs/webhook"
+    },
+    {
+      "id": "root::pspin-ae1d9dd/op/webhook/signature",
+      "record": "pspin-ae1d9dd/op/webhook/signature",
+      "context": [],
+      "label": "headers.get(stripe-signature) orElseThrow; exact map normalisation unresolved",
+      "component": "pspin-ae1d9dd/component/api",
+      "execution": "pspin-ae1d9dd/runs/webhook"
+    },
+    {
+      "id": "root::pspin-ae1d9dd/op/webhook/other-psp",
+      "record": "pspin-ae1d9dd/op/webhook/other-psp",
+      "context": [],
+      "label": "Other PSP value/factory services or framework enum conversion unresolved",
+      "component": "pspin-ae1d9dd/component/api",
+      "execution": "pspin-ae1d9dd/runs/webhook"
+    },
+    {
+      "id": "root::pspin-ae1d9dd/op/webhook/connected",
+      "record": "pspin-ae1d9dd/op/webhook/connected",
+      "context": [],
+      "label": "Boolean.parseBoolean(isStripeConnectedAccount), default false",
+      "component": "pspin-ae1d9dd/component/api",
+      "execution": "pspin-ae1d9dd/runs/webhook"
+    },
+    {
+      "id": "root::pspin-ae1d9dd/op/webhook/connected-secret",
+      "record": "pspin-ae1d9dd/op/webhook/connected-secret",
+      "context": [],
+      "label": "Select psp.STRIPE.connected secret map",
+      "component": "pspin-ae1d9dd/component/api",
+      "execution": "pspin-ae1d9dd/runs/webhook"
+    },
+    {
+      "id": "root::pspin-ae1d9dd/op/webhook/platform-secret",
+      "record": "pspin-ae1d9dd/op/webhook/platform-secret",
+      "context": [],
+      "label": "Select psp.STRIPE.platform secret map",
+      "component": "pspin-ae1d9dd/component/api",
+      "execution": "pspin-ae1d9dd/runs/webhook"
+    },
+    {
+      "id": "root::pspin-ae1d9dd/op/webhook/account",
+      "record": "pspin-ae1d9dd/op/webhook/account",
+      "context": [],
+      "label": "AccountConfigService.getAccount(effective platformAccountId); read Account.secretKeyId; imported implementation/effects unknown",
+      "component": "pspin-ae1d9dd/component/api",
+      "execution": "pspin-ae1d9dd/runs/webhook"
+    },
+    {
+      "id": "root::pspin-ae1d9dd/op/webhook/secret",
+      "record": "pspin-ae1d9dd/op/webhook/secret",
+      "context": [],
+      "label": "Configured secret map lookup by account.secretKeyId; no secret values captured",
+      "component": "pspin-ae1d9dd/component/api",
+      "execution": "pspin-ae1d9dd/runs/webhook"
+    },
+    {
+      "id": "root::pspin-ae1d9dd/op/webhook/verify",
+      "record": "pspin-ae1d9dd/op/webhook/verify",
+      "context": [],
+      "label": "Stripe Webhook.constructEvent(payload,signature,secret); signature failure converted to InvalidMessageSignatureException",
+      "component": "pspin-ae1d9dd/component/api",
+      "execution": "pspin-ae1d9dd/runs/webhook"
+    },
+    {
+      "id": "root::pspin-ae1d9dd/op/webhook/category",
+      "record": "pspin-ae1d9dd/op/webhook/category",
+      "context": [],
+      "label": "PspEventType.from(event.type,STRIPE).getCategory(); imported category mapping",
+      "component": "pspin-ae1d9dd/component/api",
+      "execution": "pspin-ae1d9dd/runs/webhook"
+    },
+    {
+      "id": "root::pspin-ae1d9dd/op/webhook/json",
+      "record": "pspin-ae1d9dd/op/webhook/json",
+      "context": [],
+      "label": "Deserialised Stripe object present?",
+      "component": "pspin-ae1d9dd/component/api",
+      "execution": "pspin-ae1d9dd/runs/webhook"
+    },
+    {
+      "id": "root::pspin-ae1d9dd/op/webhook/typed-json",
+      "record": "pspin-ae1d9dd/op/webhook/typed-json",
+      "context": [],
+      "label": "Use stripeObject.toJson()",
+      "component": "pspin-ae1d9dd/component/api",
+      "execution": "pspin-ae1d9dd/runs/webhook"
+    },
+    {
+      "id": "root::pspin-ae1d9dd/op/webhook/raw-json",
+      "record": "pspin-ae1d9dd/op/webhook/raw-json",
+      "context": [],
+      "label": "Fallback to event data-object raw JSON",
+      "component": "pspin-ae1d9dd/component/api",
+      "execution": "pspin-ae1d9dd/runs/webhook"
+    },
+    {
+      "id": "root::pspin-ae1d9dd/op/webhook/map",
+      "record": "pspin-ae1d9dd/op/webhook/map",
+      "context": [],
+      "label": "JsonUtils default ObjectMapper.readValue JSON→Map; JsonProcessingException→PayloadDeserializationException",
+      "component": "pspin-ae1d9dd/component/api",
+      "execution": "pspin-ae1d9dd/runs/webhook"
+    },
+    {
+      "id": "root::pspin-ae1d9dd/op/webhook/key",
+      "record": "pspin-ae1d9dd/op/webhook/key",
+      "context": [],
+      "label": "Routing key by category and metadata, not external event id",
+      "component": "pspin-ae1d9dd/component/api",
+      "execution": "pspin-ae1d9dd/runs/webhook"
+    },
+    {
+      "id": "root::pspin-ae1d9dd/op/webhook/key-empty",
+      "record": "pspin-ae1d9dd/op/webhook/key-empty",
+      "context": [],
+      "label": "Null/empty metadata → random UUID",
+      "component": "pspin-ae1d9dd/component/api",
+      "execution": "pspin-ae1d9dd/runs/webhook"
+    },
+    {
+      "id": "root::pspin-ae1d9dd/op/webhook/key-transaction",
+      "record": "pspin-ae1d9dd/op/webhook/key-transaction",
+      "context": [],
+      "label": "TRANSACTION/TRANSFER/REFUND/UNKNOWN: VolvoID aliases, then paymentSessionId, then random UUID",
+      "component": "pspin-ae1d9dd/component/api",
+      "execution": "pspin-ae1d9dd/runs/webhook"
+    },
+    {
+      "id": "root::pspin-ae1d9dd/op/webhook/key-instrument",
+      "record": "pspin-ae1d9dd/op/webhook/key-instrument",
+      "context": [],
+      "label": "PAYMENT_INSTRUMENT: paymentSessionId, then VolvoID aliases, then random UUID",
+      "component": "pspin-ae1d9dd/component/api",
+      "execution": "pspin-ae1d9dd/runs/webhook"
+    },
+    {
+      "id": "root::pspin-ae1d9dd/op/webhook/key-unreachable",
+      "record": "pspin-ae1d9dd/op/webhook/key-unreachable",
+      "context": [],
+      "label": "Recurring/customer categories return null in source switch; comment says flows should not occur",
+      "component": "pspin-ae1d9dd/component/api",
+      "execution": "pspin-ae1d9dd/runs/webhook"
+    },
+    {
+      "id": "root::pspin-ae1d9dd/op/webhook/construct",
+      "record": "pspin-ae1d9dd/op/webhook/construct",
+      "context": [],
+      "label": "Build payload.id/type/platformAccountId/additionalParameters and metadata.id/correlationId/type/source/created",
+      "component": "pspin-ae1d9dd/component/api",
+      "execution": "pspin-ae1d9dd/runs/webhook"
+    },
+    {
+      "id": "root::pspin-ae1d9dd/op/webhook/metadata",
+      "record": "pspin-ae1d9dd/op/webhook/metadata",
+      "context": [],
+      "label": "Payload/additionalParameters/metadata present? Otherwise ignore event",
+      "component": "pspin-ae1d9dd/component/api",
+      "execution": "pspin-ae1d9dd/runs/webhook"
+    },
+    {
+      "id": "root::pspin-ae1d9dd/op/webhook/source",
+      "record": "pspin-ae1d9dd/op/webhook/source",
+      "context": [],
+      "label": "First allowed lowercase Source.SOURCE or Source or system_name candidate?",
+      "component": "pspin-ae1d9dd/component/api",
+      "execution": "pspin-ae1d9dd/runs/webhook"
+    },
+    {
+      "id": "root::pspin-ae1d9dd/op/webhook/return200",
+      "record": "pspin-ae1d9dd/op/webhook/return200",
+      "context": [],
+      "label": "Return NotificationResponse OK with unset body; controller uses status and body",
+      "component": "pspin-ae1d9dd/component/api",
+      "execution": "pspin-ae1d9dd/runs/webhook"
+    },
+    {
+      "id": "root::pspin-ae1d9dd/op/webhook/event-allowed",
+      "record": "pspin-ae1d9dd/op/webhook/event-allowed",
+      "context": [],
+      "label": "Allowed source event set empty OR contains imported event type?",
+      "component": "pspin-ae1d9dd/component/api",
+      "execution": "pspin-ae1d9dd/runs/webhook"
+    },
+    {
+      "id": "root::pspin-ae1d9dd/op/webhook/publish",
+      "record": "pspin-ae1d9dd/op/webhook/publish",
+      "context": [],
+      "label": "KafkaTemplate.send(topic,event.metadata.id,event).whenComplete registers callback; not awaited",
+      "component": "pspin-ae1d9dd/component/api",
+      "execution": "pspin-ae1d9dd/runs/webhook"
+    }
+  ],
+  "edges": [
+    {
+      "from": "root::pspin-ae1d9dd/op/webhook/entry",
+      "to": "root::pspin-ae1d9dd/op/webhook/ip",
+      "on": "normal",
+      "condition": null,
+      "assumption": null,
+      "evidence": ["pspin-ae1d9dd/e/b0f59c0cf7873c"],
+      "record": "pspin-ae1d9dd/t/webhook/0"
+    },
+    {
+      "from": "root::pspin-ae1d9dd/op/webhook/ip",
+      "to": "root::pspin-ae1d9dd/op/webhook/ip-allowed",
+      "on": "normal",
+      "condition": null,
+      "assumption": null,
+      "evidence": ["pspin-ae1d9dd/e/256e3143511556"],
+      "record": "pspin-ae1d9dd/t/webhook/1"
+    },
+    {
+      "from": "root::pspin-ae1d9dd/op/webhook/ip",
+      "to": "root::pspin-ae1d9dd/op/webhook/error",
+      "on": "error",
+      "condition": "Source operation or unresolved imported call throws; no invented response status",
+      "assumption": null,
+      "evidence": ["pspin-ae1d9dd/e/256e3143511556"],
+      "record": "pspin-ae1d9dd/t/webhook/38"
+    },
+    {
+      "from": "root::pspin-ae1d9dd/op/webhook/ip-allowed",
+      "to": "root::pspin-ae1d9dd/op/webhook/forbidden",
+      "on": "false",
+      "condition": "Not excluded and no IP matcher accepts",
+      "assumption": null,
+      "evidence": ["pspin-ae1d9dd/e/256e3143511556"],
+      "record": "pspin-ae1d9dd/t/webhook/2"
+    },
+    {
+      "from": "root::pspin-ae1d9dd/op/webhook/ip-allowed",
+      "to": "root::pspin-ae1d9dd/op/webhook/convert",
+      "on": "true",
+      "condition": "Path excluded or IP match",
+      "assumption": null,
+      "evidence": ["pspin-ae1d9dd/e/256e3143511556"],
+      "record": "pspin-ae1d9dd/t/webhook/3"
+    },
+    {
+      "from": "root::pspin-ae1d9dd/op/webhook/convert",
+      "to": "root::pspin-ae1d9dd/op/webhook/merge",
+      "on": "normal",
+      "condition": "PSP path conversion succeeds",
+      "assumption": null,
+      "evidence": ["pspin-ae1d9dd/e/787491a162b7f7"],
+      "record": "pspin-ae1d9dd/t/webhook/4"
+    },
+    {
+      "from": "root::pspin-ae1d9dd/op/webhook/convert",
+      "to": "root::pspin-ae1d9dd/op/webhook/error",
+      "on": "error",
+      "condition": "Source operation or unresolved imported call throws; no invented response status",
+      "assumption": null,
+      "evidence": ["pspin-ae1d9dd/e/787491a162b7f7"],
+      "record": "pspin-ae1d9dd/t/webhook/39"
+    },
+    {
+      "from": "root::pspin-ae1d9dd/op/webhook/merge",
+      "to": "root::pspin-ae1d9dd/op/webhook/factory",
+      "on": "normal",
+      "condition": null,
+      "assumption": null,
+      "evidence": ["pspin-ae1d9dd/e/3b2f57f1f5e2a7"],
+      "record": "pspin-ae1d9dd/t/webhook/5"
+    },
+    {
+      "from": "root::pspin-ae1d9dd/op/webhook/merge",
+      "to": "root::pspin-ae1d9dd/op/webhook/error",
+      "on": "error",
+      "condition": "Source operation or unresolved imported call throws; no invented response status",
+      "assumption": null,
+      "evidence": ["pspin-ae1d9dd/e/3b2f57f1f5e2a7"],
+      "record": "pspin-ae1d9dd/t/webhook/40"
+    },
+    {
+      "from": "root::pspin-ae1d9dd/op/webhook/factory",
+      "to": "root::pspin-ae1d9dd/op/webhook/signature",
+      "on": "true",
+      "condition": "Resolved local Stripe service selected; Java evaluates signature argument before secret argument",
+      "assumption": null,
+      "evidence": ["pspin-ae1d9dd/e/379f59bdad583f"],
+      "record": "pspin-ae1d9dd/t/webhook/6"
+    },
+    {
+      "from": "root::pspin-ae1d9dd/op/webhook/factory",
+      "to": "root::pspin-ae1d9dd/op/webhook/other-psp",
+      "on": "false",
+      "condition": "Different/invalid PSP or no matching service",
+      "assumption": null,
+      "evidence": ["pspin-ae1d9dd/e/379f59bdad583f"],
+      "record": "pspin-ae1d9dd/t/webhook/7"
+    },
+    {
+      "from": "root::pspin-ae1d9dd/op/webhook/factory",
+      "to": "root::pspin-ae1d9dd/op/webhook/error",
+      "on": "error",
+      "condition": "Source operation or unresolved imported call throws; no invented response status",
+      "assumption": null,
+      "evidence": ["pspin-ae1d9dd/e/379f59bdad583f"],
+      "record": "pspin-ae1d9dd/t/webhook/41"
+    },
+    {
+      "from": "root::pspin-ae1d9dd/op/webhook/signature",
+      "to": "root::pspin-ae1d9dd/op/webhook/connected",
+      "on": "normal",
+      "condition": "Header lookup succeeds; next Java argument getSecret evaluated",
+      "assumption": null,
+      "evidence": ["pspin-ae1d9dd/e/fd4f8ca42f9844"],
+      "record": "pspin-ae1d9dd/t/webhook/13"
+    },
+    {
+      "from": "root::pspin-ae1d9dd/op/webhook/signature",
+      "to": "root::pspin-ae1d9dd/op/webhook/error",
+      "on": "error",
+      "condition": "Source operation or unresolved imported call throws; no invented response status",
+      "assumption": null,
+      "evidence": ["pspin-ae1d9dd/e/fd4f8ca42f9844"],
+      "record": "pspin-ae1d9dd/t/webhook/44"
+    },
+    {
+      "from": "root::pspin-ae1d9dd/op/webhook/connected",
+      "to": "root::pspin-ae1d9dd/op/webhook/connected-secret",
+      "on": "true",
+      "condition": "isStripeConnectedAccount parses true",
+      "assumption": null,
+      "evidence": ["pspin-ae1d9dd/e/6b815f11a1c278"],
+      "record": "pspin-ae1d9dd/t/webhook/8"
+    },
+    {
+      "from": "root::pspin-ae1d9dd/op/webhook/connected",
+      "to": "root::pspin-ae1d9dd/op/webhook/platform-secret",
+      "on": "false",
+      "condition": "Absent/other string parses false",
+      "assumption": null,
+      "evidence": ["pspin-ae1d9dd/e/6b815f11a1c278"],
+      "record": "pspin-ae1d9dd/t/webhook/9"
+    },
+    {
+      "from": "root::pspin-ae1d9dd/op/webhook/connected-secret",
+      "to": "root::pspin-ae1d9dd/op/webhook/account",
+      "on": "normal",
+      "condition": null,
+      "assumption": null,
+      "evidence": ["pspin-ae1d9dd/e/9453122a54110b"],
+      "record": "pspin-ae1d9dd/t/webhook/11"
+    },
+    {
+      "from": "root::pspin-ae1d9dd/op/webhook/platform-secret",
+      "to": "root::pspin-ae1d9dd/op/webhook/account",
+      "on": "normal",
+      "condition": null,
+      "assumption": null,
+      "evidence": ["pspin-ae1d9dd/e/9453122a54110b"],
+      "record": "pspin-ae1d9dd/t/webhook/10"
+    },
+    {
+      "from": "root::pspin-ae1d9dd/op/webhook/account",
+      "to": "root::pspin-ae1d9dd/op/webhook/secret",
+      "on": "normal",
+      "condition": "Account lookup returns",
+      "assumption": null,
+      "evidence": ["pspin-ae1d9dd/e/9453122a54110b"],
+      "record": "pspin-ae1d9dd/t/webhook/12"
+    },
+    {
+      "from": "root::pspin-ae1d9dd/op/webhook/account",
+      "to": "root::pspin-ae1d9dd/op/webhook/error",
+      "on": "error",
+      "condition": "Source operation or unresolved imported call throws; no invented response status",
+      "assumption": null,
+      "evidence": ["pspin-ae1d9dd/e/9453122a54110b"],
+      "record": "pspin-ae1d9dd/t/webhook/42"
+    },
+    {
+      "from": "root::pspin-ae1d9dd/op/webhook/secret",
+      "to": "root::pspin-ae1d9dd/op/webhook/verify",
+      "on": "normal",
+      "condition": null,
+      "assumption": null,
+      "evidence": ["pspin-ae1d9dd/e/9453122a54110b"],
+      "record": "pspin-ae1d9dd/t/webhook/14"
+    },
+    {
+      "from": "root::pspin-ae1d9dd/op/webhook/secret",
+      "to": "root::pspin-ae1d9dd/op/webhook/error",
+      "on": "error",
+      "condition": "Source operation or unresolved imported call throws; no invented response status",
+      "assumption": null,
+      "evidence": ["pspin-ae1d9dd/e/9453122a54110b"],
+      "record": "pspin-ae1d9dd/t/webhook/43"
+    },
+    {
+      "from": "root::pspin-ae1d9dd/op/webhook/verify",
+      "to": "root::pspin-ae1d9dd/op/webhook/category",
+      "on": "normal",
+      "condition": "Event constructed",
+      "assumption": null,
+      "evidence": ["pspin-ae1d9dd/e/e9275cdb69256d"],
+      "record": "pspin-ae1d9dd/t/webhook/15"
+    },
+    {
+      "from": "root::pspin-ae1d9dd/op/webhook/verify",
+      "to": "root::pspin-ae1d9dd/op/webhook/error",
+      "on": "error",
+      "condition": "Source operation or unresolved imported call throws; no invented response status",
+      "assumption": null,
+      "evidence": ["pspin-ae1d9dd/e/e9275cdb69256d"],
+      "record": "pspin-ae1d9dd/t/webhook/45"
+    },
+    {
+      "from": "root::pspin-ae1d9dd/op/webhook/category",
+      "to": "root::pspin-ae1d9dd/op/webhook/json",
+      "on": "normal",
+      "condition": null,
+      "assumption": null,
+      "evidence": ["pspin-ae1d9dd/e/6b815f11a1c278"],
+      "record": "pspin-ae1d9dd/t/webhook/16"
+    },
+    {
+      "from": "root::pspin-ae1d9dd/op/webhook/category",
+      "to": "root::pspin-ae1d9dd/op/webhook/error",
+      "on": "error",
+      "condition": "Source operation or unresolved imported call throws; no invented response status",
+      "assumption": null,
+      "evidence": ["pspin-ae1d9dd/e/6b815f11a1c278"],
+      "record": "pspin-ae1d9dd/t/webhook/46"
+    },
+    {
+      "from": "root::pspin-ae1d9dd/op/webhook/json",
+      "to": "root::pspin-ae1d9dd/op/webhook/typed-json",
+      "on": "true",
+      "condition": "Stripe deserialised object present",
+      "assumption": null,
+      "evidence": ["pspin-ae1d9dd/e/e9275cdb69256d"],
+      "record": "pspin-ae1d9dd/t/webhook/17"
+    },
+    {
+      "from": "root::pspin-ae1d9dd/op/webhook/json",
+      "to": "root::pspin-ae1d9dd/op/webhook/raw-json",
+      "on": "false",
+      "condition": "Stripe deserialised object absent",
+      "assumption": null,
+      "evidence": ["pspin-ae1d9dd/e/e9275cdb69256d"],
+      "record": "pspin-ae1d9dd/t/webhook/18"
+    },
+    {
+      "from": "root::pspin-ae1d9dd/op/webhook/typed-json",
+      "to": "root::pspin-ae1d9dd/op/webhook/map",
+      "on": "normal",
+      "condition": null,
+      "assumption": null,
+      "evidence": ["pspin-ae1d9dd/e/e9275cdb69256d"],
+      "record": "pspin-ae1d9dd/t/webhook/19"
+    },
+    {
+      "from": "root::pspin-ae1d9dd/op/webhook/raw-json",
+      "to": "root::pspin-ae1d9dd/op/webhook/map",
+      "on": "normal",
+      "condition": null,
+      "assumption": null,
+      "evidence": ["pspin-ae1d9dd/e/e9275cdb69256d"],
+      "record": "pspin-ae1d9dd/t/webhook/20"
+    },
+    {
+      "from": "root::pspin-ae1d9dd/op/webhook/map",
+      "to": "root::pspin-ae1d9dd/op/webhook/key",
+      "on": "normal",
+      "condition": null,
+      "assumption": null,
+      "evidence": ["pspin-ae1d9dd/e/e574d41029513b"],
+      "record": "pspin-ae1d9dd/t/webhook/21"
+    },
+    {
+      "from": "root::pspin-ae1d9dd/op/webhook/map",
+      "to": "root::pspin-ae1d9dd/op/webhook/error",
+      "on": "error",
+      "condition": "Source operation or unresolved imported call throws; no invented response status",
+      "assumption": null,
+      "evidence": ["pspin-ae1d9dd/e/e574d41029513b"],
+      "record": "pspin-ae1d9dd/t/webhook/47"
+    },
+    {
+      "from": "root::pspin-ae1d9dd/op/webhook/key",
+      "to": "root::pspin-ae1d9dd/op/webhook/key-empty",
+      "on": "empty",
+      "condition": "Metadata null or empty",
+      "assumption": null,
+      "evidence": ["pspin-ae1d9dd/e/37c90083beb770"],
+      "record": "pspin-ae1d9dd/t/webhook/22"
+    },
+    {
+      "from": "root::pspin-ae1d9dd/op/webhook/key",
+      "to": "root::pspin-ae1d9dd/op/webhook/key-transaction",
+      "on": "transaction",
+      "condition": "TRANSACTION/TRANSFER/REFUND/UNKNOWN; nonempty metadata",
+      "assumption": null,
+      "evidence": ["pspin-ae1d9dd/e/37c90083beb770"],
+      "record": "pspin-ae1d9dd/t/webhook/23"
+    },
+    {
+      "from": "root::pspin-ae1d9dd/op/webhook/key",
+      "to": "root::pspin-ae1d9dd/op/webhook/key-instrument",
+      "on": "instrument",
+      "condition": "PAYMENT_INSTRUMENT; nonempty metadata",
+      "assumption": null,
+      "evidence": ["pspin-ae1d9dd/e/37c90083beb770"],
+      "record": "pspin-ae1d9dd/t/webhook/24"
+    },
+    {
+      "from": "root::pspin-ae1d9dd/op/webhook/key",
+      "to": "root::pspin-ae1d9dd/op/webhook/key-unreachable",
+      "on": "other",
+      "condition": "Recurring/customer enum case in source switch",
+      "assumption": null,
+      "evidence": ["pspin-ae1d9dd/e/37c90083beb770"],
+      "record": "pspin-ae1d9dd/t/webhook/25"
+    },
+    {
+      "from": "root::pspin-ae1d9dd/op/webhook/key",
+      "to": "root::pspin-ae1d9dd/op/webhook/error",
+      "on": "error",
+      "condition": "Source operation or unresolved imported call throws; no invented response status",
+      "assumption": null,
+      "evidence": ["pspin-ae1d9dd/e/37c90083beb770"],
+      "record": "pspin-ae1d9dd/t/webhook/48"
+    },
+    {
+      "from": "root::pspin-ae1d9dd/op/webhook/key-empty",
+      "to": "root::pspin-ae1d9dd/op/webhook/construct",
+      "on": "normal",
+      "condition": null,
+      "assumption": null,
+      "evidence": ["pspin-ae1d9dd/e/37c90083beb770"],
+      "record": "pspin-ae1d9dd/t/webhook/26"
+    },
+    {
+      "from": "root::pspin-ae1d9dd/op/webhook/key-transaction",
+      "to": "root::pspin-ae1d9dd/op/webhook/construct",
+      "on": "normal",
+      "condition": null,
+      "assumption": null,
+      "evidence": ["pspin-ae1d9dd/e/37c90083beb770"],
+      "record": "pspin-ae1d9dd/t/webhook/27"
+    },
+    {
+      "from": "root::pspin-ae1d9dd/op/webhook/key-instrument",
+      "to": "root::pspin-ae1d9dd/op/webhook/construct",
+      "on": "normal",
+      "condition": null,
+      "assumption": null,
+      "evidence": ["pspin-ae1d9dd/e/37c90083beb770"],
+      "record": "pspin-ae1d9dd/t/webhook/28"
+    },
+    {
+      "from": "root::pspin-ae1d9dd/op/webhook/key-unreachable",
+      "to": "root::pspin-ae1d9dd/op/webhook/construct",
+      "on": "normal",
+      "condition": null,
+      "assumption": null,
+      "evidence": ["pspin-ae1d9dd/e/37c90083beb770"],
+      "record": "pspin-ae1d9dd/t/webhook/29"
+    },
+    {
+      "from": "root::pspin-ae1d9dd/op/webhook/construct",
+      "to": "root::pspin-ae1d9dd/op/webhook/metadata",
+      "on": "normal",
+      "condition": null,
+      "assumption": null,
+      "evidence": ["pspin-ae1d9dd/e/e574d41029513b"],
+      "record": "pspin-ae1d9dd/t/webhook/30"
+    },
+    {
+      "from": "root::pspin-ae1d9dd/op/webhook/construct",
+      "to": "root::pspin-ae1d9dd/op/webhook/error",
+      "on": "error",
+      "condition": "Source operation or unresolved imported call throws; no invented response status",
+      "assumption": null,
+      "evidence": ["pspin-ae1d9dd/e/e574d41029513b"],
+      "record": "pspin-ae1d9dd/t/webhook/49"
+    },
+    {
+      "from": "root::pspin-ae1d9dd/op/webhook/metadata",
+      "to": "root::pspin-ae1d9dd/op/webhook/source",
+      "on": "true",
+      "condition": "Metadata map present",
+      "assumption": null,
+      "evidence": ["pspin-ae1d9dd/e/6f762f52fab2cc"],
+      "record": "pspin-ae1d9dd/t/webhook/31"
+    },
+    {
+      "from": "root::pspin-ae1d9dd/op/webhook/metadata",
+      "to": "root::pspin-ae1d9dd/op/webhook/return200",
+      "on": "false",
+      "condition": "Required metadata absent: ignore",
+      "assumption": null,
+      "evidence": ["pspin-ae1d9dd/e/6f762f52fab2cc"],
+      "record": "pspin-ae1d9dd/t/webhook/32"
+    },
+    {
+      "from": "root::pspin-ae1d9dd/op/webhook/metadata",
+      "to": "root::pspin-ae1d9dd/op/webhook/error",
+      "on": "error",
+      "condition": "Source operation or unresolved imported call throws; no invented response status",
+      "assumption": null,
+      "evidence": ["pspin-ae1d9dd/e/6f762f52fab2cc"],
+      "record": "pspin-ae1d9dd/t/webhook/50"
+    },
+    {
+      "from": "root::pspin-ae1d9dd/op/webhook/source",
+      "to": "root::pspin-ae1d9dd/op/webhook/event-allowed",
+      "on": "true",
+      "condition": "Allowed source/system_name found",
+      "assumption": null,
+      "evidence": ["pspin-ae1d9dd/e/6f762f52fab2cc"],
+      "record": "pspin-ae1d9dd/t/webhook/33"
+    },
+    {
+      "from": "root::pspin-ae1d9dd/op/webhook/source",
+      "to": "root::pspin-ae1d9dd/op/webhook/return200",
+      "on": "false",
+      "condition": "No allowed source: ignore",
+      "assumption": null,
+      "evidence": ["pspin-ae1d9dd/e/6f762f52fab2cc"],
+      "record": "pspin-ae1d9dd/t/webhook/34"
+    },
+    {
+      "from": "root::pspin-ae1d9dd/op/webhook/source",
+      "to": "root::pspin-ae1d9dd/op/webhook/error",
+      "on": "error",
+      "condition": "Source operation or unresolved imported call throws; no invented response status",
+      "assumption": null,
+      "evidence": ["pspin-ae1d9dd/e/6f762f52fab2cc"],
+      "record": "pspin-ae1d9dd/t/webhook/51"
+    },
+    {
+      "from": "root::pspin-ae1d9dd/op/webhook/event-allowed",
+      "to": "root::pspin-ae1d9dd/op/webhook/publish",
+      "on": "true",
+      "condition": "Allowed event set empty or contains type",
+      "assumption": null,
+      "evidence": ["pspin-ae1d9dd/e/5dae8228e97703"],
+      "record": "pspin-ae1d9dd/t/webhook/35"
+    },
+    {
+      "from": "root::pspin-ae1d9dd/op/webhook/event-allowed",
+      "to": "root::pspin-ae1d9dd/op/webhook/return200",
+      "on": "false",
+      "condition": "Event type not allowed: ignore",
+      "assumption": null,
+      "evidence": ["pspin-ae1d9dd/e/5dae8228e97703"],
+      "record": "pspin-ae1d9dd/t/webhook/36"
+    },
+    {
+      "from": "root::pspin-ae1d9dd/op/webhook/event-allowed",
+      "to": "root::pspin-ae1d9dd/op/webhook/error",
+      "on": "error",
+      "condition": "Source operation or unresolved imported call throws; no invented response status",
+      "assumption": null,
+      "evidence": ["pspin-ae1d9dd/e/5dae8228e97703"],
+      "record": "pspin-ae1d9dd/t/webhook/52"
+    },
+    {
+      "from": "root::pspin-ae1d9dd/op/webhook/publish",
+      "to": "root::pspin-ae1d9dd/op/webhook/return200",
+      "on": "normal",
+      "condition": "Future registered; no wait for producer completion",
+      "assumption": null,
+      "evidence": ["pspin-ae1d9dd/e/820f1fb51ff0ae"],
+      "record": "pspin-ae1d9dd/t/webhook/37"
+    },
+    {
+      "from": "root::pspin-ae1d9dd/op/webhook/publish",
+      "to": "root::pspin-ae1d9dd/op/webhook/error",
+      "on": "error",
+      "condition": "Source operation or unresolved imported call throws; no invented response status",
+      "assumption": null,
+      "evidence": ["pspin-ae1d9dd/e/820f1fb51ff0ae"],
+      "record": "pspin-ae1d9dd/t/webhook/53"
+    }
+  ],
+  "claims": [],
+  "evidence": [
+    "pspin-ae1d9dd/e/08645d496954a4",
+    "pspin-ae1d9dd/e/256e3143511556",
+    "pspin-ae1d9dd/e/32fa8756f8f052",
+    "pspin-ae1d9dd/e/379f59bdad583f",
+    "pspin-ae1d9dd/e/37c90083beb770",
+    "pspin-ae1d9dd/e/3b2f57f1f5e2a7",
+    "pspin-ae1d9dd/e/3f598b2a03080f",
+    "pspin-ae1d9dd/e/4af9325a4d6fd7",
+    "pspin-ae1d9dd/e/51bf524169eae5",
+    "pspin-ae1d9dd/e/5dae8228e97703",
+    "pspin-ae1d9dd/e/68dda8605dcab8",
+    "pspin-ae1d9dd/e/6b815f11a1c278",
+    "pspin-ae1d9dd/e/6f762f52fab2cc",
+    "pspin-ae1d9dd/e/787491a162b7f7",
+    "pspin-ae1d9dd/e/820f1fb51ff0ae",
+    "pspin-ae1d9dd/e/92f0dd68a911c0",
+    "pspin-ae1d9dd/e/9453122a54110b",
+    "pspin-ae1d9dd/e/a92717e2bf1b99",
+    "pspin-ae1d9dd/e/b0f59c0cf7873c",
+    "pspin-ae1d9dd/e/c1d058db17a6d4",
+    "pspin-ae1d9dd/e/e574d41029513b",
+    "pspin-ae1d9dd/e/e9275cdb69256d",
+    "pspin-ae1d9dd/e/fd4f8ca42f9844",
+    "pspin-ae1d9dd/e/review-psp-settings"
+  ],
+  "coverage": [
+    "pspin-ae1d9dd/coverage/webhook-registration",
+    "pspin-ae1d9dd/coverage/webhook-local-flow",
+    "pspin-ae1d9dd/coverage/webhook-end-to-end",
+    "pspin-ae1d9dd/coverage/webhook-ip-configuration-shape-v2"
+  ],
+  "frontiers": [
+    {
+      "at": "root::pspin-ae1d9dd/op/webhook/error",
+      "reason": "unhandled_exception",
+      "detail": "No declared exception continuation within this invocation; asynchronous frames stop unwinding.",
+      "references": ["pspin-ae1d9dd/op/webhook/error"]
+    },
+    {
+      "at": "root::pspin-ae1d9dd/op/webhook/other-psp",
+      "reason": "opaque",
+      "detail": "Other PSP value/factory services or framework enum conversion unresolved",
+      "references": ["pspin-ae1d9dd/op/webhook/other-psp"]
+    },
+    {
+      "at": "root::pspin-ae1d9dd/op/webhook/account",
+      "reason": "opaque",
+      "detail": "AccountConfigService.getAccount(effective platformAccountId); read Account.secretKeyId; imported implementation/effects unknown",
+      "references": ["pspin-ae1d9dd/op/webhook/account"]
+    },
+    {
+      "at": "root::pspin-ae1d9dd/op/webhook/verify",
+      "reason": "opaque",
+      "detail": "Stripe Webhook.constructEvent(payload,signature,secret); signature failure converted to InvalidMessageSignatureException",
+      "references": ["pspin-ae1d9dd/op/webhook/verify"]
+    },
+    {
+      "at": "root::pspin-ae1d9dd/op/webhook/category",
+      "reason": "opaque",
+      "detail": "PspEventType.from(event.type,STRIPE).getCategory(); imported category mapping",
+      "references": ["pspin-ae1d9dd/op/webhook/category"]
+    },
+    {
+      "at": "root::pspin-ae1d9dd/op/webhook/map",
+      "reason": "opaque",
+      "detail": "JsonUtils default ObjectMapper.readValue JSON→Map; JsonProcessingException→PayloadDeserializationException",
+      "references": ["pspin-ae1d9dd/op/webhook/map"]
+    },
+    {
+      "at": "root::pspin-ae1d9dd/op/webhook/publish",
+      "reason": "opaque",
+      "detail": "KafkaTemplate.send(topic,event.metadata.id,event).whenComplete registers callback; not awaited",
+      "references": ["pspin-ae1d9dd/op/webhook/publish"]
+    }
+  ],
+  "limitsHit": [],
+  "feasibility": "not_checked",
+  "exhaustive": false,
+  "records": [
+    {
+      "id": "pspin-ae1d9dd/component/api",
+      "kind": "runtime_component",
+      "logicalId": "volvo-cars/cds-paymentservice-psp-inbound:spring-application",
+      "label": "Payment PSP inbound API and scheduled producers",
+      "category": "service",
+      "technology": "Spring Boot / Java",
+      "sources": ["pspin-ae1d9dd/source"],
+      "basis": "source_declared",
+      "gaps": [],
+      "evidence": ["pspin-ae1d9dd/e/32fa8756f8f052"]
+    },
+    {
+      "id": "pspin-ae1d9dd/coverage/webhook-end-to-end",
+      "kind": "coverage",
+      "owner": "pspin-ae1d9dd/entry/webhook",
+      "obligation": "End-to-end contract, imported dependencies and later completion",
+      "status": "partial",
+      "scope": "Imported Account/Stripe/Event/Jackson/provider behaviour and downstream consumer unresolved",
+      "evidence": ["pspin-ae1d9dd/e/6b815f11a1c278"],
+      "gaps": [
+        "pspin-ae1d9dd/gap/imported-models",
+        "pspin-ae1d9dd/gap/wire",
+        "pspin-ae1d9dd/gap/delivery"
+      ]
+    },
+    {
+      "id": "pspin-ae1d9dd/coverage/webhook-ip-configuration-shape-v2",
+      "kind": "coverage",
+      "owner": "pspin-ae1d9dd/entry/webhook",
+      "obligation": "Source configuration declaration versus typed IP-list access",
+      "status": "partial",
+      "scope": "Local YAML sequence and LinkedHashMap.class access are inspected. Effective Spring binding, remote configuration and runtime startup are not verified.",
+      "gaps": ["pspin-ae1d9dd/gap/ip-configuration-shape"],
+      "evidence": [
+        "pspin-ae1d9dd/e/review-psp-settings",
+        "pspin-ae1d9dd/e/256e3143511556",
+        "pspin-ae1d9dd/e/51bf524169eae5"
+      ]
+    },
+    {
+      "id": "pspin-ae1d9dd/coverage/webhook-local-flow",
+      "kind": "coverage",
+      "owner": "pspin-ae1d9dd/entry/webhook",
+      "obligation": "Local middleware/controller/Stripe key/source/publication control and values",
+      "status": "examined",
+      "scope": "Bounded raw source graph with imported operations opaque; not effective implementation, wire/deployment or delivery completeness",
+      "evidence": [
+        "pspin-ae1d9dd/e/256e3143511556",
+        "pspin-ae1d9dd/e/6b815f11a1c278",
+        "pspin-ae1d9dd/e/37c90083beb770",
+        "pspin-ae1d9dd/e/6f762f52fab2cc",
+        "pspin-ae1d9dd/e/820f1fb51ff0ae"
+      ],
+      "gaps": [
+        "pspin-ae1d9dd/gap/imported-models",
+        "pspin-ae1d9dd/gap/wire",
+        "pspin-ae1d9dd/gap/delivery"
+      ]
+    },
+    {
+      "id": "pspin-ae1d9dd/coverage/webhook-registration",
+      "kind": "coverage",
+      "owner": "pspin-ae1d9dd/entry/webhook",
+      "obligation": "Explicit route and local implementation",
+      "status": "examined",
+      "scope": "Interface /v2 plus POST suffix; implementation receive and local filter source",
+      "evidence": ["pspin-ae1d9dd/e/b0f59c0cf7873c", "pspin-ae1d9dd/e/3b2f57f1f5e2a7"],
+      "gaps": []
+    },
+    {
+      "id": "pspin-ae1d9dd/e/08645d496954a4",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/cds-paymentservice-psp-inbound",
+      "commit": "ae1d9ddfb34dae71c15913e9f28d41321d66266a",
+      "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/messaging/KafkaProducer.java",
+      "lines": [27, 48],
+      "basis": "source"
+    },
+    {
+      "id": "pspin-ae1d9dd/e/256e3143511556",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/cds-paymentservice-psp-inbound",
+      "commit": "ae1d9ddfb34dae71c15913e9f28d41321d66266a",
+      "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/security/IpAddressVerifier.java",
+      "lines": [1, 89],
+      "basis": "source"
+    },
+    {
+      "id": "pspin-ae1d9dd/e/32fa8756f8f052",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/cds-paymentservice-psp-inbound",
+      "commit": "ae1d9ddfb34dae71c15913e9f28d41321d66266a",
+      "path": "com-volvocars-ecom-paymentservice-psp-inbound-api/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/api/App.java",
+      "lines": [1, 24],
+      "basis": "source"
+    },
+    {
+      "id": "pspin-ae1d9dd/e/379f59bdad583f",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/cds-paymentservice-psp-inbound",
+      "commit": "ae1d9ddfb34dae71c15913e9f28d41321d66266a",
+      "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/webhook/InboundServiceFactory.java",
+      "lines": [1, 23],
+      "basis": "source"
+    },
+    {
+      "id": "pspin-ae1d9dd/e/37c90083beb770",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/cds-paymentservice-psp-inbound",
+      "commit": "ae1d9ddfb34dae71c15913e9f28d41321d66266a",
+      "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/webhook/stripe/MessageKeyProvider.java",
+      "lines": [1, 74],
+      "basis": "source"
+    },
+    {
+      "id": "pspin-ae1d9dd/e/3b2f57f1f5e2a7",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/cds-paymentservice-psp-inbound",
+      "commit": "ae1d9ddfb34dae71c15913e9f28d41321d66266a",
+      "path": "com-volvocars-ecom-paymentservice-psp-inbound-api/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/api/webhook/v2/impl/InboundControllerImpl.java",
+      "lines": [1, 37],
+      "basis": "source"
+    },
+    {
+      "id": "pspin-ae1d9dd/e/3f598b2a03080f",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/cds-paymentservice-psp-inbound",
+      "commit": "ae1d9ddfb34dae71c15913e9f28d41321d66266a",
+      "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/messaging/ScheduledMessageProducer.java",
+      "lines": [40, 68],
+      "basis": "source"
+    },
+    {
+      "id": "pspin-ae1d9dd/e/4af9325a4d6fd7",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/cds-paymentservice-psp-inbound",
+      "commit": "ae1d9ddfb34dae71c15913e9f28d41321d66266a",
+      "path": "com-volvocars-ecom-paymentservice-psp-inbound-api/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/api/security/IpAuthorizationFilter.java",
+      "lines": [1, 60],
+      "basis": "source"
+    },
+    {
+      "id": "pspin-ae1d9dd/e/51bf524169eae5",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/cds-paymentservice-psp-inbound",
+      "commit": "ae1d9ddfb34dae71c15913e9f28d41321d66266a",
+      "path": "com-volvocars-ecom-paymentservice-psp-inbound-api/src/main/resources/application.yml",
+      "lines": [1, 157],
+      "basis": "source"
+    },
+    {
+      "id": "pspin-ae1d9dd/e/5dae8228e97703",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/cds-paymentservice-psp-inbound",
+      "commit": "ae1d9ddfb34dae71c15913e9f28d41321d66266a",
+      "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/config/AllowedSourceEvents.java",
+      "lines": [1, 51],
+      "basis": "source"
+    },
+    {
+      "id": "pspin-ae1d9dd/e/68dda8605dcab8",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/cds-paymentservice-psp-inbound",
+      "commit": "ae1d9ddfb34dae71c15913e9f28d41321d66266a",
+      "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/security/IpAddressVerifier.java",
+      "lines": [71, 87],
+      "basis": "source"
+    },
+    {
+      "id": "pspin-ae1d9dd/e/6b815f11a1c278",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/cds-paymentservice-psp-inbound",
+      "commit": "ae1d9ddfb34dae71c15913e9f28d41321d66266a",
+      "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/webhook/stripe/StripeInboundServiceImpl.java",
+      "lines": [1, 116],
+      "basis": "source"
+    },
+    {
+      "id": "pspin-ae1d9dd/e/6f762f52fab2cc",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/cds-paymentservice-psp-inbound",
+      "commit": "ae1d9ddfb34dae71c15913e9f28d41321d66266a",
+      "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/webhook/SourceEventsConfigService.java",
+      "lines": [1, 86],
+      "basis": "source"
+    },
+    {
+      "id": "pspin-ae1d9dd/e/787491a162b7f7",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/cds-paymentservice-psp-inbound",
+      "commit": "ae1d9ddfb34dae71c15913e9f28d41321d66266a",
+      "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/config/PspConverter.java",
+      "lines": [1, 22],
+      "basis": "source"
+    },
+    {
+      "id": "pspin-ae1d9dd/e/820f1fb51ff0ae",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/cds-paymentservice-psp-inbound",
+      "commit": "ae1d9ddfb34dae71c15913e9f28d41321d66266a",
+      "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/messaging/KafkaProducer.java",
+      "lines": [1, 49],
+      "basis": "source"
+    },
+    {
+      "id": "pspin-ae1d9dd/e/92f0dd68a911c0",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/cds-paymentservice-psp-inbound",
+      "commit": "ae1d9ddfb34dae71c15913e9f28d41321d66266a",
+      "path": "pom.xml",
+      "lines": [1, 85],
+      "basis": "source"
+    },
+    {
+      "id": "pspin-ae1d9dd/e/9453122a54110b",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/cds-paymentservice-psp-inbound",
+      "commit": "ae1d9ddfb34dae71c15913e9f28d41321d66266a",
+      "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/webhook/stripe/StripeSecretProvider.java",
+      "lines": [1, 34],
+      "basis": "source"
+    },
+    {
+      "id": "pspin-ae1d9dd/e/a92717e2bf1b99",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/cds-paymentservice-psp-inbound",
+      "commit": "ae1d9ddfb34dae71c15913e9f28d41321d66266a",
+      "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/common/InboundControllerAdvice.java",
+      "lines": [1, 74],
+      "basis": "source"
+    },
+    {
+      "id": "pspin-ae1d9dd/e/b0f59c0cf7873c",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/cds-paymentservice-psp-inbound",
+      "commit": "ae1d9ddfb34dae71c15913e9f28d41321d66266a",
+      "path": "com-volvocars-ecom-paymentservice-psp-inbound-api/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/api/webhook/v2/InboundController.java",
+      "lines": [1, 43],
+      "basis": "source"
+    },
+    {
+      "id": "pspin-ae1d9dd/e/c1d058db17a6d4",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/cds-paymentservice-psp-inbound",
+      "commit": "ae1d9ddfb34dae71c15913e9f28d41321d66266a",
+      "path": "com-volvocars-ecom-paymentservice-psp-inbound-api/src/main/resources/application.yml",
+      "lines": [11, 23],
+      "basis": "source"
+    },
+    {
+      "id": "pspin-ae1d9dd/e/e574d41029513b",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/cds-paymentservice-psp-inbound",
+      "commit": "ae1d9ddfb34dae71c15913e9f28d41321d66266a",
+      "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/webhook/InboundServiceImpl.java",
+      "lines": [1, 95],
+      "basis": "source"
+    },
+    {
+      "id": "pspin-ae1d9dd/e/e9275cdb69256d",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/cds-paymentservice-psp-inbound",
+      "commit": "ae1d9ddfb34dae71c15913e9f28d41321d66266a",
+      "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/webhook/stripe/StripeEventParser.java",
+      "lines": [1, 46],
+      "basis": "source"
+    },
+    {
+      "id": "pspin-ae1d9dd/e/fd4f8ca42f9844",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/cds-paymentservice-psp-inbound",
+      "commit": "ae1d9ddfb34dae71c15913e9f28d41321d66266a",
+      "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/webhook/InboundRequest.java",
+      "lines": [1, 23],
+      "basis": "source"
+    },
+    {
+      "id": "pspin-ae1d9dd/e/review-psp-settings",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/cds-paymentservice-psp-inbound",
+      "commit": "ae1d9ddfb34dae71c15913e9f28d41321d66266a",
+      "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/config/PspSettings.java",
+      "lines": [1, 23],
+      "basis": "source"
+    },
+    {
+      "id": "pspin-ae1d9dd/entry/webhook",
+      "kind": "entry",
+      "logicalId": "volvo-cars/cds-paymentservice-psp-inbound:POST /v2/{psp}/{platformAccountId}/inbound",
+      "method": "POST",
+      "path": "/v2/{psp}/{platformAccountId}/inbound",
+      "implementation": "pspin-ae1d9dd/impl/webhook",
+      "evidence": ["pspin-ae1d9dd/e/b0f59c0cf7873c", "pspin-ae1d9dd/e/3b2f57f1f5e2a7"]
+    },
+    {
+      "id": "pspin-ae1d9dd/gap/delivery",
+      "kind": "gap",
+      "owner": "pspin-ae1d9dd/impl/webhook",
+      "obligation": "delivery",
+      "reason": "Kafka futures are not awaited; callbacks only log. Broker acknowledgement, retries, idempotence, consumer delivery/processing and publication failure propagation are not established.",
+      "action": "Resolve effective producer dependencies/policies and downstream subscriptions; distinguish HTTP return from asynchronous callback.",
+      "evidence": ["pspin-ae1d9dd/e/08645d496954a4", "pspin-ae1d9dd/e/3f598b2a03080f"]
+    },
+    {
+      "id": "pspin-ae1d9dd/gap/imported-models",
+      "kind": "gap",
+      "owner": "pspin-ae1d9dd/impl/webhook",
+      "obligation": "imported-models",
+      "reason": "Stripe Event, Psp/PspEventType/category definitions, Account, PspInboundEventPayload and common Event/Metadata are imported. Exact resolved artefact/source/digest and inherited wire fields are unavailable.",
+      "action": "Bind exact artefacts and expand schemas/enum values and source correspondence; newer cloned code stays candidate evidence.",
+      "evidence": [
+        "pspin-ae1d9dd/e/92f0dd68a911c0",
+        "pspin-ae1d9dd/e/e574d41029513b",
+        "pspin-ae1d9dd/e/6b815f11a1c278"
+      ]
+    },
+    {
+      "id": "pspin-ae1d9dd/gap/ip-configuration-shape",
+      "kind": "gap",
+      "owner": "pspin-ae1d9dd/impl/webhook",
+      "obligation": "Effective IP allowlist configuration shape",
+      "reason": "Pinned base application.yml declares psp.settings.stripe.ip-addresses as a sequence, while IpAddressVerifier.init asks PspSettings.get for LinkedHashMap.class and iterates values. Actual binder conversion or remote/profile overrides reconciling those declarations are not established; this is a source discrepancy, not a demonstrated runtime defect.",
+      "action": "Resolve the effective bound property type and selected remote/profile configuration before claiming IP matcher initialization or enforcement succeeds.",
+      "evidence": [
+        "pspin-ae1d9dd/e/review-psp-settings",
+        "pspin-ae1d9dd/e/256e3143511556",
+        "pspin-ae1d9dd/e/51bf524169eae5"
+      ]
+    },
+    {
+      "id": "pspin-ae1d9dd/gap/ip-enforcement",
+      "kind": "gap",
+      "owner": "pspin-ae1d9dd/impl/webhook",
+      "obligation": "ip-enforcement",
+      "reason": "Local source trusts the first forwarded IP and source path exclusion/matchers; trusted-proxy handling, filter ordering and effective configuration are not established.",
+      "action": "Resolve deployment proxy trust, imported matchers and filter pipeline; do not infer global authentication from App exclusions.",
+      "evidence": ["pspin-ae1d9dd/e/4af9325a4d6fd7", "pspin-ae1d9dd/e/256e3143511556"]
+    },
+    {
+      "id": "pspin-ae1d9dd/gap/wire",
+      "kind": "gap",
+      "owner": "pspin-ae1d9dd/impl/webhook",
+      "obligation": "wire",
+      "reason": "Spring/Jackson/Stripe serialisation, header normalisation, exception advice and imported serializer policies are not fully bound. Source construction does not establish complete effective wire representation.",
+      "action": "Bind effective framework/imported configuration and exact versions; inspect wire schema without calling live services.",
+      "evidence": [
+        "pspin-ae1d9dd/e/b0f59c0cf7873c",
+        "pspin-ae1d9dd/e/c1d058db17a6d4",
+        "pspin-ae1d9dd/e/e9275cdb69256d"
+      ]
+    },
+    {
+      "id": "pspin-ae1d9dd/impl/webhook",
+      "kind": "implementation",
+      "logicalId": "volvo-cars/cds-paymentservice-psp-inbound:webhook and local Stripe source execution",
+      "scope": "pspin-ae1d9dd/source",
+      "entry": "pspin-ae1d9dd/op/webhook/entry",
+      "parameters": [
+        "pspin-ae1d9dd/v/webhook/psp",
+        "pspin-ae1d9dd/v/webhook/path-account",
+        "pspin-ae1d9dd/v/webhook/query",
+        "pspin-ae1d9dd/v/webhook/raw",
+        "pspin-ae1d9dd/v/webhook/headers"
+      ],
+      "evidence": [
+        "pspin-ae1d9dd/e/b0f59c0cf7873c",
+        "pspin-ae1d9dd/e/3b2f57f1f5e2a7",
+        "pspin-ae1d9dd/e/6b815f11a1c278"
+      ]
+    },
+    {
+      "id": "pspin-ae1d9dd/op/webhook/account",
+      "kind": "operation",
+      "owner": "pspin-ae1d9dd/impl/webhook",
+      "action": "opaque",
+      "label": "AccountConfigService.getAccount(effective platformAccountId); read Account.secretKeyId; imported implementation/effects unknown",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": null,
+      "httpStatus": null,
+      "evidence": ["pspin-ae1d9dd/e/9453122a54110b"]
+    },
+    {
+      "id": "pspin-ae1d9dd/op/webhook/category",
+      "kind": "operation",
+      "owner": "pspin-ae1d9dd/impl/webhook",
+      "action": "opaque",
+      "label": "PspEventType.from(event.type,STRIPE).getCategory(); imported category mapping",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": null,
+      "httpStatus": null,
+      "evidence": ["pspin-ae1d9dd/e/6b815f11a1c278"]
+    },
+    {
+      "id": "pspin-ae1d9dd/op/webhook/connected",
+      "kind": "operation",
+      "owner": "pspin-ae1d9dd/impl/webhook",
+      "action": "branch",
+      "label": "Boolean.parseBoolean(isStripeConnectedAccount), default false",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": null,
+      "httpStatus": null,
+      "evidence": ["pspin-ae1d9dd/e/6b815f11a1c278"]
+    },
+    {
+      "id": "pspin-ae1d9dd/op/webhook/connected-secret",
+      "kind": "operation",
+      "owner": "pspin-ae1d9dd/impl/webhook",
+      "action": "compute",
+      "label": "Select psp.STRIPE.connected secret map",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": null,
+      "httpStatus": null,
+      "evidence": ["pspin-ae1d9dd/e/9453122a54110b"]
+    },
+    {
+      "id": "pspin-ae1d9dd/op/webhook/construct",
+      "kind": "operation",
+      "owner": "pspin-ae1d9dd/impl/webhook",
+      "action": "compute",
+      "label": "Build payload.id/type/platformAccountId/additionalParameters and metadata.id/correlationId/type/source/created",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": null,
+      "httpStatus": null,
+      "evidence": ["pspin-ae1d9dd/e/e574d41029513b"]
+    },
+    {
+      "id": "pspin-ae1d9dd/op/webhook/convert",
+      "kind": "operation",
+      "owner": "pspin-ae1d9dd/impl/webhook",
+      "action": "compute",
+      "label": "MVC source converter uppercases PSP then Psp.valueOf; imported enum and conversion error response partial",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": null,
+      "httpStatus": null,
+      "evidence": ["pspin-ae1d9dd/e/787491a162b7f7"]
+    },
+    {
+      "id": "pspin-ae1d9dd/op/webhook/entry",
+      "kind": "operation",
+      "owner": "pspin-ae1d9dd/impl/webhook",
+      "action": "entry",
+      "label": "HTTP webhook invocation before local IP filter",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": null,
+      "httpStatus": null,
+      "evidence": ["pspin-ae1d9dd/e/b0f59c0cf7873c"]
+    },
+    {
+      "id": "pspin-ae1d9dd/op/webhook/error",
+      "kind": "operation",
+      "owner": "pspin-ae1d9dd/impl/webhook",
+      "action": "throw",
+      "label": "Local/imported exceptions escape; shared HTTP mapping unresolved",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": "error",
+      "httpStatus": null,
+      "evidence": ["pspin-ae1d9dd/e/a92717e2bf1b99"]
+    },
+    {
+      "id": "pspin-ae1d9dd/op/webhook/event-allowed",
+      "kind": "operation",
+      "owner": "pspin-ae1d9dd/impl/webhook",
+      "action": "branch",
+      "label": "Allowed source event set empty OR contains imported event type?",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": null,
+      "httpStatus": null,
+      "evidence": ["pspin-ae1d9dd/e/5dae8228e97703"]
+    },
+    {
+      "id": "pspin-ae1d9dd/op/webhook/factory",
+      "kind": "operation",
+      "owner": "pspin-ae1d9dd/impl/webhook",
+      "action": "branch",
+      "label": "Factory selects matching getPsp(); local Stripe implementation returns STRIPE",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": null,
+      "httpStatus": null,
+      "evidence": ["pspin-ae1d9dd/e/379f59bdad583f"]
+    },
+    {
+      "id": "pspin-ae1d9dd/op/webhook/forbidden",
+      "kind": "operation",
+      "owner": "pspin-ae1d9dd/impl/webhook",
+      "action": "return",
+      "label": "IP filter sets 403 and serialises imported error envelope before controller",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": "normal",
+      "httpStatus": 403,
+      "evidence": ["pspin-ae1d9dd/e/4af9325a4d6fd7"]
+    },
+    {
+      "id": "pspin-ae1d9dd/op/webhook/ip",
+      "kind": "operation",
+      "owner": "pspin-ae1d9dd/impl/webhook",
+      "action": "compute",
+      "label": "Extract first x-original-forwarded-for, else x-forwarded-for, else remoteAddr; trim and strip IPv4 port",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": null,
+      "httpStatus": null,
+      "evidence": ["pspin-ae1d9dd/e/256e3143511556"]
+    },
+    {
+      "id": "pspin-ae1d9dd/op/webhook/ip-allowed",
+      "kind": "operation",
+      "owner": "pspin-ae1d9dd/impl/webhook",
+      "action": "branch",
+      "label": "Auth-excluded path OR any configured PSP IP matcher?",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": null,
+      "httpStatus": null,
+      "evidence": ["pspin-ae1d9dd/e/256e3143511556"]
+    },
+    {
+      "id": "pspin-ae1d9dd/op/webhook/json",
+      "kind": "operation",
+      "owner": "pspin-ae1d9dd/impl/webhook",
+      "action": "branch",
+      "label": "Deserialised Stripe object present?",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": null,
+      "httpStatus": null,
+      "evidence": ["pspin-ae1d9dd/e/e9275cdb69256d"]
+    },
+    {
+      "id": "pspin-ae1d9dd/op/webhook/key",
+      "kind": "operation",
+      "owner": "pspin-ae1d9dd/impl/webhook",
+      "action": "branch",
+      "label": "Routing key by category and metadata, not external event id",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": null,
+      "httpStatus": null,
+      "evidence": ["pspin-ae1d9dd/e/37c90083beb770"]
+    },
+    {
+      "id": "pspin-ae1d9dd/op/webhook/key-empty",
+      "kind": "operation",
+      "owner": "pspin-ae1d9dd/impl/webhook",
+      "action": "compute",
+      "label": "Null/empty metadata → random UUID",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": null,
+      "httpStatus": null,
+      "evidence": ["pspin-ae1d9dd/e/37c90083beb770"]
+    },
+    {
+      "id": "pspin-ae1d9dd/op/webhook/key-instrument",
+      "kind": "operation",
+      "owner": "pspin-ae1d9dd/impl/webhook",
+      "action": "compute",
+      "label": "PAYMENT_INSTRUMENT: paymentSessionId, then VolvoID aliases, then random UUID",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": null,
+      "httpStatus": null,
+      "evidence": ["pspin-ae1d9dd/e/37c90083beb770"]
+    },
+    {
+      "id": "pspin-ae1d9dd/op/webhook/key-transaction",
+      "kind": "operation",
+      "owner": "pspin-ae1d9dd/impl/webhook",
+      "action": "compute",
+      "label": "TRANSACTION/TRANSFER/REFUND/UNKNOWN: VolvoID aliases, then paymentSessionId, then random UUID",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": null,
+      "httpStatus": null,
+      "evidence": ["pspin-ae1d9dd/e/37c90083beb770"]
+    },
+    {
+      "id": "pspin-ae1d9dd/op/webhook/key-unreachable",
+      "kind": "operation",
+      "owner": "pspin-ae1d9dd/impl/webhook",
+      "action": "compute",
+      "label": "Recurring/customer categories return null in source switch; comment says flows should not occur",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": null,
+      "httpStatus": null,
+      "evidence": ["pspin-ae1d9dd/e/37c90083beb770"]
+    },
+    {
+      "id": "pspin-ae1d9dd/op/webhook/map",
+      "kind": "operation",
+      "owner": "pspin-ae1d9dd/impl/webhook",
+      "action": "opaque",
+      "label": "JsonUtils default ObjectMapper.readValue JSON→Map; JsonProcessingException→PayloadDeserializationException",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": null,
+      "httpStatus": null,
+      "evidence": ["pspin-ae1d9dd/e/e574d41029513b"]
+    },
+    {
+      "id": "pspin-ae1d9dd/op/webhook/merge",
+      "kind": "operation",
+      "owner": "pspin-ae1d9dd/impl/webhook",
+      "action": "compute",
+      "label": "params.putIfAbsent(platformAccountId,pathValue): existing query value wins",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": null,
+      "httpStatus": null,
+      "evidence": ["pspin-ae1d9dd/e/3b2f57f1f5e2a7"]
+    },
+    {
+      "id": "pspin-ae1d9dd/op/webhook/metadata",
+      "kind": "operation",
+      "owner": "pspin-ae1d9dd/impl/webhook",
+      "action": "branch",
+      "label": "Payload/additionalParameters/metadata present? Otherwise ignore event",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": null,
+      "httpStatus": null,
+      "evidence": ["pspin-ae1d9dd/e/6f762f52fab2cc"]
+    },
+    {
+      "id": "pspin-ae1d9dd/op/webhook/other-psp",
+      "kind": "operation",
+      "owner": "pspin-ae1d9dd/impl/webhook",
+      "action": "opaque",
+      "label": "Other PSP value/factory services or framework enum conversion unresolved",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": null,
+      "httpStatus": null,
+      "evidence": ["pspin-ae1d9dd/e/787491a162b7f7"]
+    },
+    {
+      "id": "pspin-ae1d9dd/op/webhook/platform-secret",
+      "kind": "operation",
+      "owner": "pspin-ae1d9dd/impl/webhook",
+      "action": "compute",
+      "label": "Select psp.STRIPE.platform secret map",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": null,
+      "httpStatus": null,
+      "evidence": ["pspin-ae1d9dd/e/9453122a54110b"]
+    },
+    {
+      "id": "pspin-ae1d9dd/op/webhook/publish",
+      "kind": "operation",
+      "owner": "pspin-ae1d9dd/impl/webhook",
+      "action": "opaque",
+      "label": "KafkaTemplate.send(topic,event.metadata.id,event).whenComplete registers callback; not awaited",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": null,
+      "httpStatus": null,
+      "evidence": ["pspin-ae1d9dd/e/820f1fb51ff0ae"]
+    },
+    {
+      "id": "pspin-ae1d9dd/op/webhook/raw-json",
+      "kind": "operation",
+      "owner": "pspin-ae1d9dd/impl/webhook",
+      "action": "compute",
+      "label": "Fallback to event data-object raw JSON",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": null,
+      "httpStatus": null,
+      "evidence": ["pspin-ae1d9dd/e/e9275cdb69256d"]
+    },
+    {
+      "id": "pspin-ae1d9dd/op/webhook/return200",
+      "kind": "operation",
+      "owner": "pspin-ae1d9dd/impl/webhook",
+      "action": "return",
+      "label": "Return NotificationResponse OK with unset body; controller uses status and body",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": "normal",
+      "httpStatus": 200,
+      "evidence": ["pspin-ae1d9dd/e/6b815f11a1c278"]
+    },
+    {
+      "id": "pspin-ae1d9dd/op/webhook/secret",
+      "kind": "operation",
+      "owner": "pspin-ae1d9dd/impl/webhook",
+      "action": "compute",
+      "label": "Configured secret map lookup by account.secretKeyId; no secret values captured",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": null,
+      "httpStatus": null,
+      "evidence": ["pspin-ae1d9dd/e/9453122a54110b"]
+    },
+    {
+      "id": "pspin-ae1d9dd/op/webhook/signature",
+      "kind": "operation",
+      "owner": "pspin-ae1d9dd/impl/webhook",
+      "action": "compute",
+      "label": "headers.get(stripe-signature) orElseThrow; exact map normalisation unresolved",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": null,
+      "httpStatus": null,
+      "evidence": ["pspin-ae1d9dd/e/fd4f8ca42f9844"]
+    },
+    {
+      "id": "pspin-ae1d9dd/op/webhook/source",
+      "kind": "operation",
+      "owner": "pspin-ae1d9dd/impl/webhook",
+      "action": "branch",
+      "label": "First allowed lowercase Source.SOURCE or Source or system_name candidate?",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": null,
+      "httpStatus": null,
+      "evidence": ["pspin-ae1d9dd/e/6f762f52fab2cc"]
+    },
+    {
+      "id": "pspin-ae1d9dd/op/webhook/typed-json",
+      "kind": "operation",
+      "owner": "pspin-ae1d9dd/impl/webhook",
+      "action": "compute",
+      "label": "Use stripeObject.toJson()",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": null,
+      "httpStatus": null,
+      "evidence": ["pspin-ae1d9dd/e/e9275cdb69256d"]
+    },
+    {
+      "id": "pspin-ae1d9dd/op/webhook/verify",
+      "kind": "operation",
+      "owner": "pspin-ae1d9dd/impl/webhook",
+      "action": "opaque",
+      "label": "Stripe Webhook.constructEvent(payload,signature,secret); signature failure converted to InvalidMessageSignatureException",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": null,
+      "httpStatus": null,
+      "evidence": ["pspin-ae1d9dd/e/e9275cdb69256d"]
+    },
+    {
+      "id": "pspin-ae1d9dd/runs/webhook",
+      "kind": "execution_binding",
+      "implementation": "pspin-ae1d9dd/impl/webhook",
+      "component": "pspin-ae1d9dd/component/api",
+      "basis": "source_declared",
+      "artifactBinding": null,
+      "gaps": [],
+      "evidence": [
+        "pspin-ae1d9dd/e/b0f59c0cf7873c",
+        "pspin-ae1d9dd/e/3b2f57f1f5e2a7",
+        "pspin-ae1d9dd/e/6b815f11a1c278"
+      ]
+    },
+    {
+      "id": "pspin-ae1d9dd/shape/headers",
+      "kind": "shape",
+      "label": "Headers read by webhook/IP logic; other keys remain possible",
+      "representation": "source",
+      "fields": [
+        {
+          "name": "stripe-signature",
+          "type": "String",
+          "status": "declared",
+          "evidence": ["pspin-ae1d9dd/e/6b815f11a1c278"]
+        },
+        {
+          "name": "x-original-forwarded-for",
+          "type": "String",
+          "status": "declared",
+          "evidence": ["pspin-ae1d9dd/e/68dda8605dcab8"]
+        },
+        {
+          "name": "x-forwarded-for",
+          "type": "String",
+          "status": "declared",
+          "evidence": ["pspin-ae1d9dd/e/68dda8605dcab8"]
+        }
+      ],
+      "completeness": "partial",
+      "gaps": ["pspin-ae1d9dd/gap/wire", "pspin-ae1d9dd/gap/ip-enforcement"],
+      "evidence": ["pspin-ae1d9dd/e/6b815f11a1c278", "pspin-ae1d9dd/e/256e3143511556"],
+      "container": "object"
+    },
+    {
+      "id": "pspin-ae1d9dd/shape/params",
+      "kind": "shape",
+      "label": "Query source map; query platformAccountId takes precedence over route default",
+      "representation": "source",
+      "fields": [
+        {
+          "name": "platformAccountId",
+          "type": "String",
+          "status": "declared",
+          "evidence": ["pspin-ae1d9dd/e/3b2f57f1f5e2a7"]
+        },
+        {
+          "name": "isStripeConnectedAccount",
+          "type": "String interpreted by Boolean.parseBoolean; default false",
+          "status": "declared",
+          "evidence": ["pspin-ae1d9dd/e/6b815f11a1c278"]
+        }
+      ],
+      "completeness": "partial",
+      "gaps": ["pspin-ae1d9dd/gap/wire"],
+      "evidence": ["pspin-ae1d9dd/e/3b2f57f1f5e2a7", "pspin-ae1d9dd/e/6b815f11a1c278"],
+      "container": "object"
+    },
+    {
+      "id": "pspin-ae1d9dd/shape/raw-webhook",
+      "kind": "shape",
+      "label": "String webhook body; Stripe wire schema unresolved",
+      "representation": "wire",
+      "fields": [],
+      "completeness": "partial",
+      "gaps": ["pspin-ae1d9dd/gap/imported-models", "pspin-ae1d9dd/gap/wire"],
+      "evidence": ["pspin-ae1d9dd/e/b0f59c0cf7873c", "pspin-ae1d9dd/e/e9275cdb69256d"],
+      "wireType": "Stripe webhook event JSON supplied as String"
+    },
+    {
+      "id": "pspin-ae1d9dd/source",
+      "kind": "source_revision",
+      "repo": "volvo-cars/cds-paymentservice-psp-inbound",
+      "commit": "ae1d9ddfb34dae71c15913e9f28d41321d66266a"
+    },
+    {
+      "id": "pspin-ae1d9dd/t/webhook/0",
+      "kind": "transition",
+      "owner": "pspin-ae1d9dd/impl/webhook",
+      "from": "pspin-ae1d9dd/op/webhook/entry",
+      "to": "pspin-ae1d9dd/op/webhook/ip",
+      "on": "normal",
+      "condition": null,
+      "values": [],
+      "evidence": ["pspin-ae1d9dd/e/b0f59c0cf7873c"]
+    },
+    {
+      "id": "pspin-ae1d9dd/t/webhook/1",
+      "kind": "transition",
+      "owner": "pspin-ae1d9dd/impl/webhook",
+      "from": "pspin-ae1d9dd/op/webhook/ip",
+      "to": "pspin-ae1d9dd/op/webhook/ip-allowed",
+      "on": "normal",
+      "condition": null,
+      "values": [],
+      "evidence": ["pspin-ae1d9dd/e/256e3143511556"]
+    },
+    {
+      "id": "pspin-ae1d9dd/t/webhook/10",
+      "kind": "transition",
+      "owner": "pspin-ae1d9dd/impl/webhook",
+      "from": "pspin-ae1d9dd/op/webhook/platform-secret",
+      "to": "pspin-ae1d9dd/op/webhook/account",
+      "on": "normal",
+      "condition": null,
+      "values": [],
+      "evidence": ["pspin-ae1d9dd/e/9453122a54110b"]
+    },
+    {
+      "id": "pspin-ae1d9dd/t/webhook/11",
+      "kind": "transition",
+      "owner": "pspin-ae1d9dd/impl/webhook",
+      "from": "pspin-ae1d9dd/op/webhook/connected-secret",
+      "to": "pspin-ae1d9dd/op/webhook/account",
+      "on": "normal",
+      "condition": null,
+      "values": [],
+      "evidence": ["pspin-ae1d9dd/e/9453122a54110b"]
+    },
+    {
+      "id": "pspin-ae1d9dd/t/webhook/12",
+      "kind": "transition",
+      "owner": "pspin-ae1d9dd/impl/webhook",
+      "from": "pspin-ae1d9dd/op/webhook/account",
+      "to": "pspin-ae1d9dd/op/webhook/secret",
+      "on": "normal",
+      "condition": "Account lookup returns",
+      "values": [],
+      "evidence": ["pspin-ae1d9dd/e/9453122a54110b"]
+    },
+    {
+      "id": "pspin-ae1d9dd/t/webhook/13",
+      "kind": "transition",
+      "owner": "pspin-ae1d9dd/impl/webhook",
+      "from": "pspin-ae1d9dd/op/webhook/signature",
+      "to": "pspin-ae1d9dd/op/webhook/connected",
+      "on": "normal",
+      "condition": "Header lookup succeeds; next Java argument getSecret evaluated",
+      "values": [],
+      "evidence": ["pspin-ae1d9dd/e/fd4f8ca42f9844"]
+    },
+    {
+      "id": "pspin-ae1d9dd/t/webhook/14",
+      "kind": "transition",
+      "owner": "pspin-ae1d9dd/impl/webhook",
+      "from": "pspin-ae1d9dd/op/webhook/secret",
+      "to": "pspin-ae1d9dd/op/webhook/verify",
+      "on": "normal",
+      "condition": null,
+      "values": [],
+      "evidence": ["pspin-ae1d9dd/e/9453122a54110b"]
+    },
+    {
+      "id": "pspin-ae1d9dd/t/webhook/15",
+      "kind": "transition",
+      "owner": "pspin-ae1d9dd/impl/webhook",
+      "from": "pspin-ae1d9dd/op/webhook/verify",
+      "to": "pspin-ae1d9dd/op/webhook/category",
+      "on": "normal",
+      "condition": "Event constructed",
+      "values": [],
+      "evidence": ["pspin-ae1d9dd/e/e9275cdb69256d"]
+    },
+    {
+      "id": "pspin-ae1d9dd/t/webhook/16",
+      "kind": "transition",
+      "owner": "pspin-ae1d9dd/impl/webhook",
+      "from": "pspin-ae1d9dd/op/webhook/category",
+      "to": "pspin-ae1d9dd/op/webhook/json",
+      "on": "normal",
+      "condition": null,
+      "values": [],
+      "evidence": ["pspin-ae1d9dd/e/6b815f11a1c278"]
+    },
+    {
+      "id": "pspin-ae1d9dd/t/webhook/17",
+      "kind": "transition",
+      "owner": "pspin-ae1d9dd/impl/webhook",
+      "from": "pspin-ae1d9dd/op/webhook/json",
+      "to": "pspin-ae1d9dd/op/webhook/typed-json",
+      "on": "true",
+      "condition": "Stripe deserialised object present",
+      "values": [],
+      "evidence": ["pspin-ae1d9dd/e/e9275cdb69256d"]
+    },
+    {
+      "id": "pspin-ae1d9dd/t/webhook/18",
+      "kind": "transition",
+      "owner": "pspin-ae1d9dd/impl/webhook",
+      "from": "pspin-ae1d9dd/op/webhook/json",
+      "to": "pspin-ae1d9dd/op/webhook/raw-json",
+      "on": "false",
+      "condition": "Stripe deserialised object absent",
+      "values": [],
+      "evidence": ["pspin-ae1d9dd/e/e9275cdb69256d"]
+    },
+    {
+      "id": "pspin-ae1d9dd/t/webhook/19",
+      "kind": "transition",
+      "owner": "pspin-ae1d9dd/impl/webhook",
+      "from": "pspin-ae1d9dd/op/webhook/typed-json",
+      "to": "pspin-ae1d9dd/op/webhook/map",
+      "on": "normal",
+      "condition": null,
+      "values": [],
+      "evidence": ["pspin-ae1d9dd/e/e9275cdb69256d"]
+    },
+    {
+      "id": "pspin-ae1d9dd/t/webhook/2",
+      "kind": "transition",
+      "owner": "pspin-ae1d9dd/impl/webhook",
+      "from": "pspin-ae1d9dd/op/webhook/ip-allowed",
+      "to": "pspin-ae1d9dd/op/webhook/forbidden",
+      "on": "false",
+      "condition": "Not excluded and no IP matcher accepts",
+      "values": [],
+      "evidence": ["pspin-ae1d9dd/e/256e3143511556"]
+    },
+    {
+      "id": "pspin-ae1d9dd/t/webhook/20",
+      "kind": "transition",
+      "owner": "pspin-ae1d9dd/impl/webhook",
+      "from": "pspin-ae1d9dd/op/webhook/raw-json",
+      "to": "pspin-ae1d9dd/op/webhook/map",
+      "on": "normal",
+      "condition": null,
+      "values": [],
+      "evidence": ["pspin-ae1d9dd/e/e9275cdb69256d"]
+    },
+    {
+      "id": "pspin-ae1d9dd/t/webhook/21",
+      "kind": "transition",
+      "owner": "pspin-ae1d9dd/impl/webhook",
+      "from": "pspin-ae1d9dd/op/webhook/map",
+      "to": "pspin-ae1d9dd/op/webhook/key",
+      "on": "normal",
+      "condition": null,
+      "values": [],
+      "evidence": ["pspin-ae1d9dd/e/e574d41029513b"]
+    },
+    {
+      "id": "pspin-ae1d9dd/t/webhook/22",
+      "kind": "transition",
+      "owner": "pspin-ae1d9dd/impl/webhook",
+      "from": "pspin-ae1d9dd/op/webhook/key",
+      "to": "pspin-ae1d9dd/op/webhook/key-empty",
+      "on": "empty",
+      "condition": "Metadata null or empty",
+      "values": [],
+      "evidence": ["pspin-ae1d9dd/e/37c90083beb770"]
+    },
+    {
+      "id": "pspin-ae1d9dd/t/webhook/23",
+      "kind": "transition",
+      "owner": "pspin-ae1d9dd/impl/webhook",
+      "from": "pspin-ae1d9dd/op/webhook/key",
+      "to": "pspin-ae1d9dd/op/webhook/key-transaction",
+      "on": "transaction",
+      "condition": "TRANSACTION/TRANSFER/REFUND/UNKNOWN; nonempty metadata",
+      "values": [],
+      "evidence": ["pspin-ae1d9dd/e/37c90083beb770"]
+    },
+    {
+      "id": "pspin-ae1d9dd/t/webhook/24",
+      "kind": "transition",
+      "owner": "pspin-ae1d9dd/impl/webhook",
+      "from": "pspin-ae1d9dd/op/webhook/key",
+      "to": "pspin-ae1d9dd/op/webhook/key-instrument",
+      "on": "instrument",
+      "condition": "PAYMENT_INSTRUMENT; nonempty metadata",
+      "values": [],
+      "evidence": ["pspin-ae1d9dd/e/37c90083beb770"]
+    },
+    {
+      "id": "pspin-ae1d9dd/t/webhook/25",
+      "kind": "transition",
+      "owner": "pspin-ae1d9dd/impl/webhook",
+      "from": "pspin-ae1d9dd/op/webhook/key",
+      "to": "pspin-ae1d9dd/op/webhook/key-unreachable",
+      "on": "other",
+      "condition": "Recurring/customer enum case in source switch",
+      "values": [],
+      "evidence": ["pspin-ae1d9dd/e/37c90083beb770"]
+    },
+    {
+      "id": "pspin-ae1d9dd/t/webhook/26",
+      "kind": "transition",
+      "owner": "pspin-ae1d9dd/impl/webhook",
+      "from": "pspin-ae1d9dd/op/webhook/key-empty",
+      "to": "pspin-ae1d9dd/op/webhook/construct",
+      "on": "normal",
+      "condition": null,
+      "values": [],
+      "evidence": ["pspin-ae1d9dd/e/37c90083beb770"]
+    },
+    {
+      "id": "pspin-ae1d9dd/t/webhook/27",
+      "kind": "transition",
+      "owner": "pspin-ae1d9dd/impl/webhook",
+      "from": "pspin-ae1d9dd/op/webhook/key-transaction",
+      "to": "pspin-ae1d9dd/op/webhook/construct",
+      "on": "normal",
+      "condition": null,
+      "values": [],
+      "evidence": ["pspin-ae1d9dd/e/37c90083beb770"]
+    },
+    {
+      "id": "pspin-ae1d9dd/t/webhook/28",
+      "kind": "transition",
+      "owner": "pspin-ae1d9dd/impl/webhook",
+      "from": "pspin-ae1d9dd/op/webhook/key-instrument",
+      "to": "pspin-ae1d9dd/op/webhook/construct",
+      "on": "normal",
+      "condition": null,
+      "values": [],
+      "evidence": ["pspin-ae1d9dd/e/37c90083beb770"]
+    },
+    {
+      "id": "pspin-ae1d9dd/t/webhook/29",
+      "kind": "transition",
+      "owner": "pspin-ae1d9dd/impl/webhook",
+      "from": "pspin-ae1d9dd/op/webhook/key-unreachable",
+      "to": "pspin-ae1d9dd/op/webhook/construct",
+      "on": "normal",
+      "condition": null,
+      "values": [],
+      "evidence": ["pspin-ae1d9dd/e/37c90083beb770"]
+    },
+    {
+      "id": "pspin-ae1d9dd/t/webhook/3",
+      "kind": "transition",
+      "owner": "pspin-ae1d9dd/impl/webhook",
+      "from": "pspin-ae1d9dd/op/webhook/ip-allowed",
+      "to": "pspin-ae1d9dd/op/webhook/convert",
+      "on": "true",
+      "condition": "Path excluded or IP match",
+      "values": [],
+      "evidence": ["pspin-ae1d9dd/e/256e3143511556"]
+    },
+    {
+      "id": "pspin-ae1d9dd/t/webhook/30",
+      "kind": "transition",
+      "owner": "pspin-ae1d9dd/impl/webhook",
+      "from": "pspin-ae1d9dd/op/webhook/construct",
+      "to": "pspin-ae1d9dd/op/webhook/metadata",
+      "on": "normal",
+      "condition": null,
+      "values": [],
+      "evidence": ["pspin-ae1d9dd/e/e574d41029513b"]
+    },
+    {
+      "id": "pspin-ae1d9dd/t/webhook/31",
+      "kind": "transition",
+      "owner": "pspin-ae1d9dd/impl/webhook",
+      "from": "pspin-ae1d9dd/op/webhook/metadata",
+      "to": "pspin-ae1d9dd/op/webhook/source",
+      "on": "true",
+      "condition": "Metadata map present",
+      "values": [],
+      "evidence": ["pspin-ae1d9dd/e/6f762f52fab2cc"]
+    },
+    {
+      "id": "pspin-ae1d9dd/t/webhook/32",
+      "kind": "transition",
+      "owner": "pspin-ae1d9dd/impl/webhook",
+      "from": "pspin-ae1d9dd/op/webhook/metadata",
+      "to": "pspin-ae1d9dd/op/webhook/return200",
+      "on": "false",
+      "condition": "Required metadata absent: ignore",
+      "values": [],
+      "evidence": ["pspin-ae1d9dd/e/6f762f52fab2cc"]
+    },
+    {
+      "id": "pspin-ae1d9dd/t/webhook/33",
+      "kind": "transition",
+      "owner": "pspin-ae1d9dd/impl/webhook",
+      "from": "pspin-ae1d9dd/op/webhook/source",
+      "to": "pspin-ae1d9dd/op/webhook/event-allowed",
+      "on": "true",
+      "condition": "Allowed source/system_name found",
+      "values": [],
+      "evidence": ["pspin-ae1d9dd/e/6f762f52fab2cc"]
+    },
+    {
+      "id": "pspin-ae1d9dd/t/webhook/34",
+      "kind": "transition",
+      "owner": "pspin-ae1d9dd/impl/webhook",
+      "from": "pspin-ae1d9dd/op/webhook/source",
+      "to": "pspin-ae1d9dd/op/webhook/return200",
+      "on": "false",
+      "condition": "No allowed source: ignore",
+      "values": [],
+      "evidence": ["pspin-ae1d9dd/e/6f762f52fab2cc"]
+    },
+    {
+      "id": "pspin-ae1d9dd/t/webhook/35",
+      "kind": "transition",
+      "owner": "pspin-ae1d9dd/impl/webhook",
+      "from": "pspin-ae1d9dd/op/webhook/event-allowed",
+      "to": "pspin-ae1d9dd/op/webhook/publish",
+      "on": "true",
+      "condition": "Allowed event set empty or contains type",
+      "values": [],
+      "evidence": ["pspin-ae1d9dd/e/5dae8228e97703"]
+    },
+    {
+      "id": "pspin-ae1d9dd/t/webhook/36",
+      "kind": "transition",
+      "owner": "pspin-ae1d9dd/impl/webhook",
+      "from": "pspin-ae1d9dd/op/webhook/event-allowed",
+      "to": "pspin-ae1d9dd/op/webhook/return200",
+      "on": "false",
+      "condition": "Event type not allowed: ignore",
+      "values": [],
+      "evidence": ["pspin-ae1d9dd/e/5dae8228e97703"]
+    },
+    {
+      "id": "pspin-ae1d9dd/t/webhook/37",
+      "kind": "transition",
+      "owner": "pspin-ae1d9dd/impl/webhook",
+      "from": "pspin-ae1d9dd/op/webhook/publish",
+      "to": "pspin-ae1d9dd/op/webhook/return200",
+      "on": "normal",
+      "condition": "Future registered; no wait for producer completion",
+      "values": [],
+      "evidence": ["pspin-ae1d9dd/e/820f1fb51ff0ae"]
+    },
+    {
+      "id": "pspin-ae1d9dd/t/webhook/38",
+      "kind": "transition",
+      "owner": "pspin-ae1d9dd/impl/webhook",
+      "from": "pspin-ae1d9dd/op/webhook/ip",
+      "to": "pspin-ae1d9dd/op/webhook/error",
+      "on": "error",
+      "condition": "Source operation or unresolved imported call throws; no invented response status",
+      "values": [],
+      "evidence": ["pspin-ae1d9dd/e/256e3143511556"]
+    },
+    {
+      "id": "pspin-ae1d9dd/t/webhook/39",
+      "kind": "transition",
+      "owner": "pspin-ae1d9dd/impl/webhook",
+      "from": "pspin-ae1d9dd/op/webhook/convert",
+      "to": "pspin-ae1d9dd/op/webhook/error",
+      "on": "error",
+      "condition": "Source operation or unresolved imported call throws; no invented response status",
+      "values": [],
+      "evidence": ["pspin-ae1d9dd/e/787491a162b7f7"]
+    },
+    {
+      "id": "pspin-ae1d9dd/t/webhook/4",
+      "kind": "transition",
+      "owner": "pspin-ae1d9dd/impl/webhook",
+      "from": "pspin-ae1d9dd/op/webhook/convert",
+      "to": "pspin-ae1d9dd/op/webhook/merge",
+      "on": "normal",
+      "condition": "PSP path conversion succeeds",
+      "values": [],
+      "evidence": ["pspin-ae1d9dd/e/787491a162b7f7"]
+    },
+    {
+      "id": "pspin-ae1d9dd/t/webhook/40",
+      "kind": "transition",
+      "owner": "pspin-ae1d9dd/impl/webhook",
+      "from": "pspin-ae1d9dd/op/webhook/merge",
+      "to": "pspin-ae1d9dd/op/webhook/error",
+      "on": "error",
+      "condition": "Source operation or unresolved imported call throws; no invented response status",
+      "values": [],
+      "evidence": ["pspin-ae1d9dd/e/3b2f57f1f5e2a7"]
+    },
+    {
+      "id": "pspin-ae1d9dd/t/webhook/41",
+      "kind": "transition",
+      "owner": "pspin-ae1d9dd/impl/webhook",
+      "from": "pspin-ae1d9dd/op/webhook/factory",
+      "to": "pspin-ae1d9dd/op/webhook/error",
+      "on": "error",
+      "condition": "Source operation or unresolved imported call throws; no invented response status",
+      "values": [],
+      "evidence": ["pspin-ae1d9dd/e/379f59bdad583f"]
+    },
+    {
+      "id": "pspin-ae1d9dd/t/webhook/42",
+      "kind": "transition",
+      "owner": "pspin-ae1d9dd/impl/webhook",
+      "from": "pspin-ae1d9dd/op/webhook/account",
+      "to": "pspin-ae1d9dd/op/webhook/error",
+      "on": "error",
+      "condition": "Source operation or unresolved imported call throws; no invented response status",
+      "values": [],
+      "evidence": ["pspin-ae1d9dd/e/9453122a54110b"]
+    },
+    {
+      "id": "pspin-ae1d9dd/t/webhook/43",
+      "kind": "transition",
+      "owner": "pspin-ae1d9dd/impl/webhook",
+      "from": "pspin-ae1d9dd/op/webhook/secret",
+      "to": "pspin-ae1d9dd/op/webhook/error",
+      "on": "error",
+      "condition": "Source operation or unresolved imported call throws; no invented response status",
+      "values": [],
+      "evidence": ["pspin-ae1d9dd/e/9453122a54110b"]
+    },
+    {
+      "id": "pspin-ae1d9dd/t/webhook/44",
+      "kind": "transition",
+      "owner": "pspin-ae1d9dd/impl/webhook",
+      "from": "pspin-ae1d9dd/op/webhook/signature",
+      "to": "pspin-ae1d9dd/op/webhook/error",
+      "on": "error",
+      "condition": "Source operation or unresolved imported call throws; no invented response status",
+      "values": [],
+      "evidence": ["pspin-ae1d9dd/e/fd4f8ca42f9844"]
+    },
+    {
+      "id": "pspin-ae1d9dd/t/webhook/45",
+      "kind": "transition",
+      "owner": "pspin-ae1d9dd/impl/webhook",
+      "from": "pspin-ae1d9dd/op/webhook/verify",
+      "to": "pspin-ae1d9dd/op/webhook/error",
+      "on": "error",
+      "condition": "Source operation or unresolved imported call throws; no invented response status",
+      "values": [],
+      "evidence": ["pspin-ae1d9dd/e/e9275cdb69256d"]
+    },
+    {
+      "id": "pspin-ae1d9dd/t/webhook/46",
+      "kind": "transition",
+      "owner": "pspin-ae1d9dd/impl/webhook",
+      "from": "pspin-ae1d9dd/op/webhook/category",
+      "to": "pspin-ae1d9dd/op/webhook/error",
+      "on": "error",
+      "condition": "Source operation or unresolved imported call throws; no invented response status",
+      "values": [],
+      "evidence": ["pspin-ae1d9dd/e/6b815f11a1c278"]
+    },
+    {
+      "id": "pspin-ae1d9dd/t/webhook/47",
+      "kind": "transition",
+      "owner": "pspin-ae1d9dd/impl/webhook",
+      "from": "pspin-ae1d9dd/op/webhook/map",
+      "to": "pspin-ae1d9dd/op/webhook/error",
+      "on": "error",
+      "condition": "Source operation or unresolved imported call throws; no invented response status",
+      "values": [],
+      "evidence": ["pspin-ae1d9dd/e/e574d41029513b"]
+    },
+    {
+      "id": "pspin-ae1d9dd/t/webhook/48",
+      "kind": "transition",
+      "owner": "pspin-ae1d9dd/impl/webhook",
+      "from": "pspin-ae1d9dd/op/webhook/key",
+      "to": "pspin-ae1d9dd/op/webhook/error",
+      "on": "error",
+      "condition": "Source operation or unresolved imported call throws; no invented response status",
+      "values": [],
+      "evidence": ["pspin-ae1d9dd/e/37c90083beb770"]
+    },
+    {
+      "id": "pspin-ae1d9dd/t/webhook/49",
+      "kind": "transition",
+      "owner": "pspin-ae1d9dd/impl/webhook",
+      "from": "pspin-ae1d9dd/op/webhook/construct",
+      "to": "pspin-ae1d9dd/op/webhook/error",
+      "on": "error",
+      "condition": "Source operation or unresolved imported call throws; no invented response status",
+      "values": [],
+      "evidence": ["pspin-ae1d9dd/e/e574d41029513b"]
+    },
+    {
+      "id": "pspin-ae1d9dd/t/webhook/5",
+      "kind": "transition",
+      "owner": "pspin-ae1d9dd/impl/webhook",
+      "from": "pspin-ae1d9dd/op/webhook/merge",
+      "to": "pspin-ae1d9dd/op/webhook/factory",
+      "on": "normal",
+      "condition": null,
+      "values": [],
+      "evidence": ["pspin-ae1d9dd/e/3b2f57f1f5e2a7"]
+    },
+    {
+      "id": "pspin-ae1d9dd/t/webhook/50",
+      "kind": "transition",
+      "owner": "pspin-ae1d9dd/impl/webhook",
+      "from": "pspin-ae1d9dd/op/webhook/metadata",
+      "to": "pspin-ae1d9dd/op/webhook/error",
+      "on": "error",
+      "condition": "Source operation or unresolved imported call throws; no invented response status",
+      "values": [],
+      "evidence": ["pspin-ae1d9dd/e/6f762f52fab2cc"]
+    },
+    {
+      "id": "pspin-ae1d9dd/t/webhook/51",
+      "kind": "transition",
+      "owner": "pspin-ae1d9dd/impl/webhook",
+      "from": "pspin-ae1d9dd/op/webhook/source",
+      "to": "pspin-ae1d9dd/op/webhook/error",
+      "on": "error",
+      "condition": "Source operation or unresolved imported call throws; no invented response status",
+      "values": [],
+      "evidence": ["pspin-ae1d9dd/e/6f762f52fab2cc"]
+    },
+    {
+      "id": "pspin-ae1d9dd/t/webhook/52",
+      "kind": "transition",
+      "owner": "pspin-ae1d9dd/impl/webhook",
+      "from": "pspin-ae1d9dd/op/webhook/event-allowed",
+      "to": "pspin-ae1d9dd/op/webhook/error",
+      "on": "error",
+      "condition": "Source operation or unresolved imported call throws; no invented response status",
+      "values": [],
+      "evidence": ["pspin-ae1d9dd/e/5dae8228e97703"]
+    },
+    {
+      "id": "pspin-ae1d9dd/t/webhook/53",
+      "kind": "transition",
+      "owner": "pspin-ae1d9dd/impl/webhook",
+      "from": "pspin-ae1d9dd/op/webhook/publish",
+      "to": "pspin-ae1d9dd/op/webhook/error",
+      "on": "error",
+      "condition": "Source operation or unresolved imported call throws; no invented response status",
+      "values": [],
+      "evidence": ["pspin-ae1d9dd/e/820f1fb51ff0ae"]
+    },
+    {
+      "id": "pspin-ae1d9dd/t/webhook/6",
+      "kind": "transition",
+      "owner": "pspin-ae1d9dd/impl/webhook",
+      "from": "pspin-ae1d9dd/op/webhook/factory",
+      "to": "pspin-ae1d9dd/op/webhook/signature",
+      "on": "true",
+      "condition": "Resolved local Stripe service selected; Java evaluates signature argument before secret argument",
+      "values": [],
+      "evidence": ["pspin-ae1d9dd/e/379f59bdad583f"]
+    },
+    {
+      "id": "pspin-ae1d9dd/t/webhook/7",
+      "kind": "transition",
+      "owner": "pspin-ae1d9dd/impl/webhook",
+      "from": "pspin-ae1d9dd/op/webhook/factory",
+      "to": "pspin-ae1d9dd/op/webhook/other-psp",
+      "on": "false",
+      "condition": "Different/invalid PSP or no matching service",
+      "values": [],
+      "evidence": ["pspin-ae1d9dd/e/379f59bdad583f"]
+    },
+    {
+      "id": "pspin-ae1d9dd/t/webhook/8",
+      "kind": "transition",
+      "owner": "pspin-ae1d9dd/impl/webhook",
+      "from": "pspin-ae1d9dd/op/webhook/connected",
+      "to": "pspin-ae1d9dd/op/webhook/connected-secret",
+      "on": "true",
+      "condition": "isStripeConnectedAccount parses true",
+      "values": [],
+      "evidence": ["pspin-ae1d9dd/e/6b815f11a1c278"]
+    },
+    {
+      "id": "pspin-ae1d9dd/t/webhook/9",
+      "kind": "transition",
+      "owner": "pspin-ae1d9dd/impl/webhook",
+      "from": "pspin-ae1d9dd/op/webhook/connected",
+      "to": "pspin-ae1d9dd/op/webhook/platform-secret",
+      "on": "false",
+      "condition": "Absent/other string parses false",
+      "values": [],
+      "evidence": ["pspin-ae1d9dd/e/6b815f11a1c278"]
+    },
+    {
+      "id": "pspin-ae1d9dd/v/webhook/headers",
+      "kind": "value",
+      "owner": "pspin-ae1d9dd/impl/webhook",
+      "definition": "pspin-ae1d9dd/op/webhook/entry",
+      "label": "Request headers map",
+      "role": "parameter",
+      "representation": "constructed",
+      "shape": "pspin-ae1d9dd/shape/headers",
+      "evidence": ["pspin-ae1d9dd/e/b0f59c0cf7873c"],
+      "accessPath": []
+    },
+    {
+      "id": "pspin-ae1d9dd/v/webhook/path-account",
+      "kind": "value",
+      "owner": "pspin-ae1d9dd/impl/webhook",
+      "definition": "pspin-ae1d9dd/op/webhook/entry",
+      "label": "Route platformAccountId",
+      "role": "parameter",
+      "representation": "constructed",
+      "shape": null,
+      "evidence": ["pspin-ae1d9dd/e/b0f59c0cf7873c"],
+      "accessPath": ["platformAccountId"]
+    },
+    {
+      "id": "pspin-ae1d9dd/v/webhook/psp",
+      "kind": "value",
+      "owner": "pspin-ae1d9dd/impl/webhook",
+      "definition": "pspin-ae1d9dd/op/webhook/entry",
+      "label": "PSP path string converted via uppercase/Psp.valueOf",
+      "role": "parameter",
+      "representation": "constructed",
+      "shape": null,
+      "evidence": ["pspin-ae1d9dd/e/787491a162b7f7"],
+      "accessPath": ["psp"]
+    },
+    {
+      "id": "pspin-ae1d9dd/v/webhook/query",
+      "kind": "value",
+      "owner": "pspin-ae1d9dd/impl/webhook",
+      "definition": "pspin-ae1d9dd/op/webhook/entry",
+      "label": "Query params map",
+      "role": "parameter",
+      "representation": "constructed",
+      "shape": "pspin-ae1d9dd/shape/params",
+      "evidence": ["pspin-ae1d9dd/e/b0f59c0cf7873c"],
+      "accessPath": []
+    },
+    {
+      "id": "pspin-ae1d9dd/v/webhook/raw",
+      "kind": "value",
+      "owner": "pspin-ae1d9dd/impl/webhook",
+      "definition": "pspin-ae1d9dd/op/webhook/entry",
+      "label": "Unchanged raw webhook String payload",
+      "role": "parameter",
+      "representation": "wire",
+      "shape": "pspin-ae1d9dd/shape/raw-webhook",
+      "evidence": ["pspin-ae1d9dd/e/b0f59c0cf7873c"],
+      "accessPath": []
+    }
+  ],
+  "traversalComplete": true,
+  "findings": [],
+  "sourceLinks": [
+    {
+      "evidence": "pspin-ae1d9dd/e/68dda8605dcab8",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-psp-inbound/blob/ae1d9ddfb34dae71c15913e9f28d41321d66266a/com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/security/IpAddressVerifier.java#L71-L87",
+      "label": "volvo-cars/cds-paymentservice-psp-inbound/com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/security/IpAddressVerifier.java:71–87"
+    },
+    {
+      "evidence": "pspin-ae1d9dd/e/6b815f11a1c278",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-psp-inbound/blob/ae1d9ddfb34dae71c15913e9f28d41321d66266a/com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/webhook/stripe/StripeInboundServiceImpl.java#L1-L116",
+      "label": "volvo-cars/cds-paymentservice-psp-inbound/com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/webhook/stripe/StripeInboundServiceImpl.java:1–116"
+    },
+    {
+      "evidence": "pspin-ae1d9dd/e/256e3143511556",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-psp-inbound/blob/ae1d9ddfb34dae71c15913e9f28d41321d66266a/com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/security/IpAddressVerifier.java#L1-L89",
+      "label": "volvo-cars/cds-paymentservice-psp-inbound/com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/security/IpAddressVerifier.java:1–89"
+    },
+    {
+      "evidence": "pspin-ae1d9dd/e/4af9325a4d6fd7",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-psp-inbound/blob/ae1d9ddfb34dae71c15913e9f28d41321d66266a/com-volvocars-ecom-paymentservice-psp-inbound-api/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/api/security/IpAuthorizationFilter.java#L1-L60",
+      "label": "volvo-cars/cds-paymentservice-psp-inbound/com-volvocars-ecom-paymentservice-psp-inbound-api/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/api/security/IpAuthorizationFilter.java:1–60"
+    },
+    {
+      "evidence": "pspin-ae1d9dd/e/e9275cdb69256d",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-psp-inbound/blob/ae1d9ddfb34dae71c15913e9f28d41321d66266a/com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/webhook/stripe/StripeEventParser.java#L1-L46",
+      "label": "volvo-cars/cds-paymentservice-psp-inbound/com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/webhook/stripe/StripeEventParser.java:1–46"
+    },
+    {
+      "evidence": "pspin-ae1d9dd/e/c1d058db17a6d4",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-psp-inbound/blob/ae1d9ddfb34dae71c15913e9f28d41321d66266a/com-volvocars-ecom-paymentservice-psp-inbound-api/src/main/resources/application.yml#L11-L23",
+      "label": "volvo-cars/cds-paymentservice-psp-inbound/com-volvocars-ecom-paymentservice-psp-inbound-api/src/main/resources/application.yml:11–23"
+    },
+    {
+      "evidence": "pspin-ae1d9dd/e/b0f59c0cf7873c",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-psp-inbound/blob/ae1d9ddfb34dae71c15913e9f28d41321d66266a/com-volvocars-ecom-paymentservice-psp-inbound-api/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/api/webhook/v2/InboundController.java#L1-L43",
+      "label": "volvo-cars/cds-paymentservice-psp-inbound/com-volvocars-ecom-paymentservice-psp-inbound-api/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/api/webhook/v2/InboundController.java:1–43"
+    },
+    {
+      "evidence": "pspin-ae1d9dd/e/e574d41029513b",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-psp-inbound/blob/ae1d9ddfb34dae71c15913e9f28d41321d66266a/com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/webhook/InboundServiceImpl.java#L1-L95",
+      "label": "volvo-cars/cds-paymentservice-psp-inbound/com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/webhook/InboundServiceImpl.java:1–95"
+    },
+    {
+      "evidence": "pspin-ae1d9dd/e/92f0dd68a911c0",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-psp-inbound/blob/ae1d9ddfb34dae71c15913e9f28d41321d66266a/pom.xml#L1-L85",
+      "label": "volvo-cars/cds-paymentservice-psp-inbound/pom.xml:1–85"
+    },
+    {
+      "evidence": "pspin-ae1d9dd/e/3b2f57f1f5e2a7",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-psp-inbound/blob/ae1d9ddfb34dae71c15913e9f28d41321d66266a/com-volvocars-ecom-paymentservice-psp-inbound-api/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/api/webhook/v2/impl/InboundControllerImpl.java#L1-L37",
+      "label": "volvo-cars/cds-paymentservice-psp-inbound/com-volvocars-ecom-paymentservice-psp-inbound-api/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/api/webhook/v2/impl/InboundControllerImpl.java:1–37"
+    },
+    {
+      "evidence": "pspin-ae1d9dd/e/787491a162b7f7",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-psp-inbound/blob/ae1d9ddfb34dae71c15913e9f28d41321d66266a/com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/config/PspConverter.java#L1-L22",
+      "label": "volvo-cars/cds-paymentservice-psp-inbound/com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/config/PspConverter.java:1–22"
+    },
+    {
+      "evidence": "pspin-ae1d9dd/e/820f1fb51ff0ae",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-psp-inbound/blob/ae1d9ddfb34dae71c15913e9f28d41321d66266a/com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/messaging/KafkaProducer.java#L1-L49",
+      "label": "volvo-cars/cds-paymentservice-psp-inbound/com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/messaging/KafkaProducer.java:1–49"
+    },
+    {
+      "evidence": "pspin-ae1d9dd/e/9453122a54110b",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-psp-inbound/blob/ae1d9ddfb34dae71c15913e9f28d41321d66266a/com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/webhook/stripe/StripeSecretProvider.java#L1-L34",
+      "label": "volvo-cars/cds-paymentservice-psp-inbound/com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/webhook/stripe/StripeSecretProvider.java:1–34"
+    },
+    {
+      "evidence": "pspin-ae1d9dd/e/a92717e2bf1b99",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-psp-inbound/blob/ae1d9ddfb34dae71c15913e9f28d41321d66266a/com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/common/InboundControllerAdvice.java#L1-L74",
+      "label": "volvo-cars/cds-paymentservice-psp-inbound/com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/common/InboundControllerAdvice.java:1–74"
+    },
+    {
+      "evidence": "pspin-ae1d9dd/e/51bf524169eae5",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-psp-inbound/blob/ae1d9ddfb34dae71c15913e9f28d41321d66266a/com-volvocars-ecom-paymentservice-psp-inbound-api/src/main/resources/application.yml#L1-L157",
+      "label": "volvo-cars/cds-paymentservice-psp-inbound/com-volvocars-ecom-paymentservice-psp-inbound-api/src/main/resources/application.yml:1–157"
+    },
+    {
+      "evidence": "pspin-ae1d9dd/e/review-psp-settings",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-psp-inbound/blob/ae1d9ddfb34dae71c15913e9f28d41321d66266a/com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/config/PspSettings.java#L1-L23",
+      "label": "volvo-cars/cds-paymentservice-psp-inbound/com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/config/PspSettings.java:1–23"
+    },
+    {
+      "evidence": "pspin-ae1d9dd/e/3f598b2a03080f",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-psp-inbound/blob/ae1d9ddfb34dae71c15913e9f28d41321d66266a/com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/messaging/ScheduledMessageProducer.java#L40-L68",
+      "label": "volvo-cars/cds-paymentservice-psp-inbound/com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/messaging/ScheduledMessageProducer.java:40–68"
+    },
+    {
+      "evidence": "pspin-ae1d9dd/e/08645d496954a4",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-psp-inbound/blob/ae1d9ddfb34dae71c15913e9f28d41321d66266a/com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/messaging/KafkaProducer.java#L27-L48",
+      "label": "volvo-cars/cds-paymentservice-psp-inbound/com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/messaging/KafkaProducer.java:27–48"
+    },
+    {
+      "evidence": "pspin-ae1d9dd/e/6f762f52fab2cc",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-psp-inbound/blob/ae1d9ddfb34dae71c15913e9f28d41321d66266a/com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/webhook/SourceEventsConfigService.java#L1-L86",
+      "label": "volvo-cars/cds-paymentservice-psp-inbound/com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/webhook/SourceEventsConfigService.java:1–86"
+    },
+    {
+      "evidence": "pspin-ae1d9dd/e/37c90083beb770",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-psp-inbound/blob/ae1d9ddfb34dae71c15913e9f28d41321d66266a/com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/webhook/stripe/MessageKeyProvider.java#L1-L74",
+      "label": "volvo-cars/cds-paymentservice-psp-inbound/com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/webhook/stripe/MessageKeyProvider.java:1–74"
+    },
+    {
+      "evidence": "pspin-ae1d9dd/e/5dae8228e97703",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-psp-inbound/blob/ae1d9ddfb34dae71c15913e9f28d41321d66266a/com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/config/AllowedSourceEvents.java#L1-L51",
+      "label": "volvo-cars/cds-paymentservice-psp-inbound/com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/config/AllowedSourceEvents.java:1–51"
+    },
+    {
+      "evidence": "pspin-ae1d9dd/e/fd4f8ca42f9844",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-psp-inbound/blob/ae1d9ddfb34dae71c15913e9f28d41321d66266a/com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/webhook/InboundRequest.java#L1-L23",
+      "label": "volvo-cars/cds-paymentservice-psp-inbound/com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/webhook/InboundRequest.java:1–23"
+    },
+    {
+      "evidence": "pspin-ae1d9dd/e/379f59bdad583f",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-psp-inbound/blob/ae1d9ddfb34dae71c15913e9f28d41321d66266a/com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/webhook/InboundServiceFactory.java#L1-L23",
+      "label": "volvo-cars/cds-paymentservice-psp-inbound/com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/webhook/InboundServiceFactory.java:1–23"
+    },
+    {
+      "evidence": "pspin-ae1d9dd/e/32fa8756f8f052",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-psp-inbound/blob/ae1d9ddfb34dae71c15913e9f28d41321d66266a/com-volvocars-ecom-paymentservice-psp-inbound-api/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/api/App.java#L1-L24",
+      "label": "volvo-cars/cds-paymentservice-psp-inbound/com-volvocars-ecom-paymentservice-psp-inbound-api/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/api/App.java:1–24"
+    }
+  ],
+  "nextRequest": null
+}

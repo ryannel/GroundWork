@@ -1,0 +1,1652 @@
+{
+  "format": "groundwork-result/v3",
+  "snapshot": "83dca2d1f3de790273d6451f1ba875edfc6f9661680d0124077485d0aec4b24c",
+  "queryVersion": "knowledge-query/v3",
+  "request": {
+    "format": "groundwork-query/v3",
+    "snapshot": "83dca2d1f3de790273d6451f1ba875edfc6f9661680d0124077485d0aec4b24c",
+    "query": "value",
+    "entry": "psp-dabd6c8-r3/entry/RefundController-create",
+    "value": "psp-dabd6c8-r3/value/refund-http/invoke/result",
+    "context": [],
+    "outcome": null,
+    "changed": [],
+    "representation": "source",
+    "candidates": "exclude",
+    "maxNodes": 500,
+    "environment": "source-declared",
+    "maxRecords": 5000,
+    "ids": []
+  },
+  "nodes": [
+    {
+      "id": "root::psp-dabd6c8-r3/value/refund-http/invoke/result",
+      "record": "psp-dabd6c8-r3/value/refund-http/invoke/result",
+      "context": [],
+      "label": "RefundDto from refund service",
+      "component": "psp-dabd6c8-r3/component/api",
+      "execution": "psp-dabd6c8-r3/runs/RefundController-create"
+    },
+    {
+      "id": "psp-dabd6c8-r3/op/refund-http/invoke::psp-dabd6c8-r3/value/refund-core/stripe/result",
+      "record": "psp-dabd6c8-r3/value/refund-core/stripe/result",
+      "context": ["psp-dabd6c8-r3/op/refund-http/invoke"],
+      "label": "RefundDto returned from Stripe refund implementation",
+      "component": "psp-dabd6c8-r3/component/api",
+      "execution": "psp-dabd6c8-r3/runs/refund-core"
+    },
+    {
+      "id": "psp-dabd6c8-r3/op/refund-http/invoke>psp-dabd6c8-r3/op/refund-core/stripe::psp-dabd6c8-r3/value/refund-stripe/dto",
+      "record": "psp-dabd6c8-r3/value/refund-stripe/dto",
+      "context": ["psp-dabd6c8-r3/op/refund-http/invoke", "psp-dabd6c8-r3/op/refund-core/stripe"],
+      "label": "RefundDto(externalId=refund.id, refundId=refund.metadata[Refund.REFUND_ID], psp=STRIPE, status=PspStatus.from)",
+      "component": "psp-dabd6c8-r3/component/api",
+      "execution": "psp-dabd6c8-r3/runs/refund-stripe"
+    },
+    {
+      "id": "psp-dabd6c8-r3/op/refund-http/invoke>psp-dabd6c8-r3/op/refund-core/stripe::psp-dabd6c8-r3/value/refund-stripe/create/result",
+      "record": "psp-dabd6c8-r3/value/refund-stripe/create/result",
+      "context": ["psp-dabd6c8-r3/op/refund-http/invoke", "psp-dabd6c8-r3/op/refund-core/stripe"],
+      "label": "SDK result of Refund.create(refundCreateParams, requestOptions)",
+      "component": "psp-dabd6c8-r3/component/api",
+      "execution": "psp-dabd6c8-r3/runs/refund-stripe"
+    },
+    {
+      "id": "psp-dabd6c8-r3/op/refund-http/invoke>psp-dabd6c8-r3/op/refund-core/stripe>psp-dabd6c8-r3/op/refund-stripe/create-private-call::psp-dabd6c8-r3/value/refund-stripe/create/private-result",
+      "record": "psp-dabd6c8-r3/value/refund-stripe/create/private-result",
+      "context": [
+        "psp-dabd6c8-r3/op/refund-http/invoke",
+        "psp-dabd6c8-r3/op/refund-core/stripe",
+        "psp-dabd6c8-r3/op/refund-stripe/create-private-call"
+      ],
+      "label": "SDK result inside private helper",
+      "component": "psp-dabd6c8-r3/component/api",
+      "execution": "psp-dabd6c8-r3/runs/refund-create-private"
+    }
+  ],
+  "edges": [
+    {
+      "from": "psp-dabd6c8-r3/op/refund-http/invoke::psp-dabd6c8-r3/value/refund-core/stripe/result",
+      "to": "root::psp-dabd6c8-r3/value/refund-http/invoke/result",
+      "on": "value",
+      "condition": "callee return-to-result binding",
+      "assumption": null,
+      "evidence": [],
+      "record": "psp-dabd6c8-r3/op/refund-core/return"
+    },
+    {
+      "from": "psp-dabd6c8-r3/op/refund-http/invoke>psp-dabd6c8-r3/op/refund-core/stripe::psp-dabd6c8-r3/value/refund-stripe/dto",
+      "to": "psp-dabd6c8-r3/op/refund-http/invoke::psp-dabd6c8-r3/value/refund-core/stripe/result",
+      "on": "value",
+      "condition": "callee return-to-result binding",
+      "assumption": null,
+      "evidence": [],
+      "record": "psp-dabd6c8-r3/op/refund-stripe/return"
+    },
+    {
+      "from": "psp-dabd6c8-r3/op/refund-http/invoke>psp-dabd6c8-r3/op/refund-core/stripe::psp-dabd6c8-r3/value/refund-stripe/create/result",
+      "to": "psp-dabd6c8-r3/op/refund-http/invoke>psp-dabd6c8-r3/op/refund-core/stripe::psp-dabd6c8-r3/value/refund-stripe/dto",
+      "on": "value",
+      "condition": "Copy provider id; read internal refund id from returned metadata; map provider status; set STRIPE",
+      "assumption": null,
+      "evidence": [],
+      "record": "psp-dabd6c8-r3/flow/refund-stripe/dto"
+    },
+    {
+      "from": "psp-dabd6c8-r3/op/refund-http/invoke>psp-dabd6c8-r3/op/refund-core/stripe>psp-dabd6c8-r3/op/refund-stripe/create-private-call::psp-dabd6c8-r3/value/refund-stripe/create/private-result",
+      "to": "psp-dabd6c8-r3/op/refund-http/invoke>psp-dabd6c8-r3/op/refund-core/stripe::psp-dabd6c8-r3/value/refund-stripe/create/result",
+      "on": "value",
+      "condition": "callee return-to-result binding",
+      "assumption": null,
+      "evidence": [],
+      "record": "psp-dabd6c8-r3/op/refund-create-private/return"
+    }
+  ],
+  "claims": [],
+  "evidence": [
+    "psp-dabd6c8-r3/e/051b36aac4b4",
+    "psp-dabd6c8-r3/e/0ade2b0eae7f",
+    "psp-dabd6c8-r3/e/0c1fc064b0e1",
+    "psp-dabd6c8-r3/e/10491de09123",
+    "psp-dabd6c8-r3/e/129a252d71ba",
+    "psp-dabd6c8-r3/e/1910d8390c77",
+    "psp-dabd6c8-r3/e/1c06a8a50c3a",
+    "psp-dabd6c8-r3/e/26f558ef00dd",
+    "psp-dabd6c8-r3/e/271e80058736",
+    "psp-dabd6c8-r3/e/2bac7a7c4c31",
+    "psp-dabd6c8-r3/e/2d9841b85261",
+    "psp-dabd6c8-r3/e/327f81f8d9cb",
+    "psp-dabd6c8-r3/e/3a5d1cc8bcb9",
+    "psp-dabd6c8-r3/e/3fac219cb84c",
+    "psp-dabd6c8-r3/e/46f2eae5d667",
+    "psp-dabd6c8-r3/e/48c5e94ff514",
+    "psp-dabd6c8-r3/e/4b908501daab",
+    "psp-dabd6c8-r3/e/50bbdce2a11f",
+    "psp-dabd6c8-r3/e/52b5591b4837",
+    "psp-dabd6c8-r3/e/5dbb0634f0e2",
+    "psp-dabd6c8-r3/e/5e893d6377e9",
+    "psp-dabd6c8-r3/e/676100be27b6",
+    "psp-dabd6c8-r3/e/68da9c9e52c0",
+    "psp-dabd6c8-r3/e/6dcfa6eb40e7",
+    "psp-dabd6c8-r3/e/732ed470587b",
+    "psp-dabd6c8-r3/e/77be46a74598",
+    "psp-dabd6c8-r3/e/7f1d78491d4a",
+    "psp-dabd6c8-r3/e/80ff4a3b9ecb",
+    "psp-dabd6c8-r3/e/81063a2f81f3",
+    "psp-dabd6c8-r3/e/8f515567bb81",
+    "psp-dabd6c8-r3/e/93015b2236b1",
+    "psp-dabd6c8-r3/e/9562508ebd8e",
+    "psp-dabd6c8-r3/e/9e5f232736ad",
+    "psp-dabd6c8-r3/e/a6619ebb4f55",
+    "psp-dabd6c8-r3/e/a8fc93105732",
+    "psp-dabd6c8-r3/e/b305b795ba48",
+    "psp-dabd6c8-r3/e/ba0572337029",
+    "psp-dabd6c8-r3/e/bc15eaa35aa0",
+    "psp-dabd6c8-r3/e/bd791daffacd",
+    "psp-dabd6c8-r3/e/c19d2cda77c7",
+    "psp-dabd6c8-r3/e/c88c8a2f3bba",
+    "psp-dabd6c8-r3/e/cf06a25888ff",
+    "psp-dabd6c8-r3/e/d49466325721",
+    "psp-dabd6c8-r3/e/dd939b0daf1b",
+    "psp-dabd6c8-r3/e/e16be9c1c769",
+    "psp-dabd6c8-r3/e/f3e176f41c30",
+    "psp-dabd6c8-r3/e/fb629d032a51",
+    "psp-dabd6c8-r3/e/fcf14471a3de"
+  ],
+  "coverage": [
+    "psp-dabd6c8-r3/coverage/RefundController-create",
+    "psp-dabd6c8-r3/coverage/refund-local"
+  ],
+  "frontiers": [
+    {
+      "at": "psp-dabd6c8-r3/op/refund-http/invoke>psp-dabd6c8-r3/op/refund-core/stripe::psp-dabd6c8-r3/value/refund-stripe/dto",
+      "reason": "version_unresolved",
+      "detail": "Mapping instruction is known; effective imported implementation remains unresolved.",
+      "references": ["psp-dabd6c8-r3/gap/shared-library"]
+    },
+    {
+      "at": "psp-dabd6c8-r3/op/refund-http/invoke>psp-dabd6c8-r3/op/refund-core/stripe>psp-dabd6c8-r3/op/refund-stripe/create-private-call::psp-dabd6c8-r3/value/refund-stripe/create/private-result",
+      "reason": "version_unresolved",
+      "detail": "Origin depends on unresolved callee result.",
+      "references": ["psp-dabd6c8-r3/op/refund-stripe/create"]
+    }
+  ],
+  "limitsHit": [],
+  "feasibility": "not_checked",
+  "exhaustive": false,
+  "records": [
+    {
+      "id": "psp-dabd6c8-r3/artifact/stripe",
+      "kind": "artifact",
+      "coordinate": "com.stripe:stripe-java",
+      "version": "31.4.1",
+      "sourceCommit": null,
+      "correspondence": "declared",
+      "digest": null,
+      "evidence": ["psp-dabd6c8-r3/e/9e5f232736ad"]
+    },
+    {
+      "id": "psp-dabd6c8-r3/census",
+      "kind": "implementation",
+      "logicalId": "impl:psp-source-census",
+      "scope": "psp-dabd6c8-r3/source",
+      "entry": "psp-dabd6c8-r3/census/start",
+      "parameters": [],
+      "evidence": ["psp-dabd6c8-r3/e/52b5591b4837"]
+    },
+    {
+      "id": "psp-dabd6c8-r3/census/start",
+      "kind": "operation",
+      "owner": "psp-dabd6c8-r3/census",
+      "action": "opaque",
+      "label": "Repository discovery context, not an endpoint implementation",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": null,
+      "httpStatus": null,
+      "evidence": ["psp-dabd6c8-r3/e/52b5591b4837"]
+    },
+    {
+      "id": "psp-dabd6c8-r3/component/api",
+      "kind": "runtime_component",
+      "logicalId": "svc:payment-psp-integration-api",
+      "label": "Payment PSP integration API",
+      "category": "service",
+      "technology": "Java / Spring Boot",
+      "sources": ["psp-dabd6c8-r3/source"],
+      "basis": "source_declared",
+      "gaps": ["psp-dabd6c8-r3/gap/deployment", "psp-dabd6c8-r3/gap/shared-library"],
+      "evidence": ["psp-dabd6c8-r3/e/c19d2cda77c7", "psp-dabd6c8-r3/e/4b908501daab"]
+    },
+    {
+      "id": "psp-dabd6c8-r3/coverage/refund-local",
+      "kind": "coverage",
+      "owner": "psp-dabd6c8-r3/entry/RefundController-create",
+      "obligation": "bounded_source_analysis",
+      "status": "examined",
+      "scope": "Bounded local STRIPE refund path: provider selection, options, identifier mutation, optional failed retrieval, parameter mappings, create result and named errors. Imported collision, SDK and wire policies remain gaps.",
+      "gaps": [
+        "psp-dabd6c8-r3/gap/wire",
+        "psp-dabd6c8-r3/gap/stripe-sdk",
+        "psp-dabd6c8-r3/gap/shared-library"
+      ],
+      "evidence": [
+        "psp-dabd6c8-r3/e/a8fc93105732",
+        "psp-dabd6c8-r3/e/93015b2236b1",
+        "psp-dabd6c8-r3/e/ba0572337029",
+        "psp-dabd6c8-r3/e/1c06a8a50c3a"
+      ]
+    },
+    {
+      "id": "psp-dabd6c8-r3/coverage/RefundController-create",
+      "kind": "coverage",
+      "owner": "psp-dabd6c8-r3/entry/RefundController-create",
+      "obligation": "bounded_source_analysis",
+      "status": "partial",
+      "scope": "Registration, declared JSON input/output, source role annotation and implementation binding; downstream closure remains partial.",
+      "gaps": [
+        "psp-dabd6c8-r3/gap/entry-RefundController-create",
+        "psp-dabd6c8-r3/gap/wire",
+        "psp-dabd6c8-r3/gap/shared-library"
+      ],
+      "evidence": ["psp-dabd6c8-r3/e/6dcfa6eb40e7", "psp-dabd6c8-r3/e/50bbdce2a11f"]
+    },
+    {
+      "id": "psp-dabd6c8-r3/e/051b36aac4b4",
+      "kind": "evidence",
+      "repo": "volvo-cars/cds-paymentservice-psp-integration",
+      "commit": "dabd6c825499b706ff4ddbf15eaf354adbfb6794",
+      "path": "pom.xml",
+      "lines": [17, 21],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "psp-dabd6c8-r3/e/0ade2b0eae7f",
+      "kind": "evidence",
+      "repo": "volvo-cars/cds-paymentservice-psp-integration",
+      "commit": "dabd6c825499b706ff4ddbf15eaf354adbfb6794",
+      "path": "cds-paymentservice-psp-integration-shared/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/refund/RefundPayload.java",
+      "lines": [58, 62],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "psp-dabd6c8-r3/e/0c1fc064b0e1",
+      "kind": "evidence",
+      "repo": "volvo-cars/cds-paymentservice-psp-integration",
+      "commit": "dabd6c825499b706ff4ddbf15eaf354adbfb6794",
+      "path": "cds-paymentservice-psp-integration-shared/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/common/PspIntegrationPayload.java",
+      "lines": [25, 28],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "psp-dabd6c8-r3/e/10491de09123",
+      "kind": "evidence",
+      "repo": "volvo-cars/cds-paymentservice-psp-integration",
+      "commit": "dabd6c825499b706ff4ddbf15eaf354adbfb6794",
+      "path": "cds-paymentservice-psp-integration-stripe/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/stripe/refund/StripeRefundOperationService.java",
+      "lines": [84, 95],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "psp-dabd6c8-r3/e/129a252d71ba",
+      "kind": "evidence",
+      "repo": "volvo-cars/cds-paymentservice-psp-integration",
+      "commit": "dabd6c825499b706ff4ddbf15eaf354adbfb6794",
+      "path": "cds-paymentservice-psp-integration-stripe/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/stripe/common/StripeConfiguration.java",
+      "lines": [1, 53],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "psp-dabd6c8-r3/e/1910d8390c77",
+      "kind": "evidence",
+      "repo": "volvo-cars/cds-paymentservice-psp-integration",
+      "commit": "dabd6c825499b706ff4ddbf15eaf354adbfb6794",
+      "path": "cds-paymentservice-psp-integration-stripe/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/stripe/refund/StripeRefundOperationService.java",
+      "lines": [44, 95],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "psp-dabd6c8-r3/e/1c06a8a50c3a",
+      "kind": "evidence",
+      "repo": "volvo-cars/cds-paymentservice-psp-integration",
+      "commit": "dabd6c825499b706ff4ddbf15eaf354adbfb6794",
+      "path": "cds-paymentservice-psp-integration-stripe/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/stripe/common/StripeAmountConverter.java",
+      "lines": [1, 36],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "psp-dabd6c8-r3/e/26f558ef00dd",
+      "kind": "evidence",
+      "repo": "volvo-cars/cds-paymentservice-psp-integration",
+      "commit": "dabd6c825499b706ff4ddbf15eaf354adbfb6794",
+      "path": "cds-paymentservice-psp-integration-shared/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/refund/RefundPayload.java",
+      "lines": [33, 37],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "psp-dabd6c8-r3/e/271e80058736",
+      "kind": "evidence",
+      "repo": "volvo-cars/cds-paymentservice-psp-integration",
+      "commit": "dabd6c825499b706ff4ddbf15eaf354adbfb6794",
+      "path": "cds-paymentservice-psp-integration-stripe/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/stripe/common/StripeRequestOptionsBuilder.java",
+      "lines": [21, 24],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "psp-dabd6c8-r3/e/2bac7a7c4c31",
+      "kind": "evidence",
+      "repo": "volvo-cars/cds-paymentservice-psp-integration",
+      "commit": "dabd6c825499b706ff4ddbf15eaf354adbfb6794",
+      "path": "cds-paymentservice-psp-integration-shared/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/refund/RefundPayload.java",
+      "lines": [66, 69],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "psp-dabd6c8-r3/e/2d9841b85261",
+      "kind": "evidence",
+      "repo": "volvo-cars/cds-paymentservice-psp-integration",
+      "commit": "dabd6c825499b706ff4ddbf15eaf354adbfb6794",
+      "path": "cds-paymentservice-psp-integration-stripe/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/stripe/refund/StripeRefundOperationService.java",
+      "lines": [51, 52],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "psp-dabd6c8-r3/e/327f81f8d9cb",
+      "kind": "evidence",
+      "repo": "volvo-cars/cds-paymentservice-psp-integration",
+      "commit": "dabd6c825499b706ff4ddbf15eaf354adbfb6794",
+      "path": "cds-paymentservice-psp-integration-shared/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/refund/RefundPayload.java",
+      "lines": [54, 58],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "psp-dabd6c8-r3/e/3a5d1cc8bcb9",
+      "kind": "evidence",
+      "repo": "volvo-cars/cds-paymentservice-psp-integration",
+      "commit": "dabd6c825499b706ff4ddbf15eaf354adbfb6794",
+      "path": "cds-paymentservice-psp-integration-api/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/api/common/ApiControllerAdvice.java",
+      "lines": [315, 346],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "psp-dabd6c8-r3/e/3fac219cb84c",
+      "kind": "evidence",
+      "repo": "volvo-cars/cds-paymentservice-psp-integration",
+      "commit": "dabd6c825499b706ff4ddbf15eaf354adbfb6794",
+      "path": "cds-paymentservice-psp-integration-shared/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/refund/RefundPayload.java",
+      "lines": [15, 28],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "psp-dabd6c8-r3/e/46f2eae5d667",
+      "kind": "evidence",
+      "repo": "volvo-cars/cds-paymentservice-psp-integration",
+      "commit": "dabd6c825499b706ff4ddbf15eaf354adbfb6794",
+      "path": "cds-paymentservice-psp-integration-shared/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/refund/RefundPayload.java",
+      "lines": [1, 77],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "psp-dabd6c8-r3/e/48c5e94ff514",
+      "kind": "evidence",
+      "repo": "volvo-cars/cds-paymentservice-psp-integration",
+      "commit": "dabd6c825499b706ff4ddbf15eaf354adbfb6794",
+      "path": "cds-paymentservice-psp-integration-shared/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/common/PspIntegrationPayload.java",
+      "lines": [1, 64],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "psp-dabd6c8-r3/e/4b908501daab",
+      "kind": "evidence",
+      "repo": "volvo-cars/cds-paymentservice-psp-integration",
+      "commit": "dabd6c825499b706ff4ddbf15eaf354adbfb6794",
+      "path": "Dockerfile",
+      "lines": [1, 23],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "psp-dabd6c8-r3/e/50bbdce2a11f",
+      "kind": "evidence",
+      "repo": "volvo-cars/cds-paymentservice-psp-integration",
+      "commit": "dabd6c825499b706ff4ddbf15eaf354adbfb6794",
+      "path": "cds-paymentservice-psp-integration-api/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/api/refund/v1/impl/RefundControllerImpl.java",
+      "lines": [1, 36],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "psp-dabd6c8-r3/e/52b5591b4837",
+      "kind": "evidence",
+      "repo": "volvo-cars/cds-paymentservice-psp-integration",
+      "commit": "dabd6c825499b706ff4ddbf15eaf354adbfb6794",
+      "path": "cds-paymentservice-psp-integration-api/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/api/App.java",
+      "lines": [1, 25],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "psp-dabd6c8-r3/e/5dbb0634f0e2",
+      "kind": "evidence",
+      "repo": "volvo-cars/cds-paymentservice-psp-integration",
+      "commit": "dabd6c825499b706ff4ddbf15eaf354adbfb6794",
+      "path": "cds-paymentservice-psp-integration-shared/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/refund/RefundPayload.java",
+      "lines": [50, 54],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "psp-dabd6c8-r3/e/5e893d6377e9",
+      "kind": "evidence",
+      "repo": "volvo-cars/cds-paymentservice-psp-integration",
+      "commit": "dabd6c825499b706ff4ddbf15eaf354adbfb6794",
+      "path": "cds-paymentservice-psp-integration-stripe/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/stripe/refund/StripeRefundOperationService.java",
+      "lines": [45, 49],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "psp-dabd6c8-r3/e/676100be27b6",
+      "kind": "evidence",
+      "repo": "volvo-cars/cds-paymentservice-psp-integration",
+      "commit": "dabd6c825499b706ff4ddbf15eaf354adbfb6794",
+      "path": "cds-paymentservice-psp-integration-stripe/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/stripe/refund/StripeRefundOperationService.java",
+      "lines": [66, 80],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "psp-dabd6c8-r3/e/68da9c9e52c0",
+      "kind": "evidence",
+      "repo": "volvo-cars/cds-paymentservice-psp-integration",
+      "commit": "dabd6c825499b706ff4ddbf15eaf354adbfb6794",
+      "path": "cds-paymentservice-psp-integration-core/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/refund/PspRefundService.java",
+      "lines": [14, 22],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "psp-dabd6c8-r3/e/6dcfa6eb40e7",
+      "kind": "evidence",
+      "repo": "volvo-cars/cds-paymentservice-psp-integration",
+      "commit": "dabd6c825499b706ff4ddbf15eaf354adbfb6794",
+      "path": "cds-paymentservice-psp-integration-api/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/api/refund/v1/RefundController.java",
+      "lines": [18, 26],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "psp-dabd6c8-r3/e/732ed470587b",
+      "kind": "evidence",
+      "repo": "volvo-cars/cds-paymentservice-psp-integration",
+      "commit": "dabd6c825499b706ff4ddbf15eaf354adbfb6794",
+      "path": "cds-paymentservice-psp-integration-shared/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/common/PspIntegrationDto.java",
+      "lines": [17, 28],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "psp-dabd6c8-r3/e/77be46a74598",
+      "kind": "evidence",
+      "repo": "volvo-cars/cds-paymentservice-psp-integration",
+      "commit": "dabd6c825499b706ff4ddbf15eaf354adbfb6794",
+      "path": "cds-paymentservice-psp-integration-shared/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/common/PspIntegrationPayload.java",
+      "lines": [28, 31],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "psp-dabd6c8-r3/e/7f1d78491d4a",
+      "kind": "evidence",
+      "repo": "volvo-cars/cds-paymentservice-psp-integration",
+      "commit": "dabd6c825499b706ff4ddbf15eaf354adbfb6794",
+      "path": "cds-paymentservice-psp-integration-shared/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/refund/RefundDto.java",
+      "lines": [1, 46],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "psp-dabd6c8-r3/e/80ff4a3b9ecb",
+      "kind": "evidence",
+      "repo": "volvo-cars/cds-paymentservice-psp-integration",
+      "commit": "dabd6c825499b706ff4ddbf15eaf354adbfb6794",
+      "path": "cds-paymentservice-psp-integration-shared/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/refund/RefundDto.java",
+      "lines": [28, 31],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "psp-dabd6c8-r3/e/81063a2f81f3",
+      "kind": "evidence",
+      "repo": "volvo-cars/cds-paymentservice-psp-integration",
+      "commit": "dabd6c825499b706ff4ddbf15eaf354adbfb6794",
+      "path": "cds-paymentservice-psp-integration-shared/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/refund/RefundPayload.java",
+      "lines": [62, 66],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "psp-dabd6c8-r3/e/8f515567bb81",
+      "kind": "evidence",
+      "repo": "volvo-cars/cds-paymentservice-psp-integration",
+      "commit": "dabd6c825499b706ff4ddbf15eaf354adbfb6794",
+      "path": "cds-paymentservice-psp-integration-shared/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/refund/RefundDto.java",
+      "lines": [15, 23],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "psp-dabd6c8-r3/e/93015b2236b1",
+      "kind": "evidence",
+      "repo": "volvo-cars/cds-paymentservice-psp-integration",
+      "commit": "dabd6c825499b706ff4ddbf15eaf354adbfb6794",
+      "path": "cds-paymentservice-psp-integration-stripe/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/stripe/refund/StripeRefundOperationService.java",
+      "lines": [1, 97],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "psp-dabd6c8-r3/e/9562508ebd8e",
+      "kind": "evidence",
+      "repo": "volvo-cars/cds-paymentservice-psp-integration",
+      "commit": "dabd6c825499b706ff4ddbf15eaf354adbfb6794",
+      "path": "cds-paymentservice-psp-integration-shared/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/refund/RefundPayload.java",
+      "lines": [37, 50],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "psp-dabd6c8-r3/e/9e5f232736ad",
+      "kind": "evidence",
+      "repo": "volvo-cars/cds-paymentservice-psp-integration",
+      "commit": "dabd6c825499b706ff4ddbf15eaf354adbfb6794",
+      "path": "pom.xml",
+      "lines": [25, 25],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "psp-dabd6c8-r3/e/a6619ebb4f55",
+      "kind": "evidence",
+      "repo": "volvo-cars/cds-paymentservice-psp-integration",
+      "commit": "dabd6c825499b706ff4ddbf15eaf354adbfb6794",
+      "path": "cds-paymentservice-psp-integration-core/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/refund/PspRefundService.java",
+      "lines": [15, 17],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "psp-dabd6c8-r3/e/a8fc93105732",
+      "kind": "evidence",
+      "repo": "volvo-cars/cds-paymentservice-psp-integration",
+      "commit": "dabd6c825499b706ff4ddbf15eaf354adbfb6794",
+      "path": "cds-paymentservice-psp-integration-core/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/refund/PspRefundService.java",
+      "lines": [1, 24],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "psp-dabd6c8-r3/e/b305b795ba48",
+      "kind": "evidence",
+      "repo": "volvo-cars/cds-paymentservice-psp-integration",
+      "commit": "dabd6c825499b706ff4ddbf15eaf354adbfb6794",
+      "path": "cds-paymentservice-psp-integration-core/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/refund/PspRefundService.java",
+      "lines": [17, 22],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "psp-dabd6c8-r3/e/ba0572337029",
+      "kind": "evidence",
+      "repo": "volvo-cars/cds-paymentservice-psp-integration",
+      "commit": "dabd6c825499b706ff4ddbf15eaf354adbfb6794",
+      "path": "cds-paymentservice-psp-integration-stripe/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/stripe/refund/mappers/StripeRefundMapper.java",
+      "lines": [1, 63],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "psp-dabd6c8-r3/e/bc15eaa35aa0",
+      "kind": "evidence",
+      "repo": "volvo-cars/cds-paymentservice-psp-integration",
+      "commit": "dabd6c825499b706ff4ddbf15eaf354adbfb6794",
+      "path": "cds-paymentservice-psp-integration-stripe/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/stripe/refund/mappers/StripeRefundMapper.java",
+      "lines": [37, 54],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "psp-dabd6c8-r3/e/bd791daffacd",
+      "kind": "evidence",
+      "repo": "volvo-cars/cds-paymentservice-psp-integration",
+      "commit": "dabd6c825499b706ff4ddbf15eaf354adbfb6794",
+      "path": "cds-paymentservice-psp-integration-stripe/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/stripe/refund/StripeRefundOperationService.java",
+      "lines": [86, 87],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "psp-dabd6c8-r3/e/c19d2cda77c7",
+      "kind": "evidence",
+      "repo": "volvo-cars/cds-paymentservice-psp-integration",
+      "commit": "dabd6c825499b706ff4ddbf15eaf354adbfb6794",
+      "path": "cds-paymentservice-psp-integration-api/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/api/App.java",
+      "lines": [13, 24],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "psp-dabd6c8-r3/e/c88c8a2f3bba",
+      "kind": "evidence",
+      "repo": "volvo-cars/cds-paymentservice-psp-integration",
+      "commit": "dabd6c825499b706ff4ddbf15eaf354adbfb6794",
+      "path": "cds-paymentservice-psp-integration-api/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/api/refund/v1/impl/RefundControllerImpl.java",
+      "lines": [25, 34],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "psp-dabd6c8-r3/e/cf06a25888ff",
+      "kind": "evidence",
+      "repo": "volvo-cars/cds-paymentservice-psp-integration",
+      "commit": "dabd6c825499b706ff4ddbf15eaf354adbfb6794",
+      "path": "cds-paymentservice-psp-integration-shared/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/common/PspIntegrationDto.java",
+      "lines": [28, 30],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "psp-dabd6c8-r3/e/d49466325721",
+      "kind": "evidence",
+      "repo": "volvo-cars/cds-paymentservice-psp-integration",
+      "commit": "dabd6c825499b706ff4ddbf15eaf354adbfb6794",
+      "path": "cds-paymentservice-psp-integration-shared/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/common/PspIntegrationPayload.java",
+      "lines": [12, 25],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "psp-dabd6c8-r3/e/dd939b0daf1b",
+      "kind": "evidence",
+      "repo": "volvo-cars/cds-paymentservice-psp-integration",
+      "commit": "dabd6c825499b706ff4ddbf15eaf354adbfb6794",
+      "path": "cds-paymentservice-psp-integration-shared/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/common/PspIntegrationDto.java",
+      "lines": [9, 17],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "psp-dabd6c8-r3/e/e16be9c1c769",
+      "kind": "evidence",
+      "repo": "volvo-cars/cds-paymentservice-psp-integration",
+      "commit": "dabd6c825499b706ff4ddbf15eaf354adbfb6794",
+      "path": "cds-paymentservice-psp-integration-shared/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/common/PspIntegrationPayload.java",
+      "lines": [31, 33],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "psp-dabd6c8-r3/e/f3e176f41c30",
+      "kind": "evidence",
+      "repo": "volvo-cars/cds-paymentservice-psp-integration",
+      "commit": "dabd6c825499b706ff4ddbf15eaf354adbfb6794",
+      "path": "cds-paymentservice-psp-integration-stripe/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/stripe/common/StripeConfiguration.java",
+      "lines": [25, 29],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "psp-dabd6c8-r3/e/fb629d032a51",
+      "kind": "evidence",
+      "repo": "volvo-cars/cds-paymentservice-psp-integration",
+      "commit": "dabd6c825499b706ff4ddbf15eaf354adbfb6794",
+      "path": "cds-paymentservice-psp-integration-shared/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/refund/RefundPayload.java",
+      "lines": [28, 33],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "psp-dabd6c8-r3/e/fcf14471a3de",
+      "kind": "evidence",
+      "repo": "volvo-cars/cds-paymentservice-psp-integration",
+      "commit": "dabd6c825499b706ff4ddbf15eaf354adbfb6794",
+      "path": "cds-paymentservice-psp-integration-shared/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/refund/RefundDto.java",
+      "lines": [23, 28],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "psp-dabd6c8-r3/entry/RefundController-create",
+      "kind": "entry",
+      "logicalId": "api:psp-RefundController-create",
+      "method": "POST",
+      "path": "/v1/refunds/",
+      "implementation": "psp-dabd6c8-r3/impl/RefundController-create",
+      "evidence": ["psp-dabd6c8-r3/e/6dcfa6eb40e7", "psp-dabd6c8-r3/e/50bbdce2a11f"]
+    },
+    {
+      "id": "psp-dabd6c8-r3/flow/refund-stripe/dto",
+      "kind": "flow",
+      "owner": "psp-dabd6c8-r3/impl/refund-stripe",
+      "from": "psp-dabd6c8-r3/value/refund-stripe/create/result",
+      "to": "psp-dabd6c8-r3/value/refund-stripe/dto",
+      "at": "psp-dabd6c8-r3/op/refund-stripe/return",
+      "transform": "Copy provider id; read internal refund id from returned metadata; map provider status; set STRIPE",
+      "evidence": ["psp-dabd6c8-r3/e/bc15eaa35aa0"],
+      "gaps": ["psp-dabd6c8-r3/gap/shared-library"],
+      "assumptions": []
+    },
+    {
+      "id": "psp-dabd6c8-r3/gap/entry-RefundController-create",
+      "kind": "gap",
+      "owner": "psp-dabd6c8-r3/entry/RefundController-create",
+      "obligation": "entry-RefundController-create",
+      "reason": "Delegated controls, error branches, values and effect closure are not fully traced for RefundController-create",
+      "action": "Trace the named local continuation or obtain exact resolved artefact source/digest and effective runtime configuration.",
+      "evidence": ["psp-dabd6c8-r3/e/6dcfa6eb40e7", "psp-dabd6c8-r3/e/50bbdce2a11f"]
+    },
+    {
+      "id": "psp-dabd6c8-r3/gap/shared-library",
+      "kind": "gap",
+      "owner": "psp-dabd6c8-r3/census",
+      "obligation": "shared-library",
+      "reason": "AccountConfigService, imported EcomWebAppConfiguration and other shared libraries have declared versions but no exact source/digest correspondence here. Storage, scheduled refresh and enforcement internals remain unknown.",
+      "action": "Trace the named local continuation or obtain exact resolved artefact source/digest and effective runtime configuration.",
+      "evidence": ["psp-dabd6c8-r3/e/52b5591b4837", "psp-dabd6c8-r3/e/051b36aac4b4"]
+    },
+    {
+      "id": "psp-dabd6c8-r3/gap/stripe-sdk",
+      "kind": "gap",
+      "owner": "psp-dabd6c8-r3/census",
+      "obligation": "stripe-sdk",
+      "reason": "stripe-java 31.4.1 is declared in pom.xml but its resolved artefact, digest, HTTP implementation/default endpoint and effective retries/timeout are not examined. SDK calls have unresolved runtime targets.",
+      "action": "Trace the named local continuation or obtain exact resolved artefact source/digest and effective runtime configuration.",
+      "evidence": ["psp-dabd6c8-r3/e/9e5f232736ad", "psp-dabd6c8-r3/e/129a252d71ba"]
+    },
+    {
+      "id": "psp-dabd6c8-r3/gap/wire",
+      "kind": "gap",
+      "owner": "psp-dabd6c8-r3/census",
+      "obligation": "wire",
+      "reason": "Imported AttributeBase, BaseResponse/SuccessResponse, generic model inheritance and effective Jackson/validation configuration are not fully established.",
+      "action": "Trace the named local continuation or obtain exact resolved artefact source/digest and effective runtime configuration.",
+      "evidence": ["psp-dabd6c8-r3/e/48c5e94ff514", "psp-dabd6c8-r3/e/3a5d1cc8bcb9"]
+    },
+    {
+      "id": "psp-dabd6c8-r3/impl/refund-core",
+      "kind": "implementation",
+      "logicalId": "impl:psp-PspRefundService.create",
+      "scope": "psp-dabd6c8-r3/source",
+      "entry": "psp-dabd6c8-r3/op/refund-core/start",
+      "parameters": ["psp-dabd6c8-r3/value/refund-core/payload"],
+      "evidence": ["psp-dabd6c8-r3/e/68da9c9e52c0"]
+    },
+    {
+      "id": "psp-dabd6c8-r3/impl/refund-create-private",
+      "kind": "implementation",
+      "logicalId": "impl:psp-StripeRefundOperationService.createRefund",
+      "scope": "psp-dabd6c8-r3/source",
+      "entry": "psp-dabd6c8-r3/op/refund-create-private/start",
+      "parameters": [
+        "psp-dabd6c8-r3/value/refund-create-private/refundPayload",
+        "psp-dabd6c8-r3/value/refund-create-private/requestOptions"
+      ],
+      "evidence": ["psp-dabd6c8-r3/e/10491de09123"]
+    },
+    {
+      "id": "psp-dabd6c8-r3/impl/refund-stripe",
+      "kind": "implementation",
+      "logicalId": "impl:psp-StripeRefundOperationService.create",
+      "scope": "psp-dabd6c8-r3/source",
+      "entry": "psp-dabd6c8-r3/op/refund-stripe/start",
+      "parameters": ["psp-dabd6c8-r3/value/refund-stripe/payload"],
+      "evidence": ["psp-dabd6c8-r3/e/1910d8390c77"]
+    },
+    {
+      "id": "psp-dabd6c8-r3/impl/RefundController-create",
+      "kind": "implementation",
+      "logicalId": "impl:psp-RefundController-create",
+      "scope": "psp-dabd6c8-r3/source",
+      "entry": "psp-dabd6c8-r3/op/RefundController-create/start",
+      "parameters": ["psp-dabd6c8-r3/value/refund-http/payload"],
+      "evidence": ["psp-dabd6c8-r3/e/6dcfa6eb40e7", "psp-dabd6c8-r3/e/50bbdce2a11f"]
+    },
+    {
+      "id": "psp-dabd6c8-r3/op/refund-core/return",
+      "kind": "operation",
+      "owner": "psp-dabd6c8-r3/impl/refund-core",
+      "action": "return",
+      "label": "Return refundDto",
+      "resolution": null,
+      "bindings": [],
+      "result": "psp-dabd6c8-r3/value/refund-core/stripe/result",
+      "exit": "normal",
+      "httpStatus": null,
+      "evidence": ["psp-dabd6c8-r3/e/b305b795ba48"]
+    },
+    {
+      "id": "psp-dabd6c8-r3/op/refund-core/start",
+      "kind": "operation",
+      "owner": "psp-dabd6c8-r3/impl/refund-core",
+      "action": "entry",
+      "label": "PspRefundService.create",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": null,
+      "httpStatus": null,
+      "evidence": ["psp-dabd6c8-r3/e/68da9c9e52c0"]
+    },
+    {
+      "id": "psp-dabd6c8-r3/op/refund-core/stripe",
+      "kind": "operation",
+      "owner": "psp-dabd6c8-r3/impl/refund-core",
+      "action": "call",
+      "label": "Invoke impl:psp-StripeRefundOperationService.create",
+      "resolution": "psp-dabd6c8-r3/resolve/refund-core/stripe",
+      "bindings": [
+        {
+          "parameter": "psp-dabd6c8-r3/value/refund-stripe/payload",
+          "value": "psp-dabd6c8-r3/value/refund-core/payload"
+        }
+      ],
+      "result": "psp-dabd6c8-r3/value/refund-core/stripe/result",
+      "exit": null,
+      "httpStatus": null,
+      "evidence": ["psp-dabd6c8-r3/e/a6619ebb4f55"]
+    },
+    {
+      "id": "psp-dabd6c8-r3/op/refund-create-private/return",
+      "kind": "operation",
+      "owner": "psp-dabd6c8-r3/impl/refund-create-private",
+      "action": "return",
+      "label": "Return created Stripe Refund",
+      "resolution": null,
+      "bindings": [],
+      "result": "psp-dabd6c8-r3/value/refund-stripe/create/private-result",
+      "exit": "normal",
+      "httpStatus": null,
+      "evidence": ["psp-dabd6c8-r3/e/bd791daffacd"]
+    },
+    {
+      "id": "psp-dabd6c8-r3/op/refund-create-private/start",
+      "kind": "operation",
+      "owner": "psp-dabd6c8-r3/impl/refund-create-private",
+      "action": "entry",
+      "label": "StripeRefundOperationService.createRefund",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": null,
+      "httpStatus": null,
+      "evidence": ["psp-dabd6c8-r3/e/10491de09123"]
+    },
+    {
+      "id": "psp-dabd6c8-r3/op/refund-http/invoke",
+      "kind": "operation",
+      "owner": "psp-dabd6c8-r3/impl/RefundController-create",
+      "action": "call",
+      "label": "Invoke impl:psp-PspRefundService.create",
+      "resolution": "psp-dabd6c8-r3/resolve/refund-http/invoke",
+      "bindings": [
+        {
+          "parameter": "psp-dabd6c8-r3/value/refund-core/payload",
+          "value": "psp-dabd6c8-r3/value/refund-http/payload"
+        }
+      ],
+      "result": "psp-dabd6c8-r3/value/refund-http/invoke/result",
+      "exit": null,
+      "httpStatus": null,
+      "evidence": ["psp-dabd6c8-r3/e/c88c8a2f3bba"]
+    },
+    {
+      "id": "psp-dabd6c8-r3/op/refund-stripe/create",
+      "kind": "operation",
+      "owner": "psp-dabd6c8-r3/impl/refund-create-private",
+      "action": "call",
+      "label": "Refund.create(refundCreateParams, requestOptions)",
+      "resolution": "psp-dabd6c8-r3/resolve/refund-stripe/create",
+      "bindings": [],
+      "result": "psp-dabd6c8-r3/value/refund-stripe/create/private-result",
+      "exit": null,
+      "httpStatus": null,
+      "evidence": ["psp-dabd6c8-r3/e/10491de09123"]
+    },
+    {
+      "id": "psp-dabd6c8-r3/op/refund-stripe/create-private-call",
+      "kind": "operation",
+      "owner": "psp-dabd6c8-r3/impl/refund-stripe",
+      "action": "call",
+      "label": "Invoke impl:psp-StripeRefundOperationService.createRefund",
+      "resolution": "psp-dabd6c8-r3/resolve/refund-stripe/create-private-call",
+      "bindings": [
+        {
+          "parameter": "psp-dabd6c8-r3/value/refund-create-private/refundPayload",
+          "value": "psp-dabd6c8-r3/value/refund-stripe/merged"
+        },
+        {
+          "parameter": "psp-dabd6c8-r3/value/refund-create-private/requestOptions",
+          "value": "psp-dabd6c8-r3/value/refund-stripe/options"
+        }
+      ],
+      "result": "psp-dabd6c8-r3/value/refund-stripe/create/result",
+      "exit": null,
+      "httpStatus": null,
+      "evidence": ["psp-dabd6c8-r3/e/2d9841b85261"]
+    },
+    {
+      "id": "psp-dabd6c8-r3/op/refund-stripe/merge",
+      "kind": "operation",
+      "owner": "psp-dabd6c8-r3/impl/refund-stripe",
+      "action": "compute",
+      "label": "If retrieve returned an intent, payload.addAttributes(paymentIntent.metadata); otherwise continue unchanged",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": null,
+      "httpStatus": null,
+      "evidence": ["psp-dabd6c8-r3/e/676100be27b6"]
+    },
+    {
+      "id": "psp-dabd6c8-r3/op/refund-stripe/options",
+      "kind": "operation",
+      "owner": "psp-dabd6c8-r3/impl/refund-stripe",
+      "action": "compute",
+      "label": "Build request options from InternalAccountId(payload.accountId)",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": null,
+      "httpStatus": null,
+      "evidence": [
+        "psp-dabd6c8-r3/e/5e893d6377e9",
+        "psp-dabd6c8-r3/e/271e80058736",
+        "psp-dabd6c8-r3/e/f3e176f41c30"
+      ]
+    },
+    {
+      "id": "psp-dabd6c8-r3/op/refund-stripe/return",
+      "kind": "operation",
+      "owner": "psp-dabd6c8-r3/impl/refund-stripe",
+      "action": "return",
+      "label": "Map created Refund to RefundDto",
+      "resolution": null,
+      "bindings": [],
+      "result": "psp-dabd6c8-r3/value/refund-stripe/dto",
+      "exit": "normal",
+      "httpStatus": null,
+      "evidence": ["psp-dabd6c8-r3/e/2d9841b85261", "psp-dabd6c8-r3/e/bc15eaa35aa0"]
+    },
+    {
+      "id": "psp-dabd6c8-r3/op/refund-stripe/start",
+      "kind": "operation",
+      "owner": "psp-dabd6c8-r3/impl/refund-stripe",
+      "action": "entry",
+      "label": "StripeRefundOperationService.create",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": null,
+      "httpStatus": null,
+      "evidence": ["psp-dabd6c8-r3/e/1910d8390c77"]
+    },
+    {
+      "id": "psp-dabd6c8-r3/op/RefundController-create/start",
+      "kind": "operation",
+      "owner": "psp-dabd6c8-r3/impl/RefundController-create",
+      "action": "entry",
+      "label": "Refund controller after declared role and @Valid request binding",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": null,
+      "httpStatus": null,
+      "evidence": ["psp-dabd6c8-r3/e/6dcfa6eb40e7", "psp-dabd6c8-r3/e/50bbdce2a11f"]
+    },
+    {
+      "id": "psp-dabd6c8-r3/resolve/refund-core/stripe",
+      "kind": "resolution",
+      "owner": "psp-dabd6c8-r3/impl/refund-core",
+      "requestedArtifact": null,
+      "basis": "source_local",
+      "target": "psp-dabd6c8-r3/impl/refund-stripe",
+      "candidates": [],
+      "binding": null,
+      "evidence": ["psp-dabd6c8-r3/e/a6619ebb4f55"]
+    },
+    {
+      "id": "psp-dabd6c8-r3/resolve/refund-http/invoke",
+      "kind": "resolution",
+      "owner": "psp-dabd6c8-r3/impl/RefundController-create",
+      "requestedArtifact": null,
+      "basis": "source_local",
+      "target": "psp-dabd6c8-r3/impl/refund-core",
+      "candidates": [],
+      "binding": null,
+      "evidence": ["psp-dabd6c8-r3/e/c88c8a2f3bba"]
+    },
+    {
+      "id": "psp-dabd6c8-r3/resolve/refund-stripe/create",
+      "kind": "resolution",
+      "owner": "psp-dabd6c8-r3/impl/refund-create-private",
+      "requestedArtifact": "psp-dabd6c8-r3/artifact/stripe",
+      "basis": "unresolved",
+      "target": null,
+      "candidates": [],
+      "binding": null,
+      "evidence": ["psp-dabd6c8-r3/e/10491de09123"]
+    },
+    {
+      "id": "psp-dabd6c8-r3/resolve/refund-stripe/create-private-call",
+      "kind": "resolution",
+      "owner": "psp-dabd6c8-r3/impl/refund-stripe",
+      "requestedArtifact": null,
+      "basis": "source_local",
+      "target": "psp-dabd6c8-r3/impl/refund-create-private",
+      "candidates": [],
+      "binding": null,
+      "evidence": ["psp-dabd6c8-r3/e/2d9841b85261"]
+    },
+    {
+      "id": "psp-dabd6c8-r3/runs/refund-core",
+      "kind": "execution_binding",
+      "implementation": "psp-dabd6c8-r3/impl/refund-core",
+      "component": "psp-dabd6c8-r3/component/api",
+      "basis": "source_declared",
+      "artifactBinding": null,
+      "gaps": [],
+      "evidence": ["psp-dabd6c8-r3/e/68da9c9e52c0"]
+    },
+    {
+      "id": "psp-dabd6c8-r3/runs/refund-create-private",
+      "kind": "execution_binding",
+      "implementation": "psp-dabd6c8-r3/impl/refund-create-private",
+      "component": "psp-dabd6c8-r3/component/api",
+      "basis": "source_declared",
+      "artifactBinding": null,
+      "gaps": [],
+      "evidence": ["psp-dabd6c8-r3/e/10491de09123"]
+    },
+    {
+      "id": "psp-dabd6c8-r3/runs/refund-stripe",
+      "kind": "execution_binding",
+      "implementation": "psp-dabd6c8-r3/impl/refund-stripe",
+      "component": "psp-dabd6c8-r3/component/api",
+      "basis": "source_declared",
+      "artifactBinding": null,
+      "gaps": [],
+      "evidence": ["psp-dabd6c8-r3/e/1910d8390c77"]
+    },
+    {
+      "id": "psp-dabd6c8-r3/runs/RefundController-create",
+      "kind": "execution_binding",
+      "implementation": "psp-dabd6c8-r3/impl/RefundController-create",
+      "component": "psp-dabd6c8-r3/component/api",
+      "basis": "source_declared",
+      "artifactBinding": null,
+      "gaps": [],
+      "evidence": ["psp-dabd6c8-r3/e/6dcfa6eb40e7", "psp-dabd6c8-r3/e/50bbdce2a11f"]
+    },
+    {
+      "id": "psp-dabd6c8-r3/shape/com~volvocars~ecom~paymentservice~psp~integration~refund~RefundDto.java",
+      "kind": "shape",
+      "label": "RefundDto declared fields",
+      "representation": "source",
+      "fields": [
+        {
+          "name": "refundId",
+          "type": "String",
+          "status": "declared",
+          "evidence": ["psp-dabd6c8-r3/e/8f515567bb81"]
+        },
+        {
+          "name": "externalIdentifiers",
+          "type": "List<ExternalIdentifier>",
+          "status": "declared",
+          "evidence": ["psp-dabd6c8-r3/e/fcf14471a3de"]
+        },
+        {
+          "name": "status",
+          "type": "PspStatus",
+          "status": "declared",
+          "evidence": ["psp-dabd6c8-r3/e/80ff4a3b9ecb"]
+        },
+        {
+          "name": "psp",
+          "type": "Psp",
+          "status": "declared",
+          "evidence": ["psp-dabd6c8-r3/e/dd939b0daf1b"]
+        },
+        {
+          "name": "externalId",
+          "type": "String",
+          "status": "declared",
+          "evidence": ["psp-dabd6c8-r3/e/732ed470587b"]
+        },
+        {
+          "name": "accountId",
+          "type": "String",
+          "status": "declared",
+          "evidence": ["psp-dabd6c8-r3/e/cf06a25888ff"]
+        }
+      ],
+      "completeness": "partial",
+      "gaps": ["psp-dabd6c8-r3/gap/wire"],
+      "evidence": ["psp-dabd6c8-r3/e/7f1d78491d4a"]
+    },
+    {
+      "id": "psp-dabd6c8-r3/shape/com~volvocars~ecom~paymentservice~psp~integration~refund~RefundPayload.java",
+      "kind": "shape",
+      "label": "RefundPayload declared fields",
+      "representation": "source",
+      "fields": [
+        {
+          "name": "reason",
+          "type": "RefundReason",
+          "status": "declared",
+          "evidence": ["psp-dabd6c8-r3/e/3fac219cb84c"],
+          "optional": false
+        },
+        {
+          "name": "pricing",
+          "type": "Pricing",
+          "status": "declared",
+          "evidence": ["psp-dabd6c8-r3/e/fb629d032a51"],
+          "optional": false
+        },
+        {
+          "name": "transactionId",
+          "type": "String",
+          "status": "declared",
+          "evidence": ["psp-dabd6c8-r3/e/26f558ef00dd"],
+          "optional": false
+        },
+        {
+          "name": "pspTransactionId",
+          "type": "String",
+          "status": "declared",
+          "evidence": ["psp-dabd6c8-r3/e/9562508ebd8e"],
+          "optional": false
+        },
+        {
+          "name": "paymentSessionId",
+          "type": "String",
+          "status": "declared",
+          "evidence": ["psp-dabd6c8-r3/e/5dbb0634f0e2"],
+          "optional": false
+        },
+        {
+          "name": "customerId",
+          "type": "String",
+          "status": "declared",
+          "evidence": ["psp-dabd6c8-r3/e/327f81f8d9cb"],
+          "optional": false
+        },
+        {
+          "name": "countryCode",
+          "type": "String",
+          "status": "declared",
+          "evidence": ["psp-dabd6c8-r3/e/0ade2b0eae7f"],
+          "optional": false
+        },
+        {
+          "name": "refundId",
+          "type": "String",
+          "status": "declared",
+          "evidence": ["psp-dabd6c8-r3/e/81063a2f81f3"],
+          "optional": false
+        },
+        {
+          "name": "transferMode",
+          "type": "TransferMode",
+          "status": "declared",
+          "evidence": ["psp-dabd6c8-r3/e/2bac7a7c4c31"]
+        },
+        {
+          "name": "psp",
+          "type": "Psp",
+          "status": "declared",
+          "evidence": ["psp-dabd6c8-r3/e/d49466325721"],
+          "optional": false
+        },
+        {
+          "name": "externalId",
+          "type": "String",
+          "status": "declared",
+          "evidence": ["psp-dabd6c8-r3/e/0c1fc064b0e1"]
+        },
+        {
+          "name": "accountId",
+          "type": "String",
+          "status": "declared",
+          "evidence": ["psp-dabd6c8-r3/e/77be46a74598"]
+        },
+        {
+          "name": "externalAccountId",
+          "type": "String",
+          "status": "declared",
+          "evidence": ["psp-dabd6c8-r3/e/e16be9c1c769"]
+        }
+      ],
+      "completeness": "partial",
+      "gaps": ["psp-dabd6c8-r3/gap/wire"],
+      "evidence": ["psp-dabd6c8-r3/e/46f2eae5d667"]
+    },
+    {
+      "id": "psp-dabd6c8-r3/source",
+      "kind": "source_revision",
+      "repo": "volvo-cars/cds-paymentservice-psp-integration",
+      "commit": "dabd6c825499b706ff4ddbf15eaf354adbfb6794"
+    },
+    {
+      "id": "psp-dabd6c8-r3/value/refund-core/payload",
+      "kind": "value",
+      "owner": "psp-dabd6c8-r3/impl/refund-core",
+      "definition": "psp-dabd6c8-r3/op/refund-core/start",
+      "label": "payload",
+      "role": "parameter",
+      "representation": "source",
+      "shape": "psp-dabd6c8-r3/shape/com~volvocars~ecom~paymentservice~psp~integration~refund~RefundPayload.java",
+      "accessPath": [],
+      "evidence": ["psp-dabd6c8-r3/e/68da9c9e52c0"]
+    },
+    {
+      "id": "psp-dabd6c8-r3/value/refund-core/stripe/result",
+      "kind": "value",
+      "owner": "psp-dabd6c8-r3/impl/refund-core",
+      "definition": "psp-dabd6c8-r3/op/refund-core/stripe",
+      "label": "RefundDto returned from Stripe refund implementation",
+      "role": "definition",
+      "representation": "source",
+      "shape": null,
+      "accessPath": [],
+      "evidence": ["psp-dabd6c8-r3/e/a6619ebb4f55"]
+    },
+    {
+      "id": "psp-dabd6c8-r3/value/refund-create-private/refundPayload",
+      "kind": "value",
+      "owner": "psp-dabd6c8-r3/impl/refund-create-private",
+      "definition": "psp-dabd6c8-r3/op/refund-create-private/start",
+      "label": "refundPayload",
+      "role": "parameter",
+      "representation": "source",
+      "shape": null,
+      "accessPath": [],
+      "evidence": ["psp-dabd6c8-r3/e/10491de09123"]
+    },
+    {
+      "id": "psp-dabd6c8-r3/value/refund-create-private/requestOptions",
+      "kind": "value",
+      "owner": "psp-dabd6c8-r3/impl/refund-create-private",
+      "definition": "psp-dabd6c8-r3/op/refund-create-private/start",
+      "label": "requestOptions",
+      "role": "parameter",
+      "representation": "source",
+      "shape": null,
+      "accessPath": [],
+      "evidence": ["psp-dabd6c8-r3/e/10491de09123"]
+    },
+    {
+      "id": "psp-dabd6c8-r3/value/refund-http/invoke/result",
+      "kind": "value",
+      "owner": "psp-dabd6c8-r3/impl/RefundController-create",
+      "definition": "psp-dabd6c8-r3/op/refund-http/invoke",
+      "label": "RefundDto from refund service",
+      "role": "definition",
+      "representation": "source",
+      "shape": null,
+      "accessPath": [],
+      "evidence": ["psp-dabd6c8-r3/e/c88c8a2f3bba"]
+    },
+    {
+      "id": "psp-dabd6c8-r3/value/refund-http/payload",
+      "kind": "value",
+      "owner": "psp-dabd6c8-r3/impl/RefundController-create",
+      "definition": "psp-dabd6c8-r3/op/RefundController-create/start",
+      "label": "RefundPayload from request.body",
+      "role": "parameter",
+      "representation": "source",
+      "shape": "psp-dabd6c8-r3/shape/com~volvocars~ecom~paymentservice~psp~integration~refund~RefundPayload.java",
+      "accessPath": [],
+      "evidence": ["psp-dabd6c8-r3/e/6dcfa6eb40e7", "psp-dabd6c8-r3/e/50bbdce2a11f"]
+    },
+    {
+      "id": "psp-dabd6c8-r3/value/refund-stripe/create/private-result",
+      "kind": "value",
+      "owner": "psp-dabd6c8-r3/impl/refund-create-private",
+      "definition": "psp-dabd6c8-r3/op/refund-stripe/create",
+      "label": "SDK result inside private helper",
+      "role": "definition",
+      "representation": "source",
+      "shape": null,
+      "accessPath": [],
+      "evidence": ["psp-dabd6c8-r3/e/10491de09123"]
+    },
+    {
+      "id": "psp-dabd6c8-r3/value/refund-stripe/create/result",
+      "kind": "value",
+      "owner": "psp-dabd6c8-r3/impl/refund-stripe",
+      "definition": "psp-dabd6c8-r3/op/refund-stripe/create-private-call",
+      "label": "SDK result of Refund.create(refundCreateParams, requestOptions)",
+      "role": "definition",
+      "representation": "source",
+      "shape": null,
+      "accessPath": [],
+      "evidence": ["psp-dabd6c8-r3/e/10491de09123"]
+    },
+    {
+      "id": "psp-dabd6c8-r3/value/refund-stripe/dto",
+      "kind": "value",
+      "owner": "psp-dabd6c8-r3/impl/refund-stripe",
+      "definition": "psp-dabd6c8-r3/op/refund-stripe/return",
+      "label": "RefundDto(externalId=refund.id, refundId=refund.metadata[Refund.REFUND_ID], psp=STRIPE, status=PspStatus.from)",
+      "role": "definition",
+      "representation": "constructed",
+      "shape": "psp-dabd6c8-r3/shape/com~volvocars~ecom~paymentservice~psp~integration~refund~RefundDto.java",
+      "accessPath": [],
+      "evidence": ["psp-dabd6c8-r3/e/2d9841b85261", "psp-dabd6c8-r3/e/bc15eaa35aa0"]
+    },
+    {
+      "id": "psp-dabd6c8-r3/value/refund-stripe/merged",
+      "kind": "value",
+      "owner": "psp-dabd6c8-r3/impl/refund-stripe",
+      "definition": "psp-dabd6c8-r3/op/refund-stripe/merge",
+      "label": "RefundPayload after conditional provider metadata merge",
+      "role": "definition",
+      "representation": "constructed",
+      "shape": "psp-dabd6c8-r3/shape/com~volvocars~ecom~paymentservice~psp~integration~refund~RefundPayload.java",
+      "accessPath": [],
+      "evidence": ["psp-dabd6c8-r3/e/676100be27b6"]
+    },
+    {
+      "id": "psp-dabd6c8-r3/value/refund-stripe/options",
+      "kind": "value",
+      "owner": "psp-dabd6c8-r3/impl/refund-stripe",
+      "definition": "psp-dabd6c8-r3/op/refund-stripe/options",
+      "label": "RequestOptions from internal account lookup; key id to API key, external account id; no explicit idempotency key",
+      "role": "definition",
+      "representation": "constructed",
+      "shape": null,
+      "accessPath": [],
+      "evidence": [
+        "psp-dabd6c8-r3/e/5e893d6377e9",
+        "psp-dabd6c8-r3/e/271e80058736",
+        "psp-dabd6c8-r3/e/f3e176f41c30"
+      ]
+    },
+    {
+      "id": "psp-dabd6c8-r3/value/refund-stripe/payload",
+      "kind": "value",
+      "owner": "psp-dabd6c8-r3/impl/refund-stripe",
+      "definition": "psp-dabd6c8-r3/op/refund-stripe/start",
+      "label": "payload",
+      "role": "parameter",
+      "representation": "source",
+      "shape": "psp-dabd6c8-r3/shape/com~volvocars~ecom~paymentservice~psp~integration~refund~RefundPayload.java",
+      "accessPath": [],
+      "evidence": ["psp-dabd6c8-r3/e/1910d8390c77"]
+    }
+  ],
+  "traversalComplete": true,
+  "findings": [],
+  "sourceLinks": [
+    {
+      "evidence": "psp-dabd6c8-r3/e/10491de09123",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-psp-integration/blob/dabd6c825499b706ff4ddbf15eaf354adbfb6794/cds-paymentservice-psp-integration-stripe/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/stripe/refund/StripeRefundOperationService.java#L84-L95",
+      "label": "volvo-cars/cds-paymentservice-psp-integration/cds-paymentservice-psp-integration-stripe/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/stripe/refund/StripeRefundOperationService.java:84–95"
+    },
+    {
+      "evidence": "psp-dabd6c8-r3/e/9e5f232736ad",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-psp-integration/blob/dabd6c825499b706ff4ddbf15eaf354adbfb6794/pom.xml#L25-L25",
+      "label": "volvo-cars/cds-paymentservice-psp-integration/pom.xml:25–25"
+    },
+    {
+      "evidence": "psp-dabd6c8-r3/e/52b5591b4837",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-psp-integration/blob/dabd6c825499b706ff4ddbf15eaf354adbfb6794/cds-paymentservice-psp-integration-api/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/api/App.java#L1-L25",
+      "label": "volvo-cars/cds-paymentservice-psp-integration/cds-paymentservice-psp-integration-api/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/api/App.java:1–25"
+    },
+    {
+      "evidence": "psp-dabd6c8-r3/e/051b36aac4b4",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-psp-integration/blob/dabd6c825499b706ff4ddbf15eaf354adbfb6794/pom.xml#L17-L21",
+      "label": "volvo-cars/cds-paymentservice-psp-integration/pom.xml:17–21"
+    },
+    {
+      "evidence": "psp-dabd6c8-r3/e/129a252d71ba",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-psp-integration/blob/dabd6c825499b706ff4ddbf15eaf354adbfb6794/cds-paymentservice-psp-integration-stripe/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/stripe/common/StripeConfiguration.java#L1-L53",
+      "label": "volvo-cars/cds-paymentservice-psp-integration/cds-paymentservice-psp-integration-stripe/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/stripe/common/StripeConfiguration.java:1–53"
+    },
+    {
+      "evidence": "psp-dabd6c8-r3/e/3a5d1cc8bcb9",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-psp-integration/blob/dabd6c825499b706ff4ddbf15eaf354adbfb6794/cds-paymentservice-psp-integration-api/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/api/common/ApiControllerAdvice.java#L315-L346",
+      "label": "volvo-cars/cds-paymentservice-psp-integration/cds-paymentservice-psp-integration-api/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/api/common/ApiControllerAdvice.java:315–346"
+    },
+    {
+      "evidence": "psp-dabd6c8-r3/e/48c5e94ff514",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-psp-integration/blob/dabd6c825499b706ff4ddbf15eaf354adbfb6794/cds-paymentservice-psp-integration-shared/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/common/PspIntegrationPayload.java#L1-L64",
+      "label": "volvo-cars/cds-paymentservice-psp-integration/cds-paymentservice-psp-integration-shared/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/common/PspIntegrationPayload.java:1–64"
+    },
+    {
+      "evidence": "psp-dabd6c8-r3/e/e16be9c1c769",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-psp-integration/blob/dabd6c825499b706ff4ddbf15eaf354adbfb6794/cds-paymentservice-psp-integration-shared/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/common/PspIntegrationPayload.java#L31-L33",
+      "label": "volvo-cars/cds-paymentservice-psp-integration/cds-paymentservice-psp-integration-shared/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/common/PspIntegrationPayload.java:31–33"
+    },
+    {
+      "evidence": "psp-dabd6c8-r3/e/77be46a74598",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-psp-integration/blob/dabd6c825499b706ff4ddbf15eaf354adbfb6794/cds-paymentservice-psp-integration-shared/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/common/PspIntegrationPayload.java#L28-L31",
+      "label": "volvo-cars/cds-paymentservice-psp-integration/cds-paymentservice-psp-integration-shared/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/common/PspIntegrationPayload.java:28–31"
+    },
+    {
+      "evidence": "psp-dabd6c8-r3/e/0c1fc064b0e1",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-psp-integration/blob/dabd6c825499b706ff4ddbf15eaf354adbfb6794/cds-paymentservice-psp-integration-shared/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/common/PspIntegrationPayload.java#L25-L28",
+      "label": "volvo-cars/cds-paymentservice-psp-integration/cds-paymentservice-psp-integration-shared/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/common/PspIntegrationPayload.java:25–28"
+    },
+    {
+      "evidence": "psp-dabd6c8-r3/e/d49466325721",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-psp-integration/blob/dabd6c825499b706ff4ddbf15eaf354adbfb6794/cds-paymentservice-psp-integration-shared/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/common/PspIntegrationPayload.java#L12-L25",
+      "label": "volvo-cars/cds-paymentservice-psp-integration/cds-paymentservice-psp-integration-shared/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/common/PspIntegrationPayload.java:12–25"
+    },
+    {
+      "evidence": "psp-dabd6c8-r3/e/2bac7a7c4c31",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-psp-integration/blob/dabd6c825499b706ff4ddbf15eaf354adbfb6794/cds-paymentservice-psp-integration-shared/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/refund/RefundPayload.java#L66-L69",
+      "label": "volvo-cars/cds-paymentservice-psp-integration/cds-paymentservice-psp-integration-shared/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/refund/RefundPayload.java:66–69"
+    },
+    {
+      "evidence": "psp-dabd6c8-r3/e/81063a2f81f3",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-psp-integration/blob/dabd6c825499b706ff4ddbf15eaf354adbfb6794/cds-paymentservice-psp-integration-shared/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/refund/RefundPayload.java#L62-L66",
+      "label": "volvo-cars/cds-paymentservice-psp-integration/cds-paymentservice-psp-integration-shared/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/refund/RefundPayload.java:62–66"
+    },
+    {
+      "evidence": "psp-dabd6c8-r3/e/0ade2b0eae7f",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-psp-integration/blob/dabd6c825499b706ff4ddbf15eaf354adbfb6794/cds-paymentservice-psp-integration-shared/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/refund/RefundPayload.java#L58-L62",
+      "label": "volvo-cars/cds-paymentservice-psp-integration/cds-paymentservice-psp-integration-shared/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/refund/RefundPayload.java:58–62"
+    },
+    {
+      "evidence": "psp-dabd6c8-r3/e/327f81f8d9cb",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-psp-integration/blob/dabd6c825499b706ff4ddbf15eaf354adbfb6794/cds-paymentservice-psp-integration-shared/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/refund/RefundPayload.java#L54-L58",
+      "label": "volvo-cars/cds-paymentservice-psp-integration/cds-paymentservice-psp-integration-shared/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/refund/RefundPayload.java:54–58"
+    },
+    {
+      "evidence": "psp-dabd6c8-r3/e/5dbb0634f0e2",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-psp-integration/blob/dabd6c825499b706ff4ddbf15eaf354adbfb6794/cds-paymentservice-psp-integration-shared/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/refund/RefundPayload.java#L50-L54",
+      "label": "volvo-cars/cds-paymentservice-psp-integration/cds-paymentservice-psp-integration-shared/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/refund/RefundPayload.java:50–54"
+    },
+    {
+      "evidence": "psp-dabd6c8-r3/e/9562508ebd8e",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-psp-integration/blob/dabd6c825499b706ff4ddbf15eaf354adbfb6794/cds-paymentservice-psp-integration-shared/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/refund/RefundPayload.java#L37-L50",
+      "label": "volvo-cars/cds-paymentservice-psp-integration/cds-paymentservice-psp-integration-shared/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/refund/RefundPayload.java:37–50"
+    },
+    {
+      "evidence": "psp-dabd6c8-r3/e/26f558ef00dd",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-psp-integration/blob/dabd6c825499b706ff4ddbf15eaf354adbfb6794/cds-paymentservice-psp-integration-shared/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/refund/RefundPayload.java#L33-L37",
+      "label": "volvo-cars/cds-paymentservice-psp-integration/cds-paymentservice-psp-integration-shared/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/refund/RefundPayload.java:33–37"
+    },
+    {
+      "evidence": "psp-dabd6c8-r3/e/fb629d032a51",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-psp-integration/blob/dabd6c825499b706ff4ddbf15eaf354adbfb6794/cds-paymentservice-psp-integration-shared/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/refund/RefundPayload.java#L28-L33",
+      "label": "volvo-cars/cds-paymentservice-psp-integration/cds-paymentservice-psp-integration-shared/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/refund/RefundPayload.java:28–33"
+    },
+    {
+      "evidence": "psp-dabd6c8-r3/e/3fac219cb84c",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-psp-integration/blob/dabd6c825499b706ff4ddbf15eaf354adbfb6794/cds-paymentservice-psp-integration-shared/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/refund/RefundPayload.java#L15-L28",
+      "label": "volvo-cars/cds-paymentservice-psp-integration/cds-paymentservice-psp-integration-shared/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/refund/RefundPayload.java:15–28"
+    },
+    {
+      "evidence": "psp-dabd6c8-r3/e/46f2eae5d667",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-psp-integration/blob/dabd6c825499b706ff4ddbf15eaf354adbfb6794/cds-paymentservice-psp-integration-shared/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/refund/RefundPayload.java#L1-L77",
+      "label": "volvo-cars/cds-paymentservice-psp-integration/cds-paymentservice-psp-integration-shared/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/refund/RefundPayload.java:1–77"
+    },
+    {
+      "evidence": "psp-dabd6c8-r3/e/50bbdce2a11f",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-psp-integration/blob/dabd6c825499b706ff4ddbf15eaf354adbfb6794/cds-paymentservice-psp-integration-api/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/api/refund/v1/impl/RefundControllerImpl.java#L1-L36",
+      "label": "volvo-cars/cds-paymentservice-psp-integration/cds-paymentservice-psp-integration-api/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/api/refund/v1/impl/RefundControllerImpl.java:1–36"
+    },
+    {
+      "evidence": "psp-dabd6c8-r3/e/6dcfa6eb40e7",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-psp-integration/blob/dabd6c825499b706ff4ddbf15eaf354adbfb6794/cds-paymentservice-psp-integration-api/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/api/refund/v1/RefundController.java#L18-L26",
+      "label": "volvo-cars/cds-paymentservice-psp-integration/cds-paymentservice-psp-integration-api/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/api/refund/v1/RefundController.java:18–26"
+    },
+    {
+      "evidence": "psp-dabd6c8-r3/e/1c06a8a50c3a",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-psp-integration/blob/dabd6c825499b706ff4ddbf15eaf354adbfb6794/cds-paymentservice-psp-integration-stripe/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/stripe/common/StripeAmountConverter.java#L1-L36",
+      "label": "volvo-cars/cds-paymentservice-psp-integration/cds-paymentservice-psp-integration-stripe/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/stripe/common/StripeAmountConverter.java:1–36"
+    },
+    {
+      "evidence": "psp-dabd6c8-r3/e/ba0572337029",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-psp-integration/blob/dabd6c825499b706ff4ddbf15eaf354adbfb6794/cds-paymentservice-psp-integration-stripe/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/stripe/refund/mappers/StripeRefundMapper.java#L1-L63",
+      "label": "volvo-cars/cds-paymentservice-psp-integration/cds-paymentservice-psp-integration-stripe/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/stripe/refund/mappers/StripeRefundMapper.java:1–63"
+    },
+    {
+      "evidence": "psp-dabd6c8-r3/e/93015b2236b1",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-psp-integration/blob/dabd6c825499b706ff4ddbf15eaf354adbfb6794/cds-paymentservice-psp-integration-stripe/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/stripe/refund/StripeRefundOperationService.java#L1-L97",
+      "label": "volvo-cars/cds-paymentservice-psp-integration/cds-paymentservice-psp-integration-stripe/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/stripe/refund/StripeRefundOperationService.java:1–97"
+    },
+    {
+      "evidence": "psp-dabd6c8-r3/e/a8fc93105732",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-psp-integration/blob/dabd6c825499b706ff4ddbf15eaf354adbfb6794/cds-paymentservice-psp-integration-core/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/refund/PspRefundService.java#L1-L24",
+      "label": "volvo-cars/cds-paymentservice-psp-integration/cds-paymentservice-psp-integration-core/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/refund/PspRefundService.java:1–24"
+    },
+    {
+      "evidence": "psp-dabd6c8-r3/e/bd791daffacd",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-psp-integration/blob/dabd6c825499b706ff4ddbf15eaf354adbfb6794/cds-paymentservice-psp-integration-stripe/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/stripe/refund/StripeRefundOperationService.java#L86-L87",
+      "label": "volvo-cars/cds-paymentservice-psp-integration/cds-paymentservice-psp-integration-stripe/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/stripe/refund/StripeRefundOperationService.java:86–87"
+    },
+    {
+      "evidence": "psp-dabd6c8-r3/e/cf06a25888ff",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-psp-integration/blob/dabd6c825499b706ff4ddbf15eaf354adbfb6794/cds-paymentservice-psp-integration-shared/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/common/PspIntegrationDto.java#L28-L30",
+      "label": "volvo-cars/cds-paymentservice-psp-integration/cds-paymentservice-psp-integration-shared/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/common/PspIntegrationDto.java:28–30"
+    },
+    {
+      "evidence": "psp-dabd6c8-r3/e/732ed470587b",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-psp-integration/blob/dabd6c825499b706ff4ddbf15eaf354adbfb6794/cds-paymentservice-psp-integration-shared/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/common/PspIntegrationDto.java#L17-L28",
+      "label": "volvo-cars/cds-paymentservice-psp-integration/cds-paymentservice-psp-integration-shared/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/common/PspIntegrationDto.java:17–28"
+    },
+    {
+      "evidence": "psp-dabd6c8-r3/e/dd939b0daf1b",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-psp-integration/blob/dabd6c825499b706ff4ddbf15eaf354adbfb6794/cds-paymentservice-psp-integration-shared/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/common/PspIntegrationDto.java#L9-L17",
+      "label": "volvo-cars/cds-paymentservice-psp-integration/cds-paymentservice-psp-integration-shared/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/common/PspIntegrationDto.java:9–17"
+    },
+    {
+      "evidence": "psp-dabd6c8-r3/e/80ff4a3b9ecb",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-psp-integration/blob/dabd6c825499b706ff4ddbf15eaf354adbfb6794/cds-paymentservice-psp-integration-shared/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/refund/RefundDto.java#L28-L31",
+      "label": "volvo-cars/cds-paymentservice-psp-integration/cds-paymentservice-psp-integration-shared/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/refund/RefundDto.java:28–31"
+    },
+    {
+      "evidence": "psp-dabd6c8-r3/e/fcf14471a3de",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-psp-integration/blob/dabd6c825499b706ff4ddbf15eaf354adbfb6794/cds-paymentservice-psp-integration-shared/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/refund/RefundDto.java#L23-L28",
+      "label": "volvo-cars/cds-paymentservice-psp-integration/cds-paymentservice-psp-integration-shared/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/refund/RefundDto.java:23–28"
+    },
+    {
+      "evidence": "psp-dabd6c8-r3/e/8f515567bb81",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-psp-integration/blob/dabd6c825499b706ff4ddbf15eaf354adbfb6794/cds-paymentservice-psp-integration-shared/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/refund/RefundDto.java#L15-L23",
+      "label": "volvo-cars/cds-paymentservice-psp-integration/cds-paymentservice-psp-integration-shared/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/refund/RefundDto.java:15–23"
+    },
+    {
+      "evidence": "psp-dabd6c8-r3/e/7f1d78491d4a",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-psp-integration/blob/dabd6c825499b706ff4ddbf15eaf354adbfb6794/cds-paymentservice-psp-integration-shared/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/refund/RefundDto.java#L1-L46",
+      "label": "volvo-cars/cds-paymentservice-psp-integration/cds-paymentservice-psp-integration-shared/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/refund/RefundDto.java:1–46"
+    },
+    {
+      "evidence": "psp-dabd6c8-r3/e/1910d8390c77",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-psp-integration/blob/dabd6c825499b706ff4ddbf15eaf354adbfb6794/cds-paymentservice-psp-integration-stripe/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/stripe/refund/StripeRefundOperationService.java#L44-L95",
+      "label": "volvo-cars/cds-paymentservice-psp-integration/cds-paymentservice-psp-integration-stripe/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/stripe/refund/StripeRefundOperationService.java:44–95"
+    },
+    {
+      "evidence": "psp-dabd6c8-r3/e/bc15eaa35aa0",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-psp-integration/blob/dabd6c825499b706ff4ddbf15eaf354adbfb6794/cds-paymentservice-psp-integration-stripe/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/stripe/refund/mappers/StripeRefundMapper.java#L37-L54",
+      "label": "volvo-cars/cds-paymentservice-psp-integration/cds-paymentservice-psp-integration-stripe/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/stripe/refund/mappers/StripeRefundMapper.java:37–54"
+    },
+    {
+      "evidence": "psp-dabd6c8-r3/e/2d9841b85261",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-psp-integration/blob/dabd6c825499b706ff4ddbf15eaf354adbfb6794/cds-paymentservice-psp-integration-stripe/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/stripe/refund/StripeRefundOperationService.java#L51-L52",
+      "label": "volvo-cars/cds-paymentservice-psp-integration/cds-paymentservice-psp-integration-stripe/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/stripe/refund/StripeRefundOperationService.java:51–52"
+    },
+    {
+      "evidence": "psp-dabd6c8-r3/e/f3e176f41c30",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-psp-integration/blob/dabd6c825499b706ff4ddbf15eaf354adbfb6794/cds-paymentservice-psp-integration-stripe/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/stripe/common/StripeConfiguration.java#L25-L29",
+      "label": "volvo-cars/cds-paymentservice-psp-integration/cds-paymentservice-psp-integration-stripe/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/stripe/common/StripeConfiguration.java:25–29"
+    },
+    {
+      "evidence": "psp-dabd6c8-r3/e/271e80058736",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-psp-integration/blob/dabd6c825499b706ff4ddbf15eaf354adbfb6794/cds-paymentservice-psp-integration-stripe/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/stripe/common/StripeRequestOptionsBuilder.java#L21-L24",
+      "label": "volvo-cars/cds-paymentservice-psp-integration/cds-paymentservice-psp-integration-stripe/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/stripe/common/StripeRequestOptionsBuilder.java:21–24"
+    },
+    {
+      "evidence": "psp-dabd6c8-r3/e/5e893d6377e9",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-psp-integration/blob/dabd6c825499b706ff4ddbf15eaf354adbfb6794/cds-paymentservice-psp-integration-stripe/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/stripe/refund/StripeRefundOperationService.java#L45-L49",
+      "label": "volvo-cars/cds-paymentservice-psp-integration/cds-paymentservice-psp-integration-stripe/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/stripe/refund/StripeRefundOperationService.java:45–49"
+    },
+    {
+      "evidence": "psp-dabd6c8-r3/e/676100be27b6",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-psp-integration/blob/dabd6c825499b706ff4ddbf15eaf354adbfb6794/cds-paymentservice-psp-integration-stripe/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/stripe/refund/StripeRefundOperationService.java#L66-L80",
+      "label": "volvo-cars/cds-paymentservice-psp-integration/cds-paymentservice-psp-integration-stripe/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/stripe/refund/StripeRefundOperationService.java:66–80"
+    },
+    {
+      "evidence": "psp-dabd6c8-r3/e/68da9c9e52c0",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-psp-integration/blob/dabd6c825499b706ff4ddbf15eaf354adbfb6794/cds-paymentservice-psp-integration-core/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/refund/PspRefundService.java#L14-L22",
+      "label": "volvo-cars/cds-paymentservice-psp-integration/cds-paymentservice-psp-integration-core/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/refund/PspRefundService.java:14–22"
+    },
+    {
+      "evidence": "psp-dabd6c8-r3/e/a6619ebb4f55",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-psp-integration/blob/dabd6c825499b706ff4ddbf15eaf354adbfb6794/cds-paymentservice-psp-integration-core/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/refund/PspRefundService.java#L15-L17",
+      "label": "volvo-cars/cds-paymentservice-psp-integration/cds-paymentservice-psp-integration-core/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/refund/PspRefundService.java:15–17"
+    },
+    {
+      "evidence": "psp-dabd6c8-r3/e/b305b795ba48",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-psp-integration/blob/dabd6c825499b706ff4ddbf15eaf354adbfb6794/cds-paymentservice-psp-integration-core/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/refund/PspRefundService.java#L17-L22",
+      "label": "volvo-cars/cds-paymentservice-psp-integration/cds-paymentservice-psp-integration-core/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/refund/PspRefundService.java:17–22"
+    },
+    {
+      "evidence": "psp-dabd6c8-r3/e/4b908501daab",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-psp-integration/blob/dabd6c825499b706ff4ddbf15eaf354adbfb6794/Dockerfile#L1-L23",
+      "label": "volvo-cars/cds-paymentservice-psp-integration/Dockerfile:1–23"
+    },
+    {
+      "evidence": "psp-dabd6c8-r3/e/c19d2cda77c7",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-psp-integration/blob/dabd6c825499b706ff4ddbf15eaf354adbfb6794/cds-paymentservice-psp-integration-api/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/api/App.java#L13-L24",
+      "label": "volvo-cars/cds-paymentservice-psp-integration/cds-paymentservice-psp-integration-api/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/api/App.java:13–24"
+    },
+    {
+      "evidence": "psp-dabd6c8-r3/e/c88c8a2f3bba",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-psp-integration/blob/dabd6c825499b706ff4ddbf15eaf354adbfb6794/cds-paymentservice-psp-integration-api/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/api/refund/v1/impl/RefundControllerImpl.java#L25-L34",
+      "label": "volvo-cars/cds-paymentservice-psp-integration/cds-paymentservice-psp-integration-api/src/main/java/com/volvocars/ecom/paymentservice/psp/integration/api/refund/v1/impl/RefundControllerImpl.java:25–34"
+    }
+  ],
+  "nextRequest": null
+}

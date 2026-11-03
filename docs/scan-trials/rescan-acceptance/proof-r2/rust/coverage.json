@@ -1,0 +1,3793 @@
+{
+  "scope": "rust-router",
+  "questions": [
+    {
+      "kind": "receipt",
+      "id": "receipt:rust-router-entry",
+      "scope": "rust-router-entry",
+      "profile": "endpoint",
+      "authority": "declared",
+      "obligations": [
+        "obligation:rust-router-entry:control",
+        "obligation:rust-router-entry:inputs",
+        "obligation:rust-router-entry:outputs",
+        "obligation:rust-router-entry:calls",
+        "obligation:rust-router-entry:storage",
+        "obligation:rust-router-entry:failures",
+        "obligation:rust-router-entry:asynchronous",
+        "obligation:rust-router-entry:freshness"
+      ],
+      "answers": [
+        {
+          "obligation": "obligation:rust-router-entry:control",
+          "answer": {
+            "state": "unresolved",
+            "reason": "unsupported",
+            "gap": "gap:question:rust-router-entry:control"
+          }
+        },
+        {
+          "obligation": "obligation:rust-router-entry:inputs",
+          "answer": {
+            "state": "unresolved",
+            "reason": "unsupported",
+            "gap": "gap:question:rust-router-entry:inputs"
+          }
+        },
+        {
+          "obligation": "obligation:rust-router-entry:outputs",
+          "answer": {
+            "state": "unresolved",
+            "reason": "unsupported",
+            "gap": "gap:question:rust-router-entry:outputs"
+          }
+        },
+        {
+          "obligation": "obligation:rust-router-entry:calls",
+          "answer": {
+            "state": "unresolved",
+            "reason": "unsupported",
+            "gap": "gap:question:rust-router-entry:calls"
+          }
+        },
+        {
+          "obligation": "obligation:rust-router-entry:storage",
+          "answer": {
+            "state": "unresolved",
+            "reason": "unsupported",
+            "gap": "gap:question:rust-router-entry:storage"
+          }
+        },
+        {
+          "obligation": "obligation:rust-router-entry:failures",
+          "answer": {
+            "state": "unresolved",
+            "reason": "unsupported",
+            "gap": "gap:question:rust-router-entry:failures"
+          }
+        },
+        {
+          "obligation": "obligation:rust-router-entry:asynchronous",
+          "answer": {
+            "state": "unresolved",
+            "reason": "unsupported",
+            "gap": "gap:question:rust-router-entry:asynchronous"
+          }
+        },
+        {
+          "obligation": "obligation:rust-router-entry:freshness",
+          "answer": {
+            "state": "unresolved",
+            "reason": "unsupported",
+            "gap": "gap:question:rust-router-entry:freshness"
+          }
+        }
+      ]
+    }
+  ],
+  "candidates": [
+    {
+      "id": "candidate:55f878b6c24d7ccb6bd4c6d8",
+      "source": "source:55f878b6c24d7ccb6bd4c6d8",
+      "kind": "import",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:0d2e6934f7ca439fba1f1425",
+      "source": "source:0d2e6934f7ca439fba1f1425",
+      "kind": "import",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:27ba3dfb98d7b99d3fb58af8",
+      "source": "source:27ba3dfb98d7b99d3fb58af8",
+      "kind": "import",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:cfdd112c768f00c0dd5fd5d4",
+      "source": "source:cfdd112c768f00c0dd5fd5d4",
+      "kind": "import",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:86fdd5291f546316e32e1beb",
+      "source": "source:86fdd5291f546316e32e1beb",
+      "kind": "registration",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "frontier",
+      "reason": "Syntax candidate retained; framework, control-flow or user intent attribution is unresolved."
+    },
+    {
+      "id": "candidate:9c34904b0d107211de628cdd",
+      "source": "source:9c34904b0d107211de628cdd",
+      "kind": "function",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:9e8ff4d4d75fa44417d2bd3b",
+      "source": "source:9e8ff4d4d75fa44417d2bd3b",
+      "kind": "call",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:13b24e7324b94bad076d7132",
+      "source": "source:13b24e7324b94bad076d7132",
+      "kind": "call",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:89e331fe3163231a5188e2f0",
+      "source": "source:89e331fe3163231a5188e2f0",
+      "kind": "call",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:f4a661e4258da9f3638f21a7",
+      "source": "source:f4a661e4258da9f3638f21a7",
+      "kind": "call",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:177924f367216c1dbd25cc26",
+      "source": "source:177924f367216c1dbd25cc26",
+      "kind": "call",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:69747a948a79fe7f6be4c412",
+      "source": "source:69747a948a79fe7f6be4c412",
+      "kind": "branch",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "frontier",
+      "reason": "Syntax candidate retained; framework, control-flow or user intent attribution is unresolved."
+    },
+    {
+      "id": "candidate:39691e53107f375791481a24",
+      "source": "source:39691e53107f375791481a24",
+      "kind": "call",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:354c8bdcd0d475a23b16c89f",
+      "source": "source:354c8bdcd0d475a23b16c89f",
+      "kind": "call",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:7d120370b1dd757af1bff0fc",
+      "source": "source:7d120370b1dd757af1bff0fc",
+      "kind": "call",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:0f3eebf6fbd67ff15ec029c8",
+      "source": "source:0f3eebf6fbd67ff15ec029c8",
+      "kind": "call",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:0a09c935a0df29615920011e",
+      "source": "source:0a09c935a0df29615920011e",
+      "kind": "import",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:99e5ff9de97f268eed8b4121",
+      "source": "source:99e5ff9de97f268eed8b4121",
+      "kind": "import",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:e1169820c8c4dcc437ff0367",
+      "source": "source:e1169820c8c4dcc437ff0367",
+      "kind": "import",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:f9996e8beb4dfb5e19d70562",
+      "source": "source:f9996e8beb4dfb5e19d70562",
+      "kind": "import",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:32a1e4df6406c5a81be6b669",
+      "source": "source:32a1e4df6406c5a81be6b669",
+      "kind": "import",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:44bf22eb7dc267f62ebce737",
+      "source": "source:44bf22eb7dc267f62ebce737",
+      "kind": "import",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:e0052af70d921bf2d2b127c4",
+      "source": "source:e0052af70d921bf2d2b127c4",
+      "kind": "import",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:f35c78e7b9484b3021520fb2",
+      "source": "source:f35c78e7b9484b3021520fb2",
+      "kind": "import",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:269b3f68f0e1b3e3723e13b8",
+      "source": "source:269b3f68f0e1b3e3723e13b8",
+      "kind": "import",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:9a1b825fd3cd195e1abfaa78",
+      "source": "source:9a1b825fd3cd195e1abfaa78",
+      "kind": "import",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:99577a4dce7c4295517a99a1",
+      "source": "source:99577a4dce7c4295517a99a1",
+      "kind": "import",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:e9f7c709d579d95b0774c72a",
+      "source": "source:e9f7c709d579d95b0774c72a",
+      "kind": "import",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:7b2c3947409e372d7d1b0e09",
+      "source": "source:7b2c3947409e372d7d1b0e09",
+      "kind": "import",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:de247683db76be93640078a6",
+      "source": "source:de247683db76be93640078a6",
+      "kind": "import",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:3cdfc0cae9c9559b121219b3",
+      "source": "source:3cdfc0cae9c9559b121219b3",
+      "kind": "registration",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "frontier",
+      "reason": "Syntax candidate retained; framework, control-flow or user intent attribution is unresolved."
+    },
+    {
+      "id": "candidate:b15358cb6da66bc1caee1641",
+      "source": "source:b15358cb6da66bc1caee1641",
+      "kind": "registration",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "frontier",
+      "reason": "Syntax candidate retained; framework, control-flow or user intent attribution is unresolved."
+    },
+    {
+      "id": "candidate:6649800811f8f414bebbe5ae",
+      "source": "source:6649800811f8f414bebbe5ae",
+      "kind": "function",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:0b27ca80e885be55ad7b50c0",
+      "source": "source:0b27ca80e885be55ad7b50c0",
+      "kind": "registration",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "frontier",
+      "reason": "Syntax candidate retained; framework, control-flow or user intent attribution is unresolved."
+    },
+    {
+      "id": "candidate:2b1f73ab7814808062057e8d",
+      "source": "source:2b1f73ab7814808062057e8d",
+      "kind": "registration",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "frontier",
+      "reason": "Syntax candidate retained; framework, control-flow or user intent attribution is unresolved."
+    },
+    {
+      "id": "candidate:6c991952d1315306484d43d9",
+      "source": "source:6c991952d1315306484d43d9",
+      "kind": "registration",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "frontier",
+      "reason": "Syntax candidate retained; framework, control-flow or user intent attribution is unresolved."
+    },
+    {
+      "id": "candidate:3e7e5bba8a2683f4a8167017",
+      "source": "source:3e7e5bba8a2683f4a8167017",
+      "kind": "function",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:268d42ac2ef7e091250baf41",
+      "source": "source:268d42ac2ef7e091250baf41",
+      "kind": "value",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:451f6d3a3a7693ac01987d2d",
+      "source": "source:451f6d3a3a7693ac01987d2d",
+      "kind": "call",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:cadc1636d9021d655e5dc3cf",
+      "source": "source:cadc1636d9021d655e5dc3cf",
+      "kind": "value",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:906cd09f729d8f5d84bec2bb",
+      "source": "source:906cd09f729d8f5d84bec2bb",
+      "kind": "call",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:3bc17af844be8b7034ac3094",
+      "source": "source:3bc17af844be8b7034ac3094",
+      "kind": "call",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:54956a9c4325c7e549412f58",
+      "source": "source:54956a9c4325c7e549412f58",
+      "kind": "call",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:357f6c8d5c3bf4e1832d9bc2",
+      "source": "source:357f6c8d5c3bf4e1832d9bc2",
+      "kind": "call",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:068dd9733c1ffbea8d010ba3",
+      "source": "source:068dd9733c1ffbea8d010ba3",
+      "kind": "call",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:0f9a4213144a1fd56558eb58",
+      "source": "source:0f9a4213144a1fd56558eb58",
+      "kind": "function",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:00c7fb6f100f75cb968c7f39",
+      "source": "source:00c7fb6f100f75cb968c7f39",
+      "kind": "branch",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "frontier",
+      "reason": "Syntax candidate retained; framework, control-flow or user intent attribution is unresolved."
+    },
+    {
+      "id": "candidate:8d327111ebe34f13e0db3aad",
+      "source": "source:8d327111ebe34f13e0db3aad",
+      "kind": "return",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:f587857a95b86f3e5f3068be",
+      "source": "source:f587857a95b86f3e5f3068be",
+      "kind": "value",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:565718de02eb0f4a3226b789",
+      "source": "source:565718de02eb0f4a3226b789",
+      "kind": "value",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:ad0e968cf11e01afc0e0c0dd",
+      "source": "source:ad0e968cf11e01afc0e0c0dd",
+      "kind": "call",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:ef20288ddb0410dfef84afca",
+      "source": "source:ef20288ddb0410dfef84afca",
+      "kind": "value",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:c2e817e8a2c2159b6ffe3875",
+      "source": "source:c2e817e8a2c2159b6ffe3875",
+      "kind": "call",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:43fa467da101bae68ec02c90",
+      "source": "source:43fa467da101bae68ec02c90",
+      "kind": "value",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:98a1768963788407030a5fb1",
+      "source": "source:98a1768963788407030a5fb1",
+      "kind": "function",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:e7e58d71f0bded8a6e1d2435",
+      "source": "source:e7e58d71f0bded8a6e1d2435",
+      "kind": "value",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:e693cc25f4bc4d748e93d53d",
+      "source": "source:e693cc25f4bc4d748e93d53d",
+      "kind": "call",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:4314a34160b678bbc03b2821",
+      "source": "source:4314a34160b678bbc03b2821",
+      "kind": "value",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:f5377a92e78d854a9f2b43e5",
+      "source": "source:f5377a92e78d854a9f2b43e5",
+      "kind": "call",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:bdc057f15f500188352316c8",
+      "source": "source:bdc057f15f500188352316c8",
+      "kind": "value",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:391cc199a36a151c20798dfb",
+      "source": "source:391cc199a36a151c20798dfb",
+      "kind": "function",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:7a4124da80730a6c65edc015",
+      "source": "source:7a4124da80730a6c65edc015",
+      "kind": "call",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:a94fd684de8d488dd5b4a5fa",
+      "source": "source:a94fd684de8d488dd5b4a5fa",
+      "kind": "call",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:9d146c444933b32b867be0e0",
+      "source": "source:9d146c444933b32b867be0e0",
+      "kind": "call",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:1414838633032c630a4927ad",
+      "source": "source:1414838633032c630a4927ad",
+      "kind": "function",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:4f26dee3415f9e25d428f65e",
+      "source": "source:4f26dee3415f9e25d428f65e",
+      "kind": "call",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:3880c797f6e1797e23c3f650",
+      "source": "source:3880c797f6e1797e23c3f650",
+      "kind": "call",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:b66149f1c97f44ab7295a30b",
+      "source": "source:b66149f1c97f44ab7295a30b",
+      "kind": "function",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:00dec474464ff5b2b27c48d3",
+      "source": "source:00dec474464ff5b2b27c48d3",
+      "kind": "call",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:5a8dc5642bca0d18104b3edc",
+      "source": "source:5a8dc5642bca0d18104b3edc",
+      "kind": "value",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:c5998ef7d54d369010afe899",
+      "source": "source:c5998ef7d54d369010afe899",
+      "kind": "branch",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "frontier",
+      "reason": "Syntax candidate retained; framework, control-flow or user intent attribution is unresolved."
+    },
+    {
+      "id": "candidate:400cc07eba3575902806cce1",
+      "source": "source:400cc07eba3575902806cce1",
+      "kind": "call",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:c80b3bc6a91f5b3599be5c88",
+      "source": "source:c80b3bc6a91f5b3599be5c88",
+      "kind": "branch",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "frontier",
+      "reason": "Syntax candidate retained; framework, control-flow or user intent attribution is unresolved."
+    },
+    {
+      "id": "candidate:da768c5fe0a91892ae82e3fc",
+      "source": "source:da768c5fe0a91892ae82e3fc",
+      "kind": "branch",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "frontier",
+      "reason": "Syntax candidate retained; framework, control-flow or user intent attribution is unresolved."
+    },
+    {
+      "id": "candidate:b3185add48f09aa9563b9a94",
+      "source": "source:b3185add48f09aa9563b9a94",
+      "kind": "call",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:fde8ab10ec68485ed548c061",
+      "source": "source:fde8ab10ec68485ed548c061",
+      "kind": "branch",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "frontier",
+      "reason": "Syntax candidate retained; framework, control-flow or user intent attribution is unresolved."
+    },
+    {
+      "id": "candidate:6f0477208b3e26aa66b589b8",
+      "source": "source:6f0477208b3e26aa66b589b8",
+      "kind": "call",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:388c86d94e70948c704a5858",
+      "source": "source:388c86d94e70948c704a5858",
+      "kind": "call",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:75a082b1b33b0551c6d3a07d",
+      "source": "source:75a082b1b33b0551c6d3a07d",
+      "kind": "branch",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "frontier",
+      "reason": "Syntax candidate retained; framework, control-flow or user intent attribution is unresolved."
+    },
+    {
+      "id": "candidate:2e3b2aeec51bc0ebf7c8b7c3",
+      "source": "source:2e3b2aeec51bc0ebf7c8b7c3",
+      "kind": "branch",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "frontier",
+      "reason": "Syntax candidate retained; framework, control-flow or user intent attribution is unresolved."
+    },
+    {
+      "id": "candidate:8be55eac103f06c8ea6ca483",
+      "source": "source:8be55eac103f06c8ea6ca483",
+      "kind": "call",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:887c5ab0d58a0bd2a5c41c0e",
+      "source": "source:887c5ab0d58a0bd2a5c41c0e",
+      "kind": "value",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:dbd908299191684da664249b",
+      "source": "source:dbd908299191684da664249b",
+      "kind": "call",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:717a265f4d69ce0b2ad2d7be",
+      "source": "source:717a265f4d69ce0b2ad2d7be",
+      "kind": "call",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:ed0b6d43a2a188c7d5a8536f",
+      "source": "source:ed0b6d43a2a188c7d5a8536f",
+      "kind": "value",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:b09d2094d7626edd984e2e96",
+      "source": "source:b09d2094d7626edd984e2e96",
+      "kind": "call",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:d7e202d41267c3644a31373a",
+      "source": "source:d7e202d41267c3644a31373a",
+      "kind": "call",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:1fd0da2cc5b4be27b7977f1f",
+      "source": "source:1fd0da2cc5b4be27b7977f1f",
+      "kind": "value",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:ccdb39b9f8b729e3934861b4",
+      "source": "source:ccdb39b9f8b729e3934861b4",
+      "kind": "call",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:1cc746fcba9dce74d07bc4cd",
+      "source": "source:1cc746fcba9dce74d07bc4cd",
+      "kind": "call",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:be7e6e959e5996f17af14221",
+      "source": "source:be7e6e959e5996f17af14221",
+      "kind": "call",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:38359739a0eada391d947bc1",
+      "source": "source:38359739a0eada391d947bc1",
+      "kind": "call",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:f3e82366ec70df3ffd8f4fe2",
+      "source": "source:f3e82366ec70df3ffd8f4fe2",
+      "kind": "call",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:3cc2a5a4a155f04e559df36d",
+      "source": "source:3cc2a5a4a155f04e559df36d",
+      "kind": "value",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:22d5c81dcbe42d13ed8e25ed",
+      "source": "source:22d5c81dcbe42d13ed8e25ed",
+      "kind": "call",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:c2992ce44df29cdc536b86bb",
+      "source": "source:c2992ce44df29cdc536b86bb",
+      "kind": "call",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:51de5fc2a634c1862ea68b13",
+      "source": "source:51de5fc2a634c1862ea68b13",
+      "kind": "function",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:9ac2c573de65936ae4c89eae",
+      "source": "source:9ac2c573de65936ae4c89eae",
+      "kind": "call",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:2b0244f46afc1d7cdcc16ad8",
+      "source": "source:2b0244f46afc1d7cdcc16ad8",
+      "kind": "call",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [
+        {
+          "kind": "write_invocation",
+          "spelling": "req.supergraph_request\n                            .headers_mut()\n                            .insert",
+          "authority": "syntax_candidate",
+          "reason": "Method name is a write candidate; receiver and durable effects are unresolved."
+        }
+      ],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:6497f5e10cf9cfbf4c7debc6",
+      "source": "source:6497f5e10cf9cfbf4c7debc6",
+      "kind": "call",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:a1cdf2c7d26499fe47e4ed75",
+      "source": "source:a1cdf2c7d26499fe47e4ed75",
+      "kind": "call",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:8e8c081595176bbf810ed911",
+      "source": "source:8e8c081595176bbf810ed911",
+      "kind": "call",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:46876a53f9aac9c2ed5563b4",
+      "source": "source:46876a53f9aac9c2ed5563b4",
+      "kind": "call",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:918ff133055f198ca45c89c9",
+      "source": "source:918ff133055f198ca45c89c9",
+      "kind": "call",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:09bad58516033c8a3c56051a",
+      "source": "source:09bad58516033c8a3c56051a",
+      "kind": "call",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:1221d155fa0f7d4984977a2f",
+      "source": "source:1221d155fa0f7d4984977a2f",
+      "kind": "call",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:90f48230799c2dca873ffe85",
+      "source": "source:90f48230799c2dca873ffe85",
+      "kind": "call",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:abad176a6032fdca29f4d3f2",
+      "source": "source:abad176a6032fdca29f4d3f2",
+      "kind": "call",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:f5bc7dbe11252e2524bacf68",
+      "source": "source:f5bc7dbe11252e2524bacf68",
+      "kind": "call",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:9697f9648e7f4ceb63b6f713",
+      "source": "source:9697f9648e7f4ceb63b6f713",
+      "kind": "call",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:61fc321b31b623c8faa37e0a",
+      "source": "source:61fc321b31b623c8faa37e0a",
+      "kind": "call",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:8e73ae3acdea205d1edffe11",
+      "source": "source:8e73ae3acdea205d1edffe11",
+      "kind": "call",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:0b217ab2371ffbe549cbfb32",
+      "source": "source:0b217ab2371ffbe549cbfb32",
+      "kind": "call",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:ddaad460e91eac120ed5d925",
+      "source": "source:ddaad460e91eac120ed5d925",
+      "kind": "call",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:efd25185cde67e9f6cd27c4f",
+      "source": "source:efd25185cde67e9f6cd27c4f",
+      "kind": "branch",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "frontier",
+      "reason": "Syntax candidate retained; framework, control-flow or user intent attribution is unresolved."
+    },
+    {
+      "id": "candidate:623c138946d5e90c92a16dbb",
+      "source": "source:623c138946d5e90c92a16dbb",
+      "kind": "call",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:713776fd1ad009e8ef3133e8",
+      "source": "source:713776fd1ad009e8ef3133e8",
+      "kind": "call",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:50893b848f0b04db5e9e1342",
+      "source": "source:50893b848f0b04db5e9e1342",
+      "kind": "call",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:958d4387cfec932e930622c2",
+      "source": "source:958d4387cfec932e930622c2",
+      "kind": "call",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:aee5c5a9dfdf45e1ba695476",
+      "source": "source:aee5c5a9dfdf45e1ba695476",
+      "kind": "call",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:2e60c370390818439c467b97",
+      "source": "source:2e60c370390818439c467b97",
+      "kind": "call",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:bee6b349a5d5e97f8c2da7d2",
+      "source": "source:bee6b349a5d5e97f8c2da7d2",
+      "kind": "registration",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "frontier",
+      "reason": "Syntax candidate retained; framework, control-flow or user intent attribution is unresolved."
+    },
+    {
+      "id": "candidate:55307a6d03d2c834d858afe4",
+      "source": "source:55307a6d03d2c834d858afe4",
+      "kind": "import",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:dccf9e5859dde2b03d584987",
+      "source": "source:dccf9e5859dde2b03d584987",
+      "kind": "import",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:00ae6fb5902da96f3726cebd",
+      "source": "source:00ae6fb5902da96f3726cebd",
+      "kind": "import",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:002e1b747283e8cd722bba1f",
+      "source": "source:002e1b747283e8cd722bba1f",
+      "kind": "import",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:c6c714c8e4eee99689dfea37",
+      "source": "source:c6c714c8e4eee99689dfea37",
+      "kind": "import",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:1e740cebcc0ce37f421a2aae",
+      "source": "source:1e740cebcc0ce37f421a2aae",
+      "kind": "import",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:e06ddc50d72ccd2d063baf0c",
+      "source": "source:e06ddc50d72ccd2d063baf0c",
+      "kind": "registration",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "frontier",
+      "reason": "Syntax candidate retained; framework, control-flow or user intent attribution is unresolved."
+    },
+    {
+      "id": "candidate:098233623f996b9dbcfd3ce5",
+      "source": "source:098233623f996b9dbcfd3ce5",
+      "kind": "function",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:1ce5f7a1e3e1ab926c503519",
+      "source": "source:1ce5f7a1e3e1ab926c503519",
+      "kind": "value",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:ee8d8fa873ef2df7999b4d8c",
+      "source": "source:ee8d8fa873ef2df7999b4d8c",
+      "kind": "value",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:c9940a9f0c65bee4946de782",
+      "source": "source:c9940a9f0c65bee4946de782",
+      "kind": "call",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:99f1e5e59421539bdad4ffa5",
+      "source": "source:99f1e5e59421539bdad4ffa5",
+      "kind": "call",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:939a90a6b33a4fc4bef2ad2e",
+      "source": "source:939a90a6b33a4fc4bef2ad2e",
+      "kind": "call",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:f51d58ccb451b292c5f9402d",
+      "source": "source:f51d58ccb451b292c5f9402d",
+      "kind": "value",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:9f984700bfd06dec6107e510",
+      "source": "source:9f984700bfd06dec6107e510",
+      "kind": "call",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:02179a4f5698a304d46d828e",
+      "source": "source:02179a4f5698a304d46d828e",
+      "kind": "value",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:33f58f84fb08f211e1e9b33c",
+      "source": "source:33f58f84fb08f211e1e9b33c",
+      "kind": "call",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:6519f69d1ae87e357bd6fb1d",
+      "source": "source:6519f69d1ae87e357bd6fb1d",
+      "kind": "call",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:3c55af619f849842ca9a2e0f",
+      "source": "source:3c55af619f849842ca9a2e0f",
+      "kind": "call",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:697ae59f936847afd864846b",
+      "source": "source:697ae59f936847afd864846b",
+      "kind": "value",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:3726dc40174da4a1472f610d",
+      "source": "source:3726dc40174da4a1472f610d",
+      "kind": "value",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:d284c2f00f4561a7dd7f830a",
+      "source": "source:d284c2f00f4561a7dd7f830a",
+      "kind": "call",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:9895fab9bdec52e73cced33e",
+      "source": "source:9895fab9bdec52e73cced33e",
+      "kind": "call",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:55a7702cf5949f5ac2776f06",
+      "source": "source:55a7702cf5949f5ac2776f06",
+      "kind": "call",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:19a7139d5f50677a0cf6ec6d",
+      "source": "source:19a7139d5f50677a0cf6ec6d",
+      "kind": "function",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:ccf5cb1132a0715a070f8bd8",
+      "source": "source:ccf5cb1132a0715a070f8bd8",
+      "kind": "call",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:36bdcc57e7feadaa30559900",
+      "source": "source:36bdcc57e7feadaa30559900",
+      "kind": "call",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:126dcbe0c7e4d0036573e26e",
+      "source": "source:126dcbe0c7e4d0036573e26e",
+      "kind": "call",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:6b2339f43a88e40b84cd8608",
+      "source": "source:6b2339f43a88e40b84cd8608",
+      "kind": "call",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:389c0e0b606960efc9ee8702",
+      "source": "source:389c0e0b606960efc9ee8702",
+      "kind": "value",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:4a2f279ca47ddad3244e6089",
+      "source": "source:4a2f279ca47ddad3244e6089",
+      "kind": "call",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:a5193fd6d373435655d4707c",
+      "source": "source:a5193fd6d373435655d4707c",
+      "kind": "call",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:3e971798cdf49291f992a79f",
+      "source": "source:3e971798cdf49291f992a79f",
+      "kind": "value",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:46face1820215395273fb688",
+      "source": "source:46face1820215395273fb688",
+      "kind": "call",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:fc36084c610c6f655339e368",
+      "source": "source:fc36084c610c6f655339e368",
+      "kind": "call",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:6ba7145270b45714ed4c2d4b",
+      "source": "source:6ba7145270b45714ed4c2d4b",
+      "kind": "call",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:79c9c286fb4eec8ab744577b",
+      "source": "source:79c9c286fb4eec8ab744577b",
+      "kind": "value",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:c153b2740f8b943309444e5a",
+      "source": "source:c153b2740f8b943309444e5a",
+      "kind": "call",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:d83194abf46736fb6f502dc6",
+      "source": "source:d83194abf46736fb6f502dc6",
+      "kind": "await",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [
+        {
+          "kind": "async_boundary",
+          "spelling": "service.oneshot(request).await",
+          "authority": "syntax_candidate",
+          "reason": "Syntax establishes awaiting or detachment; completion and fault handling need attribution."
+        }
+      ],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:36e1b6405527f586c830779f",
+      "source": "source:36e1b6405527f586c830779f",
+      "kind": "call",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:868153c2a3dd2e3475eb28c5",
+      "source": "source:868153c2a3dd2e3475eb28c5",
+      "kind": "registration",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "frontier",
+      "reason": "Syntax candidate retained; framework, control-flow or user intent attribution is unresolved."
+    },
+    {
+      "id": "candidate:91bde8c0fda4afdec3ffb451",
+      "source": "source:91bde8c0fda4afdec3ffb451",
+      "kind": "function",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:23a2e8d4730ddf666a6c0a69",
+      "source": "source:23a2e8d4730ddf666a6c0a69",
+      "kind": "value",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:9f725d80e111e13057b55697",
+      "source": "source:9f725d80e111e13057b55697",
+      "kind": "value",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:2e7ce892753d789c4a82ff93",
+      "source": "source:2e7ce892753d789c4a82ff93",
+      "kind": "call",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:25e080c5c7ef339987f5d8ab",
+      "source": "source:25e080c5c7ef339987f5d8ab",
+      "kind": "call",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:44c73d31deadd525fd62fe55",
+      "source": "source:44c73d31deadd525fd62fe55",
+      "kind": "call",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:292b3e07b562ee80fbcb6976",
+      "source": "source:292b3e07b562ee80fbcb6976",
+      "kind": "value",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:d82a051a2a7cfaddbb5190eb",
+      "source": "source:d82a051a2a7cfaddbb5190eb",
+      "kind": "call",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:f5a596513aa9678f082bc294",
+      "source": "source:f5a596513aa9678f082bc294",
+      "kind": "value",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:66b94f7de5bbb7c1de4753df",
+      "source": "source:66b94f7de5bbb7c1de4753df",
+      "kind": "call",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:134b433f253af8ae35780a1c",
+      "source": "source:134b433f253af8ae35780a1c",
+      "kind": "call",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:db4d3cecd9247a26aeeef8f4",
+      "source": "source:db4d3cecd9247a26aeeef8f4",
+      "kind": "call",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:5314d7d682780c036706ecdc",
+      "source": "source:5314d7d682780c036706ecdc",
+      "kind": "value",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:bc9ae767555c0a62f793b6f9",
+      "source": "source:bc9ae767555c0a62f793b6f9",
+      "kind": "value",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:215adff7d72c0dad77b50658",
+      "source": "source:215adff7d72c0dad77b50658",
+      "kind": "call",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:148bb9ff168dcf9dee7cc4f3",
+      "source": "source:148bb9ff168dcf9dee7cc4f3",
+      "kind": "call",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:18cc93db3d3790b0135dadd5",
+      "source": "source:18cc93db3d3790b0135dadd5",
+      "kind": "call",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:62d66ec0efbbcd8a29af5b04",
+      "source": "source:62d66ec0efbbcd8a29af5b04",
+      "kind": "value",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:322a07a4c90cda131b710ed7",
+      "source": "source:322a07a4c90cda131b710ed7",
+      "kind": "call",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:3661805d29a76bf16c474bb5",
+      "source": "source:3661805d29a76bf16c474bb5",
+      "kind": "call",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:37849bd6cd2bcae631c449e4",
+      "source": "source:37849bd6cd2bcae631c449e4",
+      "kind": "call",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:f3c3cd378ace37a18071e7ca",
+      "source": "source:f3c3cd378ace37a18071e7ca",
+      "kind": "value",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:43d72e1292d4b3a1755f5a6d",
+      "source": "source:43d72e1292d4b3a1755f5a6d",
+      "kind": "call",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:65f92c78071f8c9ef95e95ab",
+      "source": "source:65f92c78071f8c9ef95e95ab",
+      "kind": "await",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [
+        {
+          "kind": "async_boundary",
+          "spelling": "service.oneshot(request).await",
+          "authority": "syntax_candidate",
+          "reason": "Syntax establishes awaiting or detachment; completion and fault handling need attribution."
+        }
+      ],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:623f113af3b31f6b53dbe297",
+      "source": "source:623f113af3b31f6b53dbe297",
+      "kind": "call",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:6c7be4f5cb6fdffe8501bfb5",
+      "source": "source:6c7be4f5cb6fdffe8501bfb5",
+      "kind": "registration",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "frontier",
+      "reason": "Syntax candidate retained; framework, control-flow or user intent attribution is unresolved."
+    },
+    {
+      "id": "candidate:df617f0ac3b13fe8e95c8664",
+      "source": "source:df617f0ac3b13fe8e95c8664",
+      "kind": "function",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:55c1ab8ccfa68a57befe109a",
+      "source": "source:55c1ab8ccfa68a57befe109a",
+      "kind": "value",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:76136efd6a556003d328878b",
+      "source": "source:76136efd6a556003d328878b",
+      "kind": "value",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:8be05777b93bc9d6e8b36542",
+      "source": "source:8be05777b93bc9d6e8b36542",
+      "kind": "call",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:4c2e52c6da0fff5f48012dbe",
+      "source": "source:4c2e52c6da0fff5f48012dbe",
+      "kind": "call",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:4050d541dd0598f4d84cc6f4",
+      "source": "source:4050d541dd0598f4d84cc6f4",
+      "kind": "value",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:240dfe002b9a0501a1be0617",
+      "source": "source:240dfe002b9a0501a1be0617",
+      "kind": "call",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:18b3e8ab27fe4778575d2903",
+      "source": "source:18b3e8ab27fe4778575d2903",
+      "kind": "call",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:0642834fa4f696cc70137900",
+      "source": "source:0642834fa4f696cc70137900",
+      "kind": "call",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:1cf2e91a6529ee62e2ec8964",
+      "source": "source:1cf2e91a6529ee62e2ec8964",
+      "kind": "value",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:2382347c7bdd7ec152c9647f",
+      "source": "source:2382347c7bdd7ec152c9647f",
+      "kind": "call",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:897e54f42f425d81b112fedb",
+      "source": "source:897e54f42f425d81b112fedb",
+      "kind": "value",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:878f1738198f8929f8769f17",
+      "source": "source:878f1738198f8929f8769f17",
+      "kind": "call",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:8c1ce0a66992731ba0af144f",
+      "source": "source:8c1ce0a66992731ba0af144f",
+      "kind": "call",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:5914ebf468667cdb6d3652e2",
+      "source": "source:5914ebf468667cdb6d3652e2",
+      "kind": "call",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:24fb871dbf168eedcff05feb",
+      "source": "source:24fb871dbf168eedcff05feb",
+      "kind": "value",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:73814357e30cb840aa2117fd",
+      "source": "source:73814357e30cb840aa2117fd",
+      "kind": "value",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:583e0d645d319236a662743c",
+      "source": "source:583e0d645d319236a662743c",
+      "kind": "call",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:fa5574bc333404746f3f09f9",
+      "source": "source:fa5574bc333404746f3f09f9",
+      "kind": "call",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:f8dfc314819235e57ac38cb6",
+      "source": "source:f8dfc314819235e57ac38cb6",
+      "kind": "call",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:fb6ec30783cd0bc78fb6af90",
+      "source": "source:fb6ec30783cd0bc78fb6af90",
+      "kind": "value",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:bdbf9df4d2327d521b57b7cd",
+      "source": "source:bdbf9df4d2327d521b57b7cd",
+      "kind": "call",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:8d6939c84a0bf673deb2f259",
+      "source": "source:8d6939c84a0bf673deb2f259",
+      "kind": "call",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:4e218dc5a9964f9bdd66b66a",
+      "source": "source:4e218dc5a9964f9bdd66b66a",
+      "kind": "call",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:fbe99096dfddc62168e60600",
+      "source": "source:fbe99096dfddc62168e60600",
+      "kind": "call",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:9af82e7b33cd0b2864433407",
+      "source": "source:9af82e7b33cd0b2864433407",
+      "kind": "value",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:cfb4d18e67e7c6789cf52248",
+      "source": "source:cfb4d18e67e7c6789cf52248",
+      "kind": "call",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:51444f68b2ee5ccce5b97562",
+      "source": "source:51444f68b2ee5ccce5b97562",
+      "kind": "await",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [
+        {
+          "kind": "async_boundary",
+          "spelling": "service.oneshot(request).await",
+          "authority": "syntax_candidate",
+          "reason": "Syntax establishes awaiting or detachment; completion and fault handling need attribution."
+        }
+      ],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:821e2fafda2a2a9431667830",
+      "source": "source:821e2fafda2a2a9431667830",
+      "kind": "call",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:039d3b2ed268784e11de43fc",
+      "source": "source:039d3b2ed268784e11de43fc",
+      "kind": "registration",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "frontier",
+      "reason": "Syntax candidate retained; framework, control-flow or user intent attribution is unresolved."
+    },
+    {
+      "id": "candidate:b064c2dad44f4d4d8bed41a6",
+      "source": "source:b064c2dad44f4d4d8bed41a6",
+      "kind": "function",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:b790ed07dcf7e7444fc1f6ed",
+      "source": "source:b790ed07dcf7e7444fc1f6ed",
+      "kind": "value",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:2425384ee1fd4d686c8d218c",
+      "source": "source:2425384ee1fd4d686c8d218c",
+      "kind": "value",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:c6eb33f8dbaa363b496a46d4",
+      "source": "source:c6eb33f8dbaa363b496a46d4",
+      "kind": "value",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:db2bcee7a2a5c947b9c8fc51",
+      "source": "source:db2bcee7a2a5c947b9c8fc51",
+      "kind": "value",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:45754698bb8ffe61d0276eef",
+      "source": "source:45754698bb8ffe61d0276eef",
+      "kind": "call",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:241bd372694e0d568a67b50d",
+      "source": "source:241bd372694e0d568a67b50d",
+      "kind": "call",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:d52aca769961091dede57330",
+      "source": "source:d52aca769961091dede57330",
+      "kind": "call",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:809f9640c3ab5f830996c0a1",
+      "source": "source:809f9640c3ab5f830996c0a1",
+      "kind": "value",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:6fe7d3adf6ed2da17ca63208",
+      "source": "source:6fe7d3adf6ed2da17ca63208",
+      "kind": "call",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:0b2ad7770aa38512144037b3",
+      "source": "source:0b2ad7770aa38512144037b3",
+      "kind": "value",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:a689cd60fad39cf809f9df25",
+      "source": "source:a689cd60fad39cf809f9df25",
+      "kind": "call",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:3c813be8017e7e24cf451d3c",
+      "source": "source:3c813be8017e7e24cf451d3c",
+      "kind": "call",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:ecb8a1f153b51c9059140617",
+      "source": "source:ecb8a1f153b51c9059140617",
+      "kind": "call",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:c785e6227b5a84a94e4479b4",
+      "source": "source:c785e6227b5a84a94e4479b4",
+      "kind": "value",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:6286ff7dd2039fbb09b101ac",
+      "source": "source:6286ff7dd2039fbb09b101ac",
+      "kind": "value",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:c151cbb51d410a121955713a",
+      "source": "source:c151cbb51d410a121955713a",
+      "kind": "call",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:1afa68b8b8da8fc5c2b5c019",
+      "source": "source:1afa68b8b8da8fc5c2b5c019",
+      "kind": "value",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:50010dfbf091dfb64ac2f302",
+      "source": "source:50010dfbf091dfb64ac2f302",
+      "kind": "call",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:fdd1be9f466860200e795c11",
+      "source": "source:fdd1be9f466860200e795c11",
+      "kind": "call",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:11db5e74b59905a3530046d6",
+      "source": "source:11db5e74b59905a3530046d6",
+      "kind": "value",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:e755d7c700a37d5105b3b8eb",
+      "source": "source:e755d7c700a37d5105b3b8eb",
+      "kind": "call",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:3fce140bfeb8b86b3927e9a1",
+      "source": "source:3fce140bfeb8b86b3927e9a1",
+      "kind": "await",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [
+        {
+          "kind": "async_boundary",
+          "spelling": "service\n            .oneshot(\n                supergraph::Request::fake_builder()\n                    .header(apollo_header_key, client_name)\n                    .build()\n                    .expect(\"valid request\"),\n            )\n            .await",
+          "authority": "syntax_candidate",
+          "reason": "Syntax establishes awaiting or detachment; completion and fault handling need attribution."
+        }
+      ],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:d760a404f19e5e0c3097f4ac",
+      "source": "source:d760a404f19e5e0c3097f4ac",
+      "kind": "call",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:1c3245725e40314246408446",
+      "source": "source:1c3245725e40314246408446",
+      "kind": "call",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:b09b6b62dd35fffcc2f1876e",
+      "source": "source:b09b6b62dd35fffcc2f1876e",
+      "kind": "call",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:d10837781e6360c974701632",
+      "source": "source:d10837781e6360c974701632",
+      "kind": "call",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:9db1835a971b24b364d54bf8",
+      "source": "source:9db1835a971b24b364d54bf8",
+      "kind": "call",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:1e1a60e09304c7e26726e8c4",
+      "source": "source:1e1a60e09304c7e26726e8c4",
+      "kind": "registration",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "frontier",
+      "reason": "Syntax candidate retained; framework, control-flow or user intent attribution is unresolved."
+    },
+    {
+      "id": "candidate:3ca3a4094765e792ea4556c2",
+      "source": "source:3ca3a4094765e792ea4556c2",
+      "kind": "function",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:f12e342b1387d2c639ec6e2a",
+      "source": "source:f12e342b1387d2c639ec6e2a",
+      "kind": "value",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:b0bac1f2443b4f58f058e468",
+      "source": "source:b0bac1f2443b4f58f058e468",
+      "kind": "value",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:d651f025b1841776be0b1b99",
+      "source": "source:d651f025b1841776be0b1b99",
+      "kind": "value",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:a8750a1d0f985983f9b8ba69",
+      "source": "source:a8750a1d0f985983f9b8ba69",
+      "kind": "value",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:a4f200b9a949d65795a69651",
+      "source": "source:a4f200b9a949d65795a69651",
+      "kind": "call",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:7285660a05dc5fbb4b6d8c70",
+      "source": "source:7285660a05dc5fbb4b6d8c70",
+      "kind": "call",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:f92bdec289c3070b831a4726",
+      "source": "source:f92bdec289c3070b831a4726",
+      "kind": "call",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:dc68dc6535a84c07aea4614f",
+      "source": "source:dc68dc6535a84c07aea4614f",
+      "kind": "value",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:f4daee16376b1dbdb23a70d7",
+      "source": "source:f4daee16376b1dbdb23a70d7",
+      "kind": "call",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:feeb1672b8c66b0b47af8474",
+      "source": "source:feeb1672b8c66b0b47af8474",
+      "kind": "value",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:c90ed2c116d0a5d51b4f04b3",
+      "source": "source:c90ed2c116d0a5d51b4f04b3",
+      "kind": "call",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:2b106c34ff07930e0273299c",
+      "source": "source:2b106c34ff07930e0273299c",
+      "kind": "call",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:3543940a745ebd86aad119f8",
+      "source": "source:3543940a745ebd86aad119f8",
+      "kind": "call",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:f87350ea4e2b8894abf99808",
+      "source": "source:f87350ea4e2b8894abf99808",
+      "kind": "value",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:5cc1e19789c654e0711fa561",
+      "source": "source:5cc1e19789c654e0711fa561",
+      "kind": "value",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:3114ea873fe41d03edb839fe",
+      "source": "source:3114ea873fe41d03edb839fe",
+      "kind": "call",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:6d654a134ef0c41bc2cc00fc",
+      "source": "source:6d654a134ef0c41bc2cc00fc",
+      "kind": "value",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:9c275241e0c67b9243efc900",
+      "source": "source:9c275241e0c67b9243efc900",
+      "kind": "call",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:d19c08d4134bd9c235ca771e",
+      "source": "source:d19c08d4134bd9c235ca771e",
+      "kind": "call",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:1c7a19559d3d4508f19919fd",
+      "source": "source:1c7a19559d3d4508f19919fd",
+      "kind": "value",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:2998fe381ca8b27e8233f51b",
+      "source": "source:2998fe381ca8b27e8233f51b",
+      "kind": "call",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:6a54b61ca05408c925725c4b",
+      "source": "source:6a54b61ca05408c925725c4b",
+      "kind": "await",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [
+        {
+          "kind": "async_boundary",
+          "spelling": "service\n            .oneshot(\n                supergraph::Request::fake_builder()\n                    .header(apollo_header_key, client_name)\n                    .build()\n                    .expect(\"valid request\"),\n            )\n            .await",
+          "authority": "syntax_candidate",
+          "reason": "Syntax establishes awaiting or detachment; completion and fault handling need attribution."
+        }
+      ],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:518f9be2c4c6bdaf30faf73b",
+      "source": "source:518f9be2c4c6bdaf30faf73b",
+      "kind": "call",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:3b22a61da0c489fc5d5c9ef6",
+      "source": "source:3b22a61da0c489fc5d5c9ef6",
+      "kind": "call",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:d6da0233980562d3fe4476c8",
+      "source": "source:d6da0233980562d3fe4476c8",
+      "kind": "call",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:4b5569811ef26789350bd06a",
+      "source": "source:4b5569811ef26789350bd06a",
+      "kind": "call",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:f1a899fbb5378caafdb37987",
+      "source": "source:f1a899fbb5378caafdb37987",
+      "kind": "call",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:a47bb6aa0b3c6cd33173418a",
+      "source": "source:a47bb6aa0b3c6cd33173418a",
+      "kind": "registration",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "frontier",
+      "reason": "Syntax candidate retained; framework, control-flow or user intent attribution is unresolved."
+    },
+    {
+      "id": "candidate:e4d3f932050b6b547e96ba33",
+      "source": "source:e4d3f932050b6b547e96ba33",
+      "kind": "function",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:4ce5f375246e1e4b63048b19",
+      "source": "source:4ce5f375246e1e4b63048b19",
+      "kind": "value",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:f0b8ab899caedbf792d03364",
+      "source": "source:f0b8ab899caedbf792d03364",
+      "kind": "value",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:4ae996d498aebf9303b012f8",
+      "source": "source:4ae996d498aebf9303b012f8",
+      "kind": "value",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:c14aa7cbf777518e4e3da2fa",
+      "source": "source:c14aa7cbf777518e4e3da2fa",
+      "kind": "value",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:7b340a572d1776cbcdda3ab8",
+      "source": "source:7b340a572d1776cbcdda3ab8",
+      "kind": "call",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:793ef82dd72042e2795e1fa1",
+      "source": "source:793ef82dd72042e2795e1fa1",
+      "kind": "call",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:86a315d208eff7d3edefd6ba",
+      "source": "source:86a315d208eff7d3edefd6ba",
+      "kind": "value",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:03f02891ba570c10c3ac10bc",
+      "source": "source:03f02891ba570c10c3ac10bc",
+      "kind": "call",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:886a8505a1f0a0aad4338baf",
+      "source": "source:886a8505a1f0a0aad4338baf",
+      "kind": "call",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:7d73f13153bf4048a7c42498",
+      "source": "source:7d73f13153bf4048a7c42498",
+      "kind": "call",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:b1d130f0a501bf24118873cf",
+      "source": "source:b1d130f0a501bf24118873cf",
+      "kind": "value",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:7153d754e0b075ab3a060871",
+      "source": "source:7153d754e0b075ab3a060871",
+      "kind": "call",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:6acb50375f522b016275326e",
+      "source": "source:6acb50375f522b016275326e",
+      "kind": "value",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:c9ea0c0ca241ea0d86fae0e8",
+      "source": "source:c9ea0c0ca241ea0d86fae0e8",
+      "kind": "call",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:7275a088174b7d3e53c96cc2",
+      "source": "source:7275a088174b7d3e53c96cc2",
+      "kind": "call",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:bda297afcd9cced0e4ba66d8",
+      "source": "source:bda297afcd9cced0e4ba66d8",
+      "kind": "call",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:b28428663f8e2db02c5f6cf2",
+      "source": "source:b28428663f8e2db02c5f6cf2",
+      "kind": "value",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:d108d8b332167a546b9ac800",
+      "source": "source:d108d8b332167a546b9ac800",
+      "kind": "value",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:c54d57e26ab2f2d444e18750",
+      "source": "source:c54d57e26ab2f2d444e18750",
+      "kind": "call",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:b4b908dcb3b549396beec017",
+      "source": "source:b4b908dcb3b549396beec017",
+      "kind": "value",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:36d3f009138ace3d88d1fee6",
+      "source": "source:36d3f009138ace3d88d1fee6",
+      "kind": "call",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:e3ae88829980ae4cdc6975d5",
+      "source": "source:e3ae88829980ae4cdc6975d5",
+      "kind": "call",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:206e0083bfda17eca84ea861",
+      "source": "source:206e0083bfda17eca84ea861",
+      "kind": "value",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:07b5ef6e5e0ecdab1ceb805c",
+      "source": "source:07b5ef6e5e0ecdab1ceb805c",
+      "kind": "call",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:40fdaecf598da74c9b6494ca",
+      "source": "source:40fdaecf598da74c9b6494ca",
+      "kind": "await",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [
+        {
+          "kind": "async_boundary",
+          "spelling": "service\n            .oneshot(\n                supergraph::Request::fake_builder()\n                    .header(client_header_key, client_name)\n                    .build()\n                    .expect(\"valid request\"),\n            )\n            .await",
+          "authority": "syntax_candidate",
+          "reason": "Syntax establishes awaiting or detachment; completion and fault handling need attribution."
+        }
+      ],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:7830c38a797eee689b264177",
+      "source": "source:7830c38a797eee689b264177",
+      "kind": "call",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:e59efc92ca90171e77a7177b",
+      "source": "source:e59efc92ca90171e77a7177b",
+      "kind": "call",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:d487b1f0a9a87cd157f12067",
+      "source": "source:d487b1f0a9a87cd157f12067",
+      "kind": "call",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:9ee97eb712f247616b690c8f",
+      "source": "source:9ee97eb712f247616b690c8f",
+      "kind": "call",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:9dd0f50668bf8d4f2c7fae04",
+      "source": "source:9dd0f50668bf8d4f2c7fae04",
+      "kind": "call",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:21b03d811a85254992cb5915",
+      "source": "source:21b03d811a85254992cb5915",
+      "kind": "function",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:e4eb5d150a28c0028cd57b30",
+      "source": "source:e4eb5d150a28c0028cd57b30",
+      "kind": "value",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:89185720b57c34b26177a3f4",
+      "source": "source:89185720b57c34b26177a3f4",
+      "kind": "call",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:21c8bd1572127d950006ccd5",
+      "source": "source:21c8bd1572127d950006ccd5",
+      "kind": "value",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:5f71dc242dd687586a9f0f24",
+      "source": "source:5f71dc242dd687586a9f0f24",
+      "kind": "call",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:882b918447a14b9f3dab710f",
+      "source": "source:882b918447a14b9f3dab710f",
+      "kind": "value",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:86c0f9ce03b33169cdf3b4ab",
+      "source": "source:86c0f9ce03b33169cdf3b4ab",
+      "kind": "call",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:a999c41fcea327a11ecb9b37",
+      "source": "source:a999c41fcea327a11ecb9b37",
+      "kind": "call",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:db0c5e1565b3737381d5bde4",
+      "source": "source:db0c5e1565b3737381d5bde4",
+      "kind": "call",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:1dfe4395a500a1c0a744249f",
+      "source": "source:1dfe4395a500a1c0a744249f",
+      "kind": "function",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:216ec2b97ad38b9b9c9fac7a",
+      "source": "source:216ec2b97ad38b9b9c9fac7a",
+      "kind": "value",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:361ef68240740254fe015ce5",
+      "source": "source:361ef68240740254fe015ce5",
+      "kind": "call",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:eba3685c754eb010252c994c",
+      "source": "source:eba3685c754eb010252c994c",
+      "kind": "call",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:dc98e693072eadfce16b751f",
+      "source": "source:dc98e693072eadfce16b751f",
+      "kind": "call",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:ec367367a1feaabe6efc6b14",
+      "source": "source:ec367367a1feaabe6efc6b14",
+      "kind": "call",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:06378498c63b3f1e60dbf870",
+      "source": "source:06378498c63b3f1e60dbf870",
+      "kind": "call",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:592dcbceb8e01871a019a31c",
+      "source": "source:592dcbceb8e01871a019a31c",
+      "kind": "call",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:11d2d170b3167766aff1820b",
+      "source": "source:11d2d170b3167766aff1820b",
+      "kind": "import",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:b98e6ddc17b3f68a0a225928",
+      "source": "source:b98e6ddc17b3f68a0a225928",
+      "kind": "import",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:69f2b82f1b5fb09b19f4f2bf",
+      "source": "source:69f2b82f1b5fb09b19f4f2bf",
+      "kind": "import",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:d1d77c460f15c48062df6647",
+      "source": "source:d1d77c460f15c48062df6647",
+      "kind": "import",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:6ff5939277622998c918c1c3",
+      "source": "source:6ff5939277622998c918c1c3",
+      "kind": "import",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:3f26e51f1d44e4a05b9375f9",
+      "source": "source:3f26e51f1d44e4a05b9375f9",
+      "kind": "import",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:437ee2ca3a553a9d5c84eb7f",
+      "source": "source:437ee2ca3a553a9d5c84eb7f",
+      "kind": "import",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:b78d06adfc76b4eeb643469d",
+      "source": "source:b78d06adfc76b4eeb643469d",
+      "kind": "import",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:f84398b72a43970045e227d2",
+      "source": "source:f84398b72a43970045e227d2",
+      "kind": "import",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:dc6aeb9b05852b727148a02d",
+      "source": "source:dc6aeb9b05852b727148a02d",
+      "kind": "import",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:29994666154c91a1291e4d77",
+      "source": "source:29994666154c91a1291e4d77",
+      "kind": "import",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:a518f37f17aa39502a37c0df",
+      "source": "source:a518f37f17aa39502a37c0df",
+      "kind": "registration",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "frontier",
+      "reason": "Syntax candidate retained; framework, control-flow or user intent attribution is unresolved."
+    },
+    {
+      "id": "candidate:a1af44444c12b009ebe0fd3a",
+      "source": "source:a1af44444c12b009ebe0fd3a",
+      "kind": "registration",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "frontier",
+      "reason": "Syntax candidate retained; framework, control-flow or user intent attribution is unresolved."
+    },
+    {
+      "id": "candidate:cd6c3b60d5c0ab2f3d7b8074",
+      "source": "source:cd6c3b60d5c0ab2f3d7b8074",
+      "kind": "registration",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "frontier",
+      "reason": "Syntax candidate retained; framework, control-flow or user intent attribution is unresolved."
+    },
+    {
+      "id": "candidate:9a8aeda4b29e6028777d95e6",
+      "source": "source:9a8aeda4b29e6028777d95e6",
+      "kind": "registration",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "frontier",
+      "reason": "Syntax candidate retained; framework, control-flow or user intent attribution is unresolved."
+    },
+    {
+      "id": "candidate:e00f18b0c590df9e21c350cb",
+      "source": "source:e00f18b0c590df9e21c350cb",
+      "kind": "registration",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "frontier",
+      "reason": "Syntax candidate retained; framework, control-flow or user intent attribution is unresolved."
+    },
+    {
+      "id": "candidate:0a580fa858adb4d97429ae7c",
+      "source": "source:0a580fa858adb4d97429ae7c",
+      "kind": "registration",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "frontier",
+      "reason": "Syntax candidate retained; framework, control-flow or user intent attribution is unresolved."
+    },
+    {
+      "id": "candidate:1fc1d1fd0254434b4f55830c",
+      "source": "source:1fc1d1fd0254434b4f55830c",
+      "kind": "registration",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "frontier",
+      "reason": "Syntax candidate retained; framework, control-flow or user intent attribution is unresolved."
+    },
+    {
+      "id": "candidate:ca8c072298697ae9fe443743",
+      "source": "source:ca8c072298697ae9fe443743",
+      "kind": "registration",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "frontier",
+      "reason": "Syntax candidate retained; framework, control-flow or user intent attribution is unresolved."
+    },
+    {
+      "id": "candidate:a54ed71e6c47a3e562fd5c29",
+      "source": "source:a54ed71e6c47a3e562fd5c29",
+      "kind": "registration",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "frontier",
+      "reason": "Syntax candidate retained; framework, control-flow or user intent attribution is unresolved."
+    },
+    {
+      "id": "candidate:064ac2e9c9f4d5a467a95575",
+      "source": "source:064ac2e9c9f4d5a467a95575",
+      "kind": "registration",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "frontier",
+      "reason": "Syntax candidate retained; framework, control-flow or user intent attribution is unresolved."
+    },
+    {
+      "id": "candidate:a64278f134dfc872056fc365",
+      "source": "source:a64278f134dfc872056fc365",
+      "kind": "registration",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "frontier",
+      "reason": "Syntax candidate retained; framework, control-flow or user intent attribution is unresolved."
+    },
+    {
+      "id": "candidate:f82aaf725546aa7a94a3a21c",
+      "source": "source:f82aaf725546aa7a94a3a21c",
+      "kind": "registration",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "frontier",
+      "reason": "Syntax candidate retained; framework, control-flow or user intent attribution is unresolved."
+    },
+    {
+      "id": "candidate:585890ada8468573932b7a8e",
+      "source": "source:585890ada8468573932b7a8e",
+      "kind": "registration",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "frontier",
+      "reason": "Syntax candidate retained; framework, control-flow or user intent attribution is unresolved."
+    },
+    {
+      "id": "candidate:b4300414a00d0f79dbdbea2b",
+      "source": "source:b4300414a00d0f79dbdbea2b",
+      "kind": "registration",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "frontier",
+      "reason": "Syntax candidate retained; framework, control-flow or user intent attribution is unresolved."
+    },
+    {
+      "id": "candidate:5dfb1a014078209ad4788204",
+      "source": "source:5dfb1a014078209ad4788204",
+      "kind": "registration",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "frontier",
+      "reason": "Syntax candidate retained; framework, control-flow or user intent attribution is unresolved."
+    },
+    {
+      "id": "candidate:62217199dc1227126297a82f",
+      "source": "source:62217199dc1227126297a82f",
+      "kind": "registration",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "frontier",
+      "reason": "Syntax candidate retained; framework, control-flow or user intent attribution is unresolved."
+    },
+    {
+      "id": "candidate:eefa467768ce5c8091d87ef1",
+      "source": "source:eefa467768ce5c8091d87ef1",
+      "kind": "function",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:9ad76b86600af40d9f7eb966",
+      "source": "source:9ad76b86600af40d9f7eb966",
+      "kind": "call",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:e111346772319804843ee9a5",
+      "source": "source:e111346772319804843ee9a5",
+      "kind": "call",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:838bb3b8fdf51a010d68064a",
+      "source": "source:838bb3b8fdf51a010d68064a",
+      "kind": "call",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:0a3362c7d8e2bee6561b0000",
+      "source": "source:0a3362c7d8e2bee6561b0000",
+      "kind": "registration",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "frontier",
+      "reason": "Syntax candidate retained; framework, control-flow or user intent attribution is unresolved."
+    },
+    {
+      "id": "candidate:d824973b8f2229656a35191f",
+      "source": "source:d824973b8f2229656a35191f",
+      "kind": "function",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:9580944a715f0a0ed960ae90",
+      "source": "source:9580944a715f0a0ed960ae90",
+      "kind": "registration",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "frontier",
+      "reason": "Syntax candidate retained; framework, control-flow or user intent attribution is unresolved."
+    },
+    {
+      "id": "candidate:a6072f4e14755d951a6f2b4a",
+      "source": "source:a6072f4e14755d951a6f2b4a",
+      "kind": "registration",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "frontier",
+      "reason": "Syntax candidate retained; framework, control-flow or user intent attribution is unresolved."
+    },
+    {
+      "id": "candidate:29752ee829c2adb979d2cc2e",
+      "source": "source:29752ee829c2adb979d2cc2e",
+      "kind": "registration",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "frontier",
+      "reason": "Syntax candidate retained; framework, control-flow or user intent attribution is unresolved."
+    },
+    {
+      "id": "candidate:75e6a68922a29d0bae0db8f5",
+      "source": "source:75e6a68922a29d0bae0db8f5",
+      "kind": "registration",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "frontier",
+      "reason": "Syntax candidate retained; framework, control-flow or user intent attribution is unresolved."
+    },
+    {
+      "id": "candidate:03d72f577e246a1283c48100",
+      "source": "source:03d72f577e246a1283c48100",
+      "kind": "function",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:903a6c984554ba0eeb6fe6bf",
+      "source": "source:903a6c984554ba0eeb6fe6bf",
+      "kind": "registration",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "frontier",
+      "reason": "Syntax candidate retained; framework, control-flow or user intent attribution is unresolved."
+    },
+    {
+      "id": "candidate:8cb14550f851dc839a1f24af",
+      "source": "source:8cb14550f851dc839a1f24af",
+      "kind": "function",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:f176529d6df267f2210772ef",
+      "source": "source:f176529d6df267f2210772ef",
+      "kind": "registration",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "frontier",
+      "reason": "Syntax candidate retained; framework, control-flow or user intent attribution is unresolved."
+    },
+    {
+      "id": "candidate:f10df4a01e4c16dd463edaa7",
+      "source": "source:f10df4a01e4c16dd463edaa7",
+      "kind": "registration",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "frontier",
+      "reason": "Syntax candidate retained; framework, control-flow or user intent attribution is unresolved."
+    },
+    {
+      "id": "candidate:4251433cbf86edfb3810f913",
+      "source": "source:4251433cbf86edfb3810f913",
+      "kind": "registration",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "frontier",
+      "reason": "Syntax candidate retained; framework, control-flow or user intent attribution is unresolved."
+    },
+    {
+      "id": "candidate:45fd2520ed2b1311303dadc6",
+      "source": "source:45fd2520ed2b1311303dadc6",
+      "kind": "registration",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "frontier",
+      "reason": "Syntax candidate retained; framework, control-flow or user intent attribution is unresolved."
+    },
+    {
+      "id": "candidate:f1889ed1023296ec54057f89",
+      "source": "source:f1889ed1023296ec54057f89",
+      "kind": "registration",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "frontier",
+      "reason": "Syntax candidate retained; framework, control-flow or user intent attribution is unresolved."
+    },
+    {
+      "id": "candidate:9ced09cdf90f8c092ff69a45",
+      "source": "source:9ced09cdf90f8c092ff69a45",
+      "kind": "registration",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "frontier",
+      "reason": "Syntax candidate retained; framework, control-flow or user intent attribution is unresolved."
+    },
+    {
+      "id": "candidate:c3ff3e2f6c5491fd500ac515",
+      "source": "source:c3ff3e2f6c5491fd500ac515",
+      "kind": "registration",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "frontier",
+      "reason": "Syntax candidate retained; framework, control-flow or user intent attribution is unresolved."
+    },
+    {
+      "id": "candidate:70f1e83a072f77893edbbf37",
+      "source": "source:70f1e83a072f77893edbbf37",
+      "kind": "function",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:c3f776a02d732807458c20aa",
+      "source": "source:c3f776a02d732807458c20aa",
+      "kind": "registration",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "frontier",
+      "reason": "Syntax candidate retained; framework, control-flow or user intent attribution is unresolved."
+    },
+    {
+      "id": "candidate:1c87336e8344c3bad45f9860",
+      "source": "source:1c87336e8344c3bad45f9860",
+      "kind": "registration",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "frontier",
+      "reason": "Syntax candidate retained; framework, control-flow or user intent attribution is unresolved."
+    },
+    {
+      "id": "candidate:17438850f20e4d3b37d8c5e8",
+      "source": "source:17438850f20e4d3b37d8c5e8",
+      "kind": "function",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:e694f83c3886286fbd5db26b",
+      "source": "source:e694f83c3886286fbd5db26b",
+      "kind": "registration",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "frontier",
+      "reason": "Syntax candidate retained; framework, control-flow or user intent attribution is unresolved."
+    },
+    {
+      "id": "candidate:8229d02e6b3bec6dff086c7b",
+      "source": "source:8229d02e6b3bec6dff086c7b",
+      "kind": "registration",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "frontier",
+      "reason": "Syntax candidate retained; framework, control-flow or user intent attribution is unresolved."
+    },
+    {
+      "id": "candidate:38396ee3005f3f2cc26c1c10",
+      "source": "source:38396ee3005f3f2cc26c1c10",
+      "kind": "registration",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "frontier",
+      "reason": "Syntax candidate retained; framework, control-flow or user intent attribution is unresolved."
+    },
+    {
+      "id": "candidate:484f74da37a985b2ccc7c107",
+      "source": "source:484f74da37a985b2ccc7c107",
+      "kind": "function",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:196974dde654f7b7fca32bf4",
+      "source": "source:196974dde654f7b7fca32bf4",
+      "kind": "call",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:fd4ad2f15866431d834f29db",
+      "source": "source:fd4ad2f15866431d834f29db",
+      "kind": "function",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:afdbbf9eb5b4d413c8262c52",
+      "source": "source:afdbbf9eb5b4d413c8262c52",
+      "kind": "registration",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "frontier",
+      "reason": "Syntax candidate retained; framework, control-flow or user intent attribution is unresolved."
+    },
+    {
+      "id": "candidate:190927b67d514d049248824b",
+      "source": "source:190927b67d514d049248824b",
+      "kind": "registration",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "frontier",
+      "reason": "Syntax candidate retained; framework, control-flow or user intent attribution is unresolved."
+    },
+    {
+      "id": "candidate:c497895660afa9934f06e928",
+      "source": "source:c497895660afa9934f06e928",
+      "kind": "registration",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "frontier",
+      "reason": "Syntax candidate retained; framework, control-flow or user intent attribution is unresolved."
+    },
+    {
+      "id": "candidate:c635c3e0e0ff28c91ca16ab4",
+      "source": "source:c635c3e0e0ff28c91ca16ab4",
+      "kind": "registration",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "frontier",
+      "reason": "Syntax candidate retained; framework, control-flow or user intent attribution is unresolved."
+    },
+    {
+      "id": "candidate:d02b833ae80b3a7049b9bf69",
+      "source": "source:d02b833ae80b3a7049b9bf69",
+      "kind": "registration",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "frontier",
+      "reason": "Syntax candidate retained; framework, control-flow or user intent attribution is unresolved."
+    },
+    {
+      "id": "candidate:8ec0198bc10c02045f31cab8",
+      "source": "source:8ec0198bc10c02045f31cab8",
+      "kind": "registration",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "frontier",
+      "reason": "Syntax candidate retained; framework, control-flow or user intent attribution is unresolved."
+    },
+    {
+      "id": "candidate:a816b1205e06385e82b423c4",
+      "source": "source:a816b1205e06385e82b423c4",
+      "kind": "registration",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "frontier",
+      "reason": "Syntax candidate retained; framework, control-flow or user intent attribution is unresolved."
+    },
+    {
+      "id": "candidate:00a31742b4d33e5f0318bf28",
+      "source": "source:00a31742b4d33e5f0318bf28",
+      "kind": "registration",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "frontier",
+      "reason": "Syntax candidate retained; framework, control-flow or user intent attribution is unresolved."
+    },
+    {
+      "id": "candidate:a411a5bed25a34735f38ba08",
+      "source": "source:a411a5bed25a34735f38ba08",
+      "kind": "function",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:1df2d8769ed311d6a75f4cc5",
+      "source": "source:1df2d8769ed311d6a75f4cc5",
+      "kind": "branch",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "frontier",
+      "reason": "Syntax candidate retained; framework, control-flow or user intent attribution is unresolved."
+    },
+    {
+      "id": "candidate:e15f7a719f2e15562bd6e4eb",
+      "source": "source:e15f7a719f2e15562bd6e4eb",
+      "kind": "call",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:6d5413edb016144157110fdf",
+      "source": "source:6d5413edb016144157110fdf",
+      "kind": "call",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:cb9c1e2c35926d1087ad48f7",
+      "source": "source:cb9c1e2c35926d1087ad48f7",
+      "kind": "call",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:972d346a67a3e8d00df94fbb",
+      "source": "source:972d346a67a3e8d00df94fbb",
+      "kind": "call",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:f30429ec22118a36d0b84728",
+      "source": "source:f30429ec22118a36d0b84728",
+      "kind": "call",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:78004bdc500a6bcd7d7a38b1",
+      "source": "source:78004bdc500a6bcd7d7a38b1",
+      "kind": "call",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:16a0b677f79c7a9b314d84ce",
+      "source": "source:16a0b677f79c7a9b314d84ce",
+      "kind": "call",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:1218955477fddf0593a04e5f",
+      "source": "source:1218955477fddf0593a04e5f",
+      "kind": "call",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:cfb867ef3a7731f7d5117ee9",
+      "source": "source:cfb867ef3a7731f7d5117ee9",
+      "kind": "call",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:ecaf9842694b9e0b029bcfa9",
+      "source": "source:ecaf9842694b9e0b029bcfa9",
+      "kind": "function",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:44fb326a6c87ad338173f363",
+      "source": "source:44fb326a6c87ad338173f363",
+      "kind": "call",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    },
+    {
+      "id": "candidate:70a58dd33ccc75db5f007815",
+      "source": "source:70a58dd33ccc75db5f007815",
+      "kind": "call",
+      "rule": "rule:compiler-syntax-v1",
+      "observations": [],
+      "disposition": "syntax_supported",
+      "reason": "Compiler syntax only; semantic attribution is unresolved."
+    }
+  ],
+  "semanticDiagnostics": [
+    {
+      "path": "src/main.rs",
+      "exactDuplicateEdges": 0
+    },
+    {
+      "path": "src/require_client_name.rs",
+      "exactDuplicateEdges": 0
+    },
+    {
+      "path": "src/request_cache/structs.rs",
+      "exactDuplicateEdges": 0
+    }
+  ],
+  "limitations": [
+    "Syntax/local-symbol coverage is not semantic completeness.",
+    "This publication covers only its selected manifest files."
+  ]
+}

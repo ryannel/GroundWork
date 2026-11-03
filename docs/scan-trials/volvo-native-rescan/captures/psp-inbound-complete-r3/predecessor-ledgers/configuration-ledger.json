@@ -1,0 +1,17 @@
+[
+  {
+    "path": "com-volvocars-ecom-paymentservice-psp-inbound-api/src/main/resources/application-local.yml",
+    "shape": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/configuration/b9b0fe165a0ca1d30cf3",
+    "leaves": 1
+  },
+  {
+    "path": "com-volvocars-ecom-paymentservice-psp-inbound-api/src/main/resources/application-production.yml",
+    "shape": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/configuration/6e875572edb293dd6be3",
+    "leaves": 1
+  },
+  {
+    "path": "com-volvocars-ecom-paymentservice-psp-inbound-api/src/main/resources/application.yml",
+    "shape": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/configuration/102ff3d6780f8834b3ba",
+    "leaves": 34
+  }
+]

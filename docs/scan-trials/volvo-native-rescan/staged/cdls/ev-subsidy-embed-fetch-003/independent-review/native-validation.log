@@ -1,0 +1,11 @@
+
+> groundwork@0.0.0 knowledge:validate
+> node --import ./tools/register.ts --conditions=react-server tools/validate-knowledge.ts reports/volvo-native-rescan/cdls-mono-volvocars-complete/units/ev-subsidy-api/checkpoint-001/bundle.json reports/volvo-native-rescan/cdls-mono-volvocars-complete/units/ev-subsidy-embed-fetch/checkpoint-003/bundle.json --snapshot reports/volvo-native-rescan/cdls-mono-volvocars-complete/units/ev-subsidy-embed-fetch/checkpoint-003/snapshot.json --sources /Users/RNEL/.cache/groundwork/clones
+
+{
+  "snapshot": "65ad154aae158cfd209f23f725485a963fc7ab37323076bac771f01646677709",
+  "bundles": 2,
+  "records": 1326,
+  "sourceRangesChecked": 250,
+  "sourceVerification": "pinned_local_files"
+}

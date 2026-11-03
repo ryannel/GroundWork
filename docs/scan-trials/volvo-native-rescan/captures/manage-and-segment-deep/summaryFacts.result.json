@@ -1,0 +1,1183 @@
+{
+  "format": "groundwork-result/v3",
+  "snapshot": "9958d25719399c959ece547e827c4b7f92f853a983c8b2669f34e08ca6f7f0cc",
+  "queryVersion": "knowledge-query/v3",
+  "request": {
+    "format": "groundwork-query/v3",
+    "snapshot": "9958d25719399c959ece547e827c4b7f92f853a983c8b2669f34e08ca6f7f0cc",
+    "query": "records",
+    "entry": "masdeep-b360506/entry/post-api-commercial-items-fees",
+    "value": null,
+    "context": [],
+    "outcome": null,
+    "changed": [],
+    "representation": "constructed",
+    "candidates": "exclude",
+    "maxNodes": 1500,
+    "maxRecords": 5000,
+    "environment": "production-profile",
+    "ids": [
+      "masdeep-b360506/depth/claim/route-summary/post-api-commercial-items-sku-categories",
+      "masdeep-b360506/depth/claim/route-summary/delete-api-commercial-items-selection-categories-id"
+    ]
+  },
+  "nodes": [],
+  "edges": [],
+  "claims": [],
+  "evidence": [
+    "masdeep-b360506/e/0103ca62f8f18cc7",
+    "masdeep-b360506/e/06640a50c3a48b05",
+    "masdeep-b360506/e/095f6b7fcffabd78",
+    "masdeep-b360506/e/14df2ba1d99a21ce",
+    "masdeep-b360506/e/1b1c399d1cbd235a",
+    "masdeep-b360506/e/21f991771697d13c",
+    "masdeep-b360506/e/25ba9d4e86d4eaf9",
+    "masdeep-b360506/e/2c5c4195888e47f2",
+    "masdeep-b360506/e/34fab5c27425e69e",
+    "masdeep-b360506/e/3c7d2741f93aaf9a",
+    "masdeep-b360506/e/47f7dc8e88e5ce28",
+    "masdeep-b360506/e/4e031854b31d580a",
+    "masdeep-b360506/e/66abb728cd523936",
+    "masdeep-b360506/e/6c4fb8d8c09cd702",
+    "masdeep-b360506/e/8201669e3fbebe8d",
+    "masdeep-b360506/e/860bc1ca29201083",
+    "masdeep-b360506/e/98fa5b0461d6b12a",
+    "masdeep-b360506/e/9a5d031adb8ab080",
+    "masdeep-b360506/e/a8d1e578dcbe719a",
+    "masdeep-b360506/e/ae1c622893c8d563",
+    "masdeep-b360506/e/bbc70cee03f0d35b",
+    "masdeep-b360506/e/bc7d18152235b22e",
+    "masdeep-b360506/e/bc8b3002572c01de",
+    "masdeep-b360506/e/c2e95b5ee5815686",
+    "masdeep-b360506/e/c67b1b841a741da8",
+    "masdeep-b360506/e/c9b816a1f8a8aba9",
+    "masdeep-b360506/e/ca9553ed6139f377",
+    "masdeep-b360506/e/d61351349d210e5f",
+    "masdeep-b360506/e/da09bf5fc5d4a847",
+    "masdeep-b360506/e/e7c6a9357ad83a0a",
+    "masdeep-b360506/e/e9090ed9f5d62d59",
+    "masdeep-b360506/e/edf8504f9d4cbc21",
+    "masdeep-b360506/e/eeadf7b371004ead",
+    "masdeep-b360506/e/f0e6a94921d2be3a",
+    "masdeep-b360506/e/f95c95432fd98b26",
+    "s2/e/controller",
+    "s2/e/db",
+    "s2/e/input",
+    "s2/e/middleware",
+    "s2/e/npgsql"
+  ],
+  "coverage": [],
+  "frontiers": [],
+  "limitsHit": [],
+  "feasibility": "not_checked",
+  "exhaustive": false,
+  "records": [
+    {
+      "id": "masdeep-b360506/depth/claim/route-summary/delete-api-commercial-items-selection-categories-id",
+      "kind": "claim",
+      "owner": "masdeep-b360506/impl/delete-api-commercial-items-selection-categories-id",
+      "statement": "Source-inspected summary, not native per-method execution closure: Run declared PopAuthz policy local handler; Authorization exception; outer imported pipeline response remains unresolved; Enter controller body after framework binding; effective model validation remains partial; string.IsNullOrEmpty(id)?; Explicit route key guard passed; Local exception middleware: MaSDbConflictException?; ToHttpResponse: Ok/Created success envelope Status, OperationId, mapped Data or null; selected status retained; DbSet.FindAsync(key) for DeleteByKey; FindAsync item != null?; Await CompleteAsync / SaveChangesAsync even when repository returns NotFound; no deletion/update staged on this path; Existing item / Exist true; DbSet.Remove(existing) → Result.Ok(existing); Await UnitOfWork.CompleteAsync / context.SaveChangesAsync; concurrency or unique violation translated to MaSDbConflictException, other errors MaSDbException; SaveChangesAsync returned normally; acknowledged local EF call, not consumer completion; result.Status != NotFound and result.HasData?; NotificationOptions.Enabled?; ProtoBufMessageBuilder has no SelectionCategory case: default returns null; NotificationService logs and returns",
+      "basis": "source_declared",
+      "inputs": [
+        "masdeep-b360506/depth/store-contract/SelectionCategory",
+        "masdeep-b360506/table/SelectionCategory"
+      ],
+      "assumptions": [],
+      "evidence": [
+        "masdeep-b360506/e/ca9553ed6139f377",
+        "masdeep-b360506/e/c9b816a1f8a8aba9",
+        "masdeep-b360506/e/2c5c4195888e47f2",
+        "masdeep-b360506/e/ae1c622893c8d563",
+        "masdeep-b360506/e/66abb728cd523936",
+        "masdeep-b360506/e/d61351349d210e5f",
+        "masdeep-b360506/e/edf8504f9d4cbc21",
+        "masdeep-b360506/e/0103ca62f8f18cc7",
+        "masdeep-b360506/e/bbc70cee03f0d35b",
+        "masdeep-b360506/e/c2e95b5ee5815686",
+        "masdeep-b360506/e/c67b1b841a741da8",
+        "masdeep-b360506/e/bc7d18152235b22e",
+        "masdeep-b360506/e/860bc1ca29201083",
+        "masdeep-b360506/e/47f7dc8e88e5ce28",
+        "masdeep-b360506/e/25ba9d4e86d4eaf9"
+      ]
+    },
+    {
+      "id": "masdeep-b360506/depth/claim/route-summary/post-api-commercial-items-sku-categories",
+      "kind": "claim",
+      "owner": "masdeep-b360506/impl/post-api-commercial-items-sku-categories",
+      "statement": "Source-inspected summary, not native per-method execution closure: Run declared PopAuthz policy local handler; Authorization exception; outer imported pipeline response remains unresolved; Enter controller body after framework binding; effective model validation remains partial; Local exception middleware: MaSDbConflictException?; ToHttpResponse: Ok/Created success envelope Status, OperationId, mapped Data or null; selected status retained; Controller construction: var skuCategory = Mapper.Map<SkuCategory>(input); var result = await _skuCategoryService.Add(skuCategory); var response = ToHttpResponse<SkuCategory, Response.SkuCategory>(result); return response;; DbSet.Add(entity) → Result.Created(result.Entity); Await UnitOfWork.CompleteAsync / context.SaveChangesAsync; concurrency or unique violation translated to MaSDbConflictException, other errors MaSDbException; SaveChangesAsync returned normally; acknowledged local EF call, not consumer completion; result.Status == ResultStatus.Created && result.HasData?; NotificationOptions.Enabled?; ProtoBufMessageBuilder has no SkuCategory case: default returns null; NotificationService logs and returns",
+      "basis": "source_declared",
+      "inputs": [
+        "masdeep-b360506/depth/store-contract/SkuCategory",
+        "masdeep-b360506/table/SkuCategory"
+      ],
+      "assumptions": [],
+      "evidence": [
+        "masdeep-b360506/e/21f991771697d13c",
+        "masdeep-b360506/e/e9090ed9f5d62d59",
+        "masdeep-b360506/e/f95c95432fd98b26",
+        "masdeep-b360506/e/ae1c622893c8d563",
+        "masdeep-b360506/e/66abb728cd523936",
+        "masdeep-b360506/e/d61351349d210e5f",
+        "masdeep-b360506/e/edf8504f9d4cbc21",
+        "masdeep-b360506/e/0103ca62f8f18cc7",
+        "masdeep-b360506/e/bbc70cee03f0d35b",
+        "masdeep-b360506/e/c2e95b5ee5815686",
+        "masdeep-b360506/e/c67b1b841a741da8",
+        "masdeep-b360506/e/bc7d18152235b22e",
+        "masdeep-b360506/e/860bc1ca29201083",
+        "masdeep-b360506/e/e7c6a9357ad83a0a",
+        "masdeep-b360506/e/3c7d2741f93aaf9a",
+        "masdeep-b360506/e/47f7dc8e88e5ce28",
+        "masdeep-b360506/e/25ba9d4e86d4eaf9"
+      ]
+    },
+    {
+      "id": "masdeep-b360506/depth/gap/provider",
+      "kind": "gap",
+      "owner": "s2/http",
+      "obligation": "Source depth and dependency closure",
+      "reason": "Exact EF provider, AutoMapper/JWT/Newtonsoft/Confluent runtime implementations and deployment are not bound. Their SDK operations remain opaque; available local service/repository/auth/notification bodies are traced.",
+      "action": "Bind exact imported artefacts and effective runtime profile, without inventing transport defaults.",
+      "evidence": [
+        "masdeep-b360506/e/66abb728cd523936",
+        "masdeep-b360506/e/98fa5b0461d6b12a",
+        "masdeep-b360506/e/ae1c622893c8d563",
+        "masdeep-b360506/e/1b1c399d1cbd235a",
+        "masdeep-b360506/e/d61351349d210e5f",
+        "masdeep-b360506/e/860bc1ca29201083",
+        "masdeep-b360506/e/e7c6a9357ad83a0a",
+        "masdeep-b360506/e/8201669e3fbebe8d",
+        "masdeep-b360506/e/34fab5c27425e69e",
+        "masdeep-b360506/e/25ba9d4e86d4eaf9",
+        "masdeep-b360506/e/47f7dc8e88e5ce28",
+        "masdeep-b360506/e/edf8504f9d4cbc21",
+        "masdeep-b360506/e/c67b1b841a741da8",
+        "masdeep-b360506/e/bc7d18152235b22e",
+        "masdeep-b360506/e/0103ca62f8f18cc7",
+        "masdeep-b360506/e/bbc70cee03f0d35b",
+        "masdeep-b360506/e/eeadf7b371004ead",
+        "masdeep-b360506/e/a8d1e578dcbe719a",
+        "masdeep-b360506/e/c2e95b5ee5815686"
+      ]
+    },
+    {
+      "id": "masdeep-b360506/depth/store-contract/SelectionCategory",
+      "kind": "interface_contract",
+      "component": "u3/component/postgres",
+      "protocol": "postgresql",
+      "name": "SelectionCategory EF source operations",
+      "method": null,
+      "path": null,
+      "authority": "source_declared",
+      "request": [
+        {
+          "part": "record",
+          "presence": "present",
+          "shape": "masdeep-b360506/persisted/SelectionCategory",
+          "sourceShape": null,
+          "contentType": null,
+          "gaps": ["masdeep-b360506/gap/physical", "masdeep-b360506/depth/gap/provider"],
+          "evidence": ["masdeep-b360506/e/8201669e3fbebe8d"]
+        },
+        {
+          "part": "body",
+          "presence": "unresolved",
+          "shape": null,
+          "sourceShape": null,
+          "contentType": null,
+          "gaps": ["masdeep-b360506/depth/gap/provider"],
+          "evidence": ["masdeep-b360506/e/66abb728cd523936"]
+        }
+      ],
+      "responses": [
+        {
+          "status": "normal_return",
+          "body": {
+            "part": "record",
+            "presence": "unresolved",
+            "shape": null,
+            "sourceShape": "masdeep-b360506/shape/f4e48f913840205b",
+            "contentType": null,
+            "gaps": ["masdeep-b360506/depth/gap/provider"],
+            "evidence": ["masdeep-b360506/e/66abb728cd523936"]
+          },
+          "meaning": "EF logical lookup/result or SaveChanges acknowledgement; see exact operation",
+          "evidence": ["masdeep-b360506/e/66abb728cd523936", "masdeep-b360506/e/d61351349d210e5f"]
+        }
+      ],
+      "gaps": [
+        "masdeep-b360506/gap/physical",
+        "masdeep-b360506/depth/gap/provider",
+        "masdeep-b360506/depth/gap/find-async"
+      ],
+      "evidence": [
+        "masdeep-b360506/e/66abb728cd523936",
+        "masdeep-b360506/e/8201669e3fbebe8d",
+        "masdeep-b360506/e/d61351349d210e5f"
+      ]
+    },
+    {
+      "id": "masdeep-b360506/depth/store-contract/SkuCategory",
+      "kind": "interface_contract",
+      "component": "u3/component/postgres",
+      "protocol": "postgresql",
+      "name": "SkuCategory EF source operations",
+      "method": null,
+      "path": null,
+      "authority": "source_declared",
+      "request": [
+        {
+          "part": "record",
+          "presence": "present",
+          "shape": "masdeep-b360506/persisted/SkuCategory",
+          "sourceShape": null,
+          "contentType": null,
+          "gaps": ["masdeep-b360506/gap/physical", "masdeep-b360506/depth/gap/provider"],
+          "evidence": ["masdeep-b360506/e/8201669e3fbebe8d"]
+        },
+        {
+          "part": "body",
+          "presence": "unresolved",
+          "shape": null,
+          "sourceShape": null,
+          "contentType": null,
+          "gaps": ["masdeep-b360506/depth/gap/provider"],
+          "evidence": ["masdeep-b360506/e/66abb728cd523936"]
+        }
+      ],
+      "responses": [
+        {
+          "status": "normal_return",
+          "body": {
+            "part": "record",
+            "presence": "unresolved",
+            "shape": null,
+            "sourceShape": "masdeep-b360506/shape/7a4a75925033710a",
+            "contentType": null,
+            "gaps": ["masdeep-b360506/depth/gap/provider"],
+            "evidence": ["masdeep-b360506/e/66abb728cd523936"]
+          },
+          "meaning": "EF logical lookup/result or SaveChanges acknowledgement; see exact operation",
+          "evidence": ["masdeep-b360506/e/66abb728cd523936", "masdeep-b360506/e/d61351349d210e5f"]
+        }
+      ],
+      "gaps": [
+        "masdeep-b360506/gap/physical",
+        "masdeep-b360506/depth/gap/provider",
+        "masdeep-b360506/depth/gap/find-async"
+      ],
+      "evidence": [
+        "masdeep-b360506/e/66abb728cd523936",
+        "masdeep-b360506/e/8201669e3fbebe8d",
+        "masdeep-b360506/e/d61351349d210e5f"
+      ]
+    },
+    {
+      "id": "masdeep-b360506/depth/summary/delete-api-commercial-items-selection-categories-id/op/entry",
+      "kind": "operation",
+      "owner": "masdeep-b360506/impl/delete-api-commercial-items-selection-categories-id",
+      "action": "entry",
+      "label": "DELETE /api/commercial-items/selection-categories/{id}",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": null,
+      "httpStatus": null,
+      "evidence": ["masdeep-b360506/e/ca9553ed6139f377"]
+    },
+    {
+      "id": "masdeep-b360506/depth/summary/post-api-commercial-items-sku-categories/op/entry",
+      "kind": "operation",
+      "owner": "masdeep-b360506/impl/post-api-commercial-items-sku-categories",
+      "action": "entry",
+      "label": "POST /api/commercial-items/sku-categories",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": null,
+      "httpStatus": null,
+      "evidence": ["masdeep-b360506/e/21f991771697d13c"]
+    },
+    {
+      "id": "masdeep-b360506/e/0103ca62f8f18cc7",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Api/Authorization/PopAuthzAuthorizationHandler.cs",
+      "lines": [1, 147],
+      "basis": "source"
+    },
+    {
+      "id": "masdeep-b360506/e/06640a50c3a48b05",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Infrastructure/Migrations/DatabaseContextModelSnapshot.cs",
+      "lines": [110, 120],
+      "basis": "source"
+    },
+    {
+      "id": "masdeep-b360506/e/095f6b7fcffabd78",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Api/Startup.cs",
+      "lines": [1, 60],
+      "basis": "source"
+    },
+    {
+      "id": "masdeep-b360506/e/14df2ba1d99a21ce",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Core/Models/CommercialItems/SelectionCategory.cs",
+      "lines": [7, 7],
+      "basis": "source"
+    },
+    {
+      "id": "masdeep-b360506/e/1b1c399d1cbd235a",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Core/Services/CommercialItemService.cs",
+      "lines": [1, 114],
+      "basis": "source"
+    },
+    {
+      "id": "masdeep-b360506/e/21f991771697d13c",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Api/Controllers/V1/SkuCategoriesController.cs",
+      "lines": [82, 88],
+      "basis": "source"
+    },
+    {
+      "id": "masdeep-b360506/e/25ba9d4e86d4eaf9",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.MessageBroker/Services/NotificationService.cs",
+      "lines": [1, 70],
+      "basis": "source"
+    },
+    {
+      "id": "masdeep-b360506/e/2c5c4195888e47f2",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Infrastructure/Repositories/SelectionCategoryRepository.cs",
+      "lines": [1, 16],
+      "basis": "source"
+    },
+    {
+      "id": "masdeep-b360506/e/34fab5c27425e69e",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.MessageBroker/Producers/KafkaProducer.cs",
+      "lines": [1, 69],
+      "basis": "source"
+    },
+    {
+      "id": "masdeep-b360506/e/3c7d2741f93aaf9a",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Core/Models/CommercialItems/SkuCategory.cs",
+      "lines": [1, 16],
+      "basis": "source"
+    },
+    {
+      "id": "masdeep-b360506/e/47f7dc8e88e5ce28",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.MessageBroker/Builders/ProtoBufMessageBuilder.cs",
+      "lines": [1, 408],
+      "basis": "source"
+    },
+    {
+      "id": "masdeep-b360506/e/4e031854b31d580a",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Infrastructure/Migrations/DatabaseContextModelSnapshot.cs",
+      "lines": [97, 110],
+      "basis": "source"
+    },
+    {
+      "id": "masdeep-b360506/e/66abb728cd523936",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Infrastructure/Repositories/Repository.cs",
+      "lines": [1, 191],
+      "basis": "source"
+    },
+    {
+      "id": "masdeep-b360506/e/6c4fb8d8c09cd702",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Infrastructure/Migrations/DatabaseContextModelSnapshot.cs",
+      "lines": [99, 100],
+      "basis": "source"
+    },
+    {
+      "id": "masdeep-b360506/e/8201669e3fbebe8d",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Infrastructure/DatabaseContext.cs",
+      "lines": [1, 650],
+      "basis": "source"
+    },
+    {
+      "id": "masdeep-b360506/e/860bc1ca29201083",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Api/Mapping/MappingProfile.cs",
+      "lines": [1, 375],
+      "basis": "source"
+    },
+    {
+      "id": "masdeep-b360506/e/98fa5b0461d6b12a",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Infrastructure/Repositories/CommercialItemRepository.cs",
+      "lines": [1, 102],
+      "basis": "source"
+    },
+    {
+      "id": "masdeep-b360506/e/9a5d031adb8ab080",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Infrastructure/DatabaseContext.cs",
+      "lines": [640, 640],
+      "basis": "source"
+    },
+    {
+      "id": "masdeep-b360506/e/a8d1e578dcbe719a",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Infrastructure/Integrations/PopAuthz/Constants/AuthorizationConstants.cs",
+      "lines": [1, 84],
+      "basis": "source"
+    },
+    {
+      "id": "masdeep-b360506/e/ae1c622893c8d563",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Core/Services/CrudService.cs",
+      "lines": [1, 94],
+      "basis": "source"
+    },
+    {
+      "id": "masdeep-b360506/e/bbc70cee03f0d35b",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Api/Authorization/PopAuthzAuthorizationResultHandler.cs",
+      "lines": [1, 53],
+      "basis": "source"
+    },
+    {
+      "id": "masdeep-b360506/e/bc7d18152235b22e",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Api/Middleware/ExceptionMiddlewareDev.cs",
+      "lines": [1, 45],
+      "basis": "source"
+    },
+    {
+      "id": "masdeep-b360506/e/bc8b3002572c01de",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Core/Models/CommercialItems/SkuCategory.cs",
+      "lines": [8, 8],
+      "basis": "source"
+    },
+    {
+      "id": "masdeep-b360506/e/c2e95b5ee5815686",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Api/Extensions/ApplicationBuilderExtensions.cs",
+      "lines": [1, 175],
+      "basis": "source"
+    },
+    {
+      "id": "masdeep-b360506/e/c67b1b841a741da8",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Api/Middleware/ExceptionMiddleware.cs",
+      "lines": [1, 85],
+      "basis": "source"
+    },
+    {
+      "id": "masdeep-b360506/e/c9b816a1f8a8aba9",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Core/Services/SelectionCategoryService.cs",
+      "lines": [1, 31],
+      "basis": "source"
+    },
+    {
+      "id": "masdeep-b360506/e/ca9553ed6139f377",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Api/Controllers/V1/SelectionCategoriesController.cs",
+      "lines": [104, 114],
+      "basis": "source"
+    },
+    {
+      "id": "masdeep-b360506/e/d61351349d210e5f",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Infrastructure/UnitOfWork.cs",
+      "lines": [1, 153],
+      "basis": "source"
+    },
+    {
+      "id": "masdeep-b360506/e/da09bf5fc5d4a847",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Infrastructure/Migrations/DatabaseContextModelSnapshot.cs",
+      "lines": [112, 113],
+      "basis": "source"
+    },
+    {
+      "id": "masdeep-b360506/e/e7c6a9357ad83a0a",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Api/Mapping/AutoMapperExtensions.cs",
+      "lines": [1, 30],
+      "basis": "source"
+    },
+    {
+      "id": "masdeep-b360506/e/e9090ed9f5d62d59",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Core/Services/SkuCategoryService.cs",
+      "lines": [1, 35],
+      "basis": "source"
+    },
+    {
+      "id": "masdeep-b360506/e/edf8504f9d4cbc21",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Api/Controllers/ManageAndSegmentControllerBase.cs",
+      "lines": [1, 86],
+      "basis": "source"
+    },
+    {
+      "id": "masdeep-b360506/e/eeadf7b371004ead",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Infrastructure/Integrations/PopAuthz/AuthorizationClient.cs",
+      "lines": [1, 211],
+      "basis": "source"
+    },
+    {
+      "id": "masdeep-b360506/e/f0e6a94921d2be3a",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Core/Models/CommercialItems/SelectionCategory.cs",
+      "lines": [1, 13],
+      "basis": "source"
+    },
+    {
+      "id": "masdeep-b360506/e/f95c95432fd98b26",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Infrastructure/Repositories/SkuCategoryRepository.cs",
+      "lines": [1, 18],
+      "basis": "source"
+    },
+    {
+      "id": "masdeep-b360506/gap/delegates",
+      "kind": "gap",
+      "owner": "s2/http",
+      "obligation": "Source closure",
+      "reason": "Registration/contracts are examined; delegated service/repository and framework control/data flow is not fully traced for this entry. An opaque operation preserves the boundary; it does not assert no effects.",
+      "action": "Trace the named controller method, mapper, bound service, repository and middleware through branches, exceptions and values.",
+      "evidence": ["masdeep-b360506/e/095f6b7fcffabd78"]
+    },
+    {
+      "id": "masdeep-b360506/gap/parent-7a4a759250",
+      "kind": "gap",
+      "owner": "s2/http",
+      "obligation": "Source closure",
+      "reason": "Unresolved source parent ModelBase<SkuCategoryId> for SkuCategory.",
+      "action": "Bind exact source parent and expand fields.",
+      "evidence": ["masdeep-b360506/e/3c7d2741f93aaf9a"]
+    },
+    {
+      "id": "masdeep-b360506/gap/parent-f4e48f9138",
+      "kind": "gap",
+      "owner": "s2/http",
+      "obligation": "Source closure",
+      "reason": "Unresolved source parent ModelBase<SelectionCategoryId> for SelectionCategory.",
+      "action": "Bind exact source parent and expand fields.",
+      "evidence": ["masdeep-b360506/e/f0e6a94921d2be3a"]
+    },
+    {
+      "id": "masdeep-b360506/gap/physical",
+      "kind": "gap",
+      "owner": "s2/http",
+      "obligation": "Source closure",
+      "reason": "Committed settings and source declarations do not establish deployed database/broker or external service instances.",
+      "action": "Bind the selected source profile to an actual deployment without exposing credentials.",
+      "evidence": ["masdeep-b360506/e/095f6b7fcffabd78"]
+    },
+    {
+      "id": "masdeep-b360506/impl/delete-api-commercial-items-selection-categories-id",
+      "kind": "implementation",
+      "logicalId": "SelectionCategoriesController.cs.Delete",
+      "scope": "s2/p",
+      "entry": "masdeep-b360506/depth/summary/delete-api-commercial-items-selection-categories-id/op/entry",
+      "parameters": [],
+      "evidence": [
+        "masdeep-b360506/e/ca9553ed6139f377",
+        "masdeep-b360506/e/c9b816a1f8a8aba9",
+        "masdeep-b360506/e/2c5c4195888e47f2",
+        "masdeep-b360506/e/ae1c622893c8d563",
+        "masdeep-b360506/e/66abb728cd523936",
+        "masdeep-b360506/e/66abb728cd523936",
+        "masdeep-b360506/e/d61351349d210e5f",
+        "masdeep-b360506/e/edf8504f9d4cbc21"
+      ]
+    },
+    {
+      "id": "masdeep-b360506/impl/post-api-commercial-items-sku-categories",
+      "kind": "implementation",
+      "logicalId": "SkuCategoriesController.cs.Post",
+      "scope": "s2/p",
+      "entry": "masdeep-b360506/depth/summary/post-api-commercial-items-sku-categories/op/entry",
+      "parameters": [],
+      "evidence": [
+        "masdeep-b360506/e/21f991771697d13c",
+        "masdeep-b360506/e/e9090ed9f5d62d59",
+        "masdeep-b360506/e/f95c95432fd98b26",
+        "masdeep-b360506/e/ae1c622893c8d563",
+        "masdeep-b360506/e/66abb728cd523936",
+        "masdeep-b360506/e/66abb728cd523936",
+        "masdeep-b360506/e/d61351349d210e5f",
+        "masdeep-b360506/e/edf8504f9d4cbc21"
+      ]
+    },
+    {
+      "id": "masdeep-b360506/persisted/SelectionCategory",
+      "kind": "shape",
+      "label": "SelectionCategory declared PostgreSQL columns from EF model snapshot",
+      "representation": "persisted",
+      "container": "object",
+      "fields": [
+        {
+          "name": "Id",
+          "type": "text",
+          "status": "declared",
+          "evidence": ["masdeep-b360506/e/6c4fb8d8c09cd702"]
+        }
+      ],
+      "completeness": "partial",
+      "gaps": ["masdeep-b360506/gap/physical"],
+      "evidence": ["masdeep-b360506/e/4e031854b31d580a"],
+      "encoding": "relational"
+    },
+    {
+      "id": "masdeep-b360506/persisted/SkuCategory",
+      "kind": "shape",
+      "label": "SkuCategory declared PostgreSQL columns from EF model snapshot",
+      "representation": "persisted",
+      "container": "object",
+      "fields": [
+        {
+          "name": "Id",
+          "type": "text",
+          "status": "declared",
+          "evidence": ["masdeep-b360506/e/da09bf5fc5d4a847"]
+        }
+      ],
+      "completeness": "partial",
+      "gaps": ["masdeep-b360506/gap/physical"],
+      "evidence": ["masdeep-b360506/e/06640a50c3a48b05"],
+      "encoding": "relational"
+    },
+    {
+      "id": "masdeep-b360506/shape/7a4a75925033710a",
+      "kind": "shape",
+      "label": "core SkuCategory source DTO",
+      "representation": "source",
+      "fields": [
+        {
+          "name": "Id",
+          "type": "SkuCategoryId",
+          "status": "declared",
+          "evidence": ["masdeep-b360506/e/bc8b3002572c01de"]
+        }
+      ],
+      "container": "object",
+      "completeness": "partial",
+      "gaps": ["masdeep-b360506/gap/parent-7a4a759250"],
+      "evidence": ["masdeep-b360506/e/3c7d2741f93aaf9a"]
+    },
+    {
+      "id": "masdeep-b360506/shape/f4e48f913840205b",
+      "kind": "shape",
+      "label": "core SelectionCategory source DTO",
+      "representation": "source",
+      "fields": [
+        {
+          "name": "Id",
+          "type": "SelectionCategoryId",
+          "status": "declared",
+          "evidence": ["masdeep-b360506/e/14df2ba1d99a21ce"]
+        }
+      ],
+      "container": "object",
+      "completeness": "partial",
+      "gaps": ["masdeep-b360506/gap/parent-f4e48f9138"],
+      "evidence": ["masdeep-b360506/e/f0e6a94921d2be3a"]
+    },
+    {
+      "id": "masdeep-b360506/table/SelectionCategory",
+      "kind": "resource",
+      "label": "SelectionCategory PostgreSQL table",
+      "technology": "PostgreSQL / EF Core",
+      "declaredDatabase": null,
+      "physicalLocation": null,
+      "shapes": ["masdeep-b360506/persisted/SelectionCategory"],
+      "gaps": ["masdeep-b360506/gap/physical", "masdeep-b360506/gap/delegates"],
+      "evidence": ["masdeep-b360506/e/9a5d031adb8ab080", "masdeep-b360506/e/4e031854b31d580a"],
+      "address": {
+        "basis": "source_declared",
+        "connectionSetting": "PostgreSQLConnection",
+        "database": null,
+        "table": "SelectionCategory",
+        "container": null,
+        "path": null,
+        "key": "Id"
+      }
+    },
+    {
+      "id": "masdeep-b360506/table/SkuCategory",
+      "kind": "resource",
+      "label": "SkuCategory PostgreSQL table",
+      "technology": "PostgreSQL / EF Core",
+      "declaredDatabase": null,
+      "physicalLocation": null,
+      "shapes": ["masdeep-b360506/persisted/SkuCategory"],
+      "gaps": ["masdeep-b360506/gap/physical"],
+      "evidence": ["masdeep-b360506/e/06640a50c3a48b05"],
+      "address": {
+        "basis": "source_declared",
+        "connectionSetting": "PostgreSQLConnection",
+        "database": null,
+        "table": "SkuCategory",
+        "container": null,
+        "path": null,
+        "key": "Id"
+      }
+    },
+    {
+      "id": "s2/e/controller",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Api/Controllers/V1/SoftOffersController.cs",
+      "lines": [17, 90],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "s2/e/db",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Infrastructure/DatabaseContext.cs",
+      "lines": [72, 143],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "s2/e/input",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Api/Models/V1/Request/SoftOfferInput.cs",
+      "lines": [1, 53],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "s2/e/middleware",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Api/Middleware/ExceptionMiddleware.cs",
+      "lines": [1, 85],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "s2/e/npgsql",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Infrastructure/Extensions/ApplicationBuilderExtensions.cs",
+      "lines": [15, 29],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "s2/http",
+      "kind": "implementation",
+      "logicalId": "impl:soft-offer-http",
+      "scope": "s2/p",
+      "entry": "s2/http.start",
+      "parameters": ["s2/v/request"],
+      "evidence": ["s2/e/controller", "s2/e/middleware"]
+    },
+    {
+      "id": "s2/http.start",
+      "kind": "operation",
+      "owner": "s2/http",
+      "action": "entry",
+      "label": "Authenticated, bound soft-offer input",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": null,
+      "httpStatus": null,
+      "evidence": ["s2/e/controller", "s2/e/input"]
+    },
+    {
+      "id": "s2/p",
+      "kind": "source_revision",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110"
+    },
+    {
+      "id": "s2/shape/input",
+      "kind": "shape",
+      "representation": "constructed",
+      "label": "SoftOfferInput",
+      "fields": [
+        {
+          "name": "Code",
+          "type": "string",
+          "status": "declared"
+        },
+        {
+          "name": "Type",
+          "type": "string",
+          "status": "declared"
+        },
+        {
+          "name": "Name",
+          "type": "string",
+          "status": "declared"
+        },
+        {
+          "name": "SkuCategory",
+          "type": "string",
+          "status": "declared"
+        },
+        {
+          "name": "SkuIdentifier",
+          "type": "string",
+          "status": "declared"
+        }
+      ],
+      "completeness": "closed",
+      "gaps": [],
+      "evidence": ["s2/e/input"],
+      "encoding": "json"
+    },
+    {
+      "id": "s2/v/request",
+      "kind": "value",
+      "owner": "s2/http",
+      "definition": "s2/http.start",
+      "label": "SoftOfferInput request body",
+      "role": "parameter",
+      "representation": "constructed",
+      "shape": "s2/shape/input",
+      "evidence": ["s2/e/input", "s2/e/controller"],
+      "accessPath": []
+    },
+    {
+      "id": "u3/component/postgres",
+      "kind": "runtime_component",
+      "logicalId": "st:mas-db",
+      "label": "Soft-offer database",
+      "category": "store",
+      "technology": "PostgreSQL",
+      "sources": ["s2/p"],
+      "basis": "source_declared",
+      "evidence": ["s2/e/npgsql", "s2/e/db"],
+      "gaps": ["s2/gap/deployment"]
+    }
+  ],
+  "traversalComplete": true,
+  "findings": [],
+  "sourceLinks": [
+    {
+      "evidence": "s2/e/input",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Api/Models/V1/Request/SoftOfferInput.cs#L1-L53",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Api/Models/V1/Request/SoftOfferInput.cs:1–53"
+    },
+    {
+      "evidence": "s2/e/controller",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Api/Controllers/V1/SoftOffersController.cs#L17-L90",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Api/Controllers/V1/SoftOffersController.cs:17–90"
+    },
+    {
+      "evidence": "s2/e/middleware",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Api/Middleware/ExceptionMiddleware.cs#L1-L85",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Api/Middleware/ExceptionMiddleware.cs:1–85"
+    },
+    {
+      "evidence": "masdeep-b360506/e/095f6b7fcffabd78",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Api/Startup.cs#L1-L60",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Api/Startup.cs:1–60"
+    },
+    {
+      "evidence": "masdeep-b360506/e/6c4fb8d8c09cd702",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Infrastructure/Migrations/DatabaseContextModelSnapshot.cs#L99-L100",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Infrastructure/Migrations/DatabaseContextModelSnapshot.cs:99–100"
+    },
+    {
+      "evidence": "masdeep-b360506/e/4e031854b31d580a",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Infrastructure/Migrations/DatabaseContextModelSnapshot.cs#L97-L110",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Infrastructure/Migrations/DatabaseContextModelSnapshot.cs:97–110"
+    },
+    {
+      "evidence": "masdeep-b360506/e/9a5d031adb8ab080",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Infrastructure/DatabaseContext.cs#L640-L640",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Infrastructure/DatabaseContext.cs:640–640"
+    },
+    {
+      "evidence": "masdeep-b360506/e/d61351349d210e5f",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Infrastructure/UnitOfWork.cs#L1-L153",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Infrastructure/UnitOfWork.cs:1–153"
+    },
+    {
+      "evidence": "masdeep-b360506/e/66abb728cd523936",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Infrastructure/Repositories/Repository.cs#L1-L191",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Infrastructure/Repositories/Repository.cs:1–191"
+    },
+    {
+      "evidence": "masdeep-b360506/e/c2e95b5ee5815686",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Api/Extensions/ApplicationBuilderExtensions.cs#L1-L175",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Api/Extensions/ApplicationBuilderExtensions.cs:1–175"
+    },
+    {
+      "evidence": "masdeep-b360506/e/a8d1e578dcbe719a",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Infrastructure/Integrations/PopAuthz/Constants/AuthorizationConstants.cs#L1-L84",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Infrastructure/Integrations/PopAuthz/Constants/AuthorizationConstants.cs:1–84"
+    },
+    {
+      "evidence": "masdeep-b360506/e/eeadf7b371004ead",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Infrastructure/Integrations/PopAuthz/AuthorizationClient.cs#L1-L211",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Infrastructure/Integrations/PopAuthz/AuthorizationClient.cs:1–211"
+    },
+    {
+      "evidence": "masdeep-b360506/e/bbc70cee03f0d35b",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Api/Authorization/PopAuthzAuthorizationResultHandler.cs#L1-L53",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Api/Authorization/PopAuthzAuthorizationResultHandler.cs:1–53"
+    },
+    {
+      "evidence": "masdeep-b360506/e/0103ca62f8f18cc7",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Api/Authorization/PopAuthzAuthorizationHandler.cs#L1-L147",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Api/Authorization/PopAuthzAuthorizationHandler.cs:1–147"
+    },
+    {
+      "evidence": "masdeep-b360506/e/bc7d18152235b22e",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Api/Middleware/ExceptionMiddlewareDev.cs#L1-L45",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Api/Middleware/ExceptionMiddlewareDev.cs:1–45"
+    },
+    {
+      "evidence": "masdeep-b360506/e/c67b1b841a741da8",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Api/Middleware/ExceptionMiddleware.cs#L1-L85",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Api/Middleware/ExceptionMiddleware.cs:1–85"
+    },
+    {
+      "evidence": "masdeep-b360506/e/edf8504f9d4cbc21",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Api/Controllers/ManageAndSegmentControllerBase.cs#L1-L86",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Api/Controllers/ManageAndSegmentControllerBase.cs:1–86"
+    },
+    {
+      "evidence": "masdeep-b360506/e/47f7dc8e88e5ce28",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.MessageBroker/Builders/ProtoBufMessageBuilder.cs#L1-L408",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.MessageBroker/Builders/ProtoBufMessageBuilder.cs:1–408"
+    },
+    {
+      "evidence": "masdeep-b360506/e/25ba9d4e86d4eaf9",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.MessageBroker/Services/NotificationService.cs#L1-L70",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.MessageBroker/Services/NotificationService.cs:1–70"
+    },
+    {
+      "evidence": "masdeep-b360506/e/34fab5c27425e69e",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.MessageBroker/Producers/KafkaProducer.cs#L1-L69",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.MessageBroker/Producers/KafkaProducer.cs:1–69"
+    },
+    {
+      "evidence": "masdeep-b360506/e/8201669e3fbebe8d",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Infrastructure/DatabaseContext.cs#L1-L650",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Infrastructure/DatabaseContext.cs:1–650"
+    },
+    {
+      "evidence": "masdeep-b360506/e/e7c6a9357ad83a0a",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Api/Mapping/AutoMapperExtensions.cs#L1-L30",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Api/Mapping/AutoMapperExtensions.cs:1–30"
+    },
+    {
+      "evidence": "masdeep-b360506/e/860bc1ca29201083",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Api/Mapping/MappingProfile.cs#L1-L375",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Api/Mapping/MappingProfile.cs:1–375"
+    },
+    {
+      "evidence": "masdeep-b360506/e/1b1c399d1cbd235a",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Core/Services/CommercialItemService.cs#L1-L114",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Core/Services/CommercialItemService.cs:1–114"
+    },
+    {
+      "evidence": "masdeep-b360506/e/ae1c622893c8d563",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Core/Services/CrudService.cs#L1-L94",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Core/Services/CrudService.cs:1–94"
+    },
+    {
+      "evidence": "masdeep-b360506/e/98fa5b0461d6b12a",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Infrastructure/Repositories/CommercialItemRepository.cs#L1-L102",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Infrastructure/Repositories/CommercialItemRepository.cs:1–102"
+    },
+    {
+      "evidence": "masdeep-b360506/e/14df2ba1d99a21ce",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Core/Models/CommercialItems/SelectionCategory.cs#L7-L7",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Core/Models/CommercialItems/SelectionCategory.cs:7–7"
+    },
+    {
+      "evidence": "masdeep-b360506/e/f0e6a94921d2be3a",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Core/Models/CommercialItems/SelectionCategory.cs#L1-L13",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Core/Models/CommercialItems/SelectionCategory.cs:1–13"
+    },
+    {
+      "evidence": "s2/e/db",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Infrastructure/DatabaseContext.cs#L72-L143",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Infrastructure/DatabaseContext.cs:72–143"
+    },
+    {
+      "evidence": "s2/e/npgsql",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Infrastructure/Extensions/ApplicationBuilderExtensions.cs#L15-L29",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Infrastructure/Extensions/ApplicationBuilderExtensions.cs:15–29"
+    },
+    {
+      "evidence": "masdeep-b360506/e/ca9553ed6139f377",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Api/Controllers/V1/SelectionCategoriesController.cs#L104-L114",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Api/Controllers/V1/SelectionCategoriesController.cs:104–114"
+    },
+    {
+      "evidence": "masdeep-b360506/e/2c5c4195888e47f2",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Infrastructure/Repositories/SelectionCategoryRepository.cs#L1-L16",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Infrastructure/Repositories/SelectionCategoryRepository.cs:1–16"
+    },
+    {
+      "evidence": "masdeep-b360506/e/c9b816a1f8a8aba9",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Core/Services/SelectionCategoryService.cs#L1-L31",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Core/Services/SelectionCategoryService.cs:1–31"
+    },
+    {
+      "evidence": "masdeep-b360506/e/da09bf5fc5d4a847",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Infrastructure/Migrations/DatabaseContextModelSnapshot.cs#L112-L113",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Infrastructure/Migrations/DatabaseContextModelSnapshot.cs:112–113"
+    },
+    {
+      "evidence": "masdeep-b360506/e/06640a50c3a48b05",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Infrastructure/Migrations/DatabaseContextModelSnapshot.cs#L110-L120",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Infrastructure/Migrations/DatabaseContextModelSnapshot.cs:110–120"
+    },
+    {
+      "evidence": "masdeep-b360506/e/bc8b3002572c01de",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Core/Models/CommercialItems/SkuCategory.cs#L8-L8",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Core/Models/CommercialItems/SkuCategory.cs:8–8"
+    },
+    {
+      "evidence": "masdeep-b360506/e/3c7d2741f93aaf9a",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Core/Models/CommercialItems/SkuCategory.cs#L1-L16",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Core/Models/CommercialItems/SkuCategory.cs:1–16"
+    },
+    {
+      "evidence": "masdeep-b360506/e/21f991771697d13c",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Api/Controllers/V1/SkuCategoriesController.cs#L82-L88",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Api/Controllers/V1/SkuCategoriesController.cs:82–88"
+    },
+    {
+      "evidence": "masdeep-b360506/e/f95c95432fd98b26",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Infrastructure/Repositories/SkuCategoryRepository.cs#L1-L18",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Infrastructure/Repositories/SkuCategoryRepository.cs:1–18"
+    },
+    {
+      "evidence": "masdeep-b360506/e/e9090ed9f5d62d59",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Core/Services/SkuCategoryService.cs#L1-L35",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Core/Services/SkuCategoryService.cs:1–35"
+    }
+  ],
+  "nextRequest": null
+}

@@ -1,0 +1,62 @@
+{
+  "repo": "volvo-cars/cce-policy-admin",
+  "commit": "88a3512f0307016b7b1dbcbc729c743fe83ed368",
+  "status": "Independent8full files plus executable code/tags of in-memory source file; inert JSON structurally inspected;181strict queries zero bounds;4532ranges47files verified",
+  "files": [
+    {
+      "path": "internal/app/app.go",
+      "lines": 124,
+      "sha256": "2c1df7c349b0e6e8b563fa2f896662bfce5b50fd104bf1b6f09175f5febfc5b7",
+      "review": "Entire pinned source independently read; compared with accepted native capture and strict queries"
+    },
+    {
+      "path": "internal/api/httpserver/routes.go",
+      "lines": 84,
+      "sha256": "62335ba6d2182eea64ab2084597f2e1df2c014a97dbc99bfe32fb5a7e0f69351",
+      "review": "Entire pinned source independently read; compared with accepted native capture and strict queries"
+    },
+    {
+      "path": "internal/api/httpserver/controller/controller.go",
+      "lines": 44,
+      "sha256": "a6ff17646e567c9520482f6fd4400f11d2047ea69d0d1b3789ff51abdfe55558",
+      "review": "Entire pinned source independently read; compared with accepted native capture and strict queries"
+    },
+    {
+      "path": "internal/command/policyupdate.go",
+      "lines": 148,
+      "sha256": "70faa592544622f3aa8ba493aa46b09b6efc21d5a1a6998350f479608bdcf160",
+      "review": "Entire pinned source independently read; compared with accepted native capture and strict queries"
+    },
+    {
+      "path": "internal/database/blobstorage/blobstorage.go",
+      "lines": 293,
+      "sha256": "d676e83bac04b21677fbe41f537dfaaa705866e6caead6bb3c6f4cdcac1c1aa5",
+      "review": "Entire pinned source independently read; compared with accepted native capture and strict queries"
+    },
+    {
+      "path": "internal/app/watermill.go",
+      "lines": 244,
+      "sha256": "985e20f8ae27e2d57bbbfab01fdfba0b159eb2e2502e229186939f5451c59b5a",
+      "review": "Entire pinned source independently read; compared with accepted native capture and strict queries"
+    },
+    {
+      "path": "internal/app/commandhandlers.go",
+      "lines": 15,
+      "sha256": "f4f39c6af7a4ed3bef488e4c9c546742d924051523386470181452ffa4b8f2df",
+      "review": "Entire pinned source independently read; compared with accepted native capture and strict queries"
+    },
+    {
+      "path": "migrate_mongodb_to_postgres.py",
+      "lines": 225,
+      "sha256": "1731bfa3c7553ea13871c9b71777f78be8a9e47aa3e3c8f487fcf6807dc7abeb",
+      "review": "Entire pinned source independently read; compared with accepted native capture and strict queries"
+    },
+    {
+      "path": "internal/database/inmemory/inmemory.go",
+      "lines": 17783,
+      "sha256": "d8a8aa79b0609c32fa5e4555dd2535c83528a20b8a41d6e19459ece603a4a539",
+      "review": "All executable source and JSON tags read; unused558784-character raw JSON literal inspected structurally, not every data leaf; compared with accepted native capture and strict queries"
+    }
+  ],
+  "snapshot": "9e022859e4914b70a3c8a8471e410025f4a69f006a47ba076256a14ed722c373"
+}

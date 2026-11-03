@@ -1,0 +1,56 @@
+{
+  "snapshot": "5f59c5db11e155019ace1500542dc4db1648a1616d330523ac05aa7481724664",
+  "qualification": "Immutable bounded API checkpoint, not complete app/repo",
+  "files": [
+    {
+      "path": "REPORT.md",
+      "bytes": 2545,
+      "sha256": "75e6eda0c888d3cd62ec74de5b7b2c158e57f3cb14b39bb6365bb2a08d91b658"
+    },
+    {
+      "path": "bundle.json",
+      "bytes": 429444,
+      "sha256": "db88d65fc8bef85b38ad4902cb270b5dcc7ae5074e6ef952ffbdb20891887ea6"
+    },
+    {
+      "path": "capture.py",
+      "bytes": 20009,
+      "sha256": "3757c91f8bab0736421e3d1759a1025586c06c9e8944af3cc89e7268eb04c874"
+    },
+    {
+      "path": "io-ledger.json",
+      "bytes": 2455,
+      "sha256": "ddb7322f5a494d7e02d077fa3dee8f46f26435c2732c22c861d1d969adc12334"
+    },
+    {
+      "path": "native-validation.log",
+      "bytes": 601,
+      "sha256": "6046ef633f1e5d23e4d985a9834e1e08ab3faf8b8b42d0254cd2497d5812a8a2"
+    },
+    {
+      "path": "queries.mjs",
+      "bytes": 3693,
+      "sha256": "a9c7f3fd8bf36570cfb79455b021ebe1c2df4d9644a0b8c684f4a8bc980caa20"
+    },
+    {
+      "path": "query-replay/requests.json",
+      "bytes": 16277,
+      "sha256": "d44f5ce0a0de85eb3af3c8167984dc1a6c9fa4bcc8bc6aa8aa0f8ede9728d55a"
+    },
+    {
+      "path": "query-replay/responses.json.gz",
+      "bytes": 155773,
+      "sha256": "ebfdac5b5bc8d9ae8aeed4f85fc3db84957860697904fe0d18318f3c7e4b74b3"
+    },
+    {
+      "path": "query-replay/summary.json",
+      "bytes": 4116,
+      "sha256": "ffa05466032bc74e005baec5f3e25788fd306a4e996ef1e625e9dc926f23b669"
+    },
+    {
+      "path": "snapshot.json",
+      "bytes": 266,
+      "sha256": "78dfb4da750bd4f6c29fb7d6120f3ea622b3a6e50a7174440a3f92efb999dc22"
+    }
+  ]
+}

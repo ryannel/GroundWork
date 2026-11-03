@@ -1,0 +1,156 @@
+[
+  {
+    "method": "customer-b0010537-complete-r6/method/c71a4b1a50e113a5",
+    "path": "cds-paymentservice-customer-core/src/main/java/com/volvocars/ecom/paymentservice/customer/CustomerManager.java",
+    "lines": [52, 81],
+    "claim": "customer-b0010537-complete-r6/review/c71a4b1a50e113a5",
+    "finding": "Resolve STRIPE account, lookup existing external ID; new customer uses convertTo(true) and is saved locally before PSP creation. Existing matching account relation throws before PSP. Source then adds relation from returned externalId and saves again. There is no local rollback across these separate calls."
+  },
+  {
+    "method": "customer-b0010537-complete-r6/method/a4bfd9eb20133c09",
+    "path": "cds-paymentservice-customer-core/src/main/java/com/volvocars/ecom/paymentservice/customer/CustomerManager.java",
+    "lines": [92, 109],
+    "claim": "customer-b0010537-complete-r6/review/a4bfd9eb20133c09",
+    "finding": "Guest source path skips existing-ID/duplicate-relation lookup, saves anonymised local customer before PSP create and relation/final save."
+  },
+  {
+    "method": "customer-b0010537-complete-r6/method/62d0605017eb407e",
+    "path": "cds-paymentservice-customer-core/src/main/java/com/volvocars/ecom/paymentservice/customer/CustomerManager.java",
+    "lines": [218, 222],
+    "claim": "customer-b0010537-complete-r6/review/62d0605017eb407e",
+    "finding": "The two public overloads lookup first. Private overload chooses market, saves merge inside optimistic-lock catch, converts that catch to exception409, then throws404 for absent relations or invokes PSP update per relation. Prior effects are not undone by later failure."
+  },
+  {
+    "method": "customer-b0010537-complete-r6/method/4714a806361bced6",
+    "path": "cds-paymentservice-customer-core/src/main/java/com/volvocars/ecom/paymentservice/customer/CustomerManager.java",
+    "lines": [224, 227],
+    "claim": "customer-b0010537-complete-r6/review/4714a806361bced6",
+    "finding": "The two public overloads lookup first. Private overload chooses market, saves merge inside optimistic-lock catch, converts that catch to exception409, then throws404 for absent relations or invokes PSP update per relation. Prior effects are not undone by later failure."
+  },
+  {
+    "method": "customer-b0010537-complete-r6/method/3eda887d3ed0c06b",
+    "path": "cds-paymentservice-customer-core/src/main/java/com/volvocars/ecom/paymentservice/customer/CustomerManager.java",
+    "lines": [229, 255],
+    "claim": "customer-b0010537-complete-r6/review/3eda887d3ed0c06b",
+    "finding": "The two public overloads lookup first. Private overload chooses market, saves merge inside optimistic-lock catch, converts that catch to exception409, then throws404 for absent relations or invokes PSP update per relation. Prior effects are not undone by later failure."
+  },
+  {
+    "method": "customer-b0010537-complete-r6/method/0dc0f78816e66015",
+    "path": "cds-paymentservice-customer-core/src/main/java/com/volvocars/ecom/paymentservice/customer/CustomerManager.java",
+    "lines": [377, 385],
+    "claim": "customer-b0010537-complete-r6/review/0dc0f78816e66015",
+    "finding": "Source selectively updates company if nonnull, and nonblank carMarket/preferredLocale/email through Consumer delegates. Names/mobile/address are not merged locally by this helper. Bound method-reference receivers and exact helper formals are retained; imported Optional callback invocation is not invented."
+  },
+  {
+    "method": "customer-b0010537-complete-r6/method/f7cd9584c6ab204c",
+    "path": "cds-paymentservice-customer-core/src/main/java/com/volvocars/ecom/paymentservice/customer/CustomerManager.java",
+    "lines": [346, 359],
+    "claim": "customer-b0010537-complete-r6/review/f7cd9584c6ab204c",
+    "finding": "Source PSP CustomerDetails caller construction reads original request firstName,lastName,mobile,address,companyInfo; email falls back only when request empty; stored customer supplies IDs/locale. These are exact builder arguments, not invented wire fields or proof of imported accessor semantics."
+  },
+  {
+    "method": "customer-b0010537-complete-r6/method/f3e5576db77a7480",
+    "path": "cds-paymentservice-customer-core/src/main/java/com/volvocars/ecom/paymentservice/customer/CustomerManager.java",
+    "lines": [278, 280],
+    "claim": "customer-b0010537-complete-r6/review/f3e5576db77a7480",
+    "finding": "Source applies fr-CA only for nonnull Canadian address with trimmed nonempty postal code starting G/H/J (case-insensitive). Get-or-create applies override before lookup/align/create."
+  },
+  {
+    "method": "customer-b0010537-complete-r6/method/30635b36aefefbb5",
+    "path": "cds-paymentservice-customer-api/src/main/java/com/volvocars/ecom/paymentservice/customer/api/customer/v1/impl/CustomerControllerImpl.java",
+    "lines": [114, 140],
+    "claim": "customer-b0010537-complete-r6/review/30635b36aefefbb5",
+    "finding": "Missing Volvo ID creates directly; otherwise lookup then align email/locale. CustomerNotFound catch creates. Cache annotation concerns the whole outer response and may bypass body; imported advisor order/overload is unresolved."
+  },
+  {
+    "method": "customer-b0010537-complete-r6/method/f34a1ff1efa8526f",
+    "path": "cds-paymentservice-customer-core/src/main/java/com/volvocars/ecom/paymentservice/customer/CustomerOperationService.java",
+    "lines": [35, 43],
+    "claim": "customer-b0010537-complete-r6/review/f34a1ff1efa8526f",
+    "finding": "Source chooses minimum BaseEntity.created from external-ID matches. Volvo-ID lookup chooses maximum created and skips database entirely when ID is blank."
+  },
+  {
+    "method": "customer-b0010537-complete-r6/method/64c11c22439e313d",
+    "path": "cds-paymentservice-customer-core/src/main/java/com/volvocars/ecom/paymentservice/customer/CustomerOperationService.java",
+    "lines": [69, 79],
+    "claim": "customer-b0010537-complete-r6/review/64c11c22439e313d",
+    "finding": "Null customerId chooses insert; insert checks duplicate before assigning UUID then repository.save. Existing update restores id/createdBy/created/version from stored entity before save. Available subclass payload convertTo dispatch is kept conditional rather than falsely selecting base body."
+  },
+  {
+    "method": "customer-b0010537-complete-r6/method/3cb895eae35dff2f",
+    "path": "cds-paymentservice-customer-core/src/main/java/com/volvocars/ecom/paymentservice/customer/CustomerService.java",
+    "lines": [67, 79],
+    "claim": "customer-b0010537-complete-r6/review/3cb895eae35dff2f",
+    "finding": "Source maps/saves customer first, then invokes relation replacement, then rereads/maps relations. Relation replacement deletes each current relation before conditional nonempty saveAll. No shared transaction is established across those source calls."
+  },
+  {
+    "method": "customer-b0010537-complete-r6/method/3fa18778e6efe9ff",
+    "path": "cds-paymentservice-customer-core/src/main/java/com/volvocars/ecom/paymentservice/recurringcharge/RecurringChargeCustomerService.java",
+    "lines": [19, 39],
+    "claim": "customer-b0010537-complete-r6/review/3fa18778e6efe9ff",
+    "finding": "Load or404, require customer ownership403, check new payment instrument ownership, then validate old instrument unless null. Missing old instrument is caught/logged; wrong owner remains403. After checks, mutate instrument and update storage."
+  },
+  {
+    "method": "customer-b0010537-complete-r6/method/04c4e33a8dc202e4",
+    "path": "cds-paymentservice-customer-core/src/main/java/com/volvocars/ecom/paymentservice/recurringcharge/RecurringChargeOperationService.java",
+    "lines": [20, 35],
+    "claim": "customer-b0010537-complete-r6/review/04c4e33a8dc202e4",
+    "finding": "Null recurring ID throws500. Source queries existing, mutates modified/modifiedBy/paymentInstrumentId only, then repository.save(existing). Explicit source syntactic receiver states preserve setter inputs; global heap alias feasibility is not solved."
+  },
+  {
+    "method": "customer-b0010537-complete-r6/method/0661574e431f693e",
+    "path": "cds-paymentservice-customer-api/src/main/java/com/volvocars/ecom/paymentservice/customer/api/customer/v1/mapper/CustomerApiMapper.java",
+    "lines": [18, 33],
+    "claim": "customer-b0010537-complete-r6/review/0661574e431f693e",
+    "finding": "Source filters stored VOLVO_ID external identifiers, appends current nonnull volvoId, and maps psp/externalId/accountId relation DTOs. DTO is an argument to imported SuccessResponse.ok; it is not the outer returned BaseResponse."
+  },
+  {
+    "method": "customer-b0010537-complete-r6/method/dbabcb9dea10cd85",
+    "path": "cds-paymentservice-customer-core/src/main/java/com/volvocars/ecom/paymentservice/common/RequestHashCacheKeyResolver.java",
+    "lines": [26, 49],
+    "claim": "customer-b0010537-complete-r6/review/dbabcb9dea10cd85",
+    "finding": "Source canonical JSON uses sorted properties/map keys; key is Base64 of default-charset bytes(method,newline,URI,newline,payload). Missing request uses UUID; error uses method/URI/hashCode. Independent cache/lock evaluations need not agree on fallbacks."
+  },
+  {
+    "method": "customer-b0010537-complete-r6/method/c9e4928b334cee09",
+    "path": "cds-paymentservice-customer-core/src/main/java/com/volvocars/ecom/paymentservice/configuration/FaultTolerantCacheManager.java",
+    "lines": [47, 55],
+    "claim": "customer-b0010537-complete-r6/review/c9e4928b334cee09",
+    "finding": "Delegate errors return null in two get overloads. Callable get fallback invokes loader after RuntimeException; if delegate already invoked loader before failing, loader may run again. Source callback policy and exact framework-selected overload/order remain unresolved."
+  },
+  {
+    "method": "customer-b0010537-complete-r6/method/08351935fe4d36f4",
+    "path": "cds-paymentservice-customer-core/src/main/java/com/volvocars/ecom/paymentservice/configuration/FaultTolerantCacheManager.java",
+    "lines": [57, 65],
+    "claim": "customer-b0010537-complete-r6/review/08351935fe4d36f4",
+    "finding": "Delegate errors return null in two get overloads. Callable get fallback invokes loader after RuntimeException; if delegate already invoked loader before failing, loader may run again. Source callback policy and exact framework-selected overload/order remain unresolved."
+  },
+  {
+    "method": "customer-b0010537-complete-r6/method/ce332a21519d1783",
+    "path": "cds-paymentservice-customer-core/src/main/java/com/volvocars/ecom/paymentservice/configuration/FaultTolerantCacheManager.java",
+    "lines": [67, 79],
+    "claim": "customer-b0010537-complete-r6/review/ce332a21519d1783",
+    "finding": "Delegate errors return null in two get overloads. Callable get fallback invokes loader after RuntimeException; if delegate already invoked loader before failing, loader may run again. Source callback policy and exact framework-selected overload/order remain unresolved."
+  },
+  {
+    "method": "customer-b0010537-complete-r6/method/3c127c06c5f6b3e8",
+    "path": "cds-paymentservice-customer-core/src/main/java/com/volvocars/ecom/paymentservice/integration/common/CustomerControllerAdvice.java",
+    "lines": [271, 284],
+    "claim": "customer-b0010537-complete-r6/review/3c127c06c5f6b3e8",
+    "finding": "Annotation declares403 but constructed handleError argument is UNAUTHORIZED401. Source both facts are retained; effective framework response selection is not flattened into one asserted status."
+  },
+  {
+    "method": "customer-b0010537-complete-r6/method/fbad0fc687c98e2c",
+    "path": "cds-paymentservice-customer-core/src/main/java/com/volvocars/ecom/paymentservice/integration/common/CustomerControllerAdvice.java",
+    "lines": [75, 96],
+    "claim": "customer-b0010537-complete-r6/review/fbad0fc687c98e2c",
+    "finding": "MethodArgumentNotValid overload constructs400; UnprocessableEntity overload annotation declares422 but passes UNAUTHORIZED401. They are distinct overloaded source methods."
+  },
+  {
+    "method": "customer-b0010537-complete-r6/method/a60b8b9a9285ae73",
+    "path": "cds-paymentservice-customer-core/src/main/java/com/volvocars/ecom/paymentservice/integration/common/CustomerControllerAdvice.java",
+    "lines": [301, 314],
+    "claim": "customer-b0010537-complete-r6/review/a60b8b9a9285ae73",
+    "finding": "MethodArgumentNotValid overload constructs400; UnprocessableEntity overload annotation declares422 but passes UNAUTHORIZED401. They are distinct overloaded source methods."
+  }
+]

@@ -1,0 +1,7 @@
+{
+  "status": "passed",
+  "snapshot": "ad0e9efd9dbc91d24235956f8ccfc9759ae2c905a64f122c005de66398fd50da",
+  "bundle": "Compressed bytes decompress to original sealed JSON; parsed contents unchanged",
+  "sourceBundleByteSha256": "2730c72e44335779dc16a45de3bd790d527733e7d9ce28805a2af2b00fd8767f",
+  "sourceSeal": "See independent-review/seal-verification.json; original-path digest seal retained separately from reformatted publication copies."
+}

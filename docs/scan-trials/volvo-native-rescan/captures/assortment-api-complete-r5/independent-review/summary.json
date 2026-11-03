@@ -1,0 +1,24 @@
+{
+  "snapshot": "bde9df8e50cc2c5f43e1cc44cdb2b6828222a7b94dfd7d7c4d597beb86a4213c",
+  "status": "passed",
+  "checks": [
+    {
+      "name": "api:assortment-classifications-list",
+      "nodes": 2,
+      "edges": 3,
+      "limits": []
+    },
+    {
+      "name": "internal processor entry has no exposure binding",
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "entry:assortment:processor:ClassificationMessageProcessor implementation body",
+      "nodes": 2,
+      "edges": 6,
+      "limits": []
+    }
+  ]
+}

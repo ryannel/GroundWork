@@ -1,0 +1,8 @@
+{
+  "resource": "volvo/cce-policy-admin/88a3512f0307/local-r2/resource/command-channel",
+  "binding": "volvo/cce-policy-admin/88a3512f0307/local-r2/channel_binding/commands",
+  "publish": "volvo/cce-policy-admin/88a3512f0307/local-r2/interaction/command-send",
+  "subscription": "volvo/cce-policy-admin/88a3512f0307/local-r2/subscription/command-handler",
+  "consume": "volvo/cce-policy-admin/88a3512f0307/local-r2/interaction/command-handler",
+  "gap": "volvo/cce-policy-admin/88a3512f0307/local-r2/gap/command-delivery"
+}

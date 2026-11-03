@@ -1,0 +1,9 @@
+{
+  "status": "passed",
+  "snapshot": "e4df872bf2495bfe3b4e6bccea07a80012a44972aab2d4389586ac9d6df62d7b",
+  "sourceBundleByteSha256": "e15c89941c31fcc7ac2f4e85b6bdbab7041dec70cb3fe9db88316fa494fd21b8",
+  "gzipDecompression": "Exactly equal original immutable Wizard002 bytes",
+  "api001": "Byte-identical unchanged predecessor bundle required in this selection",
+  "authorSealVerified": 11,
+  "supersession": "Independent normalised delta checked; one claim gains source anchor, one evidence added, no native graph changes"
+}

@@ -1,0 +1,1253 @@
+{
+  "status": "passed",
+  "snapshot": "b957447c66cc73327797c780159c9277dbeb17159f0758d5ab8a225f3a0092f1",
+  "qualification": "Independent27full pinned files. Actual GraphQL business registrations reach Mongo and conditional HTTP/local fixture boundaries; source annotation callbacks remain separately rooted with imported enforcement gaps. Scheduler and applying migrations positively reach real writes; no-op rollback and opaque mounts do not invent execution. All20 source I/O owners/contracts/actuals,13 write records, currentJWT/metadata payload and delegated archive Cart lineage are checked. Rooted request contexts retained; imported formatter/driver/scheduler/identity/heap/cleanup gaps remain.",
+  "queries": [
+    {
+      "name": "Actual GraphQL business registration graphql:Query.cartV2",
+      "nodes": 2,
+      "edges": 2,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual GraphQL business registration graphql:Entity.CartV2",
+      "nodes": 2,
+      "edges": 2,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual GraphQL business registration graphql:Mutation.createCartV2",
+      "nodes": 3,
+      "edges": 2,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual GraphQL business registration graphql:Mutation.addCartLineV2",
+      "nodes": 2,
+      "edges": 2,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual GraphQL business registration graphql:Mutation.replaceCartLineV2",
+      "nodes": 2,
+      "edges": 2,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual GraphQL business registration graphql:Mutation.removeCartLineV2",
+      "nodes": 2,
+      "edges": 2,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual GraphQL business registration graphql:Mutation.updateBuyerV2",
+      "nodes": 2,
+      "edges": 2,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual GraphQL business registration graphql:Mutation.checkoutCartV2",
+      "nodes": 3,
+      "edges": 8,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual GraphQL business registration graphql:Mutation.createCartFromCceToken",
+      "nodes": 2,
+      "edges": 2,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Separate declared authorisation callback com.volvocars.ecom.cart.input.graphql.GraphQlController#getCart(String,String)",
+      "nodes": 2,
+      "edges": 2,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Declared annotation expression and real formal associations",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Separate declared authorisation callback com.volvocars.ecom.cart.input.graphql.GraphQlController#addCartLine(String,CartLineInput,String)",
+      "nodes": 2,
+      "edges": 2,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Declared annotation expression and real formal associations",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Separate declared authorisation callback com.volvocars.ecom.cart.input.graphql.GraphQlController#replaceCartLine(String,String,CartLineInput,String)",
+      "nodes": 2,
+      "edges": 2,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Declared annotation expression and real formal associations",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Separate declared authorisation callback com.volvocars.ecom.cart.input.graphql.GraphQlController#removeCartLine(String,String,String)",
+      "nodes": 2,
+      "edges": 2,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Declared annotation expression and real formal associations",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Separate declared authorisation callback com.volvocars.ecom.cart.input.graphql.GraphQlController#updateBuyer(String,BuyerInput,String)",
+      "nodes": 2,
+      "edges": 2,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Declared annotation expression and real formal associations",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Separate declared authorisation callback com.volvocars.ecom.cart.input.graphql.GraphQlController#checkoutCart(String,CheckoutInput,String,String)",
+      "nodes": 2,
+      "edges": 2,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Declared annotation expression and real formal associations",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual scheduler reaches status write archive and deletion",
+      "nodes": 2,
+      "edges": 6,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual applying migration source:migration:com.volvocars.ecom.cart.migration.AddIdToCartLineItemMigration#execute(MongoDatabase)",
+      "nodes": 2,
+      "edges": 2,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual applying migration source:migration:com.volvocars.ecom.cart.migration._0002__MoveBuyerVolvoIdToOwner#apply(MongoTemplate,TrustedIssuersProperties)",
+      "nodes": 2,
+      "edges": 2,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Source rollback logs only source:migration:com.volvocars.ecom.cart.migration.AddIdToCartLineItemMigration#rollback(MongoDatabase)",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Source rollback logs only source:migration:com.volvocars.ecom.cart.migration._0002__MoveBuyerVolvoIdToOwner#rollback()",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Imported mount does not invent eager resolver execution /graphql",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Imported mount does not invent eager resolver execution /actuator/health",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Imported mount does not invent eager resolver execution /actuator/prometheus",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Imported mount does not invent eager resolver execution /actuator/info",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Imported mount does not invent eager resolver execution /actuator/version",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Imported mount does not invent eager resolver execution /graphiql",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual I/O owner cartArchiveRepository.save(toSave)",
+      "nodes": 2,
+      "edges": 1,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual I/O contract and boundary",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual transferred value volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/io/222970fa5618ec84da24 record argument0",
+      "nodes": 9,
+      "edges": 8,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual transferred value volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/io/222970fa5618ec84da24 result ",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual I/O owner cartRepository.findById(id)",
+      "nodes": 2,
+      "edges": 1,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual I/O contract and boundary",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual transferred value volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/io/2bf71be3cbdd5a975365 record argument0",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual transferred value volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/io/2bf71be3cbdd5a975365 result ",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual I/O owner cartRepository.save(cart)",
+      "nodes": 3,
+      "edges": 2,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual I/O contract and boundary",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual transferred value volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/io/e2b9cd7bb33ff58b85e3 record argument0",
+      "nodes": 134,
+      "edges": 146,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual transferred value volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/io/e2b9cd7bb33ff58b85e3 result ",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual I/O owner cartRepository.save(cart)",
+      "nodes": 2,
+      "edges": 2,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual I/O contract and boundary",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual transferred value volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/io/01d7c4e865ca60dfb664 record argument0",
+      "nodes": 48,
+      "edges": 48,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual transferred value volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/io/01d7c4e865ca60dfb664 result ",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual I/O owner cartRepository.save(cart.withLines(List.copyOf(updatedLines)))",
+      "nodes": 2,
+      "edges": 2,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual I/O contract and boundary",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual transferred value volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/io/6007b50665172d7afcb9 record argument0",
+      "nodes": 33,
+      "edges": 41,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual transferred value volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/io/6007b50665172d7afcb9 result ",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual I/O owner cartRepository.save(cart.withLines(updatedLines))",
+      "nodes": 2,
+      "edges": 2,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual I/O contract and boundary",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual transferred value volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/io/e5abbaaba82be19343ef record argument0",
+      "nodes": 34,
+      "edges": 42,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual transferred value volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/io/e5abbaaba82be19343ef result ",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual I/O owner cartRepository.save(cart.withLines(updatedLines))",
+      "nodes": 2,
+      "edges": 2,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual I/O contract and boundary",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual transferred value volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/io/90a620f75102bae117f7 record argument0",
+      "nodes": 34,
+      "edges": 42,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual transferred value volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/io/90a620f75102bae117f7 result ",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual I/O owner cartRepository.save(cart.withBuyer(updatedBuyer))",
+      "nodes": 2,
+      "edges": 2,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual I/O contract and boundary",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual transferred value volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/io/216a2eb1a32403f3e5c0 record argument0",
+      "nodes": 40,
+      "edges": 49,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual transferred value volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/io/216a2eb1a32403f3e5c0 result ",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual I/O owner cartRepository.save(cart.withStatus(status))",
+      "nodes": 2,
+      "edges": 2,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual I/O contract and boundary",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual transferred value volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/io/32c702f69b36021c27a9 record argument0",
+      "nodes": 33,
+      "edges": 41,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual transferred value volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/io/32c702f69b36021c27a9 result ",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual I/O owner cartRepository.save(cart.withOwner(owner))",
+      "nodes": 2,
+      "edges": 1,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual I/O contract and boundary",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual transferred value volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/io/39c1e4797d6e310c38ad record argument0",
+      "nodes": 31,
+      "edges": 39,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual transferred value volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/io/39c1e4797d6e310c38ad result ",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual I/O owner cartRepository.findAllByStatusAndUpdatedAtBefore(cartStatus, modifiedBefore)",
+      "nodes": 2,
+      "edges": 1,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual I/O contract and boundary",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual transferred value volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/io/88e11d565ddb084b061e record argument0",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual transferred value volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/io/88e11d565ddb084b061e record argument1",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual transferred value volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/io/88e11d565ddb084b061e result ",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual I/O owner cartRepository.deleteById(cartId)",
+      "nodes": 2,
+      "edges": 1,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual I/O contract and boundary",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual transferred value volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/io/ccb86fccb93d37958f36 record argument0",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual transferred value volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/io/ccb86fccb93d37958f36 result ",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual I/O owner carts.find()",
+      "nodes": 2,
+      "edges": 2,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual I/O contract and boundary",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual transferred value volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/io/bb3da36b829354dd2b28 result ",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual I/O owner carts.replaceOne(new Document(\"_id\", cart.get(\"_id\")), cart)",
+      "nodes": 2,
+      "edges": 2,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual I/O contract and boundary",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual transferred value volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/io/826e012bccc5b189d23a record argument0",
+      "nodes": 2,
+      "edges": 1,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual transferred value volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/io/826e012bccc5b189d23a record argument1",
+      "nodes": 2,
+      "edges": 1,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual transferred value volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/io/826e012bccc5b189d23a result ",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual I/O owner carts\n            .updateMany(\n                ownedButNotMigrated,\n                List.of(\n                    new Document(\n                        \"$set\",\n                        new Document(OWNER_SUBJECT, \"$\" + BUYER_VOLVO_ID)\n                            .append(OWNER_ISSUER, issuer))))",
+      "nodes": 2,
+      "edges": 2,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual I/O contract and boundary",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual transferred value volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/io/66d5f64933b459146cd8 record argument0",
+      "nodes": 2,
+      "edges": 1,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual transferred value volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/io/66d5f64933b459146cd8 record argument1",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual transferred value volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/io/66d5f64933b459146cd8 result ",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual I/O owner carts\n            .updateMany(Filters.exists(BUYER_VOLVO_ID), Updates.unset(BUYER_VOLVO_ID))",
+      "nodes": 2,
+      "edges": 2,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual I/O contract and boundary",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual transferred value volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/io/5006d2257a1fcd1ebbe6 record argument0",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual transferred value volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/io/5006d2257a1fcd1ebbe6 record argument1",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual transferred value volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/io/5006d2257a1fcd1ebbe6 result ",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual I/O owner resource.getInputStream()",
+      "nodes": 1,
+      "edges": 1,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual I/O contract and boundary",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual transferred value volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/io/3798e60941f713542995 result ",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual I/O owner restClient\n              .get()\n              .uri(\"/opportunities/{externalOpportunityId}\", opportunityId)\n              .accept(MediaType.APPLICATION_JSON)\n              .retrieve()\n              .body(Opportunity.Response.class)",
+      "nodes": 2,
+      "edges": 1,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual I/O contract and boundary",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual transferred value volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/io/f8250412af7743f95c25 record argument0",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual transferred value volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/io/f8250412af7743f95c25 path externalOpportunityId",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual transferred value volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/io/f8250412af7743f95c25 result ",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual I/O owner restClient\n              .post()\n              .uri(\"/v2/checkout\")\n              .contentType(MediaType.APPLICATION_JSON)\n              .accept(MediaType.APPLICATION_JSON)\n              .headers(\n                  headers -> {\n                    if (StringUtils.hasText(idempotencyKey)) {\n                      headers.add(IDEMPOTENCY_KEY_HEADER, idempotencyKey);\n                    }\n                  })\n              .body(request)\n              .retrieve()\n              .body(ConditionalOrderResponse.class)",
+      "nodes": 2,
+      "edges": 1,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual I/O contract and boundary",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual transferred value volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/io/02b0cad3270bb34fd50a record argument0",
+      "nodes": 2,
+      "edges": 1,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual transferred value volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/io/02b0cad3270bb34fd50a body ",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual transferred value volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/io/02b0cad3270bb34fd50a headers Idempotency-Key",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual transferred value volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/io/02b0cad3270bb34fd50a result ",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual I/O owner resource.getInputStream()",
+      "nodes": 2,
+      "edges": 2,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual I/O contract and boundary",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual transferred value volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/fallback-io/fdaf4ed38381b347397e record id",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual transferred value volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/fallback-io/fdaf4ed38381b347397e result ",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Storage staging and acknowledgement remain separate",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Exact write payload volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/write/222970fa5618ec84da24",
+      "nodes": 9,
+      "edges": 8,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Storage staging and acknowledgement remain separate",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Exact write payload volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/write/e2b9cd7bb33ff58b85e3",
+      "nodes": 134,
+      "edges": 146,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Storage staging and acknowledgement remain separate",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Exact write payload volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/write/01d7c4e865ca60dfb664",
+      "nodes": 48,
+      "edges": 48,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Storage staging and acknowledgement remain separate",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Exact write payload volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/write/6007b50665172d7afcb9",
+      "nodes": 33,
+      "edges": 41,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Storage staging and acknowledgement remain separate",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Exact write payload volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/write/e5abbaaba82be19343ef",
+      "nodes": 34,
+      "edges": 42,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Storage staging and acknowledgement remain separate",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Exact write payload volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/write/90a620f75102bae117f7",
+      "nodes": 34,
+      "edges": 42,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Storage staging and acknowledgement remain separate",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Exact write payload volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/write/216a2eb1a32403f3e5c0",
+      "nodes": 40,
+      "edges": 49,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Storage staging and acknowledgement remain separate",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Exact write payload volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/write/32c702f69b36021c27a9",
+      "nodes": 33,
+      "edges": 41,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Storage staging and acknowledgement remain separate",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Exact write payload volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/write/39c1e4797d6e310c38ad",
+      "nodes": 31,
+      "edges": 39,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Storage staging and acknowledgement remain separate",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Storage staging and acknowledgement remain separate",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Exact write payload volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/write/826e012bccc5b189d23a",
+      "nodes": 2,
+      "edges": 1,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Storage staging and acknowledgement remain separate",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Exact write payload volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/write/66d5f64933b459146cd8",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Storage staging and acknowledgement remain separate",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Exact write payload volvo/cds-ecom-cart-service/ebad8522ba26/final-r1/write/5006d2257a1fcd1ebbe6",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Archive constructor retains whole Cart across explicit delegation",
+      "nodes": 9,
+      "edges": 8,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual current JWT reaches downstream customer.userAccessToken",
+      "nodes": 5,
+      "edges": 4,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual Java metadata operand into downstream request",
+      "nodes": 3,
+      "edges": 2,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Separate SDL and Java request authorities",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Rooted transferred value graphql:Mutation.checkoutCartV2 cartRepository.findById(id)",
+      "nodes": 3,
+      "edges": 2,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Rooted transferred value graphql:Mutation.checkoutCartV2 cartRepository.save(cart.withStatus(status))",
+      "nodes": 35,
+      "edges": 43,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Rooted transferred value graphql:Mutation.checkoutCartV2 restClient\n              .post()\n              .uri(\"/v2/checkout\")\n              .contentType(MediaType.APPLICATION_JSON)\n              .accept(MediaType.APPLICATION_JSON)\n              .headers(\n                  headers -> {\n                    if (StringUtils.hasText(idempotencyKey)) {\n                      headers.add(IDEMPOTENCY_KEY_HEADER, idempotencyKey);\n                    }\n                  })\n              .body(request)\n              .retrieve()\n              .body(ConditionalOrderResponse.class)",
+      "nodes": 2,
+      "edges": 1,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Rooted transferred value graphql:Mutation.checkoutCartV2 restClient\n              .post()\n              .uri(\"/v2/checkout\")\n              .contentType(MediaType.APPLICATION_JSON)\n              .accept(MediaType.APPLICATION_JSON)\n              .headers(\n                  headers -> {\n                    if (StringUtils.hasText(idempotencyKey)) {\n                      headers.add(IDEMPOTENCY_KEY_HEADER, idempotencyKey);\n                    }\n                  })\n              .body(request)\n              .retrieve()\n              .body(ConditionalOrderResponse.class)",
+      "nodes": 144,
+      "edges": 165,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Rooted transferred value graphql:Mutation.checkoutCartV2 restClient\n              .post()\n              .uri(\"/v2/checkout\")\n              .contentType(MediaType.APPLICATION_JSON)\n              .accept(MediaType.APPLICATION_JSON)\n              .headers(\n                  headers -> {\n                    if (StringUtils.hasText(idempotencyKey)) {\n                      headers.add(IDEMPOTENCY_KEY_HEADER, idempotencyKey);\n                    }\n                  })\n              .body(request)\n              .retrieve()\n              .body(ConditionalOrderResponse.class)",
+      "nodes": 3,
+      "edges": 2,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Rooted transferred value graphql:Mutation.createCartV2 cartRepository.save(cart)",
+      "nodes": 135,
+      "edges": 147,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Rooted transferred value graphql:Mutation.createCartV2 restClient\n              .get()\n              .uri(\"/opportunities/{externalOpportunityId}\", opportunityId)\n              .accept(MediaType.APPLICATION_JSON)\n              .retrieve()\n              .body(Opportunity.Response.class)",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Rooted transferred value graphql:Mutation.createCartV2 restClient\n              .get()\n              .uri(\"/opportunities/{externalOpportunityId}\", opportunityId)\n              .accept(MediaType.APPLICATION_JSON)\n              .retrieve()\n              .body(Opportunity.Response.class)",
+      "nodes": 5,
+      "edges": 4,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Rooted transferred value graphql:Mutation.createCartFromCceToken cartRepository.save(cart)",
+      "nodes": 48,
+      "edges": 48,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Rooted transferred value source:@Scheduled:${cart-expiration.scheduler.cron} cartArchiveRepository.save(toSave)",
+      "nodes": 13,
+      "edges": 12,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Rooted transferred value source:@Scheduled:${cart-expiration.scheduler.cron} cartRepository.findById(id)",
+      "nodes": 8,
+      "edges": 7,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Rooted transferred value source:@Scheduled:${cart-expiration.scheduler.cron} cartRepository.save(cart.withStatus(status))",
+      "nodes": 35,
+      "edges": 43,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Rooted transferred value source:@Scheduled:${cart-expiration.scheduler.cron} cartRepository.findAllByStatusAndUpdatedAtBefore(cartStatus, modifiedBefore)",
+      "nodes": 3,
+      "edges": 2,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Rooted transferred value source:@Scheduled:${cart-expiration.scheduler.cron} cartRepository.findAllByStatusAndUpdatedAtBefore(cartStatus, modifiedBefore)",
+      "nodes": 3,
+      "edges": 2,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Rooted transferred value source:@Scheduled:${cart-expiration.scheduler.cron} cartRepository.deleteById(cartId)",
+      "nodes": 7,
+      "edges": 6,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Rooted transferred value source:@PreAuthorize:com.volvocars.ecom.cart.input.graphql.GraphQlController#getCart(String,String) cartRepository.findById(id)",
+      "nodes": 2,
+      "edges": 1,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Rooted transferred value source:@PreAuthorize:com.volvocars.ecom.cart.input.graphql.GraphQlController#getCart(String,String) cartRepository.save(cart.withOwner(owner))",
+      "nodes": 49,
+      "edges": 57,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Exact independently reviewed source policy checkout-order",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Exact independently reviewed source policy authorization",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Exact independently reviewed source policy expiry",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Exact independently reviewed source policy opportunity",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Exact independently reviewed source policy fake-offer",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Exact independently reviewed source policy customer",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Exact independently reviewed source policy mapping",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Exact independently reviewed source policy record-pattern",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Exact independently reviewed source policy records",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Exact independently reviewed source policy migration-id",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Exact independently reviewed source policy migration-owner",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Exact independently reviewed source policy security-config",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Exact independently reviewed source policy interceptor",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Exact independently reviewed source policy sdl",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Exact independently reviewed source policy graphql-errors",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    }
+  ]
+}

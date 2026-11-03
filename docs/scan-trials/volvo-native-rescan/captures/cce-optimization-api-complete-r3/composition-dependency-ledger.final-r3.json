@@ -1,0 +1,896 @@
+[
+  {
+    "source": "competitions.hash_competition.HashCompetition.__init__",
+    "line": 25,
+    "expression": "Dependency('compile', 'compete', 'output')",
+    "claim": "volvo/cce-optimization-api/286985b6bebc/final-r3/claim/dependency/7b19bb73795bf43e66"
+  },
+  {
+    "source": "competitions.hash_competition.HashCompetition.__init__",
+    "line": 36,
+    "expression": "Dependency('compete', 'hash_input', 'input_hash')",
+    "claim": "volvo/cce-optimization-api/286985b6bebc/final-r3/claim/dependency/ead741c7ef5f3a9a29"
+  },
+  {
+    "source": "competitions.hash_competition.HashCompetition.__init__",
+    "line": 37,
+    "expression": "Dependency('hash_output', 'compete', 'output')",
+    "claim": "volvo/cce-optimization-api/286985b6bebc/final-r3/claim/dependency/7d9ef95516640fa97c"
+  },
+  {
+    "source": "competitions.hash_competition.HashCompetition.__init__",
+    "line": 38,
+    "expression": "Dependency('compile', 'compete', 'output')",
+    "claim": "volvo/cce-optimization-api/286985b6bebc/final-r3/claim/dependency/df8db52a3a35bb251c"
+  },
+  {
+    "source": "competitions.hash_competition.HashCompetition.__init__",
+    "line": 39,
+    "expression": "Dependency('compile', 'hash_input', 'input_hash')",
+    "claim": "volvo/cce-optimization-api/286985b6bebc/final-r3/claim/dependency/f037be4bf088246663"
+  },
+  {
+    "source": "competitions.hash_competition.HashCompetition.__init__",
+    "line": 40,
+    "expression": "Dependency('compile', 'hash_output', 'output_hash')",
+    "claim": "volvo/cce-optimization-api/286985b6bebc/final-r3/claim/dependency/475a41583a797c8625"
+  },
+  {
+    "source": "compositions.pieces.linearize_polytope_piece.LinearizePolytopePiece.__init__",
+    "line": 45,
+    "expression": "Dependency('compensate_for_subsets', 'generate_weight_constraints', 'weights_constrs')",
+    "claim": "volvo/cce-optimization-api/286985b6bebc/final-r3/claim/dependency/1ae512261850017fd5"
+  },
+  {
+    "source": "compositions.pieces.linearize_polytope_piece.LinearizePolytopePiece.__init__",
+    "line": 46,
+    "expression": "Dependency('compete_construct_polytope', 'generate_weight_constraints', 'weights_constrs')",
+    "claim": "volvo/cce-optimization-api/286985b6bebc/final-r3/claim/dependency/b28cd22106a6953804"
+  },
+  {
+    "source": "compositions.pieces.linearize_polytope_piece.LinearizePolytopePiece.__init__",
+    "line": 47,
+    "expression": "Dependency('construct_model', 'compete_construct_polytope', 'linearized_config_polytope')",
+    "claim": "volvo/cce-optimization-api/286985b6bebc/final-r3/claim/dependency/2cb1fcdeac08bc0c20"
+  },
+  {
+    "source": "compositions.pieces.linearize_polytope_piece.LinearizePolytopePiece.__init__",
+    "line": 48,
+    "expression": "Dependency('construct_model', 'compensate_for_subsets', 'compensated_weights')",
+    "claim": "volvo/cce-optimization-api/286985b6bebc/final-r3/claim/dependency/3d8cc2dfedae39b13d"
+  },
+  {
+    "source": "solutions.assume_reduce_polytope_pair_solution.AssumeReducePolytopePairSolution.__init__",
+    "line": 51,
+    "expression": "Dependency('assume_reduce_main', 'forward_main', 'polytope')",
+    "claim": "volvo/cce-optimization-api/286985b6bebc/final-r3/claim/dependency/47e8f8fbce09fc2894"
+  },
+  {
+    "source": "solutions.assume_reduce_polytope_pair_solution.AssumeReducePolytopePairSolution.__init__",
+    "line": 52,
+    "expression": "Dependency('assume_reduce_main', 'forward_variables', 'variables')",
+    "claim": "volvo/cce-optimization-api/286985b6bebc/final-r3/claim/dependency/03f0938631a85f56c7"
+  },
+  {
+    "source": "solutions.assume_reduce_polytope_pair_solution.AssumeReducePolytopePairSolution.__init__",
+    "line": 53,
+    "expression": "Dependency('assume_reduce_weight', 'forward_weight', 'polytope')",
+    "claim": "volvo/cce-optimization-api/286985b6bebc/final-r3/claim/dependency/7acfee680a76e0afd1"
+  },
+  {
+    "source": "solutions.assume_reduce_polytope_pair_solution.AssumeReducePolytopePairSolution.__init__",
+    "line": 54,
+    "expression": "Dependency('assume_reduce_weight', 'forward_variables', 'variables')",
+    "claim": "volvo/cce-optimization-api/286985b6bebc/final-r3/claim/dependency/34cd7b549edf8a424d"
+  },
+  {
+    "source": "solutions.assume_reduce_polytope_pair_solution.AssumeReducePolytopePairSolution.__init__",
+    "line": 55,
+    "expression": "Dependency('compile', 'assume_reduce_main', 'assumed_main')",
+    "claim": "volvo/cce-optimization-api/286985b6bebc/final-r3/claim/dependency/68b2b465e316a62292"
+  },
+  {
+    "source": "solutions.assume_reduce_polytope_pair_solution.AssumeReducePolytopePairSolution.__init__",
+    "line": 56,
+    "expression": "Dependency('compile', 'assume_reduce_weight', 'assumed_weight')",
+    "claim": "volvo/cce-optimization-api/286985b6bebc/final-r3/claim/dependency/e3dc42f3b1c852d36a"
+  },
+  {
+    "source": "solutions.build_molytope_solution.BuildMolytopeSolution.__init__",
+    "line": 31,
+    "expression": "Dependency('satisfy_variable_variants_solution', 'main_polytope', 'main_polytope')",
+    "claim": "volvo/cce-optimization-api/286985b6bebc/final-r3/claim/dependency/e870d6f38b99191e87"
+  },
+  {
+    "source": "solutions.build_molytope_solution.BuildMolytopeSolution.__init__",
+    "line": 32,
+    "expression": "Dependency('satisfy_variable_variants_solution', 'weight_polytope', 'weight_polytope')",
+    "claim": "volvo/cce-optimization-api/286985b6bebc/final-r3/claim/dependency/766ac136858e0e3d76"
+  },
+  {
+    "source": "solutions.build_molytope_solution.BuildMolytopeSolution.__init__",
+    "line": 33,
+    "expression": "Dependency('transform_polytope_molytope_solution', 'main_polytope', 'main_polytope')",
+    "claim": "volvo/cce-optimization-api/286985b6bebc/final-r3/claim/dependency/b1bb49a862ac4921f4"
+  },
+  {
+    "source": "solutions.build_molytope_solution.BuildMolytopeSolution.__init__",
+    "line": 34,
+    "expression": "Dependency('transform_polytope_molytope_solution', 'weight_polytope', 'weight_polytope')",
+    "claim": "volvo/cce-optimization-api/286985b6bebc/final-r3/claim/dependency/2f956a6449ef9c9776"
+  },
+  {
+    "source": "solutions.build_molytope_solution.BuildMolytopeSolution.__init__",
+    "line": 35,
+    "expression": "Dependency('transform_polytope_molytope_solution', 'variables', 'variables')",
+    "claim": "volvo/cce-optimization-api/286985b6bebc/final-r3/claim/dependency/b33682fce579509231"
+  },
+  {
+    "source": "solutions.build_molytope_solution.BuildMolytopeSolution.main_polytope",
+    "line": 41,
+    "expression": "depend('build_polytope_pair_solution', 'polytope_pair')",
+    "claim": "volvo/cce-optimization-api/286985b6bebc/final-r3/claim/dependency/2f00282be12751a54f"
+  },
+  {
+    "source": "solutions.build_molytope_solution.BuildMolytopeSolution.weight_polytope",
+    "line": 46,
+    "expression": "depend('build_polytope_pair_solution', 'polytope_pair')",
+    "claim": "volvo/cce-optimization-api/286985b6bebc/final-r3/claim/dependency/bc5072adeea279ba46"
+  },
+  {
+    "source": "solutions.build_molytope_solution.BuildMolytopeSolution.variables",
+    "line": 51,
+    "expression": "depend('satisfy_variable_variants_solution', 'satisfied_variable_result')",
+    "claim": "volvo/cce-optimization-api/286985b6bebc/final-r3/claim/dependency/c78cce2be67fe6dfae"
+  },
+  {
+    "source": "solutions.build_polytope_pair_solution.BuildPolytopePairSolution.__init__",
+    "line": 26,
+    "expression": "Dependency('split_config_rules', 'got_config_rules', 'got_config_rules')",
+    "claim": "volvo/cce-optimization-api/286985b6bebc/final-r3/claim/dependency/762f20efb6922c417e"
+  },
+  {
+    "source": "solutions.build_polytope_pair_solution.BuildPolytopePairSolution.__init__",
+    "line": 27,
+    "expression": "Dependency('split_config_rules', 'FetchConfigRulesPiece', 'fetched_config_rules')",
+    "claim": "volvo/cce-optimization-api/286985b6bebc/final-r3/claim/dependency/091d31afa25acfab3f"
+  },
+  {
+    "source": "solutions.build_polytope_pair_solution.BuildPolytopePairSolution.__init__",
+    "line": 28,
+    "expression": "Dependency('__forward_main_config_rules', 'split_config_rules', 'config_rules_tuple')",
+    "claim": "volvo/cce-optimization-api/286985b6bebc/final-r3/claim/dependency/5c23756cf0f251d01a"
+  },
+  {
+    "source": "solutions.build_polytope_pair_solution.BuildPolytopePairSolution.__init__",
+    "line": 29,
+    "expression": "Dependency('__forward_weight_config_rules', 'split_config_rules', 'config_rules_tuple')",
+    "claim": "volvo/cce-optimization-api/286985b6bebc/final-r3/claim/dependency/d316725f9702ba38f2"
+  },
+  {
+    "source": "solutions.build_polytope_pair_solution.BuildPolytopePairSolution.__init__",
+    "line": 30,
+    "expression": "Dependency('convert_weight_config_rules', '__forward_weight_config_rules', 'config_rules')",
+    "claim": "volvo/cce-optimization-api/286985b6bebc/final-r3/claim/dependency/c69fa528550fc01a84"
+  },
+  {
+    "source": "solutions.build_polytope_pair_solution.BuildPolytopePairSolution.__init__",
+    "line": 31,
+    "expression": "Dependency('build_main_polytope', '__forward_main_config_rules', 'config_rules')",
+    "claim": "volvo/cce-optimization-api/286985b6bebc/final-r3/claim/dependency/b8cc7f5267d2736851"
+  },
+  {
+    "source": "solutions.build_polytope_pair_solution.BuildPolytopePairSolution.__init__",
+    "line": 32,
+    "expression": "Dependency('build_weight_polytope', 'convert_weight_config_rules', 'config_rules')",
+    "claim": "volvo/cce-optimization-api/286985b6bebc/final-r3/claim/dependency/f21ae544c585345cfc"
+  },
+  {
+    "source": "solutions.build_polytope_pair_solution.BuildPolytopePairSolution.__init__",
+    "line": 33,
+    "expression": "Dependency('compile', 'build_main_polytope', 'polytope_main')",
+    "claim": "volvo/cce-optimization-api/286985b6bebc/final-r3/claim/dependency/7688d9852eba303386"
+  },
+  {
+    "source": "solutions.build_polytope_pair_solution.BuildPolytopePairSolution.__init__",
+    "line": 34,
+    "expression": "Dependency('compile', 'build_weight_polytope', 'polytope_weight')",
+    "claim": "volvo/cce-optimization-api/286985b6bebc/final-r3/claim/dependency/9ad506639d6a2237a2"
+  },
+  {
+    "source": "solutions.build_polytope_solution.BuildPolytopeSolution.__init__",
+    "line": 136,
+    "expression": "Dependency('BuildPolytopePiece', 'prepare_config_rules', 'config_rules')",
+    "claim": "volvo/cce-optimization-api/286985b6bebc/final-r3/claim/dependency/8b7026f093ac5e17bf"
+  },
+  {
+    "source": "solutions.fix_variables_solution.FixVariablesSolution.compile",
+    "line": 89,
+    "expression": "depend('forward_main', 'b')",
+    "claim": "volvo/cce-optimization-api/286985b6bebc/final-r3/claim/dependency/ac51d527f4bedfecac"
+  },
+  {
+    "source": "solutions.fix_variables_solution.FixVariablesSolution.compile",
+    "line": 90,
+    "expression": "depend('forward_weight', 'a')",
+    "claim": "volvo/cce-optimization-api/286985b6bebc/final-r3/claim/dependency/a47f864541af5e905c"
+  },
+  {
+    "source": "solutions.satisfy_polytope_pair_solution.SatisfyPolytopePairSolution.__init__",
+    "line": 31,
+    "expression": "Dependency(piece_id='construct_ilp_problem', dependent_on_id='linearize', connected_on='linearized_polytope_model')",
+    "claim": "volvo/cce-optimization-api/286985b6bebc/final-r3/claim/dependency/f1a35e60c9f8bae1be"
+  },
+  {
+    "source": "solutions.satisfy_polytope_pair_solution.SatisfyPolytopePairSolution.__init__",
+    "line": 36,
+    "expression": "Dependency(piece_id='solve', dependent_on_id='construct_ilp_problem', connected_on='ilp_collection')",
+    "claim": "volvo/cce-optimization-api/286985b6bebc/final-r3/claim/dependency/4c25cc427a077a67b2"
+  },
+  {
+    "source": "solutions.satisfy_polytope_pair_solution.SatisfyPolytopePairSolution.__init__",
+    "line": 41,
+    "expression": "Dependency(piece_id='reconstruct_ilp_result', dependent_on_id='solve', connected_on='ilp_solutions')",
+    "claim": "volvo/cce-optimization-api/286985b6bebc/final-r3/claim/dependency/c72a6531e662611038"
+  },
+  {
+    "source": "solutions.satisfy_polytope_pair_solution.SatisfyPolytopePairSolution.__init__",
+    "line": 46,
+    "expression": "Dependency(piece_id='reconstruct_ilp_result', dependent_on_id='linearize', connected_on='linearized_polytope_model')",
+    "claim": "volvo/cce-optimization-api/286985b6bebc/final-r3/claim/dependency/eb88082bfd2e2ba457"
+  },
+  {
+    "source": "solutions.satisfy_states_molytope_solution.SatisfyStatesMolytopeSolution.handle_action_outside_action_space",
+    "line": 22,
+    "expression": "depend('sorted_action_space', connected_to='sorted_action_space')",
+    "claim": "volvo/cce-optimization-api/286985b6bebc/final-r3/claim/dependency/62656d434fc2ff90cb"
+  },
+  {
+    "source": "solutions.satisfy_states_molytope_solution.SatisfyStatesMolytopeSolution.pass_on_selected_actions",
+    "line": 85,
+    "expression": "depend(on='handle_action_outside_action_space', connected_to='actions_tuple')",
+    "claim": "volvo/cce-optimization-api/286985b6bebc/final-r3/claim/dependency/c4f451b8ea1724174a"
+  },
+  {
+    "source": "solutions.satisfy_states_molytope_solution.SatisfyStatesMolytopeSolution.pass_on_pre_selected_actions",
+    "line": 90,
+    "expression": "depend(on='handle_action_outside_action_space', connected_to='actions_tuple')",
+    "claim": "volvo/cce-optimization-api/286985b6bebc/final-r3/claim/dependency/762b266496ea26589d"
+  },
+  {
+    "source": "solutions.satisfy_states_molytope_solution.SatisfyStatesMolytopeSolution.action_space_filter",
+    "line": 95,
+    "expression": "depend('sorted_action_space', connected_to='sorted_action_space')",
+    "claim": "volvo/cce-optimization-api/286985b6bebc/final-r3/claim/dependency/b295471a837be6d9ab"
+  },
+  {
+    "source": "solutions.satisfy_states_molytope_solution.SatisfyStatesMolytopeSolution.action_space_filter",
+    "line": 96,
+    "expression": "depend(on='pass_on_selected_actions', connected_to='selected_actions_mod')",
+    "claim": "volvo/cce-optimization-api/286985b6bebc/final-r3/claim/dependency/e049deb95984e97c6c"
+  },
+  {
+    "source": "solutions.satisfy_states_molytope_solution.SatisfyStatesMolytopeSolution.primary_to_variants_dict",
+    "line": 102,
+    "expression": "depend(on='sorted_action_space', connected_to='sorted_action_space')",
+    "claim": "volvo/cce-optimization-api/286985b6bebc/final-r3/claim/dependency/f5f2f13a46d7879f73"
+  },
+  {
+    "source": "solutions.satisfy_states_molytope_solution.SatisfyStatesMolytopeSolution.action_space_relations",
+    "line": 132,
+    "expression": "depend(on='sorted_action_space', connected_to='sorted_action_space')",
+    "claim": "volvo/cce-optimization-api/286985b6bebc/final-r3/claim/dependency/09c22a0e776754ef12"
+  },
+  {
+    "source": "solutions.satisfy_states_molytope_solution.SatisfyStatesMolytopeSolution.action_space_relations",
+    "line": 133,
+    "expression": "depend(on='primary_to_variants_dict', connected_to='primary_to_variants_dict')",
+    "claim": "volvo/cce-optimization-api/286985b6bebc/final-r3/claim/dependency/30bba2889526872877"
+  },
+  {
+    "source": "solutions.satisfy_states_molytope_solution.SatisfyStatesMolytopeSolution.variant_cross_relation_matrices",
+    "line": 149,
+    "expression": "depend(on='sorted_action_space', connected_to='sorted_action_space')",
+    "claim": "volvo/cce-optimization-api/286985b6bebc/final-r3/claim/dependency/f59c0d031d5b1a3d47"
+  },
+  {
+    "source": "solutions.satisfy_states_molytope_solution.SatisfyStatesMolytopeSolution.variant_cross_relation_matrices",
+    "line": 150,
+    "expression": "depend(on='primary_to_variants_dict', connected_to='primary_to_variants_dict')",
+    "claim": "volvo/cce-optimization-api/286985b6bebc/final-r3/claim/dependency/3c66a6fe26250554ff"
+  },
+  {
+    "source": "solutions.satisfy_states_molytope_solution.SatisfyStatesMolytopeSolution.filtered_pre_selected_actions",
+    "line": 206,
+    "expression": "depend('sorted_action_space', 'sorted_action_space')",
+    "claim": "volvo/cce-optimization-api/286985b6bebc/final-r3/claim/dependency/f216e7adc50a880b88"
+  },
+  {
+    "source": "solutions.satisfy_states_molytope_solution.SatisfyStatesMolytopeSolution.filtered_pre_selected_actions",
+    "line": 207,
+    "expression": "depend(on='pass_on_pre_selected_actions', connected_to='pre_selected_actions_mod')",
+    "claim": "volvo/cce-optimization-api/286985b6bebc/final-r3/claim/dependency/e88517545586f2b5e3"
+  },
+  {
+    "source": "solutions.satisfy_states_molytope_solution.SatisfyStatesMolytopeSolution.pre_selected_action_index",
+    "line": 213,
+    "expression": "depend('sorted_action_space', 'sorted_action_space')",
+    "claim": "volvo/cce-optimization-api/286985b6bebc/final-r3/claim/dependency/50f1a4dc010565d8c7"
+  },
+  {
+    "source": "solutions.satisfy_states_molytope_solution.SatisfyStatesMolytopeSolution.pre_selected_action_index",
+    "line": 214,
+    "expression": "depend('filtered_pre_selected_actions', 'pre_selected_actions_mod')",
+    "claim": "volvo/cce-optimization-api/286985b6bebc/final-r3/claim/dependency/02b5565f8f2dc87058"
+  },
+  {
+    "source": "solutions.satisfy_states_molytope_solution.SatisfyStatesMolytopeSolution.selected_variants_vector",
+    "line": 219,
+    "expression": "depend(on='sorted_action_space', connected_to='sorted_action_space')",
+    "claim": "volvo/cce-optimization-api/286985b6bebc/final-r3/claim/dependency/4d46826dfc3ff99e0a"
+  },
+  {
+    "source": "solutions.satisfy_states_molytope_solution.SatisfyStatesMolytopeSolution.selected_variants_vector",
+    "line": 220,
+    "expression": "depend(on='pre_selected_action_index', connected_to='pre_selected_action_index')",
+    "claim": "volvo/cce-optimization-api/286985b6bebc/final-r3/claim/dependency/00a5841baf706721ef"
+  },
+  {
+    "source": "solutions.satisfy_states_molytope_solution.SatisfyStatesMolytopeSolution.selected_variants_order_vector",
+    "line": 228,
+    "expression": "depend(on='sorted_action_space', connected_to='sorted_action_space')",
+    "claim": "volvo/cce-optimization-api/286985b6bebc/final-r3/claim/dependency/b537093d8f8f40b387"
+  },
+  {
+    "source": "solutions.satisfy_states_molytope_solution.SatisfyStatesMolytopeSolution.selected_variants_order_vector",
+    "line": 229,
+    "expression": "depend(on='pre_selected_action_index', connected_to='pre_selected_action_index')",
+    "claim": "volvo/cce-optimization-api/286985b6bebc/final-r3/claim/dependency/dca87cbf0942589600"
+  },
+  {
+    "source": "solutions.satisfy_states_molytope_solution.SatisfyStatesMolytopeSolution.selected_variants_matrix",
+    "line": 237,
+    "expression": "depend(on='selected_variants_vector', connected_to='selected_variants_vector')",
+    "claim": "volvo/cce-optimization-api/286985b6bebc/final-r3/claim/dependency/70df36a8e79be6eb77"
+  },
+  {
+    "source": "solutions.satisfy_states_molytope_solution.SatisfyStatesMolytopeSolution.selected_variants_matrix",
+    "line": 238,
+    "expression": "depend(on='action_space_relations', connected_to='action_space_relations')",
+    "claim": "volvo/cce-optimization-api/286985b6bebc/final-r3/claim/dependency/4ebc23bfcdcc0a35e1"
+  },
+  {
+    "source": "solutions.satisfy_states_molytope_solution.SatisfyStatesMolytopeSolution.selected_variants_matrix_mod",
+    "line": 253,
+    "expression": "depend(on='action_space_relations', connected_to='action_space_relations')",
+    "claim": "volvo/cce-optimization-api/286985b6bebc/final-r3/claim/dependency/21bdaa1c6d166f5e1d"
+  },
+  {
+    "source": "solutions.satisfy_states_molytope_solution.SatisfyStatesMolytopeSolution.selected_variants_matrix_mod",
+    "line": 254,
+    "expression": "depend(on='selected_variants_matrix', connected_to='selected_variants_matrix')",
+    "claim": "volvo/cce-optimization-api/286985b6bebc/final-r3/claim/dependency/9b1e6c962978209107"
+  },
+  {
+    "source": "solutions.satisfy_states_molytope_solution.SatisfyStatesMolytopeSolution.selected_variants_matrix_mod",
+    "line": 255,
+    "expression": "depend(on='selected_variants_order_vector', connected_to='selected_variants_order_vector')",
+    "claim": "volvo/cce-optimization-api/286985b6bebc/final-r3/claim/dependency/bfd3aede4cabdf45d6"
+  },
+  {
+    "source": "solutions.satisfy_states_molytope_solution.SatisfyStatesMolytopeSolution.proportional_vector",
+    "line": 305,
+    "expression": "depend(on='sorted_action_space', connected_to='sorted_action_space')",
+    "claim": "volvo/cce-optimization-api/286985b6bebc/final-r3/claim/dependency/6a5521381a8e10387d"
+  },
+  {
+    "source": "solutions.satisfy_states_molytope_solution.SatisfyStatesMolytopeSolution.proportional_vector",
+    "line": 306,
+    "expression": "depend(on='selected_variants_order_vector', connected_to='selected_variants_order_vector')",
+    "claim": "volvo/cce-optimization-api/286985b6bebc/final-r3/claim/dependency/6119c29c01792cc751"
+  },
+  {
+    "source": "solutions.satisfy_states_molytope_solution.SatisfyStatesMolytopeSolution.weighted_selected_variants_matrix",
+    "line": 350,
+    "expression": "depend(on='action_space_relations', connected_to='action_space_relations')",
+    "claim": "volvo/cce-optimization-api/286985b6bebc/final-r3/claim/dependency/73ebdc71ccc82a0180"
+  },
+  {
+    "source": "solutions.satisfy_states_molytope_solution.SatisfyStatesMolytopeSolution.weighted_selected_variants_matrix",
+    "line": 351,
+    "expression": "depend(on='selected_variants_matrix_mod', connected_to='selected_variants_matrix_mod')",
+    "claim": "volvo/cce-optimization-api/286985b6bebc/final-r3/claim/dependency/4a96f6528f1445f091"
+  },
+  {
+    "source": "solutions.satisfy_states_molytope_solution.SatisfyStatesMolytopeSolution.weighted_selected_variants_matrix",
+    "line": 352,
+    "expression": "depend(on='selected_variants_order_vector', connected_to='selected_variants_order_vector')",
+    "claim": "volvo/cce-optimization-api/286985b6bebc/final-r3/claim/dependency/a2a8a7a9de89276149"
+  },
+  {
+    "source": "solutions.satisfy_states_molytope_solution.SatisfyStatesMolytopeSolution.weighted_selected_variants_matrix",
+    "line": 353,
+    "expression": "depend(on='proportional_vector', connected_to='proportional_vector')",
+    "claim": "volvo/cce-optimization-api/286985b6bebc/final-r3/claim/dependency/aa77099d6c646ae383"
+  },
+  {
+    "source": "solutions.satisfy_states_molytope_solution.SatisfyStatesMolytopeSolution.solve",
+    "line": 380,
+    "expression": "depend(on='sorted_action_space', connected_to='sorted_action_space')",
+    "claim": "volvo/cce-optimization-api/286985b6bebc/final-r3/claim/dependency/08b493bbc46a622f07"
+  },
+  {
+    "source": "solutions.satisfy_states_molytope_solution.SatisfyStatesMolytopeSolution.solve",
+    "line": 381,
+    "expression": "depend(on='action_space_filter', connected_to='action_space_filter')",
+    "claim": "volvo/cce-optimization-api/286985b6bebc/final-r3/claim/dependency/d01e821a7d05e52f5f"
+  },
+  {
+    "source": "solutions.satisfy_states_molytope_solution.SatisfyStatesMolytopeSolution.solve",
+    "line": 382,
+    "expression": "depend(on='sorted_action_space', connected_to='sorted_action_space')",
+    "claim": "volvo/cce-optimization-api/286985b6bebc/final-r3/claim/dependency/c5fb00cd3e2a782399"
+  },
+  {
+    "source": "solutions.satisfy_states_molytope_solution.SatisfyStatesMolytopeSolution.solve",
+    "line": 383,
+    "expression": "depend(on='weighted_selected_variants_matrix', connected_to='weighted_selected_variants_matrix')",
+    "claim": "volvo/cce-optimization-api/286985b6bebc/final-r3/claim/dependency/3a769228199803307b"
+  },
+  {
+    "source": "solutions.satisfy_states_molytope_solution.SatisfyStatesMolytopeSolution.primary_variable_indices",
+    "line": 409,
+    "expression": "depend(on='sorted_action_space', connected_to='sorted_action_space')",
+    "claim": "volvo/cce-optimization-api/286985b6bebc/final-r3/claim/dependency/b3ac79dc0b51287db6"
+  },
+  {
+    "source": "solutions.satisfy_states_molytope_solution.SatisfyStatesMolytopeSolution.selected_variants_cross_relation_map",
+    "line": 416,
+    "expression": "depend(on='selected_variants_matrix_mod', connected_to='selected_variants_matrix_mod')",
+    "claim": "volvo/cce-optimization-api/286985b6bebc/final-r3/claim/dependency/b17e217ba121dd82b8"
+  },
+  {
+    "source": "solutions.satisfy_states_molytope_solution.SatisfyStatesMolytopeSolution.selected_variants_cross_relation_map",
+    "line": 417,
+    "expression": "depend(on='variant_cross_relation_matrices', connected_to='variant_cross_relation_matrices')",
+    "claim": "volvo/cce-optimization-api/286985b6bebc/final-r3/claim/dependency/d94e1b014e9873be19"
+  },
+  {
+    "source": "solutions.satisfy_states_molytope_solution.SatisfyStatesMolytopeSolution.compile",
+    "line": 441,
+    "expression": "depend(on='solve', connected_to='solutions')",
+    "claim": "volvo/cce-optimization-api/286985b6bebc/final-r3/claim/dependency/de525b07094972887b"
+  },
+  {
+    "source": "solutions.satisfy_states_molytope_solution.SatisfyStatesMolytopeSolution.compile",
+    "line": 442,
+    "expression": "depend(on='sorted_action_space', connected_to='sorted_action_space')",
+    "claim": "volvo/cce-optimization-api/286985b6bebc/final-r3/claim/dependency/02ab116a9d1a96cbd0"
+  },
+  {
+    "source": "solutions.satisfy_states_molytope_solution.SatisfyStatesMolytopeSolution.compile",
+    "line": 443,
+    "expression": "depend(on='variant_cross_relation_matrices', connected_to='variant_cross_relation_matrices')",
+    "claim": "volvo/cce-optimization-api/286985b6bebc/final-r3/claim/dependency/6086f2e60fa3c09d73"
+  },
+  {
+    "source": "solutions.satisfy_states_molytope_solution.SatisfyStatesMolytopeSolution.compile",
+    "line": 444,
+    "expression": "depend(on='selected_variants_matrix_mod', connected_to='selected_variants_matrix_mod')",
+    "claim": "volvo/cce-optimization-api/286985b6bebc/final-r3/claim/dependency/713aa91410da8b5c88"
+  },
+  {
+    "source": "solutions.satisfy_states_molytope_solution.SatisfyStatesMolytopeSolution.compile",
+    "line": 445,
+    "expression": "depend(on='selected_variants_order_vector', connected_to='selected_variants_order_vector')",
+    "claim": "volvo/cce-optimization-api/286985b6bebc/final-r3/claim/dependency/70e15bda4da67ed3c8"
+  },
+  {
+    "source": "solutions.satisfy_states_molytope_solution.SatisfyStatesMolytopeSolution.compile",
+    "line": 446,
+    "expression": "depend(on='primary_variable_indices', connected_to='primary_variable_indices')",
+    "claim": "volvo/cce-optimization-api/286985b6bebc/final-r3/claim/dependency/a3a6eb4e2ee0dc173c"
+  },
+  {
+    "source": "solutions.satisfy_states_molytope_solution.SatisfyStatesMolytopeSolution.compile",
+    "line": 447,
+    "expression": "depend(on='selected_variants_cross_relation_map', connected_to='res_msk_indices_map')",
+    "claim": "volvo/cce-optimization-api/286985b6bebc/final-r3/claim/dependency/5736bdac9f969e3c95"
+  },
+  {
+    "source": "solutions.satisfy_states_molytope_solution.SatisfyStatesMolytopeSolution.compile",
+    "line": 448,
+    "expression": "depend(on='proportional_vector', connected_to='proportional_vector')",
+    "claim": "volvo/cce-optimization-api/286985b6bebc/final-r3/claim/dependency/8dc43b3540be302a99"
+  },
+  {
+    "source": "solutions.satisfy_states_solution.SatisfyStatesSolution.__init__",
+    "line": 23,
+    "expression": "Dependency('transform_polytope_molytope_solution', 'sorted_action_space', 'variables')",
+    "claim": "volvo/cce-optimization-api/286985b6bebc/final-r3/claim/dependency/af31ef92995c51484d"
+  },
+  {
+    "source": "solutions.satisfy_states_solution.SatisfyStatesSolution.__init__",
+    "line": 24,
+    "expression": "Dependency('satisfy_states_molytope_solution', 'aub_extract', 'aub')",
+    "claim": "volvo/cce-optimization-api/286985b6bebc/final-r3/claim/dependency/6731c7ef55b91eb9ad"
+  },
+  {
+    "source": "solutions.satisfy_states_solution.SatisfyStatesSolution.__init__",
+    "line": 25,
+    "expression": "Dependency('satisfy_states_molytope_solution', 'bub_extract', 'bub')",
+    "claim": "volvo/cce-optimization-api/286985b6bebc/final-r3/claim/dependency/d8a0f78e29098c65fe"
+  },
+  {
+    "source": "solutions.satisfy_states_solution.SatisfyStatesSolution.__init__",
+    "line": 26,
+    "expression": "Dependency('satisfy_states_molytope_solution', 'obj_extract', 'objective')",
+    "claim": "volvo/cce-optimization-api/286985b6bebc/final-r3/claim/dependency/b6c2c65563259bbbd9"
+  },
+  {
+    "source": "solutions.satisfy_states_solution.SatisfyStatesSolution.__init__",
+    "line": 27,
+    "expression": "Dependency('satisfy_states_molytope_solution', 'var_extract', 'variables')",
+    "claim": "volvo/cce-optimization-api/286985b6bebc/final-r3/claim/dependency/6acc696f9904ea5529"
+  },
+  {
+    "source": "solutions.satisfy_states_solution.SatisfyStatesSolution.__init__",
+    "line": 28,
+    "expression": "Dependency('satisfy_states_molytope_solution', 'chv_extract', 'chv')",
+    "claim": "volvo/cce-optimization-api/286985b6bebc/final-r3/claim/dependency/4155090048fc18d8e6"
+  },
+  {
+    "source": "solutions.satisfy_states_solution.SatisfyStatesSolution.aub_extract",
+    "line": 46,
+    "expression": "depend('transform_polytope_molytope_solution', 'molytope')",
+    "claim": "volvo/cce-optimization-api/286985b6bebc/final-r3/claim/dependency/43aaa742ac1af66885"
+  },
+  {
+    "source": "solutions.satisfy_states_solution.SatisfyStatesSolution.bub_extract",
+    "line": 51,
+    "expression": "depend('transform_polytope_molytope_solution', 'molytope')",
+    "claim": "volvo/cce-optimization-api/286985b6bebc/final-r3/claim/dependency/0e5f51e90a305e7719"
+  },
+  {
+    "source": "solutions.satisfy_states_solution.SatisfyStatesSolution.var_extract",
+    "line": 56,
+    "expression": "depend('transform_polytope_molytope_solution', 'molytope')",
+    "claim": "volvo/cce-optimization-api/286985b6bebc/final-r3/claim/dependency/80212b5e68ae0cc720"
+  },
+  {
+    "source": "solutions.satisfy_states_solution.SatisfyStatesSolution.obj_extract",
+    "line": 61,
+    "expression": "depend('transform_polytope_molytope_solution', 'molytope')",
+    "claim": "volvo/cce-optimization-api/286985b6bebc/final-r3/claim/dependency/f22d4fc8670121ae1d"
+  },
+  {
+    "source": "solutions.satisfy_states_solution.SatisfyStatesSolution.chv_extract",
+    "line": 66,
+    "expression": "depend('transform_polytope_molytope_solution', 'molytope')",
+    "claim": "volvo/cce-optimization-api/286985b6bebc/final-r3/claim/dependency/c7154defbb5866e515"
+  },
+  {
+    "source": "solutions.satisfy_variable_variants_solution.SatisfyVariableVariantsSolution.__init__",
+    "line": 39,
+    "expression": "Dependency(piece_id='construct_variants_from_variable_relations', dependent_on_id='find_variable_relations', connected_on='variable_relations')",
+    "claim": "volvo/cce-optimization-api/286985b6bebc/final-r3/claim/dependency/84c389a7df5d4c4f89"
+  },
+  {
+    "source": "solutions.satisfy_variable_variants_solution.SatisfyVariableVariantsSolution.__init__",
+    "line": 44,
+    "expression": "Dependency(piece_id='find_variants_in_polytope', dependent_on_id='construct_variants_from_variable_relations', connected_on='variants')",
+    "claim": "volvo/cce-optimization-api/286985b6bebc/final-r3/claim/dependency/1035146cffc97f5631"
+  },
+  {
+    "source": "solutions.satisfy_variable_variants_solution.SatisfyVariableVariantsSolution.__init__",
+    "line": 49,
+    "expression": "Dependency(piece_id='find_variants_in_polytope', dependent_on_id='forward_main_polytope', connected_on='main_polytope')",
+    "claim": "volvo/cce-optimization-api/286985b6bebc/final-r3/claim/dependency/c86f2fb4e7bc5d2b98"
+  },
+  {
+    "source": "solutions.satisfy_variable_variants_solution.SatisfyVariableVariantsSolution.__init__",
+    "line": 54,
+    "expression": "Dependency(piece_id='solve', dependent_on_id='find_variants_in_polytope', connected_on='ilp_collection')",
+    "claim": "volvo/cce-optimization-api/286985b6bebc/final-r3/claim/dependency/6887dfa3c9558f00a5"
+  },
+  {
+    "source": "solutions.satisfy_variable_variants_solution.SatisfyVariableVariantsSolution.__init__",
+    "line": 59,
+    "expression": "Dependency(piece_id='collect_solver_result', dependent_on_id='solve', connected_on='solutions')",
+    "claim": "volvo/cce-optimization-api/286985b6bebc/final-r3/claim/dependency/4e4020a7a05f88f154"
+  },
+  {
+    "source": "solutions.satisfy_variable_variants_solution.SatisfyVariableVariantsSolution.__init__",
+    "line": 64,
+    "expression": "Dependency(piece_id='collect_solver_result', dependent_on_id='find_variable_relations', connected_on='variable_relations')",
+    "claim": "volvo/cce-optimization-api/286985b6bebc/final-r3/claim/dependency/5b94cc0c0310807630"
+  },
+  {
+    "source": "solutions.satisfy_variable_variants_solution.SatisfyVariableVariantsSolution.__init__",
+    "line": 69,
+    "expression": "Dependency(piece_id='collect_solver_result', dependent_on_id='forward_main_polytope', connected_on='main_polytope')",
+    "claim": "volvo/cce-optimization-api/286985b6bebc/final-r3/claim/dependency/9dc18bed25ed6f07e7"
+  },
+  {
+    "source": "solutions.satisfy_variable_variants_solution.SatisfyVariableVariantsSolution.__init__",
+    "line": 74,
+    "expression": "Dependency(piece_id='collect_solver_result', dependent_on_id='construct_variants_from_variable_relations', connected_on='variants')",
+    "claim": "volvo/cce-optimization-api/286985b6bebc/final-r3/claim/dependency/8f47b12a719c052ac7"
+  },
+  {
+    "source": "solutions.satisfy_variable_variants_solution.SatisfyVariableVariantsSolution.alter_variable_relations_in_solver_result",
+    "line": 194,
+    "expression": "depend('collect_solver_result', 'result')",
+    "claim": "volvo/cce-optimization-api/286985b6bebc/final-r3/claim/dependency/2d4b5c8d81507d443b"
+  },
+  {
+    "source": "solutions.transfer_state_molytope_solution.TransferStateMolytopeSolution.__init__",
+    "line": 19,
+    "expression": "Dependency(piece_id='satisfy_states_molytope_solution', dependent_on_id='pass_on_pre_selected_actions', connected_on='pre_selected_actions')",
+    "claim": "volvo/cce-optimization-api/286985b6bebc/final-r3/claim/dependency/fb491e5ba6933b24f2"
+  },
+  {
+    "source": "solutions.transfer_state_molytope_solution.TransferStateMolytopeSolution.__init__",
+    "line": 24,
+    "expression": "Dependency(piece_id='satisfy_states_molytope_solution', dependent_on_id='pass_on_selected_actions', connected_on='selected_actions')",
+    "claim": "volvo/cce-optimization-api/286985b6bebc/final-r3/claim/dependency/cdb847b1d4f0b0d8f2"
+  },
+  {
+    "source": "solutions.transfer_state_molytope_solution.TransferStateMolytopeSolution.prepare_input_to_satisfy_states",
+    "line": 39,
+    "expression": "depend(on='filter_selected_actions', connected_to='selected_actions_mod')",
+    "claim": "volvo/cce-optimization-api/286985b6bebc/final-r3/claim/dependency/ccc03fd12ea14cf506"
+  },
+  {
+    "source": "solutions.transfer_state_molytope_solution.TransferStateMolytopeSolution.pass_on_pre_selected_actions",
+    "line": 56,
+    "expression": "depend(on='prepare_input_to_satisfy_states', connected_to='all_actions')",
+    "claim": "volvo/cce-optimization-api/286985b6bebc/final-r3/claim/dependency/7bd5b4b3d51c445b9b"
+  },
+  {
+    "source": "solutions.transfer_state_molytope_solution.TransferStateMolytopeSolution.pass_on_selected_actions",
+    "line": 61,
+    "expression": "depend(on='prepare_input_to_satisfy_states', connected_to='all_actions')",
+    "claim": "volvo/cce-optimization-api/286985b6bebc/final-r3/claim/dependency/a04b3c731fade88d4a"
+  },
+  {
+    "source": "solutions.transfer_state_molytope_solution.TransferStateMolytopeSolution.add_secondaries_for_variants",
+    "line": 66,
+    "expression": "depend(on='satisfy_states_molytope_solution', connected_to='solution')",
+    "claim": "volvo/cce-optimization-api/286985b6bebc/final-r3/claim/dependency/0940265b750eef85bb"
+  },
+  {
+    "source": "solutions.transfer_state_solution.TransferStateSolution.__init__",
+    "line": 24,
+    "expression": "Dependency('transform_polytope_molytope_solution', 'sorted_action_space', 'variables')",
+    "claim": "volvo/cce-optimization-api/286985b6bebc/final-r3/claim/dependency/75ba85097eafde0ae2"
+  },
+  {
+    "source": "solutions.transfer_state_solution.TransferStateSolution.__init__",
+    "line": 25,
+    "expression": "Dependency('transfer_state_molytope_solution', 'aub_extract', 'aub')",
+    "claim": "volvo/cce-optimization-api/286985b6bebc/final-r3/claim/dependency/debac05dadfbe8e43d"
+  },
+  {
+    "source": "solutions.transfer_state_solution.TransferStateSolution.__init__",
+    "line": 26,
+    "expression": "Dependency('transfer_state_molytope_solution', 'bub_extract', 'bub')",
+    "claim": "volvo/cce-optimization-api/286985b6bebc/final-r3/claim/dependency/fa751300da00dd372a"
+  },
+  {
+    "source": "solutions.transfer_state_solution.TransferStateSolution.__init__",
+    "line": 27,
+    "expression": "Dependency('transfer_state_molytope_solution', 'obj_extract', 'objective')",
+    "claim": "volvo/cce-optimization-api/286985b6bebc/final-r3/claim/dependency/0b63c61307b16860d3"
+  },
+  {
+    "source": "solutions.transfer_state_solution.TransferStateSolution.__init__",
+    "line": 28,
+    "expression": "Dependency('transfer_state_molytope_solution', 'var_extract', 'variables')",
+    "claim": "volvo/cce-optimization-api/286985b6bebc/final-r3/claim/dependency/bddbc3c1466dcdab56"
+  },
+  {
+    "source": "solutions.transfer_state_solution.TransferStateSolution.__init__",
+    "line": 29,
+    "expression": "Dependency('transfer_state_molytope_solution', 'chv_extract', 'chv')",
+    "claim": "volvo/cce-optimization-api/286985b6bebc/final-r3/claim/dependency/363d4edd359c158d21"
+  },
+  {
+    "source": "solutions.transfer_state_solution.TransferStateSolution.aub_extract",
+    "line": 42,
+    "expression": "depend('transform_polytope_molytope_solution', 'molytope')",
+    "claim": "volvo/cce-optimization-api/286985b6bebc/final-r3/claim/dependency/85850f6f2bdd611a40"
+  },
+  {
+    "source": "solutions.transfer_state_solution.TransferStateSolution.bub_extract",
+    "line": 47,
+    "expression": "depend('transform_polytope_molytope_solution', 'molytope')",
+    "claim": "volvo/cce-optimization-api/286985b6bebc/final-r3/claim/dependency/6e3d2b244df3797988"
+  },
+  {
+    "source": "solutions.transfer_state_solution.TransferStateSolution.var_extract",
+    "line": 52,
+    "expression": "depend('transform_polytope_molytope_solution', 'molytope')",
+    "claim": "volvo/cce-optimization-api/286985b6bebc/final-r3/claim/dependency/8bb189ea6aa038acf5"
+  },
+  {
+    "source": "solutions.transfer_state_solution.TransferStateSolution.obj_extract",
+    "line": 57,
+    "expression": "depend('transform_polytope_molytope_solution', 'molytope')",
+    "claim": "volvo/cce-optimization-api/286985b6bebc/final-r3/claim/dependency/f0cdb069fce0ff2935"
+  },
+  {
+    "source": "solutions.transfer_state_solution.TransferStateSolution.chv_extract",
+    "line": 62,
+    "expression": "depend('transform_polytope_molytope_solution', 'molytope')",
+    "claim": "volvo/cce-optimization-api/286985b6bebc/final-r3/claim/dependency/af4c14c75b4cdbf198"
+  },
+  {
+    "source": "solutions.transform_molytope_polytope_solution.TransformMolytopePolytopeSolution.single_concat_variables",
+    "line": 30,
+    "expression": "depend('single_concat_variable_idxs', 'single_concat_variable_idxs')",
+    "claim": "volvo/cce-optimization-api/286985b6bebc/final-r3/claim/dependency/ec3862b31a61ddfbf0"
+  },
+  {
+    "source": "solutions.transform_molytope_polytope_solution.TransformMolytopePolytopeSolution.columns",
+    "line": 36,
+    "expression": "depend('single_concat_variables', 'single_concat_variables')",
+    "claim": "volvo/cce-optimization-api/286985b6bebc/final-r3/claim/dependency/8b00eaacf8db40d15b"
+  },
+  {
+    "source": "solutions.transform_molytope_polytope_solution.TransformMolytopePolytopeSolution.main_polytope",
+    "line": 42,
+    "expression": "depend('columns', 'columns')",
+    "claim": "volvo/cce-optimization-api/286985b6bebc/final-r3/claim/dependency/a2e2f3e68ce2e5932d"
+  },
+  {
+    "source": "solutions.transform_molytope_polytope_solution.TransformMolytopePolytopeSolution.main_polytope",
+    "line": 43,
+    "expression": "depend('single_concat_variable_idxs', 'single_concat_variable_idxs')",
+    "claim": "volvo/cce-optimization-api/286985b6bebc/final-r3/claim/dependency/444e2c8e6eb3a571bb"
+  },
+  {
+    "source": "solutions.transform_molytope_polytope_solution.TransformMolytopePolytopeSolution.weight_polytope",
+    "line": 62,
+    "expression": "depend('columns', 'columns')",
+    "claim": "volvo/cce-optimization-api/286985b6bebc/final-r3/claim/dependency/228bab5c2520683fff"
+  },
+  {
+    "source": "solutions.transform_molytope_polytope_solution.TransformMolytopePolytopeSolution.weight_polytope",
+    "line": 63,
+    "expression": "depend('single_concat_variables', 'single_concat_variables')",
+    "claim": "volvo/cce-optimization-api/286985b6bebc/final-r3/claim/dependency/c13aa68466c91ea558"
+  },
+  {
+    "source": "solutions.transform_molytope_polytope_solution.TransformMolytopePolytopeSolution.weight_polytope",
+    "line": 64,
+    "expression": "depend('single_concat_variable_idxs', 'single_concat_variable_idxs')",
+    "claim": "volvo/cce-optimization-api/286985b6bebc/final-r3/claim/dependency/e8c59e2e3291969a6f"
+  },
+  {
+    "source": "solutions.transform_molytope_polytope_solution.TransformMolytopePolytopeSolution.required_variants",
+    "line": 102,
+    "expression": "depend('np_vars', 'np_vars')",
+    "claim": "volvo/cce-optimization-api/286985b6bebc/final-r3/claim/dependency/396b01f924b97415f4"
+  },
+  {
+    "source": "solutions.transform_molytope_polytope_solution.TransformMolytopePolytopeSolution.required_variants",
+    "line": 103,
+    "expression": "depend('variables', 'variables')",
+    "claim": "volvo/cce-optimization-api/286985b6bebc/final-r3/claim/dependency/66289fc77afdc77ab8"
+  },
+  {
+    "source": "solutions.transform_molytope_polytope_solution.TransformMolytopePolytopeSolution.required_exclusively_variants",
+    "line": 125,
+    "expression": "depend('np_vars', 'np_vars')",
+    "claim": "volvo/cce-optimization-api/286985b6bebc/final-r3/claim/dependency/f41c14f1f4e84a53a6"
+  },
+  {
+    "source": "solutions.transform_molytope_polytope_solution.TransformMolytopePolytopeSolution.required_exclusively_variants",
+    "line": 126,
+    "expression": "depend('variables', 'variables')",
+    "claim": "volvo/cce-optimization-api/286985b6bebc/final-r3/claim/dependency/df333a48de1a0f5a9c"
+  },
+  {
+    "source": "solutions.transform_molytope_polytope_solution.TransformMolytopePolytopeSolution.variants",
+    "line": 149,
+    "expression": "depend('np_vars', 'np_vars')",
+    "claim": "volvo/cce-optimization-api/286985b6bebc/final-r3/claim/dependency/6c60e32c8101099741"
+  },
+  {
+    "source": "solutions.transform_molytope_polytope_solution.TransformMolytopePolytopeSolution.compiled_variants",
+    "line": 162,
+    "expression": "depend('np_vars', 'np_vars')",
+    "claim": "volvo/cce-optimization-api/286985b6bebc/final-r3/claim/dependency/0ea2fc8773d0a8f900"
+  },
+  {
+    "source": "solutions.transform_molytope_polytope_solution.TransformMolytopePolytopeSolution.compiled_variants",
+    "line": 163,
+    "expression": "depend('required_variants', 'required_variants')",
+    "claim": "volvo/cce-optimization-api/286985b6bebc/final-r3/claim/dependency/4065b6b7ed184774ef"
+  },
+  {
+    "source": "solutions.transform_molytope_polytope_solution.TransformMolytopePolytopeSolution.compiled_variants",
+    "line": 164,
+    "expression": "depend('required_exclusively_variants', 'required_exclusively_variants')",
+    "claim": "volvo/cce-optimization-api/286985b6bebc/final-r3/claim/dependency/1024346f811a4a8d5c"
+  },
+  {
+    "source": "solutions.transform_molytope_polytope_solution.TransformMolytopePolytopeSolution.compiled_variants",
+    "line": 165,
+    "expression": "depend('variants', 'variants')",
+    "claim": "volvo/cce-optimization-api/286985b6bebc/final-r3/claim/dependency/87a0b51b6e05e2919d"
+  },
+  {
+    "source": "solutions.transform_molytope_polytope_solution.TransformMolytopePolytopeSolution.compile",
+    "line": 195,
+    "expression": "depend('compiled_variants', 'variables_dict')",
+    "claim": "volvo/cce-optimization-api/286985b6bebc/final-r3/claim/dependency/07b87c2d51a3c81482"
+  },
+  {
+    "source": "solutions.transform_molytope_polytope_solution.TransformMolytopePolytopeSolution.compile",
+    "line": 196,
+    "expression": "depend('main_polytope', 'main_polytope')",
+    "claim": "volvo/cce-optimization-api/286985b6bebc/final-r3/claim/dependency/adb7577d0bc2526f6f"
+  },
+  {
+    "source": "solutions.transform_molytope_polytope_solution.TransformMolytopePolytopeSolution.compile",
+    "line": 197,
+    "expression": "depend('weight_polytope', 'weight_polytope')",
+    "claim": "volvo/cce-optimization-api/286985b6bebc/final-r3/claim/dependency/113eb559995ea3767a"
+  },
+  {
+    "source": "solutions.transform_polytope_molytope_solution.TransformPolytopeMolytopeSolution.sorted_variables",
+    "line": 29,
+    "expression": "depend('inner_sorted_variables', 'inner_sorted_variables')",
+    "claim": "volvo/cce-optimization-api/286985b6bebc/final-r3/claim/dependency/49e32887c3c0ed7334"
+  },
+  {
+    "source": "solutions.transform_polytope_molytope_solution.TransformPolytopeMolytopeSolution.objective",
+    "line": 80,
+    "expression": "depend('sorted_variables', 'sorted_variables')",
+    "claim": "volvo/cce-optimization-api/286985b6bebc/final-r3/claim/dependency/b4d9eb6c08797ae223"
+  },
+  {
+    "source": "solutions.transform_polytope_molytope_solution.TransformPolytopeMolytopeSolution.objective",
+    "line": 81,
+    "expression": "depend('compensated_weight_polytope', 'compensated_weight_polytope')",
+    "claim": "volvo/cce-optimization-api/286985b6bebc/final-r3/claim/dependency/dc3bd3bc919d6a58e5"
+  },
+  {
+    "source": "solutions.transform_polytope_molytope_solution.TransformPolytopeMolytopeSolution.extended_polytope",
+    "line": 111,
+    "expression": "depend('sorted_variables', 'sorted_variables')",
+    "claim": "volvo/cce-optimization-api/286985b6bebc/final-r3/claim/dependency/aa8077b17c58c201f7"
+  },
+  {
+    "source": "solutions.transform_polytope_molytope_solution.TransformPolytopeMolytopeSolution.extended_polytope",
+    "line": 112,
+    "expression": "depend('sorted_main_polytope', 'polytope')",
+    "claim": "volvo/cce-optimization-api/286985b6bebc/final-r3/claim/dependency/864f39785a6ecd3073"
+  },
+  {
+    "source": "solutions.transform_polytope_molytope_solution.TransformPolytopeMolytopeSolution.compile",
+    "line": 182,
+    "expression": "depend('objective', 'objective')",
+    "claim": "volvo/cce-optimization-api/286985b6bebc/final-r3/claim/dependency/f9e31d68422f615ea8"
+  },
+  {
+    "source": "solutions.transform_polytope_molytope_solution.TransformPolytopeMolytopeSolution.compile",
+    "line": 183,
+    "expression": "depend('extended_polytope', 'polytope')",
+    "claim": "volvo/cce-optimization-api/286985b6bebc/final-r3/claim/dependency/a4a98139bd23d4f73f"
+  },
+  {
+    "source": "solutions.transform_polytope_molytope_solution.TransformPolytopeMolytopeSolution.compile",
+    "line": 184,
+    "expression": "depend('sorted_variables', 'sorted_variables')",
+    "claim": "volvo/cce-optimization-api/286985b6bebc/final-r3/claim/dependency/1e7c1213d5c76fd2de"
+  },
+  {
+    "source": "solutions.transform_polytope_molytope_solution.TransformPolytopeMolytopeSolution.compile",
+    "line": 185,
+    "expression": "depend('inner_sorted_variables', 'inner_sorted_variables')",
+    "claim": "volvo/cce-optimization-api/286985b6bebc/final-r3/claim/dependency/0e484319285d97c998"
+  }
+]

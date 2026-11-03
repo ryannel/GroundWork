@@ -1,0 +1,7 @@
+{
+  "status": "passed",
+  "snapshot": "8c7ac6f69f63c70ff8f40c3d8ece4c2af1a9a7205f60cf06a70d0bd81591692b",
+  "sourceBundleByteSha256": "46375f19cfa839e70100b32014396b69afdd8a3939140a33eea32e382d644f80",
+  "gzipDecompression": "Exactly equal original r2 bytes",
+  "sourceEvidenceReuse": "All14282 evidence tuples equal verified immutable r1 predecessor; see correction.json"
+}

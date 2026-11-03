@@ -1,0 +1,1785 @@
+{
+  "format": "groundwork-result/v3",
+  "snapshot": "8f5b505536f6140e260bbc4a079a419a80eb79573d760b1e252b0c8ad3a5a19d",
+  "queryVersion": "knowledge-query/v3",
+  "request": {
+    "format": "groundwork-query/v3",
+    "snapshot": "8f5b505536f6140e260bbc4a079a419a80eb79573d760b1e252b0c8ad3a5a19d",
+    "query": "records",
+    "entry": "pspin-ae1d9dd/entry/webhook",
+    "value": null,
+    "context": [],
+    "outcome": null,
+    "changed": [],
+    "representation": "constructed",
+    "candidates": "exclude",
+    "maxNodes": 500,
+    "maxRecords": 1500,
+    "environment": "ecp-weu-prod-source-profile",
+    "ids": [
+      "pspin-ae1d9dd/channel/internal",
+      "pspin-ae1d9dd/channel/heartbeat",
+      "pspin-ae1d9dd/contract/webhook",
+      "pspin-ae1d9dd/contract/webhook-publication",
+      "pspin-ae1d9dd/policy/webhook",
+      "pspin-ae1d9dd/contract/account-lookup",
+      "pspin-ae1d9dd/milestone/webhook-publication-attempt",
+      "pspin-ae1d9dd/milestone/webhook-http200",
+      "pspin-ae1d9dd/boundary/http-publication",
+      "pspin-ae1d9dd/contract/heartbeat-publication",
+      "pspin-ae1d9dd/policy/heartbeat",
+      "pspin-ae1d9dd/contract/swagger-config",
+      "pspin-ae1d9dd/contract/actuator-health",
+      "pspin-ae1d9dd/contract/actuator-prometheus",
+      "pspin-ae1d9dd/contract/swagger-ui",
+      "pspin-ae1d9dd/contract/api-docs"
+    ]
+  },
+  "nodes": [],
+  "edges": [],
+  "claims": [],
+  "evidence": [
+    "pspin-ae1d9dd/e/08044b5f297afe",
+    "pspin-ae1d9dd/e/0d08e467c1fd67",
+    "pspin-ae1d9dd/e/1266b3d635dd23",
+    "pspin-ae1d9dd/e/23200a9d2ba735",
+    "pspin-ae1d9dd/e/256e3143511556",
+    "pspin-ae1d9dd/e/2c28690811c453",
+    "pspin-ae1d9dd/e/32fa8756f8f052",
+    "pspin-ae1d9dd/e/37c90083beb770",
+    "pspin-ae1d9dd/e/3b2f57f1f5e2a7",
+    "pspin-ae1d9dd/e/4af9325a4d6fd7",
+    "pspin-ae1d9dd/e/50b707fc0fed72",
+    "pspin-ae1d9dd/e/5b51ab0d8bb53f",
+    "pspin-ae1d9dd/e/61b237b240cf84",
+    "pspin-ae1d9dd/e/6202f69bfab07f",
+    "pspin-ae1d9dd/e/68dda8605dcab8",
+    "pspin-ae1d9dd/e/6b815f11a1c278",
+    "pspin-ae1d9dd/e/6f762f52fab2cc",
+    "pspin-ae1d9dd/e/787491a162b7f7",
+    "pspin-ae1d9dd/e/820f1fb51ff0ae",
+    "pspin-ae1d9dd/e/92f0dd68a911c0",
+    "pspin-ae1d9dd/e/9453122a54110b",
+    "pspin-ae1d9dd/e/a108a03d4effc8",
+    "pspin-ae1d9dd/e/a92717e2bf1b99",
+    "pspin-ae1d9dd/e/aa8605bc5b6562",
+    "pspin-ae1d9dd/e/ae477d6279f164",
+    "pspin-ae1d9dd/e/b0f59c0cf7873c",
+    "pspin-ae1d9dd/e/c1d058db17a6d4",
+    "pspin-ae1d9dd/e/c6e145143f4425",
+    "pspin-ae1d9dd/e/ce3068853769e6",
+    "pspin-ae1d9dd/e/d1488ff1da6955",
+    "pspin-ae1d9dd/e/d458ca24c8b99a",
+    "pspin-ae1d9dd/e/e574d41029513b",
+    "pspin-ae1d9dd/e/e9275cdb69256d",
+    "pspin-ae1d9dd/e/f03fa9a3c7c0a1"
+  ],
+  "coverage": [],
+  "frontiers": [],
+  "limitsHit": [],
+  "feasibility": "not_checked",
+  "exhaustive": false,
+  "records": [
+    {
+      "id": "pspin-ae1d9dd/boundary/http-publication",
+      "kind": "consistency_boundary",
+      "owner": "pspin-ae1d9dd/impl/webhook",
+      "effects": ["pspin-ae1d9dd/effect/webhook-publish"],
+      "order": ["pspin-ae1d9dd/op/webhook/publish", "pspin-ae1d9dd/op/webhook/return200"],
+      "coordination": "separate_calls",
+      "sharedTransaction": "not_established",
+      "failureWindow": "If publication is selected, HTTP200 can precede a later asynchronous send callback failure. Ignored events also return200 without publication. Synchronous send invocation can still throw. No durable local write/outbox or broker/consumer completion acknowledgement is established.",
+      "gaps": ["pspin-ae1d9dd/gap/delivery", "pspin-ae1d9dd/gap/imported-models"],
+      "evidence": ["pspin-ae1d9dd/e/820f1fb51ff0ae", "pspin-ae1d9dd/e/6b815f11a1c278"]
+    },
+    {
+      "id": "pspin-ae1d9dd/channel/heartbeat",
+      "kind": "channel_binding",
+      "resource": "pspin-ae1d9dd/resource/topic-heartbeat",
+      "source": "pspin-ae1d9dd/source",
+      "namespace": "public-kafka-bootstrap.weu-prod.ecpaz.volvocars.biz:443",
+      "channel": "app5981.ps-internal-heartbeat",
+      "environment": "ecp-weu-prod-source-profile",
+      "profile": "application.yml + application-ecp-weu-prod.yml",
+      "basis": "committed_configuration",
+      "conditions": [
+        "These committed profiles are selected",
+        "Remote cloud configuration and runtime overrides do not change namespace/topic"
+      ],
+      "gaps": ["pspin-ae1d9dd/gap/deployment"],
+      "evidence": ["pspin-ae1d9dd/e/f03fa9a3c7c0a1", "pspin-ae1d9dd/e/6202f69bfab07f"]
+    },
+    {
+      "id": "pspin-ae1d9dd/channel/internal",
+      "kind": "channel_binding",
+      "resource": "pspin-ae1d9dd/resource/topic-internal",
+      "source": "pspin-ae1d9dd/source",
+      "namespace": "public-kafka-bootstrap.weu-prod.ecpaz.volvocars.biz:443",
+      "channel": "app5981.ps-internal",
+      "environment": "ecp-weu-prod-source-profile",
+      "profile": "application.yml + application-ecp-weu-prod.yml",
+      "basis": "committed_configuration",
+      "conditions": [
+        "These committed profiles are selected",
+        "Remote cloud configuration and runtime overrides do not change namespace/topic"
+      ],
+      "gaps": ["pspin-ae1d9dd/gap/deployment"],
+      "evidence": ["pspin-ae1d9dd/e/c6e145143f4425", "pspin-ae1d9dd/e/6202f69bfab07f"]
+    },
+    {
+      "id": "pspin-ae1d9dd/component/api",
+      "kind": "runtime_component",
+      "logicalId": "volvo-cars/cds-paymentservice-psp-inbound:spring-application",
+      "label": "Payment PSP inbound API and scheduled producers",
+      "category": "service",
+      "technology": "Spring Boot / Java",
+      "sources": ["pspin-ae1d9dd/source"],
+      "basis": "source_declared",
+      "gaps": [],
+      "evidence": ["pspin-ae1d9dd/e/32fa8756f8f052"]
+    },
+    {
+      "id": "pspin-ae1d9dd/component/topic-heartbeat",
+      "kind": "runtime_component",
+      "logicalId": "volvo-cars/cds-paymentservice-psp-inbound:heartbeat-topic",
+      "label": "PSP connection heartbeat",
+      "category": "topic",
+      "technology": "Kafka",
+      "sources": ["pspin-ae1d9dd/source"],
+      "basis": "source_declared",
+      "gaps": ["pspin-ae1d9dd/gap/deployment"],
+      "evidence": ["pspin-ae1d9dd/e/f03fa9a3c7c0a1"]
+    },
+    {
+      "id": "pspin-ae1d9dd/component/topic-internal",
+      "kind": "runtime_component",
+      "logicalId": "volvo-cars/cds-paymentservice-psp-inbound:internal-topic",
+      "label": "PSP internal events",
+      "category": "topic",
+      "technology": "Kafka",
+      "sources": ["pspin-ae1d9dd/source"],
+      "basis": "source_declared",
+      "gaps": ["pspin-ae1d9dd/gap/deployment"],
+      "evidence": ["pspin-ae1d9dd/e/c6e145143f4425"]
+    },
+    {
+      "id": "pspin-ae1d9dd/contract/account-lookup",
+      "kind": "interface_contract",
+      "component": null,
+      "protocol": "unresolved",
+      "name": "AccountConfigService.getAccount caller construction",
+      "method": null,
+      "path": null,
+      "authority": "caller_construction",
+      "request": [
+        {
+          "part": "body",
+          "presence": "unresolved",
+          "shape": null,
+          "sourceShape": null,
+          "contentType": null,
+          "gaps": ["pspin-ae1d9dd/gap/imported-models"],
+          "evidence": ["pspin-ae1d9dd/e/9453122a54110b"]
+        }
+      ],
+      "responses": [
+        {
+          "status": "normal_return",
+          "body": {
+            "part": "body",
+            "presence": "unresolved",
+            "shape": null,
+            "sourceShape": "pspin-ae1d9dd/shape/account-observations",
+            "contentType": null,
+            "gaps": ["pspin-ae1d9dd/gap/imported-models"],
+            "evidence": ["pspin-ae1d9dd/e/9453122a54110b"]
+          },
+          "meaning": "Imported Account or exception; no transport/storage guarantee",
+          "evidence": ["pspin-ae1d9dd/e/9453122a54110b"]
+        }
+      ],
+      "gaps": ["pspin-ae1d9dd/gap/imported-models"],
+      "evidence": ["pspin-ae1d9dd/e/9453122a54110b"]
+    },
+    {
+      "id": "pspin-ae1d9dd/contract/actuator-health",
+      "kind": "interface_contract",
+      "component": "pspin-ae1d9dd/component/api",
+      "protocol": "http",
+      "name": "Management server port8779; exposure includes health; base path/method framework default unresolved",
+      "method": "UNRESOLVED",
+      "path": "unresolved:Actuator health route",
+      "authority": "source_declared",
+      "request": [
+        {
+          "part": "headers",
+          "presence": "unresolved",
+          "shape": null,
+          "sourceShape": null,
+          "contentType": null,
+          "gaps": ["pspin-ae1d9dd/gap/wire"],
+          "evidence": ["pspin-ae1d9dd/e/5b51ab0d8bb53f"]
+        }
+      ],
+      "responses": [
+        {
+          "status": "unresolved",
+          "body": {
+            "part": "body",
+            "presence": "unresolved",
+            "shape": null,
+            "sourceShape": null,
+            "contentType": null,
+            "gaps": ["pspin-ae1d9dd/gap/wire"],
+            "evidence": ["pspin-ae1d9dd/e/5b51ab0d8bb53f"]
+          },
+          "meaning": "Management server port8779; exposure includes health; base path/method framework default unresolved",
+          "evidence": ["pspin-ae1d9dd/e/5b51ab0d8bb53f"]
+        }
+      ],
+      "gaps": ["pspin-ae1d9dd/gap/wire", "pspin-ae1d9dd/gap/imported-models"],
+      "evidence": ["pspin-ae1d9dd/e/5b51ab0d8bb53f"]
+    },
+    {
+      "id": "pspin-ae1d9dd/contract/actuator-prometheus",
+      "kind": "interface_contract",
+      "component": "pspin-ae1d9dd/component/api",
+      "protocol": "http",
+      "name": "Management server port8779; exposure includes prometheus; base path/method unresolved",
+      "method": "UNRESOLVED",
+      "path": "unresolved:Actuator prometheus route",
+      "authority": "source_declared",
+      "request": [
+        {
+          "part": "headers",
+          "presence": "unresolved",
+          "shape": null,
+          "sourceShape": null,
+          "contentType": null,
+          "gaps": ["pspin-ae1d9dd/gap/wire"],
+          "evidence": ["pspin-ae1d9dd/e/5b51ab0d8bb53f"]
+        }
+      ],
+      "responses": [
+        {
+          "status": "unresolved",
+          "body": {
+            "part": "body",
+            "presence": "unresolved",
+            "shape": null,
+            "sourceShape": null,
+            "contentType": null,
+            "gaps": ["pspin-ae1d9dd/gap/wire"],
+            "evidence": ["pspin-ae1d9dd/e/5b51ab0d8bb53f"]
+          },
+          "meaning": "Management server port8779; exposure includes prometheus; base path/method unresolved",
+          "evidence": ["pspin-ae1d9dd/e/5b51ab0d8bb53f"]
+        }
+      ],
+      "gaps": ["pspin-ae1d9dd/gap/wire", "pspin-ae1d9dd/gap/imported-models"],
+      "evidence": ["pspin-ae1d9dd/e/5b51ab0d8bb53f"]
+    },
+    {
+      "id": "pspin-ae1d9dd/contract/api-docs",
+      "kind": "interface_contract",
+      "component": "pspin-ae1d9dd/component/api",
+      "protocol": "http",
+      "name": "UI URL expression has explicit /v3/api-docs fallback; actual API docs registration/default not verified",
+      "method": "UNRESOLVED",
+      "path": "unresolved:Springdoc API docs route",
+      "authority": "source_declared",
+      "request": [
+        {
+          "part": "headers",
+          "presence": "unresolved",
+          "shape": null,
+          "sourceShape": null,
+          "contentType": null,
+          "gaps": ["pspin-ae1d9dd/gap/wire"],
+          "evidence": ["pspin-ae1d9dd/e/d458ca24c8b99a"]
+        }
+      ],
+      "responses": [
+        {
+          "status": "unresolved",
+          "body": {
+            "part": "body",
+            "presence": "unresolved",
+            "shape": null,
+            "sourceShape": null,
+            "contentType": null,
+            "gaps": ["pspin-ae1d9dd/gap/wire"],
+            "evidence": ["pspin-ae1d9dd/e/d458ca24c8b99a"]
+          },
+          "meaning": "UI URL expression has explicit /v3/api-docs fallback; actual API docs registration/default not verified",
+          "evidence": ["pspin-ae1d9dd/e/d458ca24c8b99a"]
+        }
+      ],
+      "gaps": ["pspin-ae1d9dd/gap/wire", "pspin-ae1d9dd/gap/imported-models"],
+      "evidence": ["pspin-ae1d9dd/e/d458ca24c8b99a"]
+    },
+    {
+      "id": "pspin-ae1d9dd/contract/heartbeat-publication",
+      "kind": "interface_contract",
+      "component": "pspin-ae1d9dd/component/topic-heartbeat",
+      "protocol": "kafka",
+      "name": "Conditional fixed-delay heartbeat sends epoch-millis String key and null source payload; callback not awaited",
+      "method": null,
+      "path": null,
+      "authority": "caller_construction",
+      "request": [
+        {
+          "part": "message",
+          "presence": "unresolved",
+          "shape": null,
+          "sourceShape": "pspin-ae1d9dd/shape/null-message",
+          "contentType": null,
+          "gaps": ["pspin-ae1d9dd/gap/wire"],
+          "evidence": ["pspin-ae1d9dd/e/08044b5f297afe"]
+        },
+        {
+          "part": "key",
+          "presence": "present",
+          "shape": null,
+          "sourceShape": "pspin-ae1d9dd/shape/key",
+          "contentType": null,
+          "gaps": ["pspin-ae1d9dd/gap/wire"],
+          "evidence": ["pspin-ae1d9dd/e/08044b5f297afe"]
+        },
+        {
+          "part": "headers",
+          "presence": "unresolved",
+          "shape": null,
+          "sourceShape": null,
+          "contentType": null,
+          "gaps": ["pspin-ae1d9dd/gap/wire"],
+          "evidence": ["pspin-ae1d9dd/e/08044b5f297afe"]
+        }
+      ],
+      "responses": [],
+      "gaps": [
+        "pspin-ae1d9dd/gap/imported-models",
+        "pspin-ae1d9dd/gap/wire",
+        "pspin-ae1d9dd/gap/delivery",
+        "pspin-ae1d9dd/gap/deployment"
+      ],
+      "evidence": ["pspin-ae1d9dd/e/08044b5f297afe"]
+    },
+    {
+      "id": "pspin-ae1d9dd/contract/swagger-config",
+      "kind": "interface_contract",
+      "component": "pspin-ae1d9dd/component/api",
+      "protocol": "http",
+      "name": "Swagger UI configuration",
+      "method": "GET",
+      "path": "/v1/configurations/swagger-config",
+      "authority": "source_declared",
+      "request": [
+        {
+          "part": "headers",
+          "presence": "unresolved",
+          "shape": null,
+          "sourceShape": null,
+          "contentType": null,
+          "gaps": ["pspin-ae1d9dd/gap/wire"],
+          "evidence": ["pspin-ae1d9dd/e/23200a9d2ba735"]
+        }
+      ],
+      "responses": [
+        {
+          "status": "200",
+          "body": {
+            "part": "body",
+            "presence": "unresolved",
+            "shape": null,
+            "sourceShape": "pspin-ae1d9dd/shape/swagger-config",
+            "contentType": "application/json",
+            "gaps": ["pspin-ae1d9dd/gap/wire"],
+            "evidence": ["pspin-ae1d9dd/e/23200a9d2ba735", "pspin-ae1d9dd/e/ce3068853769e6"]
+          },
+          "meaning": "Declared response construction; imported fields/serializer partial",
+          "evidence": ["pspin-ae1d9dd/e/23200a9d2ba735"]
+        },
+        {
+          "status": "unresolved",
+          "body": {
+            "part": "body",
+            "presence": "unresolved",
+            "shape": null,
+            "sourceShape": null,
+            "contentType": null,
+            "gaps": ["pspin-ae1d9dd/gap/wire"],
+            "evidence": ["pspin-ae1d9dd/e/ce3068853769e6"]
+          },
+          "meaning": "Disabled configuration throws imported NotFoundException; HTTP status not inferred from exception name",
+          "evidence": ["pspin-ae1d9dd/e/ce3068853769e6"]
+        }
+      ],
+      "gaps": [
+        "pspin-ae1d9dd/gap/imported-models",
+        "pspin-ae1d9dd/gap/wire",
+        "pspin-ae1d9dd/gap/ip-enforcement"
+      ],
+      "evidence": ["pspin-ae1d9dd/e/23200a9d2ba735", "pspin-ae1d9dd/e/ce3068853769e6"]
+    },
+    {
+      "id": "pspin-ae1d9dd/contract/swagger-ui",
+      "kind": "interface_contract",
+      "component": "pspin-ae1d9dd/component/api",
+      "protocol": "http",
+      "name": "Configured Springdoc UI path; actual generated assets/allowed methods imported",
+      "method": "UNRESOLVED",
+      "path": "/swagger-ui.html",
+      "authority": "source_declared",
+      "request": [
+        {
+          "part": "headers",
+          "presence": "unresolved",
+          "shape": null,
+          "sourceShape": null,
+          "contentType": null,
+          "gaps": ["pspin-ae1d9dd/gap/wire"],
+          "evidence": ["pspin-ae1d9dd/e/d458ca24c8b99a"]
+        }
+      ],
+      "responses": [
+        {
+          "status": "unresolved",
+          "body": {
+            "part": "body",
+            "presence": "unresolved",
+            "shape": null,
+            "sourceShape": null,
+            "contentType": null,
+            "gaps": ["pspin-ae1d9dd/gap/wire"],
+            "evidence": ["pspin-ae1d9dd/e/d458ca24c8b99a"]
+          },
+          "meaning": "Configured Springdoc UI path; actual generated assets/allowed methods imported",
+          "evidence": ["pspin-ae1d9dd/e/d458ca24c8b99a"]
+        }
+      ],
+      "gaps": ["pspin-ae1d9dd/gap/wire", "pspin-ae1d9dd/gap/imported-models"],
+      "evidence": ["pspin-ae1d9dd/e/d458ca24c8b99a"]
+    },
+    {
+      "id": "pspin-ae1d9dd/contract/webhook",
+      "kind": "interface_contract",
+      "component": "pspin-ae1d9dd/component/api",
+      "protocol": "http",
+      "name": "PSP inbound webhook",
+      "method": "POST",
+      "path": "/v2/{psp}/{platformAccountId}/inbound",
+      "authority": "source_declared",
+      "request": [
+        {
+          "part": "path",
+          "presence": "present",
+          "shape": null,
+          "sourceShape": "pspin-ae1d9dd/shape/path",
+          "contentType": null,
+          "gaps": ["pspin-ae1d9dd/gap/imported-models"],
+          "evidence": ["pspin-ae1d9dd/e/b0f59c0cf7873c"]
+        },
+        {
+          "part": "query",
+          "presence": "present",
+          "shape": null,
+          "sourceShape": "pspin-ae1d9dd/shape/params",
+          "contentType": null,
+          "gaps": ["pspin-ae1d9dd/gap/wire"],
+          "evidence": ["pspin-ae1d9dd/e/b0f59c0cf7873c"]
+        },
+        {
+          "part": "headers",
+          "presence": "present",
+          "shape": null,
+          "sourceShape": "pspin-ae1d9dd/shape/headers",
+          "contentType": null,
+          "gaps": ["pspin-ae1d9dd/gap/wire"],
+          "evidence": ["pspin-ae1d9dd/e/b0f59c0cf7873c"]
+        },
+        {
+          "part": "body",
+          "presence": "present",
+          "shape": "pspin-ae1d9dd/shape/raw-webhook",
+          "sourceShape": null,
+          "contentType": null,
+          "gaps": ["pspin-ae1d9dd/gap/wire"],
+          "evidence": ["pspin-ae1d9dd/e/b0f59c0cf7873c"]
+        }
+      ],
+      "responses": [
+        {
+          "status": "200",
+          "body": {
+            "part": "body",
+            "presence": "unresolved",
+            "shape": null,
+            "sourceShape": null,
+            "contentType": null,
+            "gaps": ["pspin-ae1d9dd/gap/wire"],
+            "evidence": ["pspin-ae1d9dd/e/6b815f11a1c278", "pspin-ae1d9dd/e/3b2f57f1f5e2a7"]
+          },
+          "meaning": "Source OK return with unset/null body, whether event ignored or send future merely registered; effective wire body unresolved",
+          "evidence": ["pspin-ae1d9dd/e/6b815f11a1c278", "pspin-ae1d9dd/e/3b2f57f1f5e2a7"]
+        },
+        {
+          "status": "403",
+          "body": {
+            "part": "body",
+            "presence": "unresolved",
+            "shape": null,
+            "sourceShape": null,
+            "contentType": null,
+            "gaps": ["pspin-ae1d9dd/gap/wire"],
+            "evidence": ["pspin-ae1d9dd/e/4af9325a4d6fd7"]
+          },
+          "meaning": "Local IP filter rejects before controller; imported JSON error envelope partial",
+          "evidence": ["pspin-ae1d9dd/e/4af9325a4d6fd7"]
+        },
+        {
+          "status": "unresolved",
+          "body": {
+            "part": "body",
+            "presence": "unresolved",
+            "shape": null,
+            "sourceShape": null,
+            "contentType": null,
+            "gaps": ["pspin-ae1d9dd/gap/wire"],
+            "evidence": ["pspin-ae1d9dd/e/a92717e2bf1b99"]
+          },
+          "meaning": "Missing signature/parameter, invalid PSP/signature, parse/account/producer synchronous failures; effective shared HTTP mapping unresolved",
+          "evidence": ["pspin-ae1d9dd/e/a92717e2bf1b99"]
+        }
+      ],
+      "gaps": [
+        "pspin-ae1d9dd/gap/imported-models",
+        "pspin-ae1d9dd/gap/wire",
+        "pspin-ae1d9dd/gap/ip-enforcement",
+        "pspin-ae1d9dd/gap/delivery"
+      ],
+      "evidence": ["pspin-ae1d9dd/e/b0f59c0cf7873c", "pspin-ae1d9dd/e/3b2f57f1f5e2a7"]
+    },
+    {
+      "id": "pspin-ae1d9dd/contract/webhook-publication",
+      "kind": "interface_contract",
+      "component": "pspin-ae1d9dd/component/topic-internal",
+      "protocol": "kafka",
+      "name": "Only when local Stripe parse/construction and allowed-source/event guards pass; future not awaited",
+      "method": null,
+      "path": null,
+      "authority": "caller_construction",
+      "request": [
+        {
+          "part": "message",
+          "presence": "unresolved",
+          "shape": "pspin-ae1d9dd/shape/event-wire",
+          "sourceShape": "pspin-ae1d9dd/shape/event-source",
+          "contentType": null,
+          "gaps": ["pspin-ae1d9dd/gap/wire"],
+          "evidence": ["pspin-ae1d9dd/e/820f1fb51ff0ae"]
+        },
+        {
+          "part": "key",
+          "presence": "present",
+          "shape": null,
+          "sourceShape": "pspin-ae1d9dd/shape/key",
+          "contentType": null,
+          "gaps": ["pspin-ae1d9dd/gap/wire"],
+          "evidence": ["pspin-ae1d9dd/e/820f1fb51ff0ae"]
+        },
+        {
+          "part": "headers",
+          "presence": "unresolved",
+          "shape": null,
+          "sourceShape": null,
+          "contentType": null,
+          "gaps": ["pspin-ae1d9dd/gap/wire"],
+          "evidence": ["pspin-ae1d9dd/e/820f1fb51ff0ae"]
+        }
+      ],
+      "responses": [],
+      "gaps": [
+        "pspin-ae1d9dd/gap/imported-models",
+        "pspin-ae1d9dd/gap/wire",
+        "pspin-ae1d9dd/gap/delivery",
+        "pspin-ae1d9dd/gap/deployment"
+      ],
+      "evidence": ["pspin-ae1d9dd/e/820f1fb51ff0ae"]
+    },
+    {
+      "id": "pspin-ae1d9dd/e/08044b5f297afe",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/cds-paymentservice-psp-inbound",
+      "commit": "ae1d9ddfb34dae71c15913e9f28d41321d66266a",
+      "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/messaging/ScheduledMessageProducer.java",
+      "lines": [1, 70],
+      "basis": "source"
+    },
+    {
+      "id": "pspin-ae1d9dd/e/0d08e467c1fd67",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/cds-paymentservice-psp-inbound",
+      "commit": "ae1d9ddfb34dae71c15913e9f28d41321d66266a",
+      "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/webhook/InboundServiceImpl.java",
+      "lines": [49, 60],
+      "basis": "source"
+    },
+    {
+      "id": "pspin-ae1d9dd/e/1266b3d635dd23",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/cds-paymentservice-psp-inbound",
+      "commit": "ae1d9ddfb34dae71c15913e9f28d41321d66266a",
+      "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/webhook/InboundServiceImpl.java",
+      "lines": [41, 60],
+      "basis": "source"
+    },
+    {
+      "id": "pspin-ae1d9dd/e/23200a9d2ba735",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/cds-paymentservice-psp-inbound",
+      "commit": "ae1d9ddfb34dae71c15913e9f28d41321d66266a",
+      "path": "com-volvocars-ecom-paymentservice-psp-inbound-api/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/api/configuration/v1/SwaggerUIController.java",
+      "lines": [1, 36],
+      "basis": "source"
+    },
+    {
+      "id": "pspin-ae1d9dd/e/256e3143511556",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/cds-paymentservice-psp-inbound",
+      "commit": "ae1d9ddfb34dae71c15913e9f28d41321d66266a",
+      "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/security/IpAddressVerifier.java",
+      "lines": [1, 89],
+      "basis": "source"
+    },
+    {
+      "id": "pspin-ae1d9dd/e/2c28690811c453",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/cds-paymentservice-psp-inbound",
+      "commit": "ae1d9ddfb34dae71c15913e9f28d41321d66266a",
+      "path": "com-volvocars-ecom-paymentservice-psp-inbound-api/src/main/resources/application.yml",
+      "lines": [74, 84],
+      "basis": "source"
+    },
+    {
+      "id": "pspin-ae1d9dd/e/32fa8756f8f052",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/cds-paymentservice-psp-inbound",
+      "commit": "ae1d9ddfb34dae71c15913e9f28d41321d66266a",
+      "path": "com-volvocars-ecom-paymentservice-psp-inbound-api/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/api/App.java",
+      "lines": [1, 24],
+      "basis": "source"
+    },
+    {
+      "id": "pspin-ae1d9dd/e/37c90083beb770",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/cds-paymentservice-psp-inbound",
+      "commit": "ae1d9ddfb34dae71c15913e9f28d41321d66266a",
+      "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/webhook/stripe/MessageKeyProvider.java",
+      "lines": [1, 74],
+      "basis": "source"
+    },
+    {
+      "id": "pspin-ae1d9dd/e/3b2f57f1f5e2a7",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/cds-paymentservice-psp-inbound",
+      "commit": "ae1d9ddfb34dae71c15913e9f28d41321d66266a",
+      "path": "com-volvocars-ecom-paymentservice-psp-inbound-api/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/api/webhook/v2/impl/InboundControllerImpl.java",
+      "lines": [1, 37],
+      "basis": "source"
+    },
+    {
+      "id": "pspin-ae1d9dd/e/4af9325a4d6fd7",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/cds-paymentservice-psp-inbound",
+      "commit": "ae1d9ddfb34dae71c15913e9f28d41321d66266a",
+      "path": "com-volvocars-ecom-paymentservice-psp-inbound-api/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/api/security/IpAuthorizationFilter.java",
+      "lines": [1, 60],
+      "basis": "source"
+    },
+    {
+      "id": "pspin-ae1d9dd/e/50b707fc0fed72",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/cds-paymentservice-psp-inbound",
+      "commit": "ae1d9ddfb34dae71c15913e9f28d41321d66266a",
+      "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/webhook/InboundServiceImpl.java",
+      "lines": [57, 60],
+      "basis": "source"
+    },
+    {
+      "id": "pspin-ae1d9dd/e/5b51ab0d8bb53f",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/cds-paymentservice-psp-inbound",
+      "commit": "ae1d9ddfb34dae71c15913e9f28d41321d66266a",
+      "path": "com-volvocars-ecom-paymentservice-psp-inbound-api/src/main/resources/application.yml",
+      "lines": [31, 43],
+      "basis": "source"
+    },
+    {
+      "id": "pspin-ae1d9dd/e/61b237b240cf84",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/cds-paymentservice-psp-inbound",
+      "commit": "ae1d9ddfb34dae71c15913e9f28d41321d66266a",
+      "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/messaging/ScheduledMessageProducer.java",
+      "lines": [40, 46],
+      "basis": "source"
+    },
+    {
+      "id": "pspin-ae1d9dd/e/6202f69bfab07f",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/cds-paymentservice-psp-inbound",
+      "commit": "ae1d9ddfb34dae71c15913e9f28d41321d66266a",
+      "path": "com-volvocars-ecom-paymentservice-psp-inbound-api/src/main/resources/application-ecp-weu-prod.yml",
+      "lines": [6, 8],
+      "basis": "source"
+    },
+    {
+      "id": "pspin-ae1d9dd/e/68dda8605dcab8",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/cds-paymentservice-psp-inbound",
+      "commit": "ae1d9ddfb34dae71c15913e9f28d41321d66266a",
+      "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/security/IpAddressVerifier.java",
+      "lines": [71, 87],
+      "basis": "source"
+    },
+    {
+      "id": "pspin-ae1d9dd/e/6b815f11a1c278",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/cds-paymentservice-psp-inbound",
+      "commit": "ae1d9ddfb34dae71c15913e9f28d41321d66266a",
+      "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/webhook/stripe/StripeInboundServiceImpl.java",
+      "lines": [1, 116],
+      "basis": "source"
+    },
+    {
+      "id": "pspin-ae1d9dd/e/6f762f52fab2cc",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/cds-paymentservice-psp-inbound",
+      "commit": "ae1d9ddfb34dae71c15913e9f28d41321d66266a",
+      "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/webhook/SourceEventsConfigService.java",
+      "lines": [1, 86],
+      "basis": "source"
+    },
+    {
+      "id": "pspin-ae1d9dd/e/787491a162b7f7",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/cds-paymentservice-psp-inbound",
+      "commit": "ae1d9ddfb34dae71c15913e9f28d41321d66266a",
+      "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/config/PspConverter.java",
+      "lines": [1, 22],
+      "basis": "source"
+    },
+    {
+      "id": "pspin-ae1d9dd/e/820f1fb51ff0ae",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/cds-paymentservice-psp-inbound",
+      "commit": "ae1d9ddfb34dae71c15913e9f28d41321d66266a",
+      "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/messaging/KafkaProducer.java",
+      "lines": [1, 49],
+      "basis": "source"
+    },
+    {
+      "id": "pspin-ae1d9dd/e/92f0dd68a911c0",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/cds-paymentservice-psp-inbound",
+      "commit": "ae1d9ddfb34dae71c15913e9f28d41321d66266a",
+      "path": "pom.xml",
+      "lines": [1, 85],
+      "basis": "source"
+    },
+    {
+      "id": "pspin-ae1d9dd/e/9453122a54110b",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/cds-paymentservice-psp-inbound",
+      "commit": "ae1d9ddfb34dae71c15913e9f28d41321d66266a",
+      "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/webhook/stripe/StripeSecretProvider.java",
+      "lines": [1, 34],
+      "basis": "source"
+    },
+    {
+      "id": "pspin-ae1d9dd/e/a108a03d4effc8",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/cds-paymentservice-psp-inbound",
+      "commit": "ae1d9ddfb34dae71c15913e9f28d41321d66266a",
+      "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/messaging/KafkaProducer.java",
+      "lines": [27, 30],
+      "basis": "source"
+    },
+    {
+      "id": "pspin-ae1d9dd/e/a92717e2bf1b99",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/cds-paymentservice-psp-inbound",
+      "commit": "ae1d9ddfb34dae71c15913e9f28d41321d66266a",
+      "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/common/InboundControllerAdvice.java",
+      "lines": [1, 74],
+      "basis": "source"
+    },
+    {
+      "id": "pspin-ae1d9dd/e/aa8605bc5b6562",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/cds-paymentservice-psp-inbound",
+      "commit": "ae1d9ddfb34dae71c15913e9f28d41321d66266a",
+      "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/webhook/InboundServiceImpl.java",
+      "lines": [85, 94],
+      "basis": "source"
+    },
+    {
+      "id": "pspin-ae1d9dd/e/ae477d6279f164",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/cds-paymentservice-psp-inbound",
+      "commit": "ae1d9ddfb34dae71c15913e9f28d41321d66266a",
+      "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/webhook/InboundServiceImpl.java",
+      "lines": [49, 55],
+      "basis": "source"
+    },
+    {
+      "id": "pspin-ae1d9dd/e/b0f59c0cf7873c",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/cds-paymentservice-psp-inbound",
+      "commit": "ae1d9ddfb34dae71c15913e9f28d41321d66266a",
+      "path": "com-volvocars-ecom-paymentservice-psp-inbound-api/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/api/webhook/v2/InboundController.java",
+      "lines": [1, 43],
+      "basis": "source"
+    },
+    {
+      "id": "pspin-ae1d9dd/e/c1d058db17a6d4",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/cds-paymentservice-psp-inbound",
+      "commit": "ae1d9ddfb34dae71c15913e9f28d41321d66266a",
+      "path": "com-volvocars-ecom-paymentservice-psp-inbound-api/src/main/resources/application.yml",
+      "lines": [11, 23],
+      "basis": "source"
+    },
+    {
+      "id": "pspin-ae1d9dd/e/c6e145143f4425",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/cds-paymentservice-psp-inbound",
+      "commit": "ae1d9ddfb34dae71c15913e9f28d41321d66266a",
+      "path": "com-volvocars-ecom-paymentservice-psp-inbound-api/src/main/resources/application.yml",
+      "lines": [74, 75],
+      "basis": "source"
+    },
+    {
+      "id": "pspin-ae1d9dd/e/ce3068853769e6",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/cds-paymentservice-psp-inbound",
+      "commit": "ae1d9ddfb34dae71c15913e9f28d41321d66266a",
+      "path": "com-volvocars-ecom-paymentservice-psp-inbound-api/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/api/configuration/v1/impl/SwaggerUIControllerImpl.java",
+      "lines": [1, 37],
+      "basis": "source"
+    },
+    {
+      "id": "pspin-ae1d9dd/e/d1488ff1da6955",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/cds-paymentservice-psp-inbound",
+      "commit": "ae1d9ddfb34dae71c15913e9f28d41321d66266a",
+      "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/webhook/InboundServiceImpl.java",
+      "lines": [73, 83],
+      "basis": "source"
+    },
+    {
+      "id": "pspin-ae1d9dd/e/d458ca24c8b99a",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/cds-paymentservice-psp-inbound",
+      "commit": "ae1d9ddfb34dae71c15913e9f28d41321d66266a",
+      "path": "com-volvocars-ecom-paymentservice-psp-inbound-api/src/main/resources/application.yml",
+      "lines": [49, 59],
+      "basis": "source"
+    },
+    {
+      "id": "pspin-ae1d9dd/e/e574d41029513b",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/cds-paymentservice-psp-inbound",
+      "commit": "ae1d9ddfb34dae71c15913e9f28d41321d66266a",
+      "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/webhook/InboundServiceImpl.java",
+      "lines": [1, 95],
+      "basis": "source"
+    },
+    {
+      "id": "pspin-ae1d9dd/e/e9275cdb69256d",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/cds-paymentservice-psp-inbound",
+      "commit": "ae1d9ddfb34dae71c15913e9f28d41321d66266a",
+      "path": "com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/webhook/stripe/StripeEventParser.java",
+      "lines": [1, 46],
+      "basis": "source"
+    },
+    {
+      "id": "pspin-ae1d9dd/e/f03fa9a3c7c0a1",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/cds-paymentservice-psp-inbound",
+      "commit": "ae1d9ddfb34dae71c15913e9f28d41321d66266a",
+      "path": "com-volvocars-ecom-paymentservice-psp-inbound-api/src/main/resources/application.yml",
+      "lines": [77, 84],
+      "basis": "source"
+    },
+    {
+      "id": "pspin-ae1d9dd/effect/webhook-publish",
+      "kind": "effect",
+      "owner": "pspin-ae1d9dd/impl/webhook",
+      "operation": "pspin-ae1d9dd/op/webhook/publish",
+      "effect": "publish",
+      "resource": "pspin-ae1d9dd/resource/topic-internal",
+      "modality": "source_traced",
+      "representation": "logical",
+      "selection": ["pspin-ae1d9dd/v/webhook/message-key"],
+      "payload": ["pspin-ae1d9dd/v/webhook/sent-event"],
+      "evidence": ["pspin-ae1d9dd/e/820f1fb51ff0ae"]
+    },
+    {
+      "id": "pspin-ae1d9dd/gap/deployment",
+      "kind": "gap",
+      "owner": "pspin-ae1d9dd/impl/webhook",
+      "obligation": "deployment",
+      "reason": "Committed profiles are source declarations, not proof of effective deployment, upstream freshness or secret/connection overrides.",
+      "action": "Bind a deployment/profile independently without capturing credential values.",
+      "evidence": ["pspin-ae1d9dd/e/2c28690811c453", "pspin-ae1d9dd/e/6202f69bfab07f"]
+    },
+    {
+      "id": "pspin-ae1d9dd/gap/imported-models",
+      "kind": "gap",
+      "owner": "pspin-ae1d9dd/impl/webhook",
+      "obligation": "imported-models",
+      "reason": "Stripe Event, Psp/PspEventType/category definitions, Account, PspInboundEventPayload and common Event/Metadata are imported. Exact resolved artefact/source/digest and inherited wire fields are unavailable.",
+      "action": "Bind exact artefacts and expand schemas/enum values and source correspondence; newer cloned code stays candidate evidence.",
+      "evidence": [
+        "pspin-ae1d9dd/e/92f0dd68a911c0",
+        "pspin-ae1d9dd/e/e574d41029513b",
+        "pspin-ae1d9dd/e/6b815f11a1c278"
+      ]
+    },
+    {
+      "id": "pspin-ae1d9dd/gap/ip-enforcement",
+      "kind": "gap",
+      "owner": "pspin-ae1d9dd/impl/webhook",
+      "obligation": "ip-enforcement",
+      "reason": "Local source trusts the first forwarded IP and source path exclusion/matchers; trusted-proxy handling, filter ordering and effective configuration are not established.",
+      "action": "Resolve deployment proxy trust, imported matchers and filter pipeline; do not infer global authentication from App exclusions.",
+      "evidence": ["pspin-ae1d9dd/e/4af9325a4d6fd7", "pspin-ae1d9dd/e/256e3143511556"]
+    },
+    {
+      "id": "pspin-ae1d9dd/gap/wire",
+      "kind": "gap",
+      "owner": "pspin-ae1d9dd/impl/webhook",
+      "obligation": "wire",
+      "reason": "Spring/Jackson/Stripe serialisation, header normalisation, exception advice and imported serializer policies are not fully bound. Source construction does not establish complete effective wire representation.",
+      "action": "Bind effective framework/imported configuration and exact versions; inspect wire schema without calling live services.",
+      "evidence": [
+        "pspin-ae1d9dd/e/b0f59c0cf7873c",
+        "pspin-ae1d9dd/e/c1d058db17a6d4",
+        "pspin-ae1d9dd/e/e9275cdb69256d"
+      ]
+    },
+    {
+      "id": "pspin-ae1d9dd/impl/heartbeat",
+      "kind": "implementation",
+      "logicalId": "volvo-cars/cds-paymentservice-psp-inbound:ScheduledMessageProducer.sendHeartbeat",
+      "scope": "pspin-ae1d9dd/source",
+      "entry": "pspin-ae1d9dd/op/heartbeat/entry",
+      "parameters": [],
+      "evidence": ["pspin-ae1d9dd/e/08044b5f297afe"]
+    },
+    {
+      "id": "pspin-ae1d9dd/impl/webhook",
+      "kind": "implementation",
+      "logicalId": "volvo-cars/cds-paymentservice-psp-inbound:webhook and local Stripe source execution",
+      "scope": "pspin-ae1d9dd/source",
+      "entry": "pspin-ae1d9dd/op/webhook/entry",
+      "parameters": [
+        "pspin-ae1d9dd/v/webhook/psp",
+        "pspin-ae1d9dd/v/webhook/path-account",
+        "pspin-ae1d9dd/v/webhook/query",
+        "pspin-ae1d9dd/v/webhook/raw",
+        "pspin-ae1d9dd/v/webhook/headers"
+      ],
+      "evidence": [
+        "pspin-ae1d9dd/e/b0f59c0cf7873c",
+        "pspin-ae1d9dd/e/3b2f57f1f5e2a7",
+        "pspin-ae1d9dd/e/6b815f11a1c278"
+      ]
+    },
+    {
+      "id": "pspin-ae1d9dd/milestone/webhook-http200",
+      "kind": "milestone",
+      "owner": "pspin-ae1d9dd/impl/webhook",
+      "operation": "pspin-ae1d9dd/op/webhook/return200",
+      "stage": "http_response",
+      "condition": "Local Stripe receive path reaches normal return, including ignored events or non-awaited send future",
+      "resource": null,
+      "meaning": "HTTP200 source return with unset/null body; no local storage or broker acknowledgement implied",
+      "basis": "conditional_source_path",
+      "gaps": ["pspin-ae1d9dd/gap/delivery", "pspin-ae1d9dd/gap/wire"],
+      "evidence": ["pspin-ae1d9dd/e/6b815f11a1c278", "pspin-ae1d9dd/e/3b2f57f1f5e2a7"]
+    },
+    {
+      "id": "pspin-ae1d9dd/milestone/webhook-publication-attempt",
+      "kind": "milestone",
+      "owner": "pspin-ae1d9dd/impl/webhook",
+      "operation": "pspin-ae1d9dd/op/webhook/publish",
+      "stage": "publication_attempt",
+      "condition": "Source/event filter permits publication and send is invoked",
+      "resource": "pspin-ae1d9dd/resource/topic-internal",
+      "meaning": "Producer send invocation and callback registration; not broker acknowledgement or delivery",
+      "basis": "conditional_source_path",
+      "gaps": ["pspin-ae1d9dd/gap/delivery"],
+      "evidence": ["pspin-ae1d9dd/e/820f1fb51ff0ae"]
+    },
+    {
+      "id": "pspin-ae1d9dd/op/heartbeat/entry",
+      "kind": "operation",
+      "owner": "pspin-ae1d9dd/impl/heartbeat",
+      "action": "entry",
+      "label": "Fixed-delay job only when enabled property is true",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": null,
+      "httpStatus": null,
+      "evidence": ["pspin-ae1d9dd/e/08044b5f297afe"]
+    },
+    {
+      "id": "pspin-ae1d9dd/op/heartbeat/publish",
+      "kind": "operation",
+      "owner": "pspin-ae1d9dd/impl/heartbeat",
+      "action": "opaque",
+      "label": "KafkaTemplate.send(topic,messageKey,null).whenComplete; future not awaited",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": null,
+      "httpStatus": null,
+      "evidence": ["pspin-ae1d9dd/e/08044b5f297afe"]
+    },
+    {
+      "id": "pspin-ae1d9dd/op/webhook/entry",
+      "kind": "operation",
+      "owner": "pspin-ae1d9dd/impl/webhook",
+      "action": "entry",
+      "label": "HTTP webhook invocation before local IP filter",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": null,
+      "httpStatus": null,
+      "evidence": ["pspin-ae1d9dd/e/b0f59c0cf7873c"]
+    },
+    {
+      "id": "pspin-ae1d9dd/op/webhook/key",
+      "kind": "operation",
+      "owner": "pspin-ae1d9dd/impl/webhook",
+      "action": "branch",
+      "label": "Routing key by category and metadata, not external event id",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": null,
+      "httpStatus": null,
+      "evidence": ["pspin-ae1d9dd/e/37c90083beb770"]
+    },
+    {
+      "id": "pspin-ae1d9dd/op/webhook/publish",
+      "kind": "operation",
+      "owner": "pspin-ae1d9dd/impl/webhook",
+      "action": "opaque",
+      "label": "KafkaTemplate.send(topic,event.metadata.id,event).whenComplete registers callback; not awaited",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": null,
+      "httpStatus": null,
+      "evidence": ["pspin-ae1d9dd/e/820f1fb51ff0ae"]
+    },
+    {
+      "id": "pspin-ae1d9dd/op/webhook/return200",
+      "kind": "operation",
+      "owner": "pspin-ae1d9dd/impl/webhook",
+      "action": "return",
+      "label": "Return NotificationResponse OK with unset body; controller uses status and body",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": "normal",
+      "httpStatus": 200,
+      "evidence": ["pspin-ae1d9dd/e/6b815f11a1c278"]
+    },
+    {
+      "id": "pspin-ae1d9dd/policy/heartbeat",
+      "kind": "delivery_policy",
+      "owner": "pspin-ae1d9dd/impl/heartbeat",
+      "operation": "pspin-ae1d9dd/op/heartbeat/publish",
+      "awaited": false,
+      "brokerPersistenceRequired": false,
+      "offsetCommit": "unresolved",
+      "retryLimit": null,
+      "deduplication": "none_in_inspected_scope",
+      "deduplicationKeys": [],
+      "ordering": "not_established",
+      "deliveryGuarantee": "not_established",
+      "gaps": ["pspin-ae1d9dd/gap/delivery"],
+      "evidence": ["pspin-ae1d9dd/e/08044b5f297afe"]
+    },
+    {
+      "id": "pspin-ae1d9dd/policy/webhook",
+      "kind": "delivery_policy",
+      "owner": "pspin-ae1d9dd/impl/webhook",
+      "operation": "pspin-ae1d9dd/op/webhook/publish",
+      "awaited": false,
+      "brokerPersistenceRequired": false,
+      "offsetCommit": "unresolved",
+      "retryLimit": null,
+      "deduplication": "none_in_inspected_scope",
+      "deduplicationKeys": [],
+      "ordering": "not_established",
+      "deliveryGuarantee": "not_established",
+      "gaps": ["pspin-ae1d9dd/gap/delivery"],
+      "evidence": ["pspin-ae1d9dd/e/820f1fb51ff0ae"]
+    },
+    {
+      "id": "pspin-ae1d9dd/resource/topic-heartbeat",
+      "kind": "resource",
+      "label": "PSP connection heartbeat",
+      "technology": "Kafka",
+      "declaredDatabase": null,
+      "physicalLocation": null,
+      "shapes": [],
+      "gaps": ["pspin-ae1d9dd/gap/deployment", "pspin-ae1d9dd/gap/wire"],
+      "evidence": ["pspin-ae1d9dd/e/f03fa9a3c7c0a1"]
+    },
+    {
+      "id": "pspin-ae1d9dd/resource/topic-internal",
+      "kind": "resource",
+      "label": "PSP internal events",
+      "technology": "Kafka",
+      "declaredDatabase": null,
+      "physicalLocation": null,
+      "shapes": ["pspin-ae1d9dd/shape/event-wire"],
+      "gaps": ["pspin-ae1d9dd/gap/deployment", "pspin-ae1d9dd/gap/wire"],
+      "evidence": ["pspin-ae1d9dd/e/c6e145143f4425"]
+    },
+    {
+      "id": "pspin-ae1d9dd/shape/account-observations",
+      "kind": "shape",
+      "label": "Imported Account fields read by secret provider",
+      "representation": "source",
+      "fields": [
+        {
+          "name": "secretKeyId",
+          "type": "String",
+          "status": "declared",
+          "evidence": ["pspin-ae1d9dd/e/9453122a54110b"]
+        }
+      ],
+      "completeness": "partial",
+      "gaps": ["pspin-ae1d9dd/gap/imported-models"],
+      "evidence": ["pspin-ae1d9dd/e/9453122a54110b"],
+      "container": "object"
+    },
+    {
+      "id": "pspin-ae1d9dd/shape/additional-parameters",
+      "kind": "shape",
+      "label": "Stripe data object JSON parsed into Map<String,Object>",
+      "representation": "source",
+      "fields": [
+        {
+          "name": "metadata",
+          "type": "Map<String,Object>",
+          "status": "declared",
+          "evidence": ["pspin-ae1d9dd/e/6f762f52fab2cc"],
+          "shape": "pspin-ae1d9dd/shape/metadata-source"
+        }
+      ],
+      "completeness": "partial",
+      "gaps": ["pspin-ae1d9dd/gap/imported-models", "pspin-ae1d9dd/gap/wire"],
+      "evidence": ["pspin-ae1d9dd/e/e9275cdb69256d", "pspin-ae1d9dd/e/d1488ff1da6955"],
+      "container": "object"
+    },
+    {
+      "id": "pspin-ae1d9dd/shape/event-metadata-source",
+      "kind": "shape",
+      "label": "Metadata explicit builder assignments",
+      "representation": "constructed",
+      "fields": [
+        {
+          "name": "id",
+          "type": "String routing key; may be generated UUID",
+          "status": "declared",
+          "evidence": ["pspin-ae1d9dd/e/aa8605bc5b6562", "pspin-ae1d9dd/e/37c90083beb770"]
+        },
+        {
+          "name": "correlationId",
+          "type": "String from LogUtils",
+          "status": "declared",
+          "evidence": ["pspin-ae1d9dd/e/aa8605bc5b6562"]
+        },
+        {
+          "name": "type",
+          "type": "String category.toString()",
+          "status": "declared",
+          "evidence": ["pspin-ae1d9dd/e/aa8605bc5b6562"]
+        },
+        {
+          "name": "source",
+          "type": "psp.getSource()",
+          "status": "declared",
+          "evidence": ["pspin-ae1d9dd/e/aa8605bc5b6562"]
+        },
+        {
+          "name": "created",
+          "type": "Long event.created seconds*1000, otherwise System.currentTimeMillis()",
+          "status": "declared",
+          "evidence": ["pspin-ae1d9dd/e/aa8605bc5b6562", "pspin-ae1d9dd/e/6b815f11a1c278"]
+        }
+      ],
+      "completeness": "partial",
+      "gaps": ["pspin-ae1d9dd/gap/imported-models"],
+      "evidence": ["pspin-ae1d9dd/e/aa8605bc5b6562"],
+      "container": "object"
+    },
+    {
+      "id": "pspin-ae1d9dd/shape/event-payload-source",
+      "kind": "shape",
+      "label": "PspInboundEventPayload explicit builder assignments",
+      "representation": "constructed",
+      "fields": [
+        {
+          "name": "id",
+          "type": "String from Stripe event.id",
+          "status": "declared",
+          "evidence": ["pspin-ae1d9dd/e/6b815f11a1c278"]
+        },
+        {
+          "name": "type",
+          "type": "String from Stripe event.type",
+          "status": "declared",
+          "evidence": ["pspin-ae1d9dd/e/6b815f11a1c278"]
+        },
+        {
+          "name": "platformAccountId",
+          "type": "String from effective query/path parameter",
+          "status": "declared",
+          "evidence": ["pspin-ae1d9dd/e/ae477d6279f164"]
+        },
+        {
+          "name": "additionalParameters",
+          "type": "Map<String,Object>",
+          "status": "declared",
+          "evidence": ["pspin-ae1d9dd/e/ae477d6279f164"],
+          "shape": "pspin-ae1d9dd/shape/additional-parameters"
+        }
+      ],
+      "completeness": "partial",
+      "gaps": ["pspin-ae1d9dd/gap/imported-models"],
+      "evidence": ["pspin-ae1d9dd/e/1266b3d635dd23"],
+      "container": "object"
+    },
+    {
+      "id": "pspin-ae1d9dd/shape/event-source",
+      "kind": "shape",
+      "label": "Event<PspInboundEventPayload> explicit construction",
+      "representation": "constructed",
+      "fields": [
+        {
+          "name": "metadata",
+          "type": "Metadata",
+          "status": "declared",
+          "evidence": ["pspin-ae1d9dd/e/50b707fc0fed72"],
+          "shape": "pspin-ae1d9dd/shape/event-metadata-source"
+        },
+        {
+          "name": "payload",
+          "type": "PspInboundEventPayload",
+          "status": "declared",
+          "evidence": ["pspin-ae1d9dd/e/50b707fc0fed72"],
+          "shape": "pspin-ae1d9dd/shape/event-payload-source"
+        }
+      ],
+      "completeness": "partial",
+      "gaps": ["pspin-ae1d9dd/gap/imported-models"],
+      "evidence": ["pspin-ae1d9dd/e/0d08e467c1fd67"],
+      "container": "object"
+    },
+    {
+      "id": "pspin-ae1d9dd/shape/event-wire",
+      "kind": "shape",
+      "label": "Kafka JSON event wire projection remains partial",
+      "representation": "wire",
+      "fields": [],
+      "completeness": "partial",
+      "gaps": ["pspin-ae1d9dd/gap/imported-models", "pspin-ae1d9dd/gap/wire"],
+      "evidence": ["pspin-ae1d9dd/e/c1d058db17a6d4", "pspin-ae1d9dd/e/820f1fb51ff0ae"],
+      "encoding": "json",
+      "container": "object"
+    },
+    {
+      "id": "pspin-ae1d9dd/shape/headers",
+      "kind": "shape",
+      "label": "Headers read by webhook/IP logic; other keys remain possible",
+      "representation": "source",
+      "fields": [
+        {
+          "name": "stripe-signature",
+          "type": "String",
+          "status": "declared",
+          "evidence": ["pspin-ae1d9dd/e/6b815f11a1c278"]
+        },
+        {
+          "name": "x-original-forwarded-for",
+          "type": "String",
+          "status": "declared",
+          "evidence": ["pspin-ae1d9dd/e/68dda8605dcab8"]
+        },
+        {
+          "name": "x-forwarded-for",
+          "type": "String",
+          "status": "declared",
+          "evidence": ["pspin-ae1d9dd/e/68dda8605dcab8"]
+        }
+      ],
+      "completeness": "partial",
+      "gaps": ["pspin-ae1d9dd/gap/wire", "pspin-ae1d9dd/gap/ip-enforcement"],
+      "evidence": ["pspin-ae1d9dd/e/6b815f11a1c278", "pspin-ae1d9dd/e/256e3143511556"],
+      "container": "object"
+    },
+    {
+      "id": "pspin-ae1d9dd/shape/key",
+      "kind": "shape",
+      "label": "Kafka String key from event.metadata.id or heartbeat epoch millis",
+      "representation": "constructed",
+      "fields": [],
+      "completeness": "partial",
+      "gaps": ["pspin-ae1d9dd/gap/wire"],
+      "evidence": ["pspin-ae1d9dd/e/a108a03d4effc8", "pspin-ae1d9dd/e/61b237b240cf84"],
+      "wireType": "String argument; configured StringSerializer"
+    },
+    {
+      "id": "pspin-ae1d9dd/shape/metadata-source",
+      "kind": "shape",
+      "label": "Source map observations used by key/source filtering",
+      "representation": "source",
+      "fields": [
+        {
+          "name": "VolvoID",
+          "type": "String",
+          "status": "declared",
+          "evidence": ["pspin-ae1d9dd/e/37c90083beb770"]
+        },
+        {
+          "name": "Source",
+          "type": "Object converted to String",
+          "status": "declared",
+          "evidence": ["pspin-ae1d9dd/e/6f762f52fab2cc"]
+        },
+        {
+          "name": "system_name",
+          "type": "String",
+          "status": "declared",
+          "evidence": ["pspin-ae1d9dd/e/6f762f52fab2cc"]
+        }
+      ],
+      "completeness": "partial",
+      "gaps": ["pspin-ae1d9dd/gap/imported-models", "pspin-ae1d9dd/gap/wire"],
+      "evidence": ["pspin-ae1d9dd/e/37c90083beb770", "pspin-ae1d9dd/e/6f762f52fab2cc"],
+      "container": "object"
+    },
+    {
+      "id": "pspin-ae1d9dd/shape/null-message",
+      "kind": "shape",
+      "label": "Null Java heartbeat payload argument",
+      "representation": "constructed",
+      "fields": [],
+      "completeness": "closed",
+      "gaps": [],
+      "evidence": ["pspin-ae1d9dd/e/61b237b240cf84"],
+      "wireType": "null source argument; broker representation unresolved"
+    },
+    {
+      "id": "pspin-ae1d9dd/shape/params",
+      "kind": "shape",
+      "label": "Query source map; query platformAccountId takes precedence over route default",
+      "representation": "source",
+      "fields": [
+        {
+          "name": "platformAccountId",
+          "type": "String",
+          "status": "declared",
+          "evidence": ["pspin-ae1d9dd/e/3b2f57f1f5e2a7"]
+        },
+        {
+          "name": "isStripeConnectedAccount",
+          "type": "String interpreted by Boolean.parseBoolean; default false",
+          "status": "declared",
+          "evidence": ["pspin-ae1d9dd/e/6b815f11a1c278"]
+        }
+      ],
+      "completeness": "partial",
+      "gaps": ["pspin-ae1d9dd/gap/wire"],
+      "evidence": ["pspin-ae1d9dd/e/3b2f57f1f5e2a7", "pspin-ae1d9dd/e/6b815f11a1c278"],
+      "container": "object"
+    },
+    {
+      "id": "pspin-ae1d9dd/shape/path",
+      "kind": "shape",
+      "label": "Webhook path parameters",
+      "representation": "source",
+      "fields": [
+        {
+          "name": "psp",
+          "type": "Imported Psp enum; source converter uppercases input",
+          "status": "declared",
+          "evidence": ["pspin-ae1d9dd/e/787491a162b7f7"]
+        },
+        {
+          "name": "platformAccountId",
+          "type": "String",
+          "status": "declared",
+          "evidence": ["pspin-ae1d9dd/e/b0f59c0cf7873c"]
+        }
+      ],
+      "completeness": "partial",
+      "gaps": ["pspin-ae1d9dd/gap/imported-models"],
+      "evidence": ["pspin-ae1d9dd/e/b0f59c0cf7873c", "pspin-ae1d9dd/e/787491a162b7f7"],
+      "container": "object"
+    },
+    {
+      "id": "pspin-ae1d9dd/shape/raw-webhook",
+      "kind": "shape",
+      "label": "String webhook body; Stripe wire schema unresolved",
+      "representation": "wire",
+      "fields": [],
+      "completeness": "partial",
+      "gaps": ["pspin-ae1d9dd/gap/imported-models", "pspin-ae1d9dd/gap/wire"],
+      "evidence": ["pspin-ae1d9dd/e/b0f59c0cf7873c", "pspin-ae1d9dd/e/e9275cdb69256d"],
+      "wireType": "Stripe webhook event JSON supplied as String"
+    },
+    {
+      "id": "pspin-ae1d9dd/shape/swagger-config",
+      "kind": "shape",
+      "label": "SwaggerUIConfigResponse explicit builder fields",
+      "representation": "constructed",
+      "fields": [
+        {
+          "name": "url",
+          "type": "String.valueOf(settings.url)",
+          "status": "declared",
+          "evidence": ["pspin-ae1d9dd/e/ce3068853769e6"]
+        },
+        {
+          "name": "configUrl",
+          "type": "String.valueOf(settings.config-url)",
+          "status": "declared",
+          "evidence": ["pspin-ae1d9dd/e/ce3068853769e6"]
+        },
+        {
+          "name": "oauth2RedirectUrl",
+          "type": "Optional cast from settings entry, otherwise null",
+          "status": "declared",
+          "evidence": ["pspin-ae1d9dd/e/ce3068853769e6"],
+          "nullable": true
+        }
+      ],
+      "completeness": "partial",
+      "gaps": ["pspin-ae1d9dd/gap/imported-models"],
+      "evidence": ["pspin-ae1d9dd/e/ce3068853769e6"],
+      "container": "object"
+    },
+    {
+      "id": "pspin-ae1d9dd/source",
+      "kind": "source_revision",
+      "repo": "volvo-cars/cds-paymentservice-psp-inbound",
+      "commit": "ae1d9ddfb34dae71c15913e9f28d41321d66266a"
+    },
+    {
+      "id": "pspin-ae1d9dd/v/webhook/headers",
+      "kind": "value",
+      "owner": "pspin-ae1d9dd/impl/webhook",
+      "definition": "pspin-ae1d9dd/op/webhook/entry",
+      "label": "Request headers map",
+      "role": "parameter",
+      "representation": "constructed",
+      "shape": "pspin-ae1d9dd/shape/headers",
+      "evidence": ["pspin-ae1d9dd/e/b0f59c0cf7873c"],
+      "accessPath": []
+    },
+    {
+      "id": "pspin-ae1d9dd/v/webhook/message-key",
+      "kind": "value",
+      "owner": "pspin-ae1d9dd/impl/webhook",
+      "definition": "pspin-ae1d9dd/op/webhook/key",
+      "label": "Category/metadata key priority or random UUID; null in documented unreachable enum cases",
+      "role": "definition",
+      "representation": "constructed",
+      "shape": "pspin-ae1d9dd/shape/key",
+      "evidence": ["pspin-ae1d9dd/e/37c90083beb770"],
+      "accessPath": []
+    },
+    {
+      "id": "pspin-ae1d9dd/v/webhook/path-account",
+      "kind": "value",
+      "owner": "pspin-ae1d9dd/impl/webhook",
+      "definition": "pspin-ae1d9dd/op/webhook/entry",
+      "label": "Route platformAccountId",
+      "role": "parameter",
+      "representation": "constructed",
+      "shape": null,
+      "evidence": ["pspin-ae1d9dd/e/b0f59c0cf7873c"],
+      "accessPath": ["platformAccountId"]
+    },
+    {
+      "id": "pspin-ae1d9dd/v/webhook/psp",
+      "kind": "value",
+      "owner": "pspin-ae1d9dd/impl/webhook",
+      "definition": "pspin-ae1d9dd/op/webhook/entry",
+      "label": "PSP path string converted via uppercase/Psp.valueOf",
+      "role": "parameter",
+      "representation": "constructed",
+      "shape": null,
+      "evidence": ["pspin-ae1d9dd/e/787491a162b7f7"],
+      "accessPath": ["psp"]
+    },
+    {
+      "id": "pspin-ae1d9dd/v/webhook/query",
+      "kind": "value",
+      "owner": "pspin-ae1d9dd/impl/webhook",
+      "definition": "pspin-ae1d9dd/op/webhook/entry",
+      "label": "Query params map",
+      "role": "parameter",
+      "representation": "constructed",
+      "shape": "pspin-ae1d9dd/shape/params",
+      "evidence": ["pspin-ae1d9dd/e/b0f59c0cf7873c"],
+      "accessPath": []
+    },
+    {
+      "id": "pspin-ae1d9dd/v/webhook/raw",
+      "kind": "value",
+      "owner": "pspin-ae1d9dd/impl/webhook",
+      "definition": "pspin-ae1d9dd/op/webhook/entry",
+      "label": "Unchanged raw webhook String payload",
+      "role": "parameter",
+      "representation": "wire",
+      "shape": "pspin-ae1d9dd/shape/raw-webhook",
+      "evidence": ["pspin-ae1d9dd/e/b0f59c0cf7873c"],
+      "accessPath": []
+    },
+    {
+      "id": "pspin-ae1d9dd/v/webhook/sent-event",
+      "kind": "value",
+      "owner": "pspin-ae1d9dd/impl/webhook",
+      "definition": "pspin-ae1d9dd/op/webhook/publish",
+      "label": "Same internal Event object passed as Kafka value",
+      "role": "definition",
+      "representation": "constructed",
+      "shape": "pspin-ae1d9dd/shape/event-source",
+      "evidence": ["pspin-ae1d9dd/e/a108a03d4effc8"],
+      "accessPath": []
+    }
+  ],
+  "traversalComplete": true,
+  "findings": [],
+  "sourceLinks": [
+    {
+      "evidence": "pspin-ae1d9dd/e/d458ca24c8b99a",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-psp-inbound/blob/ae1d9ddfb34dae71c15913e9f28d41321d66266a/com-volvocars-ecom-paymentservice-psp-inbound-api/src/main/resources/application.yml#L49-L59",
+      "label": "volvo-cars/cds-paymentservice-psp-inbound/com-volvocars-ecom-paymentservice-psp-inbound-api/src/main/resources/application.yml:49–59"
+    },
+    {
+      "evidence": "pspin-ae1d9dd/e/68dda8605dcab8",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-psp-inbound/blob/ae1d9ddfb34dae71c15913e9f28d41321d66266a/com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/security/IpAddressVerifier.java#L71-L87",
+      "label": "volvo-cars/cds-paymentservice-psp-inbound/com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/security/IpAddressVerifier.java:71–87"
+    },
+    {
+      "evidence": "pspin-ae1d9dd/e/6b815f11a1c278",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-psp-inbound/blob/ae1d9ddfb34dae71c15913e9f28d41321d66266a/com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/webhook/stripe/StripeInboundServiceImpl.java#L1-L116",
+      "label": "volvo-cars/cds-paymentservice-psp-inbound/com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/webhook/stripe/StripeInboundServiceImpl.java:1–116"
+    },
+    {
+      "evidence": "pspin-ae1d9dd/e/256e3143511556",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-psp-inbound/blob/ae1d9ddfb34dae71c15913e9f28d41321d66266a/com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/security/IpAddressVerifier.java#L1-L89",
+      "label": "volvo-cars/cds-paymentservice-psp-inbound/com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/security/IpAddressVerifier.java:1–89"
+    },
+    {
+      "evidence": "pspin-ae1d9dd/e/4af9325a4d6fd7",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-psp-inbound/blob/ae1d9ddfb34dae71c15913e9f28d41321d66266a/com-volvocars-ecom-paymentservice-psp-inbound-api/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/api/security/IpAuthorizationFilter.java#L1-L60",
+      "label": "volvo-cars/cds-paymentservice-psp-inbound/com-volvocars-ecom-paymentservice-psp-inbound-api/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/api/security/IpAuthorizationFilter.java:1–60"
+    },
+    {
+      "evidence": "pspin-ae1d9dd/e/b0f59c0cf7873c",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-psp-inbound/blob/ae1d9ddfb34dae71c15913e9f28d41321d66266a/com-volvocars-ecom-paymentservice-psp-inbound-api/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/api/webhook/v2/InboundController.java#L1-L43",
+      "label": "volvo-cars/cds-paymentservice-psp-inbound/com-volvocars-ecom-paymentservice-psp-inbound-api/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/api/webhook/v2/InboundController.java:1–43"
+    },
+    {
+      "evidence": "pspin-ae1d9dd/e/e574d41029513b",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-psp-inbound/blob/ae1d9ddfb34dae71c15913e9f28d41321d66266a/com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/webhook/InboundServiceImpl.java#L1-L95",
+      "label": "volvo-cars/cds-paymentservice-psp-inbound/com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/webhook/InboundServiceImpl.java:1–95"
+    },
+    {
+      "evidence": "pspin-ae1d9dd/e/92f0dd68a911c0",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-psp-inbound/blob/ae1d9ddfb34dae71c15913e9f28d41321d66266a/pom.xml#L1-L85",
+      "label": "volvo-cars/cds-paymentservice-psp-inbound/pom.xml:1–85"
+    },
+    {
+      "evidence": "pspin-ae1d9dd/e/e9275cdb69256d",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-psp-inbound/blob/ae1d9ddfb34dae71c15913e9f28d41321d66266a/com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/webhook/stripe/StripeEventParser.java#L1-L46",
+      "label": "volvo-cars/cds-paymentservice-psp-inbound/com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/webhook/stripe/StripeEventParser.java:1–46"
+    },
+    {
+      "evidence": "pspin-ae1d9dd/e/3b2f57f1f5e2a7",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-psp-inbound/blob/ae1d9ddfb34dae71c15913e9f28d41321d66266a/com-volvocars-ecom-paymentservice-psp-inbound-api/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/api/webhook/v2/impl/InboundControllerImpl.java#L1-L37",
+      "label": "volvo-cars/cds-paymentservice-psp-inbound/com-volvocars-ecom-paymentservice-psp-inbound-api/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/api/webhook/v2/impl/InboundControllerImpl.java:1–37"
+    },
+    {
+      "evidence": "pspin-ae1d9dd/e/787491a162b7f7",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-psp-inbound/blob/ae1d9ddfb34dae71c15913e9f28d41321d66266a/com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/config/PspConverter.java#L1-L22",
+      "label": "volvo-cars/cds-paymentservice-psp-inbound/com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/config/PspConverter.java:1–22"
+    },
+    {
+      "evidence": "pspin-ae1d9dd/e/c1d058db17a6d4",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-psp-inbound/blob/ae1d9ddfb34dae71c15913e9f28d41321d66266a/com-volvocars-ecom-paymentservice-psp-inbound-api/src/main/resources/application.yml#L11-L23",
+      "label": "volvo-cars/cds-paymentservice-psp-inbound/com-volvocars-ecom-paymentservice-psp-inbound-api/src/main/resources/application.yml:11–23"
+    },
+    {
+      "evidence": "pspin-ae1d9dd/e/32fa8756f8f052",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-psp-inbound/blob/ae1d9ddfb34dae71c15913e9f28d41321d66266a/com-volvocars-ecom-paymentservice-psp-inbound-api/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/api/App.java#L1-L24",
+      "label": "volvo-cars/cds-paymentservice-psp-inbound/com-volvocars-ecom-paymentservice-psp-inbound-api/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/api/App.java:1–24"
+    },
+    {
+      "evidence": "pspin-ae1d9dd/e/5b51ab0d8bb53f",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-psp-inbound/blob/ae1d9ddfb34dae71c15913e9f28d41321d66266a/com-volvocars-ecom-paymentservice-psp-inbound-api/src/main/resources/application.yml#L31-L43",
+      "label": "volvo-cars/cds-paymentservice-psp-inbound/com-volvocars-ecom-paymentservice-psp-inbound-api/src/main/resources/application.yml:31–43"
+    },
+    {
+      "evidence": "pspin-ae1d9dd/e/ce3068853769e6",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-psp-inbound/blob/ae1d9ddfb34dae71c15913e9f28d41321d66266a/com-volvocars-ecom-paymentservice-psp-inbound-api/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/api/configuration/v1/impl/SwaggerUIControllerImpl.java#L1-L37",
+      "label": "volvo-cars/cds-paymentservice-psp-inbound/com-volvocars-ecom-paymentservice-psp-inbound-api/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/api/configuration/v1/impl/SwaggerUIControllerImpl.java:1–37"
+    },
+    {
+      "evidence": "pspin-ae1d9dd/e/23200a9d2ba735",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-psp-inbound/blob/ae1d9ddfb34dae71c15913e9f28d41321d66266a/com-volvocars-ecom-paymentservice-psp-inbound-api/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/api/configuration/v1/SwaggerUIController.java#L1-L36",
+      "label": "volvo-cars/cds-paymentservice-psp-inbound/com-volvocars-ecom-paymentservice-psp-inbound-api/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/api/configuration/v1/SwaggerUIController.java:1–36"
+    },
+    {
+      "evidence": "pspin-ae1d9dd/e/08044b5f297afe",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-psp-inbound/blob/ae1d9ddfb34dae71c15913e9f28d41321d66266a/com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/messaging/ScheduledMessageProducer.java#L1-L70",
+      "label": "volvo-cars/cds-paymentservice-psp-inbound/com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/messaging/ScheduledMessageProducer.java:1–70"
+    },
+    {
+      "evidence": "pspin-ae1d9dd/e/61b237b240cf84",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-psp-inbound/blob/ae1d9ddfb34dae71c15913e9f28d41321d66266a/com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/messaging/ScheduledMessageProducer.java#L40-L46",
+      "label": "volvo-cars/cds-paymentservice-psp-inbound/com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/messaging/ScheduledMessageProducer.java:40–46"
+    },
+    {
+      "evidence": "pspin-ae1d9dd/e/a108a03d4effc8",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-psp-inbound/blob/ae1d9ddfb34dae71c15913e9f28d41321d66266a/com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/messaging/KafkaProducer.java#L27-L30",
+      "label": "volvo-cars/cds-paymentservice-psp-inbound/com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/messaging/KafkaProducer.java:27–30"
+    },
+    {
+      "evidence": "pspin-ae1d9dd/e/f03fa9a3c7c0a1",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-psp-inbound/blob/ae1d9ddfb34dae71c15913e9f28d41321d66266a/com-volvocars-ecom-paymentservice-psp-inbound-api/src/main/resources/application.yml#L77-L84",
+      "label": "volvo-cars/cds-paymentservice-psp-inbound/com-volvocars-ecom-paymentservice-psp-inbound-api/src/main/resources/application.yml:77–84"
+    },
+    {
+      "evidence": "pspin-ae1d9dd/e/820f1fb51ff0ae",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-psp-inbound/blob/ae1d9ddfb34dae71c15913e9f28d41321d66266a/com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/messaging/KafkaProducer.java#L1-L49",
+      "label": "volvo-cars/cds-paymentservice-psp-inbound/com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/messaging/KafkaProducer.java:1–49"
+    },
+    {
+      "evidence": "pspin-ae1d9dd/e/50b707fc0fed72",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-psp-inbound/blob/ae1d9ddfb34dae71c15913e9f28d41321d66266a/com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/webhook/InboundServiceImpl.java#L57-L60",
+      "label": "volvo-cars/cds-paymentservice-psp-inbound/com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/webhook/InboundServiceImpl.java:57–60"
+    },
+    {
+      "evidence": "pspin-ae1d9dd/e/ae477d6279f164",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-psp-inbound/blob/ae1d9ddfb34dae71c15913e9f28d41321d66266a/com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/webhook/InboundServiceImpl.java#L49-L55",
+      "label": "volvo-cars/cds-paymentservice-psp-inbound/com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/webhook/InboundServiceImpl.java:49–55"
+    },
+    {
+      "evidence": "pspin-ae1d9dd/e/6f762f52fab2cc",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-psp-inbound/blob/ae1d9ddfb34dae71c15913e9f28d41321d66266a/com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/webhook/SourceEventsConfigService.java#L1-L86",
+      "label": "volvo-cars/cds-paymentservice-psp-inbound/com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/webhook/SourceEventsConfigService.java:1–86"
+    },
+    {
+      "evidence": "pspin-ae1d9dd/e/37c90083beb770",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-psp-inbound/blob/ae1d9ddfb34dae71c15913e9f28d41321d66266a/com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/webhook/stripe/MessageKeyProvider.java#L1-L74",
+      "label": "volvo-cars/cds-paymentservice-psp-inbound/com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/webhook/stripe/MessageKeyProvider.java:1–74"
+    },
+    {
+      "evidence": "pspin-ae1d9dd/e/d1488ff1da6955",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-psp-inbound/blob/ae1d9ddfb34dae71c15913e9f28d41321d66266a/com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/webhook/InboundServiceImpl.java#L73-L83",
+      "label": "volvo-cars/cds-paymentservice-psp-inbound/com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/webhook/InboundServiceImpl.java:73–83"
+    },
+    {
+      "evidence": "pspin-ae1d9dd/e/1266b3d635dd23",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-psp-inbound/blob/ae1d9ddfb34dae71c15913e9f28d41321d66266a/com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/webhook/InboundServiceImpl.java#L41-L60",
+      "label": "volvo-cars/cds-paymentservice-psp-inbound/com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/webhook/InboundServiceImpl.java:41–60"
+    },
+    {
+      "evidence": "pspin-ae1d9dd/e/aa8605bc5b6562",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-psp-inbound/blob/ae1d9ddfb34dae71c15913e9f28d41321d66266a/com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/webhook/InboundServiceImpl.java#L85-L94",
+      "label": "volvo-cars/cds-paymentservice-psp-inbound/com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/webhook/InboundServiceImpl.java:85–94"
+    },
+    {
+      "evidence": "pspin-ae1d9dd/e/0d08e467c1fd67",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-psp-inbound/blob/ae1d9ddfb34dae71c15913e9f28d41321d66266a/com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/webhook/InboundServiceImpl.java#L49-L60",
+      "label": "volvo-cars/cds-paymentservice-psp-inbound/com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/webhook/InboundServiceImpl.java:49–60"
+    },
+    {
+      "evidence": "pspin-ae1d9dd/e/6202f69bfab07f",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-psp-inbound/blob/ae1d9ddfb34dae71c15913e9f28d41321d66266a/com-volvocars-ecom-paymentservice-psp-inbound-api/src/main/resources/application-ecp-weu-prod.yml#L6-L8",
+      "label": "volvo-cars/cds-paymentservice-psp-inbound/com-volvocars-ecom-paymentservice-psp-inbound-api/src/main/resources/application-ecp-weu-prod.yml:6–8"
+    },
+    {
+      "evidence": "pspin-ae1d9dd/e/2c28690811c453",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-psp-inbound/blob/ae1d9ddfb34dae71c15913e9f28d41321d66266a/com-volvocars-ecom-paymentservice-psp-inbound-api/src/main/resources/application.yml#L74-L84",
+      "label": "volvo-cars/cds-paymentservice-psp-inbound/com-volvocars-ecom-paymentservice-psp-inbound-api/src/main/resources/application.yml:74–84"
+    },
+    {
+      "evidence": "pspin-ae1d9dd/e/c6e145143f4425",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-psp-inbound/blob/ae1d9ddfb34dae71c15913e9f28d41321d66266a/com-volvocars-ecom-paymentservice-psp-inbound-api/src/main/resources/application.yml#L74-L75",
+      "label": "volvo-cars/cds-paymentservice-psp-inbound/com-volvocars-ecom-paymentservice-psp-inbound-api/src/main/resources/application.yml:74–75"
+    },
+    {
+      "evidence": "pspin-ae1d9dd/e/9453122a54110b",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-psp-inbound/blob/ae1d9ddfb34dae71c15913e9f28d41321d66266a/com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/webhook/stripe/StripeSecretProvider.java#L1-L34",
+      "label": "volvo-cars/cds-paymentservice-psp-inbound/com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/webhook/stripe/StripeSecretProvider.java:1–34"
+    },
+    {
+      "evidence": "pspin-ae1d9dd/e/a92717e2bf1b99",
+      "url": "https://github.com/volvo-cars/cds-paymentservice-psp-inbound/blob/ae1d9ddfb34dae71c15913e9f28d41321d66266a/com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/common/InboundControllerAdvice.java#L1-L74",
+      "label": "volvo-cars/cds-paymentservice-psp-inbound/com-volvocars-ecom-paymentservice-psp-inbound-core/src/main/java/com/volvocars/ecom/paymentservice/psp/inbound/common/InboundControllerAdvice.java:1–74"
+    }
+  ],
+  "nextRequest": null
+}

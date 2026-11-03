@@ -1,0 +1,7 @@
+{
+  "status": "passed",
+  "snapshot": "f06cf27a34008539e23495f4d8023b6cd4f407d1768ab0470d8506af7a1ee6e8",
+  "checked_source_ranges": 3202,
+  "distinct_pinned_files": 54,
+  "policy": "Offline pinned blob/range verification; all main source available,25childgitlinkblobs absent, not replaced by parent generated schemas"
+}

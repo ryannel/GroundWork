@@ -1,0 +1,674 @@
+{
+  "prior": "checkpoint-001",
+  "current": "checkpoint-002",
+  "normalization": "site-navigation-functions-r2/ -> site-navigation-functions-r1/",
+  "changed": [
+    {
+      "id": "volvo/cdls-mono-volvocars/8e1fd20c525f/site-navigation-functions-r1/shape/workflow-argument",
+      "kind": "shape",
+      "before": {
+        "id": "volvo/cdls-mono-volvocars/8e1fd20c525f/site-navigation-functions-r1/shape/workflow-argument",
+        "kind": "shape",
+        "representation": "source",
+        "label": "Actual one destructured source parameter to triggerWorkflow",
+        "fields": [
+          {
+            "name": "tagPrefix",
+            "type": "string",
+            "status": "declared",
+            "optional": false,
+            "evidence": [
+              "volvo/cdls-mono-volvocars/8e1fd20c525f/site-navigation-functions-r1/e/a56f1f287184b0cffadc"
+            ]
+          },
+          {
+            "name": "workflowId",
+            "type": "string",
+            "status": "declared",
+            "optional": false,
+            "evidence": [
+              "volvo/cdls-mono-volvocars/8e1fd20c525f/site-navigation-functions-r1/e/a56f1f287184b0cffadc"
+            ]
+          },
+          {
+            "name": "deployEnv",
+            "type": "'test'|'qa'|'prod'",
+            "status": "declared",
+            "optional": false,
+            "evidence": [
+              "volvo/cdls-mono-volvocars/8e1fd20c525f/site-navigation-functions-r1/e/a56f1f287184b0cffadc"
+            ]
+          }
+        ],
+        "completeness": "partial",
+        "gaps": [
+          "volvo/cdls-mono-volvocars/8e1fd20c525f/site-navigation-functions-r1/gap/imported-runtime"
+        ],
+        "evidence": [
+          "volvo/cdls-mono-volvocars/8e1fd20c525f/site-navigation-functions-r1/e/a56f1f287184b0cffadc"
+        ]
+      },
+      "after": {
+        "id": "volvo/cdls-mono-volvocars/8e1fd20c525f/site-navigation-functions-r1/shape/workflow-argument",
+        "kind": "shape",
+        "representation": "source",
+        "label": "Actual one destructured source parameter to triggerWorkflow",
+        "fields": [
+          {
+            "name": "tagPrefix",
+            "type": "string",
+            "status": "declared",
+            "optional": false,
+            "evidence": [
+              "volvo/cdls-mono-volvocars/8e1fd20c525f/site-navigation-functions-r1/e/a56f1f287184b0cffadc"
+            ]
+          },
+          {
+            "name": "workflowId",
+            "type": "string",
+            "status": "declared",
+            "optional": false,
+            "evidence": [
+              "volvo/cdls-mono-volvocars/8e1fd20c525f/site-navigation-functions-r1/e/a56f1f287184b0cffadc"
+            ]
+          },
+          {
+            "name": "deployEnv",
+            "type": "'test'|'qa'|'prod'",
+            "status": "declared",
+            "optional": false,
+            "evidence": [
+              "volvo/cdls-mono-volvocars/8e1fd20c525f/site-navigation-functions-r1/e/a56f1f287184b0cffadc"
+            ],
+            "enum": ["test", "qa", "prod"]
+          }
+        ],
+        "completeness": "partial",
+        "gaps": [
+          "volvo/cdls-mono-volvocars/8e1fd20c525f/site-navigation-functions-r1/gap/imported-runtime"
+        ],
+        "evidence": [
+          "volvo/cdls-mono-volvocars/8e1fd20c525f/site-navigation-functions-r1/e/a56f1f287184b0cffadc"
+        ]
+      }
+    },
+    {
+      "id": "volvo/cdls-mono-volvocars/8e1fd20c525f/site-navigation-functions-r1/shape/dispatch-signature",
+      "kind": "shape",
+      "before": {
+        "id": "volvo/cdls-mono-volvocars/8e1fd20c525f/site-navigation-functions-r1/shape/dispatch-signature",
+        "kind": "shape",
+        "representation": "source",
+        "label": "Source call-signature projection (not wire body)",
+        "fields": [
+          {
+            "name": "argument0",
+            "type": "literal HTTP route string",
+            "status": "declared",
+            "optional": false,
+            "evidence": [
+              "volvo/cdls-mono-volvocars/8e1fd20c525f/site-navigation-functions-r1/e/1c3db643e60314ba14fd"
+            ]
+          },
+          {
+            "name": "argument1",
+            "type": "actual source dispatch options",
+            "status": "declared",
+            "optional": false,
+            "evidence": [
+              "volvo/cdls-mono-volvocars/8e1fd20c525f/site-navigation-functions-r1/e/1c3db643e60314ba14fd"
+            ],
+            "shape": "volvo/cdls-mono-volvocars/8e1fd20c525f/site-navigation-functions-r1/shape/dispatch-options"
+          }
+        ],
+        "completeness": "partial",
+        "gaps": [
+          "volvo/cdls-mono-volvocars/8e1fd20c525f/site-navigation-functions-r1/gap/imported-runtime"
+        ],
+        "evidence": [
+          "volvo/cdls-mono-volvocars/8e1fd20c525f/site-navigation-functions-r1/e/1c3db643e60314ba14fd"
+        ]
+      },
+      "after": {
+        "id": "volvo/cdls-mono-volvocars/8e1fd20c525f/site-navigation-functions-r1/shape/dispatch-signature",
+        "kind": "shape",
+        "representation": "source",
+        "label": "Source call-signature projection (not wire body)",
+        "fields": [
+          {
+            "name": "argument0",
+            "type": "literal HTTP route string",
+            "status": "declared",
+            "optional": false,
+            "evidence": [
+              "volvo/cdls-mono-volvocars/8e1fd20c525f/site-navigation-functions-r1/e/1c3db643e60314ba14fd"
+            ],
+            "const": "POST /repos/{owner}/{repo}/actions/workflows/{workflow_id}/dispatches"
+          },
+          {
+            "name": "argument1",
+            "type": "actual source dispatch options",
+            "status": "declared",
+            "optional": false,
+            "evidence": [
+              "volvo/cdls-mono-volvocars/8e1fd20c525f/site-navigation-functions-r1/e/1c3db643e60314ba14fd"
+            ],
+            "shape": "volvo/cdls-mono-volvocars/8e1fd20c525f/site-navigation-functions-r1/shape/dispatch-options"
+          }
+        ],
+        "completeness": "partial",
+        "gaps": [
+          "volvo/cdls-mono-volvocars/8e1fd20c525f/site-navigation-functions-r1/gap/imported-runtime"
+        ],
+        "evidence": [
+          "volvo/cdls-mono-volvocars/8e1fd20c525f/site-navigation-functions-r1/e/1c3db643e60314ba14fd"
+        ]
+      }
+    },
+    {
+      "id": "volvo/cdls-mono-volvocars/8e1fd20c525f/site-navigation-functions-r1/shape/dispatch-options",
+      "kind": "shape",
+      "before": {
+        "id": "volvo/cdls-mono-volvocars/8e1fd20c525f/site-navigation-functions-r1/shape/dispatch-options",
+        "kind": "shape",
+        "representation": "source",
+        "label": "Actual source Octokit workflow request options",
+        "fields": [
+          {
+            "name": "owner",
+            "type": "'volvo-cars'",
+            "status": "declared",
+            "optional": false,
+            "evidence": [
+              "volvo/cdls-mono-volvocars/8e1fd20c525f/site-navigation-functions-r1/e/4271420ce710c9644313"
+            ]
+          },
+          {
+            "name": "repo",
+            "type": "'cdls-mono-volvocars'",
+            "status": "declared",
+            "optional": false,
+            "evidence": [
+              "volvo/cdls-mono-volvocars/8e1fd20c525f/site-navigation-functions-r1/e/4271420ce710c9644313"
+            ]
+          },
+          {
+            "name": "workflow_id",
+            "type": "string source workflowId",
+            "status": "declared",
+            "optional": false,
+            "evidence": [
+              "volvo/cdls-mono-volvocars/8e1fd20c525f/site-navigation-functions-r1/e/4271420ce710c9644313"
+            ]
+          },
+          {
+            "name": "ref",
+            "type": "source conditional string",
+            "status": "declared",
+            "optional": false,
+            "evidence": [
+              "volvo/cdls-mono-volvocars/8e1fd20c525f/site-navigation-functions-r1/e/4271420ce710c9644313"
+            ]
+          },
+          {
+            "name": "inputs",
+            "type": "{deployEnv,commit:'master',rebuild:'true'}",
+            "status": "declared",
+            "optional": false,
+            "evidence": [
+              "volvo/cdls-mono-volvocars/8e1fd20c525f/site-navigation-functions-r1/e/4271420ce710c9644313"
+            ],
+            "shape": "volvo/cdls-mono-volvocars/8e1fd20c525f/site-navigation-functions-r1/shape/dispatch-inputs"
+          }
+        ],
+        "completeness": "partial",
+        "gaps": [
+          "volvo/cdls-mono-volvocars/8e1fd20c525f/site-navigation-functions-r1/gap/imported-runtime"
+        ],
+        "evidence": [
+          "volvo/cdls-mono-volvocars/8e1fd20c525f/site-navigation-functions-r1/e/4271420ce710c9644313"
+        ]
+      },
+      "after": {
+        "id": "volvo/cdls-mono-volvocars/8e1fd20c525f/site-navigation-functions-r1/shape/dispatch-options",
+        "kind": "shape",
+        "representation": "source",
+        "label": "Actual source Octokit workflow request options",
+        "fields": [
+          {
+            "name": "owner",
+            "type": "'volvo-cars'",
+            "status": "declared",
+            "optional": false,
+            "evidence": [
+              "volvo/cdls-mono-volvocars/8e1fd20c525f/site-navigation-functions-r1/e/4271420ce710c9644313"
+            ],
+            "const": "volvo-cars"
+          },
+          {
+            "name": "repo",
+            "type": "'cdls-mono-volvocars'",
+            "status": "declared",
+            "optional": false,
+            "evidence": [
+              "volvo/cdls-mono-volvocars/8e1fd20c525f/site-navigation-functions-r1/e/4271420ce710c9644313"
+            ],
+            "const": "cdls-mono-volvocars"
+          },
+          {
+            "name": "workflow_id",
+            "type": "string source workflowId",
+            "status": "declared",
+            "optional": false,
+            "evidence": [
+              "volvo/cdls-mono-volvocars/8e1fd20c525f/site-navigation-functions-r1/e/4271420ce710c9644313"
+            ]
+          },
+          {
+            "name": "ref",
+            "type": "source conditional string",
+            "status": "declared",
+            "optional": false,
+            "evidence": [
+              "volvo/cdls-mono-volvocars/8e1fd20c525f/site-navigation-functions-r1/e/4271420ce710c9644313"
+            ]
+          },
+          {
+            "name": "inputs",
+            "type": "{deployEnv,commit:'master',rebuild:'true'}",
+            "status": "declared",
+            "optional": false,
+            "evidence": [
+              "volvo/cdls-mono-volvocars/8e1fd20c525f/site-navigation-functions-r1/e/4271420ce710c9644313"
+            ],
+            "shape": "volvo/cdls-mono-volvocars/8e1fd20c525f/site-navigation-functions-r1/shape/dispatch-inputs"
+          }
+        ],
+        "completeness": "partial",
+        "gaps": [
+          "volvo/cdls-mono-volvocars/8e1fd20c525f/site-navigation-functions-r1/gap/imported-runtime"
+        ],
+        "evidence": [
+          "volvo/cdls-mono-volvocars/8e1fd20c525f/site-navigation-functions-r1/e/4271420ce710c9644313"
+        ]
+      }
+    },
+    {
+      "id": "volvo/cdls-mono-volvocars/8e1fd20c525f/site-navigation-functions-r1/shape/dispatch-inputs",
+      "kind": "shape",
+      "before": {
+        "id": "volvo/cdls-mono-volvocars/8e1fd20c525f/site-navigation-functions-r1/shape/dispatch-inputs",
+        "kind": "shape",
+        "representation": "source",
+        "label": "Actual nested source workflow inputs",
+        "fields": [
+          {
+            "name": "deployEnv",
+            "type": "'test'|'qa'|'prod'",
+            "status": "declared",
+            "optional": false,
+            "evidence": [
+              "volvo/cdls-mono-volvocars/8e1fd20c525f/site-navigation-functions-r1/e/005399c878543b51cad3"
+            ]
+          },
+          {
+            "name": "commit",
+            "type": "'master'",
+            "status": "declared",
+            "optional": false,
+            "evidence": [
+              "volvo/cdls-mono-volvocars/8e1fd20c525f/site-navigation-functions-r1/e/005399c878543b51cad3"
+            ]
+          },
+          {
+            "name": "rebuild",
+            "type": "'true' string",
+            "status": "declared",
+            "optional": false,
+            "evidence": [
+              "volvo/cdls-mono-volvocars/8e1fd20c525f/site-navigation-functions-r1/e/005399c878543b51cad3"
+            ]
+          }
+        ],
+        "completeness": "partial",
+        "gaps": [
+          "volvo/cdls-mono-volvocars/8e1fd20c525f/site-navigation-functions-r1/gap/imported-runtime"
+        ],
+        "evidence": [
+          "volvo/cdls-mono-volvocars/8e1fd20c525f/site-navigation-functions-r1/e/005399c878543b51cad3"
+        ]
+      },
+      "after": {
+        "id": "volvo/cdls-mono-volvocars/8e1fd20c525f/site-navigation-functions-r1/shape/dispatch-inputs",
+        "kind": "shape",
+        "representation": "source",
+        "label": "Actual nested source workflow inputs",
+        "fields": [
+          {
+            "name": "deployEnv",
+            "type": "'test'|'qa'|'prod'",
+            "status": "declared",
+            "optional": false,
+            "evidence": [
+              "volvo/cdls-mono-volvocars/8e1fd20c525f/site-navigation-functions-r1/e/005399c878543b51cad3"
+            ],
+            "enum": ["test", "qa", "prod"]
+          },
+          {
+            "name": "commit",
+            "type": "'master'",
+            "status": "declared",
+            "optional": false,
+            "evidence": [
+              "volvo/cdls-mono-volvocars/8e1fd20c525f/site-navigation-functions-r1/e/005399c878543b51cad3"
+            ],
+            "const": "master"
+          },
+          {
+            "name": "rebuild",
+            "type": "'true' string",
+            "status": "declared",
+            "optional": false,
+            "evidence": [
+              "volvo/cdls-mono-volvocars/8e1fd20c525f/site-navigation-functions-r1/e/005399c878543b51cad3"
+            ],
+            "const": "true"
+          }
+        ],
+        "completeness": "partial",
+        "gaps": [
+          "volvo/cdls-mono-volvocars/8e1fd20c525f/site-navigation-functions-r1/gap/imported-runtime"
+        ],
+        "evidence": [
+          "volvo/cdls-mono-volvocars/8e1fd20c525f/site-navigation-functions-r1/e/005399c878543b51cad3"
+        ]
+      }
+    },
+    {
+      "id": "volvo/cdls-mono-volvocars/8e1fd20c525f/site-navigation-functions-r1/shape/message",
+      "kind": "shape",
+      "before": {
+        "id": "volvo/cdls-mono-volvocars/8e1fd20c525f/site-navigation-functions-r1/shape/message",
+        "kind": "shape",
+        "representation": "source",
+        "label": "Message source interface, not established decoded wire payload",
+        "fields": [
+          {
+            "name": "ApplicationId",
+            "type": "string",
+            "status": "declared",
+            "optional": false,
+            "evidence": [
+              "volvo/cdls-mono-volvocars/8e1fd20c525f/site-navigation-functions-r1/e/2cea7227364a1968983f"
+            ]
+          },
+          {
+            "name": "Datasource",
+            "type": "string",
+            "status": "declared",
+            "optional": false,
+            "evidence": [
+              "volvo/cdls-mono-volvocars/8e1fd20c525f/site-navigation-functions-r1/e/2cea7227364a1968983f"
+            ]
+          },
+          {
+            "name": "ResourceId",
+            "type": "string",
+            "status": "declared",
+            "optional": false,
+            "evidence": [
+              "volvo/cdls-mono-volvocars/8e1fd20c525f/site-navigation-functions-r1/e/2cea7227364a1968983f"
+            ]
+          },
+          {
+            "name": "ResourceKind",
+            "type": "'Dictionary'|'Entry'",
+            "status": "declared",
+            "optional": false,
+            "evidence": [
+              "volvo/cdls-mono-volvocars/8e1fd20c525f/site-navigation-functions-r1/e/2cea7227364a1968983f"
+            ]
+          },
+          {
+            "name": "Market",
+            "type": "string|null",
+            "status": "declared",
+            "optional": false,
+            "evidence": [
+              "volvo/cdls-mono-volvocars/8e1fd20c525f/site-navigation-functions-r1/e/2cea7227364a1968983f"
+            ]
+          },
+          {
+            "name": "Namespace",
+            "type": "string|null",
+            "status": "declared",
+            "optional": false,
+            "evidence": [
+              "volvo/cdls-mono-volvocars/8e1fd20c525f/site-navigation-functions-r1/e/2cea7227364a1968983f"
+            ]
+          },
+          {
+            "name": "CanonicalName",
+            "type": "string",
+            "status": "declared",
+            "optional": false,
+            "evidence": [
+              "volvo/cdls-mono-volvocars/8e1fd20c525f/site-navigation-functions-r1/e/2cea7227364a1968983f"
+            ]
+          },
+          {
+            "name": "Targets",
+            "type": "string[]",
+            "status": "declared",
+            "optional": true,
+            "evidence": [
+              "volvo/cdls-mono-volvocars/8e1fd20c525f/site-navigation-functions-r1/e/2cea7227364a1968983f"
+            ]
+          },
+          {
+            "name": "Locales",
+            "type": "string[]",
+            "status": "declared",
+            "optional": true,
+            "evidence": [
+              "volvo/cdls-mono-volvocars/8e1fd20c525f/site-navigation-functions-r1/e/2cea7227364a1968983f"
+            ]
+          },
+          {
+            "name": "CorrelationId",
+            "type": "string",
+            "status": "declared",
+            "optional": false,
+            "evidence": [
+              "volvo/cdls-mono-volvocars/8e1fd20c525f/site-navigation-functions-r1/e/2cea7227364a1968983f"
+            ]
+          }
+        ],
+        "completeness": "partial",
+        "gaps": [
+          "volvo/cdls-mono-volvocars/8e1fd20c525f/site-navigation-functions-r1/gap/imported-runtime"
+        ],
+        "evidence": [
+          "volvo/cdls-mono-volvocars/8e1fd20c525f/site-navigation-functions-r1/e/2cea7227364a1968983f"
+        ]
+      },
+      "after": {
+        "id": "volvo/cdls-mono-volvocars/8e1fd20c525f/site-navigation-functions-r1/shape/message",
+        "kind": "shape",
+        "representation": "source",
+        "label": "Message source interface, not established decoded wire payload",
+        "fields": [
+          {
+            "name": "ApplicationId",
+            "type": "string",
+            "status": "declared",
+            "optional": false,
+            "evidence": [
+              "volvo/cdls-mono-volvocars/8e1fd20c525f/site-navigation-functions-r1/e/2cea7227364a1968983f"
+            ]
+          },
+          {
+            "name": "Datasource",
+            "type": "string",
+            "status": "declared",
+            "optional": false,
+            "evidence": [
+              "volvo/cdls-mono-volvocars/8e1fd20c525f/site-navigation-functions-r1/e/2cea7227364a1968983f"
+            ]
+          },
+          {
+            "name": "ResourceId",
+            "type": "string",
+            "status": "declared",
+            "optional": false,
+            "evidence": [
+              "volvo/cdls-mono-volvocars/8e1fd20c525f/site-navigation-functions-r1/e/2cea7227364a1968983f"
+            ]
+          },
+          {
+            "name": "ResourceKind",
+            "type": "'Dictionary'|'Entry'",
+            "status": "declared",
+            "optional": false,
+            "evidence": [
+              "volvo/cdls-mono-volvocars/8e1fd20c525f/site-navigation-functions-r1/e/2cea7227364a1968983f"
+            ],
+            "enum": ["Dictionary", "Entry"]
+          },
+          {
+            "name": "Market",
+            "type": "string|null",
+            "status": "declared",
+            "optional": false,
+            "evidence": [
+              "volvo/cdls-mono-volvocars/8e1fd20c525f/site-navigation-functions-r1/e/2cea7227364a1968983f"
+            ],
+            "nullable": true
+          },
+          {
+            "name": "Namespace",
+            "type": "string|null",
+            "status": "declared",
+            "optional": false,
+            "evidence": [
+              "volvo/cdls-mono-volvocars/8e1fd20c525f/site-navigation-functions-r1/e/2cea7227364a1968983f"
+            ],
+            "nullable": true
+          },
+          {
+            "name": "CanonicalName",
+            "type": "string",
+            "status": "declared",
+            "optional": false,
+            "evidence": [
+              "volvo/cdls-mono-volvocars/8e1fd20c525f/site-navigation-functions-r1/e/2cea7227364a1968983f"
+            ]
+          },
+          {
+            "name": "Targets",
+            "type": "string[]",
+            "status": "declared",
+            "optional": true,
+            "evidence": [
+              "volvo/cdls-mono-volvocars/8e1fd20c525f/site-navigation-functions-r1/e/2cea7227364a1968983f"
+            ],
+            "shape": "volvo/cdls-mono-volvocars/8e1fd20c525f/site-navigation-functions-r1/shape/source-string-array"
+          },
+          {
+            "name": "Locales",
+            "type": "string[]",
+            "status": "declared",
+            "optional": true,
+            "evidence": [
+              "volvo/cdls-mono-volvocars/8e1fd20c525f/site-navigation-functions-r1/e/2cea7227364a1968983f"
+            ],
+            "shape": "volvo/cdls-mono-volvocars/8e1fd20c525f/site-navigation-functions-r1/shape/source-string-array"
+          },
+          {
+            "name": "CorrelationId",
+            "type": "string",
+            "status": "declared",
+            "optional": false,
+            "evidence": [
+              "volvo/cdls-mono-volvocars/8e1fd20c525f/site-navigation-functions-r1/e/2cea7227364a1968983f"
+            ]
+          }
+        ],
+        "completeness": "partial",
+        "gaps": [
+          "volvo/cdls-mono-volvocars/8e1fd20c525f/site-navigation-functions-r1/gap/imported-runtime"
+        ],
+        "evidence": [
+          "volvo/cdls-mono-volvocars/8e1fd20c525f/site-navigation-functions-r1/e/2cea7227364a1968983f"
+        ]
+      }
+    }
+  ],
+  "added": [
+    {
+      "id": "volvo/cdls-mono-volvocars/8e1fd20c525f/site-navigation-functions-r1/e/c2f26a0079c12b9e93d0",
+      "kind": "evidence",
+      "repo": "volvo-cars/cdls-mono-volvocars",
+      "commit": "8e1fd20c525fd3ef46f89fa7734dba06b06c79fc",
+      "path": "apps/site-navigation/function-app/src/functions/serviceBusTopicTrigger.ts",
+      "lines": [12, 13],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "volvo/cdls-mono-volvocars/8e1fd20c525f/site-navigation-functions-r1/shape/source-string-element",
+      "kind": "shape",
+      "representation": "source",
+      "label": "TypeScript string scalar array element (not an object or established wire type)",
+      "fields": [],
+      "completeness": "partial",
+      "gaps": [
+        "volvo/cdls-mono-volvocars/8e1fd20c525f/site-navigation-functions-r1/gap/imported-runtime"
+      ],
+      "evidence": [
+        "volvo/cdls-mono-volvocars/8e1fd20c525f/site-navigation-functions-r1/e/c2f26a0079c12b9e93d0"
+      ]
+    },
+    {
+      "id": "volvo/cdls-mono-volvocars/8e1fd20c525f/site-navigation-functions-r1/shape/source-string-array",
+      "kind": "shape",
+      "representation": "source",
+      "label": "TypeScript string[] source array",
+      "fields": [],
+      "container": "array",
+      "items": "volvo/cdls-mono-volvocars/8e1fd20c525f/site-navigation-functions-r1/shape/source-string-element",
+      "completeness": "partial",
+      "gaps": [
+        "volvo/cdls-mono-volvocars/8e1fd20c525f/site-navigation-functions-r1/gap/imported-runtime"
+      ],
+      "evidence": [
+        "volvo/cdls-mono-volvocars/8e1fd20c525f/site-navigation-functions-r1/e/c2f26a0079c12b9e93d0"
+      ]
+    },
+    {
+      "id": "volvo/cdls-mono-volvocars/8e1fd20c525f/site-navigation-functions-r1/claim/source-constraints",
+      "kind": "claim",
+      "owner": "volvo/cdls-mono-volvocars/8e1fd20c525f/site-navigation-functions-r1/shape/message",
+      "statement": "Native source constraints preserve ResourceKind enum, Market/Namespace nullability, optional Targets/Locales string-array containers/items, workflow deployEnv literal union and literal caller route/options/input fields. The leaf source item is TypeScript string, with no fabricated object member or wire type. These declarations/literals establish source construction only, not decoded input validation, external serialization or deployment compatibility.",
+      "basis": "source_declared",
+      "inputs": [
+        "volvo/cdls-mono-volvocars/8e1fd20c525f/site-navigation-functions-r1/shape/message",
+        "volvo/cdls-mono-volvocars/8e1fd20c525f/site-navigation-functions-r1/shape/source-string-array",
+        "volvo/cdls-mono-volvocars/8e1fd20c525f/site-navigation-functions-r1/shape/source-string-element",
+        "volvo/cdls-mono-volvocars/8e1fd20c525f/site-navigation-functions-r1/shape/workflow-argument",
+        "volvo/cdls-mono-volvocars/8e1fd20c525f/site-navigation-functions-r1/shape/dispatch-options",
+        "volvo/cdls-mono-volvocars/8e1fd20c525f/site-navigation-functions-r1/shape/dispatch-inputs",
+        "volvo/cdls-mono-volvocars/8e1fd20c525f/site-navigation-functions-r1/shape/dispatch-signature"
+      ],
+      "assumptions": [],
+      "evidence": [
+        "volvo/cdls-mono-volvocars/8e1fd20c525f/site-navigation-functions-r1/e/2cea7227364a1968983f",
+        "volvo/cdls-mono-volvocars/8e1fd20c525f/site-navigation-functions-r1/e/a56f1f287184b0cffadc",
+        "volvo/cdls-mono-volvocars/8e1fd20c525f/site-navigation-functions-r1/e/1c3db643e60314ba14fd"
+      ]
+    }
+  ],
+  "removed": [],
+  "executionControlDataValueIOEqual": true,
+  "qualification": "Only source shape constraints plus source array/scalar item shapes, their exact evidence and a supporting claim; no wire-validation assertion."
+}

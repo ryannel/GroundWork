@@ -1,0 +1,7 @@
+{
+  "boundVoidInvocationsWithoutResults": 38,
+  "immediateTaskHandlesPreserved": 473,
+  "objectCreationValuesPreserved": 294,
+  "removedSourceVoidValues": 721,
+  "removedVoidOperandFlows": 842
+}

@@ -1,0 +1,38 @@
+{
+  "repo": "volvo-cars/cdls-mono-volvocars",
+  "commit": "8e1fd20c525fd3ef46f89fa7734dba06b06c79fc",
+  "status": "Independent5full pinned files reviewed;27strict queries/44pages;162pinned ranges checked",
+  "files": [
+    {
+      "path": "apps/ev-subsidy/src/components/wizard/StepAddress/index.tsx",
+      "lines": 108,
+      "sha256": "b6056d0e9c3f2b2bbef5174b07152e918328fa8b5b2ea47a65244d4f9b08a54d",
+      "review": "Entire pinned source independently read and compared with selected native facts and strict queries"
+    },
+    {
+      "path": "apps/ev-subsidy/src/components/wizard/StepPersons/index.tsx",
+      "lines": 202,
+      "sha256": "66b20407745bdda652fd589bdf1051705a24ebd5580731384732c61abe0afeda",
+      "review": "Entire pinned source independently read and compared with selected native facts and strict queries"
+    },
+    {
+      "path": "apps/ev-subsidy/src/components/wizard/Wizard.tsx",
+      "lines": 277,
+      "sha256": "56080c0cd2cea3050c869b864629cb02652dad80e86144f49626b2570ca1fc0b",
+      "review": "Entire pinned source independently read and compared with selected native facts and strict queries"
+    },
+    {
+      "path": "apps/ev-subsidy/src/RootLayoutProvider.tsx",
+      "lines": 95,
+      "sha256": "c7e02e425282cbae6e6e612489041cd743e12344c95897eb20c03c75dc49bdc3",
+      "review": "Entire pinned source independently read and compared with selected native facts and strict queries"
+    },
+    {
+      "path": "apps/ev-subsidy/src/components/wizard/AddressInput/index.tsx",
+      "lines": 70,
+      "sha256": "3a6dd290e9ced62d5fee4ac9c1de49c0fc0b6be323a67ca7b2face909f71b12b",
+      "review": "Entire pinned source independently read and compared with selected native facts and strict queries"
+    }
+  ],
+  "snapshot": "e4df872bf2495bfe3b4e6bccea07a80012a44972aab2d4389586ac9d6df62d7b"
+}

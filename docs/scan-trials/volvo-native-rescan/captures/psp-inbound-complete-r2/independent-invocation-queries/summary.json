@@ -1,0 +1,26 @@
+{
+  "snapshot": "eaaef2ed0e7238cf7ed324b9812017073b02716f3020b53e04be8aa5b9bca64a",
+  "checks": [
+    {
+      "argument": 0,
+      "nodes": 17,
+      "edges": 16,
+      "invocationDepth": 2,
+      "frontiers": 3
+    },
+    {
+      "argument": 1,
+      "nodes": 167,
+      "edges": 179,
+      "invocationDepth": 2,
+      "frontiers": 92
+    },
+    {
+      "argument": 2,
+      "nodes": 165,
+      "edges": 177,
+      "invocationDepth": 2,
+      "frontiers": 88
+    }
+  ]
+}

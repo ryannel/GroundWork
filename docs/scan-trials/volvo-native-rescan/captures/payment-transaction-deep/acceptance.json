@@ -1,0 +1,301 @@
+{
+  "snapshot": "c67c245880857715c9ea81ad95b44df8735d26465293ad4d3c428777c78df900",
+  "sourceCommit": "020d2fabb141b47b6d1e8173c02405795f71613a",
+  "activeCaptureEntry": "volvo/cds-paymentservice-transaction/020d2fabb141/capture/r1/endpoint",
+  "activeEntries": {
+    "refund": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/revised/entry/refund",
+    "charge": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/revised/entry/charge"
+  },
+  "entryChecks": [
+    {
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/capture/r1/endpoint",
+      "path": "/v1/payment-sessions/{paymentSessionId}/transaction-capture",
+      "traceNodes": 51,
+      "frontiers": 3,
+      "status": "partial"
+    },
+    {
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/revised/entry/retry",
+      "path": "/v1/payment-sessions/{paymentSessionId}/retry",
+      "traceNodes": 9,
+      "frontiers": 1,
+      "status": "partial"
+    },
+    {
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/entry/resubmit",
+      "path": "/v1/payment-sessions/{paymentSessionId}/resubmit",
+      "traceNodes": 7,
+      "frontiers": 1,
+      "status": "partial"
+    },
+    {
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/entry/get-session",
+      "path": "/v1/payment-sessions/{paymentSessionId}",
+      "traceNodes": 24,
+      "frontiers": 4,
+      "status": "partial"
+    },
+    {
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/revised/entry/create-session",
+      "path": "/v1/payment-sessions",
+      "traceNodes": 7,
+      "frontiers": 1,
+      "status": "partial"
+    },
+    {
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/revised/entry/charge",
+      "path": "/v1/payment-sessions/charge",
+      "traceNodes": 245,
+      "frontiers": 36,
+      "status": "partial"
+    },
+    {
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/revised/entry/refund",
+      "path": "/v1/payment-sessions/{paymentSessionId}/transaction-refund",
+      "traceNodes": 80,
+      "frontiers": 19,
+      "status": "partial"
+    },
+    {
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/revised/entry/create-transaction",
+      "path": "/v1/payment-sessions/{paymentSessionId}/psp/{psp}/transaction-create",
+      "traceNodes": 7,
+      "frontiers": 1,
+      "status": "partial"
+    },
+    {
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/entry/swagger-config",
+      "path": "/v1/configurations/swagger-config",
+      "traceNodes": 5,
+      "frontiers": 1,
+      "status": "partial"
+    },
+    {
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/entry/version-v1",
+      "path": "/v1/version",
+      "traceNodes": 3,
+      "frontiers": 0,
+      "status": "partial"
+    },
+    {
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/entry/version-v2",
+      "path": "/v2/version",
+      "traceNodes": 3,
+      "frontiers": 0,
+      "status": "partial"
+    }
+  ],
+  "queries": [
+    {
+      "name": "capture.interactions",
+      "query": "interactions",
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/capture/r1/endpoint",
+      "nodes": 3,
+      "records": 292,
+      "frontiers": 4
+    },
+    {
+      "name": "capture.continuations",
+      "query": "continuations",
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/capture/r1/endpoint",
+      "nodes": 51,
+      "records": 327,
+      "frontiers": 3
+    },
+    {
+      "name": "capture.session-value",
+      "query": "value",
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/capture/r1/endpoint",
+      "nodes": 6,
+      "records": 198,
+      "frontiers": 2
+    },
+    {
+      "name": "refund.interactions",
+      "query": "interactions",
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/revised/entry/refund",
+      "nodes": 3,
+      "records": 373,
+      "frontiers": 19
+    },
+    {
+      "name": "refund.continuations",
+      "query": "continuations",
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/revised/entry/refund",
+      "nodes": 80,
+      "records": 506,
+      "frontiers": 19
+    },
+    {
+      "name": "refund.effects",
+      "query": "effects",
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/revised/entry/refund",
+      "nodes": 80,
+      "records": 517,
+      "frontiers": 19
+    },
+    {
+      "name": "refund.422-outcome",
+      "query": "outcome",
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/revised/entry/refund",
+      "nodes": 58,
+      "records": 428,
+      "frontiers": 7
+    },
+    {
+      "name": "charge.interactions",
+      "query": "interactions",
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/revised/entry/charge",
+      "nodes": 5,
+      "records": 741,
+      "frontiers": 38
+    },
+    {
+      "name": "charge.continuations",
+      "query": "continuations",
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/revised/entry/charge",
+      "nodes": 245,
+      "records": 1120,
+      "frontiers": 36
+    },
+    {
+      "name": "charge.403-outcome",
+      "query": "outcome",
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/revised/entry/charge",
+      "nodes": 49,
+      "records": 364,
+      "frontiers": 5
+    },
+    {
+      "name": "charge.404-outcome",
+      "query": "outcome",
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/revised/entry/charge",
+      "nodes": 206,
+      "records": 991,
+      "frontiers": 24
+    },
+    {
+      "name": "charge.402-outcome",
+      "query": "outcome",
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/revised/entry/charge",
+      "nodes": 149,
+      "records": 807,
+      "frontiers": 18
+    },
+    {
+      "name": "charge.500-outcome",
+      "query": "outcome",
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/revised/entry/charge",
+      "nodes": 196,
+      "records": 957,
+      "frontiers": 24
+    },
+    {
+      "name": "charge.consistency",
+      "query": "consistency",
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/revised/entry/charge",
+      "nodes": 245,
+      "records": 1161,
+      "frontiers": 36
+    },
+    {
+      "name": "charge.psp-value",
+      "query": "value",
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/revised/entry/charge",
+      "nodes": 60,
+      "records": 624,
+      "frontiers": 7
+    },
+    {
+      "name": "charge.scheduler-value",
+      "query": "value",
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/revised/entry/charge",
+      "nodes": 29,
+      "records": 452,
+      "frontiers": 4
+    },
+    {
+      "name": "charge.session-input-value",
+      "query": "value",
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/revised/entry/charge",
+      "nodes": 5,
+      "records": 162,
+      "frontiers": 0
+    },
+    {
+      "name": "source-claims.records",
+      "query": "records",
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/revised/entry/charge",
+      "nodes": 0,
+      "records": 794,
+      "frontiers": 0
+    }
+  ],
+  "recordCounts": {
+    "artifact": 5,
+    "artifact_source_binding": 2,
+    "channel_binding": 2,
+    "claim": 26,
+    "consistency_boundary": 1,
+    "coverage": 66,
+    "delivery_policy": 2,
+    "derivation": 1551,
+    "effect": 19,
+    "entry": 11,
+    "entry_binding": 11,
+    "evidence": 663,
+    "execution_binding": 57,
+    "flow": 112,
+    "gap": 37,
+    "implementation": 59,
+    "interaction": 19,
+    "interface_contract": 31,
+    "milestone": 5,
+    "operation": 356,
+    "resolution": 73,
+    "resource": 9,
+    "resource_binding": 7,
+    "runtime_component": 4,
+    "shape": 153,
+    "source_revision": 3,
+    "storage_write": 5,
+    "transition": 309,
+    "value": 273
+  },
+  "sourceClaims": [
+    "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/revised/capture/r1/claim/208",
+    "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/revised/capture/r1/claim/202",
+    "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/claim/refund-constraints",
+    "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/claim/scheduler-failure",
+    "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/claim/partial-result",
+    "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/claim/charge-order",
+    "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/claim/no-history-save",
+    "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/claim/charge-shape-rules",
+    "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/claim/local-model-authority",
+    "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/claim/state-date-format",
+    "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/claim/rest-capture-202",
+    "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/claim/rest-capture-208",
+    "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/claim/rest-retry-200",
+    "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/claim/rest-retry-202",
+    "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/claim/rest-resubmit-200",
+    "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/claim/rest-get-session-200",
+    "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/claim/rest-create-session-200",
+    "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/claim/rest-charge-200",
+    "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/claim/rest-charge-202",
+    "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/claim/rest-refund-202",
+    "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/claim/rest-create-transaction-200",
+    "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/claim/rest-version-v1-200",
+    "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/claim/rest-version-v2-200",
+    "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/claim/capture-sdk-wrapper",
+    "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/claim/refund-callback",
+    "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/claim/recurring-callback"
+  ],
+  "acceptance": "passed",
+  "fullyTracedEndToEnd": 0,
+  "partialRestEntries": 11,
+  "revisionCounts": {
+    "revised": 433,
+    "unchanged": 685,
+    "removed": 59
+  }
+}

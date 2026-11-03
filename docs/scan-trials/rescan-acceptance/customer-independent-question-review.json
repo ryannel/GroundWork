@@ -1,0 +1,233 @@
+{
+  "format": "rescan-independent-question-review/v1",
+  "repo": "volvo-cars/cds-ecom-customer-service",
+  "commit": "09623ab3a1f39845d8fc02abc3d591b53a3b5fea",
+  "decision": "retain_13_supported_8_partial_1_unsupported",
+  "questionCount": 22,
+  "counts": {
+    "supported": 13,
+    "partial": 8,
+    "unsupported": 1
+  },
+  "frozenRosterSha256": "88d6141061ca48c3437f6e92ab5e3f9a0ee2723fab920ddbba8171df0e752bf8",
+  "evidence": [
+    {
+      "path": "docs/scan-trials/customer-service-archival/answerability.json",
+      "sha256": "020d02005e362f4c7e8d14fb92a39a5559301b6ec59f3b6295b31ed935d98fb5"
+    },
+    {
+      "path": "reports/rescan-launch-readiness-001/customer/archival-review-release/receipt.json",
+      "sha256": "a77912ee53ca7d93c625ef0d917358fdee61e5f69a5fb89348eeebe0b8ef4a9f"
+    },
+    {
+      "path": "reports/rescan-launch-readiness-001/customer/native-review-release/accepted-native-replay.json",
+      "sha256": "94119970b5ba0b11a4ce4df061eb0f8781a11eae20f3d486591548a759aff194"
+    }
+  ],
+  "verification": {
+    "archivalAccepted": true,
+    "frozenMutations": 225,
+    "allMutationsRejected": true,
+    "nativeProbes": 7,
+    "nativeSemanticEquivalence": true,
+    "explicitEdgeIdMigrationVerified": true,
+    "q08DefaultMutations": 8,
+    "selectedRecords": 45616,
+    "returnedRecords": 45616,
+    "pages": 11409,
+    "snapshot": "8f46bce54a51481e676efec03f2c53915a5e466aec9d7f9a35111233a66028f4",
+    "authoritativeRuleDigest": "4588b092f7c1ebdf6cf0fbaa09eb21432b858331b4309986508f3055f36d9a6c"
+  },
+  "nonPromotion": "UI navigation, new parsers, source counts and inferred purpose/actors are not additional source answers. Launch readiness and per-repository ingestion acceptance remain separate.",
+  "questions": [
+    {
+      "id": "Q01",
+      "question": "Which HTTP operations does customer service expose, with their complete paths and request/response types?",
+      "requiredEvidence": "Interface annotations joined to implementation prefixes and schema references; API `api/customer/v1/*Controller.java` and `impl/*ControllerImpl.java`.",
+      "status": "supported",
+      "judgement": "retain_frozen_source_status_no_promotion",
+      "freshProof": "existing.q01",
+      "qualification": "Supported for the frozen source clauses only; external/runtime boundaries in the accepted answer remain explicit."
+    },
+    {
+      "id": "Q02",
+      "question": "Which roles may read, change, duplicate, archive and migrate customers, and where are they enforced?",
+      "requiredEvidence": "Policy declarations plus effective enforcement bindings; the three controller interfaces and security configuration.",
+      "status": "partial",
+      "judgement": "retain_frozen_source_status_no_promotion",
+      "remainingGap": "Effective method security activation, external filter chain and authority conversion remain unclosed."
+    },
+    {
+      "id": "Q03",
+      "question": "Which customer and individual request fields are mandatory, and how do create, update and patch validation differ?",
+      "requiredEvidence": "Field shapes, validation groups and wire binding; shared `customer/CustomerRequest.java`, `individual/IndividualRequest.java`, API controller annotations.",
+      "status": "partial",
+      "judgement": "retain_frozen_source_status_no_promotion",
+      "remainingGap": "Effective JsonView/wire inclusion, custom validation and external/generated types remain unclosed."
+    },
+    {
+      "id": "Q04",
+      "question": "How do PUT and PATCH change an existing customer, including omitted fields?",
+      "requiredEvidence": "Request-to-factory value lineage, update/patch branches and persistence; core `customer/CustomerService.java` and `CustomerFactory.java`.",
+      "status": "partial",
+      "judgement": "retain_frozen_source_status_no_promotion",
+      "remainingGap": "Complete request-to-factory and omitted-field lineage is unclosed."
+    },
+    {
+      "id": "Q05",
+      "question": "What happens when an individual update names an individual that the customer does not contain?",
+      "requiredEvidence": "Membership guard, thrown exception, handler binding and HTTP outcome; core `CustomerService.java`, API exception handlers.",
+      "status": "supported",
+      "judgement": "retain_frozen_source_status_no_promotion",
+      "freshProof": "existing.q05",
+      "qualification": "Supported for the frozen source clauses only; external/runtime boundaries in the accepted answer remain explicit."
+    },
+    {
+      "id": "Q06",
+      "question": "What does duplication preserve, which identifiers are replaced, and does the result include the original customer?",
+      "requiredEvidence": "Duplication loop, factory field lineage, saves and result construction; core `CustomerService.java`, `CustomerFactory.java`.",
+      "status": "partial",
+      "judgement": "retain_frozen_source_status_no_promotion",
+      "remainingGap": "Complete preserved/replaced identifier and field lineage remains unclosed."
+    },
+    {
+      "id": "Q07",
+      "question": "Does an unchanged customer write reach validation, MongoDB or publication?",
+      "requiredEvidence": "Equality guard and return, ordered subsequent statements; core `CustomerService.saveAndPostProcess`.",
+      "status": "supported",
+      "judgement": "retain_frozen_source_status_no_promotion",
+      "freshProof": "native.Q07-equal-write",
+      "qualification": "Supported for the frozen source clauses only; external/runtime boundaries in the accepted answer remain explicit."
+    },
+    {
+      "id": "Q08",
+      "question": "Does `forceArchive=true` archive immediately or mark the customer for later, and what is the default reason?",
+      "requiredEvidence": "Parsed boolean branch, calls and resolved argument; API `impl/CustomerApiService.java` 117\u2013127.",
+      "status": "supported",
+      "judgement": "retain_frozen_source_status_no_promotion",
+      "freshProof": "native.Q08-force-archive + q08DefaultSupported",
+      "qualification": "Supported for the frozen source clauses only; external/runtime boundaries in the accepted answer remain explicit."
+    },
+    {
+      "id": "Q09",
+      "question": "When restoring an archived customer, what happens to its version, archival timestamp and the archived record?",
+      "requiredEvidence": "Field lineage, save-before-delete order and failure boundaries; core `customerarchive/CustomerArchiveService.java` 55\u201382.",
+      "status": "partial",
+      "judgement": "retain_frozen_source_status_no_promotion",
+      "remainingGap": "Effective stored shape, failure state and atomicity remain unclosed; source order alone is narrower."
+    },
+    {
+      "id": "Q10",
+      "question": "How can a caller fetch a customer's audit history or a particular version, and how are results ordered and paginated?",
+      "requiredEvidence": "Route/request binding through service to repository query and response; API AuditLogController and core `auditlog`.",
+      "status": "partial",
+      "judgement": "retain_frozen_source_status_no_promotion",
+      "remainingGap": "Complete store-query ordering/pagination and effective wire response remain unclosed."
+    },
+    {
+      "id": "Q11",
+      "question": "How is `X-User-Access-Token` checked and resolved across Volvo ID, Connect and Entra ID tokens?",
+      "requiredEvidence": "Header/interceptor binding, issuer guards and token-specific dispatch; API `security`, core `security/UserIdentityResolver.java`.",
+      "status": "partial",
+      "judgement": "retain_frozen_source_status_no_promotion",
+      "remainingGap": "Complete typed header/issuer/decoder/dispatch enforcement and external security activation remain unclosed."
+    },
+    {
+      "id": "Q12",
+      "question": "Which external systems supply an individual's profile, and what is sent and returned at each boundary?",
+      "requiredEvidence": "Boundary bindings, request/response contracts and failure handling; core `volvoid`, `connecttoken`, `entraid`, `consumer`.",
+      "status": "supported",
+      "judgement": "retain_frozen_source_status_no_promotion",
+      "freshProof": "questions.q12",
+      "qualification": "Supported for the frozen source clauses only; external/runtime boundaries in the accepted answer remain explicit."
+    },
+    {
+      "id": "Q13",
+      "question": "How are Fleet and Partner corporate entities looked up and combined with a customer?",
+      "requiredEvidence": "Factory dispatch, outbound boundary and result lineage; core `company`, `fleet`, `partner`.",
+      "status": "supported",
+      "judgement": "retain_frozen_source_status_no_promotion",
+      "freshProof": "questions.q13",
+      "qualification": "Supported for the frozen source clauses only; external/runtime boundaries in the accepted answer remain explicit."
+    },
+    {
+      "id": "Q14",
+      "question": "Which MongoDB collections hold active customers, archives and audit history, and which code reads or writes them?",
+      "requiredEvidence": "Store and collection identities, repository binding and read/write effects; core `customer`, `customerarchive`, `auditlog`, Mongo configuration.",
+      "status": "supported",
+      "judgement": "retain_frozen_source_status_no_promotion",
+      "freshProof": "existing.q14",
+      "qualification": "Supported for the frozen source clauses only; external/runtime boundaries in the accepted answer remain explicit."
+    },
+    {
+      "id": "Q15",
+      "question": "After saving a changed customer, what publications and audit writes are attempted, in which order and with which failure/completion guarantees?",
+      "requiredEvidence": "Saved-value rebinding, ordered post-processing, effect acknowledgement and async boundaries; core `CustomerService`, `CustomerSavePostProcessor`, event/audit services.",
+      "status": "supported",
+      "judgement": "retain_frozen_source_status_no_promotion",
+      "freshProof": "questions.q15",
+      "qualification": "Supported for the frozen source clauses only; external/runtime boundaries in the accepted answer remain explicit."
+    },
+    {
+      "id": "Q16",
+      "question": "When is a marketing consent event skipped, and which changed consent fields reach the event?",
+      "requiredEvidence": "All skip guards, previous/current comparison and event-field lineage; core `consent/MarketingConsentEventService.java`.",
+      "status": "supported",
+      "judgement": "retain_frozen_source_status_no_promotion",
+      "freshProof": "questions.q16",
+      "qualification": "Supported for the frozen source clauses only; external/runtime boundaries in the accepted answer remain explicit."
+    },
+    {
+      "id": "Q17",
+      "question": "How are customer and analytics event types chosen for new, updated and archived customers, and where are they published?",
+      "requiredEvidence": "Event-type branch values, payload contract and configured topic bindings; core `messaging/CustomerEventService.java`, `analytics/AnalyticsEventService.java`, event configuration.",
+      "status": "supported",
+      "judgement": "retain_frozen_source_status_no_promotion",
+      "freshProof": "questions.q17",
+      "qualification": "Supported for the frozen source clauses only; external/runtime boundaries in the accepted answer remain explicit."
+    },
+    {
+      "id": "Q18",
+      "question": "Which incoming event deletes a customer, and what are the subscription, payload and resulting effects?",
+      "requiredEvidence": "Kafka subscription, deserialisation, customer-id lineage, deletion and failure policy; core `messaging/consumer/DeleteCustomerEventConsumer.java` and configuration.",
+      "status": "supported",
+      "judgement": "retain_frozen_source_status_no_promotion",
+      "freshProof": "questions.q18",
+      "qualification": "Supported for the frozen source clauses only; external/runtime boundaries in the accepted answer remain explicit."
+    },
+    {
+      "id": "Q19",
+      "question": "Which order changes mark or restore a customer, and which order categories and statuses are ignored?",
+      "requiredEvidence": "Complete event filters, branches, reason mapping and restore/save effects; core `messaging/consumer/OrderUpdateEventConsumer.java`.",
+      "status": "supported",
+      "judgement": "retain_frozen_source_status_no_promotion",
+      "freshProof": "questions.q19",
+      "qualification": "Supported for the frozen source clauses only; external/runtime boundaries in the accepted answer remain explicit."
+    },
+    {
+      "id": "Q20",
+      "question": "What schedules archival, when is it enabled, how is concurrent execution limited, and what happens after one customer fails?",
+      "requiredEvidence": "Scheduled/conditional/lock declarations joined to configuration, async activation and per-customer catch; core `customerarchive` and API resource configuration.",
+      "status": "supported",
+      "judgement": "retain_frozen_source_status_no_promotion",
+      "freshProof": "questions.q20",
+      "qualification": "Supported for the frozen source clauses only; external/runtime boundaries in the accepted answer remain explicit."
+    },
+    {
+      "id": "Q21",
+      "question": "Which people or callers can perform which customer actions, and what visible outcome follows each action?",
+      "requiredEvidence": "Actor, surface, control, action, execution and outcome records; technical role annotations alone are insufficient.",
+      "status": "unsupported",
+      "judgement": "retain_frozen_source_status_no_promotion",
+      "remainingGap": "Actor-to-action/outcome/journey source obligations remain unsupported; best-effort Inferred interpretation is separate."
+    },
+    {
+      "id": "Q22",
+      "question": "Which source revision and analysis versions does the answer reflect, and is it current remotely and in production?",
+      "requiredEvidence": "Source baseline, analysis fingerprints and reference observations; explicit limits for unobserved remote/deployment state.",
+      "status": "partial",
+      "judgement": "retain_frozen_source_status_no_promotion",
+      "remainingGap": "Local pinned source/current analysis does not establish remote or deployed currency."
+    }
+  ]
+}

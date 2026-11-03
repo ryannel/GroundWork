@@ -1,0 +1,196 @@
+[
+  {
+    "name": "GET /api/commercial-items/fees/{internalId}",
+    "request": {
+      "format": "groundwork-query/v3",
+      "snapshot": "41fc2e67ba0f71e8d93ec9e55ec52ba3339603546e54372c7859c34a14409877",
+      "query": "interactions",
+      "entry": "mascomplete-b360506-r2/entry/get-api-commercial-items-fees-internalid",
+      "value": null,
+      "context": [],
+      "outcome": null,
+      "changed": [],
+      "representation": "constructed",
+      "candidates": "exclude",
+      "maxNodes": 2000,
+      "maxRecords": 5000,
+      "environment": "source-profile",
+      "ids": []
+    }
+  },
+  {
+    "name": "trace GET /api/commercial-items/fees/{internalId}",
+    "request": {
+      "format": "groundwork-query/v3",
+      "snapshot": "41fc2e67ba0f71e8d93ec9e55ec52ba3339603546e54372c7859c34a14409877",
+      "query": "trace",
+      "entry": "mascomplete-b360506-r2/entry/get-api-commercial-items-fees-internalid",
+      "value": null,
+      "context": [],
+      "outcome": null,
+      "changed": [],
+      "representation": "constructed",
+      "candidates": "exclude",
+      "maxNodes": 2000,
+      "maxRecords": 5000,
+      "environment": "source-profile",
+      "ids": []
+    }
+  },
+  {
+    "name": "DELETE /api/commercial-segments/brands/{code}",
+    "request": {
+      "format": "groundwork-query/v3",
+      "snapshot": "41fc2e67ba0f71e8d93ec9e55ec52ba3339603546e54372c7859c34a14409877",
+      "query": "interactions",
+      "entry": "mascomplete-b360506-r2/entry/delete-api-commercial-segments-brands-code",
+      "value": null,
+      "context": [],
+      "outcome": null,
+      "changed": [],
+      "representation": "constructed",
+      "candidates": "exclude",
+      "maxNodes": 2000,
+      "maxRecords": 5000,
+      "environment": "source-profile",
+      "ids": []
+    }
+  },
+  {
+    "name": "trace DELETE /api/commercial-segments/brands/{code}",
+    "request": {
+      "format": "groundwork-query/v3",
+      "snapshot": "41fc2e67ba0f71e8d93ec9e55ec52ba3339603546e54372c7859c34a14409877",
+      "query": "trace",
+      "entry": "mascomplete-b360506-r2/entry/delete-api-commercial-segments-brands-code",
+      "value": null,
+      "context": [],
+      "outcome": null,
+      "changed": [],
+      "representation": "constructed",
+      "candidates": "exclude",
+      "maxNodes": 2000,
+      "maxRecords": 5000,
+      "environment": "source-profile",
+      "ids": []
+    }
+  },
+  {
+    "name": "PUT /api/commercial-segments/markets/{code}",
+    "request": {
+      "format": "groundwork-query/v3",
+      "snapshot": "41fc2e67ba0f71e8d93ec9e55ec52ba3339603546e54372c7859c34a14409877",
+      "query": "interactions",
+      "entry": "mascomplete-b360506-r2/entry/put-api-commercial-segments-markets-code",
+      "value": null,
+      "context": [],
+      "outcome": null,
+      "changed": [],
+      "representation": "constructed",
+      "candidates": "exclude",
+      "maxNodes": 2000,
+      "maxRecords": 5000,
+      "environment": "source-profile",
+      "ids": []
+    }
+  },
+  {
+    "name": "trace PUT /api/commercial-segments/markets/{code}",
+    "request": {
+      "format": "groundwork-query/v3",
+      "snapshot": "41fc2e67ba0f71e8d93ec9e55ec52ba3339603546e54372c7859c34a14409877",
+      "query": "trace",
+      "entry": "mascomplete-b360506-r2/entry/put-api-commercial-segments-markets-code",
+      "value": null,
+      "context": [],
+      "outcome": null,
+      "changed": [],
+      "representation": "constructed",
+      "candidates": "exclude",
+      "maxNodes": 2000,
+      "maxRecords": 5000,
+      "environment": "source-profile",
+      "ids": []
+    }
+  },
+  {
+    "name": "POST /api/commercial-items/soft-offers",
+    "request": {
+      "format": "groundwork-query/v3",
+      "snapshot": "41fc2e67ba0f71e8d93ec9e55ec52ba3339603546e54372c7859c34a14409877",
+      "query": "interactions",
+      "entry": "s2/endpoint",
+      "value": null,
+      "context": [],
+      "outcome": null,
+      "changed": [],
+      "representation": "constructed",
+      "candidates": "exclude",
+      "maxNodes": 2000,
+      "maxRecords": 5000,
+      "environment": "source-profile",
+      "ids": []
+    }
+  },
+  {
+    "name": "trace POST /api/commercial-items/soft-offers",
+    "request": {
+      "format": "groundwork-query/v3",
+      "snapshot": "41fc2e67ba0f71e8d93ec9e55ec52ba3339603546e54372c7859c34a14409877",
+      "query": "trace",
+      "entry": "s2/endpoint",
+      "value": null,
+      "context": [],
+      "outcome": null,
+      "changed": [],
+      "representation": "constructed",
+      "candidates": "exclude",
+      "maxNodes": 2000,
+      "maxRecords": 5000,
+      "environment": "source-profile",
+      "ids": []
+    }
+  },
+  {
+    "name": "Market exact staged field origins",
+    "request": {
+      "format": "groundwork-query/v3",
+      "snapshot": "41fc2e67ba0f71e8d93ec9e55ec52ba3339603546e54372c7859c34a14409877",
+      "query": "value",
+      "entry": "mascomplete-b360506-r2/native/method/ec7dfd243619566fbb51",
+      "value": "mascomplete-b360506-r2/native/param/ec7dfd243619566fbb51/1",
+      "context": [],
+      "outcome": null,
+      "changed": [],
+      "representation": "source",
+      "candidates": "exclude",
+      "maxNodes": 2000,
+      "maxRecords": 5000,
+      "environment": "source-profile",
+      "ids": []
+    }
+  },
+  {
+    "name": "Market zero-formal UoW write records",
+    "request": {
+      "format": "groundwork-query/v3",
+      "snapshot": "41fc2e67ba0f71e8d93ec9e55ec52ba3339603546e54372c7859c34a14409877",
+      "query": "records",
+      "entry": "mascomplete-b360506-r2/native/method/ec7dfd243619566fbb51",
+      "value": null,
+      "context": [],
+      "outcome": null,
+      "changed": [],
+      "representation": "constructed",
+      "candidates": "exclude",
+      "maxNodes": 2000,
+      "maxRecords": 5000,
+      "environment": "source-profile",
+      "ids": [
+        "mascomplete-b360506-r2/native/reviewed/write/ec7dfd243619566fbb51",
+        "mascomplete-b360506-r2/native/reviewed/uow-save",
+        "mascomplete-b360506-r2/native/method/bb0e37bbed01d199c27d"
+      ]
+    }
+  }
+]

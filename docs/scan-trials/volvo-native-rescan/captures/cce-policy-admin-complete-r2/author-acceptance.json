@@ -1,0 +1,688 @@
+{
+  "snapshot": "9e022859e4914b70a3c8a8471e410025f4a69f006a47ba076256a14ed722c373",
+  "records": 34109,
+  "entries": 29,
+  "sourceKnownVoidImplementations": 157,
+  "boundVoidCalls": 29,
+  "queries": [
+    {
+      "name": "GET /swagger/*",
+      "nodes": 1,
+      "edges": 0,
+      "pages": 1,
+      "limits": []
+    },
+    {
+      "name": "GET /filters",
+      "nodes": 1,
+      "edges": 0,
+      "pages": 1,
+      "limits": []
+    },
+    {
+      "name": "GET /componentsByPno3",
+      "nodes": 1,
+      "edges": 0,
+      "pages": 1,
+      "limits": []
+    },
+    {
+      "name": "GET /componentsByPolicyAndPno12",
+      "nodes": 1,
+      "edges": 0,
+      "pages": 1,
+      "limits": []
+    },
+    {
+      "name": "GET /componentsByPolicyGrouped",
+      "nodes": 1,
+      "edges": 0,
+      "pages": 1,
+      "limits": []
+    },
+    {
+      "name": "GET /wheelComponents",
+      "nodes": 1,
+      "edges": 0,
+      "pages": 1,
+      "limits": []
+    },
+    {
+      "name": "POST /populateWheel",
+      "nodes": 1,
+      "edges": 0,
+      "pages": 1,
+      "limits": []
+    },
+    {
+      "name": "POST /build",
+      "nodes": 1,
+      "edges": 0,
+      "pages": 1,
+      "limits": []
+    },
+    {
+      "name": "GET /v2/tree/policies",
+      "nodes": 1,
+      "edges": 0,
+      "pages": 1,
+      "limits": []
+    },
+    {
+      "name": "POST /v2/tree/policies",
+      "nodes": 1,
+      "edges": 0,
+      "pages": 1,
+      "limits": []
+    },
+    {
+      "name": "GET /v2/allPolicyUids",
+      "nodes": 1,
+      "edges": 0,
+      "pages": 1,
+      "limits": []
+    },
+    {
+      "name": "GET /v2/allSpecMarkets",
+      "nodes": 1,
+      "edges": 0,
+      "pages": 1,
+      "limits": []
+    },
+    {
+      "name": "POST /v2/policies/",
+      "nodes": 1,
+      "edges": 0,
+      "pages": 1,
+      "limits": []
+    },
+    {
+      "name": "PUT /v2/policies/",
+      "nodes": 1,
+      "edges": 1,
+      "pages": 1,
+      "limits": []
+    },
+    {
+      "name": "POST /v2/policies/status",
+      "nodes": 1,
+      "edges": 0,
+      "pages": 1,
+      "limits": []
+    },
+    {
+      "name": "GET /v2/policies/status/{requestID}",
+      "nodes": 1,
+      "edges": 0,
+      "pages": 1,
+      "limits": []
+    },
+    {
+      "name": "POST /v2/policies/{policyID}/sync",
+      "nodes": 1,
+      "edges": 0,
+      "pages": 1,
+      "limits": []
+    },
+    {
+      "name": "DELETE /v2/policies/{policyID}/",
+      "nodes": 1,
+      "edges": 0,
+      "pages": 1,
+      "limits": []
+    },
+    {
+      "name": "GET /v2/policies/{policyID}/",
+      "nodes": 1,
+      "edges": 0,
+      "pages": 1,
+      "limits": []
+    },
+    {
+      "name": "GET /v2/policies/{policyID}/status",
+      "nodes": 1,
+      "edges": 0,
+      "pages": 1,
+      "limits": []
+    },
+    {
+      "name": "PROCESS source:cmd/policy-admin/main.go:main",
+      "nodes": 1,
+      "edges": 0,
+      "pages": 1,
+      "limits": []
+    },
+    {
+      "name": "STARTUP fx:internal/app/app.go:OnStart:1948",
+      "nodes": 1,
+      "edges": 0,
+      "pages": 1,
+      "limits": []
+    },
+    {
+      "name": "CALLBACK fx:internal/app/app.go:OnStop:2124",
+      "nodes": 1,
+      "edges": 0,
+      "pages": 1,
+      "limits": []
+    },
+    {
+      "name": "CALLBACK fx:internal/app/app.go:OnStop:2297",
+      "nodes": 1,
+      "edges": 0,
+      "pages": 1,
+      "limits": []
+    },
+    {
+      "name": "STARTUP fx:internal/app/watermill.go:OnStart:476",
+      "nodes": 1,
+      "edges": 0,
+      "pages": 1,
+      "limits": []
+    },
+    {
+      "name": "CALLBACK fx:internal/app/watermill.go:OnStop:799",
+      "nodes": 1,
+      "edges": 0,
+      "pages": 1,
+      "limits": []
+    },
+    {
+      "name": "CALLBACK fx:internal/app/app.go:blobstorage.NewBlobStorage",
+      "nodes": 2,
+      "edges": 1,
+      "pages": 1,
+      "limits": []
+    },
+    {
+      "name": "PROCESS source:migrate_mongodb_to_postgres.py:__main__",
+      "nodes": 3,
+      "edges": 11,
+      "pages": 1,
+      "limits": []
+    },
+    {
+      "name": "CALLBACK fx:internal/app/app.go:inmemory.NewCarRepository",
+      "nodes": 1,
+      "edges": 1,
+      "pages": 1,
+      "limits": []
+    },
+    {
+      "name": "positive PUT local command publication",
+      "nodes": 1,
+      "edges": 1,
+      "pages": 1,
+      "limits": []
+    },
+    {
+      "name": "negative empty handler GET /filters",
+      "nodes": 1,
+      "edges": 0,
+      "pages": 1,
+      "limits": []
+    },
+    {
+      "name": "negative empty handler GET /componentsByPno3",
+      "nodes": 1,
+      "edges": 0,
+      "pages": 1,
+      "limits": []
+    },
+    {
+      "name": "negative empty handler GET /componentsByPolicyAndPno12",
+      "nodes": 1,
+      "edges": 0,
+      "pages": 1,
+      "limits": []
+    },
+    {
+      "name": "negative empty handler GET /componentsByPolicyGrouped",
+      "nodes": 1,
+      "edges": 0,
+      "pages": 1,
+      "limits": []
+    },
+    {
+      "name": "negative empty handler GET /wheelComponents",
+      "nodes": 1,
+      "edges": 0,
+      "pages": 1,
+      "limits": []
+    },
+    {
+      "name": "negative empty handler POST /populateWheel",
+      "nodes": 1,
+      "edges": 0,
+      "pages": 1,
+      "limits": []
+    },
+    {
+      "name": "negative empty handler POST /build",
+      "nodes": 1,
+      "edges": 0,
+      "pages": 1,
+      "limits": []
+    },
+    {
+      "name": "negative empty handler GET /v2/tree/policies",
+      "nodes": 1,
+      "edges": 0,
+      "pages": 1,
+      "limits": []
+    },
+    {
+      "name": "negative empty handler POST /v2/tree/policies",
+      "nodes": 1,
+      "edges": 0,
+      "pages": 1,
+      "limits": []
+    },
+    {
+      "name": "negative empty handler GET /v2/allPolicyUids",
+      "nodes": 1,
+      "edges": 0,
+      "pages": 1,
+      "limits": []
+    },
+    {
+      "name": "negative empty handler GET /v2/allSpecMarkets",
+      "nodes": 1,
+      "edges": 0,
+      "pages": 1,
+      "limits": []
+    },
+    {
+      "name": "negative empty handler POST /v2/policies/",
+      "nodes": 1,
+      "edges": 0,
+      "pages": 1,
+      "limits": []
+    },
+    {
+      "name": "negative empty handler POST /v2/policies/status",
+      "nodes": 1,
+      "edges": 0,
+      "pages": 1,
+      "limits": []
+    },
+    {
+      "name": "negative empty handler GET /v2/policies/status/{requestID}",
+      "nodes": 1,
+      "edges": 0,
+      "pages": 1,
+      "limits": []
+    },
+    {
+      "name": "negative empty handler POST /v2/policies/{policyID}/sync",
+      "nodes": 1,
+      "edges": 0,
+      "pages": 1,
+      "limits": []
+    },
+    {
+      "name": "negative empty handler DELETE /v2/policies/{policyID}/",
+      "nodes": 1,
+      "edges": 0,
+      "pages": 1,
+      "limits": []
+    },
+    {
+      "name": "negative empty handler GET /v2/policies/{policyID}/",
+      "nodes": 1,
+      "edges": 0,
+      "pages": 1,
+      "limits": []
+    },
+    {
+      "name": "negative empty handler GET /v2/policies/{policyID}/status",
+      "nodes": 1,
+      "edges": 0,
+      "pages": 1,
+      "limits": []
+    },
+    {
+      "name": "positive local command subscription",
+      "nodes": 2,
+      "edges": 2,
+      "pages": 1,
+      "limits": []
+    },
+    {
+      "name": "positive source provider container creation",
+      "nodes": 2,
+      "edges": 1,
+      "pages": 1,
+      "limits": []
+    },
+    {
+      "name": "positive standalone migration two stores",
+      "nodes": 3,
+      "edges": 11,
+      "pages": 1,
+      "limits": []
+    },
+    {
+      "name": "trace /v2/policies/",
+      "nodes": 801,
+      "edges": 860,
+      "pages": 1,
+      "limits": []
+    },
+    {
+      "name": "effects /v2/policies/",
+      "nodes": 801,
+      "edges": 860,
+      "pages": 1,
+      "limits": []
+    },
+    {
+      "name": "continuations /v2/policies/",
+      "nodes": 801,
+      "edges": 860,
+      "pages": 1,
+      "limits": []
+    },
+    {
+      "name": "trace source:migrate_mongodb_to_postgres.py:__main__",
+      "nodes": 118,
+      "edges": 121,
+      "pages": 1,
+      "limits": []
+    },
+    {
+      "name": "effects source:migrate_mongodb_to_postgres.py:__main__",
+      "nodes": 118,
+      "edges": 121,
+      "pages": 1,
+      "limits": []
+    },
+    {
+      "name": "continuations source:migrate_mongodb_to_postgres.py:__main__",
+      "nodes": 118,
+      "edges": 121,
+      "pages": 1,
+      "limits": []
+    },
+    {
+      "name": "trace source command subscription",
+      "nodes": 1653,
+      "edges": 1798,
+      "pages": 1,
+      "limits": []
+    },
+    {
+      "name": "effects source command subscription",
+      "nodes": 1653,
+      "edges": 1798,
+      "pages": 1,
+      "limits": []
+    },
+    {
+      "name": "continuations source command subscription",
+      "nodes": 1653,
+      "edges": 1798,
+      "pages": 1,
+      "limits": []
+    },
+    {
+      "name": "trace .toUpdatePolicyCommand(",
+      "nodes": 525,
+      "edges": 570,
+      "pages": 1,
+      "limits": []
+    },
+    {
+      "name": "effects .toUpdatePolicyCommand(",
+      "nodes": 525,
+      "edges": 570,
+      "pages": 1,
+      "limits": []
+    },
+    {
+      "name": "trace .NewCarPolicyConfigRules(",
+      "nodes": 457,
+      "edges": 504,
+      "pages": 1,
+      "limits": []
+    },
+    {
+      "name": "effects .NewCarPolicyConfigRules(",
+      "nodes": 457,
+      "edges": 504,
+      "pages": 1,
+      "limits": []
+    },
+    {
+      "name": "trace .getRequiredOptionsComponents(",
+      "nodes": 22,
+      "edges": 22,
+      "pages": 1,
+      "limits": []
+    },
+    {
+      "name": "effects .getRequiredOptionsComponents(",
+      "nodes": 22,
+      "edges": 22,
+      "pages": 1,
+      "limits": []
+    },
+    {
+      "name": "trace .StorePolicyPno12Rules(",
+      "nodes": 438,
+      "edges": 465,
+      "pages": 1,
+      "limits": []
+    },
+    {
+      "name": "effects .StorePolicyPno12Rules(",
+      "nodes": 438,
+      "edges": 465,
+      "pages": 1,
+      "limits": []
+    },
+    {
+      "name": "trace .uploadConfigRuleset(",
+      "nodes": 63,
+      "edges": 63,
+      "pages": 1,
+      "limits": []
+    },
+    {
+      "name": "effects .uploadConfigRuleset(",
+      "nodes": 63,
+      "edges": 63,
+      "pages": 1,
+      "limits": []
+    },
+    {
+      "name": "trace migrate_mongodb_to_postgres.py:migrate_partners",
+      "nodes": 31,
+      "edges": 31,
+      "pages": 1,
+      "limits": []
+    },
+    {
+      "name": "effects migrate_mongodb_to_postgres.py:migrate_partners",
+      "nodes": 31,
+      "edges": 31,
+      "pages": 1,
+      "limits": []
+    },
+    {
+      "name": "PUT converted command actual value",
+      "nodes": 223,
+      "edges": 251,
+      "pages": 1,
+      "limits": []
+    },
+    {
+      "name": "handler in-memory Name mutation source value",
+      "nodes": 3,
+      "edges": 2,
+      "pages": 1,
+      "limits": []
+    },
+    {
+      "name": "subscription rooted Azure argument2 actual",
+      "nodes": 188,
+      "edges": 212,
+      "pages": 1,
+      "limits": []
+    },
+    {
+      "name": "subscription rooted Azure argument3 actual",
+      "nodes": 2,
+      "edges": 1,
+      "pages": 1,
+      "limits": []
+    },
+    {
+      "name": "native migration stored fields volvo/cce-policy-admin/88a3512f0307/local-r2/storage_write/py/d89e7c82892996cc3f",
+      "nodes": 0,
+      "edges": 0,
+      "pages": 1,
+      "limits": []
+    },
+    {
+      "name": "native migration stored fields volvo/cce-policy-admin/88a3512f0307/local-r2/storage_write/py/677fb6112a09985dc8",
+      "nodes": 0,
+      "edges": 0,
+      "pages": 1,
+      "limits": []
+    },
+    {
+      "name": "native migration stored fields volvo/cce-policy-admin/88a3512f0307/local-r2/storage_write/py/4d4bd8aa7584bb3a78",
+      "nodes": 0,
+      "edges": 0,
+      "pages": 1,
+      "limits": []
+    },
+    {
+      "name": "native migration stored fields volvo/cce-policy-admin/88a3512f0307/local-r2/storage_write/py/ccb6238c19160c676c",
+      "nodes": 0,
+      "edges": 0,
+      "pages": 1,
+      "limits": []
+    },
+    {
+      "name": "native migration stored fields volvo/cce-policy-admin/88a3512f0307/local-r2/storage_write/py/f0d028b2d40200eb92",
+      "nodes": 0,
+      "edges": 0,
+      "pages": 1,
+      "limits": []
+    },
+    {
+      "name": "native migration stored fields volvo/cce-policy-admin/88a3512f0307/local-r2/storage_write/py/10fa6fe34982d8799e",
+      "nodes": 0,
+      "edges": 0,
+      "pages": 1,
+      "limits": []
+    },
+    {
+      "name": "native migration stored fields volvo/cce-policy-admin/88a3512f0307/local-r2/storage_write/py/cecca6e24412251ca4",
+      "nodes": 0,
+      "edges": 0,
+      "pages": 1,
+      "limits": []
+    },
+    {
+      "name": "native migration stored fields volvo/cce-policy-admin/88a3512f0307/local-r2/storage_write/py/167f4b9121c85a15ad",
+      "nodes": 0,
+      "edges": 0,
+      "pages": 1,
+      "limits": []
+    },
+    {
+      "name": "native migration stored fields volvo/cce-policy-admin/88a3512f0307/local-r2/storage_write/py/a225b5e71061c8ab53",
+      "nodes": 0,
+      "edges": 0,
+      "pages": 1,
+      "limits": []
+    },
+    {
+      "name": "native migration stored fields volvo/cce-policy-admin/88a3512f0307/local-r2/storage_write/py/9ab24b4b60c8da559f",
+      "nodes": 0,
+      "edges": 0,
+      "pages": 1,
+      "limits": []
+    },
+    {
+      "name": "native migration stored fields volvo/cce-policy-admin/88a3512f0307/local-r2/storage_write/py/f42b29356e7aa6f8ea",
+      "nodes": 0,
+      "edges": 0,
+      "pages": 1,
+      "limits": []
+    },
+    {
+      "name": "native migration stored fields volvo/cce-policy-admin/88a3512f0307/local-r2/storage_write/py/31328e0a597b0588ca",
+      "nodes": 0,
+      "edges": 0,
+      "pages": 1,
+      "limits": []
+    },
+    {
+      "name": "native migration stored fields volvo/cce-policy-admin/88a3512f0307/local-r2/storage_write/py/d7b461e6314bd6f17d",
+      "nodes": 0,
+      "edges": 0,
+      "pages": 1,
+      "limits": []
+    },
+    {
+      "name": "native migration stored fields volvo/cce-policy-admin/88a3512f0307/local-r2/storage_write/py/0d723f1c2ab5998782",
+      "nodes": 0,
+      "edges": 0,
+      "pages": 1,
+      "limits": []
+    },
+    {
+      "name": "native migration stored fields volvo/cce-policy-admin/88a3512f0307/local-r2/storage_write/py/d540c7b2983f57b047",
+      "nodes": 0,
+      "edges": 0,
+      "pages": 1,
+      "limits": []
+    },
+    {
+      "name": "native migration stored fields volvo/cce-policy-admin/88a3512f0307/local-r2/storage_write/py/6ff7f4b06bda65b1aa",
+      "nodes": 0,
+      "edges": 0,
+      "pages": 1,
+      "limits": []
+    },
+    {
+      "name": "migration config_policy.payload actual",
+      "nodes": 15,
+      "edges": 17,
+      "pages": 1,
+      "limits": []
+    },
+    {
+      "name": "positive source provider local file read",
+      "nodes": 1,
+      "edges": 1,
+      "pages": 1,
+      "limits": []
+    },
+    {
+      "name": "available unregistered publisher unresolved target",
+      "nodes": 2,
+      "edges": 1,
+      "pages": 1,
+      "limits": []
+    },
+    {
+      "name": "source Azure caller signature volvo/cce-policy-admin/88a3512f0307/local-r2/interaction/io/abd41c08c66dd03edf",
+      "nodes": 0,
+      "edges": 0,
+      "pages": 1,
+      "limits": []
+    },
+    {
+      "name": "source Azure caller signature volvo/cce-policy-admin/88a3512f0307/local-r2/interaction/io/42159dc141a6e4da4f",
+      "nodes": 0,
+      "edges": 0,
+      "pages": 1,
+      "limits": []
+    }
+  ]
+}

@@ -1,0 +1,144 @@
+{
+  "status": "passed",
+  "snapshot": "dcc8fe6133bb403c805875b5698eb6fd390e35f858d0bf3e74c33c7ea0d7a34e",
+  "inheritedRecordsPreserved": 602,
+  "newRecords": 2420,
+  "queries": {
+    "classificationTrace": {
+      "nodes": 20,
+      "edges": 22,
+      "records": 99,
+      "sourceLinks": 34,
+      "frontiers": ["version_unresolved"],
+      "limits": []
+    },
+    "classificationInteractions": {
+      "nodes": 3,
+      "edges": 3,
+      "records": 79,
+      "sourceLinks": 33,
+      "frontiers": ["version_unresolved"],
+      "limits": []
+    },
+    "classification200": {
+      "nodes": 18,
+      "edges": 20,
+      "records": 95,
+      "sourceLinks": 34,
+      "frontiers": ["version_unresolved"],
+      "limits": []
+    },
+    "classificationValue": {
+      "nodes": 7,
+      "edges": 6,
+      "records": 71,
+      "sourceLinks": 29,
+      "frontiers": ["version_unresolved"],
+      "limits": []
+    },
+    "providerMapping": {
+      "nodes": 3,
+      "edges": 2,
+      "records": 44,
+      "sourceLinks": 18,
+      "frontiers": ["version_unresolved"],
+      "limits": []
+    },
+    "gateway": {
+      "nodes": 2,
+      "edges": 1,
+      "records": 27,
+      "sourceLinks": 7,
+      "frontiers": ["opaque"],
+      "limits": []
+    },
+    "commercialOtherBranches": {
+      "nodes": 2,
+      "edges": 1,
+      "records": 30,
+      "sourceLinks": 13,
+      "frontiers": ["opaque"],
+      "limits": []
+    },
+    "softOfferAsync": {
+      "nodes": 6,
+      "edges": 9,
+      "records": 161,
+      "sourceLinks": 49,
+      "frontiers": ["opaque", "version_unresolved", "opaque", "opaque", "opaque"],
+      "limits": []
+    },
+    "schemas": {
+      "nodes": 0,
+      "edges": 0,
+      "records": 20,
+      "sourceLinks": 12,
+      "frontiers": [],
+      "limits": []
+    },
+    "subscriptionRoot-ClassificationMessageProcessor": {
+      "nodes": 2,
+      "edges": 1,
+      "records": 39,
+      "sourceLinks": 19,
+      "frontiers": ["opaque"],
+      "limits": []
+    },
+    "subscriptionRoot-PCFCarConfigMessageProcessor": {
+      "nodes": 2,
+      "edges": 1,
+      "records": 34,
+      "sourceLinks": 17,
+      "frontiers": ["opaque"],
+      "limits": []
+    },
+    "subscriptionRoot-PCFGlobalDictionaryEntriesMessageProcessor": {
+      "nodes": 2,
+      "edges": 1,
+      "records": 40,
+      "sourceLinks": 22,
+      "frontiers": ["opaque"],
+      "limits": []
+    },
+    "subscriptionRoot-PCFGlobalDictionaryMessageProcessor": {
+      "nodes": 2,
+      "edges": 1,
+      "records": 33,
+      "sourceLinks": 16,
+      "frontiers": ["opaque"],
+      "limits": []
+    },
+    "subscriptionRoot-PCFMarketAuthEntriesMessageProcessor": {
+      "nodes": 2,
+      "edges": 1,
+      "records": 39,
+      "sourceLinks": 21,
+      "frontiers": ["opaque"],
+      "limits": []
+    },
+    "subscriptionRoot-PCFMarketAuthMessageProcessor": {
+      "nodes": 2,
+      "edges": 1,
+      "records": 34,
+      "sourceLinks": 17,
+      "frontiers": ["opaque"],
+      "limits": []
+    },
+    "subscriptionRoot-SpecificationMessageProcessor": {
+      "nodes": 2,
+      "edges": 1,
+      "records": 39,
+      "sourceLinks": 19,
+      "frontiers": ["opaque"],
+      "limits": []
+    },
+    "jsonEnvelopes": {
+      "nodes": 0,
+      "edges": 0,
+      "records": 52,
+      "sourceLinks": 25,
+      "frontiers": [],
+      "limits": []
+    }
+  }
+}

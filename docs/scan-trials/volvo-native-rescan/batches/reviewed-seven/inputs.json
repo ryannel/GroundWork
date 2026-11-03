@@ -1,0 +1,85 @@
+{
+  "policy": "Exact duplicate records only; conflicting IDs fail. No matching by label, owner, route or similar version.",
+  "inputs": [
+    {
+      "capture": "payment-transaction-deep",
+      "selection": "c67c245880857715c9ea81ad95b44df8735d26465293ad4d3c428777c78df900",
+      "files": [
+        {
+          "file": "bundle.json",
+          "digest": "6f5965cbe567bb29e151fa4f9de4e1f7c728b2354b3745a5fc2666acac45b7b3"
+        }
+      ]
+    },
+    {
+      "capture": "manage-and-segment-deep",
+      "selection": "9958d25719399c959ece547e827c4b7f92f853a983c8b2669f34e08ca6f7f0cc",
+      "files": [
+        {
+          "file": "bundle.json",
+          "digest": "f8a1846d30eb48c7a69abb4705549ffd6b2985f75ebcbde127d76b899ba4cf19"
+        }
+      ]
+    },
+    {
+      "capture": "assortment-api",
+      "selection": "dcc8fe6133bb403c805875b5698eb6fd390e35f858d0bf3e74c33c7ea0d7a34e",
+      "files": [
+        {
+          "file": "bundle.json",
+          "digest": "b2d0140aa5b5d6dcc59f6dc5a5cbcd4165ef2694a14521656b287dab5f3ec5f6"
+        }
+      ]
+    },
+    {
+      "capture": "psp-integration-reviewed",
+      "selection": "83cac873ebebb850ca00e17d23b201be63e7d025ebf1bc0d1efa85175a607e3a",
+      "files": [
+        {
+          "file": "bundle.json",
+          "digest": "5f10945f0849622345173a89edb7af039fc65cb19730894339b4f13f30a69364"
+        }
+      ]
+    },
+    {
+      "capture": "payment-customer-reviewed",
+      "selection": "5f8e714355588ffe92a4d7d00956d46f2f68763596d7a5a365f1b974904be709",
+      "files": [
+        {
+          "file": "bundle.json",
+          "digest": "e6cf928c493f913244a923cd945a6362c83db54db2409ea20735f58fac37eff0"
+        }
+      ]
+    },
+    {
+      "capture": "psp-inbound",
+      "selection": "8f5b505536f6140e260bbc4a079a419a80eb79573d760b1e252b0c8ad3a5a19d",
+      "files": [
+        {
+          "file": "bundle.json",
+          "digest": "c0b0163a27626fd44339e18b3626b0efdfffd4d395ee82df906d61b15b9104ba"
+        },
+        {
+          "file": "associations.bundle.json",
+          "digest": "38174e0f017ac778092570feaf43c972dcc6a8a00cff129c52dc1bbfaa3ba1ce"
+        },
+        {
+          "file": "source-review-v2.bundle.json",
+          "digest": "b74f51db5bb7437b35745b8cfd39605705e0e3eada950b31b5fddf25911eae6d"
+        }
+      ]
+    },
+    {
+      "capture": "payment-scheduler",
+      "selection": "5f244b8b75661ddc2c58cee97ab0d61ca2c0f73b58fbf65e775236cdd0dda3ae",
+      "files": [
+        {
+          "file": "bundle.json",
+          "digest": "1f4c8b9629c1c8ff78b39d28bf4e95e07cbb1445bf7141a23240839293d6ecbd"
+        }
+      ]
+    }
+  ],
+  "identicalDuplicateOccurrences": 602,
+  "records": 15736
+}

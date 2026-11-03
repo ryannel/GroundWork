@@ -1,0 +1,11 @@
+
+> groundwork@0.0.0 knowledge:validate
+> node --import ./tools/register.ts --conditions=react-server tools/validate-knowledge.ts reports/volvo-native-rescan/cce-generator-map-key-r6/bundle.json --write-snapshot reports/volvo-native-rescan/cce-generator-map-key-r6/snapshot.json
+
+{
+  "snapshot": "0ac2e18ce4b075f34192ea8ac6d08ec111f69de317b351aaffa47d1889eb6106",
+  "bundles": 1,
+  "records": 137812,
+  "sourceRangesChecked": 0,
+  "sourceVerification": "not_requested"
+}

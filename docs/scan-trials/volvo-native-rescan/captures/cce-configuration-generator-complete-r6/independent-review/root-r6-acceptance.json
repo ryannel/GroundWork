@@ -1,0 +1,294 @@
+{
+  "snapshot": "0ac2e18ce4b075f34192ea8ac6d08ec111f69de317b351aaffa47d1889eb6106",
+  "status": "passed",
+  "qualification": "Independent bounded source/query review; source entry and implementation queries distinguished. Node limits, imported dispatch and runtime semantics remain explicit.",
+  "queries": [
+    {
+      "name": "GET /v1/car-specifications/",
+      "nodes": 2,
+      "edges": 1,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "GET /v1/car-specifications/attributes",
+      "nodes": 2,
+      "edges": 1,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "POST /v1/car-specifications/sync",
+      "nodes": 3,
+      "edges": 12,
+      "limits": ["maxNodes"],
+      "pages": 1
+    },
+    {
+      "name": "GET /v1/car-configurations/",
+      "nodes": 2,
+      "edges": 2,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "POST /v1/car-configurations/generate",
+      "nodes": 3,
+      "edges": 2,
+      "limits": ["maxNodes"],
+      "pages": 1
+    },
+    {
+      "name": "DELETE /v1/car-configurations/job-queue",
+      "nodes": 2,
+      "edges": 7,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "DELETE /v1/car-configurations/",
+      "nodes": 2,
+      "edges": 1,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "POST /v1/car-configurations/delete",
+      "nodes": 2,
+      "edges": 2,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "GET /v1/spec-markets/{specMarket}/project-cars",
+      "nodes": 2,
+      "edges": 1,
+      "limits": ["maxNodes"],
+      "pages": 1
+    },
+    {
+      "name": "Actual HTTP boundary /v1/cars/MarketAuth",
+      "nodes": 2,
+      "edges": 1,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "HTTP caller contract /v1/cars/MarketAuth",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual HTTP selection value argument0",
+      "nodes": 76,
+      "edges": 79,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual HTTP boundary /v1/cars/CarConfig/query",
+      "nodes": 2,
+      "edges": 1,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "HTTP caller contract /v1/cars/CarConfig/query",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual HTTP selection value argument0",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual HTTP boundary c.internalClient.Do(req)",
+      "nodes": 2,
+      "edges": 1,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "HTTP caller contract c.internalClient.Do(req)",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual HTTP selection value argument0",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual HTTP boundary a.httpClient.Do(req)",
+      "nodes": 2,
+      "edges": 1,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "HTTP caller contract a.httpClient.Do(req)",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual HTTP selection value argument0",
+      "nodes": 51,
+      "edges": 53,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual HTTP boundary /wheelComponents",
+      "nodes": 2,
+      "edges": 1,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "HTTP caller contract /wheelComponents",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual HTTP selection value argument0",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual HTTP boundary /v1/tools/search",
+      "nodes": 2,
+      "edges": 1,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "HTTP caller contract /v1/tools/search",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual HTTP selection value argument0",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Conditional publisher kafka a62c31fba0ea0b497136",
+      "nodes": 3,
+      "edges": 2,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual outgoing message kafka a62c31fba0ea0b497136",
+      "nodes": 2,
+      "edges": 1,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Conditional publisher kafka aae561111a6ef234669c",
+      "nodes": 3,
+      "edges": 2,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual outgoing message kafka aae561111a6ef234669c",
+      "nodes": 2,
+      "edges": 1,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Conditional publisher source-library a62c31fba0ea0b497136",
+      "nodes": 3,
+      "edges": 2,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual outgoing message source-library a62c31fba0ea0b497136",
+      "nodes": 63,
+      "edges": 66,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Conditional publisher source-library aae561111a6ef234669c",
+      "nodes": 3,
+      "edges": 2,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual outgoing message source-library aae561111a6ef234669c",
+      "nodes": 62,
+      "edges": 65,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Detached local goroutines are separate invocation records",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "SQL staging, acknowledgements and outer transaction boundaries",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Batch source rows actual payload",
+      "nodes": 7,
+      "edges": 6,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "MarketAuth subscription and actual protobuf consumer",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Computed map key is an unresolved source expression, not a literal property",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Computed map retains actual key and value operands",
+      "nodes": 7,
+      "edges": 6,
+      "limits": [],
+      "pages": 1
+    }
+  ]
+}

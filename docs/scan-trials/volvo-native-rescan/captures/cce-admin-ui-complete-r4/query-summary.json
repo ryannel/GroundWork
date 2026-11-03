@@ -1,0 +1,142 @@
+{
+  "status": "passed",
+  "snapshot": "4af0cfe8253b645c975f5935e309540b2bb30108fea04e4bbd34f3408fb65ea3",
+  "qualification": "All18previous independent requests replay with equal nodes/edges after namespace translation. Every corrected native nullable field is returned by paginated strict records query. Current source/query schema and all support continuations validated; no runtime/wire nullability inferred.",
+  "queries": [
+    {
+      "name": "Prior independent source proof PUT Market exact CCH family",
+      "pages": 1,
+      "limits": [],
+      "nodes": 4,
+      "edges": 3
+    },
+    {
+      "name": "Prior independent source proof GET dictionary with actual token branch",
+      "pages": 1,
+      "limits": [],
+      "nodes": 5,
+      "edges": 4
+    },
+    {
+      "name": "Prior independent source proof DELETE role actual user save and audit delivery",
+      "pages": 1,
+      "limits": [],
+      "nodes": 3,
+      "edges": 7
+    },
+    {
+      "name": "Prior independent source proof DELETE role actual write argument or receiver 0",
+      "pages": 1,
+      "limits": [],
+      "nodes": 3,
+      "edges": 2
+    },
+    {
+      "name": "Prior independent source proof DELETE role actual write argument or receiver 1",
+      "pages": 1,
+      "limits": [],
+      "nodes": 8,
+      "edges": 7
+    },
+    {
+      "name": "Prior independent source proof DELETE role actual write argument or receiver 2",
+      "pages": 1,
+      "limits": [],
+      "nodes": 8,
+      "edges": 7
+    },
+    {
+      "name": "Prior independent source proof DELETE role actual write argument or receiver 3",
+      "pages": 1,
+      "limits": [],
+      "nodes": 4,
+      "edges": 3
+    },
+    {
+      "name": "Prior independent source proof health source-owned handler no application I/O",
+      "pages": 1,
+      "limits": [],
+      "nodes": 1,
+      "edges": 0
+    },
+    {
+      "name": "Prior independent source proof source-bound background outbox body",
+      "pages": 1,
+      "limits": [],
+      "nodes": 2,
+      "edges": 7
+    },
+    {
+      "name": "Prior independent source proof Browser remove policy role reaches actual BFF entry",
+      "pages": 1,
+      "limits": [],
+      "nodes": 2,
+      "edges": 1
+    },
+    {
+      "name": "Prior independent source proof Browser remove policy role actual argument0",
+      "pages": 1,
+      "limits": [],
+      "nodes": 10,
+      "edges": 9
+    },
+    {
+      "name": "Prior independent source proof Browser remove policy role actual argument1",
+      "pages": 1,
+      "limits": [],
+      "nodes": 23,
+      "edges": 24
+    },
+    {
+      "name": "Prior independent source proof Generated and stored assortment-admin caller contracts",
+      "pages": 1,
+      "limits": [],
+      "nodes": 0,
+      "edges": 0
+    },
+    {
+      "name": "Prior independent source proof Actual generated assortment-admin request options",
+      "pages": 1,
+      "limits": [],
+      "nodes": 8,
+      "edges": 7
+    },
+    {
+      "name": "Prior independent source proof Generated and stored cch-configuration-api caller contracts",
+      "pages": 1,
+      "limits": [],
+      "nodes": 0,
+      "edges": 0
+    },
+    {
+      "name": "Prior independent source proof Actual generated cch-configuration-api request options",
+      "pages": 1,
+      "limits": [],
+      "nodes": 3,
+      "edges": 2
+    },
+    {
+      "name": "Prior independent source proof Generated and stored filter-admin caller contracts",
+      "pages": 1,
+      "limits": [],
+      "nodes": 0,
+      "edges": 0
+    },
+    {
+      "name": "Prior independent source proof Actual generated filter-admin request options",
+      "pages": 1,
+      "limits": [],
+      "nodes": 7,
+      "edges": 6
+    },
+    {
+      "name": "Every corrected source field exposes native nullable",
+      "pages": 1,
+      "limits": [],
+      "nodes": 0,
+      "edges": 0
+    }
+  ],
+  "correctedFields": 1012,
+  "correctedShapes": 440
+}

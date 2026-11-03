@@ -1,0 +1,31 @@
+# Customer save events source review
+
+This independent oracle was frozen before evaluating the new asynchronous and event extractors. The sole source is `volvo-cars/cds-ecom-customer-service` at `09623ab3a1f39845d8fc02abc3d591b53a3b5fea`; tracked production source was read locally, with lazy fetch disabled. No dependency implementation or deployed execution was inspected. The original twenty-two questions and their required clauses remain those in `customer-service-pipeline/answerability-review.md`.
+
+All paths below start at `customer-service-core/src/main/java/com/volvocars/ecom/customerservice/`.
+
+## Q15: saves and attempts
+
+`customer/CustomerService.java:251–264` exits on equality, validates otherwise, assigns the return of `customerRepository.save(updatedCustomer)` back to `updatedCustomer`, passes previous and saved current values to `savePostProcessor.postProcess`, then returns the saved current value. A save exception prevents that call; a later failure has no local compensation of the completed save.
+
+`customer/CustomerSavePostProcessor.java:20–25` declares `@Async` on a void method. Its direct statements invoke customer publication, analytics publication, audit save and marketing consent publication in precisely that order on normal local completion. This orders invocation attempts, not completed broker effects. The analytics future and audit return are ignored. There is no local catch, join, transaction or retry in this method. A synchronously thrown collaborator exception stops subsequent statements; independently dispatched work is not covered by such a local ordering guarantee.
+
+`config/AsyncConfiguration.java:13–30` declares `@Configuration`, `@EnableAsync` and an Executor bean. Its pool core size is two, its thread prefix is `AsyncThread-`, a log context task decorator is installed, and a security context executor wraps the pool. Lines 33–46 copy and finally clear log context. The postprocessor and the three event services are separate component/service types and their public publication methods each declare `@Async`. These are source activation and proxy-boundary declarations. The repository alone cannot prove active Spring interception, chosen runtime executor, queue admission, thread execution, exception-handler behaviour or completion timing.
+
+`messaging/CustomerEventService.java:37–65` skips disabled/missing Kafka, constructs an event and message, then calls the external `KafkaEventPublisher.sendSafely(kafkaTemplate,message)` and logs afterwards. `consent/MarketingConsentEventService.java:39–90` similarly calls `sendSafely` after its guards. Neither call's result is waited for or inspected here. The SDK name and the following log do not establish broker acknowledgement, retry, swallowing or durable delivery.
+
+`analytics/AnalyticsEventService.java:39–68` skips disabled/missing Kafka by returning `CompletableFuture.completedFuture(null)`; otherwise it returns `kafkaTemplate.send(message).thenRun(logging callback)`. This is a declared callback/result chain, not proof that the send succeeded. The postprocessor ignores its future. `auditlog/AuditLogService.java:38–39` maps the saved customer and directly returns `auditLogRepository.save(...)`; the postprocessor ignores that returned entity. Local invocation/return relations do not establish MongoDB durability. No shared source transaction closes customer save, publications and audit save into one atomic operation.
+
+Required proof clauses: saved return rebinding and propagation; ordered local collaborator calls with arguments; async declaration/configuration/proxy boundary and caller result use; each effect attempt and its local callback/return path; explicit uncertainty at unavailable SDK, framework runtime and storage/broker acknowledgement boundaries. The answer may establish absence of a source guarantee. It must not require impossible runtime proof to answer a source question, or manufacture an acknowledgement from names/logs.
+
+## Q16: consent guards and payload
+
+`consent/MarketingConsentEventService.java:41–68` has four ordered early-exit guards: `kafkaTemplate == null || !eventSettings.enabled()`; `individual == null || individual.cdbId() == null`, where individual is `updated.individual(Role.SIGNATORY)`; `individual.consentInfo() == null`; and `!hasConsentInfoChanged(previous,individual)`. Every guard returns before message construction and send.
+
+Lines 93–102 return changed for no previous customer or no previous SIGNATORY individual. Otherwise the comparison is inequality of consentInfo **or** inequality of cdbId, using `Objects.equals`. A cdbId-only change therefore passes the change guard. Unchanged consentInfo and cdbId together skip. Other role individuals are not the comparison inputs.
+
+Lines 105–114 construct `MarketingConsentEventPayload` in order from current individual volvoId, cdbId, supplied countryCode, consentInfo.consentType, consentInfo.consentGranted, consentInfo.dateOfConsent and consentInfo.contactPreferences. `MarketingConsentEventPayload.java:9–16` names those constructor positions `volvoId`, `cdbId`, `countryCode`, `consentType`, `consented`, `timestamp`, `contactPreferences`. Thus consentGranted maps to consented and dateOfConsent maps to timestamp. This sends the complete current field values, not only the changed fields.
+
+Lines 70–85 take countryCode from `updated.market().getCountryCode()`, put the built payload into the event, then put that event into the built message with configured topic, updated customerId key, VERSION and ECOM_CUSTOMER_SERVICE. The same message and Kafka template are passed to sendSafely. Lines 129–134 select CREATED without previous, UPDATED otherwise. Lines 117–125 declare metadata UUID, version, correlation, type, time, source and customerId attribute. Effective serialisation and successful publication remain unavailable external guarantees, rather than missing source payload facts.
+
+Required proof clauses: complete ordered skip guards and control exits; previous/current SIGNATORY and both comparison operands; constructor ordinal-to-declared-field lineage; current individual/country inputs through payload/event/message to send attempt. A presence-only list of names is insufficient.

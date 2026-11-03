@@ -1,0 +1,1368 @@
+{
+  "format": "question-led-depth-receipt/v1",
+  "sourceReport": "reports/scan-depth-003/benchmark.json",
+  "sourceReportSha256": "52a7b43b711dc5576f3d0776bcc6c5d2e1b1a84103febb68eb865d78e353aa77",
+  "widerScans": "stopped_by_user",
+  "depthPassed": true,
+  "reusePassed": true,
+  "integrityPassed": true,
+  "mutationsPassed": true,
+  "scopeFiles": 27,
+  "questions": 9,
+  "depthChecks": 19,
+  "supportedDepthChecks": 19,
+  "mutationsRejected": 19,
+  "oracleSha256": "0807cdbc38b727648f7b1a099d87e8e7b2ad3fdb1a7e033a0577480e90866d30",
+  "scopeSha256": {
+    "go-dispatch-river.json": "64b50175d6500bc1aa8e7c50472be0122106a22355f477c6a517e04406779be5",
+    "next-actor-endpoint.json": "15a0ef27b60b37bc864e7a32a420272281838362f2d2fdccc866f5947c918c04",
+    "spring-write-async.json": "3da9f42e7b14ac6e11786af4f7b8f61cdfaf3f6bc980a81bf2d263053f33f81c"
+  },
+  "environment": {
+    "node": "26.8.2",
+    "typescript": "6.0.3",
+    "go": "1.24.5",
+    "java": "17.0.19",
+    "platform": "darwin/arm64"
+  },
+  "qualification": "Cold means an empty source/index cache; OS/compiler adapter caches may already be warm. Comparison is scripted cold/warm/invalidation, not a measured speedup over prior agent scans. Unresolved depth checks fail the restart gate.",
+  "runtimeModelCalls": 0,
+  "runtimeModelTokens": 0,
+  "implementationModelTokens": "not_measured",
+  "oldAgentWorkflowTiming": "not_measured",
+  "validation": {
+    "check": "passed",
+    "fullCheckTestsPassed": 2522,
+    "standardNativeTestsSkipped": 15,
+    "explicitNativeSuiteTestsPassed": 16,
+    "build": "passed",
+    "exportedPages": 391,
+    "typeCoveragePercent": 100,
+    "skillValidation": "3 passed"
+  },
+  "scopes": [
+    {
+      "id": "spring-write-async",
+      "repo": "volvo-cars/cds-ecom-customer-service",
+      "commit": "09623ab3a1f39845d8fc02abc3d591b53a3b5fea",
+      "files": 10,
+      "freshnessMs": 150.66104199999972,
+      "freshness": {
+        "freshness": {
+          "state": "unchanged",
+          "changedFiles": [],
+          "baseline": {
+            "repo": "volvo-cars/cds-ecom-customer-service",
+            "commit": "09623ab3a1f39845d8fc02abc3d591b53a3b5fea",
+            "tree": "90d342355c0ce3653b29fd2991650ea9ed2cc072",
+            "ref": "HEAD",
+            "environmentDigest": "421299c90639de6bc6dd9ff51ee50f2def0527906a9862ff55b851a380060df5",
+            "configDigest": "46f81b473e47087b380376bd3cd98aefcbfb066b87f31ba1525d72e18c66c1bb",
+            "toolchainDigest": "b983817236d63325a17a6749a4485d0188cbf87f5b3cfb4ee2108879f2271f6c",
+            "ruleDigest": "83c11668d46cc984362acd1ffe892732710817ee315a4542d25de2f6999fcfbb"
+          },
+          "observation": {
+            "checkedAt": "2026-10-24T09:37:56.986Z",
+            "ref": "HEAD",
+            "source": "local",
+            "status": "observed",
+            "revision": "09623ab3a1f39845d8fc02abc3d591b53a3b5fea"
+          },
+          "sourceCurrent": true,
+          "deploymentCurrent": "unknown"
+        },
+        "currentBaseline": {
+          "repo": "volvo-cars/cds-ecom-customer-service",
+          "commit": "09623ab3a1f39845d8fc02abc3d591b53a3b5fea",
+          "tree": "90d342355c0ce3653b29fd2991650ea9ed2cc072",
+          "ref": "HEAD",
+          "environmentDigest": "421299c90639de6bc6dd9ff51ee50f2def0527906a9862ff55b851a380060df5",
+          "configDigest": "46f81b473e47087b380376bd3cd98aefcbfb066b87f31ba1525d72e18c66c1bb",
+          "toolchainDigest": "b983817236d63325a17a6749a4485d0188cbf87f5b3cfb4ee2108879f2271f6c",
+          "ruleDigest": "83c11668d46cc984362acd1ffe892732710817ee315a4542d25de2f6999fcfbb"
+        },
+        "verification": "analysis",
+        "sourceUnchanged": true,
+        "rescanRequired": false,
+        "changedFileListKnown": true
+      },
+      "cold": {
+        "extractionMs": 4849.475958,
+        "elapsedMs": 5663.183167,
+        "cpuMicros": {
+          "user": 1516052,
+          "system": 56233
+        },
+        "stats": {
+          "blobReads": 10,
+          "parsedFiles": 10,
+          "indexHits": 0,
+          "reusedFiles": 0,
+          "sourceBytes": 60545
+        },
+        "baseline": {
+          "repo": "volvo-cars/cds-ecom-customer-service",
+          "commit": "09623ab3a1f39845d8fc02abc3d591b53a3b5fea",
+          "tree": "90d342355c0ce3653b29fd2991650ea9ed2cc072",
+          "ref": "HEAD",
+          "environmentDigest": "421299c90639de6bc6dd9ff51ee50f2def0527906a9862ff55b851a380060df5",
+          "configDigest": "46f81b473e47087b380376bd3cd98aefcbfb066b87f31ba1525d72e18c66c1bb",
+          "toolchainDigest": "b983817236d63325a17a6749a4485d0188cbf87f5b3cfb4ee2108879f2271f6c",
+          "ruleDigest": "83c11668d46cc984362acd1ffe892732710817ee315a4542d25de2f6999fcfbb"
+        },
+        "documentBytes": 8101193,
+        "parserDiagnostics": [],
+        "semanticRecords": 16222,
+        "validationMs": 179.87320900000032,
+        "mutationsMs": 433.1382080000003,
+        "evidenceRetrieval": {
+          "selectedRecords": 50,
+          "deliveredRecords": 50,
+          "pages": 13,
+          "bytes": 26971,
+          "pageByteBudget": 65536,
+          "complete": true,
+          "continued": false
+        },
+        "retrieval": {
+          "pages": 4,
+          "bytes": 6035,
+          "selectedRecords": 16,
+          "deliveredRecords": 16,
+          "limit": null,
+          "complete": true,
+          "continued": false,
+          "scope": "selected-records-only"
+        },
+        "runtimeModelCalls": 0,
+        "runtimeModelTokens": 0,
+        "depth": [
+          {
+            "id": "spring-equal-branch",
+            "status": "supported"
+          },
+          {
+            "id": "spring-rebound-save-result",
+            "status": "supported"
+          },
+          {
+            "id": "spring-async-activation",
+            "status": "supported"
+          },
+          {
+            "id": "spring-disabled-publication",
+            "status": "supported"
+          },
+          {
+            "id": "spring-returned-completion",
+            "status": "supported"
+          },
+          {
+            "id": "spring-archive-order",
+            "status": "supported"
+          },
+          {
+            "id": "spring-archive-failure-window",
+            "status": "supported"
+          }
+        ]
+      },
+      "warm": {
+        "extractionMs": 428.3274999999994,
+        "elapsedMs": 586.7304999999997,
+        "cpuMicros": {
+          "user": 656870,
+          "system": 7432
+        },
+        "stats": {
+          "blobReads": 0,
+          "parsedFiles": 0,
+          "indexHits": 10,
+          "reusedFiles": 10,
+          "sourceBytes": 0
+        },
+        "baseline": {
+          "repo": "volvo-cars/cds-ecom-customer-service",
+          "commit": "09623ab3a1f39845d8fc02abc3d591b53a3b5fea",
+          "tree": "90d342355c0ce3653b29fd2991650ea9ed2cc072",
+          "ref": "HEAD",
+          "environmentDigest": "421299c90639de6bc6dd9ff51ee50f2def0527906a9862ff55b851a380060df5",
+          "configDigest": "46f81b473e47087b380376bd3cd98aefcbfb066b87f31ba1525d72e18c66c1bb",
+          "toolchainDigest": "b983817236d63325a17a6749a4485d0188cbf87f5b3cfb4ee2108879f2271f6c",
+          "ruleDigest": "83c11668d46cc984362acd1ffe892732710817ee315a4542d25de2f6999fcfbb"
+        },
+        "documentBytes": 8101193,
+        "parserDiagnostics": [],
+        "semanticRecords": 16222,
+        "validationMs": 138.4462910000002,
+        "mutationsMs": 0,
+        "evidenceRetrieval": {
+          "selectedRecords": 50,
+          "deliveredRecords": 50,
+          "pages": 13,
+          "bytes": 26971,
+          "pageByteBudget": 65536,
+          "complete": true,
+          "continued": false
+        },
+        "retrieval": {
+          "pages": 4,
+          "bytes": 6035,
+          "selectedRecords": 16,
+          "deliveredRecords": 16,
+          "limit": null,
+          "complete": true,
+          "continued": false,
+          "scope": "selected-records-only"
+        },
+        "runtimeModelCalls": 0,
+        "runtimeModelTokens": 0,
+        "depth": [
+          {
+            "id": "spring-equal-branch",
+            "status": "supported"
+          },
+          {
+            "id": "spring-rebound-save-result",
+            "status": "supported"
+          },
+          {
+            "id": "spring-async-activation",
+            "status": "supported"
+          },
+          {
+            "id": "spring-disabled-publication",
+            "status": "supported"
+          },
+          {
+            "id": "spring-returned-completion",
+            "status": "supported"
+          },
+          {
+            "id": "spring-archive-order",
+            "status": "supported"
+          },
+          {
+            "id": "spring-archive-failure-window",
+            "status": "supported"
+          }
+        ]
+      },
+      "rulesChanged": {
+        "extractionMs": 381.0540000000001,
+        "elapsedMs": 539.9966249999998,
+        "cpuMicros": {
+          "user": 577296,
+          "system": 7459
+        },
+        "stats": {
+          "blobReads": 0,
+          "parsedFiles": 0,
+          "indexHits": 10,
+          "reusedFiles": 10,
+          "sourceBytes": 0
+        },
+        "baseline": {
+          "repo": "volvo-cars/cds-ecom-customer-service",
+          "commit": "09623ab3a1f39845d8fc02abc3d591b53a3b5fea",
+          "tree": "90d342355c0ce3653b29fd2991650ea9ed2cc072",
+          "ref": "HEAD",
+          "environmentDigest": "421299c90639de6bc6dd9ff51ee50f2def0527906a9862ff55b851a380060df5",
+          "configDigest": "46f81b473e47087b380376bd3cd98aefcbfb066b87f31ba1525d72e18c66c1bb",
+          "toolchainDigest": "b983817236d63325a17a6749a4485d0188cbf87f5b3cfb4ee2108879f2271f6c",
+          "ruleDigest": "868b5927a6b28215eac0534684e7d85b8999dd1bad043b494e9bf16e06939ea4"
+        },
+        "documentBytes": 8101193,
+        "parserDiagnostics": [],
+        "semanticRecords": 16222,
+        "validationMs": 139.8465840000008,
+        "mutationsMs": 0,
+        "evidenceRetrieval": {
+          "selectedRecords": 50,
+          "deliveredRecords": 50,
+          "pages": 13,
+          "bytes": 26971,
+          "pageByteBudget": 65536,
+          "complete": true,
+          "continued": false
+        },
+        "retrieval": {
+          "pages": 4,
+          "bytes": 6035,
+          "selectedRecords": 16,
+          "deliveredRecords": 16,
+          "limit": null,
+          "complete": true,
+          "continued": false,
+          "scope": "selected-records-only"
+        },
+        "runtimeModelCalls": 0,
+        "runtimeModelTokens": 0,
+        "depth": [
+          {
+            "id": "spring-equal-branch",
+            "status": "supported"
+          },
+          {
+            "id": "spring-rebound-save-result",
+            "status": "supported"
+          },
+          {
+            "id": "spring-async-activation",
+            "status": "supported"
+          },
+          {
+            "id": "spring-disabled-publication",
+            "status": "supported"
+          },
+          {
+            "id": "spring-returned-completion",
+            "status": "supported"
+          },
+          {
+            "id": "spring-archive-order",
+            "status": "supported"
+          },
+          {
+            "id": "spring-archive-failure-window",
+            "status": "supported"
+          }
+        ]
+      },
+      "parserChanged": {
+        "extractionMs": 4070.3647919999985,
+        "elapsedMs": 4236.563833999999,
+        "cpuMicros": {
+          "user": 627340,
+          "system": 23030
+        },
+        "stats": {
+          "blobReads": 0,
+          "parsedFiles": 10,
+          "indexHits": 0,
+          "reusedFiles": 10,
+          "sourceBytes": 0
+        },
+        "baseline": {
+          "repo": "volvo-cars/cds-ecom-customer-service",
+          "commit": "09623ab3a1f39845d8fc02abc3d591b53a3b5fea",
+          "tree": "90d342355c0ce3653b29fd2991650ea9ed2cc072",
+          "ref": "HEAD",
+          "environmentDigest": "421299c90639de6bc6dd9ff51ee50f2def0527906a9862ff55b851a380060df5",
+          "configDigest": "46f81b473e47087b380376bd3cd98aefcbfb066b87f31ba1525d72e18c66c1bb",
+          "toolchainDigest": "d515ec047064c77da59890885e1235ef587726ccd77ddf1ca1b3291349c854e7",
+          "ruleDigest": "83c11668d46cc984362acd1ffe892732710817ee315a4542d25de2f6999fcfbb"
+        },
+        "documentBytes": 8101193,
+        "parserDiagnostics": [],
+        "semanticRecords": 16222,
+        "validationMs": 147.00541699999667,
+        "mutationsMs": 0,
+        "evidenceRetrieval": {
+          "selectedRecords": 50,
+          "deliveredRecords": 50,
+          "pages": 13,
+          "bytes": 26971,
+          "pageByteBudget": 65536,
+          "complete": true,
+          "continued": false
+        },
+        "retrieval": {
+          "pages": 4,
+          "bytes": 6035,
+          "selectedRecords": 16,
+          "deliveredRecords": 16,
+          "limit": null,
+          "complete": true,
+          "continued": false,
+          "scope": "selected-records-only"
+        },
+        "runtimeModelCalls": 0,
+        "runtimeModelTokens": 0,
+        "depth": [
+          {
+            "id": "spring-equal-branch",
+            "status": "supported"
+          },
+          {
+            "id": "spring-rebound-save-result",
+            "status": "supported"
+          },
+          {
+            "id": "spring-async-activation",
+            "status": "supported"
+          },
+          {
+            "id": "spring-disabled-publication",
+            "status": "supported"
+          },
+          {
+            "id": "spring-returned-completion",
+            "status": "supported"
+          },
+          {
+            "id": "spring-archive-order",
+            "status": "supported"
+          },
+          {
+            "id": "spring-archive-failure-window",
+            "status": "supported"
+          }
+        ]
+      },
+      "mutations": [
+        {
+          "check": "spring-equal-branch",
+          "applied": true,
+          "baseline": "supported",
+          "mutated": "failed",
+          "passed": true,
+          "reason": "Missing structured proof: equality returns updated value."
+        },
+        {
+          "check": "spring-rebound-save-result",
+          "applied": true,
+          "baseline": "supported",
+          "mutated": "failed",
+          "passed": true,
+          "reason": "Missing structured proof: post previous/rebound actuals; returned save result."
+        },
+        {
+          "check": "spring-async-activation",
+          "applied": true,
+          "baseline": "supported",
+          "mutated": "failed",
+          "passed": true,
+          "reason": "Missing structured proof: source @Async and void."
+        },
+        {
+          "check": "spring-disabled-publication",
+          "applied": true,
+          "baseline": "supported",
+          "mutated": "failed",
+          "passed": true,
+          "reason": "Missing structured proof: typed OR guard; disabled returns completedFuture(null); send only after early return branch."
+        },
+        {
+          "check": "spring-returned-completion",
+          "applied": true,
+          "baseline": "supported",
+          "mutated": "failed",
+          "passed": true,
+          "reason": "Missing structured proof: completion callback distinct."
+        },
+        {
+          "check": "spring-archive-order",
+          "applied": true,
+          "baseline": "supported",
+          "mutated": "failed",
+          "passed": true,
+          "reason": "Missing structured proof: try archive then delete then expired; catch allows return."
+        },
+        {
+          "check": "spring-archive-failure-window",
+          "applied": true,
+          "baseline": "supported",
+          "mutated": "failed",
+          "passed": true,
+          "reason": "Missing structured proof: failure increments failed in catch."
+        }
+      ],
+      "incremental": {
+        "authority": "synthetic_fixture",
+        "qualification": "Newline-only source change and same-blob rename test incremental mechanics; they establish no semantic depth or runtime behaviour.",
+        "singleFileChange": {
+          "elapsedMs": 818.7948749999996,
+          "stats": {
+            "blobReads": 1,
+            "parsedFiles": 1,
+            "indexHits": 9,
+            "reusedFiles": 9,
+            "sourceBytes": 19488
+          },
+          "anchorsRefreshed": true,
+          "passed": true
+        },
+        "sameBlobRename": {
+          "elapsedMs": 398.85541700000067,
+          "stats": {
+            "blobReads": 0,
+            "parsedFiles": 0,
+            "indexHits": 10,
+            "reusedFiles": 10,
+            "sourceBytes": 0
+          },
+          "anchorsRefreshed": true,
+          "passed": true
+        },
+        "passed": true
+      }
+    },
+    {
+      "id": "go-dispatch-river",
+      "repo": "volvo-cars/cce-optimization-facade",
+      "commit": "8da8ebe3227a43817bbbca25fdec182edfaa6584",
+      "files": 9,
+      "freshnessMs": 122.30508299999929,
+      "freshness": {
+        "freshness": {
+          "state": "unchanged",
+          "changedFiles": [],
+          "baseline": {
+            "repo": "volvo-cars/cce-optimization-facade",
+            "commit": "8da8ebe3227a43817bbbca25fdec182edfaa6584",
+            "tree": "2da662ae8913c70da308f262d12e15b14b71f483",
+            "ref": "HEAD",
+            "environmentDigest": "f6f7f88ece3458382d9e97df60d4eb8aacdff4b7afe73f8b9f7f35527d079d3c",
+            "configDigest": "568399c1db647d9bc8d7e305e8dfe0c8efe13f2a0cd446df6b605955da3e3894",
+            "toolchainDigest": "f7d2e195748905d888e137b07c8b1a8d1d74299ceba5c4c26dd84c4917e8a618",
+            "ruleDigest": "83c11668d46cc984362acd1ffe892732710817ee315a4542d25de2f6999fcfbb"
+          },
+          "observation": {
+            "checkedAt": "2026-10-24T09:38:16.467Z",
+            "ref": "HEAD",
+            "source": "local",
+            "status": "observed",
+            "revision": "8da8ebe3227a43817bbbca25fdec182edfaa6584"
+          },
+          "sourceCurrent": true,
+          "deploymentCurrent": "unknown"
+        },
+        "currentBaseline": {
+          "repo": "volvo-cars/cce-optimization-facade",
+          "commit": "8da8ebe3227a43817bbbca25fdec182edfaa6584",
+          "tree": "2da662ae8913c70da308f262d12e15b14b71f483",
+          "ref": "HEAD",
+          "environmentDigest": "f6f7f88ece3458382d9e97df60d4eb8aacdff4b7afe73f8b9f7f35527d079d3c",
+          "configDigest": "568399c1db647d9bc8d7e305e8dfe0c8efe13f2a0cd446df6b605955da3e3894",
+          "toolchainDigest": "f7d2e195748905d888e137b07c8b1a8d1d74299ceba5c4c26dd84c4917e8a618",
+          "ruleDigest": "83c11668d46cc984362acd1ffe892732710817ee315a4542d25de2f6999fcfbb"
+        },
+        "verification": "analysis",
+        "sourceUnchanged": true,
+        "rescanRequired": false,
+        "changedFileListKnown": true
+      },
+      "cold": {
+        "extractionMs": 6634.699875000002,
+        "elapsedMs": 7327.537124999999,
+        "cpuMicros": {
+          "user": 1230625,
+          "system": 42131
+        },
+        "stats": {
+          "blobReads": 9,
+          "parsedFiles": 9,
+          "indexHits": 0,
+          "reusedFiles": 0,
+          "sourceBytes": 38649
+        },
+        "baseline": {
+          "repo": "volvo-cars/cce-optimization-facade",
+          "commit": "8da8ebe3227a43817bbbca25fdec182edfaa6584",
+          "tree": "2da662ae8913c70da308f262d12e15b14b71f483",
+          "ref": "HEAD",
+          "environmentDigest": "f6f7f88ece3458382d9e97df60d4eb8aacdff4b7afe73f8b9f7f35527d079d3c",
+          "configDigest": "568399c1db647d9bc8d7e305e8dfe0c8efe13f2a0cd446df6b605955da3e3894",
+          "toolchainDigest": "f7d2e195748905d888e137b07c8b1a8d1d74299ceba5c4c26dd84c4917e8a618",
+          "ruleDigest": "83c11668d46cc984362acd1ffe892732710817ee315a4542d25de2f6999fcfbb"
+        },
+        "documentBytes": 6897279,
+        "parserDiagnostics": [],
+        "semanticRecords": 15915,
+        "validationMs": 129.41233300000022,
+        "mutationsMs": 381.3408339999987,
+        "evidenceRetrieval": {
+          "selectedRecords": 67,
+          "deliveredRecords": 67,
+          "pages": 17,
+          "bytes": 29473,
+          "pageByteBudget": 65536,
+          "complete": true,
+          "continued": false
+        },
+        "retrieval": {
+          "pages": 4,
+          "bytes": 8027,
+          "selectedRecords": 16,
+          "deliveredRecords": 16,
+          "limit": null,
+          "complete": true,
+          "continued": false,
+          "scope": "selected-records-only"
+        },
+        "runtimeModelCalls": 0,
+        "runtimeModelTokens": 0,
+        "depth": [
+          {
+            "id": "go-contextual-registry",
+            "status": "supported"
+          },
+          {
+            "id": "go-error-not-throw",
+            "status": "supported"
+          },
+          {
+            "id": "go-insert-before-commit",
+            "status": "supported"
+          },
+          {
+            "id": "go-enqueue-not-delivery",
+            "status": "supported"
+          },
+          {
+            "id": "go-sql-positional-bindings",
+            "status": "supported"
+          },
+          {
+            "id": "go-staged-versus-committed",
+            "status": "supported"
+          }
+        ]
+      },
+      "warm": {
+        "extractionMs": 386.71179100000154,
+        "elapsedMs": 533.2742910000015,
+        "cpuMicros": {
+          "user": 587930,
+          "system": 6237
+        },
+        "stats": {
+          "blobReads": 0,
+          "parsedFiles": 0,
+          "indexHits": 9,
+          "reusedFiles": 9,
+          "sourceBytes": 0
+        },
+        "baseline": {
+          "repo": "volvo-cars/cce-optimization-facade",
+          "commit": "8da8ebe3227a43817bbbca25fdec182edfaa6584",
+          "tree": "2da662ae8913c70da308f262d12e15b14b71f483",
+          "ref": "HEAD",
+          "environmentDigest": "f6f7f88ece3458382d9e97df60d4eb8aacdff4b7afe73f8b9f7f35527d079d3c",
+          "configDigest": "568399c1db647d9bc8d7e305e8dfe0c8efe13f2a0cd446df6b605955da3e3894",
+          "toolchainDigest": "f7d2e195748905d888e137b07c8b1a8d1d74299ceba5c4c26dd84c4917e8a618",
+          "ruleDigest": "83c11668d46cc984362acd1ffe892732710817ee315a4542d25de2f6999fcfbb"
+        },
+        "documentBytes": 6897279,
+        "parserDiagnostics": [],
+        "semanticRecords": 15915,
+        "validationMs": 117.94170799999847,
+        "mutationsMs": 0,
+        "evidenceRetrieval": {
+          "selectedRecords": 67,
+          "deliveredRecords": 67,
+          "pages": 17,
+          "bytes": 29473,
+          "pageByteBudget": 65536,
+          "complete": true,
+          "continued": false
+        },
+        "retrieval": {
+          "pages": 4,
+          "bytes": 8027,
+          "selectedRecords": 16,
+          "deliveredRecords": 16,
+          "limit": null,
+          "complete": true,
+          "continued": false,
+          "scope": "selected-records-only"
+        },
+        "runtimeModelCalls": 0,
+        "runtimeModelTokens": 0,
+        "depth": [
+          {
+            "id": "go-contextual-registry",
+            "status": "supported"
+          },
+          {
+            "id": "go-error-not-throw",
+            "status": "supported"
+          },
+          {
+            "id": "go-insert-before-commit",
+            "status": "supported"
+          },
+          {
+            "id": "go-enqueue-not-delivery",
+            "status": "supported"
+          },
+          {
+            "id": "go-sql-positional-bindings",
+            "status": "supported"
+          },
+          {
+            "id": "go-staged-versus-committed",
+            "status": "supported"
+          }
+        ]
+      },
+      "rulesChanged": {
+        "extractionMs": 397.79541699999754,
+        "elapsedMs": 568.851584,
+        "cpuMicros": {
+          "user": 608064,
+          "system": 7930
+        },
+        "stats": {
+          "blobReads": 0,
+          "parsedFiles": 0,
+          "indexHits": 9,
+          "reusedFiles": 9,
+          "sourceBytes": 0
+        },
+        "baseline": {
+          "repo": "volvo-cars/cce-optimization-facade",
+          "commit": "8da8ebe3227a43817bbbca25fdec182edfaa6584",
+          "tree": "2da662ae8913c70da308f262d12e15b14b71f483",
+          "ref": "HEAD",
+          "environmentDigest": "f6f7f88ece3458382d9e97df60d4eb8aacdff4b7afe73f8b9f7f35527d079d3c",
+          "configDigest": "568399c1db647d9bc8d7e305e8dfe0c8efe13f2a0cd446df6b605955da3e3894",
+          "toolchainDigest": "f7d2e195748905d888e137b07c8b1a8d1d74299ceba5c4c26dd84c4917e8a618",
+          "ruleDigest": "868b5927a6b28215eac0534684e7d85b8999dd1bad043b494e9bf16e06939ea4"
+        },
+        "documentBytes": 6897279,
+        "parserDiagnostics": [],
+        "semanticRecords": 15915,
+        "validationMs": 141.67349999999715,
+        "mutationsMs": 0,
+        "evidenceRetrieval": {
+          "selectedRecords": 67,
+          "deliveredRecords": 67,
+          "pages": 17,
+          "bytes": 29473,
+          "pageByteBudget": 65536,
+          "complete": true,
+          "continued": false
+        },
+        "retrieval": {
+          "pages": 4,
+          "bytes": 8027,
+          "selectedRecords": 16,
+          "deliveredRecords": 16,
+          "limit": null,
+          "complete": true,
+          "continued": false,
+          "scope": "selected-records-only"
+        },
+        "runtimeModelCalls": 0,
+        "runtimeModelTokens": 0,
+        "depth": [
+          {
+            "id": "go-contextual-registry",
+            "status": "supported"
+          },
+          {
+            "id": "go-error-not-throw",
+            "status": "supported"
+          },
+          {
+            "id": "go-insert-before-commit",
+            "status": "supported"
+          },
+          {
+            "id": "go-enqueue-not-delivery",
+            "status": "supported"
+          },
+          {
+            "id": "go-sql-positional-bindings",
+            "status": "supported"
+          },
+          {
+            "id": "go-staged-versus-committed",
+            "status": "supported"
+          }
+        ]
+      },
+      "parserChanged": {
+        "extractionMs": 2987.6872500000027,
+        "elapsedMs": 3140.0856249999997,
+        "cpuMicros": {
+          "user": 581368,
+          "system": 19786
+        },
+        "stats": {
+          "blobReads": 0,
+          "parsedFiles": 9,
+          "indexHits": 0,
+          "reusedFiles": 9,
+          "sourceBytes": 0
+        },
+        "baseline": {
+          "repo": "volvo-cars/cce-optimization-facade",
+          "commit": "8da8ebe3227a43817bbbca25fdec182edfaa6584",
+          "tree": "2da662ae8913c70da308f262d12e15b14b71f483",
+          "ref": "HEAD",
+          "environmentDigest": "f6f7f88ece3458382d9e97df60d4eb8aacdff4b7afe73f8b9f7f35527d079d3c",
+          "configDigest": "568399c1db647d9bc8d7e305e8dfe0c8efe13f2a0cd446df6b605955da3e3894",
+          "toolchainDigest": "7339158eedf63531c5a79c5f44a142a81a47918d107dc3cb1b75aaf5224a5662",
+          "ruleDigest": "83c11668d46cc984362acd1ffe892732710817ee315a4542d25de2f6999fcfbb"
+        },
+        "documentBytes": 6897279,
+        "parserDiagnostics": [],
+        "semanticRecords": 15915,
+        "validationMs": 124.98083300000144,
+        "mutationsMs": 0,
+        "evidenceRetrieval": {
+          "selectedRecords": 67,
+          "deliveredRecords": 67,
+          "pages": 17,
+          "bytes": 29473,
+          "pageByteBudget": 65536,
+          "complete": true,
+          "continued": false
+        },
+        "retrieval": {
+          "pages": 4,
+          "bytes": 8027,
+          "selectedRecords": 16,
+          "deliveredRecords": 16,
+          "limit": null,
+          "complete": true,
+          "continued": false,
+          "scope": "selected-records-only"
+        },
+        "runtimeModelCalls": 0,
+        "runtimeModelTokens": 0,
+        "depth": [
+          {
+            "id": "go-contextual-registry",
+            "status": "supported"
+          },
+          {
+            "id": "go-error-not-throw",
+            "status": "supported"
+          },
+          {
+            "id": "go-insert-before-commit",
+            "status": "supported"
+          },
+          {
+            "id": "go-enqueue-not-delivery",
+            "status": "supported"
+          },
+          {
+            "id": "go-sql-positional-bindings",
+            "status": "supported"
+          },
+          {
+            "id": "go-staged-versus-committed",
+            "status": "supported"
+          }
+        ]
+      },
+      "mutations": [
+        {
+          "check": "go-contextual-registry",
+          "applied": true,
+          "baseline": "supported",
+          "mutated": "failed",
+          "passed": true,
+          "reason": "Missing structured proof: registry/type/config context unresolved."
+        },
+        {
+          "check": "go-error-not-throw",
+          "applied": true,
+          "baseline": "supported",
+          "mutated": "failed",
+          "passed": true,
+          "reason": "Missing structured proof: missing-key ordinary error return."
+        },
+        {
+          "check": "go-insert-before-commit",
+          "applied": true,
+          "baseline": "supported",
+          "mutated": "failed",
+          "passed": true,
+          "reason": "Missing structured proof: defer rollback only after Begin success."
+        },
+        {
+          "check": "go-enqueue-not-delivery",
+          "applied": true,
+          "baseline": "supported",
+          "mutated": "failed",
+          "passed": true,
+          "reason": "Missing structured proof: worker delivery unknown."
+        },
+        {
+          "check": "go-sql-positional-bindings",
+          "applied": true,
+          "baseline": "supported",
+          "mutated": "failed",
+          "passed": true,
+          "reason": "Missing structured proof: six column positional bindings."
+        },
+        {
+          "check": "go-staged-versus-committed",
+          "applied": true,
+          "baseline": "supported",
+          "mutated": "failed",
+          "passed": true,
+          "reason": "Missing structured proof: outer upsert error gates commit; commit error wrapped and returned."
+        }
+      ],
+      "incremental": {
+        "authority": "synthetic_fixture",
+        "qualification": "Newline-only source change and same-blob rename test incremental mechanics; they establish no semantic depth or runtime behaviour.",
+        "singleFileChange": {
+          "elapsedMs": 688.0391249999993,
+          "stats": {
+            "blobReads": 1,
+            "parsedFiles": 1,
+            "indexHits": 8,
+            "reusedFiles": 8,
+            "sourceBytes": 2008
+          },
+          "anchorsRefreshed": true,
+          "passed": true
+        },
+        "sameBlobRename": {
+          "elapsedMs": 427.9850409999999,
+          "stats": {
+            "blobReads": 0,
+            "parsedFiles": 0,
+            "indexHits": 9,
+            "reusedFiles": 9,
+            "sourceBytes": 0
+          },
+          "anchorsRefreshed": true,
+          "passed": true
+        },
+        "passed": true
+      }
+    },
+    {
+      "id": "next-actor-endpoint",
+      "repo": "volvo-cars/cdls-mono-volvocars",
+      "commit": "8e1fd20c525fd3ef46f89fa7734dba06b06c79fc",
+      "files": 8,
+      "freshnessMs": 117.9997499999954,
+      "freshness": {
+        "freshness": {
+          "state": "unchanged",
+          "changedFiles": [],
+          "baseline": {
+            "repo": "volvo-cars/cdls-mono-volvocars",
+            "commit": "8e1fd20c525fd3ef46f89fa7734dba06b06c79fc",
+            "tree": "a9dd05bd0028684f49d647a685ec0df14a1f1ee9",
+            "ref": "HEAD",
+            "environmentDigest": "f237df07ba5f9dcf19d47e67bfa4de68af102feb3d47a764b0b66002622faf16",
+            "configDigest": "e41e030661d308b523b52b13bc30982b91b7ab575eb37c50ce77f4e9720ddb84",
+            "toolchainDigest": "3c082463d86ca235c305b77cf26e46d6c58958572cf3c819fd885a95cde45bbc",
+            "ruleDigest": "83c11668d46cc984362acd1ffe892732710817ee315a4542d25de2f6999fcfbb"
+          },
+          "observation": {
+            "checkedAt": "2026-10-24T09:38:26.759Z",
+            "ref": "HEAD",
+            "source": "local",
+            "status": "observed",
+            "revision": "8e1fd20c525fd3ef46f89fa7734dba06b06c79fc"
+          },
+          "sourceCurrent": true,
+          "deploymentCurrent": "unknown"
+        },
+        "currentBaseline": {
+          "repo": "volvo-cars/cdls-mono-volvocars",
+          "commit": "8e1fd20c525fd3ef46f89fa7734dba06b06c79fc",
+          "tree": "a9dd05bd0028684f49d647a685ec0df14a1f1ee9",
+          "ref": "HEAD",
+          "environmentDigest": "f237df07ba5f9dcf19d47e67bfa4de68af102feb3d47a764b0b66002622faf16",
+          "configDigest": "e41e030661d308b523b52b13bc30982b91b7ab575eb37c50ce77f4e9720ddb84",
+          "toolchainDigest": "3c082463d86ca235c305b77cf26e46d6c58958572cf3c819fd885a95cde45bbc",
+          "ruleDigest": "83c11668d46cc984362acd1ffe892732710817ee315a4542d25de2f6999fcfbb"
+        },
+        "verification": "analysis",
+        "sourceUnchanged": true,
+        "rescanRequired": false,
+        "changedFileListKnown": true
+      },
+      "cold": {
+        "extractionMs": 324.1125000000029,
+        "elapsedMs": 799.6345000000001,
+        "cpuMicros": {
+          "user": 846794,
+          "system": 33559
+        },
+        "stats": {
+          "blobReads": 8,
+          "parsedFiles": 8,
+          "indexHits": 0,
+          "reusedFiles": 0,
+          "sourceBytes": 27135
+        },
+        "baseline": {
+          "repo": "volvo-cars/cdls-mono-volvocars",
+          "commit": "8e1fd20c525fd3ef46f89fa7734dba06b06c79fc",
+          "tree": "a9dd05bd0028684f49d647a685ec0df14a1f1ee9",
+          "ref": "HEAD",
+          "environmentDigest": "f237df07ba5f9dcf19d47e67bfa4de68af102feb3d47a764b0b66002622faf16",
+          "configDigest": "e41e030661d308b523b52b13bc30982b91b7ab575eb37c50ce77f4e9720ddb84",
+          "toolchainDigest": "3c082463d86ca235c305b77cf26e46d6c58958572cf3c819fd885a95cde45bbc",
+          "ruleDigest": "83c11668d46cc984362acd1ffe892732710817ee315a4542d25de2f6999fcfbb"
+        },
+        "documentBytes": 5155374,
+        "parserDiagnostics": [],
+        "semanticRecords": 11146,
+        "validationMs": 107.03462500000023,
+        "mutationsMs": 219.24854100000084,
+        "evidenceRetrieval": {
+          "selectedRecords": 82,
+          "deliveredRecords": 82,
+          "pages": 21,
+          "bytes": 40127,
+          "pageByteBudget": 65536,
+          "complete": true,
+          "continued": false
+        },
+        "retrieval": {
+          "pages": 4,
+          "bytes": 6026,
+          "selectedRecords": 16,
+          "deliveredRecords": 16,
+          "limit": null,
+          "complete": true,
+          "continued": false,
+          "scope": "selected-records-only"
+        },
+        "runtimeModelCalls": 0,
+        "runtimeModelTokens": 0,
+        "depth": [
+          {
+            "id": "ts-address-callback-and-wire",
+            "status": "supported"
+          },
+          {
+            "id": "ts-address-response-and-availability",
+            "status": "supported"
+          },
+          {
+            "id": "ts-income-callback-not-awaiting",
+            "status": "supported"
+          },
+          {
+            "id": "ts-income-response-to-onNext",
+            "status": "supported"
+          },
+          {
+            "id": "ts-server-lineage-and-hops",
+            "status": "supported"
+          },
+          {
+            "id": "ts-server-failure-and-output",
+            "status": "supported"
+          }
+        ]
+      },
+      "warm": {
+        "extractionMs": 111.15487500000017,
+        "elapsedMs": 240.2165840000016,
+        "cpuMicros": {
+          "user": 269351,
+          "system": 5158
+        },
+        "stats": {
+          "blobReads": 0,
+          "parsedFiles": 0,
+          "indexHits": 8,
+          "reusedFiles": 8,
+          "sourceBytes": 0
+        },
+        "baseline": {
+          "repo": "volvo-cars/cdls-mono-volvocars",
+          "commit": "8e1fd20c525fd3ef46f89fa7734dba06b06c79fc",
+          "tree": "a9dd05bd0028684f49d647a685ec0df14a1f1ee9",
+          "ref": "HEAD",
+          "environmentDigest": "f237df07ba5f9dcf19d47e67bfa4de68af102feb3d47a764b0b66002622faf16",
+          "configDigest": "e41e030661d308b523b52b13bc30982b91b7ab575eb37c50ce77f4e9720ddb84",
+          "toolchainDigest": "3c082463d86ca235c305b77cf26e46d6c58958572cf3c819fd885a95cde45bbc",
+          "ruleDigest": "83c11668d46cc984362acd1ffe892732710817ee315a4542d25de2f6999fcfbb"
+        },
+        "documentBytes": 5155374,
+        "parserDiagnostics": [],
+        "semanticRecords": 11146,
+        "validationMs": 117.66270800000348,
+        "mutationsMs": 0,
+        "evidenceRetrieval": {
+          "selectedRecords": 82,
+          "deliveredRecords": 82,
+          "pages": 21,
+          "bytes": 40127,
+          "pageByteBudget": 65536,
+          "complete": true,
+          "continued": false
+        },
+        "retrieval": {
+          "pages": 4,
+          "bytes": 6026,
+          "selectedRecords": 16,
+          "deliveredRecords": 16,
+          "limit": null,
+          "complete": true,
+          "continued": false,
+          "scope": "selected-records-only"
+        },
+        "runtimeModelCalls": 0,
+        "runtimeModelTokens": 0,
+        "depth": [
+          {
+            "id": "ts-address-callback-and-wire",
+            "status": "supported"
+          },
+          {
+            "id": "ts-address-response-and-availability",
+            "status": "supported"
+          },
+          {
+            "id": "ts-income-callback-not-awaiting",
+            "status": "supported"
+          },
+          {
+            "id": "ts-income-response-to-onNext",
+            "status": "supported"
+          },
+          {
+            "id": "ts-server-lineage-and-hops",
+            "status": "supported"
+          },
+          {
+            "id": "ts-server-failure-and-output",
+            "status": "supported"
+          }
+        ]
+      },
+      "rulesChanged": {
+        "extractionMs": 87.54100000000471,
+        "elapsedMs": 210.84408400000393,
+        "cpuMicros": {
+          "user": 241146,
+          "system": 4107
+        },
+        "stats": {
+          "blobReads": 0,
+          "parsedFiles": 0,
+          "indexHits": 8,
+          "reusedFiles": 8,
+          "sourceBytes": 0
+        },
+        "baseline": {
+          "repo": "volvo-cars/cdls-mono-volvocars",
+          "commit": "8e1fd20c525fd3ef46f89fa7734dba06b06c79fc",
+          "tree": "a9dd05bd0028684f49d647a685ec0df14a1f1ee9",
+          "ref": "HEAD",
+          "environmentDigest": "f237df07ba5f9dcf19d47e67bfa4de68af102feb3d47a764b0b66002622faf16",
+          "configDigest": "e41e030661d308b523b52b13bc30982b91b7ab575eb37c50ce77f4e9720ddb84",
+          "toolchainDigest": "3c082463d86ca235c305b77cf26e46d6c58958572cf3c819fd885a95cde45bbc",
+          "ruleDigest": "868b5927a6b28215eac0534684e7d85b8999dd1bad043b494e9bf16e06939ea4"
+        },
+        "documentBytes": 5155374,
+        "parserDiagnostics": [],
+        "semanticRecords": 11146,
+        "validationMs": 112.31158300000243,
+        "mutationsMs": 0,
+        "evidenceRetrieval": {
+          "selectedRecords": 82,
+          "deliveredRecords": 82,
+          "pages": 21,
+          "bytes": 40127,
+          "pageByteBudget": 65536,
+          "complete": true,
+          "continued": false
+        },
+        "retrieval": {
+          "pages": 4,
+          "bytes": 6026,
+          "selectedRecords": 16,
+          "deliveredRecords": 16,
+          "limit": null,
+          "complete": true,
+          "continued": false,
+          "scope": "selected-records-only"
+        },
+        "runtimeModelCalls": 0,
+        "runtimeModelTokens": 0,
+        "depth": [
+          {
+            "id": "ts-address-callback-and-wire",
+            "status": "supported"
+          },
+          {
+            "id": "ts-address-response-and-availability",
+            "status": "supported"
+          },
+          {
+            "id": "ts-income-callback-not-awaiting",
+            "status": "supported"
+          },
+          {
+            "id": "ts-income-response-to-onNext",
+            "status": "supported"
+          },
+          {
+            "id": "ts-server-lineage-and-hops",
+            "status": "supported"
+          },
+          {
+            "id": "ts-server-failure-and-output",
+            "status": "supported"
+          }
+        ]
+      },
+      "parserChanged": {
+        "extractionMs": 125.40424999999959,
+        "elapsedMs": 239.14816699999938,
+        "cpuMicros": {
+          "user": 284723,
+          "system": 12505
+        },
+        "stats": {
+          "blobReads": 0,
+          "parsedFiles": 8,
+          "indexHits": 0,
+          "reusedFiles": 8,
+          "sourceBytes": 0
+        },
+        "baseline": {
+          "repo": "volvo-cars/cdls-mono-volvocars",
+          "commit": "8e1fd20c525fd3ef46f89fa7734dba06b06c79fc",
+          "tree": "a9dd05bd0028684f49d647a685ec0df14a1f1ee9",
+          "ref": "HEAD",
+          "environmentDigest": "f237df07ba5f9dcf19d47e67bfa4de68af102feb3d47a764b0b66002622faf16",
+          "configDigest": "e41e030661d308b523b52b13bc30982b91b7ab575eb37c50ce77f4e9720ddb84",
+          "toolchainDigest": "6a811695acd15b9f96e7e442c0c05e50b46491210603c37e97515f5f39a4a169",
+          "ruleDigest": "83c11668d46cc984362acd1ffe892732710817ee315a4542d25de2f6999fcfbb"
+        },
+        "documentBytes": 5155374,
+        "parserDiagnostics": [],
+        "semanticRecords": 11146,
+        "validationMs": 102.9172499999986,
+        "mutationsMs": 0,
+        "evidenceRetrieval": {
+          "selectedRecords": 82,
+          "deliveredRecords": 82,
+          "pages": 21,
+          "bytes": 40127,
+          "pageByteBudget": 65536,
+          "complete": true,
+          "continued": false
+        },
+        "retrieval": {
+          "pages": 4,
+          "bytes": 6026,
+          "selectedRecords": 16,
+          "deliveredRecords": 16,
+          "limit": null,
+          "complete": true,
+          "continued": false,
+          "scope": "selected-records-only"
+        },
+        "runtimeModelCalls": 0,
+        "runtimeModelTokens": 0,
+        "depth": [
+          {
+            "id": "ts-address-callback-and-wire",
+            "status": "supported"
+          },
+          {
+            "id": "ts-address-response-and-availability",
+            "status": "supported"
+          },
+          {
+            "id": "ts-income-callback-not-awaiting",
+            "status": "supported"
+          },
+          {
+            "id": "ts-income-response-to-onNext",
+            "status": "supported"
+          },
+          {
+            "id": "ts-server-lineage-and-hops",
+            "status": "supported"
+          },
+          {
+            "id": "ts-server-failure-and-output",
+            "status": "supported"
+          }
+        ]
+      },
+      "mutations": [
+        {
+          "check": "ts-address-callback-and-wire",
+          "applied": true,
+          "baseline": "supported",
+          "mutated": "unresolved",
+          "passed": true,
+          "reason": "Missing structured proof: callbackBinding, payloadOnly."
+        },
+        {
+          "check": "ts-address-response-and-availability",
+          "applied": true,
+          "baseline": "supported",
+          "mutated": "unresolved",
+          "passed": true,
+          "reason": "Missing structured proof: continueDisabled, continueCallback."
+        },
+        {
+          "check": "ts-income-callback-not-awaiting",
+          "applied": true,
+          "baseline": "supported",
+          "mutated": "unresolved",
+          "passed": true,
+          "reason": "Missing structured proof: helperWait."
+        },
+        {
+          "check": "ts-income-response-to-onNext",
+          "applied": true,
+          "baseline": "supported",
+          "mutated": "unresolved",
+          "passed": true,
+          "reason": "Missing structured proof: sixDetails."
+        },
+        {
+          "check": "ts-server-lineage-and-hops",
+          "applied": true,
+          "baseline": "supported",
+          "mutated": "unresolved",
+          "passed": true,
+          "reason": "Missing structured proof: fixedMonths."
+        },
+        {
+          "check": "ts-server-failure-and-output",
+          "applied": true,
+          "baseline": "supported",
+          "mutated": "unresolved",
+          "passed": true,
+          "reason": "Missing structured proof: missingKey500, unexpectedCatch500."
+        }
+      ],
+      "incremental": {
+        "authority": "synthetic_fixture",
+        "qualification": "Newline-only source change and same-blob rename test incremental mechanics; they establish no semantic depth or runtime behaviour.",
+        "singleFileChange": {
+          "elapsedMs": 120.62441700000636,
+          "stats": {
+            "blobReads": 1,
+            "parsedFiles": 1,
+            "indexHits": 7,
+            "reusedFiles": 7,
+            "sourceBytes": 1678
+          },
+          "anchorsRefreshed": true,
+          "passed": true
+        },
+        "sameBlobRename": {
+          "elapsedMs": 93.97412500000064,
+          "stats": {
+            "blobReads": 0,
+            "parsedFiles": 0,
+            "indexHits": 8,
+            "reusedFiles": 8,
+            "sourceBytes": 0
+          },
+          "anchorsRefreshed": true,
+          "passed": true
+        },
+        "passed": true
+      }
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "repo": "volvo-cars/cce-optimization-api",
+  "commit": "286985b6bebccb6123de78d03aa87b7513f69ed5",
+  "tree": "7f7a582162fa964d02dcb7256c67a29628b81a0b",
+  "ref": "286985b6bebccb6123de78d03aa87b7513f69ed5",
+  "environmentDigest": "9e55299fba783a662aa338966dd200be1d11440513d8479597f811e618242ac7",
+  "configDigest": "1ae966e27befcb3d391fcab705590c987799030bf644fc4930b61c74989c0869",
+  "toolchainDigest": "4385306e8012d01663650ba5e821a6a99134629ec232fc03f24dff00ed263cc3",
+  "ruleDigest": "791019a468c57283e2f7a992334c52fdea98dcebd3c2d8e96a2ec4b73de819df"
+}

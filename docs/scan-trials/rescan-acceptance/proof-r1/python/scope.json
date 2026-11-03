@@ -1,0 +1,44 @@
+{
+  "format": "scan-scope/v1",
+  "workspace": "volvo-cars",
+  "id": "python-optimization",
+  "repo": "volvo-cars/cce-optimization-api",
+  "commit": "286985b6bebccb6123de78d03aa87b7513f69ed5",
+  "ref": "286985b6bebccb6123de78d03aa87b7513f69ed5",
+  "files": [
+    {
+      "path": "main.py",
+      "language": "python",
+      "environment": "server"
+    },
+    {
+      "path": "api/healthcheck.py",
+      "language": "python",
+      "environment": "server"
+    },
+    {
+      "path": "queries/query.py",
+      "language": "python",
+      "environment": "server"
+    },
+    {
+      "path": "models/configuration.py",
+      "language": "python",
+      "environment": "server"
+    }
+  ],
+  "questions": [
+    {
+      "id": "python-optimization-entry",
+      "profile": "endpoint",
+      "path": "api/healthcheck.py",
+      "symbol": "get",
+      "checks": [
+        {
+          "kind": "entry",
+          "text": "get"
+        }
+      ]
+    }
+  ]
+}

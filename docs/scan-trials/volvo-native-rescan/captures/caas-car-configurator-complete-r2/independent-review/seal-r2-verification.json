@@ -1,0 +1,18 @@
+{
+  "status": "passed",
+  "snapshot": "73731576937e6406a98aa6e365638fd7a95248c5f5e1491b32d06e880e66eaaf",
+  "sealedFiles": 320,
+  "changedFacts": [
+    "caas-car-configurator-5495209-complete-r2/coverage/ebfdc63acc19c2c3",
+    "caas-car-configurator-5495209-complete-r2/coverage/bfaa4a423a918691",
+    "caas-car-configurator-5495209-complete-r2/value/ebfdc63acc19c2c3/v/65068",
+    "caas-car-configurator-5495209-complete-r2/value/bfaa4a423a918691/v/73320"
+  ],
+  "addedFacts": [
+    "caas-car-configurator-5495209-complete-r2/gap/aid-range-key/0",
+    "caas-car-configurator-5495209-complete-r2/claim/aid-range-key/0",
+    "caas-car-configurator-5495209-complete-r2/gap/aid-range-key/1",
+    "caas-car-configurator-5495209-complete-r2/claim/aid-range-key/1"
+  ],
+  "allOtherFactsEqualAfterNamespaceTranslation": true
+}

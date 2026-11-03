@@ -1,0 +1,215 @@
+{
+  "repo": "volvo-cars/cds-paymentservice-scheduler",
+  "commit": "c00df60c8233b1a8f47829ce382d5805bf164c6b",
+  "local_head": "c00df60c8233b1a8f47829ce382d5805bf164c6b",
+  "counts": {
+    "http_entries": 2,
+    "scheduled_methods": 2,
+    "startup_hooks": 1,
+    "local_future_callbacks": 1,
+    "local_message_listeners": 0,
+    "publication_call_sites": 1,
+    "configuration_discoveries": 4,
+    "runtime_components": 4,
+    "schemas": 35,
+    "schema_fields": 186,
+    "interactions": 10,
+    "subscriptions": 0
+  },
+  "http_entries": [
+    {
+      "kind": "rest",
+      "entry": "scheduler-c00df60-r5/entry/retry",
+      "method": "POST",
+      "path": "/v1/retry-jobs",
+      "implementation": "scheduler-c00df60-r5/impl/retry-http",
+      "execution": "scheduler-c00df60-r5/runs/retry-http",
+      "coverage": "partial_end_to_end"
+    },
+    {
+      "kind": "rest",
+      "entry": "scheduler-c00df60-r5/entry/swagger",
+      "method": "GET",
+      "path": "/v1/configurations/swagger-config",
+      "implementation": "scheduler-c00df60-r5/impl/swagger",
+      "execution": "scheduler-c00df60-r5/runs/swagger",
+      "coverage": "partial"
+    }
+  ],
+  "scheduled_jobs": [
+    {
+      "kind": "scheduled",
+      "entry": "scheduler-c00df60-r5/entry/poll",
+      "implementation": "scheduler-c00df60-r5/impl/poll",
+      "cron": "${poller-cron:0 0/10 * * * ?}",
+      "source": "scheduler-c00df60-r5/e/61d22ee5327c",
+      "coverage": "partial_end_to_end"
+    },
+    {
+      "kind": "scheduled",
+      "entry": "scheduler-c00df60-r5/entry/config-refresh",
+      "implementation": "scheduler-c00df60-r5/impl/config-refresh",
+      "cron": "${app-cloud-config.refresh-cron}",
+      "registration_condition": "app-cloud-config.refresh-enabled",
+      "source": "scheduler-c00df60-r5/e/e9f895fc28c3",
+      "coverage": "partial"
+    }
+  ],
+  "startup_hooks": [
+    {
+      "kind": "startup_hook",
+      "implementation": "scheduler-c00df60-r5/impl/config-startup",
+      "execution": "scheduler-c00df60-r5/runs/config-startup",
+      "condition": "ConfigRefreshScheduler bean enabled by app-cloud-config.refresh-enabled",
+      "evidence": ["scheduler-c00df60-r5/e/a3af28bcf11a"]
+    }
+  ],
+  "local_callbacks": [
+    {
+      "kind": "local_future_callback",
+      "implementation": "scheduler-c00df60-r5/impl/kafka-completion-callback",
+      "execution": "scheduler-c00df60-r5/runs/kafka-completion-callback",
+      "registered_by": "scheduler-c00df60-r5/op/kafka-send/attempt",
+      "association": "scheduler-c00df60-r5/claim/kafka-callback-association",
+      "not_subscription": true,
+      "status": "bounded_local_trace"
+    }
+  ],
+  "configuration_discoveries": [
+    {
+      "kind": "configuration",
+      "implementation": "scheduler-c00df60-r5/impl/config/management",
+      "execution": "scheduler-c00df60-r5/runs/config/management",
+      "description": "Health and prometheus exposed in management configuration on port 8779; exact framework routes/methods unresolved.",
+      "effective_entry": null,
+      "evidence": ["scheduler-c00df60-r5/e/e73eec66cd3a"]
+    },
+    {
+      "kind": "configuration",
+      "implementation": "scheduler-c00df60-r5/impl/config/swagger-ui",
+      "execution": "scheduler-c00df60-r5/runs/config/swagger-ui",
+      "description": "Swagger UI source path /swagger-ui.html and API-docs default/interceptor behaviour partial.",
+      "effective_entry": null,
+      "evidence": ["scheduler-c00df60-r5/e/682e9e336473"]
+    },
+    {
+      "kind": "configuration",
+      "implementation": "scheduler-c00df60-r5/impl/config/unused-topic",
+      "execution": "scheduler-c00df60-r5/runs/config/unused-topic",
+      "description": "scheduler-kafka-topic is configured but no local use/producer/listener for this setting was found.",
+      "effective_entry": null,
+      "evidence": ["scheduler-c00df60-r5/e/f2d5927b967e"]
+    },
+    {
+      "kind": "configuration",
+      "implementation": "scheduler-c00df60-r5/impl/config/consumer-settings",
+      "execution": "scheduler-c00df60-r5/runs/config/consumer-settings",
+      "description": "Kafka consumer group/max-poll-records configuration exists; no local Kafka listener registration found.",
+      "effective_entry": null,
+      "evidence": ["scheduler-c00df60-r5/e/917bd7812555"]
+    }
+  ],
+  "searches": {
+    "RequestMapping|GetMapping|PostMapping|PutMapping|PatchMapping|DeleteMapping|RequestLine": [
+      "c00df60c8233b1a8f47829ce382d5805bf164c6b:cds-paymentservice-scheduler-api/src/main/java/com/volvocars/ecom/paymentservice/scheduler/configuration/v1/SwaggerUIController.java:13:import org.springframework.web.bind.annotation.GetMapping;",
+      "c00df60c8233b1a8f47829ce382d5805bf164c6b:cds-paymentservice-scheduler-api/src/main/java/com/volvocars/ecom/paymentservice/scheduler/configuration/v1/SwaggerUIController.java:23:  @GetMapping(path = \"/swagger-config\", produces = MediaType.APPLICATION_JSON_VALUE)",
+      "c00df60c8233b1a8f47829ce382d5805bf164c6b:cds-paymentservice-scheduler-api/src/main/java/com/volvocars/ecom/paymentservice/scheduler/configuration/v1/impl/SwaggerUIControllerImpl.java:9:import org.springframework.web.bind.annotation.RequestMapping;",
+      "c00df60c8233b1a8f47829ce382d5805bf164c6b:cds-paymentservice-scheduler-api/src/main/java/com/volvocars/ecom/paymentservice/scheduler/configuration/v1/impl/SwaggerUIControllerImpl.java:13:@RequestMapping(path = \"/v1/configurations\")",
+      "c00df60c8233b1a8f47829ce382d5805bf164c6b:cds-paymentservice-scheduler-api/src/main/java/com/volvocars/ecom/paymentservice/scheduler/retry/v1/RetryController.java:17:import org.springframework.web.bind.annotation.PostMapping;",
+      "c00df60c8233b1a8f47829ce382d5805bf164c6b:cds-paymentservice-scheduler-api/src/main/java/com/volvocars/ecom/paymentservice/scheduler/retry/v1/RetryController.java:19:import org.springframework.web.bind.annotation.RequestMapping;",
+      "c00df60c8233b1a8f47829ce382d5805bf164c6b:cds-paymentservice-scheduler-api/src/main/java/com/volvocars/ecom/paymentservice/scheduler/retry/v1/RetryController.java:21:@RequestMapping(\"/v1/retry-jobs\")",
+      "c00df60c8233b1a8f47829ce382d5805bf164c6b:cds-paymentservice-scheduler-api/src/main/java/com/volvocars/ecom/paymentservice/scheduler/retry/v1/RetryController.java:24:  @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)",
+      "c00df60c8233b1a8f47829ce382d5805bf164c6b:cds-paymentservice-scheduler-client/src/main/java/com/volvocars/ecom/paymentservice/scheduler/client/retry/RetryJobsApi.java:8:import feign.RequestLine;",
+      "c00df60c8233b1a8f47829ce382d5805bf164c6b:cds-paymentservice-scheduler-client/src/main/java/com/volvocars/ecom/paymentservice/scheduler/client/retry/RetryJobsApi.java:13:  @RequestLine(\"POST \" + RETRY_JOBS_BASE_PATH)",
+      "c00df60c8233b1a8f47829ce382d5805bf164c6b:cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/client/paymentsapi/PaymentApiPaymentSessionApi.java:8:import feign.RequestLine;",
+      "c00df60c8233b1a8f47829ce382d5805bf164c6b:cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/client/paymentsapi/PaymentApiPaymentSessionApi.java:12:  @RequestLine(\"POST /internal/v1/payment-sessions/{paymentSessionId}/retry\")"
+    ],
+    "SpringBootApplication|public static void main": [
+      "c00df60c8233b1a8f47829ce382d5805bf164c6b:cds-paymentservice-scheduler-api/src/main/java/com/volvocars/ecom/paymentservice/scheduler/App.java:6:import org.springframework.boot.autoconfigure.SpringBootApplication;",
+      "c00df60c8233b1a8f47829ce382d5805bf164c6b:cds-paymentservice-scheduler-api/src/main/java/com/volvocars/ecom/paymentservice/scheduler/App.java:14:@SpringBootApplication(",
+      "c00df60c8233b1a8f47829ce382d5805bf164c6b:cds-paymentservice-scheduler-api/src/main/java/com/volvocars/ecom/paymentservice/scheduler/App.java:23:  public static void main(String[] args) {"
+    ],
+    "@Scheduled|@PostConstruct|@PreDestroy|KafkaListener|RabbitListener|JmsListener|EventListener": [
+      "c00df60c8233b1a8f47829ce382d5805bf164c6b:cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/cloudconfig/ConfigRefreshScheduler.java:22:  @PostConstruct",
+      "c00df60c8233b1a8f47829ce382d5805bf164c6b:cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/cloudconfig/ConfigRefreshScheduler.java:31:  @Scheduled(cron = \"${app-cloud-config.refresh-cron}\")",
+      "c00df60c8233b1a8f47829ce382d5805bf164c6b:cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/poller/PollerService.java:42:  @Scheduled(cron = \"${poller-cron:0 0/10 * * * ?}\")"
+    ],
+    "whenComplete|thenApply|thenAccept|addCallback": [
+      "c00df60c8233b1a8f47829ce382d5805bf164c6b:cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/messaging/KafkaProducer.java:29:        .whenComplete("
+    ],
+    "@Document|MongoRepository|MongoTemplate|KafkaTemplate": [
+      "c00df60c8233b1a8f47829ce382d5805bf164c6b:cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/messaging/KafkaProducer.java:10:import org.springframework.kafka.core.KafkaTemplate;",
+      "c00df60c8233b1a8f47829ce382d5805bf164c6b:cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/messaging/KafkaProducer.java:18:  private final KafkaTemplate<String, Event<? extends EventPayload>> kafkaTemplate;",
+      "c00df60c8233b1a8f47829ce382d5805bf164c6b:cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/scheduler/job/JobEntity.java:20:@Document(\"scheduler_jobs\")",
+      "c00df60c8233b1a8f47829ce382d5805bf164c6b:cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/scheduler/job/JobRepository.java:7:import org.springframework.data.mongodb.repository.MongoRepository;",
+      "c00df60c8233b1a8f47829ce382d5805bf164c6b:cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/scheduler/job/JobRepository.java:12:public interface JobRepository<T extends JobEntity> extends MongoRepository<T, ObjectId> {",
+      "c00df60c8233b1a8f47829ce382d5805bf164c6b:cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/scheduler/locking/CustomLockRepositoryImpl.java:4:import org.springframework.data.mongodb.core.MongoTemplate;",
+      "c00df60c8233b1a8f47829ce382d5805bf164c6b:cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/scheduler/locking/CustomLockRepositoryImpl.java:11:  private final MongoTemplate mongoTemplate;",
+      "c00df60c8233b1a8f47829ce382d5805bf164c6b:cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/scheduler/locking/LockEntity.java:15:@Document(\"scheduler_locks\")",
+      "c00df60c8233b1a8f47829ce382d5805bf164c6b:cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/scheduler/locking/LockRepository.java:5:import org.springframework.data.mongodb.repository.MongoRepository;",
+      "c00df60c8233b1a8f47829ce382d5805bf164c6b:cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/scheduler/locking/LockRepository.java:10:    extends MongoRepository<LockEntity, ObjectId>, CustomLockRepository {",
+      "c00df60c8233b1a8f47829ce382d5805bf164c6b:cds-paymentservice-scheduler-properties/src/main/java/com/volvocars/ecom/paymentservice/scheduler/properties/validation/ValidStrategy.java:11:@Documented"
+    ]
+  },
+  "source_files_examined": [
+    "Dockerfile",
+    "cds-paymentservice-scheduler-api/src/main/java/com/volvocars/ecom/paymentservice/scheduler/App.java",
+    "cds-paymentservice-scheduler-api/src/main/java/com/volvocars/ecom/paymentservice/scheduler/configuration/v1/SwaggerUIController.java",
+    "cds-paymentservice-scheduler-api/src/main/java/com/volvocars/ecom/paymentservice/scheduler/configuration/v1/impl/SwaggerUIControllerImpl.java",
+    "cds-paymentservice-scheduler-api/src/main/java/com/volvocars/ecom/paymentservice/scheduler/retry/v1/RetryApiService.java",
+    "cds-paymentservice-scheduler-api/src/main/java/com/volvocars/ecom/paymentservice/scheduler/retry/v1/impl/RetryControllerImpl.java",
+    "cds-paymentservice-scheduler-api/src/main/resources/application.yml",
+    "cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/cloudconfig/ConfigRefreshScheduler.java",
+    "cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/messaging/KafkaProducerConfig.java",
+    "cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/poller/PollerService.java",
+    "cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/retry/RetryJob.java",
+    "cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/retry/RetryParams.java",
+    "cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/scheduler/common/BaseEntity.java",
+    "cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/scheduler/config/ConfigService.java",
+    "cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/scheduler/job/JobEntity.java",
+    "cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/scheduler/job/RetryJobEntity.java",
+    "cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/scheduler/job/executor/Context.java",
+    "cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/scheduler/job/mapper/DefaultJobEntity.java",
+    "cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/scheduler/locking/Lock.java",
+    "cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/scheduler/locking/LockEntity.java",
+    "cds-paymentservice-scheduler-core/src/main/java/com/volvocars/ecom/paymentservice/scheduler/locking/LockService.java",
+    "cds-paymentservice-scheduler-properties/src/main/java/com/volvocars/ecom/paymentservice/scheduler/properties/model/ConfigStrategy.java",
+    "cds-paymentservice-scheduler-properties/src/main/java/com/volvocars/ecom/paymentservice/scheduler/properties/model/SchedulerConfig.java",
+    "cds-paymentservice-scheduler-shared/src/main/java/com/volvocars/ecom/paymentservice/shared/common/CronStrategy.java",
+    "cds-paymentservice-scheduler-shared/src/main/java/com/volvocars/ecom/paymentservice/shared/common/FixedRateStrategy.java",
+    "cds-paymentservice-scheduler-shared/src/main/java/com/volvocars/ecom/paymentservice/shared/common/IntervalsStrategy.java",
+    "cds-paymentservice-scheduler-shared/src/main/java/com/volvocars/ecom/paymentservice/shared/common/JobStatus.java",
+    "cds-paymentservice-scheduler-shared/src/main/java/com/volvocars/ecom/paymentservice/shared/common/Strategy.java",
+    "cds-paymentservice-scheduler-shared/src/main/java/com/volvocars/ecom/paymentservice/shared/common/StrategyType.java",
+    "cds-paymentservice-scheduler-shared/src/main/java/com/volvocars/ecom/paymentservice/shared/config/Config.java",
+    "cds-paymentservice-scheduler-shared/src/main/java/com/volvocars/ecom/paymentservice/shared/config/ConfigConditions.java",
+    "cds-paymentservice-scheduler-shared/src/main/java/com/volvocars/ecom/paymentservice/shared/executor/ExecutorType.java",
+    "cds-paymentservice-scheduler-shared/src/main/java/com/volvocars/ecom/paymentservice/shared/job/Job.java",
+    "cds-paymentservice-scheduler-shared/src/main/java/com/volvocars/ecom/paymentservice/shared/retry/RegisterRetryPayload.java",
+    "cds-paymentservice-scheduler-shared/src/main/java/com/volvocars/ecom/paymentservice/shared/retry/RegisterRetryResponse.java",
+    "cds-paymentservice-scheduler-shared/src/main/java/com/volvocars/ecom/paymentservice/shared/retry/RetryCartLine.java",
+    "cds-paymentservice-scheduler-shared/src/main/java/com/volvocars/ecom/paymentservice/shared/retry/RetryStrategy.java",
+    "pom.xml"
+  ],
+  "excluded": [
+    "Test methods/apps/fixtures are not production entries",
+    "Feign RequestLine/client library methods are outbound interfaces, not inbound routes",
+    "Kafka consumer properties and local future callback are not Kafka listeners"
+  ],
+  "freshness": "Pinned source only; no remote or runtime inspection",
+  "reconciliation": {
+    "http_registered": 2,
+    "http_traced_with_explicit_partial_closure": 1,
+    "http_opaque_partial": 1,
+    "scheduled_registered": 2,
+    "scheduled_traced_with_explicit_partial_closure": 2,
+    "startup_hooks": 1,
+    "startup_bounded_local_trace": 1,
+    "local_future_callbacks": 1,
+    "local_future_callback_bounded_trace": 1,
+    "local_broker_subscriptions": 0,
+    "unreconciled_discovered_entries": 0,
+    "configuration_only_discoveries": 4,
+    "method_level_helper_expansion": "partial; source expressions and helper evidence are summarised at invoking operations as declared by native per-implementation coverage"
+  }
+}

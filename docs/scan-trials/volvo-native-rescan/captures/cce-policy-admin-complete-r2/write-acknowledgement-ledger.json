@@ -1,0 +1,40 @@
+[
+  {
+    "write": "volvo/cce-policy-admin/88a3512f0307/local-r2/storage_write/azure/abd41c08c66dd03edf",
+    "operation": "volvo/cce-policy-admin/88a3512f0307/local-r2/operation/484b19d85e210096a6/n/4",
+    "effect": "volvo/cce-policy-admin/88a3512f0307/local-r2/effect/io/abd41c08c66dd03edf",
+    "acknowledgedAt": "volvo/cce-policy-admin/88a3512f0307/local-r2/operation/484b19d85e210096a6/n/24",
+    "fields": [
+      {
+        "path": ["container"],
+        "value": "volvo/cce-policy-admin/88a3512f0307/local-r2/value/484b19d85e210096a6/v/9702",
+        "transform": "Source configured container actual"
+      }
+    ],
+    "kind": "container creation attempt"
+  },
+  {
+    "write": "volvo/cce-policy-admin/88a3512f0307/local-r2/storage_write/azure/42159dc141a6e4da4f",
+    "operation": "volvo/cce-policy-admin/88a3512f0307/local-r2/operation/338a89ca04849b6fdf/n/7",
+    "effect": "volvo/cce-policy-admin/88a3512f0307/local-r2/effect/io/42159dc141a6e4da4f",
+    "acknowledgedAt": "volvo/cce-policy-admin/88a3512f0307/local-r2/operation/338a89ca04849b6fdf/n/16",
+    "fields": [
+      {
+        "path": ["container"],
+        "value": "volvo/cce-policy-admin/88a3512f0307/local-r2/value/338a89ca04849b6fdf/v/9815",
+        "transform": "Source configured container actual"
+      },
+      {
+        "path": ["name"],
+        "value": "volvo/cce-policy-admin/88a3512f0307/local-r2/value/338a89ca04849b6fdf/v/9806",
+        "transform": "Source fmt.Sprintf prefix/name actual; rulesets prefix and ConfigRuleSet.Id are passed by local callers"
+      },
+      {
+        "path": ["data"],
+        "value": "volvo/cce-policy-admin/88a3512f0307/local-r2/value/338a89ca04849b6fdf/p/3",
+        "transform": "Actual compressed buffer bytes supplied to UploadBuffer; imported codec/runtime contents separate"
+      }
+    ],
+    "kind": "blob write with unknown overwrite policy"
+  }
+]

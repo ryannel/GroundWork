@@ -1,0 +1,2352 @@
+[
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/477ef3320e74fc2e",
+    "path": "internal/api/auth/claims.go",
+    "lines": [7, 13],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/api/auth::Claims",
+    "kind": "StructType",
+    "declaration": "struct {\n\tjwt.RegisteredClaims\n\n\tRoles  []string `json:\"roles,omitempty\"`\n\tScopes string   `json:\"scp,omitempty\"`\n\tAppID  string   `json:\"appid,omitempty\"`\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/9a280a76423812c5",
+    "path": "internal/api/auth/parser.go",
+    "lines": [18, 22],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/api/auth::Parser",
+    "kind": "StructType",
+    "declaration": "struct {\n\tkeyFunc  jwt.Keyfunc\n\tissuer   string\n\taudience string\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/408b2a9989bfceee",
+    "path": "internal/api/auth/token.go",
+    "lines": [8, 11],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/api/auth::Token",
+    "kind": "StructType",
+    "declaration": "struct {\n\t*jwt.Token\n\tclaims Claims\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/5edda220e5b4c3d5",
+    "path": "internal/api/grpcserver/contracts/car-configuration-ruleset.pb.go",
+    "lines": [25, 32],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/api/grpcserver/contracts::CarConfigurationRuleset",
+    "kind": "StructType",
+    "declaration": "struct {\n\tstate         protoimpl.MessageState `protogen:\"open.v1\"`\n\tCarDetails    *CarDetails            `protobuf:\"bytes,1,opt,name=car_details,json=carDetails,proto3\" json:\"car_details,omitempty\"`\n\tRuleset       *ConfigurationRuleset  `protobuf:\"bytes,2,opt,name=ruleset,proto3\" json:\"ruleset,omitempty\"`\n\tComponents    *Components            `protobuf:\"bytes,3,opt,name=components,proto3\" json:\"components,omitempty\"`\n\tunknownFields protoimpl.UnknownFields\n\tsizeCache     protoimpl.SizeCache\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/35aaca345e89229d",
+    "path": "internal/api/grpcserver/contracts/car-configuration-ruleset.pb.go",
+    "lines": [85, 95],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/api/grpcserver/contracts::ConfigurationRuleset",
+    "kind": "StructType",
+    "declaration": "struct {\n\tstate                protoimpl.MessageState `protogen:\"open.v1\"`\n\tPolyhedron           *Polyhedron            `protobuf:\"bytes,1,opt,name=polyhedron,proto3\" json:\"polyhedron,omitempty\"`\n\tSelectableVariables  []string               `protobuf:\"bytes,2,rep,name=selectable_variables,json=selectableVariables,proto3\" json:\"selectable_variables,omitempty\"`\n\tDependentVariables   []string               `protobuf:\"bytes,3,rep,name=dependent_variables,json=dependentVariables,proto3\" json:\"dependent_variables,omitempty\"`\n\tIndependentVariables []string               `protobuf:\"bytes,4,rep,name=independent_variables,json=independentVariables,proto3\" json:\"independent_variables,omitempty\"`\n\tPreferredVariables   []string               `protobuf:\"bytes,5,rep,name=preferred_variables,json=preferredVariables,proto3\" json:\"preferred_variables,omitempty\"`\n\tPeriodVariables      []*TimeBoundVariable   `protobuf:\"bytes,6,rep,name=period_variables,json=periodVariables,proto3\" json:\"period_variables,omitempty\"`\n\tunknownFields        protoimpl.UnknownFields\n\tsizeCache            protoimpl.SizeCache\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/027a77f9cda57172",
+    "path": "internal/api/grpcserver/contracts/car-configuration-ruleset.pb.go",
+    "lines": [169, 175],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/api/grpcserver/contracts::Polyhedron",
+    "kind": "StructType",
+    "declaration": "struct {\n\tstate         protoimpl.MessageState `protogen:\"open.v1\"`\n\tAMatrix       []*Row                 `protobuf:\"bytes,1,rep,name=a_matrix,json=aMatrix,proto3\" json:\"a_matrix,omitempty\"`\n\tBVector       []int32                `protobuf:\"varint,2,rep,packed,name=b_vector,json=bVector,proto3\" json:\"b_vector,omitempty\"`\n\tunknownFields protoimpl.UnknownFields\n\tsizeCache     protoimpl.SizeCache\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/6b8936816126bf14",
+    "path": "internal/api/grpcserver/contracts/car-configuration-ruleset.pb.go",
+    "lines": [221, 226],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/api/grpcserver/contracts::Row",
+    "kind": "StructType",
+    "declaration": "struct {\n\tstate         protoimpl.MessageState `protogen:\"open.v1\"`\n\tValues        []int32                `protobuf:\"varint,1,rep,packed,name=values,proto3\" json:\"values,omitempty\"`\n\tunknownFields protoimpl.UnknownFields\n\tsizeCache     protoimpl.SizeCache\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/a7e5d1e1a539eb41",
+    "path": "internal/api/grpcserver/contracts/car-configuration-ruleset.pb.go",
+    "lines": [265, 275],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/api/grpcserver/contracts::Components",
+    "kind": "StructType",
+    "declaration": "struct {\n\tstate           protoimpl.MessageState `protogen:\"open.v1\"`\n\tSMessageCodes   []string               `protobuf:\"bytes,1,rep,name=s_message_codes,json=sMessageCodes,proto3\" json:\"s_message_codes,omitempty\"`\n\tColorCodes      []string               `protobuf:\"bytes,2,rep,name=color_codes,json=colorCodes,proto3\" json:\"color_codes,omitempty\"`\n\tUpholsteryCodes []string               `protobuf:\"bytes,3,rep,name=upholstery_codes,json=upholsteryCodes,proto3\" json:\"upholstery_codes,omitempty\"`\n\tWheelCodes      []string               `protobuf:\"bytes,4,rep,name=wheel_codes,json=wheelCodes,proto3\" json:\"wheel_codes,omitempty\"`\n\tOptionCodes     []string               `protobuf:\"bytes,5,rep,name=option_codes,json=optionCodes,proto3\" json:\"option_codes,omitempty\"`\n\tPackageCodes    []string               `protobuf:\"bytes,6,rep,name=package_codes,json=packageCodes,proto3\" json:\"package_codes,omitempty\"`\n\tunknownFields   protoimpl.UnknownFields\n\tsizeCache       protoimpl.SizeCache\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/861871c25d1ad7b2",
+    "path": "internal/api/grpcserver/contracts/car-configuration-ruleset.pb.go",
+    "lines": [349, 355],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/api/grpcserver/contracts::TimeBoundVariable",
+    "kind": "StructType",
+    "declaration": "struct {\n\tstate         protoimpl.MessageState `protogen:\"open.v1\"`\n\tVariable      string                 `protobuf:\"bytes,1,opt,name=variable,proto3\" json:\"variable,omitempty\"`\n\tPeriod        *Period                `protobuf:\"bytes,2,opt,name=period,proto3\" json:\"period,omitempty\"`\n\tunknownFields protoimpl.UnknownFields\n\tsizeCache     protoimpl.SizeCache\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/1f32fd4d8624740a",
+    "path": "internal/api/grpcserver/contracts/car-configuration-ruleset.pb.go",
+    "lines": [401, 407],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/api/grpcserver/contracts::Period",
+    "kind": "StructType",
+    "declaration": "struct {\n\tstate         protoimpl.MessageState `protogen:\"open.v1\"`\n\tFrom          *timestamppb.Timestamp `protobuf:\"bytes,1,opt,name=from,proto3\" json:\"from,omitempty\"`\n\tTo            *timestamppb.Timestamp `protobuf:\"bytes,2,opt,name=to,proto3\" json:\"to,omitempty\"`\n\tunknownFields protoimpl.UnknownFields\n\tsizeCache     protoimpl.SizeCache\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/12c9e7abf045139b",
+    "path": "internal/api/grpcserver/contracts/car-configuration-ruleset.pb.go",
+    "lines": [544, 544],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/api/grpcserver/contracts::x@internal/api/grpcserver/contracts/car-configuration-ruleset.pb.go:18415",
+    "kind": "StructType",
+    "declaration": "struct{}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/7a9e69e52fd744f3",
+    "path": "internal/api/grpcserver/contracts/car-key.pb.go",
+    "lines": [24, 36],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/api/grpcserver/contracts::CarKey",
+    "kind": "StructType",
+    "declaration": "struct {\n\tstate         protoimpl.MessageState `protogen:\"open.v1\"`\n\tDetails       *CarDetails            `protobuf:\"bytes,1,opt,name=details,proto3\" json:\"details,omitempty\"`\n\tSMessage      *string                `protobuf:\"bytes,2,opt,name=s_message,json=sMessage,proto3,oneof\" json:\"s_message,omitempty\"`\n\tColor         string                 `protobuf:\"bytes,3,opt,name=color,proto3\" json:\"color,omitempty\"`\n\tUpholstery    string                 `protobuf:\"bytes,4,opt,name=upholstery,proto3\" json:\"upholstery,omitempty\"`\n\tWheel         string                 `protobuf:\"bytes,5,opt,name=wheel,proto3\" json:\"wheel,omitempty\"`\n\tOptions       []string               `protobuf:\"bytes,6,rep,name=options,proto3\" json:\"options,omitempty\"`\n\tPackages      []string               `protobuf:\"bytes,7,rep,name=packages,proto3\" json:\"packages,omitempty\"`\n\tStructureWeek *StructureWeek         `protobuf:\"bytes,8,opt,name=structure_week,json=structureWeek,proto3\" json:\"structure_week,omitempty\"`\n\tunknownFields protoimpl.UnknownFields\n\tsizeCache     protoimpl.SizeCache\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/2a337475c22c4626",
+    "path": "internal/api/grpcserver/contracts/car-key.pb.go",
+    "lines": [124, 140],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/api/grpcserver/contracts::CarDetails",
+    "kind": "StructType",
+    "declaration": "struct {\n\tstate         protoimpl.MessageState `protogen:\"open.v1\"`\n\tModelYear     int32                  `protobuf:\"varint,1,opt,name=model_year,json=modelYear,proto3\" json:\"model_year,omitempty\"`\n\tSpecMarket    string                 `protobuf:\"bytes,2,opt,name=spec_market,json=specMarket,proto3\" json:\"spec_market,omitempty\"`\n\tCarType       string                 `protobuf:\"bytes,3,opt,name=car_type,json=carType,proto3\" json:\"car_type,omitempty\"`\n\tEngine        string                 `protobuf:\"bytes,4,opt,name=engine,proto3\" json:\"engine,omitempty\"`\n\tSalesVersion  string                 `protobuf:\"bytes,5,opt,name=sales_version,json=salesVersion,proto3\" json:\"sales_version,omitempty\"`\n\tBody          string                 `protobuf:\"bytes,6,opt,name=body,proto3\" json:\"body,omitempty\"`\n\tGearbox       string                 `protobuf:\"bytes,7,opt,name=gearbox,proto3\" json:\"gearbox,omitempty\"`\n\tSteering      string                 `protobuf:\"bytes,8,opt,name=steering,proto3\" json:\"steering,omitempty\"`\n\tMarketingCode string                 `protobuf:\"bytes,9,opt,name=marketing_code,json=marketingCode,proto3\" json:\"marketing_code,omitempty\"`\n\t// Deprecated: Marked as deprecated in car-key.proto.\n\tLocalTrimEditionCode *string `protobuf:\"bytes,10,opt,name=local_trim_edition_code,json=localTrimEditionCode,proto3,oneof\" json:\"local_trim_edition_code,omitempty\"`\n\tLocalEditionCode     *string `protobuf:\"bytes,11,opt,name=local_edition_code,json=localEditionCode,proto3,oneof\" json:\"local_edition_code,omitempty\"`\n\tunknownFields        protoimpl.UnknownFields\n\tsizeCache            protoimpl.SizeCache\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/d8c7f8f769391aae",
+    "path": "internal/api/grpcserver/contracts/car-key.pb.go",
+    "lines": [250, 256],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/api/grpcserver/contracts::CarKeyInPeriod",
+    "kind": "StructType",
+    "declaration": "struct {\n\tstate         protoimpl.MessageState `protogen:\"open.v1\"`\n\tCarKey        *CarKey                `protobuf:\"bytes,1,opt,name=car_key,json=carKey,proto3\" json:\"car_key,omitempty\"`\n\tPeriod        *StructureWeekPeriod   `protobuf:\"bytes,2,opt,name=period,proto3\" json:\"period,omitempty\"`\n\tunknownFields protoimpl.UnknownFields\n\tsizeCache     protoimpl.SizeCache\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/36d8e618c3df8f91",
+    "path": "internal/api/grpcserver/contracts/car-key.pb.go",
+    "lines": [382, 382],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/api/grpcserver/contracts::x@internal/api/grpcserver/contracts/car-key.pb.go:12054",
+    "kind": "StructType",
+    "declaration": "struct{}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/5a642d7a1309ff93",
+    "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+    "lines": [24, 36],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/api/grpcserver/contracts::CarSpecification",
+    "kind": "StructType",
+    "declaration": "struct {\n\tstate                         protoimpl.MessageState `protogen:\"open.v1\"`\n\tCarDetails                    *CarDetails            `protobuf:\"bytes,1,opt,name=car_details,json=carDetails,proto3\" json:\"car_details,omitempty\"`\n\tStructureWeekPeriod           *StructureWeekPeriod   `protobuf:\"bytes,2,opt,name=structure_week_period,json=structureWeekPeriod,proto3\" json:\"structure_week_period,omitempty\"`\n\tForbiddenStructureWeekPeriods []*StructureWeekPeriod `protobuf:\"bytes,8,rep,name=forbidden_structure_week_periods,json=forbiddenStructureWeekPeriods,proto3\" json:\"forbidden_structure_week_periods,omitempty\"`\n\tSMessages                     *SMessageSpecification `protobuf:\"bytes,3,opt,name=s_messages,json=sMessages,proto3\" json:\"s_messages,omitempty\"`\n\tStylings                      *StylingSpecification  `protobuf:\"bytes,4,opt,name=stylings,proto3\" json:\"stylings,omitempty\"`\n\tOptions                       *OptionSpecification   `protobuf:\"bytes,5,opt,name=options,proto3\" json:\"options,omitempty\"`\n\tPackages                      *PackageSpecification  `protobuf:\"bytes,6,opt,name=packages,proto3\" json:\"packages,omitempty\"`\n\tWheels                        *WheelSpecification    `protobuf:\"bytes,7,opt,name=wheels,proto3\" json:\"wheels,omitempty\"`\n\tunknownFields                 protoimpl.UnknownFields\n\tsizeCache                     protoimpl.SizeCache\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/c422a4ebed2ac401",
+    "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+    "lines": [124, 129],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/api/grpcserver/contracts::SMessageSpecification",
+    "kind": "StructType",
+    "declaration": "struct {\n\tstate         protoimpl.MessageState `protogen:\"open.v1\"`\n\tSMessages     []*SMessage            `protobuf:\"bytes,1,rep,name=s_messages,json=sMessages,proto3\" json:\"s_messages,omitempty\"`\n\tunknownFields protoimpl.UnknownFields\n\tsizeCache     protoimpl.SizeCache\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/e82ca972748b5f15",
+    "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+    "lines": [168, 174],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/api/grpcserver/contracts::SMessage",
+    "kind": "StructType",
+    "declaration": "struct {\n\tstate         protoimpl.MessageState `protogen:\"open.v1\"`\n\tCode          string                 `protobuf:\"bytes,1,opt,name=code,proto3\" json:\"code,omitempty\"`\n\tPeriod        *StructureWeekPeriod   `protobuf:\"bytes,2,opt,name=period,proto3\" json:\"period,omitempty\"`\n\tunknownFields protoimpl.UnknownFields\n\tsizeCache     protoimpl.SizeCache\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/cecc684ee59a11b1",
+    "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+    "lines": [220, 230],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/api/grpcserver/contracts::StylingSpecification",
+    "kind": "StructType",
+    "declaration": "struct {\n\tstate        protoimpl.MessageState `protogen:\"open.v1\"`\n\tColors       []*Color               `protobuf:\"bytes,1,rep,name=colors,proto3\" json:\"colors,omitempty\"`\n\tUpholsteries []*Upholstery          `protobuf:\"bytes,2,rep,name=upholsteries,proto3\" json:\"upholsteries,omitempty\"`\n\t// Deprecated: Marked as deprecated in car-specification.proto.\n\tDefaultCombination  *StylingCombination `protobuf:\"bytes,3,opt,name=default_combination,json=defaultCombination,proto3\" json:\"default_combination,omitempty\"`\n\tDefaultColors       []*TimeBoundCode    `protobuf:\"bytes,4,rep,name=default_colors,json=defaultColors,proto3\" json:\"default_colors,omitempty\"`\n\tDefaultUpholsteries []*TimeBoundCode    `protobuf:\"bytes,5,rep,name=default_upholsteries,json=defaultUpholsteries,proto3\" json:\"default_upholsteries,omitempty\"`\n\tunknownFields       protoimpl.UnknownFields\n\tsizeCache           protoimpl.SizeCache\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/96cca6c462306471",
+    "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+    "lines": [298, 304],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/api/grpcserver/contracts::StylingCombination",
+    "kind": "StructType",
+    "declaration": "struct {\n\tstate          protoimpl.MessageState `protogen:\"open.v1\"`\n\tColorCode      string                 `protobuf:\"bytes,1,opt,name=color_code,json=colorCode,proto3\" json:\"color_code,omitempty\"`\n\tUpholsteryCode string                 `protobuf:\"bytes,2,opt,name=upholstery_code,json=upholsteryCode,proto3\" json:\"upholstery_code,omitempty\"`\n\tunknownFields  protoimpl.UnknownFields\n\tsizeCache      protoimpl.SizeCache\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/ea84799342a09cb1",
+    "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+    "lines": [350, 356],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/api/grpcserver/contracts::TimeBoundCode",
+    "kind": "StructType",
+    "declaration": "struct {\n\tstate         protoimpl.MessageState `protogen:\"open.v1\"`\n\tCode          string                 `protobuf:\"bytes,1,opt,name=code,proto3\" json:\"code,omitempty\"`\n\tPeriod        *StructureWeekPeriod   `protobuf:\"bytes,2,opt,name=period,proto3\" json:\"period,omitempty\"`\n\tunknownFields protoimpl.UnknownFields\n\tsizeCache     protoimpl.SizeCache\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/72760f37b6ad7094",
+    "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+    "lines": [402, 413],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/api/grpcserver/contracts::Color",
+    "kind": "StructType",
+    "declaration": "struct {\n\tstate               protoimpl.MessageState `protogen:\"open.v1\"`\n\tCode                string                 `protobuf:\"bytes,1,opt,name=code,proto3\" json:\"code,omitempty\"`\n\tRequiredOptions     []*TimeBoundAtLeastOne `protobuf:\"bytes,2,rep,name=required_options,json=requiredOptions,proto3\" json:\"required_options,omitempty\"`\n\tForbidsOptions      []*Forbids             `protobuf:\"bytes,3,rep,name=forbids_options,json=forbidsOptions,proto3\" json:\"forbids_options,omitempty\"`\n\tForbidsUpholsteries []*Forbids             `protobuf:\"bytes,4,rep,name=forbids_upholsteries,json=forbidsUpholsteries,proto3\" json:\"forbids_upholsteries,omitempty\"`\n\tRequiredWheels      []*TimeBoundExactlyOne `protobuf:\"bytes,6,rep,name=required_wheels,json=requiredWheels,proto3\" json:\"required_wheels,omitempty\"`\n\tForbidsWheels       []*Forbids             `protobuf:\"bytes,7,rep,name=forbids_wheels,json=forbidsWheels,proto3\" json:\"forbids_wheels,omitempty\"`\n\tPeriod              *StructureWeekPeriod   `protobuf:\"bytes,5,opt,name=period,proto3\" json:\"period,omitempty\"`\n\tunknownFields       protoimpl.UnknownFields\n\tsizeCache           protoimpl.SizeCache\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/fd6544158426675a",
+    "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+    "lines": [494, 504],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/api/grpcserver/contracts::Upholstery",
+    "kind": "StructType",
+    "declaration": "struct {\n\tstate           protoimpl.MessageState `protogen:\"open.v1\"`\n\tCode            string                 `protobuf:\"bytes,1,opt,name=code,proto3\" json:\"code,omitempty\"`\n\tRequiredOptions []*TimeBoundAtLeastOne `protobuf:\"bytes,2,rep,name=required_options,json=requiredOptions,proto3\" json:\"required_options,omitempty\"`\n\tForbidsOptions  []*Forbids             `protobuf:\"bytes,3,rep,name=forbids_options,json=forbidsOptions,proto3\" json:\"forbids_options,omitempty\"`\n\tForbidsColors   []*Forbids             `protobuf:\"bytes,4,rep,name=forbids_colors,json=forbidsColors,proto3\" json:\"forbids_colors,omitempty\"`\n\tForbidsWheels   []*Forbids             `protobuf:\"bytes,6,rep,name=forbids_wheels,json=forbidsWheels,proto3\" json:\"forbids_wheels,omitempty\"`\n\tPeriod          *StructureWeekPeriod   `protobuf:\"bytes,5,opt,name=period,proto3\" json:\"period,omitempty\"`\n\tunknownFields   protoimpl.UnknownFields\n\tsizeCache       protoimpl.SizeCache\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/0ce5c07fcf6e0aba",
+    "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+    "lines": [578, 587],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/api/grpcserver/contracts::OptionSpecification",
+    "kind": "StructType",
+    "declaration": "struct {\n\tstate                  protoimpl.MessageState `protogen:\"open.v1\"`\n\tOptions                []*Option              `protobuf:\"bytes,1,rep,name=options,proto3\" json:\"options,omitempty\"`\n\tPackageOnlyOptionCodes []string               `protobuf:\"bytes,2,rep,name=package_only_option_codes,json=packageOnlyOptionCodes,proto3\" json:\"package_only_option_codes,omitempty\"`\n\tIncludedOptions        []*TimeBoundExactlyOne `protobuf:\"bytes,3,rep,name=included_options,json=includedOptions,proto3\" json:\"included_options,omitempty\"`\n\t// [Motivation](https://www.notion.so/volvocars/CaaS-Decision-Records-311c3ef07ab7806c9886fbece7359cac?source=copy_link#311c3ef07ab780dd8d48e60c166ad701)\n\tCombinedRequirements []*CombinedOptionRequirement `protobuf:\"bytes,4,rep,name=combined_requirements,json=combinedRequirements,proto3\" json:\"combined_requirements,omitempty\"`\n\tunknownFields        protoimpl.UnknownFields\n\tsizeCache            protoimpl.SizeCache\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/34817e680fa316ba",
+    "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+    "lines": [647, 661],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/api/grpcserver/contracts::Option",
+    "kind": "StructType",
+    "declaration": "struct {\n\tstate                protoimpl.MessageState `protogen:\"open.v1\"`\n\tCode                 string                 `protobuf:\"bytes,1,opt,name=code,proto3\" json:\"code,omitempty\"`\n\tRequiredColors       []*TimeBoundExactlyOne `protobuf:\"bytes,2,rep,name=required_colors,json=requiredColors,proto3\" json:\"required_colors,omitempty\"`\n\tRequiredUpholsteries []*TimeBoundExactlyOne `protobuf:\"bytes,3,rep,name=required_upholsteries,json=requiredUpholsteries,proto3\" json:\"required_upholsteries,omitempty\"`\n\tRequiredOptions      []*TimeBoundAtLeastOne `protobuf:\"bytes,4,rep,name=required_options,json=requiredOptions,proto3\" json:\"required_options,omitempty\"`\n\tRequiredWheels       []*TimeBoundExactlyOne `protobuf:\"bytes,8,rep,name=required_wheels,json=requiredWheels,proto3\" json:\"required_wheels,omitempty\"`\n\tForbidsOptions       []*Forbids             `protobuf:\"bytes,5,rep,name=forbids_options,json=forbidsOptions,proto3\" json:\"forbids_options,omitempty\"`\n\tForbidsColors        []*Forbids             `protobuf:\"bytes,6,rep,name=forbids_colors,json=forbidsColors,proto3\" json:\"forbids_colors,omitempty\"`\n\tForbidsWheels        []*Forbids             `protobuf:\"bytes,9,rep,name=forbids_wheels,json=forbidsWheels,proto3\" json:\"forbids_wheels,omitempty\"`\n\tForbidsUpholsteries  []*Forbids             `protobuf:\"bytes,10,rep,name=forbids_upholsteries,json=forbidsUpholsteries,proto3\" json:\"forbids_upholsteries,omitempty\"`\n\tPeriod               *StructureWeekPeriod   `protobuf:\"bytes,7,opt,name=period,proto3\" json:\"period,omitempty\"`\n\tunknownFields        protoimpl.UnknownFields\n\tsizeCache            protoimpl.SizeCache\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/62417c1685eedd88",
+    "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+    "lines": [763, 769],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/api/grpcserver/contracts::CombinedOptionRequirement",
+    "kind": "StructType",
+    "declaration": "struct {\n\tstate                protoimpl.MessageState `protogen:\"open.v1\"`\n\tRequiringOptionCodes []string               `protobuf:\"bytes,1,rep,name=requiring_option_codes,json=requiringOptionCodes,proto3\" json:\"requiring_option_codes,omitempty\"`\n\tRequiredOptionCode   string                 `protobuf:\"bytes,2,opt,name=required_option_code,json=requiredOptionCode,proto3\" json:\"required_option_code,omitempty\"`\n\tunknownFields        protoimpl.UnknownFields\n\tsizeCache            protoimpl.SizeCache\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/50276d5fd863987b",
+    "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+    "lines": [815, 822],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/api/grpcserver/contracts::PackageSpecification",
+    "kind": "StructType",
+    "declaration": "struct {\n\tstate                            protoimpl.MessageState `protogen:\"open.v1\"`\n\tPackages                         []*Package             `protobuf:\"bytes,1,rep,name=packages,proto3\" json:\"packages,omitempty\"`\n\tIncludedPackages                 []*TimeBoundExactlyOne `protobuf:\"bytes,2,rep,name=included_packages,json=includedPackages,proto3\" json:\"included_packages,omitempty\"`\n\tMakeOverlappingPackagesExclusive bool                   `protobuf:\"varint,3,opt,name=make_overlapping_packages_exclusive,json=makeOverlappingPackagesExclusive,proto3\" json:\"make_overlapping_packages_exclusive,omitempty\"`\n\tunknownFields                    protoimpl.UnknownFields\n\tsizeCache                        protoimpl.SizeCache\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/8e218c43d8d4d951",
+    "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+    "lines": [875, 885],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/api/grpcserver/contracts::Package",
+    "kind": "StructType",
+    "declaration": "struct {\n\tstate                protoimpl.MessageState `protogen:\"open.v1\"`\n\tCode                 string                 `protobuf:\"bytes,1,opt,name=code,proto3\" json:\"code,omitempty\"`\n\tRequiredColors       *ExactlyOne            `protobuf:\"bytes,2,opt,name=required_colors,json=requiredColors,proto3,oneof\" json:\"required_colors,omitempty\"`\n\tRequiredUpholsteries *ExactlyOne            `protobuf:\"bytes,3,opt,name=required_upholsteries,json=requiredUpholsteries,proto3,oneof\" json:\"required_upholsteries,omitempty\"`\n\tRequiredOptions      []*ExactlyOne          `protobuf:\"bytes,4,rep,name=required_options,json=requiredOptions,proto3\" json:\"required_options,omitempty\"`\n\tRequiredWheels       *ExactlyOne            `protobuf:\"bytes,6,opt,name=required_wheels,json=requiredWheels,proto3,oneof\" json:\"required_wheels,omitempty\"`\n\tPeriod               *StructureWeekPeriod   `protobuf:\"bytes,5,opt,name=period,proto3\" json:\"period,omitempty\"`\n\tunknownFields        protoimpl.UnknownFields\n\tsizeCache            protoimpl.SizeCache\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/37db3095832dca8d",
+    "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+    "lines": [961, 967],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/api/grpcserver/contracts::WheelSpecification",
+    "kind": "StructType",
+    "declaration": "struct {\n\tstate         protoimpl.MessageState `protogen:\"open.v1\"`\n\tWheels        []*Wheel               `protobuf:\"bytes,1,rep,name=wheels,proto3\" json:\"wheels,omitempty\"`\n\tStandardWheel *string                `protobuf:\"bytes,2,opt,name=standard_wheel,json=standardWheel,proto3,oneof\" json:\"standard_wheel,omitempty\"`\n\tunknownFields protoimpl.UnknownFields\n\tsizeCache     protoimpl.SizeCache\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/b1fe1f4c5fede459",
+    "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+    "lines": [1013, 1024],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/api/grpcserver/contracts::Wheel",
+    "kind": "StructType",
+    "declaration": "struct {\n\tstate                protoimpl.MessageState `protogen:\"open.v1\"`\n\tCode                 string                 `protobuf:\"bytes,1,opt,name=code,proto3\" json:\"code,omitempty\"`\n\tRequiredColors       []*TimeBoundExactlyOne `protobuf:\"bytes,2,rep,name=required_colors,json=requiredColors,proto3\" json:\"required_colors,omitempty\"`\n\tRequiredOptions      []*TimeBoundAtLeastOne `protobuf:\"bytes,3,rep,name=required_options,json=requiredOptions,proto3\" json:\"required_options,omitempty\"`\n\tRequiredUpholsteries []*TimeBoundExactlyOne `protobuf:\"bytes,6,rep,name=required_upholsteries,json=requiredUpholsteries,proto3\" json:\"required_upholsteries,omitempty\"`\n\tForbidsOptions       []*Forbids             `protobuf:\"bytes,4,rep,name=forbids_options,json=forbidsOptions,proto3\" json:\"forbids_options,omitempty\"`\n\tForbidsUpholsteries  []*Forbids             `protobuf:\"bytes,7,rep,name=forbids_upholsteries,json=forbidsUpholsteries,proto3\" json:\"forbids_upholsteries,omitempty\"`\n\tPeriod               *StructureWeekPeriod   `protobuf:\"bytes,5,opt,name=period,proto3\" json:\"period,omitempty\"`\n\tunknownFields        protoimpl.UnknownFields\n\tsizeCache            protoimpl.SizeCache\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/17dddd1f31c3f51c",
+    "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+    "lines": [1105, 1112],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/api/grpcserver/contracts::TimeBoundExactlyOne",
+    "kind": "StructType",
+    "declaration": "struct {\n\tstate         protoimpl.MessageState `protogen:\"open.v1\"`\n\tCodes         []string               `protobuf:\"bytes,1,rep,name=codes,proto3\" json:\"codes,omitempty\"`\n\tDefaultCode   *string                `protobuf:\"bytes,2,opt,name=default_code,json=defaultCode,proto3,oneof\" json:\"default_code,omitempty\"`\n\tPeriod        *StructureWeekPeriod   `protobuf:\"bytes,3,opt,name=period,proto3\" json:\"period,omitempty\"`\n\tunknownFields protoimpl.UnknownFields\n\tsizeCache     protoimpl.SizeCache\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/d723ca4cc369a598",
+    "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+    "lines": [1165, 1171],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/api/grpcserver/contracts::ExactlyOne",
+    "kind": "StructType",
+    "declaration": "struct {\n\tstate         protoimpl.MessageState `protogen:\"open.v1\"`\n\tCodes         []string               `protobuf:\"bytes,1,rep,name=codes,proto3\" json:\"codes,omitempty\"`\n\tDefaultCode   *string                `protobuf:\"bytes,2,opt,name=default_code,json=defaultCode,proto3,oneof\" json:\"default_code,omitempty\"`\n\tunknownFields protoimpl.UnknownFields\n\tsizeCache     protoimpl.SizeCache\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/7f500e95689c0217",
+    "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+    "lines": [1217, 1224],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/api/grpcserver/contracts::TimeBoundAtLeastOne",
+    "kind": "StructType",
+    "declaration": "struct {\n\tstate         protoimpl.MessageState `protogen:\"open.v1\"`\n\tCodes         []string               `protobuf:\"bytes,1,rep,name=codes,proto3\" json:\"codes,omitempty\"`\n\tDefaultCode   *string                `protobuf:\"bytes,2,opt,name=default_code,json=defaultCode,proto3,oneof\" json:\"default_code,omitempty\"`\n\tPeriod        *StructureWeekPeriod   `protobuf:\"bytes,3,opt,name=period,proto3\" json:\"period,omitempty\"`\n\tunknownFields protoimpl.UnknownFields\n\tsizeCache     protoimpl.SizeCache\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/d5060453c2633a62",
+    "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+    "lines": [1277, 1283],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/api/grpcserver/contracts::Forbids",
+    "kind": "StructType",
+    "declaration": "struct {\n\tstate         protoimpl.MessageState `protogen:\"open.v1\"`\n\tCode          string                 `protobuf:\"bytes,1,opt,name=code,proto3\" json:\"code,omitempty\"`\n\tPeriod        *StructureWeekPeriod   `protobuf:\"bytes,2,opt,name=period,proto3\" json:\"period,omitempty\"`\n\tunknownFields protoimpl.UnknownFields\n\tsizeCache     protoimpl.SizeCache\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/9c15d20ab482ad59",
+    "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+    "lines": [1329, 1336],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/api/grpcserver/contracts::CarSpecificationUpserted",
+    "kind": "StructType",
+    "declaration": "struct {\n\tstate                protoimpl.MessageState `protogen:\"open.v1\"`\n\tSpecification        *CarSpecification      `protobuf:\"bytes,1,opt,name=specification,proto3\" json:\"specification,omitempty\"`\n\tMarketAuthIdentifier *MarketAuthIdentifier  `protobuf:\"bytes,2,opt,name=market_auth_identifier,json=marketAuthIdentifier,proto3\" json:\"market_auth_identifier,omitempty\"`\n\tBrand                string                 `protobuf:\"bytes,3,opt,name=brand,proto3\" json:\"brand,omitempty\"`\n\tunknownFields        protoimpl.UnknownFields\n\tsizeCache            protoimpl.SizeCache\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/f096f18312e3846a",
+    "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+    "lines": [1389, 1399],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/api/grpcserver/contracts::CarSpecificationRemoved",
+    "kind": "StructType",
+    "declaration": "struct {\n\tstate      protoimpl.MessageState `protogen:\"open.v1\"`\n\tPno12      string                 `protobuf:\"bytes,1,opt,name=pno12,proto3\" json:\"pno12,omitempty\"`\n\tSpecMarket string                 `protobuf:\"bytes,2,opt,name=spec_market,json=specMarket,proto3\" json:\"spec_market,omitempty\"`\n\tModelYear  int32                  `protobuf:\"varint,3,opt,name=model_year,json=modelYear,proto3\" json:\"model_year,omitempty\"`\n\t// Deprecated: Marked as deprecated in car-specification.proto.\n\tLocalTrimEditionCode *string `protobuf:\"bytes,4,opt,name=local_trim_edition_code,json=localTrimEditionCode,proto3,oneof\" json:\"local_trim_edition_code,omitempty\"`\n\tLocalEditionCode     *string `protobuf:\"bytes,5,opt,name=local_edition_code,json=localEditionCode,proto3,oneof\" json:\"local_edition_code,omitempty\"`\n\tunknownFields        protoimpl.UnknownFields\n\tsizeCache            protoimpl.SizeCache\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/e1d375357eaa233f",
+    "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+    "lines": [1467, 1473],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/api/grpcserver/contracts::MarketAuthIdentifier",
+    "kind": "StructType",
+    "declaration": "struct {\n\tstate                    protoimpl.MessageState `protogen:\"open.v1\"`\n\tTimestamp                string                 `protobuf:\"bytes,1,opt,name=timestamp,proto3\" json:\"timestamp,omitempty\"`\n\tStandardWheelFeatureCode string                 `protobuf:\"bytes,2,opt,name=standard_wheel_feature_code,json=standardWheelFeatureCode,proto3\" json:\"standard_wheel_feature_code,omitempty\"`\n\tunknownFields            protoimpl.UnknownFields\n\tsizeCache                protoimpl.SizeCache\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/58202860aa5fba00",
+    "path": "internal/api/grpcserver/contracts/car-specification.pb.go",
+    "lines": [1770, 1770],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/api/grpcserver/contracts::x@internal/api/grpcserver/contracts/car-specification.pb.go:67761",
+    "kind": "StructType",
+    "declaration": "struct{}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/898645c365103538",
+    "path": "internal/api/grpcserver/contracts/components.pb.go",
+    "lines": [24, 30],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/api/grpcserver/contracts::ComponentWithCarKeys",
+    "kind": "StructType",
+    "declaration": "struct {\n\tstate         protoimpl.MessageState `protogen:\"open.v1\"`\n\tComponent     *Component             `protobuf:\"bytes,1,opt,name=component,proto3\" json:\"component,omitempty\"`\n\tCarKeys       []*CarKeyInPeriod      `protobuf:\"bytes,2,rep,name=car_keys,json=carKeys,proto3\" json:\"car_keys,omitempty\"`\n\tunknownFields protoimpl.UnknownFields\n\tsizeCache     protoimpl.SizeCache\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/c8b3c7a2de433423",
+    "path": "internal/api/grpcserver/contracts/components.pb.go",
+    "lines": [76, 82],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/api/grpcserver/contracts::Component",
+    "kind": "StructType",
+    "declaration": "struct {\n\tstate         protoimpl.MessageState `protogen:\"open.v1\"`\n\tCode          string                 `protobuf:\"bytes,1,opt,name=code,proto3\" json:\"code,omitempty\"`\n\tType          string                 `protobuf:\"bytes,2,opt,name=type,proto3\" json:\"type,omitempty\"`\n\tunknownFields protoimpl.UnknownFields\n\tsizeCache     protoimpl.SizeCache\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/9cb59efd2b1726de",
+    "path": "internal/api/grpcserver/contracts/components.pb.go",
+    "lines": [128, 134],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/api/grpcserver/contracts::PackageComponentWithCarKeys",
+    "kind": "StructType",
+    "declaration": "struct {\n\tstate         protoimpl.MessageState `protogen:\"open.v1\"`\n\tComponent     *PackageComponent      `protobuf:\"bytes,1,opt,name=component,proto3\" json:\"component,omitempty\"`\n\tCarKeys       []*CarKeyInPeriod      `protobuf:\"bytes,2,rep,name=car_keys,json=carKeys,proto3\" json:\"car_keys,omitempty\"`\n\tunknownFields protoimpl.UnknownFields\n\tsizeCache     protoimpl.SizeCache\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/eba7a1425307b479",
+    "path": "internal/api/grpcserver/contracts/components.pb.go",
+    "lines": [180, 186],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/api/grpcserver/contracts::PackageComponent",
+    "kind": "StructType",
+    "declaration": "struct {\n\tstate         protoimpl.MessageState `protogen:\"open.v1\"`\n\tCode          string                 `protobuf:\"bytes,1,opt,name=code,proto3\" json:\"code,omitempty\"`\n\tVariant       []*Component           `protobuf:\"bytes,2,rep,name=variant,proto3\" json:\"variant,omitempty\"`\n\tunknownFields protoimpl.UnknownFields\n\tsizeCache     protoimpl.SizeCache\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/56ff0c6a408dbfef",
+    "path": "internal/api/grpcserver/contracts/components.pb.go",
+    "lines": [289, 289],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/api/grpcserver/contracts::x@internal/api/grpcserver/contracts/components.pb.go:9482",
+    "kind": "StructType",
+    "declaration": "struct{}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/5a180e35b525c9ad",
+    "path": "internal/api/grpcserver/contracts/selection.pb.go",
+    "lines": [24, 24],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/api/grpcserver/contracts::Action",
+    "kind": "Ident",
+    "declaration": "int32",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/bf1795a762903055",
+    "path": "internal/api/grpcserver/contracts/selection.pb.go",
+    "lines": [70, 77],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/api/grpcserver/contracts::Selection",
+    "kind": "StructType",
+    "declaration": "struct {\n\tstate             protoimpl.MessageState `protogen:\"open.v1\"`\n\tCode              string                 `protobuf:\"bytes,1,opt,name=code,proto3\" json:\"code,omitempty\"`\n\tAction            Action                 `protobuf:\"varint,2,opt,name=action,proto3,enum=volvocars.contracts.carconfiguration.v2.Action\" json:\"action,omitempty\"`\n\tSubSelectionCodes []string               `protobuf:\"bytes,3,rep,name=sub_selection_codes,json=subSelectionCodes,proto3\" json:\"sub_selection_codes,omitempty\"`\n\tunknownFields     protoimpl.UnknownFields\n\tsizeCache         protoimpl.SizeCache\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/56117cb2e2b6b820",
+    "path": "internal/api/grpcserver/contracts/selection.pb.go",
+    "lines": [176, 176],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/api/grpcserver/contracts::x@internal/api/grpcserver/contracts/selection.pb.go:4932",
+    "kind": "StructType",
+    "declaration": "struct{}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/4bd35c93b40ce59d",
+    "path": "internal/api/grpcserver/contracts/service.pb.go",
+    "lines": [25, 25],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/api/grpcserver/contracts::HealthStatus",
+    "kind": "Ident",
+    "declaration": "int32",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/03e0e0c626b7784d",
+    "path": "internal/api/grpcserver/contracts/service.pb.go",
+    "lines": [71, 75],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/api/grpcserver/contracts::HealthCheckRequest",
+    "kind": "StructType",
+    "declaration": "struct {\n\tstate         protoimpl.MessageState `protogen:\"open.v1\"`\n\tunknownFields protoimpl.UnknownFields\n\tsizeCache     protoimpl.SizeCache\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/04b1a839ea88cb7c",
+    "path": "internal/api/grpcserver/contracts/service.pb.go",
+    "lines": [107, 112],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/api/grpcserver/contracts::HealthCheckResponse",
+    "kind": "StructType",
+    "declaration": "struct {\n\tstate         protoimpl.MessageState `protogen:\"open.v1\"`\n\tStatus        HealthStatus           `protobuf:\"varint,1,opt,name=status,proto3,enum=volvocars.contracts.carconfiguration.v2.HealthStatus\" json:\"status,omitempty\"`\n\tunknownFields protoimpl.UnknownFields\n\tsizeCache     protoimpl.SizeCache\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/9f63ae35e4e3a193",
+    "path": "internal/api/grpcserver/contracts/service.pb.go",
+    "lines": [151, 156],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/api/grpcserver/contracts::CreateRulesetResponse",
+    "kind": "StructType",
+    "declaration": "struct {\n\tstate         protoimpl.MessageState `protogen:\"open.v1\"`\n\tId            string                 `protobuf:\"bytes,1,opt,name=id,proto3\" json:\"id,omitempty\"`\n\tunknownFields protoimpl.UnknownFields\n\tsizeCache     protoimpl.SizeCache\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/f8bf0f0c47f2f092",
+    "path": "internal/api/grpcserver/contracts/service.pb.go",
+    "lines": [195, 200],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/api/grpcserver/contracts::DeleteRulesetRequest",
+    "kind": "StructType",
+    "declaration": "struct {\n\tstate         protoimpl.MessageState `protogen:\"open.v1\"`\n\tId            string                 `protobuf:\"bytes,1,opt,name=id,proto3\" json:\"id,omitempty\"`\n\tunknownFields protoimpl.UnknownFields\n\tsizeCache     protoimpl.SizeCache\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/1e9958d9e020ae8e",
+    "path": "internal/api/grpcserver/contracts/service.pb.go",
+    "lines": [239, 247],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/api/grpcserver/contracts::CalculateCarKeyRequestV2",
+    "kind": "StructType",
+    "declaration": "struct {\n\tstate         protoimpl.MessageState `protogen:\"open.v1\"`\n\tRulesetId     string                 `protobuf:\"bytes,1,opt,name=ruleset_id,json=rulesetId,proto3\" json:\"ruleset_id,omitempty\"`\n\tSelections    []*Selection           `protobuf:\"bytes,2,rep,name=selections,proto3\" json:\"selections,omitempty\"`\n\tFromWeek      *StructureWeek         `protobuf:\"bytes,3,opt,name=from_week,json=fromWeek,proto3\" json:\"from_week,omitempty\"`\n\tToWeek        *StructureWeek         `protobuf:\"bytes,4,opt,name=to_week,json=toWeek,proto3\" json:\"to_week,omitempty\"`\n\tunknownFields protoimpl.UnknownFields\n\tsizeCache     protoimpl.SizeCache\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/d11c308ca7befdae",
+    "path": "internal/api/grpcserver/contracts/service.pb.go",
+    "lines": [307, 312],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/api/grpcserver/contracts::CalculateStartCarKeysRequest",
+    "kind": "StructType",
+    "declaration": "struct {\n\tstate         protoimpl.MessageState `protogen:\"open.v1\"`\n\tRulesetId     string                 `protobuf:\"bytes,1,opt,name=ruleset_id,json=rulesetId,proto3\" json:\"ruleset_id,omitempty\"`\n\tunknownFields protoimpl.UnknownFields\n\tsizeCache     protoimpl.SizeCache\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/1d90d4d5bd56988d",
+    "path": "internal/api/grpcserver/contracts/service.pb.go",
+    "lines": [351, 356],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/api/grpcserver/contracts::StartCarKeysResponse",
+    "kind": "StructType",
+    "declaration": "struct {\n\tstate         protoimpl.MessageState `protogen:\"open.v1\"`\n\tCarKeys       []*CarKeyInPeriod      `protobuf:\"bytes,1,rep,name=car_keys,json=carKeys,proto3\" json:\"car_keys,omitempty\"`\n\tunknownFields protoimpl.UnknownFields\n\tsizeCache     protoimpl.SizeCache\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/a0543eb8f6a5cb86",
+    "path": "internal/api/grpcserver/contracts/service.pb.go",
+    "lines": [395, 400],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/api/grpcserver/contracts::CalculateBaseCarKeysRequest",
+    "kind": "StructType",
+    "declaration": "struct {\n\tstate         protoimpl.MessageState `protogen:\"open.v1\"`\n\tRulesetId     string                 `protobuf:\"bytes,1,opt,name=ruleset_id,json=rulesetId,proto3\" json:\"ruleset_id,omitempty\"`\n\tunknownFields protoimpl.UnknownFields\n\tsizeCache     protoimpl.SizeCache\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/600cc543cbe4d7ed",
+    "path": "internal/api/grpcserver/contracts/service.pb.go",
+    "lines": [439, 445],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/api/grpcserver/contracts::BaseCarKeysResponse",
+    "kind": "StructType",
+    "declaration": "struct {\n\tstate             protoimpl.MessageState         `protogen:\"open.v1\"`\n\tComponents        []*ComponentWithCarKeys        `protobuf:\"bytes,1,rep,name=components,proto3\" json:\"components,omitempty\"`\n\tPackageComponents []*PackageComponentWithCarKeys `protobuf:\"bytes,2,rep,name=package_components,json=packageComponents,proto3\" json:\"package_components,omitempty\"`\n\tunknownFields     protoimpl.UnknownFields\n\tsizeCache         protoimpl.SizeCache\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/dd1326380928f8f0",
+    "path": "internal/api/grpcserver/contracts/service.pb.go",
+    "lines": [491, 499],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/api/grpcserver/contracts::CalculateNextCarKeysRequest",
+    "kind": "StructType",
+    "declaration": "struct {\n\tstate             protoimpl.MessageState `protogen:\"open.v1\"`\n\tRulesetId         string                 `protobuf:\"bytes,1,opt,name=ruleset_id,json=rulesetId,proto3\" json:\"ruleset_id,omitempty\"`\n\tCurrentSelections []*Selection           `protobuf:\"bytes,2,rep,name=current_selections,json=currentSelections,proto3\" json:\"current_selections,omitempty\"`\n\tFromWeek          *StructureWeek         `protobuf:\"bytes,4,opt,name=from_week,json=fromWeek,proto3,oneof\" json:\"from_week,omitempty\"`\n\tToWeek            *StructureWeek         `protobuf:\"bytes,5,opt,name=to_week,json=toWeek,proto3,oneof\" json:\"to_week,omitempty\"`\n\tunknownFields     protoimpl.UnknownFields\n\tsizeCache         protoimpl.SizeCache\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/0bb7b23d7523d78e",
+    "path": "internal/api/grpcserver/contracts/service.pb.go",
+    "lines": [559, 564],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/api/grpcserver/contracts::NextCarKeysResponse",
+    "kind": "StructType",
+    "declaration": "struct {\n\tstate              protoimpl.MessageState `protogen:\"open.v1\"`\n\tCarKeysBySelection []*CarKeyForSelection  `protobuf:\"bytes,1,rep,name=car_keys_by_selection,json=carKeysBySelection,proto3\" json:\"car_keys_by_selection,omitempty\"`\n\tunknownFields      protoimpl.UnknownFields\n\tsizeCache          protoimpl.SizeCache\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/51caf7afa64c1933",
+    "path": "internal/api/grpcserver/contracts/service.pb.go",
+    "lines": [603, 609],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/api/grpcserver/contracts::CarKeyForSelection",
+    "kind": "StructType",
+    "declaration": "struct {\n\tstate         protoimpl.MessageState `protogen:\"open.v1\"`\n\tSelection     *Selection             `protobuf:\"bytes,1,opt,name=selection,proto3\" json:\"selection,omitempty\"`\n\tCarKey        *CarKey                `protobuf:\"bytes,2,opt,name=car_key,json=carKey,proto3\" json:\"car_key,omitempty\"`\n\tunknownFields protoimpl.UnknownFields\n\tsizeCache     protoimpl.SizeCache\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/cfd2d3058d7e030c",
+    "path": "internal/api/grpcserver/contracts/service.pb.go",
+    "lines": [655, 663],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/api/grpcserver/contracts::CalculateManyCarKeysRequest",
+    "kind": "StructType",
+    "declaration": "struct {\n\tstate           protoimpl.MessageState `protogen:\"open.v1\"`\n\tRulesetId       string                 `protobuf:\"bytes,1,opt,name=ruleset_id,json=rulesetId,proto3\" json:\"ruleset_id,omitempty\"`\n\tSelectionGroups []*SelectionGroup      `protobuf:\"bytes,2,rep,name=selection_groups,json=selectionGroups,proto3\" json:\"selection_groups,omitempty\"`\n\tFromWeek        *StructureWeek         `protobuf:\"bytes,3,opt,name=from_week,json=fromWeek,proto3\" json:\"from_week,omitempty\"`\n\tToWeek          *StructureWeek         `protobuf:\"bytes,4,opt,name=to_week,json=toWeek,proto3\" json:\"to_week,omitempty\"`\n\tunknownFields   protoimpl.UnknownFields\n\tsizeCache       protoimpl.SizeCache\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/6440946d1e3c7670",
+    "path": "internal/api/grpcserver/contracts/service.pb.go",
+    "lines": [723, 728],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/api/grpcserver/contracts::SelectionGroup",
+    "kind": "StructType",
+    "declaration": "struct {\n\tstate         protoimpl.MessageState `protogen:\"open.v1\"`\n\tSelections    []*Selection           `protobuf:\"bytes,1,rep,name=selections,proto3\" json:\"selections,omitempty\"`\n\tunknownFields protoimpl.UnknownFields\n\tsizeCache     protoimpl.SizeCache\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/955fc246ab914836",
+    "path": "internal/api/grpcserver/contracts/service.pb.go",
+    "lines": [767, 772],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/api/grpcserver/contracts::CalculateManyCarKeysResponse",
+    "kind": "StructType",
+    "declaration": "struct {\n\tstate                   protoimpl.MessageState     `protogen:\"open.v1\"`\n\tCarKeysBySelectionGroup []*CarKeyForSelectionGroup `protobuf:\"bytes,1,rep,name=car_keys_by_selection_group,json=carKeysBySelectionGroup,proto3\" json:\"car_keys_by_selection_group,omitempty\"`\n\tunknownFields           protoimpl.UnknownFields\n\tsizeCache               protoimpl.SizeCache\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/c322c9e89b992bfb",
+    "path": "internal/api/grpcserver/contracts/service.pb.go",
+    "lines": [811, 817],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/api/grpcserver/contracts::CarKeyForSelectionGroup",
+    "kind": "StructType",
+    "declaration": "struct {\n\tstate         protoimpl.MessageState `protogen:\"open.v1\"`\n\tSelections    []*Selection           `protobuf:\"bytes,1,rep,name=selections,proto3\" json:\"selections,omitempty\"`\n\tCarKey        *CarKey                `protobuf:\"bytes,2,opt,name=car_key,json=carKey,proto3\" json:\"car_key,omitempty\"`\n\tunknownFields protoimpl.UnknownFields\n\tsizeCache     protoimpl.SizeCache\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/ccd594825eb69b4b",
+    "path": "internal/api/grpcserver/contracts/service.pb.go",
+    "lines": [863, 868],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/api/grpcserver/contracts::GetCarSpecificationRequest",
+    "kind": "StructType",
+    "declaration": "struct {\n\tstate         protoimpl.MessageState `protogen:\"open.v1\"`\n\tRulesetId     string                 `protobuf:\"bytes,1,opt,name=ruleset_id,json=rulesetId,proto3\" json:\"ruleset_id,omitempty\"`\n\tunknownFields protoimpl.UnknownFields\n\tsizeCache     protoimpl.SizeCache\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/b6e5925bd9314106",
+    "path": "internal/api/grpcserver/contracts/service.pb.go",
+    "lines": [1089, 1089],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/api/grpcserver/contracts::x@internal/api/grpcserver/contracts/service.pb.go:41351",
+    "kind": "StructType",
+    "declaration": "struct{}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/5347947c64fb4879",
+    "path": "internal/api/grpcserver/contracts/service_grpc.pb.go",
+    "lines": [37, 52],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/api/grpcserver/contracts::CarConfigurationServiceClient",
+    "kind": "InterfaceType",
+    "declaration": "interface {\n\tHealthCheck(ctx context.Context, in *HealthCheckRequest, opts ...grpc.CallOption) (*HealthCheckResponse, error)\n\t// Create car ruleset (matrix repressenation) from a specification. Returns the id that can be used to calculate car keys.\n\tCreateRuleset(ctx context.Context, in *CarSpecification, opts ...grpc.CallOption) (*CreateRulesetResponse, error)\n\tDeleteRuleset(ctx context.Context, in *DeleteRulesetRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)\n\tCalculateCarKeyV2(ctx context.Context, in *CalculateCarKeyRequestV2, opts ...grpc.CallOption) (*CarKey, error)\n\t// Calculate car keys for empty selections in all periods of the ruleset.\n\tCalculateStartCarKeys(ctx context.Context, in *CalculateStartCarKeysRequest, opts ...grpc.CallOption) (*StartCarKeysResponse, error)\n\t// Calculate car keys for all possible single selections in all periods of the ruleset.\n\tCalculateBaseCarKeys(ctx context.Context, in *CalculateBaseCarKeysRequest, opts ...grpc.CallOption) (*BaseCarKeysResponse, error)\n\t// Calculate car keys for all possible single selections in addition to the current selections.\n\tCalculateNextCarKeys(ctx context.Context, in *CalculateNextCarKeysRequest, opts ...grpc.CallOption) (*NextCarKeysResponse, error)\n\t// Calculate car keys for many groups of selections.\n\tCalculateManyCarKeys(ctx context.Context, in *CalculateManyCarKeysRequest, opts ...grpc.CallOption) (*CalculateManyCarKeysResponse, error)\n\tGetCarSpecification(ctx context.Context, in *GetCarSpecificationRequest, opts ...grpc.CallOption) (*CarSpecification, error)\n}",
+    "completeness": "partial",
+    "gaps": ["caas-car-configurator-5495209-complete-r2/gap/type/5347947c64fb4879"]
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/57b84c033acccba7",
+    "path": "internal/api/grpcserver/contracts/service_grpc.pb.go",
+    "lines": [54, 56],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/api/grpcserver/contracts::carConfigurationServiceClient",
+    "kind": "StructType",
+    "declaration": "struct {\n\tcc grpc.ClientConnInterface\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/6dbed5d6f2e0bcfd",
+    "path": "internal/api/grpcserver/contracts/service_grpc.pb.go",
+    "lines": [155, 171],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/api/grpcserver/contracts::CarConfigurationServiceServer",
+    "kind": "InterfaceType",
+    "declaration": "interface {\n\tHealthCheck(context.Context, *HealthCheckRequest) (*HealthCheckResponse, error)\n\t// Create car ruleset (matrix repressenation) from a specification. Returns the id that can be used to calculate car keys.\n\tCreateRuleset(context.Context, *CarSpecification) (*CreateRulesetResponse, error)\n\tDeleteRuleset(context.Context, *DeleteRulesetRequest) (*emptypb.Empty, error)\n\tCalculateCarKeyV2(context.Context, *CalculateCarKeyRequestV2) (*CarKey, error)\n\t// Calculate car keys for empty selections in all periods of the ruleset.\n\tCalculateStartCarKeys(context.Context, *CalculateStartCarKeysRequest) (*StartCarKeysResponse, error)\n\t// Calculate car keys for all possible single selections in all periods of the ruleset.\n\tCalculateBaseCarKeys(context.Context, *CalculateBaseCarKeysRequest) (*BaseCarKeysResponse, error)\n\t// Calculate car keys for all possible single selections in addition to the current selections.\n\tCalculateNextCarKeys(context.Context, *CalculateNextCarKeysRequest) (*NextCarKeysResponse, error)\n\t// Calculate car keys for many groups of selections.\n\tCalculateManyCarKeys(context.Context, *CalculateManyCarKeysRequest) (*CalculateManyCarKeysResponse, error)\n\tGetCarSpecification(context.Context, *GetCarSpecificationRequest) (*CarSpecification, error)\n\tmustEmbedUnimplementedCarConfigurationServiceServer()\n}",
+    "completeness": "partial",
+    "gaps": ["caas-car-configurator-5495209-complete-r2/gap/type/6dbed5d6f2e0bcfd"]
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/acf84852e4e852aa",
+    "path": "internal/api/grpcserver/contracts/service_grpc.pb.go",
+    "lines": [178, 178],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/api/grpcserver/contracts::UnimplementedCarConfigurationServiceServer",
+    "kind": "StructType",
+    "declaration": "struct{}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/9d310d5fe6cbe72f",
+    "path": "internal/api/grpcserver/contracts/service_grpc.pb.go",
+    "lines": [214, 216],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/api/grpcserver/contracts::UnsafeCarConfigurationServiceServer",
+    "kind": "InterfaceType",
+    "declaration": "interface {\n\tmustEmbedUnimplementedCarConfigurationServiceServer()\n}",
+    "completeness": "partial",
+    "gaps": ["caas-car-configurator-5495209-complete-r2/gap/type/9d310d5fe6cbe72f"]
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/4cb178607392446f",
+    "path": "internal/api/grpcserver/contracts/structure-week.pb.go",
+    "lines": [24, 30],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/api/grpcserver/contracts::StructureWeek",
+    "kind": "StructType",
+    "declaration": "struct {\n\tstate         protoimpl.MessageState `protogen:\"open.v1\"`\n\tYear          int32                  `protobuf:\"varint,1,opt,name=year,proto3\" json:\"year,omitempty\"`\n\tWeek          int32                  `protobuf:\"varint,2,opt,name=week,proto3\" json:\"week,omitempty\"`\n\tunknownFields protoimpl.UnknownFields\n\tsizeCache     protoimpl.SizeCache\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/20429f323fadf04e",
+    "path": "internal/api/grpcserver/contracts/structure-week.pb.go",
+    "lines": [76, 82],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/api/grpcserver/contracts::StructureWeekPeriod",
+    "kind": "StructType",
+    "declaration": "struct {\n\tstate         protoimpl.MessageState `protogen:\"open.v1\"`\n\tFrom          *StructureWeek         `protobuf:\"bytes,1,opt,name=from,proto3\" json:\"from,omitempty\"`\n\tTo            *StructureWeek         `protobuf:\"bytes,2,opt,name=to,proto3\" json:\"to,omitempty\"`\n\tunknownFields protoimpl.UnknownFields\n\tsizeCache     protoimpl.SizeCache\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/03669d7b5b7d53a5",
+    "path": "internal/api/grpcserver/contracts/structure-week.pb.go",
+    "lines": [172, 172],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/api/grpcserver/contracts::x@internal/api/grpcserver/contracts/structure-week.pb.go:5377",
+    "kind": "StructType",
+    "declaration": "struct{}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/f908946f9f396530",
+    "path": "internal/api/grpcserver/convert_contracts.go",
+    "lines": [12, 14],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/api/grpcserver::specificationConverter",
+    "kind": "StructType",
+    "declaration": "struct {\n\t*contracts.CarSpecification\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/0005b496113059c7",
+    "path": "internal/api/grpcserver/interceptors/auth.go",
+    "lines": [15, 17],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/api/grpcserver/interceptors::AuthInterceptor",
+    "kind": "StructType",
+    "declaration": "struct {\n\tparser *auth.Parser\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/58124b244daa26ca",
+    "path": "internal/api/grpcserver/interceptors/error.go",
+    "lines": [16, 18],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/api/grpcserver/interceptors::ErrorInterceptor",
+    "kind": "StructType",
+    "declaration": "struct {\n\tlogger *loggingsdk.Logger\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/01b8adedaee0bcf8",
+    "path": "internal/api/grpcserver/interceptors/logging.go",
+    "lines": [13, 15],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/api/grpcserver/interceptors::LoggingInterceptor",
+    "kind": "StructType",
+    "declaration": "struct {\n\tlogger *loggingsdk.Logger\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/f0380a654be8fa7e",
+    "path": "internal/api/grpcserver/interceptors/metrics.go",
+    "lines": [18, 25],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/api/grpcserver/interceptors::MetricsInterceptor",
+    "kind": "StructType",
+    "declaration": "struct {\n\tmeter metric.Meter\n\n\tbaseAttributes []attribute.KeyValue\n\n\tcallCounter           metric.Int64Counter\n\tcallDurationHistogram metric.Int64Histogram\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/92d547e300b06739",
+    "path": "internal/api/grpcserver/interceptors/operation_id.go",
+    "lines": [14, 16],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/api/grpcserver/interceptors::OperationIDInterceptor",
+    "kind": "StructType",
+    "declaration": "struct {\n\tlogger *loggingsdk.Logger\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/858689fe90a1bd7d",
+    "path": "internal/api/grpcserver/interceptors/panic.go",
+    "lines": [11, 13],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/api/grpcserver/interceptors::PanicInterceptor",
+    "kind": "StructType",
+    "declaration": "struct {\n\tlogger *loggingsdk.Logger\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/a5770e71fe75c375",
+    "path": "internal/api/grpcserver/ruleset_id.go",
+    "lines": [9, 11],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/api/grpcserver::RulesetIDContainer",
+    "kind": "InterfaceType",
+    "declaration": "interface {\n\tGetRulesetId() string\n}",
+    "completeness": "partial",
+    "gaps": ["caas-car-configurator-5495209-complete-r2/gap/type/a5770e71fe75c375"]
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/890c1a045ad5c379",
+    "path": "internal/api/grpcserver/server.go",
+    "lines": [21, 36],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/api/grpcserver::CarKeyCalculator",
+    "kind": "InterfaceType",
+    "declaration": "interface {\n\tCalculateCarKeyV2(\n\t\tctx context.Context,\n\t\trulesetID uuid.UUID,\n\t\tselections puan.Selections,\n\t\tfromWeek *specification.StructureWeek,\n\t\ttoWeek *specification.StructureWeek,\n\t) (ruleset.CarKey, error)\n\tCalculateManyCarKeys(\n\t\tctx context.Context,\n\t\trulesetID uuid.UUID,\n\t\tselectionGroups []puan.Selections,\n\t\tfromWeek *specification.StructureWeek,\n\t\ttoWeek *specification.StructureWeek,\n\t) (ruleset.CarKeysBySelectionGroup, error)\n}",
+    "completeness": "partial",
+    "gaps": ["caas-car-configurator-5495209-complete-r2/gap/type/890c1a045ad5c379"]
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/bc1ebdf90c939587",
+    "path": "internal/api/grpcserver/server.go",
+    "lines": [38, 43],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/api/grpcserver::CarRulesetCreator",
+    "kind": "InterfaceType",
+    "declaration": "interface {\n\tCreate(\n\t\tctx context.Context,\n\t\tspecification specification.CarSpecification,\n\t) (uuid.UUID, error)\n}",
+    "completeness": "partial",
+    "gaps": ["caas-car-configurator-5495209-complete-r2/gap/type/bc1ebdf90c939587"]
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/148461196734c2d1",
+    "path": "internal/api/grpcserver/server.go",
+    "lines": [45, 50],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/api/grpcserver::CarRulesetDeleter",
+    "kind": "InterfaceType",
+    "declaration": "interface {\n\tDeleteRuleset(\n\t\tctx context.Context,\n\t\tid uuid.UUID,\n\t) error\n}",
+    "completeness": "partial",
+    "gaps": ["caas-car-configurator-5495209-complete-r2/gap/type/148461196734c2d1"]
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/a68acecc8ad5f402",
+    "path": "internal/api/grpcserver/server.go",
+    "lines": [52, 57],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/api/grpcserver::CarSpecificationReader",
+    "kind": "InterfaceType",
+    "declaration": "interface {\n\tGetCarSpecification(\n\t\tctx context.Context,\n\t\trulesetID uuid.UUID,\n\t) (specification.CarSpecification, error)\n}",
+    "completeness": "partial",
+    "gaps": ["caas-car-configurator-5495209-complete-r2/gap/type/a68acecc8ad5f402"]
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/75a3fee982d9bfd8",
+    "path": "internal/api/grpcserver/server.go",
+    "lines": [59, 64],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/api/grpcserver::StartCarKeysCalculator",
+    "kind": "InterfaceType",
+    "declaration": "interface {\n\tCalculateStartCarKeys(\n\t\tctx context.Context,\n\t\trulesetID uuid.UUID,\n\t) ([]ruleset.CarKeyInPeriod, error)\n}",
+    "completeness": "partial",
+    "gaps": ["caas-car-configurator-5495209-complete-r2/gap/type/75a3fee982d9bfd8"]
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/6a0bbf6eaec17d07",
+    "path": "internal/api/grpcserver/server.go",
+    "lines": [66, 71],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/api/grpcserver::BaseCarKeyCalculator",
+    "kind": "InterfaceType",
+    "declaration": "interface {\n\tCalculate(\n\t\tctx context.Context,\n\t\trulesetID uuid.UUID,\n\t) (ruleset.BaseCarKeys, error)\n}",
+    "completeness": "partial",
+    "gaps": ["caas-car-configurator-5495209-complete-r2/gap/type/6a0bbf6eaec17d07"]
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/349125f0e9f01e53",
+    "path": "internal/api/grpcserver/server.go",
+    "lines": [73, 81],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/api/grpcserver::NextCarKeyCalculator",
+    "kind": "InterfaceType",
+    "declaration": "interface {\n\tCalculate(\n\t\tctx context.Context,\n\t\trulesetID uuid.UUID,\n\t\tcurrentSelections puan.Selections,\n\t\tfrom *specification.StructureWeek,\n\t\tto *specification.StructureWeek,\n\t) ([]ruleset.CarKeyForSelection, error)\n}",
+    "completeness": "partial",
+    "gaps": ["caas-car-configurator-5495209-complete-r2/gap/type/349125f0e9f01e53"]
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/7b76e1d8957b0376",
+    "path": "internal/api/grpcserver/server.go",
+    "lines": [83, 95],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/api/grpcserver::Server",
+    "kind": "StructType",
+    "declaration": "struct {\n\tcontracts.UnimplementedCarConfigurationServiceServer\n\n\tcarKeyCalculator       CarKeyCalculator\n\trulesetCreator         CarRulesetCreator\n\trulesetDeleter         CarRulesetDeleter\n\tstartCarKeysCalculator StartCarKeysCalculator\n\tbaseCarKeyCalculator   BaseCarKeyCalculator\n\tnextCarKeyCalculator   NextCarKeyCalculator\n\tcarSpecificationReader CarSpecificationReader\n\n\tlogger *loggingsdk.Logger\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/ef8968135493af9e",
+    "path": "internal/api/httpserver/routes.go",
+    "lines": [12, 16],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/api/httpserver::Router",
+    "kind": "StructType",
+    "declaration": "struct {\n\tlogger            *logging.Logger\n\trouter            chi.Router\n\tloggingMiddleware *logging.LoggingMiddleware\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/6879725f231cdb41",
+    "path": "internal/app/app.go",
+    "lines": [19, 21],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/app::App",
+    "kind": "StructType",
+    "declaration": "struct {\n\t*fx.App\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/3b27202c64e9a4c3",
+    "path": "internal/app/config/config.go",
+    "lines": [10, 40],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/app/config::Config",
+    "kind": "StructType",
+    "declaration": "struct {\n\tLogLevel string `config:\"LOG_LEVEL\"`\n\n\tHost     string `config:\"HOST\"`\n\tHttpPort string `config:\"HTTP_PORT\"`\n\tGrpcPort string `config:\"GRPC_PORT\"`\n\n\tJwksURL     string `config:\"JWKS_URL\"`\n\tJWTIssuer   string `config:\"JWT_ISSUER\"`\n\tJWTAudience string `config:\"JWT_AUDIENCE\"`\n\n\tSkipSentry        bool   `config:\"SKIP_SENTRY\"`\n\tSentryDSN         string `config:\"SENTRY_DSN\"`\n\tSentryEnvironment string `config:\"SENTRY_ENVIRONMENT\"`\n\tSentryServiceName string `config:\"SENTRY_SERVICE_NAME\"`\n\n\tGLPKUrl    string `config:\"GLPK_URL\"`\n\tGLPKApiKey string `config:\"GLPK_API_KEY\"`\n\n\tDatabaseHost                string `config:\"DATABASE_HOST\"`\n\tDatabaseMigrationUser       string `config:\"DATABASE_MIGRATION_USER\"`\n\tDatabaseMigrationPassword   string `config:\"DATABASE_MIGRATION_PASSWORD\"`\n\tDatabaseApplicationUser     string `config:\"DATABASE_APPLICATION_USER\"`\n\tDatabaseApplicationPassword string `config:\"DATABASE_APPLICATION_PASSWORD\"`\n\tDatabasePort                string `config:\"DATABASE_PORT\"`\n\tDatabaseName                string `config:\"DATABASE_NAME\"`\n\tDatabaseSSLMode             string `config:\"DATABASE_SSL_MODE\"`\n\n\tOtelServiceName       string `config:\"OTEL_SERVICE_NAME\"`\n\tSkipMetricsCollection bool   `config:\"SKIP_METRICS_COLLECTION\"`\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/6e7e91d14debd255",
+    "path": "internal/app/sentry.go",
+    "lines": [12, 16],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/app::sentryClient",
+    "kind": "InterfaceType",
+    "declaration": "interface {\n\tInit() error\n\tClose()\n\tCaptureException(err error)\n}",
+    "completeness": "partial",
+    "gaps": ["caas-car-configurator-5495209-complete-r2/gap/type/6e7e91d14debd255"]
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/3fe042a503285688",
+    "path": "internal/app/sentry.go",
+    "lines": [31, 36],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/app::sentryConfig",
+    "kind": "StructType",
+    "declaration": "struct {\n\tDsn         string\n\tEnvironment string\n\tLogLevel    string\n\tServiceName string\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/06bec20803288a35",
+    "path": "internal/app/sentry.go",
+    "lines": [59, 59],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/app::noopSentryClientImpl",
+    "kind": "StructType",
+    "declaration": "struct{}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/3238c51f5afb53de",
+    "path": "internal/app/sentry.go",
+    "lines": [69, 73],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/app::sentryClientImpl",
+    "kind": "StructType",
+    "declaration": "struct {\n\tflushFunc   func()\n\toptions     sentry.ClientOptions\n\tserviceName string\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/0bd76e130ab3fa20",
+    "path": "internal/database/postgres/migrator.go",
+    "lines": [18, 21],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/database/postgres::Migrator",
+    "kind": "StructType",
+    "declaration": "struct {\n\tconnectionString string\n\tlogger           *loggingsdk.Logger\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/639f4cd8739499b1",
+    "path": "internal/database/postgres/models.go",
+    "lines": [6, 11],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/database/postgres::StoredCarRuleset",
+    "kind": "StructType",
+    "declaration": "struct {\n\tCarDetails        StoredCarDetails            `json:\"car_details\"`\n\tRuleset           StoredConfigurationRuleset  `json:\"ruleset\"`\n\tComponents        ManyStoredComponents        `json:\"components2\"`\n\tPackageComponents ManyStoredPackageComponents `json:\"package_components\"`\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/cddaaff2ab52c0c5",
+    "path": "internal/database/postgres/models.go",
+    "lines": [13, 24],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/database/postgres::StoredCarDetails",
+    "kind": "StructType",
+    "declaration": "struct {\n\tModelYear        int     `json:\"model_year\"`\n\tSpecMarket       string  `json:\"spec_market\"`\n\tCarType          string  `json:\"car_type\"`\n\tEngine           string  `json:\"engine\"`\n\tSalesVersion     string  `json:\"sales_version\"`\n\tBody             string  `json:\"body\"`\n\tGearbox          string  `json:\"gearbox\"`\n\tSteering         string  `json:\"steering\"`\n\tMarketingCode    string  `json:\"marketing_code\"`\n\tLocalEditionCode *string `json:\"local_edition_code,omitempty\"`\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/642b15e991a65f76",
+    "path": "internal/database/postgres/models.go",
+    "lines": [26, 33],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/database/postgres::StoredConfigurationRuleset",
+    "kind": "StructType",
+    "declaration": "struct {\n\tPolyhedron           StoredPolyhedron         `json:\"polyhedron\"`\n\tSelectableVariables  []string                 `json:\"selectable_variables\"`\n\tDependentVariables   []string                 `json:\"dependent_variables\"`\n\tIndependentVariables []string                 `json:\"independent_variables\"`\n\tPreferredVariables   []string                 `json:\"preferred_variables\"`\n\tPeriodVariables      StoredTimeBoundVariables `json:\"period_variables\"`\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/d6b2197d14b28a8e",
+    "path": "internal/database/postgres/models.go",
+    "lines": [35, 38],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/database/postgres::StoredPolyhedron",
+    "kind": "StructType",
+    "declaration": "struct {\n\tAMatrix [][]int `json:\"a_matrix\"`\n\tBVector []int   `json:\"b_vector\"`\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/a54c3d4afcaaad76",
+    "path": "internal/database/postgres/models.go",
+    "lines": [40, 40],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/database/postgres::StoredTimeBoundVariables",
+    "kind": "ArrayType",
+    "declaration": "[]StoredTimeBoundVariable",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/f9ef18ecf0ab62a5",
+    "path": "internal/database/postgres/models.go",
+    "lines": [42, 45],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/database/postgres::StoredTimeBoundVariable",
+    "kind": "StructType",
+    "declaration": "struct {\n\tVariable string       `json:\"variable\"`\n\tPeriod   StoredPeriod `json:\"period\"`\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/eb2efea81b6311f9",
+    "path": "internal/database/postgres/models.go",
+    "lines": [46, 49],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/database/postgres::StoredPeriod",
+    "kind": "StructType",
+    "declaration": "struct {\n\tFrom time.Time `json:\"from\"`\n\tTo   time.Time `json:\"to\"`\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/f3c768619caf3bf2",
+    "path": "internal/database/postgres/models.go",
+    "lines": [51, 58],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/database/postgres::StoredComponents",
+    "kind": "StructType",
+    "declaration": "struct {\n\tSMessageCodes   []string `json:\"s_message_codes\"`\n\tColorCodes      []string `json:\"color_codes\"`\n\tUpholsteryCodes []string `json:\"upholstery_codes\"`\n\tWheelCodes      []string `json:\"wheel_codes\"`\n\tOptionCodes     []string `json:\"option_codes\"`\n\tPackageCodes    []string `json:\"package_codes\"`\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/5cdadea979be8ea3",
+    "path": "internal/database/postgres/models.go",
+    "lines": [61, 64],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/database/postgres::StoredComponent",
+    "kind": "StructType",
+    "declaration": "struct {\n\t\tCode string `json:\"code\"`\n\t\tType string `json:\"type\"`\n\t}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/007fe68865a72d8c",
+    "path": "internal/database/postgres/models.go",
+    "lines": [65, 65],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/database/postgres::ManyStoredComponents",
+    "kind": "ArrayType",
+    "declaration": "[]StoredComponent",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/af138a2e914ed31a",
+    "path": "internal/database/postgres/models.go",
+    "lines": [69, 72],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/database/postgres::StoredPackageComponent",
+    "kind": "StructType",
+    "declaration": "struct {\n\t\tCode     string                 `json:\"code\"`\n\t\tVariants []ManyStoredComponents `json:\"variants\"`\n\t}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/f0d36d2edcc77b78",
+    "path": "internal/database/postgres/models.go",
+    "lines": [73, 73],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/database/postgres::ManyStoredPackageComponents",
+    "kind": "ArrayType",
+    "declaration": "[]StoredPackageComponent",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/096064a1413e0a11",
+    "path": "internal/database/postgres/models.go",
+    "lines": [76, 85],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/database/postgres::StoredCarSpecification",
+    "kind": "StructType",
+    "declaration": "struct {\n\tCarDetails          StoredCarDetails               `json:\"car_details\"`\n\tStructureWeekPeriod StoredStructureWeekPeriod      `json:\"period\"`\n\tForbiddenPeriods    ManyStoredStructureWeekPeriods `json:\"forbidden_periods\"`\n\tSMessages           StoredSMessageSpecification    `json:\"s_messages\"`\n\tStylings            StoredStylingSpecification     `json:\"styling\"`\n\tOptions             StoredOptionSpecification      `json:\"options\"`\n\tPackages            StoredPackageSpecification     `json:\"packages\"`\n\tWheels              StoredWheelSpecification       `json:\"wheels\"`\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/cf93b15ad55da955",
+    "path": "internal/database/postgres/models.go",
+    "lines": [87, 89],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/database/postgres::StoredSMessageSpecification",
+    "kind": "StructType",
+    "declaration": "struct {\n\tSMessages []StoredSMessage `json:\"s_messages\"`\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/41a519724cbf90f9",
+    "path": "internal/database/postgres/models.go",
+    "lines": [91, 94],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/database/postgres::StoredSMessage",
+    "kind": "StructType",
+    "declaration": "struct {\n\tCode   string                    `json:\"code\"`\n\tPeriod StoredStructureWeekPeriod `json:\"period\"`\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/0f28e4a1b9b82326",
+    "path": "internal/database/postgres/models.go",
+    "lines": [96, 101],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/database/postgres::StoredStylingSpecification",
+    "kind": "StructType",
+    "declaration": "struct {\n\tColors              ManyStoredColors         `json:\"colors\"`\n\tUpholsteries        ManyStoredUpholsteries   `json:\"upholsteries\"`\n\tDefaultColors       ManyStoredTimeBoundCodes `json:\"default_colors\"`\n\tDefaultUpholsteries ManyStoredTimeBoundCodes `json:\"default_upholsteries\"`\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/e82eadb52265f7c3",
+    "path": "internal/database/postgres/models.go",
+    "lines": [103, 103],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/database/postgres::ManyStoredColors",
+    "kind": "ArrayType",
+    "declaration": "[]StoredColor",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/b9ed693dae6a7138",
+    "path": "internal/database/postgres/models.go",
+    "lines": [104, 112],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/database/postgres::StoredColor",
+    "kind": "StructType",
+    "declaration": "struct {\n\tCode                string                        `json:\"code\"`\n\tRequiredOptions     ManyStoredTimeBoundAtLeastOne `json:\"required_options\"`\n\tRequiredWheels      ManyStoredTimeBoundExactlyOne `json:\"required_wheels\"`\n\tForbidsOptions      ManyStoredForbids             `json:\"forbids_options\"`\n\tForbidsWheels       ManyStoredForbids             `json:\"forbids_wheels\"`\n\tForbidsUpholsteries ManyStoredForbids             `json:\"forbids_upholsteries\"`\n\tPeriod              StoredStructureWeekPeriod     `json:\"period\"`\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/8756df2801cdde24",
+    "path": "internal/database/postgres/models.go",
+    "lines": [114, 114],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/database/postgres::ManyStoredUpholsteries",
+    "kind": "ArrayType",
+    "declaration": "[]StoredUpholstery",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/1174244f7d50eb50",
+    "path": "internal/database/postgres/models.go",
+    "lines": [115, 122],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/database/postgres::StoredUpholstery",
+    "kind": "StructType",
+    "declaration": "struct {\n\tCode            string                        `json:\"code\"`\n\tRequiredOptions ManyStoredTimeBoundAtLeastOne `json:\"required_options\"`\n\tForbidsOptions  ManyStoredForbids             `json:\"forbids_options\"`\n\tForbidsColors   ManyStoredForbids             `json:\"forbids_colors\"`\n\tForbidsWheels   ManyStoredForbids             `json:\"forbids_wheels\"`\n\tPeriod          StoredStructureWeekPeriod     `json:\"period\"`\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/6cb83c83dda4b874",
+    "path": "internal/database/postgres/models.go",
+    "lines": [124, 124],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/database/postgres::ManyStoredTimeBoundCodes",
+    "kind": "ArrayType",
+    "declaration": "[]StoredTimeBoundCode",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/cfa737444db81646",
+    "path": "internal/database/postgres/models.go",
+    "lines": [125, 128],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/database/postgres::StoredTimeBoundCode",
+    "kind": "StructType",
+    "declaration": "struct {\n\tCode   string                    `json:\"code\"`\n\tPeriod StoredStructureWeekPeriod `json:\"period\"`\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/4629345f7a20a613",
+    "path": "internal/database/postgres/models.go",
+    "lines": [130, 135],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/database/postgres::StoredOptionSpecification",
+    "kind": "StructType",
+    "declaration": "struct {\n\tOptions                []StoredOption                       `json:\"options\"`\n\tPackageOnlyOptionCodes []string                             `json:\"package_only_option_codes\"`\n\tIncludedOptions        ManyStoredTimeBoundExactlyOne        `json:\"included_options\"`\n\tCombinedRequirements   ManyStoredCombinedOptionRequirements `json:\"combined_requirements\"`\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/789d984bbadb6a63",
+    "path": "internal/database/postgres/models.go",
+    "lines": [137, 148],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/database/postgres::StoredOption",
+    "kind": "StructType",
+    "declaration": "struct {\n\tCode                 string                        `json:\"code\"`\n\tRequiredColors       ManyStoredTimeBoundExactlyOne `json:\"required_colors\"`\n\tRequiredUpholsteries ManyStoredTimeBoundExactlyOne `json:\"required_upholsteries\"`\n\tRequiredOptions      ManyStoredTimeBoundAtLeastOne `json:\"required_options\"`\n\tRequiredWheels       ManyStoredTimeBoundExactlyOne `json:\"required_wheels\"`\n\tForbidsOptions       ManyStoredForbids             `json:\"forbids_options\"`\n\tForbidsColors        ManyStoredForbids             `json:\"forbids_colors\"`\n\tForbidsWheels        ManyStoredForbids             `json:\"forbids_wheels\"`\n\tForbidsUpholsteries  ManyStoredForbids             `json:\"forbids_upholsteries\"`\n\tPeriod               StoredStructureWeekPeriod     `json:\"period\"`\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/6a38862c0cb88599",
+    "path": "internal/database/postgres/models.go",
+    "lines": [150, 153],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/database/postgres::StoredCombinedOptionRequirement",
+    "kind": "StructType",
+    "declaration": "struct {\n\tRequiringCodes []string `json:\"requiring_codes\"`\n\tRequiredCode   string   `json:\"required_code\"`\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/37a5ff585d8cf623",
+    "path": "internal/database/postgres/models.go",
+    "lines": [155, 155],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/database/postgres::ManyStoredCombinedOptionRequirements",
+    "kind": "ArrayType",
+    "declaration": "[]StoredCombinedOptionRequirement",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/3091c77a67631482",
+    "path": "internal/database/postgres/models.go",
+    "lines": [157, 160],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/database/postgres::StoredPackageSpecification",
+    "kind": "StructType",
+    "declaration": "struct {\n\tPackages         []StoredPackage               `json:\"packages\"`\n\tIncludedPackages ManyStoredTimeBoundExactlyOne `json:\"included_packages\"`\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/743d997810eeed80",
+    "path": "internal/database/postgres/models.go",
+    "lines": [162, 169],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/database/postgres::StoredPackage",
+    "kind": "StructType",
+    "declaration": "struct {\n\tCode                 string                        `json:\"code\"`\n\tRequiredColors       *StoredPermanentExactlyOne    `json:\"required_colors\"`\n\tRequiredUpholsteries *StoredPermanentExactlyOne    `json:\"required_upholsteries\"`\n\tRequiredWheels       *StoredPermanentExactlyOne    `json:\"required_wheels\"`\n\tRequiredOptions      ManyStoredPermanentExactlyOne `json:\"required_options\"`\n\tPeriod               StoredStructureWeekPeriod     `json:\"period\"`\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/8bb05c5f5ed54506",
+    "path": "internal/database/postgres/models.go",
+    "lines": [171, 174],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/database/postgres::StoredWheelSpecification",
+    "kind": "StructType",
+    "declaration": "struct {\n\tWheels        []StoredWheel `json:\"wheels\"`\n\tStandardWheel *string       `json:\"standard_wheel,omitempty\"`\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/603b97c8a137be96",
+    "path": "internal/database/postgres/models.go",
+    "lines": [176, 184],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/database/postgres::StoredWheel",
+    "kind": "StructType",
+    "declaration": "struct {\n\tCode                 string                        `json:\"code\"`\n\tRequiredColors       ManyStoredTimeBoundExactlyOne `json:\"required_colors\"`\n\tRequiredOptions      ManyStoredTimeBoundAtLeastOne `json:\"required_options\"`\n\tRequiredUpholsteries ManyStoredTimeBoundExactlyOne `json:\"required_upholsteries\"`\n\tForbidsOptions       ManyStoredForbids             `json:\"forbids_options\"`\n\tForbidsUpholsteries  ManyStoredForbids             `json:\"forbids_upholsteries\"`\n\tPeriod               StoredStructureWeekPeriod     `json:\"period\"`\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/b19ddb6ec3377e13",
+    "path": "internal/database/postgres/models.go",
+    "lines": [187, 187],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/database/postgres::ManyStoredTimeBoundAtLeastOne",
+    "kind": "ArrayType",
+    "declaration": "[]StoredTimeBoundAtLeastOne",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/26e8ed43ba352083",
+    "path": "internal/database/postgres/models.go",
+    "lines": [188, 192],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/database/postgres::StoredTimeBoundAtLeastOne",
+    "kind": "StructType",
+    "declaration": "struct {\n\t\tCodes       []string                  `json:\"codes\"`\n\t\tDefaultCode *string                   `json:\"default_code,omitempty\"`\n\t\tPeriod      StoredStructureWeekPeriod `json:\"period\"`\n\t}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/e368b24250d9c4c2",
+    "path": "internal/database/postgres/models.go",
+    "lines": [196, 196],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/database/postgres::ManyStoredTimeBoundExactlyOne",
+    "kind": "ArrayType",
+    "declaration": "[]StoredTimeBoundExactlyOne",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/83512bf5e6bd2ec0",
+    "path": "internal/database/postgres/models.go",
+    "lines": [197, 201],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/database/postgres::StoredTimeBoundExactlyOne",
+    "kind": "StructType",
+    "declaration": "struct {\n\t\tCodes       []string                  `json:\"codes\"`\n\t\tDefaultCode *string                   `json:\"default_code,omitempty\"`\n\t\tPeriod      StoredStructureWeekPeriod `json:\"period\"`\n\t}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/f2dd7498aad9b898",
+    "path": "internal/database/postgres/models.go",
+    "lines": [205, 205],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/database/postgres::ManyStoredForbids",
+    "kind": "ArrayType",
+    "declaration": "[]StoredForbids",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/880cb496bef5d213",
+    "path": "internal/database/postgres/models.go",
+    "lines": [206, 209],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/database/postgres::StoredForbids",
+    "kind": "StructType",
+    "declaration": "struct {\n\t\tCode   string                    `json:\"code\"`\n\t\tPeriod StoredStructureWeekPeriod `json:\"period\"`\n\t}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/21bb532565100496",
+    "path": "internal/database/postgres/models.go",
+    "lines": [213, 213],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/database/postgres::ManyStoredPermanentExactlyOne",
+    "kind": "ArrayType",
+    "declaration": "[]StoredPermanentExactlyOne",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/e5c178448999bf8e",
+    "path": "internal/database/postgres/models.go",
+    "lines": [214, 217],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/database/postgres::StoredPermanentExactlyOne",
+    "kind": "StructType",
+    "declaration": "struct {\n\t\tCodes       []string `json:\"codes\"`\n\t\tDefaultCode *string  `json:\"default_code,omitempty\"`\n\t}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/da3790e89a97a8df",
+    "path": "internal/database/postgres/models.go",
+    "lines": [221, 224],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/database/postgres::StoredStructureWeekPeriod",
+    "kind": "StructType",
+    "declaration": "struct {\n\t\tFrom StoredStructureWeek `json:\"from\"`\n\t\tTo   StoredStructureWeek `json:\"to\"`\n\t}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/fecb1f79408868aa",
+    "path": "internal/database/postgres/models.go",
+    "lines": [225, 225],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/database/postgres::ManyStoredStructureWeekPeriods",
+    "kind": "ArrayType",
+    "declaration": "[]StoredStructureWeekPeriod",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/f4cdc865e45dbb41",
+    "path": "internal/database/postgres/models.go",
+    "lines": [228, 231],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/database/postgres::StoredStructureWeek",
+    "kind": "StructType",
+    "declaration": "struct {\n\tYear int `json:\"year\"`\n\tWeek int `json:\"week\"`\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/a33a2d58c01dde13",
+    "path": "internal/database/postgres/repository.go",
+    "lines": [19, 22],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/database/postgres::Repository",
+    "kind": "StructType",
+    "declaration": "struct {\n\tpool   *pgxpool.Pool\n\tlogger *loggingsdk.Logger\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/0ff27b37ca66453e",
+    "path": "internal/domain/ruleset/basecarkey.go",
+    "lines": [5, 8],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/domain/ruleset::BaseCarKeys",
+    "kind": "StructType",
+    "declaration": "struct {\n\tcomponents        []ComponentCarKeys\n\tpackageComponents []PackageVariantComponentCarKeys\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/b6994e91ca636209",
+    "path": "internal/domain/ruleset/basecarkey.go",
+    "lines": [28, 30],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/domain/ruleset::BaseCarKeysCreator",
+    "kind": "StructType",
+    "declaration": "struct {\n\tcarKeysLookup map[string][]CarKeyInPeriod\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/1b2004e0fe8b4c11",
+    "path": "internal/domain/ruleset/carkey.go",
+    "lines": [13, 24],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/domain/ruleset::CarKey",
+    "kind": "StructType",
+    "declaration": "struct {\n\tdetails specification.CarDetails\n\n\tsMessage   *specification.Code\n\tcolor      specification.Code\n\tupholstery specification.Code\n\twheel      specification.Code\n\toptions    []specification.Code\n\tpackages   []specification.Code\n\n\tstructureWeek specification.StructureWeek\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/3e1fdb9ea6c0caf3",
+    "path": "internal/domain/ruleset/carkey.go",
+    "lines": [275, 278],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/domain/ruleset::CarKeyInPeriod",
+    "kind": "StructType",
+    "declaration": "struct {\n\tcarKey              CarKey\n\tstructureWeekPeriod specification.StructureWeekPeriod\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/c7af7eaed2f6a86f",
+    "path": "internal/domain/ruleset/carkey.go",
+    "lines": [312, 315],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/domain/ruleset::CarKeyForSelectionGroup",
+    "kind": "StructType",
+    "declaration": "struct {\n\t\tcarKey     CarKey\n\t\tselections puan.Selections\n\t}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/e0e6d39e9d461057",
+    "path": "internal/domain/ruleset/carkey.go",
+    "lines": [316, 316],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/domain/ruleset::CarKeysBySelectionGroup",
+    "kind": "ArrayType",
+    "declaration": "[]CarKeyForSelectionGroup",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/6fafc6870eafa0a3",
+    "path": "internal/domain/ruleset/component_configurator.go",
+    "lines": [9, 16],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/domain/ruleset::componentConfigurator",
+    "kind": "StructType",
+    "declaration": "struct {\n\tcreator *puan.RulesetCreator\n\n\tcode                specification.Code\n\trequiredExactlyOnes specification.ManyTimeBoundExactlyOne\n\trequiredAtLeastOnes specification.ManyTimeBoundAtLeastOne\n\tforbidden           specification.ManyForbids\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/26de2f57b8ffec8b",
+    "path": "internal/domain/ruleset/component_type.go",
+    "lines": [9, 9],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/domain/ruleset::ComponentType",
+    "kind": "Ident",
+    "declaration": "string",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/0698249c5fe44cc0",
+    "path": "internal/domain/ruleset/components.go",
+    "lines": [14, 17],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/domain/ruleset::Component",
+    "kind": "StructType",
+    "declaration": "struct {\n\t\tcode specification.Code\n\t\ttyp  ComponentType\n\t}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/f5a5cf6787d014bb",
+    "path": "internal/domain/ruleset/components.go",
+    "lines": [18, 18],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/domain/ruleset::ManyComponents",
+    "kind": "ArrayType",
+    "declaration": "[]Component",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/e7014925b9daf622",
+    "path": "internal/domain/ruleset/components.go",
+    "lines": [84, 87],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/domain/ruleset::PackageComponent",
+    "kind": "StructType",
+    "declaration": "struct {\n\t\tcode     specification.Code\n\t\tvariants ManyPackageVariants\n\t}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/71c09d3085d86382",
+    "path": "internal/domain/ruleset/components.go",
+    "lines": [88, 88],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/domain/ruleset::ManyPackageComponents",
+    "kind": "ArrayType",
+    "declaration": "[]PackageComponent",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/a788b7b344053ea8",
+    "path": "internal/domain/ruleset/components.go",
+    "lines": [140, 143],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/domain/ruleset::PackageVariantComponent",
+    "kind": "StructType",
+    "declaration": "struct {\n\t\tcode    specification.Code\n\t\tvariant PackageVariant\n\t}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/f649897800e2b458",
+    "path": "internal/domain/ruleset/components.go",
+    "lines": [144, 144],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/domain/ruleset::ManyPackageVariantComponents",
+    "kind": "ArrayType",
+    "declaration": "[]PackageVariantComponent",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/8ba8e2a730a5cb40",
+    "path": "internal/domain/ruleset/components.go",
+    "lines": [212, 215],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/domain/ruleset::ComponentCarKeys",
+    "kind": "StructType",
+    "declaration": "struct {\n\t\tcomponent Component\n\t\tcarKeys   []CarKeyInPeriod\n\t}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/8e9e7e787f888484",
+    "path": "internal/domain/ruleset/components.go",
+    "lines": [216, 216],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/domain/ruleset::ManyComponentCarKeys",
+    "kind": "ArrayType",
+    "declaration": "[]ComponentCarKeys",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/9cb3903100282350",
+    "path": "internal/domain/ruleset/components.go",
+    "lines": [238, 241],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/domain/ruleset::PackageVariantComponentCarKeys",
+    "kind": "StructType",
+    "declaration": "struct {\n\t\tcomponent PackageVariantComponent\n\t\tcarKeys   []CarKeyInPeriod\n\t}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/1a1f06b781b67b8d",
+    "path": "internal/domain/ruleset/components.go",
+    "lines": [242, 242],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/domain/ruleset::ManyPackageVariantComponentCarKeys",
+    "kind": "ArrayType",
+    "declaration": "[]PackageVariantComponentCarKeys",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/d70610db6ff0de34",
+    "path": "internal/domain/ruleset/nextcarkey.go",
+    "lines": [11, 14],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/domain/ruleset::CarKeyForSelection",
+    "kind": "StructType",
+    "declaration": "struct {\n\t\tselection puan.Selection\n\t\tcarKey    CarKey\n\t}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/7b903d012f131a79",
+    "path": "internal/domain/ruleset/nextcarkey.go",
+    "lines": [35, 38],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/domain/ruleset::NextSelectionsCalculator",
+    "kind": "StructType",
+    "declaration": "struct {\n\tcarRuleset        CarRuleset\n\tcurrentSelections puan.Selections\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/874a6a6a8363833d",
+    "path": "internal/domain/ruleset/nextcarkey.go",
+    "lines": [216, 218],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/domain/ruleset::NextCarKeyCreator",
+    "kind": "StructType",
+    "declaration": "struct {\n\tcarRuleset CarRuleset\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/5fac0d64a1d4c0c5",
+    "path": "internal/domain/ruleset/nextcarkey.go",
+    "lines": [317, 319],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/domain/ruleset::NextCarKeysFilterer",
+    "kind": "StructType",
+    "declaration": "struct {\n\ttypeLookup map[specification.Code]ComponentType\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/13e5a9973b38c70a",
+    "path": "internal/domain/ruleset/package_exclusive.go",
+    "lines": [9, 9],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/domain/ruleset::packageOverlapsGraph",
+    "kind": "MapType",
+    "declaration": "map[specification.Code]specification.CodeLookup",
+    "completeness": "partial",
+    "gaps": ["caas-car-configurator-5495209-complete-r2/gap/type/13e5a9973b38c70a"]
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/24521c22f32807e8",
+    "path": "internal/domain/ruleset/package_exclusive.go",
+    "lines": [21, 24],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/domain/ruleset::packageExclusivityRuleCreator",
+    "kind": "StructType",
+    "declaration": "struct {\n\tcreator               *puan.RulesetCreator\n\toverlapsByPackageCode packageOverlapsGraph\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/58a526d411926545",
+    "path": "internal/domain/ruleset/package_variants.go",
+    "lines": [12, 12],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/domain/ruleset::PackageVariant",
+    "kind": "Ident",
+    "declaration": "ManyComponents",
+    "completeness": "partial",
+    "gaps": ["caas-car-configurator-5495209-complete-r2/gap/type/58a526d411926545"]
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/a6f32c9e1f1fcd8e",
+    "path": "internal/domain/ruleset/package_variants.go",
+    "lines": [13, 13],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/domain/ruleset::ManyPackageVariants",
+    "kind": "ArrayType",
+    "declaration": "[]PackageVariant",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/f75a713112c4196e",
+    "path": "internal/domain/ruleset/package_variants.go",
+    "lines": [171, 171],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/domain/ruleset::PackageVariantCalculator",
+    "kind": "StructType",
+    "declaration": "struct{}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/3160fb2e0f906b2f",
+    "path": "internal/domain/ruleset/reverse_packages.go",
+    "lines": [11, 16],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/domain/ruleset::ReversePackageRuleCreator",
+    "kind": "StructType",
+    "declaration": "struct {\n\t*puan.RulesetCreator\n\n\tpackages          specification.Packages\n\tvariantsByPackage map[specification.Code]ManyPackageVariants\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/0f3026dff9b85542",
+    "path": "internal/domain/ruleset/ruleset.go",
+    "lines": [12, 19],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/domain/ruleset::CarRuleset",
+    "kind": "StructType",
+    "declaration": "struct {\n\tid uuid.UUID\n\n\truleset           *puan.Ruleset\n\tdetails           specification.CarDetails\n\tcomponents        ManyComponents\n\tpackageComponents ManyPackageComponents\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/0b2c8c24db63651b",
+    "path": "internal/domain/ruleset/ruleset_creator.go",
+    "lines": [13, 16],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/domain/ruleset::configurationRulesetCreator",
+    "kind": "StructType",
+    "declaration": "struct {\n\t*puan.RulesetCreator\n\tperiod *specification.StructureWeekPeriod\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/0004cd19c86d48a3",
+    "path": "internal/domain/ruleset/ruleset_creator.go",
+    "lines": [598, 601],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/domain/ruleset::timeBoundComponent",
+    "kind": "InterfaceType",
+    "declaration": "interface {\n\tCode() specification.Code\n\tPeriod() specification.StructureWeekPeriod\n}",
+    "completeness": "partial",
+    "gaps": ["caas-car-configurator-5495209-complete-r2/gap/type/0004cd19c86d48a3"]
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/cb23e6290445da44",
+    "path": "internal/domain/ruleset/selection.go",
+    "lines": [11, 13],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/domain/ruleset::SelectionValidator",
+    "kind": "StructType",
+    "declaration": "struct {\n\tlogger *loggingsdk.Logger\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/8fb8e1d2a7789820",
+    "path": "internal/domain/specification/at_least_one.go",
+    "lines": [11, 11],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/domain/specification::ManyTimeBoundAtLeastOne",
+    "kind": "ArrayType",
+    "declaration": "[]TimeBoundAtLeastOne",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/9a88cf0d385602aa",
+    "path": "internal/domain/specification/at_least_one.go",
+    "lines": [28, 32],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/domain/specification::TimeBoundAtLeastOne",
+    "kind": "StructType",
+    "declaration": "struct {\n\tcodes       Codes\n\tdefaultCode *Code\n\tperiod      StructureWeekPeriod\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/4bd81a5d3900c349",
+    "path": "internal/domain/specification/car.go",
+    "lines": [3, 14],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/domain/specification::CarDetails",
+    "kind": "StructType",
+    "declaration": "struct {\n\tmodelYear        int\n\tspecMarket       string\n\tcarType          string\n\tengine           string\n\tsalesVersion     string\n\tbody             string\n\tgearbox          string\n\tsteering         string\n\tmarketingCode    string\n\tlocalEditionCode *string\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/56f90399cbee8b12",
+    "path": "internal/domain/specification/car_specification.go",
+    "lines": [3, 14],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/domain/specification::CarSpecification",
+    "kind": "StructType",
+    "declaration": "struct {\n\tdetails CarDetails\n\n\tperiod           StructureWeekPeriod\n\tforbiddenPeriods ManyStructureWeekPeriods\n\n\tsMessages SMessageSpecification\n\tstyling   StylingSpecification\n\toptions   OptionSpecification\n\tpackages  PackageSpecification\n\twheels    WheelSpecification\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/1f904223b4766889",
+    "path": "internal/domain/specification/car_specification_validator.go",
+    "lines": [11, 21],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/domain/specification::carSpecificationValidator",
+    "kind": "StructType",
+    "declaration": "struct {\n\tperiod           StructureWeekPeriod\n\tforbiddenPeriods ManyStructureWeekPeriods\n\tperiods          ManyStructureWeekPeriods\n\tperiodByCode     map[Code]StructureWeekPeriod\n\tsMessages        SMessageSpecification\n\tstyling          StylingSpecification\n\toptions          OptionSpecification\n\tpackages         PackageSpecification\n\twheels           WheelSpecification\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/930abc592084d41c",
+    "path": "internal/domain/specification/cleaner.go",
+    "lines": [10, 15],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/domain/specification::CarSpecificationCleaner",
+    "kind": "StructType",
+    "declaration": "struct {\n\tspec          *CarSpecification\n\tperiodsByCode map[Code]StructureWeekPeriod\n\n\tlogger *loggingsdk.Logger\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/a5e263adbf5dd3f1",
+    "path": "internal/domain/specification/codes.go",
+    "lines": [11, 11],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/domain/specification::Code",
+    "kind": "Ident",
+    "declaration": "string",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/dc109a0fbfd70d96",
+    "path": "internal/domain/specification/codes.go",
+    "lines": [28, 28],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/domain/specification::Codes",
+    "kind": "ArrayType",
+    "declaration": "[]Code",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/583d6e5691744b86",
+    "path": "internal/domain/specification/codes.go",
+    "lines": [115, 115],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/domain/specification::ManyTimeBoundCodes",
+    "kind": "ArrayType",
+    "declaration": "[]TimeBoundCode",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/7efa6cf556db2cdf",
+    "path": "internal/domain/specification/codes.go",
+    "lines": [126, 129],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/domain/specification::TimeBoundCode",
+    "kind": "StructType",
+    "declaration": "struct {\n\tcode   Code\n\tperiod StructureWeekPeriod\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/eb6a377cbc4d73d1",
+    "path": "internal/domain/specification/codes.go",
+    "lines": [146, 146],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/domain/specification::CodeLookup",
+    "kind": "MapType",
+    "declaration": "map[Code]struct{}",
+    "completeness": "partial",
+    "gaps": ["caas-car-configurator-5495209-complete-r2/gap/type/eb6a377cbc4d73d1"]
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/6e23e3e041b7ba64",
+    "path": "internal/domain/specification/exactly_one.go",
+    "lines": [11, 15],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/domain/specification::TimeBoundExactlyOne",
+    "kind": "StructType",
+    "declaration": "struct {\n\tcodes       Codes\n\tdefaultCode *Code\n\tperiod      StructureWeekPeriod\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/6aaf57f3498ca600",
+    "path": "internal/domain/specification/exactly_one.go",
+    "lines": [62, 62],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/domain/specification::ManyTimeBoundExactlyOne",
+    "kind": "ArrayType",
+    "declaration": "[]TimeBoundExactlyOne",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/3ec32dd46020b4aa",
+    "path": "internal/domain/specification/exactly_one.go",
+    "lines": [87, 87],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/domain/specification::ManyExactlyOne",
+    "kind": "ArrayType",
+    "declaration": "[]ExactlyOne",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/c0e7d36b00fc34a8",
+    "path": "internal/domain/specification/exactly_one.go",
+    "lines": [98, 101],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/domain/specification::ExactlyOne",
+    "kind": "StructType",
+    "declaration": "struct {\n\tcodes       Codes\n\tdefaultCode *Code\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/02835bdfea992407",
+    "path": "internal/domain/specification/fake_builder.go",
+    "lines": [8, 30],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/domain/specification::fakeCarSpecificationBuilder",
+    "kind": "StructType",
+    "declaration": "struct {\n\tdetails          CarDetails\n\tperiod           StructureWeekPeriod\n\tforbiddenPeriods ManyStructureWeekPeriods\n\n\tsMessages SMessages\n\n\tcolors              Colors\n\tupholsteries        Upholsteries\n\tdefaultColors       ManyTimeBoundCodes\n\tdefaultUpholsteries ManyTimeBoundCodes\n\n\toptions                    Options\n\tincludedOptions            ManyTimeBoundExactlyOne\n\tincludedPackages           ManyTimeBoundExactlyOne\n\tpackageOnlyOptionCodes     Codes\n\tcombinedOptionRequirements ManyCombinedOptionRequirements\n\n\tpackages Packages\n\n\twheels        Wheels\n\tstandardWheel *Code\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/5e7e605d874a2794",
+    "path": "internal/domain/specification/fake_builder.go",
+    "lines": [274, 279],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/domain/specification::fakeColorSpecBuilder",
+    "kind": "StructType",
+    "declaration": "struct {\n\tspecBuilder *fakeCarSpecificationBuilder\n\n\tcode   Code\n\tperiod StructureWeekPeriod\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/53595a94de65e126",
+    "path": "internal/domain/specification/fake_builder.go",
+    "lines": [300, 305],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/domain/specification::fakeUpholsterySpecBuilder",
+    "kind": "StructType",
+    "declaration": "struct {\n\tspecBuilder *fakeCarSpecificationBuilder\n\n\tcode   Code\n\tperiod StructureWeekPeriod\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/e6ff8fa5a82db1e3",
+    "path": "internal/domain/specification/fake_builder.go",
+    "lines": [328, 332],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/domain/specification::fakeDefaultColorSpecBuilder",
+    "kind": "StructType",
+    "declaration": "struct {\n\tspecBuilder *fakeCarSpecificationBuilder\n\tcolor       Code\n\tperiod      StructureWeekPeriod\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/0f6a899b90820a6c",
+    "path": "internal/domain/specification/fake_builder.go",
+    "lines": [352, 356],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/domain/specification::fakeDefaultUpholsterySpecBuilder",
+    "kind": "StructType",
+    "declaration": "struct {\n\tspecBuilder *fakeCarSpecificationBuilder\n\tupholstery  Code\n\tperiod      StructureWeekPeriod\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/e283188ebb5d3619",
+    "path": "internal/domain/specification/fake_builder.go",
+    "lines": [376, 383],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/domain/specification::fakeOptionSpecBuilder",
+    "kind": "StructType",
+    "declaration": "struct {\n\tspecBuilder *fakeCarSpecificationBuilder\n\n\tcode            Code\n\tperiod          StructureWeekPeriod\n\trequiredOptions ManyTimeBoundAtLeastOne\n\tforbidsOptions  ManyForbids\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/2fe0c1fcfa9a698e",
+    "path": "internal/domain/specification/fake_builder.go",
+    "lines": [446, 451],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/domain/specification::fakeWheelSpecBuilder",
+    "kind": "StructType",
+    "declaration": "struct {\n\tspecBuilder *fakeCarSpecificationBuilder\n\n\tcode   Code\n\tperiod StructureWeekPeriod\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/6b4eceec6c6849b9",
+    "path": "internal/domain/specification/fake_builder.go",
+    "lines": [467, 476],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/domain/specification::fakePackageSpecBuilder",
+    "kind": "StructType",
+    "declaration": "struct {\n\tspecBuilder *fakeCarSpecificationBuilder\n\n\tcode                 Code\n\tperiod               StructureWeekPeriod\n\trequiredColors       *ExactlyOne\n\trequiredUpholsteries *ExactlyOne\n\trequiredWheels       *ExactlyOne\n\trequiredOptions      ManyExactlyOne\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/f74b4780de31b2cf",
+    "path": "internal/domain/specification/fake_builder.go",
+    "lines": [572, 578],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/domain/specification::fakeTimeBoundExactlyOneBuilder",
+    "kind": "StructType",
+    "declaration": "struct {\n\tapply func(TimeBoundExactlyOne) T\n\n\tcodes       Codes\n\tdefaultCode *Code\n\tperiod      StructureWeekPeriod\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/84eb0434fc6a4a03",
+    "path": "internal/domain/specification/fake_builder.go",
+    "lines": [609, 615],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/domain/specification::fakeTimeBoundAtLeastOneBuilder",
+    "kind": "StructType",
+    "declaration": "struct {\n\tapply func(TimeBoundAtLeastOne) T\n\n\tcodes       Codes\n\tdefaultCode *Code\n\tperiod      StructureWeekPeriod\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/a3c031e2ac0522b0",
+    "path": "internal/domain/specification/fake_builder.go",
+    "lines": [645, 650],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/domain/specification::fakeForbidsBuilder",
+    "kind": "StructType",
+    "declaration": "struct {\n\tapply func(Forbids) T\n\n\tcode   Code\n\tperiod StructureWeekPeriod\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/2641a59bb45fc67b",
+    "path": "internal/domain/specification/fake_builder.go",
+    "lines": [667, 672],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/domain/specification::fakeExactlyOneBuilder",
+    "kind": "StructType",
+    "declaration": "struct {\n\tapply func(ExactlyOne) T\n\n\tcodes       Codes\n\tdefaultCode *Code\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/9454d01409478948",
+    "path": "internal/domain/specification/fake_builder.go",
+    "lines": [690, 695],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/domain/specification::fakePeriodBuilder",
+    "kind": "StructType",
+    "declaration": "struct {\n\tapply func(StructureWeekPeriod) T\n\n\tfrom StructureWeek\n\tto   StructureWeek\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/6983b2f586109738",
+    "path": "internal/domain/specification/fake_builder.go",
+    "lines": [726, 731],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/domain/specification::fakeCombinedOptionsBuilder",
+    "kind": "StructType",
+    "declaration": "struct {\n\tapply func(CombinedOptionRequirement) *fakeCarSpecificationBuilder\n\n\trequiringCodes Codes\n\trequiredCode   Code\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/38ac502a1754bcc6",
+    "path": "internal/domain/specification/forbids.go",
+    "lines": [3, 3],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/domain/specification::ManyForbids",
+    "kind": "ArrayType",
+    "declaration": "[]Forbids",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/4c53ec9c8a1a3702",
+    "path": "internal/domain/specification/forbids.go",
+    "lines": [14, 17],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/domain/specification::Forbids",
+    "kind": "StructType",
+    "declaration": "struct {\n\tcode   Code\n\tperiod StructureWeekPeriod\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/71bad01305efb326",
+    "path": "internal/domain/specification/options.go",
+    "lines": [9, 14],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/domain/specification::OptionSpecification",
+    "kind": "StructType",
+    "declaration": "struct {\n\toptions              Options\n\tpackageOnlyOptions   Codes\n\tincludedOptions      ManyTimeBoundExactlyOne\n\tcombinedRequirements ManyCombinedOptionRequirements\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/1d8181dc44acbdf4",
+    "path": "internal/domain/specification/options.go",
+    "lines": [92, 92],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/domain/specification::Options",
+    "kind": "ArrayType",
+    "declaration": "[]Option",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/d82141a50641d225",
+    "path": "internal/domain/specification/options.go",
+    "lines": [129, 140],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/domain/specification::Option",
+    "kind": "StructType",
+    "declaration": "struct {\n\tcode                 Code\n\trequiredColors       ManyTimeBoundExactlyOne\n\trequiredUpholsteries ManyTimeBoundExactlyOne\n\trequiredOptions      ManyTimeBoundAtLeastOne\n\trequiredWheels       ManyTimeBoundExactlyOne\n\tforbidsOptions       ManyForbids\n\tforbidsColors        ManyForbids\n\tforbidsWheels        ManyForbids\n\tforbidsUpholsteries  ManyForbids\n\tperiod               StructureWeekPeriod\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/c0a043b04199fa13",
+    "path": "internal/domain/specification/options.go",
+    "lines": [244, 247],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/domain/specification::CombinedOptionRequirement",
+    "kind": "StructType",
+    "declaration": "struct {\n\trequiringCodes Codes\n\trequiredCode   Code\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/3548545a623b1f12",
+    "path": "internal/domain/specification/options.go",
+    "lines": [286, 286],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/domain/specification::ManyCombinedOptionRequirements",
+    "kind": "ArrayType",
+    "declaration": "[]CombinedOptionRequirement",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/3fd849e51aa46b14",
+    "path": "internal/domain/specification/packages.go",
+    "lines": [11, 14],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/domain/specification::PackageSpecification",
+    "kind": "StructType",
+    "declaration": "struct {\n\tpackages         Packages\n\tincludedPackages ManyTimeBoundExactlyOne\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/dd68cd83a686fdd7",
+    "path": "internal/domain/specification/packages.go",
+    "lines": [61, 61],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/domain/specification::Packages",
+    "kind": "ArrayType",
+    "declaration": "[]Package",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/5ddce4df5a374ebe",
+    "path": "internal/domain/specification/packages.go",
+    "lines": [131, 138],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/domain/specification::Package",
+    "kind": "StructType",
+    "declaration": "struct {\n\tcode                 Code\n\trequiredColors       *ExactlyOne\n\trequiredUpholsteries *ExactlyOne\n\trequiredWheels       *ExactlyOne\n\trequiredOptions      ManyExactlyOne\n\tperiod               StructureWeekPeriod\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/5e56eb786df7074a",
+    "path": "internal/domain/specification/smessages.go",
+    "lines": [3, 5],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/domain/specification::SMessageSpecification",
+    "kind": "StructType",
+    "declaration": "struct {\n\tsMessages SMessages\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/e24ccb2f2179ccb1",
+    "path": "internal/domain/specification/smessages.go",
+    "lines": [21, 21],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/domain/specification::SMessages",
+    "kind": "ArrayType",
+    "declaration": "[]SMessage",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/787ea07905f53c80",
+    "path": "internal/domain/specification/smessages.go",
+    "lines": [41, 44],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/domain/specification::SMessage",
+    "kind": "StructType",
+    "declaration": "struct {\n\tcode   Code\n\tperiod StructureWeekPeriod\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/1e8895396447e549",
+    "path": "internal/domain/specification/structure_week.go",
+    "lines": [12, 15],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/domain/specification::StructureWeek",
+    "kind": "StructType",
+    "declaration": "struct {\n\tyear int\n\tweek int\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/5dad9a4157b7c69e",
+    "path": "internal/domain/specification/structure_week.go",
+    "lines": [173, 173],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/domain/specification::ManyStructureWeekPeriods",
+    "kind": "ArrayType",
+    "declaration": "[]StructureWeekPeriod",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/459b46ea863125ce",
+    "path": "internal/domain/specification/structure_week.go",
+    "lines": [304, 307],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/domain/specification::StructureWeekPeriod",
+    "kind": "StructType",
+    "declaration": "struct {\n\tfrom StructureWeek\n\tto   StructureWeek\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/ff917cc9855e6db8",
+    "path": "internal/domain/specification/styling.go",
+    "lines": [9, 14],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/domain/specification::StylingSpecification",
+    "kind": "StructType",
+    "declaration": "struct {\n\tcolors              Colors\n\tupholsteries        Upholsteries\n\tdefaultColors       ManyTimeBoundCodes\n\tdefaultUpholsteries ManyTimeBoundCodes\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/02deca8b00397b37",
+    "path": "internal/domain/specification/styling.go",
+    "lines": [64, 64],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/domain/specification::Upholsteries",
+    "kind": "ArrayType",
+    "declaration": "[]Upholstery",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/31f7bad47cad8b09",
+    "path": "internal/domain/specification/styling.go",
+    "lines": [84, 91],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/domain/specification::Upholstery",
+    "kind": "StructType",
+    "declaration": "struct {\n\tcode            Code\n\trequiredOptions ManyTimeBoundAtLeastOne\n\tforbidsOptions  ManyForbids\n\tforbidsColors   ManyForbids\n\tforbidsWheels   ManyForbids\n\tperiod          StructureWeekPeriod\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/f531a7409dd7bf29",
+    "path": "internal/domain/specification/styling.go",
+    "lines": [144, 144],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/domain/specification::Colors",
+    "kind": "ArrayType",
+    "declaration": "[]Color",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/205028e3192fdfeb",
+    "path": "internal/domain/specification/styling.go",
+    "lines": [164, 172],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/domain/specification::Color",
+    "kind": "StructType",
+    "declaration": "struct {\n\tcode                Code\n\trequiredOptions     ManyTimeBoundAtLeastOne\n\trequiredWheels      ManyTimeBoundExactlyOne\n\tforbidsOptions      ManyForbids\n\tforbidsWheels       ManyForbids\n\tforbidsUpholsteries ManyForbids\n\tperiod              StructureWeekPeriod\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/536d08894d75c61a",
+    "path": "internal/domain/specification/styling_validator.go",
+    "lines": [9, 14],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/domain/specification::stylingValidator",
+    "kind": "StructType",
+    "declaration": "struct {\n\tperiodByColor       map[Code]StructureWeekPeriod\n\tperiodByUpholstery  map[Code]StructureWeekPeriod\n\tdefaultColors       ManyTimeBoundCodes\n\tdefaultUpholsteries ManyTimeBoundCodes\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/7c9ac8e57b993fec",
+    "path": "internal/domain/specification/wheels.go",
+    "lines": [9, 12],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/domain/specification::WheelSpecification",
+    "kind": "StructType",
+    "declaration": "struct {\n\twheels        Wheels\n\tstandardWheel *Code\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/8aacd80acda6b00e",
+    "path": "internal/domain/specification/wheels.go",
+    "lines": [66, 74],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/domain/specification::Wheel",
+    "kind": "StructType",
+    "declaration": "struct {\n\tcode                 Code\n\trequiredColors       ManyTimeBoundExactlyOne\n\trequiredOptions      ManyTimeBoundAtLeastOne\n\trequiredUpholsteries ManyTimeBoundExactlyOne\n\tforbidsOptions       ManyForbids\n\tforbidsUpholsteries  ManyForbids\n\tperiod               StructureWeekPeriod\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/21fcb1649d24854d",
+    "path": "internal/domain/specification/wheels.go",
+    "lines": [151, 151],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/domain/specification::Wheels",
+    "kind": "ArrayType",
+    "declaration": "[]Wheel",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/7d63ebe05da847e1",
+    "path": "internal/domain/usecase/basecarkey_calculator.go",
+    "lines": [15, 18],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/domain/usecase::BaseCarKeyCalculator",
+    "kind": "StructType",
+    "declaration": "struct {\n\tcreator    *puan.SolutionCreator\n\trepository CarRulesetRepository\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/8b1e627ac84d0762",
+    "path": "internal/domain/usecase/carkey_calculator.go",
+    "lines": [15, 19],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/domain/usecase::CarKeyCalculator",
+    "kind": "StructType",
+    "declaration": "struct {\n\tcreator            *puan.SolutionCreator\n\trepository         CarRulesetRepository\n\tselectionValidator *ruleset.SelectionValidator\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/fc20297c2ce18647",
+    "path": "internal/domain/usecase/nextcarkey_calculator.go",
+    "lines": [13, 17],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/domain/usecase::NextCarKeyCalculator",
+    "kind": "StructType",
+    "declaration": "struct {\n\tcreator            *puan.SolutionCreator\n\trepository         CarRulesetRepository\n\tselectionValidator *ruleset.SelectionValidator\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/ac80a4352d20d4b3",
+    "path": "internal/domain/usecase/repository.go",
+    "lines": [12, 19],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/domain/usecase::CarRulesetRepository",
+    "kind": "InterfaceType",
+    "declaration": "interface {\n\tGetRuleset(ctx context.Context, id uuid.UUID) (ruleset.CarRuleset, error)\n\tCreateRulesetForSpecification(\n\t\tctx context.Context,\n\t\truleset ruleset.CarRuleset,\n\t\tspecification specification.CarSpecification,\n\t) error\n}",
+    "completeness": "partial",
+    "gaps": ["caas-car-configurator-5495209-complete-r2/gap/type/ac80a4352d20d4b3"]
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/19f55102289c47f0",
+    "path": "internal/domain/usecase/ruleset_creator.go",
+    "lines": [14, 17],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/domain/usecase::CarRulesetCreator",
+    "kind": "StructType",
+    "declaration": "struct {\n\trepository CarRulesetRepository\n\tlogger     *loggingsdk.Logger\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/3fbcd9a6e48dbcba",
+    "path": "internal/domain/usecase/startcarkey_calculator.go",
+    "lines": [14, 17],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/domain/usecase::StartCarKeysCalculator",
+    "kind": "StructType",
+    "declaration": "struct {\n\tcreator    *puan.SolutionCreator\n\trepository CarRulesetRepository\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/a4e789f5622e64ea",
+    "path": "internal/gateway/httpclient/client.go",
+    "lines": [9, 11],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/gateway/httpclient::RoundTripper",
+    "kind": "InterfaceType",
+    "declaration": "interface {\n\tWithRoundTripper(next http.RoundTripper) http.RoundTripper\n}",
+    "completeness": "partial",
+    "gaps": ["caas-car-configurator-5495209-complete-r2/gap/type/a4e789f5622e64ea"]
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/6cb7bb5fc6bb866c",
+    "path": "internal/gateway/httpclient/metrics.go",
+    "lines": [13, 18],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/gateway/httpclient::MetricsRoundTripper",
+    "kind": "StructType",
+    "declaration": "struct {\n\tnext http.RoundTripper\n\n\tcallDurationHistogram metric.Int64Histogram\n\trequestCounter        metric.Int64Counter\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/79c2e03391bbbff2",
+    "path": "internal/gateway/httpclient/retries.go",
+    "lines": [11, 13],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/gateway/httpclient::retryLogAdapter",
+    "kind": "StructType",
+    "declaration": "struct {\n\tlogger *loggingsdk.Logger\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "caas-car-configurator-5495209-complete-r2/shape/99d08cfe68a8409d",
+    "path": "internal/observability/metrics.go",
+    "lines": [17, 21],
+    "sourceType": "github.com/volvo-cars/caas-car-configurator/internal/observability::MetricsSubmitter",
+    "kind": "StructType",
+    "declaration": "struct {\n\tmetric.Meter\n\n\tprovider *sdk.MeterProvider\n}",
+    "completeness": "closed",
+    "gaps": []
+  }
+]

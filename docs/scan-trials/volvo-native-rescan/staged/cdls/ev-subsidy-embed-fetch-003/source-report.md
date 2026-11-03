@@ -1,0 +1,23 @@
+# EV server navigation and footer fetch helpers
+
+This bounded unit covers six complete source files: navigation/footer fetch functions, their URL builders and prop declarations. Its ten source bodies are eight native function frames and two explicitly compressed error constructors. It requires the unchanged EV API001 bundle for the exact existing EV Next server and source-revision identities. There are no additional entries, subscriptions or helper services.
+
+Combined snapshot `65ad154aae158cfd209f23f725485a963fc7ab37323076bac771f01646677709` has 656 new records plus 670 unchanged API records. Native validation passes 250 combined pinned ranges; this unit has 150 independently hash/range-verified evidence records in seven files, including the caller-layout association. All 26 strict query requests/responses/continuations pass with 2000-node/5000-record budgets and no bounds.
+
+Each fetch helper lowercases an optional market/path segment, uses a source regex only for development warnings, constructs the configured navigation/footer URL and selects `src || alt` before one fetch. The fallback URL is not a retry. Missing base URL or fetch support throws; non-ok responses construct and throw the local custom error. The compressed constructor retains super-message/status/url, status/url assignments and prototype repair as source claims. It does not invent transport or retry policy.
+
+URL builders default undefined base URL from SITE_NAV_URL/SITE_FOOTER_URL, append a missing slash, return fallback pairs without a slug and construct the actual variant filename otherwise. Navigation has v2/v2-auth/v2-nocars switch branches; footer uses v1 or v1-preview. Optional source props and their variants are retained; the navigation intersection additionally requires siteSlug or html, recorded as an exact source declaration claim rather than a fabricated field or runtime guard.
+
+Both auth header settings must be truthy to construct the dynamic header. A literal User-Agent follows the spread and can override that exact header name. Native source shapes/values preserve the literal User-Agent and cache revalidate choice 1200 for zh-cn/en-cn, 300 otherwise. These are source options, without proof of effective HTTP serialization or cache execution. The exact source call-signature projection preserves URL/options as two actual arguments, with nested caller fields; it is not an object passed at runtime or a guessed HTTP body.
+
+The awaited response object is separate from its immediate fetch handle. The actual response.text receiver and immediate handle remain separate from awaited HTML. HTML feeds the allocated props object with esi:false. Navigation includes variant; footer omits variant and keeps its original baseUrl argument, which may remain undefined even while the URL builder uses its environment default. Source-local functions return values; async functions keep immediate Promise handles.
+
+The configured HTML targets are intended external addresses, with unresolved environment values and renderer/deployment correspondence. Shared packages execute inside the EV server; they are not remote components. Exact imported Fetch/Next transport, cache, response and effective deployment remain qualified. No source build/test/execution or live calls ran.
+
+Remaining source units include the actual EV SSR layout, getPropsForRequest disable/forceFetch/Akamai alternatives, ESI render/client behaviour, cookie helpers and the wider CDLS repository. This capture does not claim those branches or whole-app/repository completion.
+
+Replay with a fresh output directory argument using the Groundwork TypeScript loader. The source/registration/body/schema/symbol/async/acknowledgement/range ledgers and strict replay are sealed alongside this report.
+
+Helper002 supersedes Helper001 with exact locally declared object schemas: getUrl object parameters, fetch options formals/actual URL-builder argument objects, and returned src/alt pairs. After namespace translation, ten existing value shape references change and ten support records are added (six shapes, two evidence, two claims). All native execution/control/calls/I/O remain equal. Previous sealed bytes remain immutable; see supersession-ledger.json.
+
+Helper003 supersedes Helper002 with four exact source await dependency edges: immediate fetch handle to awaited response, and immediate text() handle to awaited HTML, in each family. Handles and results remain distinct; source library text() receiver stays separately native with no fabricated receiver-to-return/decoding flow. The strict value queries positively reach each handle. Namespace-normalized delta is precisely four added flows with every prior native record equal. No SSR/request wrapper scope was added.

@@ -1,0 +1,106 @@
+{
+  "snapshot": "e2ec8f901c7ba3b9fcf11455638ec14ae764a0f41c0551af91bf20efbbec3d1c",
+  "checks": [
+    {
+      "name": "11 REST entries and source process entry",
+      "status": "passed"
+    },
+    {
+      "name": "representative source method owned-record queries paginated to closure",
+      "status": "passed"
+    },
+    {
+      "name": "custom-partial-write.trace has bounded native output",
+      "status": "passed"
+    },
+    {
+      "name": "custom-partial-write.value has bounded native output",
+      "status": "passed"
+    },
+    {
+      "name": "java-object-capture.trace has bounded native output",
+      "status": "passed"
+    },
+    {
+      "name": "java-object-capture.value has bounded native output",
+      "status": "passed"
+    },
+    {
+      "name": "instance-method-reference.trace has bounded native output",
+      "status": "passed"
+    },
+    {
+      "name": "instance-method-reference.value has bounded native output",
+      "status": "passed"
+    },
+    {
+      "name": "custom partial update uses ignored driver result and conditional exact fields",
+      "status": "passed"
+    },
+    {
+      "name": "custom partial update is owned by the source fragment",
+      "status": "passed"
+    },
+    {
+      "name": "empty-update branch remains explicit",
+      "status": "passed"
+    },
+    {
+      "name": "two source sends do not await callbacks",
+      "status": "passed"
+    },
+    {
+      "name": "no invented local consumer/handoff",
+      "status": "passed"
+    },
+    {
+      "name": "future callback policies do not await",
+      "status": "passed"
+    },
+    {
+      "name": "all Java lexical bindings copy values including object references",
+      "status": "passed"
+    },
+    {
+      "name": "ordinary receiver and source method-reference receiver are distinct from captures",
+      "status": "passed"
+    },
+    {
+      "name": "previous inlined refund summaries superseded",
+      "status": "passed"
+    },
+    {
+      "name": "attempt trace includes persistence before PSP and source failure after writes",
+      "status": "passed"
+    },
+    {
+      "name": "caller payload construction and configured boundary queries pass",
+      "status": "passed"
+    }
+  ],
+  "allEntryQueries": 185,
+  "methodTraceQueries": 37,
+  "invocationValueQueries": 0,
+  "fullRouteQueriesWithExplicitNodeBudgetFrontiers": [
+    "08.trace",
+    "08.interactions",
+    "08.effects",
+    "08.continuations",
+    "08.consistency",
+    "08.outcome.200",
+    "08.outcome.202",
+    "08.outcome.208",
+    "08.outcome.400",
+    "08.outcome.402",
+    "08.outcome.403",
+    "08.outcome.404",
+    "08.outcome.422",
+    "08.outcome.500"
+  ],
+  "methodSegmentsWithExplicitNodeBudgetFrontiers": [
+    "com.volvocars.ecom.paymentservice.transaction.create.CreateTransactionService#create(String,Psp,CreateTransactionPayload)"
+  ],
+  "ownedRecordClosureComplete": true,
+  "meaning": "Source semantic facts and meaningful native boundaries checked; no exhaustive whole-route drawing or runtime/heap-feasibility claim",
+  "payloadValueQueries": 17
+}

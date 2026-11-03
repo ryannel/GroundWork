@@ -1,0 +1,122 @@
+[
+  {
+    "callback": "customer-b0010537-complete-r8/method/bd381a8a6023742a",
+    "type": "PspRelation",
+    "sourceInvocation": "pspRelations.stream()\n        .map(\n            pspRelation ->\n                new PspRelationDto(\n                    pspRelation.getPsp(), pspRelation.getExternalId(), pspRelation.getAccountId()))",
+    "sourceStart": 2151,
+    "containerType": "List<PspRelation>",
+    "sourcePath": "cds-paymentservice-customer-api/src/main/java/com/volvocars/ecom/paymentservice/customer/api/customer/v1/mapper/CustomerApiMapper.java",
+    "lines": [52, 56],
+    "basis": "Local declared container/return type constrains element formal; imported higher-order invocation policy remains unresolved"
+  },
+  {
+    "callback": "customer-b0010537-complete-r8/method/5bd3ab6290ea14b7",
+    "type": "Customer",
+    "sourceInvocation": "customerCoreService.findByExternalIdentifier(externalId).stream()\n        .filter(customer -> customer.getPspRelation(account.getAccountId()).isPresent())",
+    "sourceStart": 5472,
+    "containerType": "Optional<Customer>",
+    "sourcePath": "cds-paymentservice-customer-core/src/main/java/com/volvocars/ecom/paymentservice/customer/CustomerManager.java",
+    "lines": [122, 123],
+    "basis": "Local declared container/return type constrains element formal; imported higher-order invocation policy remains unresolved"
+  },
+  {
+    "callback": "customer-b0010537-complete-r8/method/8d308c69f83ab910",
+    "type": "String",
+    "sourceInvocation": "Optional.ofNullable(volvoId)\n        .flatMap(s -> customerCoreService.findByVolvoId(volvoId))",
+    "sourceStart": 14953,
+    "containerType": "Optional<String>",
+    "sourcePath": "cds-paymentservice-customer-core/src/main/java/com/volvocars/ecom/paymentservice/customer/CustomerManager.java",
+    "lines": [341, 342],
+    "basis": "Local declared container/return type constrains element formal; imported higher-order invocation policy remains unresolved"
+  },
+  {
+    "callback": "customer-b0010537-complete-r8/method/1ab5575645a326f4",
+    "type": "String",
+    "sourceInvocation": "updateFieldIfNotBlank(\n        payload.getCarMarket(),\n        carMarket -> customer.setAttributeValue(Customer.CAR_MARKET, carMarket))",
+    "sourceStart": 16638,
+    "containerType": "Local Consumer<T> formal, T inferred from source first argument String",
+    "sourcePath": "cds-paymentservice-customer-core/src/main/java/com/volvocars/ecom/paymentservice/customer/CustomerManager.java",
+    "lines": [379, 381],
+    "basis": "Local declared container/return type constrains element formal; imported higher-order invocation policy remains unresolved"
+  },
+  {
+    "callback": "customer-b0010537-complete-r8/method/f51ec36bb90245fc",
+    "type": "T",
+    "sourceInvocation": "Optional.ofNullable(value)\n        .filter(String.class::isInstance)\n        .filter(v -> !((String) v).isBlank())",
+    "sourceStart": 17157,
+    "containerType": "Optional<T>",
+    "sourcePath": "cds-paymentservice-customer-core/src/main/java/com/volvocars/ecom/paymentservice/customer/CustomerManager.java",
+    "lines": [392, 394],
+    "basis": "Local declared container/return type constrains element formal; imported higher-order invocation policy remains unresolved"
+  },
+  {
+    "callback": "customer-b0010537-complete-r8/method/afdbc051f9eeab08",
+    "type": "ExternalIdentifier",
+    "sourceInvocation": "Optional.ofNullable(externalIdentifier)\n        .flatMap(\n            extId ->\n                customerRepository\n                    .findByExternalIdentifier(extId.getType(), extId.getValue())\n                    .stream()\n                    .min(Comparator.comparing(BaseEntity::getCreated)))",
+    "sourceStart": 1413,
+    "containerType": "Optional<ExternalIdentifier>",
+    "sourcePath": "cds-paymentservice-customer-core/src/main/java/com/volvocars/ecom/paymentservice/customer/CustomerOperationService.java",
+    "lines": [36, 42],
+    "basis": "Local declared container/return type constrains element formal; imported higher-order invocation policy remains unresolved"
+  },
+  {
+    "callback": "customer-b0010537-complete-r8/method/67ed857e707e80c7",
+    "type": "CustomerEntity",
+    "sourceInvocation": "findByVolvoId(customerEntity.getVolvoId())\n        .ifPresent(\n            existing -> {\n              throw new CustomerDuplicateException(\n                  LogUtils.getCorrelationId(),\n                  MessageFormat.format(\n                      \"Customer with the specified Volvo ID already exists. volvoId: {0}\",\n                      customerEntity.getVolvoId()));\n            })",
+    "sourceStart": 2083,
+    "containerType": "Optional<CustomerEntity>",
+    "sourcePath": "cds-paymentservice-customer-core/src/main/java/com/volvocars/ecom/paymentservice/customer/CustomerOperationService.java",
+    "lines": [55, 63],
+    "basis": "Local declared container/return type constrains element formal; imported higher-order invocation policy remains unresolved"
+  },
+  {
+    "callback": "customer-b0010537-complete-r8/method/82df12100aa78169",
+    "type": "CustomerEntity",
+    "sourceInvocation": "findByVolvoId(customerEntity.getVolvoId())\n        .ifPresent(\n            existing -> {\n              if (!customerEntity.getCustomerId().equals(existing.getCustomerId())) {\n                throw new CustomerDuplicateException(\n                    LogUtils.getCorrelationId(),\n                    MessageFormat.format(\n                        \"Another customer entry exists for the update-attempted customer details. customerId:{0}, conflicting customerId:{1}\",\n                        customerEntity.getCustomerId(), existing.getCustomerId()));\n              }\n            })",
+    "sourceStart": 3440,
+    "containerType": "Optional<CustomerEntity>",
+    "sourcePath": "cds-paymentservice-customer-core/src/main/java/com/volvocars/ecom/paymentservice/customer/CustomerOperationService.java",
+    "lines": [90, 100],
+    "basis": "Local declared container/return type constrains element formal; imported higher-order invocation policy remains unresolved"
+  },
+  {
+    "callback": "customer-b0010537-complete-r8/method/8d06963471fa544d",
+    "type": "CustomerPspRelationEntity",
+    "sourceInvocation": "Optional.of(customerPspRelationOperationService.getByPspRelation(pspRelation))\n        .map(\n            customerPspRelation ->\n                customerOperationService.getByCustomerId(customerPspRelation.getCustomerId()))",
+    "sourceStart": 2452,
+    "containerType": "Optional<CustomerPspRelationEntity>",
+    "sourcePath": "cds-paymentservice-customer-core/src/main/java/com/volvocars/ecom/paymentservice/customer/CustomerService.java",
+    "lines": [53, 56],
+    "basis": "Local declared container/return type constrains element formal; imported higher-order invocation policy remains unresolved"
+  },
+  {
+    "callback": "customer-b0010537-complete-r8/method/a4175458d321b0a8",
+    "type": "CustomerEntity",
+    "sourceInvocation": "customerOperationService.findByExternalIdentifier(externalIdentifier).stream()\n        .peek(c -> ThreadContextWrapper.add(Key.CUSTOMER_ID, c.getCustomerId()))",
+    "sourceStart": 4441,
+    "containerType": "Optional<CustomerEntity>",
+    "sourcePath": "cds-paymentservice-customer-core/src/main/java/com/volvocars/ecom/paymentservice/customer/CustomerService.java",
+    "lines": [95, 96],
+    "basis": "Local declared container/return type constrains element formal; imported higher-order invocation policy remains unresolved"
+  },
+  {
+    "callback": "customer-b0010537-complete-r8/method/890523f205ff5882",
+    "type": "PspRelation",
+    "sourceInvocation": "pspRelations.stream().map(p -> of(p, customerId))",
+    "sourceStart": 1162,
+    "containerType": "List<PspRelation>",
+    "sourcePath": "cds-paymentservice-customer-core/src/main/java/com/volvocars/ecom/paymentservice/customerpsprelation/CustomerPspRelationMapper.java",
+    "lines": [34, 34],
+    "basis": "Local declared container/return type constrains element formal; imported higher-order invocation policy remains unresolved"
+  },
+  {
+    "callback": "customer-b0010537-complete-r8/method/a46f050148dfe4ff",
+    "type": "CustomerPspRelationEntity",
+    "sourceInvocation": "getByCustomerId(customerId).forEach(r -> customerPspRelationRepository.deleteById(r.getId()))",
+    "sourceStart": 827,
+    "containerType": "List<CustomerPspRelationEntity>",
+    "sourcePath": "cds-paymentservice-customer-core/src/main/java/com/volvocars/ecom/paymentservice/customerpsprelation/CustomerPspRelationOperationService.java",
+    "lines": [22, 22],
+    "basis": "Local declared container/return type constrains element formal; imported higher-order invocation policy remains unresolved"
+  }
+]

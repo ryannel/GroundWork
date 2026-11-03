@@ -1,0 +1,246 @@
+[
+  {
+    "context": ["src/state/Assortment/AssortmentContext.ts", "AssortmentContext"],
+    "provider": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/method/339312d74dcaab0d710c",
+    "valueBinding": "value",
+    "fields": {
+      "getAssortment": "src/state/Assortment/AssortmentProvider.tsx#852@browser"
+    },
+    "path": "src/state/Assortment/AssortmentProvider.tsx",
+    "lines": [18, 66]
+  },
+  {
+    "context": ["src/state/Authentication/AuthenticationContext.ts", "AuthenticationContext"],
+    "provider": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/method/40d4ca8e3daa608bd5e0",
+    "valueBinding": "value",
+    "fields": {
+      "logOut": "src/state/Authentication/AuthenticationProvider.tsx#1124@browser"
+    },
+    "path": "src/state/Authentication/AuthenticationProvider.tsx",
+    "lines": [20, 52]
+  },
+  {
+    "context": ["src/state/ConfigRule/ConfigRuleContext.ts", "ConfigRuleContext"],
+    "provider": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/method/f41bdaf941903587f22f",
+    "valueBinding": "value",
+    "fields": {
+      "setFilter": "src/state/ConfigRule/ConfigRuleProvider.tsx#1366@browser",
+      "setRuleType": "src/state/ConfigRule/ConfigRuleProvider.tsx#1472@browser",
+      "toggleComponent": "src/state/ConfigRule/ConfigRuleProvider.tsx#1599@browser",
+      "clearAllComponents": "src/state/ConfigRule/ConfigRuleProvider.tsx#1790@browser",
+      "selectAllComponents": "src/state/ConfigRule/ConfigRuleProvider.tsx#1953@browser",
+      "removeComponentType": "src/state/ConfigRule/ConfigRuleProvider.tsx#2233@browser",
+      "selectConditionRelation": "src/state/ConfigRule/ConfigRuleProvider.tsx#2376@browser",
+      "removeSubCondition": "src/state/ConfigRule/ConfigRuleProvider.tsx#2532@browser",
+      "addSubCondition": "src/state/ConfigRule/ConfigRuleProvider.tsx#2662@browser",
+      "changeSubConditionRelation": "src/state/ConfigRule/ConfigRuleProvider.tsx#2780@browser",
+      "addSubConditionComponent": "src/state/ConfigRule/ConfigRuleProvider.tsx#2971@browser",
+      "removeSubConditionComponent": "src/state/ConfigRule/ConfigRuleProvider.tsx#3115@browser",
+      "selectSubConditionComponent": "src/state/ConfigRule/ConfigRuleProvider.tsx#3308@browser"
+    },
+    "path": "src/state/ConfigRule/ConfigRuleProvider.tsx",
+    "lines": [33, 164]
+  },
+  {
+    "context": ["src/state/Filter/FilterContext.ts", "FilterContext"],
+    "provider": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/method/fde5292af9cda5a92796",
+    "valueBinding": "value",
+    "fields": {
+      "getFilters": "src/state/Filter/FilterProvider.tsx#747@browser"
+    },
+    "path": "src/state/Filter/FilterProvider.tsx",
+    "lines": [23, 69]
+  },
+  {
+    "context": ["src/state/Market/MarketContext.ts", "MarketContext"],
+    "provider": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/method/22f683d25428fc36cacf",
+    "valueBinding": "value",
+    "fields": {
+      "selectLanguage": "src/state/Market/MarketProvider.tsx#16397@browser"
+    },
+    "path": "src/state/Market/MarketProvider.tsx",
+    "lines": [416, 458]
+  },
+  {
+    "context": ["src/state/MarketDetails/MarketDetailsContext.ts", "MarketDetailsContext"],
+    "provider": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/method/68a4507d01ba6479b64c",
+    "valueBinding": "value",
+    "fields": {
+      "loadSupportingValues": "src/state/MarketDetails/MarketDetailsProvider.tsx#2694@browser",
+      "loadPriceInputs": "src/state/MarketDetails/MarketDetailsProvider.tsx#3500@browser",
+      "loadMarkets": "src/state/MarketDetails/MarketDetailsProvider.tsx#4265@browser",
+      "loadMarket": "src/state/MarketDetails/MarketDetailsProvider.tsx#4807@browser",
+      "loadSpecMarkets": "src/state/MarketDetails/MarketDetailsProvider.tsx#5398@browser",
+      "updateMarket": "src/state/MarketDetails/MarketDetailsProvider.tsx#5963@browser",
+      "updateSalesModel": "src/state/MarketDetails/MarketDetailsProvider.tsx#7278@browser",
+      "updateEnergyEfficiency": "src/state/MarketDetails/MarketDetailsProvider.tsx#9354@browser",
+      "updateConfigClient": "src/state/MarketDetails/MarketDetailsProvider.tsx#12169@browser",
+      "createConfigClient": "src/state/MarketDetails/MarketDetailsProvider.tsx#11051@browser",
+      "isLoadingSupportingValues": "src/state/MarketDetails/MarketDetailsProvider.tsx#13757@browser",
+      "didLoadingSupportingValuesFail": "src/state/MarketDetails/MarketDetailsProvider.tsx#13835@browser",
+      "isLoadingPriceInputs": "src/state/MarketDetails/MarketDetailsProvider.tsx#13917@browser",
+      "didLoadingPriceInputsFail": "src/state/MarketDetails/MarketDetailsProvider.tsx#13985@browser",
+      "isLoadingMarkets": "src/state/MarketDetails/MarketDetailsProvider.tsx#14050@browser",
+      "didLoadingMarketsFail": "src/state/MarketDetails/MarketDetailsProvider.tsx#14110@browser",
+      "isLoadingMarket": "src/state/MarketDetails/MarketDetailsProvider.tsx#14170@browser",
+      "didLoadingMarketFail": "src/state/MarketDetails/MarketDetailsProvider.tsx#14228@browser",
+      "isLoadingSpecMarkets": "src/state/MarketDetails/MarketDetailsProvider.tsx#14292@browser",
+      "didLoadingSpecMarketsFail": "src/state/MarketDetails/MarketDetailsProvider.tsx#14360@browser",
+      "isUpdatingMarket": "src/state/MarketDetails/MarketDetailsProvider.tsx#14425@browser",
+      "didUpdatingMarketFail": "src/state/MarketDetails/MarketDetailsProvider.tsx#14485@browser",
+      "isUpdatingEnergyEfficiency": "src/state/MarketDetails/MarketDetailsProvider.tsx#14556@browser",
+      "didUpdatingEnergyEfficiencyFail": "src/state/MarketDetails/MarketDetailsProvider.tsx#14636@browser",
+      "isUpdatingSalesModel": "src/state/MarketDetails/MarketDetailsProvider.tsx#14719@browser",
+      "didUpdatingSalesModelFail": "src/state/MarketDetails/MarketDetailsProvider.tsx#14805@browser",
+      "isUpdatingConfigClient": "src/state/MarketDetails/MarketDetailsProvider.tsx#14902@browser",
+      "didUpdatingConfigClientFail": "src/state/MarketDetails/MarketDetailsProvider.tsx#14974@browser",
+      "isCreatingConfigClient": "src/state/MarketDetails/MarketDetailsProvider.tsx#15047@browser",
+      "didCreatingConfigClientFail": "src/state/MarketDetails/MarketDetailsProvider.tsx#15119@browser"
+    },
+    "path": "src/state/MarketDetails/MarketDetailsProvider.tsx",
+    "lines": [90, 519]
+  },
+  {
+    "context": ["src/state/Partner/PartnerContex.ts", "PartnerContext"],
+    "provider": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/method/d9ad2f1b39e08062aa47",
+    "valueBinding": "value",
+    "fields": {
+      "getRulesForPolicy": "src/state/Partner/PartnerProvider.tsx#1342@browser",
+      "updateRulesForPolicy": "src/state/Partner/PartnerProvider.tsx#2173@browser",
+      "getPartners": "src/state/Partner/PartnerProvider.tsx#2806@browser"
+    },
+    "path": "src/state/Partner/PartnerProvider.tsx",
+    "lines": [36, 122]
+  },
+  {
+    "context": ["src/state/Pno12/Pno12Context.ts", "Pno12Context"],
+    "provider": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/method/32eefd523544b1a2e2b8",
+    "valueBinding": "value",
+    "fields": {
+      "getPno12": "src/state/Pno12/Pno12Provider.tsx#1207@browser"
+    },
+    "path": "src/state/Pno12/Pno12Provider.tsx",
+    "lines": [19, 98]
+  },
+  {
+    "context": ["src/state/Policies/PoliciesContext.ts", "PoliciesContext"],
+    "provider": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/method/5bb12b4b919b5182b5f2",
+    "valueBinding": "value",
+    "fields": {
+      "getPolicy": "src/state/Policies/PoliciesProvider.tsx#4524@browser",
+      "getPolicies": "src/state/Policies/PoliciesProvider.tsx#1921@browser",
+      "getPoliciesStatus": "src/state/Policies/PoliciesProvider.tsx#2454@browser",
+      "createPolicy": "src/state/Policies/PoliciesProvider.tsx#3190@browser",
+      "removePolicy": "src/state/Policies/PoliciesProvider.tsx#3855@browser",
+      "updatePolicy": "src/state/Policies/PoliciesProvider.tsx#5106@browser"
+    },
+    "path": "src/state/Policies/PoliciesProvider.tsx",
+    "lines": [43, 258]
+  },
+  {
+    "context": ["src/state/Policy/PolicyContext.ts", "PolicyContext"],
+    "provider": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/method/63728fb233935f8e4d86",
+    "valueBinding": "value",
+    "fields": {
+      "onEditConfigRule": "src/state/Policy/PolicyProvider.tsx#7428@browser",
+      "onAddConfigRule": "src/state/Policy/PolicyProvider.tsx#7688@browser",
+      "onAbortConfigRule": "src/state/Policy/PolicyProvider.tsx#7797@browser",
+      "removeConfigRule": "src/state/Policy/PolicyProvider.tsx#8773@browser",
+      "getPolicy": "src/state/Policy/PolicyProvider.tsx#2425@browser",
+      "getPolicyStatus": "src/state/Policy/PolicyProvider.tsx#5089@browser",
+      "updatePolicy": "src/state/Policy/PolicyProvider.tsx#7896@browser",
+      "createPolicy": "src/state/Policy/PolicyProvider.tsx#9761@browser",
+      "removePolicy": "src/state/Policy/PolicyProvider.tsx#9816@browser",
+      "rebuildPolicy": "src/state/Policy/PolicyProvider.tsx#10443@browser",
+      "duplicate": "src/state/Policy/PolicyProvider.tsx#9235@browser",
+      "savePolicy": "src/state/Policy/PolicyProvider.tsx#11014@browser",
+      "setPolicy": "src/state/Policy/PolicyProvider.tsx#7310@browser",
+      "onConfirmUpdatePolicyError": "src/state/Policy/PolicyProvider.tsx#11891@browser",
+      "onResetUnsavedPolicyChanges": "src/state/Policy/PolicyProvider.tsx#12017@browser",
+      "turnOnPolicyPoll": "src/state/Policy/PolicyProvider.tsx#6886@browser",
+      "turnOffPolicyPoll": "src/state/Policy/PolicyProvider.tsx#7136@browser",
+      "confirmPolicyPoll": "src/state/Policy/PolicyProvider.tsx#12126@browser",
+      "denyPolicyPoll": "src/state/Policy/PolicyProvider.tsx#12231@browser"
+    },
+    "path": "src/state/Policy/PolicyProvider.tsx",
+    "lines": [71, 458]
+  },
+  {
+    "context": ["src/state/PolicyConfigs/Context.ts", "PolicyConfigsContext"],
+    "provider": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/method/661416f21ed46c448e09",
+    "valueBinding": "value",
+    "fields": {
+      "getPolicyConfigs": "src/state/PolicyConfigs/Provider.tsx#906@browser"
+    },
+    "path": "src/state/PolicyConfigs/Provider.tsx",
+    "lines": [19, 64]
+  },
+  {
+    "context": [
+      "src/state/PolicyPreConfigGroupMapping/Context.ts",
+      "PolicyPreConfigGroupMappingContext"
+    ],
+    "provider": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/method/f7adab8bd8348ffe89fd",
+    "valueBinding": "value",
+    "fields": {
+      "getPolicyPreConfigGroupMapping": "src/state/PolicyPreConfigGroupMapping/Provider.tsx#1398@browser",
+      "createPolicyPreConfigGroupMapping": "src/state/PolicyPreConfigGroupMapping/Provider.tsx#2100@browser",
+      "removePolicyPreConfigGroupMapping": "src/state/PolicyPreConfigGroupMapping/Provider.tsx#2989@browser"
+    },
+    "path": "src/state/PolicyPreConfigGroupMapping/Provider.tsx",
+    "lines": [31, 135]
+  },
+  {
+    "context": ["src/state/PreConfiguration/PreConfigurationContext.ts", "PreConfigurationContext"],
+    "provider": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/method/0699c80c91949dc845ff",
+    "valueBinding": "value",
+    "fields": {
+      "getPreConfigurationMarket": "src/state/PreConfiguration/PreConfigurationProvider.tsx#1246@browser",
+      "updatePreConfigurationMarket": "src/state/PreConfiguration/PreConfigurationProvider.tsx#2649@browser",
+      "getAllPreConfigurations": "src/state/PreConfiguration/PreConfigurationProvider.tsx#1950@browser"
+    },
+    "path": "src/state/PreConfiguration/PreConfigurationProvider.tsx",
+    "lines": [29, 124]
+  },
+  {
+    "context": ["src/state/Snackbar/SnackbarContext.ts", "SnackbarContext"],
+    "provider": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/method/88a8dc2ab6eaab9cb119",
+    "valueBinding": "value",
+    "fields": {
+      "pushSnackbar": "src/state/Snackbar/SnackbarProvider.tsx#1496@browser",
+      "removeSnackbar": "src/state/Snackbar/SnackbarProvider.tsx#1917@browser",
+      "pushSnackbarSuccess": "src/state/Snackbar/SnackbarProvider.tsx#1700@browser",
+      "pushSnackbarError": "src/state/Snackbar/SnackbarProvider.tsx#1805@browser"
+    },
+    "path": "src/state/Snackbar/SnackbarProvider.tsx",
+    "lines": [55, 104]
+  },
+  {
+    "context": ["src/state/StructureWeeks/StructureWeeksContext.ts", "StructureWeeksContext"],
+    "provider": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/method/969c1eccb83099778bce",
+    "valueBinding": "value",
+    "fields": {
+      "getStructureWeeks": "src/state/StructureWeeks/StructureWeeksProvider.tsx#1701@browser",
+      "updateStructureWeeks": "src/state/StructureWeeks/StructureWeeksProvider.tsx#2513@browser"
+    },
+    "path": "src/state/StructureWeeks/StructureWeeksProvider.tsx",
+    "lines": [29, 133]
+  },
+  {
+    "context": ["src/state/User/UserContext.ts", "UserContext"],
+    "provider": "volvo/cce-admin-ui/2bea451cf1ae/local-r3/method/9fec351632a4905adece",
+    "valueBinding": "value",
+    "fields": {
+      "getSuperAdmins": "src/state/User/UserProvider.tsx#1846@browser",
+      "createSuperAdmin": "src/state/User/UserProvider.tsx#2381@browser",
+      "removeSuperAdmin": "src/state/User/UserProvider.tsx#2980@browser",
+      "getUser": "src/state/User/UserProvider.tsx#1359@browser",
+      "removeUser": "src/state/User/UserProvider.tsx#5541@browser",
+      "getUsersForPolicy": "src/state/User/UserProvider.tsx#3478@browser",
+      "updateUserInPolicy": "src/state/User/UserProvider.tsx#4044@browser",
+      "removeUserFromPolicy": "src/state/User/UserProvider.tsx#4836@browser"
+    },
+    "path": "src/state/User/UserProvider.tsx",
+    "lines": [46, 226]
+  }
+]

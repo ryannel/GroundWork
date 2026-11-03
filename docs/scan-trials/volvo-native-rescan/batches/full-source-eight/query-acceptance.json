@@ -1,0 +1,492 @@
+{
+  "snapshot": "bc0610c246dadbb0e8084a03ddcc7b78052291b7c82f4d1e2a7f1ddd3ee60f17",
+  "status": "passed",
+  "scope": "Independent repository acceptance requests replayed against combined candidate; nodes, edges and limits identical",
+  "queries": [
+    {
+      "name": "account-get",
+      "entry": "account-profile-bc3003a-complete-r1/entry/account-get",
+      "query": "interactions",
+      "nodes": 2,
+      "edges": 1,
+      "limits": []
+    },
+    {
+      "name": "account-get source argument 0",
+      "entry": "account-profile-bc3003a-complete-r1/entry/account-get",
+      "query": "value",
+      "nodes": 26,
+      "edges": 26,
+      "limits": []
+    },
+    {
+      "name": "account-get source argument 1",
+      "entry": "account-profile-bc3003a-complete-r1/entry/account-get",
+      "query": "value",
+      "nodes": 26,
+      "edges": 26,
+      "limits": []
+    },
+    {
+      "name": "account-get source argument 2",
+      "entry": "account-profile-bc3003a-complete-r1/entry/account-get",
+      "query": "value",
+      "nodes": 26,
+      "edges": 26,
+      "limits": []
+    },
+    {
+      "name": "account-get source argument 3",
+      "entry": "account-profile-bc3003a-complete-r1/entry/account-get",
+      "query": "value",
+      "nodes": 26,
+      "edges": 26,
+      "limits": []
+    },
+    {
+      "name": "account-get source argument 4",
+      "entry": "account-profile-bc3003a-complete-r1/entry/account-get",
+      "query": "value",
+      "nodes": 4,
+      "edges": 3,
+      "limits": []
+    },
+    {
+      "name": "account-update",
+      "entry": "account-profile-bc3003a-complete-r1/entry/account-update",
+      "query": "interactions",
+      "nodes": 2,
+      "edges": 1,
+      "limits": []
+    },
+    {
+      "name": "account-update source argument 0",
+      "entry": "account-profile-bc3003a-complete-r1/entry/account-update",
+      "query": "value",
+      "nodes": 48,
+      "edges": 56,
+      "limits": []
+    },
+    {
+      "name": "account-update source argument 1",
+      "entry": "account-profile-bc3003a-complete-r1/entry/account-update",
+      "query": "value",
+      "nodes": 26,
+      "edges": 26,
+      "limits": []
+    },
+    {
+      "name": "account-update source argument 2",
+      "entry": "account-profile-bc3003a-complete-r1/entry/account-update",
+      "query": "value",
+      "nodes": 26,
+      "edges": 26,
+      "limits": []
+    },
+    {
+      "name": "account-update source argument 3",
+      "entry": "account-profile-bc3003a-complete-r1/entry/account-update",
+      "query": "value",
+      "nodes": 26,
+      "edges": 26,
+      "limits": []
+    },
+    {
+      "name": "account-update source argument 4",
+      "entry": "account-profile-bc3003a-complete-r1/entry/account-update",
+      "query": "value",
+      "nodes": 26,
+      "edges": 26,
+      "limits": []
+    },
+    {
+      "name": "account-update source argument 5",
+      "entry": "account-profile-bc3003a-complete-r1/entry/account-update",
+      "query": "value",
+      "nodes": 4,
+      "edges": 3,
+      "limits": []
+    },
+    {
+      "name": "settings has no Account SDK boundary",
+      "entry": "account-profile-bc3003a-complete-r1/entry/settings-get",
+      "query": "interactions",
+      "nodes": 1,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "update source field Firstname",
+      "entry": "account-profile-bc3003a-complete-r1/method/a16a8868724ee290",
+      "query": "value",
+      "nodes": 2,
+      "edges": 1,
+      "limits": []
+    },
+    {
+      "name": "update source field Lastname",
+      "entry": "account-profile-bc3003a-complete-r1/method/a16a8868724ee290",
+      "query": "value",
+      "nodes": 2,
+      "edges": 1,
+      "limits": []
+    },
+    {
+      "name": "update source field Gender",
+      "entry": "account-profile-bc3003a-complete-r1/method/a16a8868724ee290",
+      "query": "value",
+      "nodes": 9,
+      "edges": 8,
+      "limits": []
+    },
+    {
+      "name": "update source field Address",
+      "entry": "account-profile-bc3003a-complete-r1/method/a16a8868724ee290",
+      "query": "value",
+      "nodes": 17,
+      "edges": 21,
+      "limits": []
+    },
+    {
+      "name": "update source field Birthdate",
+      "entry": "account-profile-bc3003a-complete-r1/method/a16a8868724ee290",
+      "query": "value",
+      "nodes": 7,
+      "edges": 6,
+      "limits": []
+    },
+    {
+      "name": "REST capture source SDK invocations",
+      "entry": "volvo/cds-paymentservice-psp-integration/dabd6c825499/local-r2/base/psp-dabd6c8-r4/entry/TransactionController-capture",
+      "query": "interactions",
+      "nodes": 5,
+      "edges": 6,
+      "limits": []
+    },
+    {
+      "name": "capture actual argument 0",
+      "entry": "volvo/cds-paymentservice-psp-integration/dabd6c825499/local-r2/base/psp-dabd6c8-r4/entry/TransactionController-capture",
+      "query": "value",
+      "nodes": 19,
+      "edges": 18,
+      "limits": []
+    },
+    {
+      "name": "capture actual argument 1",
+      "entry": "volvo/cds-paymentservice-psp-integration/dabd6c825499/local-r2/base/psp-dabd6c8-r4/entry/TransactionController-capture",
+      "query": "value",
+      "nodes": 12,
+      "edges": 11,
+      "limits": []
+    },
+    {
+      "name": "all capture argument source shapes",
+      "entry": "volvo/cds-paymentservice-psp-integration/dabd6c825499/local-r2/base/psp-dabd6c8-r4/entry/TransactionController-capture",
+      "query": "records",
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "register route Mongo writes",
+      "entry": "volvo/cds-paymentservice-scheduler/c00df60c8233/full-r1/revised/9d2e929265f410160c5b",
+      "query": "interactions",
+      "nodes": 2,
+      "edges": 4,
+      "limits": []
+    },
+    {
+      "name": "poller database and payment API",
+      "entry": "volvo/cds-paymentservice-scheduler/c00df60c8233/full-r1/revised/63e422077f8d2a854ec5",
+      "query": "interactions",
+      "nodes": 3,
+      "edges": 17,
+      "limits": ["maxNodes"]
+    },
+    {
+      "name": "actual notification Kafka publish",
+      "entry": "volvo/cds-paymentservice-scheduler/c00df60c8233/full-r1/method/166d6ebfd579c8e045b0",
+      "query": "interactions",
+      "nodes": 2,
+      "edges": 1,
+      "limits": []
+    },
+    {
+      "name": "notification source argument 0",
+      "entry": "volvo/cds-paymentservice-scheduler/c00df60c8233/full-r1/method/166d6ebfd579c8e045b0",
+      "query": "value",
+      "nodes": 6,
+      "edges": 5,
+      "limits": []
+    },
+    {
+      "name": "notification source argument 1",
+      "entry": "volvo/cds-paymentservice-scheduler/c00df60c8233/full-r1/method/166d6ebfd579c8e045b0",
+      "query": "value",
+      "nodes": 7,
+      "edges": 6,
+      "limits": []
+    },
+    {
+      "name": "notification source argument 2",
+      "entry": "volvo/cds-paymentservice-scheduler/c00df60c8233/full-r1/method/166d6ebfd579c8e045b0",
+      "query": "value",
+      "nodes": 43,
+      "edges": 47,
+      "limits": []
+    },
+    {
+      "name": "lock release actual remove and returned count",
+      "entry": "volvo/cds-paymentservice-scheduler/c00df60c8233/full-r1/method/b9d5c6277883c161098a",
+      "query": "interactions",
+      "nodes": 2,
+      "edges": 2,
+      "limits": []
+    },
+    {
+      "name": "structured writes with unknown save policy",
+      "entry": "volvo/cds-paymentservice-scheduler/c00df60c8233/full-r1/revised/9d2e929265f410160c5b",
+      "query": "records",
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "PaymentSessionOperationService#getByPaymentSessionId(",
+      "entry": "volvo/cds-paymentservice-transaction/return-contracts-r6/revised/3c77bf378de41c179a79",
+      "query": "interactions",
+      "nodes": 2,
+      "edges": 1,
+      "limits": []
+    },
+    {
+      "name": "RefundOperationService#getByTransactionId(",
+      "entry": "volvo/cds-paymentservice-transaction/return-contracts-r6/revised/6d7bd02b6881cb218325",
+      "query": "interactions",
+      "nodes": 2,
+      "edges": 1,
+      "limits": []
+    },
+    {
+      "name": "capture actual service interactions",
+      "entry": "volvo/cds-paymentservice-transaction/return-contracts-r6/revised/0b2b626cf34392aa37a0",
+      "query": "interactions",
+      "nodes": 3,
+      "edges": 3,
+      "limits": []
+    },
+    {
+      "name": "api:assortment-classifications-list",
+      "entry": "assortment-6114c5d-complete-r5/retained/entry/controller/Classification-GetAllClassifications",
+      "query": "interactions",
+      "nodes": 2,
+      "edges": 3,
+      "limits": []
+    },
+    {
+      "name": "internal processor entry has no exposure binding",
+      "entry": "assortment-6114c5d-complete-r5/processor/ClassificationMessageProcessor",
+      "query": "interactions",
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "entry:assortment:processor:ClassificationMessageProcessor implementation body",
+      "entry": "assortment-6114c5d-complete-r5/method/2243a593331345b6",
+      "query": "interactions",
+      "nodes": 2,
+      "edges": 6,
+      "limits": []
+    },
+    {
+      "name": "create",
+      "entry": "customer-b0010537-complete-r8/retained/entry/create",
+      "query": "interactions",
+      "nodes": 3,
+      "edges": 13,
+      "limits": []
+    },
+    {
+      "name": "create PSP actual 0",
+      "entry": "customer-b0010537-complete-r8/retained/entry/create",
+      "query": "value",
+      "nodes": 5,
+      "edges": 4,
+      "limits": []
+    },
+    {
+      "name": "create PSP actual 1",
+      "entry": "customer-b0010537-complete-r8/retained/entry/create",
+      "query": "value",
+      "nodes": 41,
+      "edges": 45,
+      "limits": []
+    },
+    {
+      "name": "update-id",
+      "entry": "customer-b0010537-complete-r8/retained/entry/update-id",
+      "query": "interactions",
+      "nodes": 3,
+      "edges": 9,
+      "limits": []
+    },
+    {
+      "name": "update-recurring",
+      "entry": "customer-b0010537-complete-r8/retained/entry/update-recurring",
+      "query": "interactions",
+      "nodes": 2,
+      "edges": 4,
+      "limits": []
+    },
+    {
+      "name": "configured cache wrapper",
+      "entry": "customer-b0010537-complete-r8/method/de45105ac757a9f5",
+      "query": "interactions",
+      "nodes": 2,
+      "edges": 1,
+      "limits": []
+    },
+    {
+      "name": "PSP detail source firstName",
+      "entry": "customer-b0010537-complete-r8/method/f7cd9584c6ab204c",
+      "query": "value",
+      "nodes": 4,
+      "edges": 3,
+      "limits": []
+    },
+    {
+      "name": "PSP detail source lastName",
+      "entry": "customer-b0010537-complete-r8/method/f7cd9584c6ab204c",
+      "query": "value",
+      "nodes": 4,
+      "edges": 3,
+      "limits": []
+    },
+    {
+      "name": "PSP detail source mobilePhoneNumber",
+      "entry": "customer-b0010537-complete-r8/method/f7cd9584c6ab204c",
+      "query": "value",
+      "nodes": 4,
+      "edges": 3,
+      "limits": []
+    },
+    {
+      "name": "PSP detail source address",
+      "entry": "customer-b0010537-complete-r8/method/f7cd9584c6ab204c",
+      "query": "value",
+      "nodes": 4,
+      "edges": 3,
+      "limits": []
+    },
+    {
+      "name": "PSP detail source preferredLocale",
+      "entry": "customer-b0010537-complete-r8/method/f7cd9584c6ab204c",
+      "query": "value",
+      "nodes": 2,
+      "edges": 1,
+      "limits": []
+    },
+    {
+      "entry": "volvo/cds-paymentservice-psp-inbound/return-contracts-r3/revised/e5df9a2ee5f523f77ad5",
+      "query": "value",
+      "nodes": 165,
+      "edges": 177,
+      "limits": []
+    },
+    {
+      "entry": "volvo/cds-paymentservice-psp-inbound/return-contracts-r3/revised/e5df9a2ee5f523f77ad5",
+      "query": "value",
+      "nodes": 167,
+      "edges": 179,
+      "limits": []
+    },
+    {
+      "entry": "volvo/cds-paymentservice-psp-inbound/return-contracts-r3/revised/e5df9a2ee5f523f77ad5",
+      "query": "value",
+      "nodes": 17,
+      "edges": 16,
+      "limits": []
+    },
+    {
+      "name": "GET /api/commercial-items/fees/{internalId}",
+      "entry": "mascomplete-b360506-r3/entry/get-api-commercial-items-fees-internalid",
+      "query": "interactions",
+      "nodes": 2,
+      "edges": 1,
+      "limits": []
+    },
+    {
+      "name": "trace GET /api/commercial-items/fees/{internalId}",
+      "entry": "mascomplete-b360506-r3/entry/get-api-commercial-items-fees-internalid",
+      "query": "trace",
+      "nodes": 147,
+      "edges": 160,
+      "limits": []
+    },
+    {
+      "name": "DELETE /api/commercial-segments/brands/{code}",
+      "entry": "mascomplete-b360506-r3/entry/delete-api-commercial-segments-brands-code",
+      "query": "interactions",
+      "nodes": 3,
+      "edges": 3,
+      "limits": []
+    },
+    {
+      "name": "trace DELETE /api/commercial-segments/brands/{code}",
+      "entry": "mascomplete-b360506-r3/entry/delete-api-commercial-segments-brands-code",
+      "query": "trace",
+      "nodes": 566,
+      "edges": 623,
+      "limits": []
+    },
+    {
+      "name": "PUT /api/commercial-segments/markets/{code}",
+      "entry": "mascomplete-b360506-r3/entry/put-api-commercial-segments-markets-code",
+      "query": "interactions",
+      "nodes": 3,
+      "edges": 3,
+      "limits": []
+    },
+    {
+      "name": "trace PUT /api/commercial-segments/markets/{code}",
+      "entry": "mascomplete-b360506-r3/entry/put-api-commercial-segments-markets-code",
+      "query": "trace",
+      "nodes": 525,
+      "edges": 582,
+      "limits": []
+    },
+    {
+      "name": "POST /api/commercial-items/soft-offers",
+      "entry": "s2/endpoint",
+      "query": "interactions",
+      "nodes": 3,
+      "edges": 3,
+      "limits": []
+    },
+    {
+      "name": "trace POST /api/commercial-items/soft-offers",
+      "entry": "s2/endpoint",
+      "query": "trace",
+      "nodes": 662,
+      "edges": 728,
+      "limits": []
+    },
+    {
+      "name": "Market exact staged field origins",
+      "entry": "mascomplete-b360506-r3/native/method/ec7dfd243619566fbb51",
+      "query": "value",
+      "nodes": 1,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "Market zero-formal UoW write records",
+      "entry": "mascomplete-b360506-r3/native/method/ec7dfd243619566fbb51",
+      "query": "records",
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    }
+  ]
+}

@@ -1,0 +1,112 @@
+{
+  "status": "author_gates_passed_parent_review_pending",
+  "repo": "volvo-cars/cce-prins-validator",
+  "commit": "dc68082c577756ce31ea30d9b5bbc5e60a2f9a7d",
+  "bundle": "bundle.final-r1.json",
+  "manifest": "snapshot.final-r1.json",
+  "snapshot": "51b6a331102fba3d4883137b7e7845e9c6bd0a71c7e4d2d621bb926668267905",
+  "records": 10680,
+  "files": 37,
+  "productionGoFiles": 25,
+  "testGoFiles": 6,
+  "configurationSupportFiles": 6,
+  "explicitFunctions": 91,
+  "closures": 5,
+  "packageInitializers": 2,
+  "nativeSourceFrames": 98,
+  "sourceTypes": 40,
+  "entries": 21,
+  "fxRegistrations": 16,
+  "networkCallSites": 4,
+  "callerContracts": 6,
+  "sourceRangesChecked": 1302,
+  "strictQueries": 312,
+  "strictRequests": 318,
+  "strictAssertions": 452,
+  "supportContinuations": 6,
+  "boundedRequests": [
+    {
+      "name": "entry source:internal/app/app.go:fx.Hook.OnStart",
+      "nodes": 4,
+      "edges": 4,
+      "limits": ["maxNodes"],
+      "pages": 1
+    },
+    {
+      "name": "trace source:internal/app/app.go:fx.Hook.OnStart",
+      "nodes": 2000,
+      "edges": 2145,
+      "limits": ["maxNodes", "maxRecords"],
+      "pages": 2
+    },
+    {
+      "name": "entry source:internal/app/app.go:OnStart:validation-goroutine",
+      "nodes": 4,
+      "edges": 4,
+      "limits": ["maxNodes"],
+      "pages": 1
+    },
+    {
+      "name": "trace source:internal/app/app.go:OnStart:validation-goroutine",
+      "nodes": 2000,
+      "edges": 2145,
+      "limits": ["maxNodes", "maxRecords"],
+      "pages": 2
+    },
+    {
+      "name": "body github.com/volvo-cars/cce-prins-validator/internal/app#runValidation(fx.Lifecycle,*service.RulesetValidator,fx.Shutdowner)->()$closure@1376",
+      "nodes": 2000,
+      "edges": 2145,
+      "limits": ["maxNodes", "maxRecords"],
+      "pages": 2
+    },
+    {
+      "name": "body github.com/volvo-cars/cce-prins-validator/internal/app#runValidation(fx.Lifecycle,*service.RulesetValidator,fx.Shutdowner)->()$closure@1416",
+      "nodes": 2000,
+      "edges": 2145,
+      "limits": ["maxNodes", "maxRecords"],
+      "pages": 2
+    },
+    {
+      "name": "body github.com/volvo-cars/cce-prins-validator/internal/service#RulesetValidator.ValidateMultipleCars(context.Context)->(error)",
+      "nodes": 2000,
+      "edges": 2144,
+      "limits": ["maxNodes", "maxRecords"],
+      "pages": 2
+    },
+    {
+      "name": "body github.com/volvo-cars/cce-prins-validator/internal/service#RulesetValidator.validateSetOfCars(context.Context,domain.SetOfCars)->(error)",
+      "nodes": 2000,
+      "edges": 2140,
+      "limits": ["maxNodes", "maxRecords"],
+      "pages": 2
+    },
+    {
+      "name": "positive rooted source:internal/app/app.go:fx.Hook.OnStart",
+      "nodes": 4,
+      "edges": 4,
+      "limits": ["maxNodes"],
+      "pages": 1
+    },
+    {
+      "name": "positive rooted source:internal/app/app.go:OnStart:validation-goroutine",
+      "nodes": 4,
+      "edges": 4,
+      "limits": ["maxNodes"],
+      "pages": 1
+    },
+    {
+      "name": "negative startup does not call reusable wrapper Do",
+      "nodes": 4,
+      "edges": 4,
+      "limits": ["maxNodes"],
+      "pages": 1
+    }
+  ],
+  "sourceTestsExecuted": false,
+  "sourceBuildsExecuted": false,
+  "liveCallsExecuted": false,
+  "fetchAttempted": false,
+  "remainingAuthorWork": [],
+  "handoff": "HANDOFF.md"
+}

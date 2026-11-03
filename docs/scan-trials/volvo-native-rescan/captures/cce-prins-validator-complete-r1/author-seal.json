@@ -1,0 +1,136 @@
+{
+  "status": "sealed",
+  "snapshot": "51b6a331102fba3d4883137b7e7845e9c6bd0a71c7e4d2d621bb926668267905",
+  "files": [
+    {
+      "path": "HANDOFF.md",
+      "bytes": 2470,
+      "sha256": "be652260e885474331a2550c0cfcf41217d026ae56a75e50ebdafdb38e19c999"
+    },
+    {
+      "path": "README.md",
+      "bytes": 6488,
+      "sha256": "d5dbd999cbf7620f0829de65225768b7e3e2a9cec6747156a5870dfd5bf16114"
+    },
+    {
+      "path": "acceptance.final-r1.mjs",
+      "bytes": 8732,
+      "sha256": "92686ffc5eb9cc50ce5aff59583b3480b88b9177f6f2ce50d546ebdfb822ed50"
+    },
+    {
+      "path": "body-signature-ledger.final-r1.json",
+      "bytes": 81773,
+      "sha256": "5d0e05d1399987d309e72a79ffc0739ca193f0e8d4164c13fdc119d56d39bbc3"
+    },
+    {
+      "path": "bundle.final-r1.json",
+      "bytes": 6978963,
+      "sha256": "a52480776708ed2ada107d952ce4603349034c667a9378ecfc8451d52669862c"
+    },
+    {
+      "path": "call-audit.final-r1.json",
+      "bytes": 309897,
+      "sha256": "1123518bd9a1b384c30cd31a645608803ab6fbd3943e738b717b6b2e3755bcb0"
+    },
+    {
+      "path": "caller-contract-ledger.final-r1.json",
+      "bytes": 14595,
+      "sha256": "f93e482a04df3e16c198b0f880aef177b74b94ba678b8de6d3bdd5433b8b3fbb"
+    },
+    {
+      "path": "entry-ledger.final-r1.json",
+      "bytes": 13238,
+      "sha256": "4cadf47ad6986c3ad3a672aa677c382cb0d8c8a6552ae49a613551d059c25b13"
+    },
+    {
+      "path": "io-ledger.final-r1.json",
+      "bytes": 5599,
+      "sha256": "7010320797ed227a7ea10eccc819e172be4fddd208eec7c3df44471a82ed25a3"
+    },
+    {
+      "path": "query-final-r1-complete/requests.json",
+      "bytes": 3263606,
+      "sha256": "e03b80eabecd5876a4cd7d1ba3ed85a271a9d1bdcfd032d671efed90916d429f"
+    },
+    {
+      "path": "query-final-r1-complete/results.json.gz",
+      "bytes": 1367333,
+      "sha256": "e2815c5db41623830e30ee235e36a8d31ad214c8e2877f020831e773e4d08bff"
+    },
+    {
+      "path": "query-final-r1-complete/rooted-request-paths.json",
+      "bytes": 2487,
+      "sha256": "b37c033f3c4b8e21fd01431c43a1adb6a4120b33cfc956943274106dc871f759"
+    },
+    {
+      "path": "query-final-r1-complete/summary.json",
+      "bytes": 83112,
+      "sha256": "e197e5ffed605b3d2ade70c776babf4907e296bb159fb039367f982669bb05c2"
+    },
+    {
+      "path": "query.final-r1.log",
+      "bytes": 164,
+      "sha256": "a0392c29d04643c9c3fae45ca79b617858590e12d10c6d168f33f01a8cd6ceef"
+    },
+    {
+      "path": "registration-ledger.final-r1.json",
+      "bytes": 5001,
+      "sha256": "38895c2d2d55702c0be6e19255007a72c0121ad2446af1e765d113fd8b1fd70e"
+    },
+    {
+      "path": "report.json",
+      "bytes": 3538,
+      "sha256": "e1710ef7e050345cf88846c92e2adf73d8ec06aca984bbbd151f9d19651f7ecb"
+    },
+    {
+      "path": "schema-ledger.final-r1.json",
+      "bytes": 12744,
+      "sha256": "4912ed184dfa8ab8c574b08660b5e1f2e75926b9502232b16ac147bb16823896"
+    },
+    {
+      "path": "schema-projection-ledger.final-r1.json",
+      "bytes": 594,
+      "sha256": "e1c933d3030d382c0eded18619002f3b5b53bf30e2806e79aa1b8c1661a7b357"
+    },
+    {
+      "path": "snapshot.final-r1.json",
+      "bytes": 266,
+      "sha256": "6ee3dfdf16ab69caf3bfca2dfa775a81e2b964de0083ae036a5abf63c0a29f85"
+    },
+    {
+      "path": "source-files.final-r1.json",
+      "bytes": 8939,
+      "sha256": "a2ef89e8594a359371524a8ae64266178dcbf77c3070eac7cf9ca3fbd41c62bb"
+    },
+    {
+      "path": "source-index.final-r1.json",
+      "bytes": 4499982,
+      "sha256": "bd30c83e7997a32f8691196c67514ba1ba050ec747914edab0b3a3420e5dd335"
+    },
+    {
+      "path": "source-review.final-r1.json",
+      "bytes": 21269,
+      "sha256": "9427166ccd3559501280be6fec824111f7692f66441127fa448dde37f7706b54"
+    },
+    {
+      "path": "test-assertion-ledger.final-r1.json",
+      "bytes": 4132,
+      "sha256": "03a7afc4027be2653fbdc397cf5f7b5a53543e0f419088984010e620846f2afa"
+    },
+    {
+      "path": "validation-source.final-r1.log",
+      "bytes": 550,
+      "sha256": "479da9e83cad967c4b544306c42846fbcd44200aafb68cbe2f203ec3e6746b27"
+    },
+    {
+      "path": "working-callback-bindings.final-r1.json",
+      "bytes": 695,
+      "sha256": "1111ba2e9fa541c40ad7073e362ca0fec72a561540cafb44fecb497a0ef86f26"
+    },
+    {
+      "path": "working-method-ledger.final-r1.json",
+      "bytes": 48665,
+      "sha256": "36c47dee92ecca92d255017491d71ccbdaa5a32d53eec1bda1159a8f95df3eff"
+    }
+  ]
+}

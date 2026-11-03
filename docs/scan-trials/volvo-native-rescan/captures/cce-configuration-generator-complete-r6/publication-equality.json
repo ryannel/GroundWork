@@ -1,0 +1,9 @@
+{
+  "status": "passed",
+  "snapshot": "0ac2e18ce4b075f34192ea8ac6d08ec111f69de317b351aaffa47d1889eb6106",
+  "sourceBundleByteSha256": "08d603daceda26732aa65ea3b11ea34e69764ccef874dc35c6708aa6d2f000a7",
+  "gzipDecompression": "Exactly equal original r6 bytes",
+  "predecessor": "../cce-configuration-generator-complete-r5/",
+  "correction": "correction.json",
+  "evidenceReuse": "All8904 exact tuples unchanged; r5 pinned proof reused"
+}

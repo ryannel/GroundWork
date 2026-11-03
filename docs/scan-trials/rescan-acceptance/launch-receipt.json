@@ -1,0 +1,104 @@
+{
+  "format": "rescan-launch-readiness/v1",
+  "status": "ready_to_resume_authorised_enrichment",
+  "recordedAt": "2026-10-25T17:29:13.804969+00:00",
+  "widerSemanticScans": "stopped",
+  "authorisation": "unchanged",
+  "repositoryCount": 108,
+  "trackedEntries": 78699,
+  "availableBlobPaths": 78695,
+  "externalGitlinks": 4,
+  "availabilityAuthority": "local object headers; source bytes verified when consumed; remote and deployed currency unobserved",
+  "cloneRoot": "/Users/RNEL/Workspace/groundWork/reports/rescan-launch-readiness-001/source-clones",
+  "ruleDigest": "4588b092f7c1ebdf6cf0fbaa09eb21432b858331b4309986508f3055f36d9a6c",
+  "representativeChecks": {
+    "fixedDepth": 19,
+    "fixedMutationsRejected": 19,
+    "customerMutationsRejected": 225,
+    "nativeProbes": 7,
+    "pythonRustSourceChecks": 6,
+    "pretaxSyntaxQuarantine": 0,
+    "pretaxCsharpFiles": 128,
+    "pretaxRepeatedAggregateByteIdentity": true
+  },
+  "questions": {
+    "supported": 13,
+    "partial": 8,
+    "unsupported": 1,
+    "interpretation": "separate labelled Inferred claims; model usage unmetered"
+  },
+  "application": {
+    "lintChanged": "passed",
+    "check": "passed",
+    "testsPassed": 2947,
+    "testsSkipped": 119,
+    "build": "passed",
+    "explorerHtmlBytes": 285453,
+    "uiServices": 2,
+    "uiEntries": 28,
+    "uiPages": 1727,
+    "maxUiPageBytes": 63951,
+    "fullCorpusUiScale": "not_proved; partitioned catalogues required beyond selected manifest bound",
+    "legacyPageBudget": "63 legacy routes above one MiB; new explorer within one MiB",
+    "dependencyNotice": "Next.js emitted an existing package security advisory; no dependency upgrade performed in this task"
+  },
+  "perRepositorySemanticAcceptance": "required after each actual repository pass; not implied by launch readiness",
+  "artifacts": [
+    {
+      "path": "docs/scan-trials/rescan-acceptance/object-availability.json",
+      "sha256": "162616cab783ac20a8402a7fbd631a3c0e280ac0019cf5fdde3e80563a029246"
+    },
+    {
+      "path": "docs/scan-trials/rescan-acceptance/source-clone-routes.json",
+      "sha256": "3f60e99c648c34357fe99923e75fce54a8f1f088fbd76eae9f63d28693552a39"
+    },
+    {
+      "path": "docs/scan-trials/rescan-acceptance/proof-r4/receipt.json",
+      "sha256": "a8d36b8aff1a1fc9d9128c7327f41a0cfa58fd5b5d227b722054b0dc3131a9a8"
+    },
+    {
+      "path": "docs/scan-trials/rescan-acceptance/customer-independent-question-review.json",
+      "sha256": "d65fccf65941a0ca2540b0b40fa69775bf456fbd041be9c4675f6b44ba9c382e"
+    },
+    {
+      "path": "docs/scan-trials/rescan-acceptance/independent-ui-audit.json",
+      "sha256": "51e1fe16d0ad85c68f44c5c242f9a94a86feecac14663015c824bd0d26ba9be3"
+    },
+    {
+      "path": "reports/rescan-launch-readiness-001/benchmark-release/benchmark.json",
+      "sha256": "7b7cbcb32efee737495d8e0a8bd9350a924cd2415d56f30ddd11e79bf83dfc3c"
+    },
+    {
+      "path": "reports/rescan-launch-readiness-001/customer/verdict-release/receipt.json",
+      "sha256": "2c73fd8995d5d7de96ed94d16d6eed2a4bd7ebec284074bf0ac1bd74c10707de"
+    },
+    {
+      "path": "reports/rescan-launch-readiness-001/customer/archival-review-release/receipt.json",
+      "sha256": "a77912ee53ca7d93c625ef0d917358fdee61e5f69a5fb89348eeebe0b8ef4a9f"
+    },
+    {
+      "path": "reports/rescan-launch-readiness-001/customer/native-review-release/accepted-native-replay.json",
+      "sha256": "94119970b5ba0b11a4ce4df061eb0f8781a11eae20f3d486591548a759aff194"
+    },
+    {
+      "path": "reports/rescan-launch-readiness-001/pretax/accepted.json",
+      "sha256": "c266a5a0a93e6a8e8b6868b5f84e4fc4a6caf7ddf7abcfc6e71d1c467ef99078"
+    },
+    {
+      "path": "reports/rescan-launch-readiness-001/pretax/revision004/determinism.json",
+      "sha256": "61caf3e7a19dfd236d7c08be5d9a8386eaf3ae8d2f578e03de38a5a4dedef102"
+    },
+    {
+      "path": "reports/rescan-launch-readiness-001/pretax/revision004/portable-replay.json",
+      "sha256": "8f0f21f93e0cd4f1dd004999e1e4a99e1c37b9d5c377ac40def82e775157745f"
+    },
+    {
+      "path": "reports/service-explorer-readiness-001/ui-validation.json",
+      "sha256": "5b0dd4ceef21c631d7e5620d6c561d113bfee6ec357bcbf00f51bffa1452783a"
+    },
+    {
+      "path": "reports/service-explorer-readiness-001/ui/manifest.json",
+      "sha256": "e6682d6251ca85d2a553b54ce247dbda4de341e79284d22b842052698de51df5"
+    }
+  ]
+}

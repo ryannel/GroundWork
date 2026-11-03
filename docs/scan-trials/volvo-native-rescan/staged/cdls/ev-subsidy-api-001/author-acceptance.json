@@ -1,0 +1,182 @@
+{
+  "snapshot": "5f59c5db11e155019ace1500542dc4db1648a1616d330523ac05aa7481724664",
+  "qualification": "Bounded four-API-body source unit only; native acceptance is not whole-app/repo completion",
+  "queries": [
+    {
+      "name": "POST /api/ev-subsidy/eligibility",
+      "pages": 1,
+      "nodes": 2,
+      "edges": 2,
+      "limits": []
+    },
+    {
+      "name": "trace /api/ev-subsidy/eligibility",
+      "pages": 1,
+      "nodes": 58,
+      "edges": 94,
+      "limits": []
+    },
+    {
+      "name": "effects /api/ev-subsidy/eligibility",
+      "pages": 1,
+      "nodes": 58,
+      "edges": 94,
+      "limits": []
+    },
+    {
+      "name": "continuations /api/ev-subsidy/eligibility",
+      "pages": 1,
+      "nodes": 58,
+      "edges": 94,
+      "limits": []
+    },
+    {
+      "name": "POST /api/ev-subsidy/income",
+      "pages": 1,
+      "nodes": 2,
+      "edges": 1,
+      "limits": []
+    },
+    {
+      "name": "trace /api/ev-subsidy/income",
+      "pages": 1,
+      "nodes": 61,
+      "edges": 99,
+      "limits": []
+    },
+    {
+      "name": "effects /api/ev-subsidy/income",
+      "pages": 1,
+      "nodes": 61,
+      "edges": 99,
+      "limits": []
+    },
+    {
+      "name": "continuations /api/ev-subsidy/income",
+      "pages": 1,
+      "nodes": 61,
+      "edges": 99,
+      "limits": []
+    },
+    {
+      "name": "GET /api/ev-subsidy/status",
+      "pages": 1,
+      "nodes": 1,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "trace /api/ev-subsidy/status",
+      "pages": 1,
+      "nodes": 4,
+      "edges": 3,
+      "limits": []
+    },
+    {
+      "name": "effects /api/ev-subsidy/status",
+      "pages": 1,
+      "nodes": 4,
+      "edges": 3,
+      "limits": []
+    },
+    {
+      "name": "continuations /api/ev-subsidy/status",
+      "pages": 1,
+      "nodes": 4,
+      "edges": 3,
+      "limits": []
+    },
+    {
+      "name": "GET /docs/ev-subsidy",
+      "pages": 1,
+      "nodes": 1,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "trace /docs/ev-subsidy",
+      "pages": 1,
+      "nodes": 4,
+      "edges": 3,
+      "limits": []
+    },
+    {
+      "name": "effects /docs/ev-subsidy",
+      "pages": 1,
+      "nodes": 4,
+      "edges": 3,
+      "limits": []
+    },
+    {
+      "name": "continuations /docs/ev-subsidy",
+      "pages": 1,
+      "nodes": 4,
+      "edges": 3,
+      "limits": []
+    },
+    {
+      "name": "caller schema volvo/cdls-mono-volvocars/8e1fd20c525f/ev-subsidy-api-r1/io/95",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "rooted source actual argument0 volvo/cdls-mono-volvocars/8e1fd20c525f/ev-subsidy-api-r1/io/95",
+      "pages": 1,
+      "nodes": 6,
+      "edges": 6,
+      "limits": []
+    },
+    {
+      "name": "rooted source actual argument1 volvo/cdls-mono-volvocars/8e1fd20c525f/ev-subsidy-api-r1/io/95",
+      "pages": 1,
+      "nodes": 2,
+      "edges": 1,
+      "limits": []
+    },
+    {
+      "name": "caller schema volvo/cdls-mono-volvocars/8e1fd20c525f/ev-subsidy-api-r1/io/192",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "rooted source actual argument0 volvo/cdls-mono-volvocars/8e1fd20c525f/ev-subsidy-api-r1/io/192",
+      "pages": 1,
+      "nodes": 2,
+      "edges": 1,
+      "limits": []
+    },
+    {
+      "name": "rooted source actual argument1 volvo/cdls-mono-volvocars/8e1fd20c525f/ev-subsidy-api-r1/io/192",
+      "pages": 1,
+      "nodes": 8,
+      "edges": 8,
+      "limits": []
+    },
+    {
+      "name": "caller schema volvo/cdls-mono-volvocars/8e1fd20c525f/ev-subsidy-api-r1/io/491",
+      "pages": 1,
+      "nodes": 0,
+      "edges": 0,
+      "limits": []
+    },
+    {
+      "name": "rooted source actual argument0 volvo/cdls-mono-volvocars/8e1fd20c525f/ev-subsidy-api-r1/io/491",
+      "pages": 1,
+      "nodes": 2,
+      "edges": 1,
+      "limits": []
+    },
+    {
+      "name": "rooted source actual argument1 volvo/cdls-mono-volvocars/8e1fd20c525f/ev-subsidy-api-r1/io/491",
+      "pages": 1,
+      "nodes": 18,
+      "edges": 20,
+      "limits": []
+    }
+  ],
+  "pages": 25
+}

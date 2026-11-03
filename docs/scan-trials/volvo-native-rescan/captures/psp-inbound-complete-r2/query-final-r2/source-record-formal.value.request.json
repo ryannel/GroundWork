@@ -1,0 +1,18 @@
+{
+  "format": "groundwork-query/v3",
+  "snapshot": "eaaef2ed0e7238cf7ed324b9812017073b02716f3020b53e04be8aa5b9bca64a",
+  "entry": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/6df74e5de9a3b6ecaff8",
+  "query": "value",
+  "value": "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/method/0ed5c4d7c5c3f840dccf/receiver",
+  "context": [
+    "volvo/cds-paymentservice-psp-inbound/ae1d9ddfb34d/full-r2/operation/6df74e5de9a3b6ecaff8/2"
+  ],
+  "outcome": null,
+  "changed": [],
+  "representation": "constructed",
+  "candidates": "exclude",
+  "maxNodes": 2000,
+  "environment": "source-profile",
+  "maxRecords": 5000,
+  "ids": []
+}

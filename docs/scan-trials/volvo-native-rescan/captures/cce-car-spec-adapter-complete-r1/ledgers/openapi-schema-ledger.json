@@ -1,0 +1,167 @@
+[
+  {
+    "name": "respond.ErrorDetail",
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/openapi/8c99ad4439f99ff7",
+    "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/openapi/8c99ad4439f99ff7"
+  },
+  {
+    "name": "respond.ErrorList",
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/openapi/89b0ddaff38acf79",
+    "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/openapi/89b0ddaff38acf79"
+  },
+  {
+    "name": "respond.ErrorMessage",
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/openapi/30b6bf9008b20ebd",
+    "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/openapi/30b6bf9008b20ebd"
+  },
+  {
+    "name": "respond.ErrorResponse",
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/openapi/c2478f5f5a452d35",
+    "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/openapi/c2478f5f5a452d35"
+  },
+  {
+    "name": "GetCarSpecificationResponse",
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/openapi/ac7764e2fd39a0c8",
+    "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/openapi/ac7764e2fd39a0c8"
+  },
+  {
+    "name": "GetLocalEditionCodeResponse",
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/openapi/83a29e9ab1bf5b9a",
+    "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/openapi/83a29e9ab1bf5b9a"
+  },
+  {
+    "name": "ListLocalEditionsResponse",
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/openapi/2d98324eb2181f34",
+    "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/openapi/2d98324eb2181f34"
+  },
+  {
+    "name": "LocalEditionResponse",
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/openapi/23cea05306692304",
+    "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/openapi/23cea05306692304"
+  },
+  {
+    "name": "carspecifications-CarDetails",
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/openapi/3a6f89c9ff87d6be",
+    "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/openapi/3a6f89c9ff87d6be"
+  },
+  {
+    "name": "carspecifications-CarSpecification",
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/openapi/d3f9da7cb9147f6b",
+    "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/openapi/d3f9da7cb9147f6b"
+  },
+  {
+    "name": "carspecifications-Color",
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/openapi/51c83cc6c7bacff2",
+    "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/openapi/51c83cc6c7bacff2"
+  },
+  {
+    "name": "carspecifications-ExactlyOne",
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/openapi/8de6df9e0d46d287",
+    "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/openapi/8de6df9e0d46d287"
+  },
+  {
+    "name": "carspecifications-Forbids",
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/openapi/ddf25e236433e284",
+    "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/openapi/ddf25e236433e284"
+  },
+  {
+    "name": "carspecifications-GetCarSpecificationResponse",
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/openapi/7c3cab5e2ddfa524",
+    "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/openapi/7c3cab5e2ddfa524"
+  },
+  {
+    "name": "carspecifications-Option",
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/openapi/f033cc6e97c602c3",
+    "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/openapi/f033cc6e97c602c3"
+  },
+  {
+    "name": "carspecifications-OptionSpecification",
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/openapi/a4a234701e911e74",
+    "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/openapi/a4a234701e911e74"
+  },
+  {
+    "name": "carspecifications-Package",
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/openapi/100cc782249e2d00",
+    "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/openapi/100cc782249e2d00"
+  },
+  {
+    "name": "carspecifications-PackageSpecification",
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/openapi/72a23fb266adcc3d",
+    "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/openapi/72a23fb266adcc3d"
+  },
+  {
+    "name": "carspecifications-Period",
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/openapi/b4c4493fe5561941",
+    "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/openapi/b4c4493fe5561941"
+  },
+  {
+    "name": "carspecifications-SMessage",
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/openapi/7a3d85dc0e6b69b8",
+    "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/openapi/7a3d85dc0e6b69b8"
+  },
+  {
+    "name": "carspecifications-SMessageSpecification",
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/openapi/7dd9ccb971601a3d",
+    "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/openapi/7dd9ccb971601a3d"
+  },
+  {
+    "name": "carspecifications-StructureWeek",
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/openapi/088d4483745caf0d",
+    "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/openapi/088d4483745caf0d"
+  },
+  {
+    "name": "carspecifications-StylingSpecification",
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/openapi/e861be8651df4071",
+    "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/openapi/e861be8651df4071"
+  },
+  {
+    "name": "carspecifications-TimeBoundAtLeastOne",
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/openapi/3bd5c68253d2c973",
+    "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/openapi/3bd5c68253d2c973"
+  },
+  {
+    "name": "carspecifications-TimeBoundCode",
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/openapi/c2453e60d32e9095",
+    "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/openapi/c2453e60d32e9095"
+  },
+  {
+    "name": "carspecifications-TimeBoundExactlyOne",
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/openapi/052d881dbf7ecc1b",
+    "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/openapi/052d881dbf7ecc1b"
+  },
+  {
+    "name": "carspecifications-Upholstery",
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/openapi/63642b0ced5b74f5",
+    "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/openapi/63642b0ced5b74f5"
+  },
+  {
+    "name": "carspecifications-Wheel",
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/openapi/1b6990f1d3bed2c2",
+    "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/openapi/1b6990f1d3bed2c2"
+  },
+  {
+    "name": "carspecifications-WheelSpecification",
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/openapi/0a0026162474745c",
+    "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/openapi/0a0026162474745c"
+  },
+  {
+    "name": "internal_api_httpserver_localeditions.GetLocalEditionCodeResponse",
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/openapi/622f7b35225d5935",
+    "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/openapi/622f7b35225d5935"
+  },
+  {
+    "name": "internal_api_httpserver_localeditions.ListLocalEditionsResponse",
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/openapi/b27d1a629bd5ba68",
+    "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/openapi/b27d1a629bd5ba68"
+  },
+  {
+    "name": "internal_api_httpserver_localeditions.LocalEditionResponse",
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/openapi/f42c81976a504eed",
+    "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/openapi/f42c81976a504eed"
+  },
+  {
+    "name": "internal_api_httpserver_localeditions.UpsertLocalEditionRequest",
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/openapi/cd99fe3f297ee98d",
+    "claim": "cce-car-spec-adapter-667a00a-complete-r1/claim/openapi/cd99fe3f297ee98d"
+  }
+]

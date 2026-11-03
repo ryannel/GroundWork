@@ -1,0 +1,67 @@
+{
+  "prior": "checkpoint-002",
+  "current": "checkpoint-003",
+  "namespaceTranslation": "ev-subsidy-embed-fetch-r3/ -> ev-subsidy-embed-fetch-r2/",
+  "changed": [],
+  "removed": [],
+  "added": [
+    {
+      "id": "volvo/cdls-mono-volvocars/8e1fd20c525f/ev-subsidy-embed-fetch-r2/flow/652",
+      "kind": "flow",
+      "owner": "volvo/cdls-mono-volvocars/8e1fd20c525f/ev-subsidy-embed-fetch-r2/method/navigation-fetchProps",
+      "from": "volvo/cdls-mono-volvocars/8e1fd20c525f/ev-subsidy-embed-fetch-r2/v/navigation-fetchProps/284",
+      "to": "volvo/cdls-mono-volvocars/8e1fd20c525f/ev-subsidy-embed-fetch-r2/v/navigation-fetchProps/290",
+      "at": "volvo/cdls-mono-volvocars/8e1fd20c525f/ev-subsidy-embed-fetch-r2/op/navigation-fetchProps/18",
+      "transform": "Exact source await dependency from immediate fetch handle to its awaited result; distinct values, no transport decoding identity",
+      "gaps": [],
+      "assumptions": [],
+      "evidence": [
+        "volvo/cdls-mono-volvocars/8e1fd20c525f/ev-subsidy-embed-fetch-r2/e/8322e1a39a573fd1bd7d"
+      ]
+    },
+    {
+      "id": "volvo/cdls-mono-volvocars/8e1fd20c525f/ev-subsidy-embed-fetch-r2/flow/653",
+      "kind": "flow",
+      "owner": "volvo/cdls-mono-volvocars/8e1fd20c525f/ev-subsidy-embed-fetch-r2/method/navigation-fetchProps",
+      "from": "volvo/cdls-mono-volvocars/8e1fd20c525f/ev-subsidy-embed-fetch-r2/v/navigation-fetchProps/302",
+      "to": "volvo/cdls-mono-volvocars/8e1fd20c525f/ev-subsidy-embed-fetch-r2/v/navigation-fetchProps/305",
+      "at": "volvo/cdls-mono-volvocars/8e1fd20c525f/ev-subsidy-embed-fetch-r2/op/navigation-fetchProps/23",
+      "transform": "Exact source await dependency from immediate text() handle to its awaited result; distinct values, no receiver-to-library-result transform",
+      "gaps": [],
+      "assumptions": [],
+      "evidence": [
+        "volvo/cdls-mono-volvocars/8e1fd20c525f/ev-subsidy-embed-fetch-r2/e/a90621ac267174dddb1d"
+      ]
+    },
+    {
+      "id": "volvo/cdls-mono-volvocars/8e1fd20c525f/ev-subsidy-embed-fetch-r2/flow/654",
+      "kind": "flow",
+      "owner": "volvo/cdls-mono-volvocars/8e1fd20c525f/ev-subsidy-embed-fetch-r2/method/footer-fetchProps",
+      "from": "volvo/cdls-mono-volvocars/8e1fd20c525f/ev-subsidy-embed-fetch-r2/v/footer-fetchProps/577",
+      "to": "volvo/cdls-mono-volvocars/8e1fd20c525f/ev-subsidy-embed-fetch-r2/v/footer-fetchProps/583",
+      "at": "volvo/cdls-mono-volvocars/8e1fd20c525f/ev-subsidy-embed-fetch-r2/op/footer-fetchProps/19",
+      "transform": "Exact source await dependency from immediate fetch handle to its awaited result; distinct values, no transport decoding identity",
+      "gaps": [],
+      "assumptions": [],
+      "evidence": [
+        "volvo/cdls-mono-volvocars/8e1fd20c525f/ev-subsidy-embed-fetch-r2/e/6fbd83e53fef6b4b2059"
+      ]
+    },
+    {
+      "id": "volvo/cdls-mono-volvocars/8e1fd20c525f/ev-subsidy-embed-fetch-r2/flow/655",
+      "kind": "flow",
+      "owner": "volvo/cdls-mono-volvocars/8e1fd20c525f/ev-subsidy-embed-fetch-r2/method/footer-fetchProps",
+      "from": "volvo/cdls-mono-volvocars/8e1fd20c525f/ev-subsidy-embed-fetch-r2/v/footer-fetchProps/595",
+      "to": "volvo/cdls-mono-volvocars/8e1fd20c525f/ev-subsidy-embed-fetch-r2/v/footer-fetchProps/598",
+      "at": "volvo/cdls-mono-volvocars/8e1fd20c525f/ev-subsidy-embed-fetch-r2/op/footer-fetchProps/24",
+      "transform": "Exact source await dependency from immediate text() handle to its awaited result; distinct values, no receiver-to-library-result transform",
+      "gaps": [],
+      "assumptions": [],
+      "evidence": [
+        "volvo/cdls-mono-volvocars/8e1fd20c525f/ev-subsidy-embed-fetch-r2/e/7673e6b6dc2bae4588de"
+      ]
+    }
+  ],
+  "allPriorNativeFactsEqual": true,
+  "qualification": "Four exact source await-dependency flows only, preserving distinct immediate handles and awaited results. No imported receiver-to-return transform or transport/decoding identity."
+}

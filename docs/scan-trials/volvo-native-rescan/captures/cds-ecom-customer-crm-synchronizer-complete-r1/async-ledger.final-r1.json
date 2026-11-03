@@ -1,0 +1,122 @@
+[
+  {
+    "entry": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/entry/advice/879849e5eedec4c6fce7",
+    "implementation": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/879849e5eedec4c6fce7",
+    "policy": "Source declared framework registration only; timing/activation and delivery imported. No eager boot invocation.",
+    "evidence": [
+      "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/e/532a023957f421f05998"
+    ]
+  },
+  {
+    "entry": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/entry/advice/5b1fc52e4e575b3d457a",
+    "implementation": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/5b1fc52e4e575b3d457a",
+    "policy": "Source declared framework registration only; timing/activation and delivery imported. No eager boot invocation.",
+    "evidence": [
+      "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/e/a7adc110f279fdc34b22"
+    ]
+  },
+  {
+    "entry": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/entry/destroy/51e2e866341dc67a2916",
+    "implementation": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/51e2e866341dc67a2916",
+    "policy": "Source declared framework registration only; timing/activation and delivery imported. No eager boot invocation.",
+    "evidence": [
+      "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/e/de5d13a27231d59bbe10"
+    ]
+  },
+  {
+    "entry": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/entry/bean/c725c9e8f6615172b0e6",
+    "implementation": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/c725c9e8f6615172b0e6",
+    "policy": "Source declared framework registration only; timing/activation and delivery imported. No eager boot invocation.",
+    "evidence": [
+      "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/e/a55130065821ebc3645b"
+    ]
+  },
+  {
+    "entry": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/entry/bean/ed338b236f9109651940",
+    "implementation": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/ed338b236f9109651940",
+    "policy": "Source declared framework registration only; timing/activation and delivery imported. No eager boot invocation.",
+    "evidence": [
+      "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/e/9cb78f8ce6055d5729a9"
+    ]
+  },
+  {
+    "entry": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/entry/jsoncreator/5879daab817689fac771",
+    "implementation": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/5879daab817689fac771",
+    "policy": "Source declared framework registration only; timing/activation and delivery imported. No eager boot invocation.",
+    "evidence": [
+      "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/e/4743b054002548d469a7"
+    ]
+  },
+  {
+    "entry": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/entry/jsoncreator/1b647451647962236c98",
+    "implementation": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/1b647451647962236c98",
+    "policy": "Source declared framework registration only; timing/activation and delivery imported. No eager boot invocation.",
+    "evidence": [
+      "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/e/6d677f3ee53456f8fc02"
+    ]
+  },
+  {
+    "entry": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/entry/jsoncreator/3b5d8f3cd52319e8173a",
+    "implementation": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/3b5d8f3cd52319e8173a",
+    "policy": "Source declared framework registration only; timing/activation and delivery imported. No eager boot invocation.",
+    "evidence": [
+      "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/e/a1f324163e9047d1f1b0"
+    ]
+  },
+  {
+    "entry": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/entry/callback/38bbd58f6e4d434cd810",
+    "implementation": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/38bbd58f6e4d434cd810",
+    "policy": "Source declared framework registration only; timing/activation and delivery imported. No eager boot invocation.",
+    "evidence": [
+      "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/e/c35097d934ac9a9ffa12"
+    ]
+  },
+  {
+    "entry": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/entry/callback/5309e8931eb695b4f47c",
+    "implementation": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/5309e8931eb695b4f47c",
+    "policy": "Source declared framework registration only; timing/activation and delivery imported. No eager boot invocation.",
+    "evidence": [
+      "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/e/567de2ed90c704d6ef9a"
+    ]
+  },
+  {
+    "entry": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/entry/callback/bf433bf8ba60d5d794f3",
+    "implementation": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/bf433bf8ba60d5d794f3",
+    "policy": "Source declared framework registration only; timing/activation and delivery imported. No eager boot invocation.",
+    "evidence": [
+      "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/e/6672b191de9c6d74a9c2"
+    ]
+  },
+  {
+    "entry": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/entry/listener/CustomerEventConsumer",
+    "implementation": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/46cccfd75a9d144146b2",
+    "policy": "Source declared framework registration only; timing/activation and delivery imported. No eager boot invocation.",
+    "evidence": [
+      "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/e/0202359ac90e8fe88112"
+    ]
+  },
+  {
+    "entry": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/entry/listener/CustomerEventOMConsumer",
+    "implementation": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/c3894f4f7c90cf44136a",
+    "policy": "Source declared framework registration only; timing/activation and delivery imported. No eager boot invocation.",
+    "evidence": [
+      "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/e/6e01e80dacf6d405be03"
+    ]
+  },
+  {
+    "entry": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/entry/listener/CdbSyncEventConsumer",
+    "implementation": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/f383ed09672f35af3bd5",
+    "policy": "Source declared framework registration only; timing/activation and delivery imported. No eager boot invocation.",
+    "evidence": [
+      "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/e/7409cfef0a9b5f94d3f9"
+    ]
+  },
+  {
+    "operation": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/operation/43f68a25ac213c21e731/8",
+    "owner": "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/method/43f68a25ac213c21e731",
+    "policy": "Explicit source KafkaFuture.get wait after describeCluster.clusterId; actual dependency completion/timeout/interrupt policy unavailable.",
+    "evidence": [
+      "volvo/cds-ecom-customer-crm-synchronizer/4ea3677cd5df/final-r1/e/c38bdd16c180246a152f"
+    ]
+  }
+]

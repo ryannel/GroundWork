@@ -1,0 +1,3120 @@
+{
+  "format": "groundwork-result/v3",
+  "snapshot": "dcc8fe6133bb403c805875b5698eb6fd390e35f858d0bf3e74c33c7ea0d7a34e",
+  "queryVersion": "knowledge-query/v3",
+  "request": {
+    "format": "groundwork-query/v3",
+    "snapshot": "dcc8fe6133bb403c805875b5698eb6fd390e35f858d0bf3e74c33c7ea0d7a34e",
+    "query": "interactions",
+    "entry": "s2/endpoint",
+    "value": null,
+    "context": [],
+    "outcome": null,
+    "changed": [],
+    "representation": "constructed",
+    "candidates": "exclude",
+    "maxNodes": 500,
+    "environment": "production-profile",
+    "maxRecords": 5000,
+    "ids": []
+  },
+  "nodes": [
+    {
+      "id": "u3/component/mas",
+      "record": "u3/component/mas",
+      "context": [],
+      "label": "Manage and Segment API",
+      "component": "u3/component/mas",
+      "execution": null
+    },
+    {
+      "id": "u3/component/postgres",
+      "record": "u3/component/postgres",
+      "context": [],
+      "label": "Soft-offer database",
+      "component": "u3/component/postgres",
+      "execution": null
+    },
+    {
+      "id": "u3/component/commercial-topic",
+      "record": "u3/component/commercial-topic",
+      "context": [],
+      "label": "Commercial item events",
+      "component": "u3/component/commercial-topic",
+      "execution": null
+    },
+    {
+      "id": "u3/component/assortment-worker",
+      "record": "u3/component/assortment-worker",
+      "context": [],
+      "label": "Assortment cache worker",
+      "component": "u3/component/assortment-worker",
+      "execution": null
+    },
+    {
+      "id": "u3/component/redis",
+      "record": "u3/component/redis",
+      "context": [],
+      "label": "Assortment hot cache",
+      "component": "u3/component/redis",
+      "execution": null
+    },
+    {
+      "id": "u3/component/blob",
+      "record": "u3/component/blob",
+      "context": [],
+      "label": "Assortment cold cache",
+      "component": "u3/component/blob",
+      "execution": null
+    }
+  ],
+  "edges": [
+    {
+      "from": "u3/component/mas",
+      "to": "u3/component/postgres",
+      "on": "write",
+      "condition": "When this guarded read/write step is reached; acknowledgement semantics are retained separately",
+      "assumption": "Source declarations and conditional paths; unresolved facts remain explicit",
+      "evidence": ["s2/e/repository", "s2/e/uow", "s2/e/db"],
+      "record": "u3/interaction/save",
+      "context": ["s2/http.add"],
+      "operation": "s2/add.save"
+    },
+    {
+      "from": "u3/component/mas",
+      "to": "u3/component/postgres",
+      "on": "read",
+      "condition": "When this guarded read/write step is reached; acknowledgement semantics are retained separately",
+      "assumption": "Source declarations and conditional paths; unresolved facts remain explicit",
+      "evidence": ["s2/e/refetch", "s2/e/add"],
+      "record": "u3/interaction/refetch",
+      "context": ["s2/http.add"],
+      "operation": "s2/add.refetch"
+    },
+    {
+      "from": "u3/component/mas",
+      "to": "u3/component/commercial-topic",
+      "on": "publish",
+      "condition": "After save and successful refetch, when notifications are enabled and bytes are non-null",
+      "assumption": "Source declarations and conditional paths; unresolved facts remain explicit",
+      "evidence": ["s2/e/producer"],
+      "record": "u3/interaction/publish",
+      "context": ["s2/http.add", "s2/add.notify", "s2/notify.send"],
+      "operation": "s2/publish.attempt"
+    },
+    {
+      "from": "u3/component/commercial-topic",
+      "to": "u3/component/assortment-worker",
+      "on": "consume",
+      "condition": "Possible delivery under matching committed profiles and x-type filter; effective delivery is not established",
+      "assumption": "Source declarations and conditional paths; unresolved facts remain explicit",
+      "evidence": ["s2/e/consumer", "s2/e/processor"],
+      "record": "u3/interaction/consume",
+      "context": ["s2/http.add", "s2/add.notify", "s2/notify.send", "s2/handoff"],
+      "operation": "s2/consumer.receive"
+    },
+    {
+      "from": "u3/component/assortment-worker",
+      "to": "u3/component/redis",
+      "on": "read",
+      "condition": "When this guarded read/write step is reached; acknowledgement semantics are retained separately",
+      "assumption": "Source declarations and conditional paths; unresolved facts remain explicit",
+      "evidence": ["s2/e/list"],
+      "record": "u3/interaction/list-hot",
+      "context": ["s2/http.add", "s2/add.notify", "s2/notify.send", "s2/handoff"],
+      "operation": "s2/consumer.hot-read"
+    },
+    {
+      "from": "u3/component/assortment-worker",
+      "to": "u3/component/blob",
+      "on": "read",
+      "condition": "When this guarded read/write step is reached; acknowledgement semantics are retained separately",
+      "assumption": "Source declarations and conditional paths; unresolved facts remain explicit",
+      "evidence": ["s2/e/list"],
+      "record": "u3/interaction/list-cold",
+      "context": ["s2/http.add", "s2/add.notify", "s2/notify.send", "s2/handoff"],
+      "operation": "s2/consumer.cold-read"
+    },
+    {
+      "from": "u3/component/assortment-worker",
+      "to": "u3/component/redis",
+      "on": "write",
+      "condition": "When this guarded read/write step is reached; acknowledgement semantics are retained separately",
+      "assumption": "Source declarations and conditional paths; unresolved facts remain explicit",
+      "evidence": ["s2/e/list"],
+      "record": "u3/interaction/hydrate",
+      "context": ["s2/http.add", "s2/add.notify", "s2/notify.send", "s2/handoff"],
+      "operation": "s2/consumer.hydrate"
+    },
+    {
+      "from": "u3/component/assortment-worker",
+      "to": "u3/component/blob",
+      "on": "write",
+      "condition": "When this guarded read/write step is reached; acknowledgement semantics are retained separately",
+      "assumption": "Source declarations and conditional paths; unresolved facts remain explicit",
+      "evidence": ["s2/e/blob", "s2/e/list"],
+      "record": "u3/interaction/cold",
+      "context": ["s2/http.add", "s2/add.notify", "s2/notify.send", "s2/handoff"],
+      "operation": "s2/consumer.cold"
+    },
+    {
+      "from": "u3/component/assortment-worker",
+      "to": "u3/component/redis",
+      "on": "write",
+      "condition": "When this guarded read/write step is reached; acknowledgement semantics are retained separately",
+      "assumption": "Source declarations and conditional paths; unresolved facts remain explicit",
+      "evidence": ["s2/e/redis", "s2/e/list"],
+      "record": "u3/interaction/hot",
+      "context": ["s2/http.add", "s2/add.notify", "s2/notify.send", "s2/handoff"],
+      "operation": "s2/consumer.hot"
+    }
+  ],
+  "claims": [],
+  "evidence": [
+    "s2/e/add",
+    "s2/e/base-config",
+    "s2/e/blob",
+    "s2/e/blob-key",
+    "s2/e/blob-repository",
+    "s2/e/builder",
+    "s2/e/cache-serializer",
+    "s2/e/consumer",
+    "s2/e/consumer-base-config",
+    "s2/e/consumer-config",
+    "s2/e/consumer-packages",
+    "s2/e/consumer-prod-config",
+    "s2/e/consumer-proto",
+    "s2/e/controller",
+    "s2/e/db",
+    "s2/e/filter",
+    "s2/e/headers",
+    "s2/e/id-helper",
+    "s2/e/identity",
+    "s2/e/input",
+    "s2/e/list",
+    "s2/e/mapping",
+    "s2/e/middleware",
+    "s2/e/notify",
+    "s2/e/npgsql",
+    "s2/e/packages",
+    "s2/e/processor",
+    "s2/e/prod-config",
+    "s2/e/producer",
+    "s2/e/producer-config",
+    "s2/e/producer-proto",
+    "s2/e/redis",
+    "s2/e/refetch",
+    "s2/e/repository",
+    "s2/e/response",
+    "s2/e/serializer",
+    "s2/e/service",
+    "s2/e/sku-mapping",
+    "s2/e/softoffer",
+    "s2/e/uow",
+    "s2/e/upsert",
+    "s2/e/upstream",
+    "u3/e/mas-program",
+    "u3/e/soft-envelope",
+    "u3/e/soft-json-settings",
+    "u3/e/soft-response",
+    "u3/e/soft-validation-constants",
+    "u3/e/worker-program",
+    "u3/e/worker-registration"
+  ],
+  "coverage": [
+    "s2/coverage/http-path",
+    "s2/coverage/write-and-handoff",
+    "s2/coverage/consumer-storage"
+  ],
+  "frontiers": [
+    {
+      "at": "s2/http.add::s2/add.save",
+      "reason": "opaque",
+      "detail": "Await CompleteAsync / SaveChangesAsync",
+      "references": ["s2/add.save"]
+    },
+    {
+      "at": "s2/http.add>s2/add.notify>s2/notify.send::s2/publish.attempt",
+      "reason": "version_unresolved",
+      "detail": "Dependency implementation is unresolved; declared normal and exception continuations are conditional and candidates are excluded.",
+      "references": ["s2/resolve/publish.attempt"]
+    },
+    {
+      "at": "s2/http.add>s2/add.notify>s2/notify.send>s2/handoff::s2/consumer.hydrate",
+      "reason": "opaque",
+      "detail": "Await Redis hydration; returned Result is ignored",
+      "references": ["s2/consumer.hydrate"]
+    },
+    {
+      "at": "s2/http.add>s2/add.notify>s2/notify.send>s2/handoff::s2/consumer.cold",
+      "reason": "opaque",
+      "detail": "Upload whole list to blob with overwrite=true",
+      "references": ["s2/consumer.cold"]
+    },
+    {
+      "at": "s2/http.add>s2/add.notify>s2/notify.send>s2/handoff::s2/consumer.hot",
+      "reason": "opaque",
+      "detail": "StringSetAsync whole list at Redis key, no expiry supplied",
+      "references": ["s2/consumer.hot"]
+    }
+  ],
+  "limitsHit": [],
+  "feasibility": "not_checked",
+  "exhaustive": false,
+  "records": [
+    {
+      "id": "s2/add",
+      "kind": "implementation",
+      "logicalId": "impl:soft-offer-add",
+      "scope": "s2/p",
+      "entry": "s2/add.identity",
+      "parameters": [
+        "s2/v/entity",
+        "s2/v/entity-name",
+        "s2/v/entity-code",
+        "s2/v/entity-type",
+        "s2/v/entity-skucategory",
+        "s2/v/entity-skuidentifier"
+      ],
+      "evidence": ["s2/e/add", "s2/e/service"]
+    },
+    {
+      "id": "s2/add.identity",
+      "kind": "operation",
+      "owner": "s2/add",
+      "action": "compute",
+      "label": "Generate deterministic Id if absent",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": null,
+      "httpStatus": null,
+      "evidence": ["s2/e/add", "s2/e/identity", "s2/e/softoffer", "s2/e/id-helper"]
+    },
+    {
+      "id": "s2/add.refetch",
+      "kind": "operation",
+      "owner": "s2/add",
+      "action": "branch",
+      "label": "If Created with data, refetch no tracking by InternalId",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": null,
+      "httpStatus": null,
+      "evidence": ["s2/e/add", "s2/e/refetch"]
+    },
+    {
+      "id": "s2/add.save",
+      "kind": "operation",
+      "owner": "s2/add",
+      "action": "opaque",
+      "label": "Await CompleteAsync / SaveChangesAsync",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": null,
+      "httpStatus": null,
+      "evidence": ["s2/e/uow", "s2/e/npgsql"]
+    },
+    {
+      "id": "s2/blob",
+      "kind": "resource",
+      "label": "Whole upstream list in cold storage",
+      "technology": "Azure Blob Storage",
+      "declaredDatabase": null,
+      "physicalLocation": null,
+      "shapes": ["s2/shape/upstream"],
+      "gaps": ["s2/gap/deployment"],
+      "evidence": ["s2/e/blob-key", "s2/e/blob", "s2/e/blob-repository"],
+      "address": {
+        "basis": "source_declared",
+        "connectionSetting": null,
+        "database": null,
+        "table": null,
+        "container": "upstream-entities",
+        "path": "/upstream-entities",
+        "key": null
+      }
+    },
+    {
+      "id": "s2/c",
+      "kind": "source_revision",
+      "repo": "volvo-cars/popcat-assortment-api",
+      "commit": "6114c5db0f2b4b490cf89b9c512088f01dbf0b98"
+    },
+    {
+      "id": "s2/channel/consumer",
+      "kind": "channel_binding",
+      "resource": "s2/topic",
+      "source": "s2/c",
+      "namespace": "pkc-e8mp5.eu-west-1.aws.confluent.cloud:9092",
+      "channel": "prod.public.manageandsegment.commercialitem",
+      "environment": "production-profile",
+      "profile": "appsettings.json + appsettings.Production.json",
+      "basis": "committed_configuration",
+      "conditions": [
+        "Base configuration plus the named production profile are loaded",
+        "No runtime overrides alter bootstrap servers, topic or filters"
+      ],
+      "gaps": ["s2/gap/deployment"],
+      "evidence": ["s2/e/consumer-base-config", "s2/e/consumer-prod-config", "s2/e/consumer-config"]
+    },
+    {
+      "id": "s2/channel/producer",
+      "kind": "channel_binding",
+      "resource": "s2/topic",
+      "source": "s2/p",
+      "namespace": "pkc-e8mp5.eu-west-1.aws.confluent.cloud:9092",
+      "channel": "prod.public.manageandsegment.commercialitem",
+      "environment": "production-profile",
+      "profile": "appsettings.json + appsettings.Prod.json",
+      "basis": "committed_configuration",
+      "conditions": [
+        "Base configuration plus the named production profile are loaded",
+        "No runtime overrides alter bootstrap servers, topic or filters"
+      ],
+      "gaps": ["s2/gap/deployment"],
+      "evidence": ["s2/e/base-config", "s2/e/prod-config", "s2/e/producer-config"]
+    },
+    {
+      "id": "s2/consumer",
+      "kind": "implementation",
+      "logicalId": "impl:soft-offer-consumer",
+      "scope": "s2/c",
+      "entry": "s2/consumer.receive",
+      "parameters": [],
+      "evidence": ["s2/e/consumer", "s2/e/processor"]
+    },
+    {
+      "id": "s2/consumer.cold",
+      "kind": "operation",
+      "owner": "s2/consumer",
+      "action": "opaque",
+      "label": "Upload whole list to blob with overwrite=true",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": null,
+      "httpStatus": null,
+      "evidence": ["s2/e/blob", "s2/e/blob-repository", "s2/e/blob-key"]
+    },
+    {
+      "id": "s2/consumer.cold-read",
+      "kind": "operation",
+      "owner": "s2/consumer",
+      "action": "branch",
+      "label": "Read bytes from cold list",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": null,
+      "httpStatus": null,
+      "evidence": ["s2/e/list"]
+    },
+    {
+      "id": "s2/consumer.hot",
+      "kind": "operation",
+      "owner": "s2/consumer",
+      "action": "opaque",
+      "label": "StringSetAsync whole list at Redis key, no expiry supplied",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": null,
+      "httpStatus": null,
+      "evidence": ["s2/e/redis", "s2/e/list"]
+    },
+    {
+      "id": "s2/consumer.hot-read",
+      "kind": "operation",
+      "owner": "s2/consumer",
+      "action": "branch",
+      "label": "Read and deserialise hot list",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": null,
+      "httpStatus": null,
+      "evidence": ["s2/e/list", "s2/e/cache-serializer"]
+    },
+    {
+      "id": "s2/consumer.hydrate",
+      "kind": "operation",
+      "owner": "s2/consumer",
+      "action": "opaque",
+      "label": "Await Redis hydration; returned Result is ignored",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": null,
+      "httpStatus": null,
+      "evidence": ["s2/e/list", "s2/e/redis"]
+    },
+    {
+      "id": "s2/consumer.map",
+      "kind": "operation",
+      "owner": "s2/consumer",
+      "action": "branch",
+      "label": "Extract UpstreamEntity; reject empty Id",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": null,
+      "httpStatus": null,
+      "evidence": ["s2/e/processor"]
+    },
+    {
+      "id": "s2/consumer.parse",
+      "kind": "operation",
+      "owner": "s2/consumer",
+      "action": "branch",
+      "label": "Match SoftOfferCreated and parse protobuf",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": null,
+      "httpStatus": null,
+      "evidence": ["s2/e/processor"]
+    },
+    {
+      "id": "s2/consumer.receive",
+      "kind": "operation",
+      "owner": "s2/consumer",
+      "action": "entry",
+      "label": "Non-null delivered bytes; decode first x-type header",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": null,
+      "httpStatus": null,
+      "evidence": ["s2/e/consumer", "s2/e/filter"]
+    },
+    {
+      "id": "s2/consumer.serialise",
+      "kind": "operation",
+      "owner": "s2/consumer",
+      "action": "branch",
+      "label": "Serialize whole list: MessagePack contractless, LZ4 block array",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": null,
+      "httpStatus": null,
+      "evidence": ["s2/e/cache-serializer", "s2/e/upsert"]
+    },
+    {
+      "id": "s2/coverage/consumer-storage",
+      "kind": "coverage",
+      "owner": "s2/consumer",
+      "obligation": "consumer-storage",
+      "status": "partial",
+      "scope": "Created message handler, field projection, whole-list mutation, cold then hot writes; cache-read hydration is explicitly represented",
+      "gaps": ["s2/gap/offsets", "s2/gap/concurrency"],
+      "evidence": ["s2/e/consumer", "s2/e/processor", "s2/e/list", "s2/e/upsert"]
+    },
+    {
+      "id": "s2/coverage/http-path",
+      "kind": "coverage",
+      "owner": "s2/endpoint",
+      "obligation": "http-path",
+      "status": "partial",
+      "scope": "POST mapping, Add, result-to-response and local exception paths; middleware policy coverage is partial",
+      "gaps": ["s2/gap/http-scope", "s2/gap/deployment"],
+      "evidence": ["s2/e/controller", "s2/e/response", "s2/e/middleware"]
+    },
+    {
+      "id": "s2/coverage/write-and-handoff",
+      "kind": "coverage",
+      "owner": "s2/endpoint",
+      "obligation": "write-and-handoff",
+      "status": "examined",
+      "scope": "Save before optional awaited publish; separate possible consumer invocation",
+      "gaps": ["s2/gap/sdk-policy", "s2/gap/mapping"],
+      "evidence": ["s2/e/add", "s2/e/producer", "s2/e/notify"]
+    },
+    {
+      "id": "s2/e/add",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Core/Services/CommercialItemService.cs",
+      "lines": [55, 71],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "s2/e/base-config",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Api/appsettings.json",
+      "lines": [1, 81],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "s2/e/blob",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-assortment-api",
+      "commit": "6114c5db0f2b4b490cf89b9c512088f01dbf0b98",
+      "path": "src/PopCat.Assortment.Repository/BlobStorage/BlobStorageClient.cs",
+      "lines": [60, 73],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "s2/e/blob-key",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-assortment-api",
+      "commit": "6114c5db0f2b4b490cf89b9c512088f01dbf0b98",
+      "path": "src/PopCat.Assortment.Repository/BlobStorage/UpstreamEntitiesRepository.cs",
+      "lines": [1, 12],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "s2/e/blob-repository",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-assortment-api",
+      "commit": "6114c5db0f2b4b490cf89b9c512088f01dbf0b98",
+      "path": "src/PopCat.Assortment.Repository/BlobStorage/Repository.cs",
+      "lines": [1, 21],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "s2/e/builder",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.MessageBroker/Builders/ProtoBufMessageBuilder.cs",
+      "lines": [147, 167],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "s2/e/cache-serializer",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-assortment-api",
+      "commit": "6114c5db0f2b4b490cf89b9c512088f01dbf0b98",
+      "path": "src/PopCat.Assortment.Core/Services/CacheSerializerService.cs",
+      "lines": [1, 34],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "s2/e/consumer",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-assortment-api",
+      "commit": "6114c5db0f2b4b490cf89b9c512088f01dbf0b98",
+      "path": "src/PopCat.Assortment.CacheWorker.Host/Services/KafkaConsumerService.cs",
+      "lines": [17, 60],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "s2/e/consumer-base-config",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-assortment-api",
+      "commit": "6114c5db0f2b4b490cf89b9c512088f01dbf0b98",
+      "path": "src/PopCat.Assortment.CacheWorker.Host/appsettings.json",
+      "lines": [1, 66],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "s2/e/consumer-config",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-assortment-api",
+      "commit": "6114c5db0f2b4b490cf89b9c512088f01dbf0b98",
+      "path": "src/PopCat.Assortment.CacheWorker.Host/Configuration/KafkaConsumerSettings.cs",
+      "lines": [1, 45],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "s2/e/consumer-packages",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-assortment-api",
+      "commit": "6114c5db0f2b4b490cf89b9c512088f01dbf0b98",
+      "path": "Directory.Packages.props",
+      "lines": [1, 85],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "s2/e/consumer-prod-config",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-assortment-api",
+      "commit": "6114c5db0f2b4b490cf89b9c512088f01dbf0b98",
+      "path": "src/PopCat.Assortment.CacheWorker.Host/appsettings.Production.json",
+      "lines": [1, 5],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "s2/e/consumer-proto",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-assortment-api",
+      "commit": "6114c5db0f2b4b490cf89b9c512088f01dbf0b98",
+      "path": "src/PopCat.Assortment.CacheWorker.Host/Protos/manage/soft_offer.proto",
+      "lines": [1, 22],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "s2/e/controller",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Api/Controllers/V1/SoftOffersController.cs",
+      "lines": [17, 90],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "s2/e/db",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Infrastructure/DatabaseContext.cs",
+      "lines": [72, 143],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "s2/e/filter",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-assortment-api",
+      "commit": "6114c5db0f2b4b490cf89b9c512088f01dbf0b98",
+      "path": "src/PopCat.Assortment.CacheWorker.Host/MessageProcessor/IMessageProcessor.cs",
+      "lines": [1, 19],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "s2/e/headers",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.MessageBroker/Models/NotificationHeaders.cs",
+      "lines": [1, 16],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "s2/e/id-helper",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Core/Common/IdHelper.cs",
+      "lines": [19, 56],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "s2/e/identity",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Core/Models/CommercialItems/CommercialItemBase.cs",
+      "lines": [1, 43],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "s2/e/input",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Api/Models/V1/Request/SoftOfferInput.cs",
+      "lines": [1, 53],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "s2/e/list",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-assortment-api",
+      "commit": "6114c5db0f2b4b490cf89b9c512088f01dbf0b98",
+      "path": "src/PopCat.Assortment.Core/Services/UpstreamEntityCacheService.cs",
+      "lines": [17, 58],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "s2/e/mapping",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Api/Mapping/MappingProfile.cs",
+      "lines": [50, 85],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "s2/e/middleware",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Api/Middleware/ExceptionMiddleware.cs",
+      "lines": [1, 85],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "s2/e/notify",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.MessageBroker/Services/NotificationService.cs",
+      "lines": [15, 70],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "s2/e/npgsql",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Infrastructure/Extensions/ApplicationBuilderExtensions.cs",
+      "lines": [15, 29],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "s2/e/packages",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "Directory.Packages.props",
+      "lines": [1, 84],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "s2/e/processor",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-assortment-api",
+      "commit": "6114c5db0f2b4b490cf89b9c512088f01dbf0b98",
+      "path": "src/PopCat.Assortment.CacheWorker.Host/MessageProcessor/ManageCommercialMessageProcessor.cs",
+      "lines": [16, 118],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "s2/e/prod-config",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Api/appsettings.Prod.json",
+      "lines": [1, 19],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "s2/e/producer",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.MessageBroker/Producers/KafkaProducer.cs",
+      "lines": [40, 68],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "s2/e/producer-config",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.MessageBroker/Extensions/ApplicationBuilderExtensions.cs",
+      "lines": [15, 50],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "s2/e/producer-proto",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.MessageBroker/Protos/soft_offer.proto",
+      "lines": [1, 22],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "s2/e/redis",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-assortment-api",
+      "commit": "6114c5db0f2b4b490cf89b9c512088f01dbf0b98",
+      "path": "src/PopCat.Assortment.Core/Services/RedisCacheService.cs",
+      "lines": [69, 81],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "s2/e/refetch",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Infrastructure/Repositories/CommercialItemRepository.cs",
+      "lines": [1, 102],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "s2/e/repository",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Infrastructure/Repositories/Repository.cs",
+      "lines": [100, 115],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "s2/e/response",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Api/Controllers/ManageAndSegmentControllerBase.cs",
+      "lines": [32, 86],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "s2/e/serializer",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.MessageBroker/Common/ProtoBufSerializer.cs",
+      "lines": [1, 21],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "s2/e/service",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Core/Services/SoftOfferService.cs",
+      "lines": [13, 24],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "s2/e/sku-mapping",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Api/Mapping/MappingProfile.cs",
+      "lines": [340, 350],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "s2/e/softoffer",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Core/Models/CommercialItems/SoftOffer.cs",
+      "lines": [1, 25],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "s2/e/uow",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Infrastructure/UnitOfWork.cs",
+      "lines": [37, 108],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "s2/e/upsert",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-assortment-api",
+      "commit": "6114c5db0f2b4b490cf89b9c512088f01dbf0b98",
+      "path": "src/PopCat.Assortment.Core/Services/UpstreamEntityCacheService.cs",
+      "lines": [60, 140],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "s2/e/upstream",
+      "kind": "evidence",
+      "repo": "volvo-cars/popcat-assortment-api",
+      "commit": "6114c5db0f2b4b490cf89b9c512088f01dbf0b98",
+      "path": "src/PopCat.Assortment.Contracts/Models/UpstreamEntity.cs",
+      "lines": [1, 3],
+      "basis": "source",
+      "host": "github.com"
+    },
+    {
+      "id": "s2/effect/cold",
+      "kind": "effect",
+      "owner": "s2/consumer",
+      "operation": "s2/consumer.cold",
+      "effect": "write",
+      "resource": "s2/blob",
+      "modality": "source_traced",
+      "representation": "logical",
+      "selection": [],
+      "payload": ["s2/v/list", "s2/v/cached-name"],
+      "evidence": ["s2/e/blob", "s2/e/list"]
+    },
+    {
+      "id": "s2/effect/hot",
+      "kind": "effect",
+      "owner": "s2/consumer",
+      "operation": "s2/consumer.hot",
+      "effect": "write",
+      "resource": "s2/redis",
+      "modality": "source_traced",
+      "representation": "logical",
+      "selection": [],
+      "payload": ["s2/v/list", "s2/v/cached-name"],
+      "evidence": ["s2/e/redis", "s2/e/list"]
+    },
+    {
+      "id": "s2/effect/hydrate",
+      "kind": "effect",
+      "owner": "s2/consumer",
+      "operation": "s2/consumer.hydrate",
+      "effect": "write",
+      "resource": "s2/redis",
+      "modality": "source_traced",
+      "representation": "logical",
+      "selection": [],
+      "payload": [],
+      "evidence": ["s2/e/list"]
+    },
+    {
+      "id": "s2/effect/list-cold",
+      "kind": "effect",
+      "owner": "s2/consumer",
+      "operation": "s2/consumer.cold-read",
+      "effect": "read",
+      "resource": "s2/blob",
+      "modality": "source_traced",
+      "representation": "logical",
+      "selection": [],
+      "payload": [],
+      "evidence": ["s2/e/list"]
+    },
+    {
+      "id": "s2/effect/list-hot",
+      "kind": "effect",
+      "owner": "s2/consumer",
+      "operation": "s2/consumer.hot-read",
+      "effect": "read",
+      "resource": "s2/redis",
+      "modality": "source_traced",
+      "representation": "logical",
+      "selection": [],
+      "payload": [],
+      "evidence": ["s2/e/list"]
+    },
+    {
+      "id": "s2/effect/publish",
+      "kind": "effect",
+      "owner": "s2/publish",
+      "operation": "s2/publish.attempt",
+      "effect": "publish",
+      "resource": "s2/topic",
+      "modality": "source_traced",
+      "representation": "logical",
+      "selection": [],
+      "payload": ["s2/v/message", "s2/v/wire-name", "s2/v/correlation"],
+      "evidence": ["s2/e/producer"]
+    },
+    {
+      "id": "s2/effect/refetch",
+      "kind": "effect",
+      "owner": "s2/add",
+      "operation": "s2/add.refetch",
+      "effect": "read",
+      "resource": "s2/postgres",
+      "modality": "source_traced",
+      "representation": "logical",
+      "selection": [],
+      "payload": ["s2/v/saved-entity"],
+      "evidence": ["s2/e/refetch", "s2/e/add"]
+    },
+    {
+      "id": "s2/effect/save",
+      "kind": "effect",
+      "owner": "s2/add",
+      "operation": "s2/add.save",
+      "effect": "write",
+      "resource": "s2/postgres",
+      "modality": "source_traced",
+      "representation": "logical",
+      "selection": [],
+      "payload": ["s2/v/entity"],
+      "evidence": ["s2/e/repository", "s2/e/uow", "s2/e/db"]
+    },
+    {
+      "id": "s2/endpoint",
+      "kind": "entry",
+      "logicalId": "api:mas-soft-offers-create",
+      "method": "POST",
+      "path": "/api/commercial-items/soft-offers",
+      "implementation": "s2/http",
+      "evidence": ["s2/e/controller"]
+    },
+    {
+      "id": "s2/gap/concurrency",
+      "kind": "gap",
+      "owner": "s2/consumer",
+      "obligation": "concurrency",
+      "reason": "Whole-list read-modify-write has no concurrency control established in this inspected path. Sequential ID replacement does not prove exactly-once processing or prevent concurrent lost updates.",
+      "action": "Establish partitioning, write preconditions and parallel consumer execution.",
+      "evidence": ["s2/e/upsert", "s2/e/list", "s2/e/blob", "s2/e/redis"]
+    },
+    {
+      "id": "s2/gap/deployment",
+      "kind": "gap",
+      "owner": "s2/http",
+      "obligation": "deployment",
+      "reason": "Committed production profiles do not establish effective deployed configuration, credentials, topology or enabled flags.",
+      "action": "Resolve deployed profiles and non-secret resource identities.",
+      "evidence": [
+        "s2/e/base-config",
+        "s2/e/prod-config",
+        "s2/e/consumer-base-config",
+        "s2/e/consumer-prod-config"
+      ]
+    },
+    {
+      "id": "s2/gap/http-scope",
+      "kind": "gap",
+      "owner": "s2/http",
+      "obligation": "http-scope",
+      "reason": "Authentication, validation, shared error middleware and every non-Created result are not exhaustively modelled.",
+      "action": "Extend coverage before claiming all endpoint outcomes.",
+      "evidence": ["s2/e/controller", "s2/e/middleware", "s2/e/response"]
+    },
+    {
+      "id": "s2/gap/mapping",
+      "kind": "gap",
+      "owner": "s2/publish",
+      "obligation": "mapping",
+      "reason": "AutoMapper registrations and local converters are declared; the effective imported convention mapper is not bound.",
+      "action": "Bind exact mapper artefact or verify serialised payload with a contract test.",
+      "evidence": ["s2/e/mapping", "s2/e/sku-mapping", "s2/e/builder"]
+    },
+    {
+      "id": "s2/gap/offsets",
+      "kind": "gap",
+      "owner": "s2/consumer",
+      "obligation": "offsets",
+      "reason": "Commit, acknowledgement and redelivery behaviour is delegated to ConsumeWithInstrumentation and Kafka configuration. Failed Result is only logged in this callback.",
+      "action": "Inspect exact consumer wrapper and offset settings.",
+      "evidence": ["s2/e/consumer", "s2/e/consumer-config", "s2/e/consumer-packages"]
+    },
+    {
+      "id": "s2/gap/sdk-policy",
+      "kind": "gap",
+      "owner": "s2/publish",
+      "obligation": "sdk-policy",
+      "reason": "Kafka SDK implementation and effective retry, acknowledgement and idempotence settings have not been bound.",
+      "action": "Bind exact dependency artefacts and effective settings; do not infer defaults.",
+      "evidence": ["s2/e/packages", "s2/e/producer-config"]
+    },
+    {
+      "id": "s2/handoff",
+      "kind": "handoff",
+      "owner": "s2/publish",
+      "effect": "s2/effect/publish",
+      "binding": "s2/channel/producer",
+      "subscription": "s2/subscription",
+      "messageType": "volvocars.contracts.pop.manage.SoftOfferCreated",
+      "typeHeader": "x-type",
+      "wireShape": "s2/shape/p-wire",
+      "policy": "s2/policy/producer",
+      "status": "source_matched",
+      "compatibility": "source_schema_match",
+      "awaitsConsumer": false,
+      "partitionKey": "null",
+      "keyValue": null,
+      "bindings": [
+        {
+          "from": "s2/v/message",
+          "to": "s2/v/payload",
+          "transform": "Raw protobuf bytes parsed against matching committed schema"
+        },
+        {
+          "from": "s2/v/wire-name",
+          "to": "s2/v/received-name",
+          "transform": "Protobuf envelope tag 1; nested Name tag 3"
+        }
+      ],
+      "correlation": [
+        {
+          "value": "s2/v/correlation",
+          "header": "id",
+          "purpose": "trace_correlation",
+          "consumerUse": "not_read_in_inspected_processor"
+        }
+      ],
+      "gaps": ["s2/gap/deployment", "s2/gap/sdk-policy", "s2/gap/offsets"],
+      "evidence": [
+        "s2/e/producer",
+        "s2/e/producer-proto",
+        "s2/e/consumer-proto",
+        "s2/e/processor",
+        "s2/e/filter",
+        "s2/e/headers",
+        "s2/e/prod-config",
+        "s2/e/consumer-base-config"
+      ]
+    },
+    {
+      "id": "s2/http",
+      "kind": "implementation",
+      "logicalId": "impl:soft-offer-http",
+      "scope": "s2/p",
+      "entry": "s2/http.start",
+      "parameters": ["s2/v/request"],
+      "evidence": ["s2/e/controller", "s2/e/middleware"]
+    },
+    {
+      "id": "s2/http.start",
+      "kind": "operation",
+      "owner": "s2/http",
+      "action": "entry",
+      "label": "Authenticated, bound soft-offer input",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": null,
+      "httpStatus": null,
+      "evidence": ["s2/e/controller", "s2/e/input"]
+    },
+    {
+      "id": "s2/notify",
+      "kind": "implementation",
+      "logicalId": "impl:soft-offer-notify",
+      "scope": "s2/p",
+      "entry": "s2/notify.build",
+      "parameters": ["s2/v/notice", "s2/v/notice-name"],
+      "evidence": ["s2/e/notify"]
+    },
+    {
+      "id": "s2/notify.build",
+      "kind": "operation",
+      "owner": "s2/notify",
+      "action": "branch",
+      "label": "Map SoftOffer and wrap SoftOfferCreated",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": null,
+      "httpStatus": null,
+      "evidence": ["s2/e/notify", "s2/e/builder"]
+    },
+    {
+      "id": "s2/p",
+      "kind": "source_revision",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110"
+    },
+    {
+      "id": "s2/policy/consumer",
+      "kind": "delivery_policy",
+      "owner": "s2/consumer",
+      "operation": "s2/consumer.receive",
+      "awaited": true,
+      "brokerPersistenceRequired": null,
+      "offsetCommit": "unresolved",
+      "retryLimit": null,
+      "deduplication": "entity_upsert",
+      "deduplicationKeys": ["s2/v/entity-id"],
+      "ordering": "not_established",
+      "deliveryGuarantee": "not_established",
+      "gaps": ["s2/gap/offsets", "s2/gap/concurrency", "s2/gap/deployment"],
+      "evidence": ["s2/e/consumer", "s2/e/consumer-config", "s2/e/upsert"]
+    },
+    {
+      "id": "s2/policy/producer",
+      "kind": "delivery_policy",
+      "owner": "s2/publish",
+      "operation": "s2/publish.attempt",
+      "awaited": true,
+      "brokerPersistenceRequired": false,
+      "offsetCommit": "unresolved",
+      "retryLimit": null,
+      "deduplication": "none_in_inspected_scope",
+      "deduplicationKeys": [],
+      "ordering": "not_established",
+      "deliveryGuarantee": "not_established",
+      "gaps": ["s2/gap/sdk-policy", "s2/gap/deployment"],
+      "evidence": ["s2/e/producer", "s2/e/producer-config"]
+    },
+    {
+      "id": "s2/postgres",
+      "kind": "resource",
+      "label": "SoftOffer table",
+      "technology": "PostgreSQL / EF Core",
+      "declaredDatabase": null,
+      "physicalLocation": null,
+      "shapes": ["s2/shape/row"],
+      "gaps": ["s2/gap/deployment"],
+      "evidence": ["s2/e/db", "s2/e/npgsql"],
+      "address": {
+        "basis": "source_declared",
+        "connectionSetting": "PostgreSQLConnection",
+        "database": null,
+        "table": "SoftOffer",
+        "container": null,
+        "path": null,
+        "key": null
+      }
+    },
+    {
+      "id": "s2/publish",
+      "kind": "implementation",
+      "logicalId": "impl:soft-offer-publish",
+      "scope": "s2/p",
+      "entry": "s2/publish.serialise",
+      "parameters": ["s2/v/message", "s2/v/wire-name"],
+      "evidence": ["s2/e/producer", "s2/e/serializer"]
+    },
+    {
+      "id": "s2/publish.attempt",
+      "kind": "operation",
+      "owner": "s2/publish",
+      "action": "call",
+      "label": "Await ProduceAsync with null key and UTF-8 headers",
+      "resolution": "s2/resolve/publish.attempt",
+      "bindings": [],
+      "result": null,
+      "exit": null,
+      "httpStatus": null,
+      "evidence": ["s2/e/producer"]
+    },
+    {
+      "id": "s2/publish.serialise",
+      "kind": "operation",
+      "owner": "s2/publish",
+      "action": "branch",
+      "label": "Serialize raw protobuf bytes via IMessage.WriteTo",
+      "resolution": null,
+      "bindings": [],
+      "result": null,
+      "exit": null,
+      "httpStatus": null,
+      "evidence": ["s2/e/serializer", "s2/e/producer"]
+    },
+    {
+      "id": "s2/redis",
+      "kind": "resource",
+      "label": "Whole upstream list in hot cache",
+      "technology": "Redis",
+      "declaredDatabase": null,
+      "physicalLocation": null,
+      "shapes": ["s2/shape/upstream"],
+      "gaps": ["s2/gap/deployment"],
+      "evidence": ["s2/e/list", "s2/e/redis"],
+      "address": {
+        "basis": "source_declared",
+        "connectionSetting": null,
+        "database": null,
+        "table": null,
+        "container": null,
+        "path": null,
+        "key": "upstream-entities"
+      }
+    },
+    {
+      "id": "s2/resolve/publish.attempt",
+      "kind": "resolution",
+      "owner": "s2/publish",
+      "requestedArtifact": null,
+      "basis": "unresolved",
+      "target": null,
+      "candidates": [],
+      "evidence": ["s2/e/producer"],
+      "binding": null
+    },
+    {
+      "id": "s2/shape/c-body",
+      "kind": "shape",
+      "representation": "wire",
+      "label": "SoftOffer protobuf",
+      "fields": [
+        {
+          "name": "id",
+          "type": "string",
+          "wireTag": 1,
+          "status": "declared"
+        },
+        {
+          "name": "type",
+          "type": "string",
+          "wireTag": 2,
+          "status": "declared"
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "wireTag": 3,
+          "status": "declared"
+        },
+        {
+          "name": "code",
+          "type": "string",
+          "wireTag": 4,
+          "status": "declared"
+        },
+        {
+          "name": "SkuIdentifier",
+          "type": "string",
+          "wireTag": 6,
+          "status": "declared"
+        },
+        {
+          "name": "SkuCategory",
+          "type": "string",
+          "wireTag": 7,
+          "status": "declared"
+        }
+      ],
+      "completeness": "closed",
+      "gaps": [],
+      "evidence": ["s2/e/consumer-proto"],
+      "encoding": "protobuf",
+      "wireType": "volvocars.contracts.pop.manage.SoftOffer",
+      "reservedTags": [5],
+      "reservedNames": ["attributeData"]
+    },
+    {
+      "id": "s2/shape/c-wire",
+      "kind": "shape",
+      "representation": "wire",
+      "label": "SoftOfferCreated protobuf",
+      "fields": [
+        {
+          "name": "soft_offer",
+          "type": "message",
+          "wireTag": 1,
+          "status": "declared",
+          "shape": "s2/shape/c-body"
+        }
+      ],
+      "completeness": "closed",
+      "gaps": [],
+      "evidence": ["s2/e/consumer-proto"],
+      "encoding": "protobuf",
+      "wireType": "volvocars.contracts.pop.manage.SoftOfferCreated"
+    },
+    {
+      "id": "s2/shape/input",
+      "kind": "shape",
+      "representation": "constructed",
+      "label": "SoftOfferInput",
+      "fields": [
+        {
+          "name": "Code",
+          "type": "string",
+          "status": "declared"
+        },
+        {
+          "name": "Type",
+          "type": "string",
+          "status": "declared"
+        },
+        {
+          "name": "Name",
+          "type": "string",
+          "status": "declared"
+        },
+        {
+          "name": "SkuCategory",
+          "type": "string",
+          "status": "declared"
+        },
+        {
+          "name": "SkuIdentifier",
+          "type": "string",
+          "status": "declared"
+        }
+      ],
+      "completeness": "closed",
+      "gaps": [],
+      "evidence": ["s2/e/input"],
+      "encoding": "json"
+    },
+    {
+      "id": "s2/shape/p-body",
+      "kind": "shape",
+      "representation": "wire",
+      "label": "SoftOffer protobuf",
+      "fields": [
+        {
+          "name": "id",
+          "type": "string",
+          "wireTag": 1,
+          "status": "declared"
+        },
+        {
+          "name": "type",
+          "type": "string",
+          "wireTag": 2,
+          "status": "declared"
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "wireTag": 3,
+          "status": "declared"
+        },
+        {
+          "name": "code",
+          "type": "string",
+          "wireTag": 4,
+          "status": "declared"
+        },
+        {
+          "name": "SkuIdentifier",
+          "type": "string",
+          "wireTag": 6,
+          "status": "declared"
+        },
+        {
+          "name": "SkuCategory",
+          "type": "string",
+          "wireTag": 7,
+          "status": "declared"
+        }
+      ],
+      "completeness": "closed",
+      "gaps": [],
+      "evidence": ["s2/e/producer-proto"],
+      "encoding": "protobuf",
+      "wireType": "volvocars.contracts.pop.manage.SoftOffer",
+      "reservedTags": [5],
+      "reservedNames": ["attributeData"]
+    },
+    {
+      "id": "s2/shape/p-wire",
+      "kind": "shape",
+      "representation": "wire",
+      "label": "SoftOfferCreated protobuf",
+      "fields": [
+        {
+          "name": "soft_offer",
+          "type": "message",
+          "wireTag": 1,
+          "status": "declared",
+          "shape": "s2/shape/p-body"
+        }
+      ],
+      "completeness": "closed",
+      "gaps": [],
+      "evidence": ["s2/e/producer-proto"],
+      "encoding": "protobuf",
+      "wireType": "volvocars.contracts.pop.manage.SoftOfferCreated"
+    },
+    {
+      "id": "s2/shape/row",
+      "kind": "shape",
+      "representation": "persisted",
+      "label": "SoftOffer TPC table",
+      "fields": [
+        {
+          "name": "InternalId",
+          "type": "Guid",
+          "status": "declared"
+        },
+        {
+          "name": "Id",
+          "type": "string",
+          "status": "declared"
+        },
+        {
+          "name": "Code",
+          "type": "string",
+          "status": "declared"
+        },
+        {
+          "name": "Name",
+          "type": "string",
+          "status": "declared"
+        },
+        {
+          "name": "Type",
+          "type": "string",
+          "status": "declared"
+        },
+        {
+          "name": "SkuCategory",
+          "type": "string",
+          "status": "declared"
+        },
+        {
+          "name": "SkuIdentifier",
+          "type": "string",
+          "status": "declared"
+        }
+      ],
+      "completeness": "partial",
+      "gaps": [],
+      "evidence": ["s2/e/db"],
+      "encoding": "relational"
+    },
+    {
+      "id": "s2/shape/upstream",
+      "kind": "shape",
+      "representation": "persisted",
+      "label": "ImmutableList<UpstreamEntity>",
+      "fields": [],
+      "completeness": "partial",
+      "gaps": [],
+      "evidence": ["s2/e/upstream", "s2/e/cache-serializer"],
+      "encoding": "messagepack_lz4",
+      "container": "array",
+      "items": "s2/shape/upstream-entity"
+    },
+    {
+      "id": "s2/shape/upstream-entity",
+      "kind": "shape",
+      "representation": "persisted",
+      "label": "UpstreamEntity",
+      "fields": [
+        {
+          "name": "Id",
+          "type": "string",
+          "status": "declared"
+        },
+        {
+          "name": "Code",
+          "type": "string",
+          "status": "declared"
+        },
+        {
+          "name": "Name",
+          "type": "string",
+          "status": "declared"
+        },
+        {
+          "name": "SkuCategory",
+          "type": "string",
+          "status": "declared"
+        },
+        {
+          "name": "SkuIdentifier",
+          "type": "string",
+          "status": "declared"
+        },
+        {
+          "name": "Tags",
+          "type": "ImmutableList<string>",
+          "status": "declared"
+        }
+      ],
+      "completeness": "partial",
+      "gaps": [],
+      "evidence": ["s2/e/upstream", "s2/e/cache-serializer"],
+      "encoding": "messagepack_lz4"
+    },
+    {
+      "id": "s2/subscription",
+      "kind": "subscription",
+      "owner": "s2/consumer",
+      "binding": "s2/channel/consumer",
+      "header": "x-type",
+      "messageType": "volvocars.contracts.pop.manage.SoftOfferCreated",
+      "payload": "s2/v/payload",
+      "group": "popcat-assortment-cache-worker-prod",
+      "policy": "s2/policy/consumer",
+      "gaps": ["s2/gap/deployment", "s2/gap/offsets"],
+      "evidence": [
+        "s2/e/consumer",
+        "s2/e/processor",
+        "s2/e/filter",
+        "s2/e/consumer-prod-config",
+        "s2/e/consumer-base-config"
+      ]
+    },
+    {
+      "id": "s2/topic",
+      "kind": "resource",
+      "label": "Commercial item notification topic",
+      "technology": "Kafka",
+      "declaredDatabase": null,
+      "physicalLocation": null,
+      "shapes": ["s2/shape/p-wire", "s2/shape/c-wire"],
+      "gaps": ["s2/gap/deployment"],
+      "evidence": ["s2/e/prod-config", "s2/e/consumer-base-config"]
+    },
+    {
+      "id": "s2/v/cached-name",
+      "kind": "value",
+      "owner": "s2/consumer",
+      "definition": "s2/consumer.map",
+      "label": "Name stored on cached UpstreamEntity",
+      "role": "definition",
+      "representation": "persisted",
+      "shape": null,
+      "evidence": ["s2/e/processor", "s2/e/upstream"],
+      "accessPath": ["[]", "Name"]
+    },
+    {
+      "id": "s2/v/cold-list",
+      "kind": "value",
+      "owner": "s2/consumer",
+      "definition": "s2/consumer.cold-read",
+      "label": "Cold list bytes copied to hot cache",
+      "role": "definition",
+      "representation": "persisted",
+      "shape": "s2/shape/upstream",
+      "evidence": ["s2/e/list"],
+      "accessPath": []
+    },
+    {
+      "id": "s2/v/correlation",
+      "kind": "value",
+      "owner": "s2/publish",
+      "definition": "s2/publish.attempt",
+      "label": "Correlation ID; may be empty",
+      "role": "definition",
+      "representation": "constructed",
+      "shape": null,
+      "evidence": ["s2/e/headers", "s2/e/notify"],
+      "accessPath": ["headers", "id"]
+    },
+    {
+      "id": "s2/v/entity",
+      "kind": "value",
+      "owner": "s2/add",
+      "definition": "s2/add.identity",
+      "label": "Formal soft-offer entity",
+      "role": "parameter",
+      "representation": "constructed",
+      "shape": null,
+      "evidence": ["s2/e/add"],
+      "accessPath": []
+    },
+    {
+      "id": "s2/v/entity-code",
+      "kind": "value",
+      "owner": "s2/add",
+      "definition": "s2/add.identity",
+      "label": "Formal Code",
+      "role": "parameter",
+      "representation": "constructed",
+      "shape": null,
+      "evidence": ["s2/e/mapping", "s2/e/add"],
+      "accessPath": ["Code"]
+    },
+    {
+      "id": "s2/v/entity-id",
+      "kind": "value",
+      "owner": "s2/consumer",
+      "definition": "s2/consumer.map",
+      "label": "Entity identity; not a delivery ID",
+      "role": "definition",
+      "representation": "wire",
+      "shape": null,
+      "evidence": ["s2/e/processor"],
+      "accessPath": ["soft_offer", "id"]
+    },
+    {
+      "id": "s2/v/entity-name",
+      "kind": "value",
+      "owner": "s2/add",
+      "definition": "s2/add.identity",
+      "label": "Name on argument entity",
+      "role": "parameter",
+      "representation": "constructed",
+      "shape": null,
+      "evidence": ["s2/e/mapping", "s2/e/add"],
+      "accessPath": ["Name"]
+    },
+    {
+      "id": "s2/v/entity-skucategory",
+      "kind": "value",
+      "owner": "s2/add",
+      "definition": "s2/add.identity",
+      "label": "Formal SkuCategory",
+      "role": "parameter",
+      "representation": "constructed",
+      "shape": null,
+      "evidence": ["s2/e/mapping", "s2/e/add"],
+      "accessPath": ["SkuCategory"]
+    },
+    {
+      "id": "s2/v/entity-skuidentifier",
+      "kind": "value",
+      "owner": "s2/add",
+      "definition": "s2/add.identity",
+      "label": "Formal SkuIdentifier",
+      "role": "parameter",
+      "representation": "constructed",
+      "shape": null,
+      "evidence": ["s2/e/mapping", "s2/e/add"],
+      "accessPath": ["SkuIdentifier"]
+    },
+    {
+      "id": "s2/v/entity-type",
+      "kind": "value",
+      "owner": "s2/add",
+      "definition": "s2/add.identity",
+      "label": "Formal Type",
+      "role": "parameter",
+      "representation": "constructed",
+      "shape": null,
+      "evidence": ["s2/e/mapping", "s2/e/add"],
+      "accessPath": ["Type"]
+    },
+    {
+      "id": "s2/v/list",
+      "kind": "value",
+      "owner": "s2/consumer",
+      "definition": "s2/consumer.serialise",
+      "label": "Whole list serialised for both stores",
+      "role": "definition",
+      "representation": "persisted",
+      "shape": "s2/shape/upstream",
+      "evidence": ["s2/e/upsert", "s2/e/cache-serializer"],
+      "accessPath": []
+    },
+    {
+      "id": "s2/v/message",
+      "kind": "value",
+      "owner": "s2/publish",
+      "definition": "s2/publish.serialise",
+      "label": "Formal protobuf message",
+      "role": "parameter",
+      "representation": "wire",
+      "shape": "s2/shape/p-wire",
+      "evidence": ["s2/e/producer", "s2/e/serializer"],
+      "accessPath": []
+    },
+    {
+      "id": "s2/v/notice",
+      "kind": "value",
+      "owner": "s2/notify",
+      "definition": "s2/notify.build",
+      "label": "Formal entity to notify",
+      "role": "parameter",
+      "representation": "constructed",
+      "shape": null,
+      "evidence": ["s2/e/notify"],
+      "accessPath": []
+    },
+    {
+      "id": "s2/v/notice-name",
+      "kind": "value",
+      "owner": "s2/notify",
+      "definition": "s2/notify.build",
+      "label": "Name on notification entity",
+      "role": "parameter",
+      "representation": "constructed",
+      "shape": null,
+      "evidence": ["s2/e/notify"],
+      "accessPath": ["Name"]
+    },
+    {
+      "id": "s2/v/payload",
+      "kind": "value",
+      "owner": "s2/consumer",
+      "definition": "s2/consumer.receive",
+      "label": "Delivered protobuf message",
+      "role": "definition",
+      "representation": "wire",
+      "shape": "s2/shape/c-wire",
+      "evidence": ["s2/e/consumer-proto", "s2/e/processor"],
+      "accessPath": []
+    },
+    {
+      "id": "s2/v/received-name",
+      "kind": "value",
+      "owner": "s2/consumer",
+      "definition": "s2/consumer.parse",
+      "label": "Name decoded from protobuf",
+      "role": "definition",
+      "representation": "wire",
+      "shape": null,
+      "evidence": ["s2/e/processor", "s2/e/consumer-proto"],
+      "accessPath": ["soft_offer", "name"]
+    },
+    {
+      "id": "s2/v/request",
+      "kind": "value",
+      "owner": "s2/http",
+      "definition": "s2/http.start",
+      "label": "SoftOfferInput request body",
+      "role": "parameter",
+      "representation": "constructed",
+      "shape": "s2/shape/input",
+      "evidence": ["s2/e/input", "s2/e/controller"],
+      "accessPath": []
+    },
+    {
+      "id": "s2/v/saved-entity",
+      "kind": "value",
+      "owner": "s2/add",
+      "definition": "s2/add.refetch",
+      "label": "Re-read persisted entity",
+      "role": "definition",
+      "representation": "constructed",
+      "shape": null,
+      "evidence": ["s2/e/add", "s2/e/refetch"],
+      "accessPath": []
+    },
+    {
+      "id": "s2/v/wire-name",
+      "kind": "value",
+      "owner": "s2/publish",
+      "definition": "s2/publish.serialise",
+      "label": "Name in outgoing protobuf",
+      "role": "parameter",
+      "representation": "wire",
+      "shape": null,
+      "evidence": ["s2/e/serializer", "s2/e/producer-proto"],
+      "accessPath": ["soft_offer", "name"]
+    },
+    {
+      "id": "u3/component/assortment-worker",
+      "kind": "runtime_component",
+      "logicalId": "svc:assortment-cache-worker",
+      "label": "Assortment cache worker",
+      "category": "service",
+      "technology": ".NET worker",
+      "sources": ["s2/c"],
+      "basis": "source_declared",
+      "evidence": ["u3/e/worker-program", "u3/e/worker-registration", "s2/e/consumer"],
+      "gaps": []
+    },
+    {
+      "id": "u3/component/blob",
+      "kind": "runtime_component",
+      "logicalId": "st:assortment-cold-cache",
+      "label": "Assortment cold cache",
+      "category": "store",
+      "technology": "Azure Blob Storage",
+      "sources": ["s2/c"],
+      "basis": "source_declared",
+      "evidence": ["s2/e/blob", "s2/e/blob-key"],
+      "gaps": ["s2/gap/deployment"]
+    },
+    {
+      "id": "u3/component/commercial-topic",
+      "kind": "runtime_component",
+      "logicalId": "st:mas-commercialitem-events",
+      "label": "Commercial item events",
+      "category": "topic",
+      "technology": "Kafka",
+      "sources": ["s2/p", "s2/c"],
+      "basis": "source_declared",
+      "evidence": ["s2/e/prod-config", "s2/e/consumer-base-config"],
+      "gaps": ["s2/gap/deployment"]
+    },
+    {
+      "id": "u3/component/mas",
+      "kind": "runtime_component",
+      "logicalId": "svc:manage-and-segment-api",
+      "label": "Manage and Segment API",
+      "category": "service",
+      "technology": ".NET / ASP.NET Core",
+      "sources": ["s2/p"],
+      "basis": "source_declared",
+      "evidence": ["u3/e/mas-program", "s2/e/controller"],
+      "gaps": []
+    },
+    {
+      "id": "u3/component/postgres",
+      "kind": "runtime_component",
+      "logicalId": "st:mas-db",
+      "label": "Soft-offer database",
+      "category": "store",
+      "technology": "PostgreSQL",
+      "sources": ["s2/p"],
+      "basis": "source_declared",
+      "evidence": ["s2/e/npgsql", "s2/e/db"],
+      "gaps": ["s2/gap/deployment"]
+    },
+    {
+      "id": "u3/component/redis",
+      "kind": "runtime_component",
+      "logicalId": "st:assortment-hot-cache",
+      "label": "Assortment hot cache",
+      "category": "store",
+      "technology": "Redis",
+      "sources": ["s2/c"],
+      "basis": "source_declared",
+      "evidence": ["s2/e/redis"],
+      "gaps": ["s2/gap/deployment"]
+    },
+    {
+      "id": "u3/contract/blob",
+      "kind": "interface_contract",
+      "component": "u3/component/blob",
+      "protocol": "azure_blob",
+      "name": "Stored data representation",
+      "method": null,
+      "path": null,
+      "authority": "source_declared",
+      "request": [
+        {
+          "part": "record",
+          "presence": "present",
+          "shape": "s2/shape/upstream",
+          "sourceShape": null,
+          "contentType": null,
+          "gaps": [],
+          "evidence": ["s2/e/blob", "s2/e/cache-serializer"]
+        }
+      ],
+      "responses": [],
+      "evidence": ["s2/e/blob", "s2/e/cache-serializer"],
+      "gaps": ["s2/gap/deployment"]
+    },
+    {
+      "id": "u3/contract/postgres",
+      "kind": "interface_contract",
+      "component": "u3/component/postgres",
+      "protocol": "postgresql",
+      "name": "Stored data representation",
+      "method": null,
+      "path": null,
+      "authority": "source_declared",
+      "request": [
+        {
+          "part": "record",
+          "presence": "present",
+          "shape": "s2/shape/row",
+          "sourceShape": null,
+          "contentType": null,
+          "gaps": [],
+          "evidence": ["s2/e/db", "s2/e/uow"]
+        }
+      ],
+      "responses": [],
+      "evidence": ["s2/e/db", "s2/e/uow"],
+      "gaps": ["s2/gap/deployment"]
+    },
+    {
+      "id": "u3/contract/redis",
+      "kind": "interface_contract",
+      "component": "u3/component/redis",
+      "protocol": "redis",
+      "name": "Stored data representation",
+      "method": null,
+      "path": null,
+      "authority": "source_declared",
+      "request": [
+        {
+          "part": "record",
+          "presence": "present",
+          "shape": "s2/shape/upstream",
+          "sourceShape": null,
+          "contentType": null,
+          "gaps": [],
+          "evidence": ["s2/e/redis", "s2/e/cache-serializer"]
+        }
+      ],
+      "responses": [],
+      "evidence": ["s2/e/redis", "s2/e/cache-serializer"],
+      "gaps": ["s2/gap/deployment"]
+    },
+    {
+      "id": "u3/contract/soft-api",
+      "kind": "interface_contract",
+      "component": "u3/component/mas",
+      "protocol": "http",
+      "name": "Create soft offer",
+      "method": "POST",
+      "path": "/api/commercial-items/soft-offers",
+      "authority": "source_declared",
+      "request": [
+        {
+          "part": "body",
+          "presence": "present",
+          "shape": "u3/shape/soft-request-wire",
+          "sourceShape": "u3/shape/soft-input",
+          "contentType": null,
+          "gaps": ["u3/gap/soft-wire"],
+          "evidence": ["s2/e/input", "u3/e/soft-json-settings"]
+        }
+      ],
+      "responses": [
+        {
+          "status": "201",
+          "body": {
+            "part": "body",
+            "presence": "present",
+            "shape": "u3/shape/soft-envelope",
+            "sourceShape": "u3/shape/soft-response",
+            "contentType": null,
+            "gaps": ["u3/gap/soft-wire"],
+            "evidence": ["u3/e/soft-envelope", "s2/e/response"]
+          },
+          "meaning": "Created response from original Add result",
+          "evidence": ["s2/e/response"]
+        },
+        {
+          "status": "400",
+          "body": {
+            "part": "body",
+            "presence": "unresolved",
+            "shape": null,
+            "sourceShape": null,
+            "contentType": null,
+            "gaps": ["s2/gap/http-scope"],
+            "evidence": ["s2/e/controller", "s2/e/middleware"]
+          },
+          "meaning": "Partial error contract; shared response details unresolved",
+          "evidence": ["s2/e/controller", "s2/e/middleware"]
+        },
+        {
+          "status": "401",
+          "body": {
+            "part": "body",
+            "presence": "unresolved",
+            "shape": null,
+            "sourceShape": null,
+            "contentType": null,
+            "gaps": ["s2/gap/http-scope"],
+            "evidence": ["s2/e/controller", "s2/e/middleware"]
+          },
+          "meaning": "Partial error contract; shared response details unresolved",
+          "evidence": ["s2/e/controller", "s2/e/middleware"]
+        },
+        {
+          "status": "409",
+          "body": {
+            "part": "body",
+            "presence": "unresolved",
+            "shape": null,
+            "sourceShape": null,
+            "contentType": null,
+            "gaps": ["s2/gap/http-scope"],
+            "evidence": ["s2/e/controller", "s2/e/middleware"]
+          },
+          "meaning": "Partial error contract; shared response details unresolved",
+          "evidence": ["s2/e/controller", "s2/e/middleware"]
+        },
+        {
+          "status": "500",
+          "body": {
+            "part": "body",
+            "presence": "unresolved",
+            "shape": null,
+            "sourceShape": null,
+            "contentType": null,
+            "gaps": ["s2/gap/http-scope"],
+            "evidence": ["s2/e/controller", "s2/e/middleware"]
+          },
+          "meaning": "Partial error contract; shared response details unresolved",
+          "evidence": ["s2/e/controller", "s2/e/middleware"]
+        }
+      ],
+      "evidence": [
+        "s2/e/controller",
+        "s2/e/input",
+        "u3/e/soft-response",
+        "u3/e/soft-envelope",
+        "u3/e/soft-json-settings"
+      ],
+      "gaps": ["u3/gap/soft-wire", "s2/gap/http-scope"]
+    },
+    {
+      "id": "u3/contract/soft-created",
+      "kind": "interface_contract",
+      "component": "u3/component/commercial-topic",
+      "protocol": "kafka",
+      "name": "SoftOfferCreated",
+      "method": null,
+      "path": null,
+      "authority": "source_declared",
+      "request": [
+        {
+          "part": "headers",
+          "presence": "present",
+          "shape": "u3/shape/message-headers",
+          "sourceShape": null,
+          "contentType": null,
+          "gaps": [],
+          "evidence": ["s2/e/headers"]
+        },
+        {
+          "part": "key",
+          "presence": "none",
+          "shape": null,
+          "sourceShape": null,
+          "contentType": null,
+          "gaps": [],
+          "evidence": ["s2/e/producer"]
+        },
+        {
+          "part": "message",
+          "presence": "present",
+          "shape": "s2/shape/p-wire",
+          "sourceShape": null,
+          "contentType": null,
+          "gaps": [],
+          "evidence": ["s2/e/producer-proto", "s2/e/consumer-proto"]
+        }
+      ],
+      "responses": [],
+      "evidence": ["s2/e/producer-proto", "s2/e/consumer-proto", "s2/e/headers", "s2/e/producer"],
+      "gaps": ["s2/gap/deployment", "s2/gap/offsets"]
+    },
+    {
+      "id": "u3/e/mas-program",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Api/Program.cs",
+      "lines": [1, 24],
+      "basis": "source"
+    },
+    {
+      "id": "u3/e/soft-envelope",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Api/Models/V1/Response/SuccessResponse.cs",
+      "lines": [1, 35],
+      "basis": "source"
+    },
+    {
+      "id": "u3/e/soft-json-settings",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Api/Extensions/ApplicationBuilderExtensions.cs",
+      "lines": [105, 132],
+      "basis": "source"
+    },
+    {
+      "id": "u3/e/soft-response",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Api/Models/V1/Response/SoftOffer.cs",
+      "lines": [1, 34],
+      "basis": "source"
+    },
+    {
+      "id": "u3/e/soft-validation-constants",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-manage-and-segment",
+      "commit": "b3605063154f542ec1615d363ab858b86c743110",
+      "path": "src/PopCat.ManageAndSegment.Core/Common/ValidationConstants.cs",
+      "lines": [8, 70],
+      "basis": "source"
+    },
+    {
+      "id": "u3/e/worker-program",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-assortment-api",
+      "commit": "6114c5db0f2b4b490cf89b9c512088f01dbf0b98",
+      "path": "src/PopCat.Assortment.CacheWorker.Host/Program.cs",
+      "lines": [1, 37],
+      "basis": "source"
+    },
+    {
+      "id": "u3/e/worker-registration",
+      "kind": "evidence",
+      "host": "github.com",
+      "repo": "volvo-cars/popcat-assortment-api",
+      "commit": "6114c5db0f2b4b490cf89b9c512088f01dbf0b98",
+      "path": "src/PopCat.Assortment.CacheWorker.Host/Extensions/ApplicationBuilderExtensions.cs",
+      "lines": [24, 45],
+      "basis": "source"
+    },
+    {
+      "id": "u3/exposes/soft-offer",
+      "kind": "entry_binding",
+      "entry": "s2/endpoint",
+      "execution": "u3/runs/s2-http",
+      "contract": "u3/contract/soft-api",
+      "evidence": ["s2/e/controller", "u3/e/mas-program"],
+      "gaps": []
+    },
+    {
+      "id": "u3/gap/soft-wire",
+      "kind": "gap",
+      "owner": "s2/http",
+      "obligation": "soft-wire",
+      "reason": "Camel-case naming and null omission are configured locally; media-type versioning, effective imported serialiser and formatter behaviour are not bound.",
+      "action": "Resolve the pinned dependency, configuration or contract source before asserting an effective wire contract.",
+      "evidence": ["u3/e/soft-json-settings", "s2/e/packages"]
+    },
+    {
+      "id": "u3/interaction/cold",
+      "kind": "interaction",
+      "owner": "s2/consumer",
+      "execution": "u3/runs/s2-consumer",
+      "operation": "s2/consumer.cold",
+      "target": "u3/component/blob",
+      "targetEntry": null,
+      "contract": "u3/contract/blob",
+      "effect": "s2/effect/cold",
+      "handoff": null,
+      "mode": "write",
+      "boundary": "network",
+      "waitsFor": "store_result",
+      "condition": "When this guarded read/write step is reached; acknowledgement semantics are retained separately",
+      "requestBindings": [
+        {
+          "part": "record",
+          "path": [],
+          "value": "s2/v/list",
+          "transform": "Source argument or payload binding"
+        },
+        {
+          "part": "record",
+          "path": [],
+          "value": "s2/v/cached-name",
+          "transform": "Source argument or payload binding"
+        }
+      ],
+      "responseBindings": [],
+      "gaps": ["s2/gap/deployment"],
+      "evidence": ["s2/e/blob", "s2/e/list"]
+    },
+    {
+      "id": "u3/interaction/consume",
+      "kind": "interaction",
+      "owner": "s2/consumer",
+      "execution": "u3/runs/s2-consumer",
+      "operation": "s2/consumer.receive",
+      "target": "u3/component/commercial-topic",
+      "targetEntry": null,
+      "contract": "u3/contract/soft-created",
+      "effect": null,
+      "handoff": "s2/handoff",
+      "mode": "consume",
+      "boundary": "network",
+      "waitsFor": "handler_result",
+      "condition": "Possible delivery under matching committed profiles and x-type filter; effective delivery is not established",
+      "requestBindings": [
+        {
+          "part": "message",
+          "path": [],
+          "value": "s2/v/payload",
+          "transform": "Source argument or payload binding"
+        }
+      ],
+      "responseBindings": [],
+      "gaps": ["s2/gap/deployment", "s2/gap/offsets"],
+      "evidence": ["s2/e/consumer", "s2/e/processor"]
+    },
+    {
+      "id": "u3/interaction/hot",
+      "kind": "interaction",
+      "owner": "s2/consumer",
+      "execution": "u3/runs/s2-consumer",
+      "operation": "s2/consumer.hot",
+      "target": "u3/component/redis",
+      "targetEntry": null,
+      "contract": "u3/contract/redis",
+      "effect": "s2/effect/hot",
+      "handoff": null,
+      "mode": "write",
+      "boundary": "network",
+      "waitsFor": "store_result",
+      "condition": "When this guarded read/write step is reached; acknowledgement semantics are retained separately",
+      "requestBindings": [
+        {
+          "part": "record",
+          "path": [],
+          "value": "s2/v/list",
+          "transform": "Source argument or payload binding"
+        },
+        {
+          "part": "record",
+          "path": [],
+          "value": "s2/v/cached-name",
+          "transform": "Source argument or payload binding"
+        }
+      ],
+      "responseBindings": [],
+      "gaps": ["s2/gap/deployment"],
+      "evidence": ["s2/e/redis", "s2/e/list"]
+    },
+    {
+      "id": "u3/interaction/hydrate",
+      "kind": "interaction",
+      "owner": "s2/consumer",
+      "execution": "u3/runs/s2-consumer",
+      "operation": "s2/consumer.hydrate",
+      "target": "u3/component/redis",
+      "targetEntry": null,
+      "contract": "u3/contract/redis",
+      "effect": "s2/effect/hydrate",
+      "handoff": null,
+      "mode": "write",
+      "boundary": "network",
+      "waitsFor": "store_result",
+      "condition": "When this guarded read/write step is reached; acknowledgement semantics are retained separately",
+      "requestBindings": [
+        {
+          "part": "record",
+          "path": [],
+          "value": "s2/v/cold-list",
+          "transform": "Source argument or payload binding"
+        }
+      ],
+      "responseBindings": [],
+      "gaps": ["s2/gap/deployment"],
+      "evidence": ["s2/e/list"]
+    },
+    {
+      "id": "u3/interaction/list-cold",
+      "kind": "interaction",
+      "owner": "s2/consumer",
+      "execution": "u3/runs/s2-consumer",
+      "operation": "s2/consumer.cold-read",
+      "target": "u3/component/blob",
+      "targetEntry": null,
+      "contract": "u3/contract/blob",
+      "effect": "s2/effect/list-cold",
+      "handoff": null,
+      "mode": "read",
+      "boundary": "network",
+      "waitsFor": "store_result",
+      "condition": "When this guarded read/write step is reached; acknowledgement semantics are retained separately",
+      "requestBindings": [],
+      "responseBindings": [],
+      "gaps": ["s2/gap/deployment"],
+      "evidence": ["s2/e/list"]
+    },
+    {
+      "id": "u3/interaction/list-hot",
+      "kind": "interaction",
+      "owner": "s2/consumer",
+      "execution": "u3/runs/s2-consumer",
+      "operation": "s2/consumer.hot-read",
+      "target": "u3/component/redis",
+      "targetEntry": null,
+      "contract": "u3/contract/redis",
+      "effect": "s2/effect/list-hot",
+      "handoff": null,
+      "mode": "read",
+      "boundary": "network",
+      "waitsFor": "store_result",
+      "condition": "When this guarded read/write step is reached; acknowledgement semantics are retained separately",
+      "requestBindings": [],
+      "responseBindings": [],
+      "gaps": ["s2/gap/deployment"],
+      "evidence": ["s2/e/list"]
+    },
+    {
+      "id": "u3/interaction/publish",
+      "kind": "interaction",
+      "owner": "s2/publish",
+      "execution": "u3/runs/s2-publish",
+      "operation": "s2/publish.attempt",
+      "target": "u3/component/commercial-topic",
+      "targetEntry": null,
+      "contract": "u3/contract/soft-created",
+      "effect": "s2/effect/publish",
+      "handoff": "s2/handoff",
+      "mode": "publish",
+      "boundary": "network",
+      "waitsFor": "producer_result",
+      "condition": "After save and successful refetch, when notifications are enabled and bytes are non-null",
+      "requestBindings": [
+        {
+          "part": "message",
+          "path": [],
+          "value": "s2/v/message",
+          "transform": "Source argument or payload binding"
+        },
+        {
+          "part": "headers",
+          "path": ["id"],
+          "value": "s2/v/correlation",
+          "transform": "Source argument or payload binding"
+        }
+      ],
+      "responseBindings": [],
+      "gaps": ["s2/gap/sdk-policy", "s2/gap/deployment"],
+      "evidence": ["s2/e/producer"]
+    },
+    {
+      "id": "u3/interaction/refetch",
+      "kind": "interaction",
+      "owner": "s2/add",
+      "execution": "u3/runs/s2-add",
+      "operation": "s2/add.refetch",
+      "target": "u3/component/postgres",
+      "targetEntry": null,
+      "contract": "u3/contract/postgres",
+      "effect": "s2/effect/refetch",
+      "handoff": null,
+      "mode": "read",
+      "boundary": "network",
+      "waitsFor": "store_result",
+      "condition": "When this guarded read/write step is reached; acknowledgement semantics are retained separately",
+      "requestBindings": [
+        {
+          "part": "record",
+          "path": [],
+          "value": "s2/v/saved-entity",
+          "transform": "Source argument or payload binding"
+        }
+      ],
+      "responseBindings": [],
+      "gaps": ["s2/gap/deployment"],
+      "evidence": ["s2/e/refetch", "s2/e/add"]
+    },
+    {
+      "id": "u3/interaction/save",
+      "kind": "interaction",
+      "owner": "s2/add",
+      "execution": "u3/runs/s2-add",
+      "operation": "s2/add.save",
+      "target": "u3/component/postgres",
+      "targetEntry": null,
+      "contract": "u3/contract/postgres",
+      "effect": "s2/effect/save",
+      "handoff": null,
+      "mode": "write",
+      "boundary": "network",
+      "waitsFor": "store_result",
+      "condition": "When this guarded read/write step is reached; acknowledgement semantics are retained separately",
+      "requestBindings": [
+        {
+          "part": "record",
+          "path": [],
+          "value": "s2/v/entity",
+          "transform": "Source argument or payload binding"
+        }
+      ],
+      "responseBindings": [],
+      "gaps": ["s2/gap/deployment"],
+      "evidence": ["s2/e/repository", "s2/e/uow", "s2/e/db"]
+    },
+    {
+      "id": "u3/runs/s2-add",
+      "kind": "execution_binding",
+      "implementation": "s2/add",
+      "component": "u3/component/mas",
+      "basis": "source_declared",
+      "artifactBinding": null,
+      "evidence": ["s2/e/add", "s2/e/service"],
+      "gaps": []
+    },
+    {
+      "id": "u3/runs/s2-consumer",
+      "kind": "execution_binding",
+      "implementation": "s2/consumer",
+      "component": "u3/component/assortment-worker",
+      "basis": "source_declared",
+      "artifactBinding": null,
+      "evidence": ["s2/e/consumer", "s2/e/processor"],
+      "gaps": []
+    },
+    {
+      "id": "u3/runs/s2-http",
+      "kind": "execution_binding",
+      "implementation": "s2/http",
+      "component": "u3/component/mas",
+      "basis": "source_declared",
+      "artifactBinding": null,
+      "evidence": ["s2/e/controller", "s2/e/middleware"],
+      "gaps": []
+    },
+    {
+      "id": "u3/runs/s2-notify",
+      "kind": "execution_binding",
+      "implementation": "s2/notify",
+      "component": "u3/component/mas",
+      "basis": "source_declared",
+      "artifactBinding": null,
+      "evidence": ["s2/e/notify"],
+      "gaps": []
+    },
+    {
+      "id": "u3/runs/s2-publish",
+      "kind": "execution_binding",
+      "implementation": "s2/publish",
+      "component": "u3/component/mas",
+      "basis": "source_declared",
+      "artifactBinding": null,
+      "evidence": ["s2/e/producer", "s2/e/serializer"],
+      "gaps": []
+    },
+    {
+      "id": "u3/shape/message-headers",
+      "kind": "shape",
+      "label": "Notification headers",
+      "representation": "wire",
+      "fields": [
+        {
+          "name": "x-type",
+          "type": "UTF-8 string",
+          "status": "declared",
+          "evidence": ["s2/e/headers"]
+        },
+        {
+          "name": "id",
+          "type": "UTF-8 correlation string; may be empty",
+          "status": "declared",
+          "evidence": ["s2/e/headers"]
+        }
+      ],
+      "completeness": "partial",
+      "container": "object",
+      "gaps": ["s2/gap/sdk-policy"],
+      "evidence": ["s2/e/headers", "s2/e/producer"]
+    },
+    {
+      "id": "u3/shape/soft-envelope",
+      "kind": "shape",
+      "label": "Configured JSON success envelope",
+      "representation": "wire",
+      "fields": [
+        {
+          "name": "status",
+          "type": "integer",
+          "status": "declared",
+          "evidence": ["u3/e/soft-envelope", "s2/e/response"],
+          "optional": false
+        },
+        {
+          "name": "operationId",
+          "type": "string",
+          "status": "declared",
+          "evidence": ["u3/e/soft-envelope"],
+          "optional": true,
+          "nullable": true
+        },
+        {
+          "name": "data",
+          "type": "object",
+          "status": "declared",
+          "evidence": ["u3/e/soft-envelope", "s2/e/response"],
+          "optional": true,
+          "nullable": true,
+          "shape": "u3/shape/soft-response-wire"
+        }
+      ],
+      "completeness": "partial",
+      "container": "object",
+      "gaps": ["u3/gap/soft-wire"],
+      "evidence": ["u3/e/soft-envelope", "s2/e/response", "u3/e/soft-json-settings"],
+      "encoding": "json"
+    },
+    {
+      "id": "u3/shape/soft-input",
+      "kind": "shape",
+      "label": "SoftOfferInput source DTO",
+      "representation": "source",
+      "fields": [
+        {
+          "name": "Code",
+          "type": "string",
+          "status": "declared",
+          "evidence": ["s2/e/input", "u3/e/soft-validation-constants"],
+          "optional": false,
+          "maxLength": 200,
+          "pattern": "^[a-zA-Z0-9-]+$"
+        },
+        {
+          "name": "Type",
+          "type": "string",
+          "status": "declared",
+          "evidence": ["s2/e/input", "u3/e/soft-validation-constants"],
+          "optional": false,
+          "maxLength": 200,
+          "pattern": "^[a-zA-Z0-9-]+$"
+        },
+        {
+          "name": "Name",
+          "type": "string",
+          "status": "declared",
+          "evidence": ["s2/e/input", "u3/e/soft-validation-constants"],
+          "optional": false,
+          "maxLength": 200
+        },
+        {
+          "name": "SkuCategory",
+          "type": "string",
+          "status": "declared",
+          "evidence": ["s2/e/input", "u3/e/soft-validation-constants"],
+          "optional": false,
+          "maxLength": 50,
+          "pattern": "^[A-Za-z0-9_]+$"
+        },
+        {
+          "name": "SkuIdentifier",
+          "type": "string",
+          "status": "declared",
+          "evidence": ["s2/e/input", "u3/e/soft-validation-constants"],
+          "optional": false,
+          "maxLength": 50,
+          "pattern": "^[A-Za-z0-9_]+$"
+        }
+      ],
+      "completeness": "closed",
+      "container": "object",
+      "gaps": [],
+      "evidence": ["s2/e/input", "u3/e/soft-validation-constants"]
+    },
+    {
+      "id": "u3/shape/soft-request-wire",
+      "kind": "shape",
+      "label": "Configured JSON request fields",
+      "representation": "wire",
+      "fields": [
+        {
+          "name": "code",
+          "type": "string",
+          "status": "declared",
+          "evidence": ["s2/e/input", "u3/e/soft-validation-constants"],
+          "optional": false,
+          "maxLength": 200,
+          "pattern": "^[a-zA-Z0-9-]+$"
+        },
+        {
+          "name": "type",
+          "type": "string",
+          "status": "declared",
+          "evidence": ["s2/e/input", "u3/e/soft-validation-constants"],
+          "optional": false,
+          "maxLength": 200,
+          "pattern": "^[a-zA-Z0-9-]+$"
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "status": "declared",
+          "evidence": ["s2/e/input", "u3/e/soft-validation-constants"],
+          "optional": false,
+          "maxLength": 200
+        },
+        {
+          "name": "skuCategory",
+          "type": "string",
+          "status": "declared",
+          "evidence": ["s2/e/input", "u3/e/soft-validation-constants"],
+          "optional": false,
+          "maxLength": 50,
+          "pattern": "^[A-Za-z0-9_]+$"
+        },
+        {
+          "name": "skuIdentifier",
+          "type": "string",
+          "status": "declared",
+          "evidence": ["s2/e/input", "u3/e/soft-validation-constants"],
+          "optional": false,
+          "maxLength": 50,
+          "pattern": "^[A-Za-z0-9_]+$"
+        }
+      ],
+      "completeness": "partial",
+      "container": "object",
+      "gaps": ["u3/gap/soft-wire"],
+      "evidence": ["s2/e/input", "u3/e/soft-json-settings"],
+      "encoding": "json"
+    },
+    {
+      "id": "u3/shape/soft-response",
+      "kind": "shape",
+      "label": "SoftOffer response DTO",
+      "representation": "source",
+      "fields": [
+        {
+          "name": "InternalId",
+          "type": "Guid",
+          "status": "declared",
+          "evidence": ["u3/e/soft-response"],
+          "optional": false
+        },
+        {
+          "name": "Id",
+          "type": "string",
+          "status": "declared",
+          "evidence": ["u3/e/soft-response"],
+          "optional": true
+        },
+        {
+          "name": "Code",
+          "type": "string",
+          "status": "declared",
+          "evidence": ["u3/e/soft-response"],
+          "optional": true
+        },
+        {
+          "name": "Type",
+          "type": "string",
+          "status": "declared",
+          "evidence": ["u3/e/soft-response"],
+          "optional": true
+        },
+        {
+          "name": "Name",
+          "type": "string",
+          "status": "declared",
+          "evidence": ["u3/e/soft-response"],
+          "optional": true
+        },
+        {
+          "name": "SkuCategory",
+          "type": "string",
+          "status": "declared",
+          "evidence": ["u3/e/soft-response"],
+          "optional": true
+        },
+        {
+          "name": "SkuIdentifier",
+          "type": "string",
+          "status": "declared",
+          "evidence": ["u3/e/soft-response"],
+          "optional": true
+        }
+      ],
+      "completeness": "closed",
+      "container": "object",
+      "gaps": [],
+      "evidence": ["u3/e/soft-response"]
+    },
+    {
+      "id": "u3/shape/soft-response-wire",
+      "kind": "shape",
+      "label": "Configured JSON soft offer",
+      "representation": "wire",
+      "fields": [
+        {
+          "name": "internalId",
+          "type": "Guid",
+          "status": "declared",
+          "evidence": ["u3/e/soft-response"],
+          "optional": false
+        },
+        {
+          "name": "id",
+          "type": "string",
+          "status": "declared",
+          "evidence": ["u3/e/soft-response"],
+          "optional": true
+        },
+        {
+          "name": "code",
+          "type": "string",
+          "status": "declared",
+          "evidence": ["u3/e/soft-response"],
+          "optional": true
+        },
+        {
+          "name": "type",
+          "type": "string",
+          "status": "declared",
+          "evidence": ["u3/e/soft-response"],
+          "optional": true
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "status": "declared",
+          "evidence": ["u3/e/soft-response"],
+          "optional": true
+        },
+        {
+          "name": "skuCategory",
+          "type": "string",
+          "status": "declared",
+          "evidence": ["u3/e/soft-response"],
+          "optional": true
+        },
+        {
+          "name": "skuIdentifier",
+          "type": "string",
+          "status": "declared",
+          "evidence": ["u3/e/soft-response"],
+          "optional": true
+        }
+      ],
+      "completeness": "partial",
+      "container": "object",
+      "gaps": ["u3/gap/soft-wire"],
+      "evidence": ["u3/e/soft-response", "u3/e/soft-json-settings"],
+      "encoding": "json"
+    }
+  ],
+  "traversalComplete": true,
+  "findings": [
+    {
+      "statement": "The entry interface is separate from its internal implementation.",
+      "support": ["u3/exposes/soft-offer"],
+      "assumptions": []
+    },
+    {
+      "statement": "Components and conditional interactions in this entry trace. Library execution stays inside the host. Drill into an interaction contract or bound implementation for detail.",
+      "support": [
+        "u3/runs/s2-http",
+        "u3/runs/s2-add",
+        "u3/runs/s2-notify",
+        "u3/runs/s2-publish",
+        "u3/runs/s2-consumer"
+      ],
+      "assumptions": ["Source declarations do not establish deployed topology or path feasibility"]
+    }
+  ],
+  "sourceLinks": [
+    {
+      "evidence": "s2/e/consumer",
+      "url": "https://github.com/volvo-cars/popcat-assortment-api/blob/6114c5db0f2b4b490cf89b9c512088f01dbf0b98/src/PopCat.Assortment.CacheWorker.Host/Services/KafkaConsumerService.cs#L17-L60",
+      "label": "volvo-cars/popcat-assortment-api/src/PopCat.Assortment.CacheWorker.Host/Services/KafkaConsumerService.cs:17–60"
+    },
+    {
+      "evidence": "u3/e/worker-registration",
+      "url": "https://github.com/volvo-cars/popcat-assortment-api/blob/6114c5db0f2b4b490cf89b9c512088f01dbf0b98/src/PopCat.Assortment.CacheWorker.Host/Extensions/ApplicationBuilderExtensions.cs#L24-L45",
+      "label": "volvo-cars/popcat-assortment-api/src/PopCat.Assortment.CacheWorker.Host/Extensions/ApplicationBuilderExtensions.cs:24–45"
+    },
+    {
+      "evidence": "u3/e/worker-program",
+      "url": "https://github.com/volvo-cars/popcat-assortment-api/blob/6114c5db0f2b4b490cf89b9c512088f01dbf0b98/src/PopCat.Assortment.CacheWorker.Host/Program.cs#L1-L37",
+      "label": "volvo-cars/popcat-assortment-api/src/PopCat.Assortment.CacheWorker.Host/Program.cs:1–37"
+    },
+    {
+      "evidence": "s2/e/filter",
+      "url": "https://github.com/volvo-cars/popcat-assortment-api/blob/6114c5db0f2b4b490cf89b9c512088f01dbf0b98/src/PopCat.Assortment.CacheWorker.Host/MessageProcessor/IMessageProcessor.cs#L1-L19",
+      "label": "volvo-cars/popcat-assortment-api/src/PopCat.Assortment.CacheWorker.Host/MessageProcessor/IMessageProcessor.cs:1–19"
+    },
+    {
+      "evidence": "s2/e/processor",
+      "url": "https://github.com/volvo-cars/popcat-assortment-api/blob/6114c5db0f2b4b490cf89b9c512088f01dbf0b98/src/PopCat.Assortment.CacheWorker.Host/MessageProcessor/ManageCommercialMessageProcessor.cs#L16-L118",
+      "label": "volvo-cars/popcat-assortment-api/src/PopCat.Assortment.CacheWorker.Host/MessageProcessor/ManageCommercialMessageProcessor.cs:16–118"
+    },
+    {
+      "evidence": "s2/e/controller",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Api/Controllers/V1/SoftOffersController.cs#L17-L90",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Api/Controllers/V1/SoftOffersController.cs:17–90"
+    },
+    {
+      "evidence": "u3/e/mas-program",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Api/Program.cs#L1-L24",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Api/Program.cs:1–24"
+    },
+    {
+      "evidence": "s2/e/producer",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.MessageBroker/Producers/KafkaProducer.cs#L40-L68",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.MessageBroker/Producers/KafkaProducer.cs:40–68"
+    },
+    {
+      "evidence": "s2/e/serializer",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.MessageBroker/Common/ProtoBufSerializer.cs#L1-L21",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.MessageBroker/Common/ProtoBufSerializer.cs:1–21"
+    },
+    {
+      "evidence": "s2/e/producer-proto",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.MessageBroker/Protos/soft_offer.proto#L1-L22",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.MessageBroker/Protos/soft_offer.proto:1–22"
+    },
+    {
+      "evidence": "s2/e/builder",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.MessageBroker/Builders/ProtoBufMessageBuilder.cs#L147-L167",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.MessageBroker/Builders/ProtoBufMessageBuilder.cs:147–167"
+    },
+    {
+      "evidence": "s2/e/notify",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.MessageBroker/Services/NotificationService.cs#L15-L70",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.MessageBroker/Services/NotificationService.cs:15–70"
+    },
+    {
+      "evidence": "s2/e/id-helper",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Core/Common/IdHelper.cs#L19-L56",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Core/Common/IdHelper.cs:19–56"
+    },
+    {
+      "evidence": "s2/e/softoffer",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Core/Models/CommercialItems/SoftOffer.cs#L1-L25",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Core/Models/CommercialItems/SoftOffer.cs:1–25"
+    },
+    {
+      "evidence": "s2/e/identity",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Core/Models/CommercialItems/CommercialItemBase.cs#L1-L43",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Core/Models/CommercialItems/CommercialItemBase.cs:1–43"
+    },
+    {
+      "evidence": "s2/e/add",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Core/Services/CommercialItemService.cs#L55-L71",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Core/Services/CommercialItemService.cs:55–71"
+    },
+    {
+      "evidence": "s2/e/mapping",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Api/Mapping/MappingProfile.cs#L50-L85",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Api/Mapping/MappingProfile.cs:50–85"
+    },
+    {
+      "evidence": "s2/e/service",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Core/Services/SoftOfferService.cs#L13-L24",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Core/Services/SoftOfferService.cs:13–24"
+    },
+    {
+      "evidence": "s2/e/input",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Api/Models/V1/Request/SoftOfferInput.cs#L1-L53",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Api/Models/V1/Request/SoftOfferInput.cs:1–53"
+    },
+    {
+      "evidence": "s2/e/middleware",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Api/Middleware/ExceptionMiddleware.cs#L1-L85",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Api/Middleware/ExceptionMiddleware.cs:1–85"
+    },
+    {
+      "evidence": "s2/e/response",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Api/Controllers/ManageAndSegmentControllerBase.cs#L32-L86",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Api/Controllers/ManageAndSegmentControllerBase.cs:32–86"
+    },
+    {
+      "evidence": "u3/e/soft-envelope",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Api/Models/V1/Response/SuccessResponse.cs#L1-L35",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Api/Models/V1/Response/SuccessResponse.cs:1–35"
+    },
+    {
+      "evidence": "s2/e/packages",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/Directory.Packages.props#L1-L84",
+      "label": "volvo-cars/popcat-manage-and-segment/Directory.Packages.props:1–84"
+    },
+    {
+      "evidence": "u3/e/soft-json-settings",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Api/Extensions/ApplicationBuilderExtensions.cs#L105-L132",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Api/Extensions/ApplicationBuilderExtensions.cs:105–132"
+    },
+    {
+      "evidence": "u3/e/soft-response",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Api/Models/V1/Response/SoftOffer.cs#L1-L34",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Api/Models/V1/Response/SoftOffer.cs:1–34"
+    },
+    {
+      "evidence": "u3/e/soft-validation-constants",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Core/Common/ValidationConstants.cs#L8-L70",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Core/Common/ValidationConstants.cs:8–70"
+    },
+    {
+      "evidence": "s2/e/list",
+      "url": "https://github.com/volvo-cars/popcat-assortment-api/blob/6114c5db0f2b4b490cf89b9c512088f01dbf0b98/src/PopCat.Assortment.Core/Services/UpstreamEntityCacheService.cs#L17-L58",
+      "label": "volvo-cars/popcat-assortment-api/src/PopCat.Assortment.Core/Services/UpstreamEntityCacheService.cs:17–58"
+    },
+    {
+      "evidence": "s2/e/redis",
+      "url": "https://github.com/volvo-cars/popcat-assortment-api/blob/6114c5db0f2b4b490cf89b9c512088f01dbf0b98/src/PopCat.Assortment.Core/Services/RedisCacheService.cs#L69-L81",
+      "label": "volvo-cars/popcat-assortment-api/src/PopCat.Assortment.Core/Services/RedisCacheService.cs:69–81"
+    },
+    {
+      "evidence": "s2/e/blob-key",
+      "url": "https://github.com/volvo-cars/popcat-assortment-api/blob/6114c5db0f2b4b490cf89b9c512088f01dbf0b98/src/PopCat.Assortment.Repository/BlobStorage/UpstreamEntitiesRepository.cs#L1-L12",
+      "label": "volvo-cars/popcat-assortment-api/src/PopCat.Assortment.Repository/BlobStorage/UpstreamEntitiesRepository.cs:1–12"
+    },
+    {
+      "evidence": "s2/e/blob-repository",
+      "url": "https://github.com/volvo-cars/popcat-assortment-api/blob/6114c5db0f2b4b490cf89b9c512088f01dbf0b98/src/PopCat.Assortment.Repository/BlobStorage/Repository.cs#L1-L21",
+      "label": "volvo-cars/popcat-assortment-api/src/PopCat.Assortment.Repository/BlobStorage/Repository.cs:1–21"
+    },
+    {
+      "evidence": "s2/e/blob",
+      "url": "https://github.com/volvo-cars/popcat-assortment-api/blob/6114c5db0f2b4b490cf89b9c512088f01dbf0b98/src/PopCat.Assortment.Repository/BlobStorage/BlobStorageClient.cs#L60-L73",
+      "label": "volvo-cars/popcat-assortment-api/src/PopCat.Assortment.Repository/BlobStorage/BlobStorageClient.cs:60–73"
+    },
+    {
+      "evidence": "s2/e/npgsql",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Infrastructure/Extensions/ApplicationBuilderExtensions.cs#L15-L29",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Infrastructure/Extensions/ApplicationBuilderExtensions.cs:15–29"
+    },
+    {
+      "evidence": "s2/e/uow",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Infrastructure/UnitOfWork.cs#L37-L108",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Infrastructure/UnitOfWork.cs:37–108"
+    },
+    {
+      "evidence": "s2/e/upsert",
+      "url": "https://github.com/volvo-cars/popcat-assortment-api/blob/6114c5db0f2b4b490cf89b9c512088f01dbf0b98/src/PopCat.Assortment.Core/Services/UpstreamEntityCacheService.cs#L60-L140",
+      "label": "volvo-cars/popcat-assortment-api/src/PopCat.Assortment.Core/Services/UpstreamEntityCacheService.cs:60–140"
+    },
+    {
+      "evidence": "s2/e/consumer-packages",
+      "url": "https://github.com/volvo-cars/popcat-assortment-api/blob/6114c5db0f2b4b490cf89b9c512088f01dbf0b98/Directory.Packages.props#L1-L85",
+      "label": "volvo-cars/popcat-assortment-api/Directory.Packages.props:1–85"
+    },
+    {
+      "evidence": "s2/e/consumer-config",
+      "url": "https://github.com/volvo-cars/popcat-assortment-api/blob/6114c5db0f2b4b490cf89b9c512088f01dbf0b98/src/PopCat.Assortment.CacheWorker.Host/Configuration/KafkaConsumerSettings.cs#L1-L45",
+      "label": "volvo-cars/popcat-assortment-api/src/PopCat.Assortment.CacheWorker.Host/Configuration/KafkaConsumerSettings.cs:1–45"
+    },
+    {
+      "evidence": "s2/e/sku-mapping",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Api/Mapping/MappingProfile.cs#L340-L350",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Api/Mapping/MappingProfile.cs:340–350"
+    },
+    {
+      "evidence": "s2/e/producer-config",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.MessageBroker/Extensions/ApplicationBuilderExtensions.cs#L15-L50",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.MessageBroker/Extensions/ApplicationBuilderExtensions.cs:15–50"
+    },
+    {
+      "evidence": "s2/e/consumer-prod-config",
+      "url": "https://github.com/volvo-cars/popcat-assortment-api/blob/6114c5db0f2b4b490cf89b9c512088f01dbf0b98/src/PopCat.Assortment.CacheWorker.Host/appsettings.Production.json#L1-L5",
+      "label": "volvo-cars/popcat-assortment-api/src/PopCat.Assortment.CacheWorker.Host/appsettings.Production.json:1–5"
+    },
+    {
+      "evidence": "s2/e/consumer-base-config",
+      "url": "https://github.com/volvo-cars/popcat-assortment-api/blob/6114c5db0f2b4b490cf89b9c512088f01dbf0b98/src/PopCat.Assortment.CacheWorker.Host/appsettings.json#L1-L66",
+      "label": "volvo-cars/popcat-assortment-api/src/PopCat.Assortment.CacheWorker.Host/appsettings.json:1–66"
+    },
+    {
+      "evidence": "s2/e/prod-config",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Api/appsettings.Prod.json#L1-L19",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Api/appsettings.Prod.json:1–19"
+    },
+    {
+      "evidence": "s2/e/base-config",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Api/appsettings.json#L1-L81",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Api/appsettings.json:1–81"
+    },
+    {
+      "evidence": "s2/e/upstream",
+      "url": "https://github.com/volvo-cars/popcat-assortment-api/blob/6114c5db0f2b4b490cf89b9c512088f01dbf0b98/src/PopCat.Assortment.Contracts/Models/UpstreamEntity.cs#L1-L3",
+      "label": "volvo-cars/popcat-assortment-api/src/PopCat.Assortment.Contracts/Models/UpstreamEntity.cs:1–3"
+    },
+    {
+      "evidence": "s2/e/cache-serializer",
+      "url": "https://github.com/volvo-cars/popcat-assortment-api/blob/6114c5db0f2b4b490cf89b9c512088f01dbf0b98/src/PopCat.Assortment.Core/Services/CacheSerializerService.cs#L1-L34",
+      "label": "volvo-cars/popcat-assortment-api/src/PopCat.Assortment.Core/Services/CacheSerializerService.cs:1–34"
+    },
+    {
+      "evidence": "s2/e/consumer-proto",
+      "url": "https://github.com/volvo-cars/popcat-assortment-api/blob/6114c5db0f2b4b490cf89b9c512088f01dbf0b98/src/PopCat.Assortment.CacheWorker.Host/Protos/manage/soft_offer.proto#L1-L22",
+      "label": "volvo-cars/popcat-assortment-api/src/PopCat.Assortment.CacheWorker.Host/Protos/manage/soft_offer.proto:1–22"
+    },
+    {
+      "evidence": "s2/e/headers",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.MessageBroker/Models/NotificationHeaders.cs#L1-L16",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.MessageBroker/Models/NotificationHeaders.cs:1–16"
+    },
+    {
+      "evidence": "s2/e/refetch",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Infrastructure/Repositories/CommercialItemRepository.cs#L1-L102",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Infrastructure/Repositories/CommercialItemRepository.cs:1–102"
+    },
+    {
+      "evidence": "s2/e/db",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Infrastructure/DatabaseContext.cs#L72-L143",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Infrastructure/DatabaseContext.cs:72–143"
+    },
+    {
+      "evidence": "s2/e/repository",
+      "url": "https://github.com/volvo-cars/popcat-manage-and-segment/blob/b3605063154f542ec1615d363ab858b86c743110/src/PopCat.ManageAndSegment.Infrastructure/Repositories/Repository.cs#L100-L115",
+      "label": "volvo-cars/popcat-manage-and-segment/src/PopCat.ManageAndSegment.Infrastructure/Repositories/Repository.cs:100–115"
+    }
+  ],
+  "nextRequest": null
+}

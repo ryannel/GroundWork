@@ -1,0 +1,284 @@
+[
+  {
+    "path": ".gitignore",
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/file-closure/bc37d034bad5645837",
+    "evidence": ["volvo/cce-policy-admin/88a3512f0307/local-r2/evidence/9f8a02678e9a026f9f"],
+    "status": "examined"
+  },
+  {
+    "path": "Makefile",
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/file-closure/76ed074a9305c04054",
+    "evidence": ["volvo/cce-policy-admin/88a3512f0307/local-r2/evidence/3c8f6f02efb559b714"],
+    "status": "examined"
+  },
+  {
+    "path": "README.md",
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/file-closure/b335630551682c19a7",
+    "evidence": ["volvo/cce-policy-admin/88a3512f0307/local-r2/evidence/67a2eab73c28a71385"],
+    "status": "examined"
+  },
+  {
+    "path": "cmd/policy-admin/main.go",
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/file-closure/d55ce3aa1a9d7bf2e2",
+    "evidence": ["volvo/cce-policy-admin/88a3512f0307/local-r2/evidence/fc5d586b0604b61bb7"],
+    "status": "examined"
+  },
+  {
+    "path": "docker-compose.yaml",
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/file-closure/3fde9d1a396e140fef",
+    "evidence": ["volvo/cce-policy-admin/88a3512f0307/local-r2/evidence/4cef379bce9b116aeb"],
+    "status": "examined"
+  },
+  {
+    "path": "go.mod",
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/file-closure/33ef32bf6c23acb95f",
+    "evidence": ["volvo/cce-policy-admin/88a3512f0307/local-r2/evidence/75de95de36cab429e6"],
+    "status": "examined"
+  },
+  {
+    "path": "go.sum",
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/file-closure/3295df7234525439d7",
+    "evidence": ["volvo/cce-policy-admin/88a3512f0307/local-r2/evidence/ce03bd249537e72e16"],
+    "status": "examined"
+  },
+  {
+    "path": "internal/api/httpserver/controller/controller.go",
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/file-closure/6d84b89e1058a8ce91",
+    "evidence": ["volvo/cce-policy-admin/88a3512f0307/local-r2/evidence/fc765673482785de0a"],
+    "status": "examined"
+  },
+  {
+    "path": "internal/api/httpserver/controller/convert.go",
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/file-closure/fc19cd6949543767f1",
+    "evidence": ["volvo/cce-policy-admin/88a3512f0307/local-r2/evidence/1055b26748e0e63d18"],
+    "status": "examined"
+  },
+  {
+    "path": "internal/api/httpserver/controller/model.go",
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/file-closure/83b27f6ef2bc0c9cdd",
+    "evidence": ["volvo/cce-policy-admin/88a3512f0307/local-r2/evidence/6d29b113f520db9954"],
+    "status": "examined"
+  },
+  {
+    "path": "internal/api/httpserver/respond/error.go",
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/file-closure/6c84fed0b671675865",
+    "evidence": ["volvo/cce-policy-admin/88a3512f0307/local-r2/evidence/64cedb61c2c6b75291"],
+    "status": "examined"
+  },
+  {
+    "path": "internal/api/httpserver/respond/model.go",
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/file-closure/c6cfd4c79f08d48430",
+    "evidence": ["volvo/cce-policy-admin/88a3512f0307/local-r2/evidence/74ea8a9f7ad8cb47b4"],
+    "status": "examined"
+  },
+  {
+    "path": "internal/api/httpserver/respond/respond.go",
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/file-closure/72688cad7069d1654d",
+    "evidence": ["volvo/cce-policy-admin/88a3512f0307/local-r2/evidence/f966d5f95eb180a07d"],
+    "status": "examined"
+  },
+  {
+    "path": "internal/api/httpserver/routes.go",
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/file-closure/a986fd29c03f4101b9",
+    "evidence": ["volvo/cce-policy-admin/88a3512f0307/local-r2/evidence/2daa891f05077a62db"],
+    "status": "examined"
+  },
+  {
+    "path": "internal/api/httpserver/server.go",
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/file-closure/dee58c8adb42d90e0e",
+    "evidence": ["volvo/cce-policy-admin/88a3512f0307/local-r2/evidence/559f236ce21c5c4253"],
+    "status": "examined"
+  },
+  {
+    "path": "internal/app/app.go",
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/file-closure/8c3b31d203de7539cf",
+    "evidence": ["volvo/cce-policy-admin/88a3512f0307/local-r2/evidence/645690a42e0f92f9ce"],
+    "status": "examined"
+  },
+  {
+    "path": "internal/app/commandhandlers.go",
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/file-closure/6e6894d71b5717c207",
+    "evidence": ["volvo/cce-policy-admin/88a3512f0307/local-r2/evidence/7672209c868d18c9d2"],
+    "status": "examined"
+  },
+  {
+    "path": "internal/app/config.go",
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/file-closure/8666207b9cb95f4506",
+    "evidence": ["volvo/cce-policy-admin/88a3512f0307/local-r2/evidence/6a8f83f2a834d411f8"],
+    "status": "examined"
+  },
+  {
+    "path": "internal/app/logging.go",
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/file-closure/cb8c61e8542f0be78d",
+    "evidence": ["volvo/cce-policy-admin/88a3512f0307/local-r2/evidence/545921fa5a0fa31d68"],
+    "status": "examined"
+  },
+  {
+    "path": "internal/app/watermill.go",
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/file-closure/908ab38200bb01a3c3",
+    "evidence": ["volvo/cce-policy-admin/88a3512f0307/local-r2/evidence/d0bff83f420d76a4b5"],
+    "status": "examined"
+  },
+  {
+    "path": "internal/command/carupdate.go",
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/file-closure/cdc8d4d3a31064b01d",
+    "evidence": ["volvo/cce-policy-admin/88a3512f0307/local-r2/evidence/ada6fb1ec2c2d244c2"],
+    "status": "examined"
+  },
+  {
+    "path": "internal/command/policyupdate.go",
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/file-closure/7be58d4bc13b080f41",
+    "evidence": ["volvo/cce-policy-admin/88a3512f0307/local-r2/evidence/ff7e4151ded7a90159"],
+    "status": "examined"
+  },
+  {
+    "path": "internal/database/blobstorage/blobstorage.go",
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/file-closure/3d61340e8c7af4082f",
+    "evidence": ["volvo/cce-policy-admin/88a3512f0307/local-r2/evidence/db0ef335bf55febba7"],
+    "status": "examined"
+  },
+  {
+    "path": "internal/database/inmemory/car_specs_110.json",
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/file-closure/408f5c400dbcd266a9",
+    "evidence": ["volvo/cce-policy-admin/88a3512f0307/local-r2/evidence/805fc64000df06a9ed"],
+    "status": "examined"
+  },
+  {
+    "path": "internal/database/inmemory/inmemory.go",
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/file-closure/4fa9783781189328c7",
+    "evidence": ["volvo/cce-policy-admin/88a3512f0307/local-r2/evidence/cd8ae64cac9fa8a930"],
+    "status": "examined"
+  },
+  {
+    "path": "internal/domain/carspecification.go",
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/file-closure/007f209c4fa1db300d",
+    "evidence": ["volvo/cce-policy-admin/88a3512f0307/local-r2/evidence/df7c1fb37a44c54a1f"],
+    "status": "examined"
+  },
+  {
+    "path": "internal/domain/configrule.go",
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/file-closure/2b2641b18c88cf9ad3",
+    "evidence": ["volvo/cce-policy-admin/88a3512f0307/local-r2/evidence/2b66087667e7a13358"],
+    "status": "examined"
+  },
+  {
+    "path": "internal/domain/configrule_test.go",
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/file-closure/3905609a17ab683ada",
+    "evidence": ["volvo/cce-policy-admin/88a3512f0307/local-r2/evidence/a1178f2d1ff3e69f8e"],
+    "status": "examined"
+  },
+  {
+    "path": "internal/domain/event.go",
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/file-closure/8f10563cf5df6122c2",
+    "evidence": ["volvo/cce-policy-admin/88a3512f0307/local-r2/evidence/a894cf6cc9f4bd0310"],
+    "status": "examined"
+  },
+  {
+    "path": "internal/domain/old.go",
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/file-closure/9d88beb0b19984c320",
+    "evidence": ["volvo/cce-policy-admin/88a3512f0307/local-r2/evidence/18443ad9030a9a21dc"],
+    "status": "examined"
+  },
+  {
+    "path": "internal/domain/policy.go",
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/file-closure/45d69d4d0ada77686c",
+    "evidence": ["volvo/cce-policy-admin/88a3512f0307/local-r2/evidence/0783c2a27e5cff06da"],
+    "status": "examined"
+  },
+  {
+    "path": "internal/domain/policy_test.go",
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/file-closure/15e463fc1d3abad8e7",
+    "evidence": ["volvo/cce-policy-admin/88a3512f0307/local-r2/evidence/33f3f2c47fba14ef07"],
+    "status": "examined"
+  },
+  {
+    "path": "internal/messaging/contracts/bto_car.proto",
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/file-closure/628268dc56295392fb",
+    "evidence": ["volvo/cce-policy-admin/88a3512f0307/local-r2/evidence/afd6080b61792c96f6"],
+    "status": "examined"
+  },
+  {
+    "path": "internal/messaging/contracts/car-configuration.proto",
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/file-closure/6baf30f4f8c664d198",
+    "evidence": ["volvo/cce-policy-admin/88a3512f0307/local-r2/evidence/9a0cc02e8d236710d5"],
+    "status": "examined"
+  },
+  {
+    "path": "internal/messaging/contracts/carconfiguration/component.pb.go",
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/file-closure/ae6cf58f757f2105bf",
+    "evidence": ["volvo/cce-policy-admin/88a3512f0307/local-r2/evidence/f31f6108f5747613c6"],
+    "status": "examined"
+  },
+  {
+    "path": "internal/messaging/contracts/carconfiguration/condition.pb.go",
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/file-closure/28af72ac0d1b735d9a",
+    "evidence": ["volvo/cce-policy-admin/88a3512f0307/local-r2/evidence/212a0236c77ce4ed36"],
+    "status": "examined"
+  },
+  {
+    "path": "internal/messaging/contracts/carconfiguration/config-policy.pb.go",
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/file-closure/d1598ea09f1244a1e9",
+    "evidence": ["volvo/cce-policy-admin/88a3512f0307/local-r2/evidence/4027d9e13a5b48f2bd"],
+    "status": "examined"
+  },
+  {
+    "path": "internal/messaging/contracts/carconfiguration/config-rules.pb.go",
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/file-closure/60b66739eeadbc64f9",
+    "evidence": ["volvo/cce-policy-admin/88a3512f0307/local-r2/evidence/5c83385503b8fcd37d"],
+    "status": "examined"
+  },
+  {
+    "path": "internal/messaging/contracts/carconfiguration/consequence.pb.go",
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/file-closure/f04b8b2dd227d1a6a2",
+    "evidence": ["volvo/cce-policy-admin/88a3512f0307/local-r2/evidence/46aa540fdc2d41e418"],
+    "status": "examined"
+  },
+  {
+    "path": "internal/messaging/contracts/cce/bto_car.pb.go",
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/file-closure/141c6fda8a723a0ffb",
+    "evidence": ["volvo/cce-policy-admin/88a3512f0307/local-r2/evidence/8afc9bed6654f85b48"],
+    "status": "examined"
+  },
+  {
+    "path": "internal/messaging/contracts/cce/car-configuration.pb.go",
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/file-closure/864883b761852a0707",
+    "evidence": ["volvo/cce-policy-admin/88a3512f0307/local-r2/evidence/e35af8c4c4c814f603"],
+    "status": "examined"
+  },
+  {
+    "path": "internal/messaging/contracts/cce/car-sync.pb.go",
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/file-closure/9a7c9fcae0c44152cf",
+    "evidence": ["volvo/cce-policy-admin/88a3512f0307/local-r2/evidence/926c0407ded8345125"],
+    "status": "examined"
+  },
+  {
+    "path": "internal/messaging/event.go",
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/file-closure/9987b7c425cb473e72",
+    "evidence": ["volvo/cce-policy-admin/88a3512f0307/local-r2/evidence/023f5765415cec6a73"],
+    "status": "examined"
+  },
+  {
+    "path": "internal/messaging/handler.go",
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/file-closure/a34391c727afa0e0ed",
+    "evidence": ["volvo/cce-policy-admin/88a3512f0307/local-r2/evidence/1fd2a09d5bfdd55b49"],
+    "status": "examined"
+  },
+  {
+    "path": "internal/messaging/policypublisher.go",
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/file-closure/a93e69e4916ce61d0b",
+    "evidence": ["volvo/cce-policy-admin/88a3512f0307/local-r2/evidence/cfdb0726a4a437d66d"],
+    "status": "examined"
+  },
+  {
+    "path": "internal/observability/logging/logger.go",
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/file-closure/480ca2286affc8cbf0",
+    "evidence": ["volvo/cce-policy-admin/88a3512f0307/local-r2/evidence/0219d4a8d6157c3407"],
+    "status": "examined"
+  },
+  {
+    "path": "migrate_mongodb_to_postgres.py",
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/file-closure/b07aeab6534c902983",
+    "evidence": ["volvo/cce-policy-admin/88a3512f0307/local-r2/evidence/5c56dc64c653535b20"],
+    "status": "examined"
+  }
+]

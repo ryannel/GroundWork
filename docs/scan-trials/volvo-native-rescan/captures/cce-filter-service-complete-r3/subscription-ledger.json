@@ -1,0 +1,391 @@
+{
+  "handlerRegistrations": 8,
+  "physicalSubscribeSourceSites": 1,
+  "configuredTopicSources": 4,
+  "conditionalBindingProjections": [
+    {
+      "sourceRegistration": "messaging.handlers.policy_rules_saved_event_handler",
+      "typeName": "volvocars.contracts.car-configuration.policy-rules-saved",
+      "topicSetting": "CONFIG_POLICY_TOPIC",
+      "subscription": "volvo/cce-filter-service/2020ff59219b/local-r3/subscription/dispatch/dc6c37932905d75ce0/CONFIG_POLICY_TOPIC",
+      "implementation": "volvo/cce-filter-service/2020ff59219b/local-r3/implementation/dispatch/dc6c37932905d75ce0",
+      "actualHandler": "volvo/cce-filter-service/2020ff59219b/local-r3/implementation/00c6f8b68c369e44e0",
+      "interaction": "volvo/cce-filter-service/2020ff59219b/local-r3/interaction/dispatch/dc6c37932905d75ce0/CONFIG_POLICY_TOPIC",
+      "payloadSchemas": [
+        "volvo/cce-filter-service/2020ff59219b/local-r3/shape/protobuf/wire/b01996fde328adc9f4"
+      ]
+    },
+    {
+      "sourceRegistration": "messaging.handlers.policy_rules_saved_event_handler",
+      "typeName": "volvocars.contracts.car-configuration.policy-rules-saved",
+      "topicSetting": "RETAIL_FEED_TOPIC",
+      "subscription": "volvo/cce-filter-service/2020ff59219b/local-r3/subscription/dispatch/e7c83e981ba14f058b/RETAIL_FEED_TOPIC",
+      "implementation": "volvo/cce-filter-service/2020ff59219b/local-r3/implementation/dispatch/e7c83e981ba14f058b",
+      "actualHandler": "volvo/cce-filter-service/2020ff59219b/local-r3/implementation/00c6f8b68c369e44e0",
+      "interaction": "volvo/cce-filter-service/2020ff59219b/local-r3/interaction/dispatch/e7c83e981ba14f058b/RETAIL_FEED_TOPIC",
+      "payloadSchemas": [
+        "volvo/cce-filter-service/2020ff59219b/local-r3/shape/protobuf/wire/b01996fde328adc9f4"
+      ]
+    },
+    {
+      "sourceRegistration": "messaging.handlers.policy_rules_saved_event_handler",
+      "typeName": "volvocars.contracts.car-configuration.policy-rules-saved",
+      "topicSetting": "CAR_SYNC_TOPIC",
+      "subscription": "volvo/cce-filter-service/2020ff59219b/local-r3/subscription/dispatch/0454c01cdbc809e1af/CAR_SYNC_TOPIC",
+      "implementation": "volvo/cce-filter-service/2020ff59219b/local-r3/implementation/dispatch/0454c01cdbc809e1af",
+      "actualHandler": "volvo/cce-filter-service/2020ff59219b/local-r3/implementation/00c6f8b68c369e44e0",
+      "interaction": "volvo/cce-filter-service/2020ff59219b/local-r3/interaction/dispatch/0454c01cdbc809e1af/CAR_SYNC_TOPIC",
+      "payloadSchemas": [
+        "volvo/cce-filter-service/2020ff59219b/local-r3/shape/protobuf/wire/b01996fde328adc9f4"
+      ]
+    },
+    {
+      "sourceRegistration": "messaging.handlers.policy_rules_saved_event_handler",
+      "typeName": "volvocars.contracts.car-configuration.policy-rules-saved",
+      "topicSetting": "CAR_SPECIFICATION_TOPIC",
+      "subscription": "volvo/cce-filter-service/2020ff59219b/local-r3/subscription/dispatch/1ecc606048a6abc1fb/CAR_SPECIFICATION_TOPIC",
+      "implementation": "volvo/cce-filter-service/2020ff59219b/local-r3/implementation/dispatch/1ecc606048a6abc1fb",
+      "actualHandler": "volvo/cce-filter-service/2020ff59219b/local-r3/implementation/00c6f8b68c369e44e0",
+      "interaction": "volvo/cce-filter-service/2020ff59219b/local-r3/interaction/dispatch/1ecc606048a6abc1fb/CAR_SPECIFICATION_TOPIC",
+      "payloadSchemas": [
+        "volvo/cce-filter-service/2020ff59219b/local-r3/shape/protobuf/wire/b01996fde328adc9f4"
+      ]
+    },
+    {
+      "sourceRegistration": "messaging.handlers.handle_partner_details_imported",
+      "typeName": "partnerDetailsLoaded",
+      "topicSetting": "CONFIG_POLICY_TOPIC",
+      "subscription": "volvo/cce-filter-service/2020ff59219b/local-r3/subscription/dispatch/c32cc1866b3107d199/CONFIG_POLICY_TOPIC",
+      "implementation": "volvo/cce-filter-service/2020ff59219b/local-r3/implementation/dispatch/c32cc1866b3107d199",
+      "actualHandler": "volvo/cce-filter-service/2020ff59219b/local-r3/implementation/13dd2e4b41de0c82c6",
+      "interaction": "volvo/cce-filter-service/2020ff59219b/local-r3/interaction/dispatch/c32cc1866b3107d199/CONFIG_POLICY_TOPIC",
+      "payloadSchemas": [
+        "volvo/cce-filter-service/2020ff59219b/local-r3/shape/protobuf/wire/0e331146e0c9f72331"
+      ]
+    },
+    {
+      "sourceRegistration": "messaging.handlers.handle_partner_details_imported",
+      "typeName": "partnerDetailsLoaded",
+      "topicSetting": "RETAIL_FEED_TOPIC",
+      "subscription": "volvo/cce-filter-service/2020ff59219b/local-r3/subscription/dispatch/2f7cc8e5bdc61da6f2/RETAIL_FEED_TOPIC",
+      "implementation": "volvo/cce-filter-service/2020ff59219b/local-r3/implementation/dispatch/2f7cc8e5bdc61da6f2",
+      "actualHandler": "volvo/cce-filter-service/2020ff59219b/local-r3/implementation/13dd2e4b41de0c82c6",
+      "interaction": "volvo/cce-filter-service/2020ff59219b/local-r3/interaction/dispatch/2f7cc8e5bdc61da6f2/RETAIL_FEED_TOPIC",
+      "payloadSchemas": [
+        "volvo/cce-filter-service/2020ff59219b/local-r3/shape/protobuf/wire/0e331146e0c9f72331"
+      ]
+    },
+    {
+      "sourceRegistration": "messaging.handlers.handle_partner_details_imported",
+      "typeName": "partnerDetailsLoaded",
+      "topicSetting": "CAR_SYNC_TOPIC",
+      "subscription": "volvo/cce-filter-service/2020ff59219b/local-r3/subscription/dispatch/8d01a2d105ec197697/CAR_SYNC_TOPIC",
+      "implementation": "volvo/cce-filter-service/2020ff59219b/local-r3/implementation/dispatch/8d01a2d105ec197697",
+      "actualHandler": "volvo/cce-filter-service/2020ff59219b/local-r3/implementation/13dd2e4b41de0c82c6",
+      "interaction": "volvo/cce-filter-service/2020ff59219b/local-r3/interaction/dispatch/8d01a2d105ec197697/CAR_SYNC_TOPIC",
+      "payloadSchemas": [
+        "volvo/cce-filter-service/2020ff59219b/local-r3/shape/protobuf/wire/0e331146e0c9f72331"
+      ]
+    },
+    {
+      "sourceRegistration": "messaging.handlers.handle_partner_details_imported",
+      "typeName": "partnerDetailsLoaded",
+      "topicSetting": "CAR_SPECIFICATION_TOPIC",
+      "subscription": "volvo/cce-filter-service/2020ff59219b/local-r3/subscription/dispatch/43e42fad1a4807622a/CAR_SPECIFICATION_TOPIC",
+      "implementation": "volvo/cce-filter-service/2020ff59219b/local-r3/implementation/dispatch/43e42fad1a4807622a",
+      "actualHandler": "volvo/cce-filter-service/2020ff59219b/local-r3/implementation/13dd2e4b41de0c82c6",
+      "interaction": "volvo/cce-filter-service/2020ff59219b/local-r3/interaction/dispatch/43e42fad1a4807622a/CAR_SPECIFICATION_TOPIC",
+      "payloadSchemas": [
+        "volvo/cce-filter-service/2020ff59219b/local-r3/shape/protobuf/wire/0e331146e0c9f72331"
+      ]
+    },
+    {
+      "sourceRegistration": "messaging.handlers.handle_pno12_components_imported_message",
+      "typeName": "volvocars.contracts.car-configuration.pno12-components-imported",
+      "topicSetting": "CONFIG_POLICY_TOPIC",
+      "subscription": "volvo/cce-filter-service/2020ff59219b/local-r3/subscription/dispatch/6f6633e1461ef970f5/CONFIG_POLICY_TOPIC",
+      "implementation": "volvo/cce-filter-service/2020ff59219b/local-r3/implementation/dispatch/6f6633e1461ef970f5",
+      "actualHandler": "volvo/cce-filter-service/2020ff59219b/local-r3/implementation/cb8e5effc6b45e56c3",
+      "interaction": "volvo/cce-filter-service/2020ff59219b/local-r3/interaction/dispatch/6f6633e1461ef970f5/CONFIG_POLICY_TOPIC",
+      "payloadSchemas": [
+        "volvo/cce-filter-service/2020ff59219b/local-r3/shape/protobuf/wire/844474373a51bbe4ac"
+      ]
+    },
+    {
+      "sourceRegistration": "messaging.handlers.handle_pno12_components_imported_message",
+      "typeName": "volvocars.contracts.car-configuration.pno12-components-imported",
+      "topicSetting": "RETAIL_FEED_TOPIC",
+      "subscription": "volvo/cce-filter-service/2020ff59219b/local-r3/subscription/dispatch/d80e25b92c47424f4a/RETAIL_FEED_TOPIC",
+      "implementation": "volvo/cce-filter-service/2020ff59219b/local-r3/implementation/dispatch/d80e25b92c47424f4a",
+      "actualHandler": "volvo/cce-filter-service/2020ff59219b/local-r3/implementation/cb8e5effc6b45e56c3",
+      "interaction": "volvo/cce-filter-service/2020ff59219b/local-r3/interaction/dispatch/d80e25b92c47424f4a/RETAIL_FEED_TOPIC",
+      "payloadSchemas": [
+        "volvo/cce-filter-service/2020ff59219b/local-r3/shape/protobuf/wire/844474373a51bbe4ac"
+      ]
+    },
+    {
+      "sourceRegistration": "messaging.handlers.handle_pno12_components_imported_message",
+      "typeName": "volvocars.contracts.car-configuration.pno12-components-imported",
+      "topicSetting": "CAR_SYNC_TOPIC",
+      "subscription": "volvo/cce-filter-service/2020ff59219b/local-r3/subscription/dispatch/ba486089730e04b8b3/CAR_SYNC_TOPIC",
+      "implementation": "volvo/cce-filter-service/2020ff59219b/local-r3/implementation/dispatch/ba486089730e04b8b3",
+      "actualHandler": "volvo/cce-filter-service/2020ff59219b/local-r3/implementation/cb8e5effc6b45e56c3",
+      "interaction": "volvo/cce-filter-service/2020ff59219b/local-r3/interaction/dispatch/ba486089730e04b8b3/CAR_SYNC_TOPIC",
+      "payloadSchemas": [
+        "volvo/cce-filter-service/2020ff59219b/local-r3/shape/protobuf/wire/844474373a51bbe4ac"
+      ]
+    },
+    {
+      "sourceRegistration": "messaging.handlers.handle_pno12_components_imported_message",
+      "typeName": "volvocars.contracts.car-configuration.pno12-components-imported",
+      "topicSetting": "CAR_SPECIFICATION_TOPIC",
+      "subscription": "volvo/cce-filter-service/2020ff59219b/local-r3/subscription/dispatch/37323cb055d332beea/CAR_SPECIFICATION_TOPIC",
+      "implementation": "volvo/cce-filter-service/2020ff59219b/local-r3/implementation/dispatch/37323cb055d332beea",
+      "actualHandler": "volvo/cce-filter-service/2020ff59219b/local-r3/implementation/cb8e5effc6b45e56c3",
+      "interaction": "volvo/cce-filter-service/2020ff59219b/local-r3/interaction/dispatch/37323cb055d332beea/CAR_SPECIFICATION_TOPIC",
+      "payloadSchemas": [
+        "volvo/cce-filter-service/2020ff59219b/local-r3/shape/protobuf/wire/844474373a51bbe4ac"
+      ]
+    },
+    {
+      "sourceRegistration": "messaging.handlers.handle_car_specification_upserted",
+      "typeName": "volvocars.contracts.car-configuration.v2.car-specification-upserted",
+      "topicSetting": "CONFIG_POLICY_TOPIC",
+      "subscription": "volvo/cce-filter-service/2020ff59219b/local-r3/subscription/dispatch/817d27eda215e06039/CONFIG_POLICY_TOPIC",
+      "implementation": "volvo/cce-filter-service/2020ff59219b/local-r3/implementation/dispatch/817d27eda215e06039",
+      "actualHandler": "volvo/cce-filter-service/2020ff59219b/local-r3/implementation/80bd5a6ccfd818c6c5",
+      "interaction": "volvo/cce-filter-service/2020ff59219b/local-r3/interaction/dispatch/817d27eda215e06039/CONFIG_POLICY_TOPIC",
+      "payloadSchemas": [
+        "volvo/cce-filter-service/2020ff59219b/local-r3/shape/protobuf/wire/0f42a9daf4d5ee1a09"
+      ]
+    },
+    {
+      "sourceRegistration": "messaging.handlers.handle_car_specification_upserted",
+      "typeName": "volvocars.contracts.car-configuration.v2.car-specification-upserted",
+      "topicSetting": "RETAIL_FEED_TOPIC",
+      "subscription": "volvo/cce-filter-service/2020ff59219b/local-r3/subscription/dispatch/15375c35483a99613d/RETAIL_FEED_TOPIC",
+      "implementation": "volvo/cce-filter-service/2020ff59219b/local-r3/implementation/dispatch/15375c35483a99613d",
+      "actualHandler": "volvo/cce-filter-service/2020ff59219b/local-r3/implementation/80bd5a6ccfd818c6c5",
+      "interaction": "volvo/cce-filter-service/2020ff59219b/local-r3/interaction/dispatch/15375c35483a99613d/RETAIL_FEED_TOPIC",
+      "payloadSchemas": [
+        "volvo/cce-filter-service/2020ff59219b/local-r3/shape/protobuf/wire/0f42a9daf4d5ee1a09"
+      ]
+    },
+    {
+      "sourceRegistration": "messaging.handlers.handle_car_specification_upserted",
+      "typeName": "volvocars.contracts.car-configuration.v2.car-specification-upserted",
+      "topicSetting": "CAR_SYNC_TOPIC",
+      "subscription": "volvo/cce-filter-service/2020ff59219b/local-r3/subscription/dispatch/b475164c16086c7202/CAR_SYNC_TOPIC",
+      "implementation": "volvo/cce-filter-service/2020ff59219b/local-r3/implementation/dispatch/b475164c16086c7202",
+      "actualHandler": "volvo/cce-filter-service/2020ff59219b/local-r3/implementation/80bd5a6ccfd818c6c5",
+      "interaction": "volvo/cce-filter-service/2020ff59219b/local-r3/interaction/dispatch/b475164c16086c7202/CAR_SYNC_TOPIC",
+      "payloadSchemas": [
+        "volvo/cce-filter-service/2020ff59219b/local-r3/shape/protobuf/wire/0f42a9daf4d5ee1a09"
+      ]
+    },
+    {
+      "sourceRegistration": "messaging.handlers.handle_car_specification_upserted",
+      "typeName": "volvocars.contracts.car-configuration.v2.car-specification-upserted",
+      "topicSetting": "CAR_SPECIFICATION_TOPIC",
+      "subscription": "volvo/cce-filter-service/2020ff59219b/local-r3/subscription/dispatch/6a2b8a8f3152f158d2/CAR_SPECIFICATION_TOPIC",
+      "implementation": "volvo/cce-filter-service/2020ff59219b/local-r3/implementation/dispatch/6a2b8a8f3152f158d2",
+      "actualHandler": "volvo/cce-filter-service/2020ff59219b/local-r3/implementation/80bd5a6ccfd818c6c5",
+      "interaction": "volvo/cce-filter-service/2020ff59219b/local-r3/interaction/dispatch/6a2b8a8f3152f158d2/CAR_SPECIFICATION_TOPIC",
+      "payloadSchemas": [
+        "volvo/cce-filter-service/2020ff59219b/local-r3/shape/protobuf/wire/0f42a9daf4d5ee1a09"
+      ]
+    },
+    {
+      "sourceRegistration": "messaging.handlers.handle_car_specification_removed",
+      "typeName": "volvocars.contracts.car-configuration.v2.car-specification-removed",
+      "topicSetting": "CONFIG_POLICY_TOPIC",
+      "subscription": "volvo/cce-filter-service/2020ff59219b/local-r3/subscription/dispatch/872a506aab2127cd3c/CONFIG_POLICY_TOPIC",
+      "implementation": "volvo/cce-filter-service/2020ff59219b/local-r3/implementation/dispatch/872a506aab2127cd3c",
+      "actualHandler": "volvo/cce-filter-service/2020ff59219b/local-r3/implementation/268cae429780faecea",
+      "interaction": "volvo/cce-filter-service/2020ff59219b/local-r3/interaction/dispatch/872a506aab2127cd3c/CONFIG_POLICY_TOPIC",
+      "payloadSchemas": [
+        "volvo/cce-filter-service/2020ff59219b/local-r3/shape/protobuf/wire/964c42f9786ff7d7e9"
+      ]
+    },
+    {
+      "sourceRegistration": "messaging.handlers.handle_car_specification_removed",
+      "typeName": "volvocars.contracts.car-configuration.v2.car-specification-removed",
+      "topicSetting": "RETAIL_FEED_TOPIC",
+      "subscription": "volvo/cce-filter-service/2020ff59219b/local-r3/subscription/dispatch/6172104b19db2f9e87/RETAIL_FEED_TOPIC",
+      "implementation": "volvo/cce-filter-service/2020ff59219b/local-r3/implementation/dispatch/6172104b19db2f9e87",
+      "actualHandler": "volvo/cce-filter-service/2020ff59219b/local-r3/implementation/268cae429780faecea",
+      "interaction": "volvo/cce-filter-service/2020ff59219b/local-r3/interaction/dispatch/6172104b19db2f9e87/RETAIL_FEED_TOPIC",
+      "payloadSchemas": [
+        "volvo/cce-filter-service/2020ff59219b/local-r3/shape/protobuf/wire/964c42f9786ff7d7e9"
+      ]
+    },
+    {
+      "sourceRegistration": "messaging.handlers.handle_car_specification_removed",
+      "typeName": "volvocars.contracts.car-configuration.v2.car-specification-removed",
+      "topicSetting": "CAR_SYNC_TOPIC",
+      "subscription": "volvo/cce-filter-service/2020ff59219b/local-r3/subscription/dispatch/7f7c02a85264967033/CAR_SYNC_TOPIC",
+      "implementation": "volvo/cce-filter-service/2020ff59219b/local-r3/implementation/dispatch/7f7c02a85264967033",
+      "actualHandler": "volvo/cce-filter-service/2020ff59219b/local-r3/implementation/268cae429780faecea",
+      "interaction": "volvo/cce-filter-service/2020ff59219b/local-r3/interaction/dispatch/7f7c02a85264967033/CAR_SYNC_TOPIC",
+      "payloadSchemas": [
+        "volvo/cce-filter-service/2020ff59219b/local-r3/shape/protobuf/wire/964c42f9786ff7d7e9"
+      ]
+    },
+    {
+      "sourceRegistration": "messaging.handlers.handle_car_specification_removed",
+      "typeName": "volvocars.contracts.car-configuration.v2.car-specification-removed",
+      "topicSetting": "CAR_SPECIFICATION_TOPIC",
+      "subscription": "volvo/cce-filter-service/2020ff59219b/local-r3/subscription/dispatch/204fb451057569e253/CAR_SPECIFICATION_TOPIC",
+      "implementation": "volvo/cce-filter-service/2020ff59219b/local-r3/implementation/dispatch/204fb451057569e253",
+      "actualHandler": "volvo/cce-filter-service/2020ff59219b/local-r3/implementation/268cae429780faecea",
+      "interaction": "volvo/cce-filter-service/2020ff59219b/local-r3/interaction/dispatch/204fb451057569e253/CAR_SPECIFICATION_TOPIC",
+      "payloadSchemas": [
+        "volvo/cce-filter-service/2020ff59219b/local-r3/shape/protobuf/wire/964c42f9786ff7d7e9"
+      ]
+    },
+    {
+      "sourceRegistration": "messaging.handlers.handle_policy_deleted_result",
+      "typeName": "volvocars.contracts.car-configuration.policy-deleted-result",
+      "topicSetting": "CONFIG_POLICY_TOPIC",
+      "subscription": "volvo/cce-filter-service/2020ff59219b/local-r3/subscription/dispatch/9fc596acbfed2232a4/CONFIG_POLICY_TOPIC",
+      "implementation": "volvo/cce-filter-service/2020ff59219b/local-r3/implementation/dispatch/9fc596acbfed2232a4",
+      "actualHandler": "volvo/cce-filter-service/2020ff59219b/local-r3/implementation/a42741bd5e7c5ba681",
+      "interaction": "volvo/cce-filter-service/2020ff59219b/local-r3/interaction/dispatch/9fc596acbfed2232a4/CONFIG_POLICY_TOPIC",
+      "payloadSchemas": [
+        "volvo/cce-filter-service/2020ff59219b/local-r3/shape/protobuf/wire/ae9006114534b1115c"
+      ]
+    },
+    {
+      "sourceRegistration": "messaging.handlers.handle_policy_deleted_result",
+      "typeName": "volvocars.contracts.car-configuration.policy-deleted-result",
+      "topicSetting": "RETAIL_FEED_TOPIC",
+      "subscription": "volvo/cce-filter-service/2020ff59219b/local-r3/subscription/dispatch/44e81031f72bfba144/RETAIL_FEED_TOPIC",
+      "implementation": "volvo/cce-filter-service/2020ff59219b/local-r3/implementation/dispatch/44e81031f72bfba144",
+      "actualHandler": "volvo/cce-filter-service/2020ff59219b/local-r3/implementation/a42741bd5e7c5ba681",
+      "interaction": "volvo/cce-filter-service/2020ff59219b/local-r3/interaction/dispatch/44e81031f72bfba144/RETAIL_FEED_TOPIC",
+      "payloadSchemas": [
+        "volvo/cce-filter-service/2020ff59219b/local-r3/shape/protobuf/wire/ae9006114534b1115c"
+      ]
+    },
+    {
+      "sourceRegistration": "messaging.handlers.handle_policy_deleted_result",
+      "typeName": "volvocars.contracts.car-configuration.policy-deleted-result",
+      "topicSetting": "CAR_SYNC_TOPIC",
+      "subscription": "volvo/cce-filter-service/2020ff59219b/local-r3/subscription/dispatch/954c924ce45b3104b0/CAR_SYNC_TOPIC",
+      "implementation": "volvo/cce-filter-service/2020ff59219b/local-r3/implementation/dispatch/954c924ce45b3104b0",
+      "actualHandler": "volvo/cce-filter-service/2020ff59219b/local-r3/implementation/a42741bd5e7c5ba681",
+      "interaction": "volvo/cce-filter-service/2020ff59219b/local-r3/interaction/dispatch/954c924ce45b3104b0/CAR_SYNC_TOPIC",
+      "payloadSchemas": [
+        "volvo/cce-filter-service/2020ff59219b/local-r3/shape/protobuf/wire/ae9006114534b1115c"
+      ]
+    },
+    {
+      "sourceRegistration": "messaging.handlers.handle_policy_deleted_result",
+      "typeName": "volvocars.contracts.car-configuration.policy-deleted-result",
+      "topicSetting": "CAR_SPECIFICATION_TOPIC",
+      "subscription": "volvo/cce-filter-service/2020ff59219b/local-r3/subscription/dispatch/86c574ad28c20a69b1/CAR_SPECIFICATION_TOPIC",
+      "implementation": "volvo/cce-filter-service/2020ff59219b/local-r3/implementation/dispatch/86c574ad28c20a69b1",
+      "actualHandler": "volvo/cce-filter-service/2020ff59219b/local-r3/implementation/a42741bd5e7c5ba681",
+      "interaction": "volvo/cce-filter-service/2020ff59219b/local-r3/interaction/dispatch/86c574ad28c20a69b1/CAR_SPECIFICATION_TOPIC",
+      "payloadSchemas": [
+        "volvo/cce-filter-service/2020ff59219b/local-r3/shape/protobuf/wire/ae9006114534b1115c"
+      ]
+    },
+    {
+      "sourceRegistration": "messaging.handlers.handle_car_sync_completed",
+      "typeName": "volvocars.contracts.cce.car-sync-completed",
+      "topicSetting": "CONFIG_POLICY_TOPIC",
+      "subscription": "volvo/cce-filter-service/2020ff59219b/local-r3/subscription/dispatch/49563ffc1940099375/CONFIG_POLICY_TOPIC",
+      "implementation": "volvo/cce-filter-service/2020ff59219b/local-r3/implementation/dispatch/49563ffc1940099375",
+      "actualHandler": "volvo/cce-filter-service/2020ff59219b/local-r3/implementation/4cd23c11e081b8ed40",
+      "interaction": "volvo/cce-filter-service/2020ff59219b/local-r3/interaction/dispatch/49563ffc1940099375/CONFIG_POLICY_TOPIC",
+      "payloadSchemas": [
+        "volvo/cce-filter-service/2020ff59219b/local-r3/shape/protobuf/wire/738cf8ea15e4de919e"
+      ]
+    },
+    {
+      "sourceRegistration": "messaging.handlers.handle_car_sync_completed",
+      "typeName": "volvocars.contracts.cce.car-sync-completed",
+      "topicSetting": "RETAIL_FEED_TOPIC",
+      "subscription": "volvo/cce-filter-service/2020ff59219b/local-r3/subscription/dispatch/b3bfa1025ec1c42527/RETAIL_FEED_TOPIC",
+      "implementation": "volvo/cce-filter-service/2020ff59219b/local-r3/implementation/dispatch/b3bfa1025ec1c42527",
+      "actualHandler": "volvo/cce-filter-service/2020ff59219b/local-r3/implementation/4cd23c11e081b8ed40",
+      "interaction": "volvo/cce-filter-service/2020ff59219b/local-r3/interaction/dispatch/b3bfa1025ec1c42527/RETAIL_FEED_TOPIC",
+      "payloadSchemas": [
+        "volvo/cce-filter-service/2020ff59219b/local-r3/shape/protobuf/wire/738cf8ea15e4de919e"
+      ]
+    },
+    {
+      "sourceRegistration": "messaging.handlers.handle_car_sync_completed",
+      "typeName": "volvocars.contracts.cce.car-sync-completed",
+      "topicSetting": "CAR_SYNC_TOPIC",
+      "subscription": "volvo/cce-filter-service/2020ff59219b/local-r3/subscription/dispatch/f32b6bc48685038bd1/CAR_SYNC_TOPIC",
+      "implementation": "volvo/cce-filter-service/2020ff59219b/local-r3/implementation/dispatch/f32b6bc48685038bd1",
+      "actualHandler": "volvo/cce-filter-service/2020ff59219b/local-r3/implementation/4cd23c11e081b8ed40",
+      "interaction": "volvo/cce-filter-service/2020ff59219b/local-r3/interaction/dispatch/f32b6bc48685038bd1/CAR_SYNC_TOPIC",
+      "payloadSchemas": [
+        "volvo/cce-filter-service/2020ff59219b/local-r3/shape/protobuf/wire/738cf8ea15e4de919e"
+      ]
+    },
+    {
+      "sourceRegistration": "messaging.handlers.handle_car_sync_completed",
+      "typeName": "volvocars.contracts.cce.car-sync-completed",
+      "topicSetting": "CAR_SPECIFICATION_TOPIC",
+      "subscription": "volvo/cce-filter-service/2020ff59219b/local-r3/subscription/dispatch/8197539fe2fb4e9b6a/CAR_SPECIFICATION_TOPIC",
+      "implementation": "volvo/cce-filter-service/2020ff59219b/local-r3/implementation/dispatch/8197539fe2fb4e9b6a",
+      "actualHandler": "volvo/cce-filter-service/2020ff59219b/local-r3/implementation/4cd23c11e081b8ed40",
+      "interaction": "volvo/cce-filter-service/2020ff59219b/local-r3/interaction/dispatch/8197539fe2fb4e9b6a/CAR_SPECIFICATION_TOPIC",
+      "payloadSchemas": [
+        "volvo/cce-filter-service/2020ff59219b/local-r3/shape/protobuf/wire/738cf8ea15e4de919e"
+      ]
+    },
+    {
+      "sourceRegistration": "messaging.handlers.handle_car_sync_failed",
+      "typeName": "volvocars.contracts.cce.car-sync-failed",
+      "topicSetting": "CONFIG_POLICY_TOPIC",
+      "subscription": "volvo/cce-filter-service/2020ff59219b/local-r3/subscription/dispatch/3cf393430342708271/CONFIG_POLICY_TOPIC",
+      "implementation": "volvo/cce-filter-service/2020ff59219b/local-r3/implementation/dispatch/3cf393430342708271",
+      "actualHandler": "volvo/cce-filter-service/2020ff59219b/local-r3/implementation/ca8259819f6ba0cc59",
+      "interaction": "volvo/cce-filter-service/2020ff59219b/local-r3/interaction/dispatch/3cf393430342708271/CONFIG_POLICY_TOPIC",
+      "payloadSchemas": [
+        "volvo/cce-filter-service/2020ff59219b/local-r3/shape/protobuf/wire/4b9e1c102a1aa1fa88"
+      ]
+    },
+    {
+      "sourceRegistration": "messaging.handlers.handle_car_sync_failed",
+      "typeName": "volvocars.contracts.cce.car-sync-failed",
+      "topicSetting": "RETAIL_FEED_TOPIC",
+      "subscription": "volvo/cce-filter-service/2020ff59219b/local-r3/subscription/dispatch/7d8f495df10fa0b7b3/RETAIL_FEED_TOPIC",
+      "implementation": "volvo/cce-filter-service/2020ff59219b/local-r3/implementation/dispatch/7d8f495df10fa0b7b3",
+      "actualHandler": "volvo/cce-filter-service/2020ff59219b/local-r3/implementation/ca8259819f6ba0cc59",
+      "interaction": "volvo/cce-filter-service/2020ff59219b/local-r3/interaction/dispatch/7d8f495df10fa0b7b3/RETAIL_FEED_TOPIC",
+      "payloadSchemas": [
+        "volvo/cce-filter-service/2020ff59219b/local-r3/shape/protobuf/wire/4b9e1c102a1aa1fa88"
+      ]
+    },
+    {
+      "sourceRegistration": "messaging.handlers.handle_car_sync_failed",
+      "typeName": "volvocars.contracts.cce.car-sync-failed",
+      "topicSetting": "CAR_SYNC_TOPIC",
+      "subscription": "volvo/cce-filter-service/2020ff59219b/local-r3/subscription/dispatch/93b48fdb7323b37d2f/CAR_SYNC_TOPIC",
+      "implementation": "volvo/cce-filter-service/2020ff59219b/local-r3/implementation/dispatch/93b48fdb7323b37d2f",
+      "actualHandler": "volvo/cce-filter-service/2020ff59219b/local-r3/implementation/ca8259819f6ba0cc59",
+      "interaction": "volvo/cce-filter-service/2020ff59219b/local-r3/interaction/dispatch/93b48fdb7323b37d2f/CAR_SYNC_TOPIC",
+      "payloadSchemas": [
+        "volvo/cce-filter-service/2020ff59219b/local-r3/shape/protobuf/wire/4b9e1c102a1aa1fa88"
+      ]
+    },
+    {
+      "sourceRegistration": "messaging.handlers.handle_car_sync_failed",
+      "typeName": "volvocars.contracts.cce.car-sync-failed",
+      "topicSetting": "CAR_SPECIFICATION_TOPIC",
+      "subscription": "volvo/cce-filter-service/2020ff59219b/local-r3/subscription/dispatch/9cb0bd8913442ac01f/CAR_SPECIFICATION_TOPIC",
+      "implementation": "volvo/cce-filter-service/2020ff59219b/local-r3/implementation/dispatch/9cb0bd8913442ac01f",
+      "actualHandler": "volvo/cce-filter-service/2020ff59219b/local-r3/implementation/ca8259819f6ba0cc59",
+      "interaction": "volvo/cce-filter-service/2020ff59219b/local-r3/interaction/dispatch/9cb0bd8913442ac01f/CAR_SPECIFICATION_TOPIC",
+      "payloadSchemas": [
+        "volvo/cce-filter-service/2020ff59219b/local-r3/shape/protobuf/wire/4b9e1c102a1aa1fa88"
+      ]
+    }
+  ]
+}

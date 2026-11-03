@@ -1,0 +1,146 @@
+{
+  "basis": "Pinned source declarations and capture/refund controller return expressions, not runtime execution",
+  "previousSnapshot": "83dca2d1f3de790273d6451f1ba875edfc6f9661680d0124077485d0aec4b24c",
+  "contracts": [
+    {
+      "contract": "psp-dabd6c8-r4/contract/CustomerController-create",
+      "declared": "BaseResponse<CustomerDto>",
+      "outerShape": "psp-dabd6c8-r4/shape/outer-response/CustomerController-create",
+      "innerShapes": [
+        "psp-dabd6c8-r4/shape/com~volvocars~ecom~paymentservice~psp~integration~customer~CustomerDto.java"
+      ]
+    },
+    {
+      "contract": "psp-dabd6c8-r4/contract/CustomerController-get",
+      "declared": "BaseResponse<CustomerDto>",
+      "outerShape": "psp-dabd6c8-r4/shape/outer-response/CustomerController-get",
+      "innerShapes": [
+        "psp-dabd6c8-r4/shape/com~volvocars~ecom~paymentservice~psp~integration~customer~CustomerDto.java"
+      ]
+    },
+    {
+      "contract": "psp-dabd6c8-r4/contract/CustomerController-getByVolvoId",
+      "declared": "BaseResponse<CustomerDto>",
+      "outerShape": "psp-dabd6c8-r4/shape/outer-response/CustomerController-getByVolvoId",
+      "innerShapes": [
+        "psp-dabd6c8-r4/shape/com~volvocars~ecom~paymentservice~psp~integration~customer~CustomerDto.java"
+      ]
+    },
+    {
+      "contract": "psp-dabd6c8-r4/contract/CustomerController-delete",
+      "declared": "BaseResponse<Void>",
+      "outerShape": "psp-dabd6c8-r4/shape/outer-response/CustomerController-delete",
+      "innerShapes": []
+    },
+    {
+      "contract": "psp-dabd6c8-r4/contract/CustomerController-update",
+      "declared": "BaseResponse<CustomerDto>",
+      "outerShape": "psp-dabd6c8-r4/shape/outer-response/CustomerController-update",
+      "innerShapes": [
+        "psp-dabd6c8-r4/shape/com~volvocars~ecom~paymentservice~psp~integration~customer~CustomerDto.java"
+      ]
+    },
+    {
+      "contract": "psp-dabd6c8-r4/contract/PaymentInstrumentController-setup",
+      "declared": "BaseResponse<PaymentInstrumentSetupCreateDto>",
+      "outerShape": "psp-dabd6c8-r4/shape/outer-response/PaymentInstrumentController-setup",
+      "innerShapes": [
+        "psp-dabd6c8-r4/shape/com~volvocars~ecom~paymentservice~psp~integration~paymentinstrument~PaymentInstrumentSetupCreateDto.java"
+      ]
+    },
+    {
+      "contract": "psp-dabd6c8-r4/contract/PaymentInstrumentController-detach",
+      "declared": "BaseResponse<Void>",
+      "outerShape": "psp-dabd6c8-r4/shape/outer-response/PaymentInstrumentController-detach",
+      "innerShapes": []
+    },
+    {
+      "contract": "psp-dabd6c8-r4/contract/PaymentInstrumentController-retrievePaymentMethods",
+      "declared": "BaseResponse<List<PaymentInstrument>>",
+      "outerShape": "psp-dabd6c8-r4/shape/outer-response/PaymentInstrumentController-retrievePaymentMethods",
+      "innerShapes": []
+    },
+    {
+      "contract": "psp-dabd6c8-r4/contract/PaymentInstrumentController-retrievePaymentMethod",
+      "declared": "BaseResponse<PaymentInstrument>",
+      "outerShape": "psp-dabd6c8-r4/shape/outer-response/PaymentInstrumentController-retrievePaymentMethod",
+      "innerShapes": []
+    },
+    {
+      "contract": "psp-dabd6c8-r4/contract/RefundController-create",
+      "declared": "BaseResponse<RefundDto>",
+      "outerShape": "psp-dabd6c8-r4/shape/outer-response/RefundController-create",
+      "innerShapes": [
+        "psp-dabd6c8-r4/shape/com~volvocars~ecom~paymentservice~psp~integration~refund~RefundDto.java"
+      ]
+    },
+    {
+      "contract": "psp-dabd6c8-r4/contract/TransactionController-create",
+      "declared": "BaseResponse<TransactionDto>",
+      "outerShape": "psp-dabd6c8-r4/shape/outer-response/TransactionController-create",
+      "innerShapes": [
+        "psp-dabd6c8-r4/shape/com~volvocars~ecom~paymentservice~psp~integration~transaction~TransactionDto.java"
+      ]
+    },
+    {
+      "contract": "psp-dabd6c8-r4/contract/TransactionController-authorise",
+      "declared": "BaseResponse<TransactionDto>",
+      "outerShape": "psp-dabd6c8-r4/shape/outer-response/TransactionController-authorise",
+      "innerShapes": [
+        "psp-dabd6c8-r4/shape/com~volvocars~ecom~paymentservice~psp~integration~transaction~TransactionDto.java"
+      ]
+    },
+    {
+      "contract": "psp-dabd6c8-r4/contract/TransactionController-capture",
+      "declared": "BaseResponse<TransactionDto>",
+      "outerShape": "psp-dabd6c8-r4/shape/outer-response/TransactionController-capture",
+      "innerShapes": [
+        "psp-dabd6c8-r4/shape/com~volvocars~ecom~paymentservice~psp~integration~transaction~TransactionDto.java"
+      ]
+    },
+    {
+      "contract": "psp-dabd6c8-r4/contract/TransactionController-cancel",
+      "declared": "BaseResponse<TransactionDto>",
+      "outerShape": "psp-dabd6c8-r4/shape/outer-response/TransactionController-cancel",
+      "innerShapes": [
+        "psp-dabd6c8-r4/shape/com~volvocars~ecom~paymentservice~psp~integration~transaction~TransactionDto.java"
+      ]
+    },
+    {
+      "contract": "psp-dabd6c8-r4/contract/TransactionController-invalidate",
+      "declared": "BaseResponse<Void>",
+      "outerShape": "psp-dabd6c8-r4/shape/outer-response/TransactionController-invalidate",
+      "innerShapes": []
+    },
+    {
+      "contract": "psp-dabd6c8-r4/contract/TransferController-create",
+      "declared": "BaseResponse<TransferDto>",
+      "outerShape": "psp-dabd6c8-r4/shape/outer-response/TransferController-create",
+      "innerShapes": [
+        "psp-dabd6c8-r4/shape/com~volvocars~ecom~paymentservice~psp~integration~transfer~TransferDto.java"
+      ]
+    },
+    {
+      "contract": "psp-dabd6c8-r4/contract/TransferController-reverse",
+      "declared": "BaseResponse<TransferReverseDto>",
+      "outerShape": "psp-dabd6c8-r4/shape/outer-response/TransferController-reverse",
+      "innerShapes": [
+        "psp-dabd6c8-r4/shape/com~volvocars~ecom~paymentservice~psp~integration~transfer~TransferReverseDto.java"
+      ]
+    },
+    {
+      "contract": "psp-dabd6c8-r4/contract/TransferController-update",
+      "declared": "BaseResponse<Void>",
+      "outerShape": "psp-dabd6c8-r4/shape/outer-response/TransferController-update",
+      "innerShapes": []
+    },
+    {
+      "contract": "psp-dabd6c8-r4/contract/VersionController-getServiceVersion",
+      "declared": "BaseResponse<String>",
+      "outerShape": "psp-dabd6c8-r4/shape/outer-response/VersionController-getServiceVersion",
+      "innerShapes": []
+    }
+  ],
+  "tracedReturnsCorrected": ["capture-http", "refund-http"],
+  "scope": "19 declared whole-response contracts; source-local service/SDK graphs unchanged, imported wrapper/getter/transport implementation remains partial"
+}

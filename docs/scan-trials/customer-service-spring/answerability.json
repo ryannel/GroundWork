@@ -1,0 +1,122 @@
+{
+  "format": "answerability-review/v1",
+  "repo": "volvo-cars/cds-ecom-customer-service",
+  "commit": "09623ab3a1f39845d8fc02abc3d591b53a3b5fea",
+  "capture": "customer-service-spring-002",
+  "questionCount": 22,
+  "supported": 3,
+  "partial": 18,
+  "unsupported": 1,
+  "questions": [
+    {
+      "id": "Q01",
+      "status": "supported",
+      "answer": "All 19 effective route declarations join interface mappings to controller implementations and prefixes, preserve request parameter locations and generic return types, and link local type schemas. The independent bounded review retrieves all framework and source records and checks the source-read inventory. External wrapper and enum definitions remain explicit gaps; this question asks for paths and types, not complete external serialisation."
+    },
+    {
+      "id": "Q02",
+      "status": "partial",
+      "answer": "All 19 method policy declarations are bound to their source and routes. Method-security activation remains unresolved: App excludes SecurityAutoConfiguration and imports external EcomWebAppConfiguration. The configured HTTP filter chain, authority conversion and effective policy activation are not captured. Role expressions alone cannot establish enforcement."
+    },
+    {
+      "id": "Q03",
+      "status": "partial",
+      "answer": "Customer and individual schemas retain declared field constraints, request-body bindings, JsonView selections and transitive Create/Update/Patch/Default groups. UpdateCustomer requires dataVersion, Create/Update require customerType and market, and individual Create/Update require roles; patch retains Default constraints. Effective inclusion of unannotated fields under JsonView, external Market/Language types, generated accessors and custom annotation semantics remain explicit gaps."
+    },
+    {
+      "id": "Q04",
+      "status": "partial",
+      "answer": "`updateCustomer` calls `customerFactory.update`; `patchCustomer` calls `customerFactory.patch`; both pass their result to `saveAndPostProcess`. Cross-call factory/omitted-field semantics and serialised request binding remain unclosed."
+    },
+    {
+      "id": "Q05",
+      "status": "partial",
+      "answer": "The local update method retains a membership guard and typed `throw` constructing `IndividualNotFoundException(individualId)`. The capture lacks the end-to-end exception-handler/HTTP outcome binding, so it cannot establish the response a caller sees."
+    },
+    {
+      "id": "Q06",
+      "status": "partial",
+      "answer": "The native local graph generates numberOfDuplicates minus one copies, calls saveAllAndPostProcess and includes the original customer ID in the result. Cross-call factory lineage proving every preserved and replaced identifier is not bound into a complete answer. No additional durable-write requirement is imposed by this review."
+    },
+    {
+      "id": "Q07",
+      "status": "supported",
+      "answer": "The exact saveAndPostProcess equality guard returns before customer validation, repository save and post-processing. The subsequent local order is validation, save, post-processing. The independent native replay on the new capture passes all five clauses with all 221 selected records retrieved in 56 bounded pages. The frozen required evidence names this helper and does not require proving all callers."
+    },
+    {
+      "id": "Q08",
+      "status": "supported",
+      "answer": "forceArchive=false marks for later and returns; true reaches the immediate moveCustomerToArchive call. For later marking, a missing reason becomes ArchiveReason.NONE_SPECIFIED. The independent typed default proof follows the call argument through reaching_value and assigned_value into its conditional operands. All 231 selected records are retrieved in 58 bounded pages, and eight relation-removal mutations reject the default claim while display syntax remains unchanged. The controller description conflicts with this executable branch. Successful deployed archival is outside this frozen question."
+    },
+    {
+      "id": "Q09",
+      "status": "partial",
+      "answer": "Restore builds a version-reset customer, computes conditional archival data, invokes `saveCustomer`, then deletes the archived record. Local order is supported. Effective stored shape, atomicity and what remains after failure are not established by effect/acknowledgement records."
+    },
+    {
+      "id": "Q10",
+      "status": "partial",
+      "answer": "The two audit routes, version/customer parameters and page/limit defaults are bound. Native service code constructs PageRequest.of(page, limit) and calls findAllByCustomerIdOrderByVersionDesc. The complete service-to-store query binding and effective response wire shape are not closed; a repository method name alone is not a typed Mongo ordering contract."
+    },
+    {
+      "id": "Q11",
+      "status": "partial",
+      "answer": "The source declares a token header interceptor for /v1/customers/**, including audit routes and excluding migration by non-match, and the native resolver dispatches to Volvo ID, Connect and Entra ID handling. Trial 005 and the new capture restore validator/decoder graphs. The independent review has not closed the full typed header/guard/validator/issuer/decoder/dispatch chain or external authentication filter configuration, so complete token acceptance is not established."
+    },
+    {
+      "id": "Q12",
+      "status": "partial",
+      "answer": "VolvoIdService calls `volvoIdClient.getUserInfo(userAccessToken)` and sanitises its result; its failure path returns an empty optional. This locates one profile lookup. Typed outbound HTTP contracts, all profile sources and effective serialisation remain missing."
+    },
+    {
+      "id": "Q13",
+      "status": "partial",
+      "answer": "Corporate creation generates an ID, validates registration/Fleet inputs and calls address/email/phone mappers. This is useful local structure. Fleet/Partner boundary identities, requests, responses and their complete customer lineage are unbound."
+    },
+    {
+      "id": "Q14",
+      "status": "partial",
+      "answer": "The customer declaration retains the `customers` collection annotation candidate and typed fields, and repository declarations are captured. No store identities or read/write effects bind all active/archive/audit collections to effective Mongo operations."
+    },
+    {
+      "id": "Q15",
+      "status": "partial",
+      "answer": "The post-processor locally calls customer publication, analytics publication, audit save and consent publication in that order. Q07 also establishes save-before-post-processing. No effect acknowledgements, delivery proof or failure/transaction closure establish the requested completion guarantees."
+    },
+    {
+      "id": "Q16",
+      "status": "partial",
+      "answer": "Four local guards exit before `sendSafely`: missing/disabled Kafka, missing individual/CDB ID, missing consent and unchanged consent. Changed-consent payload fields and effective wire publication remain unclosed."
+    },
+    {
+      "id": "Q17",
+      "status": "partial",
+      "answer": "Customer event selection branches to `CUSTOMER_CREATED` for no previous value, `CUSTOMER_ARCHIVED` for archival data and `CUSTOMER_UPDATED` otherwise. This is local event-type selection; analytics payload contracts and configured topic/publication bindings remain missing."
+    },
+    {
+      "id": "Q18",
+      "status": "partial",
+      "answer": "The delete consumer passes `event.getPayload().customerId()` to `customerService.deleteCustomer`. Kafka listener/topic annotations are candidates. Subscription, payload contract, deserialiser guarantees and broker failure/delivery semantics remain unbound."
+    },
+    {
+      "id": "Q19",
+      "status": "partial",
+      "answer": "The Java 25 parser now retains the complete OrderUpdateEventConsumer graph, including CustomerUpdate handling, BASIC order admission, accepted statuses, reason mapping, archival-data clearing/save, restore fallback and catches. The former parser quarantine is gone. A bounded complete proof connecting all filter constants, local branches and resulting save/restore effects has not been discharged; restored parsing alone is not a supported pipeline answer."
+    },
+    {
+      "id": "Q20",
+      "status": "partial",
+      "answer": "The scheduler's local `run` calls `customerArchiveJob.start`; scheduled/conditional/locking annotations survive as declarations. Resource configuration is retained as unparsed text. Effective cron, lock, enablement, asynchronous activation and per-customer continuation are not joined into an execution answer."
+    },
+    {
+      "id": "Q21",
+      "status": "unsupported",
+      "answer": "No actor, surface, control, action, outcome, execution or journey records close this question. Role strings cannot establish people, intent, visible results or actor-to-action journeys."
+    },
+    {
+      "id": "Q22",
+      "status": "partial",
+      "answer": "The new capture and binding receipt identify the full pinned commit, source tree and analysis fingerprints; first and unchanged phases retain local freshness observations. The independent bounded source review checks the exact repository and commit. No remote reference observation or deployment evidence establishes remote or production currency."
+    }
+  ]
+}

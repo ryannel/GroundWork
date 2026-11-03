@@ -1,0 +1,7 @@
+{
+  "pinnedVerificationSnapshot": "432bf9ff3ec20106f8bead334e606a974afc513502aa85dc9bd5a24410c1dfa8",
+  "sourceRangesChecked": 14282,
+  "exactEvidenceRecordEquality": true,
+  "transformation": "Range typing/map key expression native correction only; exact full pinned evidence records unchanged. Reusing independently run pinned validation, not skipping new source tuples.",
+  "evidenceDigest": "6b157b87bd65d2664ede0eaab1d4c9d7ca064757b28dea58ff80b54defbbd770"
+}

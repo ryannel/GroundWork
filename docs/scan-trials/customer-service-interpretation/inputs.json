@@ -1,0 +1,17 @@
+{
+  "format": "scan-interpretation-inputs/v1",
+  "inputs": [
+    {
+      "kind": "scan_snapshot",
+      "id": "context:historical-source",
+      "path": "../../../reports/customer-service-archival-001/accepted/document.json"
+    },
+    {
+      "kind": "context_snapshot",
+      "id": "context:profile-review",
+      "path": "../customer-service-messaging/answerability.json",
+      "uri": "workspace:docs/scan-trials/customer-service-messaging/answerability.json",
+      "revision": "sha256:163b08726c0ca72f7b6de02dcd9749a4451dfcd1fce41dfe3867caa47b5b60eb"
+    }
+  ]
+}

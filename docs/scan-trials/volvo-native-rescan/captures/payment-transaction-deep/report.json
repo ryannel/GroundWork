@@ -1,0 +1,784 @@
+{
+  "format": "volvo-native-depth-report/v1",
+  "repo": "volvo-cars/cds-paymentservice-transaction",
+  "commit": "020d2fabb141b47b6d1e8173c02405795f71613a",
+  "snapshot": "c67c245880857715c9ea81ad95b44df8735d26465293ad4d3c428777c78df900",
+  "selectedFiles": {
+    "bundle": "/Users/RNEL/Workspace/groundWork/reports/volvo-native-rescan/payment-transaction-deep/bundle.json",
+    "snapshot": "/Users/RNEL/Workspace/groundWork/reports/volvo-native-rescan/payment-transaction-deep/snapshot.json",
+    "acceptance": "/Users/RNEL/Workspace/groundWork/reports/volvo-native-rescan/payment-transaction-deep/acceptance.json",
+    "ledger": "/Users/RNEL/Workspace/groundWork/reports/volvo-native-rescan/payment-transaction-deep/entry-depth-ledger.json"
+  },
+  "previousSnapshot": "ec4e7c5d37593f43639ecef8a8040dccbb30260eba2fc2b84825f2deaa74cb92",
+  "activeCaptureEntry": "volvo/cds-paymentservice-transaction/020d2fabb141/capture/r1/endpoint",
+  "activeEntries": {
+    "refund": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/revised/entry/refund",
+    "charge": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/revised/entry/charge"
+  },
+  "recordCounts": {
+    "artifact": 5,
+    "artifact_source_binding": 2,
+    "channel_binding": 2,
+    "claim": 26,
+    "consistency_boundary": 1,
+    "coverage": 66,
+    "delivery_policy": 2,
+    "derivation": 1551,
+    "effect": 19,
+    "entry": 11,
+    "entry_binding": 11,
+    "evidence": 663,
+    "execution_binding": 57,
+    "flow": 112,
+    "gap": 37,
+    "implementation": 59,
+    "interaction": 19,
+    "interface_contract": 31,
+    "milestone": 5,
+    "operation": 356,
+    "resolution": 73,
+    "resource": 9,
+    "resource_binding": 7,
+    "runtime_component": 4,
+    "shape": 153,
+    "source_revision": 3,
+    "storage_write": 5,
+    "transition": 309,
+    "value": 273
+  },
+  "previousFacts": {
+    "revised": 433,
+    "unchanged": 685,
+    "removed": 59
+  },
+  "sourceVerification": {
+    "sourceRangesChecked": 663,
+    "distinctPinnedFiles": 138,
+    "genericGate": "passed: full selected references, manifest digests, local pinned files and inclusive ranges",
+    "supplementalDigests": "raw Git blob SHA-256 and explicitly LF-normalised range SHA-256 in source-lock.json",
+    "interpretationLimit": "Citation existence/ranges and digests do not prove that a claim correctly interprets source; source interpretation was reviewed separately."
+  },
+  "nativeAcceptance": {
+    "status": "passed",
+    "queries": [
+      {
+        "name": "capture.interactions",
+        "query": "interactions",
+        "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/capture/r1/endpoint",
+        "nodes": 3,
+        "records": 292,
+        "frontiers": 4
+      },
+      {
+        "name": "capture.continuations",
+        "query": "continuations",
+        "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/capture/r1/endpoint",
+        "nodes": 51,
+        "records": 327,
+        "frontiers": 3
+      },
+      {
+        "name": "capture.session-value",
+        "query": "value",
+        "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/capture/r1/endpoint",
+        "nodes": 6,
+        "records": 198,
+        "frontiers": 2
+      },
+      {
+        "name": "refund.interactions",
+        "query": "interactions",
+        "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/revised/entry/refund",
+        "nodes": 3,
+        "records": 373,
+        "frontiers": 19
+      },
+      {
+        "name": "refund.continuations",
+        "query": "continuations",
+        "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/revised/entry/refund",
+        "nodes": 80,
+        "records": 506,
+        "frontiers": 19
+      },
+      {
+        "name": "refund.effects",
+        "query": "effects",
+        "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/revised/entry/refund",
+        "nodes": 80,
+        "records": 517,
+        "frontiers": 19
+      },
+      {
+        "name": "refund.422-outcome",
+        "query": "outcome",
+        "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/revised/entry/refund",
+        "nodes": 58,
+        "records": 428,
+        "frontiers": 7
+      },
+      {
+        "name": "charge.interactions",
+        "query": "interactions",
+        "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/revised/entry/charge",
+        "nodes": 5,
+        "records": 741,
+        "frontiers": 38
+      },
+      {
+        "name": "charge.continuations",
+        "query": "continuations",
+        "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/revised/entry/charge",
+        "nodes": 245,
+        "records": 1120,
+        "frontiers": 36
+      },
+      {
+        "name": "charge.403-outcome",
+        "query": "outcome",
+        "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/revised/entry/charge",
+        "nodes": 49,
+        "records": 364,
+        "frontiers": 5
+      },
+      {
+        "name": "charge.404-outcome",
+        "query": "outcome",
+        "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/revised/entry/charge",
+        "nodes": 206,
+        "records": 991,
+        "frontiers": 24
+      },
+      {
+        "name": "charge.402-outcome",
+        "query": "outcome",
+        "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/revised/entry/charge",
+        "nodes": 149,
+        "records": 807,
+        "frontiers": 18
+      },
+      {
+        "name": "charge.500-outcome",
+        "query": "outcome",
+        "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/revised/entry/charge",
+        "nodes": 196,
+        "records": 957,
+        "frontiers": 24
+      },
+      {
+        "name": "charge.consistency",
+        "query": "consistency",
+        "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/revised/entry/charge",
+        "nodes": 245,
+        "records": 1161,
+        "frontiers": 36
+      },
+      {
+        "name": "charge.psp-value",
+        "query": "value",
+        "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/revised/entry/charge",
+        "nodes": 60,
+        "records": 624,
+        "frontiers": 7
+      },
+      {
+        "name": "charge.scheduler-value",
+        "query": "value",
+        "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/revised/entry/charge",
+        "nodes": 29,
+        "records": 452,
+        "frontiers": 4
+      },
+      {
+        "name": "charge.session-input-value",
+        "query": "value",
+        "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/revised/entry/charge",
+        "nodes": 5,
+        "records": 162,
+        "frontiers": 0
+      },
+      {
+        "name": "source-claims.records",
+        "query": "records",
+        "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/revised/entry/charge",
+        "nodes": 0,
+        "records": 794,
+        "frontiers": 0
+      }
+    ],
+    "routeContractsAndHostsChecked": 11,
+    "factoryResponseCasesChecked": 13,
+    "sourceClaimsQueried": 26,
+    "candidateImplementationsExcluded": true,
+    "noInventedSubscriptionsOrHandoffs": true,
+    "originalCaptureQueriesRefreshed": true,
+    "unchangedFactsComparedExactly": true
+  },
+  "depth": {
+    "fullyTracedEndToEnd": 0,
+    "partialRestEntries": 11,
+    "deepenedRestEntries": ["refund", "charge"],
+    "previousCapturePreserved": true
+  },
+  "views": {
+    "capture": {
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/capture/r1/endpoint",
+      "componentFirstNodes": 3,
+      "interactionEdges": 3,
+      "controlNodes": 51,
+      "unresolvedBoundaries": ["Capture client invocation (unresolved)"]
+    },
+    "refund": {
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/revised/entry/refund",
+      "componentFirstNodes": 3,
+      "interactionEdges": 4,
+      "controlNodes": 80,
+      "unresolvedBoundaries": []
+    },
+    "charge": {
+      "entry": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/revised/entry/charge",
+      "componentFirstNodes": 5,
+      "interactionEdges": 18,
+      "controlNodes": 245,
+      "unresolvedBoundaries": [
+        "TransactionClient.create(source TransactionCreatePayload) (unresolved)",
+        "RetryJobsClient.registerRetryJob(source payload) (unresolved)"
+      ]
+    }
+  },
+  "sourceClaims": [
+    {
+      "id": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/revised/capture/r1/claim/208",
+      "kind": "claim",
+      "owner": "volvo/cds-paymentservice-transaction/020d2fabb141/capture/r1/endpoint",
+      "statement": "Completion in current stage or history causes AlreadyCompleted; controller catches it and returns 208 before capture client invocation.",
+      "basis": "source_traced",
+      "inputs": [
+        "volvo/cds-paymentservice-transaction/020d2fabb141/capture/r1/predicate.current",
+        "volvo/cds-paymentservice-transaction/020d2fabb141/capture/r1/predicate.history",
+        "volvo/cds-paymentservice-transaction/020d2fabb141/capture/r1/validator.throw",
+        "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/revised/capture/r1/controller.208"
+      ],
+      "assumptions": [
+        "Earlier session load, mapping and transaction lookup return normally",
+        "Completion predicate evaluates normally"
+      ],
+      "evidence": [
+        "volvo/cds-paymentservice-transaction/020d2fabb141/capture/r1/evidence/completed",
+        "volvo/cds-paymentservice-transaction/020d2fabb141/capture/r1/evidence/transaction-domain",
+        "volvo/cds-paymentservice-transaction/020d2fabb141/capture/r1/evidence/controller"
+      ]
+    },
+    {
+      "id": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/revised/capture/r1/claim/202",
+      "kind": "claim",
+      "owner": "volvo/cds-paymentservice-transaction/020d2fabb141/capture/r1/endpoint",
+      "statement": "On the normal local continuation the controller returns 202 with null data; provider completion is not established.",
+      "basis": "source_traced",
+      "inputs": [
+        "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/revised/capture/r1/capture.remote",
+        "volvo/cds-paymentservice-transaction/020d2fabb141/capture/r1/capture.data",
+        "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/revised/capture/r1/controller.202"
+      ],
+      "assumptions": ["Unresolved client call returns normally with a non-null wrapper"],
+      "evidence": [
+        "volvo/cds-paymentservice-transaction/020d2fabb141/capture/r1/evidence/capture",
+        "volvo/cds-paymentservice-transaction/020d2fabb141/capture/r1/evidence/controller"
+      ]
+    },
+    {
+      "id": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/claim/refund-constraints",
+      "kind": "claim",
+      "owner": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/impl/refund-validate",
+      "statement": "Refund acceptance depends on original cart-line membership, currency, quantity, amounts, partial-refund feature flag, transaction stage and previous refunds. These are cross-record rules, not independent static wire-field constraints.",
+      "basis": "source_traced",
+      "inputs": [
+        "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/impl/refund-validate",
+        "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/value/refund-validate.transaction",
+        "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/value/refund-validate.payload",
+        "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/value/refund-validate.remaining",
+        "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/gap/refund-implicit"
+      ],
+      "assumptions": [
+        "Conditional source path only; no runtime observation or complete imported schema/implicit exception claim."
+      ],
+      "evidence": [
+        "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/e/0bb9a93f622b9ea2",
+        "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/e/5fb480412353e6a1",
+        "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/e/5bee47921ef10bb1"
+      ]
+    },
+    {
+      "id": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/claim/scheduler-failure",
+      "kind": "claim",
+      "owner": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/impl/scheduler",
+      "statement": "A normal imported registration return can be followed by a local nextRunAt-null exception. No scheduler rollback or cancellation is present in this local method; registration durability itself is unverified.",
+      "basis": "source_traced",
+      "inputs": [
+        "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/impl/scheduler",
+        "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/op/scheduler.register",
+        "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/effect/scheduler.register",
+        "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/gap/scheduler-sdk"
+      ],
+      "assumptions": [
+        "Conditional source path only; no runtime observation or complete imported schema/implicit exception claim."
+      ],
+      "evidence": ["volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/e/bd2e567e3fed4cc9"]
+    },
+    {
+      "id": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/claim/partial-result",
+      "kind": "claim",
+      "owner": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/impl/tx-partial",
+      "statement": "The source ignores MongoTemplate.updateFirst matched/modified counts. Normal return does not establish that a transaction matched or changed.",
+      "basis": "source_traced",
+      "inputs": [
+        "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/impl/tx-partial",
+        "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/op/tx-partial.write",
+        "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/effect/tx-partial.write"
+      ],
+      "assumptions": [
+        "Conditional source path only; no runtime observation or complete imported schema/implicit exception claim."
+      ],
+      "evidence": ["volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/e/5ce8f1ccb0b37c33"]
+    },
+    {
+      "id": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/claim/charge-order",
+      "kind": "claim",
+      "owner": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/revised/impl/service-charge",
+      "statement": "The local source saves a payment session before recurring charge existence/customer/instrument validation. A 404,403 or500 validation exit can therefore occur after a normal local save. Later PSP/scheduler failures can also occur after transaction/session-link persistence.",
+      "basis": "source_traced",
+      "inputs": [
+        "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/revised/impl/service-charge",
+        "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/op/charge.save-session",
+        "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/op/charge.missing",
+        "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/op/charge.forbidden",
+        "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/op/charge.no-instrument"
+      ],
+      "assumptions": [
+        "Conditional source path only; no runtime observation or complete imported schema/implicit exception claim."
+      ],
+      "evidence": [
+        "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/e/75023ca97e5f4b8b",
+        "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/e/561faae0a8d28179"
+      ]
+    },
+    {
+      "id": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/claim/no-history-save",
+      "kind": "claim",
+      "owner": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/revised/impl/service-charge",
+      "statement": "After attemptCharge and scheduler registration, the local history method prepends state in memory, the caller initiates Kafka publication and maps the response. No subsequent explicit PaymentSessionService.save appears in this caller and the history helper contains no persistence call. Later consumer persistence remains unexamined.",
+      "basis": "source_traced",
+      "inputs": [
+        "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/revised/impl/service-charge",
+        "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/op/charge.history",
+        "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/impl/session-history",
+        "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/op/charge.publish",
+        "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/gap/history-persistence"
+      ],
+      "assumptions": [
+        "Conditional source path only; no runtime observation or complete imported schema/implicit exception claim."
+      ],
+      "evidence": [
+        "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/e/7476bc154f7ecff8",
+        "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/e/37b461f00cfcc426"
+      ]
+    },
+    {
+      "id": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/claim/charge-shape-rules",
+      "kind": "claim",
+      "owner": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/revised/impl/service-charge",
+      "statement": "Charge source validation requires exactly one cart line, non-null retryStrategy/expiresAt and a recurringChargeId; ownership/payment-instrument checks require database state. Source NotBlank and nested @Valid declarations do not close imported nested wire validation.",
+      "basis": "source_traced",
+      "inputs": [
+        "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/revised/impl/service-charge",
+        "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/revised/shape/cds-paymentservice-transaction-shared-src-main-java-com-volvocars-ecom-paymentservice-transaction-charge-ChargePaymentSessionPayload",
+        "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/op/charge.cart",
+        "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/op/charge.strategy",
+        "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/op/charge.recurring-id"
+      ],
+      "assumptions": [
+        "Conditional source path only; no runtime observation or complete imported schema/implicit exception claim."
+      ],
+      "evidence": [
+        "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/e/058625a97cb2df28",
+        "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/e/4f6a8967d26816bc"
+      ]
+    },
+    {
+      "id": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/claim/local-model-authority",
+      "kind": "claim",
+      "owner": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/revised/impl/service-charge",
+      "statement": "PaymentSession, RecurringCharge, AttributeBase and the transaction exception bases have source in this repository transaction-shared Maven module; core declares that module at project.version. These local declarations must not be treated as unavailable foreign shared-library implementations. Selected local declarations and source constructions remain separate from effective wire/BSON representation.",
+      "basis": "source_traced",
+      "inputs": [
+        "volvo/cds-paymentservice-transaction/020d2fabb141/capture/r1/source/main",
+        "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/shape/source-PaymentSession",
+        "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/shape/source-RecurringCharge",
+        "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/revised/shape/payment-session-mapped",
+        "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/shape/recurring-domain"
+      ],
+      "assumptions": [
+        "Pinned source-local Maven module correspondence; generated/build/deployed serialisation is not asserted."
+      ],
+      "evidence": [
+        "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/e/8d7c9cca53d34004",
+        "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/e/f1ed9c4cc16cca72",
+        "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/e/e096e88d0f6c9ca7",
+        "volvo/cds-paymentservice-transaction/020d2fabb141/e/ad375a7650839ea3"
+      ]
+    },
+    {
+      "id": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/claim/state-date-format",
+      "kind": "claim",
+      "owner": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/impl/scheduler",
+      "statement": "Local RecurringChargeState declares package-private source fields and @JsonFormat(pattern=\"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'\",timezone=\"UTC\") on nextRetryAt and attemptedAt. This source annotation does not establish global serializer configuration or complete message wire compatibility.",
+      "basis": "source_traced",
+      "inputs": [
+        "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/shape/source-RecurringChargeState",
+        "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/revised/gap/source-wire-closure"
+      ],
+      "assumptions": [
+        "Conditional source path only; no runtime observation or complete imported schema/implicit exception claim."
+      ],
+      "evidence": ["volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/e/6315c9b888627026"]
+    },
+    {
+      "id": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/claim/rest-capture-202",
+      "kind": "claim",
+      "owner": "volvo/cds-paymentservice-transaction/020d2fabb141/capture/r1/controller",
+      "statement": "The controller returns an imported SuccessResponse factory result inside ResponseEntity. Positional data and operationId arguments are retained separately; the DTO/null argument does not establish factory result members or the effective wire envelope.",
+      "basis": "source_traced",
+      "inputs": [
+        "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/revised/capture/r1/controller.202",
+        "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/value/rest-capture-202.argument0",
+        "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/value/rest-capture-202.operation-id",
+        "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/shape/rest-capture-202-arguments",
+        "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/value/rest-capture-202.factory-result",
+        "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/shape/rest-capture-202-factory",
+        "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/gap/rest-wrapper-capture"
+      ],
+      "assumptions": [
+        "Conditional source path only; no runtime observation or complete imported schema/implicit exception claim."
+      ],
+      "evidence": [
+        "volvo/cds-paymentservice-transaction/020d2fabb141/capture/r1/evidence/controller"
+      ]
+    },
+    {
+      "id": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/claim/rest-capture-208",
+      "kind": "claim",
+      "owner": "volvo/cds-paymentservice-transaction/020d2fabb141/capture/r1/controller",
+      "statement": "The controller returns an imported SuccessResponse factory result inside ResponseEntity. Positional data and operationId arguments are retained separately; the DTO/null argument does not establish factory result members or the effective wire envelope.",
+      "basis": "source_traced",
+      "inputs": [
+        "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/revised/capture/r1/controller.208",
+        "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/value/rest-capture-208.argument0",
+        "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/value/rest-capture-208.operation-id",
+        "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/shape/rest-capture-208-arguments",
+        "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/value/rest-capture-208.factory-result",
+        "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/shape/rest-capture-208-factory",
+        "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/gap/rest-wrapper-capture"
+      ],
+      "assumptions": [
+        "Conditional source path only; no runtime observation or complete imported schema/implicit exception claim."
+      ],
+      "evidence": [
+        "volvo/cds-paymentservice-transaction/020d2fabb141/capture/r1/evidence/controller"
+      ]
+    },
+    {
+      "id": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/claim/rest-retry-200",
+      "kind": "claim",
+      "owner": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/revised/impl/controller-retry",
+      "statement": "The controller returns an imported SuccessResponse factory result inside ResponseEntity. Positional data and operationId arguments are retained separately; the DTO/null argument does not establish factory result members or the effective wire envelope.",
+      "basis": "source_traced",
+      "inputs": [
+        "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/revised/op/controller-retry.return-200",
+        "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/revised/value/controller-retry.data",
+        "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/value/rest-retry-200.operation-id",
+        "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/shape/rest-retry-200-arguments",
+        "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/value/rest-retry-200.factory-result",
+        "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/shape/rest-retry-200-factory",
+        "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/gap/rest-wrapper-retry"
+      ],
+      "assumptions": [
+        "Conditional source path only; no runtime observation or complete imported schema/implicit exception claim."
+      ],
+      "evidence": ["volvo/cds-paymentservice-transaction/020d2fabb141/e/4a84f0af9bca8556"]
+    },
+    {
+      "id": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/claim/rest-retry-202",
+      "kind": "claim",
+      "owner": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/revised/impl/controller-retry",
+      "statement": "The controller returns an imported SuccessResponse factory result inside ResponseEntity. Positional data and operationId arguments are retained separately; the DTO/null argument does not establish factory result members or the effective wire envelope.",
+      "basis": "source_traced",
+      "inputs": [
+        "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/revised/op/controller-retry.return-202",
+        "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/revised/value/controller-retry.data",
+        "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/value/rest-retry-202.operation-id",
+        "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/shape/rest-retry-202-arguments",
+        "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/value/rest-retry-202.factory-result",
+        "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/shape/rest-retry-202-factory",
+        "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/gap/rest-wrapper-retry"
+      ],
+      "assumptions": [
+        "Conditional source path only; no runtime observation or complete imported schema/implicit exception claim."
+      ],
+      "evidence": ["volvo/cds-paymentservice-transaction/020d2fabb141/e/4a84f0af9bca8556"]
+    },
+    {
+      "id": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/claim/rest-resubmit-200",
+      "kind": "claim",
+      "owner": "volvo/cds-paymentservice-transaction/020d2fabb141/impl/controller-resubmit",
+      "statement": "The controller returns an imported SuccessResponse factory result. Positional data and operationId arguments are retained separately; the DTO/null argument does not establish factory result members or the effective wire envelope.",
+      "basis": "source_traced",
+      "inputs": [
+        "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/revised/op/controller-resubmit.return-200",
+        "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/revised/value/controller-resubmit.data",
+        "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/value/rest-resubmit-200.operation-id",
+        "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/shape/rest-resubmit-200-arguments",
+        "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/value/rest-resubmit-200.factory-result",
+        "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/shape/rest-resubmit-200-factory",
+        "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/gap/rest-wrapper-resubmit"
+      ],
+      "assumptions": [
+        "Conditional source path only; no runtime observation or complete imported schema/implicit exception claim."
+      ],
+      "evidence": ["volvo/cds-paymentservice-transaction/020d2fabb141/e/d974340d2a36fc1c"]
+    },
+    {
+      "id": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/claim/rest-get-session-200",
+      "kind": "claim",
+      "owner": "volvo/cds-paymentservice-transaction/020d2fabb141/impl/controller-get-session",
+      "statement": "The controller returns an imported SuccessResponse factory result. Positional data and operationId arguments are retained separately; the DTO/null argument does not establish factory result members or the effective wire envelope.",
+      "basis": "source_traced",
+      "inputs": [
+        "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/revised/op/controller-get-session.return-200",
+        "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/revised/value/controller-get-session.data",
+        "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/value/rest-get-session-200.operation-id",
+        "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/shape/rest-get-session-200-arguments",
+        "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/value/rest-get-session-200.factory-result",
+        "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/shape/rest-get-session-200-factory",
+        "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/gap/rest-wrapper-get-session"
+      ],
+      "assumptions": [
+        "Conditional source path only; no runtime observation or complete imported schema/implicit exception claim."
+      ],
+      "evidence": ["volvo/cds-paymentservice-transaction/020d2fabb141/e/ad1a154098696601"]
+    },
+    {
+      "id": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/claim/rest-create-session-200",
+      "kind": "claim",
+      "owner": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/revised/impl/controller-create-session",
+      "statement": "The controller returns an imported SuccessResponse factory result. Positional data and operationId arguments are retained separately; the DTO/null argument does not establish factory result members or the effective wire envelope.",
+      "basis": "source_traced",
+      "inputs": [
+        "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/revised/op/controller-create-session.return-200",
+        "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/revised/value/controller-create-session.data",
+        "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/value/rest-create-session-200.operation-id",
+        "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/shape/rest-create-session-200-arguments",
+        "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/value/rest-create-session-200.factory-result",
+        "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/shape/rest-create-session-200-factory",
+        "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/gap/rest-wrapper-create-session"
+      ],
+      "assumptions": [
+        "Conditional source path only; no runtime observation or complete imported schema/implicit exception claim."
+      ],
+      "evidence": ["volvo/cds-paymentservice-transaction/020d2fabb141/e/e3299e52641dcc89"]
+    },
+    {
+      "id": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/claim/rest-charge-200",
+      "kind": "claim",
+      "owner": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/revised/impl/controller-charge",
+      "statement": "The controller returns an imported SuccessResponse factory result inside ResponseEntity. Positional data and operationId arguments are retained separately; the DTO/null argument does not establish factory result members or the effective wire envelope.",
+      "basis": "source_traced",
+      "inputs": [
+        "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/revised/op/controller-charge.return-200",
+        "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/revised/value/controller-charge.data",
+        "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/value/rest-charge-200.operation-id",
+        "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/shape/rest-charge-200-arguments",
+        "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/value/rest-charge-200.factory-result",
+        "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/shape/rest-charge-200-factory",
+        "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/gap/rest-wrapper-charge"
+      ],
+      "assumptions": [
+        "Conditional source path only; no runtime observation or complete imported schema/implicit exception claim."
+      ],
+      "evidence": ["volvo/cds-paymentservice-transaction/020d2fabb141/e/186a1877e9610f81"]
+    },
+    {
+      "id": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/claim/rest-charge-202",
+      "kind": "claim",
+      "owner": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/revised/impl/controller-charge",
+      "statement": "The controller returns an imported SuccessResponse factory result inside ResponseEntity. Positional data and operationId arguments are retained separately; the DTO/null argument does not establish factory result members or the effective wire envelope.",
+      "basis": "source_traced",
+      "inputs": [
+        "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/revised/op/controller-charge.return-202",
+        "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/revised/value/controller-charge.data",
+        "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/value/rest-charge-202.operation-id",
+        "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/shape/rest-charge-202-arguments",
+        "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/value/rest-charge-202.factory-result",
+        "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/shape/rest-charge-202-factory",
+        "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/gap/rest-wrapper-charge"
+      ],
+      "assumptions": [
+        "Conditional source path only; no runtime observation or complete imported schema/implicit exception claim."
+      ],
+      "evidence": ["volvo/cds-paymentservice-transaction/020d2fabb141/e/186a1877e9610f81"]
+    },
+    {
+      "id": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/claim/rest-refund-202",
+      "kind": "claim",
+      "owner": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/revised/impl/controller-refund",
+      "statement": "The controller returns an imported SuccessResponse factory result. Positional data and operationId arguments are retained separately; the DTO/null argument does not establish factory result members or the effective wire envelope.",
+      "basis": "source_traced",
+      "inputs": [
+        "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/revised/op/controller-refund.return-202",
+        "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/value/rest-refund-202.argument0",
+        "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/value/rest-refund-202.operation-id",
+        "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/shape/rest-refund-202-arguments",
+        "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/value/rest-refund-202.factory-result",
+        "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/shape/rest-refund-202-factory",
+        "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/gap/rest-wrapper-refund"
+      ],
+      "assumptions": [
+        "Conditional source path only; no runtime observation or complete imported schema/implicit exception claim."
+      ],
+      "evidence": ["volvo/cds-paymentservice-transaction/020d2fabb141/e/494cce134244f955"]
+    },
+    {
+      "id": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/claim/rest-create-transaction-200",
+      "kind": "claim",
+      "owner": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/revised/impl/controller-create-transaction",
+      "statement": "The controller returns an imported SuccessResponse factory result. Positional data and operationId arguments are retained separately; the DTO/null argument does not establish factory result members or the effective wire envelope.",
+      "basis": "source_traced",
+      "inputs": [
+        "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/revised/op/controller-create-transaction.return-200",
+        "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/revised/value/controller-create-transaction.data",
+        "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/value/rest-create-transaction-200.operation-id",
+        "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/shape/rest-create-transaction-200-arguments",
+        "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/value/rest-create-transaction-200.factory-result",
+        "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/shape/rest-create-transaction-200-factory",
+        "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/gap/rest-wrapper-create-transaction"
+      ],
+      "assumptions": [
+        "Conditional source path only; no runtime observation or complete imported schema/implicit exception claim."
+      ],
+      "evidence": ["volvo/cds-paymentservice-transaction/020d2fabb141/e/a6805ed9e75fccac"]
+    },
+    {
+      "id": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/claim/rest-version-v1-200",
+      "kind": "claim",
+      "owner": "volvo/cds-paymentservice-transaction/020d2fabb141/impl/controller-version-v1",
+      "statement": "The controller returns an imported SuccessResponse factory result. Positional data and operationId arguments are retained separately; the DTO/null argument does not establish factory result members or the effective wire envelope.",
+      "basis": "source_traced",
+      "inputs": [
+        "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/revised/op/controller-version-v1.return-200",
+        "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/revised/value/controller-version-v1.data",
+        "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/value/rest-version-v1-200.operation-id",
+        "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/shape/rest-version-v1-200-arguments",
+        "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/value/rest-version-v1-200.factory-result",
+        "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/shape/rest-version-v1-200-factory",
+        "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/gap/rest-wrapper-version-v1"
+      ],
+      "assumptions": [
+        "Conditional source path only; no runtime observation or complete imported schema/implicit exception claim."
+      ],
+      "evidence": ["volvo/cds-paymentservice-transaction/020d2fabb141/e/b1b3c99c58e45c7a"]
+    },
+    {
+      "id": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/claim/rest-version-v2-200",
+      "kind": "claim",
+      "owner": "volvo/cds-paymentservice-transaction/020d2fabb141/impl/controller-version-v2",
+      "statement": "The controller returns an imported SuccessResponse factory result. Positional data and operationId arguments are retained separately; the DTO/null argument does not establish factory result members or the effective wire envelope.",
+      "basis": "source_traced",
+      "inputs": [
+        "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/revised/op/controller-version-v2.return-200",
+        "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/revised/value/controller-version-v2.data",
+        "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/value/rest-version-v2-200.operation-id",
+        "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/shape/rest-version-v2-200-arguments",
+        "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/value/rest-version-v2-200.factory-result",
+        "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/shape/rest-version-v2-200-factory",
+        "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/gap/rest-wrapper-version-v2"
+      ],
+      "assumptions": [
+        "Conditional source path only; no runtime observation or complete imported schema/implicit exception claim."
+      ],
+      "evidence": ["volvo/cds-paymentservice-transaction/020d2fabb141/e/2088d7a0bc8a7d72"]
+    },
+    {
+      "id": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/claim/capture-sdk-wrapper",
+      "kind": "claim",
+      "owner": "volvo/cds-paymentservice-transaction/020d2fabb141/capture/r1/capture",
+      "statement": "Capture dereferences the imported client return with getData(), discards the returned data and returns void. The source argument is not established as an HTTP body; exact SDK transport and wrapper layout remain unresolved.",
+      "basis": "source_traced",
+      "inputs": [
+        "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/revised/capture/r1/capture.remote",
+        "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/revised/capture/r1/value/capture.wrapper",
+        "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/revised/capture/u3/contract/capture-outbound",
+        "volvo/cds-paymentservice-transaction/020d2fabb141/capture/r1/gap/client-version"
+      ],
+      "assumptions": [
+        "Conditional source path only; no runtime observation or complete imported schema/implicit exception claim."
+      ],
+      "evidence": ["volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/e/4bf366da6303a9de"]
+    },
+    {
+      "id": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/claim/refund-callback",
+      "kind": "claim",
+      "owner": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/revised/impl/refund-publish",
+      "statement": "KafkaTemplate.send(...).whenComplete registers a logging callback. The void producer does not wait for its future. A later callback exception argument is logged without rethrowing into the HTTP call; this callback is not a broker consumer.",
+      "basis": "source_traced",
+      "inputs": [
+        "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/revised/impl/refund-publish",
+        "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/revised/op/refund-publish.send"
+      ],
+      "assumptions": [
+        "Conditional source path only; no runtime observation or complete imported schema/implicit exception claim."
+      ],
+      "evidence": ["volvo/cds-paymentservice-transaction/020d2fabb141/e/8e6f6878b65a7383"]
+    },
+    {
+      "id": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/claim/recurring-callback",
+      "kind": "claim",
+      "owner": "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/revised/impl/recurring-publish",
+      "statement": "KafkaTemplate.send(...).whenComplete registers a logging callback. The void producer does not wait for its future. A later callback exception argument is logged without rethrowing into the HTTP call; this callback is not a broker consumer.",
+      "basis": "source_traced",
+      "inputs": [
+        "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/revised/impl/recurring-publish",
+        "volvo/cds-paymentservice-transaction/020d2fabb141/deep-1/revised/op/recurring-publish.send"
+      ],
+      "assumptions": [
+        "Conditional source path only; no runtime observation or complete imported schema/implicit exception claim."
+      ],
+      "evidence": ["volvo/cds-paymentservice-transaction/020d2fabb141/e/3e3a2063aec44d40"]
+    }
+  ],
+  "remainingGaps": [
+    "Source-local auto-transfer initiation, payment-session supported-method/capability policy, retry/resubmit/create-session/create-transaction helper families remain partial.",
+    "Imported account, market and decline-code configuration implementations and transports remain unresolved.",
+    "PSP client 1.3.257 and scheduler client 1.0.52 exact implementations, transport/paths/headers/retries and effective response wire formats remain unresolved.",
+    "Local source DTO/model fields, inherited/generic/generated behaviour and effective validation/JSON/BSON formatter closure are not all complete.",
+    "Kafka send callbacks log and are not awaited; no broker/consumer completion, delivery guarantee or consumer handoff is established.",
+    "Explicit guards/exception paths are represented, but implicit null/duplicate-key/comparator/list/numeric failures and path feasibility are not exhaustively proved.",
+    "The new history state is prepended in memory; charge makes no later explicit session save. Later downstream persistence is outside this repository capture.",
+    "Derivations conservatively include the pinned source revision and explicit references. Fine-grained complete dependency invalidation is not claimed."
+  ],
+  "sourceInterpretationCorrections": [
+    "Local transaction-shared Maven source contains PaymentSession, AttributeBase, RecurringChargeState and exception bases; prior unavailable-model assumptions were revised.",
+    "PaymentSession.addRecurringChargeHistory initializes a list when null, prepends with addFirst and returns the same receiver; no persistence call exists in that method.",
+    "REST factory DTO/null arguments, SuccessResponse factory results and ResponseEntity containers are distinct native values/shapes. Effective imported envelope members are not inferred.",
+    "Scheduler BaseResponse returned wrapper is distinct from inner RegisterRetryResponse observed member-use shape. PSP BaseResponse/getData/source DTO fields are similarly distinct.",
+    "The preserved capture SDK contract no longer asserts an established HTTP transport or body layout for the unmatched client version.",
+    "Refund previous-partial validation loops across all requested lines before the remaining-amount validation loop; the native ordering preserves this distinction.",
+    "MongoTemplate.updateFirst selects transactionId explicitly and ignores matched/modified counts; normal return does not establish a matching or changed record."
+  ],
+  "sourceCallsExecuted": false,
+  "volvoTestsExecuted": false,
+  "workspaceOrAppMutated": false,
+  "nextBatches": [
+    "Expand local AutoTransferTransactionService and PaymentSessionSettingService with the current attempt/persistence graphs reused.",
+    "Trace retry endpoint guards and history/response behaviour through the already modelled attempt path.",
+    "Then deepen resubmit/create-session/create-transaction before matching exact external SDK artefacts or downstream consumers."
+  ]
+}

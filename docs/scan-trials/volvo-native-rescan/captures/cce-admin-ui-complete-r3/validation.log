@@ -1,0 +1,11 @@
+
+> groundwork@0.0.0 knowledge:validate
+> node --import ./tools/register.ts --conditions=react-server tools/validate-knowledge.ts reports/volvo-native-rescan/cce-admin-ui-complete/revision-003/bundle.json --write-snapshot reports/volvo-native-rescan/cce-admin-ui-complete/revision-003/snapshot.json
+
+{
+  "snapshot": "2a2790fddb9e55b08afa6b9487a33753a0876f5ece3932861b055ca2564d2067",
+  "bundles": 1,
+  "records": 285492,
+  "sourceRangesChecked": 0,
+  "sourceVerification": "not_requested"
+}

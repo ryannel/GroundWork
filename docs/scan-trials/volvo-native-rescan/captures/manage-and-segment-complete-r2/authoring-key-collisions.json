@@ -1,0 +1,412 @@
+[
+  {
+    "key": "reviewed/uow-save",
+    "existingKind": "effect",
+    "newKind": "interaction"
+  },
+  {
+    "key": "reviewed/read/1f53fa7d4a1ef343afd0",
+    "existingKind": "effect",
+    "newKind": "interaction"
+  },
+  {
+    "key": "reviewed/read/f862defa546f696e84ab",
+    "existingKind": "effect",
+    "newKind": "interaction"
+  },
+  {
+    "key": "reviewed/read/bf9383015873cd0fec48",
+    "existingKind": "effect",
+    "newKind": "interaction"
+  },
+  {
+    "key": "reviewed/read/182a540c76ee8975da14",
+    "existingKind": "effect",
+    "newKind": "interaction"
+  },
+  {
+    "key": "reviewed/read/0552ccf395a46da1b8e7",
+    "existingKind": "effect",
+    "newKind": "interaction"
+  },
+  {
+    "key": "reviewed/read/5fccbe2bb2ead062d1e2",
+    "existingKind": "effect",
+    "newKind": "interaction"
+  },
+  {
+    "key": "reviewed/read/df654ce8b2b4f46d14d8",
+    "existingKind": "effect",
+    "newKind": "interaction"
+  },
+  {
+    "key": "reviewed/read/ada2dea8ef14daf4e3e1",
+    "existingKind": "effect",
+    "newKind": "interaction"
+  },
+  {
+    "key": "reviewed/read/682378eeffa006252777",
+    "existingKind": "effect",
+    "newKind": "interaction"
+  },
+  {
+    "key": "reviewed/read/2dc6d715babb9a48d00f",
+    "existingKind": "effect",
+    "newKind": "interaction"
+  },
+  {
+    "key": "reviewed/read/23553d1651c6d3b6ecff",
+    "existingKind": "effect",
+    "newKind": "interaction"
+  },
+  {
+    "key": "reviewed/read/fc8186186cd2996b6cb3",
+    "existingKind": "effect",
+    "newKind": "interaction"
+  },
+  {
+    "key": "reviewed/read/4c37a2e51b5d1f65dc07",
+    "existingKind": "effect",
+    "newKind": "interaction"
+  },
+  {
+    "key": "reviewed/read/3efac8103a07b790e2ca",
+    "existingKind": "effect",
+    "newKind": "interaction"
+  },
+  {
+    "key": "reviewed/read/220e185a3600af833901",
+    "existingKind": "effect",
+    "newKind": "interaction"
+  },
+  {
+    "key": "reviewed/read/c9c7749d49aad2453ecb",
+    "existingKind": "effect",
+    "newKind": "interaction"
+  },
+  {
+    "key": "reviewed/read/ca1563fbcd72d8592b23",
+    "existingKind": "effect",
+    "newKind": "interaction"
+  },
+  {
+    "key": "reviewed/read/0bbadc7a69c460d4186e",
+    "existingKind": "effect",
+    "newKind": "interaction"
+  },
+  {
+    "key": "reviewed/read/f71798acbd38ed9a7799",
+    "existingKind": "effect",
+    "newKind": "interaction"
+  },
+  {
+    "key": "reviewed/read/3627b8ff26d11d31b18a",
+    "existingKind": "effect",
+    "newKind": "interaction"
+  },
+  {
+    "key": "reviewed/read/fc1c7e414a7adcc84387",
+    "existingKind": "effect",
+    "newKind": "interaction"
+  },
+  {
+    "key": "reviewed/read/fb549f3723b3a7db9b4a",
+    "existingKind": "effect",
+    "newKind": "interaction"
+  },
+  {
+    "key": "reviewed/read/76b1c0012b8a428679a5",
+    "existingKind": "effect",
+    "newKind": "interaction"
+  },
+  {
+    "key": "reviewed/read/3cc979d67630546ccfcc",
+    "existingKind": "effect",
+    "newKind": "interaction"
+  },
+  {
+    "key": "reviewed/read/a06ef093bfa1281732a8",
+    "existingKind": "effect",
+    "newKind": "interaction"
+  },
+  {
+    "key": "reviewed/read/e05bf2fedbebe184a48b",
+    "existingKind": "effect",
+    "newKind": "interaction"
+  },
+  {
+    "key": "reviewed/read/0aa488ce8fb0ba6744c9",
+    "existingKind": "effect",
+    "newKind": "interaction"
+  },
+  {
+    "key": "reviewed/read/9a27d4fb0ad85ee23109",
+    "existingKind": "effect",
+    "newKind": "interaction"
+  },
+  {
+    "key": "reviewed/read/44fd404e2f824b59c914",
+    "existingKind": "effect",
+    "newKind": "interaction"
+  },
+  {
+    "key": "reviewed/read/3ac9f46912b72e60c5fc",
+    "existingKind": "effect",
+    "newKind": "interaction"
+  },
+  {
+    "key": "reviewed/read/73e99cdc949c68588271",
+    "existingKind": "effect",
+    "newKind": "interaction"
+  },
+  {
+    "key": "reviewed/read/7b8100bf70dddcf9bb96",
+    "existingKind": "effect",
+    "newKind": "interaction"
+  },
+  {
+    "key": "reviewed/read/74a0f4a7321f01dc75b3",
+    "existingKind": "effect",
+    "newKind": "interaction"
+  },
+  {
+    "key": "reviewed/read/82e5d5c7df47cb93ea15",
+    "existingKind": "effect",
+    "newKind": "interaction"
+  },
+  {
+    "key": "reviewed/read/39340f12e26f2c2aed60",
+    "existingKind": "effect",
+    "newKind": "interaction"
+  },
+  {
+    "key": "reviewed/read/56a607ebe4e694465bed",
+    "existingKind": "effect",
+    "newKind": "interaction"
+  },
+  {
+    "key": "reviewed/read/77dfa686c46460da4bd8",
+    "existingKind": "effect",
+    "newKind": "interaction"
+  },
+  {
+    "key": "reviewed/read/04bf42a7defe269facf3",
+    "existingKind": "effect",
+    "newKind": "interaction"
+  },
+  {
+    "key": "reviewed/read/ad167a1023689320187d",
+    "existingKind": "effect",
+    "newKind": "interaction"
+  },
+  {
+    "key": "reviewed/read/6ea97411f5d1bc946dae",
+    "existingKind": "effect",
+    "newKind": "interaction"
+  },
+  {
+    "key": "reviewed/read/f7785fd12cb54ed6c4f4",
+    "existingKind": "effect",
+    "newKind": "interaction"
+  },
+  {
+    "key": "reviewed/read/204da00563f6cace432c",
+    "existingKind": "effect",
+    "newKind": "interaction"
+  },
+  {
+    "key": "reviewed/read/663cb61e0f2efb3d1c01",
+    "existingKind": "effect",
+    "newKind": "interaction"
+  },
+  {
+    "key": "reviewed/read/bb8f297168bcd8b2bc3e",
+    "existingKind": "effect",
+    "newKind": "interaction"
+  },
+  {
+    "key": "reviewed/read/27140ed51cf75eaac6a6",
+    "existingKind": "effect",
+    "newKind": "interaction"
+  },
+  {
+    "key": "reviewed/read/77827ccc3b328c271861",
+    "existingKind": "effect",
+    "newKind": "interaction"
+  },
+  {
+    "key": "reviewed/read/bfcf856102ee5a5e44d4",
+    "existingKind": "effect",
+    "newKind": "interaction"
+  },
+  {
+    "key": "reviewed/read/a6765673aa2d670f34ac",
+    "existingKind": "effect",
+    "newKind": "interaction"
+  },
+  {
+    "key": "reviewed/read/6fdc99ba5d364f8a6ffe",
+    "existingKind": "effect",
+    "newKind": "interaction"
+  },
+  {
+    "key": "reviewed/read/f1791a2e40f638aeeb5f",
+    "existingKind": "effect",
+    "newKind": "interaction"
+  },
+  {
+    "key": "reviewed/read/bad27bef0b7a935e38eb",
+    "existingKind": "effect",
+    "newKind": "interaction"
+  },
+  {
+    "key": "reviewed/read/5427e25f1b3bd39cf7b6",
+    "existingKind": "effect",
+    "newKind": "interaction"
+  },
+  {
+    "key": "reviewed/read/91111f72bf66e3b10466",
+    "existingKind": "effect",
+    "newKind": "interaction"
+  },
+  {
+    "key": "reviewed/read/330fb98d8689b790877c",
+    "existingKind": "effect",
+    "newKind": "interaction"
+  },
+  {
+    "key": "reviewed/read/1b37acb1de8abfed883b",
+    "existingKind": "effect",
+    "newKind": "interaction"
+  },
+  {
+    "key": "reviewed/read/207f092e4bce709c0bcf",
+    "existingKind": "effect",
+    "newKind": "interaction"
+  },
+  {
+    "key": "reviewed/read/8b7cd430c6ae870f6a9a",
+    "existingKind": "effect",
+    "newKind": "interaction"
+  },
+  {
+    "key": "reviewed/read/6af8f810921f6c3cc1e5",
+    "existingKind": "effect",
+    "newKind": "interaction"
+  },
+  {
+    "key": "reviewed/read/aaf1e31663b563443886",
+    "existingKind": "effect",
+    "newKind": "interaction"
+  },
+  {
+    "key": "reviewed/read/e56ebb2be726c2699631",
+    "existingKind": "effect",
+    "newKind": "interaction"
+  },
+  {
+    "key": "reviewed/read/2114cd615d5b885e38d8",
+    "existingKind": "effect",
+    "newKind": "interaction"
+  },
+  {
+    "key": "reviewed/read/c65cee4d786e920b8ae0",
+    "existingKind": "effect",
+    "newKind": "interaction"
+  },
+  {
+    "key": "reviewed/read/982923571a09ebdac2d2",
+    "existingKind": "effect",
+    "newKind": "interaction"
+  },
+  {
+    "key": "reviewed/read/745b09cbb75b0031687b",
+    "existingKind": "effect",
+    "newKind": "interaction"
+  },
+  {
+    "key": "reviewed/read/b41772088220b9c59add",
+    "existingKind": "effect",
+    "newKind": "interaction"
+  },
+  {
+    "key": "reviewed/read/0e4c0d2ce860e43a2b48",
+    "existingKind": "effect",
+    "newKind": "interaction"
+  },
+  {
+    "key": "reviewed/read/d07a663f47745772b56f",
+    "existingKind": "effect",
+    "newKind": "interaction"
+  },
+  {
+    "key": "reviewed/read/c4d6bcd4523a4dffb572",
+    "existingKind": "effect",
+    "newKind": "interaction"
+  },
+  {
+    "key": "reviewed/read/c869b646470b8fb37733",
+    "existingKind": "effect",
+    "newKind": "interaction"
+  },
+  {
+    "key": "reviewed/read/9ac7b2d777f46adf99e2",
+    "existingKind": "effect",
+    "newKind": "interaction"
+  },
+  {
+    "key": "reviewed/read/a2875c4ba427dad456bd",
+    "existingKind": "effect",
+    "newKind": "interaction"
+  },
+  {
+    "key": "reviewed/read/f63382f8cc81cf2122bd",
+    "existingKind": "effect",
+    "newKind": "interaction"
+  },
+  {
+    "key": "reviewed/read/74cf84a3961792698c32",
+    "existingKind": "effect",
+    "newKind": "interaction"
+  },
+  {
+    "key": "reviewed/read/a995866d7bc1c6c980dc",
+    "existingKind": "effect",
+    "newKind": "interaction"
+  },
+  {
+    "key": "reviewed/read/e49366082882dc584dcf",
+    "existingKind": "effect",
+    "newKind": "interaction"
+  },
+  {
+    "key": "reviewed/read/672a76bcd7864bbd9ea6",
+    "existingKind": "effect",
+    "newKind": "interaction"
+  },
+  {
+    "key": "reviewed/read/1f17ad3beb6190510ddc",
+    "existingKind": "effect",
+    "newKind": "interaction"
+  },
+  {
+    "key": "reviewed/read/a1c6b78eda52fdd76aaf",
+    "existingKind": "effect",
+    "newKind": "interaction"
+  },
+  {
+    "key": "reviewed/generic-publish",
+    "existingKind": "effect",
+    "newKind": "interaction"
+  },
+  {
+    "key": "reviewed/http/AuthorizationClient",
+    "existingKind": "effect",
+    "newKind": "interaction"
+  },
+  {
+    "key": "reviewed/http/AzureAdAuthenticationService",
+    "existingKind": "effect",
+    "newKind": "interaction"
+  }
+]

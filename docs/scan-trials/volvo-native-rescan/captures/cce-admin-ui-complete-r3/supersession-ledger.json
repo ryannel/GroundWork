@@ -1,0 +1,88 @@
+{
+  "supersedes": ["checkpoint-001 (partial, local-r1)", "revision-002 (review candidate, local-r2)"],
+  "current": "revision-003 local-r3; standalone, no old revision graphs embedded",
+  "namespace": "Fresh IDs including hashes derived from referenced IDs; logical source IDs retained",
+  "r2ToR3": {
+    "removed": [
+      {
+        "id": "volvo/cce-admin-ui/2bea451cf1ae/local-r2/entry/timer/521102ee85f481dce9e7",
+        "kind": "entry",
+        "logicalId": "cce-admin:Source interval src/app/policies/page.tsx:99",
+        "method": "SCHEDULE",
+        "path": "timer:src/app/policies/page.tsx:99",
+        "implementation": "volvo/cce-admin-ui/2bea451cf1ae/local-r2/method/09aae37200957d5022c0",
+        "trigger": "schedule",
+        "evidence": ["volvo/cce-admin-ui/2bea451cf1ae/local-r2/e/6533fe75f95d9aa18392"]
+      },
+      {
+        "id": "volvo/cce-admin-ui/2bea451cf1ae/local-r2/contract/timer/521102ee85f481dce9e7",
+        "kind": "interface_contract",
+        "component": "volvo/cce-admin-ui/2bea451cf1ae/local-r2/component/app:cce-admin-browser",
+        "protocol": "timer",
+        "name": "Source interval src/app/policies/page.tsx:99",
+        "method": "SCHEDULE",
+        "path": "timer:src/app/policies/page.tsx:99",
+        "authority": "source_declared",
+        "request": [],
+        "responses": [],
+        "gaps": ["volvo/cce-admin-ui/2bea451cf1ae/local-r2/gap/framework-runtime"],
+        "evidence": ["volvo/cce-admin-ui/2bea451cf1ae/local-r2/e/6533fe75f95d9aa18392"]
+      },
+      {
+        "id": "volvo/cce-admin-ui/2bea451cf1ae/local-r2/entry-binding/timer/521102ee85f481dce9e7",
+        "kind": "entry_binding",
+        "entry": "volvo/cce-admin-ui/2bea451cf1ae/local-r2/entry/timer/521102ee85f481dce9e7",
+        "execution": "volvo/cce-admin-ui/2bea451cf1ae/local-r2/execution/09aae37200957d5022c0",
+        "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r2/contract/timer/521102ee85f481dce9e7",
+        "gaps": [
+          "volvo/cce-admin-ui/2bea451cf1ae/local-r2/gap/framework-runtime",
+          "volvo/cce-admin-ui/2bea451cf1ae/local-r2/gap/formal-correspondence"
+        ],
+        "evidence": ["volvo/cce-admin-ui/2bea451cf1ae/local-r2/e/6533fe75f95d9aa18392"]
+      },
+      {
+        "id": "volvo/cce-admin-ui/2bea451cf1ae/local-r2/entry/timer/d55a9fcaf3a66b595340",
+        "kind": "entry",
+        "logicalId": "cce-admin:Source interval src/state/Policy/PolicyProvider.tsx:202",
+        "method": "SCHEDULE",
+        "path": "timer:src/state/Policy/PolicyProvider.tsx:202",
+        "implementation": "volvo/cce-admin-ui/2bea451cf1ae/local-r2/method/7969596dc0653eb5acca",
+        "trigger": "schedule",
+        "evidence": ["volvo/cce-admin-ui/2bea451cf1ae/local-r2/e/2fbbfd82112231de4611"]
+      },
+      {
+        "id": "volvo/cce-admin-ui/2bea451cf1ae/local-r2/contract/timer/d55a9fcaf3a66b595340",
+        "kind": "interface_contract",
+        "component": "volvo/cce-admin-ui/2bea451cf1ae/local-r2/component/app:cce-admin-browser",
+        "protocol": "timer",
+        "name": "Source interval src/state/Policy/PolicyProvider.tsx:202",
+        "method": "SCHEDULE",
+        "path": "timer:src/state/Policy/PolicyProvider.tsx:202",
+        "authority": "source_declared",
+        "request": [],
+        "responses": [],
+        "gaps": ["volvo/cce-admin-ui/2bea451cf1ae/local-r2/gap/framework-runtime"],
+        "evidence": ["volvo/cce-admin-ui/2bea451cf1ae/local-r2/e/2fbbfd82112231de4611"]
+      },
+      {
+        "id": "volvo/cce-admin-ui/2bea451cf1ae/local-r2/entry-binding/timer/d55a9fcaf3a66b595340",
+        "kind": "entry_binding",
+        "entry": "volvo/cce-admin-ui/2bea451cf1ae/local-r2/entry/timer/d55a9fcaf3a66b595340",
+        "execution": "volvo/cce-admin-ui/2bea451cf1ae/local-r2/execution/7969596dc0653eb5acca",
+        "contract": "volvo/cce-admin-ui/2bea451cf1ae/local-r2/contract/timer/d55a9fcaf3a66b595340",
+        "gaps": [
+          "volvo/cce-admin-ui/2bea451cf1ae/local-r2/gap/framework-runtime",
+          "volvo/cce-admin-ui/2bea451cf1ae/local-r2/gap/formal-correspondence"
+        ],
+        "evidence": ["volvo/cce-admin-ui/2bea451cf1ae/local-r2/e/2fbbfd82112231de4611"]
+      }
+    ],
+    "changedAfterIdentityTranslation": [],
+    "evidenceTupleSetEqual": true,
+    "recordIdentityMappingFile": "r2-r3-identity-map.json.gz",
+    "recordIdentityMappingCount": 285492,
+    "recordIdentityMappingSha256": "18d356ebdf121eb24462dc58aa334d9d9734520334669e81c63e54f5d702b6b9"
+  },
+  "checkpointPrototype": "Initial checkpoint queries exceeded maxRecords and bypassed strict request/response parsing; later strict checkpoint replay preserved separately",
+  "browserBff": "Contextual associations, not independent physical network sites"
+}

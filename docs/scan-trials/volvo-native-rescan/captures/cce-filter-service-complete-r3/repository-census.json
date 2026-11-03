@@ -1,0 +1,6537 @@
+{
+  "repo": "volvo-cars/cce-filter-service",
+  "commit": "2020ff59219b4d7bb9ad935fde361b2a6e857112",
+  "files": [
+    {
+      "path": ".github/CODEOWNERS",
+      "bytes": 17,
+      "sha256": "85335c939b0a2d6bc10810706f4f24dc0dd9a3bf2009b1a8776857c87b0f094e"
+    },
+    {
+      "path": ".github/PULL_REQUEST_TEMPLATE.md",
+      "bytes": 1187,
+      "sha256": "bd4211cf389a8fe476fa4388c02a782a233df9ac2abe19c077d9fe8a72973455"
+    },
+    {
+      "path": ".github/workflows/deploy.yml",
+      "bytes": 3421,
+      "sha256": "f1dd5f53b8735c5d5cb65148d39042bfc01b9cddda7e885857ed0b2ae218c16a"
+    },
+    {
+      "path": ".github/workflows/test.yml",
+      "bytes": 2459,
+      "sha256": "0f0ee02471c064d80d5b1183c74f140b224d6458e4a251dc806c748bb02fb0ec"
+    },
+    {
+      "path": ".gitignore",
+      "bytes": 254,
+      "sha256": "7073f1a9aff1bbf617055268b94164dfa537f8d9de8777bda41e5db51a0c9c4c"
+    },
+    {
+      "path": ".grype-app.yaml",
+      "bytes": 150,
+      "sha256": "2f0d4ea54867280ef457916784e242fbd52db4147ee0ef9ecb857e6108401318"
+    },
+    {
+      "path": ".grype-migrate.yaml",
+      "bytes": 157,
+      "sha256": "9c7eda1ba5ef6c64a8f15b06e608ab130d46f1f18002eb983d5ebc4bdd7675eb"
+    },
+    {
+      "path": ".python-version",
+      "bytes": 7,
+      "sha256": "922fe0c3de073b01988e23348ea184456161678c5e329e6f34be89be24383f93"
+    },
+    {
+      "path": ".secrets.example",
+      "bytes": 1066,
+      "sha256": "be52853a3baa4ded32316fe095f6cce460f7945a372ed73820ca7d220ff8d499"
+    },
+    {
+      "path": "Dockerfile.app",
+      "bytes": 1006,
+      "sha256": "709af9fe52f5eae938ab8da5868457066a2dd15252feef4c121e0347404c99c6"
+    },
+    {
+      "path": "Dockerfile.migrate",
+      "bytes": 709,
+      "sha256": "4220fe7556cd1ca265cefd2dbd684b5f3370299c1ec16d971b15d84d350cef2e"
+    },
+    {
+      "path": "Makefile",
+      "bytes": 6419,
+      "sha256": "e5f7e985f87dbdb95bc9ce8ab03a55ef809fb6398b60c565c36bbe4ea630a4f1"
+    },
+    {
+      "path": "README.md",
+      "bytes": 4873,
+      "sha256": "c19c570c7bd5b31fc965d27c259e7222871673cc89cd1edd84b852219a4dee1e"
+    },
+    {
+      "path": "catalog-info.yaml",
+      "bytes": 275,
+      "sha256": "75d9f767f67e06d632b3112557deddca8ef1027a84bbf58047c5092975475526"
+    },
+    {
+      "path": "docker-compose.yml",
+      "bytes": 3557,
+      "sha256": "1318efb8c7071b9823078847f5d26eec028053d9003b6f0b4df8200465290a23"
+    },
+    {
+      "path": "docker-entrypoint-initdb.d/create_db.sql",
+      "bytes": 37,
+      "sha256": "253ea57d949d98b022fe8e076704770dca95b853d62bee8013e7af60ecaa08d7"
+    },
+    {
+      "path": "poetry.lock",
+      "bytes": 355768,
+      "sha256": "9d874a29ddd2387b908a8ec6753188241b3f0f99b385d6d6c031d5992f7879f6"
+    },
+    {
+      "path": "pyproject.toml",
+      "bytes": 969,
+      "sha256": "2318a994f3b4fd8e660b35a2be2c2a709e1250bf2671650838fba3f80b8d581c"
+    },
+    {
+      "path": "scripts/generate-postgres-certs.sh",
+      "bytes": 824,
+      "sha256": "f0d46a7f9656d82ee2217dd40487dc2654b3cf1fd90ffcd3f032a507d58871f9"
+    },
+    {
+      "path": "scripts/generate-protobuf.py",
+      "bytes": 4050,
+      "sha256": "fbab7cb70ab87c1b23664613b9d254beab982186af9d46ee780a2d9816bb55b3",
+      "functions": [
+        {
+          "name": "parse_args",
+          "line": 14,
+          "end": 21,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "argparse.Namespace"
+        },
+        {
+          "name": "qualify_imports",
+          "line": 24,
+          "end": 31,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "None"
+        },
+        {
+          "name": "remove_generated_files",
+          "line": 34,
+          "end": 43,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "None"
+        },
+        {
+          "name": "ensure_packages",
+          "line": 46,
+          "end": 53,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "None"
+        },
+        {
+          "name": "replace_generated_tree",
+          "line": 56,
+          "end": 69,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "None"
+        },
+        {
+          "name": "main",
+          "line": 72,
+          "end": 114,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "None"
+        }
+      ],
+      "classes": []
+    },
+    {
+      "path": "scripts/migrate-db.sh",
+      "bytes": 404,
+      "sha256": "6b679e35ac33ba059c0adab712c462f858597f7979cd019c7e6fb494d2b5700c"
+    },
+    {
+      "path": "scripts/wait-for-postgres.sh",
+      "bytes": 132,
+      "sha256": "7462f2353713cf510460998702137a3d56020b861076aafe065303d680c0bde6"
+    },
+    {
+      "path": "src/api/__init__.py",
+      "bytes": 219,
+      "sha256": "e9fd3ecfa4f6f0f5ac40152ebcc88dc480512355f29db55bc0f1da476c0b69fd",
+      "functions": [],
+      "classes": []
+    },
+    {
+      "path": "src/api/build.py",
+      "bytes": 1480,
+      "sha256": "2ba91b1a0f2d28ff1a670c7ec7eb2b3ad229880fa5b6e646002c59bcb99c958b",
+      "functions": [
+        {
+          "name": "build_policy_components_and_rule_sets_for_tree",
+          "line": 14,
+          "end": 36,
+          "asyncFunction": true,
+          "decorators": [
+            "router.post('/build', tags=['build_policies'], response_model=str, deprecated=True)"
+          ],
+          "returns": null
+        }
+      ],
+      "classes": []
+    },
+    {
+      "path": "src/api/components.py",
+      "bytes": 1166,
+      "sha256": "d4f3deb2bdb5181db95e1f343e9d4bf59e07fd319344a9c4aa9cd22e8f88272a",
+      "functions": [
+        {
+          "name": "get_wheel_components",
+          "line": 11,
+          "end": 15,
+          "asyncFunction": true,
+          "decorators": [
+            "router.get('/wheelComponents', tags=['components'], response_model=List[str])"
+          ],
+          "returns": "List[str]"
+        },
+        {
+          "name": "populate",
+          "line": 19,
+          "end": 35,
+          "asyncFunction": true,
+          "decorators": [
+            "router.post('/populateWheel', tags=['components'], response_model=md.PopulateWheelResult)"
+          ],
+          "returns": "None"
+        }
+      ],
+      "classes": []
+    },
+    {
+      "path": "src/api/filters.py",
+      "bytes": 748,
+      "sha256": "0473d39144a676cc32aa1edc5e279cf774b841251492bd07f11dede437056fc2",
+      "functions": [
+        {
+          "name": "get_components_for_filters",
+          "line": 10,
+          "end": 20,
+          "asyncFunction": true,
+          "decorators": [
+            "router.get('/filters', tags=['filters'], response_model=FiltersResponse)"
+          ],
+          "returns": null
+        }
+      ],
+      "classes": []
+    },
+    {
+      "path": "src/api/healthcheck.py",
+      "bytes": 1145,
+      "sha256": "e8368c88c4e68d96b6121b0396b91f87bcb2c158bcd5ba807a33a14808350ac9",
+      "functions": [
+        {
+          "name": "log_is_healthcheck",
+          "line": 16,
+          "end": 17,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "bool"
+        },
+        {
+          "name": "log_is_readycheck",
+          "line": 20,
+          "end": 21,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "bool"
+        },
+        {
+          "name": "get",
+          "line": 28,
+          "end": 29,
+          "asyncFunction": true,
+          "decorators": ["router.get('/health', tags=['healthcheck'])"],
+          "returns": null
+        },
+        {
+          "name": "ready",
+          "line": 33,
+          "end": 40,
+          "asyncFunction": true,
+          "decorators": ["router.get('/ready', tags=['healthcheck'])"],
+          "returns": null
+        },
+        {
+          "name": "filter",
+          "line": 11,
+          "end": 13,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "bool"
+        }
+      ],
+      "classes": [
+        {
+          "name": "HealthCheckFilter",
+          "line": 10,
+          "end": 13,
+          "bases": ["logging.Filter"]
+        }
+      ]
+    },
+    {
+      "path": "src/api/partner.py",
+      "bytes": 4626,
+      "sha256": "7e96eb6051ae69100f73102695267d1424726730a889cd6f8f141698d388db02",
+      "functions": [
+        {
+          "name": "get_partner_rules",
+          "line": 11,
+          "end": 36,
+          "asyncFunction": true,
+          "decorators": [
+            "router.get('/partner/rulesForPolicy', tags=['partner'], response_model=PartnerRuleList)"
+          ],
+          "returns": "PartnerRuleList"
+        },
+        {
+          "name": "put_partner_rules",
+          "line": 40,
+          "end": 59,
+          "asyncFunction": true,
+          "decorators": ["router.put('/partner/rulesForPolicy', tags=['partner'])"],
+          "returns": null
+        },
+        {
+          "name": "delete_partner_rules",
+          "line": 63,
+          "end": 74,
+          "asyncFunction": true,
+          "decorators": ["router.delete('/partner/rulesForPolicy', tags=['partner'])"],
+          "returns": null
+        },
+        {
+          "name": "get_policies_for_partner",
+          "line": 78,
+          "end": 97,
+          "asyncFunction": true,
+          "decorators": [
+            "router.get('/partner/validPolicies', tags=['partner'], response_model=List[str])"
+          ],
+          "returns": "List[str]"
+        },
+        {
+          "name": "get_partners",
+          "line": 101,
+          "end": 116,
+          "asyncFunction": true,
+          "decorators": [
+            "router.get('/partner/partners', tags=['partner'], response_model=List[Partner])"
+          ],
+          "returns": "List[str]"
+        },
+        {
+          "name": "delete",
+          "line": 120,
+          "end": 127,
+          "asyncFunction": true,
+          "decorators": ["router.delete('/partner/allPartnerData', tags=['partner'])"],
+          "returns": null
+        }
+      ],
+      "classes": []
+    },
+    {
+      "path": "src/api/policies_v2.py",
+      "bytes": 8105,
+      "sha256": "a8ed11733990705710aa496a32e05119aefe6e904c5eb185c97e1b09ab9ea2f8",
+      "functions": [
+        {
+          "name": "get",
+          "line": 16,
+          "end": 28,
+          "asyncFunction": true,
+          "decorators": [
+            "router.get('/v2/policies/{policy_uid}', tags=['policies_v2'], response_model=md.ConfigPolicy)"
+          ],
+          "returns": null
+        },
+        {
+          "name": "get_request_status",
+          "line": 32,
+          "end": 37,
+          "asyncFunction": true,
+          "decorators": [
+            "router.get('/v2/policies/status/{request_uid}', response_model=PolicyStatus, tags=['policies_v2'])"
+          ],
+          "returns": null
+        },
+        {
+          "name": "get_policy_status",
+          "line": 41,
+          "end": 46,
+          "asyncFunction": true,
+          "decorators": [
+            "router.get('/v2/policies/{policy_uid}/status', response_model=PolicyStatus, tags=['policies_v2'])"
+          ],
+          "returns": null
+        },
+        {
+          "name": "post_policy_status",
+          "line": 50,
+          "end": 59,
+          "asyncFunction": true,
+          "decorators": [
+            "router.post('/v2/policies/status', response_model=List[PolicyStatus], tags=['policies_v2'])"
+          ],
+          "returns": null
+        },
+        {
+          "name": "get_policy_tree",
+          "line": 63,
+          "end": 73,
+          "asyncFunction": true,
+          "decorators": ["router.post('/v2/tree/policies', tags=['policies_v2'])"],
+          "returns": null
+        },
+        {
+          "name": "get_policy_tree_parents_reversed",
+          "line": 77,
+          "end": 89,
+          "asyncFunction": true,
+          "decorators": [
+            "router.get('/v2/tree/policies', tags=['policies_v2'], response_model=List[str])"
+          ],
+          "returns": null
+        },
+        {
+          "name": "save_policy",
+          "line": 93,
+          "end": 106,
+          "asyncFunction": true,
+          "decorators": [
+            "router.post('/v2/policies', tags=['policies_v2'], response_model=md.PolicyRequestResponse)"
+          ],
+          "returns": null
+        },
+        {
+          "name": "trigger_build_process",
+          "line": 110,
+          "end": 128,
+          "asyncFunction": true,
+          "decorators": [
+            "router.put('/v2/policies/{policy_uid}', tags=['policies_v2'], response_model=md.PolicyRequestResponse)"
+          ],
+          "returns": null
+        },
+        {
+          "name": "update_policy",
+          "line": 132,
+          "end": 146,
+          "asyncFunction": true,
+          "decorators": [
+            "router.put('/v2/policies', tags=['policies_v2'], response_model=md.PolicyRequestResponse)"
+          ],
+          "returns": null
+        },
+        {
+          "name": "delete",
+          "line": 150,
+          "end": 158,
+          "asyncFunction": true,
+          "decorators": [
+            "router.delete('/v2/policies/{policy_uid}', tags=['policies_v2'], response_model=bool)"
+          ],
+          "returns": null
+        },
+        {
+          "name": "get_all_policy_uids_for_all_spec_markets",
+          "line": 162,
+          "end": 185,
+          "asyncFunction": true,
+          "decorators": [
+            "router.get('/v2/allPolicyUids', tags=['policies_v2'], response_model=List[md.PolicySpecMarket])"
+          ],
+          "returns": null
+        },
+        {
+          "name": "get_all_spec_markets",
+          "line": 188,
+          "end": 198,
+          "asyncFunction": true,
+          "decorators": [
+            "router.get('/v2/allSpecMarkets', tags=['policies_v2'], response_model=List[str])"
+          ],
+          "returns": null
+        },
+        {
+          "name": "flatten_policy_uids",
+          "line": 168,
+          "end": 172,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "List[str]"
+        }
+      ],
+      "classes": []
+    },
+    {
+      "path": "src/database/__init__.py",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "functions": [],
+      "classes": []
+    },
+    {
+      "path": "src/database/postgres/__init__.py",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "functions": [],
+      "classes": []
+    },
+    {
+      "path": "src/database/postgres/migrations/000001_inital_create.down.sql",
+      "bytes": 226,
+      "sha256": "69309c948e464bc0572f9bf8fbaa78543edccee234d4fa09ffaa787a46f20d47"
+    },
+    {
+      "path": "src/database/postgres/migrations/000001_inital_create.up.sql",
+      "bytes": 1949,
+      "sha256": "a8f106381a6f802c77f5f6613d9f9ac4452df0d5fa38ebf4007a3fa92a84a6d9"
+    },
+    {
+      "path": "src/database/postgres/pool.py",
+      "bytes": 1795,
+      "sha256": "6e0fedc9aa16d542cdb1b3bc7913a03b245fcf2693ab5d8e9fc23abaf4d933b5",
+      "functions": [
+        {
+          "name": "get_connection_string",
+          "line": 10,
+          "end": 19,
+          "asyncFunction": false,
+          "decorators": ["staticmethod"],
+          "returns": "str"
+        },
+        {
+          "name": "create_connection_pool",
+          "line": 22,
+          "end": 28,
+          "asyncFunction": false,
+          "decorators": ["classmethod"],
+          "returns": null
+        },
+        {
+          "name": "pool",
+          "line": 31,
+          "end": 34,
+          "asyncFunction": false,
+          "decorators": ["classmethod"],
+          "returns": null
+        },
+        {
+          "name": "close",
+          "line": 37,
+          "end": 39,
+          "asyncFunction": false,
+          "decorators": ["classmethod"],
+          "returns": null
+        },
+        {
+          "name": "ready",
+          "line": 42,
+          "end": 54,
+          "asyncFunction": false,
+          "decorators": ["classmethod"],
+          "returns": "bool"
+        }
+      ],
+      "classes": [
+        {
+          "name": "PostgresPool",
+          "line": 5,
+          "end": 54,
+          "bases": []
+        }
+      ]
+    },
+    {
+      "path": "src/database/postgres/repository.py",
+      "bytes": 22710,
+      "sha256": "7556fe32c70ec2fc930e49e9b1f00de51b7e93479e04ce30ee1c9624504b5ea9",
+      "functions": [
+        {
+          "name": "dict_fetch_one",
+          "line": 9,
+          "end": 15,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "dict"
+        },
+        {
+          "name": "dict_fetch_all",
+          "line": 18,
+          "end": 21,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "list[dict]"
+        },
+        {
+          "name": "__init__",
+          "line": 25,
+          "end": 26,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": null
+        },
+        {
+          "name": "get",
+          "line": 31,
+          "end": 39,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "dict | None"
+        },
+        {
+          "name": "get_tree_data",
+          "line": 41,
+          "end": 49,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "dict | None"
+        },
+        {
+          "name": "get_many_tree_data",
+          "line": 51,
+          "end": 59,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "list[dict] | None"
+        },
+        {
+          "name": "get_child_tree_data",
+          "line": 61,
+          "end": 69,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "list[dict] | None"
+        },
+        {
+          "name": "get_parent_uid",
+          "line": 71,
+          "end": 77,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "str | None"
+        },
+        {
+          "name": "create",
+          "line": 79,
+          "end": 98,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": null
+        },
+        {
+          "name": "update",
+          "line": 100,
+          "end": 117,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": null
+        },
+        {
+          "name": "delete",
+          "line": 119,
+          "end": 124,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "bool"
+        },
+        {
+          "name": "_change_id_to_uid",
+          "line": 127,
+          "end": 136,
+          "asyncFunction": false,
+          "decorators": ["staticmethod"],
+          "returns": "dict"
+        },
+        {
+          "name": "_prepare_compress",
+          "line": 139,
+          "end": 145,
+          "asyncFunction": false,
+          "decorators": ["staticmethod"],
+          "returns": "dict"
+        },
+        {
+          "name": "_prepare_decompress",
+          "line": 148,
+          "end": 150,
+          "asyncFunction": false,
+          "decorators": ["staticmethod"],
+          "returns": "dict"
+        },
+        {
+          "name": "get_partner_by_country_code_and_brand",
+          "line": 155,
+          "end": 174,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "list[dict]"
+        },
+        {
+          "name": "bulk_upsert",
+          "line": 176,
+          "end": 216,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": null
+        },
+        {
+          "name": "delete_all",
+          "line": 218,
+          "end": 222,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": null
+        },
+        {
+          "name": "get",
+          "line": 227,
+          "end": 250,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "dict | None"
+        },
+        {
+          "name": "upsert",
+          "line": 252,
+          "end": 281,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": null
+        },
+        {
+          "name": "delete",
+          "line": 283,
+          "end": 287,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": null
+        },
+        {
+          "name": "get_component_lists_for_policy",
+          "line": 292,
+          "end": 314,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "list[dict] | None"
+        },
+        {
+          "name": "get_aggregated_component_list_for_policy",
+          "line": 316,
+          "end": 329,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "dict | None"
+        },
+        {
+          "name": "get_included_pno12s",
+          "line": 331,
+          "end": 345,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "list[str] | None"
+        },
+        {
+          "name": "bulk_write",
+          "line": 347,
+          "end": 364,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": null
+        },
+        {
+          "name": "bulk_update",
+          "line": 366,
+          "end": 385,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": null
+        },
+        {
+          "name": "bulk_delete",
+          "line": 387,
+          "end": 392,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": null
+        },
+        {
+          "name": "_aggregate_components_from_db_records",
+          "line": 395,
+          "end": 402,
+          "asyncFunction": false,
+          "decorators": ["staticmethod"],
+          "returns": "list[dict]"
+        },
+        {
+          "name": "_compress_components",
+          "line": 405,
+          "end": 406,
+          "asyncFunction": false,
+          "decorators": ["staticmethod"],
+          "returns": "bytes"
+        },
+        {
+          "name": "_decompress_components",
+          "line": 409,
+          "end": 410,
+          "asyncFunction": false,
+          "decorators": ["staticmethod"],
+          "returns": "list[dict]"
+        },
+        {
+          "name": "get_status",
+          "line": 415,
+          "end": 438,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "dict | None"
+        },
+        {
+          "name": "get_statuses",
+          "line": 440,
+          "end": 462,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "list[dict] | None"
+        },
+        {
+          "name": "get_status_request_uid",
+          "line": 464,
+          "end": 487,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "dict | None"
+        },
+        {
+          "name": "check_if_request_id_exists",
+          "line": 489,
+          "end": 495,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "bool"
+        },
+        {
+          "name": "create_or_replace_many",
+          "line": 497,
+          "end": 518,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": null
+        },
+        {
+          "name": "_to_db_record",
+          "line": 521,
+          "end": 527,
+          "asyncFunction": false,
+          "decorators": ["staticmethod"],
+          "returns": "tuple"
+        },
+        {
+          "name": "update",
+          "line": 529,
+          "end": 538,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": null
+        },
+        {
+          "name": "_insert_info",
+          "line": 540,
+          "end": 556,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": null
+        },
+        {
+          "name": "_to_model_dict",
+          "line": 559,
+          "end": 585,
+          "asyncFunction": false,
+          "decorators": ["staticmethod"],
+          "returns": "list[dict]"
+        },
+        {
+          "name": "bulk_update",
+          "line": 590,
+          "end": 600,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": null
+        },
+        {
+          "name": "get_all_wheels",
+          "line": 602,
+          "end": 607,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "list[dict]"
+        },
+        {
+          "name": "delete_code",
+          "line": 609,
+          "end": 614,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "int"
+        }
+      ],
+      "classes": [
+        {
+          "name": "BaseRepository",
+          "line": 24,
+          "end": 26,
+          "bases": []
+        },
+        {
+          "name": "ConfigPolicyRepository",
+          "line": 29,
+          "end": 150,
+          "bases": ["BaseRepository"]
+        },
+        {
+          "name": "PartnerRepository",
+          "line": 153,
+          "end": 222,
+          "bases": ["BaseRepository"]
+        },
+        {
+          "name": "PartnerPolicyRepository",
+          "line": 225,
+          "end": 287,
+          "bases": ["BaseRepository"]
+        },
+        {
+          "name": "ComponentsRepository",
+          "line": 290,
+          "end": 410,
+          "bases": ["BaseRepository"]
+        },
+        {
+          "name": "PolicyStatusRepository",
+          "line": 413,
+          "end": 585,
+          "bases": ["BaseRepository"]
+        },
+        {
+          "name": "WheelComponentsRepository",
+          "line": 588,
+          "end": 614,
+          "bases": ["BaseRepository"]
+        }
+      ]
+    },
+    {
+      "path": "src/main-event.py",
+      "bytes": 5498,
+      "sha256": "16682a3e01f0590acf4f2e2027bad164783bab389771bfe35a176a99acf24d9a",
+      "functions": [
+        {
+          "name": "main_configure_storage",
+          "line": 36,
+          "end": 47,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": null
+        },
+        {
+          "name": "get_azure_storage_connection_string",
+          "line": 50,
+          "end": 55,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": null
+        },
+        {
+          "name": "get_local_azure_storage_connection_string",
+          "line": 58,
+          "end": 62,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": null
+        },
+        {
+          "name": "get_event_reader",
+          "line": 65,
+          "end": 84,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "EventConsumer"
+        },
+        {
+          "name": "setup_reader",
+          "line": 87,
+          "end": 126,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": null
+        },
+        {
+          "name": "lifespan",
+          "line": 130,
+          "end": 146,
+          "asyncFunction": true,
+          "decorators": ["asynccontextmanager"],
+          "returns": null
+        },
+        {
+          "name": "custom_http_exception_handler",
+          "line": 159,
+          "end": 161,
+          "asyncFunction": true,
+          "decorators": ["app.exception_handler(StarletteHTTPException)"],
+          "returns": null
+        }
+      ],
+      "classes": []
+    },
+    {
+      "path": "src/main.py",
+      "bytes": 1859,
+      "sha256": "e99a40e25a7f3b5b495f84a3d2ada5cba83ee4181a6f425cddc455113842fe61",
+      "functions": [
+        {
+          "name": "lifespan",
+          "line": 19,
+          "end": 28,
+          "asyncFunction": true,
+          "decorators": ["asynccontextmanager"],
+          "returns": null
+        },
+        {
+          "name": "custom_http_exception_handler",
+          "line": 47,
+          "end": 49,
+          "asyncFunction": true,
+          "decorators": ["app.exception_handler(StarletteHTTPException)"],
+          "returns": null
+        }
+      ],
+      "classes": []
+    },
+    {
+      "path": "src/messaging/__init__.py",
+      "bytes": 565,
+      "sha256": "b46fba13e9bff94711f6d737ed32903740ad9290e5a2934e2c2874a13302b28b",
+      "functions": [
+        {
+          "name": "configure_producer",
+          "line": 10,
+          "end": 11,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "None"
+        },
+        {
+          "name": "get_configured_producer",
+          "line": 14,
+          "end": 17,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "EventProducer"
+        },
+        {
+          "name": "__init__",
+          "line": 6,
+          "end": 7,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": null
+        }
+      ],
+      "classes": [
+        {
+          "name": "ProducerConfiguration",
+          "line": 5,
+          "end": 7,
+          "bases": []
+        }
+      ]
+    },
+    {
+      "path": "src/messaging/car_specification_to_components.py",
+      "bytes": 5659,
+      "sha256": "db03f9f4dfac7c590b7d5c3a8ff6b753a2673352a3dee6fa722182b318a671ee",
+      "functions": [
+        {
+          "name": "legacy_pno12_from_car_specification",
+          "line": 9,
+          "end": 24,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "LegacyPno12"
+        },
+        {
+          "name": "legacy_pno12_from_removed_car_specification",
+          "line": 26,
+          "end": 36,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "LegacyPno12"
+        },
+        {
+          "name": "car_specification_to_components",
+          "line": 38,
+          "end": 53,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "List[md.Component]"
+        },
+        {
+          "name": "car_specification_to_option_components",
+          "line": 55,
+          "end": 84,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "List[md.Component]"
+        },
+        {
+          "name": "car_specification_to_package_components",
+          "line": 86,
+          "end": 112,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "List[md.Component]"
+        },
+        {
+          "name": "car_specification_to_s_message_components",
+          "line": 115,
+          "end": 130,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "List[md.Component]"
+        },
+        {
+          "name": "car_specification_to_wheel_components",
+          "line": 133,
+          "end": 148,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "List[md.Component]"
+        },
+        {
+          "name": "car_specification_to_color_components",
+          "line": 151,
+          "end": 166,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "List[md.Component]"
+        },
+        {
+          "name": "car_specification_to_upholstery_components",
+          "line": 169,
+          "end": 184,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "List[md.Component]"
+        }
+      ],
+      "classes": []
+    },
+    {
+      "path": "src/messaging/consumer.py",
+      "bytes": 376,
+      "sha256": "815a3cfcbc83a7b188d53c0968febc0d5f6437711e3a7f12bf4db807362e12a7",
+      "functions": [
+        {
+          "name": "register_handler",
+          "line": 9,
+          "end": 10,
+          "asyncFunction": false,
+          "decorators": ["abstractmethod"],
+          "returns": "None"
+        },
+        {
+          "name": "run",
+          "line": 13,
+          "end": 14,
+          "asyncFunction": false,
+          "decorators": ["abstractmethod"],
+          "returns": null
+        },
+        {
+          "name": "shutdown",
+          "line": 17,
+          "end": 18,
+          "asyncFunction": false,
+          "decorators": ["abstractmethod"],
+          "returns": null
+        }
+      ],
+      "classes": [
+        {
+          "name": "EventConsumer",
+          "line": 6,
+          "end": 18,
+          "bases": ["ABC"]
+        }
+      ]
+    },
+    {
+      "path": "src/messaging/event.py",
+      "bytes": 2588,
+      "sha256": "32b9c156fb96375d989b883a57ca37c96f3332121c90e0aca4e7dcdc748c566d",
+      "functions": [
+        {
+          "name": "__init__",
+          "line": 19,
+          "end": 27,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": null
+        },
+        {
+          "name": "to_headers",
+          "line": 29,
+          "end": 42,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "Sequence[Tuple[str, str]]"
+        },
+        {
+          "name": "from_headers",
+          "line": 44,
+          "end": 60,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": null
+        },
+        {
+          "name": "__init__",
+          "line": 64,
+          "end": 71,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": null
+        },
+        {
+          "name": "type_name",
+          "line": 74,
+          "end": 75,
+          "asyncFunction": false,
+          "decorators": ["property"],
+          "returns": null
+        },
+        {
+          "name": "value",
+          "line": 77,
+          "end": 78,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": null
+        },
+        {
+          "name": "key",
+          "line": 80,
+          "end": 81,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": null
+        },
+        {
+          "name": "headers",
+          "line": 83,
+          "end": 84,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": null
+        }
+      ],
+      "classes": [
+        {
+          "name": "EventMeta",
+          "line": 11,
+          "end": 60,
+          "bases": []
+        },
+        {
+          "name": "Event",
+          "line": 63,
+          "end": 84,
+          "bases": []
+        }
+      ]
+    },
+    {
+      "path": "src/messaging/eventnames.py",
+      "bytes": 240,
+      "sha256": "6442383658aea760132f14ba553addabb9fa1b61c165c280036e40a39f505fb0",
+      "functions": [],
+      "classes": []
+    },
+    {
+      "path": "src/messaging/handlers.py",
+      "bytes": 11768,
+      "sha256": "77ef983c2f302a0268da2109b0da021a93225881d7f9e101d3d813b2ed825797",
+      "functions": [
+        {
+          "name": "handle_car_specification_upserted",
+          "line": 28,
+          "end": 72,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "None"
+        },
+        {
+          "name": "handle_car_specification_removed",
+          "line": 74,
+          "end": 106,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "None"
+        },
+        {
+          "name": "policy_rules_saved_event_handler",
+          "line": 110,
+          "end": 133,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "None"
+        },
+        {
+          "name": "handle_partner_details_imported",
+          "line": 136,
+          "end": 164,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "None"
+        },
+        {
+          "name": "handle_pno12_components_imported_message",
+          "line": 167,
+          "end": 221,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "None"
+        },
+        {
+          "name": "handle_car_sync_completed",
+          "line": 224,
+          "end": 247,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "None"
+        },
+        {
+          "name": "handle_car_sync_failed",
+          "line": 250,
+          "end": 273,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "None"
+        },
+        {
+          "name": "handle_policy_deleted_result",
+          "line": 276,
+          "end": 306,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "None"
+        }
+      ],
+      "classes": []
+    },
+    {
+      "path": "src/messaging/kafka/__init__.py",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "functions": [],
+      "classes": []
+    },
+    {
+      "path": "src/messaging/kafka/config.py",
+      "bytes": 2761,
+      "sha256": "f09b191ebd93800a54f844a35a67a7dd042be2e69115e37c53217bcdf8497c9b",
+      "functions": [
+        {
+          "name": "__init__",
+          "line": 18,
+          "end": 37,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": null
+        },
+        {
+          "name": "to_dict",
+          "line": 39,
+          "end": 40,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": null
+        },
+        {
+          "name": "__init__",
+          "line": 45,
+          "end": 63,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": null
+        },
+        {
+          "name": "__init__",
+          "line": 67,
+          "end": 89,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": null
+        }
+      ],
+      "classes": [
+        {
+          "name": "KafkaConfig",
+          "line": 5,
+          "end": 40,
+          "bases": []
+        },
+        {
+          "name": "SASLSSLKafkaConfig",
+          "line": 43,
+          "end": 63,
+          "bases": ["KafkaConfig"]
+        },
+        {
+          "name": "SSLAuthKafkaConfig",
+          "line": 66,
+          "end": 89,
+          "bases": ["KafkaConfig"]
+        }
+      ]
+    },
+    {
+      "path": "src/messaging/kafka/consumer.py",
+      "bytes": 3642,
+      "sha256": "25ea3837ddc3255baeb7a30566cda3325f3b79737db6f5128056d36357d9a26c",
+      "functions": [
+        {
+          "name": "__init__",
+          "line": 15,
+          "end": 25,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": null
+        },
+        {
+          "name": "register_handler",
+          "line": 27,
+          "end": 32,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "None"
+        },
+        {
+          "name": "set_error_handler",
+          "line": 34,
+          "end": 38,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "None"
+        },
+        {
+          "name": "shutdown",
+          "line": 40,
+          "end": 42,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": null
+        },
+        {
+          "name": "handler_for",
+          "line": 44,
+          "end": 57,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": null
+        },
+        {
+          "name": "run",
+          "line": 59,
+          "end": 102,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": null
+        }
+      ],
+      "classes": [
+        {
+          "name": "KafkaConsumer",
+          "line": 13,
+          "end": 102,
+          "bases": ["EventConsumer"]
+        }
+      ]
+    },
+    {
+      "path": "src/messaging/kafka/producer.py",
+      "bytes": 1269,
+      "sha256": "888ea09c05d456c737314f1102dedee2b776b103bac4fae007e4dac78229ec00",
+      "functions": [
+        {
+          "name": "__init__",
+          "line": 11,
+          "end": 13,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": null
+        },
+        {
+          "name": "publish",
+          "line": 15,
+          "end": 39,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": null
+        },
+        {
+          "name": "delivery_report",
+          "line": 24,
+          "end": 29,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": null
+        }
+      ],
+      "classes": [
+        {
+          "name": "KafkaProducer",
+          "line": 9,
+          "end": 39,
+          "bases": ["EventProducer"]
+        }
+      ]
+    },
+    {
+      "path": "src/messaging/kafka/topicselector.py",
+      "bytes": 664,
+      "sha256": "1cbd707120f026933b300f5ad3cddb9afab41cb0afd99f0899179605d0a5c58d",
+      "functions": [
+        {
+          "name": "get_topic_selector",
+          "line": 10,
+          "end": 23,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "Callable[[Event], str]"
+        },
+        {
+          "name": "topic_selector",
+          "line": 17,
+          "end": 21,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "str"
+        }
+      ],
+      "classes": []
+    },
+    {
+      "path": "src/messaging/noop/__init__.py",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "functions": [],
+      "classes": []
+    },
+    {
+      "path": "src/messaging/noop/consumer.py",
+      "bytes": 593,
+      "sha256": "0abcab57fd46517a5a684541b1059a2977266b9554f9ab6fff56ba5a553f6332",
+      "functions": [
+        {
+          "name": "__init__",
+          "line": 12,
+          "end": 14,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": null
+        },
+        {
+          "name": "register_handler",
+          "line": 16,
+          "end": 17,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "None"
+        },
+        {
+          "name": "run",
+          "line": 19,
+          "end": 21,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": null
+        },
+        {
+          "name": "shutdown",
+          "line": 23,
+          "end": 25,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": null
+        }
+      ],
+      "classes": [
+        {
+          "name": "NoopConsumer",
+          "line": 10,
+          "end": 25,
+          "bases": ["EventConsumer"]
+        }
+      ]
+    },
+    {
+      "path": "src/messaging/noop/producer.py",
+      "bytes": 385,
+      "sha256": "1b0403a454f8344bd0f590ab69b56f9e9a0e9e06b5282c780f30bb8c4b162c7d",
+      "functions": [
+        {
+          "name": "__init__",
+          "line": 10,
+          "end": 12,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": null
+        },
+        {
+          "name": "publish",
+          "line": 14,
+          "end": 16,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": null
+        }
+      ],
+      "classes": [
+        {
+          "name": "NoopProducer",
+          "line": 9,
+          "end": 16,
+          "bases": ["EventProducer"]
+        }
+      ]
+    },
+    {
+      "path": "src/messaging/producer.py",
+      "bytes": 177,
+      "sha256": "346c47a623a845e00d090dacd5a6c7b19a9166288f6cb001264ba7c1bb1dd8dc",
+      "functions": [
+        {
+          "name": "publish",
+          "line": 8,
+          "end": 9,
+          "asyncFunction": false,
+          "decorators": ["abstractmethod"],
+          "returns": "None"
+        }
+      ],
+      "classes": [
+        {
+          "name": "EventProducer",
+          "line": 5,
+          "end": 9,
+          "bases": ["ABC"]
+        }
+      ]
+    },
+    {
+      "path": "src/messaging/protobuf/__init__.py",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "functions": [],
+      "classes": []
+    },
+    {
+      "path": "src/messaging/protobuf/volvocars/__init__.py",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "functions": [],
+      "classes": []
+    },
+    {
+      "path": "src/messaging/protobuf/volvocars/contracts/__init__.py",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "functions": [],
+      "classes": []
+    },
+    {
+      "path": "src/messaging/protobuf/volvocars/contracts/carconfiguration/__init__.py",
+      "bytes": 433,
+      "sha256": "eeb6d7959b98014e8ca7e52d80ca9e4155ddcbbae60e9e7f9efbc0f91a211ab8",
+      "functions": [],
+      "classes": []
+    },
+    {
+      "path": "src/messaging/protobuf/volvocars/contracts/carconfiguration/car_configuration_pb2.py",
+      "bytes": 2769,
+      "sha256": "f38158629df9692ec9b46039202af12e34e4a62d2bc1a664c76baf551837d69a",
+      "functions": [],
+      "classes": []
+    },
+    {
+      "path": "src/messaging/protobuf/volvocars/contracts/carconfiguration/car_configuration_pb2.pyi",
+      "bytes": 3085,
+      "sha256": "07761913d3b7468dfc555aa25e09a6d8893fbd4aacaca21ed4ab8d7f356efe93",
+      "functions": [
+        {
+          "name": "__init__",
+          "line": 41,
+          "end": 41,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "None"
+        },
+        {
+          "name": "__init__",
+          "line": 53,
+          "end": 53,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "None"
+        },
+        {
+          "name": "__init__",
+          "line": 61,
+          "end": 61,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "None"
+        }
+      ],
+      "classes": [
+        {
+          "name": "CarKey",
+          "line": 9,
+          "end": 41,
+          "bases": ["_message.Message"]
+        },
+        {
+          "name": "CarConfigurationAdded",
+          "line": 43,
+          "end": 53,
+          "bases": ["_message.Message"]
+        },
+        {
+          "name": "CarConfigurationRemoved",
+          "line": 55,
+          "end": 61,
+          "bases": ["_message.Message"]
+        }
+      ]
+    },
+    {
+      "path": "src/messaging/protobuf/volvocars/contracts/carconfiguration/car_sync_pb2.py",
+      "bytes": 1773,
+      "sha256": "4e2082cabbd9b32e8c08160646d7865351ce6f39a2af200d6d9caa4cec86a46d",
+      "functions": [],
+      "classes": []
+    },
+    {
+      "path": "src/messaging/protobuf/volvocars/contracts/carconfiguration/car_sync_pb2.pyi",
+      "bytes": 835,
+      "sha256": "dc91bbc7f2c04673e39397635e60c5517177a4ad86530b38e7373a3043699196",
+      "functions": [
+        {
+          "name": "__init__",
+          "line": 13,
+          "end": 13,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "None"
+        },
+        {
+          "name": "__init__",
+          "line": 21,
+          "end": 21,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "None"
+        }
+      ],
+      "classes": [
+        {
+          "name": "CarSyncCompleted",
+          "line": 7,
+          "end": 13,
+          "bases": ["_message.Message"]
+        },
+        {
+          "name": "CarSyncFailed",
+          "line": 15,
+          "end": 21,
+          "bases": ["_message.Message"]
+        }
+      ]
+    },
+    {
+      "path": "src/messaging/protobuf/volvocars/contracts/carconfiguration/component_pb2.py",
+      "bytes": 2990,
+      "sha256": "0df005b4ee36139662fd22aec3293e0746dc09330cf1c3585ad37a7bf1a51539",
+      "functions": [],
+      "classes": []
+    },
+    {
+      "path": "src/messaging/protobuf/volvocars/contracts/carconfiguration/component_pb2.pyi",
+      "bytes": 3064,
+      "sha256": "57e7a8179839294eade78f0187ad781b2eb54026ad817d5e1c81116575777786",
+      "functions": [
+        {
+          "name": "__init__",
+          "line": 66,
+          "end": 66,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "None"
+        },
+        {
+          "name": "__init__",
+          "line": 74,
+          "end": 74,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "None"
+        },
+        {
+          "name": "__init__",
+          "line": 80,
+          "end": 80,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "None"
+        }
+      ],
+      "classes": [
+        {
+          "name": "ComponentType",
+          "line": 9,
+          "end": 28,
+          "bases": ["int"]
+        },
+        {
+          "name": "Component",
+          "line": 48,
+          "end": 66,
+          "bases": ["_message.Message"]
+        },
+        {
+          "name": "ComponentMeta",
+          "line": 68,
+          "end": 74,
+          "bases": ["_message.Message"]
+        },
+        {
+          "name": "ComponentUpdated",
+          "line": 76,
+          "end": 80,
+          "bases": ["_message.Message"]
+        }
+      ]
+    },
+    {
+      "path": "src/messaging/protobuf/volvocars/contracts/carconfiguration/condition_pb2.py",
+      "bytes": 2397,
+      "sha256": "2d0e0af53defacfa82dffff3f577750fc29ccf18512ded807d03c90077edd1f8",
+      "functions": [],
+      "classes": []
+    },
+    {
+      "path": "src/messaging/protobuf/volvocars/contracts/carconfiguration/condition_pb2.pyi",
+      "bytes": 1586,
+      "sha256": "7425c5fa978f95addb54e56f73988abb49ac0e280065b17aa1342484f0e0ec22",
+      "functions": [
+        {
+          "name": "__init__",
+          "line": 24,
+          "end": 24,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "None"
+        },
+        {
+          "name": "__init__",
+          "line": 32,
+          "end": 32,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "None"
+        }
+      ],
+      "classes": [
+        {
+          "name": "Relation",
+          "line": 11,
+          "end": 14,
+          "bases": ["int"]
+        },
+        {
+          "name": "Condition",
+          "line": 18,
+          "end": 24,
+          "bases": ["_message.Message"]
+        },
+        {
+          "name": "SubCondition",
+          "line": 26,
+          "end": 32,
+          "bases": ["_message.Message"]
+        }
+      ]
+    },
+    {
+      "path": "src/messaging/protobuf/volvocars/contracts/carconfiguration/config_policy_pb2.py",
+      "bytes": 6900,
+      "sha256": "a6b621b84708c9f81a63df97218a1d04a9e451ee16283745a6c2e972350ee7cf",
+      "functions": [],
+      "classes": []
+    },
+    {
+      "path": "src/messaging/protobuf/volvocars/contracts/carconfiguration/config_policy_pb2.pyi",
+      "bytes": 9669,
+      "sha256": "a97e3772006c14f11730bee0d1fd22f80061e38a868bc1e90fe6d5643d5b8164",
+      "functions": [
+        {
+          "name": "__init__",
+          "line": 25,
+          "end": 25,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "None"
+        },
+        {
+          "name": "__init__",
+          "line": 41,
+          "end": 41,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "None"
+        },
+        {
+          "name": "__init__",
+          "line": 59,
+          "end": 59,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "None"
+        },
+        {
+          "name": "__init__",
+          "line": 75,
+          "end": 75,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "None"
+        },
+        {
+          "name": "__init__",
+          "line": 89,
+          "end": 89,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "None"
+        },
+        {
+          "name": "__init__",
+          "line": 97,
+          "end": 97,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "None"
+        },
+        {
+          "name": "__init__",
+          "line": 111,
+          "end": 111,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "None"
+        },
+        {
+          "name": "__init__",
+          "line": 125,
+          "end": 125,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "None"
+        },
+        {
+          "name": "__init__",
+          "line": 135,
+          "end": 135,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "None"
+        },
+        {
+          "name": "__init__",
+          "line": 141,
+          "end": 141,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "None"
+        },
+        {
+          "name": "__init__",
+          "line": 147,
+          "end": 147,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "None"
+        },
+        {
+          "name": "__init__",
+          "line": 155,
+          "end": 155,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "None"
+        },
+        {
+          "name": "__init__",
+          "line": 163,
+          "end": 163,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "None"
+        },
+        {
+          "name": "__init__",
+          "line": 169,
+          "end": 169,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "None"
+        }
+      ],
+      "classes": [
+        {
+          "name": "ConfigPolicy",
+          "line": 11,
+          "end": 25,
+          "bases": ["_message.Message"]
+        },
+        {
+          "name": "ConfigPolicyCreated",
+          "line": 27,
+          "end": 41,
+          "bases": ["_message.Message"]
+        },
+        {
+          "name": "ConfigPolicyUpdated",
+          "line": 43,
+          "end": 59,
+          "bases": ["_message.Message"]
+        },
+        {
+          "name": "ConfigPolicyDeleted",
+          "line": 61,
+          "end": 75,
+          "bases": ["_message.Message"]
+        },
+        {
+          "name": "ConfigPolicyRulesUpdated",
+          "line": 77,
+          "end": 89,
+          "bases": ["_message.Message"]
+        },
+        {
+          "name": "ActiveVersionChanged",
+          "line": 91,
+          "end": 97,
+          "bases": ["_message.Message"]
+        },
+        {
+          "name": "Pno12RuleSetMeta",
+          "line": 99,
+          "end": 111,
+          "bases": ["_message.Message"]
+        },
+        {
+          "name": "PolicyRulesUpdated",
+          "line": 113,
+          "end": 125,
+          "bases": ["_message.Message"]
+        },
+        {
+          "name": "PolicyDeleted",
+          "line": 127,
+          "end": 135,
+          "bases": ["_message.Message"]
+        },
+        {
+          "name": "PoliciesDeleted",
+          "line": 137,
+          "end": 141,
+          "bases": ["_message.Message"]
+        },
+        {
+          "name": "PoliciesRulesUpdated",
+          "line": 143,
+          "end": 147,
+          "bases": ["_message.Message"]
+        },
+        {
+          "name": "Pno12ActiveStatus",
+          "line": 149,
+          "end": 155,
+          "bases": ["_message.Message"]
+        },
+        {
+          "name": "PolicyStatusUpdated",
+          "line": 157,
+          "end": 163,
+          "bases": ["_message.Message"]
+        },
+        {
+          "name": "PolicyRulesSaved",
+          "line": 165,
+          "end": 169,
+          "bases": ["_message.Message"]
+        }
+      ]
+    },
+    {
+      "path": "src/messaging/protobuf/volvocars/contracts/carconfiguration/config_rules_pb2.py",
+      "bytes": 4803,
+      "sha256": "bc94a2a54f5b5f3b33c6cb9aba897e8edc5cb504e7e2d30bc95473324c00fb5d",
+      "functions": [],
+      "classes": []
+    },
+    {
+      "path": "src/messaging/protobuf/volvocars/contracts/carconfiguration/config_rules_pb2.pyi",
+      "bytes": 4844,
+      "sha256": "b5147cfe5931d102026b52dbb076fdae690749e78952ad6705f77f09efb574af",
+      "functions": [
+        {
+          "name": "__init__",
+          "line": 26,
+          "end": 26,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "None"
+        },
+        {
+          "name": "__init__",
+          "line": 38,
+          "end": 38,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "None"
+        },
+        {
+          "name": "__init__",
+          "line": 46,
+          "end": 46,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "None"
+        },
+        {
+          "name": "__init__",
+          "line": 54,
+          "end": 54,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "None"
+        },
+        {
+          "name": "__init__",
+          "line": 64,
+          "end": 64,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "None"
+        },
+        {
+          "name": "__init__",
+          "line": 70,
+          "end": 70,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "None"
+        },
+        {
+          "name": "__init__",
+          "line": 76,
+          "end": 76,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "None"
+        },
+        {
+          "name": "__init__",
+          "line": 84,
+          "end": 84,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "None"
+        },
+        {
+          "name": "__init__",
+          "line": 94,
+          "end": 94,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "None"
+        }
+      ],
+      "classes": [
+        {
+          "name": "RulesImported",
+          "line": 14,
+          "end": 26,
+          "bases": ["_message.Message"]
+        },
+        {
+          "name": "RuleSet",
+          "line": 28,
+          "end": 38,
+          "bases": ["_message.Message"]
+        },
+        {
+          "name": "RuleSetCreated",
+          "line": 40,
+          "end": 46,
+          "bases": ["_message.Message"]
+        },
+        {
+          "name": "ConfigRuleSet",
+          "line": 48,
+          "end": 54,
+          "bases": ["_message.Message"]
+        },
+        {
+          "name": "ConfigRule",
+          "line": 56,
+          "end": 64,
+          "bases": ["_message.Message"]
+        },
+        {
+          "name": "ConfigRulesCreated",
+          "line": 66,
+          "end": 70,
+          "bases": ["_message.Message"]
+        },
+        {
+          "name": "ConfigRulesUpdated",
+          "line": 72,
+          "end": 76,
+          "bases": ["_message.Message"]
+        },
+        {
+          "name": "StructureWeeksRuleSet",
+          "line": 78,
+          "end": 84,
+          "bases": ["_message.Message"]
+        },
+        {
+          "name": "StructureWeeksRule",
+          "line": 86,
+          "end": 94,
+          "bases": ["_message.Message"]
+        }
+      ]
+    },
+    {
+      "path": "src/messaging/protobuf/volvocars/contracts/carconfiguration/consequence_pb2.py",
+      "bytes": 2813,
+      "sha256": "f45caab7d58e9974a6989c54fb8bd886cbbdcddab0e00d8ffea0a396b6a75202",
+      "functions": [],
+      "classes": []
+    },
+    {
+      "path": "src/messaging/protobuf/volvocars/contracts/carconfiguration/consequence_pb2.pyi",
+      "bytes": 2245,
+      "sha256": "7e76af16614fd7a61cdd04df8f76c30a2b6a45666eafbfffa9581f172fe9db6d",
+      "functions": [
+        {
+          "name": "__init__",
+          "line": 36,
+          "end": 36,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "None"
+        },
+        {
+          "name": "__init__",
+          "line": 48,
+          "end": 48,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "None"
+        },
+        {
+          "name": "__init__",
+          "line": 54,
+          "end": 54,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "None"
+        }
+      ],
+      "classes": [
+        {
+          "name": "RuleType",
+          "line": 11,
+          "end": 20,
+          "bases": ["int"]
+        },
+        {
+          "name": "Consequence",
+          "line": 30,
+          "end": 36,
+          "bases": ["_message.Message"]
+        },
+        {
+          "name": "StructureWeeksConsequence",
+          "line": 38,
+          "end": 48,
+          "bases": ["_message.Message"]
+        },
+        {
+          "name": "PriceRuleConsequence",
+          "line": 50,
+          "end": 54,
+          "bases": ["_message.Message"]
+        }
+      ]
+    },
+    {
+      "path": "src/messaging/protobuf/volvocars/contracts/carconfiguration/cpam_ingress_pb2.py",
+      "bytes": 4716,
+      "sha256": "ecc412edb75fa493c73c315cca50939c69240966d11bf18b0d64cd78448c840c",
+      "functions": [],
+      "classes": []
+    },
+    {
+      "path": "src/messaging/protobuf/volvocars/contracts/carconfiguration/cpam_ingress_pb2.pyi",
+      "bytes": 5127,
+      "sha256": "bf01afb7f898849a2c8c00d3a6bf5667ea13cf61b74bbc0edcd20b623b7dae3c",
+      "functions": [
+        {
+          "name": "__init__",
+          "line": 22,
+          "end": 22,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "None"
+        },
+        {
+          "name": "__init__",
+          "line": 30,
+          "end": 30,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "None"
+        },
+        {
+          "name": "__init__",
+          "line": 38,
+          "end": 38,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "None"
+        },
+        {
+          "name": "__init__",
+          "line": 54,
+          "end": 54,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "None"
+        },
+        {
+          "name": "__init__",
+          "line": 62,
+          "end": 62,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "None"
+        },
+        {
+          "name": "__init__",
+          "line": 70,
+          "end": 70,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "None"
+        },
+        {
+          "name": "__init__",
+          "line": 84,
+          "end": 84,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "None"
+        },
+        {
+          "name": "__init__",
+          "line": 90,
+          "end": 90,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "None"
+        }
+      ],
+      "classes": [
+        {
+          "name": "SpecMarketImported",
+          "line": 14,
+          "end": 22,
+          "bases": ["_message.Message"]
+        },
+        {
+          "name": "Pno12ComponentsImported",
+          "line": 24,
+          "end": 30,
+          "bases": ["_message.Message"]
+        },
+        {
+          "name": "Pno12ComponentMapping",
+          "line": 32,
+          "end": 38,
+          "bases": ["_message.Message"]
+        },
+        {
+          "name": "Pno12RulesImported",
+          "line": 40,
+          "end": 54,
+          "bases": ["_message.Message"]
+        },
+        {
+          "name": "SWmapping",
+          "line": 56,
+          "end": 62,
+          "bases": ["_message.Message"]
+        },
+        {
+          "name": "StructureWeek",
+          "line": 64,
+          "end": 70,
+          "bases": ["_message.Message"]
+        },
+        {
+          "name": "MarketAuthUpdated",
+          "line": 72,
+          "end": 84,
+          "bases": ["_message.Message"]
+        },
+        {
+          "name": "MarketAuthsUpdated",
+          "line": 86,
+          "end": 90,
+          "bases": ["_message.Message"]
+        }
+      ]
+    },
+    {
+      "path": "src/messaging/protobuf/volvocars/contracts/carconfiguration/market_auth_identifier_pb2.py",
+      "bytes": 1653,
+      "sha256": "a1b49d5d4c5d9970032851c648ae98f0ec82492589712b135f6ba09d49f4f888",
+      "functions": [],
+      "classes": []
+    },
+    {
+      "path": "src/messaging/protobuf/volvocars/contracts/carconfiguration/market_auth_identifier_pb2.pyi",
+      "bytes": 582,
+      "sha256": "f50e3cd3f3e8dcfa65867e23065ea561c6d19be055f12bc72b2a21c6b322cc34",
+      "functions": [
+        {
+          "name": "__init__",
+          "line": 13,
+          "end": 13,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "None"
+        }
+      ],
+      "classes": [
+        {
+          "name": "MarketAuthIdentifier",
+          "line": 7,
+          "end": 13,
+          "bases": ["_message.Message"]
+        }
+      ]
+    },
+    {
+      "path": "src/messaging/protobuf/volvocars/contracts/carconfiguration/partnerDetailsFeed_pb2.py",
+      "bytes": 2779,
+      "sha256": "19e2fec6cd2f8ee7a1b84e898a165a1483b91819573b36992bac422d73b0d2a5",
+      "functions": [],
+      "classes": []
+    },
+    {
+      "path": "src/messaging/protobuf/volvocars/contracts/carconfiguration/partnerDetailsFeed_pb2.pyi",
+      "bytes": 2913,
+      "sha256": "8d9e54d5bbdf32d34de2e5000f62aa3d66cef52973f7fcefb71517561c530aed",
+      "functions": [
+        {
+          "name": "__init__",
+          "line": 17,
+          "end": 17,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "None"
+        },
+        {
+          "name": "__init__",
+          "line": 31,
+          "end": 31,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "None"
+        },
+        {
+          "name": "__init__",
+          "line": 49,
+          "end": 49,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "None"
+        },
+        {
+          "name": "__init__",
+          "line": 57,
+          "end": 57,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "None"
+        }
+      ],
+      "classes": [
+        {
+          "name": "PartnerDetails",
+          "line": 9,
+          "end": 17,
+          "bases": ["_message.Message"]
+        },
+        {
+          "name": "RetailData",
+          "line": 19,
+          "end": 31,
+          "bases": ["_message.Message"]
+        },
+        {
+          "name": "PartnersDetailsData",
+          "line": 33,
+          "end": 49,
+          "bases": ["_message.Message"]
+        },
+        {
+          "name": "ParterNames",
+          "line": 51,
+          "end": 57,
+          "bases": ["_message.Message"]
+        }
+      ]
+    },
+    {
+      "path": "src/messaging/protobuf/volvocars/contracts/carconfiguration/partnerNotify_pb2.py",
+      "bytes": 2520,
+      "sha256": "1afdf92daa140d18aa09ee5ce4ea23139ae14ee327e9854bc5d05f7edb479087",
+      "functions": [],
+      "classes": []
+    },
+    {
+      "path": "src/messaging/protobuf/volvocars/contracts/carconfiguration/partnerNotify_pb2.pyi",
+      "bytes": 2370,
+      "sha256": "d936515f50a88cca31e8ebc4b23dc6491fb1e014b9bd08d746bd5e837e26de5c",
+      "functions": [
+        {
+          "name": "__init__",
+          "line": 21,
+          "end": 21,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "None"
+        },
+        {
+          "name": "__init__",
+          "line": 41,
+          "end": 41,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "None"
+        },
+        {
+          "name": "__init__",
+          "line": 47,
+          "end": 47,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "None"
+        }
+      ],
+      "classes": [
+        {
+          "name": "PartnerNotificationData",
+          "line": 9,
+          "end": 21,
+          "bases": ["_message.Message"]
+        },
+        {
+          "name": "PartnerNotification",
+          "line": 23,
+          "end": 41,
+          "bases": ["_message.Message"]
+        },
+        {
+          "name": "PartnerNotifications",
+          "line": 43,
+          "end": 47,
+          "bases": ["_message.Message"]
+        }
+      ]
+    },
+    {
+      "path": "src/messaging/protobuf/volvocars/contracts/carconfiguration/rule_pb2.py",
+      "bytes": 2471,
+      "sha256": "fbd2256dbf1ea59ed63bd16be1975c950bc5735afed50d9b9bd2c1dfe6ff10c0",
+      "functions": [],
+      "classes": []
+    },
+    {
+      "path": "src/messaging/protobuf/volvocars/contracts/carconfiguration/rule_pb2.pyi",
+      "bytes": 2565,
+      "sha256": "220861cd3d1bd41cd5b5e6ff0d3470b16db03e1de133d83e6483844981cb00d3",
+      "functions": [
+        {
+          "name": "__init__",
+          "line": 43,
+          "end": 43,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "None"
+        },
+        {
+          "name": "__init__",
+          "line": 17,
+          "end": 17,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "None"
+        },
+        {
+          "name": "__init__",
+          "line": 28,
+          "end": 28,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "None"
+        }
+      ],
+      "classes": [
+        {
+          "name": "Rule",
+          "line": 9,
+          "end": 43,
+          "bases": ["_message.Message"]
+        },
+        {
+          "name": "Component",
+          "line": 11,
+          "end": 17,
+          "bases": ["_message.Message"]
+        },
+        {
+          "name": "Condition",
+          "line": 18,
+          "end": 28,
+          "bases": ["_message.Message"]
+        }
+      ]
+    },
+    {
+      "path": "src/messaging/protobuf/volvocars/contracts/carconfiguration/rule_set_pb2.py",
+      "bytes": 3629,
+      "sha256": "804e643242150d35109309fe95e72586817fe65e3c5e7248f3f78eb2216c137a",
+      "functions": [],
+      "classes": []
+    },
+    {
+      "path": "src/messaging/protobuf/volvocars/contracts/carconfiguration/rule_set_pb2.pyi",
+      "bytes": 4029,
+      "sha256": "828a013df5c05e27ec508a10c304e6fc62a4b7cb65b7551cca029b273ee77758",
+      "functions": [
+        {
+          "name": "__init__",
+          "line": 17,
+          "end": 17,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "None"
+        },
+        {
+          "name": "__init__",
+          "line": 23,
+          "end": 23,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "None"
+        },
+        {
+          "name": "__init__",
+          "line": 29,
+          "end": 29,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "None"
+        },
+        {
+          "name": "__init__",
+          "line": 39,
+          "end": 39,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "None"
+        },
+        {
+          "name": "__init__",
+          "line": 55,
+          "end": 55,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "None"
+        },
+        {
+          "name": "__init__",
+          "line": 63,
+          "end": 63,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "None"
+        },
+        {
+          "name": "__init__",
+          "line": 73,
+          "end": 73,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "None"
+        },
+        {
+          "name": "__init__",
+          "line": 83,
+          "end": 83,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "None"
+        }
+      ],
+      "classes": [
+        {
+          "name": "RuleSetStatus",
+          "line": 9,
+          "end": 17,
+          "bases": ["_message.Message"]
+        },
+        {
+          "name": "RuleSetIndexed",
+          "line": 19,
+          "end": 23,
+          "bases": ["_message.Message"]
+        },
+        {
+          "name": "RuleSetIndexingFailed",
+          "line": 25,
+          "end": 29,
+          "bases": ["_message.Message"]
+        },
+        {
+          "name": "RuleSetRemoved",
+          "line": 31,
+          "end": 39,
+          "bases": ["_message.Message"]
+        },
+        {
+          "name": "RuleSetRequestStatus",
+          "line": 41,
+          "end": 55,
+          "bases": ["_message.Message"]
+        },
+        {
+          "name": "PolicyRuleSetsIndexed",
+          "line": 57,
+          "end": 63,
+          "bases": ["_message.Message"]
+        },
+        {
+          "name": "PolicyRuleSetsIndexCreated",
+          "line": 65,
+          "end": 73,
+          "bases": ["_message.Message"]
+        },
+        {
+          "name": "PolicyRuleSetsCacheWarmed",
+          "line": 75,
+          "end": 83,
+          "bases": ["_message.Message"]
+        }
+      ]
+    },
+    {
+      "path": "src/messaging/protobuf/volvocars/contracts/carconfiguration/v2/__init__.py",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "functions": [],
+      "classes": []
+    },
+    {
+      "path": "src/messaging/protobuf/volvocars/contracts/carconfiguration/v2/car_configuration_ruleset_pb2.py",
+      "bytes": 4116,
+      "sha256": "e2033e92b7b78a0212b21c8f107aa1d634c2cde0ae465eb5c16bfc34b59f076b",
+      "functions": [],
+      "classes": []
+    },
+    {
+      "path": "src/messaging/protobuf/volvocars/contracts/carconfiguration/v2/car_configuration_ruleset_pb2.pyi",
+      "bytes": 4829,
+      "sha256": "0c49314dd020e5879d99814821fe39dc69dc5db471c388e95623aca6859964b8",
+      "functions": [
+        {
+          "name": "__init__",
+          "line": 21,
+          "end": 21,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "None"
+        },
+        {
+          "name": "__init__",
+          "line": 37,
+          "end": 37,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "None"
+        },
+        {
+          "name": "__init__",
+          "line": 45,
+          "end": 45,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "None"
+        },
+        {
+          "name": "__init__",
+          "line": 51,
+          "end": 51,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "None"
+        },
+        {
+          "name": "__init__",
+          "line": 67,
+          "end": 67,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "None"
+        },
+        {
+          "name": "__init__",
+          "line": 75,
+          "end": 75,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "None"
+        },
+        {
+          "name": "__init__",
+          "line": 82,
+          "end": 82,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "None"
+        }
+      ],
+      "classes": [
+        {
+          "name": "CarConfigurationRuleset",
+          "line": 13,
+          "end": 21,
+          "bases": ["_message.Message"]
+        },
+        {
+          "name": "ConfigurationRuleset",
+          "line": 23,
+          "end": 37,
+          "bases": ["_message.Message"]
+        },
+        {
+          "name": "Polyhedron",
+          "line": 39,
+          "end": 45,
+          "bases": ["_message.Message"]
+        },
+        {
+          "name": "Row",
+          "line": 47,
+          "end": 51,
+          "bases": ["_message.Message"]
+        },
+        {
+          "name": "Components",
+          "line": 53,
+          "end": 67,
+          "bases": ["_message.Message"]
+        },
+        {
+          "name": "TimeBoundVariable",
+          "line": 69,
+          "end": 75,
+          "bases": ["_message.Message"]
+        },
+        {
+          "name": "Period",
+          "line": 77,
+          "end": 82,
+          "bases": ["_message.Message"]
+        }
+      ]
+    },
+    {
+      "path": "src/messaging/protobuf/volvocars/contracts/carconfiguration/v2/car_key_pb2.py",
+      "bytes": 3450,
+      "sha256": "2febbe7dd92daa76c56fb8d48e3eafb3e4ca39acb48ecc1c56cb5ffc58fc1382",
+      "functions": [],
+      "classes": []
+    },
+    {
+      "path": "src/messaging/protobuf/volvocars/contracts/carconfiguration/v2/car_key_pb2.pyi",
+      "bytes": 3382,
+      "sha256": "598bed714a01826c8a3398fa04b1e320dd8c4589bb6cc7c4f0cf725be4f55731",
+      "functions": [
+        {
+          "name": "__init__",
+          "line": 28,
+          "end": 28,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "None"
+        },
+        {
+          "name": "__init__",
+          "line": 54,
+          "end": 54,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "None"
+        },
+        {
+          "name": "__init__",
+          "line": 62,
+          "end": 62,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "None"
+        }
+      ],
+      "classes": [
+        {
+          "name": "CarKey",
+          "line": 10,
+          "end": 28,
+          "bases": ["_message.Message"]
+        },
+        {
+          "name": "CarDetails",
+          "line": 30,
+          "end": 54,
+          "bases": ["_message.Message"]
+        },
+        {
+          "name": "CarKeyInPeriod",
+          "line": 56,
+          "end": 62,
+          "bases": ["_message.Message"]
+        }
+      ]
+    },
+    {
+      "path": "src/messaging/protobuf/volvocars/contracts/carconfiguration/v2/car_specification_pb2.py",
+      "bytes": 13164,
+      "sha256": "c32eedbe810b46c594adb3bb94611d5399e0e5a6c7d3e03b252ca868d576261a",
+      "functions": [],
+      "classes": []
+    },
+    {
+      "path": "src/messaging/protobuf/volvocars/contracts/carconfiguration/v2/car_specification_pb2.pyi",
+      "bytes": 18460,
+      "sha256": "47af834f538bf46594d617c82b3e9bc6f2d19c1c607d43716127ebca6b629eb5",
+      "functions": [
+        {
+          "name": "__init__",
+          "line": 29,
+          "end": 29,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "None"
+        },
+        {
+          "name": "__init__",
+          "line": 35,
+          "end": 35,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "None"
+        },
+        {
+          "name": "__init__",
+          "line": 43,
+          "end": 43,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "None"
+        },
+        {
+          "name": "__init__",
+          "line": 57,
+          "end": 57,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "None"
+        },
+        {
+          "name": "__init__",
+          "line": 65,
+          "end": 65,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "None"
+        },
+        {
+          "name": "__init__",
+          "line": 73,
+          "end": 73,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "None"
+        },
+        {
+          "name": "__init__",
+          "line": 91,
+          "end": 91,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "None"
+        },
+        {
+          "name": "__init__",
+          "line": 107,
+          "end": 107,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "None"
+        },
+        {
+          "name": "__init__",
+          "line": 119,
+          "end": 119,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "None"
+        },
+        {
+          "name": "__init__",
+          "line": 143,
+          "end": 143,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "None"
+        },
+        {
+          "name": "__init__",
+          "line": 151,
+          "end": 151,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "None"
+        },
+        {
+          "name": "__init__",
+          "line": 161,
+          "end": 161,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "None"
+        },
+        {
+          "name": "__init__",
+          "line": 177,
+          "end": 177,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "None"
+        },
+        {
+          "name": "__init__",
+          "line": 185,
+          "end": 185,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "None"
+        },
+        {
+          "name": "__init__",
+          "line": 203,
+          "end": 203,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "None"
+        },
+        {
+          "name": "__init__",
+          "line": 213,
+          "end": 213,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "None"
+        },
+        {
+          "name": "__init__",
+          "line": 221,
+          "end": 221,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "None"
+        },
+        {
+          "name": "__init__",
+          "line": 231,
+          "end": 231,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "None"
+        },
+        {
+          "name": "__init__",
+          "line": 239,
+          "end": 239,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "None"
+        },
+        {
+          "name": "__init__",
+          "line": 249,
+          "end": 249,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "None"
+        },
+        {
+          "name": "__init__",
+          "line": 263,
+          "end": 263,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "None"
+        },
+        {
+          "name": "__init__",
+          "line": 271,
+          "end": 271,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "None"
+        }
+      ],
+      "classes": [
+        {
+          "name": "CarSpecification",
+          "line": 11,
+          "end": 29,
+          "bases": ["_message.Message"]
+        },
+        {
+          "name": "SMessageSpecification",
+          "line": 31,
+          "end": 35,
+          "bases": ["_message.Message"]
+        },
+        {
+          "name": "SMessage",
+          "line": 37,
+          "end": 43,
+          "bases": ["_message.Message"]
+        },
+        {
+          "name": "StylingSpecification",
+          "line": 45,
+          "end": 57,
+          "bases": ["_message.Message"]
+        },
+        {
+          "name": "StylingCombination",
+          "line": 59,
+          "end": 65,
+          "bases": ["_message.Message"]
+        },
+        {
+          "name": "TimeBoundCode",
+          "line": 67,
+          "end": 73,
+          "bases": ["_message.Message"]
+        },
+        {
+          "name": "Color",
+          "line": 75,
+          "end": 91,
+          "bases": ["_message.Message"]
+        },
+        {
+          "name": "Upholstery",
+          "line": 93,
+          "end": 107,
+          "bases": ["_message.Message"]
+        },
+        {
+          "name": "OptionSpecification",
+          "line": 109,
+          "end": 119,
+          "bases": ["_message.Message"]
+        },
+        {
+          "name": "Option",
+          "line": 121,
+          "end": 143,
+          "bases": ["_message.Message"]
+        },
+        {
+          "name": "CombinedOptionRequirement",
+          "line": 145,
+          "end": 151,
+          "bases": ["_message.Message"]
+        },
+        {
+          "name": "PackageSpecification",
+          "line": 153,
+          "end": 161,
+          "bases": ["_message.Message"]
+        },
+        {
+          "name": "Package",
+          "line": 163,
+          "end": 177,
+          "bases": ["_message.Message"]
+        },
+        {
+          "name": "WheelSpecification",
+          "line": 179,
+          "end": 185,
+          "bases": ["_message.Message"]
+        },
+        {
+          "name": "Wheel",
+          "line": 187,
+          "end": 203,
+          "bases": ["_message.Message"]
+        },
+        {
+          "name": "TimeBoundExactlyOne",
+          "line": 205,
+          "end": 213,
+          "bases": ["_message.Message"]
+        },
+        {
+          "name": "ExactlyOne",
+          "line": 215,
+          "end": 221,
+          "bases": ["_message.Message"]
+        },
+        {
+          "name": "TimeBoundAtLeastOne",
+          "line": 223,
+          "end": 231,
+          "bases": ["_message.Message"]
+        },
+        {
+          "name": "Forbids",
+          "line": 233,
+          "end": 239,
+          "bases": ["_message.Message"]
+        },
+        {
+          "name": "CarSpecificationUpserted",
+          "line": 241,
+          "end": 249,
+          "bases": ["_message.Message"]
+        },
+        {
+          "name": "CarSpecificationRemoved",
+          "line": 251,
+          "end": 263,
+          "bases": ["_message.Message"]
+        },
+        {
+          "name": "MarketAuthIdentifier",
+          "line": 265,
+          "end": 271,
+          "bases": ["_message.Message"]
+        }
+      ]
+    },
+    {
+      "path": "src/messaging/protobuf/volvocars/contracts/carconfiguration/v2/components_pb2.py",
+      "bytes": 2829,
+      "sha256": "f0c1e8708cdb78d8505b6065b3e4722e57acd4d966b200d6868fbad876a4676a",
+      "functions": [],
+      "classes": []
+    },
+    {
+      "path": "src/messaging/protobuf/volvocars/contracts/carconfiguration/v2/components_pb2.pyi",
+      "bytes": 2040,
+      "sha256": "ebe644ccbe6fc2f81510d2ba1ab1493d9b95f04b725edbcd1009cc391a5b3307",
+      "functions": [
+        {
+          "name": "__init__",
+          "line": 16,
+          "end": 16,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "None"
+        },
+        {
+          "name": "__init__",
+          "line": 24,
+          "end": 24,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "None"
+        },
+        {
+          "name": "__init__",
+          "line": 32,
+          "end": 32,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "None"
+        },
+        {
+          "name": "__init__",
+          "line": 40,
+          "end": 40,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "None"
+        }
+      ],
+      "classes": [
+        {
+          "name": "ComponentWithCarKeys",
+          "line": 10,
+          "end": 16,
+          "bases": ["_message.Message"]
+        },
+        {
+          "name": "Component",
+          "line": 18,
+          "end": 24,
+          "bases": ["_message.Message"]
+        },
+        {
+          "name": "PackageComponentWithCarKeys",
+          "line": 26,
+          "end": 32,
+          "bases": ["_message.Message"]
+        },
+        {
+          "name": "PackageComponent",
+          "line": 34,
+          "end": 40,
+          "bases": ["_message.Message"]
+        }
+      ]
+    },
+    {
+      "path": "src/messaging/protobuf/volvocars/contracts/carconfiguration/v2/selection_pb2.py",
+      "bytes": 1845,
+      "sha256": "752179b0c3f462616be8fe5805db49438ec88ae5655b3d3ee69b970cc245fa9f",
+      "functions": [],
+      "classes": []
+    },
+    {
+      "path": "src/messaging/protobuf/volvocars/contracts/carconfiguration/v2/selection_pb2.pyi",
+      "bytes": 1075,
+      "sha256": "5f3cd4d914a9f340afdb9a61b54cfbc9c0420e0e49fea831ec61ea4ff6f3e382",
+      "functions": [
+        {
+          "name": "__init__",
+          "line": 25,
+          "end": 25,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "None"
+        }
+      ],
+      "classes": [
+        {
+          "name": "Action",
+          "line": 10,
+          "end": 13,
+          "bases": ["int"]
+        },
+        {
+          "name": "Selection",
+          "line": 17,
+          "end": 25,
+          "bases": ["_message.Message"]
+        }
+      ]
+    },
+    {
+      "path": "src/messaging/protobuf/volvocars/contracts/carconfiguration/v2/structure_week_pb2.py",
+      "bytes": 1942,
+      "sha256": "ed703d418b8dff9153f94ded2ff6b3f4d326cc29f44c9fd1ccb6c523658c5468",
+      "functions": [],
+      "classes": []
+    },
+    {
+      "path": "src/messaging/protobuf/volvocars/contracts/carconfiguration/v2/structure_week_pb2.pyi",
+      "bytes": 806,
+      "sha256": "7a2b3416b4588896961030aecb5bba123e1c4580f23c36e1e84d0d8ec86640ed",
+      "functions": [
+        {
+          "name": "__init__",
+          "line": 14,
+          "end": 14,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "None"
+        },
+        {
+          "name": "__init__",
+          "line": 21,
+          "end": 21,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "None"
+        }
+      ],
+      "classes": [
+        {
+          "name": "StructureWeek",
+          "line": 8,
+          "end": 14,
+          "bases": ["_message.Message"]
+        },
+        {
+          "name": "StructureWeekPeriod",
+          "line": 16,
+          "end": 21,
+          "bases": ["_message.Message"]
+        }
+      ]
+    },
+    {
+      "path": "src/messaging/tests/test_car_specification_to_components.py",
+      "bytes": 4830,
+      "sha256": "50ecb12b5a715cdac5f87c3848232e4fbc556dff153db83cd55f37bced5863e3",
+      "functions": [
+        {
+          "name": "car_details",
+          "line": 13,
+          "end": 25,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": null
+        },
+        {
+          "name": "test_car_specification_to_components_returns_pno12_parts_without_full_pno12",
+          "line": 28,
+          "end": 45,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": null
+        },
+        {
+          "name": "test_car_specification_to_components_returns_only_pno12_parts_when_local_edition_is_present",
+          "line": 48,
+          "end": 56,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": null
+        },
+        {
+          "name": "test_car_specification_to_components_maps_component_types_metadata_and_deduplicates",
+          "line": 59,
+          "end": 110,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": null
+        }
+      ],
+      "classes": []
+    },
+    {
+      "path": "src/messaging/tests/test_handlers_car_specification.py",
+      "bytes": 42369,
+      "sha256": "ac1f7636dc997877d08be2aab2f0ab16a9199852d712ab04a16b8371e9d15457",
+      "functions": [
+        {
+          "name": "setUp",
+          "line": 65,
+          "end": 68,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": null
+        },
+        {
+          "name": "test_pno12_components_imported_updates_components_through_policy_tree",
+          "line": 70,
+          "end": 106,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": null
+        },
+        {
+          "name": "test_pno12_components_imported_preserves_car_specification_managed_pno12s",
+          "line": 108,
+          "end": 154,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": null
+        },
+        {
+          "name": "enabled_new_flow_policy_sync_only_flag",
+          "line": 157,
+          "end": 164,
+          "asyncFunction": false,
+          "decorators": ["staticmethod"],
+          "returns": "MockNewFlowPolicySyncOnlyFeatureFlag"
+        },
+        {
+          "name": "policy_repository_with_tree",
+          "line": 167,
+          "end": 187,
+          "asyncFunction": false,
+          "decorators": ["staticmethod"],
+          "returns": null
+        },
+        {
+          "name": "pno12_components_imported_event",
+          "line": 190,
+          "end": 205,
+          "asyncFunction": false,
+          "decorators": ["staticmethod"],
+          "returns": "cc.Pno12ComponentsImported"
+        },
+        {
+          "name": "tree_build_factory",
+          "line": 208,
+          "end": 226,
+          "asyncFunction": false,
+          "decorators": ["staticmethod"],
+          "returns": null
+        },
+        {
+          "name": "test_car_specification_upserted_propagates_filtered_components_through_policy_tree",
+          "line": 228,
+          "end": 372,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": null
+        },
+        {
+          "name": "test_car_specification_upserted_marks_forbidden_pno12_excluded_in_descendants",
+          "line": 374,
+          "end": 451,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": null
+        },
+        {
+          "name": "test_car_specification_upserted_does_not_affect_components_of_other_pno12",
+          "line": 453,
+          "end": 530,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": null
+        },
+        {
+          "name": "test_car_specification_upserted_accepts_gzip_encoded_payload",
+          "line": 532,
+          "end": 580,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": null
+        },
+        {
+          "name": "test_car_specification_upserted_skips_disabled_scope",
+          "line": 582,
+          "end": 621,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": null
+        },
+        {
+          "name": "test_car_specification_removed_preserves_disabled_scope",
+          "line": 623,
+          "end": 660,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": null
+        },
+        {
+          "name": "test_car_specification_removed_removes_pno12_from_policy_tree_only",
+          "line": 662,
+          "end": 741,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": null
+        },
+        {
+          "name": "test_car_specification_removed_accepts_gzip_encoded_payload",
+          "line": 743,
+          "end": 780,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": null
+        },
+        {
+          "name": "test_car_specification_upserted_is_idempotent",
+          "line": 782,
+          "end": 834,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": null
+        },
+        {
+          "name": "test_car_specification_upserted_replaces_components_for_target_pno12",
+          "line": 836,
+          "end": 892,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": null
+        },
+        {
+          "name": "assert_exact_components",
+          "line": 895,
+          "end": 907,
+          "asyncFunction": false,
+          "decorators": ["staticmethod"],
+          "returns": null
+        },
+        {
+          "name": "base_pno12_components",
+          "line": 910,
+          "end": 911,
+          "asyncFunction": false,
+          "decorators": ["staticmethod"],
+          "returns": "list[md.Component]"
+        },
+        {
+          "name": "assert_components",
+          "line": 914,
+          "end": 933,
+          "asyncFunction": false,
+          "decorators": ["staticmethod"],
+          "returns": null
+        },
+        {
+          "name": "component_record",
+          "line": 936,
+          "end": 942,
+          "asyncFunction": false,
+          "decorators": ["staticmethod"],
+          "returns": "dict"
+        },
+        {
+          "name": "car_details_from_pno12",
+          "line": 945,
+          "end": 957,
+          "asyncFunction": false,
+          "decorators": ["staticmethod"],
+          "returns": "car_key_pb2.CarDetails"
+        },
+        {
+          "name": "create_car_specification",
+          "line": 960,
+          "end": 983,
+          "asyncFunction": false,
+          "decorators": ["staticmethod"],
+          "returns": "car_specification_v2.CarSpecification"
+        },
+        {
+          "name": "include_pno12s",
+          "line": 986,
+          "end": 1000,
+          "asyncFunction": false,
+          "decorators": ["staticmethod"],
+          "returns": "md.ConfigRule"
+        },
+        {
+          "name": "exclude_components",
+          "line": 1003,
+          "end": 1024,
+          "asyncFunction": false,
+          "decorators": ["staticmethod"],
+          "returns": "md.ConfigRule"
+        },
+        {
+          "name": "ruleset",
+          "line": 1027,
+          "end": 1031,
+          "asyncFunction": false,
+          "decorators": ["staticmethod"],
+          "returns": "md.ConfigRuleSet"
+        },
+        {
+          "name": "__init__",
+          "line": 210,
+          "end": 211,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": null
+        },
+        {
+          "name": "build",
+          "line": 213,
+          "end": 224,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": null
+        },
+        {
+          "name": "update_descendants",
+          "line": 214,
+          "end": 221,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": null
+        }
+      ],
+      "classes": [
+        {
+          "name": "TestHandleCarSpecification",
+          "line": 63,
+          "end": 1031,
+          "bases": ["unittest.TestCase"]
+        },
+        {
+          "name": "FakeBuildPolicyService",
+          "line": 209,
+          "end": 224,
+          "bases": []
+        }
+      ]
+    },
+    {
+      "path": "src/models/__init__.py",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "functions": [],
+      "classes": []
+    },
+    {
+      "path": "src/models/camelmodel.py",
+      "bytes": 221,
+      "sha256": "7470fbe5964ab920b9087934d4d60d4013b952965bcdb4b7f874dda88fd194e6",
+      "functions": [],
+      "classes": [
+        {
+          "name": "CamelModel",
+          "line": 5,
+          "end": 9,
+          "bases": ["BaseModel"]
+        }
+      ]
+    },
+    {
+      "path": "src/models/config_policy_v2.py",
+      "bytes": 8478,
+      "sha256": "c12d803416a56c1e717434b8eb444f73333463164d9787cff0def0f89040f4c4",
+      "functions": [
+        {
+          "name": "component_list_to_string",
+          "line": 60,
+          "end": 62,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "str"
+        },
+        {
+          "name": "sub_condition_list_to_string",
+          "line": 148,
+          "end": 150,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "str"
+        },
+        {
+          "name": "config_rule_list_to_string",
+          "line": 211,
+          "end": 213,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "str"
+        },
+        {
+          "name": "to_string",
+          "line": 34,
+          "end": 35,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "str"
+        },
+        {
+          "name": "to_string",
+          "line": 49,
+          "end": 50,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "str"
+        },
+        {
+          "name": "__hash__",
+          "line": 52,
+          "end": 53,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": null
+        },
+        {
+          "name": "__eq__",
+          "line": 55,
+          "end": 57,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": null
+        },
+        {
+          "name": "is_pno12_component",
+          "line": 80,
+          "end": 81,
+          "asyncFunction": false,
+          "decorators": ["classmethod"],
+          "returns": "bool"
+        },
+        {
+          "name": "is_pno12_or_pno12_component",
+          "line": 84,
+          "end": 85,
+          "asyncFunction": false,
+          "decorators": ["classmethod"],
+          "returns": "bool"
+        },
+        {
+          "name": "is_pno12_component_type",
+          "line": 88,
+          "end": 89,
+          "asyncFunction": false,
+          "decorators": ["classmethod"],
+          "returns": "bool"
+        },
+        {
+          "name": "is_pno12_or_pno12_component_type",
+          "line": 92,
+          "end": 93,
+          "asyncFunction": false,
+          "decorators": ["classmethod"],
+          "returns": "bool"
+        },
+        {
+          "name": "get_pno12_component_types",
+          "line": 96,
+          "end": 97,
+          "asyncFunction": false,
+          "decorators": ["classmethod"],
+          "returns": "List[Component]"
+        },
+        {
+          "name": "map_pno12_component_to_pno12s",
+          "line": 100,
+          "end": 112,
+          "asyncFunction": false,
+          "decorators": ["classmethod"],
+          "returns": "List[str]"
+        },
+        {
+          "name": "explode_pno12_into_pno12_components",
+          "line": 115,
+          "end": 122,
+          "asyncFunction": false,
+          "decorators": ["classmethod"],
+          "returns": "List[Component]"
+        },
+        {
+          "name": "to_string",
+          "line": 135,
+          "end": 136,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "str"
+        },
+        {
+          "name": "to_string",
+          "line": 144,
+          "end": 145,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "str"
+        },
+        {
+          "name": "to_string",
+          "line": 158,
+          "end": 159,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "str"
+        },
+        {
+          "name": "to_string",
+          "line": 171,
+          "end": 172,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "str"
+        },
+        {
+          "name": "to_string",
+          "line": 180,
+          "end": 181,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "str"
+        },
+        {
+          "name": "verify_one_component_type",
+          "line": 183,
+          "end": 194,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "Tuple[Set[ComponentType], bool]"
+        },
+        {
+          "name": "to_string",
+          "line": 203,
+          "end": 204,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "str"
+        },
+        {
+          "name": "hash",
+          "line": 206,
+          "end": 208,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "str"
+        },
+        {
+          "name": "to_string",
+          "line": 221,
+          "end": 222,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "str"
+        },
+        {
+          "name": "hash",
+          "line": 224,
+          "end": 226,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "str"
+        },
+        {
+          "name": "hash_rules",
+          "line": 228,
+          "end": 230,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": null
+        },
+        {
+          "name": "hash_rules",
+          "line": 272,
+          "end": 274,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": null
+        },
+        {
+          "name": "key",
+          "line": 298,
+          "end": 299,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "str"
+        },
+        {
+          "name": "__eq__",
+          "line": 301,
+          "end": 302,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "bool"
+        },
+        {
+          "name": "key",
+          "line": 311,
+          "end": 312,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "str"
+        },
+        {
+          "name": "__eq__",
+          "line": 314,
+          "end": 322,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "bool"
+        },
+        {
+          "name": "key",
+          "line": 330,
+          "end": 331,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "str"
+        }
+      ],
+      "classes": [
+        {
+          "name": "ComponentType",
+          "line": 13,
+          "end": 35,
+          "bases": ["Enum"]
+        },
+        {
+          "name": "ComponentMeta",
+          "line": 38,
+          "end": 40,
+          "bases": ["BaseModel"]
+        },
+        {
+          "name": "Component",
+          "line": 43,
+          "end": 57,
+          "bases": ["BaseModel"]
+        },
+        {
+          "name": "Pno12ComponentMapper",
+          "line": 65,
+          "end": 122,
+          "bases": []
+        },
+        {
+          "name": "ComponentUpdated",
+          "line": 125,
+          "end": 127,
+          "bases": ["BaseModel"]
+        },
+        {
+          "name": "Relation",
+          "line": 130,
+          "end": 136,
+          "bases": ["Enum"]
+        },
+        {
+          "name": "SubCondition",
+          "line": 139,
+          "end": 145,
+          "bases": ["BaseModel"]
+        },
+        {
+          "name": "Condition",
+          "line": 153,
+          "end": 159,
+          "bases": ["BaseModel"]
+        },
+        {
+          "name": "RuleType",
+          "line": 162,
+          "end": 172,
+          "bases": ["Enum"]
+        },
+        {
+          "name": "Consequence",
+          "line": 175,
+          "end": 194,
+          "bases": ["BaseModel"]
+        },
+        {
+          "name": "ConfigRule",
+          "line": 197,
+          "end": 208,
+          "bases": ["BaseModel"]
+        },
+        {
+          "name": "ConfigRuleSet",
+          "line": 216,
+          "end": 230,
+          "bases": ["BaseModel"]
+        },
+        {
+          "name": "StructureWeeksConsequence",
+          "line": 233,
+          "end": 238,
+          "bases": ["BaseModel"]
+        },
+        {
+          "name": "StructureWeeksRule",
+          "line": 241,
+          "end": 244,
+          "bases": ["BaseModel"]
+        },
+        {
+          "name": "StructureWeeksRuleSet",
+          "line": 247,
+          "end": 250,
+          "bases": ["BaseModel"]
+        },
+        {
+          "name": "ConfigRulesCreated",
+          "line": 253,
+          "end": 255,
+          "bases": ["BaseModel"]
+        },
+        {
+          "name": "ConfigRulesUpdated",
+          "line": 258,
+          "end": 260,
+          "bases": ["BaseModel"]
+        },
+        {
+          "name": "ConfigPolicy",
+          "line": 263,
+          "end": 274,
+          "bases": ["BaseModel"]
+        },
+        {
+          "name": "PolicyRequestResponse",
+          "line": 277,
+          "end": 280,
+          "bases": ["CamelModel"]
+        },
+        {
+          "name": "Tree",
+          "line": 283,
+          "end": 288,
+          "bases": ["BaseModel"]
+        },
+        {
+          "name": "ComponentCollection",
+          "line": 294,
+          "end": 302,
+          "bases": ["CamelModel"]
+        },
+        {
+          "name": "ComponentsByPno12",
+          "line": 305,
+          "end": 322,
+          "bases": ["ComponentCollection"]
+        },
+        {
+          "name": "ComponentsByPolicy",
+          "line": 325,
+          "end": 331,
+          "bases": ["ComponentCollection"]
+        },
+        {
+          "name": "PolicySpecMarket",
+          "line": 334,
+          "end": 337,
+          "bases": ["CamelModel"]
+        },
+        {
+          "name": "PopulateWheelResult",
+          "line": 340,
+          "end": 343,
+          "bases": ["CamelModel"]
+        }
+      ]
+    },
+    {
+      "path": "src/models/filters_response.py",
+      "bytes": 673,
+      "sha256": "ef0c6a6b0c70a5c00ac2f35435d07d2f834a19bce749bfbc33f1f2b48e132946",
+      "functions": [],
+      "classes": [
+        {
+          "name": "FilterGroupType",
+          "line": 7,
+          "end": 14,
+          "bases": ["Enum"]
+        },
+        {
+          "name": "ComponentCode",
+          "line": 17,
+          "end": 19,
+          "bases": ["CamelModel"]
+        },
+        {
+          "name": "Filter",
+          "line": 22,
+          "end": 26,
+          "bases": ["CamelModel"]
+        },
+        {
+          "name": "FilterGroup",
+          "line": 29,
+          "end": 33,
+          "bases": ["CamelModel"]
+        },
+        {
+          "name": "FiltersResponse",
+          "line": 36,
+          "end": 38,
+          "bases": ["CamelModel"]
+        }
+      ]
+    },
+    {
+      "path": "src/models/partner.py",
+      "bytes": 1042,
+      "sha256": "c189ac440be459d7bd4b43d580de25c96a0a58c40e5217044dccb0d922260bbc",
+      "functions": [],
+      "classes": [
+        {
+          "name": "PartnerRuleType",
+          "line": 6,
+          "end": 8,
+          "bases": ["Enum"]
+        },
+        {
+          "name": "PartnerRuleMeta",
+          "line": 11,
+          "end": 17,
+          "bases": ["CamelModel"]
+        },
+        {
+          "name": "PartnerRuleList",
+          "line": 20,
+          "end": 26,
+          "bases": ["CamelModel"]
+        },
+        {
+          "name": "Partner",
+          "line": 29,
+          "end": 38,
+          "bases": ["CamelModel"]
+        }
+      ]
+    },
+    {
+      "path": "src/models/pno12.py",
+      "bytes": 1583,
+      "sha256": "c5c7b6722435341423d2f1945c13df40e22067d862398134f01f843ed031d7b0",
+      "functions": [
+        {
+          "name": "pno12_from_string",
+          "line": 18,
+          "end": 27,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "Pno12"
+        },
+        {
+          "name": "legacy_pno12_from_string",
+          "line": 38,
+          "end": 54,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "LegacyPno12"
+        },
+        {
+          "name": "pno12_string",
+          "line": 12,
+          "end": 13,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": null
+        },
+        {
+          "name": "string",
+          "line": 15,
+          "end": 16,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": null
+        },
+        {
+          "name": "string",
+          "line": 35,
+          "end": 36,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": null
+        }
+      ],
+      "classes": [
+        {
+          "name": "Pno12",
+          "line": 3,
+          "end": 16,
+          "bases": ["BaseModel"]
+        },
+        {
+          "name": "LegacyPno12",
+          "line": 29,
+          "end": 36,
+          "bases": ["Pno12"]
+        }
+      ]
+    },
+    {
+      "path": "src/models/tests/__init__.py",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "functions": [],
+      "classes": []
+    },
+    {
+      "path": "src/models/tests/test_components_by_pno12.py",
+      "bytes": 4558,
+      "sha256": "096794742051af94e30d07fe5d15d5b43317e1dddbb2282a5ba13c1dc13b42bf",
+      "functions": [
+        {
+          "name": "test_equals_same__return_true",
+          "line": 7,
+          "end": 20,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": null
+        },
+        {
+          "name": "test_equals__different_component_codes__return_false",
+          "line": 22,
+          "end": 35,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": null
+        },
+        {
+          "name": "test_equals__different_component_types__return_false",
+          "line": 37,
+          "end": 50,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": null
+        },
+        {
+          "name": "test_equals__different_amount_of_components__return_false",
+          "line": 52,
+          "end": 64,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": null
+        },
+        {
+          "name": "test_equals__included_is_different__return_false",
+          "line": 66,
+          "end": 74,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": null
+        },
+        {
+          "name": "test_equals__pno12_is_different__return_false",
+          "line": 76,
+          "end": 84,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": null
+        },
+        {
+          "name": "test_equals__policy_is_different__return_false",
+          "line": 86,
+          "end": 94,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": null
+        }
+      ],
+      "classes": [
+        {
+          "name": "TestComponentsByPno12Equals",
+          "line": 5,
+          "end": 94,
+          "bases": ["unittest.TestCase"]
+        }
+      ]
+    },
+    {
+      "path": "src/models/tests/test_pno12.py",
+      "bytes": 1600,
+      "sha256": "3cbc5a0489b03376c45691c69c666708f2807145c8f633367be9af4a4466a723",
+      "functions": [
+        {
+          "name": "test_pno12_from_string",
+          "line": 47,
+          "end": 51,
+          "asyncFunction": false,
+          "decorators": [
+            "pytest.mark.parametrize(('value', 'expected'), [('235H1V50D110', {'car_type': '235', 'engine': 'H1', 'sales_version': 'V5', 'body': '0', 'gearbox': 'D', 'steering': '1', 'market_code': '10'}), ('225HEVA0D110', {'car_type': '225', 'engine': 'HE', 'sales_version': 'VA', 'body': '0', 'gearbox': 'D', 'steering': '1', 'market_code': '10'}), ('246XD2M0D215', {'car_type': '246', 'engine': 'XD', 'sales_version': '2M', 'body': '0', 'gearbox': 'D', 'steering': '2', 'market_code': '15'})])"
+          ],
+          "returns": null
+        },
+        {
+          "name": "test_legacy_pno12_from_string",
+          "line": 62,
+          "end": 75,
+          "asyncFunction": false,
+          "decorators": [
+            "pytest.mark.parametrize(('value', 'model_year', 'spec_market', 'pno12_value', 'edition'), [('2026110235H1V50D110900223', 2026, '110', '235H1V50D110', '900223'), ('2027110225HEVA0D110', 2027, '110', '225HEVA0D110', ''), ('2027210246XD2M0D215P0079', 2027, '210', '246XD2M0D215', 'P0079')])"
+          ],
+          "returns": null
+        }
+      ],
+      "classes": []
+    },
+    {
+      "path": "src/models/tests/test_pno12_component_mapper.py",
+      "bytes": 4710,
+      "sha256": "00aa955c062f99b9c67a55decae080123fee7107b40fbdf7d9842141d3f70b4b",
+      "functions": [
+        {
+          "name": "test_will_not_map_invalid_type",
+          "line": 7,
+          "end": 14,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": null
+        },
+        {
+          "name": "test_will_map_car_type",
+          "line": 16,
+          "end": 34,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": null
+        },
+        {
+          "name": "test_will_map_model_year",
+          "line": 36,
+          "end": 51,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": null
+        },
+        {
+          "name": "test_will_map_spec_market",
+          "line": 53,
+          "end": 68,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": null
+        },
+        {
+          "name": "test_will_map_engine",
+          "line": 70,
+          "end": 85,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": null
+        },
+        {
+          "name": "test_will_map_sales_version",
+          "line": 87,
+          "end": 102,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": null
+        },
+        {
+          "name": "test_will_map_body",
+          "line": 104,
+          "end": 121,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": null
+        },
+        {
+          "name": "test_will_map_gearbox",
+          "line": 123,
+          "end": 138,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": null
+        },
+        {
+          "name": "test_will_map_steering",
+          "line": 140,
+          "end": 157,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": null
+        },
+        {
+          "name": "test_will_map_marketing_code",
+          "line": 159,
+          "end": 176,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": null
+        }
+      ],
+      "classes": [
+        {
+          "name": "TestPno12ComponentMapper",
+          "line": 5,
+          "end": 176,
+          "bases": ["unittest.TestCase"]
+        }
+      ]
+    },
+    {
+      "path": "src/providers/__init__.py",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "functions": [],
+      "classes": []
+    },
+    {
+      "path": "src/providers/rule_set_provider.py",
+      "bytes": 2319,
+      "sha256": "f74e9621adb053d6f675a1e462052b82f017afd1d83cf055f00c80e40fded9ac",
+      "functions": [
+        {
+          "name": "__init__",
+          "line": 11,
+          "end": 13,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": null
+        },
+        {
+          "name": "save_config_rule_set",
+          "line": 15,
+          "end": 43,
+          "asyncFunction": true,
+          "decorators": [],
+          "returns": null
+        }
+      ],
+      "classes": [
+        {
+          "name": "ConfigRuleSetProvider",
+          "line": 9,
+          "end": 43,
+          "bases": []
+        }
+      ]
+    },
+    {
+      "path": "src/providers/singleton.py",
+      "bytes": 239,
+      "sha256": "215caba8ede6dc93b2f795a46e027fa303493d8fde06ba77f178082b1e2d55f1",
+      "functions": [
+        {
+          "name": "__call__",
+          "line": 4,
+          "end": 7,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": null
+        }
+      ],
+      "classes": [
+        {
+          "name": "Singleton",
+          "line": 1,
+          "end": 7,
+          "bases": ["type"]
+        }
+      ]
+    },
+    {
+      "path": "src/services/__init__.py",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "functions": [],
+      "classes": []
+    },
+    {
+      "path": "src/services/build_policy_service.py",
+      "bytes": 7061,
+      "sha256": "078f4ae80ed6fc352e7f9e76fd571a952d37e8235e3ac2b2e11f04711920103b",
+      "functions": [
+        {
+          "name": "__init__",
+          "line": 24,
+          "end": 45,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": null
+        },
+        {
+          "name": "build",
+          "line": 47,
+          "end": 71,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": null
+        },
+        {
+          "name": "build_policy_tree",
+          "line": 73,
+          "end": 88,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": null
+        },
+        {
+          "name": "build_policy_sub_tree_bfs",
+          "line": 90,
+          "end": 96,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": null
+        },
+        {
+          "name": "build_child_policies",
+          "line": 98,
+          "end": 105,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": null
+        },
+        {
+          "name": "build_policy",
+          "line": 107,
+          "end": 159,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "bool"
+        }
+      ],
+      "classes": [
+        {
+          "name": "BuildPolicyService",
+          "line": 22,
+          "end": 159,
+          "bases": []
+        }
+      ]
+    },
+    {
+      "path": "src/services/components_service.py",
+      "bytes": 25762,
+      "sha256": "e8dcfc039f6088b91a44d6da76e5e1478b376de44d09a4a108224b0e9255261f",
+      "functions": [
+        {
+          "name": "__init__",
+          "line": 32,
+          "end": 44,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": null
+        },
+        {
+          "name": "save_components_and_update_wheels",
+          "line": 46,
+          "end": 67,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": null
+        },
+        {
+          "name": "save_components_by_pno12",
+          "line": 69,
+          "end": 113,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": null
+        },
+        {
+          "name": "extract_pno12_sets",
+          "line": 116,
+          "end": 122,
+          "asyncFunction": false,
+          "decorators": ["staticmethod"],
+          "returns": "set[str]"
+        },
+        {
+          "name": "handle_deletions",
+          "line": 124,
+          "end": 139,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": null
+        },
+        {
+          "name": "handle_updates",
+          "line": 141,
+          "end": 161,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": null
+        },
+        {
+          "name": "get_component_list_by_pno12",
+          "line": 163,
+          "end": 167,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "md.ComponentsByPno12"
+        },
+        {
+          "name": "handle_additions",
+          "line": 169,
+          "end": 187,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": null
+        },
+        {
+          "name": "update_wheel_components",
+          "line": 189,
+          "end": 195,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": null
+        },
+        {
+          "name": "get_wheel_components",
+          "line": 197,
+          "end": 198,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "list[str]"
+        },
+        {
+          "name": "populate_wheel_components",
+          "line": 200,
+          "end": 233,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "list[str]"
+        },
+        {
+          "name": "get_components_by_pno12_for_policy",
+          "line": 235,
+          "end": 242,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "list[md.ComponentsByPno12]"
+        },
+        {
+          "name": "get_included_pno12s",
+          "line": 244,
+          "end": 249,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "list[str]"
+        },
+        {
+          "name": "get_aggregated_components_for_policy",
+          "line": 251,
+          "end": 257,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "md.ComponentsByPolicy"
+        },
+        {
+          "name": "filter_components_by_pno12",
+          "line": 260,
+          "end": 406,
+          "asyncFunction": false,
+          "decorators": ["classmethod"],
+          "returns": "list[md.ComponentsByPno12]"
+        },
+        {
+          "name": "has_include_rules_with_consequence_type_pno12_component_and_condition_is_not_empty",
+          "line": 409,
+          "end": 424,
+          "asyncFunction": false,
+          "decorators": ["staticmethod"],
+          "returns": "bool"
+        },
+        {
+          "name": "save_component_lists_by_pno12",
+          "line": 427,
+          "end": 437,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": null
+        },
+        {
+          "name": "remove_pno12_from_policies",
+          "line": 439,
+          "end": 444,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": null
+        },
+        {
+          "name": "refresh_components_for_policy",
+          "line": 447,
+          "end": 481,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "list[md.ComponentsByPno12]"
+        },
+        {
+          "name": "calculate_components_for_policy_and_pno12",
+          "line": 483,
+          "end": 509,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "md.ComponentsByPno12"
+        },
+        {
+          "name": "group_components",
+          "line": 512,
+          "end": 522,
+          "asyncFunction": false,
+          "decorators": ["staticmethod"],
+          "returns": "dict[str, set[md.Component]]"
+        },
+        {
+          "name": "proto_components_to_internal_model",
+          "line": 525,
+          "end": 539,
+          "asyncFunction": false,
+          "decorators": ["staticmethod"],
+          "returns": "list[md.Component]"
+        },
+        {
+          "name": "get_components_for_filters",
+          "line": 541,
+          "end": 612,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "FiltersResponse"
+        },
+        {
+          "name": "evaluate_condition",
+          "line": 288,
+          "end": 305,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "list[str]"
+        },
+        {
+          "name": "handle_consequence",
+          "line": 307,
+          "end": 340,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": null
+        },
+        {
+          "name": "id2name",
+          "line": 571,
+          "end": 572,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": null
+        }
+      ],
+      "classes": [
+        {
+          "name": "ComponentsService",
+          "line": 30,
+          "end": 612,
+          "bases": []
+        }
+      ]
+    },
+    {
+      "path": "src/services/config_policy_service.py",
+      "bytes": 11997,
+      "sha256": "828b17300928a230a0d5075c6258997c3020c53b8c783c1b24336fdc2b000308",
+      "functions": [
+        {
+          "name": "__init__",
+          "line": 30,
+          "end": 33,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": null
+        },
+        {
+          "name": "init_root",
+          "line": 35,
+          "end": 37,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": null
+        },
+        {
+          "name": "init_new_sub_root",
+          "line": 39,
+          "end": 47,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": null
+        },
+        {
+          "name": "get_market_uid",
+          "line": 49,
+          "end": 55,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "str"
+        },
+        {
+          "name": "get_parent_uid",
+          "line": 57,
+          "end": 62,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "str"
+        },
+        {
+          "name": "get",
+          "line": 64,
+          "end": 87,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "md.ConfigPolicy"
+        },
+        {
+          "name": "save",
+          "line": 89,
+          "end": 119,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "md.ConfigPolicy"
+        },
+        {
+          "name": "check_and_create_specmarket",
+          "line": 121,
+          "end": 127,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": null
+        },
+        {
+          "name": "update_policy",
+          "line": 129,
+          "end": 153,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "md.ConfigPolicy"
+        },
+        {
+          "name": "get_children",
+          "line": 155,
+          "end": 166,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "List[md.ConfigPolicy]"
+        },
+        {
+          "name": "get_children_slim",
+          "line": 168,
+          "end": 174,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "List[Dict[str, str]]"
+        },
+        {
+          "name": "get_parent_uid_slim",
+          "line": 176,
+          "end": 177,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "str"
+        },
+        {
+          "name": "get_policies_per_level",
+          "line": 179,
+          "end": 194,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": null
+        },
+        {
+          "name": "get_policy_tree_parents_reversed",
+          "line": 196,
+          "end": 214,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "List[str]"
+        },
+        {
+          "name": "get_policy_trees",
+          "line": 216,
+          "end": 222,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "List[md.Tree]"
+        },
+        {
+          "name": "get_policy_tree",
+          "line": 224,
+          "end": 229,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "md.Tree"
+        },
+        {
+          "name": "get_flatten_policy_tree",
+          "line": 231,
+          "end": 238,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "List[str]"
+        },
+        {
+          "name": "__extract_policy_tree",
+          "line": 240,
+          "end": 277,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "md.Tree"
+        },
+        {
+          "name": "get_all_tree_data",
+          "line": 279,
+          "end": 285,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": null
+        },
+        {
+          "name": "delete_policy",
+          "line": 287,
+          "end": 328,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "bool"
+        }
+      ],
+      "classes": [
+        {
+          "name": "ConfigPolicyService",
+          "line": 21,
+          "end": 328,
+          "bases": []
+        }
+      ]
+    },
+    {
+      "path": "src/services/convert_rule_set_service.py",
+      "bytes": 14229,
+      "sha256": "67a0ed48efbcffc3899d51d7544ca8081a443b57bd1a736fd77c5a953cac9c33",
+      "functions": [
+        {
+          "name": "__init__",
+          "line": 24,
+          "end": 38,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": null
+        },
+        {
+          "name": "_prepare_context_data",
+          "line": 40,
+          "end": 67,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": null
+        },
+        {
+          "name": "multiple_component_lists_to_set",
+          "line": 70,
+          "end": 75,
+          "asyncFunction": false,
+          "decorators": ["staticmethod"],
+          "returns": "Set[md.Component]"
+        },
+        {
+          "name": "included_pno12s",
+          "line": 78,
+          "end": 79,
+          "asyncFunction": false,
+          "decorators": ["property"],
+          "returns": "List[str]"
+        },
+        {
+          "name": "all_pno12s_in_market",
+          "line": 82,
+          "end": 83,
+          "asyncFunction": false,
+          "decorators": ["property"],
+          "returns": "List[str]"
+        },
+        {
+          "name": "all_components",
+          "line": 86,
+          "end": 87,
+          "asyncFunction": false,
+          "decorators": ["property"],
+          "returns": "List[md.Component]"
+        },
+        {
+          "name": "get_component_list",
+          "line": 89,
+          "end": 92,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "List[md.Component]"
+        },
+        {
+          "name": "__init__",
+          "line": 97,
+          "end": 98,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": null
+        },
+        {
+          "name": "create_pno12_rulesets_for_policy_tree",
+          "line": 100,
+          "end": 122,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": null
+        },
+        {
+          "name": "create_pno12_rulesets_for_policy",
+          "line": 124,
+          "end": 167,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "Tuple[bool, cc.PolicyRulesUpdated]"
+        },
+        {
+          "name": "convert_and_upload_pno12_rule_sets",
+          "line": 169,
+          "end": 198,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "Dict[str, str]"
+        },
+        {
+          "name": "_convert_rule_sets",
+          "line": 200,
+          "end": 224,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "Dict[str, md.ConfigRuleSet]"
+        },
+        {
+          "name": "_categorize_rule_for_pno12",
+          "line": 226,
+          "end": 269,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "Dict[str, md.ConfigRule]"
+        },
+        {
+          "name": "_create_consequence_based_on_component_list",
+          "line": 271,
+          "end": 294,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "md.Consequence"
+        },
+        {
+          "name": "_translate_include_to_forbids_all",
+          "line": 296,
+          "end": 319,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "md.Consequence"
+        },
+        {
+          "name": "save_pno12_rule_sets",
+          "line": 321,
+          "end": 322,
+          "asyncFunction": true,
+          "decorators": [],
+          "returns": null
+        },
+        {
+          "name": "save_pno12_rule_set",
+          "line": 324,
+          "end": 332,
+          "asyncFunction": true,
+          "decorators": [],
+          "returns": null
+        }
+      ],
+      "classes": [
+        {
+          "name": "ConvertContext",
+          "line": 22,
+          "end": 92,
+          "bases": []
+        },
+        {
+          "name": "ConvertRuleSetService",
+          "line": 95,
+          "end": 332,
+          "bases": []
+        }
+      ]
+    },
+    {
+      "path": "src/services/new_flow_policy_sync_only_feature_flag.py",
+      "bytes": 3285,
+      "sha256": "bf71287884f91a7f5be60be8ff4d340c7e5e631df72f87853e8103b34179aa3a",
+      "functions": [
+        {
+          "name": "pno12_scope",
+          "line": 16,
+          "end": 18,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "str"
+        },
+        {
+          "name": "pno12_context_attributes",
+          "line": 21,
+          "end": 26,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "dict[str, str | int]"
+        },
+        {
+          "name": "initialize_new_flow_policy_sync_only_feature_flag",
+          "line": 79,
+          "end": 90,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "None"
+        },
+        {
+          "name": "create_new_flow_policy_sync_only_feature_flag",
+          "line": 93,
+          "end": 101,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "NewFlowPolicySyncOnlyFeatureFlag"
+        },
+        {
+          "name": "is_enabled",
+          "line": 30,
+          "end": 31,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "bool"
+        },
+        {
+          "name": "matches",
+          "line": 40,
+          "end": 48,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "bool"
+        },
+        {
+          "name": "__init__",
+          "line": 52,
+          "end": 53,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": null
+        },
+        {
+          "name": "is_enabled",
+          "line": 55,
+          "end": 57,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "bool"
+        },
+        {
+          "name": "__init__",
+          "line": 62,
+          "end": 63,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": null
+        },
+        {
+          "name": "is_enabled",
+          "line": 65,
+          "end": 76,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "bool"
+        }
+      ],
+      "classes": [
+        {
+          "name": "NewFlowPolicySyncOnlyFeatureFlag",
+          "line": 29,
+          "end": 31,
+          "bases": ["Protocol"]
+        },
+        {
+          "name": "NewFlowPolicySyncOnlyFlagTarget",
+          "line": 35,
+          "end": 48,
+          "bases": []
+        },
+        {
+          "name": "MockNewFlowPolicySyncOnlyFeatureFlag",
+          "line": 51,
+          "end": 57,
+          "bases": []
+        },
+        {
+          "name": "LaunchDarklyNewFlowPolicySyncOnlyFeatureFlag",
+          "line": 60,
+          "end": 76,
+          "bases": []
+        }
+      ]
+    },
+    {
+      "path": "src/services/partner_service.py",
+      "bytes": 6734,
+      "sha256": "d2b28723fccfad181beffb79a2acdc440481edc7b2f5cdd57cb3f9324b5cb4c6",
+      "functions": [
+        {
+          "name": "__init__",
+          "line": 9,
+          "end": 11,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": null
+        },
+        {
+          "name": "get_partner_rules_for_policy",
+          "line": 14,
+          "end": 71,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "PartnerRuleList"
+        },
+        {
+          "name": "add_partner_rules_for_policy",
+          "line": 73,
+          "end": 74,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": null
+        },
+        {
+          "name": "delete_all_rules_policy",
+          "line": 76,
+          "end": 77,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": null
+        },
+        {
+          "name": "get_policies_for_partner",
+          "line": 79,
+          "end": 119,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "List[str]"
+        },
+        {
+          "name": "policies_in_tree",
+          "line": 121,
+          "end": 130,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "List[str]"
+        },
+        {
+          "name": "bulk_partner_update",
+          "line": 132,
+          "end": 134,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": null
+        },
+        {
+          "name": "get_partners_for_country_code_and_brand",
+          "line": 136,
+          "end": 141,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "List[Partner]"
+        },
+        {
+          "name": "delete_all_partner_data",
+          "line": 143,
+          "end": 147,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": null
+        }
+      ],
+      "classes": [
+        {
+          "name": "PartnerService",
+          "line": 7,
+          "end": 147,
+          "bases": []
+        }
+      ]
+    },
+    {
+      "path": "src/services/pno12_policy_service.py",
+      "bytes": 3984,
+      "sha256": "70ee4343da879b4cc6309b30f5a2abded4ce06c1e1d231e0d952914236845676",
+      "functions": [
+        {
+          "name": "__init__",
+          "line": 7,
+          "end": 15,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": null
+        },
+        {
+          "name": "update_pno12_from_root",
+          "line": 17,
+          "end": 39,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": null
+        },
+        {
+          "name": "calculate_pno12_in_descendants",
+          "line": 41,
+          "end": 65,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "list[md.ComponentsByPno12]"
+        },
+        {
+          "name": "remove_pno12_in_tree",
+          "line": 68,
+          "end": 77,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": null
+        },
+        {
+          "name": "collect_policy_uids_in_tree",
+          "line": 79,
+          "end": 88,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "list[str]"
+        }
+      ],
+      "classes": [
+        {
+          "name": "Pno12PolicyService",
+          "line": 5,
+          "end": 88,
+          "bases": []
+        }
+      ]
+    },
+    {
+      "path": "src/services/policy_status_service.py",
+      "bytes": 7792,
+      "sha256": "17d14a57a636bf88e6ab001cde305687021087e2478586947fdfeb1a07b07e67",
+      "functions": [
+        {
+          "name": "to_pno12_string",
+          "line": 56,
+          "end": 57,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": null
+        },
+        {
+          "name": "__init__",
+          "line": 70,
+          "end": 71,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": null
+        },
+        {
+          "name": "get_status",
+          "line": 73,
+          "end": 96,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "PolicyStatus"
+        },
+        {
+          "name": "get_statuses_for_many",
+          "line": 98,
+          "end": 104,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "List[PolicyStatus]"
+        },
+        {
+          "name": "create_or_replace_many",
+          "line": 106,
+          "end": 114,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": null
+        },
+        {
+          "name": "update",
+          "line": 116,
+          "end": 137,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": null
+        },
+        {
+          "name": "new_info",
+          "line": 140,
+          "end": 141,
+          "asyncFunction": false,
+          "decorators": ["staticmethod"],
+          "returns": "Info"
+        },
+        {
+          "name": "new",
+          "line": 144,
+          "end": 151,
+          "asyncFunction": false,
+          "decorators": ["staticmethod"],
+          "returns": "PolicyStatus"
+        },
+        {
+          "name": "get_pno34_from_string",
+          "line": 157,
+          "end": 202,
+          "asyncFunction": false,
+          "decorators": ["staticmethod"],
+          "returns": "Pno34"
+        },
+        {
+          "name": "get_pno12_from_string",
+          "line": 205,
+          "end": 229,
+          "asyncFunction": false,
+          "decorators": ["staticmethod"],
+          "returns": "Pno12"
+        }
+      ],
+      "classes": [
+        {
+          "name": "Status",
+          "line": 17,
+          "end": 21,
+          "bases": ["Enum"]
+        },
+        {
+          "name": "RequestAction",
+          "line": 24,
+          "end": 26,
+          "bases": ["Enum"]
+        },
+        {
+          "name": "Info",
+          "line": 29,
+          "end": 31,
+          "bases": ["CamelModel"]
+        },
+        {
+          "name": "PolicyStatus",
+          "line": 34,
+          "end": 41,
+          "bases": ["CamelModel"]
+        },
+        {
+          "name": "Pno12",
+          "line": 44,
+          "end": 57,
+          "bases": ["BaseModel"]
+        },
+        {
+          "name": "Pno34",
+          "line": 60,
+          "end": 65,
+          "bases": ["Pno12"]
+        },
+        {
+          "name": "PolicyStatusService",
+          "line": 68,
+          "end": 151,
+          "bases": []
+        },
+        {
+          "name": "PnoParser",
+          "line": 154,
+          "end": 229,
+          "bases": []
+        }
+      ]
+    },
+    {
+      "path": "src/services/tests/__init__.py",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "functions": [],
+      "classes": []
+    },
+    {
+      "path": "src/services/tests/fake_repository.py",
+      "bytes": 4820,
+      "sha256": "0ff397d9bd780db8670f262be1334180b352629c2e2b163e2a85512cc9829c44",
+      "functions": [
+        {
+          "name": "__init__",
+          "line": 7,
+          "end": 9,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": null
+        },
+        {
+          "name": "populate",
+          "line": 11,
+          "end": 13,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": null
+        },
+        {
+          "name": "populate_config_rule_sets",
+          "line": 15,
+          "end": 16,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": null
+        },
+        {
+          "name": "policy_record",
+          "line": 19,
+          "end": 36,
+          "asyncFunction": false,
+          "decorators": ["classmethod"],
+          "returns": "dict"
+        },
+        {
+          "name": "model_dump",
+          "line": 39,
+          "end": 43,
+          "asyncFunction": false,
+          "decorators": ["staticmethod"],
+          "returns": "Any"
+        },
+        {
+          "name": "get_many_tree_data",
+          "line": 45,
+          "end": 58,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "list[dict] | None"
+        },
+        {
+          "name": "get_child_tree_data",
+          "line": 60,
+          "end": 74,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "list[dict] | None"
+        },
+        {
+          "name": "get",
+          "line": 76,
+          "end": 78,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "dict | None"
+        },
+        {
+          "name": "get_tree_data",
+          "line": 80,
+          "end": 89,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "dict | None"
+        },
+        {
+          "name": "get_parent_uid",
+          "line": 91,
+          "end": 93,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "str | None"
+        },
+        {
+          "name": "create",
+          "line": 95,
+          "end": 96,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": null
+        },
+        {
+          "name": "update",
+          "line": 98,
+          "end": 99,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": null
+        },
+        {
+          "name": "__init__",
+          "line": 104,
+          "end": 106,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": null
+        },
+        {
+          "name": "populate",
+          "line": 108,
+          "end": 110,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": null
+        },
+        {
+          "name": "get_component_lists_for_policy",
+          "line": 112,
+          "end": 114,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "list[dict] | None"
+        },
+        {
+          "name": "get_component_list",
+          "line": 116,
+          "end": 118,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "dict | None"
+        },
+        {
+          "name": "bulk_write",
+          "line": 120,
+          "end": 124,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": null
+        },
+        {
+          "name": "bulk_update",
+          "line": 126,
+          "end": 127,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": null
+        },
+        {
+          "name": "bulk_delete",
+          "line": 129,
+          "end": 131,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": null
+        },
+        {
+          "name": "__init__",
+          "line": 136,
+          "end": 137,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": null
+        },
+        {
+          "name": "populate",
+          "line": 139,
+          "end": 140,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": null
+        },
+        {
+          "name": "bulk_update",
+          "line": 142,
+          "end": 143,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": null
+        },
+        {
+          "name": "get_all_wheels",
+          "line": 145,
+          "end": 146,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "list[dict]"
+        },
+        {
+          "name": "delete_code",
+          "line": 148,
+          "end": 153,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "int"
+        }
+      ],
+      "classes": [
+        {
+          "name": "FakePolicyRepository",
+          "line": 5,
+          "end": 99,
+          "bases": []
+        },
+        {
+          "name": "FakeComponentsRepository",
+          "line": 102,
+          "end": 131,
+          "bases": []
+        },
+        {
+          "name": "FakeWheelComponentsRepository",
+          "line": 134,
+          "end": 153,
+          "bases": []
+        }
+      ]
+    },
+    {
+      "path": "src/services/tests/test_components_service.py",
+      "bytes": 2306,
+      "sha256": "dee98e846980ba4bb87d0d3af41158d4cf9255e62ce3fa73e962a0acb9193f4e",
+      "functions": [
+        {
+          "name": "test_normal_policy_refresh_updates_car_specification_managed_pno12",
+          "line": 20,
+          "end": 67,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": null
+        }
+      ],
+      "classes": []
+    },
+    {
+      "path": "src/services/tests/test_config_policy_service_get_policy_tree.py",
+      "bytes": 8585,
+      "sha256": "f9745e608319ac46ab4e6a72886a84e24e4dc3521ff8d295691af0fb5c357f40",
+      "functions": [
+        {
+          "name": "root_equal",
+          "line": 9,
+          "end": 10,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "bool"
+        },
+        {
+          "name": "trees_equal",
+          "line": 12,
+          "end": 31,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "bool"
+        },
+        {
+          "name": "test_get_policy_tree",
+          "line": 33,
+          "end": 87,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": null
+        },
+        {
+          "name": "test_get_multiple_policy_trees",
+          "line": 89,
+          "end": 173,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": null
+        },
+        {
+          "name": "test_get_children_slim_empty",
+          "line": 178,
+          "end": 187,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": null
+        },
+        {
+          "name": "test_get_children_slim_missing_policy",
+          "line": 189,
+          "end": 201,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": null
+        },
+        {
+          "name": "test_get_children_slim_one_child_policy",
+          "line": 203,
+          "end": 218,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": null
+        },
+        {
+          "name": "test_get_children_slim_multiple_child_policies",
+          "line": 220,
+          "end": 232,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": null
+        }
+      ],
+      "classes": [
+        {
+          "name": "TestConfigPolicyServiceGetPolicyTree",
+          "line": 7,
+          "end": 173,
+          "bases": ["unittest.TestCase"]
+        },
+        {
+          "name": "TestConfigPolicyServiceGetChildrenSlim",
+          "line": 176,
+          "end": 232,
+          "bases": ["unittest.TestCase"]
+        }
+      ]
+    },
+    {
+      "path": "src/services/tests/test_convert_policy_rules_to_pno12_rule_set.py",
+      "bytes": 43564,
+      "sha256": "24ec7e35c58831ec4f4d982257d1ae6289459036df749923b69a9fe860cc88ea",
+      "functions": [
+        {
+          "name": "test_policy_rules_updated_excludes_new_flow_sync_only_pno12s",
+          "line": 26,
+          "end": 70,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": null
+        },
+        {
+          "name": "test_will_convert_if_pno12_is_in_condition",
+          "line": 72,
+          "end": 179,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": null
+        },
+        {
+          "name": "test_will_convert_cross_pno12_rule_to_all_pno12_rule_sets",
+          "line": 181,
+          "end": 300,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": null
+        },
+        {
+          "name": "test_will_convert_if_pno12_is_in_multiple_conditions",
+          "line": 302,
+          "end": 423,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": null
+        },
+        {
+          "name": "test_will_convert_if_pno12_component_is_in_sub_condition",
+          "line": 425,
+          "end": 577,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": null
+        },
+        {
+          "name": "test_will_not_convert_if_multiple_pno12s_are_in_conjunction_in_sub_condition",
+          "line": 579,
+          "end": 635,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": null
+        },
+        {
+          "name": "test_will_not_convert_if_multiple_pno12s_are_in_conjunction_between_sub_conditions",
+          "line": 637,
+          "end": 712,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": null
+        },
+        {
+          "name": "test_will_convert_includes_rule",
+          "line": 714,
+          "end": 837,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": null
+        },
+        {
+          "name": "test_will_return_empty_result_if_no_pno12s_exist_for_spec_market",
+          "line": 839,
+          "end": 865,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": null
+        },
+        {
+          "name": "test_will_convert_rule_where_one_component_is_not_in_pno12_component_list",
+          "line": 867,
+          "end": 954,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": null
+        },
+        {
+          "name": "test_will_not_convert_rule_that_includes_or_excludes_pno12s",
+          "line": 956,
+          "end": 1010,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": null
+        },
+        {
+          "name": "test_will_convert_include_color_rule_for_all_pno12s",
+          "line": 1012,
+          "end": 1056,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": null
+        }
+      ],
+      "classes": [
+        {
+          "name": "TestConvertPolicyRulesToPno12RuleSet",
+          "line": 24,
+          "end": 1056,
+          "bases": ["unittest.TestCase"]
+        }
+      ]
+    },
+    {
+      "path": "src/services/tests/test_filter_pno12_components.py",
+      "bytes": 37200,
+      "sha256": "9b4f9711f4c6408385efe7348f4799d6aaa74b769270c9d15ead8ab77f0f83a9",
+      "functions": [
+        {
+          "name": "test_forbid_pno12_where_pno12_does_not_exist",
+          "line": 8,
+          "end": 50,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": null
+        },
+        {
+          "name": "test_filter_pno12s_with_exclude_rule",
+          "line": 53,
+          "end": 97,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": null
+        },
+        {
+          "name": "test_filter_pno12s_with_include_rule",
+          "line": 99,
+          "end": 156,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": null
+        },
+        {
+          "name": "test_filter_pno12s_with_exclude_pno12_component",
+          "line": 158,
+          "end": 202,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": null
+        },
+        {
+          "name": "test_filter_pno12s_with_include_pno12_component",
+          "line": 204,
+          "end": 276,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": null
+        },
+        {
+          "name": "test_filter_option_components_for_all_pno12s_with_include_rule",
+          "line": 278,
+          "end": 329,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": null
+        },
+        {
+          "name": "test_filter_option_components_for_all_pno12s_with_exclude_rule",
+          "line": 331,
+          "end": 382,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": null
+        },
+        {
+          "name": "test_filter_option_components_for_one_pno12_with_include_rule",
+          "line": 384,
+          "end": 447,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": null
+        },
+        {
+          "name": "test_filter_option_components_for_one_pno12_with_exclude_rule",
+          "line": 449,
+          "end": 515,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": null
+        },
+        {
+          "name": "test_cocktail",
+          "line": 518,
+          "end": 650,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": null
+        },
+        {
+          "name": "test_rule_with_other_component_types_in_condition_will_not_affect_component_lists",
+          "line": 652,
+          "end": 703,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": null
+        },
+        {
+          "name": "test_rule_where_pno12_components_forbid_other_pno12_components",
+          "line": 705,
+          "end": 762,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": null
+        },
+        {
+          "name": "test_include_pno12_rules_that_filter_out_all_pno12s_leads_to_no_pno12s_included",
+          "line": 764,
+          "end": 813,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": null
+        }
+      ],
+      "classes": [
+        {
+          "name": "TestFilterPno12Components",
+          "line": 6,
+          "end": 813,
+          "bases": ["unittest.TestCase"]
+        }
+      ]
+    },
+    {
+      "path": "src/services/tests/test_new_flow_policy_sync_only_feature_flag.py",
+      "bytes": 5721,
+      "sha256": "e7cb70adb8afec2031d8e3ff0dc3b40d72a09a766a2a9f968f93cc56f23adae7",
+      "functions": [
+        {
+          "name": "isolate_feature_flag_configuration",
+          "line": 24,
+          "end": 25,
+          "asyncFunction": false,
+          "decorators": ["pytest.fixture(autouse=True)"],
+          "returns": null
+        },
+        {
+          "name": "test_flag_uses_model_year_spec_market_and_car_type_scope",
+          "line": 28,
+          "end": 36,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": null
+        },
+        {
+          "name": "test_mock_flag_matches_partial_targeting_rules",
+          "line": 39,
+          "end": 51,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": null
+        },
+        {
+          "name": "test_pno12_context_attributes_are_split_for_launch_darkly_targeting",
+          "line": 54,
+          "end": 59,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": null
+        },
+        {
+          "name": "test_launchdarkly_flag_sends_camel_case_context_attributes",
+          "line": 62,
+          "end": 80,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": null
+        },
+        {
+          "name": "test_no_sdk_key_uses_mock_without_initializing",
+          "line": 83,
+          "end": 89,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": null
+        },
+        {
+          "name": "test_startup_configures_sdk_before_get_and_factories_reuse_client",
+          "line": 92,
+          "end": 118,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": null
+        },
+        {
+          "name": "test_sdk_key_from_secrets_configuration_initializes_real_adapter",
+          "line": 121,
+          "end": 138,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": null
+        },
+        {
+          "name": "test_uninitialized_client_fails_startup_and_factory",
+          "line": 141,
+          "end": 153,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": null
+        },
+        {
+          "name": "get_client",
+          "line": 100,
+          "end": 103,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": null
+        }
+      ],
+      "classes": []
+    },
+    {
+      "path": "src/services/tests/testin_utils.py",
+      "bytes": 889,
+      "sha256": "b7f90bc6e4380941fae8746d60a29a61b77c83bb4adff7948ce5ec0a3eff9d4c",
+      "functions": [
+        {
+          "name": "assemble_pno12_components_test_input",
+          "line": 8,
+          "end": 18,
+          "asyncFunction": false,
+          "decorators": ["staticmethod"],
+          "returns": "Dict[str, md.ComponentsByPno12]"
+        },
+        {
+          "name": "list_pno12_componets_to_dict",
+          "line": 21,
+          "end": 22,
+          "asyncFunction": false,
+          "decorators": ["staticmethod"],
+          "returns": "Dict[str, md.ComponentsByPno12]"
+        }
+      ],
+      "classes": [
+        {
+          "name": "TestingUtils",
+          "line": 5,
+          "end": 22,
+          "bases": []
+        }
+      ]
+    },
+    {
+      "path": "src/setupeventproducer.py",
+      "bytes": 923,
+      "sha256": "07f696bd678b18878e38d7f2a3369155ce2322cecacb2763f3c7e2bb92c3786b",
+      "functions": [
+        {
+          "name": "configure_event_producer",
+          "line": 9,
+          "end": 25,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": null
+        }
+      ],
+      "classes": []
+    },
+    {
+      "path": "src/storages/__init__.py",
+      "bytes": 520,
+      "sha256": "040ad67414bcf6fa71d0bc05b7ec25bed03a8f86732851ad1d94367a86decb0e",
+      "functions": [
+        {
+          "name": "configure_storage",
+          "line": 10,
+          "end": 11,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "None"
+        },
+        {
+          "name": "get_configured_storage",
+          "line": 14,
+          "end": 17,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "AzureBlobStorage"
+        },
+        {
+          "name": "__init__",
+          "line": 6,
+          "end": 7,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": null
+        }
+      ],
+      "classes": [
+        {
+          "name": "Factory",
+          "line": 5,
+          "end": 7,
+          "bases": []
+        }
+      ]
+    },
+    {
+      "path": "src/storages/azure_blob_storage.py",
+      "bytes": 1873,
+      "sha256": "b419c0fae157d1a90fb795904a251bea6839ef3635441466a9bdd2c7c0a715ce",
+      "functions": [
+        {
+          "name": "__init__",
+          "line": 15,
+          "end": 26,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": null
+        },
+        {
+          "name": "upload_data",
+          "line": 28,
+          "end": 30,
+          "asyncFunction": true,
+          "decorators": [],
+          "returns": null
+        },
+        {
+          "name": "_compress_object",
+          "line": 32,
+          "end": 34,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "bytes"
+        },
+        {
+          "name": "_verify_can_compress",
+          "line": 36,
+          "end": 38,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": null
+        },
+        {
+          "name": "_upload_blob_data",
+          "line": 40,
+          "end": 44,
+          "asyncFunction": true,
+          "decorators": [],
+          "returns": null
+        },
+        {
+          "name": "delete_blob",
+          "line": 46,
+          "end": 50,
+          "asyncFunction": true,
+          "decorators": [],
+          "returns": null
+        }
+      ],
+      "classes": [
+        {
+          "name": "CompressionNotDefined",
+          "line": 9,
+          "end": 10,
+          "bases": ["Exception"]
+        },
+        {
+          "name": "AzureBlobStorage",
+          "line": 13,
+          "end": 50,
+          "bases": []
+        }
+      ]
+    },
+    {
+      "path": "src/utils/__init__.py",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "functions": [],
+      "classes": []
+    },
+    {
+      "path": "src/utils/camelcase.py",
+      "bytes": 556,
+      "sha256": "6d3d38a84ed55fd1712efcd604cf5505b7e31bfcb4e869289503f791f351db7a",
+      "functions": [
+        {
+          "name": "camel_case",
+          "line": 5,
+          "end": 8,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "str"
+        },
+        {
+          "name": "camel_case_dict_keys",
+          "line": 11,
+          "end": 19,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": "Any"
+        }
+      ],
+      "classes": []
+    },
+    {
+      "path": "src/utils/config_rules_utils.py",
+      "bytes": 10328,
+      "sha256": "e911862d1442b1e09c54ef421ae4dbec35115fe81c8e9e264732943b87387b1a",
+      "functions": [
+        {
+          "name": "create_conditions_for_satisfied_pno12s",
+          "line": 7,
+          "end": 61,
+          "asyncFunction": false,
+          "decorators": ["staticmethod"],
+          "returns": "Dict[str, md.Condition]"
+        },
+        {
+          "name": "create_condition_for_satisfied_pno12",
+          "line": 64,
+          "end": 170,
+          "asyncFunction": false,
+          "decorators": ["staticmethod"],
+          "returns": "md.Condition"
+        },
+        {
+          "name": "group_components_in_condition",
+          "line": 173,
+          "end": 213,
+          "asyncFunction": false,
+          "decorators": ["staticmethod"],
+          "returns": "Tuple[Set[md.Component], Set[md.Component], Set[md.Component]]"
+        }
+      ],
+      "classes": [
+        {
+          "name": "ConfigRulesUtils",
+          "line": 4,
+          "end": 213,
+          "bases": []
+        }
+      ]
+    },
+    {
+      "path": "src/utils/enum2values.py",
+      "bytes": 837,
+      "sha256": "c4e8a42f1a43af6a41bf4990ae6eb1677bf9e96db7bec84ec4843269fff50ef1",
+      "functions": [
+        {
+          "name": "replace_enums_with_values_in_dict",
+          "line": 5,
+          "end": 22,
+          "asyncFunction": false,
+          "decorators": [],
+          "returns": null
+        }
+      ],
+      "classes": []
+    },
+    {
+      "path": "src/utils/exceptions.py",
+      "bytes": 369,
+      "sha256": "28c41fc0f6138c6b11866078f81b47e5c4dc5865b9bc9d96760d8072fe155fd3",
+      "functions": [],
+      "classes": [
+        {
+          "name": "ProviderException",
+          "line": 1,
+          "end": 2,
+          "bases": ["Exception"]
+        },
+        {
+          "name": "RepositoryError",
+          "line": 4,
+          "end": 5,
+          "bases": ["Exception"]
+        },
+        {
+          "name": "ConfigRuleError",
+          "line": 7,
+          "end": 8,
+          "bases": ["Exception"]
+        },
+        {
+          "name": "ComponentsError",
+          "line": 10,
+          "end": 11,
+          "bases": ["Exception"]
+        },
+        {
+          "name": "BuildError",
+          "line": 13,
+          "end": 14,
+          "bases": ["Exception"]
+        },
+        {
+          "name": "PolicyNotFoundError",
+          "line": 16,
+          "end": 17,
+          "bases": ["Exception"]
+        },
+        {
+          "name": "NotConfiguredException",
+          "line": 19,
+          "end": 20,
+          "bases": ["Exception"]
+        },
+        {
+          "name": "PolicyStatusNotFoundError",
+          "line": 22,
+          "end": 23,
+          "bases": ["Exception"]
+        }
+      ]
+    },
+    {
+      "path": "src/utils/measuretime.py",
+      "bytes": 659,
+      "sha256": "ee016ecf6d9a373f09fdb277716feca578c7e54b500cfd76b0d098bd4b9c0d00",
+      "functions": [
+        {
+          "name": "measure_time",
+          "line": 7,
+          "end": 18,
+          "asyncFunction": false,
+          "decorators": ["contextmanager"],
+          "returns": null
+        }
+      ],
+      "classes": []
+    }
+  ]
+}

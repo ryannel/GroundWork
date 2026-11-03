@@ -1,0 +1,3332 @@
+[
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/e6f9f9084f7aded9",
+    "path": "internal/api/httpserver/carspecifications/controller.go",
+    "lines": [15, 20],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/api/httpserver/carspecifications::CarSpecificationFetcher",
+    "kind": "InterfaceType",
+    "declaration": "interface {\n\tGetCarSpecification(\n\t\tctx context.Context,\n\t\tcarQuery domain.CarQuery,\n\t) (domain.CarSpecification, error)\n}",
+    "completeness": "partial",
+    "gaps": ["cce-car-spec-adapter-667a00a-complete-r1/gap/type/e6f9f9084f7aded9"]
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/44aa29d0cf5b9feb",
+    "path": "internal/api/httpserver/carspecifications/controller.go",
+    "lines": [22, 25],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/api/httpserver/carspecifications::CarSpecificationSyncer",
+    "kind": "InterfaceType",
+    "declaration": "interface {\n\tSync(ctx context.Context, carModelQuery domain.CarModelQuery) error\n\tBaseline(ctx context.Context, cmd domain.BaselineCommand) error\n}",
+    "completeness": "partial",
+    "gaps": ["cce-car-spec-adapter-667a00a-complete-r1/gap/type/44aa29d0cf5b9feb"]
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/1d1b61284edd0a9b",
+    "path": "internal/api/httpserver/carspecifications/controller.go",
+    "lines": [27, 32],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/api/httpserver/carspecifications::Controller",
+    "kind": "StructType",
+    "declaration": "struct {\n\tcarSpecificationFetcher CarSpecificationFetcher\n\tcarSpecificationSyncer  CarSpecificationSyncer\n\terrorResponder          *respond.ErrorResponder\n\tlogger                  *loggingsdk.Logger\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/da53603fd00d0ee3",
+    "path": "internal/api/httpserver/carspecifications/model.go",
+    "lines": [3, 5],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/api/httpserver/carspecifications::GetCarSpecificationResponse",
+    "kind": "StructType",
+    "declaration": "struct {\n\tCarSpecification CarSpecification `json:\"carSpecification\"`\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/6c565e72afbb978e",
+    "path": "internal/api/httpserver/carspecifications/model.go",
+    "lines": [7, 16],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/api/httpserver/carspecifications::CarSpecification",
+    "kind": "StructType",
+    "declaration": "struct {\n\tCarDetails          CarDetails            `json:\"carDetails\"`\n\tStructureWeekPeriod Period                `json:\"structureWeekPeriod\"`\n\tForbiddenPeriods    []Period              `json:\"forbiddenPeriods,omitempty\"`\n\tSMessages           SMessageSpecification `json:\"sMessages\"`\n\tStylings            StylingSpecification  `json:\"stylings\"`\n\tOptions             OptionSpecification   `json:\"options\"`\n\tPackages            PackageSpecification  `json:\"packages\"`\n\tWheels              WheelSpecification    `json:\"wheels\"`\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/fb02c9642955616c",
+    "path": "internal/api/httpserver/carspecifications/model.go",
+    "lines": [18, 31],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/api/httpserver/carspecifications::CarDetails",
+    "kind": "StructType",
+    "declaration": "struct {\n\tModelYear     int    `json:\"modelYear\"`\n\tSpecMarket    string `json:\"specMarket\"`\n\tCarType       string `json:\"carType\"`\n\tEngine        string `json:\"engine\"`\n\tSalesVersion  string `json:\"salesVersion\"`\n\tBody          string `json:\"body\"`\n\tGearbox       string `json:\"gearbox\"`\n\tSteering      string `json:\"steering\"`\n\tMarketingCode string `json:\"marketingCode\"`\n\t//nolint:lll\n\tLocalTrimEditionCode string `json:\"localTrimEditionCode,omitempty\"` // deprecated, remove when clients have migrated to localEditionCode\n\tLocalEditionCode     string `json:\"localEditionCode,omitempty\"`\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/99ef87444aa139d3",
+    "path": "internal/api/httpserver/carspecifications/model.go",
+    "lines": [33, 35],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/api/httpserver/carspecifications::SMessageSpecification",
+    "kind": "StructType",
+    "declaration": "struct {\n\tSMessages []SMessage `json:\"sMessages,omitempty\"`\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/49ab00a701b9d0af",
+    "path": "internal/api/httpserver/carspecifications/model.go",
+    "lines": [37, 40],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/api/httpserver/carspecifications::SMessage",
+    "kind": "StructType",
+    "declaration": "struct {\n\tCode   string `json:\"code\"`\n\tPeriod Period `json:\"period\"`\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/ae202058c031424c",
+    "path": "internal/api/httpserver/carspecifications/model.go",
+    "lines": [42, 47],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/api/httpserver/carspecifications::StylingSpecification",
+    "kind": "StructType",
+    "declaration": "struct {\n\tColors              []Color            `json:\"colors,omitempty\"`\n\tUpholsteries        []Upholstery       `json:\"upholsteries,omitempty\"`\n\tDefaultColors       ManyTimeBoundCodes `json:\"defaultColors,omitempty\"`\n\tDefaultUpholsteries ManyTimeBoundCodes `json:\"defaultUpholsteries,omitempty\"`\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/6e5c71e06db5106b",
+    "path": "internal/api/httpserver/carspecifications/model.go",
+    "lines": [49, 57],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/api/httpserver/carspecifications::Color",
+    "kind": "StructType",
+    "declaration": "struct {\n\tCode                string                `json:\"code\"`\n\tRequiredOptions     []TimeBoundAtLeastOne `json:\"requiredOptions,omitempty\"`\n\tRequiredWheels      []TimeBoundExactlyOne `json:\"requiredWheels,omitempty\"`\n\tForbidsOptions      []Forbids             `json:\"forbidsOptions,omitempty\"`\n\tForbidsUpholsteries []Forbids             `json:\"forbidsUpholsteries,omitempty\"`\n\tForbidsWheels       []Forbids             `json:\"forbidsWheels,omitempty\"`\n\tPeriod              Period                `json:\"period\"`\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/ba8af08415d0baf1",
+    "path": "internal/api/httpserver/carspecifications/model.go",
+    "lines": [59, 66],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/api/httpserver/carspecifications::Upholstery",
+    "kind": "StructType",
+    "declaration": "struct {\n\tCode            string                `json:\"code\"`\n\tRequiredOptions []TimeBoundAtLeastOne `json:\"requiredOptions,omitempty\"`\n\tForbidsOptions  []Forbids             `json:\"forbidsOptions,omitempty\"`\n\tForbidsColors   []Forbids             `json:\"forbidsColors,omitempty\"`\n\tForbidsWheels   []Forbids             `json:\"forbidsWheels,omitempty\"`\n\tPeriod          Period                `json:\"period\"`\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/645d7eb824c033cd",
+    "path": "internal/api/httpserver/carspecifications/model.go",
+    "lines": [69, 72],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/api/httpserver/carspecifications::TimeBoundCode",
+    "kind": "StructType",
+    "declaration": "struct {\n\t\tCode   string `json:\"code\"`\n\t\tPeriod Period `json:\"period\"`\n\t}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/4a03a6ab6a172470",
+    "path": "internal/api/httpserver/carspecifications/model.go",
+    "lines": [73, 73],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/api/httpserver/carspecifications::ManyTimeBoundCodes",
+    "kind": "ArrayType",
+    "declaration": "[]TimeBoundCode",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/f3237e0aca4e85d6",
+    "path": "internal/api/httpserver/carspecifications/model.go",
+    "lines": [76, 80],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/api/httpserver/carspecifications::OptionSpecification",
+    "kind": "StructType",
+    "declaration": "struct {\n\tOptions                []Option              `json:\"options,omitempty\"`\n\tPackageOnlyOptionCodes []string              `json:\"packageOnlyOptionCodes,omitempty\"`\n\tIncludedOptions        []TimeBoundExactlyOne `json:\"includedOptions,omitempty\"`\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/2b5d059e15077847",
+    "path": "internal/api/httpserver/carspecifications/model.go",
+    "lines": [82, 93],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/api/httpserver/carspecifications::Option",
+    "kind": "StructType",
+    "declaration": "struct {\n\tCode                 string                `json:\"code\"`\n\tRequiredColors       []TimeBoundExactlyOne `json:\"requiredColors,omitempty\"`\n\tRequiredUpholsteries []TimeBoundExactlyOne `json:\"requiredUpholsteries,omitempty\"`\n\tRequiredOptions      []TimeBoundAtLeastOne `json:\"requiredOptions,omitempty\"`\n\tRequiredWheels       []TimeBoundExactlyOne `json:\"requiredWheels,omitempty\"`\n\tForbidsOptions       []Forbids             `json:\"forbidsOptions,omitempty\"`\n\tForbidsColors        []Forbids             `json:\"forbidsColors,omitempty\"`\n\tForbidsUpholsteries  []Forbids             `json:\"forbidsUpholsteries,omitempty\"`\n\tForbidsWheels        []Forbids             `json:\"forbidsWheels,omitempty\"`\n\tPeriod               Period                `json:\"period\"`\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/1b3a716504d58289",
+    "path": "internal/api/httpserver/carspecifications/model.go",
+    "lines": [95, 99],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/api/httpserver/carspecifications::PackageSpecification",
+    "kind": "StructType",
+    "declaration": "struct {\n\tPackages                         []Package             `json:\"packages,omitempty\"`\n\tIncludedPackages                 []TimeBoundExactlyOne `json:\"includedPackages,omitempty\"`\n\tMakeOverlappingPackagesExclusive bool                  `json:\"makeOverlappingPackagesExclusive\"`\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/db69124c494be6fd",
+    "path": "internal/api/httpserver/carspecifications/model.go",
+    "lines": [101, 108],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/api/httpserver/carspecifications::Package",
+    "kind": "StructType",
+    "declaration": "struct {\n\tCode                 string       `json:\"code\"`\n\tRequiredColors       *ExactlyOne  `json:\"requiredColors,omitempty\"`\n\tRequiredUpholsteries *ExactlyOne  `json:\"requiredUpholsteries,omitempty\"`\n\tRequiredWheels       *ExactlyOne  `json:\"requiredWheels,omitempty\"`\n\tRequiredOptions      []ExactlyOne `json:\"requiredOptions,omitempty\"`\n\tPeriod               Period       `json:\"period\"`\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/897abfdb4086bffd",
+    "path": "internal/api/httpserver/carspecifications/model.go",
+    "lines": [110, 113],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/api/httpserver/carspecifications::WheelSpecification",
+    "kind": "StructType",
+    "declaration": "struct {\n\tWheels        []Wheel `json:\"wheels,omitempty\"`\n\tStandardWheel string  `json:\"standardWheel\"`\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/f3353b2b537d8f71",
+    "path": "internal/api/httpserver/carspecifications/model.go",
+    "lines": [115, 123],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/api/httpserver/carspecifications::Wheel",
+    "kind": "StructType",
+    "declaration": "struct {\n\tCode                 string                `json:\"code\"`\n\tRequiredColors       []TimeBoundExactlyOne `json:\"requiredColors,omitempty\"`\n\tRequiredOptions      []TimeBoundAtLeastOne `json:\"requiredOptions,omitempty\"`\n\tRequiredUpholsteries []TimeBoundExactlyOne `json:\"requiredUpholsteries,omitempty\"`\n\tForbidsOptions       []Forbids             `json:\"forbidsOptions,omitempty\"`\n\tForbidsUpholsteries  []Forbids             `json:\"forbidsUpholsteries,omitempty\"`\n\tPeriod               Period                `json:\"period\"`\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/85b9af86e8874f7c",
+    "path": "internal/api/httpserver/carspecifications/model.go",
+    "lines": [125, 128],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/api/httpserver/carspecifications::ExactlyOne",
+    "kind": "StructType",
+    "declaration": "struct {\n\tCodes       []string `json:\"codes,omitempty\"`\n\tDefaultCode *string  `json:\"defaultCode,omitempty\"`\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/45fb4474c70a49e7",
+    "path": "internal/api/httpserver/carspecifications/model.go",
+    "lines": [130, 134],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/api/httpserver/carspecifications::TimeBoundExactlyOne",
+    "kind": "StructType",
+    "declaration": "struct {\n\tCodes       []string `json:\"codes,omitempty\"`\n\tDefaultCode *string  `json:\"defaultCode,omitempty\"`\n\tPeriod      Period   `json:\"period\"`\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/9d4b535b1b545f0e",
+    "path": "internal/api/httpserver/carspecifications/model.go",
+    "lines": [136, 140],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/api/httpserver/carspecifications::TimeBoundAtLeastOne",
+    "kind": "StructType",
+    "declaration": "struct {\n\tCodes       []string `json:\"codes,omitempty\"`\n\tDefaultCode *string  `json:\"defaultCode,omitempty\"`\n\tPeriod      Period   `json:\"period\"`\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/91616d7e3240ec68",
+    "path": "internal/api/httpserver/carspecifications/model.go",
+    "lines": [142, 145],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/api/httpserver/carspecifications::Forbids",
+    "kind": "StructType",
+    "declaration": "struct {\n\tCode   string `json:\"code\"`\n\tPeriod Period `json:\"period\"`\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/1bdc03b1c9d7577c",
+    "path": "internal/api/httpserver/carspecifications/model.go",
+    "lines": [147, 150],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/api/httpserver/carspecifications::StructureWeek",
+    "kind": "StructType",
+    "declaration": "struct {\n\tYear int `json:\"year\"`\n\tWeek int `json:\"week\"`\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/e82744a7c6f0e7d6",
+    "path": "internal/api/httpserver/carspecifications/model.go",
+    "lines": [152, 155],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/api/httpserver/carspecifications::Period",
+    "kind": "StructType",
+    "declaration": "struct {\n\tFrom StructureWeek `json:\"from\"`\n\tTo   StructureWeek `json:\"to\"`\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/a43dc0b6d5280352",
+    "path": "internal/api/httpserver/jwt/claims.go",
+    "lines": [10, 16],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/api/httpserver/jwt::CustomClaims",
+    "kind": "StructType",
+    "declaration": "struct {\n\tjwt.StandardClaims\n\n\tRoles  []string `json:\"roles,omitempty\"`\n\tScopes string   `json:\"scp,omitempty\"`\n\tAppID  string   `json:\"appid,omitempty\"`\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/c960df4a9df88cef",
+    "path": "internal/api/httpserver/jwt/context.go",
+    "lines": [7, 7],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/api/httpserver/jwt::key",
+    "kind": "Ident",
+    "declaration": "int",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/9a7f91242345300c",
+    "path": "internal/api/httpserver/jwt/parser.go",
+    "lines": [17, 20],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/api/httpserver/jwt::Config",
+    "kind": "StructType",
+    "declaration": "struct {\n\tAudience string\n\tIssuer   string\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/cb1ef6c82e0e6138",
+    "path": "internal/api/httpserver/jwt/parser.go",
+    "lines": [34, 37],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/api/httpserver/jwt::Parser",
+    "kind": "StructType",
+    "declaration": "struct {\n\tcfg     Config\n\tkeyFunc jwt.Keyfunc\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/46bf932b76d78348",
+    "path": "internal/api/httpserver/jwt/token.go",
+    "lines": [9, 13],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/api/httpserver/jwt::Token",
+    "kind": "StructType",
+    "declaration": "struct {\n\t*jwt.Token\n\n\tClaims CustomClaims\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/cffb2d858e1910b4",
+    "path": "internal/api/httpserver/localeditions/controller.go",
+    "lines": [15, 25],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/api/httpserver/localeditions::LocalEditionUpdater",
+    "kind": "InterfaceType",
+    "declaration": "interface {\n\tUpsert(\n\t\tctx context.Context,\n\t\tlocalEdition domain.LocalEdition,\n\t\tskipValidation bool,\n\t) error\n\tDelete(\n\t\tctx context.Context,\n\t\tkey domain.LocalEditionKey,\n\t) error\n}",
+    "completeness": "partial",
+    "gaps": ["cce-car-spec-adapter-667a00a-complete-r1/gap/type/cffb2d858e1910b4"]
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/43ce6ae0ac22fbbb",
+    "path": "internal/api/httpserver/localeditions/controller.go",
+    "lines": [27, 36],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/api/httpserver/localeditions::LocalEditionFetcher",
+    "kind": "InterfaceType",
+    "declaration": "interface {\n\tList(\n\t\tctx context.Context,\n\t\tfilter domain.LocalEditionFilter,\n\t) ([]domain.LocalEdition, error)\n\tGet(\n\t\tctx context.Context,\n\t\tkey domain.LocalEditionKey,\n\t) (domain.LocalEdition, error)\n}",
+    "completeness": "partial",
+    "gaps": ["cce-car-spec-adapter-667a00a-complete-r1/gap/type/43ce6ae0ac22fbbb"]
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/00b281d84f3edff4",
+    "path": "internal/api/httpserver/localeditions/controller.go",
+    "lines": [38, 43],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/api/httpserver/localeditions::Controller",
+    "kind": "StructType",
+    "declaration": "struct {\n\tlocalEditionUpdater LocalEditionUpdater\n\tlocalEditionFetcher LocalEditionFetcher\n\terrorResponder      *respond.ErrorResponder\n\tlogger              *loggingsdk.Logger\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/8db14a314adb7f9c",
+    "path": "internal/api/httpserver/localeditions/model.go",
+    "lines": [3, 8],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/api/httpserver/localeditions::UpsertLocalEditionRequest",
+    "kind": "StructType",
+    "declaration": "struct {\n\tModelYear        int    `json:\"modelYear\"`\n\tPno12            string `json:\"pno12\"`\n\tSpecMarket       string `json:\"specMarket\"`\n\tLocalEditionCode string `json:\"localEditionCode\"`\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/c1b7c803310abcc2",
+    "path": "internal/api/httpserver/localeditions/model.go",
+    "lines": [10, 15],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/api/httpserver/localeditions::LocalEditionResponse",
+    "kind": "StructType",
+    "declaration": "struct {\n\tModelYear        int    `json:\"modelYear\"`\n\tPno12            string `json:\"pno12\"`\n\tSpecMarket       string `json:\"specMarket\"`\n\tLocalEditionCode string `json:\"localEditionCode\"`\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/a3e76335332177da",
+    "path": "internal/api/httpserver/localeditions/model.go",
+    "lines": [17, 19],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/api/httpserver/localeditions::ListLocalEditionsResponse",
+    "kind": "StructType",
+    "declaration": "struct {\n\tLocalEditions []LocalEditionResponse `json:\"localEditions\"`\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/446c43aa20f01733",
+    "path": "internal/api/httpserver/localeditions/model.go",
+    "lines": [21, 23],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/api/httpserver/localeditions::GetLocalEditionCodeResponse",
+    "kind": "StructType",
+    "declaration": "struct {\n\tLocalEditionCode string `json:\"localEditionCode\"`\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/ad2d0aef5a8f8377",
+    "path": "internal/api/httpserver/middleware/jwt.go",
+    "lines": [14, 16],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/api/httpserver/middleware::JWTMiddleware",
+    "kind": "StructType",
+    "declaration": "struct {\n\tjwtParser *jwt.Parser\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/ded2da09327d0eae",
+    "path": "internal/api/httpserver/middleware/logger.go",
+    "lines": [5, 7],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/api/httpserver/middleware::Logger",
+    "kind": "InterfaceType",
+    "declaration": "interface {\n\tErrorw(ctx context.Context, msg string, err error, keysAndValues ...any)\n}",
+    "completeness": "partial",
+    "gaps": ["cce-car-spec-adapter-667a00a-complete-r1/gap/type/ded2da09327d0eae"]
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/9cb0e6ee5aab3cbe",
+    "path": "internal/api/httpserver/middleware/logger.go",
+    "lines": [11, 15],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/api/httpserver/middleware::capturedLogEntry",
+    "kind": "StructType",
+    "declaration": "struct {\n\tmsg           string\n\terr           error\n\tkeysAndValues map[any]any\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/9dd59f41d96583c0",
+    "path": "internal/api/httpserver/middleware/logger.go",
+    "lines": [17, 19],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/api/httpserver/middleware::mockLogger",
+    "kind": "StructType",
+    "declaration": "struct {\n\terrorLogs []capturedLogEntry\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/8fe8dcd143920a1b",
+    "path": "internal/api/httpserver/respond/error.go",
+    "lines": [14, 18],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/api/httpserver/respond::ErrorResponse",
+    "kind": "StructType",
+    "declaration": "struct {\n\tStatus      int          `json:\"status\"`\n\tOperationID string       `json:\"operationId\"`\n\tError       ErrorMessage `json:\"error\"`\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/b79a22dd331c1af9",
+    "path": "internal/api/httpserver/respond/error.go",
+    "lines": [20, 24],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/api/httpserver/respond::ErrorMessage",
+    "kind": "StructType",
+    "declaration": "struct {\n\tDetail      []ErrorList `json:\"detail,omitempty\"`\n\tMessage     string      `json:\"message,omitempty\"`\n\tDescription string      `json:\"description,omitempty\"`\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/be5cf6e38fcc173b",
+    "path": "internal/api/httpserver/respond/error.go",
+    "lines": [26, 29],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/api/httpserver/respond::ErrorList",
+    "kind": "StructType",
+    "declaration": "struct {\n\tMessage string        `json:\"message,omitempty\"`\n\tErrors  []ErrorDetail `json:\"errors\"`\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/596ac2484cf64531",
+    "path": "internal/api/httpserver/respond/error.go",
+    "lines": [31, 34],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/api/httpserver/respond::ErrorDetail",
+    "kind": "StructType",
+    "declaration": "struct {\n\tField   string `json:\"field,omitempty\"`\n\tMessage string `json:\"message,omitempty\"`\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/7e29c44cc90e635c",
+    "path": "internal/api/httpserver/respond/error.go",
+    "lines": [36, 38],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/api/httpserver/respond::ErrorResponder",
+    "kind": "StructType",
+    "declaration": "struct {\n\tlogger *loggingsdk.Logger\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/c186e72df80d6008",
+    "path": "internal/api/httpserver/respond/model.go",
+    "lines": [6, 10],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/api/httpserver/respond::Response",
+    "kind": "StructType",
+    "declaration": "struct {\n\tStatus      int    `json:\"status\"`\n\tOperationID string `json:\"operationId\"`\n\tData        T      `json:\"data,omitempty\"`\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/bd5434423ce1ae7c",
+    "path": "internal/api/httpserver/routes.go",
+    "lines": [19, 26],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/api/httpserver::Router",
+    "kind": "StructType",
+    "declaration": "struct {\n\trouter                      chi.Router\n\tlogger                      *loggingsdk.Logger\n\tserviceName                 ServiceName\n\tjwtMiddleware               *middleware.JWTMiddleware\n\tcarSpecificationsController *carspecifications.Controller\n\tlocalEditionsController     *localeditions.Controller\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/1ba2adf0b693342c",
+    "path": "internal/api/httpserver/routes.go",
+    "lines": [28, 28],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/api/httpserver::ServiceName",
+    "kind": "Ident",
+    "declaration": "string",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/cd0bcd31fb52dce1",
+    "path": "internal/app/app.go",
+    "lines": [27, 29],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/app::App",
+    "kind": "StructType",
+    "declaration": "struct {\n\t*fx.App\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/f3d647b7e7576281",
+    "path": "internal/app/appmigration.go",
+    "lines": [11, 13],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/app::MigratorApp",
+    "kind": "StructType",
+    "declaration": "struct {\n\t*fx.App\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/4387284e69578ff3",
+    "path": "internal/app/config.go",
+    "lines": [37, 88],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/app::config",
+    "kind": "StructType",
+    "declaration": "struct {\n\tHost                        string `config:\"HOST\"`\n\tPort                        string `config:\"HTTP_PORT\"`\n\tLogLevel                    string `config:\"LOG_LEVEL\"`\n\tSkipSentry                  bool   `config:\"SKIP_SENTRY\"`\n\tSentryDsn                   string `config:\"SENTRY_DSN\"`\n\tSentryEnvironment           string `config:\"SENTRY_ENVIRONMENT\"`\n\tSentryServiceName           string `config:\"SENTRY_SERVICE_NAME\"`\n\tDatabaseHost                string `config:\"DATABASE_HOST\"`\n\tDatabaseApplicationUser     string `config:\"DATABASE_APPLICATION_USER\"`\n\tDatabaseApplicationPassword string `config:\"DATABASE_APPLICATION_PASSWORD\"`\n\tDatabasePort                string `config:\"DATABASE_PORT\"`\n\tDatabaseName                string `config:\"DATABASE_NAME\"`\n\tDatabaseSSLMode             string `config:\"DATABASE_SSL_MODE\"`\n\tAssortmentURL               string `config:\"ASSORTMENT_API_URL\"`\n\tAssortmentAPIKey            string `config:\"ASSORTMENT_API_KEY\"`\n\tAssortmentResourceID        string `config:\"ASSORTMENT_RESOURCE_ID\"`\n\tCarFeaturesURL              string `config:\"CAR_FEATURES_API_URL\"`\n\tCarFeaturesResourceID       string `config:\"CAR_FEATURES_RESOURCE_ID\"`\n\tFilterServiceURL            string `config:\"FILTER_SERVICE_URL\"`\n\tCpamAPIURL                  string `config:\"CPAM_API\"`\n\tCpamAPIKey                  string `config:\"CPAM_API_KEY\"`\n\tCpamRequestClient           string `config:\"CPAM_REQUEST_CLIENT\"`\n\tTokenURL                    string `config:\"TOKEN_URL\"`\n\tClientID                    string `config:\"CLIENT_ID\"`\n\tClientSecret                string `config:\"CLIENT_SECRET\"` // nolint:gosec\n\tJwksURL                     string `config:\"JWKS_URL\"`\n\tJWTIssuer                   string `config:\"JWT_ISSUER\"`\n\tJWTAudience                 string `config:\"JWT_AUDIENCE\"`\n\tEnableMetrics               bool   `config:\"ENABLE_METRICS\"`\n\tEnableTraces                bool   `config:\"ENABLE_TRACES\"`\n\tEnableLogs                  bool   `config:\"ENABLE_LOGS\"`\n\tEnableConsoleMetrics        bool   `config:\"ENABLE_CONSOLE_METRICS\"`\n\tEnableConsoleTraces         bool   `config:\"ENABLE_CONSOLE_TRACES\"`\n\tEnableConsoleLogs           bool   `config:\"ENABLE_CONSOLE_LOGS\"`\n\tOtelServiceName             string `config:\"OTEL_SERVICE_NAME\"`\n\tDeploymentEnvironment       string `config:\"DEPLOYMENT_ENVIRONMENT\"`\n\tServiceVersion              string `config:\"SERVICE_VERSION\"`\n\tKafkaServer                 string `config:\"KAFKA_SERVER\"`\n\tKafkaReaderUsername         string `config:\"KAFKA_READER_USERNAME\"`\n\tKafkaWriterUsername         string `config:\"KAFKA_WRITER_USERNAME\"`\n\tKafkaReaderPassword         string `config:\"KAFKA_READER_PASSWORD\"`\n\tKafkaWriterPassword         string `config:\"KAFKA_WRITER_PASSWORD\"`\n\tKafkaSubscriberGroup        string `config:\"KAFKA_SUBSCRIBER_GROUP\"`\n\tCarSpecificationTopic       string `config:\"CAR_SPECIFICATION_TOPIC\"`\n\tMarketAuthMessageTopic      string `config:\"MARKET_AUTH_MESSAGE_TOPIC\"`\n\tPcgMarketAuthMessageTopic   string `config:\"PCG_MARKET_AUTH_MESSAGE_TOPIC\"`\n\tSkipKafkaReader             bool   `config:\"SKIP_KAFKA_READER\"`\n\tSkipKafkaWriter             bool   `config:\"SKIP_KAFKA_WRITER\"`\n\tLaunchDarklySDKKey          string `config:\"LAUNCHDARKLY_SDK_KEY\"`\n\tSkipLaunchDarkly            bool   `config:\"SKIP_LAUNCHDARKLY\"`\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/0e964caa9eaae24a",
+    "path": "internal/app/config.go",
+    "lines": [96, 108],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/app::migratorConfig",
+    "kind": "StructType",
+    "declaration": "struct {\n\tLogLevel                  string `config:\"LOG_LEVEL\"`\n\tSkipSentry                bool   `config:\"SKIP_SENTRY\"`\n\tSentryDsn                 string `config:\"SENTRY_DSN\"`\n\tSentryEnvironment         string `config:\"SENTRY_ENVIRONMENT\"`\n\tSentryServiceName         string `config:\"SENTRY_SERVICE_NAME\"`\n\tDatabaseHost              string `config:\"DATABASE_HOST\"`\n\tDatabaseMigrationUser     string `config:\"DATABASE_MIGRATION_USER\"`\n\tDatabaseMigrationPassword string `config:\"DATABASE_MIGRATION_PASSWORD\"`\n\tDatabasePort              string `config:\"DATABASE_PORT\"`\n\tDatabaseName              string `config:\"DATABASE_NAME\"`\n\tDatabaseSSLMode           string `config:\"DATABASE_SSL_MODE\"`\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/d4565e94b8970b67",
+    "path": "internal/app/logging.go",
+    "lines": [53, 55],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/app::telemetryErrorLogger",
+    "kind": "StructType",
+    "declaration": "struct {\n\t*zap.Logger\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/8c69ab540fffd502",
+    "path": "internal/app/sentry.go",
+    "lines": [13, 13],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/app::nopSentryClient",
+    "kind": "StructType",
+    "declaration": "struct{}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/a70f469a686a6937",
+    "path": "internal/app/sentry.go",
+    "lines": [30, 34],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/app::SentryClient",
+    "kind": "InterfaceType",
+    "declaration": "interface {\n\tInit() error\n\tClose()\n\tCaptureMessage(message string)\n}",
+    "completeness": "partial",
+    "gaps": ["cce-car-spec-adapter-667a00a-complete-r1/gap/type/a70f469a686a6937"]
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/a1b4c50bf0a8109d",
+    "path": "internal/app/sentry.go",
+    "lines": [36, 40],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/app::sentryClient",
+    "kind": "StructType",
+    "declaration": "struct {\n\tflushFunc   func()\n\toptions     sentry.ClientOptions\n\tserviceName string\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/2c08e7d8c0ed0487",
+    "path": "internal/app/sentry.go",
+    "lines": [42, 48],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/app::sentryConfig",
+    "kind": "StructType",
+    "declaration": "struct {\n\tSkipSentry  bool\n\tDsn         string\n\tEnvironment string\n\tLogLevel    string\n\tServiceName string\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/63387f690ca17b3c",
+    "path": "internal/app/telemetry.go",
+    "lines": [45, 51],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/app::loggerProviderResult",
+    "kind": "StructType",
+    "declaration": "struct {\n\tfx.Out\n\n\tLoggerProvider otellog.LoggerProvider\n\n\tShutdownLogs telemetry.Shutdown `name:\"shutdownLogs\"`\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/dc48133ece8041ca",
+    "path": "internal/app/telemetry.go",
+    "lines": [72, 80],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/app::telemetryProviders",
+    "kind": "StructType",
+    "declaration": "struct {\n\tfx.Out\n\n\tMeterProvider  metric.MeterProvider\n\tTracerProvider trace.TracerProvider\n\n\tShutdownMetrics telemetry.Shutdown `name:\"shutdownMetrics\"`\n\tShutdownTraces  telemetry.Shutdown `name:\"shutdownTraces\"`\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/ae284ba04c1122f8",
+    "path": "internal/app/telemetry.go",
+    "lines": [115, 123],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/app::telemetryShutdownParams",
+    "kind": "StructType",
+    "declaration": "struct {\n\tfx.In\n\n\tLifecycle fx.Lifecycle\n\n\tShutdownMetrics telemetry.Shutdown `name:\"shutdownMetrics\"`\n\tShutdownTraces  telemetry.Shutdown `name:\"shutdownTraces\"`\n\tShutdownLogs    telemetry.Shutdown `name:\"shutdownLogs\"`\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/1af739bfc559322b",
+    "path": "internal/database/postgres/carspecrepository.go",
+    "lines": [15, 18],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/database/postgres::CarSpecRepository",
+    "kind": "StructType",
+    "declaration": "struct {\n\tpool   *pgxpool.Pool\n\tlogger *loggingsdk.Logger\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/244a2f835db591f2",
+    "path": "internal/database/postgres/config.go",
+    "lines": [8, 15],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/database/postgres::Config",
+    "kind": "StructType",
+    "declaration": "struct {\n\tusername     string\n\tpassword     string\n\thost         string\n\tport         string\n\tdatabaseName string\n\tsslMode      string\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/72da52ab73b6675e",
+    "path": "internal/database/postgres/localeditionrepository.go",
+    "lines": [18, 21],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/database/postgres::LocalEditionRepository",
+    "kind": "StructType",
+    "declaration": "struct {\n\tpool   *pgxpool.Pool\n\tlogger *loggingsdk.Logger\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/1380cdcdbd673ccb",
+    "path": "internal/database/postgres/migrator.go",
+    "lines": [18, 21],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/database/postgres::Migrator",
+    "kind": "StructType",
+    "declaration": "struct {\n\tconfig Config\n\tlogger *loggingsdk.Logger\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/cf462133ca512f86",
+    "path": "internal/database/postgres/model.go",
+    "lines": [3, 12],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/database/postgres::carSpecification",
+    "kind": "StructType",
+    "declaration": "struct {\n\tCar                 car                   `json:\"car\"`\n\tStructureWeekPeriod period                `json:\"structureWeekPeriod\"`\n\tForbiddenPeriods    []period              `json:\"forbiddenPeriods\"`\n\tSMessages           sMessageSpecification `json:\"sMessages\"`\n\tStylings            stylingSpecification  `json:\"stylings\"`\n\tOptions             optionSpecification   `json:\"options\"`\n\tPackages            packageSpecification  `json:\"packages\"`\n\tWheels              wheelSpecification    `json:\"wheels\"`\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/a49134303a6054b2",
+    "path": "internal/database/postgres/model.go",
+    "lines": [14, 19],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/database/postgres::car",
+    "kind": "StructType",
+    "declaration": "struct {\n\tModelYear        int    `json:\"modelYear\"`\n\tSpecMarket       string `json:\"specMarket\"`\n\tPno12            string `json:\"pno12\"`\n\tLocalEditionCode string `json:\"localEditionCode,omitempty\"`\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/0985616e7722918f",
+    "path": "internal/database/postgres/model.go",
+    "lines": [21, 23],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/database/postgres::sMessageSpecification",
+    "kind": "StructType",
+    "declaration": "struct {\n\tSMessages []sMessage `json:\"sMessages\"`\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/2cff7be07c755928",
+    "path": "internal/database/postgres/model.go",
+    "lines": [25, 28],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/database/postgres::sMessage",
+    "kind": "StructType",
+    "declaration": "struct {\n\tCode   string `json:\"code\"`\n\tPeriod period `json:\"period\"`\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/a5a4fde5a7a79cb7",
+    "path": "internal/database/postgres/model.go",
+    "lines": [30, 35],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/database/postgres::stylingSpecification",
+    "kind": "StructType",
+    "declaration": "struct {\n\tColors              []color            `json:\"colors\"`\n\tUpholsteries        []upholstery       `json:\"upholsteries\"`\n\tDefaultColors       manyTimeBoundCodes `json:\"defaultColors\"`\n\tDefaultUpholsteries manyTimeBoundCodes `json:\"defaultUpholsteries\"`\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/b7c4165e960f210f",
+    "path": "internal/database/postgres/model.go",
+    "lines": [37, 45],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/database/postgres::color",
+    "kind": "StructType",
+    "declaration": "struct {\n\tCode                string                `json:\"code\"`\n\tRequiredOptions     []timeBoundAtLeastOne `json:\"requiredOptions\"`\n\tRequiredWheels      []timeBoundExactlyOne `json:\"requiredWheels\"`\n\tForbidsOptions      []forbids             `json:\"forbidsOptions\"`\n\tForbidsUpholsteries []forbids             `json:\"forbidsUpholsteries\"`\n\tForbidsWheels       []forbids             `json:\"forbidsWheels\"`\n\tPeriod              period                `json:\"period\"`\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/c61d5492a86b1478",
+    "path": "internal/database/postgres/model.go",
+    "lines": [47, 54],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/database/postgres::upholstery",
+    "kind": "StructType",
+    "declaration": "struct {\n\tCode            string                `json:\"code\"`\n\tRequiredOptions []timeBoundAtLeastOne `json:\"requiredOptions\"`\n\tForbidsOptions  []forbids             `json:\"forbidsOptions\"`\n\tForbidsColors   []forbids             `json:\"forbidsColors\"`\n\tForbidsWheels   []forbids             `json:\"forbidsWheels\"`\n\tPeriod          period                `json:\"period\"`\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/4fedb8c2c94d3e50",
+    "path": "internal/database/postgres/model.go",
+    "lines": [57, 60],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/database/postgres::timeBoundCode",
+    "kind": "StructType",
+    "declaration": "struct {\n\t\tCode   string `json:\"code\"`\n\t\tPeriod period `json:\"period\"`\n\t}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/8ddc95d2e1282ff8",
+    "path": "internal/database/postgres/model.go",
+    "lines": [61, 61],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/database/postgres::manyTimeBoundCodes",
+    "kind": "ArrayType",
+    "declaration": "[]timeBoundCode",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/bb5e32823f70b1d3",
+    "path": "internal/database/postgres/model.go",
+    "lines": [64, 68],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/database/postgres::optionSpecification",
+    "kind": "StructType",
+    "declaration": "struct {\n\tOptions                []option              `json:\"options\"`\n\tPackageOnlyOptionCodes []string              `json:\"packageOnlyOptionCodes\"`\n\tIncludedOptions        []timeBoundExactlyOne `json:\"includedOptions\"`\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/49bc9ffce3454931",
+    "path": "internal/database/postgres/model.go",
+    "lines": [70, 81],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/database/postgres::option",
+    "kind": "StructType",
+    "declaration": "struct {\n\tCode                 string                `json:\"code\"`\n\tRequiredColors       []timeBoundExactlyOne `json:\"requiredColors\"`\n\tRequiredUpholsteries []timeBoundExactlyOne `json:\"requiredUpholsteries\"`\n\tRequiredOptions      []timeBoundAtLeastOne `json:\"requiredOptions\"`\n\tRequiredWheels       []timeBoundExactlyOne `json:\"requiredWheels\"`\n\tForbidsOptions       []forbids             `json:\"forbidsOptions\"`\n\tForbidsColors        []forbids             `json:\"forbidsColors\"`\n\tForbidsUpholsteries  []forbids             `json:\"forbidsUpholsteries\"`\n\tForbidsWheels        []forbids             `json:\"forbidsWheels\"`\n\tPeriod               period                `json:\"period\"`\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/540c0371140c75c6",
+    "path": "internal/database/postgres/model.go",
+    "lines": [83, 87],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/database/postgres::packageSpecification",
+    "kind": "StructType",
+    "declaration": "struct {\n\tPackages                         []pkg                 `json:\"packages\"`\n\tIncludedPackages                 []timeBoundExactlyOne `json:\"includedPackages\"`\n\tMakeOverlappingPackagesExclusive bool                  `json:\"makeOverlappingPackagesExclusive\"`\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/90faf645b3048aab",
+    "path": "internal/database/postgres/model.go",
+    "lines": [89, 96],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/database/postgres::pkg",
+    "kind": "StructType",
+    "declaration": "struct {\n\tCode                 string       `json:\"code\"`\n\tRequiredColors       *exactlyOne  `json:\"requiredColors,omitempty\"`\n\tRequiredUpholsteries *exactlyOne  `json:\"requiredUpholsteries,omitempty\"`\n\tRequiredWheels       *exactlyOne  `json:\"requiredWheels,omitempty\"`\n\tRequiredOptions      []exactlyOne `json:\"requiredOptions\"`\n\tPeriod               period       `json:\"period\"`\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/aea0b0fab0b27312",
+    "path": "internal/database/postgres/model.go",
+    "lines": [98, 101],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/database/postgres::wheelSpecification",
+    "kind": "StructType",
+    "declaration": "struct {\n\tWheels        []wheel `json:\"wheels\"`\n\tStandardWheel string  `json:\"standardWheel\"`\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/5c5820c86c0c9653",
+    "path": "internal/database/postgres/model.go",
+    "lines": [103, 111],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/database/postgres::wheel",
+    "kind": "StructType",
+    "declaration": "struct {\n\tCode                 string                `json:\"code\"`\n\tRequiredColors       []timeBoundExactlyOne `json:\"requiredColors\"`\n\tRequiredOptions      []timeBoundAtLeastOne `json:\"requiredOptions\"`\n\tRequiredUpholsteries []timeBoundExactlyOne `json:\"requiredUpholsteries\"`\n\tForbidsOptions       []forbids             `json:\"forbidsOptions\"`\n\tForbidsUpholsteries  []forbids             `json:\"forbidsUpholsteries\"`\n\tPeriod               period                `json:\"period\"`\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/621058916d64490e",
+    "path": "internal/database/postgres/model.go",
+    "lines": [113, 116],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/database/postgres::exactlyOne",
+    "kind": "StructType",
+    "declaration": "struct {\n\tCodes       []string `json:\"codes\"`\n\tDefaultCode *string  `json:\"defaultCode,omitempty\"`\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/e103292e267f19a9",
+    "path": "internal/database/postgres/model.go",
+    "lines": [118, 122],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/database/postgres::timeBoundExactlyOne",
+    "kind": "StructType",
+    "declaration": "struct {\n\tCodes       []string `json:\"codes\"`\n\tDefaultCode *string  `json:\"defaultCode,omitempty\"`\n\tPeriod      period   `json:\"period\"`\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/9e23de9eca05c45f",
+    "path": "internal/database/postgres/model.go",
+    "lines": [124, 128],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/database/postgres::timeBoundAtLeastOne",
+    "kind": "StructType",
+    "declaration": "struct {\n\tCodes       []string `json:\"codes\"`\n\tDefaultCode *string  `json:\"defaultCode,omitempty\"`\n\tPeriod      period   `json:\"period\"`\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/ca65df2783e9d11a",
+    "path": "internal/database/postgres/model.go",
+    "lines": [130, 133],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/database/postgres::forbids",
+    "kind": "StructType",
+    "declaration": "struct {\n\tCode   string `json:\"code\"`\n\tPeriod period `json:\"period\"`\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/37ec043c7d0a4c10",
+    "path": "internal/database/postgres/model.go",
+    "lines": [135, 138],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/database/postgres::period",
+    "kind": "StructType",
+    "declaration": "struct {\n\tFrom structureWeek `json:\"from\"`\n\tTo   structureWeek `json:\"to\"`\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/1c4016e39fce9745",
+    "path": "internal/database/postgres/model.go",
+    "lines": [140, 143],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/database/postgres::structureWeek",
+    "kind": "StructType",
+    "declaration": "struct {\n\tYear int `json:\"year\"`\n\tWeek int `json:\"week\"`\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/7d832212961786c5",
+    "path": "internal/database/postgres/readycheck.go",
+    "lines": [9, 11],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/database/postgres::ReadyCheck",
+    "kind": "StructType",
+    "declaration": "struct {\n\tpool *pgxpool.Pool\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/59f2901981bbda80",
+    "path": "internal/domain/baseline.go",
+    "lines": [7, 11],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/domain::BaselineCommand",
+    "kind": "StructType",
+    "declaration": "struct {\n\tspecMarket SpecMarket\n\tmodelYear  *ModelYear\n\tcarType    *CarType\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/becaf98d65305849",
+    "path": "internal/domain/brand.go",
+    "lines": [3, 3],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/domain::Brand",
+    "kind": "Ident",
+    "declaration": "string",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/9edb04bb70266fba",
+    "path": "internal/domain/car.go",
+    "lines": [12, 17],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/domain::Car",
+    "kind": "StructType",
+    "declaration": "struct {\n\tmodelYear        ModelYear\n\tspecMarket       SpecMarket\n\tpno12            Pno12\n\tlocalEditionCode LocalEditionCode\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/385fc79901716011",
+    "path": "internal/domain/carmodelquery.go",
+    "lines": [5, 9],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/domain::CarModelQuery",
+    "kind": "StructType",
+    "declaration": "struct {\n\tspecMarket SpecMarket\n\tmodelYear  ModelYear\n\tcarType    CarType\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/97f4d4f739cffb0c",
+    "path": "internal/domain/carquery.go",
+    "lines": [5, 10],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/domain::CarQuery",
+    "kind": "StructType",
+    "declaration": "struct {\n\tspecMarket       SpecMarket\n\tmodelYear        ModelYear\n\tpno12            Pno12\n\tlocalEditionCode LocalEditionCode\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/50ce5322dcc44d15",
+    "path": "internal/domain/carspecification.go",
+    "lines": [5, 14],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/domain::CarSpecification",
+    "kind": "StructType",
+    "declaration": "struct {\n\tcar                 Car\n\tstructureWeekPeriod Period\n\tforbiddenPeriods    Periods\n\tsMessages           SMessageSpecification\n\tstylings            StylingSpecification\n\toptions             OptionSpecification\n\tpackages            PackageSpecification\n\twheels              WheelSpecification\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/61626e5d5418e68f",
+    "path": "internal/domain/carspecification.go",
+    "lines": [70, 72],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/domain::SMessageSpecification",
+    "kind": "StructType",
+    "declaration": "struct {\n\tsMessages SMessages\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/42ee65d56d5160f7",
+    "path": "internal/domain/carspecification.go",
+    "lines": [89, 92],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/domain::SMessage",
+    "kind": "StructType",
+    "declaration": "struct {\n\t\tcode   string\n\t\tperiod Period\n\t}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/8be5f7044f263f28",
+    "path": "internal/domain/carspecification.go",
+    "lines": [93, 93],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/domain::SMessages",
+    "kind": "ArrayType",
+    "declaration": "[]SMessage",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/7269ddf4c0ef6240",
+    "path": "internal/domain/carspecification.go",
+    "lines": [120, 125],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/domain::StylingSpecification",
+    "kind": "StructType",
+    "declaration": "struct {\n\tcolors              Colors\n\tupholsteries        Upholsteries\n\tdefaultColors       ManyTimeBoundCodes\n\tdefaultUpholsteries ManyTimeBoundCodes\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/6e867fbfecc27907",
+    "path": "internal/domain/carspecification.go",
+    "lines": [172, 180],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/domain::Color",
+    "kind": "StructType",
+    "declaration": "struct {\n\t\tcode                string\n\t\trequiredOptions     ManyTimeBoundAtLeastOnes\n\t\trequiredWheels      ManyTimeBoundExactlyOnes\n\t\tforbidsOptions      ManyForbids\n\t\tforbidsUpholsteries ManyForbids\n\t\tforbidsWheels       ManyForbids\n\t\tperiod              Period\n\t}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/c3babb8919765a23",
+    "path": "internal/domain/carspecification.go",
+    "lines": [181, 181],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/domain::Colors",
+    "kind": "ArrayType",
+    "declaration": "[]Color",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/9e5553ce04688c2e",
+    "path": "internal/domain/carspecification.go",
+    "lines": [256, 263],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/domain::Upholstery",
+    "kind": "StructType",
+    "declaration": "struct {\n\t\tcode            string\n\t\trequiredOptions ManyTimeBoundAtLeastOnes\n\t\tforbidsOptions  ManyForbids\n\t\tforbidsColors   ManyForbids\n\t\tforbidsWheels   ManyForbids\n\t\tperiod          Period\n\t}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/4db323288b5e979e",
+    "path": "internal/domain/carspecification.go",
+    "lines": [264, 264],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/domain::Upholsteries",
+    "kind": "ArrayType",
+    "declaration": "[]Upholstery",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/4d3234f13382bfd2",
+    "path": "internal/domain/carspecification.go",
+    "lines": [331, 335],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/domain::OptionSpecification",
+    "kind": "StructType",
+    "declaration": "struct {\n\toptions                Options\n\tpackageOnlyOptionCodes []string\n\tincludedOptions        ManyTimeBoundExactlyOnes\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/74505e0ab87242a8",
+    "path": "internal/domain/carspecification.go",
+    "lines": [405, 416],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/domain::Option",
+    "kind": "StructType",
+    "declaration": "struct {\n\t\tcode                 string\n\t\trequiredColors       ManyTimeBoundExactlyOnes\n\t\trequiredUpholsteries ManyTimeBoundExactlyOnes\n\t\trequiredOptions      ManyTimeBoundAtLeastOnes\n\t\trequiredWheels       ManyTimeBoundExactlyOnes\n\t\tforbidsOptions       ManyForbids\n\t\tforbidsColors        ManyForbids\n\t\tforbidsUpholsteries  ManyForbids\n\t\tforbidsWheels        ManyForbids\n\t\tperiod               Period\n\t}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/7909abaab9576447",
+    "path": "internal/domain/carspecification.go",
+    "lines": [417, 417],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/domain::Options",
+    "kind": "ArrayType",
+    "declaration": "[]Option",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/bd37002e2e5abd39",
+    "path": "internal/domain/carspecification.go",
+    "lines": [512, 516],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/domain::PackageSpecification",
+    "kind": "StructType",
+    "declaration": "struct {\n\tpackages                         Packages\n\tincludedPackages                 ManyTimeBoundExactlyOnes\n\tmakeOverlappingPackagesExclusive bool\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/08292f031d517771",
+    "path": "internal/domain/carspecification.go",
+    "lines": [579, 586],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/domain::Package",
+    "kind": "StructType",
+    "declaration": "struct {\n\t\tcode                 string\n\t\trequiredColors       *ExactlyOne\n\t\trequiredUpholsteries *ExactlyOne\n\t\trequiredWheels       *ExactlyOne\n\t\trequiredOptions      ManyExactlyOnes\n\t\tperiod               Period\n\t}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/51da5fef0c5fbf5a",
+    "path": "internal/domain/carspecification.go",
+    "lines": [587, 587],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/domain::Packages",
+    "kind": "ArrayType",
+    "declaration": "[]Package",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/c2391e7a16fdc289",
+    "path": "internal/domain/carspecification.go",
+    "lines": [674, 677],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/domain::WheelSpecification",
+    "kind": "StructType",
+    "declaration": "struct {\n\twheels        Wheels\n\tstandardWheel string\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/0cc62c45acac660b",
+    "path": "internal/domain/carspecification.go",
+    "lines": [700, 708],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/domain::Wheel",
+    "kind": "StructType",
+    "declaration": "struct {\n\t\tcode                 string\n\t\trequiredColors       ManyTimeBoundExactlyOnes\n\t\trequiredOptions      ManyTimeBoundAtLeastOnes\n\t\trequiredUpholsteries ManyTimeBoundExactlyOnes\n\t\tforbidsOptions       ManyForbids\n\t\tforbidsUpholsteries  ManyForbids\n\t\tperiod               Period\n\t}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/9b88b2f908ac47a3",
+    "path": "internal/domain/carspecification.go",
+    "lines": [709, 709],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/domain::Wheels",
+    "kind": "ArrayType",
+    "declaration": "[]Wheel",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/75aee9ab1add2fdb",
+    "path": "internal/domain/carspecification.go",
+    "lines": [793, 796],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/domain::CodesWithDefault",
+    "kind": "StructType",
+    "declaration": "struct {\n\tcodes       []string\n\tdefaultCode *string\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/0e940468d706087f",
+    "path": "internal/domain/carspecification.go",
+    "lines": [808, 810],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/domain::ExactlyOne",
+    "kind": "StructType",
+    "declaration": "struct {\n\t\tCodesWithDefault\n\t}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/ab6cbf14d492a3ab",
+    "path": "internal/domain/carspecification.go",
+    "lines": [811, 811],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/domain::ManyExactlyOnes",
+    "kind": "ArrayType",
+    "declaration": "[]ExactlyOne",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/bb07145e24c1bbb2",
+    "path": "internal/domain/carspecification.go",
+    "lines": [853, 856],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/domain::TimeBoundExactlyOne",
+    "kind": "StructType",
+    "declaration": "struct {\n\t\tCodesWithDefault\n\t\tperiod Period\n\t}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/bc272b27a46568c2",
+    "path": "internal/domain/carspecification.go",
+    "lines": [857, 857],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/domain::ManyTimeBoundExactlyOnes",
+    "kind": "ArrayType",
+    "declaration": "[]TimeBoundExactlyOne",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/8aae8f89631d424e",
+    "path": "internal/domain/carspecification.go",
+    "lines": [908, 911],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/domain::TimeBoundAtLeastOne",
+    "kind": "StructType",
+    "declaration": "struct {\n\t\tCodesWithDefault\n\t\tperiod Period\n\t}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/e25746204b74258c",
+    "path": "internal/domain/carspecification.go",
+    "lines": [912, 912],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/domain::ManyTimeBoundAtLeastOnes",
+    "kind": "ArrayType",
+    "declaration": "[]TimeBoundAtLeastOne",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/e40ed99bef4dd6f5",
+    "path": "internal/domain/carspecification.go",
+    "lines": [962, 965],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/domain::Forbids",
+    "kind": "StructType",
+    "declaration": "struct {\n\t\tcode   string\n\t\tperiod Period\n\t}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/3e4643b2f78cce68",
+    "path": "internal/domain/carspecification.go",
+    "lines": [966, 966],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/domain::ManyForbids",
+    "kind": "ArrayType",
+    "declaration": "[]Forbids",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/fbfb8f70cf43628c",
+    "path": "internal/domain/carspecification.go",
+    "lines": [994, 997],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/domain::TimeBoundCode",
+    "kind": "StructType",
+    "declaration": "struct {\n\t\tcode   string\n\t\tperiod Period\n\t}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/bb0cf5f15987fc14",
+    "path": "internal/domain/carspecification.go",
+    "lines": [998, 998],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/domain::ManyTimeBoundCodes",
+    "kind": "ArrayType",
+    "declaration": "[]TimeBoundCode",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/5b1915156abf6d84",
+    "path": "internal/domain/carspecificationchange.go",
+    "lines": [11, 15],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/domain::CarSpecificationChange",
+    "kind": "StructType",
+    "declaration": "struct {\n\tspec             CarSpecification\n\tchangeType       ChangeType\n\tsourceIdentifier SourceIdentifier\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/94e66f9b5cc104a3",
+    "path": "internal/domain/carspecificationchange.go",
+    "lines": [54, 54],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/domain::ChangeType",
+    "kind": "Ident",
+    "declaration": "string",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/ef240bd46bd6f91b",
+    "path": "internal/domain/carspecificationchange.go",
+    "lines": [62, 62],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/domain::CarSpecificationChanges",
+    "kind": "ArrayType",
+    "declaration": "[]CarSpecificationChange",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/e53faea429891bb9",
+    "path": "internal/domain/carspecificationchange.go",
+    "lines": [279, 281],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/domain::coded",
+    "kind": "InterfaceType",
+    "declaration": "interface {\n\tCode() string\n}",
+    "completeness": "partial",
+    "gaps": ["cce-car-spec-adapter-667a00a-complete-r1/gap/type/e53faea429891bb9"]
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/5063297a301ab1db",
+    "path": "internal/domain/carspecificationchange.go",
+    "lines": [287, 289],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/domain::multiCoded",
+    "kind": "InterfaceType",
+    "declaration": "interface {\n\tCodes() []string\n}",
+    "completeness": "partial",
+    "gaps": ["cce-car-spec-adapter-667a00a-complete-r1/gap/type/5063297a301ab1db"]
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/1fbf3e2d31024586",
+    "path": "internal/domain/cartype.go",
+    "lines": [28, 28],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/domain::CarType",
+    "kind": "Ident",
+    "declaration": "string",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/9951f3bf8704bb14",
+    "path": "internal/domain/convert/component.go",
+    "lines": [11, 11],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/domain/convert::componentType",
+    "kind": "Ident",
+    "declaration": "string",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/825602180c2f2782",
+    "path": "internal/domain/convert/component.go",
+    "lines": [22, 25],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/domain/convert::component",
+    "kind": "StructType",
+    "declaration": "struct {\n\ttyp  componentType\n\tcode string\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/b9752eb25e198ca7",
+    "path": "internal/domain/convert/component.go",
+    "lines": [27, 32],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/domain/convert::stylingComponent",
+    "kind": "StructType",
+    "declaration": "struct {\n\tisDefault      bool\n\tcolorCode      string\n\tupholsteryCode string\n\tperiod         domain.Period\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/0e7f2cf6f3f6fb35",
+    "path": "internal/domain/convert/component.go",
+    "lines": [34, 34],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/domain/convert::stylingComponents",
+    "kind": "ArrayType",
+    "declaration": "[]stylingComponent",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/8e2579e20e4da777",
+    "path": "internal/domain/convert/component.go",
+    "lines": [233, 239],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/domain/convert::optionComponent",
+    "kind": "StructType",
+    "declaration": "struct {\n\tcode                 string\n\tpackageOnly          bool\n\thundredPercent       bool\n\tperiod               domain.Period\n\thundredPercentPeriod domain.Period\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/8eb13cd1bb44b35e",
+    "path": "internal/domain/convert/component.go",
+    "lines": [241, 246],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/domain/convert::packageComponent",
+    "kind": "StructType",
+    "declaration": "struct {\n\tcode                 string\n\thundredPercent       bool\n\tperiod               domain.Period\n\thundredPercentPeriod domain.Period\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/dd7111f1d8c4a41c",
+    "path": "internal/domain/convert/component.go",
+    "lines": [248, 251],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/domain/convert::sMessageComponent",
+    "kind": "StructType",
+    "declaration": "struct {\n\tcode   string\n\tperiod domain.Period\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/70a26b16cc60e86c",
+    "path": "internal/domain/convert/component.go",
+    "lines": [253, 258],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/domain/convert::componentCollection",
+    "kind": "StructType",
+    "declaration": "struct {\n\tstylingComponents  stylingComponents\n\toptionComponents   []optionComponent\n\tpackageComponents  []packageComponent\n\tsMessageComponents []sMessageComponent\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/f29d2e31c625b24a",
+    "path": "internal/domain/convert/convertintocarspecification.go",
+    "lines": [13, 16],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/domain/convert::pno12MarketAuthDocument",
+    "kind": "StructType",
+    "declaration": "struct {\n\tdomain.Pno12\n\tdomain.MarketAuthDocument\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/bdc83550f04941f8",
+    "path": "internal/domain/convert/includedoptions.go",
+    "lines": [8, 11],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/domain/convert::includedOptionCreator",
+    "kind": "StructType",
+    "declaration": "struct {\n\tdefaultOption     optionComponent\n\texchangeableRules []rule\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/888a34d12e86f8cf",
+    "path": "internal/domain/convert/includedpackages.go",
+    "lines": [8, 11],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/domain/convert::includedPackageCreator",
+    "kind": "StructType",
+    "declaration": "struct {\n\tdefaultPackage    packageComponent\n\texchangeableRules []rule\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/9763b73a775bc956",
+    "path": "internal/domain/convert/package_content.go",
+    "lines": [8, 14],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/domain/convert::packageContent",
+    "kind": "StructType",
+    "declaration": "struct {\n\tpackageCode            string\n\tcomponent              component\n\texchangeableOptionCode string\n\tstandard               bool\n\tdeviation              bool\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/1babdbcbac045e44",
+    "path": "internal/domain/convert/packagecreator.go",
+    "lines": [8, 10],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/domain/convert::packageCreator",
+    "kind": "StructType",
+    "declaration": "struct {\n\twheelCodes map[string]any\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/81751087e3e20c16",
+    "path": "internal/domain/convert/rule.go",
+    "lines": [9, 9],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/domain/convert::restriction",
+    "kind": "Ident",
+    "declaration": "string",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/cae4b695bffd6c17",
+    "path": "internal/domain/convert/rule.go",
+    "lines": [17, 25],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/domain/convert::rule",
+    "kind": "StructType",
+    "declaration": "struct {\n\trestricter          component\n\trestriction         restriction\n\tprimaryRestrictee   component\n\tsecondaryRestrictee *component\n\n\t// period should be nil for exchangeable package rules, and non-nil for all other rules\n\tperiod *domain.Period\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/213f68d2fcd3b2f5",
+    "path": "internal/domain/convert/rule.go",
+    "lines": [45, 50],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/domain/convert::ruleCollection",
+    "kind": "StructType",
+    "declaration": "struct {\n\tcolorRulesByCode      map[string][]rule\n\tupholsteryRulesByCode map[string][]rule\n\toptionRulesByCode     map[string][]rule\n\tpackageRulesByCode    map[string][]rule\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/e0219ac58f352c24",
+    "path": "internal/domain/convert/specification_creator.go",
+    "lines": [12, 22],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/domain/convert::specificationCreator",
+    "kind": "StructType",
+    "declaration": "struct {\n\tperiod                domain.Period\n\tcolorRulesByCode      map[string][]rule\n\tupholsteryRulesByCode map[string][]rule\n\toptionRulesByCode     map[string][]rule\n\tpackageRulesByCode    map[string][]rule\n\twheelRulesByCode      map[string][]rule\n\tglobalWheelCodes      map[string]any\n\tfeatureCodeMap        domain.FeatureCodeMap\n\tpno12                 domain.Pno12\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/dfb0cf2dd1898c62",
+    "path": "internal/domain/convert/stylings.go",
+    "lines": [8, 8],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/domain/convert::periodsByStylingCombination",
+    "kind": "MapType",
+    "declaration": "map[stylingCombination]stylingPeriods",
+    "completeness": "partial",
+    "gaps": ["cce-car-spec-adapter-667a00a-complete-r1/gap/type/dfb0cf2dd1898c62"]
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/7ebe16d53a4801bf",
+    "path": "internal/domain/convert/stylings.go",
+    "lines": [10, 13],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/domain/convert::stylingCombination",
+    "kind": "StructType",
+    "declaration": "struct {\n\tcolorCode      string\n\tupholsteryCode string\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/a270b52039022e7a",
+    "path": "internal/domain/convert/stylings.go",
+    "lines": [15, 18],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/domain/convert::stylingPeriods",
+    "kind": "StructType",
+    "declaration": "struct {\n\tdefaultPeriods    domain.Periods\n\tnonDefaultPeriods domain.Periods\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/10154fc957179252",
+    "path": "internal/domain/convert/wheel.go",
+    "lines": [8, 11],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/domain/convert::mandatoryWheelsCalculator",
+    "kind": "StructType",
+    "declaration": "struct {\n\twheelComponentsByCode map[string]optionComponent\n\tdefaultMandatoryWheel *optionComponent\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/a6108e32bf2a73dc",
+    "path": "internal/domain/convertpcg/convertintocarspecification.go",
+    "lines": [77, 83],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/domain/convertpcg::specifications",
+    "kind": "StructType",
+    "declaration": "struct {\n\tsMessages domain.SMessageSpecification\n\tstylings  domain.StylingSpecification\n\toptions   domain.OptionSpecification\n\tpackages  domain.PackageSpecification\n\twheels    domain.WheelSpecification\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/cc6d77b33a89f726",
+    "path": "internal/domain/convertpcg/dependency.go",
+    "lines": [9, 27],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/domain/convertpcg::dependencyLookup",
+    "kind": "StructType",
+    "declaration": "struct {\n\tcolorOptionMust        map[string][]domain.PCGMustRule\n\tcolorOptionForbid      map[string][]domain.PCGForbidRule\n\tupholsteryOptionMust   map[string][]domain.PCGMustRule\n\tupholsteryOptionForbid map[string][]domain.PCGForbidRule\n\toptionMust             map[string][]domain.PCGMustRule\n\toptionForbid           map[string][]domain.PCGForbidRule\n\toptionColorMust        map[string][]domain.PCGMustRule\n\toptionColorForbid      map[string][]domain.PCGForbidRule\n\toptionUpholsteryMust   map[string][]domain.PCGMustRule\n\toptionUpholsteryForbid map[string][]domain.PCGForbidRule\n\tcolorWheelMust         map[string][]domain.PCGMustRule\n\tcolorWheelForbid       map[string][]domain.PCGForbidRule\n\tupholsteryWheelMust    map[string][]domain.PCGMustRule\n\tupholsteryWheelForbid  map[string][]domain.PCGForbidRule\n\toptionWheelMust        map[string][]domain.PCGMustRule\n\toptionWheelForbid      map[string][]domain.PCGForbidRule\n\tpackageContents        map[string]domain.PCGPackageContent\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/6782224ebc14d772",
+    "path": "internal/domain/convertpcg/options.go",
+    "lines": [5, 10],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/domain/convertpcg::optionComponent",
+    "kind": "StructType",
+    "declaration": "struct {\n\tcode           string\n\thundredPercent bool\n\tpackageOnly    bool\n\teffectivity    []domain.PCGEffectivity\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/3c8c8275ca5c01b5",
+    "path": "internal/domain/convertpcg/options.go",
+    "lines": [12, 21],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/domain/convertpcg::optionDependencies",
+    "kind": "StructType",
+    "declaration": "struct {\n\trequiredOptions      []domain.TimeBoundAtLeastOne\n\trequiredColors       []domain.TimeBoundExactlyOne\n\trequiredUpholsteries []domain.TimeBoundExactlyOne\n\trequiredWheels       []domain.TimeBoundExactlyOne\n\tforbidsOptions       []domain.Forbids\n\tforbidsColors        []domain.Forbids\n\tforbidsUpholsteries  []domain.Forbids\n\tforbidsWheels        []domain.Forbids\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/057e453f6729a779",
+    "path": "internal/domain/convertpcg/packages.go",
+    "lines": [104, 109],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/domain/convertpcg::packageRequirements",
+    "kind": "StructType",
+    "declaration": "struct {\n\tcolors       *domain.ExactlyOne\n\tupholsteries *domain.ExactlyOne\n\twheels       *domain.ExactlyOne\n\toptions      domain.ManyExactlyOnes\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/03f0780bfcdfd905",
+    "path": "internal/domain/convertpcg/packages.go",
+    "lines": [111, 116],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/domain/convertpcg::packageRequirementCodes",
+    "kind": "StructType",
+    "declaration": "struct {\n\tcolor      requirementCodes\n\tupholstery requirementCodes\n\twheel      requirementCodes\n\toptions    []requirementCodes\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/bb4d387be2dfb829",
+    "path": "internal/domain/convertpcg/packages.go",
+    "lines": [118, 121],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/domain/convertpcg::requirementCodes",
+    "kind": "StructType",
+    "declaration": "struct {\n\tdefaultCode string\n\tcodes       []string\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/284f42b440957581",
+    "path": "internal/domain/convertpcg/specification_creator.go",
+    "lines": [5, 11],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/domain/convertpcg::specificationCreator",
+    "kind": "StructType",
+    "declaration": "struct {\n\tdependencies     dependencyLookup\n\tglobalWheelCodes map[string]any\n\tfeatureCodeMap   domain.FeatureCodeMap\n\tpno12            domain.Pno12\n\tperiod           domain.Period\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/7e2bc0e0e442f6b0",
+    "path": "internal/domain/featurecodemap.go",
+    "lines": [3, 3],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/domain::FeatureCode",
+    "kind": "Ident",
+    "declaration": "string",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/172472696a531c44",
+    "path": "internal/domain/featurecodemap.go",
+    "lines": [5, 5],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/domain::FeatureCodeMap",
+    "kind": "MapType",
+    "declaration": "map[Pno12]FeatureCode",
+    "completeness": "partial",
+    "gaps": ["cce-car-spec-adapter-667a00a-complete-r1/gap/type/172472696a531c44"]
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/0eb9aa7aae0d1125",
+    "path": "internal/domain/localedition.go",
+    "lines": [3, 6],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/domain::LocalEdition",
+    "kind": "StructType",
+    "declaration": "struct {\n\tkey              LocalEditionKey\n\tlocalEditionCode LocalEditionCode\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/f99d8255bc08b30c",
+    "path": "internal/domain/localedition.go",
+    "lines": [42, 46],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/domain::LocalEditionKey",
+    "kind": "StructType",
+    "declaration": "struct {\n\tmodelYear  ModelYear\n\tpno12      Pno12\n\tspecMarket SpecMarket\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/ea6a60663aa11b1f",
+    "path": "internal/domain/localedition.go",
+    "lines": [69, 74],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/domain::LocalEditionFilter",
+    "kind": "StructType",
+    "declaration": "struct {\n\tModelYear  *ModelYear\n\tPno12      *Pno12\n\tSpecMarket *SpecMarket\n\tCarType    *CarType\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/abe5bebc439ba681",
+    "path": "internal/domain/localedition.go",
+    "lines": [80, 85],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/domain::LocalEditionFilterBuilder",
+    "kind": "StructType",
+    "declaration": "struct {\n\trawModelYear  string\n\trawPno12      string\n\trawSpecMarket string\n\trawCarType    string\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/c15206076965c707",
+    "path": "internal/domain/localeditioncode.go",
+    "lines": [3, 3],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/domain::LocalEditionCode",
+    "kind": "Ident",
+    "declaration": "string",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/969761ca0331e6ee",
+    "path": "internal/domain/marketauth.go",
+    "lines": [10, 10],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/domain::ManyMarketAuthIdentifiers",
+    "kind": "ArrayType",
+    "declaration": "[]MarketAuthIdentifier",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/2d6a4b4c56c93c74",
+    "path": "internal/domain/marketauth.go",
+    "lines": [31, 34],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/domain::MarketAuthIdentifierVariant",
+    "kind": "InterfaceType",
+    "declaration": "interface {\n\tSpecMarket() SpecMarket\n\tModelYear() ModelYear\n}",
+    "completeness": "partial",
+    "gaps": ["cce-car-spec-adapter-667a00a-complete-r1/gap/type/2d6a4b4c56c93c74"]
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/77b5c94118efcfb4",
+    "path": "internal/domain/marketauth.go",
+    "lines": [78, 82],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/domain::MarketAuthIdentifier",
+    "kind": "StructType",
+    "declaration": "struct {\n\tspecMarket SpecMarket\n\tmodelYear  ModelYear\n\tcarType    CarType\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/2d05bf1470ebd2da",
+    "path": "internal/domain/marketauth.go",
+    "lines": [125, 134],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/domain::MarketAuthDocument",
+    "kind": "StructType",
+    "declaration": "struct {\n\tIca IcaRecord\n\tIcm IcmRecord\n\tIcn IcnRecord\n\tIcv []IcvRecord\n\tIcs []IcsRecord\n\tIcr []IcrRecord\n\tIcp []IcpRecord\n\tIcc []IccRecord\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/c5c4d6c4835b220e",
+    "path": "internal/domain/marketauth.go",
+    "lines": [144, 150],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/domain::IcaRecord",
+    "kind": "StructType",
+    "declaration": "struct {\n\tSpecMarket string\n\tRelease    string\n\tDate       string\n\tTime       string\n\tParameters string\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/e7862ca599f30920",
+    "path": "internal/domain/marketauth.go",
+    "lines": [160, 167],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/domain::IcmRecord",
+    "kind": "StructType",
+    "declaration": "struct {\n\tSpecMarket   string\n\tBrand        string\n\tLanguageCode string\n\tModelYear    string\n\tCarType      string\n\tLongName     string\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/5990eabc5fe7a868",
+    "path": "internal/domain/marketauth.go",
+    "lines": [173, 178],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/domain::IcnRecord",
+    "kind": "StructType",
+    "declaration": "struct {\n\tSpecMarket   string\n\tBrand        string\n\tLanguageCode string\n\tDescription  string\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/fc3e6d4a42f539e3",
+    "path": "internal/domain/marketauth.go",
+    "lines": [180, 189],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/domain::IcvRecord",
+    "kind": "StructType",
+    "declaration": "struct {\n\tSpecMarket    string\n\tModelYear     string\n\tPno12         Pno12\n\tLanguageCode  string\n\tDescription   string\n\tPeriod        Period\n\tBodyStyle     string\n\tSalesDateFrom string\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/2c03c336a296fda9",
+    "path": "internal/domain/marketauth.go",
+    "lines": [195, 206],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/domain::IcsRecord",
+    "kind": "StructType",
+    "declaration": "struct {\n\tSpecMarket         string\n\tModelYear          string\n\tPno12              Pno12\n\tDataElement1       string\n\tCode1              string\n\tCode2              string\n\tStandard           string\n\tPeriod             Period\n\tOptionAssemblyCode string\n\tSalesDateFrom      string\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/4571f4404da8cafa",
+    "path": "internal/domain/marketauth.go",
+    "lines": [212, 224],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/domain::IcrRecord",
+    "kind": "StructType",
+    "declaration": "struct {\n\tSpecMarket      string\n\tModelYear       string\n\tPno12           Pno12\n\tDataElement1    string\n\tCode1           string\n\tRestrictionCode string\n\tDataElement2    string\n\tCode2           string\n\tDataElement3    string\n\tCode3           string\n\tPeriod          *Period\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/d8201ecd3f315e34",
+    "path": "internal/domain/marketauth.go",
+    "lines": [230, 239],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/domain::IcpRecord",
+    "kind": "StructType",
+    "declaration": "struct {\n\tSpecMarket   string\n\tModelYear    string\n\tPno12        Pno12\n\tCode1        string\n\tDataElement2 string\n\tCode2        string\n\tPriceCode    string\n\tCode3        string\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/c2bdf65e25952d1a",
+    "path": "internal/domain/marketauth.go",
+    "lines": [245, 255],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/domain::IccRecord",
+    "kind": "StructType",
+    "declaration": "struct {\n\tSpecMarket       string\n\tLanguageCode     string\n\tModelYear        string\n\tCarType          string\n\tDataElement1     string\n\tCode1            string\n\tLongName         string\n\tPackageSeqNumber string\n\tCo2Effect        string\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/873b1c5402d48418",
+    "path": "internal/domain/marketauth.go",
+    "lines": [257, 259],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/domain::Pno12Record",
+    "kind": "InterfaceType",
+    "declaration": "interface {\n\tGetPno12() Pno12\n}",
+    "completeness": "partial",
+    "gaps": ["cce-car-spec-adapter-667a00a-complete-r1/gap/type/873b1c5402d48418"]
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/5e76e96299e7da00",
+    "path": "internal/domain/modelyear.go",
+    "lines": [8, 8],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/domain::ModelYear",
+    "kind": "Ident",
+    "declaration": "int",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/6c92aab5877fd98e",
+    "path": "internal/domain/pcgmarketauth.go",
+    "lines": [7, 11],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/domain::PcgMarketAuthIdentifier",
+    "kind": "StructType",
+    "declaration": "struct {\n\tspecMarket SpecMarket\n\tmodelYear  ModelYear\n\tpno12      Pno12\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/739b754d26436b45",
+    "path": "internal/domain/pcgmarketauth.go",
+    "lines": [60, 71],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/domain::PCGMarketAuthDocument",
+    "kind": "StructType",
+    "declaration": "struct {\n\tPno12              string\n\tSpecMarket         string\n\tModelYear          string\n\tEffectivity        []PCGEffectivity\n\tColUphCombinations []PCGColUphCombination\n\tOptions            []PCGOption\n\tLocalOptions       []PCGLocalOption\n\tPackages           []PCGPackage\n\tSMessages          []PCGSMessage\n\tDependencies       PCGDependencies\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/74f92907d6715641",
+    "path": "internal/domain/pcgmodel.go",
+    "lines": [3, 6],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/domain::PCGEffectivity",
+    "kind": "StructType",
+    "declaration": "struct {\n\tFrom string\n\tTo   string\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/d9491bace782bb0f",
+    "path": "internal/domain/pcgmodel.go",
+    "lines": [8, 11],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/domain::PCGCodeWithBaseMarking",
+    "kind": "StructType",
+    "declaration": "struct {\n\tCode        string\n\tBaseMarking bool\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/3f93072068928048",
+    "path": "internal/domain/pcgmodel.go",
+    "lines": [13, 17],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/domain::PCGColUphCombination",
+    "kind": "StructType",
+    "declaration": "struct {\n\tColor       PCGCodeWithBaseMarking\n\tUpholstery  PCGCodeWithBaseMarking\n\tEffectivity []PCGEffectivity\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/d14d2f7c58eb6d18",
+    "path": "internal/domain/pcgmodel.go",
+    "lines": [19, 26],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/domain::PCGOption",
+    "kind": "StructType",
+    "declaration": "struct {\n\tCode           string\n\tHundredPercent bool\n\tPackageOnly    bool\n\tAccessory      bool\n\tCO2Effect      bool\n\tEffectivity    []PCGEffectivity\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/42618ac5b6792618",
+    "path": "internal/domain/pcgmodel.go",
+    "lines": [28, 32],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/domain::PCGLocalOption",
+    "kind": "StructType",
+    "declaration": "struct {\n\tCode           string\n\tHundredPercent bool\n\tEffectivity    []PCGEffectivity\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/0cecec09abd3214a",
+    "path": "internal/domain/pcgmodel.go",
+    "lines": [34, 38],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/domain::PCGPackage",
+    "kind": "StructType",
+    "declaration": "struct {\n\tCode           string\n\tHundredPercent bool\n\tEffectivity    []PCGEffectivity\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/68b71b40c4add980",
+    "path": "internal/domain/pcgmodel.go",
+    "lines": [40, 43],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/domain::PCGSMessage",
+    "kind": "StructType",
+    "declaration": "struct {\n\tCode        string\n\tEffectivity []PCGEffectivity\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/a6fd3a73f1839ce2",
+    "path": "internal/domain/pcgmodel.go",
+    "lines": [45, 53],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/domain::PCGDependencies",
+    "kind": "StructType",
+    "declaration": "struct {\n\tColorOption      PCGDependencyGroup\n\tUpholsteryOption PCGDependencyGroup\n\tOption           PCGDependencyGroup\n\tOptionColor      PCGDependencyGroup\n\tOptionUpholstery PCGDependencyGroup\n\tPackages         []PCGPackageContent\n\tExchangeables    PCGExchangeables\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/bcb2a2b47c306665",
+    "path": "internal/domain/pcgmodel.go",
+    "lines": [55, 58],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/domain::PCGDependencyGroup",
+    "kind": "StructType",
+    "declaration": "struct {\n\tMust   []PCGMustRule\n\tForbid []PCGForbidRule\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/7a064359a014da60",
+    "path": "internal/domain/pcgmodel.go",
+    "lines": [60, 63],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/domain::PCGCodeRef",
+    "kind": "StructType",
+    "declaration": "struct {\n\tCode         string\n\tExchangeable []PCGCodeRef\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/25b79d557aa75c1c",
+    "path": "internal/domain/pcgmodel.go",
+    "lines": [65, 69],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/domain::PCGMustRule",
+    "kind": "StructType",
+    "declaration": "struct {\n\tReq         string\n\tDem         [][]PCGCodeRef\n\tEffectivity []PCGEffectivity\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/a0bad461306d5c39",
+    "path": "internal/domain/pcgmodel.go",
+    "lines": [71, 75],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/domain::PCGForbidRule",
+    "kind": "StructType",
+    "declaration": "struct {\n\tReq         string\n\tDem         []PCGCodeRef\n\tEffectivity []PCGEffectivity\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/41449155fb8742e4",
+    "path": "internal/domain/pcgmodel.go",
+    "lines": [77, 80],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/domain::PCGPackageContentStyling",
+    "kind": "StructType",
+    "declaration": "struct {\n\tCode         string\n\tExchangeable []PCGCodeRef\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/3a7f9ad5dbc6f031",
+    "path": "internal/domain/pcgmodel.go",
+    "lines": [82, 88],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/domain::PCGPackageContent",
+    "kind": "StructType",
+    "declaration": "struct {\n\tPackage     string\n\tOptions     []PCGCodeRef\n\tColor       PCGPackageContentStyling\n\tUpholstery  PCGPackageContentStyling\n\tEffectivity []PCGEffectivity\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/63dbe4a97eda2be1",
+    "path": "internal/domain/pcgmodel.go",
+    "lines": [90, 93],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/domain::PCGExchangeables",
+    "kind": "StructType",
+    "declaration": "struct {\n\tColor      []PCGExchangeableEntry\n\tUpholstery []PCGExchangeableEntry\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/7dab4bb649e181b1",
+    "path": "internal/domain/pcgmodel.go",
+    "lines": [95, 99],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/domain::PCGExchangeableEntry",
+    "kind": "StructType",
+    "declaration": "struct {\n\tCode         string\n\tEffectivity  []PCGEffectivity\n\tExchangeable []PCGCodeRef\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/da164468d704b1ea",
+    "path": "internal/domain/period.go",
+    "lines": [13, 16],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/domain::StructureWeek",
+    "kind": "StructType",
+    "declaration": "struct {\n\tYear int\n\tWeek int\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/d92e1fca9cfe5ea7",
+    "path": "internal/domain/period.go",
+    "lines": [23, 26],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/domain::Period",
+    "kind": "StructType",
+    "declaration": "struct {\n\t\tFrom StructureWeek\n\t\tTo   StructureWeek\n\t}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/9c54b0375e89af7b",
+    "path": "internal/domain/period.go",
+    "lines": [27, 27],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/domain::Periods",
+    "kind": "ArrayType",
+    "declaration": "[]Period",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/8273e19d4341ce1e",
+    "path": "internal/domain/periodadjuster.go",
+    "lines": [10, 16],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/domain::PeriodAdjuster",
+    "kind": "StructType",
+    "declaration": "struct {\n\tpno12s []Pno12\n\n\tgroupedIcvRecords map[string][]*IcvRecord\n\tgroupedIcrRecords map[string][]*IcrRecord\n\tgroupedIcsRecords map[string][]*IcsRecord\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/db6004ccb77f625e",
+    "path": "internal/domain/pno12.go",
+    "lines": [9, 17],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/domain::Pno12",
+    "kind": "StructType",
+    "declaration": "struct {\n\tcarType       string\n\tengine        string\n\tsalesVersion  string\n\tbody          string\n\tgearbox       string\n\tsteering      string\n\tmarketingCode string\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/62720ce79aaa1530",
+    "path": "internal/domain/sourceidentifier.go",
+    "lines": [11, 14],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/domain::SourceIdentifier",
+    "kind": "StructType",
+    "declaration": "struct {\n\ttimestamp                string\n\tstandardWheelFeatureCode string\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/71dd1797706c9f0b",
+    "path": "internal/domain/specmarket.go",
+    "lines": [13, 13],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/domain::SpecMarket",
+    "kind": "Ident",
+    "declaration": "string",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/c26b6ba7588ef5f4",
+    "path": "internal/domain/validate/packageavailability.go",
+    "lines": [5, 5],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/domain/validate::OptionAvailableForPackages",
+    "kind": "MapType",
+    "declaration": "map[string][]string",
+    "completeness": "partial",
+    "gaps": ["cce-car-spec-adapter-667a00a-complete-r1/gap/type/c26b6ba7588ef5f4"]
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/d7f5f38c52eface5",
+    "path": "internal/domain/versionedcarspec.go",
+    "lines": [8, 12],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/domain::VersionedCarSpec",
+    "kind": "StructType",
+    "declaration": "struct {\n\tCarSpecification\n\n\tidentifier SourceIdentifier\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/f7ff1d05fb4f5535",
+    "path": "internal/featureflag/launchdarkly.go",
+    "lines": [17, 20],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/featureflag::FeatureFlaggerConfig",
+    "kind": "StructType",
+    "declaration": "struct {\n\tSDKKey string\n\tnoop   bool\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/fa4238d532746325",
+    "path": "internal/featureflag/launchdarkly.go",
+    "lines": [29, 33],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/featureflag::LaunchDarklyClient",
+    "kind": "StructType",
+    "declaration": "struct {\n\tclient     *ld.LDClient\n\tnoop       bool\n\tcontextKey string\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/067ae9a5373408e9",
+    "path": "internal/featureflag/launchdarkly.go",
+    "lines": [82, 85],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/featureflag::AutoSyncFeatureFlagger",
+    "kind": "StructType",
+    "declaration": "struct {\n\tldClient *LaunchDarklyClient\n\tlogger   *loggingsdk.Logger\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/3c02a87863cff33d",
+    "path": "internal/gateway/assortment/client.go",
+    "lines": [25, 32],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/gateway/assortment::Config",
+    "kind": "StructType",
+    "declaration": "struct {\n\tbaseURL      string\n\tapiKey       string\n\ttokenURL     string\n\tclientID     string\n\tclientSecret string\n\tresourceID   string\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/ef52ef4e020d640f",
+    "path": "internal/gateway/assortment/client.go",
+    "lines": [52, 56],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/gateway/assortment::Client",
+    "kind": "StructType",
+    "declaration": "struct {\n\tbaseUrl string\n\tapiKey  string\n\tclient  *http.Client\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/58cda796e820e165",
+    "path": "internal/gateway/assortment/marketauthfetcher.go",
+    "lines": [11, 16],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/gateway/assortment::Parser",
+    "kind": "InterfaceType",
+    "declaration": "interface {\n\tParseMarketAuth(\n\t\tctx context.Context,\n\t\trawSpecifications []byte,\n\t) (parse.MarketAuthDocument, error)\n}",
+    "completeness": "partial",
+    "gaps": ["cce-car-spec-adapter-667a00a-complete-r1/gap/type/58cda796e820e165"]
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/cce5bc59b2fd8a23",
+    "path": "internal/gateway/assortment/marketauthfetcher.go",
+    "lines": [18, 22],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/gateway/assortment::MarketAuthFetcher",
+    "kind": "StructType",
+    "declaration": "struct {\n\tclient *Client\n\tparser Parser\n\tlogger *loggingsdk.Logger\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/e21e69d567ab4186",
+    "path": "internal/gateway/assortment/model.go",
+    "lines": [3, 5],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/gateway/assortment::Pno12Components",
+    "kind": "StructType",
+    "declaration": "struct {\n\tCarType string `json:\"carType\"`\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/7f1b1857b3f221a2",
+    "path": "internal/gateway/assortment/model.go",
+    "lines": [7, 12],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/gateway/assortment::CarConfiguration",
+    "kind": "StructType",
+    "declaration": "struct {\n\tPno12           string           `json:\"pno12\"`\n\tPno12Components *Pno12Components `json:\"pno12Components\"`\n\tSpecMarket      string           `json:\"specMarket\"`\n\tModelYear       int              `json:\"modelYear\"`\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/e5b733d7ff0df0e3",
+    "path": "internal/gateway/assortment/model.go",
+    "lines": [14, 16],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/gateway/assortment::CarConfigurationsResponse",
+    "kind": "StructType",
+    "declaration": "struct {\n\tConfigurations []CarConfiguration `json:\"items\"`\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/a6112c72bdf750fc",
+    "path": "internal/gateway/assortment/parse/grouprows.go",
+    "lines": [10, 10],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/gateway/assortment/parse::rowsByType",
+    "kind": "MapType",
+    "declaration": "map[string][]string",
+    "completeness": "partial",
+    "gaps": ["cce-car-spec-adapter-667a00a-complete-r1/gap/type/a6112c72bdf750fc"]
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/d2d217504c2bc94e",
+    "path": "internal/gateway/assortment/parse/models.go",
+    "lines": [3, 12],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/gateway/assortment/parse::MarketAuthDocument",
+    "kind": "StructType",
+    "declaration": "struct {\n\tIca IcaRecord\n\tIcm IcmRecord\n\tIcn IcnRecord\n\tIcc []IccRecord\n\tIcp []IcpRecord\n\tIcr []IcrRecord\n\tIcs []IcsRecord\n\tIcv []IcvRecord\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/c6ecf0b8547d4e7c",
+    "path": "internal/gateway/assortment/parse/models.go",
+    "lines": [14, 23],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/gateway/assortment/parse::Pno12",
+    "kind": "StructType",
+    "declaration": "struct {\n\tModelYear     string `json:\"model_year\"`\n\tCarType       string `json:\"type\"`\n\tEngine        string `json:\"engine\"`\n\tSalesVersion  string `json:\"sales_version\"`\n\tBody          string `json:\"body\"`\n\tGearbox       string `json:\"gearbox\"`\n\tSteering      string `json:\"steering\"`\n\tMarketingCode string `json:\"marketing_code\"`\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/efa002dd281d3ceb",
+    "path": "internal/gateway/assortment/parse/models.go",
+    "lines": [25, 30],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/gateway/assortment/parse::StructureWeek",
+    "kind": "StructType",
+    "declaration": "struct {\n\tStructureWeekFromYear int `json:\"from_year,string\"`\n\tStructureWeekFrom     int `json:\"from_week,string\"`\n\tStructureWeekToYear   int `json:\"to_year,string\"`\n\tStructureWeekTo       int `json:\"to_week,string\"`\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/b72984bc8dfa1ddf",
+    "path": "internal/gateway/assortment/parse/models.go",
+    "lines": [39, 45],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/gateway/assortment/parse::IcaRecord",
+    "kind": "StructType",
+    "declaration": "struct {\n\tSpecMarket string `json:\"market\"`\n\tRelease    string `json:\"release\"`\n\tDate       string `json:\"date\"`\n\tTime       string `json:\"time\"`\n\tParameters string `json:\"parameters\"`\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/666cd58f7964b75b",
+    "path": "internal/gateway/assortment/parse/models.go",
+    "lines": [47, 54],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/gateway/assortment/parse::IcmRecord",
+    "kind": "StructType",
+    "declaration": "struct {\n\tSpecMarket   string `json:\"market\"`\n\tBrand        string `json:\"brand\"`\n\tLanguageCode string `json:\"language_code\"`\n\tModelYear    string `json:\"model_year\"`\n\tCarType      string `json:\"type\"`\n\tLongName     string `json:\"long_name\"`\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/96cccaa86b6e6d6c",
+    "path": "internal/gateway/assortment/parse/models.go",
+    "lines": [56, 61],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/gateway/assortment/parse::IcnRecord",
+    "kind": "StructType",
+    "declaration": "struct {\n\tSpecMarket   string `json:\"market\"`\n\tBrand        string `json:\"brand\"`\n\tLanguageCode string `json:\"language_code\"`\n\tDescription  string `json:\"description\"`\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/2935442315c2cac2",
+    "path": "internal/gateway/assortment/parse/models.go",
+    "lines": [63, 72],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/gateway/assortment/parse::IcpRecord",
+    "kind": "StructType",
+    "declaration": "struct {\n\tSpecMarket string `json:\"market\"`\n\tModelYear  string `json:\"model_year\"`\n\tPno12\n\tCode1        string `json:\"code_1\"`\n\tDataElement2 string `json:\"data_2\"`\n\tCode2        string `json:\"code_2\"`\n\tPriceCode    string `json:\"price_code\"`\n\tCode3        string `json:\"code_3\"`\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/86a8ad4e5c6308fa",
+    "path": "internal/gateway/assortment/parse/models.go",
+    "lines": [74, 83],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/gateway/assortment/parse::IcvRecord",
+    "kind": "StructType",
+    "declaration": "struct {\n\tSpecMarket string `json:\"market\"`\n\tModelYear  string `json:\"model_year\"`\n\tPno12\n\tLanguageCode string `json:\"language_code\"`\n\tDescription  string `json:\"description\"`\n\tStructureWeek\n\tBodyStyle     string `json:\"body_style\"`\n\tSalesDateFrom string `json:\"sales_date_from\"`\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/f03da59d2d3fb906",
+    "path": "internal/gateway/assortment/parse/models.go",
+    "lines": [85, 96],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/gateway/assortment/parse::IcsRecord",
+    "kind": "StructType",
+    "declaration": "struct {\n\tSpecMarket string `json:\"market\"`\n\tModelYear  string `json:\"model_year\"`\n\tPno12\n\tDataElement1 string `json:\"data_1\"`\n\tCode1        string `json:\"code_1\"`\n\tCode2        string `json:\"code_2\"`\n\tStandard     string `json:\"standard\"`\n\tStructureWeek\n\tOptionAssemblyCode string `json:\"option_asm_code\"`\n\tSalesDateFrom      string `json:\"sales_date_from\"`\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/40858147d5b985e4",
+    "path": "internal/gateway/assortment/parse/models.go",
+    "lines": [98, 110],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/gateway/assortment/parse::IcrRecord",
+    "kind": "StructType",
+    "declaration": "struct {\n\tSpecMarket string `json:\"market\"`\n\tModelYear  string `json:\"model_year\"`\n\tPno12\n\tDataElement1    string `json:\"data_1\"`\n\tCode1           string `json:\"code_1\"`\n\tRestrictionCode string `json:\"restriction_code\"`\n\tDataElement2    string `json:\"data_2\"`\n\tCode2           string `json:\"code_2\"`\n\tDataElement3    string `json:\"data_3\"`\n\tCode3           string `json:\"code_3\"`\n\tStructureWeek\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/18ecce3386b86c65",
+    "path": "internal/gateway/assortment/parse/models.go",
+    "lines": [112, 122],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/gateway/assortment/parse::IccRecord",
+    "kind": "StructType",
+    "declaration": "struct {\n\tSpecMarket       string `json:\"market\"`\n\tLanguageCode     string `json:\"language_code\"`\n\tModelYear        string `json:\"model_year\"`\n\tCarType          string `json:\"type\"`\n\tDataElement1     string `json:\"data_1\"`\n\tCode1            string `json:\"code_1\"`\n\tLongName         string `json:\"long_name\"`\n\tPackageSeqNumber string `json:\"package_sqno\"`\n\tCo2Effect        string `json:\"co2_effect\"`\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/59d3d199f0b6696b",
+    "path": "internal/gateway/assortment/parse/parser.go",
+    "lines": [14, 16],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/gateway/assortment/parse::parser",
+    "kind": "StructType",
+    "declaration": "struct {\n\tlogger *loggingsdk.Logger\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/dd69ba2b041b4207",
+    "path": "internal/gateway/assortment/pcgmodel.go",
+    "lines": [9, 20],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/gateway/assortment::PCGMarketAuthDocument",
+    "kind": "StructType",
+    "declaration": "struct {\n\tPno12              string                 `json:\"pno12\"`\n\tSpecMarket         string                 `json:\"specMarket\"`\n\tModelYear          string                 `json:\"modelyear\"`\n\tEffectivity        []PCGEffectivity       `json:\"effectivity\"`\n\tColUphCombinations []PCGColUphCombination `json:\"colUphCombinations\"`\n\tOptions            []PCGOption            `json:\"options\"`\n\tLocalOptions       []PCGLocalOption       `json:\"localOptions\"`\n\tPackages           []PCGPackage           `json:\"packages\"`\n\tSMessages          []PCGSMessage          `json:\"smessages\"`\n\tDependencies       PCGDependencies        `json:\"dependencies\"`\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/0779a0ec867e8a70",
+    "path": "internal/gateway/assortment/pcgmodel.go",
+    "lines": [22, 25],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/gateway/assortment::PCGEffectivity",
+    "kind": "StructType",
+    "declaration": "struct {\n\tFrom string `json:\"from\"`\n\tTo   string `json:\"to\"`\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/3930a9af88619f2c",
+    "path": "internal/gateway/assortment/pcgmodel.go",
+    "lines": [27, 30],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/gateway/assortment::PCGCodeWithBaseMarking",
+    "kind": "StructType",
+    "declaration": "struct {\n\tCode        string `json:\"code\"`\n\tBaseMarking bool   `json:\"baseMarking\"`\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/7e4018f0dbc44ba8",
+    "path": "internal/gateway/assortment/pcgmodel.go",
+    "lines": [32, 36],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/gateway/assortment::PCGColUphCombination",
+    "kind": "StructType",
+    "declaration": "struct {\n\tColor       PCGCodeWithBaseMarking `json:\"color\"`\n\tUpholstery  PCGCodeWithBaseMarking `json:\"upholstery\"`\n\tEffectivity []PCGEffectivity       `json:\"effectivity\"`\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/08463a82c57706b2",
+    "path": "internal/gateway/assortment/pcgmodel.go",
+    "lines": [38, 45],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/gateway/assortment::PCGOption",
+    "kind": "StructType",
+    "declaration": "struct {\n\tCode           string           `json:\"code\"`\n\tHundredPercent bool             `json:\"100Percent\"`\n\tPackageOnly    bool             `json:\"packageOnly\"`\n\tAccessory      bool             `json:\"accessory\"`\n\tCO2Effect      bool             `json:\"co2Effect\"`\n\tEffectivity    []PCGEffectivity `json:\"effectivity\"`\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/16fd7238d7027953",
+    "path": "internal/gateway/assortment/pcgmodel.go",
+    "lines": [47, 51],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/gateway/assortment::PCGLocalOption",
+    "kind": "StructType",
+    "declaration": "struct {\n\tCode           string           `json:\"code\"`\n\tHundredPercent bool             `json:\"100Percent\"`\n\tEffectivity    []PCGEffectivity `json:\"effectivity\"`\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/1e078b3a7fad5b48",
+    "path": "internal/gateway/assortment/pcgmodel.go",
+    "lines": [53, 57],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/gateway/assortment::PCGPackage",
+    "kind": "StructType",
+    "declaration": "struct {\n\tCode           string           `json:\"code\"`\n\tHundredPercent bool             `json:\"100Percent\"`\n\tEffectivity    []PCGEffectivity `json:\"effectivity\"`\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/d113d4d1174a81cd",
+    "path": "internal/gateway/assortment/pcgmodel.go",
+    "lines": [59, 62],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/gateway/assortment::PCGSMessage",
+    "kind": "StructType",
+    "declaration": "struct {\n\tCode        string           `json:\"code\"`\n\tEffectivity []PCGEffectivity `json:\"effectivity\"`\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/3f727e0167e846ab",
+    "path": "internal/gateway/assortment/pcgmodel.go",
+    "lines": [64, 72],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/gateway/assortment::PCGDependencies",
+    "kind": "StructType",
+    "declaration": "struct {\n\tColorOption      PCGDependencyGroup  `json:\"colorOption\"`\n\tUpholsteryOption PCGDependencyGroup  `json:\"upholsteryOption\"`\n\tOption           PCGDependencyGroup  `json:\"option\"`\n\tOptionColor      PCGDependencyGroup  `json:\"optionColor\"`\n\tOptionUpholstery PCGDependencyGroup  `json:\"optionUpholstery\"`\n\tPackages         []PCGPackageContent `json:\"packages\"`\n\tExchangeables    PCGExchangeables    `json:\"exchangeables\"`\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/85164950cff3b775",
+    "path": "internal/gateway/assortment/pcgmodel.go",
+    "lines": [74, 77],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/gateway/assortment::PCGDependencyGroup",
+    "kind": "StructType",
+    "declaration": "struct {\n\tMust   []PCGMustRule   `json:\"must\"`\n\tForbid []PCGForbidRule `json:\"forbid\"`\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/9d59581bd724a6e5",
+    "path": "internal/gateway/assortment/pcgmodel.go",
+    "lines": [79, 82],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/gateway/assortment::PCGCodeRef",
+    "kind": "StructType",
+    "declaration": "struct {\n\tCode         string       `json:\"code\"`\n\tExchangeable []PCGCodeRef `json:\"exchangeable\"`\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/4b7c067c540d6ece",
+    "path": "internal/gateway/assortment/pcgmodel.go",
+    "lines": [84, 88],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/gateway/assortment::PCGMustRule",
+    "kind": "StructType",
+    "declaration": "struct {\n\tReq         string           `json:\"req\"`\n\tDem         [][]PCGCodeRef   `json:\"dem\"`\n\tEffectivity []PCGEffectivity `json:\"effectivity\"`\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/1b09347555a17b89",
+    "path": "internal/gateway/assortment/pcgmodel.go",
+    "lines": [90, 94],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/gateway/assortment::PCGForbidRule",
+    "kind": "StructType",
+    "declaration": "struct {\n\tReq         string           `json:\"req\"`\n\tDem         []PCGCodeRef     `json:\"dem\"`\n\tEffectivity []PCGEffectivity `json:\"effectivity\"`\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/e2e95f13d629c08c",
+    "path": "internal/gateway/assortment/pcgmodel.go",
+    "lines": [96, 99],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/gateway/assortment::PCGPackageContentStyling",
+    "kind": "StructType",
+    "declaration": "struct {\n\tCode         string       `json:\"code\"`\n\tExchangeable []PCGCodeRef `json:\"exchangeable\"`\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/af2bcfc4d3fe144a",
+    "path": "internal/gateway/assortment/pcgmodel.go",
+    "lines": [101, 107],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/gateway/assortment::PCGPackageContent",
+    "kind": "StructType",
+    "declaration": "struct {\n\tPackage     string                   `json:\"package\"`\n\tOptions     []PCGCodeRef             `json:\"options\"`\n\tColor       PCGPackageContentStyling `json:\"color\"`\n\tUpholstery  PCGPackageContentStyling `json:\"upholstery\"`\n\tEffectivity []PCGEffectivity         `json:\"effectivity\"`\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/b825bd8682d257c0",
+    "path": "internal/gateway/assortment/pcgmodel.go",
+    "lines": [109, 112],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/gateway/assortment::PCGExchangeables",
+    "kind": "StructType",
+    "declaration": "struct {\n\tColor      []PCGExchangeableEntry `json:\"color\"`\n\tUpholstery []PCGExchangeableEntry `json:\"upholstery\"`\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/7b619895db7f086c",
+    "path": "internal/gateway/assortment/pcgmodel.go",
+    "lines": [114, 118],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/gateway/assortment::PCGExchangeableEntry",
+    "kind": "StructType",
+    "declaration": "struct {\n\tCode         string           `json:\"code\"`\n\tEffectivity  []PCGEffectivity `json:\"effectivity\"`\n\tExchangeable []PCGCodeRef     `json:\"exchangeable\"`\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/2ff187380f226d15",
+    "path": "internal/gateway/carfeatures/client.go",
+    "lines": [20, 26],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/gateway/carfeatures::Config",
+    "kind": "StructType",
+    "declaration": "struct {\n\tbaseURL      string\n\ttokenURL     string\n\tclientID     string\n\tclientSecret string\n\tresourceID   string\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/4302c5770b9f129a",
+    "path": "internal/gateway/carfeatures/client.go",
+    "lines": [44, 47],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/gateway/carfeatures::Client",
+    "kind": "StructType",
+    "declaration": "struct {\n\tbaseUrl string\n\tclient  *http.Client\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/a3a7c953d0dc7ddc",
+    "path": "internal/gateway/carfeatures/featurecodefetcher.go",
+    "lines": [10, 18],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/gateway/carfeatures::FeatureCodeFetcher",
+    "kind": "StructType",
+    "declaration": "struct {\n\tfetchFullFeatures func(\n\t\tcontext.Context,\n\t\tdomain.SpecMarket,\n\t\tdomain.Pno12,\n\t\tdomain.StructureWeek,\n\t\tdomain.ModelYear,\n\t) ([]domain.FeatureCode, error)\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/6a8923c1c9ad7f90",
+    "path": "internal/gateway/carfeatures/model.go",
+    "lines": [3, 8],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/gateway/carfeatures::fullFeaturesRequestV1",
+    "kind": "StructType",
+    "declaration": "struct {\n\tPno12         string `json:\"pno12\"`\n\tSpecMarket    string `json:\"specMarket\"`\n\tStructureWeek string `json:\"structureWeek\"`\n\tModelYear     string `json:\"modelYear\"`\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/aa9368403729fcc1",
+    "path": "internal/gateway/carfeatures/model.go",
+    "lines": [10, 12],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/gateway/carfeatures::fullFeaturesResponseV1",
+    "kind": "StructType",
+    "declaration": "struct {\n\tFeatureList []featureItem `json:\"featureList\"`\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/4b01364b931968bf",
+    "path": "internal/gateway/carfeatures/model.go",
+    "lines": [14, 16],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/gateway/carfeatures::featureItem",
+    "kind": "StructType",
+    "declaration": "struct {\n\tCode string `json:\"code\"`\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/c212d366ecf12a5d",
+    "path": "internal/gateway/carfeatures/model.go",
+    "lines": [18, 23],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/gateway/carfeatures::fullFeaturesRequestV2",
+    "kind": "StructType",
+    "declaration": "struct {\n\tSpecMarket    string   `json:\"specMarket\"`\n\tPno12         string   `json:\"pno12\"`\n\tStructureWeek string   `json:\"structureWeek\"`\n\tOptions       []string `json:\"options\"`\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/000840a3ef553e75",
+    "path": "internal/gateway/carfeatures/model.go",
+    "lines": [25, 27],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/gateway/carfeatures::fullFeaturesResponseV2",
+    "kind": "StructType",
+    "declaration": "struct {\n\tFeatures []string `json:\"features\"`\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/847af2604cfb5088",
+    "path": "internal/gateway/client/client.go",
+    "lines": [9, 9],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/gateway/client::RoundTripperFunc",
+    "kind": "FuncType",
+    "declaration": "func(*http.Request) (*http.Response, error)",
+    "completeness": "partial",
+    "gaps": ["cce-car-spec-adapter-667a00a-complete-r1/gap/type/847af2604cfb5088"]
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/18ad3ef39bf8e4fb",
+    "path": "internal/gateway/client/client.go",
+    "lines": [17, 17],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/gateway/client::Tripperware",
+    "kind": "FuncType",
+    "declaration": "func(http.RoundTripper) http.RoundTripper",
+    "completeness": "partial",
+    "gaps": ["cce-car-spec-adapter-667a00a-complete-r1/gap/type/18ad3ef39bf8e4fb"]
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/04219348288e2554",
+    "path": "internal/gateway/client/client.go",
+    "lines": [20, 20],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/gateway/client::Option",
+    "kind": "FuncType",
+    "declaration": "func(*HTTPClient)",
+    "completeness": "partial",
+    "gaps": ["cce-car-spec-adapter-667a00a-complete-r1/gap/type/04219348288e2554"]
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/6d7a2b7e828299a2",
+    "path": "internal/gateway/client/client.go",
+    "lines": [24, 27],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/gateway/client::HTTPClient",
+    "kind": "StructType",
+    "declaration": "struct {\n\tinternalClient *http.Client\n\troundTrippers  []Tripperware\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/746b4cca20ee7f84",
+    "path": "internal/gateway/client/requestbuilder.go",
+    "lines": [11, 17],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/gateway/client::RequestBuilder",
+    "kind": "StructType",
+    "declaration": "struct {\n\tctx              context.Context\n\tendpoint, method string\n\theaders          http.Header\n\tbody             io.Reader\n\tqueryParams      map[string]string\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/79abf4cb13f41e21",
+    "path": "internal/gateway/client/roundtripper.go",
+    "lines": [5, 8],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/gateway/client::OperationIDRoundTripper",
+    "kind": "StructType",
+    "declaration": "struct {\n\trt             http.RoundTripper\n\toperationIDKey any\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/6b4239336bf4487a",
+    "path": "internal/gateway/client/tokensource.go",
+    "lines": [16, 21],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/gateway/client::TokenSourceConfig",
+    "kind": "StructType",
+    "declaration": "struct {\n\ttokenURL     string\n\tclientID     string\n\tclientSecret string\n\tresourceID   string\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/f06cf038345714aa",
+    "path": "internal/gateway/client/tokensource.go",
+    "lines": [42, 48],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/gateway/client::TokenSource",
+    "kind": "StructType",
+    "declaration": "struct {\n\thttpClient   *http.Client\n\ttokenURL     string\n\tclientID     string\n\tclientSecret string\n\tresourceID   string\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/b383c0bb0dbfd849",
+    "path": "internal/gateway/client/tokensource.go",
+    "lines": [50, 54],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/gateway/client::token",
+    "kind": "StructType",
+    "declaration": "struct {\n\toauth2.Token\n\n\tExpiresIn string `json:\"expires_in\"`\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/71ef8c190436c540",
+    "path": "internal/gateway/cpam/client.go",
+    "lines": [15, 21],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/gateway/cpam::Client",
+    "kind": "StructType",
+    "declaration": "struct {\n\tbaseURL       string\n\tRequestClient string\n\tclient        *client.HTTPClient\n\tapiHeader     string\n\tapiKey        string\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/477fb9cdeacc2303",
+    "path": "internal/gateway/cpam/featurecodefetcher.go",
+    "lines": [10, 12],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/gateway/cpam::FeatureCodeFetcher",
+    "kind": "StructType",
+    "declaration": "struct {\n\tclient *Client\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/54580ce39f6a2361",
+    "path": "internal/gateway/cpam/model.go",
+    "lines": [5, 9],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/gateway/cpam::requestPayload",
+    "kind": "StructType",
+    "declaration": "struct {\n\tXMLName xml.Name    `xml:\"SOAP-ENV:Envelope\"`\n\tXMLNS   string      `xml:\"xmlns:SOAP-ENV,attr\"`\n\tBody    requestBody `xml:\"SOAP-ENV:Body\"`\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/cfa0e39c8eb0899b",
+    "path": "internal/gateway/cpam/model.go",
+    "lines": [11, 13],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/gateway/cpam::requestBody",
+    "kind": "StructType",
+    "declaration": "struct {\n\tStdFeaturesCU stdFeaturesCU `xml:\"StdFeaturesCU\"`\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/526a8964549ddb10",
+    "path": "internal/gateway/cpam/model.go",
+    "lines": [15, 17],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/gateway/cpam::optionlist",
+    "kind": "StructType",
+    "declaration": "struct {\n\tOption []string `xml:\"Option\"`\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/45b20d50db2814f0",
+    "path": "internal/gateway/cpam/model.go",
+    "lines": [19, 25],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/gateway/cpam::stdFeaturesCU",
+    "kind": "StructType",
+    "declaration": "struct {\n\tClient     string     `xml:\"Client\"`\n\tMarket     string     `xml:\"Market\"`\n\tPno12      string     `xml:\"Pno12\"`\n\tOptionList optionlist `xml:\"Optionlist\"`\n\tWeek       string     `xml:\"Week\"`\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/f5bc29a3fcdcd488",
+    "path": "internal/gateway/cpam/model.go",
+    "lines": [27, 31],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/gateway/cpam::responsePayload",
+    "kind": "StructType",
+    "declaration": "struct {\n\tXMLName xml.Name     `xml:\"Envelope\"`\n\tXMLNS   string       `xml:\"xmlns:SOAP-ENV,attr\"`\n\tBody    responseBody `xml:\"Body\"`\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/2fcca9e3d6669f81",
+    "path": "internal/gateway/cpam/model.go",
+    "lines": [33, 35],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/gateway/cpam::responseBody",
+    "kind": "StructType",
+    "declaration": "struct {\n\tInner responseBodyInner `xml:\"StdFeaturesCU_res\"`\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/9a6a36015e89d669",
+    "path": "internal/gateway/cpam/model.go",
+    "lines": [37, 39],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/gateway/cpam::responseBodyInner",
+    "kind": "StructType",
+    "declaration": "struct {\n\tStdFeaturesCU stdFeaturesCURes `xml:\"StdFeaturesCU_res\"`\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/722928ca18e8fb67",
+    "path": "internal/gateway/cpam/model.go",
+    "lines": [41, 49],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/gateway/cpam::stdFeaturesCURes",
+    "kind": "StructType",
+    "declaration": "struct {\n\tError       string      `xml:\"Error\"`\n\tPno12       string      `xml:\"Pno12\"`\n\tOptionList  optionlist  `xml:\"OptionList\"`\n\tFeatureList featurelist `xml:\"FeatureList\"`\n\tCUlist      cuList      `xml:\"CUList\"`\n\tStartWeek   string      `xml:\"StartWeek\"`\n\tEndWeek     string      `xml:\"EndWeek\"`\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/651a3f0f5f7a4a18",
+    "path": "internal/gateway/cpam/model.go",
+    "lines": [51, 53],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/gateway/cpam::featurelist",
+    "kind": "StructType",
+    "declaration": "struct {\n\tFeature []string `xml:\"Feature\"`\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/3596ca2588ead994",
+    "path": "internal/gateway/cpam/model.go",
+    "lines": [55, 57],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/gateway/cpam::featurelistCU",
+    "kind": "StructType",
+    "declaration": "struct {\n\tFeature []string `xml:\"FeatureCU\"`\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/61161f729f681038",
+    "path": "internal/gateway/cpam/model.go",
+    "lines": [59, 61],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/gateway/cpam::cuList",
+    "kind": "StructType",
+    "declaration": "struct {\n\tCU []cu `xml:\"CU\"`\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/feac8e407e0cf48a",
+    "path": "internal/gateway/cpam/model.go",
+    "lines": [63, 68],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/gateway/cpam::cu",
+    "kind": "StructType",
+    "declaration": "struct {\n\tColor         string        `xml:\"Col\"`\n\tUpholstery    string        `xml:\"Uph\"`\n\tOptionlist    optionlist    `xml:\"OptionList\"`\n\tFeatureListCU featurelistCU `xml:\"FeatureListCU\"`\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/e48d8e788edc3c44",
+    "path": "internal/gateway/filterservice/client.go",
+    "lines": [16, 19],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/gateway/filterservice::FilterServiceClient",
+    "kind": "StructType",
+    "declaration": "struct {\n\tbaseUrl string\n\tclient  *http.Client\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/8d68383b61864ddd",
+    "path": "internal/gateway/filterservice/client.go",
+    "lines": [65, 65],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/gateway/filterservice::wheelCodesResponse",
+    "kind": "ArrayType",
+    "declaration": "[]string",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/975bfbb5c5164c70",
+    "path": "internal/messaging/consumer.go",
+    "lines": [40, 49],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/messaging::KafkaConsumerConfig",
+    "kind": "StructType",
+    "declaration": "struct {\n\tname               string\n\tserverAddress      string\n\tusername           string\n\tpassword           string\n\tsubscriberGroup    string\n\tmarketAuthTopic    string\n\tpcgMarketAuthTopic string\n\tskipKafkaReader    bool\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/f86ce3f28da5081c",
+    "path": "internal/messaging/consumer.go",
+    "lines": [165, 168],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/messaging::MarketAuthHandler",
+    "kind": "InterfaceType",
+    "declaration": "interface {\n\tHandleMarketAuthMessage(msg *message.Message) error\n\tHandlePcgMarketAuthMessage(msg *message.Message) error\n}",
+    "completeness": "partial",
+    "gaps": ["cce-car-spec-adapter-667a00a-complete-r1/gap/type/f86ce3f28da5081c"]
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/ac2121f7343772e6",
+    "path": "internal/messaging/contracts/car-key.pb.go",
+    "lines": [24, 36],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/messaging/contracts::CarKey",
+    "kind": "StructType",
+    "declaration": "struct {\n\tstate         protoimpl.MessageState `protogen:\"open.v1\"`\n\tDetails       *CarDetails            `protobuf:\"bytes,1,opt,name=details,proto3\" json:\"details,omitempty\"`\n\tSMessage      *string                `protobuf:\"bytes,2,opt,name=s_message,json=sMessage,proto3,oneof\" json:\"s_message,omitempty\"`\n\tColor         string                 `protobuf:\"bytes,3,opt,name=color,proto3\" json:\"color,omitempty\"`\n\tUpholstery    string                 `protobuf:\"bytes,4,opt,name=upholstery,proto3\" json:\"upholstery,omitempty\"`\n\tWheel         string                 `protobuf:\"bytes,5,opt,name=wheel,proto3\" json:\"wheel,omitempty\"`\n\tOptions       []string               `protobuf:\"bytes,6,rep,name=options,proto3\" json:\"options,omitempty\"`\n\tPackages      []string               `protobuf:\"bytes,7,rep,name=packages,proto3\" json:\"packages,omitempty\"`\n\tStructureWeek *StructureWeek         `protobuf:\"bytes,8,opt,name=structure_week,json=structureWeek,proto3\" json:\"structure_week,omitempty\"`\n\tunknownFields protoimpl.UnknownFields\n\tsizeCache     protoimpl.SizeCache\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/eda1db292efd7ced",
+    "path": "internal/messaging/contracts/car-key.pb.go",
+    "lines": [124, 140],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/messaging/contracts::CarDetails",
+    "kind": "StructType",
+    "declaration": "struct {\n\tstate         protoimpl.MessageState `protogen:\"open.v1\"`\n\tModelYear     int32                  `protobuf:\"varint,1,opt,name=model_year,json=modelYear,proto3\" json:\"model_year,omitempty\"`\n\tSpecMarket    string                 `protobuf:\"bytes,2,opt,name=spec_market,json=specMarket,proto3\" json:\"spec_market,omitempty\"`\n\tCarType       string                 `protobuf:\"bytes,3,opt,name=car_type,json=carType,proto3\" json:\"car_type,omitempty\"`\n\tEngine        string                 `protobuf:\"bytes,4,opt,name=engine,proto3\" json:\"engine,omitempty\"`\n\tSalesVersion  string                 `protobuf:\"bytes,5,opt,name=sales_version,json=salesVersion,proto3\" json:\"sales_version,omitempty\"`\n\tBody          string                 `protobuf:\"bytes,6,opt,name=body,proto3\" json:\"body,omitempty\"`\n\tGearbox       string                 `protobuf:\"bytes,7,opt,name=gearbox,proto3\" json:\"gearbox,omitempty\"`\n\tSteering      string                 `protobuf:\"bytes,8,opt,name=steering,proto3\" json:\"steering,omitempty\"`\n\tMarketingCode string                 `protobuf:\"bytes,9,opt,name=marketing_code,json=marketingCode,proto3\" json:\"marketing_code,omitempty\"`\n\t// Deprecated: Marked as deprecated in car-key.proto.\n\tLocalTrimEditionCode *string `protobuf:\"bytes,10,opt,name=local_trim_edition_code,json=localTrimEditionCode,proto3,oneof\" json:\"local_trim_edition_code,omitempty\"`\n\tLocalEditionCode     *string `protobuf:\"bytes,11,opt,name=local_edition_code,json=localEditionCode,proto3,oneof\" json:\"local_edition_code,omitempty\"`\n\tunknownFields        protoimpl.UnknownFields\n\tsizeCache            protoimpl.SizeCache\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/202b62d56de32ad1",
+    "path": "internal/messaging/contracts/car-key.pb.go",
+    "lines": [250, 256],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/messaging/contracts::CarKeyInPeriod",
+    "kind": "StructType",
+    "declaration": "struct {\n\tstate         protoimpl.MessageState `protogen:\"open.v1\"`\n\tCarKey        *CarKey                `protobuf:\"bytes,1,opt,name=car_key,json=carKey,proto3\" json:\"car_key,omitempty\"`\n\tPeriod        *StructureWeekPeriod   `protobuf:\"bytes,2,opt,name=period,proto3\" json:\"period,omitempty\"`\n\tunknownFields protoimpl.UnknownFields\n\tsizeCache     protoimpl.SizeCache\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/482303f006427322",
+    "path": "internal/messaging/contracts/car-key.pb.go",
+    "lines": [382, 382],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/messaging/contracts::x@internal/messaging/contracts/car-key.pb.go:12054",
+    "kind": "StructType",
+    "declaration": "struct{}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/10e0161cf692f82d",
+    "path": "internal/messaging/contracts/car-specification.pb.go",
+    "lines": [24, 36],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/messaging/contracts::CarSpecification",
+    "kind": "StructType",
+    "declaration": "struct {\n\tstate                         protoimpl.MessageState `protogen:\"open.v1\"`\n\tCarDetails                    *CarDetails            `protobuf:\"bytes,1,opt,name=car_details,json=carDetails,proto3\" json:\"car_details,omitempty\"`\n\tStructureWeekPeriod           *StructureWeekPeriod   `protobuf:\"bytes,2,opt,name=structure_week_period,json=structureWeekPeriod,proto3\" json:\"structure_week_period,omitempty\"`\n\tForbiddenStructureWeekPeriods []*StructureWeekPeriod `protobuf:\"bytes,8,rep,name=forbidden_structure_week_periods,json=forbiddenStructureWeekPeriods,proto3\" json:\"forbidden_structure_week_periods,omitempty\"`\n\tSMessages                     *SMessageSpecification `protobuf:\"bytes,3,opt,name=s_messages,json=sMessages,proto3\" json:\"s_messages,omitempty\"`\n\tStylings                      *StylingSpecification  `protobuf:\"bytes,4,opt,name=stylings,proto3\" json:\"stylings,omitempty\"`\n\tOptions                       *OptionSpecification   `protobuf:\"bytes,5,opt,name=options,proto3\" json:\"options,omitempty\"`\n\tPackages                      *PackageSpecification  `protobuf:\"bytes,6,opt,name=packages,proto3\" json:\"packages,omitempty\"`\n\tWheels                        *WheelSpecification    `protobuf:\"bytes,7,opt,name=wheels,proto3\" json:\"wheels,omitempty\"`\n\tunknownFields                 protoimpl.UnknownFields\n\tsizeCache                     protoimpl.SizeCache\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/4c5e485c3cb5d840",
+    "path": "internal/messaging/contracts/car-specification.pb.go",
+    "lines": [124, 129],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/messaging/contracts::SMessageSpecification",
+    "kind": "StructType",
+    "declaration": "struct {\n\tstate         protoimpl.MessageState `protogen:\"open.v1\"`\n\tSMessages     []*SMessage            `protobuf:\"bytes,1,rep,name=s_messages,json=sMessages,proto3\" json:\"s_messages,omitempty\"`\n\tunknownFields protoimpl.UnknownFields\n\tsizeCache     protoimpl.SizeCache\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/adc817abbc0ca31c",
+    "path": "internal/messaging/contracts/car-specification.pb.go",
+    "lines": [168, 174],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/messaging/contracts::SMessage",
+    "kind": "StructType",
+    "declaration": "struct {\n\tstate         protoimpl.MessageState `protogen:\"open.v1\"`\n\tCode          string                 `protobuf:\"bytes,1,opt,name=code,proto3\" json:\"code,omitempty\"`\n\tPeriod        *StructureWeekPeriod   `protobuf:\"bytes,2,opt,name=period,proto3\" json:\"period,omitempty\"`\n\tunknownFields protoimpl.UnknownFields\n\tsizeCache     protoimpl.SizeCache\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/6bd65a33882f579d",
+    "path": "internal/messaging/contracts/car-specification.pb.go",
+    "lines": [220, 230],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/messaging/contracts::StylingSpecification",
+    "kind": "StructType",
+    "declaration": "struct {\n\tstate        protoimpl.MessageState `protogen:\"open.v1\"`\n\tColors       []*Color               `protobuf:\"bytes,1,rep,name=colors,proto3\" json:\"colors,omitempty\"`\n\tUpholsteries []*Upholstery          `protobuf:\"bytes,2,rep,name=upholsteries,proto3\" json:\"upholsteries,omitempty\"`\n\t// Deprecated: Marked as deprecated in car-specification.proto.\n\tDefaultCombination  *StylingCombination `protobuf:\"bytes,3,opt,name=default_combination,json=defaultCombination,proto3\" json:\"default_combination,omitempty\"`\n\tDefaultColors       []*TimeBoundCode    `protobuf:\"bytes,4,rep,name=default_colors,json=defaultColors,proto3\" json:\"default_colors,omitempty\"`\n\tDefaultUpholsteries []*TimeBoundCode    `protobuf:\"bytes,5,rep,name=default_upholsteries,json=defaultUpholsteries,proto3\" json:\"default_upholsteries,omitempty\"`\n\tunknownFields       protoimpl.UnknownFields\n\tsizeCache           protoimpl.SizeCache\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/d3df9e5006dde0f2",
+    "path": "internal/messaging/contracts/car-specification.pb.go",
+    "lines": [298, 304],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/messaging/contracts::StylingCombination",
+    "kind": "StructType",
+    "declaration": "struct {\n\tstate          protoimpl.MessageState `protogen:\"open.v1\"`\n\tColorCode      string                 `protobuf:\"bytes,1,opt,name=color_code,json=colorCode,proto3\" json:\"color_code,omitempty\"`\n\tUpholsteryCode string                 `protobuf:\"bytes,2,opt,name=upholstery_code,json=upholsteryCode,proto3\" json:\"upholstery_code,omitempty\"`\n\tunknownFields  protoimpl.UnknownFields\n\tsizeCache      protoimpl.SizeCache\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/6b742803c7ab6e1f",
+    "path": "internal/messaging/contracts/car-specification.pb.go",
+    "lines": [350, 356],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/messaging/contracts::TimeBoundCode",
+    "kind": "StructType",
+    "declaration": "struct {\n\tstate         protoimpl.MessageState `protogen:\"open.v1\"`\n\tCode          string                 `protobuf:\"bytes,1,opt,name=code,proto3\" json:\"code,omitempty\"`\n\tPeriod        *StructureWeekPeriod   `protobuf:\"bytes,2,opt,name=period,proto3\" json:\"period,omitempty\"`\n\tunknownFields protoimpl.UnknownFields\n\tsizeCache     protoimpl.SizeCache\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/54eb9440d795d48d",
+    "path": "internal/messaging/contracts/car-specification.pb.go",
+    "lines": [402, 413],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/messaging/contracts::Color",
+    "kind": "StructType",
+    "declaration": "struct {\n\tstate               protoimpl.MessageState `protogen:\"open.v1\"`\n\tCode                string                 `protobuf:\"bytes,1,opt,name=code,proto3\" json:\"code,omitempty\"`\n\tRequiredOptions     []*TimeBoundAtLeastOne `protobuf:\"bytes,2,rep,name=required_options,json=requiredOptions,proto3\" json:\"required_options,omitempty\"`\n\tForbidsOptions      []*Forbids             `protobuf:\"bytes,3,rep,name=forbids_options,json=forbidsOptions,proto3\" json:\"forbids_options,omitempty\"`\n\tForbidsUpholsteries []*Forbids             `protobuf:\"bytes,4,rep,name=forbids_upholsteries,json=forbidsUpholsteries,proto3\" json:\"forbids_upholsteries,omitempty\"`\n\tRequiredWheels      []*TimeBoundExactlyOne `protobuf:\"bytes,6,rep,name=required_wheels,json=requiredWheels,proto3\" json:\"required_wheels,omitempty\"`\n\tForbidsWheels       []*Forbids             `protobuf:\"bytes,7,rep,name=forbids_wheels,json=forbidsWheels,proto3\" json:\"forbids_wheels,omitempty\"`\n\tPeriod              *StructureWeekPeriod   `protobuf:\"bytes,5,opt,name=period,proto3\" json:\"period,omitempty\"`\n\tunknownFields       protoimpl.UnknownFields\n\tsizeCache           protoimpl.SizeCache\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/814abfff2ca39944",
+    "path": "internal/messaging/contracts/car-specification.pb.go",
+    "lines": [494, 504],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/messaging/contracts::Upholstery",
+    "kind": "StructType",
+    "declaration": "struct {\n\tstate           protoimpl.MessageState `protogen:\"open.v1\"`\n\tCode            string                 `protobuf:\"bytes,1,opt,name=code,proto3\" json:\"code,omitempty\"`\n\tRequiredOptions []*TimeBoundAtLeastOne `protobuf:\"bytes,2,rep,name=required_options,json=requiredOptions,proto3\" json:\"required_options,omitempty\"`\n\tForbidsOptions  []*Forbids             `protobuf:\"bytes,3,rep,name=forbids_options,json=forbidsOptions,proto3\" json:\"forbids_options,omitempty\"`\n\tForbidsColors   []*Forbids             `protobuf:\"bytes,4,rep,name=forbids_colors,json=forbidsColors,proto3\" json:\"forbids_colors,omitempty\"`\n\tForbidsWheels   []*Forbids             `protobuf:\"bytes,6,rep,name=forbids_wheels,json=forbidsWheels,proto3\" json:\"forbids_wheels,omitempty\"`\n\tPeriod          *StructureWeekPeriod   `protobuf:\"bytes,5,opt,name=period,proto3\" json:\"period,omitempty\"`\n\tunknownFields   protoimpl.UnknownFields\n\tsizeCache       protoimpl.SizeCache\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/a3c5a9cfaed378f7",
+    "path": "internal/messaging/contracts/car-specification.pb.go",
+    "lines": [578, 587],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/messaging/contracts::OptionSpecification",
+    "kind": "StructType",
+    "declaration": "struct {\n\tstate                  protoimpl.MessageState `protogen:\"open.v1\"`\n\tOptions                []*Option              `protobuf:\"bytes,1,rep,name=options,proto3\" json:\"options,omitempty\"`\n\tPackageOnlyOptionCodes []string               `protobuf:\"bytes,2,rep,name=package_only_option_codes,json=packageOnlyOptionCodes,proto3\" json:\"package_only_option_codes,omitempty\"`\n\tIncludedOptions        []*TimeBoundExactlyOne `protobuf:\"bytes,3,rep,name=included_options,json=includedOptions,proto3\" json:\"included_options,omitempty\"`\n\t// [Motivation](https://www.notion.so/volvocars/CaaS-Decision-Records-311c3ef07ab7806c9886fbece7359cac?source=copy_link#311c3ef07ab780dd8d48e60c166ad701)\n\tCombinedRequirements []*CombinedOptionRequirement `protobuf:\"bytes,4,rep,name=combined_requirements,json=combinedRequirements,proto3\" json:\"combined_requirements,omitempty\"`\n\tunknownFields        protoimpl.UnknownFields\n\tsizeCache            protoimpl.SizeCache\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/e73e87bc82265c37",
+    "path": "internal/messaging/contracts/car-specification.pb.go",
+    "lines": [647, 661],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/messaging/contracts::Option",
+    "kind": "StructType",
+    "declaration": "struct {\n\tstate                protoimpl.MessageState `protogen:\"open.v1\"`\n\tCode                 string                 `protobuf:\"bytes,1,opt,name=code,proto3\" json:\"code,omitempty\"`\n\tRequiredColors       []*TimeBoundExactlyOne `protobuf:\"bytes,2,rep,name=required_colors,json=requiredColors,proto3\" json:\"required_colors,omitempty\"`\n\tRequiredUpholsteries []*TimeBoundExactlyOne `protobuf:\"bytes,3,rep,name=required_upholsteries,json=requiredUpholsteries,proto3\" json:\"required_upholsteries,omitempty\"`\n\tRequiredOptions      []*TimeBoundAtLeastOne `protobuf:\"bytes,4,rep,name=required_options,json=requiredOptions,proto3\" json:\"required_options,omitempty\"`\n\tRequiredWheels       []*TimeBoundExactlyOne `protobuf:\"bytes,8,rep,name=required_wheels,json=requiredWheels,proto3\" json:\"required_wheels,omitempty\"`\n\tForbidsOptions       []*Forbids             `protobuf:\"bytes,5,rep,name=forbids_options,json=forbidsOptions,proto3\" json:\"forbids_options,omitempty\"`\n\tForbidsColors        []*Forbids             `protobuf:\"bytes,6,rep,name=forbids_colors,json=forbidsColors,proto3\" json:\"forbids_colors,omitempty\"`\n\tForbidsWheels        []*Forbids             `protobuf:\"bytes,9,rep,name=forbids_wheels,json=forbidsWheels,proto3\" json:\"forbids_wheels,omitempty\"`\n\tForbidsUpholsteries  []*Forbids             `protobuf:\"bytes,10,rep,name=forbids_upholsteries,json=forbidsUpholsteries,proto3\" json:\"forbids_upholsteries,omitempty\"`\n\tPeriod               *StructureWeekPeriod   `protobuf:\"bytes,7,opt,name=period,proto3\" json:\"period,omitempty\"`\n\tunknownFields        protoimpl.UnknownFields\n\tsizeCache            protoimpl.SizeCache\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/0530274f6403a2a5",
+    "path": "internal/messaging/contracts/car-specification.pb.go",
+    "lines": [763, 769],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/messaging/contracts::CombinedOptionRequirement",
+    "kind": "StructType",
+    "declaration": "struct {\n\tstate                protoimpl.MessageState `protogen:\"open.v1\"`\n\tRequiringOptionCodes []string               `protobuf:\"bytes,1,rep,name=requiring_option_codes,json=requiringOptionCodes,proto3\" json:\"requiring_option_codes,omitempty\"`\n\tRequiredOptionCode   string                 `protobuf:\"bytes,2,opt,name=required_option_code,json=requiredOptionCode,proto3\" json:\"required_option_code,omitempty\"`\n\tunknownFields        protoimpl.UnknownFields\n\tsizeCache            protoimpl.SizeCache\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/27a3e1a069f80163",
+    "path": "internal/messaging/contracts/car-specification.pb.go",
+    "lines": [815, 822],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/messaging/contracts::PackageSpecification",
+    "kind": "StructType",
+    "declaration": "struct {\n\tstate                            protoimpl.MessageState `protogen:\"open.v1\"`\n\tPackages                         []*Package             `protobuf:\"bytes,1,rep,name=packages,proto3\" json:\"packages,omitempty\"`\n\tIncludedPackages                 []*TimeBoundExactlyOne `protobuf:\"bytes,2,rep,name=included_packages,json=includedPackages,proto3\" json:\"included_packages,omitempty\"`\n\tMakeOverlappingPackagesExclusive bool                   `protobuf:\"varint,3,opt,name=make_overlapping_packages_exclusive,json=makeOverlappingPackagesExclusive,proto3\" json:\"make_overlapping_packages_exclusive,omitempty\"`\n\tunknownFields                    protoimpl.UnknownFields\n\tsizeCache                        protoimpl.SizeCache\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/d02d7b5c657663af",
+    "path": "internal/messaging/contracts/car-specification.pb.go",
+    "lines": [875, 885],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/messaging/contracts::Package",
+    "kind": "StructType",
+    "declaration": "struct {\n\tstate                protoimpl.MessageState `protogen:\"open.v1\"`\n\tCode                 string                 `protobuf:\"bytes,1,opt,name=code,proto3\" json:\"code,omitempty\"`\n\tRequiredColors       *ExactlyOne            `protobuf:\"bytes,2,opt,name=required_colors,json=requiredColors,proto3,oneof\" json:\"required_colors,omitempty\"`\n\tRequiredUpholsteries *ExactlyOne            `protobuf:\"bytes,3,opt,name=required_upholsteries,json=requiredUpholsteries,proto3,oneof\" json:\"required_upholsteries,omitempty\"`\n\tRequiredOptions      []*ExactlyOne          `protobuf:\"bytes,4,rep,name=required_options,json=requiredOptions,proto3\" json:\"required_options,omitempty\"`\n\tRequiredWheels       *ExactlyOne            `protobuf:\"bytes,6,opt,name=required_wheels,json=requiredWheels,proto3,oneof\" json:\"required_wheels,omitempty\"`\n\tPeriod               *StructureWeekPeriod   `protobuf:\"bytes,5,opt,name=period,proto3\" json:\"period,omitempty\"`\n\tunknownFields        protoimpl.UnknownFields\n\tsizeCache            protoimpl.SizeCache\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/65faa1b729897ecc",
+    "path": "internal/messaging/contracts/car-specification.pb.go",
+    "lines": [961, 967],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/messaging/contracts::WheelSpecification",
+    "kind": "StructType",
+    "declaration": "struct {\n\tstate         protoimpl.MessageState `protogen:\"open.v1\"`\n\tWheels        []*Wheel               `protobuf:\"bytes,1,rep,name=wheels,proto3\" json:\"wheels,omitempty\"`\n\tStandardWheel *string                `protobuf:\"bytes,2,opt,name=standard_wheel,json=standardWheel,proto3,oneof\" json:\"standard_wheel,omitempty\"`\n\tunknownFields protoimpl.UnknownFields\n\tsizeCache     protoimpl.SizeCache\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/287c724d31629815",
+    "path": "internal/messaging/contracts/car-specification.pb.go",
+    "lines": [1013, 1024],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/messaging/contracts::Wheel",
+    "kind": "StructType",
+    "declaration": "struct {\n\tstate                protoimpl.MessageState `protogen:\"open.v1\"`\n\tCode                 string                 `protobuf:\"bytes,1,opt,name=code,proto3\" json:\"code,omitempty\"`\n\tRequiredColors       []*TimeBoundExactlyOne `protobuf:\"bytes,2,rep,name=required_colors,json=requiredColors,proto3\" json:\"required_colors,omitempty\"`\n\tRequiredOptions      []*TimeBoundAtLeastOne `protobuf:\"bytes,3,rep,name=required_options,json=requiredOptions,proto3\" json:\"required_options,omitempty\"`\n\tRequiredUpholsteries []*TimeBoundExactlyOne `protobuf:\"bytes,6,rep,name=required_upholsteries,json=requiredUpholsteries,proto3\" json:\"required_upholsteries,omitempty\"`\n\tForbidsOptions       []*Forbids             `protobuf:\"bytes,4,rep,name=forbids_options,json=forbidsOptions,proto3\" json:\"forbids_options,omitempty\"`\n\tForbidsUpholsteries  []*Forbids             `protobuf:\"bytes,7,rep,name=forbids_upholsteries,json=forbidsUpholsteries,proto3\" json:\"forbids_upholsteries,omitempty\"`\n\tPeriod               *StructureWeekPeriod   `protobuf:\"bytes,5,opt,name=period,proto3\" json:\"period,omitempty\"`\n\tunknownFields        protoimpl.UnknownFields\n\tsizeCache            protoimpl.SizeCache\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/ca79fda752e88084",
+    "path": "internal/messaging/contracts/car-specification.pb.go",
+    "lines": [1105, 1112],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/messaging/contracts::TimeBoundExactlyOne",
+    "kind": "StructType",
+    "declaration": "struct {\n\tstate         protoimpl.MessageState `protogen:\"open.v1\"`\n\tCodes         []string               `protobuf:\"bytes,1,rep,name=codes,proto3\" json:\"codes,omitempty\"`\n\tDefaultCode   *string                `protobuf:\"bytes,2,opt,name=default_code,json=defaultCode,proto3,oneof\" json:\"default_code,omitempty\"`\n\tPeriod        *StructureWeekPeriod   `protobuf:\"bytes,3,opt,name=period,proto3\" json:\"period,omitempty\"`\n\tunknownFields protoimpl.UnknownFields\n\tsizeCache     protoimpl.SizeCache\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/2a93ad154065eb53",
+    "path": "internal/messaging/contracts/car-specification.pb.go",
+    "lines": [1165, 1171],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/messaging/contracts::ExactlyOne",
+    "kind": "StructType",
+    "declaration": "struct {\n\tstate         protoimpl.MessageState `protogen:\"open.v1\"`\n\tCodes         []string               `protobuf:\"bytes,1,rep,name=codes,proto3\" json:\"codes,omitempty\"`\n\tDefaultCode   *string                `protobuf:\"bytes,2,opt,name=default_code,json=defaultCode,proto3,oneof\" json:\"default_code,omitempty\"`\n\tunknownFields protoimpl.UnknownFields\n\tsizeCache     protoimpl.SizeCache\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/274027d40b6936e2",
+    "path": "internal/messaging/contracts/car-specification.pb.go",
+    "lines": [1217, 1224],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/messaging/contracts::TimeBoundAtLeastOne",
+    "kind": "StructType",
+    "declaration": "struct {\n\tstate         protoimpl.MessageState `protogen:\"open.v1\"`\n\tCodes         []string               `protobuf:\"bytes,1,rep,name=codes,proto3\" json:\"codes,omitempty\"`\n\tDefaultCode   *string                `protobuf:\"bytes,2,opt,name=default_code,json=defaultCode,proto3,oneof\" json:\"default_code,omitempty\"`\n\tPeriod        *StructureWeekPeriod   `protobuf:\"bytes,3,opt,name=period,proto3\" json:\"period,omitempty\"`\n\tunknownFields protoimpl.UnknownFields\n\tsizeCache     protoimpl.SizeCache\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/256d856c36dabb39",
+    "path": "internal/messaging/contracts/car-specification.pb.go",
+    "lines": [1277, 1283],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/messaging/contracts::Forbids",
+    "kind": "StructType",
+    "declaration": "struct {\n\tstate         protoimpl.MessageState `protogen:\"open.v1\"`\n\tCode          string                 `protobuf:\"bytes,1,opt,name=code,proto3\" json:\"code,omitempty\"`\n\tPeriod        *StructureWeekPeriod   `protobuf:\"bytes,2,opt,name=period,proto3\" json:\"period,omitempty\"`\n\tunknownFields protoimpl.UnknownFields\n\tsizeCache     protoimpl.SizeCache\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/7fbf1053418c48e9",
+    "path": "internal/messaging/contracts/car-specification.pb.go",
+    "lines": [1329, 1336],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/messaging/contracts::CarSpecificationUpserted",
+    "kind": "StructType",
+    "declaration": "struct {\n\tstate                protoimpl.MessageState `protogen:\"open.v1\"`\n\tSpecification        *CarSpecification      `protobuf:\"bytes,1,opt,name=specification,proto3\" json:\"specification,omitempty\"`\n\tMarketAuthIdentifier *MarketAuthIdentifier  `protobuf:\"bytes,2,opt,name=market_auth_identifier,json=marketAuthIdentifier,proto3\" json:\"market_auth_identifier,omitempty\"`\n\tBrand                string                 `protobuf:\"bytes,3,opt,name=brand,proto3\" json:\"brand,omitempty\"`\n\tunknownFields        protoimpl.UnknownFields\n\tsizeCache            protoimpl.SizeCache\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/8ece94e723419fd9",
+    "path": "internal/messaging/contracts/car-specification.pb.go",
+    "lines": [1389, 1399],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/messaging/contracts::CarSpecificationRemoved",
+    "kind": "StructType",
+    "declaration": "struct {\n\tstate      protoimpl.MessageState `protogen:\"open.v1\"`\n\tPno12      string                 `protobuf:\"bytes,1,opt,name=pno12,proto3\" json:\"pno12,omitempty\"`\n\tSpecMarket string                 `protobuf:\"bytes,2,opt,name=spec_market,json=specMarket,proto3\" json:\"spec_market,omitempty\"`\n\tModelYear  int32                  `protobuf:\"varint,3,opt,name=model_year,json=modelYear,proto3\" json:\"model_year,omitempty\"`\n\t// Deprecated: Marked as deprecated in car-specification.proto.\n\tLocalTrimEditionCode *string `protobuf:\"bytes,4,opt,name=local_trim_edition_code,json=localTrimEditionCode,proto3,oneof\" json:\"local_trim_edition_code,omitempty\"`\n\tLocalEditionCode     *string `protobuf:\"bytes,5,opt,name=local_edition_code,json=localEditionCode,proto3,oneof\" json:\"local_edition_code,omitempty\"`\n\tunknownFields        protoimpl.UnknownFields\n\tsizeCache            protoimpl.SizeCache\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/1a95e43a24f7663b",
+    "path": "internal/messaging/contracts/car-specification.pb.go",
+    "lines": [1467, 1473],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/messaging/contracts::MarketAuthIdentifier",
+    "kind": "StructType",
+    "declaration": "struct {\n\tstate                    protoimpl.MessageState `protogen:\"open.v1\"`\n\tTimestamp                string                 `protobuf:\"bytes,1,opt,name=timestamp,proto3\" json:\"timestamp,omitempty\"`\n\tStandardWheelFeatureCode string                 `protobuf:\"bytes,2,opt,name=standard_wheel_feature_code,json=standardWheelFeatureCode,proto3\" json:\"standard_wheel_feature_code,omitempty\"`\n\tunknownFields            protoimpl.UnknownFields\n\tsizeCache                protoimpl.SizeCache\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/3af17921e05d341c",
+    "path": "internal/messaging/contracts/car-specification.pb.go",
+    "lines": [1770, 1770],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/messaging/contracts::x@internal/messaging/contracts/car-specification.pb.go:67761",
+    "kind": "StructType",
+    "declaration": "struct{}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/a52592b2eee5f7ef",
+    "path": "internal/messaging/contracts/marketauthmessage.pb.go",
+    "lines": [25, 33],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/messaging/contracts::MarketAuthMessage",
+    "kind": "StructType",
+    "declaration": "struct {\n\tstate           protoimpl.MessageState  `protogen:\"open.v1\"`\n\tCarType         string                  `protobuf:\"bytes,1,opt,name=car_type,json=carType,proto3\" json:\"car_type,omitempty\"`\n\tModelYear       int32                   `protobuf:\"varint,2,opt,name=model_year,json=modelYear,proto3\" json:\"model_year,omitempty\"`\n\tSpecMarket      string                  `protobuf:\"bytes,3,opt,name=spec_market,json=specMarket,proto3\" json:\"spec_market,omitempty\"`\n\tLegacyGccMarket *wrapperspb.StringValue `protobuf:\"bytes,4,opt,name=legacy_gcc_market,json=legacyGccMarket,proto3\" json:\"legacy_gcc_market,omitempty\"`\n\tunknownFields   protoimpl.UnknownFields\n\tsizeCache       protoimpl.SizeCache\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/5c6d2e5a2ea1a505",
+    "path": "internal/messaging/contracts/marketauthmessage.pb.go",
+    "lines": [137, 137],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/messaging/contracts::x@internal/messaging/contracts/marketauthmessage.pb.go:4533",
+    "kind": "StructType",
+    "declaration": "struct{}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/aee1164d5c360e62",
+    "path": "internal/messaging/contracts/pcgmarketauthmessage.pb.go",
+    "lines": [25, 33],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/messaging/contracts::PcgMarketAuthMessage",
+    "kind": "StructType",
+    "declaration": "struct {\n\tstate           protoimpl.MessageState  `protogen:\"open.v1\"`\n\tPno12           string                  `protobuf:\"bytes,1,opt,name=pno12,proto3\" json:\"pno12,omitempty\"`\n\tModelYear       int32                   `protobuf:\"varint,2,opt,name=model_year,json=modelYear,proto3\" json:\"model_year,omitempty\"`\n\tSpecMarket      string                  `protobuf:\"bytes,3,opt,name=spec_market,json=specMarket,proto3\" json:\"spec_market,omitempty\"`\n\tLegacyGccMarket *wrapperspb.StringValue `protobuf:\"bytes,4,opt,name=legacy_gcc_market,json=legacyGccMarket,proto3\" json:\"legacy_gcc_market,omitempty\"`\n\tunknownFields   protoimpl.UnknownFields\n\tsizeCache       protoimpl.SizeCache\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/b7b97038030c62a0",
+    "path": "internal/messaging/contracts/pcgmarketauthmessage.pb.go",
+    "lines": [137, 137],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/messaging/contracts::x@internal/messaging/contracts/pcgmarketauthmessage.pb.go:4617",
+    "kind": "StructType",
+    "declaration": "struct{}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/83d0c6cd05cb1e57",
+    "path": "internal/messaging/contracts/structure-week.pb.go",
+    "lines": [24, 30],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/messaging/contracts::StructureWeek",
+    "kind": "StructType",
+    "declaration": "struct {\n\tstate         protoimpl.MessageState `protogen:\"open.v1\"`\n\tYear          int32                  `protobuf:\"varint,1,opt,name=year,proto3\" json:\"year,omitempty\"`\n\tWeek          int32                  `protobuf:\"varint,2,opt,name=week,proto3\" json:\"week,omitempty\"`\n\tunknownFields protoimpl.UnknownFields\n\tsizeCache     protoimpl.SizeCache\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/74d4bae55c21bc09",
+    "path": "internal/messaging/contracts/structure-week.pb.go",
+    "lines": [76, 82],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/messaging/contracts::StructureWeekPeriod",
+    "kind": "StructType",
+    "declaration": "struct {\n\tstate         protoimpl.MessageState `protogen:\"open.v1\"`\n\tFrom          *StructureWeek         `protobuf:\"bytes,1,opt,name=from,proto3\" json:\"from,omitempty\"`\n\tTo            *StructureWeek         `protobuf:\"bytes,2,opt,name=to,proto3\" json:\"to,omitempty\"`\n\tunknownFields protoimpl.UnknownFields\n\tsizeCache     protoimpl.SizeCache\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/e53dd9e07a3109cf",
+    "path": "internal/messaging/contracts/structure-week.pb.go",
+    "lines": [172, 172],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/messaging/contracts::x@internal/messaging/contracts/structure-week.pb.go:5377",
+    "kind": "StructType",
+    "declaration": "struct{}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/a86383f39d91bb39",
+    "path": "internal/messaging/logger.go",
+    "lines": [11, 13],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/messaging::Logger",
+    "kind": "StructType",
+    "declaration": "struct {\n\tzaplogger *zap.Logger\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/cc171ceb402fa750",
+    "path": "internal/messaging/marketauthmessagehandler.go",
+    "lines": [17, 20],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/messaging::CarSpecSyncer",
+    "kind": "InterfaceType",
+    "declaration": "interface {\n\tSync(ctx context.Context, carModelQuery domain.CarModelQuery) error\n\tSyncByIdentifier(ctx context.Context, marketAuthID domain.MarketAuthIdentifierVariant) error\n}",
+    "completeness": "partial",
+    "gaps": ["cce-car-spec-adapter-667a00a-complete-r1/gap/type/cc171ceb402fa750"]
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/be66024e3a7f1ca1",
+    "path": "internal/messaging/marketauthmessagehandler.go",
+    "lines": [22, 24],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/messaging::AutoSyncFeatureFlagger",
+    "kind": "InterfaceType",
+    "declaration": "interface {\n\tIsEnabledForSpecMarket(specMarket domain.SpecMarket) bool\n}",
+    "completeness": "partial",
+    "gaps": ["cce-car-spec-adapter-667a00a-complete-r1/gap/type/be66024e3a7f1ca1"]
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/4256c072e5413ce5",
+    "path": "internal/messaging/marketauthmessagehandler.go",
+    "lines": [26, 30],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/messaging::MarketAuthMessageHandler",
+    "kind": "StructType",
+    "declaration": "struct {\n\tsyncer  CarSpecSyncer\n\tflagger AutoSyncFeatureFlagger\n\tlogger  *loggingsdk.Logger\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/359533ead898ecc3",
+    "path": "internal/messaging/publisher.go",
+    "lines": [15, 18],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/messaging::Publisher",
+    "kind": "StructType",
+    "declaration": "struct {\n\tcarSpecificationTopic string\n\twatermillPublisher    message.Publisher\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/faed81af144b6961",
+    "path": "internal/messaging/telemetry.go",
+    "lines": [17, 17],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/messaging::metadataCarrier",
+    "kind": "SelectorExpr",
+    "declaration": "message.Metadata",
+    "completeness": "partial",
+    "gaps": ["cce-car-spec-adapter-667a00a-complete-r1/gap/type/faed81af144b6961"]
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/24689f64f2bbb7fe",
+    "path": "internal/observability/logging/bridge.go",
+    "lines": [20, 26],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/observability/logging::BridgeConfig",
+    "kind": "StructType",
+    "declaration": "struct {\n\tServiceName string\n\tLevel       zapcore.Level\n\tProvider    otellog.LoggerProvider\n\n\tTakeOverConsole bool\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/a81b80db207c952e",
+    "path": "internal/observability/logging/bridge.go",
+    "lines": [53, 55],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/observability/logging::spanContextCore",
+    "kind": "StructType",
+    "declaration": "struct {\n\tinner zapcore.Core\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/be6a4618641c2a3f",
+    "path": "internal/observability/telemetry/providers.go",
+    "lines": [36, 36],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/observability/telemetry::Shutdown",
+    "kind": "FuncType",
+    "declaration": "func(context.Context) error",
+    "completeness": "partial",
+    "gaps": ["cce-car-spec-adapter-667a00a-complete-r1/gap/type/be6a4618641c2a3f"]
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/a72f321e436571f7",
+    "path": "internal/observability/telemetry/resource.go",
+    "lines": [40, 56],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/observability/telemetry::Config",
+    "kind": "StructType",
+    "declaration": "struct {\n\tServiceName string\n\n\t// ServiceVersion is optional: omitted entirely when empty, no version\n\t// strategy required.\n\tServiceVersion string\n\n\tDeploymentEnvironment string\n\n\tEnableMetrics bool\n\tEnableTraces  bool\n\tEnableLogs    bool\n\n\tEnableConsoleMetrics bool\n\tEnableConsoleTraces  bool\n\tEnableConsoleLogs    bool\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/414e5ea9dfc71297",
+    "path": "internal/service/carspecsyncer.go",
+    "lines": [15, 32],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/service::MarketAuthFetcher",
+    "kind": "InterfaceType",
+    "declaration": "interface {\n\tGetMarketAuthIdentifiers(\n\t\tctx context.Context,\n\t\tcarModelQuery domain.CarModelQuery,\n\t) ([]domain.MarketAuthIdentifierVariant, error)\n\tGetMarketAuthIdentifiersForSpecMarket(\n\t\tctx context.Context,\n\t\tspecMarket domain.SpecMarket,\n\t) ([]domain.MarketAuthIdentifierVariant, error)\n\tFetchMarketAuthDocument(\n\t\tctx context.Context,\n\t\tmarketAuthID domain.MarketAuthIdentifier,\n\t) (domain.MarketAuthDocument, error)\n\tFetchPCGMarketAuthDocument(\n\t\tctx context.Context,\n\t\tpcgMarketAuthID domain.PcgMarketAuthIdentifier,\n\t) (domain.PCGMarketAuthDocument, error)\n}",
+    "completeness": "partial",
+    "gaps": ["cce-car-spec-adapter-667a00a-complete-r1/gap/type/414e5ea9dfc71297"]
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/29a6bcfcc5e7d9dc",
+    "path": "internal/service/carspecsyncer.go",
+    "lines": [34, 41],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/service::FeatureCodeFetcher",
+    "kind": "InterfaceType",
+    "declaration": "interface {\n\tFetchStandardWheelFeatureCodes(\n\t\tctx context.Context,\n\t\tspecMarket domain.SpecMarket,\n\t\tpno12WithPeriod map[domain.Pno12]domain.Period,\n\t\tmodelYear domain.ModelYear,\n\t) (domain.FeatureCodeMap, error)\n}",
+    "completeness": "partial",
+    "gaps": ["cce-car-spec-adapter-667a00a-complete-r1/gap/type/29a6bcfcc5e7d9dc"]
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/944f430964c8714a",
+    "path": "internal/service/carspecsyncer.go",
+    "lines": [43, 45],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/service::WheelCodeFetcher",
+    "kind": "InterfaceType",
+    "declaration": "interface {\n\tGetWheelCodes(ctx context.Context) (map[string]any, error)\n}",
+    "completeness": "partial",
+    "gaps": ["cce-car-spec-adapter-667a00a-complete-r1/gap/type/944f430964c8714a"]
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/ffd22f8c48b87c89",
+    "path": "internal/service/carspecsyncer.go",
+    "lines": [47, 54],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/service::MessagePublisher",
+    "kind": "InterfaceType",
+    "declaration": "interface {\n\tPublishCarSpecificationUpserted(\n\t\tctx context.Context,\n\t\tspec domain.CarSpecification,\n\t\tsourceIdentifier domain.SourceIdentifier,\n\t) error\n\tPublishCarSpecificationRemoved(ctx context.Context, car domain.Car) error\n}",
+    "completeness": "partial",
+    "gaps": ["cce-car-spec-adapter-667a00a-complete-r1/gap/type/ffd22f8c48b87c89"]
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/cacd55b1f420bf26",
+    "path": "internal/service/carspecsyncer.go",
+    "lines": [56, 67],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/service::CarSpecStorage",
+    "kind": "InterfaceType",
+    "declaration": "interface {\n\tGetCarSpecification(\n\t\tctx context.Context,\n\t\tcarQuery domain.CarQuery,\n\t) (domain.CarSpecification, error)\n\tGetByCarModelQuery(\n\t\tctx context.Context,\n\t\tcarModelQuery domain.CarModelQuery,\n\t) ([]domain.CarSpecification, error)\n\tUpsert(ctx context.Context, carSpec domain.CarSpecification) error\n\tDelete(ctx context.Context, carSpec domain.CarSpecification) error\n}",
+    "completeness": "partial",
+    "gaps": ["cce-car-spec-adapter-667a00a-complete-r1/gap/type/cacd55b1f420bf26"]
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/bacd91fda1276f4d",
+    "path": "internal/service/carspecsyncer.go",
+    "lines": [71, 73],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/service::LocalEditionLookup",
+    "kind": "InterfaceType",
+    "declaration": "interface {\n\tGetForCarModel(ctx context.Context, q domain.CarModelQuery) ([]domain.LocalEdition, error)\n}",
+    "completeness": "partial",
+    "gaps": ["cce-car-spec-adapter-667a00a-complete-r1/gap/type/bacd91fda1276f4d"]
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/2bde84a002b2c108",
+    "path": "internal/service/carspecsyncer.go",
+    "lines": [75, 83],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/service::CarSpecSyncer",
+    "kind": "StructType",
+    "declaration": "struct {\n\tmarketAuthFetcher  MarketAuthFetcher\n\tfeatureCodeFetcher FeatureCodeFetcher\n\twheelCodeFetcher   WheelCodeFetcher\n\tcarSpecStorage     CarSpecStorage\n\tlocalEditionLookup LocalEditionLookup\n\tmessagePublisher   MessagePublisher\n\tlogger             *loggingsdk.Logger\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/baafd3cf681c09d2",
+    "path": "internal/service/featurecodefetcher.go",
+    "lines": [46, 50],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/service::StandardWheelFeatureCodeService",
+    "kind": "StructType",
+    "declaration": "struct {\n\tcpamFeatureCodeFetcher  FeatureCodeFetcher\n\tprinsFeatureCodeFetcher FeatureCodeFetcher\n\tpcgFeatureCodeFetcher   FeatureCodeFetcher\n}",
+    "completeness": "closed",
+    "gaps": []
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/ab3553e177bb4724",
+    "path": "internal/service/localeditionservice.go",
+    "lines": [12, 29],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/service::LocalEditionStorage",
+    "kind": "InterfaceType",
+    "declaration": "interface {\n\tList(\n\t\tctx context.Context,\n\t\tfilter domain.LocalEditionFilter,\n\t) ([]domain.LocalEdition, error)\n\tGet(\n\t\tctx context.Context,\n\t\tkey domain.LocalEditionKey,\n\t) (domain.LocalEdition, error)\n\tUpsert(\n\t\tctx context.Context,\n\t\tle domain.LocalEdition,\n\t) error\n\tDelete(\n\t\tctx context.Context,\n\t\tkey domain.LocalEditionKey,\n\t) error\n}",
+    "completeness": "partial",
+    "gaps": ["cce-car-spec-adapter-667a00a-complete-r1/gap/type/ab3553e177bb4724"]
+  },
+  {
+    "shape": "cce-car-spec-adapter-667a00a-complete-r1/shape/652057e1f21ffc32",
+    "path": "internal/service/localeditionservice.go",
+    "lines": [31, 35],
+    "sourceType": "github.com/volvo-cars/cce-car-spec-adapter/internal/service::LocalEditionService",
+    "kind": "StructType",
+    "declaration": "struct {\n\tstorage           LocalEditionStorage\n\tmarketAuthFetcher MarketAuthFetcher\n\tlogger            *loggingsdk.Logger\n}",
+    "completeness": "closed",
+    "gaps": []
+  }
+]

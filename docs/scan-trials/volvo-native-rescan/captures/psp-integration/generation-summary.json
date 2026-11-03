@@ -1,0 +1,17 @@
+{
+  "records": 1203,
+  "source_ranges": 601,
+  "counts": {
+    "controller_entries": 20,
+    "key_http_local_traces": 2,
+    "other_controller_partial": 18,
+    "local_scheduled_methods": 0,
+    "local_message_listeners": 0,
+    "configuration_discoveries": 5,
+    "source_shapes": 90,
+    "total_shapes": 192,
+    "schema_fields": 689,
+    "runtime_components": 2,
+    "interactions": 4
+  }
+}

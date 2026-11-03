@@ -1,0 +1,1178 @@
+[
+  {
+    "path": "internal/api/httpserver/controller/model.go",
+    "lines": [49, 49],
+    "names": ["CarType"],
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/global/1faee7be683e728d03",
+    "bytes": 39,
+    "sha256": "6af20237cec8f8be1807e71a424149e38b43b4edff2359edcfd6b8224391f8ab"
+  },
+  {
+    "path": "internal/api/httpserver/controller/model.go",
+    "lines": [50, 50],
+    "names": ["Engine"],
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/global/688e3706cc19867821",
+    "bytes": 37,
+    "sha256": "6d545cc61ebc9e12658c4f902700d844a6382d99b63f6fcf232d4b5247979d38"
+  },
+  {
+    "path": "internal/api/httpserver/controller/model.go",
+    "lines": [51, 51],
+    "names": ["SalesVersion"],
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/global/ace3f3cef659b344fc",
+    "bytes": 44,
+    "sha256": "142009ed1880a72c0a1b77aabdd53cbf06011b8ffe258aa60592e73cb28e9ddc"
+  },
+  {
+    "path": "internal/api/httpserver/controller/model.go",
+    "lines": [52, 52],
+    "names": ["Pno12"],
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/global/65c1a272d8aedcc4bc",
+    "bytes": 36,
+    "sha256": "f9993413d2cd8fa3cb67941dfbe5e31af6335853e8d23a51ae2bae4d9383ea81"
+  },
+  {
+    "path": "internal/api/httpserver/controller/model.go",
+    "lines": [53, 53],
+    "names": ["Market"],
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/global/808c01c0489dd003b8",
+    "bytes": 37,
+    "sha256": "908720dff0699ece81cc09b7c9a5fd3ceb9999e1524f24c8acc5663c8e738811"
+  },
+  {
+    "path": "internal/api/httpserver/controller/model.go",
+    "lines": [54, 54],
+    "names": ["Body"],
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/global/dad1ed56f0b96b2155",
+    "bytes": 35,
+    "sha256": "e359635419f391aa875553fdde86c420508aa8b852d1d17940826441d77ea50d"
+  },
+  {
+    "path": "internal/api/httpserver/controller/model.go",
+    "lines": [55, 55],
+    "names": ["OptionType"],
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/global/fdcdf22676c500db84",
+    "bytes": 37,
+    "sha256": "8df9525b6baef5f8be71fc43d95b2fa14fd08e71eea4bb548bb6efd629848acb"
+  },
+  {
+    "path": "internal/api/httpserver/controller/model.go",
+    "lines": [56, 56],
+    "names": ["Upholstery"],
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/global/ed3f1c5f18dff97cd5",
+    "bytes": 41,
+    "sha256": "7b3016173ac2fd499da7e97fbf71853544c6595fc494932285c60c74ee018d45"
+  },
+  {
+    "path": "internal/api/httpserver/controller/model.go",
+    "lines": [57, 57],
+    "names": ["Wheel"],
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/global/e5a9d669febf4bccbe",
+    "bytes": 36,
+    "sha256": "a8284fd52e131f3d2db2c551af3bf0e4dc2bb25b9383f3a7a7496ef5159a909e"
+  },
+  {
+    "path": "internal/api/httpserver/controller/model.go",
+    "lines": [58, 58],
+    "names": ["ColorType"],
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/global/bc9170f9e7e4346c64",
+    "bytes": 36,
+    "sha256": "c774f453e0c4309e1e1339c00f931e83bab7e8f1c8db1ef843c6ab01310944e1"
+  },
+  {
+    "path": "internal/api/httpserver/controller/model.go",
+    "lines": [59, 59],
+    "names": ["Package"],
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/global/01bec7b9642fde3118",
+    "bytes": 38,
+    "sha256": "efd9a7b4d5afe8e6f11d9046c2fa2df1e1fae36a1000e00ce6c85f28b9323f2d"
+  },
+  {
+    "path": "internal/api/httpserver/controller/model.go",
+    "lines": [60, 60],
+    "names": ["SMessageType"],
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/global/f6bc3fb8b0a56b57c1",
+    "bytes": 40,
+    "sha256": "4f86a1db04a37a72a1435714cd5deb8295161762167347bc84c52eec5a9118ad"
+  },
+  {
+    "path": "internal/api/httpserver/controller/model.go",
+    "lines": [71, 71],
+    "names": ["Include"],
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/global/b4648dd85283ce9807",
+    "bytes": 40,
+    "sha256": "bc3d7ab3e44a33410d6a2367203a4c2d50034abefd31e7e022a13b0a810156c2"
+  },
+  {
+    "path": "internal/api/httpserver/controller/model.go",
+    "lines": [72, 72],
+    "names": ["RequiresAll"],
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/global/fd8bc844329fabc163",
+    "bytes": 45,
+    "sha256": "d8a87b1750ca8e0a79d8b8d5d137609a2b0e7ea699df0784d554dea17a45a899"
+  },
+  {
+    "path": "internal/api/httpserver/controller/model.go",
+    "lines": [73, 73],
+    "names": ["RequiresExclusively"],
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/global/5dd44771abda67de98",
+    "bytes": 53,
+    "sha256": "033580e01d60e9f104bf10c6f104a390822ef15cd36690018e01d3463136f3c8"
+  },
+  {
+    "path": "internal/api/httpserver/controller/model.go",
+    "lines": [74, 74],
+    "names": ["RequiresAny"],
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/global/c666e495545d6c0a01",
+    "bytes": 45,
+    "sha256": "842c099784e1a54a4fb0ac5cd9501ca99d099b7ffc35b05e0217dff45757cf6f"
+  },
+  {
+    "path": "internal/api/httpserver/controller/model.go",
+    "lines": [75, 75],
+    "names": ["ForbidsAll"],
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/global/07012bb35bdb50025b",
+    "bytes": 44,
+    "sha256": "3e0a24be4a723fca9ac776b5f69edd274d775e59e0c012ea2c66920db70d73e3"
+  },
+  {
+    "path": "internal/api/httpserver/controller/model.go",
+    "lines": [76, 76],
+    "names": ["OneOrNone"],
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/global/18b9dec70c01760359",
+    "bytes": 44,
+    "sha256": "0c263beac65421b103e261204662cf4e48fb23afa24b0840a8d60a62a52548a4"
+  },
+  {
+    "path": "internal/app/app.go",
+    "lines": [116, 116],
+    "names": ["once"],
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/global/7a2a9ce910448fc08e",
+    "bytes": 14,
+    "sha256": "e6de96690e2b23a29654f1d937d01b2fb6ff0799f9f48c293c82933ba3244f95"
+  },
+  {
+    "path": "internal/app/app.go",
+    "lines": [117, 117],
+    "names": ["validate"],
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/global/df407056ca3ab35e9d",
+    "bytes": 28,
+    "sha256": "eca41cbd79f822874b244d4f1ba10445d3ca58e1e55119b9ec1025462b72a61d"
+  },
+  {
+    "path": "internal/app/watermill.go",
+    "lines": [210, 210],
+    "names": ["_"],
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/global/abc9355278eb797bca",
+    "bytes": 42,
+    "sha256": "663a514fdc899f3b3c80446e8bec0338ffc76d2efcf08fe20e33267e9cf8f52b"
+  },
+  {
+    "path": "internal/database/inmemory/inmemory.go",
+    "lines": [14, 14],
+    "names": ["_"],
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/global/cea225933ccf476433",
+    "bytes": 47,
+    "sha256": "5a65402f715c0561664e2bba632ac8a043798cf0273e8af382045f9426bba600"
+  },
+  {
+    "path": "internal/database/inmemory/inmemory.go",
+    "lines": [69, 69],
+    "names": ["_"],
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/global/d941d27994e469970d",
+    "bytes": 41,
+    "sha256": "a2b2b5364f8eac84e4bdeb10abf1c41982fb22c99d3adb6891996802207addd6"
+  },
+  {
+    "path": "internal/database/inmemory/inmemory.go",
+    "lines": [141, 17783],
+    "names": ["carSpecRaw"],
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/global/d8aaf13ffca56740b0",
+    "bytes": 558799,
+    "sha256": "6ff1b49efd7a7c9c2d2f8105af3466ce8f8ab96ced2f985f11443f6260ff82d3"
+  },
+  {
+    "path": "internal/domain/configrule.go",
+    "lines": [432, 432],
+    "names": ["All"],
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/global/82a0960d10d055ba5e",
+    "bytes": 20,
+    "sha256": "4553b37e01143cad284ffd719f94296a474da4c9dc8711830fd0af56b7214b75"
+  },
+  {
+    "path": "internal/domain/configrule.go",
+    "lines": [433, 433],
+    "names": ["Any"],
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/global/0408702f7cc9769cad",
+    "bytes": 20,
+    "sha256": "2591768155c146b5ec1dea6d3a138bfe6c7aaf3342b56c4db19bff8371306f2d"
+  },
+  {
+    "path": "internal/messaging/contracts/carconfiguration/component.pb.go",
+    "lines": [18, 18],
+    "names": ["_"],
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/global/d074b11494cbf91388",
+    "bytes": 55,
+    "sha256": "9ec3b60ff582828eb4f697cb15c0f331f1d47601e12eaa73b5b99d3e605e11d4"
+  },
+  {
+    "path": "internal/messaging/contracts/carconfiguration/component.pb.go",
+    "lines": [20, 20],
+    "names": ["_"],
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/global/1e55d04e92167fa894",
+    "bytes": 55,
+    "sha256": "bb99a4b28963cf9cc275536de8e15012991672e36b9cac4049b92dd8c7ae3fcc"
+  },
+  {
+    "path": "internal/messaging/contracts/carconfiguration/component.pb.go",
+    "lines": [26, 26],
+    "names": ["ComponentType_CAR_TYPE"],
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/global/f59fe221714fb57852",
+    "bytes": 46,
+    "sha256": "8768e8bd15b1b14e4c8541b4994d7b150f4c772b6f039f45011b3955d1d0b2a7"
+  },
+  {
+    "path": "internal/messaging/contracts/carconfiguration/component.pb.go",
+    "lines": [27, 27],
+    "names": ["ComponentType_ENGINE"],
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/global/1e0473a9e35db55a13",
+    "bytes": 46,
+    "sha256": "fa8afd9c748c360eb763bfd0886c18946b66b57586db2d3058f6d4500ab9f396"
+  },
+  {
+    "path": "internal/messaging/contracts/carconfiguration/component.pb.go",
+    "lines": [28, 28],
+    "names": ["ComponentType_SALES_VERSION"],
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/global/d56e14057e0bdbeadb",
+    "bytes": 46,
+    "sha256": "707b25f98a830b1a6029f2f90bb624ce26f7c2ae60f2b3a639e6bbd0d40d3806"
+  },
+  {
+    "path": "internal/messaging/contracts/carconfiguration/component.pb.go",
+    "lines": [29, 29],
+    "names": ["ComponentType_BODY"],
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/global/8ff78d63a72cda2c9f",
+    "bytes": 46,
+    "sha256": "f25ab01857c8f51d70a0887a3de5534a6262df04491d6ab715758e2f068444e2"
+  },
+  {
+    "path": "internal/messaging/contracts/carconfiguration/component.pb.go",
+    "lines": [30, 30],
+    "names": ["ComponentType_GEARBOX"],
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/global/081775c1a5d76c00e9",
+    "bytes": 46,
+    "sha256": "07176232e8ff9cf9664c2fd5dc53d775f3ca48b5482ff33bc0d20bd8dd5553df"
+  },
+  {
+    "path": "internal/messaging/contracts/carconfiguration/component.pb.go",
+    "lines": [31, 31],
+    "names": ["ComponentType_STEERING"],
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/global/dfd4d063e50d3035cb",
+    "bytes": 46,
+    "sha256": "b527deacfa1059dea33c4c4b5feffbc0c57e91af6341312ed64ed4cb8e0cbd78"
+  },
+  {
+    "path": "internal/messaging/contracts/carconfiguration/component.pb.go",
+    "lines": [32, 32],
+    "names": ["ComponentType_SPEC_MARKET"],
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/global/582b333b7024072bd5",
+    "bytes": 46,
+    "sha256": "099066bbe1c9e38ea889e31bcacefa80e7442577dc0b3a68bb7ce01791b380e0"
+  },
+  {
+    "path": "internal/messaging/contracts/carconfiguration/component.pb.go",
+    "lines": [33, 33],
+    "names": ["ComponentType_MODEL_YEAR"],
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/global/8c9a9a3ec811ff04fe",
+    "bytes": 46,
+    "sha256": "66a349ca3143bc84b37c77494833ec16baded7ab73192352c054873cfa8b3545"
+  },
+  {
+    "path": "internal/messaging/contracts/carconfiguration/component.pb.go",
+    "lines": [34, 34],
+    "names": ["ComponentType_MARKETING_CODE"],
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/global/ad0b4896fa277c4237",
+    "bytes": 46,
+    "sha256": "cb4075cdd628ea39a2da29982c3e7b51e2bfc7e73f27aa4eb0a4e4304d99d710"
+  },
+  {
+    "path": "internal/messaging/contracts/carconfiguration/component.pb.go",
+    "lines": [35, 35],
+    "names": ["ComponentType_UPHOLSTERY"],
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/global/6f6620eefd510c7d6f",
+    "bytes": 46,
+    "sha256": "4f94a0dbb17184c35448cd6ed8691b6eadd5f7a0c0080b1527161f98297aa17f"
+  },
+  {
+    "path": "internal/messaging/contracts/carconfiguration/component.pb.go",
+    "lines": [36, 36],
+    "names": ["ComponentType_COLOR"],
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/global/598c5f26d0238e56b1",
+    "bytes": 47,
+    "sha256": "70d3cfb83677c1ed9ddea0cc95f96aa83886f3bedc477c5f9ce0db5e7be4d533"
+  },
+  {
+    "path": "internal/messaging/contracts/carconfiguration/component.pb.go",
+    "lines": [37, 37],
+    "names": ["ComponentType_OPTION"],
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/global/583df196295d051552",
+    "bytes": 47,
+    "sha256": "259bf655be146e5b5bac445f749f38691db83caea1ff25b4a9941870dbd55aa7"
+  },
+  {
+    "path": "internal/messaging/contracts/carconfiguration/component.pb.go",
+    "lines": [38, 38],
+    "names": ["ComponentType_PACKAGE"],
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/global/ed333b63533df84a31",
+    "bytes": 47,
+    "sha256": "fe79dbba75e2ed15e22c685f063dbbb79b23c9788652a4204faf30feb0a8f74f"
+  },
+  {
+    "path": "internal/messaging/contracts/carconfiguration/component.pb.go",
+    "lines": [39, 39],
+    "names": ["ComponentType_FEATURE"],
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/global/e8c23719e54ed0f0ad",
+    "bytes": 47,
+    "sha256": "93246e87cf0fc5d07809cea93980d11d58ca976d5eab15fd082a94c92ede7ef7"
+  },
+  {
+    "path": "internal/messaging/contracts/carconfiguration/component.pb.go",
+    "lines": [40, 40],
+    "names": ["ComponentType_PNO12"],
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/global/131d0d5600646794f8",
+    "bytes": 47,
+    "sha256": "0fd26dba59c292bcef9d4c87a8dece14139df0807b4700758d3ceb2ab513b6ed"
+  },
+  {
+    "path": "internal/messaging/contracts/carconfiguration/component.pb.go",
+    "lines": [41, 41],
+    "names": ["ComponentType_WHEEL"],
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/global/4960008a77263e3393",
+    "bytes": 47,
+    "sha256": "a90b8a207bd8d131ca990b9997071b98f5c0ba3099327513082af8fe04f31de1"
+  },
+  {
+    "path": "internal/messaging/contracts/carconfiguration/component.pb.go",
+    "lines": [42, 42],
+    "names": ["ComponentType_S_MESSAGE"],
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/global/7de6b888fb142468d7",
+    "bytes": 47,
+    "sha256": "bd46502324418694e51f5883a12437f1498d550dcec7c7d857d7625d03dba394"
+  },
+  {
+    "path": "internal/messaging/contracts/carconfiguration/component.pb.go",
+    "lines": [43, 43],
+    "names": ["ComponentType_STYLING"],
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/global/e30b7a096556e73227",
+    "bytes": 47,
+    "sha256": "d88f578008c488ae452ad4bc140c02dc5877947d6a3c950a583bece3bf8db3fa"
+  },
+  {
+    "path": "internal/messaging/contracts/carconfiguration/component.pb.go",
+    "lines": [48, 67],
+    "names": ["ComponentType_name"],
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/global/86e8816a3e13dfbe1c",
+    "bytes": 363,
+    "sha256": "68b299a157819b5ef850609ee0c1b68969f7c7df52f365e4001f015c851a4f47"
+  },
+  {
+    "path": "internal/messaging/contracts/carconfiguration/component.pb.go",
+    "lines": [68, 87],
+    "names": ["ComponentType_value"],
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/global/d9ca3a9fdcfa52a7d0",
+    "bytes": 464,
+    "sha256": "f7e719ab213329a1d1b68af26aab4874c17302db2520cbcdb0cf14e7250aba80"
+  },
+  {
+    "path": "internal/messaging/contracts/carconfiguration/component.pb.go",
+    "lines": [322, 322],
+    "names": ["File_carconfiguration_component_proto"],
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/global/84745fbbdb645f3f3f",
+    "bytes": 65,
+    "sha256": "5b5509ac9a96ab1ad046f8a166b52d0b6ba4d34c6968e827fc5a821f7e10e877"
+  },
+  {
+    "path": "internal/messaging/contracts/carconfiguration/component.pb.go",
+    "lines": [324, 386],
+    "names": ["file_carconfiguration_component_proto_rawDesc"],
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/global/09a97ed69b38af258a",
+    "bytes": 5956,
+    "sha256": "afb153e2ecddb542804b7dcf1f655407240388acd63600b9208e48cab7e1b435"
+  },
+  {
+    "path": "internal/messaging/contracts/carconfiguration/component.pb.go",
+    "lines": [389, 389],
+    "names": ["file_carconfiguration_component_proto_rawDescOnce"],
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/global/ffb7a545bb48c5f825",
+    "bytes": 59,
+    "sha256": "131268457418d76284a101a3a8d85db3a63d90d4d0984ce898d7d1df479289ae"
+  },
+  {
+    "path": "internal/messaging/contracts/carconfiguration/component.pb.go",
+    "lines": [390, 390],
+    "names": ["file_carconfiguration_component_proto_rawDescData"],
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/global/eb42416321bc7afd55",
+    "bytes": 97,
+    "sha256": "3b25d18202aeed3905311b898017a6368ff3d7bc8531bbba88fc8f5cb92cb54e"
+  },
+  {
+    "path": "internal/messaging/contracts/carconfiguration/component.pb.go",
+    "lines": [400, 400],
+    "names": ["file_carconfiguration_component_proto_enumTypes"],
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/global/a41559aa4b85d132dd",
+    "bytes": 79,
+    "sha256": "eaccfa5beace3676ba87e1d67c6c2db83affaca0bd72c951fbea0d93a0d05a57"
+  },
+  {
+    "path": "internal/messaging/contracts/carconfiguration/component.pb.go",
+    "lines": [401, 401],
+    "names": ["file_carconfiguration_component_proto_msgTypes"],
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/global/d2dc7c500418fc753a",
+    "bytes": 81,
+    "sha256": "5b89b93961d65c3340b5d54e0d3026a549913f7e1a713d29706207745c72e454"
+  },
+  {
+    "path": "internal/messaging/contracts/carconfiguration/component.pb.go",
+    "lines": [402, 407],
+    "names": ["file_carconfiguration_component_proto_goTypes"],
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/global/3fdcb9ded3254f6fb0",
+    "bytes": 399,
+    "sha256": "7c1537ae1422cffa52166a771ef0ee654983116985a62aa42fe29ca87849dde5"
+  },
+  {
+    "path": "internal/messaging/contracts/carconfiguration/component.pb.go",
+    "lines": [408, 417],
+    "names": ["file_carconfiguration_component_proto_depIdxs"],
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/global/e9e9c6e808a3f71325",
+    "bytes": 701,
+    "sha256": "5892cf37918211018f950cedcc7f72f053eee9e0e88775cbad672e390e7fd5b4"
+  },
+  {
+    "path": "internal/messaging/contracts/carconfiguration/condition.pb.go",
+    "lines": [18, 18],
+    "names": ["_"],
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/global/968ee4ce3951483b50",
+    "bytes": 55,
+    "sha256": "9ec3b60ff582828eb4f697cb15c0f331f1d47601e12eaa73b5b99d3e605e11d4"
+  },
+  {
+    "path": "internal/messaging/contracts/carconfiguration/condition.pb.go",
+    "lines": [20, 20],
+    "names": ["_"],
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/global/07eee47a4cfba58751",
+    "bytes": 55,
+    "sha256": "bb99a4b28963cf9cc275536de8e15012991672e36b9cac4049b92dd8c7ae3fcc"
+  },
+  {
+    "path": "internal/messaging/contracts/carconfiguration/condition.pb.go",
+    "lines": [26, 26],
+    "names": ["Relation_ALL"],
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/global/c7e14420d82f98dd21",
+    "bytes": 25,
+    "sha256": "6db482a10a65ce2b6e564b87e00521951a08874a4f6eb58b5a6b1c3d960fae03"
+  },
+  {
+    "path": "internal/messaging/contracts/carconfiguration/condition.pb.go",
+    "lines": [27, 27],
+    "names": ["Relation_ANY"],
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/global/7d2be4a80ef95538cb",
+    "bytes": 25,
+    "sha256": "ca131c6f36f0e9355a5609b5d8500cea1150cb6e2677076022150773d7a090b2"
+  },
+  {
+    "path": "internal/messaging/contracts/carconfiguration/condition.pb.go",
+    "lines": [32, 35],
+    "names": ["Relation_name"],
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/global/d41f2ab544d7c81081",
+    "bytes": 60,
+    "sha256": "8fb4c3f0e7582d81b48c616e4c47b9f96dffd553aaee15b3dda2a6543d54ec0d"
+  },
+  {
+    "path": "internal/messaging/contracts/carconfiguration/condition.pb.go",
+    "lines": [36, 39],
+    "names": ["Relation_value"],
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/global/dc1ecf28ec2bd3e58c",
+    "bytes": 61,
+    "sha256": "4c95b29fa2cd01111f0da8c8e67728710c28e2fbd7a3ca10bdb0d34e22c457fc"
+  },
+  {
+    "path": "internal/messaging/contracts/carconfiguration/condition.pb.go",
+    "lines": [179, 179],
+    "names": ["File_carconfiguration_condition_proto"],
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/global/c14a1237784c502685",
+    "bytes": 65,
+    "sha256": "1d47045f444f92a552b39fa931450eabb9d2d78837b0bb6ff3958a4fe28e086f"
+  },
+  {
+    "path": "internal/messaging/contracts/carconfiguration/condition.pb.go",
+    "lines": [181, 222],
+    "names": ["file_carconfiguration_condition_proto_rawDesc"],
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/global/e32df7ba7a5d431b97",
+    "bytes": 3859,
+    "sha256": "cfbffe2d4ab5351e4aa9143ccdf49a20334787eec801d1321c77e984c6fb801e"
+  },
+  {
+    "path": "internal/messaging/contracts/carconfiguration/condition.pb.go",
+    "lines": [225, 225],
+    "names": ["file_carconfiguration_condition_proto_rawDescOnce"],
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/global/7f6fc5593eccba0448",
+    "bytes": 59,
+    "sha256": "096ad9af23ac14bf79a1b757ffdf9faffc8ef5e250348684d35572a9dc93dc9d"
+  },
+  {
+    "path": "internal/messaging/contracts/carconfiguration/condition.pb.go",
+    "lines": [226, 226],
+    "names": ["file_carconfiguration_condition_proto_rawDescData"],
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/global/e9e9f1409508e2e3a5",
+    "bytes": 97,
+    "sha256": "0109641a00224f5d36bbe19453c20a728dcd62460184a6007d816d582fea0cd0"
+  },
+  {
+    "path": "internal/messaging/contracts/carconfiguration/condition.pb.go",
+    "lines": [236, 236],
+    "names": ["file_carconfiguration_condition_proto_enumTypes"],
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/global/95979c1e2112577f05",
+    "bytes": 79,
+    "sha256": "dcf6e7c42d852febdf2c23863a41031576b01083df6aaad8086f1d34f2385cf9"
+  },
+  {
+    "path": "internal/messaging/contracts/carconfiguration/condition.pb.go",
+    "lines": [237, 237],
+    "names": ["file_carconfiguration_condition_proto_msgTypes"],
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/global/533e93e6fc826d2e1f",
+    "bytes": 81,
+    "sha256": "3b3d2bea469a76324cb6c2fba085cef8e24f6d7dc216919d1cebcf4c28857f3e"
+  },
+  {
+    "path": "internal/messaging/contracts/carconfiguration/condition.pb.go",
+    "lines": [238, 243],
+    "names": ["file_carconfiguration_condition_proto_goTypes"],
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/global/5196333c5bca2df173",
+    "bytes": 370,
+    "sha256": "9d55755d7956a5245140ebb96fb65cec8c27228e72e8801397101f0ff94690a3"
+  },
+  {
+    "path": "internal/messaging/contracts/carconfiguration/condition.pb.go",
+    "lines": [244, 254],
+    "names": ["file_carconfiguration_condition_proto_depIdxs"],
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/global/2793bfd599f57bb612",
+    "bytes": 833,
+    "sha256": "71957e5bab6f3e49038a18f22d22187cdc560b0fb3b583ee4071b950ae3f2844"
+  },
+  {
+    "path": "internal/messaging/contracts/carconfiguration/config-policy.pb.go",
+    "lines": [18, 18],
+    "names": ["_"],
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/global/5d4dcdff0c7cf8218c",
+    "bytes": 55,
+    "sha256": "9ec3b60ff582828eb4f697cb15c0f331f1d47601e12eaa73b5b99d3e605e11d4"
+  },
+  {
+    "path": "internal/messaging/contracts/carconfiguration/config-policy.pb.go",
+    "lines": [20, 20],
+    "names": ["_"],
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/global/4b0a1a30b823e482b0",
+    "bytes": 55,
+    "sha256": "bb99a4b28963cf9cc275536de8e15012991672e36b9cac4049b92dd8c7ae3fcc"
+  },
+  {
+    "path": "internal/messaging/contracts/carconfiguration/config-policy.pb.go",
+    "lines": [985, 985],
+    "names": ["File_carconfiguration_config_policy_proto"],
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/global/813839b3fce37af421",
+    "bytes": 69,
+    "sha256": "3dfd922d2e0c8a4b21fe37c60a1beabfb9c6455e0e062ba9eeec0fe3ccd35837"
+  },
+  {
+    "path": "internal/messaging/contracts/carconfiguration/config-policy.pb.go",
+    "lines": [987, 1182],
+    "names": ["file_carconfiguration_config_policy_proto_rawDesc"],
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/global/0a9017addd6dd728bd",
+    "bytes": 18849,
+    "sha256": "48a3f70dd534a2271a7465ac0431d05d71db94c28a5cc124c093e321aafcbfca"
+  },
+  {
+    "path": "internal/messaging/contracts/carconfiguration/config-policy.pb.go",
+    "lines": [1185, 1185],
+    "names": ["file_carconfiguration_config_policy_proto_rawDescOnce"],
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/global/7fb96824f3c861b188",
+    "bytes": 63,
+    "sha256": "6150ce79b500fd04037e361caa0b1fd1a4332ab9204ae1fe5f3a8632c7ef8468"
+  },
+  {
+    "path": "internal/messaging/contracts/carconfiguration/config-policy.pb.go",
+    "lines": [1186, 1186],
+    "names": ["file_carconfiguration_config_policy_proto_rawDescData"],
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/global/1ea495002f0d88b7bf",
+    "bytes": 105,
+    "sha256": "f1daf9b1e0c3247272af7d249ee6204b06bb140bf1a829d309a4816f6624b8f7"
+  },
+  {
+    "path": "internal/messaging/contracts/carconfiguration/config-policy.pb.go",
+    "lines": [1196, 1196],
+    "names": ["file_carconfiguration_config_policy_proto_msgTypes"],
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/global/f5bb9c96d32d9162ec",
+    "bytes": 86,
+    "sha256": "624e3aeaa28bd029d7d27eba7342941c227c438d6ce35f74411325b0125d6cdc"
+  },
+  {
+    "path": "internal/messaging/contracts/carconfiguration/config-policy.pb.go",
+    "lines": [1197, 1215],
+    "names": ["file_carconfiguration_config_policy_proto_goTypes"],
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/global/eba87dfbba92bb3488",
+    "bytes": 1708,
+    "sha256": "0df81c0aecc8410570c2581b9149d0426906e6c8aa2cfc77c568e6317e09ffbf"
+  },
+  {
+    "path": "internal/messaging/contracts/carconfiguration/config-policy.pb.go",
+    "lines": [1216, 1238],
+    "names": ["file_carconfiguration_config_policy_proto_depIdxs"],
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/global/679f05e8545fd74b66",
+    "bytes": 2765,
+    "sha256": "32a588c6f1f0571683b7b70503d0dc80413280c68993c486f8990456207e8a1a"
+  },
+  {
+    "path": "internal/messaging/contracts/carconfiguration/config-rules.pb.go",
+    "lines": [19, 19],
+    "names": ["_"],
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/global/48733d7e0f52e848ee",
+    "bytes": 55,
+    "sha256": "9ec3b60ff582828eb4f697cb15c0f331f1d47601e12eaa73b5b99d3e605e11d4"
+  },
+  {
+    "path": "internal/messaging/contracts/carconfiguration/config-rules.pb.go",
+    "lines": [21, 21],
+    "names": ["_"],
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/global/04e51fc2532d46a861",
+    "bytes": 55,
+    "sha256": "bb99a4b28963cf9cc275536de8e15012991672e36b9cac4049b92dd8c7ae3fcc"
+  },
+  {
+    "path": "internal/messaging/contracts/carconfiguration/config-rules.pb.go",
+    "lines": [559, 559],
+    "names": ["File_carconfiguration_config_rules_proto"],
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/global/7c66dc8a629e2eda31",
+    "bytes": 68,
+    "sha256": "801ed602706e529ad9ad9969e354c06475ba4b1d656ebf364e35e63ff99b19e7"
+  },
+  {
+    "path": "internal/messaging/contracts/carconfiguration/config-rules.pb.go",
+    "lines": [561, 678],
+    "names": ["file_carconfiguration_config_rules_proto_rawDesc"],
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/global/9969adb3dd06f2d7b8",
+    "bytes": 11240,
+    "sha256": "ab1a0bc4a7b2c48a0d094aa5f44048d0c083a6b12d2d66c7bea5a8354b99f7b0"
+  },
+  {
+    "path": "internal/messaging/contracts/carconfiguration/config-rules.pb.go",
+    "lines": [681, 681],
+    "names": ["file_carconfiguration_config_rules_proto_rawDescOnce"],
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/global/d70709d061074c13e2",
+    "bytes": 62,
+    "sha256": "483c68149164580121f82617434a1da3f9b96e109feb6ae4f4148b0712736a03"
+  },
+  {
+    "path": "internal/messaging/contracts/carconfiguration/config-rules.pb.go",
+    "lines": [682, 682],
+    "names": ["file_carconfiguration_config_rules_proto_rawDescData"],
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/global/6c8d358ff2bb2a8a7e",
+    "bytes": 103,
+    "sha256": "70e04ebfed505d10aea1d8128a60ef7e4bd6e5864ad6d06aa64cafce4dd14bc4"
+  },
+  {
+    "path": "internal/messaging/contracts/carconfiguration/config-rules.pb.go",
+    "lines": [692, 692],
+    "names": ["file_carconfiguration_config_rules_proto_msgTypes"],
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/global/491133e880ef22cd92",
+    "bytes": 84,
+    "sha256": "dbc93eaae9d7fcea0effd871b052ac17031d2eaf598da9029686a800e04ebeb5"
+  },
+  {
+    "path": "internal/messaging/contracts/carconfiguration/config-rules.pb.go",
+    "lines": [693, 707],
+    "names": ["file_carconfiguration_config_rules_proto_goTypes"],
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/global/ef816e014b255e0ef9",
+    "bytes": 1275,
+    "sha256": "002ef367d1d58a674020c9684c2bb3a8dfad2a34a1b0b9cb088c32521a2e59eb"
+  },
+  {
+    "path": "internal/messaging/contracts/carconfiguration/config-rules.pb.go",
+    "lines": [708, 727],
+    "names": ["file_carconfiguration_config_rules_proto_depIdxs"],
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/global/7cd565653333b27e3c",
+    "bytes": 2117,
+    "sha256": "612a684137ebab5ca03ed003598df04a6ee486c6192f6d474757f1fc2b8f5024"
+  },
+  {
+    "path": "internal/messaging/contracts/carconfiguration/consequence.pb.go",
+    "lines": [18, 18],
+    "names": ["_"],
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/global/1aa88acfabbadf9f3f",
+    "bytes": 55,
+    "sha256": "9ec3b60ff582828eb4f697cb15c0f331f1d47601e12eaa73b5b99d3e605e11d4"
+  },
+  {
+    "path": "internal/messaging/contracts/carconfiguration/consequence.pb.go",
+    "lines": [20, 20],
+    "names": ["_"],
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/global/88433f22506e671671",
+    "bytes": 55,
+    "sha256": "bb99a4b28963cf9cc275536de8e15012991672e36b9cac4049b92dd8c7ae3fcc"
+  },
+  {
+    "path": "internal/messaging/contracts/carconfiguration/consequence.pb.go",
+    "lines": [26, 26],
+    "names": ["RuleType_REQUIRES_ALL"],
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/global/a0af9f9c558ca2ae61",
+    "bytes": 42,
+    "sha256": "6ff765597c259e6c052bf1e2d2cd666c335aef452af1fef67333d83baf082a9e"
+  },
+  {
+    "path": "internal/messaging/contracts/carconfiguration/consequence.pb.go",
+    "lines": [27, 27],
+    "names": ["RuleType_REQUIRES_ANY"],
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/global/9081e347e72401e1fd",
+    "bytes": 42,
+    "sha256": "3fbb3222ab85aff7243141482149f9912abb757db3a59fefc543cdb926f36d5e"
+  },
+  {
+    "path": "internal/messaging/contracts/carconfiguration/consequence.pb.go",
+    "lines": [28, 28],
+    "names": ["RuleType_REQUIRES_EXCLUSIVELY"],
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/global/60529a2af4125a5bf4",
+    "bytes": 42,
+    "sha256": "e57b11c677e2f805f3a73d3a5dfc95bd62c59359acfa2606079c061c4155b53f"
+  },
+  {
+    "path": "internal/messaging/contracts/carconfiguration/consequence.pb.go",
+    "lines": [29, 29],
+    "names": ["RuleType_FORBIDS_ALL"],
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/global/874237501cb63feb5d",
+    "bytes": 42,
+    "sha256": "c8acc458d786581acab460b1795aed0b2711a51edf5097931d1ab1c941af794e"
+  },
+  {
+    "path": "internal/messaging/contracts/carconfiguration/consequence.pb.go",
+    "lines": [30, 30],
+    "names": ["RuleType_PREFERRED"],
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/global/ab8a1e0354dfb861eb",
+    "bytes": 42,
+    "sha256": "4372196a0f6ea8daea0ddd4d8381251cdf131e465dfd30291fe7ca7fd1046b1c"
+  },
+  {
+    "path": "internal/messaging/contracts/carconfiguration/consequence.pb.go",
+    "lines": [31, 31],
+    "names": ["RuleType_INCLUDE"],
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/global/aa37a6865ce5b84362",
+    "bytes": 42,
+    "sha256": "b6a584ec482841ceea1e67f3de7bc4c82bfca8efbc732c3f4026b58ecea5f3ba"
+  },
+  {
+    "path": "internal/messaging/contracts/carconfiguration/consequence.pb.go",
+    "lines": [32, 32],
+    "names": ["RuleType_SELECTABLE"],
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/global/8e061155460bea09e3",
+    "bytes": 42,
+    "sha256": "8d7e4ae6b499fd602a97704e04f371db74e7f1d71466ef3791d566c3b215b1c1"
+  },
+  {
+    "path": "internal/messaging/contracts/carconfiguration/consequence.pb.go",
+    "lines": [33, 33],
+    "names": ["RuleType_ONE_OR_NONE"],
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/global/9937b1d0b8dab649ea",
+    "bytes": 42,
+    "sha256": "b482d2d1ab423a15dd39b213b053daa351c182497e165b1be8d03c99907cf369"
+  },
+  {
+    "path": "internal/messaging/contracts/carconfiguration/consequence.pb.go",
+    "lines": [38, 47],
+    "names": ["RuleType_name"],
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/global/7a80f8c57f50d66380",
+    "bytes": 200,
+    "sha256": "1f5108d240c90cb0fd86a804d84fbdda38ab5ce279ba4dd287c35d97d5894de4"
+  },
+  {
+    "path": "internal/messaging/contracts/carconfiguration/consequence.pb.go",
+    "lines": [48, 57],
+    "names": ["RuleType_value"],
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/global/47994a4ab0b343410c",
+    "bytes": 269,
+    "sha256": "ed92fd80f6970268400ad6a7fe4b7bef39a66eb4b35f100af8ca77dabd451e74"
+  },
+  {
+    "path": "internal/messaging/contracts/carconfiguration/consequence.pb.go",
+    "lines": [260, 260],
+    "names": ["File_carconfiguration_consequence_proto"],
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/global/16be932e9268ed97fa",
+    "bytes": 67,
+    "sha256": "9b71320b9007dd1edb3160abadae5e4012d0afba467f4152b0e28fca6c787146"
+  },
+  {
+    "path": "internal/messaging/contracts/carconfiguration/consequence.pb.go",
+    "lines": [262, 310],
+    "names": ["file_carconfiguration_consequence_proto_rawDesc"],
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/global/730b4e94665c6dfe97",
+    "bytes": 4612,
+    "sha256": "c5181d4fd9e95efed3fc5a9b8b991b8b98cf26c39dd740b3d7c5cfbd30c8c2ea"
+  },
+  {
+    "path": "internal/messaging/contracts/carconfiguration/consequence.pb.go",
+    "lines": [313, 313],
+    "names": ["file_carconfiguration_consequence_proto_rawDescOnce"],
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/global/cad5ee431088742a50",
+    "bytes": 61,
+    "sha256": "811218e572b82704c9de6bd7b208aac7f423d3124501c7f627f98d85a0086ccb"
+  },
+  {
+    "path": "internal/messaging/contracts/carconfiguration/consequence.pb.go",
+    "lines": [314, 314],
+    "names": ["file_carconfiguration_consequence_proto_rawDescData"],
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/global/87cb62684d2de0389e",
+    "bytes": 101,
+    "sha256": "e6f75934b1d534cd3b9dc14e9bac15a4f863772dce32f3d040d13225ee924452"
+  },
+  {
+    "path": "internal/messaging/contracts/carconfiguration/consequence.pb.go",
+    "lines": [324, 324],
+    "names": ["file_carconfiguration_consequence_proto_enumTypes"],
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/global/465f6435908b4ea583",
+    "bytes": 81,
+    "sha256": "d9a8cd60a9ad4b9b7e4c2aa5207a3a88824718561102f9a64d324b50fd9a6a14"
+  },
+  {
+    "path": "internal/messaging/contracts/carconfiguration/consequence.pb.go",
+    "lines": [325, 325],
+    "names": ["file_carconfiguration_consequence_proto_msgTypes"],
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/global/4620581c076ff411d1",
+    "bytes": 83,
+    "sha256": "ea7e3238411024860af56f90b687ad0704d86d88c5ddc10c44bd0361b141ec3f"
+  },
+  {
+    "path": "internal/messaging/contracts/carconfiguration/consequence.pb.go",
+    "lines": [326, 332],
+    "names": ["file_carconfiguration_consequence_proto_goTypes"],
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/global/cb349a906dbb100ede",
+    "bytes": 539,
+    "sha256": "a17f5c64fecfebe184b648f2eac8500b985b0c79feb4f405d142c1224a4133b9"
+  },
+  {
+    "path": "internal/messaging/contracts/carconfiguration/consequence.pb.go",
+    "lines": [333, 341],
+    "names": ["file_carconfiguration_consequence_proto_depIdxs"],
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/global/7e9c38a2bbf66fec2b",
+    "bytes": 574,
+    "sha256": "589f88f8ad8b0d02580a54ac8de5a31d4b413d2accbb291fea385e47f9696df4"
+  },
+  {
+    "path": "internal/messaging/contracts/cce/bto_car.pb.go",
+    "lines": [18, 18],
+    "names": ["_"],
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/global/6cf1afe5b31fb194cd",
+    "bytes": 55,
+    "sha256": "9ec3b60ff582828eb4f697cb15c0f331f1d47601e12eaa73b5b99d3e605e11d4"
+  },
+  {
+    "path": "internal/messaging/contracts/cce/bto_car.pb.go",
+    "lines": [20, 20],
+    "names": ["_"],
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/global/a53938a25e4a62ac80",
+    "bytes": 55,
+    "sha256": "bb99a4b28963cf9cc275536de8e15012991672e36b9cac4049b92dd8c7ae3fcc"
+  },
+  {
+    "path": "internal/messaging/contracts/cce/bto_car.pb.go",
+    "lines": [279, 279],
+    "names": ["File_bto_car_proto"],
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/global/78b1e5922c8a55c4f7",
+    "bytes": 46,
+    "sha256": "04da9d05cf53eea4d25e7e2006093f1fcf2eb1bdc9a286b84c33c0070371f363"
+  },
+  {
+    "path": "internal/messaging/contracts/cce/bto_car.pb.go",
+    "lines": [281, 323],
+    "names": ["file_bto_car_proto_rawDesc"],
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/global/248f3411219aa89d53",
+    "bytes": 3985,
+    "sha256": "a4660df05fdfe77ba13f0392f5ca946dca1bdf28ff3723c0311953ff29bf0505"
+  },
+  {
+    "path": "internal/messaging/contracts/cce/bto_car.pb.go",
+    "lines": [326, 326],
+    "names": ["file_bto_car_proto_rawDescOnce"],
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/global/4ed1d8fe83bfe89c9e",
+    "bytes": 40,
+    "sha256": "12436b952bab02ce6bef8442fe3fe2c3f5e1ca9b90419ff91ef2426fd6290336"
+  },
+  {
+    "path": "internal/messaging/contracts/cce/bto_car.pb.go",
+    "lines": [327, 327],
+    "names": ["file_bto_car_proto_rawDescData"],
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/global/29dc3c317d08baa963",
+    "bytes": 59,
+    "sha256": "5b58fb7187541dc0756c2d848809717755818672a650a5fe78d1e9283fc8dcea"
+  },
+  {
+    "path": "internal/messaging/contracts/cce/bto_car.pb.go",
+    "lines": [337, 337],
+    "names": ["file_bto_car_proto_msgTypes"],
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/global/cd32f0be086d748046",
+    "bytes": 62,
+    "sha256": "12201b10497480037c75f5fd85d765aa859f8de4ec3d1c7a0de9a59e7439f4a8"
+  },
+  {
+    "path": "internal/messaging/contracts/cce/bto_car.pb.go",
+    "lines": [338, 343],
+    "names": ["file_bto_car_proto_goTypes"],
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/global/e91c1cf64aeb8575af",
+    "bytes": 313,
+    "sha256": "35cfed4d4dfffcf97cb7eb483048880f4a362f3d2c91b0ddca1b7c8f4e7d2986"
+  },
+  {
+    "path": "internal/messaging/contracts/cce/bto_car.pb.go",
+    "lines": [344, 353],
+    "names": ["file_bto_car_proto_depIdxs"],
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/global/4743f40f4cddbeaff6",
+    "bytes": 597,
+    "sha256": "b9916596a367b45e51e624601495d62e35681598baa3e4c08a49caf79bc1a606"
+  },
+  {
+    "path": "internal/messaging/contracts/cce/car-configuration.pb.go",
+    "lines": [18, 18],
+    "names": ["_"],
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/global/ac8af61084110589bb",
+    "bytes": 55,
+    "sha256": "9ec3b60ff582828eb4f697cb15c0f331f1d47601e12eaa73b5b99d3e605e11d4"
+  },
+  {
+    "path": "internal/messaging/contracts/cce/car-configuration.pb.go",
+    "lines": [20, 20],
+    "names": ["_"],
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/global/36c209224a0d2eff8b",
+    "bytes": 55,
+    "sha256": "bb99a4b28963cf9cc275536de8e15012991672e36b9cac4049b92dd8c7ae3fcc"
+  },
+  {
+    "path": "internal/messaging/contracts/cce/car-configuration.pb.go",
+    "lines": [308, 308],
+    "names": ["File_car_configuration_proto"],
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/global/42b62e124947b77f76",
+    "bytes": 56,
+    "sha256": "8e3128e878aaaf708f9e5ece0fd629b672e650b840086d124e673efd5c3df737"
+  },
+  {
+    "path": "internal/messaging/contracts/cce/car-configuration.pb.go",
+    "lines": [310, 368],
+    "names": ["file_car_configuration_proto_rawDesc"],
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/global/31bef843bc525776ac",
+    "bytes": 5571,
+    "sha256": "67c5920e4365b7902216c7e1429c1ff4adf15cb5234451604685cf669b51563f"
+  },
+  {
+    "path": "internal/messaging/contracts/cce/car-configuration.pb.go",
+    "lines": [371, 371],
+    "names": ["file_car_configuration_proto_rawDescOnce"],
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/global/92c61ddc602645a122",
+    "bytes": 50,
+    "sha256": "0ec2defd3536c955e54cb0163662d56bbc8282be7d310f230a2f5d7082a16293"
+  },
+  {
+    "path": "internal/messaging/contracts/cce/car-configuration.pb.go",
+    "lines": [372, 372],
+    "names": ["file_car_configuration_proto_rawDescData"],
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/global/3fe736b049551412d6",
+    "bytes": 79,
+    "sha256": "b72872be407051b43b501ad8c7dfb7ba8c1588bbe812e3352bc40d5a65e95de5"
+  },
+  {
+    "path": "internal/messaging/contracts/cce/car-configuration.pb.go",
+    "lines": [382, 382],
+    "names": ["file_car_configuration_proto_msgTypes"],
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/global/70b03a918e36232081",
+    "bytes": 72,
+    "sha256": "d74d559d51783877e2454c29d32abad9f23fcc99e3917b1f5195e5bc1b97f69c"
+  },
+  {
+    "path": "internal/messaging/contracts/cce/car-configuration.pb.go",
+    "lines": [383, 387],
+    "names": ["file_car_configuration_proto_goTypes"],
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/global/9a140fe85e9aed2757",
+    "bytes": 331,
+    "sha256": "179f9960af5ecf7806e155b0b669e7202610a209e621d428553df7a39c9d3b10"
+  },
+  {
+    "path": "internal/messaging/contracts/cce/car-configuration.pb.go",
+    "lines": [388, 396],
+    "names": ["file_car_configuration_proto_depIdxs"],
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/global/b4215a6828d6132271",
+    "bytes": 574,
+    "sha256": "f075c3b0c3999bceee531e43cd814a053e30844953964ad865b8fcdbe38ffa5a"
+  },
+  {
+    "path": "internal/messaging/contracts/cce/car-sync.pb.go",
+    "lines": [18, 18],
+    "names": ["_"],
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/global/f9a1c74c0bc80c9b54",
+    "bytes": 55,
+    "sha256": "9ec3b60ff582828eb4f697cb15c0f331f1d47601e12eaa73b5b99d3e605e11d4"
+  },
+  {
+    "path": "internal/messaging/contracts/cce/car-sync.pb.go",
+    "lines": [20, 20],
+    "names": ["_"],
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/global/841ffb14b88871b2d4",
+    "bytes": 55,
+    "sha256": "bb99a4b28963cf9cc275536de8e15012991672e36b9cac4049b92dd8c7ae3fcc"
+  },
+  {
+    "path": "internal/messaging/contracts/cce/car-sync.pb.go",
+    "lines": [133, 133],
+    "names": ["File_car_sync_proto"],
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/global/f779b6a1a2cbf0af40",
+    "bytes": 47,
+    "sha256": "2ae3ced5476d15e5e374280f9fd1b5b55119730cbc52c46e191d7210109d96ff"
+  },
+  {
+    "path": "internal/messaging/contracts/cce/car-sync.pb.go",
+    "lines": [135, 155],
+    "names": ["file_car_sync_proto_rawDesc"],
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/global/890d0ea63c920dc5f0",
+    "bytes": 1798,
+    "sha256": "ca9b1ba2c4646856c9fbceec9801dd2980037485bda2410ca85c998dc5bf9da6"
+  },
+  {
+    "path": "internal/messaging/contracts/cce/car-sync.pb.go",
+    "lines": [158, 158],
+    "names": ["file_car_sync_proto_rawDescOnce"],
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/global/2d50e77674d9fd506e",
+    "bytes": 41,
+    "sha256": "05c4bfe072662e2662ea1cc765a73aac635e4c1a88969fee68dffb72b88b1445"
+  },
+  {
+    "path": "internal/messaging/contracts/cce/car-sync.pb.go",
+    "lines": [159, 159],
+    "names": ["file_car_sync_proto_rawDescData"],
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/global/f653e9bd71beff9a19",
+    "bytes": 61,
+    "sha256": "8965860e256622fa8f2b184f85a98025d3b5917b1fa75efa2c5bcfdf067fb1d9"
+  },
+  {
+    "path": "internal/messaging/contracts/cce/car-sync.pb.go",
+    "lines": [169, 169],
+    "names": ["file_car_sync_proto_msgTypes"],
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/global/ab5edcc32b4a341968",
+    "bytes": 63,
+    "sha256": "cfa5f2f6f8590c6274f253d3771b10e7ff4f6efe00ae8892defedcdd0b70b133"
+  },
+  {
+    "path": "internal/messaging/contracts/cce/car-sync.pb.go",
+    "lines": [170, 173],
+    "names": ["file_car_sync_proto_goTypes"],
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/global/fa0526ad87b4cb7335",
+    "bytes": 183,
+    "sha256": "7cc922493fc2a5f332d6adf011c9090910403cddd44eacc8d4e4e3112968f874"
+  },
+  {
+    "path": "internal/messaging/contracts/cce/car-sync.pb.go",
+    "lines": [174, 180],
+    "names": ["file_car_sync_proto_depIdxs"],
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/global/2630588698ca79c72b",
+    "bytes": 297,
+    "sha256": "75521ebd34e0e5e553665710108b37f71f541338b428cc777f746706d6b9e0cf"
+  },
+  {
+    "path": "internal/messaging/event.go",
+    "lines": [4, 4],
+    "names": ["PolicyRulesUpdated"],
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/global/a8669082020767a57d",
+    "bytes": 83,
+    "sha256": "7a90bedf59dce9b92aede4fdadbd0f3e042f91e6b5a8cffd7ba96c8dedaa5697"
+  },
+  {
+    "path": "internal/messaging/event.go",
+    "lines": [5, 5],
+    "names": ["CarSyncCompleted"],
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/global/c3681953fe0d4a4ec5",
+    "bytes": 65,
+    "sha256": "84a825a0002c891218910a31c6893a42f2b55d514b535702297eb4c811af7796"
+  },
+  {
+    "path": "internal/messaging/event.go",
+    "lines": [6, 6],
+    "names": ["CarSyncFailed"],
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/global/03118015e7a9dc20b9",
+    "bytes": 62,
+    "sha256": "3ca512fb891b394743553621219d521222ef9c6e1f2fe4f68bf461a6ac308574"
+  },
+  {
+    "path": "internal/messaging/event.go",
+    "lines": [10, 10],
+    "names": ["TypeHeaderKey"],
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/global/3e755a688b9d1d73b4",
+    "bytes": 33,
+    "sha256": "3ad99fd111376747d94330d5f08e0087b411b052e7efa84a903be36c4ffe5fe5"
+  },
+  {
+    "path": "internal/messaging/event.go",
+    "lines": [11, 11],
+    "names": ["KeyHeaderKey"],
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/global/8243937589d3d3da68",
+    "bytes": 32,
+    "sha256": "27cf9ee4e637d42f9c98666ca319ad1f98a284b3dfdb887f3cca66c47d7a43b1"
+  },
+  {
+    "path": "internal/messaging/event.go",
+    "lines": [12, 12],
+    "names": ["VersionHeaderKey"],
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/global/1475fb957b9a837148",
+    "bytes": 36,
+    "sha256": "9a1a9960d9cf05a178e0f28c2911a51c19fd9c792a077371c5a1a4932305cfda"
+  },
+  {
+    "path": "internal/messaging/event.go",
+    "lines": [13, 13],
+    "names": ["CorrelationIDHeaderKey"],
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/global/ae358fb735cfd7d4b4",
+    "bytes": 43,
+    "sha256": "d3af5cd8f6dbafddfc726055d76e5cff3cdb4c4b50caf22e5d6ee0dd3e16b06f"
+  },
+  {
+    "path": "internal/messaging/event.go",
+    "lines": [14, 14],
+    "names": ["OriginHeaderKey"],
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/global/a5cf7ec507c7e56489",
+    "bytes": 35,
+    "sha256": "3352f796aa6e39e96328996e1af8e24d03b9e01b9cbe897dfdca5af91ac25dce"
+  },
+  {
+    "path": "internal/observability/logging/logger.go",
+    "lines": [10, 10],
+    "names": ["storeIDKey"],
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/global/b5b84e826e2d17e7fb",
+    "bytes": 55,
+    "sha256": "728c661271d9dcbe4a7c03e8a51e52ea704efa0898e3ae2cc0c1bb609d1bb6fc"
+  },
+  {
+    "path": "internal/observability/logging/logger.go",
+    "lines": [11, 11],
+    "names": ["ConfigurableProductIDKey"],
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/global/743f26f71d889fc6b3",
+    "bytes": 70,
+    "sha256": "7337df78feab8fbe3d6e6058eaeb0c78347f75dbed88a84f478075ef7a8dab99"
+  },
+  {
+    "path": "internal/observability/logging/logger.go",
+    "lines": [12, 12],
+    "names": ["pno12Key"],
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/global/1a3b37467003c5e038",
+    "bytes": 52,
+    "sha256": "d1eece0b22f72acdd5491b20f4383af918440bdc3275671f404df492647307e5"
+  },
+  {
+    "path": "internal/observability/logging/logger.go",
+    "lines": [13, 13],
+    "names": ["modelYearKey"],
+    "claim": "volvo/cce-policy-admin/88a3512f0307/local-r2/claim/global/15922b1f1b21a71fc0",
+    "bytes": 57,
+    "sha256": "6d970c9837e1e9a8251ba1d40085050396a1e69f35ac4e374807b4aba5109c22"
+  }
+]

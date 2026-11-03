@@ -1,0 +1,21 @@
+{
+  "snapshot": "83cac873ebebb850ca00e17d23b201be63e7d025ebf1bc0d1efa85175a607e3a",
+  "repo": "volvo-cars/cds-paymentservice-psp-integration",
+  "commit": "dabd6c825499b706ff4ddbf15eaf354adbfb6794",
+  "review": "Independent bounded source and module-resolution review",
+  "result": "No blocking dependency-boundary mismatch found in reviewed scope",
+  "javaPathsInventoried": 227,
+  "productionJavaPaths": 165,
+  "pomsAndModuleReferencesChecked": 8,
+  "checks": [
+    "Pinned full-repository path/module census, exact package identities and named native gaps",
+    "Locally declared parent payload/entity/event fields retained",
+    "Imported AttributeBase/BaseResponse/SuccessResponse/framework types not present in this repository",
+    "Similarly named Address/Customer types compared by fully qualified name, not short class name"
+  ],
+  "limitations": [
+    "No dependency download or runtime/classloader observation",
+    "Bounded source review does not establish complete helper/control or imported closure"
+  ],
+  "selectedInputs": "Unchanged by review"
+}

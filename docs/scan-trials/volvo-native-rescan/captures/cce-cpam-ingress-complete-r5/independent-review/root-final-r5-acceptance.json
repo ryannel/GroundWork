@@ -1,0 +1,588 @@
+{
+  "snapshot": "9273eddda4c5fff911958b4a6b82143b69d166f1a50b66279bb19755660f27aa",
+  "status": "passed",
+  "qualification": "Independent pinned-source and strict bounded query review. Source libraries, host-specific implementations and actual exposed registrations are separate; explicit limits retained.",
+  "queries": [
+    {
+      "name": "GET /health",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "POST /importSpecMarket",
+      "nodes": 2,
+      "edges": 2,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "GET /pno3sFromPcf",
+      "nodes": 2,
+      "edges": 2,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "GET /importedPno3s",
+      "nodes": 2,
+      "edges": 1,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "GET /latestImportedFiles",
+      "nodes": 2,
+      "edges": 1,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "GET /cpamMarketAuthFile",
+      "nodes": 2,
+      "edges": 1,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual owned boundary volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/interaction/io/620ff68c3db742737a00",
+      "nodes": 2,
+      "edges": 1,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual owned boundary volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/interaction/io/57ee52c8ed027f3a8540",
+      "nodes": 2,
+      "edges": 1,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual owned boundary volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/interaction/io/5535f85777a278746af6",
+      "nodes": 2,
+      "edges": 3,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual owned boundary volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/interaction/io/bc02800dd83e87bdd507",
+      "nodes": 2,
+      "edges": 3,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual owned boundary volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/interaction/io/78b7babcbbbbd531f7c9",
+      "nodes": 2,
+      "edges": 3,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual owned boundary volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/interaction/io/ee875f3ee144f9dd0106",
+      "nodes": 2,
+      "edges": 1,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual owned boundary volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/interaction/io/1382c9b79849922f34ea",
+      "nodes": 2,
+      "edges": 1,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual owned boundary volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/interaction/io/cfbac7c4a38f529ece0c",
+      "nodes": 2,
+      "edges": 1,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual caller HTTP contract volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/interaction/io/cfbac7c4a38f529ece0c",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual HTTP operand volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/interaction/io/cfbac7c4a38f529ece0c",
+      "nodes": 66,
+      "edges": 68,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual owned boundary volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/interaction/io/8c8eacbfa9f93c1fcd26",
+      "nodes": 2,
+      "edges": 1,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual caller HTTP contract volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/interaction/io/8c8eacbfa9f93c1fcd26",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual HTTP operand volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/interaction/io/8c8eacbfa9f93c1fcd26",
+      "nodes": 66,
+      "edges": 68,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual owned boundary volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/interaction/io/31f61d39c141b50cb802",
+      "nodes": 2,
+      "edges": 1,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual caller HTTP contract volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/interaction/io/31f61d39c141b50cb802",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual HTTP operand volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/interaction/io/31f61d39c141b50cb802",
+      "nodes": 64,
+      "edges": 66,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual owned boundary volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/interaction/io/42fa48f97108cfa46b26",
+      "nodes": 2,
+      "edges": 1,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual caller HTTP contract volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/interaction/io/42fa48f97108cfa46b26",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual HTTP operand volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/interaction/io/42fa48f97108cfa46b26",
+      "nodes": 13,
+      "edges": 12,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual owned boundary volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/interaction/io/05ddb8d82e145b607bf4",
+      "nodes": 2,
+      "edges": 1,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual caller HTTP contract volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/interaction/io/05ddb8d82e145b607bf4",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual HTTP operand volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/interaction/io/05ddb8d82e145b607bf4",
+      "nodes": 8,
+      "edges": 7,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual owned boundary volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/interaction/io/8967aa781fad8154a105",
+      "nodes": 2,
+      "edges": 1,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual caller HTTP contract volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/interaction/io/8967aa781fad8154a105",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual HTTP operand volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/interaction/io/8967aa781fad8154a105",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual owned boundary volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/interaction/io/1fa3512f6c8cf25674db",
+      "nodes": 2,
+      "edges": 1,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual caller HTTP contract volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/interaction/io/1fa3512f6c8cf25674db",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual HTTP operand volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/interaction/io/1fa3512f6c8cf25674db",
+      "nodes": 15,
+      "edges": 14,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual owned boundary volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/interaction/io/88d4901a4f171d0cca80",
+      "nodes": 2,
+      "edges": 1,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual caller HTTP contract volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/interaction/io/88d4901a4f171d0cca80",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual HTTP operand volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/interaction/io/88d4901a4f171d0cca80",
+      "nodes": 2,
+      "edges": 1,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual owned boundary volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/interaction/io/92c4dd48bef4eaa270b8",
+      "nodes": 2,
+      "edges": 1,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual owned boundary volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/interaction/io/508489376149eea0c7fc",
+      "nodes": 2,
+      "edges": 1,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual owned boundary volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/interaction/io/fca862fdde5dbd61da5b",
+      "nodes": 2,
+      "edges": 1,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual caller HTTP contract volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/interaction/io/fca862fdde5dbd61da5b",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual HTTP operand volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/interaction/io/fca862fdde5dbd61da5b",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual owned boundary volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/interaction/io/ec3dc4f00582e25a2c15",
+      "nodes": 2,
+      "edges": 1,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual caller HTTP contract volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/interaction/io/ec3dc4f00582e25a2c15",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual HTTP operand volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/interaction/io/ec3dc4f00582e25a2c15",
+      "nodes": 12,
+      "edges": 11,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual owned boundary volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/interaction/io/28a173f7472673f49dc5",
+      "nodes": 2,
+      "edges": 1,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual owned boundary volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/interaction/io/fc2443c55553f5a04d09",
+      "nodes": 2,
+      "edges": 1,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual owned boundary volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/interaction/io/5a023fa218020c82e6e1",
+      "nodes": 2,
+      "edges": 1,
+      "limits": ["maxNodes"],
+      "pages": 1
+    },
+    {
+      "name": "Actual owned boundary volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/interaction/io/b782c9b262e1e5e9171c",
+      "nodes": 2,
+      "edges": 1,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual owned boundary volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/interaction/io/18da619a801c89677955",
+      "nodes": 2,
+      "edges": 2,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual owned boundary volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/interaction/io/84c8629420b771ed2d68",
+      "nodes": 2,
+      "edges": 2,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual owned boundary volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/interaction/io/4a5e91754b02266b8ee6",
+      "nodes": 2,
+      "edges": 3,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual owned boundary volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/interaction/io/c4366fbae2e1dbbe5762",
+      "nodes": 2,
+      "edges": 1,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual owned boundary volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/interaction/io/fe7b8ddaafc8b52c5cb9",
+      "nodes": 2,
+      "edges": 1,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual caller HTTP contract volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/interaction/io/fe7b8ddaafc8b52c5cb9",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual HTTP operand volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/interaction/io/fe7b8ddaafc8b52c5cb9",
+      "nodes": 13,
+      "edges": 12,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual owned boundary volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/interaction/io/abd465737bf2d477ead0",
+      "nodes": 2,
+      "edges": 1,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual caller HTTP contract volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/interaction/io/abd465737bf2d477ead0",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual HTTP operand volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/interaction/io/abd465737bf2d477ead0",
+      "nodes": 8,
+      "edges": 7,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual owned boundary volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/interaction/io/0c1d35d3eb0e2984c801",
+      "nodes": 2,
+      "edges": 1,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual caller HTTP contract volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/interaction/io/0c1d35d3eb0e2984c801",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual HTTP operand volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/interaction/io/0c1d35d3eb0e2984c801",
+      "nodes": 1,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual owned boundary volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/interaction/io/584cad21e0d85e5c0631",
+      "nodes": 2,
+      "edges": 1,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual caller HTTP contract volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/interaction/io/584cad21e0d85e5c0631",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual HTTP operand volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/interaction/io/584cad21e0d85e5c0631",
+      "nodes": 15,
+      "edges": 14,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual owned boundary volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/interaction/io/d8d4fd23eed521465742",
+      "nodes": 2,
+      "edges": 1,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual caller HTTP contract volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/interaction/io/d8d4fd23eed521465742",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual HTTP operand volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/interaction/io/d8d4fd23eed521465742",
+      "nodes": 2,
+      "edges": 1,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual owned boundary volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/interaction/consume/http",
+      "nodes": 3,
+      "edges": 3,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual owned boundary volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/interaction/consume/event",
+      "nodes": 4,
+      "edges": 3,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Exposed consumer entry volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/subscription/http",
+      "nodes": 3,
+      "edges": 3,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Exposed consumer entry volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/subscription/event",
+      "nodes": 4,
+      "edges": 3,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Host-specific uploaded result http",
+      "nodes": 2,
+      "edges": 3,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Host-specific uploaded result pipeline",
+      "nodes": 2,
+      "edges": 3,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Detached queue submission is not completion",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual write acknowledgement volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/storage_write/source/57ee52c8ed027f3a8540",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual write acknowledgement volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/storage_write/source/5535f85777a278746af6",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual write acknowledgement volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/storage_write/source/bc02800dd83e87bdd507",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual write acknowledgement volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/storage_write/source/78b7babcbbbbd531f7c9",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual write acknowledgement volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/storage_write/source/84c8629420b771ed2d68",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Actual write acknowledgement volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/storage_write/source/4a5e91754b02266b8ee6",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Compressed publisher retains source error/nil branches",
+      "nodes": 65,
+      "edges": 66,
+      "limits": [],
+      "pages": 1
+    },
+    {
+      "name": "Seven distinct initialisers across three importing hosts",
+      "nodes": 0,
+      "edges": 0,
+      "limits": [],
+      "pages": 1
+    }
+  ]
+}

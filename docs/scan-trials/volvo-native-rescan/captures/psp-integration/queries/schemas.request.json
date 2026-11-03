@@ -1,0 +1,20 @@
+{
+  "format": "groundwork-query/v3",
+  "snapshot": "83dca2d1f3de790273d6451f1ba875edfc6f9661680d0124077485d0aec4b24c",
+  "query": "records",
+  "entry": "psp-dabd6c8-r3/entry/TransactionController-capture",
+  "value": null,
+  "context": [],
+  "outcome": null,
+  "changed": [],
+  "representation": "constructed",
+  "candidates": "exclude",
+  "maxNodes": 500,
+  "environment": "source-declared",
+  "maxRecords": 5000,
+  "ids": [
+    "psp-dabd6c8-r3/shape/com~volvocars~ecom~paymentservice~psp~integration~transaction~TransactionCapturePayload.java",
+    "psp-dabd6c8-r3/shape/capture-params",
+    "psp-dabd6c8-r3/shape/refund-params"
+  ]
+}

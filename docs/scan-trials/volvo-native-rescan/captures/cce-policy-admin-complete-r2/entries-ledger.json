@@ -1,0 +1,234 @@
+[
+  {
+    "entry": "volvo/cce-policy-admin/88a3512f0307/local-r2/entry/rest/685b6b830a0384a948",
+    "implementation": "volvo/cce-policy-admin/88a3512f0307/local-r2/implementation/external-route/c403741c4121989ac1",
+    "contract": "volvo/cce-policy-admin/88a3512f0307/local-r2/interface_contract/entry/rest/685b6b830a0384a948",
+    "trigger": "rest",
+    "method": "GET",
+    "path": "/swagger/*"
+  },
+  {
+    "entry": "volvo/cce-policy-admin/88a3512f0307/local-r2/entry/rest/467765077ea876b4d6",
+    "implementation": "volvo/cce-policy-admin/88a3512f0307/local-r2/implementation/2f07ab6db67d59bf9f",
+    "contract": "volvo/cce-policy-admin/88a3512f0307/local-r2/interface_contract/entry/rest/467765077ea876b4d6",
+    "trigger": "rest",
+    "method": "GET",
+    "path": "/filters"
+  },
+  {
+    "entry": "volvo/cce-policy-admin/88a3512f0307/local-r2/entry/rest/04673eb2893a054ed8",
+    "implementation": "volvo/cce-policy-admin/88a3512f0307/local-r2/implementation/544b1a8f9b6d62feaf",
+    "contract": "volvo/cce-policy-admin/88a3512f0307/local-r2/interface_contract/entry/rest/04673eb2893a054ed8",
+    "trigger": "rest",
+    "method": "GET",
+    "path": "/componentsByPno3"
+  },
+  {
+    "entry": "volvo/cce-policy-admin/88a3512f0307/local-r2/entry/rest/3da25de51d8dcfa979",
+    "implementation": "volvo/cce-policy-admin/88a3512f0307/local-r2/implementation/98c4ac5043d5c9546e",
+    "contract": "volvo/cce-policy-admin/88a3512f0307/local-r2/interface_contract/entry/rest/3da25de51d8dcfa979",
+    "trigger": "rest",
+    "method": "GET",
+    "path": "/componentsByPolicyAndPno12"
+  },
+  {
+    "entry": "volvo/cce-policy-admin/88a3512f0307/local-r2/entry/rest/094c4e8256f89ef8f0",
+    "implementation": "volvo/cce-policy-admin/88a3512f0307/local-r2/implementation/7a0b54bbc6294144f5",
+    "contract": "volvo/cce-policy-admin/88a3512f0307/local-r2/interface_contract/entry/rest/094c4e8256f89ef8f0",
+    "trigger": "rest",
+    "method": "GET",
+    "path": "/componentsByPolicyGrouped"
+  },
+  {
+    "entry": "volvo/cce-policy-admin/88a3512f0307/local-r2/entry/rest/e5dc97cd08d84333d0",
+    "implementation": "volvo/cce-policy-admin/88a3512f0307/local-r2/implementation/3bdc3ef1cf42a43477",
+    "contract": "volvo/cce-policy-admin/88a3512f0307/local-r2/interface_contract/entry/rest/e5dc97cd08d84333d0",
+    "trigger": "rest",
+    "method": "GET",
+    "path": "/wheelComponents"
+  },
+  {
+    "entry": "volvo/cce-policy-admin/88a3512f0307/local-r2/entry/rest/e8b99f53c59ede2491",
+    "implementation": "volvo/cce-policy-admin/88a3512f0307/local-r2/implementation/d4fae5e5bb3e8b6613",
+    "contract": "volvo/cce-policy-admin/88a3512f0307/local-r2/interface_contract/entry/rest/e8b99f53c59ede2491",
+    "trigger": "rest",
+    "method": "POST",
+    "path": "/populateWheel"
+  },
+  {
+    "entry": "volvo/cce-policy-admin/88a3512f0307/local-r2/entry/rest/d006b6a4805761bc17",
+    "implementation": "volvo/cce-policy-admin/88a3512f0307/local-r2/implementation/45fdb3d9cf34c39bda",
+    "contract": "volvo/cce-policy-admin/88a3512f0307/local-r2/interface_contract/entry/rest/d006b6a4805761bc17",
+    "trigger": "rest",
+    "method": "POST",
+    "path": "/build"
+  },
+  {
+    "entry": "volvo/cce-policy-admin/88a3512f0307/local-r2/entry/rest/b31923ffc8d9749c7f",
+    "implementation": "volvo/cce-policy-admin/88a3512f0307/local-r2/implementation/b137df2895b4764c2a",
+    "contract": "volvo/cce-policy-admin/88a3512f0307/local-r2/interface_contract/entry/rest/b31923ffc8d9749c7f",
+    "trigger": "rest",
+    "method": "GET",
+    "path": "/v2/tree/policies"
+  },
+  {
+    "entry": "volvo/cce-policy-admin/88a3512f0307/local-r2/entry/rest/ee515c6561c382c50c",
+    "implementation": "volvo/cce-policy-admin/88a3512f0307/local-r2/implementation/a3bedbf290bbd64680",
+    "contract": "volvo/cce-policy-admin/88a3512f0307/local-r2/interface_contract/entry/rest/ee515c6561c382c50c",
+    "trigger": "rest",
+    "method": "POST",
+    "path": "/v2/tree/policies"
+  },
+  {
+    "entry": "volvo/cce-policy-admin/88a3512f0307/local-r2/entry/rest/fd35d5b5deaede4a0c",
+    "implementation": "volvo/cce-policy-admin/88a3512f0307/local-r2/implementation/a16e6549ad3f1c186f",
+    "contract": "volvo/cce-policy-admin/88a3512f0307/local-r2/interface_contract/entry/rest/fd35d5b5deaede4a0c",
+    "trigger": "rest",
+    "method": "GET",
+    "path": "/v2/allPolicyUids"
+  },
+  {
+    "entry": "volvo/cce-policy-admin/88a3512f0307/local-r2/entry/rest/2f7c39ba5cb79130f9",
+    "implementation": "volvo/cce-policy-admin/88a3512f0307/local-r2/implementation/80ae167eca57c54a73",
+    "contract": "volvo/cce-policy-admin/88a3512f0307/local-r2/interface_contract/entry/rest/2f7c39ba5cb79130f9",
+    "trigger": "rest",
+    "method": "GET",
+    "path": "/v2/allSpecMarkets"
+  },
+  {
+    "entry": "volvo/cce-policy-admin/88a3512f0307/local-r2/entry/rest/7e2cf08f49f88d9df6",
+    "implementation": "volvo/cce-policy-admin/88a3512f0307/local-r2/implementation/335ad5632a62327cc4",
+    "contract": "volvo/cce-policy-admin/88a3512f0307/local-r2/interface_contract/entry/rest/7e2cf08f49f88d9df6",
+    "trigger": "rest",
+    "method": "POST",
+    "path": "/v2/policies/"
+  },
+  {
+    "entry": "volvo/cce-policy-admin/88a3512f0307/local-r2/entry/rest/6b38a318abd61e7522",
+    "implementation": "volvo/cce-policy-admin/88a3512f0307/local-r2/implementation/9733562ce875eb1921",
+    "contract": "volvo/cce-policy-admin/88a3512f0307/local-r2/interface_contract/entry/rest/6b38a318abd61e7522",
+    "trigger": "rest",
+    "method": "PUT",
+    "path": "/v2/policies/"
+  },
+  {
+    "entry": "volvo/cce-policy-admin/88a3512f0307/local-r2/entry/rest/218c08b1f05d6cc9bc",
+    "implementation": "volvo/cce-policy-admin/88a3512f0307/local-r2/implementation/a932b73250f049dcd4",
+    "contract": "volvo/cce-policy-admin/88a3512f0307/local-r2/interface_contract/entry/rest/218c08b1f05d6cc9bc",
+    "trigger": "rest",
+    "method": "POST",
+    "path": "/v2/policies/status"
+  },
+  {
+    "entry": "volvo/cce-policy-admin/88a3512f0307/local-r2/entry/rest/daf0e79fc9a4592486",
+    "implementation": "volvo/cce-policy-admin/88a3512f0307/local-r2/implementation/8a92a6c78523920986",
+    "contract": "volvo/cce-policy-admin/88a3512f0307/local-r2/interface_contract/entry/rest/daf0e79fc9a4592486",
+    "trigger": "rest",
+    "method": "GET",
+    "path": "/v2/policies/status/{requestID}"
+  },
+  {
+    "entry": "volvo/cce-policy-admin/88a3512f0307/local-r2/entry/rest/99af9dd87a0d1eeca5",
+    "implementation": "volvo/cce-policy-admin/88a3512f0307/local-r2/implementation/bf5c5287a1e0de1b3c",
+    "contract": "volvo/cce-policy-admin/88a3512f0307/local-r2/interface_contract/entry/rest/99af9dd87a0d1eeca5",
+    "trigger": "rest",
+    "method": "POST",
+    "path": "/v2/policies/{policyID}/sync"
+  },
+  {
+    "entry": "volvo/cce-policy-admin/88a3512f0307/local-r2/entry/rest/17eb76bce827035b8b",
+    "implementation": "volvo/cce-policy-admin/88a3512f0307/local-r2/implementation/065244afdacf62286c",
+    "contract": "volvo/cce-policy-admin/88a3512f0307/local-r2/interface_contract/entry/rest/17eb76bce827035b8b",
+    "trigger": "rest",
+    "method": "DELETE",
+    "path": "/v2/policies/{policyID}/"
+  },
+  {
+    "entry": "volvo/cce-policy-admin/88a3512f0307/local-r2/entry/rest/3e04fdcf2984da452f",
+    "implementation": "volvo/cce-policy-admin/88a3512f0307/local-r2/implementation/59259f6ada2d64a13e",
+    "contract": "volvo/cce-policy-admin/88a3512f0307/local-r2/interface_contract/entry/rest/3e04fdcf2984da452f",
+    "trigger": "rest",
+    "method": "GET",
+    "path": "/v2/policies/{policyID}/"
+  },
+  {
+    "entry": "volvo/cce-policy-admin/88a3512f0307/local-r2/entry/rest/7a0b94767149f3639a",
+    "implementation": "volvo/cce-policy-admin/88a3512f0307/local-r2/implementation/4c233f78826fafacd4",
+    "contract": "volvo/cce-policy-admin/88a3512f0307/local-r2/interface_contract/entry/rest/7a0b94767149f3639a",
+    "trigger": "rest",
+    "method": "GET",
+    "path": "/v2/policies/{policyID}/status"
+  },
+  {
+    "entry": "volvo/cce-policy-admin/88a3512f0307/local-r2/entry/process/main",
+    "implementation": "volvo/cce-policy-admin/88a3512f0307/local-r2/implementation/4564a21553617446de",
+    "contract": "volvo/cce-policy-admin/88a3512f0307/local-r2/interface_contract/entry/process/main",
+    "trigger": "process",
+    "method": "PROCESS",
+    "path": "source:cmd/policy-admin/main.go:main"
+  },
+  {
+    "entry": "volvo/cce-policy-admin/88a3512f0307/local-r2/entry/lifecycle/5d2b3269ed71ab8c10",
+    "implementation": "volvo/cce-policy-admin/88a3512f0307/local-r2/implementation/5d2b3269ed71ab8c10",
+    "contract": "volvo/cce-policy-admin/88a3512f0307/local-r2/interface_contract/entry/lifecycle/5d2b3269ed71ab8c10",
+    "trigger": "startup",
+    "method": "STARTUP",
+    "path": "fx:internal/app/app.go:OnStart:1948"
+  },
+  {
+    "entry": "volvo/cce-policy-admin/88a3512f0307/local-r2/entry/lifecycle/e39e6afaa2978401ef",
+    "implementation": "volvo/cce-policy-admin/88a3512f0307/local-r2/implementation/e39e6afaa2978401ef",
+    "contract": "volvo/cce-policy-admin/88a3512f0307/local-r2/interface_contract/entry/lifecycle/e39e6afaa2978401ef",
+    "trigger": "callback",
+    "method": "CALLBACK",
+    "path": "fx:internal/app/app.go:OnStop:2124"
+  },
+  {
+    "entry": "volvo/cce-policy-admin/88a3512f0307/local-r2/entry/lifecycle/88cb0c71d0dfe19da3",
+    "implementation": "volvo/cce-policy-admin/88a3512f0307/local-r2/implementation/88cb0c71d0dfe19da3",
+    "contract": "volvo/cce-policy-admin/88a3512f0307/local-r2/interface_contract/entry/lifecycle/88cb0c71d0dfe19da3",
+    "trigger": "callback",
+    "method": "CALLBACK",
+    "path": "fx:internal/app/app.go:OnStop:2297"
+  },
+  {
+    "entry": "volvo/cce-policy-admin/88a3512f0307/local-r2/entry/lifecycle/09c7224e7e1b895ce0",
+    "implementation": "volvo/cce-policy-admin/88a3512f0307/local-r2/implementation/09c7224e7e1b895ce0",
+    "contract": "volvo/cce-policy-admin/88a3512f0307/local-r2/interface_contract/entry/lifecycle/09c7224e7e1b895ce0",
+    "trigger": "startup",
+    "method": "STARTUP",
+    "path": "fx:internal/app/watermill.go:OnStart:476"
+  },
+  {
+    "entry": "volvo/cce-policy-admin/88a3512f0307/local-r2/entry/lifecycle/e3c368afd1e71d144a",
+    "implementation": "volvo/cce-policy-admin/88a3512f0307/local-r2/implementation/e3c368afd1e71d144a",
+    "contract": "volvo/cce-policy-admin/88a3512f0307/local-r2/interface_contract/entry/lifecycle/e3c368afd1e71d144a",
+    "trigger": "callback",
+    "method": "CALLBACK",
+    "path": "fx:internal/app/watermill.go:OnStop:799"
+  },
+  {
+    "entry": "volvo/cce-policy-admin/88a3512f0307/local-r2/entry/provider/blob",
+    "implementation": "volvo/cce-policy-admin/88a3512f0307/local-r2/implementation/d6c9b52432423a1802",
+    "contract": "volvo/cce-policy-admin/88a3512f0307/local-r2/interface_contract/entry/provider/blob",
+    "trigger": "callback",
+    "method": "CALLBACK",
+    "path": "fx:internal/app/app.go:blobstorage.NewBlobStorage"
+  },
+  {
+    "entry": "volvo/cce-policy-admin/88a3512f0307/local-r2/entry/py/process",
+    "implementation": "volvo/cce-policy-admin/88a3512f0307/local-r2/implementation/py/module",
+    "contract": "volvo/cce-policy-admin/88a3512f0307/local-r2/interface_contract/py/process",
+    "trigger": "process",
+    "method": "PROCESS",
+    "path": "source:migrate_mongodb_to_postgres.py:__main__"
+  },
+  {
+    "entry": "volvo/cce-policy-admin/88a3512f0307/local-r2/entry/provider/car-file",
+    "implementation": "volvo/cce-policy-admin/88a3512f0307/local-r2/implementation/dd29a45580cf956e1a",
+    "contract": "volvo/cce-policy-admin/88a3512f0307/local-r2/interface_contract/entry/provider/car-file",
+    "trigger": "callback",
+    "method": "CALLBACK",
+    "path": "fx:internal/app/app.go:inmemory.NewCarRepository"
+  }
+]

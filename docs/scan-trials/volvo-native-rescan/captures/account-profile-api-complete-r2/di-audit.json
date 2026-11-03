@@ -1,0 +1,62 @@
+[
+  {
+    "interface": "IAccountFactory",
+    "implementation": "AccountFactory",
+    "path": "VolvoCars.AccountProfile.Api/Extensions/ApiStartupExtensions.cs",
+    "line": 27
+  },
+  {
+    "interface": "IAccountManager",
+    "implementation": "AccountManager",
+    "path": "VolvoCars.AccountProfile.Api/Extensions/ApiStartupExtensions.cs",
+    "line": 29
+  },
+  {
+    "interface": "ISettingsManager",
+    "implementation": "SettingsManager",
+    "path": "VolvoCars.AccountProfile.Api/Extensions/ApiStartupExtensions.cs",
+    "line": 30
+  },
+  {
+    "interface": "IAccountLogic",
+    "implementation": "AccountLogic",
+    "path": "VolvoCars.AccountProfile.Api/Extensions/ApiStartupExtensions.cs",
+    "line": 32
+  },
+  {
+    "interface": "ISettingsLogic",
+    "implementation": "SettingsLogic",
+    "path": "VolvoCars.AccountProfile.Api/Extensions/ApiStartupExtensions.cs",
+    "line": 33
+  },
+  {
+    "interface": "IClaimsProvider",
+    "implementation": "ClaimsProvider",
+    "path": "VolvoCars.AccountProfile.Api/Extensions/ApiStartupExtensions.cs",
+    "line": 35
+  },
+  {
+    "interface": "ISettingsProvider",
+    "implementation": "SettingsProvider",
+    "path": "VolvoCars.AccountProfile.Api/Extensions/ApiStartupExtensions.cs",
+    "line": 36
+  },
+  {
+    "interface": "IAddressFactory",
+    "implementation": "AddressFactory",
+    "path": "VolvoCars.AccountProfile.Api/Extensions/ApiStartupExtensions.cs",
+    "line": 38
+  },
+  {
+    "interface": "IPaginationFactory",
+    "implementation": "PaginationFactory",
+    "path": "VolvoCars.AccountProfile.Api/Extensions/ApiStartupExtensions.cs",
+    "line": 39
+  },
+  {
+    "interface": "IFeatureToggleService",
+    "implementation": "FeatureToggleService",
+    "path": "VolvoCars.AccountProfile.Business/FeatureToggling/Extensions/IServiceCollectionExtensions.cs",
+    "line": 16
+  }
+]

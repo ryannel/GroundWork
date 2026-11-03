@@ -1,0 +1,73 @@
+{
+  "snapshot": "28f6bf27bc6099bbc14ca4cc119a69a35f84f117bb7c71bb47037c57daad3953",
+  "checks": [
+    {
+      "name": "create",
+      "nodes": 3,
+      "edges": 13,
+      "records": 3115
+    },
+    {
+      "name": "create PSP actual 0",
+      "nodes": 5,
+      "edges": 4,
+      "records": 1393
+    },
+    {
+      "name": "create PSP actual 1",
+      "nodes": 41,
+      "edges": 45,
+      "records": 1454
+    },
+    {
+      "name": "update-id",
+      "nodes": 3,
+      "edges": 9,
+      "records": 2451
+    },
+    {
+      "name": "update-recurring",
+      "nodes": 2,
+      "edges": 4,
+      "records": 980
+    },
+    {
+      "name": "configured cache wrapper",
+      "nodes": 2,
+      "edges": 1,
+      "records": 74
+    },
+    {
+      "name": "PSP detail source firstName",
+      "nodes": 4,
+      "edges": 3,
+      "records": 179
+    },
+    {
+      "name": "PSP detail source lastName",
+      "nodes": 4,
+      "edges": 3,
+      "records": 179
+    },
+    {
+      "name": "PSP detail source mobilePhoneNumber",
+      "nodes": 4,
+      "edges": 3,
+      "records": 179
+    },
+    {
+      "name": "PSP detail source address",
+      "nodes": 4,
+      "edges": 3,
+      "records": 179
+    },
+    {
+      "name": "PSP detail source preferredLocale",
+      "nodes": 2,
+      "edges": 1,
+      "records": 176
+    }
+  ],
+  "writes": 9,
+  "status": "Root independent source/query acceptance passed; bounded, not runtime proof"
+}

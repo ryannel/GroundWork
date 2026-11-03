@@ -1,0 +1,24 @@
+{
+  "snapshot": "5c7d986c75ed935403fcd8f299d6183fcc24ba2988e7a717d8e47a0234cbaa1d",
+  "status": "passed",
+  "checks": [
+    {
+      "name": "PaymentSessionOperationService#getByPaymentSessionId(",
+      "nodes": 2,
+      "edges": 1,
+      "limits": []
+    },
+    {
+      "name": "RefundOperationService#getByTransactionId(",
+      "nodes": 2,
+      "edges": 1,
+      "limits": []
+    },
+    {
+      "name": "capture actual service interactions",
+      "nodes": 3,
+      "edges": 3,
+      "limits": []
+    }
+  ]
+}

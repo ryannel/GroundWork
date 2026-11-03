@@ -1,0 +1,232 @@
+[
+  {
+    "paths": ["internal/api/grpcserver/methods.go", "internal/api/grpcserver/ruleset_id.go"],
+    "facts": [
+      "Nine unary methods. HealthCheck returns HEALTHY. Other handlers parse ruleset UUID or convert specification and selections with early returned error values, call injected usecase/repository, convert domain result to protobuf. These are Go value/error results, never inferred HTTP responses.",
+      "CalculateCarKeyV2 and Next/Many pass optional from/to week entities separately; Next/Many response conversion can return another error after calculation. GetCarSpecification reads repository entity and converts to contract."
+    ]
+  },
+  {
+    "paths": ["internal/database/postgres/repository.go", "internal/database/postgres/rollback.go"],
+    "facts": [
+      "CreateRulesetForSpecification starts pgx transaction; defer rollback registration evaluates ctx/tx/logger at registration. insertRuleset then insertSpecification must both return normally before tx.Commit. Deferred Rollback executes on function exit, suppresses ErrTxClosed, logs other rollback error. Actual committed atomicity/driver implementation is external.",
+      "Ruleset INSERT binds ruleset.ID(), ToStoredCarRuleset(ruleset), and observability.ClientIDFromContext(ctx). Specification INSERT binds rulesetID and ToStoredCarSpecification(specification). SQL and arguments are genuine source call values, not synthetic Mongo-style documents.",
+      "GetRuleset/GetCarSpecification QueryRow use distinct tables/key columns; Scan error checks ErrNoRows before wrapped failure. Scan mutates local stored variable through pointer, then local conversion validates data. DeleteRuleset uses pool.Exec and checks commandTag.RowsAffected()==0 before not-found error; no silent successful deletion assertion."
+    ]
+  },
+  {
+    "paths": [
+      "internal/domain/usecase/ruleset_creator.go",
+      "internal/domain/usecase/carkey_calculator.go",
+      "internal/domain/usecase/basecarkey_calculator.go",
+      "internal/domain/usecase/nextcarkey_calculator.go",
+      "internal/domain/usecase/startcarkey_calculator.go"
+    ],
+    "facts": [
+      "Create cleans redundant forbids through pointer to spec before constructing ruleset, then passes cleaned spec and ruleset to repository transaction. Returned ID/log happens only after normal repository return.",
+      "Calculation usecases read ruleset first. CarKey/Many/Next validate timestamps; selection validator filters invalid selections. Imported puan builders construct source queries, and SolutionCreator methods return envelopes, not the supplied query. Preserve envelope.Solution/other projections distinctly.",
+      "Base calculation rejects zero structure-week periods, requests solutions by selection per period, merges component/package lookups with maps.Copy, then creates base keys. Start calculation loops over periods and calls solver creator per period. These loops are source-known, without fabricated batch envelopes."
+    ]
+  },
+  {
+    "paths": [
+      "internal/api/auth/parser.go",
+      "internal/api/auth/token.go",
+      "internal/api/grpcserver/interceptors/auth.go",
+      "internal/api/grpcserver/interceptors/error.go",
+      "internal/api/grpcserver/interceptors/operation_id.go",
+      "internal/api/grpcserver/interceptors/panic.go"
+    ],
+    "facts": [
+      "Auth requires incoming metadata, first authorization value, case-insensitive bearer prefix and trimmed remainder; Parser uses issuer/audience/RS256, validates token.Valid, parses AppID UUID, enriches context before handler callback.",
+      "jwt.WithLeeway actual argument is integer literal 60; source comment says one minute. Imported signature/units must be established before translating the value; do not silently rewrite to time.Minute.",
+      "Operation ID requires incoming metadata but generates UUID for absent/empty operation-id. First metadata value wins. Panic interceptor's deferred closure logs recovered panic then re-panics original content; it is not conversion to an ordinary gRPC error.",
+      "Error interceptor maps local InvalidOperation and puan InvalidArgument/InvalidOperation to InvalidArgument; local Unauthorized to Unauthenticated; local/puan NotFound to NotFound; context.Canceled to Canceled; SolverFailed to Internal with Solver failed; other nonnil to Internal generic message. No native httpStatus fields for these."
+    ]
+  },
+  {
+    "paths": [
+      "internal/gateway/httpclient/client.go",
+      "internal/gateway/httpclient/retries.go",
+      "internal/gateway/httpclient/metrics.go"
+    ],
+    "facts": [
+      "Retryable client uses StandardClient; local wrapper installs round trippers in reverse order. NewRetryClient sets LinearJitterBackoff and 200/400ms wait limits; no explicit RetryMax override in available source. Imported retry policy stays external.",
+      "Metrics RoundTrip invokes next.RoundTrip then records duration and request URL/method plus optional response status. Response nil is handled. It returns original resp/err. Instrument callbacks are not additional HTTP business calls."
+    ]
+  },
+  {
+    "paths": [
+      "internal/app/config/config.go",
+      "internal/app/metrics.go",
+      "internal/app/sentry.go",
+      "internal/observability/metrics.go"
+    ],
+    "facts": [
+      "Binder is configured for three secret-file paths and environment; no secret file read by scan. Config keys establish GLPK_URL/API_KEY, JWKS_URL, Postgres application/migration credentials, Sentry DSN and metric flags. Exact runtime values unresolved.",
+      "SkipMetricsCollection chooses no-op provider; real OTLP metric exporter constructed with imported defaults and periodic reader interval30s. Start uses runtime instrumentation with minimum mem stats2min; Shutdown guards nil provider. These source configurations do not establish network wire method or deployed collector.",
+      "SkipSentry chooses no-op client; otherwise DSN/environment/service name required. Sentry WithScope captures err and enclosing this; assigns service/caas tags, invokes imported CaptureException. Flush closure waits2s when invoked; no eager scope callback at registration."
+    ]
+  },
+  {
+    "paths": [
+      "internal/database/postgres/models.go",
+      "internal/database/postgres/convert_entities.go"
+    ],
+    "facts": [
+      "StoredCarRuleset has car_details/ruleset/components2/package_components JSON tags, distinct from source exported field names. StoredCarSpecification embeds details/period/forbidden_periods/s_messages/styling/options/packages/wheels. Tagged storage declaration does not infer protobuf names.",
+      "Conversions explicitly construct every stored field from domain getters, recurse arrays and nested relation constraints. Nilable Code/default pointers and ExactlyOne pointer helpers preserve nil. Stored polyhedron A/B and variable lists come from imported puan getters; no invented values."
+    ]
+  },
+  {
+    "paths": ["internal/domain/specification/structure_week.go"],
+    "facts": [
+      "Year range2000..9999 and valid ISO week limit checked. EarliestFrom week1 is Jan1; other weeks based on Jan4 Monday offset. LatestTo is exclusive next-week EarliestFrom. Timestamp\u2192week adjusts January/December overlapping ISO years to source calendar-year conventions.",
+      "Period intersection accepts equality; overlap/contains are inclusive. Difference subtracts/adds one week. Sorted copies slice before source comparator callback; aggregate intersection/difference and period iteration preserve error branches and early continues. Named triple return Timestamps assigns from/to/err then returns exact triple."
+    ]
+  },
+  {
+    "paths": [
+      "internal/api/grpcserver/convert_contracts.go",
+      "internal/api/grpcserver/convert_domain.go"
+    ],
+    "facts": [
+      "Create specification converter checks nil top-level and required nested entities; rejects nonnil deprecated DefaultCombination; converts code/week validation, relation requirement lists, nilable default/pointer values, then domain constructor. It does not silently accept unknown Action values. Selection groups reject nil members; selection subcodes configure imported builder per source loop.",
+      "Response conversions allocate actual protobuf structs with explicit fields and int32 conversions. CarKey.SMessage is conditionally assigned only when nonnil; nullable exactly-one/code helpers return nil. Next/Many can return conversion error after business calculation. Return wrappers preserve CarKeysBySelection/Group arrays, not bare CarKey."
+    ]
+  },
+  {
+    "paths": [
+      "internal/domain/ruleset/ruleset.go",
+      "internal/domain/ruleset/selection.go",
+      "internal/domain/ruleset/validate.go",
+      "internal/domain/ruleset/component_type.go"
+    ],
+    "facts": [
+      "New generates UUID while Hydrate preserves supplied ID. NewFromSpecification adds time then components/package primitives/rules then creates imported ruleset and local CarRuleset; every returned error guard preserved. Converting exclusive period end back to structure week subtracts1ms.",
+      "Selection filtering rejects entire selection if any selected ID absent from selectable set, emits invalidIDs warning; group filtering preserves outer group count. Timestamp validation checks actual optional endpoints: paired period overlap, start after last and end before first, not automatic clamp. ComponentTypePackage constant exists but NewComponentType valid list excludes it; no invented acceptance."
+    ]
+  },
+  {
+    "paths": [
+      "internal/app/app.go",
+      "internal/app/setup.go",
+      "internal/app/lifecycle.go",
+      "internal/api/grpcserver/server.go",
+      "internal/api/httpserver/routes.go",
+      "cmd/caas-car-configurator/main.go"
+    ],
+    "facts": [
+      "Fx providers/annotations bind actual host interfaces: repository implements usecase CarRulesetRepository plus gRPC deleter/spec reader, five calculators/creator to their declared gRPC interfaces. Additional opts are passed to Fx.Options; deployed overrides unknown. Main calls App.New then promoted imported Run.",
+      "Lifecycle hooks are source closures, not eager execution. HTTP OnStart launches goroutine then returns nil; gRPC OnStart net.Listen can fail before goroutine, Serve errors call shutdown later. OnStop HTTP Shutdown differs from gRPC Stop/no returned error. Migration/Sentry/metrics hooks and pool-close hook are separately registered.",
+      "Unary interceptor order is operationID,panic,error,metrics,logging failure,auth,logging request. Actual service registration and reflection registration present. /debug profiler is mounted; root Route only applies logging/compress middleware and declares no business HTTP handler. Imported profiler route expansion stays boundary.",
+      "GLPK configured client gets GLPKUrl,GLPKApiKey,httpClient. Postgres application and migration connection strings use separate credentials; password only is QueryEscape before Sprintf. Logger error hook registers actual err callback into Sentry client."
+    ]
+  },
+  {
+    "paths": [
+      "internal/domain/specification/car_specification.go",
+      "internal/domain/specification/car_specification_validator.go",
+      "internal/domain/specification/styling_validator.go",
+      "internal/domain/specification/cleaner.go",
+      "internal/domain/specification/codes.go",
+      "internal/domain/specification/car.go"
+    ],
+    "facts": [
+      "CarSpecification constructs then validates forbidden periods and each component family; full-period coverage subtracts component periods from allowed car periods; required-code existence/period containment and combined-requirement intersection checked. Styling requires at least one color/upholstery, nonoverlapping default periods and matching contained default codes.",
+      "Cleaner mutates referenced spec slice elements family by family, checking three pairwise overlaps for each forbid; missing code periods return errors. Earlier family mutations can precede a later error; no rollback is claimed. Code only rejects empty string, not trimming or uniqueness; Dedupe/Union use map iteration so no stable source ordering promised."
+    ]
+  },
+  {
+    "paths": [
+      "internal/domain/specification/at_least_one.go",
+      "internal/domain/specification/exactly_one.go",
+      "internal/domain/specification/forbids.go",
+      "internal/domain/specification/options.go",
+      "internal/domain/specification/packages.go",
+      "internal/domain/specification/smessages.go",
+      "internal/domain/specification/styling.go",
+      "internal/domain/specification/wheels.go"
+    ],
+    "facts": [
+      "ExactlyOne/AtLeastOne constructors reject empty codes and defaults absent from code list; HasPreferred requires more than one code plus nonnil default. Both areValidInPeriod methods currently unconditionally return true with TODO, so constructor guard is not implemented period validation. Separate car validator checks relations later.",
+      "OptionSpecification validates all package-only/included/forbidden/combined code membership. Combined requirements require at least2 requiring codes and no required code in requiring list. PackageSpecification validates included package codes; requirements combine nonnil color/upholstery/wheel plus options. Wheels require nonempty and optional standard code membership. Constructors and getters preserve exact fields/pointers."
+    ]
+  },
+  {
+    "paths": [
+      "internal/domain/ruleset/group_packages.go",
+      "internal/domain/ruleset/package_exclusive.go",
+      "internal/domain/ruleset/package_variants.go",
+      "internal/domain/ruleset/reverse_packages.go",
+      "internal/domain/ruleset/ruleset_creator.go",
+      "internal/domain/ruleset/component_configurator.go"
+    ],
+    "facts": [
+      "Rule creation first enables time and stores local period pointer, forbids disabled periods, adds components/primitives, constraints/preferences and package reverse/exclusive rules, then imported Create. Configurator fluent methods genuinely return receiver after appending fields; configure returns error, not receiver. Source return signatures govern every call.",
+      "Package variants use recursive local dfs closure capturing requirements/combination/variants/dfs cell; map selected backtracking unsets only selections introduced at that recursion depth. Previous occurrence and existing group conflicts skip candidates. Empty requirements return nil; duplicate codes/type-package invalid variant guard exists. Typed recursive closure dispatch/heap effects need precise associations without fake formal capture arguments.",
+      "Overlaps graph derives shared requirements; Bron-Kerbosch recursion finds maximal cliques>=2 then imported SetOneOrNone/Assume. Reverse rules distinguish isolated/subset packages, dedupe variant keys, group connected inclusive periods and build imported imply/time assumptions. Empty/singleton helpers return error/directID before imported SetAnd/Or/Xor."
+    ]
+  },
+  {
+    "paths": [
+      "internal/domain/ruleset/carkey.go",
+      "internal/domain/ruleset/basecarkey.go",
+      "internal/domain/ruleset/nextcarkey.go",
+      "internal/domain/ruleset/components.go"
+    ],
+    "facts": [
+      "CarKey extracts only solution entries equal1: one-or-none SMessage, required single color/upholstery/wheel, lists of options/packages. Multiple singleton matches/no selected required code are errors. StructureWeek selects maximum of supplied from and solution start after checking solution end. CarKeyInPeriod keeps requested period separate from key week.",
+      "Base keys filter invalid period/component/package variants and retain components with possibly empty valid key arrays. Lookup missing componentID is error. Next selections require all current actions ADD; generate REMOVE for already-added selections, ADD otherwise. Multivariant packages remove shared mandatory codes before variant selection.",
+      "Next creator checks selection/solution counts before per-selection envelope lookup, creates keys, filters unavailable ADD components/packages; REMOVE always available. Package ID and component type lookup distinguish package variant/subselection vs ordinary component; absent code type errors. Native source array and struct fields are retained, no query\u2192solution identity."
+    ]
+  },
+  {
+    "paths": [
+      "internal/database/postgres/convert_stored.go",
+      "internal/database/postgres/migrator.go",
+      "internal/database/postgres/pool.go",
+      "internal/domain/domainerror/error.go",
+      "internal/domain/usecase/repository.go"
+    ],
+    "facts": [
+      "Stored\u2192domain reconstructs each nested field through validating constructors, preserves supplied ruleset ID via Hydrate and imported polyhedron variable order. Named getComponentEntities triple return uses naked return after component/package assignments. Nilable exactly-one/code/standard wheel fields remain pointers and nil guards; malformed stored values can return validation errors before response.",
+      "Migrate builds embedded iofs source then imported migration instance, defers Close, treats ErrNoChange as normal nil, returns other wrapped failures. Pool.New creates pgxpool with background context; actual driver implementation/connection establishment unavailable."
+    ]
+  },
+  {
+    "paths": [
+      "internal/domain/ruleset/stub.go",
+      "internal/domain/ruleset/fake.go",
+      "internal/domain/specification/fake.go",
+      "internal/domain/specification/fake_builder.go",
+      "internal/fake/fake.go"
+    ],
+    "facts": [
+      "Source auxiliary helpers reside in non-test Go files but no production startup registration is established. Stub functions import testing/require; generic fake builder uses random generated values and option callbacks. Do not count these as API entries or imported configuration services.",
+      "Fake specification fluent helpers have genuine source return distinctions: Color/Option/etc return child builder, Add returns parent, generic apply callbacks return T, Build returns specification/error. Package helper accepts RequiredWheels but its actual Add initializer omits requiredWheels; retain exact source construction rather than copying all accepted fields. Random Between uses inclusive min/max; OneOf indexes by random len, with no invented empty-input guard."
+    ]
+  },
+  {
+    "paths": [
+      "internal/api/auth/claims.go",
+      "internal/api/grpcserver/interceptors/logging.go",
+      "internal/api/grpcserver/interceptors/metrics.go",
+      "internal/api/httpserver/server.go",
+      "internal/app/shutdown.go",
+      "internal/observability/context.go",
+      "internal/observability/logging.go"
+    ],
+    "facts": [
+      "JWT claims embed RegisteredClaims plus roles/scp/appid JSON tags. Logging callbacks call actual handler then success/failure logging conditions; metrics callback measures handler duration and uses status.FromError or Unknown. Context client_id and ruleset_id keys are actual local inputs to imported logging helper; no generic argument\u2192result flow assumed.",
+      "Shutdown logs only shutdowner.Shutdown error. HTTP server source New delegates to imported package; inherited framework routes are not fabricated."
+    ]
+  },
+  {
+    "paths": ["internal/api/grpcserver/contracts/service_grpc.pb.go"],
+    "facts": [
+      "Nine generated server handlers allocate specific protobuf request, call dec(in), return error if decoding fails, bypass interceptor when nil, otherwise allocate UnaryServerInfo with real full method and a typed handler closure; call supplied interceptor. Native registration association is distinct from imported chain scheduling. ServiceDesc has9MethodDesc and empty Streams.",
+      "Generated client methods call cc.Invoke with ctx/fullmethod/in/out/options; Invoke returns error while output is an out-pointer mutation, not returned receiver or input\u2192result identity. No source application constructor/caller or bound remote host is established for this exported library client. Unimplemented embedded server methods return source Unimplemented error but actual Server overrides all9, so do not count18current endpoints."
+    ]
+  }
+]

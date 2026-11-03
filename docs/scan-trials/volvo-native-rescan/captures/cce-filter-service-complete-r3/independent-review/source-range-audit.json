@@ -1,0 +1,7 @@
+{
+  "status": "passed",
+  "snapshot": "026b45380097c239e2511a7ce9186329c0af6e0a24ba7bf73beac41b6e39705f",
+  "evidenceRecords": 3633,
+  "uniqueFiles": 122,
+  "method": "Independent cached exact pinned Git bytes and all inclusive range bounds; source availability does not establish semantic correctness"
+}

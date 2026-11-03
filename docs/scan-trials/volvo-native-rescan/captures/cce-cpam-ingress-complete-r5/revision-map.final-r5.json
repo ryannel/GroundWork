@@ -1,0 +1,10 @@
+{
+  "base": "bundle.final-r3.json",
+  "prefixes": {
+    "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r2/": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/body/",
+    "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r3/additions/": "volvo/cce-cpam-ingress/6db6ba2b9c76/final-r5/additions/"
+  },
+  "logicalIdsPreserved": true,
+  "semanticChanges": "variation-correction.final-r5.json",
+  "r4": "Unselected invalid candidate retained; per-call gap owner corrected to actual implementation in r5"
+}

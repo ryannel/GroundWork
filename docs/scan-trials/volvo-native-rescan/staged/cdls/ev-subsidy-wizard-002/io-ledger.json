@@ -1,0 +1,33 @@
+[
+  {
+    "entry": "volvo/cdls-mono-volvocars/8e1fd20c525f/ev-subsidy-wizard-r2/entry/handleSelect",
+    "operation": "volvo/cdls-mono-volvocars/8e1fd20c525f/ev-subsidy-wizard-r2/op/handleSelect/10",
+    "interaction": "volvo/cdls-mono-volvocars/8e1fd20c525f/ev-subsidy-wizard-r2/io/67",
+    "contract": "volvo/cdls-mono-volvocars/8e1fd20c525f/ev-subsidy-wizard-r2/io-contract/66",
+    "source": "apps/ev-subsidy/src/components/wizard/StepAddress/index.tsx",
+    "lines": [27, 36],
+    "actualValues": [
+      [
+        "argument0",
+        "volvo/cdls-mono-volvocars/8e1fd20c525f/ev-subsidy-wizard-r2/v/handleSelect/60"
+      ],
+      ["argument1", "volvo/cdls-mono-volvocars/8e1fd20c525f/ev-subsidy-wizard-r2/v/handleSelect/55"]
+    ],
+    "url": "/api/ev-subsidy/eligibility",
+    "method": "POST"
+  },
+  {
+    "entry": "volvo/cdls-mono-volvocars/8e1fd20c525f/ev-subsidy-wizard-r2/method/submitData",
+    "operation": "volvo/cdls-mono-volvocars/8e1fd20c525f/ev-subsidy-wizard-r2/op/submitData/7",
+    "interaction": "volvo/cdls-mono-volvocars/8e1fd20c525f/ev-subsidy-wizard-r2/io/182",
+    "contract": "volvo/cdls-mono-volvocars/8e1fd20c525f/ev-subsidy-wizard-r2/io-contract/181",
+    "source": "apps/ev-subsidy/src/components/wizard/StepPersons/index.tsx",
+    "lines": [43, 47],
+    "actualValues": [
+      ["argument0", "volvo/cdls-mono-volvocars/8e1fd20c525f/ev-subsidy-wizard-r2/v/submitData/175"],
+      ["argument1", "volvo/cdls-mono-volvocars/8e1fd20c525f/ev-subsidy-wizard-r2/v/submitData/170"]
+    ],
+    "url": "/api/ev-subsidy/income",
+    "method": "POST"
+  }
+]

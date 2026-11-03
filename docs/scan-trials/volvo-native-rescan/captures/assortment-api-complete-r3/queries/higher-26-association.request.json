@@ -1,0 +1,23 @@
+{
+  "format": "groundwork-query/v3",
+  "snapshot": "12219e2034df0e17bbddb39b0cb84cb758d43e05f42dd145321613bd27300899",
+  "query": "records",
+  "entry": "assortment-6114c5d-complete-r3/method/405d1c77badc4682",
+  "value": null,
+  "context": [],
+  "outcome": null,
+  "changed": [],
+  "representation": "constructed",
+  "candidates": "exclude",
+  "maxNodes": 2000,
+  "environment": "production-profile",
+  "maxRecords": 5000,
+  "ids": [
+    "assortment-6114c5d-complete-r3/higher-order/d7c1ea4685daa26b",
+    "assortment-6114c5d-complete-r3/v/70c0e47d5c89d61e/p/0",
+    "assortment-6114c5d-complete-r3/v/405d1c77badc4682/7",
+    "assortment-6114c5d-complete-r3/method/30c2818dbbec3613",
+    "assortment-6114c5d-complete-r3/capture/30c2818dbbec3613/137fbf68ff0032ae",
+    "assortment-6114c5d-complete-r3/v/405d1c77badc4682/p/0"
+  ]
+}

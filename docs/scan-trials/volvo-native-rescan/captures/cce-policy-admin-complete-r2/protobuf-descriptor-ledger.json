@@ -1,0 +1,86 @@
+[
+  {
+    "path": "internal/messaging/contracts/carconfiguration/component.pb.go",
+    "lines": [324, 386],
+    "file": "carconfiguration/component.proto",
+    "package": "volvocars.contracts.carconfiguration",
+    "syntax": "proto3",
+    "imports": [],
+    "services": [],
+    "sha256": "56b15a79552de76b30db1f7295429cde7d006ea59461146f424d66943b32c3c5"
+  },
+  {
+    "path": "internal/messaging/contracts/carconfiguration/condition.pb.go",
+    "lines": [181, 222],
+    "file": "carconfiguration/condition.proto",
+    "package": "volvocars.contracts.carconfiguration",
+    "syntax": "proto3",
+    "imports": ["carconfiguration/component.proto"],
+    "services": [],
+    "sha256": "2e9c3c41384b183cd6191b5754bc11e814bf534c2ff85b92a55dd9e53c283c52"
+  },
+  {
+    "path": "internal/messaging/contracts/carconfiguration/config-policy.pb.go",
+    "lines": [987, 1182],
+    "file": "carconfiguration/config-policy.proto",
+    "package": "volvocars.contracts.carconfiguration",
+    "syntax": "proto3",
+    "imports": ["carconfiguration/config-rules.proto", "carconfiguration/component.proto"],
+    "services": [],
+    "sha256": "a97de57a1d705febd64eda58241c6b214e2475d93d1d3e9ceeafc20d6edfd7eb"
+  },
+  {
+    "path": "internal/messaging/contracts/carconfiguration/config-rules.pb.go",
+    "lines": [561, 678],
+    "file": "carconfiguration/config-rules.proto",
+    "package": "volvocars.contracts.carconfiguration",
+    "syntax": "proto3",
+    "imports": [
+      "carconfiguration/condition.proto",
+      "carconfiguration/consequence.proto",
+      "google/protobuf/timestamp.proto"
+    ],
+    "services": [],
+    "sha256": "7015a10f63a89970a4bc5dacf8f9ceb5f6d024b1cefb6533f5e3d24672908130"
+  },
+  {
+    "path": "internal/messaging/contracts/carconfiguration/consequence.pb.go",
+    "lines": [262, 310],
+    "file": "carconfiguration/consequence.proto",
+    "package": "volvocars.contracts.carconfiguration",
+    "syntax": "proto3",
+    "imports": ["carconfiguration/component.proto"],
+    "services": [],
+    "sha256": "96c428937dd4e69932766c7db622f17d037653df0548ae190a104928a07723b4"
+  },
+  {
+    "path": "internal/messaging/contracts/cce/bto_car.pb.go",
+    "lines": [281, 323],
+    "file": "bto_car.proto",
+    "package": "volvocars.contracts.pop.cce",
+    "syntax": "proto3",
+    "imports": [],
+    "services": [],
+    "sha256": "64fe5a2817d1fda397428aecb3378e55646fa85ba9f91fe3c846ccbdb2a6c00c"
+  },
+  {
+    "path": "internal/messaging/contracts/cce/car-configuration.pb.go",
+    "lines": [310, 368],
+    "file": "car-configuration.proto",
+    "package": "volvocars.contracts.carconfiguration",
+    "syntax": "proto3",
+    "imports": [],
+    "services": [],
+    "sha256": "32d6ea8d446dba6ad82773479a39011369b6c4c4980ca789c03f6d4e80d2f290"
+  },
+  {
+    "path": "internal/messaging/contracts/cce/car-sync.pb.go",
+    "lines": [135, 155],
+    "file": "car-sync.proto",
+    "package": "volvocars.contracts.cce",
+    "syntax": "proto3",
+    "imports": [],
+    "services": [],
+    "sha256": "449f3e0b96679840934af5c09f6b67ef1df369d83400acf40bfe074924c21b2e"
+  }
+]

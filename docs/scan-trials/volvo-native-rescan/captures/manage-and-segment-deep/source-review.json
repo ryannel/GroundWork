@@ -1,0 +1,20 @@
+{
+  "outcome": "passed",
+  "snapshot": "9958d25719399c959ece547e827c4b7f92f853a983c8b2669f34e08ca6f7f0cc",
+  "scope": [
+    "Fee delete missing path SaveChanges-before404 and no notification",
+    "Fee update prefetch, route override, existing Id preservation, stage, save, post-save refetch and notification",
+    "SoftOfferPackage GET InternalId then DeterministicId fallback",
+    "Source Result/HTTP body/ActionResult and void Task call results",
+    "Actual UnitOfWork store interaction ownership and absence of fabricated entity argument",
+    "All six Fee/Brand insert/update/delete cross-frame storage associations and distinct missing-row invocation"
+  ],
+  "remainingLimits": [
+    "Smaller mapper, identity, HTTP response helper and builder method decomposition remains partial",
+    "Write authorisation client bodies remain a source-backed summary",
+    "72 further route summaries have partial native method frames",
+    "16 controller routes remain locally untraced",
+    "Imported artefacts, effective deployment and runtime observations remain unresolved"
+  ],
+  "review": "Independent bounded source and native-vector review; no blocking finding remained"
+}

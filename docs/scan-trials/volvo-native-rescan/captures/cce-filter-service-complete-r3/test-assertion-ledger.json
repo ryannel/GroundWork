@@ -1,0 +1,590 @@
+[
+  {
+    "path": "src/messaging/tests/test_car_specification_to_components.py",
+    "lines": [45, 45],
+    "assertion": "assert result == expected",
+    "evidence": ["volvo/cce-filter-service/2020ff59219b/local-r3/evidence/18925cea7157cc39aa"],
+    "executed": false
+  },
+  {
+    "path": "src/messaging/tests/test_car_specification_to_components.py",
+    "lines": [55, 55],
+    "assertion": "assert legacy_pno12_from_car_specification(specification).string() == f'{LEGACY_PNO12}A1'",
+    "evidence": ["volvo/cce-filter-service/2020ff59219b/local-r3/evidence/b8bcca826f1c23d635"],
+    "executed": false
+  },
+  {
+    "path": "src/messaging/tests/test_car_specification_to_components.py",
+    "lines": [56, 56],
+    "assertion": "assert result == md.Pno12ComponentMapper.explode_pno12_into_pno12_components(LEGACY_PNO12)",
+    "evidence": ["volvo/cce-filter-service/2020ff59219b/local-r3/evidence/fb4c830162c844adfb"],
+    "executed": false
+  },
+  {
+    "path": "src/messaging/tests/test_car_specification_to_components.py",
+    "lines": [105, 105],
+    "assertion": "assert len(result) == len(expected_components)",
+    "evidence": ["volvo/cce-filter-service/2020ff59219b/local-r3/evidence/02b6d926956397f461"],
+    "executed": false
+  },
+  {
+    "path": "src/messaging/tests/test_car_specification_to_components.py",
+    "lines": [106, 106],
+    "assertion": "assert set(by_type_and_code) == {(component.type, component.code) for component in expected_components}",
+    "evidence": ["volvo/cce-filter-service/2020ff59219b/local-r3/evidence/f1bc34b364a9b4e9f8"],
+    "executed": false
+  },
+  {
+    "path": "src/messaging/tests/test_car_specification_to_components.py",
+    "lines": [107, 107],
+    "assertion": "assert by_type_and_code[md.ComponentType.OPTION, 'O001'].meta.hundred_percent is True",
+    "evidence": ["volvo/cce-filter-service/2020ff59219b/local-r3/evidence/3a3cb5cee51b538ebf"],
+    "executed": false
+  },
+  {
+    "path": "src/messaging/tests/test_car_specification_to_components.py",
+    "lines": [108, 108],
+    "assertion": "assert by_type_and_code[md.ComponentType.OPTION, 'O002'].meta.package_only is True",
+    "evidence": ["volvo/cce-filter-service/2020ff59219b/local-r3/evidence/0a431807ab67b66cbe"],
+    "executed": false
+  },
+  {
+    "path": "src/messaging/tests/test_car_specification_to_components.py",
+    "lines": [109, 109],
+    "assertion": "assert by_type_and_code[md.ComponentType.PACKAGE, 'P001'].meta.hundred_percent is True",
+    "evidence": ["volvo/cce-filter-service/2020ff59219b/local-r3/evidence/e97a93e1f07bfdd9e0"],
+    "executed": false
+  },
+  {
+    "path": "src/messaging/tests/test_car_specification_to_components.py",
+    "lines": [110, 110],
+    "assertion": "assert by_type_and_code[md.ComponentType.PACKAGE, 'P002'].meta.hundred_percent is False",
+    "evidence": ["volvo/cce-filter-service/2020ff59219b/local-r3/evidence/c73dd172c3efc892ba"],
+    "executed": false
+  },
+  {
+    "path": "src/messaging/tests/test_handlers_car_specification.py",
+    "lines": [304, 304],
+    "assertion": "assert components is not None",
+    "evidence": ["volvo/cce-filter-service/2020ff59219b/local-r3/evidence/6157ce263bdb14b460"],
+    "executed": false
+  },
+  {
+    "path": "src/messaging/tests/test_handlers_car_specification.py",
+    "lines": [305, 305],
+    "assertion": "assert len(components) == 1",
+    "evidence": ["volvo/cce-filter-service/2020ff59219b/local-r3/evidence/539789f68c628c1943"],
+    "executed": false
+  },
+  {
+    "path": "src/messaging/tests/test_handlers_car_specification.py",
+    "lines": [322, 322],
+    "assertion": "assert components is not None",
+    "evidence": ["volvo/cce-filter-service/2020ff59219b/local-r3/evidence/4e712cfdd531674763"],
+    "executed": false
+  },
+  {
+    "path": "src/messaging/tests/test_handlers_car_specification.py",
+    "lines": [323, 323],
+    "assertion": "assert len(components) == 1",
+    "evidence": ["volvo/cce-filter-service/2020ff59219b/local-r3/evidence/95e08f1e68c5bf7704"],
+    "executed": false
+  },
+  {
+    "path": "src/messaging/tests/test_handlers_car_specification.py",
+    "lines": [346, 346],
+    "assertion": "assert components is not None",
+    "evidence": ["volvo/cce-filter-service/2020ff59219b/local-r3/evidence/562d9b39d6beff4c1f"],
+    "executed": false
+  },
+  {
+    "path": "src/messaging/tests/test_handlers_car_specification.py",
+    "lines": [347, 347],
+    "assertion": "assert len(components) == 1",
+    "evidence": ["volvo/cce-filter-service/2020ff59219b/local-r3/evidence/7d3959043d8b03f732"],
+    "executed": false
+  },
+  {
+    "path": "src/messaging/tests/test_handlers_car_specification.py",
+    "lines": [372, 372],
+    "assertion": "assert {WHEEL_1.code, WHEEL_2.code, WHEEL_3.code}.issubset(wheel_codes)",
+    "evidence": ["volvo/cce-filter-service/2020ff59219b/local-r3/evidence/ec708336109a485d56"],
+    "executed": false
+  },
+  {
+    "path": "src/messaging/tests/test_handlers_car_specification.py",
+    "lines": [621, 621],
+    "assertion": "assert components_repository.get_component_list(spec_market, PNO12_1) is None",
+    "evidence": ["volvo/cce-filter-service/2020ff59219b/local-r3/evidence/78055730fe87a0b671"],
+    "executed": false
+  },
+  {
+    "path": "src/messaging/tests/test_handlers_car_specification.py",
+    "lines": [660, 660],
+    "assertion": "assert components_repository.get_component_list(spec_market, PNO12_1) is not None",
+    "evidence": ["volvo/cce-filter-service/2020ff59219b/local-r3/evidence/b26f8de64698cd7c1d"],
+    "executed": false
+  },
+  {
+    "path": "src/messaging/tests/test_handlers_car_specification.py",
+    "lines": [739, 739],
+    "assertion": "assert components_repository.get_component_list(outside_spec_market, PNO12_1) is not None",
+    "evidence": ["volvo/cce-filter-service/2020ff59219b/local-r3/evidence/8133ef9c95f2033dce"],
+    "executed": false
+  },
+  {
+    "path": "src/messaging/tests/test_handlers_car_specification.py",
+    "lines": [740, 740],
+    "assertion": "assert components_repository.get_component_list(spec_market, PNO12_2) is not None",
+    "evidence": ["volvo/cce-filter-service/2020ff59219b/local-r3/evidence/b0fd3fedbb1af99db9"],
+    "executed": false
+  },
+  {
+    "path": "src/messaging/tests/test_handlers_car_specification.py",
+    "lines": [741, 741],
+    "assertion": "assert components_repository.get_component_list(child_1, PNO12_2) is not None",
+    "evidence": ["volvo/cce-filter-service/2020ff59219b/local-r3/evidence/7899cac5b0c1d8c739"],
+    "executed": false
+  },
+  {
+    "path": "src/messaging/tests/test_handlers_car_specification.py",
+    "lines": [780, 780],
+    "assertion": "assert components_repository.get_component_list(spec_market, PNO12_1) is None",
+    "evidence": ["volvo/cce-filter-service/2020ff59219b/local-r3/evidence/b5d1a124272b089241"],
+    "executed": false
+  },
+  {
+    "path": "src/messaging/tests/test_handlers_car_specification.py",
+    "lines": [833, 833],
+    "assertion": "assert components_repository.records == first_components",
+    "evidence": ["volvo/cce-filter-service/2020ff59219b/local-r3/evidence/d9c5dd2a24fc2743f8"],
+    "executed": false
+  },
+  {
+    "path": "src/messaging/tests/test_handlers_car_specification.py",
+    "lines": [834, 834],
+    "assertion": "assert wheel_repository.wheels == first_wheels",
+    "evidence": ["volvo/cce-filter-service/2020ff59219b/local-r3/evidence/145601c091e8dc25da"],
+    "executed": false
+  },
+  {
+    "path": "src/messaging/tests/test_handlers_car_specification.py",
+    "lines": [897, 897],
+    "assertion": "assert policy_components is not None",
+    "evidence": ["volvo/cce-filter-service/2020ff59219b/local-r3/evidence/3dae3fded7983bc2f7"],
+    "executed": false
+  },
+  {
+    "path": "src/messaging/tests/test_handlers_car_specification.py",
+    "lines": [900, 900],
+    "assertion": "assert record is not None, f'No component record found for pno12 {pno12}'",
+    "evidence": ["volvo/cce-filter-service/2020ff59219b/local-r3/evidence/c235e61999e5361537"],
+    "executed": false
+  },
+  {
+    "path": "src/messaging/tests/test_handlers_car_specification.py",
+    "lines": [905, 907],
+    "assertion": "assert actual == expected, f'Components for pno12 {pno12} changed unexpectedly. Expected exactly {expected}, got {actual}'",
+    "evidence": ["volvo/cce-filter-service/2020ff59219b/local-r3/evidence/499793089276266dc4"],
+    "executed": false
+  },
+  {
+    "path": "src/messaging/tests/test_handlers_car_specification.py",
+    "lines": [916, 916],
+    "assertion": "assert policy_components is not None",
+    "evidence": ["volvo/cce-filter-service/2020ff59219b/local-r3/evidence/6b01c0847a9472ca04"],
+    "executed": false
+  },
+  {
+    "path": "src/messaging/tests/test_handlers_car_specification.py",
+    "lines": [919, 919],
+    "assertion": "assert record is not None, f'No component record found for pno12 {pno12}'",
+    "evidence": ["volvo/cce-filter-service/2020ff59219b/local-r3/evidence/62a883c05263094e0d"],
+    "executed": false
+  },
+  {
+    "path": "src/messaging/tests/test_handlers_car_specification.py",
+    "lines": [105, 105],
+    "assertion": "assert policy_components is not None",
+    "evidence": ["volvo/cce-filter-service/2020ff59219b/local-r3/evidence/eebcf70a97193475c7"],
+    "executed": false
+  },
+  {
+    "path": "src/messaging/tests/test_handlers_car_specification.py",
+    "lines": [106, 106],
+    "assertion": "assert {record['pno12'] for record in policy_components} == {PNO12_1, PNO12_2}",
+    "evidence": ["volvo/cce-filter-service/2020ff59219b/local-r3/evidence/9505396f26dd9ec2ef"],
+    "executed": false
+  },
+  {
+    "path": "src/messaging/tests/test_handlers_car_specification.py",
+    "lines": [313, 318],
+    "assertion": "TestHandleCarSpecification.assert_components(pno12=PNO12_1, expected_components=expected_components_spec_market, not_expected_components=[], policy_components=components)",
+    "evidence": ["volvo/cce-filter-service/2020ff59219b/local-r3/evidence/cb42e65fa4a3ebdaf5"],
+    "executed": false
+  },
+  {
+    "path": "src/messaging/tests/test_handlers_car_specification.py",
+    "lines": [338, 343],
+    "assertion": "TestHandleCarSpecification.assert_components(pno12=PNO12_1, expected_components=expected_components_child_1, not_expected_components=not_expected_components_child_1, policy_components=components)",
+    "evidence": ["volvo/cce-filter-service/2020ff59219b/local-r3/evidence/f137efbc4743d08982"],
+    "executed": false
+  },
+  {
+    "path": "src/messaging/tests/test_handlers_car_specification.py",
+    "lines": [363, 368],
+    "assertion": "TestHandleCarSpecification.assert_components(pno12=PNO12_1, expected_components=expected_components_child_1_1, not_expected_components=not_expected_components_child_1_1, policy_components=components)",
+    "evidence": ["volvo/cce-filter-service/2020ff59219b/local-r3/evidence/2df41bdbf97d4f3955"],
+    "executed": false
+  },
+  {
+    "path": "src/messaging/tests/test_handlers_car_specification.py",
+    "lines": [447, 447],
+    "assertion": "assert policy_components is not None",
+    "evidence": ["volvo/cce-filter-service/2020ff59219b/local-r3/evidence/d6e55319065a47ac83"],
+    "executed": false
+  },
+  {
+    "path": "src/messaging/tests/test_handlers_car_specification.py",
+    "lines": [448, 448],
+    "assertion": "assert len(policy_components) == 1",
+    "evidence": ["volvo/cce-filter-service/2020ff59219b/local-r3/evidence/1a592fcd70eb7de105"],
+    "executed": false
+  },
+  {
+    "path": "src/messaging/tests/test_handlers_car_specification.py",
+    "lines": [450, 450],
+    "assertion": "assert record['pno12'] == PNO12_1",
+    "evidence": ["volvo/cce-filter-service/2020ff59219b/local-r3/evidence/053127237c1f730830"],
+    "executed": false
+  },
+  {
+    "path": "src/messaging/tests/test_handlers_car_specification.py",
+    "lines": [451, 451],
+    "assertion": "assert record['included'] == expected_included",
+    "evidence": ["volvo/cce-filter-service/2020ff59219b/local-r3/evidence/6a10af71333f9dcb53"],
+    "executed": false
+  },
+  {
+    "path": "src/messaging/tests/test_handlers_car_specification.py",
+    "lines": [573, 580],
+    "assertion": "self.assert_exact_components(pno12=PNO12_1, expected_components=[*self.base_pno12_components(PNO12_1), OPTION_1], policy_components=components)",
+    "evidence": ["volvo/cce-filter-service/2020ff59219b/local-r3/evidence/28d1150404cde0909b"],
+    "executed": false
+  },
+  {
+    "path": "src/messaging/tests/test_handlers_car_specification.py",
+    "lines": [737, 737],
+    "assertion": "assert components_repository.get_component_list(policy_uid, PNO12_1) is None",
+    "evidence": ["volvo/cce-filter-service/2020ff59219b/local-r3/evidence/8bd666f628fa02b12e"],
+    "executed": false
+  },
+  {
+    "path": "src/messaging/tests/test_handlers_car_specification.py",
+    "lines": [884, 892],
+    "assertion": "TestHandleCarSpecification.assert_exact_components(pno12=PNO12_1, expected_components=[*TestHandleCarSpecification.base_pno12_components(PNO12_1), OPTION_2, COLOR_2], policy_components=components)",
+    "evidence": ["volvo/cce-filter-service/2020ff59219b/local-r3/evidence/2f92d3e3541cecdf0b"],
+    "executed": false
+  },
+  {
+    "path": "src/messaging/tests/test_handlers_car_specification.py",
+    "lines": [924, 927],
+    "assertion": "assert any((component['code'] == expected.code and component['type'] == expected.type.value for component in actual_components)), f'Expected component {expected.type.value}:{expected.code} not found for pno12 {pno12}'",
+    "evidence": ["volvo/cce-filter-service/2020ff59219b/local-r3/evidence/a9578a226f51e13ef4"],
+    "executed": false
+  },
+  {
+    "path": "src/messaging/tests/test_handlers_car_specification.py",
+    "lines": [930, 933],
+    "assertion": "assert all((component['code'] != not_expected.code or component['type'] != not_expected.type.value for component in actual_components)), f'Not expected component {not_expected.type.value}:{not_expected.code} found for pno12 {pno12}'",
+    "evidence": ["volvo/cce-filter-service/2020ff59219b/local-r3/evidence/77141832a9917de2de"],
+    "executed": false
+  },
+  {
+    "path": "src/messaging/tests/test_handlers_car_specification.py",
+    "lines": [154, 154],
+    "assertion": "self.assert_exact_components(PNO12_2, managed_components, policy_components)",
+    "evidence": ["volvo/cce-filter-service/2020ff59219b/local-r3/evidence/fcb7534860814054a2"],
+    "executed": false
+  },
+  {
+    "path": "src/messaging/tests/test_handlers_car_specification.py",
+    "lines": [519, 524],
+    "assertion": "TestHandleCarSpecification.assert_components(pno12=PNO12_1, expected_components=[OPTION_2], not_expected_components=[OPTION_1], policy_components=components)",
+    "evidence": ["volvo/cce-filter-service/2020ff59219b/local-r3/evidence/85d528f7971abaae72"],
+    "executed": false
+  },
+  {
+    "path": "src/messaging/tests/test_handlers_car_specification.py",
+    "lines": [526, 530],
+    "assertion": "TestHandleCarSpecification.assert_exact_components(pno12=PNO12_2, expected_components=existing_pno12_2_components, policy_components=components)",
+    "evidence": ["volvo/cce-filter-service/2020ff59219b/local-r3/evidence/532d8d94505ddffef0"],
+    "executed": false
+  },
+  {
+    "path": "src/models/tests/test_pno12.py",
+    "lines": [50, 50],
+    "assertion": "assert pno12.model_dump() == expected",
+    "evidence": ["volvo/cce-filter-service/2020ff59219b/local-r3/evidence/982ed47a45939e9695"],
+    "executed": false
+  },
+  {
+    "path": "src/models/tests/test_pno12.py",
+    "lines": [51, 51],
+    "assertion": "assert pno12.string() == value",
+    "evidence": ["volvo/cce-filter-service/2020ff59219b/local-r3/evidence/a382f1c4ca10fe94ab"],
+    "executed": false
+  },
+  {
+    "path": "src/models/tests/test_pno12.py",
+    "lines": [71, 71],
+    "assertion": "assert legacy_pno12.model_year == model_year",
+    "evidence": ["volvo/cce-filter-service/2020ff59219b/local-r3/evidence/7e23b911a09a19119d"],
+    "executed": false
+  },
+  {
+    "path": "src/models/tests/test_pno12.py",
+    "lines": [72, 72],
+    "assertion": "assert legacy_pno12.spec_market == spec_market",
+    "evidence": ["volvo/cce-filter-service/2020ff59219b/local-r3/evidence/a2bea1be74764b9492"],
+    "executed": false
+  },
+  {
+    "path": "src/models/tests/test_pno12.py",
+    "lines": [73, 73],
+    "assertion": "assert legacy_pno12.pno12_string() == pno12_value",
+    "evidence": ["volvo/cce-filter-service/2020ff59219b/local-r3/evidence/f4be526aabba6145f6"],
+    "executed": false
+  },
+  {
+    "path": "src/models/tests/test_pno12.py",
+    "lines": [74, 74],
+    "assertion": "assert legacy_pno12.local_edition == edition",
+    "evidence": ["volvo/cce-filter-service/2020ff59219b/local-r3/evidence/f7d21a6ec87661c03e"],
+    "executed": false
+  },
+  {
+    "path": "src/models/tests/test_pno12.py",
+    "lines": [75, 75],
+    "assertion": "assert legacy_pno12.string() == value",
+    "evidence": ["volvo/cce-filter-service/2020ff59219b/local-r3/evidence/1b099160a3005d688b"],
+    "executed": false
+  },
+  {
+    "path": "src/services/tests/test_components_service.py",
+    "lines": [65, 67],
+    "assertion": "assert {(component['code'], component['type']) for component in record['components']} == {(OPTION_2.code, OPTION_2.type.value)}",
+    "evidence": ["volvo/cce-filter-service/2020ff59219b/local-r3/evidence/1a3d388d96596e259c"],
+    "executed": false
+  },
+  {
+    "path": "src/services/tests/test_convert_policy_rules_to_pno12_rule_set.py",
+    "lines": [70, 70],
+    "assertion": "service.save_pno12_rule_sets.assert_awaited_once_with([regular_rule_set])",
+    "evidence": ["volvo/cce-filter-service/2020ff59219b/local-r3/evidence/a5517dc1bd35f9c659"],
+    "executed": false
+  },
+  {
+    "path": "src/services/tests/test_new_flow_policy_sync_only_feature_flag.py",
+    "lines": [34, 34],
+    "assertion": "assert flag.is_enabled(PNO12_1) is True",
+    "evidence": ["volvo/cce-filter-service/2020ff59219b/local-r3/evidence/713c1c3946fcf99fe4"],
+    "executed": false
+  },
+  {
+    "path": "src/services/tests/test_new_flow_policy_sync_only_feature_flag.py",
+    "lines": [35, 35],
+    "assertion": "assert flag.is_enabled(same_scope_pno12) is True",
+    "evidence": ["volvo/cce-filter-service/2020ff59219b/local-r3/evidence/c0967ba4b716b797bc"],
+    "executed": false
+  },
+  {
+    "path": "src/services/tests/test_new_flow_policy_sync_only_feature_flag.py",
+    "lines": [36, 36],
+    "assertion": "assert flag.is_enabled(PNO12_2) is False",
+    "evidence": ["volvo/cce-filter-service/2020ff59219b/local-r3/evidence/bf5693e420a64c342a"],
+    "executed": false
+  },
+  {
+    "path": "src/services/tests/test_new_flow_policy_sync_only_feature_flag.py",
+    "lines": [47, 47],
+    "assertion": "assert flag.is_enabled('2026110456ABCDEF') is True",
+    "evidence": ["volvo/cce-filter-service/2020ff59219b/local-r3/evidence/c9d5e3534b7c576964"],
+    "executed": false
+  },
+  {
+    "path": "src/services/tests/test_new_flow_policy_sync_only_feature_flag.py",
+    "lines": [48, 48],
+    "assertion": "assert flag.is_enabled('2028110371ABCDEF') is True",
+    "evidence": ["volvo/cce-filter-service/2020ff59219b/local-r3/evidence/6030e0c8f80874e7ba"],
+    "executed": false
+  },
+  {
+    "path": "src/services/tests/test_new_flow_policy_sync_only_feature_flag.py",
+    "lines": [49, 49],
+    "assertion": "assert flag.is_enabled('2027110999ABCDEF') is True",
+    "evidence": ["volvo/cce-filter-service/2020ff59219b/local-r3/evidence/5ec6d2f1f4ec0b2cd8"],
+    "executed": false
+  },
+  {
+    "path": "src/services/tests/test_new_flow_policy_sync_only_feature_flag.py",
+    "lines": [50, 50],
+    "assertion": "assert flag.is_enabled('2027211334ABCDEF') is True",
+    "evidence": ["volvo/cce-filter-service/2020ff59219b/local-r3/evidence/6db8ba74306a947f5a"],
+    "executed": false
+  },
+  {
+    "path": "src/services/tests/test_new_flow_policy_sync_only_feature_flag.py",
+    "lines": [51, 51],
+    "assertion": "assert flag.is_enabled('2026111999ABCDEF') is False",
+    "evidence": ["volvo/cce-filter-service/2020ff59219b/local-r3/evidence/8b542e02803aa8ee27"],
+    "executed": false
+  },
+  {
+    "path": "src/services/tests/test_new_flow_policy_sync_only_feature_flag.py",
+    "lines": [55, 59],
+    "assertion": "assert pno12_context_attributes(PNO12_1) == {'modelYear': 2027, 'specMarket': '110', 'carType': '539'}",
+    "evidence": ["volvo/cce-filter-service/2020ff59219b/local-r3/evidence/5fa08249752612431f"],
+    "executed": false
+  },
+  {
+    "path": "src/services/tests/test_new_flow_policy_sync_only_feature_flag.py",
+    "lines": [67, 67],
+    "assertion": "assert flag.is_enabled(PNO12_1) is True",
+    "evidence": ["volvo/cce-filter-service/2020ff59219b/local-r3/evidence/883305e6399195bd48"],
+    "executed": false
+  },
+  {
+    "path": "src/services/tests/test_new_flow_policy_sync_only_feature_flag.py",
+    "lines": [71, 71],
+    "assertion": "assert flag_key == NEW_FLOW_POLICY_SYNC_ONLY_FLAG",
+    "evidence": ["volvo/cce-filter-service/2020ff59219b/local-r3/evidence/b84be6e9754e4952f6"],
+    "executed": false
+  },
+  {
+    "path": "src/services/tests/test_new_flow_policy_sync_only_feature_flag.py",
+    "lines": [72, 72],
+    "assertion": "assert default is False",
+    "evidence": ["volvo/cce-filter-service/2020ff59219b/local-r3/evidence/8aa43598c1128a0c75"],
+    "executed": false
+  },
+  {
+    "path": "src/services/tests/test_new_flow_policy_sync_only_feature_flag.py",
+    "lines": [73, 80],
+    "assertion": "assert context.to_dict() == {'kind': 'user', 'key': '2027110539', 'name': '2027110539', 'modelYear': '2027', 'specMarket': '110', 'carType': '539'}",
+    "evidence": ["volvo/cce-filter-service/2020ff59219b/local-r3/evidence/678a3db3ca2725084b"],
+    "executed": false
+  },
+  {
+    "path": "src/services/tests/test_new_flow_policy_sync_only_feature_flag.py",
+    "lines": [89, 89],
+    "assertion": "assert isinstance(create_new_flow_policy_sync_only_feature_flag(), MockNewFlowPolicySyncOnlyFeatureFlag)",
+    "evidence": ["volvo/cce-filter-service/2020ff59219b/local-r3/evidence/4d2b495436565e1dd6"],
+    "executed": false
+  },
+  {
+    "path": "src/services/tests/test_new_flow_policy_sync_only_feature_flag.py",
+    "lines": [114, 114],
+    "assertion": "assert isinstance(flag, LaunchDarklyNewFlowPolicySyncOnlyFeatureFlag)",
+    "evidence": ["volvo/cce-filter-service/2020ff59219b/local-r3/evidence/f4d83017bc5118ab36"],
+    "executed": false
+  },
+  {
+    "path": "src/services/tests/test_new_flow_policy_sync_only_feature_flag.py",
+    "lines": [115, 115],
+    "assertion": "assert flag._client is client",
+    "evidence": ["volvo/cce-filter-service/2020ff59219b/local-r3/evidence/ecb3c20128c0ddf49c"],
+    "executed": false
+  },
+  {
+    "path": "src/services/tests/test_new_flow_policy_sync_only_feature_flag.py",
+    "lines": [116, 116],
+    "assertion": "assert another_flag._client is client",
+    "evidence": ["volvo/cce-filter-service/2020ff59219b/local-r3/evidence/bdc9aef849784cb1c4"],
+    "executed": false
+  },
+  {
+    "path": "src/services/tests/test_new_flow_policy_sync_only_feature_flag.py",
+    "lines": [117, 117],
+    "assertion": "assert flag.is_enabled(PNO12_1) is True",
+    "evidence": ["volvo/cce-filter-service/2020ff59219b/local-r3/evidence/229c1ced79fe3e7d85"],
+    "executed": false
+  },
+  {
+    "path": "src/services/tests/test_new_flow_policy_sync_only_feature_flag.py",
+    "lines": [136, 136],
+    "assertion": "assert set_config.call_args.args[0].sdk_key == 'secret-test-key'",
+    "evidence": ["volvo/cce-filter-service/2020ff59219b/local-r3/evidence/5f2786fe94715802fa"],
+    "executed": false
+  },
+  {
+    "path": "src/services/tests/test_new_flow_policy_sync_only_feature_flag.py",
+    "lines": [137, 137],
+    "assertion": "assert isinstance(flag, LaunchDarklyNewFlowPolicySyncOnlyFeatureFlag)",
+    "evidence": ["volvo/cce-filter-service/2020ff59219b/local-r3/evidence/6aba88db4cd998cb36"],
+    "executed": false
+  },
+  {
+    "path": "src/services/tests/test_new_flow_policy_sync_only_feature_flag.py",
+    "lines": [138, 138],
+    "assertion": "assert flag._client is client",
+    "evidence": ["volvo/cce-filter-service/2020ff59219b/local-r3/evidence/e59b94b58280eb9948"],
+    "executed": false
+  },
+  {
+    "path": "src/services/tests/test_new_flow_policy_sync_only_feature_flag.py",
+    "lines": [69, 69],
+    "assertion": "client.variation.assert_called_once()",
+    "evidence": ["volvo/cce-filter-service/2020ff59219b/local-r3/evidence/de4f8841d0c8f83389"],
+    "executed": false
+  },
+  {
+    "path": "src/services/tests/test_new_flow_policy_sync_only_feature_flag.py",
+    "lines": [113, 113],
+    "assertion": "set_config.assert_called_once()",
+    "evidence": ["volvo/cce-filter-service/2020ff59219b/local-r3/evidence/f4f4d6c432bb09dfc9"],
+    "executed": false
+  },
+  {
+    "path": "src/services/tests/test_new_flow_policy_sync_only_feature_flag.py",
+    "lines": [118, 118],
+    "assertion": "client.variation.assert_called_once()",
+    "evidence": ["volvo/cce-filter-service/2020ff59219b/local-r3/evidence/6430effcd2cd50ba34"],
+    "executed": false
+  },
+  {
+    "path": "src/services/tests/test_new_flow_policy_sync_only_feature_flag.py",
+    "lines": [135, 135],
+    "assertion": "set_config.assert_called_once()",
+    "evidence": ["volvo/cce-filter-service/2020ff59219b/local-r3/evidence/f6a53fab1c7297312e"],
+    "executed": false
+  },
+  {
+    "path": "src/services/tests/test_new_flow_policy_sync_only_feature_flag.py",
+    "lines": [153, 153],
+    "assertion": "set_config.assert_called_once()",
+    "evidence": ["volvo/cce-filter-service/2020ff59219b/local-r3/evidence/f02b0561c5b98344f8"],
+    "executed": false
+  },
+  {
+    "path": "src/services/tests/test_new_flow_policy_sync_only_feature_flag.py",
+    "lines": [102, 102],
+    "assertion": "raise Exception('set_config was not called')",
+    "evidence": ["volvo/cce-filter-service/2020ff59219b/local-r3/evidence/5460e0d6aa4755b93e"],
+    "executed": false
+  },
+  {
+    "path": "src/services/tests/test_new_flow_policy_sync_only_feature_flag.py",
+    "lines": [149, 149],
+    "assertion": "pytest.raises(RuntimeError, match='LaunchDarkly failed to initialize')",
+    "evidence": ["volvo/cce-filter-service/2020ff59219b/local-r3/evidence/ad85ea773ac189571d"],
+    "executed": false
+  },
+  {
+    "path": "src/services/tests/test_new_flow_policy_sync_only_feature_flag.py",
+    "lines": [151, 151],
+    "assertion": "pytest.raises(RuntimeError, match='LaunchDarkly is not initialized')",
+    "evidence": ["volvo/cce-filter-service/2020ff59219b/local-r3/evidence/48915d51ee5ebcf52b"],
+    "executed": false
+  }
+]

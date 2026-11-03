@@ -1,0 +1,170 @@
+[
+  {
+    "interface": "IBlobStorageClient",
+    "implementation": "BlobStorageClient",
+    "path": "src/PopCat.Assortment.Repository/Configure.cs",
+    "line": 15
+  },
+  {
+    "interface": "ICacheSerializerService",
+    "implementation": "CacheSerializerService",
+    "path": "src/PopCat.Assortment.Core/Configure.cs",
+    "line": 24
+  },
+  {
+    "interface": "ICarConfigCacheService",
+    "implementation": "CarConfigCacheService",
+    "path": "src/PopCat.Assortment.Core/Configure.cs",
+    "line": 25
+  },
+  {
+    "interface": "IMarketAuthCacheService",
+    "implementation": "MarketAuthCacheService",
+    "path": "src/PopCat.Assortment.Core/Configure.cs",
+    "line": 26
+  },
+  {
+    "interface": "IGlobalDictionaryCacheService",
+    "implementation": "GlobalDictionaryCacheService",
+    "path": "src/PopCat.Assortment.Core/Configure.cs",
+    "line": 27
+  },
+  {
+    "interface": "IProductFullDetailsCacheService",
+    "implementation": "ProductFullDetailsCacheService",
+    "path": "src/PopCat.Assortment.Core/Configure.cs",
+    "line": 28
+  },
+  {
+    "interface": "IUpstreamEntityCacheService",
+    "implementation": "UpstreamEntityCacheService",
+    "path": "src/PopCat.Assortment.Core/Configure.cs",
+    "line": 29
+  },
+  {
+    "interface": "IProductFullDetailsCacheManagementService",
+    "implementation": "ProductFullDetailsCacheManagementService",
+    "path": "src/PopCat.Assortment.Core/Configure.cs",
+    "line": 30
+  },
+  {
+    "interface": "ISpecificationCacheService",
+    "implementation": "SpecificationCacheService",
+    "path": "src/PopCat.Assortment.Core/Configure.cs",
+    "line": 31
+  },
+  {
+    "interface": "IClassificationCacheService",
+    "implementation": "ClassificationCacheService",
+    "path": "src/PopCat.Assortment.Core/Configure.cs",
+    "line": 32
+  },
+  {
+    "interface": "IProductDetailsBuilder",
+    "implementation": "ProductDetailsBuilder",
+    "path": "src/PopCat.Assortment.Core/Configure.cs",
+    "line": 33
+  },
+  {
+    "interface": "IHotCacheService",
+    "implementation": "RedisCacheService",
+    "path": "src/PopCat.Assortment.Core/Configure.cs",
+    "line": 34
+  },
+  {
+    "interface": "ISpecMarketService",
+    "implementation": "SpecMarketService",
+    "path": "src/PopCat.Assortment.Core/Configure.cs",
+    "line": 35
+  },
+  {
+    "interface": "IProductServiceService",
+    "implementation": "ProductServiceService",
+    "path": "src/PopCat.Assortment.Core/Configure.cs",
+    "line": 36
+  },
+  {
+    "interface": "ITransformationService",
+    "implementation": "TransformationService",
+    "path": "src/PopCat.Assortment.Core/Configure.cs",
+    "line": 37
+  },
+  {
+    "interface": "IExternalCarCodeCacheService",
+    "implementation": "ExternalCarCodeCacheService",
+    "path": "src/PopCat.Assortment.Core/Configure.cs",
+    "line": 38
+  },
+  {
+    "interface": "IVariantHistoryService",
+    "implementation": "VariantHistoryService",
+    "path": "src/PopCat.Assortment.Core/Configure.cs",
+    "line": 39
+  },
+  {
+    "interface": "IProductConfigurationClient",
+    "implementation": "ProductConfigurationClient",
+    "path": "src/PopCat.Assortment.Integration/Configure.cs",
+    "line": 35
+  },
+  {
+    "interface": "IProductServiceClient",
+    "implementation": "ProductServiceClient",
+    "path": "src/PopCat.Assortment.Integration/Configure.cs",
+    "line": 37
+  },
+  {
+    "interface": "ITokenClient",
+    "implementation": "TokenClient",
+    "path": "src/PopCat.Assortment.Integration/Configure.cs",
+    "line": 39
+  },
+  {
+    "interface": "IConfidentialClientApplicationWrapper",
+    "implementation": "ConfidentialClientApplicationWrapper",
+    "path": "src/PopCat.Assortment.Integration/Configure.cs",
+    "line": 42
+  },
+  {
+    "interface": "IAssortmentProxy",
+    "implementation": "AssortmentProxy",
+    "path": "src/PopCat.Assortment.Integration/Configure.cs",
+    "line": 52
+  },
+  {
+    "interface": "IProductMapperProxy",
+    "implementation": "ProductMapperProxy",
+    "path": "src/PopCat.Assortment.Integration/Configure.cs",
+    "line": 67
+  },
+  {
+    "interface": "IAssortmentProvider",
+    "implementation": "AssortmentProvider",
+    "path": "src/PopCat.Assortment.Integration/Configure.cs",
+    "line": 84
+  },
+  {
+    "interface": "IProductMapperProvider",
+    "implementation": "ProductMapperProvider",
+    "path": "src/PopCat.Assortment.Integration/Configure.cs",
+    "line": 85
+  },
+  {
+    "interface": "ITokenProvider",
+    "implementation": "TokenProvider",
+    "path": "src/PopCat.Assortment.Integration/Configure.cs",
+    "line": 86
+  },
+  {
+    "interface": "IFeatureFlagService",
+    "implementation": "FeatureFlagService",
+    "path": "src/PopCat.Assortment.Integration/Configure.cs",
+    "line": 87
+  },
+  {
+    "interface": "IFeatureFlagClient",
+    "implementation": "FeatureFlagClient",
+    "path": "src/PopCat.Assortment.Integration/Configure.cs",
+    "line": 88
+  }
+]

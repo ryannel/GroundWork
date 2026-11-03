@@ -1,0 +1,4394 @@
+[
+  {
+    "kind": "message",
+    "name": "CarKey",
+    "fullName": "volvocars.contracts.carconfiguration.CarKey",
+    "package": "volvocars.contracts.carconfiguration",
+    "path": "volvocars/contracts/carconfiguration/car-configuration.proto",
+    "start": 5,
+    "fields": [
+      {
+        "name": "modelYear",
+        "type": "int32",
+        "wireTag": 1,
+        "cardinality": "singular",
+        "options": null,
+        "line": 6
+      },
+      {
+        "name": "specMarket",
+        "type": "string",
+        "wireTag": 2,
+        "cardinality": "singular",
+        "options": null,
+        "line": 7
+      },
+      {
+        "name": "carType",
+        "type": "string",
+        "wireTag": 3,
+        "cardinality": "singular",
+        "options": null,
+        "line": 8
+      },
+      {
+        "name": "engine",
+        "type": "string",
+        "wireTag": 4,
+        "cardinality": "singular",
+        "options": null,
+        "line": 9
+      },
+      {
+        "name": "salesVersion",
+        "type": "string",
+        "wireTag": 5,
+        "cardinality": "singular",
+        "options": null,
+        "line": 10
+      },
+      {
+        "name": "body",
+        "type": "string",
+        "wireTag": 6,
+        "cardinality": "singular",
+        "options": null,
+        "line": 11
+      },
+      {
+        "name": "gearbox",
+        "type": "string",
+        "wireTag": 7,
+        "cardinality": "singular",
+        "options": null,
+        "line": 12
+      },
+      {
+        "name": "steering",
+        "type": "string",
+        "wireTag": 8,
+        "cardinality": "singular",
+        "options": null,
+        "line": 13
+      },
+      {
+        "name": "marketingCode",
+        "type": "string",
+        "wireTag": 9,
+        "cardinality": "singular",
+        "options": null,
+        "line": 14
+      },
+      {
+        "name": "sMessage",
+        "type": "string",
+        "wireTag": 10,
+        "cardinality": "singular",
+        "options": null,
+        "line": 15
+      },
+      {
+        "name": "color",
+        "type": "string",
+        "wireTag": 11,
+        "cardinality": "singular",
+        "options": null,
+        "line": 16
+      },
+      {
+        "name": "upholstery",
+        "type": "string",
+        "wireTag": 12,
+        "cardinality": "singular",
+        "options": null,
+        "line": 17
+      },
+      {
+        "name": "options",
+        "type": "string",
+        "wireTag": 13,
+        "cardinality": "repeated",
+        "options": null,
+        "line": 18
+      },
+      {
+        "name": "packages",
+        "type": "string",
+        "wireTag": 14,
+        "cardinality": "repeated",
+        "options": null,
+        "line": 19
+      },
+      {
+        "name": "structureWeek",
+        "type": "int32",
+        "wireTag": 15,
+        "cardinality": "singular",
+        "options": null,
+        "line": 20
+      }
+    ],
+    "values": [],
+    "parent": null,
+    "end": 21
+  },
+  {
+    "kind": "message",
+    "name": "CarConfigurationAdded",
+    "fullName": "volvocars.contracts.carconfiguration.CarConfigurationAdded",
+    "package": "volvocars.contracts.carconfiguration",
+    "path": "volvocars/contracts/carconfiguration/car-configuration.proto",
+    "start": 23,
+    "fields": [
+      {
+        "name": "market",
+        "type": "string",
+        "wireTag": 1,
+        "cardinality": "singular",
+        "options": null,
+        "line": 24
+      },
+      {
+        "name": "validFromStructureWeek",
+        "type": "int32",
+        "wireTag": 2,
+        "cardinality": "singular",
+        "options": null,
+        "line": 25
+      },
+      {
+        "name": "validToStructureWeek",
+        "type": "int32",
+        "wireTag": 3,
+        "cardinality": "singular",
+        "options": null,
+        "line": 26
+      },
+      {
+        "name": "carKey",
+        "type": "CarKey",
+        "wireTag": 4,
+        "cardinality": "singular",
+        "options": null,
+        "line": 27
+      }
+    ],
+    "values": [],
+    "parent": null,
+    "end": 28
+  },
+  {
+    "kind": "message",
+    "name": "CarConfigurationRemoved",
+    "fullName": "volvocars.contracts.carconfiguration.CarConfigurationRemoved",
+    "package": "volvocars.contracts.carconfiguration",
+    "path": "volvocars/contracts/carconfiguration/car-configuration.proto",
+    "start": 30,
+    "fields": [
+      {
+        "name": "market",
+        "type": "string",
+        "wireTag": 1,
+        "cardinality": "singular",
+        "options": null,
+        "line": 31
+      },
+      {
+        "name": "carKey",
+        "type": "CarKey",
+        "wireTag": 2,
+        "cardinality": "singular",
+        "options": null,
+        "line": 32
+      }
+    ],
+    "values": [],
+    "parent": null,
+    "end": 33
+  },
+  {
+    "kind": "message",
+    "name": "CarSyncCompleted",
+    "fullName": "volvocars.contracts.carconfiguration.CarSyncCompleted",
+    "package": "volvocars.contracts.carconfiguration",
+    "path": "volvocars/contracts/carconfiguration/car-sync.proto",
+    "start": 5,
+    "fields": [
+      {
+        "name": "policy_id",
+        "type": "string",
+        "wireTag": 1,
+        "cardinality": "singular",
+        "options": null,
+        "line": 6
+      },
+      {
+        "name": "request_id",
+        "type": "string",
+        "wireTag": 2,
+        "cardinality": "singular",
+        "options": null,
+        "line": 7
+      }
+    ],
+    "values": [],
+    "parent": null,
+    "end": 8
+  },
+  {
+    "kind": "message",
+    "name": "CarSyncFailed",
+    "fullName": "volvocars.contracts.carconfiguration.CarSyncFailed",
+    "package": "volvocars.contracts.carconfiguration",
+    "path": "volvocars/contracts/carconfiguration/car-sync.proto",
+    "start": 10,
+    "fields": [
+      {
+        "name": "policy_id",
+        "type": "string",
+        "wireTag": 1,
+        "cardinality": "singular",
+        "options": null,
+        "line": 11
+      },
+      {
+        "name": "request_id",
+        "type": "string",
+        "wireTag": 2,
+        "cardinality": "singular",
+        "options": null,
+        "line": 12
+      }
+    ],
+    "values": [],
+    "parent": null,
+    "end": 13
+  },
+  {
+    "kind": "message",
+    "name": "Component",
+    "fullName": "volvocars.contracts.carconfiguration.Component",
+    "package": "volvocars.contracts.carconfiguration",
+    "path": "volvocars/contracts/carconfiguration/component.proto",
+    "start": 5,
+    "fields": [
+      {
+        "name": "id",
+        "type": "string",
+        "wireTag": 1,
+        "cardinality": "singular",
+        "options": null,
+        "line": 6
+      },
+      {
+        "name": "code",
+        "type": "string",
+        "wireTag": 2,
+        "cardinality": "singular",
+        "options": null,
+        "line": 7
+      },
+      {
+        "name": "name",
+        "type": "string",
+        "wireTag": 3,
+        "cardinality": "singular",
+        "options": null,
+        "line": 8
+      },
+      {
+        "name": "longName",
+        "type": "string",
+        "wireTag": 4,
+        "cardinality": "singular",
+        "options": null,
+        "line": 9
+      },
+      {
+        "name": "type",
+        "type": "ComponentType",
+        "wireTag": 5,
+        "cardinality": "singular",
+        "options": null,
+        "line": 10
+      },
+      {
+        "name": "co2Effect",
+        "type": "bool",
+        "wireTag": 6,
+        "cardinality": "singular",
+        "options": null,
+        "line": 11
+      },
+      {
+        "name": "optionType",
+        "type": "string",
+        "wireTag": 7,
+        "cardinality": "singular",
+        "options": null,
+        "line": 12
+      },
+      {
+        "name": "meta",
+        "type": "ComponentMeta",
+        "wireTag": 8,
+        "cardinality": "singular",
+        "options": null,
+        "line": 13
+      }
+    ],
+    "values": [],
+    "parent": null,
+    "end": 14
+  },
+  {
+    "kind": "message",
+    "name": "ComponentMeta",
+    "fullName": "volvocars.contracts.carconfiguration.ComponentMeta",
+    "package": "volvocars.contracts.carconfiguration",
+    "path": "volvocars/contracts/carconfiguration/component.proto",
+    "start": 16,
+    "fields": [
+      {
+        "name": "hundredPercent",
+        "type": "bool",
+        "wireTag": 1,
+        "cardinality": "singular",
+        "options": null,
+        "line": 17
+      },
+      {
+        "name": "packageOnly",
+        "type": "bool",
+        "wireTag": 2,
+        "cardinality": "singular",
+        "options": null,
+        "line": 18
+      }
+    ],
+    "values": [],
+    "parent": null,
+    "end": 19
+  },
+  {
+    "kind": "enum",
+    "name": "ComponentType",
+    "fullName": "volvocars.contracts.carconfiguration.ComponentType",
+    "package": "volvocars.contracts.carconfiguration",
+    "path": "volvocars/contracts/carconfiguration/component.proto",
+    "start": 21,
+    "fields": [],
+    "values": [
+      {
+        "name": "CAR_TYPE",
+        "number": 0,
+        "line": 22
+      },
+      {
+        "name": "ENGINE",
+        "number": 1,
+        "line": 23
+      },
+      {
+        "name": "SALES_VERSION",
+        "number": 2,
+        "line": 24
+      },
+      {
+        "name": "BODY",
+        "number": 3,
+        "line": 25
+      },
+      {
+        "name": "GEARBOX",
+        "number": 4,
+        "line": 26
+      },
+      {
+        "name": "STEERING",
+        "number": 5,
+        "line": 27
+      },
+      {
+        "name": "SPEC_MARKET",
+        "number": 6,
+        "line": 28
+      },
+      {
+        "name": "MODEL_YEAR",
+        "number": 7,
+        "line": 29
+      },
+      {
+        "name": "MARKETING_CODE",
+        "number": 8,
+        "line": 30
+      },
+      {
+        "name": "UPHOLSTERY",
+        "number": 9,
+        "line": 31
+      },
+      {
+        "name": "COLOR",
+        "number": 10,
+        "line": 32
+      },
+      {
+        "name": "OPTION",
+        "number": 11,
+        "line": 33
+      },
+      {
+        "name": "PACKAGE",
+        "number": 12,
+        "line": 34
+      },
+      {
+        "name": "FEATURE",
+        "number": 13,
+        "line": 35
+      },
+      {
+        "name": "PNO12",
+        "number": 14,
+        "line": 36
+      },
+      {
+        "name": "WHEEL",
+        "number": 15,
+        "line": 37
+      },
+      {
+        "name": "S_MESSAGE",
+        "number": 16,
+        "line": 38
+      },
+      {
+        "name": "STYLING",
+        "number": 17,
+        "line": 39
+      }
+    ],
+    "parent": null,
+    "end": 40
+  },
+  {
+    "kind": "message",
+    "name": "ComponentUpdated",
+    "fullName": "volvocars.contracts.carconfiguration.ComponentUpdated",
+    "package": "volvocars.contracts.carconfiguration",
+    "path": "volvocars/contracts/carconfiguration/component.proto",
+    "start": 42,
+    "fields": [
+      {
+        "name": "component",
+        "type": "Component",
+        "wireTag": 1,
+        "cardinality": "singular",
+        "options": null,
+        "line": 43
+      }
+    ],
+    "values": [],
+    "parent": null,
+    "end": 44
+  },
+  {
+    "kind": "message",
+    "name": "Condition",
+    "fullName": "volvocars.contracts.carconfiguration.Condition",
+    "package": "volvocars.contracts.carconfiguration",
+    "path": "volvocars/contracts/carconfiguration/condition.proto",
+    "start": 6,
+    "fields": [
+      {
+        "name": "relation",
+        "type": "Relation",
+        "wireTag": 1,
+        "cardinality": "singular",
+        "options": null,
+        "line": 7
+      },
+      {
+        "name": "subConditions",
+        "type": "SubCondition",
+        "wireTag": 2,
+        "cardinality": "repeated",
+        "options": null,
+        "line": 8
+      }
+    ],
+    "values": [],
+    "parent": null,
+    "end": 9
+  },
+  {
+    "kind": "message",
+    "name": "SubCondition",
+    "fullName": "volvocars.contracts.carconfiguration.SubCondition",
+    "package": "volvocars.contracts.carconfiguration",
+    "path": "volvocars/contracts/carconfiguration/condition.proto",
+    "start": 11,
+    "fields": [
+      {
+        "name": "relation",
+        "type": "Relation",
+        "wireTag": 1,
+        "cardinality": "singular",
+        "options": null,
+        "line": 12
+      },
+      {
+        "name": "components",
+        "type": "Component",
+        "wireTag": 2,
+        "cardinality": "repeated",
+        "options": null,
+        "line": 13
+      }
+    ],
+    "values": [],
+    "parent": null,
+    "end": 14
+  },
+  {
+    "kind": "enum",
+    "name": "Relation",
+    "fullName": "volvocars.contracts.carconfiguration.Relation",
+    "package": "volvocars.contracts.carconfiguration",
+    "path": "volvocars/contracts/carconfiguration/condition.proto",
+    "start": 16,
+    "fields": [],
+    "values": [
+      {
+        "name": "ALL",
+        "number": 0,
+        "line": 17
+      },
+      {
+        "name": "ANY",
+        "number": 1,
+        "line": 18
+      }
+    ],
+    "parent": null,
+    "end": 19
+  },
+  {
+    "kind": "message",
+    "name": "ConfigPolicy",
+    "fullName": "volvocars.contracts.carconfiguration.ConfigPolicy",
+    "package": "volvocars.contracts.carconfiguration",
+    "path": "volvocars/contracts/carconfiguration/config-policy.proto",
+    "start": 8,
+    "fields": [
+      {
+        "name": "uid",
+        "type": "string",
+        "wireTag": 1,
+        "cardinality": "singular",
+        "options": null,
+        "line": 9
+      },
+      {
+        "name": "name",
+        "type": "string",
+        "wireTag": 2,
+        "cardinality": "singular",
+        "options": null,
+        "line": 10
+      },
+      {
+        "name": "parentUid",
+        "type": "string",
+        "wireTag": 3,
+        "cardinality": "singular",
+        "options": null,
+        "line": 11
+      },
+      {
+        "name": "group",
+        "type": "string",
+        "wireTag": 4,
+        "cardinality": "singular",
+        "options": null,
+        "line": 12
+      },
+      {
+        "name": "configRuleSets",
+        "type": "ConfigRuleSet",
+        "wireTag": 5,
+        "cardinality": "repeated",
+        "options": null,
+        "line": 13
+      },
+      {
+        "name": "structureWeeksRuleSets",
+        "type": "StructureWeeksRuleSet",
+        "wireTag": 6,
+        "cardinality": "repeated",
+        "options": null,
+        "line": 14
+      }
+    ],
+    "values": [],
+    "parent": null,
+    "end": 15
+  },
+  {
+    "kind": "message",
+    "name": "ConfigPolicyCreated",
+    "fullName": "volvocars.contracts.carconfiguration.ConfigPolicyCreated",
+    "package": "volvocars.contracts.carconfiguration",
+    "path": "volvocars/contracts/carconfiguration/config-policy.proto",
+    "start": 17,
+    "fields": [
+      {
+        "name": "uid",
+        "type": "string",
+        "wireTag": 1,
+        "cardinality": "singular",
+        "options": null,
+        "line": 18
+      },
+      {
+        "name": "name",
+        "type": "string",
+        "wireTag": 2,
+        "cardinality": "singular",
+        "options": null,
+        "line": 19
+      },
+      {
+        "name": "parentUid",
+        "type": "string",
+        "wireTag": 3,
+        "cardinality": "singular",
+        "options": null,
+        "line": 20
+      },
+      {
+        "name": "group",
+        "type": "string",
+        "wireTag": 4,
+        "cardinality": "singular",
+        "options": null,
+        "line": 21
+      },
+      {
+        "name": "configRuleSets",
+        "type": "ConfigRuleSet",
+        "wireTag": 5,
+        "cardinality": "repeated",
+        "options": null,
+        "line": 22
+      },
+      {
+        "name": "structureWeeksRuleSets",
+        "type": "StructureWeeksRuleSet",
+        "wireTag": 6,
+        "cardinality": "repeated",
+        "options": null,
+        "line": 23
+      }
+    ],
+    "values": [],
+    "parent": null,
+    "end": 24
+  },
+  {
+    "kind": "message",
+    "name": "ConfigPolicyUpdated",
+    "fullName": "volvocars.contracts.carconfiguration.ConfigPolicyUpdated",
+    "package": "volvocars.contracts.carconfiguration",
+    "path": "volvocars/contracts/carconfiguration/config-policy.proto",
+    "start": 26,
+    "fields": [
+      {
+        "name": "uid",
+        "type": "string",
+        "wireTag": 1,
+        "cardinality": "singular",
+        "options": null,
+        "line": 27
+      },
+      {
+        "name": "name",
+        "type": "string",
+        "wireTag": 2,
+        "cardinality": "singular",
+        "options": null,
+        "line": 28
+      },
+      {
+        "name": "parentUid",
+        "type": "string",
+        "wireTag": 3,
+        "cardinality": "singular",
+        "options": null,
+        "line": 29
+      },
+      {
+        "name": "group",
+        "type": "string",
+        "wireTag": 4,
+        "cardinality": "singular",
+        "options": null,
+        "line": 30
+      },
+      {
+        "name": "configRuleSets",
+        "type": "ConfigRuleSet",
+        "wireTag": 5,
+        "cardinality": "repeated",
+        "options": null,
+        "line": 31
+      },
+      {
+        "name": "structureWeeksRuleSets",
+        "type": "StructureWeeksRuleSet",
+        "wireTag": 6,
+        "cardinality": "repeated",
+        "options": null,
+        "line": 32
+      },
+      {
+        "name": "storagePath",
+        "type": "string",
+        "wireTag": 7,
+        "cardinality": "singular",
+        "options": null,
+        "line": 33
+      }
+    ],
+    "values": [],
+    "parent": null,
+    "end": 34
+  },
+  {
+    "kind": "message",
+    "name": "ConfigPolicyDeleted",
+    "fullName": "volvocars.contracts.carconfiguration.ConfigPolicyDeleted",
+    "package": "volvocars.contracts.carconfiguration",
+    "path": "volvocars/contracts/carconfiguration/config-policy.proto",
+    "start": 37,
+    "fields": [
+      {
+        "name": "uid",
+        "type": "string",
+        "wireTag": 1,
+        "cardinality": "singular",
+        "options": null,
+        "line": 38
+      },
+      {
+        "name": "name",
+        "type": "string",
+        "wireTag": 2,
+        "cardinality": "singular",
+        "options": null,
+        "line": 39
+      },
+      {
+        "name": "parentUid",
+        "type": "string",
+        "wireTag": 3,
+        "cardinality": "singular",
+        "options": null,
+        "line": 40
+      },
+      {
+        "name": "group",
+        "type": "string",
+        "wireTag": 4,
+        "cardinality": "singular",
+        "options": null,
+        "line": 41
+      },
+      {
+        "name": "configRuleSets",
+        "type": "ConfigRuleSet",
+        "wireTag": 5,
+        "cardinality": "repeated",
+        "options": null,
+        "line": 42
+      },
+      {
+        "name": "structureWeeksRuleSets",
+        "type": "StructureWeeksRuleSet",
+        "wireTag": 6,
+        "cardinality": "repeated",
+        "options": null,
+        "line": 43
+      }
+    ],
+    "values": [],
+    "parent": null,
+    "end": 44
+  },
+  {
+    "kind": "message",
+    "name": "ConfigPolicyRulesUpdated",
+    "fullName": "volvocars.contracts.carconfiguration.ConfigPolicyRulesUpdated",
+    "package": "volvocars.contracts.carconfiguration",
+    "path": "volvocars/contracts/carconfiguration/config-policy.proto",
+    "start": 46,
+    "fields": [
+      {
+        "name": "policyUid",
+        "type": "string",
+        "wireTag": 1,
+        "cardinality": "singular",
+        "options": null,
+        "line": 47
+      },
+      {
+        "name": "parentUid",
+        "type": "string",
+        "wireTag": 2,
+        "cardinality": "singular",
+        "options": null,
+        "line": 48
+      },
+      {
+        "name": "group",
+        "type": "string",
+        "wireTag": 3,
+        "cardinality": "singular",
+        "options": null,
+        "line": 49
+      },
+      {
+        "name": "configRuleSets",
+        "type": "ConfigRuleSet",
+        "wireTag": 4,
+        "cardinality": "repeated",
+        "options": null,
+        "line": 50
+      },
+      {
+        "name": "structureWeeksRuleSets",
+        "type": "StructureWeeksRuleSet",
+        "wireTag": 5,
+        "cardinality": "repeated",
+        "options": null,
+        "line": 51
+      }
+    ],
+    "values": [],
+    "parent": null,
+    "end": 52
+  },
+  {
+    "kind": "message",
+    "name": "ActiveVersionChanged",
+    "fullName": "volvocars.contracts.carconfiguration.ActiveVersionChanged",
+    "package": "volvocars.contracts.carconfiguration",
+    "path": "volvocars/contracts/carconfiguration/config-policy.proto",
+    "start": 54,
+    "fields": [
+      {
+        "name": "policyUid",
+        "type": "string",
+        "wireTag": 1,
+        "cardinality": "singular",
+        "options": null,
+        "line": 55
+      },
+      {
+        "name": "versionUid",
+        "type": "string",
+        "wireTag": 2,
+        "cardinality": "singular",
+        "options": null,
+        "line": 56
+      }
+    ],
+    "values": [],
+    "parent": null,
+    "end": 57
+  },
+  {
+    "kind": "message",
+    "name": "Pno12RuleSetMeta",
+    "fullName": "volvocars.contracts.carconfiguration.Pno12RuleSetMeta",
+    "package": "volvocars.contracts.carconfiguration",
+    "path": "volvocars/contracts/carconfiguration/config-policy.proto",
+    "start": 59,
+    "fields": [
+      {
+        "name": "pno12",
+        "type": "string",
+        "wireTag": 1,
+        "cardinality": "singular",
+        "options": null,
+        "line": 60
+      },
+      {
+        "name": "path",
+        "type": "string",
+        "wireTag": 2,
+        "cardinality": "singular",
+        "options": null,
+        "line": 61
+      },
+      {
+        "name": "active",
+        "type": "string",
+        "wireTag": 3,
+        "cardinality": "singular",
+        "options": null,
+        "line": 62
+      },
+      {
+        "name": "components",
+        "type": "Component",
+        "wireTag": 4,
+        "cardinality": "repeated",
+        "options": null,
+        "line": 63
+      },
+      {
+        "name": "preSelected",
+        "type": "Component",
+        "wireTag": 5,
+        "cardinality": "repeated",
+        "options": null,
+        "line": 64
+      }
+    ],
+    "values": [],
+    "parent": null,
+    "end": 65
+  },
+  {
+    "kind": "message",
+    "name": "PolicyRulesUpdated",
+    "fullName": "volvocars.contracts.carconfiguration.PolicyRulesUpdated",
+    "package": "volvocars.contracts.carconfiguration",
+    "path": "volvocars/contracts/carconfiguration/config-policy.proto",
+    "start": 67,
+    "fields": [
+      {
+        "name": "uid",
+        "type": "string",
+        "wireTag": 1,
+        "cardinality": "singular",
+        "options": null,
+        "line": 68
+      },
+      {
+        "name": "parentUid",
+        "type": "string",
+        "wireTag": 2,
+        "cardinality": "singular",
+        "options": null,
+        "line": 69
+      },
+      {
+        "name": "pno12RuleSetMetas",
+        "type": "Pno12RuleSetMeta",
+        "wireTag": 3,
+        "cardinality": "repeated",
+        "options": null,
+        "line": 70
+      },
+      {
+        "name": "request_uid",
+        "type": "string",
+        "wireTag": 4,
+        "cardinality": "singular",
+        "options": null,
+        "line": 71
+      },
+      {
+        "name": "specMarket",
+        "type": "string",
+        "wireTag": 5,
+        "cardinality": "singular",
+        "options": null,
+        "line": 72
+      }
+    ],
+    "values": [],
+    "parent": null,
+    "end": 73
+  },
+  {
+    "kind": "message",
+    "name": "PolicyDeleted",
+    "fullName": "volvocars.contracts.carconfiguration.PolicyDeleted",
+    "package": "volvocars.contracts.carconfiguration",
+    "path": "volvocars/contracts/carconfiguration/config-policy.proto",
+    "start": 76,
+    "fields": [
+      {
+        "name": "uid",
+        "type": "string",
+        "wireTag": 1,
+        "cardinality": "singular",
+        "options": null,
+        "line": 77
+      },
+      {
+        "name": "request_uid",
+        "type": "string",
+        "wireTag": 2,
+        "cardinality": "singular",
+        "options": null,
+        "line": 78
+      },
+      {
+        "name": "spec_market",
+        "type": "string",
+        "wireTag": 3,
+        "cardinality": "singular",
+        "options": null,
+        "line": 79
+      }
+    ],
+    "values": [],
+    "parent": null,
+    "end": 80
+  },
+  {
+    "kind": "message",
+    "name": "PoliciesDeleted",
+    "fullName": "volvocars.contracts.carconfiguration.PoliciesDeleted",
+    "package": "volvocars.contracts.carconfiguration",
+    "path": "volvocars/contracts/carconfiguration/config-policy.proto",
+    "start": 82,
+    "fields": [
+      {
+        "name": "policiesDeleted",
+        "type": "PolicyDeleted",
+        "wireTag": 1,
+        "cardinality": "repeated",
+        "options": null,
+        "line": 83
+      }
+    ],
+    "values": [],
+    "parent": null,
+    "end": 84
+  },
+  {
+    "kind": "message",
+    "name": "PoliciesRulesUpdated",
+    "fullName": "volvocars.contracts.carconfiguration.PoliciesRulesUpdated",
+    "package": "volvocars.contracts.carconfiguration",
+    "path": "volvocars/contracts/carconfiguration/config-policy.proto",
+    "start": 86,
+    "fields": [
+      {
+        "name": "policyRulesUpdates",
+        "type": "PolicyRulesUpdated",
+        "wireTag": 1,
+        "cardinality": "repeated",
+        "options": null,
+        "line": 87
+      }
+    ],
+    "values": [],
+    "parent": null,
+    "end": 88
+  },
+  {
+    "kind": "message",
+    "name": "Pno12ActiveStatus",
+    "fullName": "volvocars.contracts.carconfiguration.Pno12ActiveStatus",
+    "package": "volvocars.contracts.carconfiguration",
+    "path": "volvocars/contracts/carconfiguration/config-policy.proto",
+    "start": 90,
+    "fields": [
+      {
+        "name": "pno12",
+        "type": "string",
+        "wireTag": 1,
+        "cardinality": "singular",
+        "options": null,
+        "line": 91
+      },
+      {
+        "name": "active",
+        "type": "string",
+        "wireTag": 2,
+        "cardinality": "singular",
+        "options": null,
+        "line": 92
+      }
+    ],
+    "values": [],
+    "parent": null,
+    "end": 93
+  },
+  {
+    "kind": "message",
+    "name": "PolicyStatusUpdated",
+    "fullName": "volvocars.contracts.carconfiguration.PolicyStatusUpdated",
+    "package": "volvocars.contracts.carconfiguration",
+    "path": "volvocars/contracts/carconfiguration/config-policy.proto",
+    "start": 95,
+    "fields": [
+      {
+        "name": "uid",
+        "type": "string",
+        "wireTag": 1,
+        "cardinality": "singular",
+        "options": null,
+        "line": 96
+      },
+      {
+        "name": "pno12ActiveStatus",
+        "type": "Pno12ActiveStatus",
+        "wireTag": 2,
+        "cardinality": "repeated",
+        "options": null,
+        "line": 97
+      }
+    ],
+    "values": [],
+    "parent": null,
+    "end": 98
+  },
+  {
+    "kind": "message",
+    "name": "PolicyRulesSaved",
+    "fullName": "volvocars.contracts.carconfiguration.PolicyRulesSaved",
+    "package": "volvocars.contracts.carconfiguration",
+    "path": "volvocars/contracts/carconfiguration/config-policy.proto",
+    "start": 100,
+    "fields": [
+      {
+        "name": "uid",
+        "type": "string",
+        "wireTag": 1,
+        "cardinality": "singular",
+        "options": null,
+        "line": 101
+      }
+    ],
+    "values": [],
+    "parent": null,
+    "end": 102
+  },
+  {
+    "kind": "message",
+    "name": "RulesImported",
+    "fullName": "volvocars.contracts.carconfiguration.RulesImported",
+    "package": "volvocars.contracts.carconfiguration",
+    "path": "volvocars/contracts/carconfiguration/config-rules.proto",
+    "start": 9,
+    "fields": [
+      {
+        "name": "id",
+        "type": "string",
+        "wireTag": 1,
+        "cardinality": "singular",
+        "options": null,
+        "line": 10
+      },
+      {
+        "name": "ruleSetHash",
+        "type": "string",
+        "wireTag": 2,
+        "cardinality": "singular",
+        "options": null,
+        "line": 11
+      },
+      {
+        "name": "versionId",
+        "type": "string",
+        "wireTag": 3,
+        "cardinality": "singular",
+        "options": null,
+        "line": 12
+      },
+      {
+        "name": "storagePath",
+        "type": "string",
+        "wireTag": 4,
+        "cardinality": "singular",
+        "options": null,
+        "line": 13
+      },
+      {
+        "name": "timePublished",
+        "type": "google.protobuf.Timestamp",
+        "wireTag": 5,
+        "cardinality": "singular",
+        "options": null,
+        "line": 14
+      }
+    ],
+    "values": [],
+    "parent": null,
+    "end": 15
+  },
+  {
+    "kind": "message",
+    "name": "RuleSet",
+    "fullName": "volvocars.contracts.carconfiguration.RuleSet",
+    "package": "volvocars.contracts.carconfiguration",
+    "path": "volvocars/contracts/carconfiguration/config-rules.proto",
+    "start": 18,
+    "fields": [
+      {
+        "name": "id",
+        "type": "string",
+        "wireTag": 1,
+        "cardinality": "singular",
+        "options": null,
+        "line": 19
+      },
+      {
+        "name": "ruleSetHash",
+        "type": "string",
+        "wireTag": 2,
+        "cardinality": "singular",
+        "options": null,
+        "line": 20
+      },
+      {
+        "name": "configRuleSet",
+        "type": "ConfigRuleSet",
+        "wireTag": 3,
+        "cardinality": "singular",
+        "options": null,
+        "line": 21
+      },
+      {
+        "name": "structureWeeksRuleSet",
+        "type": "StructureWeeksRuleSet",
+        "wireTag": 4,
+        "cardinality": "singular",
+        "options": null,
+        "line": 22
+      }
+    ],
+    "values": [],
+    "parent": null,
+    "end": 23
+  },
+  {
+    "kind": "message",
+    "name": "RuleSetCreated",
+    "fullName": "volvocars.contracts.carconfiguration.RuleSetCreated",
+    "package": "volvocars.contracts.carconfiguration",
+    "path": "volvocars/contracts/carconfiguration/config-rules.proto",
+    "start": 25,
+    "fields": [
+      {
+        "name": "ruleSet",
+        "type": "RuleSet",
+        "wireTag": 1,
+        "cardinality": "singular",
+        "options": null,
+        "line": 26
+      },
+      {
+        "name": "timePublished",
+        "type": "google.protobuf.Timestamp",
+        "wireTag": 2,
+        "cardinality": "singular",
+        "options": null,
+        "line": 27
+      }
+    ],
+    "values": [],
+    "parent": null,
+    "end": 28
+  },
+  {
+    "kind": "message",
+    "name": "ConfigRuleSet",
+    "fullName": "volvocars.contracts.carconfiguration.ConfigRuleSet",
+    "package": "volvocars.contracts.carconfiguration",
+    "path": "volvocars/contracts/carconfiguration/config-rules.proto",
+    "start": 30,
+    "fields": [
+      {
+        "name": "id",
+        "type": "string",
+        "wireTag": 1,
+        "cardinality": "singular",
+        "options": null,
+        "line": 31
+      },
+      {
+        "name": "configRules",
+        "type": "ConfigRule",
+        "wireTag": 2,
+        "cardinality": "repeated",
+        "options": null,
+        "line": 32
+      }
+    ],
+    "values": [],
+    "parent": null,
+    "end": 33
+  },
+  {
+    "kind": "message",
+    "name": "ConfigRule",
+    "fullName": "volvocars.contracts.carconfiguration.ConfigRule",
+    "package": "volvocars.contracts.carconfiguration",
+    "path": "volvocars/contracts/carconfiguration/config-rules.proto",
+    "start": 35,
+    "fields": [
+      {
+        "name": "condition",
+        "type": "Condition",
+        "wireTag": 1,
+        "cardinality": "singular",
+        "options": null,
+        "line": 36
+      },
+      {
+        "name": "consequence",
+        "type": "Consequence",
+        "wireTag": 2,
+        "cardinality": "singular",
+        "options": null,
+        "line": 37
+      },
+      {
+        "name": "id",
+        "type": "string",
+        "wireTag": 3,
+        "cardinality": "singular",
+        "options": null,
+        "line": 38
+      }
+    ],
+    "values": [],
+    "parent": null,
+    "end": 39
+  },
+  {
+    "kind": "message",
+    "name": "ConfigRulesCreated",
+    "fullName": "volvocars.contracts.carconfiguration.ConfigRulesCreated",
+    "package": "volvocars.contracts.carconfiguration",
+    "path": "volvocars/contracts/carconfiguration/config-rules.proto",
+    "start": 41,
+    "fields": [
+      {
+        "name": "configRuleSet",
+        "type": "ConfigRuleSet",
+        "wireTag": 1,
+        "cardinality": "singular",
+        "options": null,
+        "line": 42
+      }
+    ],
+    "values": [],
+    "parent": null,
+    "end": 43
+  },
+  {
+    "kind": "message",
+    "name": "ConfigRulesUpdated",
+    "fullName": "volvocars.contracts.carconfiguration.ConfigRulesUpdated",
+    "package": "volvocars.contracts.carconfiguration",
+    "path": "volvocars/contracts/carconfiguration/config-rules.proto",
+    "start": 45,
+    "fields": [
+      {
+        "name": "configRuleSet",
+        "type": "ConfigRuleSet",
+        "wireTag": 1,
+        "cardinality": "singular",
+        "options": null,
+        "line": 46
+      }
+    ],
+    "values": [],
+    "parent": null,
+    "end": 47
+  },
+  {
+    "kind": "message",
+    "name": "StructureWeeksRuleSet",
+    "fullName": "volvocars.contracts.carconfiguration.StructureWeeksRuleSet",
+    "package": "volvocars.contracts.carconfiguration",
+    "path": "volvocars/contracts/carconfiguration/config-rules.proto",
+    "start": 49,
+    "fields": [
+      {
+        "name": "id",
+        "type": "string",
+        "wireTag": 1,
+        "cardinality": "singular",
+        "options": null,
+        "line": 50
+      },
+      {
+        "name": "structureWeeksRules",
+        "type": "StructureWeeksRule",
+        "wireTag": 2,
+        "cardinality": "repeated",
+        "options": null,
+        "line": 51
+      }
+    ],
+    "values": [],
+    "parent": null,
+    "end": 52
+  },
+  {
+    "kind": "message",
+    "name": "StructureWeeksRule",
+    "fullName": "volvocars.contracts.carconfiguration.StructureWeeksRule",
+    "package": "volvocars.contracts.carconfiguration",
+    "path": "volvocars/contracts/carconfiguration/config-rules.proto",
+    "start": 54,
+    "fields": [
+      {
+        "name": "condition",
+        "type": "Condition",
+        "wireTag": 1,
+        "cardinality": "singular",
+        "options": null,
+        "line": 55
+      },
+      {
+        "name": "consequence",
+        "type": "StructureWeeksConsequence",
+        "wireTag": 2,
+        "cardinality": "singular",
+        "options": null,
+        "line": 56
+      },
+      {
+        "name": "id",
+        "type": "string",
+        "wireTag": 3,
+        "cardinality": "singular",
+        "options": null,
+        "line": 57
+      }
+    ],
+    "values": [],
+    "parent": null,
+    "end": 58
+  },
+  {
+    "kind": "message",
+    "name": "Consequence",
+    "fullName": "volvocars.contracts.carconfiguration.Consequence",
+    "package": "volvocars.contracts.carconfiguration",
+    "path": "volvocars/contracts/carconfiguration/consequence.proto",
+    "start": 6,
+    "fields": [
+      {
+        "name": "ruleType",
+        "type": "RuleType",
+        "wireTag": 1,
+        "cardinality": "singular",
+        "options": null,
+        "line": 7
+      },
+      {
+        "name": "components",
+        "type": "Component",
+        "wireTag": 2,
+        "cardinality": "repeated",
+        "options": null,
+        "line": 8
+      }
+    ],
+    "values": [],
+    "parent": null,
+    "end": 9
+  },
+  {
+    "kind": "message",
+    "name": "StructureWeeksConsequence",
+    "fullName": "volvocars.contracts.carconfiguration.StructureWeeksConsequence",
+    "package": "volvocars.contracts.carconfiguration",
+    "path": "volvocars/contracts/carconfiguration/consequence.proto",
+    "start": 11,
+    "fields": [
+      {
+        "name": "fromYear",
+        "type": "int32",
+        "wireTag": 1,
+        "cardinality": "singular",
+        "options": null,
+        "line": 12
+      },
+      {
+        "name": "toYear",
+        "type": "int32",
+        "wireTag": 2,
+        "cardinality": "singular",
+        "options": null,
+        "line": 13
+      },
+      {
+        "name": "fromWeek",
+        "type": "int32",
+        "wireTag": 3,
+        "cardinality": "singular",
+        "options": null,
+        "line": 14
+      },
+      {
+        "name": "toWeek",
+        "type": "int32",
+        "wireTag": 4,
+        "cardinality": "singular",
+        "options": null,
+        "line": 15
+      }
+    ],
+    "values": [],
+    "parent": null,
+    "end": 16
+  },
+  {
+    "kind": "message",
+    "name": "PriceRuleConsequence",
+    "fullName": "volvocars.contracts.carconfiguration.PriceRuleConsequence",
+    "package": "volvocars.contracts.carconfiguration",
+    "path": "volvocars/contracts/carconfiguration/consequence.proto",
+    "start": 18,
+    "fields": [
+      {
+        "name": "value",
+        "type": "string",
+        "wireTag": 1,
+        "cardinality": "singular",
+        "options": null,
+        "line": 19
+      }
+    ],
+    "values": [],
+    "parent": null,
+    "end": 20
+  },
+  {
+    "kind": "enum",
+    "name": "RuleType",
+    "fullName": "volvocars.contracts.carconfiguration.RuleType",
+    "package": "volvocars.contracts.carconfiguration",
+    "path": "volvocars/contracts/carconfiguration/consequence.proto",
+    "start": 22,
+    "fields": [],
+    "values": [
+      {
+        "name": "REQUIRES_ALL",
+        "number": 0,
+        "line": 23
+      },
+      {
+        "name": "REQUIRES_ANY",
+        "number": 1,
+        "line": 24
+      },
+      {
+        "name": "REQUIRES_EXCLUSIVELY",
+        "number": 2,
+        "line": 25
+      },
+      {
+        "name": "FORBIDS_ALL",
+        "number": 3,
+        "line": 26
+      },
+      {
+        "name": "PREFERRED",
+        "number": 4,
+        "line": 27
+      },
+      {
+        "name": "INCLUDE",
+        "number": 5,
+        "line": 28
+      },
+      {
+        "name": "SELECTABLE",
+        "number": 6,
+        "line": 29
+      },
+      {
+        "name": "ONE_OR_NONE",
+        "number": 7,
+        "line": 30
+      }
+    ],
+    "parent": null,
+    "end": 31
+  },
+  {
+    "kind": "message",
+    "name": "SpecMarketImported",
+    "fullName": "volvocars.contracts.carconfiguration.SpecMarketImported",
+    "package": "volvocars.contracts.carconfiguration",
+    "path": "volvocars/contracts/carconfiguration/cpam-ingress.proto",
+    "start": 8,
+    "fields": [
+      {
+        "name": "specMarket",
+        "type": "string",
+        "wireTag": 1,
+        "cardinality": "singular",
+        "options": null,
+        "line": 9
+      },
+      {
+        "name": "pno12RulesImports",
+        "type": "Pno12RulesImported",
+        "wireTag": 2,
+        "cardinality": "repeated",
+        "options": null,
+        "line": 10
+      },
+      {
+        "name": "components",
+        "type": "Component",
+        "wireTag": 3,
+        "cardinality": "repeated",
+        "options": null,
+        "line": 11
+      }
+    ],
+    "values": [],
+    "parent": null,
+    "end": 12
+  },
+  {
+    "kind": "message",
+    "name": "Pno12ComponentsImported",
+    "fullName": "volvocars.contracts.carconfiguration.Pno12ComponentsImported",
+    "package": "volvocars.contracts.carconfiguration",
+    "path": "volvocars/contracts/carconfiguration/cpam-ingress.proto",
+    "start": 14,
+    "fields": [
+      {
+        "name": "specMarket",
+        "type": "string",
+        "wireTag": 1,
+        "cardinality": "singular",
+        "options": null,
+        "line": 15
+      },
+      {
+        "name": "pno12ComponentsMapping",
+        "type": "Pno12ComponentMapping",
+        "wireTag": 2,
+        "cardinality": "repeated",
+        "options": null,
+        "line": 16
+      }
+    ],
+    "values": [],
+    "parent": null,
+    "end": 17
+  },
+  {
+    "kind": "message",
+    "name": "Pno12ComponentMapping",
+    "fullName": "volvocars.contracts.carconfiguration.Pno12ComponentMapping",
+    "package": "volvocars.contracts.carconfiguration",
+    "path": "volvocars/contracts/carconfiguration/cpam-ingress.proto",
+    "start": 19,
+    "fields": [
+      {
+        "name": "pno12",
+        "type": "string",
+        "wireTag": 1,
+        "cardinality": "singular",
+        "options": null,
+        "line": 20
+      },
+      {
+        "name": "components",
+        "type": "Component",
+        "wireTag": 2,
+        "cardinality": "repeated",
+        "options": null,
+        "line": 21
+      }
+    ],
+    "values": [],
+    "parent": null,
+    "end": 22
+  },
+  {
+    "kind": "message",
+    "name": "Pno12RulesImported",
+    "fullName": "volvocars.contracts.carconfiguration.Pno12RulesImported",
+    "package": "volvocars.contracts.carconfiguration",
+    "path": "volvocars/contracts/carconfiguration/cpam-ingress.proto",
+    "start": 24,
+    "fields": [
+      {
+        "name": "pno12",
+        "type": "string",
+        "wireTag": 1,
+        "cardinality": "singular",
+        "options": null,
+        "line": 25
+      },
+      {
+        "name": "structureWeekFrom",
+        "type": "StructureWeek",
+        "wireTag": 2,
+        "cardinality": "singular",
+        "options": null,
+        "line": 26
+      },
+      {
+        "name": "structureWeekTo",
+        "type": "StructureWeek",
+        "wireTag": 3,
+        "cardinality": "singular",
+        "options": null,
+        "line": 27
+      },
+      {
+        "name": "swMappings",
+        "type": "SWmapping",
+        "wireTag": 4,
+        "cardinality": "repeated",
+        "options": null,
+        "line": 28
+      },
+      {
+        "name": "timePublished",
+        "type": "google.protobuf.Timestamp",
+        "wireTag": 5,
+        "cardinality": "singular",
+        "options": null,
+        "line": 29
+      },
+      {
+        "name": "marketAuthIdentifiers",
+        "type": "MarketAuthIdentifier",
+        "wireTag": 6,
+        "cardinality": "singular",
+        "options": null,
+        "line": 30
+      }
+    ],
+    "values": [],
+    "parent": null,
+    "end": 31
+  },
+  {
+    "kind": "message",
+    "name": "SWmapping",
+    "fullName": "volvocars.contracts.carconfiguration.SWmapping",
+    "package": "volvocars.contracts.carconfiguration",
+    "path": "volvocars/contracts/carconfiguration/cpam-ingress.proto",
+    "start": 33,
+    "fields": [
+      {
+        "name": "structureWeeks",
+        "type": "StructureWeek",
+        "wireTag": 1,
+        "cardinality": "repeated",
+        "options": null,
+        "line": 34
+      },
+      {
+        "name": "path",
+        "type": "string",
+        "wireTag": 2,
+        "cardinality": "singular",
+        "options": null,
+        "line": 35
+      }
+    ],
+    "values": [],
+    "parent": null,
+    "end": 36
+  },
+  {
+    "kind": "message",
+    "name": "StructureWeek",
+    "fullName": "volvocars.contracts.carconfiguration.StructureWeek",
+    "package": "volvocars.contracts.carconfiguration",
+    "path": "volvocars/contracts/carconfiguration/cpam-ingress.proto",
+    "start": 38,
+    "fields": [
+      {
+        "name": "year",
+        "type": "int32",
+        "wireTag": 1,
+        "cardinality": "singular",
+        "options": null,
+        "line": 39
+      },
+      {
+        "name": "week",
+        "type": "int32",
+        "wireTag": 2,
+        "cardinality": "singular",
+        "options": null,
+        "line": 40
+      }
+    ],
+    "values": [],
+    "parent": null,
+    "end": 41
+  },
+  {
+    "kind": "message",
+    "name": "MarketAuthUpdated",
+    "fullName": "volvocars.contracts.carconfiguration.MarketAuthUpdated",
+    "package": "volvocars.contracts.carconfiguration",
+    "path": "volvocars/contracts/carconfiguration/cpam-ingress.proto",
+    "start": 43,
+    "fields": [
+      {
+        "name": "specMarket",
+        "type": "string",
+        "wireTag": 1,
+        "cardinality": "singular",
+        "options": null,
+        "line": 44
+      },
+      {
+        "name": "modelYear",
+        "type": "string",
+        "wireTag": 2,
+        "cardinality": "singular",
+        "options": null,
+        "line": 45
+      },
+      {
+        "name": "carType",
+        "type": "string",
+        "wireTag": 3,
+        "cardinality": "singular",
+        "options": null,
+        "line": 46
+      },
+      {
+        "name": "legacyGccSpecMarket",
+        "type": "string",
+        "wireTag": 4,
+        "cardinality": "singular",
+        "options": null,
+        "line": 47
+      },
+      {
+        "name": "useLegacyCode",
+        "type": "bool",
+        "wireTag": 5,
+        "cardinality": "singular",
+        "options": null,
+        "line": 48
+      }
+    ],
+    "values": [],
+    "parent": null,
+    "end": 49
+  },
+  {
+    "kind": "message",
+    "name": "MarketAuthsUpdated",
+    "fullName": "volvocars.contracts.carconfiguration.MarketAuthsUpdated",
+    "package": "volvocars.contracts.carconfiguration",
+    "path": "volvocars/contracts/carconfiguration/cpam-ingress.proto",
+    "start": 51,
+    "fields": [
+      {
+        "name": "marketAuths",
+        "type": "MarketAuthUpdated",
+        "wireTag": 1,
+        "cardinality": "repeated",
+        "options": null,
+        "line": 52
+      }
+    ],
+    "values": [],
+    "parent": null,
+    "end": 53
+  },
+  {
+    "kind": "message",
+    "name": "MarketAuthIdentifier",
+    "fullName": "volvocars.contracts.carconfiguration.MarketAuthIdentifier",
+    "package": "volvocars.contracts.carconfiguration",
+    "path": "volvocars/contracts/carconfiguration/market-auth-identifier.proto",
+    "start": 5,
+    "fields": [
+      {
+        "name": "timestamp",
+        "type": "string",
+        "wireTag": 1,
+        "cardinality": "singular",
+        "options": null,
+        "line": 6
+      },
+      {
+        "name": "standardWheelFeatureCode",
+        "type": "string",
+        "wireTag": 2,
+        "cardinality": "singular",
+        "options": null,
+        "line": 7
+      }
+    ],
+    "values": [],
+    "parent": null,
+    "end": 8
+  },
+  {
+    "kind": "message",
+    "name": "PartnerDetails",
+    "fullName": "volvocars.contracts.carconfiguration.PartnerDetails",
+    "package": "volvocars.contracts.carconfiguration",
+    "path": "volvocars/contracts/carconfiguration/partnerDetailsFeed.proto",
+    "start": 5,
+    "fields": [
+      {
+        "name": "sender",
+        "type": "string",
+        "wireTag": 1,
+        "cardinality": "singular",
+        "options": null,
+        "line": 6
+      },
+      {
+        "name": "createdTimestamp",
+        "type": "string",
+        "wireTag": 2,
+        "cardinality": "singular",
+        "options": null,
+        "line": 7
+      },
+      {
+        "name": "retailData",
+        "type": "RetailData",
+        "wireTag": 3,
+        "cardinality": "repeated",
+        "options": null,
+        "line": 8
+      }
+    ],
+    "values": [],
+    "parent": null,
+    "end": 9
+  },
+  {
+    "kind": "message",
+    "name": "RetailData",
+    "fullName": "volvocars.contracts.carconfiguration.RetailData",
+    "package": "volvocars.contracts.carconfiguration",
+    "path": "volvocars/contracts/carconfiguration/partnerDetailsFeed.proto",
+    "start": 11,
+    "fields": [
+      {
+        "name": "distributorId",
+        "type": "string",
+        "wireTag": 1,
+        "cardinality": "singular",
+        "options": null,
+        "line": 12
+      },
+      {
+        "name": "vccProgramMarket",
+        "type": "string",
+        "wireTag": 2,
+        "cardinality": "singular",
+        "options": null,
+        "line": 13
+      },
+      {
+        "name": "countryCode",
+        "type": "string",
+        "wireTag": 3,
+        "cardinality": "singular",
+        "options": null,
+        "line": 14
+      },
+      {
+        "name": "brand",
+        "type": "string",
+        "wireTag": 4,
+        "cardinality": "singular",
+        "options": null,
+        "line": 15
+      },
+      {
+        "name": "partners",
+        "type": "PartnersDetailsData",
+        "wireTag": 5,
+        "cardinality": "repeated",
+        "options": null,
+        "line": 16
+      }
+    ],
+    "values": [],
+    "parent": null,
+    "end": 17
+  },
+  {
+    "kind": "message",
+    "name": "PartnersDetailsData",
+    "fullName": "volvocars.contracts.carconfiguration.PartnersDetailsData",
+    "package": "volvocars.contracts.carconfiguration",
+    "path": "volvocars/contracts/carconfiguration/partnerDetailsFeed.proto",
+    "start": 19,
+    "fields": [
+      {
+        "name": "partnerId",
+        "type": "string",
+        "wireTag": 1,
+        "cardinality": "singular",
+        "options": null,
+        "line": 20
+      },
+      {
+        "name": "role",
+        "type": "string",
+        "wireTag": 2,
+        "cardinality": "singular",
+        "options": null,
+        "line": 21
+      },
+      {
+        "name": "roleCode",
+        "type": "string",
+        "wireTag": 3,
+        "cardinality": "singular",
+        "options": null,
+        "line": 22
+      },
+      {
+        "name": "partnerNames",
+        "type": "ParterNames",
+        "wireTag": 4,
+        "cardinality": "repeated",
+        "options": null,
+        "line": 23
+      },
+      {
+        "name": "isActive",
+        "type": "bool",
+        "wireTag": 5,
+        "cardinality": "singular",
+        "options": null,
+        "line": 24
+      },
+      {
+        "name": "orderingPartner",
+        "type": "bool",
+        "wireTag": 6,
+        "cardinality": "singular",
+        "options": null,
+        "line": 25
+      },
+      {
+        "name": "cbvPartner",
+        "type": "bool",
+        "wireTag": 7,
+        "cardinality": "singular",
+        "options": null,
+        "line": 26
+      }
+    ],
+    "values": [],
+    "parent": null,
+    "end": 27
+  },
+  {
+    "kind": "message",
+    "name": "ParterNames",
+    "fullName": "volvocars.contracts.carconfiguration.ParterNames",
+    "package": "volvocars.contracts.carconfiguration",
+    "path": "volvocars/contracts/carconfiguration/partnerDetailsFeed.proto",
+    "start": 29,
+    "fields": [
+      {
+        "name": "languageCode",
+        "type": "string",
+        "wireTag": 1,
+        "cardinality": "singular",
+        "options": null,
+        "line": 30
+      },
+      {
+        "name": "name",
+        "type": "string",
+        "wireTag": 2,
+        "cardinality": "singular",
+        "options": null,
+        "line": 31
+      }
+    ],
+    "values": [],
+    "parent": null,
+    "end": 32
+  },
+  {
+    "kind": "message",
+    "name": "PartnerNotificationData",
+    "fullName": "volvocars.contracts.carconfiguration.PartnerNotificationData",
+    "package": "volvocars.contracts.carconfiguration",
+    "path": "volvocars/contracts/carconfiguration/partnerNotify.proto",
+    "start": 5,
+    "fields": [
+      {
+        "name": "partnerId",
+        "type": "string",
+        "wireTag": 1,
+        "cardinality": "singular",
+        "options": null,
+        "line": 6
+      },
+      {
+        "name": "containsCIS",
+        "type": "bool",
+        "wireTag": 2,
+        "cardinality": "singular",
+        "options": null,
+        "line": 7
+      },
+      {
+        "name": "brand",
+        "type": "string",
+        "wireTag": 3,
+        "cardinality": "singular",
+        "options": null,
+        "line": 8
+      },
+      {
+        "name": "validationCode",
+        "type": "string",
+        "wireTag": 4,
+        "cardinality": "singular",
+        "options": null,
+        "line": 9
+      },
+      {
+        "name": "validationUrl",
+        "type": "string",
+        "wireTag": 5,
+        "cardinality": "singular",
+        "options": null,
+        "line": 10
+      }
+    ],
+    "values": [],
+    "parent": null,
+    "end": 11
+  },
+  {
+    "kind": "message",
+    "name": "PartnerNotification",
+    "fullName": "volvocars.contracts.carconfiguration.PartnerNotification",
+    "package": "volvocars.contracts.carconfiguration",
+    "path": "volvocars/contracts/carconfiguration/partnerNotify.proto",
+    "start": 13,
+    "fields": [
+      {
+        "name": "topic",
+        "type": "string",
+        "wireTag": 1,
+        "cardinality": "singular",
+        "options": null,
+        "line": 14
+      },
+      {
+        "name": "subject",
+        "type": "string",
+        "wireTag": 2,
+        "cardinality": "singular",
+        "options": null,
+        "line": 15
+      },
+      {
+        "name": "id",
+        "type": "string",
+        "wireTag": 3,
+        "cardinality": "singular",
+        "options": null,
+        "line": 16
+      },
+      {
+        "name": "eventType",
+        "type": "string",
+        "wireTag": 4,
+        "cardinality": "singular",
+        "options": null,
+        "line": 17
+      },
+      {
+        "name": "eventTime",
+        "type": "string",
+        "wireTag": 5,
+        "cardinality": "singular",
+        "options": null,
+        "line": 18
+      },
+      {
+        "name": "data",
+        "type": "PartnerNotificationData",
+        "wireTag": 6,
+        "cardinality": "singular",
+        "options": null,
+        "line": 19
+      },
+      {
+        "name": "dataVersion",
+        "type": "string",
+        "wireTag": 7,
+        "cardinality": "singular",
+        "options": null,
+        "line": 20
+      },
+      {
+        "name": "metadataVersion",
+        "type": "string",
+        "wireTag": 8,
+        "cardinality": "singular",
+        "options": null,
+        "line": 21
+      }
+    ],
+    "values": [],
+    "parent": null,
+    "end": 22
+  },
+  {
+    "kind": "message",
+    "name": "PartnerNotifications",
+    "fullName": "volvocars.contracts.carconfiguration.PartnerNotifications",
+    "package": "volvocars.contracts.carconfiguration",
+    "path": "volvocars/contracts/carconfiguration/partnerNotify.proto",
+    "start": 24,
+    "fields": [
+      {
+        "name": "partnerNotifications",
+        "type": "PartnerNotification",
+        "wireTag": 1,
+        "cardinality": "repeated",
+        "options": null,
+        "line": 25
+      }
+    ],
+    "values": [],
+    "parent": null,
+    "end": 26
+  },
+  {
+    "kind": "message",
+    "name": "RuleSetStatus",
+    "fullName": "volvocars.contracts.carconfiguration.RuleSetStatus",
+    "package": "volvocars.contracts.carconfiguration",
+    "path": "volvocars/contracts/carconfiguration/rule-set.proto",
+    "start": 5,
+    "fields": [
+      {
+        "name": "request_uid",
+        "type": "string",
+        "wireTag": 1,
+        "cardinality": "singular",
+        "options": null,
+        "line": 6
+      },
+      {
+        "name": "policy_uid",
+        "type": "string",
+        "wireTag": 2,
+        "cardinality": "singular",
+        "options": null,
+        "line": 7
+      },
+      {
+        "name": "status",
+        "type": "string",
+        "wireTag": 3,
+        "cardinality": "singular",
+        "options": null,
+        "line": 8
+      }
+    ],
+    "values": [],
+    "parent": null,
+    "end": 9
+  },
+  {
+    "kind": "message",
+    "name": "RuleSetIndexed",
+    "fullName": "volvocars.contracts.carconfiguration.RuleSetIndexed",
+    "package": "volvocars.contracts.carconfiguration",
+    "path": "volvocars/contracts/carconfiguration/rule-set.proto",
+    "start": 11,
+    "fields": [
+      {
+        "name": "rule_sets",
+        "type": "RuleSetStatus",
+        "wireTag": 1,
+        "cardinality": "repeated",
+        "options": null,
+        "line": 12
+      }
+    ],
+    "values": [],
+    "parent": null,
+    "end": 13
+  },
+  {
+    "kind": "message",
+    "name": "RuleSetIndexingFailed",
+    "fullName": "volvocars.contracts.carconfiguration.RuleSetIndexingFailed",
+    "package": "volvocars.contracts.carconfiguration",
+    "path": "volvocars/contracts/carconfiguration/rule-set.proto",
+    "start": 15,
+    "fields": [
+      {
+        "name": "rule_sets",
+        "type": "RuleSetStatus",
+        "wireTag": 1,
+        "cardinality": "repeated",
+        "options": null,
+        "line": 16
+      }
+    ],
+    "values": [],
+    "parent": null,
+    "end": 17
+  },
+  {
+    "kind": "message",
+    "name": "RuleSetRemoved",
+    "fullName": "volvocars.contracts.carconfiguration.RuleSetRemoved",
+    "package": "volvocars.contracts.carconfiguration",
+    "path": "volvocars/contracts/carconfiguration/rule-set.proto",
+    "start": 19,
+    "fields": [
+      {
+        "name": "request_uid",
+        "type": "string",
+        "wireTag": 1,
+        "cardinality": "singular",
+        "options": null,
+        "line": 20
+      },
+      {
+        "name": "policy_uid",
+        "type": "string",
+        "wireTag": 2,
+        "cardinality": "singular",
+        "options": null,
+        "line": 21
+      },
+      {
+        "name": "reindexed",
+        "type": "bool",
+        "wireTag": 5,
+        "cardinality": "singular",
+        "options": null,
+        "line": 22
+      }
+    ],
+    "values": [],
+    "parent": null,
+    "end": 23
+  },
+  {
+    "kind": "message",
+    "name": "RuleSetRequestStatus",
+    "fullName": "volvocars.contracts.carconfiguration.RuleSetRequestStatus",
+    "package": "volvocars.contracts.carconfiguration",
+    "path": "volvocars/contracts/carconfiguration/rule-set.proto",
+    "start": 25,
+    "fields": [
+      {
+        "name": "request_uid",
+        "type": "string",
+        "wireTag": 1,
+        "cardinality": "singular",
+        "options": null,
+        "line": 26
+      },
+      {
+        "name": "policy_uid",
+        "type": "string",
+        "wireTag": 2,
+        "cardinality": "singular",
+        "options": null,
+        "line": 27
+      },
+      {
+        "name": "request_received",
+        "type": "bool",
+        "wireTag": 3,
+        "cardinality": "singular",
+        "options": null,
+        "line": 28
+      },
+      {
+        "name": "data_saved",
+        "type": "bool",
+        "wireTag": 4,
+        "cardinality": "singular",
+        "options": null,
+        "line": 29
+      },
+      {
+        "name": "reindexed",
+        "type": "bool",
+        "wireTag": 5,
+        "cardinality": "singular",
+        "options": null,
+        "line": 30
+      },
+      {
+        "name": "error",
+        "type": "string",
+        "wireTag": 6,
+        "cardinality": "singular",
+        "options": null,
+        "line": 31
+      }
+    ],
+    "values": [],
+    "parent": null,
+    "end": 32
+  },
+  {
+    "kind": "message",
+    "name": "PolicyRuleSetsIndexed",
+    "fullName": "volvocars.contracts.carconfiguration.PolicyRuleSetsIndexed",
+    "package": "volvocars.contracts.carconfiguration",
+    "path": "volvocars/contracts/carconfiguration/rule-set.proto",
+    "start": 35,
+    "fields": [
+      {
+        "name": "request_uid",
+        "type": "string",
+        "wireTag": 1,
+        "cardinality": "singular",
+        "options": null,
+        "line": 36
+      },
+      {
+        "name": "policy_uid",
+        "type": "string",
+        "wireTag": 2,
+        "cardinality": "singular",
+        "options": null,
+        "line": 37
+      }
+    ],
+    "values": [],
+    "parent": null,
+    "end": 38
+  },
+  {
+    "kind": "message",
+    "name": "PolicyRuleSetsIndexCreated",
+    "fullName": "volvocars.contracts.carconfiguration.PolicyRuleSetsIndexCreated",
+    "package": "volvocars.contracts.carconfiguration",
+    "path": "volvocars/contracts/carconfiguration/rule-set.proto",
+    "start": 41,
+    "fields": [
+      {
+        "name": "spec_market",
+        "type": "string",
+        "wireTag": 1,
+        "cardinality": "singular",
+        "options": null,
+        "line": 42
+      },
+      {
+        "name": "origin_index",
+        "type": "string",
+        "wireTag": 2,
+        "cardinality": "singular",
+        "options": null,
+        "line": 43
+      },
+      {
+        "name": "requests",
+        "type": "PolicyRuleSetsIndexed",
+        "wireTag": 3,
+        "cardinality": "repeated",
+        "options": null,
+        "line": 44
+      }
+    ],
+    "values": [],
+    "parent": null,
+    "end": 45
+  },
+  {
+    "kind": "message",
+    "name": "PolicyRuleSetsCacheWarmed",
+    "fullName": "volvocars.contracts.carconfiguration.PolicyRuleSetsCacheWarmed",
+    "package": "volvocars.contracts.carconfiguration",
+    "path": "volvocars/contracts/carconfiguration/rule-set.proto",
+    "start": 48,
+    "fields": [
+      {
+        "name": "spec_market",
+        "type": "string",
+        "wireTag": 1,
+        "cardinality": "singular",
+        "options": null,
+        "line": 49
+      },
+      {
+        "name": "origin_index",
+        "type": "string",
+        "wireTag": 2,
+        "cardinality": "singular",
+        "options": null,
+        "line": 50
+      },
+      {
+        "name": "requests",
+        "type": "PolicyRuleSetsIndexed",
+        "wireTag": 3,
+        "cardinality": "repeated",
+        "options": null,
+        "line": 51
+      }
+    ],
+    "values": [],
+    "parent": null,
+    "end": 52
+  },
+  {
+    "kind": "message",
+    "name": "Rule",
+    "fullName": "volvocars.contracts.carconfiguration.Rule",
+    "package": "volvocars.contracts.carconfiguration",
+    "path": "volvocars/contracts/carconfiguration/rule.proto",
+    "start": 5,
+    "fields": [
+      {
+        "name": "adjustment",
+        "type": "float",
+        "wireTag": 1,
+        "cardinality": "singular",
+        "options": null,
+        "line": 19
+      },
+      {
+        "name": "type",
+        "type": "string",
+        "wireTag": 2,
+        "cardinality": "singular",
+        "options": null,
+        "line": 20
+      },
+      {
+        "name": "position",
+        "type": "string",
+        "wireTag": 3,
+        "cardinality": "singular",
+        "options": null,
+        "line": 21
+      },
+      {
+        "name": "components",
+        "type": "Component",
+        "wireTag": 4,
+        "cardinality": "repeated",
+        "options": null,
+        "line": 22
+      },
+      {
+        "name": "conditions",
+        "type": "Condition",
+        "wireTag": 5,
+        "cardinality": "repeated",
+        "options": null,
+        "line": 23
+      },
+      {
+        "name": "conditionsRelation",
+        "type": "string",
+        "wireTag": 6,
+        "cardinality": "singular",
+        "options": null,
+        "line": 24
+      },
+      {
+        "name": "adjustmentUnit",
+        "type": "string",
+        "wireTag": 7,
+        "cardinality": "singular",
+        "options": null,
+        "line": 25
+      }
+    ],
+    "values": [],
+    "parent": null,
+    "end": 26
+  },
+  {
+    "kind": "message",
+    "name": "Component",
+    "fullName": "volvocars.contracts.carconfiguration.Rule.Component",
+    "package": "volvocars.contracts.carconfiguration",
+    "path": "volvocars/contracts/carconfiguration/rule.proto",
+    "start": 7,
+    "fields": [
+      {
+        "name": "type",
+        "type": "string",
+        "wireTag": 1,
+        "cardinality": "singular",
+        "options": null,
+        "line": 8
+      },
+      {
+        "name": "name",
+        "type": "string",
+        "wireTag": 2,
+        "cardinality": "singular",
+        "options": null,
+        "line": 9
+      }
+    ],
+    "values": [],
+    "parent": "volvocars.contracts.carconfiguration.Rule",
+    "end": 10
+  },
+  {
+    "kind": "message",
+    "name": "Condition",
+    "fullName": "volvocars.contracts.carconfiguration.Rule.Condition",
+    "package": "volvocars.contracts.carconfiguration",
+    "path": "volvocars/contracts/carconfiguration/rule.proto",
+    "start": 12,
+    "fields": [
+      {
+        "name": "components",
+        "type": "Component",
+        "wireTag": 1,
+        "cardinality": "repeated",
+        "options": null,
+        "line": 13
+      },
+      {
+        "name": "componentsRelation",
+        "type": "string",
+        "wireTag": 2,
+        "cardinality": "singular",
+        "options": null,
+        "line": 14
+      },
+      {
+        "name": "conditions",
+        "type": "Condition",
+        "wireTag": 3,
+        "cardinality": "repeated",
+        "options": null,
+        "line": 15
+      },
+      {
+        "name": "conditionsRelation",
+        "type": "string",
+        "wireTag": 4,
+        "cardinality": "singular",
+        "options": null,
+        "line": 16
+      }
+    ],
+    "values": [],
+    "parent": "volvocars.contracts.carconfiguration.Rule",
+    "end": 17
+  },
+  {
+    "kind": "message",
+    "name": "CarConfigurationRuleset",
+    "fullName": "volvocars.contracts.carconfiguration.v2.CarConfigurationRuleset",
+    "package": "volvocars.contracts.carconfiguration.v2",
+    "path": "volvocars/contracts/carconfiguration/v2/car-configuration-ruleset.proto",
+    "start": 8,
+    "fields": [
+      {
+        "name": "car_details",
+        "type": "CarDetails",
+        "wireTag": 1,
+        "cardinality": "singular",
+        "options": null,
+        "line": 9
+      },
+      {
+        "name": "ruleset",
+        "type": "ConfigurationRuleset",
+        "wireTag": 2,
+        "cardinality": "singular",
+        "options": null,
+        "line": 10
+      },
+      {
+        "name": "components",
+        "type": "Components",
+        "wireTag": 3,
+        "cardinality": "singular",
+        "options": null,
+        "line": 11
+      }
+    ],
+    "values": [],
+    "parent": null,
+    "end": 12
+  },
+  {
+    "kind": "message",
+    "name": "ConfigurationRuleset",
+    "fullName": "volvocars.contracts.carconfiguration.v2.ConfigurationRuleset",
+    "package": "volvocars.contracts.carconfiguration.v2",
+    "path": "volvocars/contracts/carconfiguration/v2/car-configuration-ruleset.proto",
+    "start": 14,
+    "fields": [
+      {
+        "name": "polyhedron",
+        "type": "Polyhedron",
+        "wireTag": 1,
+        "cardinality": "singular",
+        "options": null,
+        "line": 15
+      },
+      {
+        "name": "selectable_variables",
+        "type": "string",
+        "wireTag": 2,
+        "cardinality": "repeated",
+        "options": null,
+        "line": 16
+      },
+      {
+        "name": "dependent_variables",
+        "type": "string",
+        "wireTag": 3,
+        "cardinality": "repeated",
+        "options": null,
+        "line": 17
+      },
+      {
+        "name": "independent_variables",
+        "type": "string",
+        "wireTag": 4,
+        "cardinality": "repeated",
+        "options": null,
+        "line": 18
+      },
+      {
+        "name": "preferred_variables",
+        "type": "string",
+        "wireTag": 5,
+        "cardinality": "repeated",
+        "options": null,
+        "line": 19
+      },
+      {
+        "name": "period_variables",
+        "type": "TimeBoundVariable",
+        "wireTag": 6,
+        "cardinality": "repeated",
+        "options": null,
+        "line": 20
+      }
+    ],
+    "values": [],
+    "parent": null,
+    "end": 21
+  },
+  {
+    "kind": "message",
+    "name": "Polyhedron",
+    "fullName": "volvocars.contracts.carconfiguration.v2.Polyhedron",
+    "package": "volvocars.contracts.carconfiguration.v2",
+    "path": "volvocars/contracts/carconfiguration/v2/car-configuration-ruleset.proto",
+    "start": 23,
+    "fields": [
+      {
+        "name": "a_matrix",
+        "type": "Row",
+        "wireTag": 1,
+        "cardinality": "repeated",
+        "options": null,
+        "line": 24
+      },
+      {
+        "name": "b_vector",
+        "type": "int32",
+        "wireTag": 2,
+        "cardinality": "repeated",
+        "options": null,
+        "line": 25
+      }
+    ],
+    "values": [],
+    "parent": null,
+    "end": 26
+  },
+  {
+    "kind": "message",
+    "name": "Row",
+    "fullName": "volvocars.contracts.carconfiguration.v2.Row",
+    "package": "volvocars.contracts.carconfiguration.v2",
+    "path": "volvocars/contracts/carconfiguration/v2/car-configuration-ruleset.proto",
+    "start": 28,
+    "fields": [
+      {
+        "name": "values",
+        "type": "int32",
+        "wireTag": 1,
+        "cardinality": "repeated",
+        "options": null,
+        "line": 29
+      }
+    ],
+    "values": [],
+    "parent": null,
+    "end": 30
+  },
+  {
+    "kind": "message",
+    "name": "Components",
+    "fullName": "volvocars.contracts.carconfiguration.v2.Components",
+    "package": "volvocars.contracts.carconfiguration.v2",
+    "path": "volvocars/contracts/carconfiguration/v2/car-configuration-ruleset.proto",
+    "start": 32,
+    "fields": [
+      {
+        "name": "s_message_codes",
+        "type": "string",
+        "wireTag": 1,
+        "cardinality": "repeated",
+        "options": null,
+        "line": 33
+      },
+      {
+        "name": "color_codes",
+        "type": "string",
+        "wireTag": 2,
+        "cardinality": "repeated",
+        "options": null,
+        "line": 34
+      },
+      {
+        "name": "upholstery_codes",
+        "type": "string",
+        "wireTag": 3,
+        "cardinality": "repeated",
+        "options": null,
+        "line": 35
+      },
+      {
+        "name": "wheel_codes",
+        "type": "string",
+        "wireTag": 4,
+        "cardinality": "repeated",
+        "options": null,
+        "line": 36
+      },
+      {
+        "name": "option_codes",
+        "type": "string",
+        "wireTag": 5,
+        "cardinality": "repeated",
+        "options": null,
+        "line": 37
+      },
+      {
+        "name": "package_codes",
+        "type": "string",
+        "wireTag": 6,
+        "cardinality": "repeated",
+        "options": null,
+        "line": 38
+      }
+    ],
+    "values": [],
+    "parent": null,
+    "end": 39
+  },
+  {
+    "kind": "message",
+    "name": "TimeBoundVariable",
+    "fullName": "volvocars.contracts.carconfiguration.v2.TimeBoundVariable",
+    "package": "volvocars.contracts.carconfiguration.v2",
+    "path": "volvocars/contracts/carconfiguration/v2/car-configuration-ruleset.proto",
+    "start": 41,
+    "fields": [
+      {
+        "name": "variable",
+        "type": "string",
+        "wireTag": 1,
+        "cardinality": "singular",
+        "options": null,
+        "line": 42
+      },
+      {
+        "name": "period",
+        "type": "Period",
+        "wireTag": 2,
+        "cardinality": "singular",
+        "options": null,
+        "line": 43
+      }
+    ],
+    "values": [],
+    "parent": null,
+    "end": 44
+  },
+  {
+    "kind": "message",
+    "name": "Period",
+    "fullName": "volvocars.contracts.carconfiguration.v2.Period",
+    "package": "volvocars.contracts.carconfiguration.v2",
+    "path": "volvocars/contracts/carconfiguration/v2/car-configuration-ruleset.proto",
+    "start": 46,
+    "fields": [
+      {
+        "name": "from",
+        "type": "google.protobuf.Timestamp",
+        "wireTag": 1,
+        "cardinality": "singular",
+        "options": null,
+        "line": 47
+      },
+      {
+        "name": "to",
+        "type": "google.protobuf.Timestamp",
+        "wireTag": 2,
+        "cardinality": "singular",
+        "options": null,
+        "line": 48
+      }
+    ],
+    "values": [],
+    "parent": null,
+    "end": 49
+  },
+  {
+    "kind": "message",
+    "name": "CarKey",
+    "fullName": "volvocars.contracts.carconfiguration.v2.CarKey",
+    "package": "volvocars.contracts.carconfiguration.v2",
+    "path": "volvocars/contracts/carconfiguration/v2/car-key.proto",
+    "start": 7,
+    "fields": [
+      {
+        "name": "details",
+        "type": "CarDetails",
+        "wireTag": 1,
+        "cardinality": "singular",
+        "options": null,
+        "line": 8
+      },
+      {
+        "name": "s_message",
+        "type": "string",
+        "wireTag": 2,
+        "cardinality": "optional",
+        "options": null,
+        "line": 10
+      },
+      {
+        "name": "color",
+        "type": "string",
+        "wireTag": 3,
+        "cardinality": "singular",
+        "options": null,
+        "line": 11
+      },
+      {
+        "name": "upholstery",
+        "type": "string",
+        "wireTag": 4,
+        "cardinality": "singular",
+        "options": null,
+        "line": 12
+      },
+      {
+        "name": "wheel",
+        "type": "string",
+        "wireTag": 5,
+        "cardinality": "singular",
+        "options": null,
+        "line": 13
+      },
+      {
+        "name": "options",
+        "type": "string",
+        "wireTag": 6,
+        "cardinality": "repeated",
+        "options": null,
+        "line": 14
+      },
+      {
+        "name": "packages",
+        "type": "string",
+        "wireTag": 7,
+        "cardinality": "repeated",
+        "options": null,
+        "line": 15
+      },
+      {
+        "name": "structure_week",
+        "type": "StructureWeek",
+        "wireTag": 8,
+        "cardinality": "singular",
+        "options": null,
+        "line": 17
+      }
+    ],
+    "values": [],
+    "parent": null,
+    "end": 18
+  },
+  {
+    "kind": "message",
+    "name": "CarDetails",
+    "fullName": "volvocars.contracts.carconfiguration.v2.CarDetails",
+    "package": "volvocars.contracts.carconfiguration.v2",
+    "path": "volvocars/contracts/carconfiguration/v2/car-key.proto",
+    "start": 20,
+    "fields": [
+      {
+        "name": "model_year",
+        "type": "int32",
+        "wireTag": 1,
+        "cardinality": "singular",
+        "options": null,
+        "line": 21
+      },
+      {
+        "name": "spec_market",
+        "type": "string",
+        "wireTag": 2,
+        "cardinality": "singular",
+        "options": null,
+        "line": 22
+      },
+      {
+        "name": "car_type",
+        "type": "string",
+        "wireTag": 3,
+        "cardinality": "singular",
+        "options": null,
+        "line": 23
+      },
+      {
+        "name": "engine",
+        "type": "string",
+        "wireTag": 4,
+        "cardinality": "singular",
+        "options": null,
+        "line": 24
+      },
+      {
+        "name": "sales_version",
+        "type": "string",
+        "wireTag": 5,
+        "cardinality": "singular",
+        "options": null,
+        "line": 25
+      },
+      {
+        "name": "body",
+        "type": "string",
+        "wireTag": 6,
+        "cardinality": "singular",
+        "options": null,
+        "line": 26
+      },
+      {
+        "name": "gearbox",
+        "type": "string",
+        "wireTag": 7,
+        "cardinality": "singular",
+        "options": null,
+        "line": 27
+      },
+      {
+        "name": "steering",
+        "type": "string",
+        "wireTag": 8,
+        "cardinality": "singular",
+        "options": null,
+        "line": 28
+      },
+      {
+        "name": "marketing_code",
+        "type": "string",
+        "wireTag": 9,
+        "cardinality": "singular",
+        "options": null,
+        "line": 29
+      },
+      {
+        "name": "local_trim_edition_code",
+        "type": "string",
+        "wireTag": 10,
+        "cardinality": "optional",
+        "options": "[deprecated = true]",
+        "line": 30
+      },
+      {
+        "name": "local_edition_code",
+        "type": "string",
+        "wireTag": 11,
+        "cardinality": "optional",
+        "options": null,
+        "line": 31
+      }
+    ],
+    "values": [],
+    "parent": null,
+    "end": 32
+  },
+  {
+    "kind": "message",
+    "name": "CarKeyInPeriod",
+    "fullName": "volvocars.contracts.carconfiguration.v2.CarKeyInPeriod",
+    "package": "volvocars.contracts.carconfiguration.v2",
+    "path": "volvocars/contracts/carconfiguration/v2/car-key.proto",
+    "start": 34,
+    "fields": [
+      {
+        "name": "car_key",
+        "type": "CarKey",
+        "wireTag": 1,
+        "cardinality": "singular",
+        "options": null,
+        "line": 35
+      },
+      {
+        "name": "period",
+        "type": "StructureWeekPeriod",
+        "wireTag": 2,
+        "cardinality": "singular",
+        "options": null,
+        "line": 36
+      }
+    ],
+    "values": [],
+    "parent": null,
+    "end": 37
+  },
+  {
+    "kind": "message",
+    "name": "CarSpecification",
+    "fullName": "volvocars.contracts.carconfiguration.v2.CarSpecification",
+    "package": "volvocars.contracts.carconfiguration.v2",
+    "path": "volvocars/contracts/carconfiguration/v2/car-specification.proto",
+    "start": 8,
+    "fields": [
+      {
+        "name": "car_details",
+        "type": "CarDetails",
+        "wireTag": 1,
+        "cardinality": "singular",
+        "options": null,
+        "line": 9
+      },
+      {
+        "name": "structure_week_period",
+        "type": "StructureWeekPeriod",
+        "wireTag": 2,
+        "cardinality": "singular",
+        "options": null,
+        "line": 10
+      },
+      {
+        "name": "forbidden_structure_week_periods",
+        "type": "StructureWeekPeriod",
+        "wireTag": 8,
+        "cardinality": "repeated",
+        "options": null,
+        "line": 11
+      },
+      {
+        "name": "s_messages",
+        "type": "SMessageSpecification",
+        "wireTag": 3,
+        "cardinality": "singular",
+        "options": null,
+        "line": 13
+      },
+      {
+        "name": "stylings",
+        "type": "StylingSpecification",
+        "wireTag": 4,
+        "cardinality": "singular",
+        "options": null,
+        "line": 14
+      },
+      {
+        "name": "options",
+        "type": "OptionSpecification",
+        "wireTag": 5,
+        "cardinality": "singular",
+        "options": null,
+        "line": 15
+      },
+      {
+        "name": "packages",
+        "type": "PackageSpecification",
+        "wireTag": 6,
+        "cardinality": "singular",
+        "options": null,
+        "line": 16
+      },
+      {
+        "name": "wheels",
+        "type": "WheelSpecification",
+        "wireTag": 7,
+        "cardinality": "singular",
+        "options": null,
+        "line": 17
+      }
+    ],
+    "values": [],
+    "parent": null,
+    "end": 18
+  },
+  {
+    "kind": "message",
+    "name": "SMessageSpecification",
+    "fullName": "volvocars.contracts.carconfiguration.v2.SMessageSpecification",
+    "package": "volvocars.contracts.carconfiguration.v2",
+    "path": "volvocars/contracts/carconfiguration/v2/car-specification.proto",
+    "start": 20,
+    "fields": [
+      {
+        "name": "s_messages",
+        "type": "SMessage",
+        "wireTag": 1,
+        "cardinality": "repeated",
+        "options": null,
+        "line": 21
+      }
+    ],
+    "values": [],
+    "parent": null,
+    "end": 22
+  },
+  {
+    "kind": "message",
+    "name": "SMessage",
+    "fullName": "volvocars.contracts.carconfiguration.v2.SMessage",
+    "package": "volvocars.contracts.carconfiguration.v2",
+    "path": "volvocars/contracts/carconfiguration/v2/car-specification.proto",
+    "start": 24,
+    "fields": [
+      {
+        "name": "code",
+        "type": "string",
+        "wireTag": 1,
+        "cardinality": "singular",
+        "options": null,
+        "line": 25
+      },
+      {
+        "name": "period",
+        "type": "StructureWeekPeriod",
+        "wireTag": 2,
+        "cardinality": "singular",
+        "options": null,
+        "line": 26
+      }
+    ],
+    "values": [],
+    "parent": null,
+    "end": 27
+  },
+  {
+    "kind": "message",
+    "name": "StylingSpecification",
+    "fullName": "volvocars.contracts.carconfiguration.v2.StylingSpecification",
+    "package": "volvocars.contracts.carconfiguration.v2",
+    "path": "volvocars/contracts/carconfiguration/v2/car-specification.proto",
+    "start": 29,
+    "fields": [
+      {
+        "name": "colors",
+        "type": "Color",
+        "wireTag": 1,
+        "cardinality": "repeated",
+        "options": null,
+        "line": 30
+      },
+      {
+        "name": "upholsteries",
+        "type": "Upholstery",
+        "wireTag": 2,
+        "cardinality": "repeated",
+        "options": null,
+        "line": 31
+      },
+      {
+        "name": "default_combination",
+        "type": "StylingCombination",
+        "wireTag": 3,
+        "cardinality": "singular",
+        "options": "[deprecated = true]",
+        "line": 33
+      },
+      {
+        "name": "default_colors",
+        "type": "TimeBoundCode",
+        "wireTag": 4,
+        "cardinality": "repeated",
+        "options": null,
+        "line": 34
+      },
+      {
+        "name": "default_upholsteries",
+        "type": "TimeBoundCode",
+        "wireTag": 5,
+        "cardinality": "repeated",
+        "options": null,
+        "line": 35
+      }
+    ],
+    "values": [],
+    "parent": null,
+    "end": 36
+  },
+  {
+    "kind": "message",
+    "name": "StylingCombination",
+    "fullName": "volvocars.contracts.carconfiguration.v2.StylingCombination",
+    "package": "volvocars.contracts.carconfiguration.v2",
+    "path": "volvocars/contracts/carconfiguration/v2/car-specification.proto",
+    "start": 38,
+    "fields": [
+      {
+        "name": "color_code",
+        "type": "string",
+        "wireTag": 1,
+        "cardinality": "singular",
+        "options": null,
+        "line": 39
+      },
+      {
+        "name": "upholstery_code",
+        "type": "string",
+        "wireTag": 2,
+        "cardinality": "singular",
+        "options": null,
+        "line": 40
+      }
+    ],
+    "values": [],
+    "parent": null,
+    "end": 41
+  },
+  {
+    "kind": "message",
+    "name": "TimeBoundCode",
+    "fullName": "volvocars.contracts.carconfiguration.v2.TimeBoundCode",
+    "package": "volvocars.contracts.carconfiguration.v2",
+    "path": "volvocars/contracts/carconfiguration/v2/car-specification.proto",
+    "start": 43,
+    "fields": [
+      {
+        "name": "code",
+        "type": "string",
+        "wireTag": 1,
+        "cardinality": "singular",
+        "options": null,
+        "line": 44
+      },
+      {
+        "name": "period",
+        "type": "StructureWeekPeriod",
+        "wireTag": 2,
+        "cardinality": "singular",
+        "options": null,
+        "line": 46
+      }
+    ],
+    "values": [],
+    "parent": null,
+    "end": 47
+  },
+  {
+    "kind": "message",
+    "name": "Color",
+    "fullName": "volvocars.contracts.carconfiguration.v2.Color",
+    "package": "volvocars.contracts.carconfiguration.v2",
+    "path": "volvocars/contracts/carconfiguration/v2/car-specification.proto",
+    "start": 49,
+    "fields": [
+      {
+        "name": "code",
+        "type": "string",
+        "wireTag": 1,
+        "cardinality": "singular",
+        "options": null,
+        "line": 50
+      },
+      {
+        "name": "required_options",
+        "type": "TimeBoundAtLeastOne",
+        "wireTag": 2,
+        "cardinality": "repeated",
+        "options": null,
+        "line": 52
+      },
+      {
+        "name": "forbids_options",
+        "type": "Forbids",
+        "wireTag": 3,
+        "cardinality": "repeated",
+        "options": null,
+        "line": 53
+      },
+      {
+        "name": "forbids_upholsteries",
+        "type": "Forbids",
+        "wireTag": 4,
+        "cardinality": "repeated",
+        "options": null,
+        "line": 54
+      },
+      {
+        "name": "required_wheels",
+        "type": "TimeBoundExactlyOne",
+        "wireTag": 6,
+        "cardinality": "repeated",
+        "options": null,
+        "line": 55
+      },
+      {
+        "name": "forbids_wheels",
+        "type": "Forbids",
+        "wireTag": 7,
+        "cardinality": "repeated",
+        "options": null,
+        "line": 56
+      },
+      {
+        "name": "period",
+        "type": "StructureWeekPeriod",
+        "wireTag": 5,
+        "cardinality": "singular",
+        "options": null,
+        "line": 58
+      }
+    ],
+    "values": [],
+    "parent": null,
+    "end": 59
+  },
+  {
+    "kind": "message",
+    "name": "Upholstery",
+    "fullName": "volvocars.contracts.carconfiguration.v2.Upholstery",
+    "package": "volvocars.contracts.carconfiguration.v2",
+    "path": "volvocars/contracts/carconfiguration/v2/car-specification.proto",
+    "start": 61,
+    "fields": [
+      {
+        "name": "code",
+        "type": "string",
+        "wireTag": 1,
+        "cardinality": "singular",
+        "options": null,
+        "line": 62
+      },
+      {
+        "name": "required_options",
+        "type": "TimeBoundAtLeastOne",
+        "wireTag": 2,
+        "cardinality": "repeated",
+        "options": null,
+        "line": 64
+      },
+      {
+        "name": "forbids_options",
+        "type": "Forbids",
+        "wireTag": 3,
+        "cardinality": "repeated",
+        "options": null,
+        "line": 65
+      },
+      {
+        "name": "forbids_colors",
+        "type": "Forbids",
+        "wireTag": 4,
+        "cardinality": "repeated",
+        "options": null,
+        "line": 66
+      },
+      {
+        "name": "forbids_wheels",
+        "type": "Forbids",
+        "wireTag": 6,
+        "cardinality": "repeated",
+        "options": null,
+        "line": 67
+      },
+      {
+        "name": "period",
+        "type": "StructureWeekPeriod",
+        "wireTag": 5,
+        "cardinality": "singular",
+        "options": null,
+        "line": 69
+      }
+    ],
+    "values": [],
+    "parent": null,
+    "end": 70
+  },
+  {
+    "kind": "message",
+    "name": "OptionSpecification",
+    "fullName": "volvocars.contracts.carconfiguration.v2.OptionSpecification",
+    "package": "volvocars.contracts.carconfiguration.v2",
+    "path": "volvocars/contracts/carconfiguration/v2/car-specification.proto",
+    "start": 72,
+    "fields": [
+      {
+        "name": "options",
+        "type": "Option",
+        "wireTag": 1,
+        "cardinality": "repeated",
+        "options": null,
+        "line": 73
+      },
+      {
+        "name": "package_only_option_codes",
+        "type": "string",
+        "wireTag": 2,
+        "cardinality": "repeated",
+        "options": null,
+        "line": 74
+      },
+      {
+        "name": "included_options",
+        "type": "TimeBoundExactlyOne",
+        "wireTag": 3,
+        "cardinality": "repeated",
+        "options": null,
+        "line": 75
+      },
+      {
+        "name": "combined_requirements",
+        "type": "CombinedOptionRequirement",
+        "wireTag": 4,
+        "cardinality": "repeated",
+        "options": null,
+        "line": 78
+      }
+    ],
+    "values": [],
+    "parent": null,
+    "end": 79
+  },
+  {
+    "kind": "message",
+    "name": "Option",
+    "fullName": "volvocars.contracts.carconfiguration.v2.Option",
+    "package": "volvocars.contracts.carconfiguration.v2",
+    "path": "volvocars/contracts/carconfiguration/v2/car-specification.proto",
+    "start": 81,
+    "fields": [
+      {
+        "name": "code",
+        "type": "string",
+        "wireTag": 1,
+        "cardinality": "singular",
+        "options": null,
+        "line": 82
+      },
+      {
+        "name": "required_colors",
+        "type": "TimeBoundExactlyOne",
+        "wireTag": 2,
+        "cardinality": "repeated",
+        "options": null,
+        "line": 84
+      },
+      {
+        "name": "required_upholsteries",
+        "type": "TimeBoundExactlyOne",
+        "wireTag": 3,
+        "cardinality": "repeated",
+        "options": null,
+        "line": 85
+      },
+      {
+        "name": "required_options",
+        "type": "TimeBoundAtLeastOne",
+        "wireTag": 4,
+        "cardinality": "repeated",
+        "options": null,
+        "line": 86
+      },
+      {
+        "name": "required_wheels",
+        "type": "TimeBoundExactlyOne",
+        "wireTag": 8,
+        "cardinality": "repeated",
+        "options": null,
+        "line": 87
+      },
+      {
+        "name": "forbids_options",
+        "type": "Forbids",
+        "wireTag": 5,
+        "cardinality": "repeated",
+        "options": null,
+        "line": 89
+      },
+      {
+        "name": "forbids_colors",
+        "type": "Forbids",
+        "wireTag": 6,
+        "cardinality": "repeated",
+        "options": null,
+        "line": 90
+      },
+      {
+        "name": "forbids_wheels",
+        "type": "Forbids",
+        "wireTag": 9,
+        "cardinality": "repeated",
+        "options": null,
+        "line": 91
+      },
+      {
+        "name": "forbids_upholsteries",
+        "type": "Forbids",
+        "wireTag": 10,
+        "cardinality": "repeated",
+        "options": null,
+        "line": 92
+      },
+      {
+        "name": "period",
+        "type": "StructureWeekPeriod",
+        "wireTag": 7,
+        "cardinality": "singular",
+        "options": null,
+        "line": 94
+      }
+    ],
+    "values": [],
+    "parent": null,
+    "end": 95
+  },
+  {
+    "kind": "message",
+    "name": "CombinedOptionRequirement",
+    "fullName": "volvocars.contracts.carconfiguration.v2.CombinedOptionRequirement",
+    "package": "volvocars.contracts.carconfiguration.v2",
+    "path": "volvocars/contracts/carconfiguration/v2/car-specification.proto",
+    "start": 97,
+    "fields": [
+      {
+        "name": "requiring_option_codes",
+        "type": "string",
+        "wireTag": 1,
+        "cardinality": "repeated",
+        "options": null,
+        "line": 98
+      },
+      {
+        "name": "required_option_code",
+        "type": "string",
+        "wireTag": 2,
+        "cardinality": "singular",
+        "options": null,
+        "line": 99
+      }
+    ],
+    "values": [],
+    "parent": null,
+    "end": 100
+  },
+  {
+    "kind": "message",
+    "name": "PackageSpecification",
+    "fullName": "volvocars.contracts.carconfiguration.v2.PackageSpecification",
+    "package": "volvocars.contracts.carconfiguration.v2",
+    "path": "volvocars/contracts/carconfiguration/v2/car-specification.proto",
+    "start": 102,
+    "fields": [
+      {
+        "name": "packages",
+        "type": "Package",
+        "wireTag": 1,
+        "cardinality": "repeated",
+        "options": null,
+        "line": 103
+      },
+      {
+        "name": "included_packages",
+        "type": "TimeBoundExactlyOne",
+        "wireTag": 2,
+        "cardinality": "repeated",
+        "options": null,
+        "line": 104
+      },
+      {
+        "name": "make_overlapping_packages_exclusive",
+        "type": "bool",
+        "wireTag": 3,
+        "cardinality": "singular",
+        "options": null,
+        "line": 105
+      }
+    ],
+    "values": [],
+    "parent": null,
+    "end": 106
+  },
+  {
+    "kind": "message",
+    "name": "Package",
+    "fullName": "volvocars.contracts.carconfiguration.v2.Package",
+    "package": "volvocars.contracts.carconfiguration.v2",
+    "path": "volvocars/contracts/carconfiguration/v2/car-specification.proto",
+    "start": 108,
+    "fields": [
+      {
+        "name": "code",
+        "type": "string",
+        "wireTag": 1,
+        "cardinality": "singular",
+        "options": null,
+        "line": 109
+      },
+      {
+        "name": "required_colors",
+        "type": "ExactlyOne",
+        "wireTag": 2,
+        "cardinality": "optional",
+        "options": null,
+        "line": 111
+      },
+      {
+        "name": "required_upholsteries",
+        "type": "ExactlyOne",
+        "wireTag": 3,
+        "cardinality": "optional",
+        "options": null,
+        "line": 112
+      },
+      {
+        "name": "required_options",
+        "type": "ExactlyOne",
+        "wireTag": 4,
+        "cardinality": "repeated",
+        "options": null,
+        "line": 113
+      },
+      {
+        "name": "required_wheels",
+        "type": "ExactlyOne",
+        "wireTag": 6,
+        "cardinality": "optional",
+        "options": null,
+        "line": 114
+      },
+      {
+        "name": "period",
+        "type": "StructureWeekPeriod",
+        "wireTag": 5,
+        "cardinality": "singular",
+        "options": null,
+        "line": 116
+      }
+    ],
+    "values": [],
+    "parent": null,
+    "end": 117
+  },
+  {
+    "kind": "message",
+    "name": "WheelSpecification",
+    "fullName": "volvocars.contracts.carconfiguration.v2.WheelSpecification",
+    "package": "volvocars.contracts.carconfiguration.v2",
+    "path": "volvocars/contracts/carconfiguration/v2/car-specification.proto",
+    "start": 121,
+    "fields": [
+      {
+        "name": "wheels",
+        "type": "Wheel",
+        "wireTag": 1,
+        "cardinality": "repeated",
+        "options": null,
+        "line": 122
+      },
+      {
+        "name": "standard_wheel",
+        "type": "string",
+        "wireTag": 2,
+        "cardinality": "optional",
+        "options": null,
+        "line": 123
+      }
+    ],
+    "values": [],
+    "parent": null,
+    "end": 124
+  },
+  {
+    "kind": "message",
+    "name": "Wheel",
+    "fullName": "volvocars.contracts.carconfiguration.v2.Wheel",
+    "package": "volvocars.contracts.carconfiguration.v2",
+    "path": "volvocars/contracts/carconfiguration/v2/car-specification.proto",
+    "start": 126,
+    "fields": [
+      {
+        "name": "code",
+        "type": "string",
+        "wireTag": 1,
+        "cardinality": "singular",
+        "options": null,
+        "line": 127
+      },
+      {
+        "name": "required_colors",
+        "type": "TimeBoundExactlyOne",
+        "wireTag": 2,
+        "cardinality": "repeated",
+        "options": null,
+        "line": 129
+      },
+      {
+        "name": "required_options",
+        "type": "TimeBoundAtLeastOne",
+        "wireTag": 3,
+        "cardinality": "repeated",
+        "options": null,
+        "line": 130
+      },
+      {
+        "name": "required_upholsteries",
+        "type": "TimeBoundExactlyOne",
+        "wireTag": 6,
+        "cardinality": "repeated",
+        "options": null,
+        "line": 131
+      },
+      {
+        "name": "forbids_options",
+        "type": "Forbids",
+        "wireTag": 4,
+        "cardinality": "repeated",
+        "options": null,
+        "line": 133
+      },
+      {
+        "name": "forbids_upholsteries",
+        "type": "Forbids",
+        "wireTag": 7,
+        "cardinality": "repeated",
+        "options": null,
+        "line": 134
+      },
+      {
+        "name": "period",
+        "type": "StructureWeekPeriod",
+        "wireTag": 5,
+        "cardinality": "singular",
+        "options": null,
+        "line": 136
+      }
+    ],
+    "values": [],
+    "parent": null,
+    "end": 137
+  },
+  {
+    "kind": "message",
+    "name": "TimeBoundExactlyOne",
+    "fullName": "volvocars.contracts.carconfiguration.v2.TimeBoundExactlyOne",
+    "package": "volvocars.contracts.carconfiguration.v2",
+    "path": "volvocars/contracts/carconfiguration/v2/car-specification.proto",
+    "start": 139,
+    "fields": [
+      {
+        "name": "codes",
+        "type": "string",
+        "wireTag": 1,
+        "cardinality": "repeated",
+        "options": null,
+        "line": 140
+      },
+      {
+        "name": "default_code",
+        "type": "string",
+        "wireTag": 2,
+        "cardinality": "optional",
+        "options": null,
+        "line": 141
+      },
+      {
+        "name": "period",
+        "type": "StructureWeekPeriod",
+        "wireTag": 3,
+        "cardinality": "singular",
+        "options": null,
+        "line": 143
+      }
+    ],
+    "values": [],
+    "parent": null,
+    "end": 144
+  },
+  {
+    "kind": "message",
+    "name": "ExactlyOne",
+    "fullName": "volvocars.contracts.carconfiguration.v2.ExactlyOne",
+    "package": "volvocars.contracts.carconfiguration.v2",
+    "path": "volvocars/contracts/carconfiguration/v2/car-specification.proto",
+    "start": 146,
+    "fields": [
+      {
+        "name": "codes",
+        "type": "string",
+        "wireTag": 1,
+        "cardinality": "repeated",
+        "options": null,
+        "line": 147
+      },
+      {
+        "name": "default_code",
+        "type": "string",
+        "wireTag": 2,
+        "cardinality": "optional",
+        "options": null,
+        "line": 148
+      }
+    ],
+    "values": [],
+    "parent": null,
+    "end": 149
+  },
+  {
+    "kind": "message",
+    "name": "TimeBoundAtLeastOne",
+    "fullName": "volvocars.contracts.carconfiguration.v2.TimeBoundAtLeastOne",
+    "package": "volvocars.contracts.carconfiguration.v2",
+    "path": "volvocars/contracts/carconfiguration/v2/car-specification.proto",
+    "start": 151,
+    "fields": [
+      {
+        "name": "codes",
+        "type": "string",
+        "wireTag": 1,
+        "cardinality": "repeated",
+        "options": null,
+        "line": 152
+      },
+      {
+        "name": "default_code",
+        "type": "string",
+        "wireTag": 2,
+        "cardinality": "optional",
+        "options": null,
+        "line": 153
+      },
+      {
+        "name": "period",
+        "type": "StructureWeekPeriod",
+        "wireTag": 3,
+        "cardinality": "singular",
+        "options": null,
+        "line": 155
+      }
+    ],
+    "values": [],
+    "parent": null,
+    "end": 156
+  },
+  {
+    "kind": "message",
+    "name": "Forbids",
+    "fullName": "volvocars.contracts.carconfiguration.v2.Forbids",
+    "package": "volvocars.contracts.carconfiguration.v2",
+    "path": "volvocars/contracts/carconfiguration/v2/car-specification.proto",
+    "start": 158,
+    "fields": [
+      {
+        "name": "code",
+        "type": "string",
+        "wireTag": 1,
+        "cardinality": "singular",
+        "options": null,
+        "line": 159
+      },
+      {
+        "name": "period",
+        "type": "StructureWeekPeriod",
+        "wireTag": 2,
+        "cardinality": "singular",
+        "options": null,
+        "line": 161
+      }
+    ],
+    "values": [],
+    "parent": null,
+    "end": 162
+  },
+  {
+    "kind": "message",
+    "name": "CarSpecificationUpserted",
+    "fullName": "volvocars.contracts.carconfiguration.v2.CarSpecificationUpserted",
+    "package": "volvocars.contracts.carconfiguration.v2",
+    "path": "volvocars/contracts/carconfiguration/v2/car-specification.proto",
+    "start": 164,
+    "fields": [
+      {
+        "name": "specification",
+        "type": "CarSpecification",
+        "wireTag": 1,
+        "cardinality": "singular",
+        "options": null,
+        "line": 165
+      },
+      {
+        "name": "market_auth_identifier",
+        "type": "MarketAuthIdentifier",
+        "wireTag": 2,
+        "cardinality": "singular",
+        "options": null,
+        "line": 166
+      },
+      {
+        "name": "brand",
+        "type": "string",
+        "wireTag": 3,
+        "cardinality": "singular",
+        "options": null,
+        "line": 167
+      }
+    ],
+    "values": [],
+    "parent": null,
+    "end": 168
+  },
+  {
+    "kind": "message",
+    "name": "CarSpecificationRemoved",
+    "fullName": "volvocars.contracts.carconfiguration.v2.CarSpecificationRemoved",
+    "package": "volvocars.contracts.carconfiguration.v2",
+    "path": "volvocars/contracts/carconfiguration/v2/car-specification.proto",
+    "start": 170,
+    "fields": [
+      {
+        "name": "pno12",
+        "type": "string",
+        "wireTag": 1,
+        "cardinality": "singular",
+        "options": null,
+        "line": 171
+      },
+      {
+        "name": "spec_market",
+        "type": "string",
+        "wireTag": 2,
+        "cardinality": "singular",
+        "options": null,
+        "line": 172
+      },
+      {
+        "name": "model_year",
+        "type": "int32",
+        "wireTag": 3,
+        "cardinality": "singular",
+        "options": null,
+        "line": 173
+      },
+      {
+        "name": "local_trim_edition_code",
+        "type": "string",
+        "wireTag": 4,
+        "cardinality": "optional",
+        "options": "[deprecated = true]",
+        "line": 174
+      },
+      {
+        "name": "local_edition_code",
+        "type": "string",
+        "wireTag": 5,
+        "cardinality": "optional",
+        "options": null,
+        "line": 175
+      }
+    ],
+    "values": [],
+    "parent": null,
+    "end": 176
+  },
+  {
+    "kind": "message",
+    "name": "MarketAuthIdentifier",
+    "fullName": "volvocars.contracts.carconfiguration.v2.MarketAuthIdentifier",
+    "package": "volvocars.contracts.carconfiguration.v2",
+    "path": "volvocars/contracts/carconfiguration/v2/car-specification.proto",
+    "start": 178,
+    "fields": [
+      {
+        "name": "timestamp",
+        "type": "string",
+        "wireTag": 1,
+        "cardinality": "singular",
+        "options": null,
+        "line": 179
+      },
+      {
+        "name": "standard_wheel_feature_code",
+        "type": "string",
+        "wireTag": 2,
+        "cardinality": "singular",
+        "options": null,
+        "line": 180
+      }
+    ],
+    "values": [],
+    "parent": null,
+    "end": 181
+  },
+  {
+    "kind": "message",
+    "name": "ComponentWithCarKeys",
+    "fullName": "volvocars.contracts.carconfiguration.v2.ComponentWithCarKeys",
+    "package": "volvocars.contracts.carconfiguration.v2",
+    "path": "volvocars/contracts/carconfiguration/v2/components.proto",
+    "start": 8,
+    "fields": [
+      {
+        "name": "component",
+        "type": "Component",
+        "wireTag": 1,
+        "cardinality": "singular",
+        "options": null,
+        "line": 9
+      },
+      {
+        "name": "car_keys",
+        "type": "CarKeyInPeriod",
+        "wireTag": 2,
+        "cardinality": "repeated",
+        "options": null,
+        "line": 10
+      }
+    ],
+    "values": [],
+    "parent": null,
+    "end": 11
+  },
+  {
+    "kind": "message",
+    "name": "Component",
+    "fullName": "volvocars.contracts.carconfiguration.v2.Component",
+    "package": "volvocars.contracts.carconfiguration.v2",
+    "path": "volvocars/contracts/carconfiguration/v2/components.proto",
+    "start": 13,
+    "fields": [
+      {
+        "name": "code",
+        "type": "string",
+        "wireTag": 1,
+        "cardinality": "singular",
+        "options": null,
+        "line": 14
+      },
+      {
+        "name": "type",
+        "type": "string",
+        "wireTag": 2,
+        "cardinality": "singular",
+        "options": null,
+        "line": 15
+      }
+    ],
+    "values": [],
+    "parent": null,
+    "end": 16
+  },
+  {
+    "kind": "message",
+    "name": "PackageComponentWithCarKeys",
+    "fullName": "volvocars.contracts.carconfiguration.v2.PackageComponentWithCarKeys",
+    "package": "volvocars.contracts.carconfiguration.v2",
+    "path": "volvocars/contracts/carconfiguration/v2/components.proto",
+    "start": 18,
+    "fields": [
+      {
+        "name": "component",
+        "type": "PackageComponent",
+        "wireTag": 1,
+        "cardinality": "singular",
+        "options": null,
+        "line": 19
+      },
+      {
+        "name": "car_keys",
+        "type": "CarKeyInPeriod",
+        "wireTag": 2,
+        "cardinality": "repeated",
+        "options": null,
+        "line": 20
+      }
+    ],
+    "values": [],
+    "parent": null,
+    "end": 21
+  },
+  {
+    "kind": "message",
+    "name": "PackageComponent",
+    "fullName": "volvocars.contracts.carconfiguration.v2.PackageComponent",
+    "package": "volvocars.contracts.carconfiguration.v2",
+    "path": "volvocars/contracts/carconfiguration/v2/components.proto",
+    "start": 23,
+    "fields": [
+      {
+        "name": "code",
+        "type": "string",
+        "wireTag": 1,
+        "cardinality": "singular",
+        "options": null,
+        "line": 24
+      },
+      {
+        "name": "variant",
+        "type": "Component",
+        "wireTag": 2,
+        "cardinality": "repeated",
+        "options": null,
+        "line": 25
+      }
+    ],
+    "values": [],
+    "parent": null,
+    "end": 26
+  },
+  {
+    "kind": "message",
+    "name": "Selection",
+    "fullName": "volvocars.contracts.carconfiguration.v2.Selection",
+    "package": "volvocars.contracts.carconfiguration.v2",
+    "path": "volvocars/contracts/carconfiguration/v2/selection.proto",
+    "start": 5,
+    "fields": [
+      {
+        "name": "code",
+        "type": "string",
+        "wireTag": 1,
+        "cardinality": "singular",
+        "options": null,
+        "line": 6
+      },
+      {
+        "name": "action",
+        "type": "Action",
+        "wireTag": 2,
+        "cardinality": "singular",
+        "options": null,
+        "line": 7
+      },
+      {
+        "name": "sub_selection_codes",
+        "type": "string",
+        "wireTag": 3,
+        "cardinality": "repeated",
+        "options": null,
+        "line": 8
+      }
+    ],
+    "values": [],
+    "parent": null,
+    "end": 9
+  },
+  {
+    "kind": "enum",
+    "name": "Action",
+    "fullName": "volvocars.contracts.carconfiguration.v2.Action",
+    "package": "volvocars.contracts.carconfiguration.v2",
+    "path": "volvocars/contracts/carconfiguration/v2/selection.proto",
+    "start": 11,
+    "fields": [],
+    "values": [
+      {
+        "name": "ADD",
+        "number": 0,
+        "line": 12
+      },
+      {
+        "name": "REMOVE",
+        "number": 1,
+        "line": 13
+      }
+    ],
+    "parent": null,
+    "end": 14
+  },
+  {
+    "kind": "message",
+    "name": "StructureWeek",
+    "fullName": "volvocars.contracts.carconfiguration.v2.StructureWeek",
+    "package": "volvocars.contracts.carconfiguration.v2",
+    "path": "volvocars/contracts/carconfiguration/v2/structure-week.proto",
+    "start": 5,
+    "fields": [
+      {
+        "name": "year",
+        "type": "int32",
+        "wireTag": 1,
+        "cardinality": "singular",
+        "options": null,
+        "line": 6
+      },
+      {
+        "name": "week",
+        "type": "int32",
+        "wireTag": 2,
+        "cardinality": "singular",
+        "options": null,
+        "line": 7
+      }
+    ],
+    "values": [],
+    "parent": null,
+    "end": 8
+  },
+  {
+    "kind": "message",
+    "name": "StructureWeekPeriod",
+    "fullName": "volvocars.contracts.carconfiguration.v2.StructureWeekPeriod",
+    "package": "volvocars.contracts.carconfiguration.v2",
+    "path": "volvocars/contracts/carconfiguration/v2/structure-week.proto",
+    "start": 10,
+    "fields": [
+      {
+        "name": "from",
+        "type": "StructureWeek",
+        "wireTag": 1,
+        "cardinality": "singular",
+        "options": null,
+        "line": 11
+      },
+      {
+        "name": "to",
+        "type": "StructureWeek",
+        "wireTag": 2,
+        "cardinality": "singular",
+        "options": null,
+        "line": 12
+      }
+    ],
+    "values": [],
+    "parent": null,
+    "end": 13
+  }
+]

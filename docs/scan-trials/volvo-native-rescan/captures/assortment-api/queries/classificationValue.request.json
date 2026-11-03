@@ -1,0 +1,16 @@
+{
+  "format": "groundwork-query/v3",
+  "snapshot": "dcc8fe6133bb403c805875b5698eb6fd390e35f858d0bf3e74c33c7ea0d7a34e",
+  "query": "value",
+  "entry": "assortment-6114c5d-r5/entry/controller/Classification-GetAllClassifications",
+  "value": "assortment-6114c5d-r5/value/classifications-http/result",
+  "context": [],
+  "outcome": null,
+  "changed": [],
+  "representation": "source",
+  "candidates": "exclude",
+  "maxNodes": 500,
+  "environment": "production-profile",
+  "maxRecords": 5000,
+  "ids": []
+}
