@@ -10,7 +10,7 @@ Use its registered folder and `--workspace <ws>`, not `workspaces/`; see [worksp
 
 A Groundwork plan is an **overlay**. The system model in `<workspace>/domains/` already says how everything
 runs today; a plan names the snapshot it was written against, lists what changes as ops on the model's ids, and
-adds the reasoning a room needs to say yes. The app projects today from the model onto what the plan touches (its
+adds the reasoning the teams need to agree to it. The app projects today from the model onto what the plan touches (its
 changes, one hop around them, and the flows that pass through), so **a plan never copies today**.
 
 The app reads a plan as a story, in order: why → the system today → the new journey → what changes → how we prove
@@ -32,7 +32,7 @@ Ask for these in one message, then start:
 
 - the workspace, and the feature in a sentence: what ships, and for whom;
 - where it starts (a screen, an endpoint, a system or a repo), if they know;
-- who is in the room (teams), and how much time it is worth (appetite).
+- which teams will do the work, and how much time it is worth (appetite).
 
 ## The loop
 
@@ -59,7 +59,7 @@ Ask for these in one message, then start:
    - The change ledger: `changes[]`, each a reviewable delta, ideally one owning team, as ops on system ids.
    - Tests, milestones, work items, decisions, risks and open questions.
 
-   Technical facts come from the model and the code; product facts come from the room; every design choice with an
+   Technical facts come from the model and the code; product facts come from the people; every design choice with an
    alternative becomes a `decision`. Where the feature touches what people see, the screens are in the model
    (`screens` in `contracts.yaml`, with today's screenshot); the new look is an op on the change: a wireframe or
    Figma link per changed screen, and a walking mockup when the journey crosses more than two screens.
@@ -106,7 +106,7 @@ changes:
   plus the endpoint if it is new.
 - **Never copy today.** No `services`, `stores`, `schemas`, `interfaces`, `messages`, `flows`, `screens` or
   `handlers` at the top level of a plan: those live in the model, and the app reads an open plan onto today
-  live. `teams` lists the teams in the room; a team the plan does not list is drawn from today.
+  live. `teams` lists the teams with work in the plan; a team the plan does not list is drawn from today.
 - **Lock what the plan fitted.** `npm run plan:base -- check <plan>` validates the plan on today and writes
   `base.lock.json`, a fingerprint of everything its `modify`, `remove` and `after` ops target. When the model moves
   under one of those targets, the plan's cover says so and names them. Re-read them, fix the ops, and run `check`
@@ -123,7 +123,7 @@ changes:
 - **Status, before and after, edges, coverage, blockers and build waves are derived**; never author them.
 - **Owners are teams** (`risks[].owner`, `questions[].decider`, `tests[].owner`); Product is a team. A design
   choice that hangs on an open question stays `status: proposed`, and the question `blocks` it.
-- **Names follow the code**; the room's words go in `name`, `summary` and the glossary.
+- **Names follow the code**; people's words go in `name`, `summary` and the glossary.
 - **Milestones are walking skeletons**: M1 is the thinnest end-to-end slice behind a flag, not a layer. Name each by
   the outcome it demonstrates (`M1 · Walking skeleton: …`), never by calendar slot; dates belong in `meta.start`
   and each milestone's `due`.
@@ -134,7 +134,7 @@ changes:
   path, write `execution.summary` in plain language and `execution.paths` for the meaningful routes: short, ordered
   steps with a label and a sentence of detail, citing `[[id]]`. Say what stays, what is added, and what happens on
   failure; material limits go in `execution.caveats`. The changed handlers are the precise version; `execution` is
-  the version a room can repeat.
+  the version people can repeat.
 - **One contract test per new or changed cross-component call**, owned by the consumer team. An e2e proves only the
   changes whose steps it walks.
 - **Questions `block` the change or work item they gate**; `decide_by` falls before the milestone that needs the
@@ -143,13 +143,13 @@ changes:
 
 Every question a newcomer asks of a plan, and where its answer lives: [checklists/newcomer-questions.md](checklists/newcomer-questions.md).
 
-## Talking to the room
+## Talking to people
 
 - Lead with what you found, not what you need. Show a flow as "A calls B to do X, then B tells C", with a link per
   hop.
 - Ask product questions only: why now, for whom, what is success, what is out of scope, what worries you. Keep
   each round to three questions.
-- When the code and the room disagree, the code is what runs; write the room's belief as an open `question` with a
+- When the code and the people disagree, the code is what runs; write their belief as an open `question` with a
   `decider`. Every acronym or team word you hear goes in `problem.glossary`.
 
 ## Validating

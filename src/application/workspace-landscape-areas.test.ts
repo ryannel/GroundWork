@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest';
 
 import { acme } from '@/../test/workspace-kit';
 import type { AuthoredLandscape, LandscapeRelationship } from '@/domain/landscape';
+import { diagramCaption } from '@/shared/diagram-caption';
 
 import { areaLandscapeOf } from './workspace-landscape-areas';
 
@@ -149,21 +150,26 @@ describe('authored landscape layout', () => {
           ),
         ).toBe(false);
       }
-      const halfWidth = relationship.label.length * 3.5 + 8;
+      if (relationship.labelHidden === true) continue;
+      const caption = diagramCaption(relationship.label);
+      const halfWidth = caption.width / 2;
       expect(
-        view.edges.some(
-          (other) =>
-            other.id !== relationship.id &&
-            Math.abs(other.x - relationship.x) < halfWidth + other.label.length * 3.5 + 8 &&
-            Math.abs(other.y - relationship.y) < 18,
-        ),
+        view.edges
+          .filter((other) => other.id !== relationship.id && other.labelHidden !== true)
+          .some(
+            (other) =>
+              Math.abs(other.x - relationship.x) <
+                halfWidth + diagramCaption(other.label).width / 2 &&
+              other.y - 14 < relationship.y - 14 + caption.height &&
+              relationship.y - 14 < other.y - 14 + diagramCaption(other.label).height,
+          ),
       ).toBe(false);
       expect(
         view.nodes.some(
           (node) =>
             relationship.x + halfWidth > node.x &&
             relationship.x - halfWidth < node.x + node.width &&
-            relationship.y + 4 > node.y &&
+            relationship.y - 14 + caption.height > node.y &&
             relationship.y - 14 < node.y + node.height,
         ),
       ).toBe(false);
@@ -189,7 +195,9 @@ describe('authored landscape layout', () => {
     expect(nodes.get('fleet')!.x).toBe(nodes.get('browse')!.x);
     expect(nodes.get('accounts')!.x).toBe(nodes.get('browse')!.x);
     expect(nodes.get('fleet')!.x).toBeGreaterThan(nodes.get('products')!.x);
-    expect(nodes.get('buy')!.x - nodes.get('fleet')!.x).toBe(400);
+    expect(nodes.get('buy')!.x - nodes.get('fleet')!.x).toBe(
+      nodes.get('browse')!.x - nodes.get('offers')!.x,
+    );
     expect(view.nodes.filter((node) => node.x === nodes.get('fleet')!.x)).toHaveLength(3);
   });
 
@@ -211,7 +219,9 @@ describe('authored landscape layout', () => {
     const nodes = new Map(view.nodes.map((node) => [node.id, node]));
     expect(nodes.get('agreements')!.x).toBe(nodes.get('browse')!.x);
     expect(nodes.get('fleet')!.x).toBe(nodes.get('offers')!.x);
-    expect(nodes.get('agreements')!.x - nodes.get('fleet')!.x).toBe(400);
+    expect(nodes.get('agreements')!.x - nodes.get('fleet')!.x).toBe(
+      nodes.get('prepare')!.x - nodes.get('source')!.x,
+    );
   });
 
   it('keeps support-only areas below the flow without implying a sequence between them', () => {

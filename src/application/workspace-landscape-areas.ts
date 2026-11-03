@@ -1,5 +1,6 @@
 import type { AuthoredLandscape, LandscapeArea } from '@/domain/landscape';
 import type { Workspace } from '@/domain/workspace';
+import { diagramCaption } from '@/shared/diagram-caption';
 import { plural } from '@/shared/text';
 
 import { areaRoute } from './area-routing/route';
@@ -20,6 +21,7 @@ export interface AreaMapNode {
 }
 
 export interface AreaMapEdge {
+  readonly labelHidden?: boolean;
   readonly id: string;
   readonly from: string;
   readonly to: string;
@@ -162,13 +164,12 @@ function edgeOf(
     },
     obstacles: [...nodes.values()],
     direction: forward ? 1 : -1,
-    labelWidth: relationship.label.length * 7 + 16,
-    labelObstacles: labels.map((edge) => ({
-      x: edge.x - edge.label.length * 3.5 - 8,
-      y: edge.y - 18,
-      width: edge.label.length * 7 + 16,
-      height: 26,
-    })),
+    labelWidth: diagramCaption(relationship.label).width,
+    labelHeight: diagramCaption(relationship.label).height,
+    labelObstacles: labels.map((edge) => {
+      const { width, height } = diagramCaption(edge.label);
+      return { x: edge.x - width / 2, y: edge.y - 14, width, height };
+    }),
     ...(forward ? {} : { returnLane: Math.max(from.y + from.height, to.y + to.height) + 32 }),
   });
   if (geometry === null) throw new Error(`Cannot route landscape relationship ${relationship.id}`);

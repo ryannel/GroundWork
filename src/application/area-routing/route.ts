@@ -1,3 +1,5 @@
+import { orthogonalRoute, type RouteBox, type RoutePoint, type RoutePort } from './orthogonal';
+
 interface Point {
   readonly x: number;
   readonly y: number;
@@ -139,69 +141,190 @@ export function roundedPath(points: readonly Point[]): string {
   return [`M ${coordinate(first)}`, ...commands].join(' ');
 }
 
-/** A receiver label sits just outside its port, so a long line remains easy to trace. */
-function receiverLabels(points: readonly Point[], width: number): readonly Point[] {
-  const end = points.at(-1);
-  const previous = points.at(-2);
-  if (end === undefined || end.y !== previous?.y) return [];
-  const x = end.x + Math.sign(previous.x - end.x) * (width / 2 + 16);
-  return [-10, 18, -28, 36].map((offset) => ({ x, y: end.y + offset }));
+interface LabelPoint extends Point {
+  readonly labelHidden?: boolean;
 }
 
-function clearLabel(point: Point, obstacles: readonly Rectangle[], width: number): boolean {
+/** Thin line obstacles also protect the clear space between a caption and its own segment. */
+export function lineBoxes(points: readonly RoutePoint[]): readonly RouteBox[] {
+  return points.slice(1).map((point, index) => {
+    const previous = points[index] ?? point;
+    return {
+      x: Math.min(previous.x, point.x) - 2,
+      y: Math.min(previous.y, point.y) - 2,
+      width: Math.abs(previous.x - point.x) + 4,
+      height: Math.abs(previous.y - point.y) + 4,
+    };
+  });
+}
+
+function overlaps(a: Rectangle, b: Rectangle): boolean {
+  return a.x + a.width > b.x && a.x < b.x + b.width && a.y + a.height > b.y && a.y < b.y + b.height;
+}
+
+function clearLabel(
+  point: Point & { readonly anchor: Point },
+  obstacles: readonly Rectangle[],
+  size: Rectangle,
+  lines: readonly Rectangle[],
+): boolean {
+  const box = {
+    x: point.x - size.width / 2,
+    y: point.y - 14,
+    width: size.width,
+    height: size.height,
+  };
+  const attached = {
+    x: Math.min(box.x, point.anchor.x),
+    y: Math.min(box.y, point.anchor.y),
+    width: Math.max(box.x + box.width, point.anchor.x) - Math.min(box.x, point.anchor.x),
+    height: Math.max(box.y + box.height, point.anchor.y) - Math.min(box.y, point.anchor.y),
+  };
   return (
-    point.x - width / 2 >= 12 &&
-    point.y >= 24 &&
-    !obstacles.some(
-      (box) =>
-        point.x + width / 2 > box.x &&
-        point.x - width / 2 < box.x + box.width &&
-        point.y + 4 > box.y &&
-        point.y - 14 < box.y + box.height,
-    )
+    point.x - size.width / 2 >= size.x &&
+    point.y - 14 >= size.y &&
+    !obstacles.some((other) => overlaps(box, other)) &&
+    !lines.some((other) => overlaps(attached, other))
   );
 }
 
+/** Captions stay beside a real segment. Exhausted space is explicit, never an unrelated free boundary. */
 export function labelPoint(
   points: readonly Point[],
   obstacles: readonly Rectangle[],
   width: number,
   preferEnd = false,
-): Point {
+  options: {
+    readonly height?: number;
+    readonly bounds?: Rectangle;
+    readonly lines?: readonly Rectangle[];
+  } = {},
+): LabelPoint {
+  const height = options.height ?? 18;
   const candidates = points
     .flatMap((point, index) => {
       const next = points[index + 1];
       if (next === undefined) return [];
+      const horizontal = point.y === next.y;
       const length = distance(point, next);
-      const score =
-        length +
-        (point.y === next.y ? 1000 : 0) +
-        (preferEnd && length >= width ? index * 10_000 : 0);
-      return [0.5, 0.25, 0.75].flatMap((fraction) =>
-        [-10, 18, -28, 36, -54, 62, -78, 86, -102, 110].map((offset) => ({
-          x: point.x + (next.x - point.x) * fraction,
-          y: point.y + (next.y - point.y) * fraction + offset,
-          score,
-        })),
-      );
+      const required = horizontal ? width : height;
+      if (length < required + 16) return [];
+      return [0.5, 0.25, 0.75].flatMap((fraction) => {
+        if (horizontal) {
+          const low = Math.min(point.x, next.x) + width / 2 + 8;
+          const high = Math.max(point.x, next.x) - width / 2 - 8;
+          const x = Math.max(low, Math.min(high, point.x + (next.x - point.x) * fraction));
+          return [point.y - height + 6, point.y + 22].map((y) => ({
+            x,
+            y,
+            anchor: { x, y: point.y },
+            score: length + 1000 + (preferEnd ? index * 10_000 : 0),
+          }));
+        }
+        const low = Math.min(point.y, next.y) + height / 2 + 8;
+        const high = Math.max(point.y, next.y) - height / 2 - 8;
+        const y =
+          Math.max(low, Math.min(high, point.y + (next.y - point.y) * fraction)) - height / 2 + 14;
+        return [-1, 1].map((side) => ({
+          x: point.x + side * (width / 2 + 12),
+          y,
+          anchor: { x: point.x, y: y + height / 2 - 14 },
+          score: length,
+        }));
+      });
     })
     .toSorted((a, b) => b.score - a.score);
-  const preferred = preferEnd ? [...receiverLabels(points, width), ...candidates] : candidates;
-  const clear = preferred.find((point) => clearLabel(point, obstacles, width));
-  if (clear !== undefined) return clear;
-  // Tall expanded cards can exhaust the nearby offsets. Search their free boundaries rather than
-  // falling back to the first candidate, which can paint a label across an API row or card title.
-  const first = preferred[0] ?? { x: width / 2 + 12, y: 24 };
-  const origin = { x: Math.max(width / 2 + 12, first.x), y: Math.max(24, first.y) };
-  const boundaries = obstacles
-    .flatMap((box) => [
-      { x: box.x - width / 2 - 12, y: origin.y },
-      { x: box.x + box.width + width / 2 + 12, y: origin.y },
-      { x: origin.x, y: box.y - 8 },
-      { x: origin.x, y: box.y + box.height + 20 },
-    ])
-    .toSorted((a, b) => distance(origin, a) - distance(origin, b));
-  return boundaries.find((point) => clearLabel(point, obstacles, width)) ?? origin;
+  const bounds = options.bounds;
+  const size = { x: bounds?.x ?? 12, y: bounds?.y ?? 10, width, height };
+  const placed = candidates.find(
+    (point) =>
+      clearLabel(point, obstacles, size, options.lines ?? []) &&
+      (bounds === undefined ||
+        (point.x + width / 2 <= bounds.x + bounds.width &&
+          point.y - 14 + height <= bounds.y + bounds.height)),
+  );
+  if (placed !== undefined) return { x: placed.x, y: placed.y };
+  const first = points[0] ?? { x: 24, y: 24 };
+  return { ...first, labelHidden: true };
+}
+
+const horizontalDirection = (sign: number): number => (sign > 0 ? 0 : 2);
+const verticalDirection = (sign: number): number => (sign > 0 ? 1 : 3);
+
+function port(point: RoutePoint, neighbour: RoutePoint): RoutePort {
+  const horizontal = point.y === neighbour.y;
+  const sign = Math.sign(horizontal ? neighbour.x - point.x : neighbour.y - point.y);
+  const stubLength = Math.min(
+    24,
+    (Math.abs(point.x - neighbour.x) + Math.abs(point.y - neighbour.y)) / 2,
+  );
+  return {
+    point,
+    exit: {
+      x: point.x + (horizontal ? sign * stubLength : 0),
+      y: point.y + (horizontal ? 0 : sign * stubLength),
+    },
+    direction: horizontal ? horizontalDirection(sign) : verticalDirection(sign),
+  };
+}
+
+/** Try a bounded alternative path before declaring that an attached caption has no legal space. */
+export function captionRoute(
+  points: readonly RoutePoint[],
+  obstacles: readonly RouteBox[],
+  caption: {
+    readonly width: number;
+    readonly height: number;
+    readonly bounds?: RouteBox;
+    readonly preferEnd?: boolean;
+    readonly lines?: readonly RouteBox[];
+  },
+): {
+  readonly points: readonly RoutePoint[];
+  readonly path: string;
+  readonly x: number;
+  readonly y: number;
+  readonly labelHidden?: boolean;
+} {
+  const bounds = caption.bounds ?? {
+    x: 0,
+    y: 0,
+    width: Math.max(
+      1000,
+      ...obstacles.map((box) => box.x + box.width + caption.width + 64),
+      ...points.map((point) => point.x + caption.width + 64),
+    ),
+    height: Math.max(
+      800,
+      ...obstacles.map((box) => box.y + box.height + caption.height + 64),
+      ...points.map((point) => point.y + caption.height + 64),
+    ),
+  };
+  const place = (candidate: readonly RoutePoint[]) =>
+    labelPoint(candidate, obstacles, caption.width, caption.preferEnd, {
+      height: caption.height,
+      bounds,
+      lines: caption.lines ?? [],
+    });
+  const label = place(points);
+  const first = points[0],
+    second = points[1],
+    last = points.at(-1),
+    before = points.at(-2);
+  if (label.labelHidden !== true) return { points, path: roundedPath(points), ...label };
+  if (first === undefined || second === undefined || last === undefined || before === undefined) {
+    return { points, path: roundedPath(points), ...label };
+  }
+  const repaired = orthogonalRoute([port(first, second)], [port(last, before)], {
+    boxes: obstacles,
+    bounds,
+    lines: [],
+    corridorPadding: caption.height + 32,
+    accept: (candidate) => place(candidate).labelHidden !== true,
+  });
+  return repaired.length === 0
+    ? { points, path: roundedPath(points), ...label }
+    : { points: repaired, path: roundedPath(repaired), ...place(repaired) };
 }
 
 export interface AreaRouteOptions {
@@ -211,6 +334,7 @@ export interface AreaRouteOptions {
   readonly returnLane?: number;
   readonly direction: 1 | -1;
   readonly labelWidth: number;
+  readonly labelHeight?: number;
   readonly vertical?: boolean;
   readonly labelObstacles?: readonly Rectangle[];
 }
@@ -221,6 +345,7 @@ export function areaRoute(options: AreaRouteOptions): {
   readonly x: number;
   readonly y: number;
   readonly points: readonly Point[];
+  readonly labelHidden?: boolean;
 } | null {
   const { returnLane, direction, labelWidth, vertical = false } = options;
   const orient = (point: Point): Point => (vertical ? { x: point.y, y: point.x } : point);
@@ -247,10 +372,8 @@ export function areaRoute(options: AreaRouteOptions): {
   }
   points.push(end);
   const simplified = simplify(points).map(orient);
-  const label = labelPoint(
-    simplified,
-    [...options.obstacles, ...(options.labelObstacles ?? [])],
-    labelWidth,
-  );
-  return { path: roundedPath(simplified), ...label, points: simplified };
+  return captionRoute(simplified, [...options.obstacles, ...(options.labelObstacles ?? [])], {
+    width: labelWidth,
+    height: options.labelHeight ?? 18,
+  });
 }

@@ -5,7 +5,8 @@ import {
   type RoutePort,
   type RoutedLine,
 } from '@/application/area-routing/orthogonal';
-import { labelPoint, roundedPath } from '@/application/area-routing/route';
+import { labelPoint, lineBoxes, roundedPath } from '@/application/area-routing/route';
+import { diagramCaption } from '@/shared/diagram-caption';
 
 import type { ValueFlowConnection } from './value-flow-connections';
 import type { ValueFlowGroup, ValueFlowHeading, ValueFlowNode } from './value-flow-system';
@@ -48,6 +49,7 @@ export interface ValueFlowRoute extends ValueFlowConnection {
   readonly x: number;
   readonly y: number;
   readonly points: RoutedLine['points'];
+  readonly labelHidden?: boolean;
 }
 
 /** Node ports, obstacles and reserved corridors are solved together; there is no later lane shifting. */
@@ -64,6 +66,7 @@ export function routeValueFlows(
   ];
   const lines: RoutedLine[] = [];
   const labels: RouteBox[] = [];
+  const captionCorridors: RouteBox[] = [];
   const canvas = {
     x: 0,
     y: 0,
@@ -80,22 +83,58 @@ export function routeValueFlows(
       group === undefined
         ? canvas
         : { x: group.x + 8, y: group.y + 88, width: group.width - 16, height: group.height - 96 };
-    const boxes = [
+    const physical = [
       ...obstacles,
       ...groups.filter((item) => item.id !== from.systemId && item.id !== to.systemId),
     ];
+    const boxes = [...physical, ...captionCorridors];
     const validPorts = (node: ValueFlowNode, y: number | undefined): readonly RoutePort[] =>
       ports(node, edge, edges, y).filter((port) => clearRouteSegment(port.point, port.exit, boxes));
-    const points = orthogonalRoute(validPorts(from, edge.sourceY), validPorts(to, edge.targetY), {
+    const { width, height } = diagramCaption(edge.label);
+    const occupied = [...obstacles, ...labels];
+    const otherLines = lines.flatMap((line) => lineBoxes(line.points));
+    const place = (points: RoutedLine['points']) =>
+      labelPoint(points, occupied, width, true, { height, bounds, lines: otherLines });
+    const space = {
       boxes,
       lines,
       bounds,
+    };
+    const starts = validPorts(from, edge.sourceY);
+    const ends = validPorts(to, edge.targetY);
+    const labelled = orthogonalRoute(starts, ends, {
+      ...space,
+      corridorPadding: height + 24,
+      accept: (points) => place(points).labelHidden !== true,
     });
+    const physicalPorts = (node: ValueFlowNode, y: number | undefined) =>
+      ports(node, edge, edges, y).filter((port) =>
+        clearRouteSegment(port.point, port.exit, physical),
+      );
+    const points =
+      labelled.length > 0
+        ? labelled
+        : orthogonalRoute(physicalPorts(from, edge.sourceY), physicalPorts(to, edge.targetY), {
+            ...space,
+            boxes: physical,
+          });
     if (points.length === 0) throw new Error(`No clear route for ${edge.id}`);
+    const label = place(points);
     lines.push({ points });
-    const width = Math.min(240, edge.label.length * 6.5 + 16);
-    const label = labelPoint(points, [...obstacles, ...labels], width, true);
-    labels.push({ x: label.x - width / 2, y: label.y - 14, width, height: 18 });
+    if (label.labelHidden !== true) {
+      labels.push({
+        x: label.x - width / 2,
+        y: label.y - 14,
+        width,
+        height,
+      });
+      captionCorridors.push({
+        x: label.x - width / 2 - 12,
+        y: label.y - 14 - 12,
+        width: width + 24,
+        height: height + 24,
+      });
+    }
     return { ...edge, ...label, path: roundedPath(points), points };
   });
 }

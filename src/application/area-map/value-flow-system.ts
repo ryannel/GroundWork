@@ -3,6 +3,7 @@ import type { AreaComponentView, AreaSystemView, AreaView } from '@/application/
 import type { LandscapeValueFlow } from '@/domain/landscape';
 
 import { cardLayout, CARD } from './card-geometry';
+import { diagramSpacing } from './diagram-spacing';
 import { componentBands, componentOwners, valueFlowComponents } from './value-flow-components';
 
 export interface ValueFlowNode extends AreaSystemBox {
@@ -78,11 +79,14 @@ function supportAnchors(
 }
 
 /** Core columns never grow merely because one component has more supporting neighbours. */
-function columnPositions(bands: LandscapeValueFlow['bands']): ReadonlyMap<number, number> {
+function columnPositions(
+  bands: LandscapeValueFlow['bands'],
+  gap: number,
+): ReadonlyMap<number, number> {
   const columns = [
     ...new Set(bands.flatMap((band) => band.nodes.map((node) => node.column))),
   ].toSorted((a, b) => a - b);
-  return new Map(columns.map((column, index) => [column, 48 + index * (CARD.width + 160)]));
+  return new Map(columns.map((column, index) => [column, 48 + index * (CARD.width + gap)]));
 }
 
 function componentNode(
@@ -118,9 +122,10 @@ function supportingNodes(
   band: LandscapeValueFlow['bands'][number],
   anchors: ReadonlyMap<string, string>,
   positions: ReadonlyMap<number, number>,
-  top: number,
+  placement: { readonly top: number; readonly gap: number },
   open: ReadonlySet<string>,
 ): readonly ValueFlowNode[] {
+  const { top, gap } = placement;
   const bottoms = new Map([...positions].map(([column]) => [column, top]));
   return components
     .toSorted((a, b) => a.id.localeCompare(b.id))
@@ -146,7 +151,7 @@ function supportingNodes(
         },
         open,
       );
-      bottoms.set(column, node.y + node.height + 64);
+      bottoms.set(column, node.y + node.height + gap);
       return node;
     });
 }
@@ -162,7 +167,11 @@ export function valueFlowSystem(
   const bands = componentBands(system.components, narrative);
   const core = new Set(bands.flatMap((band) => band.nodes.map((node) => node.component)));
   const anchors = supportAnchors(system, core, relationships);
-  const positions = columnPositions(bands);
+  const ids = new Set(system.components.map((component) => component.id));
+  const spacing = diagramSpacing(
+    narrative.connections.filter((edge) => ids.has(edge.from) && ids.has(edge.to)),
+  );
+  const positions = columnPositions(bands, spacing.horizontal);
   const nodes: ValueFlowNode[] = [];
   const headings: ValueFlowHeading[] = [];
   let y = 100;
@@ -183,7 +192,7 @@ export function valueFlowSystem(
         },
         open,
       );
-      bottoms.set(entry.column, node.y + node.height + 80);
+      bottoms.set(entry.column, node.y + node.height + spacing.vertical);
       return [node];
     });
     const members = new Set(band.nodes.map((node) => node.component));
@@ -196,7 +205,10 @@ export function valueFlowSystem(
       band,
       anchors,
       positions,
-      Math.max(...placed.map((node) => node.y + node.height)) + 72,
+      {
+        top: Math.max(...placed.map((node) => node.y + node.height)) + spacing.vertical,
+        gap: spacing.vertical,
+      },
       open,
     );
     headings.push({

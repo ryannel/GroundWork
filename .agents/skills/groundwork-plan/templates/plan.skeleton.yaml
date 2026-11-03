@@ -43,7 +43,7 @@ problem:
         means: 'TODO: plain meaning. Every acronym or jargon word in the plan goes here.',
       }
 
-# The teams in the room. Components, stores, contracts, flows and handlers come from the model.
+# The teams with work in the plan. Components, stores, contracts, flows and handlers come from the model.
 teams:
   - { id: team:TODO-owner, name: 'TODO: Owner team' }
   - { id: team:product, name: 'Product' } # deciders are teams too
@@ -138,7 +138,7 @@ questions:
       blocks: [chg:first-change],
     }
 
-commitment: [] # filled in the room: { team: team:x, confidence: 1-5, note: '…' }
+commitment: [] # filled in by each team: { team: team:x, confidence: 1-5, note: '…' }
 
 story:
   chapters:

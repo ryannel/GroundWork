@@ -59,6 +59,7 @@ export function useCanvasFocus(
 ): () => void {
   const { zoom, changeZoom } = camera;
   const focusedRef = useRef<Focused | null>(null);
+  const initialFocusRef = useRef(true);
   const reveal = useCallback(() => {
     const element = viewportRef.current;
     if (focus === undefined || focus === null || element?.scrollTo === undefined) return;
@@ -91,7 +92,9 @@ export function useCanvasFocus(
       focusedRef.current = { id: focus.id, x: focus.x, y: focus.y };
       return;
     }
-    if (focus.revealViewport === true) {
+    const initial = initialFocusRef.current;
+    initialFocusRef.current = false;
+    if (initial && focus.revealViewport === true) {
       const surface = viewportRef.current?.parentElement ?? viewportRef.current;
       surface?.scrollIntoView({ block: 'start', behavior: 'instant' });
     }

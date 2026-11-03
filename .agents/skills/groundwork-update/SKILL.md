@@ -41,5 +41,5 @@ Approved versions in the revision ledger are natural starting points: `plans/<pl
 
 ## Status and tags
 
-`meta.status` moves `draft` → `review` → `approved` by the room's decision, not the agent's. Approval is a git tag
+`meta.status` moves `draft` → `review` → `approved` by the teams' decision, not the agent's. Approval is a git tag
 `plan/<plan>/v<n>` on that commit, which next week's diff can name. Do not change `meta.status` yourself.

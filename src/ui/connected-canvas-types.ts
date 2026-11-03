@@ -25,6 +25,8 @@ export interface ConnectedCanvasEdge {
   readonly supporting?: boolean;
   /** Part of the chosen value flow, distinct from transient pointer or component focus. */
   readonly highlighted?: boolean;
+  /** No attached caption fits; the complete explanation remains on focus and hover. */
+  readonly labelHidden?: boolean;
   readonly relations?: readonly {
     readonly from: string;
     readonly to: string;

@@ -2,7 +2,7 @@ import type { Model } from '@/application/plan/derive';
 
 import { type AskLine, askLines } from './plan-story-cover-standing';
 
-// The cover: what ships and why, what the room is asked to do now, how it moves the numbers, and a door to each
+// The cover: what ships and why, what the teams are asked to do now, how it moves the numbers, and a door to each
 // team's part.
 
 export interface Stat {

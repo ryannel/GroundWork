@@ -1,24 +1,24 @@
+import { diagramCaption } from '@/shared/diagram-caption';
 import type { ConnectedCanvasEdge } from '@/ui/connected-canvas-types';
 import { Panel } from '@/ui/panel';
 import { Text } from '@/ui/text';
 
 import styles from './canvas-edge.module.css';
 
-function edgeLabel(label: string): string {
-  const [method, path] = label.split(/\s+/u);
-  if (
-    path?.startsWith('/') !== true ||
-    !/^(?:GET|POST|PUT|PATCH|DELETE|HEAD|OPTIONS)(?:\|[A-Z]+)*$/u.test(method ?? '')
-  ) {
-    return label.length > 36 ? `${label.slice(0, 33)}…` : label;
-  }
-  const operation =
-    path
-      .split('?')[0]
-      ?.split('/')
-      .findLast((part) => part.length > 0 && !part.startsWith('{')) ?? path;
-  const concise = `${method ?? ''} ${operation}`;
-  return concise.length > 36 ? `${concise.slice(0, 33)}…` : concise;
+function Caption({ edge }: { readonly edge: ConnectedCanvasEdge }) {
+  if (edge.labelHidden === true) return null;
+  const caption = diagramCaption(edge.label);
+  return (
+    <text textAnchor="middle" x={edge.x} y={edge.y}>
+      <tspan x={edge.x}>{caption.lines[0]}</tspan>
+      {caption.lines[1] === undefined ? null : (
+        <tspan x={edge.x} dy={caption.lineHeight}>
+          {' '}
+          {caption.lines[1]}
+        </tspan>
+      )}
+    </text>
+  );
 }
 
 export function Markers({ marker }: { readonly marker: string }) {
@@ -71,6 +71,7 @@ export function CanvasEdge({
       data-pattern={edge.pattern}
       data-lit={emphasis ? '' : undefined}
       data-flow={edge.highlighted === true ? '' : undefined}
+      data-label-hidden={edge.labelHidden}
       data-muted={muted ? '' : undefined}
       data-quiet={edge.quiet === true ? '' : undefined}
       data-context={edge.context === true ? '' : undefined}
@@ -124,9 +125,7 @@ export function CanvasEdgeLabel({
       data-context={edge.context === true ? '' : undefined}
       data-supporting={edge.supporting === true ? '' : undefined}
     >
-      <text textAnchor="middle" x={edge.x} y={edge.y}>
-        {edgeLabel(edge.label)}
-      </text>
+      <Caption edge={edge} />
     </g>
   );
 }
@@ -150,9 +149,7 @@ export function RaisedEdge({
       data-pattern={edge.pattern}
     >
       <path d={edge.path} markerEnd={edge.directed === false ? undefined : `url(#${marker}-lit)`} />
-      <text textAnchor="middle" x={edge.x} y={edge.y}>
-        {edgeLabel(edge.label)}
-      </text>
+      <Caption edge={edge} />
       {described ? (
         <foreignObject
           className={styles.description}

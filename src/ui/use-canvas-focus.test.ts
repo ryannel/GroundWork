@@ -95,6 +95,34 @@ describe('canvas focus', () => {
   });
 });
 
+it('reveals an incoming flow once and keeps the page still when switching flows', () => {
+  const ref = viewport();
+  const surface = document.createElement('div');
+  const scrollIntoView = vi.fn<(options?: boolean | ScrollIntoViewOptions) => void>();
+  surface.scrollIntoView = scrollIntoView;
+  surface.append(ref.current);
+  const changeZoom = vi.fn<(factor: number) => void>();
+  const initialProps: { readonly id: string | null } = { id: 'flow:prepare' };
+  const { rerender } = renderHook(
+    ({ id }: { readonly id: string | null }) =>
+      useCanvasFocus(
+        id === null ? null : { id, x: 400, y: 200, width: 600, height: 300, revealViewport: true },
+        ref,
+        {
+          zoom: 1,
+          changeZoom,
+        },
+      ),
+    { initialProps },
+  );
+  expect(scrollIntoView).toHaveBeenCalledTimes(1);
+  rerender({ id: 'flow:read' });
+  rerender({ id: null });
+  rerender({ id: 'flow:prepare' });
+  expect(scrollIntoView).toHaveBeenCalledTimes(1);
+  expect(ref.scrollTo).toHaveBeenCalledTimes(3);
+});
+
 it('frames a selected flow consistently after a distant overview and retains later manual zoom', () => {
   const ref = viewport();
   const changeZoom = vi.fn<(factor: number) => void>();

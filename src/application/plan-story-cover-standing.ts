@@ -8,7 +8,7 @@ import { numWord, plainLine } from '@/application/plan-viz-text';
 import { voteSummary, type VoteSummary } from '@/application/plan-viz-vote';
 import type { Commitment } from '@/domain/plan/plan.generated';
 
-// Where a plan stands and what the room is asked to do now: one reading for the cover, Your part and the chapters
+// Where a plan stands and what the teams are asked to do now: one reading for the cover, Your part and the chapters
 // that talk about approval. The stage, the gates (the register's "To decide" group) and the vote.
 
 export type Stage = 'draft' | 'review' | 'approved' | 'in-delivery' | 'delivered';

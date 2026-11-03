@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest';
 
 import type { AreaView } from '@/application/workspace-area';
 import type { LandscapeValueFlow } from '@/domain/landscape';
+import { diagramCaption } from '@/shared/diagram-caption';
 
 import { valueFlowEdges, valueFlowLayout } from './value-flow-layout';
 import { routeValueFlows } from './value-flow-routing';
@@ -730,11 +731,32 @@ it('reserves supporting labels so parallel deliveries do not paint over one anot
     evidence: [],
     relations: [],
   }));
-  const labels = routeValueFlows(edges, nodes, [], []).map((edge) => ({
-    x: edge.x - (edge.label.length * 6.5 + 16) / 2,
+  const routed = routeValueFlows(edges, nodes, [], []);
+  for (const edge of routed) {
+    expect(edge.labelHidden).not.toBe(true);
+    const { width, height } = diagramCaption(edge.label);
+    const attached = edge.points.some((point, index) => {
+      const next = edge.points[index + 1];
+      if (next === undefined) return false;
+      if (point.y === next.y) {
+        const across =
+          edge.x - width / 2 >= Math.min(point.x, next.x) &&
+          edge.x + width / 2 <= Math.max(point.x, next.x);
+        return across && [point.y - height + 6, point.y + 22].includes(edge.y);
+      }
+      return (
+        Math.abs(edge.x - point.x) === width / 2 + 12 &&
+        edge.y - 14 >= Math.min(point.y, next.y) &&
+        edge.y - 14 + height <= Math.max(point.y, next.y)
+      );
+    });
+    expect(attached).toBe(true);
+  }
+  const labels = routed.map((edge) => ({
+    x: edge.x - diagramCaption(edge.label).width / 2,
     y: edge.y - 14,
-    width: edge.label.length * 6.5 + 16,
-    height: 18,
+    width: diagramCaption(edge.label).width,
+    height: diagramCaption(edge.label).height,
   }));
   const pairs = labels.flatMap((label, index) =>
     labels.slice(index + 1).map((other) => [label, other] as const),

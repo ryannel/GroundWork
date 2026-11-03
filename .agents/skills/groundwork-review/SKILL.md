@@ -1,6 +1,6 @@
 ---
 name: groundwork-review
-description: Review a Groundwork plan (<workspace>/plans/<plan>/plan.yaml) and the part of the system model it rests on before a room sees it. Use when asked to review, audit, check, QA or "get ready for the session" a plan. Validates, checks that every fact the plan touches cites code and is fresh, that the plan is a true overlay (no copy of today), walks the newcomer questions and every chapter on screen, and returns findings with exact YAML paths and fixes written as YAML.
+description: Review a Groundwork plan (<workspace>/plans/<plan>/plan.yaml) and the part of the system model it rests on before the teams review it. Use when asked to review, audit, check, QA or "get ready for the session" a plan. Validates, checks that every fact the plan touches cites code and is fresh, that the plan is a true overlay (no copy of today), walks the newcomer questions and every chapter on screen, and returns findings with exact YAML paths and fixes written as YAML.
 ---
 
 # Review a plan
@@ -8,7 +8,7 @@ description: Review a Groundwork plan (<workspace>/plans/<plan>/plan.yaml) and t
 First run `npm run --silent workspace -- list --json` in the Groundwork checkout. Read the plan and model in the
 resolved folder and select its id explicitly; see [workspace discovery](../README.md#find-the-workspace-first).
 
-Goal: a room follows the plan from cover to commitment and never hits an empty screen, an unexplained word, a
+Goal: a reader follows the plan from cover to commitment and never hits an empty screen, an unexplained word, a
 claim they cannot check, or a change without a test, an owner and an issue.
 
 References: [groundwork-schema](../groundwork-schema/SKILL.md) (rules) and its [cookbook](../groundwork-schema/cookbook.md)
@@ -44,7 +44,7 @@ the critical path with `meta.appetite`.
 - **Attribution and freshness.** Every component, endpoint, store, message and handler the plan touches cites code
   in the model, and the citation points at the thing it claims (a controller for an endpoint, a migration for a
   record). A repo behind its branch tip, or never scanned, under a change: Major; run
-  [groundwork-scan](../groundwork-scan/SKILL.md) `--since` before the room.
+  [groundwork-scan](../groundwork-scan/SKILL.md) `--since` before the review.
 - **Handlers.** A change to what runs (a new call, a new rule, a new branch) with no op on the `h:` handler, or a
   handler op whose conditions are code (`if: cfg.x > 0`) rather than plain words: Major.
 - **Empty chapters.** No flow through the footprint; no added flow and no `story.chapters.new.headline` saying
@@ -78,5 +78,5 @@ owner, e2e or rollout), Minor (wording, glossary, story polish).
 | 3   | Major   | api:subs-cancel (model) | No source.                                  | Re-scan acme/subscriptions, or `sources: [{ repo: acme/subscriptions, path: src/api/cancel.kt, lines: [20, 58], commit: <sha> }]` |
 ```
 
-End with the validator status, counts by severity, and the one fix that most improves the room's experience.
+End with the validator status, counts by severity, and the one fix that most improves the reader's experience.
 After fixes, check again.

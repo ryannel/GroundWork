@@ -488,7 +488,7 @@ The change sets the new look and the regions:
 
 A new screen (a sheet, a push, an email) is `add: screen` with its regions inside the value; put
 `screen:` on the added steps that show it. A screen that only exists to-be has no `image` warning,
-but give it a wireframe anyway: it is what the room reviews.
+but give it a wireframe anyway: it is what reviewers look at.
 
 ---
 

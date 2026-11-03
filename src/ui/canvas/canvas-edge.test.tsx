@@ -10,6 +10,30 @@ import { CanvasEdge, RaisedEdge } from './canvas-edge';
 afterEach(cleanup);
 
 describe('canvas arrow semantics', () => {
+  it('keeps a crowded relationship and its full explanation accessible without a detached caption', () => {
+    const edge: ConnectedCanvasEdge = {
+      id: 'crowded',
+      from: 'a',
+      to: 'b',
+      kind: 'api',
+      label: 'Read market data',
+      detail: 'Read market data only for the selected territory.',
+      path: 'M 20,20 L 80,20',
+      x: 20,
+      y: 20,
+      labelHidden: true,
+    };
+    const { container } = render(
+      <ConnectedCanvas width={500} height={400} label="Crowded work" edges={[edge]}>
+        {null}
+      </ConnectedCanvas>,
+    );
+    expect(container.querySelectorAll('[data-edge]')).toHaveLength(1);
+    expect(container.querySelector('[data-edge-label] text')).toBeNull();
+    fireEvent.focus(screen.getByRole('img', { name: edge.detail }));
+    expect(container.querySelector('[role="tooltip"]')?.textContent).toBe(edge.detail);
+    expect(container.querySelector('[data-edge] path')?.getAttribute('marker-end')).not.toBeNull();
+  });
   it('highlights a chosen flow without needing hover and yields to component focus', () => {
     const edge: ConnectedCanvasEdge = {
       id: 'flow',

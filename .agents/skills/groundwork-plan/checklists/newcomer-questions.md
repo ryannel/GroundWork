@@ -1,7 +1,7 @@
 # Newcomer questions every plan must answer
 
 A newcomer reads the story in order and asks these questions. If the answer is not in the YAML, the page they
-are on is empty or misleading. Use this list twice: while writing the plan (ask the room) and in review (check
+are on is empty or misleading. Use this list twice: while writing the plan (ask the people) and in review (check
 the files).
 
 **Where** is the YAML that holds the answer. Chapters 2 and 3 describe today, so their answers live in the
@@ -90,9 +90,9 @@ not in the plan; a gap there is filled by a scan, not by copying into the plan. 
 
 ## Chapter 8 · Decide & commit
 
-| #   | Question                                                               | Where                                            | Check                                                          |
-| --- | ---------------------------------------------------------------------- | ------------------------------------------------ | -------------------------------------------------------------- |
-| 38  | What is still undecided, who decides, by when, and what does it block? | `questions[]` `decider`, `decide_by`, `blocks`   | every open question has all three; `decider` is a team         |
-| 39  | What could go wrong, who owns it, what is it about?                    | `risks[]` `owner`, `roam`, `about`, `mitigation` | `owner` is a team id; `about` points at real entities          |
-| 40  | What did we decide and what did we reject?                             | `decisions[]` `options[].why_not`                | accepted decisions list at least one rejected option           |
-| 41  | Is each team confident?                                                | `commitment[]`                                   | filled in the room, one per team (optional before the session) |
+| #   | Question                                                               | Where                                            | Check                                                  |
+| --- | ---------------------------------------------------------------------- | ------------------------------------------------ | ------------------------------------------------------ |
+| 38  | What is still undecided, who decides, by when, and what does it block? | `questions[]` `decider`, `decide_by`, `blocks`   | every open question has all three; `decider` is a team |
+| 39  | What could go wrong, who owns it, what is it about?                    | `risks[]` `owner`, `roam`, `about`, `mitigation` | `owner` is a team id; `about` points at real entities  |
+| 40  | What did we decide and what did we reject?                             | `decisions[]` `options[].why_not`                | accepted decisions list at least one rejected option   |
+| 41  | Is each team confident?                                                | `commitment[]`                                   | filled in by each team (optional before the session)   |

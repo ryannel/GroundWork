@@ -1,6 +1,8 @@
 import type { LandscapeSystemRelationship } from '@/domain/landscape';
+import { diagramCaption } from '@/shared/diagram-caption';
 
 import { orderColumns } from './area-map/column-order';
+import { diagramSpacing } from './area-map/diagram-spacing';
 import { areaRoute } from './area-routing/route';
 
 export interface AreaSystemSize {
@@ -19,7 +21,9 @@ const HORIZONTAL_GAP = 150;
 const VERTICAL_GAP = 80;
 const MARGIN = 50;
 
-type LayoutRelationship = Pick<LandscapeSystemRelationship, 'id' | 'from' | 'to'>;
+type LayoutRelationship = Pick<LandscapeSystemRelationship, 'id' | 'from' | 'to'> & {
+  readonly label?: string;
+};
 
 function reaches(
   adjacency: ReadonlyMap<string, readonly string[]>,
@@ -116,7 +120,15 @@ export function layoutAreaSystems(
     readonly gap?: number;
   } = {},
 ): readonly AreaSystemBox[] {
-  const { maxPerColumn = Number.POSITIVE_INFINITY, gap = HORIZONTAL_GAP } = options;
+  const labelled = relationships.flatMap((edge) =>
+    edge.label === undefined ? [] : [{ ...edge, label: edge.label }],
+  );
+  const spacing = diagramSpacing(labelled);
+  const {
+    maxPerColumn = Number.POSITIVE_INFINITY,
+    gap = labelled.length === 0 ? HORIZONTAL_GAP : spacing.horizontal,
+  } = options;
+  const verticalGap = labelled.length === 0 ? VERTICAL_GAP : spacing.vertical;
   const ids = new Set(nodes.map((node) => node.id));
   const forward = acyclicEdges(ids, relationships);
   const initial = ranksOf(nodes, forward);
@@ -129,7 +141,7 @@ export function layoutAreaSystems(
   const columnHeights = columns.map(
     (column) =>
       column.reduce((total, node) => total + node.height, 0) +
-      Math.max(0, column.length - 1) * VERTICAL_GAP,
+      Math.max(0, column.length - 1) * verticalGap,
   );
   const contentHeight = Math.max(0, ...columnHeights);
   const boxes: AreaSystemBox[] = [];
@@ -139,7 +151,7 @@ export function layoutAreaSystems(
     let y = MARGIN + (contentHeight - (columnHeights[rank] ?? 0)) / 2;
     for (const node of column) {
       boxes.push({ ...node, x, y, rank });
-      y += node.height + VERTICAL_GAP;
+      y += node.height + verticalGap;
     }
     x += width + gap;
   }
@@ -254,10 +266,11 @@ export function areaEdgeGeometry(options: EdgeGeometryOptions): EdgeGeometry | n
     end,
     obstacles,
     direction: forward ? 1 : -1,
-    labelWidth: Math.min(240, edge.label.length * 6.5 + 16),
+    labelWidth: diagramCaption(edge.label).width,
+    labelHeight: diagramCaption(edge.label).height,
     labelObstacles: (options.labels ?? []).map((label) => {
-      const width = Math.min(240, label.label.length * 6.5 + 16);
-      return { x: label.x - width / 2, y: label.y - 18, width, height: 26 };
+      const { width, height } = diagramCaption(label.label);
+      return { x: label.x - width / 2, y: label.y - 14, width, height };
     }),
     ...(needsReturn(edge, options) ? { returnLane: returnLane(options) } : {}),
   });

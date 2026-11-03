@@ -167,7 +167,7 @@ export interface Meta {
    */
   start?: string;
   /**
-   * the plan's lifecycle: draft, review, approved (the room said yes). 'committed' is the old name for approved and still reads as it, with a warning
+   * the plan's lifecycle: draft, review, approved (the teams agreed). 'committed' is the old name for approved and still reads as it, with a warning
    */
   status?: 'draft' | 'review' | 'approved' | 'committed';
   /**

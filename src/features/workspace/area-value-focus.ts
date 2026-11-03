@@ -15,6 +15,7 @@ export function selectedFlowFrame(
   const members = layout.nodes.filter((node) => selection.ids?.has(node.id) === true);
   if (members.length === 0) return undefined;
   const local = members.filter((node) => node.systemId === selection.opened);
+  if (selection.opened !== undefined && local.length === 0) return undefined;
   const nodes = local.length === 0 ? members : local;
   const boxes = nodes;
   const points = local.length === 0 ? routes.flatMap((route) => route.points) : [];

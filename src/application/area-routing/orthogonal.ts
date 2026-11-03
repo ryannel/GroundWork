@@ -131,6 +131,9 @@ interface RoutingSpace {
   readonly boxes: readonly RouteBox[];
   readonly lines: readonly RoutedLine[];
   readonly bounds: RouteBox;
+  /** A route may need a clear, attached caption as well as an unobstructed line. */
+  readonly accept?: (points: readonly RoutePoint[]) => boolean;
+  readonly corridorPadding?: number;
 }
 
 interface SearchSpace extends RoutingSpace {
@@ -174,8 +177,9 @@ function candidates(
   const xs = [start.x, end.x, (start.x + end.x) / 2];
   const ys = [start.y, end.y, (start.y + end.y) / 2];
   for (const box of space.boxes) {
-    xs.push(box.x - 16, box.x + box.width + 16);
-    ys.push(box.y - 16, box.y + box.height + 16);
+    const padding = space.corridorPadding ?? 16;
+    xs.push(box.x - padding, box.x + box.width + padding);
+    ys.push(box.y - padding, box.y + box.height + padding);
   }
   // A bounded set of nearby lanes avoids multiplying the grid by every prior route.
   for (const x of [start.x, end.x, (start.x + end.x) / 2]) xs.push(x - 14, x + 14);
@@ -363,6 +367,7 @@ function directRoute(pairs: readonly PortPair[], space: SearchSpace): readonly R
   for (const pair of pairs) {
     if (pair.distance > bestCost) continue;
     for (const points of directRoutes(pair, space)) {
+      if (space.accept?.(points) === false) continue;
       const score = cost(points, space.penalty);
       if (score < bestCost) {
         best = points;
@@ -391,7 +396,7 @@ export function orthogonalRoute(
     const middle = search(start, end, prepared);
     if (middle.length === 0) continue;
     const points = attached(start, end, middle);
-    if (valid(points, prepared)) return points;
+    if (valid(points, prepared) && space.accept?.(points) !== false) return points;
   }
   return [];
 }

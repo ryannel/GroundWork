@@ -125,8 +125,15 @@ function publishAdapter(
   try {
     renameSync(output, destination);
   } catch (error) {
-    if (!existsSync(path.join(destination, 'READY'))) throw error;
-    rmSync(output, { recursive: true });
+    if (existsSync(path.join(destination, 'READY'))) {
+      rmSync(output, { recursive: true });
+    } else if (existsSync(destination)) {
+      // An interrupted build left the folder without READY; replace it rather than fail every later scan.
+      rmSync(destination, { recursive: true, force: true });
+      renameSync(output, destination);
+    } else {
+      throw error;
+    }
   }
   return [executable, path.join(destination, ADAPTER_ASSEMBLY)];
 }

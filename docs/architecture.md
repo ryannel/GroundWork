@@ -75,9 +75,30 @@ An optional `valueFlow.overview` selects a concise, authored cross-system backbo
 connections. It cannot introduce a new relationship. Other internal core work stays visible on expansion,
 and component selection, resource expansion and All connections reveal secondary exchanges. Only currently
 visible connections reserve routing corridors and label positions; disclosure does not move the cards.
-Every routed label reserves its rectangle, including supporting exchanges. Default supporting labels are
+Connection captions share one text and size policy in `shared/diagram-caption.ts`: compact typography,
+word-aware shortening and at most two lines, with the full source label and qualifications retained in detail.
+Routing reserves that displayed rectangle, including supporting exchanges, rather than measuring different
+text from the renderer. `area-routing/route.ts` places captions immediately beside a real horizontal or vertical
+segment inside the drawing's bounds. It never moves a caption to an unrelated free boundary. A bounded
+alternative route is attempted when the first path has no caption slot. If the frame is exhausted, the edge
+and direction remain intact and its full caption is available on hover or keyboard focus, with a notice in
+the controls. Caption reservations must not make a physical relationship disappear or block its ports.
+System gutters and supporting-row gaps use the stable caption dimensions of the full authored system,
+independently of the current flow or connection filter. Default supporting labels are
 quiet until focused; All connections reveals them. Collapsed exchanges keep their authored concise labels
 in both modes, with the full purpose and operations retained in detail.
+
+Connection captions use one text and size policy in `shared/diagram-caption.ts`: compact typography,
+word-aware shortening and at most two lines. The original label and qualifications remain in detail.
+Routing reserves the displayed rectangle, rather than measuring different text from the renderer.
+`area-routing/route.ts` keeps captions immediately beside a real segment, inside the owning bounds, and
+protects the corridor between text and its arrow from neighbouring requests. It never moves a caption to
+an unrelated free boundary. A bounded alternative route is attempted when no legal slot exists. If that
+frame is exhausted, the relationship and direction remain intact, with the full caption on hover or keyboard
+focus and an explicit notice. Caption reservations must not block a physical relationship's ports.
+System gutters and supporting-row gaps use stable caption dimensions from the full authored system,
+independently of the current flow or connection filter.
+
 With an explicit overview, the default supporting forest stays within systems rather than adding secondary
 cross-system bridges. An empty overview represents independent work without an in-area backbone.
 Optional `valueFlow.columns` assigns area-wide reading columns to unique member systems, separately from
@@ -105,6 +126,10 @@ model. Query and area filters live in the address. Native history updates use fr
 systems collapsed, framing all participating cards and their exact core routes together, including independent
 contributions. The frame fits both dimensions up to reading size independently of the previous camera;
 Fit flow restores it without moving cards. Its explanation stays immediately above the visible drawing.
+The camera controls, flow selector and explanations share one permanent header above the canvas. Selecting
+or clearing a flow highlights it in place: it preserves page scroll, zoom, pan and the focused selector.
+Fit flow deliberately reframes the chosen work. Incoming flow links still frame it on the initial arrival;
+subsequent focus changes do not automatically scroll the page back to the canvas.
 Participant cards have accent outlines and only exact authored exchanges receive accent arrows. Other links
 remain faint even when they touch a participating system; the flow is not every dependency of those systems.
 Only this flow hides the remaining cards and exchanges without changing positions. Repeated selected-band
@@ -112,7 +137,7 @@ captions are replaced by the one explanation above the drawing, while other capt
 Following a flow also restores its exact authored exchanges when systems expand, with their own labels and
 normal emphasis. Opening a participating system focuses that flow's local components rather than its first
 unrelated activity, and collapse remains accessible beside the flow explanation. Other context stays available;
-changing flow returns to its corresponding scope. Entering or leaving full screen reframes a selected flow;
+changing flow returns to its corresponding scope. Full screen respects the current camera intent;
 manual zoom and pan otherwise remain under the reader's control.
 
 Area system maps open before the activity list, using the full page width beside the navigation rail and

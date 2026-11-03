@@ -1,5 +1,7 @@
+import { diagramCaption } from '@/shared/diagram-caption';
+
 import { type LaneObstacle, type LanePoint, separateLanes } from './lanes';
-import { labelPoint, roundedPath } from './route';
+import { captionRoute, lineBoxes } from './route';
 
 interface SettlingRoute {
   readonly label: string;
@@ -24,10 +26,6 @@ function straightened(points: readonly LanePoint[]): readonly LanePoint[] {
   }, []);
 }
 
-function labelWidth(label: string): number {
-  return Math.min(240, label.length * 6.5 + 16);
-}
-
 /**
  * Spread lines that share a corridor into their own lanes, then redraw each one and place its label
  * clear of the cards and of the labels placed before it.
@@ -39,6 +37,7 @@ export function settleRoutes<T extends SettlingRoute>(
   readonly path: string;
   readonly x: number;
   readonly y: number;
+  readonly labelHidden?: boolean;
 })[] {
   const lanes = separateLanes(
     routes.map((route) => straightened(route.points)),
@@ -47,9 +46,23 @@ export function settleRoutes<T extends SettlingRoute>(
   const labels: LaneObstacle[] = [];
   return routes.map(({ points: original, ...route }, index) => {
     const points = lanes[index] ?? original;
-    const width = labelWidth(route.label);
-    const label = labelPoint(points, [...obstacles, ...labels], width, route.labelAtEnd === true);
-    labels.push({ x: label.x - width / 2, y: label.y - 14, width, height: 18 });
-    return { ...route, path: roundedPath(points), x: label.x, y: label.y };
+    const { width, height } = diagramCaption(route.label);
+    const otherLines = lanes.flatMap((line, other) => (other === index ? [] : lineBoxes(line)));
+    const label = captionRoute(points, [...obstacles, ...labels], {
+      width,
+      height,
+      lines: otherLines,
+      preferEnd: route.labelAtEnd === true,
+    });
+    if (label.labelHidden !== true) {
+      labels.push({ x: label.x - width / 2, y: label.y - 14, width, height });
+    }
+    return {
+      ...route,
+      path: label.path,
+      x: label.x,
+      y: label.y,
+      ...(label.labelHidden === true ? { labelHidden: true } : {}),
+    };
   });
 }

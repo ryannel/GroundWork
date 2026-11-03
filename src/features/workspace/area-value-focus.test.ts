@@ -100,4 +100,8 @@ describe('the selected value-flow frame', () => {
       selectedFlowFrame(drawing, { ...selection, ids: new Set(['missing']) }, []),
     ).toBeUndefined();
   });
+
+  it('lets opening a context system use its own boundary rather than pulling back to the selected flow', () => {
+    expect(selectedFlowFrame(drawing, { ...selection, opened: 'other-work' }, [])).toBeUndefined();
+  });
 });

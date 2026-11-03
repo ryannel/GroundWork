@@ -169,7 +169,9 @@ function explorationFocus(
   layout: ReturnType<typeof valueFlowLayout>,
   frame: ConnectedCanvasFocus | undefined,
   opened: string | undefined,
-): ConnectedCanvasFocus {
+  automatic: boolean,
+): ConnectedCanvasFocus | null {
+  if (!automatic && opened === undefined) return null;
   if (frame !== undefined) return frame;
   const opening = layout.groups.find((group) => group.id === opened);
   return opening === undefined
@@ -183,6 +185,10 @@ function explorationFocus(
         minimumZoom: 0.85,
       }
     : { ...opening, id: `open:${opened ?? ''}`, fit: true, minimumZoom: 0.85 };
+}
+
+function revisedFocus(focus: ConnectedCanvasFocus | null, revision: number) {
+  return focus === null ? null : { ...focus, id: `${focus.id}:${String(revision)}` };
 }
 
 function canvasCaption(expanded: boolean): string {
@@ -256,6 +262,7 @@ export function AreaValueMap({
   const [endpoint, setEndpoint] = useState<string>();
   const [openCards, setOpenCards] = useState<ReadonlySet<string>>(() => new Set());
   const [frameRevision, setFrameRevision] = useState(0);
+  const [automaticFocus, setAutomaticFocus] = useState(true);
   const intent = useRef(0);
   const afterReady = (action: () => void): void => {
     const current = intent.current;
@@ -367,9 +374,10 @@ export function AreaValueMap({
     { flow, ids: focusIds, opened },
     routes.filter((edge) => selectedFlowConnection(edge, flowCore) !== undefined),
   );
-  const focus = explorationFocus(layout, frame, opened);
+  const focus = explorationFocus(layout, frame, opened, automaticFocus);
   const { active, inspected } = selectedComponent(layout.nodes, selected);
   const changeFlow = (id: string): void => {
+    setAutomaticFocus(false);
     setFlow(id);
     setOpened(undefined);
     setSelected(undefined);
@@ -462,6 +470,7 @@ export function AreaValueMap({
                 onClick={() => {
                   setOpened(undefined);
                   setSelected(undefined);
+                  setAutomaticFocus(true);
                   setFrameRevision((value) => value + 1);
                 }}
               >
@@ -498,7 +507,7 @@ export function AreaValueMap({
           selected={selected}
           endpoint={endpoint}
           caption={canvasCaption(expanded.size > 0)}
-          focus={active ?? { ...focus, id: `${focus.id}:${String(frameRevision)}` }}
+          focus={active ?? revisedFocus(focus, frameRevision)}
           inspector={
             inspected === undefined ? undefined : (
               <AreaComponentDetail
@@ -521,6 +530,7 @@ export function AreaValueMap({
           onReset={() => {
             intent.current += 1;
             changeFlow('');
+            setAutomaticFocus(true);
             setAllConnections(false);
             setExpanded(new Set());
             setOpened(undefined);

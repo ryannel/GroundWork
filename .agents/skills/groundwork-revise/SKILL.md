@@ -69,7 +69,7 @@ With no ledger yet, the first approved entry at the current `meta.version` start
 ## Reject
 
 Set the head entry to `status: rejected` with `rejected_on`, `rejected_by: '@<handle>'` (who closed the PR) and
-`reason` (ask the room; the version's page leads with it). Save the proposal as `revisions/<version>.yaml`, then
+`reason` (ask the people; the version's page leads with it). Save the proposal as `revisions/<version>.yaml`, then
 restore `plan.yaml` from the newest approved snapshot, keeping the ledger with the rejected entry. Do it in a PR.
 The next proposal takes a higher version than the rejected one.
 

@@ -92,7 +92,7 @@ function Door({ model, outline }: { readonly model: Model; readonly outline: Out
   );
 }
 
-// What ships and why, what the room is asked to do now, and a door to each team's part.
+// What ships and why, what the teams are asked to do now, and a door to each team's part.
 export function CoverScreen({ model, outline, base }: BodyProps) {
   const cover = coverOf(model, new Date().toISOString().slice(0, 10));
   const line = base === undefined ? null : baseLine(base, (id) => model.label(id), model.today);

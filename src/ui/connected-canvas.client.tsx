@@ -119,7 +119,11 @@ function CanvasDiagram({
         />
       ))}
       {raised === undefined ? null : (
-        <RaisedEdge edge={raised} marker={marker} described={described !== null} />
+        <RaisedEdge
+          edge={raised}
+          marker={marker}
+          described={described !== null || raised.labelHidden === true}
+        />
       )}
     </svg>
   );
@@ -193,6 +197,12 @@ function CanvasInspector({ children }: { readonly children: ReactNode }) {
   );
 }
 
+function fullscreenFrame(focus: ConnectedCanvasFocus | null | undefined, fullscreen: boolean) {
+  return focus?.maximumZoom === undefined
+    ? focus
+    : { ...focus, id: `${focus.id}:${String(fullscreen)}` };
+}
+
 export function ConnectedCanvas({
   caption,
   legend = LINES,
@@ -243,11 +253,11 @@ export function ConnectedCanvas({
     handlePointerDown,
     handlePointerMove,
     handlePointerUp,
-  } = useExplorerViewport(width, height, { fit: true, minimumFit: 0.85 });
-  const framedFocus =
-    focus?.maximumZoom === undefined
-      ? focus
-      : { ...focus, id: `${focus.id}:${String(fullscreen)}` };
+  } = useExplorerViewport(width, height, {
+    fit: focus?.maximumZoom === undefined,
+    minimumFit: 0.85,
+  });
+  const framedFocus = fullscreenFrame(focus, fullscreen);
   const handleFocus = useCanvasFocus(framedFocus, viewportRef, { zoom, changeZoom });
   const reset = (): void => {
     resetKinds();
@@ -257,40 +267,52 @@ export function ConnectedCanvas({
     onReset?.();
     handleFit();
   };
+  const toolbar = (
+    <CanvasToolbar
+      direction={direction}
+      handleDirection={setDirection}
+      canChangeDetail={onDetailChange !== undefined}
+      detail={detail}
+      fullscreen={fullscreen}
+      kinds={kinds}
+      hasMembership={edges.some((edge) => edge.kind === 'membership')}
+      handleDetail={() => onDetailChange?.(detail === 'grouped' ? 'all' : 'grouped')}
+      handleFit={handleFit}
+      handleFocus={handleFocus}
+      handleFullscreen={toggleFullscreen}
+      handleKind={toggleKind}
+      handleReset={reset}
+      handleZoom={changeZoom}
+      selection={selected !== undefined}
+      isolated={isolated}
+      platform={platform.toolbar}
+      handlePlatform={platform.toggle}
+      handleIsolate={() => {
+        setIsolated((value) => !value);
+      }}
+      zoom={zoom}
+    />
+  );
   return (
     <div className={styles.shell} data-fullscreen={fullscreen ? '' : undefined}>
       <Stack gap={2}>
-        <CanvasToolbar
-          direction={direction}
-          handleDirection={setDirection}
-          canChangeDetail={onDetailChange !== undefined}
-          detail={detail}
-          fullscreen={fullscreen}
-          kinds={kinds}
-          hasMembership={edges.some((edge) => edge.kind === 'membership')}
-          handleDetail={() => onDetailChange?.(detail === 'grouped' ? 'all' : 'grouped')}
-          handleFit={handleFit}
-          handleFocus={handleFocus}
-          handleFullscreen={toggleFullscreen}
-          handleKind={toggleKind}
-          handleReset={reset}
-          handleZoom={changeZoom}
-          selection={selected !== undefined}
-          isolated={isolated}
-          platform={platform.toolbar}
-          handlePlatform={platform.toggle}
-          handleIsolate={() => {
-            setIsolated((value) => !value);
-          }}
-          zoom={zoom}
-        />
-        {controls}
-        <Text size="sm" tone="faint">
-          {caption ??
-            'Arrowheads point from caller or producer to receiver · scroll to explore · pinch to zoom'}
-        </Text>
         <div className={styles.stage} data-inspector={inspector === undefined ? undefined : ''}>
-          {context === undefined ? null : <div className={styles.context}>{context}</div>}
+          <div className={styles.context}>
+            <Stack gap={2}>
+              {toolbar}
+              {controls}
+              <Text size="sm" tone="faint">
+                {caption ??
+                  'Arrowheads point from caller or producer to receiver · scroll to explore · pinch to zoom'}
+              </Text>
+              {context}
+              {edges.some((edge) => edge.labelHidden === true) ? (
+                <Text size="sm" tone="muted">
+                  Crowded connections keep their full captions on hover or keyboard focus.
+                </Text>
+              ) : null}
+            </Stack>
+          </div>
           <div
             aria-label={label}
             className={styles.viewport}

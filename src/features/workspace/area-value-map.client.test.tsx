@@ -85,6 +85,20 @@ afterEach(() => {
 });
 
 describe('value flow exploration controls', () => {
+  it('highlights a chosen flow in place and reframes only when Fit flow is requested', () => {
+    render(<AreaValueMap view={view} narrative={narrative} />);
+    const navigation = screen.getByLabelText('Diagram navigation');
+    const before = navigation.textContent;
+    fireEvent.change(screen.getByRole('combobox', { name: 'Follow a value flow' }), {
+      target: { value: 'read' },
+    });
+    expect(navigation.textContent).toBe(before);
+    expect(screen.getByText(/Highlighted systems: Consumer/u)).toBeTruthy();
+    fireEvent.click(screen.getByRole('button', { name: 'Fit flow' }));
+    expect(navigation.textContent).not.toBe(before);
+    fireEvent.click(screen.getByRole('button', { name: 'Reset canvas view' }));
+    expect(navigation.textContent).toBe(before);
+  });
   it('does not reopen a system after Reset cancels a pending exploration', async () => {
     const full = { ...view, valueFlow: narrative };
     const pending = Promise.withResolvers<Response>();
@@ -272,15 +286,21 @@ it('keeps supporting cards connected and reveals extra exchanges without moving 
   expect(container.querySelectorAll('[data-edge]')).toHaveLength(3);
   expect(screen.getByText('Keep recent changes')).toBeTruthy();
   expect(container.querySelectorAll('[data-edge][data-supporting]')).toHaveLength(1);
-  expect(screen.getByText('Keep recent changes').parentElement?.hasAttribute('data-quiet')).toBe(
-    true,
-  );
+  expect(
+    screen
+      .getByText('Keep recent changes')
+      .closest('[data-edge-label]')
+      ?.hasAttribute('data-quiet'),
+  ).toBe(true);
   fireEvent.click(screen.getByRole('button', { name: 'All connections' }));
   expect(container.querySelectorAll('[data-edge]')).toHaveLength(4);
   expect(screen.getByText('Read stored inputs')).toBeTruthy();
-  expect(screen.getByText('Keep recent changes').parentElement?.hasAttribute('data-quiet')).toBe(
-    false,
-  );
+  expect(
+    screen
+      .getByText('Keep recent changes')
+      .closest('[data-edge-label]')
+      ?.hasAttribute('data-quiet'),
+  ).toBe(false);
   expect(
     [...container.querySelectorAll('foreignObject[data-component]')].map((node) => node.outerHTML),
   ).toEqual(before);

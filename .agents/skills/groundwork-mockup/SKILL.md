@@ -1,6 +1,6 @@
 ---
 name: groundwork-mockup
-description: Capture what people see in Groundwork and build a plan's walking mockup. Use when a plan or the system model touches what people see (pages, admin tools, emails, pushes, printed documents) and someone asks to add screenshots or wireframes, link Figma designs, mark which part of a page changes, show the before and after of a screen, or make a clickable mockup the room can walk through. Writes screens in the model, `screen:` on flow steps, the new look as ops in the plan, and plans/<plan>/mockups/walking.html.
+description: Capture what people see in Groundwork and build a plan's walking mockup. Use when a plan or the system model touches what people see (pages, admin tools, emails, pushes, printed documents) and someone asks to add screenshots or wireframes, link Figma designs, mark which part of a page changes, show the before and after of a screen, or make a clickable mockup people can walk through. Writes screens in the model, `screen:` on flow steps, the new look as ops in the plan, and plans/<plan>/mockups/walking.html.
 ---
 
 # Screens, UI journeys and the walking mockup

@@ -46,57 +46,43 @@ describe('separateLanes', () => {
 });
 
 describe('settleRoutes', () => {
-  it('finds a free boundary after tall resource cards exhaust nearby label positions', () => {
-    const cards = [
-      { x: 160, y: 100, width: 280, height: 900 },
-      { x: 560, y: 100, width: 280, height: 900 },
-      { x: 12, y: 12, width: 900, height: 80 },
+  it('reports exhausted space instead of detaching a label from a narrow run between tall cards', () => {
+    const points = [
+      { x: 440, y: 500 },
+      { x: 560, y: 500 },
     ];
     const label = labelPoint(
+      points,
       [
-        { x: 440, y: 500 },
-        { x: 560, y: 500 },
+        { x: 160, y: 100, width: 280, height: 900 },
+        { x: 560, y: 100, width: 280, height: 900 },
       ],
-      cards,
       240,
       true,
     );
-    const collisions = cards.filter(
-      (card) =>
-        label.x + 120 > card.x &&
-        label.x - 120 < card.x + card.width &&
-        label.y + 4 > card.y &&
-        label.y - 14 < card.y + card.height,
-    );
-    expect(collisions).toEqual([]);
-    expect(label.x - 120).toBeGreaterThanOrEqual(12);
-    expect(label.y).toBeGreaterThanOrEqual(24);
+    expect(label.labelHidden).toBe(true);
+    expect(label).toMatchObject(points[0]!);
   });
-  it('places a long label above or below a narrow card gap instead of across either title', () => {
+
+  it('keeps a two-line label immediately beside a sufficiently wide gap', () => {
     const cards = [
-      { x: 160, y: 100, width: 280, height: 104 },
-      { x: 560, y: 100, width: 280, height: 104 },
+      { x: 100, y: 100, width: 280, height: 104 },
+      { x: 650, y: 100, width: 280, height: 104 },
     ];
     const label = labelPoint(
       [
-        { x: 440, y: 148 },
-        { x: 560, y: 148 },
+        { x: 380, y: 148 },
+        { x: 650, y: 148 },
       ],
       cards,
-      240,
+      180,
       true,
+      { height: 34 },
     );
-    const collisions = cards.filter(
-      (card) =>
-        label.x + 120 > card.x &&
-        label.x - 120 < card.x + card.width &&
-        label.y + 4 > card.y &&
-        label.y - 14 < card.y + card.height,
-    );
-    expect(collisions).toEqual([]);
-    expect(label.x).toBeGreaterThan(400);
-    expect(label.x).toBeLessThan(600);
-    expect(Math.abs(label.y - 148)).toBeLessThanOrEqual(78);
+    expect(label.labelHidden).not.toBe(true);
+    expect(label.x - 90).toBeGreaterThanOrEqual(388);
+    expect(label.x + 90).toBeLessThanOrEqual(642);
+    expect(Math.min(Math.abs(label.y + 20 - 148), Math.abs(label.y - 14 - 148))).toBe(8);
   });
   it('straightens a run that doubles back before drawing it', () => {
     const [settled] = settleRoutes(

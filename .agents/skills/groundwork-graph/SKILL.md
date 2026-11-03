@@ -76,7 +76,7 @@ The cookbook's §16–19 recipes are the patterns: expand, migrate, then remove.
   a reason to discard a component or stop source mapping.
 - Repeated resolver/binding gaps feed the shared [learning loop](../groundwork-scan/learning.md).
 
-## Words for the room
+## Words for people
 
 operation, mutation, the graph, gateway, subgraph, owns a field, key, round trip, fetch, cache layer, edge, hit,
 miss, fills, emptied by, serves stale, private field, persisted operation, batched, surrogate key. Write each

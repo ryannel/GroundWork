@@ -71,4 +71,4 @@ for every work item with `github_issue`, and write the file in the shape above.
 ## After filing
 
 Check the plan still validates, tell the human the created URLs and that the plan changed, and leave `meta.status`
-to the room.
+to the teams.
