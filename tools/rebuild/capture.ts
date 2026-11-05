@@ -4,7 +4,8 @@ import { isRecord } from '@/application/plan/ids';
 import { selectedWorkspace } from '@/infrastructure/workspace-folders';
 
 import { captureFacts } from './facts';
-import { captureRoute, selectedRoutes } from './routes';
+import { captureRoute } from './route-response';
+import { selectedRoutes } from './routes';
 import { withSite } from './site';
 import { digest, readSnapshot, writeSnapshot } from './snapshots';
 

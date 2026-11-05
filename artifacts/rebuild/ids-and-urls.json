@@ -30932,6 +30932,21 @@
   },
   {
     "category": "id construction, parsing or literal",
+    "file": "tools/rebuild/html.test.ts",
+    "hits": [
+      {
+        "line": 18,
+        "text": "'<H1>A &amp;lt; B <span>&amp; C</span></H1><ScRiPt><h1>hidden</h1></SCRIPT><STYLE>hidden</style><p data-inspect=\"api:x\">End</p>',"
+      },
+      {
+        "line": 22,
+        "text": "expect(fields.payload).toEqual({ text: 'A &lt; B & C End', inspectedIds: ['api:x'] });"
+      }
+    ],
+    "status": "adapter"
+  },
+  {
+    "category": "id construction, parsing or literal",
     "file": "tools/rebuild/inventory.ts",
     "hits": [
       {

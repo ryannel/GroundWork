@@ -1,0 +1,2 @@
+{"language":"python","parser":"python/ast/3.13.17","fingerprint":"python:Python 3.13.17:92870e4afa8cef063bb1f1125ec458a28433797b63069f5333fb063dc79fbb75","status":"synthetic_parse_verified"}
+{"language":"rust","parser":"rust/tree-sitter/0.25.2/grammar-0.24.0","fingerprint":"rust:Python 3.13.17:edf285dd1c305ac9288a83590c28f7a0346a5963e0021276a77f1307d17fadd5","status":"synthetic_parse_verified"}

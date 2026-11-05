@@ -18,7 +18,7 @@ npm run rebuild:compare -- --before artifacts/rebuild/baseline/personal --worksp
 ```
 
 `baseline` starts and stops its own production server. `--origin http://127.0.0.1:<port>` selects an
-already running production build instead. The server and command must use the same registered workspace
+already running production build instead. Capture accepts loopback HTTP(S) origins only; routes must stay on that origin and redirects are not followed. The server and command must use the same registered workspace
 folders. `--as-of YYYY-MM-DD` records the model comparison date; it does not rewrite authored dates or
 freeze the site's clock. Date-dependent standing can therefore legitimately differ in a later session;
 those differences still need an explicit reason.

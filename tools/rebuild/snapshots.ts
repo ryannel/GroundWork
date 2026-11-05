@@ -31,6 +31,9 @@ export function digest(value: unknown): string {
 }
 
 export async function writeSnapshot(folder: string, file: string, value: unknown): Promise<void> {
+  if (!/^[\w-]+\.json(?:\.gz)?$/u.test(file)) {
+    throw new Error('A snapshot must use a JSON data file name inside its output folder.');
+  }
   await mkdir(folder, { recursive: true });
   const body = serialise(value);
   await writeFile(path.join(folder, file), file.endsWith('.gz') ? gzipSync(body) : body);
