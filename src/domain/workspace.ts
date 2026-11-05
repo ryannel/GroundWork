@@ -40,7 +40,10 @@ export interface System {
   readonly purpose?: string | null;
   /** The tier a person put the system in; when absent the map works it out. */
   readonly tier?: SystemTier | null;
+  /** The team that owns it; null when no one is named, and the system shows its owner is not known. */
   readonly team: string | null;
+  /** The platform system it runs on (such as a shared app shell), by system id. */
+  readonly runsOn?: string | null;
   readonly repos: readonly CodeHome[];
   readonly components: readonly Component[];
 }
@@ -102,6 +105,18 @@ export interface Team {
   readonly colour: number | null;
   /** Where to reach the team, such as a chat channel. */
   readonly channel: string | null;
+  /** The names evidence uses for the team: CODEOWNERS and GitHub teams, Backstage owners. Each names one team. */
+  readonly handles?: readonly string[];
+  /** A team outside the company whose code we cannot read: its systems are described from its documents. */
+  readonly partner?: boolean;
+  /** The people to talk to, mostly for a partner. */
+  readonly contacts?: readonly Contact[];
+}
+
+export interface Contact {
+  readonly name: string;
+  /** What they do for us, such as product or tech. */
+  readonly role: string | null;
 }
 
 /** Someone outside the systems who uses them: a shopper, a category manager, warehouse staff. */

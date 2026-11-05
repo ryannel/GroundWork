@@ -18,6 +18,9 @@ pre-commit:
     tests:
       glob: '{src,tools}/**/*.{ts,tsx,css}'
       run: npx vitest related --run --project unit --project integration --project scanner --passWithNoTests {staged_files}
+    workspaces:
+      glob: 'workspaces/**/*.{yaml,yml,json}'
+      run: for folder in workspaces/*/; do if [ -f "${folder}workspace.yaml" ]; then npm run --silent workspace -- check "$folder" || exit 1; fi; done
 
 pre-push:
   commands:

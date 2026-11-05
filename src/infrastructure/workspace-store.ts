@@ -36,11 +36,21 @@ async function readWorkspace(folder: string): Promise<Workspace> {
     name: file.name,
     description: file.description ?? null,
     isPrivate: file.private,
-    teams: file.teams.map(({ id, name, colour, channel }) => ({
+    teams: file.teams.map(({ id, name, colour, channel, handles, partner, contacts }) => ({
       id,
       name,
       colour: colour ?? null,
       channel: channel ?? null,
+      ...(handles.length === 0 ? {} : { handles }),
+      ...(partner ? { partner } : {}),
+      ...(contacts.length === 0
+        ? {}
+        : {
+            contacts: contacts.map((contact) => ({
+              name: contact.name,
+              role: contact.role ?? null,
+            })),
+          }),
     })),
     actors: file.actors.map(({ id, name, summary, uses, customer }) => ({
       id,
@@ -77,6 +87,7 @@ async function readSystem(folder: string, workspace: string): Promise<System> {
     purpose: file.purpose ?? null,
     ...(file.tier === undefined ? {} : { tier: file.tier }),
     team: file.team ?? null,
+    ...(file.runs_on === undefined ? {} : { runsOn: file.runs_on }),
     repos: file.repos.map((home) =>
       typeof home === 'string' ? { repo: home, path: null } : { repo: home.repo, path: home.path },
     ),

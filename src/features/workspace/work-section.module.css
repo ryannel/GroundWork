@@ -1,0 +1,8 @@
+@layer components {
+  .section {
+    display: grid;
+    gap: var(--s-4);
+    margin-top: var(--s-10);
+    scroll-margin-top: var(--s-16);
+  }
+}

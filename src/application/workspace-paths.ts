@@ -12,6 +12,19 @@ export const peopleHref = (workspace: string): string => `/${workspace}/people/`
 
 export const plansHref = (workspace: string): string => `/${workspace}/plans/`;
 
+export const programmesHref = (workspace: string): string => `/${workspace}/programmes/`;
+
+export const programmeHref = (workspace: string, programme: string): string =>
+  `${programmesHref(workspace)}${programme}/`;
+
+export const partnersHref = (workspace: string): string => `/${workspace}/partners/`;
+
+/** A team's part of a partner's address: its id without `team:`. */
+const teamSlug = (id: string): string => id.replace(/^team:/u, '');
+
+export const partnerHref = (workspace: string, team: string): string =>
+  `${partnersHref(workspace)}${teamSlug(team)}/`;
+
 export function domainHref(workspace: string, domain: string): string {
   return `/${workspace}/${domain}/`;
 }

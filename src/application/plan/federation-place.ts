@@ -153,7 +153,7 @@ interface FetchProps {
 
 export function teamOf(g: SystemGraph, svc: string | null): string | null {
   const n = g.get(svc);
-  return n?.$type === 'service' ? n.team : null;
+  return n?.$type === 'service' ? (n.team ?? null) : null;
 }
 
 export function newFetch(c: PlanCtx, props: FetchProps): Fetch {

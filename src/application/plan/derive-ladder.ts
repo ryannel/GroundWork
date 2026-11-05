@@ -246,7 +246,7 @@ function withOwners(env: Rungs, spec: RungSpec, ops: readonly LadderOp[]): Ladde
   const { rung, kind, consumer } = spec;
   const changes = uniq(ops.map((o) => o.changeId));
   const wis = env.core.workItems
-    .filter((w) => w.implements.some((c) => changes.includes(c)))
+    .filter((w) => (w.implements ?? []).some((c) => changes.includes(c)))
     .map((w) => w.id);
   const teams = uniq([
     ...(consumer === undefined ? [] : [env.owners.ownerTeam(consumer)]),

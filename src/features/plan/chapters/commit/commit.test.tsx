@@ -8,7 +8,7 @@ import {
   orderNotesUnfiled,
 } from '@/../test/fixtures/acme/plans/chapters-order-notes';
 import { CHAPTER_PLANS } from '@/../test/fixtures/acme/plans/chapters-plans';
-import { sameDay, sameDayConfident } from '@/../test/fixtures/acme/plans/chapters-same-day';
+import { sameDay } from '@/../test/fixtures/acme/plans/chapters-same-day';
 import { planDataOf } from '@/../test/plan-kit';
 import type { IssueStatus } from '@/domain/plan/plan-status';
 import type { Plan } from '@/domain/plan/plan.generated';
@@ -60,25 +60,15 @@ describe('commit chapter', () => {
   });
 
   it('owes the answers by team, with the rule, before approval', () => {
-    const { container } = render(<CommitChapter {...screenOf(sameDayConfident(), 'ask')} />);
+    const { container } = render(<CommitChapter {...screenOf(sameDay(), 'ask')} />);
     expect(container.querySelector('h1 + div, h2 + div')?.textContent).toMatch(
       /owe two answers and two decisions/u,
     );
     expect(container.textContent).toContain('if nobody decides');
     expect(container.textContent).toContain('waiting on this');
-    expect(container.textContent).toContain('What do the ratings do?');
-    expect(container.textContent).toContain('Below 3, the plan is rethought.');
-    expect(container.textContent).toContain('The plan’s owner approves');
-  });
-
-  it('puts the low rating first when a team is not confident', () => {
-    const { container } = render(<CommitChapter {...screenOf(sameDay(), 'ask')} />);
-    expect(container.querySelector('h1 + div, h2 + div')?.textContent).toMatch(
-      /^Payments is not confident/u,
-    );
-    expect(container.textContent).toContain('Confidence ratings');
     expect(container.textContent).toContain('Also open:');
-    expect(container.textContent).not.toContain('Below 3, the plan is rethought.');
+    expect(container.textContent).toContain('The plan’s owner approves');
+    expect(container.textContent).not.toContain('confidence');
   });
 
   it('says only what is open once the plan is approved', () => {
@@ -86,14 +76,12 @@ describe('commit chapter', () => {
     expect(container.querySelector('h1 + div, h2 + div')?.textContent).toBe(
       'Approved 25 Mar. Teams build from 1.0.',
     );
-    expect(container.textContent).not.toContain('What do the ratings do?');
   });
 
-  it('folds the ratings of a delivered plan', () => {
+  it('says when a delivered plan was delivered', () => {
     const { container } = render(
       <CommitChapter {...screenOf(orderNotes(), 'ask', ORDER_NOTES_DONE)} />,
     );
     expect(container.querySelector('h1 + div, h2 + div')?.textContent).toBe('Delivered 27 May.');
-    expect(container.querySelector('details > summary')?.textContent).toMatch(/^Confidence in /u);
   });
 });

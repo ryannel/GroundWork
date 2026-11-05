@@ -85,6 +85,95 @@ afterEach(() => {
 });
 
 describe('value flow exploration controls', () => {
+  it.each([false, true])(
+    'reveals a shared resource in a collapsed system (embedded: %s)',
+    (embedded) => {
+      const shared: AreaView = {
+        ...view,
+        systems: view.systems.map((system) => ({
+          ...system,
+          components:
+            system.id === 'source'
+              ? [
+                  {
+                    ...component('editor', 'Editor'),
+                    resources: [{ id: 'cache', name: 'Input cache', kind: 'store', use: 'Reads' }],
+                  },
+                  component('topic', 'Change topic'),
+                ]
+              : [
+                  component('reader', 'Reader'),
+                  {
+                    ...component('cache', 'Input cache'),
+                    kind: 'database',
+                    ...(embedded ? { parentComponent: 'reader' } : {}),
+                  },
+                ],
+        })),
+        technicalRelationships: [
+          {
+            id: 'read-cache',
+            from: 'editor',
+            to: 'cache',
+            fromSystem: 'source',
+            toSystem: 'consumer',
+            via: 'cache',
+            label: 'Reads inputs',
+            kind: 'data',
+            detail: 'Editor reads the input cache.',
+            evidenced: true,
+          },
+        ],
+      };
+      const { container } = render(<AreaValueMap view={shared} narrative={narrative} />);
+      fireEvent.click(screen.getByRole('button', { name: 'Source' }));
+      fireEvent.click(screen.getByRole('button', { name: /Show what Editor holds/u }));
+      expect(screen.getByText('Consumer · System collapsed')).toBeTruthy();
+      fireEvent.change(screen.getByRole('combobox', { name: 'Follow a value flow' }), {
+        target: { value: 'publish' },
+      });
+      fireEvent.click(screen.getByRole('button', { name: 'Only this flow' }));
+      fireEvent.click(screen.getByRole('button', { name: /Input cache.*expands system/u }));
+      expect(screen.getByRole('button', { name: 'Collapse Consumer' })).toBeTruthy();
+      expect(screen.getByRole('heading', { name: 'Input cache' })).toBeTruthy();
+      const target = container.querySelector(`[data-component="${embedded ? 'reader' : 'cache'}"]`);
+      expect(target).not.toBeNull();
+      expect(
+        container.querySelector('[data-component="reader"] button[aria-pressed="true"]') !== null,
+      ).toBe(embedded);
+      expect(screen.queryAllByRole('button', { name: /Hide what Reader holds/u })).toHaveLength(
+        Number(embedded),
+      );
+      expect(container.querySelector('[data-edge][data-kind="data"]')).not.toBeNull();
+      expect(screen.queryByText('Consumer · System collapsed')).toBeNull();
+      expect(screen.getByText('Consumer · Show on map')).toBeTruthy();
+    },
+  );
+
+  it('explains an unplaced shared resource without offering a broken map jump', () => {
+    const shared: AreaView = {
+      ...view,
+      systems: view.systems.map((system) => ({
+        ...system,
+        components: system.components.map((item) =>
+          item.id === 'editor'
+            ? {
+                ...item,
+                resources: [
+                  { id: 'outside', name: 'Outside topic', kind: 'topic', use: 'Consumes' },
+                ],
+              }
+            : item,
+        ),
+      })),
+    };
+    render(<AreaValueMap view={shared} narrative={narrative} />);
+    fireEvent.click(screen.getByRole('button', { name: 'Source' }));
+    fireEvent.click(screen.getByRole('button', { name: /Show what Editor holds/u }));
+    expect(screen.getByText('Not placed on this map')).toBeTruthy();
+    expect(screen.getByRole('button', { name: /Outside topic/u })).toHaveProperty('disabled', true);
+  });
+
   it('highlights a chosen flow in place and reframes only when Fit flow is requested', () => {
     render(<AreaValueMap view={view} narrative={narrative} />);
     const navigation = screen.getByLabelText('Diagram navigation');

@@ -3,7 +3,6 @@ import {
   approvedOn,
   gatesOf,
   isApproved,
-  lowVoteSentence,
   planStage,
   type Stage,
 } from '@/application/plan-story-cover-standing';
@@ -13,9 +12,8 @@ import { buildSummary } from '@/application/plan-viz-milestone';
 import { shortDate } from '@/application/plan-viz-state';
 import { teamIndex, teamName } from '@/application/plan-viz-teams';
 import { countWord, numWord } from '@/application/plan-viz-text';
-import { voteSummary, type VoteSummary } from '@/application/plan-viz-vote';
 
-// 8.4 Still to settle: what is owed, then the vote, in one shape per state of the plan.
+// 8.4 Still to settle: what is owed, in one shape per state of the plan.
 
 const capital = (text: string): string => text.charAt(0).toUpperCase() + text.slice(1);
 const FAR = '\uFFFF';
@@ -108,14 +106,11 @@ export interface AskWords {
   readonly headline: string;
   readonly lede: string;
   readonly closing: string;
-  /** The sub-heading over the gates when a low rating leads. */
-  readonly owes: string;
 }
 
 interface Standing {
   readonly stage: Stage;
   readonly open: readonly Deciding[];
-  readonly vote: VoteSummary;
   readonly today: Date | undefined;
 }
 
@@ -132,18 +127,7 @@ function approvedWords(model: Model, standing: Standing): AskWords {
   } else if (stage === 'in-delivery') headline = approved;
   const are = open.length === 1 ? 'item is' : 'items are';
   const lede = open.length === 0 ? '' : `${capital(numWord(open.length))} ${are} still open.`;
-  return { headline, lede, closing: '', owes: '' };
-}
-
-function lowWords(model: Model, standing: Standing, name: string): AskWords {
-  const { open, vote } = standing;
-  const settle = open.length > 0 ? ' and the open items above are settled' : '';
-  return {
-    headline: lowVoteSentence(model, vote.low, vote.votes),
-    lede: 'A rating under 3 means the plan is rethought before its owner approves it.',
-    closing: `The plan’s owner approves ${name} by merging its pull request, once the rating under 3 is dealt with${settle}.`,
-    owes: owesLine(model, open),
-  };
+  return { headline, lede, closing: '' };
 }
 
 function overdueNote(late: number): string {
@@ -152,13 +136,8 @@ function overdueNote(late: number): string {
 }
 
 function closingOwed(standing: Standing): string {
-  const { open, vote, today } = standing;
-  if (open.length === 0) {
-    const allIn = vote.teams.length > 0 && vote.cast.length === vote.teams.length;
-    return allIn
-      ? 'Nothing is open and every team has rated its confidence.'
-      : 'Every team still has to rate its confidence.';
-  }
+  const { open, today } = standing;
+  if (open.length === 0) return 'Nothing is open.';
   const last = open
     .flatMap((e) => e.decide_by ?? [])
     .toSorted((a, b) => a.localeCompare(b))
@@ -173,13 +152,9 @@ function owedWords(model: Model, standing: Standing, name: string): AskWords {
   const rule =
     'Only what blocks the plan, grouped by the team that decides. If nobody decides, the preferred answer shown applies.';
   return {
-    headline:
-      open.length > 0
-        ? owesLine(model, open)
-        : 'Nothing is left to decide. Only the confidence ratings remain.',
+    headline: open.length > 0 ? owesLine(model, open) : 'Nothing is left to decide.',
     lede: open.length === 0 ? '' : `${overdueNote(late)}${rule}`,
     closing: `The plan’s owner approves ${name} by merging its pull request. ${closingOwed(standing)}`,
-    owes: '',
   };
 }
 
@@ -189,21 +164,17 @@ export interface Ask extends AskWords {
   readonly open: readonly Deciding[];
   readonly groups: readonly AskGroup[];
   readonly also: readonly Also[];
-  readonly vote: VoteSummary;
 }
 
-/** What 8.4 says, by state: before approval what is owed and the vote; after it, what stays open and the ratings. */
+/** What 8.4 says, by state: before approval what is owed; after it, what stays open. */
 export function askOf(model: Model): Ask {
   const stage = planStage(model);
   const open = gatesOf(model);
-  const vote = voteSummary(model);
-  const standing = { stage, open, vote, today: model.today };
+  const standing = { stage, open, today: model.today };
   const title = model.plan.meta.title;
   const name = title === '' ? 'the plan' : `“${title}”`;
   const approved = isApproved(stage);
-  let words = owedWords(model, standing, name);
-  if (approved) words = approvedWords(model, standing);
-  else if (vote.low.length > 0) words = lowWords(model, standing, name);
+  const words = approved ? approvedWords(model, standing) : owedWords(model, standing, name);
   return {
     ...words,
     stage,
@@ -211,6 +182,5 @@ export function askOf(model: Model): Ask {
     open,
     groups: askGroups(model, open),
     also: alsoOpen(model, open),
-    vote,
   };
 }

@@ -3,6 +3,7 @@ import type { BaseInfo } from '@/application/plan/plan-base';
 import type { PlanCard } from '@/application/plan-footprint';
 import type { Outline } from '@/application/plan-pages';
 import type { VersionsData } from '@/application/plan-story-versions-data';
+import type { StackCoverVM } from '@/application/workspace-work/stack-cover';
 import type { SearchParams } from '@/shared/search-params';
 
 import { ChapterBoundary } from './chapter-boundary.client';
@@ -23,6 +24,8 @@ interface PlanPageProps {
   readonly plans?: readonly PlanCard[];
   /** Where the plan's today comes from. */
   readonly base?: BaseInfo;
+  /** The plans it reads after, overlaps and joins; the cover says so. */
+  readonly stack?: StackCoverVM | null;
   /** The team the address cuts the page to (`?team=`), or null for everyone. */
   readonly lens?: string | null;
   readonly searchParams?: SearchParams;
@@ -40,6 +43,7 @@ export function PlanPage({
   versions = null,
   plans = NO_PLANS,
   base,
+  stack = null,
   lens = null,
   searchParams,
 }: PlanPageProps) {
@@ -60,6 +64,7 @@ export function PlanPage({
           outline,
           page,
           versions,
+          stack,
           lens,
           ...(searchParams === undefined ? {} : { searchParams }),
           ...(base === undefined ? {} : { base }),

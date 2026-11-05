@@ -42,15 +42,6 @@
     font-size: var(--fs-12);
   }
 
-  .vote {
-    font-variant-numeric: tabular-nums;
-  }
-
-  .vote[data-low] {
-    color: var(--st-rem-fg);
-    font-weight: 600;
-  }
-
   .tests {
     display: flex;
     flex-wrap: wrap;

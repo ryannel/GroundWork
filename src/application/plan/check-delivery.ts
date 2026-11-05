@@ -1,18 +1,27 @@
 import type { Report } from '@/application/plan/check-context';
 import type { Plan, Test, WorkItem } from '@/domain/plan/plan.generated';
 
+/** The changes a test proves: those it names, and those whose requirements it names. */
+function provenBy(plan: Plan): (test: Test) => ReadonlySet<string> {
+  const changeOf = new Map(
+    (plan.changes ?? []).flatMap((c) => (c.requires ?? []).map((r) => [r.id, c.id] as const)),
+  );
+  return (test) => new Set(test.proves.map((id) => changeOf.get(id) ?? id));
+}
+
 /** Check 7: every change is proven by a test and delivered by a work item. */
 function checkChangesCovered(plan: Plan, rep: Report): void {
+  const proven = provenBy(plan);
   const tests = plan.tests ?? [];
   const items = plan.work_items ?? [];
   for (const [i, c] of (plan.changes ?? []).entries()) {
-    if (!tests.some((t) => t.proves.includes(c.id))) {
+    if (!tests.some((t) => proven(t).has(c.id))) {
       rep.strict(
         ['changes', i],
         `${c.id} has no test (no tests[].proves lists it); add a test with proves: [${c.id}]`,
       );
     }
-    if (!items.some((w) => w.implements.includes(c.id))) {
+    if (!items.some((w) => (w.implements ?? []).includes(c.id))) {
       rep.strict(
         ['changes', i],
         `${c.id} has no work item (no work_items[].implements lists it); add it to a work item's implements`,
@@ -21,40 +30,34 @@ function checkChangesCovered(plan: Plan, rep: Report): void {
   }
 }
 
+// Work that implements no change (recovery, operations) may be verified by any test.
 function checkItemVerified(
   [i, w]: readonly [number, WorkItem],
-  tests: ReadonlyMap<string, Test>,
+  tests: ReadonlyMap<string, ReadonlySet<string>>,
   rep: Report,
 ): void {
+  const implemented = w.implements ?? [];
+  if (implemented.length === 0) return;
   for (const [j, tid] of (w.verified_by ?? []).entries()) {
-    const t = tests.get(tid);
-    if (t !== undefined && !t.proves.some((c) => w.implements.includes(c))) {
-      const changes = w.implements.length > 0 ? w.implements.join(', ') : 'none';
+    const proves = tests.get(tid);
+    if (proves !== undefined && !implemented.some((c) => proves.has(c))) {
       rep.error(
         ['work_items', i, 'verified_by', j],
-        `${tid} proves none of ${w.id}'s changes (${changes}); drop it from verified_by, or add the change to ${tid}.proves if it really proves it`,
+        `${tid} proves none of ${w.id}'s changes (${implemented.join(', ')}); drop it from verified_by, or add the change to ${tid}.proves if it really proves it`,
       );
     }
   }
 }
 
 function checkItemsVerified(plan: Plan, rep: Report): void {
-  const testById = new Map((plan.tests ?? []).map((t) => [t.id, t]));
+  const proven = provenBy(plan);
+  const testById = new Map((plan.tests ?? []).map((t) => [t.id, proven(t)]));
   for (const [i, t] of (plan.tests ?? []).entries()) {
     if (t.proves.length === 0) {
       rep.warn(['tests', i, 'proves'], `${t.id} proves no change; fill proves, or delete the test`);
     }
   }
-  for (const entry of (plan.work_items ?? []).entries()) {
-    const [i, w] = entry;
-    if (w.implements.length === 0) {
-      rep.error(
-        ['work_items', i, 'implements'],
-        `${w.id} must implement at least one change; list the change(s) it delivers in implements`,
-      );
-    }
-    checkItemVerified(entry, testById, rep);
-  }
+  for (const entry of (plan.work_items ?? []).entries()) checkItemVerified(entry, testById, rep);
 }
 
 /** Elementary cycles in work item depends_on (each reported once). */

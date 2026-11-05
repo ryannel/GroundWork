@@ -15,6 +15,7 @@ import type {
   Operation,
   Question,
   Region,
+  Requirement,
   Risk,
   Scenario,
   Schema,
@@ -181,7 +182,17 @@ export interface AppliedOps {
 
 /** An entity that lives outside the system graphs. */
 export type PlanEntity =
-  Change | Test | Milestone | WorkItem | Decision | Risk | Question | Scenario | Concept | Stage;
+  | Change
+  | Requirement
+  | Test
+  | Milestone
+  | WorkItem
+  | Decision
+  | Risk
+  | Question
+  | Scenario
+  | Concept
+  | Stage;
 
 export interface PlanEntry {
   readonly id: string;

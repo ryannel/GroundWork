@@ -75,6 +75,48 @@ describe('workspaceNavOf', () => {
     });
   });
 
+  it('adds the programmes and the partners to the overview only when the workspace has some', () => {
+    const partnered: Workspace = {
+      ...shop,
+      teams: [
+        { id: 'team:ours', name: 'Ours', colour: null, channel: null },
+        { id: 'team:ziklo', name: 'Ziklo', colour: null, channel: null, partner: true },
+      ],
+    };
+    const nav = workspaceNavOf(partnered, [], { section: 'partners' }, ['care', 'after-sales']);
+    expect(nav.slice(0, 5).map((group) => [group.title, group.heading])).toEqual([
+      ['Landscape', 'Overview'],
+      ['Plans', undefined],
+      ['Programmes', undefined],
+      ['Partners', undefined],
+      ['Sales', 'Domains'],
+    ]);
+    expect(nav[2]).toEqual({
+      key: 'programmes',
+      title: 'Programmes',
+      href: '/shop/programmes/',
+      count: '2',
+      current: false,
+      open: false,
+      items: [],
+    });
+    expect(nav[3]).toEqual({
+      key: 'partners',
+      title: 'Partners',
+      href: '/shop/partners/',
+      count: '1',
+      current: true,
+      open: false,
+      items: [],
+    });
+    expect(workspaceNavOf(partnered, [], { section: 'programmes' }, ['care'])[2]?.current).toBe(
+      true,
+    );
+    const quiet = workspaceNavOf(shop, [], {}).map((group) => group.title);
+    expect(quiet).not.toContain('Programmes');
+    expect(quiet).not.toContain('Partners');
+  });
+
   it('marks the plans on their index, and keeps them in the rail when there are none', () => {
     expect(workspaceNavOf(shop, [], { section: 'plans' })[1]).toMatchObject({
       title: 'Plans',

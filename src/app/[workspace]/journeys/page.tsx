@@ -21,7 +21,12 @@ export default async function JourneysRoute({ params }: { readonly params: Promi
   return (
     <WorkspaceShell
       actions={<TodaySearch />}
-      nav={workspaceNavOf(workspace, plans, { section: 'journeys', today: today.model })}
+      nav={workspaceNavOf(
+        workspace,
+        plans,
+        { section: 'journeys', today: today.model },
+        data.programmes,
+      )}
       overlays={<TodayOverlays depth={1} workspace={workspace} />}
       title="Journeys"
       trail={[

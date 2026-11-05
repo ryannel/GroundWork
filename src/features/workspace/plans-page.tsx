@@ -1,4 +1,5 @@
 import type { PlanRow } from '@/application/plan-index';
+import type { ProgrammeRowVM } from '@/application/workspace-work/programme-page';
 import { plural } from '@/shared/text';
 import { Callout } from '@/ui/callout';
 import { PageHeader } from '@/ui/page-header';
@@ -11,8 +12,13 @@ interface PlansPageProps {
   readonly domains: readonly IndexDomain[];
 }
 
+interface WorkspacePlansProps extends PlansPageProps {
+  /** The programmes, listed before the plans that stand on their own. */
+  readonly programmes?: readonly ProgrammeRowVM[];
+}
+
 // What may change in the workspace: every plan, each showing its own picture of the systems after it lands.
-export function PlansPage({ rows, domains }: PlansPageProps) {
+export function PlansPage({ rows, domains, programmes }: WorkspacePlansProps) {
   const open = rows.filter((row) => row.stage !== 'done').length;
   return (
     <>
@@ -29,7 +35,7 @@ export function PlansPage({ rows, domains }: PlansPageProps) {
           </p>
         </Callout>
       ) : (
-        <PlansIndex domains={domains} rows={rows} />
+        <PlansIndex domains={domains} programmes={programmes} rows={rows} />
       )}
     </>
   );

@@ -131,6 +131,70 @@ const view: AreaView = {
 };
 
 describe('AreaSystemMap', () => {
+  it('puts the recorded repository link in the service inspector header', () => {
+    const { container } = render(<AreaSystemMap view={view} />);
+    fireEvent.click(screen.getByRole('button', { name: 'Expand Price' }));
+    fireEvent.click(screen.getByRole('button', { name: 'Pre-tax prices' }));
+    const link = screen.getByRole('link', { name: 'volvo-cars/gpe-pretax' });
+    expect(link.getAttribute('href')).toBe('https://github.com/volvo-cars/gpe-pretax');
+    expect(link.closest('section')?.firstElementChild?.contains(link)).toBe(true);
+    expect(link.querySelector('svg[data-filled]')).not.toBeNull();
+    expect(screen.getAllByRole('link', { name: 'volvo-cars/gpe-pretax' })).toHaveLength(1);
+    fireEvent.click(screen.getByRole('button', { name: 'Close Pre-tax prices' }));
+    fireEvent.click(screen.getByRole('button', { name: 'Expand Offers' }));
+    fireEvent.click(screen.getByRole('button', { name: 'Offer service' }));
+    expect(container.querySelector('svg[data-filled]')).toBeNull();
+  });
+
+  it('reveals a shared resource inside its containing service in another system', () => {
+    const offers = view.systems[0]!;
+    const price = view.systems[1]!;
+    const service = price.components[0]!;
+    const cache = {
+      ...service,
+      id: 'st:prices',
+      name: 'Price cache',
+      kind: 'database' as const,
+      parentComponent: service.id,
+      endpoints: [],
+      resources: [],
+      dependencies: [],
+    };
+    const { container } = render(
+      <AreaSystemMap
+        view={{
+          ...view,
+          systems: [
+            {
+              ...offers,
+              components: offers.components.map((item) => ({
+                ...item,
+                resources: [
+                  { id: cache.id, name: cache.name, kind: 'store', use: 'Reads' },
+                  { id: 'missing', name: 'Unplaced topic', kind: 'topic', use: 'Consumes' },
+                ],
+              })),
+            },
+            { ...price, components: [service, cache] },
+          ],
+        }}
+      />,
+    );
+    fireEvent.click(screen.getByRole('button', { name: 'Expand Offers' }));
+    fireEvent.click(screen.getByRole('button', { name: /Show what Offer service holds/u }));
+    expect(screen.getByText('Price · System collapsed')).toBeTruthy();
+    expect(screen.getByRole('button', { name: /Unplaced topic/u })).toHaveProperty(
+      'disabled',
+      true,
+    );
+    fireEvent.click(screen.getByRole('button', { name: /Price cache.*expands system/u }));
+    expect(screen.getByRole('button', { name: 'Collapse Price' })).toBeTruthy();
+    expect(screen.getByRole('button', { name: /Hide what Pre-tax prices holds/u })).toBeTruthy();
+    expect(screen.getByRole('heading', { name: 'Price cache' })).toBeTruthy();
+    expect(container.querySelector('foreignObject[data-component="st:prices"]')).toBeNull();
+    expect(screen.getByText('Price · Show on map')).toBeTruthy();
+  });
+
   it('shows the whole overview first and highlights or filters without moving cards', () => {
     const system = view.systems[0]!;
     const base = system.components[0]!;

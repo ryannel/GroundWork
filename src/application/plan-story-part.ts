@@ -2,11 +2,10 @@ import type { Model } from '@/application/plan/derive';
 import { prop } from '@/application/plan/ids';
 import type { Deciding } from '@/application/plan-viz-decision';
 import { plainLine } from '@/application/plan-viz-text';
-import { voteSummary } from '@/application/plan-viz-vote';
 import { criticalSet, wiState, workOrdered, type WorkState } from '@/application/plan-viz-work';
-import type { Commitment, Question, Risk, WorkItem } from '@/domain/plan/plan.generated';
+import type { Question, Risk, WorkItem } from '@/domain/plan/plan.generated';
 
-import { gatesOf, heldUp, isApproved, planStage, type Stage } from './plan-story-cover-standing';
+import { gatesOf, heldUp, planStage, type Stage } from './plan-story-cover-standing';
 import { connections, type Connections } from './plan-story-part-links';
 
 // What the plan asks of one team: what it decides and waits on before approval, which of its steps change, what it
@@ -41,8 +40,6 @@ export interface TeamPart {
   readonly waitsOn: readonly Waiting[];
   readonly risksOn: readonly Risk[];
   readonly alsoOpen: readonly Question[];
-  readonly vote: Commitment | null;
-  readonly low: boolean;
   readonly work: readonly WorkItem[];
   readonly onPath: readonly WorkItem[];
   readonly left: readonly WorkItem[];
@@ -53,7 +50,6 @@ export interface TeamPart {
 
 const ROUTE = new Set(['via', 'to', 'from']);
 const CHANGED = new Set(['added', 'modified', 'removed', 'deprecated']);
-const LOW = 3;
 const text = (value: unknown): string => (typeof value === 'string' ? value : '');
 
 const KINDS: Readonly<Record<string, StepKind>> = {
@@ -104,7 +100,9 @@ function stepsFor(
 const ownsChange =
   (model: Model, team: string, cutChanges: readonly string[]) =>
   (change: string): boolean => {
-    const builders = (model.plan.work_items ?? []).filter((w) => w.implements.includes(change));
+    const builders = (model.plan.work_items ?? []).filter((w) =>
+      (w.implements ?? []).includes(change),
+    );
     return builders.length > 0
       ? builders.some((w) => w.team === team)
       : cutChanges.includes(change);
@@ -147,8 +145,6 @@ export function teamPart(model: Model, team: string): TeamPart {
   const alsoOpen = (model.plan.questions ?? []).filter(
     (q) => q.decider === team && stillOpen(q) && !gates.some((g) => g.id === q.id),
   );
-  const { votes, teams } = voteSummary(model);
-  const vote = teams.includes(team) ? (votes.get(team) ?? { team }) : null;
   const work = workOrdered(model, (w) => w.team === team);
   const critical = criticalSet(model);
   const states = work.map((w) => wiState(model, w.id));
@@ -161,8 +157,6 @@ export function teamPart(model: Model, team: string): TeamPart {
     waitsOn,
     risksOn,
     alsoOpen,
-    vote,
-    low: (vote?.confidence ?? LOW) < LOW && !isApproved(stage),
     work,
     onPath: work.filter((w) => critical.has(w.id)),
     left: work.filter(

@@ -5,7 +5,7 @@ import { afterAll, describe, expect, it, vi } from 'vitest';
 
 vi.mock(import('server-only'), () => ({}));
 
-const { readPlanState } = await import('./workspace-plans');
+const { checkPlanState, readPlanState } = await import('./workspace-plans');
 
 const scratch = path.join(process.cwd(), 'node_modules', '.cache');
 const mini = await readFile(path.join(process.cwd(), 'test', 'fixtures', 'mini.yaml'), 'utf8');
@@ -41,12 +41,19 @@ describe('readPlanState', () => {
     expect(state?.broken?.title).toBeNull();
   });
 
-  it('holds back a plan whose cross-references fail, keeping its title', async () => {
+  it('holds back a plan whose cross-references fail when checked, keeping its title', async () => {
     const text = mini.replace('team: team:subs, kind: service', 'team: team:nobody, kind: service');
-    const state = await readPlanState('ws', 'p', await workspaceWith(text));
+    const state = await checkPlanState('ws', 'p', await workspaceWith(text));
     expect(state?.loaded).toBeNull();
     expect(state?.broken?.errors.length).toBeGreaterThan(0);
     expect(state?.broken?.title).toBeTruthy();
+  });
+
+  it('trusts the check a plan passed when written, so a read does not follow its references', async () => {
+    const text = mini.replace('team: team:subs, kind: service', 'team: team:nobody, kind: service');
+    const state = await readPlanState('ws', 'p', await workspaceWith(text));
+    expect(state?.broken).toBeNull();
+    expect(state?.loaded?.warnings).toEqual([]);
   });
 
   it('knows no plan that is not there', async () => {

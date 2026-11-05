@@ -1,4 +1,9 @@
-import { STAGE_WORDS, type PlanRow, type PlanStage } from '@/application/plan-index';
+import {
+  type PlanCheckState,
+  STAGE_WORDS,
+  type PlanRow,
+  type PlanStage,
+} from '@/application/plan-index';
 import { plural } from '@/shared/text';
 import { Badge, type BadgeTone } from '@/ui/badge';
 import { Button } from '@/ui/button';
@@ -14,6 +19,16 @@ const TONES: Readonly<Record<PlanStage, BadgeTone>> = {
   approved: 'modified',
   delivery: 'modified',
   done: 'added',
+};
+
+const CHECK_WORDS: Readonly<Record<Exclude<PlanCheckState, null>, string>> = {
+  never: 'Never checked',
+  edited: 'Edited since its check',
+};
+
+const CHECK_TITLES: Readonly<Record<Exclude<PlanCheckState, null>, string>> = {
+  never: 'This plan has never been checked against today; run npm run plan:base -- check',
+  edited: 'This plan has changed since it was last checked; run npm run plan:base -- check',
 };
 
 interface RowProps {
@@ -68,6 +83,11 @@ export function PlanLine({ row, nameOf, onDomain, here }: RowProps) {
               {row.date ?? '—'}
             </Text>
           </span>
+          {row.check === null ? null : (
+            <span title={CHECK_TITLES[row.check]}>
+              <Badge tone="deprecated">{CHECK_WORDS[row.check]}</Badge>
+            </span>
+          )}
           {row.workItems === 0 ? (
             <Text size="sm" tone="faint">
               No work yet

@@ -143,7 +143,8 @@ Print it, and save it next to the fragments as `report.md`. Plain words first, i
    nested ones), and handler calls between components that no flow mentions, when a flow covers that handler's
    trigger.
 7. **Proposals for people**: components to add to `system.yaml`, `does` texts that disagree with the code,
-   curated entries the code contradicts, owners from CODEOWNERS that disagree with `team`.
+   curated entries the code contradicts, owner handles from CODEOWNERS, Backstage or GitHub teams that no team's
+   `handles` holds or that disagree with `team`, and systems whose owner is not known.
 8. **Attribution**: the `sources.ts` summary line, and significant steps without sources.
 9. **Questions** the explorers raised.
 10. **Endpoint analysis**: endpoints discovered, traced, partial and blocked; branches and boundaries not
@@ -152,8 +153,8 @@ Print it, and save it next to the fragments as `report.md`. Plain words first, i
 
 ## Confirm with the owning teams
 
-For each system with anything new, changed or vanished, write a short message to its team (from `team:` in
-`system.yaml`), in plain words they would use, no ids unless they help:
+For each system with anything new, changed or vanished, write a short message to its team (`team:` in
+`system.yaml`, or the team whose handle the evidence names; ask who owns it when neither does), in plain words they would use, no ids unless they help:
 
 > We re-read acme/pricing at 8a1b4d0. Three things look different from what Groundwork said:
 > Pricing now publishes "price published" when a promotion starts, not only when a list price changes.

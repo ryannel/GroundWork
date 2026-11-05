@@ -17,7 +17,7 @@ function byId<T extends { readonly id: string }>(list: readonly T[] | undefined,
   return found;
 }
 const addOps = (c: Change, ...ops: Rec[]): void => {
-  c.ops.push(...(ops as unknown as Change['ops']));
+  c.ops?.push(...(ops as unknown as NonNullable<Change['ops']>));
 };
 const asQuestion = (q: Rec): Question => q as unknown as Question;
 

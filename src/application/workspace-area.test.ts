@@ -61,6 +61,41 @@ const landscape: AuthoredLandscape = {
 };
 
 describe('area landscape', () => {
+  it('links service code from its own recorded sources without needing an explorer catalogue', () => {
+    const { workspace } = acme();
+    const selected = workspace.domains
+      .flatMap((domain) => domain.systems)
+      .find((system) => system.id === 'shop')!.components[0]!;
+    const options = {
+      workspace,
+      landscape,
+      area: 'sell',
+      explorer: null,
+    };
+    const source = { repo: 'acme/shop', path: 'service.ts', commit: 'abc' };
+    const attribution = {
+      [selected.id]: { origin: 'extracted' as const, sources: [source, source] },
+    };
+    const component = areaViewOf({ ...options, attribution })
+      ?.systems.flatMap((system) => system.components)
+      .find((item) => item.id === selected.id);
+    expect(component?.repository).toEqual({
+      name: 'acme/shop',
+      href: 'https://github.com/acme/shop',
+    });
+    const ambiguous = {
+      [selected.id]: {
+        ...attribution[selected.id]!,
+        sources: [source, { ...source, repo: 'acme/another' }],
+      },
+    };
+    expect(
+      areaViewOf({ ...options, attribution: ambiguous })
+        ?.systems.flatMap((system) => system.components)
+        .find((item) => item.id === selected.id)?.repository,
+    ).toBeNull();
+  });
+
   it('keeps areas as links into the workspace and draws their major relationship', () => {
     const { workspace } = acme();
     const view = areaLandscapeOf(workspace, landscape);

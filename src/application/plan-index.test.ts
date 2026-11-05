@@ -2,7 +2,7 @@ import { describe, expect, it, vi } from 'vitest';
 
 import type { Workspace } from '@/domain/workspace';
 
-import { domainPlanRowsOf, planRowOf, planRowsOf } from './plan-index';
+import { checkStateOf, domainPlanRowsOf, planRowOf, planRowsOf } from './plan-index';
 
 vi.mock(import('server-only'), () => ({}));
 
@@ -102,5 +102,20 @@ describe('domainPlanRowsOf', () => {
       );
     }
     expect(reached.length).toBeLessThan(2);
+  });
+});
+
+describe('checkStateOf', () => {
+  const live = { mode: 'live', checkedOn: '2026-10-14', edited: false } as const;
+
+  it('flags an open plan never checked, or edited since its check', () => {
+    expect(checkStateOf({ ...live, checkedOn: null })).toBe('never');
+    expect(checkStateOf({ ...live, edited: true })).toBe('edited');
+    expect(checkStateOf(live)).toBeNull();
+  });
+
+  it('does not flag a landed plan, or one read without a base', () => {
+    expect(checkStateOf({ mode: 'landed', checkedOn: null, edited: false })).toBeNull();
+    expect(planRowOf(workspace, { slug: 'm', plan, status: {} }).check).toBeNull();
   });
 });

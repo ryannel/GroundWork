@@ -11,3 +11,7 @@ export { PeoplePage } from './people-page';
 export { DomainPlans, PlansPage } from './plans-page';
 export { DomainLanguage, LanguageOverview } from './language-overview';
 export { DomainTarget } from './domain-target';
+export { PartnersPage } from './partners-page';
+export { PartnerPage } from './partner-page';
+export { ProgrammesPage } from './programmes-page';
+export { ProgrammePage } from './programme-page';

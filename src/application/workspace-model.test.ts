@@ -22,6 +22,31 @@ describe('systemModelOf', () => {
     expect(model.validation().errors).toEqual([]);
   });
 
+  it('draws a system no team owns with no owner, and what it runs on, and still checks', async () => {
+    const [domain, ...rest] = workspace.domains;
+    const [first, second, ...others] = domain!.systems;
+    const unowned = {
+      ...workspace,
+      domains: [
+        {
+          ...domain!,
+          systems: [{ ...first!, team: null, runsOn: second!.id }, second!, ...others],
+        },
+        ...rest,
+      ],
+    };
+    const own = systemModelOf(unowned, read);
+    const system = own.plan.systems?.find(({ id }) => id === `sys:${first!.id}`);
+    expect(system?.team).toBeUndefined();
+    expect(system?.runs_on).toBe(`sys:${second!.id}`);
+    const services = own.plan.services.filter(({ system: of }) => of === `sys:${first!.id}`);
+    expect(services.length).toBeGreaterThan(0);
+    expect(services.every(({ team }) => team === undefined)).toBe(true);
+    const checked = await checkPlanData(structuredClone(own.plan));
+    expect(checked.errors).toEqual([]);
+    expect(own.model.validation().errors).toEqual([]);
+  });
+
   it('draws every component of the structure', () => {
     const drawn = new Set([...model.asIs.services, ...model.asIs.stores].map(({ id }) => id));
     expect(componentsOf(workspace).filter(({ id }) => !drawn.has(id))).toEqual([]);

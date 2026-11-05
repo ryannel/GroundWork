@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 
+import { resourceLocation } from '@/application/area-map/component-summary';
 import {
   areaSystemBounds,
   type AreaSystemBox,
@@ -146,11 +147,12 @@ function activeFocus(systems: readonly PlacedSystem[], selected: ReadonlyMap<str
     );
     if (component !== undefined) {
       return {
-        id: `${system.id}:${component.id}`,
+        id: `${system.id}:${component.id}:${active ?? ''}`,
         x: system.x + component.x,
         y: system.y + component.y,
         width: component.width,
         height: component.height,
+        readable: true,
       };
     }
   }
@@ -266,6 +268,15 @@ export function AreaSystemMap({ view }: { readonly view: AreaView }) {
       current.get(target) === component ? new Map() : new Map([[target, component]]),
     );
   };
+  const revealResource = (id: string): void => {
+    const destination = resourceLocation(view.systems, id);
+    if (destination === null) return;
+    setExpanded((current) => new Set([...current, destination.system.id]));
+    setOnlyFlows(new Set());
+    setOpen((current) => new Set([...current, destination.component.id]));
+    setSelected(new Map([[destination.system.id, id]]));
+    setEndpoint(id);
+  };
   const inspected = selectedComponent(systems, selected);
   const openedSystem = systems.find((system) => system.id === opened && expanded.has(system.id));
   const contextHeight = (openedSystem?.story?.relatedSystems?.length ?? 0) > 0 ? 240 : 0;
@@ -334,6 +345,8 @@ export function AreaSystemMap({ view }: { readonly view: AreaView }) {
       {drawn.map((system) =>
         expanded.has(system.id) ? (
           <AreaExpandedSystem
+            systems={view.systems}
+            expanded={expanded}
             active={selected.get(system.id)}
             endpoint={endpoint}
             key={system.id}
@@ -355,6 +368,7 @@ export function AreaSystemMap({ view }: { readonly view: AreaView }) {
               setSelected(new Map());
             }}
             onSelectEndpoint={setEndpoint}
+            onSelectResource={revealResource}
             onToggleOpen={toggleOpen}
             system={system}
           />

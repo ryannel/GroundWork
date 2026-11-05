@@ -74,7 +74,7 @@ function unwrap(
   const { origin: said, ...fact } = raw;
   const origin = originSchema.safeParse(said);
   if (!origin.success) {
-    throw new Error(`${file}: ${raw.id}: origin must be extracted, seeded or curated`);
+    throw new Error(`${file}: ${raw.id}: origin must be extracted, seeded, curated or documented`);
   }
   return { id: raw.id, origin: origin.data, fact };
 }
@@ -117,7 +117,7 @@ function cite(raw: unknown, id: unknown, walk: Walk): readonly Source[] {
   const parsed = anySource.array().safeParse(raw);
   if (!parsed.success) {
     throw new Error(
-      `${walk.where}: sources must be {repo, path, commit, lines?, symbol?} or {url}: ${parsed.error.message}`,
+      `${walk.where}: sources must be {repo, path, commit, lines?, symbol?} or {url, pointer? or heading?, version?}: ${parsed.error.message}`,
     );
   }
   const { code, plan } = citedOf(parsed.data);
@@ -133,20 +133,27 @@ function citedOf(sources: readonly z.output<typeof anySource>[]): {
   const code: CodeSource[] = [];
   const plan: Source[] = [];
   for (const source of sources) {
-    if ('url' in source) {
-      const { url, label, note } = source;
-      plan.push({
-        url,
-        ...(label === undefined ? {} : { label }),
-        ...(note === undefined ? {} : { note }),
-      });
-    } else {
+    if ('url' in source) plan.push(linkSourceOf(source));
+    else {
       const kept = codeSourceOf(source);
       code.push(kept);
       plan.push(planSourceOf(kept));
     }
   }
   return { code, plan };
+}
+
+// A link, or a document with where in it and which version, kept as written.
+function linkSourceOf(raw: Extract<z.output<typeof anySource>, { readonly url: string }>): Source {
+  const { url, pointer, heading, version, label, note } = raw;
+  return {
+    url,
+    ...(pointer === undefined ? {} : { pointer }),
+    ...(heading === undefined ? {} : { heading }),
+    ...(version === undefined ? {} : { version }),
+    ...(label === undefined ? {} : { label }),
+    ...(note === undefined ? {} : { note }),
+  };
 }
 
 function codeSourceOf(raw: z.output<typeof codeSource>): CodeSource {

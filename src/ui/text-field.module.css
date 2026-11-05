@@ -1,0 +1,30 @@
+@layer components {
+  .field {
+    display: grid;
+    gap: var(--s-1);
+    min-width: 0;
+  }
+
+  .label {
+    color: var(--fg-2);
+    font-size: var(--fs-12);
+    font-weight: 600;
+  }
+
+  .input {
+    width: 100%;
+    padding: var(--s-2) var(--s-3);
+    border: 1px solid var(--line-2);
+    border-radius: var(--r-2);
+    background: var(--node-bg);
+    color: var(--fg-1);
+    font: inherit;
+    font-size: var(--fs-13);
+    resize: vertical;
+
+    &:focus-visible {
+      outline: 2px solid var(--focus);
+      outline-offset: 1px;
+    }
+  }
+}

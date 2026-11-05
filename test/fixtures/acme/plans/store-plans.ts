@@ -1,7 +1,8 @@
 // Plans as the store finds them in Acme's folder: a small graph plan, earlier revisions of pause-orders, and
-// the issue state of its work items. Write them with writeWorkspace beside acmeFiles().
+// what has happened to its work items. Write them with writeWorkspace beside acmeFiles().
 import { pauseOrdersOverlay } from '@/../test/fixtures/acme/plans/pause-orders';
 import type { PlanOverlay } from '@/../test/plan-kit';
+import type { Progress } from '@/domain/plan/plan.generated';
 
 /** An overlay that puts a GraphQL graph in front of the shop, so the product page reads products through it. */
 export function productGraphOverlay(): PlanOverlay {
@@ -119,14 +120,42 @@ export function pauseOrdersAt(version: string): PlanOverlay {
   return { ...overlay, meta: { ...overlay.meta, version } };
 }
 
-/** The issue state of pause-orders' work items, as plans/pause-orders/status.json holds it. */
-export function pauseOrdersStatus(): string {
-  return JSON.stringify({
-    'wi:pause-api': {
-      state: 'closed',
-      closed_at: '2026-05-28T09:00:00Z',
-      url: 'https://github.com/acme/ordering/issues/12',
-    },
-    'wi:desk-button': { state: 'open', url: 'https://github.com/acme/ordering/issues/13' },
-  });
+/** What has happened to pause-orders' work items, as plans/pause-orders/progress.yaml records it. */
+export function pauseOrdersProgress(): Progress {
+  return {
+    events: [
+      {
+        at: '2026-05-20',
+        subject: 'wi:pause-api',
+        kind: 'work',
+        state: 'in_progress',
+        source: { kind: 'github', repo: 'acme/ordering', issue: 12 },
+      },
+      {
+        at: '2026-05-21',
+        subject: 'wi:desk-button',
+        kind: 'commitment',
+        state: 'accepted',
+        promised_for: '2026-06-10',
+        confidence: 'medium',
+        said_by: 'Web',
+        source: { kind: 'meeting', note: 'Planning' },
+      },
+      {
+        at: '2026-05-21',
+        subject: 'wi:desk-button',
+        kind: 'work',
+        state: 'not_started',
+        source: { kind: 'github', url: 'https://github.com/acme/ordering/issues/13' },
+      },
+      {
+        at: '2026-05-28T09:00:00Z',
+        subject: 'wi:pause-api',
+        kind: 'work',
+        state: 'done',
+        source: { kind: 'github', repo: 'acme/ordering', issue: 12 },
+      },
+      { at: '2026-05-29', subject: 'ms:pause', kind: 'note', note: 'Demoed to the clerks.' },
+    ],
+  };
 }

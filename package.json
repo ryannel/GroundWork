@@ -42,6 +42,7 @@
     "check": "run-s --print-label check:static lint coverage",
     "map": "node --import ./tools/register.ts --conditions=react-server tools/map.ts",
     "plan:base": "node --import ./tools/register.ts --conditions=react-server tools/plan-base.ts",
+    "progress": "node --import ./tools/register.ts --conditions=react-server tools/progress.ts",
     "workspace": "node --import ./tools/register.ts --conditions=react-server tools/workspace.ts",
     "generate:knowledge": "node tools/generate-knowledge-types.ts",
     "proof:capture": "node --import ./tools/register.ts --conditions=react-server tools/capture-proof.ts",

@@ -62,7 +62,7 @@ function firstAppearance({ asIs, toBe, sys, unionIds }: LayoutInput) {
 
 const teamOf = (sys: LayoutInput['sys'], id: string | undefined): string | null => {
   const n = sys(id ?? '');
-  return n?.$type === 'service' ? n.team : null;
+  return n?.$type === 'service' ? (n.team ?? null) : null;
 };
 
 function laneTeamsOf(input: LayoutInput, services: readonly string[]): string[] {

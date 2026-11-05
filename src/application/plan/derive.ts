@@ -18,6 +18,7 @@ import type { FederationMembers } from '@/application/plan/federation-members';
 import { typeOf } from '@/application/plan/ids';
 import { createLayout, type Layout } from '@/application/plan/layout';
 import { type Findings, validatePlan } from '@/application/plan/validate-plan';
+import { NO_STANDING, type PlanStanding } from '@/application/plan/work-standing';
 import type { Plan } from '@/domain/plan/plan.generated';
 
 export type { DeriveOptions } from '@/application/plan/derive-compose';
@@ -25,7 +26,10 @@ export type { DeriveOptions } from '@/application/plan/derive-compose';
 /** Everything computed from a plan, never authored. */
 export interface Model
   extends
-    Pick<Core, 'asIs' | 'toBe' | 'records' | 'get' | 'label' | 'status' | 'graphOf'>,
+    Pick<
+      Core,
+      'asIs' | 'toBe' | 'records' | 'get' | 'label' | 'status' | 'graphOf' | 'inheritedFrom'
+    >,
     Pick<Owners, 'rollup' | 'ownerService' | 'ownerTeam'>,
     DiffQueries,
     Pick<
@@ -61,6 +65,11 @@ export interface Model
   readonly typeOf: typeof typeOf;
   readonly validation: () => Findings;
   readonly layout: () => Layout;
+  /**
+   * Where each work item, milestone and team stands (commitment, progress, last heard, dates, blockers) and how far
+   * today says what each change said; empty when the caller had no progress record or today to read.
+   */
+  readonly standing: PlanStanding;
 }
 
 /** The plan's validation and the health counts that rest on it. */
@@ -99,6 +108,7 @@ export function derive(plan: Plan, options: DeriveOptions = {}): Model {
     typeOf,
     status: core.status,
     graphOf: core.graphOf,
+    inheritedFrom: core.inheritedFrom,
     rollup: owners.rollup,
     ownerService: owners.ownerService,
     ownerTeam: owners.ownerTeam,
@@ -137,5 +147,6 @@ export function derive(plan: Plan, options: DeriveOptions = {}): Model {
     ...c.federation,
     ...createScreens(core, owners),
     ...createLayout(core),
+    standing: options.standing ?? NO_STANDING,
   };
 }

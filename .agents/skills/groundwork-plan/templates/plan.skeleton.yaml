@@ -8,6 +8,8 @@
 #   - Flow steps are <flow-id>#<verb-slug>. Fields are addressed <schema-id>#<field_name>.
 #   - Dates are quoted strings: "2026-10-01".
 #   - No colour, position, status or counts: all of that is derived.
+#   - What teams promise and what has happened go in plans/<plan>/progress.yaml (npm run progress -- add), never here.
+#   - Another plan's or the programme's id is qualified: <plan or programme>/<id>.
 
 meta:
   id: my-feature # TODO = the folder name plans/<plan>/
@@ -18,6 +20,9 @@ meta:
   authors: ['TODO: team names']
   appetite: 'TODO: 4 weeks · 2 milestones'
   repos: ['TODO-org/TODO-repo'] # repos the work lands in
+  # programme: TODO-programme   # when it serves one: programmes/<id>/programme.yaml
+
+# builds_on: [TODO-other-plan]  # the plans it reads on top of today (composition only, not scheduling)
 
 # ─────────────────────────────────────────────── why
 problem:
@@ -47,6 +52,7 @@ problem:
 teams:
   - { id: team:TODO-owner, name: 'TODO: Owner team' }
   - { id: team:product, name: 'Product' } # deciders are teams too
+  # partners are teams too: partner: true and contacts live in workspace.yaml
 
 # ─────────────────────────────────────────────── the ledger
 changes:
@@ -64,6 +70,13 @@ changes:
               then:
                 - { publish: msg:TODO, does: 'TODO: what it tells whom' }
 
+  # A change whose shape is not agreed yet: what it requires, no ops, held back by an open question.
+  # - id: chg:TODO-waiting
+  #   title: 'TODO'
+  #   requires:
+  #     - { id: req:TODO, text: 'TODO: what must be true' }
+  #   blocked_by: [q:first-question]
+
 # ─────────────────────────────────────────────── how we prove it
 tests:
   - id: tst:first-test
@@ -72,7 +85,7 @@ tests:
     given: 'TODO'
     when: 'TODO'
     then: 'TODO: observable result'
-    proves: [chg:first-change]
+    proves: [chg:first-change] # a change, or one of its requirements (req:…)
     walks: ['flow:TODO-today#TODO-step'] # steps or whole flows
     owner: team:TODO-owner
     env: ci # local | ci | staging | prod
@@ -83,6 +96,9 @@ milestones:
       id: ms:skeleton,
       name: 'M1 · Walking skeleton',
       exit: 'TODO: what works end to end when this is done',
+      due: '2026-10-29',
+      # after: [TODO-other-plan/ms:TODO]   # milestones that come first, here or in another plan
+      # serves: TODO-programme/ms:TODO     # the programme milestone it serves
     }
 
 # execution:                             # when persistence, events or a read path change; see groundwork-plan
@@ -98,9 +114,11 @@ work_items:
     team: team:TODO-owner
     size: S # XS S M L XL
     milestone: ms:skeleton
-    implements: [chg:first-change]
+    implements: [chg:first-change] # leave out for recovery or operations work
     verified_by: [tst:first-test] # each must prove one of `implements`
-    depends_on: []
+    depends_on: [] # wi:…, or <plan>/wi:… in another plan
+    # needed_by: '2026-10-20'      # when we need it; the team's promised date goes in progress.yaml
+    # blocked_by: [q:first-question] # decisions or questions it waits on
     repo: 'TODO-org/TODO-repo'
     body: |
       TODO: what to build, and **Done when** …
@@ -137,8 +155,6 @@ questions:
       status: open,
       blocks: [chg:first-change],
     }
-
-commitment: [] # filled in by each team: { team: team:x, confidence: 1-5, note: '…' }
 
 story:
   chapters:

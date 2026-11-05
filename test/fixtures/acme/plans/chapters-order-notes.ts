@@ -236,10 +236,6 @@ function orderNotesOverlay(): PlanOverlay {
         mitigation: 'Notes are checked against a word list.',
       },
     ],
-    commitment: [
-      { team: 'team:orders', confidence: 4 },
-      { team: 'team:web', confidence: 4 },
-    ],
   };
 }
 

@@ -9,7 +9,7 @@ components:
     type: job
     tech: Python
     does: Works out saddle height and reach from body measurements
-  - id: lib:geometry
+  - id: svc:geometry
     name: Frame geometry
     type: library
     tech: Python

@@ -42,7 +42,7 @@ const textOf = (model: IssueModel, id: string, key: 'question' | 'statement'): s
   unlink(model, fieldOf(model, id, key));
 
 function links(model: IssueModel, wi: WorkItem, blockers: readonly string[]): string[] {
-  const inv = wi.implements.map((c) => model.inverse(c));
+  const inv = (wi.implements ?? []).map((c) => model.inverse(c));
   const decisions = uniq(inv.flatMap((i) => i.decisions));
   const questions = uniq([
     ...inv.flatMap((i) => i.questions),

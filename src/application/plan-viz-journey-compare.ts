@@ -89,7 +89,7 @@ function cellsOf(ctx: Ctx, item: Evidence | null): Cells {
 
 function deprecationReasons(model: Model, id: string): string[] {
   const why = (model.plan.changes ?? [])
-    .filter((c) => c.ops.some((op) => 'deprecate' in op && op.deprecate === id))
+    .filter((c) => (c.ops ?? []).some((op) => 'deprecate' in op && op.deprecate === id))
     .map((c) => c.why)
     .filter((w): w is string => w !== undefined && w !== '');
   return [...new Set(why)];

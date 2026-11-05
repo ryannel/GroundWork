@@ -43,11 +43,16 @@ export default async function CatalogueRoute({
   return (
     <WorkspaceShell
       actions={<TodaySearch />}
-      nav={workspaceNavOf(workspace, plans, {
-        section: 'reference',
-        key: kind,
-        today: today.model,
-      })}
+      nav={workspaceNavOf(
+        workspace,
+        plans,
+        {
+          section: 'reference',
+          key: kind,
+          today: today.model,
+        },
+        data.programmes,
+      )}
       overlays={<TodayOverlays depth={2} workspace={workspace} />}
       title={entry.title}
       trail={[

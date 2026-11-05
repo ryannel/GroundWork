@@ -1,6 +1,6 @@
 // Delivery, derived and never authored: once a work item has a GitHub issue, the plan is no longer only agreed,
-// it is being built. The stage comes from `github_issue` on work items and the issue state in status.json;
-// meta.status keeps the people's part (draft → review → approved).
+// it is being built. The stage comes from `github_issue` on work items and the issue state from the latest GitHub
+// event in progress.yaml; meta.status keeps the people's part (draft → review → approved).
 
 import type { RevisionEntry } from '@/application/plan/revision-ledger';
 import type { IssueStatus } from '@/domain/plan/plan-status';
@@ -75,7 +75,7 @@ function stageOf(
 
 /**
  * Where a plan stands in delivery.
- * @param status status.json: issue state per work item
+ * @param status issue state per work item, from the GitHub events in progress.yaml
  * @param approvedPlan the approved snapshot while a proposal is the head: work items only the proposal has are
  *   left out of every count (teams build from the approved version) and listed in `pending`
  */

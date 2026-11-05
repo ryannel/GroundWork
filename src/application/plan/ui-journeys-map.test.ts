@@ -286,7 +286,7 @@ describe('todayScreenMap: recorded order', () => {
     const changed = checkout({
       edit(plan) {
         plan.problem.scenarios?.reverse();
-        plan.changes?.[0]?.ops.push(
+        plan.changes?.[0]?.ops?.push(
           {
             modify: 'scr:basket',
             set: { name: 'Future screen name', image: 'assets/future.svg' },
@@ -392,7 +392,7 @@ describe('todayScreenMap: authored interactions', () => {
     const m = checkout({
       authored: true,
       edit(plan) {
-        plan.changes?.[0]?.ops.push({
+        plan.changes?.[0]?.ops?.push({
           modify: 'ui:search-product',
           set: { name: 'Future control', to: 'scr:basket' },
         });

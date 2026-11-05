@@ -14,7 +14,7 @@ export const CARD = {
   heading: 26,
   apiRow: 28,
   resourceRow: 40,
-  sharedRow: 28,
+  sharedRow: 40,
   end: 10,
   footer: 56,
 } as const;

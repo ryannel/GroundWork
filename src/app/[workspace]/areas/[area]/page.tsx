@@ -47,17 +47,23 @@ export default async function AreaRoute({
     area,
     explorer,
     model: data.today.model,
+    attribution: data.today.attribution,
   });
   if (view === null) notFound();
   return (
     <AreaPage
       initialFlow={firstParam(query.flow)}
       actions={<TodaySearch />}
-      nav={workspaceNavOf(data.workspace, data.plans, {
-        section: 'area',
-        key: area,
-        today: data.today.model,
-      })}
+      nav={workspaceNavOf(
+        data.workspace,
+        data.plans,
+        {
+          section: 'area',
+          key: area,
+          today: data.today.model,
+        },
+        data.programmes,
+      )}
       overlays={<TodayOverlays depth={2} workspace={data.workspace} />}
       view={view}
     />

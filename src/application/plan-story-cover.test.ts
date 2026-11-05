@@ -10,18 +10,14 @@ import {
   gatesOf,
   heldUp,
   isApproved,
-  lowVoteSentence,
   planStage,
   possessive,
-  reasonOf,
 } from '@/application/plan-story-cover-standing';
 
 vi.mock(import('server-only'), () => ({}));
 
 const { loadFixture } = await import('@/infrastructure/plan-fixture');
 const base = await loadFixture('mini.yaml');
-
-const NO_NOTE: string | undefined = new Map<string, string>().get('none');
 
 type Over = Partial<typeof base>;
 const withPlan = (over: Over) => derive({ ...base, ...over }, { today: '2026-10-17' });
@@ -48,32 +44,6 @@ describe('words', () => {
   it('continues a title after a colon in lower case, keeping acronyms, with a full stop', () => {
     expect(asClause('Which price do we show')).toBe('which price do we show.');
     expect(asClause('VAT on the invoice?')).toBe('VAT on the invoice?');
-  });
-
-  it('keeps the first sentence of a note, cut at a clause when long, without a full stop', () => {
-    expect(reasonOf(NO_NOTE)).toBe('');
-    expect(reasonOf('The price opinion is on file. More follows.')).toBe(
-      'the price opinion is on file',
-    );
-    const long = `Legal has not signed off the wording of the price notice, and the German rules differ from the rest ${'of the region '.repeat(8)}`;
-    expect(reasonOf(long).length).toBeLessThanOrEqual(100);
-    expect(reasonOf('word '.repeat(40)).length).toBeLessThanOrEqual(100);
-  });
-
-  it('names who is not confident, one team or several', () => {
-    const model = withPlan({});
-    const votes = new Map([
-      ['team:web', { team: 'team:web', confidence: 2, note: 'Too much to move.' }],
-      ['team:subs', { team: 'team:subs', confidence: 1 }],
-    ]);
-    expect(lowVoteSentence(model, [], votes)).toBe('');
-    expect(lowVoteSentence(model, ['team:web'], votes)).toBe(
-      'Web is not confident (2 of 5): too much to move.',
-    );
-    expect(lowVoteSentence(model, ['team:web', 'team:subs'], votes)).toBe(
-      'Web and Subscriptions are not confident (2 and 1 of 5).',
-    );
-    expect(lowVoteSentence(model, ['team:billing'], votes)).toContain('Billing is not confident');
   });
 });
 
@@ -142,24 +112,15 @@ describe('the ask', () => {
     expect(line?.text).toContain('more have to be settled before approval');
   });
 
-  it('says who has not rated when nothing is left to decide', () => {
-    const [line] = askLines(withPlan({ questions: [], decisions: [] }), TODAY);
-    expect(line?.text).toMatch(/^Nothing is left to decide; .* not rated/u);
-    const rated = withPlan({
-      questions: [],
-      decisions: [],
-      commitment: base.teams.map((t) => ({ team: t.id, confidence: 4 })),
-    });
-    expect(askLines(rated, TODAY)[0]?.text).toContain('can approve it by merging');
-  });
-
-  it('leads with a team that is not confident', () => {
-    const model = withPlan({
-      commitment: [{ team: 'team:subs', confidence: 1, note: 'Too big.' }],
-    });
-    const lines = askLines(model, TODAY);
-    expect(lines[0]?.tone).toBe('warn');
-    expect(lines[0]?.text).toContain('The owner rethinks the plan before approving it.');
+  it('says the owner can approve once nothing is left to decide', () => {
+    const lines = askLines(withPlan({ questions: [], decisions: [] }), TODAY);
+    expect(lines).toEqual([
+      {
+        tone: 'note',
+        text: 'Nothing is left to decide: the owner can approve it by merging.',
+        link: { chapter: 'commit', screen: 'ask', label: 'Still to settle →' },
+      },
+    ]);
   });
 
   it('says how an approved plan is being built', () => {

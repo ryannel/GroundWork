@@ -6,6 +6,12 @@ shows on the next load. The readers keep what they work out until a file under t
 is cheap to draw again. The generated `explorer/` and `evidence/` folders are not watched: no kept reader reads
 them, and stamping their thousands of files cost seconds a request. The site only reads; it writes nothing.
 
+Plans are checked when they are written and before they are committed, not when a page reads them: checking every
+reference of every plan against the whole of today cost seconds on each page of a large workspace. A page trusts
+the check recorded in each plan's `base.lock.json`, and says when a plan has been edited since. `npm run dev`
+compiles each route on its first visit and drops what the readers keep whenever the source changes; to read
+workspaces rather than change Groundwork, run `npm run build` then `npm start`.
+
 The layers below are enforced by `eslint.config.mjs`, and `test/architecture.test.ts` proves every rule still
 fires. If a rule gets in the way, change the architecture on purpose, here and in the config, not with a
 disable comment. Unused disable comments are errors.
@@ -20,13 +26,14 @@ deployable microservice, worker or job), a **store** (a database), a **topic** (
 user-facing app. Say "service" only when you mean that kind; say "component" when you mean any of them.
 
 ```
-<workspace>/workspace.yaml            format, teams, the people (actors) who use the systems, and key journeys
+<workspace>/workspace.yaml            format, teams (handles, partner, contacts), the people (actors) who use the
+                                      systems, and key journeys
   landscape.yaml                     authored areas and the major relationships used to enter the system model
   language.yaml                       the key terms the business has agreed on, anchored to the code
   domains/<domain>/domain.yaml
     language.yaml                     the domain's words: summary and concepts (system model)
     target.yaml                       where the domain is heading: its target architecture (people)
-    systems/<system>/system.yaml      purpose, components and what they talk to
+    systems/<system>/system.yaml      purpose, owning team (optional), components and what they talk to
     systems/<system>/contracts.yaml   what its components offer and keep (system model)
     systems/<system>/narratives.yaml  optional inferred stories, evidence references and input fingerprint
     systems/<system>/handlers.yaml    what runs when its endpoints and messages are reached (system model)
@@ -35,7 +42,15 @@ user-facing app. Say "service" only when you mean that kind; say "component" whe
   journeys/<journey>.yaml             a user journey and its interactions (system model)
   assets/                             screen drawings cited by journeys
   scans/<org>/<repo>.yaml             the commit each repo was last read at, and how far it has moved since
-  plans/<plan>/plan.yaml              revisions/, status.json, assets/, mockups/
+  programmes/<programme>/programme.yaml  the outcome some plans serve; shared scenarios, decisions, questions, milestones
+  plans/<plan>/plan.yaml              the overlay, its work and its reasons (meta.programme, builds_on)
+    progress.yaml                     what has happened: commitment, work and note events, append-only
+    base.lock.json                    what an open plan was checked against (generated): checked_on, entities
+                                      (target id → fingerprint), bases (plan → hash), programme { id, hash },
+                                      composed (the hash of what its bases make), plan (the hash of the plan
+                                      that was checked)
+    base.yaml                         a landed plan's frozen today (generated)
+    revisions/, assets/, mockups/     approved snapshots, pictures, the walking mockup
 schema/plan.schema.json               the plan format, checked with ajv (in Groundwork, not the workspace)
 ```
 
@@ -87,6 +102,17 @@ System gutters and supporting-row gaps use the stable caption dimensions of the 
 independently of the current flow or connection filter. Default supporting labels are
 quiet until focused; All connections reveals them. Collapsed exchanges keep their authored concise labels
 in both modes, with the full purpose and operations retained in detail.
+Cards inside SVG `foreignObject` elements use colours, not HTML opacity layers, to mute supporting work.
+WebKit can paint an opacity-composited HTML card away from its SVG coordinates even though its reported
+bounding rectangle is correct, leaving correctly routed arrows apparently detached. Inspect the painted
+cards as well as the path geometry when checking alignment.
+Shared-resource rows name their destination system and say when it is collapsed. Selecting a placed
+resource expands its system, opens its containing service where needed and focuses the resource,
+clearing flow-only filters that would hide it. Unplaced resources remain listed with an explicit
+notice and no navigation action; a resource reference alone does not invent an arrow or ownership.
+The component inspector puts its repository link beside a GitHub mark in the header. Repository identity
+comes from the component's own code attribution, with the legacy explorer catalogue as a fallback.
+Multiple source repositories are not reduced to an arbitrary first match.
 
 Connection captions use one text and size policy in `shared/diagram-caption.ts`: compact typography,
 word-aware shortening and at most two lines. The original label and qualifications remain in detail.
@@ -250,10 +276,13 @@ it for a workspace's folder by id:
 - A listed folder without a `workspace.yaml`, two folders with one id, or a local file with unknown keys is an
   error, never skipped. A workspace's id is the `id` in its `workspace.yaml`, whatever its folder is called.
 
-`npm run workspace -- new|add|pull|remove|check|list` makes a workspace repo, links one by folder or repo URL,
-clones or fast-forwards the linked repos, stops reading one, reads one as the app does, and lists what is
-registered (`tools/workspace.ts`); the `groundwork-workspace` skill walks people through it.
-Registering links Groundwork's skills into the workspace repo, git-ignored there. Registration is resolved
+`npm run workspace -- new|add|pull|remove|check|precommit|list` makes a workspace repo, links one by folder or
+repo URL, clones or fast-forwards the linked repos, stops reading one, checks one and every plan in it, checks
+what a commit stages, and lists what is registered (`tools/workspace.ts`); the `groundwork-workspace` skill walks
+people through it. Registering links Groundwork's skills into the workspace repo, git-ignored there, and installs
+its pre-commit hook in `.git/hooks`: when YAML is staged it runs `precommit`, which runs `check` and refuses a
+staged plan whose `base.lock.json` does not hold the check of what it says now. Groundwork's own `lefthook.yml`
+checks the examples in `workspaces/`. Registration is resolved
 afresh on each read. The existing workspace file stamps invalidate model and plan readers when a workspace
 is linked, removed, relocated or edited, including folders outside this checkout; no restart is needed.
 `workspace-folders.ts` also exposes the name, id, folder and registration source for command discovery.
@@ -280,7 +309,12 @@ operations, plus `components:` detail (kind, summary, sources) for components na
 structure stays the source of a component's name, tech and what it does. `handlers.yaml`, beside it, holds the
 system's handlers (`handlers:`), each a fact like any other; the model reads them into `SystemContracts.handlers`.
 
-A system is a bounded context: one team and one language. A domain's `language.yaml` holds the words its systems
+A system is a bounded context: one team and one language. Its `team` may be missing while no one is named (the
+system shows its owner is not known), and `runs_on` names the platform system it runs on. A team in
+`workspace.yaml` may list `handles` (the names CODEOWNERS, GitHub and Backstage use for it; each names one team), and
+a team outside the company is `partner: true` with `contacts`. A partner's systems are described from its documents:
+facts with `origin: documented` cite `{ url, pointer or heading, version }`, which `tools/sources.ts` counts as
+attributed without fetching. A domain's `language.yaml` holds the words its systems
 use, each a concept with what it means, where it is born (`born_in`, a component, so its home system follows) and
 what each other system calls it (`aka`). A word lives in the domain where it is born; `npm run workspace -- check`
 warns when it does not (`src/application/workspace-language.ts`). Every domain's words join today's
@@ -464,7 +498,9 @@ components belong to the domain and system pages, and teams are not shown.
   address (`?q=`, `?domain=`, `?stage=`, `?sort=`). `src/application/plan-index.ts` reads each plan as a row: the
   domains it lands in (those holding a component it changes, or a repo its work goes to), its stage (draft, in
   review, approved, then in delivery and delivered from its work items) and its date. The rail counts the plans
-  and links to the index; it does not list them.
+  and links to the index; it does not list them. When the workspace has programmes, the index opens on them (each
+  with its plan count, how many are held up and the next held up, from `programmeRowsOf`) and then lists only the
+  plans on their own; any search or cut lists every plan that matches, programme or not.
 - A domain's Plans page, `/[workspace]/[domain]/plans/`, is the same index narrowed to the plans that reach the
   domain (`domainPlanRowsOf`), with no domain filter; each row names the other domains it also lands in.
 - Plan types live in `src/domain/plan/`. `plan.generated.ts` is generated from `schema/plan.schema.json` by
@@ -482,46 +518,129 @@ components belong to the domain and system pages, and teams are not shown.
     its versions name, and everything that names in turn, with a graph's root types trimmed to fields in reach);
   - a landed plan's base is `base.yaml`, frozen from today when it shipped, so it reads against the system it
     changed.
-    `base.lock.json` fingerprints what an open plan's `modify`, `remove` and `after` ops target; when today moves
-    under them, the cover names the drift. `npm run plan:base -- check <plan>` validates and writes the lock;
-    `-- land <plan>` writes `base.yaml` and drops the lock. `src/infrastructure/plan-base-store.ts` loads both.
-- `src/infrastructure/plan-store.ts` reads plans, revisions and status onto their base, and validates them against
-  the schema.
+  - a plan that `builds_on` others reads today with the open plans of its `builds_on` closure applied first, in
+    dependency order (`plan-stack.ts` orders them; `stack-base.ts` applies their ops). A landed base is part of
+    today and drops out. Its as-is is "after the plans it builds on" and its to-be "after this plan", so its diff
+    shows only its own increment; the part it draws holds what those plans added and changed, and `inherited`
+    (id → `{ plan, title, kind: 'added' | 'modified' }`) says which plan did it (`Model.inheritedFrom`).
+    `base.lock.json` fingerprints what an open plan's `modify`, `remove` and `after` ops target, and records the
+    hash of each open plan it builds on, of its programme, and of what those plans made; when today, a base or the
+    programme moves, the cover names it and the plan is stale until checked again (it reads them as they are now).
+    The lock also keeps the hash of the plan it checked; when the plan has been written since, its cover and its
+    row in the plans index say so. `npm run plan:base -- check <plan>` validates and writes the lock; `-- land <plan>` writes `base.yaml` and drops
+    the lock, and refuses while a plan it builds on has not landed. `src/infrastructure/plan-base-store.ts` loads
+    both.
+  - Two open plans that neither builds on, directly or further down, and that touch the same thing (both modify
+    it, one removes what the other changes or a part of it, or both add it) overlap: a warning on both, and a line
+    in `npm run workspace -- check`. A plan that builds on both is an error, since what it reads would depend on
+    which went first; a list order never decides.
+- `src/infrastructure/plan-store.ts` reads plans and revisions onto their base. `readPlan` trusts the check a plan
+  passed when it was written and only shapes the part it draws against the schema; `checkPlan` checks every
+  reference against the whole base (what today finds wrong with itself is left out), for `plan:base`,
+  `workspace check` and the pre-commit hook. A plan reads its neighbours only by id (`src/application/plan/check-neighbours.ts`): the plans it
+  `builds_on` (they exist, never itself, never in a circle), the programme it joins (`meta.programme`), and ids in
+  another plan or the programme, qualified as `<plan or programme>/<id>` in `depends_on`, `blocked_by`, `after`,
+  `serves` and `[[…]]` citations.
+- A change may have `requires` (`req:` ids) and no ops yet, only while an open question in `blocked_by` holds it
+  back. Work items need not implement a change (recovery and operations work), and carry `needed_by`.
+- `plans/<plan>/progress.yaml` is an append-only record of what happened to the plan's work items and milestones:
+  `commitment` events (proposed, accepted, declined, withdrawn, with a promised date and confidence), `work` events
+  (not started, in progress, blocked, done) and notes, each with who said it and where (`application/plan/progress.ts`
+  checks them). A work item's GitHub issue state is its latest `github` work event. There is no team-wide vote.
+  `npm run progress -- add <workspace> <plan> …` (`tools/progress.ts`) appends one checked event, creating the file
+  when needed, and leaves out a `github` work event that repeats the latest one, so the issue sync is idempotent;
+  `-- show` prints where the work stands. The site never writes it.
+- Three things are tracked for every piece of work and never mixed (`Model.standing`, worked out by the store in
+  `src/infrastructure/plan-standing.ts` and sent with `plan.json`):
+  - **commitment** and **progress** (`application/plan/work-standing.ts`): per work item, its latest commitment
+    (state, promised date, confidence, who said it, where), its latest work event and when we last heard; its
+    `needed_by` (or its milestone's `due`) against the promised date, as a gap in days (positive is later than
+    needed); and its blockers: a `depends_on` item, here or in another plan, whose commitment was declined or
+    withdrawn, and an open question or undecided decision in `blocked_by`. A milestone rolls its own and its
+    items' commitments up (declined if any is, accepted only if all are) and is blocked by an `after` milestone
+    that was declined. Each team hears last from the newest event about its items.
+  - **realisation** (`application/plan/realisation.ts`): each op compared with today's model (never a stacked
+    plan's base) and rolled up per change: missing, partial, matches or differs. Only facts with authority count:
+    read from code or written by people, or documented when the owning team is a partner; the demo seed does not.
+- `programmes/<programme>/programme.yaml` (`$defs/programme` in the plan schema) holds an outcome and the problem,
+  scenarios, decisions, questions and milestones its plans share; `src/infrastructure/workspace-programmes.ts`
+  reads and checks them, and `npm run workspace -- check` reports them. `programmes`, `partners` and `impact` are
+  reserved, so no domain may take them.
+- Every plan of a workspace is read once into one index (`src/application/workspace-work/workspace-plan-index.ts`,
+  loaded and kept until a file changes by `src/infrastructure/workspace-plan-index.ts`): its plans in landing order,
+  programmes, changes and work keyed `<plan>/<id>`, each `builds_on` edge with the changes there the plan reads
+  (`through`, from the ids its ops use and the work it waits on) and its health (ready, waiting, stale or conflict),
+  and the overlaps. Each screen about many plans projects from it to one plain, worded view model: `workCardVM`,
+  `stackCoverVM` (a plan's cover), `partnerPageVM`, `programmePageVM` and `impactVM` (pending work on a team or a
+  system: now, next, then, blocked).
+- The pages about work across plans project from that index: the programmes (`programmeRowsOf`) and one programme
+  (`programmePageVM`: outcome and standing, then its plans in landing order with what each builds on, its milestones
+  with the plan milestones that serve them, its decisions and questions, where it lands from `landingOf`, and the
+  partner work it depends on); the partners (`partnersVM`: the systems each owns, its work across plans, when we last
+  heard, with an age) and one partner (`partnerPageVM`). Last heard is never called overdue: no team has an agreed
+  check-in cadence yet. A system page's Plans section starts with the work still to do there across plans
+  (`impactRowsOf`), grouped now, next, then and blocked, each row saying who owns it ("Orders owns", or "Payments
+  owns · we depend on this"), which plan it is in and how it stands; a change's systems include what it changes that
+  a plan below it added. The page bodies live in `src/features/workspace/`; the partner page takes each item's
+  `WorkCard` from its route, which reaches it through the plan feature's index, as a system page takes its map.
+- One work card draws every team's work (`src/features/plan/work/work-card.tsx`, on `RecordCard`): who owns it
+  ("we depend on this" for a partner), its commitment, progress, needed-by date and how many days later the promise
+  is, when we last heard, and what holds it up, as links. Ours ends in its GitHub issue; a partner's in Record update,
+  a form that drafts one `progress.yaml` event (`application/plan/progress-draft.ts`) and gives the exact
+  `npm run progress -- add …` command and an agent prompt that appends it. The site still writes nothing. The build
+  waves draw partners' items in their real waves beside ours, never in a lane of their own, and Send to GitHub
+  leaves them out and says how many are recorded separately. The inspector shows the same card for a work item.
+- A stacked plan's cover says what it reads after (each base as checked ✓, or changed since), when it was checked,
+  the work those plans have not delivered, its overlaps with links to the change in both plans, the programme it is
+  part of, and the one command that checks it again. Wherever the changes chapter or a thing's page shows something
+  a plan below added or changed, `InheritedNote` labels it once per group: "Added by Sales tool · not live yet".
 - The plan viewer is one feature, `src/features/plan/`, with subfolders per chapter. Charts that know the model
   stay in the feature; `ui` stays model-agnostic.
 
 ### Routes
 
-| Route                                               | Page                                   |
-| --------------------------------------------------- | -------------------------------------- |
-| `/`                                                 | the workspaces                         |
-| `/design/`                                          | every piece of the design system       |
-| `/[workspace]/`                                     | the map of one workspace               |
-| `/[workspace]/value-flows/`                         | searchable work across areas           |
-| `/[workspace]/areas/[area]/`                        | one authored entrance into its systems |
-| `/[workspace]/language/`                            | key terms and the words in the code    |
-| `/[workspace]/people/`                              | the people who use the systems         |
-| `/[workspace]/plans/`                               | every plan, to search and filter       |
-| `/[workspace]/[domain]/`                            | one domain                             |
-| `/[workspace]/[domain]/target/`                     | one domain's target architecture       |
-| `/[workspace]/[domain]/flows/[flow]/`               | one domain, with one flow open         |
-| `/[workspace]/[domain]/[system]/`                   | one system                             |
-| `/[workspace]/[domain]/[system]/flows/[flow]/`      | one system, with one flow open         |
-| `/[workspace]/journeys/`                            | the journeys through the systems       |
-| `/[workspace]/journeys/[key]/`                      | one journey, walked step by step       |
-| `/[workspace]/reference/`                           | the kinds of thing the systems hold    |
-| `/[workspace]/reference/[kind]/`                    | the catalogue of one kind              |
-| `/[workspace]/things/?id=<token>`                   | one thing as it runs today             |
-| `/[workspace]/model.json`                           | the workspace today, for the browser   |
-| `/[workspace]/assets/[...file]`                     | the workspace's images                 |
-| `/[workspace]/plans/[plan]/`                        | a plan's cover                         |
-| `/[workspace]/plans/[plan]/[chapter]/[screen]/`     | one screen of a plan                   |
-| `/[workspace]/plans/[plan]/things/?id=<token>`      | one thing of a plan, as a page         |
-| `/[workspace]/plans/[plan]/plan.json`               | the checked plan, for the browser      |
-| `/[workspace]/plans/[plan]/revisions/[v]/plan.json` | an earlier version, for the browser    |
-| `/[workspace]/plans/[plan]/assets/[...file]`        | a plan's diagrams and images           |
-| `/[workspace]/plans/[plan]/mockups/[...file]`       | a plan's mockup pages                  |
-| `/explorer-data/[workspace]/[generation]/[file]`    | the service explorer's evidence        |
+| Route                                               | Page                                      |
+| --------------------------------------------------- | ----------------------------------------- |
+| `/`                                                 | the workspaces                            |
+| `/design/`                                          | every piece of the design system          |
+| `/[workspace]/`                                     | the map of one workspace                  |
+| `/[workspace]/value-flows/`                         | searchable work across areas              |
+| `/[workspace]/areas/[area]/`                        | one authored entrance into its systems    |
+| `/[workspace]/areas/[area]/map.json`                | an area's map, for the browser            |
+| `/[workspace]/explorer/`                            | the service explorer                      |
+| `/[workspace]/explorer/data/[file]`                 | the service explorer's data               |
+| `/[workspace]/language/`                            | key terms and the words in the code       |
+| `/[workspace]/people/`                              | the people who use the systems            |
+| `/[workspace]/plans/`                               | every plan, to search and filter          |
+| `/[workspace]/programmes/`                          | the programmes                            |
+| `/[workspace]/programmes/[programme]/`              | one programme and its plans in order      |
+| `/[workspace]/partners/`                            | the partners                              |
+| `/[workspace]/partners/[team]/`                     | one partner (its team id without `team:`) |
+| `/[workspace]/[domain]/`                            | one domain                                |
+| `/[workspace]/[domain]/plans/`                      | the plans that reach one domain           |
+| `/[workspace]/[domain]/flows/`                      | one domain's flows                        |
+| `/[workspace]/[domain]/flows/[flow]/`               | one domain, with one flow open            |
+| `/[workspace]/[domain]/map/`                        | one domain's map                          |
+| `/[workspace]/[domain]/language/`                   | one domain's words                        |
+| `/[workspace]/[domain]/interfaces/`                 | one domain's interfaces                   |
+| `/[workspace]/[domain]/target/`                     | one domain's target architecture          |
+| `/[workspace]/[domain]/[system]/`                   | one system                                |
+| `/[workspace]/[domain]/[system]/flows/[flow]/`      | one system, with one flow open            |
+| `/[workspace]/journeys/`                            | the journeys through the systems          |
+| `/[workspace]/journeys/[key]/`                      | one journey, walked step by step          |
+| `/[workspace]/reference/`                           | the kinds of thing the systems hold       |
+| `/[workspace]/reference/[kind]/`                    | the catalogue of one kind                 |
+| `/[workspace]/things/?id=<token>`                   | one thing as it runs today                |
+| `/[workspace]/model.json`                           | the workspace today, for the browser      |
+| `/[workspace]/assets/[...file]`                     | the workspace's images                    |
+| `/[workspace]/plans/[plan]/`                        | a plan's cover                            |
+| `/[workspace]/plans/[plan]/[chapter]/[screen]/`     | one screen of a plan                      |
+| `/[workspace]/plans/[plan]/things/?id=<token>`      | one thing of a plan, as a page            |
+| `/[workspace]/plans/[plan]/plan.json`               | the checked plan, for the browser         |
+| `/[workspace]/plans/[plan]/revisions/[v]/plan.json` | an earlier version, for the browser       |
+| `/[workspace]/plans/[plan]/assets/[...file]`        | a plan's diagrams and images              |
+| `/[workspace]/plans/[plan]/mockups/[...file]`       | a plan's mockup pages                     |
+| `/explorer-data/[workspace]/[generation]/[file]`    | the service explorer's evidence           |
 
 A domain page and a system page are each a layout, and each flow through them is a page under it, so a domain
 can run hundreds of flows: the page carries only the flow being read, and choosing another fetches just that
@@ -534,7 +653,8 @@ and flow as one line, to be narrowed by words or by domain, never as cards. The 
 the key ones, and the one being read.
 
 The sidebar has two shapes. Across the workspace it reads in three sections: Overview (the landscape, opening to
-its map, language and people, and the plans), Domains (one link each, counting its systems) and Look up (the
+its map, language and people, the plans, then the programmes and the partners, each only when the workspace has
+some), Domains (one link each, counting its systems) and Look up (the
 journeys and the reference); `src/application/workspace-nav.ts` builds it. Inside a domain, on its pages and its
 systems' pages, the sidebar steps into the domain (`src/application/domain-nav.ts`): a link back to the
 workspace, the domain's name, its pages (overview, plans, flows, map, language, interfaces; the domain page has no
@@ -583,7 +703,8 @@ domain in the trail, and a line on how to read it. The overview alone keeps the 
 teams (`DomainHeader`), so the map, flows and other tabs start straight away. Each flow read beside the list is
 titled with its name.
 
-`plans`, `things`, `assets`, `journeys`, `reference`, `language`, `people` and `areas` are reserved and cannot be domain ids, `flows` cannot be
+`plans`, `things`, `assets`, `journeys`, `reference`, `language`, `people`, `areas`, `programmes`, `partners` and
+`impact` are reserved and cannot be domain ids, `flows` cannot be
 a system id, and `assets`,
 `mockups`, `things` and `revisions` cannot be
 chapters. Screens render on the server. The step, lens and open inspector live in the URL; the server reads the
@@ -659,8 +780,8 @@ Each history entry carries the trail of ids opened before it, so the inspector's
 crumbs, and a crumb goes back that many entries. Copy link copies the address, hash and all. A thing that changes
 has a switch between today and with this plan; it is client state, starts on the plan, and is not in the address.
 Plan-level things (decisions, risks, questions, work items, milestones, changes, tests and scenarios) have no
-today and no switch. A flow draws as a sequence, a work item shows its GitHub issue (title, state from
-`status.json`, link and the text to file), and an As at picker under the bar opens the thing as it stood in an
+today and no switch. A flow draws as a sequence, a work item shows its work card and, unless a partner owns it,
+its GitHub issue (title, state from the latest GitHub event in `progress.yaml`, link and the text to file), and an As at picker under the bar opens the thing as it stood in an
 earlier version kept in the ledger, from `revisions/<v>/plan.json`. While the inspector is open
 every `[data-inspect]` for the open id outside it carries `data-picked`, and on a window at least `72rem` wide the
 page narrows by `--inspector-w` so the panel does not cover it. Resting the pointer on a `[data-inspect]` for
@@ -777,6 +898,8 @@ tools ──▶ scan ──▶ infrastructure, application, domain, shared
 - Server components by default. A client component lives in `*.client.tsx` and starts with `'use client'`; the
   name shows the boundary at every import.
 - Internal links use `next/link`. Styles are CSS modules. No `style` props: use a class or a data attribute.
+  The root layout imports `globals.css` before styled components so its cascade-layer order is established
+  before component layers; otherwise base button resets can override component padding.
 - A component and its CSS module are a pair: `card.tsx` imports `./card.module.css` as `styles` and no other
   file imports it. Every `styles.x` must be a class in the module, and every class in the module must be used.
   Style state with data attributes, not dynamic class names.

@@ -23,11 +23,35 @@ export interface BaseInfo {
   readonly landedOn: string | null;
   /** When the plan's changes were last read against today. */
   readonly checkedOn: string | null;
+  /** The plan has been written again since it was checked (or its check did not keep which version it read). */
+  readonly edited: boolean;
   /** The things the plan changes that today has changed since it was checked. */
   readonly drift: readonly string[];
+  /** The open plans it reads on top of today, bases first, and whether each has changed since it was checked. */
+  readonly builtOn: readonly BuiltOn[];
+  /** The programme it joins, and whether that has changed since it was checked. */
+  readonly programme: { readonly id: string; readonly changed: boolean } | null;
+  /** A plan it builds on or its programme has changed since it was checked; it reads them as they are now. */
+  readonly stale: boolean;
 }
 
-export const NO_BASE: BaseInfo = { mode: 'none', landedOn: null, checkedOn: null, drift: [] };
+/** An open plan a plan reads on top of today. */
+export interface BuiltOn {
+  readonly slug: string;
+  readonly title: string;
+  readonly changed: boolean;
+}
+
+export const NO_BASE: BaseInfo = {
+  mode: 'none',
+  landedOn: null,
+  checkedOn: null,
+  edited: false,
+  drift: [],
+  builtOn: [],
+  programme: null,
+  stale: false,
+};
 
 const isCollection = (key: string): key is Collection => key in SYSTEM_COLLECTIONS;
 const COLLECTIONS: readonly Collection[] = Object.keys(SYSTEM_COLLECTIONS).filter(isCollection);

@@ -18,6 +18,7 @@ import {
   type Workspace,
   systemDoes,
 } from '@/domain/workspace';
+import type { Attribution } from '@/domain/workspace-model';
 import { plural } from '@/shared/text';
 
 import {
@@ -113,12 +114,30 @@ interface AreaJoin {
   readonly model: Model | undefined;
   readonly links: Readonly<Record<string, string>>;
   readonly caller: (id: string) => AreaCallerView;
+  readonly attribution?: Readonly<Record<string, Attribution>> | undefined;
+}
+
+function componentRepository(
+  component: Component,
+  join: AreaJoin,
+): AreaComponentView['repository'] {
+  const sources = new Set(
+    (join.attribution?.[component.id]?.sources ?? []).map((source) => source.repo),
+  );
+  if (sources.size > 1) return null;
+  const published =
+    join.manifest?.services.filter(
+      (service) => service.id === component.id || service.id === component.id.replace(/^svc:/u, ''),
+    ) ?? [];
+  const name = [...sources][0] ?? (published.length === 1 ? published[0]?.repo : undefined);
+  if (name === undefined) return null;
+  return {
+    name,
+    href: name.split('/').length === 2 ? `https://github.com/${name}` : `https://${name}`,
+  };
 }
 
 function componentView(component: Component, join: AreaJoin): AreaComponentView {
-  const explorerService = join.manifest?.services.find(
-    (service) => service.id === component.id || service.id === component.id.replace(/^svc:/u, ''),
-  );
   return {
     id: component.id,
     name: component.name,
@@ -127,13 +146,7 @@ function componentView(component: Component, join: AreaJoin): AreaComponentView 
     summary: component.does ?? 'Purpose not described yet.',
     technology: component.tech,
     explorer: join.links[component.id] ?? null,
-    repository:
-      explorerService === undefined
-        ? null
-        : {
-            name: explorerService.repo,
-            href: `https://github.com/${explorerService.repo}`,
-          },
+    repository: componentRepository(component, join),
     endpoints: endpointsOf(component, join),
     resources: resourcesOf(component.id, join.model),
     dependencies: dependenciesOf(component, join.workspace, join.model),
@@ -292,6 +305,7 @@ export function areaViewOf(options: {
   readonly area: string;
   readonly explorer: ExplorerManifest | null;
   readonly model?: Model;
+  readonly attribution?: Readonly<Record<string, Attribution>>;
 }): AreaView | null {
   const { workspace, landscape, explorer, model } = options;
   const area = landscape.areas.find((each) => each.id === options.area);
@@ -308,7 +322,13 @@ export function areaViewOf(options: {
       const view =
         system === undefined
           ? null
-          : systemView(system, { workspace, manifest: explorer, model, caller });
+          : systemView(system, {
+              workspace,
+              manifest: explorer,
+              model,
+              caller,
+              attribution: options.attribution,
+            });
       return view === null ? [] : [view];
     }),
     model,

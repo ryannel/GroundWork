@@ -11,7 +11,8 @@ Reminders:
 - Ledger order matters for `into`, `after` and op targets: an `add` must come before an op that
   targets its container. Plain references (`via`, `payload`, `proves` …) may point anywhere in the ledger.
 - Quote ids containing `#`.
-- Every change still needs ≥ 1 test (`tests[].proves`) and ≥ 1 work item (`work_items[].implements`).
+- Every change still needs ≥ 1 test (`tests[].proves` names the change or one of its `requires`) and ≥ 1 work
+  item (`work_items[].implements`).
 - Before/after, status badges and the migration ladder are derived from these ops. Write only the after-value.
 
 Contents: [1 Add a field](#1-add-a-field-to-an-existing-record) · [2 Add an endpoint](#2-add-an-endpoint-to-an-existing-interface) ·
@@ -21,7 +22,8 @@ Contents: [1 Add a field](#1-add-a-field-to-an-existing-record) · [2 Add an end
 [9 Store + access](#9-add-a-store-and-give-another-service-access) · [10 Widen an enum](#10-widen-an-enum) ·
 [11 Deprecate an endpoint](#11-deprecate-an-endpoint-in-favour-of-a-new-one) · [12 Per-consumer migration](#12-per-consumer-migration-pattern) ·
 [13 Smaller recipes](#13-smaller-recipes) · [14 What not to do](#14-what-not-to-do) · [15 Screens](#15-screens-a-new-look-a-new-region-a-new-screen) ·
-[16–19 Graph](#16-graph-add-a-subgraph-and-a-field-that-needs-another-field) · [20 Handlers](#20-handlers-add-a-step-a-branch-or-a-new-handler)
+[16–19 Graph](#16-graph-add-a-subgraph-and-a-field-that-needs-another-field) · [20 Handlers](#20-handlers-add-a-step-a-branch-or-a-new-handler) ·
+[21 Plans together](#21-plans-together-programmes-increments-and-partners)
 
 ---
 
@@ -639,3 +641,156 @@ have no ids, so a change either appends to the end of a step list or replaces th
 Keep the plain-words rules of [handlers.md](../groundwork-explore/handlers.md): conditions a product person
 would say, every outgoing call and decision kept, trivial code collapsed. A new call between components is a
 `call` step in the caller's handler; the connection and the call tree are derived from it.
+
+## 21. Plans together: programmes, increments and partners
+
+These are not ops: they say how a plan sits beside the others. The ids are from the Care by Volvo Sweden split
+(see [groundwork-plan](../groundwork-plan/SKILL.md#split-a-large-discovery-into-a-programme)).
+
+```yaml
+# programmes/care-se/programme.yaml: shared context for the plans that serve one outcome. Not an overlay: no ops.
+id: care-se # the folder name
+title: Care by Volvo in Sweden
+outcome: Retailers and customers carry one Care deal through sale, financing and change.
+problem: { summary: '…', why: '…', glossary: [{ term: FAE, means: '…' }] }
+scenarios: # shared unhappy paths every plan can cite and prove
+  - { id: sc:decline-after-signing, title: Financing declined after signing, story: '…' }
+decisions:
+  - {
+      id: dec:revised-contract-replaces,
+      title: A revised contract replaces the signed one,
+      status: proposed,
+      decider: team:product,
+      decide_by: '2027-01-10',
+    }
+questions:
+  - {
+      id: q:reservation-length,
+      question: How long does a reservation hold a car?,
+      decider: team:product,
+      decide_by: '2026-12-01',
+      status: open,
+    }
+milestones: # outcomes; plan milestones say which one they serve
+  - { id: ms:m3, name: 'M3 · A signed order can change', due: '2027-03-31' }
+```
+
+The programme's list of plans is derived from each plan's `meta.programme`. Nothing is inherited: a plan cites a
+programme item by its qualified id.
+
+```yaml
+# plans/care-se-order-change/plan.yaml: an increment on two other plans
+meta: { id: care-se-order-change, title: Change a signed Care order, programme: care-se, … }
+builds_on: [care-se-sales-tool, care-se-financing-status] # what it reads: today with these applied first
+milestones:
+  - {
+      id: ms:ziklo-order-change,
+      name: Ziklo can quote and revise an order,
+      after: [care-se-sales-tool/ms:walk-in],
+      serves: care-se/ms:m3,
+    }
+```
+
+- `builds_on` is composition only; ops may target what those plans add. Order of work is `depends_on` and `after`.
+- If two plans it builds on change the same thing and neither builds on the other, the check fails: make one build
+  on the other first.
+- `npm run plan:base -- check <plan>` locks the hashes of each base plan and the programme too.
+
+```yaml
+# Qualified references: <plan or programme>/<id>, in depends_on, blocked_by, after, serves and [[…]] citations
+work_items:
+  - id: wi:checkout-revision
+    depends_on: [care-se-financing-status/wi:event-correlation] # another plan's work item
+    blocked_by: [care-se/dec:revised-contract-replaces] # the programme's decision
+    body: Follows [[care-se/sc:decline-after-signing]].
+```
+
+```yaml
+# A change whose shape is not agreed: requires, no ops, held back by an open question
+changes:
+  - id: chg:ziklo-order-change-quote
+    title: Ziklo quotes a change to an existing order
+    requires:
+      - { id: req:original-rates, text: The quote says whether the original rates still apply. }
+    blocked_by: [q:ziklo-quote-shape] # must be an open question, here or in the programme
+    # ops come once the shape is agreed
+tests:
+  - {
+      id: tst:quote-keeps-rates,
+      level: contract,
+      name: '…',
+      proves: [req:original-rates],
+      owner: team:leads-collection,
+    }
+```
+
+```yaml
+# Partner work: the same fields as ours. needed_by is our need; their promise lives in progress.yaml.
+work_items:
+  - id: wi:ziklo-order-change-quote
+    title: Provide the order-change quote
+    team: team:ziklo # partner: true in workspace.yaml; never filed as our issue
+    implements: [chg:ziklo-order-change-quote] # optional: recovery and operations work implements none
+    milestone: ms:ziklo-order-change
+    needed_by: '2027-02-15'
+    blocked_by: [q:ziklo-quote-shape]
+```
+
+```yaml
+# plans/<plan>/progress.yaml: append-only, oldest first. Append with npm run progress -- add; never edit an event.
+events:
+  - at: '2026-10-20'
+    subject: wi:ziklo-order-change-quote # a work item or milestone of this plan
+    kind: commitment # commitment | work | note
+    state: proposed # commitment: proposed | accepted | declined | withdrawn
+    said_by: Louise A. Zieme
+    source: { kind: meeting, url: https://notion.so/…, note: Order-change API discussed }
+  - at: '2026-11-04'
+    subject: wi:ziklo-order-change-quote
+    kind: commitment
+    state: accepted
+    promised_for: '2027-03-01'
+    confidence: medium # high | medium | low, as the team said it
+    said_by: Louise A. Zieme
+    source: { kind: meeting, url: https://notion.so/… }
+  - at: '2027-01-12'
+    subject: wi:ziklo-order-change-quote
+    kind: work
+    state: in_progress # work: not_started | in_progress | blocked | done
+    source: { kind: partner-update, url: https://… } # meeting | partner-update | github | test | scan | document | note
+```
+
+```yaml
+# The model: a partner's system, read from its documents (domains/<d>/systems/<s>/ of the domain it serves)
+# workspace.yaml
+teams:
+  - {
+      id: team:ziklo,
+      name: Ziklo,
+      partner: true,
+      contacts: [{ name: Louise A. Zieme, role: product }],
+    }
+# system.yaml
+team: team:ziklo # typed: a partner's system always names its team
+# contracts.yaml
+interfaces:
+  - id: if:ziklo-quotes
+    service: svc:ziklo-api
+    protocol: rest
+    origin: documented # read from a document, not code; its endpoints share it
+    sources:
+      - { url: https://partner.ziklo.example/openapi.json, pointer: '#/paths', version: '2.3' }
+    endpoints:
+      - id: api:ziklo-create-quote
+        sig: POST /quotes
+        sources:
+          - {
+              url: https://partner.ziklo.example/openapi.json,
+              pointer: '#/paths/~1quotes/post',
+              version: '2.3',
+            }
+          # or, for a prose page: { url: https://notion.so/…, heading: Quotes, version: '2026-10-20' }
+```
+
+A documented source names a pointer or a heading, not both, and the version read. The url may be one the app
+cannot reach; `node tools/sources.ts` counts such sources and does not fetch them.

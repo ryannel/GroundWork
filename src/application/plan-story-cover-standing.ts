@@ -4,12 +4,10 @@ import { andList } from '@/application/plan-viz-ladder-order';
 import { buildSummary } from '@/application/plan-viz-milestone';
 import { shortDate } from '@/application/plan-viz-state';
 import { teamName } from '@/application/plan-viz-teams';
-import { numWord, plainLine } from '@/application/plan-viz-text';
-import { voteSummary, type VoteSummary } from '@/application/plan-viz-vote';
-import type { Commitment } from '@/domain/plan/plan.generated';
+import { numWord } from '@/application/plan-viz-text';
 
 // Where a plan stands and what the teams are asked to do now: one reading for the cover, Your part and the chapters
-// that talk about approval. The stage, the gates (the register's "To decide" group) and the vote.
+// that talk about approval. The stage and the gates (the register's "To decide" group).
 
 export type Stage = 'draft' | 'review' | 'approved' | 'in-delivery' | 'delivered';
 
@@ -59,60 +57,6 @@ export function asClause(title: string): string {
   return /[!.?]$/u.test(clause) ? clause : `${clause}.`;
 }
 
-const REASON_MAX = 100;
-const CLAUSE_MIN = 20;
-const REASON_SEPARATORS = [', and ', '; ', ', so ', ', but ', ' because '];
-
-const firstSentence = (text: string): string => {
-  const end = /[!.?]\s/u.exec(text);
-  return end === null ? text : text.slice(0, end.index + 1);
-};
-
-const TRAILING = new Set([' ', '.', '…', '\n', '\t']);
-function trimEnd(text: string): string {
-  let end = text.length;
-  while (end > 0 && TRAILING.has(text.charAt(end - 1))) end -= 1;
-  return text.slice(0, end);
-}
-
-function cutAtClause(text: string, max: number): string {
-  const at = REASON_SEPARATORS.map((s) => text.lastIndexOf(s)).find(
-    (i) => i > CLAUSE_MIN && i <= max,
-  );
-  const cut = at === undefined ? text : text.slice(0, at);
-  return cut.length > max ? trimEnd(cut.slice(0, max)) : cut;
-}
-
-/** A team's note as the reason in a sentence: its first sentence, cut at a clause when long, with no full stop. */
-export function reasonOf(note: string | undefined, max = REASON_MAX, model?: Model): string {
-  const text = plainLine(note ?? '', model)
-    .trim()
-    .replaceAll(/\s+/gu, ' ');
-  const sentence = firstSentence(text).replace(/[!.?]$/u, '');
-  const out = sentence.length > max ? cutAtClause(sentence, max) : sentence;
-  return startsSentenceCase(out) ? lower(out) : out;
-}
-
-const ratingOf = (votes: ReadonlyMap<string, Commitment>, team: string): string =>
-  String(votes.get(team)?.confidence ?? '');
-
-/** "Legal is not confident (2 of 5): the price opinion is on file for DE." Several teams: one sentence naming them. */
-export function lowVoteSentence(
-  model: Model,
-  low: readonly string[],
-  votes: ReadonlyMap<string, Commitment>,
-): string {
-  const [first] = low;
-  if (first === undefined) return '';
-  if (low.length > 1) {
-    const names = andList(low.map((t) => teamName(model, t)));
-    return `${names} are not confident (${andList(low.map((t) => ratingOf(votes, t)))} of 5).`;
-  }
-  const why = reasonOf(votes.get(first)?.note, REASON_MAX, model);
-  const reason = why === '' ? '' : `: ${why}`;
-  return `${teamName(model, first)} is not confident (${ratingOf(votes, first)} of 5)${reason}.`;
-}
-
 /** The day the plan was approved, as "25 Sep", or ''. */
 export function approvedOn(model: Model): string {
   const entry = (model.plan.meta.revisions ?? []).find((r) => r.status === 'approved');
@@ -160,12 +104,7 @@ function gateMore(gates: readonly Deciding[], first: Deciding, today: Date | und
   return ` ${capital(numWord(rest))} more ${verb} to be settled before approval${tail}.`;
 }
 
-function gateLine(
-  model: Model,
-  gates: readonly Deciding[],
-  at: { readonly hasLow: boolean; readonly today: string },
-): AskLine | null {
-  const { hasLow, today } = at;
+function gateLine(model: Model, gates: readonly Deciding[], today: string): AskLine | null {
   const [head] = gates;
   if (head === undefined) return null;
   const first = gates.find((e) => e.decide_by !== undefined) ?? head;
@@ -173,32 +112,15 @@ function gateLine(
   return {
     tone: late ? 'warn' : 'note',
     text: `${gateLead(model, first, late)}: ${asClause(gateTitle(first, model))}${gateMore(gates, first, model.today)}`,
-    link: hasLow ? null : STILL_TO_SETTLE,
+    link: STILL_TO_SETTLE,
   };
 }
 
-function nothingLeft(model: Model, missing: readonly string[]): string {
-  if (missing.length === 0) {
-    return 'Nothing is left to decide and every team has rated its confidence: the owner can approve it by merging.';
-  }
-  const names = andList(missing.map((t) => teamName(model, t)));
-  const one = missing.length === 1;
-  return `Nothing is left to decide; ${names} ${one ? 'has' : 'have'} not rated ${one ? 'its' : 'their'} confidence yet.`;
-}
+const NOTHING_LEFT = 'Nothing is left to decide: the owner can approve it by merging.';
 
-function beforeApproval(model: Model, vote: VoteSummary, today: string): AskLine[] {
-  const out: AskLine[] = [];
-  const hasLow = vote.low.length > 0;
-  if (hasLow) {
-    const text = `${lowVoteSentence(model, vote.low, vote.votes)} The owner rethinks the plan before approving it.`;
-    out.push({ tone: 'warn', text, link: STILL_TO_SETTLE });
-  }
-  const gate = gateLine(model, gatesOf(model), { hasLow, today });
-  if (gate !== null) out.push(gate);
-  else if (!hasLow) {
-    out.push({ tone: 'note', text: nothingLeft(model, vote.missing), link: STILL_TO_SETTLE });
-  }
-  return out;
+function beforeApproval(model: Model, today: string): AskLine[] {
+  const gate = gateLine(model, gatesOf(model), today);
+  return [gate ?? { tone: 'note', text: NOTHING_LEFT, link: STILL_TO_SETTLE }];
 }
 
 function inDelivery(model: Model, today: string): AskLine[] {
@@ -245,7 +167,7 @@ function deliveredLine(model: Model): AskLine {
  */
 export function askLines(model: Model, today: string): AskLine[] {
   const stage = planStage(model);
-  if (!isApproved(stage)) return beforeApproval(model, voteSummary(model), today);
+  if (!isApproved(stage)) return beforeApproval(model, today);
   if (stage === 'delivered') return [deliveredLine(model)];
   return stage === IN_DELIVERY ? inDelivery(model, today) : [approvedLine(model)];
 }

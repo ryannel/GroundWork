@@ -22,7 +22,7 @@ export default async function WorkspaceRoute({ params }: { readonly params: Prom
   if (data === null) notFound();
   const { workspace, today, plans } = data;
   const authored = await readAuthoredLandscape(id);
-  const nav = workspaceNavOf(workspace, plans, { today: today.model });
+  const nav = workspaceNavOf(workspace, plans, { today: today.model }, data.programmes);
   const overlays = <TodayOverlays depth={0} workspace={workspace} />;
   if (authored !== null) {
     return (

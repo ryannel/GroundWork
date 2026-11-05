@@ -8,8 +8,10 @@ import { referenceOf } from './today-reference';
 import {
   domainHref,
   languageHref,
+  partnersHref,
   peopleHref,
   plansHref,
+  programmesHref,
   valueFlowsHref,
   workspaceHref,
 } from './workspace-paths';
@@ -51,6 +53,8 @@ export interface NavHere {
     | 'language'
     | 'people'
     | 'plans'
+    | 'programmes'
+    | 'partners'
     | 'explorer'
     | 'area'
     | 'value-flows';
@@ -83,12 +87,40 @@ function landscapeGroup(workspace: string, here: NavHere): NavGroup {
   };
 }
 
-// The workspace as a rail in three sections: an overview (the landscape and the plans), the domains, and what to
-// look up (the journeys and the reference). Stepping into a domain swaps this rail for the domain's own.
+// The programmes and the partners, each only when the workspace has some.
+function workGroups(
+  workspace: Workspace,
+  programmes: readonly unknown[],
+  here: NavHere,
+): NavGroup[] {
+  const partners = workspace.teams.filter((team) => team.partner === true);
+  const group = (key: 'programmes' | 'partners', title: string, href: string, count: number) => ({
+    key,
+    title,
+    href,
+    count: String(count),
+    current: here.section === key,
+    open: false,
+    items: [],
+  });
+  return [
+    ...(programmes.length === 0
+      ? []
+      : [group('programmes', 'Programmes', programmesHref(workspace.id), programmes.length)]),
+    ...(partners.length === 0
+      ? []
+      : [group('partners', 'Partners', partnersHref(workspace.id), partners.length)]),
+  ];
+}
+
+// The workspace as a rail in three sections: an overview (the landscape, the plans, and the programmes and partners
+// when there are any), the domains, and what to look up (the journeys and the reference). Stepping into a domain
+// swaps this rail for the domain's own.
 export function workspaceNavOf(
   workspace: Workspace,
   plans: readonly unknown[],
   here: NavHere,
+  programmes: readonly unknown[] = [],
 ): NavGroup[] {
   // A workspace can hold hundreds of plans, so the rail counts them and the index finds them.
   const planGroup: NavGroup = {
@@ -116,6 +148,7 @@ export function workspaceNavOf(
   return [
     landscapeGroup(workspace.id, here),
     planGroup,
+    ...workGroups(workspace, programmes, here),
     ...domains,
     journeysGroup(workspace, here),
     {

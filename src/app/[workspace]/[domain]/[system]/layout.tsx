@@ -9,10 +9,12 @@ import { domainPlanRowsOf } from '@/application/plan-index';
 import { domainViewOf } from '@/application/workspace-domain';
 import { domainWordsOf } from '@/application/workspace-language';
 import { systemViewOf } from '@/application/workspace-system';
+import { systemImpactRows } from '@/application/workspace-work/impact';
 import { FlowList, TodayMap, TodayOverlays, TodaySearch } from '@/features/plan';
 import { SystemPage } from '@/features/workspace';
 import { readExplorerNavigation } from '@/infrastructure/service-explorer-navigation';
 import { todayData } from '@/infrastructure/today-data';
+import { readWorkspacePlanIndex } from '@/infrastructure/workspace-plan-index';
 import { readLoadedPlans } from '@/infrastructure/workspace-plans';
 
 interface Params {
@@ -52,7 +54,10 @@ export default async function SystemLayout({
     components: view.components.map((component) => component.chip.id),
     repositories: view.repos.map((repo) => repo.repo),
   });
-  const loaded = await readLoadedPlans(workspace.id);
+  const [loaded, index] = await Promise.all([
+    readLoadedPlans(workspace.id),
+    readWorkspacePlanIndex(workspace.id),
+  ]);
   const parts = partsFor(workspace, { domain, system }, loaded);
   const nav = domainNavOf(workspace, place, {
     words: domainWordsOf(today.languages, domain)?.concepts.length ?? 0,
@@ -70,6 +75,7 @@ export default async function SystemLayout({
       explorerLinks={explorer.components}
       explorerRepositories={explorer.repositories}
       flows={<FlowList flows={view.flows}>{children}</FlowList>}
+      impact={systemImpactRows(index, { id: `sys:${system}`, name: view.name })}
       map={<TodayMap model={today.model} scope={scope} workspace={workspace} />}
       nav={nav}
       overlays={<TodayOverlays workspace={workspace} />}

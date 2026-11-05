@@ -150,7 +150,7 @@ describe('todayJourneys', () => {
       delete stepOf(flowOf(plan, 'flow:place-order'), 5).screen;
       delete stepOf(flowOf(plan, 'flow:view-product'), 0).screen;
       delete stepOf(flowOf(plan, 'flow:view-product'), 2).screen;
-      plan.changes?.[0]?.ops.push({
+      plan.changes?.[0]?.ops?.push({
         modify: 'flow:place-order#email',
         set: { screen: 'scr:order-email' },
       });
@@ -269,7 +269,7 @@ describe('todayWireflows', () => {
 
   it('is baseline-only and does not turn inferred UI actions into proven controls', () => {
     const m = checkout((plan) => {
-      plan.changes?.[0]?.ops.push({
+      plan.changes?.[0]?.ops?.push({
         add: 'step',
         into: 'flow:add-to-basket',
         after: 'flow:add-to-basket#add',

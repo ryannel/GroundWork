@@ -239,25 +239,32 @@ export function ComponentCardResourceRow({
   );
 }
 
-/** A store or topic another component owns; drawn small, since its own card holds the detail. The detail is
- * the full description, for the tooltip and screen readers. */
+/** A resource reference explains where selecting it will lead, including unplaced resources. */
 export function ComponentCardSharedRow({
   icon,
   tone,
   name,
   detail,
+  location,
+  active,
+  disabled,
   onSelect,
 }: {
   readonly icon: IconName;
   readonly tone: CardTone;
   readonly name: string;
   readonly detail: string;
+  readonly location: string;
+  readonly active: boolean;
+  readonly disabled: boolean;
   readonly onSelect: () => void;
 }) {
   return (
     <button
       aria-label={detail}
+      aria-pressed={active}
       className={styles.sharedRow}
+      disabled={disabled}
       onClick={onSelect}
       title={detail}
       type="button"
@@ -265,10 +272,15 @@ export function ComponentCardSharedRow({
       <span aria-hidden="true" className={styles.tile} data-size="sm" data-tone={tone}>
         <Icon name={icon} />
       </span>
-      <span className={styles.path}>{name}</span>
-      <span aria-hidden="true" className={styles.meta}>
-        ↗
+      <span className={styles.resourceText}>
+        <span className={styles.resourceName}>{name}</span>
+        <span className={styles.resourceDetail}>{location}</span>
       </span>
+      {disabled ? null : (
+        <span aria-hidden="true" className={styles.meta}>
+          →
+        </span>
+      )}
     </button>
   );
 }

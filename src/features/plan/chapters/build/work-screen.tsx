@@ -4,6 +4,7 @@ import { buildSummary, type BuildSummary } from '@/application/plan-viz-mileston
 import { teamName } from '@/application/plan-viz-teams';
 import { countOf } from '@/application/plan-viz-text';
 import { orderTeams, wiState } from '@/application/plan-viz-work';
+import { partnerTeamsOf } from '@/application/plan-work-cards';
 import { DeliveryHead } from '@/features/plan/chapters/delivery/delivery-head';
 import { EmptyState } from '@/features/plan/chapters/delivery/empty-state';
 import { TeamDot } from '@/features/plan/common/team-dot';
@@ -56,6 +57,18 @@ function TeamSection({
   );
 }
 
+/** Partners' work is not filed as our issues; it is recorded in progress.yaml from what they tell us. */
+function PartnerNote({ model }: { readonly model: Model }) {
+  const partners = partnerTeamsOf(model);
+  const n = (model.plan.work_items ?? []).filter((w) => partners.has(w.team)).length;
+  if (n === 0) return null;
+  return (
+    <p className={styles.note}>
+      {`${countOf(n, 'partner item')} recorded separately, in progress.yaml rather than as GitHub issues.`}
+    </p>
+  );
+}
+
 // 7.3: each team's work, in build order, and the work as GitHub issues to copy.
 export function WorkScreen({ model, outline, page }: BodyProps) {
   const sum = buildSummary(model, model.today);
@@ -94,6 +107,7 @@ export function WorkScreen({ model, outline, page }: BodyProps) {
           Each work item is written up as a GitHub issue. Open one to preview it, or copy a team’s
           at once.
         </p>
+        <PartnerNote model={model} />
         <WorkExport model={model} />
       </details>
     </>

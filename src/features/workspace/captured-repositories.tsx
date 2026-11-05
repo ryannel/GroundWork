@@ -1,5 +1,4 @@
 import type { ExplorerRepositoryLink } from '@/application/explorer-component-links';
-import { List, ListItem } from '@/ui/list';
 import { Text, TextLink } from '@/ui/text';
 
 export function CapturedRepositories({
@@ -7,16 +6,17 @@ export function CapturedRepositories({
 }: {
   readonly links: readonly ExplorerRepositoryLink[];
 }) {
+  if (links.length === 0) return null;
   return (
-    <List>
-      {links.map((link) => (
-        <ListItem key={link.label}>
-          <TextLink href={link.href}>{link.label}</TextLink>{' '}
-          <Text size="sm" tone="muted">
-            Captured at {link.revision} · APIs, implementations, schemas and source
-          </Text>
-        </ListItem>
+    <Text as="p" size="sm" tone="muted">
+      Captured repositories:{' '}
+      {links.map((link, index) => (
+        <span key={link.label}>
+          {index === 0 ? '' : '; '}
+          <TextLink href={link.href}>{link.label}</TextLink>
+          {` (${link.revision})`}
+        </span>
       ))}
-    </List>
+    </Text>
   );
 }

@@ -9,6 +9,7 @@ import { entityView } from '@/application/plan-pages-entity';
 import { placesOf, type EntityPlace } from '@/application/plan-pages-entity-where';
 import { assetUrl } from '@/application/plan-viz-screens';
 import type { Reader } from '@/application/today-reader';
+import { InheritedNote } from '@/features/plan/common/inherited-note';
 
 import { EntityDetails } from './entity-details';
 import { EntityHead } from './entity-head';
@@ -49,13 +50,14 @@ export function ThingView({ id, model, reader, version }: ThingViewProps) {
       {switchable ? <ViewSwitch onChange={setToday} today={showToday} /> : null}
       <div className={styles.body}>
         <EntityHead today={showToday} view={view} />
+        {reader.mode === 'plan' ? <InheritedNote ids={[id]} model={model} /> : null}
         <EntityDetails
           image={view.image === null ? null : assetUrl(reader.assetBase, view.image)}
           model={model}
           today={showToday}
           view={view}
         />
-        <ThingExtras id={id} model={model} today={showToday} />
+        <ThingExtras at={reader.plan} id={id} model={model} today={showToday} />
         <EntityPlaces
           here={here}
           mentionedIn={view.mentionedIn}

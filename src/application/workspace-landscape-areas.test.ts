@@ -236,7 +236,18 @@ describe('authored landscape layout', () => {
     expect(nodes.get('source')!.x).toBeLessThan(nodes.get('target')!.x);
     expect(nodes.get('support')!.y).toBeGreaterThan(nodes.get('target')!.y);
     expect(nodes.get('support')!.y).toBe(nodes.get('independent')!.y);
-    expect(view.edges[1]?.kind).toBe('support');
+    const support = view.edges.find((item) => item.kind === 'support');
+    expect(support).toBeDefined();
+    const start = support?.path.match(/^M ([\d.]+),([\d.]+)/u);
+    const end = support?.path.match(/ L ([\d.]+),([\d.]+)$/u);
+    expect(start?.slice(1)).toEqual([
+      String(nodes.get('support')!.x + 125),
+      String(nodes.get('support')!.y),
+    ]);
+    expect(end?.slice(1)).toEqual([
+      String(nodes.get('source')!.x + 125),
+      String(nodes.get('source')!.y + 166),
+    ]);
   });
 
   it('contains empty and unconnected landscapes within dynamically sized bounds', () => {

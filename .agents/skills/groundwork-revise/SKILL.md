@@ -46,8 +46,9 @@ below say what to do by hand until they exist.
    Check the keys against `meta.revisions` in `schema/plan.schema.json`.
 
 4. **Edit the plan**: ops in `changes[]`, work items, questions. **Never renumber or rename ids**: ids are how
-   before and after are matched. Today stays in the model; deltas are ops. If the plan's cover says today has
-   changed under it, re-read those targets and run `npm run plan:base -- check <plan>` in the same revision.
+   before and after are matched. Today stays in the model; deltas are ops. If the plan's cover says today, a plan
+   it builds on or its programme has changed under it, re-read those targets and run
+   `npm run plan:base -- check <plan>` in the same revision.
 5. **Check it**: `npm run workspace -- check <workspace>`, then open the plan in `npm run dev` and read the new version's page. Compare with the
    approved snapshot by eye or with `git diff --no-index <workspace>/plans/<plan>/revisions/<v>.yaml
 <workspace>/plans/<plan>/plan.yaml`. No new warnings.
@@ -72,6 +73,14 @@ Set the head entry to `status: rejected` with `rejected_on`, `rejected_by: '@<ha
 `reason` (ask the people; the version's page leads with it). Save the proposal as `revisions/<version>.yaml`, then
 restore `plan.yaml` from the newest approved snapshot, keeping the ledger with the rejected entry. Do it in a PR.
 The next proposal takes a higher version than the rejected one.
+
+## Plans that build on this one
+
+A revision moves the base of every plan that builds on this one (their `builds_on`). Each keeps saying "changed
+since checked" on its cover until its owner re-reads what changed and runs `npm run plan:base -- check <plan>`.
+Name those plans and their owners in the PR body. If this plan is abandoned instead, each plan built on it absorbs
+what it needs, builds on another plan, or is abandoned too. If part of a plan has shipped, split that part into its
+own plan, land it, and build the rest on it; nothing lands by halves.
 
 ## Editorial fixes
 

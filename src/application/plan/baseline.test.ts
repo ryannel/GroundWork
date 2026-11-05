@@ -22,7 +22,7 @@ describe('warning baseline', () => {
     expect(stablePath(p, 'flows[0].steps[1].via')).toBe(
       'flows[flow:cancel].steps[flow:cancel#publish].via',
     );
-    const ops = change(p, 'chg:status-event-v2').ops;
+    const ops = change(p, 'chg:status-event-v2').ops ?? [];
     const i = ops.findIndex((o) => 'deprecate' in o);
     expect(stablePath(p, `changes[1].ops[${String(i)}]`)).toBe(
       'changes[chg:status-event-v2].ops[deprecate msg:status-changed-v1]',
@@ -55,7 +55,7 @@ describe('warning baseline', () => {
     expect(validatePlan(base).warnings).toHaveLength(1);
     const head = await loadFixture('mini.yaml');
     head.changes?.reverse();
-    change(head, 'chg:status-event-v2').ops.reverse();
+    change(head, 'chg:status-event-v2').ops?.reverse();
     const w = validatePlan(head).warnings;
     expect(w).toHaveLength(1);
     expect(newWarnings(at(base), at(head))).toEqual([]);

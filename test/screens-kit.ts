@@ -56,6 +56,8 @@ export function accountPlan({ toBeImage = 'assets/account-tobe.svg' } = {}): Pla
     { modify: 'scr:account#plan', set: { shows: 'Status, renewal date and a pause badge.' } },
     { remove: 'scr:account#cancel' },
   ];
-  byId<Change>(plan.changes, 'chg:pause-api').ops.push(...(ops as unknown as Change['ops']));
+  byId<Change>(plan.changes, 'chg:pause-api').ops?.push(
+    ...(ops as unknown as NonNullable<Change['ops']>),
+  );
   return plan;
 }

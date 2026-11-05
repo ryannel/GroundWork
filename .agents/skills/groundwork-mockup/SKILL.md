@@ -55,6 +55,10 @@ On the change that alters the screen, never in the model:
 Before and after are derived: the app pairs today's picture with the new one and colours regions added, modified
 or removed.
 
+In a plan that builds on others, "before" is the screen after those plans: a screen or region a base plan adds or
+changes is labelled once ("Added by Sales tool · not live yet"). Change it with ops on its ids, as above; never copy
+the base plan's ops or pictures into this plan.
+
 ## The walking mockup
 
 `<workspace>/plans/<plan>/mockups/walking.html` is one static page: a section per new screen

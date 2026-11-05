@@ -10,11 +10,19 @@ interface SelectProps<T extends string> {
   readonly value: T;
   readonly options: readonly SelectOption<T>[];
   readonly onChange: (value: T) => void;
+  /** Shows the label above the box, as a form field does; otherwise it is for screen readers only. */
+  readonly shown?: boolean;
 }
 
 /** One choice from a short list, such as a domain to cut by or the order to sort in. */
-export function Select<T extends string>({ label, value, options, onChange }: SelectProps<T>) {
-  return (
+export function Select<T extends string>({
+  label,
+  value,
+  options,
+  onChange,
+  shown = false,
+}: SelectProps<T>) {
+  const box = (
     <select
       aria-label={label}
       className={styles.select}
@@ -30,5 +38,12 @@ export function Select<T extends string>({ label, value, options, onChange }: Se
         </option>
       ))}
     </select>
+  );
+  if (!shown) return box;
+  return (
+    <label className={styles.field}>
+      <span className={styles.label}>{label}</span>
+      {box}
+    </label>
   );
 }

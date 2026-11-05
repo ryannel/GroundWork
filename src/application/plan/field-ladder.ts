@@ -152,7 +152,7 @@ function rungOf(
   const { core, parts } = env;
   const { kind, ends, move, steps } = facts;
   const wis = core.workItems
-    .filter((w) => w.implements.includes(r.changeId ?? ''))
+    .filter((w) => (w.implements ?? []).includes(r.changeId ?? ''))
     .map((w) => w.id);
   const side = kind === 'retire' ? ends.from : ends.to;
   const op: LadderOp = {

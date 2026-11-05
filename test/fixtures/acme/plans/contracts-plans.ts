@@ -59,7 +59,9 @@ export function shopRetiringPricing(): Plan {
     },
   ];
   for (const item of plan.work_items ?? []) {
-    if (item.id === 'wi:pricing-v2') item.implements = [...item.implements, 'chg:retire-pricing'];
+    if (item.id === 'wi:pricing-v2') {
+      item.implements = [...(item.implements ?? []), 'chg:retire-pricing'];
+    }
   }
   return plan;
 }

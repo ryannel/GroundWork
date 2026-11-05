@@ -41,7 +41,12 @@ export default async function JourneyRoute({ params }: { readonly params: Promis
   return (
     <WorkspaceShell
       actions={<TodaySearch />}
-      nav={workspaceNavOf(workspace, plans, { section: 'journeys', key, today: today.model })}
+      nav={workspaceNavOf(
+        workspace,
+        plans,
+        { section: 'journeys', key, today: today.model },
+        data.programmes,
+      )}
       overlays={
         <TodayOverlays depth={2} next={beside(1)} previous={beside(-1)} workspace={workspace} />
       }

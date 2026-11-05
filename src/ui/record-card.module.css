@@ -1,0 +1,77 @@
+@layer components {
+  .card {
+    display: grid;
+    gap: var(--s-2);
+    padding: var(--s-3) var(--s-4);
+    border: 1px solid var(--line-1);
+    border-left: 3px solid var(--team, var(--line-2));
+    border-radius: var(--r-3);
+    background: var(--bg-0);
+    font-size: var(--fs-13);
+
+    &[data-done] {
+      background: var(--bg-1);
+    }
+  }
+
+  .owner {
+    margin: 0;
+    color: var(--fg-2);
+    font-size: var(--fs-12);
+    font-weight: 600;
+  }
+
+  .title {
+    margin: 0;
+    color: var(--fg-1);
+    font-size: var(--fs-14);
+    line-height: var(--lh-snug);
+  }
+
+  .meta {
+    margin: 0;
+    color: var(--fg-2);
+  }
+
+  .rows {
+    display: grid;
+    gap: var(--s-1);
+    margin: 0;
+  }
+
+  .row {
+    display: grid;
+    grid-template-columns: 7rem 1fr auto;
+    gap: var(--s-2);
+    align-items: baseline;
+  }
+
+  .label {
+    color: var(--fg-3);
+  }
+
+  .value {
+    margin: 0;
+    color: var(--fg-1);
+  }
+
+  .aside {
+    margin: 0;
+    color: var(--fg-2);
+    text-align: right;
+
+    .row[data-warn] & {
+      color: var(--st-mod-fg);
+      font-weight: 600;
+    }
+  }
+
+  .actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-2);
+    align-items: center;
+    padding-top: var(--s-2);
+    border-top: 1px solid var(--line-1);
+  }
+}

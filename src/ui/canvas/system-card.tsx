@@ -89,7 +89,9 @@ export function SystemCard({
         </div>
       }
     >
-      {children === undefined ? null : <div className={styles.activities}>{children}</div>}
+      {children === undefined || children === null ? null : (
+        <div className={styles.activities}>{children}</div>
+      )}
     </ComponentCard>
   );
 }

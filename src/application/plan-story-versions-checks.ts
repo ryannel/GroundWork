@@ -168,13 +168,6 @@ function plain(pair: Pair, c: Check): Said {
       const lead = bold(`${quote(nameIn(pair, c.screen))} changes but its picture doesn't.`);
       return { text: `${lead} Reviewers see the old screen.`, at: [c.screen] };
     }
-    case 'stale-vote': {
-      const vote = `${String(c.confidence)} (${quote(unmark(c.said))})`;
-      return {
-        text: `${nameIn(pair, c.team)} rated its confidence ${vote} before this change. Ask again.`,
-        at: [],
-      };
-    }
     case 'question': {
       return { text: 'Opens the question below.', at: [c.question] };
     }

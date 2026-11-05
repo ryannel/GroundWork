@@ -35,7 +35,7 @@ export function coreShop(): Plan {
     },
   ];
   const promise = byId<Change>(p.changes, 'chg:promise');
-  for (const op of promise.ops) {
+  for (const op of promise.ops ?? []) {
     if ('add' in op && op.add === 'field' && 'value' in op) {
       const value = op.value as { name?: string; args?: string };
       if (value.name === 'deliveryPromise') value.args = 'region: Region!';

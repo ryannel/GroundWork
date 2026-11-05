@@ -49,24 +49,6 @@ function stepChecks({ flows, sides: { B } }: CheckInput): Check[] {
     .map((s): Check => ({ kind: 'untested-step', level: 'ask', step: s.id }));
 }
 
-/** Teams that committed before the change and whose work now moves (the proposer's own vote is not stale). */
-function voteChecks({ work, entry, sides: { B } }: CheckInput): Check[] {
-  const by = new Set(entry?.by);
-  const moving = new Set(['rework', 'changes', 'drop', 'new']);
-  const moved = new Set(
-    work.filter((x) => moving.has(x.effect) && !by.has(x.team)).map((x) => x.team),
-  );
-  return (B.plan.commitment ?? [])
-    .filter((c) => moved.has(c.team))
-    .map((c): Check => ({
-      kind: 'stale-vote',
-      level: 'note',
-      team: c.team,
-      confidence: c.confidence ?? null,
-      said: c.note ?? '',
-    }));
-}
-
 function planChecks({ diff }: CheckInput): Check[] {
   if (diff === null) return [];
   return [
@@ -140,7 +122,6 @@ export function checksOf(input: CheckInput): Check[] {
     ...(reopened.length > 0
       ? [{ kind: 'rework', level: 'warn', items: reopened.map((x) => x.id) } as const]
       : []),
-    ...voteChecks(input),
     ...planChecks(input),
   ].toSorted((a, b) => tie(RANK[a.level] - RANK[b.level], kindRank(a) - kindRank(b)));
 }

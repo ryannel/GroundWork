@@ -1,4 +1,4 @@
-/** GitHub issue state of one work item, as written to plans/<slug>/status.json. */
+/** GitHub issue state of one work item: the latest event the GitHub sync recorded in plans/<slug>/progress.yaml. */
 export interface IssueState {
   readonly state: 'open' | 'closed';
   readonly closed_at?: string | undefined;

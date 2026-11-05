@@ -1,6 +1,6 @@
 ---
 name: groundwork-issues
-description: File a Groundwork plan's work items as GitHub issues with the gh CLI, in dependency order, labelled by team and milestone, and write each issue number back into the plan as `github_issue`. Use when asked to create, file, export or preview GitHub issues from a plan in <workspace>/plans/<plan>/, or to keep status.json in step with the issues.
+description: File a Groundwork plan's work items as GitHub issues with the gh CLI, in dependency order, labelled by team and milestone, and write each issue number back into the plan as `github_issue`. Use when asked to create, file, export or preview GitHub issues from a plan in <workspace>/plans/<plan>/, or to keep progress.yaml in step with the issues.
 ---
 
 # Plan work items to GitHub issues
@@ -25,7 +25,10 @@ naming the repos and the count.
 
 ## File them
 
-Go in build order (dependencies first; the build chapter's order). For each work item:
+Go in build order (dependencies first; the build chapter's order). Skip every work item whose team is a partner
+(`partner: true` in `workspace.yaml`): a partner's work is not filed as our issue, and its commitments and progress
+are recorded with `npm run progress -- add`. Count them and say "N partner items recorded separately" when you
+report. For each other work item:
 
 ```bash
 gh label create "team:<team-slug>" --repo <org/name> --force        # once per repo and label
@@ -53,20 +56,34 @@ gh issue create --repo <org/name> --title "<template prefix><work item title>" \
 
 ## Status
 
-Done ticks and milestone progress come from `<workspace>/plans/<plan>/status.json`, never the plan:
+Done ticks and milestone progress come from `<workspace>/plans/<plan>/progress.yaml`, never the plan. It is an
+append-only record; GitHub state is a `work` event whose source is `github`, and the latest one per work item wins:
 
-```json
-{
-  "wi:checkout-vat": {
-    "state": "closed",
-    "closed_at": "2026-09-30T14:12:00Z",
-    "url": "https://github.com/acme/checkout/issues/41"
-  }
-}
+```yaml
+events:
+  - at: '2026-09-30T14:12:00Z'
+    subject: wi:checkout-vat
+    kind: work
+    state: done # not_started | in_progress | blocked | done; an open issue is in_progress
+    source:
+      {
+        kind: github,
+        repo: acme/checkout,
+        issue: 41,
+        url: https://github.com/acme/checkout/issues/41,
+      }
 ```
 
-Until there is a sync tool (TODO), refresh it with `gh issue view <n> --repo <org/name> --json state,closedAt,url`
-for every work item with `github_issue`, and write the file in the shape above.
+Record GitHub state with the progress tool, which checks the event and appends it only when the state differs from
+the latest `github` event for that item, so it is safe to run again:
+
+```bash
+npm run progress -- add <workspace> <plan> --subject wi:checkout-vat --kind work --state done \
+  --source-kind github --repo acme/checkout --issue 41 --url https://github.com/acme/checkout/issues/41
+```
+
+Never edit or delete earlier events. A partner team's work item has no GitHub issue: skip it, and say how many
+partner items are recorded separately.
 
 ## After filing
 

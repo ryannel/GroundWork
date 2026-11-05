@@ -51,6 +51,21 @@ questions, existing evidence, output location and resource bounds; use
 the ambiguity. Cold/warm benchmarks and bespoke acceptance packs are validation tools, not work to repeat
 for every repository.
 
+## Owners and partners
+
+- **Owners come from evidence.** Report the handles the evidence names for each system, most specific first: a
+  folder's CODEOWNERS, the repo's CODEOWNERS, Backstage `spec.owner`, the repo's GitHub teams, the deployment
+  config. Map each to a team through its `handles` in `workspace.yaml`, and propose a handle that no team holds. A
+  `team:` in `system.yaml` is typed only when evidence is missing or disagrees, and a typed team wins. Collecting
+  this evidence is not scripted yet; read it by hand and say where each handle came from.
+- **A partner's systems are read from its documents**, since we cannot read its code (the team has
+  `partner: true`). Each fact is `origin: documented` and cites where it was read:
+  `{ url, pointer, version }` for an API document (a JSON pointer or operation id), `{ url, heading, version }` for
+  a prose page. The url may be one the app cannot reach (an internal network, Notion); cite it anyway. Read the
+  document where it lives; never copy it into the workspace. Facts from prose are **Inferred**. A partner's system
+  has no handlers by default: a flow hop into it ends at its endpoint. See
+  [cookbook §21](../groundwork-schema/cookbook.md#21-plans-together-programmes-increments-and-partners).
+
 ## Interpret and improve
 
 After extraction, use the LLM to explain probable purpose, actors, actions, journeys and relationships from

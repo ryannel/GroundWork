@@ -13,6 +13,9 @@ npm run check        # full merge checks, including coverage and architecture
 npm run build        # then npm start serves it
 ```
 
+`npm run dev` recompiles each page on its first visit and after every source change. To read workspaces rather
+than change Groundwork, `npm run build` then `npm start` is much faster.
+
 For an explicit scope, use `npm run check:quick -- src/features/workspace/component-cards.tsx`.
 Use one task per checkout. Full checks remain required for shared logic and tooling changes, and before
 merging; see [the development checks](docs/architecture.md#focused-development-checks).
@@ -36,6 +39,10 @@ npm run workspace -- remove acme
 Reload the page after linking; no dev-server restart is needed. The library lists company workspaces and
 examples separately. Every workspace and plan page has a workspace switcher; local linking details are
 available on the library cards in development and are not exposed in production.
+
+Linking also installs the workspace repo's pre-commit hook. Pages do not validate plans as they draw them; they
+trust the check each plan passed when it was written (`npm run plan:base -- check <plan>`), so the hook refuses a
+commit whose workspace fails `npm run workspace -- check`, or whose staged plan has changed since its check.
 
 Start workspace-backed work with `npm run workspace -- list`, not a search of `workspaces/`. The workspace id
 comes from `workspace.yaml`, not the folder name. With more than one workspace registered, map and plan-base

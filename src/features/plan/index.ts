@@ -10,3 +10,4 @@ export { TodayMap } from './today/today-map';
 export { FlowList } from './today/flow-list.client';
 export { TodayFlow } from './today/today-flows';
 export { TargetFlowView } from './today/target-flow.client';
+export { WorkCard } from './work/work-card';

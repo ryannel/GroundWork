@@ -2,12 +2,15 @@ import 'server-only';
 
 import { planCardOf, type PlanCard } from '@/application/plan-footprint';
 
+import { listProgrammes } from './programme-store';
 import { readToday, type Today } from './today-model';
 import { untilEdited } from './workspace-memo';
 import { readLoadedPlans } from './workspace-plans';
 
 export interface TodayData extends Today {
   readonly plans: readonly PlanCard[];
+  /** The ids of its programmes, for the rail to count. */
+  readonly programmes: readonly string[];
 }
 
 const remembered = untilEdited<TodayData | null>();
@@ -17,7 +20,14 @@ export async function todayData(id: string): Promise<TodayData | null> {
   return remembered(undefined, id, async () => {
     const found = await readToday(id);
     if (found === null) return null;
-    const loaded = await readLoadedPlans(found.workspace.id);
-    return { ...found, plans: loaded.map((plan) => planCardOf(found.workspace.id, plan)) };
+    const [loaded, programmes] = await Promise.all([
+      readLoadedPlans(found.workspace.id),
+      listProgrammes(found.workspace.id),
+    ]);
+    return {
+      ...found,
+      plans: loaded.map((plan) => planCardOf(found.workspace.id, plan)),
+      programmes,
+    };
   });
 }

@@ -20,8 +20,8 @@ import type {
   UserJourney,
 } from './plan/plan.generated';
 
-/** Where a fact came from: a scan of the code, the demo seed, or a person. */
-export type Origin = 'extracted' | 'seeded' | 'curated';
+/** Where a fact came from: a scan of the code, the demo seed, a person, or a document (a partner's). */
+export type Origin = 'extracted' | 'seeded' | 'curated' | 'documented';
 
 /** The lines of code a fact was read from. The permalink is derived, never stored. */
 export interface CodeSource {

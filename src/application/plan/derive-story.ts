@@ -124,7 +124,7 @@ function workItemsFor(core: Core, id: string, touching: readonly string[]): stri
   return core.workItems
     .filter(
       (w) =>
-        w.implements.some((c) => touching.includes(c)) ||
+        (w.implements ?? []).some((c) => touching.includes(c)) ||
         (w.verified_by ?? []).includes(id) ||
         w.milestone === id ||
         dependsOn(w),

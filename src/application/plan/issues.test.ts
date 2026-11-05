@@ -63,7 +63,7 @@ describe('issueMarkdown', () => {
   it('links the decisions, open questions and risks around the item it implements', async () => {
     const plan = await loadFixture('mini.yaml');
     const wi = plan.work_items?.find((w) => w.id === 'wi:pause-endpoint');
-    const change = plan.changes?.find((c) => c.id === wi?.implements[0]);
+    const change = plan.changes?.find((c) => c.id === wi?.implements?.[0]);
     if (wi === undefined || change === undefined) throw new Error('fixture changed');
     Object.assign(change, { decisions: ['dec:links'] });
     plan.decisions = [

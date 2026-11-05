@@ -5,6 +5,7 @@ import type { ExplorerRepositoryLink } from '@/application/explorer-component-li
 import type { PlanPart } from '@/application/plan-footprint';
 import type { RepoRow } from '@/application/today-repos';
 import type { SystemView } from '@/application/workspace-system';
+import type { ImpactRows } from '@/application/workspace-work/impact';
 import { Facts } from '@/ui/facts';
 import { PageHeader } from '@/ui/page-header';
 import { SectionHeading } from '@/ui/section-heading';
@@ -27,6 +28,8 @@ interface SystemPageProps {
   readonly flows?: ReactNode;
   /** The plans landing on this system; leave out and the section is not drawn. */
   readonly parts?: readonly PlanPart[];
+  /** The work across plans still to do here, in the order it can happen. */
+  readonly impact?: ImpactRows;
   readonly overlays?: ReactNode;
   readonly actions?: ReactNode;
   readonly explorerLinks?: Readonly<Record<string, string>>;
@@ -107,6 +110,7 @@ export function SystemPage({
   map,
   flows,
   parts,
+  impact,
   overlays,
   actions,
   explorerLinks,
@@ -126,8 +130,11 @@ export function SystemPage({
         meta={<Facts items={[view.about, ...view.facts]} />}
         title={view.name}
       />
-      <Section says="What may change here." title="Plans">
-        <PlanParts name={view.name} parts={parts ?? []} />
+      <Section
+        says="What may change here, and the work across plans still to do, in the order it can happen."
+        title="Plans"
+      >
+        <PlanParts impact={impact ?? []} name={view.name} parts={parts ?? []} />
       </Section>
       <Drawn flows={flows} map={map} view={view} />
       <Section

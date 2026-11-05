@@ -22,7 +22,12 @@ export default async function LanguageRoute({ params }: { readonly params: Promi
   return (
     <WorkspaceShell
       actions={<TodaySearch />}
-      nav={workspaceNavOf(workspace, plans, { section: 'language', today: today.model })}
+      nav={workspaceNavOf(
+        workspace,
+        plans,
+        { section: 'language', today: today.model },
+        data.programmes,
+      )}
       overlays={<TodayOverlays depth={1} workspace={workspace} />}
       title="Language"
       trail={[

@@ -1,0 +1,24 @@
+@layer components {
+  .update {
+    display: grid;
+    gap: var(--s-3);
+    width: 100%;
+  }
+
+  .form {
+    display: grid;
+    gap: var(--s-3);
+  }
+
+  .fields {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+    gap: var(--s-3);
+    align-items: end;
+  }
+
+  .outputs {
+    display: grid;
+    gap: var(--s-3);
+  }
+}

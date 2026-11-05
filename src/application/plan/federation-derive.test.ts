@@ -196,7 +196,7 @@ describe('ops on graph entities: status and ledger lines', () => {
         { remove: 'sch:gql-product#leadTimeDays' },
         { remove: 'sg:reviews' },
       ],
-    } as unknown as NonNullable<Plan['changes']>[number]);
+    });
     const d = derive(p);
     expect(d.diff('chg:ttl').map((e) => e.summary)).toEqual([
       'cache: edge cache 600 s → 60 s',

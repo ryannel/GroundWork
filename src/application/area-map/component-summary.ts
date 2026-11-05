@@ -1,4 +1,8 @@
-import type { AreaComponentView, AreaResourceView } from '@/application/workspace-area';
+import type {
+  AreaComponentView,
+  AreaResourceView,
+  AreaSystemView,
+} from '@/application/workspace-area';
 import { plural } from '@/shared/text';
 
 function technologyName(value: string | null | undefined): string {
@@ -44,6 +48,32 @@ export function linkedResources(component: AreaComponentView): readonly AreaReso
   return [
     ...new Map(component.resources.map((resource) => [resource.id, resource])).values(),
   ].filter((resource) => !embedded.has(resource.id));
+}
+
+interface ResourceLocation {
+  readonly system: AreaSystemView;
+  readonly component: AreaComponentView;
+  readonly resource: AreaComponentView;
+}
+
+export function resourceLocation(
+  systems: readonly AreaSystemView[],
+  id: string,
+): ResourceLocation | null {
+  for (const system of systems) {
+    const resource = system.components
+      .flatMap((component) => [component, ...(component.attachments ?? [])])
+      .find((component) => component.id === id);
+    if (resource === undefined) continue;
+    const component =
+      system.components.find(
+        (item) =>
+          item.id === resource.parentComponent ||
+          item.attachments?.some((attachment) => attachment.id === id) === true,
+      ) ?? resource;
+    return { system, component, resource };
+  }
+  return null;
 }
 
 export function resourceCaption(resource: AreaResourceView): string {

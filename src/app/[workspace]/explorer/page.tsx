@@ -22,7 +22,7 @@ export default async function ExplorerRoute({ params }: { readonly params: Promi
   const manifest = catalogue === null ? await readExplorerManifest(id) : null;
   return (
     <WorkspaceShell
-      nav={workspaceNavOf(data.workspace, data.plans, { section: 'explorer' })}
+      nav={workspaceNavOf(data.workspace, data.plans, { section: 'explorer' }, data.programmes)}
       title="Service explorer"
       trail={[
         { label: 'Workspaces', href: '/' },

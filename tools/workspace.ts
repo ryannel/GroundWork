@@ -10,17 +10,36 @@
 //   npm run workspace -- remove <id>
 //       stop reading a workspace; its folder or clone is left where it is
 //   npm run workspace -- check <folder> [--warnings]
-//       read the workspace and its model of today, check every reference in the model resolves, and read every
-//       plan onto it, as the app does; exits 1 on any error. --warnings lists the model's warnings too
+//       read the workspace and its model of today, check every reference in the model resolves, read every
+//       programme, and check every plan (with its progress.yaml) against the whole of today; exits 1 on any error.
+//       Open plans that change the same thing, neither building on the other, are listed as overlaps.
+//       --warnings lists the model's warnings too
+//   npm run workspace -- precommit <folder>
+//       what a workspace repo's pre-commit hook runs: when YAML is staged, check as above, and refuse a staged plan
+//       whose base.lock.json does not hold the check of what it says now. The app trusts these checks rather than
+//       repeat them on every page, so nothing that fails them should be committed
 //   npm run workspace -- list [--json]
 //       the names, ids, locations and registration sources this checkout reads
 //   npm run workspace -- open <id> [--origin http://localhost:3000]
 //       open a registered workspace in the browser
-// Registering writes the folder or repo into groundwork.local.yaml (git-ignored, one per machine) and links Groundwork's
+// Registering writes the folder or repo into groundwork.local.yaml (git-ignored, one per machine), links Groundwork's
 // skills into the workspace repo as .agents/skills, .claude/skills and .github/skills, which its .gitignore keeps
-// out of git. Reload the page after linking; the app reads registration changes without restarting.
+// out of git, and installs the repo's pre-commit hook (in .git/hooks, so also out of git) to run precommit; add and
+// pull install it again if it is missing. Reload the page after linking; the app reads registration changes without
+// restarting.
 import { execFileSync } from 'node:child_process';
-import { lstat, mkdir, readdir, rename, rm, symlink, writeFile } from 'node:fs/promises';
+import { realpathSync } from 'node:fs';
+import {
+  chmod,
+  lstat,
+  mkdir,
+  readdir,
+  readFile,
+  rename,
+  rm,
+  symlink,
+  writeFile,
+} from 'node:fs/promises';
 import path from 'node:path';
 import { parseArgs } from 'node:util';
 
@@ -30,7 +49,7 @@ import { languageWarnings } from '@/application/workspace-language';
 import { systemModelOf } from '@/application/workspace-model';
 import { workspaceHref } from '@/application/workspace-paths';
 import { targetWarnings } from '@/application/workspace-target';
-import { listPlans } from '@/infrastructure/plan-store';
+import { listPlans, readOverlaps, readPlan } from '@/infrastructure/plan-store';
 import { checkPlanData } from '@/infrastructure/plan-validator';
 import {
   folderOf,
@@ -40,7 +59,8 @@ import {
   registrationsAt,
 } from '@/infrastructure/workspace-folders';
 import { readWorkspaceModel } from '@/infrastructure/workspace-model';
-import { readPlanState } from '@/infrastructure/workspace-plans';
+import { checkPlanState } from '@/infrastructure/workspace-plans';
+import { readProgrammes } from '@/infrastructure/workspace-programmes';
 import { readWorkspaces } from '@/infrastructure/workspace-store';
 
 const HOME = process.cwd();
@@ -130,6 +150,49 @@ async function linkSkills(folder: string): Promise<void> {
   }
 }
 
+const HOOK_MARK = '# groundwork: check the workspace before each commit';
+
+/** The pre-commit hook: hands the repo to this checkout's precommit, wherever the repo is committed from. */
+function hookScript(): string {
+  const quoted = HOME.replaceAll("'", String.raw`'\''`);
+  const home = `'${quoted}'`;
+  return `#!/bin/sh
+${HOOK_MARK}
+# Installed by \`npm run workspace -- add\` in the Groundwork checkout at ${HOME}. Groundwork's pages trust the
+# check each plan passed when it was written, so a plan that fails it, or has changed since, is not committed.
+exec npm --prefix ${home} run --silent workspace -- precommit "$(git rev-parse --show-toplevel)"
+`;
+}
+
+/** The repo's own hooks folder, or null when the folder is not the top of a git repo (an example in workspaces/). */
+function hooksOf(folder: string): string | null {
+  const run = (args: readonly string[]): string =>
+    execFileSync('git', args, { cwd: folder, encoding: 'utf8', stdio: 'pipe' }).trim();
+  try {
+    if (realpathSync(run(['rev-parse', '--show-toplevel'])) !== realpathSync(folder)) return null;
+    return run(['rev-parse', '--path-format=absolute', '--git-path', 'hooks']);
+  } catch {
+    return null;
+  }
+}
+
+/** Install the pre-commit hook, leaving a hook Groundwork did not write alone. */
+async function installHook(folder: string): Promise<void> {
+  const hooks = hooksOf(folder);
+  if (hooks === null) return;
+  const file = path.join(hooks, 'pre-commit');
+  const there = await readFile(file, 'utf8').catch(() => null);
+  if (there !== null && !there.includes(HOOK_MARK)) {
+    console.warn(
+      `${file} is not Groundwork's; left alone, so commits there are not checked. Have it run: npm --prefix ${HOME} run --silent workspace -- precommit "$(git rev-parse --show-toplevel)"`,
+    );
+    return;
+  }
+  await mkdir(hooks, { recursive: true });
+  await writeFile(file, hookScript());
+  await chmod(file, 0o755);
+}
+
 async function add(given: string): Promise<void> {
   let entry: LocalEntry = path.resolve(given);
   if (isRepo(given)) {
@@ -143,6 +206,7 @@ async function add(given: string): Promise<void> {
   const id = await validate(folder);
   await register(entry, id);
   await linkSkills(folder);
+  await installHook(folder);
   console.log(`registered ${id} at ${folder}; reload the page to see it at ${workspaceHref(id)}`);
 }
 
@@ -156,7 +220,12 @@ async function pull(): Promise<void> {
     if (there === null) git(['clone', '--', entry.repo, into]);
     else git(['pull', '--ff-only'], into);
   }
-  await Promise.all(workspaces.map(async (entry) => linkSkills(where(entry))));
+  await Promise.all(
+    workspaces.map(async (entry) => {
+      await linkSkills(where(entry));
+      await installHook(where(entry));
+    }),
+  );
   await list();
 }
 
@@ -278,7 +347,7 @@ async function checkPlans(
   workspace: string,
 ): Promise<{ readonly slugs: readonly string[]; readonly broken: number }> {
   const slugs = await listPlans(workspace);
-  const states = await Promise.all(slugs.map(async (slug) => readPlanState(workspace, slug)));
+  const states = await Promise.all(slugs.map(async (slug) => checkPlanState(workspace, slug)));
   const broken = states.flatMap((state) => (state?.broken ? [state.broken] : []));
   for (const plan of broken) {
     for (const issue of plan.errors) {
@@ -288,7 +357,19 @@ async function checkPlans(
   return { slugs, broken: broken.length };
 }
 
-async function check(given: string): Promise<void> {
+/** Lists the open plans that change the same thing, neither building on the other; returns how many. */
+async function reportOverlaps(workspace: string): Promise<number> {
+  const overlaps = await readOverlaps(workspace);
+  for (const overlap of overlaps) {
+    console.warn(
+      `overlap: ${overlap.kind} on ${overlap.target}: ${overlap.changes.join(' and ')}; neither plan builds on the other`,
+    );
+  }
+  return overlaps.length;
+}
+
+/** Check the workspace in `given`; exits 1 on any error. Its id, to read its plans by. */
+async function check(given: string): Promise<string> {
   const folder = path.resolve(given);
   process.env.GROUNDWORK_WORKSPACES = folder;
   const [workspace] = await readWorkspaces();
@@ -304,7 +385,15 @@ async function check(given: string): Promise<void> {
     for (const issue of today.warnings) console.warn(`today: ${issue.path}: ${issue.message}`);
     for (const issue of language) console.warn(`language: ${issue}`);
   }
+  const programmes = await readProgrammes(workspace);
+  for (const programme of programmes) {
+    for (const issue of programme.errors) {
+      console.error(`programmes/${programme.id}: ${issue.path}: ${issue.message}`);
+    }
+  }
+  const brokenProgrammes = programmes.filter((programme) => programme.errors.length > 0).length;
   const { slugs, broken } = await checkPlans(workspace.id);
+  const overlaps = await reportOverlaps(workspace.id);
   const systems = workspace.domains.reduce((sum, domain) => sum + domain.systems.length, 0);
   const read = slugs.length - broken;
   const counts = [
@@ -315,12 +404,62 @@ async function check(given: string): Promise<void> {
       model.languages.reduce((sum, { concepts }) => sum + concepts.length, 0),
       'concept',
     ),
+    `${String(programmes.length - brokenProgrammes)} of ${count(programmes.length, 'programme')} read`,
     `${String(read)} of ${count(slugs.length, 'plan')} read`,
     count(model.targets.length, 'target'),
-    count(today.warnings.length + language.length + target.length, 'warning'),
+    count(today.warnings.length + language.length + target.length + overlaps, 'warning'),
   ];
   console.log(`${workspace.id}: ${counts.join(', ')}`);
-  if (broken > 0 || today.errors.length > 0) process.exitCode = 1;
+  if (broken > 0 || brokenProgrammes > 0 || today.errors.length > 0) process.exitCode = 1;
+  return workspace.id;
+}
+
+const PLAN_FILE = /^plans\/([^/]+)\/plan\.yaml$/u;
+
+function gitLines(folder: string, args: readonly string[]): string[] {
+  const out = execFileSync('git', args, { cwd: folder, encoding: 'utf8', stdio: 'pipe' });
+  return out.split('\0').filter((line) => line !== '');
+}
+
+/** Why each staged plan's lock does not hold the check of what it says now: never checked, edited since, or unstaged. */
+async function unlocked(
+  workspace: string,
+  folder: string,
+  staged: readonly string[],
+): Promise<string[]> {
+  const unstaged = new Set(gitLines(folder, ['diff', '--name-only', '-z']));
+  const slugs = staged.flatMap((file) => PLAN_FILE.exec(file)?.[1] ?? []);
+  const reads = await Promise.all(
+    slugs.map(async (slug) => ({ slug, read: await readPlan(workspace, slug) })),
+  );
+  return reads.flatMap(({ slug, read }) => {
+    const lock = `plans/${slug}/base.lock.json`;
+    const run = `run npm run plan:base -- check ${slug} --workspace ${workspace} in ${HOME}`;
+    if (read.base.mode !== 'live') return [];
+    if (read.base.checkedOn === null) return [`plans/${slug} has never been checked; ${run}`];
+    if (read.base.edited) return [`plans/${slug} has changed since its check; ${run}`];
+    if (unstaged.has(lock)) return [`${lock} has changed but is not staged; stage it`];
+    return [];
+  });
+}
+
+/** What a workspace repo's pre-commit hook runs: the check, when YAML is staged, and each staged plan's lock. */
+async function precommit(given: string): Promise<void> {
+  const folder = path.resolve(given);
+  const staged = gitLines(folder, ['diff', '--cached', '--name-only', '--diff-filter=ACMR', '-z']);
+  const read = staged.filter(
+    (file) => /\.(?:ya?ml|json)$/u.test(file) && !/^(?:explorer|evidence)\//u.test(file),
+  );
+  if (read.length === 0) return;
+  const workspace = await check(folder);
+  const problems = await unlocked(workspace, folder, staged);
+  for (const problem of problems) console.error(problem);
+  if (problems.length > 0) process.exitCode = 1;
+  if (process.exitCode === 1) {
+    console.error(
+      'Not committed: fix the above, or commit with --no-verify to skip the check once.',
+    );
+  }
 }
 
 async function list(): Promise<void> {
@@ -383,11 +522,13 @@ if (command === 'list') {
   await openWorkspace(folder);
 } else if (command === 'check' && folder !== undefined) {
   await check(folder);
+} else if (command === 'precommit' && folder !== undefined) {
+  await precommit(folder);
 } else if ((command === 'new' || command === 'add') && folder !== undefined) {
   await (command === 'new' ? make(folder) : add(folder));
 } else {
   console.error(
-    'usage: npm run workspace -- new|add|check <folder> | remove|open <id> | pull | list [--json]; see tools/workspace.ts',
+    'usage: npm run workspace -- new|add|check|precommit <folder> | remove|open <id> | pull | list [--json]; see tools/workspace.ts',
   );
   process.exitCode = 1;
 }

@@ -25,7 +25,7 @@ function rolloutOf(model: Model, field: FieldChange): string[] {
     .filter(
       (c) =>
         c.rollout !== undefined &&
-        c.ops.some((op) =>
+        (c.ops ?? []).some((op) =>
           'remove' in op ? op.remove === field.id : 'deprecate' in op && op.deprecate === field.id,
         ),
     )

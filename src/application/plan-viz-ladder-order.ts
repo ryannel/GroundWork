@@ -82,10 +82,10 @@ export function retireMilestone(model: Model, id: string): Retirement {
     kind === null
       ? []
       : (model.plan.changes ?? [])
-          .filter((c) => c.ops.some((o) => old.has(text(prop(o, key)))))
+          .filter((c) => (c.ops ?? []).some((o) => old.has(text(prop(o, key)))))
           .map((c) => c.id);
   const wis = (model.plan.work_items ?? [])
-    .filter((w) => w.implements.some((c) => changes.includes(c)))
+    .filter((w) => (w.implements ?? []).some((c) => changes.includes(c)))
     .map((w) => w.id);
   const own = l.rungs.find((r) => r.kind === kind)?.workItems ?? [];
   const ms = rungMilestone(model, wis) ?? (kind === null ? null : rungMilestone(model, own));
@@ -231,7 +231,9 @@ function retirePart(o: Order, id: string, l: Ladder): Part | null {
   const last = consumerMoves(model, l).filter((r) => r.ms === lastMigrate);
   const names = andList(last.map((r) => model.label(r.consumer)));
   const items = (model.plan.work_items ?? [])
-    .filter((w) => w.implements.some((c) => retirement.changes.includes(c)) && w.milestone === ms)
+    .filter(
+      (w) => (w.implements ?? []).some((c) => retirement.changes.includes(c)) && w.milestone === ms,
+    )
     .map((w) => w.id);
   const consumerItems = [
     ...new Set(last.flatMap((r) => r.items.filter((w) => milestoneOf(model, w) === lastMigrate))),

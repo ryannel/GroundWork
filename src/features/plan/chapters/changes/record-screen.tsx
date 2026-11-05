@@ -4,6 +4,7 @@ import { changesOf } from '@/application/plan-story-changes-touched';
 import { schemaCounts } from '@/application/plan-viz-fields';
 import { ScreenHead } from '@/features/plan/chapters/screen-head';
 import { EntityChip } from '@/features/plan/common/entity-chip';
+import { InheritedNote } from '@/features/plan/common/inherited-note';
 import { ModelInline } from '@/features/plan/common/model-text';
 import type { BodyProps } from '@/features/plan/screen-bodies';
 import { FieldTable } from '@/features/plan/viz/field-table/field-table';
@@ -60,6 +61,7 @@ function RecordPanel({ model, outline, page, id, item }: BodyProps & ItemProps) 
         )}
       </ScreenHead>
       <TeamRow model={model} teamIds={recordTeams(model, id)} />
+      <InheritedNote ids={[id]} model={model} />
       <RecordTable id={id} model={model} />
       <Decisions changeIds={changesOf(model, id)} model={model} />
     </>

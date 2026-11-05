@@ -3,6 +3,7 @@ import { issueMarkdown } from '@/application/plan/issues';
 import { teamName } from '@/application/plan-viz-teams';
 import { countOf } from '@/application/plan-viz-text';
 import { milestoneById, orderTeams, workOrdered } from '@/application/plan-viz-work';
+import { partnerTeamsOf } from '@/application/plan-work-cards';
 import type { WorkItem } from '@/domain/plan/plan.generated';
 import { TeamDot } from '@/features/plan/common/team-dot';
 
@@ -64,11 +65,18 @@ function Item({
 
 /**
  * The work as GitHub issues: grouped by team, each item a collapsed issue preview with "Copy as text", and "Copy as
- * text" for a whole team. It is the body of the "Send to GitHub" fold; no page leads with it.
+ * text" for a whole team. It is the body of the "Send to GitHub" fold; no page leads with it. A partner's work is
+ * not ours to file: it is recorded in progress.yaml instead.
  */
 export function WorkExport({ model, lens }: WorkExportProps) {
-  const work = workOrdered(model);
-  if (work.length === 0) return <p className={styles.empty}>No work items in this plan.</p>;
+  const partners = partnerTeamsOf(model);
+  const every = workOrdered(model);
+  const work = every.filter((w) => !partners.has(w.team));
+  if (work.length === 0) {
+    const empty =
+      every.length === 0 ? 'No work items in this plan.' : 'No work items to file in GitHub.';
+    return <p className={styles.empty}>{empty}</p>;
+  }
   const present = orderTeams(
     model,
     work.map((w) => w.team),

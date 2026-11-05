@@ -63,6 +63,7 @@ export async function generatePlanTypes(): Promise<string> {
     additionalProperties: false,
     unknownAny: true,
     strictIndexSignatures: true,
+    unreachableDefinitions: true,
     style,
   });
   return inlineStringAliases(source);

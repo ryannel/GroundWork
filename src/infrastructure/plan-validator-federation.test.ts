@@ -45,7 +45,7 @@ describe('graph-type shape (schema)', () => {
     }
     const { plan } = await readPlan('acme', 'product-graph', { root });
     const added = plan?.changes?.flatMap(({ ops }) =>
-      ops.map((op) => ('add' in op ? op.add : null)),
+      (ops ?? []).map((op) => ('add' in op ? op.add : null)),
     );
     expect(added).toEqual(['graph', 'subgraph', 'schema', 'schema', 'operation']);
   });

@@ -6,6 +6,7 @@ import { Button } from '@/ui/button';
 import { FilterChips } from '@/ui/filter-chips';
 import { SearchField } from '@/ui/search-field';
 import { Select } from '@/ui/select';
+import { TextField } from '@/ui/text-field';
 
 import { Specimen } from './specimen';
 
@@ -29,6 +30,8 @@ export function DesignControls() {
   const [stage, setStage] = useState<Stage>('all');
   const [sort, setSort] = useState<Sort>('recent');
   const [pressed, setPressed] = useState(false);
+  const [said, setSaid] = useState('');
+  const [when, setWhen] = useState('2026-11-04');
   return (
     <>
       <Specimen
@@ -60,6 +63,11 @@ export function DesignControls() {
       </Specimen>
       <Specimen name="Select" use="Choosing one of many, such as a domain or a sort order.">
         <Select label="Sort" onChange={setSort} options={SORTS} value={sort} />
+        <Select label="Sort by" onChange={setSort} options={SORTS} shown value={sort} />
+      </Specimen>
+      <Specimen name="TextField" use="One value typed into a form, with its label above it.">
+        <TextField label="Said by" onChange={setSaid} placeholder="Who said it" value={said} />
+        <TextField label="When" onChange={setWhen} type="date" value={when} />
       </Specimen>
       <Specimen name="FilterChips" use="Choosing one of a few, with how many each holds.">
         <FilterChips choices={STAGES} label="Stage" onChange={setStage} value={stage} />

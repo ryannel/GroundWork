@@ -127,7 +127,9 @@ function fromDiff(t: Tally, diff: PlanDiff | null): void {
 
 /** A team's work items that implement one of these changes. */
 const implementing = (t: Tally, team: string, changes: ReadonlySet<string>): WorkItem[] =>
-  [...t.items.values()].filter((x) => x.team === team && x.implements.some((c) => changes.has(c)));
+  [...t.items.values()].filter(
+    (x) => x.team === team && (x.implements ?? []).some((c) => changes.has(c)),
+  );
 
 /** A team's work items that implement a change touching these ids. */
 function builders(t: Tally, team: string, ids: readonly string[]): WorkItem[] {

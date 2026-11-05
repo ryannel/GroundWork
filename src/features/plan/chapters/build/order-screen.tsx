@@ -58,11 +58,11 @@ export function OrderScreen({ model, outline, page }: BodyProps) {
           </div>
           <details className={styles.fold}>
             <summary>How it was built</summary>
-            <WaveStack model={model} views={views} />
+            <WaveStack at={outline} model={model} views={views} />
           </details>
         </>
       ) : (
-        <WaveStack model={model} views={views} />
+        <WaveStack at={outline} model={model} views={views} />
       )}
       <details className={styles.fold}>
         <summary>Dependency graph, with the critical path</summary>

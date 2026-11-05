@@ -4,17 +4,20 @@ import { useSearchParams } from 'next/navigation';
 import { Suspense, useState } from 'react';
 
 import { STAGE_WORDS, type PlanRow, type PlanStage } from '@/application/plan-index';
+import type { ProgrammeRowVM } from '@/application/workspace-work/programme-page';
 import { plural } from '@/shared/text';
 import { replaceAddress } from '@/ui/address-bar';
 import { Button } from '@/ui/button';
 import { FilterChips } from '@/ui/filter-chips';
 import { List } from '@/ui/list';
 import { SearchField } from '@/ui/search-field';
+import { SectionHeading } from '@/ui/section-heading';
 import { Select } from '@/ui/select';
 import { Text } from '@/ui/text';
 
 import { PlanLine } from './plan-line';
 import styles from './plans-index.module.css';
+import { ProgrammeRows } from './programme-rows';
 
 export interface IndexDomain {
   readonly id: string;
@@ -38,6 +41,7 @@ const SORTS: Readonly<Record<Sort, string>> = {
   progress: 'Furthest along',
 };
 const PAGE = 50;
+const NO_PROGRAMMES: readonly ProgrammeRowVM[] = [];
 const NONE: Filters = { query: '', domain: '', stage: '', sort: 'newest' };
 
 const STAGE_SET: ReadonlySet<string> = new Set(STAGES);
@@ -152,6 +156,8 @@ interface IndexProps {
   readonly domains: readonly IndexDomain[];
   /** The domain being read, when these are one domain's plans: no domain filter then. */
   readonly here?: string;
+  /** The programmes, listed first while nothing is searched or cut; their plans are then found by search. */
+  readonly programmes?: readonly ProgrammeRowVM[] | undefined;
 }
 
 // Every plan, to find one among hundreds: search their words, cut them to a domain or a stage, sort, and read
@@ -169,7 +175,20 @@ function FromAddress(props: IndexProps) {
   return <Index {...props} start={fromAddress(params)} />;
 }
 
-function Index({ rows, domains, here, start }: IndexProps & { readonly start: Filters }) {
+function tallyText(shown: number, total: number, grouped: boolean): string {
+  if (grouped) {
+    return `${plural(shown, 'plan')} on their own, ${String(total - shown)} in programmes`;
+  }
+  return shown === total ? plural(total, 'plan') : `${String(shown)} of ${plural(total, 'plan')}`;
+}
+
+function Index({
+  rows,
+  domains,
+  here,
+  programmes = NO_PROGRAMMES,
+  start,
+}: IndexProps & { readonly start: Filters }) {
   const [filters, setFilters] = useState<Filters>(start);
   const [limit, setLimit] = useState(PAGE);
   const change = (next: Partial<Filters>): void => {
@@ -187,8 +206,10 @@ function Index({ rows, domains, here, start }: IndexProps & { readonly start: Fi
     rows.filter((row) => matches(row, { ...filters, domain: '' }, words)),
     (row) => row.domains,
   );
+  const grouped = programmes.length > 0 && isClear(filters);
   const shown = found
     .filter((row) => filters.stage === '' || row.stage === filters.stage)
+    .filter((row) => !grouped || row.programme === null)
     .toSorted(SORTERS[filters.sort]);
   return (
     <div className={styles.index}>
@@ -216,11 +237,7 @@ function Index({ rows, domains, here, start }: IndexProps & { readonly start: Fi
         value={filters.stage}
       />
       <p className={styles.tally}>
-        <Text tone="muted">
-          {shown.length === rows.length
-            ? plural(rows.length, 'plan')
-            : `${String(shown.length)} of ${plural(rows.length, 'plan')}`}
-        </Text>
+        <Text tone="muted">{tallyText(shown.length, rows.length, grouped)}</Text>
         {isClear(filters) ? null : (
           <Button
             onClick={() => {
@@ -232,9 +249,20 @@ function Index({ rows, domains, here, start }: IndexProps & { readonly start: Fi
           </Button>
         )}
       </p>
+      {grouped ? (
+        <>
+          <SectionHeading title="Programmes">
+            <p>Plans that serve one outcome, gathered and landed in order.</p>
+          </SectionHeading>
+          <ProgrammeRows rows={programmes} />
+          <SectionHeading title="Plans on their own">
+            <p>Search to find a plan in a programme.</p>
+          </SectionHeading>
+        </>
+      ) : null}
       {shown.length === 0 ? (
         <Text as="p" tone="muted">
-          No plan matches.
+          {grouped ? 'Every plan is in a programme.' : 'No plan matches.'}
         </Text>
       ) : (
         <List>

@@ -134,10 +134,12 @@ function checkSystem(s: SystemScope, sys: SystemNode): void {
       `${sys.id} has ${members.length > 0 ? 'only one service' : 'no services'}; a system groups two or more services of one team (set system: ${sys.id} on each), else drop it and keep the service on its own`,
     );
   }
-  for (const m of members.filter((x) => x.team !== sys.team)) {
+  const owner = sys.team;
+  for (const m of members) {
+    if (owner === undefined || m.team === undefined || m.team === owner) continue;
     s.rep.error(
       whereAt(s, m, 'system'),
-      `${m.id} (team ${m.team}) is in ${sys.id} (team ${sys.team}); a system belongs to one team, so drop system from ${m.id} or fix its team`,
+      `${m.id} (team ${m.team}) is in ${sys.id} (team ${owner}); a system belongs to one team, so drop system from ${m.id} or fix its team`,
     );
   }
   const stages = [...new Set(members.flatMap((m) => s.stageOf.get(m.id) ?? []))];

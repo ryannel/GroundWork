@@ -1,4 +1,16 @@
 @layer components {
+  .field {
+    display: grid;
+    gap: var(--s-1);
+    min-width: 0;
+  }
+
+  .label {
+    color: var(--fg-2);
+    font-size: var(--fs-12);
+    font-weight: 600;
+  }
+
   .select {
     max-width: 18rem;
     padding: var(--s-2) var(--s-3);

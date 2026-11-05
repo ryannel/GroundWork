@@ -32,8 +32,8 @@ describe('plan diff', () => {
     b.services.push({ id: 'svc:notify', name: 'Notify', team: 'team:subs', kind: 'service' });
     byId(b.services, 'svc:subs').tech = 'Kotlin 2';
     b.teams = b.teams.filter((t) => t.id !== 'team:platform');
-    byId(b.changes, 'chg:analytics-v2').ops.pop();
-    byId(b.changes, 'chg:retire-email').ops.push({
+    byId(b.changes, 'chg:analytics-v2').ops?.pop();
+    byId(b.changes, 'chg:retire-email').ops?.push({
       deprecate: 'msg:status-changed-v1',
       replaced_by: 'msg:status-changed-v2',
     });
@@ -99,7 +99,7 @@ describe('plan diff', () => {
     const a = await mini();
     const b = await mini();
     const c = byId(b.changes, 'chg:pause-api');
-    const op = c.ops.find((o) => 'add' in o && prop(o.value, 'id') !== undefined);
+    const op = c.ops?.find((o) => 'add' in o && prop(o.value, 'id') !== undefined);
     if (op === undefined || !('add' in op)) throw new Error('no add op with an id');
     Object.assign(op.value, { summary: 'reworded' });
     const d = planDiff(a, b);

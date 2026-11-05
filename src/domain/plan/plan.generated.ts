@@ -1,10 +1,21 @@
 /* Generated from schema/plan.schema.json by tools/generate-plan-types.ts. Do not edit: run `npm run generate`. */
 
+/**
+ * This interface was referenced by `Plan`'s JSON-Schema
+ * via the `definition` "handlerSource".
+ */
 export type HandlerSource = CodeSource | Source;
 /**
- * how the fact was made: read from code by a scan, seeded by hand for a demo, or written by a person
+ * how the fact was made: read from code by a scan, seeded by hand for a demo, written by a person, or read from a document (a partner's, whose code we cannot read)
+ *
+ * This interface was referenced by `Plan`'s JSON-Schema
+ * via the `definition` "origin".
  */
-export type Origin = 'extracted' | 'seeded' | 'curated';
+export type Origin = 'extracted' | 'seeded' | 'curated' | 'documented';
+/**
+ * This interface was referenced by `Plan`'s JSON-Schema
+ * via the `definition` "handlerStep".
+ */
 export type HandlerStep =
   | HandlerDoes
   | HandlerCall
@@ -18,8 +29,20 @@ export type HandlerStep =
   | HandlerTry
   | HandlerReturn
   | HandlerWait;
+/**
+ * This interface was referenced by `Plan`'s JSON-Schema
+ * via the `definition` "handlerSteps".
+ */
 export type HandlerSteps = HandlerStep[];
+/**
+ * This interface was referenced by `Plan`'s JSON-Schema
+ * via the `definition` "op".
+ */
 export type Op = OpAdd | OpModify | OpDeprecate | OpRemove;
+/**
+ * This interface was referenced by `Plan`'s JSON-Schema
+ * via the `definition` "op_add".
+ */
 export type OpAdd =
   | {
       add: 'service';
@@ -98,6 +121,10 @@ export type OpAdd =
       add: 'handler';
       value: Handler;
     };
+/**
+ * This interface was referenced by `Plan`'s JSON-Schema
+ * via the `definition` "level3".
+ */
 export type Level3 = 'low' | 'med' | 'high';
 
 /**
@@ -107,6 +134,10 @@ export interface Plan {
   meta: Meta;
   problem: Problem;
   domain?: Domain;
+  /**
+   * the plans this one reads on top of today, by id; composition only, never scheduling
+   */
+  builds_on?: string[];
   teams: Team[];
   /**
    * a system is several deployables (services) of one team that are built, run and changed together; the system map draws it as one card with its services inside
@@ -154,9 +185,12 @@ export interface Plan {
   decisions?: Decision[];
   risks?: Risk[];
   questions?: Question[];
-  commitment?: Commitment[];
   story?: Story;
 }
+/**
+ * This interface was referenced by `Plan`'s JSON-Schema
+ * via the `definition` "meta".
+ */
 export interface Meta {
   id: string;
   title: string;
@@ -241,7 +275,15 @@ export interface Meta {
    * GitHub repos in scope, "org/name"; discovery starts here
    */
   repos?: string[];
+  /**
+   * the programme this plan serves (programmes/<id>/programme.yaml); the programme lists its plans from this
+   */
+  programme?: string;
 }
+/**
+ * This interface was referenced by `Plan`'s JSON-Schema
+ * via the `definition` "problem".
+ */
 export interface Problem {
   /**
    * markdown; may cite [[id]]
@@ -257,11 +299,19 @@ export interface Problem {
   scenarios?: Scenario[];
   glossary?: GlossaryEntry[];
 }
+/**
+ * This interface was referenced by `Plan`'s JSON-Schema
+ * via the `definition` "metric".
+ */
 export interface Metric {
   name: string;
   today?: string;
   target?: string;
 }
+/**
+ * This interface was referenced by `Plan`'s JSON-Schema
+ * via the `definition` "scenario".
+ */
 export interface Scenario {
   id: string;
   title: string;
@@ -271,6 +321,10 @@ export interface Scenario {
   story?: string;
   flows?: string[];
 }
+/**
+ * This interface was referenced by `Plan`'s JSON-Schema
+ * via the `definition` "glossaryEntry".
+ */
 export interface GlossaryEntry {
   term: string;
   /**
@@ -280,6 +334,9 @@ export interface GlossaryEntry {
 }
 /**
  * The business language and the path data takes, before any system detail. Rendered as chapter 2's opening screens.
+ *
+ * This interface was referenced by `Plan`'s JSON-Schema
+ * via the `definition` "domain".
  */
 export interface Domain {
   /**
@@ -292,6 +349,10 @@ export interface Domain {
    */
   stages?: Stage[];
 }
+/**
+ * This interface was referenced by `Plan`'s JSON-Schema
+ * via the `definition` "concept".
+ */
 export interface Concept {
   id: string;
   /**
@@ -343,7 +404,10 @@ export interface Concept {
   sources?: Source[];
 }
 /**
- * Where this fact lives: a GitHub permalink (blob/<sha>/path#L10-L20), a doc, a dashboard
+ * Where this fact lives: a GitHub permalink (blob/<sha>/path#L10-L20), a document (with pointer or heading, and version), a dashboard
+ *
+ * This interface was referenced by `Plan`'s JSON-Schema
+ * via the `definition` "source".
  */
 export interface Source {
   url: string;
@@ -355,7 +419,23 @@ export interface Source {
    * markdown; what the reader will find there
    */
   note?: string;
+  /**
+   * where in the document: an anchor, a JSON pointer or an operation id
+   */
+  pointer?: string;
+  /**
+   * the heading in the document the fact is under
+   */
+  heading?: string;
+  /**
+   * the version of the document read
+   */
+  version?: string;
 }
+/**
+ * This interface was referenced by `Plan`'s JSON-Schema
+ * via the `definition` "stage".
+ */
 export interface Stage {
   id: string;
   /**
@@ -378,6 +458,10 @@ export interface Stage {
    */
   flows?: string[];
 }
+/**
+ * This interface was referenced by `Plan`'s JSON-Schema
+ * via the `definition` "team".
+ */
 export interface Team {
   id: string;
   name: string;
@@ -387,13 +471,24 @@ export interface Team {
    */
   colour?: number;
 }
+/**
+ * This interface was referenced by `Plan`'s JSON-Schema
+ * via the `definition` "system".
+ */
 export interface System {
   id: string;
   /**
    * what people call the whole thing (often the repo or Backstage system name, in words)
    */
   name: string;
-  team: string;
+  /**
+   * team:<kebab-slug>
+   */
+  team?: string;
+  /**
+   * sys:<kebab-slug>
+   */
+  runs_on?: string;
   /**
    * the role of the whole system in plain words, ≤ 10 words; shown at the top of its card
    */
@@ -407,10 +502,14 @@ export interface System {
    */
   sources?: Source[];
 }
+/**
+ * This interface was referenced by `Plan`'s JSON-Schema
+ * via the `definition` "service".
+ */
 export interface Service {
   id: string;
   name: string;
-  team: string;
+  team?: string;
   /**
    * sys:<kebab-slug>
    */
@@ -434,6 +533,10 @@ export interface Service {
    */
   sources?: Source[];
 }
+/**
+ * This interface was referenced by `Plan`'s JSON-Schema
+ * via the `definition` "store".
+ */
 export interface Store {
   id: string;
   name: string;
@@ -494,10 +597,18 @@ export interface Store {
    */
   sources?: Source[];
 }
+/**
+ * This interface was referenced by `Plan`'s JSON-Schema
+ * via the `definition` "storeAccess".
+ */
 export interface StoreAccess {
   svc: string;
   mode: 'read' | 'write' | 'readwrite';
 }
+/**
+ * This interface was referenced by `Plan`'s JSON-Schema
+ * via the `definition` "schema".
+ */
 export interface Schema {
   id: string;
   name: string;
@@ -534,6 +645,10 @@ export interface Schema {
    */
   sources?: Source[];
 }
+/**
+ * This interface was referenced by `Plan`'s JSON-Schema
+ * via the `definition` "field".
+ */
 export interface Field {
   name: string;
   type: string;
@@ -622,6 +737,9 @@ export interface Field {
 }
 /**
  * a cache layer attached to what it caches: on an operation, an edge/gateway override; on a graph field, a data cache the resolver reads first
+ *
+ * This interface was referenced by `Plan`'s JSON-Schema
+ * via the `definition` "cacheUse".
  */
 export interface CacheUse {
   at: string;
@@ -646,6 +764,9 @@ export interface CacheUse {
 }
 /**
  * the cache hint the subgraph returns for the field (@cacheControl)
+ *
+ * This interface was referenced by `Plan`'s JSON-Schema
+ * via the `definition` "cacheControl".
  */
 export interface CacheControl {
   /**
@@ -654,6 +775,10 @@ export interface CacheControl {
   max_age: number;
   scope?: 'public' | 'private';
 }
+/**
+ * This interface was referenced by `Plan`'s JSON-Schema
+ * via the `definition` "interface".
+ */
 export interface Interface {
   id: string;
   service: string;
@@ -670,6 +795,10 @@ export interface Interface {
    */
   sources?: Source[];
 }
+/**
+ * This interface was referenced by `Plan`'s JSON-Schema
+ * via the `definition` "endpoint".
+ */
 export interface Endpoint {
   id: string;
   sig: string;
@@ -688,11 +817,19 @@ export interface Endpoint {
    */
   sources?: Source[];
 }
+/**
+ * This interface was referenced by `Plan`'s JSON-Schema
+ * via the `definition` "endpointError".
+ */
 export interface EndpointError {
   status: number;
   code?: string;
   when?: string;
 }
+/**
+ * This interface was referenced by `Plan`'s JSON-Schema
+ * via the `definition` "message".
+ */
 export interface Message {
   id: string;
   name: string;
@@ -719,6 +856,10 @@ export interface Message {
    */
   sources?: Source[];
 }
+/**
+ * This interface was referenced by `Plan`'s JSON-Schema
+ * via the `definition` "flow".
+ */
 export interface Flow {
   id: string;
   name: string;
@@ -737,6 +878,10 @@ export interface Flow {
    */
   sources?: Source[];
 }
+/**
+ * This interface was referenced by `Plan`'s JSON-Schema
+ * via the `definition` "step".
+ */
 export interface Step {
   id: string;
   from: string;
@@ -773,6 +918,9 @@ export interface Step {
 }
 /**
  * A screen a person sees: a page, a modal, an email, a push notification, a printed document. `image` is what it looks like (a screenshot today; a wireframe or export of the design in the to-be, set by a modify op). Steps point at the screen (or one of its regions) they happen on, which is how a flow becomes a UI journey
+ *
+ * This interface was referenced by `Plan`'s JSON-Schema
+ * via the `definition` "screen".
  */
 export interface Screen {
   id: string;
@@ -814,6 +962,9 @@ export interface Screen {
 }
 /**
  * A named part of a screen: a block the reader can point at (the price, the delivery line, the Pay button). Regions are what ops change and what steps point at
+ *
+ * This interface was referenced by `Plan`'s JSON-Schema
+ * via the `definition` "region".
  */
 export interface Region {
   id: string;
@@ -834,6 +985,9 @@ export interface Region {
 }
 /**
  * where the region sits on the image, in percent of its width/height (x,y = top-left corner)
+ *
+ * This interface was referenced by `Plan`'s JSON-Schema
+ * via the `definition` "regionBox".
  */
 export interface RegionBox {
   x: number;
@@ -841,6 +995,10 @@ export interface RegionBox {
   w: number;
   h: number;
 }
+/**
+ * This interface was referenced by `Plan`'s JSON-Schema
+ * via the `definition` "interaction".
+ */
 export interface Interaction {
   id: string;
   /**
@@ -866,6 +1024,10 @@ export interface Interaction {
     note: string;
   };
 }
+/**
+ * This interface was referenced by `Plan`'s JSON-Schema
+ * via the `definition` "userJourney".
+ */
 export interface UserJourney {
   id: string;
   name: string;
@@ -880,6 +1042,9 @@ export interface UserJourney {
 }
 /**
  * A federated GraphQL graph. The gateway is an ordinary service; its team owns the graph
+ *
+ * This interface was referenced by `Plan`'s JSON-Schema
+ * via the `definition` "graph".
  */
 export interface Graph {
   id: string;
@@ -900,6 +1065,9 @@ export interface Graph {
 }
 /**
  * A subgraph: the unit of ownership in federation, served by one service
+ *
+ * This interface was referenced by `Plan`'s JSON-Schema
+ * via the `definition` "subgraph".
  */
 export interface Subgraph {
   id: string;
@@ -936,6 +1104,9 @@ export interface Subgraph {
 }
 /**
  * A GraphQL document the front end sends; paths, variables and the query plan are derived from it
+ *
+ * This interface was referenced by `Plan`'s JSON-Schema
+ * via the `definition` "operation".
  */
 export interface Operation {
   id: string;
@@ -990,6 +1161,9 @@ export interface Operation {
 }
 /**
  * what runs when something arrives at a component, as a short tree of steps
+ *
+ * This interface was referenced by `Plan`'s JSON-Schema
+ * via the `definition` "handler".
  */
 export interface Handler {
   id: string;
@@ -1009,6 +1183,9 @@ export interface Handler {
 }
 /**
  * a place in code; the permalink is derived from it
+ *
+ * This interface was referenced by `Plan`'s JSON-Schema
+ * via the `definition` "codeSource".
  */
 export interface CodeSource {
   /**
@@ -1037,6 +1214,9 @@ export interface CodeSource {
 }
 /**
  * work done in place
+ *
+ * This interface was referenced by `Plan`'s JSON-Schema
+ * via the `definition` "handlerDoes".
  */
 export interface HandlerDoes {
   /**
@@ -1059,6 +1239,9 @@ export interface HandlerDoes {
 }
 /**
  * calls an endpoint and waits for it
+ *
+ * This interface was referenced by `Plan`'s JSON-Schema
+ * via the `definition` "handlerCall".
  */
 export interface HandlerCall {
   call: string;
@@ -1082,6 +1265,9 @@ export interface HandlerCall {
 }
 /**
  * publishes a message
+ *
+ * This interface was referenced by `Plan`'s JSON-Schema
+ * via the `definition` "handlerPublish".
  */
 export interface HandlerPublish {
   publish: string;
@@ -1105,6 +1291,9 @@ export interface HandlerPublish {
 }
 /**
  * reads a schema from a store
+ *
+ * This interface was referenced by `Plan`'s JSON-Schema
+ * via the `definition` "handlerRead".
  */
 export interface HandlerRead {
   read: string;
@@ -1129,6 +1318,9 @@ export interface HandlerRead {
 }
 /**
  * writes a schema to a store
+ *
+ * This interface was referenced by `Plan`'s JSON-Schema
+ * via the `definition` "handlerWrite".
  */
 export interface HandlerWrite {
   write: string;
@@ -1153,6 +1345,9 @@ export interface HandlerWrite {
 }
 /**
  * a fork
+ *
+ * This interface was referenced by `Plan`'s JSON-Schema
+ * via the `definition` "handlerIf".
  */
 export interface HandlerIf {
   if: string;
@@ -1178,6 +1373,9 @@ export interface HandlerIf {
 }
 /**
  * a loop
+ *
+ * This interface was referenced by `Plan`'s JSON-Schema
+ * via the `definition` "handlerEach".
  */
 export interface HandlerEach {
   each: string;
@@ -1202,6 +1400,9 @@ export interface HandlerEach {
 }
 /**
  * branches at once
+ *
+ * This interface was referenced by `Plan`'s JSON-Schema
+ * via the `definition` "handlerParallel".
  */
 export interface HandlerParallel {
   /**
@@ -1230,6 +1431,9 @@ export interface HandlerParallel {
 }
 /**
  * tries the steps again when they fail
+ *
+ * This interface was referenced by `Plan`'s JSON-Schema
+ * via the `definition` "handlerRetry".
  */
 export interface HandlerRetry {
   /**
@@ -1258,6 +1462,9 @@ export interface HandlerRetry {
 }
 /**
  * steps with a fallback when they fail
+ *
+ * This interface was referenced by `Plan`'s JSON-Schema
+ * via the `definition` "handlerTry".
  */
 export interface HandlerTry {
   try: HandlerSteps;
@@ -1282,6 +1489,9 @@ export interface HandlerTry {
 }
 /**
  * what the handler answers
+ *
+ * This interface was referenced by `Plan`'s JSON-Schema
+ * via the `definition` "handlerReturn".
  */
 export interface HandlerReturn {
   /**
@@ -1308,6 +1518,9 @@ export interface HandlerReturn {
 }
 /**
  * a pause
+ *
+ * This interface was referenced by `Plan`'s JSON-Schema
+ * via the `definition` "handlerWait".
  */
 export interface HandlerWait {
   /**
@@ -1332,6 +1545,10 @@ export interface HandlerWait {
   sources?: HandlerSource[];
   origin?: Origin;
 }
+/**
+ * This interface was referenced by `Plan`'s JSON-Schema
+ * via the `definition` "handlerFail".
+ */
 export interface HandlerFail {
   when: string;
   /**
@@ -1340,6 +1557,10 @@ export interface HandlerFail {
   result: string;
   sources?: HandlerSource[];
 }
+/**
+ * This interface was referenced by `Plan`'s JSON-Schema
+ * via the `definition` "change".
+ */
 export interface Change {
   id: string;
   title: string;
@@ -1352,15 +1573,41 @@ export interface Change {
    * markdown; may cite [[id]]
    */
   rollout?: string;
+  requires?: Requirement[];
   /**
-   * @minItems 1
+   * the questions or decisions that hold the change back
    */
-  ops: [Op, ...Op[]];
+  blocked_by?: string[];
+  /**
+   * may be empty or left out only while the change has requires and an open question in blocked_by
+   */
+  ops?: Op[];
   /**
    * evidence links
    */
   sources?: Source[];
 }
+/**
+ * what the change must make true, said before (or without) the ops that make it
+ *
+ * This interface was referenced by `Plan`'s JSON-Schema
+ * via the `definition` "requirement".
+ */
+export interface Requirement {
+  id: string;
+  /**
+   * markdown; may cite [[id]]
+   */
+  text: string;
+  /**
+   * evidence links
+   */
+  sources?: Source[];
+}
+/**
+ * This interface was referenced by `Plan`'s JSON-Schema
+ * via the `definition` "op_modify".
+ */
 export interface OpModify {
   modify: string;
   /**
@@ -1376,13 +1623,25 @@ export interface OpModify {
    */
   drop?: Record<string, unknown[]>;
 }
+/**
+ * This interface was referenced by `Plan`'s JSON-Schema
+ * via the `definition` "op_deprecate".
+ */
 export interface OpDeprecate {
   deprecate: string;
   replaced_by?: string;
 }
+/**
+ * This interface was referenced by `Plan`'s JSON-Schema
+ * via the `definition` "op_remove".
+ */
 export interface OpRemove {
   remove: string;
 }
+/**
+ * This interface was referenced by `Plan`'s JSON-Schema
+ * via the `definition` "test".
+ */
 export interface Test {
   id: string;
   level: 'unit' | 'service' | 'contract' | 'integration' | 'e2e';
@@ -1404,6 +1663,10 @@ export interface Test {
   owner?: string;
   env?: 'local' | 'ci' | 'staging' | 'prod';
 }
+/**
+ * This interface was referenced by `Plan`'s JSON-Schema
+ * via the `definition` "milestone".
+ */
 export interface Milestone {
   id: string;
   name: string;
@@ -1415,9 +1678,17 @@ export interface Milestone {
    * target date for the milestone exit (YYYY-MM-DD)
    */
   due?: string;
+  /**
+   * milestones that come first, here or in another plan
+   */
+  after?: string[];
+  serves?: string;
 }
 /**
  * Plain-language account of how the plan plays out; chapter 4 opens on it (How it plays out).
+ *
+ * This interface was referenced by `Plan`'s JSON-Schema
+ * via the `definition` "execution".
  */
 export interface Execution {
   /**
@@ -1500,15 +1771,30 @@ export interface Execution {
    */
   caveats?: string[];
 }
+/**
+ * This interface was referenced by `Plan`'s JSON-Schema
+ * via the `definition` "workItem".
+ */
 export interface WorkItem {
   id: string;
   title: string;
   team: string;
   size?: 'XS' | 'S' | 'M' | 'L' | 'XL';
   milestone?: string;
-  implements: string[];
+  /**
+   * when we need it (YYYY-MM-DD); a team's promised date lives in progress.yaml
+   */
+  needed_by?: string;
+  /**
+   * the changes it implements; recovery and operations work implements none
+   */
+  implements?: string[];
   verified_by?: string[];
   depends_on?: string[];
+  /**
+   * the decisions or questions it waits on, here or in another plan or the programme
+   */
+  blocked_by?: string[];
   repo?: string;
   /**
    * markdown; may cite [[id]]
@@ -1523,6 +1809,10 @@ export interface WorkItem {
    */
   issue_type?: 'task' | 'story' | 'feature' | 'bug';
 }
+/**
+ * This interface was referenced by `Plan`'s JSON-Schema
+ * via the `definition` "decision".
+ */
 export interface Decision {
   id: string;
   title: string;
@@ -1568,6 +1858,10 @@ export interface Decision {
    */
   sources?: Source[];
 }
+/**
+ * This interface was referenced by `Plan`'s JSON-Schema
+ * via the `definition` "option".
+ */
 export interface Option {
   name: string;
   /**
@@ -1575,6 +1869,10 @@ export interface Option {
    */
   why_not?: string;
 }
+/**
+ * This interface was referenced by `Plan`'s JSON-Schema
+ * via the `definition` "risk".
+ */
 export interface Risk {
   id: string;
   /**
@@ -1599,6 +1897,10 @@ export interface Risk {
    */
   accepted_by?: string;
 }
+/**
+ * This interface was referenced by `Plan`'s JSON-Schema
+ * via the `definition` "question".
+ */
 export interface Question {
   id: string;
   /**
@@ -1622,14 +1924,10 @@ export interface Question {
    */
   answered_by?: string;
 }
-export interface Commitment {
-  team: string;
-  confidence?: number;
-  /**
-   * markdown; may cite [[id]]
-   */
-  note?: string;
-}
+/**
+ * This interface was referenced by `Plan`'s JSON-Schema
+ * via the `definition` "story".
+ */
 export interface Story {
   chapters?: {
     why?: Chapter;
@@ -1642,7 +1940,100 @@ export interface Story {
     commit?: Chapter;
   };
 }
+/**
+ * This interface was referenced by `Plan`'s JSON-Schema
+ * via the `definition` "chapter".
+ */
 export interface Chapter {
   headline?: string;
   recap?: string[];
+}
+/**
+ * programmes/<id>/programme.yaml: plans that serve one outcome, and the context they share. Not an overlay; plans join with meta.programme and cite its items as <programme>/<id>
+ *
+ * This interface was referenced by `Plan`'s JSON-Schema
+ * via the `definition` "programme".
+ */
+export interface Programme {
+  id: string;
+  title: string;
+  /**
+   * markdown; what is true once the programme lands. May cite [[id]]
+   */
+  outcome: string;
+  problem?: Problem;
+  /**
+   * shared scenarios every plan can cite
+   */
+  scenarios?: Scenario[];
+  decisions?: Decision[];
+  questions?: Question[];
+  /**
+   * outcomes; plan milestones name the one they serve with serves
+   */
+  milestones?: Milestone[];
+}
+/**
+ * one thing that happened to a work item or milestone, with who said it and where
+ *
+ * This interface was referenced by `Plan`'s JSON-Schema
+ * via the `definition` "progressEvent".
+ */
+export interface ProgressEvent {
+  /**
+   * when it happened (YYYY-MM-DD, or a date-time)
+   */
+  at: string;
+  /**
+   * a work item or milestone of this plan
+   */
+  subject: string;
+  /**
+   * commitment: what a team promised; work: what has happened; note: anything else worth keeping
+   */
+  kind: 'commitment' | 'work' | 'note';
+  /**
+   * commitment: proposed, accepted, declined or withdrawn; work: not_started, in_progress, blocked or done; a note has none
+   */
+  state?:
+    | 'proposed'
+    | 'accepted'
+    | 'declined'
+    | 'withdrawn'
+    | 'not_started'
+    | 'in_progress'
+    | 'blocked'
+    | 'done';
+  /**
+   * commitment: the date the team promised
+   */
+  promised_for?: string | null;
+  /**
+   * commitment: how sure the team said it was
+   */
+  confidence?: ('high' | 'medium' | 'low') | null;
+  /**
+   * who said it
+   */
+  said_by?: string;
+  source?: {
+    kind: 'meeting' | 'partner-update' | 'github' | 'test' | 'scan' | 'document' | 'note';
+    url?: string;
+    repo?: string;
+    issue?: number;
+    note?: string;
+  };
+  /**
+   * markdown
+   */
+  note?: string;
+}
+/**
+ * plans/<plan>/progress.yaml: an append-only record of what happened, oldest first
+ *
+ * This interface was referenced by `Plan`'s JSON-Schema
+ * via the `definition` "progress".
+ */
+export interface Progress {
+  events: ProgressEvent[];
 }

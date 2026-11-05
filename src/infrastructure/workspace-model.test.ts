@@ -140,6 +140,33 @@ describe('readWorkspaceModel', () => {
     expect(model.attribution['h:orders-create']).toEqual({ origin: 'curated', sources: [] });
   });
 
+  it('reads a fact documented from a partner’s document, where in it and which version', async () => {
+    const { workspace } = await acme();
+    const folder = await bareWorkspace(scratch, workspace.id);
+    await mkdir(path.join(folder, 'flows'), { recursive: true });
+    const document = { url: 'https://www.notion.so/ziklo/quote', heading: 'Quote', version: '3' };
+    await writeFile(
+      path.join(folder, 'flows', 'quote.yaml'),
+      `id: flow:quote\nname: Quote\norigin: documented\nsteps: []\nsources:\n  - { url: ${document.url}, heading: ${document.heading}, version: '${document.version}' }\n`,
+    );
+    const model = await readWorkspaceModel(workspace, path.dirname(folder));
+    expect(model.attribution['flow:quote']).toEqual({ origin: 'documented', sources: [] });
+    expect(model.flows[0]?.sources).toEqual([document]);
+  });
+
+  it('refuses a document source that names both a pointer and a heading', async () => {
+    const { workspace } = await acme();
+    const folder = await bareWorkspace(scratch, workspace.id);
+    await mkdir(path.join(folder, 'flows'), { recursive: true });
+    await writeFile(
+      path.join(folder, 'flows', 'quote.yaml'),
+      'id: flow:quote\nname: Quote\norigin: documented\nsteps: []\nsources:\n  - { url: https://x.test/doc, heading: A, pointer: "#/b" }\n',
+    );
+    await expect(readWorkspaceModel(workspace, path.dirname(folder))).rejects.toThrow(
+      /a pointer or a heading, not both/u,
+    );
+  });
+
   it('refuses a fact without an origin', async () => {
     const { workspace } = await acme();
     const folder = await bareWorkspace(scratch, workspace.id);

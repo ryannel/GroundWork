@@ -72,7 +72,7 @@ export function acmeFiles(): Record<string, unknown> {
 }
 
 /** Any workspace and model as the files the store reads back to the same workspace and model. */
-function filesOf(workspace: Workspace, model: WorkspaceModel): Record<string, unknown> {
+export function filesOf(workspace: Workspace, model: WorkspaceModel): Record<string, unknown> {
   const fact = factOf(model);
   return {
     ...structureFiles(workspace),

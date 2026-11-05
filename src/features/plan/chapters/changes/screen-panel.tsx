@@ -3,6 +3,7 @@ import { screenClaim } from '@/application/plan-story-changes-flows';
 import { changesOf, teamsBehind } from '@/application/plan-story-changes-touched';
 import { numWord } from '@/application/plan-viz-text';
 import { ScreenHead } from '@/features/plan/chapters/screen-head';
+import { InheritedNote } from '@/features/plan/common/inherited-note';
 import type { BodyProps } from '@/features/plan/screen-bodies';
 import { SegTabs } from '@/features/plan/viz/query-plan/seg-tabs.client';
 import { BeforeAfter } from '@/features/plan/viz/screens/before-after';
@@ -54,6 +55,7 @@ function ScreenPanel(
         {lede === '' ? null : <p>{lede}</p>}
       </ScreenHead>
       <TeamRow model={model} teamIds={teamsBehind(model, changes)} />
+      <InheritedNote ids={[id, ...d.regions.map((r) => r.id)]} model={model} />
       <BeforeAfter base={base} focus={focus} id={id} model={model} />
       <ScreenLinks base={base} id={id} mode="toBe" model={model} />
       <Block title={regionsTitle(focus.length)}>

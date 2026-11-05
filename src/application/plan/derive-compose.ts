@@ -15,13 +15,15 @@ import {
   createFederationMembers,
   type FederationMembers,
 } from '@/application/plan/federation-members';
+import type { Inherited } from '@/application/plan/stack-base';
 import type { Findings } from '@/application/plan/validate-plan';
+import type { PlanStanding } from '@/application/plan/work-standing';
 import type { Fanout } from '@/domain/plan/plan-graph';
 import type { IssueStatus } from '@/domain/plan/plan-status';
 import type { Plan } from '@/domain/plan/plan.generated';
 
 export interface DeriveOptions {
-  /** GitHub issue state of each work item, from status.json. */
+  /** GitHub issue state of each work item, from the GitHub events in progress.yaml. */
   readonly status?: IssueStatus | undefined;
   /** Findings the caller already has; without them the model validates the plan itself. */
   readonly validation?: Findings | undefined;
@@ -29,6 +31,10 @@ export interface DeriveOptions {
   readonly fanout?: Fanout | undefined;
   /** The day questions fall overdue against; the caller reads the clock. Without it no question is overdue. */
   readonly today?: Date | string | undefined;
+  /** What the plans this one builds on added and changed, by id, as the store composed them. */
+  readonly inherited?: Inherited | undefined;
+  /** Where its work stands and how far today says what it changes, as the store worked them out. */
+  readonly standing?: PlanStanding | undefined;
 }
 
 /** The parts of the model that the rest are built from: the graphs, owners, diff, edges and delivery. */
@@ -49,7 +55,7 @@ export interface Composed {
 
 export function compose(plan: Plan, options: DeriveOptions): Composed {
   const fanout = options.fanout ?? federatedFanout;
-  const core = createCore(plan, fanout);
+  const core = createCore(plan, fanout, options.inherited);
   const owners = createOwners(core);
   const diff = createDiff(core, createWords(core));
   const { opSummary, versions } = diff;

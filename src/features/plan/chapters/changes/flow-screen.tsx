@@ -4,6 +4,7 @@ import { flowHead } from '@/application/plan-story-changes-flows';
 import { fit } from '@/application/plan-story-changes-records';
 import { changesOf, teamsBehind } from '@/application/plan-story-changes-touched';
 import { ScreenHead } from '@/features/plan/chapters/screen-head';
+import { InheritedNote } from '@/features/plan/common/inherited-note';
 import type { BodyProps } from '@/features/plan/screen-bodies';
 import { SegTabs } from '@/features/plan/viz/query-plan/seg-tabs.client';
 
@@ -39,6 +40,7 @@ export function FlowPanel({
         {split.rest === '' ? null : <p>{split.rest}</p>}
       </ScreenHead>
       <TeamRow model={model} teamIds={teamsBehind(model, changes)} />
+      <InheritedNote ids={[id]} model={model} />
       <JourneyLink flowId={id} label={model.label(id)} model={model} outline={outline} />
       {children}
       <Decisions changeIds={changes} model={model} />

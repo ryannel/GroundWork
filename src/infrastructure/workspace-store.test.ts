@@ -42,13 +42,67 @@ await writeWorkspace(path.join(root, 'mono'), {
   },
 });
 
+await writeWorkspace(path.join(root, 'partners'), {
+  'workspace.yaml': {
+    id: 'partners',
+    name: 'Partners',
+    teams: [
+      { id: 'team:leads', name: 'Leads', handles: ['leads-sg', '@org/leads'] },
+      {
+        id: 'team:ziklo',
+        name: 'Ziklo',
+        partner: true,
+        contacts: [{ name: 'Louise', role: 'product' }, { name: 'Henrik' }],
+      },
+    ],
+  },
+  'domains/d/domain.yaml': { id: 'd', name: 'D' },
+  'domains/d/systems/shell/system.yaml': { id: 'shell', name: 'Shell', team: 'team:leads' },
+  'domains/d/systems/tool/system.yaml': {
+    id: 'tool',
+    name: 'Tool',
+    runs_on: 'shell',
+    repos: [{ repo: 'org/connect', path: 'apps/tool' }],
+  },
+});
+
 describe('readWorkspaces', () => {
+  it('reads what evidence calls a team, partners and their contacts, and systems no team owns', async () => {
+    const workspaces = await readWorkspaces(root);
+    const partners = workspaces.find((workspace) => workspace.id === 'partners')!;
+    expect(partners.teams).toEqual([
+      {
+        id: 'team:leads',
+        name: 'Leads',
+        colour: null,
+        channel: null,
+        handles: ['leads-sg', '@org/leads'],
+      },
+      {
+        id: 'team:ziklo',
+        name: 'Ziklo',
+        colour: null,
+        channel: null,
+        partner: true,
+        contacts: [
+          { name: 'Louise', role: 'product' },
+          { name: 'Henrik', role: null },
+        ],
+      },
+    ]);
+    expect(systemsOf(partners).map(({ id, team, runsOn }) => [id, team, runsOn])).toEqual([
+      ['shell', 'team:leads', undefined],
+      ['tool', null, 'shell'],
+    ]);
+  });
+
   it('reads every workspace in the folder and its whole tree', async () => {
     const workspaces = await readWorkspaces(root);
     expect(workspaces.map(({ id }) => id).toSorted((a, b) => a.localeCompare(b))).toEqual([
       'acme',
       'mono',
       'notes',
+      'partners',
     ]);
     const acme = workspaces.find((workspace) => workspace.id === 'acme');
     expect(acme?.domains.map((domain) => domain.id)).toEqual(['catalogue', 'orders', 'storefront']);

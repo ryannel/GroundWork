@@ -24,6 +24,9 @@ describe('DesignPage', () => {
       'SplitView',
       'ScopeSwitcher',
       'FlowCard',
+      'RecordCard',
+      'CodeBlock',
+      'TextField',
     ]) {
       expect(screen.getByRole('heading', { level: 3, name })).toBeDefined();
     }
@@ -37,6 +40,10 @@ describe('DesignPage', () => {
     expect(screen.getByRole<HTMLInputElement>('searchbox', { name: 'Search plans' }).value).toBe(
       'tax',
     );
+    fireEvent.change(screen.getByRole('textbox', { name: 'Said by' }), {
+      target: { value: 'Louise' },
+    });
+    expect(screen.getByRole<HTMLInputElement>('textbox', { name: 'Said by' }).value).toBe('Louise');
     const toggle = screen.getByRole('button', { name: 'Toggle' });
     fireEvent.click(toggle);
     expect(toggle.getAttribute('aria-pressed')).toBe('true');

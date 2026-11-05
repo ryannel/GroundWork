@@ -190,7 +190,7 @@ describe('validator checks 15–22', () => {
       byId(p.stores, 'st:pricing-db').owner = 'svc:product-graph';
     }, /draft: svc:pricing-api reads sch:price#amount_cents \(for sch:gql-product#price\) behind gql:product-page/u);
     expectWarning((p) => {
-      byId(p.changes, 'chg:price-expand').ops.pop();
+      byId(p.changes, 'chg:price-expand').ops?.pop();
     }, /^flows\[0\]\.steps\[0\]\.via: draft: svc:pricing-v2-graph reads st:price-redis \(for sch:gql-product#price\) behind gql:product-page/u);
     const strict = check((p) => {
       Object.assign(p.meta, { status: 'review' });

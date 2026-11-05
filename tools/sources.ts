@@ -4,8 +4,10 @@
 // A fact is any object with an `id` in a system's system.yaml, contracts.yaml or handlers.yaml, or in flows/ and
 // journeys/. Sources on things without an id (handler steps, fields) belong to the fact that holds them.
 // A source is { repo, path, lines, commit, symbol? }, as schema/plan.schema.json defines it; a bare `url` is the
-// older form, still read and reported as a warning.
-// --check asks GitHub (gh api) for each file at its commit and checks the lines are inside it.
+// older form, still read and reported as a warning. A fact with `origin: documented` cites documents instead:
+// { url, pointer? or heading?, version? }, read where they live, so it is attributed without code.
+// --check asks GitHub (gh api) for each file at its commit and checks the lines are inside it. Documents are not
+// fetched: many sit where this machine cannot reach (an internal network, Notion), so they are counted and skipped.
 import { spawnSync } from 'node:child_process';
 import { glob, readFile } from 'node:fs/promises';
 import path from 'node:path';
@@ -21,11 +23,20 @@ export interface Located {
   readonly lines?: readonly [number, number];
 }
 
+/** A document a fact was read from, where it lives. */
+export interface Document {
+  readonly url: string;
+  readonly pointer?: string;
+  readonly heading?: string;
+  readonly version?: string;
+}
+
 export interface Fact {
   readonly id: string;
   readonly file: string;
   readonly origin: string;
   readonly sources: readonly Located[];
+  readonly documents: readonly Document[];
   readonly problems: readonly string[];
   readonly stepsWithoutSources: number;
   readonly notes: readonly string[];
@@ -106,11 +117,32 @@ function noteOf(source: unknown, found: Located | Problem): readonly string[] {
   return [];
 }
 
+const DOCUMENT_KEYS = ['pointer', 'heading', 'version'] as const;
+
+// a link that names where in a document it points, or any link a documented fact gives, unless it is a code permalink
+function documentOf(source: unknown, origin: string): Document | null {
+  if (!isObject(source) || typeof source.url !== 'string' || !URL.canParse(source.url)) return null;
+  const marked = DOCUMENT_KEYS.some((key) => typeof source[key] === 'string');
+  if (!marked && origin !== 'documented') return null;
+  if (!isProblem(fromUrl(source.url))) return null;
+  const { url, pointer, heading, version } = source;
+  return {
+    url,
+    ...(typeof pointer === 'string' ? { pointer } : {}),
+    ...(typeof heading === 'string' ? { heading } : {}),
+    ...(typeof version === 'string' ? { version } : {}),
+  };
+}
+
 function withSources(fact: Fact, value: unknown): Fact {
   if (!Array.isArray(value)) return fact;
-  const read = value.map((source: unknown) => ({ source, found: locate(source) }));
+  const documents = value.flatMap((source: unknown) => documentOf(source, fact.origin) ?? []);
+  const read = value
+    .filter((source: unknown) => documentOf(source, fact.origin) === null)
+    .map((source: unknown) => ({ source, found: locate(source) }));
   return {
     ...fact,
+    documents: [...fact.documents, ...documents],
     sources: [...fact.sources, ...read.flatMap(({ found }) => (isProblem(found) ? [] : [found]))],
     problems: [
       ...fact.problems,
@@ -134,6 +166,7 @@ function factOf(node: Json, file: string, owner: Fact | undefined): Fact | undef
     file,
     origin,
     sources: [],
+    documents: [],
     problems: [],
     stepsWithoutSources: 0,
     notes: [],
@@ -193,6 +226,11 @@ export function findings(fact: Fact): {
   if (fact.origin === 'extracted' && fact.sources.length === 0 && fact.problems.length === 0) {
     errors.push(`${fact.id}: extracted but cites no code; add sources with tools/permalink.ts`);
   }
+  if (fact.origin === 'documented' && fact.documents.length === 0 && fact.sources.length === 0) {
+    errors.push(
+      `${fact.id}: documented but cites no document; add { url, pointer or heading, version }`,
+    );
+  }
   if (fact.origin === 'extracted') {
     warnings.push(...fact.notes.map((note) => `${fact.id}: ${note}`));
   }
@@ -235,13 +273,18 @@ function unreachable(facts: readonly Fact[]): string[] {
   return out;
 }
 
+/** Whether a fact cites what proves it: code, or for a documented fact, a document. */
+export const isAttributed = (fact: Fact): boolean =>
+  fact.sources.length > 0 || (fact.origin === 'documented' && fact.documents.length > 0);
+
 function report(facts: readonly Fact[], check: boolean): number {
   const attributed = facts.filter((fact) => fact.sources.length > 0).length;
+  const documented = facts.filter((fact) => fact.documents.length > 0).length;
   const seeded = facts.filter(
     (fact) => fact.origin === 'seeded' && fact.sources.length === 0,
   ).length;
   console.log(
-    `  ${String(attributed)} of ${String(facts.length)} facts cite code; ${String(seeded)} seeded without sources`,
+    `  ${String(attributed)} of ${String(facts.length)} facts cite code, ${String(documented)} a document; ${String(seeded)} seeded without sources`,
   );
   let errors = 0;
   for (const fact of facts) {
@@ -254,6 +297,10 @@ function report(facts: readonly Fact[], check: boolean): number {
     const missing = unreachable(facts);
     errors += missing.length;
     for (const line of missing) console.log(`  missing ${line}`);
+    const documents = facts.reduce((sum, fact) => sum + fact.documents.length, 0);
+    if (documents > 0) {
+      console.log(`  skipped ${String(documents)} document source(s): documents are not fetched`);
+    }
   }
   console.log(
     errors === 0 ? '  ✓ every extracted fact cites code' : `  ✗ ${String(errors)} error(s)`,
@@ -279,7 +326,10 @@ async function main(argv: readonly string[]): Promise<void> {
     return;
   }
   if (argv.includes('--missing')) {
-    for (const fact of facts.filter((f) => f.origin === 'extracted' && f.sources.length === 0)) {
+    const owed = facts.filter(
+      (f) => (f.origin === 'extracted' || f.origin === 'documented') && !isAttributed(f),
+    );
+    for (const fact of owed) {
       console.log(`${fact.file}\t${fact.id}`);
     }
     return;

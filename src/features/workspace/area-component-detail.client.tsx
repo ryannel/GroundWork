@@ -13,6 +13,7 @@ import {
   CanvasDependencyArrow,
   CanvasInspectorSection,
 } from '@/ui/connected-canvas.client';
+import { Icon } from '@/ui/icon';
 import { Cluster, Stack } from '@/ui/stack';
 import { Text, TextLink } from '@/ui/text';
 
@@ -138,23 +139,13 @@ function OutboundConnections({ component }: { readonly component: AreaComponentV
 }
 
 function Evidence({ component }: { readonly component: AreaComponentView }) {
-  if (component.repository === null && component.resources.length === 0) return null;
+  if (component.resources.length === 0) return null;
   return (
     <CanvasInspectorSection>
       <Text as="p" weight="strong">
-        Resources and code
+        Resources
       </Text>
       <CanvasAttachmentGrid>
-        {component.repository === null ? null : (
-          <CanvasAttachment>
-            <Stack gap={1}>
-              <Text caps size="sm" tone="faint">
-                Code
-              </Text>
-              <TextLink href={component.repository.href}>{component.repository.name}</TextLink>
-            </Stack>
-          </CanvasAttachment>
-        )}
         {component.resources.map((resource) => (
           <CanvasAttachment key={`${resource.kind}:${resource.id}`}>
             <Stack gap={1}>
@@ -289,6 +280,14 @@ export function AreaComponentDetail({
             <Text size="sm" tone="faint">
               {component.technology ?? 'Technology not recorded'}
             </Text>
+            {component.repository === null ? null : (
+              <TextLink href={component.repository.href} tone="quiet">
+                <Cluster gap={2}>
+                  <Icon name="github" />
+                  <Text size="sm">{component.repository.name}</Text>
+                </Cluster>
+              </TextLink>
+            )}
           </Stack>
           <Button label={`Close ${component.name}`} onClick={onClose} size="sm" variant="quiet">
             Close

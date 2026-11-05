@@ -21,10 +21,12 @@ this machine has registered in `groundwork.local.yaml`, which is git-ignored, pl
 <id>-groundwork/                 one workspace, one repo
   workspace.yaml                 format, id, name, description, private, teams, actors, key_journeys
   domains/<domain>/domain.yaml   id, name, purpose
-    systems/<system>/system.yaml id, name, team, repos, components; contracts.yaml and handlers.yaml from scans
+    systems/<system>/system.yaml id, name, team (optional), repos, components; contracts.yaml and handlers.yaml
+                                 from scans, or from documents for a partner's system
   flows/  journeys/  story.yaml  how the systems work together today
   scans/<org>/<repo>.yaml        the commit each code repo was last read at
-  plans/<plan>/plan.yaml         the plans, each an overlay on today
+  programmes/<id>/programme.yaml an outcome several plans serve, and the context they share
+  plans/<plan>/plan.yaml         the plans, each an overlay on today; progress.yaml beside it records what happened
   AGENTS.md  README.md  .gitignore
 ```
 
@@ -54,7 +56,23 @@ this machine has registered in `groundwork.local.yaml`, which is git-ignored, pl
    commits them, registers the folder and links these skills into it. If the commit fails (no git identity), say
    so and leave it for them.
 3. **Teams.** Ask which teams build and run the systems. Write each into `workspace.yaml` as `team:<id>` with its
-   name, and its chat channel if they give one. Only the teams people name.
+   name, and its chat channel if they give one. Only the teams people name. Add the names the code uses for each
+   team as `handles` (CODEOWNERS and GitHub teams, Backstage owners, such as `'@acme/billing'`); a handle names one
+   team. A team outside the company whose code we cannot read (a supplier, a bank) is a **partner**:
+   `partner: true` and the people we talk to as `contacts: [{ name, role }]`. Its systems are described from its
+   documents.
+   ```yaml
+   teams:
+     - {
+         id: team:leads-collection,
+         name: Leads Collection,
+         handles: [cld-ccdp-leads-sg, '@volvo-cars/leads-collection'],
+       }
+     - id: team:ziklo
+       name: Ziklo
+       partner: true
+       contacts: [{ name: Louise A. Zieme, role: product }, { name: Henrik Hermansson, role: tech }]
+   ```
 4. **Actors.** Ask who uses what the teams build: customers, staff, partners, outside systems. Each is
    `actor:<id>` with a name and a one-line summary; `uses` waits until there are systems to point at. Mark the
    people the business serves `customer: true`: the map draws them apart, and everyone else inside the domains
@@ -65,8 +83,11 @@ name,description,primaryLanguage,isArchived`), leave out archived and personal r
    for it. Read CODEOWNERS and READMEs for owners. Show the cut to the people and change it until they agree; do
    not write it before they do.
 6. **Write the skeleton.** Per agreed domain, `domains/<domain>/domain.yaml` (`id`, `name`, `purpose`); per
-   system, `systems/<system>/system.yaml` with `id`, `name`, `team` and `repos`, and no components yet. When
-   teams share a repo (a monorepo), each system lists its own folder: `{ repo: org/name, path: services/x }`.
+   system, `systems/<system>/system.yaml` with `id`, `name` and `repos`, and no components yet. When teams share a
+   repo (a monorepo), each system lists its own folder: `{ repo: org/name, path: services/x }`. Write `team:` when
+   the people name the owner or the evidence disagrees; a typed team always wins, and without one the system shows
+   "owner not known" (a warning, not an error). A partner's system lives in the domain it serves and always names
+   its partner team. Domain ids may not be `programmes`, `partners` or `impact`: those are pages.
 7. **Check it.** `npm run workspace -- check ../<id>-groundwork`, then reload the page or run
    `npm run workspace -- open <id>`. No dev-server restart is needed.
 8. **Commit** in the workspace repo. Make a GitHub repo for it only when asked
@@ -90,7 +111,9 @@ npm run workspace -- open <id>     # open its workspace root
 npm run workspace -- remove <id>                                    # stop reading one; its folder stays
 ```
 
-Each also links these skills into the workspace. Reload the page afterwards. `add` refuses a folder without
+Each also links these skills into the workspace and installs its pre-commit hook, which checks the workspace and
+its plans whenever YAML is staged. A repo that already has its own pre-commit hook keeps it; `add` says what to
+add to it. Reload the page afterwards. `add` refuses a folder without
 a `workspace.yaml`, and two folders with the same id, leaving registration unchanged; fix the folder rather
 than working round it. To set up another checkout with the same workspaces, copy URL-based entries in
 `groundwork.local.yaml` across and run `pull`; folder-only entries need valid paths on that machine.

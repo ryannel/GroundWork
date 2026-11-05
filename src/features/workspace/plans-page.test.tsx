@@ -26,6 +26,8 @@ const row = (id: string, more: Partial<PlanRow>): PlanRow => ({
   domains: [],
   workItems: 0,
   done: 0,
+  programme: null,
+  check: null,
   ...more,
 });
 
@@ -96,6 +98,57 @@ describe('PlansPage', () => {
     expect(titles()).toHaveLength(50);
     fireEvent.click(screen.getByRole('button', { name: 'Show 50 more of 70' }));
     expect(titles()).toHaveLength(100);
+  });
+
+  it('lists programmes first, then the plans on their own; a search still finds a programme’s plan', () => {
+    const programmes = [
+      {
+        id: 'care',
+        title: 'Care in Sweden',
+        outcome: 'One Care deal.',
+        href: '/shop/programmes/care/',
+        plans: 2,
+        blocked: 1,
+        nextBlocked: { slug: 'stock', title: 'Reserve stock', href: '/shop/plans/stock/' },
+      },
+    ];
+    const joined = rows.map((r) => (r.id === 'vat' ? r : { ...r, programme: 'care' }));
+    render(<PlansPage domains={domains} programmes={programmes} rows={joined} />);
+    const [listed, alone] = screen.getAllByRole('list');
+    expect(
+      within(listed!).getByRole('link', { name: 'Care in Sweden' }).getAttribute('href'),
+    ).toMatch(/^\/shop\/programmes\/care\/?$/u);
+    expect(within(listed!).getByText(/2 plans · 1 held up · next held up:/u)).toBeTruthy();
+    expect(within(listed!).getByRole('link', { name: 'Reserve stock' })).toBeTruthy();
+    expect(
+      within(alone!)
+        .getAllByRole('link')
+        .map((a) => a.textContent),
+    ).toEqual(['VAT on invoices']);
+    expect(screen.getByText('1 plan on their own, 2 in programmes')).toBeTruthy();
+    fireEvent.change(screen.getByRole('searchbox', { name: 'Find a plan' }), {
+      target: { value: 'reserve' },
+    });
+    expect(screen.queryByRole('heading', { name: 'Programmes' })).toBeNull();
+    expect(titles()).toEqual(['Reserve stock']);
+  });
+
+  it('says so when every plan is in a programme', () => {
+    const programmes = [
+      {
+        id: 'care',
+        title: 'Care',
+        outcome: 'One deal.',
+        href: '/shop/programmes/care/',
+        plans: 3,
+        blocked: 0,
+        nextBlocked: null,
+      },
+    ];
+    const joined = rows.map((r) => ({ ...r, programme: 'care' }));
+    render(<PlansPage domains={domains} programmes={programmes} rows={joined} />);
+    expect(screen.getByText('3 plans · none held up')).toBeTruthy();
+    expect(screen.getByText('Every plan is in a programme.')).toBeTruthy();
   });
 
   it('says how to write a plan when there are none', () => {

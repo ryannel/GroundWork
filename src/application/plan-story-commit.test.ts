@@ -5,7 +5,7 @@ import {
   orderNotes,
   orderNotesUnfiled,
 } from '@/../test/fixtures/acme/plans/chapters-order-notes';
-import { sameDay, sameDayConfident } from '@/../test/fixtures/acme/plans/chapters-same-day';
+import { sameDay } from '@/../test/fixtures/acme/plans/chapters-same-day';
 import { modelOf } from '@/../test/plan-kit';
 import {
   choicesHeadline,
@@ -20,18 +20,10 @@ import {
   risksLede,
 } from '@/application/plan-story-commit';
 import { askOf } from '@/application/plan-story-commit-ask';
-import {
-  hasCommitment,
-  ratersLine,
-  voteHead,
-  voteRule,
-} from '@/application/plan-story-commit-vote';
-import { voteSummary } from '@/application/plan-viz-vote';
 import type { Plan } from '@/domain/plan/plan.generated';
 
 const PLANS: readonly (readonly [string, Plan])[] = [
-  ['a draft with a low vote', sameDay()],
-  ['a confident draft', sameDayConfident()],
+  ['a draft', sameDay()],
   ['an approved plan', orderNotesUnfiled()],
   ['a plan in delivery', orderNotes()],
 ];
@@ -73,20 +65,11 @@ describe('commit headlines', () => {
   });
 
   it('counts what each team owes while the plan is a draft', () => {
-    const model = modelOf(sameDayConfident());
+    const model = modelOf(sameDay());
     const ask = askOf(model);
     expect(ask.stage).toBe('draft');
     expect(ask.headline).toBe(
       'Catalogue, Web and Orders owe two answers and two decisions the plan waits on; the first is due 5 Jun.',
-    );
-  });
-
-  it('puts a low vote before the owner’s approval', () => {
-    const model = modelOf(sameDay());
-    const ask = askOf(model);
-    expect(ask.headline).toMatch(/^Payments is not confident \(2 of 5\)/u);
-    expect(ask.lede).toBe(
-      'A rating under 3 means the plan is rethought before its owner approves it.',
     );
   });
 
@@ -107,32 +90,5 @@ describe('commit headlines', () => {
   it.each(PLANS)('gives every other open item a reason in %s', (_, plan) => {
     const { also } = askOf(modelOf(plan));
     for (const { why } of also) expect(why).toMatch(/^(settled with D\d+|nothing waits on it)$/u);
-  });
-});
-
-describe('the confidence ratings', () => {
-  it('heads them by the state of the plan and says the rule once', () => {
-    const model = modelOf(sameDay());
-    const vote = voteSummary(model);
-    expect(hasCommitment(model)).toBe(true);
-    expect(voteHead(model, vote, false)).toBe('Confidence ratings');
-    expect(voteRule(model, vote)).not.toContain('Below 3');
-    expect(voteRule(model, vote)).toMatch(/^Each team building something rates from 1 to 5/u);
-    expect(voteHead(model, vote, true)).toMatch(/^Confidence in /u);
-  });
-
-  it('says how many teams have rated when none is below 3', () => {
-    const model = modelOf(sameDayConfident());
-    const vote = voteSummary(model);
-    expect(vote.low).toHaveLength(0);
-    expect(voteHead(model, vote, false)).toMatch(
-      /teams have rated their confidence, and none is below 3\.$/u,
-    );
-    expect(voteRule(model, vote)).toContain('Below 3, the plan is rethought.');
-  });
-
-  it('names the teams that rate', () => {
-    const model = modelOf(sameDayConfident());
-    expect(ratersLine(model, voteSummary(model))).toMatch(/^Teams that rate: .+\.$/u);
   });
 });

@@ -12,6 +12,7 @@ import type { BodyProps } from '@/features/plan/screen-bodies';
 import { PageHeader } from '@/ui/page-header';
 
 import styles from './cover-screen.module.css';
+import { StackSection } from './stack-section';
 
 const hrefOf = (outline: Outline, link: AskLink): string | null =>
   outline.pages.find((p) => p.chapter === link.chapter && p.screen === link.screen)?.href ?? null;
@@ -93,7 +94,7 @@ function Door({ model, outline }: { readonly model: Model; readonly outline: Out
 }
 
 // What ships and why, what the teams are asked to do now, and a door to each team's part.
-export function CoverScreen({ model, outline, base }: BodyProps) {
+export function CoverScreen({ model, outline, base, stack = null }: BodyProps) {
   const cover = coverOf(model, new Date().toISOString().slice(0, 10));
   const line = base === undefined ? null : baseLine(base, (id) => model.label(id), model.today);
   return (
@@ -103,6 +104,7 @@ export function CoverScreen({ model, outline, base }: BodyProps) {
         title={cover.title}
       />
       <Ask lines={line === null ? cover.ask : [...cover.ask, line]} outline={outline} />
+      {stack === null ? null : <StackSection stack={stack} today={model.today} />}
       <Stats model={model} />
       <Door model={model} outline={outline} />
     </>

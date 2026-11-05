@@ -1,0 +1,35 @@
+@layer components {
+  .block {
+    display: grid;
+    gap: var(--s-1);
+    min-width: 0;
+    margin: 0;
+  }
+
+  .head {
+    display: flex;
+    gap: var(--s-2);
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .label {
+    color: var(--fg-2);
+    font-size: var(--fs-12);
+    font-weight: 600;
+  }
+
+  .code {
+    overflow-x: auto;
+    margin: 0;
+    padding: var(--s-2) var(--s-3);
+    border: 1px solid var(--line-1);
+    border-radius: var(--r-2);
+    background: var(--bg-1);
+    color: var(--fg-1);
+    font-family: var(--font-mono);
+    font-size: var(--fs-12);
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+  }
+}

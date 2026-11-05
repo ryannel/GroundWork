@@ -57,6 +57,7 @@ Variants are data attributes (`data-tone`, `data-status`, `data-variant`), never
 - `Button`: default, primary or ghost; small or medium.
 - `Callout`: an aside with an optional title, as a note or a warning.
 - `Card`: a whole-card link to what it names.
+- `CodeBlock`: text to copy exactly (a command, a YAML entry, a prompt) under a label, with an optional action.
 - `Facts`: a quiet row of facts (sizes, counts, owners) separated by “·”.
 - `Chip`, `ChipList`: `<button data-inspect={id}>` with a type glyph and a status; the inspector catches its clicks.
 - `DataTable`: a captioned table that folds to labelled rows when its own width is under 520px. With
@@ -73,9 +74,13 @@ Variants are data attributes (`data-tone`, `data-status`, `data-variant`), never
 - `PageHeader`: the top of every page's stage, in this order: the name of the thing as the `h1`, one line on what
   it is or what is true of it, then `Facts`. Its trail is only for a crumb inside a plan chapter.
 - `Panel`: a raised section with an optional title.
+- `RecordCard`: one piece of work with its owner, title, a line under it, labelled rows (an aside may warn) and a
+  foot of actions; a team stripe from `slot`. The same card for every owner; only the words differ.
 - `SectionHeading`: a section's name as an `h2` (a short noun such as “Domains”), with an optional one-line
   description.
 - `Tabs`: a row of links; the current one carries `aria-current="page"`.
+- `TextField`: a labelled box to type one value into a form (text, date or url, or several lines); `Select` with
+  `shown` puts its label above it the same way.
 - `ThemeToggle` (client): cycles system, light and dark, and remembers the choice.
 
 ## Headings
@@ -93,6 +98,8 @@ Chapters and charts use these rather than drawing ids or prose themselves.
 - `ModelText({ model, text })`: the plan's prose as blocks, each `[[id]]` as an `EntityChip`. Use it for any
   description, why, summary or note.
 - `ModelInline({ model, text })`: the same for one line (a title, a table cell), with no paragraph around it.
+- `InheritedNote({ model, ids })`: what a plan below this one added or changed and is not live yet, said once per
+  group ("Added by Sales tool · not live yet"). Nothing when the plan inherits none of it.
 
 Their logic is pure and tested: `src/application/plan-chips.ts` (`chipInfo`, `chipName`,
 `questionTitle`, `statusWord`), `src/shared/markdown.ts` (`parseMarkdown`, `parseInline`,
@@ -109,6 +116,20 @@ flattened to words in titles, summaries and search.
 - Each screen's content sits inside `ChapterBoundary`, so a screen that fails to draw shows a warning, not a blank
   page.
 - When printed, only the stage is shown, in the light scheme; the pager and chrome are hidden.
+
+## Work
+
+- **One card for all work.** `WorkCard` (`src/features/plan/work/`, on `RecordCard`) draws every team's work item
+  the same way: who owns it, then Commitment, Progress, Needed by (with how many days later the promise is) and Last
+  heard as rows, then what holds it up. Teams differ in words and actions only: ours ends in its GitHub issue, a
+  partner's in Record update. Our need (`needed_by`) is never shown as their promise.
+- **Record update** (client) is a form that drafts one `progress.yaml` event and shows it, with the
+  `npm run progress -- add …` command and an agent prompt that append it. The site writes nothing.
+- **Partners keep their place.** The build waves draw partners' items in their real waves beside ours, never in a
+  lane of their own.
+- **A stacked plan's cover** says what it reads after (each base checked ✓, or changed since), when it was checked,
+  the work below not delivered yet, its overlaps linking to the change in both plans, and one action: re-check.
+- **Last heard** is a date and an age, never "overdue": no team has an agreed check-in cadence.
 
 ## Teaching today
 

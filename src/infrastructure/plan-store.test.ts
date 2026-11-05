@@ -7,14 +7,14 @@ import { parse } from 'yaml';
 import { pauseOrdersOverlay } from '@/../test/fixtures/acme/plans/pause-orders';
 import {
   pauseOrdersAt,
-  pauseOrdersStatus,
+  pauseOrdersProgress,
   productGraphOverlay,
 } from '@/../test/fixtures/acme/plans/store-plans';
 import { acmeFiles, tempDir, writeWorkspace } from '@/../test/workspace-kit';
 
 vi.mock(import('server-only'), () => ({}));
 
-const { listPlans, listRevisions, readPlan, readRevision, readStatus } =
+const { listPlans, listRevisions, readPlan, readProgress, readRevision, readStatus } =
   await import('./plan-store');
 const { checkPlanData } = await import('./plan-validator');
 
@@ -30,7 +30,7 @@ await writeWorkspace(path.join(root, 'acme'), {
   'plans/pause-orders/plan.yaml': pauseOrdersOverlay(),
   'plans/pause-orders/revisions/0.1.yaml': pauseOrdersAt('0.1'),
   'plans/pause-orders/revisions/0.2.yaml': pauseOrdersAt('0.2'),
-  'plans/pause-orders/status.json': pauseOrdersStatus(),
+  'plans/pause-orders/progress.yaml': pauseOrdersProgress(),
   'plans/product-graph/plan.yaml': productGraphOverlay(),
 });
 
@@ -89,11 +89,20 @@ describe('reading the plans of a workspace', () => {
     expect(current.plan?.meta.version).toBe('1.0');
   });
 
-  it('reads status.json, or an empty status when there is none', async () => {
-    const status = await readStatus('acme', 'pause-orders', root);
-    expect(status['wi:pause-api']?.state).toBe('closed');
-    expect(status['wi:desk-button']?.state).toBe('open');
+  it('reads issue state from the latest GitHub events in progress.yaml, or none when there are none', async () => {
+    await expect(readStatus('acme', 'pause-orders', root)).resolves.toEqual({
+      'wi:pause-api': {
+        state: 'closed',
+        closed_at: '2026-05-28T09:00:00Z',
+        url: 'https://github.com/acme/ordering/issues/12',
+      },
+      'wi:desk-button': { state: 'open', url: 'https://github.com/acme/ordering/issues/13' },
+    });
     await expect(readStatus('acme', 'product-graph', root)).resolves.toEqual({});
+    await expect(readProgress('acme', 'product-graph', root)).resolves.toEqual({
+      progress: { events: [] },
+      errors: [],
+    });
   });
 });
 
@@ -127,13 +136,16 @@ describe('files that do not read', () => {
     expect(errors).toHaveLength(1);
   });
 
-  it('rejects a status.json of the wrong shape', async () => {
+  it('rejects a progress.yaml of the wrong shape, and reads no events from it', async () => {
     const dir = await folder();
     await writeFile(
-      path.join(dir, 'ws', 'plans', 'p', 'status.json'),
-      '{"wi:a": {"state": "maybe"}}',
+      path.join(dir, 'ws', 'plans', 'p', 'progress.yaml'),
+      'events:\n  - { at: soon, subject: wi:a, kind: rumour }\n',
     );
-    await expect(readStatus('ws', 'p', dir)).rejects.toThrow(/status\.json/u);
+    const { progress, errors } = await readProgress('ws', 'p', dir);
+    expect(progress.events).toEqual([]);
+    expect(errors.map((e) => e.message).join('\n')).toMatch(/kind/u);
+    await expect(readStatus('ws', 'p', dir)).resolves.toEqual({});
   });
 });
 
@@ -181,8 +193,14 @@ describe('schema errors read as a fix', () => {
       /must be array \(got string\); wrap it in a list/u,
     ));
   it('an empty list that needs an item', async () => {
-    const errors = await errorsOf([['changes', 0, 'ops'], []]);
+    const errors = await errorsOf([['execution'], { summary: 'How it plays out.', paths: [] }]);
     expect(errors.some((e) => e.message.includes('at least 1 item'))).toBe(true);
+  });
+  it('a change with no ops yet must say what it requires', async () => {
+    const { errors } = await checkPlanData(edited([['changes', 0, 'ops'], []]));
+    expect(errors.find((e) => e.path === 'changes[0]')?.message).toMatch(
+      /has no ops; say what it requires/u,
+    );
   });
   it('op: modify branch errors name the modify shape only', async () =>
     expectError(

@@ -32,6 +32,7 @@ export const TYPE_WORDS: Readonly<Record<EntityType, string>> = {
   interaction: 'interaction',
   userJourney: 'user journey',
   handler: 'handler',
+  requirement: 'requirement',
 };
 
 export const SIZE_WEIGHT = { XS: 1, S: 2, M: 3, L: 4, XL: 5 } as const;

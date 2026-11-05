@@ -1,6 +1,5 @@
 import type { Model } from '@/application/plan/derive';
 import { plainLine } from '@/application/plan-viz-text';
-import { voteText } from '@/application/plan-viz-vote';
 import { wiState } from '@/application/plan-viz-work';
 
 // The ownership table: one row per team, one column per kind of thing it owns or decides. Cells are counts that open
@@ -8,7 +7,7 @@ import { wiState } from '@/application/plan-viz-work';
 
 /** What a team owns in the system, and what it owns or decides in the plan. */
 type SystemKey = 'svc' | 'st' | 'if' | 'msg';
-type PlanKey = 'chg' | 'wi' | 'tst' | 'dec' | 'vote';
+type PlanKey = 'chg' | 'wi' | 'tst' | 'dec';
 
 export interface OwnerColumn {
   readonly key: SystemKey | PlanKey;
@@ -26,10 +25,9 @@ export const OWNER_COLUMNS: readonly OwnerColumn[] = [
   { key: 'wi', head: 'work items', title: 'Work items' },
   { key: 'tst', head: 'tests', title: 'Tests' },
   { key: 'dec', head: 'decides', title: 'Decides' },
-  { key: 'vote', head: 'confidence', title: 'Confidence rating' },
 ];
 
-export type OwnerKey = Exclude<OwnerColumn['key'], 'vote'>;
+export type OwnerKey = OwnerColumn['key'];
 export type OwnerLists = Readonly<Record<OwnerKey, readonly string[]>>;
 
 interface OwnerOptions {
@@ -85,13 +83,11 @@ export function workText(model: Model, ids: readonly string[]): string {
   return `${String(ids.length)} · ${String(states.filter((s) => s === 'done').length)} done`;
 }
 
-/** The cells of a row as plain text, in column order: "2|1|3|0|4|3 · 1 done|5|1|4 of 5". */
-export function ownerFacts(model: Model, team: string, lists: OwnerLists): string {
-  const vote = voteText(model, team);
-  return OWNER_COLUMNS.map((c) => {
-    if (c.key === 'vote') return vote === '' ? '·' : vote;
-    return c.key === 'wi' ? workText(model, lists.wi) : String(lists[c.key].length);
-  }).join('|');
+/** The cells of a row as plain text, in column order: "2|1|3|0|4|3 · 1 done|5|1". */
+export function ownerFacts(model: Model, lists: OwnerLists): string {
+  return OWNER_COLUMNS.map((c) =>
+    c.key === 'wi' ? workText(model, lists.wi) : String(lists[c.key].length),
+  ).join('|');
 }
 
 /** A team's channel, unless the plan still holds a placeholder there. */

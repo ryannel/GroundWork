@@ -61,7 +61,9 @@ export function ledgerClaim(model: Model): LedgerClaim {
   const changes = model.plan.changes ?? [];
   const untested = model.health().untested;
   const items = model.plan.work_items ?? [];
-  const noWork = changes.filter((c) => !items.some((w) => w.implements.includes(c.id))).length;
+  const noWork = changes.filter(
+    (c) => !items.some((w) => (w.implements ?? []).includes(c.id)),
+  ).length;
   const gaps = [
     ...(untested > 0 ? [needs(untested)] : []),
     ...(noWork > 0 ? [`${numWord(noWork)} ${noWork === 1 ? 'has' : 'have'} no work item`] : []),

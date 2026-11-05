@@ -255,18 +255,23 @@
   }
 
   .sharedRow {
-    height: 28px;
+    height: 40px;
     color: var(--fg-2);
+  }
+
+  .sharedRow:disabled {
+    cursor: default;
   }
 
   .apiRow:hover,
   .resourceRow:hover,
-  .sharedRow:hover {
+  .sharedRow:hover:not(:disabled) {
     background: var(--bg-2);
   }
 
   .apiRow[aria-pressed='true'],
-  .resourceRow[aria-pressed='true'] {
+  .resourceRow[aria-pressed='true'],
+  .sharedRow[aria-pressed='true'] {
     border-left-color: var(--tone);
     background: color-mix(in srgb, var(--tone) 10%, transparent);
   }
@@ -385,6 +390,18 @@
   }
 
   .card[data-muted] {
-    opacity: 0.5;
+    border-color: color-mix(in srgb, var(--system-line, var(--line-2)) 50%, var(--bg-0));
+    background: color-mix(in srgb, var(--system-background, var(--node-bg)) 50%, var(--bg-0));
+    color: var(--fg-3);
+  }
+
+  /* HTML opacity layers inside SVG foreignObjects can paint away from their ports in WebKit. */
+  .card[data-muted] .summary,
+  .card[data-muted] .chip {
+    color: var(--fg-3);
+  }
+
+  .card[data-muted] .tile {
+    color: color-mix(in srgb, var(--tone) 50%, var(--fg-3));
   }
 }

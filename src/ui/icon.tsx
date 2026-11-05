@@ -55,7 +55,12 @@ export function iconShapes(name: IconName): ReactNode[] {
 export function Icon({ name }: { readonly name: IconName }) {
   return createElement(
     'svg',
-    { 'aria-hidden': true, className: styles.icon, viewBox: '0 0 16 16' },
+    {
+      'aria-hidden': true,
+      className: styles.icon,
+      'data-filled': name === 'github' ? '' : undefined,
+      viewBox: '0 0 16 16',
+    },
     ...iconShapes(name),
   );
 }

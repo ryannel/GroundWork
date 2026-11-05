@@ -1,9 +1,11 @@
 import type { Metadata } from 'next';
 import { Instrument_Sans, Inter, JetBrains_Mono } from 'next/font/google';
 import { connection } from 'next/server';
-import type { ReactNode } from 'react';
+import { type ReactNode, Suspense } from 'react';
 
 import './globals.css';
+
+import { NavigationProgress } from '@/ui/navigation-progress.client';
 
 const instrument = Instrument_Sans({ subsets: ['latin'], variable: '--font-instrument' });
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
@@ -30,7 +32,12 @@ export default async function RootLayout({ children }: { readonly children: Reac
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
       </head>
-      <body>{children}</body>
+      <body>
+        <Suspense fallback={null}>
+          <NavigationProgress />
+        </Suspense>
+        {children}
+      </body>
     </html>
   );
 }

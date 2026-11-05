@@ -9,6 +9,15 @@ system model (`<workspace>/domains/<d>/systems/<s>/{system,contracts,handlers}.y
 not in the plan; a gap there is filled by a scan, not by copying into the plan. Chapters 1 and 4 to 8 live in
 `plans/<plan>/plan.yaml`. **Check** is how to verify it by tool or by eye.
 
+## Cover · Where the plan sits
+
+| #   | Question a newcomer asks                                   | Where                                       | Check                                                                                          |
+| --- | ---------------------------------------------------------- | ------------------------------------------- | ---------------------------------------------------------------------------------------------- |
+| 0a  | Which bigger outcome is this part of?                      | `meta.programme`; `milestones[].serves`     | the programme exists; each milestone that serves one names the programme's own milestone       |
+| 0b  | What does it read on top of today, and is that still true? | `builds_on`; `base.lock.json`               | the cover shows each base as checked ✓; a base changed since is re-checked (`plan:base check`) |
+| 0c  | Does another plan change the same thing?                   | overlaps, from `npm run workspace -- check` | each overlap is ordered (one builds on the other) or understood; never both bases of one plan  |
+| 0d  | What do the plans below still have to deliver before us?   | their work items, from the cover            | `depends_on` names `<plan>/wi:…` where our work really waits on theirs                         |
+
 ## Chapter 1 · Why
 
 | #   | Question a newcomer asks                                                                        | Where                                       | Check                                                                                                                     |
@@ -61,38 +70,41 @@ not in the plan; a gap there is filled by a scan, not by copying into the plan. 
 
 ## Chapter 5 · What changes in what exists
 
-| #   | Question                                  | Where                                                                  | Check                                                                                       |
-| --- | ----------------------------------------- | ---------------------------------------------------------------------- | ------------------------------------------------------------------------------------------- |
-| 24  | Is this a new step or a changed contract? | `add: step` vs `modify: flow:x#step` / `modify: api:*` / `modify: h:*` | never modelled as a new copy of an existing thing; today is never copied into the plan      |
-| 25  | What did it look like before, and after?  | `modify` ops with `set`/`append`/`drop`                                | before/after is derived; author only the after-value                                        |
-| 26  | What gets built per component?            | ops whose targets belong to that component                             | every team with ops also has a work item                                                    |
-| 27  | How is the old version retired?           | `add` with `supersedes` + `deprecate … replaced_by` (+ later `remove`) | every versioned message/endpoint has both halves; consumers drop off the old one per change |
-| 28  | Migration, backfill, flag, rollback?      | `changes[].rollout`                                                    | present on every change that touches a store, a message, or a UI                            |
+| #   | Question                                             | Where                                                                  | Check                                                                                             |
+| --- | ---------------------------------------------------- | ---------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------- |
+| 23a | What must be true where the shape is not agreed yet? | `changes[].requires`, `blocked_by`                                     | a change without ops has `requires` and an open question in `blocked_by`, with a decider and date |
+| 24  | Is this a new step or a changed contract?            | `add: step` vs `modify: flow:x#step` / `modify: api:*` / `modify: h:*` | never modelled as a new copy of an existing thing; today is never copied into the plan            |
+| 25  | What did it look like before, and after?             | `modify` ops with `set`/`append`/`drop`                                | before/after is derived; author only the after-value                                              |
+| 26  | What gets built per component?                       | ops whose targets belong to that component                             | every team with ops also has a work item                                                          |
+| 27  | How is the old version retired?                      | `add` with `supersedes` + `deprecate … replaced_by` (+ later `remove`) | every versioned message/endpoint has both halves; consumers drop off the old one per change       |
+| 28  | Migration, backfill, flag, rollback?                 | `changes[].rollout`                                                    | present on every change that touches a store, a message, or a UI                                  |
 
 ## Chapter 6 · How we prove it
 
-| #   | Question                                      | Where                                             | Check                                                        |
-| --- | --------------------------------------------- | ------------------------------------------------- | ------------------------------------------------------------ |
-| 29  | How do we know each change works?             | `tests[].proves`                                  | every change has ≥ 1 test (validator enforces)               |
-| 30  | Is the whole journey tested, not just units?  | `tests[]` with `level: e2e` walking an added flow | at least one e2e test; coverage "no-e2e" gaps are deliberate |
-| 31  | Which consumer/provider contracts are pinned? | `level: contract` tests walking consumer steps    | one per consumer of a new/changed message or API             |
-| 32  | Where does each test run?                     | `tests[].env`                                     | set on every test                                            |
-| 33  | Which steps does each test cover?             | `tests[].walks`                                   | step ids (or whole flows for e2e)                            |
+| #   | Question                                      | Where                                             | Check                                                                                          |
+| --- | --------------------------------------------- | ------------------------------------------------- | ---------------------------------------------------------------------------------------------- |
+| 29  | How do we know each change works?             | `tests[].proves`                                  | every change has ≥ 1 test (validator enforces); each `req:` a change requires is proven by one |
+| 30  | Is the whole journey tested, not just units?  | `tests[]` with `level: e2e` walking an added flow | at least one e2e test; coverage "no-e2e" gaps are deliberate                                   |
+| 31  | Which consumer/provider contracts are pinned? | `level: contract` tests walking consumer steps    | one per consumer of a new/changed message or API                                               |
+| 32  | Where does each test run?                     | `tests[].env`                                     | set on every test                                                                              |
+| 33  | Which steps does each test cover?             | `tests[].walks`                                   | step ids (or whole flows for e2e)                                                              |
 
 ## Chapter 7 · How we build it
 
-| #   | Question                                       | Where                                                            | Check                                                      |
-| --- | ---------------------------------------------- | ---------------------------------------------------------------- | ---------------------------------------------------------- |
-| 34  | What is done at each milestone?                | `milestones[].exit`                                              | a demonstrable outcome, not a task list                    |
-| 35  | Which repo, which team, what size, what order? | `work_items[]` `repo`, `team`, `size`, `depends_on`, `milestone` | every field set; `depends_on` respects milestone order     |
-| 36  | What does "done" mean for each issue?          | `work_items[].verified_by`, `body`                               | each item names its tests; body ends with **Done when**    |
-| 37  | Does every team know what it builds?           | `work_items[].team`                                              | every team that owns a touched component has ≥ 1 work item |
+| #   | Question                                       | Where                                                            | Check                                                                          |
+| --- | ---------------------------------------------- | ---------------------------------------------------------------- | ------------------------------------------------------------------------------ |
+| 34  | What is done at each milestone?                | `milestones[].exit`                                              | a demonstrable outcome, not a task list                                        |
+| 35  | Which repo, which team, what size, what order? | `work_items[]` `repo`, `team`, `size`, `depends_on`, `milestone` | every field set; `depends_on` respects milestone order                         |
+| 36  | What does "done" mean for each issue?          | `work_items[].verified_by`, `body`                               | each item names its tests; body ends with **Done when**                        |
+| 37  | Does every team know what it builds?           | `work_items[].team`                                              | every team that owns a touched component has ≥ 1 work item                     |
+| 37a | What do we need from partners, and by when?    | partner `work_items[]` `needed_by`, `blocked_by`                 | every partner item has `needed_by`; nothing pretends their promise is our date |
+| 37b | When did we last hear, and what did they say?  | `commitment` and `work` events in `progress.yaml`                | every partner item has a commitment event with `said_by` and a source          |
 
 ## Chapter 8 · Decide & commit
 
-| #   | Question                                                               | Where                                            | Check                                                  |
-| --- | ---------------------------------------------------------------------- | ------------------------------------------------ | ------------------------------------------------------ |
-| 38  | What is still undecided, who decides, by when, and what does it block? | `questions[]` `decider`, `decide_by`, `blocks`   | every open question has all three; `decider` is a team |
-| 39  | What could go wrong, who owns it, what is it about?                    | `risks[]` `owner`, `roam`, `about`, `mitigation` | `owner` is a team id; `about` points at real entities  |
-| 40  | What did we decide and what did we reject?                             | `decisions[]` `options[].why_not`                | accepted decisions list at least one rejected option   |
-| 41  | Is each team confident?                                                | `commitment[]`                                   | filled in by each team (optional before the session)   |
+| #   | Question                                                               | Where                                            | Check                                                    |
+| --- | ---------------------------------------------------------------------- | ------------------------------------------------ | -------------------------------------------------------- |
+| 38  | What is still undecided, who decides, by when, and what does it block? | `questions[]` `decider`, `decide_by`, `blocks`   | every open question has all three; `decider` is a team   |
+| 39  | What could go wrong, who owns it, what is it about?                    | `risks[]` `owner`, `roam`, `about`, `mitigation` | `owner` is a team id; `about` points at real entities    |
+| 40  | What did we decide and what did we reject?                             | `decisions[]` `options[].why_not`                | accepted decisions list at least one rejected option     |
+| 41  | What has each team promised, and how sure is it?                       | `commitment` events in `progress.yaml`           | recorded from what each team says, per item or milestone |

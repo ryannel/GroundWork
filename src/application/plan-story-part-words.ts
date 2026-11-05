@@ -7,14 +7,7 @@ import { teamName } from '@/application/plan-viz-teams';
 import { numWord } from '@/application/plan-viz-text';
 import type { WorkItem } from '@/domain/plan/plan.generated';
 
-import {
-  asClause,
-  gateTitle,
-  isApproved,
-  planStage,
-  possessive,
-  reasonOf,
-} from './plan-story-cover-standing';
+import { asClause, gateTitle, planStage, possessive } from './plan-story-cover-standing';
 import { teamPart, type TeamPart } from './plan-story-part';
 
 // The words a team's page opens with, and the one line per team on the page for everyone.
@@ -98,16 +91,9 @@ function nothingChanges(model: Model, name: string, p: TeamPart): string {
   return `This plan asks nothing of ${name}.`;
 }
 
-function lowHeadline(name: string, p: TeamPart, model: Model): string {
-  const why = reasonOf(p.vote?.note, undefined, model);
-  const reason = why === '' ? '' : `: ${why}`;
-  return `${name} is not confident (${String(p.vote?.confidence)} of 5)${reason}.`;
-}
-
-/** The headline: the team's single most important fact (vote under 3, decides a gate, builds, its steps change, nothing). */
+/** The headline: the team's single most important fact (decides a gate, builds, its steps change, nothing). */
 export function headlineOf(model: Model, team: string, p: TeamPart): string {
   const name = teamName(model, team);
-  if (p.low) return lowHeadline(name, p, model);
   if (p.decides.length > 0) return decidesSentence(name, p.decides, model);
   if (p.work.length > 0) return buildsSentence(model, team, p);
   const touched = p.steps.filter((s) => s.kind !== 'differently' || !s.sameCall);
@@ -129,8 +115,7 @@ function waitsSentence(model: Model, name: string, p: TeamPart): string {
 /** The next one or two facts after the headline, in plain sentences. */
 export function ledeOf(model: Model, team: string, p: TeamPart): string {
   const bits: string[] = [];
-  if (p.low) bits.push('The plan is rethought before its owner approves it.');
-  if ((p.low || p.decides.length > 0) && p.work.length > 0) {
+  if (p.decides.length > 0 && p.work.length > 0) {
     bits.push(buildsSentence(model, team, p));
   }
   bits.push(waitsSentence(model, teamName(model, team), p));
@@ -160,11 +145,7 @@ function quiet(p: TeamPart): Bit {
 function partLine(model: Model, team: string): readonly Bit[] {
   const p = teamPart(model, team);
   const first = firstDated(p.decides);
-  const unrated = p.vote !== null && p.vote.confidence === undefined && !isApproved(p.stage);
   const bits: Bit[] = [
-    ...(p.low
-      ? [{ tone: 'warn', text: `not confident (${String(p.vote?.confidence)} of 5)` } as const]
-      : []),
     ...(first === undefined
       ? []
       : [
@@ -177,7 +158,6 @@ function partLine(model: Model, team: string): readonly Bit[] {
     ...(p.work.length === 0 && p.steps.some((s) => !s.sameCall)
       ? [{ tone: 'plain', text: 'its steps change, nothing to build' } as const]
       : []),
-    ...(unrated ? [{ tone: 'plain', text: 'has not rated its confidence' } as const] : []),
   ];
   return bits.length > 0 ? bits : [quiet(p)];
 }
@@ -187,13 +167,9 @@ export interface TeamLine {
   readonly bits: readonly Bit[];
 }
 
-function everyoneHeadline(model: Model, low: readonly TeamLine[]): string {
+function everyoneHeadline(model: Model): string {
   const path = buildSummary(model, model.today).pathTeams.map((id) => teamName(model, id));
   const [lead = ''] = path;
-  if (low.length > 0) {
-    const names = andList(low.map((l) => teamName(model, l.team)));
-    return `${names} ${low.length === 1 ? 'blocks' : 'block'} the plan: not confident yet.`;
-  }
   if (planStage(model) === 'delivered') return 'Every team’s work in this plan is done.';
   if (path.length === 1) return `${lead} carries the critical path.`;
   if (path.length === 2) return `${andList(path)} carry the critical path.`;
@@ -202,15 +178,13 @@ function everyoneHeadline(model: Model, low: readonly TeamLine[]): string {
     : 'What this plan asks of each team.';
 }
 
-/** One line per team, the team holding the plan up first. */
+/** One line per team, in plan order. */
 export function everyone(model: Model): {
   readonly headline: string;
   readonly lines: readonly TeamLine[];
 } {
-  const lines = model.plan.teams.map((t) => ({ team: t.id, bits: partLine(model, t.id) }));
-  const low = lines.filter((l) => l.bits.some((b) => b.tone === 'warn'));
   return {
-    headline: everyoneHeadline(model, low),
-    lines: [...low, ...lines.filter((l) => !low.includes(l))],
+    headline: everyoneHeadline(model),
+    lines: model.plan.teams.map((t) => ({ team: t.id, bits: partLine(model, t.id) })),
   };
 }

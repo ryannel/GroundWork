@@ -22,7 +22,9 @@ interface Tally {
 function tallies(model: Model): Tally[] {
   const named = new Map(model.plan.teams.map((t) => [t.id, t.name]));
   const counts = new Map<string, number>();
-  for (const s of model.asIs.services) counts.set(s.team, (counts.get(s.team) ?? 0) + 1);
+  for (const { team } of model.asIs.services) {
+    if (team !== undefined) counts.set(team, (counts.get(team) ?? 0) + 1);
+  }
   return [...counts]
     .map(([team, count]) => ({ team, name: named.get(team) ?? team, count }))
     .toSorted((a, b) => b.count - a.count);

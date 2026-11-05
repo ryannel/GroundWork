@@ -13,7 +13,6 @@ import {
   workText,
 } from '@/application/plan-viz-owners';
 import { teamIndex, teamName } from '@/application/plan-viz-teams';
-import { voteSummary, voteText } from '@/application/plan-viz-vote';
 import { EntityChips } from '@/features/plan/common/entity-chip';
 import { NamedChips } from '@/features/plan/common/named-chip';
 import { TeamDot, TeamTag } from '@/features/plan/common/team-dot';
@@ -63,11 +62,7 @@ function Body({
   );
 }
 
-function countCell(
-  model: Model,
-  c: OwnerColumn & { readonly key: OwnerKey },
-  lists: OwnerLists,
-): DetailCell {
+function countCell(model: Model, c: OwnerColumn, lists: OwnerLists): DetailCell {
   const ids = lists[c.key];
   if (ids.length === 0) return { key: c.key, content: <NoneMark title={`No ${c.head}`} /> };
   const text = c.key === 'wi' ? workText(model, ids) : String(ids.length);
@@ -80,24 +75,6 @@ function countCell(
       names: ids.map((id) => nameOf(model, id)),
       label: `${c.title}: ${text}`,
     },
-  };
-}
-
-function voteCell(model: Model, team: string, low: boolean): DetailCell {
-  const vote = voteText(model, team);
-  if (vote === '') {
-    return {
-      key: 'vote',
-      content: <NoneMark title="This team has no work, so it does not rate its confidence" />,
-    };
-  }
-  return {
-    key: 'vote',
-    content: (
-      <span className={styles.vote} data-low={low ? '' : undefined}>
-        {vote}
-      </span>
-    ),
   };
 }
 
@@ -130,26 +107,22 @@ function Row({
   model,
   team,
   options,
-  low,
 }: {
   readonly model: Model;
   readonly team: string;
   readonly options: Pick<OwnershipTableProps, 'expand' | 'lens' | 'link' | 'hide'>;
-  readonly low: boolean;
 }): ReactNode {
   const lists = ownerLists(model, team, { hide: options.hide });
   const cells: DetailCell[] = [
     { key: 'team', content: <Head link={options.link ?? true} model={model} team={team} /> },
-    ...OWNER_COLUMNS.map((c) =>
-      c.key === 'vote' ? voteCell(model, team, low) : countCell(model, { ...c, key: c.key }, lists),
-    ),
+    ...OWNER_COLUMNS.map((c) => countCell(model, c, lists)),
   ];
   const channel = channelOf(model, team);
   const dim = options.lens !== undefined && options.lens !== team;
   return (
     <RowDetail
       attrs={{
-        'data-facts': ownerFacts(model, team, lists),
+        'data-facts': ownerFacts(model, lists),
         'data-facts-of': `own:${team}`,
         'data-search': [teamName(model, team), team, channel]
           .filter((s) => s !== '')
@@ -177,7 +150,6 @@ export function OwnershipTable({
   hide,
 }: OwnershipTableProps) {
   if (teamIds.length === 0) return <p className={styles.empty}>No teams in this plan.</p>;
-  const low = new Set(voteSummary(model).low);
   return (
     <div className={styles.wrap}>
       <table aria-label="Who owns what" className={styles.table}>
@@ -193,13 +165,7 @@ export function OwnershipTable({
         </thead>
         <tbody>
           {teamIds.map((team) => (
-            <Row
-              key={team}
-              low={low.has(team)}
-              model={model}
-              options={{ expand, lens, link, hide }}
-              team={team}
-            />
+            <Row key={team} model={model} options={{ expand, lens, link, hide }} team={team} />
           ))}
         </tbody>
       </table>

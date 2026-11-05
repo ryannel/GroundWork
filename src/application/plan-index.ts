@@ -1,4 +1,5 @@
 import { derive, type Model } from '@/application/plan/derive';
+import type { BaseInfo } from '@/application/plan/plan-base';
 import type { Workspace } from '@/domain/workspace';
 import { componentHomes } from '@/domain/workspace-links';
 import { clip } from '@/shared/plain-text';
@@ -32,6 +33,24 @@ export interface PlanRow {
   readonly domains: readonly string[];
   readonly workItems: number;
   readonly done: number;
+  /** The programme it joins, by id; null for a plan on its own. */
+  readonly programme: string | null;
+  /** Whether its check still speaks for it: never checked against today, edited since, or null when it does. */
+  readonly check: PlanCheckState;
+}
+
+export type PlanCheckState = 'never' | 'edited' | null;
+
+/** A plan for the index, with where its today comes from when it has been read onto one. */
+export interface PlanRowInput extends PlanInput {
+  readonly base?: Pick<BaseInfo, 'mode' | 'checkedOn' | 'edited'>;
+}
+
+/** A plan pages trust is flagged when its check no longer speaks for what it says; a landed plan reads no live today. */
+export function checkStateOf(base: PlanRowInput['base']): PlanCheckState {
+  if (base?.mode !== 'live') return null;
+  if (base.checkedOn === null) return 'never';
+  return base.edited ? 'edited' : null;
 }
 
 function stageOf(model: Model, items: number, done: number): PlanStage {
@@ -58,7 +77,7 @@ function domainsOf(workspace: Workspace, model: Model): string[] {
   return workspace.domains.map((d) => d.id).filter((id) => reached.has(id));
 }
 
-export function planRowOf(workspace: Workspace, input: PlanInput): PlanRow {
+export function planRowOf(workspace: Workspace, input: PlanRowInput): PlanRow {
   const model = derive(input.plan, { status: input.status });
   const items = input.plan.work_items ?? [];
   const done = items.filter((item) => model.statusOf(item.id)?.state === 'closed').length;
@@ -72,11 +91,13 @@ export function planRowOf(workspace: Workspace, input: PlanInput): PlanRow {
     domains: domainsOf(workspace, model),
     workItems: items.length,
     done,
+    programme: input.plan.meta.programme ?? null,
+    check: checkStateOf(input.base),
   };
 }
 
 /** Every plan's row, newest first. */
-export function planRowsOf(workspace: Workspace, plans: readonly PlanInput[]): PlanRow[] {
+export function planRowsOf(workspace: Workspace, plans: readonly PlanRowInput[]): PlanRow[] {
   return plans
     .map((plan) => planRowOf(workspace, plan))
     .toSorted((a, b) => {
@@ -88,7 +109,7 @@ export function planRowsOf(workspace: Workspace, plans: readonly PlanInput[]): P
 /** The plans that reach one domain, newest first. */
 export function domainPlanRowsOf(
   workspace: Workspace,
-  plans: readonly PlanInput[],
+  plans: readonly PlanRowInput[],
   domain: string,
 ): PlanRow[] {
   return planRowsOf(workspace, plans).filter((row) => row.domains.includes(domain));

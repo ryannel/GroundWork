@@ -9,20 +9,24 @@ fix, so read the message. Types for the app are generated from the schema with `
 
 ```
 <workspace>/
-  workspace.yaml                         teams, name                                        people
+  workspace.yaml                         name, teams (handles; partner: true; contacts)      people
   story.yaml                             summary, stages, concepts                          people
   flows/<flow>.yaml                      one curated walk across components per file        people
   journeys/<journey>.yaml                user journeys and interactions                     people
   domains/<d>/domain.yaml                name, purpose                                      people
   domains/<d>/target.yaml                target architecture: summary, stages, shifts        people
-  domains/<d>/systems/<s>/system.yaml    name, team, repos (or folders of one), components  people
+  domains/<d>/systems/<s>/system.yaml    name, team (optional), repos, components           people
                                          and tier: channel|gateway|forward|backend|upstream;
                                          a component may say infrastructure: true
   domains/<d>/systems/<s>/contracts.yaml stores, interfaces, schemas, messages, screens     the scan
   domains/<d>/systems/<s>/handlers.yaml  what runs on each endpoint, message, job, action    the scan
   scans/<org>/<name>.yaml                each repo's high-water mark                        tools/scan-mark.ts
-  plans/<plan>/plan.yaml                 changes, context, reasoning                        people
-  plans/<plan>/base.lock.json            what an open plan fitted in today                  npm run plan:base -- check
+  programmes/<p>/programme.yaml          outcome, shared scenarios, decisions, questions,   people
+                                         milestones of the plans that join it
+  plans/<plan>/plan.yaml                 changes, context, reasoning, builds_on             people
+  plans/<plan>/progress.yaml             what has happened: commitments, work, notes        npm run progress -- add
+  plans/<plan>/base.lock.json            what an open plan fitted: today's targets, each    npm run plan:base -- check
+                                         base plan's and the programme's hash, the result
   plans/<plan>/base.yaml                 a shipped plan's frozen today                      npm run plan:base -- land
   MAP.md                                 the agents' map                                    npm run map -- md
 ```
@@ -42,15 +46,17 @@ app, job or external party (`svc:`), or a store (`st:`).
 3. **Ids**: `<prefix>:<kebab-slug>`; flow steps `flow:<slug>#<slug>`; fields `sch:<slug>#<field_name>`. Unique
    across the workspace, meaningful, never numbered, never renamed. Quote ids containing `#`. Extracted ids
    follow the natural-key rules in [legacy natural keys](../groundwork-explore/legacy-fragment.md#stable-ids) so a re-scan
-   keeps them.
+   keeps them. Another plan's or the programme's id is qualified with its folder, `care-se/dec:reservation-length`,
+   in `depends_on`, `blocked_by`, `after`, `serves` and `[[…]]` citations.
 4. **Every object is closed** (`additionalProperties: false`): an unknown key is an error. There is no colour,
    position, order, status or count field; those are derived.
 5. **Markdown fields** may cite `[[id]]`; the validator checks the id exists. Dates are quoted `"YYYY-MM-DD"`.
-6. **Every fact says where it came from.** `origin: extracted | seeded | curated`. Extracted facts carry
+6. **Every fact says where it came from.** `origin: extracted | seeded | curated | documented`. Extracted facts carry
    `sources: [{ repo, path, lines: [from, to], commit, symbol? }]`; the permalink is derived, never stored alone
    (the older `{ url }` form still reads, with a warning). Handlers carry sources per handler and per significant
-   step. `node tools/sources.ts <workspace>` checks it. Ops carry no sources: put them in the `add` value or
-   on the change.
+   step. A partner's facts, read from its documents, are `documented` and cite
+   `{ url, pointer or heading, version }`, even where the app cannot reach the url. `node tools/sources.ts
+<workspace>` checks it. Ops carry no sources: put them in the `add` value or on the change.
 7. **Draft is forgiving.** While `meta.status: draft`, missing tests, work items and store access are warnings
    prefixed `draft:`. At `review` and `approved` they are errors.
 8. **Handlers are step trees.** `handlers: [{ id: h:…, on, component, summary, sources, origin, steps, fails }]`.
@@ -105,14 +111,20 @@ app, job or external party (`svc:`), or a store (`st:`).
 | ---------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------- |
 | status per entity, before and after, the to-be system            | ops applied in ledger order over the plan's today                                                                    |
 | a plan's today                                                   | the model's entities the plan names (ops, prose, `context`), and everything they name in turn, landed plans excepted |
-| drift                                                            | ops whose targets changed or vanished since `base.lock.json`                                                         |
+| drift                                                            | ops whose targets changed or vanished since `base.lock.json`, or a base plan or the programme that changed           |
+| a stacked plan's base                                            | today with the open plans of its `builds_on` closure applied first, in dependency order                              |
+| overlaps                                                         | open plans, neither building on the other, whose ops touch the same thing                                            |
+| a programme's plans                                              | each plan's `meta.programme`                                                                                         |
+| commitment, progress, last heard, blockers                       | the latest events in `progress.yaml`; a declined commitment blocks what depends on it                                |
+| realisation (missing, partial, matches, differs)                 | each op compared with today's model, rolled up per change                                                            |
 | connections, call trees, who calls whom and when                 | handler steps (`call`, `publish`, `read`, `write`, their guards and loops)                                           |
 | edges, the components × stores grid, layout, lanes, team colours | flow steps, handlers, store `owner` and `access`                                                                     |
 | migration ladder (expand, migrate, deprecate, retire)            | `supersedes`, `deprecate`, `remove`, implementing work items                                                         |
 | coverage and gaps                                                | `tests[].proves`, `level`, `walks`, step `via`                                                                       |
 | critical path, build waves, milestone-order violations           | `depends_on`, `size`, `milestone`                                                                                    |
 | blockers, overdue questions, the decision register               | `questions[].blocks`, `decide_by`, decisions and their citations                                                     |
-| done ticks and milestone progress                                | `plans/<plan>/status.json`, never the plan                                                                           |
+| done ticks and milestone progress                                | `plans/<plan>/progress.yaml`, never the plan                                                                         |
+| the date gap on a work item                                      | its `needed_by` (or its milestone's `due`) against the latest promised date                                          |
 | query plans, fan-out, cache paths, blast radius                  | operation documents, graph-type fields, subgraphs, caches                                                            |
 | journey strips, before and after pictures, screens that change   | screens, step `screen`, ops on `scr:` ids                                                                            |
 | staleness ("as of 3f9c2e1, 37 commits behind")                   | `scans/<org>/<name>.yaml` against the repo's branch                                                                  |
@@ -131,11 +143,18 @@ model through `src/domain/workspace-check.ts`), and `npm run workspace -- check 
 3. `add` ids are new; `modify`, `deprecate` and `remove` targets exist at that point in the ledger.
 4. `kind: record` needs `store`; `field`, `endpoint`, `step` and `region` adds need `into`.
 5. Reads and writes need store ownership or access for the acting component (draft: warning).
-6. Every change has a test and a work item (draft: warning); work items implement changes and their tests prove
-   them; `depends_on` is acyclic and never into a later milestone.
+6. Every change has a test (proving it or one of its `requires`) and a work item (draft: warning); a work item that
+   implements changes has tests that prove them; `depends_on` is acyclic and never into a later milestone. A change
+   without ops needs `requires` and an open question in `blocked_by`.
 7. Decisions, questions and risks have deciders, dates and options as rule 11 says.
 8. Screens: regions inside the picture; a step's `screen` belongs to its `from` or `to`; pictures exist on disk.
 9. Revisions (`meta.revisions`): versions ascend, only the last may be `proposed`; revise through
    [groundwork-revise](../groundwork-revise/SKILL.md).
 10. Graphs, subgraphs, operations and caches compose (see [groundwork-graph](../groundwork-graph/SKILL.md)).
-11. Attribution: an extracted fact without sources is an error (`node tools/sources.ts`).
+11. Attribution: an extracted fact without sources, or a documented one without a document, is an error
+    (`node tools/sources.ts`).
+12. Plans together: `builds_on` names plans that exist, never itself, never in a circle; a plan that builds on two
+    plans that overlap, neither building on the other, is an error; other overlaps are warnings. Qualified ids
+    resolve; a milestone serves only its own programme's milestones; `meta.programme` names a programme folder.
+13. `progress.yaml` events name a work item or milestone of the plan; a work event says its state, and the state
+    fits the kind; only a commitment carries `promised_for` and `confidence`.

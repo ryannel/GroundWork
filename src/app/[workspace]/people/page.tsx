@@ -22,7 +22,12 @@ export default async function PeopleRoute({ params }: { readonly params: Promise
   return (
     <WorkspaceShell
       actions={<TodaySearch />}
-      nav={workspaceNavOf(workspace, plans, { section: 'people', today: today.model })}
+      nav={workspaceNavOf(
+        workspace,
+        plans,
+        { section: 'people', today: today.model },
+        data.programmes,
+      )}
       overlays={<TodayOverlays depth={1} workspace={workspace} />}
       title="People"
       trail={[

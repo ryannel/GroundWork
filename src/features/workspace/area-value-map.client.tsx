@@ -2,6 +2,7 @@
 
 import { useMemo, useRef, useState, type ReactNode } from 'react';
 
+import { resourceLocation } from '@/application/area-map/component-summary';
 import { platformComponents } from '@/application/area-map/platform';
 import {
   valueFlowConnections,
@@ -13,7 +14,7 @@ import {
   defaultValueFlowConnections,
   overviewConnection,
 } from '@/application/area-map/value-flow-visibility';
-import type { AreaView } from '@/application/workspace-area';
+import type { AreaSystemView, AreaView } from '@/application/workspace-area';
 import type { LandscapeValueFlow } from '@/domain/landscape';
 import { replaceAddress } from '@/ui/address-bar';
 import { Button } from '@/ui/button';
@@ -44,7 +45,11 @@ function ValueNode({
   endpoint,
   onSelectEndpoint,
   onSelectResource,
+  systems,
+  expanded,
 }: {
+  readonly systems: readonly AreaSystemView[];
+  readonly expanded: ReadonlySet<string>;
   readonly node: ValueFlowNode;
   readonly purpose: string | undefined;
   readonly active: boolean;
@@ -82,13 +87,15 @@ function ValueNode({
           muted={muted}
           highlighted={highlighted}
         >
-          <Stack gap={1}>
-            {(node.activities ?? []).slice(0, 3).map((activity) => (
-              <Text key={activity} size="sm" tone="muted" clamp={1}>
-                {activity}
-              </Text>
-            ))}
-          </Stack>
+          {(node.activities ?? []).length === 0 ? null : (
+            <Stack gap={1}>
+              {(node.activities ?? []).slice(0, 3).map((activity) => (
+                <Text key={activity} size="sm" tone="muted" clamp={1}>
+                  {activity}
+                </Text>
+              ))}
+            </Stack>
+          )}
         </SystemCard>
       ) : (
         <ComponentCluster
@@ -98,7 +105,7 @@ function ValueNode({
           highlighted={highlighted}
           onOpen={onSelect}
           onToggle={onToggle}
-          handlers={{ endpoint, onSelectEndpoint, onSelectResource }}
+          handlers={{ endpoint, onSelectEndpoint, onSelectResource, systems, expanded }}
         />
       )}
     </foreignObject>
@@ -193,7 +200,7 @@ function revisedFocus(focus: ConnectedCanvasFocus | null, revision: number) {
 
 function canvasCaption(expanded: boolean): string {
   return expanded
-    ? 'Pan to explore at reading size. Fit map shows the whole canvas. Select a component to follow its incoming and outgoing connections.'
+    ? 'Select a shared resource to reveal it, including inside a collapsed system. Select a component to follow its connections. Fit map shows the whole canvas.'
     : 'Push: producer → receiver. Pull: reader → provider. Events: publisher → consumer. Expand a component to see its APIs and resources.';
 }
 
@@ -386,6 +393,17 @@ export function AreaValueMap({
     else url.searchParams.set('flow', id);
     replaceAddress(url);
   };
+  const revealResource = (id: string): void => {
+    const destination = resourceLocation(view.systems, id);
+    if (destination === null) return;
+    afterReady(() => {
+      setExpanded((current) => new Set([...current, destination.system.id]));
+      setOpenCards((current) => new Set([...current, destination.component.id]));
+      setOnly(false);
+      setSelected(id);
+      setEndpoint(id);
+    });
+  };
   return (
     <Stack gap={3}>
       <Cluster spread>
@@ -507,7 +525,11 @@ export function AreaValueMap({
           selected={selected}
           endpoint={endpoint}
           caption={canvasCaption(expanded.size > 0)}
-          focus={active ?? revisedFocus(focus, frameRevision)}
+          focus={
+            active === undefined
+              ? revisedFocus(focus, frameRevision)
+              : { ...active, id: `${active.id}:${selected ?? ''}`, readable: true }
+          }
           inspector={
             inspected === undefined ? undefined : (
               <AreaComponentDetail
@@ -582,6 +604,8 @@ export function AreaValueMap({
             .map((node) => (
               <CanvasSystemScope key={node.id} colour={colours.get(node.systemId) ?? 1}>
                 <ValueNode
+                  systems={view.systems}
+                  expanded={expanded}
                   node={node}
                   purpose={view.systems.find((system) => system.id === node.systemId)?.purpose}
                   active={node.members.includes(selected ?? '')}
@@ -616,10 +640,7 @@ export function AreaValueMap({
                     setSelected(node.id);
                     setEndpoint(id);
                   }}
-                  onSelectResource={(id) => {
-                    setSelected(id);
-                    setEndpoint(id);
-                  }}
+                  onSelectResource={revealResource}
                 />
               </CanvasSystemScope>
             ))}

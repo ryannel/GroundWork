@@ -88,7 +88,10 @@ function systemPlanOf(workspace: Workspace, model: WorkspaceModel): Plan {
     systems: systems.map((system) => ({
       id: `sys:${system.id}`,
       name: system.name,
-      team: teamOf(system),
+      ...teamOf(system),
+      ...(system.runsOn === undefined || system.runsOn === null
+        ? {}
+        : { runs_on: `sys:${system.runsOn}` }),
       ...(systemDoes(system) === '' ? {} : { does: systemDoes(system) }),
       ...(system.repos.length === 0 ? {} : { sources: system.repos.map(repoSource) }),
     })),
@@ -114,9 +117,9 @@ function repoSource({ repo, path }: CodeHome): { readonly url: string } {
   return { url: path === null ? base : `${base}/tree/HEAD/${path}` };
 }
 
-function teamOf(system: System): string {
-  if (system.team === null) throw new Error(`system ${system.id} has no team`);
-  return system.team;
+// A system no team owns yet draws with no owner rather than a made-up one.
+function teamOf(system: System): { readonly team?: string } {
+  return system.team === null ? {} : { team: system.team };
 }
 
 function partsOf(
@@ -144,7 +147,7 @@ function serviceOf(
   return {
     id: component.id,
     name: component.name,
-    team: teamOf(system),
+    ...teamOf(system),
     system: `sys:${system.id}`,
     kind: detail?.kind ?? SERVICE_KIND[component.type] ?? 'service',
     ...plainWords(component),

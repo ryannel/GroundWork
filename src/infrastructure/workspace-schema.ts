@@ -31,6 +31,8 @@ export const systemFile = z.strictObject({
   purpose: z.string().optional(),
   tier: z.enum(SYSTEM_TIERS).optional(),
   team: id.optional(),
+  /** The platform system it runs on, by system id. */
+  runs_on: id.optional(),
   repos: z
     .array(
       z.union([
@@ -67,6 +69,13 @@ export const workspaceFile = z.strictObject({
         name: z.string(),
         colour: z.number().int().min(1).max(13).optional(),
         channel: z.string().optional(),
+        /** What evidence calls the team: CODEOWNERS and GitHub teams, Backstage owners. */
+        handles: z.array(z.string().min(1)).default([]),
+        /** A team outside the company, whose systems are described from its documents. */
+        partner: z.boolean().default(false),
+        contacts: z
+          .array(z.strictObject({ name: z.string().min(1), role: z.string().optional() }))
+          .default([]),
       }),
     )
     .default([]),

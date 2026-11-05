@@ -25,7 +25,7 @@ export function applyOps(asIs: Partial<SystemSource>, changes: readonly Change[]
     return rec;
   };
   const records = changes.flatMap((chg, ci) =>
-    chg.ops.map((op, oi) => applyOne(chg, [ci, oi], op)),
+    (chg.ops ?? []).map((op, oi) => applyOne(chg, [ci, oi], op)),
   );
   return { system, records, origins: ix.origins };
 }

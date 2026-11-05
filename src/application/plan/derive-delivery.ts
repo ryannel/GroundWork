@@ -183,9 +183,9 @@ function violationsOf({ core, wiById, msIndex, msRank, depsOf }: Work): Mileston
 function blockScopeOf({ core, wiById }: Work, wiId: string): Set<string> {
   const wi = wiById.get(wiId);
   if (wi === undefined) return new Set();
-  const out = new Set([wiId, ...wi.implements]);
+  const out = new Set([wiId, ...(wi.implements ?? [])]);
   for (const r of core.records) {
-    if (r.changeId === undefined || !wi.implements.includes(r.changeId)) continue;
+    if (r.changeId === undefined || !(wi.implements ?? []).includes(r.changeId)) continue;
     if (r.target !== null) out.add(r.target);
     if (typeof r.parent === 'string') out.add(r.parent);
   }

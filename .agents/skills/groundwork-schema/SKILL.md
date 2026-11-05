@@ -12,12 +12,13 @@ Choose the contract that the requested artefact actually uses. The formats below
 scan evidence or an execution proof does not migrate the application. Read schema definitions for the
 records being changed rather than copying field names across formats.
 
-| Artefact                                                                   | Authoritative contract                                                      | Read when needed                                          |
-| -------------------------------------------------------------------------- | --------------------------------------------------------------------------- | --------------------------------------------------------- |
-| Question-led source evidence                                               | `schema/scan.schema.json`; `npm run generate:scan`                          | [Pipeline](../../../docs/scan-pipeline.md)                |
-| LLM interpretation of purpose, actors, actions, journeys and relationships | `schema/scan-interpretation.schema.json`; `npm run generate:interpretation` | [Interpretation](interpretation.md)                       |
-| Existing runtime/execution proof                                           | `schema/knowledge.schema.json`; `npm run generate:knowledge`                | [Canonical records](canonical-execution.md)               |
-| Production workspace model or plan overlay                                 | `schema/plan.schema.json`; `npm run generate`                               | [Legacy YAML](legacy-yaml.md), [op cookbook](cookbook.md) |
+| Artefact                                                                   | Authoritative contract                                                      | Read when needed                                                                 |
+| -------------------------------------------------------------------------- | --------------------------------------------------------------------------- | -------------------------------------------------------------------------------- |
+| Question-led source evidence                                               | `schema/scan.schema.json`; `npm run generate:scan`                          | [Pipeline](../../../docs/scan-pipeline.md)                                       |
+| LLM interpretation of purpose, actors, actions, journeys and relationships | `schema/scan-interpretation.schema.json`; `npm run generate:interpretation` | [Interpretation](interpretation.md)                                              |
+| Existing runtime/execution proof                                           | `schema/knowledge.schema.json`; `npm run generate:knowledge`                | [Canonical records](canonical-execution.md)                                      |
+| Production workspace model or plan overlay                                 | `schema/plan.schema.json`; `npm run generate`                               | [Legacy YAML](legacy-yaml.md), [op cookbook](cookbook.md)                        |
+| Programme, or a plan's progress record                                     | `$defs/programme` and `$defs/progress` in `schema/plan.schema.json`         | [cookbook §21](cookbook.md#21-plans-together-programmes-increments-and-partners) |
 
 ## Evidence and interpretation
 

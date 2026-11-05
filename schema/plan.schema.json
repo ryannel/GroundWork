@@ -21,6 +21,14 @@
     "domain": {
       "$ref": "#/$defs/domain"
     },
+    "builds_on": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/$defs/slug"
+      },
+      "description": "the plans this one reads on top of today, by id; composition only, never scheduling"
+    },
     "teams": {
       "type": "array",
       "items": {
@@ -162,12 +170,6 @@
       "type": "array",
       "items": {
         "$ref": "#/$defs/question"
-      }
-    },
-    "commitment": {
-      "type": "array",
-      "items": {
-        "$ref": "#/$defs/commitment"
       }
     },
     "story": {
@@ -336,7 +338,7 @@
     },
     "id_any": {
       "type": "string",
-      "pattern": "^(?:team|sys|svc|st|sch|if|api|msg|flow|chg|tst|wi|ms|dec|risk|q|sc|scr|graph|sg|gql|ui|uj|h):[a-z0-9]+(?:-[a-z0-9]+)*(?:#[A-Za-z0-9_-]+)?$",
+      "pattern": "^(?:team|req|sys|svc|st|sch|if|api|msg|flow|chg|tst|wi|ms|dec|risk|q|sc|scr|graph|sg|gql|ui|uj|h):[a-z0-9]+(?:-[a-z0-9]+)*(?:#[A-Za-z0-9_-]+)?$",
       "description": "any plan id"
     },
     "id_node": {
@@ -542,6 +544,10 @@
             "pattern": "^[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+$"
           },
           "description": "GitHub repos in scope, \"org/name\"; discovery starts here"
+        },
+        "programme": {
+          "$ref": "#/$defs/slug",
+          "description": "the programme this plan serves (programmes/<id>/programme.yaml); the programme lists its plans from this"
         }
       }
     },
@@ -683,8 +689,7 @@
       "additionalProperties": false,
       "required": [
         "id",
-        "name",
-        "team"
+        "name"
       ],
       "properties": {
         "id": {
@@ -695,7 +700,12 @@
           "description": "what people call the whole thing (often the repo or Backstage system name, in words)"
         },
         "team": {
-          "$ref": "#/$defs/id_team"
+          "$ref": "#/$defs/id_team",
+          "description": "the owning team, when known"
+        },
+        "runs_on": {
+          "$ref": "#/$defs/id_sys",
+          "description": "the platform system it runs on, such as a shared app shell"
         },
         "does": {
           "type": "string",
@@ -720,7 +730,6 @@
       "required": [
         "id",
         "name",
-        "team",
         "kind"
       ],
       "properties": {
@@ -1907,8 +1916,7 @@
       "additionalProperties": false,
       "required": [
         "id",
-        "title",
-        "ops"
+        "title"
       ],
       "properties": {
         "id": {
@@ -1931,12 +1939,25 @@
           "type": "string",
           "description": "markdown; may cite [[id]]"
         },
+        "requires": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/requirement"
+          }
+        },
+        "blocked_by": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/id_blocker"
+          },
+          "description": "the questions or decisions that hold the change back"
+        },
         "ops": {
           "type": "array",
           "items": {
             "$ref": "#/$defs/op"
           },
-          "minItems": 1
+          "description": "may be empty or left out only while the change has requires and an open question in blocked_by"
         },
         "sources": {
           "type": "array",
@@ -1987,7 +2008,7 @@
         "proves": {
           "type": "array",
           "items": {
-            "$ref": "#/$defs/id_chg"
+            "$ref": "#/$defs/id_proves"
           }
         },
         "walks": {
@@ -2030,6 +2051,16 @@
         "due": {
           "$ref": "#/$defs/date",
           "description": "target date for the milestone exit (YYYY-MM-DD)"
+        },
+        "after": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/id_ms_ref"
+          },
+          "description": "milestones that come first, here or in another plan"
+        },
+        "serves": {
+          "$ref": "#/$defs/id_ms_programme"
         }
       }
     },
@@ -2039,8 +2070,7 @@
       "required": [
         "id",
         "title",
-        "team",
-        "implements"
+        "team"
       ],
       "properties": {
         "id": {
@@ -2064,11 +2094,16 @@
         "milestone": {
           "$ref": "#/$defs/id_ms"
         },
+        "needed_by": {
+          "$ref": "#/$defs/date",
+          "description": "when we need it (YYYY-MM-DD); a team's promised date lives in progress.yaml"
+        },
         "implements": {
           "type": "array",
           "items": {
             "$ref": "#/$defs/id_chg"
-          }
+          },
+          "description": "the changes it implements; recovery and operations work implements none"
         },
         "verified_by": {
           "type": "array",
@@ -2079,8 +2114,15 @@
         "depends_on": {
           "type": "array",
           "items": {
-            "$ref": "#/$defs/id_wi"
+            "$ref": "#/$defs/id_wi_ref"
           }
+        },
+        "blocked_by": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/id_blocker"
+          },
+          "description": "the decisions or questions it waits on, here or in another plan or the programme"
         },
         "repo": {
           "type": "string"
@@ -2305,27 +2347,6 @@
         }
       }
     },
-    "commitment": {
-      "type": "object",
-      "additionalProperties": false,
-      "required": [
-        "team"
-      ],
-      "properties": {
-        "team": {
-          "$ref": "#/$defs/id_team"
-        },
-        "confidence": {
-          "type": "integer",
-          "minimum": 1,
-          "maximum": 5
-        },
-        "note": {
-          "type": "string",
-          "description": "markdown; may cite [[id]]"
-        }
-      }
-    },
     "chapter": {
       "type": "object",
       "additionalProperties": false,
@@ -2386,7 +2407,7 @@
       "required": [
         "url"
       ],
-      "description": "Where this fact lives: a GitHub permalink (blob/<sha>/path#L10-L20), a doc, a dashboard",
+      "description": "Where this fact lives: a GitHub permalink (blob/<sha>/path#L10-L20), a document (with pointer or heading, and version), a dashboard",
       "properties": {
         "url": {
           "type": "string",
@@ -2399,7 +2420,28 @@
         "note": {
           "type": "string",
           "description": "markdown; what the reader will find there"
+        },
+        "pointer": {
+          "type": "string",
+          "minLength": 1,
+          "description": "where in the document: an anchor, a JSON pointer or an operation id"
+        },
+        "heading": {
+          "type": "string",
+          "minLength": 1,
+          "description": "the heading in the document the fact is under"
+        },
+        "version": {
+          "type": "string",
+          "minLength": 1,
+          "description": "the version of the document read"
         }
+      },
+      "not": {
+        "required": [
+          "pointer",
+          "heading"
+        ]
       }
     },
     "id_con": {
@@ -3212,9 +3254,10 @@
       "enum": [
         "extracted",
         "seeded",
-        "curated"
+        "curated",
+        "documented"
       ],
-      "description": "how the fact was made: read from code by a scan, seeded by hand for a demo, or written by a person"
+      "description": "how the fact was made: read from code by a scan, seeded by hand for a demo, written by a person, or read from a document (a partner's, whose code we cannot read)"
     },
     "codeSource": {
       "type": "object",
@@ -3867,6 +3910,253 @@
         },
         "origin": {
           "$ref": "#/$defs/origin"
+        }
+      }
+    },
+    "slug": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$",
+      "description": "a plan or programme id: <kebab-slug>, the name of its folder"
+    },
+    "id_req": {
+      "type": "string",
+      "pattern": "^req:[a-z0-9]+(?:-[a-z0-9]+)*$",
+      "description": "req:<kebab-slug>"
+    },
+    "id_wi_ref": {
+      "type": "string",
+      "pattern": "^(?:[a-z0-9]+(?:-[a-z0-9]+)*/)?wi:[a-z0-9]+(?:-[a-z0-9]+)*$",
+      "description": "wi:<kebab-slug>, or <plan>/wi:<kebab-slug> for another plan's work item"
+    },
+    "id_ms_ref": {
+      "type": "string",
+      "pattern": "^(?:[a-z0-9]+(?:-[a-z0-9]+)*/)?ms:[a-z0-9]+(?:-[a-z0-9]+)*$",
+      "description": "ms:<kebab-slug>, or <plan or programme>/ms:<kebab-slug> for another's milestone"
+    },
+    "id_ms_programme": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*/ms:[a-z0-9]+(?:-[a-z0-9]+)*$",
+      "description": "<programme>/ms:<kebab-slug>: the programme milestone a plan milestone serves"
+    },
+    "id_blocker": {
+      "type": "string",
+      "pattern": "^(?:[a-z0-9]+(?:-[a-z0-9]+)*/)?(?:dec|q):[a-z0-9]+(?:-[a-z0-9]+)*$",
+      "description": "a decision or question (dec:… or q:…), here or, qualified as <plan or programme>/dec:…, in another plan or the programme"
+    },
+    "id_proves": {
+      "type": "string",
+      "pattern": "^(?:chg|req):[a-z0-9]+(?:-[a-z0-9]+)*$",
+      "description": "a change (chg:…) or one of its requirements (req:…)"
+    },
+    "requirement": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "text"
+      ],
+      "description": "what the change must make true, said before (or without) the ops that make it",
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/id_req"
+        },
+        "text": {
+          "type": "string",
+          "description": "markdown; may cite [[id]]"
+        },
+        "sources": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/source"
+          },
+          "description": "evidence links"
+        }
+      }
+    },
+    "programme": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "title",
+        "outcome"
+      ],
+      "description": "programmes/<id>/programme.yaml: plans that serve one outcome, and the context they share. Not an overlay; plans join with meta.programme and cite its items as <programme>/<id>",
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/slug"
+        },
+        "title": {
+          "type": "string"
+        },
+        "outcome": {
+          "type": "string",
+          "description": "markdown; what is true once the programme lands. May cite [[id]]"
+        },
+        "problem": {
+          "$ref": "#/$defs/problem"
+        },
+        "scenarios": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/scenario"
+          },
+          "description": "shared scenarios every plan can cite"
+        },
+        "decisions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/decision"
+          }
+        },
+        "questions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/question"
+          }
+        },
+        "milestones": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/milestone"
+          },
+          "description": "outcomes; plan milestones name the one they serve with serves"
+        }
+      }
+    },
+    "progressEvent": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "at",
+        "subject",
+        "kind"
+      ],
+      "description": "one thing that happened to a work item or milestone, with who said it and where",
+      "properties": {
+        "at": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "date"
+            },
+            {
+              "type": "string",
+              "format": "date-time"
+            }
+          ],
+          "description": "when it happened (YYYY-MM-DD, or a date-time)"
+        },
+        "subject": {
+          "type": "string",
+          "pattern": "^(?:wi|ms):[a-z0-9]+(?:-[a-z0-9]+)*$",
+          "description": "a work item or milestone of this plan"
+        },
+        "kind": {
+          "enum": [
+            "commitment",
+            "work",
+            "note"
+          ],
+          "description": "commitment: what a team promised; work: what has happened; note: anything else worth keeping"
+        },
+        "state": {
+          "enum": [
+            "proposed",
+            "accepted",
+            "declined",
+            "withdrawn",
+            "not_started",
+            "in_progress",
+            "blocked",
+            "done"
+          ],
+          "description": "commitment: proposed, accepted, declined or withdrawn; work: not_started, in_progress, blocked or done; a note has none"
+        },
+        "promised_for": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/date"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "commitment: the date the team promised"
+        },
+        "confidence": {
+          "anyOf": [
+            {
+              "enum": [
+                "high",
+                "medium",
+                "low"
+              ]
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "commitment: how sure the team said it was"
+        },
+        "said_by": {
+          "type": "string",
+          "description": "who said it"
+        },
+        "source": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "kind"
+          ],
+          "properties": {
+            "kind": {
+              "enum": [
+                "meeting",
+                "partner-update",
+                "github",
+                "test",
+                "scan",
+                "document",
+                "note"
+              ]
+            },
+            "url": {
+              "type": "string",
+              "format": "uri"
+            },
+            "repo": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+$"
+            },
+            "issue": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "note": {
+              "type": "string"
+            }
+          }
+        },
+        "note": {
+          "type": "string",
+          "description": "markdown"
+        }
+      }
+    },
+    "progress": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "events"
+      ],
+      "description": "plans/<plan>/progress.yaml: an append-only record of what happened, oldest first",
+      "properties": {
+        "events": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/progressEvent"
+          }
         }
       }
     }

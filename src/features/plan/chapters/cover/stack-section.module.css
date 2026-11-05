@@ -1,0 +1,10 @@
+@layer components {
+  .section {
+    margin-top: var(--s-4);
+    max-width: 72ch;
+  }
+
+  .line {
+    margin: 0;
+  }
+}

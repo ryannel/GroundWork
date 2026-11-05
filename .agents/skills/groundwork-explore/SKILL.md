@@ -12,6 +12,11 @@ Explain what the authorised source contains and what runs when an endpoint, mess
 reaches it. Keep technical components separate from team ownership. Entrypoints and runtime declarations
 establish technical boundaries; a library runs in its caller. Source inspection does not prove deployment.
 
+For a partner's system, whose code we cannot read, the source is its documents: cite each fact as
+`origin: documented` with `{ url, pointer | heading, version }`, as [groundwork-scan](../groundwork-scan/SKILL.md#owners-and-partners)
+says. Owner evidence (CODEOWNERS, Backstage, GitHub teams) is reported as handles, never turned into a team by
+guesswork.
+
 ## Select the output
 
 Use the user's request or the scan brief. Read only the relevant mode:

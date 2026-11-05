@@ -1,5 +1,7 @@
 // Id vocabulary of a plan. Ids are `<prefix>:<kebab-slug>`; children are `<parent-id>#<slug>`
-// (steps, fields, regions). Endpoints sit inside interfaces but carry top-level `api:*` ids.
+// (steps, fields, regions). Endpoints sit inside interfaces but carry top-level `api:*` ids; requirements sit
+// inside changes but carry top-level `req:*` ids. Another plan's or the programme's id is qualified with its
+// folder: `<plan or programme>/<prefix>:<kebab-slug>`.
 
 export const ID_PREFIXES = {
   team: 'team',
@@ -28,6 +30,7 @@ export const ID_PREFIXES = {
   ui: 'interaction',
   uj: 'userJourney',
   h: 'handler',
+  req: 'requirement',
 } as const;
 
 export type IdPrefix = keyof typeof ID_PREFIXES;
@@ -97,8 +100,6 @@ export const PLAN_COLLECTIONS = {
   questions: 'question',
 } as const;
 
-/** Types that can carry references (the commitment list is the one plan-level extra). */
-export type RefOwner = EntityType | 'commitment';
 export type RefSpec = readonly [prop: string, allowed: readonly EntityType[] | null];
 
 /**
@@ -106,7 +107,7 @@ export type RefSpec = readonly [prop: string, allowed: readonly EntityType[] | n
  * `prop[]` = list prop; `prop.sub` = a prop of an object; `prop[].sub` = a prop of each object;
  * `prop[].sub[]` = a ref list in each object.
  */
-export const REFS: Readonly<Record<RefOwner, readonly RefSpec[]>> = {
+export const REFS: Readonly<Record<EntityType, readonly RefSpec[]>> = {
   scenario: [['flows[]', ['flow']]],
   concept: [
     ['born_in', ['service']],
@@ -122,7 +123,10 @@ export const REFS: Readonly<Record<RefOwner, readonly RefSpec[]>> = {
     ['flows[]', ['flow']],
   ],
   team: [],
-  system: [['team', ['team']]],
+  system: [
+    ['team', ['team']],
+    ['runs_on', ['system']],
+  ],
   service: [
     ['team', ['team']],
     ['system', ['system']],
@@ -183,19 +187,27 @@ export const REFS: Readonly<Record<RefOwner, readonly RefSpec[]>> = {
   /** `on` and the ids inside the step tree are checked by check-handlers, which reads the tree. */
   handler: [['component', ['service']]],
   region: [['reads[]', ['schema', 'field']]],
-  change: [['decisions[]', ['decision']]],
+  change: [
+    ['decisions[]', ['decision']],
+    ['blocked_by[]', ['decision', 'question']],
+  ],
+  requirement: [],
   test: [
-    ['proves[]', ['change']],
+    ['proves[]', ['change', 'requirement']],
     ['walks[]', ['flow', 'step', 'operation', 'subgraph']],
     ['owner', ['team']],
   ],
-  milestone: [],
+  milestone: [
+    ['after[]', ['milestone']],
+    ['serves', ['milestone']],
+  ],
   workItem: [
     ['team', ['team']],
     ['milestone', ['milestone']],
     ['implements[]', ['change']],
     ['verified_by[]', ['test']],
     ['depends_on[]', ['workItem']],
+    ['blocked_by[]', ['decision', 'question']],
   ],
   decision: [
     ['decider', ['team']],
@@ -211,7 +223,6 @@ export const REFS: Readonly<Record<RefOwner, readonly RefSpec[]>> = {
     ['blocks[]', null],
     ['answered_by', ['decision']],
   ],
-  commitment: [['team', ['team']]],
   graph: [['gateway', ['service']]],
   subgraph: [
     ['graph', ['graph']],

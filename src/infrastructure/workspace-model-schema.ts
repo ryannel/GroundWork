@@ -5,7 +5,7 @@ import { z } from 'zod';
 // The files of the system model, beside the structure. Entries in plan shape are checked against
 // plan.schema.json once `origin` is taken off and their sources are turned into permalinks.
 
-export const origin = z.enum(['extracted', 'seeded', 'curated']);
+export const origin = z.enum(['extracted', 'seeded', 'curated', 'documented']);
 
 const line = z.number().int().min(1);
 
@@ -24,12 +24,21 @@ export const codeSource = z.strictObject({
   note: z.string().optional(),
 });
 
-// The older form: a bare link, for a doc or a dashboard rather than code.
-const linkSource = z.strictObject({
-  url: z.url(),
-  label: z.string().optional(),
-  note: z.string().optional(),
-});
+// A link: a dashboard, or a document read where it lives (a partner's API reference, a Notion page), with where in it
+// and which version. The url may be one the app cannot reach.
+const linkSource = z
+  .strictObject({
+    url: z.url(),
+    pointer: z.string().min(1).optional(),
+    heading: z.string().min(1).optional(),
+    version: z.string().min(1).optional(),
+    label: z.string().optional(),
+    note: z.string().optional(),
+  })
+  .refine(
+    (source) => source.pointer === undefined || source.heading === undefined,
+    'a document source names a pointer or a heading, not both',
+  );
 
 export const anySource = z.union([codeSource, linkSource]);
 

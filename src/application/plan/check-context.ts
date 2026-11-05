@@ -11,6 +11,7 @@ import type {
   SystemGraph,
 } from '@/domain/plan/plan-graph';
 import type { PathSegment } from '@/domain/plan/plan-ids';
+import type { Neighbours } from '@/domain/plan/plan-neighbours';
 import type { Plan } from '@/domain/plan/plan.generated';
 
 export interface Issue {
@@ -36,6 +37,8 @@ export interface CheckContext {
   readonly modsById: ReadonlyMap<string, readonly OpRecord[]>;
   readonly fanout: Fanout;
   readonly known: (id: string) => boolean;
+  /** The other plans and programmes of the workspace, to resolve qualified ids; null when read on its own. */
+  readonly neighbours: Neighbours | null;
 }
 
 /** Where checks report: errors, warnings, and `strict` (an error, or a warning while the plan is a draft). */
@@ -100,7 +103,11 @@ function indexPlanEntities(plan: Plan) {
   return { planEntities, planDupes };
 }
 
-export function createContext(plan: Plan, fanout: Fanout = baseFanout): CheckContext {
+export function createContext(
+  plan: Plan,
+  fanout: Fanout = baseFanout,
+  neighbours: Neighbours | null = null,
+): CheckContext {
   const asIs = buildGraph(systemOf(plan));
   const applied = applyOps(plan, plan.changes ?? []);
   const toBe = buildGraph(applied.system, applied.origins);
@@ -108,7 +115,18 @@ export function createContext(plan: Plan, fanout: Fanout = baseFanout): CheckCon
   const { planEntities, planDupes } = indexPlanEntities(plan);
   const known = (id: string): boolean =>
     asIs.has(id) || ledger.addedBy.has(id) || planEntities.has(id) || toBe.has(id);
-  return { plan, asIs, toBe, applied, planEntities, planDupes, ...ledger, fanout, known };
+  return {
+    plan,
+    asIs,
+    toBe,
+    applied,
+    planEntities,
+    planDupes,
+    ...ledger,
+    fanout,
+    known,
+    neighbours,
+  };
 }
 
 /** A prop of an entity, and (when it is not just the prop's own key) where inside it to point. */

@@ -17,7 +17,7 @@ function byId<T extends { id: string }>(list: T[] | undefined, id: string): T {
 }
 const chg = (p: Plan, id: string): Change => byId(p.changes, id);
 const flow = (p: Plan, id: string) => byId(p.flows, id);
-const op = (c: Change, i: number): Rec => c.ops[i] as unknown as Rec;
+const op = (c: Change, i: number): Rec => c.ops?.[i] as unknown as Rec;
 const opValue = (c: Change, i: number): Rec => op(c, i).value as Rec;
 
 type Mutate = (p: Plan) => void;
@@ -154,7 +154,7 @@ describe('dangling refs', () => {
   it('to-be entity refers to something removed', async () =>
     expectError(
       (p) => {
-        chg(p, 'chg:retire-email').ops.push({ remove: 'sch:invoice' });
+        chg(p, 'chg:retire-email').ops?.push({ remove: 'sch:invoice' });
       },
       /flows\[1\]\.steps\[0\]\.reads\[0\]|changes/u,
       /removes/u,
@@ -176,11 +176,11 @@ describe('dangling refs', () => {
 describe('op targets are as-is; adds do not collide', () => {
   it('modify an id added earlier in the list is allowed', async () => {
     const { errors } = await run((p) => {
-      chg(p, 'chg:analytics-v2').ops.push({
+      chg(p, 'chg:analytics-v2').ops?.push({
         modify: 'msg:status-changed-v2',
         set: { semantics: 'at-least-once' },
       });
-      chg(p, 'chg:retire-email').ops.push({
+      chg(p, 'chg:retire-email').ops?.push({
         modify: 'flow:pause#publish',
         set: { action: 'Publish paused (v2)' },
       });
@@ -190,7 +190,7 @@ describe('op targets are as-is; adds do not collide', () => {
   it('modify an id added later in the list', async () =>
     expectError(
       (p) => {
-        chg(p, 'chg:pause-api').ops.push({
+        chg(p, 'chg:pause-api').ops?.push({
           modify: 'msg:status-changed-v2',
           set: { semantics: 'x' },
         });
@@ -217,7 +217,7 @@ describe('op targets are as-is; adds do not collide', () => {
   it('append to a scalar', async () =>
     expectError(
       (p) => {
-        chg(p, 'chg:skip-paused').ops[2] = {
+        (chg(p, 'chg:skip-paused').ops ?? [])[2] = {
           modify: 'st:billing-db',
           append: { owner: ['svc:subs'] },
         };
@@ -236,7 +236,7 @@ describe('op targets are as-is; adds do not collide', () => {
   it('remove twice', async () =>
     expectError(
       (p) => {
-        chg(p, 'chg:retire-email').ops.push({ remove: 'flow:cancel#legacy-email' });
+        chg(p, 'chg:retire-email').ops?.push({ remove: 'flow:cancel#legacy-email' });
       },
       'changes[4].ops[1].remove',
       /already removed/u,
@@ -307,7 +307,7 @@ describe('step via consistency', () => {
   it('errors when a to-be step uses a removed via', async () =>
     expectError(
       (p) => {
-        chg(p, 'chg:retire-email').ops.push({ remove: 'msg:status-changed-v1' });
+        chg(p, 'chg:retire-email').ops?.push({ remove: 'msg:status-changed-v1' });
       },
       'flows[0].steps[1].via',
       /changes\[4\]\.ops\[1\] removes/u,
@@ -335,7 +335,7 @@ describe('reads and writes belong to the acting service', () => {
     ));
   it('access granted by an op is honoured in the to-be', async () => {
     const { errors } = await run((p) => {
-      chg(p, 'chg:skip-paused').ops.push({
+      chg(p, 'chg:skip-paused').ops?.push({
         add: 'step',
         into: 'flow:cancel',
         value: {
@@ -374,14 +374,24 @@ describe('changes are tested and implemented', () => {
       'changes[4]',
       /has no work item/u,
     ));
-  it('work item implements nothing', async () =>
-    expectError(
-      (p) => {
-        Object.assign(p.work_items![1]!, { implements: [] });
-      },
-      'work_items[1].implements',
-      /at least one change/u,
-    ));
+  it('work that implements no change, such as recovery, may be verified by any test', async () => {
+    const { errors } = await run((p) => {
+      Object.assign(p.work_items![1]!, { verified_by: ['tst:skip-unit'] });
+      Reflect.deleteProperty(p.work_items![1]!, 'implements');
+    });
+    expect(errors.filter((e) => e.path.startsWith('work_items[1]'))).toEqual([]);
+  });
+  it('a test that proves a change’s requirement proves the change', async () => {
+    const { errors, warnings } = await run((p) => {
+      const change = chg(p, 'chg:status-event-v2');
+      Object.assign(change, { requires: [{ id: 'req:v2', text: 'Consumers read v2.' }] });
+      for (const t of p.tests ?? []) {
+        Object.assign(t, { proves: t.proves.map((id) => (id === change.id ? 'req:v2' : id)) });
+      }
+    });
+    expect(errors).toEqual([]);
+    expect(warnings.filter((w) => w.message.includes('has no test'))).toEqual([]);
+  });
   it('verified_by test proves none of its changes', async () =>
     expectError(
       (p) => {
@@ -421,10 +431,10 @@ describe('draft plans: completeness rules are warnings', () => {
   it('structural rules stay errors in a draft', async () =>
     expectError(
       (p) => {
-        Object.assign(p.work_items![1]!, { implements: [] });
+        Object.assign(p.work_items![1]!, { verified_by: ['tst:skip-unit'] });
       },
-      'work_items[1].implements',
-      /at least one change/u,
+      'work_items[1].verified_by[0]',
+      /^tst:skip-unit proves none of/u,
     ));
 });
 

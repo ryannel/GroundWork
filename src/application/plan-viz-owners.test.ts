@@ -15,7 +15,7 @@ import {
 const load = dispatchDate;
 
 describe('owner lists', () => {
-  it('has the columns in a fixed order, the vote last', () => {
+  it('has the columns in a fixed order', () => {
     expect(OWNER_COLUMNS.map((c) => c.key)).toEqual([
       'svc',
       'st',
@@ -25,7 +25,6 @@ describe('owner lists', () => {
       'wi',
       'tst',
       'dec',
-      'vote',
     ]);
   });
 
@@ -106,9 +105,9 @@ describe('owner text', () => {
   it('reads a row as plain text in column order', () => {
     const model = modelOf(load());
     const lists = ownerLists(model, 'team:catalogue');
-    const parts = ownerFacts(model, 'team:catalogue', lists).split('|');
+    const parts = ownerFacts(model, lists).split('|');
     expect(parts).toHaveLength(OWNER_COLUMNS.length);
-    expect(parts).toEqual(['4', '3', '1', '2', '4', '4', '3', '0', 'not yet']);
+    expect(parts).toEqual(['4', '3', '1', '2', '4', '4', '3', '0']);
   });
 
   it('names a thing in plain words', () => {

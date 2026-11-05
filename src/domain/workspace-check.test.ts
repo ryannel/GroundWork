@@ -26,6 +26,63 @@ const workspace = (domains: Workspace['domains']): Workspace => ({
 const via = (to: string, kind: 'api' | 'message') => ({ to, via: kind });
 
 describe('checkWorkspace', () => {
+  it('names a handle two teams claim, but not one a team lists twice', () => {
+    const map: Workspace = {
+      ...workspace([{ id: 'd', name: 'D', purpose: null, systems: [system('s')] }]),
+      teams: [
+        { id: 'team:a', name: 'A', colour: null, channel: null, handles: ['a-sg', 'a-sg'] },
+        { id: 'team:b', name: 'B', colour: null, channel: null, handles: ['shared', 'b-sg'] },
+        {
+          id: 'team:c',
+          name: 'C',
+          colour: null,
+          channel: null,
+          handles: ['shared'],
+          partner: true,
+        },
+      ],
+    };
+    expect(checkWorkspace(map).errors).toEqual([
+      'handle shared: claimed by two teams; a handle names one team',
+    ]);
+  });
+
+  it('lets a system have no team, and warns that its owner is not known', () => {
+    const { errors, warnings } = checkWorkspace(
+      workspace([{ id: 'd', name: 'D', purpose: null, systems: [system('s', { team: null })] }]),
+    );
+    expect(errors).toEqual([]);
+    expect(warnings).toEqual(['system s: no team owns it yet; its owner shows as not known']);
+  });
+
+  it('checks the system a system runs on', () => {
+    const systems = [
+      system('shell'),
+      system('app', { runsOn: 'shell', repos: [] }),
+      system('lost', { runsOn: 'nowhere', repos: [] }),
+      system('loop', { runsOn: 'loop', repos: [] }),
+    ];
+    expect(
+      checkWorkspace(workspace([{ id: 'd', name: 'D', purpose: null, systems }])).errors,
+    ).toEqual(
+      expect.arrayContaining([
+        'system lost: runs on nowhere, which is not a system here',
+        'system loop: runs on itself; name the platform it runs on',
+      ]),
+    );
+    expect(
+      checkWorkspace(workspace([{ id: 'd', name: 'D', purpose: null, systems }])).errors.some(
+        (error) => error.startsWith('system app:'),
+      ),
+    ).toBe(false);
+  });
+
+  it.each(['programmes', 'partners', 'impact'])('reserves %s for its pages', (id) => {
+    expect(
+      checkWorkspace(workspace([{ id, name: 'D', purpose: null, systems: [] }])).errors,
+    ).toContain(`domain ${id}: the id is reserved for the ${id} pages`);
+  });
+
   it('names an actor used twice, or one who uses a component no system holds', () => {
     const map: Workspace = {
       ...workspace([{ id: 'd', name: 'D', purpose: null, systems: [system('s')] }]),
@@ -83,10 +140,12 @@ describe('checkWorkspace', () => {
       'component s:c: the id is used twice',
       'repo org/s: listed by two systems; when systems share a repo, give each its own folder of it with path:',
       'system t: team team:x is not in workspace.yaml',
-      'system s: no team owns it',
       'component s:c: talks to gone, which no system holds',
     ]);
-    expect(warnings).toEqual(['system s: has no components yet']);
+    expect(warnings).toEqual([
+      'system s: has no components yet',
+      'system s: no team owns it yet; its owner shows as not known',
+    ]);
     expect(
       checkWorkspace(workspace([{ id: 'd', name: 'D', purpose: null, systems: [system('flows')] }]))
         .errors,

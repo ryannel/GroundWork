@@ -30,7 +30,12 @@ export function checkWorkspace(workspace: Workspace): WorkspaceProblems {
       workspace.actors.map((actor) => actor.id),
       (id) => `actor ${id}: the id is used twice`,
     ),
+    ...repeated(
+      workspace.teams.flatMap((team) => [...new Set(team.handles)]),
+      (handle) => `handle ${handle}: claimed by two teams; a handle names one team`,
+    ),
     ...teamProblems(workspace),
+    ...runsOnProblems(workspace),
     ...actorProblems(workspace),
     ...connectionProblems(workspace),
   ];
@@ -41,6 +46,9 @@ export function checkWorkspace(workspace: Workspace): WorkspaceProblems {
     ...systemsOf(workspace)
       .filter((system) => system.components.length === 0)
       .map((system) => `system ${system.id}: has no components yet`),
+    ...systemsOf(workspace)
+      .filter((system) => system.team === null)
+      .map((system) => `system ${system.id}: no team owns it yet; its owner shows as not known`),
   ];
   return { errors, warnings };
 }
@@ -55,6 +63,9 @@ export const RESERVED_PAGES: readonly string[] = [
   'language',
   'people',
   'areas',
+  'programmes',
+  'partners',
+  'impact',
 ];
 
 /** Page names at the top of the app, beside the workspaces at /<workspace>/, so no workspace may take one. */
@@ -92,11 +103,25 @@ function repeated(values: readonly string[], problem: (value: string) => string)
 function teamProblems(workspace: Workspace): readonly string[] {
   const teams = new Set(workspace.teams.map((team) => team.id));
   return systemsOf(workspace).flatMap((system) => {
-    if (system.team === null) return [`system ${system.id}: no team owns it`];
+    if (system.team === null) return [];
     if (!teams.has(system.team)) {
       return [`system ${system.id}: team ${system.team} is not in workspace.yaml`];
     }
     return [];
+  });
+}
+
+function runsOnProblems(workspace: Workspace): readonly string[] {
+  const systems = new Set(systemsOf(workspace).map((system) => system.id));
+  return systemsOf(workspace).flatMap((system) => {
+    const on = system.runsOn ?? null;
+    if (on === null) return [];
+    if (on === system.id) {
+      return [`system ${system.id}: runs on itself; name the platform it runs on`];
+    }
+    return systems.has(on)
+      ? []
+      : [`system ${system.id}: runs on ${on}, which is not a system here`];
   });
 }
 

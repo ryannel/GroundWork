@@ -165,7 +165,7 @@ const endedId = (op: Op): string | undefined => {
 export function rolloutNotes(model: Model, flowId: string, stepId: string): string[] {
   const targets = new Set([flowId, stepId]);
   const notes = (model.plan.changes ?? [])
-    .filter((c) => c.ops.some((op) => targets.has(endedId(op) ?? '')))
+    .filter((c) => (c.ops ?? []).some((op) => targets.has(endedId(op) ?? '')))
     .map((c) => c.rollout)
     .filter((n): n is string => n !== undefined && n !== '');
   return [...new Set(notes)];

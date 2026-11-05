@@ -15,6 +15,23 @@ const base: AreaComponentView = {
 } as unknown as AreaComponentView;
 
 describe('component card geometry', () => {
+  it('reserves two lines for each shared resource and its map destination', () => {
+    const layout = cardLayout(
+      {
+        ...base,
+        resources: [
+          { id: 'shared', name: 'Shared cache', kind: 'store', use: 'Reads' },
+          { id: 'topic', name: 'Shared topic', kind: 'topic', use: 'Consumes' },
+        ],
+      },
+      true,
+    );
+    expect(CARD.sharedRow).toBe(40);
+    const top = CARD.header + CARD.contents + CARD.heading;
+    expect(layout.sections[0]?.rows.map((row) => row.centre)).toEqual([top + 20, top + 60]);
+    expect(layout.height).toBe(top + 80 + CARD.end);
+  });
+
   it('puts each row centre below its section heading, in API, data, events, shared order', () => {
     const store = { ...base, id: 'st:db', kind: 'database' as const, name: 'Offer DB' };
     const topic = { ...base, id: 'tp:events', kind: 'queue' as const, name: 'Offer events' };

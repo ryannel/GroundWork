@@ -44,6 +44,11 @@ export interface AreaLandscapeView {
   readonly edges: readonly AreaMapEdge[];
 }
 
+interface Point {
+  readonly x: number;
+  readonly y: number;
+}
+
 const NODE_WIDTH = 250;
 const NODE_HEIGHT = 166;
 const MARGIN = 50;
@@ -144,16 +149,51 @@ function portY(
   return node.y + 24 + ((node.height - 48) * (index + 1)) / (peers.length + 1);
 }
 
-function edgeOf(
+function portX(
+  node: AreaMapNode,
+  edge: AuthoredLandscape['relationships'][number],
+  options: RoutingContext & { readonly outgoing: boolean },
+): number {
+  const { nodes, relationships, outgoing } = options;
+  const peers = relationships
+    .filter((candidate) => (outgoing ? candidate.from === node.id : candidate.to === node.id))
+    .toSorted(
+      (a, b) =>
+        (nodes.get(outgoing ? a.to : a.from)?.x ?? 0) -
+        (nodes.get(outgoing ? b.to : b.from)?.x ?? 0),
+    );
+  const index = peers.findIndex((candidate) => candidate.id === edge.id);
+  return node.x + 24 + ((node.width - 48) * (index + 1)) / (peers.length + 1);
+}
+
+function routePorts(
   relationship: AuthoredLandscape['relationships'][number],
+  from: AreaMapNode,
+  to: AreaMapNode,
   options: RoutingContext,
-): AreaMapEdge | null {
-  const { nodes, labels } = options;
-  const from = nodes.get(relationship.from);
-  const to = nodes.get(relationship.to);
-  if (from === undefined || to === undefined) return null;
-  const forward = to.x > from.x;
-  const geometry = areaRoute({
+): {
+  readonly start: Point;
+  readonly end: Point;
+  readonly direction: 1 | -1;
+  readonly vertical: boolean;
+} {
+  const vertical = Math.abs(to.y - from.y) > Math.abs(to.x - from.x);
+  const forward = vertical ? to.y > from.y : to.x > from.x;
+  if (vertical) {
+    return {
+      start: {
+        x: portX(from, relationship, { ...options, outgoing: true }),
+        y: forward ? from.y + from.height : from.y,
+      },
+      end: {
+        x: portX(to, relationship, { ...options, outgoing: false }),
+        y: forward ? to.y : to.y + to.height,
+      },
+      direction: forward ? 1 : -1,
+      vertical: true,
+    };
+  }
+  return {
     start: {
       x: forward ? from.x + from.width : from.x,
       y: portY(from, relationship, { ...options, outgoing: true }),
@@ -162,15 +202,32 @@ function edgeOf(
       x: forward ? to.x : to.x + to.width,
       y: portY(to, relationship, { ...options, outgoing: false }),
     },
-    obstacles: [...nodes.values()],
     direction: forward ? 1 : -1,
+    vertical: false,
+  };
+}
+
+function edgeOf(
+  relationship: AuthoredLandscape['relationships'][number],
+  options: RoutingContext,
+): AreaMapEdge | null {
+  const { nodes, labels } = options;
+  const from = nodes.get(relationship.from);
+  const to = nodes.get(relationship.to);
+  if (from === undefined || to === undefined) return null;
+  const ports = routePorts(relationship, from, to, options);
+  const geometry = areaRoute({
+    start: ports.start,
+    end: ports.end,
+    obstacles: [...nodes.values()],
+    direction: ports.direction,
+    vertical: ports.vertical,
     labelWidth: diagramCaption(relationship.label).width,
     labelHeight: diagramCaption(relationship.label).height,
     labelObstacles: labels.map((edge) => {
       const { width, height } = diagramCaption(edge.label);
       return { x: edge.x - width / 2, y: edge.y - 14, width, height };
     }),
-    ...(forward ? {} : { returnLane: Math.max(from.y + from.height, to.y + to.height) + 32 }),
   });
   if (geometry === null) throw new Error(`Cannot route landscape relationship ${relationship.id}`);
   return {

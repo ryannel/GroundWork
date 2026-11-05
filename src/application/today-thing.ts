@@ -94,6 +94,7 @@ const ORIGIN_WORDS: Readonly<Record<Origin, string>> = {
   extracted: 'Read from the code',
   seeded: 'Seeded for the demo',
   curated: 'Written by hand',
+  documented: 'Read from a document',
 };
 
 /** Who said a fact, in words. */

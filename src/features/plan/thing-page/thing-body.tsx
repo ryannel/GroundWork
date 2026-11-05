@@ -6,6 +6,7 @@ import { entityView, type EntityView } from '@/application/plan-pages-entity';
 import { placesOf } from '@/application/plan-pages-entity-where';
 import { siblingsOf, thingHome, thingHref } from '@/application/plan-pages-things';
 import { assetUrl } from '@/application/plan-viz-screens';
+import { InheritedNote } from '@/features/plan/common/inherited-note';
 import { CopyLink } from '@/features/plan/inspector/copy-link.client';
 import { EntityDetails } from '@/features/plan/inspector/entity-details';
 import { EntityHead } from '@/features/plan/inspector/entity-head';
@@ -33,13 +34,14 @@ function Sheet({ model, outline, view, today }: SheetProps) {
   return (
     <div className={styles.sheet}>
       <EntityHead heading="h1" today={today} view={view} />
+      <InheritedNote ids={[view.id]} model={model} />
       <EntityDetails
         image={view.image === null ? null : assetUrl(planHref(outline), view.image)}
         model={model}
         today={today}
         view={view}
       />
-      <ThingExtras id={view.id} model={model} today={today} />
+      <ThingExtras at={outline} id={view.id} model={model} today={today} />
       <EntityPlaces
         here={thingHref(outline, view.id)}
         mentionedIn={view.mentionedIn}

@@ -173,7 +173,10 @@ function flowsOf(
 function workOf(core: Core, teamsOf: (chgId: string) => unknown[], teamId: string) {
   const mine = core.workItems.filter((w) => w.team === teamId);
   const chg = core.changes
-    .filter((c) => teamsOf(c.id).includes(teamId) || mine.some((w) => w.implements.includes(c.id)))
+    .filter(
+      (c) =>
+        teamsOf(c.id).includes(teamId) || mine.some((w) => (w.implements ?? []).includes(c.id)),
+    )
     .map((c) => c.id);
   return {
     wis: mine.map((w) => w.id),

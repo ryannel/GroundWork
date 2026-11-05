@@ -34,7 +34,7 @@ export function issueSections(
   const wi = workItemOf(model, wiId);
   if (wi === undefined) return null;
   const ms = model.plan.milestones?.find((m) => m.id === wi.milestone);
-  const changes = wi.implements.map((id): [string, Change | undefined] => [
+  const changes = (wi.implements ?? []).map((id): [string, Change | undefined] => [
     id,
     model.plan.changes?.find((c) => c.id === id),
   ]);

@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { parse } from 'yaml';
 
-import { factsIn, findings, locate } from './sources';
+import { factsIn, findings, isAttributed, locate } from './sources';
 
 const COMMIT = '3f9c2e1a3f9c2e1a3f9c2e1a3f9c2e1a3f9c2e1a';
 const SOURCE = { repo: 'acme/pricing', path: 'src/price.ts', lines: [3, 9], commit: COMMIT };
@@ -93,5 +93,48 @@ describe('factsIn', () => {
     const [fact] = factsIn(handlers, 'domains/d/systems/s/handlers.yaml');
     expect(fact?.stepsWithoutSources).toBe(1);
     expect(fact?.sources).toHaveLength(2);
+  });
+});
+
+describe('documented facts', () => {
+  const file = 'domains/d/systems/ziklo/contracts.yaml';
+  const document = {
+    url: 'https://www.notion.so/ziklo/order-api',
+    heading: 'Change an order',
+    version: '2026-10',
+  };
+
+  it('counts a document as the source of a documented fact, not as a broken code link', () => {
+    const [fact] = factsIn(
+      { id: 'api:ziklo-quote', origin: 'documented', sources: [document] },
+      file,
+    );
+    expect(fact?.documents).toEqual([document]);
+    expect(fact?.problems).toEqual([]);
+    expect(fact === undefined ? false : isAttributed(fact)).toBe(true);
+    expect(fact === undefined ? [] : findings(fact).errors).toEqual([]);
+  });
+
+  it('reads a link that names where in a document it points as a document, whatever the origin', () => {
+    const [fact] = factsIn(
+      { id: 'if:ziklo', origin: 'curated', sources: [{ url: document.url, pointer: '#/paths' }] },
+      file,
+    );
+    expect(fact?.documents).toEqual([{ url: document.url, pointer: '#/paths' }]);
+  });
+
+  it('keeps a code permalink a documented fact cites as code', () => {
+    const url = `https://github.com/acme/pricing/blob/${COMMIT}/src/price.ts#L3-L9`;
+    const [fact] = factsIn({ id: 'api:x', origin: 'documented', sources: [{ url }] }, file);
+    expect(fact?.sources).toEqual([SOURCE]);
+    expect(fact?.documents).toEqual([]);
+  });
+
+  it('reports a documented fact that cites nothing, and leaves it unattributed', () => {
+    const [fact] = factsIn({ id: 'api:ziklo-quote', origin: 'documented' }, file);
+    expect(fact === undefined ? true : isAttributed(fact)).toBe(false);
+    expect(fact === undefined ? [] : findings(fact).errors).toEqual([
+      'api:ziklo-quote: documented but cites no document; add { url, pointer or heading, version }',
+    ]);
   });
 });

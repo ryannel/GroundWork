@@ -12,7 +12,7 @@ export interface IssuePreview {
   readonly repo: string | null;
   /** "#41", or '' before the issue is filed. */
   readonly number: string;
-  /** From status.json; null when GitHub has not been read. */
+  /** From the latest GitHub event in progress.yaml; null when GitHub has not been read. */
   readonly state: 'open' | 'closed' | null;
   readonly closedOn: string | null;
   readonly url: string | null;

@@ -67,7 +67,7 @@ function giftWrap10(): PlanOverlay {
   const overlay = giftWrapOverlay();
   const [step] = overlay.changes ?? [];
   if (step !== undefined) {
-    const [first, ...rest] = step.ops.filter(
+    const [first, ...rest] = (step.ops ?? []).filter(
       (op) => !('modify' in op && op.modify === 'flow:place-order#create'),
     );
     if (first !== undefined) step.ops = [first, ...rest];

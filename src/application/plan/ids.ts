@@ -6,7 +6,6 @@ import {
   type EntityType,
   type IdPrefix,
   type PathSegment,
-  type RefOwner,
 } from '@/domain/plan/plan-ids';
 import type { Plan } from '@/domain/plan/plan.generated';
 
@@ -43,6 +42,14 @@ export function typeOf(id: unknown): EntityType | null {
   const key = m?.[1];
   if (m === null || key === undefined || !isPrefix(key)) return null;
   return childTypeOf(ID_PREFIXES[key], m[2]);
+}
+
+const QUALIFIED = /^([a-z0-9]+(?:-[a-z0-9]+)*)\/([a-z]+:.+)$/u;
+
+/** `care-se/dec:x` → { scope: 'care-se', id: 'dec:x' }: an id in another plan or the programme; null for a local id. */
+export function qualifiedOf(id: string): { readonly scope: string; readonly id: string } | null {
+  const m = QUALIFIED.exec(id);
+  return m?.[1] === undefined || m[2] === undefined ? null : { scope: m[1], id: m[2] };
 }
 
 /** Parent id of a child id (`flow:x#y` → `flow:x`), else null. */
@@ -141,7 +148,7 @@ function refsOfSpec(spec: string, expect: EntityRef['expect'], entity: unknown):
  * Enumerate the refs an entity holds. Children (steps, fields, endpoints) are not descended,
  * and `internal` is not a ref when it is a step's `via`.
  */
-export function refsOf(type: RefOwner, entity: unknown): EntityRef[] {
+export function refsOf(type: EntityType, entity: unknown): EntityRef[] {
   return REFS[type]
     .flatMap(([spec, expect]) => refsOfSpec(spec, expect, entity))
     .filter((r) => !(type === 'step' && r.prop === 'via' && r.id === 'internal'));
@@ -163,8 +170,8 @@ function entriesOf(
 }
 
 /**
- * Every plan-level entity outside the system graphs: the PLAN_COLLECTIONS, problem.scenarios,
- * domain.concepts and domain.stages, in plan order.
+ * Every plan-level entity outside the system graphs: the PLAN_COLLECTIONS, each change's requirements,
+ * problem.scenarios, domain.concepts and domain.stages, in plan order.
  */
 export function planEntries(plan: Plan): PlanEntry[] {
   const keys: PlanKey[] = [
@@ -177,6 +184,9 @@ export function planEntries(plan: Plan): PlanEntry[] {
     'questions',
   ];
   const out = keys.flatMap((key) => entriesOf(plan[key], PLAN_COLLECTIONS[key], [key]));
+  for (const [i, change] of (plan.changes ?? []).entries()) {
+    out.push(...entriesOf(change.requires, 'requirement', ['changes', i, 'requires']));
+  }
   out.push(
     ...entriesOf(plan.problem.scenarios, 'scenario', ['problem', 'scenarios']),
     ...entriesOf(plan.domain?.concepts, 'concept', ['domain', 'concepts']),
@@ -187,7 +197,7 @@ export function planEntries(plan: Plan): PlanEntry[] {
 
 /** A short display label for any entity. */
 export function labelOf(entity: unknown, id: string): string {
-  for (const key of ['name', 'title', 'action', 'sig', 'term', 'statement', 'question']) {
+  for (const key of ['name', 'title', 'action', 'sig', 'term', 'statement', 'question', 'text']) {
     const v = prop(entity, key);
     if (typeof v === 'string' || typeof v === 'number') return String(v);
   }

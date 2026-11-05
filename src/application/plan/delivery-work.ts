@@ -63,12 +63,18 @@ export function workTouched(diff: PlanDiff | null, basePlan: Plan | null): Touch
   for (const id of diff.workItems.added) touch(id, 'it is new');
   for (const id of diff.workItems.removed) touch(id, 'it is dropped');
   for (const r of diff.workItems.remilestoned) touch(r.id, 'it moves milestone');
-  const edited = editedChanges(diff);
-  for (const w of basePlan?.work_items ?? []) {
-    const hit = w.implements.find((c) => edited.has(c));
-    if (hit !== undefined) touch(w.id, 'it builds a change this version edits', hit);
+  for (const [id, hit] of buildingEdited(basePlan, editedChanges(diff))) {
+    touch(id, 'it builds a change this version edits', hit);
   }
   return [...out.values()];
+}
+
+/** Each work item that builds an edited change, with the first such change. */
+function buildingEdited(basePlan: Plan | null, edited: ReadonlySet<string>): [string, string][] {
+  return (basePlan?.work_items ?? []).flatMap((w): [string, string][] => {
+    const hit = w.implements?.find((c) => edited.has(c));
+    return hit === undefined ? [] : [[w.id, hit]];
+  });
 }
 
 export type FiledTouched = TouchedWork & {

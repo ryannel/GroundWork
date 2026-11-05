@@ -1,4 +1,6 @@
 import { derive, type Model } from '@/application/plan/derive';
+import type { Inherited } from '@/application/plan/stack-base';
+import type { PlanStanding } from '@/application/plan/work-standing';
 import type { Page } from '@/application/plan-pages';
 import { THINGS_SCREEN } from '@/application/plan-pages-things';
 import type { IssueStatus } from '@/domain/plan/plan-status';
@@ -11,6 +13,8 @@ import type { Plan } from '@/domain/plan/plan.generated';
 interface Payload {
   readonly plan: Plan;
   readonly status?: IssueStatus | null;
+  readonly inherited?: Inherited | null;
+  readonly standing?: PlanStanding | null;
 }
 
 const isPayload = (value: unknown): value is Payload =>
@@ -33,7 +37,12 @@ async function fetchModel(src: string): Promise<Model | null> {
     if (!response.ok) return null;
     const body: unknown = await response.json();
     if (!isPayload(body)) return null;
-    return derive(body.plan, { status: body.status ?? {}, today: new Date() });
+    return derive(body.plan, {
+      status: body.status ?? {},
+      today: new Date(),
+      inherited: body.inherited ?? undefined,
+      standing: body.standing ?? undefined,
+    });
   } catch {
     return null;
   }

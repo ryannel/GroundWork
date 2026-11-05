@@ -6,9 +6,11 @@ import {
   type CheckContext,
   type Report,
 } from '@/application/plan/check-context';
+import { qualifiedProblem } from '@/application/plan/check-neighbours';
 import {
   citationsIn,
   formatPath,
+  qualifiedOf,
   refsOf,
   typeOf,
   walkStrings,
@@ -193,32 +195,37 @@ function checkToBeRefs(s: Scope): void {
   }
 }
 
+/** What is wrong with a plan-level reference: here, or (qualified) in another plan or the programme. */
+function planRefProblem(ctx: CheckContext, r: EntityRef): string | null {
+  if (qualifiedOf(r.id) !== null) return qualifiedProblem(ctx.neighbours, r.id, r.expect);
+  if (!typeOk(r.id, r.expect)) return wrongType(r);
+  return ctx.known(r.id) ? null : `${r.id} does not exist; ${DANGLING}`;
+}
+
 function checkPlanRefs({ ctx, rep }: Scope): void {
   for (const pe of ctx.planEntities.values()) {
     for (const r of refsOf(pe.type, pe.entity)) {
-      const segs = [...pe.path, ...r.path];
-      if (!typeOk(r.id, r.expect)) rep.error(segs, wrongType(r));
-      else if (!ctx.known(r.id)) rep.error(segs, `${r.id} does not exist; ${DANGLING}`);
+      const problem = planRefProblem(ctx, r);
+      if (problem !== null) rep.error([...pe.path, ...r.path], problem);
     }
   }
 }
 
-function checkCommitmentRefs({ ctx, rep }: Scope): void {
-  for (const [i, c] of (ctx.plan.commitment ?? []).entries()) {
-    for (const r of refsOf('commitment', c)) {
-      if (!ctx.known(r.id)) {
-        rep.error(['commitment', i, ...r.path], `${r.id} does not exist; ${DANGLING}`);
-      }
-    }
+function citationProblem(ctx: CheckContext, id: string): string | null {
+  if (qualifiedOf(id) !== null) {
+    const problem = qualifiedProblem(ctx.neighbours, id, null);
+    return problem === null ? null : `cites [[${id}]]: ${problem}`;
   }
+  return ctx.known(id)
+    ? null
+    : `cites [[${id}]], which does not exist; fix the id or remove the citation`;
 }
 
 function checkCitations({ ctx, rep }: Scope): void {
   walkStrings(ctx.plan, (text, segs) => {
     for (const id of citationsIn(text)) {
-      if (!ctx.known(id)) {
-        rep.error(segs, `cites [[${id}]], which does not exist; fix the id or remove the citation`);
-      }
+      const problem = citationProblem(ctx, id);
+      if (problem !== null) rep.error(segs, problem);
     }
   });
 }
@@ -229,6 +236,5 @@ export function checkRefs(ctx: CheckContext, rep: Report): void {
   checkAsIsRefs(s);
   checkToBeRefs(s);
   checkPlanRefs(s);
-  checkCommitmentRefs(s);
   checkCitations(s);
 }

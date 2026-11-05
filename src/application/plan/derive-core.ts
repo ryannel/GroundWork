@@ -3,6 +3,7 @@ import { textOf, uniq } from '@/application/plan/derive-values';
 import { buildGraph, systemOf } from '@/application/plan/graph';
 import { baseFanout } from '@/application/plan/graph-queries';
 import { labelOf, planEntries, prop } from '@/application/plan/ids';
+import { type Inherited, NOTHING_INHERITED, type Provenance } from '@/application/plan/stack-base';
 import type {
   Fanout,
   OpKind,
@@ -69,6 +70,11 @@ export interface Core {
   readonly sys: (id: string | null | undefined) => PlanNode | undefined;
   readonly label: (id: string) => string;
   readonly status: (id: string | null | undefined) => ElementStatus | null;
+  /**
+   * Which plan below this one added or changed a thing in its as-is, for a plan that builds on others; null for
+   * what is live today, and for everything this plan changes itself.
+   */
+  readonly inheritedFrom: (id: string | null | undefined) => Provenance | null;
 }
 
 const isQuestion = (e: Indexed): e is Indexed & Question => e.$type === 'question';
@@ -161,7 +167,11 @@ function labelling(get: Core['get']): Core['label'] {
   };
 }
 
-export function createCore(plan: Plan, fanout: Fanout = baseFanout): Core {
+export function createCore(
+  plan: Plan,
+  fanout: Fanout = baseFanout,
+  inherited: Inherited = NOTHING_INHERITED,
+): Core {
   const asIs = buildGraph(systemOf(plan));
   const applied = applyOps(plan, plan.changes);
   const toBe = buildGraph(applied.system, applied.origins);
@@ -189,5 +199,6 @@ export function createCore(plan: Plan, fanout: Fanout = baseFanout): Core {
     sys,
     label: labelling(get),
     status: (id) => ledger.get(id ?? '') ?? (get(id) === undefined ? null : 'existing'),
+    inheritedFrom: (id) => (typeof id === 'string' ? (inherited[id] ?? null) : null),
   };
 }

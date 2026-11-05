@@ -19,7 +19,7 @@ describe('OwnershipTable', () => {
     const model = modelOf(load());
     const teams = model.plan.teams.map((t) => t.id);
     const { container } = render(<OwnershipTable model={model} teamIds={teams} />);
-    expect(container.querySelectorAll('thead th')).toHaveLength(10);
+    expect(container.querySelectorAll('thead th')).toHaveLength(9);
     expect(teams).toHaveLength(4);
     expect(container.querySelectorAll('[data-facts-of]')).toHaveLength(teams.length);
     expect(container.textContent).toContain('events published');
@@ -33,7 +33,6 @@ describe('OwnershipTable', () => {
       '4',
       '3',
       '0',
-      'not yet',
     ]);
   });
 
@@ -68,17 +67,6 @@ describe('OwnershipTable', () => {
     expect(flagged(rows[0]!)).toBe(true);
     expect(flagged(rows[1]!)).toBe(false);
     expect(container.querySelector('[title="No work items"]')).not.toBeNull();
-  });
-
-  it('says the confidence, and flags a low one', () => {
-    const plan = load();
-    const model = modelOf({
-      ...plan,
-      commitment: [{ team: 'team:catalogue', confidence: 2 }],
-    });
-    const { container } = render(<OwnershipTable model={model} teamIds={['team:catalogue']} />);
-    expect(facts(container, 'team:catalogue').endsWith('|2 of 5')).toBe(true);
-    expect(container.querySelector('[data-low]')!.textContent).toBe('2 of 5');
   });
 
   it('says so when there are no teams', () => {

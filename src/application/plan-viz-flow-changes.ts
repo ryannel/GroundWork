@@ -28,7 +28,7 @@ const recordIds = (step: FlowStep): string[] =>
 /** Steps the plan inserts into the flow, keyed by the step they follow (else the last one today). */
 function insertedAfter(model: Model, flowId: string, lastId: string | undefined) {
   const out = new Map<string, string[]>();
-  const ops = (model.plan.changes ?? []).flatMap((c) => c.ops);
+  const ops = (model.plan.changes ?? []).flatMap((c) => c.ops ?? []);
   for (const op of ops) {
     if (!('add' in op) || op.add !== 'step' || op.into !== flowId) continue;
     const anchor = op.after !== undefined && model.asIs.has(op.after) ? op.after : lastId;

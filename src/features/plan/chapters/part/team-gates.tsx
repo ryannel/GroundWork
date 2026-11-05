@@ -8,7 +8,6 @@ import { teamName } from '@/application/plan-viz-teams';
 import type { Risk } from '@/domain/plan/plan.generated';
 import { EntityChip } from '@/features/plan/common/entity-chip';
 import { NamedChips } from '@/features/plan/common/named-chip';
-import { VoteTiles } from '@/features/plan/viz/vote/vote-tiles';
 
 import { PartSection } from './part-section';
 import styles from './team-gates.module.css';
@@ -112,18 +111,17 @@ function Groups({ model, team, part }: GatesProps) {
   );
 }
 
-// What the team decides, waits on and owns before the plan is approved, and its own confidence rating.
+// What the team decides, waits on and owns before the plan is approved.
 export function BeforeApproval({ model, team, part }: GatesProps) {
   const approved = isApproved(part.stage);
-  const showVote = part.vote !== null && !part.low && !approved;
   const count =
     part.decides.length + part.waitsOn.length + part.risksOn.length + part.alsoOpen.length;
-  if (count === 0 && !showVote) return null;
+  if (count === 0) return null;
   const late = part.decides.some(
     (e) => e.decide_by !== undefined && e.decide_by.localeCompare(today()) < 0,
   );
   return (
-    <PartSection title={approved ? 'Still open' : 'Before approval'} warn={part.low || late}>
+    <PartSection title={approved ? 'Still open' : 'Before approval'} warn={late}>
       <Groups model={model} part={part} team={team} />
       {part.alsoOpen.length === 0 ? null : (
         <p className={styles.also}>
@@ -131,7 +129,6 @@ export function BeforeApproval({ model, team, part }: GatesProps) {
           <NamedChips ids={part.alsoOpen.map((q) => q.id)} model={model} />
         </p>
       )}
-      {showVote ? <VoteTiles model={model} teams={[team]} /> : null}
     </PartSection>
   );
 }

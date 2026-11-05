@@ -1,8 +1,8 @@
 // A plan for the story chapters, still a draft: an overlay on Acme's today that delivers orders on the same day. It
 // touches every team, versions `order.placed` (v1 → v2, the mailer moves), breaks readers it does not move, owes
-// answers and decisions, carries a low confidence rating and risks of every kind, and proves its changes unevenly.
+// answers and decisions, carries risks of every kind, and proves its changes unevenly.
 import { planOnAcme, type PlanOverlay } from '@/../test/plan-kit';
-import type { Commitment, Plan } from '@/domain/plan/plan.generated';
+import type { Plan } from '@/domain/plan/plan.generated';
 
 /** The overlay as it would be written in plans/same-day/plan.yaml. */
 function sameDayOverlay(): PlanOverlay {
@@ -438,32 +438,10 @@ function sameDayOverlay(): PlanOverlay {
         roam: 'resolved',
       },
     ],
-    commitment: [
-      { team: 'team:catalogue', confidence: 4 },
-      { team: 'team:orders', confidence: 3 },
-      { team: 'team:web', confidence: 4 },
-      {
-        team: 'team:payments',
-        confidence: 2,
-        note: 'The hold is not agreed with the card provider yet.',
-      },
-    ],
   };
 }
 
-/** The draft as the app draws it: Payments is not confident. */
+/** The draft as the app draws it. */
 export function sameDay(): Plan {
   return planOnAcme(sameDayOverlay()).plan;
-}
-
-const CONFIDENT: readonly Commitment[] = [
-  { team: 'team:catalogue', confidence: 4 },
-  { team: 'team:orders', confidence: 3 },
-  { team: 'team:web', confidence: 4 },
-  { team: 'team:payments', confidence: 3 },
-];
-
-/** The same draft once every team rates it 3 or more. */
-export function sameDayConfident(): Plan {
-  return planOnAcme({ ...sameDayOverlay(), commitment: [...CONFIDENT] }).plan;
 }

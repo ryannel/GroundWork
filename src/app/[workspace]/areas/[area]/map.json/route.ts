@@ -24,6 +24,7 @@ export async function GET(
   const view = areaViewOf({
     workspace: data.workspace,
     model: data.today.model,
+    attribution: data.today.attribution,
     landscape,
     area,
     explorer,

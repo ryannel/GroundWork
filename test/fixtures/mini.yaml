@@ -423,9 +423,6 @@ questions:
       blocks: [chg:pause-api],
     }
 
-commitment:
-  - { team: team:billing, confidence: 4 }
-
 story:
   chapters:
     why: { headline: 'Cancel is the only exit today.', recap: ['38% wanted a break'] }

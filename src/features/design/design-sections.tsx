@@ -2,6 +2,7 @@ import { Badge } from '@/ui/badge';
 import { Callout } from '@/ui/callout';
 import { Card } from '@/ui/card';
 import { Chip, ChipList } from '@/ui/chip';
+import { CodeBlock } from '@/ui/code-block';
 import { DataTable } from '@/ui/data-table';
 import { Facts } from '@/ui/facts';
 import { Kbd } from '@/ui/kbd';
@@ -9,6 +10,7 @@ import { Legend } from '@/ui/legend';
 import { List, ListItem } from '@/ui/list';
 import { Panel } from '@/ui/panel';
 import { ProgressBar } from '@/ui/progress-bar';
+import { RecordCard } from '@/ui/record-card';
 import { SectionHeading } from '@/ui/section-heading';
 import { Swatch } from '@/ui/swatch';
 import { Text, TextLink } from '@/ui/text';
@@ -145,6 +147,34 @@ export function HoldersSection() {
       </Specimen>
       <Specimen name="Facts" use="Short facts in a row: sizes, counts and owners.">
         <Facts items={['3 domains', '14 systems', '2 plans']} />
+      </Specimen>
+      <Specimen
+        name="RecordCard"
+        use="One piece of work, the same card for every owner: labelled rows, then its actions."
+      >
+        <RecordCard
+          actions={<TextLink href="/design/">GitHub issue #41 · open</TextLink>}
+          meta="Ziklo · we depend on this · M3"
+          owner="Ziklo"
+          rows={[
+            { label: 'Commitment', value: 'accepted, medium confidence, for 1 March' },
+            { label: 'Progress', value: 'in progress' },
+            {
+              label: 'Needed by',
+              value: '15 February',
+              aside: '14 days after we need',
+              warn: true,
+            },
+            { label: 'Last heard', value: '4 November · Louise A. Zieme · meeting' },
+          ]}
+          slot={3}
+          title="Provide the order-change quote"
+        />
+      </Specimen>
+      <Specimen name="CodeBlock" use="Text to copy exactly: a command, a YAML entry, a prompt.">
+        <CodeBlock label="Command">
+          npm run progress -- add acme orders --subject wi:quote
+        </CodeBlock>
       </Specimen>
     </section>
   );

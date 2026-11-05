@@ -5,8 +5,10 @@ import type { BaseInfo } from '@/application/plan/plan-base';
 import { planCardOf, type PlanCard } from '@/application/plan-footprint';
 import { outlineOf, type Outline } from '@/application/plan-pages';
 import { findWorkspace } from '@/application/workspace-paths';
+import { stackCoverVM, type StackCoverVM } from '@/application/workspace-work/stack-cover';
 
 import { untilEdited } from './workspace-memo';
+import { readWorkspacePlanIndex } from './workspace-plan-index';
 import { readLoadedPlan, readLoadedPlans, readPlanState, type BrokenPlan } from './workspace-plans';
 import { readWorkspaces } from './workspace-store';
 
@@ -23,6 +25,8 @@ export interface PlanData {
   readonly plans: readonly PlanCard[];
   /** Where the plan's today comes from, and whether today has moved under it. */
   readonly base: BaseInfo;
+  /** The plans it reads after, overlaps and joins, for the cover; null when there are none. */
+  readonly stack: StackCoverVM | null;
 }
 
 export interface PlanFailure extends BrokenPlan {
@@ -54,13 +58,23 @@ async function load({ workspace, plan }: PlanParams): Promise<PlanData | null> {
   const found = findWorkspace(await readWorkspaces(), workspace);
   const loaded = found === null ? null : await readLoadedPlan(workspace, plan);
   if (found === null || loaded === null) return null;
-  const model = derive(loaded.plan, { status: loaded.status, today: new Date() });
+  const model = derive(loaded.plan, {
+    status: loaded.status,
+    today: new Date(),
+    inherited: loaded.inherited,
+    standing: loaded.standing,
+  });
+  const [plans, index] = await Promise.all([
+    planCards(workspace),
+    readWorkspacePlanIndex(workspace),
+  ]);
   return {
     workspaceName: found.name,
     model,
     outline: outlineOf(model, { workspace, slug: plan }),
-    plans: await planCards(workspace),
+    plans,
     base: loaded.base,
+    stack: index === null ? null : stackCoverVM(index, plan, loaded.base),
   };
 }
 

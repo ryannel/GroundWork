@@ -8,9 +8,10 @@ import {
 import {
   componentKind,
   resourceCaption,
+  resourceLocation,
   resourceSummary,
 } from '@/application/area-map/component-summary';
-import type { AreaSystemView } from '@/application/workspace-area';
+import type { AreaResourceView, AreaSystemView } from '@/application/workspace-area';
 import type { SystemNarrative } from '@/domain/system-narrative';
 import { Button } from '@/ui/button';
 import {
@@ -78,6 +79,8 @@ function shortName(name: string): string {
 }
 
 interface RowHandlers {
+  readonly systems: readonly AreaSystemView[];
+  readonly expanded: ReadonlySet<string>;
   readonly endpoint: string | undefined;
   readonly onSelectEndpoint: (id: string) => void;
   readonly onSelectResource: (id: string) => void;
@@ -118,11 +121,35 @@ function CardRowView({ row, handlers }: { readonly row: CardRow; readonly handle
       />
     );
   }
-  const { resource } = row;
+  return <SharedResourceRow resource={row.resource} handlers={handlers} />;
+}
+
+function SharedResourceRow({
+  resource,
+  handlers,
+}: {
+  readonly resource: AreaResourceView;
+  readonly handlers: RowHandlers;
+}) {
+  const destination = resourceLocation(handlers.systems, resource.id);
+  const collapsed = destination !== null && !handlers.expanded.has(destination.system.id);
+  let location = 'Not placed on this map';
+  let action = 'No map destination is recorded.';
+  if (destination !== null) {
+    const state = collapsed ? 'System collapsed' : 'Show on map';
+    const expand = collapsed ? ' (expands system)' : '';
+    const inside =
+      destination.component.id === resource.id ? '' : `, inside ${destination.component.name}`;
+    location = `${destination.system.name} · ${state}`;
+    action = `Show in ${destination.system.name}${expand}${inside}.`;
+  }
   return (
     <ComponentCardSharedRow
-      detail={`${resource.name} · ${resourceCaption(resource)}, owned elsewhere`}
+      active={resource.id === handlers.endpoint}
+      disabled={destination === null}
+      detail={`${resource.name} · ${resourceCaption(resource)}. ${action}`}
       icon={resourceIcon(resource)}
+      location={location}
       name={shortName(resource.name)}
       tone={resource.kind === 'topic' ? 'events' : 'data'}
       onSelect={() => {
@@ -226,6 +253,8 @@ export function ComponentCluster({
 /** An expanded system is a collapsible boundary around independently placed component clusters. */
 export function AreaExpandedSystem({
   system,
+  systems,
+  expanded,
   active,
   endpoint,
   onCollapse,
@@ -237,8 +266,11 @@ export function AreaExpandedSystem({
   onToggleComponent,
   onToggleOpen,
   onSelectEndpoint,
+  onSelectResource,
 }: {
   readonly system: ExpandedSystem;
+  readonly systems: readonly AreaSystemView[];
+  readonly expanded: ReadonlySet<string>;
   readonly active: string | undefined;
   readonly endpoint: string | undefined;
   readonly onCollapse: () => void;
@@ -250,6 +282,7 @@ export function AreaExpandedSystem({
   readonly onToggleComponent: (id: string) => void;
   readonly onToggleOpen: (id: string) => void;
   readonly onSelectEndpoint: (id: string) => void;
+  readonly onSelectResource: (id: string) => void;
 }) {
   return (
     <>
@@ -306,11 +339,13 @@ export function AreaExpandedSystem({
             }
             component={component}
             handlers={{
+              systems,
+              expanded,
               endpoint:
                 component.attachments?.some((resource) => resource.id === active) === true
                   ? active
                   : endpoint,
-              onSelectResource: onToggleComponent,
+              onSelectResource,
               onSelectEndpoint: (id) => {
                 if (active !== component.id) onToggleComponent(component.id);
                 onSelectEndpoint(id);

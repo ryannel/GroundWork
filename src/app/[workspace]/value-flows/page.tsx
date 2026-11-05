@@ -23,10 +23,15 @@ export default async function ValueFlowsRoute({
     <WorkspaceShell
       title="Value Flows"
       actions={<TodaySearch />}
-      nav={workspaceNavOf(data.workspace, data.plans, {
-        section: 'value-flows',
-        today: data.today.model,
-      })}
+      nav={workspaceNavOf(
+        data.workspace,
+        data.plans,
+        {
+          section: 'value-flows',
+          today: data.today.model,
+        },
+        data.programmes,
+      )}
       overlays={<TodayOverlays depth={1} workspace={data.workspace} />}
       trail={[
         { label: 'Workspaces', href: '/' },

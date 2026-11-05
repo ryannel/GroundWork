@@ -56,13 +56,6 @@ export type Check =
       readonly breaking: boolean;
     }
   | { readonly kind: 'rework'; readonly level: 'warn'; readonly items: readonly string[] }
-  | {
-      readonly kind: 'stale-vote';
-      readonly level: 'note';
-      readonly team: string;
-      readonly confidence: number | null;
-      readonly said: string;
-    }
   | { readonly kind: 'question'; readonly level: 'note'; readonly question: string }
   | {
       readonly kind: 'milestone';

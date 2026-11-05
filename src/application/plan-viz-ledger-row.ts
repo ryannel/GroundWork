@@ -77,7 +77,7 @@ const testsOf = (model: Model, id: string): string[] =>
   (model.plan.tests ?? []).filter((t) => t.proves.includes(id)).map((t) => t.id);
 
 const itemsOf = (model: Model, id: string): string[] =>
-  (model.plan.work_items ?? []).filter((w) => w.implements.includes(id)).map((w) => w.id);
+  (model.plan.work_items ?? []).filter((w) => (w.implements ?? []).includes(id)).map((w) => w.id);
 
 /** "2 tests · 1 work item": spelled out, never abbreviated. */
 export function proofLine(tests: number, items: number): string {

@@ -124,7 +124,7 @@ function changeOf(p: string): OpLineView['change'] {
 
 /** The step an edit touches: the field it changes, when that field is named. */
 function stepOf(model: Model, o: Op): string {
-  const op = (model.plan.changes ?? []).find((c) => c.id === o.changeId)?.ops[o.opIndex];
+  const op = (model.plan.changes ?? []).find((c) => c.id === o.changeId)?.ops?.[o.opIndex];
   const target = textOf(prop(op, 'modify'));
   return target?.includes('#') === true ? short(model.label(target), 36) : '';
 }

@@ -344,20 +344,6 @@ describe('the plain checks', () => {
     });
   });
 
-  it('asks a team to vote again', () => {
-    const view = only({
-      kind: 'stale-vote',
-      level: 'note',
-      team: 'team:orders',
-      confidence: 4,
-      said: 'Looks **fine**',
-    });
-    expect(view.text).toBe(
-      'Orders rated its confidence 4 (“Looks fine”) before this change. Ask again.',
-    );
-    expect(view.at).toEqual([]);
-  });
-
   it('points at the question and decision below', () => {
     const views = checkViews(
       pairWith([

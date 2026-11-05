@@ -22,11 +22,13 @@ where the answer lives).
 npm run workspace -- check <workspace>        # the workspace, its model and every plan, as the app reads them
 node tools/sources.ts <workspace> --missing   # extracted facts without sources; add --check to ask GitHub
 npm run map -- repos --workspace <ws>         # the commit each repo was read at
+npm run progress -- show <workspace> <plan>   # commitments, progress and last heard per item, team and milestone
 npm run dev                                   # then walk /<ws>/plans/<plan>/ chapter by chapter
 ```
 
-The app shows validator errors and warnings, and the plan's health (untested changes, coverage gaps, overdue
-questions), on the plan's pages. There is no screenshot tool yet; take screenshots in the browser when a finding
+`npm run workspace -- check` and `npm run plan:base -- check <plan>` report validator errors; the app trusts that
+check, shows the plan's health (untested changes, coverage gaps, overdue questions) on its pages, and flags a plan
+edited since its check on the cover and in the plans index. There is no screenshot tool yet; take screenshots in the browser when a finding
 needs one.
 
 Health: an untested change is a Blocker; a test that proves a change but walks no step it touches, and a new or
@@ -38,9 +40,21 @@ the critical path with `meta.appetite`.
 
 - **Overlay purity.** A new plan with its own `services`, `stores`, `schemas`, `interfaces`, `messages`, `flows`,
   `screens` or `handlers`: Blocker; today lives in the model, and planned behaviour is an op.
-- **Lock and drift.** An open plan without `base.lock.json`, or one whose cover says today has changed under it
-  (an op whose target changed or vanished since the lock): Major; re-read the targets, fix the ops, run
+- **Lock and drift.** An open plan without `base.lock.json`, one edited since its check, or one whose cover says
+  today has changed under it (an op whose target changed or vanished since the lock): Major; re-read the targets, fix the ops, run
   `npm run plan:base -- check <plan>`. A shipped plan without `base.yaml`: Minor; land it.
+- **Stacking.** A plan whose cover says a plan it builds on (or its programme) changed since it was checked: Major;
+  read what changed, fix the ops, re-check. A `builds_on` edge nothing explains (no op targets what that plan adds,
+  no work waits on its work): Minor; drop it, or order work with `depends_on` instead. A base that was abandoned:
+  Blocker; absorb what is needed, pick another base, or abandon the plan.
+- **Overlaps.** Each overlap `check` lists: Major until the people say which plan goes first (one builds on the
+  other) or why both can land in either order. A plan that builds on two overlapping plans is a validator error.
+- **Requirements.** A change without ops whose `blocked_by` question is overdue, or has no decider: Major. A `req:`
+  no test proves: Major; add a test with `proves: [req:…]`.
+- **Partner work.** A partner work item without `needed_by`, or with no `commitment` event in `progress.yaml`: Major;
+  ask the partner and record it with `npm run progress -- add`. A promised date later than `needed_by`, a declined or
+  withdrawn commitment, or a team not heard from in weeks: say it plainly in the findings, with the work it blocks.
+  Never record a commitment the team has not made.
 - **Attribution and freshness.** Every component, endpoint, store, message and handler the plan touches cites code
   in the model, and the citation points at the thing it claims (a controller for an endpoint, a migration for a
   record). A repo behind its branch tip, or never scanned, under a change: Major; run
