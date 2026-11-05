@@ -9,7 +9,7 @@ The user's latest instruction authorises merging completed PRs and continuing in
 - All inventoried runtime prefix operations, field/step ids and Git-link implementations now call the two domain modules. A slash in a nested child path no longer incorrectly counts as a qualification into another plan.
 - `src/domain/code-links.ts` owns permalinks, repository homes, issue links and Git remote/link parsing. Explicit legacy citation styles preserve existing URL output. Nested repository namespaces and malformed links have regression coverage.
 - Six architecture regression cases enforce the boundary, covering prefix construction/stripping, child construction/parsing, issue links and repository homes. No lint or architecture rule was disabled.
-- `rebuild:inventory` writes outstanding enforced runtime findings to `ids-and-urls.json` and retains all 6,741 literal/helper candidates separately in `ids-and-urls-candidates.json`. The 1,590 consumer rows still make no claim that the old model has migrated. All 20 explorer capabilities remain unproven, with none retired.
+- `rebuild:inventory` writes outstanding enforced runtime findings to `ids-and-urls.json` and retains all 6,742 literal/helper candidates separately in `ids-and-urls-candidates.json`. The 1,590 consumer rows still make no claim that the old model has migrated. All 20 explorer capabilities remain unproven, with none retired.
 
 ## Proof
 
@@ -33,6 +33,8 @@ Twelve further responses from the unchanged production server reproduced both si
 The first commit attempt failed: the local pre-commit copy still inherited Git repository identity, although the pre-push copy already cleared it. Its related tests changed the common `core.bare` setting and left PR 2's staging index referring to a fixture blob. This was an environment failure: 11 Git-fixture tests failed after the clean full and focused checks had passed.
 
 The common setting was restored to its recorded `false` value. Only PR 2's index was recovered from its base and the unchanged working files were restaged; no source file or branch tip was reset. Private copies of the affected metadata were retained under `/tmp/groundwork-pr2-hook-*`. Direct checks then confirmed the original main branch tip and clean source worktree, and the unchanged Volvo worktree.
+
+The corrected pre-commit run passed all 2,622 related tests in 297 files, and the commit succeeded. The common repository mode remained `false` and the original main worktree remained clean.
 
 All three local hook copies now clear inherited repository identity before running the existing commands. `docs/rebuild/README.md` contains the corrected setup. The original main checkout's hook files were not edited and no check was skipped.
 

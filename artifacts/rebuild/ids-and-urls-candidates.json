@@ -18822,35 +18822,39 @@
         "text": "expect(repositoryOf('https://github.com/acme/orders.git\\n')).toBe('acme/orders');"
       },
       {
-        "line": 57,
+        "line": 60,
         "text": "expect(normaliseRepository('github.com/acme/orders')).toBe('acme/orders');"
       },
       {
-        "line": 62,
+        "line": 65,
         "text": "const link = parseGitHostUrl('https://github.com/acme/orders/blob/abc/src/a%20b.ts#L3-L8');"
       },
       {
-        "line": 65,
+        "line": 68,
         "text": "host: 'github.com',"
       },
       {
-        "line": 73,
+        "line": 76,
         "text": "expect(parseGitHostUrl('https://github.com/acme/orders/blob/abc/x#L3')?.lines).toEqual([3, 3]);"
       },
       {
-        "line": 79,
+        "line": 78,
+        "text": "parseGitHostUrl('https://git.example.com/company/team/orders/-/blob/abc/src/a.ts')?.repo,"
+      },
+      {
+        "line": 85,
         "text": "'https://github.com/acme',"
       },
       {
-        "line": 80,
+        "line": 86,
         "text": "'https://github.com//orders',"
       },
       {
-        "line": 81,
+        "line": 87,
         "text": "'https://github.com/acme/orders/blob/abc/%ZZ',"
       },
       {
-        "line": 83,
+        "line": 89,
         "text": "expect(parseGitHostUrl(value)).toBeNull();"
       }
     ],
@@ -18904,23 +18908,23 @@
         "text": "const base = `${repositoryUrl(style.host === undefined ? source.repo : encodePath(source.repo, 'segments'), style.host)}/blob/${source.commit}/${encodePath(source.path, style.encoding)}`;"
       },
       {
-        "line": 73,
+        "line": 79,
         "text": "export function parseGitHostUrl(text: string): GitHostLink | null {"
       },
       {
-        "line": 86,
+        "line": 92,
         "text": "/** GitHub's host is implicit in the legacy repository identity. */"
       },
       {
-        "line": 88,
+        "line": 94,
         "text": "const parsed = parseGitHostUrl(text);"
       },
       {
-        "line": 90,
+        "line": 96,
         "text": "return parsed.host === 'github.com' ? parsed.repo : `${parsed.host}/${parsed.repo}`;"
       },
       {
-        "line": 93,
+        "line": 99,
         "text": "return repo.replace(/^github\\.com\\//u, '');"
       }
     ],
@@ -19027,107 +19031,111 @@
         "text": "expect(hasPrefix('svc:orders', 'svc')).toBe(true);"
       },
       {
-        "line": 92,
+        "line": 94,
+        "text": "expect(otherPrefix('svc:orders')).toBe('SVC:ORDERS');"
+      },
+      {
+        "line": 95,
         "text": "expect(stripPrefix('svc:orders', 'svc')).toBe('orders');"
       },
       {
-        "line": 93,
+        "line": 96,
         "text": "expect(stripPrefix('st:orders', 'svc')).toBe('st:orders');"
       },
       {
-        "line": 97,
+        "line": 100,
         "text": "expect(childPathOf('h:x')).toBeUndefined();"
       },
       {
-        "line": 98,
+        "line": 101,
         "text": "expect(splitChildId('h:x#tx/read')).toEqual(['h:x', 'tx/read']);"
       },
       {
-        "line": 99,
+        "line": 102,
         "text": "expect(colonLocalId('svc:orders')).toBe('orders');"
       },
       {
-        "line": 101,
+        "line": 104,
         "text": "expect(localId('svc:orders')).toBe('orders');"
       },
       {
-        "line": 102,
+        "line": 105,
         "text": "expect(lastChildId('h:x#read')).toBe('read');"
       },
       {
-        "line": 103,
+        "line": 106,
         "text": "expect(isQualifiedId('svc:orders')).toBe(true);"
       },
       {
-        "line": 105,
+        "line": 108,
         "text": "expect(hasChildPath('h:x#read')).toBe(true);"
       },
       {
-        "line": 106,
+        "line": 109,
         "text": "expect(isDisplayId('svc:orders')).toBe(true);"
       },
       {
-        "line": 107,
+        "line": 110,
         "text": "expect(startsWithId('svc:orders')).toBe(true);"
       },
       {
-        "line": 108,
+        "line": 111,
         "text": "expect(isTextId('svc:orders')).toBe(true);"
       },
       {
-        "line": 109,
+        "line": 112,
         "text": "expect(isTextId('svc:orders are new')).toBe(false);"
       },
       {
-        "line": 116,
+        "line": 119,
         "text": "resolveAlias('h:old#tx/read', { 'h:old': { to: 'h:middle' }, 'h:middle': { to: 'h:new' } }),"
       },
       {
-        "line": 117,
+        "line": 120,
         "text": ").toEqual({ id: 'h:new#tx/read', used: ['h:old', 'h:middle'], problem: null });"
       },
       {
-        "line": 119,
+        "line": 122,
         "text": "resolveAlias('h:old#tx/read', {"
       },
       {
-        "line": 120,
+        "line": 123,
         "text": "'h:old': { to: 'h:new' },"
       },
       {
-        "line": 121,
+        "line": 124,
         "text": "'h:old#tx/read': { to: 'h:other#fetch' },"
       },
       {
-        "line": 123,
+        "line": 126,
         "text": ").toBe('h:other#fetch');"
       },
       {
-        "line": 124,
+        "line": 127,
         "text": "expect(resolveAlias('svc:current', {}).used).toEqual([]);"
       },
       {
-        "line": 129,
+        "line": 132,
         "text": "resolveAlias('svc:old', { 'svc:old': { to: null, reason: 'Retired without replacement' } }),"
       },
       {
-        "line": 130,
+        "line": 133,
         "text": ").toEqual({ id: null, used: ['svc:old'], problem: 'Retired without replacement' });"
       },
       {
-        "line": 131,
+        "line": 134,
         "text": "expect(resolveAlias('svc:old', { 'svc:old': { to: null } }).problem).toBe("
       },
       {
-        "line": 132,
+        "line": 135,
         "text": "'Alias svc:old needs a reason',"
       },
       {
-        "line": 135,
+        "line": 138,
         "text": "resolveAlias('svc:a', { 'svc:a': { to: 'svc:b' }, 'svc:b': { to: 'svc:a' } }).problem,"
       },
       {
-        "line": 136,
+        "line": 139,
         "text": ").toBe('Alias cycle at svc:a');"
       }
     ],
@@ -19274,63 +19282,63 @@
         "text": "ev: 'evidence',"
       },
       {
-        "line": 76,
+        "line": 79,
         "text": "return id.split(':')[0] ?? '';"
       },
       {
-        "line": 81,
+        "line": 84,
         "text": "return id?.split('#', 1)[0];"
       },
       {
-        "line": 84,
+        "line": 87,
         "text": "return id.split('#')[1];"
       },
       {
-        "line": 96,
+        "line": 99,
         "text": "return typeof id === 'string' && id.indexOf('#') > 0 ? rootId(id) : null;"
       },
       {
-        "line": 133,
+        "line": 136,
         "text": "return Object.hasOwn(ID_PREFIXES, key);"
       },
       {
-        "line": 141,
+        "line": 144,
         "text": "const base = ID_PREFIXES[key];"
       },
       {
-        "line": 149,
+        "line": 152,
         "text": "export function idToToken(id: string): string {"
       },
       {
-        "line": 150,
+        "line": 153,
         "text": "return clean(id.replace(':', '-').replace('#', '.'));"
       },
       {
-        "line": 154,
+        "line": 157,
         "text": "export function tokenToId(token: string): string | null {"
       },
       {
-        "line": 157,
+        "line": 160,
         "text": "if (dash < 1 || dash === token.length - 1 || !Object.hasOwn(ID_PREFIXES, prefix)) return null;"
       },
       {
-        "line": 191,
+        "line": 194,
         "text": "export const colonLocalId = (id: string): string => id.split(':')[1] ?? id;"
       },
       {
-        "line": 192,
+        "line": 195,
         "text": "export const lastChildId = (id: string): string => id.split('#').pop() ?? id;"
       },
       {
-        "line": 194,
+        "line": 197,
         "text": "parent.includes('#') ? `${parent}/${child}` : childId(parent, child);"
       },
       {
-        "line": 195,
+        "line": 198,
         "text": "export const isQualifiedId = (id: string): boolean => id.includes(':');"
       },
       {
-        "line": 197,
+        "line": 200,
         "text": "typeof id === 'string' && id.includes('#');"
       }
     ],
@@ -19405,35 +19413,31 @@
         "text": "// (steps, fields, regions). Endpoints sit inside interfaces but carry top-level `api:*` ids; requirements sit"
       },
       {
-        "line": 9,
-        "text": "ID_PREFIXES,"
-      },
-      {
-        "line": 23,
+        "line": 17,
         "text": "flow: ['steps', 'step'],"
       },
       {
-        "line": 35,
+        "line": 29,
         "text": "flow: null,"
       },
       {
-        "line": 37,
+        "line": 31,
         "text": "graph: null,"
       },
       {
-        "line": 50,
+        "line": 44,
         "text": "export const SYSTEM_COLLECTIONS = {"
       },
       {
-        "line": 101,
+        "line": 95,
         "text": "team: [],"
       },
       {
-        "line": 146,
+        "line": 140,
         "text": "flow: [],"
       },
       {
-        "line": 202,
+        "line": 196,
         "text": "graph: [['gateway', ['service']]],"
       }
     ],
