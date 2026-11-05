@@ -1,0 +1,1271 @@
+{
+  "capabilities": [
+    {
+      "capability": "All source operations disclosure",
+      "file": "src/features/service-explorer/explorer-stage.tsx",
+      "token": "All source operations",
+      "replacement": "Entry canvas disclosure preserves cited details (PR 5); arbitrary source operations still need explicit retirement approval before PR 10.",
+      "line": 55,
+      "status": "planned; parity unproven"
+    },
+    {
+      "capability": "Repository and service overview",
+      "file": "src/features/service-explorer/explorer-actions.tsx",
+      "token": "Code map",
+      "replacement": "Component/system pages and codeHomes (PR 4/8); repository scope must stay distinct from a deployed component.",
+      "line": 37,
+      "status": "planned; parity unproven"
+    },
+    {
+      "capability": "Repository selection and search",
+      "file": "src/features/service-explorer/explorer-corpus.client.tsx",
+      "token": "service",
+      "replacement": "Component/repository navigation backed by homes and evidence (PR 8).",
+      "line": 6,
+      "status": "planned; parity unproven"
+    },
+    {
+      "capability": "Endpoint, consumer and job entry links",
+      "file": "src/features/service-explorer/explorer-actions.tsx",
+      "token": "Endpoint or entry",
+      "replacement": "api:/sub:/job:/ui: entry flow links (PR 5/8).",
+      "line": 80,
+      "status": "planned; parity unproven"
+    },
+    {
+      "capability": "Direct entry and selected-node URLs; history",
+      "file": "src/features/service-explorer/use-explorer-location.ts",
+      "token": "location",
+      "replacement": "Stable entry/step ids and drill history in the entry flow (PR 5/8).",
+      "line": 4,
+      "status": "planned; parity unproven"
+    },
+    {
+      "capability": "Caller lists and published references",
+      "file": "src/features/service-explorer/explorer-actions.tsx",
+      "token": "Published references",
+      "replacement": "indexOf.callers plus explicitly scoped evidence references; never claim exhaustive runtime callers (PR 4/8/9).",
+      "line": 45,
+      "status": "planned; parity unproven"
+    },
+    {
+      "capability": "References in the selected view",
+      "file": "src/features/service-explorer/explorer-actions.tsx",
+      "token": "References in view",
+      "replacement": "Selected step/entry incoming and outgoing links with gaps (PR 5).",
+      "line": 53,
+      "status": "planned; parity unproven"
+    },
+    {
+      "capability": "Data shapes, required and nullable fields",
+      "file": "src/features/service-explorer/explorer-schema.tsx",
+      "token": "required",
+      "replacement": "Contract schemas and tagged field types in the inspector (PR 3/5); preserve unknown/nullability evidence.",
+      "line": 41,
+      "status": "planned; parity unproven"
+    },
+    {
+      "capability": "Nested schema drill",
+      "file": "src/features/service-explorer/explorer-inspector.tsx",
+      "token": "Explore schema",
+      "replacement": "Schema links from entry/step inspectors (PR 5).",
+      "line": 67,
+      "status": "planned; parity unproven"
+    },
+    {
+      "capability": "Source file index and method links",
+      "file": "src/features/service-explorer/explorer-actions.tsx",
+      "token": "Source files",
+      "replacement": "Pinned repository homes and evidence-backed source navigation (PR 8/9); proof still required for arbitrary methods.",
+      "line": 65,
+      "status": "planned; parity unproven"
+    },
+    {
+      "capability": "Source text and long source detail",
+      "file": "src/features/service-explorer/explorer-inspector.tsx",
+      "token": "Source detail",
+      "replacement": "Read source at its cited commit (PR 9); a Git-host link alone has not proven parity with embedded text.",
+      "line": 19,
+      "status": "planned; parity unproven"
+    },
+    {
+      "capability": "Method-level flows and implementation drill",
+      "file": "src/features/service-explorer/explorer-inspector.tsx",
+      "token": "Open implementation",
+      "replacement": "Entry flow handles reachable entry logic (PR 5). Arbitrary/test method flows need an explicit user-approved retirement or replacement before PR 10.",
+      "line": 67,
+      "status": "planned; parity unproven"
+    },
+    {
+      "capability": "Branches, calls, failures, asynchronous and data links",
+      "file": "src/domain/service-explorer.ts",
+      "token": "'control'",
+      "replacement": "Cited handler step constructs and causes (PR 3/5/9); prove each construct.",
+      "line": 23,
+      "status": "planned; parity unproven"
+    },
+    {
+      "capability": "Reviewed Inferred context and confidence",
+      "file": "src/features/service-explorer/explorer-actions.tsx",
+      "token": "Inferred context",
+      "replacement": "Promote reviewed claims and reference repairs to evidence before retiring packs (PR 9).",
+      "line": 76,
+      "status": "planned; parity unproven"
+    },
+    {
+      "capability": "Search within indexes",
+      "file": "src/features/service-explorer/explorer-index.tsx",
+      "token": "Find in this index",
+      "replacement": "Entry/reference catalogues with search (PR 8).",
+      "line": 23,
+      "status": "planned; parity unproven"
+    },
+    {
+      "capability": "Inspector selection and connection lists",
+      "file": "src/features/service-explorer/explorer-inspector.tsx",
+      "token": "ExplorerConnections",
+      "replacement": "Entry flow inspector and step-linked targets (PR 5).",
+      "line": 8,
+      "status": "planned; parity unproven"
+    },
+    {
+      "capability": "Pan, zoom, fit and full screen",
+      "file": "src/ui/explorer-canvas.tsx",
+      "token": "export",
+      "replacement": "Shared node canvas controls in the entry flow (PR 5).",
+      "line": 123,
+      "status": "planned; parity unproven"
+    },
+    {
+      "capability": "Gaps and partial selection notices",
+      "file": "src/features/service-explorer/explorer-stage.tsx",
+      "token": "gap",
+      "replacement": "Model gaps remain visible; partial evidence is labelled (PR 4/5/9).",
+      "line": 42,
+      "status": "planned; parity unproven"
+    },
+    {
+      "capability": "Loading errors, retry and bounded asset verification",
+      "file": "src/features/service-explorer/use-explorer-page.ts",
+      "token": "error",
+      "replacement": "Read-only route error/retry flow and validated evidence reads (PR 5/8/9).",
+      "line": 10,
+      "status": "planned; parity unproven"
+    },
+    {
+      "capability": "Legacy manifest fallback and corpus publication",
+      "file": "src/features/service-explorer/explorer-publication.tsx",
+      "token": "manifest",
+      "replacement": "One readModel route after comparisons pass for both existing publications (PR 8/10).",
+      "line": 1,
+      "status": "planned; parity unproven"
+    }
+  ],
+  "publications": [
+    {
+      "workspace": "personal",
+      "selected": "legacy manifest",
+      "available": false,
+      "services": [],
+      "legacyServices": []
+    },
+    {
+      "workspace": "volvo-cars",
+      "selected": "corpus catalogue",
+      "available": true,
+      "services": [
+        {
+          "id": "account-profile-api",
+          "repo": "volvo-cars/account-profile-api",
+          "commit": "bc3003a9130cd9a8013d74ec4561575d1f1d935b",
+          "overview": "page-8cae435f95a52f744f737710.json",
+          "callers": "page-e884eb765facc8f0c33f0b00.json",
+          "entries": 3,
+          "sourceIndex": "page-9ee292134d43281fbd37743f.json",
+          "interpretationIndex": "page-1c785f0acfa389ee8a18825b.json"
+        },
+        {
+          "id": "caas-car-configurator",
+          "repo": "volvo-cars/caas-car-configurator",
+          "commit": "5495209c1485f7098f666ad066a44ccc140a4fb9",
+          "overview": "page-b4b957f8d46c72311355fe54.json",
+          "callers": "page-568dfd675c95ac6bf19a45dc.json",
+          "entries": 0,
+          "sourceIndex": "page-efef6bbf0590aedb4612fb9b.json",
+          "interpretationIndex": "page-17b0e0190718f6fcd1cee96b.json"
+        },
+        {
+          "id": "cce-admin-ui",
+          "repo": "volvo-cars/cce-admin-ui",
+          "commit": "2bea451cf1ae51f05f8770f4a78750a5d7495ba6",
+          "overview": "page-a5b777f824538c00ad68ff9c.json",
+          "callers": "page-ab55a3f9185d139e36e33cda.json",
+          "entries": 0,
+          "sourceIndex": "page-b13c43f732d5b20be534046b.json",
+          "interpretationIndex": "page-b349b1daa8c87aff3082860c.json"
+        },
+        {
+          "id": "cce-car-configuration-generator",
+          "repo": "volvo-cars/cce-car-configuration-generator",
+          "commit": "c91f73a5a3b6cdb56168f7138352a0f409fa8300",
+          "overview": "page-34d1d8f43adfa424c702dd34.json",
+          "callers": "page-a60d30fdd7ce42eec8dccd7c.json",
+          "entries": 0,
+          "sourceIndex": "page-d48d03bf8fa71f0447249e73.json",
+          "interpretationIndex": "page-081b93c7a1d7bfd18747fdbb.json"
+        },
+        {
+          "id": "cce-car-spec-adapter",
+          "repo": "volvo-cars/cce-car-spec-adapter",
+          "commit": "73371194ebf4291a32396e3e051ad1bbc9fb73e6",
+          "overview": "page-9f7c30709ed83fb0bc5efcc5.json",
+          "callers": "page-a90785eed0a6b75d740c1e14.json",
+          "entries": 0,
+          "sourceIndex": "page-7e34fb15580e168e37936ebb.json",
+          "interpretationIndex": "page-29b0e30ef7f7239f9e53d4ae.json"
+        },
+        {
+          "id": "cce-cpam-ingress",
+          "repo": "volvo-cars/cce-cpam-ingress",
+          "commit": "6db6ba2b9c76751a690ea9b0184b42e58412a09e",
+          "overview": "page-b422a6b2cb074e18ffb3cdf3.json",
+          "callers": "page-83fb6dac92e3342656a81bb2.json",
+          "entries": 0,
+          "sourceIndex": "page-ad2b7749cd0151a7e2bb5ad4.json",
+          "interpretationIndex": "page-bda172bc8914dcfdd6e00012.json"
+        },
+        {
+          "id": "cce-filter-service",
+          "repo": "volvo-cars/cce-filter-service",
+          "commit": "dffe372ce2523629a856c9a3aaafa3c9dfbd182b",
+          "overview": "page-02b7ccbe477a6abe6266d22c.json",
+          "callers": "page-bc607b8140a6f9d49a6535d4.json",
+          "entries": 31,
+          "sourceIndex": "page-4ed8517b1228f4668c74c305.json",
+          "interpretationIndex": "page-1777d5663e31169cdeff106b.json"
+        },
+        {
+          "id": "cce-optimization-api",
+          "repo": "volvo-cars/cce-optimization-api",
+          "commit": "286985b6bebccb6123de78d03aa87b7513f69ed5",
+          "overview": "page-8b8a623c96f9b0f2969eea4b.json",
+          "callers": "page-99dcbbf57ff999649bd37574.json",
+          "entries": 75,
+          "sourceIndex": "page-1721f109b953175f117395e4.json",
+          "interpretationIndex": "page-c10d9c3bde03d3d74d554fca.json"
+        },
+        {
+          "id": "cce-optimization-facade",
+          "repo": "volvo-cars/cce-optimization-facade",
+          "commit": "d2e85492f9cb036fd31b0b16f629f9e94d08bdb6",
+          "overview": "page-53fa63569249a788d4619ed0.json",
+          "callers": "page-c38fb9891ae183060ea24b77.json",
+          "entries": 0,
+          "sourceIndex": "page-624f1eb24a675f794b7118fb.json",
+          "interpretationIndex": "page-379e32d75d1cd862b9b9a0f7.json"
+        },
+        {
+          "id": "cce-pb-contracts-car-configuration",
+          "repo": "volvo-cars/cce-pb-contracts-car-configuration",
+          "commit": "72cbaedcad24e6b02729b7f4fc6a9d6d94a4d769",
+          "overview": "page-2d0e2bba59217e116ec8bd2a.json",
+          "callers": "page-ef6efdace9f7c11c391d4859.json",
+          "entries": 0,
+          "sourceIndex": "page-d709e4e53d340bb17d4a5b21.json",
+          "interpretationIndex": "page-c1e18254cd80a42f1e81976a.json"
+        },
+        {
+          "id": "cce-policy-admin",
+          "repo": "volvo-cars/cce-policy-admin",
+          "commit": "88a3512f0307016b7b1dbcbc729c743fe83ed368",
+          "overview": "page-dbaa2d00bd59e6b0a14c22e9.json",
+          "callers": "page-642db66c03498991c650abd7.json",
+          "entries": 0,
+          "sourceIndex": "page-c41fef71940ae5125f11b164.json",
+          "interpretationIndex": "page-d9ee2b9b20e098eb7837a4ca.json"
+        },
+        {
+          "id": "cce-prins-validator",
+          "repo": "volvo-cars/cce-prins-validator",
+          "commit": "dc68082c577756ce31ea30d9b5bbc5e60a2f9a7d",
+          "overview": "page-081cd4f799d9a2692561713d.json",
+          "callers": "page-07be108bb4fb34ad0ee67de6.json",
+          "entries": 0,
+          "sourceIndex": "page-c7d69e4013182aaece4650d2.json",
+          "interpretationIndex": "page-8689f431c52f9832a7454d4c.json"
+        },
+        {
+          "id": "cce-retail-ingress",
+          "repo": "volvo-cars/cce-retail-ingress",
+          "commit": "95d091aa445f26500a497554236ec07c8ca7b27c",
+          "overview": "page-f8fdce9c273f0d8b9ddb612e.json",
+          "callers": "page-233013bd6f5da2730d44a43a.json",
+          "entries": 0,
+          "sourceIndex": "page-5e698879e2e581431b30ff11.json",
+          "interpretationIndex": "page-e0f07c78572acccf80f9da6e.json"
+        },
+        {
+          "id": "cdls-mono-volvocars",
+          "repo": "volvo-cars/cdls-mono-volvocars",
+          "commit": "75e70a353571b6ae78475636fe0e0056e5a7c2db",
+          "overview": "page-4b503f8c9657d67442225040.json",
+          "callers": "page-87f033ceb3d93a13987a4972.json",
+          "entries": 0,
+          "sourceIndex": "page-6cdd796fd0c3c25c65fa9ccc.json",
+          "interpretationIndex": "page-6676500cbf18392f38935a80.json"
+        },
+        {
+          "id": "cds-ecom-cart-service",
+          "repo": "volvo-cars/cds-ecom-cart-service",
+          "commit": "e9884a90bcf87fea310dc8d537f75835200f4d6e",
+          "overview": "page-34a1d5835bb27f70d8bacb17.json",
+          "callers": "page-df6e9f578755bbfee2efa376.json",
+          "entries": 1,
+          "sourceIndex": "page-3e3ebee81b72d95059994cf0.json",
+          "interpretationIndex": "page-88084790bc8621563a19ccb4.json"
+        },
+        {
+          "id": "cds-ecom-conditional-order",
+          "repo": "volvo-cars/cds-ecom-conditional-order",
+          "commit": "139e74e69fdf2205da7d2e391fb2bddbc1154dd8",
+          "overview": "page-381c5df57baf56a0e7556bf7.json",
+          "callers": "page-ca6f126d6a229e123088d4fc.json",
+          "entries": 12,
+          "sourceIndex": "page-dc4b0a80bca17b832441ed85.json",
+          "interpretationIndex": "page-7c6bfcdbc8850f7a3b0d5abc.json"
+        },
+        {
+          "id": "cds-ecom-customer-crm-synchronizer",
+          "repo": "volvo-cars/cds-ecom-customer-crm-synchronizer",
+          "commit": "4ea3677cd5df3a19e0d0903d6c803c1413e6a2cd",
+          "overview": "page-da559725a5a4f0e4a56cc974.json",
+          "callers": "page-dceb9c6869be7bb0cf6cca87.json",
+          "entries": 6,
+          "sourceIndex": "page-20bb33e9380ffff42c90c078.json",
+          "interpretationIndex": "page-e290558c7479ad163d8d1674.json"
+        },
+        {
+          "id": "cds-ecom-customer-service",
+          "repo": "volvo-cars/cds-ecom-customer-service",
+          "commit": "6619027a1ada00599166a9fad7583809fa24e316",
+          "overview": "page-ef3f1cfcf7a2d2e2b52ce885.json",
+          "callers": "page-45e12fb887485fb320b40974.json",
+          "entries": 22,
+          "sourceIndex": "page-232dc17ef329079844ae38cf.json",
+          "interpretationIndex": "page-16f707a9e3c89d157e8b1936.json"
+        },
+        {
+          "id": "cds-ecom-orchestrator",
+          "repo": "volvo-cars/cds-ecom-orchestrator",
+          "commit": "5c076211551906fa3814c11d4f56dbf857f44145",
+          "overview": "page-bd80724c2871d651ade03497.json",
+          "callers": "page-d9f990649e53862bc330cad1.json",
+          "entries": 13,
+          "sourceIndex": "page-a1053e4f480658841a8375dc.json",
+          "interpretationIndex": "page-3dcfe6a082694600ecffe9a5.json"
+        },
+        {
+          "id": "cds-ecom-search-service",
+          "repo": "volvo-cars/cds-ecom-search-service",
+          "commit": "b5cedcaec6598407422209638c67e969b586c770",
+          "overview": "page-a94adf835fd0899a7de7c019.json",
+          "callers": "page-1875f783c3af795a087d9cce.json",
+          "entries": 8,
+          "sourceIndex": "page-4ff26f0d035cdc6b00e6639b.json",
+          "interpretationIndex": "page-0941b7a42ef0b6897a87d717.json"
+        },
+        {
+          "id": "cds-ecom-storefront",
+          "repo": "volvo-cars/cds-ecom-storefront",
+          "commit": "8efcd9ac83ad9ee0cbf2c53f13870e80e423f52a",
+          "overview": "page-b108aba9002b1116b5a8412c.json",
+          "callers": "page-aee9a0a1f41d0bf8de4a1c91.json",
+          "entries": 20,
+          "sourceIndex": "page-0ec95b943806c63a6962617f.json",
+          "interpretationIndex": "page-b255a409cbdeabc94c29b140.json"
+        },
+        {
+          "id": "cds-ecom-tnc-service",
+          "repo": "volvo-cars/cds-ecom-tnc-service",
+          "commit": "99c9f16e91527df97301905b97c8115622957d07",
+          "overview": "page-4e085c1d1820d7d913d6fefa.json",
+          "callers": "page-2f721e50d3fc0a7875a4e2fe.json",
+          "entries": 4,
+          "sourceIndex": "page-1fb5cc1d758a810dc0d99297.json",
+          "interpretationIndex": "page-6dab98b83889e99f82003454.json"
+        },
+        {
+          "id": "cds-finance-engine",
+          "repo": "volvo-cars/cds-finance-engine",
+          "commit": "b84cf731546483fdcdf8e11f5a35053d631e84d6",
+          "overview": "page-801c2a0951d31ee20905d245.json",
+          "callers": "page-db3e0a7e1035425c57d5d052.json",
+          "entries": 2,
+          "sourceIndex": "page-69b8cdb91611733e44146306.json",
+          "interpretationIndex": "page-19ff67341a01fabc8042a50d.json"
+        },
+        {
+          "id": "cds-finance-engine-bank-integration",
+          "repo": "volvo-cars/cds-finance-engine-bank-integration",
+          "commit": "3f84e05f2c383668b77dd5e21ecd41dc77837f63",
+          "overview": "page-5cf08912b5fa04bfaefb19ed.json",
+          "callers": "page-52852887ed10bb5e543122a7.json",
+          "entries": 15,
+          "sourceIndex": "page-ca2a8cb8a67a0da611efaf13.json",
+          "interpretationIndex": "page-5e2479c1556002e6d067064d.json"
+        },
+        {
+          "id": "cds-finance-engine-core-service",
+          "repo": "volvo-cars/cds-finance-engine-core-service",
+          "commit": "4a16a9599e61dbdf8d8a5afa42d8a03dc29a2d51",
+          "overview": "page-25e29f405e6dc29cb732a13d.json",
+          "callers": "page-2610570ed099d9cdecc15e98.json",
+          "entries": 13,
+          "sourceIndex": "page-3c1f8f2d5e6eeb9a31dfe5b1.json",
+          "interpretationIndex": "page-6bbcdb6b48c7d8234889d960.json"
+        },
+        {
+          "id": "cds-finance-engine-data-synchronizer",
+          "repo": "volvo-cars/cds-finance-engine-data-synchronizer",
+          "commit": "f05420106f06d754aa5416aa3914036329c1c69b",
+          "overview": "page-c9b292067126448e0c123772.json",
+          "callers": "page-77e82d0ee18db7976909ea82.json",
+          "entries": 7,
+          "sourceIndex": "page-85892f46ba614991ed3c34fc.json",
+          "interpretationIndex": "page-40bedf0fb53164e5052a01c5.json"
+        },
+        {
+          "id": "cds-finance-engine-event-processor",
+          "repo": "volvo-cars/cds-finance-engine-event-processor",
+          "commit": "8ae2cce04eedba75e56024887f9eba9dd207df4e",
+          "overview": "page-18d06786c6b64093a3c631a4.json",
+          "callers": "page-441135dc30cec781d2ad62ee.json",
+          "entries": 2,
+          "sourceIndex": "page-4ac7cd1228986a1750eb6983.json",
+          "interpretationIndex": "page-9a962be7aa770d248d31e744.json"
+        },
+        {
+          "id": "cds-finance-engine-experience-service",
+          "repo": "volvo-cars/cds-finance-engine-experience-service",
+          "commit": "8b359b02d1c5d51ee470454b7ce0948ca5f67e47",
+          "overview": "page-717d446051b06825530752da.json",
+          "callers": "page-899fd34f6f6d816ed084da67.json",
+          "entries": 25,
+          "sourceIndex": "page-6733195bf27b49bfa5b73baa.json",
+          "interpretationIndex": "page-fd2ecfb9bb084358d5021bbb.json"
+        },
+        {
+          "id": "cds-finance-engine-financingparty-adapter",
+          "repo": "volvo-cars/cds-finance-engine-financingparty-adapter",
+          "commit": "b26a18384596640849b9d47e07d46f21d4aa1316",
+          "overview": "page-eb2dcaf130e15c9c23dc870c.json",
+          "callers": "page-8423d81677d2f3dafced8876.json",
+          "entries": 0,
+          "sourceIndex": "page-8e12f6967e6c44eff40c64de.json",
+          "interpretationIndex": "page-c44d936ea66524ef56daa96f.json"
+        },
+        {
+          "id": "cds-finance-engine-inbound-api",
+          "repo": "volvo-cars/cds-finance-engine-inbound-api",
+          "commit": "c8b1d3914d618f6a981af467cc1017b9dd081754",
+          "overview": "page-70fb130750bf473716bb0b48.json",
+          "callers": "page-233497dbe3091626b0ed7d88.json",
+          "entries": 6,
+          "sourceIndex": "page-dd9410f7aa43832b6c75db10.json",
+          "interpretationIndex": "page-4c3d448ec37116925641c4b5.json"
+        },
+        {
+          "id": "cds-finance-engine-integration-service",
+          "repo": "volvo-cars/cds-finance-engine-integration-service",
+          "commit": "04d025381ca2a55607d60a22ba2fffe19612b826",
+          "overview": "page-39d73c6e726e7865844f2e06.json",
+          "callers": "page-3f970638320dbb513a0a388a.json",
+          "entries": 28,
+          "sourceIndex": "page-af23272c572bc286f1b87129.json",
+          "interpretationIndex": "page-0fe083ab3ecadee954c3be11.json"
+        },
+        {
+          "id": "cds-finance-engine-scf-client",
+          "repo": "volvo-cars/cds-finance-engine-scf-client",
+          "commit": "e4fc6035656efda71f1fca25342242fb56f7179d",
+          "overview": "page-403f9137551eeca705f95e25.json",
+          "callers": "page-392aed66e33c57a584c062ae.json",
+          "entries": 6,
+          "sourceIndex": "page-f3750684cb6cd3b56eb3ffaa.json",
+          "interpretationIndex": "page-e1e8d96940f3b62a073e31ac.json"
+        },
+        {
+          "id": "cds-finance-engine-scheduler",
+          "repo": "volvo-cars/cds-finance-engine-scheduler",
+          "commit": "aff51de350ea00582fbe6e58b2cde969eac04c4c",
+          "overview": "page-d4c1078576baff389f53a1e6.json",
+          "callers": "page-262106ac1aee8dd2ae82030c.json",
+          "entries": 2,
+          "sourceIndex": "page-e2416aa3867e54b4106755f5.json",
+          "interpretationIndex": "page-96c90e445f909867da354553.json"
+        },
+        {
+          "id": "cds-finance-engine-zenith-client",
+          "repo": "volvo-cars/cds-finance-engine-zenith-client",
+          "commit": "60b1b772dca6d82e6a50aebb4f2381d989a0b06e",
+          "overview": "page-627f672ae9c7896af73180a5.json",
+          "callers": "page-8dd117469ed4cc8934837c2a.json",
+          "entries": 2,
+          "sourceIndex": "page-b52927f434ce40770b083be8.json",
+          "interpretationIndex": "page-6bed90ad60131e0e725277fb.json"
+        },
+        {
+          "id": "cds-om-order-manager",
+          "repo": "volvo-cars/cds-om-order-manager",
+          "commit": "d4b3fc3c474ed43ae27d915ebaa8e92e33447e46",
+          "overview": "page-586479ac1534c75de394fe10.json",
+          "callers": "page-cbbd4822d3202cb502a56204.json",
+          "entries": 106,
+          "sourceIndex": "page-2b2505168b89605b2ff8b28c.json",
+          "interpretationIndex": "page-d939c05d789bd0c9c53c802d.json"
+        },
+        {
+          "id": "cds-om-order-status-tracking-service",
+          "repo": "volvo-cars/cds-om-order-status-tracking-service",
+          "commit": "0e6981a77884b73c16f6ef3784b77d17d178707f",
+          "overview": "page-04d9029ceb8bfd3643a72c6a.json",
+          "callers": "page-43bce3aa734631a7c3bd4d9e.json",
+          "entries": 6,
+          "sourceIndex": "page-5240fdd6e74d4daea62df3dd.json",
+          "interpretationIndex": "page-bef56b727e61231392668886.json"
+        },
+        {
+          "id": "cds-paymentservice-customer",
+          "repo": "volvo-cars/cds-paymentservice-customer",
+          "commit": "b0010537cdd5a308a30a885541748727c97ecb2e",
+          "overview": "page-cdcdef8f1b9949613a791e5e.json",
+          "callers": "page-1cad8974bd17b6d6f560f567.json",
+          "entries": 12,
+          "sourceIndex": "page-c411907a77dd6283bb19fd78.json",
+          "interpretationIndex": "page-2c4905a2c7480500b9166109.json"
+        },
+        {
+          "id": "cds-paymentservice-psp-inbound",
+          "repo": "volvo-cars/cds-paymentservice-psp-inbound",
+          "commit": "ae1d9ddfb34dae71c15913e9f28d41321d66266a",
+          "overview": "page-5452b1943ae581fe878a7673.json",
+          "callers": "page-bf951fe2268103bb8a4eb15b.json",
+          "entries": 3,
+          "sourceIndex": "page-d9acccc4e07dd85c9a5f896f.json",
+          "interpretationIndex": "page-c1419fe89344ba7dd308bba0.json"
+        },
+        {
+          "id": "cds-paymentservice-psp-integration",
+          "repo": "volvo-cars/cds-paymentservice-psp-integration",
+          "commit": "dabd6c825499b706ff4ddbf15eaf354adbfb6794",
+          "overview": "page-1568eb0819ea38f517542f41.json",
+          "callers": "page-67bf607e00a38e7cd29ab9d0.json",
+          "entries": 20,
+          "sourceIndex": "page-f7252cb2f58cfabd905ed45d.json",
+          "interpretationIndex": "page-50eff2c3163106ef9480d057.json"
+        },
+        {
+          "id": "cds-paymentservice-scheduler",
+          "repo": "volvo-cars/cds-paymentservice-scheduler",
+          "commit": "c00df60c8233b1a8f47829ce382d5805bf164c6b",
+          "overview": "page-d83360a0787b6a64a5280d27.json",
+          "callers": "page-549fd2834344bd6371eaf12c.json",
+          "entries": 4,
+          "sourceIndex": "page-402376d46b0187cb3277d747.json",
+          "interpretationIndex": "page-acce611fa0425d8472674db0.json"
+        },
+        {
+          "id": "cds-paymentservice-transaction",
+          "repo": "volvo-cars/cds-paymentservice-transaction",
+          "commit": "020d2fabb141b47b6d1e8173c02405795f71613a",
+          "overview": "page-2ae9e379ee1d6335687c3d11.json",
+          "callers": "page-376c1a189cf3293a332642d6.json",
+          "entries": 11,
+          "sourceIndex": "page-9cbcfa098ccd56af2e48c18f.json",
+          "interpretationIndex": "page-c8bca6385e6c6f5a3dcca08b.json"
+        },
+        {
+          "id": "cdshop-paymentservice",
+          "repo": "volvo-cars/cdshop-paymentservice",
+          "commit": "dcdc6f8675adfca345126c0ca7484294b6969e61",
+          "overview": "page-721a05f0d7ad6ec8b93efebf.json",
+          "callers": "page-bc362de2f6691ef3eea42c0e.json",
+          "entries": 1,
+          "sourceIndex": "page-368de0760f8f1056e9423a75.json",
+          "interpretationIndex": "page-be0c91d9a609f6b106272ae2.json"
+        },
+        {
+          "id": "cdshop-paymentservice-api",
+          "repo": "volvo-cars/cdshop-paymentservice-api",
+          "commit": "b4bf49bb7ef368f9730f4c0074b1baf77c42ddea",
+          "overview": "page-a06ad667b189ae546352c7b3.json",
+          "callers": "page-a53cc9c9423207ab6d593e78.json",
+          "entries": 16,
+          "sourceIndex": "page-a49673d54723f2ddbbd323e6.json",
+          "interpretationIndex": "page-ac5332e22f0b63a476b8e76f.json"
+        },
+        {
+          "id": "cdshop-paymentservice-experience",
+          "repo": "volvo-cars/cdshop-paymentservice-experience",
+          "commit": "f95c7eb1d9db53865eb40444f6e5cd3ac176a110",
+          "overview": "page-7a729dcb3c84cc61c6ef661e.json",
+          "callers": "page-6aead505787558c70cc85475.json",
+          "entries": 16,
+          "sourceIndex": "page-6d1294b5c4bf46e58b31e783.json",
+          "interpretationIndex": "page-eb1a1a19f2434018b2a63e6c.json"
+        },
+        {
+          "id": "cdshop-paymentservice-integration",
+          "repo": "volvo-cars/cdshop-paymentservice-integration",
+          "commit": "6832f339f54acc2906ca9a62f69b65b1b57c8f0e",
+          "overview": "page-ea4cfcd52884bc1d6be67905.json",
+          "callers": "page-4e5d1425018cec6891f75f77.json",
+          "entries": 25,
+          "sourceIndex": "page-3c92a97d15fa8a4afa6d9e01.json",
+          "interpretationIndex": "page-648bd94e947436300ddd7c16.json"
+        },
+        {
+          "id": "CLE.ReservationApi",
+          "repo": "volvo-cars/CLE.ReservationApi",
+          "commit": "7c647185135d3cce413bed87afc816c2cf78bc3c",
+          "overview": "page-78b9538f3e0eeacfe186a9a4.json",
+          "callers": "page-25353ff727742c361bcfdcb8.json",
+          "entries": 2,
+          "sourceIndex": "page-c3f3477d1976d471414f7926.json",
+          "interpretationIndex": "page-ea1149d865e5a3589ceef8c3.json"
+        },
+        {
+          "id": "content-green-light",
+          "repo": "volvo-cars/content-green-light",
+          "commit": "88383197b84653b2b5769d57ba6aac5e3ec007e9",
+          "overview": "page-431e350c83299db573220308.json",
+          "callers": "page-fd64129e751cf25c34904d58.json",
+          "entries": 2,
+          "sourceIndex": "page-f36a0c88145403a7bd5af082.json",
+          "interpretationIndex": "page-07807ca9df3f46524873f849.json"
+        },
+        {
+          "id": "cpam-facade",
+          "repo": "volvo-cars/cpam-facade",
+          "commit": "a61a3aead5b3eae8bfdbfa5f27fb779fa06e0981",
+          "overview": "page-917051753f1e167c05363bc2.json",
+          "callers": "page-daaed97e93663c22dca10353.json",
+          "entries": 0,
+          "sourceIndex": "page-eea595ad81db8c110b88ad12.json",
+          "interpretationIndex": "page-5116f6a7d78253ff6986f50a.json"
+        },
+        {
+          "id": "disco",
+          "repo": "volvo-cars/disco",
+          "commit": "36b480b64f7f618c25954380373eafcf73d31b02",
+          "overview": "page-124188d6ae7cb51709f1fb9b.json",
+          "callers": "page-2805a55bc79ad36827967d75.json",
+          "entries": 0,
+          "sourceIndex": "page-10284f5330c6d08e0dcb8572.json",
+          "interpretationIndex": "page-8ccfcb3af15ace8e114075c0.json"
+        },
+        {
+          "id": "disco-data",
+          "repo": "volvo-cars/disco-data",
+          "commit": "53d5990889aa84a10e8eddc39f9af3c9f34abdc3",
+          "overview": "page-4085e3f62fde78a98fe00621.json",
+          "callers": "page-a4d8f8fe5367cabb0dc7f305.json",
+          "entries": 0,
+          "sourceIndex": "page-a4796211030ccff19eea6e51.json",
+          "interpretationIndex": "page-e6e848b4eb53545f28c071ea.json"
+        },
+        {
+          "id": "disco-frontend",
+          "repo": "volvo-cars/disco-frontend",
+          "commit": "982a26f9d8fb154da2f919f3cfedc18870bf6d96",
+          "overview": "page-b65883724867175591503b05.json",
+          "callers": "page-26f10f1e6c90474ffbce34b8.json",
+          "entries": 0,
+          "sourceIndex": "page-ace12891af8fbd5f8b4bf664.json",
+          "interpretationIndex": "page-e7f7f9cde98cee9b70586f35.json"
+        },
+        {
+          "id": "disco-offer",
+          "repo": "volvo-cars/disco-offer",
+          "commit": "67827218dc2207edc77a41a650a4193996a2d108",
+          "overview": "page-6ab7ee41ade95ed369a00578.json",
+          "callers": "page-417cc48085e2fd4c4d11656b.json",
+          "entries": 0,
+          "sourceIndex": "page-045d326b02e231b822e64474.json",
+          "interpretationIndex": "page-d7f7417eb6b32d231a2f2565.json"
+        },
+        {
+          "id": "disco-proto",
+          "repo": "volvo-cars/disco-proto",
+          "commit": "73894147eac4af2e9a6ee8b5a73455f35e2b82c8",
+          "overview": "page-ad735b2a85d64a66324d307b.json",
+          "callers": "page-ba47bc9183c89ceb04abf4a6.json",
+          "entries": 0,
+          "sourceIndex": "page-521348f569aae9a6e919937f.json",
+          "interpretationIndex": "page-9ab615e047d8f8830c677da3.json"
+        },
+        {
+          "id": "disco-query",
+          "repo": "volvo-cars/disco-query",
+          "commit": "241e9f1421785d77e9ce8104ad9ada6e84417bd9",
+          "overview": "page-a53e5c2a8b8e7b4bec824859.json",
+          "callers": "page-1d11024591c82140b860c31c.json",
+          "entries": 0,
+          "sourceIndex": "page-3a1a888b4daed2540ea3390f.json",
+          "interpretationIndex": "page-c9e4bd8c22c797db232fee2e.json"
+        },
+        {
+          "id": "fleet-account",
+          "repo": "volvo-cars/fleet-account",
+          "commit": "f0ba182da531b01749cdc17efaa40b70cdfe8700",
+          "overview": "page-2b0de459c217abda8e6269a8.json",
+          "callers": "page-8e358c21955047a64e66bc31.json",
+          "entries": 70,
+          "sourceIndex": "page-babb96c381faba9f4edfa409.json",
+          "interpretationIndex": "page-a4b80231a23fef182cbb486b.json"
+        },
+        {
+          "id": "gpe-common",
+          "repo": "volvo-cars/gpe-common",
+          "commit": "be551c0997ca9352f8cf8f1044049a7112e7371d",
+          "overview": "page-1b4c907c1c2506c4f12adbf6.json",
+          "callers": "page-7fcd0e87b097e81bbdecfab4.json",
+          "entries": 2,
+          "sourceIndex": "page-8296df90fabf326ec1fd3af9.json",
+          "interpretationIndex": "page-baadc057d6254cfae1a75020.json"
+        },
+        {
+          "id": "gpe-configuration",
+          "repo": "volvo-cars/gpe-configuration",
+          "commit": "eb07546b77b5ddbb535fd3068085c6004fb1b8f2",
+          "overview": "page-9809d75d452a07405747f774.json",
+          "callers": "page-cf25282bd4cffb16548b69d2.json",
+          "entries": 2,
+          "sourceIndex": "page-2baf5dc8f84eab051c262aec.json",
+          "interpretationIndex": "page-678be1232e8db0ac9a9253c2.json"
+        },
+        {
+          "id": "gpe-external-price",
+          "repo": "volvo-cars/gpe-external-price",
+          "commit": "8445e8ca01c1bf279bfa9336ecf9187b9f699fc8",
+          "overview": "page-8ffe6395c81a60362881b59e.json",
+          "callers": "page-dd9037546a1dc89fb6fb5ec9.json",
+          "entries": 1,
+          "sourceIndex": "page-722128cf011da209c30b1c4d.json",
+          "interpretationIndex": "page-8a449f3350de4186401a9827.json"
+        },
+        {
+          "id": "gpe-financial-calculator",
+          "repo": "volvo-cars/gpe-financial-calculator",
+          "commit": "c8924a906b4f709c0ff50c98d52903905cec7264",
+          "overview": "page-d4287e7b236f56ac6d05ba17.json",
+          "callers": "page-d7d76b4877cb205e25611ed7.json",
+          "entries": 3,
+          "sourceIndex": "page-52c721701718e91ca6788546.json",
+          "interpretationIndex": "page-f700fc2488c0b592b290aa7e.json"
+        },
+        {
+          "id": "gpe-green-light",
+          "repo": "volvo-cars/gpe-green-light",
+          "commit": "06ff7f2fee0e15a50a523ef8853df278c117476c",
+          "overview": "page-ff584bec2ee5cb7fa5db5859.json",
+          "callers": "page-533a3f9db5534d9708f4302c.json",
+          "entries": 3,
+          "sourceIndex": "page-c485700366f3d904cc3cad9c.json",
+          "interpretationIndex": "page-102d6294ddc0a3a792325360.json"
+        },
+        {
+          "id": "gpe-pretax",
+          "repo": "volvo-cars/gpe-pretax",
+          "commit": "9ac2fd76c450a64d6f5c4bd49e1942ef8eb42c56",
+          "overview": "page-e7437177b23d169a84a890dc.json",
+          "callers": "page-8ce95969ee1986621717562d.json",
+          "entries": 6,
+          "sourceIndex": "page-34399cdefbedc0ebe71a6244.json",
+          "interpretationIndex": "page-93f215a29ca6e533c5e27b6e.json"
+        },
+        {
+          "id": "gpe-price",
+          "repo": "volvo-cars/gpe-price",
+          "commit": "045660f3bfc3476eab6f4a1e8506bbbc9f8d28be",
+          "overview": "page-a0dfc701b36c0552a4ac06be.json",
+          "callers": "page-66e06e6bde5e7ca7cddae599.json",
+          "entries": 17,
+          "sourceIndex": "page-7eebf35f3578ce64d440399d.json",
+          "interpretationIndex": "page-650da5c0e35c520d606433d1.json"
+        },
+        {
+          "id": "gpe-price-data",
+          "repo": "volvo-cars/gpe-price-data",
+          "commit": "3531ac3b8d8a8553c992d41331658adc2736ba99",
+          "overview": "page-a775a47f2f4b2529f2adaa7e.json",
+          "callers": "page-0d1b2211222827c43bd1936d.json",
+          "entries": 8,
+          "sourceIndex": "page-3b601a461378aac73f33fa38.json",
+          "interpretationIndex": "page-f0e2d6bd48ffd6da17fbfeda.json"
+        },
+        {
+          "id": "gpe-price-event-dispatcher",
+          "repo": "volvo-cars/gpe-price-event-dispatcher",
+          "commit": "a51af4a836bb67437459ba4da7c8a149dc73e8aa",
+          "overview": "page-9d0b1a8c428ea9e65957bf69.json",
+          "callers": "page-7c3021cd5e1ee6962abec908.json",
+          "entries": 0,
+          "sourceIndex": "page-54f505eeec7978f66a1f8ad4.json",
+          "interpretationIndex": "page-f749f844f6cfbc79d9ab825a.json"
+        },
+        {
+          "id": "graphql-federation-mono",
+          "repo": "volvo-cars/graphql-federation-mono",
+          "commit": "60a2d34470f87b5f03fc8cb4dbdc4b541c661841",
+          "overview": "page-adaf26df1d794f3f2edf67c2.json",
+          "callers": "page-dbbf7b3acbb17ee886676c5f.json",
+          "entries": 0,
+          "sourceIndex": "page-8438beb7a2d4080a2f57fbcc.json",
+          "interpretationIndex": "page-6fee5d0f31be044e4fe59d52.json"
+        },
+        {
+          "id": "graphql-federation-mono-gitops",
+          "repo": "volvo-cars/graphql-federation-mono-gitops",
+          "commit": "6d667eb7bb6bc633837bb32b911356b56e9ffde9",
+          "overview": "page-d1b788af21f955c5009e1537.json",
+          "callers": "page-1be36f5fe6c051b3a59cbdd0.json",
+          "entries": 0,
+          "sourceIndex": "page-d92cb4a92f6953fdb9967163.json",
+          "interpretationIndex": "page-8531d82066627804259d4db2.json"
+        },
+        {
+          "id": "graphql-federation-router",
+          "repo": "volvo-cars/graphql-federation-router",
+          "commit": "ec9f57ce95b514db9703fb13471e9e9cf0edf143",
+          "overview": "page-e9f9b3608b284a812cc3e7f1.json",
+          "callers": "page-1e32646e2a5ff754e1696e3d.json",
+          "entries": 19,
+          "sourceIndex": "page-0d39f78e0ae6aeb20a317926.json",
+          "interpretationIndex": "page-2fd3b45c83a528d19fe5e6c3.json"
+        },
+        {
+          "id": "lcs",
+          "repo": "volvo-cars/lcs",
+          "commit": "00b802f47321232d82c92b9738843eb115f46130",
+          "overview": "page-dc055ef910588dcdeadca57a.json",
+          "callers": "page-690595fbae4506fb71e50252.json",
+          "entries": 24,
+          "sourceIndex": "page-63ee7877aae18f4b84ae9bcc.json",
+          "interpretationIndex": "page-312ae4057e6536e368c05b73.json"
+        },
+        {
+          "id": "marketing-feeds-api",
+          "repo": "volvo-cars/marketing-feeds-api",
+          "commit": "7cb6fd2338d099f274ebe29dde0c27f8439202cb",
+          "overview": "page-60da410c4e08668677f3978a.json",
+          "callers": "page-2770eb2e4c72cf16ce206778.json",
+          "entries": 5,
+          "sourceIndex": "page-bdbe4f24e1d3d4ff61bd57fd.json",
+          "interpretationIndex": "page-b7a9e9316b03d7b801332792.json"
+        },
+        {
+          "id": "offer-management",
+          "repo": "volvo-cars/offer-management",
+          "commit": "f0ed500bcf9204b109eed10b31b0cee9e0fdc7e5",
+          "overview": "page-0497962e081b77bcd5c2c5ab.json",
+          "callers": "page-0ea8746fb574fc74eff37b62.json",
+          "entries": 35,
+          "sourceIndex": "page-9a063ffd1e18106772184746.json",
+          "interpretationIndex": "page-12b0c3f0f596121acc53a25d.json"
+        },
+        {
+          "id": "ooe-financing-offers",
+          "repo": "volvo-cars/ooe-financing-offers",
+          "commit": "998c2aff838ac403e0f4fc8b1de5fb8c27403c3e",
+          "overview": "page-910653c114378e327aad7e0d.json",
+          "callers": "page-e56fa2df8a61b94cd90ab3bd.json",
+          "entries": 0,
+          "sourceIndex": "page-695c268d82eb1b2f1f5b9816.json",
+          "interpretationIndex": "page-6ff2ba7760d44d3a6f98de05.json"
+        },
+        {
+          "id": "ooe-product-offer-logging",
+          "repo": "volvo-cars/ooe-product-offer-logging",
+          "commit": "52ab5af9f63177a8f95105b21e5ebe62784d16c2",
+          "overview": "page-e64160185ddde9db3348abeb.json",
+          "callers": "page-6178f0cbd5b1f0ce5ac6d96f.json",
+          "entries": 0,
+          "sourceIndex": "page-b6dba04a2cf88eaea0c3b22a.json",
+          "interpretationIndex": "page-c210d64a5d08643211f29885.json"
+        },
+        {
+          "id": "pop-assortment-gitops",
+          "repo": "volvo-cars/pop-assortment-gitops",
+          "commit": "67070f7942f0d1532913673a71655a24d6179aa1",
+          "overview": "page-892d8486f82b6426fec2e53b.json",
+          "callers": "page-3224b2598e8c96309f901e43.json",
+          "entries": 0,
+          "sourceIndex": "page-4c71dec7710edfbc82128926.json",
+          "interpretationIndex": "page-ad1fc15858dd2987d7a235b5.json"
+        },
+        {
+          "id": "pop-assortment-libraries",
+          "repo": "volvo-cars/pop-assortment-libraries",
+          "commit": "932ec05bc0dfaceff6e8e4bca5b11bec6aee6a3c",
+          "overview": "page-722f35e61ef66655e0835841.json",
+          "callers": "page-f43e1d19b31d2f5425aa9791.json",
+          "entries": 5,
+          "sourceIndex": "page-4eea834b486a3cbae00ad37e.json",
+          "interpretationIndex": "page-b853c7de63a4e15284e41400.json"
+        },
+        {
+          "id": "pop-authz",
+          "repo": "volvo-cars/pop-authz",
+          "commit": "9e5a7ea23ab32253a3a7368ba766aef28ed8d5ba",
+          "overview": "page-3ec4188c18e6f0e6fb46d255.json",
+          "callers": "page-7677d7b952b8e0012a883c8b.json",
+          "entries": 11,
+          "sourceIndex": "page-f5d2da7b25db7c52e6eb97ea.json",
+          "interpretationIndex": "page-1fd14317ff395efff4ab8321.json"
+        },
+        {
+          "id": "pop-offers-green-light-service",
+          "repo": "volvo-cars/pop-offers-green-light-service",
+          "commit": "78ebfcd3fd297b1fbad64cd3ddc15128f0988a86",
+          "overview": "page-d85d02ccd7db3ff61edb031e.json",
+          "callers": "page-2010bb70d422a31245b368e0.json",
+          "entries": 0,
+          "sourceIndex": "page-bc53a677aa6711f6ca197007.json",
+          "interpretationIndex": "page-56b1c171cf60c29f9cd9d267.json"
+        },
+        {
+          "id": "popcat-assortment-admin-api",
+          "repo": "volvo-cars/popcat-assortment-admin-api",
+          "commit": "076f89145102f79c25e560e8feac231ab588a026",
+          "overview": "page-03cdfb9a09dd38aac003eecd.json",
+          "callers": "page-4319e6a17ffc3e1f42e9537d.json",
+          "entries": 26,
+          "sourceIndex": "page-8ed2bf39639495660f865d4d.json",
+          "interpretationIndex": "page-37a9612d845f7bc8d1affa42.json"
+        },
+        {
+          "id": "popcat-assortment-api",
+          "repo": "volvo-cars/popcat-assortment-api",
+          "commit": "3f23946dd29082f46ade7c1d8ab2309b7643a301",
+          "overview": "page-8f6224bf08aebf93a7e2bae7.json",
+          "callers": "page-a549189ae8abe1da16ae8d84.json",
+          "entries": 29,
+          "sourceIndex": "page-4b70a004dfae775da69434e8.json",
+          "interpretationIndex": "page-d728ff4124d0d69c92c47187.json"
+        },
+        {
+          "id": "popcat-carfeatures",
+          "repo": "volvo-cars/popcat-carfeatures",
+          "commit": "72f9154e4dacc6113a78c34656c9c9098ce8103e",
+          "overview": "page-0f2dc12095db9aad0cb11813.json",
+          "callers": "page-b30ca3d512cb022043141b08.json",
+          "entries": 4,
+          "sourceIndex": "page-3040d5947ddc814a80be36cb.json",
+          "interpretationIndex": "page-d4c4b8f865a1036c8de5e3ba.json"
+        },
+        {
+          "id": "popcat-eligibility-api",
+          "repo": "volvo-cars/popcat-eligibility-api",
+          "commit": "94a699e5a0c69570f4df586ac341864450a75443",
+          "overview": "page-5ff9e84e953a42b281b2bfde.json",
+          "callers": "page-0b0432939af55992ac103a4e.json",
+          "entries": 7,
+          "sourceIndex": "page-6664a86639e05e88a79283c8.json",
+          "interpretationIndex": "page-be94c548db231b130b363baa.json"
+        },
+        {
+          "id": "popcat-manage-and-segment",
+          "repo": "volvo-cars/popcat-manage-and-segment",
+          "commit": "c46003be3820ab1a7437ca931c51b3dde24770d5",
+          "overview": "page-b5eb9017278bd64a5d7cb245.json",
+          "callers": "page-0a3f89262895db0f1dd94701.json",
+          "entries": 100,
+          "sourceIndex": "page-efee8941ca5f75bf0bc1ccfa.json",
+          "interpretationIndex": "page-bc0e9462a31aef573b17cdd2.json"
+        },
+        {
+          "id": "popcat-prins-ingestion",
+          "repo": "volvo-cars/popcat-prins-ingestion",
+          "commit": "da3d869b094fa5f51b6e1d771d3bfb0b37833775",
+          "overview": "page-74bff891042667901159ac74.json",
+          "callers": "page-259d77506bb204fa3da8f9e4.json",
+          "entries": 0,
+          "sourceIndex": "page-97f9b23c37ad4d0ea5cae5a7.json",
+          "interpretationIndex": "page-12dd1ca10a583c8d6e3f939e.json"
+        },
+        {
+          "id": "popcat-product-details-service",
+          "repo": "volvo-cars/popcat-product-details-service",
+          "commit": "357b46e505b1ffc8e2bc7239c4331e6192258957",
+          "overview": "page-ca825390e1d36c200a039b37.json",
+          "callers": "page-dd962c90164e495cb4ba7295.json",
+          "entries": 38,
+          "sourceIndex": "page-1bc0de1577a5efe477253b86.json",
+          "interpretationIndex": "page-a1d14f0f785f3b5b408b5d74.json"
+        },
+        {
+          "id": "popcat-product-mapper",
+          "repo": "volvo-cars/popcat-product-mapper",
+          "commit": "5a5a7d91b8dd2961a7a89eb7350ee30705f83c31",
+          "overview": "page-b8a68d8783b01bbb0db3c859.json",
+          "callers": "page-e593142be3532308a009611f.json",
+          "entries": 0,
+          "sourceIndex": "page-b7f7bd6925e48894c8ebefb1.json",
+          "interpretationIndex": "page-2e8f293a8dc17df3012a9723.json"
+        },
+        {
+          "id": "price-core-ui-mono",
+          "repo": "volvo-cars/price-core-ui-mono",
+          "commit": "152ec083c98b3b9f17c1b279a54dcfd4dc724747",
+          "overview": "page-4f56fc324e90546f47958855.json",
+          "callers": "page-bdc0fca7b8258f6d5813776f.json",
+          "entries": 0,
+          "sourceIndex": "page-d88df4896d95c46c0cb0f457.json",
+          "interpretationIndex": "page-58a5ce619babb15804036fa3.json"
+        },
+        {
+          "id": "price-data-management",
+          "repo": "volvo-cars/price-data-management",
+          "commit": "64911e4a6e54d44c491b349f5b62a62e36b8c4b1",
+          "overview": "page-7d93f9a22f8108f45378e19e.json",
+          "callers": "page-dc81f6b5a4f5581787e2cffc.json",
+          "entries": 180,
+          "sourceIndex": "page-ab11cef421884c72e5e92660.json",
+          "interpretationIndex": "page-beb724a5f4119cb7cec055f9.json"
+        },
+        {
+          "id": "pricing-catalog-api",
+          "repo": "volvo-cars/pricing-catalog-api",
+          "commit": "abacb06ac2f6a2403d244cad6de1839b12887f9c",
+          "overview": "page-96d804798dddf8ac3936bab7.json",
+          "callers": "page-33e7509429b6b703740a3237.json",
+          "entries": 3,
+          "sourceIndex": "page-fd1ea89e1accbdcd53ec44e2.json",
+          "interpretationIndex": "page-7fc6b6f114c5f8aacf718f68.json"
+        },
+        {
+          "id": "prism",
+          "repo": "volvo-cars/prism",
+          "commit": "bf2b65c6074f6fa6e340420b8ea747b4c5cd499d",
+          "overview": "page-4731522c6777261603c123e2.json",
+          "callers": "page-818cfecc76206dc5aeae833b.json",
+          "entries": 162,
+          "sourceIndex": "page-5f95a152c528faa0d51d9c4a.json",
+          "interpretationIndex": "page-cf2e025e67bca7e36755edc3.json"
+        },
+        {
+          "id": "prismedia",
+          "repo": "volvo-cars/prismedia",
+          "commit": "464738155c90f8217667a94963be5bf2de7170c5",
+          "overview": "page-deb2afeaab87bb2a7b36fbae.json",
+          "callers": "page-e4e5d4ab1ab52372248eb9c1.json",
+          "entries": 19,
+          "sourceIndex": "page-ec6b0a094556131990621551.json",
+          "interpretationIndex": "page-19d3033aab3a78f7cad3c240.json"
+        },
+        {
+          "id": "product-catalog-api",
+          "repo": "volvo-cars/product-catalog-api",
+          "commit": "6b3f73dae37e46fbc76002b86b510880dbc7a993",
+          "overview": "page-f1cf07cb55354e62232ee7d5.json",
+          "callers": "page-3ea4a19f0dbc1d3568c4fd8d.json",
+          "entries": 33,
+          "sourceIndex": "page-1fb1eca90259a8b1c8129224.json",
+          "interpretationIndex": "page-0e1d86b233d8651a759d6660.json"
+        },
+        {
+          "id": "product-catalog-ui",
+          "repo": "volvo-cars/product-catalog-ui",
+          "commit": "40260954c9ddf27af53dbd4cb4009dc035ee02c9",
+          "overview": "page-dda7585187a1d616683d3c0a.json",
+          "callers": "page-099bae8cf7d2d5c6422b33ca.json",
+          "entries": 0,
+          "sourceIndex": "page-ed899e3f2b5fb15b8eff565c.json",
+          "interpretationIndex": "page-12b35dc51492c517c84ccbdf.json"
+        },
+        {
+          "id": "product-configuration-facade",
+          "repo": "volvo-cars/product-configuration-facade",
+          "commit": "90df2fdfb305e21a1f0bbfcfad2bb61625f1cee0",
+          "overview": "page-bc6342d28123df8f95dfd6cf.json",
+          "callers": "page-e2cdfd4b895f431505d4d25e.json",
+          "entries": 45,
+          "sourceIndex": "page-d649050ff8ce5e5194c47872.json",
+          "interpretationIndex": "page-92b978dbcd14e758558d033d.json"
+        },
+        {
+          "id": "product-enrichment-tools",
+          "repo": "volvo-cars/product-enrichment-tools",
+          "commit": "4fe72b050d15f43d4f24513c1a5d466b038397e4",
+          "overview": "page-73354a472fe4c8510f7a5d1b.json",
+          "callers": "page-10d1ed2d3092c6f3910e290e.json",
+          "entries": 0,
+          "sourceIndex": "page-8d72a51db76a6f3e09188bfa.json",
+          "interpretationIndex": "page-06856c1772141f6e550d103e.json"
+        },
+        {
+          "id": "product-offer-bto-enabled-baseliner",
+          "repo": "volvo-cars/product-offer-bto-enabled-baseliner",
+          "commit": "2e0d69dbb54267f435054f53f0fb1fb289ffcfb9",
+          "overview": "page-a8a982bf3885a73365355e08.json",
+          "callers": "page-7e500d02d160811ccb9467b9.json",
+          "entries": 0,
+          "sourceIndex": "page-0fba3b73d6da2fde9ded327b.json",
+          "interpretationIndex": "page-fb6a4c95b101d2c7eb2781d3.json"
+        },
+        {
+          "id": "product-offer-search",
+          "repo": "volvo-cars/product-offer-search",
+          "commit": "89e3848de3f5c3175abe382ce7ea924dfa96b4e6",
+          "overview": "page-63e8cba24a60b42ec1acba03.json",
+          "callers": "page-4a7be0a1665c1aaf62b6b5ad.json",
+          "entries": 16,
+          "sourceIndex": "page-ec32134c7d8da1dbc7767c21.json",
+          "interpretationIndex": "page-720156a8984c36b1ebfb9a4e.json"
+        },
+        {
+          "id": "product-service",
+          "repo": "volvo-cars/product-service",
+          "commit": "ad0e90a90ed01c07c89f2d0da9ec1669a8428a2e",
+          "overview": "page-498faa99303ac22003641074.json",
+          "callers": "page-17b2f7b1d1f7827284401a4b.json",
+          "entries": 65,
+          "sourceIndex": "page-c48f8887197130ccee74bf2c.json",
+          "interpretationIndex": "page-d4a2caddd088b2a93a731152.json"
+        },
+        {
+          "id": "rdm-commercial-partner-graphql-api",
+          "repo": "volvo-cars/rdm-commercial-partner-graphql-api",
+          "commit": "a326ff0d6aca382c16067bbe8dd601ebeac2d456",
+          "overview": "page-c608dfb77030ac30d28d46da.json",
+          "callers": "page-5c63412649aac15fc74e6bb2.json",
+          "entries": 0,
+          "sourceIndex": "page-4b3190fc5b37964f9c34eb48.json",
+          "interpretationIndex": "page-211f72a5b1877f49d74c1ce5.json"
+        },
+        {
+          "id": "rules-engine-offer-service",
+          "repo": "volvo-cars/rules-engine-offer-service",
+          "commit": "891389913af71afeee347efde5ce2d8e02e6d714",
+          "overview": "page-33c3916e610dd6d93a82891a.json",
+          "callers": "page-dba6036c6ef2b5e83fa76138.json",
+          "entries": 0,
+          "sourceIndex": "page-690da5466bab5ef9a162dd1c.json",
+          "interpretationIndex": "page-2e435b348c735422d7783cc6.json"
+        },
+        {
+          "id": "rules-engine-offers-read-view",
+          "repo": "volvo-cars/rules-engine-offers-read-view",
+          "commit": "f13e2cfb98c6764512ba6196b5faa3ec08e73a2b",
+          "overview": "page-6cc483de4da372926f69af0f.json",
+          "callers": "page-40443034291c2b6e0de16534.json",
+          "entries": 0,
+          "sourceIndex": "page-1d64e55dd0cfcd7edc4db3a8.json",
+          "interpretationIndex": "page-299fa1270753b05fc0df665d.json"
+        },
+        {
+          "id": "stock-catalog-api",
+          "repo": "volvo-cars/stock-catalog-api",
+          "commit": "89e42dfd369ab97ce671f82d51da254e475252c6",
+          "overview": "page-dc6d571e70ff4e04cff0b8c3.json",
+          "callers": "page-330a904b8a43b8771db20876.json",
+          "entries": 7,
+          "sourceIndex": "page-813d1249ed47b68fc0b7baa9.json",
+          "interpretationIndex": "page-7a55670cfa9825678bc8c50c.json"
+        },
+        {
+          "id": "tax-calculator",
+          "repo": "volvo-cars/tax-calculator",
+          "commit": "5a9b302b8dd3f9160e42735920cc5ecf71585d85",
+          "overview": "page-182cd1375c4c547054f24594.json",
+          "callers": "page-482b758009cbae2462d016a4.json",
+          "entries": 5,
+          "sourceIndex": "page-fa378a9fcdfc33d68857fb42.json",
+          "interpretationIndex": "page-cb8a4e06076815d63984cf86.json"
+        },
+        {
+          "id": "techno",
+          "repo": "volvo-cars/techno",
+          "commit": "b5b13682950236059f46f1864826803145435217",
+          "overview": "page-56d475f143004fe9ba365a7a.json",
+          "callers": "page-4907f61c572bd037455ea553.json",
+          "entries": 121,
+          "sourceIndex": "page-6c18eaf7522f13f2f1a62623.json",
+          "interpretationIndex": "page-849d730e5d6818ee730104ea.json"
+        },
+        {
+          "id": "test-drive-api",
+          "repo": "volvo-cars/test-drive-api",
+          "commit": "f74a57bb823f6c31b80c74b9427c6b2fe61a4a40",
+          "overview": "page-f6f2bae73fd4731990ce44a9.json",
+          "callers": "page-117dc27f374e9c7919f2626a.json",
+          "entries": 0,
+          "sourceIndex": "page-3c47061213c51997221f9144.json",
+          "interpretationIndex": "page-2c2cbbcf73f114f3695dedee.json"
+        },
+        {
+          "id": "tyre-label-service",
+          "repo": "volvo-cars/tyre-label-service",
+          "commit": "53901b9f5c1b7d5be172fb4515a364f76a6aad89",
+          "overview": "page-7917fdd5c4671683fa819c93.json",
+          "callers": "page-41a334b9bfcd15e2c660857b.json",
+          "entries": 0,
+          "sourceIndex": "page-5b9060409014c4f07d111071.json",
+          "interpretationIndex": "page-08c00038d1804f17ff56a3c1.json"
+        },
+        {
+          "id": "urax",
+          "repo": "volvo-cars/urax",
+          "commit": "65d95a7073308e607ca253680cf3cf75a78b25d1",
+          "overview": "page-a797c2d6a4857f1e63189ebe.json",
+          "callers": "page-4ad767ceb427d7ca14e52c8f.json",
+          "entries": 91,
+          "sourceIndex": "page-2a1de8e3fe7085519c528f20.json",
+          "interpretationIndex": "page-3db03e7e72cf140e2c0fdd19.json"
+        },
+        {
+          "id": "urax-ui",
+          "repo": "volvo-cars/urax-ui",
+          "commit": "b7927c33fdd39352e49a29d1d6d67a0d70bd2195",
+          "overview": "page-6c8bd6c43f1112922d0496f1.json",
+          "callers": "page-15c56b18b6777756b2bbbe30.json",
+          "entries": 0,
+          "sourceIndex": "page-a6a30392eee6c8bebccb5063.json",
+          "interpretationIndex": "page-fa82e2f2fdee8c76bc7b909c.json"
+        },
+        {
+          "id": "visibility-service",
+          "repo": "volvo-cars/visibility-service",
+          "commit": "092c795f3015f4bcd526dad72f255e719380e77d",
+          "overview": "page-4d012f711d13ca9d600a8efb.json",
+          "callers": "page-58b94e90468cdddb34a0b629.json",
+          "entries": 8,
+          "sourceIndex": "page-203a2810017d7c0aa1f06fba.json",
+          "interpretationIndex": "page-d4423bb3a4f928a8e1aa9911.json"
+        },
+        {
+          "id": "wltp-facade",
+          "repo": "volvo-cars/wltp-facade",
+          "commit": "81c8a3cd7f713755c8e214dbbef1fdbf96c21e21",
+          "overview": "page-79eb4aca8bd4840b85edfad8.json",
+          "callers": "page-d97c64aa3cc1cf70fda073a0.json",
+          "entries": 0,
+          "sourceIndex": "page-696ec6fb741413384b3dbb5b.json",
+          "interpretationIndex": "page-1acbd4fbe251ce71523299e6.json"
+        }
+      ],
+      "legacyServices": [
+        "svc:cds-ecom-customer-service",
+        "gpe-pretax"
+      ]
+    },
+    {
+      "workspace": "acme",
+      "selected": "legacy manifest",
+      "available": false,
+      "services": [],
+      "legacyServices": []
+    }
+  ]
+}

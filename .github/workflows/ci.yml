@@ -59,6 +59,10 @@ jobs:
         with:
           persist-credentials: false
       - uses: ./.github/actions/setup
+      - name: Install Python and Rust source parsers
+        run: node --import ./tools/register.ts --conditions=react-server tools/scan-python-rust-setup.ts
+      - name: Verify Python and Rust source parsers
+        run: node --import ./tools/register.ts --conditions=react-server tools/scan-python-rust-setup.ts --check
       - run: npm run coverage
 
   build:
