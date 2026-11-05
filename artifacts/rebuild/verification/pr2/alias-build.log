@@ -1,0 +1,66 @@
+
+> groundwork@0.0.0 build
+> next build
+
+▲ Next.js 16.4.3 (Turbopack)
+✓ Running next.config.ts took 75ms
+
+  Creating an optimized production build ...
+✓ Compiled successfully in 1293ms
+  Running TypeScript ...
+  Finished TypeScript in 7.8s ...
+  Collecting page data using 11 workers ...
+  Generating static pages using 11 workers (0/5) ...
+  Generating static pages using 11 workers (1/5)
+  Generating static pages using 11 workers (2/5)
+  Generating static pages using 11 workers (3/5)
+✓ Generating static pages using 11 workers (5/5) in 4.4s
+  Finalizing page optimization ...
+
+Route (app)
+┌ ƒ /
+├ ƒ /_not-found
+├ ƒ /[workspace]
+├ ƒ /[workspace]/[domain]
+├ ƒ /[workspace]/[domain]/[system]
+├ ƒ /[workspace]/[domain]/[system]/flows/[flow]
+├ ƒ /[workspace]/[domain]/flows
+├ ƒ /[workspace]/[domain]/flows/[flow]
+├ ƒ /[workspace]/[domain]/interfaces
+├ ƒ /[workspace]/[domain]/language
+├ ƒ /[workspace]/[domain]/map
+├ ƒ /[workspace]/[domain]/plans
+├ ƒ /[workspace]/[domain]/target
+├ ƒ /[workspace]/areas/[area]
+├ ƒ /[workspace]/areas/[area]/map.json
+├ ƒ /[workspace]/assets/[...file]
+├ ƒ /[workspace]/explorer
+├ ƒ /[workspace]/explorer/data/[file]
+├ ƒ /[workspace]/journeys
+├ ƒ /[workspace]/journeys/[key]
+├ ƒ /[workspace]/language
+├ ƒ /[workspace]/model.json
+├ ƒ /[workspace]/partners
+├ ƒ /[workspace]/partners/[team]
+├ ƒ /[workspace]/people
+├ ƒ /[workspace]/plans
+├ ƒ /[workspace]/plans/[plan]
+├ ƒ /[workspace]/plans/[plan]/[chapter]/[screen]
+├ ƒ /[workspace]/plans/[plan]/assets/[...file]
+├ ƒ /[workspace]/plans/[plan]/mockups/[...file]
+├ ƒ /[workspace]/plans/[plan]/plan.json
+├ ƒ /[workspace]/plans/[plan]/revisions/[version]/plan.json
+├ ƒ /[workspace]/plans/[plan]/things
+├ ƒ /[workspace]/programmes
+├ ƒ /[workspace]/programmes/[programme]
+├ ƒ /[workspace]/reference
+├ ƒ /[workspace]/reference/[kind]
+├ ƒ /[workspace]/things
+├ ƒ /[workspace]/value-flows
+├ ƒ /design
+├ ƒ /explorer-data/[workspace]/[generation]/[file]
+└ ○ /icon.svg
+
+
+○  (Static)   prerendered as static content
+ƒ  (Dynamic)  server-rendered on demand

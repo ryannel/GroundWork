@@ -174,7 +174,7 @@ export interface AliasResolution {
   readonly used: readonly string[];
   readonly problem: string | null;
 }
-/** Exact child aliases take precedence; a root alias preserves the declared child path. */
+/** Resolve declared node aliases; a retired parent alone cannot establish a child's successor. */
 export function resolveAlias(
   id: string,
   aliases: Readonly<Record<string, Alias>>,
@@ -182,12 +182,12 @@ export function resolveAlias(
   const used: string[] = [];
   let current = id;
   for (;;) {
-    const { key, alias } = aliasAt(current, aliases);
-    if (alias === undefined) return { id: current, used, problem: null };
-    if (used.includes(key)) return { id: null, used, problem: `Alias cycle at ${key}` };
-    used.push(key);
-    if (alias.to === null) return retiredAlias(key, alias.reason, used);
-    current = key === current ? alias.to : childId(alias.to, childPathOf(current));
+    const alias = Object.hasOwn(aliases, current) ? aliases[current] : undefined;
+    if (alias === undefined) return aliasEnd(current, used, aliases);
+    if (used.includes(current)) return { id: null, used, problem: `Alias cycle at ${current}` };
+    used.push(current);
+    if (alias.to === null) return retiredAlias(current, alias.reason, used);
+    current = alias.to;
   }
 }
 
@@ -220,19 +220,37 @@ function retiredAlias(
   return { id: null, used, problem };
 }
 
-function aliasAt(
+function retiredParent(id: string, aliases: Readonly<Record<string, Alias>>): string | undefined {
+  const [root, path] = splitChildId(id);
+  if (path === undefined) return undefined;
+  const parents = [root];
+  let parent = root;
+  for (const part of path.split('/').slice(0, -1)) {
+    parent = appendChild(parent, part);
+    parents.push(parent);
+  }
+  return parents.toReversed().find((candidate) => Object.hasOwn(aliases, candidate));
+}
+function aliasEnd(
   id: string,
+  used: readonly string[],
   aliases: Readonly<Record<string, Alias>>,
-): { readonly key: string; readonly alias: Alias | undefined } {
-  const key = Object.hasOwn(aliases, id) ? id : rootId(id);
-  return { key, alias: Object.hasOwn(aliases, key) ? aliases[key] : undefined };
+): AliasResolution {
+  const parent = retiredParent(id, aliases);
+  if (parent === undefined) return { id, used, problem: null };
+  return {
+    id: null,
+    used: [...used, parent],
+    problem: `${id} needs an explicit alias because ${parent} was retired`,
+  };
 }
 
 /** A slash in a child path does not qualify its root into another plan. */
 export const scopedId = (scope: string, id: string): string =>
   qualifiedOf(id) === null ? qualifyId(scope, id) : id;
 
-export const isWithinId = (part: string, whole: string): boolean => part.startsWith(`${whole}#`);
+export const isWithinId = (part: string, whole: string): boolean =>
+  part.startsWith(appendChild(whole, ''));
 export const inIdScope = (id: string, scope: string): boolean => id.startsWith(`${scope}/`);
 export const withoutIdScope = (id: string, scope: string): string => id.slice(scope.length + 1);
 export const lastIdPart = (id: string): string => id.split(/[:#]/u).pop() ?? id;

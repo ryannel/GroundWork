@@ -13,6 +13,7 @@ import {
   isDisplayId,
   isQualifiedId,
   isTextId,
+  isWithinId,
   kindOf,
   lastChildId,
   localId,
@@ -56,6 +57,8 @@ describe('model identities', () => {
     expect(kindOf('svc:orders#!invented-failure')).toBeNull();
     expect(appendChild(childId(parent, 'tx'), 'read')).toBe('h:apply#tx/read');
     expect(appendChild(parent, 'read')).toBe('h:apply#read');
+    expect(isWithinId('h:apply#tx/read', 'h:apply#tx')).toBe(true);
+    expect(isWithinId('h:apply#tx-other/read', 'h:apply#tx')).toBe(false);
   });
 
   it.each([null, 2, 'unknown:x', 'h:x#', 'h:x#tx//read', 'h:x#!', 'h:x#two words', 'h:x#a#b'])(
@@ -118,17 +121,29 @@ describe('model identities', () => {
 });
 
 describe('aliases', () => {
-  it('resolves a chain, reports its use and keeps child paths', () => {
-    expect(
-      resolveAlias('h:old#tx/read', { 'h:old': { to: 'h:middle' }, 'h:middle': { to: 'h:new' } }),
-    ).toEqual({ id: 'h:new#tx/read', used: ['h:old', 'h:middle'], problem: null });
+  it('resolves explicit node mappings, including nested children', () => {
     expect(
       resolveAlias('h:old#tx/read', {
-        'h:old': { to: 'h:new' },
-        'h:old#tx/read': { to: 'h:other#fetch' },
-      }).id,
-    ).toBe('h:other#fetch');
+        'h:old#tx/read': { to: 'h:middle#fetch' },
+        'h:middle#fetch': { to: 'h:new#load' },
+        'h:old': { to: 'h:other' },
+      }),
+    ).toEqual({ id: 'h:new#load', used: ['h:old#tx/read', 'h:middle#fetch'], problem: null });
     expect(resolveAlias('svc:current', {}).used).toEqual([]);
+  });
+
+  it('leaves an unmapped child of a retired parent as a visible gap', () => {
+    expect(resolveAlias('h:old#tx/read', { 'h:old': { to: 'h:new' } })).toEqual({
+      id: null,
+      used: ['h:old'],
+      problem: 'h:old#tx/read needs an explicit alias because h:old was retired',
+    });
+    expect(resolveAlias('h:old#tx/read', { 'h:old#tx': { to: 'h:new#queue' } }).used).toEqual([
+      'h:old#tx',
+    ]);
+    expect(resolveAlias('h:old#tx/read', { 'h:old#tx-other': { to: 'h:new#queue' } }).id).toBe(
+      'h:old#tx/read',
+    );
   });
 
   it('does not invent a successor for retirement, missing reasons or cycles', () => {

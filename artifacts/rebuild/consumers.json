@@ -64203,128 +64203,128 @@
     "file": "src/domain/ids.test.ts",
     "hits": [
       {
-        "line": 39,
+        "line": 40,
         "text": "expect(id).toBe('h:apply#tx/queue/outbox');"
       },
       {
-        "line": 50,
+        "line": 51,
         "text": "expect(kindOf('sch:response#status')).toBe('field');"
       },
       {
-        "line": 55,
+        "line": 56,
         "text": "expect(kindOf('sys:orders#invented-child')).toBeNull();"
       },
       {
-        "line": 56,
+        "line": 57,
         "text": "expect(kindOf('svc:orders#!invented-failure')).toBeNull();"
       },
       {
-        "line": 57,
+        "line": 58,
         "text": "expect(appendChild(childId(parent, 'tx'), 'read')).toBe('h:apply#tx/read');"
       },
       {
-        "line": 58,
+        "line": 59,
         "text": "expect(appendChild(parent, 'read')).toBe('h:apply#read');"
       },
       {
+        "line": 60,
+        "text": "expect(isWithinId('h:apply#tx/read', 'h:apply#tx')).toBe(true);"
+      },
+      {
         "line": 61,
+        "text": "expect(isWithinId('h:apply#tx-other/read', 'h:apply#tx')).toBe(false);"
+      },
+      {
+        "line": 64,
         "text": "it.each([null, 2, 'unknown:x', 'h:x#', 'h:x#tx//read', 'h:x#!', 'h:x#two words', 'h:x#a#b'])("
       },
       {
-        "line": 71,
+        "line": 74,
         "text": "expect(planEntityTypeOf('sch:x#id')).toBe('field');"
       },
       {
-        "line": 73,
+        "line": 76,
         "text": "expect(planEntityTypeOf('h:x#read')).toBeNull();"
       },
       {
-        "line": 74,
+        "line": 77,
         "text": "expect(planEntityTypeOf('api:x')).toBe('endpoint');"
       },
       {
-        "line": 79,
+        "line": 82,
         "text": "expect(tokenToId('svc-orders')).toBe('svc:orders');"
       },
       {
-        "line": 88,
+        "line": 91,
         "text": "expect(scopedId('care', 'h:x#tx/read')).toBe('care/h:x#tx/read');"
       },
       {
-        "line": 89,
+        "line": 92,
         "text": "expect(scopedId('care', 'other/h:x#tx/read')).toBe('other/h:x#tx/read');"
       },
       {
-        "line": 93,
+        "line": 96,
         "text": "expect(prefixOf('svc:orders')).toBe('svc');"
       },
       {
-        "line": 95,
+        "line": 98,
         "text": "expect(hasPrefix('svc:orders', 'svc')).toBe(true);"
       },
       {
-        "line": 98,
+        "line": 101,
         "text": "expect(otherPrefix('svc:orders')).toBe('SVC:ORDERS');"
       },
       {
-        "line": 99,
+        "line": 102,
         "text": "expect(stripPrefix('svc:orders', 'svc')).toBe('orders');"
       },
       {
-        "line": 100,
+        "line": 103,
         "text": "expect(stripPrefix('st:orders', 'svc')).toBe('st:orders');"
       },
       {
-        "line": 104,
+        "line": 107,
         "text": "expect(childPathOf('h:x')).toBeUndefined();"
       },
       {
-        "line": 105,
+        "line": 108,
         "text": "expect(splitChildId('h:x#tx/read')).toEqual(['h:x', 'tx/read']);"
       },
       {
-        "line": 106,
+        "line": 109,
         "text": "expect(colonLocalId('svc:orders')).toBe('orders');"
       },
       {
-        "line": 108,
+        "line": 111,
         "text": "expect(localId('svc:orders')).toBe('orders');"
       },
       {
-        "line": 109,
+        "line": 112,
         "text": "expect(lastChildId('h:x#read')).toBe('read');"
       },
       {
-        "line": 110,
+        "line": 113,
         "text": "expect(isQualifiedId('svc:orders')).toBe(true);"
       },
       {
-        "line": 112,
+        "line": 115,
         "text": "expect(hasChildPath('h:x#read')).toBe(true);"
       },
       {
-        "line": 113,
+        "line": 116,
         "text": "expect(isDisplayId('svc:orders')).toBe(true);"
       },
       {
-        "line": 114,
+        "line": 117,
         "text": "expect(startsWithId('svc:orders')).toBe(true);"
       },
       {
-        "line": 115,
+        "line": 118,
         "text": "expect(isTextId('svc:orders')).toBe(true);"
       },
       {
-        "line": 116,
+        "line": 119,
         "text": "expect(isTextId('svc:orders are new')).toBe(false);"
-      },
-      {
-        "line": 123,
-        "text": "resolveAlias('h:old#tx/read', { 'h:old': { to: 'h:middle' }, 'h:middle': { to: 'h:new' } }),"
-      },
-      {
-        "line": 124,
-        "text": ").toEqual({ id: 'h:new#tx/read', used: ['h:old', 'h:middle'], problem: null });"
       },
       {
         "line": 126,
@@ -64332,42 +64332,74 @@
       },
       {
         "line": 127,
-        "text": "'h:old': { to: 'h:new' },"
+        "text": "'h:old#tx/read': { to: 'h:middle#fetch' },"
       },
       {
         "line": 128,
-        "text": "'h:old#tx/read': { to: 'h:other#fetch' },"
+        "text": "'h:middle#fetch': { to: 'h:new#load' },"
       },
       {
-        "line": 130,
-        "text": ").toBe('h:other#fetch');"
+        "line": 129,
+        "text": "'h:old': { to: 'h:other' },"
       },
       {
         "line": 131,
+        "text": ").toEqual({ id: 'h:new#load', used: ['h:old#tx/read', 'h:middle#fetch'], problem: null });"
+      },
+      {
+        "line": 132,
         "text": "expect(resolveAlias('svc:current', {}).used).toEqual([]);"
       },
       {
         "line": 136,
-        "text": "resolveAlias('svc:old', { 'svc:old': { to: null, reason: 'Retired without replacement' } }),"
-      },
-      {
-        "line": 137,
-        "text": ").toEqual({ id: null, used: ['svc:old'], problem: 'Retired without replacement' });"
+        "text": "expect(resolveAlias('h:old#tx/read', { 'h:old': { to: 'h:new' } })).toEqual({"
       },
       {
         "line": 138,
-        "text": "expect(resolveAlias('svc:old', { 'svc:old': { to: null } }).problem).toBe("
+        "text": "used: ['h:old'],"
       },
       {
         "line": 139,
-        "text": "'Alias svc:old needs a reason',"
+        "text": "problem: 'h:old#tx/read needs an explicit alias because h:old was retired',"
+      },
+      {
+        "line": 141,
+        "text": "expect(resolveAlias('h:old#tx/read', { 'h:old#tx': { to: 'h:new#queue' } }).used).toEqual(["
       },
       {
         "line": 142,
+        "text": "'h:old#tx',"
+      },
+      {
+        "line": 144,
+        "text": "expect(resolveAlias('h:old#tx/read', { 'h:old#tx-other': { to: 'h:new#queue' } }).id).toBe("
+      },
+      {
+        "line": 145,
+        "text": "'h:old#tx/read',"
+      },
+      {
+        "line": 151,
+        "text": "resolveAlias('svc:old', { 'svc:old': { to: null, reason: 'Retired without replacement' } }),"
+      },
+      {
+        "line": 152,
+        "text": ").toEqual({ id: null, used: ['svc:old'], problem: 'Retired without replacement' });"
+      },
+      {
+        "line": 153,
+        "text": "expect(resolveAlias('svc:old', { 'svc:old': { to: null } }).problem).toBe("
+      },
+      {
+        "line": 154,
+        "text": "'Alias svc:old needs a reason',"
+      },
+      {
+        "line": 157,
         "text": "resolveAlias('svc:a', { 'svc:a': { to: 'svc:b' }, 'svc:b': { to: 'svc:a' } }).problem,"
       },
       {
-        "line": 143,
+        "line": 158,
         "text": ").toBe('Alias cycle at svc:a');"
       }
     ],

@@ -9,14 +9,14 @@ The user's latest instruction authorises merging completed PRs and continuing in
 - All inventoried runtime prefix operations, field/step ids and Git-link implementations now call the two domain modules. A slash in a nested child path no longer incorrectly counts as a qualification into another plan.
 - `src/domain/code-links.ts` owns permalinks, repository homes, issue links and Git remote/link parsing. Explicit legacy citation styles preserve existing URL output. Nested repository namespaces and malformed links have regression coverage.
 - Six architecture regression cases enforce the boundary, covering prefix construction/stripping, child construction/parsing, issue links and repository homes. No lint or architecture rule was disabled.
-- `rebuild:inventory` writes outstanding enforced runtime findings to `ids-and-urls.json` and retains all 6,792 literal/helper candidates separately in `ids-and-urls-candidates.json`. The 1,590 consumer rows still make no claim that the old model has migrated. All 20 explorer capabilities remain unproven, with none retired.
+- `rebuild:inventory` writes outstanding enforced runtime findings to `ids-and-urls.json` and retains all 6,800 literal/helper candidates separately in `ids-and-urls-candidates.json`. The 1,590 consumer rows still make no claim that the old model has migrated. All 20 explorer capabilities remain unproven, with none retired.
 
 ## Proof
 
 - `npm run check:quick`: passed, including 2,622 related tests. A final focused run on the shared modules and fixtures also passed.
-- `npm run check`: passed: 496 test files, 3,862 tests; 27 files and 125 tests retain their existing skips. Type coverage is 100%; pure-layer coverage is 96.96% lines and 86.26% branches. Duplication remains 0.38%.
+- Initial `npm run check`: passed: 496 test files, 3,862 tests; 27 files and 125 tests retain their existing skips. Type coverage is 100%; pure-layer coverage is 96.96% lines and 86.26% branches. Duplication remains 0.38%.
 - `npm run build`: passed. `npm run budget`: all 599 pages passed; the largest is 1,021 KB against 1,024 KB.
-- Personal, Acme and Volvo comparisons each report zero differences and zero unexplained differences. Reports are under `verification/pr2/`. No allowance was added or widened.
+- The latest Personal and Volvo comparisons report zero differences. Acme reports only the exact 43-byte HTML-wrapper difference already allowed in PR 1; every comparison has zero unexplained differences. Reports are under `verification/pr2/`, alongside the earlier clean Acme comparison. No allowance was added or widened.
 - All 193 frozen baseline files match the SHA-256 values committed in PR 1; see `verification/pr2/baseline-integrity.json`.
 - The main source checkout stays at `24cb5020eab2e352fb2f0102681179b732ed3bf6`; Volvo stays at `723085497ded5b51d3c23fdcb5f6b1c778aa3efa`. Both source worktrees have no changes. No Volvo data was edited.
 
@@ -33,6 +33,12 @@ Twelve further responses from the unchanged production server reproduced both si
 The first GitHub run passed audit, static checks, lint, tests, build/budget and both CodeQL analyses. Review against the kept glossary contract found `term:` missing from the new kind parser: Volvo's `language.yaml` has 13 such declarations (first at line 15), and `workspace-model-schema.ts` validates them as key terms. The shared parser now recognises them. Its child-kind lookup also returns a visible gap for unsupported parents rather than classifying a system's arbitrary child as a step. Regression assertions cover both cases.
 
 The focused check passed 2,241 tests in 257 files, and the production build passed again. The refreshed inventory includes `term:` literals as well as the previously inventoried prefixes, with zero uncentralised runtime implementations.
+
+## Explicit aliases and nested descendants
+
+The completed path review keeps alias resolution on explicitly declared node mappings. A retired parent's alias alone cannot establish the identity of one of its children: that child remains a visible gap until it has its own mapping. Nested child mappings chain normally, and cycles and retirements retain their existing diagnostics. Descendant checks respect slash-separated paths, so `h:x#tx/read` is within `h:x#tx` and `h:x#tx-other/read` is not.
+
+The final focused run passed 2,242 tests in 257 files. The production build, all 599 page budgets and the full three-workspace comparison were repeated on this version. No new allowance was required. The normal pre-push hook runs the full suite on each published head.
 
 ## Worktree hook correction
 

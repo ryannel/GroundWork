@@ -1,5 +1,12 @@
 {
-  "changes": [],
+  "changes": [
+    {
+      "after": "5a61d5a724f0dba742ec43e2f59952ac4eb31c59d2a56e485c98e0ea5247f5a5",
+      "before": "1e910454b5c75b90ea12d5752285c433ea590e0f573562e124d0ee278ffc02c8",
+      "file": "route-70370555f544e09df429.json.gz",
+      "path": "/htmlBytes"
+    }
+  ],
   "unexplained": [],
   "workspace": "acme"
 }
