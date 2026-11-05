@@ -1,6 +1,7 @@
 'use client';
-
 import { createContext, Suspense, use, type ReactNode } from 'react';
+
+import { buildId } from '@/domain/ids';
 
 import { useLens } from './lens.client';
 
@@ -14,7 +15,7 @@ function useTeam(): string | null {
   const lens = useLens();
   const known = use(Known);
   if (lens === null) return null;
-  return [lens, `team:${lens}`].find((id) => known.includes(id)) ?? null;
+  return [lens, buildId('team', lens)].find((id) => known.includes(id)) ?? null;
 }
 
 interface LensTeamsProps {

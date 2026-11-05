@@ -1081,3 +1081,12 @@ For local feature work, use the focused checks before handover. Shared logic, in
 configuration changes require the full check. Routes, server/client boundaries, dependencies and build
 configuration also require a production build; rendering and data-loading changes require the page budget.
 The intended warm feedback budget for a small UI edit is thirty seconds; measure it rather than assuming it.
+
+### Model identities and code links
+
+`src/domain/ids.ts` owns model id construction, prefix and child-path parsing, legacy address tokens and
+alias resolution. `src/domain/code-links.ts` owns Git-host links and remote parsing. Callers pass structured
+references rather than interpolate prefixes or Git-host paths. Existing citation styles remain explicit
+arguments while legacy consumers migrate. `groundwork/identity-boundary` rejects direct prefix construction,
+prefix stripping, child-path parsing and Git-host path construction elsewhere. Tests retain literal examples,
+including deliberately invalid inputs and source snippets that prove the rule fires.

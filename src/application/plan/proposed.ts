@@ -6,6 +6,7 @@
 import type { DeliveryState } from '@/application/plan/delivery';
 import type { ImpactInput } from '@/application/plan/delivery-work';
 import type { Revision } from '@/application/plan/revision-types';
+import { childId } from '@/domain/ids';
 
 export interface StepImpact {
   readonly id: string;
@@ -82,7 +83,7 @@ function fieldMarks(
 ): void {
   for (const d of fields) {
     if (d.cosmetic === true) continue;
-    put(`${d.schema}#${d.name}`, FIELD[d.kind] ?? 'changes');
+    put(childId(d.schema, d.name), FIELD[d.kind] ?? 'changes');
     put(d.schema, 'changes');
   }
 }

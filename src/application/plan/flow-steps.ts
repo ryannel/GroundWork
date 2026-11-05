@@ -1,5 +1,6 @@
 import type { Model } from '@/application/plan/derive';
 import { prop } from '@/application/plan/ids';
+import { hasPrefix } from '@/domain/ids';
 import type { FlowNode, StepNode } from '@/domain/plan/plan-graph';
 import type { Flow } from '@/domain/plan/plan.generated';
 
@@ -18,7 +19,7 @@ const kindOf = (model: FlowModel, id: string | undefined): unknown => prop(model
 const typeOf = (model: FlowModel, id: string | undefined): unknown => prop(model.get(id), '$type');
 
 const isStoreId = (model: FlowModel, id: string): boolean =>
-  typeOf(model, id) === 'store' || id.startsWith('st:');
+  typeOf(model, id) === 'store' || hasPrefix(id, 'st');
 
 /** A topic or a queue: where events wait. */
 export function isTopic(model: FlowModel, id: string): boolean {
@@ -75,7 +76,7 @@ export const isSync = (via: string | undefined): boolean => /^(?:api|gql):/u.tes
 /** api (a call that waits for its answer, REST or GraphQL) · msg (an event) · data (to or from a store) · internal. */
 export function stepKind(model: FlowModel, s: Pick<StepNode, 'via' | 'from' | 'to'>): StepKind {
   if (isSync(s.via)) return 'api';
-  if (s.via.startsWith('msg:')) return 'msg';
+  if (hasPrefix(s.via, 'msg')) return 'msg';
   return isStoreId(model, s.from) || isStoreId(model, s.to) ? 'data' : 'internal';
 }
 

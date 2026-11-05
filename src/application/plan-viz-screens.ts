@@ -1,6 +1,7 @@
 import type { Model } from '@/application/plan/derive';
 import type { ElementStatus } from '@/application/plan/derive-core';
 import { prop } from '@/application/plan/ids';
+import { hasChildPath, rootId, childId } from '@/domain/ids';
 import type { ScreenNode } from '@/domain/plan/plan-graph';
 
 // What a screen picture, its regions and a flow's screen journey are made of, worked out from the plan. The
@@ -280,8 +281,8 @@ export function stripLegs(
 
 /** Where a step happens: its screen, and the region when it names one. */
 const placeOf = (at: string): { readonly screen: string; readonly region: string | null } => ({
-  screen: at.split('#')[0] ?? at,
-  region: at.includes('#') ? at : null,
+  screen: rootId(at),
+  region: hasChildPath(at) ? at : null,
 });
 
 /** The screens a stepper stop happens on, in the order the stop's steps reach them, with the regions touched. */
@@ -319,7 +320,7 @@ export function screenLinks(
   const mockup = screen?.mockup ?? planMockup;
   return {
     figma: screen?.figma ?? null,
-    mockup: mockup === undefined ? null : `${assetUrl(opts.base, mockup)}#${scrId}`,
+    mockup: mockup === undefined ? null : childId(assetUrl(opts.base, mockup), scrId),
   };
 }
 

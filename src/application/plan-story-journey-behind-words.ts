@@ -1,6 +1,7 @@
 import type { Model } from '@/application/plan/derive';
 import { countWord, numWord } from '@/application/plan-viz-text';
 import type { WaterfallFacts } from '@/application/plan-viz-waterfall-facts';
+import { hasChildPath, rootId } from '@/domain/ids';
 import type { Operation } from '@/domain/plan/plan.generated';
 
 // What the reader asks for, as a place on a screen, and how long that place takes to show.
@@ -14,13 +15,13 @@ function whereOf(
   op: Operation,
 ): { readonly phrase: string; readonly region: string | null } {
   const refs = op.screens ?? [];
-  const id = refs[0]?.split('#')[0];
+  const id = rootId(refs[0]);
   const screen = model.asIs.screens.find((s) => s.id === id);
   if (screen === undefined) return { phrase: 'the page', region: null };
   const name = lower(screen.name);
   const isPage = screen.kind === undefined || screen.kind === 'page';
   const named = isPage && !/\b(?:page|screen|view)$/iu.test(name) ? `${name} page` : name;
-  const regions = refs.filter((r) => r.includes('#'));
+  const regions = refs.filter((r) => hasChildPath(r));
   const [only] = regions;
   if (regions.length === 1 && only !== undefined && screen.regions.length > 1) {
     return { phrase: `the ${lower(model.label(only))} on the ${named}`, region: model.label(only) };

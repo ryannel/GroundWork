@@ -1,9 +1,9 @@
 import 'server-only';
-
 import {
   type WorkspacePlanIndex,
   workspacePlanIndexOf,
 } from '@/application/workspace-work/workspace-plan-index';
+import { hasPrefix } from '@/domain/ids';
 import type { Programme } from '@/domain/plan/plan.generated';
 
 import { readToday } from './today-model';
@@ -23,7 +23,7 @@ function systemsOfToday(today: NonNullable<Awaited<ReturnType<typeof readToday>>
     plan.services.flatMap((s) => (s.system === undefined ? [] : [[s.id, s.system] as const])),
   );
   return (id: string): string | null => {
-    if (id.startsWith('sys:')) return id;
+    if (hasPrefix(id, 'sys')) return id;
     const service = model.ownerService(id) ?? id;
     return systemOfService.get(service) ?? null;
   };

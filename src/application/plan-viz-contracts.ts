@@ -1,4 +1,5 @@
 import type { Model } from '@/application/plan/derive';
+import { hasPrefix } from '@/domain/ids';
 import type { Test } from '@/domain/plan/plan.generated';
 
 // Who depends on whom: the pairs of services each contract test checks, and every link between two services.
@@ -16,7 +17,7 @@ export interface TestPair {
   readonly via: string | null;
 }
 
-const svcOf = (id: string): string | null => (id.startsWith('svc:') ? id : null);
+const svcOf = (id: string): string | null => (hasPrefix(id, 'svc') ? id : null);
 const keyOf = (p: Pair): string => `${p.consumer}|${p.provider}|${p.via}`;
 
 function nodeOf(model: Model, id: string) {
@@ -50,9 +51,9 @@ function callPair(model: Model, from: string, via: string): Pair[] {
 function stepPairs(model: Model, walked: string): Pair[] {
   const step = nodeOf(model, walked);
   if (step?.$type !== 'step') return [];
-  if (step.via.startsWith('msg:')) return eventPair(model, step);
-  if (step.via.startsWith('api:')) return callPair(model, step.from, step.via);
-  return step.via.startsWith('gql:') ? operationPairs(model, step.id, step.via) : [];
+  if (hasPrefix(step.via, 'msg')) return eventPair(model, step);
+  if (hasPrefix(step.via, 'api')) return callPair(model, step.from, step.via);
+  return hasPrefix(step.via, 'gql') ? operationPairs(model, step.id, step.via) : [];
 }
 
 /** A contract test may walk a subgraph: every gateway-to-that-subgraph call is then checked. */
@@ -70,7 +71,7 @@ function pairsOf(model: Model, t: Test): Pair[] {
   const walks = t.walks ?? [];
   const found = [
     ...walks.flatMap((w) => stepPairs(model, w)),
-    ...walks.filter((w) => w.startsWith('sg:')).flatMap((w) => subgraphPairs(model, w)),
+    ...walks.filter((w) => hasPrefix(w, 'sg')).flatMap((w) => subgraphPairs(model, w)),
   ];
   return [...new Map(found.map((f) => [keyOf(f), f])).values()];
 }
@@ -133,7 +134,7 @@ export function changedLinksWithoutTest(model: Model): Pair[] {
   return model
     .coverage()
     .gaps.connectionsWithoutContract.map((g) =>
-      g.via.startsWith('msg:')
+      hasPrefix(g.via, 'msg')
         ? { consumer: g.to, provider: g.from, via: g.via }
         : { consumer: g.from, provider: g.to, via: g.via },
     );
@@ -141,6 +142,6 @@ export function changedLinksWithoutTest(model: Model): Pair[] {
 
 /** "call" for an endpoint or an operation, "event" for a message. */
 export const linkWord = (via: string): 'call' | 'event' =>
-  via.startsWith('msg:') ? 'event' : 'call';
+  hasPrefix(via, 'msg') ? 'event' : 'call';
 
 export { keyOf as pairKey };

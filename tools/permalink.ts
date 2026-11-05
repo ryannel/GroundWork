@@ -9,6 +9,8 @@ import path from 'node:path';
 
 import { stringify } from 'yaml';
 
+import { repositoryOf as repoOf, permalinkOf as codePermalink } from '@/domain/code-links';
+
 export interface Ref {
   readonly path: string;
   readonly lines?: readonly [number, number];
@@ -22,21 +24,7 @@ export interface Source extends Ref {
 
 const LINES = /:(\d+)(?:-(\d+))?$/u;
 
-// `org/name` for github.com, as system.yaml lists repos; `host/org/name` for any other host
-export function repoOf(remote: string): string | undefined {
-  const trimmed = remote.trim().replace(/\.git$/u, '');
-  const scp = /^[\w.-]+@([\w.-]+):(.+)$/u.exec(trimmed);
-  let host = scp?.[1];
-  let name = scp?.[2];
-  if (scp === null) {
-    if (!URL.canParse(trimmed)) return undefined;
-    const url = new URL(trimmed);
-    host = url.hostname;
-    name = url.pathname.replace(/^\/+/u, '');
-  }
-  if (host === undefined || name?.includes('/') !== true) return undefined;
-  return host === 'github.com' ? name : `${host}/${name}`;
-}
+export { repositoryOf as repoOf } from '@/domain/code-links';
 
 export function parseRef(text: string): Ref {
   const at = text.lastIndexOf('@');
@@ -54,12 +42,8 @@ export function parseRef(text: string): Ref {
   };
 }
 
-export function permalinkOf(source: Source): string {
-  const host = source.repo.split('/').length > 2 ? source.repo : `github.com/${source.repo}`;
-  const lines =
-    source.lines === undefined ? '' : `#L${String(source.lines[0])}-L${String(source.lines[1])}`;
-  return `https://${host}/blob/${source.commit}/${source.path}${lines}`;
-}
+export const permalinkOf = (source: Source): string =>
+  codePermalink(source, { encoding: 'raw', range: 'always' });
 
 export function sourcesYaml(sources: readonly Source[]): string {
   return `sources: ${stringify(sources, { collectionStyle: 'flow', flowCollectionPadding: false, lineWidth: 0 }).trim()}`;

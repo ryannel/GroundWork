@@ -9,6 +9,7 @@ import { type Ctx, type SeqCell, type SeqGut, cellOf } from '@/application/plan-
 import { type Item, cellsOf, entriesOf, treeOf } from '@/application/plan-viz-sequence-rows';
 import { MAX_COLS, columnTier, isDense, levelName } from '@/application/plan-viz-sequence-text';
 import { teamIndex, teamName, teamOf } from '@/application/plan-viz-teams';
+import { hasPrefix } from '@/domain/ids';
 
 // A flow as a sequence drawing: participants as columns, one row per step, time running down.
 
@@ -63,7 +64,7 @@ export interface SeqViewOptions {
 }
 
 const isStore = (model: Model, id: string): boolean =>
-  prop(model.get(id), '$type') === 'store' || id.startsWith('st:');
+  prop(model.get(id), '$type') === 'store' || hasPrefix(id, 'st');
 
 function partOf(
   model: Model,

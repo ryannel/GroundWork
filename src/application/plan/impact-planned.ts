@@ -1,6 +1,7 @@
 import { applyOps } from '@/application/plan/apply-ops';
 import { sameJson } from '@/application/plan/derive-values';
 import { buildGraph } from '@/application/plan/graph';
+import { rootId } from '@/domain/ids';
 import type { SystemGraph, SystemSource } from '@/domain/plan/plan-graph';
 import type {
   Endpoint,
@@ -41,8 +42,7 @@ export interface Planned {
 }
 
 /** "billing#id" → "billing". */
-export const baseId = (ref: unknown): string =>
-  typeof ref === 'string' ? (ref.split('#')[0] ?? '') : '';
+export const baseId = (ref: unknown): string => (typeof ref === 'string' ? rootId(ref) : '');
 
 const byId = <T extends { readonly id: string }>(list: readonly T[]): Map<string, T> =>
   new Map(list.map((x) => [x.id, x]));

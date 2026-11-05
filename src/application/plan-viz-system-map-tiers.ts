@@ -1,5 +1,6 @@
 import type { Model } from '@/application/plan/derive';
 import type { MapEdgeIn, SystemMapInput } from '@/application/plan-viz-system-map-types';
+import { buildId } from '@/domain/ids';
 import { systemsOf, type SystemTier, type Workspace } from '@/domain/workspace';
 
 // The tier each system sits in on a domain's map. A person may say it in system.yaml (`tier:`); otherwise the
@@ -46,7 +47,7 @@ function impliedTier(id: string, implied: Implied): SystemTier {
 function authoredTiers(workspace: Workspace): ReadonlyMap<string, SystemTier> {
   return new Map(
     systemsOf(workspace).flatMap((s) =>
-      s.tier === null || s.tier === undefined ? [] : [[`sys:${s.id}`, s.tier] as const],
+      s.tier === null || s.tier === undefined ? [] : [[buildId('sys', s.id), s.tier] as const],
     ),
   );
 }

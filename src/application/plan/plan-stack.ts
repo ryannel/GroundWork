@@ -1,4 +1,5 @@
 import { fieldId, isRecord } from '@/application/plan/ids';
+import { isWithinId, qualifyId, rootId } from '@/domain/ids';
 import type { Neighbour, Touch, TouchKind } from '@/domain/plan/plan-neighbours';
 
 // Plans stack: a plan reads today with the plans it builds on applied first, in dependency order. Plans that
@@ -99,9 +100,9 @@ export interface Overlap {
   readonly changes: readonly [string, string];
 }
 
-const rootOf = (id: string): string => id.split('#', 1)[0] ?? id;
+const rootOf = (id: string): string => rootId(id);
 
-const within = (part: string, whole: string): boolean => part.startsWith(`${whole}#`);
+const within = (part: string, whole: string): boolean => isWithinId(part, whole);
 
 /** How two touches clash, and on what: the same thing, or a part of a thing the other removes. */
 function clashOf(
@@ -173,7 +174,7 @@ const keyOf = (overlap: Overlap): string => `${overlap.target}\n${overlap.change
 function overlapOf(a: Placed, b: Placed): Overlap | null {
   const clash = clashOf(a, b);
   if (clash === null) return null;
-  const changes = [`${a.plan}/${a.change}`, `${b.plan}/${b.change}`] as const;
+  const changes = [qualifyId(a.plan, a.change), qualifyId(b.plan, b.change)] as const;
   return { ...clash, plans: [a.plan, b.plan], changes };
 }
 

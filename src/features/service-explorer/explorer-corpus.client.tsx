@@ -3,6 +3,7 @@
 import { useEffect, useState, useSyncExternalStore } from 'react';
 
 import { checkedExplorerManifest } from '@/domain/explorer-publication-check';
+import { stripPrefix } from '@/domain/ids';
 import type { ExplorerCatalogue, ExplorerManifest } from '@/domain/service-explorer';
 import { Callout } from '@/ui/callout';
 import { Text } from '@/ui/text';
@@ -84,7 +85,7 @@ export function ExplorerCorpus({ catalogue }: { readonly catalogue: ExplorerCata
     ? `../..${catalogue.assetBase}`
     : catalogue.assetBase;
   const query = useSyncExternalStore(subscribe, search, () => '');
-  const requested = new URLSearchParams(query).get('service')?.replace(/^svc:/u, '');
+  const requested = stripPrefix(new URLSearchParams(query).get('service'), 'svc');
   const selected =
     catalogue.selections.find((item) => item.service.id === requested) ?? catalogue.selections[0];
   const loaded = useSelection(catalogue, selected?.service.id ?? '', base);

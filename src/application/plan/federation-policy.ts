@@ -11,6 +11,7 @@ import {
 import { queryPlan } from '@/application/plan/federation-plan';
 import type { Fetch } from '@/application/plan/federation-plan-types';
 import { selectionTree, type TreeNode } from '@/application/plan/federation-tree';
+import { hasPrefix } from '@/domain/ids';
 import type { FieldNode, OperationNode, SystemGraph } from '@/domain/plan/plan-graph';
 
 /** The HTTP method an operation is sent with: mutations POST; a query GETs when persisted, else POSTs. */
@@ -244,7 +245,7 @@ export function invalidators(g: SystemGraph, storeId: string): Invalidators {
       for (const [i, s] of flow.steps.entries()) {
         if (!(s.purges ?? []).includes(storeId)) continue;
         steps.push(s.id);
-        const heard = flow.steps.slice(0, i + 1).findLast((x) => x.via.startsWith('msg:'));
+        const heard = flow.steps.slice(0, i + 1).findLast((x) => hasPrefix(x.via, 'msg'));
         if (heard !== undefined) events.push(heard.via);
       }
     }

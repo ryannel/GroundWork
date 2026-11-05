@@ -9,9 +9,10 @@ import {
   newNode,
   type ScreenMap,
 } from '@/application/plan/ui-journeys-map-types';
+import { hasChildPath, rootId } from '@/domain/ids';
 import type { SystemGraph, UserJourneyNode } from '@/domain/plan/plan-graph';
 
-const screenOf = (reference: string): string => reference.split('#')[0] ?? reference;
+const screenOf = (reference: string): string => rootId(reference);
 
 function nameOf(graph: SystemGraph, id: string): string | null {
   const node = graph.get(id);
@@ -42,7 +43,7 @@ function edgesOf(graph: SystemGraph, byScreen: ReadonlyMap<string, MapNode>): In
           destinationReference: interaction.to,
           sourceStepId: steps[0]?.stepId ?? null,
           destinationStepId: steps.at(-1)?.stepId ?? null,
-          flowId: steps[0]?.stepId.split('#')[0] ?? '',
+          flowId: rootId(steps[0]?.stepId) ?? '',
           actor: null,
           shared: sources.length > 1,
           kind: interaction.effect,
@@ -51,7 +52,7 @@ function edgesOf(graph: SystemGraph, byScreen: ReadonlyMap<string, MapNode>): In
           displayLabel: interaction.name,
           labelSource: 'authored-interaction',
           labelEvidence: 'authored-interaction',
-          region: reference.includes('#') ? reference : null,
+          region: hasChildPath(reference) ? reference : null,
           regionName: nameOf(graph, reference),
           condition: interaction.condition ?? null,
           result: interaction.result ?? null,

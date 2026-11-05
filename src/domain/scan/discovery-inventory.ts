@@ -1,3 +1,5 @@
+import { permalinkOf } from '@/domain/code-links';
+
 import { discoveryEvidenceErrors } from './discovery-evidence';
 import type { DiscoveryInput } from './discovery-types';
 import type { DiscoveryEvidence } from './discovery.generated';
@@ -30,7 +32,7 @@ function canonicalPinErrors(
   const { inventory } = input;
   const snapshot = input.snapshots.find((item) => item.id === evidence.context_id);
   const context = input.interpretation.contexts.find((item) => item.id === evidence.context_id);
-  const uri = `https://github.com/${inventory.repo}/blob/${inventory.commit}/${evidence.path}`;
+  const uri = permalinkOf({ ...inventory, path: evidence.path }, { encoding: 'raw' });
   const pinned =
     context?.kind === 'context_snapshot' &&
     context.pins.some((pin) => pin.repo === inventory.repo && pin.commit === inventory.commit);
@@ -66,7 +68,7 @@ function matchesTarget(context: Context, input: DiscoveryInput): boolean {
   if (context.kind === 'scan_snapshot') {
     return context.repo === inventory.repo && context.commit === inventory.commit;
   }
-  const prefix = `https://github.com/${inventory.repo}/blob/${inventory.commit}/`;
+  const prefix = permalinkOf({ ...inventory, path: '' }, { encoding: 'raw' });
   const pinned = context.pins.some(
     (pin) => pin.repo === inventory.repo && pin.commit === inventory.commit,
   );

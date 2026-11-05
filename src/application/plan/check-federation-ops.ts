@@ -8,6 +8,7 @@ import {
   type SelectionTree,
   type TreeError,
 } from '@/application/plan/federation-tree';
+import { rootId, childId } from '@/domain/ids';
 import type { OperationNode, StoreNode } from '@/domain/plan/plan-graph';
 import type { CacheUse } from '@/domain/plan/plan.generated';
 
@@ -23,7 +24,7 @@ function fixFor(
   if (e.code !== 'unknown-field' && e.code !== 'top-level') return '';
   const node = tree.all.find((n) => n.path === e.path);
   const fid =
-    node?.parentType === null || node === undefined ? null : `${node.parentType}#${node.name}`;
+    node?.parentType === null || node === undefined ? null : childId(node.parentType, node.name);
   const gone = fid === null ? undefined : s.ctx.removedBy.get(fid);
   if (s.toBe && fid !== null && gone !== undefined) {
     return `; ${opRef(gone)} removes ${fid} while ${op.id} still selects it, so change the document first (modify: ${op.id} set: { document })`;
@@ -60,7 +61,7 @@ function checkDocument(s: Scope, op: OperationNode, tree: SelectionTree): void {
 function checkClient(s: Scope, op: OperationNode): void {
   if (op.client === undefined || op.client === '') return;
   for (const [i, x] of (op.screens ?? []).entries()) {
-    const scr = s.g.get(x.split('#')[0]);
+    const scr = s.g.get(rootId(x));
     if (scr?.$type !== 'screen' || scr.service === op.client) continue;
     s.error(
       s.at(op, 'client'),

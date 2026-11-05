@@ -6,6 +6,7 @@ import {
   flowSteps,
   isNewLink,
 } from '@/application/plan/flow-steps';
+import { hasPrefix } from '@/domain/ids';
 
 export type FlowView = 'diagram' | 'sequence';
 
@@ -28,7 +29,7 @@ export interface KeyOptions {
 
 const callKind = (via: string): 'api' | 'msg' | 'other' => {
   if (/^(?:api|gql):/u.test(via)) return 'api';
-  return via.startsWith('msg:') ? 'msg' : 'other';
+  return hasPrefix(via, 'msg') ? 'msg' : 'other';
 };
 
 const statusOf = (model: FlowModel, id: string): string =>

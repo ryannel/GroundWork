@@ -3,6 +3,7 @@ import type { FlowMode } from '@/application/plan/flow-steps';
 import { issueMarkdown } from '@/application/plan/issues';
 import { flowToMermaid } from '@/application/plan/mermaid';
 import { issueNumber, issueUrl } from '@/application/plan-viz-work';
+import { hasChildPath, hasPrefix } from '@/domain/ids';
 
 // What a thing shows beyond its facts: a flow drawn as a small diagram, and a work item as the GitHub issue it
 // files.
@@ -45,7 +46,7 @@ export interface FlowDrawing {
 
 /** A flow drawn as it runs today or with the plan; null for anything else, or a flow with no steps then. */
 export function flowDrawingOf(model: Model, id: string, today: boolean): FlowDrawing | null {
-  if (!id.startsWith('flow:') || id.includes('#')) return null;
+  if (!hasPrefix(id, 'flow') || hasChildPath(id)) return null;
   const inToBe = model.toBe.byId.has(id);
   const mode: FlowMode = today || !inToBe ? 'asIs' : 'toBe';
   const graph = mode === 'asIs' ? model.asIs : model.toBe;
@@ -66,7 +67,7 @@ export function operationDocumentOf(
   id: string,
   today: boolean,
 ): OperationDocument | null {
-  if (!id.startsWith('gql:')) return null;
+  if (!hasPrefix(id, 'gql')) return null;
   const mode = today || !model.toBe.byId.has(id) ? 'asIs' : 'toBe';
   const op = (mode === 'asIs' ? model.asIs : model.toBe).byId.get(id);
   if (op?.$type !== 'operation' || op.document.trim() === '') return null;

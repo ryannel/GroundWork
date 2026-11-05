@@ -48149,7 +48149,7 @@
         "text": "'Read the environment in one place (src/infrastructure/workspace-folders.ts, a tool or a config) and pass values in.',"
       },
       {
-        "line": 725,
+        "line": 726,
         "text": "files: ['src/infrastructure/workspace-folders.ts'],"
       }
     ],
@@ -48683,36 +48683,32 @@
     "file": "src/app/[workspace]/[domain]/[system]/layout.tsx",
     "hits": [
       {
-        "line": 15,
+        "line": 16,
         "text": "import { readExplorerNavigation } from '@/infrastructure/service-explorer-navigation';"
       },
       {
-        "line": 16,
+        "line": 17,
         "text": "import { todayData } from '@/infrastructure/today-data';"
       },
       {
-        "line": 17,
+        "line": 18,
         "text": "import { readWorkspacePlanIndex } from '@/infrastructure/workspace-plan-index';"
       },
       {
-        "line": 18,
+        "line": 19,
         "text": "import { readLoadedPlans } from '@/infrastructure/workspace-plans';"
       },
       {
-        "line": 33,
+        "line": 34,
         "text": "const data = await todayData(id);"
       },
       {
-        "line": 47,
+        "line": 48,
         "text": "const data = await todayData(id);"
       },
       {
-        "line": 59,
+        "line": 60,
         "text": "readWorkspacePlanIndex(workspace.id),"
-      },
-      {
-        "line": 78,
-        "text": "impact={systemImpactRows(index, { id: `sys:${system}`, name: view.name })}"
       }
     ],
     "status": "adapter"
@@ -48938,19 +48934,19 @@
     "file": "src/app/[workspace]/partners/[team]/page.tsx",
     "hits": [
       {
-        "line": 9,
+        "line": 10,
         "text": "import { todayData } from '@/infrastructure/today-data';"
       },
       {
-        "line": 10,
+        "line": 11,
         "text": "import { readWorkspacePlanIndex } from '@/infrastructure/workspace-plan-index';"
       },
       {
-        "line": 19,
+        "line": 20,
         "text": "const index = await readWorkspacePlanIndex(workspace);"
       },
       {
-        "line": 36,
+        "line": 37,
         "text": "const [data, page] = await Promise.all([todayData(id), partnerOf(id, team)]);"
       }
     ],
@@ -49370,12 +49366,8 @@
         "text": "import type { Model } from '@/application/plan/derive';"
       },
       {
-        "line": 3,
+        "line": 4,
         "text": "import type { System } from '@/domain/workspace';"
-      },
-      {
-        "line": 25,
-        "text": "(story.relatedSystems ?? []).some((id) => model?.asIs.get(`sys:${id}`) === undefined) ||"
       }
     ],
     "status": "adapter"
@@ -49814,10 +49806,6 @@
       {
         "line": 2,
         "text": "import type { Edge } from '@/application/plan/derive-edge-types';"
-      },
-      {
-        "line": 190,
-        "text": "system.id === store.owner?.replace(/^sys:/u, '') ||"
       }
     ],
     "status": "adapter"
@@ -49923,11 +49911,11 @@
     "file": "src/application/evidence/evidence-discovery.ts",
     "hits": [
       {
-        "line": 16,
+        "line": 17,
         "text": "readonly knowledgeGaps: readonly string[];"
       },
       {
-        "line": 30,
+        "line": 31,
         "text": "knowledgeGaps: strings(detail.knowledge_gaps),"
       }
     ],
@@ -49969,17 +49957,6 @@
     "status": "adapter"
   },
   {
-    "category": "consumer",
-    "file": "src/application/explorer-component-links.ts",
-    "hits": [
-      {
-        "line": 13,
-        "text": "(service) => service.id === id || service.id === id.replace(/^svc:/u, ''),"
-      }
-    ],
-    "status": "adapter"
-  },
-  {
     "category": "fixture or test",
     "file": "src/application/explorer-location.test.ts",
     "hits": [
@@ -49995,12 +49972,8 @@
     "file": "src/application/explorer-location.ts",
     "hits": [
       {
-        "line": 39,
+        "line": 40,
         "text": "return `/${encodeURIComponent(workspace)}/explorer/?service=${encodeURIComponent(component)}`;"
-      },
-      {
-        "line": 48,
-        "text": "const compatible = requested?.replace(/^svc:/u, '');"
       }
     ],
     "status": "adapter"
@@ -50033,35 +50006,31 @@
         "text": "import type { Model } from '@/application/plan/derive';"
       },
       {
-        "line": 3,
+        "line": 4,
         "text": "import type { Workspace } from '@/domain/workspace';"
       },
       {
-        "line": 23,
+        "line": 24,
         "text": "const isPerson = (workspace: Workspace, j: TodayJourney): boolean =>"
       },
       {
-        "line": 27,
+        "line": 28,
         "text": "function domainsOf(workspace: Workspace): Map<string, string> {"
       },
       {
-        "line": 29,
-        "text": "workspace.domains.flatMap((d) => d.systems.map((s) => [`sys:${s.id}`, d.id] as const)),"
-      },
-      {
-        "line": 36,
+        "line": 37,
         "text": "function whoStarts(workspace: Workspace, j: TodayJourney): string | null {"
       },
       {
-        "line": 42,
+        "line": 43,
         "text": "function whyOf(workspace: Workspace, j: TodayJourney, domains: number): string {"
       },
       {
-        "line": 54,
+        "line": 55,
         "text": "workspace: Workspace,"
       },
       {
-        "line": 83,
+        "line": 84,
         "text": "export function keyJourneysOf(workspace: Workspace, model: Model): KeyJourneys {"
       }
     ],
@@ -50326,40 +50295,28 @@
         "text": "import type { Model } from '@/application/plan/derive';"
       },
       {
-        "line": 5,
+        "line": 6,
         "text": "import { systemDoes, type Actor, type Domain, type Workspace } from '@/domain/workspace';"
       },
       {
-        "line": 60,
+        "line": 61,
         "text": "/** The `sys:` id each component sits in. */"
       },
       {
-        "line": 74,
+        "line": 75,
         "text": "function actorsOf(workspace: Workspace, model: Model): MapActor[] {"
       },
       {
-        "line": 92,
+        "line": 93,
         "text": "function actorLinks(workspace: Workspace, model: Model): MapLink[] {"
       },
       {
-        "line": 132,
+        "line": 133,
         "text": "function domainOf(workspace: Workspace, model: Model, domain: Domain): MapDomain {"
       },
       {
-        "line": 139,
-        "text": "id: `sys:${system.id}`,"
-      },
-      {
-        "line": 151,
+        "line": 152,
         "text": "export function landscapeMapInput(workspace: Workspace, model: Model): LandscapeMapInput {"
-      },
-      {
-        "line": 158,
-        "text": "systems.flatMap((s) => s.components.map((c) => [c.id, `sys:${s.id}`])),"
-      },
-      {
-        "line": 163,
-        "text": ".map((c) => ({ id: c.id, name: c.name, does: c.does, system: `sys:${s.id}` })),"
       }
     ],
     "status": "adapter"
@@ -50435,23 +50392,23 @@
     "file": "src/application/language-page.ts",
     "hits": [
       {
-        "line": 8,
+        "line": 9,
         "text": "import type { Concept } from '@/domain/plan/plan.generated';"
       },
       {
-        "line": 9,
+        "line": 10,
         "text": "import type { Workspace } from '@/domain/workspace';"
       },
       {
-        "line": 16,
+        "line": 17,
         "text": "} from '@/domain/workspace-model';"
       },
       {
-        "line": 102,
+        "line": 103,
         "text": "workspace: Workspace,"
       },
       {
-        "line": 219,
+        "line": 220,
         "text": "workspace: Workspace,"
       }
     ],
@@ -50486,10 +50443,6 @@
         "text": "function index(workspace: Workspace): Map<string, Where> {"
       },
       {
-        "line": 44,
-        "text": "at.set(`sys:${system.id}`, place);"
-      },
-      {
         "line": 54,
         "text": "export function placesOf(workspace: Workspace, languages: readonly DomainLanguage[]): Places {"
       }
@@ -50501,27 +50454,23 @@
     "file": "src/application/model-scope.ts",
     "hits": [
       {
-        "line": 1,
+        "line": 2,
         "text": "import { componentsOf, type Workspace } from '@/domain/workspace';"
       },
       {
-        "line": 12,
+        "line": 13,
         "text": "/** Component ids in view, and the `sys:<id>` of each system in view. */"
       },
       {
-        "line": 16,
-        "text": "const systemKey = (id: string): string => `sys:${id}`;"
-      },
-      {
-        "line": 18,
+        "line": 19,
         "text": "export function workspaceScopeOf(workspace: Workspace): ModelScope {"
       },
       {
-        "line": 31,
+        "line": 32,
         "text": "export function domainScopeOf(workspace: Workspace, id: string): ModelScope | null {"
       },
       {
-        "line": 47,
+        "line": 48,
         "text": "export function systemScopeOf(workspace: Workspace, id: string): ModelScope | null {"
       }
     ],
@@ -50902,12 +50851,8 @@
         "text": "import type { Edge } from '@/application/plan/derive-edges';"
       },
       {
-        "line": 15,
+        "line": 16,
         "text": "/** The `sys:` id each service and store belongs to: a service's system, a store's owner's. */"
-      },
-      {
-        "line": 49,
-        "text": "if (!id.startsWith('sys:')) return [];"
       }
     ],
     "status": "adapter"
@@ -50969,17 +50914,6 @@
       {
         "line": 2,
         "text": "import type { ElementStatus } from '@/application/plan/derive-core';"
-      }
-    ],
-    "status": "adapter"
-  },
-  {
-    "category": "consumer",
-    "file": "src/application/plan-pages-hash.ts",
-    "hits": [
-      {
-        "line": 3,
-        "text": "// The open inspector lives in the address as `#i-<token>`: `svc:orders` is `#i-svc-orders`, and a child such"
       }
     ],
     "status": "adapter"
@@ -51730,7 +51664,7 @@
         "text": "import type { Model } from '@/application/plan/derive';"
       },
       {
-        "line": 4,
+        "line": 5,
         "text": "import type { Operation } from '@/domain/plan/plan.generated';"
       }
     ],
@@ -51745,7 +51679,7 @@
         "text": "import type { Model } from '@/application/plan/derive';"
       },
       {
-        "line": 8,
+        "line": 9,
         "text": "import type { Operation } from '@/domain/plan/plan.generated';"
       }
     ],
@@ -51875,12 +51809,8 @@
         "text": "import type { Model } from '@/application/plan/derive';"
       },
       {
-        "line": 6,
+        "line": 7,
         "text": "import type { Question, Risk, WorkItem } from '@/domain/plan/plan.generated';"
-      },
-      {
-        "line": 73,
-        "text": "id !== null && id.startsWith('svc:') && !mine.has(id);"
       }
     ],
     "status": "adapter"
@@ -52213,11 +52143,11 @@
         "text": "import type { Model } from '@/application/plan/derive';"
       },
       {
-        "line": 10,
+        "line": 11,
         "text": "import type { Plan } from '@/domain/plan/plan.generated';"
       },
       {
-        "line": 24,
+        "line": 25,
         "text": "export function pairOf(rv: Revision, st: RevisionStep, delivery: DeliveryState): Pair | null {"
       }
     ],
@@ -52255,11 +52185,11 @@
     "file": "src/application/plan-story-versions-words.ts",
     "hits": [
       {
-        "line": 95,
+        "line": 96,
         "text": "function approvedStand(rv: Revision, st: RevisionStep): string {"
       },
       {
-        "line": 104,
+        "line": 105,
         "text": "export function standText(rv: Revision, st: RevisionStep): string {"
       }
     ],
@@ -52368,28 +52298,8 @@
         "text": "import type { Model } from '@/application/plan/derive';"
       },
       {
-        "line": 2,
+        "line": 3,
         "text": "import type { Test } from '@/domain/plan/plan.generated';"
-      },
-      {
-        "line": 19,
-        "text": "const svcOf = (id: string): string | null => (id.startsWith('svc:') ? id : null);"
-      },
-      {
-        "line": 53,
-        "text": "if (step.via.startsWith('msg:')) return eventPair(model, step);"
-      },
-      {
-        "line": 54,
-        "text": "if (step.via.startsWith('api:')) return callPair(model, step.from, step.via);"
-      },
-      {
-        "line": 136,
-        "text": "g.via.startsWith('msg:')"
-      },
-      {
-        "line": 144,
-        "text": "via.startsWith('msg:') ? 'event' : 'call';"
       }
     ],
     "status": "adapter"
@@ -52460,7 +52370,7 @@
         "text": "import type { Model } from '@/application/plan/derive';"
       },
       {
-        "line": 6,
+        "line": 7,
         "text": "import type { Decision, Question } from '@/domain/plan/plan.generated';"
       }
     ],
@@ -52618,7 +52528,7 @@
         "text": "import type { Model } from '@/application/plan/derive';"
       },
       {
-        "line": 2,
+        "line": 3,
         "text": "import type { Concept } from '@/domain/plan/plan.generated';"
       }
     ],
@@ -52711,10 +52621,6 @@
       {
         "line": 1,
         "text": "import type { Model } from '@/application/plan/derive';"
-      },
-      {
-        "line": 103,
-        "text": "event: step.via.startsWith('msg:'),"
       }
     ],
     "status": "adapter"
@@ -52819,7 +52725,7 @@
         "text": "import type { Mode } from '@/application/plan/derive-core';"
       },
       {
-        "line": 5,
+        "line": 6,
         "text": "import type { Field } from '@/domain/plan/plan.generated';"
       }
     ],
@@ -52925,7 +52831,7 @@
         "text": "import type { Model } from '@/application/plan/derive';"
       },
       {
-        "line": 141,
+        "line": 142,
         "text": "h: r.h,"
       }
     ],
@@ -53008,39 +52914,20 @@
         "text": "import type { Model } from '@/application/plan/derive';"
       },
       {
-        "line": 67,
+        "line": 68,
         "text": "readonly h: number;"
       },
       {
-        "line": 108,
-        "text": "if (typeOf(id) !== 'store' && !id.startsWith('st:')) return 'service';"
-      },
-      {
-        "line": 115,
-        "text": "return via.startsWith('msg:') ? 'msg' : 'data';"
-      },
-      {
-        "line": 118,
+        "line": 119,
         "text": "/** The store a record (`sch:order#id`) lives in. */"
       },
       {
-        "line": 154,
+        "line": 155,
         "text": "h: 0,"
       },
       {
-        "line": 319,
+        "line": 320,
         "text": "const hung = [...sats].map(([id, e]) => ({ id, e, r: { x: 0, y: 0, w: 0, h: 0 } }));"
-      }
-    ],
-    "status": "adapter"
-  },
-  {
-    "category": "consumer",
-    "file": "src/application/plan-viz-flow-key.ts",
-    "hits": [
-      {
-        "line": 31,
-        "text": "return via.startsWith('msg:') ? 'msg' : 'other';"
       }
     ],
     "status": "adapter"
@@ -53251,10 +53138,6 @@
       {
         "line": 1,
         "text": "import type { Model } from '@/application/plan/derive';"
-      },
-      {
-        "line": 29,
-        "text": "model.get(id) !== undefined && prop(model.get(id), '$type') !== 'store' && !id.startsWith('st:');"
       }
     ],
     "status": "adapter"
@@ -53333,15 +53216,15 @@
         "text": "import type { Model } from '@/application/plan/derive';"
       },
       {
-        "line": 2,
+        "line": 3,
         "text": "import type { FieldNode, SchemaNode, SubgraphNode, SystemGraph } from '@/domain/plan/plan-graph';"
       },
       {
-        "line": 9,
+        "line": 10,
         "text": "export const graphIn = (model: Model, mode: GraphMode): SystemGraph =>"
       },
       {
-        "line": 36,
+        "line": 37,
         "text": "export const fieldsOf = (graph: SystemGraph, typeId: string): readonly FieldNode[] => {"
       }
     ],
@@ -53474,10 +53357,6 @@
       {
         "line": 1,
         "text": "import type { Model } from '@/application/plan/derive';"
-      },
-      {
-        "line": 10,
-        "text": "export const isConsumer = (id: string | undefined): id is string => id?.startsWith('svc:') === true;"
       }
     ],
     "status": "adapter"
@@ -53520,10 +53399,6 @@
       {
         "line": 1,
         "text": "import type { Model } from '@/application/plan/derive';"
-      },
-      {
-        "line": 231,
-        "text": "const ends: Ends = { from, to, isApi: id.startsWith('api:') };"
       }
     ],
     "status": "adapter"
@@ -53650,10 +53525,6 @@
       {
         "line": 1,
         "text": "import type { Model } from '@/application/plan/derive';"
-      },
-      {
-        "line": 59,
-        "text": "if (id.startsWith('api:')) return `calls to ${w.oldQ} then fail`;"
       }
     ],
     "status": "adapter"
@@ -53785,14 +53656,6 @@
       {
         "line": 1,
         "text": "import type { Model } from '@/application/plan/derive';"
-      },
-      {
-        "line": 30,
-        "text": "if (id.startsWith('st:')) return STORE_KINDS[kind] ?? ['⛁', 'STORE'];"
-      },
-      {
-        "line": 67,
-        "text": "if (via.startsWith('msg:')) return messageLabel(entity, max);"
       }
     ],
     "status": "adapter"
@@ -53924,10 +53787,6 @@
       {
         "line": 1,
         "text": "import type { Model } from '@/application/plan/derive';"
-      },
-      {
-        "line": 20,
-        "text": "if (!via.startsWith('api:')) return null;"
       }
     ],
     "status": "adapter"
@@ -54130,15 +53989,15 @@
         "text": "import type { ElementStatus } from '@/application/plan/derive-core';"
       },
       {
-        "line": 15,
+        "line": 16,
         "text": "readonly h: number;"
       },
       {
-        "line": 169,
+        "line": 170,
         "text": "h: percent(at.h),"
       },
       {
-        "line": 190,
+        "line": 191,
         "text": "at: boxed(region.at ?? { x: 0, y: 0, w: 0, h: 0 }),"
       }
     ],
@@ -54415,10 +54274,6 @@
       {
         "line": 2,
         "text": "import type { ElementStatus } from '@/application/plan/derive-core';"
-      },
-      {
-        "line": 66,
-        "text": "prop(model.get(id), '$type') === 'store' || id.startsWith('st:');"
       }
     ],
     "status": "adapter"
@@ -54428,7 +54283,7 @@
     "file": "src/application/plan-viz-source.ts",
     "hits": [
       {
-        "line": 1,
+        "line": 2,
         "text": "import type { Source } from '@/domain/plan/plan.generated';"
       }
     ],
@@ -54462,11 +54317,11 @@
         "text": "import type { GraphMode, Mode } from '@/application/plan/derive-core';"
       },
       {
-        "line": 78,
+        "line": 79,
         "text": "readonly svc: string;"
       },
       {
-        "line": 93,
+        "line": 94,
         "text": "svc: c.svc,"
       }
     ],
@@ -54621,11 +54476,7 @@
         "text": "import type { Model } from '@/application/plan/derive';"
       },
       {
-        "line": 62,
-        "text": "return model.label(via.startsWith('api:') ? interfaceOf(model, via) : via);"
-      },
-      {
-        "line": 70,
+        "line": 71,
         "text": "entries: (s.services ?? []).map((x) => ({ svc: x.svc, reads: x.from ?? [] })),"
       }
     ],
@@ -54636,35 +54487,31 @@
     "file": "src/application/plan-viz-system-map-links.ts",
     "hits": [
       {
-        "line": 65,
+        "line": 66,
         "text": "readonly svc: string;"
       },
       {
-        "line": 170,
+        "line": 171,
         "text": "acc.addRow({ svc: e.to, row, endpoint: e.via });"
       },
       {
-        "line": 216,
-        "text": "const modelled = step.via.startsWith('api:') || step.via.startsWith('msg:');"
-      },
-      {
-        "line": 232,
+        "line": 233,
         "text": "): { readonly svc: string; readonly row: string; readonly ep: string | null } | null {"
       },
       {
-        "line": 235,
+        "line": 236,
         "text": "if (ref.type === 'service') return { svc: src, row: '', ep: null };"
       },
       {
-        "line": 237,
+        "line": 238,
         "text": "return { svc: ref.service, row: src, ep: null };"
       },
       {
-        "line": 246,
+        "line": 247,
         "text": "return { svc: parent.service, row: ref.parent, ep: src };"
       },
       {
-        "line": 254,
+        "line": 255,
         "text": "if (callee.row !== '') acc.addRow({ svc: callee.svc, row: callee.row, endpoint: callee.ep });"
       }
     ],
@@ -55142,27 +54989,23 @@
         "text": "import type { Model } from '@/application/plan/derive';"
       },
       {
-        "line": 3,
+        "line": 4,
         "text": "import { systemsOf, type SystemTier, type Workspace } from '@/domain/workspace';"
       },
       {
-        "line": 5,
+        "line": 6,
         "text": "// The tier each system sits in on a domain's map. A person may say it in system.yaml (`tier:`); otherwise the"
       },
       {
-        "line": 45,
+        "line": 46,
         "text": "/** The tier a person gave each system, by `sys:` id. */"
       },
       {
-        "line": 46,
+        "line": 47,
         "text": "function authoredTiers(workspace: Workspace): ReadonlyMap<string, SystemTier> {"
       },
       {
-        "line": 49,
-        "text": "s.tier === null || s.tier === undefined ? [] : [[`sys:${s.id}`, s.tier] as const],"
-      },
-      {
-        "line": 70,
+        "line": 71,
         "text": "workspace: Workspace,"
       }
     ],
@@ -55173,16 +55016,8 @@
     "file": "src/application/plan-viz-system-map-tips.ts",
     "hits": [
       {
-        "line": 33,
+        "line": 34,
         "text": "const ARROWS: Readonly<Record<string, string>> = { api: 'calls', msg: '→' };"
-      },
-      {
-        "line": 89,
-        "text": "const calls = { ...l, vias: new Set([...l.vias].filter((v) => !v.startsWith('msg:'))) };"
-      },
-      {
-        "line": 90,
-        "text": "const events = { ...l, vias: new Set([...l.vias].filter((v) => v.startsWith('msg:'))) };"
       }
     ],
     "status": "adapter"
@@ -55537,7 +55372,7 @@
         "text": "import type { Model } from '@/application/plan/derive';"
       },
       {
-        "line": 4,
+        "line": 5,
         "text": "import type { Milestone, WorkItem } from '@/domain/plan/plan.generated';"
       }
     ],
@@ -55644,11 +55479,11 @@
     "file": "src/application/plan/apply-add.ts",
     "hits": [
       {
-        "line": 15,
+        "line": 16,
         "text": "import type { Change, Op, OpAdd } from '@/domain/plan/plan.generated';"
       },
       {
-        "line": 75,
+        "line": 76,
         "text": "message: `${into} is a ${parent.type}, expected a ${container} (fields go into sch:…, endpoints into if:…, steps into flow:…, regions into scr:…)`,"
       }
     ],
@@ -55765,15 +55600,15 @@
     "file": "src/application/plan/check-federation-ops.ts",
     "hits": [
       {
-        "line": 12,
+        "line": 13,
         "text": "import type { CacheUse } from '@/domain/plan/plan.generated';"
       },
       {
-        "line": 55,
+        "line": 56,
         "text": "`${op.id} is a mutation but names no writes; add writes: [sch:…] (the records its root resolver changes)`,"
       },
       {
-        "line": 85,
+        "line": 86,
         "text": "readonly st: StoreNode;"
       }
     ],
@@ -56141,48 +55976,44 @@
     "file": "src/application/plan/check-handlers.ts",
     "hits": [
       {
-        "line": 10,
+        "line": 11,
         "text": "import type { HandlerNode, PlanNode, SystemGraph } from '@/domain/plan/plan-graph';"
       },
       {
-        "line": 11,
+        "line": 12,
         "text": "import type { HandlerSource } from '@/domain/plan/plan.generated';"
       },
       {
-        "line": 22,
+        "line": 23,
         "text": "readonly g: SystemGraph;"
       },
       {
-        "line": 33,
+        "line": 34,
         "text": "h: HandlerNode,"
       },
       {
-        "line": 49,
+        "line": 50,
         "text": "function checkSteps(s: Scope, h: HandlerNode): void {"
       },
       {
-        "line": 63,
+        "line": 64,
         "text": "g: SystemGraph,"
       },
       {
-        "line": 73,
+        "line": 74,
         "text": "function onMismatch(g: SystemGraph, h: HandlerNode): string | null {"
       },
       {
-        "line": 87,
+        "line": 88,
         "text": "function checkOn(s: Scope, h: HandlerNode): void {"
       },
       {
-        "line": 98,
+        "line": 99,
         "text": "function checkHandler(s: Scope, h: HandlerNode): void {"
       },
       {
-        "line": 110,
+        "line": 111,
         "text": "function callsByComponent(g: SystemGraph): Map<string, Set<string>> {"
-      },
-      {
-        "line": 128,
-        "text": "if (known === undefined || !step.via.startsWith('api:') || known.has(step.via)) continue;"
       }
     ],
     "status": "adapter"
@@ -56250,7 +56081,7 @@
     "file": "src/application/plan/check-neighbours.ts",
     "hits": [
       {
-        "line": 7,
+        "line": 8,
         "text": "import type { Plan } from '@/domain/plan/plan.generated';"
       }
     ],
@@ -56410,7 +56241,7 @@
     "file": "src/application/plan/check-text.ts",
     "hits": [
       {
-        "line": 4,
+        "line": 5,
         "text": "import type { Plan } from '@/domain/plan/plan.generated';"
       }
     ],
@@ -56485,39 +56316,39 @@
         "text": "import { consumersIn } from '@/application/plan/derive-edges';"
       },
       {
-        "line": 5,
+        "line": 6,
         "text": "import type { OpRecord, SchemaNode, StepNode, SystemGraph } from '@/domain/plan/plan-graph';"
       },
       {
-        "line": 10,
+        "line": 11,
         "text": "readonly svc: string;"
       },
       {
-        "line": 25,
+        "line": 26,
         "text": "readonly sch: SchemaNode | null;"
       },
       {
-        "line": 33,
+        "line": 34,
         "text": "readonly asIs: SystemGraph;"
       },
       {
-        "line": 34,
+        "line": 35,
         "text": "readonly toBe: SystemGraph;"
       },
       {
-        "line": 53,
+        "line": 54,
         "text": "const isService = (g: SystemGraph, id: string): boolean => g.get(id)?.$type === 'service';"
       },
       {
-        "line": 56,
+        "line": 57,
         "text": "export function changedSteps(before: SystemGraph, after: SystemGraph): Map<string, StepNode> {"
       },
       {
-        "line": 77,
+        "line": 78,
         "text": "type Put = (svc: string | null | undefined, role: Affected['role'], via: string) => void;"
       },
       {
-        "line": 87,
+        "line": 88,
         "text": "readonly g: SystemGraph;"
       }
     ],
@@ -56798,23 +56629,23 @@
     "file": "src/application/plan/compat-schema.ts",
     "hits": [
       {
-        "line": 10,
+        "line": 11,
         "text": "import type { SchemaNode, SystemGraph } from '@/domain/plan/plan-graph';"
       },
       {
-        "line": 35,
+        "line": 36,
         "text": "target: { readonly id: string; readonly sch: SchemaNode | null },"
       },
       {
-        "line": 48,
+        "line": 49,
         "text": "function systemRoles(env: Env, sch: SchemaNode): Roles {"
       },
       {
-        "line": 49,
+        "line": 50,
         "text": "const graphs: SystemGraph[] = [env.asIs, env.toBe];"
       },
       {
-        "line": 118,
+        "line": 119,
         "text": "const ctx = ctxOf(env, { id, sch: a }, roles);"
       }
     ],
@@ -56996,15 +56827,15 @@
         "text": "import { memo } from '@/application/plan/derive-values';"
       },
       {
-        "line": 3,
+        "line": 4,
         "text": "import type { FanoutCall, StepNode, SystemGraph } from '@/domain/plan/plan-graph';"
       },
       {
-        "line": 4,
+        "line": 5,
         "text": "import type { Test } from '@/domain/plan/plan.generated';"
       },
       {
-        "line": 32,
+        "line": 33,
         "text": "function endService(core: Core, g: SystemGraph, id: string): string | null {"
       }
     ],
@@ -58239,7 +58070,7 @@
         "text": "import { memo, textOf, uniq } from '@/application/plan/derive-values';"
       },
       {
-        "line": 8,
+        "line": 9,
         "text": "import type { Plan, Question } from '@/domain/plan/plan.generated';"
       }
     ],
@@ -59153,47 +58984,47 @@
     "file": "src/application/plan/federation-index.ts",
     "hits": [
       {
-        "line": 9,
+        "line": 10,
         "text": "SystemGraph,"
       },
       {
-        "line": 20,
+        "line": 21,
         "text": "g: SystemGraph,"
       },
       {
-        "line": 24,
+        "line": 25,
         "text": "const store = new WeakMap<SystemGraph, Map<string, T>>();"
       },
       {
-        "line": 36,
+        "line": 37,
         "text": "export const fieldNode = (g: SystemGraph, id: string | null | undefined): FieldNode | undefined => {"
       },
       {
-        "line": 41,
+        "line": 42,
         "text": "g: SystemGraph,"
       },
       {
-        "line": 48,
+        "line": 49,
         "text": "g: SystemGraph,"
       },
       {
-        "line": 54,
+        "line": 55,
         "text": "export const storeNode = (g: SystemGraph, id: string | null | undefined): StoreNode | undefined => {"
       },
       {
-        "line": 59,
+        "line": 60,
         "text": "g: SystemGraph,"
       },
       {
-        "line": 80,
+        "line": 81,
         "text": "export function graphIndex(g: SystemGraph, graphId: string | null | undefined): GraphIndex {"
       },
       {
-        "line": 142,
+        "line": 143,
         "text": "export const sgName = (g: SystemGraph, id: string): string => {"
       },
       {
-        "line": 148,
+        "line": 149,
         "text": "export function fieldLabel(g: SystemGraph, fieldId: string): string {"
       }
     ],
@@ -59339,44 +59170,40 @@
         "text": "import { uniq } from '@/application/plan/derive-values';"
       },
       {
-        "line": 14,
+        "line": 15,
         "text": "import type { FieldNode, OperationNode, SystemGraph } from '@/domain/plan/plan-graph';"
       },
       {
-        "line": 36,
+        "line": 37,
         "text": "g: SystemGraph,"
       },
       {
-        "line": 88,
+        "line": 89,
         "text": "readonly g: SystemGraph;"
       },
       {
-        "line": 126,
+        "line": 127,
         "text": "g: SystemGraph,"
       },
       {
-        "line": 147,
+        "line": 148,
         "text": "g: SystemGraph,"
       },
       {
-        "line": 167,
+        "line": 168,
         "text": "function policyOf(g: SystemGraph, opId: string): ResponsePolicy {"
       },
       {
-        "line": 209,
+        "line": 210,
         "text": "export function responsePolicy(g: SystemGraph, opId: string): ResponsePolicy {"
       },
       {
-        "line": 214,
+        "line": 215,
         "text": "export function fetchMaxAge(g: SystemGraph, opId: string, fetch: Fetch): number {"
       },
       {
-        "line": 239,
+        "line": 240,
         "text": "export function invalidators(g: SystemGraph, storeId: string): Invalidators {"
-      },
-      {
-        "line": 247,
-        "text": "const heard = flow.steps.slice(0, i + 1).findLast((x) => x.via.startsWith('msg:'));"
       }
     ],
     "status": "adapter"
@@ -59433,23 +59260,23 @@
     "file": "src/application/plan/federation-sdl.ts",
     "hits": [
       {
-        "line": 4,
+        "line": 5,
         "text": "import type { FieldNode, SchemaNode, SystemGraph } from '@/domain/plan/plan-graph';"
       },
       {
-        "line": 27,
+        "line": 28,
         "text": "function selectionText(g: SystemGraph, type: SchemaNode, ids: readonly string[]): string {"
       },
       {
-        "line": 79,
+        "line": 80,
         "text": "readonly g: SystemGraph;"
       },
       {
-        "line": 139,
+        "line": 140,
         "text": "g: SystemGraph,"
       },
       {
-        "line": 161,
+        "line": 162,
         "text": "g: SystemGraph,"
       }
     ],
@@ -59805,11 +59632,11 @@
     "file": "src/application/plan/flow-experience.ts",
     "hits": [
       {
-        "line": 8,
+        "line": 9,
         "text": "import type { ScreenNode, SystemGraph } from '@/domain/plan/plan-graph';"
       },
       {
-        "line": 28,
+        "line": 29,
         "text": "function interactiveKind(graph: SystemGraph, screen: ScreenNode, step: FlowStep): MomentKind {"
       }
     ],
@@ -59911,17 +59738,6 @@
   },
   {
     "category": "consumer",
-    "file": "src/application/plan/flow-sequence.ts",
-    "hits": [
-      {
-        "line": 99,
-        "text": "const pub = steps.slice(0, i).findLast((p) => p.to === topic && p.via.startsWith('msg:'));"
-      }
-    ],
-    "status": "adapter"
-  },
-  {
-    "category": "consumer",
     "file": "src/application/plan/flow-steps.ts",
     "hits": [
       {
@@ -59929,16 +59745,8 @@
         "text": "import type { Model } from '@/application/plan/derive';"
       },
       {
-        "line": 4,
+        "line": 5,
         "text": "import type { Flow } from '@/domain/plan/plan.generated';"
-      },
-      {
-        "line": 21,
-        "text": "typeOf(model, id) === 'store' || id.startsWith('st:');"
-      },
-      {
-        "line": 78,
-        "text": "if (s.via.startsWith('msg:')) return 'msg';"
       }
     ],
     "status": "adapter"
@@ -59948,87 +59756,71 @@
     "file": "src/application/plan/graph-queries.ts",
     "hits": [
       {
-        "line": 2,
+        "line": 3,
         "text": "import type { Fanout, OpKind, StepNode, StoreNode, SystemGraph } from '@/domain/plan/plan-graph';"
       },
       {
-        "line": 3,
+        "line": 4,
         "text": "import type { Stage } from '@/domain/plan/plan.generated';"
       },
       {
-        "line": 5,
+        "line": 6,
         "text": "const isTopic = (st: StoreNode): boolean => st.kind === 'topic' || st.kind === 'queue';"
       },
       {
-        "line": 8,
+        "line": 9,
         "text": "function storeOfRef(g: SystemGraph, ref: string): string | null {"
       },
       {
-        "line": 18,
-        "text": "if (via.startsWith('msg:')) return 'msg';"
-      },
-      {
-        "line": 19,
-        "text": "return via.startsWith('api:') ? 'api' : 'internal';"
-      },
-      {
-        "line": 33,
+        "line": 34,
         "text": "(list ?? []).map((ref) => ({ svc: actor, ref, store: storeOfRef(g, ref), rw }));"
       },
       {
-        "line": 45,
+        "line": 46,
         "text": "purges: (step.purges ?? []).map((store) => ({ svc: actor, store })),"
       },
       {
-        "line": 54,
+        "line": 55,
         "text": "export function actingService(g: SystemGraph, step: Pick<StepNode, 'from' | 'to'>): string | null {"
       },
       {
-        "line": 60,
+        "line": 61,
         "text": "export function canAccess(store: StoreNode, svc: string, need: 'read' | 'write'): boolean {"
       },
       {
-        "line": 84,
+        "line": 85,
         "text": "const writersOf = (st: StoreNode): string[] => ["
       },
       {
-        "line": 91,
+        "line": 92,
         "text": "const readersOf = (st: StoreNode): string[] =>"
       },
       {
-        "line": 102,
+        "line": 103,
         "text": "function stepLinks(g: SystemGraph, put: Put, fanout: Fanout): void {"
       },
       {
-        "line": 104,
-        "text": "if (s.via.startsWith('api:')) put(s.to, s.from, { kind: 'api', via: s.via });"
-      },
-      {
-        "line": 107,
-        "text": "} else if (!s.via.startsWith('msg:')) put(s.to, s.from, { kind: 'api' });"
-      },
-      {
-        "line": 111,
+        "line": 112,
         "text": "function messageLinks(g: SystemGraph, put: Put): void {"
       },
       {
-        "line": 119,
+        "line": 120,
         "text": "function topicLinks(st: StoreNode, put: Put): void {"
       },
       {
-        "line": 126,
+        "line": 127,
         "text": "function storeLinks(g: SystemGraph, put: Put): void {"
       },
       {
-        "line": 134,
+        "line": 135,
         "text": "function fromLinks(g: SystemGraph, put: Put, [svc, src]: readonly [string, string]): void {"
       },
       {
-        "line": 160,
+        "line": 161,
         "text": "function stageLinks(g: SystemGraph, put: Put, stages: readonly Stage[]): void {"
       },
       {
-        "line": 175,
+        "line": 176,
         "text": "g: SystemGraph,"
       }
     ],
@@ -60073,12 +59865,8 @@
     "file": "src/application/plan/ids.ts",
     "hits": [
       {
-        "line": 10,
+        "line": 3,
         "text": "import type { Plan } from '@/domain/plan/plan.generated';"
-      },
-      {
-        "line": 38,
-        "text": "/** Entity type of an id, or null when the prefix is unknown. `flow:x#y` is a step, `sch:x#y` a field. */"
       }
     ],
     "status": "adapter"
@@ -60099,7 +59887,7 @@
     "file": "src/application/plan/impact-fields.ts",
     "hits": [
       {
-        "line": 4,
+        "line": 5,
         "text": "import type { Field, Schema, Step } from '@/domain/plan/plan.generated';"
       }
     ],
@@ -60136,19 +59924,19 @@
         "text": "import { sameJson } from '@/application/plan/derive-values';"
       },
       {
-        "line": 4,
+        "line": 5,
         "text": "import type { SystemGraph, SystemSource } from '@/domain/plan/plan-graph';"
       },
       {
-        "line": 16,
+        "line": 17,
         "text": "} from '@/domain/plan/plan.generated';"
       },
       {
-        "line": 27,
+        "line": 28,
         "text": "readonly sys: SystemSource;"
       },
       {
-        "line": 28,
+        "line": 29,
         "text": "readonly g: SystemGraph;"
       },
       {
@@ -60358,19 +60146,19 @@
         "text": "import { objects, sameJson, textOf, uniq } from '@/application/plan/derive-values';"
       },
       {
-        "line": 3,
+        "line": 4,
         "text": "import type { StepNode, SystemGraph } from '@/domain/plan/plan-graph';"
       },
       {
-        "line": 28,
+        "line": 29,
         "text": "readonly asIs: SystemGraph;"
       },
       {
-        "line": 29,
+        "line": 30,
         "text": "readonly toBe: SystemGraph;"
       },
       {
-        "line": 35,
+        "line": 36,
         "text": "const entity = (graph: SystemGraph, id: string): Rec | null => {"
       }
     ],
@@ -60519,21 +60307,6 @@
       {
         "line": 132,
         "text": "expect(mmText('see [[svc:orders]] and [[fld:order#total]]')).toBe('see orders and total');"
-      }
-    ],
-    "status": "adapter"
-  },
-  {
-    "category": "consumer",
-    "file": "src/application/plan/mermaid.ts",
-    "hits": [
-      {
-        "line": 43,
-        "text": "if (via.startsWith('msg:')) {"
-      },
-      {
-        "line": 61,
-        "text": "const store = prop(e, '$type') === 'store' || p.startsWith('st:');"
       }
     ],
     "status": "adapter"
@@ -61070,7 +60843,7 @@
     "file": "src/application/plan/progress.ts",
     "hits": [
       {
-        "line": 4,
+        "line": 5,
         "text": "import type { Progress, ProgressEvent } from '@/domain/plan/plan.generated';"
       }
     ],
@@ -61451,19 +61224,19 @@
     "file": "src/application/plan/realisation.ts",
     "hits": [
       {
-        "line": 6,
+        "line": 7,
         "text": "import type { Change, Op, OpAdd, OpModify, Plan } from '@/domain/plan/plan.generated';"
       },
       {
-        "line": 7,
+        "line": 8,
         "text": "import type { Origin } from '@/domain/workspace-model';"
       },
       {
-        "line": 51,
+        "line": 52,
         "text": "/** Today, by id, as realisation reads it. */"
       },
       {
-        "line": 83,
+        "line": 84,
         "text": "/** Today indexed by id (named parts too), with each fact's authority. */"
       }
     ],
@@ -61646,23 +61419,23 @@
         "text": "import { collectionsOf, fingerprintOf, type PlanBase } from '@/application/plan/plan-base';"
       },
       {
-        "line": 5,
+        "line": 6,
         "text": "import type { Plan } from '@/domain/plan/plan.generated';"
       },
       {
-        "line": 29,
+        "line": 30,
         "text": "/** Today with the stack applied, who did what, and the ops that no longer apply in that order. */"
       },
       {
-        "line": 38,
+        "line": 39,
         "text": "Object.values(collectionsOf(system))"
       },
       {
-        "line": 98,
+        "line": 99,
         "text": "* Today with each layer's changes applied in the order given (bases first). What a layer adds is \"added\" by it"
       },
       {
-        "line": 128,
+        "line": 129,
         "text": "return { collections: collectionsOf(stacked.system), mode: 'live', landedOn: null };"
       }
     ],
@@ -61699,19 +61472,19 @@
     "file": "src/application/plan/ui-journeys-interactions.ts",
     "hits": [
       {
-        "line": 12,
+        "line": 13,
         "text": "import type { SystemGraph, UserJourneyNode } from '@/domain/plan/plan-graph';"
       },
       {
-        "line": 16,
+        "line": 17,
         "text": "function nameOf(graph: SystemGraph, id: string): string | null {"
       },
       {
-        "line": 22,
+        "line": 23,
         "text": "function edgesOf(graph: SystemGraph, byScreen: ReadonlyMap<string, MapNode>): InteractionEdge[] {"
       },
       {
-        "line": 113,
+        "line": 114,
         "text": "graph: SystemGraph,"
       }
     ],
@@ -61788,15 +61561,15 @@
     "file": "src/application/plan/ui-journeys.ts",
     "hits": [
       {
-        "line": 2,
+        "line": 3,
         "text": "import type { FlowNode, ScreenNode, StepNode, SystemGraph } from '@/domain/plan/plan-graph';"
       },
       {
-        "line": 74,
+        "line": 75,
         "text": "function stopsOf(graph: SystemGraph, flow: FlowNode): Stop[] {"
       },
       {
-        "line": 118,
+        "line": 119,
         "text": "* Today's recorded screen paths. Each baseline flow keeps its own boundary; proposal scenarios do not"
       }
     ],
@@ -62086,7 +61859,7 @@
         "text": "import type { Model } from '@/application/plan/derive';"
       },
       {
-        "line": 7,
+        "line": 8,
         "text": "import type { Milestone, Test, WorkItem } from '@/domain/plan/plan.generated';"
       }
     ],
@@ -62131,19 +61904,19 @@
     "file": "src/application/scan-explorer/current-callers.ts",
     "hits": [
       {
-        "line": 1,
+        "line": 2,
         "text": "import { evidenceAnchor } from '@/domain/knowledge/evidence-anchor';"
       },
       {
-        "line": 2,
+        "line": 3,
         "text": "import type { ExplorerIndex } from '@/domain/scan-explorer/contracts';"
       },
       {
-        "line": 6,
+        "line": 7,
         "text": "} from '@/domain/scan-explorer/current-connections';"
       },
       {
-        "line": 11,
+        "line": 12,
         "text": "} from '@/domain/scan-explorer/current-contracts';"
       }
     ],
@@ -62176,7 +61949,7 @@
     "file": "src/application/scan-explorer/current-page.ts",
     "hits": [
       {
-        "line": 6,
+        "line": 7,
         "text": "} from '@/domain/scan-explorer/current-contracts';"
       }
     ],
@@ -62538,47 +62311,43 @@
         "text": "import type { SystemModel } from '@/application/workspace-model';"
       },
       {
-        "line": 5,
+        "line": 7,
         "text": "import { systemsOf, type Workspace } from '@/domain/workspace';"
       },
       {
-        "line": 12,
-        "text": "} from '@/domain/workspace-model';"
+        "line": 8,
+        "text": "import type { CodeSource, Origin, Scan, ScanCheck } from '@/domain/workspace-model';"
       },
       {
-        "line": 50,
+        "line": 46,
         "text": "readonly workspace: Workspace;"
       },
       {
-        "line": 51,
+        "line": 47,
         "text": "readonly system: SystemModel;"
       },
       {
-        "line": 58,
+        "line": 54,
         "text": "export function systemMapOf(workspace: Workspace, system: SystemModel): SystemMap {"
       },
       {
-        "line": 82,
+        "line": 78,
         "text": "/** Each component's system and domain, and each system's domain, keyed by id (systems as `sys:<id>`). */"
       },
       {
-        "line": 83,
+        "line": 79,
         "text": "function placesOf(workspace: Workspace): Map<string, Place> {"
       },
       {
-        "line": 87,
-        "text": "out.set(`sys:${system.id}`, { domain: domain.id, system: system.id, component: null });"
-      },
-      {
-        "line": 96,
+        "line": 92,
         "text": "function placeOf(id: string, system: SystemModel, where: ReadonlyMap<string, Place>): Place {"
       },
       {
-        "line": 108,
+        "line": 104,
         "text": "system: SystemModel,"
       },
       {
-        "line": 142,
+        "line": 138,
         "text": "function reposOf(workspace: Workspace, scans: readonly Scan[]): RepoState[] {"
       }
     ],
@@ -62696,24 +62465,12 @@
         "text": "import type { Model } from '@/application/plan/derive';"
       },
       {
-        "line": 4,
+        "line": 6,
         "text": "import type { HandlerSource, HandlerStep, HandlerSteps } from '@/domain/plan/plan.generated';"
       },
       {
-        "line": 5,
-        "text": "import { permalinkOf } from '@/domain/workspace-model';"
-      },
-      {
-        "line": 133,
-        "text": "if (callees.length === 0) return { next: [], stop: null, unread: target.startsWith('api:') };"
-      },
-      {
-        "line": 245,
+        "line": 248,
         "text": "function viewOf(walk: Walk, h: HandlerNode): HandlerView {"
-      },
-      {
-        "line": 293,
-        "text": ").filter((s) => s.startsWith('sys:') && !home.has(s));"
       }
     ],
     "status": "adapter"
@@ -62727,16 +62484,12 @@
         "text": "import type { Model } from '@/application/plan/derive';"
       },
       {
-        "line": 9,
+        "line": 10,
         "text": "import type { Workspace } from '@/domain/workspace';"
       },
       {
-        "line": 43,
+        "line": 44,
         "text": "export function journeyIndexOf(workspace: Workspace, model: Model): JourneyIndex {"
-      },
-      {
-        "line": 45,
-        "text": "workspace.domains.flatMap((d) => d.systems.map((s) => [`sys:${s.id}`, d.id] as const)),"
       }
     ],
     "status": "adapter"
@@ -62804,7 +62557,7 @@
         "text": "import type { Model } from '@/application/plan/derive';"
       },
       {
-        "line": 23,
+        "line": 24,
         "text": "/** The `sys:` ids of the systems the steps run through, in the order they are first reached. */"
       }
     ],
@@ -62920,11 +62673,11 @@
         "text": "import type { SystemModel } from '@/application/workspace-model';"
       },
       {
-        "line": 3,
+        "line": 4,
         "text": "import { type CodeHome, homeLabel, homeOf, type Workspace } from '@/domain/workspace';"
       },
       {
-        "line": 4,
+        "line": 5,
         "text": "import type { ScanCheck } from '@/domain/workspace-model';"
       },
       {
@@ -62951,31 +62704,23 @@
         "text": "import type { Model } from '@/application/plan/derive';"
       },
       {
-        "line": 8,
+        "line": 9,
         "text": "import type { Workspace } from '@/domain/workspace';"
       },
       {
-        "line": 26,
+        "line": 27,
         "text": "/** The domain name (\"Website\") under each `sys:` id, for the cards of a map. Inside a domain the page already"
       },
       {
-        "line": 28,
+        "line": 29,
         "text": "function placesOf(workspace: Workspace, scope: ModelScope): Record<string, string> {"
       },
       {
-        "line": 30,
-        "text": "scope.kind !== 'workspace' && systems.some((system) => scope.focus.has(`sys:${system.id}`));"
-      },
-      {
-        "line": 34,
-        "text": ".flatMap((domain) => domain.systems.map((system) => [`sys:${system.id}`, domain.name])),"
-      },
-      {
-        "line": 39,
+        "line": 43,
         "text": "export function mapScopeOf(workspace: Workspace, scope: ModelScope): MapScope {"
       },
       {
-        "line": 63,
+        "line": 67,
         "text": "/** Their `sys:` ids. */"
       }
     ],
@@ -63127,39 +62872,31 @@
         "text": "import type { Model } from '@/application/plan/derive';"
       },
       {
-        "line": 2,
+        "line": 4,
         "text": "import type { Workspace } from '@/domain/workspace';"
       },
       {
-        "line": 8,
-        "text": "} from '@/domain/workspace-model';"
+        "line": 5,
+        "text": "import type { Attribution, CodeSource, Origin } from '@/domain/workspace-model';"
       },
       {
-        "line": 30,
+        "line": 27,
         "text": "function holderOf(workspace: Workspace, component: string) {"
       },
       {
-        "line": 40,
+        "line": 37,
         "text": "function systemPlace(workspace: Workspace, id: string): TodayPlace | null {"
       },
       {
-        "line": 42,
-        "text": "const system = domain.systems.find((s) => `sys:${s.id}` === id);"
-      },
-      {
-        "line": 49,
+        "line": 46,
         "text": "workspace: Workspace,"
       },
       {
-        "line": 65,
+        "line": 62,
         "text": "export function todayPlaceOf(workspace: Workspace, model: Model, id: string): TodayPlace | null {"
       },
       {
-        "line": 66,
-        "text": "if (id.startsWith('sys:')) return systemPlace(workspace, id);"
-      },
-      {
-        "line": 150,
+        "line": 147,
         "text": "export function todayScreensOf(workspace: Workspace): PaletteEntry[] {"
       }
     ],
@@ -63649,55 +63386,39 @@
         "text": "import type { Model } from '@/application/plan/derive';"
       },
       {
-        "line": 18,
+        "line": 20,
         "text": "type Workspace,"
       },
       {
-        "line": 20,
+        "line": 22,
         "text": "} from '@/domain/workspace';"
       },
       {
-        "line": 21,
+        "line": 23,
         "text": "import type { Attribution } from '@/domain/workspace-model';"
       },
       {
-        "line": 112,
+        "line": 114,
         "text": "readonly workspace: Workspace;"
       },
       {
-        "line": 130,
-        "text": "(service) => service.id === component.id || service.id === component.id.replace(/^svc:/u, ''),"
-      },
-      {
-        "line": 156,
+        "line": 158,
         "text": "function systemNameOf(workspace: Workspace, id: string | null | undefined): string | null {"
       },
       {
-        "line": 158,
-        "text": "const key = id.replace(/^sys:/u, '');"
-      },
-      {
-        "line": 165,
+        "line": 167,
         "text": "function callerLookup(workspace: Workspace, model?: Model): (id: string) => AreaCallerView {"
       },
       {
-        "line": 172,
-        "text": "component?.$type === 'service' ? (component.system?.replace(/^sys:/u, '') ?? null) : null;"
-      },
-      {
-        "line": 195,
-        "text": "const id = component.replace(/^svc:/u, '');"
-      },
-      {
-        "line": 231,
+        "line": 233,
         "text": "const dependencySystem = (workspace: Workspace, component: string): string | null =>"
       },
       {
-        "line": 240,
+        "line": 242,
         "text": "workspace: Workspace,"
       },
       {
-        "line": 303,
+        "line": 305,
         "text": "readonly workspace: Workspace;"
       }
     ],
@@ -63712,23 +63433,19 @@
         "text": "import type { Model } from '@/application/plan/derive';"
       },
       {
-        "line": 9,
+        "line": 10,
         "text": "import { type Domain, homeLabel, systemDoes, type Workspace } from '@/domain/workspace';"
       },
       {
-        "line": 79,
+        "line": 80,
         "text": "function teamCard(workspace: Workspace, model: Model, id: string | null): DomainTeam | null {"
       },
       {
-        "line": 96,
+        "line": 97,
         "text": "export function domainViewOf(workspace: Workspace, model: Model, id: string): DomainView | null {"
       },
       {
-        "line": 103,
-        "text": "[`sys:${system.id}`, system.name] as const,"
-      },
-      {
-        "line": 160,
+        "line": 161,
         "text": "workspace: Workspace,"
       }
     ],
@@ -63758,19 +63475,15 @@
         "text": "import type { Model } from '@/application/plan/derive';"
       },
       {
-        "line": 6,
+        "line": 7,
         "text": "import { componentsOf, type Domain, systemsOf, type Workspace } from '@/domain/workspace';"
       },
       {
-        "line": 25,
+        "line": 26,
         "text": "function headlineOf(workspace: Workspace): string {"
       },
       {
-        "line": 39,
-        "text": "const ids = new Set(domain.systems.map((s) => `sys:${s.id}`));"
-      },
-      {
-        "line": 51,
+        "line": 52,
         "text": "export function landscapeOf(workspace: Workspace, model: Model): Landscape {"
       }
     ],
@@ -63828,15 +63541,11 @@
         "text": "function anchorWarnings(workspace: Workspace, model: WorkspaceModel): string[] {"
       },
       {
-        "line": 23,
-        "text": "...workspace.domains.flatMap((d) => [`dom:${d.id}`, ...d.systems.map((s) => `sys:${s.id}`)]),"
-      },
-      {
-        "line": 40,
+        "line": 43,
         "text": "export function languageWarnings(workspace: Workspace, model: WorkspaceModel): string[] {"
       },
       {
-        "line": 80,
+        "line": 83,
         "text": "workspace: Workspace,"
       }
     ],
@@ -63962,56 +63671,44 @@
     "file": "src/application/workspace-model.ts",
     "hits": [
       {
-        "line": 3,
-        "text": "// system model (contracts.yaml, story.yaml, flows/, journeys/) gives what they offer and keep."
-      },
-      {
-        "line": 4,
+        "line": 1,
         "text": "import { derive, type Model } from '@/application/plan/derive';"
       },
       {
-        "line": 5,
+        "line": 6,
+        "text": "// system model (contracts.yaml, story.yaml, flows/, journeys/) gives what they offer and keep."
+      },
+      {
+        "line": 7,
         "text": "import type { Plan, Service, Store } from '@/domain/plan/plan.generated';"
       },
       {
-        "line": 13,
+        "line": 15,
         "text": "type Workspace,"
       },
       {
-        "line": 14,
+        "line": 16,
         "text": "} from '@/domain/workspace';"
       },
       {
-        "line": 23,
+        "line": 25,
         "text": "WorkspaceModel,"
       },
       {
-        "line": 24,
+        "line": 26,
         "text": "} from '@/domain/workspace-model';"
       },
       {
-        "line": 26,
+        "line": 28,
         "text": "export interface SystemModel {"
       },
       {
-        "line": 56,
+        "line": 58,
         "text": "export function systemModelOf(workspace: Workspace, model: WorkspaceModel): SystemModel {"
       },
       {
-        "line": 69,
+        "line": 71,
         "text": "function systemPlanOf(workspace: Workspace, model: WorkspaceModel): Plan {"
-      },
-      {
-        "line": 89,
-        "text": "id: `sys:${system.id}`,"
-      },
-      {
-        "line": 94,
-        "text": ": { runs_on: `sys:${system.runsOn}` }),"
-      },
-      {
-        "line": 151,
-        "text": "system: `sys:${system.id}`,"
       }
     ],
     "status": "adapter"
@@ -64090,28 +63787,24 @@
     "file": "src/application/workspace-paths.ts",
     "hits": [
       {
-        "line": 1,
+        "line": 2,
         "text": "import type { Team, Workspace } from '@/domain/workspace';"
       },
       {
-        "line": 56,
+        "line": 57,
         "text": "export function teamOf(workspace: Workspace, id: string | null): Team | null {"
       },
       {
-        "line": 60,
+        "line": 61,
         "text": "export function findWorkspace(workspaces: readonly Workspace[], id: string): Workspace | null {"
       },
       {
-        "line": 64,
+        "line": 65,
         "text": "/** Each system's page, by its `sys:` id, for the inspector to open. */"
       },
       {
-        "line": 65,
+        "line": 66,
         "text": "export function systemPagesOf(workspace: Workspace): Record<string, string> {"
-      },
-      {
-        "line": 69,
-        "text": "`sys:${system.id}`,"
       }
     ],
     "status": "adapter"
@@ -64241,19 +63934,15 @@
         "text": "import type { SystemModel } from '@/application/workspace-model';"
       },
       {
-        "line": 8,
+        "line": 9,
         "text": "import type { KeyTerms, TargetArchitecture } from '@/domain/workspace-model';"
       },
       {
-        "line": 66,
+        "line": 67,
         "text": "today: Pick<SystemModel, 'model' | 'targets' | 'keyTerms'>,"
       },
       {
-        "line": 111,
-        "text": "const domain = places[id.startsWith('sys:') ? id : (service?.system ?? '')];"
-      },
-      {
-        "line": 118,
+        "line": 119,
         "text": "today: Pick<SystemModel, 'model' | 'targets' | 'keyTerms'>,"
       }
     ],
@@ -64348,7 +64037,7 @@
     "file": "src/application/workspace-work/milestones.ts",
     "hits": [
       {
-        "line": 4,
+        "line": 6,
         "text": "import type { ProgressEvent } from '@/domain/plan/plan.generated';"
       }
     ],
@@ -64492,12 +64181,8 @@
     "file": "src/application/workspace-work/workspace-plan-index.ts",
     "hits": [
       {
-        "line": 18,
+        "line": 20,
         "text": "} from '@/domain/plan/plan.generated';"
-      },
-      {
-        "line": 177,
-        "text": "return target.startsWith('sys:') ? target : (systemOf(rootOf(target)) ?? '');"
       }
     ],
     "status": "adapter"
@@ -64509,6 +64194,208 @@
       {
         "line": 64,
         "text": "if (!object(value) || value.format !== 'service-explorer/v1') {"
+      }
+    ],
+    "status": "adapter"
+  },
+  {
+    "category": "fixture or test",
+    "file": "src/domain/ids.test.ts",
+    "hits": [
+      {
+        "line": 39,
+        "text": "expect(id).toBe('h:apply#tx/queue/outbox');"
+      },
+      {
+        "line": 50,
+        "text": "expect(kindOf('sch:response#status')).toBe('field');"
+      },
+      {
+        "line": 53,
+        "text": "expect(appendChild(childId(parent, 'tx'), 'read')).toBe('h:apply#tx/read');"
+      },
+      {
+        "line": 54,
+        "text": "expect(appendChild(parent, 'read')).toBe('h:apply#read');"
+      },
+      {
+        "line": 57,
+        "text": "it.each([null, 2, 'unknown:x', 'h:x#', 'h:x#tx//read', 'h:x#!', 'h:x#two words', 'h:x#a#b'])("
+      },
+      {
+        "line": 67,
+        "text": "expect(planEntityTypeOf('sch:x#id')).toBe('field');"
+      },
+      {
+        "line": 69,
+        "text": "expect(planEntityTypeOf('h:x#read')).toBeNull();"
+      },
+      {
+        "line": 70,
+        "text": "expect(planEntityTypeOf('api:x')).toBe('endpoint');"
+      },
+      {
+        "line": 75,
+        "text": "expect(tokenToId('svc-orders')).toBe('svc:orders');"
+      },
+      {
+        "line": 84,
+        "text": "expect(scopedId('care', 'h:x#tx/read')).toBe('care/h:x#tx/read');"
+      },
+      {
+        "line": 85,
+        "text": "expect(scopedId('care', 'other/h:x#tx/read')).toBe('other/h:x#tx/read');"
+      },
+      {
+        "line": 89,
+        "text": "expect(prefixOf('svc:orders')).toBe('svc');"
+      },
+      {
+        "line": 91,
+        "text": "expect(hasPrefix('svc:orders', 'svc')).toBe(true);"
+      },
+      {
+        "line": 92,
+        "text": "expect(stripPrefix('svc:orders', 'svc')).toBe('orders');"
+      },
+      {
+        "line": 93,
+        "text": "expect(stripPrefix('st:orders', 'svc')).toBe('st:orders');"
+      },
+      {
+        "line": 97,
+        "text": "expect(childPathOf('h:x')).toBeUndefined();"
+      },
+      {
+        "line": 98,
+        "text": "expect(splitChildId('h:x#tx/read')).toEqual(['h:x', 'tx/read']);"
+      },
+      {
+        "line": 99,
+        "text": "expect(colonLocalId('svc:orders')).toBe('orders');"
+      },
+      {
+        "line": 101,
+        "text": "expect(localId('svc:orders')).toBe('orders');"
+      },
+      {
+        "line": 102,
+        "text": "expect(lastChildId('h:x#read')).toBe('read');"
+      },
+      {
+        "line": 103,
+        "text": "expect(isQualifiedId('svc:orders')).toBe(true);"
+      },
+      {
+        "line": 105,
+        "text": "expect(hasChildPath('h:x#read')).toBe(true);"
+      },
+      {
+        "line": 106,
+        "text": "expect(isDisplayId('svc:orders')).toBe(true);"
+      },
+      {
+        "line": 107,
+        "text": "expect(startsWithId('svc:orders')).toBe(true);"
+      },
+      {
+        "line": 108,
+        "text": "expect(isTextId('svc:orders')).toBe(true);"
+      },
+      {
+        "line": 109,
+        "text": "expect(isTextId('svc:orders are new')).toBe(false);"
+      },
+      {
+        "line": 116,
+        "text": "resolveAlias('h:old#tx/read', { 'h:old': { to: 'h:middle' }, 'h:middle': { to: 'h:new' } }),"
+      },
+      {
+        "line": 117,
+        "text": ").toEqual({ id: 'h:new#tx/read', used: ['h:old', 'h:middle'], problem: null });"
+      },
+      {
+        "line": 119,
+        "text": "resolveAlias('h:old#tx/read', {"
+      },
+      {
+        "line": 120,
+        "text": "'h:old': { to: 'h:new' },"
+      },
+      {
+        "line": 121,
+        "text": "'h:old#tx/read': { to: 'h:other#fetch' },"
+      },
+      {
+        "line": 123,
+        "text": ").toBe('h:other#fetch');"
+      },
+      {
+        "line": 124,
+        "text": "expect(resolveAlias('svc:current', {}).used).toEqual([]);"
+      },
+      {
+        "line": 129,
+        "text": "resolveAlias('svc:old', { 'svc:old': { to: null, reason: 'Retired without replacement' } }),"
+      },
+      {
+        "line": 130,
+        "text": ").toEqual({ id: null, used: ['svc:old'], problem: 'Retired without replacement' });"
+      },
+      {
+        "line": 131,
+        "text": "expect(resolveAlias('svc:old', { 'svc:old': { to: null } }).problem).toBe("
+      },
+      {
+        "line": 132,
+        "text": "'Alias svc:old needs a reason',"
+      },
+      {
+        "line": 135,
+        "text": "resolveAlias('svc:a', { 'svc:a': { to: 'svc:b' }, 'svc:b': { to: 'svc:a' } }).problem,"
+      },
+      {
+        "line": 136,
+        "text": ").toBe('Alias cycle at svc:a');"
+      }
+    ],
+    "status": "adapter"
+  },
+  {
+    "category": "consumer",
+    "file": "src/domain/ids.ts",
+    "hits": [
+      {
+        "line": 4,
+        "text": "sys: 'system',"
+      },
+      {
+        "line": 5,
+        "text": "svc: 'service',"
+      },
+      {
+        "line": 6,
+        "text": "st: 'store',"
+      },
+      {
+        "line": 7,
+        "text": "sch: 'schema',"
+      },
+      {
+        "line": 8,
+        "text": "if: 'interface',"
+      },
+      {
+        "line": 9,
+        "text": "api: 'endpoint',"
+      },
+      {
+        "line": 10,
+        "text": "msg: 'message',"
+      },
+      {
+        "line": 28,
+        "text": "h: 'handler',"
       }
     ],
     "status": "adapter"
@@ -64704,7 +64591,7 @@
     "file": "src/domain/knowledge/evidence-anchor.ts",
     "hits": [
       {
-        "line": 1,
+        "line": 3,
         "text": "import type { Evidence } from './knowledge.generated';"
       }
     ],
@@ -64952,38 +64839,6 @@
       {
         "line": 2,
         "text": "// (steps, fields, regions). Endpoints sit inside interfaces but carry top-level `api:*` ids; requirements sit"
-      },
-      {
-        "line": 8,
-        "text": "sys: 'system',"
-      },
-      {
-        "line": 9,
-        "text": "svc: 'service',"
-      },
-      {
-        "line": 10,
-        "text": "st: 'store',"
-      },
-      {
-        "line": 11,
-        "text": "sch: 'schema',"
-      },
-      {
-        "line": 12,
-        "text": "if: 'interface',"
-      },
-      {
-        "line": 13,
-        "text": "api: 'endpoint',"
-      },
-      {
-        "line": 14,
-        "text": "msg: 'message',"
-      },
-      {
-        "line": 32,
-        "text": "h: 'handler',"
       }
     ],
     "status": "adapter"
@@ -66594,11 +66449,11 @@
         "text": "import type { Model } from '@/application/plan/derive';"
       },
       {
-        "line": 152,
+        "line": 153,
         "text": "api: 'What happens when it is called',"
       },
       {
-        "line": 153,
+        "line": 154,
         "text": "msg: 'What happens when it arrives',"
       }
     ],
@@ -67540,10 +67395,6 @@
       {
         "line": 1,
         "text": "import type { Model } from '@/application/plan/derive';"
-      },
-      {
-        "line": 60,
-        "text": "if (via?.startsWith('msg:') === true) return 'event';"
       }
     ],
     "status": "adapter"
@@ -67828,10 +67679,6 @@
       {
         "line": 1,
         "text": "import type { Model } from '@/application/plan/derive';"
-      },
-      {
-        "line": 18,
-        "text": "if (id.startsWith('msg:')) return <EventLine bare id={id} mode=\"diff\" model={model} />;"
       }
     ],
     "status": "adapter"
@@ -68553,17 +68400,6 @@
       {
         "line": 77,
         "text": "<ZoomPane focus={{ x: 10, y: 10, w: 100, h: 50 }} w={600} h={300}>"
-      }
-    ],
-    "status": "adapter"
-  },
-  {
-    "category": "consumer",
-    "file": "src/features/service-explorer/explorer-corpus.client.tsx",
-    "hits": [
-      {
-        "line": 87,
-        "text": "const requested = new URLSearchParams(query).get('service')?.replace(/^svc:/u, '');"
       }
     ],
     "status": "adapter"
@@ -69842,11 +69678,11 @@
     "file": "src/infrastructure/scan/discovery-inventory-packets.ts",
     "hits": [
       {
-        "line": 290,
+        "line": 291,
         "text": "format: 'scan-discovery-packets/v1',"
       },
       {
-        "line": 300,
+        "line": 301,
         "text": "inputs: { format: 'scan-interpretation-inputs/v1', inputs: state.inputs },"
       }
     ],
@@ -70320,12 +70156,12 @@
     "file": "src/infrastructure/workspace-model-facts.ts",
     "hits": [
       {
-        "line": 7,
+        "line": 8,
         "text": "import type { Source } from '@/domain/plan/plan.generated';"
       },
       {
-        "line": 14,
-        "text": "} from '@/domain/workspace-model';"
+        "line": 9,
+        "text": "import type { Attribution, CodeSource, ComponentDetail, Origin } from '@/domain/workspace-model';"
       }
     ],
     "status": "adapter"
@@ -70562,10 +70398,6 @@
       {
         "line": 20,
         "text": "function systemsOfToday(today: NonNullable<Awaited<ReturnType<typeof readToday>>>['today']) {"
-      },
-      {
-        "line": 26,
-        "text": "if (id.startsWith('sys:')) return id;"
       },
       {
         "line": 33,
@@ -70999,31 +70831,39 @@
     "file": "test/architecture.test.ts",
     "hits": [
       {
-        "line": 27,
+        "line": 41,
+        "text": "code: 'export const systemId = (slug: string): string => `sys:${slug}`;\\n',"
+      },
+      {
+        "line": 47,
+        "text": "code: \"export const slugOf = (id: string): string => id.replace(/^svc:/u, '');\\n\","
+      },
+      {
+        "line": 66,
         "text": "file: 'src/infrastructure/scan-explorer/compiler.ts',"
       },
       {
-        "line": 63,
+        "line": 102,
         "text": "file: 'src/infrastructure/scan-explorer/disk-reader.ts',"
       },
       {
-        "line": 82,
+        "line": 121,
         "text": "code: \"import { readWorkspaces } from '@/infrastructure/workspace-store';\\n\\nexport const x = readWorkspaces;\\n\","
       },
       {
-        "line": 94,
+        "line": 133,
         "text": "code: \"import { readWorkspaces } from '@/infrastructure/workspace-store';\\n\\nexport const x = readWorkspaces;\\n\","
       },
       {
-        "line": 106,
+        "line": 145,
         "text": "code: \"import { systemsOf } from '@/domain/workspace';\\n\\nexport const x = systemsOf;\\n\","
       },
       {
-        "line": 235,
+        "line": 274,
         "text": "code: \"import { systemsOf } from '../domain/workspace';\\n\\nexport const x = systemsOf;\\n\","
       },
       {
-        "line": 277,
+        "line": 316,
         "text": "code: \"export * from '@/domain/workspace';\\n\","
       }
     ],
@@ -71049,12 +70889,12 @@
     "file": "test/fixtures/acme/model.ts",
     "hits": [
       {
-        "line": 10,
+        "line": 11,
         "text": "} from '@/domain/plan/plan.generated';"
       },
       {
         "line": 20,
-        "text": "type WorkspaceModel,"
+        "text": "WorkspaceModel,"
       },
       {
         "line": 21,
@@ -74146,87 +73986,83 @@
         "text": "import { type SystemModel, systemModelOf } from '@/application/workspace-model';"
       },
       {
-        "line": 9,
+        "line": 10,
         "text": "import type { Source } from '@/domain/plan/plan.generated';"
       },
       {
-        "line": 10,
+        "line": 11,
         "text": "import type { Workspace } from '@/domain/workspace';"
       },
       {
-        "line": 15,
-        "text": "type WorkspaceModel,"
+        "line": 12,
+        "text": "import type { CodeSource, SystemContracts, WorkspaceModel } from '@/domain/workspace-model';"
       },
       {
-        "line": 16,
-        "text": "} from '@/domain/workspace-model';"
-      },
-      {
-        "line": 22,
+        "line": 18,
         "text": "readonly workspace: Workspace;"
       },
       {
-        "line": 23,
+        "line": 19,
         "text": "readonly model: WorkspaceModel;"
       },
       {
-        "line": 24,
+        "line": 20,
         "text": "readonly today: SystemModel;"
       },
       {
-        "line": 31,
+        "line": 27,
         "text": "return { workspace, model, today: systemModelOf(workspace, model) };"
       },
       {
-        "line": 68,
+        "line": 64,
         "text": "* `await writeWorkspace(path.join(root, 'acme'), acmeFiles())`, then `readWorkspaces(root)`."
       },
       {
-        "line": 75,
+        "line": 71,
         "text": "export function filesOf(workspace: Workspace, model: WorkspaceModel): Record<string, unknown> {"
       },
       {
-        "line": 79,
+        "line": 75,
         "text": "'story.yaml': {"
       },
       {
-        "line": 109,
+        "line": 105,
         "text": "`scans/${scan.repo}.yaml`,"
       },
       {
-        "line": 124,
+        "line": 120,
         "text": "function structureFiles(workspace: Workspace): Record<string, unknown> {"
       },
       {
-        "line": 144,
+        "line": 140,
         "text": "files[`domains/${domain.id}/systems/${system.id}/system.yaml`] = set({"
       },
       {
-        "line": 151,
+        "line": 147,
         "text": "set({ ...component, talks_to: talksTo }),"
       },
       {
-        "line": 159,
+        "line": 155,
         "text": "function keyTermsFile({ keyTerms }: WorkspaceModel): Entry {"
       },
       {
-        "line": 180,
+        "line": 176,
         "text": "function factOf(model: WorkspaceModel): Fact {"
       },
       {
-        "line": 211,
+        "line": 207,
         "text": "function journeyFiles(model: WorkspaceModel, fact: Fact): Record<string, unknown> {"
       },
       {
-        "line": 245,
+        "line": 241,
         "text": "workspace: Workspace,"
       },
       {
-        "line": 246,
+        "line": 242,
         "text": "model: WorkspaceModel,"
       },
       {
-        "line": 266,
+        "line": 262,
         "text": "files[`domains/${domain.id}/systems/${system.id}/contracts.yaml`] = {"
       }
     ],
@@ -74873,31 +74709,31 @@
         "text": "import { systemModelOf } from '@/application/workspace-model';"
       },
       {
-        "line": 20,
+        "line": 21,
         "text": "import { selectedWorkspace, workspaceFolder } from '@/infrastructure/workspace-folders';"
       },
       {
-        "line": 21,
+        "line": 22,
         "text": "import { readWorkspaceModel } from '@/infrastructure/workspace-model';"
       },
       {
-        "line": 22,
+        "line": 23,
         "text": "import { readWorkspaces } from '@/infrastructure/workspace-store';"
       },
       {
-        "line": 36,
+        "line": 37,
         "text": "console.error(`Workspace: ${selected.name} (${selected.id}) at ${selected.folder}`);"
       },
       {
-        "line": 38,
+        "line": 39,
         "text": "const all = await readWorkspaces();"
       },
       {
-        "line": 41,
+        "line": 42,
         "text": "const model = await readWorkspaceModel(workspace);"
       },
       {
-        "line": 42,
+        "line": 43,
         "text": "return systemMapOf(workspace, systemModelOf(workspace, model));"
       }
     ],
@@ -74938,17 +74774,6 @@
       {
         "line": 8,
         "text": "it('names a github.com repo as org/name, as system.yaml does', () => {"
-      }
-    ],
-    "status": "adapter"
-  },
-  {
-    "category": "tool",
-    "file": "tools/permalink.ts",
-    "hits": [
-      {
-        "line": 25,
-        "text": "// `org/name` for github.com, as system.yaml lists repos; `host/org/name` for any other host"
       }
     ],
     "status": "adapter"
@@ -75059,32 +74884,28 @@
     "file": "tools/publish-corpus-explorer.ts",
     "hits": [
       {
-        "line": 5,
+        "line": 6,
         "text": "import { componentsOf } from '@/domain/workspace';"
       },
       {
-        "line": 10,
+        "line": 11,
         "text": "} from '@/infrastructure/scan-explorer/corpus-catalogue';"
       },
       {
-        "line": 11,
+        "line": 12,
         "text": "import { parseExplorerCatalogue } from '@/infrastructure/service-explorer-catalogue';"
       },
       {
-        "line": 12,
+        "line": 13,
         "text": "import { readWorkspaces } from '@/infrastructure/workspace-store';"
       },
       {
-        "line": 26,
+        "line": 27,
         "text": "const workspaces = await readWorkspaces();"
       },
       {
-        "line": 28,
+        "line": 29,
         "text": "if (workspace === undefined) throw new Error('Workspace not registered');"
-      },
-      {
-        "line": 46,
-        "text": "const component = components.find((item) => item.id === `svc:${slug}` || item.id === slug);"
       }
     ],
     "status": "adapter"
@@ -75267,11 +75088,11 @@
     "file": "tools/rebuild/inventory.ts",
     "hits": [
       {
-        "line": 11,
+        "line": 12,
         "text": "/WorkspaceModel|SystemModel|SystemGraph|\\bWorkspace\\b|\\bToday\\b|todayData|readToday|readWorkspace|systemModelOf|collectionsOf|onBase|legacyViewOf/u,"
       },
       {
-        "line": 13,
+        "line": 14,
         "text": "/knowledge|scan-discovery|scan-interpretation|contracts\\.yaml|handlers\\.yaml|system\\.yaml|story\\.yaml|landscape\\.yaml|base\\.lock|talks_to|scans\\/|explorer\\//u,"
       }
     ],
@@ -75286,43 +75107,43 @@
         "text": "import { type Model, derive } from '@/application/plan/derive';"
       },
       {
-        "line": 9,
+        "line": 10,
         "text": "import type { Workspace } from '@/domain/workspace';"
       },
       {
-        "line": 10,
+        "line": 11,
         "text": "import { listRevisions } from '@/infrastructure/plan-store';"
       },
       {
-        "line": 11,
+        "line": 12,
         "text": "import { readToday } from '@/infrastructure/today-model';"
       },
       {
-        "line": 12,
+        "line": 13,
         "text": "import { readAuthoredLandscape } from '@/infrastructure/workspace-landscape';"
       },
       {
-        "line": 13,
+        "line": 14,
         "text": "import { readLoadedPlans } from '@/infrastructure/workspace-plans';"
       },
       {
-        "line": 14,
+        "line": 15,
         "text": "import { readProgrammes } from '@/infrastructure/workspace-programmes';"
       },
       {
-        "line": 18,
+        "line": 19,
         "text": "workspace: Workspace,"
       },
       {
-        "line": 42,
+        "line": 43,
         "text": "workspace: Workspace,"
       },
       {
-        "line": 83,
+        "line": 84,
         "text": "const current = await readToday(id);"
       },
       {
-        "line": 98,
+        "line": 99,
         "text": "'explorer/',"
       }
     ],
@@ -75399,7 +75220,7 @@
         "text": "import { corpusIndexPages } from '@/application/scan-explorer/corpus-index-pages';"
       },
       {
-        "line": 3,
+        "line": 4,
         "text": "import type { CorpusRepository } from '@/infrastructure/scan-explorer/corpus-catalogue';"
       }
     ],
@@ -76373,11 +76194,11 @@
         "text": "// For every repo a system.yaml lists, asks the remote for the tip of the mark's branch (or the default branch when"
       },
       {
-        "line": 143,
+        "line": 145,
         "text": "// An entry of system.yaml's `repos:` is `org/name`, or `{ repo: org/name, path: folder }` for one folder of it."
       },
       {
-        "line": 159,
+        "line": 161,
         "text": "const file = path.join(systems, system, 'system.yaml');"
       }
     ],
@@ -76673,12 +76494,8 @@
         "text": "// A fact is any object with an `id` in a system's system.yaml, contracts.yaml or handlers.yaml, or in flows/ and"
       },
       {
-        "line": 47,
+        "line": 49,
         "text": "const GENERATED = new Set(['contracts.yaml', 'handlers.yaml']);"
-      },
-      {
-        "line": 192,
-        "text": "if (holder?.id.startsWith('h:') === true && isUnanchoredStep(node)) update(owner, unanchored);"
       }
     ],
     "status": "adapter"

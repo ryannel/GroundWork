@@ -1,4 +1,5 @@
 import type { Model } from '@/application/plan/derive';
+import { hasPrefix } from '@/domain/ids';
 import type { Concept } from '@/domain/plan/plan.generated';
 
 // The domain as the plan tells it: concept cards, and what each system calls the same thing.
@@ -115,7 +116,7 @@ export function narrowedTo(view: DomainView, only: readonly string[] | undefined
 /** One card per concept: name, meaning, where it is created, relations. */
 export function conceptCards(domain: DomainView): ConceptCard[] {
   const known = new Set(domain.concepts.map((c) => c.id));
-  const keep = (id: string): boolean => !id.startsWith('con:') || known.has(id);
+  const keep = (id: string): boolean => !hasPrefix(id, 'con') || known.has(id);
   return domain.concepts.map((c) => ({
     id: c.id,
     name: c.name,

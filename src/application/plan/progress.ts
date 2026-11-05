@@ -1,5 +1,6 @@
 import type { Issue } from '@/application/plan/check-context';
 import { formatPath } from '@/application/plan/ids';
+import { issueUrlOf } from '@/domain/code-links';
 import type { IssueStatus } from '@/domain/plan/plan-status';
 import type { Progress, ProgressEvent } from '@/domain/plan/plan.generated';
 
@@ -73,9 +74,7 @@ export function checkProgress(plan: ProgressSubjects, progress: Progress): Issue
 export const sourceUrl = (event: ProgressEvent): string | undefined => {
   const { url, repo, issue } = event.source ?? {};
   if (url !== undefined) return url;
-  return repo === undefined || issue === undefined
-    ? undefined
-    : `https://github.com/${repo}/issues/${String(issue)}`;
+  return repo === undefined || issue === undefined ? undefined : issueUrlOf(repo, issue);
 };
 
 /** Is `event` at least as late as `before`? Equal times go to the one recorded later, which comes last. */

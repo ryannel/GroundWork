@@ -1,4 +1,5 @@
 import type { FlowModel } from '@/application/plan/flow-steps';
+import { hasChildPath, rootId } from '@/domain/ids';
 import type { FlowNode, ScreenNode, StepNode, SystemGraph } from '@/domain/plan/plan-graph';
 
 /** A step with the flow it belongs to. */
@@ -76,9 +77,9 @@ function stopsOf(graph: SystemGraph, flow: FlowNode): Stop[] {
   const stops: Stop[] = [];
   for (const [i, event] of events.entries()) {
     const reference = event.step.screen;
-    const screen = reference?.split('#')[0];
+    const screen = rootId(reference);
     if (reference === undefined || screen === undefined || !graph.has(screen)) continue;
-    const regions = reference.includes('#') ? [reference] : [];
+    const regions = hasChildPath(reference) ? [reference] : [];
     const last = stops.at(-1);
     if (last?.screen === screen) {
       stops[stops.length - 1] = {

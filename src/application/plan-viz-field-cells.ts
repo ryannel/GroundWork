@@ -2,6 +2,7 @@ import type { Model } from '@/application/plan/derive';
 import type { Mode } from '@/application/plan/derive-core';
 import { schemaOf, type FieldRow } from '@/application/plan-viz-fields';
 import { short, wasText } from '@/application/plan-viz-text';
+import { splitChildId } from '@/domain/ids';
 import type { Field } from '@/domain/plan/plan.generated';
 
 // What each cell of a field table says, as data the table draws: type with its old type struck, required with
@@ -149,7 +150,7 @@ function storedKeys(model: Model, f: Field, ctx: KeyContext): KeyBadge[] {
   const out: KeyBadge[] = [];
   if (f.key === true) out.push({ key: 'pk', text: 'PK', title: 'part of the record’s key' });
   if (f.ref !== undefined) {
-    const [sid = '', fname] = f.ref.split('#');
+    const [sid, fname] = splitChildId(f.ref);
     const label = model.get(sid) === undefined ? sid : model.label(sid);
     const target = fname === undefined ? label : `${label}.${fname}`;
     const base = { key: 'fk', text: `FK → ${target}` };

@@ -7,6 +7,7 @@ import {
   type Stop,
   todayJourneys,
 } from '@/application/plan/ui-journeys';
+import { hasChildPath } from '@/domain/ids';
 import type { ScreenNode, StepNode } from '@/domain/plan/plan-graph';
 
 /** One screen-linked step, addressable by its exact step. */
@@ -81,7 +82,7 @@ function recordOf(
   return {
     ...recordedStep(step),
     screen: stop.screen,
-    region: step.screen?.includes('#') === true ? step.screen : null,
+    region: hasChildPath(step.screen) ? step.screen : null,
     experienceKind: kind,
     classificationInferred: kind === 'action' || kind === 'update',
     supportingSteps: (moment?.indices ?? []).flatMap((index) => {

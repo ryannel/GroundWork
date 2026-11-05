@@ -1,5 +1,6 @@
 import type { Model } from '@/application/plan/derive';
 import { type Narration, caseWords } from '@/application/plan-viz-flow-narration';
+import { hasPrefix } from '@/domain/ids';
 import { ModelText } from '@/features/plan/common/model-text';
 import { TintedDocument } from '@/features/plan/viz/waterfall/tinted-document';
 import { Waterfall } from '@/features/plan/viz/waterfall/waterfall';
@@ -57,8 +58,8 @@ function Fails({ model, narration }: Pick<MoreProps, 'model' | 'narration'>) {
 }
 
 function nounOf(via: string | null): string {
-  if (via?.startsWith('msg:') === true) return 'event';
-  return via?.startsWith('gql:') === true ? 'query' : 'API';
+  if (hasPrefix(via, 'msg')) return 'event';
+  return hasPrefix(via, 'gql') ? 'query' : 'API';
 }
 
 function Actions({ narration }: Pick<MoreProps, 'narration'>) {

@@ -14,6 +14,9 @@ import path from 'node:path';
 
 import { parse } from 'yaml';
 
+import { normaliseRepository, parseGitHostUrl } from '@/domain/code-links';
+import { hasPrefix } from '@/domain/ids';
+
 type Json = Record<string, unknown>;
 
 export interface Located {
@@ -43,7 +46,6 @@ export interface Fact {
 }
 
 const COMMIT = /^[0-9a-f]{40}$/u;
-const HASH_LINES = /^#L(\d+)(?:-L(\d+))?$/u;
 const GENERATED = new Set(['contracts.yaml', 'handlers.yaml']);
 const SIGNIFICANT = ['call', 'publish', 'read', 'write', 'if', 'each', 'parallel', 'retry', 'try'];
 const PATTERNS = [
@@ -73,20 +75,17 @@ function linesOf(value: unknown): readonly [number, number] | Problem {
 // the older form: a GitHub blob url
 function fromUrl(url: string): Located | Problem {
   if (!URL.canParse(url)) return { problem: `${url} is not a url` };
-  const { hostname, pathname, hash } = new URL(url);
-  const [, owner, name, blob, commit = '', ...rest] = pathname.split('/');
-  if (hostname !== 'github.com' || blob !== 'blob' || owner === undefined || name === undefined) {
+  const link = parseGitHostUrl(url);
+  if (link?.host !== 'github.com' || link.kind !== 'blob') {
     return { problem: `${url} is not a GitHub file link` };
   }
+  const commit = link.commit ?? '';
   if (!COMMIT.test(commit)) return { problem: `${url} names a branch, not a commit` };
-  const match = HASH_LINES.exec(hash);
   return {
-    repo: `${owner}/${name}`,
-    path: decodeURIComponent(rest.join('/')),
+    repo: link.repo,
+    path: link.path,
     commit,
-    ...(match?.[1] === undefined
-      ? {}
-      : { lines: [Number(match[1]), Number(match[2] ?? match[1])] }),
+    ...(link.lines === undefined ? {} : { lines: link.lines }),
   };
 }
 
@@ -101,7 +100,7 @@ export function locate(source: unknown): Located | Problem {
   if (!COMMIT.test(commit)) {
     return { problem: `${repo} ${file}: commit must be a full 40-character sha` };
   }
-  const located = { repo: repo.replace(/^github\.com\//u, ''), path: file, commit };
+  const located = { repo: normaliseRepository(repo), path: file, commit };
   if (source.lines === undefined) return located;
   const lines = linesOf(source.lines);
   return isProblem(lines) ? lines : { ...located, lines };
@@ -189,7 +188,7 @@ export function factsIn(doc: unknown, file: string): Fact[] {
     const held = owner === undefined ? undefined : facts[owner];
     const holder = factOf(node, file, held);
     if (holder !== undefined && holder !== held) return facts.push(holder) - 1;
-    if (holder?.id.startsWith('h:') === true && isUnanchoredStep(node)) update(owner, unanchored);
+    if (hasPrefix(holder?.id, 'h') && isUnanchoredStep(node)) update(owner, unanchored);
     return owner;
   };
   const visit = (node: unknown, owner?: number): void => {

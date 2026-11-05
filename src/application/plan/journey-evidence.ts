@@ -1,5 +1,6 @@
 import { objects, sameJson, textOf, uniq } from '@/application/plan/derive-values';
 import { isRecord, type Rec, strings } from '@/application/plan/ids';
+import { hasChildPath, rootId } from '@/domain/ids';
 import type { StepNode, SystemGraph } from '@/domain/plan/plan-graph';
 
 export type EvidenceKind =
@@ -93,7 +94,7 @@ function regionEvidence(
   ref: string,
   screens: { readonly a: Rec | null; readonly b: Rec | null },
 ): Evidence[] {
-  const regions = ref.includes('#')
+  const regions = hasChildPath(ref)
     ? [ref]
     : ids(
         [...objects(screens.a?.regions), ...objects(screens.b?.regions)].map((r) => textOf(r.id)),
@@ -113,8 +114,8 @@ function regionEvidence(
 /** What changed on the screen a step happens on: the picture, and the exact region it points at. */
 function screenEvidence(g: Graphs, before: StepNode | null, after: StepNode | null): Evidence[] {
   return ids([before?.screen, after?.screen]).flatMap((ref) => {
-    const exact = ref.includes('#');
-    const id = ref.split('#')[0] ?? ref;
+    const exact = hasChildPath(ref);
+    const id = rootId(ref);
     const screens = { a: entity(g.asIs, id), b: entity(g.toBe, id) };
     // A parent picture changes the context of an exact region; it does not change every action.
     const picture = propertyEvidence({
@@ -151,11 +152,11 @@ function referenceEvidence(g: Graphs, before: StepNode | null, after: StepNode |
   // Exact field references support field-level evidence. A record alone is explicitly indirect.
   const refEvidence = (ref: string): Evidence[] =>
     propertyEvidence({
-      kind: ref.includes('#') ? 'field' : 'record',
+      kind: hasChildPath(ref) ? 'field' : 'record',
       target: ref,
       before: entity(g.asIs, ref),
       after: entity(g.toBe, ref),
-      indirect: !ref.includes('#'),
+      indirect: !hasChildPath(ref),
     });
   return [...evidence, ...ids(records).flatMap(refEvidence)];
 }

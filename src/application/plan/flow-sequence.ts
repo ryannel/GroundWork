@@ -10,6 +10,7 @@ import {
   isTopic,
 } from '@/application/plan/flow-steps';
 import { parentOf, prop } from '@/application/plan/ids';
+import { hasPrefix } from '@/domain/ids';
 import type { FlowNode } from '@/domain/plan/plan-graph';
 
 export type SequenceRow =
@@ -96,7 +97,7 @@ function createCalls(model: FlowModel, steps: readonly FlowStep[]) {
     },
     // an event consumer runs after its publisher has finished: the call the publisher was working inside has answered
     consume(topic: string, i: number): void {
-      const pub = steps.slice(0, i).findLast((p) => p.to === topic && p.via.startsWith('msg:'));
+      const pub = steps.slice(0, i).findLast((p) => p.to === topic && hasPrefix(p.via, 'msg'));
       if (pub === undefined) return;
       const inside = lastWhere((c) => c.step.to === pub.from);
       if (inside !== -1) finishAbove(inside);

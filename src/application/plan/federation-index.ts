@@ -1,4 +1,5 @@
 import { parentOf } from '@/application/plan/ids';
+import { childPathOf, stripPrefix } from '@/domain/ids';
 import type {
   FieldNode,
   GraphNode,
@@ -141,7 +142,7 @@ export const isKeyField = (type: SchemaNode | null | undefined, name: string): b
 
 export const sgName = (g: SystemGraph, id: string): string => {
   const n = g.get(id);
-  return n !== undefined && 'name' in n ? n.name : id.replace(/^sg:/u, '');
+  return n !== undefined && 'name' in n ? n.name : stripPrefix(id, 'sg');
 };
 
 /** `Product.price` for a field id. */
@@ -149,6 +150,6 @@ export function fieldLabel(g: SystemGraph, fieldId: string): string {
   const type = g.get(parentOf(fieldId));
   const field = g.get(fieldId);
   const typeName = type !== undefined && 'name' in type ? type.name : (parentOf(fieldId) ?? '');
-  const name = field !== undefined && 'name' in field ? field.name : (fieldId.split('#')[1] ?? '');
+  const name = field !== undefined && 'name' in field ? field.name : (childPathOf(fieldId) ?? '');
   return `${typeName}.${name}`;
 }

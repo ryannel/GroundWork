@@ -2,6 +2,7 @@ import type { Core } from '@/application/plan/derive-core';
 import { memo, present, textOf } from '@/application/plan/derive-values';
 import { propWord, type Words } from '@/application/plan/derive-words';
 import { formatPath, isRecord, labelOf, parentOf, prop, typeOf } from '@/application/plan/ids';
+import { childPathOf } from '@/domain/ids';
 import type { OpRecord, PropChange } from '@/domain/plan/plan-graph';
 import { TYPE_WORDS } from '@/domain/plan/plan-vocab';
 
@@ -41,7 +42,7 @@ const wordOf = (r: OpRecord): string => {
 };
 
 const nameOf = ({ core }: Ctx, r: OpRecord): string =>
-  textOf(prop(core.sys(r.target), 'name')) ?? (r.target ?? '').split('#')[1] ?? '';
+  textOf(prop(core.sys(r.target), 'name')) ?? childPathOf(r.target ?? '') ?? '';
 
 function summariseField(ctx: Ctx, r: OpRecord, p: PropChange): string {
   const name = nameOf(ctx, r);

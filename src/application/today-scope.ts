@@ -5,6 +5,7 @@ import { andList } from '@/application/plan-viz-ladder-order';
 import type { MapScope } from '@/application/plan-viz-system-map-scope';
 import { journeyClaim, todayJourneysOf, type TodayJourney } from '@/application/today-journeys';
 import { journeyHref } from '@/application/today-reader';
+import { buildId } from '@/domain/ids';
 import type { Workspace } from '@/domain/workspace';
 
 // What every today page needs from its scope: where each system lives, what the map keeps, which journeys run
@@ -27,11 +28,14 @@ export function chipRefOf(model: Model, id: string): ChipRef {
  * says where it is, so its own systems carry no name. */
 function placesOf(workspace: Workspace, scope: ModelScope): Record<string, string> {
   const home = (systems: readonly { readonly id: string }[]): boolean =>
-    scope.kind !== 'workspace' && systems.some((system) => scope.focus.has(`sys:${system.id}`));
+    scope.kind !== 'workspace' &&
+    systems.some((system) => scope.focus.has(buildId('sys', system.id)));
   return Object.fromEntries(
     workspace.domains
       .filter((domain) => !home(domain.systems))
-      .flatMap((domain) => domain.systems.map((system) => [`sys:${system.id}`, domain.name])),
+      .flatMap((domain) =>
+        domain.systems.map((system) => [buildId('sys', system.id), domain.name]),
+      ),
   );
 }
 

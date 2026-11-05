@@ -2,6 +2,7 @@ import type { Model } from '@/application/plan/derive';
 import type { FlowStep } from '@/application/plan/flow-steps';
 import { prop, strings } from '@/application/plan/ids';
 import { chipInfo } from '@/application/plan-chips';
+import { hasPrefix, rootId } from '@/domain/ids';
 
 // What a plan will do to a flow's steps: the ◇ markers on today's steps, and the changes behind a step.
 
@@ -23,7 +24,7 @@ const touches = (model: Model, id: string | undefined): boolean => {
 };
 
 const recordIds = (step: FlowStep): string[] =>
-  [...(step.reads ?? []), ...(step.writes ?? [])].map((r) => r.split('#')[0] ?? r);
+  [...(step.reads ?? []), ...(step.writes ?? [])].map((r) => rootId(r));
 
 /** Steps the plan inserts into the flow, keyed by the step they follow (else the last one today). */
 function insertedAfter(model: Model, flowId: string, lastId: string | undefined) {
@@ -74,7 +75,7 @@ export function changeMarkers(model: Model, flowId: string): ChangeMarkers {
   return { markers, reasons, pins };
 }
 
-const isChange = (id: string): boolean => id.startsWith('chg:');
+const isChange = (id: string): boolean => hasPrefix(id, 'chg');
 const moved = (model: Model, id: string): boolean =>
   (model.status(id) ?? 'existing') !== 'existing';
 
@@ -88,7 +89,7 @@ export function stepChanges(model: Model, step: FlowStep): string[] {
     push(model.inverse(step.via).changes);
   }
   for (const r of [...(step.writes ?? []), ...(step.reads ?? [])]) {
-    const schema = r.split('#')[0] ?? r;
+    const schema = rootId(r);
     if (moved(model, schema) || model.rollup(schema).total > 0) push(model.inverse(schema).changes);
   }
   if (moved(model, step.id)) push(model.diff(step.id).map((d) => d.changeId));

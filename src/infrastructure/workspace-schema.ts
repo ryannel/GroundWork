@@ -1,7 +1,7 @@
 import 'server-only';
-
 import { z } from 'zod';
 
+import { workspaceIdPattern, hasPrefix } from '@/domain/ids';
 import { SYSTEM_TIERS } from '@/domain/workspace';
 import {
   RESERVED_PAGES,
@@ -11,7 +11,7 @@ import {
 
 const RESERVED = 'the id is reserved for a page';
 
-const id = z.string().regex(/^[a-z0-9][a-z0-9:-]*$/u, 'ids are lower-case, with - and :');
+const id = z.string().regex(workspaceIdPattern, 'ids are lower-case, with - and :');
 
 const componentFile = z.strictObject({
   id,
@@ -82,7 +82,7 @@ export const workspaceFile = z.strictObject({
   actors: z
     .array(
       z.strictObject({
-        id: id.refine((value) => value.startsWith('actor:'), 'an actor id starts with actor:'),
+        id: id.refine((value) => hasPrefix(value, 'actor'), 'an actor id starts with actor:'),
         name: z.string(),
         summary: z.string().optional(),
         uses: z.array(id).default([]),

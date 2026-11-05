@@ -1,4 +1,5 @@
 import { corpusIndexPages } from '@/application/scan-explorer/corpus-index-pages';
+import { permalinkOf } from '@/domain/code-links';
 import type { ExplorerNode, ExplorerPage, ExplorerService } from '@/domain/service-explorer';
 import type { CorpusRepository } from '@/infrastructure/scan-explorer/corpus-catalogue';
 
@@ -68,7 +69,7 @@ function capturedFilePage(
   file: { readonly filename: string; readonly state: string },
   snapshot: string,
 ): ExplorerPage {
-  const url = `https://github.com/${detail.repo}/blob/${detail.commit}/${file.filename.split('/').map(encodeURIComponent).join('/')}`;
+  const url = permalinkOf({ ...detail, path: file.filename }, { encoding: 'segments' });
   return {
     format: 'service-explorer-page/v1',
     snapshot,

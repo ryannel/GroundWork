@@ -1,4 +1,5 @@
 import type { Model } from '@/application/plan/derive';
+import { hasPrefix } from '@/domain/ids';
 
 import { type AskLine, askLines } from './plan-story-cover-standing';
 
@@ -34,7 +35,7 @@ export function teamsWithWork(model: Model): string[] {
     ...(model.plan.work_items ?? []).map((w) => w.team),
     ...model.toBe.services.map((s) => s.team),
     ...(model.plan.questions ?? []).flatMap((q) =>
-      q.decider?.startsWith('team:') === true ? [q.decider] : [],
+      hasPrefix(q.decider, 'team') ? [q.decider] : [],
     ),
   ]);
   return model.plan.teams.map((t) => t.id).filter((id) => owners.has(id));

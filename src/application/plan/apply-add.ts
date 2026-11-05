@@ -10,6 +10,7 @@ import {
   setProp,
   type SystemIndex,
 } from '@/application/plan/ops-index';
+import { isWithinId } from '@/domain/ids';
 import type { OpRecord, SystemSource } from '@/domain/plan/plan-graph';
 import { ADD_TYPES, CHILDREN, type ContainerType } from '@/domain/plan/plan-ids';
 import type { Change, Op, OpAdd } from '@/domain/plan/plan.generated';
@@ -106,7 +107,7 @@ function stepPosition(op: OpAdd, list: readonly unknown[], rec: OpRecord): numbe
 function checkChildId(op: OpAdd, value: Rec, rec: OpRecord): void {
   const into = intoOf(op) ?? '';
   const child = op.add === 'step' || op.add === 'region';
-  if (child && typeof value.id === 'string' && !value.id.startsWith(`${into}#`)) {
+  if (child && typeof value.id === 'string' && !isWithinId(value.id, into)) {
     flag(rec, {
       code: 'child-id',
       at: ['value', 'id'],

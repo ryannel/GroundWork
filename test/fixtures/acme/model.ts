@@ -1,3 +1,4 @@
+import { permalinkOf } from '@/domain/code-links';
 // Acme's model of today: its story, its words, its flows and journeys, and what each system offers and keeps.
 // Every list is in the order the store reads it back: flows by file name, contracts by domain then system.
 import type {
@@ -8,16 +9,15 @@ import type {
   Stage,
   UserJourney,
 } from '@/domain/plan/plan.generated';
-import {
-  type Attribution,
-  type CodeSource,
-  type DomainLanguage,
-  type KeyTerms,
-  permalinkOf,
-  type Scan,
-  type SystemContracts,
-  type TargetArchitecture,
-  type WorkspaceModel,
+import type {
+  Attribution,
+  CodeSource,
+  DomainLanguage,
+  KeyTerms,
+  Scan,
+  SystemContracts,
+  TargetArchitecture,
+  WorkspaceModel,
 } from '@/domain/workspace-model';
 
 /** Where the cited facts live in Acme's repos. */

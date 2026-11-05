@@ -1,8 +1,9 @@
 import type { Model } from '@/application/plan/derive';
 import { type ChipRef, chipRefOf } from '@/application/today-scope';
+import { permalinkOf, parseCodeLines } from '@/domain/code-links';
+import { hasPrefix } from '@/domain/ids';
 import type { HandlerNode } from '@/domain/plan/plan-graph';
 import type { HandlerSource, HandlerStep, HandlerSteps } from '@/domain/plan/plan.generated';
-import { permalinkOf } from '@/domain/workspace-model';
 
 // What runs when an endpoint is called or a message arrives, read from the code's handlers as a tree a person can
 // follow: each step in order, the forks and loops it sits in, and under each call what the callee does in turn.
@@ -100,13 +101,15 @@ interface At {
 
 /** "CartService.cs:60–74" from a link to lines on GitHub, or "Code" when the link says nothing of them. */
 function labelOfUrl(url: string): string {
-  const [where = '', lines = ''] = url.split('#');
+  const hash = url.indexOf('#');
+  const where = hash === -1 ? url : url.slice(0, hash);
+  const lines = hash === -1 ? '' : url.slice(hash + 1);
   const file = where.split('/').at(-1) ?? '';
-  const span = /^L(\d+)(?:-L(\d+))?$/u.exec(lines);
+  const span = parseCodeLines(lines);
   if (file === '') return 'Code';
-  if (span === null) return file;
-  const [, from = '', to = from] = span;
-  return from === to ? `${file}:${from}` : `${file}:${from}–${to}`;
+  if (span === undefined) return file;
+  const [from, to] = span;
+  return from === to ? `${file}:${String(from)}` : `${file}:${String(from)}–${String(to)}`;
 }
 
 function codeOf(sources: readonly HandlerSource[] | undefined): StepCode | null {
@@ -130,7 +133,7 @@ function baseOf({ step, key }: At): StepBase {
 
 function nextOf(walk: Walk, target: string): Pick<LinkStep, 'next' | 'stop' | 'unread'> {
   const callees = walk.byOn.get(target) ?? [];
-  if (callees.length === 0) return { next: [], stop: null, unread: target.startsWith('api:') };
+  if (callees.length === 0) return { next: [], stop: null, unread: hasPrefix(target, 'api') };
   const fresh = callees.filter((h) => !walk.above.has(h.id));
   if (fresh.length > 0 && walk.depth >= DEEPEST) return { next: [], stop: 'depth', unread: false };
   const deeper = { ...walk, depth: walk.depth + 1 };
@@ -290,7 +293,7 @@ export function handlerStoryOf(model: Model, id: string): HandlerStory | null {
   const home = new Set(entry.flatMap((h) => systemOf(model, h.component) ?? []));
   const systems = unique(
     links.flatMap((l) => (l.reaches === null ? [] : (systemOf(model, l.reaches) ?? []))),
-  ).filter((s) => s.startsWith('sys:') && !home.has(s));
+  ).filter((s) => hasPrefix(s, 'sys') && !home.has(s));
   const chips = (ids: readonly string[]) => unique(ids).map((x) => chipRefOf(model, x));
   const outsiders = new Set(
     model.asIs.services.filter((svc) => svc.kind === 'external').map((svc) => svc.id),

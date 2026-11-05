@@ -1,6 +1,7 @@
 import type { Box, Context } from '@/application/plan-viz-system-map-boxes';
 import type { Merged } from '@/application/plan-viz-system-map-routes';
 import type { InnerLine } from '@/application/plan-viz-system-map-types';
+import { hasPrefix } from '@/domain/ids';
 
 // The words a reader gets on hover: what each card, line and row is.
 
@@ -86,8 +87,8 @@ export function carried(
 const times = (n: number, noun: string): string => (n === 1 ? noun : `${String(n)} ${noun}s`);
 
 function carriedLines(ctx: Context, l: Merged): string {
-  const calls = { ...l, vias: new Set([...l.vias].filter((v) => !v.startsWith('msg:'))) };
-  const events = { ...l, vias: new Set([...l.vias].filter((v) => v.startsWith('msg:'))) };
+  const calls = { ...l, vias: new Set([...l.vias].filter((v) => !hasPrefix(v, 'msg'))) };
+  const events = { ...l, vias: new Set([...l.vias].filter((v) => hasPrefix(v, 'msg'))) };
   const lines = [
     ...carried(ctx, calls).map(([name, n]) => `${name} · ${times(n, 'call')}`),
     ...carried(ctx, events).map(([name]) => `${name} · event`),

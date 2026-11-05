@@ -3,6 +3,7 @@ import { drawDomainMap, type MapDrawing } from '@/application/landscape-domains-
 import type { Model } from '@/application/plan/derive';
 import { andList } from '@/application/plan-viz-ladder-order';
 import type { JourneyCard } from '@/application/today-scope';
+import { buildId } from '@/domain/ids';
 import { componentsOf, type Domain, systemsOf, type Workspace } from '@/domain/workspace';
 import { plural } from '@/shared/text';
 
@@ -36,7 +37,7 @@ function headlineOf(workspace: Workspace): string {
 
 /** A domain's part in the journeys: "In 2 user journeys and 9 flows". */
 export function roleOf(domain: Domain, journeys: readonly JourneyCard[]): string | null {
-  const ids = new Set(domain.systems.map((s) => `sys:${s.id}`));
+  const ids = new Set(domain.systems.map((s) => buildId('sys', s.id)));
   const here = journeys.filter((j) => j.systems.some((id) => ids.has(id)));
   const users = here.filter((j) => j.kind === 'journey').length;
   const flows = here.length - users;

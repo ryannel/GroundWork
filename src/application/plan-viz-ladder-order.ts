@@ -1,5 +1,6 @@
 import type { Model } from '@/application/plan/derive';
 import { prop } from '@/application/plan/ids';
+import { hasPrefix } from '@/domain/ids';
 
 // When each rung of a migration ladder is planned, and what is out of order: a consumer that switches before the
 // new version exists, or an old version removed before its last consumer has moved.
@@ -7,7 +8,7 @@ import { prop } from '@/application/plan/ids';
 export type Ladder = ReturnType<Model['ladder']>;
 type Rung = Ladder['rungs'][number];
 
-export const isConsumer = (id: string | undefined): id is string => id?.startsWith('svc:') === true;
+export const isConsumer = (id: string | undefined): id is string => hasPrefix(id, 'svc');
 
 const milestoneOrder = (model: Model): string[] => (model.plan.milestones ?? []).map((m) => m.id);
 

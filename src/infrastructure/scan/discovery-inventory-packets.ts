@@ -3,6 +3,7 @@ import 'server-only';
 import { mkdir, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 
+import { permalinkOf } from '@/domain/code-links';
 import type { DiscoveryCandidate, DiscoveryInventory } from '@/domain/scan/discovery-types';
 
 import { discoveryEntry, discoverySelection, discoveryScopes } from './discovery-inventory-rules';
@@ -124,7 +125,7 @@ async function contextFile(input: {
     kind: 'context_snapshot',
     id,
     path: relative,
-    uri: `https://github.com/${source.repo}/blob/${source.commit}/${selection.file.path}`,
+    uri: permalinkOf({ ...source, path: selection.file.path }, { encoding: 'raw' }),
     revision: source.commit,
   });
   return {

@@ -15,6 +15,7 @@ import {
   plainText,
   toCentre,
 } from '@/application/plan-viz-sequence-text';
+import { rootId } from '@/domain/ids';
 
 // Pass 2 of a sequence drawing: each cell as the words and places the components draw.
 
@@ -108,7 +109,7 @@ export type SeqCell =
   | SeqStep;
 
 const label = (model: Model, id: string): string => chipInfo(model, id).label;
-const baseId = (id: string): string => id.split('#')[0] ?? id;
+const baseId = (id: string): string => rootId(id);
 
 /** Stores behind a list of record ids (fields resolve to their schema). */
 function storesOf(model: Model, refs: readonly string[]): string[] {

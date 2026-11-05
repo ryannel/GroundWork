@@ -2,14 +2,10 @@
 // calls what, and say which repos the answer may be stale for. Pure; tools/map.ts prints it as JSON.
 import { prop } from '@/application/plan/ids';
 import type { SystemModel } from '@/application/workspace-model';
+import { permalinkOf } from '@/domain/code-links';
+import { buildId } from '@/domain/ids';
 import { systemsOf, type Workspace } from '@/domain/workspace';
-import {
-  type CodeSource,
-  type Origin,
-  permalinkOf,
-  type Scan,
-  type ScanCheck,
-} from '@/domain/workspace-model';
+import type { CodeSource, Origin, Scan, ScanCheck } from '@/domain/workspace-model';
 
 export interface Cited {
   readonly repo: string;
@@ -84,7 +80,7 @@ function placesOf(workspace: Workspace): Map<string, Place> {
   const out = new Map<string, Place>();
   for (const domain of workspace.domains) {
     for (const system of domain.systems) {
-      out.set(`sys:${system.id}`, { domain: domain.id, system: system.id, component: null });
+      out.set(buildId('sys', system.id), { domain: domain.id, system: system.id, component: null });
       for (const component of system.components) {
         out.set(component.id, { domain: domain.id, system: system.id, component: component.id });
       }

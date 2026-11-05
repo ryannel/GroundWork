@@ -5,6 +5,7 @@
 import type { Model } from '@/application/plan/derive';
 import { chipRefOf, type ChipRef } from '@/application/today-scope';
 import type { SystemModel } from '@/application/workspace-model';
+import { hasPrefix } from '@/domain/ids';
 import type { KeyTerms, TargetArchitecture } from '@/domain/workspace-model';
 
 import { type TargetFlow, targetFlowOf } from './workspace-target-flow';
@@ -108,7 +109,7 @@ function placeOf(model: Model, places: Readonly<Record<string, string>>) {
   return (id: string): string | null => {
     const service = model.asIs.services.find((each) => each.id === id);
     if (service?.kind === 'external') return 'Outside the company';
-    const domain = places[id.startsWith('sys:') ? id : (service?.system ?? '')];
+    const domain = places[hasPrefix(id, 'sys') ? id : (service?.system ?? '')];
     return domain === undefined ? null : `Lives in ${domain}`;
   };
 }

@@ -1,3 +1,4 @@
+import { buildId } from '@/domain/ids';
 import { componentsOf, type Workspace } from '@/domain/workspace';
 
 // What part of the workspace a page teaches. The model stays whole, so calls, messages and journeys that
@@ -13,7 +14,7 @@ export interface ModelScope {
   readonly focus: ReadonlySet<string>;
 }
 
-const systemKey = (id: string): string => `sys:${id}`;
+const systemKey = (id: string): string => buildId('sys', id);
 
 export function workspaceScopeOf(workspace: Workspace): ModelScope {
   const systems = workspace.domains.flatMap((domain) => domain.systems);

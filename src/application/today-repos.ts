@@ -1,5 +1,6 @@
 import { type MapFact, systemMapOf } from '@/application/system-map';
 import type { SystemModel } from '@/application/workspace-model';
+import { homeUrlOf } from '@/domain/code-links';
 import { type CodeHome, homeLabel, homeOf, type Workspace } from '@/domain/workspace';
 import type { ScanCheck } from '@/domain/workspace-model';
 import { plural } from '@/shared/text';
@@ -55,8 +56,7 @@ function citedLine(count: number): string {
 }
 
 function hrefOf({ repo, path }: CodeHome): string {
-  const base = `https://github.com/${repo}`;
-  return path === null ? base : `${base}/tree/HEAD/${path}`;
+  return homeUrlOf({ repo, path });
 }
 
 function citedCounts(

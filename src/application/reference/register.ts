@@ -4,6 +4,7 @@ import { teamName } from '@/application/plan-viz-teams';
 import { countOf } from '@/application/plan-viz-text';
 import { workOrdered } from '@/application/plan-viz-work';
 import { searchText } from '@/application/reference/model';
+import { hasChildPath } from '@/domain/ids';
 import type { Milestone, Test, WorkItem } from '@/domain/plan/plan.generated';
 
 // The decision register as the reference page lists it: a question that a decision answers is shown on that
@@ -76,7 +77,7 @@ export function decidingSearch(model: Model, e: Deciding): string {
 /** "3 steps · 1 whole flow". */
 export function walksText(test: Pick<Test, 'walks'>): string {
   const walks = test.walks ?? [];
-  const flows = walks.filter((w) => !w.includes('#')).length;
+  const flows = walks.filter((w) => !hasChildPath(w)).length;
   const steps = walks.length - flows;
   return [steps > 0 ? countOf(steps, 'step') : '', flows > 0 ? countOf(flows, 'whole flow') : '']
     .filter((x) => x !== '')

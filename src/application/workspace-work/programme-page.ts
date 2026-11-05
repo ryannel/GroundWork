@@ -1,6 +1,7 @@
 import { gapDays } from '@/application/plan/work-standing';
 import type { PlanRow } from '@/application/plan-index';
 import { domainHref, programmeHref } from '@/application/workspace-paths';
+import { qualifyId } from '@/domain/ids';
 import { plain } from '@/shared/plain-text';
 
 import { firstDate, type MilestoneVM, rolledUp } from './milestones';
@@ -157,7 +158,7 @@ function milestonesOf(
 ): ProgrammeMilestoneVM[] {
   const milestones = index.programmes.get(programme)?.milestones ?? [];
   return milestones.map((m) => {
-    const key = `${programme}/${m.id}`;
+    const key = qualifyId(programme, m.id);
     const serving = plans.flatMap((plan) =>
       plan.standing.milestones
         .filter((s) => s.milestone.serves === key)

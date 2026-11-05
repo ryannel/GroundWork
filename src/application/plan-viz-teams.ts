@@ -1,5 +1,6 @@
 import type { Model } from '@/application/plan/derive';
 import { prop } from '@/application/plan/ids';
+import { hasPrefix, parentOf, stripPrefix } from '@/domain/ids';
 
 // Which team a thing belongs to, and which of the thirteen team colours that team wears.
 
@@ -7,7 +8,6 @@ const TEAM_COLOURS = 13;
 const RINGED_FROM = 9;
 const UNKNOWN_SLOT = 8;
 const MAX_DEPTH = 4;
-const TEAM_PREFIX = 'team:';
 const OWNER_KEYS = ['team', 'owner', 'service', '$service', 'producer', 'from', 'store'] as const;
 
 function text(value: unknown): string {
@@ -29,12 +29,7 @@ export function isRinged(slot: number): boolean {
 
 export function teamName(model: Model, teamId: string): string {
   const name = text(prop(model.get(teamId), 'name'));
-  return name === '' ? teamId.replace(/^team:/u, '') : name;
-}
-
-function parentOf(id: string): string | null {
-  const at = id.indexOf('#');
-  return at === -1 ? null : id.slice(0, at);
+  return name === '' ? stripPrefix(teamId, 'team') : name;
 }
 
 function viaLink(
@@ -47,7 +42,7 @@ function viaLink(
   if (own !== '') return own;
   for (const key of OWNER_KEYS) {
     const value = text(prop(entity, key));
-    if (value.startsWith(TEAM_PREFIX)) return value;
+    if (hasPrefix(value, 'team')) return value;
     if (value !== '') return teamOf(model, value, depth + 1);
   }
   const parent = text(prop(entity, '$parent'));
@@ -62,7 +57,7 @@ export function teamOf(
   depth = 0,
 ): string | null {
   if (id === '' || depth > MAX_DEPTH) return null;
-  if (id.startsWith(TEAM_PREFIX)) return id;
+  if (hasPrefix(id, 'team')) return id;
   const owner = depth === 0 ? model.ownerTeam(id) : null;
   if (owner !== null) return owner;
   return viaLink(model, id, depth);

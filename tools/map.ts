@@ -17,6 +17,7 @@ import { type Cited, findIn, ownedBy, type SystemMap, systemMapOf } from '@/appl
 import { callersOf, shownIn } from '@/application/system-map-links';
 import { mapMarkdownOf } from '@/application/system-map-md';
 import { systemModelOf } from '@/application/workspace-model';
+import { localId } from '@/domain/ids';
 import { selectedWorkspace, workspaceFolder } from '@/infrastructure/workspace-folders';
 import { readWorkspaceModel } from '@/infrastructure/workspace-model';
 import { readWorkspaces } from '@/infrastructure/workspace-store';
@@ -79,9 +80,7 @@ async function answer(map: SystemMap, command: string, arg: string): Promise<unk
       return findIn(map, arg);
     }
     case 'show': {
-      return (
-        shownIn(map, arg) ?? { error: `no fact ${arg}; try: find ${arg.replace(/^[a-z]+:/u, '')}` }
-      );
+      return shownIn(map, arg) ?? { error: `no fact ${arg}; try: find ${localId(arg)}` };
     }
     case 'callers': {
       return callersOf(map, arg, depthOr(3));

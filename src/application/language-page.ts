@@ -5,6 +5,7 @@
 import { type Place, type Places, placesOf, type Where } from '@/application/language-places';
 import { firstSentence } from '@/application/plan-viz-text';
 import { domainHref } from '@/application/workspace-paths';
+import { localId } from '@/domain/ids';
 import type { Concept } from '@/domain/plan/plan.generated';
 import type { Workspace } from '@/domain/workspace';
 import type {
@@ -107,7 +108,7 @@ function lookupOf(
   const terms = new Map(keyTerms.terms.map((t) => [t.id, t.name]));
   const nameOf = (id: string): string | null =>
     terms.get(id) ?? places.words.get(id)?.concept.name ?? null;
-  const label = (id: string): string => nameOf(id) ?? id.replace(/^[a-z]+:/u, '');
+  const label = (id: string): string => nameOf(id) ?? localId(id);
   return { places, keyTerms, nameOf, label };
 }
 

@@ -1,5 +1,6 @@
 import type { Model } from '@/application/plan/derive';
 import { prop } from '@/application/plan/ids';
+import { hasPrefix } from '@/domain/ids';
 
 // How a call travels, in the words people use for it: a GraphQL query sent to the graph, a REST call, a gRPC call.
 
@@ -17,7 +18,7 @@ const text = (v: unknown): string => (typeof v === 'string' ? v : '');
 export function protocolOf(model: Model, via: string): string | null {
   const n = model.get(via);
   if (n?.$type === 'operation') return 'GraphQL';
-  if (!via.startsWith('api:')) return null;
+  if (!hasPrefix(via, 'api')) return null;
   const proto = text(prop(model.get(text(prop(n, '$parent'))), 'protocol')).toLowerCase();
   if (proto === '') return null;
   return NAMES[proto] ?? proto.toUpperCase();

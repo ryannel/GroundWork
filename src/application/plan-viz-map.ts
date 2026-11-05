@@ -1,5 +1,6 @@
 import type { Model } from '@/application/plan/derive';
 import { prop } from '@/application/plan/ids';
+import { hasPrefix } from '@/domain/ids';
 
 // The names and labels the flow drawings share (the flow diagram, the sequence, the store grid).
 
@@ -27,7 +28,7 @@ const text = (value: unknown): string => (typeof value === 'string' ? value : ''
 export function nodeType(id: string, entity: unknown): readonly [glyph: string, word: string] {
   if (entity === undefined || entity === null) return ['·', 'ITEM'];
   const kind = text(prop(entity, 'kind'));
-  if (id.startsWith('st:')) return STORE_KINDS[kind] ?? ['⛁', 'STORE'];
+  if (hasPrefix(id, 'st')) return STORE_KINDS[kind] ?? ['⛁', 'STORE'];
   return SERVICE_KINDS[kind] ?? ['▣', 'SERVICE'];
 }
 
@@ -64,7 +65,7 @@ export function viaLabel(model: Model, via: string | null, max = 30): string {
   if (via === null || via === '' || via === 'internal') return 'internal';
   const entity = model.get(via);
   if (entity === undefined) return via;
-  if (via.startsWith('msg:')) return messageLabel(entity, max);
+  if (hasPrefix(via, 'msg')) return messageLabel(entity, max);
   const sig = [text(prop(entity, 'sig')), text(prop(entity, 'name')), via].find((s) => s !== '');
   return signatureLabel(sig ?? via, max);
 }

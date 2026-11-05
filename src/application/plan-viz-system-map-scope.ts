@@ -5,6 +5,7 @@ import type {
   MapSystemIn,
   SystemMapInput,
 } from '@/application/plan-viz-system-map-types';
+import { rootId } from '@/domain/ids';
 
 // A map of part of the landscape: the components in view, and one hop out the ones they call, are called by,
 // message or keep data with. Everything further away is left out, so the layout stays as small as the scope.
@@ -94,7 +95,7 @@ function scopedReferences(input: SystemMapInput): SystemMapInput {
       node.team ?? '',
     ]),
     ...input.edges.flatMap((edge) => [edge.from, edge.to, edge.via ?? '', ...edge.steps]),
-    ...input.steps.flatMap((step) => [step.id, step.via, step.id.split('#')[0] ?? '']),
+    ...input.steps.flatMap((step) => [step.id, step.via, rootId(step.id)]),
     ...input.stages.flatMap((stage) => stage.entries.flatMap((entry) => entry.reads)),
   ]);
   for (const id of ids) {

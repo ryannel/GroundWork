@@ -10,6 +10,7 @@ import { domainViewOf } from '@/application/workspace-domain';
 import { domainWordsOf } from '@/application/workspace-language';
 import { systemViewOf } from '@/application/workspace-system';
 import { systemImpactRows } from '@/application/workspace-work/impact';
+import { buildId } from '@/domain/ids';
 import { FlowList, TodayMap, TodayOverlays, TodaySearch } from '@/features/plan';
 import { SystemPage } from '@/features/workspace';
 import { readExplorerNavigation } from '@/infrastructure/service-explorer-navigation';
@@ -75,7 +76,7 @@ export default async function SystemLayout({
       explorerLinks={explorer.components}
       explorerRepositories={explorer.repositories}
       flows={<FlowList flows={view.flows}>{children}</FlowList>}
-      impact={systemImpactRows(index, { id: `sys:${system}`, name: view.name })}
+      impact={systemImpactRows(index, { id: buildId('sys', system), name: view.name })}
       map={<TodayMap model={today.model} scope={scope} workspace={workspace} />}
       nav={nav}
       overlays={<TodayOverlays workspace={workspace} />}

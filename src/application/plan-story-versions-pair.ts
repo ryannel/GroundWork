@@ -7,6 +7,7 @@ import type { RevisionEntry } from '@/application/plan/revision-ledger';
 import type { Revision, RevisionStep } from '@/application/plan/revision-types';
 import { findEntity } from '@/application/plan/revision-view';
 import { type Tense, unmark } from '@/application/plan-story-versions-words';
+import { splitChildId, isTextId, localId } from '@/domain/ids';
 import type { Plan } from '@/domain/plan/plan.generated';
 
 /** A revision and the approved one it was proposed on, with what changes between them. */
@@ -46,7 +47,7 @@ type Sides = Pick<Pair, 'from' | 'to'>;
 export function nameIn(pair: Sides & { readonly im?: RevisionImpact }, id: string): string {
   const found = findEntity(pair.to, id) ?? findEntity(pair.from, id);
   if (found !== null) return unmark(labelOf(found, id));
-  return unmark(pair.im?.nameOf(id) ?? id.replace(/^[a-z]+:/u, ''));
+  return unmark(pair.im?.nameOf(id) ?? localId(id));
 }
 
 /** The team that owns a service, else the service's own name. */
@@ -64,8 +65,8 @@ export function valueText(pair: Pair, value: unknown): string {
     return JSON.stringify(value);
   }
   const text = String(value);
-  if (!/^[a-z]+:[\w-]/u.test(text) || /\s/u.test(text)) return unmark(text);
-  const [id = text, part] = text.split('#');
+  if (!isTextId(text)) return unmark(text);
+  const [id, part] = splitChildId(text);
   return part === undefined ? nameIn(pair, id) : `${nameIn(pair, id)} · ${part}`;
 }
 

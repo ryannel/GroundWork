@@ -2,6 +2,7 @@ import { systemOf } from '@/application/plan/graph';
 import { fieldId, prop, type Rec } from '@/application/plan/ids';
 import { indexSystem } from '@/application/plan/ops-index';
 import { canonical } from '@/application/plan/plan-diff-core';
+import { rootId } from '@/domain/ids';
 import type { SystemSource } from '@/domain/plan/plan-graph';
 import type { Change, Op, OpAdd, OpModify, Plan } from '@/domain/plan/plan.generated';
 import type { Origin } from '@/domain/workspace-model';
@@ -53,7 +54,7 @@ export interface TodayModel {
   readonly find: (id: string) => Found | null;
 }
 
-const rootOf = (id: string): string => id.split('#', 1)[0] ?? id;
+const rootOf = (id: string): string => rootId(id);
 
 /**
  * Whether a fact of this origin counts: one read from code or written by people does; the demo seed does not; a

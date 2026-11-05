@@ -4,6 +4,7 @@ import type { Owners } from '@/application/plan/derive-owners';
 import type { Register } from '@/application/plan/derive-register';
 import { memo, textOf, uniq } from '@/application/plan/derive-values';
 import { citationsIn, parentOf, prop, strings, typeOf } from '@/application/plan/ids';
+import { hasPrefix } from '@/domain/ids';
 import type { StepNode } from '@/domain/plan/plan-graph';
 import type { Plan, Question } from '@/domain/plan/plan.generated';
 
@@ -71,7 +72,7 @@ function screensEdited(core: Core, shown: ReadonlySet<string>): string[] {
   return core.records
     .filter((r) => r.changeId !== undefined && shown.has(r.changeId))
     .flatMap((r) => [r.target, r.parent, ...r.ids])
-    .filter((id): id is string => typeof id === 'string' && id.startsWith('scr:'));
+    .filter((id): id is string => typeof id === 'string' && hasPrefix(id, 'scr'));
 }
 
 /** The screens a set of changes edit, and the steps that show those screens, with their flows. */

@@ -1,6 +1,7 @@
 import { EFFECT } from '@/application/plan/delivery';
 import type { Model } from '@/application/plan/derive';
 import { teamIndex } from '@/application/plan-viz-teams';
+import { issueUrlOf } from '@/domain/code-links';
 import type { Milestone, WorkItem } from '@/domain/plan/plan.generated';
 
 // A work item, read once for every surface: where it stands, what it waits on, what depends on it.
@@ -68,7 +69,7 @@ export function issueUrl(model: Model, w: WorkItem): string | null {
   const url = model.statusOf(w.id)?.url;
   if (url !== undefined && url !== null) return url;
   if (w.github_issue === undefined || w.repo === undefined || !REPO.test(w.repo)) return null;
-  return `https://github.com/${w.repo}/issues/${String(w.github_issue)}`;
+  return issueUrlOf(w.repo, w.github_issue);
 }
 
 /** Work items on the critical path. */

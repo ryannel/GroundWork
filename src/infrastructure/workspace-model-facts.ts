@@ -4,14 +4,9 @@ import type { ValidateFunction } from 'ajv';
 import type { z } from 'zod';
 
 import { isRecord } from '@/application/plan/ids';
+import { permalinkOf } from '@/domain/code-links';
 import type { Source } from '@/domain/plan/plan.generated';
-import {
-  type Attribution,
-  type CodeSource,
-  type ComponentDetail,
-  type Origin,
-  permalinkOf,
-} from '@/domain/workspace-model';
+import type { Attribution, CodeSource, ComponentDetail, Origin } from '@/domain/workspace-model';
 
 import { defProblems, planDef } from './plan-validator';
 import {

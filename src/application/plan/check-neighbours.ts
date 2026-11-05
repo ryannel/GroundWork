@@ -2,6 +2,7 @@ import type { Report } from '@/application/plan/check-context';
 import { isRecord, prop, qualifiedOf, strings, typeOf } from '@/application/plan/ids';
 import { fingerprintOf } from '@/application/plan/plan-base';
 import { overlapsOf, overlapWords, stackOf, touchesOf } from '@/application/plan/plan-stack';
+import { inIdScope, qualifyId, startsWithId } from '@/domain/ids';
 import type { EntityType } from '@/domain/plan/plan-ids';
 import type { Neighbour, Neighbours } from '@/domain/plan/plan-neighbours';
 import type { Plan } from '@/domain/plan/plan.generated';
@@ -10,8 +11,6 @@ import type { Plan } from '@/domain/plan/plan.generated';
 // programme it joins, and the ids it cites as `<plan or programme>/<id>`. Composing a plan onto the plans it builds
 // on is worked out elsewhere (stack-base.ts); here a plan learns whether that composition is ambiguous, and which
 // plans beside it change what it changes.
-
-const PREFIXED = /^[a-z]+:[a-z0-9]/u;
 
 /**
  * The ids a plan or programme as written defines, wherever they sit in it, the plans it builds on, what its changes
@@ -26,7 +25,7 @@ export function neighbourOf(raw: unknown): Neighbour {
     }
     if (!isRecord(value)) return;
     const { id, status } = value;
-    if (typeof id === 'string' && PREFIXED.test(id) && !ids.has(id)) {
+    if (typeof id === 'string' && startsWithId(id) && !ids.has(id)) {
       ids.set(id, typeof status === 'string' ? status : null);
     }
     for (const child of Object.values(value)) visit(child);
@@ -211,8 +210,8 @@ function checkStack(plan: Plan, neighbours: Neighbours, rep: Report): void {
   if (plans.get(slug)?.landed === true) return;
   const changes = plan.changes ?? [];
   for (const overlap of overlapsOf(plans).filter((each) => each.plans.includes(slug))) {
-    const mine = overlap.changes.find((id) => id.startsWith(`${slug}/`)) ?? '';
-    const at = changes.findIndex((change) => `${slug}/${change.id}` === mine);
+    const mine = overlap.changes.find((id) => inIdScope(id, slug)) ?? '';
+    const at = changes.findIndex((change) => qualifyId(slug, change.id) === mine);
     rep.warn(at === -1 ? ['changes'] : ['changes', at], overlapWords(overlap, slug));
   }
 }

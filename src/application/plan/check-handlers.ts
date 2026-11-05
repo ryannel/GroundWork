@@ -7,6 +7,7 @@ import {
 } from '@/application/plan/check-context';
 import { linkOf, stepRefs, walkHandler, type StepRef } from '@/application/plan/handler-walk';
 import { parentOf, typeOf } from '@/application/plan/ids';
+import { hasPrefix } from '@/domain/ids';
 import type { HandlerNode, PlanNode, SystemGraph } from '@/domain/plan/plan-graph';
 import type { HandlerSource } from '@/domain/plan/plan.generated';
 
@@ -85,7 +86,7 @@ function onMismatch(g: SystemGraph, h: HandlerNode): string | null {
 }
 
 function checkOn(s: Scope, h: HandlerNode): void {
-  if (h.on.startsWith('job:')) return;
+  if (hasPrefix(h.on, 'job')) return;
   const where = at(s, h, 'on');
   if (!s.g.has(h.on)) {
     s.rep.error(where, `${h.on} does not exist; ${DANGLING}`);
@@ -125,7 +126,7 @@ function checkFlowCalls(s: Scope, steps: readonly (PlanNode & { readonly $type: 
   const calls = callsByComponent(s.g);
   for (const step of steps) {
     const known = calls.get(step.from);
-    if (known === undefined || !step.via.startsWith('api:') || known.has(step.via)) continue;
+    if (known === undefined || !hasPrefix(step.via, 'api') || known.has(step.via)) continue;
     s.rep.warn(
       at(s, step, 'via'),
       `${step.id} has ${step.from} call ${step.via}, but none of ${step.from}'s handlers calls it; add the call to the handler that makes it, or fix the flow`,

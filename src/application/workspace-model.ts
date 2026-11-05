@@ -1,7 +1,9 @@
+import { derive, type Model } from '@/application/plan/derive';
+import { homeUrlOf } from '@/domain/code-links';
+import { buildId } from '@/domain/ids';
 // How the systems of a workspace work today, as one plan-shaped document with no changes, so every
 // plan view (map, flows, contracts, screens) can draw it. The structure gives the components; the
 // system model (contracts.yaml, story.yaml, flows/, journeys/) gives what they offer and keep.
-import { derive, type Model } from '@/application/plan/derive';
 import type { Plan, Service, Store } from '@/domain/plan/plan.generated';
 import {
   type Component,
@@ -86,12 +88,12 @@ function systemPlanOf(workspace: Workspace, model: WorkspaceModel): Plan {
       ...(colour === null ? {} : { colour }),
     })),
     systems: systems.map((system) => ({
-      id: `sys:${system.id}`,
+      id: buildId('sys', system.id),
       name: system.name,
       ...teamOf(system),
       ...(system.runsOn === undefined || system.runsOn === null
         ? {}
-        : { runs_on: `sys:${system.runsOn}` }),
+        : { runs_on: buildId('sys', system.runsOn) }),
       ...(systemDoes(system) === '' ? {} : { does: systemDoes(system) }),
       ...(system.repos.length === 0 ? {} : { sources: system.repos.map(repoSource) }),
     })),
@@ -113,8 +115,7 @@ function systemPlanOf(workspace: Workspace, model: WorkspaceModel): Plan {
 
 // A system's repos are the evidence that its components belong together.
 function repoSource({ repo, path }: CodeHome): { readonly url: string } {
-  const base = repo.includes('://') ? repo : `https://github.com/${repo}`;
-  return { url: path === null ? base : `${base}/tree/HEAD/${path}` };
+  return { url: homeUrlOf({ repo, path }) };
 }
 
 // A system no team owns yet draws with no owner rather than a made-up one.
@@ -148,7 +149,7 @@ function serviceOf(
     id: component.id,
     name: component.name,
     ...teamOf(system),
-    system: `sys:${system.id}`,
+    system: buildId('sys', system.id),
     kind: detail?.kind ?? SERVICE_KIND[component.type] ?? 'service',
     ...plainWords(component),
     ...(component.infrastructure === true ? { infrastructure: true } : {}),

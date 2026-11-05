@@ -1,6 +1,7 @@
 import 'server-only';
-
 import { z } from 'zod';
+
+import { keyTermIdPattern } from '@/domain/ids';
 
 // The files of the system model, beside the structure. Entries in plan shape are checked against
 // plan.schema.json once `origin` is taken off and their sources are turned into permalinks.
@@ -89,10 +90,7 @@ export const targetFile = z.strictObject({
       z.strictObject({
         id: localId,
         name: z.string(),
-        term: z
-          .string()
-          .regex(/^term:[a-z0-9-]+$/u, 'term is a key term id')
-          .optional(),
+        term: z.string().regex(keyTermIdPattern, 'term is a key term id').optional(),
         owners: z.array(z.string()).default([]),
         summary: z.string().optional(),
         from: z.array(localId).default([]),
@@ -119,7 +117,7 @@ const example = z.strictObject({
 });
 
 const keyTerm = z.strictObject({
-  id: z.string().regex(/^term:[a-z0-9-]+$/u, 'a key term id is term:<name>'),
+  id: z.string().regex(keyTermIdPattern, 'a key term id is term:<name>'),
   name: z.string(),
   group: z.string().optional(),
   aliases: z.array(z.string()).default([]),

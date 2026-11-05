@@ -14,6 +14,8 @@ import path from 'node:path';
 
 import { parse, stringify } from 'yaml';
 
+import { remoteUrlOf } from '@/domain/code-links';
+
 export interface Remote {
   /** The default branch, or null when the repo could not be reached. */
   readonly defaultBranch: string | null;
@@ -112,7 +114,7 @@ function run(cmd: string, args: readonly string[]): string | null {
 }
 
 function remoteOf(repo: string, branch: string | undefined): Remote {
-  const url = `https://github.com/${repo}.git`;
+  const url = remoteUrlOf(repo);
   const refs = ['HEAD', ...(branch === undefined ? [] : [`refs/heads/${branch}`])];
   const raw = run('git', ['ls-remote', '--symref', url, ...refs]);
   return raw === null ? { defaultBranch: null, tips: new Map() } : parseLsRemote(raw);

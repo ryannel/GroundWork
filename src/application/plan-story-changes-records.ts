@@ -4,6 +4,7 @@ import { type WorstField, worstFields } from '@/application/plan-viz-fields';
 import { andList } from '@/application/plan-viz-ladder-order';
 import { teamOf } from '@/application/plan-viz-teams';
 import { enumValues, numWord } from '@/application/plan-viz-text';
+import { childId } from '@/domain/ids';
 import type { PlanNode } from '@/domain/plan/plan-graph';
 
 import { changesOf, teamsBehind } from './plan-story-changes-touched';
@@ -92,13 +93,13 @@ function recordSentence(model: Model, schemaId: string): string {
   const moves = namesIn(model.asIs.get(schemaId)).map((n) =>
     fieldMoves(
       model,
-      { fid: `${schemaId}#${n}`, name: n },
+      { fid: childId(schemaId, n), name: n },
       after === undefined || fieldsAfter.includes(n),
     ),
   );
   const gains = moves.flatMap((m) => m.gains);
   const other = moves.flatMap((m) => m.other);
-  const added = fieldsAfter.filter((n) => model.status(`${schemaId}#${n}`) === 'added');
+  const added = fieldsAfter.filter((n) => model.status(childId(schemaId, n)) === 'added');
   const [only] = added;
   if (added.length === 1 && only !== undefined) gains.push(`a ${code(only)} field`);
   else if (added.length > 1) gains.push(`${numWord(added.length)} new fields`);

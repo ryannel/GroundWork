@@ -1,5 +1,6 @@
 import type { Core } from '@/application/plan/derive-core';
 import { memo } from '@/application/plan/derive-values';
+import { hasPrefix } from '@/domain/ids';
 import type { FanoutCall, StepNode, SystemGraph } from '@/domain/plan/plan-graph';
 import type { Test } from '@/domain/plan/plan.generated';
 
@@ -140,7 +141,7 @@ export function createContracts(core: Core): ContractQueries {
   const connectionsWithoutContract = memo((): UncontractedLink[] =>
     mergeLinks(
       core.toBe.steps.flatMap((s) =>
-        s.via.startsWith('gql:') ? operationLinks(sc, s) : connectionLink(sc, s),
+        hasPrefix(s.via, 'gql') ? operationLinks(sc, s) : connectionLink(sc, s),
       ),
     ),
   );

@@ -1,11 +1,8 @@
 import type { Model } from '@/application/plan/derive';
+import { permalinkOf } from '@/domain/code-links';
+import { isWithinId, buildId, hasPrefix } from '@/domain/ids';
 import type { Workspace } from '@/domain/workspace';
-import {
-  type Attribution,
-  type CodeSource,
-  type Origin,
-  permalinkOf,
-} from '@/domain/workspace-model';
+import type { Attribution, CodeSource, Origin } from '@/domain/workspace-model';
 
 import { screenEntry, type PaletteEntry } from './plan-pages-search';
 import { journeysHref, referenceHref } from './today-reader';
@@ -39,7 +36,7 @@ function holderOf(workspace: Workspace, component: string) {
 
 function systemPlace(workspace: Workspace, id: string): TodayPlace | null {
   for (const domain of workspace.domains) {
-    const system = domain.systems.find((s) => `sys:${s.id}` === id);
+    const system = domain.systems.find((s) => buildId('sys', s.id) === id);
     if (system !== undefined) return placeOf(workspace, { domain, system, component: null });
   }
   return null;
@@ -63,7 +60,7 @@ function placeOf(
 
 /** Where a thing sits in the workspace, or null when no component holds it (a flow, a journey, a team). */
 export function todayPlaceOf(workspace: Workspace, model: Model, id: string): TodayPlace | null {
-  if (id.startsWith('sys:')) return systemPlace(workspace, id);
+  if (hasPrefix(id, 'sys')) return systemPlace(workspace, id);
   const own = holderOf(workspace, id);
   if (own !== null) return placeOf(workspace, { ...own, component: null });
   const owner = model.ownerService(id);
@@ -119,7 +116,7 @@ export function codeEvidenceOf(
   attribution: Readonly<Record<string, Attribution>>,
   id: string,
 ): Evidence[] {
-  const ids = Object.keys(attribution).filter((key) => key === id || key.startsWith(`${id}#`));
+  const ids = Object.keys(attribution).filter((key) => key === id || isWithinId(key, id));
   const seen = new Set<string>();
   return ids
     .toSorted((a, b) => ownFirst(id, a, b))

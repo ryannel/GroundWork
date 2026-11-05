@@ -12,6 +12,7 @@ import {
   reachOf,
   touched,
 } from '@/application/plan-story-changes-touched';
+import { colonLocalId } from '@/domain/ids';
 
 // Chapter 4 as screens. What the plan touches decides which exist: a flow, a screen, the graph, the interfaces,
 // the records and the ledger. A small plan folds all of it into one screen per flow.
@@ -39,7 +40,7 @@ export interface ChangeScreen {
 
 const SPLIT = 3;
 const nameOf = (model: Model, id: string): string => model.label(id);
-const afterColon = (id: string): string => id.split(':')[1] ?? id;
+const afterColon = (id: string): string => colonLocalId(id);
 
 function smallScreens(model: Model, t: Touched): ChangeScreen[] {
   const taken = new Set<string>();

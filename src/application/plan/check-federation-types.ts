@@ -15,6 +15,7 @@ import {
   keysOf,
 } from '@/application/plan/federation-index';
 import { parseTypeRef } from '@/application/plan/federation-parse';
+import { childId } from '@/domain/ids';
 import type { FieldNode, SchemaNode } from '@/domain/plan/plan-graph';
 
 const GRAPH_FIELD_PROPS = [
@@ -131,7 +132,7 @@ function reportUnknown(s: Scope, unknown: Unknown): void {
     const [first] = fs;
     if (fs.length < 2 || first === undefined) continue;
     const [gid = '', tn = ''] = key.split('|');
-    const where = { ...s.at(first, 'type'), id: `${gid}#${tn}` };
+    const where = { ...s.at(first, 'type'), id: childId(gid, tn) };
     s.warn(
       where,
       `${tn} is used by ${String(fs.length)} fields of ${gid} (${fs.map((f) => fieldLabel(s.g, f.id)).join(', ')}) but is not modelled; the planner treats it as a scalar. Add a kind: graph-type schema named ${tn} if it has fields`,

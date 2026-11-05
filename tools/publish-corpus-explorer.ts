@@ -1,6 +1,7 @@
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 
+import { buildId } from '@/domain/ids';
 import type { ExplorerCatalogue } from '@/domain/service-explorer';
 import { componentsOf } from '@/domain/workspace';
 import { sourceDigest } from '@/infrastructure/scan/source-index';
@@ -43,7 +44,9 @@ for (const row of catalogue.repositories) {
     selections.push(...parsed.selections);
   } else if (selectedRepo === undefined || slug === selectedRepo) {
     const detail = await readCorpusRepository(catalogue.root, row);
-    const component = components.find((item) => item.id === `svc:${slug}` || item.id === slug);
+    const component = components.find(
+      (item) => item.id === buildId('svc', slug) || item.id === slug,
+    );
     const selection = await publishCorpusRepository(detail, {
       root: catalogue.root,
       output,

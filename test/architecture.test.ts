@@ -21,6 +21,45 @@ const component = (body: string) =>
   `import styles from './pair.module.css';\n\nexport function Pair() {\n  return ${body};\n}\n`;
 
 const CASES: readonly Case[] = [
+  {
+    name: 'repository homes use the shared builder',
+    file: 'src/application/bad-home.ts',
+    code: 'export const home = (repo: string): string => `https://github.com/${repo}`;\n',
+    rule: 'groundwork/identity-boundary',
+  },
+
+  {
+    name: 'child ids use the shared builder',
+    file: 'src/application/bad-child-build.ts',
+    code: 'export const child = (parentId: string, name: string): string => `${parentId}#${name}`;\n',
+    rule: 'groundwork/identity-boundary',
+  },
+
+  {
+    name: 'model ids use the shared builder',
+    file: 'src/application/bad-id.ts',
+    code: 'export const systemId = (slug: string): string => `sys:${slug}`;\n',
+    rule: 'groundwork/identity-boundary',
+  },
+  {
+    name: 'model prefixes use the shared parser',
+    file: 'src/application/bad-prefix.ts',
+    code: "export const slugOf = (id: string): string => id.replace(/^svc:/u, '');\n",
+    rule: 'groundwork/identity-boundary',
+  },
+  {
+    name: 'Git-host links use the shared builder',
+    file: 'src/application/bad-link.ts',
+    code: 'export const issue = (repo: string): string => `https://github.com/${repo}/issues/1`;\n',
+    rule: 'groundwork/identity-boundary',
+  },
+  {
+    name: 'child paths use the shared parser',
+    file: 'src/application/bad-child.ts',
+    code: "export const root = (id: string): string => id.split('#')[0] ?? '';\n",
+    rule: 'groundwork/identity-boundary',
+  },
+
   // layers
   {
     name: 'scan infrastructure may inspect TypeScript source',

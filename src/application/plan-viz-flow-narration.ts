@@ -1,5 +1,6 @@
 import type { FlowStep } from '@/application/plan/flow-steps';
 import type { Stop } from '@/application/plan-viz-flow-stops';
+import { hasPrefix, rootId } from '@/domain/ids';
 
 // What the step card says about a stop: who talks to whom, what happens, and how it fails.
 
@@ -45,7 +46,7 @@ export interface Narration {
 const WORDS = ['', 'One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine'];
 
 const unique = <T>(list: readonly T[]): T[] => [...new Set(list)];
-const base = (ref: string): string => ref.split('#')[0] ?? ref;
+const base = (ref: string): string => rootId(ref);
 const actionOf = (s: FlowStep): string => (s.action === '' ? s.id : s.action);
 const isVia = (via: string): boolean => via !== '' && via !== 'internal';
 
@@ -104,7 +105,7 @@ export function narrate(steps: readonly FlowStep[], stop: Stop): Narration | nul
       ? stop.indices.flatMap((i) => (steps[i] === undefined ? [] : [rowOf(steps[i], i + 1)]))
       : [],
     calls: list
-      .filter((s) => s.via.startsWith('gql:'))
+      .filter((s) => hasPrefix(s.via, 'gql'))
       .map((s) => ({ stepId: s.id, via: s.via, kase: s.case ?? 'cold' })),
     fails: list.flatMap((s) =>
       s.fails === undefined || s.fails === '' ? [] : [{ action: actionOf(s), text: s.fails }],

@@ -1,3 +1,4 @@
+import { permalinkOf } from '@/domain/code-links';
 import type { ExplorerPage, ExplorerSource } from '@/domain/service-explorer';
 
 import type { VisualContext } from './visual-types';
@@ -24,7 +25,7 @@ function sources(context: VisualContext, page: ExplorerPage): ExplorerSource[] {
     return {
       id,
       label: `${source.path}:${String(source.lines[0])}`,
-      url: `https://github.com/${source.repo}/blob/${source.commit}/${source.path.split('/').map(encodeURIComponent).join('/')}#L${String(source.lines[0])}-L${String(source.lines[1])}`,
+      url: permalinkOf(source, { encoding: 'segments', range: 'always' }),
     };
   });
 }

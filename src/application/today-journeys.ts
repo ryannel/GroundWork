@@ -2,6 +2,7 @@ import type { Model } from '@/application/plan/derive';
 import { keyOf } from '@/application/plan-pages-key';
 import { journeyGroups } from '@/application/plan-story-journey-groups';
 import { countWord } from '@/application/plan-viz-text';
+import { rootId } from '@/domain/ids';
 import { plain } from '@/shared/plain-text';
 
 // The major journeys of a workspace as it runs today: each user journey, walked across the flows its
@@ -91,9 +92,7 @@ function userJourneys(model: Model): TodayJourney[] {
   return model.asIs.userJourneys.flatMap((journey) => {
     const moves = journey.interactions.map((id) => interactionOf(model, id));
     const flows = [
-      ...new Set(
-        moves.flatMap((move) => (move?.supporting_steps ?? []).map((s) => s.split('#')[0] ?? s)),
-      ),
+      ...new Set(moves.flatMap((move) => (move?.supporting_steps ?? []).map((s) => rootId(s)))),
     ].filter((id) => flowOf(model, id) !== null);
     if (flows.length === 0) return [];
     const last = moves.at(-1);

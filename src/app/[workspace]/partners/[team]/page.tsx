@@ -4,6 +4,7 @@ import { notFound } from 'next/navigation';
 import { workspaceNavOf } from '@/application/workspace-nav';
 import { partnersHref, workspaceHref } from '@/application/workspace-paths';
 import { partnerPageVM } from '@/application/workspace-work/partner-page';
+import { buildId } from '@/domain/ids';
 import { TodayOverlays, TodaySearch, WorkCard } from '@/features/plan';
 import { PartnerPage, WorkspaceShell } from '@/features/workspace';
 import { todayData } from '@/infrastructure/today-data';
@@ -17,7 +18,7 @@ interface Params {
 /** A partner's page reads the team by its id without `team:`; only a team marked as a partner has one. */
 async function partnerOf(workspace: string, team: string) {
   const index = await readWorkspacePlanIndex(workspace);
-  const page = index === null ? null : partnerPageVM(index, `team:${team}`);
+  const page = index === null ? null : partnerPageVM(index, buildId('team', team));
   return page?.team.partner === true ? page : null;
 }
 

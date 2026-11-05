@@ -5,6 +5,7 @@ import {
   flowSteps,
 } from '@/application/plan/flow-steps';
 import { parentOf } from '@/application/plan/ids';
+import { hasChildPath } from '@/domain/ids';
 import type { ScreenNode, SystemGraph } from '@/domain/plan/plan-graph';
 
 export type MomentKind = 'background' | 'action' | 'update' | 'output' | 'linked';
@@ -29,7 +30,7 @@ function interactiveKind(graph: SystemGraph, screen: ScreenNode, step: FlowStep)
   const service = graph.get(screen.service);
   const fromUi =
     screen.service === step.from && service?.$type === 'service' && service.kind === 'ui';
-  if (fromUi && step.screen?.includes('#') === true) return 'action';
+  if (fromUi && hasChildPath(step.screen)) return 'action';
   return screen.service === step.to ? 'update' : 'linked';
 }
 
@@ -73,7 +74,7 @@ export function flowExperience(
       kind: kindOf(model, mode, step),
       title: step.action,
       screen: parentOf(step.screen) ?? step.screen,
-      region: step.screen.includes('#') ? step.screen : null,
+      region: hasChildPath(step.screen) ? step.screen : null,
       anchor,
       indices: [anchor],
     });

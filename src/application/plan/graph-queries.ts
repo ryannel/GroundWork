@@ -1,4 +1,5 @@
 import { isRecord, parentOf } from '@/application/plan/ids';
+import { hasPrefix } from '@/domain/ids';
 import type { Fanout, OpKind, StepNode, StoreNode, SystemGraph } from '@/domain/plan/plan-graph';
 import type { Stage } from '@/domain/plan/plan.generated';
 
@@ -15,8 +16,8 @@ function storeOfRef(g: SystemGraph, ref: string): string | null {
 }
 
 function callKind(via: string): 'api' | 'msg' | 'internal' {
-  if (via.startsWith('msg:')) return 'msg';
-  return via.startsWith('api:') ? 'api' : 'internal';
+  if (hasPrefix(via, 'msg')) return 'msg';
+  return hasPrefix(via, 'api') ? 'api' : 'internal';
 }
 
 /**
@@ -101,10 +102,10 @@ type Put = (from: string | null | undefined, to: string | null | undefined, how:
 
 function stepLinks(g: SystemGraph, put: Put, fanout: Fanout): void {
   for (const s of g.steps) {
-    if (s.via.startsWith('api:')) put(s.to, s.from, { kind: 'api', via: s.via });
-    else if (s.via.startsWith('gql:')) {
+    if (hasPrefix(s.via, 'api')) put(s.to, s.from, { kind: 'api', via: s.via });
+    else if (hasPrefix(s.via, 'gql')) {
       for (const c of fanout(g, s).calls) put(c.to, c.from, { kind: 'api', via: c.via });
-    } else if (!s.via.startsWith('msg:')) put(s.to, s.from, { kind: 'api' });
+    } else if (!hasPrefix(s.via, 'msg')) put(s.to, s.from, { kind: 'api' });
   }
 }
 

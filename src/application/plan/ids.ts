@@ -1,12 +1,5 @@
 import type { PlanEntity, PlanEntry } from '@/domain/plan/plan-graph';
-import {
-  ID_PREFIXES,
-  PLAN_COLLECTIONS,
-  REFS,
-  type EntityType,
-  type IdPrefix,
-  type PathSegment,
-} from '@/domain/plan/plan-ids';
+import { PLAN_COLLECTIONS, REFS, type EntityType, type PathSegment } from '@/domain/plan/plan-ids';
 import type { Plan } from '@/domain/plan/plan.generated';
 
 export type Rec = Record<string, unknown>;
@@ -24,42 +17,12 @@ export function strings(value: unknown): string[] {
   return Array.isArray(value) ? value.filter((x): x is string => typeof x === 'string') : [];
 }
 
-function isPrefix(key: string): key is IdPrefix {
-  return Object.hasOwn(ID_PREFIXES, key);
-}
-
-function childTypeOf(base: EntityType, suffix: string | undefined): EntityType | null {
-  if (suffix === undefined) return base;
-  if (base === 'flow') return 'step';
-  if (base === 'schema') return 'field';
-  return base === 'screen' ? 'region' : null;
-}
-
-/** Entity type of an id, or null when the prefix is unknown. `flow:x#y` is a step, `sch:x#y` a field. */
-export function typeOf(id: unknown): EntityType | null {
-  if (typeof id !== 'string') return null;
-  const m = /^([a-z]+):[^#\s]+(#.+)?$/u.exec(id);
-  const key = m?.[1];
-  if (m === null || key === undefined || !isPrefix(key)) return null;
-  return childTypeOf(ID_PREFIXES[key], m[2]);
-}
-
-const QUALIFIED = /^([a-z0-9]+(?:-[a-z0-9]+)*)\/([a-z]+:.+)$/u;
-
-/** `care-se/dec:x` → { scope: 'care-se', id: 'dec:x' }: an id in another plan or the programme; null for a local id. */
-export function qualifiedOf(id: string): { readonly scope: string; readonly id: string } | null {
-  const m = QUALIFIED.exec(id);
-  return m?.[1] === undefined || m[2] === undefined ? null : { scope: m[1], id: m[2] };
-}
-
-/** Parent id of a child id (`flow:x#y` → `flow:x`), else null. */
-export function parentOf(id: unknown): string | null {
-  const i = typeof id === 'string' ? id.indexOf('#') : -1;
-  return typeof id === 'string' && i > 0 ? id.slice(0, i) : null;
-}
-
-/** Field ids are `<schema>#<name>`. */
-export const fieldId = (schemaId: string, name: unknown): string => `${schemaId}#${String(name)}`;
+export {
+  planEntityTypeOf as typeOf,
+  qualifiedOf,
+  parentOf,
+  childId as fieldId,
+} from '@/domain/ids';
 
 const CITE_RE = /\[\[([^\]\s]{1,200})\]\]/gu;
 

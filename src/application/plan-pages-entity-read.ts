@@ -1,5 +1,6 @@
 import { typeOf } from '@/application/plan/ids';
 import { levelWord, ROAM_GLOSS } from '@/application/plan-risk-words';
+import { parseGitHostUrl } from '@/domain/code-links';
 
 // Sorts the fields of one thing in a plan into what the inspector shows: its prose, short facts (a link when the
 // value is an address), longer passages under their own heading, its picture and its evidence links.
@@ -78,7 +79,11 @@ function factValue(key: string, value: string): string {
   return isUrl(value) ? new URL(value).hostname : value;
 }
 
-const GITHUB_BLOB = /^https:\/\/github\.com\/[^/]+\/([^/]+)\/blob\/[^/]+\/(.+)$/u;
+function sourceFallback(url: string): string {
+  const blob = parseGitHostUrl(url);
+  if (blob?.host !== 'github.com' || blob.kind !== 'blob') return url.replace(/^https?:\/\//u, '');
+  return `${blob.repo.split('/')[1] ?? ''} · ${blob.rawPath}${new URL(url).hash}`;
+}
 
 /** A source as its label, or repo · path#line for a GitHub permalink, or the address. */
 function sourceOf(value: unknown): EntitySource | null {
@@ -86,9 +91,7 @@ function sourceOf(value: unknown): EntitySource | null {
   const { url } = value;
   if (typeof url !== 'string') return null;
   const label = 'label' in value && typeof value.label === 'string' ? value.label : null;
-  const blob = GITHUB_BLOB.exec(url);
-  const fallback =
-    blob === null ? url.replace(/^https?:\/\//u, '') : `${blob[1] ?? ''} · ${blob[2] ?? ''}`;
+  const fallback = sourceFallback(url);
   return { label: label ?? fallback, href: url };
 }
 

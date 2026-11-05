@@ -2,6 +2,7 @@ import type { Core, ElementStatus } from '@/application/plan/derive-core';
 import { memo, objects, textOf, uniq } from '@/application/plan/derive-values';
 import { actingService } from '@/application/plan/graph-queries';
 import { parentOf, prop, strings } from '@/application/plan/ids';
+import { rootId } from '@/domain/ids';
 import type { PlanNode } from '@/domain/plan/plan-graph';
 
 export interface Rollup {
@@ -33,7 +34,7 @@ function navigationServicesOf({ asIs, toBe }: Core, id: string): string[] {
     [asIs, toBe].flatMap((g) =>
       interactionsOf(g, g.get(id)).flatMap((i) =>
         i?.$type === 'interaction'
-          ? i.from.map((ref) => textOf(prop(g.get(ref.split('#')[0]), 'service')))
+          ? i.from.map((ref) => textOf(prop(g.get(rootId(ref)), 'service')))
           : [],
       ),
     ),

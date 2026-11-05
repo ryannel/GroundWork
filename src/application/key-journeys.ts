@@ -1,5 +1,6 @@
 import type { Model } from '@/application/plan/derive';
 import { type TodayJourney, todayJourneysOf } from '@/application/today-journeys';
+import { buildId } from '@/domain/ids';
 import type { Workspace } from '@/domain/workspace';
 import { plural } from '@/shared/text';
 
@@ -26,7 +27,7 @@ const isPerson = (workspace: Workspace, j: TodayJourney): boolean =>
 
 function domainsOf(workspace: Workspace): Map<string, string> {
   return new Map(
-    workspace.domains.flatMap((d) => d.systems.map((s) => [`sys:${s.id}`, d.id] as const)),
+    workspace.domains.flatMap((d) => d.systems.map((s) => [buildId('sys', s.id), d.id] as const)),
   );
 }
 

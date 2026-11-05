@@ -1,7 +1,7 @@
 'use client';
-
 import { Suspense, useEffect } from 'react';
 
+import { buildId } from '@/domain/ids';
 import { useLens } from '@/features/plan/lens.client';
 
 /** The screens each team's lens leaves out of the rail, by team id. */
@@ -12,7 +12,7 @@ const trimmed = (path: string): string => (path.endsWith('/') ? path.slice(0, -1
 /** Hides the rail's entries for the screens the lens leaves out, and shows them all again without one. */
 export function cutRail(root: ParentNode, lens: string | null, hidden: RailHidden): void {
   const out = new Set(
-    (lens === null ? [] : (hidden[lens] ?? hidden[`team:${lens}`] ?? [])).map(trimmed),
+    (lens === null ? [] : (hidden[lens] ?? hidden[buildId('team', lens)] ?? [])).map(trimmed),
   );
   for (const link of root.querySelectorAll<HTMLAnchorElement>('li a[href]')) {
     const item = link.closest('li');

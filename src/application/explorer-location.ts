@@ -1,4 +1,5 @@
 import { explorerArtifactIndex } from '@/domain/explorer-artifact-index';
+import { stripPrefix } from '@/domain/ids';
 import type { ExplorerManifest, ExplorerService } from '@/domain/service-explorer';
 
 export interface ExplorerLocation {
@@ -45,6 +46,6 @@ function matchService(
 ): ExplorerService | undefined {
   const exact = manifest.services.find((service) => service.id === requested);
   if (exact !== undefined) return exact;
-  const compatible = requested?.replace(/^svc:/u, '');
+  const compatible = stripPrefix(requested, 'svc');
   return manifest.services.find((service) => service.id === compatible);
 }
