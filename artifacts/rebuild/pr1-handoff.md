@@ -13,8 +13,10 @@ PR 2 has not started. No merge is authorised by this handoff.
 - Personal: the bundled `workspaces/personal` example on the code base.
 - Acme: the maintained typed fixture in `test/fixtures/acme`, materialised by `rebuild:acme` through
   `test/workspace-kit.ts`, registered only in this worktree's ignored local registry.
-- The main checkout and Volvo working tree remained as found; their commit ids and file status were checked
-  before and after the work. No Volvo file, existing producer, cache or model file was changed or deleted.
+- The main checkout and Volvo source file state and commit ids remain as found and were checked
+  before and after the work. A pre-push fixture run inherited Git repository variables and changed shared
+  Git metadata (`core.bare` and user identity); normal worktree mode and the identity recorded by the
+  pre-test commits were restored, and both checkouts were verified again. No Volvo file, existing producer, cache or model file was changed or deleted.
 
 ## Plan-lock proof
 
@@ -79,8 +81,11 @@ Every comparison reports zero unexplained differences.
   array order.
 
 Logs are committed under `validation/`. Knip's broad file search followed shared Git hooks outside the
-worktree and waited indefinitely. The unchanged hooks were copied locally and only their process-local
-Git discovery path was overridden for `check`; no configuration or rule was changed. Reproduction commands
+worktree and waited indefinitely. The hooks were copied locally and their process-local
+Git discovery path was overridden for `check`. The local pre-push copy also clears inherited repository
+identity variables (`GIT_DIR`, work-tree/index/object paths and prefix) before running the original commands:
+otherwise temporary-repository tests use the outer worktree metadata. No repository hook, configuration, test
+or rule was changed or disabled. Reproduction commands
 are in `docs/rebuild/README.md`. The offline install could not supply the locked versions, so this worktree
 used independent copies of the main checkout's already-installed dependencies; dependency versions and the
 lock file are unchanged.

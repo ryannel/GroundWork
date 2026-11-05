@@ -77,8 +77,14 @@ mkdir -p .workspaces/rebuild/hooks
 cp /Users/RNEL/Workspace/groundWork/.git/hooks/pre-commit .workspaces/rebuild/hooks/
 cp /Users/RNEL/Workspace/groundWork/.git/hooks/pre-push .workspaces/rebuild/hooks/
 cp /Users/RNEL/Workspace/groundWork/.git/hooks/prepare-commit-msg .workspaces/rebuild/hooks/
+python3 - <<'PYHOOK'
+from pathlib import Path
+hook = Path('.workspaces/rebuild/hooks/pre-push')
+clear = 'unset GIT_DIR GIT_WORK_TREE GIT_INDEX_FILE GIT_COMMON_DIR GIT_PREFIX GIT_OBJECT_DIRECTORY GIT_ALTERNATE_OBJECT_DIRECTORIES GIT_IMPLICIT_WORK_TREE'
+hook.write_text(hook.read_text().replace('#!/bin/sh\n', '#!/bin/sh\n' + clear + '\n', 1))
+PYHOOK
 GIT_CONFIG_COUNT=1 GIT_CONFIG_KEY_0=core.hooksPath GIT_CONFIG_VALUE_0=.workspaces/rebuild/hooks npm run check
 ```
 
-This runs the existing configurations and checks unchanged. The override is process-local; Git configuration
+The local pre-push copy clears inherited Git repository identity variables before running the existing hook commands. Otherwise Git-fixture tests use the outer worktree metadata even after changing directory. This runs the existing configurations and checks unchanged. The override is process-local; Git configuration
 and the main checkout's hooks stay untouched. See `artifacts/rebuild/pr1-handoff.md` for results and input pins.
