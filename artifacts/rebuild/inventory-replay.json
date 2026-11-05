@@ -1,0 +1,11 @@
+{
+  "identical": true,
+  "sha256": {
+    "consumers.md": "c1305326440a1b1941a7da46cbb1b41521f13dbf3d2ba5b009670540f7f893ed",
+    "consumers.json": "df13e5eee586e044556e944e0c1e486db123a274ef1eec8944b4b07eac49d400",
+    "ids-and-urls.md": "819a0c81c4b1dab2d1d69ac99891954241af3e8533b2aa076e2c17b662ff7883",
+    "ids-and-urls.json": "fa003191574eda561ad006ad7b43dfb651eefdbbe9c7bb16e558396715e038bb",
+    "explorer-parity.md": "bbaed90967f040c0fe8714a84559e96373edb5a09dd6f1d6ea8e31061849d713",
+    "explorer-parity.json": "c7785e7094608f1adf5cd27290f3d3066f4269c65f4a332ac953fecb921be1c4"
+  }
+}

@@ -1,0 +1,22 @@
+
+> groundwork@0.0.0 check:quick
+> node --import ./tools/register.ts tools/checks/quick.ts docs/rebuild package.json src/application/plan/plan-base.ts src/application/plan/plan-base.test.ts tools/rebuild tools/explorer-parity.ts
+
+Checking 20 task files.
+Checking formatting...
+All matched files use Prettier code style!
+Format: 0.4s
+Configuration changed: also run npm run check before handover.
+Lint: 8.3s
+Types: 2.8s
+
+ RUN  v5.0.4 /Users/RNEL/.codex/worktrees/rebuild-pr1/groundWork
+
+
+ Test Files  222 passed (222)
+   Affected  222 of 519 test files (related to 15 files)
+      Tests  1974 passed (1974)
+   Start at  20:54:44
+   Duration  27.02s (import 44%, tests 35%, environment 19%, setup 2%, worker 1%)
+
+Related tests: 27.8s

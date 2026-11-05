@@ -79,7 +79,12 @@
     "scan:discover": "node --import ./tools/register.ts --conditions=react-server tools/scan-discovery-inventory.ts",
     "scan:discovery": "node --import ./tools/register.ts --conditions=react-server tools/scan-discovery.ts",
     "scan:protobuf": "node --import ./tools/register.ts --conditions=react-server tools/scan-protobuf-contracts.ts",
-    "generate:protobuf": "node --import ./tools/register.ts --conditions=react-server tools/scan-protobuf-contracts-types.ts"
+    "generate:protobuf": "node --import ./tools/register.ts --conditions=react-server tools/scan-protobuf-contracts-types.ts",
+    "rebuild:inventory": "node --import ./tools/register.ts --conditions=react-server tools/rebuild/inventory.ts",
+    "rebuild:baseline": "node --import ./tools/register.ts --conditions=react-server tools/rebuild/baseline.ts",
+    "rebuild:compare": "node --import ./tools/register.ts --conditions=react-server tools/rebuild/compare.ts",
+    "rebuild:acme": "node --import ./tools/register.ts --conditions=react-server tools/rebuild/acme.ts",
+    "rebuild:parity": "node --import ./tools/register.ts --conditions=react-server tools/explorer-parity.ts"
   },
   "dependencies": {
     "ajv": "^8.20.0",

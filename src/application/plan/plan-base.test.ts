@@ -144,7 +144,7 @@ describe('nodeOf', () => {
   it('finds an entity, a nested id and a named part', () => {
     expect(nodeOf(base(), 'svc:web')).toMatchObject({ name: 'Web' });
     expect(nodeOf(base(), 'if:api#x')).toBeNull();
-    expect(nodeOf(base(), 'api:get')).toBeNull();
+    expect(nodeOf(base(), 'api:get')).toMatchObject({ id: 'api:get' });
     expect(nodeOf(base(), 'scr:pdp#delivery')).toEqual({ name: 'delivery', shows: 'A date' });
     expect(nodeOf(base(), 'svc:nobody')).toBeNull();
   });
@@ -191,5 +191,51 @@ describe('fingerprints and drift', () => {
     );
     expect(driftOf(plan, moved, lock)).toEqual(['scr:pdp#delivery', 'svc:far']);
     expect(driftOf(plan, moved, {})).toEqual([]);
+  });
+});
+
+const nestedBase = (sig: string, does: string): PlanBase => ({
+  mode: 'live',
+  landedOn: null,
+  collections: {
+    interfaces: [{ id: 'if:api', endpoints: [{ id: 'api:get', sig }] }],
+    handlers: [{ id: 'h:get', steps: [{ id: 'tx', steps: [{ id: 'read', does }] }] }],
+    flows: [{ id: 'flow:get', steps: [{ id: 'flow:get#load', action: does }] }],
+  },
+});
+
+describe('nested lock targets', () => {
+  const raw = {
+    changes: [
+      {
+        ops: [
+          { modify: 'api:get', set: { sig: 'GET /new' } },
+          { modify: 'h:get#tx/read', set: { does: 'Read differently' } },
+          { add: 'step', after: 'flow:get#load', value: {} },
+        ],
+      },
+    ],
+  };
+
+  it('locks nested endpoints and steps, and reports their drift independently', () => {
+    const original = nestedBase('GET /old', 'Read it');
+    const lock = lockOf(raw, original);
+    expect(Object.values(lock)).not.toContain('absent');
+    expect(driftOf(raw, original, lock)).toEqual([]);
+    expect(driftOf(raw, nestedBase('GET /changed', 'Read it'), lock)).toEqual(['api:get']);
+    expect(driftOf(raw, nestedBase('GET /old', 'Read again'), lock)).toEqual([
+      'flow:get#load',
+      'h:get#tx/read',
+    ]);
+    expect(nodeOf(original, 'h:get#tx/read')).toEqual({ id: 'read', does: 'Read it' });
+    expect(nodeOf(original, 'h:get#tx/missing')).toBeNull();
+  });
+
+  it('keeps local child ids scoped to their own parent', () => {
+    const original = nestedBase('GET /old', 'Read it');
+    original.collections.screens = [{ id: 'scr:other', regions: [{ id: 'read', shows: 'Other' }] }];
+    expect(nodeOf(original, 'scr:other#read')).toEqual({ id: 'read', shows: 'Other' });
+    expect(nodeOf(original, 'h:get#tx/read')).toEqual({ id: 'read', does: 'Read it' });
+    expect(nodeOf(original, 'read')).toBeNull();
   });
 });

@@ -1,0 +1,6 @@
+
+> groundwork@0.0.0 rebuild:inventory
+> node --import ./tools/register.ts --conditions=react-server tools/rebuild/inventory.ts
+
+Explorer: 20 capabilities; none retired or proven.
+1594 consumer rows; 6790 id/URL sites. No migration or retirement is claimed.

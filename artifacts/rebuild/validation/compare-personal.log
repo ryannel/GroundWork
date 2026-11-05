@@ -1,0 +1,30 @@
+
+> groundwork@0.0.0 rebuild:compare
+> node --import ./tools/register.ts --conditions=react-server tools/rebuild/compare.ts --before artifacts/rebuild/baseline/personal --workspace personal --out artifacts/rebuild/verification/personal
+
+Workspace: Personal (personal) at /Users/RNEL/.codex/worktrees/rebuild-pr1/groundWork/workspaces/personal
+Capturing /
+Capturing /personal/
+Capturing /personal/explorer/
+Capturing /personal/journeys/
+Capturing /personal/language/
+Capturing /personal/model.json
+Capturing /personal/partners/
+Capturing /personal/people/
+Capturing /personal/plans/
+Capturing /personal/programmes/
+Capturing /personal/reference/
+Capturing /personal/reference/components/
+Capturing /personal/reference/stores/
+Capturing /personal/side-projects/
+Capturing /personal/side-projects/allotment-log/
+Capturing /personal/side-projects/flows/
+Capturing /personal/side-projects/interfaces/
+Capturing /personal/side-projects/language/
+Capturing /personal/side-projects/map/
+Capturing /personal/side-projects/plans/
+Capturing /personal/side-projects/target/
+Capturing /personal/things/?id=st-allotment-db
+Capturing /personal/things/?id=svc-allotment-app
+Capturing /personal/value-flows/
+0 differences; 0 unexplained. Report: artifacts/rebuild/verification/personal/comparison.json

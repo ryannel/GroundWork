@@ -1,0 +1,4 @@
+# Exact observed transport-only difference; see pr1-handoff.md.
+format: 1
+differences:
+  - {"after": "5a61d5a724f0dba742ec43e2f59952ac4eb31c59d2a56e485c98e0ea5247f5a5", "before": "1e910454b5c75b90ea12d5752285c433ea590e0f573562e124d0ee278ffc02c8", "file": "route-70370555f544e09df429.json.gz", "path": "/htmlBytes", "workspace": "acme", "reason": "Repeated unchanged production responses for /acme/catalogue/plans/ have identical headings, links, visible payload and JSON. Next coalesces one 43-byte Flight script wrapper: this baseline captured 27172 bytes and the repeat captured 27129. Only this exact measured size change is allowed; all payload differences remain checked."}

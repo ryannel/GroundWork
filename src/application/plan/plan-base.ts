@@ -73,7 +73,7 @@ export function collectionsOf(data: unknown): BaseCollections {
 }
 
 /** Every base entity by its id. */
-function indexOf(base: PlanBase): Map<string, Entity> {
+function topLevelOf(base: PlanBase): Map<string, Entity> {
   const index = new Map<string, Entity>();
   for (const key of COLLECTIONS) {
     for (const entity of base.collections[key] ?? []) {
@@ -109,7 +109,7 @@ function namedIn(value: unknown, owners: ReadonlyMap<string, string>): Set<strin
  * those name in turn. Every version of a plan shares one scope, so a diff between them shows only the plan.
  */
 export function scopeOf(base: PlanBase, versions: readonly unknown[]): Set<string> {
-  const known = indexOf(base);
+  const known = topLevelOf(base);
   const owners = ownersOf(known);
   const roots = rootTypesOf(base);
   const scope = new Set<string>();
@@ -203,7 +203,7 @@ export function onBase(
   base: PlanBase,
   scope: ReadonlySet<string> | null,
 ): { readonly doc: Record<string, unknown>; readonly issues: readonly Issue[] } {
-  const known = indexOf(base);
+  const known = topLevelOf(base);
   const issues: Issue[] = [];
   const { context, ...rest } = raw;
   issues.push(...contextIssues(context, known));
@@ -238,26 +238,37 @@ export function anchorsOf(raw: unknown): string[] {
   return [...anchors].toSorted((a, b) => a.localeCompare(b));
 }
 
-function findIn(value: unknown, id: string): Entity | null {
-  if (Array.isArray(value)) {
-    for (const item of value) {
-      const found = findIn(item, id);
-      if (found !== null) return found;
+/** Every explicit id, including independently prefixed nested ids and locally identified children. */
+function nodeIndex(base: PlanBase): ReadonlyMap<string, Entity> {
+  const index = new Map<string, Entity>();
+  const walk = (value: unknown, parent: string | null): void => {
+    if (Array.isArray(value)) {
+      for (const item of value) walk(item, parent);
+      return;
     }
-    return null;
-  }
-  if (!isRecord(value)) return null;
-  if (value.id === id) return value;
-  return findIn(Object.values(value), id);
+    if (!isRecord(value)) return;
+    const own = idOf(value);
+    const separator = parent?.includes('#') === true ? '/' : '#';
+    const local = own !== null && !own.includes(':') && parent !== null;
+    const id = local ? `${parent}${separator}${own}` : own;
+    if (id !== null) index.set(id, value);
+    for (const child of Object.values(value)) walk(child, id ?? parent);
+  };
+  walk(base.collections, null);
+  return index;
 }
 
-/** A thing in the base by id: an entity, a nested thing with that id, or `parent#name` for a named part. */
-export function nodeOf(base: PlanBase, id: string): Entity | null {
-  const parent = indexOf(base).get(rootOf(id)) ?? null;
-  if (parent === null || !id.includes('#')) return parent;
-  const nested = findIn(parent, id);
-  if (nested !== null) return nested;
+function indexedNode(index: ReadonlyMap<string, Entity>, id: string): Entity | null {
+  const exact = index.get(id);
+  if (exact !== undefined) return exact;
+  const parent = index.get(rootOf(id));
+  if (parent === undefined || !id.includes('#')) return null;
   return namedPart(Object.values(parent), id.slice(id.indexOf('#') + 1));
+}
+
+/** A thing in the base by id, including independently prefixed children and legacy `parent#name` parts. */
+export function nodeOf(base: PlanBase, id: string): Entity | null {
+  return indexedNode(nodeIndex(base), id);
 }
 
 function namedPart(value: unknown, name: string): Entity | null {
@@ -295,7 +306,10 @@ export function fingerprintOf(node: unknown): string {
 
 /** What each thing a plan's ops lean on says today, to keep beside the plan. */
 export function lockOf(raw: unknown, base: PlanBase): Record<string, string> {
-  return Object.fromEntries(anchorsOf(raw).map((id) => [id, fingerprintOf(nodeOf(base, id))]));
+  const index = nodeIndex(base);
+  return Object.fromEntries(
+    anchorsOf(raw).map((id) => [id, fingerprintOf(indexedNode(index, id))]),
+  );
 }
 
 /** The things a plan leans on that today has changed since the lock was written. */
@@ -304,8 +318,9 @@ export function driftOf(
   base: PlanBase,
   lock: Readonly<Record<string, string>>,
 ): string[] {
+  const index = nodeIndex(base);
   return anchorsOf(raw).filter((id) => {
     const kept = lock[id];
-    return kept !== undefined && kept !== fingerprintOf(nodeOf(base, id));
+    return kept !== undefined && kept !== fingerprintOf(indexedNode(index, id));
   });
 }
