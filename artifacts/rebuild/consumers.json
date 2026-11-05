@@ -70875,39 +70875,39 @@
     "file": "test/architecture.test.ts",
     "hits": [
       {
-        "line": 41,
+        "line": 48,
         "text": "code: 'export const systemId = (slug: string): string => `sys:${slug}`;\\n',"
       },
       {
-        "line": 47,
+        "line": 54,
         "text": "code: \"export const slugOf = (id: string): string => id.replace(/^svc:/u, '');\\n\","
       },
       {
-        "line": 66,
+        "line": 73,
         "text": "file: 'src/infrastructure/scan-explorer/compiler.ts',"
       },
       {
-        "line": 102,
+        "line": 109,
         "text": "file: 'src/infrastructure/scan-explorer/disk-reader.ts',"
       },
       {
-        "line": 121,
+        "line": 128,
         "text": "code: \"import { readWorkspaces } from '@/infrastructure/workspace-store';\\n\\nexport const x = readWorkspaces;\\n\","
       },
       {
-        "line": 133,
+        "line": 140,
         "text": "code: \"import { readWorkspaces } from '@/infrastructure/workspace-store';\\n\\nexport const x = readWorkspaces;\\n\","
       },
       {
-        "line": 145,
+        "line": 152,
         "text": "code: \"import { systemsOf } from '@/domain/workspace';\\n\\nexport const x = systemsOf;\\n\","
       },
       {
-        "line": 274,
+        "line": 281,
         "text": "code: \"import { systemsOf } from '../domain/workspace';\\n\\nexport const x = systemsOf;\\n\","
       },
       {
-        "line": 316,
+        "line": 323,
         "text": "code: \"export * from '@/domain/workspace';\\n\","
       }
     ],

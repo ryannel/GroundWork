@@ -25197,15 +25197,15 @@
     "file": "test/architecture.test.ts",
     "hits": [
       {
-        "line": 41,
+        "line": 48,
         "text": "code: 'export const systemId = (slug: string): string => `sys:${slug}`;\\n',"
       },
       {
-        "line": 47,
+        "line": 54,
         "text": "code: \"export const slugOf = (id: string): string => id.replace(/^svc:/u, '');\\n\","
       },
       {
-        "line": 59,
+        "line": 66,
         "text": "code: \"export const root = (id: string): string => id.split('#')[0] ?? '';\\n\","
       }
     ],
@@ -25216,11 +25216,11 @@
     "file": "test/architecture.test.ts",
     "hits": [
       {
-        "line": 27,
+        "line": 34,
         "text": "code: 'export const home = (repo: string): string => `https://github.com/${repo}`;\\n',"
       },
       {
-        "line": 53,
+        "line": 60,
         "text": "code: 'export const issue = (repo: string): string => `https://github.com/${repo}/issues/1`;\\n',"
       }
     ],
@@ -30507,6 +30507,17 @@
     "status": "adapter"
   },
   {
+    "category": "Git-host URL construction, parsing or literal",
+    "file": "tools/native-cli.test.ts",
+    "hits": [
+      {
+        "line": 8,
+        "text": "it.each(['permalink', 'sources', 'scan-status'])("
+      }
+    ],
+    "status": "adapter"
+  },
+  {
     "category": "id construction, parsing or literal",
     "file": "tools/page-budget-rules.ts",
     "hits": [
@@ -30581,7 +30592,7 @@
       },
       {
         "line": 12,
-        "text": "import { repositoryOf as repoOf, permalinkOf as codePermalink } from '@/domain/code-links';"
+        "text": "import { repositoryOf as repoOf, permalinkOf as codePermalink } from '#domain/code-links';"
       },
       {
         "line": 45,
@@ -33023,7 +33034,7 @@
       },
       {
         "line": 17,
-        "text": "import { normaliseRepository, parseGitHostUrl } from '@/domain/code-links';"
+        "text": "import { normaliseRepository, parseGitHostUrl } from '#domain/code-links';"
       },
       {
         "line": 75,

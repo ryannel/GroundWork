@@ -9,7 +9,7 @@ import path from 'node:path';
 
 import { stringify } from 'yaml';
 
-import { repositoryOf as repoOf, permalinkOf as codePermalink } from '@/domain/code-links';
+import { repositoryOf as repoOf, permalinkOf as codePermalink } from '#domain/code-links';
 
 export interface Ref {
   readonly path: string;
@@ -24,7 +24,7 @@ export interface Source extends Ref {
 
 const LINES = /:(\d+)(?:-(\d+))?$/u;
 
-export { repositoryOf as repoOf } from '@/domain/code-links';
+export { repositoryOf as repoOf } from '#domain/code-links';
 
 export function parseRef(text: string): Ref {
   const at = text.lastIndexOf('@');

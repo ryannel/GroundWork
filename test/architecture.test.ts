@@ -22,6 +22,13 @@ const component = (body: string) =>
 
 const CASES: readonly Case[] = [
   {
+    name: 'native package imports preserve the domain boundary',
+    file: 'src/ui/bad-native-id.ts',
+    code: "import { buildId } from '#domain/ids';\n\nexport const systemId = (slug: string): string => buildId('sys', slug);\n",
+    rule: 'boundaries/dependencies',
+  },
+
+  {
     name: 'repository homes use the shared builder',
     file: 'src/application/bad-home.ts',
     code: 'export const home = (repo: string): string => `https://github.com/${repo}`;\n',

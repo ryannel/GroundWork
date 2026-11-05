@@ -6,23 +6,17 @@
 [check:static] > groundwork@0.0.0 check:static
 [check:static] > run-p --aggregate-output --print-label typecheck typecoverage lint:css design:drift format:check cycles duplication knip
 [check:static]
+[check:static] [cycles      ] - Start analyzing dependencies...
 [check:static] [design:drift]
 [check:static] [design:drift] > groundwork@0.0.0 design:drift
 [check:static] [design:drift] > node --import ./tools/register.ts tools/design-drift.ts
 [check:static] [design:drift]
 [check:static] [design:drift] No new design drift.
-[check:static] [cycles      ] - Start analyzing dependencies...
+[check:static] [cycles      ] ✔ [2074/2074] Analyze done!
 [check:static] [lint:css    ]
 [check:static] [lint:css    ] > groundwork@0.0.0 lint:css
 [check:static] [lint:css    ] > stylelint --cache --cache-location node_modules/.cache/stylelint/ "src/**/*.css"
 [check:static] [lint:css    ]
-[check:static] [knip        ] Configuration hints (1)
-[check:static] [knip        ] tools/scan-python-rust-setup.ts    knip.json  Remove redundant entry pattern
-[check:static] [knip        ]
-[check:static] [knip        ] > groundwork@0.0.0 knip
-[check:static] [knip        ] > knip
-[check:static] [knip        ]
-[check:static] [cycles      ] ✔ [2073/2073] Analyze done!
 [check:static] [cycles      ]
 [check:static] [cycles      ] > groundwork@0.0.0 cycles
 [check:static] [cycles      ] > dpdm --no-warning --no-tree -T --exit-code circular:1 'src/**/*.{ts,tsx}' 'tools/**/*.ts'
@@ -30,27 +24,33 @@
 [check:static] [cycles      ] • Circular Dependencies
 [check:static] [cycles      ]   ✅ Congratulations, no circular dependency was found in your project.
 [check:static] [cycles      ]
-[check:static] [typecoverage]
-[check:static] [typecoverage] > groundwork@0.0.0 typecoverage
-[check:static] [typecoverage] > type-coverage
-[check:static] [typecoverage]
-[check:static] [typecoverage] (347870 / 347870) 100.00%
-[check:static] [typecoverage] type-coverage success.
-[check:static] [typecheck   ]
-[check:static] [typecheck   ] > groundwork@0.0.0 typecheck
-[check:static] [typecheck   ] > tsc --noEmit
-[check:static] [typecheck   ]
-[check:static] [duplication ]
-[check:static] [duplication ] > groundwork@0.0.0 duplication
-[check:static] [duplication ] > jscpd
-[check:static] [duplication ]
-[check:static] [duplication ] Duplications detection: Found 53 exact clones with 689(0.38%) duplicated lines in 1965 (3 formats) files.
+[check:static] [knip        ] Configuration hints (1)
+[check:static] [knip        ] tools/scan-python-rust-setup.ts    knip.json  Remove redundant entry pattern
+[check:static] [knip        ]
+[check:static] [knip        ] > groundwork@0.0.0 knip
+[check:static] [knip        ] > knip
+[check:static] [knip        ]
 [check:static] [format:check]
 [check:static] [format:check] > groundwork@0.0.0 format:check
 [check:static] [format:check] > prettier --check --cache --cache-location node_modules/.cache/prettier.json .
 [check:static] [format:check]
 [check:static] [format:check] Checking formatting...
 [check:static] [format:check] All matched files use Prettier code style!
+[check:static] [typecheck   ]
+[check:static] [typecheck   ] > groundwork@0.0.0 typecheck
+[check:static] [typecheck   ] > tsc --noEmit
+[check:static] [typecheck   ]
+[check:static] [typecoverage]
+[check:static] [typecoverage] > groundwork@0.0.0 typecoverage
+[check:static] [typecoverage] > type-coverage
+[check:static] [typecoverage]
+[check:static] [typecoverage] (347942 / 347942) 100.00%
+[check:static] [typecoverage] type-coverage success.
+[check:static] [duplication ]
+[check:static] [duplication ] > groundwork@0.0.0 duplication
+[check:static] [duplication ] > jscpd
+[check:static] [duplication ]
+[check:static] [duplication ] Duplications detection: Found 53 exact clones with 689(0.38%) duplicated lines in 1965 (3 formats) files.
 [lint        ]
 [lint        ] > groundwork@0.0.0 lint
 [lint        ] > eslint --concurrency off --max-warnings 0 .
@@ -66,16 +66,16 @@
 [coverage    ] fixture/repo · 1/2 scopes · 0 pages
 [coverage    ] fixture/repo · complete · 8 pages · 1 entries
 [coverage    ]
-[coverage    ]  Test Files  496 passed | 27 skipped (523)
-[coverage    ]       Tests  3862 passed | 125 skipped (3987)
-[coverage    ]    Start at  22:30:17
-[coverage    ]    Duration  164.37s (tests 61%, import 26%, environment 7%, transform 4%, worker 2%, setup 1%)
+[coverage    ]  Test Files  497 passed | 27 skipped (524)
+[coverage    ]       Tests  3867 passed | 125 skipped (3992)
+[coverage    ]    Start at  23:31:28
+[coverage    ]    Duration  159.44s (tests 62%, import 23%, environment 7%, transform 5%, worker 2%, setup 1%)
 [coverage    ]
 [coverage    ]  % Coverage report from v8
 [coverage    ] -------------------|---------|----------|---------|---------|-------------------
 [coverage    ] File               | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s
 [coverage    ] -------------------|---------|----------|---------|---------|-------------------
-[coverage    ] All files          |   95.61 |    86.26 |   96.76 |   96.96 |
+[coverage    ] All files          |   95.62 |    86.26 |   96.76 |   96.96 |
 [coverage    ]  application       |   95.86 |    83.16 |   97.14 |   97.22 |
 [coverage    ]   ...tem-layout.ts |   99.27 |    91.66 |     100 |     100 | 37,70-91,151,196
 [coverage    ]   domain-nav.ts    |     100 |       90 |     100 |     100 | 58,61
@@ -436,10 +436,10 @@
 [coverage    ]   ...ramme-page.ts |   97.95 |    79.31 |   98.18 |    98.7 | 217
 [coverage    ]   stack-cover.ts   |     100 |    81.81 |     100 |     100 | 62-65,84-85,104
 [coverage    ]   ...plan-index.ts |     100 |    95.58 |     100 |     100 | ...99,222,284,356
-[coverage    ]  domain            |    98.4 |    94.85 |   99.39 |     100 |
-[coverage    ]   code-links.ts    |     100 |    95.83 |     100 |     100 | 76
+[coverage    ]  domain            |   98.48 |    94.82 |    99.4 |     100 |
+[coverage    ]   code-links.ts    |     100 |    95.08 |     100 |     100 | 70,82
 [coverage    ]   ...tion-check.ts |   98.14 |     98.8 |     100 |     100 | 45
-[coverage    ]   ids.ts           |   99.15 |    92.85 |    97.5 |     100 | ...95,217,236-237
+[coverage    ]   ids.ts           |   99.24 |    93.13 |   97.61 |     100 | ...97,219,256-257
 [coverage    ]   ...orer-check.ts |   90.24 |     91.8 |     100 |     100 | 27,47,59,109
 [coverage    ]   ...pace-links.ts |     100 |     87.5 |     100 |     100 | 73-74
 [coverage    ]   workspace.ts     |     100 |       96 |     100 |     100 | 84
@@ -494,8 +494,8 @@
 [coverage    ] -------------------|---------|----------|---------|---------|-------------------
 [coverage    ]
 [coverage    ] =============================== Coverage summary ===============================
-[coverage    ] Statements   : 95.61% ( 25559/26730 )
-[coverage    ] Branches     : 86.26% ( 19406/22497 )
-[coverage    ] Functions    : 96.76% ( 8826/9121 )
-[coverage    ] Lines        : 96.96% ( 20872/21525 )
+[coverage    ] Statements   : 95.62% ( 25578/26749 )
+[coverage    ] Branches     : 86.26% ( 19422/22514 )
+[coverage    ] Functions    : 96.76% ( 8829/9124 )
+[coverage    ] Lines        : 96.96% ( 20888/21541 )
 [coverage    ] ================================================================================

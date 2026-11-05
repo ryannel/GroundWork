@@ -1090,3 +1090,7 @@ references rather than interpolate prefixes or Git-host paths. Existing citation
 arguments while legacy consumers migrate. `groundwork/identity-boundary` rejects direct prefix construction,
 prefix stripping, child-path parsing and Git-host path construction elsewhere. Tests retain literal examples,
 including deliberately invalid inputs and source snippets that prove the rule fires.
+
+Standalone Node tools may import the pure domain modules through `#domain/*`, mapped by `package.json`
+to `src/domain/*.ts`. This preserves direct `node tools/<tool>.ts` commands without requiring the app's
+alias loader. The normal layer boundaries still apply to these imports.

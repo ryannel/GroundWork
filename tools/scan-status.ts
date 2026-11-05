@@ -14,7 +14,7 @@ import path from 'node:path';
 
 import { parse, stringify } from 'yaml';
 
-import { remoteUrlOf } from '@/domain/code-links';
+import { remoteUrlOf } from '#domain/code-links';
 
 export interface Remote {
   /** The default branch, or null when the repo could not be reached. */

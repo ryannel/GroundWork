@@ -14,8 +14,8 @@ import path from 'node:path';
 
 import { parse } from 'yaml';
 
-import { normaliseRepository, parseGitHostUrl } from '@/domain/code-links';
-import { hasPrefix } from '@/domain/ids';
+import { normaliseRepository, parseGitHostUrl } from '#domain/code-links';
+import { hasPrefix } from '#domain/ids';
 
 type Json = Record<string, unknown>;
 

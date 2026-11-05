@@ -9,12 +9,12 @@ The user's latest instruction authorises merging completed PRs and continuing in
 - All inventoried runtime prefix operations, field/step ids and Git-link implementations now call the two domain modules. A slash in a nested child path no longer incorrectly counts as a qualification into another plan.
 - `src/domain/code-links.ts` owns permalinks, repository homes, issue links and Git remote/link parsing. Explicit legacy citation styles preserve existing URL output. Nested repository namespaces and malformed links have regression coverage.
 - Six architecture regression cases enforce the boundary, covering prefix construction/stripping, child construction/parsing, issue links and repository homes. No lint or architecture rule was disabled.
-- `rebuild:inventory` writes outstanding enforced runtime findings to `ids-and-urls.json` and retains all 6,800 literal/helper candidates separately in `ids-and-urls-candidates.json`. The 1,590 consumer rows still make no claim that the old model has migrated. All 20 explorer capabilities remain unproven, with none retired.
+- `rebuild:inventory` writes outstanding enforced runtime findings to `ids-and-urls.json` and retains all 6,801 literal/helper candidates separately in `ids-and-urls-candidates.json`. The 1,590 consumer rows still make no claim that the old model has migrated. All 20 explorer capabilities remain unproven, with none retired.
 
 ## Proof
 
 - `npm run check:quick`: passed, including 2,622 related tests. A final focused run on the shared modules and fixtures also passed.
-- Initial `npm run check`: passed: 496 test files, 3,862 tests; 27 files and 125 tests retain their existing skips. Type coverage is 100%; pure-layer coverage is 96.96% lines and 86.26% branches. Duplication remains 0.38%.
+- `npm run check` on the completed change: passed: 497 test files, 3,867 tests; 27 files and 125 tests retain their existing skips. Type coverage is 100%; pure-layer coverage is 96.96% lines and 86.26% branches. Duplication remains 0.38%.
 - `npm run build`: passed. `npm run budget`: all 599 pages passed; the largest is 1,021 KB against 1,024 KB.
 - The latest Personal and Volvo comparisons report zero differences. Acme reports only the exact 43-byte HTML-wrapper difference already allowed in PR 1; every comparison has zero unexplained differences. Reports are under `verification/pr2/`, alongside the earlier clean Acme comparison. No allowance was added or widened.
 - All 193 frozen baseline files match the SHA-256 values committed in PR 1; see `verification/pr2/baseline-integrity.json`.
@@ -49,6 +49,12 @@ The common setting was restored to its recorded `false` value. Only PR 2's index
 The corrected pre-commit run passed all 2,622 related tests in 297 files, and the commit succeeded. The common repository mode remained `false` and the original main worktree remained clean.
 
 All three local hook copies now clear inherited repository identity before running the existing commands. `docs/rebuild/README.md` contains the corrected setup. The original main checkout's hook files were not edited and no check was skipped.
+
+## Standalone Node commands
+
+Command-line smoke checks caught a loader regression: the newly shared helpers were imported with the app's `@/` alias, while `node tools/permalink.ts`, `node tools/sources.ts` and `node tools/scan-status.ts` are documented standalone commands. The package now maps `#domain/*` to the same pure source modules, and those three tools use the native imports. Their documented commands remain unchanged.
+
+Three child-process regressions run the tools from outside the checkout without the app loader. The focused tool run passes all 33 tests. An additional architecture case proves a UI module still cannot reach the domain through the native alias; all 67 architecture tests pass. The full suite was then repeated successfully: 3,867 tests in 497 files, with the existing skips unchanged, plus build and all 599 page budgets.
 
 ## Reproduction and next work
 
