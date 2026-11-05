@@ -9,7 +9,7 @@ The user's latest instruction authorises merging completed PRs and continuing in
 - All inventoried runtime prefix operations, field/step ids and Git-link implementations now call the two domain modules. A slash in a nested child path no longer incorrectly counts as a qualification into another plan.
 - `src/domain/code-links.ts` owns permalinks, repository homes, issue links and Git remote/link parsing. Explicit legacy citation styles preserve existing URL output. Nested repository namespaces and malformed links have regression coverage.
 - Six architecture regression cases enforce the boundary, covering prefix construction/stripping, child construction/parsing, issue links and repository homes. No lint or architecture rule was disabled.
-- `rebuild:inventory` writes outstanding enforced runtime findings to `ids-and-urls.json` and retains all 6,742 literal/helper candidates separately in `ids-and-urls-candidates.json`. The 1,590 consumer rows still make no claim that the old model has migrated. All 20 explorer capabilities remain unproven, with none retired.
+- `rebuild:inventory` writes outstanding enforced runtime findings to `ids-and-urls.json` and retains all 6,792 literal/helper candidates separately in `ids-and-urls-candidates.json`. The 1,590 consumer rows still make no claim that the old model has migrated. All 20 explorer capabilities remain unproven, with none retired.
 
 ## Proof
 
@@ -27,6 +27,12 @@ The initial Personal comparison reported only `/personal/side-projects/plans/` c
 Twelve further responses from the unchanged production server reproduced both sizes: eleven had ten Flight scripts and one had nine. Ordinary HTML and extracted content/links were identical. Flight import record numbers varied with resolution order. Concatenating type-1 Flight chunks, replacing import record ids and their references with hashes of their import definitions, and sorting records gives one identical hash across all twelve responses. This is the same 43-byte streaming-wrapper variation recorded for Acme in PR 1.
 
 `verification/pr2/personal-streaming-responses.json` records the measured sizes and hashes, and two complete responses are retained as inert `.html.txt` files for inspection. A repeat of the complete Personal comparison then matched its frozen baseline exactly.
+
+## Final parser review
+
+The first GitHub run passed audit, static checks, lint, tests, build/budget and both CodeQL analyses. Review against the kept glossary contract found `term:` missing from the new kind parser: Volvo's `language.yaml` has 13 such declarations (first at line 15), and `workspace-model-schema.ts` validates them as key terms. The shared parser now recognises them. Its child-kind lookup also returns a visible gap for unsupported parents rather than classifying a system's arbitrary child as a step. Regression assertions cover both cases.
+
+The focused check passed 2,241 tests in 257 files, and the production build passed again. The refreshed inventory includes `term:` literals as well as the previously inventoried prefixes, with zero uncentralised runtime implementations.
 
 ## Worktree hook correction
 

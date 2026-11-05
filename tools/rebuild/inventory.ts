@@ -16,7 +16,7 @@ const OLD = [
 ];
 const IDS = [
   /\b(?:sys|svc|app|st|top|ext|lib|dom|api|sub|job|ui|msg|sch|if|h):/u,
-  /\b(?:graph|sg|gql|scr|team|actor|area|flow|jny|uj|plan|prog|ev|con):/u,
+  /\b(?:graph|sg|gql|scr|team|actor|area|flow|jny|uj|plan|prog|ev|con|term):/u,
   /(?:split|replace|replaceAll|startsWith|slice|indexOf|includes)\([^\n]*(?:['"`]#|['"`]:)/u,
   /idToToken|tokenToId|ID_PREFIXES|SYSTEM_COLLECTIONS|rootOf|typeOf\(/u,
 ];

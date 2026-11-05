@@ -1,0 +1,21 @@
+
+> groundwork@0.0.0 check:quick
+> node --import ./tools/register.ts tools/checks/quick.ts src/domain/ids.ts src/domain/ids.test.ts tools/rebuild/inventory.ts
+
+Checking 3 task files.
+Checking formatting...
+All matched files use Prettier code style!
+Format: 0.1s
+Lint: 8.3s
+Types: 7.4s
+
+ RUN  v5.0.4 /Users/RNEL/.codex/worktrees/rebuild-pr2/groundWork
+
+
+ Test Files  257 passed (257)
+   Affected  257 of 522 test files (related to 3 files)
+      Tests  2241 passed (2241)
+   Start at  22:56:56
+   Duration  26.28s (import 42%, tests 35%, environment 20%, setup 2%, worker 1%)
+
+Related tests: 27.0s

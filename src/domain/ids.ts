@@ -50,6 +50,7 @@ const KINDS = {
   prog: 'programme',
   ev: 'evidence',
   rel: 'relationship',
+  term: 'keyTerm',
 } as const;
 export type IdKind = (typeof KINDS)[keyof typeof KINDS] | ChildType | 'failure';
 export interface ParsedId {
@@ -127,10 +128,11 @@ function knownKind(prefix: string): (typeof KINDS)[keyof typeof KINDS] | null {
 export function kindOf(id: unknown): IdKind | null {
   const parsed = parseId(id);
   if (parsed === null) return null;
-  if (parsed.failure) return 'failure';
+  if (parsed.failure) return parsed.prefix === 'h' ? 'failure' : null;
   if (parsed.path.length === 0) return knownKind(parsed.prefix);
   if (parsed.prefix === 'sch') return 'field';
-  return parsed.prefix === 'scr' ? 'region' : 'step';
+  if (parsed.prefix === 'scr') return 'region';
+  return ['h', 'flow'].includes(parsed.prefix) ? 'step' : null;
 }
 function legacyPrefix(key: string): key is IdPrefix {
   return Object.hasOwn(ID_PREFIXES, key);

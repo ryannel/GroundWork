@@ -50,6 +50,10 @@ describe('model identities', () => {
     expect(kindOf('sch:response#status')).toBe('field');
     expect(kindOf('scr:editor#actions')).toBe('region');
     expect(kindOf('sub:orders')).toBe('subscription');
+    expect(kindOf('term:sku')).toBe('keyTerm');
+    expect(kindOf('flow:checkout#reserve')).toBe('step');
+    expect(kindOf('sys:orders#invented-child')).toBeNull();
+    expect(kindOf('svc:orders#!invented-failure')).toBeNull();
     expect(appendChild(childId(parent, 'tx'), 'read')).toBe('h:apply#tx/read');
     expect(appendChild(parent, 'read')).toBe('h:apply#read');
   });

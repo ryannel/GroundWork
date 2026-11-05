@@ -1022,6 +1022,14 @@
         "text": "{ domain: 'ghost', summary: null, concepts: [{ id: 'con:ghost', name: 'Ghost', means: 'Boo.' }] },"
       },
       {
+        "line": 78,
+        "text": "name: id.replace('term:', ''),"
+      },
+      {
+        "line": 93,
+        "text": "term('term:basket', 'selling', ["
+      },
+      {
         "line": 94,
         "text": "{ to: 'con:basket', fit: 'close', note: null },"
       },
@@ -1032,6 +1040,10 @@
       {
         "line": 97,
         "text": "term('term:loose', 'unnamed', [{ to: 'sys:till', fit: 'lives-in', note: null }]),"
+      },
+      {
+        "line": 98,
+        "text": "{ ...term('term:none', null, []), relates: [{ to: 'term:basket', as: 'see' }] },"
       },
       {
         "line": 106,
@@ -1058,8 +1070,40 @@
         "text": "expect(places.of('dom:stock')?.domain?.name).toBe('Stock');"
       },
       {
+        "line": 123,
+        "text": "['selling', [['term:basket', 'close']]],"
+      },
+      {
+        "line": 127,
+        "text": "['term:loose', 'lives-in'],"
+      },
+      {
+        "line": 128,
+        "text": "['term:none', null],"
+      },
+      {
+        "line": 132,
+        "text": "expect(page.details['term:loose']?.group).toBe('unnamed');"
+      },
+      {
+        "line": 133,
+        "text": "expect(page.details['term:none']?.group).toBeNull();"
+      },
+      {
+        "line": 137,
+        "text": "const detail = page.details['term:basket'];"
+      },
+      {
         "line": 144,
         "text": "{ as: 'Trolley', in: 'Till', at: 'sch:trolley', note: 'Kept by gone.' },"
+      },
+      {
+        "line": 147,
+        "text": "expect(page.details['term:none']?.relates).toStrictEqual(["
+      },
+      {
+        "line": 148,
+        "text": "{ id: 'term:basket', name: 'basket', as: 'see' },"
       },
       {
         "line": 153,
@@ -1088,6 +1132,10 @@
       {
         "line": 164,
         "text": "expect(page.words.find((w) => w.id === 'con:ghost')?.domains).toStrictEqual([]);"
+      },
+      {
+        "line": 182,
+        "text": "expect(page.groups.flatMap((g) => g.terms).map((t) => t.id)).not.toContain('term:none');"
       }
     ],
     "status": "adapter"
@@ -1096,6 +1144,14 @@
     "category": "id construction, parsing or literal",
     "file": "src/application/language-page.test.ts",
     "hits": [
+      {
+        "line": 24,
+        "text": "id: 'term:order',"
+      },
+      {
+        "line": 39,
+        "text": "const order = page().details['term:order'];"
+      },
       {
         "line": 44,
         "text": "['orders', 'ordering', 'con:order', 'same'],"
@@ -1109,12 +1165,32 @@
         "text": "expect(details['con:order']?.keyTerms).toStrictEqual(["
       },
       {
+        "line": 55,
+        "text": "{ id: 'term:order', name: 'Order', as: 'same' },"
+      },
+      {
         "line": 57,
         "text": "expect(details['con:order']?.relates).toStrictEqual(["
       },
       {
         "line": 58,
         "text": "{ id: 'con:payment', name: 'Payment', as: 'is settled by' },"
+      },
+      {
+        "line": 64,
+        "text": "const refund = page(withStrayTerm(model)).details['term:refund'];"
+      },
+      {
+        "line": 66,
+        "text": "{ id: 'term:order', name: 'Order', as: 'undoes' },"
+      },
+      {
+        "line": 67,
+        "text": "{ id: null, name: 'term:chargeback', as: 'is not' },"
+      },
+      {
+        "line": 76,
+        "text": "'term:order': 'Order',"
       },
       {
         "line": 77,
@@ -1127,6 +1203,21 @@
       {
         "line": 79,
         "text": "'con:payment': 'Payment',"
+      }
+    ],
+    "status": "adapter"
+  },
+  {
+    "category": "id construction, parsing or literal",
+    "file": "src/application/language-page.ts",
+    "hits": [
+      {
+        "line": 90,
+        "text": "function closest(term: KeyTerm): TermFit | null {"
+      },
+      {
+        "line": 132,
+        "text": "function keyTermDetail(lookup: Lookup, term: KeyTerm): TermDetail {"
       }
     ],
     "status": "adapter"
@@ -9784,6 +9875,25 @@
   },
   {
     "category": "id construction, parsing or literal",
+    "file": "src/application/plan/derive-glossary.ts",
+    "hits": [
+      {
+        "line": 7,
+        "text": "readonly term: string;"
+      },
+      {
+        "line": 85,
+        "text": "if (means !== '') out.push({ term: name, means, ref: n.id, title: name });"
+      },
+      {
+        "line": 119,
+        "text": "const own = (core.plan.problem.glossary ?? []).map((g) => ({ term: g.term, means: g.means }));"
+      }
+    ],
+    "status": "adapter"
+  },
+  {
+    "category": "id construction, parsing or literal",
     "file": "src/application/plan/derive-handler-edges.ts",
     "hits": [
       {
@@ -17625,6 +17735,10 @@
         "text": "'term:refund is anchored to sys:refunds, which no language.yaml, system or domain has',"
       },
       {
+        "line": 65,
+        "text": "'term:refund relates to term:chargeback, which is not a key term in language.yaml',"
+      },
+      {
         "line": 77,
         "text": "expect(warnings[0]).toMatch(/^con:sku is born in svc:products, in catalogue;/u);"
       }
@@ -17948,6 +18062,10 @@
         "text": "`${at}: the summary cites svc:gone, which today's model does not have`,"
       },
       {
+        "line": 50,
+        "text": "`${at}: stage order is term:nothing, which is not a key term in language.yaml`,"
+      },
+      {
         "line": 51,
         "text": "`${at}: stage order names sys:nowhere, which today's model does not have`,"
       },
@@ -17963,8 +18081,16 @@
     "file": "src/application/workspace-target.ts",
     "hits": [
       {
+        "line": 77,
+        "text": "readonly term: string | null;"
+      },
+      {
         "line": 100,
         "text": "readonly flow: TargetFlow;"
+      },
+      {
+        "line": 140,
+        "text": "term: stage.term === null ? null : (terms.get(stage.term) ?? stage.term),"
       },
       {
         "line": 147,
@@ -18960,182 +19086,198 @@
       },
       {
         "line": 53,
-        "text": "expect(appendChild(childId(parent, 'tx'), 'read')).toBe('h:apply#tx/read');"
+        "text": "expect(kindOf('term:sku')).toBe('keyTerm');"
       },
       {
         "line": 54,
-        "text": "expect(appendChild(parent, 'read')).toBe('h:apply#read');"
+        "text": "expect(kindOf('flow:checkout#reserve')).toBe('step');"
+      },
+      {
+        "line": 55,
+        "text": "expect(kindOf('sys:orders#invented-child')).toBeNull();"
+      },
+      {
+        "line": 56,
+        "text": "expect(kindOf('svc:orders#!invented-failure')).toBeNull();"
       },
       {
         "line": 57,
+        "text": "expect(appendChild(childId(parent, 'tx'), 'read')).toBe('h:apply#tx/read');"
+      },
+      {
+        "line": 58,
+        "text": "expect(appendChild(parent, 'read')).toBe('h:apply#read');"
+      },
+      {
+        "line": 61,
         "text": "it.each([null, 2, 'unknown:x', 'h:x#', 'h:x#tx//read', 'h:x#!', 'h:x#two words', 'h:x#a#b'])("
       },
       {
-        "line": 66,
+        "line": 70,
         "text": "expect(planEntityTypeOf('flow:x#read')).toBe('step');"
       },
       {
-        "line": 67,
+        "line": 71,
         "text": "expect(planEntityTypeOf('sch:x#id')).toBe('field');"
       },
       {
-        "line": 68,
+        "line": 72,
         "text": "expect(planEntityTypeOf('scr:x#button')).toBe('region');"
       },
       {
-        "line": 69,
+        "line": 73,
         "text": "expect(planEntityTypeOf('h:x#read')).toBeNull();"
       },
       {
-        "line": 70,
+        "line": 74,
         "text": "expect(planEntityTypeOf('api:x')).toBe('endpoint');"
       },
       {
-        "line": 73,
+        "line": 77,
         "text": "expect(idToToken('flow:cancel#publish')).toBe('flow-cancel.publish');"
       },
       {
-        "line": 74,
+        "line": 78,
         "text": "expect(tokenToId('flow-cancel.publish')).toBe('flow:cancel#publish');"
       },
       {
-        "line": 75,
+        "line": 79,
         "text": "expect(tokenToId('svc-orders')).toBe('svc:orders');"
       },
       {
-        "line": 77,
+        "line": 81,
         "text": "expect(tokenToId(token)).toBeNull();"
       },
       {
-        "line": 84,
+        "line": 88,
         "text": "expect(scopedId('care', 'h:x#tx/read')).toBe('care/h:x#tx/read');"
       },
       {
-        "line": 85,
+        "line": 89,
         "text": "expect(scopedId('care', 'other/h:x#tx/read')).toBe('other/h:x#tx/read');"
       },
       {
-        "line": 86,
+        "line": 90,
         "text": "expect(parentOf('flow:x#read')).toBe('flow:x');"
       },
       {
-        "line": 87,
+        "line": 91,
         "text": "expect(parentOf('flow:x')).toBeNull();"
       },
       {
-        "line": 89,
+        "line": 93,
         "text": "expect(prefixOf('svc:orders')).toBe('svc');"
       },
       {
-        "line": 91,
+        "line": 95,
         "text": "expect(hasPrefix('svc:orders', 'svc')).toBe(true);"
       },
       {
-        "line": 94,
+        "line": 98,
         "text": "expect(otherPrefix('svc:orders')).toBe('SVC:ORDERS');"
       },
       {
-        "line": 95,
+        "line": 99,
         "text": "expect(stripPrefix('svc:orders', 'svc')).toBe('orders');"
       },
       {
-        "line": 96,
+        "line": 100,
         "text": "expect(stripPrefix('st:orders', 'svc')).toBe('st:orders');"
       },
       {
-        "line": 100,
+        "line": 104,
         "text": "expect(childPathOf('h:x')).toBeUndefined();"
       },
       {
-        "line": 101,
+        "line": 105,
         "text": "expect(splitChildId('h:x#tx/read')).toEqual(['h:x', 'tx/read']);"
       },
       {
-        "line": 102,
+        "line": 106,
         "text": "expect(colonLocalId('svc:orders')).toBe('orders');"
       },
       {
-        "line": 104,
+        "line": 108,
         "text": "expect(localId('svc:orders')).toBe('orders');"
       },
       {
-        "line": 105,
+        "line": 109,
         "text": "expect(lastChildId('h:x#read')).toBe('read');"
       },
       {
-        "line": 106,
+        "line": 110,
         "text": "expect(isQualifiedId('svc:orders')).toBe(true);"
       },
       {
-        "line": 108,
+        "line": 112,
         "text": "expect(hasChildPath('h:x#read')).toBe(true);"
       },
       {
-        "line": 109,
+        "line": 113,
         "text": "expect(isDisplayId('svc:orders')).toBe(true);"
       },
       {
-        "line": 110,
+        "line": 114,
         "text": "expect(startsWithId('svc:orders')).toBe(true);"
       },
       {
-        "line": 111,
+        "line": 115,
         "text": "expect(isTextId('svc:orders')).toBe(true);"
       },
       {
-        "line": 112,
+        "line": 116,
         "text": "expect(isTextId('svc:orders are new')).toBe(false);"
       },
       {
-        "line": 119,
+        "line": 123,
         "text": "resolveAlias('h:old#tx/read', { 'h:old': { to: 'h:middle' }, 'h:middle': { to: 'h:new' } }),"
       },
       {
-        "line": 120,
+        "line": 124,
         "text": ").toEqual({ id: 'h:new#tx/read', used: ['h:old', 'h:middle'], problem: null });"
       },
       {
-        "line": 122,
+        "line": 126,
         "text": "resolveAlias('h:old#tx/read', {"
       },
       {
-        "line": 123,
+        "line": 127,
         "text": "'h:old': { to: 'h:new' },"
       },
       {
-        "line": 124,
+        "line": 128,
         "text": "'h:old#tx/read': { to: 'h:other#fetch' },"
       },
       {
-        "line": 126,
+        "line": 130,
         "text": ").toBe('h:other#fetch');"
       },
       {
-        "line": 127,
+        "line": 131,
         "text": "expect(resolveAlias('svc:current', {}).used).toEqual([]);"
       },
       {
-        "line": 132,
+        "line": 136,
         "text": "resolveAlias('svc:old', { 'svc:old': { to: null, reason: 'Retired without replacement' } }),"
       },
       {
-        "line": 133,
+        "line": 137,
         "text": ").toEqual({ id: null, used: ['svc:old'], problem: 'Retired without replacement' });"
       },
       {
-        "line": 134,
+        "line": 138,
         "text": "expect(resolveAlias('svc:old', { 'svc:old': { to: null } }).problem).toBe("
       },
       {
-        "line": 135,
+        "line": 139,
         "text": "'Alias svc:old needs a reason',"
       },
       {
-        "line": 138,
+        "line": 142,
         "text": "resolveAlias('svc:a', { 'svc:a': { to: 'svc:b' }, 'svc:b': { to: 'svc:a' } }).problem,"
       },
       {
-        "line": 139,
+        "line": 143,
         "text": ").toBe('Alias cycle at svc:a');"
       }
     ],
@@ -19282,64 +19424,72 @@
         "text": "ev: 'evidence',"
       },
       {
-        "line": 79,
+        "line": 53,
+        "text": "term: 'keyTerm',"
+      },
+      {
+        "line": 80,
         "text": "return id.split(':')[0] ?? '';"
       },
       {
-        "line": 84,
+        "line": 85,
         "text": "return id?.split('#', 1)[0];"
       },
       {
-        "line": 87,
+        "line": 88,
         "text": "return id.split('#')[1];"
       },
       {
-        "line": 99,
+        "line": 100,
         "text": "return typeof id === 'string' && id.indexOf('#') > 0 ? rootId(id) : null;"
       },
       {
-        "line": 136,
+        "line": 138,
         "text": "return Object.hasOwn(ID_PREFIXES, key);"
       },
       {
-        "line": 144,
+        "line": 146,
         "text": "const base = ID_PREFIXES[key];"
       },
       {
-        "line": 152,
+        "line": 154,
         "text": "export function idToToken(id: string): string {"
       },
       {
-        "line": 153,
+        "line": 155,
         "text": "return clean(id.replace(':', '-').replace('#', '.'));"
       },
       {
-        "line": 157,
+        "line": 159,
         "text": "export function tokenToId(token: string): string | null {"
       },
       {
-        "line": 160,
+        "line": 162,
         "text": "if (dash < 1 || dash === token.length - 1 || !Object.hasOwn(ID_PREFIXES, prefix)) return null;"
       },
       {
-        "line": 194,
+        "line": 196,
         "text": "export const colonLocalId = (id: string): string => id.split(':')[1] ?? id;"
       },
       {
-        "line": 195,
+        "line": 197,
         "text": "export const lastChildId = (id: string): string => id.split('#').pop() ?? id;"
       },
       {
-        "line": 197,
+        "line": 199,
         "text": "parent.includes('#') ? `${parent}/${child}` : childId(parent, child);"
       },
       {
-        "line": 198,
+        "line": 200,
         "text": "export const isQualifiedId = (id: string): boolean => id.includes(':');"
       },
       {
-        "line": 200,
+        "line": 202,
         "text": "typeof id === 'string' && id.includes('#');"
+      },
+      {
+        "line": 205,
+        "text": "export const keyTermIdPattern = /^term:[a-z0-9-]+$/u;"
       }
     ],
     "status": "adapter"
@@ -19484,6 +19634,10 @@
       {
         "line": 246,
         "text": "* who proposes it: team ids (team:…) or names"
+      },
+      {
+        "line": 329,
+        "text": "term: string;"
       },
       {
         "line": 450,
@@ -19903,6 +20057,14 @@
       {
         "line": 53,
         "text": "/** The workspace system id, without `sys:`. */"
+      },
+      {
+        "line": 87,
+        "text": "/** The key term it is (term:…), when the business has agreed a word for it. */"
+      },
+      {
+        "line": 88,
+        "text": "readonly term: string | null;"
       },
       {
         "line": 89,
@@ -24199,6 +24361,21 @@
     "status": "adapter"
   },
   {
+    "category": "id construction, parsing or literal",
+    "file": "src/infrastructure/workspace-model-schema.ts",
+    "hits": [
+      {
+        "line": 93,
+        "text": "term: z.string().regex(keyTermIdPattern, 'term is a key term id').optional(),"
+      },
+      {
+        "line": 120,
+        "text": "id: z.string().regex(keyTermIdPattern, 'a key term id is term:<name>'),"
+      }
+    ],
+    "status": "adapter"
+  },
+  {
     "category": "Git-host URL construction, parsing or literal",
     "file": "src/infrastructure/workspace-model-schema.ts",
     "hits": [
@@ -24256,6 +24433,10 @@
       {
         "line": 52,
         "text": "'if:shop-bff',"
+      },
+      {
+        "line": 55,
+        "text": "expect(model.keyTerms.terms.map(({ id }) => id)).toEqual(['term:order']);"
       },
       {
         "line": 61,
@@ -24319,6 +24500,17 @@
       {
         "line": 73,
         "text": "'https://github.com/acme/products/blob/4f1c2d3e4f5a6b7c8d9e0f1a2b3c4d5e6f7a8b9c/cmd/products/main.go#L12-L80',"
+      }
+    ],
+    "status": "adapter"
+  },
+  {
+    "category": "id construction, parsing or literal",
+    "file": "src/infrastructure/workspace-model.ts",
+    "hits": [
+      {
+        "line": 177,
+        "text": "term: stage.term ?? null,"
       }
     ],
     "status": "adapter"
@@ -25598,12 +25790,20 @@
         "text": "summary: 'Every order is paid before [[sys:ordering]] tells anyone about it.',"
       },
       {
+        "line": 559,
+        "text": "term: 'term:order',"
+      },
+      {
         "line": 560,
         "text": "owners: ['sys:ordering'],"
       },
       {
         "line": 561,
         "text": "summary: 'Recorded by [[svc:order-api]].',"
+      },
+      {
+        "line": 567,
+        "text": "term: null,"
       },
       {
         "line": 568,
@@ -25616,6 +25816,10 @@
       {
         "line": 579,
         "text": "cites: ['st:order-events'],"
+      },
+      {
+        "line": 593,
+        "text": "id: 'term:order',"
       },
       {
         "line": 601,
@@ -25666,6 +25870,10 @@
       {
         "line": 52,
         "text": "flows: ['flow:place-order'],"
+      },
+      {
+        "line": 55,
+        "text": "glossary: [{ term: 'Delivery note', means: 'What the customer tells the courier.' }],"
       },
       {
         "line": 69,
@@ -28407,6 +28615,14 @@
         "text": "- { id: sc:trip, title: 'Going on a trip', story: 'Ana pauses.', flows: [flow:pause] }"
       },
       {
+        "line": 20,
+        "text": "- { term: dual-publish, means: 'Publish v1 and v2 side by side until consumers migrate.' }"
+      },
+      {
+        "line": 21,
+        "text": "- { term: outbox, means: 'Table of events written in the same transaction.' }"
+      },
+      {
         "line": 24,
         "text": "- { id: team:web, name: Web, channel: '#team-web' }"
       },
@@ -29833,6 +30049,18 @@
       {
         "line": 17,
         "text": "born_in: 'svc:products',"
+      },
+      {
+        "line": 36,
+        "text": "id: 'term:refund',"
+      },
+      {
+        "line": 43,
+        "text": "{ to: 'term:order', as: 'undoes' },"
+      },
+      {
+        "line": 44,
+        "text": "{ to: 'term:chargeback', as: 'is not' },"
       },
       {
         "line": 47,
