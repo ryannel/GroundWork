@@ -63,3 +63,13 @@ Use the worktree check environment in `docs/rebuild/README.md`; it keeps Knip wi
 Run `npm run rebuild:inventory`, then `npm run rebuild:compare -- --workspace <id> --before artifacts/rebuild/baseline/<id> --out <new-output-folder>` for `personal`, `acme` and `volvo-cars` against a production build. Captures retain their route selections, facts and payloads in the ignored worktree output folders; only the reports are duplicated here.
 
 After this PR is merged, start PR 3 in another worktree from the updated main. Read the repository specification. Keep legacy and canonical schemas side by side until their consumers migrate. PR 7 still needs a person to accept headline/edge review rows; before PR 9 reconfirm the cache decision in design §10.2.
+
+## Whole-file mutation batches
+
+The single mutation job for head `c494f86e` reached its 60-minute limit after completing 12,594 of 21,103 active mutations in 134 touched pure-layer files. This was an incomplete run, not a passing score. See the recorded run and counters in `verification/pr2/mutation-timeout.json`.
+
+The architecture explicitly brings whole touched files under its 75% bar. The workflow therefore partitions those same complete files into 20 deterministic batches, balanced by source length, and computes one score weighted by mutant count. Neither the mutation scope nor the threshold is reduced. Batch score failures are collected for that overall decision; missing reports, changed scopes or thresholds, stale source, duplicate results, unknown statuses and pending mutations fail the final gate. Uncovered mutations count against the score, while compile/runtime errors and ignored mutations retain Stryker's existing scoring semantics.
+
+Eleven focused tests cover the partition, native Git failure, report validation and weighted score. A real two-mutation Stryker smoke run passed, and its completed JSON report passed the same validator used by CI. The final required check remains named `mutate`.
+
+The full local check with this batching change passes: 3,878 tests, the architecture suite, static checks, lint and coverage (96.96% lines; 86.26% branches). The refreshed inventory remains at zero uncentralised runtime operations. Build, page budgets and frozen-baseline comparisons are unchanged by this CI-only follow-up and retain the standalone-command head's recorded successful results. The completed batched CI mutation score must pass before merge.

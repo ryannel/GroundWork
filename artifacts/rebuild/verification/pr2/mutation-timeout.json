@@ -1,0 +1,16 @@
+{
+  "head": "c494f86e",
+  "run": "https://github.com/ryannel/GroundWork/actions/runs/42119020895",
+  "job": "https://github.com/ryannel/GroundWork/actions/runs/42119020895/job/127566623136",
+  "conclusion": "cancelled at the 60-minute job limit; incomplete",
+  "wholeFiles": 134,
+  "instrumentedMutations": 22793,
+  "activeMutations": 21103,
+  "lastProgress": {
+    "tested": 12594,
+    "survived": 3938,
+    "timedOut": 15
+  },
+  "threshold": 75,
+  "replacement": "The same whole files, batched in parallel, with a weighted final score and complete-report validation."
+}

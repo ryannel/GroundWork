@@ -34,7 +34,8 @@ export default {
   concurrency: 8,
   timeoutMS: 10_000,
   thresholds: { high: 90, low: 80, break: 75 },
-  reporters: ['clear-text', 'progress', 'html'],
+  reporters: ['clear-text', 'progress', 'html', 'json'],
+  jsonReporter: { fileName: 'reports/mutation.json' },
   htmlReporter: { fileName: 'reports/mutation.html' },
   cleanTempDir: 'always',
 };

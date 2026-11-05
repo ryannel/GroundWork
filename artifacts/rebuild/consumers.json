@@ -1444,8 +1444,20 @@
     "file": ".github/workflows/mutation.yml",
     "hits": [
       {
-        "line": 34,
+        "line": 42,
+        "text": "if: needs.plan.outputs.matrix != '{\"include\":[]}'"
+      },
+      {
+        "line": 61,
         "text": "- if: always()"
+      },
+      {
+        "line": 70,
+        "text": "if: always()"
+      },
+      {
+        "line": 82,
+        "text": "- if: needs.batch.result != 'skipped'"
       }
     ],
     "status": "adapter"
