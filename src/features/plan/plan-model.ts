@@ -1,4 +1,5 @@
 import { derive, type Model } from '@/application/plan/derive';
+import type { LegacyPlacements } from '@/application/plan/derive-placement';
 import type { Inherited } from '@/application/plan/stack-base';
 import type { PlanStanding } from '@/application/plan/work-standing';
 import type { Page } from '@/application/plan-pages';
@@ -12,6 +13,7 @@ import type { Plan } from '@/domain/plan/plan.generated';
 
 interface Payload {
   readonly plan: Plan;
+  readonly placements?: LegacyPlacements;
   readonly status?: IssueStatus | null;
   readonly inherited?: Inherited | null;
   readonly standing?: PlanStanding | null;
@@ -38,6 +40,7 @@ async function fetchModel(src: string): Promise<Model | null> {
     const body: unknown = await response.json();
     if (!isPayload(body)) return null;
     return derive(body.plan, {
+      placements: body.placements ?? {},
       status: body.status ?? {},
       today: new Date(),
       inherited: body.inherited ?? undefined,

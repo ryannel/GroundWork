@@ -1,12 +1,34 @@
 import { describe, expect, it } from 'vitest';
 
 import { acme } from '@/../test/workspace-kit';
-import { derive } from '@/application/plan/derive';
+import { derive as derivePlan, type Model } from '@/application/plan/derive';
 import type { AreaComponentView, AreaSystemView } from '@/application/workspace-area';
 import { areaTechnicalRelationships } from '@/application/workspace-area-relationships';
+import type { Plan } from '@/domain/plan/plan.generated';
 
 import { resourceSummary } from './component-summary';
 import { resourcesOf, withAreaResources } from './resources';
+
+// These synthetic resources are declared here, independently of ownership and access.
+function derive(plan: Plan): Model {
+  const offers = { domain: null, system: 'sys:offers', component: null };
+  const search = { domain: null, system: 'sys:search', component: null };
+  const placements = Object.fromEntries([
+    ...[
+      'svc:offers',
+      'st:cache',
+      'st:records',
+      'st:changes',
+      'st:owner-only',
+      'st:private-bus',
+      'st:read-only',
+      'st:shared-bus',
+      'st:no-access',
+    ].map((id) => [id, { ...offers, component: id }] as const),
+    ...['svc:search', 'st:unknown'].map((id) => [id, { ...search, component: id }] as const),
+  ]);
+  return derivePlan(plan, { placements });
+}
 
 function fixture() {
   const { today } = acme();
@@ -77,6 +99,34 @@ function fixture() {
 }
 
 describe('area resource overview', () => {
+  it('keeps a resource in its declared system when its owner is elsewhere, and leaves unknown placement visible', () => {
+    const { model, systems } = fixture();
+    const plan = {
+      ...model.plan,
+      stores: (model.plan.stores ?? []).map((store) => ({ ...store, owner: 'svc:search' })),
+    };
+    const placed = withAreaResources(systems, derive(plan));
+    expect(
+      placed
+        .find((system) => system.id === 'offers')
+        ?.components.some((component) => component.id === 'st:records'),
+    ).toBe(true);
+    expect(
+      placed
+        .flatMap((system) => system.components)
+        .find((component) => component.id === 'st:records')?.parentComponent,
+    ).toBeUndefined();
+    const unknown = withAreaResources(systems, derivePlan(plan));
+    expect(
+      unknown
+        .flatMap((system) => system.components)
+        .some((component) => component.id === 'st:records'),
+    ).toBe(false);
+    expect(resourcesOf('svc:offers', derivePlan(plan))).toContainEqual(
+      expect.objectContaining({ id: 'st:records' }),
+    );
+  });
+
   it('uses a captured publisher without filling in the omitted message producer', () => {
     const { model, systems } = fixture();
     const captured = derive({

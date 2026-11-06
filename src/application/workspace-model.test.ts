@@ -60,6 +60,19 @@ describe('systemModelOf', () => {
     expect(loose.map(({ id }) => id)).toEqual([]);
   });
 
+  it('keeps ownerless resources in their containing system without choosing a service', () => {
+    const contracts = read.contracts.map((contract) => ({
+      ...contract,
+      stores: contract.stores.map(({ owner: _owner, ...store }) => store),
+    }));
+    const result = systemModelOf(workspace, { ...read, contracts });
+    expect(result.plan.stores?.find((store) => store.id === 'st:orders-db')).not.toHaveProperty(
+      'owner',
+    );
+    expect(result.model.ownerService('st:orders-db')).toBeNull();
+    expect(result.model.place('st:orders-db')?.system).toBe('sys:ordering');
+  });
+
   it('keeps the structure’s words and the model’s detail', () => {
     const products = plan.services.find(({ id }) => id === 'svc:products');
     expect(products).toMatchObject({ team: 'team:catalogue', system: 'sys:products' });

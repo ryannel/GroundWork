@@ -95,7 +95,7 @@ describe('onBase', () => {
       { id: 'svc:web', name: 'Web', team: 'team:a', calls: ['svc:api'] },
       { id: 'svc:new' },
     ]);
-    expect(doc.teams).toBeUndefined();
+    expect(doc.teams).toEqual([]);
     expect(doc.meta).toEqual({ id: 'p' });
   });
 

@@ -379,3 +379,69 @@ it('keeps an area without details visible and skips missing systems and librarie
     'st:product-events',
   ]);
 });
+
+it('retains a saved flow across recorded system boundaries without moving resources to their users', () => {
+  const { workspace, today } = acme();
+  const valueFlow = {
+    title: 'Read products',
+    summary: 'A saved resource exchange.',
+    confidence: 'medium' as const,
+    reasoning: 'Recorded access.',
+    limitations: [],
+    bands: [
+      { id: 'read', title: 'Read', summary: '', nodes: [{ component: 'svc:shop-bff', column: 0 }] },
+    ],
+    connections: [
+      {
+        from: 'svc:shop-bff',
+        to: 'st:products-db',
+        kind: 'data' as const,
+        label: 'Read products',
+        evidence: ['svc:products'],
+      },
+    ],
+    summaries: [
+      {
+        from: 'svc:shop-bff',
+        to: 'st:product-events',
+        kind: 'message' as const,
+        label: 'Changes',
+        evidence: [],
+      },
+    ],
+  };
+  const selected: AuthoredLandscape = {
+    ...landscape,
+    details: [{ ...landscape.details[0]!, systems: ['shop'], valueFlow }],
+  };
+  const options = {
+    workspace,
+    landscape: selected,
+    area: 'sell',
+    explorer: null,
+    model: today.model,
+  };
+  const view = areaViewOf(options)!;
+  expect(view.systems.map((system) => system.id)).toEqual(['shop', 'products']);
+  expect(view.valueFlow).toEqual(valueFlow);
+  expect(view.systems[0]?.components.some((component) => component.id === 'st:products-db')).toBe(
+    false,
+  );
+  expect(view.systems[1]?.components).toContainEqual(
+    expect.objectContaining({ id: 'st:products-db' }),
+  );
+  expect(selected.details[0]?.systems).toEqual(['shop']);
+  expect(
+    areaViewOf({ workspace, landscape: selected, area: 'sell', explorer: null })?.valueFlow,
+  ).toBeUndefined();
+  const unknown = {
+    ...valueFlow,
+    connections: [{ ...valueFlow.connections[0]!, to: 'st:unknown' }],
+  };
+  expect(
+    areaViewOf({
+      ...options,
+      landscape: { ...selected, details: [{ ...selected.details[0]!, valueFlow: unknown }] },
+    })?.valueFlow,
+  ).toBeUndefined();
+});

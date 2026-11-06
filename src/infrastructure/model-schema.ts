@@ -10,6 +10,7 @@ import type {
   ContractDefinition,
   ContractFamily,
 } from '@/domain/model/contracts.generated';
+import type { ModelData } from '@/domain/workspace-model';
 import { pathIn, readText } from '@/infrastructure/disk';
 
 const SCHEMA_BASE = 'https://groundwork.local/schema';
@@ -58,7 +59,7 @@ export function modelAjv(): Ajv2020 {
   return ajv;
 }
 
-async function compile(root: string): Promise<Ajv2020> {
+async function compile(root: string, resolved: boolean): Promise<Ajv2020> {
   const schemas = await Promise.all(
     FAMILIES.map(async (family): Promise<unknown> =>
       JSON.parse(await readText(pathIn(root, 'schema', `${family}.schema.json`))),
@@ -69,9 +70,33 @@ async function compile(root: string): Promise<Ajv2020> {
     if (!object(schema) || typeof schema.$id !== 'string') {
       throw new TypeError('A canonical schema needs an $id.');
     }
+    if (resolved && object(schema.$defs) && object(schema.$defs.AuthoredCites)) {
+      Object.assign(schema.$defs.AuthoredCites, { items: { $ref: '#/$defs/Cite' }, minItems: 0 });
+    }
     ajv.addSchema(schema);
   }
   return ajv;
+}
+
+async function schemaValidator<Data>(
+  family: ContractFamily,
+  definition: string,
+  root: string,
+  resolved: boolean,
+): Promise<ValidateFunction<Data>> {
+  const key = `${root}\n${String(resolved)}`;
+  let pending = compiled.get(key);
+  if (pending === undefined) {
+    pending = compile(root, resolved);
+    compiled.set(key, pending);
+  }
+  const ajv = await pending;
+  const suffix = definition === 'document' ? '' : `#/$defs/${definition}`;
+  const validator = ajv.getSchema<Data>(`${SCHEMA_BASE}/${family}.schema.json${suffix}`);
+  if (validator === undefined) {
+    throw new Error(`Unknown ${family} schema definition: ${definition}`);
+  }
+  return validator;
 }
 
 /** A schema definition's typed predicate; no model fields are declared again in this layer. */
@@ -83,20 +108,14 @@ export async function modelValidator<
   definition: Definition,
   root = process.cwd(),
 ): Promise<ValidateFunction<ContractData<Family, Definition>>> {
-  let pending = compiled.get(root);
-  if (pending === undefined) {
-    pending = compile(root);
-    compiled.set(root, pending);
-  }
-  const ajv = await pending;
-  const suffix = definition === 'document' ? '' : `#/$defs/${definition}`;
-  const validator = ajv.getSchema<ContractData<Family, Definition>>(
-    `${SCHEMA_BASE}/${family}.schema.json${suffix}`,
-  );
-  if (validator === undefined) {
-    throw new Error(`Unknown ${family} schema definition: ${definition}`);
-  }
-  return validator;
+  return schemaValidator(family, definition, root, false);
+}
+
+/** The same authority after source citations have been resolved; unresolved references live in gaps. */
+export async function resolvedModelValidator<
+  Definition extends Exclude<ContractDefinition<'workspace'>, 'AuthoredCites'>,
+>(definition: Definition, root = process.cwd()): Promise<ValidateFunction<ModelData<Definition>>> {
+  return schemaValidator('workspace', definition, root, true);
 }
 
 export interface ContractProblem {

@@ -93,8 +93,8 @@
     "file": "src/app/[workspace]/model.json/route.ts",
     "hits": [
       {
-        "line": 16,
-        "text": "return Response.json({ plan: data.today.plan });"
+        "line": 18,
+        "text": "plan: data.today.plan,"
       }
     ],
     "status": "adapter"
@@ -134,7 +134,7 @@
     "file": "src/app/[workspace]/plans/[plan]/plan.json/route.ts",
     "hits": [
       {
-        "line": 17,
+        "line": 18,
         "text": "plan: loaded.plan,"
       }
     ],
@@ -235,415 +235,491 @@
     "file": "src/application/area-map/resources.test.ts",
     "hits": [
       {
-        "line": 17,
-        "text": "id: 'st:cache',"
+        "line": 13,
+        "text": "function derive(plan: Plan): Model {"
       },
       {
-        "line": 21,
-        "text": "owner: 'svc:offers',"
+        "line": 14,
+        "text": "const offers = { domain: null, system: 'sys:offers', component: null };"
       },
       {
-        "line": 23,
-        "text": "{ svc: 'svc:offers', mode: 'readwrite' },"
+        "line": 15,
+        "text": "const search = { domain: null, system: 'sys:search', component: null };"
       },
       {
-        "line": 24,
-        "text": "{ svc: 'svc:search', mode: 'read' },"
-      },
-      {
-        "line": 28,
-        "text": "id: 'st:records',"
-      },
-      {
-        "line": 32,
-        "text": "owner: 'svc:offers',"
-      },
-      {
-        "line": 33,
-        "text": "access: [{ svc: 'svc:offers', mode: 'write' }],"
-      },
-      {
-        "line": 36,
-        "text": "id: 'st:changes',"
-      },
-      {
-        "line": 40,
-        "text": "owner: 'svc:offers',"
-      },
-      {
-        "line": 42,
-        "text": "{ id: 'st:owner-only', name: 'Owner only', kind: 'database', owner: 'svc:offers' },"
-      },
-      {
-        "line": 46,
-        "text": "id: 'msg:changed',"
-      },
-      {
-        "line": 48,
-        "text": "producer: 'svc:offers',"
-      },
-      {
-        "line": 49,
-        "text": "topic: 'st:changes',"
-      },
-      {
-        "line": 50,
-        "text": "consumers: ['svc:search'],"
-      },
-      {
-        "line": 54,
-        "text": "{ id: 'h:consume', component: 'svc:handler-consumer', on: 'msg:changed', steps: [] },"
-      },
-      {
-        "line": 74,
-        "text": "components: [component(`svc:${id}`)],"
-      },
-      {
-        "line": 84,
-        "text": "messages: [{ id: 'msg:captured', name: 'Captured changes', topic: 'st:changes' }],"
-      },
-      {
-        "line": 87,
-        "text": "id: 'h:publish',"
-      },
-      {
-        "line": 88,
-        "text": "component: 'svc:offers',"
-      },
-      {
-        "line": 90,
-        "text": "steps: [{ publish: 'msg:captured' }],"
-      },
-      {
-        "line": 94,
-        "text": "expect(resourcesOf('svc:offers', captured)).toEqual("
-      },
-      {
-        "line": 96,
-        "text": "expect.objectContaining({ id: 'st:changes', use: 'Publishes Captured changes' }),"
-      },
-      {
-        "line": 102,
-        "text": ".find((component) => component.id === 'st:changes'),"
-      },
-      {
-        "line": 103,
-        "text": ").toMatchObject({ parentComponent: 'svc:offers' });"
-      },
-      {
-        "line": 111,
-        "text": "messages: [{ id: 'msg:captured', name: 'Captured changes', topic: 'st:changes' }],"
-      },
-      {
-        "line": 113,
-        "text": "id: `h:${name}`,"
-      },
-      {
-        "line": 114,
-        "text": "component: `svc:${name}`,"
-      },
-      {
-        "line": 116,
-        "text": "steps: [{ publish: 'msg:captured' }],"
-      },
-      {
-        "line": 120,
-        "text": "expect(resourcesOf(`svc:${name}`, captured)).toEqual("
-      },
-      {
-        "line": 122,
-        "text": "expect.objectContaining({ id: 'st:changes', use: 'Publishes Captured changes' }),"
-      },
-      {
-        "line": 129,
-        "text": ".find((component) => component.id === 'st:changes');"
-      },
-      {
-        "line": 140,
-        "text": "id: 'st:changes',"
-      },
-      {
-        "line": 143,
-        "text": "owner: 'svc:offers',"
-      },
-      {
-        "line": 144,
-        "text": "access: [{ svc: 'svc:offers', mode: 'readwrite' }],"
-      },
-      {
-        "line": 149,
-        "text": "id: 'msg:unknown',"
-      },
-      {
-        "line": 151,
-        "text": "topic: 'st:changes',"
-      },
-      {
-        "line": 152,
-        "text": "consumers: ['svc:offers'],"
-      },
-      {
-        "line": 159,
-        "text": ".find((component) => component.id === 'st:changes');"
-      },
-      {
-        "line": 162,
-        "text": "resourcesOf('svc:offers', unknown).some((resource) => resource.use.startsWith('Publishes')),"
-      },
-      {
-        "line": 172,
-        "text": "id: 'st:unknown',"
-      },
-      {
-        "line": 175,
-        "text": "access: [{ svc: 'svc:search', mode: 'read' }],"
-      },
-      {
-        "line": 189,
-        "text": ".find((component) => component.id === 'st:unknown');"
-      },
-      {
-        "line": 194,
-        "text": "expect.objectContaining({ from: 'svc:search', to: 'st:unknown', kind: 'data' }),"
-      },
-      {
-        "line": 204,
-        "text": "if (store.id !== 'st:changes') return store;"
-      },
-      {
-        "line": 220,
-        "text": ".find((component) => component.id === 'st:changes');"
-      },
-      {
-        "line": 223,
-        "text": "expect(resourcesOf('svc:search', unknown)).toEqual("
-      },
-      {
-        "line": 224,
-        "text": "expect.arrayContaining([expect.objectContaining({ id: 'st:changes' })]),"
-      },
-      {
-        "line": 234,
-        "text": "id: 'st:retry',"
-      },
-      {
-        "line": 237,
-        "text": "owner: 'svc:products',"
-      },
-      {
-        "line": 238,
-        "text": "access: [{ svc: 'svc:products', mode: 'readwrite' }],"
-      },
-      {
-        "line": 244,
-        "text": "id: 'h:retry',"
-      },
-      {
-        "line": 245,
-        "text": "component: 'svc:products',"
-      },
-      {
-        "line": 248,
-        "text": "{ read: 'sch:job', from: 'st:retry' },"
-      },
-      {
-        "line": 249,
-        "text": "{ write: 'sch:job', to: 'st:retry' },"
-      },
-      {
-        "line": 254,
-        "text": "expect(resourcesOf('svc:products', model)).toEqual(["
-      },
-      {
-        "line": 256,
-        "text": "id: 'st:retry',"
-      },
-      {
-        "line": 270,
-        "text": ".find((component) => component.id === 'st:changes')!;"
-      },
-      {
-        "line": 277,
-        "text": "expect.objectContaining({ id: 'st:changes', parentComponent: 'svc:offers' }),"
-      },
-      {
-        "line": 282,
-        "text": "?.components.some((component) => component.id === 'st:changes'),"
-      },
-      {
-        "line": 285,
-        "text": "expect.objectContaining({ id: 'st:changes' }),"
-      },
-      {
-        "line": 292,
-        "text": "expect(components.filter((component) => component.id === 'st:cache')).toHaveLength(1);"
-      },
-      {
-        "line": 293,
-        "text": "expect(components.find((component) => component.id === 'st:changes')).toMatchObject({"
-      },
-      {
-        "line": 297,
-        "text": "expect(resourcesOf('svc:search', model)).toContainEqual("
-      },
-      {
-        "line": 299,
-        "text": "id: 'st:changes',"
-      },
-      {
-        "line": 313,
-        "text": "expect.objectContaining({ from: 'svc:offers', to: 'st:cache', kind: 'data' }),"
-      },
-      {
-        "line": 316,
-        "text": "expect.objectContaining({ from: 'svc:offers', to: 'st:changes', kind: 'message' }),"
-      },
-      {
-        "line": 320,
-        "text": "from: 'st:changes',"
-      },
-      {
-        "line": 321,
-        "text": "to: 'svc:search',"
-      },
-      {
-        "line": 323,
-        "text": "usageFrom: 'svc:search',"
-      },
-      {
-        "line": 324,
-        "text": "usageTo: 'st:changes',"
-      },
-      {
-        "line": 327,
-        "text": "expect(edges.some((edge) => edge.to === 'st:owner-only')).toBe(false);"
-      },
-      {
-        "line": 330,
-        "text": "(edge) => edge.from === 'svc:offers' && edge.to === 'svc:search' && edge.kind === 'message',"
-      },
-      {
-        "line": 338,
-        "text": "expect(resourceSummary(nodes.find((node) => node.id === 'st:owner-only')!)).toBe("
-      },
-      {
-        "line": 342,
-        "text": "expect(resourcesOf('svc:offers')).toEqual([]);"
-      },
-      {
-        "line": 347,
-        "text": "expect(resourcesOf('svc:handler-consumer', model)).toContainEqual("
-      },
-      {
-        "line": 348,
-        "text": "expect.objectContaining({ id: 'st:changes', use: 'Consumes Offer changed' }),"
-      },
-      {
-        "line": 355,
-        "text": "expect(nodes.find((node) => node.id === 'st:records')?.parentComponent).toBe('svc:offers');"
-      },
-      {
-        "line": 356,
-        "text": "expect(nodes.find((node) => node.id === 'st:cache')?.parentComponent).toBeUndefined();"
-      },
-      {
-        "line": 357,
-        "text": "expect(nodes.find((node) => node.id === 'st:changes')?.parentComponent).toBe('svc:offers');"
-      },
-      {
-        "line": 361,
-        "text": "{ id: 'msg:private', name: 'Internal jobs', producer: 'svc:offers', topic: 'st:changes' },"
-      },
-      {
-        "line": 369,
-        "text": "expect(privateNodes.find((node) => node.id === 'st:changes')?.parentComponent).toBe("
-      },
-      {
-        "line": 370,
+        "line": 18,
         "text": "'svc:offers',"
       },
       {
-        "line": 379,
-        "text": "expect(nodes.find((node) => node.id === 'st:cache')?.parentComponent).toBeUndefined();"
+        "line": 19,
+        "text": "'st:cache',"
+      },
+      {
+        "line": 20,
+        "text": "'st:records',"
+      },
+      {
+        "line": 21,
+        "text": "'st:changes',"
+      },
+      {
+        "line": 22,
+        "text": "'st:owner-only',"
+      },
+      {
+        "line": 23,
+        "text": "'st:private-bus',"
+      },
+      {
+        "line": 24,
+        "text": "'st:read-only',"
+      },
+      {
+        "line": 25,
+        "text": "'st:shared-bus',"
+      },
+      {
+        "line": 26,
+        "text": "'st:no-access',"
+      },
+      {
+        "line": 28,
+        "text": "...['svc:search', 'st:unknown'].map((id) => [id, { ...search, component: id }] as const),"
+      },
+      {
+        "line": 39,
+        "text": "id: 'st:cache',"
+      },
+      {
+        "line": 43,
+        "text": "owner: 'svc:offers',"
+      },
+      {
+        "line": 45,
+        "text": "{ svc: 'svc:offers', mode: 'readwrite' },"
+      },
+      {
+        "line": 46,
+        "text": "{ svc: 'svc:search', mode: 'read' },"
+      },
+      {
+        "line": 50,
+        "text": "id: 'st:records',"
+      },
+      {
+        "line": 54,
+        "text": "owner: 'svc:offers',"
+      },
+      {
+        "line": 55,
+        "text": "access: [{ svc: 'svc:offers', mode: 'write' }],"
+      },
+      {
+        "line": 58,
+        "text": "id: 'st:changes',"
+      },
+      {
+        "line": 62,
+        "text": "owner: 'svc:offers',"
+      },
+      {
+        "line": 64,
+        "text": "{ id: 'st:owner-only', name: 'Owner only', kind: 'database', owner: 'svc:offers' },"
+      },
+      {
+        "line": 68,
+        "text": "id: 'msg:changed',"
+      },
+      {
+        "line": 70,
+        "text": "producer: 'svc:offers',"
+      },
+      {
+        "line": 71,
+        "text": "topic: 'st:changes',"
+      },
+      {
+        "line": 72,
+        "text": "consumers: ['svc:search'],"
+      },
+      {
+        "line": 76,
+        "text": "{ id: 'h:consume', component: 'svc:handler-consumer', on: 'msg:changed', steps: [] },"
+      },
+      {
+        "line": 96,
+        "text": "components: [component(`svc:${id}`)],"
+      },
+      {
+        "line": 106,
+        "text": "stores: (model.plan.stores ?? []).map((store) => ({ ...store, owner: 'svc:search' })),"
+      },
+      {
+        "line": 112,
+        "text": "?.components.some((component) => component.id === 'st:records'),"
+      },
+      {
+        "line": 117,
+        "text": ".find((component) => component.id === 'st:records')?.parentComponent,"
+      },
+      {
+        "line": 123,
+        "text": ".some((component) => component.id === 'st:records'),"
+      },
+      {
+        "line": 125,
+        "text": "expect(resourcesOf('svc:offers', derivePlan(plan))).toContainEqual("
+      },
+      {
+        "line": 126,
+        "text": "expect.objectContaining({ id: 'st:records' }),"
+      },
+      {
+        "line": 134,
+        "text": "messages: [{ id: 'msg:captured', name: 'Captured changes', topic: 'st:changes' }],"
+      },
+      {
+        "line": 137,
+        "text": "id: 'h:publish',"
+      },
+      {
+        "line": 138,
+        "text": "component: 'svc:offers',"
+      },
+      {
+        "line": 140,
+        "text": "steps: [{ publish: 'msg:captured' }],"
+      },
+      {
+        "line": 144,
+        "text": "expect(resourcesOf('svc:offers', captured)).toEqual("
+      },
+      {
+        "line": 146,
+        "text": "expect.objectContaining({ id: 'st:changes', use: 'Publishes Captured changes' }),"
+      },
+      {
+        "line": 152,
+        "text": ".find((component) => component.id === 'st:changes'),"
+      },
+      {
+        "line": 153,
+        "text": ").toMatchObject({ parentComponent: 'svc:offers' });"
+      },
+      {
+        "line": 161,
+        "text": "messages: [{ id: 'msg:captured', name: 'Captured changes', topic: 'st:changes' }],"
+      },
+      {
+        "line": 163,
+        "text": "id: `h:${name}`,"
+      },
+      {
+        "line": 164,
+        "text": "component: `svc:${name}`,"
+      },
+      {
+        "line": 166,
+        "text": "steps: [{ publish: 'msg:captured' }],"
+      },
+      {
+        "line": 170,
+        "text": "expect(resourcesOf(`svc:${name}`, captured)).toEqual("
+      },
+      {
+        "line": 172,
+        "text": "expect.objectContaining({ id: 'st:changes', use: 'Publishes Captured changes' }),"
+      },
+      {
+        "line": 179,
+        "text": ".find((component) => component.id === 'st:changes');"
+      },
+      {
+        "line": 190,
+        "text": "id: 'st:changes',"
+      },
+      {
+        "line": 193,
+        "text": "owner: 'svc:offers',"
+      },
+      {
+        "line": 194,
+        "text": "access: [{ svc: 'svc:offers', mode: 'readwrite' }],"
+      },
+      {
+        "line": 199,
+        "text": "id: 'msg:unknown',"
+      },
+      {
+        "line": 201,
+        "text": "topic: 'st:changes',"
+      },
+      {
+        "line": 202,
+        "text": "consumers: ['svc:offers'],"
+      },
+      {
+        "line": 209,
+        "text": ".find((component) => component.id === 'st:changes');"
+      },
+      {
+        "line": 212,
+        "text": "resourcesOf('svc:offers', unknown).some((resource) => resource.use.startsWith('Publishes')),"
+      },
+      {
+        "line": 222,
+        "text": "id: 'st:unknown',"
+      },
+      {
+        "line": 225,
+        "text": "access: [{ svc: 'svc:search', mode: 'read' }],"
+      },
+      {
+        "line": 239,
+        "text": ".find((component) => component.id === 'st:unknown');"
+      },
+      {
+        "line": 244,
+        "text": "expect.objectContaining({ from: 'svc:search', to: 'st:unknown', kind: 'data' }),"
+      },
+      {
+        "line": 254,
+        "text": "if (store.id !== 'st:changes') return store;"
+      },
+      {
+        "line": 270,
+        "text": ".find((component) => component.id === 'st:changes');"
+      },
+      {
+        "line": 273,
+        "text": "expect(resourcesOf('svc:search', unknown)).toEqual("
+      },
+      {
+        "line": 274,
+        "text": "expect.arrayContaining([expect.objectContaining({ id: 'st:changes' })]),"
+      },
+      {
+        "line": 284,
+        "text": "id: 'st:retry',"
+      },
+      {
+        "line": 287,
+        "text": "owner: 'svc:products',"
+      },
+      {
+        "line": 288,
+        "text": "access: [{ svc: 'svc:products', mode: 'readwrite' }],"
+      },
+      {
+        "line": 294,
+        "text": "id: 'h:retry',"
+      },
+      {
+        "line": 295,
+        "text": "component: 'svc:products',"
+      },
+      {
+        "line": 298,
+        "text": "{ read: 'sch:job', from: 'st:retry' },"
+      },
+      {
+        "line": 299,
+        "text": "{ write: 'sch:job', to: 'st:retry' },"
+      },
+      {
+        "line": 304,
+        "text": "expect(resourcesOf('svc:products', model)).toEqual(["
+      },
+      {
+        "line": 306,
+        "text": "id: 'st:retry',"
+      },
+      {
+        "line": 320,
+        "text": ".find((component) => component.id === 'st:changes')!;"
+      },
+      {
+        "line": 327,
+        "text": "expect.objectContaining({ id: 'st:changes', parentComponent: 'svc:offers' }),"
+      },
+      {
+        "line": 332,
+        "text": "?.components.some((component) => component.id === 'st:changes'),"
+      },
+      {
+        "line": 335,
+        "text": "expect.objectContaining({ id: 'st:changes' }),"
+      },
+      {
+        "line": 342,
+        "text": "expect(components.filter((component) => component.id === 'st:cache')).toHaveLength(1);"
+      },
+      {
+        "line": 343,
+        "text": "expect(components.find((component) => component.id === 'st:changes')).toMatchObject({"
+      },
+      {
+        "line": 347,
+        "text": "expect(resourcesOf('svc:search', model)).toContainEqual("
+      },
+      {
+        "line": 349,
+        "text": "id: 'st:changes',"
+      },
+      {
+        "line": 363,
+        "text": "expect.objectContaining({ from: 'svc:offers', to: 'st:cache', kind: 'data' }),"
+      },
+      {
+        "line": 366,
+        "text": "expect.objectContaining({ from: 'svc:offers', to: 'st:changes', kind: 'message' }),"
+      },
+      {
+        "line": 370,
+        "text": "from: 'st:changes',"
+      },
+      {
+        "line": 371,
+        "text": "to: 'svc:search',"
+      },
+      {
+        "line": 373,
+        "text": "usageFrom: 'svc:search',"
+      },
+      {
+        "line": 374,
+        "text": "usageTo: 'st:changes',"
+      },
+      {
+        "line": 377,
+        "text": "expect(edges.some((edge) => edge.to === 'st:owner-only')).toBe(false);"
       },
       {
         "line": 380,
-        "text": "expect(nodes.find((node) => node.id === 'st:owner-only')?.parentComponent).toBeUndefined();"
+        "text": "(edge) => edge.from === 'svc:offers' && edge.to === 'svc:search' && edge.kind === 'message',"
       },
       {
-        "line": 384,
-        "text": "{ id: 'msg:other', name: 'Search jobs', producer: 'svc:search', topic: 'st:changes' },"
+        "line": 388,
+        "text": "expect(resourceSummary(nodes.find((node) => node.id === 'st:owner-only')!)).toBe("
       },
       {
-        "line": 390,
-        "text": ".find((node) => node.id === 'st:changes');"
+        "line": 392,
+        "text": "expect(resourcesOf('svc:offers')).toEqual([]);"
+      },
+      {
+        "line": 397,
+        "text": "expect(resourcesOf('svc:handler-consumer', model)).toContainEqual("
       },
       {
         "line": 398,
-        "text": "id: 'st:private-bus',"
-      },
-      {
-        "line": 401,
-        "text": "owner: 'svc:offers',"
-      },
-      {
-        "line": 402,
-        "text": "access: [{ svc: 'svc:offers', mode: 'readwrite' as const }],"
+        "text": "expect.objectContaining({ id: 'st:changes', use: 'Consumes Offer changed' }),"
       },
       {
         "line": 405,
-        "text": "id: 'st:read-only',"
+        "text": "expect(nodes.find((node) => node.id === 'st:records')?.parentComponent).toBe('svc:offers');"
       },
       {
-        "line": 408,
-        "text": "owner: 'svc:offers',"
+        "line": 406,
+        "text": "expect(nodes.find((node) => node.id === 'st:cache')?.parentComponent).toBeUndefined();"
       },
       {
-        "line": 409,
-        "text": "access: [{ svc: 'svc:offers', mode: 'read' as const }],"
+        "line": 407,
+        "text": "expect(nodes.find((node) => node.id === 'st:changes')?.parentComponent).toBe('svc:offers');"
       },
       {
-        "line": 412,
-        "text": "id: 'st:shared-bus',"
+        "line": 411,
+        "text": "{ id: 'msg:private', name: 'Internal jobs', producer: 'svc:offers', topic: 'st:changes' },"
       },
       {
-        "line": 415,
-        "text": "owner: 'svc:offers',"
+        "line": 419,
+        "text": "expect(privateNodes.find((node) => node.id === 'st:changes')?.parentComponent).toBe("
       },
       {
-        "line": 417,
-        "text": "{ svc: 'svc:offers', mode: 'readwrite' as const },"
-      },
-      {
-        "line": 418,
-        "text": "{ svc: 'svc:outside', mode: 'read' as const },"
-      },
-      {
-        "line": 421,
-        "text": "{ id: 'st:no-access', name: 'Untraced topic', kind: 'topic' as const, owner: 'svc:offers' },"
-      },
-      {
-        "line": 425,
-        "text": "expect(nodes.find((node) => node.id === 'st:private-bus')?.parentComponent).toBe('svc:offers');"
-      },
-      {
-        "line": 426,
-        "text": "expect(nodes.find((node) => node.id === 'st:read-only')?.parentComponent).toBeUndefined();"
-      },
-      {
-        "line": 427,
-        "text": "expect(nodes.find((node) => node.id === 'st:shared-bus')?.parentComponent).toBeUndefined();"
-      },
-      {
-        "line": 428,
-        "text": "expect(nodes.find((node) => node.id === 'st:no-access')?.parentComponent).toBeUndefined();"
+        "line": 420,
+        "text": "'svc:offers',"
       },
       {
         "line": 429,
-        "text": "expect(resourcesOf('svc:offers', privateModel)).toContainEqual("
+        "text": "expect(nodes.find((node) => node.id === 'st:cache')?.parentComponent).toBeUndefined();"
       },
       {
         "line": 430,
+        "text": "expect(nodes.find((node) => node.id === 'st:owner-only')?.parentComponent).toBeUndefined();"
+      },
+      {
+        "line": 434,
+        "text": "{ id: 'msg:other', name: 'Search jobs', producer: 'svc:search', topic: 'st:changes' },"
+      },
+      {
+        "line": 440,
+        "text": ".find((node) => node.id === 'st:changes');"
+      },
+      {
+        "line": 448,
+        "text": "id: 'st:private-bus',"
+      },
+      {
+        "line": 451,
+        "text": "owner: 'svc:offers',"
+      },
+      {
+        "line": 452,
+        "text": "access: [{ svc: 'svc:offers', mode: 'readwrite' as const }],"
+      },
+      {
+        "line": 455,
+        "text": "id: 'st:read-only',"
+      },
+      {
+        "line": 458,
+        "text": "owner: 'svc:offers',"
+      },
+      {
+        "line": 459,
+        "text": "access: [{ svc: 'svc:offers', mode: 'read' as const }],"
+      },
+      {
+        "line": 462,
+        "text": "id: 'st:shared-bus',"
+      },
+      {
+        "line": 465,
+        "text": "owner: 'svc:offers',"
+      },
+      {
+        "line": 467,
+        "text": "{ svc: 'svc:offers', mode: 'readwrite' as const },"
+      },
+      {
+        "line": 468,
+        "text": "{ svc: 'svc:outside', mode: 'read' as const },"
+      },
+      {
+        "line": 471,
+        "text": "{ id: 'st:no-access', name: 'Untraced topic', kind: 'topic' as const, owner: 'svc:offers' },"
+      },
+      {
+        "line": 475,
+        "text": "expect(nodes.find((node) => node.id === 'st:private-bus')?.parentComponent).toBe('svc:offers');"
+      },
+      {
+        "line": 476,
+        "text": "expect(nodes.find((node) => node.id === 'st:read-only')?.parentComponent).toBeUndefined();"
+      },
+      {
+        "line": 477,
+        "text": "expect(nodes.find((node) => node.id === 'st:shared-bus')?.parentComponent).toBeUndefined();"
+      },
+      {
+        "line": 478,
+        "text": "expect(nodes.find((node) => node.id === 'st:no-access')?.parentComponent).toBeUndefined();"
+      },
+      {
+        "line": 479,
+        "text": "expect(resourcesOf('svc:offers', privateModel)).toContainEqual("
+      },
+      {
+        "line": 480,
         "text": "expect.objectContaining({ id: 'st:private-bus', use: 'Reads and writes' }),"
       }
     ],
@@ -1406,6 +1482,932 @@
   },
   {
     "category": "id construction, parsing or literal",
+    "file": "src/application/legacy-view.test.ts",
+    "hits": [
+      {
+        "line": 40,
+        "text": "uses: ['app:shop'],"
+      },
+      {
+        "line": 45,
+        "text": "modelId: 'sys:ordering',"
+      },
+      {
+        "line": 46,
+        "text": "team: 'team:orders',"
+      },
+      {
+        "line": 62,
+        "text": "['svc:ordering', 'service', 'sys:ordering'],"
+      },
+      {
+        "line": 63,
+        "text": "['app:shop', 'ui', 'sys:ordering'],"
+      },
+      {
+        "line": 65,
+        "text": "expect(legacy.asIs.get('st:unknown-owner')).not.toHaveProperty('owner');"
+      },
+      {
+        "line": 66,
+        "text": "expect(legacy.asIs.get('st:orders')).toMatchObject({"
+      },
+      {
+        "line": 67,
+        "text": "owner: 'svc:ordering',"
+      },
+      {
+        "line": 71,
+        "text": "expect(legacy.asIs.get('api:confirm')).toMatchObject({"
+      },
+      {
+        "line": 73,
+        "text": "request: 'sch:confirm',"
+      },
+      {
+        "line": 74,
+        "text": "response: 'sch:order',"
+      },
+      {
+        "line": 76,
+        "text": "expect(legacy.asIs.get('api:grpc-confirm')).toMatchObject({ sig: 'fixture.Ordering/Confirm' });"
+      },
+      {
+        "line": 77,
+        "text": "expect(legacy.asIs.get('api:order-query')).toMatchObject({ sig: 'order(id: ID!): Order' });"
+      },
+      {
+        "line": 78,
+        "text": "expect(legacy.asIs.get('api:legacy')).toMatchObject({ sig: 'GET legacy free words' });"
+      },
+      {
+        "line": 79,
+        "text": "expect(legacy.asIs.get('sch:confirm#unknown')).toMatchObject({ type: 'Unknown' });"
+      },
+      {
+        "line": 80,
+        "text": "expect(legacy.asIs.get('sch:confirm#lines')).toMatchObject({ type: '{\"array\":\"sch:line\"}' });"
+      },
+      {
+        "line": 81,
+        "text": "expect(legacy.asIs.get('sch:order#status')).toMatchObject({ type: 'string' });"
+      },
+      {
+        "line": 82,
+        "text": "expect(legacy.place('st:unknown-owner')?.system).toBe('sys:ordering');"
+      },
+      {
+        "line": 83,
+        "text": "expect(system?.interfaces.find((entry) => entry.id === 'if:payments')?.kind).toBe('sdk');"
+      },
+      {
+        "line": 89,
+        "text": "actors: [{ id: 'actor:unknown', name: 'Unknown' }],"
+      },
+      {
+        "line": 99,
+        "text": "const store = entitiesIn(source).find((entity) => entity.id === 'st:remote');"
+      },
+      {
+        "line": 104,
+        "text": "expect(legacy.model.asIs.get('st:remote')).toBeUndefined();"
+      },
+      {
+        "line": 107,
+        "text": "(component) => component.id === 'st:remote',"
+      },
+      {
+        "line": 128,
+        "text": "legacyLosses({ id: 'sys:original' }, { id: 'wrong', modelId: 'sys:other' }),"
+      }
+    ],
+    "status": "adapter"
+  },
+  {
+    "category": "id construction, parsing or literal",
+    "file": "src/application/legacy-view.ts",
+    "hits": [
+      {
+        "line": 41,
+        "text": "const type = { service: 'service', app: 'website', store: 'database', topic: 'queue' } as const;"
+      },
+      {
+        "line": 57,
+        "text": "team: system.team ?? null,"
+      },
+      {
+        "line": 65,
+        "text": "function teamView(team: ModelData<'Team'>): Team {"
+      },
+      {
+        "line": 135,
+        "text": "...(system.team === undefined ? {} : { team: system.team }),"
+      },
+      {
+        "line": 193,
+        "text": "...(schema.graph === undefined ? {} : { graph: schema.graph }),"
+      },
+      {
+        "line": 237,
+        "text": "...(system.team === undefined ? {} : { team: system.team }),"
+      }
+    ],
+    "status": "adapter"
+  },
+  {
+    "category": "id construction, parsing or literal",
+    "file": "src/application/model-graphql.ts",
+    "hits": [
+      {
+        "line": 50,
+        "text": "function stateOf(graph: GraphModel): GraphState {"
+      },
+      {
+        "line": 67,
+        "text": "function reference(value: unknown, graph: GraphModel): string | null {"
+      },
+      {
+        "line": 71,
+        "text": "function schemasOf(operation: ModelEntity, graph: GraphModel): readonly ModelEntity[] {"
+      },
+      {
+        "line": 84,
+        "text": "graph: GraphModel,"
+      },
+      {
+        "line": 110,
+        "text": "readonly graph: GraphModel;"
+      },
+      {
+        "line": 135,
+        "text": "function calculateTraces(operation: ModelEntity, graph: GraphModel): readonly Trace[] {"
+      },
+      {
+        "line": 144,
+        "text": "function tracesOf(operation: ModelEntity, graph: GraphModel): readonly Trace[] {"
+      },
+      {
+        "line": 154,
+        "text": "graph: GraphModel,"
+      },
+      {
+        "line": 168,
+        "text": "function providerIds(field: ModelEntity, graph: GraphModel): readonly string[] {"
+      },
+      {
+        "line": 181,
+        "text": "function supplyingParent(selected: SelectedField, graph: GraphModel): ModelEntity | undefined {"
+      },
+      {
+        "line": 186,
+        "text": "function providersOf(selected: SelectedField, graph: GraphModel): readonly string[] {"
+      },
+      {
+        "line": 194,
+        "text": "function providedByOne(selected: SelectedField, graph: GraphModel): boolean {"
+      },
+      {
+        "line": 200,
+        "text": "graph: GraphModel,"
+      },
+      {
+        "line": 213,
+        "text": "function expandedFields(operation: ModelEntity, graph: GraphModel): readonly SelectedField[] {"
+      },
+      {
+        "line": 220,
+        "text": "graph: GraphModel,"
+      },
+      {
+        "line": 226,
+        "text": "export function graphqlReaches(operation: ModelEntity, graph: GraphModel): readonly GraphqlReach[] {"
+      },
+      {
+        "line": 248,
+        "text": "graph: GraphModel,"
+      },
+      {
+        "line": 286,
+        "text": "export function graphqlGaps(operation: ModelEntity, graph: GraphModel): readonly ModelGap[] {"
+      }
+    ],
+    "status": "adapter"
+  },
+  {
+    "category": "id construction, parsing or literal",
+    "file": "src/application/model-index-containment.test.ts",
+    "hits": [
+      {
+        "line": 11,
+        "text": "expect(index.place('st:remote')).toEqual({"
+      },
+      {
+        "line": 13,
+        "text": "domain: 'dom:queries',"
+      },
+      {
+        "line": 14,
+        "text": "system: 'sys:b',"
+      },
+      {
+        "line": 15,
+        "text": "component: 'st:remote',"
+      },
+      {
+        "line": 17,
+        "text": "expect(index.resourceOwner('st:remote')).toBe('svc:a');"
+      },
+      {
+        "line": 18,
+        "text": "expect(index.owningTeam('st:remote')).toBe('team:b');"
+      },
+      {
+        "line": 19,
+        "text": "expect(index.codeHomes('st:remote')).toEqual([{ key: 'b', repo: 'fixture/b', path: 'worker' }]);"
+      },
+      {
+        "line": 20,
+        "text": "expect(index.freshness('st:remote')).toEqual([]);"
+      },
+      {
+        "line": 21,
+        "text": "const cross = index.edges('sys:a', { level: 'system', direction: 'out' });"
+      },
+      {
+        "line": 23,
+        "text": "['sys:b', 'read', 'h:a#read'],"
+      },
+      {
+        "line": 24,
+        "text": "['sys:b', 'write', 'h:a#write'],"
+      },
+      {
+        "line": 25,
+        "text": "['sys:b', 'publish', 'h:a#publish'],"
+      },
+      {
+        "line": 26,
+        "text": "['ext:supplier', 'call', 'h:a#call'],"
+      },
+      {
+        "line": 29,
+        "text": "index.edges('sys:b', { level: 'system', direction: 'in', kinds: ['read'] }),"
+      },
+      {
+        "line": 31,
+        "text": "expect(index.edges('sys:b', { level: 'system', direction: 'out', kinds: ['consume'] })).toEqual("
+      },
+      {
+        "line": 32,
+        "text": "[expect.objectContaining({ to: 'sys:a', site: 'rel:consume' })],"
+      },
+      {
+        "line": 34,
+        "text": "expect(index.edges('svc:b', { direction: 'out', kinds: ['read'] })).toEqual(["
+      },
+      {
+        "line": 36,
+        "text": "to: 'st:remote',"
+      },
+      {
+        "line": 42,
+        "text": "expect(index.gaps('sys:a')).not.toContainEqual("
+      },
+      {
+        "line": 48,
+        "text": "expect(index.producers('msg:remote')).toEqual(['svc:a']);"
+      },
+      {
+        "line": 49,
+        "text": "expect(index.consumers('msg:remote')).toEqual(['svc:b']);"
+      },
+      {
+        "line": 50,
+        "text": "expect(index.roles('svc:a')).toEqual(['api']);"
+      },
+      {
+        "line": 51,
+        "text": "expect(index.roles('svc:b')).toEqual(['worker', 'job']);"
+      },
+      {
+        "line": 52,
+        "text": "expect(index.entries('svc:b').map((entry) => entry.id)).toEqual(['sub:b', 'job:b']);"
+      },
+      {
+        "line": 53,
+        "text": "expect(index.callers('api:supplier')).toEqual(["
+      },
+      {
+        "line": 54,
+        "text": "expect.objectContaining({ site: 'h:a#call', handler: 'h:a', entry: 'api:a' }),"
+      },
+      {
+        "line": 56,
+        "text": "expect(index.flowOf('sub:b')?.callers).toEqual(["
+      },
+      {
+        "line": 57,
+        "text": "expect.objectContaining({ from: 'svc:a', via: 'msg:remote' }),"
+      },
+      {
+        "line": 59,
+        "text": "expect(index.storeAccess('st:remote').map((edge) => [edge.from, edge.kind])).toEqual(["
+      },
+      {
+        "line": 60,
+        "text": "['svc:a', 'read'],"
+      },
+      {
+        "line": 61,
+        "text": "['svc:a', 'write'],"
+      },
+      {
+        "line": 62,
+        "text": "['svc:b', 'read'],"
+      },
+      {
+        "line": 64,
+        "text": "expect(index.label('api:a')).toBe('GET /a');"
+      },
+      {
+        "line": 65,
+        "text": "expect(index.label('h:a#read')).toBe('h:a#read');"
+      },
+      {
+        "line": 66,
+        "text": "expect(index.href('sub:b')).toBe('/queries/entries/?id=sub%3Ab');"
+      },
+      {
+        "line": 70,
+        "text": "const store = entitiesIn(model).find((entity) => entity.id === 'st:remote');"
+      },
+      {
+        "line": 72,
+        "text": "Object.assign(store.data, { owner: { id: 'svc:a', cites: [] } });"
+      },
+      {
+        "line": 77,
+        "text": "id: 'st:remote',"
+      },
+      {
+        "line": 84,
+        "text": "expect(index.resourceOwner('st:remote')).toBeNull();"
+      },
+      {
+        "line": 85,
+        "text": "expect(index.gaps('st:remote')).toEqual(["
+      }
+    ],
+    "status": "adapter"
+  },
+  {
+    "category": "id construction, parsing or literal",
+    "file": "src/application/model-index.test.ts",
+    "hits": [
+      {
+        "line": 30,
+        "text": "expect(index.place('st:unknown-owner')).toEqual({"
+      },
+      {
+        "line": 32,
+        "text": "domain: 'dom:orders',"
+      },
+      {
+        "line": 33,
+        "text": "system: 'sys:ordering',"
+      },
+      {
+        "line": 34,
+        "text": "component: 'st:unknown-owner',"
+      },
+      {
+        "line": 36,
+        "text": "expect(index.resourceOwner('st:unknown-owner')).toBeNull();"
+      },
+      {
+        "line": 37,
+        "text": "expect(index.resourceOwner('st:orders')).toBe('svc:ordering');"
+      },
+      {
+        "line": 38,
+        "text": "expect(index.resourceOwner('svc:ordering')).toBeNull();"
+      },
+      {
+        "line": 39,
+        "text": "expect(index.owningTeam('st:unknown-owner')).toBe('team:orders');"
+      },
+      {
+        "line": 40,
+        "text": "expect(index.codeHomes('h:confirm#tx/save')).toEqual(["
+      },
+      {
+        "line": 43,
+        "text": "expect(index.codeHomes('st:unknown-owner')).toEqual(index.codeHomes('svc:ordering'));"
+      },
+      {
+        "line": 44,
+        "text": "expect(index.get('svc:old-ordering')?.id).toBe('svc:ordering');"
+      },
+      {
+        "line": 45,
+        "text": "expect(index.get('api:retired')).toBeNull();"
+      },
+      {
+        "line": 52,
+        "text": "expect(index.edges('svc:ordering', { direction: 'out', kinds: ['write'] })).toEqual(["
+      },
+      {
+        "line": 54,
+        "text": "to: 'st:orders',"
+      },
+      {
+        "line": 55,
+        "text": "via: 'sch:order#status',"
+      },
+      {
+        "line": 56,
+        "text": "site: 'h:confirm#tx/save',"
+      },
+      {
+        "line": 57,
+        "text": "entry: 'api:confirm',"
+      },
+      {
+        "line": 60,
+        "text": "expect(index.callers('api:confirm')).toEqual(["
+      },
+      {
+        "line": 61,
+        "text": "expect.objectContaining({ from: 'app:shop', site: 'h:click#submit' }),"
+      },
+      {
+        "line": 63,
+        "text": "expect(index.producers('msg:confirmed')).toEqual(['svc:ordering']);"
+      },
+      {
+        "line": 64,
+        "text": "expect(index.consumers('msg:confirmed')).toEqual(['svc:ordering']);"
+      },
+      {
+        "line": 66,
+        "text": "expect(index.storeAccess('st:orders').map((edge) => edge.kind)).toEqual(["
+      },
+      {
+        "line": 73,
+        "text": "site: 'h:confirm#deliver/send',"
+      },
+      {
+        "line": 74,
+        "text": "via: 'h:on-confirmed',"
+      },
+      {
+        "line": 75,
+        "text": "to: 'svc:ordering',"
+      },
+      {
+        "line": 78,
+        "text": "expect(index.edges('svc:ordering', { direction: 'in', kinds: ['consume'] })).toEqual(["
+      },
+      {
+        "line": 79,
+        "text": "expect.objectContaining({ from: 'top:confirmed', via: 'msg:confirmed' }),"
+      },
+      {
+        "line": 84,
+        "text": "expect(index.edges('sys:ordering', { level: 'system', kinds: ['call'] })).toContainEqual("
+      },
+      {
+        "line": 85,
+        "text": "expect.objectContaining({ to: 'ext:payments' }),"
+      },
+      {
+        "line": 90,
+        "text": "expect(index.fieldsReached('gql:order')).toEqual(["
+      },
+      {
+        "line": 91,
+        "text": "{ field: 'sch:graph-query#order', subgraph: 'sg:orders', component: 'svc:ordering' },"
+      },
+      {
+        "line": 92,
+        "text": "{ field: 'sch:graph-order#id', subgraph: 'sg:orders', component: 'svc:ordering' },"
+      },
+      {
+        "line": 94,
+        "text": "expect(index.fieldsReached('api:confirm')).toEqual([]);"
+      },
+      {
+        "line": 95,
+        "text": "expect(index.callers('api:order-query')).toEqual(["
+      },
+      {
+        "line": 96,
+        "text": "expect.objectContaining({ from: 'app:shop', via: 'gql:order' }),"
+      },
+      {
+        "line": 98,
+        "text": "expect(index.flowOf('sub:on-confirmed')?.callers).toEqual(["
+      },
+      {
+        "line": 99,
+        "text": "expect.objectContaining({ site: 'h:confirm#deliver/send', kind: 'publish' }),"
+      },
+      {
+        "line": 101,
+        "text": "expect(index.edges('app:shop', { kinds: ['call'] })).toContainEqual("
+      },
+      {
+        "line": 102,
+        "text": "expect.objectContaining({ to: 'svc:ordering', via: 'gql:order', source: 'operation' }),"
+      },
+      {
+        "line": 107,
+        "text": "expect(index.roles('svc:ordering')).toEqual(['api', 'worker', 'job']);"
+      },
+      {
+        "line": 108,
+        "text": "expect(index.roles('st:orders')).toEqual([]);"
+      },
+      {
+        "line": 109,
+        "text": "expect(index.entries('app:shop').map((entry) => entry.id)).toEqual(['ui:confirm']);"
+      },
+      {
+        "line": 110,
+        "text": "expect(index.flowOf('api:confirm')?.handlers.map((handler) => handler.id)).toEqual(["
+      },
+      {
+        "line": 111,
+        "text": "'h:confirm',"
+      },
+      {
+        "line": 113,
+        "text": "expect(index.flowOf('api:confirm')?.reaches).toContainEqual("
+      },
+      {
+        "line": 114,
+        "text": "expect.objectContaining({ site: 'h:confirm#tx/save' }),"
+      },
+      {
+        "line": 116,
+        "text": "expect(index.flowOf('st:orders')).toBeNull();"
+      },
+      {
+        "line": 117,
+        "text": "expect(index.gaps('job:unknown')).toContainEqual("
+      },
+      {
+        "line": 120,
+        "text": "expect(index.gaps('st:unknown-owner')).toContainEqual("
+      },
+      {
+        "line": 123,
+        "text": "expect(index.gaps('sch:confirm')).toContainEqual("
+      },
+      {
+        "line": 124,
+        "text": "expect.objectContaining({ id: 'sch:confirm#unknown', kind: 'no_schema' }),"
+      },
+      {
+        "line": 126,
+        "text": "expect(index.gaps('api:legacy')).toContainEqual(expect.objectContaining({ kind: 'no_caller' }));"
+      },
+      {
+        "line": 127,
+        "text": "expect(index.gaps('sys:ordering')).toContainEqual("
+      },
+      {
+        "line": 130,
+        "text": "expect(index.freshness('svc:ordering')).toEqual(["
+      },
+      {
+        "line": 138,
+        "text": "expect(index.href('h:confirm#tx/save')).toBe("
+      },
+      {
+        "line": 141,
+        "text": "expect(index.label('svc:ordering')).toBe('Ordering API');"
+      },
+      {
+        "line": 156,
+        "text": "expect(markdown).toContain('## Orders (`dom:orders`)');"
+      },
+      {
+        "line": 158,
+        "text": "expect(markdown).toContain('`svc:ordering` Ordering API');"
+      },
+      {
+        "line": 161,
+        "text": "expect(markdown).toContain('`h:confirm#tx/save`');"
+      },
+      {
+        "line": 166,
+        "text": "const field = entitiesIn(original).find((entity) => entity.id === 'sch:graph-query#order');"
+      },
+      {
+        "line": 173,
+        "text": "messages: [...system.messages, { id: 'msg:orphan', topic: 'top:confirmed' }],"
+      },
+      {
+        "line": 175,
+        "text": "handler.id === 'h:click'"
+      },
+      {
+        "line": 176,
+        "text": "? { ...handler, steps: [{ id: 'missing', call: 'api:absent', cites: [] }] }"
+      },
+      {
+        "line": 182,
+        "text": "expect(index.gaps('h:click')).toContainEqual("
+      },
+      {
+        "line": 183,
+        "text": "expect.objectContaining({ kind: 'unmapped_target', reference: 'api:absent' }),"
+      },
+      {
+        "line": 185,
+        "text": "expect(index.edges('app:shop').some((edge) => edge.to === 'api:absent')).toBe(false);"
+      },
+      {
+        "line": 186,
+        "text": "expect(index.gaps('msg:orphan').map((gap) => gap.kind)).toEqual(['no_consumer', 'no_schema']);"
+      },
+      {
+        "line": 187,
+        "text": "expect(index.gaps('gql:order')).toContainEqual("
+      },
+      {
+        "line": 188,
+        "text": "expect.objectContaining({ kind: 'unmapped_target', reference: 'sch:graph-query#order' }),"
+      },
+      {
+        "line": 201,
+        "text": "expect(index.codeHomes('st:unknown-owner')).toEqual([]);"
+      },
+      {
+        "line": 202,
+        "text": "expect(index.codeHomes('svc:ordering')).toEqual(["
+      },
+      {
+        "line": 205,
+        "text": "expect(index.codeHomes('sys:ordering')).toHaveLength(2);"
+      },
+      {
+        "line": 206,
+        "text": "expect(index.href('dom:orders')).toBe('/model-fixture/orders/');"
+      },
+      {
+        "line": 207,
+        "text": "expect(index.href('sys:ordering')).toBe('/model-fixture/orders/ordering/');"
+      },
+      {
+        "line": 210,
+        "text": "expect(index.cites('h:confirm#missing/known')).toEqual(["
+      },
+      {
+        "line": 217,
+        "text": "const handler = entitiesIn(original).find((entity) => entity.id === 'h:click');"
+      },
+      {
+        "line": 218,
+        "text": "const step = entitiesIn(original).find((entity) => entity.id === 'h:click#submit');"
+      },
+      {
+        "line": 220,
+        "text": "Object.assign(handler.data, { component: 'app:old-shop' });"
+      },
+      {
+        "line": 221,
+        "text": "Object.assign(step.data, { call: 'api:old-confirm' });"
+      },
+      {
+        "line": 226,
+        "text": "'app:old-shop': { to: 'app:shop' },"
+      },
+      {
+        "line": 227,
+        "text": "'api:old-confirm': { to: 'api:confirm' },"
+      },
+      {
+        "line": 230,
+        "text": "expect(index.place('h:click#submit')?.component).toBe('app:shop');"
+      },
+      {
+        "line": 231,
+        "text": "expect(index.callers('api:old-confirm')).toEqual(["
+      },
+      {
+        "line": 232,
+        "text": "expect.objectContaining({ from: 'app:shop', via: 'api:confirm' }),"
+      },
+      {
+        "line": 234,
+        "text": "expect(index.roles('svc:old-ordering')).toEqual(['api', 'worker', 'job']);"
+      },
+      {
+        "line": 235,
+        "text": "expect(index.entries('svc:old-ordering').map((entry) => entry.id)).toEqual("
+      },
+      {
+        "line": 236,
+        "text": "index.entries('svc:ordering').map((entry) => entry.id),"
+      },
+      {
+        "line": 238,
+        "text": "expect(step.data.call).toBe('api:old-confirm');"
+      },
+      {
+        "line": 243,
+        "text": "[0, ['sg:old']],"
+      },
+      {
+        "line": 244,
+        "text": "[25, ['sg:orders', 'sg:old']],"
+      },
+      {
+        "line": 245,
+        "text": "[100, ['sg:orders']],"
+      },
+      {
+        "line": 248,
+        "text": "const field = entitiesIn(changed).find((entity) => entity.id === 'sch:graph-query#order');"
+      },
+      {
+        "line": 251,
+        "text": "Object.assign(field.data, { override: { from: 'sg:old', percent } });"
+      },
+      {
+        "line": 255,
+        "text": "{ id: 'sg:old', graph: graph.id, component: 'app:shop' },"
+      },
+      {
+        "line": 261,
+        "text": ".fieldsReached('gql:order')"
+      },
+      {
+        "line": 271,
+        "text": "const query = entities.find((entity) => entity.id === 'sch:graph-query#order');"
+      },
+      {
+        "line": 272,
+        "text": "const id = entities.find((entity) => entity.id === 'sch:graph-order#id');"
+      },
+      {
+        "line": 273,
+        "text": "const type = entities.find((entity) => entity.id === 'sch:graph-order');"
+      },
+      {
+        "line": 281,
+        "text": "{ id: 'sg:details', graph: graph.id, component: 'app:shop' },"
+      },
+      {
+        "line": 287,
+        "text": "{ id: 'audit', name: 'audit', type: 'String', subgraphs: ['sg:details'] },"
+      },
+      {
+        "line": 290,
+        "text": "Object.assign(id.data, { subgraphs: ['sg:details'], requires: ['sch:graph-order#audit'] });"
+      },
+      {
+        "line": 292,
+        "text": "expect(required.fieldsReached('gql:order')).toContainEqual({"
+      },
+      {
+        "line": 293,
+        "text": "field: 'sch:graph-order#audit',"
+      },
+      {
+        "line": 294,
+        "text": "subgraph: 'sg:details',"
+      },
+      {
+        "line": 295,
+        "text": "component: 'app:shop',"
+      },
+      {
+        "line": 297,
+        "text": "expect(required.edges('svc:ordering', { kinds: ['call'] })).toContainEqual("
+      },
+      {
+        "line": 298,
+        "text": "expect.objectContaining({ to: 'app:shop', via: 'gql:order' }),"
+      },
+      {
+        "line": 300,
+        "text": "Object.assign(query.data, { provides: ['sch:graph-order#id'] });"
+      },
+      {
+        "line": 302,
+        "text": "expect(supplied.fieldsReached('gql:order')).toEqual(["
+      },
+      {
+        "line": 303,
+        "text": "{ field: 'sch:graph-query#order', subgraph: 'sg:orders', component: 'svc:ordering' },"
+      },
+      {
+        "line": 304,
+        "text": "{ field: 'sch:graph-order#id', subgraph: 'sg:orders', component: 'svc:ordering' },"
+      },
+      {
+        "line": 306,
+        "text": "expect(supplied.fieldsReached('gql:order')).toBe(supplied.fieldsReached('gql:order'));"
+      },
+      {
+        "line": 311,
+        "text": "const field = entities.find((entity) => entity.id === 'sch:graph-order#id');"
+      },
+      {
+        "line": 312,
+        "text": "const document = entities.find((entity) => entity.id === 'ev:document');"
+      },
+      {
+        "line": 314,
+        "text": "Object.assign(field.data, { requires: ['sch:absent#key', 'sch:graph-order#id'] });"
+      },
+      {
+        "line": 323,
+        "text": "expect(index.gaps('gql:order')).toContainEqual("
+      },
+      {
+        "line": 326,
+        "text": "expect(index.gaps('gql:order')).toContainEqual("
+      },
+      {
+        "line": 327,
+        "text": "expect.objectContaining({ reference: 'sch:absent#key', kind: 'unmapped_target' }),"
+      },
+      {
+        "line": 329,
+        "text": "expect(index.gaps('gql:order')).toContainEqual("
+      },
+      {
+        "line": 330,
+        "text": "expect.objectContaining({ reference: 'sch:graph-order#id', kind: 'cyclic_composition' }),"
+      },
+      {
+        "line": 332,
+        "text": "expect(index.fieldsReached('gql:order')).toHaveLength(2);"
+      },
+      {
+        "line": 340,
+        "text": "actors: [...(model.actors ?? []), { id: 'svc:ordering', name: 'Duplicate' }],"
+      },
+      {
+        "line": 350,
+        "text": "from: 'svc:ordering',"
+      },
+      {
+        "line": 351,
+        "text": "to: 'ext:payments',"
+      },
+      {
+        "line": 355,
+        "text": "cites: [{ kind: 'evidence' as const, id: 'ev:source' }],"
+      }
+    ],
+    "status": "adapter"
+  },
+  {
+    "category": "id construction, parsing or literal",
+    "file": "src/application/model-map.test.ts",
+    "hits": [
+      {
+        "line": 38,
+        "text": "expect(markdown).toContain('### A (`sys:a`)\\n\\n- `svc:a` A — fixture/a/');"
+      },
+      {
+        "line": 39,
+        "text": "expect(markdown).toContain('### B (`sys:b`)\\n\\n- `svc:b` B — fixture/b/worker');"
+      },
+      {
+        "line": 40,
+        "text": "expect(markdown).toContain('### Unmapped (`sys:unmapped`)\\n');"
+      },
+      {
+        "line": 41,
+        "text": "expect(markdown).toContain('- `svc:a` → `st:remote`: read via `sch:remote#id` at `h:a#read`.');"
+      },
+      {
+        "line": 43,
+        "text": "'- `top:remote` → `svc:a`: consume via `top:remote` at `rel:consume`.',"
+      },
+      {
+        "line": 45,
+        "text": "expect(markdown).toContain('- `job:b`: No schedule or trigger is recorded.');"
+      },
+      {
+        "line": 46,
+        "text": "expect(markdown).toContain('- `top:remote`: No cited resource owner is recorded.');"
+      },
+      {
+        "line": 48,
+        "text": "'# Query fixture: system map\\n\\n\\n## Queries (`dom:queries`)\\n\\n### A (`sys:a`)\\n\\n- `svc:a` A — fixture/a/\\n\\n### B (`sys:b`)\\n\\n- `svc:b` B — fixture/b/worker\\n- `st:remote` Remote — fixture/b/worker\\n- `top:remote` Events — fixture/b/worker\\n\\n### Unmapped (`sys:unmapped`)\\n\\n\\n## Recorded exchanges\\n\\n- `svc:a` → `st:remote`: read via `sch:remote#id` at `h:a#read`.\\n- `svc:a` → `st:remote`: write via `sch:remote#id` at `h:a#write`.\\n- `svc:a` → `top:remote`: publish via `msg:remote` at `h:a#publish`.\\n- `svc:a` → `ext:supplier`: call via `api:supplier` at `h:a#call`.\\n- `top:remote` → `svc:b`: consume via `msg:remote` at `sub:b`.\\n- `top:remote` → `svc:a`: consume via `top:remote` at `rel:consume`.\\n- `svc:b` → `st:remote`: read via `st:remote` at `rel:read`.\\n- `svc:b` → `sys:unmapped`: call via `sys:unmapped` at `rel:boundary`.\\n\\n## Gaps\\n\\n- `api:a`: No caller is recorded.\\n- `api:supplier`: No handler detail is recorded.\\n- `top:remote`: No cited resource owner is recorded.\\n- `sub:b`: No handler detail is recorded.\\n- `job:b`: No handler detail is recorded.\\n- `job:b`: No schedule or trigger is recorded.\\n',"
+      }
+    ],
+    "status": "adapter"
+  },
+  {
+    "category": "id construction, parsing or literal",
     "file": "src/application/model-scope.ts",
     "hits": [
       {
@@ -1777,17 +2779,6 @@
       {
         "line": 36,
         "text": "expect(pages['sys:ordering']).toBe('/acme/orders/ordering/');"
-      }
-    ],
-    "status": "adapter"
-  },
-  {
-    "category": "id construction, parsing or literal",
-    "file": "src/application/plan-pages-entity-system.ts",
-    "hits": [
-      {
-        "line": 16,
-        "text": "/** The `sys:` id each service and store belongs to: a service's system, a store's owner's. */"
       }
     ],
     "status": "adapter"
@@ -3408,118 +4399,106 @@
       },
       {
         "line": 73,
-        "text": "flow: 'flow:publish-product',"
+        "text": "expect(teamPart(model, 'team:orders').steps.map((step) => step.id)).toContain("
       },
       {
         "line": 74,
-        "text": "id: 'flow:publish-product#orders',"
+        "text": "'flow:publish-product#orders',"
       },
       {
         "line": 77,
-        "text": "from: 'st:product-events',"
-      },
-      {
-        "line": 78,
-        "text": "to: 'svc:order-api',"
-      },
-      {
-        "line": 79,
-        "text": "via: 'msg:product-changed-v2',"
-      },
-      {
-        "line": 85,
         "text": "expect(otherChanges(model, teamPart(model, 'team:web'))).toEqual(['chg:shop-shows-date']);"
       },
       {
-        "line": 94,
+        "line": 86,
         "text": "modify: 'flow:place-order#create',"
       },
       {
-        "line": 97,
+        "line": 89,
         "text": "{ deprecate: 'flow:place-order#charge' },"
       },
       {
-        "line": 100,
+        "line": 92,
         "text": "const part = teamPart(modelOf(value), 'team:orders');"
       },
       {
-        "line": 102,
+        "line": 94,
         "text": "flow: 'flow:place-order',"
       },
       {
-        "line": 103,
+        "line": 95,
         "text": "id: 'flow:place-order#create',"
       },
       {
-        "line": 106,
+        "line": 98,
         "text": "from: 'svc:shop-bff',"
       },
       {
-        "line": 107,
+        "line": 99,
         "text": "to: 'svc:order-api',"
       },
       {
-        "line": 108,
+        "line": 100,
         "text": "via: 'api:orders-create',"
       },
       {
-        "line": 109,
+        "line": 101,
         "text": "caller: 'svc:shop-bff',"
       },
       {
-        "line": 112,
+        "line": 104,
         "text": "expect(part.steps.find((step) => step.id === 'flow:place-order#charge')).toMatchObject({"
       },
       {
-        "line": 126,
+        "line": 118,
         "text": "decider: 'team:catalogue',"
       },
       {
-        "line": 129,
+        "line": 121,
         "text": "{ id: 'q:open', question: 'Which colour?', status: 'open', decider: 'team:web' },"
       },
       {
-        "line": 130,
+        "line": 122,
         "text": "{ id: 'q:resolved', question: 'Which wording?', status: 'resolved', decider: 'team:web' },"
       },
       {
-        "line": 137,
+        "line": 129,
         "text": "owner: 'team:web',"
       },
       {
-        "line": 144,
+        "line": 136,
         "text": "owner: 'team:web',"
       },
       {
-        "line": 151,
+        "line": 143,
         "text": "owner: 'team:orders',"
       },
       {
-        "line": 158,
+        "line": 150,
         "text": "owner: 'team:web',"
       },
       {
-        "line": 165,
+        "line": 157,
         "text": "owner: 'team:web',"
       },
       {
-        "line": 170,
+        "line": 162,
         "text": "const part = teamPart(model, 'team:web');"
       },
       {
-        "line": 178,
+        "line": 170,
         "text": "expect(ids(teamPart(model, 'team:catalogue').decides)).toContain('q:cross');"
       },
       {
-        "line": 185,
+        "line": 177,
         "text": "'team:web',"
       },
       {
-        "line": 192,
+        "line": 184,
         "text": "'team:web',"
       },
       {
-        "line": 196,
+        "line": 188,
         "text": "const unknown = teamPart(modelOf(value), 'team:missing');"
       }
     ],
@@ -7491,87 +8470,91 @@
         "text": "'svc:search-api',"
       },
       {
-        "line": 40,
-        "text": "expect(lists.st).toEqual(['st:products-db', 'st:product-events', 'st:search-index']);"
+        "line": 41,
+        "text": "expect(model.asIs.get('st:product-events')).not.toHaveProperty('owner');"
       },
       {
-        "line": 41,
+        "line": 42,
+        "text": "expect(lists.st).toEqual(['st:products-db', 'st:search-index']);"
+      },
+      {
+        "line": 43,
         "text": "expect(lists.msg).toEqual(['msg:product-changed', 'msg:product-changed-v2']);"
       },
       {
-        "line": 65,
+        "line": 67,
         "text": "const all = ownerLists(model, 'team:catalogue');"
       },
       {
-        "line": 66,
+        "line": 68,
         "text": "const hidden = ownerLists(model, 'team:catalogue', {"
       },
       {
-        "line": 69,
+        "line": 71,
         "text": "expect(all.msg).toContain('msg:product-changed-v2');"
       },
       {
-        "line": 70,
+        "line": 72,
         "text": "expect(hidden.msg).toEqual(['msg:product-changed']);"
       },
       {
-        "line": 79,
+        "line": 81,
         "text": "{ id: 'dec:a', title: 'A', status: 'proposed', decider: 'team:payments' },"
       },
       {
-        "line": 80,
+        "line": 82,
         "text": "{ id: 'dec:b', title: 'B', status: 'accepted', decider: 'team:payments' },"
       },
       {
-        "line": 81,
+        "line": 83,
         "text": "{ id: 'dec:c', title: 'C', status: 'proposed', decider: 'team:orders' },"
       },
       {
-        "line": 84,
+        "line": 86,
         "text": "{ id: 'q:open', question: 'Open?', status: 'open', decider: 'team:payments' },"
       },
       {
-        "line": 85,
+        "line": 87,
         "text": "{ id: 'q:done', question: 'Done?', status: 'resolved', decider: 'team:payments' },"
       },
       {
-        "line": 88,
+        "line": 90,
         "text": "expect(ownerLists(model, 'team:payments').dec).toEqual(['dec:a', 'q:open']);"
       },
       {
-        "line": 107,
+        "line": 109,
         "text": "const lists = ownerLists(model, 'team:catalogue');"
       },
       {
-        "line": 115,
+        "line": 117,
         "text": "expect(nameOf(model, 'team:catalogue')).toBe('Catalogue');"
       },
       {
-        "line": 123,
+        "line": 125,
         "text": "{ id: 'team:a', name: 'A', channel: '#team-a' },"
       },
       {
-        "line": 124,
+        "line": 126,
         "text": "{ id: 'team:b', name: 'B', channel: 'TBD' },"
       },
       {
-        "line": 125,
+        "line": 127,
         "text": "{ id: 'team:c', name: 'C' },"
       },
       {
-        "line": 128,
+        "line": 130,
         "text": "expect(channelOf(model, 'team:a')).toBe('#team-a');"
       },
       {
-        "line": 129,
+        "line": 131,
         "text": "expect(channelOf(model, 'team:b')).toBe('');"
       },
       {
-        "line": 130,
+        "line": 132,
         "text": "expect(channelOf(model, 'team:c')).toBe('');"
       },
       {
-        "line": 131,
+        "line": 133,
         "text": "expect(channelOf(model, 'team:none')).toBe('');"
       }
     ],
@@ -12874,7 +13857,7 @@
     "file": "src/application/plan/derive-compose.ts",
     "hits": [
       {
-        "line": 56,
+        "line": 58,
         "text": "export function compose(plan: Plan, options: DeriveOptions): Composed {"
       }
     ],
@@ -12885,7 +13868,7 @@
     "file": "src/application/plan/derive-compose.ts",
     "hits": [
       {
-        "line": 26,
+        "line": 28,
         "text": "/** GitHub issue state of each work item, from the GitHub events in progress.yaml. */"
       }
     ],
@@ -14478,6 +15461,132 @@
   },
   {
     "category": "id construction, parsing or literal",
+    "file": "src/application/plan/derive-placement.test.ts",
+    "hits": [
+      {
+        "line": 12,
+        "text": "expect(data['st:product-events']).toEqual({"
+      },
+      {
+        "line": 14,
+        "text": "system: 'sys:products',"
+      },
+      {
+        "line": 15,
+        "text": "component: 'st:product-events',"
+      },
+      {
+        "line": 17,
+        "text": "expect(data).not.toHaveProperty('sch:product#sku');"
+      },
+      {
+        "line": 18,
+        "text": "expect(data['sch:product']).toMatchObject({"
+      },
+      {
+        "line": 19,
+        "text": "system: 'sys:products',"
+      },
+      {
+        "line": 20,
+        "text": "component: 'st:products-db',"
+      },
+      {
+        "line": 23,
+        "text": "expect(browser.place('sch:product#sku')).toMatchObject({"
+      },
+      {
+        "line": 24,
+        "text": "system: 'sys:products',"
+      },
+      {
+        "line": 25,
+        "text": "component: 'st:products-db',"
+      },
+      {
+        "line": 27,
+        "text": "expect(browser.place('flow:place-order#create')).toMatchObject({"
+      },
+      {
+        "line": 28,
+        "text": "system: 'sys:ordering',"
+      },
+      {
+        "line": 29,
+        "text": "component: 'svc:order-api',"
+      },
+      {
+        "line": 31,
+        "text": "expect(browser.place('msg:product-changed')).toMatchObject({"
+      },
+      {
+        "line": 32,
+        "text": "system: 'sys:products',"
+      },
+      {
+        "line": 33,
+        "text": "component: 'st:product-events',"
+      },
+      {
+        "line": 35,
+        "text": "expect(browser.place('api:products-get')).toMatchObject({"
+      },
+      {
+        "line": 36,
+        "text": "system: 'sys:products',"
+      },
+      {
+        "line": 37,
+        "text": "component: 'svc:products',"
+      },
+      {
+        "line": 39,
+        "text": "expect(browser.ownerService('st:product-events')).toBeNull();"
+      },
+      {
+        "line": 44,
+        "text": "expect(model.ownerService('st:orders-db')).toBe('svc:order-api');"
+      },
+      {
+        "line": 45,
+        "text": "expect(model.place('st:orders-db')).toBeNull();"
+      },
+      {
+        "line": 46,
+        "text": "expect(model.place('svc:order-api')).toEqual({"
+      },
+      {
+        "line": 48,
+        "text": "system: 'sys:ordering',"
+      },
+      {
+        "line": 49,
+        "text": "component: 'svc:order-api',"
+      },
+      {
+        "line": 52,
+        "text": "expect(placementDataOf(model.asIs, model.place)).not.toHaveProperty('st:orders-db');"
+      }
+    ],
+    "status": "adapter"
+  },
+  {
+    "category": "id construction, parsing or literal",
+    "file": "src/application/plan/derive-placement.ts",
+    "hits": [
+      {
+        "line": 19,
+        "text": "graph: 'gateway',"
+      },
+      {
+        "line": 73,
+        "text": "graph: Core['asIs'],"
+      }
+    ],
+    "status": "adapter"
+  },
+  {
+    "category": "id construction, parsing or literal",
     "file": "src/application/plan/derive-register.test.ts",
     "hits": [
       {
@@ -15267,15 +16376,15 @@
     "file": "src/application/plan/derive.ts",
     "hits": [
       {
-        "line": 64,
+        "line": 66,
         "text": "readonly plan: Plan;"
       },
       {
-        "line": 77,
+        "line": 79,
         "text": "plan: Plan,"
       },
       {
-        "line": 96,
+        "line": 98,
         "text": "export function derive(plan: Plan, options: DeriveOptions = {}): Model {"
       }
     ],
@@ -17295,15 +18404,15 @@
     "file": "src/application/plan/graph.ts",
     "hits": [
       {
-        "line": 21,
+        "line": 22,
         "text": "export function systemOf(plan: Partial<SystemSource>): SystemSource {"
       },
       {
-        "line": 34,
+        "line": 35,
         "text": "function systemOfScreens(plan: Partial<SystemSource>) {"
       },
       {
-        "line": 84,
+        "line": 87,
         "text": "function stepNodes(flow: Flow, i: number, origins: Origins): StepNode[] {"
       }
     ],
@@ -18569,15 +19678,15 @@
         "text": "const COLLECTIONS: readonly Collection[] = Object.keys(SYSTEM_COLLECTIONS).filter(isCollection);"
       },
       {
-        "line": 60,
+        "line": 61,
         "text": "const rootOf = (id: string): string => rootId(id);"
       },
       {
-        "line": 97,
+        "line": 98,
         "text": "const owner = owners.get(rootOf(id.trim()));"
       },
       {
-        "line": 263,
+        "line": 266,
         "text": "const parent = index.get(rootOf(id));"
       }
     ],
@@ -21238,6 +22347,21 @@
   },
   {
     "category": "id construction, parsing or literal",
+    "file": "src/application/plans-index.ts",
+    "hits": [
+      {
+        "line": 8,
+        "text": "readonly plan: ModelPlan;"
+      },
+      {
+        "line": 28,
+        "text": "function touches(plan: IndexedPlan, id: string): boolean {"
+      }
+    ],
+    "status": "adapter"
+  },
+  {
+    "category": "id construction, parsing or literal",
     "file": "src/application/reference/query.test.ts",
     "hits": [
       {
@@ -21560,59 +22684,79 @@
     "file": "src/application/system-map.test.ts",
     "hits": [
       {
-        "line": 16,
+        "line": 17,
         "text": "expect(map.facts.get('api:orders-create')).toMatchObject({"
       },
       {
-        "line": 21,
+        "line": 22,
         "text": "component: 'svc:order-api',"
       },
       {
-        "line": 23,
+        "line": 24,
         "text": "expect(map.facts.get('st:search-index')).toMatchObject({"
       },
       {
-        "line": 31,
-        "text": "const get = map.facts.get('api:products-get')!;"
-      },
-      {
-        "line": 32,
-        "text": "expect(get.sourcesOf).toBe('svc:products');"
-      },
-      {
         "line": 34,
-        "text": "const create = map.facts.get('api:orders-create')!;"
+        "text": "stores: contract.stores.map((store) => ({ ...store, owner: 'svc:products' })),"
       },
       {
-        "line": 41,
-        "text": "expect(found[0]?.id).toBe('svc:order-mailer');"
+        "line": 38,
+        "text": "expect(today.model.ownerService('st:orders-db')).toBe('svc:products');"
       },
       {
-        "line": 46,
-        "text": "const shown = shownIn(map, 'api:orders-create')!;"
+        "line": 39,
+        "text": "expect(map.facts.get('st:orders-db')).toMatchObject({ system: 'ordering', domain: 'orders' });"
       },
       {
-        "line": 47,
-        "text": "expect(shown.in.map(({ from }) => from)).toContain('svc:shop-bff');"
+        "line": 40,
+        "text": "expect(map.facts.get('sch:order')).toMatchObject({"
       },
       {
-        "line": 48,
-        "text": "expect(callersOf(map, 'api:orders-create').length).toBeGreaterThanOrEqual(shown.in.length);"
+        "line": 43,
+        "text": "component: 'st:orders-db',"
       },
       {
         "line": 49,
+        "text": "const get = map.facts.get('api:products-get')!;"
+      },
+      {
+        "line": 50,
+        "text": "expect(get.sourcesOf).toBe('svc:products');"
+      },
+      {
+        "line": 52,
+        "text": "const create = map.facts.get('api:orders-create')!;"
+      },
+      {
+        "line": 59,
+        "text": "expect(found[0]?.id).toBe('svc:order-mailer');"
+      },
+      {
+        "line": 64,
+        "text": "const shown = shownIn(map, 'api:orders-create')!;"
+      },
+      {
+        "line": 65,
+        "text": "expect(shown.in.map(({ from }) => from)).toContain('svc:shop-bff');"
+      },
+      {
+        "line": 66,
+        "text": "expect(callersOf(map, 'api:orders-create').length).toBeGreaterThanOrEqual(shown.in.length);"
+      },
+      {
+        "line": 67,
         "text": "expect(shownIn(map, 'api:nothing')).toBeUndefined();"
       },
       {
-        "line": 55,
+        "line": 73,
         "text": "expect.arrayContaining(['if:orders-rest', 'api:orders-create']),"
       },
       {
-        "line": 57,
+        "line": 75,
         "text": "expect(owned.map(({ id }) => id)).not.toContain('svc:products');"
       },
       {
-        "line": 70,
+        "line": 88,
         "text": "expect(text).toContain('- `svc:order-api` Order API');"
       }
     ],
@@ -21623,7 +22767,7 @@
     "file": "src/application/system-map.test.ts",
     "hits": [
       {
-        "line": 33,
+        "line": 51,
         "text": "expect(get.sources[0]?.url).toMatch(/^https:\\/\\/github\\.com\\/acme\\/products\\/blob\\//u);"
       }
     ],
@@ -22149,12 +23293,44 @@
     "file": "src/application/today-journeys.test.ts",
     "hits": [
       {
-        "line": 38,
+        "line": 39,
         "text": "actor: 'Customer',"
       },
       {
-        "line": 39,
+        "line": 40,
         "text": "systems: ['sys:shop', 'sys:ordering', 'sys:payments'],"
+      },
+      {
+        "line": 54,
+        "text": "stores: (source.plan.stores ?? []).map((store) => ({ ...store, owner: 'svc:products' })),"
+      },
+      {
+        "line": 58,
+        "text": "id: 'flow:store-only',"
+      },
+      {
+        "line": 60,
+        "text": "actor: 'Fixture',"
+      },
+      {
+        "line": 63,
+        "text": "id: 'flow:store-only#stay',"
+      },
+      {
+        "line": 65,
+        "text": "from: 'st:orders-db',"
+      },
+      {
+        "line": 66,
+        "text": "to: 'st:orders-db',"
+      },
+      {
+        "line": 67,
+        "text": "via: 'api:orders-create',"
+      },
+      {
+        "line": 75,
+        "text": "expect(todayJourneysOf(model)[0]?.systems).toEqual(['sys:ordering']);"
       }
     ],
     "status": "adapter"
@@ -22172,11 +23348,11 @@
         "text": "/** The `sys:` ids of the systems the steps run through, in the order they are first reached. */"
       },
       {
-        "line": 78,
+        "line": 75,
         "text": "actor: first?.actor ?? '',"
       },
       {
-        "line": 105,
+        "line": 102,
         "text": "actor: journey.actor ?? '',"
       }
     ],
@@ -23067,6 +24243,50 @@
       {
         "line": 379,
         "text": "'st:product-events',"
+      },
+      {
+        "line": 392,
+        "text": "{ id: 'read', title: 'Read', summary: '', nodes: [{ component: 'svc:shop-bff', column: 0 }] },"
+      },
+      {
+        "line": 396,
+        "text": "from: 'svc:shop-bff',"
+      },
+      {
+        "line": 397,
+        "text": "to: 'st:products-db',"
+      },
+      {
+        "line": 400,
+        "text": "evidence: ['svc:products'],"
+      },
+      {
+        "line": 405,
+        "text": "from: 'svc:shop-bff',"
+      },
+      {
+        "line": 406,
+        "text": "to: 'st:product-events',"
+      },
+      {
+        "line": 420,
+        "text": "area: 'sell',"
+      },
+      {
+        "line": 427,
+        "text": "expect(view.systems[0]?.components.some((component) => component.id === 'st:products-db')).toBe("
+      },
+      {
+        "line": 431,
+        "text": "expect.objectContaining({ id: 'st:products-db' }),"
+      },
+      {
+        "line": 435,
+        "text": "areaViewOf({ workspace, landscape: selected, area: 'sell', explorer: null })?.valueFlow,"
+      },
+      {
+        "line": 439,
+        "text": "connections: [{ ...valueFlow.connections[0]!, to: 'st:unknown' }],"
       }
     ],
     "status": "adapter"
@@ -23298,23 +24518,35 @@
         "text": "const services = own.plan.services.filter(({ system: of }) => of === `sys:${first!.id}`);"
       },
       {
-        "line": 64,
+        "line": 69,
+        "text": "expect(result.plan.stores?.find((store) => store.id === 'st:orders-db')).not.toHaveProperty("
+      },
+      {
+        "line": 72,
+        "text": "expect(result.model.ownerService('st:orders-db')).toBeNull();"
+      },
+      {
+        "line": 73,
+        "text": "expect(result.model.place('st:orders-db')?.system).toBe('sys:ordering');"
+      },
+      {
+        "line": 77,
         "text": "const products = plan.services.find(({ id }) => id === 'svc:products');"
       },
       {
-        "line": 65,
+        "line": 78,
         "text": "expect(products).toMatchObject({ team: 'team:catalogue', system: 'sys:products' });"
       },
       {
-        "line": 67,
+        "line": 80,
         "text": "expect(plan.stores?.find(({ id }) => id === 'st:orders-db')?.owner).toBe('svc:order-api');"
       },
       {
-        "line": 68,
+        "line": 81,
         "text": "expect(attribution['svc:products']?.origin).toBe('extracted');"
       },
       {
-        "line": 69,
+        "line": 82,
         "text": "expect(attribution['flow:place-order']?.origin).toBe('curated');"
       }
     ],
@@ -23325,15 +24557,15 @@
     "file": "src/application/workspace-model.ts",
     "hits": [
       {
-        "line": 29,
+        "line": 30,
         "text": "readonly plan: Plan;"
       },
       {
-        "line": 46,
+        "line": 47,
         "text": "job: 'job',"
       },
       {
-        "line": 123,
+        "line": 124,
         "text": "return system.team === null ? {} : { team: system.team };"
       }
     ],
@@ -23344,11 +24576,11 @@
     "file": "src/application/workspace-model.ts",
     "hits": [
       {
-        "line": 2,
+        "line": 3,
         "text": "import { homeUrlOf } from '@/domain/code-links';"
       },
       {
-        "line": 118,
+        "line": 119,
         "text": "return { url: homeUrlOf({ repo, path }) };"
       }
     ],
@@ -24168,7 +25400,7 @@
       },
       {
         "line": 277,
-        "text": "systemOf: (id) => (id === 'svc:status' ? 'sys:finance' : null),"
+        "text": "systemsOf: (id) => (id === 'svc:status' ? ['sys:finance'] : []),"
       },
       {
         "line": 284,
@@ -24297,35 +25529,27 @@
         "text": "const rootOf = (id: string): string => rootId(id);"
       },
       {
-        "line": 174,
-        "text": "const into = typeof op.into === 'string' ? systemOf(rootOf(op.into)) : null;"
-      },
-      {
-        "line": 179,
-        "text": "return hasPrefix(target, 'sys') ? target : (systemOf(rootOf(target)) ?? '');"
-      },
-      {
-        "line": 217,
+        "line": 221,
         "text": "plan: input.slug,"
       },
       {
-        "line": 235,
+        "line": 239,
         "text": "plan: input.slug,"
       },
       {
-        "line": 246,
+        "line": 250,
         "text": "plan: input.slug,"
-      },
-      {
-        "line": 265,
-        "text": "function referencesOf(plan: Plan): ReadonlySet<string> {"
       },
       {
         "line": 269,
+        "text": "function referencesOf(plan: Plan): ReadonlySet<string> {"
+      },
+      {
+        "line": 273,
         "text": "found.add(rootOf(text));"
       },
       {
-        "line": 278,
+        "line": 282,
         "text": ".filter((touch) => refs.has(touch.target) || refs.has(rootOf(touch.target)))"
       }
     ],
@@ -24340,7 +25564,7 @@
         "text": "import { issueUrlOf } from '@/domain/code-links';"
       },
       {
-        "line": 261,
+        "line": 265,
         "text": "return issueUrlOf(repo, issue);"
       }
     ],
@@ -24478,8 +25702,20 @@
     "file": "src/domain/code-links.ts",
     "hits": [
       {
-        "line": 20,
+        "line": 22,
         "text": "if (repo.includes('://')) return repo.replace(/\\/$/u, '');"
+      },
+      {
+        "line": 136,
+        "text": "if (text.startsWith('#L')) {"
+      },
+      {
+        "line": 140,
+        "text": "const colon = text.indexOf(':');"
+      },
+      {
+        "line": 151,
+        "text": "const marker = tail.indexOf('#L');"
       }
     ],
     "status": "adapter"
@@ -24489,55 +25725,55 @@
     "file": "src/domain/code-links.ts",
     "hits": [
       {
-        "line": 21,
+        "line": 23,
         "text": "const implicit = repo.split('/').length > 2 ? repo : `github.com/${repo}`;"
       },
       {
-        "line": 22,
+        "line": 24,
         "text": "const full = host === undefined ? implicit : `${host}/${repo}`;"
       },
       {
-        "line": 25,
+        "line": 27,
         "text": "export function homeUrlOf(home: { readonly repo: string; readonly path?: string | null }): string {"
       },
       {
-        "line": 27,
+        "line": 29,
         "text": "return home.path === undefined || home.path === null ? base : `${base}/tree/HEAD/${home.path}`;"
       },
       {
-        "line": 29,
+        "line": 31,
         "text": "export function issueUrlOf(repo: string, issue: number): string {"
       },
       {
-        "line": 30,
+        "line": 32,
         "text": "return `${repositoryUrl(repo)}/issues/${String(issue)}`;"
       },
       {
-        "line": 35,
+        "line": 37,
         "text": "export function permalinkOf(source: CodeLocation, style: LinkStyle = {}): string {"
       },
       {
-        "line": 36,
+        "line": 38,
         "text": "const base = `${repositoryUrl(style.host === undefined ? source.repo : encodePath(source.repo, 'segments'), style.host)}/blob/${source.commit}/${encodePath(source.path, style.encoding)}`;"
       },
       {
-        "line": 79,
+        "line": 81,
         "text": "export function parseGitHostUrl(text: string): GitHostLink | null {"
       },
       {
-        "line": 92,
+        "line": 94,
         "text": "/** GitHub's host is implicit in the legacy repository identity. */"
       },
       {
-        "line": 94,
+        "line": 96,
         "text": "const parsed = parseGitHostUrl(text);"
       },
       {
-        "line": 96,
+        "line": 98,
         "text": "return parsed.host === 'github.com' ? parsed.repo : `${parsed.host}/${parsed.repo}`;"
       },
       {
-        "line": 99,
+        "line": 101,
         "text": "return repo.replace(/^github\\.com\\//u, '');"
       }
     ],
@@ -25152,6 +26388,169 @@
   },
   {
     "category": "id construction, parsing or literal",
+    "file": "src/domain/model-cite-resolution.test.ts",
+    "hits": [
+      {
+        "line": 21,
+        "text": "data: { kind: 'file', id: 'ev:file', path: 'apps/orders/Confirm.ts', blob: 'b'.repeat(40) },"
+      },
+      {
+        "line": 27,
+        "text": "id: 'ev:source',"
+      },
+      {
+        "line": 28,
+        "text": "file: 'ev:file',"
+      },
+      {
+        "line": 30,
+        "text": "host: 'ev:host',"
+      },
+      {
+        "line": 38,
+        "text": "id: 'ev:claim',"
+      },
+      {
+        "line": 44,
+        "text": "cites: ['ev:source'],"
+      },
+      {
+        "line": 51,
+        "text": "entity: 'sys:orders',"
+      },
+      {
+        "line": 59,
+        "text": "id: 'h:confirm',"
+      },
+      {
+        "line": 60,
+        "text": "component: 'svc:orders',"
+      },
+      {
+        "line": 61,
+        "text": "on: 'api:confirm',"
+      },
+      {
+        "line": 67,
+        "text": "steps: [{ id: 'save', write: 'sch:order', to: 'st:orders', cites: ['#L12-15'] }],"
+      },
+      {
+        "line": 76,
+        "text": "const result = resolveModelCitations('Handler', handler(['ev:file']), scope);"
+      },
+      {
+        "line": 104,
+        "text": "entity: 'h:confirm',"
+      },
+      {
+        "line": 105,
+        "text": "handler: { cites: [{ kind: 'evidence', id: 'ev:source' }] },"
+      },
+      {
+        "line": 125,
+        "text": "Object.assign(claim, { cites: ['ev:claim', 'ev:absent'] });"
+      },
+      {
+        "line": 126,
+        "text": "const result = resolveModelCitations('Handler', handler(['ev:claim']), {"
+      },
+      {
+        "line": 141,
+        "text": "? { family: 'sources', data: { ...record.data, file: 'ev:other-file' } }"
+      },
+      {
+        "line": 151,
+        "text": "data: { kind: 'file', id: 'ev:other-file', path: 'Other.ts', blob: 'd'.repeat(40) },"
+      },
+      {
+        "line": 155,
+        "text": "const result = resolveModelCitations('Handler', handler(['ev:source']), {"
+      },
+      {
+        "line": 161,
+        "text": "const file = wrongKind.records.find((record) => record.data.id === 'ev:file');"
+      },
+      {
+        "line": 165,
+        "text": "resolveModelCitations('Handler', handler(['ev:source']), { ...scope, evidence: [wrongKind] })"
+      },
+      {
+        "line": 180,
+        "text": "entity: 'h:confirm',"
+      },
+      {
+        "line": 237,
+        "text": "const result = resolveModelCitations('Handler', handler(['ev:claim']), scope);"
+      },
+      {
+        "line": 240,
+        "text": "cites: [{ kind: 'evidence', id: 'ev:claim' }],"
+      },
+      {
+        "line": 254,
+        "text": "['h:confirm', 'unknown:Confirm.ts'],"
+      },
+      {
+        "line": 255,
+        "text": "['h:confirm#tx/save', '#L12-15'],"
+      },
+      {
+        "line": 256,
+        "text": "['h:confirm#!db-down', '#L90-92'],"
+      },
+      {
+        "line": 271,
+        "text": "id: 'sch:order',"
+      },
+      {
+        "line": 278,
+        "text": "cites: ['ev:source'],"
+      },
+      {
+        "line": 279,
+        "text": "args: [{ id: 'currency', name: 'currency', cites: ['ev:source'] }],"
+      },
+      {
+        "line": 289,
+        "text": "cites: [{ kind: 'evidence', id: 'ev:source' }],"
+      },
+      {
+        "line": 290,
+        "text": "args: [{ cites: [{ kind: 'evidence', id: 'ev:source' }] }],"
+      },
+      {
+        "line": 297,
+        "text": "{ shifts: [{ id: 'move', cites: ['sys:orders'] }] },"
+      },
+      {
+        "line": 300,
+        "text": ").toEqual({ shifts: [{ id: 'move', cites: ['sys:orders'] }] });"
+      },
+      {
+        "line": 306,
+        "text": "id: 'st:orders',"
+      },
+      {
+        "line": 309,
+        "text": "owner: { id: 'svc:orders', cites: ['ev:missing'] },"
+      },
+      {
+        "line": 314,
+        "text": "owner: { cites: [{ kind: 'evidence', id: 'ev:missing' }] },"
+      },
+      {
+        "line": 318,
+        "text": "id: 'st:orders',"
+      },
+      {
+        "line": 319,
+        "text": "reference: 'ev:missing',"
+      }
+    ],
+    "status": "adapter"
+  },
+  {
+    "category": "id construction, parsing or literal",
     "file": "src/domain/model/contracts.generated.ts",
     "hits": [
       {
@@ -25300,6 +26699,292 @@
       {
         "line": 21,
         "text": "'[[not an id]] [[h:x#tx/read]] Unknown sch:Order#item_id',"
+      }
+    ],
+    "status": "adapter"
+  },
+  {
+    "category": "id construction, parsing or literal",
+    "file": "src/domain/plan-apply.test.ts",
+    "hits": [
+      {
+        "line": 19,
+        "text": "let plan: ModelPlan;"
+      },
+      {
+        "line": 53,
+        "text": "expect(index.get('h:confirm#tx/save')?.data.say).toBe('Save the confirmed order');"
+      },
+      {
+        "line": 54,
+        "text": "expect(index.get('sch:order#status')?.data.note).toBe('The confirmed state');"
+      },
+      {
+        "line": 55,
+        "text": "expect(index.get('scr:checkout#confirm')?.data.name).toBe('Confirm order');"
+      },
+      {
+        "line": 56,
+        "text": "expect(index.get('h:confirm#!db-down')?.data.return).toBe(502);"
+      },
+      {
+        "line": 57,
+        "text": "expect(index.get('h:confirm#tx/audit')?.data.cites).toEqual(["
+      },
+      {
+        "line": 58,
+        "text": "{ kind: 'evidence', id: 'ev:source' },"
+      },
+      {
+        "line": 60,
+        "text": "expect(index.get('h:confirm#tx/audit')?.parent).toBe('h:confirm#tx');"
+      },
+      {
+        "line": 61,
+        "text": "expect(index.get('api:legacy')?.data.deprecated).toBe(true);"
+      },
+      {
+        "line": 62,
+        "text": "expect(index.get('api:confirm')?.data.supersedes).toBe('api:legacy');"
+      },
+      {
+        "line": 63,
+        "text": "expect(index.get('job:manual')).toBeNull();"
+      },
+      {
+        "line": 72,
+        "text": "into: 'h:confirm',"
+      },
+      {
+        "line": 78,
+        "text": "expect(indexOf(after).cites('h:confirm#audit')).toEqual(["
+      },
+      {
+        "line": 92,
+        "text": "{ modify: 'svc:ordering', append: { uses: ['lib:other'] } },"
+      },
+      {
+        "line": 93,
+        "text": "{ modify: 'svc:ordering', drop: { uses: ['lib:messaging'] } },"
+      },
+      {
+        "line": 95,
+        "text": "modify: 'h:confirm',"
+      },
+      {
+        "line": 101,
+        "text": "expect(indexOf(after).get('svc:ordering')?.data.uses).toEqual(['lib:other']);"
+      },
+      {
+        "line": 102,
+        "text": "expect(indexOf(after).get('h:confirm#last')?.data.cites).toEqual(["
+      },
+      {
+        "line": 109,
+        "text": "opsOf([{ modify: 'h:confirm#done', set: { cites: ['missing:Absent.ts'] } }]),"
+      },
+      {
+        "line": 114,
+        "text": "id: 'h:confirm#done',"
+      },
+      {
+        "line": 120,
+        "text": "opsOf([{ modify: 'h:confirm#done', set: { cites: ['ev:source'] } }]),"
+      },
+      {
+        "line": 125,
+        "text": "const removed = apply(opsOf([{ remove: 'h:confirm#done' }]), missing);"
+      },
+      {
+        "line": 129,
+        "text": "{ modify: 'st:orders', set: { owner: { id: 'svc:ordering', cites: ['ev:absent'] } } },"
+      },
+      {
+        "line": 133,
+        "text": "const different = apply(opsOf([{ modify: 'st:orders', set: { cites: ['ev:source'] } }]), owner);"
+      },
+      {
+        "line": 135,
+        "text": "expect.objectContaining({ id: 'st:orders', property: 'owner/cites' }),"
+      },
+      {
+        "line": 143,
+        "text": "into: 'dom:orders',"
+      },
+      {
+        "line": 145,
+        "text": "id: 'sys:other',"
+      },
+      {
+        "line": 149,
+        "text": "{ id: 'svc:other', kind: 'service', name: 'Other', cites: ['other:Start.ts#L1-2'] },"
+      },
+      {
+        "line": 156,
+        "text": "expect(indexOf(after).cites('svc:other')).toEqual(["
+      },
+      {
+        "line": 170,
+        "text": "opsOf([{ modify: 'svc:old-ordering', set: { does: 'Confirms orders' } }]),"
+      },
+      {
+        "line": 173,
+        "text": "expect(indexOf(after).get('svc:ordering')?.data.does).toBe('Confirms orders');"
+      },
+      {
+        "line": 176,
+        "text": "opsOf([{ modify: 'api:retired', set: { summary: 'Cannot restore a retired identity' } }]),"
+      },
+      {
+        "line": 184,
+        "text": "[{ modify: 'svc:ordering', set: { id: 'svc:renamed' } }],"
+      },
+      {
+        "line": 185,
+        "text": "[{ modify: 'svc:absent', set: { does: 'Missing' } }],"
+      },
+      {
+        "line": 189,
+        "text": "into: 'dom:orders',"
+      },
+      {
+        "line": 190,
+        "text": "value: { id: 'svc:new', name: 'New', kind: 'service' },"
+      },
+      {
+        "line": 196,
+        "text": "into: 'h:confirm#tx',"
+      },
+      {
+        "line": 197,
+        "text": "after: 'h:confirm#done',"
+      },
+      {
+        "line": 201,
+        "text": "[{ add: 'step', into: 'h:confirm#tx', value: { id: 'save', does: 'Duplicate' } }],"
+      },
+      {
+        "line": 202,
+        "text": "[{ modify: 'svc:ordering', set: { cites: [] } }],"
+      },
+      {
+        "line": 203,
+        "text": "[{ modify: 'svc:ordering', set: { cites: [{ kind: 'evidence', id: 'ev:source' }] } }],"
+      },
+      {
+        "line": 204,
+        "text": "[{ modify: 'svc:ordering', append: { name: ['Wrong'] } }],"
+      },
+      {
+        "line": 205,
+        "text": "[{ modify: 'svc:ordering', drop: { name: ['Wrong'] } }],"
+      },
+      {
+        "line": 212,
+        "text": "expect(indexOf(model).get('h:confirm#tx/save')?.data.say).toBeUndefined();"
+      },
+      {
+        "line": 216,
+        "text": "validateModel(apply(opsOf([{ modify: 'job:unknown', set: { cron: 42 } }]), model)),"
+      },
+      {
+        "line": 217,
+        "text": ").resolves.toContainEqual(expect.objectContaining({ at: 'sys:ordering/jobs/3/cron' }));"
+      },
+      {
+        "line": 219,
+        "text": "validateModel(apply(opsOf([{ modify: 'svc:ordering', set: { invented: true } }]), model)),"
+      },
+      {
+        "line": 224,
+        "text": "'{\"modify\":\"st:unknown-owner\",\"set\":{\"__proto__\":{\"owner\":{\"id\":\"svc:ordering\",\"cites\":[{\"kind\":\"evidence\",\"id\":\"ev:source\"}]}}}}',"
+      },
+      {
+        "line": 227,
+        "text": "expect(indexOf(after).resourceOwner('st:unknown-owner')).toBeNull();"
+      },
+      {
+        "line": 233,
+        "text": "expect(index.plansTouching('h:confirm#tx/save')).toHaveLength(1);"
+      },
+      {
+        "line": 234,
+        "text": "expect(index.plansTouching('job:absent')).toEqual([]);"
+      },
+      {
+        "line": 235,
+        "text": "expect(index.plansTouching('sys:ordering')).toHaveLength(1);"
+      },
+      {
+        "line": 236,
+        "text": "expect(index.plansTouching('svc:ordering')).toHaveLength(1);"
+      },
+      {
+        "line": 239,
+        "text": "expect(index.plans[0]?.beforeIndex.get('h:confirm#tx/save')?.data.say).toBeUndefined();"
+      },
+      {
+        "line": 240,
+        "text": "expect(index.plans[0]?.afterIndex.get('h:confirm#tx/save')?.data.say).toBe("
+      }
+    ],
+    "status": "adapter"
+  },
+  {
+    "category": "id construction, parsing or literal",
+    "file": "src/domain/plan-apply.ts",
+    "hits": [
+      {
+        "line": 28,
+        "text": "team: { collection: 'teams', parents: ['workspace'], definition: 'Team' },"
+      },
+      {
+        "line": 29,
+        "text": "actor: { collection: 'actors', parents: ['workspace'], definition: 'Actor' },"
+      },
+      {
+        "line": 30,
+        "text": "area: { collection: 'areas', parents: ['workspace'], definition: 'Area' },"
+      },
+      {
+        "line": 35,
+        "text": "job: { collection: 'jobs', parents: ['system'], definition: 'Job' },"
+      },
+      {
+        "line": 42,
+        "text": "graph: { collection: 'graphs', parents: ['workspace'], definition: 'GraphFile' },"
+      },
+      {
+        "line": 44,
+        "text": "flow: { collection: 'flows', parents: ['workspace'], definition: 'FlowFile' },"
+      },
+      {
+        "line": 61,
+        "text": "app: 'AppComponent',"
+      },
+      {
+        "line": 66,
+        "text": "team: 'Team',"
+      },
+      {
+        "line": 67,
+        "text": "actor: 'Actor',"
+      },
+      {
+        "line": 68,
+        "text": "area: 'Area',"
+      },
+      {
+        "line": 73,
+        "text": "job: 'Job',"
+      },
+      {
+        "line": 80,
+        "text": "graph: 'GraphFile',"
+      },
+      {
+        "line": 82,
+        "text": "flow: 'FlowFile',"
       }
     ],
     "status": "adapter"
@@ -25824,23 +27509,23 @@
     "file": "src/domain/workspace-model.ts",
     "hits": [
       {
-        "line": 53,
+        "line": 57,
         "text": "/** The workspace system id, without `sys:`. */"
       },
       {
-        "line": 87,
+        "line": 91,
         "text": "/** The key term it is (term:…), when the business has agreed a word for it. */"
       },
       {
-        "line": 88,
+        "line": 92,
         "text": "readonly term: string | null;"
       },
       {
-        "line": 89,
+        "line": 93,
         "text": "/** The systems or components that should own it: sys:… or a component id. */"
       },
       {
-        "line": 120,
+        "line": 124,
         "text": "/** Where a key term shows up in the systems: a scanned word (con:…), or the system or domain it belongs to. */"
       }
     ],
@@ -25851,11 +27536,11 @@
     "file": "src/domain/workspace-model.ts",
     "hits": [
       {
-        "line": 26,
+        "line": 30,
         "text": "/** The lines of code a fact was read from. The permalink is derived, never stored. */"
       },
       {
-        "line": 28,
+        "line": 32,
         "text": "/** org/name on GitHub, as system.yaml lists repos (acme/pricing); host/org/name elsewhere. */"
       }
     ],
@@ -26642,8 +28327,28 @@
     "file": "src/features/plan/plan-model.test.ts",
     "hits": [
       {
-        "line": 20,
+        "line": 24,
         "text": "expect(model?.label('svc:subs')).toBe('Subscriptions');"
+      },
+      {
+        "line": 32,
+        "text": "vi.fn().mockResolvedValue(Response.json({ plan: today.plan, placements })),"
+      },
+      {
+        "line": 35,
+        "text": "expect(browser?.ownerService('st:product-events')).toBeNull();"
+      },
+      {
+        "line": 36,
+        "text": "expect(browser?.place('st:product-events')).toMatchObject({ system: 'sys:products' });"
+      },
+      {
+        "line": 38,
+        "text": "expect(systemGroups(browser, 'sys:search')).toContainEqual({"
+      },
+      {
+        "line": 40,
+        "text": "ids: ['sys:products'],"
       }
     ],
     "status": "adapter"
@@ -26653,7 +28358,7 @@
     "file": "src/features/plan/plan-model.ts",
     "hits": [
       {
-        "line": 14,
+        "line": 15,
         "text": "readonly plan: Plan;"
       }
     ],
@@ -29006,6 +30711,21 @@
   },
   {
     "category": "id construction, parsing or literal",
+    "file": "src/features/workspace/rebuild-model.test.tsx",
+    "hits": [
+      {
+        "line": 41,
+        "text": "expect(indexOf(after).get('h:confirm#tx/save')?.data.say).toBe('Save the confirmed order');"
+      },
+      {
+        "line": 47,
+        "text": "expect(legacy.model.asIs.get('sch:confirm#order-id')).toMatchObject({ name: 'orderId' });"
+      }
+    ],
+    "status": "adapter"
+  },
+  {
+    "category": "id construction, parsing or literal",
     "file": "src/features/workspace/value-flows-page.client.tsx",
     "hits": [
       {
@@ -29213,7 +30933,7 @@
     "file": "src/infrastructure/plan-data.ts",
     "hits": [
       {
-        "line": 17,
+        "line": 18,
         "text": "readonly plan: string;"
       }
     ],
@@ -29628,6 +31348,77 @@
       {
         "line": 101,
         "text": "return { plan: shaped.plan, ...validatePlan(shaped.plan, { fanout, shape, neighbours }) };"
+      }
+    ],
+    "status": "adapter"
+  },
+  {
+    "category": "id construction, parsing or literal",
+    "file": "src/infrastructure/read-model.test.ts",
+    "hits": [
+      {
+        "line": 28,
+        "text": "expect(model?.domains[0]?.target?.shifts?.[0]?.cites).toEqual(['sys:ordering']);"
+      },
+      {
+        "line": 34,
+        "text": "system?.components.find((component) => component.id === 'st:unknown-owner'),"
+      },
+      {
+        "line": 36,
+        "text": "expect(system?.jobs.find((job) => job.id === 'job:unknown')).not.toHaveProperty('every');"
+      },
+      {
+        "line": 51,
+        "text": "const nested = entities.find((entity) => entity.id === 'h:confirm#tx/save');"
+      },
+      {
+        "line": 53,
+        "text": "parent: 'h:confirm#tx',"
+      },
+      {
+        "line": 54,
+        "text": "place: { domain: 'dom:orders', system: 'sys:ordering', component: 'svc:ordering' },"
+      },
+      {
+        "line": 56,
+        "text": "expect(entities.find((entity) => entity.id === 'h:confirm#!db-down')?.kind).toBe('failure');"
+      },
+      {
+        "line": 57,
+        "text": "expect(entities.find((entity) => entity.id === 'sch:order#status')?.place).toMatchObject({"
+      },
+      {
+        "line": 58,
+        "text": "system: 'sys:ordering',"
+      },
+      {
+        "line": 59,
+        "text": "component: 'st:orders',"
+      },
+      {
+        "line": 61,
+        "text": "expect(entities.find((entity) => entity.id === 'scr:checkout#confirm')?.kind).toBe('region');"
+      },
+      {
+        "line": 62,
+        "text": "expect(entities.find((entity) => entity.id === 'api:confirm')?.parent).toBe('if:orders');"
+      },
+      {
+        "line": 84,
+        "text": "id: 'h:confirm',"
+      },
+      {
+        "line": 89,
+        "text": "const gap = model?.problems.find((problem) => problem.id === 'h:confirm');"
+      },
+      {
+        "line": 96,
+        "text": "await writeFile(file, text.replace('ev:document', 'ev:source'));"
+      },
+      {
+        "line": 98,
+        "text": "'Duplicate evidence id: ev:source',"
       }
     ],
     "status": "adapter"
@@ -30367,35 +32158,59 @@
     "file": "src/infrastructure/workspace-plan-index.test.ts",
     "hits": [
       {
-        "line": 37,
+        "line": 39,
         "text": "summary: 'A paused order does not say why; see [[api:orders-pause]].',"
       },
       {
-        "line": 44,
+        "line": 46,
         "text": "ops: [{ modify: 'api:orders-pause', set: { sig: 'POST /orders/{id}/pause?reason' } }],"
       },
       {
-        "line": 93,
-        "text": "const partner = partnerPageVM(index, 'team:payments');"
+        "line": 70,
+        "text": "ops: [{ modify: 'st:orders-db', set: { does: 'Keeps orders' } }],"
+      },
+      {
+        "line": 78,
+        "text": "expect(index?.changes.get('resource/chg:resource')?.systems).toEqual(['sys:ordering']);"
       },
       {
         "line": 94,
-        "text": "expect(partner?.team).toEqual({ id: 'team:payments', name: 'Payments', partner: true });"
+        "text": "ops: [{ modify: 'flow:place-order', set: { outcome: 'The order is confirmed.' } }],"
       },
       {
-        "line": 113,
-        "text": "{ id: 'payments', name: 'Payments', href: '/acme/orders/payments/', team: 'team:payments' },"
+        "line": 103,
+        "text": "'sys:ordering',"
       },
       {
-        "line": 117,
-        "text": "id: 'team:payments',"
+        "line": 104,
+        "text": "'sys:payments',"
       },
       {
-        "line": 144,
-        "text": "const ordering = impactVM(index, { kind: 'system', id: 'sys:ordering', name: 'Ordering' });"
+        "line": 105,
+        "text": "'sys:shop',"
       },
       {
         "line": 152,
+        "text": "const partner = partnerPageVM(index, 'team:payments');"
+      },
+      {
+        "line": 153,
+        "text": "expect(partner?.team).toEqual({ id: 'team:payments', name: 'Payments', partner: true });"
+      },
+      {
+        "line": 172,
+        "text": "{ id: 'payments', name: 'Payments', href: '/acme/orders/payments/', team: 'team:payments' },"
+      },
+      {
+        "line": 176,
+        "text": "id: 'team:payments',"
+      },
+      {
+        "line": 203,
+        "text": "const ordering = impactVM(index, { kind: 'system', id: 'sys:ordering', name: 'Ordering' });"
+      },
+      {
+        "line": 212,
         "text": "expect(partnerPageVM(index, 'team:orders')?.team.partner).toBe(false);"
       }
     ],
@@ -30406,7 +32221,7 @@
     "file": "src/infrastructure/workspace-plan-index.ts",
     "hits": [
       {
-        "line": 48,
+        "line": 51,
         "text": "plan: loaded.plan,"
       }
     ],
@@ -35018,6 +36833,169 @@
   },
   {
     "category": "id construction, parsing or literal",
+    "file": "test/fixtures/model-queries.ts",
+    "hits": [
+      {
+        "line": 48,
+        "text": "{ id: 'team:a', name: 'A' },"
+      },
+      {
+        "line": 49,
+        "text": "{ id: 'team:b', name: 'B' },"
+      },
+      {
+        "line": 51,
+        "text": "externals: [{ id: 'ext:supplier', name: 'Supplier' }],"
+      },
+      {
+        "line": 54,
+        "text": "id: 'dom:queries',"
+      },
+      {
+        "line": 60,
+        "text": "...system('sys:a', 'A'),"
+      },
+      {
+        "line": 61,
+        "text": "team: 'team:a',"
+      },
+      {
+        "line": 63,
+        "text": "components: [{ id: 'svc:a', kind: 'service', name: 'A', homes: ['a'] }],"
+      },
+      {
+        "line": 66,
+        "text": "id: 'if:a',"
+      },
+      {
+        "line": 68,
+        "text": "component: 'svc:a',"
+      },
+      {
+        "line": 69,
+        "text": "entries: [{ id: 'api:a', method: 'GET', path: '/a' }],"
+      },
+      {
+        "line": 72,
+        "text": "id: 'if:supplier',"
+      },
+      {
+        "line": 74,
+        "text": "external: 'ext:supplier',"
+      },
+      {
+        "line": 75,
+        "text": "entries: [{ id: 'api:supplier', call: 'Supplier.load' }],"
+      },
+      {
+        "line": 78,
+        "text": "connections: [{ to: 'sys:b', says: 'Publishes to B', backs: ['h:a'] }],"
+      },
+      {
+        "line": 81,
+        "text": "id: 'h:a',"
+      },
+      {
+        "line": 82,
+        "text": "component: 'svc:a',"
+      },
+      {
+        "line": 83,
+        "text": "on: 'api:a',"
+      },
+      {
+        "line": 86,
+        "text": "{ id: 'read', read: 'sch:remote#id', from: 'st:remote', cites: [cite] },"
+      },
+      {
+        "line": 87,
+        "text": "{ id: 'write', write: 'sch:remote#id', to: 'st:remote', cites: [cite] },"
+      },
+      {
+        "line": 88,
+        "text": "{ id: 'publish', publish: 'msg:remote', cites: [cite] },"
+      },
+      {
+        "line": 89,
+        "text": "{ id: 'call', call: 'api:supplier', cites: [cite] },"
+      },
+      {
+        "line": 96,
+        "text": "from: 'svc:a',"
+      },
+      {
+        "line": 97,
+        "text": "to: 'top:remote',"
+      },
+      {
+        "line": 106,
+        "text": "...system('sys:b', 'B'),"
+      },
+      {
+        "line": 107,
+        "text": "team: 'team:b',"
+      },
+      {
+        "line": 110,
+        "text": "{ id: 'svc:b', kind: 'service', name: 'B' },"
+      },
+      {
+        "line": 112,
+        "text": "id: 'st:remote',"
+      },
+      {
+        "line": 116,
+        "text": "owner: { id: 'svc:a', cites: [cite] },"
+      },
+      {
+        "line": 118,
+        "text": "{ id: 'top:remote', kind: 'topic', form: 'stream', name: 'Events' },"
+      },
+      {
+        "line": 122,
+        "text": "id: 'sch:remote',"
+      },
+      {
+        "line": 124,
+        "text": "store: 'st:remote',"
+      },
+      {
+        "line": 128,
+        "text": "messages: [{ id: 'msg:remote', topic: 'top:remote', payload: 'sch:remote' }],"
+      },
+      {
+        "line": 129,
+        "text": "subscriptions: [{ id: 'sub:b', component: 'svc:b', message: 'msg:remote' }],"
+      },
+      {
+        "line": 130,
+        "text": "jobs: [{ id: 'job:b', component: 'svc:b' }],"
+      },
+      {
+        "line": 134,
+        "text": "from: 'svc:b',"
+      },
+      {
+        "line": 135,
+        "text": "to: 'st:remote',"
+      },
+      {
+        "line": 143,
+        "text": "from: 'svc:b',"
+      },
+      {
+        "line": 144,
+        "text": "to: 'sys:unmapped',"
+      },
+      {
+        "line": 152,
+        "text": "{ ...system('sys:unmapped', 'Unmapped'), mapped: false },"
+      }
+    ],
+    "status": "adapter"
+  },
+  {
+    "category": "id construction, parsing or literal",
     "file": "test/fixtures/model/aliases.yaml",
     "hits": [
       {
@@ -35244,6 +37222,22 @@
       {
         "line": 94,
         "text": "graph: 'graph:shop',"
+      },
+      {
+        "line": 96,
+        "text": "fields: [{ id: id, name: id, type: ID, subgraphs: ['sg:orders'] }],"
+      },
+      {
+        "line": 98,
+        "text": "- id: sch:graph-query"
+      },
+      {
+        "line": 100,
+        "text": "graph: graph:shop"
+      },
+      {
+        "line": 104,
+        "text": "- { id: order, name: order, type: 'sch:graph-order', subgraphs: ['sg:orders'] }"
       }
     ],
     "status": "adapter"
@@ -35463,7 +37457,7 @@
       },
       {
         "line": 33,
-        "text": "to: ext:payments"
+        "text": "to: ext:notifications"
       },
       {
         "line": 37,
@@ -35951,6 +37945,14 @@
       },
       {
         "line": 6,
+        "text": "cites: ['ev:source'],"
+      },
+      {
+        "line": 9,
+        "text": "id: 'ext:notifications',"
+      },
+      {
+        "line": 12,
         "text": "cites: ['ev:source'],"
       }
     ],
@@ -37558,7 +39560,7 @@
         "text": "const slugOf = (id: string): string => id.slice(id.indexOf(':') + 1);"
       },
       {
-        "line": 144,
+        "line": 147,
         "text": "team: system.team,"
       }
     ],
@@ -37573,7 +39575,7 @@
         "text": "import { permalinkOf } from '@/domain/code-links';"
       },
       {
-        "line": 179,
+        "line": 182,
         "text": "sources.map((source): [string, CodeSource] => [permalinkOf(source), source]),"
       }
     ],
@@ -37621,7 +39623,7 @@
     "file": "tools/generate-plan-types.ts",
     "hits": [
       {
-        "line": 272,
+        "line": 354,
         "text": "\"/* Generated by tools/generate-plan-types.ts. Do not edit: run npm run generate. */\\nimport type { CanonicalEvidenceTypes } from '@/domain/model/evidence.generated';\\nimport type { CanonicalPlanTypes } from '@/domain/model/plan.generated';\\nimport type { WorkspaceDocumentTypes } from '@/domain/model/workspace.generated';\\n\\n/** Schema-generated data is exposed as immutable values throughout the model. */\\nexport type ReadonlyData<T> = T extends object\\n  ? { readonly [Key in keyof T]: ReadonlyData<T[Key]> }\\n  : T;\\n\\nexport interface ContractTypes {\\n  readonly workspace: WorkspaceDocumentTypes;\\n  readonly plan: CanonicalPlanTypes;\\n  readonly evidence: CanonicalEvidenceTypes;\\n}\\nexport type ContractFamily = keyof ContractTypes;\\nexport type ContractDefinition<Family extends ContractFamily> = Extract<\\n  keyof ContractTypes[Family],\\n  string\\n>;\\nexport type ContractData<\\n  Family extends ContractFamily,\\n  Definition extends ContractDefinition<Family>,\\n> = ReadonlyData<ContractTypes[Family][Definition]>;\\n\","
       }
     ],

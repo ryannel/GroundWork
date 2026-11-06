@@ -37,7 +37,9 @@ describe('owner lists', () => {
       'svc:search-indexer',
       'svc:search-api',
     ]);
-    expect(lists.st).toEqual(['st:products-db', 'st:product-events', 'st:search-index']);
+    // The topic has a recorded publisher, but no recorded service owner.
+    expect(model.asIs.get('st:product-events')).not.toHaveProperty('owner');
+    expect(lists.st).toEqual(['st:products-db', 'st:search-index']);
     expect(lists.msg).toEqual(['msg:product-changed', 'msg:product-changed-v2']);
     expect(lists.wi).toEqual([
       'wi:dispatch-field',
@@ -107,7 +109,7 @@ describe('owner text', () => {
     const lists = ownerLists(model, 'team:catalogue');
     const parts = ownerFacts(model, lists).split('|');
     expect(parts).toHaveLength(OWNER_COLUMNS.length);
-    expect(parts).toEqual(['4', '3', '1', '2', '4', '4', '3', '0']);
+    expect(parts).toEqual(['4', '2', '1', '2', '4', '4', '3', '0']);
   });
 
   it('names a thing in plain words', () => {

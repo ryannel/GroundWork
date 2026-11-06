@@ -7,6 +7,7 @@ import { outlineOf, type Outline } from '@/application/plan-pages';
 import { findWorkspace } from '@/application/workspace-paths';
 import { stackCoverVM, type StackCoverVM } from '@/application/workspace-work/stack-cover';
 
+import { readPlacementData } from './today-model';
 import { untilEdited } from './workspace-memo';
 import { readWorkspacePlanIndex } from './workspace-plan-index';
 import { readLoadedPlan, readLoadedPlans, readPlanState, type BrokenPlan } from './workspace-plans';
@@ -59,6 +60,7 @@ async function load({ workspace, plan }: PlanParams): Promise<PlanData | null> {
   const loaded = found === null ? null : await readLoadedPlan(workspace, plan);
   if (found === null || loaded === null) return null;
   const model = derive(loaded.plan, {
+    placements: loaded.base.mode === 'live' ? await readPlacementData(workspace) : {},
     status: loaded.status,
     today: new Date(),
     inherited: loaded.inherited,

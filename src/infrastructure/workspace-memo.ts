@@ -25,11 +25,12 @@ interface Kept<T> {
   readonly value: Promise<T>;
 }
 
-async function filesIn(folder: string, base: string): Promise<string[]> {
+async function filesIn(folder: string, base: string, evidence: boolean): Promise<string[]> {
   const entries = await listFolder(folder);
   const workspaceRoot = entries.some((entry) => entry.name === 'workspace.yaml');
+  const skippedFolders = evidence ? new Set(['explorer']) : UNSTAMPED;
   const generated = (entry: (typeof entries)[number]): boolean =>
-    workspaceRoot && entry.isDirectory() && UNSTAMPED.has(entry.name);
+    workspaceRoot && entry.isDirectory() && skippedFolders.has(entry.name);
   const skipped = (entry: (typeof entries)[number]): boolean =>
     entry.name.startsWith('.') || entry.name === 'node_modules' || generated(entry);
   const lists = await Promise.all(
@@ -37,7 +38,7 @@ async function filesIn(folder: string, base: string): Promise<string[]> {
       .filter((entry) => !skipped(entry))
       .map(async (entry) => {
         const file = pathIn(folder, entry.name);
-        if (entry.isDirectory()) return filesIn(file, base);
+        if (entry.isDirectory()) return filesIn(file, base, evidence);
         const info = await statOf(file);
         if (info === null) return [];
         return [`${path.relative(base, file)}\t${String(info.mtimeMs)}\t${String(info.size)}`];
@@ -52,10 +53,10 @@ async function foldersOf(root: string | undefined): Promise<readonly string[]> {
   return [...registered.values()];
 }
 
-async function stampOf(root: string | undefined): Promise<string> {
+async function stampOf(root: string | undefined, evidence: boolean): Promise<string> {
   const folders = await foldersOf(root);
   const lists = await Promise.all(
-    folders.map(async (folder) => [folder, ...(await filesIn(folder, folder))]),
+    folders.map(async (folder) => [folder, ...(await filesIn(folder, folder, evidence))]),
   );
   return lists
     .flat()
@@ -66,11 +67,11 @@ async function stampOf(root: string | undefined): Promise<string> {
 const stamping = new Map<string, Promise<string>>();
 
 /** The workspaces' stamp; reads that arrive while one is being taken share it. */
-async function currentStamp(root: string | undefined): Promise<string> {
-  const at = root ?? '';
+async function currentStamp(root: string | undefined, evidence: boolean): Promise<string> {
+  const at = `${root ?? ''}\n${String(evidence)}`;
   const pending = stamping.get(at);
   if (pending !== undefined) return pending;
-  const taking = stampOf(root).finally(() => {
+  const taking = stampOf(root, evidence).finally(() => {
     stamping.delete(at);
   });
   stamping.set(at, taking);
@@ -78,10 +79,13 @@ async function currentStamp(root: string | undefined): Promise<string> {
 }
 
 /** A cache for one reader. */
-export function untilEdited<T>(revision: () => string = () => ''): Remember<T> {
+export function untilEdited<T>(
+  revision: () => string = () => '',
+  options: { readonly evidence?: boolean } = {},
+): Remember<T> {
   const kept = new Map<string, Kept<T>>();
   return async (root, key, read) => {
-    const stamp = `${await currentStamp(root)}\n${revision()}`;
+    const stamp = `${await currentStamp(root, options.evidence === true)}\n${revision()}`;
     const at = `${root ?? ''}\n${key}`;
     const known = kept.get(at);
     if (known?.stamp === stamp) return known.value;

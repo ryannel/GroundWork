@@ -3,7 +3,7 @@
 import { domainHref } from '@/application/workspace-paths';
 import { buildId } from '@/domain/ids';
 import type { Workspace } from '@/domain/workspace';
-import type { DomainLanguage, WorkspaceModel } from '@/domain/workspace-model';
+import type { DomainLanguage, LegacyWorkspaceModel } from '@/domain/workspace-model';
 
 /** The domain each component sits in, by component id. */
 function domainsByComponent(workspace: Workspace): Map<string, string> {
@@ -17,7 +17,7 @@ function domainsByComponent(workspace: Workspace): Map<string, string> {
 }
 
 /** Key terms anchored to a word, system or domain the workspace does not have. */
-function anchorWarnings(workspace: Workspace, model: WorkspaceModel): string[] {
+function anchorWarnings(workspace: Workspace, model: LegacyWorkspaceModel): string[] {
   const known = new Set([
     ...model.languages.flatMap(({ concepts }) => concepts.map((c) => c.id)),
     ...workspace.domains.flatMap((d) => [
@@ -40,7 +40,7 @@ function anchorWarnings(workspace: Workspace, model: WorkspaceModel): string[] {
 }
 
 /** Words written into one domain's language but born in another's, and key terms anchored to nothing. */
-export function languageWarnings(workspace: Workspace, model: WorkspaceModel): string[] {
+export function languageWarnings(workspace: Workspace, model: LegacyWorkspaceModel): string[] {
   const where = domainsByComponent(workspace);
   const misplaced = model.languages.flatMap(({ domain, concepts }) =>
     concepts.flatMap((concept) => {

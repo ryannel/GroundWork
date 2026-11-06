@@ -4,6 +4,7 @@ import { acme as acmeKit } from '@/../test/workspace-kit';
 import { findIn, ownedBy, systemMapOf, unscanned } from '@/application/system-map';
 import { callersOf, shownIn } from '@/application/system-map-links';
 import { mapMarkdownOf } from '@/application/system-map-md';
+import { systemModelOf } from '@/application/workspace-model';
 
 function acme() {
   const { workspace, today } = acmeKit();
@@ -23,6 +24,23 @@ describe('the system map', () => {
     expect(map.facts.get('st:search-index')).toMatchObject({
       domain: 'catalogue',
       system: 'search',
+    });
+  });
+
+  it('places a store and its schema by their file even when another system owns the store', () => {
+    const { workspace, model } = acmeKit();
+    const contracts = model.contracts.map((contract) => ({
+      ...contract,
+      stores: contract.stores.map((store) => ({ ...store, owner: 'svc:products' })),
+    }));
+    const today = systemModelOf(workspace, { ...model, contracts });
+    const map = systemMapOf(workspace, today);
+    expect(today.model.ownerService('st:orders-db')).toBe('svc:products');
+    expect(map.facts.get('st:orders-db')).toMatchObject({ system: 'ordering', domain: 'orders' });
+    expect(map.facts.get('sch:order')).toMatchObject({
+      system: 'ordering',
+      domain: 'orders',
+      component: 'st:orders-db',
     });
   });
 

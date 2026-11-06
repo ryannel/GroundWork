@@ -1,5 +1,6 @@
 import 'server-only';
 
+import { placementDataOf, type LegacyPlacements } from '@/application/plan/derive-placement';
 import { type SystemModel, systemModelOf } from '@/application/workspace-model';
 import { findWorkspace } from '@/application/workspace-paths';
 import type { Workspace } from '@/domain/workspace';
@@ -29,4 +30,10 @@ export async function readToday(id: string, root?: string): Promise<Today | null
       today: systemModelOf(workspace, await readWorkspaceModel(workspace, root)),
     };
   });
+}
+
+/** Declared live containment for legacy browser projections, until those consumers use WorkspaceModel. */
+export async function readPlacementData(id: string, root?: string): Promise<LegacyPlacements> {
+  const found = await readToday(id, root);
+  return found === null ? {} : placementDataOf(found.today.model.asIs, found.today.model.place);
 }

@@ -5,3 +5,9 @@ externals:
       summary: Synthetic payment provider,
       cites: ['ev:source'],
     }
+  - {
+      id: 'ext:notifications',
+      name: Notifications,
+      summary: Synthetic notification provider,
+      cites: ['ev:source'],
+    }

@@ -274,7 +274,7 @@ const indexOf = (plans: ReturnType<typeof inputOf>[]) =>
     plans,
     programmes: [],
     teams: TEAMS,
-    systemOf: (id) => (id === 'svc:status' ? 'sys:finance' : null),
+    systemsOf: (id) => (id === 'svc:status' ? ['sys:finance'] : []),
   });
 
 describe('what the index reads closely', () => {
@@ -333,6 +333,34 @@ describe('what the index reads closely', () => {
       'sys:moved',
       'sys:new',
     ]);
+  });
+
+  it('keeps global flow participation separate from an exact nested step target', () => {
+    const plan = bare('flow', {
+      changes: [
+        {
+          id: 'chg:flow',
+          title: 'Whole flow',
+          ops: [{ modify: 'flow:mixed', set: { outcome: 'Confirmed' } }],
+        },
+        {
+          id: 'chg:step',
+          title: 'One step',
+          ops: [{ modify: 'flow:mixed#save', set: { action: 'Save' } }],
+        },
+      ],
+    });
+    const participants: Readonly<Record<string, readonly string[]>> = {
+      'flow:mixed': ['sys:two', 'sys:one', 'sys:two'],
+      'flow:mixed#save': ['sys:two'],
+    };
+    const index = workspacePlanIndexOf({
+      ...careInput(),
+      plans: [inputOf('flow', plan)],
+      systemsOf: (id) => participants[id] ?? [],
+    });
+    expect(index.changes.get('flow/chg:flow')?.systems).toEqual(['sys:one', 'sys:two']);
+    expect(index.changes.get('flow/chg:step')?.systems).toEqual(['sys:two']);
   });
 
   it('only builds an issue link from a repo with an owner and an issue', () => {

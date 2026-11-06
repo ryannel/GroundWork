@@ -9,14 +9,14 @@ import { type SystemModel, systemModelOf } from '@/application/workspace-model';
 import { permalinkOf } from '@/domain/code-links';
 import type { Source } from '@/domain/plan/plan.generated';
 import type { Workspace } from '@/domain/workspace';
-import type { CodeSource, SystemContracts, WorkspaceModel } from '@/domain/workspace-model';
+import type { CodeSource, SystemContracts, LegacyWorkspaceModel } from '@/domain/workspace-model';
 
 import { acmeModel } from './fixtures/acme/model';
 import { acmeWorkspace } from './fixtures/acme/workspace';
 
 export interface Acme {
   readonly workspace: Workspace;
-  readonly model: WorkspaceModel;
+  readonly model: LegacyWorkspaceModel;
   readonly today: SystemModel;
 }
 
@@ -68,7 +68,10 @@ export function acmeFiles(): Record<string, unknown> {
 }
 
 /** Any workspace and model as the files the store reads back to the same workspace and model. */
-export function filesOf(workspace: Workspace, model: WorkspaceModel): Record<string, unknown> {
+export function filesOf(
+  workspace: Workspace,
+  model: LegacyWorkspaceModel,
+): Record<string, unknown> {
   const fact = factOf(model);
   return {
     ...structureFiles(workspace),
@@ -152,7 +155,7 @@ function structureFiles(workspace: Workspace): Record<string, unknown> {
   return files;
 }
 
-function keyTermsFile({ keyTerms }: WorkspaceModel): Entry {
+function keyTermsFile({ keyTerms }: LegacyWorkspaceModel): Entry {
   return set({
     summary: keyTerms.summary,
     source: keyTerms.source === null ? null : set(keyTerms.source),
@@ -173,7 +176,7 @@ const isSource = (value: unknown): value is Source =>
 type Fact = (entry: { readonly id: string }) => Entry;
 
 /** A fact as written: who said it, and its sources as the code they came from. */
-function factOf(model: WorkspaceModel): Fact {
+function factOf(model: LegacyWorkspaceModel): Fact {
   const code = new Map<string, CodeSource>(
     Object.values(model.attribution).flatMap(({ sources }) =>
       sources.map((source): [string, CodeSource] => [permalinkOf(source), source]),
@@ -204,7 +207,7 @@ function factOf(model: WorkspaceModel): Fact {
 }
 
 /** Each journey with the interactions it lists; any interaction no journey lists goes in a file of its own. */
-function journeyFiles(model: WorkspaceModel, fact: Fact): Record<string, unknown> {
+function journeyFiles(model: LegacyWorkspaceModel, fact: Fact): Record<string, unknown> {
   const claimed = new Set<string>();
   const files: Record<string, unknown> = {};
   for (const journey of model.journeys) {
@@ -239,7 +242,7 @@ const FACT_LISTS = [
 
 function contractsFiles(
   workspace: Workspace,
-  model: WorkspaceModel,
+  model: LegacyWorkspaceModel,
   fact: Fact,
 ): Record<string, unknown> {
   const files: Record<string, unknown> = {};

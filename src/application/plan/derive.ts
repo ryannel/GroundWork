@@ -9,6 +9,7 @@ import { createGlossary, type GlossaryQueries } from '@/application/plan/derive-
 import type { HandlerQueries } from '@/application/plan/derive-handlers';
 import { createHealth, type HealthQueries } from '@/application/plan/derive-health';
 import type { Owners } from '@/application/plan/derive-owners';
+import { placementOf, type LegacyPlace } from '@/application/plan/derive-placement';
 import type { Register } from '@/application/plan/derive-register';
 import { createScreens, type ScreenQueries } from '@/application/plan/derive-screens';
 import type { StoryQueries } from '@/application/plan/derive-story';
@@ -61,6 +62,7 @@ export interface Model
     DomainQueries,
     FederationMembers,
     ScreenQueries {
+  readonly place: (id: string) => LegacyPlace | null;
   readonly plan: Plan;
   readonly typeOf: typeof typeOf;
   readonly validation: () => Findings;
@@ -100,6 +102,7 @@ export function derive(plan: Plan, options: DeriveOptions = {}): Model {
   const glossary = createGlossary(core, domain.domain);
   return {
     plan,
+    place: placementOf(core, options.placements ?? {}),
     asIs: core.asIs,
     toBe: core.toBe,
     records: core.records,

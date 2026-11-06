@@ -1456,8 +1456,12 @@
         "text": "if: always()"
       },
       {
-        "line": 85,
-        "text": "- if: needs.batch.result != 'skipped'"
+        "line": 87,
+        "text": "- if: needs.batch.result != 'skipped' && fromJSON(needs.plan.outputs.matrix).include[1] == null"
+      },
+      {
+        "line": 92,
+        "text": "- if: needs.batch.result != 'skipped' && fromJSON(needs.plan.outputs.matrix).include[1] != null"
       }
     ],
     "status": "adapter"
@@ -1485,190 +1489,198 @@
     "hits": [
       {
         "line": 6,
-        "text": "is cheap to draw again. The generated `explorer/` and `evidence/` folders are not watched: no kept reader reads"
+        "text": "is cheap to draw again. Legacy readers leave generated `explorer/` and `evidence/` folders out of their watch: they do not read"
       },
       {
-        "line": 11,
+        "line": 12,
         "text": "the check recorded in each plan's `base.lock.json`, and says when a plan has been edited since. `npm run dev`"
       },
       {
-        "line": 39,
+        "line": 28,
+        "text": "The canonical `WorkspaceModel` is serialisable data. `readModel` validates authored fragments, resolves only"
+      },
+      {
+        "line": 41,
+        "text": "`legacyViewOf` is the named compatibility boundary for workspace/domain page consumers. Its workspace tree"
+      },
+      {
+        "line": 60,
         "text": "landscape.yaml                     authored areas and the major relationships used to enter the system model"
       },
       {
-        "line": 44,
+        "line": 65,
         "text": "systems/<system>/system.yaml      purpose, owning team (optional), components and what they talk to"
       },
       {
-        "line": 45,
+        "line": 66,
         "text": "systems/<system>/contracts.yaml   what its components offer and keep (system model)"
       },
       {
-        "line": 47,
+        "line": 68,
         "text": "systems/<system>/handlers.yaml    what runs when its endpoints and messages are reached (system model)"
       },
       {
-        "line": 48,
+        "line": 69,
         "text": "story.yaml                          summary and stages across domains (system model)"
       },
       {
-        "line": 52,
+        "line": 73,
         "text": "scans/<org>/<repo>.yaml             the commit each repo was last read at, and how far it has moved since"
       },
       {
-        "line": 56,
+        "line": 77,
         "text": "base.lock.json                    what an open plan was checked against (generated): checked_on, entities"
       },
       {
-        "line": 65,
+        "line": 86,
         "text": "`landscape.yaml` is optional. Its areas are authored, purpose-led entrances into the evidence, not a fifth level"
       },
       {
-        "line": 271,
+        "line": 292,
         "text": "`src/infrastructure/workspace-folders.ts` is the only code that knows where workspaces are, and every reader asks"
       },
       {
-        "line": 292,
+        "line": 313,
         "text": "staged plan whose `base.lock.json` does not hold the check of what it says now. Groundwork's own `lefthook.yml`"
       },
       {
-        "line": 305,
+        "line": 326,
         "text": "another. Workspace switching opens the chosen workspace's root, not a potentially unrelated plan or system."
       },
       {
-        "line": 315,
+        "line": 336,
         "text": "`contracts.yaml` holds a system's stores, interfaces, schemas, messages, screens, graphs, subgraphs and"
       },
       {
-        "line": 316,
+        "line": 337,
         "text": "operations, plus `components:` detail (kind, summary, sources) for components named in `system.yaml`. The"
       },
       {
-        "line": 317,
+        "line": 338,
         "text": "structure stays the source of a component's name, tech and what it does. `handlers.yaml`, beside it, holds the"
       },
       {
-        "line": 346,
+        "line": 367,
         "text": "entirely outside the company are dashed. The stages are then listed in reading order, then the shifts. Today's"
       },
       {
-        "line": 349,
+        "line": 370,
         "text": "- `src/domain/workspace-model.ts` has the types: `WorkspaceModel`, `Attribution` (origin and code sources by id,"
       },
       {
-        "line": 352,
+        "line": 373,
         "text": "- `src/infrastructure/workspace-model.ts` reads the files (each one optional), takes `origin` off, keeps the"
       },
       {
-        "line": 355,
+        "line": 376,
         "text": "- `src/application/workspace-model.ts` `systemModelOf(workspace, model)` assembles one plan-shaped document with"
       },
       {
-        "line": 356,
+        "line": 377,
         "text": "no changes (teams and colours from `workspace.yaml`, `sys:<system>` per system, components as services or"
       },
       {
-        "line": 362,
+        "line": 383,
         "text": "The optional service explorer reads a disposable projection under `<workspace>/explorer/`; its typed"
       },
       {
-        "line": 371,
+        "line": 392,
         "text": "in place under `<workspace>/explorer/corpus/` (`src/infrastructure/scan-explorer/corpus-assets.ts` installs it;"
       },
       {
-        "line": 372,
+        "line": 393,
         "text": "`src/infrastructure/explorer-assets.ts` reads it back) and lets the"
       },
       {
-        "line": 385,
+        "line": 406,
         "text": "discovery.json                      readiness, scopes, declared components and knowledge gaps (optional)"
       },
       {
-        "line": 399,
+        "line": 420,
         "text": "shaping in `src/application/evidence/`, and the writer in `src/infrastructure/scan-explorer/evidence-files.ts`."
       },
       {
-        "line": 420,
+        "line": 441,
         "text": "See the [service explorer contract](scan-trials/service-explorer/README.md)."
       },
       {
-        "line": 429,
+        "line": 450,
         "text": "proof scope and remaining adoption gates. `schema/knowledge.schema.json` defines immutable revision bundles, snapshot"
       },
       {
-        "line": 430,
+        "line": 451,
         "text": "selection, control/data records and query messages; `npm run generate:knowledge` generates domain types."
       },
       {
-        "line": 432,
+        "line": 453,
         "text": "`src/domain/knowledge` defines revision references and validation rules. `src/application/knowledge` performs"
       },
       {
-        "line": 437,
+        "line": 458,
         "text": "`src/infrastructure/knowledge` validates documents, verifies hashes and builds a disposable SQLite index."
       },
       {
-        "line": 440,
+        "line": 461,
         "text": "write acknowledgements, channel bindings, subscriptions, handoffs, delivery policies and consistency boundaries."
       },
       {
-        "line": 514,
+        "line": 535,
         "text": "- Plan types live in `src/domain/plan/`. `plan.generated.ts` is generated from `schema/plan.schema.json` by"
       },
       {
-        "line": 518,
+        "line": 539,
         "text": "- Handlers (`h:` ids) say what a component does when an endpoint, message, interaction or schedule reaches it,"
       },
       {
-        "line": 534,
+        "line": 555,
         "text": "`base.lock.json` fingerprints what an open plan's `modify`, `remove` and `after` ops target, and records the"
       },
       {
-        "line": 539,
+        "line": 560,
         "text": "the lock, and refuses while a plan it builds on has not landed. `src/infrastructure/plan-base-store.ts` loads"
       },
       {
-        "line": 545,
+        "line": 566,
         "text": "- `src/infrastructure/plan-store.ts` reads plans and revisions onto their base. `readPlan` trusts the check a plan"
       },
       {
-        "line": 562,
+        "line": 583,
         "text": "`src/infrastructure/plan-standing.ts` and sent with `plan.json`):"
       },
       {
-        "line": 574,
+        "line": 595,
         "text": "scenarios, decisions, questions and milestones its plans share; `src/infrastructure/workspace-programmes.ts`"
       },
       {
-        "line": 578,
+        "line": 599,
         "text": "loaded and kept until a file changes by `src/infrastructure/workspace-plan-index.ts`): its plans in landing order,"
       },
       {
-        "line": 618,
+        "line": 639,
         "text": "| `/[workspace]/explorer/`                            | the service explorer                      |"
       },
       {
-        "line": 619,
+        "line": 640,
         "text": "| `/[workspace]/explorer/data/[file]`                 | the service explorer's data               |"
       },
       {
-        "line": 691,
+        "line": 712,
         "text": "put a system in a tier with `tier:` in its system.yaml; otherwise the model implies it"
       },
       {
-        "line": 706,
+        "line": 727,
         "text": "system.yaml (feature flags, sign-in, error tracking) is plumbing no business data comes from, so the map leaves it"
       },
       {
-        "line": 775,
+        "line": 796,
         "text": "(`svc:orders` is `#i-svc-orders`). Each open or hop pushes a history entry, so Back steps through what was seen and"
       },
       {
-        "line": 817,
+        "line": 838,
         "text": "Other screens read in stops keep the stop in `?stop=<key>`: the system map and graph stages on Today, the walk"
       },
       {
-        "line": 866,
+        "line": 887,
         "text": "- Every file in `src/infrastructure` imports `server-only`. Only `src/infrastructure/workspace-folders.ts`,"
       }
     ],
@@ -48955,10 +48967,14 @@
     "hits": [
       {
         "line": 1,
+        "text": "import { placementDataOf } from '@/application/plan/derive-placement';"
+      },
+      {
+        "line": 2,
         "text": "import { todayData } from '@/infrastructure/today-data';"
       },
       {
-        "line": 14,
+        "line": 15,
         "text": "const data = await todayData(workspace);"
       }
     ],
@@ -49106,6 +49122,10 @@
       },
       {
         "line": 2,
+        "text": "import { readPlacementData } from '@/infrastructure/today-model';"
+      },
+      {
+        "line": 3,
         "text": "import { readPlanState } from '@/infrastructure/workspace-plans';"
       }
     ],
@@ -49432,418 +49452,494 @@
     "hits": [
       {
         "line": 4,
-        "text": "import { derive } from '@/application/plan/derive';"
+        "text": "import { derive as derivePlan, type Model } from '@/application/plan/derive';"
       },
       {
-        "line": 17,
-        "text": "id: 'st:cache',"
+        "line": 7,
+        "text": "import type { Plan } from '@/domain/plan/plan.generated';"
       },
       {
-        "line": 21,
-        "text": "owner: 'svc:offers',"
+        "line": 14,
+        "text": "const offers = { domain: null, system: 'sys:offers', component: null };"
       },
       {
-        "line": 23,
-        "text": "{ svc: 'svc:offers', mode: 'readwrite' },"
+        "line": 15,
+        "text": "const search = { domain: null, system: 'sys:search', component: null };"
       },
       {
-        "line": 24,
-        "text": "{ svc: 'svc:search', mode: 'read' },"
-      },
-      {
-        "line": 28,
-        "text": "id: 'st:records',"
-      },
-      {
-        "line": 32,
-        "text": "owner: 'svc:offers',"
-      },
-      {
-        "line": 33,
-        "text": "access: [{ svc: 'svc:offers', mode: 'write' }],"
-      },
-      {
-        "line": 36,
-        "text": "id: 'st:changes',"
-      },
-      {
-        "line": 40,
-        "text": "owner: 'svc:offers',"
-      },
-      {
-        "line": 42,
-        "text": "{ id: 'st:owner-only', name: 'Owner only', kind: 'database', owner: 'svc:offers' },"
-      },
-      {
-        "line": 46,
-        "text": "id: 'msg:changed',"
-      },
-      {
-        "line": 48,
-        "text": "producer: 'svc:offers',"
-      },
-      {
-        "line": 49,
-        "text": "topic: 'st:changes',"
-      },
-      {
-        "line": 50,
-        "text": "consumers: ['svc:search'],"
-      },
-      {
-        "line": 54,
-        "text": "{ id: 'h:consume', component: 'svc:handler-consumer', on: 'msg:changed', steps: [] },"
-      },
-      {
-        "line": 74,
-        "text": "components: [component(`svc:${id}`)],"
-      },
-      {
-        "line": 84,
-        "text": "messages: [{ id: 'msg:captured', name: 'Captured changes', topic: 'st:changes' }],"
-      },
-      {
-        "line": 87,
-        "text": "id: 'h:publish',"
-      },
-      {
-        "line": 88,
-        "text": "component: 'svc:offers',"
-      },
-      {
-        "line": 90,
-        "text": "steps: [{ publish: 'msg:captured' }],"
-      },
-      {
-        "line": 94,
-        "text": "expect(resourcesOf('svc:offers', captured)).toEqual("
-      },
-      {
-        "line": 96,
-        "text": "expect.objectContaining({ id: 'st:changes', use: 'Publishes Captured changes' }),"
-      },
-      {
-        "line": 102,
-        "text": ".find((component) => component.id === 'st:changes'),"
-      },
-      {
-        "line": 103,
-        "text": ").toMatchObject({ parentComponent: 'svc:offers' });"
-      },
-      {
-        "line": 111,
-        "text": "messages: [{ id: 'msg:captured', name: 'Captured changes', topic: 'st:changes' }],"
-      },
-      {
-        "line": 113,
-        "text": "id: `h:${name}`,"
-      },
-      {
-        "line": 114,
-        "text": "component: `svc:${name}`,"
-      },
-      {
-        "line": 116,
-        "text": "steps: [{ publish: 'msg:captured' }],"
-      },
-      {
-        "line": 120,
-        "text": "expect(resourcesOf(`svc:${name}`, captured)).toEqual("
-      },
-      {
-        "line": 122,
-        "text": "expect.objectContaining({ id: 'st:changes', use: 'Publishes Captured changes' }),"
-      },
-      {
-        "line": 129,
-        "text": ".find((component) => component.id === 'st:changes');"
-      },
-      {
-        "line": 140,
-        "text": "id: 'st:changes',"
-      },
-      {
-        "line": 143,
-        "text": "owner: 'svc:offers',"
-      },
-      {
-        "line": 144,
-        "text": "access: [{ svc: 'svc:offers', mode: 'readwrite' }],"
-      },
-      {
-        "line": 149,
-        "text": "id: 'msg:unknown',"
-      },
-      {
-        "line": 151,
-        "text": "topic: 'st:changes',"
-      },
-      {
-        "line": 152,
-        "text": "consumers: ['svc:offers'],"
-      },
-      {
-        "line": 159,
-        "text": ".find((component) => component.id === 'st:changes');"
-      },
-      {
-        "line": 162,
-        "text": "resourcesOf('svc:offers', unknown).some((resource) => resource.use.startsWith('Publishes')),"
-      },
-      {
-        "line": 172,
-        "text": "id: 'st:unknown',"
-      },
-      {
-        "line": 175,
-        "text": "access: [{ svc: 'svc:search', mode: 'read' }],"
-      },
-      {
-        "line": 189,
-        "text": ".find((component) => component.id === 'st:unknown');"
-      },
-      {
-        "line": 194,
-        "text": "expect.objectContaining({ from: 'svc:search', to: 'st:unknown', kind: 'data' }),"
-      },
-      {
-        "line": 204,
-        "text": "if (store.id !== 'st:changes') return store;"
-      },
-      {
-        "line": 220,
-        "text": ".find((component) => component.id === 'st:changes');"
-      },
-      {
-        "line": 223,
-        "text": "expect(resourcesOf('svc:search', unknown)).toEqual("
-      },
-      {
-        "line": 224,
-        "text": "expect.arrayContaining([expect.objectContaining({ id: 'st:changes' })]),"
-      },
-      {
-        "line": 234,
-        "text": "id: 'st:retry',"
-      },
-      {
-        "line": 237,
-        "text": "owner: 'svc:products',"
-      },
-      {
-        "line": 238,
-        "text": "access: [{ svc: 'svc:products', mode: 'readwrite' }],"
-      },
-      {
-        "line": 244,
-        "text": "id: 'h:retry',"
-      },
-      {
-        "line": 245,
-        "text": "component: 'svc:products',"
-      },
-      {
-        "line": 248,
-        "text": "{ read: 'sch:job', from: 'st:retry' },"
-      },
-      {
-        "line": 249,
-        "text": "{ write: 'sch:job', to: 'st:retry' },"
-      },
-      {
-        "line": 254,
-        "text": "expect(resourcesOf('svc:products', model)).toEqual(["
-      },
-      {
-        "line": 256,
-        "text": "id: 'st:retry',"
-      },
-      {
-        "line": 270,
-        "text": ".find((component) => component.id === 'st:changes')!;"
-      },
-      {
-        "line": 277,
-        "text": "expect.objectContaining({ id: 'st:changes', parentComponent: 'svc:offers' }),"
-      },
-      {
-        "line": 282,
-        "text": "?.components.some((component) => component.id === 'st:changes'),"
-      },
-      {
-        "line": 285,
-        "text": "expect.objectContaining({ id: 'st:changes' }),"
-      },
-      {
-        "line": 292,
-        "text": "expect(components.filter((component) => component.id === 'st:cache')).toHaveLength(1);"
-      },
-      {
-        "line": 293,
-        "text": "expect(components.find((component) => component.id === 'st:changes')).toMatchObject({"
-      },
-      {
-        "line": 297,
-        "text": "expect(resourcesOf('svc:search', model)).toContainEqual("
-      },
-      {
-        "line": 299,
-        "text": "id: 'st:changes',"
-      },
-      {
-        "line": 313,
-        "text": "expect.objectContaining({ from: 'svc:offers', to: 'st:cache', kind: 'data' }),"
-      },
-      {
-        "line": 316,
-        "text": "expect.objectContaining({ from: 'svc:offers', to: 'st:changes', kind: 'message' }),"
-      },
-      {
-        "line": 320,
-        "text": "from: 'st:changes',"
-      },
-      {
-        "line": 321,
-        "text": "to: 'svc:search',"
-      },
-      {
-        "line": 323,
-        "text": "usageFrom: 'svc:search',"
-      },
-      {
-        "line": 324,
-        "text": "usageTo: 'st:changes',"
-      },
-      {
-        "line": 327,
-        "text": "expect(edges.some((edge) => edge.to === 'st:owner-only')).toBe(false);"
-      },
-      {
-        "line": 330,
-        "text": "(edge) => edge.from === 'svc:offers' && edge.to === 'svc:search' && edge.kind === 'message',"
-      },
-      {
-        "line": 338,
-        "text": "expect(resourceSummary(nodes.find((node) => node.id === 'st:owner-only')!)).toBe("
-      },
-      {
-        "line": 342,
-        "text": "expect(resourcesOf('svc:offers')).toEqual([]);"
-      },
-      {
-        "line": 347,
-        "text": "expect(resourcesOf('svc:handler-consumer', model)).toContainEqual("
-      },
-      {
-        "line": 348,
-        "text": "expect.objectContaining({ id: 'st:changes', use: 'Consumes Offer changed' }),"
-      },
-      {
-        "line": 355,
-        "text": "expect(nodes.find((node) => node.id === 'st:records')?.parentComponent).toBe('svc:offers');"
-      },
-      {
-        "line": 356,
-        "text": "expect(nodes.find((node) => node.id === 'st:cache')?.parentComponent).toBeUndefined();"
-      },
-      {
-        "line": 357,
-        "text": "expect(nodes.find((node) => node.id === 'st:changes')?.parentComponent).toBe('svc:offers');"
-      },
-      {
-        "line": 361,
-        "text": "{ id: 'msg:private', name: 'Internal jobs', producer: 'svc:offers', topic: 'st:changes' },"
-      },
-      {
-        "line": 369,
-        "text": "expect(privateNodes.find((node) => node.id === 'st:changes')?.parentComponent).toBe("
-      },
-      {
-        "line": 370,
+        "line": 18,
         "text": "'svc:offers',"
       },
       {
-        "line": 379,
-        "text": "expect(nodes.find((node) => node.id === 'st:cache')?.parentComponent).toBeUndefined();"
+        "line": 19,
+        "text": "'st:cache',"
+      },
+      {
+        "line": 20,
+        "text": "'st:records',"
+      },
+      {
+        "line": 21,
+        "text": "'st:changes',"
+      },
+      {
+        "line": 22,
+        "text": "'st:owner-only',"
+      },
+      {
+        "line": 23,
+        "text": "'st:private-bus',"
+      },
+      {
+        "line": 24,
+        "text": "'st:read-only',"
+      },
+      {
+        "line": 25,
+        "text": "'st:shared-bus',"
+      },
+      {
+        "line": 26,
+        "text": "'st:no-access',"
+      },
+      {
+        "line": 28,
+        "text": "...['svc:search', 'st:unknown'].map((id) => [id, { ...search, component: id }] as const),"
+      },
+      {
+        "line": 39,
+        "text": "id: 'st:cache',"
+      },
+      {
+        "line": 43,
+        "text": "owner: 'svc:offers',"
+      },
+      {
+        "line": 45,
+        "text": "{ svc: 'svc:offers', mode: 'readwrite' },"
+      },
+      {
+        "line": 46,
+        "text": "{ svc: 'svc:search', mode: 'read' },"
+      },
+      {
+        "line": 50,
+        "text": "id: 'st:records',"
+      },
+      {
+        "line": 54,
+        "text": "owner: 'svc:offers',"
+      },
+      {
+        "line": 55,
+        "text": "access: [{ svc: 'svc:offers', mode: 'write' }],"
+      },
+      {
+        "line": 58,
+        "text": "id: 'st:changes',"
+      },
+      {
+        "line": 62,
+        "text": "owner: 'svc:offers',"
+      },
+      {
+        "line": 64,
+        "text": "{ id: 'st:owner-only', name: 'Owner only', kind: 'database', owner: 'svc:offers' },"
+      },
+      {
+        "line": 68,
+        "text": "id: 'msg:changed',"
+      },
+      {
+        "line": 70,
+        "text": "producer: 'svc:offers',"
+      },
+      {
+        "line": 71,
+        "text": "topic: 'st:changes',"
+      },
+      {
+        "line": 72,
+        "text": "consumers: ['svc:search'],"
+      },
+      {
+        "line": 76,
+        "text": "{ id: 'h:consume', component: 'svc:handler-consumer', on: 'msg:changed', steps: [] },"
+      },
+      {
+        "line": 96,
+        "text": "components: [component(`svc:${id}`)],"
+      },
+      {
+        "line": 106,
+        "text": "stores: (model.plan.stores ?? []).map((store) => ({ ...store, owner: 'svc:search' })),"
+      },
+      {
+        "line": 112,
+        "text": "?.components.some((component) => component.id === 'st:records'),"
+      },
+      {
+        "line": 117,
+        "text": ".find((component) => component.id === 'st:records')?.parentComponent,"
+      },
+      {
+        "line": 123,
+        "text": ".some((component) => component.id === 'st:records'),"
+      },
+      {
+        "line": 125,
+        "text": "expect(resourcesOf('svc:offers', derivePlan(plan))).toContainEqual("
+      },
+      {
+        "line": 126,
+        "text": "expect.objectContaining({ id: 'st:records' }),"
+      },
+      {
+        "line": 134,
+        "text": "messages: [{ id: 'msg:captured', name: 'Captured changes', topic: 'st:changes' }],"
+      },
+      {
+        "line": 137,
+        "text": "id: 'h:publish',"
+      },
+      {
+        "line": 138,
+        "text": "component: 'svc:offers',"
+      },
+      {
+        "line": 140,
+        "text": "steps: [{ publish: 'msg:captured' }],"
+      },
+      {
+        "line": 144,
+        "text": "expect(resourcesOf('svc:offers', captured)).toEqual("
+      },
+      {
+        "line": 146,
+        "text": "expect.objectContaining({ id: 'st:changes', use: 'Publishes Captured changes' }),"
+      },
+      {
+        "line": 152,
+        "text": ".find((component) => component.id === 'st:changes'),"
+      },
+      {
+        "line": 153,
+        "text": ").toMatchObject({ parentComponent: 'svc:offers' });"
+      },
+      {
+        "line": 161,
+        "text": "messages: [{ id: 'msg:captured', name: 'Captured changes', topic: 'st:changes' }],"
+      },
+      {
+        "line": 163,
+        "text": "id: `h:${name}`,"
+      },
+      {
+        "line": 164,
+        "text": "component: `svc:${name}`,"
+      },
+      {
+        "line": 166,
+        "text": "steps: [{ publish: 'msg:captured' }],"
+      },
+      {
+        "line": 170,
+        "text": "expect(resourcesOf(`svc:${name}`, captured)).toEqual("
+      },
+      {
+        "line": 172,
+        "text": "expect.objectContaining({ id: 'st:changes', use: 'Publishes Captured changes' }),"
+      },
+      {
+        "line": 179,
+        "text": ".find((component) => component.id === 'st:changes');"
+      },
+      {
+        "line": 190,
+        "text": "id: 'st:changes',"
+      },
+      {
+        "line": 193,
+        "text": "owner: 'svc:offers',"
+      },
+      {
+        "line": 194,
+        "text": "access: [{ svc: 'svc:offers', mode: 'readwrite' }],"
+      },
+      {
+        "line": 199,
+        "text": "id: 'msg:unknown',"
+      },
+      {
+        "line": 201,
+        "text": "topic: 'st:changes',"
+      },
+      {
+        "line": 202,
+        "text": "consumers: ['svc:offers'],"
+      },
+      {
+        "line": 209,
+        "text": ".find((component) => component.id === 'st:changes');"
+      },
+      {
+        "line": 212,
+        "text": "resourcesOf('svc:offers', unknown).some((resource) => resource.use.startsWith('Publishes')),"
+      },
+      {
+        "line": 222,
+        "text": "id: 'st:unknown',"
+      },
+      {
+        "line": 225,
+        "text": "access: [{ svc: 'svc:search', mode: 'read' }],"
+      },
+      {
+        "line": 239,
+        "text": ".find((component) => component.id === 'st:unknown');"
+      },
+      {
+        "line": 244,
+        "text": "expect.objectContaining({ from: 'svc:search', to: 'st:unknown', kind: 'data' }),"
+      },
+      {
+        "line": 254,
+        "text": "if (store.id !== 'st:changes') return store;"
+      },
+      {
+        "line": 270,
+        "text": ".find((component) => component.id === 'st:changes');"
+      },
+      {
+        "line": 273,
+        "text": "expect(resourcesOf('svc:search', unknown)).toEqual("
+      },
+      {
+        "line": 274,
+        "text": "expect.arrayContaining([expect.objectContaining({ id: 'st:changes' })]),"
+      },
+      {
+        "line": 284,
+        "text": "id: 'st:retry',"
+      },
+      {
+        "line": 287,
+        "text": "owner: 'svc:products',"
+      },
+      {
+        "line": 288,
+        "text": "access: [{ svc: 'svc:products', mode: 'readwrite' }],"
+      },
+      {
+        "line": 294,
+        "text": "id: 'h:retry',"
+      },
+      {
+        "line": 295,
+        "text": "component: 'svc:products',"
+      },
+      {
+        "line": 298,
+        "text": "{ read: 'sch:job', from: 'st:retry' },"
+      },
+      {
+        "line": 299,
+        "text": "{ write: 'sch:job', to: 'st:retry' },"
+      },
+      {
+        "line": 304,
+        "text": "expect(resourcesOf('svc:products', model)).toEqual(["
+      },
+      {
+        "line": 306,
+        "text": "id: 'st:retry',"
+      },
+      {
+        "line": 320,
+        "text": ".find((component) => component.id === 'st:changes')!;"
+      },
+      {
+        "line": 327,
+        "text": "expect.objectContaining({ id: 'st:changes', parentComponent: 'svc:offers' }),"
+      },
+      {
+        "line": 332,
+        "text": "?.components.some((component) => component.id === 'st:changes'),"
+      },
+      {
+        "line": 335,
+        "text": "expect.objectContaining({ id: 'st:changes' }),"
+      },
+      {
+        "line": 342,
+        "text": "expect(components.filter((component) => component.id === 'st:cache')).toHaveLength(1);"
+      },
+      {
+        "line": 343,
+        "text": "expect(components.find((component) => component.id === 'st:changes')).toMatchObject({"
+      },
+      {
+        "line": 347,
+        "text": "expect(resourcesOf('svc:search', model)).toContainEqual("
+      },
+      {
+        "line": 349,
+        "text": "id: 'st:changes',"
+      },
+      {
+        "line": 363,
+        "text": "expect.objectContaining({ from: 'svc:offers', to: 'st:cache', kind: 'data' }),"
+      },
+      {
+        "line": 366,
+        "text": "expect.objectContaining({ from: 'svc:offers', to: 'st:changes', kind: 'message' }),"
+      },
+      {
+        "line": 370,
+        "text": "from: 'st:changes',"
+      },
+      {
+        "line": 371,
+        "text": "to: 'svc:search',"
+      },
+      {
+        "line": 373,
+        "text": "usageFrom: 'svc:search',"
+      },
+      {
+        "line": 374,
+        "text": "usageTo: 'st:changes',"
+      },
+      {
+        "line": 377,
+        "text": "expect(edges.some((edge) => edge.to === 'st:owner-only')).toBe(false);"
       },
       {
         "line": 380,
-        "text": "expect(nodes.find((node) => node.id === 'st:owner-only')?.parentComponent).toBeUndefined();"
+        "text": "(edge) => edge.from === 'svc:offers' && edge.to === 'svc:search' && edge.kind === 'message',"
       },
       {
-        "line": 384,
-        "text": "{ id: 'msg:other', name: 'Search jobs', producer: 'svc:search', topic: 'st:changes' },"
+        "line": 388,
+        "text": "expect(resourceSummary(nodes.find((node) => node.id === 'st:owner-only')!)).toBe("
       },
       {
-        "line": 390,
-        "text": ".find((node) => node.id === 'st:changes');"
+        "line": 392,
+        "text": "expect(resourcesOf('svc:offers')).toEqual([]);"
+      },
+      {
+        "line": 397,
+        "text": "expect(resourcesOf('svc:handler-consumer', model)).toContainEqual("
       },
       {
         "line": 398,
-        "text": "id: 'st:private-bus',"
-      },
-      {
-        "line": 401,
-        "text": "owner: 'svc:offers',"
-      },
-      {
-        "line": 402,
-        "text": "access: [{ svc: 'svc:offers', mode: 'readwrite' as const }],"
+        "text": "expect.objectContaining({ id: 'st:changes', use: 'Consumes Offer changed' }),"
       },
       {
         "line": 405,
-        "text": "id: 'st:read-only',"
+        "text": "expect(nodes.find((node) => node.id === 'st:records')?.parentComponent).toBe('svc:offers');"
       },
       {
-        "line": 408,
-        "text": "owner: 'svc:offers',"
+        "line": 406,
+        "text": "expect(nodes.find((node) => node.id === 'st:cache')?.parentComponent).toBeUndefined();"
       },
       {
-        "line": 409,
-        "text": "access: [{ svc: 'svc:offers', mode: 'read' as const }],"
+        "line": 407,
+        "text": "expect(nodes.find((node) => node.id === 'st:changes')?.parentComponent).toBe('svc:offers');"
       },
       {
-        "line": 412,
-        "text": "id: 'st:shared-bus',"
+        "line": 411,
+        "text": "{ id: 'msg:private', name: 'Internal jobs', producer: 'svc:offers', topic: 'st:changes' },"
       },
       {
-        "line": 415,
-        "text": "owner: 'svc:offers',"
+        "line": 419,
+        "text": "expect(privateNodes.find((node) => node.id === 'st:changes')?.parentComponent).toBe("
       },
       {
-        "line": 417,
-        "text": "{ svc: 'svc:offers', mode: 'readwrite' as const },"
-      },
-      {
-        "line": 418,
-        "text": "{ svc: 'svc:outside', mode: 'read' as const },"
-      },
-      {
-        "line": 421,
-        "text": "{ id: 'st:no-access', name: 'Untraced topic', kind: 'topic' as const, owner: 'svc:offers' },"
-      },
-      {
-        "line": 425,
-        "text": "expect(nodes.find((node) => node.id === 'st:private-bus')?.parentComponent).toBe('svc:offers');"
-      },
-      {
-        "line": 426,
-        "text": "expect(nodes.find((node) => node.id === 'st:read-only')?.parentComponent).toBeUndefined();"
-      },
-      {
-        "line": 427,
-        "text": "expect(nodes.find((node) => node.id === 'st:shared-bus')?.parentComponent).toBeUndefined();"
-      },
-      {
-        "line": 428,
-        "text": "expect(nodes.find((node) => node.id === 'st:no-access')?.parentComponent).toBeUndefined();"
+        "line": 420,
+        "text": "'svc:offers',"
       },
       {
         "line": 429,
-        "text": "expect(resourcesOf('svc:offers', privateModel)).toContainEqual("
+        "text": "expect(nodes.find((node) => node.id === 'st:cache')?.parentComponent).toBeUndefined();"
       },
       {
         "line": 430,
+        "text": "expect(nodes.find((node) => node.id === 'st:owner-only')?.parentComponent).toBeUndefined();"
+      },
+      {
+        "line": 434,
+        "text": "{ id: 'msg:other', name: 'Search jobs', producer: 'svc:search', topic: 'st:changes' },"
+      },
+      {
+        "line": 440,
+        "text": ".find((node) => node.id === 'st:changes');"
+      },
+      {
+        "line": 448,
+        "text": "id: 'st:private-bus',"
+      },
+      {
+        "line": 451,
+        "text": "owner: 'svc:offers',"
+      },
+      {
+        "line": 452,
+        "text": "access: [{ svc: 'svc:offers', mode: 'readwrite' as const }],"
+      },
+      {
+        "line": 455,
+        "text": "id: 'st:read-only',"
+      },
+      {
+        "line": 458,
+        "text": "owner: 'svc:offers',"
+      },
+      {
+        "line": 459,
+        "text": "access: [{ svc: 'svc:offers', mode: 'read' as const }],"
+      },
+      {
+        "line": 462,
+        "text": "id: 'st:shared-bus',"
+      },
+      {
+        "line": 465,
+        "text": "owner: 'svc:offers',"
+      },
+      {
+        "line": 467,
+        "text": "{ svc: 'svc:offers', mode: 'readwrite' as const },"
+      },
+      {
+        "line": 468,
+        "text": "{ svc: 'svc:outside', mode: 'read' as const },"
+      },
+      {
+        "line": 471,
+        "text": "{ id: 'st:no-access', name: 'Untraced topic', kind: 'topic' as const, owner: 'svc:offers' },"
+      },
+      {
+        "line": 475,
+        "text": "expect(nodes.find((node) => node.id === 'st:private-bus')?.parentComponent).toBe('svc:offers');"
+      },
+      {
+        "line": 476,
+        "text": "expect(nodes.find((node) => node.id === 'st:read-only')?.parentComponent).toBeUndefined();"
+      },
+      {
+        "line": 477,
+        "text": "expect(nodes.find((node) => node.id === 'st:shared-bus')?.parentComponent).toBeUndefined();"
+      },
+      {
+        "line": 478,
+        "text": "expect(nodes.find((node) => node.id === 'st:no-access')?.parentComponent).toBeUndefined();"
+      },
+      {
+        "line": 479,
+        "text": "expect(resourcesOf('svc:offers', privateModel)).toContainEqual("
+      },
+      {
+        "line": 480,
         "text": "expect.objectContaining({ id: 'st:private-bus', use: 'Reads and writes' }),"
       }
     ],
@@ -50624,6 +50720,813 @@
   },
   {
     "category": "consumer",
+    "file": "src/application/legacy-placement.ts",
+    "hits": [
+      {
+        "line": 2,
+        "text": "import type { LegacyPlacements, LegacyPlace } from '@/application/plan/derive-placement';"
+      },
+      {
+        "line": 4,
+        "text": "import type { Workspace } from '@/domain/workspace';"
+      },
+      {
+        "line": 5,
+        "text": "import { modelRecord, modelList, modelText, type SystemContracts } from '@/domain/workspace-model';"
+      },
+      {
+        "line": 26,
+        "text": "workspace: Workspace,"
+      }
+    ],
+    "status": "adapter"
+  },
+  {
+    "category": "fixture or test",
+    "file": "src/application/legacy-view.test.ts",
+    "hits": [
+      {
+        "line": 8,
+        "text": "import { entitiesIn, type WorkspaceModel } from '@/domain/workspace-model';"
+      },
+      {
+        "line": 11,
+        "text": "import { legacyLosses, legacyViewOf } from './legacy-view';"
+      },
+      {
+        "line": 14,
+        "text": "let model: WorkspaceModel;"
+      },
+      {
+        "line": 25,
+        "text": "const { workspace, losses, model: legacy } = legacyViewOf(model);"
+      },
+      {
+        "line": 45,
+        "text": "modelId: 'sys:ordering',"
+      },
+      {
+        "line": 62,
+        "text": "['svc:ordering', 'service', 'sys:ordering'],"
+      },
+      {
+        "line": 63,
+        "text": "['app:shop', 'ui', 'sys:ordering'],"
+      },
+      {
+        "line": 65,
+        "text": "expect(legacy.asIs.get('st:unknown-owner')).not.toHaveProperty('owner');"
+      },
+      {
+        "line": 66,
+        "text": "expect(legacy.asIs.get('st:orders')).toMatchObject({"
+      },
+      {
+        "line": 67,
+        "text": "owner: 'svc:ordering',"
+      },
+      {
+        "line": 71,
+        "text": "expect(legacy.asIs.get('api:confirm')).toMatchObject({"
+      },
+      {
+        "line": 73,
+        "text": "request: 'sch:confirm',"
+      },
+      {
+        "line": 74,
+        "text": "response: 'sch:order',"
+      },
+      {
+        "line": 76,
+        "text": "expect(legacy.asIs.get('api:grpc-confirm')).toMatchObject({ sig: 'fixture.Ordering/Confirm' });"
+      },
+      {
+        "line": 77,
+        "text": "expect(legacy.asIs.get('api:order-query')).toMatchObject({ sig: 'order(id: ID!): Order' });"
+      },
+      {
+        "line": 78,
+        "text": "expect(legacy.asIs.get('api:legacy')).toMatchObject({ sig: 'GET legacy free words' });"
+      },
+      {
+        "line": 79,
+        "text": "expect(legacy.asIs.get('sch:confirm#unknown')).toMatchObject({ type: 'Unknown' });"
+      },
+      {
+        "line": 80,
+        "text": "expect(legacy.asIs.get('sch:confirm#lines')).toMatchObject({ type: '{\"array\":\"sch:line\"}' });"
+      },
+      {
+        "line": 81,
+        "text": "expect(legacy.asIs.get('sch:order#status')).toMatchObject({ type: 'string' });"
+      },
+      {
+        "line": 82,
+        "text": "expect(legacy.place('st:unknown-owner')?.system).toBe('sys:ordering');"
+      },
+      {
+        "line": 83,
+        "text": "expect(system?.interfaces.find((entry) => entry.id === 'if:payments')?.kind).toBe('sdk');"
+      },
+      {
+        "line": 86,
+        "text": "const empty = legacyViewOf({"
+      },
+      {
+        "line": 99,
+        "text": "const store = entitiesIn(source).find((entity) => entity.id === 'st:remote');"
+      },
+      {
+        "line": 102,
+        "text": "const legacy = legacyViewOf(source);"
+      },
+      {
+        "line": 104,
+        "text": "expect(legacy.model.asIs.get('st:remote')).toBeUndefined();"
+      },
+      {
+        "line": 107,
+        "text": "(component) => component.id === 'st:remote',"
+      },
+      {
+        "line": 128,
+        "text": "legacyLosses({ id: 'sys:original' }, { id: 'wrong', modelId: 'sys:other' }),"
+      }
+    ],
+    "status": "adapter"
+  },
+  {
+    "category": "consumer",
+    "file": "src/application/legacy-view.ts",
+    "hits": [
+      {
+        "line": 3,
+        "text": "import { derive, type Model } from '@/application/plan/derive';"
+      },
+      {
+        "line": 5,
+        "text": "import type { Field, Interface, Plan, Schema, Service, Store } from '@/domain/plan/plan.generated';"
+      },
+      {
+        "line": 6,
+        "text": "import type { Component, Domain, System, Team, Workspace } from '@/domain/workspace';"
+      },
+      {
+        "line": 14,
+        "text": "type WorkspaceModel,"
+      },
+      {
+        "line": 15,
+        "text": "} from '@/domain/workspace-model';"
+      },
+      {
+        "line": 28,
+        "text": "export type LegacyWorkspaceView = Carrier<WorkspaceModel, Workspace> & {"
+      },
+      {
+        "line": 76,
+        "text": "function workspaceView(model: WorkspaceModel): LegacyWorkspaceView {"
+      },
+      {
+        "line": 228,
+        "text": "function projection(model: WorkspaceModel, ownerOf: (id: string) => string | null): Plan {"
+      },
+      {
+        "line": 254,
+        "text": "export function legacyViewOf(model: WorkspaceModel): LegacyView {"
+      }
+    ],
+    "status": "adapter"
+  },
+  {
+    "category": "consumer",
+    "file": "src/application/model-graphql.ts",
+    "hits": [
+      {
+        "line": 8,
+        "text": "} from '@/domain/workspace-model';"
+      }
+    ],
+    "status": "adapter"
+  },
+  {
+    "category": "fixture or test",
+    "file": "src/application/model-index-containment.test.ts",
+    "hits": [
+      {
+        "line": 4,
+        "text": "import { entitiesIn } from '@/domain/workspace-model';"
+      },
+      {
+        "line": 11,
+        "text": "expect(index.place('st:remote')).toEqual({"
+      },
+      {
+        "line": 14,
+        "text": "system: 'sys:b',"
+      },
+      {
+        "line": 15,
+        "text": "component: 'st:remote',"
+      },
+      {
+        "line": 17,
+        "text": "expect(index.resourceOwner('st:remote')).toBe('svc:a');"
+      },
+      {
+        "line": 18,
+        "text": "expect(index.owningTeam('st:remote')).toBe('team:b');"
+      },
+      {
+        "line": 19,
+        "text": "expect(index.codeHomes('st:remote')).toEqual([{ key: 'b', repo: 'fixture/b', path: 'worker' }]);"
+      },
+      {
+        "line": 20,
+        "text": "expect(index.freshness('st:remote')).toEqual([]);"
+      },
+      {
+        "line": 21,
+        "text": "const cross = index.edges('sys:a', { level: 'system', direction: 'out' });"
+      },
+      {
+        "line": 23,
+        "text": "['sys:b', 'read', 'h:a#read'],"
+      },
+      {
+        "line": 24,
+        "text": "['sys:b', 'write', 'h:a#write'],"
+      },
+      {
+        "line": 25,
+        "text": "['sys:b', 'publish', 'h:a#publish'],"
+      },
+      {
+        "line": 26,
+        "text": "['ext:supplier', 'call', 'h:a#call'],"
+      },
+      {
+        "line": 29,
+        "text": "index.edges('sys:b', { level: 'system', direction: 'in', kinds: ['read'] }),"
+      },
+      {
+        "line": 31,
+        "text": "expect(index.edges('sys:b', { level: 'system', direction: 'out', kinds: ['consume'] })).toEqual("
+      },
+      {
+        "line": 32,
+        "text": "[expect.objectContaining({ to: 'sys:a', site: 'rel:consume' })],"
+      },
+      {
+        "line": 34,
+        "text": "expect(index.edges('svc:b', { direction: 'out', kinds: ['read'] })).toEqual(["
+      },
+      {
+        "line": 36,
+        "text": "to: 'st:remote',"
+      },
+      {
+        "line": 42,
+        "text": "expect(index.gaps('sys:a')).not.toContainEqual("
+      },
+      {
+        "line": 48,
+        "text": "expect(index.producers('msg:remote')).toEqual(['svc:a']);"
+      },
+      {
+        "line": 49,
+        "text": "expect(index.consumers('msg:remote')).toEqual(['svc:b']);"
+      },
+      {
+        "line": 50,
+        "text": "expect(index.roles('svc:a')).toEqual(['api']);"
+      },
+      {
+        "line": 51,
+        "text": "expect(index.roles('svc:b')).toEqual(['worker', 'job']);"
+      },
+      {
+        "line": 52,
+        "text": "expect(index.entries('svc:b').map((entry) => entry.id)).toEqual(['sub:b', 'job:b']);"
+      },
+      {
+        "line": 53,
+        "text": "expect(index.callers('api:supplier')).toEqual(["
+      },
+      {
+        "line": 54,
+        "text": "expect.objectContaining({ site: 'h:a#call', handler: 'h:a', entry: 'api:a' }),"
+      },
+      {
+        "line": 57,
+        "text": "expect.objectContaining({ from: 'svc:a', via: 'msg:remote' }),"
+      },
+      {
+        "line": 59,
+        "text": "expect(index.storeAccess('st:remote').map((edge) => [edge.from, edge.kind])).toEqual(["
+      },
+      {
+        "line": 60,
+        "text": "['svc:a', 'read'],"
+      },
+      {
+        "line": 61,
+        "text": "['svc:a', 'write'],"
+      },
+      {
+        "line": 62,
+        "text": "['svc:b', 'read'],"
+      },
+      {
+        "line": 64,
+        "text": "expect(index.label('api:a')).toBe('GET /a');"
+      },
+      {
+        "line": 65,
+        "text": "expect(index.label('h:a#read')).toBe('h:a#read');"
+      },
+      {
+        "line": 70,
+        "text": "const store = entitiesIn(model).find((entity) => entity.id === 'st:remote');"
+      },
+      {
+        "line": 72,
+        "text": "Object.assign(store.data, { owner: { id: 'svc:a', cites: [] } });"
+      },
+      {
+        "line": 77,
+        "text": "id: 'st:remote',"
+      },
+      {
+        "line": 84,
+        "text": "expect(index.resourceOwner('st:remote')).toBeNull();"
+      },
+      {
+        "line": 85,
+        "text": "expect(index.gaps('st:remote')).toEqual(["
+      }
+    ],
+    "status": "adapter"
+  },
+  {
+    "category": "fixture or test",
+    "file": "src/application/model-index.test.ts",
+    "hits": [
+      {
+        "line": 7,
+        "text": "import { entitiesIn, modelList, type WorkspaceModel } from '@/domain/workspace-model';"
+      },
+      {
+        "line": 21,
+        "text": "async function fixture(): Promise<WorkspaceModel> {"
+      },
+      {
+        "line": 30,
+        "text": "expect(index.place('st:unknown-owner')).toEqual({"
+      },
+      {
+        "line": 33,
+        "text": "system: 'sys:ordering',"
+      },
+      {
+        "line": 34,
+        "text": "component: 'st:unknown-owner',"
+      },
+      {
+        "line": 36,
+        "text": "expect(index.resourceOwner('st:unknown-owner')).toBeNull();"
+      },
+      {
+        "line": 37,
+        "text": "expect(index.resourceOwner('st:orders')).toBe('svc:ordering');"
+      },
+      {
+        "line": 38,
+        "text": "expect(index.resourceOwner('svc:ordering')).toBeNull();"
+      },
+      {
+        "line": 39,
+        "text": "expect(index.owningTeam('st:unknown-owner')).toBe('team:orders');"
+      },
+      {
+        "line": 40,
+        "text": "expect(index.codeHomes('h:confirm#tx/save')).toEqual(["
+      },
+      {
+        "line": 43,
+        "text": "expect(index.codeHomes('st:unknown-owner')).toEqual(index.codeHomes('svc:ordering'));"
+      },
+      {
+        "line": 44,
+        "text": "expect(index.get('svc:old-ordering')?.id).toBe('svc:ordering');"
+      },
+      {
+        "line": 45,
+        "text": "expect(index.get('api:retired')).toBeNull();"
+      },
+      {
+        "line": 52,
+        "text": "expect(index.edges('svc:ordering', { direction: 'out', kinds: ['write'] })).toEqual(["
+      },
+      {
+        "line": 54,
+        "text": "to: 'st:orders',"
+      },
+      {
+        "line": 55,
+        "text": "via: 'sch:order#status',"
+      },
+      {
+        "line": 56,
+        "text": "site: 'h:confirm#tx/save',"
+      },
+      {
+        "line": 57,
+        "text": "entry: 'api:confirm',"
+      },
+      {
+        "line": 60,
+        "text": "expect(index.callers('api:confirm')).toEqual(["
+      },
+      {
+        "line": 61,
+        "text": "expect.objectContaining({ from: 'app:shop', site: 'h:click#submit' }),"
+      },
+      {
+        "line": 63,
+        "text": "expect(index.producers('msg:confirmed')).toEqual(['svc:ordering']);"
+      },
+      {
+        "line": 64,
+        "text": "expect(index.consumers('msg:confirmed')).toEqual(['svc:ordering']);"
+      },
+      {
+        "line": 66,
+        "text": "expect(index.storeAccess('st:orders').map((edge) => edge.kind)).toEqual(["
+      },
+      {
+        "line": 73,
+        "text": "site: 'h:confirm#deliver/send',"
+      },
+      {
+        "line": 74,
+        "text": "via: 'h:on-confirmed',"
+      },
+      {
+        "line": 75,
+        "text": "to: 'svc:ordering',"
+      },
+      {
+        "line": 78,
+        "text": "expect(index.edges('svc:ordering', { direction: 'in', kinds: ['consume'] })).toEqual(["
+      },
+      {
+        "line": 79,
+        "text": "expect.objectContaining({ from: 'top:confirmed', via: 'msg:confirmed' }),"
+      },
+      {
+        "line": 84,
+        "text": "expect(index.edges('sys:ordering', { level: 'system', kinds: ['call'] })).toContainEqual("
+      },
+      {
+        "line": 91,
+        "text": "{ field: 'sch:graph-query#order', subgraph: 'sg:orders', component: 'svc:ordering' },"
+      },
+      {
+        "line": 92,
+        "text": "{ field: 'sch:graph-order#id', subgraph: 'sg:orders', component: 'svc:ordering' },"
+      },
+      {
+        "line": 94,
+        "text": "expect(index.fieldsReached('api:confirm')).toEqual([]);"
+      },
+      {
+        "line": 95,
+        "text": "expect(index.callers('api:order-query')).toEqual(["
+      },
+      {
+        "line": 99,
+        "text": "expect.objectContaining({ site: 'h:confirm#deliver/send', kind: 'publish' }),"
+      },
+      {
+        "line": 102,
+        "text": "expect.objectContaining({ to: 'svc:ordering', via: 'gql:order', source: 'operation' }),"
+      },
+      {
+        "line": 107,
+        "text": "expect(index.roles('svc:ordering')).toEqual(['api', 'worker', 'job']);"
+      },
+      {
+        "line": 108,
+        "text": "expect(index.roles('st:orders')).toEqual([]);"
+      },
+      {
+        "line": 110,
+        "text": "expect(index.flowOf('api:confirm')?.handlers.map((handler) => handler.id)).toEqual(["
+      },
+      {
+        "line": 111,
+        "text": "'h:confirm',"
+      },
+      {
+        "line": 113,
+        "text": "expect(index.flowOf('api:confirm')?.reaches).toContainEqual("
+      },
+      {
+        "line": 114,
+        "text": "expect.objectContaining({ site: 'h:confirm#tx/save' }),"
+      },
+      {
+        "line": 116,
+        "text": "expect(index.flowOf('st:orders')).toBeNull();"
+      },
+      {
+        "line": 120,
+        "text": "expect(index.gaps('st:unknown-owner')).toContainEqual("
+      },
+      {
+        "line": 123,
+        "text": "expect(index.gaps('sch:confirm')).toContainEqual("
+      },
+      {
+        "line": 124,
+        "text": "expect.objectContaining({ id: 'sch:confirm#unknown', kind: 'no_schema' }),"
+      },
+      {
+        "line": 126,
+        "text": "expect(index.gaps('api:legacy')).toContainEqual(expect.objectContaining({ kind: 'no_caller' }));"
+      },
+      {
+        "line": 127,
+        "text": "expect(index.gaps('sys:ordering')).toContainEqual("
+      },
+      {
+        "line": 130,
+        "text": "expect(index.freshness('svc:ordering')).toEqual(["
+      },
+      {
+        "line": 138,
+        "text": "expect(index.href('h:confirm#tx/save')).toBe("
+      },
+      {
+        "line": 141,
+        "text": "expect(index.label('svc:ordering')).toBe('Ordering API');"
+      },
+      {
+        "line": 158,
+        "text": "expect(markdown).toContain('`svc:ordering` Ordering API');"
+      },
+      {
+        "line": 161,
+        "text": "expect(markdown).toContain('`h:confirm#tx/save`');"
+      },
+      {
+        "line": 166,
+        "text": "const field = entitiesIn(original).find((entity) => entity.id === 'sch:graph-query#order');"
+      },
+      {
+        "line": 173,
+        "text": "messages: [...system.messages, { id: 'msg:orphan', topic: 'top:confirmed' }],"
+      },
+      {
+        "line": 175,
+        "text": "handler.id === 'h:click'"
+      },
+      {
+        "line": 176,
+        "text": "? { ...handler, steps: [{ id: 'missing', call: 'api:absent', cites: [] }] }"
+      },
+      {
+        "line": 182,
+        "text": "expect(index.gaps('h:click')).toContainEqual("
+      },
+      {
+        "line": 183,
+        "text": "expect.objectContaining({ kind: 'unmapped_target', reference: 'api:absent' }),"
+      },
+      {
+        "line": 185,
+        "text": "expect(index.edges('app:shop').some((edge) => edge.to === 'api:absent')).toBe(false);"
+      },
+      {
+        "line": 186,
+        "text": "expect(index.gaps('msg:orphan').map((gap) => gap.kind)).toEqual(['no_consumer', 'no_schema']);"
+      },
+      {
+        "line": 188,
+        "text": "expect.objectContaining({ kind: 'unmapped_target', reference: 'sch:graph-query#order' }),"
+      },
+      {
+        "line": 201,
+        "text": "expect(index.codeHomes('st:unknown-owner')).toEqual([]);"
+      },
+      {
+        "line": 202,
+        "text": "expect(index.codeHomes('svc:ordering')).toEqual(["
+      },
+      {
+        "line": 205,
+        "text": "expect(index.codeHomes('sys:ordering')).toHaveLength(2);"
+      },
+      {
+        "line": 207,
+        "text": "expect(index.href('sys:ordering')).toBe('/model-fixture/orders/ordering/');"
+      },
+      {
+        "line": 210,
+        "text": "expect(index.cites('h:confirm#missing/known')).toEqual(["
+      },
+      {
+        "line": 217,
+        "text": "const handler = entitiesIn(original).find((entity) => entity.id === 'h:click');"
+      },
+      {
+        "line": 218,
+        "text": "const step = entitiesIn(original).find((entity) => entity.id === 'h:click#submit');"
+      },
+      {
+        "line": 221,
+        "text": "Object.assign(step.data, { call: 'api:old-confirm' });"
+      },
+      {
+        "line": 227,
+        "text": "'api:old-confirm': { to: 'api:confirm' },"
+      },
+      {
+        "line": 230,
+        "text": "expect(index.place('h:click#submit')?.component).toBe('app:shop');"
+      },
+      {
+        "line": 231,
+        "text": "expect(index.callers('api:old-confirm')).toEqual(["
+      },
+      {
+        "line": 232,
+        "text": "expect.objectContaining({ from: 'app:shop', via: 'api:confirm' }),"
+      },
+      {
+        "line": 234,
+        "text": "expect(index.roles('svc:old-ordering')).toEqual(['api', 'worker', 'job']);"
+      },
+      {
+        "line": 235,
+        "text": "expect(index.entries('svc:old-ordering').map((entry) => entry.id)).toEqual("
+      },
+      {
+        "line": 236,
+        "text": "index.entries('svc:ordering').map((entry) => entry.id),"
+      },
+      {
+        "line": 238,
+        "text": "expect(step.data.call).toBe('api:old-confirm');"
+      },
+      {
+        "line": 248,
+        "text": "const field = entitiesIn(changed).find((entity) => entity.id === 'sch:graph-query#order');"
+      },
+      {
+        "line": 271,
+        "text": "const query = entities.find((entity) => entity.id === 'sch:graph-query#order');"
+      },
+      {
+        "line": 272,
+        "text": "const id = entities.find((entity) => entity.id === 'sch:graph-order#id');"
+      },
+      {
+        "line": 273,
+        "text": "const type = entities.find((entity) => entity.id === 'sch:graph-order');"
+      },
+      {
+        "line": 290,
+        "text": "Object.assign(id.data, { subgraphs: ['sg:details'], requires: ['sch:graph-order#audit'] });"
+      },
+      {
+        "line": 293,
+        "text": "field: 'sch:graph-order#audit',"
+      },
+      {
+        "line": 297,
+        "text": "expect(required.edges('svc:ordering', { kinds: ['call'] })).toContainEqual("
+      },
+      {
+        "line": 300,
+        "text": "Object.assign(query.data, { provides: ['sch:graph-order#id'] });"
+      },
+      {
+        "line": 303,
+        "text": "{ field: 'sch:graph-query#order', subgraph: 'sg:orders', component: 'svc:ordering' },"
+      },
+      {
+        "line": 304,
+        "text": "{ field: 'sch:graph-order#id', subgraph: 'sg:orders', component: 'svc:ordering' },"
+      },
+      {
+        "line": 311,
+        "text": "const field = entities.find((entity) => entity.id === 'sch:graph-order#id');"
+      },
+      {
+        "line": 314,
+        "text": "Object.assign(field.data, { requires: ['sch:absent#key', 'sch:graph-order#id'] });"
+      },
+      {
+        "line": 327,
+        "text": "expect.objectContaining({ reference: 'sch:absent#key', kind: 'unmapped_target' }),"
+      },
+      {
+        "line": 330,
+        "text": "expect.objectContaining({ reference: 'sch:graph-order#id', kind: 'cyclic_composition' }),"
+      },
+      {
+        "line": 340,
+        "text": "actors: [...(model.actors ?? []), { id: 'svc:ordering', name: 'Duplicate' }],"
+      },
+      {
+        "line": 350,
+        "text": "from: 'svc:ordering',"
+      }
+    ],
+    "status": "adapter"
+  },
+  {
+    "category": "consumer",
+    "file": "src/application/model-index.ts",
+    "hits": [
+      {
+        "line": 20,
+        "text": "type WorkspaceModel,"
+      },
+      {
+        "line": 21,
+        "text": "} from '@/domain/workspace-model';"
+      },
+      {
+        "line": 48,
+        "text": "readonly model: WorkspaceModel;"
+      },
+      {
+        "line": 73,
+        "text": "readonly model: WorkspaceModel;"
+      },
+      {
+        "line": 110,
+        "text": "function createLookup(model: WorkspaceModel): Lookup {"
+      },
+      {
+        "line": 167,
+        "text": "function handlersIn(model: WorkspaceModel): readonly ModelHandler[] {"
+      },
+      {
+        "line": 604,
+        "text": "export function indexOf(model: WorkspaceModel): ModelIndex {"
+      }
+    ],
+    "status": "adapter"
+  },
+  {
+    "category": "fixture or test",
+    "file": "src/application/model-map.test.ts",
+    "hits": [
+      {
+        "line": 38,
+        "text": "expect(markdown).toContain('### A (`sys:a`)\\n\\n- `svc:a` A — fixture/a/');"
+      },
+      {
+        "line": 39,
+        "text": "expect(markdown).toContain('### B (`sys:b`)\\n\\n- `svc:b` B — fixture/b/worker');"
+      },
+      {
+        "line": 40,
+        "text": "expect(markdown).toContain('### Unmapped (`sys:unmapped`)\\n');"
+      },
+      {
+        "line": 41,
+        "text": "expect(markdown).toContain('- `svc:a` → `st:remote`: read via `sch:remote#id` at `h:a#read`.');"
+      },
+      {
+        "line": 43,
+        "text": "'- `top:remote` → `svc:a`: consume via `top:remote` at `rel:consume`.',"
+      },
+      {
+        "line": 48,
+        "text": "'# Query fixture: system map\\n\\n\\n## Queries (`dom:queries`)\\n\\n### A (`sys:a`)\\n\\n- `svc:a` A — fixture/a/\\n\\n### B (`sys:b`)\\n\\n- `svc:b` B — fixture/b/worker\\n- `st:remote` Remote — fixture/b/worker\\n- `top:remote` Events — fixture/b/worker\\n\\n### Unmapped (`sys:unmapped`)\\n\\n\\n## Recorded exchanges\\n\\n- `svc:a` → `st:remote`: read via `sch:remote#id` at `h:a#read`.\\n- `svc:a` → `st:remote`: write via `sch:remote#id` at `h:a#write`.\\n- `svc:a` → `top:remote`: publish via `msg:remote` at `h:a#publish`.\\n- `svc:a` → `ext:supplier`: call via `api:supplier` at `h:a#call`.\\n- `top:remote` → `svc:b`: consume via `msg:remote` at `sub:b`.\\n- `top:remote` → `svc:a`: consume via `top:remote` at `rel:consume`.\\n- `svc:b` → `st:remote`: read via `st:remote` at `rel:read`.\\n- `svc:b` → `sys:unmapped`: call via `sys:unmapped` at `rel:boundary`.\\n\\n## Gaps\\n\\n- `api:a`: No caller is recorded.\\n- `api:supplier`: No handler detail is recorded.\\n- `top:remote`: No cited resource owner is recorded.\\n- `sub:b`: No handler detail is recorded.\\n- `job:b`: No handler detail is recorded.\\n- `job:b`: No schedule or trigger is recorded.\\n',"
+      }
+    ],
+    "status": "adapter"
+  },
+  {
+    "category": "consumer",
+    "file": "src/application/model-map.ts",
+    "hits": [
+      {
+        "line": 3,
+        "text": "import type { ModelSystem } from '@/domain/workspace-model';"
+      }
+    ],
+    "status": "adapter"
+  },
+  {
+    "category": "consumer",
     "file": "src/application/model-scope.ts",
     "hits": [
       {
@@ -51022,10 +51925,6 @@
       {
         "line": 2,
         "text": "import type { Edge } from '@/application/plan/derive-edges';"
-      },
-      {
-        "line": 16,
-        "text": "/** The `sys:` id each service and store belongs to: a service's system, a store's owner's. */"
       }
     ],
     "status": "adapter"
@@ -52121,31 +53020,19 @@
         "text": "via: 'msg:product-changed-v2',"
       },
       {
-        "line": 77,
-        "text": "from: 'st:product-events',"
-      },
-      {
-        "line": 78,
-        "text": "to: 'svc:order-api',"
-      },
-      {
-        "line": 79,
-        "text": "via: 'msg:product-changed-v2',"
-      },
-      {
-        "line": 106,
+        "line": 98,
         "text": "from: 'svc:shop-bff',"
       },
       {
-        "line": 107,
+        "line": 99,
         "text": "to: 'svc:order-api',"
       },
       {
-        "line": 108,
+        "line": 100,
         "text": "via: 'api:orders-create',"
       },
       {
-        "line": 109,
+        "line": 101,
         "text": "caller: 'svc:shop-bff',"
       }
     ],
@@ -55435,19 +56322,23 @@
         "text": "'svc:search-api',"
       },
       {
-        "line": 40,
-        "text": "expect(lists.st).toEqual(['st:products-db', 'st:product-events', 'st:search-index']);"
+        "line": 41,
+        "text": "expect(model.asIs.get('st:product-events')).not.toHaveProperty('owner');"
       },
       {
-        "line": 41,
+        "line": 42,
+        "text": "expect(lists.st).toEqual(['st:products-db', 'st:search-index']);"
+      },
+      {
+        "line": 43,
         "text": "expect(lists.msg).toEqual(['msg:product-changed', 'msg:product-changed-v2']);"
       },
       {
-        "line": 69,
+        "line": 71,
         "text": "expect(all.msg).toContain('msg:product-changed-v2');"
       },
       {
-        "line": 70,
+        "line": 72,
         "text": "expect(hidden.msg).toEqual(['msg:product-changed']);"
       }
     ],
@@ -59791,22 +60682,26 @@
       },
       {
         "line": 9,
-        "text": "import { createRegister, type Register } from '@/application/plan/derive-register';"
+        "text": "import type { LegacyPlacements } from '@/application/plan/derive-placement';"
       },
       {
         "line": 10,
-        "text": "import { createStory, type StoryQueries } from '@/application/plan/derive-story';"
+        "text": "import { createRegister, type Register } from '@/application/plan/derive-register';"
       },
       {
         "line": 11,
-        "text": "import { createTeams, type TeamQueries } from '@/application/plan/derive-teams';"
+        "text": "import { createStory, type StoryQueries } from '@/application/plan/derive-story';"
       },
       {
         "line": 12,
+        "text": "import { createTeams, type TeamQueries } from '@/application/plan/derive-teams';"
+      },
+      {
+        "line": 13,
         "text": "import { createWords } from '@/application/plan/derive-words';"
       },
       {
-        "line": 23,
+        "line": 24,
         "text": "import type { Plan } from '@/domain/plan/plan.generated';"
       }
     ],
@@ -61271,6 +62166,128 @@
   },
   {
     "category": "fixture or test",
+    "file": "src/application/plan/derive-placement.test.ts",
+    "hits": [
+      {
+        "line": 12,
+        "text": "expect(data['st:product-events']).toEqual({"
+      },
+      {
+        "line": 14,
+        "text": "system: 'sys:products',"
+      },
+      {
+        "line": 15,
+        "text": "component: 'st:product-events',"
+      },
+      {
+        "line": 17,
+        "text": "expect(data).not.toHaveProperty('sch:product#sku');"
+      },
+      {
+        "line": 18,
+        "text": "expect(data['sch:product']).toMatchObject({"
+      },
+      {
+        "line": 19,
+        "text": "system: 'sys:products',"
+      },
+      {
+        "line": 20,
+        "text": "component: 'st:products-db',"
+      },
+      {
+        "line": 23,
+        "text": "expect(browser.place('sch:product#sku')).toMatchObject({"
+      },
+      {
+        "line": 24,
+        "text": "system: 'sys:products',"
+      },
+      {
+        "line": 25,
+        "text": "component: 'st:products-db',"
+      },
+      {
+        "line": 28,
+        "text": "system: 'sys:ordering',"
+      },
+      {
+        "line": 29,
+        "text": "component: 'svc:order-api',"
+      },
+      {
+        "line": 31,
+        "text": "expect(browser.place('msg:product-changed')).toMatchObject({"
+      },
+      {
+        "line": 32,
+        "text": "system: 'sys:products',"
+      },
+      {
+        "line": 33,
+        "text": "component: 'st:product-events',"
+      },
+      {
+        "line": 35,
+        "text": "expect(browser.place('api:products-get')).toMatchObject({"
+      },
+      {
+        "line": 36,
+        "text": "system: 'sys:products',"
+      },
+      {
+        "line": 37,
+        "text": "component: 'svc:products',"
+      },
+      {
+        "line": 39,
+        "text": "expect(browser.ownerService('st:product-events')).toBeNull();"
+      },
+      {
+        "line": 44,
+        "text": "expect(model.ownerService('st:orders-db')).toBe('svc:order-api');"
+      },
+      {
+        "line": 45,
+        "text": "expect(model.place('st:orders-db')).toBeNull();"
+      },
+      {
+        "line": 46,
+        "text": "expect(model.place('svc:order-api')).toEqual({"
+      },
+      {
+        "line": 48,
+        "text": "system: 'sys:ordering',"
+      },
+      {
+        "line": 49,
+        "text": "component: 'svc:order-api',"
+      },
+      {
+        "line": 52,
+        "text": "expect(placementDataOf(model.asIs, model.place)).not.toHaveProperty('st:orders-db');"
+      }
+    ],
+    "status": "adapter"
+  },
+  {
+    "category": "consumer",
+    "file": "src/application/plan/derive-placement.ts",
+    "hits": [
+      {
+        "line": 2,
+        "text": "import type { Core } from '@/application/plan/derive-core';"
+      },
+      {
+        "line": 6,
+        "text": "import type { ModelPlace } from '@/domain/workspace-model';"
+      }
+    ],
+    "status": "adapter"
+  },
+  {
+    "category": "fixture or test",
     "file": "src/application/plan/derive-plans.test.ts",
     "hits": [
       {
@@ -61976,30 +62993,34 @@
       },
       {
         "line": 12,
-        "text": "import type { Register } from '@/application/plan/derive-register';"
+        "text": "import { placementOf, type LegacyPlace } from '@/application/plan/derive-placement';"
       },
       {
         "line": 13,
-        "text": "import { createScreens, type ScreenQueries } from '@/application/plan/derive-screens';"
+        "text": "import type { Register } from '@/application/plan/derive-register';"
       },
       {
         "line": 14,
-        "text": "import type { StoryQueries } from '@/application/plan/derive-story';"
+        "text": "import { createScreens, type ScreenQueries } from '@/application/plan/derive-screens';"
       },
       {
         "line": 15,
-        "text": "import type { TeamQueries } from '@/application/plan/derive-teams';"
+        "text": "import type { StoryQueries } from '@/application/plan/derive-story';"
       },
       {
         "line": 16,
+        "text": "import type { TeamQueries } from '@/application/plan/derive-teams';"
+      },
+      {
+        "line": 17,
         "text": "import { memo } from '@/application/plan/derive-values';"
       },
       {
-        "line": 22,
+        "line": 23,
         "text": "import type { Plan } from '@/domain/plan/plan.generated';"
       },
       {
-        "line": 24,
+        "line": 25,
         "text": "export type { DeriveOptions } from '@/application/plan/derive-compose';"
       }
     ],
@@ -63543,19 +64564,19 @@
     "file": "src/application/plan/graph.ts",
     "hits": [
       {
-        "line": 12,
+        "line": 13,
         "text": "SystemGraph,"
       },
       {
-        "line": 16,
+        "line": 17,
         "text": "import type { Flow, Interface, Schema, Screen } from '@/domain/plan/plan.generated';"
       },
       {
-        "line": 105,
+        "line": 108,
         "text": "type Lists = Omit<SystemGraph, 'byId' | 'duplicates' | 'get' | 'has'>;"
       },
       {
-        "line": 190,
+        "line": 193,
         "text": "export function buildGraph(system: Partial<SystemSource>, origins?: Origins): SystemGraph {"
       }
     ],
@@ -64439,11 +65460,11 @@
     "file": "src/application/plan/plan-base.ts",
     "hits": [
       {
-        "line": 68,
+        "line": 69,
         "text": "export function collectionsOf(data: unknown): BaseCollections {"
       },
       {
-        "line": 201,
+        "line": 202,
         "text": "export function onBase("
       }
     ],
@@ -65641,6 +66662,29 @@
   },
   {
     "category": "consumer",
+    "file": "src/application/plans-index.ts",
+    "hits": [
+      {
+        "line": 3,
+        "text": "import type { ModelPlan, WorkspaceModel } from '@/domain/workspace-model';"
+      },
+      {
+        "line": 9,
+        "text": "readonly before: WorkspaceModel;"
+      },
+      {
+        "line": 10,
+        "text": "readonly after: WorkspaceModel;"
+      },
+      {
+        "line": 39,
+        "text": "export function plansIndex(plans: readonly ModelPlan[], model: WorkspaceModel): PlansIndex {"
+      }
+    ],
+    "status": "adapter"
+  },
+  {
+    "category": "consumer",
     "file": "src/application/reference/headings.ts",
     "hits": [
       {
@@ -66207,59 +67251,87 @@
     "file": "src/application/system-map.test.ts",
     "hits": [
       {
-        "line": 16,
+        "line": 7,
+        "text": "import { systemModelOf } from '@/application/workspace-model';"
+      },
+      {
+        "line": 17,
         "text": "expect(map.facts.get('api:orders-create')).toMatchObject({"
       },
       {
-        "line": 21,
+        "line": 22,
         "text": "component: 'svc:order-api',"
       },
       {
-        "line": 23,
+        "line": 24,
         "text": "expect(map.facts.get('st:search-index')).toMatchObject({"
       },
       {
-        "line": 31,
-        "text": "const get = map.facts.get('api:products-get')!;"
-      },
-      {
-        "line": 32,
-        "text": "expect(get.sourcesOf).toBe('svc:products');"
-      },
-      {
         "line": 34,
-        "text": "const create = map.facts.get('api:orders-create')!;"
+        "text": "stores: contract.stores.map((store) => ({ ...store, owner: 'svc:products' })),"
       },
       {
-        "line": 41,
-        "text": "expect(found[0]?.id).toBe('svc:order-mailer');"
+        "line": 36,
+        "text": "const today = systemModelOf(workspace, { ...model, contracts });"
       },
       {
-        "line": 46,
-        "text": "const shown = shownIn(map, 'api:orders-create')!;"
+        "line": 38,
+        "text": "expect(today.model.ownerService('st:orders-db')).toBe('svc:products');"
       },
       {
-        "line": 47,
-        "text": "expect(shown.in.map(({ from }) => from)).toContain('svc:shop-bff');"
+        "line": 39,
+        "text": "expect(map.facts.get('st:orders-db')).toMatchObject({ system: 'ordering', domain: 'orders' });"
       },
       {
-        "line": 48,
-        "text": "expect(callersOf(map, 'api:orders-create').length).toBeGreaterThanOrEqual(shown.in.length);"
+        "line": 40,
+        "text": "expect(map.facts.get('sch:order')).toMatchObject({"
+      },
+      {
+        "line": 43,
+        "text": "component: 'st:orders-db',"
       },
       {
         "line": 49,
+        "text": "const get = map.facts.get('api:products-get')!;"
+      },
+      {
+        "line": 50,
+        "text": "expect(get.sourcesOf).toBe('svc:products');"
+      },
+      {
+        "line": 52,
+        "text": "const create = map.facts.get('api:orders-create')!;"
+      },
+      {
+        "line": 59,
+        "text": "expect(found[0]?.id).toBe('svc:order-mailer');"
+      },
+      {
+        "line": 64,
+        "text": "const shown = shownIn(map, 'api:orders-create')!;"
+      },
+      {
+        "line": 65,
+        "text": "expect(shown.in.map(({ from }) => from)).toContain('svc:shop-bff');"
+      },
+      {
+        "line": 66,
+        "text": "expect(callersOf(map, 'api:orders-create').length).toBeGreaterThanOrEqual(shown.in.length);"
+      },
+      {
+        "line": 67,
         "text": "expect(shownIn(map, 'api:nothing')).toBeUndefined();"
       },
       {
-        "line": 55,
+        "line": 73,
         "text": "expect.arrayContaining(['if:orders-rest', 'api:orders-create']),"
       },
       {
-        "line": 57,
+        "line": 75,
         "text": "expect(owned.map(({ id }) => id)).not.toContain('svc:products');"
       },
       {
-        "line": 70,
+        "line": 88,
         "text": "expect(text).toContain('- `svc:order-api` Order API');"
       }
     ],
@@ -66809,8 +67881,32 @@
     "file": "src/application/today-journeys.test.ts",
     "hits": [
       {
-        "line": 39,
+        "line": 5,
+        "text": "import { derive } from '@/application/plan/derive';"
+      },
+      {
+        "line": 40,
         "text": "systems: ['sys:shop', 'sys:ordering', 'sys:payments'],"
+      },
+      {
+        "line": 54,
+        "text": "stores: (source.plan.stores ?? []).map((store) => ({ ...store, owner: 'svc:products' })),"
+      },
+      {
+        "line": 65,
+        "text": "from: 'st:orders-db',"
+      },
+      {
+        "line": 66,
+        "text": "to: 'st:orders-db',"
+      },
+      {
+        "line": 67,
+        "text": "via: 'api:orders-create',"
+      },
+      {
+        "line": 75,
+        "text": "expect(todayJourneysOf(model)[0]?.systems).toEqual(['sys:ordering']);"
       }
     ],
     "status": "adapter"
@@ -67732,6 +68828,42 @@
       {
         "line": 379,
         "text": "'st:product-events',"
+      },
+      {
+        "line": 392,
+        "text": "{ id: 'read', title: 'Read', summary: '', nodes: [{ component: 'svc:shop-bff', column: 0 }] },"
+      },
+      {
+        "line": 396,
+        "text": "from: 'svc:shop-bff',"
+      },
+      {
+        "line": 397,
+        "text": "to: 'st:products-db',"
+      },
+      {
+        "line": 400,
+        "text": "evidence: ['svc:products'],"
+      },
+      {
+        "line": 405,
+        "text": "from: 'svc:shop-bff',"
+      },
+      {
+        "line": 406,
+        "text": "to: 'st:product-events',"
+      },
+      {
+        "line": 427,
+        "text": "expect(view.systems[0]?.components.some((component) => component.id === 'st:products-db')).toBe("
+      },
+      {
+        "line": 431,
+        "text": "expect.objectContaining({ id: 'st:products-db' }),"
+      },
+      {
+        "line": 439,
+        "text": "connections: [{ ...valueFlow.connections[0]!, to: 'st:unknown' }],"
       }
     ],
     "status": "adapter"
@@ -67908,7 +69040,7 @@
       },
       {
         "line": 6,
-        "text": "import type { DomainLanguage, WorkspaceModel } from '@/domain/workspace-model';"
+        "text": "import type { DomainLanguage, LegacyWorkspaceModel } from '@/domain/workspace-model';"
       },
       {
         "line": 9,
@@ -67916,11 +69048,11 @@
       },
       {
         "line": 20,
-        "text": "function anchorWarnings(workspace: Workspace, model: WorkspaceModel): string[] {"
+        "text": "function anchorWarnings(workspace: Workspace, model: LegacyWorkspaceModel): string[] {"
       },
       {
         "line": 43,
-        "text": "export function languageWarnings(workspace: Workspace, model: WorkspaceModel): string[] {"
+        "text": "export function languageWarnings(workspace: Workspace, model: LegacyWorkspaceModel): string[] {"
       },
       {
         "line": 83,
@@ -68026,19 +69158,35 @@
         "text": "const services = own.plan.services.filter(({ system: of }) => of === `sys:${first!.id}`);"
       },
       {
-        "line": 64,
+        "line": 68,
+        "text": "const result = systemModelOf(workspace, { ...read, contracts });"
+      },
+      {
+        "line": 69,
+        "text": "expect(result.plan.stores?.find((store) => store.id === 'st:orders-db')).not.toHaveProperty("
+      },
+      {
+        "line": 72,
+        "text": "expect(result.model.ownerService('st:orders-db')).toBeNull();"
+      },
+      {
+        "line": 73,
+        "text": "expect(result.model.place('st:orders-db')?.system).toBe('sys:ordering');"
+      },
+      {
+        "line": 77,
         "text": "const products = plan.services.find(({ id }) => id === 'svc:products');"
       },
       {
-        "line": 65,
+        "line": 78,
         "text": "expect(products).toMatchObject({ team: 'team:catalogue', system: 'sys:products' });"
       },
       {
-        "line": 67,
+        "line": 80,
         "text": "expect(plan.stores?.find(({ id }) => id === 'st:orders-db')?.owner).toBe('svc:order-api');"
       },
       {
-        "line": 68,
+        "line": 81,
         "text": "expect(attribution['svc:products']?.origin).toBe('extracted');"
       }
     ],
@@ -68049,44 +69197,44 @@
     "file": "src/application/workspace-model.ts",
     "hits": [
       {
-        "line": 1,
+        "line": 2,
         "text": "import { derive, type Model } from '@/application/plan/derive';"
       },
       {
-        "line": 6,
+        "line": 7,
         "text": "// system model (contracts.yaml, story.yaml, flows/, journeys/) gives what they offer and keep."
       },
       {
-        "line": 7,
+        "line": 8,
         "text": "import type { Plan, Service, Store } from '@/domain/plan/plan.generated';"
       },
       {
-        "line": 15,
+        "line": 16,
         "text": "type Workspace,"
       },
       {
-        "line": 16,
+        "line": 17,
         "text": "} from '@/domain/workspace';"
       },
       {
-        "line": 25,
-        "text": "WorkspaceModel,"
+        "line": 26,
+        "text": "LegacyWorkspaceModel,"
       },
       {
-        "line": 26,
+        "line": 27,
         "text": "} from '@/domain/workspace-model';"
       },
       {
-        "line": 28,
+        "line": 29,
         "text": "export interface SystemModel {"
       },
       {
-        "line": 58,
-        "text": "export function systemModelOf(workspace: Workspace, model: WorkspaceModel): SystemModel {"
+        "line": 59,
+        "text": "export function systemModelOf(workspace: Workspace, model: LegacyWorkspaceModel): SystemModel {"
       },
       {
-        "line": 71,
-        "text": "function systemPlanOf(workspace: Workspace, model: WorkspaceModel): Plan {"
+        "line": 72,
+        "text": "function systemPlanOf(workspace: Workspace, model: LegacyWorkspaceModel): Plan {"
       }
     ],
     "status": "adapter"
@@ -68489,7 +69637,7 @@
       },
       {
         "line": 277,
-        "text": "systemOf: (id) => (id === 'svc:status' ? 'sys:finance' : null),"
+        "text": "systemsOf: (id) => (id === 'svc:status' ? ['sys:finance'] : []),"
       },
       {
         "line": 284,
@@ -69277,6 +70425,103 @@
   },
   {
     "category": "consumer",
+    "file": "src/domain/model-citations.ts",
+    "hits": [
+      {
+        "line": 4,
+        "text": "import { modelList, modelRecord, modelText } from '@/domain/workspace-model';"
+      }
+    ],
+    "status": "adapter"
+  },
+  {
+    "category": "fixture or test",
+    "file": "src/domain/model-cite-resolution.test.ts",
+    "hits": [
+      {
+        "line": 4,
+        "text": "import { modelRecord, type ModelRepository } from '@/domain/workspace-model';"
+      },
+      {
+        "line": 51,
+        "text": "entity: 'sys:orders',"
+      },
+      {
+        "line": 59,
+        "text": "id: 'h:confirm',"
+      },
+      {
+        "line": 60,
+        "text": "component: 'svc:orders',"
+      },
+      {
+        "line": 61,
+        "text": "on: 'api:confirm',"
+      },
+      {
+        "line": 67,
+        "text": "steps: [{ id: 'save', write: 'sch:order', to: 'st:orders', cites: ['#L12-15'] }],"
+      },
+      {
+        "line": 104,
+        "text": "entity: 'h:confirm',"
+      },
+      {
+        "line": 180,
+        "text": "entity: 'h:confirm',"
+      },
+      {
+        "line": 254,
+        "text": "['h:confirm', 'unknown:Confirm.ts'],"
+      },
+      {
+        "line": 255,
+        "text": "['h:confirm#tx/save', '#L12-15'],"
+      },
+      {
+        "line": 256,
+        "text": "['h:confirm#!db-down', '#L90-92'],"
+      },
+      {
+        "line": 271,
+        "text": "id: 'sch:order',"
+      },
+      {
+        "line": 297,
+        "text": "{ shifts: [{ id: 'move', cites: ['sys:orders'] }] },"
+      },
+      {
+        "line": 300,
+        "text": ").toEqual({ shifts: [{ id: 'move', cites: ['sys:orders'] }] });"
+      },
+      {
+        "line": 306,
+        "text": "id: 'st:orders',"
+      },
+      {
+        "line": 309,
+        "text": "owner: { id: 'svc:orders', cites: ['ev:missing'] },"
+      },
+      {
+        "line": 318,
+        "text": "id: 'st:orders',"
+      }
+    ],
+    "status": "adapter"
+  },
+  {
+    "category": "consumer",
+    "file": "src/domain/model-cite-resolution.ts",
+    "hits": [
+      {
+        "line": 11,
+        "text": "} from '@/domain/workspace-model';"
+      }
+    ],
+    "status": "adapter"
+  },
+  {
+    "category": "consumer",
     "file": "src/domain/model/contracts.generated.ts",
     "hits": [
       {
@@ -69354,6 +70599,268 @@
       {
         "line": 21,
         "text": "'[[not an id]] [[h:x#tx/read]] Unknown sch:Order#item_id',"
+      }
+    ],
+    "status": "adapter"
+  },
+  {
+    "category": "fixture or test",
+    "file": "src/domain/plan-apply.test.ts",
+    "hits": [
+      {
+        "line": 15,
+        "text": "import type { ModelPlan, WorkspaceModel } from './workspace-model';"
+      },
+      {
+        "line": 18,
+        "text": "let model: WorkspaceModel;"
+      },
+      {
+        "line": 53,
+        "text": "expect(index.get('h:confirm#tx/save')?.data.say).toBe('Save the confirmed order');"
+      },
+      {
+        "line": 54,
+        "text": "expect(index.get('sch:order#status')?.data.note).toBe('The confirmed state');"
+      },
+      {
+        "line": 56,
+        "text": "expect(index.get('h:confirm#!db-down')?.data.return).toBe(502);"
+      },
+      {
+        "line": 57,
+        "text": "expect(index.get('h:confirm#tx/audit')?.data.cites).toEqual(["
+      },
+      {
+        "line": 60,
+        "text": "expect(index.get('h:confirm#tx/audit')?.parent).toBe('h:confirm#tx');"
+      },
+      {
+        "line": 61,
+        "text": "expect(index.get('api:legacy')?.data.deprecated).toBe(true);"
+      },
+      {
+        "line": 62,
+        "text": "expect(index.get('api:confirm')?.data.supersedes).toBe('api:legacy');"
+      },
+      {
+        "line": 72,
+        "text": "into: 'h:confirm',"
+      },
+      {
+        "line": 78,
+        "text": "expect(indexOf(after).cites('h:confirm#audit')).toEqual(["
+      },
+      {
+        "line": 92,
+        "text": "{ modify: 'svc:ordering', append: { uses: ['lib:other'] } },"
+      },
+      {
+        "line": 93,
+        "text": "{ modify: 'svc:ordering', drop: { uses: ['lib:messaging'] } },"
+      },
+      {
+        "line": 95,
+        "text": "modify: 'h:confirm',"
+      },
+      {
+        "line": 101,
+        "text": "expect(indexOf(after).get('svc:ordering')?.data.uses).toEqual(['lib:other']);"
+      },
+      {
+        "line": 102,
+        "text": "expect(indexOf(after).get('h:confirm#last')?.data.cites).toEqual(["
+      },
+      {
+        "line": 109,
+        "text": "opsOf([{ modify: 'h:confirm#done', set: { cites: ['missing:Absent.ts'] } }]),"
+      },
+      {
+        "line": 114,
+        "text": "id: 'h:confirm#done',"
+      },
+      {
+        "line": 120,
+        "text": "opsOf([{ modify: 'h:confirm#done', set: { cites: ['ev:source'] } }]),"
+      },
+      {
+        "line": 125,
+        "text": "const removed = apply(opsOf([{ remove: 'h:confirm#done' }]), missing);"
+      },
+      {
+        "line": 129,
+        "text": "{ modify: 'st:orders', set: { owner: { id: 'svc:ordering', cites: ['ev:absent'] } } },"
+      },
+      {
+        "line": 133,
+        "text": "const different = apply(opsOf([{ modify: 'st:orders', set: { cites: ['ev:source'] } }]), owner);"
+      },
+      {
+        "line": 135,
+        "text": "expect.objectContaining({ id: 'st:orders', property: 'owner/cites' }),"
+      },
+      {
+        "line": 145,
+        "text": "id: 'sys:other',"
+      },
+      {
+        "line": 149,
+        "text": "{ id: 'svc:other', kind: 'service', name: 'Other', cites: ['other:Start.ts#L1-2'] },"
+      },
+      {
+        "line": 156,
+        "text": "expect(indexOf(after).cites('svc:other')).toEqual(["
+      },
+      {
+        "line": 170,
+        "text": "opsOf([{ modify: 'svc:old-ordering', set: { does: 'Confirms orders' } }]),"
+      },
+      {
+        "line": 173,
+        "text": "expect(indexOf(after).get('svc:ordering')?.data.does).toBe('Confirms orders');"
+      },
+      {
+        "line": 176,
+        "text": "opsOf([{ modify: 'api:retired', set: { summary: 'Cannot restore a retired identity' } }]),"
+      },
+      {
+        "line": 184,
+        "text": "[{ modify: 'svc:ordering', set: { id: 'svc:renamed' } }],"
+      },
+      {
+        "line": 185,
+        "text": "[{ modify: 'svc:absent', set: { does: 'Missing' } }],"
+      },
+      {
+        "line": 190,
+        "text": "value: { id: 'svc:new', name: 'New', kind: 'service' },"
+      },
+      {
+        "line": 196,
+        "text": "into: 'h:confirm#tx',"
+      },
+      {
+        "line": 197,
+        "text": "after: 'h:confirm#done',"
+      },
+      {
+        "line": 201,
+        "text": "[{ add: 'step', into: 'h:confirm#tx', value: { id: 'save', does: 'Duplicate' } }],"
+      },
+      {
+        "line": 202,
+        "text": "[{ modify: 'svc:ordering', set: { cites: [] } }],"
+      },
+      {
+        "line": 203,
+        "text": "[{ modify: 'svc:ordering', set: { cites: [{ kind: 'evidence', id: 'ev:source' }] } }],"
+      },
+      {
+        "line": 204,
+        "text": "[{ modify: 'svc:ordering', append: { name: ['Wrong'] } }],"
+      },
+      {
+        "line": 205,
+        "text": "[{ modify: 'svc:ordering', drop: { name: ['Wrong'] } }],"
+      },
+      {
+        "line": 212,
+        "text": "expect(indexOf(model).get('h:confirm#tx/save')?.data.say).toBeUndefined();"
+      },
+      {
+        "line": 217,
+        "text": ").resolves.toContainEqual(expect.objectContaining({ at: 'sys:ordering/jobs/3/cron' }));"
+      },
+      {
+        "line": 219,
+        "text": "validateModel(apply(opsOf([{ modify: 'svc:ordering', set: { invented: true } }]), model)),"
+      },
+      {
+        "line": 224,
+        "text": "'{\"modify\":\"st:unknown-owner\",\"set\":{\"__proto__\":{\"owner\":{\"id\":\"svc:ordering\",\"cites\":[{\"kind\":\"evidence\",\"id\":\"ev:source\"}]}}}}',"
+      },
+      {
+        "line": 227,
+        "text": "expect(indexOf(after).resourceOwner('st:unknown-owner')).toBeNull();"
+      },
+      {
+        "line": 233,
+        "text": "expect(index.plansTouching('h:confirm#tx/save')).toHaveLength(1);"
+      },
+      {
+        "line": 235,
+        "text": "expect(index.plansTouching('sys:ordering')).toHaveLength(1);"
+      },
+      {
+        "line": 236,
+        "text": "expect(index.plansTouching('svc:ordering')).toHaveLength(1);"
+      },
+      {
+        "line": 239,
+        "text": "expect(index.plans[0]?.beforeIndex.get('h:confirm#tx/save')?.data.say).toBeUndefined();"
+      },
+      {
+        "line": 240,
+        "text": "expect(index.plans[0]?.afterIndex.get('h:confirm#tx/save')?.data.say).toBe("
+      }
+    ],
+    "status": "adapter"
+  },
+  {
+    "category": "consumer",
+    "file": "src/domain/plan-apply.ts",
+    "hits": [
+      {
+        "line": 13,
+        "text": "type WorkspaceModel,"
+      },
+      {
+        "line": 14,
+        "text": "} from '@/domain/workspace-model';"
+      },
+      {
+        "line": 107,
+        "text": "function requiredEntity(id: string, model: WorkspaceModel): ModelEntity {"
+      },
+      {
+        "line": 124,
+        "text": "function uniqueIdentities(model: WorkspaceModel): void {"
+      },
+      {
+        "line": 146,
+        "text": "model: WorkspaceModel,"
+      },
+      {
+        "line": 204,
+        "text": "model: WorkspaceModel,"
+      },
+      {
+        "line": 214,
+        "text": "model: WorkspaceModel,"
+      },
+      {
+        "line": 275,
+        "text": "model: WorkspaceModel,"
+      },
+      {
+        "line": 300,
+        "text": "model: WorkspaceModel,"
+      },
+      {
+        "line": 320,
+        "text": "model: WorkspaceModel,"
+      },
+      {
+        "line": 331,
+        "text": "function applyOne(op: ModelOp, model: WorkspaceModel, report: (gap: ModelGap) => void): void {"
+      },
+      {
+        "line": 351,
+        "text": "function replacedCitations(op: ModelOp, model: WorkspaceModel): ReadonlySet<string> {"
+      },
+      {
+        "line": 364,
+        "text": "export function apply(ops: readonly ModelOp[], model: WorkspaceModel): WorkspaceModel {"
       }
     ],
     "status": "adapter"
@@ -69783,40 +71290,48 @@
     "file": "src/domain/workspace-model.ts",
     "hits": [
       {
-        "line": 2,
+        "line": 6,
         "text": "// (domains/<d>/systems/<s>/system.yaml) as contracts.yaml and handlers.yaml per system, story.yaml, flows/ and journeys/,"
       },
       {
-        "line": 21,
+        "line": 25,
         "text": "} from './plan/plan.generated';"
       },
       {
-        "line": 28,
+        "line": 32,
         "text": "/** org/name on GitHub, as system.yaml lists repos (acme/pricing); host/org/name elsewhere. */"
       },
       {
-        "line": 44,
+        "line": 48,
         "text": "/** What a system's contracts.yaml adds to one of its components. */"
       },
       {
-        "line": 53,
+        "line": 57,
         "text": "/** The workspace system id, without `sys:`. */"
       },
       {
-        "line": 64,
+        "line": 68,
         "text": "/** What runs when its endpoints are called or its messages arrive, from handlers.yaml beside the contracts. */"
       },
       {
-        "line": 89,
+        "line": 93,
         "text": "/** The systems or components that should own it: sys:… or a component id. */"
       },
       {
-        "line": 160,
+        "line": 164,
         "text": "/** The high-water mark of one repo: the commit the system model reflects. From scans/<repo>.yaml. */"
       },
       {
-        "line": 183,
-        "text": "export interface WorkspaceModel {"
+        "line": 187,
+        "text": "export interface LegacyWorkspaceModel {"
+      },
+      {
+        "line": 267,
+        "text": "export type WorkspaceModel = ModelData<'WorkspaceFile'> & {"
+      },
+      {
+        "line": 448,
+        "text": "export function entitiesIn(model: WorkspaceModel): readonly ModelEntity[] {"
       }
     ],
     "status": "adapter"
@@ -70868,12 +72383,32 @@
     "file": "src/features/plan/plan-model.test.ts",
     "hits": [
       {
-        "line": 8,
+        "line": 5,
+        "text": "import { placementDataOf } from '@/application/plan/derive-placement';"
+      },
+      {
+        "line": 12,
         "text": "const { loadFixture } = await import('@/infrastructure/plan-fixture');"
       },
       {
-        "line": 20,
+        "line": 24,
         "text": "expect(model?.label('svc:subs')).toBe('Subscriptions');"
+      },
+      {
+        "line": 35,
+        "text": "expect(browser?.ownerService('st:product-events')).toBeNull();"
+      },
+      {
+        "line": 36,
+        "text": "expect(browser?.place('st:product-events')).toMatchObject({ system: 'sys:products' });"
+      },
+      {
+        "line": 38,
+        "text": "expect(systemGroups(browser, 'sys:search')).toContainEqual({"
+      },
+      {
+        "line": 40,
+        "text": "ids: ['sys:products'],"
       }
     ],
     "status": "adapter"
@@ -70887,7 +72422,11 @@
         "text": "import { derive, type Model } from '@/application/plan/derive';"
       },
       {
-        "line": 7,
+        "line": 2,
+        "text": "import type { LegacyPlacements } from '@/application/plan/derive-placement';"
+      },
+      {
+        "line": 8,
         "text": "import type { Plan } from '@/domain/plan/plan.generated';"
       }
     ],
@@ -73310,6 +74849,29 @@
     "status": "adapter"
   },
   {
+    "category": "fixture or test",
+    "file": "src/features/workspace/rebuild-model.test.tsx",
+    "hits": [
+      {
+        "line": 11,
+        "text": "import { legacyLosses, legacyViewOf } from '@/application/legacy-view';"
+      },
+      {
+        "line": 41,
+        "text": "expect(indexOf(after).get('h:confirm#tx/save')?.data.say).toBe('Save the confirmed order');"
+      },
+      {
+        "line": 42,
+        "text": "const legacy = legacyViewOf(after);"
+      },
+      {
+        "line": 47,
+        "text": "expect(legacy.model.asIs.get('sch:confirm#order-id')).toMatchObject({ name: 'orderId' });"
+      }
+    ],
+    "status": "adapter"
+  },
+  {
     "category": "consumer",
     "file": "src/features/workspace/term-fit.tsx",
     "hits": [
@@ -73648,6 +75210,17 @@
   },
   {
     "category": "consumer",
+    "file": "src/infrastructure/model-schema.ts",
+    "hits": [
+      {
+        "line": 13,
+        "text": "import type { ModelData } from '@/domain/workspace-model';"
+      }
+    ],
+    "status": "adapter"
+  },
+  {
+    "category": "consumer",
     "file": "src/infrastructure/plan-base-store.ts",
     "hits": [
       {
@@ -73698,23 +75271,23 @@
         "text": "import { derive, type Model } from '@/application/plan/derive';"
       },
       {
-        "line": 11,
+        "line": 12,
         "text": "import { readWorkspacePlanIndex } from './workspace-plan-index';"
       },
       {
-        "line": 13,
+        "line": 14,
         "text": "import { readWorkspaces } from './workspace-store';"
       },
       {
-        "line": 39,
+        "line": 40,
         "text": "const found = findWorkspace(await readWorkspaces(), workspace);"
       },
       {
-        "line": 58,
+        "line": 59,
         "text": "const found = findWorkspace(await readWorkspaces(), workspace);"
       },
       {
-        "line": 69,
+        "line": 71,
         "text": "readWorkspacePlanIndex(workspace),"
       }
     ],
@@ -74135,6 +75708,112 @@
       {
         "line": 14,
         "text": "import type { Plan } from '@/domain/plan/plan.generated';"
+      }
+    ],
+    "status": "adapter"
+  },
+  {
+    "category": "fixture or test",
+    "file": "src/infrastructure/read-model.test.ts",
+    "hits": [
+      {
+        "line": 7,
+        "text": "import { entitiesIn } from '@/domain/workspace-model';"
+      },
+      {
+        "line": 28,
+        "text": "expect(model?.domains[0]?.target?.shifts?.[0]?.cites).toEqual(['sys:ordering']);"
+      },
+      {
+        "line": 34,
+        "text": "system?.components.find((component) => component.id === 'st:unknown-owner'),"
+      },
+      {
+        "line": 51,
+        "text": "const nested = entities.find((entity) => entity.id === 'h:confirm#tx/save');"
+      },
+      {
+        "line": 53,
+        "text": "parent: 'h:confirm#tx',"
+      },
+      {
+        "line": 54,
+        "text": "place: { domain: 'dom:orders', system: 'sys:ordering', component: 'svc:ordering' },"
+      },
+      {
+        "line": 56,
+        "text": "expect(entities.find((entity) => entity.id === 'h:confirm#!db-down')?.kind).toBe('failure');"
+      },
+      {
+        "line": 57,
+        "text": "expect(entities.find((entity) => entity.id === 'sch:order#status')?.place).toMatchObject({"
+      },
+      {
+        "line": 58,
+        "text": "system: 'sys:ordering',"
+      },
+      {
+        "line": 59,
+        "text": "component: 'st:orders',"
+      },
+      {
+        "line": 62,
+        "text": "expect(entities.find((entity) => entity.id === 'api:confirm')?.parent).toBe('if:orders');"
+      },
+      {
+        "line": 84,
+        "text": "id: 'h:confirm',"
+      },
+      {
+        "line": 89,
+        "text": "const gap = model?.problems.find((problem) => problem.id === 'h:confirm');"
+      },
+      {
+        "line": 110,
+        "text": "const file = path.join(folder, 'domains/orders/systems/ordering/system.yaml');"
+      },
+      {
+        "line": 113,
+        "text": "await expect(readModel('model-fixture', root)).rejects.toThrow('system.yaml');"
+      }
+    ],
+    "status": "adapter"
+  },
+  {
+    "category": "consumer",
+    "file": "src/infrastructure/read-model.ts",
+    "hits": [
+      {
+        "line": 17,
+        "text": "WorkspaceModel,"
+      },
+      {
+        "line": 18,
+        "text": "} from '@/domain/workspace-model';"
+      },
+      {
+        "line": 50,
+        "text": "const remembered = untilEdited<WorkspaceModel | null>(() => '', { evidence: true });"
+      },
+      {
+        "line": 157,
+        "text": "const file = pathIn(folder, 'system.yaml');"
+      },
+      {
+        "line": 167,
+        "text": "(await optional(pathIn(folder, 'contracts.yaml'), 'ContractsFile', scope, reading)) ?? {};"
+      },
+      {
+        "line": 308,
+        "text": "async function readFolder(folder: string, id: string): Promise<WorkspaceModel> {"
+      },
+      {
+        "line": 346,
+        "text": "pathIn(folder, 'landscape.yaml'),"
+      },
+      {
+        "line": 379,
+        "text": "export async function readModel(id: string, root?: string): Promise<WorkspaceModel | null> {"
       }
     ],
     "status": "adapter"
@@ -74649,47 +76328,78 @@
     "hits": [
       {
         "line": 3,
+        "text": "import { placementDataOf, type LegacyPlacements } from '@/application/plan/derive-placement';"
+      },
+      {
+        "line": 4,
         "text": "import { type SystemModel, systemModelOf } from '@/application/workspace-model';"
       },
       {
-        "line": 5,
+        "line": 6,
         "text": "import type { Workspace } from '@/domain/workspace';"
       },
       {
-        "line": 8,
+        "line": 9,
         "text": "import { readWorkspaceModel } from './workspace-model';"
       },
       {
-        "line": 9,
+        "line": 10,
         "text": "import { readWorkspaces } from './workspace-store';"
       },
       {
-        "line": 11,
+        "line": 12,
         "text": "export interface Today {"
       },
       {
-        "line": 12,
+        "line": 13,
         "text": "readonly workspace: Workspace;"
       },
       {
-        "line": 14,
+        "line": 15,
         "text": "readonly today: SystemModel;"
       },
       {
-        "line": 17,
+        "line": 18,
         "text": "const remembered = untilEdited<Today | null>();"
       },
       {
-        "line": 23,
+        "line": 24,
         "text": "export async function readToday(id: string, root?: string): Promise<Today | null> {"
       },
       {
-        "line": 25,
+        "line": 26,
         "text": "const workspace = findWorkspace(await readWorkspaces(root), id);"
       },
       {
-        "line": 29,
+        "line": 30,
         "text": "today: systemModelOf(workspace, await readWorkspaceModel(workspace, root)),"
+      },
+      {
+        "line": 35,
+        "text": "/** Declared live containment for legacy browser projections, until those consumers use WorkspaceModel. */"
+      },
+      {
+        "line": 37,
+        "text": "const found = await readToday(id, root);"
+      }
+    ],
+    "status": "adapter"
+  },
+  {
+    "category": "consumer",
+    "file": "src/infrastructure/validate-model.ts",
+    "hits": [
+      {
+        "line": 4,
+        "text": "import type { ModelDomain, ModelSystem, WorkspaceModel } from '@/domain/workspace-model';"
+      },
+      {
+        "line": 87,
+        "text": "function fragments(model: WorkspaceModel): readonly Fragment[] {"
+      },
+      {
+        "line": 132,
+        "text": "export async function validateModel(model: WorkspaceModel): Promise<readonly ModelProblem[]> {"
       }
     ],
     "status": "adapter"
@@ -74915,7 +76625,7 @@
       },
       {
         "line": 17,
-        "text": "WorkspaceModel,"
+        "text": "LegacyWorkspaceModel,"
       },
       {
         "line": 18,
@@ -74947,7 +76657,7 @@
       },
       {
         "line": 47,
-        "text": "): Promise<WorkspaceModel> {"
+        "text": "): Promise<LegacyWorkspaceModel> {"
       },
       {
         "line": 66,
@@ -74969,35 +76679,63 @@
     "file": "src/infrastructure/workspace-plan-index.test.ts",
     "hits": [
       {
-        "line": 16,
+        "line": 18,
         "text": "const { readWorkspacePlanIndex } = await import('./workspace-plan-index');"
       },
       {
-        "line": 37,
+        "line": 39,
         "text": "summary: 'A paused order does not say why; see [[api:orders-pause]].',"
       },
       {
-        "line": 44,
+        "line": 46,
         "text": "ops: [{ modify: 'api:orders-pause', set: { sig: 'POST /orders/{id}/pause?reason' } }],"
       },
       {
-        "line": 49,
+        "line": 51,
         "text": "describe('readWorkspacePlanIndex', () => {"
       },
       {
-        "line": 63,
+        "line": 70,
+        "text": "ops: [{ modify: 'st:orders-db', set: { does: 'Keeps orders' } }],"
+      },
+      {
+        "line": 77,
         "text": "const index = await readWorkspacePlanIndex('acme', root);"
       },
       {
-        "line": 79,
+        "line": 78,
+        "text": "expect(index?.changes.get('resource/chg:resource')?.systems).toEqual(['sys:ordering']);"
+      },
+      {
+        "line": 101,
+        "text": "const index = await readWorkspacePlanIndex('acme', root);"
+      },
+      {
+        "line": 103,
+        "text": "'sys:ordering',"
+      },
+      {
+        "line": 104,
+        "text": "'sys:payments',"
+      },
+      {
+        "line": 105,
+        "text": "'sys:shop',"
+      },
+      {
+        "line": 122,
+        "text": "const index = await readWorkspacePlanIndex('acme', root);"
+      },
+      {
+        "line": 138,
         "text": "await expect(readWorkspacePlanIndex('nowhere', root)).resolves.toBeNull();"
       },
       {
-        "line": 89,
+        "line": 148,
         "text": "const index = await readWorkspacePlanIndex('acme', root);"
       },
       {
-        "line": 144,
+        "line": 203,
         "text": "const ordering = impactVM(index, { kind: 'system', id: 'sys:ordering', name: 'Ordering' });"
       }
     ],
@@ -75008,23 +76746,23 @@
     "file": "src/infrastructure/workspace-plan-index.ts",
     "hits": [
       {
-        "line": 7,
+        "line": 6,
         "text": "import type { Programme } from '@/domain/plan/plan.generated';"
       },
       {
-        "line": 9,
+        "line": 8,
         "text": "import { readToday } from './today-model';"
       },
       {
-        "line": 20,
+        "line": 19,
         "text": "function systemsOfToday(today: NonNullable<Awaited<ReturnType<typeof readToday>>>['today']) {"
       },
       {
-        "line": 33,
+        "line": 36,
         "text": "export async function readWorkspacePlanIndex("
       },
       {
-        "line": 38,
+        "line": 41,
         "text": "const found = await readToday(workspace, root);"
       }
     ],
@@ -75542,7 +77280,7 @@
       },
       {
         "line": 20,
-        "text": "WorkspaceModel,"
+        "text": "LegacyWorkspaceModel,"
       },
       {
         "line": 21,
@@ -75994,7 +77732,7 @@
       },
       {
         "line": 630,
-        "text": "parts: Omit<WorkspaceModel, 'attribution' | 'scans'>,"
+        "text": "parts: Omit<LegacyWorkspaceModel, 'attribution' | 'scans'>,"
       },
       {
         "line": 649,
@@ -76010,7 +77748,7 @@
       },
       {
         "line": 661,
-        "text": "export function acmeModel(): WorkspaceModel {"
+        "text": "export function acmeModel(): LegacyWorkspaceModel {"
       }
     ],
     "status": "adapter"
@@ -76319,15 +78057,15 @@
       },
       {
         "line": 9,
-        "text": "import type { SystemContracts, WorkspaceModel } from '@/domain/workspace-model';"
+        "text": "import type { SystemContracts, LegacyWorkspaceModel } from '@/domain/workspace-model';"
       },
       {
         "line": 11,
-        "text": "const contractsOf = (model: WorkspaceModel, system: string): SystemContracts => {"
+        "text": "const contractsOf = (model: LegacyWorkspaceModel, system: string): SystemContracts => {"
       },
       {
         "line": 20,
-        "text": "function paymentsToday(model: WorkspaceModel): void {"
+        "text": "function paymentsToday(model: LegacyWorkspaceModel): void {"
       },
       {
         "line": 25,
@@ -76343,7 +78081,7 @@
       },
       {
         "line": 51,
-        "text": "function shopToday(model: WorkspaceModel): void {"
+        "text": "function shopToday(model: LegacyWorkspaceModel): void {"
       },
       {
         "line": 56,
@@ -76371,7 +78109,7 @@
       },
       {
         "line": 99,
-        "text": "function orderingToday(model: WorkspaceModel): void {"
+        "text": "function orderingToday(model: LegacyWorkspaceModel): void {"
       },
       {
         "line": 106,
@@ -76511,19 +78249,19 @@
       },
       {
         "line": 266,
-        "text": "function flowsToday(model: WorkspaceModel): Flow[] {"
+        "text": "function flowsToday(model: LegacyWorkspaceModel): Flow[] {"
       },
       {
         "line": 283,
-        "text": "function interactionsToday(model: WorkspaceModel): Interaction[] {"
+        "text": "function interactionsToday(model: LegacyWorkspaceModel): Interaction[] {"
       },
       {
         "line": 329,
-        "text": "const journeysToday = (model: WorkspaceModel): UserJourney[] => ["
+        "text": "const journeysToday = (model: LegacyWorkspaceModel): UserJourney[] => ["
       },
       {
         "line": 340,
-        "text": "function coreTodayModel(): WorkspaceModel {"
+        "text": "function coreTodayModel(): LegacyWorkspaceModel {"
       },
       {
         "line": 354,
@@ -77890,6 +79628,145 @@
   },
   {
     "category": "fixture or test",
+    "file": "test/fixtures/model-queries.ts",
+    "hits": [
+      {
+        "line": 2,
+        "text": "import type { ModelCite, ModelSystem, WorkspaceModel } from '@/domain/workspace-model';"
+      },
+      {
+        "line": 26,
+        "text": "export function emptyQueryModel(): WorkspaceModel {"
+      },
+      {
+        "line": 44,
+        "text": "export function queryModel(): WorkspaceModel {"
+      },
+      {
+        "line": 60,
+        "text": "...system('sys:a', 'A'),"
+      },
+      {
+        "line": 63,
+        "text": "components: [{ id: 'svc:a', kind: 'service', name: 'A', homes: ['a'] }],"
+      },
+      {
+        "line": 66,
+        "text": "id: 'if:a',"
+      },
+      {
+        "line": 68,
+        "text": "component: 'svc:a',"
+      },
+      {
+        "line": 69,
+        "text": "entries: [{ id: 'api:a', method: 'GET', path: '/a' }],"
+      },
+      {
+        "line": 72,
+        "text": "id: 'if:supplier',"
+      },
+      {
+        "line": 75,
+        "text": "entries: [{ id: 'api:supplier', call: 'Supplier.load' }],"
+      },
+      {
+        "line": 78,
+        "text": "connections: [{ to: 'sys:b', says: 'Publishes to B', backs: ['h:a'] }],"
+      },
+      {
+        "line": 81,
+        "text": "id: 'h:a',"
+      },
+      {
+        "line": 82,
+        "text": "component: 'svc:a',"
+      },
+      {
+        "line": 83,
+        "text": "on: 'api:a',"
+      },
+      {
+        "line": 86,
+        "text": "{ id: 'read', read: 'sch:remote#id', from: 'st:remote', cites: [cite] },"
+      },
+      {
+        "line": 87,
+        "text": "{ id: 'write', write: 'sch:remote#id', to: 'st:remote', cites: [cite] },"
+      },
+      {
+        "line": 88,
+        "text": "{ id: 'publish', publish: 'msg:remote', cites: [cite] },"
+      },
+      {
+        "line": 89,
+        "text": "{ id: 'call', call: 'api:supplier', cites: [cite] },"
+      },
+      {
+        "line": 96,
+        "text": "from: 'svc:a',"
+      },
+      {
+        "line": 106,
+        "text": "...system('sys:b', 'B'),"
+      },
+      {
+        "line": 110,
+        "text": "{ id: 'svc:b', kind: 'service', name: 'B' },"
+      },
+      {
+        "line": 112,
+        "text": "id: 'st:remote',"
+      },
+      {
+        "line": 116,
+        "text": "owner: { id: 'svc:a', cites: [cite] },"
+      },
+      {
+        "line": 122,
+        "text": "id: 'sch:remote',"
+      },
+      {
+        "line": 124,
+        "text": "store: 'st:remote',"
+      },
+      {
+        "line": 128,
+        "text": "messages: [{ id: 'msg:remote', topic: 'top:remote', payload: 'sch:remote' }],"
+      },
+      {
+        "line": 129,
+        "text": "subscriptions: [{ id: 'sub:b', component: 'svc:b', message: 'msg:remote' }],"
+      },
+      {
+        "line": 130,
+        "text": "jobs: [{ id: 'job:b', component: 'svc:b' }],"
+      },
+      {
+        "line": 134,
+        "text": "from: 'svc:b',"
+      },
+      {
+        "line": 135,
+        "text": "to: 'st:remote',"
+      },
+      {
+        "line": 143,
+        "text": "from: 'svc:b',"
+      },
+      {
+        "line": 144,
+        "text": "to: 'sys:unmapped',"
+      },
+      {
+        "line": 152,
+        "text": "{ ...system('sys:unmapped', 'Unmapped'), mapped: false },"
+      }
+    ],
+    "status": "adapter"
+  },
+  {
+    "category": "fixture or test",
     "file": "test/fixtures/model/aliases.yaml",
     "hits": [
       {
@@ -78041,6 +79918,14 @@
       {
         "line": 92,
         "text": "id: 'sch:graph-order',"
+      },
+      {
+        "line": 98,
+        "text": "- id: sch:graph-query"
+      },
+      {
+        "line": 104,
+        "text": "- { id: order, name: order, type: 'sch:graph-order', subgraphs: ['sg:orders'] }"
       }
     ],
     "status": "adapter"
@@ -78878,7 +80763,7 @@
       },
       {
         "line": 4,
-        "text": "import type { DomainLanguage, KeyTerm, WorkspaceModel } from '@/domain/workspace-model';"
+        "text": "import type { DomainLanguage, KeyTerm, LegacyWorkspaceModel } from '@/domain/workspace-model';"
       },
       {
         "line": 17,
@@ -78886,7 +80771,7 @@
       },
       {
         "line": 26,
-        "text": "const speaking: WorkspaceModel = {"
+        "text": "const speaking: LegacyWorkspaceModel = {"
       },
       {
         "line": 30,
@@ -78902,7 +80787,7 @@
       },
       {
         "line": 57,
-        "text": "export function withStrayTerm(model: WorkspaceModel): WorkspaceModel {"
+        "text": "export function withStrayTerm(model: LegacyWorkspaceModel): LegacyWorkspaceModel {"
       }
     ],
     "status": "adapter"
@@ -79137,7 +81022,7 @@
       },
       {
         "line": 12,
-        "text": "import type { CodeSource, SystemContracts, WorkspaceModel } from '@/domain/workspace-model';"
+        "text": "import type { CodeSource, SystemContracts, LegacyWorkspaceModel } from '@/domain/workspace-model';"
       },
       {
         "line": 18,
@@ -79145,7 +81030,7 @@
       },
       {
         "line": 19,
-        "text": "readonly model: WorkspaceModel;"
+        "text": "readonly model: LegacyWorkspaceModel;"
       },
       {
         "line": 20,
@@ -79160,51 +81045,55 @@
         "text": "* `await writeWorkspace(path.join(root, 'acme'), acmeFiles())`, then `readWorkspaces(root)`."
       },
       {
-        "line": 71,
-        "text": "export function filesOf(workspace: Workspace, model: WorkspaceModel): Record<string, unknown> {"
-      },
-      {
-        "line": 75,
-        "text": "'story.yaml': {"
-      },
-      {
-        "line": 105,
-        "text": "`scans/${scan.repo}.yaml`,"
-      },
-      {
-        "line": 120,
-        "text": "function structureFiles(workspace: Workspace): Record<string, unknown> {"
-      },
-      {
-        "line": 140,
-        "text": "files[`domains/${domain.id}/systems/${system.id}/system.yaml`] = set({"
-      },
-      {
-        "line": 147,
-        "text": "set({ ...component, talks_to: talksTo }),"
-      },
-      {
-        "line": 155,
-        "text": "function keyTermsFile({ keyTerms }: WorkspaceModel): Entry {"
-      },
-      {
-        "line": 176,
-        "text": "function factOf(model: WorkspaceModel): Fact {"
-      },
-      {
-        "line": 207,
-        "text": "function journeyFiles(model: WorkspaceModel, fact: Fact): Record<string, unknown> {"
-      },
-      {
-        "line": 241,
+        "line": 72,
         "text": "workspace: Workspace,"
       },
       {
-        "line": 242,
-        "text": "model: WorkspaceModel,"
+        "line": 73,
+        "text": "model: LegacyWorkspaceModel,"
       },
       {
-        "line": 262,
+        "line": 78,
+        "text": "'story.yaml': {"
+      },
+      {
+        "line": 108,
+        "text": "`scans/${scan.repo}.yaml`,"
+      },
+      {
+        "line": 123,
+        "text": "function structureFiles(workspace: Workspace): Record<string, unknown> {"
+      },
+      {
+        "line": 143,
+        "text": "files[`domains/${domain.id}/systems/${system.id}/system.yaml`] = set({"
+      },
+      {
+        "line": 150,
+        "text": "set({ ...component, talks_to: talksTo }),"
+      },
+      {
+        "line": 158,
+        "text": "function keyTermsFile({ keyTerms }: LegacyWorkspaceModel): Entry {"
+      },
+      {
+        "line": 179,
+        "text": "function factOf(model: LegacyWorkspaceModel): Fact {"
+      },
+      {
+        "line": 210,
+        "text": "function journeyFiles(model: LegacyWorkspaceModel, fact: Fact): Record<string, unknown> {"
+      },
+      {
+        "line": 244,
+        "text": "workspace: Workspace,"
+      },
+      {
+        "line": 245,
+        "text": "model: LegacyWorkspaceModel,"
+      },
+      {
+        "line": 265,
         "text": "files[`domains/${domain.id}/systems/${system.id}/contracts.yaml`] = {"
       }
     ],
@@ -79612,7 +81501,7 @@
         "text": "const OUTPUT = path.join(ROOT, 'src/domain/plan/plan.generated.ts');"
       },
       {
-        "line": 272,
+        "line": 354,
         "text": "\"/* Generated by tools/generate-plan-types.ts. Do not edit: run npm run generate. */\\nimport type { CanonicalEvidenceTypes } from '@/domain/model/evidence.generated';\\nimport type { CanonicalPlanTypes } from '@/domain/model/plan.generated';\\nimport type { WorkspaceDocumentTypes } from '@/domain/model/workspace.generated';\\n\\n/** Schema-generated data is exposed as immutable values throughout the model. */\\nexport type ReadonlyData<T> = T extends object\\n  ? { readonly [Key in keyof T]: ReadonlyData<T[Key]> }\\n  : T;\\n\\nexport interface ContractTypes {\\n  readonly workspace: WorkspaceDocumentTypes;\\n  readonly plan: CanonicalPlanTypes;\\n  readonly evidence: CanonicalEvidenceTypes;\\n}\\nexport type ContractFamily = keyof ContractTypes;\\nexport type ContractDefinition<Family extends ContractFamily> = Extract<\\n  keyof ContractTypes[Family],\\n  string\\n>;\\nexport type ContractData<\\n  Family extends ContractFamily,\\n  Definition extends ContractDefinition<Family>,\\n> = ReadonlyData<ContractTypes[Family][Definition]>;\\n\","
       }
     ],

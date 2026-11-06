@@ -14,7 +14,7 @@ import type {
   Story,
   SystemContracts,
   TargetArchitecture,
-  WorkspaceModel,
+  LegacyWorkspaceModel,
 } from '@/domain/workspace-model';
 import { pathIn, listFolder, readText, readTextIfAny } from '@/infrastructure/disk';
 
@@ -44,7 +44,7 @@ import {
 export async function readWorkspaceModel(
   workspace: Workspace,
   root?: string,
-): Promise<WorkspaceModel> {
+): Promise<LegacyWorkspaceModel> {
   const folder = await workspaceFolder(workspace.id, root);
   if (folder === null) throw new Error(`workspace ${workspace.id}: no folder holds it`);
   const reading = readingOf();

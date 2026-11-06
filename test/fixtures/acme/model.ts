@@ -17,7 +17,7 @@ import type {
   Scan,
   SystemContracts,
   TargetArchitecture,
-  WorkspaceModel,
+  LegacyWorkspaceModel,
 } from '@/domain/workspace-model';
 
 /** Where the cited facts live in Acme's repos. */
@@ -627,7 +627,7 @@ const idsOf = (entries: readonly { readonly id: string }[]): string[] =>
 
 /** Who said each fact: everything a scan read is extracted, the rest curated; three facts cite code. */
 function attributionOf(
-  parts: Omit<WorkspaceModel, 'attribution' | 'scans'>,
+  parts: Omit<LegacyWorkspaceModel, 'attribution' | 'scans'>,
 ): Record<string, Attribution> {
   const extracted = parts.contracts.flatMap((each) => [
     ...idsOf(each.components),
@@ -658,7 +658,7 @@ function attributionOf(
 }
 
 /** A fresh copy of Acme's model of today every call. */
-export function acmeModel(): WorkspaceModel {
+export function acmeModel(): LegacyWorkspaceModel {
   const parts = {
     story: {
       summary:

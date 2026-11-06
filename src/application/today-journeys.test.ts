@@ -2,6 +2,7 @@
 import { describe, expect, it } from 'vitest';
 
 import { acme } from '@/../test/workspace-kit';
+import { derive } from '@/application/plan/derive';
 import { journeyGroups } from '@/application/plan-story-journey-groups';
 
 import { flowsByStage, journeyClaim, journeysHeadline, todayJourneysOf } from './today-journeys';
@@ -40,6 +41,38 @@ describe('the journeys of today', () => {
       steps: 6,
     });
     expect(journeysHeadline(journeys)).toMatch(/journey|flow/u);
+  });
+
+  it('crosses the containing system of a store independently of its owner', () => {
+    const { today: source } = acme();
+    const placements = Object.fromEntries(
+      [...source.model.asIs.byId.keys()].map((id) => [id, source.model.place(id) ?? undefined]),
+    );
+    const model = derive(
+      {
+        ...source.plan,
+        stores: (source.plan.stores ?? []).map((store) => ({ ...store, owner: 'svc:products' })),
+        user_journeys: [],
+        flows: [
+          {
+            id: 'flow:store-only',
+            name: 'Store walk',
+            actor: 'Fixture',
+            steps: [
+              {
+                id: 'flow:store-only#stay',
+                action: 'Read the store',
+                from: 'st:orders-db',
+                to: 'st:orders-db',
+                via: 'api:orders-create',
+              },
+            ],
+          },
+        ],
+      },
+      { placements },
+    );
+    expect(todayJourneysOf(model)[0]?.systems).toEqual(['sys:ordering']);
   });
 
   it('files every flow under exactly one stage', () => {

@@ -3,7 +3,6 @@ import {
   type WorkspacePlanIndex,
   workspacePlanIndexOf,
 } from '@/application/workspace-work/workspace-plan-index';
-import { hasPrefix } from '@/domain/ids';
 import type { Programme } from '@/domain/plan/plan.generated';
 
 import { readToday } from './today-model';
@@ -16,16 +15,20 @@ import { readProgrammes } from './workspace-programmes';
 
 const remembered = untilEdited<WorkspacePlanIndex | null>();
 
-/** The system each thing in today's model belongs to: a system itself, else the system of the component holding it. */
+/** Cross-system flows touch their recorded participants; placement still belongs to each component. */
 function systemsOfToday(today: NonNullable<Awaited<ReturnType<typeof readToday>>>['today']) {
-  const { plan, model } = today;
-  const systemOfService = new Map(
-    plan.services.flatMap((s) => (s.system === undefined ? [] : [[s.id, s.system] as const])),
-  );
-  return (id: string): string | null => {
-    if (hasPrefix(id, 'sys')) return id;
-    const service = model.ownerService(id) ?? id;
-    return systemOfService.get(service) ?? null;
+  return (id: string): readonly string[] => {
+    const node = today.model.asIs.get(id);
+    const participants =
+      node?.$type === 'flow' ? node.steps.flatMap((step) => [step.from, step.to]) : [id];
+    return [
+      ...new Set(
+        participants.flatMap((participant) => {
+          const system = today.model.place(participant)?.system;
+          return system === undefined || system === null ? [] : [system];
+        }),
+      ),
+    ];
   };
 }
 
@@ -62,7 +65,7 @@ export async function readWorkspacePlanIndex(
         partner: team.partner === true,
         contacts: (team.contacts ?? []).map((c) => ({ name: c.name, role: c.role })),
       })),
-      systemOf: systemsOfToday(found.today),
+      systemsOf: systemsOfToday(found.today),
     });
   });
 }

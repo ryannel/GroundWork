@@ -45,8 +45,8 @@ export interface PlanIndexInput {
   readonly plans: readonly IndexPlanInput[];
   readonly programmes: readonly Programme[];
   readonly teams: readonly IndexTeam[];
-  /** The system that holds a thing today, for what a change touches; null when it is not known. */
-  readonly systemOf?: (id: string) => string | null;
+  /** The recorded systems a thing touches today; an unplaced cross-system flow has several. */
+  readonly systemsOf?: (id: string) => readonly string[];
 }
 
 export interface IndexedPlan {
@@ -153,63 +153,67 @@ export const isHeldUp = (work: IndexedWork): boolean =>
   work.standing.progress?.state === 'blocked' ||
   STOPPED.has(work.standing.commitment?.state ?? null);
 
-/** What an add op adds to: the system it adds, or the system of the component it adds. */
+/** What an add op adds to: the system it adds, or the recorded systems it changes. */
 function addedTo(
   kind: string,
   value: Readonly<Record<string, unknown>>,
-  systemOf: (id: string) => string | null,
-): string | null {
-  if (kind === 'system' && typeof value.id === 'string') return value.id;
-  if (typeof value.system === 'string') return value.system;
-  return typeof value.id === 'string' ? systemOf(value.id) : null;
+  systemsOf: (id: string) => readonly string[],
+): readonly string[] {
+  if (kind === 'system' && typeof value.id === 'string') return [value.id];
+  if (typeof value.system === 'string') return [value.system];
+  return typeof value.id === 'string' ? systemsOf(value.id) : [];
 }
 
-/** The system one op touches, or '' when it is not known. */
-function systemOfOp(
+/** An op can touch several systems without assigning a global flow to one of them. */
+function systemsOfOp(
   op: Readonly<Record<string, unknown>>,
-  systemOf: (id: string) => string | null,
-): string {
+  systemsOf: (id: string) => readonly string[],
+): readonly string[] {
   const { value } = op;
   if (typeof op.add === 'string') {
-    const into = typeof op.into === 'string' ? systemOf(rootOf(op.into)) : null;
-    return (isRecord(value) ? addedTo(op.add, value, systemOf) : null) ?? into ?? '';
+    const added = isRecord(value) ? addedTo(op.add, value, systemsOf) : [];
+    if (added.length > 0) return added;
+    return typeof op.into === 'string' ? systemsOf(rootOf(op.into)) : [];
   }
   const target = op.modify ?? op.remove ?? op.deprecate;
-  if (typeof target !== 'string') return '';
-  return hasPrefix(target, 'sys') ? target : (systemOf(rootOf(target)) ?? '');
+  if (typeof target !== 'string') return [];
+  return hasPrefix(target, 'sys') ? [target] : systemsOf(target);
 }
 
-/** The systems a change touches: what its ops add (a system, or a component's system) and what they target. */
+/** The systems a change touches, from its declared targets and additions. */
 function systemsOfChange(
   ops: readonly unknown[],
-  systemOf: (id: string) => string | null,
+  systemsOf: (id: string) => readonly string[],
 ): readonly string[] {
-  const found = ops.flatMap((op) => (isRecord(op) ? [systemOfOp(op, systemOf)] : []));
-  return [...new Set(found.filter((id) => id !== ''))].toSorted((a, b) => a.localeCompare(b));
+  const found = ops.flatMap((op) => (isRecord(op) ? systemsOfOp(op, systemsOf) : []));
+  return [...new Set(found)].toSorted((a, b) => a.localeCompare(b));
 }
 
-/** What each plan's add ops add, by id, with the system it lands in: a later plan may change what an earlier adds. */
+/** Later plans may change an entity an earlier plan adds, retaining every recorded system. */
 function plannedSystems(
   inputs: readonly IndexPlanInput[],
-  today: (id: string) => string | null,
-): (id: string) => string | null {
-  const planned = new Map<string, string>();
-  const systemOf = (id: string): string | null => today(id) ?? planned.get(id) ?? null;
+  today: (id: string) => readonly string[],
+): (id: string) => readonly string[] {
+  const planned = new Map<string, readonly string[]>();
+  const systemsOf = (id: string): readonly string[] => {
+    const current = today(id);
+    return current.length > 0 ? current : (planned.get(id) ?? []);
+  };
   for (const op of inputs.flatMap((input) =>
     (input.plan.changes ?? []).flatMap((c) => c.ops ?? []),
   )) {
     if (!isRecord(op) || typeof op.add !== 'string' || !isRecord(op.value)) continue;
     const { id } = op.value;
-    const system = systemOfOp(op, systemOf);
-    if (typeof id === 'string' && system !== '') planned.set(id, system);
+    const systems = systemsOfOp(op, systemsOf);
+    if (typeof id === 'string' && systems.length > 0) planned.set(id, systems);
   }
-  return systemOf;
+  return systemsOf;
 }
 
 function changesOf(
   input: IndexPlanInput,
   workspace: string,
-  systemOf: (id: string) => string | null,
+  systemsOf: (id: string) => readonly string[],
 ): IndexedChange[] {
   const at = { workspace, slug: input.slug };
   return (input.plan.changes ?? []).map((change) => ({
@@ -219,7 +223,7 @@ function changesOf(
     title: change.title,
     href: thingHref(at, change.id),
     realisation: input.standing.changes.find((each) => each.change === change.id)?.state ?? null,
-    systems: systemsOfChange(change.ops ?? [], systemOf),
+    systems: systemsOfChange(change.ops ?? [], systemsOf),
   }));
 }
 
@@ -347,7 +351,7 @@ function overlapsIn(inputs: readonly IndexPlanInput[]): Overlap[] {
   return [...found.entries()].toSorted(([a], [b]) => a.localeCompare(b)).map(([, o]) => o);
 }
 
-const noSystem = (): null => null;
+const noSystem = (): readonly string[] => [];
 
 /** The workspace's plans read into one index. */
 export function workspacePlanIndexOf(input: PlanIndexInput): WorkspacePlanIndex {
@@ -390,8 +394,8 @@ export function workspacePlanIndexOf(input: PlanIndexInput): WorkspacePlanIndex 
       },
     ]),
   );
-  const systemOf = plannedSystems(sorted, input.systemOf ?? noSystem);
-  const changes = sorted.flatMap((each) => changesOf(each, workspace, systemOf));
+  const systemsOf = plannedSystems(sorted, input.systemsOf ?? noSystem);
+  const changes = sorted.flatMap((each) => changesOf(each, workspace, systemsOf));
   const work = sorted.flatMap((each) => workOf(each, workspace, programmeIds));
   const overlaps = overlapsIn(sorted);
   return {

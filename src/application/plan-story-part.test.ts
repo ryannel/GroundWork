@@ -69,18 +69,10 @@ describe('a team’s part in a plan', () => {
         caller: null,
         sameCall: false,
       },
-      {
-        flow: 'flow:publish-product',
-        id: 'flow:publish-product#orders',
-        kind: 'new',
-        action: 'Keep the dispatch days',
-        from: 'st:product-events',
-        to: 'svc:order-api',
-        via: 'msg:product-changed-v2',
-        caller: null,
-        sameCall: false,
-      },
     ]);
+    expect(teamPart(model, 'team:orders').steps.map((step) => step.id)).toContain(
+      'flow:publish-product#orders',
+    );
     expect(otherChanges(model, part)).toEqual(['chg:retire-v1']);
     expect(otherChanges(model, teamPart(model, 'team:web'))).toEqual(['chg:shop-shows-date']);
   });

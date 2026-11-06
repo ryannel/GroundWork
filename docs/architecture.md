@@ -3,8 +3,9 @@
 Groundwork is a Next.js site run as a Node server (`npm run dev`, or `npm run build` then `npm start`). Each page
 is drawn on request: it reads the YAML of the workspace, works out what the page says, and renders it, so an edit
 shows on the next load. The readers keep what they work out until a file under the workspace changes, so a page
-is cheap to draw again. The generated `explorer/` and `evidence/` folders are not watched: no kept reader reads
-them, and stamping their thousands of files cost seconds a request. The site only reads; it writes nothing.
+is cheap to draw again. Legacy readers leave generated `explorer/` and `evidence/` folders out of their watch: they do not read
+them, and stamping their thousands of files cost seconds a request. The canonical `readModel` reader watches
+`evidence/` as well as authored files because its citations depend on repository pins and evidence records. The site only reads; it writes nothing.
 
 Plans are checked when they are written and before they are committed, not when a page reads them: checking every
 reference of every plan against the whole of today cost seconds on each page of a large workspace. A page trusts
@@ -23,6 +24,26 @@ Ajv for both direct checks and file loading; its errors retain JSON instance pat
 fixture under `test/fixtures/model/` exercises these contracts. Existing readers continue to use the
 unchanged `schema/legacy-plan.schema.json` and legacy workspace validators until they move to the new
 model. New fields are declared in JSON Schema and regenerated, rather than copied into handwritten types.
+
+The canonical `WorkspaceModel` is serialisable data. `readModel` validates authored fragments, resolves only
+schema-declared source citations and joins them by file containment. An unresolved pin, home or inherited
+span stays in `problems`. Generated citation metadata follows the same schema definitions; arbitrary business
+JSON and target-shift model-id citations are not rewritten. Duplicate evidence identities fail before any
+reference can select an arbitrary record.
+
+`indexOf` derives placement, execution edges, reverse queries, graph composition, roles, ownership and gaps.
+Placement follows containment; resource ownership needs an explicit cited owner. Graph composition follows
+selected, required and provided fields and reports unresolved or ambiguous composition. Its possible resolver
+reach is not an observed runtime query plan. `apply` edits a private clone, preserves declared identities and
+resolves new citations; `validateModel` rechecks the resulting fragments with the same contracts. `plansIndex`
+is separate from the model index and gives each plan independent before and after values.
+
+`legacyViewOf` is the named compatibility boundary for workspace/domain page consumers. Its workspace tree
+retains canonical facets on their containing systems, with explicit aliases for legacy identity and narrative
+fields. A recursive loss report compares every source field with that carrier. The page projection uses legacy
+representations only where they are supported; it does not guess a transport, store form or service owner.
+Other legacy consumers continue on the existing reader until their migration. Transitional `Model.place`
+queries accept containment explicitly and never derive it from resource ownership.
 
 ## The model
 

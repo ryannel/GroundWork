@@ -28,10 +28,10 @@ connections:
     says: Publishes confirmed orders for delivery.
     backs: ['h:confirm#tx/queue']
 relationships:
-  - id: rel:payments
+  - id: rel:notifications
     from: svc:ordering
-    to: ext:payments
+    to: ext:notifications
     kind: call
-    says: Configures the payment client.
+    says: Configures the notification client.
     reason: Only client registration is available in this synthetic example.
     cites: ['ev:source']

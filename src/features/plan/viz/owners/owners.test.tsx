@@ -26,7 +26,7 @@ describe('OwnershipTable', () => {
     expect(container.textContent).toContain('#team-orders');
     expect(facts(container, 'team:catalogue').split('|')).toEqual([
       '4',
-      '3',
+      '2',
       '1',
       '2',
       '4',

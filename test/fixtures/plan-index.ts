@@ -254,6 +254,9 @@ export function careInput(
     ],
     programmes: [PROGRAMME],
     teams: TEAMS,
-    systemOf: (id) => SYSTEMS[id] ?? null,
+    systemsOf: (id) => {
+      const system = SYSTEMS[id];
+      return system === undefined ? [] : [system];
+    },
   };
 }

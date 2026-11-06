@@ -5,13 +5,15 @@ import { afterAll, describe, expect, it, vi } from 'vitest';
 
 import { pauseOrdersOverlay } from '@/../test/fixtures/acme/plans/pause-orders';
 import { pausingFiles } from '@/../test/fixtures/acme/plans/pausing-programme';
-import { acmeFiles, writeWorkspace } from '@/../test/workspace-kit';
+import { acme, acmeFiles, filesOf, writeWorkspace } from '@/../test/workspace-kit';
 import { impactRowsOf, impactVM } from '@/application/workspace-work/impact';
 import { partnerPageVM } from '@/application/workspace-work/partner-page';
 import { partnersVM } from '@/application/workspace-work/partners';
 import { programmePageVM, programmeRowsOf } from '@/application/workspace-work/programme-page';
 
 vi.mock(import('server-only'), () => ({}));
+
+const { readPlanState } = await import('./workspace-plans');
 
 const { readWorkspacePlanIndex } = await import('./workspace-plan-index');
 
@@ -47,6 +49,63 @@ const PAUSE_REASONS = {
 };
 
 describe('readWorkspacePlanIndex', () => {
+  it('indexes a plan touching an ownerless store by its containing system', async () => {
+    await mkdir(scratch, { recursive: true });
+    const root = await mkdtemp(path.join(scratch, 'plan-placement-'));
+    made.push(root);
+    const { workspace, model } = acme();
+    const contracts = model.contracts.map((contract) => ({
+      ...contract,
+      stores: contract.stores.map(({ owner: _owner, ...store }) => store),
+    }));
+    await writeWorkspace(path.join(root, 'acme'), {
+      ...filesOf(workspace, { ...model, contracts }),
+      'plans/resource/plan.yaml': {
+        meta: { ...PAUSE_REASONS.meta, id: 'resource', title: 'Explain the database' },
+        problem: { summary: 'The database needs a description.' },
+        changes: [
+          {
+            id: 'chg:resource',
+            title: 'Describe the database',
+            ops: [{ modify: 'st:orders-db', set: { does: 'Keeps orders' } }],
+          },
+        ],
+      },
+    });
+    const state = await readPlanState('acme', 'resource', root);
+    expect(state?.broken).toBeNull();
+    const index = await readWorkspacePlanIndex('acme', root);
+    expect(index?.changes.get('resource/chg:resource')?.systems).toEqual(['sys:ordering']);
+  });
+
+  it('indexes a global flow against all of its recorded participating systems', async () => {
+    await mkdir(scratch, { recursive: true });
+    const root = await mkdtemp(path.join(scratch, 'plan-flow-systems-'));
+    made.push(root);
+    await writeWorkspace(path.join(root, 'acme'), {
+      ...acmeFiles(),
+      'plans/flow/plan.yaml': {
+        meta: { ...PAUSE_REASONS.meta, id: 'flow', title: 'Explain the checkout flow' },
+        problem: { summary: 'The checkout outcome needs a description.' },
+        changes: [
+          {
+            id: 'chg:flow',
+            title: 'Describe checkout',
+            ops: [{ modify: 'flow:place-order', set: { outcome: 'The order is confirmed.' } }],
+          },
+        ],
+      },
+    });
+    const state = await readPlanState('acme', 'flow', root);
+    expect(state?.broken).toBeNull();
+    const index = await readWorkspacePlanIndex('acme', root);
+    expect(index?.changes.get('flow/chg:flow')?.systems).toEqual([
+      'sys:ordering',
+      'sys:payments',
+      'sys:shop',
+    ]);
+  });
+
   it('reads every plan of the workspace once into one index', async () => {
     await mkdir(scratch, { recursive: true });
     const root = await mkdtemp(path.join(scratch, 'plan-index-'));
@@ -145,7 +204,8 @@ describe('the pages about work across plans, read from a workspace on disk', () 
     const groups = ordering === null ? [] : impactRowsOf(index, ordering);
     expect(groups.map((g) => [g.state, g.rows.map((r) => r.key)])).toEqual([
       ['now', ['pause-orders/wi:pause-api']],
-      ['next', ['pause-orders/wi:desk-button']],
+      // The email step is placed with the ordering mailer, independently of the flow's first caller.
+      ['next', ['pause-orders/wi:desk-button', 'pause-orders/wi:mailer-skip']],
       // it changes the endpoint pause-orders adds, and waits on the partner's work
       ['then', ['pause-reasons/wi:reason-api']],
     ]);

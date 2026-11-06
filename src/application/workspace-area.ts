@@ -319,7 +319,9 @@ export function areaViewOf(options: {
   // Reuse caller identities across endpoints so the page transports each description once.
   const caller = callerLookup(workspace, model);
   const systems = withAreaResources(
-    (detail?.systems ?? []).flatMap((id) => {
+    [
+      ...new Set([...(detail?.systems ?? []), ...referencedSystems(detail?.valueFlow, model)]),
+    ].flatMap((id) => {
       const system = byId.get(id);
       const view =
         system === undefined
@@ -347,6 +349,24 @@ export function areaViewOf(options: {
     collaborations: detail?.collaborations ?? [],
     valueFlow: checkedValueFlow(detail?.valueFlow, systems, model),
   };
+}
+
+/** A saved diagram may reference a resource outside its selected systems: retain its actual boundary. */
+function referencedSystems(
+  value: LandscapeValueFlow | undefined,
+  model: Model | undefined,
+): readonly string[] {
+  if (value === undefined || model === undefined) return [];
+  const components = [
+    ...value.bands.flatMap((band) => band.nodes.map((node) => node.component)),
+    ...[...value.connections, ...(value.summaries ?? []), ...(value.overview ?? [])].flatMap(
+      (connection) => [connection.from, connection.to],
+    ),
+  ];
+  return components.flatMap((id) => {
+    const system = model.place(id)?.system;
+    return system === undefined || system === null ? [] : [stripPrefix(system, 'sys')];
+  });
 }
 
 /** Saved value-flow references must resolve; a diagram cannot manufacture a missing component. */

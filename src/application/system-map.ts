@@ -3,7 +3,7 @@
 import { prop } from '@/application/plan/ids';
 import type { SystemModel } from '@/application/workspace-model';
 import { permalinkOf } from '@/domain/code-links';
-import { buildId } from '@/domain/ids';
+import { buildId, stripPrefix } from '@/domain/ids';
 import { systemsOf, type Workspace } from '@/domain/workspace';
 import type { CodeSource, Origin, Scan, ScanCheck } from '@/domain/workspace-model';
 
@@ -92,9 +92,9 @@ function placesOf(workspace: Workspace): Map<string, Place> {
 function placeOf(id: string, system: SystemModel, where: ReadonlyMap<string, Place>): Place {
   const direct = where.get(id);
   if (direct !== undefined) return direct;
-  const owner = system.model.ownerService(id);
-  const found = owner === null ? undefined : where.get(owner);
-  return found ?? { domain: null, system: null, component: null };
+  const place = system.model.place(id);
+  if (place === null) return { domain: null, system: null, component: null };
+  return { ...place, system: place.system === null ? null : stripPrefix(place.system, 'sys') };
 }
 
 // A nested fact (an endpoint, a field) is found in the file that holds its parent, so cite that.
