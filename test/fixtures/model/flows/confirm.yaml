@@ -1,0 +1,14 @@
+id: flow:confirm
+name: Confirm an order
+actor: actor:customer
+trigger: The customer confirms the order.
+outcome: The order is confirmed.
+steps:
+  - id: submit
+    from: app:shop
+    to: svc:ordering
+    via: api:confirm
+    action: Confirms the order
+    handler_step: h:confirm#tx/save
+    screen: scr:checkout#confirm
+    cites: ['ev:source']

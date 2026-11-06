@@ -12219,6 +12219,73 @@
   },
   {
     "category": "id construction, parsing or literal",
+    "file": "src/application/plan/check-shape.test.ts",
+    "hits": [
+      {
+        "line": 11,
+        "text": "teams: [{ id: 'team:orders', name: 'Orders' }],"
+      },
+      {
+        "line": 12,
+        "text": "services: [{ id: 'svc:orders', name: 'Orders', team: 'team:orders', kind: 'service' }],"
+      },
+      {
+        "line": 14,
+        "text": "{ id: 'sch:order', kind: 'dto', name: 'Order', fields: [{ name: 'status', type: 'string' }] },"
+      },
+      {
+        "line": 27,
+        "text": "{ id: 'chg:typo', title: 'Typo', ops: [{ modify: 'svc:orders', set: { typo: true } }] },"
+      },
+      {
+        "line": 47,
+        "text": "{ modify: 'sch:order', set: { name: 'Renamed' } },"
+      },
+      {
+        "line": 48,
+        "text": "{ modify: 'sch:order#status', set: { type: 'integer' } },"
+      },
+      {
+        "line": 60,
+        "text": "id: 'sch:order',"
+      },
+      {
+        "line": 77,
+        "text": "{ modify: 'svc:orders', set: { name: 'First' } },"
+      },
+      {
+        "line": 78,
+        "text": "{ modify: 'svc:orders', set: { name: '' } },"
+      },
+      {
+        "line": 79,
+        "text": "{ modify: 'svc:orders', set: { does: 'Confirms orders' } },"
+      },
+      {
+        "line": 97,
+        "text": "{ modify: 'svc:orders', append: { sources: ['bad'] } },"
+      },
+      {
+        "line": 98,
+        "text": "{ modify: 'svc:orders', drop: { sources: ['bad'] } },"
+      },
+      {
+        "line": 116,
+        "text": "{ modify: 'svc:orders', set: { name: 'New name' } },"
+      },
+      {
+        "line": 117,
+        "text": "{ remove: 'svc:orders' },"
+      },
+      {
+        "line": 118,
+        "text": "{ modify: 'sch:order', set: { name: 'Renamed' } },"
+      }
+    ],
+    "status": "adapter"
+  },
+  {
+    "category": "id construction, parsing or literal",
     "file": "src/application/plan/check-steps.ts",
     "hits": [
       {
@@ -25085,6 +25152,129 @@
   },
   {
     "category": "id construction, parsing or literal",
+    "file": "src/domain/model/contracts.generated.ts",
+    "hits": [
+      {
+        "line": 13,
+        "text": "readonly plan: CanonicalPlanTypes;"
+      }
+    ],
+    "status": "adapter"
+  },
+  {
+    "category": "id construction, parsing or literal",
+    "file": "src/domain/model/evidence.generated.ts",
+    "hits": [
+      {
+        "line": 681,
+        "text": "actor: string;"
+      }
+    ],
+    "status": "adapter"
+  },
+  {
+    "category": "id construction, parsing or literal",
+    "file": "src/domain/model/plan.generated.ts",
+    "hits": [
+      {
+        "line": 685,
+        "text": "graph: string;"
+      },
+      {
+        "line": 717,
+        "text": "* a reference to another record: sch:* (its key) or sch:*#field"
+      },
+      {
+        "line": 810,
+        "text": "app: string;"
+      },
+      {
+        "line": 901,
+        "text": "graph: string;"
+      },
+      {
+        "line": 965,
+        "text": "* via gql: only: which cache case the flow narrates (hit = the outermost layer answers; miss = it misses and the next answers; cold = every layer misses)"
+      },
+      {
+        "line": 1024,
+        "text": "term: string;"
+      },
+      {
+        "line": 1372,
+        "text": "* who proposes it: team ids (team:…) or names"
+      },
+      {
+        "line": 1467,
+        "text": "team: string;"
+      }
+    ],
+    "status": "adapter"
+  },
+  {
+    "category": "Git-host URL construction, parsing or literal",
+    "file": "src/domain/model/plan.generated.ts",
+    "hits": [
+      {
+        "line": 1381,
+        "text": "* a GitHub handle such as @ryannel: whoever merged the pull request. One person answers for it; there is no sign-off across teams"
+      },
+      {
+        "line": 1386,
+        "text": "* a GitHub handle such as @ryannel: whoever closed the pull request"
+      },
+      {
+        "line": 1401,
+        "text": "* GitHub repos in scope, \"org/name\"; discovery starts here"
+      },
+      {
+        "line": 1490,
+        "text": "* GitHub issue number in `repo`; written back by tools/export-issues.mjs, never authored by hand"
+      },
+      {
+        "line": 1494,
+        "text": "* which issue template (.github/ISSUE_TEMPLATE/<type>.yml) the exported issue uses; default task"
+      }
+    ],
+    "status": "adapter"
+  },
+  {
+    "category": "id construction, parsing or literal",
+    "file": "src/domain/model/workspace.generated.ts",
+    "hits": [
+      {
+        "line": 471,
+        "text": "* a reference to another record: sch:* (its key) or sch:*#field"
+      },
+      {
+        "line": 756,
+        "text": "graph: string;"
+      },
+      {
+        "line": 786,
+        "text": "app: string;"
+      },
+      {
+        "line": 868,
+        "text": "graph: string;"
+      },
+      {
+        "line": 1030,
+        "text": "area: string;"
+      },
+      {
+        "line": 1164,
+        "text": "* via gql: only: which cache case the flow narrates (hit = the outermost layer answers; miss = it misses and the next answers; cold = every layer misses)"
+      },
+      {
+        "line": 1287,
+        "text": "term: string;"
+      }
+    ],
+    "status": "adapter"
+  },
+  {
+    "category": "id construction, parsing or literal",
     "file": "src/domain/plain-text.test.ts",
     "hits": [
       {
@@ -28923,6 +29113,84 @@
   },
   {
     "category": "id construction, parsing or literal",
+    "file": "src/infrastructure/model-schema.test.ts",
+    "hits": [
+      {
+        "line": 40,
+        "text": "['workspace', 'AliasesFile', 'invalid/aliases.yaml', '/api:retired'],"
+      },
+      {
+        "line": 97,
+        "text": "systemData.data?.components?.find((component) => component.id === 'st:unknown-owner'),"
+      },
+      {
+        "line": 104,
+        "text": "expect(contracts.data?.jobs?.find((job) => job.id === 'job:unknown')).toEqual({"
+      },
+      {
+        "line": 105,
+        "text": "id: 'job:unknown',"
+      },
+      {
+        "line": 106,
+        "text": "component: 'svc:ordering',"
+      },
+      {
+        "line": 122,
+        "text": "expect(source.data).toMatchObject({ file: 'ev:file', lines: [1, 80] });"
+      },
+      {
+        "line": 173,
+        "text": "{ id: 'unpaired', from: 'st:orders' },"
+      },
+      {
+        "line": 174,
+        "text": "{ id: 'unpaired', to: 'st:orders' },"
+      },
+      {
+        "line": 187,
+        "text": "id: 'if:bad',"
+      },
+      {
+        "line": 189,
+        "text": "component: 'svc:ordering',"
+      },
+      {
+        "line": 190,
+        "text": "entries: [{ id: 'api:bad', rpc: 'Orders/Confirm' }],"
+      },
+      {
+        "line": 193,
+        "text": "id: 'if:bad',"
+      },
+      {
+        "line": 195,
+        "text": "component: 'svc:ordering',"
+      },
+      {
+        "line": 196,
+        "text": "external: 'ext:payments',"
+      },
+      {
+        "line": 216,
+        "text": "id: 'ev:source',"
+      }
+    ],
+    "status": "adapter"
+  },
+  {
+    "category": "Git-host URL construction, parsing or literal",
+    "file": "src/infrastructure/model-schema.test.ts",
+    "hits": [
+      {
+        "line": 222,
+        "text": "'https://github.com/example/orders/blob/main/a.ts',"
+      }
+    ],
+    "status": "adapter"
+  },
+  {
+    "category": "id construction, parsing or literal",
     "file": "src/infrastructure/plan-base-store.ts",
     "hits": [
       {
@@ -29342,23 +29610,23 @@
         "text": "readonly plan: ValidateFunction<Plan>;"
       },
       {
-        "line": 72,
+        "line": 74,
         "text": "plan: null,"
       },
       {
-        "line": 77,
+        "line": 79,
         "text": "const { plan: isPlan, def } = await validators();"
       },
       {
-        "line": 78,
+        "line": 80,
         "text": "if (isPlan(data)) return { plan: data, errors: [], warnings: [] };"
       },
       {
-        "line": 80,
+        "line": 82,
         "text": "return { plan: null, errors, warnings: [] };"
       },
       {
-        "line": 99,
+        "line": 101,
         "text": "return { plan: shaped.plan, ...validatePlan(shaped.plan, { fanout, shape, neighbours }) };"
       }
     ],
@@ -34750,6 +35018,1287 @@
   },
   {
     "category": "id construction, parsing or literal",
+    "file": "test/fixtures/model/aliases.yaml",
+    "hits": [
+      {
+        "line": 1,
+        "text": "svc:old-ordering: { to: 'svc:ordering' }"
+      },
+      {
+        "line": 2,
+        "text": "job:old timer: { to: 'job:relay' }"
+      },
+      {
+        "line": 3,
+        "text": "api:retired: { to: null, reason: The synthetic route was retired. }"
+      }
+    ],
+    "status": "adapter"
+  },
+  {
+    "category": "id construction, parsing or literal",
+    "file": "test/fixtures/model/domains/orders/domain.yaml",
+    "hits": [
+      {
+        "line": 1,
+        "text": "id: dom:orders"
+      }
+    ],
+    "status": "adapter"
+  },
+  {
+    "category": "id construction, parsing or literal",
+    "file": "test/fixtures/model/domains/orders/language.yaml",
+    "hits": [
+      {
+        "line": 2,
+        "text": "- id: con:order"
+      },
+      {
+        "line": 5,
+        "text": "born_in: svc:ordering"
+      },
+      {
+        "line": 6,
+        "text": "aka: [{ in: 'svc:ordering', as: Order, at: 'sch:order' }]"
+      },
+      {
+        "line": 7,
+        "text": "cites: ['ev:source']"
+      }
+    ],
+    "status": "adapter"
+  },
+  {
+    "category": "id construction, parsing or literal",
+    "file": "test/fixtures/model/domains/orders/systems/ordering/contracts.yaml",
+    "hits": [
+      {
+        "line": 2,
+        "text": "- id: if:orders"
+      },
+      {
+        "line": 3,
+        "text": "component: svc:ordering"
+      },
+      {
+        "line": 7,
+        "text": "- id: api:confirm"
+      },
+      {
+        "line": 10,
+        "text": "request: sch:confirm"
+      },
+      {
+        "line": 11,
+        "text": "response: sch:order"
+      },
+      {
+        "line": 13,
+        "text": "- { id: 'api:legacy', sig: 'GET legacy free words' }"
+      },
+      {
+        "line": 14,
+        "text": "- id: if:graph"
+      },
+      {
+        "line": 15,
+        "text": "component: svc:ordering"
+      },
+      {
+        "line": 17,
+        "text": "subgraph: sg:orders"
+      },
+      {
+        "line": 20,
+        "text": "id: 'api:order-query',"
+      },
+      {
+        "line": 23,
+        "text": "response: 'sch:order',"
+      },
+      {
+        "line": 25,
+        "text": "- id: if:grpc"
+      },
+      {
+        "line": 26,
+        "text": "component: svc:ordering"
+      },
+      {
+        "line": 29,
+        "text": "- { id: 'api:grpc-confirm', rpc: fixture.Ordering/Confirm, request: 'sch:confirm' }"
+      },
+      {
+        "line": 30,
+        "text": "- id: if:payments"
+      },
+      {
+        "line": 31,
+        "text": "external: ext:payments"
+      },
+      {
+        "line": 34,
+        "text": "- { id: 'api:charge', call: Payments.charge }"
+      },
+      {
+        "line": 37,
+        "text": "id: 'msg:confirmed',"
+      },
+      {
+        "line": 38,
+        "text": "topic: 'top:confirmed',"
+      },
+      {
+        "line": 39,
+        "text": "payload: 'sch:confirmed',"
+      },
+      {
+        "line": 44,
+        "text": "- id: sub:on-confirmed"
+      },
+      {
+        "line": 45,
+        "text": "component: svc:ordering"
+      },
+      {
+        "line": 46,
+        "text": "message: msg:confirmed"
+      },
+      {
+        "line": 50,
+        "text": "delivery: { retries: 5, dead_letter: 'top:dead-letter' }"
+      },
+      {
+        "line": 52,
+        "text": "- { id: 'job:relay', component: 'svc:ordering', every: 30s }"
+      },
+      {
+        "line": 53,
+        "text": "- { id: 'job:nightly', component: 'svc:ordering', cron: '0 2 * * *' }"
+      },
+      {
+        "line": 54,
+        "text": "- { id: 'job:manual', component: 'svc:ordering', trigger: A person requests a repair }"
+      },
+      {
+        "line": 55,
+        "text": "- { id: 'job:unknown', component: 'svc:ordering' }"
+      },
+      {
+        "line": 57,
+        "text": "- { id: 'ui:confirm', component: 'app:shop', on: 'scr:checkout#confirm', action: click }"
+      },
+      {
+        "line": 60,
+        "text": "id: 'gql:order',"
+      },
+      {
+        "line": 61,
+        "text": "component: 'app:shop',"
+      },
+      {
+        "line": 62,
+        "text": "graph: 'graph:shop',"
+      },
+      {
+        "line": 63,
+        "text": "document: 'ev:document',"
+      },
+      {
+        "line": 64,
+        "text": "screens: ['scr:checkout'],"
+      },
+      {
+        "line": 67,
+        "text": "- id: sch:confirm"
+      },
+      {
+        "line": 76,
+        "text": "cites: ['ev:source'],"
+      },
+      {
+        "line": 78,
+        "text": "- { id: lines, name: lines, type: { array: 'sch:line' } }"
+      },
+      {
+        "line": 80,
+        "text": "- { id: result, name: result, type: { one_of: ['sch:order', 'sch:error'] } }"
+      },
+      {
+        "line": 84,
+        "text": "id: 'sch:order',"
+      },
+      {
+        "line": 86,
+        "text": "store: 'st:orders',"
+      },
+      {
+        "line": 90,
+        "text": "- { id: 'sch:confirmed', kind: payload, fields: [{ id: order-id, name: orderId, type: string }] }"
+      },
+      {
+        "line": 92,
+        "text": "id: 'sch:graph-order',"
+      },
+      {
+        "line": 94,
+        "text": "graph: 'graph:shop',"
+      }
+    ],
+    "status": "adapter"
+  },
+  {
+    "category": "id construction, parsing or literal",
+    "file": "test/fixtures/model/domains/orders/systems/ordering/handlers/ordering.yaml",
+    "hits": [
+      {
+        "line": 1,
+        "text": "- id: h:confirm"
+      },
+      {
+        "line": 2,
+        "text": "component: svc:ordering"
+      },
+      {
+        "line": 3,
+        "text": "on: api:confirm"
+      },
+      {
+        "line": 7,
+        "text": "- { id: load, read: 'sch:order', from: 'st:orders', cites: ['#L5-7'] }"
+      },
+      {
+        "line": 10,
+        "text": "if: The order does not exist"
+      },
+      {
+        "line": 16,
+        "text": "- { id: save, write: 'sch:order#status', to: 'st:orders', cites: ['#L12-16'] }"
+      },
+      {
+        "line": 23,
+        "text": "call: 'api:charge',"
+      },
+      {
+        "line": 31,
+        "text": "steps: [{ id: order, read: 'sch:order', from: 'st:orders', cites: ['#L30-33'] }]"
+      },
+      {
+        "line": 33,
+        "text": "steps: [{ id: payment, call: 'api:charge', cites: ['#L34-37'] }]"
+      },
+      {
+        "line": 42,
+        "text": "publish: 'msg:confirmed',"
+      },
+      {
+        "line": 43,
+        "text": "causes: 'h:on-confirmed',"
+      },
+      {
+        "line": 55,
+        "text": "- id: h:on-confirmed"
+      },
+      {
+        "line": 56,
+        "text": "component: svc:ordering"
+      },
+      {
+        "line": 57,
+        "text": "on: sub:on-confirmed"
+      },
+      {
+        "line": 58,
+        "text": "steps: [{ id: receive, does: Receive the confirmation, cites: ['ev:source'] }]"
+      },
+      {
+        "line": 59,
+        "text": "- id: h:relay"
+      },
+      {
+        "line": 60,
+        "text": "component: svc:ordering"
+      },
+      {
+        "line": 61,
+        "text": "on: job:relay"
+      },
+      {
+        "line": 62,
+        "text": "steps: [{ id: run, does: Check the outbox, cites: ['ev:source'] }]"
+      },
+      {
+        "line": 63,
+        "text": "- id: h:click"
+      },
+      {
+        "line": 64,
+        "text": "component: app:shop"
+      },
+      {
+        "line": 65,
+        "text": "on: ui:confirm"
+      },
+      {
+        "line": 66,
+        "text": "steps: [{ id: submit, call: 'api:confirm', cites: ['ev:source'] }]"
+      }
+    ],
+    "status": "adapter"
+  },
+  {
+    "category": "id construction, parsing or literal",
+    "file": "test/fixtures/model/domains/orders/systems/ordering/narratives.yaml",
+    "hits": [
+      {
+        "line": 13,
+        "text": "relatedSystems: ['sys:ordering']"
+      },
+      {
+        "line": 17,
+        "text": "from: 'app:shop',"
+      },
+      {
+        "line": 18,
+        "text": "to: 'svc:ordering',"
+      },
+      {
+        "line": 21,
+        "text": "cites: ['ev:source'],"
+      },
+      {
+        "line": 26,
+        "text": "component: 'app:shop',"
+      },
+      {
+        "line": 30,
+        "text": "cites: ['ev:source'],"
+      },
+      {
+        "line": 33,
+        "text": "component: 'svc:ordering',"
+      },
+      {
+        "line": 36,
+        "text": "supporting: ['st:orders'],"
+      },
+      {
+        "line": 37,
+        "text": "cites: ['ev:source'],"
+      }
+    ],
+    "status": "adapter"
+  },
+  {
+    "category": "id construction, parsing or literal",
+    "file": "test/fixtures/model/domains/orders/systems/ordering/screens.yaml",
+    "hits": [
+      {
+        "line": 2,
+        "text": "- id: scr:checkout"
+      },
+      {
+        "line": 4,
+        "text": "app: app:shop"
+      }
+    ],
+    "status": "adapter"
+  },
+  {
+    "category": "id construction, parsing or literal",
+    "file": "test/fixtures/model/domains/orders/systems/ordering/system.yaml",
+    "hits": [
+      {
+        "line": 1,
+        "text": "id: sys:ordering"
+      },
+      {
+        "line": 4,
+        "text": "team: team:orders"
+      },
+      {
+        "line": 5,
+        "text": "runs_on: [sys:platform]"
+      },
+      {
+        "line": 10,
+        "text": "- id: svc:ordering"
+      },
+      {
+        "line": 14,
+        "text": "uses: [lib:messaging]"
+      },
+      {
+        "line": 17,
+        "text": "- { id: 'app:shop', name: Shop, kind: app, form: web, homes: [orders] }"
+      },
+      {
+        "line": 18,
+        "text": "- id: st:orders"
+      },
+      {
+        "line": 23,
+        "text": "owner: { id: 'svc:ordering', cites: ['ev:source'] }"
+      },
+      {
+        "line": 24,
+        "text": "- { id: 'st:unknown-owner', name: Unowned fixture cache, kind: store, form: cache }"
+      },
+      {
+        "line": 25,
+        "text": "- { id: 'top:confirmed', name: Order confirmations, kind: topic, form: stream }"
+      },
+      {
+        "line": 27,
+        "text": "- to: sys:delivery"
+      },
+      {
+        "line": 29,
+        "text": "backs: ['h:confirm#tx/queue']"
+      },
+      {
+        "line": 32,
+        "text": "from: svc:ordering"
+      },
+      {
+        "line": 33,
+        "text": "to: ext:payments"
+      },
+      {
+        "line": 37,
+        "text": "cites: ['ev:source']"
+      }
+    ],
+    "status": "adapter"
+  },
+  {
+    "category": "id construction, parsing or literal",
+    "file": "test/fixtures/model/domains/orders/target.yaml",
+    "hits": [
+      {
+        "line": 2,
+        "text": "stages: [{ id: confirm, name: Confirm order, term: 'term:order', owners: ['sys:ordering'] }]"
+      },
+      {
+        "line": 10,
+        "text": "cites: ['sys:ordering'],"
+      }
+    ],
+    "status": "adapter"
+  },
+  {
+    "category": "id construction, parsing or literal",
+    "file": "test/fixtures/model/evidence/example/orders/actions.yaml",
+    "hits": [
+      {
+        "line": 2,
+        "text": "id: ev:action"
+      },
+      {
+        "line": 5,
+        "text": "- ev:actor"
+      },
+      {
+        "line": 20,
+        "text": "- ev:control"
+      },
+      {
+        "line": 24,
+        "text": "- ev:contract"
+      },
+      {
+        "line": 26,
+        "text": "- ev:source"
+      },
+      {
+        "line": 30,
+        "text": "- ev:execution"
+      },
+      {
+        "line": 32,
+        "text": "- ev:source"
+      },
+      {
+        "line": 34,
+        "text": "- ev:outcome"
+      },
+      {
+        "line": 36,
+        "text": "- ev:source"
+      }
+    ],
+    "status": "adapter"
+  },
+  {
+    "category": "id construction, parsing or literal",
+    "file": "test/fixtures/model/evidence/example/orders/actors.yaml",
+    "hits": [
+      {
+        "line": 2,
+        "text": "id: ev:actor"
+      },
+      {
+        "line": 6,
+        "text": "- ev:source"
+      }
+    ],
+    "status": "adapter"
+  },
+  {
+    "category": "id construction, parsing or literal",
+    "file": "test/fixtures/model/evidence/example/orders/bindings.yaml",
+    "hits": [
+      {
+        "line": 2,
+        "text": "id: ev:binding"
+      },
+      {
+        "line": 3,
+        "text": "call: ev:call"
+      }
+    ],
+    "status": "adapter"
+  },
+  {
+    "category": "id construction, parsing or literal",
+    "file": "test/fixtures/model/evidence/example/orders/claims.yaml",
+    "hits": [
+      {
+        "line": 1,
+        "text": "id: ev:claim"
+      },
+      {
+        "line": 10,
+        "text": "- ev:source"
+      }
+    ],
+    "status": "adapter"
+  },
+  {
+    "category": "id construction, parsing or literal",
+    "file": "test/fixtures/model/evidence/example/orders/closures.yaml",
+    "hits": [
+      {
+        "line": 1,
+        "text": "id: ev:closure"
+      },
+      {
+        "line": 4,
+        "text": "- ev:dependency"
+      }
+    ],
+    "status": "adapter"
+  },
+  {
+    "category": "id construction, parsing or literal",
+    "file": "test/fixtures/model/evidence/example/orders/contracts.yaml",
+    "hits": [
+      {
+        "line": 2,
+        "text": "id: ev:contract"
+      },
+      {
+        "line": 8,
+        "text": "- ev:source"
+      }
+    ],
+    "status": "adapter"
+  },
+  {
+    "category": "id construction, parsing or literal",
+    "file": "test/fixtures/model/evidence/example/orders/controls.yaml",
+    "hits": [
+      {
+        "line": 2,
+        "text": "id: ev:control"
+      },
+      {
+        "line": 3,
+        "text": "action: ev:action"
+      },
+      {
+        "line": 4,
+        "text": "surface: ev:surface"
+      },
+      {
+        "line": 7,
+        "text": "source: ev:source"
+      },
+      {
+        "line": 12,
+        "text": "- ev:source"
+      }
+    ],
+    "status": "adapter"
+  },
+  {
+    "category": "id construction, parsing or literal",
+    "file": "test/fixtures/model/evidence/example/orders/dependencies.yaml",
+    "hits": [
+      {
+        "line": 2,
+        "text": "id: ev:dependency"
+      },
+      {
+        "line": 5,
+        "text": "- ev:file"
+      }
+    ],
+    "status": "adapter"
+  },
+  {
+    "category": "id construction, parsing or literal",
+    "file": "test/fixtures/model/evidence/example/orders/derivations.yaml",
+    "hits": [
+      {
+        "line": 2,
+        "text": "id: ev:derivation"
+      },
+      {
+        "line": 3,
+        "text": "rule: ev:rule"
+      },
+      {
+        "line": 5,
+        "text": "- ev:source"
+      },
+      {
+        "line": 8,
+        "text": "- ev:dependency"
+      }
+    ],
+    "status": "adapter"
+  },
+  {
+    "category": "id construction, parsing or literal",
+    "file": "test/fixtures/model/evidence/example/orders/effects.yaml",
+    "hits": [
+      {
+        "line": 2,
+        "text": "id: ev:effect"
+      },
+      {
+        "line": 4,
+        "text": "resource: st:orders"
+      },
+      {
+        "line": 5,
+        "text": "source: ev:source"
+      },
+      {
+        "line": 7,
+        "text": "- ev:source"
+      }
+    ],
+    "status": "adapter"
+  },
+  {
+    "category": "id construction, parsing or literal",
+    "file": "test/fixtures/model/evidence/example/orders/executions.yaml",
+    "hits": [
+      {
+        "line": 2,
+        "text": "id: ev:execution"
+      },
+      {
+        "line": 3,
+        "text": "action: ev:action"
+      },
+      {
+        "line": 4,
+        "text": "host: ev:host"
+      },
+      {
+        "line": 6,
+        "text": "source: ev:source"
+      },
+      {
+        "line": 12,
+        "text": "entry: api:confirm"
+      },
+      {
+        "line": 16,
+        "text": "- ev:source"
+      }
+    ],
+    "status": "adapter"
+  },
+  {
+    "category": "id construction, parsing or literal",
+    "file": "test/fixtures/model/evidence/example/orders/files.yaml",
+    "hits": [
+      {
+        "line": 2,
+        "text": "id: ev:file"
+      }
+    ],
+    "status": "adapter"
+  },
+  {
+    "category": "id construction, parsing or literal",
+    "file": "test/fixtures/model/evidence/example/orders/framework.yaml",
+    "hits": [
+      {
+        "line": 2,
+        "text": "id: ev:route"
+      },
+      {
+        "line": 3,
+        "text": "source: ev:source"
+      },
+      {
+        "line": 5,
+        "text": "- ev:source"
+      }
+    ],
+    "status": "adapter"
+  },
+  {
+    "category": "id construction, parsing or literal",
+    "file": "test/fixtures/model/evidence/example/orders/gaps.yaml",
+    "hits": [
+      {
+        "line": 2,
+        "text": "id: ev:gap"
+      },
+      {
+        "line": 5,
+        "text": "source: ev:source"
+      }
+    ],
+    "status": "adapter"
+  },
+  {
+    "category": "id construction, parsing or literal",
+    "file": "test/fixtures/model/evidence/example/orders/hosts.yaml",
+    "hits": [
+      {
+        "line": 2,
+        "text": "id: ev:host"
+      },
+      {
+        "line": 3,
+        "text": "component: svc:ordering"
+      },
+      {
+        "line": 6,
+        "text": "- ev:source"
+      }
+    ],
+    "status": "adapter"
+  },
+  {
+    "category": "id construction, parsing or literal",
+    "file": "test/fixtures/model/evidence/example/orders/journeys.yaml",
+    "hits": [
+      {
+        "line": 2,
+        "text": "id: ev:journey"
+      },
+      {
+        "line": 3,
+        "text": "actor: ev:actor"
+      },
+      {
+        "line": 7,
+        "text": "- action: ev:action"
+      },
+      {
+        "line": 8,
+        "text": "outcome: ev:outcome"
+      },
+      {
+        "line": 11,
+        "text": "- ev:source"
+      }
+    ],
+    "status": "adapter"
+  },
+  {
+    "category": "id construction, parsing or literal",
+    "file": "test/fixtures/model/evidence/example/orders/outcomes.yaml",
+    "hits": [
+      {
+        "line": 2,
+        "text": "id: ev:outcome"
+      },
+      {
+        "line": 3,
+        "text": "action: ev:action"
+      },
+      {
+        "line": 8,
+        "text": "gap: ev:gap"
+      },
+      {
+        "line": 12,
+        "text": "- ev:effect"
+      },
+      {
+        "line": 14,
+        "text": "- ev:source"
+      },
+      {
+        "line": 18,
+        "text": "gap: ev:gap"
+      },
+      {
+        "line": 20,
+        "text": "- ev:source"
+      }
+    ],
+    "status": "adapter"
+  },
+  {
+    "category": "id construction, parsing or literal",
+    "file": "test/fixtures/model/evidence/example/orders/rules.yaml",
+    "hits": [
+      {
+        "line": 2,
+        "text": "id: ev:rule"
+      }
+    ],
+    "status": "adapter"
+  },
+  {
+    "category": "id construction, parsing or literal",
+    "file": "test/fixtures/model/evidence/example/orders/schemas.yaml",
+    "hits": [
+      {
+        "line": 1,
+        "text": "id: ev:schema"
+      },
+      {
+        "line": 6,
+        "text": "file: ev:file"
+      },
+      {
+        "line": 14,
+        "text": "- ev:source"
+      }
+    ],
+    "status": "adapter"
+  },
+  {
+    "category": "id construction, parsing or literal",
+    "file": "test/fixtures/model/evidence/example/orders/sources.yaml",
+    "hits": [
+      {
+        "line": 2,
+        "text": "id: ev:source"
+      },
+      {
+        "line": 3,
+        "text": "file: ev:file"
+      },
+      {
+        "line": 7,
+        "text": "host: ev:host"
+      }
+    ],
+    "status": "adapter"
+  },
+  {
+    "category": "id construction, parsing or literal",
+    "file": "test/fixtures/model/evidence/example/orders/summaries.yaml",
+    "hits": [
+      {
+        "line": 2,
+        "text": "id: ev:summary"
+      },
+      {
+        "line": 3,
+        "text": "host: ev:host"
+      },
+      {
+        "line": 4,
+        "text": "source: ev:source"
+      },
+      {
+        "line": 16,
+        "text": "gap: ev:gap"
+      },
+      {
+        "line": 19,
+        "text": "- ev:source"
+      }
+    ],
+    "status": "adapter"
+  },
+  {
+    "category": "id construction, parsing or literal",
+    "file": "test/fixtures/model/evidence/example/orders/surfaces.yaml",
+    "hits": [
+      {
+        "line": 2,
+        "text": "id: ev:surface"
+      },
+      {
+        "line": 8,
+        "text": "- ev:source"
+      }
+    ],
+    "status": "adapter"
+  },
+  {
+    "category": "id construction, parsing or literal",
+    "file": "test/fixtures/model/externals.yaml",
+    "hits": [
+      {
+        "line": 3,
+        "text": "id: 'ext:payments',"
+      },
+      {
+        "line": 6,
+        "text": "cites: ['ev:source'],"
+      }
+    ],
+    "status": "adapter"
+  },
+  {
+    "category": "id construction, parsing or literal",
+    "file": "test/fixtures/model/flows/confirm.yaml",
+    "hits": [
+      {
+        "line": 1,
+        "text": "id: flow:confirm"
+      },
+      {
+        "line": 3,
+        "text": "actor: actor:customer"
+      },
+      {
+        "line": 8,
+        "text": "from: app:shop"
+      },
+      {
+        "line": 9,
+        "text": "to: svc:ordering"
+      },
+      {
+        "line": 10,
+        "text": "via: api:confirm"
+      },
+      {
+        "line": 12,
+        "text": "handler_step: h:confirm#tx/save"
+      },
+      {
+        "line": 13,
+        "text": "screen: scr:checkout#confirm"
+      },
+      {
+        "line": 14,
+        "text": "cites: ['ev:source']"
+      }
+    ],
+    "status": "adapter"
+  },
+  {
+    "category": "id construction, parsing or literal",
+    "file": "test/fixtures/model/graphs/shop.yaml",
+    "hits": [
+      {
+        "line": 1,
+        "text": "id: graph:shop"
+      },
+      {
+        "line": 3,
+        "text": "gateway: svc:ordering"
+      },
+      {
+        "line": 6,
+        "text": "id: 'sg:orders',"
+      },
+      {
+        "line": 7,
+        "text": "graph: 'graph:shop',"
+      },
+      {
+        "line": 8,
+        "text": "component: 'svc:ordering',"
+      },
+      {
+        "line": 10,
+        "text": "cites: ['ev:source'],"
+      },
+      {
+        "line": 12,
+        "text": "cites: ['ev:source']"
+      }
+    ],
+    "status": "adapter"
+  },
+  {
+    "category": "id construction, parsing or literal",
+    "file": "test/fixtures/model/invalid/aliases.yaml",
+    "hits": [
+      {
+        "line": 1,
+        "text": "api:retired: { to: null }"
+      }
+    ],
+    "status": "adapter"
+  },
+  {
+    "category": "id construction, parsing or literal",
+    "file": "test/fixtures/model/invalid/evidence.yaml",
+    "hits": [
+      {
+        "line": 3,
+        "text": "file: ev:file"
+      },
+      {
+        "line": 5,
+        "text": "host: ev:host"
+      }
+    ],
+    "status": "adapter"
+  },
+  {
+    "category": "id construction, parsing or literal",
+    "file": "test/fixtures/model/invalid/handler.yaml",
+    "hits": [
+      {
+        "line": 1,
+        "text": "- id: h:invalid"
+      },
+      {
+        "line": 2,
+        "text": "component: svc:ordering"
+      },
+      {
+        "line": 3,
+        "text": "on: api:confirm"
+      },
+      {
+        "line": 5,
+        "text": "- { id: missing-store, read: 'sch:order', cites: ['ev:source'] }"
+      },
+      {
+        "line": 6,
+        "text": "- { id: two-effects, call: 'api:confirm', publish: 'msg:confirmed', cites: ['ev:source'] }"
+      }
+    ],
+    "status": "adapter"
+  },
+  {
+    "category": "id construction, parsing or literal",
+    "file": "test/fixtures/model/invalid/plan.yaml",
+    "hits": [
+      {
+        "line": 1,
+        "text": "meta: { id: 'plan:invalid', title: Invalid plan }"
+      },
+      {
+        "line": 3,
+        "text": "services: [{ id: 'svc:copied-base', name: Base fact }]"
+      }
+    ],
+    "status": "adapter"
+  },
+  {
+    "category": "id construction, parsing or literal",
+    "file": "test/fixtures/model/invalid/schema.yaml",
+    "hits": [
+      {
+        "line": 2,
+        "text": "- id: sch:invalid"
+      }
+    ],
+    "status": "adapter"
+  },
+  {
+    "category": "Git-host URL construction, parsing or literal",
+    "file": "test/fixtures/model/invalid/schema.yaml",
+    "hits": [
+      {
+        "line": 6,
+        "text": "- { id: old, name: old, sources: ['https://github.com/example/orders/blob/main/file.ts'] }"
+      }
+    ],
+    "status": "adapter"
+  },
+  {
+    "category": "id construction, parsing or literal",
+    "file": "test/fixtures/model/journeys/buy.yaml",
+    "hits": [
+      {
+        "line": 1,
+        "text": "id: jny:buy"
+      },
+      {
+        "line": 3,
+        "text": "actor: actor:customer"
+      },
+      {
+        "line": 4,
+        "text": "interactions: ['ui:confirm']"
+      },
+      {
+        "line": 5,
+        "text": "flows: ['flow:confirm']"
+      },
+      {
+        "line": 6,
+        "text": "cites: ['ev:source']"
+      }
+    ],
+    "status": "adapter"
+  },
+  {
+    "category": "id construction, parsing or literal",
+    "file": "test/fixtures/model/landscape.yaml",
+    "hits": [
+      {
+        "line": 8,
+        "text": "id: 'area:orders',"
+      },
+      {
+        "line": 16,
+        "text": "- { id: 'area:delivery', name: Delivery, purpose: Deliver purchases }"
+      },
+      {
+        "line": 21,
+        "text": "from: 'area:orders',"
+      },
+      {
+        "line": 22,
+        "text": "to: 'area:delivery',"
+      },
+      {
+        "line": 28,
+        "text": "- area: area:orders"
+      },
+      {
+        "line": 29,
+        "text": "systems: ['sys:ordering']"
+      },
+      {
+        "line": 42,
+        "text": "nodes: [{ component: 'svc:ordering', column: 0 }]"
+      },
+      {
+        "line": 46,
+        "text": "from: 'app:shop',"
+      },
+      {
+        "line": 47,
+        "text": "to: 'svc:ordering',"
+      },
+      {
+        "line": 50,
+        "text": "cites: ['ev:source'],"
+      }
+    ],
+    "status": "adapter"
+  },
+  {
+    "category": "id construction, parsing or literal",
+    "file": "test/fixtures/model/language.yaml",
+    "hits": [
+      {
+        "line": 5,
+        "text": "- id: term:order"
+      },
+      {
+        "line": 10,
+        "text": "anchors: [{ to: 'con:order', fit: same }]"
+      }
+    ],
+    "status": "adapter"
+  },
+  {
+    "category": "id construction, parsing or literal",
+    "file": "test/fixtures/model/libraries.yaml",
+    "hits": [
+      {
+        "line": 2,
+        "text": "- { id: 'lib:messaging', name: Messaging, does: Sends messages, cites: ['ev:source'] }"
+      }
+    ],
+    "status": "adapter"
+  },
+  {
+    "category": "id construction, parsing or literal",
+    "file": "test/fixtures/model/plans/confirm/plan.yaml",
+    "hits": [
+      {
+        "line": 1,
+        "text": "meta: { id: 'plan:confirm', title: Explain confirmation, programme: 'prog:orders', status: draft }"
+      },
+      {
+        "line": 7,
+        "text": "- { modify: 'h:confirm#tx/save', set: { say: Save the confirmed order } }"
+      },
+      {
+        "line": 8,
+        "text": "- { modify: 'sch:order#status', set: { note: The confirmed state } }"
+      },
+      {
+        "line": 9,
+        "text": "- { modify: 'scr:checkout#confirm', set: { name: Confirm order } }"
+      },
+      {
+        "line": 10,
+        "text": "- { modify: 'h:confirm#!db-down', set: { return: 502 } }"
+      },
+      {
+        "line": 13,
+        "text": "into: 'h:confirm#tx',"
+      },
+      {
+        "line": 14,
+        "text": "after: 'h:confirm#tx/save',"
+      },
+      {
+        "line": 15,
+        "text": "value: { id: audit, does: Record confirmation, cites: ['ev:source'] },"
+      },
+      {
+        "line": 17,
+        "text": "- { deprecate: 'api:legacy', replaced_by: 'api:confirm', reason: Fixture replacement }"
+      },
+      {
+        "line": 18,
+        "text": "- { remove: 'job:manual', reason: No longer needed in this synthetic plan }"
+      }
+    ],
+    "status": "adapter"
+  },
+  {
+    "category": "id construction, parsing or literal",
+    "file": "test/fixtures/model/programmes/orders.yaml",
+    "hits": [
+      {
+        "line": 1,
+        "text": "id: prog:orders"
+      },
+      {
+        "line": 4,
+        "text": "scenarios: [{ id: 'sc:confirm', title: Customer confirms an order, flows: ['flow:confirm'] }]"
+      }
+    ],
+    "status": "adapter"
+  },
+  {
+    "category": "id construction, parsing or literal",
+    "file": "test/fixtures/model/workspace.yaml",
+    "hits": [
+      {
+        "line": 6,
+        "text": "- { id: 'team:orders', name: Orders, colour: 4, contacts: [{ name: Fixture author }] }"
+      },
+      {
+        "line": 8,
+        "text": "- { id: 'actor:customer', name: Customer, uses: ['app:shop'], customer: true }"
+      }
+    ],
+    "status": "adapter"
+  },
+  {
+    "category": "id construction, parsing or literal",
     "file": "test/fixtures/plan-index.ts",
     "hits": [
       {
@@ -36063,6 +37612,17 @@
       {
         "line": 42,
         "text": "replacement: 'api:/sub:/job:/ui: entry flow links (PR 5/8).',"
+      }
+    ],
+    "status": "adapter"
+  },
+  {
+    "category": "id construction, parsing or literal",
+    "file": "tools/generate-plan-types.ts",
+    "hits": [
+      {
+        "line": 272,
+        "text": "\"/* Generated by tools/generate-plan-types.ts. Do not edit: run npm run generate. */\\nimport type { CanonicalEvidenceTypes } from '@/domain/model/evidence.generated';\\nimport type { CanonicalPlanTypes } from '@/domain/model/plan.generated';\\nimport type { WorkspaceDocumentTypes } from '@/domain/model/workspace.generated';\\n\\n/** Schema-generated data is exposed as immutable values throughout the model. */\\nexport type ReadonlyData<T> = T extends object\\n  ? { readonly [Key in keyof T]: ReadonlyData<T[Key]> }\\n  : T;\\n\\nexport interface ContractTypes {\\n  readonly workspace: WorkspaceDocumentTypes;\\n  readonly plan: CanonicalPlanTypes;\\n  readonly evidence: CanonicalEvidenceTypes;\\n}\\nexport type ContractFamily = keyof ContractTypes;\\nexport type ContractDefinition<Family extends ContractFamily> = Extract<\\n  keyof ContractTypes[Family],\\n  string\\n>;\\nexport type ContractData<\\n  Family extends ContractFamily,\\n  Definition extends ContractDefinition<Family>,\\n> = ReadonlyData<ContractTypes[Family][Definition]>;\\n\","
       }
     ],
     "status": "adapter"

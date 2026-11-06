@@ -1,0 +1,8 @@
+format: 2
+id: model-fixture
+name: Model contract fixture
+description: Handwritten synthetic examples, not claims about a company.
+teams:
+  - { id: 'team:orders', name: Orders, colour: 4, contacts: [{ name: Fixture author }] }
+actors:
+  - { id: 'actor:customer', name: Customer, uses: ['app:shop'], customer: true }

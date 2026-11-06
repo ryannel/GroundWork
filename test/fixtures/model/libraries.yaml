@@ -1,0 +1,2 @@
+libraries:
+  - { id: 'lib:messaging', name: Messaging, does: Sends messages, cites: ['ev:source'] }

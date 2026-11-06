@@ -1,0 +1,38 @@
+format: 2
+label: Inferred
+authored: '2026-11-06'
+generator: Handwritten fixture
+basis: aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+stories:
+  - id: confirmation
+    name: Confirm the order
+    summary: The shop submits an order and the API saves it.
+    confidence: low
+    reasoning: This is a synthetic contract example.
+    limitations: [Not company evidence]
+    relatedSystems: ['sys:ordering']
+    connections:
+      [
+        {
+          from: 'app:shop',
+          to: 'svc:ordering',
+          kind: api,
+          label: Confirm order,
+          cites: ['ev:source'],
+        },
+      ]
+    stages:
+      - {
+          component: 'app:shop',
+          title: Submit,
+          summary: Customer confirms,
+          supporting: [],
+          cites: ['ev:source'],
+        }
+      - {
+          component: 'svc:ordering',
+          title: Save,
+          summary: API saves the order,
+          supporting: ['st:orders'],
+          cites: ['ev:source'],
+        }

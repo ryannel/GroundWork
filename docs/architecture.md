@@ -16,6 +16,14 @@ The layers below are enforced by `eslint.config.mjs`, and `test/architecture.tes
 fires. If a rule gets in the way, change the architecture on purpose, here and in the config, not with a
 disable comment. Unused disable comments are errors.
 
+During the model rebuild, `schema/workspace.schema.json`, `schema/plan.schema.json` and
+`schema/evidence.schema.json` own the canonical contracts. `npm run generate` produces their TypeScript
+registries and immutable type facade under `src/domain/model/`. `src/infrastructure/model-schema.ts` uses
+Ajv for both direct checks and file loading; its errors retain JSON instance paths. The handwritten model
+fixture under `test/fixtures/model/` exercises these contracts. Existing readers continue to use the
+unchanged `schema/legacy-plan.schema.json` and legacy workspace validators until they move to the new
+model. New fields are declared in JSON Schema and regenerated, rather than copied into handwritten types.
+
 ## The model
 
 A **workspace** holds **domains**. A domain holds **systems**. A system holds **components**. Plans live at

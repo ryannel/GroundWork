@@ -1,0 +1,12 @@
+kind: control_binding
+id: ev:control
+action: ev:action
+surface: ev:surface
+state: ready
+trigger: submit
+source: ev:source
+availability:
+  state: not_examined
+  obligation: Check availability
+cites:
+  - ev:source

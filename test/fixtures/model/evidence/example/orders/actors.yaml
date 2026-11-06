@@ -1,0 +1,6 @@
+kind: actor
+id: ev:actor
+name: Customer
+authority: source_candidate
+cites:
+  - ev:source

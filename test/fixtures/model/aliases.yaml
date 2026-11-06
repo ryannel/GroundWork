@@ -1,0 +1,3 @@
+svc:old-ordering: { to: 'svc:ordering' }
+job:old timer: { to: 'job:relay' }
+api:retired: { to: null, reason: The synthetic route was retired. }

@@ -1,0 +1,96 @@
+interfaces:
+  - id: if:orders
+    component: svc:ordering
+    kind: rest
+    version: v1
+    entries:
+      - id: api:confirm
+        method: POST
+        path: /orders/{id}/confirm
+        request: sch:confirm
+        response: sch:order
+        errors: [{ status: 404, when: The order does not exist }]
+      - { id: 'api:legacy', sig: 'GET legacy free words' }
+  - id: if:graph
+    component: svc:ordering
+    kind: graphql
+    subgraph: sg:orders
+    entries:
+      - {
+          id: 'api:order-query',
+          field: Query.order,
+          signature: 'order(id: ID!): Order',
+          response: 'sch:order',
+        }
+  - id: if:grpc
+    component: svc:ordering
+    kind: grpc
+    entries:
+      - { id: 'api:grpc-confirm', rpc: fixture.Ordering/Confirm, request: 'sch:confirm' }
+  - id: if:payments
+    external: ext:payments
+    kind: sdk
+    entries:
+      - { id: 'api:charge', call: Payments.charge }
+messages:
+  - {
+      id: 'msg:confirmed',
+      topic: 'top:confirmed',
+      payload: 'sch:confirmed',
+      key: orderId,
+      semantics: event,
+    }
+subscriptions:
+  - id: sub:on-confirmed
+    component: svc:ordering
+    message: msg:confirmed
+    group: ordering
+    when: Delivery is enabled
+    concurrency: 3
+    delivery: { retries: 5, dead_letter: 'top:dead-letter' }
+jobs:
+  - { id: 'job:relay', component: 'svc:ordering', every: 30s }
+  - { id: 'job:nightly', component: 'svc:ordering', cron: '0 2 * * *' }
+  - { id: 'job:manual', component: 'svc:ordering', trigger: A person requests a repair }
+  - { id: 'job:unknown', component: 'svc:ordering' }
+interactions:
+  - { id: 'ui:confirm', component: 'app:shop', on: 'scr:checkout#confirm', action: click }
+operations:
+  - {
+      id: 'gql:order',
+      component: 'app:shop',
+      graph: 'graph:shop',
+      document: 'ev:document',
+      screens: ['scr:checkout'],
+    }
+schemas:
+  - id: sch:confirm
+    kind: dto
+    fields:
+      - {
+          id: order-id,
+          name: orderId,
+          type: string,
+          required: true,
+          note: Stable order id,
+          cites: ['ev:source'],
+        }
+      - { id: lines, name: lines, type: { array: 'sch:line' } }
+      - { id: headers, name: headers, type: { map: { key: string, value: string } } }
+      - { id: result, name: result, type: { one_of: ['sch:order', 'sch:error'] } }
+      - { id: state, name: state, type: { enum: [draft, confirmed] } }
+      - { id: unknown, name: unknown }
+  - {
+      id: 'sch:order',
+      kind: record,
+      store: 'st:orders',
+      table: orders,
+      fields: [{ id: status, name: status, type: string }],
+    }
+  - { id: 'sch:confirmed', kind: payload, fields: [{ id: order-id, name: orderId, type: string }] }
+  - {
+      id: 'sch:graph-order',
+      kind: graph-type,
+      graph: 'graph:shop',
+      fields: [{ id: id, name: id, type: ID }],
+    }

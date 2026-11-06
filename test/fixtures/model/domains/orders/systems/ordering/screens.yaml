@@ -1,0 +1,11 @@
+screens:
+  - id: scr:checkout
+    name: Checkout
+    app: app:shop
+    kind: page
+    device: desktop
+    route: /checkout
+    regions: [{ id: confirm, name: Confirm bar }]
+    assets:
+      - { figma: 'https://www.figma.com/design/fixture', region: confirm, label: Design }
+      - { file: assets/checkout.png, label: Synthetic screenshot }

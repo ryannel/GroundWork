@@ -1,0 +1,16 @@
+kind: execution
+id: ev:execution
+action: ev:action
+host: ev:host
+operation: Confirm
+source: ev:source
+guard:
+  state: not_examined
+  obligation: Check guard
+target:
+  kind: entry
+  entry: api:confirm
+inputMappings: []
+outcomeMappings: []
+cites:
+  - ev:source

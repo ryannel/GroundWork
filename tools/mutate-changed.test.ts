@@ -1,11 +1,13 @@
 import { spawnSync } from 'node:child_process';
 import { readFileSync } from 'node:fs';
+import { mkdir, mkdtemp, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import path from 'node:path';
 
 import { describe, expect, it } from 'vitest';
 
 import {
+  aggregate,
   mutationBatches,
   mutationPassed,
   mutationReportScore,
@@ -135,5 +137,31 @@ describe('complete weighted mutation reports', () => {
       { encoding: 'utf8' },
     );
     expect(result.status).toBe(1);
+  });
+});
+
+describe('downloaded mutation report layout', () => {
+  it('accepts one named batch and rejects a flattened download', async () => {
+    const folder = await mkdtemp(path.join(tmpdir(), 'groundwork-single-batch-'));
+    const completed = JSON.stringify(report(['Killed', 'Killed', 'Killed', 'Survived']));
+    await writeFile(path.join(folder, 'mutation.json'), completed);
+    await expect(aggregate(folder, [file])).rejects.toThrow(
+      'Missing or unexpected mutation batches',
+    );
+    const named = await mkdtemp(path.join(tmpdir(), 'groundwork-named-batch-'));
+    await mkdir(path.join(named, 'mutation-0'));
+    await writeFile(path.join(named, 'mutation-0', 'mutation.json'), completed);
+    await expect(aggregate(named, [file])).resolves.toBeUndefined();
+  });
+  it('rejects a missing batch when the download contains only one of several expected names', async () => {
+    const folder = await mkdtemp(path.join(tmpdir(), 'groundwork-partial-batches-'));
+    await mkdir(path.join(folder, 'mutation-0'));
+    await writeFile(
+      path.join(folder, 'mutation-0', 'mutation.json'),
+      JSON.stringify(report(['Killed'])),
+    );
+    await expect(aggregate(folder, [file, other])).rejects.toThrow(
+      'Missing or unexpected mutation batches',
+    );
   });
 });

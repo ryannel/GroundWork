@@ -1,0 +1,10 @@
+id: ev:claim
+kind: purpose
+label: Inferred
+statement: The synthetic API confirms orders.
+reasoning: The example handler has a confirmation entry.
+confidence: low
+limitations:
+  - Synthetic fixture only
+cites:
+  - ev:source

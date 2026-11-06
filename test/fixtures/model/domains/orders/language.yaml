@@ -1,0 +1,7 @@
+concepts:
+  - id: con:order
+    name: Order
+    means: A confirmed request to buy.
+    born_in: svc:ordering
+    aka: [{ in: 'svc:ordering', as: Order, at: 'sch:order' }]
+    cites: ['ev:source']

@@ -1,0 +1,9 @@
+kind: source
+id: ev:source
+file: ev:file
+lines:
+  - 1
+  - 80
+host: ev:host
+authority: declared
+symbol: Confirm

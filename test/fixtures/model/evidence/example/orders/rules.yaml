@@ -1,0 +1,7 @@
+kind: rule
+id: ev:rule
+version: '1'
+concerns:
+  - storage
+applicability: extraction
+prerequisites: []

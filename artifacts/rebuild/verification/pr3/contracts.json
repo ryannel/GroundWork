@@ -1,0 +1,21 @@
+{
+  "contracts": {
+    "workspace": {
+      "file": "schema/workspace.schema.json",
+      "sha256": "3816f85c895bb593e7bba5cf3fb8345c18e25333dd60637eae4ba5bca04b5392",
+      "definitions": 134
+    },
+    "plan": {
+      "file": "schema/plan.schema.json",
+      "sha256": "2d63ff4983a586f157671725cd362854e042d3fc5192d50e75a0113fb2ff3a76",
+      "definitions": 42
+    },
+    "evidence": {
+      "file": "schema/evidence.schema.json",
+      "sha256": "6a39fb3f2cb5f4e7b1fc3988d38ee90595662bc6e7e527b1119cd9754a019ce7",
+      "definitions": 100
+    }
+  },
+  "handwrittenFixtureFiles": 47,
+  "evidenceFamilies": 22
+}

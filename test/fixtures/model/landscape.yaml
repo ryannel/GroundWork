@@ -1,0 +1,52 @@
+format: 2
+label: Inferred
+reviewed: '2026-11-06'
+scope: Synthetic model fixture
+limitation: Not company evidence
+areas:
+  - {
+      id: 'area:orders',
+      name: Orders,
+      purpose: Confirm purchases,
+      activities: [Confirmation],
+      boundary: Customer orders,
+      confidence: low,
+      evidence_count: 1,
+    }
+  - { id: 'area:delivery', name: Delivery, purpose: Deliver purchases }
+relationships:
+  [
+    {
+      id: deliver,
+      from: 'area:orders',
+      to: 'area:delivery',
+      label: Confirmed orders,
+      kind: exchange,
+    },
+  ]
+details:
+  - area: area:orders
+    systems: ['sys:ordering']
+    relationships: []
+    collaborations: []
+    valueFlow:
+      title: Confirm orders
+      summary: The customer confirms an order.
+      confidence: low
+      reasoning: Synthetic example only.
+      limitations: [Not company evidence]
+      bands:
+        - id: confirm
+          title: Confirm
+          summary: Save the order
+          nodes: [{ component: 'svc:ordering', column: 0 }]
+      connections:
+        [
+          {
+            from: 'app:shop',
+            to: 'svc:ordering',
+            label: Submit order,
+            kind: api,
+            cites: ['ev:source'],
+          },
+        ]

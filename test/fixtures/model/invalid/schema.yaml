@@ -1,0 +1,6 @@
+schemas:
+  - id: sch:invalid
+    kind: dto
+    fields:
+      - { id: ambiguous, name: ambiguous, type: { array: string, enum: [first] } }
+      - { id: old, name: old, sources: ['https://github.com/example/orders/blob/main/file.ts'] }

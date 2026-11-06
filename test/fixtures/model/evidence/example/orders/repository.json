@@ -1,0 +1,11 @@
+{
+  "format": "groundwork-evidence/v2",
+  "repo": "example/orders",
+  "commit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+  "scannedAt": "2026-11-06T00:00:00Z",
+  "language": "typescript",
+  "trackedFiles": 1,
+  "selectedFiles": 1,
+  "passes": ["source", "discovery"],
+  "scanner": { "name": "handwritten-fixture", "version": "1" }
+}

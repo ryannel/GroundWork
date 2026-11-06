@@ -1,0 +1,8 @@
+kind: surface
+id: ev:surface
+name: Checkout
+type: page
+states:
+  - ready
+cites:
+  - ev:source

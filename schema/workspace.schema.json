@@ -1,0 +1,4602 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://groundwork.local/schema/workspace.schema.json",
+  "title": "WorkspaceDocument",
+  "description": "Canonical authored workspace files. Model and evidence references are resolved by readModel; unknown facts are omitted and reported as gaps. uniqueIds/uniqueChildIds are generic keywords registered by the shared Ajv loader.",
+  "$defs": {
+    "Id": {
+      "type": "string",
+      "pattern": "^(?:dom|sys|svc|app|st|top|lib|ext|if|api|sub|job|ui|msg|graph|sg|gql|scr|sch|h|rel|ev|team|actor|area|flow|jny|plan|prog|term|con|stage|chg|tst|wi|ms|dec|risk|q|sc|req):[^#\\s]+(?:#[^#\\s]+)?$"
+    },
+    "ChildId": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._~-]*$"
+    },
+    "ComponentId": {
+      "type": "string",
+      "pattern": "^(?:svc|app|st|top):[^#\\s]+$"
+    },
+    "ExecutableId": {
+      "type": "string",
+      "pattern": "^(?:svc|app):[^#\\s]+$"
+    },
+    "SchemaRef": {
+      "type": "string",
+      "pattern": "^(?:sch):[^#\\s]+(?:#[^#\\s]+)?$"
+    },
+    "ScreenRef": {
+      "type": "string",
+      "pattern": "^(?:scr):[^#\\s]+(?:#[^#\\s]+)?$"
+    },
+    "HandlerRef": {
+      "type": "string",
+      "pattern": "^(?:h):[^#\\s]+(?:#[^#\\s]+)?$"
+    },
+    "EntryRef": {
+      "type": "string",
+      "pattern": "^(?:api|sub|job|ui):[^#\\s]+$"
+    },
+    "JsonValue": {
+      "anyOf": [
+        {
+          "type": [
+            "null",
+            "boolean",
+            "number",
+            "string"
+          ]
+        },
+        {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/JsonValue"
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/JsonValue"
+          }
+        }
+      ]
+    },
+    "AuthoredCite": {
+      "type": "string",
+      "anyOf": [
+        {
+          "pattern": "^ev:[^#\\s]+$"
+        },
+        {
+          "pattern": "^#L[1-9][0-9]*(?:-[1-9][0-9]*)?$"
+        },
+        {
+          "pattern": "^(?!https?:|ev:)[a-z][a-z0-9-]*:[^\\r\\n]+$"
+        }
+      ],
+      "description": "Evidence id, home-key code reference (with optional commit/span/symbol), or an inherited handler line span. Git-host URLs are derived, never authored here."
+    },
+    "AuthoredCites": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/AuthoredCite"
+      },
+      "minItems": 1
+    },
+    "CodeHome": {
+      "type": "object",
+      "properties": {
+        "repo": {
+          "type": "string",
+          "minLength": 1
+        },
+        "path": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "repo"
+      ],
+      "additionalProperties": false
+    },
+    "CodeRef": {
+      "type": "object",
+      "properties": {
+        "kind": {
+          "const": "code"
+        },
+        "repo": {
+          "type": "string",
+          "minLength": 1
+        },
+        "commit": {
+          "type": "string",
+          "minLength": 1
+        },
+        "path": {
+          "type": "string",
+          "minLength": 1
+        },
+        "lines": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "minItems": 2,
+          "maxItems": 2
+        },
+        "symbol": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "kind",
+        "repo",
+        "commit",
+        "path"
+      ],
+      "additionalProperties": false
+    },
+    "EvidenceRef": {
+      "type": "object",
+      "properties": {
+        "kind": {
+          "const": "evidence"
+        },
+        "id": {
+          "type": "string",
+          "pattern": "^(?:ev):[^#\\s]+$"
+        }
+      },
+      "required": [
+        "kind",
+        "id"
+      ],
+      "additionalProperties": false
+    },
+    "Cite": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/CodeRef"
+        },
+        {
+          "$ref": "#/$defs/EvidenceRef"
+        }
+      ]
+    },
+    "Cites": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/Cite"
+      },
+      "minItems": 1
+    },
+    "Owner": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/ExecutableId"
+        },
+        "cites": {
+          "$ref": "#/$defs/AuthoredCites"
+        }
+      },
+      "required": [
+        "id",
+        "cites"
+      ],
+      "additionalProperties": false
+    },
+    "Connection": {
+      "type": "object",
+      "properties": {
+        "to": {
+          "type": "string",
+          "pattern": "^(?:sys):[^#\\s]+$"
+        },
+        "says": {
+          "type": "string",
+          "minLength": 1
+        },
+        "backs": {
+          "type": "array",
+          "items": {
+            "anyOf": [
+              {
+                "type": "string",
+                "pattern": "^(?:rel|gql):[^#\\s]+$"
+              },
+              {
+                "type": "string",
+                "pattern": "^h:[^#\\s]+#[^!#\\s][^#\\s]*$"
+              }
+            ]
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "to",
+        "says",
+        "backs"
+      ],
+      "additionalProperties": false
+    },
+    "Relationship": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^(?:rel):[^#\\s]+$"
+        },
+        "from": {
+          "$ref": "#/$defs/ComponentId"
+        },
+        "to": {
+          "$ref": "#/$defs/Id"
+        },
+        "kind": {
+          "enum": [
+            "call",
+            "publish",
+            "consume",
+            "read",
+            "write"
+          ]
+        },
+        "says": {
+          "type": "string",
+          "minLength": 1
+        },
+        "reason": {
+          "type": "string",
+          "minLength": 1
+        },
+        "cites": {
+          "$ref": "#/$defs/AuthoredCites"
+        }
+      },
+      "required": [
+        "id",
+        "from",
+        "to",
+        "kind",
+        "says",
+        "reason",
+        "cites"
+      ],
+      "additionalProperties": false
+    },
+    "ServiceComponent": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^(?:svc):[^#\\s]+$"
+        },
+        "kind": {
+          "const": "service"
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "does": {
+          "type": "string",
+          "minLength": 1
+        },
+        "tech": {
+          "type": "string",
+          "minLength": 1
+        },
+        "homes": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "uses": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^(?:lib):[^#\\s]+$"
+          },
+          "uniqueItems": true
+        },
+        "infrastructure": {
+          "type": "boolean"
+        },
+        "cites": {
+          "$ref": "#/$defs/AuthoredCites"
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "kind"
+      ],
+      "additionalProperties": false
+    },
+    "AppComponent": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^(?:app):[^#\\s]+$"
+        },
+        "kind": {
+          "const": "app"
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "does": {
+          "type": "string",
+          "minLength": 1
+        },
+        "tech": {
+          "type": "string",
+          "minLength": 1
+        },
+        "homes": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "uses": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^(?:lib):[^#\\s]+$"
+          },
+          "uniqueItems": true
+        },
+        "infrastructure": {
+          "type": "boolean"
+        },
+        "cites": {
+          "$ref": "#/$defs/AuthoredCites"
+        },
+        "form": {
+          "enum": [
+            "web",
+            "mobile",
+            "admin"
+          ]
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "kind"
+      ],
+      "additionalProperties": false
+    },
+    "StoreComponent": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^(?:st):[^#\\s]+$"
+        },
+        "kind": {
+          "const": "store"
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "does": {
+          "type": "string",
+          "minLength": 1
+        },
+        "tech": {
+          "type": "string",
+          "minLength": 1
+        },
+        "homes": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "uses": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^(?:lib):[^#\\s]+$"
+          },
+          "uniqueItems": true
+        },
+        "infrastructure": {
+          "type": "boolean"
+        },
+        "cites": {
+          "$ref": "#/$defs/AuthoredCites"
+        },
+        "form": {
+          "enum": [
+            "database",
+            "cache",
+            "bucket",
+            "warehouse",
+            "vector",
+            "managed"
+          ]
+        },
+        "owner": {
+          "$ref": "#/$defs/Owner"
+        },
+        "notes": {
+          "type": "string",
+          "minLength": 1
+        },
+        "layer": {
+          "enum": [
+            "edge",
+            "gateway",
+            "subgraph"
+          ],
+          "description": "kind: cache: where the layer sits on the cache path (outermost first)"
+        },
+        "granularity": {
+          "enum": [
+            "response",
+            "entity"
+          ],
+          "description": "kind: cache: whole responses, or per entity per subgraph fetch (Apollo Router entity caching)"
+        },
+        "keyed_by": {
+          "type": "string",
+          "description": "kind: cache: what the key is made of, in words"
+        },
+        "stale": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "while_revalidate": {
+              "type": "number",
+              "minimum": 0
+            },
+            "if_error": {
+              "type": "number",
+              "minimum": 0
+            }
+          },
+          "description": "seconds it may serve stale"
+        },
+        "purge": {
+          "type": "string",
+          "description": "how an entry is emptied (surrogate key per sku, POST /invalidate)"
+        },
+        "invalidated_by": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/id_msg"
+          },
+          "description": "events that empty it (a shortcut; a flow step with purges: says who does it)"
+        },
+        "observed": {
+          "type": "object",
+          "additionalProperties": false,
+          "description": "measured numbers, not settings",
+          "properties": {
+            "hit_ratio": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
+            },
+            "latency_ms": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "hit": {
+                  "type": "number"
+                },
+                "miss": {
+                  "type": "number"
+                }
+              }
+            }
+          }
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "kind"
+      ],
+      "additionalProperties": false
+    },
+    "TopicComponent": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^(?:top):[^#\\s]+$"
+        },
+        "kind": {
+          "const": "topic"
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "does": {
+          "type": "string",
+          "minLength": 1
+        },
+        "tech": {
+          "type": "string",
+          "minLength": 1
+        },
+        "homes": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "uses": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^(?:lib):[^#\\s]+$"
+          },
+          "uniqueItems": true
+        },
+        "infrastructure": {
+          "type": "boolean"
+        },
+        "cites": {
+          "$ref": "#/$defs/AuthoredCites"
+        },
+        "form": {
+          "enum": [
+            "stream",
+            "queue"
+          ]
+        },
+        "owner": {
+          "$ref": "#/$defs/Owner"
+        },
+        "notes": {
+          "type": "string",
+          "minLength": 1
+        },
+        "layer": {
+          "enum": [
+            "edge",
+            "gateway",
+            "subgraph"
+          ],
+          "description": "kind: cache: where the layer sits on the cache path (outermost first)"
+        },
+        "granularity": {
+          "enum": [
+            "response",
+            "entity"
+          ],
+          "description": "kind: cache: whole responses, or per entity per subgraph fetch (Apollo Router entity caching)"
+        },
+        "keyed_by": {
+          "type": "string",
+          "description": "kind: cache: what the key is made of, in words"
+        },
+        "stale": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "while_revalidate": {
+              "type": "number",
+              "minimum": 0
+            },
+            "if_error": {
+              "type": "number",
+              "minimum": 0
+            }
+          },
+          "description": "seconds it may serve stale"
+        },
+        "purge": {
+          "type": "string",
+          "description": "how an entry is emptied (surrogate key per sku, POST /invalidate)"
+        },
+        "invalidated_by": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/id_msg"
+          },
+          "description": "events that empty it (a shortcut; a flow step with purges: says who does it)"
+        },
+        "observed": {
+          "type": "object",
+          "additionalProperties": false,
+          "description": "measured numbers, not settings",
+          "properties": {
+            "hit_ratio": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
+            },
+            "latency_ms": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "hit": {
+                  "type": "number"
+                },
+                "miss": {
+                  "type": "number"
+                }
+              }
+            }
+          }
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "kind"
+      ],
+      "additionalProperties": false
+    },
+    "Component": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/ServiceComponent"
+        },
+        {
+          "$ref": "#/$defs/AppComponent"
+        },
+        {
+          "$ref": "#/$defs/StoreComponent"
+        },
+        {
+          "$ref": "#/$defs/TopicComponent"
+        }
+      ]
+    },
+    "SystemFile": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^(?:sys):[^#\\s]+$"
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "purpose": {
+          "type": "string",
+          "minLength": 1
+        },
+        "team": {
+          "type": "string",
+          "pattern": "^(?:team):[^#\\s]+$"
+        },
+        "runs_on": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^(?:sys):[^#\\s]+$"
+          },
+          "uniqueItems": true
+        },
+        "mapped": {
+          "type": "boolean"
+        },
+        "homes": {
+          "type": "object",
+          "propertyNames": {
+            "pattern": "^[a-z][a-z0-9-]*$"
+          },
+          "additionalProperties": {
+            "$ref": "#/$defs/CodeHome"
+          }
+        },
+        "components": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Component"
+          }
+        },
+        "connections": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Connection"
+          }
+        },
+        "relationships": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Relationship"
+          }
+        },
+        "cites": {
+          "$ref": "#/$defs/AuthoredCites"
+        }
+      },
+      "required": [
+        "id",
+        "name"
+      ],
+      "additionalProperties": false
+    },
+    "Team": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^(?:team):[^#\\s]+$"
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "colour": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 13
+        },
+        "channel": {
+          "type": "string",
+          "minLength": 1
+        },
+        "handles": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        },
+        "partner": {
+          "type": "boolean"
+        },
+        "contacts": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string",
+                "minLength": 1
+              },
+              "role": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            "required": [
+              "name"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "id",
+        "name"
+      ],
+      "additionalProperties": false
+    },
+    "Actor": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^(?:actor):[^#\\s]+$"
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "summary": {
+          "type": "string",
+          "minLength": 1
+        },
+        "uses": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/ComponentId"
+          },
+          "uniqueItems": true
+        },
+        "customer": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "id",
+        "name"
+      ],
+      "additionalProperties": false
+    },
+    "WorkspaceFile": {
+      "type": "object",
+      "properties": {
+        "format": {
+          "const": 2
+        },
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "description": {
+          "type": "string",
+          "minLength": 1
+        },
+        "private": {
+          "type": "boolean"
+        },
+        "teams": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Team"
+          }
+        },
+        "actors": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Actor"
+          }
+        }
+      },
+      "required": [
+        "id",
+        "name"
+      ],
+      "additionalProperties": false
+    },
+    "DomainFile": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^(?:dom):[^#\\s]+$"
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "purpose": {
+          "type": "string",
+          "minLength": 1
+        },
+        "cites": {
+          "$ref": "#/$defs/AuthoredCites"
+        }
+      },
+      "required": [
+        "id",
+        "name"
+      ],
+      "additionalProperties": false
+    },
+    "Library": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^(?:lib):[^#\\s]+$"
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "does": {
+          "type": "string",
+          "minLength": 1
+        },
+        "summary": {
+          "type": "string",
+          "minLength": 1
+        },
+        "cites": {
+          "$ref": "#/$defs/AuthoredCites"
+        }
+      },
+      "required": [
+        "id",
+        "name"
+      ],
+      "additionalProperties": false
+    },
+    "External": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^(?:ext):[^#\\s]+$"
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "summary": {
+          "type": "string",
+          "minLength": 1
+        },
+        "cites": {
+          "$ref": "#/$defs/AuthoredCites"
+        }
+      },
+      "required": [
+        "id",
+        "name"
+      ],
+      "additionalProperties": false
+    },
+    "LibrariesFile": {
+      "type": "object",
+      "properties": {
+        "libraries": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Library"
+          }
+        }
+      },
+      "required": [
+        "libraries"
+      ],
+      "additionalProperties": false
+    },
+    "ExternalsFile": {
+      "type": "object",
+      "properties": {
+        "externals": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/External"
+          }
+        }
+      },
+      "required": [
+        "externals"
+      ],
+      "additionalProperties": false
+    },
+    "Alias": {
+      "type": "object",
+      "properties": {
+        "to": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1
+        },
+        "reason": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "to"
+      ],
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "to": {
+                "type": "null"
+              }
+            },
+            "required": [
+              "to"
+            ]
+          },
+          "then": {
+            "required": [
+              "reason"
+            ]
+          }
+        }
+      ]
+    },
+    "AliasesFile": {
+      "type": "object",
+      "propertyNames": {
+        "minLength": 1
+      },
+      "additionalProperties": {
+        "$ref": "#/$defs/Alias"
+      }
+    },
+    "FieldType": {
+      "oneOf": [
+        {
+          "type": "string",
+          "minLength": 1
+        },
+        {
+          "type": "object",
+          "properties": {
+            "array": {
+              "$ref": "#/$defs/FieldType"
+            }
+          },
+          "required": [
+            "array"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "map": {
+              "type": "object",
+              "properties": {
+                "key": {
+                  "$ref": "#/$defs/FieldType"
+                },
+                "value": {
+                  "$ref": "#/$defs/FieldType"
+                }
+              },
+              "required": [
+                "key",
+                "value"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "required": [
+            "map"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "one_of": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/FieldType"
+              },
+              "minItems": 1
+            }
+          },
+          "required": [
+            "one_of"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "enum": {
+              "type": "array",
+              "items": {
+                "type": [
+                  "string",
+                  "number",
+                  "boolean",
+                  "null"
+                ]
+              },
+              "minItems": 1,
+              "uniqueItems": true
+            }
+          },
+          "required": [
+            "enum"
+          ],
+          "additionalProperties": false
+        }
+      ]
+    },
+    "Field": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/ChildId"
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "type": {
+          "$ref": "#/$defs/FieldType"
+        },
+        "required": {
+          "type": "boolean"
+        },
+        "key": {
+          "type": "boolean"
+        },
+        "unique": {
+          "type": "boolean"
+        },
+        "default": {
+          "$ref": "#/$defs/JsonValue"
+        },
+        "note": {
+          "type": "string",
+          "minLength": 1
+        },
+        "cites": {
+          "$ref": "#/$defs/AuthoredCites"
+        },
+        "args": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Field"
+          },
+          "uniqueIds": true
+        },
+        "ref": {
+          "$ref": "#/$defs/id_schemaOrField",
+          "description": "a reference to another record: sch:* (its key) or sch:*#field"
+        },
+        "subgraphs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/id_sg"
+          },
+          "description": "the subgraphs that resolve the field; required unless it is a key field"
+        },
+        "shareable": {
+          "type": "boolean",
+          "description": "@shareable: two or more subgraphs resolve it"
+        },
+        "provides": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/id_field"
+          },
+          "description": "@provides: fields of the return type this subgraph can resolve on the same fetch"
+        },
+        "requires": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/id_field"
+          },
+          "description": "@requires: fields the gateway must fetch first and send along"
+        },
+        "override": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "additionalProperties": false,
+          "required": [
+            "from"
+          ],
+          "description": "@override: this field moves from another subgraph; percent = progressive override (null once the move is contracted)",
+          "properties": {
+            "from": {
+              "$ref": "#/$defs/id_sg"
+            },
+            "percent": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 100
+            }
+          }
+        },
+        "reads": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/id_schemaOrField"
+          },
+          "description": "the record fields the owning subgraph reads"
+        },
+        "via": {
+          "$ref": "#/$defs/id_api",
+          "description": "an endpoint the resolver calls"
+        },
+        "cache": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/cacheUse"
+          },
+          "description": "data caches the resolver reads first"
+        },
+        "cache_control": {
+          "$ref": "#/$defs/cacheControl"
+        },
+        "auth": {
+          "type": "string",
+          "description": "who may read it; non-empty makes the field private"
+        },
+        "batched": {
+          "type": "boolean",
+          "description": "overrides the subgraph's batching for this field"
+        },
+        "usage": {
+          "type": "object",
+          "additionalProperties": false,
+          "description": "registry field usage (evidence for a deprecation)",
+          "properties": {
+            "clients": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "per_day": {
+              "type": [
+                "string",
+                "number"
+              ]
+            },
+            "last_seen": {
+              "type": "string"
+            },
+            "source": {
+              "type": "string",
+              "format": "uri"
+            }
+          }
+        }
+      },
+      "required": [
+        "id",
+        "name"
+      ],
+      "additionalProperties": false
+    },
+    "Schema": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^(?:sch):[^#\\s]+$"
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "kind": {
+          "enum": [
+            "dto",
+            "record",
+            "payload",
+            "graph-type"
+          ]
+        },
+        "store": {
+          "type": "string",
+          "pattern": "^(?:st):[^#\\s]+$"
+        },
+        "table": {
+          "type": "string",
+          "minLength": 1
+        },
+        "graph": {
+          "type": "string",
+          "pattern": "^(?:graph):[^#\\s]+$"
+        },
+        "root": {
+          "enum": [
+            "query",
+            "mutation",
+            "subscription"
+          ]
+        },
+        "keys": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/JsonValue"
+          }
+        },
+        "summary": {
+          "type": "string",
+          "minLength": 1
+        },
+        "fields": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Field"
+          },
+          "uniqueIds": true
+        },
+        "cites": {
+          "$ref": "#/$defs/AuthoredCites"
+        }
+      },
+      "required": [
+        "id",
+        "kind"
+      ],
+      "additionalProperties": false
+    },
+    "RestEntry": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^(?:api):[^#\\s]+$"
+        },
+        "summary": {
+          "type": "string",
+          "minLength": 1
+        },
+        "auth": {
+          "type": "string",
+          "minLength": 1
+        },
+        "idempotent": {
+          "type": "boolean"
+        },
+        "request": {
+          "type": "string",
+          "pattern": "^(?:sch):[^#\\s]+$"
+        },
+        "response": {
+          "type": "string",
+          "pattern": "^(?:sch):[^#\\s]+$"
+        },
+        "errors": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "status": {
+                "type": [
+                  "integer",
+                  "string"
+                ]
+              },
+              "when": {
+                "type": "string",
+                "minLength": 1
+              },
+              "schema": {
+                "type": "string",
+                "pattern": "^(?:sch):[^#\\s]+$"
+              },
+              "cites": {
+                "$ref": "#/$defs/AuthoredCites"
+              }
+            },
+            "required": [
+              "status"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "sig": {
+          "type": "string",
+          "minLength": 1
+        },
+        "version": {
+          "type": "string",
+          "minLength": 1
+        },
+        "supersedes": {
+          "type": "string",
+          "pattern": "^(?:api):[^#\\s]+$"
+        },
+        "deprecated": {
+          "type": "boolean"
+        },
+        "cites": {
+          "$ref": "#/$defs/AuthoredCites"
+        },
+        "method": {
+          "type": "string",
+          "minLength": 1
+        },
+        "path": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "id"
+      ],
+      "additionalProperties": false,
+      "anyOf": [
+        {
+          "required": [
+            "method",
+            "path"
+          ]
+        },
+        {
+          "required": [
+            "sig"
+          ]
+        }
+      ]
+    },
+    "RestInterface": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^(?:if):[^#\\s]+$"
+        },
+        "kind": {
+          "const": "rest"
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "component": {
+          "$ref": "#/$defs/ExecutableId"
+        },
+        "external": {
+          "type": "string",
+          "pattern": "^(?:ext):[^#\\s]+$"
+        },
+        "version": {
+          "type": "string",
+          "minLength": 1
+        },
+        "summary": {
+          "type": "string",
+          "minLength": 1
+        },
+        "subgraph": {
+          "type": "string",
+          "pattern": "^(?:sg):[^#\\s]+$"
+        },
+        "entries": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/RestEntry"
+          }
+        },
+        "cites": {
+          "$ref": "#/$defs/AuthoredCites"
+        }
+      },
+      "required": [
+        "id",
+        "kind"
+      ],
+      "additionalProperties": false,
+      "oneOf": [
+        {
+          "required": [
+            "component"
+          ]
+        },
+        {
+          "required": [
+            "external"
+          ]
+        }
+      ]
+    },
+    "GraphqlEntry": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^(?:api):[^#\\s]+$"
+        },
+        "summary": {
+          "type": "string",
+          "minLength": 1
+        },
+        "auth": {
+          "type": "string",
+          "minLength": 1
+        },
+        "idempotent": {
+          "type": "boolean"
+        },
+        "request": {
+          "type": "string",
+          "pattern": "^(?:sch):[^#\\s]+$"
+        },
+        "response": {
+          "type": "string",
+          "pattern": "^(?:sch):[^#\\s]+$"
+        },
+        "errors": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "status": {
+                "type": [
+                  "integer",
+                  "string"
+                ]
+              },
+              "when": {
+                "type": "string",
+                "minLength": 1
+              },
+              "schema": {
+                "type": "string",
+                "pattern": "^(?:sch):[^#\\s]+$"
+              },
+              "cites": {
+                "$ref": "#/$defs/AuthoredCites"
+              }
+            },
+            "required": [
+              "status"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "sig": {
+          "type": "string",
+          "minLength": 1
+        },
+        "version": {
+          "type": "string",
+          "minLength": 1
+        },
+        "supersedes": {
+          "type": "string",
+          "pattern": "^(?:api):[^#\\s]+$"
+        },
+        "deprecated": {
+          "type": "boolean"
+        },
+        "cites": {
+          "$ref": "#/$defs/AuthoredCites"
+        },
+        "field": {
+          "type": "string",
+          "minLength": 1
+        },
+        "signature": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "id"
+      ],
+      "additionalProperties": false,
+      "anyOf": [
+        {
+          "required": [
+            "field",
+            "signature"
+          ]
+        },
+        {
+          "required": [
+            "sig"
+          ]
+        }
+      ]
+    },
+    "GraphqlInterface": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^(?:if):[^#\\s]+$"
+        },
+        "kind": {
+          "const": "graphql"
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "component": {
+          "$ref": "#/$defs/ExecutableId"
+        },
+        "external": {
+          "type": "string",
+          "pattern": "^(?:ext):[^#\\s]+$"
+        },
+        "version": {
+          "type": "string",
+          "minLength": 1
+        },
+        "summary": {
+          "type": "string",
+          "minLength": 1
+        },
+        "subgraph": {
+          "type": "string",
+          "pattern": "^(?:sg):[^#\\s]+$"
+        },
+        "entries": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/GraphqlEntry"
+          }
+        },
+        "cites": {
+          "$ref": "#/$defs/AuthoredCites"
+        }
+      },
+      "required": [
+        "id",
+        "kind"
+      ],
+      "additionalProperties": false,
+      "oneOf": [
+        {
+          "required": [
+            "component"
+          ]
+        },
+        {
+          "required": [
+            "external"
+          ]
+        }
+      ]
+    },
+    "GrpcEntry": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^(?:api):[^#\\s]+$"
+        },
+        "summary": {
+          "type": "string",
+          "minLength": 1
+        },
+        "auth": {
+          "type": "string",
+          "minLength": 1
+        },
+        "idempotent": {
+          "type": "boolean"
+        },
+        "request": {
+          "type": "string",
+          "pattern": "^(?:sch):[^#\\s]+$"
+        },
+        "response": {
+          "type": "string",
+          "pattern": "^(?:sch):[^#\\s]+$"
+        },
+        "errors": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "status": {
+                "type": [
+                  "integer",
+                  "string"
+                ]
+              },
+              "when": {
+                "type": "string",
+                "minLength": 1
+              },
+              "schema": {
+                "type": "string",
+                "pattern": "^(?:sch):[^#\\s]+$"
+              },
+              "cites": {
+                "$ref": "#/$defs/AuthoredCites"
+              }
+            },
+            "required": [
+              "status"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "sig": {
+          "type": "string",
+          "minLength": 1
+        },
+        "version": {
+          "type": "string",
+          "minLength": 1
+        },
+        "supersedes": {
+          "type": "string",
+          "pattern": "^(?:api):[^#\\s]+$"
+        },
+        "deprecated": {
+          "type": "boolean"
+        },
+        "cites": {
+          "$ref": "#/$defs/AuthoredCites"
+        },
+        "rpc": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "id"
+      ],
+      "additionalProperties": false,
+      "anyOf": [
+        {
+          "required": [
+            "rpc"
+          ]
+        },
+        {
+          "required": [
+            "sig"
+          ]
+        }
+      ]
+    },
+    "GrpcInterface": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^(?:if):[^#\\s]+$"
+        },
+        "kind": {
+          "const": "grpc"
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "component": {
+          "$ref": "#/$defs/ExecutableId"
+        },
+        "external": {
+          "type": "string",
+          "pattern": "^(?:ext):[^#\\s]+$"
+        },
+        "version": {
+          "type": "string",
+          "minLength": 1
+        },
+        "summary": {
+          "type": "string",
+          "minLength": 1
+        },
+        "subgraph": {
+          "type": "string",
+          "pattern": "^(?:sg):[^#\\s]+$"
+        },
+        "entries": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/GrpcEntry"
+          }
+        },
+        "cites": {
+          "$ref": "#/$defs/AuthoredCites"
+        }
+      },
+      "required": [
+        "id",
+        "kind"
+      ],
+      "additionalProperties": false,
+      "oneOf": [
+        {
+          "required": [
+            "component"
+          ]
+        },
+        {
+          "required": [
+            "external"
+          ]
+        }
+      ]
+    },
+    "SdkEntry": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^(?:api):[^#\\s]+$"
+        },
+        "summary": {
+          "type": "string",
+          "minLength": 1
+        },
+        "auth": {
+          "type": "string",
+          "minLength": 1
+        },
+        "idempotent": {
+          "type": "boolean"
+        },
+        "request": {
+          "type": "string",
+          "pattern": "^(?:sch):[^#\\s]+$"
+        },
+        "response": {
+          "type": "string",
+          "pattern": "^(?:sch):[^#\\s]+$"
+        },
+        "errors": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "status": {
+                "type": [
+                  "integer",
+                  "string"
+                ]
+              },
+              "when": {
+                "type": "string",
+                "minLength": 1
+              },
+              "schema": {
+                "type": "string",
+                "pattern": "^(?:sch):[^#\\s]+$"
+              },
+              "cites": {
+                "$ref": "#/$defs/AuthoredCites"
+              }
+            },
+            "required": [
+              "status"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "sig": {
+          "type": "string",
+          "minLength": 1
+        },
+        "version": {
+          "type": "string",
+          "minLength": 1
+        },
+        "supersedes": {
+          "type": "string",
+          "pattern": "^(?:api):[^#\\s]+$"
+        },
+        "deprecated": {
+          "type": "boolean"
+        },
+        "cites": {
+          "$ref": "#/$defs/AuthoredCites"
+        },
+        "call": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "id"
+      ],
+      "additionalProperties": false,
+      "anyOf": [
+        {
+          "required": [
+            "call"
+          ]
+        },
+        {
+          "required": [
+            "sig"
+          ]
+        }
+      ]
+    },
+    "SdkInterface": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^(?:if):[^#\\s]+$"
+        },
+        "kind": {
+          "const": "sdk"
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "component": {
+          "$ref": "#/$defs/ExecutableId"
+        },
+        "external": {
+          "type": "string",
+          "pattern": "^(?:ext):[^#\\s]+$"
+        },
+        "version": {
+          "type": "string",
+          "minLength": 1
+        },
+        "summary": {
+          "type": "string",
+          "minLength": 1
+        },
+        "subgraph": {
+          "type": "string",
+          "pattern": "^(?:sg):[^#\\s]+$"
+        },
+        "entries": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/SdkEntry"
+          }
+        },
+        "cites": {
+          "$ref": "#/$defs/AuthoredCites"
+        }
+      },
+      "required": [
+        "id",
+        "kind"
+      ],
+      "additionalProperties": false,
+      "oneOf": [
+        {
+          "required": [
+            "component"
+          ]
+        },
+        {
+          "required": [
+            "external"
+          ]
+        }
+      ]
+    },
+    "Endpoint": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/RestEntry"
+        },
+        {
+          "$ref": "#/$defs/GraphqlEntry"
+        },
+        {
+          "$ref": "#/$defs/GrpcEntry"
+        },
+        {
+          "$ref": "#/$defs/SdkEntry"
+        }
+      ]
+    },
+    "Interface": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/RestInterface"
+        },
+        {
+          "$ref": "#/$defs/GraphqlInterface"
+        },
+        {
+          "$ref": "#/$defs/GrpcInterface"
+        },
+        {
+          "$ref": "#/$defs/SdkInterface"
+        }
+      ]
+    },
+    "Message": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^(?:msg):[^#\\s]+$"
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "topic": {
+          "type": "string",
+          "pattern": "^(?:top):[^#\\s]+$"
+        },
+        "payload": {
+          "type": "string",
+          "pattern": "^(?:sch):[^#\\s]+$"
+        },
+        "key": {
+          "type": "string",
+          "minLength": 1
+        },
+        "semantics": {
+          "enum": [
+            "event",
+            "command",
+            "state"
+          ]
+        },
+        "summary": {
+          "type": "string",
+          "minLength": 1
+        },
+        "version": {
+          "type": "string",
+          "minLength": 1
+        },
+        "supersedes": {
+          "type": "string",
+          "pattern": "^(?:msg):[^#\\s]+$"
+        },
+        "cites": {
+          "$ref": "#/$defs/AuthoredCites"
+        }
+      },
+      "required": [
+        "id",
+        "topic"
+      ],
+      "additionalProperties": false
+    },
+    "Subscription": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^(?:sub):[^#\\s]+$"
+        },
+        "component": {
+          "$ref": "#/$defs/ExecutableId"
+        },
+        "message": {
+          "type": "string",
+          "pattern": "^(?:msg):[^#\\s]+$"
+        },
+        "group": {
+          "type": "string",
+          "minLength": 1
+        },
+        "when": {
+          "type": "string",
+          "minLength": 1
+        },
+        "concurrency": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "delivery": {
+          "type": "object",
+          "properties": {
+            "retries": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "dead_letter": {
+              "type": "string",
+              "pattern": "^(?:top):[^#\\s]+$"
+            }
+          },
+          "additionalProperties": false
+        },
+        "cites": {
+          "$ref": "#/$defs/AuthoredCites"
+        }
+      },
+      "required": [
+        "id",
+        "component",
+        "message"
+      ],
+      "additionalProperties": false
+    },
+    "Job": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^(?:job):[^#\\s]+$"
+        },
+        "component": {
+          "type": "string",
+          "pattern": "^(?:svc):[^#\\s]+$"
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "every": {
+          "type": "string",
+          "minLength": 1
+        },
+        "cron": {
+          "type": "string",
+          "minLength": 1
+        },
+        "trigger": {
+          "type": "string",
+          "minLength": 1
+        },
+        "when": {
+          "type": "string",
+          "minLength": 1
+        },
+        "cites": {
+          "$ref": "#/$defs/AuthoredCites"
+        }
+      },
+      "required": [
+        "id",
+        "component"
+      ],
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "not": {
+            "required": [
+              "every",
+              "cron"
+            ]
+          }
+        },
+        {
+          "not": {
+            "required": [
+              "every",
+              "trigger"
+            ]
+          }
+        },
+        {
+          "not": {
+            "required": [
+              "cron",
+              "trigger"
+            ]
+          }
+        }
+      ]
+    },
+    "Interaction": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^(?:ui):[^#\\s]+$"
+        },
+        "component": {
+          "type": "string",
+          "pattern": "^(?:app):[^#\\s]+$"
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "on": {
+          "$ref": "#/$defs/ScreenRef"
+        },
+        "action": {
+          "type": "string",
+          "minLength": 1
+        },
+        "to": {
+          "$ref": "#/$defs/ScreenRef"
+        },
+        "effect": {
+          "type": "string",
+          "minLength": 1
+        },
+        "summary": {
+          "type": "string",
+          "minLength": 1
+        },
+        "cites": {
+          "$ref": "#/$defs/AuthoredCites"
+        }
+      },
+      "required": [
+        "id",
+        "component",
+        "on",
+        "action"
+      ],
+      "additionalProperties": false
+    },
+    "Operation": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^(?:gql):[^#\\s]+$"
+        },
+        "component": {
+          "$ref": "#/$defs/ExecutableId"
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "kind": {
+          "enum": [
+            "query",
+            "mutation",
+            "subscription"
+          ]
+        },
+        "graph": {
+          "type": "string",
+          "pattern": "^(?:graph):[^#\\s]+$"
+        },
+        "document": {
+          "type": "string",
+          "pattern": "^(?:ev):[^#\\s]+$"
+        },
+        "screens": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^(?:scr):[^#\\s]+$"
+          },
+          "uniqueItems": true
+        },
+        "variables": {
+          "$ref": "#/$defs/JsonValue"
+        },
+        "summary": {
+          "type": "string",
+          "minLength": 1
+        },
+        "cites": {
+          "$ref": "#/$defs/AuthoredCites"
+        }
+      },
+      "required": [
+        "id",
+        "component",
+        "graph",
+        "document"
+      ],
+      "additionalProperties": false
+    },
+    "ContractsFile": {
+      "type": "object",
+      "properties": {
+        "interfaces": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Interface"
+          }
+        },
+        "messages": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Message"
+          }
+        },
+        "subscriptions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Subscription"
+          }
+        },
+        "jobs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Job"
+          }
+        },
+        "interactions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Interaction"
+          }
+        },
+        "operations": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Operation"
+          }
+        },
+        "schemas": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Schema"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "Region": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/ChildId"
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "summary": {
+          "type": "string",
+          "minLength": 1
+        },
+        "cites": {
+          "$ref": "#/$defs/AuthoredCites"
+        }
+      },
+      "required": [
+        "id",
+        "name"
+      ],
+      "additionalProperties": false
+    },
+    "Asset": {
+      "type": "object",
+      "properties": {
+        "figma": {
+          "type": "string",
+          "format": "uri"
+        },
+        "file": {
+          "type": "string",
+          "minLength": 1
+        },
+        "region": {
+          "$ref": "#/$defs/ChildId"
+        },
+        "label": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "additionalProperties": false,
+      "oneOf": [
+        {
+          "required": [
+            "figma"
+          ]
+        },
+        {
+          "required": [
+            "file"
+          ]
+        }
+      ]
+    },
+    "Screen": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^(?:scr):[^#\\s]+$"
+        },
+        "app": {
+          "type": "string",
+          "pattern": "^(?:app):[^#\\s]+$"
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "kind": {
+          "enum": [
+            "page",
+            "modal",
+            "sheet",
+            "print",
+            "email"
+          ]
+        },
+        "device": {
+          "type": "string",
+          "minLength": 1
+        },
+        "route": {
+          "type": "string",
+          "minLength": 1
+        },
+        "summary": {
+          "type": "string",
+          "minLength": 1
+        },
+        "regions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Region"
+          },
+          "uniqueIds": true
+        },
+        "assets": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Asset"
+          }
+        },
+        "cites": {
+          "$ref": "#/$defs/AuthoredCites"
+        }
+      },
+      "required": [
+        "id",
+        "app",
+        "name"
+      ],
+      "additionalProperties": false
+    },
+    "ScreensFile": {
+      "type": "object",
+      "properties": {
+        "screens": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Screen"
+          }
+        }
+      },
+      "required": [
+        "screens"
+      ],
+      "additionalProperties": false
+    },
+    "Steps": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/Step"
+      },
+      "uniqueIds": true
+    },
+    "Retry": {
+      "type": "object",
+      "properties": {
+        "until": {
+          "type": "string",
+          "minLength": 1
+        },
+        "times": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "exhausted": {
+          "$ref": "#/$defs/Steps"
+        }
+      },
+      "required": [
+        "until"
+      ],
+      "additionalProperties": false
+    },
+    "Lane": {
+      "type": "object",
+      "properties": {
+        "lane": {
+          "type": "string",
+          "minLength": 1
+        },
+        "steps": {
+          "$ref": "#/$defs/Steps"
+        }
+      },
+      "required": [
+        "steps"
+      ],
+      "additionalProperties": false
+    },
+    "Step": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/ChildId"
+        },
+        "say": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 60
+        },
+        "does": {
+          "type": "string",
+          "minLength": 1
+        },
+        "read": {
+          "$ref": "#/$defs/SchemaRef"
+        },
+        "from": {
+          "type": "string",
+          "pattern": "^(?:st):[^#\\s]+$"
+        },
+        "write": {
+          "$ref": "#/$defs/SchemaRef"
+        },
+        "to": {
+          "type": "string",
+          "pattern": "^(?:st):[^#\\s]+$"
+        },
+        "call": {
+          "type": "string",
+          "pattern": "^(?:api|gql):[^#\\s]+$"
+        },
+        "publish": {
+          "type": "string",
+          "pattern": "^(?:msg):[^#\\s]+$"
+        },
+        "wait": {
+          "type": "string",
+          "minLength": 1
+        },
+        "return": {
+          "type": [
+            "integer",
+            "string"
+          ]
+        },
+        "if": {
+          "type": "string",
+          "minLength": 1
+        },
+        "then": {
+          "$ref": "#/$defs/Steps"
+        },
+        "else": {
+          "$ref": "#/$defs/Steps"
+        },
+        "each": {
+          "type": "string",
+          "minLength": 1
+        },
+        "steps": {
+          "$ref": "#/$defs/Steps"
+        },
+        "parallel": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Lane"
+          },
+          "minItems": 1
+        },
+        "try": {
+          "$ref": "#/$defs/Steps"
+        },
+        "catch": {
+          "$ref": "#/$defs/Steps"
+        },
+        "finally": {
+          "$ref": "#/$defs/Steps"
+        },
+        "transaction": {
+          "const": true
+        },
+        "retry": {
+          "$ref": "#/$defs/Retry"
+        },
+        "when": {
+          "type": "string",
+          "minLength": 1
+        },
+        "async": {
+          "type": "boolean"
+        },
+        "causes": {
+          "type": "string",
+          "pattern": "^h:[^#\\s]+(?:#[^!#\\s][^#\\s]*)?$"
+        },
+        "cites": {
+          "$ref": "#/$defs/AuthoredCites"
+        }
+      },
+      "required": [
+        "id"
+      ],
+      "additionalProperties": false,
+      "uniqueChildIds": true,
+      "allOf": [
+        {
+          "not": {
+            "required": [
+              "read",
+              "write"
+            ]
+          }
+        },
+        {
+          "not": {
+            "required": [
+              "read",
+              "call"
+            ]
+          }
+        },
+        {
+          "not": {
+            "required": [
+              "read",
+              "publish"
+            ]
+          }
+        },
+        {
+          "not": {
+            "required": [
+              "read",
+              "wait"
+            ]
+          }
+        },
+        {
+          "not": {
+            "required": [
+              "read",
+              "return"
+            ]
+          }
+        },
+        {
+          "not": {
+            "required": [
+              "write",
+              "call"
+            ]
+          }
+        },
+        {
+          "not": {
+            "required": [
+              "write",
+              "publish"
+            ]
+          }
+        },
+        {
+          "not": {
+            "required": [
+              "write",
+              "wait"
+            ]
+          }
+        },
+        {
+          "not": {
+            "required": [
+              "write",
+              "return"
+            ]
+          }
+        },
+        {
+          "not": {
+            "required": [
+              "call",
+              "publish"
+            ]
+          }
+        },
+        {
+          "not": {
+            "required": [
+              "call",
+              "wait"
+            ]
+          }
+        },
+        {
+          "not": {
+            "required": [
+              "call",
+              "return"
+            ]
+          }
+        },
+        {
+          "not": {
+            "required": [
+              "publish",
+              "wait"
+            ]
+          }
+        },
+        {
+          "not": {
+            "required": [
+              "publish",
+              "return"
+            ]
+          }
+        },
+        {
+          "not": {
+            "required": [
+              "wait",
+              "return"
+            ]
+          }
+        },
+        {
+          "not": {
+            "required": [
+              "if",
+              "each"
+            ]
+          }
+        },
+        {
+          "not": {
+            "required": [
+              "if",
+              "parallel"
+            ]
+          }
+        },
+        {
+          "not": {
+            "required": [
+              "if",
+              "try"
+            ]
+          }
+        },
+        {
+          "not": {
+            "required": [
+              "if",
+              "transaction"
+            ]
+          }
+        },
+        {
+          "not": {
+            "required": [
+              "if",
+              "retry"
+            ]
+          }
+        },
+        {
+          "not": {
+            "required": [
+              "each",
+              "parallel"
+            ]
+          }
+        },
+        {
+          "not": {
+            "required": [
+              "each",
+              "try"
+            ]
+          }
+        },
+        {
+          "not": {
+            "required": [
+              "each",
+              "transaction"
+            ]
+          }
+        },
+        {
+          "not": {
+            "required": [
+              "each",
+              "retry"
+            ]
+          }
+        },
+        {
+          "not": {
+            "required": [
+              "parallel",
+              "try"
+            ]
+          }
+        },
+        {
+          "not": {
+            "required": [
+              "parallel",
+              "transaction"
+            ]
+          }
+        },
+        {
+          "not": {
+            "required": [
+              "parallel",
+              "retry"
+            ]
+          }
+        },
+        {
+          "not": {
+            "required": [
+              "try",
+              "transaction"
+            ]
+          }
+        },
+        {
+          "not": {
+            "required": [
+              "try",
+              "retry"
+            ]
+          }
+        },
+        {
+          "not": {
+            "required": [
+              "transaction",
+              "retry"
+            ]
+          }
+        },
+        {
+          "if": {
+            "required": [
+              "read"
+            ]
+          },
+          "then": {
+            "required": [
+              "from"
+            ]
+          }
+        },
+        {
+          "if": {
+            "required": [
+              "write"
+            ]
+          },
+          "then": {
+            "required": [
+              "to"
+            ]
+          }
+        },
+        {
+          "if": {
+            "required": [
+              "if"
+            ]
+          },
+          "then": {
+            "required": [
+              "then"
+            ]
+          }
+        },
+        {
+          "if": {
+            "required": [
+              "each"
+            ]
+          },
+          "then": {
+            "required": [
+              "steps"
+            ]
+          }
+        },
+        {
+          "if": {
+            "required": [
+              "transaction"
+            ]
+          },
+          "then": {
+            "required": [
+              "steps"
+            ]
+          }
+        },
+        {
+          "if": {
+            "required": [
+              "retry"
+            ]
+          },
+          "then": {
+            "required": [
+              "steps"
+            ]
+          }
+        },
+        {
+          "if": {
+            "required": [
+              "from"
+            ]
+          },
+          "then": {
+            "required": [
+              "read"
+            ]
+          }
+        },
+        {
+          "if": {
+            "required": [
+              "to"
+            ]
+          },
+          "then": {
+            "required": [
+              "write"
+            ]
+          }
+        },
+        {
+          "if": {
+            "required": [
+              "then"
+            ]
+          },
+          "then": {
+            "required": [
+              "if"
+            ]
+          }
+        },
+        {
+          "if": {
+            "required": [
+              "else"
+            ]
+          },
+          "then": {
+            "required": [
+              "if"
+            ]
+          }
+        },
+        {
+          "if": {
+            "required": [
+              "catch"
+            ]
+          },
+          "then": {
+            "required": [
+              "try"
+            ]
+          }
+        },
+        {
+          "if": {
+            "required": [
+              "finally"
+            ]
+          },
+          "then": {
+            "required": [
+              "try"
+            ]
+          }
+        },
+        {
+          "if": {
+            "required": [
+              "steps"
+            ]
+          },
+          "then": {
+            "anyOf": [
+              {
+                "required": [
+                  "each"
+                ]
+              },
+              {
+                "required": [
+                  "transaction"
+                ]
+              },
+              {
+                "required": [
+                  "retry"
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "if": {
+            "anyOf": [
+              {
+                "required": [
+                  "read"
+                ]
+              },
+              {
+                "required": [
+                  "write"
+                ]
+              },
+              {
+                "required": [
+                  "call"
+                ]
+              },
+              {
+                "required": [
+                  "publish"
+                ]
+              },
+              {
+                "required": [
+                  "wait"
+                ]
+              },
+              {
+                "required": [
+                  "return"
+                ]
+              }
+            ]
+          },
+          "then": {
+            "required": [
+              "cites"
+            ]
+          }
+        }
+      ]
+    },
+    "Failure": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/ChildId"
+        },
+        "when": {
+          "type": "string",
+          "minLength": 1
+        },
+        "return": {
+          "type": [
+            "integer",
+            "string"
+          ]
+        },
+        "cites": {
+          "$ref": "#/$defs/AuthoredCites"
+        }
+      },
+      "required": [
+        "id",
+        "when",
+        "return",
+        "cites"
+      ],
+      "additionalProperties": false
+    },
+    "Handler": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^(?:h):[^#\\s]+$"
+        },
+        "component": {
+          "$ref": "#/$defs/ExecutableId"
+        },
+        "on": {
+          "$ref": "#/$defs/EntryRef"
+        },
+        "summary": {
+          "type": "string",
+          "minLength": 1
+        },
+        "steps": {
+          "$ref": "#/$defs/Steps"
+        },
+        "failures": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Failure"
+          },
+          "uniqueIds": true
+        },
+        "cites": {
+          "$ref": "#/$defs/AuthoredCites"
+        }
+      },
+      "required": [
+        "id",
+        "component",
+        "on",
+        "steps"
+      ],
+      "additionalProperties": false
+    },
+    "HandlersFile": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/Handler"
+      }
+    },
+    "GraphFile": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^(?:graph):[^#\\s]+$"
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "gateway": {
+          "type": "string",
+          "pattern": "^(?:svc):[^#\\s]+$"
+        },
+        "registry": {
+          "type": "string",
+          "minLength": 1
+        },
+        "summary": {
+          "type": "string",
+          "minLength": 1
+        },
+        "subgraphs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Subgraph"
+          }
+        },
+        "composition": {
+          "$ref": "#/$defs/JsonValue"
+        },
+        "federation": {
+          "$ref": "#/$defs/JsonValue"
+        },
+        "cites": {
+          "$ref": "#/$defs/AuthoredCites"
+        }
+      },
+      "required": [
+        "id",
+        "name"
+      ],
+      "additionalProperties": false
+    },
+    "Subgraph": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^(?:sg):[^#\\s]+$"
+        },
+        "name": {
+          "type": "string"
+        },
+        "graph": {
+          "type": "string",
+          "pattern": "^(?:graph):[^#\\s]+$"
+        },
+        "summary": {
+          "type": "string",
+          "description": "markdown; may cite [[id]]"
+        },
+        "batching": {
+          "enum": [
+            "dataloader",
+            "none"
+          ],
+          "description": "request-scoped batching of entity lookups; none makes a list fetch an N+1"
+        },
+        "observed": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "latency_ms": {
+              "type": "number",
+              "minimum": 0,
+              "description": "p50 of one fetch to this subgraph, in ms (a measurement, not a setting); lets the waterfall draw bars to scale"
+            },
+            "source": {
+              "type": "string"
+            }
+          },
+          "description": "numbers from monitoring, not settings"
+        },
+        "cache_control_default": {
+          "type": "number",
+          "minimum": 0,
+          "description": "seconds; the max-age a field without a hint takes (0 = uncacheable)"
+        },
+        "timeout_ms": {
+          "type": "number",
+          "minimum": 0
+        },
+        "component": {
+          "$ref": "#/$defs/ExecutableId"
+        },
+        "cites": {
+          "$ref": "#/$defs/AuthoredCites"
+        }
+      },
+      "required": [
+        "id",
+        "graph",
+        "component"
+      ],
+      "additionalProperties": false
+    },
+    "Concept": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^(?:con):[^#\\s]+$"
+        },
+        "name": {
+          "type": "string",
+          "description": "the business word, singular (Order line)"
+        },
+        "terms": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "other words that mean the same thing in prose; the plural of name is added automatically"
+        },
+        "means": {
+          "type": "string",
+          "description": "markdown; what it is in business terms. The first sentence is the tooltip. May cite [[id]]"
+        },
+        "born_in": {
+          "$ref": "#/$defs/id_svc",
+          "description": "the system of record: where its id is minted"
+        },
+        "part_of": {
+          "$ref": "#/$defs/id_con"
+        },
+        "relates": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "to",
+              "as"
+            ],
+            "properties": {
+              "to": {
+                "$ref": "#/$defs/id_con"
+              },
+              "as": {
+                "type": "string",
+                "description": "verb phrase read as '<name> <as> <to>', e.g. 'is selected by'"
+              }
+            }
+          }
+        },
+        "aka": {
+          "type": "array",
+          "description": "what each system calls it",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "in",
+              "as"
+            ],
+            "properties": {
+              "in": {
+                "$ref": "#/$defs/id_svc"
+              },
+              "as": {
+                "type": "string",
+                "description": "the local name"
+              },
+              "at": {
+                "type": "string",
+                "description": "the schema, field or store that holds it"
+              },
+              "note": {
+                "type": "string",
+                "description": "markdown; may cite [[id]]"
+              }
+            }
+          }
+        },
+        "introduced_by": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/id_chg"
+          },
+          "description": "set when the plan introduces the concept"
+        },
+        "cites": {
+          "$ref": "#/$defs/AuthoredCites"
+        }
+      },
+      "required": [
+        "id",
+        "name"
+      ],
+      "additionalProperties": false
+    },
+    "DomainLanguageFile": {
+      "type": "object",
+      "properties": {
+        "summary": {
+          "type": "string",
+          "minLength": 1
+        },
+        "concepts": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Concept"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "KeyTerm": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^(?:term):[^#\\s]+$"
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "group": {
+          "type": "string",
+          "minLength": 1
+        },
+        "aliases": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "means": {
+          "type": "string",
+          "minLength": 1
+        },
+        "examples": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "context": {
+                "enum": [
+                  "everyday",
+                  "company"
+                ]
+              },
+              "analogy": {
+                "type": "string",
+                "minLength": 1
+              },
+              "sentence": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            "required": [
+              "context"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "relates": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "to": {
+                "type": "string",
+                "pattern": "^(?:term):[^#\\s]+$"
+              },
+              "as": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            "required": [
+              "to",
+              "as"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "anchors": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "to": {
+                "$ref": "#/$defs/Id"
+              },
+              "fit": {
+                "enum": [
+                  "same",
+                  "close",
+                  "renamed",
+                  "clash",
+                  "lives-in"
+                ]
+              },
+              "note": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            "required": [
+              "to",
+              "fit"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "means"
+      ],
+      "additionalProperties": false
+    },
+    "LanguageFile": {
+      "type": "object",
+      "properties": {
+        "summary": {
+          "type": "string",
+          "minLength": 1
+        },
+        "source": {
+          "type": "object",
+          "properties": {
+            "title": {
+              "type": "string",
+              "minLength": 1
+            },
+            "url": {
+              "type": "string",
+              "format": "uri"
+            },
+            "status": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "required": [
+            "title"
+          ],
+          "additionalProperties": false
+        },
+        "groups": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "name": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            "required": [
+              "id",
+              "name"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "terms": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/KeyTerm"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "TargetStage": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/ChildId"
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "term": {
+          "type": "string",
+          "pattern": "^(?:term):[^#\\s]+$"
+        },
+        "owners": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Id"
+          }
+        },
+        "summary": {
+          "type": "string",
+          "minLength": 1
+        },
+        "from": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      },
+      "required": [
+        "id",
+        "name"
+      ],
+      "additionalProperties": false
+    },
+    "TargetShift": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/ChildId"
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "today": {
+          "type": "string",
+          "minLength": 1
+        },
+        "target": {
+          "type": "string",
+          "minLength": 1
+        },
+        "cites": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Id"
+          }
+        }
+      },
+      "required": [
+        "id",
+        "name"
+      ],
+      "additionalProperties": false
+    },
+    "TargetFile": {
+      "type": "object",
+      "properties": {
+        "summary": {
+          "type": "string",
+          "minLength": 1
+        },
+        "stages": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/TargetStage"
+          }
+        },
+        "shifts": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/TargetShift"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "Area": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^(?:area):[^#\\s]+$"
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "purpose": {
+          "type": "string",
+          "minLength": 1
+        },
+        "activities": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "boundary": {
+          "type": "string",
+          "minLength": 1
+        },
+        "confidence": {
+          "$ref": "#/$defs/Confidence"
+        },
+        "evidence_count": {
+          "type": "integer",
+          "minimum": 0
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "purpose"
+      ],
+      "additionalProperties": false
+    },
+    "LandscapeFile": {
+      "type": "object",
+      "properties": {
+        "format": {
+          "const": 2
+        },
+        "label": {
+          "const": "Inferred"
+        },
+        "reviewed": {
+          "type": "string",
+          "format": "date"
+        },
+        "scope": {
+          "type": "string",
+          "minLength": 1
+        },
+        "limitation": {
+          "type": "string",
+          "minLength": 1
+        },
+        "areas": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Area"
+          }
+        },
+        "relationships": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/LandscapeRelationship"
+          }
+        },
+        "details": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/LandscapeDetail"
+          }
+        }
+      },
+      "required": [
+        "areas"
+      ],
+      "additionalProperties": false
+    },
+    "FlowFile": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^(?:flow):[^#\\s]+$"
+        },
+        "name": {
+          "type": "string"
+        },
+        "actor": {
+          "type": "string"
+        },
+        "trigger": {
+          "type": "string",
+          "description": "markdown; may cite [[id]]"
+        },
+        "outcome": {
+          "type": "string",
+          "description": "markdown; may cite [[id]]"
+        },
+        "steps": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/FlowStep"
+          }
+        },
+        "cites": {
+          "$ref": "#/$defs/AuthoredCites"
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "steps"
+      ],
+      "additionalProperties": false
+    },
+    "FlowStep": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/ChildId"
+        },
+        "from": {
+          "$ref": "#/$defs/id_node"
+        },
+        "to": {
+          "$ref": "#/$defs/id_node"
+        },
+        "via": {
+          "$ref": "#/$defs/id_via"
+        },
+        "action": {
+          "type": "string"
+        },
+        "logic": {
+          "type": "string",
+          "description": "markdown; may cite [[id]]"
+        },
+        "reads": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/id_schemaOrField"
+          }
+        },
+        "writes": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/id_schemaOrField"
+          }
+        },
+        "fails": {
+          "type": "string",
+          "description": "markdown; may cite [[id]]"
+        },
+        "beat": {
+          "type": "string"
+        },
+        "screen": {
+          "$ref": "#/$defs/id_screenOrRegion",
+          "description": "the screen (or region) the person is on when this step happens; makes the flow a UI journey"
+        },
+        "case": {
+          "enum": [
+            "hit",
+            "miss",
+            "cold"
+          ],
+          "description": "via gql: only: which cache case the flow narrates (hit = the outermost layer answers; miss = it misses and the next answers; cold = every layer misses)"
+        },
+        "purges": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/id_st"
+          },
+          "description": "cache stores this step empties (the acting service must own them or have access)"
+        },
+        "handler_step": {
+          "$ref": "#/$defs/HandlerRef"
+        },
+        "cites": {
+          "$ref": "#/$defs/AuthoredCites"
+        }
+      },
+      "required": [
+        "id",
+        "from",
+        "to",
+        "via",
+        "action"
+      ],
+      "additionalProperties": false
+    },
+    "JourneyFile": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^(?:jny):[^#\\s]+$"
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "actor": {
+          "type": "string",
+          "pattern": "^(?:actor):[^#\\s]+$"
+        },
+        "interactions": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^(?:ui):[^#\\s]+$"
+          }
+        },
+        "flows": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^(?:flow):[^#\\s]+$"
+          }
+        },
+        "summary": {
+          "type": "string",
+          "minLength": 1
+        },
+        "cites": {
+          "$ref": "#/$defs/AuthoredCites"
+        }
+      },
+      "required": [
+        "id",
+        "name"
+      ],
+      "additionalProperties": false
+    },
+    "NarrativesFile": {
+      "type": "object",
+      "properties": {
+        "format": {
+          "const": 2
+        },
+        "label": {
+          "const": "Inferred"
+        },
+        "authored": {
+          "type": "string",
+          "format": "date"
+        },
+        "generator": {
+          "type": "string",
+          "minLength": 1
+        },
+        "basis": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "stories": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Narrative"
+          },
+          "minItems": 1,
+          "uniqueIds": true
+        }
+      },
+      "required": [
+        "label",
+        "authored",
+        "generator",
+        "basis",
+        "stories"
+      ],
+      "additionalProperties": false
+    },
+    "ProgrammeFile": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^(?:prog):[^#\\s]+$"
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1
+        },
+        "outcome": {
+          "type": "string",
+          "minLength": 1
+        },
+        "problem": {
+          "$ref": "plan.schema.json#/$defs/problem"
+        },
+        "scenarios": {
+          "type": "array",
+          "items": {
+            "$ref": "plan.schema.json#/$defs/scenario"
+          }
+        },
+        "decisions": {
+          "type": "array",
+          "items": {
+            "$ref": "plan.schema.json#/$defs/decision"
+          }
+        },
+        "questions": {
+          "type": "array",
+          "items": {
+            "$ref": "plan.schema.json#/$defs/question"
+          }
+        },
+        "milestones": {
+          "type": "array",
+          "items": {
+            "$ref": "plan.schema.json#/$defs/milestone"
+          }
+        }
+      },
+      "required": [
+        "id",
+        "title",
+        "outcome"
+      ],
+      "additionalProperties": false
+    },
+    "id_team": {
+      "$ref": "#/$defs/Id"
+    },
+    "id_sys": {
+      "$ref": "#/$defs/Id"
+    },
+    "id_svc": {
+      "$ref": "#/$defs/ExecutableId"
+    },
+    "id_st": {
+      "type": "string",
+      "pattern": "^(?:st|top):[^#\\s]+$"
+    },
+    "id_sch": {
+      "$ref": "#/$defs/Id"
+    },
+    "id_if": {
+      "$ref": "#/$defs/Id"
+    },
+    "id_api": {
+      "$ref": "#/$defs/Id"
+    },
+    "id_msg": {
+      "$ref": "#/$defs/Id"
+    },
+    "id_flow": {
+      "$ref": "#/$defs/Id"
+    },
+    "id_chg": {
+      "$ref": "#/$defs/Id"
+    },
+    "id_tst": {
+      "$ref": "#/$defs/Id"
+    },
+    "id_wi": {
+      "$ref": "#/$defs/Id"
+    },
+    "id_ms": {
+      "$ref": "#/$defs/Id"
+    },
+    "id_dec": {
+      "$ref": "#/$defs/Id"
+    },
+    "id_risk": {
+      "$ref": "#/$defs/Id"
+    },
+    "id_q": {
+      "$ref": "#/$defs/Id"
+    },
+    "id_sc": {
+      "$ref": "#/$defs/Id"
+    },
+    "id_step": {
+      "$ref": "#/$defs/Id"
+    },
+    "id_field": {
+      "$ref": "#/$defs/SchemaRef"
+    },
+    "id_any": {
+      "$ref": "#/$defs/Id"
+    },
+    "id_node": {
+      "$ref": "#/$defs/Id"
+    },
+    "id_via": {
+      "$ref": "#/$defs/Id"
+    },
+    "id_schemaOrField": {
+      "$ref": "#/$defs/SchemaRef"
+    },
+    "id_walk": {
+      "$ref": "#/$defs/Id"
+    },
+    "id_versioned": {
+      "$ref": "#/$defs/Id"
+    },
+    "id_con": {
+      "$ref": "#/$defs/Id"
+    },
+    "id_stage": {
+      "$ref": "#/$defs/Id"
+    },
+    "id_ui": {
+      "$ref": "#/$defs/Id"
+    },
+    "id_uj": {
+      "$ref": "#/$defs/Id"
+    },
+    "id_scr": {
+      "$ref": "#/$defs/Id"
+    },
+    "id_region": {
+      "$ref": "#/$defs/ScreenRef"
+    },
+    "id_screenOrRegion": {
+      "$ref": "#/$defs/ScreenRef"
+    },
+    "id_graph": {
+      "$ref": "#/$defs/Id"
+    },
+    "id_sg": {
+      "$ref": "#/$defs/Id"
+    },
+    "id_gql": {
+      "$ref": "#/$defs/Id"
+    },
+    "id_h": {
+      "$ref": "#/$defs/Id"
+    },
+    "id_req": {
+      "$ref": "#/$defs/Id"
+    },
+    "id_wi_ref": {
+      "$ref": "#/$defs/Id"
+    },
+    "id_ms_ref": {
+      "$ref": "#/$defs/Id"
+    },
+    "id_ms_programme": {
+      "$ref": "#/$defs/Id"
+    },
+    "id_blocker": {
+      "$ref": "#/$defs/Id"
+    },
+    "id_proves": {
+      "$ref": "#/$defs/Id"
+    },
+    "cacheControl": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "max_age"
+      ],
+      "description": "the cache hint the subgraph returns for the field (@cacheControl)",
+      "properties": {
+        "max_age": {
+          "type": "number",
+          "minimum": 0,
+          "description": "seconds"
+        },
+        "scope": {
+          "enum": [
+            "public",
+            "private"
+          ]
+        }
+      }
+    },
+    "cacheUse": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "at"
+      ],
+      "description": "a cache layer attached to what it caches: on an operation, an edge/gateway override; on a graph field, a data cache the resolver reads first",
+      "properties": {
+        "at": {
+          "$ref": "#/$defs/id_st"
+        },
+        "ttl": {
+          "type": "number",
+          "minimum": 0,
+          "description": "seconds; on an operation an override of the derived max-age (give a reason)"
+        },
+        "key": {
+          "description": "what the layer keys on: free text, or { operation: id|hash, variables: all|[names], headers: [names] }",
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "operation": {
+                  "enum": [
+                    "id",
+                    "hash"
+                  ]
+                },
+                "variables": {
+                  "oneOf": [
+                    {
+                      "const": "all"
+                    },
+                    {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    }
+                  ]
+                },
+                "headers": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          ]
+        },
+        "reason": {
+          "type": "string",
+          "description": "why the override is acceptable"
+        }
+      }
+    },
+    "LandscapeConnection": {
+      "type": "object",
+      "properties": {
+        "from": {
+          "$ref": "#/$defs/Id"
+        },
+        "to": {
+          "$ref": "#/$defs/Id"
+        },
+        "label": {
+          "type": "string",
+          "minLength": 1
+        },
+        "kind": {
+          "enum": [
+            "api",
+            "message",
+            "data"
+          ]
+        },
+        "cites": {
+          "$ref": "#/$defs/AuthoredCites"
+        }
+      },
+      "required": [
+        "from",
+        "to",
+        "label",
+        "kind",
+        "cites"
+      ],
+      "additionalProperties": false
+    },
+    "LandscapeRelationship": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/ChildId"
+        },
+        "from": {
+          "type": "string",
+          "pattern": "^(?:area):[^#\\s]+$"
+        },
+        "to": {
+          "type": "string",
+          "pattern": "^(?:area):[^#\\s]+$"
+        },
+        "label": {
+          "type": "string",
+          "minLength": 1
+        },
+        "kind": {
+          "enum": [
+            "exchange",
+            "transition",
+            "support"
+          ]
+        }
+      },
+      "required": [
+        "id",
+        "from",
+        "to",
+        "label",
+        "kind"
+      ],
+      "additionalProperties": false
+    },
+    "LandscapeSystemRelationship": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/ChildId"
+        },
+        "from": {
+          "type": "string",
+          "pattern": "^(?:sys):[^#\\s]+$"
+        },
+        "to": {
+          "type": "string",
+          "pattern": "^(?:sys):[^#\\s]+$"
+        },
+        "label": {
+          "type": "string",
+          "minLength": 1
+        },
+        "kind": {
+          "enum": [
+            "api",
+            "message",
+            "data"
+          ]
+        },
+        "detail": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "id",
+        "from",
+        "to",
+        "label",
+        "kind",
+        "detail"
+      ],
+      "additionalProperties": false
+    },
+    "LandscapeCollaboration": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/ChildId"
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "summary": {
+          "type": "string",
+          "minLength": 1
+        },
+        "systems": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^(?:sys):[^#\\s]+$"
+          },
+          "minItems": 2
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "summary",
+        "systems"
+      ],
+      "additionalProperties": false
+    },
+    "LandscapeValueFlow": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string",
+          "minLength": 1
+        },
+        "summary": {
+          "type": "string",
+          "minLength": 1
+        },
+        "confidence": {
+          "$ref": "#/$defs/Confidence"
+        },
+        "reasoning": {
+          "type": "string",
+          "minLength": 1
+        },
+        "limitations": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "bands": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "$ref": "#/$defs/ChildId"
+              },
+              "title": {
+                "type": "string",
+                "minLength": 1
+              },
+              "summary": {
+                "type": "string",
+                "minLength": 1
+              },
+              "nodes": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "component": {
+                      "$ref": "#/$defs/ComponentId"
+                    },
+                    "column": {
+                      "type": "integer",
+                      "minimum": 0
+                    }
+                  },
+                  "required": [
+                    "component",
+                    "column"
+                  ],
+                  "additionalProperties": false
+                },
+                "minItems": 1
+              }
+            },
+            "required": [
+              "id",
+              "title",
+              "summary",
+              "nodes"
+            ],
+            "additionalProperties": false
+          },
+          "minItems": 1
+        },
+        "connections": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/LandscapeConnection"
+          }
+        },
+        "columns": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "system": {
+                "type": "string",
+                "pattern": "^(?:sys):[^#\\s]+$"
+              },
+              "column": {
+                "type": "integer",
+                "minimum": 0
+              }
+            },
+            "required": [
+              "system",
+              "column"
+            ],
+            "additionalProperties": false
+          },
+          "minItems": 1
+        },
+        "summaries": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/LandscapeConnection"
+          }
+        },
+        "overview": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/LandscapeConnection"
+          }
+        }
+      },
+      "required": [
+        "title",
+        "summary",
+        "confidence",
+        "reasoning",
+        "limitations",
+        "bands",
+        "connections"
+      ],
+      "additionalProperties": false
+    },
+    "LandscapeDetail": {
+      "type": "object",
+      "properties": {
+        "area": {
+          "type": "string",
+          "pattern": "^(?:area):[^#\\s]+$"
+        },
+        "valueFlow": {
+          "$ref": "#/$defs/LandscapeValueFlow"
+        },
+        "systems": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^(?:sys):[^#\\s]+$"
+          },
+          "minItems": 1
+        },
+        "relationships": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/LandscapeSystemRelationship"
+          }
+        },
+        "collaborations": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/LandscapeCollaboration"
+          }
+        }
+      },
+      "required": [
+        "area",
+        "systems",
+        "relationships",
+        "collaborations"
+      ],
+      "additionalProperties": false
+    },
+    "NarrativeStage": {
+      "type": "object",
+      "properties": {
+        "component": {
+          "$ref": "#/$defs/ComponentId"
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1
+        },
+        "summary": {
+          "type": "string",
+          "minLength": 1
+        },
+        "supporting": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/ComponentId"
+          }
+        },
+        "cites": {
+          "$ref": "#/$defs/AuthoredCites"
+        }
+      },
+      "required": [
+        "component",
+        "title",
+        "summary",
+        "supporting",
+        "cites"
+      ],
+      "additionalProperties": false
+    },
+    "Narrative": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/ChildId"
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "summary": {
+          "type": "string",
+          "minLength": 1
+        },
+        "confidence": {
+          "$ref": "#/$defs/Confidence"
+        },
+        "reasoning": {
+          "type": "string",
+          "minLength": 1
+        },
+        "limitations": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "connections": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/LandscapeConnection"
+          }
+        },
+        "relatedSystems": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^(?:sys):[^#\\s]+$"
+          }
+        },
+        "stages": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/NarrativeStage"
+          },
+          "minItems": 2,
+          "maxItems": 8
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "summary",
+        "confidence",
+        "reasoning",
+        "limitations",
+        "stages"
+      ],
+      "additionalProperties": false
+    },
+    "Confidence": {
+      "enum": [
+        "low",
+        "medium",
+        "high"
+      ]
+    }
+  },
+  "anyOf": [
+    {
+      "$ref": "#/$defs/WorkspaceFile"
+    },
+    {
+      "$ref": "#/$defs/DomainFile"
+    },
+    {
+      "$ref": "#/$defs/SystemFile"
+    },
+    {
+      "$ref": "#/$defs/ContractsFile"
+    },
+    {
+      "$ref": "#/$defs/ScreensFile"
+    },
+    {
+      "$ref": "#/$defs/HandlersFile"
+    },
+    {
+      "$ref": "#/$defs/GraphFile"
+    },
+    {
+      "$ref": "#/$defs/LanguageFile"
+    },
+    {
+      "$ref": "#/$defs/DomainLanguageFile"
+    },
+    {
+      "$ref": "#/$defs/TargetFile"
+    },
+    {
+      "$ref": "#/$defs/AliasesFile"
+    },
+    {
+      "$ref": "#/$defs/LibrariesFile"
+    },
+    {
+      "$ref": "#/$defs/ExternalsFile"
+    },
+    {
+      "$ref": "#/$defs/FlowFile"
+    },
+    {
+      "$ref": "#/$defs/JourneyFile"
+    },
+    {
+      "$ref": "#/$defs/LandscapeFile"
+    },
+    {
+      "$ref": "#/$defs/NarrativesFile"
+    },
+    {
+      "$ref": "#/$defs/ProgrammeFile"
+    }
+  ]
+}

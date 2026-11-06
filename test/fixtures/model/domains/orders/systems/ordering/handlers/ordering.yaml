@@ -1,0 +1,66 @@
+- id: h:confirm
+  component: svc:ordering
+  on: api:confirm
+  summary: Confirms an order, then queues and publishes its notification.
+  cites: ['orders:src/Confirm.ts#L1-80']
+  steps:
+    - { id: load, read: 'sch:order', from: 'st:orders', cites: ['#L5-7'] }
+    - id: missing
+      say: Check the order exists
+      if: The order does not exist
+      then: [{ id: not-found, return: 404, cites: ['#L8-10'] }]
+      else: [{ id: known, does: Continue with the order }]
+    - id: tx
+      transaction: true
+      steps:
+        - { id: save, write: 'sch:order#status', to: 'st:orders', cites: ['#L12-16'] }
+        - { id: queue, does: Queue the notification, cites: ['#L17-19'] }
+    - id: lines
+      each: Order line
+      steps:
+        - {
+            id: reserve,
+            call: 'api:charge',
+            async: false,
+            when: Payment is required,
+            cites: ['#L22-27'],
+          }
+    - id: enrich
+      parallel:
+        - lane: Order facts
+          steps: [{ id: order, read: 'sch:order', from: 'st:orders', cites: ['#L30-33'] }]
+        - lane: Payment facts
+          steps: [{ id: payment, call: 'api:charge', cites: ['#L34-37'] }]
+    - id: deliver
+      retry:
+        until: Acknowledged
+        times: 3
+        exhausted: [{ id: failed, return: 503, cites: ['#L45-46'] }]
+      steps:
+        - {
+            id: send,
+            publish: 'msg:confirmed',
+            causes: 'h:on-confirmed',
+            async: true,
+            cites: ['#L40-44'],
+          }
+    - id: cleanup
+      try: [{ id: flush, does: Flush the log, cites: ['#L50-52'] }]
+      catch: [{ id: log-failed, does: Record the logging failure, cites: ['#L53-54'] }]
+      finally: [{ id: release, does: Release the handle, cites: ['#L55-57'] }]
+    - { id: pause, wait: 1s, cites: ['#L60-61'] }
+    - { id: done, return: 200, cites: ['#L64-65'] }
+  failures:
+    - { id: db-down, when: The database is unavailable, return: 503, cites: ['#L70-72'] }
+- id: h:on-confirmed
+  component: svc:ordering
+  on: sub:on-confirmed
+  steps: [{ id: receive, does: Receive the confirmation, cites: ['ev:source'] }]
+- id: h:relay
+  component: svc:ordering
+  on: job:relay
+  steps: [{ id: run, does: Check the outbox, cites: ['ev:source'] }]
+- id: h:click
+  component: app:shop
+  on: ui:confirm
+  steps: [{ id: submit, call: 'api:confirm', cites: ['ev:source'] }]

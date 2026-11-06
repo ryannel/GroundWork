@@ -82,7 +82,14 @@ jobs:
         with:
           node-version-file: .nvmrc
       - run: mkdir -p reports/batches
-      - if: needs.batch.result != 'skipped'
+      # download-artifact v7 flattens a single match even when merge-multiple is false.
+      # Download that expected name into its own directory; partial multi-batch runs still fail closed.
+      - if: needs.batch.result != 'skipped' && fromJSON(needs.plan.outputs.matrix).include[1] == null
+        uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131 # v7.0.0
+        with:
+          name: mutation-0
+          path: reports/batches/mutation-0
+      - if: needs.batch.result != 'skipped' && fromJSON(needs.plan.outputs.matrix).include[1] != null
         uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131 # v7.0.0
         with:
           pattern: mutation-*

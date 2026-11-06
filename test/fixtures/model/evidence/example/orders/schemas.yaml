@@ -1,0 +1,14 @@
+id: ev:schema
+kind: message
+label: Declared schema
+fq_name: fixture.Order
+parent: null
+file: ev:file
+status: source_declared
+declaration:
+  fields:
+    - name: order_id
+      number: 1
+      type: string
+cites:
+  - ev:source

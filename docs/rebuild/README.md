@@ -1,8 +1,9 @@
 # Model rebuild
 
 The specification is [design.md](design.md) (revision 3), [rebuild.md](rebuild.md) (revision 2) and
-[requirements.md](requirements.md). Work on one PR at a time in an isolated worktree. Stop after opening
-it for review; never merge or push to main. Reconfirm design §10.2 with the user before PR 9.
+[requirements.md](requirements.md). Work on one PR at a time in an isolated worktree. The user subsequently authorised merging verified
+PRs and continuing through PR 10 without the original review stop. Never push directly to main. Human
+acceptance of the PR 7 headline and edge reviews is still required; reconfirm design §10.2 before PR 9.
 
 ## PR 1 proof commands
 

@@ -1,0 +1,7 @@
+meta: { id: 'plan:invalid', title: Invalid plan }
+problem: { summary: A plan must be an overlay. }
+services: [{ id: 'svc:copied-base', name: Base fact }]
+changes:
+  - id: chg:invalid
+    title: Invalid child edit
+    ops: [{ modify: not-an-id, set: { name: Invalid } }]

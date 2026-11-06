@@ -1,0 +1,12 @@
+{
+  "scope": [
+    "src/application/plan/check-shape.ts"
+  ],
+  "threshold": 75,
+  "statuses": {
+    "Killed": 47,
+    "Survived": 11
+  },
+  "detected": 47,
+  "total": 58
+}

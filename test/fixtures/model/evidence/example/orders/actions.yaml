@@ -1,0 +1,36 @@
+kind: action
+id: ev:action
+intent: Confirm an order
+actors:
+  - ev:actor
+conditions:
+  eligibility:
+    state: not_examined
+    obligation: Check eligibility
+  authentication:
+    state: not_examined
+    obligation: Check authentication
+  authorisation:
+    state: not_examined
+    obligation: Check authorisation
+  ownership:
+    state: not_examined
+    obligation: Check ownership
+controls:
+  - ev:control
+input:
+  state: supported
+  value:
+    - ev:contract
+  cites:
+    - ev:source
+executions:
+  state: supported
+  value:
+    - ev:execution
+  cites:
+    - ev:source
+outcomes:
+  - ev:outcome
+cites:
+  - ev:source

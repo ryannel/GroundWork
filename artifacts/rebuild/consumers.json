@@ -1492,183 +1492,183 @@
         "text": "the check recorded in each plan's `base.lock.json`, and says when a plan has been edited since. `npm run dev`"
       },
       {
-        "line": 31,
+        "line": 39,
         "text": "landscape.yaml                     authored areas and the major relationships used to enter the system model"
       },
       {
-        "line": 36,
+        "line": 44,
         "text": "systems/<system>/system.yaml      purpose, owning team (optional), components and what they talk to"
       },
       {
-        "line": 37,
+        "line": 45,
         "text": "systems/<system>/contracts.yaml   what its components offer and keep (system model)"
       },
       {
-        "line": 39,
+        "line": 47,
         "text": "systems/<system>/handlers.yaml    what runs when its endpoints and messages are reached (system model)"
       },
       {
-        "line": 40,
+        "line": 48,
         "text": "story.yaml                          summary and stages across domains (system model)"
       },
       {
-        "line": 44,
+        "line": 52,
         "text": "scans/<org>/<repo>.yaml             the commit each repo was last read at, and how far it has moved since"
       },
       {
-        "line": 48,
+        "line": 56,
         "text": "base.lock.json                    what an open plan was checked against (generated): checked_on, entities"
       },
       {
-        "line": 57,
+        "line": 65,
         "text": "`landscape.yaml` is optional. Its areas are authored, purpose-led entrances into the evidence, not a fifth level"
       },
       {
-        "line": 263,
+        "line": 271,
         "text": "`src/infrastructure/workspace-folders.ts` is the only code that knows where workspaces are, and every reader asks"
       },
       {
-        "line": 284,
+        "line": 292,
         "text": "staged plan whose `base.lock.json` does not hold the check of what it says now. Groundwork's own `lefthook.yml`"
       },
       {
-        "line": 297,
+        "line": 305,
         "text": "another. Workspace switching opens the chosen workspace's root, not a potentially unrelated plan or system."
       },
       {
-        "line": 307,
+        "line": 315,
         "text": "`contracts.yaml` holds a system's stores, interfaces, schemas, messages, screens, graphs, subgraphs and"
       },
       {
-        "line": 308,
+        "line": 316,
         "text": "operations, plus `components:` detail (kind, summary, sources) for components named in `system.yaml`. The"
       },
       {
-        "line": 309,
+        "line": 317,
         "text": "structure stays the source of a component's name, tech and what it does. `handlers.yaml`, beside it, holds the"
       },
       {
-        "line": 338,
+        "line": 346,
         "text": "entirely outside the company are dashed. The stages are then listed in reading order, then the shifts. Today's"
       },
       {
-        "line": 341,
+        "line": 349,
         "text": "- `src/domain/workspace-model.ts` has the types: `WorkspaceModel`, `Attribution` (origin and code sources by id,"
       },
       {
-        "line": 344,
+        "line": 352,
         "text": "- `src/infrastructure/workspace-model.ts` reads the files (each one optional), takes `origin` off, keeps the"
       },
       {
-        "line": 347,
+        "line": 355,
         "text": "- `src/application/workspace-model.ts` `systemModelOf(workspace, model)` assembles one plan-shaped document with"
       },
       {
-        "line": 348,
+        "line": 356,
         "text": "no changes (teams and colours from `workspace.yaml`, `sys:<system>` per system, components as services or"
       },
       {
-        "line": 354,
+        "line": 362,
         "text": "The optional service explorer reads a disposable projection under `<workspace>/explorer/`; its typed"
       },
       {
-        "line": 363,
+        "line": 371,
         "text": "in place under `<workspace>/explorer/corpus/` (`src/infrastructure/scan-explorer/corpus-assets.ts` installs it;"
       },
       {
-        "line": 364,
+        "line": 372,
         "text": "`src/infrastructure/explorer-assets.ts` reads it back) and lets the"
       },
       {
-        "line": 377,
+        "line": 385,
         "text": "discovery.json                      readiness, scopes, declared components and knowledge gaps (optional)"
       },
       {
-        "line": 391,
+        "line": 399,
         "text": "shaping in `src/application/evidence/`, and the writer in `src/infrastructure/scan-explorer/evidence-files.ts`."
       },
       {
-        "line": 412,
+        "line": 420,
         "text": "See the [service explorer contract](scan-trials/service-explorer/README.md)."
       },
       {
-        "line": 421,
+        "line": 429,
         "text": "proof scope and remaining adoption gates. `schema/knowledge.schema.json` defines immutable revision bundles, snapshot"
       },
       {
-        "line": 422,
+        "line": 430,
         "text": "selection, control/data records and query messages; `npm run generate:knowledge` generates domain types."
       },
       {
-        "line": 424,
+        "line": 432,
         "text": "`src/domain/knowledge` defines revision references and validation rules. `src/application/knowledge` performs"
       },
       {
-        "line": 429,
+        "line": 437,
         "text": "`src/infrastructure/knowledge` validates documents, verifies hashes and builds a disposable SQLite index."
       },
       {
-        "line": 432,
+        "line": 440,
         "text": "write acknowledgements, channel bindings, subscriptions, handoffs, delivery policies and consistency boundaries."
       },
       {
-        "line": 506,
+        "line": 514,
         "text": "- Plan types live in `src/domain/plan/`. `plan.generated.ts` is generated from `schema/plan.schema.json` by"
       },
       {
-        "line": 510,
+        "line": 518,
         "text": "- Handlers (`h:` ids) say what a component does when an endpoint, message, interaction or schedule reaches it,"
       },
       {
-        "line": 526,
+        "line": 534,
         "text": "`base.lock.json` fingerprints what an open plan's `modify`, `remove` and `after` ops target, and records the"
       },
       {
-        "line": 531,
+        "line": 539,
         "text": "the lock, and refuses while a plan it builds on has not landed. `src/infrastructure/plan-base-store.ts` loads"
       },
       {
-        "line": 537,
+        "line": 545,
         "text": "- `src/infrastructure/plan-store.ts` reads plans and revisions onto their base. `readPlan` trusts the check a plan"
       },
       {
-        "line": 554,
+        "line": 562,
         "text": "`src/infrastructure/plan-standing.ts` and sent with `plan.json`):"
       },
       {
-        "line": 566,
+        "line": 574,
         "text": "scenarios, decisions, questions and milestones its plans share; `src/infrastructure/workspace-programmes.ts`"
       },
       {
-        "line": 570,
+        "line": 578,
         "text": "loaded and kept until a file changes by `src/infrastructure/workspace-plan-index.ts`): its plans in landing order,"
       },
       {
-        "line": 610,
+        "line": 618,
         "text": "| `/[workspace]/explorer/`                            | the service explorer                      |"
       },
       {
-        "line": 611,
+        "line": 619,
         "text": "| `/[workspace]/explorer/data/[file]`                 | the service explorer's data               |"
       },
       {
-        "line": 683,
+        "line": 691,
         "text": "put a system in a tier with `tier:` in its system.yaml; otherwise the model implies it"
       },
       {
-        "line": 698,
+        "line": 706,
         "text": "system.yaml (feature flags, sign-in, error tracking) is plumbing no business data comes from, so the map leaves it"
       },
       {
-        "line": 767,
+        "line": 775,
         "text": "(`svc:orders` is `#i-svc-orders`). Each open or hop pushes a history entry, so Back steps through what was seen and"
       },
       {
-        "line": 809,
+        "line": 817,
         "text": "Other screens read in stops keep the stop in `?stop=<key>`: the system map and graph stages on Today, the walk"
       },
       {
-        "line": 858,
+        "line": 866,
         "text": "- Every file in `src/infrastructure` imports `server-only`. Only `src/infrastructure/workspace-folders.ts`,"
       }
     ],
@@ -2061,19 +2061,19 @@
     "file": "docs/rebuild/README.md",
     "hits": [
       {
-        "line": 66,
+        "line": 67,
         "text": "`/Users/RNEL/Workspace/volvo-groundwork`; the bundled Personal example remains enabled. Register all three"
       },
       {
-        "line": 77,
+        "line": 78,
         "text": "cp /Users/RNEL/Workspace/groundWork/.git/hooks/pre-commit .workspaces/rebuild/hooks/"
       },
       {
-        "line": 78,
+        "line": 79,
         "text": "cp /Users/RNEL/Workspace/groundWork/.git/hooks/pre-push .workspaces/rebuild/hooks/"
       },
       {
-        "line": 79,
+        "line": 80,
         "text": "cp /Users/RNEL/Workspace/groundWork/.git/hooks/prepare-commit-msg .workspaces/rebuild/hooks/"
       }
     ],
@@ -48210,6 +48210,29 @@
   },
   {
     "category": "consumer",
+    "file": "schema/evidence.schema.json",
+    "hits": [
+      {
+        "line": 1236,
+        "text": "\"acknowledged\","
+      },
+      {
+        "line": 5634,
+        "text": "\"acknowledgement\": {"
+      },
+      {
+        "line": 5682,
+        "text": "\"acknowledgement\","
+      },
+      {
+        "line": 6838,
+        "text": "\"knowledge_gaps\": {"
+      }
+    ],
+    "status": "adapter"
+  },
+  {
+    "category": "consumer",
     "file": "schema/knowledge-v1.schema.json",
     "hits": [
       {
@@ -48351,7 +48374,7 @@
   },
   {
     "category": "consumer",
-    "file": "schema/plan.schema.json",
+    "file": "schema/legacy-plan.schema.json",
     "hits": [
       {
         "line": 251,
@@ -48509,6 +48532,25 @@
       {
         "line": 6462,
         "text": "\"acknowledgement\","
+      }
+    ],
+    "status": "adapter"
+  },
+  {
+    "category": "consumer",
+    "file": "schema/workspace.schema.json",
+    "hits": [
+      {
+        "line": 213,
+        "text": "\"pattern\": \"^h:[^#\\\\s]+#[^!#\\\\s][^#\\\\s]*$\""
+      },
+      {
+        "line": 1154,
+        "text": "\"description\": \"a reference to another record: sch:* (its key) or sch:*#field\""
+      },
+      {
+        "line": 2584,
+        "text": "\"pattern\": \"^h:[^#\\\\s]+(?:#[^!#\\\\s][^#\\\\s]*)?$\""
       }
     ],
     "status": "adapter"
@@ -59092,6 +59134,73 @@
     "status": "adapter"
   },
   {
+    "category": "fixture or test",
+    "file": "src/application/plan/check-shape.test.ts",
+    "hits": [
+      {
+        "line": 5,
+        "text": "import type { Plan } from '@/domain/plan/plan.generated';"
+      },
+      {
+        "line": 12,
+        "text": "services: [{ id: 'svc:orders', name: 'Orders', team: 'team:orders', kind: 'service' }],"
+      },
+      {
+        "line": 14,
+        "text": "{ id: 'sch:order', kind: 'dto', name: 'Order', fields: [{ name: 'status', type: 'string' }] },"
+      },
+      {
+        "line": 27,
+        "text": "{ id: 'chg:typo', title: 'Typo', ops: [{ modify: 'svc:orders', set: { typo: true } }] },"
+      },
+      {
+        "line": 47,
+        "text": "{ modify: 'sch:order', set: { name: 'Renamed' } },"
+      },
+      {
+        "line": 48,
+        "text": "{ modify: 'sch:order#status', set: { type: 'integer' } },"
+      },
+      {
+        "line": 60,
+        "text": "id: 'sch:order',"
+      },
+      {
+        "line": 77,
+        "text": "{ modify: 'svc:orders', set: { name: 'First' } },"
+      },
+      {
+        "line": 78,
+        "text": "{ modify: 'svc:orders', set: { name: '' } },"
+      },
+      {
+        "line": 79,
+        "text": "{ modify: 'svc:orders', set: { does: 'Confirms orders' } },"
+      },
+      {
+        "line": 97,
+        "text": "{ modify: 'svc:orders', append: { sources: ['bad'] } },"
+      },
+      {
+        "line": 98,
+        "text": "{ modify: 'svc:orders', drop: { sources: ['bad'] } },"
+      },
+      {
+        "line": 116,
+        "text": "{ modify: 'svc:orders', set: { name: 'New name' } },"
+      },
+      {
+        "line": 117,
+        "text": "{ remove: 'svc:orders' },"
+      },
+      {
+        "line": 118,
+        "text": "{ modify: 'sch:order', set: { name: 'Renamed' } },"
+      }
+    ],
+    "status": "adapter"
+  },
+  {
     "category": "consumer",
     "file": "src/application/plan/check-steps.ts",
     "hits": [
@@ -69167,6 +69276,58 @@
     "status": "adapter"
   },
   {
+    "category": "consumer",
+    "file": "src/domain/model/contracts.generated.ts",
+    "hits": [
+      {
+        "line": 3,
+        "text": "import type { CanonicalPlanTypes } from '@/domain/model/plan.generated';"
+      }
+    ],
+    "status": "adapter"
+  },
+  {
+    "category": "consumer",
+    "file": "src/domain/model/evidence.generated.ts",
+    "hits": [
+      {
+        "line": 564,
+        "text": "phase: 'read' | 'staged' | 'acknowledged' | 'committed' | 'published' | 'delivered' | 'unknown';"
+      },
+      {
+        "line": 1407,
+        "text": "acknowledgement: 'unobserved';"
+      },
+      {
+        "line": 1576,
+        "text": "knowledge_gaps?: string[];"
+      }
+    ],
+    "status": "adapter"
+  },
+  {
+    "category": "consumer",
+    "file": "src/domain/model/plan.generated.ts",
+    "hits": [
+      {
+        "line": 717,
+        "text": "* a reference to another record: sch:* (its key) or sch:*#field"
+      }
+    ],
+    "status": "adapter"
+  },
+  {
+    "category": "consumer",
+    "file": "src/domain/model/workspace.generated.ts",
+    "hits": [
+      {
+        "line": 471,
+        "text": "* a reference to another record: sch:* (its key) or sch:*#field"
+      }
+    ],
+    "status": "adapter"
+  },
+  {
     "category": "fixture or test",
     "file": "src/domain/plain-text.test.ts",
     "hits": [
@@ -73419,6 +73580,73 @@
     "status": "adapter"
   },
   {
+    "category": "fixture or test",
+    "file": "src/infrastructure/model-schema.test.ts",
+    "hits": [
+      {
+        "line": 26,
+        "text": "['SystemFile', `${system}/system.yaml`],"
+      },
+      {
+        "line": 27,
+        "text": "['ContractsFile', `${system}/contracts.yaml`],"
+      },
+      {
+        "line": 35,
+        "text": "['LandscapeFile', 'landscape.yaml'],"
+      },
+      {
+        "line": 40,
+        "text": "['workspace', 'AliasesFile', 'invalid/aliases.yaml', '/api:retired'],"
+      },
+      {
+        "line": 94,
+        "text": "path.join(fixture, system, 'system.yaml'),"
+      },
+      {
+        "line": 97,
+        "text": "systemData.data?.components?.find((component) => component.id === 'st:unknown-owner'),"
+      },
+      {
+        "line": 102,
+        "text": "path.join(fixture, system, 'contracts.yaml'),"
+      },
+      {
+        "line": 106,
+        "text": "component: 'svc:ordering',"
+      },
+      {
+        "line": 173,
+        "text": "{ id: 'unpaired', from: 'st:orders' },"
+      },
+      {
+        "line": 174,
+        "text": "{ id: 'unpaired', to: 'st:orders' },"
+      },
+      {
+        "line": 187,
+        "text": "id: 'if:bad',"
+      },
+      {
+        "line": 189,
+        "text": "component: 'svc:ordering',"
+      },
+      {
+        "line": 190,
+        "text": "entries: [{ id: 'api:bad', rpc: 'Orders/Confirm' }],"
+      },
+      {
+        "line": 193,
+        "text": "id: 'if:bad',"
+      },
+      {
+        "line": 195,
+        "text": "component: 'svc:ordering',"
+      }
+    ],
+    "status": "adapter"
+  },
+  {
     "category": "consumer",
     "file": "src/infrastructure/plan-base-store.ts",
     "hits": [
@@ -77662,6 +77890,500 @@
   },
   {
     "category": "fixture or test",
+    "file": "test/fixtures/model/aliases.yaml",
+    "hits": [
+      {
+        "line": 1,
+        "text": "svc:old-ordering: { to: 'svc:ordering' }"
+      },
+      {
+        "line": 3,
+        "text": "api:retired: { to: null, reason: The synthetic route was retired. }"
+      }
+    ],
+    "status": "adapter"
+  },
+  {
+    "category": "fixture or test",
+    "file": "test/fixtures/model/domains/orders/language.yaml",
+    "hits": [
+      {
+        "line": 5,
+        "text": "born_in: svc:ordering"
+      },
+      {
+        "line": 6,
+        "text": "aka: [{ in: 'svc:ordering', as: Order, at: 'sch:order' }]"
+      }
+    ],
+    "status": "adapter"
+  },
+  {
+    "category": "fixture or test",
+    "file": "test/fixtures/model/domains/orders/systems/ordering/contracts.yaml",
+    "hits": [
+      {
+        "line": 2,
+        "text": "- id: if:orders"
+      },
+      {
+        "line": 3,
+        "text": "component: svc:ordering"
+      },
+      {
+        "line": 7,
+        "text": "- id: api:confirm"
+      },
+      {
+        "line": 10,
+        "text": "request: sch:confirm"
+      },
+      {
+        "line": 11,
+        "text": "response: sch:order"
+      },
+      {
+        "line": 13,
+        "text": "- { id: 'api:legacy', sig: 'GET legacy free words' }"
+      },
+      {
+        "line": 14,
+        "text": "- id: if:graph"
+      },
+      {
+        "line": 15,
+        "text": "component: svc:ordering"
+      },
+      {
+        "line": 20,
+        "text": "id: 'api:order-query',"
+      },
+      {
+        "line": 23,
+        "text": "response: 'sch:order',"
+      },
+      {
+        "line": 25,
+        "text": "- id: if:grpc"
+      },
+      {
+        "line": 26,
+        "text": "component: svc:ordering"
+      },
+      {
+        "line": 29,
+        "text": "- { id: 'api:grpc-confirm', rpc: fixture.Ordering/Confirm, request: 'sch:confirm' }"
+      },
+      {
+        "line": 30,
+        "text": "- id: if:payments"
+      },
+      {
+        "line": 34,
+        "text": "- { id: 'api:charge', call: Payments.charge }"
+      },
+      {
+        "line": 37,
+        "text": "id: 'msg:confirmed',"
+      },
+      {
+        "line": 39,
+        "text": "payload: 'sch:confirmed',"
+      },
+      {
+        "line": 45,
+        "text": "component: svc:ordering"
+      },
+      {
+        "line": 46,
+        "text": "message: msg:confirmed"
+      },
+      {
+        "line": 52,
+        "text": "- { id: 'job:relay', component: 'svc:ordering', every: 30s }"
+      },
+      {
+        "line": 53,
+        "text": "- { id: 'job:nightly', component: 'svc:ordering', cron: '0 2 * * *' }"
+      },
+      {
+        "line": 54,
+        "text": "- { id: 'job:manual', component: 'svc:ordering', trigger: A person requests a repair }"
+      },
+      {
+        "line": 55,
+        "text": "- { id: 'job:unknown', component: 'svc:ordering' }"
+      },
+      {
+        "line": 67,
+        "text": "- id: sch:confirm"
+      },
+      {
+        "line": 78,
+        "text": "- { id: lines, name: lines, type: { array: 'sch:line' } }"
+      },
+      {
+        "line": 80,
+        "text": "- { id: result, name: result, type: { one_of: ['sch:order', 'sch:error'] } }"
+      },
+      {
+        "line": 84,
+        "text": "id: 'sch:order',"
+      },
+      {
+        "line": 86,
+        "text": "store: 'st:orders',"
+      },
+      {
+        "line": 90,
+        "text": "- { id: 'sch:confirmed', kind: payload, fields: [{ id: order-id, name: orderId, type: string }] }"
+      },
+      {
+        "line": 92,
+        "text": "id: 'sch:graph-order',"
+      }
+    ],
+    "status": "adapter"
+  },
+  {
+    "category": "fixture or test",
+    "file": "test/fixtures/model/domains/orders/systems/ordering/handlers/ordering.yaml",
+    "hits": [
+      {
+        "line": 1,
+        "text": "- id: h:confirm"
+      },
+      {
+        "line": 2,
+        "text": "component: svc:ordering"
+      },
+      {
+        "line": 3,
+        "text": "on: api:confirm"
+      },
+      {
+        "line": 7,
+        "text": "- { id: load, read: 'sch:order', from: 'st:orders', cites: ['#L5-7'] }"
+      },
+      {
+        "line": 10,
+        "text": "if: The order does not exist"
+      },
+      {
+        "line": 16,
+        "text": "- { id: save, write: 'sch:order#status', to: 'st:orders', cites: ['#L12-16'] }"
+      },
+      {
+        "line": 23,
+        "text": "call: 'api:charge',"
+      },
+      {
+        "line": 31,
+        "text": "steps: [{ id: order, read: 'sch:order', from: 'st:orders', cites: ['#L30-33'] }]"
+      },
+      {
+        "line": 33,
+        "text": "steps: [{ id: payment, call: 'api:charge', cites: ['#L34-37'] }]"
+      },
+      {
+        "line": 36,
+        "text": "until: Acknowledged"
+      },
+      {
+        "line": 42,
+        "text": "publish: 'msg:confirmed',"
+      },
+      {
+        "line": 43,
+        "text": "causes: 'h:on-confirmed',"
+      },
+      {
+        "line": 55,
+        "text": "- id: h:on-confirmed"
+      },
+      {
+        "line": 56,
+        "text": "component: svc:ordering"
+      },
+      {
+        "line": 59,
+        "text": "- id: h:relay"
+      },
+      {
+        "line": 60,
+        "text": "component: svc:ordering"
+      },
+      {
+        "line": 63,
+        "text": "- id: h:click"
+      },
+      {
+        "line": 66,
+        "text": "steps: [{ id: submit, call: 'api:confirm', cites: ['ev:source'] }]"
+      }
+    ],
+    "status": "adapter"
+  },
+  {
+    "category": "fixture or test",
+    "file": "test/fixtures/model/domains/orders/systems/ordering/narratives.yaml",
+    "hits": [
+      {
+        "line": 13,
+        "text": "relatedSystems: ['sys:ordering']"
+      },
+      {
+        "line": 18,
+        "text": "to: 'svc:ordering',"
+      },
+      {
+        "line": 33,
+        "text": "component: 'svc:ordering',"
+      },
+      {
+        "line": 36,
+        "text": "supporting: ['st:orders'],"
+      }
+    ],
+    "status": "adapter"
+  },
+  {
+    "category": "fixture or test",
+    "file": "test/fixtures/model/domains/orders/systems/ordering/system.yaml",
+    "hits": [
+      {
+        "line": 1,
+        "text": "id: sys:ordering"
+      },
+      {
+        "line": 5,
+        "text": "runs_on: [sys:platform]"
+      },
+      {
+        "line": 10,
+        "text": "- id: svc:ordering"
+      },
+      {
+        "line": 18,
+        "text": "- id: st:orders"
+      },
+      {
+        "line": 23,
+        "text": "owner: { id: 'svc:ordering', cites: ['ev:source'] }"
+      },
+      {
+        "line": 24,
+        "text": "- { id: 'st:unknown-owner', name: Unowned fixture cache, kind: store, form: cache }"
+      },
+      {
+        "line": 27,
+        "text": "- to: sys:delivery"
+      },
+      {
+        "line": 29,
+        "text": "backs: ['h:confirm#tx/queue']"
+      },
+      {
+        "line": 32,
+        "text": "from: svc:ordering"
+      }
+    ],
+    "status": "adapter"
+  },
+  {
+    "category": "fixture or test",
+    "file": "test/fixtures/model/domains/orders/target.yaml",
+    "hits": [
+      {
+        "line": 2,
+        "text": "stages: [{ id: confirm, name: Confirm order, term: 'term:order', owners: ['sys:ordering'] }]"
+      },
+      {
+        "line": 10,
+        "text": "cites: ['sys:ordering'],"
+      }
+    ],
+    "status": "adapter"
+  },
+  {
+    "category": "fixture or test",
+    "file": "test/fixtures/model/evidence/example/orders/effects.yaml",
+    "hits": [
+      {
+        "line": 4,
+        "text": "resource: st:orders"
+      }
+    ],
+    "status": "adapter"
+  },
+  {
+    "category": "fixture or test",
+    "file": "test/fixtures/model/evidence/example/orders/executions.yaml",
+    "hits": [
+      {
+        "line": 12,
+        "text": "entry: api:confirm"
+      }
+    ],
+    "status": "adapter"
+  },
+  {
+    "category": "fixture or test",
+    "file": "test/fixtures/model/evidence/example/orders/hosts.yaml",
+    "hits": [
+      {
+        "line": 3,
+        "text": "component: svc:ordering"
+      }
+    ],
+    "status": "adapter"
+  },
+  {
+    "category": "fixture or test",
+    "file": "test/fixtures/model/flows/confirm.yaml",
+    "hits": [
+      {
+        "line": 9,
+        "text": "to: svc:ordering"
+      },
+      {
+        "line": 10,
+        "text": "via: api:confirm"
+      },
+      {
+        "line": 12,
+        "text": "handler_step: h:confirm#tx/save"
+      }
+    ],
+    "status": "adapter"
+  },
+  {
+    "category": "fixture or test",
+    "file": "test/fixtures/model/graphs/shop.yaml",
+    "hits": [
+      {
+        "line": 3,
+        "text": "gateway: svc:ordering"
+      },
+      {
+        "line": 8,
+        "text": "component: 'svc:ordering',"
+      }
+    ],
+    "status": "adapter"
+  },
+  {
+    "category": "fixture or test",
+    "file": "test/fixtures/model/invalid/aliases.yaml",
+    "hits": [
+      {
+        "line": 1,
+        "text": "api:retired: { to: null }"
+      }
+    ],
+    "status": "adapter"
+  },
+  {
+    "category": "fixture or test",
+    "file": "test/fixtures/model/invalid/handler.yaml",
+    "hits": [
+      {
+        "line": 1,
+        "text": "- id: h:invalid"
+      },
+      {
+        "line": 2,
+        "text": "component: svc:ordering"
+      },
+      {
+        "line": 3,
+        "text": "on: api:confirm"
+      },
+      {
+        "line": 5,
+        "text": "- { id: missing-store, read: 'sch:order', cites: ['ev:source'] }"
+      },
+      {
+        "line": 6,
+        "text": "- { id: two-effects, call: 'api:confirm', publish: 'msg:confirmed', cites: ['ev:source'] }"
+      }
+    ],
+    "status": "adapter"
+  },
+  {
+    "category": "fixture or test",
+    "file": "test/fixtures/model/invalid/plan.yaml",
+    "hits": [
+      {
+        "line": 3,
+        "text": "services: [{ id: 'svc:copied-base', name: Base fact }]"
+      }
+    ],
+    "status": "adapter"
+  },
+  {
+    "category": "fixture or test",
+    "file": "test/fixtures/model/invalid/schema.yaml",
+    "hits": [
+      {
+        "line": 2,
+        "text": "- id: sch:invalid"
+      }
+    ],
+    "status": "adapter"
+  },
+  {
+    "category": "fixture or test",
+    "file": "test/fixtures/model/landscape.yaml",
+    "hits": [
+      {
+        "line": 29,
+        "text": "systems: ['sys:ordering']"
+      },
+      {
+        "line": 42,
+        "text": "nodes: [{ component: 'svc:ordering', column: 0 }]"
+      },
+      {
+        "line": 47,
+        "text": "to: 'svc:ordering',"
+      }
+    ],
+    "status": "adapter"
+  },
+  {
+    "category": "fixture or test",
+    "file": "test/fixtures/model/plans/confirm/plan.yaml",
+    "hits": [
+      {
+        "line": 7,
+        "text": "- { modify: 'h:confirm#tx/save', set: { say: Save the confirmed order } }"
+      },
+      {
+        "line": 8,
+        "text": "- { modify: 'sch:order#status', set: { note: The confirmed state } }"
+      },
+      {
+        "line": 10,
+        "text": "- { modify: 'h:confirm#!db-down', set: { return: 502 } }"
+      },
+      {
+        "line": 13,
+        "text": "into: 'h:confirm#tx',"
+      },
+      {
+        "line": 14,
+        "text": "after: 'h:confirm#tx/save',"
+      },
+      {
+        "line": 17,
+        "text": "- { deprecate: 'api:legacy', replaced_by: 'api:confirm', reason: Fixture replacement }"
+      }
+    ],
+    "status": "adapter"
+  },
+  {
+    "category": "fixture or test",
     "file": "test/fixtures/plan-index.ts",
     "hits": [
       {
@@ -78861,6 +79583,10 @@
       {
         "line": 10,
         "text": "path.resolve(import.meta.dirname, '../src/domain/plan/plan.generated.ts'),"
+      },
+      {
+        "line": 20,
+        "text": "'src/domain/model/plan.generated.ts',"
       }
     ],
     "status": "adapter"
@@ -78871,11 +79597,23 @@
     "hits": [
       {
         "line": 1,
-        "text": "// Writes src/domain/plan/plan.generated.ts from schema/plan.schema.json. Run with `npm run generate`."
+        "text": "// Writes src/domain/plan/plan.generated.ts from schema/legacy-plan.schema.json. Run with `npm run generate`."
       },
       {
-        "line": 10,
+        "line": 15,
+        "text": "prefix: 'Workspace',"
+      },
+      {
+        "line": 18,
+        "text": "{ schema: 'plan.schema.json', name: 'CanonicalPlan', prefix: 'Plan', file: 'plan.generated.ts' },"
+      },
+      {
+        "line": 27,
         "text": "const OUTPUT = path.join(ROOT, 'src/domain/plan/plan.generated.ts');"
+      },
+      {
+        "line": 272,
+        "text": "\"/* Generated by tools/generate-plan-types.ts. Do not edit: run npm run generate. */\\nimport type { CanonicalEvidenceTypes } from '@/domain/model/evidence.generated';\\nimport type { CanonicalPlanTypes } from '@/domain/model/plan.generated';\\nimport type { WorkspaceDocumentTypes } from '@/domain/model/workspace.generated';\\n\\n/** Schema-generated data is exposed as immutable values throughout the model. */\\nexport type ReadonlyData<T> = T extends object\\n  ? { readonly [Key in keyof T]: ReadonlyData<T[Key]> }\\n  : T;\\n\\nexport interface ContractTypes {\\n  readonly workspace: WorkspaceDocumentTypes;\\n  readonly plan: CanonicalPlanTypes;\\n  readonly evidence: CanonicalEvidenceTypes;\\n}\\nexport type ContractFamily = keyof ContractTypes;\\nexport type ContractDefinition<Family extends ContractFamily> = Extract<\\n  keyof ContractTypes[Family],\\n  string\\n>;\\nexport type ContractData<\\n  Family extends ContractFamily,\\n  Definition extends ContractDefinition<Family>,\\n> = ReadonlyData<ContractTypes[Family][Definition]>;\\n\","
       }
     ],
     "status": "adapter"

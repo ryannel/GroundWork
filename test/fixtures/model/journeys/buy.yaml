@@ -1,0 +1,6 @@
+id: jny:buy
+name: Buy items
+actor: actor:customer
+interactions: ['ui:confirm']
+flows: ['flow:confirm']
+cites: ['ev:source']
